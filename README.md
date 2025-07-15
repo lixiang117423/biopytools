@@ -30,7 +30,7 @@ pip install -e ".[dev]"
 
 ---
 
-## Module列表 | Module List
+## 功能列表 | Module List
 
 ### run_fastp
 
