@@ -17,7 +17,7 @@ A Python package integrating various bioinformatics analysis tools with unified 
 ### 从源码安装 | Install from source
 
 ```bash
-git clone https://github.com/lixiang117423/biohelpers.git
+git clone https://github.com/lixiang117423/biopytools.git
 cd biohelpers
 pip install -e .
 ```
