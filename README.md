@@ -1,4 +1,4 @@
-# Biohelpers
+# Biopytools
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -18,7 +18,7 @@ A Python package integrating various bioinformatics analysis tools with unified 
 
 ```bash
 git clone https://github.com/lixiang117423/biopytools.git
-cd biohelpers
+cd biopytools
 pip install -e .
 ```
 
