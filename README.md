@@ -41,6 +41,7 @@ pip install -e ".[dev]"
 ### run_rnaseq
 
 用于RNA测序数据的分析，包括质量控制、比对和表达量计算。比对软件是HISAT2, FPKM和TPM计算使用的是StringTie.
+
 点击[这里](https://lixiang117423.github.io/article/rnaseq/)查看详细文档。 
 
 ---
