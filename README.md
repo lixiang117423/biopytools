@@ -38,6 +38,11 @@ pip install -e ".[dev]"
 
 点击[这里](https://lixiang117423.github.io/article/run-fastp/)查看详细文档。
 
+### run_rnaseq
+
+用于RNA测序数据的分析，包括质量控制、比对和表达量计算。比对软件是HISAT2, FPKM和TPM计算使用的是StringTie.
+点击[这里](https://lixiang117423.github.io/article/rnaseq/)查看详细文档。 
+
 ---
 
 ## 许可证 | License
@@ -60,3 +65,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## v1.1.0 (2025-07-15)
 - 增加run_fastp模块
+- 增加run_rnaseq模块
