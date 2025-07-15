@@ -400,15 +400,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 更新日志 | Changelog
+# 更新日志 | Changelog
 
-### v0.2.0 (2025-07-15)
-- 🎉 重构为模块化架构
-- ✨ 新增统一CLI接口
-- 🔧 改进配置管理
-- 📝 完善文档和测试
-- 🐛 修复多个bug
-
-### v0.1.0 (2025-07-10)
-- 🎉 初始版本发布
-- ✨ 基础功能实现
+## v1.1.0 (2025-07-15)
+- 增加run-fastp模块
