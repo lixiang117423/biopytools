@@ -56,9 +56,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 支持与反馈 | Support & Feedback
 
-- 📧 Email: biohelpers@example.com
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/biohelpers/issues)
-- 📖 Documentation: [Read the Docs](https://biohelpers.readthedocs.io)
+- 📧 Email: lixiang117423@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/lixiang117423/biopytools/issues)
 
 ---
 
