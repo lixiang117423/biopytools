@@ -38,34 +38,6 @@ pip install -e ".[dev]"
 
 点击[这里](https://lixiang117423.github.io/article/run-fastp/)查看详细文档。
 
-
-
-## 更新日志
-
-### v1.0.0
-- 初始版本发布
-- 支持双端测序数据批量处理
-- 集成 fastp 质控功能
-- 生成 HTML 和 JSON 报告
-
----
-
-## 相关链接
-
-- [fastp GitHub](https://github.com/OpenGene/fastp)
-- [fastp 文档](https://github.com/OpenGene/fastp#usage)
-- [FASTQ 格式说明](https://en.wikipedia.org/wiki/FASTQ_format)
-
----
-
-## 贡献指南 | Contributing
-
-1. Fork本仓库
-2. 创建功能分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'Add amazing feature'`)
-4. 推送到分支 (`git push origin feature/amazing-feature`)
-5. 创建Pull Request
-
 ---
 
 ## 许可证 | License
@@ -87,4 +59,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 # 更新日志 | Changelog
 
 ## v1.1.0 (2025-07-15)
-- 增加run-fastp模块
+- 增加run_fastp模块
