@@ -60,6 +60,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 增加run_annovar模块
 - 增加run_vcf_extractor模块
 
-## v1.1.0 (2025-07-15)
+## v1.1.0
 - 增加run_fastp模块
 - 增加run_rnaseq模块
