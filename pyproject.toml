@@ -4,16 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.4.0"
+version = "1.5.0"
 description = "Bioinformatics tools package with Python."
 authors = [
     {name = "Xiang LI"},
 ]
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = "==3.10.*"
 dependencies = [
     "pandas",
     "numpy",
+    "pyfastx>=0.8.4",
+    "python-rocksdb",
+    "scikit-learn>=1.0.0",
+    "matplotlib>=3.5.0", 
+    "seaborn>=0.11.0"
 ]
 
 [project.scripts]
@@ -23,6 +28,7 @@ run_annovar = "biopytools.annovar.main:main"
 run_vcf_extractor = "biopytools.vcf_genotype_extractor.main:main"
 parse_gene_info = "biopytools.gff_utils.main:main"
 run_plink_gwas = "biopytools.plink_gwas.main:main"
+run_kmer_analysis = "biopytools.kmer.main:main"
 
 [tool.setuptools.packages.find]
 include = ["biopytools*"]
