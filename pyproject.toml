@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.3.0"
+version = "1.4.0"
 description = "Bioinformatics tools package with Python."
 authors = [
     {name = "Xiang LI"},
@@ -22,6 +22,7 @@ run_rnaseq = "biopytools.rnaseq.main:main"
 run_annovar = "biopytools.annovar.main:main"
 run_vcf_extractor = "biopytools.vcf_genotype_extractor.main:main"
 parse_gene_info = "biopytools.gff_utils.main:main"
+run_plink_gwas = "biopytools.plink_gwas.main:main"
 
 [tool.setuptools.packages.find]
 include = ["biopytools*"]
