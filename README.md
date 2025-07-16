@@ -55,6 +55,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # 更新日志 | Changelog
 
+## v1.3.0
+- 增加parse_gene_info模块
+- 增加run_annovar模块
+- 增加run_vcf_extractor模块
+
 ## v1.1.0 (2025-07-15)
 - 增加run_fastp模块
 - 增加run_rnaseq模块
