@@ -124,9 +124,14 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     
-    # 必需参数 | Required arguments
-    parser.add_argument('vcf_file', 
-                       help='VCF文件路径（支持.gz压缩格式） | VCF file path (supports .gz compressed format)')
+    # # 必需参数 | Required arguments
+    # parser.add_argument('vcf_file', 
+    #                    help='VCF文件路径（支持.gz压缩格式） | VCF file path (supports .gz compressed format)')
+
+    parser.add_argument('-i', '--input', 
+                   dest='vcf_file',  # 保持变量名不变，避免修改其他代码
+                   required=True,    # 设为必需参数
+                   help='VCF文件路径(支持.gz压缩格式) | VCF file path (supports .gz compressed format)')
     
     # 可选参数 | Optional arguments
     parser.add_argument('-o', '--output', default='vcf_genotype',
