@@ -42,9 +42,7 @@ pip install -e ".[dev]"
 
 ## 功能列表 | Module List
 
-### run_fastp
-
-点击[这里](https://lixiang117423.github.io/article/biopytools)查看文档。
+点击[这里](https://lixiang117423.github.io/article/biopytools-readme/)查看文档。
 
 ---
 
