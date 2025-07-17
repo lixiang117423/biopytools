@@ -106,7 +106,6 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     
-    # 修正 #2: 添加单字母参数
     # 必需参数 | Required arguments
     parser.add_argument("-v", "--vcf", required=True,
                        help="输入VCF文件路径 | Input VCF file path")
@@ -114,27 +113,27 @@ def main():
     # 可选参数 | Optional arguments
     parser.add_argument("-o", "--output", default="admixture_results",
                        help="输出目录 | Output directory")
-    parser.add_argument("--min-k", type=int, default=2,
+    parser.add_argument("-k", "--min-k", type=int, default=2,
                        help="最小K值 | Minimum K value")
-    parser.add_argument("--max-k", type=int, default=10,
+    parser.add_argument("-K", "--max-k", type=int, default=10,
                        help="最大K值 | Maximum K value")
-    parser.add_argument("--cv-folds", type=int, default=5,
+    parser.add_argument("-c", "--cv-folds", type=int, default=5,
                        help="交叉验证折数 | Cross-validation folds")
     parser.add_argument("-t", "--threads", type=int, default=4,
                        help="线程数 | Number of threads")
     
     # 质控参数 | Quality control parameters
-    parser.add_argument("--maf", type=float, default=0.01,
+    parser.add_argument("-m", "--maf", type=float, default=0.01,
                        help="MAF阈值 | MAF threshold")
-    parser.add_argument("--missing", type=float, default=0.1,
+    parser.add_argument("-M", "--missing", type=float, default=0.1,
                        help="缺失率阈值 | Missing rate threshold")
-    parser.add_argument("--hwe", type=float, default=1e-6,
+    parser.add_argument("-H", "--hwe", type=float, default=1e-6,
                        help="HWE p值阈值 | HWE p-value threshold")
     
     # 处理选项 | Processing options
-    parser.add_argument("--skip-preprocessing", action="store_true",
+    parser.add_argument("-s", "--skip-preprocessing", action="store_true",
                        help="跳过VCF预处理 | Skip VCF preprocessing")
-    parser.add_argument("--keep-intermediate", action="store_true",
+    parser.add_argument("-i", "--keep-intermediate", action="store_true",
                        help="保留中间文件 | Keep intermediate files")
     
     args = parser.parse_args()

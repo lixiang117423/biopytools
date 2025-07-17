@@ -43,17 +43,32 @@ class AdmixtureAnalyzer:
         # 设置输出文件名 | Set output file names
         log_file = os.path.join(self.config.output_dir, f"log_{k}.out")
         
-        # 构建命令 | Build command
+        # 构建命令，使用相对路径避免长路径问题
+        bed_basename = os.path.basename(bed_file)
         cmd = (
+            f"cd {self.config.output_dir} && "
             f"admixture --cv={self.config.cv_folds} -j{self.config.threads} "
-            f"{bed_file} {k} > {log_file} 2>&1"
+            f"{bed_basename} {k} > log_{k}.out 2>&1"
         )
         
         # 运行命令 | Run command
         try:
-            self.cmd_runner.run(cmd, f"ADMIXTURE分析 K={k} | ADMIXTURE analysis K={k}")
+            result = self.cmd_runner.run(cmd, f"ADMIXTURE分析 K={k} | ADMIXTURE analysis K={k}")
+            
+            # 检查输出文件是否生成成功
+            expected_q_file = os.path.join(self.config.output_dir, f"{os.path.splitext(bed_basename)[0]}.{k}.Q")
+            if os.path.exists(expected_q_file):
+                self.logger.info(f"K={k} 分析成功完成 | K={k} analysis completed successfully")
+            else:
+                self.logger.warning(f"K={k} 分析可能未完全成功，Q文件不存在 | K={k} analysis may not be fully successful, Q file missing")
+                
         except Exception as e:
             self.logger.error(f"K={k}分析失败 | K={k} analysis failed: {e}")
+            # 尝试读取日志文件了解错误原因
+            if os.path.exists(log_file):
+                with open(log_file, 'r') as f:
+                    log_content = f.read()
+                    self.logger.error(f"ADMIXTURE日志 | ADMIXTURE log:\n{log_content}")
             raise
     
     def _find_best_k(self):
