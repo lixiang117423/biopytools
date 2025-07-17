@@ -61,6 +61,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # 更新日志 | Changelog
 
+## v1.7.0
+- 增加parse_sample_hete模块
+
 ## v1.6.0
 - 增加parse_longest_mrna模块
 
