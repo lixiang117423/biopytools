@@ -22,8 +22,6 @@ A Python package integrating various bioinformatics analysis tools with unified 
 mamba create -n biopytools python=3.10 
 mamba activate biopytools
 
-mamba install -c bioconda kmtricks
-
 # 先用conda安装rocksdb
 mamba install conda-forge::python-rocksdb
 
