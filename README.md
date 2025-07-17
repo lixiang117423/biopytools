@@ -61,6 +61,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # 更新日志 | Changelog
 
+## v1.8.0
+- 增加run_augustus_multi_rnaseq模块
+
 ## v1.7.0
 - 增加parse_sample_hete模块
 

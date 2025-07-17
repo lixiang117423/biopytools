@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.7.0"
+version = "1.8.0"
 description = "Bioinformatics tools package with Python."
 authors = [
     {name = "Xiang LI"},
@@ -28,10 +28,10 @@ run_annovar = "biopytools.annovar.main:main"
 run_vcf_extractor = "biopytools.vcf_genotype_extractor.main:main"
 run_plink_gwas = "biopytools.plink_gwas.main:main"
 run_kmer_analysis = "biopytools.kmer.main:main"
+run_augustus_multi_rnaseq = "biopytools.augustus_multi_rnaseq.main:main"
 parse_gene_info = "biopytools.gff_utils.main:main"
 parse_longest_mrna = "biopytools.parse_longest_mrna:main"
 parse_sample_hete = "biopytools.vcf_stats_sample.main:main"
-
 
 
 [tool.setuptools.packages.find]
