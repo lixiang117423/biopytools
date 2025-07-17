@@ -33,6 +33,58 @@ class HISAT2Manager:
         
         return success
     
+    # def align_sample(self, sample_info: dict) -> tuple:
+    #     """对单个样本进行比对 | Align single sample"""
+    #     import os
+        
+    #     sample_name = sample_info['name']
+    #     r1_file = sample_info['r1_file']
+    #     r2_file = sample_info['r2_file']
+        
+    #     sample_dir = self.config.output_path / sample_name
+    #     sample_dir.mkdir(exist_ok=True)
+        
+    #     sam_file = sample_dir / f"{sample_name}.sam"
+    #     bam_file = sample_dir / f"{sample_name}_sorted.bam"
+        
+    #     self.logger.info(f"处理样本 | Processing sample: {sample_name}")
+        
+    #     # HISAT2比对 | HISAT2 alignment
+    #     if not bam_file.exists():
+    #         self.logger.info(f"  - HISAT2比对 | HISAT2 alignment...")
+    #         hisat2_cmd = (
+    #             f"hisat2 -p {self.config.threads} "
+    #             f"-x {self.config.hisat2_index} "
+    #             f"-1 {r1_file} -2 {r2_file} "
+    #             f"-S {sam_file} "
+    #             f"2> {sample_dir}/{sample_name}_hisat2.log"
+    #         )
+            
+    #         success, _ = self.cmd_runner.run(hisat2_cmd, f"HISAT2比对 | HISAT2 alignment - {sample_name}")
+    #         if not success:
+    #             return False, None
+            
+    #         # SAM转BAM并排序 | Convert SAM to BAM and sort
+    #         self.logger.info(f"  - 转换和排序BAM | Convert and sort BAM...")
+    #         sort_cmd = (
+    #             f"samtools view -@ {self.config.threads} -bS {sam_file} | "
+    #             f"samtools sort -@ {self.config.threads} -o {bam_file}"
+    #         )
+            
+    #         success, _ = self.cmd_runner.run(sort_cmd, f"排序BAM | Sort BAM - {sample_name}")
+    #         if not success:
+    #             return False, None
+            
+    #         # 建立索引 | Build index
+    #         index_cmd = f"samtools index -@ {self.config.threads} {bam_file}"
+    #         self.cmd_runner.run(index_cmd, f"建立BAM索引 | Build BAM index - {sample_name}")
+            
+    #         # 删除SAM文件节省空间 | Remove SAM file to save space
+    #         if sam_file.exists():
+    #             sam_file.unlink()
+        
+    #     return True, str(bam_file)
+
     def align_sample(self, sample_info: dict) -> tuple:
         """对单个样本进行比对 | Align single sample"""
         import os
@@ -45,7 +97,7 @@ class HISAT2Manager:
         sample_dir.mkdir(exist_ok=True)
         
         sam_file = sample_dir / f"{sample_name}.sam"
-        bam_file = sample_dir / f"{sample_name}_sorted.bam"
+        bam_file = sample_dir / f"{sample_name}.bam"  # 简化命名
         
         self.logger.info(f"处理样本 | Processing sample: {sample_name}")
         
@@ -76,7 +128,7 @@ class HISAT2Manager:
                 return False, None
             
             # 建立索引 | Build index
-            index_cmd = f"samtools index -@ {self.config.threads} {bam_file}"
+            index_cmd = f"samtools index {bam_file}"
             self.cmd_runner.run(index_cmd, f"建立BAM索引 | Build BAM index - {sample_name}")
             
             # 删除SAM文件节省空间 | Remove SAM file to save space
@@ -127,69 +179,246 @@ class BAMProcessor:
         
     #     return bam_file
 
+    # def filter_bam(self, bam_file: str) -> str:
+    #     """过滤BAM文件 | Filter BAM file"""
+    #     if not self.config.filter_bam or not self.has_augustus_tools:
+    #         if not self.has_augustus_tools:
+    #             self.logger.info(f"  - 跳过BAM过滤（缺少filterBam工具）| Skipping BAM filtering (missing filterBam tool): {bam_file}")
+    #         else:
+    #             self.logger.info(f"  - 跳过BAM过滤（用户指定）| Skipping BAM filtering (user specified): {bam_file}")
+    #         return bam_file
+        
+    #     sample_dir = Path(bam_file).parent
+    #     sample_name = Path(bam_file).stem.replace('_sorted', '')
+        
+    #     # 按查询名称排序的BAM文件 | BAM file sorted by query name
+    #     queryname_sorted_bam = sample_dir / f"{sample_name}_queryname_sorted.bam"
+    #     filtered_bam = sample_dir / f"{sample_name}_filtered.bam"
+        
+    #     if filtered_bam.exists():
+    #         self.logger.info(f"  - 过滤后的BAM文件已存在 | Filtered BAM file already exists: {filtered_bam}")
+    #         return str(filtered_bam)
+        
+    #     # 步骤1: 按查询名称重新排序BAM文件 | Step 1: Resort BAM file by query name
+    #     if not queryname_sorted_bam.exists():
+    #         self.logger.info(f"  - 按查询名称排序BAM文件 | Sorting BAM file by query name...")
+    #         sort_cmd = f"samtools sort -n -@ {self.config.threads} -o {queryname_sorted_bam} {bam_file}"
+            
+    #         success, _ = self.cmd_runner.run(sort_cmd, "按查询名称排序BAM | Sort BAM by query name")
+    #         if not success:
+    #             return bam_file
+        
+    #     # 步骤2: 过滤BAM文件 | Step 2: Filter BAM file
+    #     self.logger.info(f"  - 过滤BAM文件 | Filtering BAM file...")
+    #     filter_cmd = (
+    #         f"filterBam --uniq --paired --pairwiseAlignments "
+    #         f"--in {queryname_sorted_bam} --out {filtered_bam}"
+    #     )
+        
+    #     success, _ = self.cmd_runner.run(filter_cmd, "过滤BAM文件 | Filter BAM file")
+    #     if success:
+    #         # 步骤3: 将过滤后的BAM文件重新按坐标排序 | Step 3: Resort filtered BAM by coordinates
+    #         final_filtered_bam = sample_dir / f"{sample_name}_filtered_sorted.bam"
+    #         resort_cmd = f"samtools sort -@ {self.config.threads} -o {final_filtered_bam} {filtered_bam}"
+            
+    #         resort_success, _ = self.cmd_runner.run(resort_cmd, "重新排序过滤后的BAM | Resort filtered BAM")
+    #         if resort_success:
+    #             # 建立索引 | Build index
+    #             index_cmd = f"samtools index  -@ {self.config.threads} {final_filtered_bam}"
+    #             self.cmd_runner.run(index_cmd, "建立过滤后BAM索引 | Build filtered BAM index")
+                
+    #             # 删除中间文件 | Remove intermediate files
+    #             if queryname_sorted_bam.exists():
+    #                 queryname_sorted_bam.unlink()
+    #             if filtered_bam.exists():
+    #                 filtered_bam.unlink()
+                
+    #             return str(final_filtered_bam)
+    #         else:
+    #             # 如果重新排序失败，返回原来的过滤文件 | If resort fails, return original filtered file
+    #             index_cmd = f"samtools index  -@ {self.config.threads} {filtered_bam}"
+    #             self.cmd_runner.run(index_cmd, "建立过滤后BAM索引 | Build filtered BAM index")
+    #             return str(filtered_bam)
+        
+    #     return bam_file
+
+    # def filter_bam(self, bam_file: str) -> str:
+    #     """过滤BAM文件 | Filter BAM file"""
+    #     if not self.config.filter_bam or not self.has_augustus_tools:
+    #         if not self.has_augustus_tools:
+    #             self.logger.info(f"  - 跳过BAM过滤（缺少filterBam工具）| Skipping BAM filtering (missing filterBam tool)")
+    #         else:
+    #             self.logger.info(f"  - 跳过BAM过滤（用户指定）| Skipping BAM filtering (user specified)")
+    #         return bam_file
+        
+    #     sample_dir = Path(bam_file).parent
+    #     sample_name = Path(bam_file).stem  # 直接使用stem，不需要replace
+        
+    #     # 中间文件（处理完成后会删除）| Intermediate files (will be deleted after processing)
+    #     queryname_sorted_bam = sample_dir / f"{sample_name}_temp_queryname.bam"
+    #     temp_filtered_bam = sample_dir / f"{sample_name}_temp_filtered.bam"
+        
+    #     # 最终过滤文件 | Final filtered file
+    #     filtered_bam = sample_dir / f"{sample_name}_filtered.bam"
+        
+    #     if filtered_bam.exists():
+    #         self.logger.info(f"  - 过滤后的BAM文件已存在 | Filtered BAM file already exists: {filtered_bam}")
+    #         return str(filtered_bam)
+        
+    #     self.logger.info(f"  - 过滤BAM文件 | Filtering BAM file...")
+        
+    #     try:
+    #         # 步骤1: 按查询名称重新排序BAM文件 | Step 1: Resort BAM file by query name
+    #         self.logger.info(f"    * 按查询名称排序 | Sorting by query name...")
+    #         sort_cmd = f"samtools sort -n -@ {self.config.threads} -o {queryname_sorted_bam} {bam_file}"
+            
+    #         success, _ = self.cmd_runner.run(sort_cmd, "按查询名称排序BAM | Sort BAM by query name")
+    #         if not success:
+    #             return bam_file
+            
+    #         # 步骤2: 过滤BAM文件 | Step 2: Filter BAM file
+    #         self.logger.info(f"    * 执行过滤 | Executing filtering...")
+    #         filter_cmd = (
+    #             f"filterBam --uniq --paired --pairwiseAlignments "
+    #             f"--in {queryname_sorted_bam} --out {temp_filtered_bam}"
+    #         )
+            
+    #         success, _ = self.cmd_runner.run(filter_cmd, "过滤BAM文件 | Filter BAM file")
+    #         if not success:
+    #             # 清理临时文件 | Clean up temp files
+    #             if queryname_sorted_bam.exists():
+    #                 queryname_sorted_bam.unlink()
+    #             return bam_file
+            
+    #         # 步骤3: 将过滤后的BAM文件重新按坐标排序 | Step 3: Resort filtered BAM by coordinates
+    #         self.logger.info(f"    * 重新按坐标排序 | Resorting by coordinates...")
+    #         resort_cmd = f"samtools sort -@ {self.config.threads} -o {filtered_bam} {temp_filtered_bam}"
+            
+    #         success, _ = self.cmd_runner.run(resort_cmd, "重新排序过滤后的BAM | Resort filtered BAM")
+    #         if not success:
+    #             # 如果重新排序失败，至少保留过滤文件 | If resort fails, keep the filtered file
+    #             temp_filtered_bam.rename(filtered_bam)
+            
+    #         # 建立索引 | Build index
+    #         index_cmd = f"samtools index {filtered_bam}"
+    #         self.cmd_runner.run(index_cmd, "建立过滤后BAM索引 | Build filtered BAM index")
+            
+    #         # 清理临时文件 | Clean up temporary files
+    #         for temp_file in [queryname_sorted_bam, temp_filtered_bam]:
+    #             if temp_file.exists():
+    #                 temp_file.unlink()
+            
+    #         self.logger.info(f"  - BAM过滤完成 | BAM filtering completed: {filtered_bam}")
+    #         return str(filtered_bam)
+            
+    #     except Exception as e:
+    #         self.logger.error(f"BAM过滤过程中出错 | Error during BAM filtering: {e}")
+    #         # 清理临时文件 | Clean up temp files
+    #         for temp_file in [queryname_sorted_bam, temp_filtered_bam]:
+    #             if temp_file.exists():
+    #                 temp_file.unlink()
+    #         return bam_file
+
     def filter_bam(self, bam_file: str) -> str:
         """过滤BAM文件 | Filter BAM file"""
         if not self.config.filter_bam or not self.has_augustus_tools:
             if not self.has_augustus_tools:
-                self.logger.info(f"  - 跳过BAM过滤（缺少filterBam工具）| Skipping BAM filtering (missing filterBam tool): {bam_file}")
+                self.logger.info(f"  - 跳过BAM过滤（缺少filterBam工具）| Skipping BAM filtering (missing filterBam tool)")
             else:
-                self.logger.info(f"  - 跳过BAM过滤（用户指定）| Skipping BAM filtering (user specified): {bam_file}")
+                self.logger.info(f"  - 跳过BAM过滤（用户指定）| Skipping BAM filtering (user specified)")
             return bam_file
         
         sample_dir = Path(bam_file).parent
-        sample_name = Path(bam_file).stem.replace('_sorted', '')
+        sample_name = Path(bam_file).stem
         
-        # 按查询名称排序的BAM文件 | BAM file sorted by query name
-        queryname_sorted_bam = sample_dir / f"{sample_name}_queryname_sorted.bam"
+        # 中间文件（处理完成后会删除）| Intermediate files (will be deleted after processing)
+        queryname_sorted_bam = sample_dir / f"{sample_name}_temp_queryname.bam"
+        temp_filtered_bam = sample_dir / f"{sample_name}_temp_filtered.bam"
+        
+        # 最终过滤文件 | Final filtered file
         filtered_bam = sample_dir / f"{sample_name}_filtered.bam"
         
         if filtered_bam.exists():
             self.logger.info(f"  - 过滤后的BAM文件已存在 | Filtered BAM file already exists: {filtered_bam}")
             return str(filtered_bam)
         
-        # 步骤1: 按查询名称重新排序BAM文件 | Step 1: Resort BAM file by query name
-        if not queryname_sorted_bam.exists():
-            self.logger.info(f"  - 按查询名称排序BAM文件 | Sorting BAM file by query name...")
+        self.logger.info(f"  - 过滤BAM文件 | Filtering BAM file...")
+        
+        try:
+            # 步骤1: 按查询名称重新排序BAM文件 | Step 1: Resort BAM file by query name
+            self.logger.info(f"    * 按查询名称排序 | Sorting by query name...")
             sort_cmd = f"samtools sort -n -@ {self.config.threads} -o {queryname_sorted_bam} {bam_file}"
             
             success, _ = self.cmd_runner.run(sort_cmd, "按查询名称排序BAM | Sort BAM by query name")
             if not success:
                 return bam_file
-        
-        # 步骤2: 过滤BAM文件 | Step 2: Filter BAM file
-        self.logger.info(f"  - 过滤BAM文件 | Filtering BAM file...")
-        filter_cmd = (
-            f"filterBam --uniq --paired --pairwiseAlignments "
-            f"--in {queryname_sorted_bam} --out {filtered_bam}"
-        )
-        
-        success, _ = self.cmd_runner.run(filter_cmd, "过滤BAM文件 | Filter BAM file")
-        if success:
-            # 步骤3: 将过滤后的BAM文件重新按坐标排序 | Step 3: Resort filtered BAM by coordinates
-            final_filtered_bam = sample_dir / f"{sample_name}_filtered_sorted.bam"
-            resort_cmd = f"samtools sort -@ {self.config.threads} -o {final_filtered_bam} {filtered_bam}"
             
-            resort_success, _ = self.cmd_runner.run(resort_cmd, "重新排序过滤后的BAM | Resort filtered BAM")
-            if resort_success:
-                # 建立索引 | Build index
-                index_cmd = f"samtools index  -@ {self.config.threads} {final_filtered_bam}"
-                self.cmd_runner.run(index_cmd, "建立过滤后BAM索引 | Build filtered BAM index")
-                
-                # 删除中间文件 | Remove intermediate files
+            # 步骤2: 尝试不同的过滤参数 | Step 2: Try different filtering parameters
+            self.logger.info(f"    * 执行过滤 | Executing filtering...")
+            
+            # 首先尝试较宽松的过滤（只去重，不要求完美配对）| First try lenient filtering
+            filter_cmd = (
+                f"filterBam --uniq "
+                f"--in {queryname_sorted_bam} --out {temp_filtered_bam}"
+            )
+            
+            success, _ = self.cmd_runner.run(filter_cmd, "过滤BAM文件（宽松模式）| Filter BAM file (lenient mode)")
+            
+            if not success:
+                # 如果宽松过滤也失败，清理并返回原文件 | If lenient filtering fails, clean up and return original
                 if queryname_sorted_bam.exists():
                     queryname_sorted_bam.unlink()
-                if filtered_bam.exists():
-                    filtered_bam.unlink()
+                return bam_file
+            
+            # 检查过滤后的文件大小 | Check filtered file size
+            if temp_filtered_bam.exists():
+                original_size = Path(bam_file).stat().st_size
+                filtered_size = temp_filtered_bam.stat().st_size
                 
-                return str(final_filtered_bam)
-            else:
-                # 如果重新排序失败，返回原来的过滤文件 | If resort fails, return original filtered file
-                index_cmd = f"samtools index  -@ {self.config.threads} {filtered_bam}"
-                self.cmd_runner.run(index_cmd, "建立过滤后BAM索引 | Build filtered BAM index")
-                return str(filtered_bam)
+                # 如果过滤后文件太小（小于原文件的10%），使用原文件 | If filtered file too small, use original
+                if filtered_size < original_size * 0.1:
+                    self.logger.warning(f"    * 过滤后文件过小 | Filtered file too small ({filtered_size} bytes vs {original_size} bytes)")
+                    self.logger.warning(f"    * 将使用原始BAM文件 | Will use original BAM file")
+                    
+                    # 清理临时文件 | Clean up temp files
+                    if queryname_sorted_bam.exists():
+                        queryname_sorted_bam.unlink()
+                    if temp_filtered_bam.exists():
+                        temp_filtered_bam.unlink()
+                    
+                    return bam_file
+                else:
+                    self.logger.info(f"    * 过滤效果良好 | Filtering effective: {original_size} -> {filtered_size} bytes")
+            
+            # 步骤3: 将过滤后的BAM文件重新按坐标排序 | Step 3: Resort filtered BAM by coordinates
+            self.logger.info(f"    * 重新按坐标排序 | Resorting by coordinates...")
+            resort_cmd = f"samtools sort -@ {self.config.threads} -o {filtered_bam} {temp_filtered_bam}"
+            
+            success, _ = self.cmd_runner.run(resort_cmd, "重新排序过滤后的BAM | Resort filtered BAM")
+            if not success:
+                # 如果重新排序失败，至少保留过滤文件 | If resort fails, keep the filtered file
+                temp_filtered_bam.rename(filtered_bam)
+            
+            # 建立索引 | Build index
+            index_cmd = f"samtools index {filtered_bam}"
+            self.cmd_runner.run(index_cmd, "建立过滤后BAM索引 | Build filtered BAM index")
+            
+            # 清理临时文件 | Clean up temporary files
+            for temp_file in [queryname_sorted_bam, temp_filtered_bam]:
+                if temp_file.exists():
+                    temp_file.unlink()
+            
+            self.logger.info(f"  - BAM过滤完成 | BAM filtering completed: {filtered_bam}")
+            return str(filtered_bam)
+            
+        except Exception as e:
+            self.logger.error(f"BAM过滤过程中出错 | Error during BAM filtering: {e}")
+            # 清理临时文件 | Clean up temp files
+            for temp_file in [queryname_sorted_bam, temp_filtered_bam]:
+                if temp_file.exists():
+                    temp_file.unlink()
+            return bam_file
         
-        return bam_file
-    
     def get_alignment_stats(self, bam_file: str) -> dict:
         """获取比对统计信息 | Get alignment statistics"""
         sample_dir = Path(bam_file).parent
