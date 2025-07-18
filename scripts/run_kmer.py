@@ -23,7 +23,7 @@ K-mer数据库分析运行脚本 | K-mer Database Analysis Runner Script
     python run_kmer.py -g genes.fasta -f /path/to/fastq -o ./results --debug
 """
 
-from biopytools.kmer.main import main
+from biopytools.kmer_old.main import main
 
 if __name__ == "__main__":
     main()
