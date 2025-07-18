@@ -1,5 +1,5 @@
 """
-K-mer PAV分析主程序模块 (双阶段设计) | K-mer PAV Analysis Main Module (Two-Stage Design)
+K-mer PAV分析主程序模块 (双阶段设计，含from列) | K-mer PAV Analysis Main Module (Two-Stage Design with from column)
 """
 
 import argparse
@@ -12,7 +12,7 @@ from .matrix_builder import KmerMatrixBuilder, StatisticsCalculator
 from .results import ResultsWriter, SummaryGenerator
 
 class KmerPAVAnalyzer:
-    """K-mer PAV分析主类 (双阶段设计) | Main K-mer PAV Analyzer Class (Two-Stage Design)"""
+    """K-mer PAV分析主类 (双阶段设计，含from列) | Main K-mer PAV Analyzer Class (Two-Stage Design with from column)"""
     
     def __init__(self, **kwargs):
         # 初始化配置 | Initialize configuration
@@ -34,12 +34,12 @@ class KmerPAVAnalyzer:
     def run_analysis(self):
         """运行完整的K-mer PAV分析流程 | Run complete K-mer PAV analysis pipeline"""
         try:
-            self.logger.info("=" * 90)
-            self.logger.info("开始K-mer PAV分析 (双阶段设计) | Starting K-mer PAV analysis (Two-Stage Design)")
-            self.logger.info("=" * 90)
+            self.logger.info("=" * 100)
+            self.logger.info("开始K-mer PAV分析 (双阶段设计，含from列) | Starting K-mer PAV analysis (Two-Stage Design with from column)")
+            self.logger.info("=" * 100)
             
-            # 阶段1: 构建k-mer数据库 | Phase 1: Build k-mer database
-            database_name = self.database_builder.build_unified_database()
+            # 阶段1: 构建k-mer数据库并分析来源 | Phase 1: Build k-mer database and analyze sources
+            database_name, kmer_sources = self.database_builder.build_unified_database()
             
             # 阶段2: 处理查询样本 | Phase 2: Process query samples
             query_files = self.query_processor.get_query_files()
@@ -47,7 +47,7 @@ class KmerPAVAnalyzer:
             count_files, sample_names = self.query_processor.process_all_samples(samples, database_name)
             
             # 阶段3: 构建矩阵和统计 | Phase 3: Build matrices and statistics
-            count_matrix, pa_matrix = self.matrix_builder.build_matrices(count_files, sample_names)
+            count_matrix, pa_matrix = self.matrix_builder.build_matrices(count_files, sample_names, kmer_sources)
             stats = self.stats_calc.calculate_statistics(count_matrix, pa_matrix)
             
             # 保存结果 | Save results
@@ -61,13 +61,13 @@ class KmerPAVAnalyzer:
             # 最终清理 | Final cleanup
             self._final_cleanup(database_name)
             
-            self.logger.info("=" * 90)
+            self.logger.info("=" * 100)
             self.logger.info("K-mer PAV分析完成！| K-mer PAV analysis completed!")
-            self.logger.info("=" * 90)
+            self.logger.info("=" * 100)
             self.logger.info(f"输出目录 | Output directory: {self.config.output_dir}")
             self.logger.info(f"主要输出文件 | Main output files:")
-            self.logger.info(f"  - {self.config.output_prefix}_counts.csv: 计数矩阵 | Count matrix")
-            self.logger.info(f"  - {self.config.output_prefix}_presence_absence.csv: 存在缺失矩阵 | Presence/absence matrix")
+            self.logger.info(f"  - {self.config.output_prefix}_counts.csv: 计数矩阵(含from和feature列) | Count matrix (with from and feature columns)")
+            self.logger.info(f"  - {self.config.output_prefix}_presence_absence.csv: 存在缺失矩阵(含from和feature列) | Presence/absence matrix (with from and feature columns)")
             
         except Exception as e:
             self.logger.error(f"分析过程中发生错误 | Error occurred during analysis: {e}")
@@ -103,16 +103,20 @@ class KmerPAVAnalyzer:
 def main():
     """主函数 | Main function"""
     parser = argparse.ArgumentParser(
-        description="K-mer PAV (Presence/Absence Variation) 分析工具 (双阶段设计) | K-mer PAV Analysis Tool (Two-Stage Design)",
+        description="K-mer PAV (Presence/Absence Variation) 分析工具 (双阶段设计，含from列) | K-mer PAV Analysis Tool (Two-Stage Design with from column)",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         epilog="""
 双阶段设计说明 | Two-Stage Design Description:
-  阶段1 | Phase 1: 从数据库文件构建统一k-mer数据库
+  阶段1 | Phase 1: 从数据库文件构建统一k-mer数据库，同时追踪k-mer来源
   阶段2 | Phase 2: 查询文件与k-mer数据库比较分析
   
 样本处理逻辑 | Sample Processing Logic:
   - FASTQ文件: 整个文件作为一个样本
   - FASTA文件: 每条序列作为一个样本
+
+输出矩阵列说明 | Output Matrix Column Description:
+  - from列: 显示k-mer在database中的来源 (common/文件名/variable等)
+  - feature列: 显示k-mer在query样本中的分布模式 (common/样本名/variable等)
   
 依赖工具 | Required Tools:
   - KMC: K-mer计数工具 | K-mer counting tool

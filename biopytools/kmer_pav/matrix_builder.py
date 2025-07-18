@@ -15,7 +15,8 @@ class KmerMatrixBuilder:
         self.config = config
         self.logger = logger
     
-    def build_matrices(self, count_files: List[str], sample_names: List[str]) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    def build_matrices(self, count_files: List[str], sample_names: List[str], 
+                      kmer_sources: Dict[str, str]) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """构建k-mer矩阵 | Build k-mer matrices"""
         self.logger.info("=" * 60)
         self.logger.info("阶段3: 构建k-mer矩阵 | Phase 3: Building k-mer matrices")
@@ -28,7 +29,7 @@ class KmerMatrixBuilder:
         sample_data = self._read_sample_data(count_files, sample_names)
         
         # 3. 构建DataFrame | Build DataFrames
-        count_matrix, pa_matrix = self._build_dataframes(sample_data, all_kmers)
+        count_matrix, pa_matrix = self._build_dataframes(sample_data, all_kmers, kmer_sources)
         
         # 4. 清理计数文件 | Clean up count files
         if not self.config.keep_intermediate:
@@ -96,7 +97,7 @@ class KmerMatrixBuilder:
         return sample_data
     
     def _build_dataframes(self, sample_data: Dict[str, Dict[str, int]], 
-                         all_kmers: Set[str]) -> Tuple[pd.DataFrame, pd.DataFrame]:
+                         all_kmers: Set[str], kmer_sources: Dict[str, str]) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """构建pandas DataFrame | Build pandas DataFrames"""
         self.logger.info("构建数据矩阵 | Building data matrices")
         
@@ -113,7 +114,7 @@ class KmerMatrixBuilder:
             for i, kmer in enumerate(kmer_list):
                 count_data[i, j] = sample_kmers.get(kmer, 0)
         
-        # 创建DataFrame | Create DataFrames
+        # 创建基础DataFrame | Create basic DataFrames
         count_matrix = pd.DataFrame(
             count_data,
             index=kmer_list,
@@ -124,9 +125,85 @@ class KmerMatrixBuilder:
         # 创建PA矩阵 (0/1) | Create PA matrix (0/1)
         pa_matrix = (count_matrix > 0).astype(int)
         
+        # 分析k-mer分布并添加特征列 | Analyze k-mer distribution and add feature column
+        kmer_features = self._analyze_kmer_features(pa_matrix, sample_names)
+        
+        # 添加from列（k-mer来源） | Add from column (k-mer source)
+        kmer_from_sources = self._get_kmer_from_sources(kmer_list, kmer_sources)
+        
+        # 重置索引以便操作 | Reset index for manipulation
+        count_matrix_with_features = count_matrix.reset_index()
+        pa_matrix_with_features = pa_matrix.reset_index()
+        
+        # 在第二列位置插入from列，在第三列位置插入feature列 | Insert from column at second position, feature column at third position
+        count_matrix_with_features.insert(1, 'from', kmer_from_sources)
+        count_matrix_with_features.insert(2, 'feature', kmer_features)
+        
+        pa_matrix_with_features.insert(1, 'from', kmer_from_sources)
+        pa_matrix_with_features.insert(2, 'feature', kmer_features)
+        
+        # 重新设置索引 | Reset index
+        count_matrix_with_features.set_index('kmer', inplace=True)
+        pa_matrix_with_features.set_index('kmer', inplace=True)
+        
         self.logger.info(f"数据矩阵构建完成 | Data matrices built: {len(kmer_list)} k-mers × {len(sample_names)} samples")
         
-        return count_matrix, pa_matrix
+        # 统计from列 | Count from column
+        from_counts = pd.Series(kmer_from_sources).value_counts()
+        self.logger.info(f"k-mer来源统计 | K-mer source statistics:")
+        for source, count in from_counts.items():
+            self.logger.info(f"  - {source}: {count:,} k-mers")
+        
+        # 统计feature列 | Count feature column
+        feature_counts = pd.Series(kmer_features).value_counts()
+        self.logger.info(f"k-mer特征统计 | K-mer feature statistics:")
+        for feature, count in feature_counts.items():
+            self.logger.info(f"  - {feature}: {count:,} k-mers")
+        
+        return count_matrix_with_features, pa_matrix_with_features
+    
+    def _analyze_kmer_features(self, pa_matrix: pd.DataFrame, sample_names: List[str]) -> List[str]:
+        """分析k-mer特征 | Analyze k-mer features"""
+        self.logger.info("分析k-mer分布特征 | Analyzing k-mer distribution features")
+        
+        features = []
+        total_samples = len(sample_names)
+        
+        for kmer in pa_matrix.index:
+            # 统计该k-mer在多少个样本中出现 | Count how many samples contain this k-mer
+            present_samples = pa_matrix.loc[kmer]
+            present_count = present_samples.sum()
+            
+            if present_count == 1:
+                # 单例k-mer，找到唯一包含它的样本 | Singleton k-mer, find the unique sample containing it
+                unique_sample = present_samples[present_samples == 1].index[0]
+                features.append(unique_sample)
+            elif present_count == total_samples:
+                # 核心k-mer，所有样本都包含 | Core k-mer, present in all samples
+                features.append("common")
+            else:
+                # 可变k-mer，在部分样本中出现 | Variable k-mer, present in some samples
+                # 如果样本数不多，可以列出所有包含该k-mer的样本 | If not too many samples, list all containing samples
+                if present_count <= 3:  # 如果包含该k-mer的样本数 <= 3，列出所有样本名
+                    present_sample_names = present_samples[present_samples == 1].index.tolist()
+                    features.append("|".join(sorted(present_sample_names)))
+                else:
+                    # 否则标记为variable | Otherwise mark as variable
+                    features.append(f"variable({present_count}/{total_samples})")
+        
+        return features
+    
+    def _get_kmer_from_sources(self, kmer_list: List[str], kmer_sources: Dict[str, str]) -> List[str]:
+        """获取k-mer来源信息 | Get k-mer source information"""
+        self.logger.info("添加k-mer来源信息 | Adding k-mer source information")
+        
+        from_sources = []
+        for kmer in kmer_list:
+            # 从kmer_sources字典获取来源信息，如果没有则标记为unknown
+            source = kmer_sources.get(kmer, "unknown")
+            from_sources.append(source)
+        
+        return from_sources
     
     def _cleanup_count_files(self, count_files: List[str]):
         """清理计数文件 | Clean up count files"""
@@ -154,33 +231,59 @@ class StatisticsCalculator:
         
         stats = {}
         
+        # 获取实际的样本列（排除kmer索引、from列和feature列） | Get actual sample columns (excluding kmer index, from and feature columns)
+        sample_columns = [col for col in count_matrix.columns if col not in ['from', 'feature']]
+        
         # 基本统计 | Basic statistics
         stats['total_kmers'] = len(count_matrix)
-        stats['total_samples'] = len(count_matrix.columns)
+        stats['total_samples'] = len(sample_columns)
         
-        # K-mer统计 | K-mer statistics
-        stats['kmers_per_sample'] = pa_matrix.sum(axis=0).to_dict()
-        stats['samples_per_kmer'] = pa_matrix.sum(axis=1).to_dict()
+        # K-mer统计（只使用样本列） | K-mer statistics (only use sample columns)
+        pa_sample_data = pa_matrix[sample_columns]
+        stats['kmers_per_sample'] = pa_sample_data.sum(axis=0).to_dict()
+        stats['samples_per_kmer'] = pa_sample_data.sum(axis=1).to_dict()
         
-        # 核心/可变k-mer | Core/variable k-mers
-        kmer_presence = pa_matrix.sum(axis=1)
-        stats['core_kmers'] = len(kmer_presence[kmer_presence == stats['total_samples']])
-        stats['variable_kmers'] = len(kmer_presence[kmer_presence < stats['total_samples']])
-        stats['singleton_kmers'] = len(kmer_presence[kmer_presence == 1])
+        # 核心/可变k-mer（基于feature列） | Core/variable k-mers (based on feature column)
+        feature_counts = count_matrix['feature'].value_counts()
+        stats['core_kmers'] = feature_counts.get('common', 0)
         
-        # 平均计数统计 | Average count statistics
-        stats['avg_count_per_kmer'] = count_matrix.mean(axis=1).to_dict()
-        stats['total_counts_per_sample'] = count_matrix.sum(axis=0).to_dict()
+        # 计算单例k-mer（feature列中不是common也不是variable的） | Calculate singleton k-mers
+        singleton_count = 0
+        variable_count = 0
         
-        # 样本相似性 | Sample similarity
-        sample_jaccard = self._calculate_jaccard_matrix(pa_matrix)
+        for feature, count in feature_counts.items():
+            if feature == 'common':
+                continue
+            elif feature.startswith('variable('):
+                variable_count += count
+            else:
+                # 单例或少数样本特有的k-mer | Singleton or k-mers specific to few samples
+                singleton_count += count
+        
+        stats['singleton_kmers'] = singleton_count
+        stats['variable_kmers'] = variable_count
+        
+        # 特征分布统计 | Feature distribution statistics
+        stats['feature_distribution'] = feature_counts.to_dict()
+        
+        # from列分布统计 | From column distribution statistics
+        from_counts = count_matrix['from'].value_counts()
+        stats['from_distribution'] = from_counts.to_dict()
+        
+        # 平均计数统计（只使用样本列） | Average count statistics (only use sample columns)
+        count_sample_data = count_matrix[sample_columns]
+        stats['avg_count_per_kmer'] = count_sample_data.mean(axis=1).to_dict()
+        stats['total_counts_per_sample'] = count_sample_data.sum(axis=0).to_dict()
+        
+        # 样本相似性（只使用样本列） | Sample similarity (only use sample columns)
+        sample_jaccard = self._calculate_jaccard_matrix(pa_sample_data)
         stats['sample_similarity'] = sample_jaccard
         
         self.logger.info(f"统计完成 | Statistics completed:")
         self.logger.info(f"  - 总k-mer数 | Total k-mers: {stats['total_kmers']:,}")
         self.logger.info(f"  - 核心k-mer数 | Core k-mers: {stats['core_kmers']:,}")
         self.logger.info(f"  - 可变k-mer数 | Variable k-mers: {stats['variable_kmers']:,}")
-        self.logger.info(f"  - 单例k-mer数 | Singleton k-mers: {stats['singleton_kmers']:,}")
+        self.logger.info(f"  - 特有k-mer数 | Specific k-mers: {stats['singleton_kmers']:,}")
         
         return stats
     

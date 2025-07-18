@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 """
-K-mer PAV分析运行脚本 (双阶段设计) | K-mer PAV Analysis Runner Script (Two-Stage Design)
+K-mer PAV分析运行脚本 (双阶段设计，含from列) | K-mer PAV Analysis Runner Script (Two-Stage Design with from column)
 这是一个简化的入口脚本，用于运行K-mer存在/缺失变异分析 | 
 Simple entry script for running K-mer Presence/Absence Variation analysis
 
 双阶段设计 | Two-Stage Design:
-  阶段1 | Phase 1: 从数据库文件构建统一k-mer数据库
+  阶段1 | Phase 1: 从数据库文件构建统一k-mer数据库，同时追踪k-mer来源
   阶段2 | Phase 2: 查询文件与k-mer数据库比较分析
 
 样本处理逻辑 | Sample Processing Logic:
   - FASTQ文件: 整个文件作为一个样本
   - FASTA文件: 每条序列作为一个样本
+
+新增功能 | New Features:
+  - from列: 显示k-mer来源于database中的哪个文件
+  - feature列: 显示k-mer在query样本中的分布模式
 
 依赖工具 | Required Tools:
     - KMC: 高效的k-mer计数工具 | Efficient k-mer counting tool
@@ -50,6 +54,17 @@ Simple entry script for running K-mer Presence/Absence Variation analysis
         --min-count 2 --max-count 10000 \\
         --threads 16 --kmc-memory 32 \\
         --output-dir results/ --keep-intermediate
+
+输出文件说明 | Output File Description:
+    主要输出文件包含两个重要列:
+    - from列: 显示k-mer在database文件中的来源
+      * common: 所有database文件都包含
+      * 文件名: 仅该database文件包含  
+      * variable(x/y): 在x个database文件中包含(共y个文件)
+    - feature列: 显示k-mer在query样本中的分布
+      * common: 所有query样本都包含
+      * 样本名: 仅该query样本包含
+      * variable(x/y): 在x个query样本中包含(共y个样本)
 """
 
 from biopytools.kmer_pav.main import main

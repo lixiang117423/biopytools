@@ -4,7 +4,7 @@ K-mer数据库构建模块 | K-mer Database Builder Module
 
 import os
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Set
 from .utils import KMCRunner, FileDetector, find_sequence_files, cleanup_files
 
 class DatabaseBuilder:
@@ -89,6 +89,100 @@ class DatabaseBuilder:
         
         self.logger.info(f"成功构建 {len(db_names)} 个数据库 | Successfully built {len(db_names)} databases")
         return db_names
+    
+    def analyze_kmer_sources(self, db_names: List[str], db_files: List[Dict[str, str]]) -> Dict[str, str]:
+        """分析每个k-mer的来源 | Analyze k-mer sources"""
+        self.logger.info("分析k-mer来源分布 | Analyzing k-mer source distribution")
+        
+        # 为每个数据库导出k-mer列表 | Export k-mer list for each database
+        db_kmers = {}
+        for i, db_name in enumerate(db_names):
+            self.logger.info(f"导出数据库 {i+1}/{len(db_names)} 的k-mer列表: {db_files[i]['name']}")
+            
+            kmer_list_file = f"{db_name}_kmers.txt"
+            db_path = str(self.config.output_path / db_name)
+            kmer_list_path = str(self.config.output_path / kmer_list_file)
+            
+            cmd = [
+                self.config.kmc_tools_path,
+                "transform",
+                db_path,
+                "dump",
+                "-s",
+                kmer_list_path
+            ]
+            
+            if self.kmc_runner.run_command(cmd, f"导出k-mer列表: {db_files[i]['name']}"):
+                # 读取k-mer列表 | Read k-mer list
+                kmers = set()
+                try:
+                    with open(kmer_list_path, 'r') as f:
+                        for line in f:
+                            if line.strip():
+                                kmer = line.split('\t')[0]
+                                kmers.add(kmer)
+                    db_kmers[db_files[i]['name']] = kmers
+                    self.logger.info(f"数据库 {db_files[i]['name']}: {len(kmers):,} 个k-mer")
+                    
+                    # 删除临时文件 | Delete temporary file
+                    if not self.config.keep_intermediate:
+                        Path(kmer_list_path).unlink()
+                        
+                except Exception as e:
+                    self.logger.error(f"读取k-mer列表失败 | Failed to read k-mer list: {e}")
+                    db_kmers[db_files[i]['name']] = set()
+            else:
+                db_kmers[db_files[i]['name']] = set()
+        
+        # 分析k-mer来源 | Analyze k-mer sources
+        self.logger.info("分析k-mer来源分布 | Analyzing k-mer source distribution")
+        
+        # 收集所有k-mer | Collect all k-mers
+        all_kmers = set()
+        for kmers in db_kmers.values():
+            all_kmers.update(kmers)
+        
+        self.logger.info(f"数据库总共包含 {len(all_kmers):,} 个唯一k-mer | Database contains {len(all_kmers):,} unique k-mers")
+        
+        # 确定每个k-mer的来源 | Determine source of each k-mer
+        kmer_sources = {}
+        for kmer in all_kmers:
+            # 找到包含该k-mer的数据库文件 | Find database files containing this k-mer
+            containing_dbs = []
+            for db_name, kmers in db_kmers.items():
+                if kmer in kmers:
+                    containing_dbs.append(db_name)
+            
+            if len(containing_dbs) == len(db_kmers):
+                # 所有数据库都包含，标记为common | All databases contain it, mark as common
+                kmer_sources[kmer] = "common"
+            elif len(containing_dbs) == 1:
+                # 只有一个数据库包含，使用该数据库名 | Only one database contains it, use that database name
+                kmer_sources[kmer] = containing_dbs[0]
+            else:
+                # 多个但不是全部数据库包含，列出所有包含的数据库 | Multiple but not all databases contain it
+                if len(containing_dbs) <= 3:  # 如果不超过3个，列出所有
+                    kmer_sources[kmer] = "|".join(sorted(containing_dbs))
+                else:
+                    kmer_sources[kmer] = f"variable({len(containing_dbs)}/{len(db_kmers)})"
+        
+        # 统计来源分布 | Count source distribution
+        source_counts = {}
+        for source in kmer_sources.values():
+            source_counts[source] = source_counts.get(source, 0) + 1
+        
+        self.logger.info("k-mer来源分布统计 | K-mer source distribution:")
+        for source, count in sorted(source_counts.items()):
+            if source == "common":
+                self.logger.info(f"  - 共有k-mer | Common: {count:,}")
+            elif source.startswith("variable("):
+                self.logger.info(f"  - 可变k-mer | Variable: {count:,} ({source})")
+            elif "|" in source:
+                self.logger.info(f"  - 多来源k-mer | Multi-source '{source}': {count:,}")
+            else:
+                self.logger.info(f"  - 特有于 | Specific to '{source}': {count:,}")
+        
+        return kmer_sources
     
     def merge_databases(self, db_names: List[str]) -> str:
         """合并所有数据库为统一的k-mer数据库 | Merge all databases into unified k-mer database"""
@@ -189,8 +283,8 @@ class DatabaseBuilder:
         
         return final_db_name
     
-    def build_unified_database(self) -> str:
-        """构建统一的k-mer数据库 | Build unified k-mer database"""
+    def build_unified_database(self) -> tuple:
+        """构建统一的k-mer数据库并分析来源 | Build unified k-mer database and analyze sources"""
         self.logger.info("=" * 60)
         self.logger.info("阶段1: 构建k-mer数据库 | Phase 1: Building k-mer database")
         self.logger.info("=" * 60)
@@ -201,10 +295,13 @@ class DatabaseBuilder:
         # 2. 构建各个数据库 | Build individual databases
         db_names = self.build_individual_databases(db_files)
         
-        # 3. 合并数据库 | Merge databases
+        # 3. 分析k-mer来源 | Analyze k-mer sources
+        kmer_sources = self.analyze_kmer_sources(db_names, db_files)
+        
+        # 4. 合并数据库 | Merge databases
         final_db_name = self.merge_databases(db_names)
         
-        # 4. 导出k-mer列表（可选，用于统计） | Export k-mer list (optional, for statistics)
+        # 5. 导出k-mer列表（可选，用于统计） | Export k-mer list (optional, for statistics)
         kmer_list_file = f"{final_db_name}_kmers.txt"
         final_db_path = str(self.config.output_path / final_db_name)
         kmer_list_path = str(self.config.output_path / kmer_list_file)
@@ -230,7 +327,7 @@ class DatabaseBuilder:
                     kmer_list_file_path.unlink()
         
         self.logger.info(f"k-mer数据库构建完成 | K-mer database construction completed: {final_db_name}")
-        return final_db_name
+        return final_db_name, kmer_sources
     
     def _count_kmers_in_file(self, kmer_file: str) -> int:
         """统计文件中的k-mer数量 | Count k-mers in file"""
