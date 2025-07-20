@@ -61,6 +61,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # 更新日志 | Changelog
 
+- v1.12.0
+    - 增加run_repeat_masker模块
+
 - v1.11.0
     - 增加run_minimap2模块
 
