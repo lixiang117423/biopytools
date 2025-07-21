@@ -5,9 +5,9 @@
 import logging
 import subprocess
 import sys
-import re
+import os
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 class RepeatLogger:
     """重复序列分析日志管理器 | Repeat Sequence Analysis Logger Manager"""
@@ -134,41 +134,6 @@ class SequenceValidator:
                     stats['n_content'] = (n_count / stats['total_length']) * 100
             
             return stats
-    
-    def generate_edta_stats(self) -> dict:
-        """生成EDTA统计信息 | Generate EDTA statistics"""
-        stats = {
-            'total_tes': 0,
-            'total_te_bp': 0,
-            'te_classifications': Counter(),
-            'te_families': Counter(),
-            'intact_tes': 0
-        }
-        
-        if hasattr(self.config, 'edta_outputs'):
-            # 解析EDTA GFF3注释文件 | Parse EDTA GFF3 annotation files
-            gff_files = [f for f in self.config.edta_outputs if f.endswith('.gff3')]
-            
-            for gff_file in gff_files:
-                tes = self.parser.parse_edta_output(os.path.dirname(gff_file))
-                
-                for te in tes:
-                    stats['total_tes'] += 1
-                    te_length = te['end'] - te['start'] + 1
-                    stats['total_te_bp'] += te_length
-                    
-                    # TE分类统计 | TE classification statistics
-                    te_class = te['te_classification']
-                    stats['te_classifications'][te_class] += 1
-                    
-                    te_name = te['te_name']
-                    stats['te_families'][te_name] += 1
-                    
-                    # 完整TE统计 | Intact TE statistics
-                    if 'intact' in gff_file.lower():
-                        stats['intact_tes'] += 1
-        
-        return stats
             
         except Exception as e:
             self.logger.error(f"计算序列统计信息时出错 | Error calculating sequence statistics: {e}")
@@ -259,6 +224,9 @@ class RepeatResultParser:
             return repeats
             
         except Exception as e:
+            self.logger.error(f"解析TRF结果时出错 | Error parsing TRF results: {e}")
+            return []
+    
     def parse_edta_output(self, edta_dir: str) -> List[Dict]:
         """解析EDTA输出文件 | Parse EDTA output files"""
         repeats = []

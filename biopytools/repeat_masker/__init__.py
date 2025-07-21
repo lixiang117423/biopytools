@@ -1,7 +1,7 @@
 """
 基因组重复序列分析工具包 | Genome Repeat Sequence Analysis Toolkit
-功能: RepeatMasker、RepeatModeler、TRF的完整流程，支持重复序列鉴定和屏蔽 | 
-Features: Complete pipeline for RepeatMasker, RepeatModeler, TRF, supporting repeat sequence identification and masking
+功能: RepeatMasker、RepeatModeler、TRF、EDTA的完整流程，支持重复序列鉴定和屏蔽 | 
+Features: Complete pipeline for RepeatMasker, RepeatModeler, TRF, EDTA, supporting repeat sequence identification and masking
 作者 | Author: Claude  
 版本 | Version: v1.0 - 模块化重构版 | Modular refactored version
 日期 | Date: 2025-07-20
