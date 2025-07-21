@@ -132,7 +132,9 @@ class IntervalProcessor:
             
             # 依次砍掉每个比对区间 | Cut out each mapped interval
             for idx, (_, row) in enumerate(group.iterrows()):
-                mapped_start = int(row['query_start'])
+                # 从PAF(0-base, half-open)转换为内部使用的1-base, closed
+                # [start, end) -> [start + 1, end]
+                mapped_start = int(row['query_start']) + 1  # 转换为1-based
                 mapped_end = int(row['query_end'])
                 number_match = int(row['number_match'])
                 

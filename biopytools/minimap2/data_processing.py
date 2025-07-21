@@ -171,8 +171,13 @@ class PAFProcessor:
         try:
             with open(bed_file, 'w') as f:
                 for region in unmapped_regions:
-                    # BED格式：query_name\tstart\tend | BED format: query_name\tstart\tend
-                    f.write(f"{region['query_name']}\t{region['start']}\t{region['end']}\n")
+                    # # BED格式：query_name\tstart\tend | BED format: query_name\tstart\tend
+                    # f.write(f"{region['query_name']}\t{region['start']}\t{region['end']}\n")
+                    # 将内部的1-based, closed [start, end] 转换为 BED 格式的 0-based, half-open [start-1, end)
+                    # To convert our internal 1-based, closed [start, end] to BED format's 0-based, half-open [start-1, end)
+                    bed_start = region['start'] - 1
+                    bed_end = region['end']
+                    f.write(f"{region['query_name']}\t{bed_start}\t{bed_end}\n")
             
             self.logger.info(f"BED文件保存成功 | BED file saved successfully: {bed_file}")
             return True

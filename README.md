@@ -61,6 +61,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # 更新日志 | Changelog
 
+- v1.13.1
+    - 修复parse_sequence_vcf模块的序列坐标问题
+
 - v1.13.0
     - 增加parse_sequence_vcf模块
 
