@@ -41,9 +41,10 @@ class SummaryGenerator:
             
             # 输出文件 | Output files
             f.write("输出文件 | Output Files:\n")
-            f.write(f"  - pca_results.eigenval: 特征值文件 | Eigenvalues file\n")
+            f.write(f"  - pca_results.eigenval: 原始特征值文件 | Raw eigenvalues file\n")
             f.write(f"  - pca_results.eigenvec: 特征向量文件 | Eigenvectors file\n")
-            f.write(f"  - pca_explained_variance.txt: 解释方差表 | Explained variance table\n")
+            f.write(f"  - pca_explained_variance.txt: 解释方差详细表 | Detailed explained variance table\n")
+            f.write(f"  - eigenvalues_explanation.txt: 特征值与解释方差说明 | Eigenvalues and explained variance explanation\n")
             f.write(f"  - pca_eigenvectors_formatted.txt: 格式化的特征向量 | Formatted eigenvectors\n")
             
             if self.config.sample_info_file:
