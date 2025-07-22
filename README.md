@@ -61,6 +61,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # 更新日志 | Changelog
 
+- v1.14.0
+    - 增加run_vcf_pca模块
+
 - v1.13.1
     - 修复parse_sequence_vcf和run_minimap2模块的序列坐标问题
 
