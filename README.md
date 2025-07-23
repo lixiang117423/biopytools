@@ -378,8 +378,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 更新日志 | Changelog
 
+### v1.17.0
+- ✨ 增加run_augustus_prediction模块 | Added run_augustus_prediction
+
 ### v1.16.0
-- ✨ 增加run_ena_downloader模块 | Added run_ena_downloader
+- ✨ 增加run_ena_downloader模块 | Added run_ena_downloader module
 
 ### v1.15.0
 - ✨ 增加run_vcf_ld_heatmap模块 | Added run_vcf_ld_heatmap module
