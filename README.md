@@ -67,7 +67,7 @@ python -c "import biopytools; biopytools.list_modules()"
 run_fastp -i input_dir -o output_dir -t 16
 ```
 **功能** | **Features**: 
-- 自适应接头去除 | Adaptive adapter trimming
+- 自动适应接头去除 | Adaptive adapter trimming
 - 质量过滤和长度过滤 | Quality and length filtering  
 - HTML和JSON报告生成 | HTML and JSON report generation
 
