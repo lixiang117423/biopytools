@@ -62,7 +62,7 @@ python -c "import biopytools; biopytools.list_modules()"
 
 ### 数据质控与预处理 | Data Quality Control & Preprocessing
 
-#### 1. **run_fastp** - 高速FASTQ质控工具 | High-speed FASTQ Quality Control
+#### **run_fastp** - 高速FASTQ质控工具 | High-speed FASTQ Quality Control
 ```bash
 run_fastp -i input_dir -o output_dir -t 16
 ```
@@ -71,7 +71,7 @@ run_fastp -i input_dir -o output_dir -t 16
 - 质量过滤和长度过滤 | Quality and length filtering  
 - HTML和JSON报告生成 | HTML and JSON report generation
 
-#### 2. **run_rnaseq** - RNA测序分析流程 | RNA-seq Analysis Pipeline
+#### **run_rnaseq** - RNA测序分析流程 | RNA-seq Analysis Pipeline
 ```bash
 run_rnaseq -g genome.fa -a annotation.gtf -i fastq_dir -o output_dir
 ```
@@ -82,7 +82,7 @@ run_rnaseq -g genome.fa -a annotation.gtf -i fastq_dir -o output_dir
 
 ### 基因组分析 | Genomic Analysis
 
-#### 3. **run_minimap2** - 长读序列比对工具 | Long-read Alignment Tool
+#### **run_minimap2** - 长读序列比对工具 | Long-read Alignment Tool
 ```bash
 run_minimap2 -r reference.fa -i reads.fastq -o output_dir
 ```
@@ -91,7 +91,7 @@ run_minimap2 -r reference.fa -i reads.fastq -o output_dir
 - 高效的长读序列比对 | Efficient long-read alignment
 - 灵活的参数配置 | Flexible parameter configuration
 
-#### 4. **run_repeat_masker** - 重复序列分析 | Repeat Sequence Analysis
+#### **run_repeat_masker** - 重复序列分析 | Repeat Sequence Analysis
 ```bash
 run_repeat_masker -g genome.fa -s species -o output_dir
 ```
@@ -100,7 +100,7 @@ run_repeat_masker -g genome.fa -s species -o output_dir
 - RepeatModeler从头预测 | RepeatModeler de novo prediction
 - TRF串联重复检测 | TRF tandem repeat detection
 
-#### 5. **run_augustus_multi_rnaseq** - 多转录组基因预测 | Multi-RNA-seq Gene Prediction
+#### **run_augustus_multi_rnaseq** - 多转录组基因预测 | Multi-RNA-seq Gene Prediction
 ```bash
 run_augustus_multi_rnaseq -g genome.fa -i fastq_dir -s species
 ```
@@ -111,7 +111,7 @@ run_augustus_multi_rnaseq -g genome.fa -i fastq_dir -s species
 
 ### 变异分析 | Variant Analysis
 
-#### 6. **run_vcf_extractor** - VCF基因型提取 | VCF Genotype Extraction
+#### **run_vcf_extractor** - VCF基因型提取 | VCF Genotype Extraction
 ```bash
 run_vcf_extractor -v input.vcf -o output_dir
 ```
@@ -120,7 +120,7 @@ run_vcf_extractor -v input.vcf -o output_dir
 - 支持大规模VCF文件 | Support large-scale VCF files
 - 多种输出格式 | Multiple output formats
 
-#### 7. **parse_sequence_vcf** - VCF序列工具包 | VCF Sequence Toolkit
+#### **parse_sequence_vcf** - VCF序列工具包 | VCF Sequence Toolkit
 ```bash
 parse_sequence_vcf -v input.vcf -g genome.fa -o output
 ```
@@ -129,7 +129,7 @@ parse_sequence_vcf -v input.vcf -g genome.fa -o output
 - 序列坐标转换 | Sequence coordinate conversion
 - 变异效应预测 | Variant effect prediction
 
-#### 8. **run_vcf_pca** - VCF主成分分析 | VCF Principal Component Analysis
+#### **run_vcf_pca** - VCF主成分分析 | VCF Principal Component Analysis
 ```bash
 run_vcf_pca -v input.vcf -o output_dir
 ```
@@ -140,7 +140,7 @@ run_vcf_pca -v input.vcf -o output_dir
 
 ### 群体遗传学分析 | Population Genetics Analysis
 
-#### 9. **run_admixture** - 群体结构分析 | Population Structure Analysis
+#### **run_admixture** - 群体结构分析 | Population Structure Analysis
 ```bash
 run_admixture -v input.vcf -o output_dir -k 2 -K 10
 ```
@@ -149,7 +149,7 @@ run_admixture -v input.vcf -o output_dir -k 2 -K 10
 - 交叉验证最优K值选择 | Cross-validation for optimal K selection
 - 协变量生成和可视化 | Covariate generation and visualization
 
-#### 10. **run_plink_gwas** - 全基因组关联分析 | Genome-wide Association Study
+#### **run_plink_gwas** - 全基因组关联分析 | Genome-wide Association Study
 ```bash
 run_plink_gwas -v input.vcf -p phenotype.txt -o output_dir
 ```
@@ -158,9 +158,19 @@ run_plink_gwas -v input.vcf -p phenotype.txt -o output_dir
 - 群体分层控制 | Population stratification control
 - 曼哈顿图和QQ图生成 | Manhattan and QQ plot generation
 
+#### run_vcf_ld_heatmap - VCF连锁不平衡热图生成器 | VCF Linkage Disequilibrium Heatmap Generator
+```
+bashrun_vcf_ld_heatmap -i variants.vcf -o ld_heatmap.png
+```
+功能 | Features:
+
+从VCF文件生成连锁不平衡热图 | Generate LD heatmaps from VCF files
+支持区域指定和样本过滤 | Support region specification and sample filtering
+可自定义图形参数和输出格式 | Customizable graphics parameters and output formats
+
 ### 基因组注释与分析 | Genome Annotation & Analysis
 
-#### 11. **run_annovar** - 变异注释工具 | Variant Annotation Tool
+#### **run_annovar** - 变异注释工具 | Variant Annotation Tool
 ```bash
 run_annovar -v input.vcf -d database_dir -o output_dir
 ```
@@ -169,7 +179,7 @@ run_annovar -v input.vcf -d database_dir -o output_dir
 - 多数据库整合注释 | Multi-database integrated annotation
 - 可定制注释流程 | Customizable annotation workflow
 
-#### 12. **parse_gene_info** - 基因信息解析 | Gene Information Parsing
+#### **parse_gene_info** - 基因信息解析 | Gene Information Parsing
 ```bash
 parse_gene_info -g annotation.gff -o output_dir
 ```
@@ -180,7 +190,7 @@ parse_gene_info -g annotation.gff -o output_dir
 
 ### K-mer分析 | K-mer Analysis
 
-#### 13. **run_kmer_analysis** - K-mer频率分析 | K-mer Frequency Analysis
+#### **run_kmer_analysis** - K-mer频率分析 | K-mer Frequency Analysis
 ```bash
 run_kmer_analysis -i input.fasta -k 21 -o output_dir
 ```
@@ -189,7 +199,7 @@ run_kmer_analysis -i input.fasta -k 21 -o output_dir
 - 频率分布统计 | Frequency distribution statistics
 - 可视化分析结果 | Visualization of analysis results
 
-#### 14. **run_kmer_pav** - K-mer存在/缺失变异分析 | K-mer Presence/Absence Variation Analysis
+#### **run_kmer_pav** - K-mer存在/缺失变异分析 | K-mer Presence/Absence Variation Analysis
 ```bash
 run_kmer_pav -i genome_list.txt -k 31 -o output_dir
 ```
@@ -200,7 +210,7 @@ run_kmer_pav -i genome_list.txt -k 31 -o output_dir
 
 ### 实用工具 | Utility Tools
 
-#### 15. **parse_longest_mrna** - 最长转录本提取 | Longest Transcript Extraction
+#### **parse_longest_mrna** - 最长转录本提取 | Longest Transcript Extraction
 ```bash
 parse_longest_mrna -g annotation.gtf -o longest.gtf
 ```
@@ -209,7 +219,7 @@ parse_longest_mrna -g annotation.gtf -o longest.gtf
 - 注释文件简化 | Annotation file simplification
 - 下游分析准备 | Preparation for downstream analysis
 
-#### 16. **parse_sample_hete** - 样本杂合度统计 | Sample Heterozygosity Statistics
+#### **parse_sample_hete** - 样本杂合度统计 | Sample Heterozygosity Statistics
 ```bash
 parse_sample_hete -v input.vcf -o heterozygosity.txt
 ```
@@ -368,7 +378,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 更新日志 | Changelog
 
-### v1.14.1 (Latest)
+### v1.15.0 (Latest)
+- ✨ 增加run_vcf_ld_heatmap模块 | Added run_vcf_ld_heatmap module
+
+### v1.14.1
 - ✨ 增加run_vcf_pca模块 | Added run_vcf_pca module
 - 🐛 修复parse_sequence_vcf和run_minimap2模块的序列坐标问题 | Fixed sequence coordinate issues in parse_sequence_vcf and run_minimap2 modules
 
