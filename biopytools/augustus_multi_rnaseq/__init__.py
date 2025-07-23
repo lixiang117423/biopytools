@@ -2,7 +2,7 @@
 多转录组Augustus基因预测工具包 | Multiple RNA-seq Augustus Gene Prediction Toolkit
 功能: 结合多个转录组数据进行Augustus基因预测的完整流程 | 
 Features: Complete pipeline for Augustus gene prediction with multiple RNA-seq datasets
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v1.0 - 修复版本 | Fixed version
 日期 | Date: 2025-07-17
 
@@ -15,7 +15,7 @@ Features: Complete pipeline for Augustus gene prediction with multiple RNA-seq d
 """
 
 __version__ = "1.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import AugustusMultiRNASeq
 from .config import AugustusConfig

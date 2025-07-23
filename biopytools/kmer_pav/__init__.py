@@ -4,7 +4,7 @@ K-mer PAV (Presence/Absence Variation) 分析工具包 (双阶段设计)
   阶段1: 从多个文件构建k-mer数据库
   阶段2: 样本查询和比较分析
   特性: 追踪k-mer在database和query中的分布
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v3.1 - 双阶段设计版（添加from列）
 日期 | Date: 2025-07-18
 
@@ -30,7 +30,7 @@ K-mer PAV (Presence/Absence Variation) 分析工具包 (双阶段设计)
 """
 
 __version__ = "3.1.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import KmerPAVAnalyzer
 from .config import KmerConfig

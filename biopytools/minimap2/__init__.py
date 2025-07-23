@@ -2,7 +2,7 @@
 Minimap2比对和未比对区间提取工具包 | Minimap2 Alignment and Unmapped Region Extraction Toolkit
 功能: Minimap2全基因组比对、PAF结果解析和未比对区间提取的完整流程 | 
 Features: Complete pipeline for Minimap2 whole genome alignment, PAF result parsing and unmapped region extraction
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v1.0 - 模块化版本 | Modular version
 日期 | Date: 2025-07-18
 
@@ -23,7 +23,7 @@ Features: Complete pipeline for Minimap2 whole genome alignment, PAF result pars
 """
 
 __version__ = "1.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import Minimap2Analyzer
 from .config import Minimap2Config

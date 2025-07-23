@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.15.0"
+version = "1.15.1"
 description = "Bioinformatics tools package with Python."
 authors = [
     {name = "Xiang LI"},
@@ -35,6 +35,7 @@ run_minimap2 = "biopytools.minimap2.main:main"
 run_repeat_masker = "biopytools.repeat_masker.main:main"
 run_vcf_pca = "biopytools.vcf_pca.main:main"
 run_vcf_ld_heatmap = "biopytools.vcf_ld_heatmap.main:main"
+run_vcf_filter = "biopytools.vcf_filter.main:main"
 parse_gene_info = "biopytools.gff_utils.main:main"
 parse_longest_mrna = "biopytools.parse_longest_mrna:main"
 parse_sample_hete = "biopytools.vcf_stats_sample.main:main"

@@ -2,7 +2,7 @@
 VCF PCA分析工具包 | VCF PCA Analysis Toolkit
 功能: VCF文件主成分分析的完整流程，支持质控、可视化和样本信息整合 | 
 Features: Complete pipeline for VCF principal component analysis, supporting QC, visualization and sample info integration
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v1.0 - 模块化版本 | Modular version
 日期 | Date: 2025-07-22
 
@@ -22,7 +22,7 @@ Features: Complete pipeline for VCF principal component analysis, supporting QC,
 """
 
 __version__ = "1.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import VCFPCAAnalyzer
 from .config import PCAConfig

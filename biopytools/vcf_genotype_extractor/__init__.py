@@ -2,7 +2,7 @@
 VCF基因型提取工具包 | VCF Genotype Extraction Toolkit
 功能: 从VCF文件中提取基因型信息，支持多种输出格式和过滤选项 | 
 Features: Extract genotype information from VCF files, supporting multiple output formats and filtering options
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v1.0.0
 日期 | Date: 2025-07-16
 
@@ -22,7 +22,7 @@ Features: Extract genotype information from VCF files, supporting multiple outpu
 """
 
 __version__ = "1.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import VCFGenotypeExtractor
 from .config import VCFConfig

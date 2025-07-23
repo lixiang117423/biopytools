@@ -2,7 +2,7 @@
 RNA-seq分析工具包 | RNA-seq Analysis Toolkit
 功能: HISAT2比对、StringTie定量和表达矩阵合并的完整流程 | 
 Features: Complete pipeline for HISAT2 alignment, StringTie quantification and expression matrix merging
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v10 - 模块化重构版 | Modular refactored version
 日期 | Date: 2025-07-10
 
@@ -22,7 +22,7 @@ Features: Complete pipeline for HISAT2 alignment, StringTie quantification and e
 """
 
 __version__ = "10.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import RNASeqAnalyzer
 from .config import RNASeqConfig

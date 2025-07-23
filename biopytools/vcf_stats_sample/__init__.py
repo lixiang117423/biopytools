@@ -8,7 +8,7 @@ Features: Genotype statistics analysis for each sample in VCF files, including h
 - 已定相基因型: 0|0, 0|1, 1|1, .|. | Phased genotypes: 0|0, 0|1, 1|1, .|.
 - 多等位基因: 0/2, 1/2, 2/2等 | Multi-allelic: 0/2, 1/2, 2/2, etc.
 
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v1.0 - 模块化版本 | Modular version
 日期 | Date: 2025-07-17
 
@@ -26,7 +26,7 @@ Features: Genotype statistics analysis for each sample in VCF files, including h
 """
 
 __version__ = "1.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import VCFStatsAnalyzer
 from .config import VCFStatsConfig

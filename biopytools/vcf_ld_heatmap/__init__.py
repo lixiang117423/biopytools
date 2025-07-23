@@ -2,7 +2,7 @@
 VCF LD热图生成工具包 | VCF LD Heatmap Generation Toolkit
 功能: VCF文件连锁不平衡热图生成的完整流程，支持多种过滤和可视化选项 | 
 Features: Complete pipeline for VCF linkage disequilibrium heatmap generation, supporting various filtering and visualization options
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v1.0 - 模块化版本 | Modular version
 日期 | Date: 2025-07-23
 
@@ -22,7 +22,7 @@ Features: Complete pipeline for VCF linkage disequilibrium heatmap generation, s
 """
 
 __version__ = "1.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import LDHeatmapAnalyzer
 from .config import LDHeatmapConfig

@@ -2,7 +2,7 @@
 PLINK GWAS分析工具包 | PLINK GWAS Analysis Toolkit
 功能: VCF到GWAS分析的完整流程，支持二分类性状和群体分层控制 | 
 Features: Complete pipeline from VCF to GWAS analysis, supporting binary traits and population stratification
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v10 - 模块化重构版 | Modular refactored version
 日期 | Date: 2025-07-14
 
@@ -21,7 +21,7 @@ Features: Complete pipeline from VCF to GWAS analysis, supporting binary traits 
 """
 
 __version__ = "10.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import PlinkGWAS
 from .config import PlinkGWASConfig

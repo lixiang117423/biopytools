@@ -2,7 +2,7 @@
 ANNOVAR基因注释工具包 | ANNOVAR Gene Annotation Toolkit
 功能: VCF变异注释的完整流程，支持GFF3转换和基因注释 | 
 Features: Complete pipeline for VCF variant annotation, supporting GFF3 conversion and gene annotation
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v10 - 模块化重构版 | Modular refactored version
 日期 | Date: 2025-07-10
 
@@ -23,7 +23,7 @@ Features: Complete pipeline for VCF variant annotation, supporting GFF3 conversi
 """
 
 __version__ = "10.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import ANNOVARAnnotator
 from .config import ANNOVARConfig

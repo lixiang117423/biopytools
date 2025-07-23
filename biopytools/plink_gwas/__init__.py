@@ -2,7 +2,7 @@
 PLINK GWAS分析工具包 | PLINK GWAS Analysis Toolkit
 功能: VCF到GWAS分析的完整流程，支持质量性状和数量性状分析，多种显著性校正方法 | 
 Features: Complete pipeline from VCF to GWAS analysis, supporting both qualitative and quantitative traits, multiple significance correction methods
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v12 - 支持多种显著性校正方法 | Supporting multiple significance correction methods
 日期 | Date: 2025-07-16
 
@@ -33,7 +33,7 @@ Features: Complete pipeline from VCF to GWAS analysis, supporting both qualitati
 """
 
 __version__ = "12.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import PlinkGWAS
 from .config import PlinkGWASConfig

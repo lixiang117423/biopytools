@@ -2,7 +2,7 @@
 序列提取工具包 | Sequence Extraction Toolkit
 功能: 从VCF文件和基因组文件中提取特定区间的序列变异信息 | 
 Features: Extract sequence variation information from VCF and genome files for specific regions
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v1.0 - 模块化版本 | Modular version
 日期 | Date: 2025-07-21
 
@@ -24,7 +24,7 @@ Features: Extract sequence variation information from VCF and genome files for s
 """
 
 __version__ = "1.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import SequenceExtractor, main
 from .config import SequenceConfig
@@ -43,7 +43,7 @@ if __name__ == "__main__" and "setup.py" in __file__:
         name="sequence-toolkit",
         version="1.0.0",
         description="从VCF文件和基因组文件中提取特定区间的序列变异信息",
-        author="Claude",
+        author="Xiang LI",
         packages=find_packages(),
         install_requires=[
             "pysam>=0.19.0",
