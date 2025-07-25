@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.17.0"
+version = "1.18.0"
 description = "Bioinformatics tools package with Python."
 authors = [{name = "Xiang LI"}]
 requires-python = ">=3.10"
@@ -19,6 +19,10 @@ dependencies = [
 ]
 
 [project.scripts]
+parse_gene_info = "biopytools.gff_utils.main:main"
+parse_longest_mrna = "biopytools.parse_longest_mrna:main"
+parse_sample_hete = "biopytools.vcf_stats_sample.main:main"
+parse_sequence_vcf = "biopytools.vcf_sequence_toolkit:main"
 run_vcf_filter = "biopytools.vcf_filter.main:main"
 run_fastp = "biopytools.fastp.main:main"
 run_rnaseq = "biopytools.rnaseq.main:main"
@@ -34,10 +38,8 @@ run_repeat_masker = "biopytools.repeat_masker.main:main"
 run_vcf_pca = "biopytools.vcf_pca.main:main"
 run_vcf_ld_heatmap = "biopytools.vcf_ld_heatmap.main:main"
 run_ena_downloader = "biopytools.ena_downloader.main:main"
-parse_gene_info = "biopytools.gff_utils.main:main"
-parse_longest_mrna = "biopytools.parse_longest_mrna:main"
-parse_sample_hete = "biopytools.vcf_stats_sample.main:main"
-parse_sequence_vcf = "biopytools.vcf_sequence_toolkit:main"
+run_vcf_njtree = "biopytools.vcf_phylo.main:main"
+
 
 [tool.setuptools.packages.find]
 include = ["biopytools*"]

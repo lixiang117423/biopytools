@@ -215,3 +215,8 @@ restructure_modules.py
 脚本重构使用说明.md
 tmp.py
 
+biopytools/ncbi_downloader/*
+run_ncbi_downloader.py
+
+# raw codes
+modules/*

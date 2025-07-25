@@ -211,6 +211,260 @@ class VCFProcessor:
         else:
             self.logger.info("✓ 所有染色体已成功重命名为数字 | All chromosomes successfully renamed to numbers")
 
+# class PlinkProcessor:
+#     """PLINK处理器 | PLINK Processor"""
+    
+#     def __init__(self, config, logger, cmd_runner: CommandRunner):
+#         self.config = config
+#         self.logger = logger
+#         self.cmd_runner = cmd_runner
+    
+#     def convert_vcf_to_plink(self, vcf_file: str):
+#         """VCF转换为PLINK格式 | Convert VCF to PLINK format"""
+#         output_prefix = os.path.join(self.config.output_dir, "raw_data")
+        
+#         # 检测染色体数量 | Detect chromosome count
+#         chr_count = self._detect_chromosome_count(vcf_file)
+        
+#         cmd = (
+#             f"plink --vcf {vcf_file} --make-bed --out {output_prefix} "
+#             f"--allow-extra-chr --double-id"
+#         )
+        
+#         # 如果染色体数量确定且小于95，添加autosome-num参数
+#         if chr_count and chr_count < 95:
+#             cmd += f" --autosome-num {chr_count}"
+#             self.logger.info(f"设置autosome-num参数为 {chr_count} | Set autosome-num parameter to {chr_count}")
+#         else:
+#             self.logger.info("未设置autosome-num参数 | autosome-num parameter not set")
+        
+#         self.cmd_runner.run(cmd, "VCF转换为PLINK格式 | Convert VCF to PLINK format")
+#         return output_prefix
+    
+#     def _detect_chromosome_count(self, vcf_file: str):
+#         """检测染色体数量 | Detect chromosome count"""
+#         try:
+#             if vcf_file.endswith('.gz'):
+#                 cmd = f"zcat {vcf_file} | grep -v '^#' | cut -f1 | sort -n | uniq | wc -l"
+#             else:
+#                 cmd = f"grep -v '^#' {vcf_file} | cut -f1 | sort -n | uniq | wc -l"
+            
+#             result = self.cmd_runner.run(cmd, "检测染色体数量 | Detect chromosome count")
+#             chr_count = int(result.strip())
+#             self.logger.info(f"检测到 {chr_count} 个染色体 | Detected {chr_count} chromosomes")
+            
+#             # 同时显示染色体列表 | Also show chromosome list
+#             if vcf_file.endswith('.gz'):
+#                 cmd_list = f"zcat {vcf_file} | grep -v '^#' | cut -f1 | sort -n | uniq"
+#             else:
+#                 cmd_list = f"grep -v '^#' {vcf_file} | cut -f1 | sort -n | uniq"
+            
+#             chr_list = self.cmd_runner.run(cmd_list, "获取染色体列表 | Get chromosome list")
+#             self.logger.info(f"染色体列表 | Chromosome list: {chr_list.strip().replace(chr(10), ', ')}")
+            
+#             return chr_count
+#         except Exception as e:
+#             self.logger.warning(f"无法检测染色体数量 | Cannot detect chromosome count: {e}")
+#             return None
+    
+#     def quality_control(self, input_prefix: str):
+#         """质量控制 | Quality control"""
+#         output_prefix = os.path.join(self.config.output_dir, self.config.base_name)
+        
+#         # 记录质控前统计信息
+#         self._log_qc_stats(input_prefix, "质控前")
+        
+#         # MAF过滤 | MAF filtering
+#         maf_prefix = f"{output_prefix}_maf"
+#         cmd_maf = (
+#             f"plink --bfile {input_prefix} --maf {self.config.maf} "
+#             f"--make-bed --out {maf_prefix} --allow-extra-chr"
+#         )
+#         self.cmd_runner.run(cmd_maf, f"MAF过滤 | MAF filtering (>={self.config.maf})")
+        
+#         # HWE过滤 | HWE filtering
+#         hwe_prefix = f"{output_prefix}_hwe"
+#         cmd_hwe = (
+#             f"plink --bfile {maf_prefix} --hwe {self.config.hwe_pvalue} "
+#             f"--make-bed --out {hwe_prefix} --allow-extra-chr"
+#         )
+#         self.cmd_runner.run(cmd_hwe, f"HWE过滤 | HWE filtering (p>{self.config.hwe_pvalue})")
+        
+#         # 缺失率过滤 | Missing rate filtering
+#         cmd_missing = (
+#             f"plink --bfile {hwe_prefix} "
+#             f"--geno {self.config.missing_rate} --mind {self.config.missing_rate} "
+#             f"--make-bed --out {output_prefix} --allow-extra-chr"
+#         )
+#         self.cmd_runner.run(cmd_missing, f"缺失率过滤 | Missing rate filtering (<{self.config.missing_rate})")
+        
+#         # 记录质控后统计信息
+#         self._log_qc_stats(output_prefix, "质控后")
+        
+#         # 清理中间文件 | Clean intermediate files
+#         if not self.config.keep_intermediate:
+#             self._cleanup_intermediate_files([maf_prefix, hwe_prefix])
+        
+#         return output_prefix
+    
+#     def _log_qc_stats(self, prefix: str, stage: str):
+#         """记录质控统计信息 | Log QC statistics"""
+#         try:
+#             fam_file = f"{prefix}.fam"
+#             bim_file = f"{prefix}.bim"
+            
+#             if os.path.exists(fam_file):
+#                 with open(fam_file, 'r') as f:
+#                     sample_count = sum(1 for line in f)
+#                 self.logger.info(f"{stage}样本数 | {stage} samples: {sample_count}")
+            
+#             if os.path.exists(bim_file):
+#                 with open(bim_file, 'r') as f:
+#                     snp_count = sum(1 for line in f)
+#                 self.logger.info(f"{stage}SNP数 | {stage} SNPs: {snp_count}")
+                
+#         except Exception as e:
+#             self.logger.warning(f"无法读取{stage}统计信息 | Cannot read {stage} statistics: {e}")
+    
+#     def _cleanup_intermediate_files(self, prefixes: list):
+#         """清理中间文件 | Clean intermediate files"""
+#         for prefix in prefixes:
+#             for ext in ['.bed', '.bim', '.fam', '.log']:
+#                 file_path = f"{prefix}{ext}"
+#                 if os.path.exists(file_path):
+#                     os.remove(file_path)
+        
+#         self.logger.info("清理中间文件完成 | Intermediate files cleaned")
+
+#     # 1. 修改 biopytools/admixture/data_processing.py 中的 PlinkProcessor 类
+
+#     def fix_chromosome_codes(self, plink_prefix: str):
+#         """修复染色体编号为整数格式 | Fix chromosome codes to integer format"""
+#         self.logger.info("修复染色体编号为整数格式 | Fixing chromosome codes to integer format")
+        
+#         # 读取bim文件 | Read bim file
+#         bim_file = f"{plink_prefix}.bim"
+#         if not os.path.exists(bim_file):
+#             raise FileNotFoundError(f"BIM文件不存在 | BIM file not found: {bim_file}")
+        
+#         # 检查染色体编号 | Check chromosome codes
+#         bim_df = pd.read_csv(bim_file, sep='\t', header=None, 
+#                             names=['CHR', 'SNP', 'CM', 'BP', 'A1', 'A2'])
+        
+#         unique_chrs = bim_df['CHR'].unique()
+#         self.logger.info(f"当前染色体编号 | Current chromosome codes: {sorted(unique_chrs)}")
+        
+#         # 检查是否所有染色体都是数字 | Check if all chromosomes are numeric
+#         non_numeric_chrs = [chr_code for chr_code in unique_chrs if not str(chr_code).isdigit()]
+        
+#         if not non_numeric_chrs:
+#             self.logger.info("所有染色体编号已为数字格式 | All chromosome codes are already numeric")
+#             return plink_prefix
+        
+#         # 创建染色体映射 | Create chromosome mapping
+#         self.logger.warning(f"发现非数字染色体编号 | Found non-numeric chromosome codes: {non_numeric_chrs}")
+        
+#         # 获取染色体SNP计数信息 | Get chromosome SNP count info
+#         chr_counts = bim_df['CHR'].value_counts().to_dict()
+        
+#         # 创建临时染色体编号映射 | Create temporary chromosome code mapping
+#         chr_mapping = {}
+#         numeric_start = 1
+        
+#         # 先处理已经是数字的染色体 | First handle already numeric chromosomes
+#         for chr_code in sorted(unique_chrs):
+#             if str(chr_code).isdigit():
+#                 chr_mapping[chr_code] = chr_code
+#                 numeric_start = max(numeric_start, int(chr_code) + 1)
+        
+#         # 为非数字染色体分配临时数字编号 | Assign temporary numeric codes for non-numeric chromosomes
+#         for chr_code in sorted(non_numeric_chrs, key=str):
+#             chr_mapping[chr_code] = numeric_start
+#             numeric_start += 1
+        
+#         self.logger.info(f"染色体编号映射 | Chromosome code mapping: {chr_mapping}")
+        
+#         # 保存染色体对应关系表（重用VCFProcessor的方法）| Save chromosome mapping table
+#         self._save_chromosome_mapping_plink(chr_mapping, chr_counts)
+        
+#         # 创建重编码的bim文件 | Create recoded bim file
+#         fixed_prefix = os.path.join(self.config.output_dir, "admixture_chr_fixed")
+        
+#         # 复制bed和fam文件 | Copy bed and fam files
+#         for ext in ['bed', 'fam']:
+#             src_file = f"{plink_prefix}.{ext}"
+#             dst_file = f"{fixed_prefix}.{ext}"
+#             cmd = f"cp {src_file} {dst_file}"
+#             self.cmd_runner.run(cmd, f"复制{ext.upper()}文件 | Copy {ext.upper()} file")
+        
+#         # 修改bim文件中的染色体编号 | Modify chromosome codes in bim file
+#         bim_df['CHR'] = bim_df['CHR'].map(chr_mapping)
+#         bim_df.to_csv(f"{fixed_prefix}.bim", sep='\t', header=False, index=False)
+        
+#         # 验证修复结果 | Verify fix results
+#         self._verify_chromosome_fix(fixed_prefix)
+        
+#         self.logger.info(f"染色体编号修复完成 | Chromosome code fix completed: {fixed_prefix}")
+#         return fixed_prefix
+
+#     def _save_chromosome_mapping_plink(self, chr_mapping: dict, chr_counts: dict):
+#         """保存染色体对应关系表（PLINK版本）| Save chromosome mapping table (PLINK version)"""
+#         mapping_file = os.path.join(self.config.output_dir, "chromosome_mapping.txt")
+        
+#         with open(mapping_file, 'w') as f:
+#             f.write("# 染色体重命名对应关系表 | Chromosome Renaming Mapping Table\n")
+#             f.write("# 格式 | Format: 原始染色体编号 -> 重命名后编号 | Original -> Renamed\n")
+#             f.write("# 说明 | Note: 用于ADMIXTURE分析的染色体重命名 | Chromosome renaming for ADMIXTURE analysis\n")
+#             f.write("# 来源 | Source: PLINK文件染色体编号修复 | PLINK file chromosome code fix\n")
+#             f.write("Original_Chr\tRenamed_Chr\tSNP_Count\n")
+            
+#             # 按重命名后的编号排序输出 | Sort by renamed number for output
+#             for original, renamed in sorted(chr_mapping.items(), key=lambda x: int(str(x[1]))):
+#                 snp_count = chr_counts.get(original, 0)
+#                 f.write(f"{original}\t{renamed}\t{snp_count}\n")
+        
+#         # 也创建bcftools需要的重命名文件 | Also create renaming file for bcftools
+#         rename_file = os.path.join(self.config.output_dir, "chr_rename.txt")
+#         with open(rename_file, 'w') as f:
+#             for original, renamed in chr_mapping.items():
+#                 f.write(f"{original}\t{renamed}\n")
+        
+#         self.logger.info(f"染色体对应关系表已保存 | Chromosome mapping table saved: {mapping_file}")
+#         self.logger.info(f"染色体重命名文件已保存 | Chromosome rename file saved: {rename_file}")
+        
+#         # 显示对应关系表预览 | Show mapping table preview
+#         self.logger.info("染色体重命名对应关系 | Chromosome renaming mapping:")
+#         for original, renamed in sorted(chr_mapping.items(), key=lambda x: int(str(x[1]))):
+#             snp_count = chr_counts.get(original, 0)
+#             self.logger.info(f"  {original} -> {renamed} ({snp_count} SNPs)")
+        
+#         return mapping_file, rename_file
+
+#     def _verify_chromosome_fix(self, plink_prefix: str):
+#         """验证染色体编号修复结果 | Verify chromosome code fix results"""
+#         bim_file = f"{plink_prefix}.bim"
+#         bim_df = pd.read_csv(bim_file, sep='\t', header=None, 
+#                             names=['CHR', 'SNP', 'CM', 'BP', 'A1', 'A2'])
+        
+#         unique_chrs = sorted(bim_df['CHR'].unique())
+#         self.logger.info(f"修复后染色体编号 | Fixed chromosome codes: {unique_chrs}")
+        
+#         # 检查是否所有染色体都是数字 | Check if all chromosomes are numeric
+#         non_numeric = [chr_code for chr_code in unique_chrs if not str(chr_code).isdigit()]
+        
+#         if non_numeric:
+#             self.logger.error(f"仍有非数字染色体编号 | Still have non-numeric chromosome codes: {non_numeric}")
+#             raise ValueError("染色体编号修复失败 | Chromosome code fix failed")
+#         else:
+#             self.logger.info("✓ 所有染色体编号已成功修复为数字格式 | All chromosome codes successfully fixed to numeric format")
+
+#     # 2. 在 PlinkProcessor 类中添加这两个方法
+
+#     # 3. 确保在 main.py 中正确调用这些方法（之前的修复已经包含了）
+
+# 修改文件：biopytools/admixture/data_processing.py
+# 在 PlinkProcessor 类中添加以下两个方法
+
 class PlinkProcessor:
     """PLINK处理器 | PLINK Processor"""
     
@@ -241,32 +495,6 @@ class PlinkProcessor:
         self.cmd_runner.run(cmd, "VCF转换为PLINK格式 | Convert VCF to PLINK format")
         return output_prefix
     
-    def _detect_chromosome_count(self, vcf_file: str):
-        """检测染色体数量 | Detect chromosome count"""
-        try:
-            if vcf_file.endswith('.gz'):
-                cmd = f"zcat {vcf_file} | grep -v '^#' | cut -f1 | sort -n | uniq | wc -l"
-            else:
-                cmd = f"grep -v '^#' {vcf_file} | cut -f1 | sort -n | uniq | wc -l"
-            
-            result = self.cmd_runner.run(cmd, "检测染色体数量 | Detect chromosome count")
-            chr_count = int(result.strip())
-            self.logger.info(f"检测到 {chr_count} 个染色体 | Detected {chr_count} chromosomes")
-            
-            # 同时显示染色体列表 | Also show chromosome list
-            if vcf_file.endswith('.gz'):
-                cmd_list = f"zcat {vcf_file} | grep -v '^#' | cut -f1 | sort -n | uniq"
-            else:
-                cmd_list = f"grep -v '^#' {vcf_file} | cut -f1 | sort -n | uniq"
-            
-            chr_list = self.cmd_runner.run(cmd_list, "获取染色体列表 | Get chromosome list")
-            self.logger.info(f"染色体列表 | Chromosome list: {chr_list.strip().replace(chr(10), ', ')}")
-            
-            return chr_count
-        except Exception as e:
-            self.logger.warning(f"无法检测染色体数量 | Cannot detect chromosome count: {e}")
-            return None
-    
     def quality_control(self, input_prefix: str):
         """质量控制 | Quality control"""
         output_prefix = os.path.join(self.config.output_dir, self.config.base_name)
@@ -280,7 +508,7 @@ class PlinkProcessor:
             f"plink --bfile {input_prefix} --maf {self.config.maf} "
             f"--make-bed --out {maf_prefix} --allow-extra-chr"
         )
-        self.cmd_runner.run(cmd_maf, f"MAF过滤 | MAF filtering (>={self.config.maf})")
+        self.cmd_runner.run(cmd_maf, "MAF过滤 | MAF filtering (>=0.01)")
         
         # HWE过滤 | HWE filtering
         hwe_prefix = f"{output_prefix}_hwe"
@@ -288,50 +516,195 @@ class PlinkProcessor:
             f"plink --bfile {maf_prefix} --hwe {self.config.hwe_pvalue} "
             f"--make-bed --out {hwe_prefix} --allow-extra-chr"
         )
-        self.cmd_runner.run(cmd_hwe, f"HWE过滤 | HWE filtering (p>{self.config.hwe_pvalue})")
+        self.cmd_runner.run(cmd_hwe, "HWE过滤 | HWE filtering (p>1e-06)")
         
         # 缺失率过滤 | Missing rate filtering
         cmd_missing = (
-            f"plink --bfile {hwe_prefix} "
-            f"--geno {self.config.missing_rate} --mind {self.config.missing_rate} "
-            f"--make-bed --out {output_prefix} --allow-extra-chr"
+            f"plink --bfile {hwe_prefix} --geno {self.config.missing_rate} "
+            f"--mind {self.config.missing_rate} --make-bed --out {output_prefix} --allow-extra-chr"
         )
-        self.cmd_runner.run(cmd_missing, f"缺失率过滤 | Missing rate filtering (<{self.config.missing_rate})")
+        self.cmd_runner.run(cmd_missing, "缺失率过滤 | Missing rate filtering (<0.1)")
         
         # 记录质控后统计信息
         self._log_qc_stats(output_prefix, "质控后")
         
-        # 清理中间文件 | Clean intermediate files
+        # 清理中间文件
         if not self.config.keep_intermediate:
             self._cleanup_intermediate_files([maf_prefix, hwe_prefix])
         
         return output_prefix
+
+    # ===== 新增的两个方法 =====
+    
+    def fix_chromosome_codes(self, plink_prefix: str):
+        """修复染色体编号为整数格式 | Fix chromosome codes to integer format"""
+        self.logger.info("修复染色体编号为整数格式 | Fixing chromosome codes to integer format")
+        
+        # 读取bim文件 | Read bim file
+        bim_file = f"{plink_prefix}.bim"
+        if not os.path.exists(bim_file):
+            raise FileNotFoundError(f"BIM文件不存在 | BIM file not found: {bim_file}")
+        
+        # 检查染色体编号 | Check chromosome codes
+        bim_df = pd.read_csv(bim_file, sep='\t', header=None, 
+                            names=['CHR', 'SNP', 'CM', 'BP', 'A1', 'A2'])
+        
+        unique_chrs = bim_df['CHR'].unique()
+        self.logger.info(f"当前染色体编号 | Current chromosome codes: {sorted(unique_chrs)}")
+        
+        # 检查是否所有染色体都是数字 | Check if all chromosomes are numeric
+        non_numeric_chrs = [chr_code for chr_code in unique_chrs if not str(chr_code).isdigit()]
+        
+        if not non_numeric_chrs:
+            self.logger.info("所有染色体编号已为数字格式 | All chromosome codes are already numeric")
+            return plink_prefix
+        
+        # 创建染色体映射 | Create chromosome mapping
+        self.logger.warning(f"发现非数字染色体编号 | Found non-numeric chromosome codes: {non_numeric_chrs}")
+        
+        # 获取染色体SNP计数信息 | Get chromosome SNP count info
+        chr_counts = bim_df['CHR'].value_counts().to_dict()
+        
+        # 创建临时染色体编号映射 | Create temporary chromosome code mapping
+        chr_mapping = {}
+        numeric_start = 1
+        
+        # 先处理已经是数字的染色体 | First handle already numeric chromosomes
+        for chr_code in sorted(unique_chrs):
+            if str(chr_code).isdigit():
+                chr_mapping[chr_code] = chr_code
+                numeric_start = max(numeric_start, int(chr_code) + 1)
+        
+        # 为非数字染色体分配临时数字编号 | Assign temporary numeric codes for non-numeric chromosomes
+        for chr_code in sorted(non_numeric_chrs, key=str):
+            chr_mapping[chr_code] = numeric_start
+            numeric_start += 1
+        
+        self.logger.info(f"染色体编号映射 | Chromosome code mapping: {chr_mapping}")
+        
+        # 保存染色体对应关系表（重用VCFProcessor的方法）| Save chromosome mapping table
+        self._save_chromosome_mapping_plink(chr_mapping, chr_counts)
+        
+        # 创建重编码的bim文件 | Create recoded bim file
+        fixed_prefix = os.path.join(self.config.output_dir, "admixture_chr_fixed")
+        
+        # 复制bed和fam文件 | Copy bed and fam files
+        for ext in ['bed', 'fam']:
+            src_file = f"{plink_prefix}.{ext}"
+            dst_file = f"{fixed_prefix}.{ext}"
+            cmd = f"cp {src_file} {dst_file}"
+            self.cmd_runner.run(cmd, f"复制{ext.upper()}文件 | Copy {ext.upper()} file")
+        
+        # 修改bim文件中的染色体编号 | Modify chromosome codes in bim file
+        bim_df['CHR'] = bim_df['CHR'].map(chr_mapping)
+        bim_df.to_csv(f"{fixed_prefix}.bim", sep='\t', header=False, index=False)
+        
+        # 验证修复结果 | Verify fix results
+        self._verify_chromosome_fix(fixed_prefix)
+        
+        self.logger.info(f"染色体编号修复完成 | Chromosome code fix completed: {fixed_prefix}")
+        return fixed_prefix
+
+    def _save_chromosome_mapping_plink(self, chr_mapping: dict, chr_counts: dict):
+        """保存染色体对应关系表（PLINK版本）| Save chromosome mapping table (PLINK version)"""
+        mapping_file = os.path.join(self.config.output_dir, "chromosome_mapping.txt")
+        
+        with open(mapping_file, 'w') as f:
+            f.write("# 染色体重命名对应关系表 | Chromosome Renaming Mapping Table\n")
+            f.write("# 格式 | Format: 原始染色体编号 -> 重命名后编号 | Original -> Renamed\n")
+            f.write("# 说明 | Note: 用于ADMIXTURE分析的染色体重命名 | Chromosome renaming for ADMIXTURE analysis\n")
+            f.write("# 来源 | Source: PLINK文件染色体编号修复 | PLINK file chromosome code fix\n")
+            f.write("Original_Chr\tRenamed_Chr\tSNP_Count\n")
+            
+            # 按重命名后的编号排序输出 | Sort by renamed number for output
+            for original, renamed in sorted(chr_mapping.items(), key=lambda x: int(str(x[1]))):
+                snp_count = chr_counts.get(original, 0)
+                f.write(f"{original}\t{renamed}\t{snp_count}\n")
+        
+        # 也创建bcftools需要的重命名文件 | Also create renaming file for bcftools
+        rename_file = os.path.join(self.config.output_dir, "chr_rename.txt")
+        with open(rename_file, 'w') as f:
+            for original, renamed in chr_mapping.items():
+                f.write(f"{original}\t{renamed}\n")
+        
+        self.logger.info(f"染色体对应关系表已保存 | Chromosome mapping table saved: {mapping_file}")
+        self.logger.info(f"染色体重命名文件已保存 | Chromosome rename file saved: {rename_file}")
+        
+        # 显示对应关系表预览 | Show mapping table preview
+        self.logger.info("染色体重命名对应关系 | Chromosome renaming mapping:")
+        for original, renamed in sorted(chr_mapping.items(), key=lambda x: int(str(x[1]))):
+            snp_count = chr_counts.get(original, 0)
+            self.logger.info(f"  {original} -> {renamed} ({snp_count} SNPs)")
+        
+        return mapping_file, rename_file
+
+    # ===== 辅助方法 =====
+    
+    def _verify_chromosome_fix(self, plink_prefix: str):
+        """验证染色体编号修复结果 | Verify chromosome code fix results"""
+        bim_file = f"{plink_prefix}.bim"
+        bim_df = pd.read_csv(bim_file, sep='\t', header=None, 
+                            names=['CHR', 'SNP', 'CM', 'BP', 'A1', 'A2'])
+        
+        unique_chrs = sorted(bim_df['CHR'].unique())
+        self.logger.info(f"修复后染色体编号 | Fixed chromosome codes: {unique_chrs}")
+        
+        # 检查是否所有染色体都是数字 | Check if all chromosomes are numeric
+        non_numeric = [chr_code for chr_code in unique_chrs if not str(chr_code).isdigit()]
+        
+        if non_numeric:
+            self.logger.error(f"仍有非数字染色体编号 | Still have non-numeric chromosome codes: {non_numeric}")
+            raise ValueError("染色体编号修复失败 | Chromosome code fix failed")
+        else:
+            self.logger.info("✓ 所有染色体编号已成功修复为数字格式 | All chromosome codes successfully fixed to numeric format")
+    
+    def _detect_chromosome_count(self, vcf_file: str):
+        """检测染色体数量 | Detect chromosome count"""
+        try:
+            if vcf_file.endswith('.gz'):
+                cmd = f"zcat {vcf_file} | grep -v '^#' | cut -f1 | sort -n | uniq | wc -l"
+            else:
+                cmd = f"grep -v '^#' {vcf_file} | cut -f1 | sort -n | uniq | wc -l"
+            
+            result = self.cmd_runner.run(cmd, "检测染色体数量 | Detect chromosome count")
+            chr_count = int(result.strip())
+            self.logger.info(f"检测到 {chr_count} 个染色体 | Detected {chr_count} chromosomes")
+            
+            return chr_count
+        except Exception as e:
+            self.logger.warning(f"无法检测染色体数量 | Cannot detect chromosome count: {e}")
+            return None
     
     def _log_qc_stats(self, prefix: str, stage: str):
         """记录质控统计信息 | Log QC statistics"""
         try:
+            # 统计样本数 | Count samples
             fam_file = f"{prefix}.fam"
-            bim_file = f"{prefix}.bim"
-            
             if os.path.exists(fam_file):
                 with open(fam_file, 'r') as f:
-                    sample_count = sum(1 for line in f)
+                    sample_count = len(f.readlines())
                 self.logger.info(f"{stage}样本数 | {stage} samples: {sample_count}")
             
+            # 统计SNP数 | Count SNPs
+            bim_file = f"{prefix}.bim"
             if os.path.exists(bim_file):
                 with open(bim_file, 'r') as f:
-                    snp_count = sum(1 for line in f)
+                    snp_count = len(f.readlines())
                 self.logger.info(f"{stage}SNP数 | {stage} SNPs: {snp_count}")
                 
         except Exception as e:
-            self.logger.warning(f"无法读取{stage}统计信息 | Cannot read {stage} statistics: {e}")
+            self.logger.warning(f"无法获取{stage}统计信息 | Cannot get {stage} statistics: {e}")
     
     def _cleanup_intermediate_files(self, prefixes: list):
-        """清理中间文件 | Clean intermediate files"""
-        for prefix in prefixes:
-            for ext in ['.bed', '.bim', '.fam', '.log']:
-                file_path = f"{prefix}{ext}"
-                if os.path.exists(file_path):
-                    os.remove(file_path)
-        
-        self.logger.info("清理中间文件完成 | Intermediate files cleaned")
+        """清理中间文件 | Cleanup intermediate files"""
+        try:
+            for prefix in prefixes:
+                for ext in ['bed', 'bim', 'fam', 'log', 'nosex']:
+                    file_path = f"{prefix}.{ext}"
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+            self.logger.info("清理中间文件完成 | Intermediate files cleaned")
+        except Exception as e:
+            self.logger.warning(f"清理中间文件时出错 | Error cleaning intermediate files: {e}")
+
+# 注意：这两个新方法应该添加到现有的 PlinkProcessor 类中，而不是替换整个类
