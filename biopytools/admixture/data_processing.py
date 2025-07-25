@@ -549,11 +549,21 @@ class PlinkProcessor:
         bim_df = pd.read_csv(bim_file, sep='\t', header=None, 
                             names=['CHR', 'SNP', 'CM', 'BP', 'A1', 'A2'])
         
-        unique_chrs = bim_df['CHR'].unique()
-        self.logger.info(f"当前染色体编号 | Current chromosome codes: {sorted(unique_chrs)}")
+        # 确保所有染色体编号都转换为字符串进行统一处理
+        unique_chrs = [str(chr_code) for chr_code in bim_df['CHR'].unique()]
+        
+        # 使用自定义排序：数字优先，然后按数值排序；非数字按字符串排序
+        def chr_sort_key(chr_code):
+            if chr_code.isdigit():
+                return (0, int(chr_code))  # 数字优先，按数值排序
+            else:
+                return (1, chr_code)       # 非数字在后，按字符串排序
+        
+        sorted_chrs = sorted(unique_chrs, key=chr_sort_key)
+        self.logger.info(f"当前染色体编号 | Current chromosome codes: {sorted_chrs}")
         
         # 检查是否所有染色体都是数字 | Check if all chromosomes are numeric
-        non_numeric_chrs = [chr_code for chr_code in unique_chrs if not str(chr_code).isdigit()]
+        non_numeric_chrs = [chr_code for chr_code in unique_chrs if not chr_code.isdigit()]
         
         if not non_numeric_chrs:
             self.logger.info("所有染色体编号已为数字格式 | All chromosome codes are already numeric")
@@ -563,26 +573,37 @@ class PlinkProcessor:
         self.logger.warning(f"发现非数字染色体编号 | Found non-numeric chromosome codes: {non_numeric_chrs}")
         
         # 获取染色体SNP计数信息 | Get chromosome SNP count info
-        chr_counts = bim_df['CHR'].value_counts().to_dict()
+        chr_counts = {}
+        for chr_code in unique_chrs:
+            # 找到原始染色体编号对应的计数
+            original_chr = None
+            for orig_chr in bim_df['CHR'].unique():
+                if str(orig_chr) == chr_code:
+                    original_chr = orig_chr
+                    break
+            if original_chr is not None:
+                chr_counts[chr_code] = (bim_df['CHR'] == original_chr).sum()
+            else:
+                chr_counts[chr_code] = 0
         
         # 创建临时染色体编号映射 | Create temporary chromosome code mapping
         chr_mapping = {}
         numeric_start = 1
         
         # 先处理已经是数字的染色体 | First handle already numeric chromosomes
-        for chr_code in sorted(unique_chrs):
-            if str(chr_code).isdigit():
+        for chr_code in sorted_chrs:
+            if chr_code.isdigit():
                 chr_mapping[chr_code] = chr_code
                 numeric_start = max(numeric_start, int(chr_code) + 1)
         
         # 为非数字染色体分配临时数字编号 | Assign temporary numeric codes for non-numeric chromosomes
-        for chr_code in sorted(non_numeric_chrs, key=str):
-            chr_mapping[chr_code] = numeric_start
+        for chr_code in sorted(non_numeric_chrs):
+            chr_mapping[chr_code] = str(numeric_start)
             numeric_start += 1
         
         self.logger.info(f"染色体编号映射 | Chromosome code mapping: {chr_mapping}")
         
-        # 保存染色体对应关系表（重用VCFProcessor的方法）| Save chromosome mapping table
+        # 保存染色体对应关系表 | Save chromosome mapping table
         self._save_chromosome_mapping_plink(chr_mapping, chr_counts)
         
         # 创建重编码的bim文件 | Create recoded bim file
@@ -596,7 +617,14 @@ class PlinkProcessor:
             self.cmd_runner.run(cmd, f"复制{ext.upper()}文件 | Copy {ext.upper()} file")
         
         # 修改bim文件中的染色体编号 | Modify chromosome codes in bim file
-        bim_df['CHR'] = bim_df['CHR'].map(chr_mapping)
+        # 创建映射字典，处理类型转换
+        mapping_dict = {}
+        for orig_chr in bim_df['CHR'].unique():
+            str_chr = str(orig_chr)
+            if str_chr in chr_mapping:
+                mapping_dict[orig_chr] = int(chr_mapping[str_chr])
+        
+        bim_df['CHR'] = bim_df['CHR'].map(mapping_dict)
         bim_df.to_csv(f"{fixed_prefix}.bim", sep='\t', header=False, index=False)
         
         # 验证修复结果 | Verify fix results

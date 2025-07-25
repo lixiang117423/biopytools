@@ -15,13 +15,15 @@ A Python package integrating various bioinformatics analysis tools with unified 
 - 📊 **可视化结果** | **Visualization**: 内置图表生成和分析报告功能
 - 🔄 **模块化设计** | **Modular Design**: 独立的功能模块，可单独使用或组合使用
 - 📋 **完整流程** | **Complete Pipeline**: 从原始数据到最终结果的端到端解决方案
+- 🌳 **系统发育分析** | **Phylogenetic Analysis**: 支持VCF到系统发育树的完整分析流程
+- 🧬 **基因预测** | **Gene Prediction**: 集成Augustus基因预测与训练流程
 
 ---
 
 ## 📦 安装 | Installation
 
 ### 环境要求 | Requirements
-- Python 3.10
+- Python 3.10+
 - 推荐使用conda/mamba进行环境管理 | Recommended to use conda/mamba for environment management
 
 ### 从源码安装 | Install from Source
@@ -60,7 +62,17 @@ python -c "import biopytools; biopytools.list_modules()"
 
 ## 🛠️ 功能模块 | Available Modules
 
-### 数据质控与预处理 | Data Quality Control & Preprocessing
+### 数据获取与质控 | Data Acquisition & Quality Control
+
+#### **run_ena_downloader** - ENA数据下载工具 | ENA Data Download Tool
+```bash
+run_ena_downloader -a PRJNA661210 -p ftp -m save
+```
+**功能** | **Features**: 
+- 自动元数据下载 | Automatic metadata download
+- 多协议支持（FTP/Aspera）| Multiple protocol support (FTP/Aspera)
+- 批量FASTQ文件下载 | Batch FASTQ file download
+- 灵活的输出格式 | Flexible output formats
 
 #### **run_fastp** - 高速FASTQ质控工具 | High-speed FASTQ Quality Control
 ```bash
@@ -100,6 +112,18 @@ run_repeat_masker -g genome.fa -s species -o output_dir
 - RepeatModeler从头预测 | RepeatModeler de novo prediction
 - TRF串联重复检测 | TRF tandem repeat detection
 
+### 基因预测与注释 | Gene Prediction & Annotation
+
+#### **run_augustus_prediction** - Augustus基因预测训练流程 | Augustus Gene Prediction Training Pipeline
+```bash
+run_augustus_prediction -s MySpecies -g genome.fa -a annotations.gff3
+```
+**功能** | **Features**:
+- 完整的Augustus模型训练 | Complete Augustus model training
+- 自动数据集拆分和验证 | Automatic dataset splitting and validation
+- 预测性能评估 | Prediction performance evaluation
+- 标准化结果输出 | Standardized result output
+
 #### **run_augustus_multi_rnaseq** - 多转录组基因预测 | Multi-RNA-seq Gene Prediction
 ```bash
 run_augustus_multi_rnaseq -g genome.fa -i fastq_dir -s species
@@ -108,6 +132,15 @@ run_augustus_multi_rnaseq -g genome.fa -i fastq_dir -s species
 - 结合多个转录组数据 | Integrate multiple RNA-seq datasets
 - Augustus基因结构预测 | Augustus gene structure prediction
 - 自动化流程管理 | Automated pipeline management
+
+#### **run_annovar** - 变异注释工具 | Variant Annotation Tool
+```bash
+run_annovar -v input.vcf -d database_dir -o output_dir
+```
+**功能** | **Features**:
+- ANNOVAR变异功能注释 | ANNOVAR variant functional annotation
+- 多数据库整合注释 | Multi-database integrated annotation
+- 可定制注释流程 | Customizable annotation workflow
 
 ### 变异分析 | Variant Analysis
 
@@ -138,6 +171,27 @@ run_vcf_pca -v input.vcf -o output_dir
 - 主成分分析可视化 | PCA visualization
 - 样本聚类分析 | Sample clustering analysis
 
+#### **run_vcf_ld_heatmap** - VCF连锁不平衡热图生成器 | VCF Linkage Disequilibrium Heatmap Generator
+```bash
+run_vcf_ld_heatmap -i variants.vcf -o ld_heatmap.png
+```
+**功能** | **Features**:
+- 从VCF文件生成连锁不平衡热图 | Generate LD heatmaps from VCF files
+- 支持区域指定和样本过滤 | Support region specification and sample filtering
+- 可自定义图形参数和输出格式 | Customizable graphics parameters and output formats
+
+### 系统发育分析 | Phylogenetic Analysis
+
+#### **run_vcf_njtree** - VCF系统发育分析 | VCF Phylogenetic Analysis
+```bash
+run_vcf_njtree -i variants.vcf -o phylo_results
+```
+**功能** | **Features**:
+- VCF文件到距离矩阵转换 | VCF to distance matrix conversion
+- 邻接法系统发育树构建 | Neighbor-joining phylogenetic tree construction
+- 多种输出格式支持 | Multiple output format support
+- 自动化结果验证 | Automated result validation
+
 ### 群体遗传学分析 | Population Genetics Analysis
 
 #### **run_admixture** - 群体结构分析 | Population Structure Analysis
@@ -157,36 +211,6 @@ run_plink_gwas -v input.vcf -p phenotype.txt -o output_dir
 - PLINK GWAS分析流程 | PLINK GWAS analysis pipeline
 - 群体分层控制 | Population stratification control
 - 曼哈顿图和QQ图生成 | Manhattan and QQ plot generation
-
-#### run_vcf_ld_heatmap - VCF连锁不平衡热图生成器 | VCF Linkage Disequilibrium Heatmap Generator
-```
-bashrun_vcf_ld_heatmap -i variants.vcf -o ld_heatmap.png
-```
-功能 | Features:
-
-从VCF文件生成连锁不平衡热图 | Generate LD heatmaps from VCF files
-支持区域指定和样本过滤 | Support region specification and sample filtering
-可自定义图形参数和输出格式 | Customizable graphics parameters and output formats
-
-### 基因组注释与分析 | Genome Annotation & Analysis
-
-#### **run_annovar** - 变异注释工具 | Variant Annotation Tool
-```bash
-run_annovar -v input.vcf -d database_dir -o output_dir
-```
-**功能** | **Features**:
-- ANNOVAR变异功能注释 | ANNOVAR variant functional annotation
-- 多数据库整合注释 | Multi-database integrated annotation
-- 可定制注释流程 | Customizable annotation workflow
-
-#### **parse_gene_info** - 基因信息解析 | Gene Information Parsing
-```bash
-parse_gene_info -g annotation.gff -o output_dir
-```
-**功能** | **Features**:
-- GFF/GTF文件解析 | GFF/GTF file parsing
-- 基因结构信息提取 | Gene structure information extraction
-- 注释信息标准化 | Annotation information standardization
 
 ### K-mer分析 | K-mer Analysis
 
@@ -209,6 +233,15 @@ run_kmer_pav -i genome_list.txt -k 31 -o output_dir
 - 结构变异识别 | Structural variation identification
 
 ### 实用工具 | Utility Tools
+
+#### **parse_gene_info** - 基因信息解析 | Gene Information Parsing
+```bash
+parse_gene_info -g annotation.gff -o output_dir
+```
+**功能** | **Features**:
+- GFF/GTF文件解析 | GFF/GTF file parsing
+- 基因结构信息提取 | Gene structure information extraction
+- 注释信息标准化 | Annotation information standardization
 
 #### **parse_longest_mrna** - 最长转录本提取 | Longest Transcript Extraction
 ```bash
@@ -261,17 +294,34 @@ run_fastp --help
 run_fastp -i raw_data -o clean_data -t 16 -q 30
 ```
 
-### 流程组合 | Pipeline Combination
+### 流程组合示例 | Pipeline Combination Examples
 
+#### 完整基因组分析流程 | Complete Genome Analysis Pipeline
 ```bash
-# 完整的RNA-seq分析流程 | Complete RNA-seq analysis pipeline
-# 1. 数据质控 | Data quality control
+# 1. 数据获取 | Data acquisition
+run_ena_downloader -a PRJNA661210 -p ftp -m save
+
+# 2. 数据质控 | Data quality control
 run_fastp -i raw_fastq -o clean_fastq -t 16
 
-# 2. 序列比对和定量 | Alignment and quantification  
+# 3. 基因预测 | Gene prediction
+run_augustus_prediction -s MyGenome -g genome.fa -a reference.gff3
+
+# 4. 变异分析 | Variant analysis
+run_vcf_pca -v variants.vcf -o pca_results
+run_vcf_njtree -i variants.vcf -o phylo_tree
+```
+
+#### RNA-seq分析流程 | RNA-seq Analysis Pipeline
+```bash
+# 1. 质控 | Quality control
+run_fastp -i raw_fastq -o clean_fastq -t 16
+
+# 2. 比对和定量 | Alignment and quantification  
 run_rnaseq -g genome.fa -a annotation.gtf -i clean_fastq -o rnaseq_results
 
-# 3. 差异表达分析 (后续分析) | Differential expression analysis (downstream)
+# 3. 多转录组基因预测 | Multi-RNA-seq gene prediction
+run_augustus_multi_rnaseq -g genome.fa -i clean_fastq -s species
 ```
 
 ---
@@ -286,6 +336,7 @@ Each module generates detailed analysis reports and result files, including:
 - **统计报告** | **Statistical Reports**: 数据处理和分析统计 | Data processing and analysis statistics  
 - **可视化图表** | **Visualization Charts**: 结果图表和质量控制图 | Result charts and quality control plots
 - **标准格式输出** | **Standard Format Output**: 兼容下游分析的标准文件格式 | Standard file formats compatible with downstream analysis
+- **系统发育树** | **Phylogenetic Trees**: Newick格式的系统发育树文件 | Newick format phylogenetic tree files
 
 ---
 
@@ -301,6 +352,7 @@ Each module generates detailed analysis reports and result files, including:
 - **ANNOVAR**: 变异注释 | Variant annotation
 - **Augustus**: 基因预测 | Gene prediction
 - **RepeatMasker**: 重复序列分析 | Repeat sequence analysis
+- **VCF2Dis**: VCF距离矩阵计算 | VCF distance matrix calculation
 
 ### Python依赖 | Python Dependencies
 ```
@@ -311,6 +363,8 @@ python-rocksdb
 scikit-learn>=1.0.0
 matplotlib>=3.5.0
 seaborn>=0.11.0
+scikit-bio>=0.5.7
+requests>=2.25.0
 ```
 
 ---
@@ -380,10 +434,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### v1.18.0
 - ✨ 增加run_vcf_njtree模块 | Added run_vcf_njtree module
-- 🐛 修复run_admixture模块染色体编号问题 | Fix  chromosome numbering issue in run_admixture
+- 🐛 修复run_admixture模块染色体编号问题 | Fix chromosome numbering issue in run_admixture
 
 ### v1.17.0
-- ✨ 增加run_augustus_prediction模块 | Added run_augustus_prediction
+- ✨ 增加run_augustus_prediction模块 | Added run_augustus_prediction module
 
 ### v1.16.0
 - ✨ 增加run_ena_downloader模块 | Added run_ena_downloader module
@@ -446,8 +500,8 @@ Thanks to all developers and users who have contributed to the biopytools projec
 
 Special thanks to the following open source projects:
 
-- fastp, HISAT2, StringTie, minimap2, PLINK, ADMIXTURE, ANNOVAR, Augustus, RepeatMasker等优秀的生物信息学工具
-- pandas, numpy, matplotlib等Python科学计算库
+- fastp, HISAT2, StringTie, minimap2, PLINK, ADMIXTURE, ANNOVAR, Augustus, RepeatMasker, VCF2Dis等优秀的生物信息学工具
+- pandas, numpy, matplotlib, scikit-bio等Python科学计算库
 
 ---
 
