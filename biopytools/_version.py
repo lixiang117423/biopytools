@@ -9,8 +9,8 @@ from datetime import datetime
 from typing import Dict, Tuple, Any
 
 # 版本信息
-__version__ = "1.18.0"
-__version_info__ = (1, 18, 0)
+__version__ = "1.18.1"
+__version_info__ = (1, 18, 1)
 
 # 版本状态
 VERSION_STATUS = "stable"  # alpha, beta, rc, stable
