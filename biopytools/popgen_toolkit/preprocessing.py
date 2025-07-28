@@ -101,7 +101,9 @@ class VCFPreprocessor:
         self.logger.info("开始VCF质量控制 | Starting VCF quality control")
         
         input_vcf = self.config.vcf_file
+        # 使用绝对路径 | Use absolute path
         output_vcf = self.config.output_path / f"{self.config.base_name}_qc.vcf.gz"
+        output_vcf_abs = output_vcf.resolve()
         
         # 获取正确的VCFtools输入参数 | Get correct VCFtools input parameter
         vcf_input_param = self.config.get_vcftools_input_param()
@@ -109,6 +111,8 @@ class VCFPreprocessor:
         self.logger.info(f"检测到VCF文件格式: {'压缩' if self.config.is_compressed else '未压缩'} | "
                         f"Detected VCF format: {'compressed' if self.config.is_compressed else 'uncompressed'}")
         self.logger.info(f"使用VCFtools参数: {vcf_input_param} | Using VCFtools parameter: {vcf_input_param}")
+        self.logger.info(f"输入文件: {input_vcf} | Input file: {input_vcf}")
+        self.logger.info(f"输出文件: {output_vcf_abs} | Output file: {output_vcf_abs}")
         
         # 构建过滤命令 | Build filtering command
         filter_params = [
@@ -124,26 +128,42 @@ class VCFPreprocessor:
             "--recode-INFO-all"
         ]
         
-        # 修复：使用正确的VCFtools参数处理压缩文件 | Fix: Use correct VCFtools parameter for compressed files
-        cmd = f"{self.config.vcftools_path} {vcf_input_param} {input_vcf} {' '.join(filter_params)} --out {output_vcf.stem}"
+        # 使用绝对路径构建命令 | Build command with absolute paths
+        output_prefix = output_vcf_abs.with_suffix('').with_suffix('')  # 移除.vcf.gz扩展名
+        cmd = f"{self.config.vcftools_path} {vcf_input_param} {input_vcf} {' '.join(filter_params)} --out {output_prefix}"
         
         success = self.cmd_runner.run(cmd, "VCF质量控制过滤 | VCF quality control filtering")
         
         if success:
-            recode_file = self.config.output_path / f"{self.config.base_name}_qc.recode.vcf"
+            # 检查生成的.recode.vcf文件 | Check generated .recode.vcf file
+            recode_file = Path(f"{output_prefix}.recode.vcf")
             if recode_file.exists():
                 # 压缩过滤后的VCF文件 | Compress filtered VCF file
-                bgzip_cmd = f"bgzip -c {recode_file} > {output_vcf}"
-                self.cmd_runner.run(bgzip_cmd, "压缩过滤后的VCF文件 | Compressing filtered VCF file")
+                bgzip_cmd = f"bgzip -c {recode_file} > {output_vcf_abs}"
+                compress_success = self.cmd_runner.run(bgzip_cmd, "压缩过滤后的VCF文件 | Compressing filtered VCF file")
                 
-                # 清理临时文件 | Clean up temporary files
+                if compress_success:
+                    # 清理临时文件 | Clean up temporary files
+                    try:
+                        recode_file.unlink()
+                        self.logger.info(f"清理临时文件: {recode_file} | Cleaned up temporary file: {recode_file}")
+                    except Exception as e:
+                        self.logger.warning(f"清理临时文件失败: {e} | Failed to clean up temporary file: {e}")
+                    
+                    self.logger.info(f"质控完成，输出文件: {output_vcf_abs} | QC completed, output file: {output_vcf_abs}")
+                    return str(output_vcf_abs)
+                else:
+                    self.logger.error("压缩VCF文件失败 | Failed to compress VCF file")
+                    return None
+            else:
+                self.logger.error(f"VCFtools没有生成预期的文件: {recode_file} | VCFtools did not generate expected file: {recode_file}")
+                # 列出输出目录中的文件以帮助调试 | List files in output directory for debugging
                 try:
-                    recode_file.unlink()
-                    self.logger.info(f"清理临时文件: {recode_file} | Cleaned up temporary file: {recode_file}")
-                except Exception as e:
-                    self.logger.warning(f"清理临时文件失败: {e} | Failed to clean up temporary file: {e}")
-            
-            return str(output_vcf)
+                    output_files = list(self.config.output_path.iterdir())
+                    self.logger.info(f"输出目录中的文件: {[f.name for f in output_files]} | Files in output directory: {[f.name for f in output_files]}")
+                except:
+                    pass
+                return None
         
         return None
     

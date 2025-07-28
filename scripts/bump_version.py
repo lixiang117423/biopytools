@@ -304,7 +304,7 @@ def main():
         print("\n下一步操作:")
         print("1. 更新 CHANGELOG.md")
         print("2. 运行测试确保一切正常")
-        print("3. 提交更改并推送到远程: git add . && git commit -m 'bump version to {}'".format(new_version), " && git push origin main")
+        print("3. 提交更改并推送到远程: git add . && git commit -m 'bump version to {}'".format(new_version), "&& git push origin main")
         
         # if args.status == 'stable':
         #     print("4. 创建标签: git tag v{}".format(new_version))

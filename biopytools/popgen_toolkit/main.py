@@ -360,7 +360,11 @@ class PopulationGeneticsAnalyzer:
             
             # 步骤8: 处理和总结结果 | Step 8: Process and summarize results
             self.logger.info("\n步骤8: 处理和总结结果 | Step 8: Process and summarize results")
+            
+            # 处理所有结果 | Process all results
             self.results_processor.process_all_results()
+            
+            # 生成总结报告 | Generate summary report
             summary_file = self.summary_generator.generate_summary()
             
             # 完成信息 | Completion information

@@ -432,6 +432,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 更新日志 | Changelog
 
+### v1.19.0
+- ✨ 增加run_haplotype_extractor模块 | Added run_haplotype
+
 ### v1.18.3
 - ✨ 修复 run_popgen_analysis模块软件路径检查bug | Fix run_popgen_analysis module
 
