@@ -283,9 +283,17 @@ class PlinkGWAS:
             self.logger.info("步骤5: 数据质量控制 | Step 5: Data quality control")
             self.quality_controller.quality_control()
             
+            # # 6. 群体结构分析 | Population structure analysis
+            # self.logger.info("步骤6: 群体结构分析 | Step 6: Population structure analysis")
+            # self.population_analyzer.population_analysis()
+            
             # 6. 群体结构分析 | Population structure analysis
             self.logger.info("步骤6: 群体结构分析 | Step 6: Population structure analysis")
             self.population_analyzer.population_analysis()
+
+            # # 7. 关联分析 | Association analysis
+            # self.logger.info("步骤7: 关联分析 | Step 7: Association analysis")
+            # main_result = self.association_analyzer.association_analysis(use_pca=True)
             
             # 7. 关联分析 | Association analysis
             self.logger.info("步骤7: 关联分析 | Step 7: Association analysis")
@@ -431,6 +439,12 @@ python run_plink_gwas.py -v data.vcf.gz -p pheno.txt -t quantitative -m additive
                          help='遗传模型 | Genetic model (default: additive)')
     analysis.add_argument('-o', '--output-dir', default='gwas_results',
                          help='输出目录 | Output directory (default: gwas_results)')
+    # --- 新增代码开始 ---
+    analysis.add_argument('--no-strat-corr', 
+                         action='store_false', 
+                         dest='population_strat_correction',
+                         help='禁用群体结构校正（跳过LD剪枝和PCA）| Disable population stratification correction (skip LD pruning and PCA)')
+    # --- 新增代码结束 ---
     
     # 质量控制参数 | Quality control parameters
     qc = parser.add_argument_group('质量控制参数 | Quality control parameters')
@@ -478,6 +492,13 @@ python run_plink_gwas.py -v data.vcf.gz -p pheno.txt -t quantitative -m additive
                         help='使用的线程数 | Number of threads (default: 1)')
     
     args = parser.parse_args()
+
+    # --- 新增代码开始 ---
+    # 确保在创建实例前设置好默认值
+    # 这一步可以省略，因为 dataclass 已经有默认值，但这样做更明确
+    if 'population_strat_correction' not in args:
+        args.population_strat_correction = True
+    # --- 新增代码结束 ---
     
     try:
         # 创建PLINK GWAS分析器 | Create PLINK GWAS analyzer

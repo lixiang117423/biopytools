@@ -101,6 +101,12 @@ class PlinkGWASConfig:
     
     # 表型类型 | Trait type
     trait_type: str = "qualitative"  # "qualitative" or "quantitative"
+
+    # --- 新增代码开始 ---
+    # 是否进行群体结构校正（LD剪枝和PCA）
+    # Whether to perform population stratification correction (LD pruning and PCA)
+    population_strat_correction: bool = True
+    # --- 新增代码结束 ---
     
     # 遗传模型参数 | Genetic model parameters
     genetic_model: str = "additive"  # "additive", "dominant", "recessive", "all"

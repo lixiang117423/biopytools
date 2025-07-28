@@ -432,6 +432,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 更新日志 | Changelog
 
+### v1.18.2
+- ✨ 修复 run_popgen_analysis模块 | Fix run_popgen_analysis module
+
 ### v1.18.0
 - ✨ 增加run_vcf_njtree模块 | Added run_vcf_njtree module
 - 🐛 修复run_admixture模块染色体编号问题 | Fix chromosome numbering issue in run_admixture
