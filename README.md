@@ -432,6 +432,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 更新日志 | Changelog
 
+### v1.19.1
+-  🐛 替换run_vcf_filter中的PLINK，使用BCFtools | Replace PLINK in run_vcf_filter with BCFtools
+
 ### v1.19.0
 - ✨ 增加run_haplotype_extractor模块 | Added run_haplotype
 
