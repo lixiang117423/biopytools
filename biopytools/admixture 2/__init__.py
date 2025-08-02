@@ -2,7 +2,7 @@
 ADMIXTURE群体结构分析工具包 | ADMIXTURE Population Structure Analysis Toolkit
 功能: VCF到ADMIXTURE分析的完整流程，支持群体结构分析和协变量生成 | 
 Features: Complete pipeline from VCF to ADMIXTURE analysis, supporting population structure analysis and covariate generation
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v1.0 - 模块化重构版 | Modular refactored version
 日期 | Date: 2025-07-17
 
@@ -36,7 +36,7 @@ Features: Complete pipeline from VCF to ADMIXTURE analysis, supporting populatio
 """
 
 __version__ = "1.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import AdmixtureAnalyzer
 from .config import AdmixtureConfig

@@ -26,15 +26,18 @@ A Python package integrating various bioinformatics analysis tools with unified 
 - Python 3.10+
 - 推荐使用conda/mamba进行环境管理 | Recommended to use conda/mamba for environment management
 
+### 从PyPI安装 | Install from PyPI
+
+```bash
+pip install biopytools
+```
+
 ### 从源码安装 | Install from Source
 
 ```bash
 # 创建虚拟环境 | Create virtual environment
-mamba create -n biopytools python=3.10 
-mamba activate biopytools
-
-# 安装依赖 | Install dependencies
-mamba install conda-forge::python-rocksdb
+conda create -n biopytools python=3.10 
+conda activate biopytools
 
 # 克隆并安装 | Clone and install
 git clone https://github.com/lixiang117423/biopytools.git
@@ -42,10 +45,20 @@ cd biopytools
 pip install -e .
 ```
 
-### 安装开发依赖 | Install Development Dependencies
+### 安装依赖 | Install Dependencies
 
+核心依赖包将自动安装：
 ```bash
-pip install -e ".[dev]"
+# 核心依赖 | Core dependencies
+pyfastx>=0.8.4
+python-rocksdb
+pandas>=1.3.0
+numpy>=1.20.0
+
+# 可选分析依赖 | Optional analysis dependencies
+scikit-learn>=1.0.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
 ```
 
 ### 验证安装 | Verify Installation
@@ -56,6 +69,9 @@ python -c "import biopytools; biopytools.show_version()"
 
 # 检查可用模块 | Check available modules
 python -c "import biopytools; biopytools.list_modules()"
+
+# 检查依赖 | Check dependencies
+python -c "import biopytools; biopytools.check_dependencies()"
 ```
 
 ---
@@ -64,202 +80,139 @@ python -c "import biopytools; biopytools.list_modules()"
 
 ### 数据获取与质控 | Data Acquisition & Quality Control
 
-#### **run_ena_downloader** - ENA数据下载工具 | ENA Data Download Tool
+#### **run_ena_downloader** - ENA数据下载工具
 ```bash
 run_ena_downloader -a PRJNA661210 -p ftp -m save
 ```
-**功能** | **Features**: 
-- 自动元数据下载 | Automatic metadata download
-- 多协议支持（FTP/Aspera）| Multiple protocol support (FTP/Aspera)
-- 批量FASTQ文件下载 | Batch FASTQ file download
-- 灵活的输出格式 | Flexible output formats
+**功能**: 自动元数据下载、多协议支持(FTP/Aspera)、批量FASTQ文件下载
 
-#### **run_fastp** - 高速FASTQ质控工具 | High-speed FASTQ Quality Control
+#### **run_fastp** - 高速FASTQ质控工具
 ```bash
 run_fastp -i input_dir -o output_dir -t 16
 ```
-**功能** | **Features**: 
-- 自动适应接头去除 | Adaptive adapter trimming
-- 质量过滤和长度过滤 | Quality and length filtering  
-- HTML和JSON报告生成 | HTML and JSON report generation
+**功能**: 自动适应接头去除、质量过滤和长度过滤、HTML和JSON报告生成
 
-#### **run_rnaseq** - RNA测序分析流程 | RNA-seq Analysis Pipeline
+#### **run_rnaseq** - RNA测序分析流程
 ```bash
 run_rnaseq -g genome.fa -a annotation.gtf -i fastq_dir -o output_dir
 ```
-**功能** | **Features**:
-- HISAT2序列比对 | HISAT2 alignment
-- StringTie转录本定量 | StringTie transcript quantification
-- 表达矩阵合并 | Expression matrix merging
+**功能**: HISAT2序列比对、StringTie转录本定量、表达矩阵合并
 
 ### 基因组分析 | Genomic Analysis
 
-#### **run_minimap2** - 长读序列比对工具 | Long-read Alignment Tool
+#### **run_minimap2** - 长读序列比对工具
 ```bash
 run_minimap2 -r reference.fa -i reads.fastq -o output_dir
 ```
-**功能** | **Features**:
-- 支持多种测序技术 | Support various sequencing technologies
-- 高效的长读序列比对 | Efficient long-read alignment
-- 灵活的参数配置 | Flexible parameter configuration
+**功能**: 支持多种测序技术、高效的长读序列比对、灵活的参数配置
 
-#### **run_repeat_masker** - 重复序列分析 | Repeat Sequence Analysis
+#### **run_repeat_masker** - 重复序列分析
 ```bash
 run_repeat_masker -g genome.fa -s species -o output_dir
 ```
-**功能** | **Features**:
-- RepeatMasker重复序列屏蔽 | RepeatMasker repeat masking
-- RepeatModeler从头预测 | RepeatModeler de novo prediction
-- TRF串联重复检测 | TRF tandem repeat detection
+**功能**: RepeatMasker重复序列屏蔽、RepeatModeler从头预测、TRF串联重复检测
 
 ### 基因预测与注释 | Gene Prediction & Annotation
 
-#### **run_augustus_prediction** - Augustus基因预测训练流程 | Augustus Gene Prediction Training Pipeline
+#### **run_augustus_prediction** - Augustus基因预测训练流程
 ```bash
 run_augustus_prediction -s MySpecies -g genome.fa -a annotations.gff3
 ```
-**功能** | **Features**:
-- 完整的Augustus模型训练 | Complete Augustus model training
-- 自动数据集拆分和验证 | Automatic dataset splitting and validation
-- 预测性能评估 | Prediction performance evaluation
-- 标准化结果输出 | Standardized result output
+**功能**: 完整的Augustus模型训练、自动数据集拆分和验证、预测性能评估
 
-#### **run_augustus_multi_rnaseq** - 多转录组基因预测 | Multi-RNA-seq Gene Prediction
+#### **run_augustus_multi_rnaseq** - 多转录组基因预测
 ```bash
 run_augustus_multi_rnaseq -g genome.fa -i fastq_dir -s species
 ```
-**功能** | **Features**:
-- 结合多个转录组数据 | Integrate multiple RNA-seq datasets
-- Augustus基因结构预测 | Augustus gene structure prediction
-- 自动化流程管理 | Automated pipeline management
+**功能**: 结合多个转录组数据、Augustus基因结构预测、自动化流程管理
 
-#### **run_annovar** - 变异注释工具 | Variant Annotation Tool
+#### **run_annovar** - 变异注释工具
 ```bash
 run_annovar -v input.vcf -d database_dir -o output_dir
 ```
-**功能** | **Features**:
-- ANNOVAR变异功能注释 | ANNOVAR variant functional annotation
-- 多数据库整合注释 | Multi-database integrated annotation
-- 可定制注释流程 | Customizable annotation workflow
+**功能**: ANNOVAR变异功能注释、多数据库整合注释、可定制注释流程
 
 ### 变异分析 | Variant Analysis
 
-#### **run_vcf_extractor** - VCF基因型提取 | VCF Genotype Extraction
+#### **run_vcf_extractor** - VCF基因型提取
 ```bash
 run_vcf_extractor -v input.vcf -o output_dir
 ```
-**功能** | **Features**:
-- 高效的基因型数据提取 | Efficient genotype data extraction
-- 支持大规模VCF文件 | Support large-scale VCF files
-- 多种输出格式 | Multiple output formats
+**功能**: 高效的基因型数据提取、支持大规模VCF文件、多种输出格式
 
-#### **parse_sequence_vcf** - VCF序列工具包 | VCF Sequence Toolkit
+#### **parse_sequence_vcf** - VCF序列工具包
 ```bash
 parse_sequence_vcf -v input.vcf -g genome.fa -o output
 ```
-**功能** | **Features**:
-- VCF变异序列解析 | VCF variant sequence parsing
-- 序列坐标转换 | Sequence coordinate conversion
-- 变异效应预测 | Variant effect prediction
+**功能**: VCF变异序列解析、序列坐标转换、变异效应预测
 
-#### **run_vcf_pca** - VCF主成分分析 | VCF Principal Component Analysis
+#### **run_vcf_pca** - VCF主成分分析
 ```bash
 run_vcf_pca -v input.vcf -o output_dir
 ```
-**功能** | **Features**:
-- 群体遗传结构分析 | Population genetic structure analysis
-- 主成分分析可视化 | PCA visualization
-- 样本聚类分析 | Sample clustering analysis
+**功能**: 群体遗传结构分析、主成分分析可视化、样本聚类分析
 
-#### **run_vcf_ld_heatmap** - VCF连锁不平衡热图生成器 | VCF Linkage Disequilibrium Heatmap Generator
+#### **run_vcf_ld_heatmap** - VCF连锁不平衡热图生成器
 ```bash
 run_vcf_ld_heatmap -i variants.vcf -o ld_heatmap.png
 ```
-**功能** | **Features**:
-- 从VCF文件生成连锁不平衡热图 | Generate LD heatmaps from VCF files
-- 支持区域指定和样本过滤 | Support region specification and sample filtering
-- 可自定义图形参数和输出格式 | Customizable graphics parameters and output formats
+**功能**: 从VCF文件生成连锁不平衡热图、支持区域指定和样本过滤
 
 ### 系统发育分析 | Phylogenetic Analysis
 
-#### **run_vcf_njtree** - VCF系统发育分析 | VCF Phylogenetic Analysis
+#### **run_vcf_njtree** - VCF系统发育分析
 ```bash
 run_vcf_njtree -i variants.vcf -o phylo_results
 ```
-**功能** | **Features**:
-- VCF文件到距离矩阵转换 | VCF to distance matrix conversion
-- 邻接法系统发育树构建 | Neighbor-joining phylogenetic tree construction
-- 多种输出格式支持 | Multiple output format support
-- 自动化结果验证 | Automated result validation
+**功能**: VCF文件到距离矩阵转换、邻接法系统发育树构建、多种输出格式支持
 
 ### 群体遗传学分析 | Population Genetics Analysis
 
-#### **run_admixture** - 群体结构分析 | Population Structure Analysis
+#### **run_admixture** - 群体结构分析
 ```bash
 run_admixture -v input.vcf -o output_dir -k 2 -K 10
 ```
-**功能** | **Features**:
-- ADMIXTURE群体结构推断 | ADMIXTURE population structure inference
-- 交叉验证最优K值选择 | Cross-validation for optimal K selection
-- 协变量生成和可视化 | Covariate generation and visualization
+**功能**: ADMIXTURE群体结构推断、交叉验证最优K值选择、协变量生成和可视化
 
-#### **run_plink_gwas** - 全基因组关联分析 | Genome-wide Association Study
+#### **run_plink_gwas** - 全基因组关联分析
 ```bash
 run_plink_gwas -v input.vcf -p phenotype.txt -o output_dir
 ```
-**功能** | **Features**:
-- PLINK GWAS分析流程 | PLINK GWAS analysis pipeline
-- 群体分层控制 | Population stratification control
-- 曼哈顿图和QQ图生成 | Manhattan and QQ plot generation
+**功能**: PLINK GWAS分析流程、群体分层控制、曼哈顿图和QQ图生成
 
 ### K-mer分析 | K-mer Analysis
 
-#### **run_kmer_analysis** - K-mer频率分析 | K-mer Frequency Analysis
+#### **run_kmer_analysis** - K-mer频率分析
 ```bash
 run_kmer_analysis -i input.fasta -k 21 -o output_dir
 ```
-**功能** | **Features**:
-- 高效的K-mer计数 | Efficient K-mer counting
-- 频率分布统计 | Frequency distribution statistics
-- 可视化分析结果 | Visualization of analysis results
+**功能**: 高效的K-mer计数、频率分布统计、可视化分析结果
 
-#### **run_kmer_pav** - K-mer存在/缺失变异分析 | K-mer Presence/Absence Variation Analysis
+#### **run_kmer_pav** - K-mer存在/缺失变异分析
 ```bash
 run_kmer_pav -i genome_list.txt -k 31 -o output_dir
 ```
-**功能** | **Features**:
-- 基于K-mer的PAV检测 | K-mer based PAV detection
-- 基因组比较分析 | Comparative genomic analysis
-- 结构变异识别 | Structural variation identification
+**功能**: 基于K-mer的PAV检测、基因组比较分析、结构变异识别
 
 ### 实用工具 | Utility Tools
 
-#### **parse_gene_info** - 基因信息解析 | Gene Information Parsing
+#### **parse_gene_info** - 基因信息解析
 ```bash
 parse_gene_info -g annotation.gff -o output_dir
 ```
-**功能** | **Features**:
-- GFF/GTF文件解析 | GFF/GTF file parsing
-- 基因结构信息提取 | Gene structure information extraction
-- 注释信息标准化 | Annotation information standardization
+**功能**: GFF/GTF文件解析、基因结构信息提取、注释信息标准化
 
-#### **parse_longest_mrna** - 最长转录本提取 | Longest Transcript Extraction
+#### **parse_longest_mrna** - 最长转录本提取
 ```bash
 parse_longest_mrna -g annotation.gtf -o longest.gtf
 ```
-**功能** | **Features**:
-- 每个基因最长转录本选择 | Select longest transcript per gene
-- 注释文件简化 | Annotation file simplification
-- 下游分析准备 | Preparation for downstream analysis
+**功能**: 每个基因最长转录本选择、注释文件简化、下游分析准备
 
-#### **parse_sample_hete** - 样本杂合度统计 | Sample Heterozygosity Statistics
+#### **parse_sample_hete** - 样本杂合度统计
 ```bash
 parse_sample_hete -v input.vcf -o heterozygosity.txt
 ```
-**功能** | **Features**:
-- 个体杂合度计算 | Individual heterozygosity calculation
-- 群体遗传多样性评估 | Population genetic diversity assessment
-- 统计结果可视化 | Statistical result visualization
+**功能**: 个体杂合度计算、群体遗传多样性评估、统计结果可视化
 
 ---
 
@@ -330,50 +283,59 @@ run_augustus_multi_rnaseq -g genome.fa -i clean_fastq -s species
 
 每个模块都会生成详细的分析报告和结果文件，包括：
 
-Each module generates detailed analysis reports and result files, including:
-
-- **日志文件** | **Log Files**: 详细的运行日志和错误信息 | Detailed run logs and error messages
-- **统计报告** | **Statistical Reports**: 数据处理和分析统计 | Data processing and analysis statistics  
-- **可视化图表** | **Visualization Charts**: 结果图表和质量控制图 | Result charts and quality control plots
-- **标准格式输出** | **Standard Format Output**: 兼容下游分析的标准文件格式 | Standard file formats compatible with downstream analysis
-- **系统发育树** | **Phylogenetic Trees**: Newick格式的系统发育树文件 | Newick format phylogenetic tree files
+- **日志文件**: 详细的运行日志和错误信息
+- **统计报告**: 数据处理和分析统计  
+- **可视化图表**: 结果图表和质量控制图
+- **标准格式输出**: 兼容下游分析的标准文件格式
+- **系统发育树**: Newick格式的系统发育树文件
 
 ---
 
 ## 🔧 依赖软件 | Dependencies
 
 ### 必需软件 | Required Software
-- **fastp**: FASTQ质控 | FASTQ quality control
-- **HISAT2**: RNA-seq比对 | RNA-seq alignment  
-- **StringTie**: 转录本定量 | Transcript quantification
-- **minimap2**: 长读序列比对 | Long-read alignment
-- **PLINK**: 遗传分析 | Genetic analysis
-- **ADMIXTURE**: 群体结构分析 | Population structure analysis
-- **ANNOVAR**: 变异注释 | Variant annotation
-- **Augustus**: 基因预测 | Gene prediction
-- **RepeatMasker**: 重复序列分析 | Repeat sequence analysis
-- **VCF2Dis**: VCF距离矩阵计算 | VCF distance matrix calculation
+- **fastp**: FASTQ质控
+- **HISAT2**: RNA-seq比对  
+- **StringTie**: 转录本定量
+- **minimap2**: 长读序列比对
+- **PLINK**: 遗传分析
+- **ADMIXTURE**: 群体结构分析
+- **ANNOVAR**: 变异注释
+- **Augustus**: 基因预测
+- **RepeatMasker**: 重复序列分析
+- **VCF2Dis**: VCF距离矩阵计算
+- **BCFtools**: VCF文件处理
 
 ### Python依赖 | Python Dependencies
 ```
-pandas>=1.0.0
-numpy>=1.19.0
 pyfastx>=0.8.4
 python-rocksdb
+pandas>=1.3.0
+numpy>=1.20.0
 scikit-learn>=1.0.0
 matplotlib>=3.5.0
 seaborn>=0.11.0
 scikit-bio>=0.5.7
-requests>=2.25.0
+scipy
+scikit-allel
 ```
+
+---
+
+## 🔄 持续集成 | Continuous Integration
+
+项目配置了GitHub Actions自动化流程：
+- 自动构建和测试
+- 自动发布到PyPI
+- 使用Trusted Publishing进行安全发布
 
 ---
 
 ## 📖 文档和示例 | Documentation & Examples
 
-- **完整文档** | **Complete Documentation**: [https://lixiang117423.github.io/article/biopytools-readme/](https://lixiang117423.github.io/article/biopytools-readme/)
-- **使用示例** | **Usage Examples**: 查看各模块目录下的README文件 | Check README files in each module directory
-- **API参考** | **API Reference**: 查看代码中的docstring文档 | Check docstring documentation in code
+- **项目主页**: [GitHub Repository](https://github.com/lixiang117423/biopytools)
+- **使用示例**: 查看各模块目录下的示例文件
+- **API参考**: 查看代码中的docstring文档
 
 ---
 
@@ -381,20 +343,15 @@ requests>=2.25.0
 
 如果您在使用过程中遇到问题，请通过以下方式联系我们：
 
-If you encounter any issues during usage, please contact us through:
-
-- 📧 **邮箱** | **Email**: lixiang117423@gmail.com
+- 📧 **邮箱**: lixiang117423@gmail.com
 - 🐛 **GitHub Issues**: [https://github.com/lixiang117423/biopytools/issues](https://github.com/lixiang117423/biopytools/issues)
-- 💬 **讨论区** | **Discussions**: GitHub Discussions页面 | GitHub Discussions page
+- 💬 **讨论区**: GitHub Discussions页面
 
 提交问题时，请包含以下信息：
-
-When submitting issues, please include:
-
-- 操作系统和Python版本 | Operating system and Python version
-- 完整的错误信息 | Complete error messages
-- 重现问题的最小示例 | Minimal example to reproduce the issue
-- 输入数据的基本信息 | Basic information about input data
+- 操作系统和Python版本
+- 完整的错误信息
+- 重现问题的最小示例
+- 输入数据的基本信息
 
 ---
 
@@ -402,23 +359,21 @@ When submitting issues, please include:
 
 我们欢迎社区贡献！您可以通过以下方式参与项目：
 
-We welcome community contributions! You can participate in the project through:
-
 ### 代码贡献 | Code Contributions
-1. Fork项目仓库 | Fork the repository
-2. 创建功能分支 | Create a feature branch
-3. 提交您的更改 | Commit your changes
-4. 创建Pull Request | Create a Pull Request
+1. Fork项目仓库
+2. 创建功能分支
+3. 提交您的更改
+4. 创建Pull Request
 
 ### 文档改进 | Documentation Improvements
-- 修正文档错误 | Fix documentation errors
-- 添加使用示例 | Add usage examples  
-- 翻译文档内容 | Translate documentation
+- 修正文档错误
+- 添加使用示例  
+- 翻译文档内容
 
 ### 问题报告 | Issue Reporting
-- 报告bugs | Report bugs
-- 提出功能请求 | Suggest feature requests
-- 改进现有功能 | Improve existing features
+- 报告bugs
+- 提出功能请求
+- 改进现有功能
 
 ---
 
@@ -426,76 +381,30 @@ We welcome community contributions! You can participate in the project through:
 
 本项目使用MIT许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
 
 ## 📈 更新日志 | Changelog
 
-### v1.19.1
--  🐛 替换run_vcf_filter中的PLINK，使用BCFtools | Replace PLINK in run_vcf_filter with BCFtools
+### v1.19.1 (Latest)
+- 🐛 替换run_vcf_filter中的PLINK，使用BCFtools
 
 ### v1.19.0
-- ✨ 增加run_haplotype_extractor模块 | Added run_haplotype
+- ✨ 增加run_haplotype_extractor模块
 
 ### v1.18.3
-- ✨ 修复 run_popgen_analysis模块软件路径检查bug | Fix run_popgen_analysis module
+- ✨ 修复run_popgen_analysis模块软件路径检查bug
 
 ### v1.18.0
-- ✨ 增加run_vcf_njtree模块 | Added run_vcf_njtree module
-- 🐛 修复run_admixture模块染色体编号问题 | Fix chromosome numbering issue in run_admixture
+- ✨ 增加run_vcf_njtree模块
+- 🐛 修复run_admixture模块染色体编号问题
 
 ### v1.17.0
-- ✨ 增加run_augustus_prediction模块 | Added run_augustus_prediction module
+- ✨ 增加run_augustus_prediction模块
 
 ### v1.16.0
-- ✨ 增加run_ena_downloader模块 | Added run_ena_downloader module
+- ✨ 增加run_ena_downloader模块
 
-### v1.15.0
-- ✨ 增加run_vcf_ld_heatmap模块 | Added run_vcf_ld_heatmap module
-
-### v1.14.1
-- ✨ 增加run_vcf_pca模块 | Added run_vcf_pca module
-- 🐛 修复parse_sequence_vcf和run_minimap2模块的序列坐标问题 | Fixed sequence coordinate issues in parse_sequence_vcf and run_minimap2 modules
-
-### v1.13.0
-- ✨ 增加parse_sequence_vcf模块 | Added parse_sequence_vcf module
-
-### v1.12.0  
-- ✨ 增加run_repeat_masker模块 | Added run_repeat_masker module
-
-### v1.11.0
-- ✨ 增加run_minimap2模块 | Added run_minimap2 module
-
-### v1.10.0
-- ✨ 增加run_kmer_pav模块 | Added run_kmer_pav module
-
-### v1.9.0
-- ✨ 增加run_admixture模块 | Added run_admixture module
-
-### v1.8.0
-- ✨ 增加run_augustus_multi_rnaseq模块 | Added run_augustus_multi_rnaseq module
-
-### v1.7.0
-- ✨ 增加parse_sample_hete模块 | Added parse_sample_hete module
-
-### v1.6.0
-- ✨ 增加parse_longest_mrna模块 | Added parse_longest_mrna module
-
-### v1.5.0
-- ✨ 增加run_kmer_analysis模块 | Added run_kmer_analysis module
-
-### v1.4.0
-- ✨ 增加run_plink_gwas模块 | Added run_plink_gwas module
-
-### v1.3.0
-- ✨ 增加parse_gene_info模块 | Added parse_gene_info module
-- ✨ 增加run_annovar模块 | Added run_annovar module  
-- ✨ 增加run_vcf_extractor模块 | Added run_vcf_extractor module
-
-### v1.1.0
-- ✨ 增加run_fastp模块 | Added run_fastp module
-- ✨ 增加run_rnaseq模块 | Added run_rnaseq module
+[查看完整更新日志...](CHANGELOG.md)
 
 ---
 
@@ -503,12 +412,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 感谢所有为biopytools项目做出贡献的开发者和用户！
 
-Thanks to all developers and users who have contributed to the biopytools project!
-
 特别感谢以下开源项目：
-
-Special thanks to the following open source projects:
-
 - fastp, HISAT2, StringTie, minimap2, PLINK, ADMIXTURE, ANNOVAR, Augustus, RepeatMasker, VCF2Dis等优秀的生物信息学工具
 - pandas, numpy, matplotlib, scikit-bio等Python科学计算库
 
@@ -518,8 +422,6 @@ Special thanks to the following open source projects:
 
 **⭐ 如果这个项目对您有帮助，请给我们一个Star！**
 
-**⭐ If this project helps you, please give us a Star!**
-
-[🏠 项目主页 | Homepage](https://github.com/lixiang117423/biopytools) • [📚 文档 | Documentation](https://lixiang117423.github.io/article/biopytools-readme/) • [🐛 问题反馈 | Issues](https://github.com/lixiang117423/biopytools/issues)
+[🏠 项目主页](https://github.com/lixiang117423/biopytools) • [📚 文档](https://lixiang117423.github.io/article/biopytools-readme/) • [🐛 问题反馈](https://github.com/lixiang117423/biopytools/issues)
 
 </div>
