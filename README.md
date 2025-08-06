@@ -10,14 +10,6 @@ BioPyTools 是一个专为生物信息学研究设计的Python工具包，提供
 
 BioPyTools is a Python toolkit designed for bioinformatics research, providing a series of commonly used biological data analysis functions.
 
-## 主要特性 | Key Features
-
-- 🧬 序列分析工具 | Sequence analysis tools
-- 📊 数据处理功能 | Data processing functions  
-- 📈 统计分析方法 | Statistical analysis methods
-- 🎨 数据可视化 | Data visualization
-- 🔧 实用工具函数 | Utility functions
-
 ## 系统要求 | Requirements
 
 - Python >= 3.8
