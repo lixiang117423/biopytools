@@ -28,6 +28,10 @@ cd biopytools
 pip install -e .
 ```
 
+## 使用方法
+
+- [parse_gene_info](docs/parse_gene_info.md)
+
 
 ### 贡献代码 | Contributing
 

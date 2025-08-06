@@ -257,7 +257,7 @@ biopytools/ncbi_downloader/*
 run_ncbi_downloader.py
 modules/*
 example/*
-docs/*
+; docs/*
 build/*
 biopytools.egg-info/*
 scripts/*
