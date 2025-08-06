@@ -27,11 +27,6 @@ BioPyTools is a Python toolkit designed for bioinformatics research, providing a
 
 ## 安装方法 | Installation
 
-### 从PyPI安装 | Install from PyPI
-
-```bash
-pip install biopytools
-```
 
 ### 从源码安装 | Install from source
 
@@ -41,13 +36,6 @@ cd biopytools
 pip install -e .
 ```
 
-### 开发模式安装 | Development installation
-
-```bash
-git clone https://github.com/lixiang117423/biopytools.git
-cd biopytools
-pip install -e .[dev]
-```
 
 ### 贡献代码 | Contributing
 
@@ -59,29 +47,6 @@ pip install -e .[dev]
 4. 推送到分支 | Push to the branch (`git push origin feature/amazing-feature`)
 5. 创建Pull Request | Create a Pull Request
 
-### 开发环境设置 | Development Setup
-
-```bash
-# 克隆仓库 | Clone repository
-git clone https://github.com/lixiang117423/biopytools.git
-cd biopytools
-
-# 创建虚拟环境 | Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# 安装开发依赖 | Install development dependencies
-pip install -e .[dev]
-
-# 安装pre-commit钩子 | Install pre-commit hooks
-pre-commit install
-```
-
-## 版本历史 | Version History
-
-### v1.21.0 (开发中 | In Development)
-- 初始版本 | Initial release
-- 基础功能实现 | Basic functionality implemented
 
 ## 许可证 | License
 
