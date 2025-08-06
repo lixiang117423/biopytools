@@ -261,6 +261,8 @@ docs/*
 build/*
 biopytools.egg-info/*
 scripts/*
+test
+examples
 
 biopytools/augustus_multi_rnaseq/*
 biopytools/augustus_prediction/*
