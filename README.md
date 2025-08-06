@@ -31,7 +31,7 @@ pip install -e .
 ## 使用方法
 
 - [parse_gene_info](./docs/parse_gene_info.md)：从GFF文件中提取基因和转录本的信息
-- [parse_longest_mrna](./docs/parse_longest_mrna.md)：
+- [parse_longest_mrna](./docs/parse_longest_mrna.md)：使用基因组和GFF文件提取最长的转录本
 
 
 ### 贡献代码 | Contributing
