@@ -9,7 +9,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey.svg)](https://github.com/lixiang117423/biopytools)
-[![Version](https://img.shields.io/badge/version-v1.0.0-brightgreen.svg)](https://github.com/lixiang117423/biopytools)
+[![Version](https://img.shields.io/badge/version-v1.22.0-brightgreen.svg)](https://github.com/lixiang117423/biopytools)
 
 </div>
 

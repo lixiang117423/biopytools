@@ -23,7 +23,7 @@ dependencies = [
 [project.scripts]
 # Gene and sequence analysis tools
 parse_gene_info = "biopytools.gff_utils.main:main"
-parse_longest_mrna = "biopytools.parse_longest_mrna:main"
+parse_longest_mrna = "biopytools.longest_mrna.main:main"
 parse_sequence_vcf = "biopytools.vcf_sequence_toolkit:main"
 
 # VCF processing tools
