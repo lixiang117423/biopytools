@@ -49,119 +49,6 @@ cd biopytools
 pip install -e .[dev]
 ```
 
-## 快速开始 | Quick Start
-
-```python
-import biopytools as bpt
-
-# 示例代码
-# Example code here
-print("BioPyTools is ready to use!")
-```
-
-## 功能模块 | Modules
-
-### biopytools.io
-文件输入输出功能 | File I/O functions
-
-```python
-from biopytools.io import load_fasta, save_fasta
-
-# 具体使用方法待补充
-# Usage examples to be added
-```
-
-### biopytools.sequence  
-序列分析功能 | Sequence analysis functions
-
-```python
-from biopytools.sequence import basic_stats
-
-# 具体使用方法待补充
-# Usage examples to be added
-```
-
-### biopytools.stats
-统计分析功能 | Statistical analysis functions
-
-```python
-from biopytools.stats import describe_data
-
-# 具体使用方法待补充  
-# Usage examples to be added
-```
-
-### biopytools.utils
-实用工具函数 | Utility functions
-
-```python
-from biopytools.utils import helper_function
-
-# 具体使用方法待补充
-# Usage examples to be added
-```
-
-## 使用示例 | Examples
-
-### 示例1：基础使用 | Example 1: Basic Usage
-
-```python
-import biopytools as bpt
-
-# 待添加具体示例
-# Specific examples to be added
-```
-
-### 示例2：高级功能 | Example 2: Advanced Features
-
-```python
-import biopytools as bpt
-
-# 待添加具体示例  
-# Specific examples to be added
-```
-
-## API文档 | API Documentation
-
-详细的API文档请参考：[Documentation](https://lixiang117423.github.io/biopytools/)
-
-For detailed API documentation, please refer to: [Documentation](https://lixiang117423.github.io/biopytools/)
-
-## 测试 | Testing
-
-运行测试套件：| Run test suite:
-
-```bash
-# 运行所有测试 | Run all tests
-pytest
-
-# 运行覆盖率测试 | Run with coverage
-pytest --cov=biopytools
-
-# 运行特定测试文件 | Run specific test file  
-pytest tests/test_sequence.py
-```
-
-## 开发指南 | Development
-
-### 项目结构 | Project Structure
-
-```
-biopytools/
-├── biopytools/           # 主要代码 | Main code
-│   ├── __init__.py
-│   ├── io/              # 输入输出模块 | I/O module
-│   ├── sequence/        # 序列分析模块 | Sequence analysis module
-│   ├── stats/           # 统计模块 | Statistics module
-│   └── utils/           # 工具模块 | Utilities module
-├── tests/               # 测试文件 | Test files
-├── docs/                # 文档 | Documentation
-├── examples/            # 示例代码 | Example code
-├── setup.py            # 安装配置 | Setup configuration
-├── requirements.txt    # 依赖包 | Dependencies
-└── README.md          # 说明文档 | README file
-```
-
 ### 贡献代码 | Contributing
 
 欢迎贡献代码！请遵循以下步骤：| Contributions are welcome! Please follow these steps:
@@ -192,7 +79,7 @@ pre-commit install
 
 ## 版本历史 | Version History
 
-### v0.1.0 (开发中 | In Development)
+### v1.21.0 (开发中 | In Development)
 - 初始版本 | Initial release
 - 基础功能实现 | Basic functionality implemented
 
@@ -205,9 +92,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 作者信息 | Author
 
 **李详 (Xiang Li)**
-- Email: your.email@example.com
+- Email: lixiang117423@gmail.com
 - GitHub: [@lixiang117423](https://github.com/lixiang117423)
-- Blog: [小蓝哥的知识荒原](https://lixiang117423.github.io/)
 
 ## 致谢 | Acknowledgments
 
