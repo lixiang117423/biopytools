@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "biopytools"
+version = "1.22.0"
+description = "Bioinformatics tools package with Python."
+authors = [{name = "Xiang LI"}]
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "numpy",
+    "openpyxl",
+    "cyvcf2",
+    "pyfastx>=0.8.4",
+    "python-rocksdb",
+    "scikit-learn>=1.0.0",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.11.0"
+]
+
+[project.scripts]
+# Gene and sequence analysis tools
+parse_gene_info = "biopytools.gff_utils.main:main"
+parse_longest_mrna = "biopytools.parse_longest_mrna:main"
+parse_sequence_vcf = "biopytools.vcf_sequence_toolkit:main"
+
+# VCF processing tools
+run_vcf_filter = "biopytools.vcf_filter.main:main"
+run_vcf_genotype = "biopytools.vcf_genotype_extractor.main:main"
+run_vcf_sample_hete = "biopytools.vcf_stats_sample.main:main"
+run_vcf_pca = "biopytools.vcf_pca.main:main"
+run_vcf_ld_heatmap = "biopytools.vcf_ld_heatmap.main:main"
+run_vcf_njtree = "biopytools.vcf_phylo.main:main"
+
+# Quality control and preprocessing
+run_fastp = "biopytools.fastp.main:main"
+
+# RNA-seq analysis
+run_rnaseq = "biopytools.rnaseq.main:main"
+run_augustus_multi_rnaseq = "biopytools.augustus_multi_rnaseq.main:main"
+
+# Annotation tools
+run_annovar = "biopytools.annovar.main:main"
+
+# Population genetics and GWAS
+run_plink_gwas = "biopytools.plink_gwas.main:main"
+run_admixture = "biopytools.admixture.main:main"
+
+# K-mer analysis
+run_kmer_analysis = "biopytools.kmer_old.main:main"
+run_kmer_pav = "biopytools.kmer_pav.main:main"
+
+# Alignment tools
+run_minimap2 = "biopytools.minimap2.main:main"
+
+# Genome annotation
+run_repeat_masker = "biopytools.repeat_masker.main:main"
+
+# Data download
+run_ena_downloader = "biopytools.ena_downloader.main:main"
+
+# Methylation analysis
+run_bismark = "biopytools.bismark_pipeline.main:main"
+
+# Metagenomics
+run_metawrap_pipeline = "biopytools.metawrap_pipeline.main:main"
+
+[tool.setuptools.packages.find]
+include = ["biopytools*"]
