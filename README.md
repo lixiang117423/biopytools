@@ -33,6 +33,7 @@ pip install -e .
 - [parse_gene_info](./docs/parse_gene_info.md)：从GFF文件中提取基因和转录本的信息
 - [parse_longest_mrna](./docs/parse_longest_mrna.md)：使用基因组和GFF文件提取最长的转录本
 - [parse_sequence_vcf](./docs/parse_sequence_vcf.md)：以VCF文件为基础，从基因组中提取特定区域的序列
+- [run_genome_collinearity](./docs/run_genome_collinearity.md)：使用minimap2+SyRi+plotri可视化基因组染色体的共线性
 
 
 ### 贡献代码 | Contributing
