@@ -40,8 +40,16 @@ class SyRIAnalyzer:
             )
             
             if success:
-                syri_output = f"{output_prefix}syri.out"
-                syri_files[pair_name] = syri_output
+                # SyRI使用--dir和--prefix参数后，输出文件名格式为: {prefix}syri.out
+                syri_output = self.syri_dir / f"{pair_name}syri.out"
+                
+                # 验证输出文件是否存在 | Verify output file exists
+                if syri_output.exists():
+                    syri_files[pair_name] = str(syri_output)
+                    self.logger.info(f"✅ SyRI输出文件已生成 | SyRI output file generated: {syri_output}")
+                else:
+                    self.logger.error(f"❌ SyRI输出文件不存在 | SyRI output file not found: {syri_output}")
+                    return {}
             else:
                 self.logger.error(f"❌ SyRI分析失败 | SyRI analysis failed: {pair_name}")
                 return {}
@@ -56,9 +64,16 @@ class SyRIAnalyzer:
         self.logger.info(f"🔍 SyRI分析 | SyRI analysis: {pair_name}")
         
         # 构建SyRI命令 | Build SyRI command
+        # SyRI需要使用--dir指定输出目录，--prefix只用于文件名前缀
+        output_dir = output_prefix.parent
+        prefix_name = output_prefix.name
+        
+        self.logger.info(f"📁 SyRI输出目录 | SyRI output directory: {output_dir}")
+        self.logger.info(f"🏷️ SyRI文件前缀 | SyRI file prefix: {prefix_name}")
+        
         cmd = (
             f"{self.config.syri_path} -c {bam_file} -r {ref_genome} "
-            f"-q {query_genome} -F B --prefix {output_prefix}"
+            f"-q {query_genome} -F B --dir {output_dir} --prefix {prefix_name}"
         )
         
         description = f"🔬 SyRI analysis: {pair_name}"
