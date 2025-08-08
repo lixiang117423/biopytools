@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.21.0"
+version = "1.21.1"
 description = "Bioinformatics tools package with Python."
 authors = [{name = "Xiang LI"}]
 requires-python = ">=3.10"
@@ -14,7 +14,7 @@ dependencies = [
     "openpyxl",
     "cyvcf2",
     "pyfastx>=0.8.4",
-    "python-rocksdb",
+    # "python-rocksdb",
     "scikit-learn>=1.0.0",
     "matplotlib>=3.5.0",
     "seaborn>=0.11.0"
