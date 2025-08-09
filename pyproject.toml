@@ -4,20 +4,34 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.21.1"
+version = "1.22.0"
 description = "Bioinformatics tools package with Python."
 authors = [{name = "Xiang LI"}]
 requires-python = ">=3.10"
+
+# 这是 install_requires 的新位置
 dependencies = [
-    "pandas",
-    "numpy",
-    "openpyxl",
+    "biopython>=1.80",
     "cyvcf2",
-    "pyfastx>=0.8.4",
-    # "python-rocksdb",
-    "scikit-learn>=1.0.0",
     "matplotlib>=3.5.0",
+    "numpy>=1.20.0",
+    "openpyxl",
+    "pandas>=1.5.0",
+    "pyfastx>=0.8.4",
+    "python-magic>=0.4.27",
+    "pyyaml>=6.0",
+    "scikit-learn>=1.0.0",
     "seaborn>=0.11.0"
+]
+
+# 这是 extras_require 的新位置
+[project.optional-dependencies]
+dev = [
+    "black>=22.0",
+    "flake8>=5.0",
+    "mypy>=1.0",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
 ]
 
 [project.scripts]
@@ -49,8 +63,10 @@ run_plink_gwas = "biopytools.plink_gwas.main:main"
 run_admixture = "biopytools.admixture.main:main"
 
 # K-mer analysis
-run_kmer_analysis = "biopytools.kmer_old.main:main"
+# run_kmer_analysis = "biopytools.kmer_old.main:main"
 run_kmer_pav = "biopytools.kmer_pav.main:main"
+run_kmer_analysis = "biopytools.kmer_universal.main:main"
+
 
 # Alignment tools
 run_minimap2 = "biopytools.minimap2.main:main"
