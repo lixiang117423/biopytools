@@ -63,20 +63,27 @@ class KMCInterface:
     
     def count_kmers(self, input_files, output_prefix: str, 
                file_format: str = "fq") -> str:
-        """
-        使用KMC计数k-mer，支持单文件或文件列表
-        """
+        """使用KMC计数k-mer，支持单文件或文件列表"""
+
+        # 添加这行调试
+        self.logger.info(f"🔧 count_kmers called with {input_files}, {output_prefix}, {file_format}")
+        
         # 处理输入参数
         if isinstance(input_files, str):
             file_list = [input_files]
         else:
-            file_list = list(input_files)  # 确保是列表
+            file_list = list(input_files)
+        
+        self.logger.info(f"🔧 KMC input files: {len(file_list)} files")
+        for i, f in enumerate(file_list):
+            self.logger.info(f"🔧   {i+1}. {os.path.basename(f)}")
         
         # 创建临时文件列表
         temp_list_file = None
         if len(file_list) > 1:
             temp_list_file = self._create_file_list(file_list)
             input_arg = f"@{temp_list_file}"
+            self.logger.info(f"🔧 Created file list: {temp_list_file}")
         else:
             input_arg = file_list[0]
         
@@ -84,25 +91,37 @@ class KMCInterface:
         cmd = self._build_kmc_command(input_arg, output_prefix, file_format)
         
         try:
+            # 显示完整的KMC命令
+            self.logger.info(f"🚀 Executing KMC command:")
+            self.logger.info(f"🚀   {' '.join(cmd)}")
+            
             # 执行KMC命令
-            self.logger.info(f"Running KMC: {' '.join(cmd)} 🚀")
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
             
-            if self.config.verbose:
-                self.logger.info(f"KMC stdout: {result.stdout}")
+            # 显示KMC输出
+            if result.stdout:
+                self.logger.info(f"📤 KMC stdout: {result.stdout}")
+            if result.stderr:
+                self.logger.info(f"📤 KMC stderr: {result.stderr}")
             
-            self.logger.info("KMC counting completed successfully ✅")
+            if self.config.verbose:
+                self.logger.info(f"KMC return code: {result.returncode}")
+            
+            self.logger.info("✅ KMC counting completed successfully")
             return output_prefix
             
         except subprocess.CalledProcessError as e:
-            self.logger.error(f"KMC failed: {e} ❌")
-            self.logger.error(f"KMC stderr: {e.stderr}")
+            self.logger.error(f"❌ KMC failed with return code {e.returncode}")
+            self.logger.error(f"❌ KMC command: {' '.join(cmd)}")
+            self.logger.error(f"❌ KMC stdout: {e.stdout}")
+            self.logger.error(f"❌ KMC stderr: {e.stderr}")
             raise RuntimeError(f"KMC counting failed: {e.stderr}")
         
         finally:
-            # 清理临时文件 🧹
+            # 清理临时文件
             if temp_list_file and os.path.exists(temp_list_file):
                 os.unlink(temp_list_file)
+                self.logger.info(f"🗑️ Cleaned up temp file: {temp_list_file}")
     
     def _create_file_list(self, files: List[str]) -> str:
         """创建KMC输入文件列表 📝"""

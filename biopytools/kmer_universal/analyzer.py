@@ -286,6 +286,10 @@ class KmerAnalyzer:
             try:
                 # 使用所有文件路径进行KMC计数
                 file_format = "fa" if file_info.format == FileFormat.FASTA else "fq"
+
+                # 添加这行调试
+                self.logger.info(f"🔧 About to call KMC with format={file_format}, output_prefix={self.config.temp_dir}/target_{file_info.sample_name}")
+
                 kmc_db = self.kmc_interface.count_kmers(
                     file_paths,  # 传递文件路径列表
                     f"{self.config.temp_dir}/target_{file_info.sample_name}",
