@@ -8,7 +8,7 @@ import magic
 import glob
 import re
 from pathlib import Path
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Union
 from dataclasses import dataclass
 from enum import Enum
 import logging
@@ -21,10 +21,21 @@ class FileFormat(Enum):
     FASTQ = "fastq"
     UNKNOWN = "unknown"
 
+# @dataclass
+# class FileInfo:
+#     """文件信息类 ℹ️"""
+#     path: str
+#     format: FileFormat
+#     role: FileRole
+#     size_bytes: int
+#     sample_name: str
+#     is_compressed: bool = False
+#     estimated_sequences: Optional[int] = None
+#     estimated_kmers: Optional[int] = None
 @dataclass
 class FileInfo:
-    """文件信息类 ℹ️"""
-    path: str
+    """文件信息类"""
+    path: Union[str, List[str]]  # 修改为支持文件路径列表
     format: FileFormat
     role: FileRole
     size_bytes: int
@@ -32,6 +43,20 @@ class FileInfo:
     is_compressed: bool = False
     estimated_sequences: Optional[int] = None
     estimated_kmers: Optional[int] = None
+    
+    @property
+    def file_paths(self) -> List[str]:
+        """获取所有文件路径"""
+        if isinstance(self.path, list):
+            return self.path
+        return [self.path]
+    
+    @property
+    def primary_path(self) -> str:
+        """获取主要文件路径（用于显示）"""
+        if isinstance(self.path, list):
+            return self.path[0]
+        return self.path
 
 class FileManager:
     """文件管理器 🗂️"""
@@ -46,34 +71,57 @@ class FileManager:
         self.compressed_extensions = {'.gz', '.bz2', '.xz'}
     
     def scan_files(self, input_paths: List[str], default_role: FileRole = FileRole.AUTO_DETECT) -> List[FileInfo]:
-        """扫描和识别文件 🧐"""
+        """扫描和识别文件"""
+        self.logger.info(f"🔧 Debug - scan_files called with {len(input_paths)} paths, role: {default_role}")
+        
         all_files = []
         
         for path_pattern in input_paths:
-            # 支持通配符和目录 📁*?
+            self.logger.info(f"🔧 Debug - processing path: {path_pattern}")
+            
+            # 支持通配符和目录
             if os.path.isdir(path_pattern):
-                # 目录：扫描所有可能的序列文件 📂
+                self.logger.info(f"🔧 Debug - {path_pattern} is a directory")
+                # 目录：扫描所有可能的序列文件
                 pattern_files = self._scan_directory(path_pattern)
             elif '*' in path_pattern or '?' in path_pattern:
-                # 通配符模式 ✨
+                self.logger.info(f"🔧 Debug - {path_pattern} contains wildcards")
+                # 通配符模式
                 pattern_files = glob.glob(path_pattern)
+                self.logger.info(f"🔧 Debug - glob found {len(pattern_files)} files")
             elif os.path.isfile(path_pattern):
-                # 单个文件 📄
+                self.logger.info(f"🔧 Debug - {path_pattern} is a single file")
+                # 单个文件
                 pattern_files = [path_pattern]
             else:
-                self.logger.warning(f"Path not found or invalid: {path_pattern} 🤷‍♀️")
+                self.logger.warning(f"Path not found or invalid: {path_pattern}")
                 continue
             
-            # 处理每个文件 ⚙️
+            self.logger.info(f"🔧 Debug - pattern_files for {path_pattern}: {len(pattern_files)} files")
+            
+            # 处理每个文件
             for file_path in pattern_files:
+                self.logger.info(f"🔧 Debug - analyzing file: {file_path}")
                 try:
                     file_info = self._analyze_file(file_path, default_role)
                     if file_info:
                         all_files.append(file_info)
+                        self.logger.info(f"🔧 Debug - file added: {file_path}")
+                    else:
+                        self.logger.warning(f"🔧 Debug - file rejected: {file_path}")
                 except Exception as e:
-                    self.logger.warning(f"Failed to analyze file {file_path}: {e} 😥")
+                    self.logger.warning(f"Failed to analyze file {file_path}: {e}")
         
-        self.logger.info(f"Found {len(all_files)} valid sequence files ✅")
+        self.logger.info(f"Found {len(all_files)} valid sequence files")
+        
+        # # 如果指定了pattern，进行文件配对
+        # if self.config.fastq_pattern:
+        #     all_files = self.group_paired_files_by_pattern(all_files)
+        #     self.logger.info(f"After pattern grouping: {len(all_files)} file groups")
+
+        # return all_files
+
+        self.logger.info(f"Found {len(all_files)} valid sequence files")
         return all_files
     
     def _scan_directory(self, directory: str) -> List[str]:
@@ -106,21 +154,28 @@ class FileManager:
         return False
     
     def _analyze_file(self, file_path: str, default_role: FileRole) -> Optional[FileInfo]:
-        """分析单个文件 🔬"""
+        """分析单个文件"""
+        self.logger.info(f"🔧 Debug - _analyze_file called for: {file_path}")
+        
         if not os.path.exists(file_path):
+            self.logger.warning(f"🔧 Debug - file does not exist: {file_path}")
             return None
         
-        # 获取文件信息 📊
+        # 获取文件信息
         file_size = os.path.getsize(file_path)
         sample_name = self._extract_sample_name(file_path)
         is_compressed = self._is_compressed(file_path)
         
-        # 检测文件格式 🧐
-        file_format = self._detect_format(file_path)
-        if file_format == FileFormat.UNKNOWN:
-            self.logger.warning(f"Unknown file format: {file_path} 🤔")
-            return None
+        self.logger.info(f"🔧 Debug - file_size: {file_size}, sample_name: {sample_name}")
         
+        # 检测文件格式
+        file_format = self._detect_format(file_path)
+        self.logger.info(f"🔧 Debug - detected format: {file_format}")
+        
+        if file_format == FileFormat.UNKNOWN:
+            self.logger.warning(f"Unknown file format: {file_path}")
+            return None
+    
         # 估算序列和k-mer数量 📈
         estimated_sequences, estimated_kmers = self._estimate_content(
             file_path, file_format, file_size
@@ -412,3 +467,178 @@ class FileManager:
                     print("❌ Invalid input, enter 's', 't', or 'skip'")
         
         return result
+    
+    # def group_paired_files_by_pattern(self, files: List[FileInfo]) -> List[FileInfo]:
+    #     """基于pattern模式合并配对文件"""
+    #     if not self.config.fastq_pattern:
+    #         return files
+        
+    #     pattern = self.config.fastq_pattern
+    #     if '*' not in pattern:
+    #         return files
+        
+    #     # 只处理FASTQ文件
+    #     fastq_files = [f for f in files if f.format == FileFormat.FASTQ]
+    #     if not fastq_files:
+    #         return files
+        
+    #     # 找到匹配pattern的文件
+    #     matched_files = []
+    #     for file_info in fastq_files:
+    #         filename = os.path.basename(file_info.path)
+    #         if filename.endswith('_1.fq.gz'):  # 直接匹配_1.fq.gz
+    #             matched_files.append(file_info)
+        
+    #     self.logger.info(f"Found {len(matched_files)} files matching _1.fq.gz pattern")
+        
+    #     # 为每个_1文件找配对的_2文件
+    #     merged_files = []
+    #     all_files_by_name = {os.path.basename(f.path): f for f in fastq_files}
+        
+    #     for file_info in matched_files:
+    #         filename = os.path.basename(file_info.path)
+    #         sample_name = filename.replace('_1.fq.gz', '')  # 提取样本名
+            
+    #         # 查找配对文件
+    #         pair_filename = f"{sample_name}_2.fq.gz"
+    #         sample_files = [file_info]  # 包含_1文件
+            
+    #         if pair_filename in all_files_by_name:
+    #             sample_files.append(all_files_by_name[pair_filename])
+            
+    #         # 创建合并的FileInfo
+    #         if len(sample_files) > 1:
+    #             all_paths = [f.path for f in sample_files]
+    #             total_size = sum(f.size_bytes for f in sample_files)
+                
+    #             merged_info = FileInfo(
+    #                 path=all_paths,
+    #                 format=sample_files[0].format,
+    #                 role=sample_files[0].role,
+    #                 size_bytes=total_size,
+    #                 sample_name=sample_name,
+    #                 is_compressed=sample_files[0].is_compressed
+    #             )
+    #             merged_files.append(merged_info)
+    #         else:
+    #             merged_files.extend(sample_files)
+        
+    #     self.logger.info(f"Created {len(merged_files)} merged samples")
+    #     return merged_files
+
+    def group_paired_files_by_pattern(self, files: List[FileInfo]) -> List[FileInfo]:
+        """基于pattern模式合并配对文件"""
+        if not self.config.fastq_pattern:
+            return files
+        
+        pattern = self.config.fastq_pattern
+        if '*' not in pattern:
+            return files
+        
+        # 只处理FASTQ文件
+        fastq_files = [f for f in files if f.format == FileFormat.FASTQ]
+        if not fastq_files:
+            return files
+        
+        self.logger.info(f"Processing {len(fastq_files)} FASTQ files with pattern: {pattern}")
+        
+        # 支持的命名模式
+        pattern_mappings = {
+            "*_1.fq.gz": "_1.fq.gz",
+            "*_2.fq.gz": "_2.fq.gz", 
+            "*_1.clean.fq.gz": "_1.clean.fq.gz",
+            "*_2.clean.fq.gz": "_2.clean.fq.gz",
+            "*_R1.fq.gz": "_R1.fq.gz",
+            "*_R2.fq.gz": "_R2.fq.gz",
+            "*_R1.fastq.gz": "_R1.fastq.gz",
+            "*_R2.fastq.gz": "_R2.fastq.gz",
+            "*_1.fastq.gz": "_1.fastq.gz",
+            "*_2.fastq.gz": "_2.fastq.gz",
+            "*.forward.fq.gz": ".forward.fq.gz",
+            "*.reverse.fq.gz": ".reverse.fq.gz",
+            "*_forward.fq.gz": "_forward.fq.gz",
+            "*_reverse.fq.gz": "_reverse.fq.gz",
+            "*_F.fq.gz": "_F.fq.gz",
+            "*_R.fq.gz": "_R.fq.gz"
+        }
+        
+        # 获取当前pattern对应的后缀
+        suffix = pattern_mappings.get(pattern)
+        if not suffix:
+            # 如果不在预定义列表中，通用处理
+            suffix = pattern.replace("*", "")
+        
+        # 提取匹配pattern的样本
+        sample_groups = {}
+        
+        for file_info in fastq_files:
+            filename = os.path.basename(file_info.path)
+            
+            if filename.endswith(suffix):
+                sample_name = filename.replace(suffix, "")
+                if sample_name not in sample_groups:
+                    sample_groups[sample_name] = []
+                sample_groups[sample_name].append(file_info)
+        
+        self.logger.info(f"Found {len(sample_groups)} sample groups")
+        
+        # 为每个样本收集所有文件
+        merged_files = []
+        all_files_by_name = {os.path.basename(f.path): f for f in fastq_files}
+        
+        for sample_name, matched_files in sample_groups.items():
+            # 查找该样本的所有文件
+            sample_files = []
+            for filename, file_info in all_files_by_name.items():
+                # 检查文件名是否属于该样本
+                if (filename.startswith(sample_name + "_") or 
+                    filename.startswith(sample_name + ".") or
+                    filename == sample_name + suffix):
+                    sample_files.append(file_info)
+            
+            self.logger.info(f"Sample {sample_name}: found {len(sample_files)} files")
+            
+            if len(sample_files) > 1:
+                # 多文件：创建合并的FileInfo
+                all_paths = [f.path for f in sample_files]
+                total_size = sum(f.size_bytes for f in sample_files)
+                
+                merged_info = FileInfo(
+                    path=all_paths,
+                    format=sample_files[0].format,
+                    role=sample_files[0].role,
+                    size_bytes=total_size,
+                    sample_name=sample_name,
+                    is_compressed=sample_files[0].is_compressed
+                )
+                merged_files.append(merged_info)
+            else:
+                merged_files.extend(sample_files)
+        
+        self.logger.info(f"Final result: {len(merged_files)} merged samples")
+        return merged_files
+
+    def _extract_sample_from_pattern(self, filepath: str, patterns: List[str]) -> Optional[str]:
+        """从文件路径中根据pattern提取样本名"""
+        filename = os.path.basename(filepath)
+        
+        for pattern in patterns:
+            # 将pattern转换为正则表达式
+            # *_1.fq.gz -> (.+)_1\.fq\.gz
+            regex_pattern = pattern.replace('*', '(.+)')
+            regex_pattern = regex_pattern.replace('.', r'\.')
+            regex_pattern = f'^{regex_pattern}$'
+            
+            self.logger.debug(f"🔧 Testing pattern '{regex_pattern}' against '{filename}'")
+            
+            try:
+                match = re.match(regex_pattern, filename)
+                if match:
+                    sample_name = match.group(1)
+                    self.logger.info(f"🔧 Pattern matched: '{filename}' -> sample: '{sample_name}'")
+                    return sample_name
+            except re.error as e:
+                self.logger.warning(f"🔧 Regex error for pattern '{pattern}': {e}")
+                continue
+        
+        return None

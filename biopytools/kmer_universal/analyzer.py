@@ -135,6 +135,10 @@ class KmerAnalyzer:
         Returns:
             分析结果字典 📊
         """
+        # 调试：打印配置信息
+        self.logger.info(f"🔧 Debug - fastq_pattern: {self.config.fastq_pattern}")
+        self.logger.info(f"🔧 Debug - config: {vars(self.config)}")
+        
         start_time = time.time()
         
         # 更新配置
@@ -148,15 +152,34 @@ class KmerAnalyzer:
         
         try:
             # 扫描k-mer源文件 🔍
+            self.logger.info(f"🔧 Debug - scanning kmer_sources: {kmer_sources}")
             source_files = self.file_manager.scan_files(kmer_sources, FileRole.KMER_SOURCE)
+            self.logger.info(f"🔧 Debug - source_files count: {len(source_files)}")
+
+            self.logger.info(f"🔧 Debug - scanning query_targets: {len(query_targets)} paths")
             target_files = self.file_manager.scan_files(query_targets, FileRole.QUERY_TARGET)
-            
+            self.logger.info(f"🔧 Debug - target_files count before grouping: {len(target_files)}")
+
+            if not source_files:
+                self.logger.error("❌ No source files found!")
+            if not target_files:
+                self.logger.error("❌ No target files found!")
+                
             if not source_files or not target_files:
                 raise ValueError("No valid source or target files found")
-            
+
+            # 只对目标文件应用pattern grouping
+            if self.config.fastq_pattern:
+                original_target_count = len(target_files)
+                target_files = self.file_manager.group_paired_files_by_pattern(target_files)
+                self.logger.info(f"Applied fastq pattern '{self.config.fastq_pattern}': {original_target_count} -> {len(target_files)} files")
+                
+                if len(target_files) == 0:
+                    self.logger.error("❌ No target files after pattern grouping!")
+
             self.logger.info(f"K-mer sources: {len(source_files)} files")
             self.logger.info(f"Query targets: {len(target_files)} files")
-            
+                        
             # 执行分析 ⚙️
             results = self._execute_analysis(source_files, target_files)
             
@@ -249,13 +272,13 @@ class KmerAnalyzer:
         kmer_list = list(kmer_library.keys())
         
         for file_info in target_files:
-            self.logger.info(f"Querying abundances in {file_info.path}")
+            self.logger.info(f"Querying abundances in {file_info.primary_path}")
             
             try:
-                # 使用KMC计数目标文件中的k-mer 🔢
+                # 使用所有文件路径进行KMC计数
                 file_format = "fa" if file_info.format == FileFormat.FASTA else "fq"
                 kmc_db = self.kmc_interface.count_kmers(
-                    [file_info.path], 
+                    file_info.file_paths,  # 使用所有文件路径
                     f"{self.config.temp_dir}/target_{file_info.sample_name}",
                     file_format
                 )

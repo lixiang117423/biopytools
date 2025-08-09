@@ -7,7 +7,7 @@ import subprocess
 import tempfile
 import shutil
 from pathlib import Path
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Union
 import logging
 
 class KMCInterface:
@@ -61,26 +61,24 @@ class KMCInterface:
         except Exception as e:
             raise RuntimeError(f"Error checking KMC availability: {e} ❌")
     
-    def count_kmers(self, input_files: List[str], output_prefix: str, 
-                   file_format: str = "fq") -> str:
+    def count_kmers(self, input_files: Union[str, List[str]], output_prefix: str, 
+               file_format: str = "fq") -> str:
         """
-        使用KMC计数k-mer 🔢
-        
-        Args:
-            input_files: 输入文件列表 📂
-            output_prefix: 输出前缀 🏷️
-            file_format: 文件格式 ("fa", "fq", "fm") 📄
-        
-        Returns:
-            KMC数据库文件路径 🗃️
+        使用KMC计数k-mer，支持单文件或文件列表
         """
+        # 处理输入参数
+        if isinstance(input_files, str):
+            file_list = [input_files]
+        else:
+            file_list = input_files
+        
         # 创建临时文件列表
         temp_list_file = None
-        if len(input_files) > 1:
-            temp_list_file = self._create_file_list(input_files)
+        if len(file_list) > 1:
+            temp_list_file = self._create_file_list(file_list)
             input_arg = f"@{temp_list_file}"
         else:
-            input_arg = input_files[0]
+            input_arg = file_list[0]
         
         # 构建KMC命令
         cmd = self._build_kmc_command(input_arg, output_prefix, file_format)
@@ -180,12 +178,14 @@ class KMCInterface:
                     f.write(f"{kmer}\n")
             
             # 使用kmc_tools查询 ⚙️
-            cmd = [
-                'kmc_tools', 'simple',
-                kmc_database,
-                '-ci1', '-cx1000000',
-                'dump', result_file
-            ]
+            # cmd = [
+            #     'kmc_tools', 'simple',
+            #     kmc_database,
+            #     '-ci1', '-cx1000000',
+            #     'dump', result_file
+            # ]
+            # 使用kmc_dump查询
+            cmd = ['kmc_dump', kmc_database, result_file]
             
             subprocess.run(cmd, check=True, capture_output=True)
             

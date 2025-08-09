@@ -16,7 +16,7 @@ def create_parser() -> argparse.ArgumentParser:
     """创建命令行参数解析器 🛠️"""
     
     parser = argparse.ArgumentParser(
-        prog='kmer-universal',
+        prog='run_kmer_analysis',
         description="""
 Universal K-mer Analysis Toolkit | 通用K-mer分析工具包 🧬🔬
 
@@ -25,19 +25,19 @@ Supports flexible k-mer analysis for FASTA/FASTQ files with automatic role detec
 
 Examples | 使用示例:
   # Auto-assignment mode | 自动分配模式 ✨
-  kmer-universal --input /data/genomes/*.fa /data/samples/*.fq.gz \\
+  run_kmer_analysis --input /data/genomes/*.fa /data/samples/*.fq.gz \\
                  --output results/ --kmer-size 51
   
   # Explicit assignment | 明确指定角色 👉
-  kmer-universal --kmer-sources /ref/*.fa \\
+  run_kmer_analysis --kmer-sources /ref/*.fa \\
                  --query-targets /samples/*.fastq.gz \\
                  --output results/
   
   # Interactive mode | 交互模式 💬
-  kmer-universal --input /data/mixed/ --interactive
+  run_kmer_analysis --input /data/mixed/ --interactive
   
   # Configuration file | 配置文件模式 📄
-  kmer-universal --config analysis.yaml
+  run_kmer_analysis --config analysis.yaml
         """,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
@@ -73,7 +73,17 @@ Examples | 使用示例:
         '--config', '-c',
         help='Configuration file (YAML format) | 配置文件（YAML格式） 📄'
     )
-    
+
+    io_group.add_argument(
+    '--fastq-pattern', '--fp',
+    help='FASTQ file naming pattern, e.g., "*_1.clean.fq.gz" | FASTQ文件命名模式，如"*_1.clean.fq.gz"'
+    )
+
+    io_group.add_argument(
+        '--fasta-pattern', '--fap', 
+        help='FASTA file naming pattern, e.g., "*.fa" | FASTA文件命名模式，如"*.fa"'
+    )
+        
     # === K-mer参数 | K-mer Parameters ===
     kmer_group = parser.add_argument_group('K-mer Parameters | K-mer参数 🧬')
     
@@ -340,6 +350,8 @@ def create_config_from_args(args) -> KmerConfig:
         'strict_memory': not args.no_strict_memory,
         'output_dir': args.output,
         'temp_dir': args.temp_dir,
+        'fastq_pattern': args.fastq_pattern,
+        'fasta_pattern': args.fasta_pattern,
         'assignment_strategy': AssignmentStrategy(args.assignment_strategy),
         'size_threshold_gb': args.size_threshold,
         'window_sizes': [] if args.no_sliding_window else args.window_sizes,

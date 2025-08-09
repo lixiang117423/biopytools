@@ -46,6 +46,9 @@ class KmerConfig:
     query_target_paths: List[str] = field(default_factory=list)
     output_dir: str = "kmer_analysis_results"
     temp_dir: str = "/tmp/kmer_universal"
+
+    fastq_pattern: Optional[str] = None    # FASTQ文件命名模式，如"*_1.clean.fq.gz"
+    fasta_pattern: Optional[str] = None    # FASTA文件命名模式，如"*.genome.fa"
     
     # 角色分配 | Role Assignment 🏷️
     assignment_strategy: AssignmentStrategy = AssignmentStrategy.INTELLIGENT
@@ -115,6 +118,9 @@ class KmerConfig:
             'query_target_paths': self.query_target_paths,
             'output_dir': self.output_dir,
             'temp_dir': self.temp_dir,
+            'fastq_pattern': self.fastq_pattern,
+            'fasta_pattern': self.fasta_pattern,
+            'assignment_strategy': self.assignment_strategy.value,
             'assignment_strategy': self.assignment_strategy.value,
             'size_threshold_gb': self.size_threshold_gb,
             'window_sizes': self.window_sizes,
