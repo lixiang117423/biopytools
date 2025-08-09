@@ -61,7 +61,7 @@ class KMCInterface:
         except Exception as e:
             raise RuntimeError(f"Error checking KMC availability: {e} ❌")
     
-    def count_kmers(self, input_files: Union[str, List[str]], output_prefix: str, 
+    def count_kmers(self, input_files, output_prefix: str, 
                file_format: str = "fq") -> str:
         """
         使用KMC计数k-mer，支持单文件或文件列表
@@ -70,7 +70,7 @@ class KMCInterface:
         if isinstance(input_files, str):
             file_list = [input_files]
         else:
-            file_list = input_files
+            file_list = list(input_files)  # 确保是列表
         
         # 创建临时文件列表
         temp_list_file = None

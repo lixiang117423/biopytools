@@ -272,13 +272,22 @@ class KmerAnalyzer:
         kmer_list = list(kmer_library.keys())
         
         for file_info in target_files:
-            self.logger.info(f"Querying abundances in {file_info.primary_path}")
+            if isinstance(file_info.path, list):
+                # 多文件样本
+                file_paths = file_info.path
+                self.logger.info(f"Querying abundances for sample '{file_info.sample_name}' with {len(file_paths)} files:")
+                for path in file_paths:
+                    self.logger.info(f"  - {os.path.basename(path)}")
+            else:
+                # 单文件
+                file_paths = [file_info.path]
+                self.logger.info(f"Querying abundances in {file_info.path}")
             
             try:
                 # 使用所有文件路径进行KMC计数
                 file_format = "fa" if file_info.format == FileFormat.FASTA else "fq"
                 kmc_db = self.kmc_interface.count_kmers(
-                    file_info.file_paths,  # 使用所有文件路径
+                    file_paths,  # 传递文件路径列表
                     f"{self.config.temp_dir}/target_{file_info.sample_name}",
                     file_format
                 )
