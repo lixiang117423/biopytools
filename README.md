@@ -34,7 +34,8 @@ pip install -e .
 - [parse_longest_mrna](./docs/parse_longest_mrna.md)：使用基因组和GFF文件提取最长的转录本
 - [parse_sequence_vcf](./docs/parse_sequence_vcf.md)：以VCF文件为基础，从基因组中提取特定区域的序列
 - [run_genome_collinearity](./docs/run_genome_collinearity.md)：使用minimap2+SyRi+plotri可视化基因组染色体的共线性
-- [run_kmer_universal](./docs/run_kmer_universal.md)：k-mer丰度、存在/缺失以及滑窗分析等
+- [run_kmer_extractor](./docs/run_kmer_extractor.md)：从fasta或fastq文件中提取k-mer
+- [run_kmer_count](./docs/run_kmer_count.md)：计算给定的k-mer的丰度、存在/缺失和滑窗分析结果
 
 
 ### 贡献代码 | Contributing
