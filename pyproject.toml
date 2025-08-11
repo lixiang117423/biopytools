@@ -63,9 +63,8 @@ run_plink_gwas = "biopytools.plink_gwas.main:main"
 run_admixture = "biopytools.admixture.main:main"
 
 # K-mer analysis
-# run_kmer_analysis = "biopytools.kmer_old.main:main"
-run_kmer_pav = "biopytools.kmer_pav.main:main"
-run_kmer_analysis = "biopytools.kmer_universal.main:main"
+run_kmer_extractor = "biopytools.kmer_extractor.main:main"
+run_kmer_count = "biopytools.kmer_count.main:main"
 
 
 # Alignment tools
