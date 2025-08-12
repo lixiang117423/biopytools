@@ -68,22 +68,58 @@ class DataProcessor:
         
         self.logger.info("📋 解析BED文件 | Parsing BED file")
         
-        # 读取BED文件 | Read BED file
-        bed_df = pd.read_csv(self.config.bed_file, sep='\t', header=None)
+        # 🔥 只读取前6列，忽略多余的列 | Only read first 6 columns, ignore extra columns
+        try:
+            bed_df = pd.read_csv(
+                self.config.bed_file, 
+                sep='\t', 
+                header=None,
+                usecols=[0, 1, 2, 3, 4, 5],  # 只读取前6列
+                names=['chr', 'start', 'end', 'kmer', 'score', 'strand'],  # 直接指定列名
+                dtype={
+                    'chr': str,
+                    'start': int, 
+                    'end': int,
+                    'kmer': str,
+                    'score': str,  # score可能是数字或'.'
+                    'strand': str
+                }
+            )
+            self.logger.info(f"✅ 成功读取BED文件前6列 | Successfully read first 6 columns of BED file")
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ 读取前6列失败，尝试灵活读取 | Failed to read 6 columns, trying flexible reading: {e}")
+            
+            # 🔥 备用方案：灵活读取，跳过问题行 | Fallback: flexible reading, skip problematic lines
+            try:
+                bed_df = pd.read_csv(
+                    self.config.bed_file, 
+                    sep='\t', 
+                    header=None,
+                    on_bad_lines='skip'  # 跳过问题行
+                )
+                
+                # 只保留前6列
+                if bed_df.shape[1] >= 6:
+                    bed_df = bed_df.iloc[:, :6]
+                    bed_df.columns = ['chr', 'start', 'end', 'kmer', 'score', 'strand']
+                elif bed_df.shape[1] >= 4:
+                    # 如果只有4列，添加默认的score和strand
+                    bed_df = bed_df.iloc[:, :4]
+                    bed_df.columns = ['chr', 'start', 'end', 'kmer']
+                    bed_df['score'] = '0'
+                    bed_df['strand'] = '.'
+                else:
+                    raise ValueError(f"BED文件列数不足，至少需要4列，实际有{bed_df.shape[1]}列")
+                
+                self.logger.info(f"✅ 灵活读取成功，跳过了问题行 | Flexible reading successful, skipped problematic lines")
+                
+            except Exception as e2:
+                raise ValueError(f"❌ BED文件格式错误，无法解析 | BED file format error, cannot parse: {e2}")
         
-        # 设置列名 | Set column names
-        # col_names = ['chr', 'start', 'end', 'kmer']
-        # if bed_df.shape[1] > 4:
-        #     col_names.extend([f'tmp_{i}' for i in range(1, bed_df.shape[1] - 3)])
-        # 设置列名 | Set column names
-        col_names = ['chr', 'start', 'end', 'kmer']
-        if bed_df.shape[1] > 4:
-            if bed_df.shape[1] == 6:
-                col_names.extend(['score', 'strand'])
-            else:
-                col_names.extend([f'tmp_{i}' for i in range(1, bed_df.shape[1] - 3)])
-        
-        bed_df.columns = col_names[:bed_df.shape[1]]
+        # 🔥 确保start和end列为整数类型 | Ensure start and end columns are integer type
+        bed_df['start'] = bed_df['start'].astype(int)
+        bed_df['end'] = bed_df['end'].astype(int)
         
         # 转换k-mer序列为大写 | Convert k-mer sequences to uppercase
         bed_df['kmer'] = bed_df['kmer'].str.upper()
@@ -91,6 +127,37 @@ class DataProcessor:
         self.bed_info = bed_df
         self.logger.info(f"✅ BED文件解析完成，共{len(bed_df)}条记录 | BED file parsing completed, {len(bed_df)} records total")
         return bed_df
+    
+    # def parse_bed_file(self) -> pd.DataFrame:
+    #     """📋 解析BED文件 | Parse BED file"""
+    #     if not self.config.bed_file:
+    #         return None
+        
+    #     self.logger.info("📋 解析BED文件 | Parsing BED file")
+        
+    #     # 读取BED文件 | Read BED file
+    #     bed_df = pd.read_csv(self.config.bed_file, sep='\t', header=None)
+        
+    #     # 设置列名 | Set column names
+    #     # col_names = ['chr', 'start', 'end', 'kmer']
+    #     # if bed_df.shape[1] > 4:
+    #     #     col_names.extend([f'tmp_{i}' for i in range(1, bed_df.shape[1] - 3)])
+    #     # 设置列名 | Set column names
+    #     col_names = ['chr', 'start', 'end', 'kmer']
+    #     if bed_df.shape[1] > 4:
+    #         if bed_df.shape[1] == 6:
+    #             col_names.extend(['score', 'strand'])
+    #         else:
+    #             col_names.extend([f'tmp_{i}' for i in range(1, bed_df.shape[1] - 3)])
+        
+    #     bed_df.columns = col_names[:bed_df.shape[1]]
+        
+    #     # 转换k-mer序列为大写 | Convert k-mer sequences to uppercase
+    #     bed_df['kmer'] = bed_df['kmer'].str.upper()
+        
+    #     self.bed_info = bed_df
+    #     self.logger.info(f"✅ BED文件解析完成，共{len(bed_df)}条记录 | BED file parsing completed, {len(bed_df)} records total")
+    #     return bed_df
     
     # def parse_jellyfish_output(self, count_file: Path, sample_name: str) -> pd.DataFrame:
     #     """📊 解析Jellyfish输出 | Parse Jellyfish output"""
