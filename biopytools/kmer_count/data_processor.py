@@ -196,6 +196,9 @@ class DataProcessor:
             sample_df['kmer_id'] = sample_df['kmer'].map(self.kmer_ids)
             # 创建unique key：kmer_id+kmer
             sample_df['unique_key'] = sample_df['kmer_id'] + '_' + sample_df['kmer']
+            # 🔥 添加：删除丰度为0的行 | Add: Remove rows with abundance = 0
+            sample_df = sample_df[sample_df[sample_name] > 0]
+
             cols = ['unique_key', 'kmer_id', 'kmer', sample_name]
             result_df = sample_df[cols]
         
