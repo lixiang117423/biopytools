@@ -40,6 +40,8 @@ class GTXAnalyzer:
             self.logger.info(f"📂 输入目录 | Input directory: {self.config.input_dir}")
             self.logger.info(f"📤 输出目录 | Output directory: {self.config.output_dir}")
             self.logger.info(f"🧬 参考基因组 | Reference genome: {self.config.reference}")
+            self.logger.info(f"📁 R1文件模式 | R1 file pattern: {self.config.read1_pattern}")
+            self.logger.info(f"📁 R2文件模式 | R2 file pattern: {self.config.read2_pattern}")
             
             # 检查依赖 🧩 | Check dependencies
             self.check_dependencies()
@@ -110,6 +112,7 @@ def main():
   %(prog)s -i ./clean_data -o ./gtx_results -r ./reference.fa -t 64
   %(prog)s -i /data/clean -o /results -r /genome/ref.fa --gtx-path /custom/gtx/path
   %(prog)s -i ./data -o ./results -r ./ref.fa --min-confidence 25 --min-base-quality 15
+  %(prog)s -i ./data -o ./results -r ./ref.fa --read1-pattern "*_1.fq.gz" --read2-pattern "*_2.fq.gz"
         """
     )
     
@@ -140,9 +143,9 @@ def main():
                        help='PCR indel模型 🔬 | PCR indel model')
     
     # 文件模式参数 📁 | File pattern parameters
-    parser.add_argument('--read1-pattern', default='*_1.clean.fq.gz', 
+    parser.add_argument('--read1-pattern', default='*_1.fq.gz', 
                        help='R1文件匹配模式 📄 | R1 file pattern')
-    parser.add_argument('--read2-pattern', default='*_2.clean.fq.gz', 
+    parser.add_argument('--read2-pattern', default='*_2.fq.gz', 
                        help='R2文件匹配模式 📄 | R2 file pattern')
     
     args = parser.parse_args()

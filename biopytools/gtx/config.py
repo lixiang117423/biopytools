@@ -27,8 +27,8 @@ class GTXConfig:
     pcr_indel_model: str = "CONSERVATIVE"
     
     # 📁 文件模式参数 | File pattern parameters
-    read1_pattern: str = "*_1.clean.fq.gz"
-    read2_pattern: str = "*_2.clean.fq.gz"
+    read1_pattern: str = "*_1.fq.gz"
+    read2_pattern: str = "*_2.fq.gz"
     
     # 🗑️ 临时目录 | Temporary directory
     tmp_dir: Optional[str] = None
@@ -88,6 +88,13 @@ class GTXConfig:
         
         if self.ploidy <= 0:
             errors.append(f"❌ 倍性必须为正整数 | Ploidy must be positive: {self.ploidy}")
+        
+        # 检查文件模式 📁 | Check file patterns
+        if "*" not in self.read1_pattern:
+            errors.append(f"❌ read1模式必须包含*通配符 | read1 pattern must contain * wildcard: {self.read1_pattern}")
+        
+        if "*" not in self.read2_pattern:
+            errors.append(f"❌ read2模式必须包含*通配符 | read2 pattern must contain * wildcard: {self.read2_pattern}")
         
         if errors:
             raise ValueError("\n".join(errors))
