@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.22.0"
+version = "1.23.0"
 description = "Bioinformatics tools package with Python."
 authors = [{name = "Xiang LI"}]
 requires-python = ">=3.10"
@@ -47,6 +47,10 @@ run_vcf_sample_hete = "biopytools.vcf_stats_sample.main:main"
 run_vcf_pca = "biopytools.vcf_pca.main:main"
 run_vcf_ld_heatmap = "biopytools.vcf_ld_heatmap.main:main"
 run_vcf_njtree = "biopytools.vcf_phylo.main:main"
+run_variant_filter = "biopytools.variant_filter.main:main"
+
+# BAM file stat
+run_bam_stats = "biopytools.bam_stats.main:main"
 
 # Quality control and preprocessing
 run_fastp = "biopytools.fastp.main:main"
