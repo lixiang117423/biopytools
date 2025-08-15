@@ -1561,6 +1561,187 @@ class ReportGenerator:
 
 # results.py - Part 3/3
 
+# class VisualizationGenerator:
+#     """可视化生成器 | Visualization Generator"""
+
+#     def __init__(self, config, logger, cmd_runner):
+#         self.config = config
+#         self.logger = logger
+#         self.cmd_runner = cmd_runner
+
+#     def generate_plots(self, model_results: dict):
+#         """为所有有效结果生成图表"""
+#         self.logger.info("📊 生成可视化图表 | Generating visualization plots...")
+#         if not model_results:
+#             self.logger.warning("⚠️ 无结果数据，跳过可视化 | No results data, skipping visualization.")
+#             return
+
+#         for model_name, df in model_results.items():
+#             if not df.empty:
+#                 self.logger.info(f"--- 正在为 {model_name} 模型生成图表 | Generating plots for {model_name} model ---")
+#                 self._generate_model_plots(df, model_name)
+        
+#         if len(model_results) > 1:
+#              self._generate_comparison_plots(model_results)
+
+#     def _generate_model_plots(self, df: pd.DataFrame, model_name: str):
+#         """为特定模型生成Manhattan图和QQ图"""
+#         try:
+#             # 确保数据已保存，以便R脚本可以读取
+#             file_suffix = model_name[:3].upper()
+#             results_file = f"gwas_results_{file_suffix}.txt"
+#             if not Path(results_file).exists():
+#                 df.to_csv(results_file, sep='\t', index=False)
+
+#             self._create_manhattan_plot(results_file, model_name)
+#             self._create_qq_plot(results_file, model_name)
+#         except Exception as e:
+#             self.logger.warning(f"⚠️ {model_name}模型图表生成失败 | Plot generation failed for {model_name} model: {e}")
+
+#     def _run_r_script(self, script_name: str, script_content: str):
+#         """执行R脚本"""
+#         try:
+#             with open(script_name, 'w', encoding='utf-8') as f:
+#                 f.write(script_content)
+            
+#             cmd = ["Rscript", script_name]
+#             result = self.cmd_runner.run(cmd, f"执行R脚本 | Executing R script: {script_name}", check=False)
+#             if result.returncode != 0:
+#                 self.logger.error(f"❌ R脚本 {script_name} 执行失败。请检查R环境和脚本内容。")
+#                 self.logger.error(f"R脚本错误输出:\n{result.stderr}")
+#         except FileNotFoundError:
+#             self.logger.error("❌ Rscript 命令未找到。请确保R已安装并配置在系统PATH中。 | Rscript command not found. Please ensure R is installed and in the system's PATH.")
+#         except Exception as e:
+#             self.logger.error(f"❌ 执行R脚本时发生意外错误: {e}")
+
+#     def _create_manhattan_plot(self, results_file: str, model_name: str):
+#         r_script = f"""
+#         # 加载必要的库，如果不存在则自动安装
+#         if (!require(ggplot2)) install.packages("ggplot2", repos="http://cran.us.r-project.org")
+#         if (!require(dplyr)) install.packages("dplyr", repos="http://cran.us.r-project.org")
+#         library(ggplot2)
+#         library(dplyr)
+        
+#         tryCatch({{
+#             data <- read.table("{results_file}", header=TRUE, sep="\\t", comment.char="", check.names=FALSE)
+#             if(nrow(data) == 0) quit()
+
+#             data <- data %>% filter(!is.na(P) & P > 0 & P <= 1)
+#             if(nrow(data) == 0) quit()
+
+#             data$log_p <- -log10(data$P)
+            
+#             # 兼容数字和字符型染色体名称
+#             # 提取染色体中的数字部分用于排序
+#             data$CHR_num <- as.numeric(gsub("[^0-9]+", "", data$CHR))
+#             data <- data[order(data$CHR_num, data$BP), ]
+#             # 将原始CHR列作为因子，以保持其原始顺序（例如 'chr1', 'chr2'）
+#             data$CHR <- factor(data$CHR, levels=unique(data$CHR))
+            
+#             # 计算累积BP位置
+#             data_cum <- data %>% 
+#               group_by(CHR) %>% 
+#               summarise(max_bp = max(as.numeric(BP), na.rm=TRUE)) %>% 
+#               mutate(bp_add = lag(cumsum(as.numeric(max_bp)), default=0)) %>% 
+#               select(CHR, bp_add)
+            
+#             data <- data %>% inner_join(data_cum, by="CHR") %>%
+#               mutate(bp_cum = as.numeric(BP) + bp_add)
+              
+#             axis_set <- data %>% group_by(CHR) %>% summarize(center = mean(bp_cum))
+            
+#             p <- ggplot(data, aes(x=bp_cum, y=log_p, color=CHR)) +
+#               geom_point(alpha=0.7, size=1.3) +
+#               scale_x_continuous(label = axis_set$CHR, breaks = axis_set$center) +
+#               scale_color_manual(values = rep(c("#276FBF", "#183059"), length.out=nlevels(data$CHR))) +
+#               geom_hline(yintercept=-log10(1e-5), color="blue", linetype="dashed", size=0.8) +
+#               geom_hline(yintercept=-log10(5e-8), color="red", linetype="dashed", size=0.8) +
+#               labs(x="Chromosome", y="-log10(P-value)", title=paste("Manhattan Plot -", toupper("{model_name}"), "Model")) +
+#               theme_minimal(base_size=16) +
+#               theme(
+#                 legend.position="none", 
+#                 panel.grid.major.x=element_blank(), 
+#                 panel.grid.minor.x=element_blank(),
+#                 axis.text.x = element_text(angle=60, vjust=0.5, size=10)
+#               )
+            
+#             ggsave("manhattan_plot_{model_name}.png", plot=p, width=14, height=7, dpi=300)
+            
+#         }}, error=function(e) {{
+#             cat("Error in Manhattan plot generation for {model_name}:", conditionMessage(e), "\\n")
+#             # 创建一个空白的错误图片
+#             png("manhattan_plot_{model_name}.png", width=1400, height=700)
+#             plot(1, type="n", xlab="", ylab="", main="Manhattan Plot Generation Failed")
+#             text(1, 1, conditionMessage(e), cex=1.2)
+#             dev.off()
+#         }})
+#         """
+#         self._run_r_script(f"manhattan_{model_name}.R", r_script)
+
+#     def _create_qq_plot(self, results_file: str, model_name: str):
+#         r_script = f"""
+#         # 加载必要的库
+#         if (!require(ggplot2)) install.packages("ggplot2", repos="http://cran.us.r-project.org")
+#         library(ggplot2)
+        
+#         tryCatch({{
+#             data <- read.table("{results_file}", header=TRUE, sep="\\t", comment.char="", check.names=FALSE)
+#             if(nrow(data) == 0) quit()
+
+#             data <- data[!is.na(data$P) & data$P > 0 & data$P <= 1, ]
+#             if(nrow(data) == 0) quit()
+
+#             observed <- sort(-log10(data$P))
+#             expected <- sort(-log10(ppoints(length(observed))))
+            
+#             # 计算 lambda (基因组膨胀因子)
+#             chisq <- qchisq(1 - data$P, 1)
+#             lambda = median(chisq, na.rm=TRUE) / qchisq(0.5, 1)
+            
+#             qq_df <- data.frame(observed=observed, expected=expected)
+            
+#             p <- ggplot(qq_df, aes(x=expected, y=observed)) +
+#               geom_point(alpha=0.5, color="black") +
+#               geom_abline(intercept=0, slope=1, color="red", linetype="dashed", size=1) +
+#               labs(
+#                 title=paste("Q-Q Plot -", toupper("{model_name}"), "Model"),
+#                 subtitle=paste("Lambda (λ) =", format(lambda, digits=4)),
+#                 x="Expected -log10(P)", 
+#                 y="Observed -log10(P)"
+#               ) +
+#               theme_minimal(base_size=16) +
+#               coord_fixed()
+            
+#             ggsave("qq_plot_{model_name}.png", plot=p, width=7, height=7, dpi=300)
+        
+#         }}, error=function(e) {{
+#             cat("Error in QQ plot generation for {model_name}:", conditionMessage(e), "\\n")
+#             # 创建一个空白的错误图片
+#             png("qq_plot_{model_name}.png", width=700, height=700)
+#             plot(1, type="n", xlab="", ylab="", main="QQ Plot Generation Failed")
+#             text(1, 1, conditionMessage(e), cex=1.2)
+#             dev.off()
+#         }})
+#         """
+#         self._run_r_script(f"qq_{model_name}.R", r_script)
+
+#     def _generate_comparison_plots(self, model_results: dict):
+#         """此功能当前未激活，但保留框架以便未来扩展"""
+#         self.logger.info("模型比较图表功能暂未实现 | Model comparison plot feature is not implemented yet.")
+#         pass
+
+# --- End of Part 3/3 - End of file ---
+
+# python版本的可视化
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from pathlib import Path
+from scipy import stats
+import warnings
+warnings.filterwarnings('ignore')
+
 class VisualizationGenerator:
     """可视化生成器 | Visualization Generator"""
 
@@ -1568,9 +1749,14 @@ class VisualizationGenerator:
         self.config = config
         self.logger = logger
         self.cmd_runner = cmd_runner
+        
+        # 设置matplotlib中文支持和样式 | Setup matplotlib Chinese support and styles
+        plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'SimHei', 'Arial Unicode MS']
+        plt.rcParams['axes.unicode_minus'] = False
+        sns.set_style("whitegrid")
 
     def generate_plots(self, model_results: dict):
-        """为所有有效结果生成图表"""
+        """为所有有效结果生成图表 | Generate plots for all valid results"""
         self.logger.info("📊 生成可视化图表 | Generating visualization plots...")
         if not model_results:
             self.logger.warning("⚠️ 无结果数据，跳过可视化 | No results data, skipping visualization.")
@@ -1582,152 +1768,320 @@ class VisualizationGenerator:
                 self._generate_model_plots(df, model_name)
         
         if len(model_results) > 1:
-             self._generate_comparison_plots(model_results)
+            self._generate_comparison_plots(model_results)
 
     def _generate_model_plots(self, df: pd.DataFrame, model_name: str):
-        """为特定模型生成Manhattan图和QQ图"""
+        """为特定模型生成Manhattan图和QQ图 | Generate Manhattan and QQ plots for specific model"""
         try:
-            # 确保数据已保存，以便R脚本可以读取
+            # 确保数据已保存，以便后续处理 | Ensure data is saved for subsequent processing
             file_suffix = model_name[:3].upper()
             results_file = f"gwas_results_{file_suffix}.txt"
             if not Path(results_file).exists():
                 df.to_csv(results_file, sep='\t', index=False)
 
-            self._create_manhattan_plot(results_file, model_name)
-            self._create_qq_plot(results_file, model_name)
+            self._create_manhattan_plot(df, model_name)
+            self._create_qq_plot(df, model_name)
         except Exception as e:
             self.logger.warning(f"⚠️ {model_name}模型图表生成失败 | Plot generation failed for {model_name} model: {e}")
 
-    def _run_r_script(self, script_name: str, script_content: str):
-        """执行R脚本"""
+    def _create_manhattan_plot(self, df: pd.DataFrame, model_name: str):
+        """创建Manhattan图 | Create Manhattan plot"""
         try:
-            with open(script_name, 'w', encoding='utf-8') as f:
-                f.write(script_content)
+            # 数据预处理 | Data preprocessing
+            data = df.copy()
             
-            cmd = ["Rscript", script_name]
-            result = self.cmd_runner.run(cmd, f"执行R脚本 | Executing R script: {script_name}", check=False)
-            if result.returncode != 0:
-                self.logger.error(f"❌ R脚本 {script_name} 执行失败。请检查R环境和脚本内容。")
-                self.logger.error(f"R脚本错误输出:\n{result.stderr}")
-        except FileNotFoundError:
-            self.logger.error("❌ Rscript 命令未找到。请确保R已安装并配置在系统PATH中。 | Rscript command not found. Please ensure R is installed and in the system's PATH.")
+            # 过滤无效的P值 | Filter invalid P-values
+            data = data.dropna(subset=['P'])
+            data = data[(data['P'] > 0) & (data['P'] <= 1)]
+            
+            if len(data) == 0:
+                self.logger.warning(f"⚠️ {model_name}模型无有效P值数据 | No valid P-value data for {model_name} model")
+                return
+            
+            # 计算-log10(P值) | Calculate -log10(P-values)
+            data['log_p'] = -np.log10(data['P'])
+            
+            # 处理染色体信息 | Process chromosome information
+            data['CHR_str'] = data['CHR'].astype(str)
+            # 提取数字部分用于排序 | Extract numeric part for sorting
+            data['CHR_num'] = data['CHR_str'].str.extract('(\d+)').astype(float)
+            data = data.dropna(subset=['CHR_num'])
+            data = data.sort_values(['CHR_num', 'BP'])
+            
+            # 计算累积位置 | Calculate cumulative positions
+            chr_lengths = data.groupby('CHR_str')['BP'].max().reset_index()
+            chr_lengths['chr_start'] = chr_lengths['BP'].cumsum().shift(1).fillna(0)
+            
+            # 合并累积位置信息 | Merge cumulative position information
+            data = data.merge(chr_lengths[['CHR_str', 'chr_start']], 
+                            left_on='CHR_str', right_on='CHR_str')
+            data['bp_cum'] = data['BP'] + data['chr_start']
+            
+            # 计算染色体中心位置用于x轴标签 | Calculate chromosome center positions for x-axis labels
+            chr_centers = data.groupby('CHR_str')['bp_cum'].mean().reset_index()
+            
+            # 创建图形 | Create figure
+            fig, ax = plt.subplots(figsize=(14, 7))
+            
+            # 为每个染色体分配颜色 | Assign colors for each chromosome
+            unique_chrs = data['CHR_str'].unique()
+            colors = ['#1F77B4FF', '#FF7F0EFF'] * (len(unique_chrs) // 2 + 1)
+            
+            # 绘制散点图 | Plot scatter points
+            for i, chr_name in enumerate(unique_chrs):
+                chr_data = data[data['CHR_str'] == chr_name]
+                ax.scatter(chr_data['bp_cum'], chr_data['log_p'], 
+                          c=colors[i], alpha=0.7, s=8)
+            
+            # 计算Y轴最大值 | Calculate Y-axis maximum value
+            max_log_p = data['log_p'].max()
+            
+            # 添加显著性水平线 | Add significance threshold lines
+            # 从5开始，隔1个数字画一条横线，直到最大值下面那个值
+            # Draw lines starting from 5, every 1 unit, up to the value below maximum
+            significance_colors = ['blue', 'green', 'orange', 'purple', 'brown', 'pink', 'gray', 'olive']
+            line_start = 5
+            max_line_value = int(np.floor(max_log_p))
+            
+            for i, line_value in enumerate(range(line_start, max_line_value + 1)):
+                color = significance_colors[i % len(significance_colors)]
+                ax.axhline(y=line_value, color=color, linestyle='--', 
+                          linewidth=1, alpha=0.8)
+            
+            # 设置x轴标签 | Set x-axis labels
+            ax.set_xticks(chr_centers['bp_cum'])
+            ax.set_xticklabels(chr_centers['CHR_str'], rotation=60)
+            
+            # 设置Y轴 | Set Y-axis
+            ax.set_ylim(0, max_log_p * 1.05)  # Y轴从0开始 | Y-axis starts from 0
+            
+            # 设置Y轴刻度 | Set Y-axis ticks
+            if max_log_p <= 10:
+                # 如果最大值不超过10，从0到最大值，间隔1显示 | If max <= 10, show from 0 to max with interval 1
+                y_ticks = np.arange(0, int(np.ceil(max_log_p)) + 1, 1)
+                ax.set_yticks(y_ticks)
+            else:
+                # 如果超过10，灵活处理 | If > 10, flexible handling
+                # 可以根据最大值调整间隔 | Adjust interval based on maximum value
+                if max_log_p <= 20:
+                    interval = 2
+                elif max_log_p <= 50:
+                    interval = 5
+                else:
+                    interval = 10
+                y_ticks = np.arange(0, int(np.ceil(max_log_p)) + 1, interval)
+                ax.set_yticks(y_ticks)
+            
+            # 设置标签和标题 | Set labels and title
+            ax.set_xlabel('Chromosome', fontsize=12)
+            ax.set_ylabel('-log10(P-value)', fontsize=12)
+            ax.set_title(f'Manhattan Plot - {model_name.upper()} Model', fontsize=14, fontweight='bold')
+            
+            # 优化布局 | Optimize layout
+            ax.grid(True, alpha=0.3)
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+            
+            plt.tight_layout()
+            
+            # 保存图片 | Save figure
+            output_file = f"manhattan_plot_{model_name}.png"
+            plt.savefig(output_file, dpi=300, bbox_inches='tight')
+            plt.close()
+            
+            self.logger.info(f"✅ Manhattan图已保存 | Manhattan plot saved: {output_file}")
+            
         except Exception as e:
-            self.logger.error(f"❌ 执行R脚本时发生意外错误: {e}")
+            self.logger.error(f"❌ Manhattan图生成失败 | Manhattan plot generation failed: {e}")
+            # 创建错误占位图 | Create error placeholder image
+            fig, ax = plt.subplots(figsize=(14, 7))
+            ax.text(0.5, 0.5, f'Manhattan Plot Generation Failed\n{str(e)}', 
+                   ha='center', va='center', transform=ax.transAxes, fontsize=12)
+            ax.set_title(f'Manhattan Plot - {model_name.upper()} Model (Error)', fontsize=14)
+            plt.savefig(f"manhattan_plot_{model_name}.png", dpi=300, bbox_inches='tight')
+            plt.close()
 
-    def _create_manhattan_plot(self, results_file: str, model_name: str):
-        r_script = f"""
-        # 加载必要的库，如果不存在则自动安装
-        if (!require(ggplot2)) install.packages("ggplot2", repos="http://cran.us.r-project.org")
-        if (!require(dplyr)) install.packages("dplyr", repos="http://cran.us.r-project.org")
-        library(ggplot2)
-        library(dplyr)
-        
-        tryCatch({{
-            data <- read.table("{results_file}", header=TRUE, sep="\\t", comment.char="", check.names=FALSE)
-            if(nrow(data) == 0) quit()
-
-            data <- data %>% filter(!is.na(P) & P > 0 & P <= 1)
-            if(nrow(data) == 0) quit()
-
-            data$log_p <- -log10(data$P)
+    def _create_qq_plot(self, df: pd.DataFrame, model_name: str):
+        """创建QQ图 | Create QQ plot"""
+        try:
+            # 数据预处理 | Data preprocessing
+            data = df.copy()
             
-            # 兼容数字和字符型染色体名称
-            # 提取染色体中的数字部分用于排序
-            data$CHR_num <- as.numeric(gsub("[^0-9]+", "", data$CHR))
-            data <- data[order(data$CHR_num, data$BP), ]
-            # 将原始CHR列作为因子，以保持其原始顺序（例如 'chr1', 'chr2'）
-            data$CHR <- factor(data$CHR, levels=unique(data$CHR))
+            # 过滤无效的P值 | Filter invalid P-values
+            data = data.dropna(subset=['P'])
+            data = data[(data['P'] > 0) & (data['P'] <= 1)]
             
-            # 计算累积BP位置
-            data_cum <- data %>% 
-              group_by(CHR) %>% 
-              summarise(max_bp = max(as.numeric(BP), na.rm=TRUE)) %>% 
-              mutate(bp_add = lag(cumsum(as.numeric(max_bp)), default=0)) %>% 
-              select(CHR, bp_add)
+            if len(data) == 0:
+                self.logger.warning(f"⚠️ {model_name}模型无有效P值数据 | No valid P-value data for {model_name} model")
+                return
             
-            data <- data %>% inner_join(data_cum, by="CHR") %>%
-              mutate(bp_cum = as.numeric(BP) + bp_add)
-              
-            axis_set <- data %>% group_by(CHR) %>% summarize(center = mean(bp_cum))
+            # 计算观察值和期望值 | Calculate observed and expected values
+            observed = np.sort(-np.log10(data['P']))
+            n = len(observed)
+            expected = np.sort(-np.log10(np.arange(1, n + 1) / (n + 1)))
             
-            p <- ggplot(data, aes(x=bp_cum, y=log_p, color=CHR)) +
-              geom_point(alpha=0.7, size=1.3) +
-              scale_x_continuous(label = axis_set$CHR, breaks = axis_set$center) +
-              scale_color_manual(values = rep(c("#276FBF", "#183059"), length.out=nlevels(data$CHR))) +
-              geom_hline(yintercept=-log10(1e-5), color="blue", linetype="dashed", size=0.8) +
-              geom_hline(yintercept=-log10(5e-8), color="red", linetype="dashed", size=0.8) +
-              labs(x="Chromosome", y="-log10(P-value)", title=paste("Manhattan Plot -", toupper("{model_name}"), "Model")) +
-              theme_minimal(base_size=16) +
-              theme(
-                legend.position="none", 
-                panel.grid.major.x=element_blank(), 
-                panel.grid.minor.x=element_blank(),
-                axis.text.x = element_text(angle=60, vjust=0.5, size=10)
-              )
+            # 计算基因组膨胀因子 lambda | Calculate genomic inflation factor lambda
+            chisq = stats.chi2.ppf(1 - data['P'], df=1)
+            lambda_gc = np.median(chisq) / stats.chi2.ppf(0.5, df=1)
             
-            ggsave("manhattan_plot_{model_name}.png", plot=p, width=14, height=7, dpi=300)
+            # 创建图形 | Create figure
+            fig, ax = plt.subplots(figsize=(7, 7))
             
-        }}, error=function(e) {{
-            cat("Error in Manhattan plot generation for {model_name}:", conditionMessage(e), "\\n")
-            # 创建一个空白的错误图片
-            png("manhattan_plot_{model_name}.png", width=1400, height=700)
-            plot(1, type="n", xlab="", ylab="", main="Manhattan Plot Generation Failed")
-            text(1, 1, conditionMessage(e), cex=1.2)
-            dev.off()
-        }})
-        """
-        self._run_r_script(f"manhattan_{model_name}.R", r_script)
-
-    def _create_qq_plot(self, results_file: str, model_name: str):
-        r_script = f"""
-        # 加载必要的库
-        if (!require(ggplot2)) install.packages("ggplot2", repos="http://cran.us.r-project.org")
-        library(ggplot2)
-        
-        tryCatch({{
-            data <- read.table("{results_file}", header=TRUE, sep="\\t", comment.char="", check.names=FALSE)
-            if(nrow(data) == 0) quit()
-
-            data <- data[!is.na(data$P) & data$P > 0 & data$P <= 1, ]
-            if(nrow(data) == 0) quit()
-
-            observed <- sort(-log10(data$P))
-            expected <- sort(-log10(ppoints(length(observed))))
+            # 绘制QQ图 | Plot QQ plot
+            ax.scatter(expected, observed, alpha=0.6, s=20, color='black', edgecolors='none')
             
-            # 计算 lambda (基因组膨胀因子)
-            chisq <- qchisq(1 - data$P, 1)
-            lambda = median(chisq, na.rm=TRUE) / qchisq(0.5, 1)
+            # 添加对角线 | Add diagonal line
+            max_val = max(max(expected), max(observed))
+            ax.plot([0, max_val], [0, max_val], 'r--', linewidth=2, alpha=0.8)
             
-            qq_df <- data.frame(observed=observed, expected=expected)
+            # 设置标签和标题 | Set labels and title
+            ax.set_xlabel('Expected -log10(P)', fontsize=12)
+            ax.set_ylabel('Observed -log10(P)', fontsize=12)
+            ax.set_title(f'Q-Q Plot - {model_name.upper()} Model', fontsize=14, fontweight='bold')
             
-            p <- ggplot(qq_df, aes(x=expected, y=observed)) +
-              geom_point(alpha=0.5, color="black") +
-              geom_abline(intercept=0, slope=1, color="red", linetype="dashed", size=1) +
-              labs(
-                title=paste("Q-Q Plot -", toupper("{model_name}"), "Model"),
-                subtitle=paste("Lambda (λ) =", format(lambda, digits=4)),
-                x="Expected -log10(P)", 
-                y="Observed -log10(P)"
-              ) +
-              theme_minimal(base_size=16) +
-              coord_fixed()
+            # 添加lambda值 | Add lambda value
+            ax.text(0.05, 0.95, f'λ = {lambda_gc:.4f}', 
+                   transform=ax.transAxes, fontsize=11, 
+                   bbox=dict(boxstyle="round,pad=0.3", facecolor="lightgray", alpha=0.8))
             
-            ggsave("qq_plot_{model_name}.png", plot=p, width=7, height=7, dpi=300)
-        
-        }}, error=function(e) {{
-            cat("Error in QQ plot generation for {model_name}:", conditionMessage(e), "\\n")
-            # 创建一个空白的错误图片
-            png("qq_plot_{model_name}.png", width=700, height=700)
-            plot(1, type="n", xlab="", ylab="", main="QQ Plot Generation Failed")
-            text(1, 1, conditionMessage(e), cex=1.2)
-            dev.off()
-        }})
-        """
-        self._run_r_script(f"qq_{model_name}.R", r_script)
+            # 设置相等的纵横比 | Set equal aspect ratio
+            ax.set_aspect('equal', adjustable='box')
+            ax.grid(True, alpha=0.3)
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+            
+            plt.tight_layout()
+            
+            # 保存图片 | Save figure
+            output_file = f"qq_plot_{model_name}.png"
+            plt.savefig(output_file, dpi=300, bbox_inches='tight')
+            plt.close()
+            
+            self.logger.info(f"✅ QQ图已保存 | QQ plot saved: {output_file} (λ = {lambda_gc:.4f})")
+            
+        except Exception as e:
+            self.logger.error(f"❌ QQ图生成失败 | QQ plot generation failed: {e}")
+            # 创建错误占位图 | Create error placeholder image
+            fig, ax = plt.subplots(figsize=(7, 7))
+            ax.text(0.5, 0.5, f'QQ Plot Generation Failed\n{str(e)}', 
+                   ha='center', va='center', transform=ax.transAxes, fontsize=12)
+            ax.set_title(f'Q-Q Plot - {model_name.upper()} Model (Error)', fontsize=14)
+            plt.savefig(f"qq_plot_{model_name}.png", dpi=300, bbox_inches='tight')
+            plt.close()
 
     def _generate_comparison_plots(self, model_results: dict):
-        """此功能当前未激活，但保留框架以便未来扩展"""
-        self.logger.info("模型比较图表功能暂未实现 | Model comparison plot feature is not implemented yet.")
-        pass
+        """生成模型比较图表 | Generate model comparison plots"""
+        try:
+            self.logger.info("📈 生成模型比较图表 | Generating model comparison plots...")
+            
+            # P值分布比较 | P-value distribution comparison
+            self._create_p_value_distribution_comparison(model_results)
+            
+            # 效应大小比较（如果有BETA列） | Effect size comparison (if BETA column exists)
+            if all('BETA' in df.columns for df in model_results.values()):
+                self._create_effect_size_comparison(model_results)
+                
+        except Exception as e:
+            self.logger.error(f"❌ 模型比较图表生成失败 | Model comparison plot generation failed: {e}")
 
-# --- End of Part 3/3 - End of file ---
+    def _create_p_value_distribution_comparison(self, model_results: dict):
+        """创建P值分布比较图 | Create P-value distribution comparison plot"""
+        try:
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+            
+            # P值分布直方图 | P-value distribution histogram
+            for model_name, df in model_results.items():
+                if not df.empty and 'P' in df.columns:
+                    valid_p = df['P'].dropna()
+                    valid_p = valid_p[(valid_p > 0) & (valid_p <= 1)]
+                    if len(valid_p) > 0:
+                        ax1.hist(-np.log10(valid_p), bins=50, alpha=0.6, 
+                                label=f'{model_name} (n={len(valid_p)})', density=True)
+            
+            ax1.set_xlabel('-log10(P-value)')
+            ax1.set_ylabel('Density')
+            ax1.set_title('P-value Distribution Comparison')
+            ax1.legend()
+            ax1.grid(True, alpha=0.3)
+            
+            # 显著性SNP数量比较 | Significant SNPs count comparison
+            significance_thresholds = [1e-5, 1e-6, 1e-7, 5e-8]
+            model_names = list(model_results.keys())
+            sig_counts = {threshold: [] for threshold in significance_thresholds}
+            
+            for model_name, df in model_results.items():
+                if not df.empty and 'P' in df.columns:
+                    valid_p = df['P'].dropna()
+                    valid_p = valid_p[(valid_p > 0) & (valid_p <= 1)]
+                    for threshold in significance_thresholds:
+                        count = np.sum(valid_p < threshold)
+                        sig_counts[threshold].append(count)
+                else:
+                    for threshold in significance_thresholds:
+                        sig_counts[threshold].append(0)
+            
+            x = np.arange(len(model_names))
+            width = 0.2
+            
+            for i, threshold in enumerate(significance_thresholds):
+                ax2.bar(x + i * width, sig_counts[threshold], width, 
+                       label=f'P < {threshold}', alpha=0.8)
+            
+            ax2.set_xlabel('Models')
+            ax2.set_ylabel('Number of Significant SNPs')
+            ax2.set_title('Significant SNPs Comparison')
+            ax2.set_xticks(x + width * 1.5)
+            ax2.set_xticklabels(model_names)
+            ax2.legend()
+            ax2.grid(True, alpha=0.3)
+            
+            plt.tight_layout()
+            plt.savefig("model_comparison_p_values.png", dpi=300, bbox_inches='tight')
+            plt.close()
+            
+            self.logger.info("✅ P值比较图已保存 | P-value comparison plot saved: model_comparison_p_values.png")
+            
+        except Exception as e:
+            self.logger.error(f"❌ P值比较图生成失败 | P-value comparison plot generation failed: {e}")
+
+    def _create_effect_size_comparison(self, model_results: dict):
+        """创建效应大小比较图 | Create effect size comparison plot"""
+        try:
+            fig, ax = plt.subplots(figsize=(10, 6))
+            
+            effect_sizes = []
+            model_labels = []
+            
+            for model_name, df in model_results.items():
+                if not df.empty and 'BETA' in df.columns:
+                    valid_beta = df['BETA'].dropna()
+                    if len(valid_beta) > 0:
+                        effect_sizes.append(valid_beta)
+                        model_labels.append(f'{model_name}\n(n={len(valid_beta)})')
+            
+            if effect_sizes:
+                # 创建箱线图 | Create box plot
+                bp = ax.boxplot(effect_sizes, labels=model_labels, patch_artist=True)
+                
+                # 设置颜色 | Set colors
+                colors = ['lightblue', 'lightgreen', 'lightcoral', 'lightyellow']
+                for patch, color in zip(bp['boxes'], colors[:len(bp['boxes'])]):
+                    patch.set_facecolor(color)
+                    patch.set_alpha(0.7)
+                
+                ax.set_ylabel('Effect Size (BETA)')
+                ax.set_title('Effect Size Distribution Comparison')
+                ax.grid(True, alpha=0.3)
+                ax.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+                
+                plt.xticks(rotation=45)
+                plt.tight_layout()
+                plt.savefig("model_comparison_effect_sizes.png", dpi=300, bbox_inches='tight')
+                plt.close()
+                
+                self.logger.info("✅ 效应大小比较图已保存 | Effect size comparison plot saved: model_comparison_effect_sizes.png")
+            else:
+                self.logger.warning("⚠️ 无有效的效应大小数据用于比较 | No valid effect size data for comparison")
+                
+        except Exception as e:
+            self.logger.error(f"❌ 效应大小比较图生成失败 | Effect size comparison plot generation failed: {e}")
