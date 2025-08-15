@@ -1,5 +1,5 @@
 """
-VCF基因型提取工具函数模块 | VCF Genotype Extraction Utility Functions Module
+🧬 VCF基因型提取工具函数模块 | VCF Genotype Extraction Utility Functions Module
 """
 
 import gzip
@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Optional
 
 class VCFLogger:
-    """VCF提取日志管理器 | VCF Extraction Logger Manager"""
+    """📝 VCF提取日志管理器 | VCF Extraction Logger Manager"""
     
     def __init__(self, output_dir: Path, log_name: str = "vcf_extraction.log"):
         self.output_dir = output_dir
@@ -17,7 +17,7 @@ class VCFLogger:
         self.setup_logging()
     
     def setup_logging(self):
-        """设置日志 | Setup logging"""
+        """⚙️ 设置日志 | Setup logging"""
         if self.log_file.exists():
             self.log_file.unlink()
         
@@ -32,15 +32,15 @@ class VCFLogger:
         self.logger = logging.getLogger(__name__)
     
     def get_logger(self):
-        """获取日志器 | Get logger"""
+        """📝 获取日志器 | Get logger"""
         return self.logger
 
 class FileUtils:
-    """文件工具类 | File Utility Class"""
+    """📁 文件工具类 | File Utility Class"""
     
     @staticmethod
     def is_gzipped(file_path: str) -> bool:
-        """检查文件是否为gzip压缩 | Check if file is gzip compressed"""
+        """🔍 检查文件是否为gzip压缩 | Check if file is gzip compressed"""
         try:
             with gzip.open(file_path, 'rt') as f:
                 f.readline()
@@ -50,35 +50,35 @@ class FileUtils:
     
     @staticmethod
     def open_file(file_path: str, mode: str = 'r'):
-        """智能打开文件（自动检测是否压缩） | Smart file opening (auto-detect compression)"""
+        """🚀 智能打开文件（自动检测是否压缩） | Smart file opening (auto-detect compression)"""
         if FileUtils.is_gzipped(file_path):
             return gzip.open(file_path, mode + 't', encoding='utf-8')
         else:
             return open(file_path, mode, encoding='utf-8')
 
 class GenotypeUtils:
-    """基因型工具类 | Genotype Utility Class"""
+    """🧬 基因型工具类 | Genotype Utility Class"""
     
     @staticmethod
     def parse_genotype(gt_field: str) -> Optional[str]:
-        """解析基因型字段 | Parse genotype field"""
+        """🔍 解析基因型字段 | Parse genotype field"""
         if gt_field in ['.', './.' , '.|.']:
             return None
         
-        # 移除相位信息，只保留基因型 | Remove phasing info, keep only genotype
+        # 🔄 移除相位信息，只保留基因型 | Remove phasing info, keep only genotype
         gt = gt_field.split(':')[0] if ':' in gt_field else gt_field
         
         return gt
     
     @staticmethod
     def is_biallelic(ref: str, alt: str) -> bool:
-        """检查是否为双等位变异 | Check if variant is biallelic"""
-        # 如果ALT字段不包含逗号，则为双等位 | If ALT field doesn't contain comma, it's biallelic
+        """🔬 检查是否为双等位变异 | Check if variant is biallelic"""
+        # ✅ 如果ALT字段不包含逗号，则为双等位 | If ALT field doesn't contain comma, it's biallelic
         return ',' not in alt
     
     @staticmethod
     def calculate_genotype_stats(genotypes: list[Optional[str]]) -> tuple:
-        """计算基因型统计信息 | Calculate genotype statistics"""
+        """📊 计算基因型统计信息 | Calculate genotype statistics"""
         valid_gts = [gt for gt in genotypes if gt is not None]
         
         if not valid_gts:
@@ -88,7 +88,7 @@ class GenotypeUtils:
         heterozygous_count = 0
         
         for gt in valid_gts:
-            # 处理不同的分隔符 | Handle different separators
+            # 🔄 处理不同的分隔符 | Handle different separators
             if '/' in gt:
                 alleles = gt.split('/')
             elif '|' in gt:
@@ -109,7 +109,7 @@ class GenotypeUtils:
         return homozygous_ratio, heterozygous_ratio
 
 def check_dependencies():
-    """检查依赖 | Check dependencies"""
+    """🔍 检查依赖 | Check dependencies"""
     optional_deps = {}
     
     try:

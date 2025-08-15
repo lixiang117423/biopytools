@@ -2,7 +2,7 @@
 VCF系统发育分析工具包 | VCF Phylogenetic Analysis Toolkit
 功能: VCF文件系统发育分析的完整流程，支持距离矩阵计算和NJ树构建 | 
 Features: Complete pipeline for VCF phylogenetic analysis, supporting distance matrix calculation and NJ tree construction
-作者 | Author: Claude  
+作者 | Author: Xiang LI  
 版本 | Version: v2.0 - 简化scikit-bio版本 | Simplified scikit-bio version
 日期 | Date: 2025-07-25
 
@@ -20,7 +20,7 @@ Features: Complete pipeline for VCF phylogenetic analysis, supporting distance m
 """
 
 __version__ = "2.0.0"
-__author__ = "Claude"
+__author__ = "Xiang LI"
 
 from .main import VCFPhyloAnalyzer
 from .config import PhyloConfig
