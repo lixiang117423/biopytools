@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.25.0"
+version = "1.26.0"
 description = "Bioinformatics tools package with Python."
 authors = [{name = "Xiang LI"}]
 requires-python = ">=3.10"
@@ -109,6 +109,9 @@ run_kaks_calculator = "biopytools.kakscalc.main:main"
 
 # split and parse fasta id
 run_split_fasta_id = "biopytools.split_fasta_id.main:main"
+
+# GTX joint
+run_gtx_joint = "biopytools.vcf_joint_genotyping.main:main"
 
 [tool.setuptools.packages.find]
 include = ["biopytools*"]
