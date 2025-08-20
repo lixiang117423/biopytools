@@ -25,6 +25,7 @@ class ANNOVARConfig:
     # 处理参数 | Processing parameters
     qual_threshold: int = 20
     skip_gff_fix: bool = False
+    skip_gff_cleaning: bool = False  # 新增：跳过GFF3清理步骤 | New: Skip GFF3 cleaning step
     skip_vcf_filter: bool = True
     
     # 步骤控制 | Step control
