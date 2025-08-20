@@ -99,3 +99,7 @@ def check_dependencies(jellyfish_path: str, logger) -> bool:
     except (subprocess.TimeoutExpired, FileNotFoundError) as e:
         logger.error(f"❌ Jellyfish 不可用 | not available: {e}")
         return False
+
+class FileIntegrityError(Exception):
+    """💥 文件完整性错误"""
+    pass
