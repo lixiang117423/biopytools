@@ -3,6 +3,7 @@
 """
 
 import sys
+import os
 import argparse
 from .config import KmerCountConfig
 from .main import KmerCountAnalyzer
@@ -21,10 +22,16 @@ def create_parser():
     
     # 必需参数 | Required arguments
     required = parser.add_argument_group('📋 必需参数 | Required arguments')
+    # required.add_argument('-i', '--input', required=True,
+    #                     help='📁 FASTQ文件输入目录 | FASTQ files input directory')
+    # required.add_argument('-p', '--pattern', required=True,
+    #                     help='📁 FASTQ文件模式，如*_1.fq.gz | FASTQ file pattern, e.g. *_1.fq.gz')
+    
     required.add_argument('-i', '--input', required=True,
-                        help='📁 FASTQ文件输入目录 | FASTQ files input directory')
+                    help='📁 输入文件目录 | Input files directory')
     required.add_argument('-p', '--pattern', required=True,
-                        help='📁 FASTQ文件模式，如*_1.fq.gz | FASTQ file pattern, e.g. *_1.fq.gz')
+                        help='📁 文件模式，支持FASTQ和FASTA格式，如*_1.fq.gz、*.fasta、*.fa | File pattern, support FASTQ and FASTA formats, e.g. *_1.fq.gz, *.fasta, *.fa')
+
     required.add_argument('-k', '--kmer-lib', required=True,
                         help='🧬 K-mer库文件(FASTA格式) | K-mer library file (FASTA format)')
     required.add_argument('-o', '--output', required=True,

@@ -2,6 +2,7 @@
 🐙 Jellyfish处理模块 | Jellyfish Processing Module
 """
 
+import os
 from pathlib import Path
 from typing import List
 
@@ -47,15 +48,149 @@ class JellyfishProcessor:
         
     #     self.logger.info(f"✅ K-mer计数完成 | K-mer counting completed: {jf_file}")
     #     return jf_file
-    def count_kmers(self, sample_name: str, fastq_files: List[str]) -> Path:
-        """🧮 使用Jellyfish计数k-mer | Count k-mers using Jellyfish"""
-        self.logger.info(f"🧮 开始k-mer计数 | Starting k-mer counting for sample: {sample_name}")
+    # def count_kmers(self, sample_name: str, fastq_files: List[str]) -> Path:
+    #     """🧮 使用Jellyfish计数k-mer | Count k-mers using Jellyfish"""
+    #     self.logger.info(f"🧮 开始k-mer计数 | Starting k-mer counting for sample: {sample_name}")
+        
+    #     # 输出文件 | Output file
+    #     jf_file = self.config.temp_dir / f"{sample_name}.jf"
+        
+    #     # 🔥 检查是否有压缩文件，使用generator方式 | Check for compressed files, use generator method
+    #     input_files = [f for f in fastq_files if f is not None]
+    #     has_compressed = any(f.endswith('.gz') for f in input_files)
+        
+    #     if has_compressed:
+    #         # 创建generator文件 | Create generator file
+    #         generator_file = self.config.temp_dir / f"{sample_name}_generator.txt"
+            
+    #         with open(generator_file, 'w') as f:
+    #             for file_path in input_files:
+    #                 if file_path.endswith('.gz'):
+    #                     f.write(f"zcat {file_path}\n")
+    #                 else:
+    #                     f.write(f"cat {file_path}\n")
+            
+    #         self.logger.info(f"📝 创建generator文件 | Created generator file: {generator_file}")
+            
+    #         # 构建命令 | Build command
+    #         cmd_parts = [
+    #             self.config.jellyfish_path,
+    #             "count",
+    #             f"-m {self.config.kmer_size}",
+    #             f"-s {self.config.hash_size}",
+    #             f"-t {self.config.threads}",
+    #             f"-g {generator_file}",  # 使用generator文件
+    #         ]
+            
+    #         if self.config.canonical:
+    #             cmd_parts.append("-C")
+            
+    #         cmd_parts.extend(["-o", str(jf_file)])
+            
+    #     else:
+    #         # 普通方式处理未压缩文件 | Normal method for uncompressed files
+    #         cmd_parts = [
+    #             self.config.jellyfish_path,
+    #             "count",
+    #             f"-m {self.config.kmer_size}",
+    #             f"-s {self.config.hash_size}",
+    #             f"-t {self.config.threads}",
+    #         ]
+            
+    #         if self.config.canonical:
+    #             cmd_parts.append("-C")
+            
+    #         cmd_parts.extend(input_files)
+    #         cmd_parts.extend(["-o", str(jf_file)])
+        
+    #     cmd = " ".join(cmd_parts)
+        
+    #     # 执行命令 | Execute command
+    #     self.cmd_runner.run(cmd, f"🧮 K-mer计数 | K-mer counting for {sample_name}")
+        
+    #     if not jf_file.exists():
+    #         raise FileNotFoundError(f"❌ Jellyfish输出文件未生成 | Jellyfish output file not generated: {jf_file}")
+        
+    #     self.logger.info(f"✅ K-mer计数完成 | K-mer counting completed: {jf_file}")
+    #     return jf_file
+
+    # def count_kmers(self, sample_name: str, input_files: List[str], file_type: str) -> Path:
+    #     """使用Jellyfish计数k-mer（支持FASTQ和FASTA）| Count k-mers using Jellyfish (support FASTQ and FASTA)"""
+    #     self.logger.info(f"开始k-mer计数 | Starting k-mer counting for sample: {sample_name} (type: {file_type})")
+        
+    #     jf_file = self.config.temp_dir / f"{sample_name}.jf"
+        
+    #     # 准备输入文件
+    #     input_files = [f for f in input_files if f is not None]
+    #     has_compressed = any(f.endswith('.gz') for f in input_files)
+        
+    #     if has_compressed:
+    #         # 创建generator文件
+    #         generator_file = self.config.temp_dir / f"{sample_name}_generator.txt"
+            
+    #         with open(generator_file, 'w') as f:
+    #             for file_path in input_files:
+    #                 if file_path.endswith('.gz'):
+    #                     f.write(f"zcat {file_path}\n")
+    #                 else:
+    #                     f.write(f"cat {file_path}\n")
+            
+    #         # 构建命令
+    #         cmd_parts = [
+    #             self.config.jellyfish_path,
+    #             "count",
+    #             f"-m {self.config.kmer_size}",
+    #             f"-s {self.config.hash_size}",
+    #             f"-t {self.config.threads}",
+    #             f"-g {generator_file}",
+    #         ]
+            
+    #         if self.config.canonical:
+    #             cmd_parts.append("-C")
+            
+    #         cmd_parts.extend(["-o", str(jf_file)])
+            
+    #     else:
+    #         # 普通方式处理未压缩文件
+    #         cmd_parts = [
+    #             self.config.jellyfish_path,
+    #             "count",
+    #             f"-m {self.config.kmer_size}",
+    #             f"-s {self.config.hash_size}",
+    #             f"-t {self.config.threads}",
+    #         ]
+            
+    #         if self.config.canonical:
+    #             cmd_parts.append("-C")
+            
+    #         cmd_parts.extend(input_files)
+    #         cmd_parts.extend(["-o", str(jf_file)])
+        
+    #     cmd = " ".join(cmd_parts)
+        
+    #     # 执行命令
+    #     self.cmd_runner.run(cmd, f"K-mer计数 | K-mer counting for {sample_name}")
+        
+    #     if not jf_file.exists():
+    #         raise FileNotFoundError(f"Jellyfish输出文件未生成 | Jellyfish output file not generated: {jf_file}")
+        
+    #     self.logger.info(f"K-mer计数完成 | K-mer counting completed: {jf_file}")
+    #     return jf_file
+
+    def count_kmers(self, sample_name: str, input_files: List[str], file_type: str = 'fastq') -> Path:
+        """🧮 使用Jellyfish计数k-mer（支持FASTQ和FASTA）| Count k-mers using Jellyfish (support FASTQ and FASTA)"""
+        self.logger.info(f"🧮 开始k-mer计数 | Starting k-mer counting for sample: {sample_name} (type: {file_type})")
         
         # 输出文件 | Output file
         jf_file = self.config.temp_dir / f"{sample_name}.jf"
         
+        # 过滤None值 | Filter None values
+        input_files = [f for f in input_files if f is not None]
+        
+        if not input_files:
+            raise ValueError(f"❌ 没有有效的输入文件 | No valid input files for sample: {sample_name}")
+        
         # 🔥 检查是否有压缩文件，使用generator方式 | Check for compressed files, use generator method
-        input_files = [f for f in fastq_files if f is not None]
         has_compressed = any(f.endswith('.gz') for f in input_files)
         
         if has_compressed:
@@ -65,7 +200,12 @@ class JellyfishProcessor:
             with open(generator_file, 'w') as f:
                 for file_path in input_files:
                     if file_path.endswith('.gz'):
-                        f.write(f"zcat {file_path}\n")
+                        if file_type == 'fasta':
+                            # 对于FASTA文件，使用zcat直接解压
+                            f.write(f"zcat {file_path}\n")
+                        else:
+                            # 对于FASTQ文件，也使用zcat
+                            f.write(f"zcat {file_path}\n")
                     else:
                         f.write(f"cat {file_path}\n")
             
@@ -99,10 +239,17 @@ class JellyfishProcessor:
             if self.config.canonical:
                 cmd_parts.append("-C")
             
+            # 🔥 对于FASTA和FASTQ，Jellyfish的处理方式是一样的
+            # Jellyfish can handle both FASTA and FASTQ formats automatically
             cmd_parts.extend(input_files)
             cmd_parts.extend(["-o", str(jf_file)])
         
         cmd = " ".join(cmd_parts)
+        
+        # 🔥 添加文件类型信息到日志 | Add file type info to log
+        self.logger.info(f"🔬 处理{file_type.upper()}格式文件 | Processing {file_type.upper()} format files")
+        for i, file_path in enumerate(input_files, 1):
+            self.logger.info(f"  📄 文件{i}: {os.path.basename(file_path)}")
         
         # 执行命令 | Execute command
         self.cmd_runner.run(cmd, f"🧮 K-mer计数 | K-mer counting for {sample_name}")
