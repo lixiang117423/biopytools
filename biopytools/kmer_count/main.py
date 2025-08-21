@@ -36,214 +36,94 @@ class KmerCountAnalyzer:
         self.data_processor = DataProcessor(config, self.logger)
         self.window_analyzer = WindowAnalyzer(config, self.logger)
 
-    def _merge_sample_files(self, sample_files: List[Path]) -> pd.DataFrame:
-        """🔗 合并样品文件 | Merge sample files"""
-        self.logger.info("🔗 基于BED文件重新构建最终矩阵 | Rebuilding final matrix based on BED file")
+
+    # def _merge_sample_files(self, sample_files: List[Path]) -> pd.DataFrame:
+    #     """合并样品文件（统一strand为'.'）"""
+    #     self.logger.info("合并所有样本结果")
         
-        # 以BED文件为基础构建最终矩阵
+    #     if self.config.bed_file:
+    #         # 只使用正向序列作为基础矩阵
+    #         base_bed = self.data_processor.bed_info[self.data_processor.bed_info['strand'] == '+'].copy()
+    #         final_df = base_bed.copy()
+    #         final_df['unique_key'] = final_df['chr'] + '_' + final_df['start'].astype(str) + '_' + final_df['end'].astype(str) + '_' + final_df['kmer']
+    #     else:
+    #         final_df = pd.DataFrame(self.data_processor.kmer_pairs)
+        
+    #     # 为每个样本添加丰度列
+    #     for sample_file in sample_files:
+    #         sample_df = pd.read_csv(sample_file, sep='\t')
+    #         sample_name = sample_file.stem.replace('_kmer_abundance', '')
+            
+    #         unique_abundance = dict(zip(sample_df['unique_key'], sample_df[sample_name]))
+    #         final_df[sample_name] = final_df['unique_key'].map(unique_abundance).fillna(0).astype(int)
+        
+    #     # 统一将strand设为'.'
+    #     final_df['strand'] = '.'
+        
+    #     # 删除unique_key列
+    #     final_df = final_df.drop('unique_key', axis=1)
+        
+    #     self.logger.info(f"最终矩阵: {len(final_df)} 行")
+    #     return final_df
+
+    def _merge_sample_files(self, sample_files: List[Path]) -> pd.DataFrame:
+        """合并样品文件（处理空文件）"""
+        self.logger.info("合并所有样本结果")
+        
         if self.config.bed_file:
-            final_df = self.data_processor.bed_info.copy()
-            # 创建unique key：chr+start+end+kmer
+            # 只使用正向序列作为基础矩阵
+            base_bed = self.data_processor.bed_info[self.data_processor.bed_info['strand'] == '+'].copy()
+            final_df = base_bed.copy()
             final_df['unique_key'] = final_df['chr'] + '_' + final_df['start'].astype(str) + '_' + final_df['end'].astype(str) + '_' + final_df['kmer']
         else:
-            # 🔥 修改：如果没有BED文件，使用完整的k-mer ID-序列对
             final_df = pd.DataFrame(self.data_processor.kmer_pairs)
-            self.logger.info(f"📊 基础矩阵(基于k-mer对): {len(final_df)} 行")
-        
-        self.logger.info(f"📊 基础矩阵: {len(final_df)} 行")
         
         # 为每个样本添加丰度列
+        valid_samples = 0
         for sample_file in sample_files:
-            sample_df = pd.read_csv(sample_file, sep='\t')
             sample_name = sample_file.stem.replace('_kmer_abundance', '')
             
-            # 统一使用unique_key进行映射
-            unique_abundance = dict(zip(sample_df['unique_key'], sample_df[sample_name]))
-            final_df[sample_name] = final_df['unique_key'].map(unique_abundance).fillna(0)
-            
-            # 🔥 添加这一行：确保样本列是整数类型
-            final_df[sample_name] = pd.to_numeric(final_df[sample_name], errors='coerce').fillna(0).astype(int)
-            
-            self.logger.info(f"📊 添加样本{sample_name}: {len(final_df)} 行")
+            try:
+                # 检查文件是否为空或太小
+                if sample_file.stat().st_size < 10:  # 小于10字节认为是空文件
+                    self.logger.warning(f"样本文件为空或过小，跳过: {sample_name}")
+                    final_df[sample_name] = 0  # 全部设为0
+                    continue
                 
-        # 🔥 关键修复：使用unique_key去除重复行
-        original_len = len(final_df)
-        final_df = final_df.drop_duplicates(subset=['unique_key'], keep='first')
-        deduplicated_len = len(final_df)
+                # 尝试读取文件
+                sample_df = pd.read_csv(sample_file, sep='\t')
+                
+                # 检查是否有数据行
+                if len(sample_df) == 0:
+                    self.logger.warning(f"样本文件无数据行: {sample_name}")
+                    final_df[sample_name] = 0
+                    continue
+                
+                # 检查是否有required列
+                if 'unique_key' not in sample_df.columns:
+                    self.logger.warning(f"样本文件缺少unique_key列: {sample_name}")
+                    final_df[sample_name] = 0
+                    continue
+                
+                # 正常处理
+                unique_abundance = dict(zip(sample_df['unique_key'], sample_df[sample_name]))
+                final_df[sample_name] = final_df['unique_key'].map(unique_abundance).fillna(0).astype(int)
+                valid_samples += 1
+                self.logger.info(f"成功合并样本: {sample_name}")
+                
+            except Exception as e:
+                self.logger.error(f"读取样本文件失败: {sample_name}, 错误: {e}")
+                final_df[sample_name] = 0  # 出错时设为0
         
-        if original_len != deduplicated_len:
-            self.logger.warning(f"🗑️ 检测到重复行，已去重: {original_len} → {deduplicated_len}")
+        # 统一将strand设为'.'
+        final_df['strand'] = '.'
         
-        # 删除辅助列unique_key
+        # 删除unique_key列
         final_df = final_df.drop('unique_key', axis=1)
         
-        self.logger.info(f"✅ 最终矩阵: {len(final_df)} 行")
+        self.logger.info(f"最终矩阵: {len(final_df)} 行, 有效样本: {valid_samples}")
         return final_df
     
-    # def run_analysis(self):
-    #     """🚀 运行完整分析 | Run complete analysis"""
-    #     try:
-    #         self.logger.info("="*60)
-    #         self.logger.info("🚀 开始K-mer丰度分析 | Starting K-mer abundance analysis")
-    #         self.logger.info("="*60)
-            
-    #         # 1. 检查依赖 | Check dependencies
-    #         self.logger.info("🔍 步骤1: 检查依赖软件 | Step 1: Checking dependencies")
-    #         if not check_dependencies(self.config.jellyfish_path, self.logger):
-    #             raise RuntimeError("❌ 依赖检查失败 | Dependency check failed")
-            
-    #         # 2. 设置临时目录 | Setup temporary directory
-    #         self.logger.info("📁 步骤2: 设置临时目录 | Step 2: Setting up temporary directory")
-    #         self.config.setup_temp_dir()
-    #         self.logger.info(f"📂 临时目录: {self.config.temp_dir}")
-            
-    #         # 3. 查找FASTQ文件 | Find FASTQ files
-    #         self.logger.info("🔍 步骤3: 查找输入文件 | Step 3: Finding input files")
-    #         samples = self.file_processor.find_fastq_files()
-            
-    #         # 4. 准备k-mer库 | Prepare k-mer library
-    #         self.logger.info("🧬 步骤4: 准备k-mer库 | Step 4: Preparing k-mer library")
-    #         kmer_lib = self.file_processor.prepare_kmer_library()
-            
-    #         # 5. 解析注释信息 | Parse annotation information
-    #         self.logger.info("📋 步骤5: 解析注释信息 | Step 5: Parsing annotation information")
-    #         self.data_processor.parse_kmer_library()
-    #         self.data_processor.parse_bed_file()
-
-    #         # 6. 处理每个样本 | Process each sample
-    #         self.logger.info("🔄 步骤6: 处理样本 | Step 6: Processing samples")
-    #         sample_files = []  # 存储每个样品的结果文件路径
-
-    #         # 🔥 新增：将file_processor引用传给jellyfish_processor，用于文件完整性检查
-    #         self.jellyfish_processor.file_processor = self.file_processor
-
-    #         total_samples = len(samples)
-    #         processed_samples = 0
-    #         skipped_samples = 0
-
-    #         for sample_name, r1_file, r2_file in samples:
-    #             try:
-    #                 self.logger.info(f"👤 处理样本 | Processing sample: {sample_name}")
-                    
-    #                 # 6.1 解压缩文件 | Decompress files
-    #                 fastq_files = self.file_processor.decompress_files([r1_file, r2_file])
-                    
-    #                 # 6.2 k-mer计数 | K-mer counting
-    #                 jf_file = self.jellyfish_processor.count_kmers(sample_name, fastq_files)
-                    
-    #                 # 6.3 查询k-mer丰度 | Query k-mer abundance
-    #                 count_file = self.jellyfish_processor.query_kmers(sample_name, jf_file, kmer_lib)
-                    
-    #                 # 6.4 解析结果 | Parse results
-    #                 sample_df = self.data_processor.parse_jellyfish_output(count_file, sample_name)
-                    
-    #                 # 6.5 立即与BED合并并保存 | Immediately merge with BED and save
-    #                 merged_sample_df = self.data_processor.merge_single_sample_with_bed(sample_df, sample_name)
-
-    #                 # 创建each_sample子目录
-    #                 each_sample_dir = self.config.output_dir / "each_sample"
-    #                 each_sample_dir.mkdir(exist_ok=True)
-
-    #                 sample_file = each_sample_dir / f"{sample_name}_kmer_abundance.tsv"
-
-    #                 merged_sample_df.to_csv(sample_file, sep='\t', index=False)
-    #                 sample_files.append(sample_file)
-    #                 processed_samples += 1
-    #                 self.logger.info(f"✅ 样品{sample_name}结果已保存: {sample_file}")
-                    
-    #                 # 清理解压文件，但保留jf和count文件
-    #                 for f in fastq_files:
-    #                     if f and os.path.exists(f):
-    #                         os.remove(f)
-
-    #             except FileIntegrityError as e:
-    #                 skipped_samples += 1
-    #                 self.logger.warning(f"⏭️ 跳过损坏的样本: {sample_name}")
-    #                 self.logger.warning(f"💔 原因: {e}")
-    #                 continue  # 跳过这个样本，继续处理下一个
-                
-    #             except subprocess.CalledProcessError as e:
-    #                 # 检查是否是SIGPIPE相关错误
-    #                 if "killed by signal 13" in str(e.stderr) or "Some generator commands failed" in str(e.stderr):
-    #                     skipped_samples += 1
-    #                     self.logger.error(f"💥 样本 {sample_name} 遇到SIGPIPE错误，可能是文件损坏")
-    #                     self.logger.warning(f"⏭️ 跳过该样本，继续处理其他样本")
-    #                     continue
-    #                 else:
-    #                     # 其他类型的错误，记录但继续处理
-    #                     skipped_samples += 1
-    #                     self.logger.error(f"💥 样本 {sample_name} 处理失败: {e}")
-    #                     self.logger.warning(f"⏭️ 跳过该样本，继续处理其他样本")
-    #                     continue
-                
-    #             except Exception as e:
-    #                 skipped_samples += 1
-    #                 self.logger.error(f"💥 样本 {sample_name} 处理失败: {e}")
-    #                 self.logger.warning(f"⏭️ 跳过该样本，继续处理其他样本")
-    #                 continue
-
-    #         # 输出处理总结
-    #         self.logger.info("="*50)
-    #         self.logger.info(f"📊 样本处理总结 | Sample Processing Summary:")
-    #         self.logger.info(f"  📈 总样本数: {total_samples}")
-    #         self.logger.info(f"  ✅ 成功处理: {processed_samples}")
-    #         self.logger.info(f"  ⏭️ 跳过样本: {skipped_samples}")
-    #         if skipped_samples > 0:
-    #             self.logger.warning(f"  ⚠️ 跳过比例: {skipped_samples/total_samples:.1%}")
-    #         self.logger.info("="*50)
-
-    #         # 检查是否有成功处理的样本
-    #         if not sample_files:
-    #             raise RuntimeError("❌ 没有样本成功处理，分析无法继续 | No samples processed successfully, analysis cannot continue")
-
-    #         # 7. 合并所有样本结果 | Merge all sample results
-    #         self.logger.info("🔗 步骤7: 合并所有样本结果 | Step 7: Merging all sample results")
-    #         final_df = self._merge_sample_files(sample_files)
-            
-    #         # 8. 保存最终结果 | Save final results
-    #         self.logger.info("💾 步骤8: 保存最终结果 | Step 8: Saving final results")
-    #         output_file = self.config.output_dir / "kmer_abundance_matrix.tsv"
-    #         final_df.to_csv(output_file, sep='\t', index=False)
-    #         self.logger.info(f"✅ 最终结果已保存 | Final results saved: {output_file}")
-            
-    #         # 9. 滑动窗口分析 | Sliding window analysis
-    #         if self.config.bed_file and self.config.window_size:
-    #             self.logger.info("🪟 步骤9: 滑动窗口分析 | Step 9: Sliding window analysis")
-    #             window_df = self.window_analyzer.sliding_window_analysis(final_df)
-    #             if window_df is not None:
-    #                 window_file = self.config.output_dir / "sliding_window_analysis.tsv"
-    #                 window_df.to_csv(window_file, sep='\t', index=False)
-    #                 self.logger.info(f"✅ 滑动窗口结果已保存 | Sliding window results saved: {window_file}")
-            
-    #         # 10. 创建0/1矩阵 | Create 0/1 matrix
-    #         if self.config.keep_binary:
-    #             self.logger.info("🔢 步骤10: 创建0/1矩阵 | Step 10: Creating 0/1 matrix")
-    #             binary_df = self.window_analyzer.create_binary_matrix(final_df)
-    #             binary_file = self.config.output_dir / "kmer_binary_matrix.tsv"
-    #             binary_df.to_csv(binary_file, sep='\t', index=False)
-    #             self.logger.info(f"✅ 0/1矩阵已保存 | 0/1 matrix saved: {binary_file}")
-            
-    #         # 11. 生成统计报告 | Generate statistics report
-    #         self._generate_summary_report(final_df, processed_samples, skipped_samples)
-            
-    #         self.logger.info("="*60)
-    #         if skipped_samples > 0:
-    #             self.logger.warning(f"⚠️ K-mer丰度分析完成，但有{skipped_samples}个样本被跳过 | K-mer abundance analysis completed, but {skipped_samples} samples were skipped")
-    #         else:
-    #             self.logger.info("🎉 K-mer丰度分析完成! | K-mer abundance analysis completed!")
-    #         self.logger.info("="*60)
-            
-    #     except Exception as e:
-    #         self.logger.error(f"💥 分析过程中出现错误 | Error during analysis: {e}")
-    #         raise
-    #     finally:
-    #         # 清理临时目录 | Clean up temporary directory
-    #         if self.config.temp_dir and not self.config.keep_temp:
-    #             try:
-    #                 shutil.rmtree(self.config.temp_dir)
-    #                 self.logger.info("🧹 临时目录已清理 | Temporary directory cleaned")
-    #             except Exception as e:
-    #                 self.logger.warning(f"⚠️ 清理临时目录失败 | Failed to clean temporary directory: {e}")
     
     def run_analysis(self):
         """🚀 运行完整分析 | Run complete analysis"""
@@ -436,20 +316,7 @@ class KmerCountAnalyzer:
         report_lines.append(f"  👥 最终样本数量 | Final sample count: {len(sample_columns)}")
         report_lines.append(f"  📏 K-mer长度 | K-mer size: {self.config.kmer_size}")
         report_lines.append("")
-        
-        # # 样本统计 | Sample statistics
-        # if sample_columns:
-        #     report_lines.append("👤 样本统计信息 | Sample Statistics:")
-        #     for sample in sample_columns:
-        #         total_abundance = final_df[sample].sum()
-        #         present_kmers = (final_df[sample] > 0).sum()
-        #         avg_abundance = final_df[sample].mean()
-        #         report_lines.append(f"  📊 {sample}:")
-        #         report_lines.append(f"    💯 总丰度 | Total abundance: {total_abundance:,}")
-        #         report_lines.append(f"    ✅ 存在k-mer数 | Present k-mers: {present_kmers:,}")
-        #         report_lines.append(f"    📊 平均丰度 | Average abundance: {avg_abundance:.2f}")
-        #         report_lines.append(f"    📈 存在比例 | Presence ratio: {present_kmers/len(final_df):.2%}")
-        #     report_lines.append("")
+
         # 样本统计 | Sample statistics
         if sample_columns:
             report_lines.append("👤 样本统计信息 | Sample Statistics:")
