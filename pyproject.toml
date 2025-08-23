@@ -4,117 +4,108 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytools"
-version = "1.27.0"
+version = "2.0.0"  # 升级版本号
 description = "Bioinformatics tools package with Python."
-authors = [{name = "Xiang LI"}]
+authors = [{name = "Xiang LI", email = "lixiang117423@gmail.com"}]
 requires-python = ">=3.10"
-
-# 这是 install_requires 的新位置
 dependencies = [
-    "biopython>=1.80",
-    "cyvcf2",
-    "matplotlib>=3.5.0",
-    "numpy>=1.20.0",
-    "openpyxl",
-    "pandas>=1.5.0",
+    "pandas",
+    "numpy",
     "pyfastx>=0.8.4",
-    "python-magic>=0.4.27",
-    "pyyaml>=6.0",
+    "python-rocksdb", 
     "scikit-learn>=1.0.0",
-    "seaborn>=0.11.0"
-]
-
-# 这是 extras_require 的新位置
-[project.optional-dependencies]
-dev = [
-    "black>=22.0",
-    "flake8>=5.0",
-    "mypy>=1.0",
-    "pytest>=7.0",
-    "pytest-cov>=4.0",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.11.0",
+    "click>=8.0.0"  # 添加Click依赖
 ]
 
 [project.scripts]
-# Gene and sequence analysis tools
-parse_gene_info = "biopytools.gff_utils.main:main"
-parse_longest_mrna = "biopytools.longest_mrna.main:main"
-parse_sequence_vcf = "biopytools.vcf_sequence_toolkit:main"
+# === 新的统一入口点 ===
+biopytools = "biopytools.cli.main:main"
 
-# VCF processing tools
+# === 向后兼容的别名 (可选，逐步废弃) ===
+# 用户仍可使用旧命令，但建议迁移到新语法
+# 这些可以在后续版本中逐步移除
+
+# VCF工具兼容别名
 run_vcf_filter = "biopytools.vcf_filter.main:main"
+run_vcf_pca = "biopytools.vcf_pca.main:main"  
 run_vcf_genotype = "biopytools.vcf_genotype_extractor.main:main"
 run_vcf_sample_hete = "biopytools.vcf_stats_sample.main:main"
-run_vcf_pca = "biopytools.vcf_pca.main:main"
 run_vcf_ld_heatmap = "biopytools.vcf_ld_heatmap.main:main"
 run_vcf_njtree = "biopytools.vcf_phylo.main:main"
-run_variant_filter = "biopytools.variant_filter.main:main"
+run_vcf_joint = "biopytools.vcf_joint_genotyping.main:main"
 
-# BAM file stat
-run_bam_stats = "biopytools.bam_stats.main:main"
+# 序列分析工具兼容别名
+parse_gene_info = "biopytools.gff_utils.main:main"
+parse_longest_mrna = "biopytools.longest_mrna.main:main"  
+parse_sequence_vcf = "biopytools.vcf_sequence_toolkit:main"
 
-# Quality control and preprocessing
+# 比对工具兼容别名
+run_minimap2 = "biopytools.minimap2.main:main"
+run_blast = "biopytools.blast_analysis.main:main"
+
+# 质控工具兼容别名
 run_fastp = "biopytools.fastp.main:main"
+run_bam_stats = "biopytools.bam_stats.main:main"
+run_bam_depth = "biopytools.depth_analyzer.main:main"
 
-# RNA-seq analysis
+# RNA-seq分析兼容别名
 run_rnaseq = "biopytools.rnaseq.main:main"
 run_augustus_multi_rnaseq = "biopytools.augustus_multi_rnaseq.main:main"
+run_transcriptome_prediction = "biopytools.transcriptome_prediction.main:main"
 
-# Annotation tools
+# 注释工具兼容别名
 run_annovar = "biopytools.annovar.main:main"
+run_repeat_masker = "biopytools.repeat_masker.main:main"
 
-# Population genetics and GWAS
+# 群体遗传学兼容别名  
 run_plink_gwas = "biopytools.plink_gwas.main:main"
 run_admixture = "biopytools.admixture.main:main"
 
-# K-mer analysis
+# K-mer分析兼容别名
 run_kmer_extractor = "biopytools.kmer_extractor.main:main"
 run_kmer_count = "biopytools.kmer_count.main:main"
 
-
-# Alignment tools
-run_minimap2 = "biopytools.minimap2.main:main"
-
-# Genome annotation
-run_repeat_masker = "biopytools.repeat_masker.main:main"
-
-# Data download
-run_ena_downloader = "biopytools.ena_downloader.main:main"
-
-# Methylation analysis
-run_bismark = "biopytools.bismark_pipeline.main:main"
-
-# Metagenomics
-run_metawrap_pipeline = "biopytools.metawrap_pipeline.main:main"
-
-# SV identification
+# 变异检测兼容别名
+run_variant_filter = "biopytools.variant_filter.main:main"
 run_pacbio_sv = "biopytools.pacbio_sv.main:main"
 
-# Hifiasm
+# 组装工具兼容别名
 run_hifiasm = "biopytools.hifiasm.main:main"
 
-# plotsr
+# 其他工具兼容别名
+run_ena_downloader = "biopytools.ena_downloader.main:main"
+run_bismark = "biopytools.bismark_pipeline.main:main"
+run_metawrap_pipeline = "biopytools.metawrap_pipeline.main:main"
 run_genome_collinearity = "biopytools.genome_collinearity.main:main"
-
-# GTX
+run_genome_syn = "biopytools.genome_syn.main:main"
 run_gtx = "biopytools.gtx.main:main"
-
-# Parabricks
+run_gtx_joint = "biopytools.vcf_joint_genotyping.main:main"
 run_parabricks = "biopytools.parabricks.main:main"
-
-# GenomeScope
-# run_genomescope = "biopytools.genomescope.main:main"
-
-# KaKs calcaulator
 run_kaks_calculator = "biopytools.kakscalc.main:main"
-
-# split and parse fasta id
 run_split_fasta_id = "biopytools.split_fasta_id.main:main"
 
-# GTX joint
-run_gtx_joint = "biopytools.vcf_joint_genotyping.main:main"
-
-# transcriptome_prediction
-run_transcriptome_prediction = "biopytools.transcriptome_prediction.main:main"
+[project.urls]
+Homepage = "https://github.com/lixiang117423/biopytools"
+Documentation = "https://lixiang117423.github.io/article/biopytools-readme/"
+Repository = "https://github.com/lixiang117423/biopytools.git"
+Issues = "https://github.com/lixiang117423/biopytools/issues"
 
 [tool.setuptools.packages.find]
 include = ["biopytools*"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8"
+]
+
+docs = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocs-mermaid2-plugin"
+]
