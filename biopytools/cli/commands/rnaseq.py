@@ -35,7 +35,7 @@ def get_original_main_for_demo():
 rnaseq_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "RNA-seq分析流程: HISAT2 + StringTie")
 # --- Required arguments ---
 @click.option('--genome', '-g',
               required=True,

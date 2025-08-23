@@ -97,7 +97,7 @@ def get_original_main_for_demo():
 fastp_main = get_original_main_for_demo()
 # END: In-place original main function
 
-@click.command()
+@click.command(short_help = "使用FASTP进行FASTQ数据质控的批处理工具")
 @click.option('--input-dir', '-i',
               required=True,
               type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),

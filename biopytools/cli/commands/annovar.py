@@ -7,7 +7,7 @@ import sys
 from ...annovar.main import main as annovar_main
 
 
-@click.command()
+@click.command(short_help = "ANNOVAR变异注释工具")
 @click.option('--gff3', '-g',
               required=True,
               type=click.Path(exists=True),

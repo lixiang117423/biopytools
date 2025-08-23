@@ -42,7 +42,7 @@ def get_original_main_for_demo():
 sequence_extractor_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "VCF和基因组文件中提取特定区间的序列")
 # --- Required arguments ---
 @click.option('--vcf', '-v',
               required=True,

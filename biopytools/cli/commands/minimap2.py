@@ -38,7 +38,7 @@ def get_original_main_for_demo():
 minimap2_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "Minimap2全基因组比对和未比对区间提取工具")
 # --- Required arguments ---
 @click.option('--target', '-t',
               required=True,

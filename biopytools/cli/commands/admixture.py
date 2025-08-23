@@ -7,7 +7,7 @@ import sys
 from ...admixture.main import main as admixture_main
 
 
-@click.command()
+@click.command(short_help = "ADMIXTURE群体结构分析")
 @click.option('--vcf', '-v',
               required=True,
               type=click.Path(exists=True),

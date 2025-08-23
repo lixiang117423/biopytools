@@ -34,7 +34,7 @@ def get_original_main_for_demo():
 gff_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command()
+@click.command(short_help = "从GFF3文件提取整合的基因和转录本信息")
 @click.option('--gff3', '-g',
               required=True,
               type=click.Path(exists=True, dir_okay=False, resolve_path=True),

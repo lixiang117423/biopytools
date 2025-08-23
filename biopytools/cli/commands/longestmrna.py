@@ -32,7 +32,7 @@ def get_original_main_for_demo():
 longest_mrna_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "从GFF3注释中为每个基因提取最长的mRNA转录本")
 # --- Required arguments ---
 @click.option('--genome', '-g',
               required=True,

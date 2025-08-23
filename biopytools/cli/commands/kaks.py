@@ -43,7 +43,7 @@ def get_original_main_for_demo():
 kaks_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "计算Ka/Ks")
 @click.version_option(version='1.0.0', prog_name='Ka/Ks Calculator')
 # --- Required arguments ---
 @click.option('--fasta1', '-1',

@@ -41,7 +41,7 @@ def get_original_main_for_demo():
 gtx_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "GTX WGS批处理分析流程")
 @click.option('--input-dir', '-i',
               required=True,
               type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),

@@ -47,7 +47,7 @@ def get_original_main_for_demo():
 plink_gwas_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.group(invoke_without_command=True, context_settings=dict(help_option_names=['-h', '--help']))
+@click.group(invoke_without_command=True, context_settings=dict(help_option_names=['-h', '--help']), short_help = "完整的PLINK GWAS分析流程")
 @click.option('--vcf-file', '-v',
               required=True,
               type=click.Path(exists=True, dir_okay=False, resolve_path=True),

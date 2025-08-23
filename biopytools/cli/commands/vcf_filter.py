@@ -48,7 +48,7 @@ def get_original_main_for_demo():
 vcf_filter_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "VCF文件筛选工具")
 # --- Required arguments ---
 @click.option('--input', '-i', 'input_file',
               required=True,

@@ -20,7 +20,7 @@ def get_original_main_for_demo():
 genome_syn_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "基因组共线性可视化工具")
 @click.option('--sample-map', '-s',
               type=click.Path(exists=True, dir_okay=False, resolve_path=True),
               help='📂 样本映射文件 (genome_file\\tgenome_name) | Sample mapping file.')

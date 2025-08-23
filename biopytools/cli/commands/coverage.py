@@ -7,7 +7,7 @@ import sys
 from ...depth_analyzer.main import main as depth_main
 
 
-@click.command()
+@click.command(short_help = "BAM/SAM文件覆盖度分析工具")
 @click.option('--input', '-i',
               multiple=True,
               required=True,

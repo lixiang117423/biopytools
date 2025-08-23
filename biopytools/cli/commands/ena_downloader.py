@@ -38,7 +38,7 @@ def get_original_main_for_demo():
 ena_downloader_main = get_original_main_for_demo()
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']))
+@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = " ENA样品信息和下载链接获取工具")
 # --- Required arguments ---
 @click.option('--accession', '-a',
               required=True,

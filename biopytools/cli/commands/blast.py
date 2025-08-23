@@ -7,7 +7,7 @@ import sys
 from ...blast_analysis.main import main as blast_main
 
 
-@click.command()
+@click.command(short_help = "BLAST序列比对分析工具")
 @click.option('--input', '-i',
               type=click.Path(exists=True),
               help='📁 输入文件或目录路径 | Input file or directory path')
