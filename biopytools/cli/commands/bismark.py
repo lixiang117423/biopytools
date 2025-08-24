@@ -37,7 +37,8 @@ bismark_main = get_original_main_for_demo()
 __version__ = "1.0.0" # Placeholder version
 # END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "Bismark甲基化分析流程")
+@click.command(short_help = "Bismark甲基化分析流程",
+               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
 @click.version_option(version=__version__, prog_name='Bismark Pipeline')
 # --- Required arguments ---
 @click.option('--genome-fa', '-g',

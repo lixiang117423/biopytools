@@ -1,151 +1,126 @@
 """
-📥 ENA下载工具命令 | ENA Downloader Command
+ENA数据下载命令 | ENA Data Download Command
 """
 
 import click
 import sys
-# In your actual project, you would use a relative import like this:
-# from ...ena_downloader.main import main as ena_downloader_main
+from ...ena_downloader.main import main as ena_main
 
-# --- Placeholder for the original main function to make this snippet runnable ---
-# --- In your project, delete this section and use the import statement above ---
-# START: Placeholder for demonstration
-def get_original_main_for_demo():
-    def main_placeholder():
-        print("--- 🚀 Original main function called (simulated) ---")
-        print(f"Received sys.argv: {sys.argv}")
-        # The original main() would create a parser and run the analysis.
-        import argparse
-        parser = argparse.ArgumentParser()
-        parser.add_argument('--accession', '-a', required=True)
-        parser.add_argument('--output-dir', '-o')
-        parser.add_argument('--create-dir', '-d', action='store_true')
-        parser.add_argument('--metadata-format', '-f', choices=['tsv', 'csv', 'xlsx'], default='tsv')
-        parser.add_argument('--protocol', '-p', choices=['ftp', 'aspera'], default='ftp')
-        parser.add_argument('--aspera-key', '-k')
-        parser.add_argument('--method', '-m', choices=['save', 'run'], default='save')
-        parser.add_argument('--metadata-only', '-M', action='store_true')
-        parser.add_argument('--fields', '-F', nargs='+')
-        parser.add_argument('--max-retries', '-r', type=int, default=3)
-        try:
-            args = parser.parse_args()
-            print(f"Argparse would have parsed arguments as: {args}")
-        except Exception as e:
-            print(f"Argparse simulation failed: {e}")
-        
-        print("--- ✅ Process finished (simulated) ---")
-    return main_placeholder
-ena_downloader_main = get_original_main_for_demo()
-# END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = " ENA样品信息和下载链接获取工具")
-# --- Required arguments ---
+@click.command(short_help = '从ENA下载测序数据样品信息和下载链接',
+               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
 @click.option('--accession', '-a',
               required=True,
-              help='🎯 ENA项目编号 (e.g., PRJNA661210) | ENA accession number.')
-# --- Output settings ---
+              help='ENA项目编号 | ENA accession number (e.g., PRJNA661210, SRP000123)')
 @click.option('--output-dir', '-o',
-              type=click.Path(file_okay=False, resolve_path=True),
-              help='📁 输出目录 (默认: 当前目录) | Output directory (default: current).')
+              type=click.Path(),
+              help='输出目录 | Output directory')
 @click.option('--create-dir', '-d',
               is_flag=True,
-              help='📂 创建专门的输出目录 ([accession].ena.download) | Create a dedicated output directory.')
+              help='创建专门的输出目录 | Create dedicated output directory')
 @click.option('--metadata-format', '-f',
-              type=click.Choice(['tsv', 'csv', 'xlsx'], case_sensitive=False),
-              default='tsv', show_default=True,
-              help='📋 元数据文件格式 | Metadata file format.')
-# --- Download protocol settings ---
+              type=click.Choice(['tsv', 'csv', 'xlsx']),
+              default='tsv',
+              help='元数据文件格式 (默认: tsv) | Metadata file format (default: tsv)')
 @click.option('--protocol', '-p',
-              type=click.Choice(['ftp', 'aspera'], case_sensitive=False),
-              default='ftp', show_default=True,
-              help='🌐 下载协议 (ftp 或 aspera) | Download protocol.')
+              type=click.Choice(['ftp', 'aspera']),
+              default='ftp',
+              help='下载协议类型 (默认: ftp) | Download protocol type (default: ftp)')
 @click.option('--aspera-key', '-k',
-              type=click.Path(exists=True, dir_okay=False, resolve_path=True),
-              help='🔐 Aspera私钥路径 (使用aspera时必需) | Path to Aspera private key.')
+              type=click.Path(exists=True),
+              help='Aspera私钥路径 | Path to aspera private key')
 @click.option('--method', '-m',
-              type=click.Choice(['save', 'run'], case_sensitive=False),
-              default='save', show_default=True,
-              help='⚙️ 执行模式 (save: 生成脚本, run: 直接下载) | Execution mode.')
-# --- Special modes ---
+              type=click.Choice(['save', 'run']),
+              default='save',
+              help='执行模式 (默认: save) | Execution mode (default: save)')
 @click.option('--metadata-only', '-M',
               is_flag=True,
-              help='📊 仅下载元数据 | Only download metadata.')
-# --- Advanced options ---
+              help='仅下载元数据，不处理FASTQ文件 | Only download metadata, do not process FASTQ files')
 @click.option('--fields', '-F',
               multiple=True,
-              help='🔧 自定义元数据字段 (可多次使用) | Custom metadata fields (use multiple times).')
+              help='自定义元数据字段 | Custom metadata fields')
 @click.option('--max-retries', '-r',
-              type=int, default=3, show_default=True,
-              help='🔄 API请求最大重试次数 | Maximum API request retries.')
-def ena_downloader(**kwargs):
+              type=int,
+              default=3,
+              help='API请求最大重试次数 (默认: 3) | Maximum API request retries (default: 3)')
+def ena_downloader(accession, output_dir, create_dir, metadata_format, protocol, 
+                  aspera_key, method, metadata_only, fields, max_retries):
     """
-    ENA样品信息和下载链接获取工具.
-
-    根据ENA项目编号(Accession)下载相关的元数据和FASTQ文件。
-    支持FTP和高速Aspera协议，可以选择直接下载或生成下载脚本。
+    ENA数据下载工具
     
-    🌟 示例 | Examples:
+    从ENA数据库下载测序数据的元数据和FASTQ文件，支持FTP和Aspera协议，
+    可生成下载脚本或直接执行下载。
     
-    \b
-    # 📊 仅下载元数据
-    biopytools ena-downloader -a PRJNA123456 -M
+    示例 | Examples:
     
     \b
-    # 💾 生成FTP下载脚本
-    biopytools ena-downloader -a PRJNA123456 -p ftp -m save
-        
+    # 仅下载元数据
+    biopytools ena-download -a PRJNA661210 -M
+    
     \b
-    # 🚀 使用Aspera直接下载
-    biopytools ena-downloader -a PRJNA123456 -p aspera -k ~/.aspera/key.openssh -m run
+    # 下载元数据并生成FTP下载脚本
+    biopytools ena-download -a PRJNA661210 -p ftp -m save
+    
+    \b
+    # 使用Aspera协议直接下载
+    biopytools ena-download -a PRJNA661210 -p aspera \\
+        -k ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -m run
+    
+    \b
+    # 自定义输出和格式
+    biopytools ena-download -a PRJNA661210 -o my_results -f xlsx -d
+    
+    \b
+    # 自定义字段
+    biopytools ena-download -a PRJNA661210 -F fastq_ftp -F study_title -f csv
     """
     
-    # 构建参数列表以传递给原始的main函数 🔄 | Build argument list for original main function
-    args = ['biopytools', 'ena-downloader']
+    # 构建参数列表传递给原始main函数
+    args = ['ena_downloader.py']
     
-    # 遍历所有参数
-    for key, value in kwargs.items():
-        if value is None:
-            continue
-            
-        param_name = '--' + key.replace('_', '-')
-        
-        if isinstance(value, bool) and value:
-            args.append(param_name)
-        elif isinstance(value, tuple) and value: # For 'multiple=True' options like --fields
-            args.append(param_name)
-            args.extend(value)
-        elif not isinstance(value, (bool, tuple)):
-            default_val = ena_downloader.params_by_name[key].default
-            if value != default_val:
-                args.append(param_name)
-                args.append(str(value))
+    # 必需参数
+    args.extend(['--accession', accession])
     
-    # 确保必需参数和有默认值的参数总是存在（如果它们是核心功能的一部分）
-    # Required
-    args.extend(['-a', kwargs['accession']])
-    # Defaults that are always passed to the underlying script
-    if 'protocol' not in args: args.extend(['-p', kwargs['protocol']])
-    if 'method' not in args: args.extend(['-m', kwargs['method']])
-
-    # 保存并恢复sys.argv 💾 | Save and restore sys.argv
+    # 可选参数（只在非默认值时添加）
+    if output_dir:
+        args.extend(['--output-dir', output_dir])
+    
+    if create_dir:
+        args.append('--create-dir')
+    
+    if metadata_format != 'tsv':
+        args.extend(['--metadata-format', metadata_format])
+    
+    if protocol != 'ftp':
+        args.extend(['--protocol', protocol])
+    
+    if aspera_key:
+        args.extend(['--aspera-key', aspera_key])
+    
+    if method != 'save':
+        args.extend(['--method', method])
+    
+    if metadata_only:
+        args.append('--metadata-only')
+    
+    if fields:
+        args.extend(['--fields'] + list(fields))
+    
+    if max_retries != 3:
+        args.extend(['--max-retries', str(max_retries)])
+    
+    # 保存并恢复sys.argv
     original_argv = sys.argv
     sys.argv = args
     
     try:
-        # 调用原始的main函数 🚀 | Call original main function
-        ena_downloader_main()
+        # 调用原始的main函数
+        ena_main()
     except SystemExit as e:
-        # 处理程序正常退出 ✅ | Handle normal program exit
-        if e.code != 0:
-            click.secho(f"❌ 脚本执行被终止，退出码: {e.code}", fg='red', err=True)
+        # 处理程序正常退出
         sys.exit(e.code)
     except Exception as e:
-        click.secho(f"💥 发生未知错误 | An unexpected error occurred: {e}", fg='red', err=True)
+        click.echo(f"错误: {e}", err=True)
         sys.exit(1)
     finally:
-        # 无论如何都要恢复原始的 sys.argv | Restore original sys.argv regardless of outcome
         sys.argv = original_argv
-
-# 如果直接运行此文件用于测试 | If running this file directly for testing
-if __name__ == '__main__':
-    ena_downloader()

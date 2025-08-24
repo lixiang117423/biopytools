@@ -7,7 +7,8 @@ import sys
 from ...depth_analyzer.main import main as depth_main
 
 
-@click.command(short_help = "BAM/SAM文件覆盖度分析工具")
+@click.command(short_help = "BAM/SAM文件覆盖度分析工具",
+               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
 @click.option('--input', '-i',
               multiple=True,
               required=True,
@@ -68,26 +69,26 @@ def coverage(input, output, chromosome, region, threads, quality, mapping_qualit
     
     \b
     # 🎯 分析单个BAM文件
-    biopytools bam-depth -i sample.bam -o depth_results.txt
+    biopytools coverage -i sample.bam -o depth_results.txt
     
     \b
     # 🧬 指定染色体和区间
-    biopytools bam-depth -i sample.bam -o results.txt \\
+    biopytools coverage -i sample.bam -o results.txt \\
         -c chr12 -r 136491092:138554123
     
     \b
     # 📁 批量分析多个文件
-    biopytools bam-depth -i sample1.bam sample2.bam \\
+    biopytools coverage -i sample1.bam sample2.bam \\
         -o results.txt --threads 16
     
     \b
     # 📊 启用滑窗分析
-    biopytools bam-depth -i sample.bam -o results.txt \\
+    biopytools coverage -i sample.bam -o results.txt \\
         --enable-windows --window-size 1000 --window-step 500
     
     \b
     # 🎯 高质量比对过滤
-    biopytools bam-depth -i data.bam -o results.txt \\
+    biopytools coverage -i data.bam -o results.txt \\
         -q 20 -Q 30 --compress
     """
     

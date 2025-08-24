@@ -7,7 +7,8 @@ import sys
 from ...admixture.main import main as admixture_main
 
 
-@click.command(short_help = "ADMIXTURE群体结构分析")
+@click.command(short_help = "ADMIXTURE群体结构分析",
+               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
 @click.option('--vcf', '-v',
               required=True,
               type=click.Path(exists=True),

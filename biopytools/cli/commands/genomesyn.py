@@ -1,174 +1,166 @@
 """
-🧠 基因组共线性分析命令 | Genome Synteny Analysis Command
+基因组共线性分析命令 | Genome Synteny Analysis Command
 """
 
 import click
 import sys
-# In your actual project structure, you would use a relative import like this:
-# from ...genomesyn.main import main as genome_syn_main
+from ...genome_syn.main import main as genome_syn_main
 
-# --- For this snippet to be self-contained, we'll include a placeholder main ---
-# --- In your project, delete this placeholder and use the import above ---
-# START: Placeholder for demonstration
-def get_original_main_for_demo():
-    def main_placeholder():
-        print("--- 🚀 Original main function called (simulated) ---")
-        print(f"Received sys.argv: {sys.argv}")
-        # argparse would parse sys.argv here and run the analysis
-        print("--- ✅ Analysis finished (simulated) ---")
-    return main_placeholder
-genome_syn_main = get_original_main_for_demo()
-# END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "基因组共线性可视化工具")
+@click.command(short_help = '基因组共线性分析',
+               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
 @click.option('--sample-map', '-s',
-              type=click.Path(exists=True, dir_okay=False, resolve_path=True),
-              help='📂 样本映射文件 (genome_file\\tgenome_name) | Sample mapping file.')
+              type=click.Path(exists=True),
+              help='📂 样本映射文件 | Sample mapping file (tab-separated: genome_file\\tgenome_name)')
 @click.option('--config', '-c',
-              type=click.Path(exists=True, dir_okay=False, resolve_path=True),
-              help='📋 配置文件 (.xlsx or .yaml) | Configuration file.')
+              type=click.Path(exists=True),
+              help='📋 配置文件 | Configuration file (.xlsx or .yaml)')
 @click.option('--output-dir', '-o',
               default='./genome_syn_output',
-              show_default=True,
-              type=click.Path(file_okay=False, resolve_path=True),
-              help='📁 输出目录 | Output directory.')
+              type=click.Path(),
+              help='📁 输出目录 | Output directory (default: ./genome_syn_output)')
 @click.option('--generate-config',
               is_flag=True,
-              help='📝 仅生成配置文件 | Generate configuration file only.')
+              help='📋 仅生成配置文件 | Generate configuration file only')
 @click.option('--aligner', '-a',
-              type=click.Choice(['minimap2', 'mcscanx', 'syri', 'mummer'], case_sensitive=False),
               default='minimap2',
-              show_default=True,
-              help='🔧 比对器类型 | Aligner type.')
+              type=click.Choice(['minimap2', 'mcscanx', 'syri', 'mummer']),
+              help='🔧 比对器类型 | Aligner type (default: minimap2)')
 @click.option('--alignment-mode',
-              type=click.Choice(['chain', 'star', 'all_vs_all'], case_sensitive=False),
               default='chain',
-              show_default=True,
-              help='🔗 比对模式 | Alignment mode.')
+              type=click.Choice(['chain', 'star', 'all_vs_all']),
+              help='🔗 比对模式 | Alignment mode (default: chain)')
 @click.option('--threads', '-t',
-              type=int,
               default=16,
-              show_default=True,
-              help='⚡ 线程数 | Number of threads.')
-@click.option('--min-length',
               type=int,
+              help='⚡ 线程数 | Number of threads (default: 16)')
+@click.option('--min-length',
               default=5000,
-              show_default=True,
-              help='📏 最小比对长度 | Minimum alignment length.')
+              type=int,
+              help='📏 最小比对长度 | Minimum alignment length (default: 5000)')
 @click.option('--chromosome',
               type=str,
-              help='🧬 指定分析的染色体 (e.g., "1,2,3" or "1-5") | Specify chromosomes to analyze.')
+              help='🧬 指定要分析的染色体 | Specify chromosomes to analyze (e.g., "1,2,3" or "1-5" or "1")')
 @click.option('--canvas-width',
               type=int,
-              help='📐 画布宽度 (自动计算) | Canvas width (auto-calculated).')
+              help='📏 画布宽度 | Canvas width (auto-calculated if not specified)')
 @click.option('--canvas-height',
               type=int,
-              help='📐 画布高度 (自动计算) | Canvas height (auto-calculated).')
+              help='📏 画布高度 | Canvas height (auto-calculated if not specified)')
 @click.option('--output-formats',
               multiple=True,
-              type=click.Choice(['svg', 'png'], case_sensitive=False),
               default=['svg', 'png'],
-              show_default=True,
-              help='📄 输出格式 (可多次使用) | Output formats (can be used multiple times).')
-def genomesyn(sample_map, config, output_dir, generate_config, aligner,
-              alignment_mode, threads, min_length, chromosome,
-              canvas_width, canvas_height, output_formats):
+              type=click.Choice(['svg', 'png']),
+              help='📄 输出格式 | Output formats (default: svg png)')
+def genomesyn(sample_map, config, output_dir, generate_config, aligner, 
+               alignment_mode, threads, min_length, chromosome, canvas_width, 
+               canvas_height, output_formats):
     """
-    基因组共线性可视化工具.
-
-    一个强大的工具，用于执行、配置和可视化多个基因组之间的共线性关系。
+    基因组共线性可视化工具
     
-    🌟 示例 | Examples:
+    从基因组序列文件进行共线性分析并生成可视化图形。
+    支持多种比对器和可视化格式，可灵活配置分析参数。
     
-    \b
-    # 📋 1. 从样本表生成配置文件
-    biopytools genomesyn --sample-map genomes.tsv --generate-config -o ./output
+    示例 | Examples:
     
     \b
-    # 🚀 2. 使用生成的配置文件运行分析
-    biopytools genomesyn --config ./output/genomes_config.xlsx -o ./output
+    # 📋 生成配置文件
+    biopytools genomesyn --sample-map genomes.tsv --generate-config --output-dir ./output
     
     \b
-    # ⚡ 3. (可选) 从样本表一步完成分析
-    biopytools genomesyn --sample-map genomes.tsv -o ./output -t 32
+    # 🚀 运行分析
+    biopytools genomesyn --config genomes_config.xlsx --output-dir ./output
     
     \b
-    # 🧬 4. 仅分析特定染色体
-    biopytools genomesyn -c config.xlsx -o ./output --chromosome "1,2,3"
+    # ⚡ 一步完成
+    biopytools genomesyn --sample-map genomes.tsv --output-dir ./output
+    
+    \b
+    # 🧬 分析特定染色体
+    biopytools genomesyn --sample-map genomes.tsv --output-dir ./output --chromosome "1,2,3"
+    
+    \b
+    # 📊 分析染色体范围
+    biopytools genomesyn --sample-map genomes.tsv --output-dir ./output --chromosome "1-5"
+    
+    \b
+    # 🎨 自定义可视化
+    biopytools genomesyn --sample-map genomes.tsv --output-dir ./output \\
+        --canvas-width 1200 --canvas-height 800 --output-formats svg png
+    
+    \b
+    # ⚙️ 高级设置
+    biopytools genomesyn --sample-map genomes.tsv --output-dir ./output \\
+        --aligner minimap2 --alignment-mode chain --threads 32 --min-length 10000
     """
     
-    # 验证互斥参数 | Validate mutually exclusive arguments
+    # 验证输入参数的互斥性
     if not sample_map and not config:
-        raise click.UsageError("❌ 必须提供 '--sample-map' 或 '--config' 中的一个 | Either '--sample-map' or '--config' must be provided.")
+        raise click.ClickException("❌ 必须指定 --sample-map 或 --config 参数之一 | Must specify either --sample-map or --config")
+    
     if sample_map and config:
-        raise click.UsageError("❌ '--sample-map' 和 '--config' 不能同时使用 | '--sample-map' and '--config' are mutually exclusive.")
-
-    # 构建参数列表以传递给原始的main函数 🔄 | Build argument list for original main function
-    args = ['biopytools', 'genomesyn']
-
-    # 必需的互斥参数 | Required mutually exclusive parameters
+        raise click.ClickException("❌ --sample-map 和 --config 参数不能同时使用 | Cannot use both --sample-map and --config")
+    
+    # 构建参数列表传递给原始main函数
+    args = ['genomesyn.py']
+    
+    # 输入文件参数（互斥）
     if sample_map:
         args.extend(['--sample-map', sample_map])
     if config:
         args.extend(['--config', config])
-        
-    # 可选参数 ⚙️ | Optional parameters
-    if output_dir != './genome_syn_output':
-        args.extend(['-o', output_dir])
-    else: # 总是传递输出目录，即使是默认值
-        args.extend(['-o', output_dir])
-        
+    
+    # 输出参数
+    args.extend(['--output-dir', output_dir])
+    
+    # 模式参数
     if generate_config:
         args.append('--generate-config')
-        
+    
+    # 比对参数
     if aligner != 'minimap2':
-        args.extend(['-a', aligner])
-        
+        args.extend(['--aligner', aligner])
+    
     if alignment_mode != 'chain':
         args.extend(['--alignment-mode', alignment_mode])
-        
+    
     if threads != 16:
-        args.extend(['-t', str(threads)])
-        
+        args.extend(['--threads', str(threads)])
+    
     if min_length != 5000:
         args.extend(['--min-length', str(min_length)])
-        
+    
+    # 染色体过滤参数
     if chromosome:
         args.extend(['--chromosome', chromosome])
-        
+    
+    # 可视化参数
     if canvas_width:
         args.extend(['--canvas-width', str(canvas_width)])
-        
+    
     if canvas_height:
         args.extend(['--canvas-height', str(canvas_height)])
-        
-    # 处理多值参数 | Handle multiple value parameter
-    # 只有当它与默认值不同时才添加
-    if sorted(output_formats) != sorted(['svg', 'png']):
-        # argparse的nargs='+'期望 `--flag val1 val2`
-        args.append('--output-formats')
-        args.extend(output_formats)
-
-    # 保存并恢复sys.argv 💾 | Save and restore sys.argv
+    
+    # 输出格式参数（只在非默认值时添加）
+    if output_formats and set(output_formats) != {'svg', 'png'}:
+        args.extend(['--output-formats'] + list(output_formats))
+    
+    # 保存并恢复sys.argv
     original_argv = sys.argv
     sys.argv = args
     
     try:
-        # 调用原始的main函数 🚀 | Call original main function
+        # 调用原始的main函数
         genome_syn_main()
     except SystemExit as e:
-        # 处理程序正常退出 ✅ | Handle normal program exit
+        # 处理程序正常退出
         if e.code != 0:
-            click.secho(f"❌ 脚本执行被终止，退出码: {e.code}", fg='red', err=True)
-        sys.exit(e.code)
+            sys.exit(e.code)
+    except KeyboardInterrupt:
+        click.echo("\n⚠️ 用户中断操作 | User interrupted", err=True)
+        sys.exit(1)
     except Exception as e:
-        click.secho(f"💥 发生未知错误 | An unexpected error occurred: {e}", fg='red', err=True)
+        click.echo(f"💥 运行错误 | Runtime error: {e}", err=True)
         sys.exit(1)
     finally:
-        # 无论如何都要恢复原始的 sys.argv | Restore original sys.argv regardless of outcome
         sys.argv = original_argv
-
-# 如果直接运行此文件用于测试 | If running this file directly for testing
-if __name__ == '__main__':
-    # 模拟命令行调用，例如: python your_script.py -s your_map.tsv -o ./out
-    genomesyn()

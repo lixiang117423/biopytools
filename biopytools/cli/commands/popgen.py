@@ -1,204 +1,311 @@
 """
-🧬 群体遗传分析命令 | Population Genetics Analysis Command
+群体遗传分析命令 | Population Genetics Analysis Command
 """
 
 import click
 import sys
-# In your actual project, you would use a relative import like this:
-# from ...popgen.main import main as popgen_main
+from ...popgen_toolkit.main import main as popgen_main
 
-# --- Placeholder for the original main function to make this snippet runnable ---
-# --- In your project, delete this section and use the import statement above ---
-# START: Placeholder for demonstration
-def get_original_main_for_demo():
-    def main_placeholder():
-        print("--- 🚀 Original main function called (simulated) ---")
-        print(f"Received sys.argv: {sys.argv}")
-        # The original main() would create a parser and run the analysis.
-        import argparse
-        parser = argparse.ArgumentParser()
-        parser.add_argument('-v', '--vcf', required=True)
-        parser.add_argument('-o', '--output', default='./popgen_output')
-        parser.add_argument('-g', '--groups')
-        parser.add_argument('--all', action='store_true', default=True)
-        parser.add_argument('--fst', action='store_true')
-        parser.add_argument('--pi', action='store_true')
-        parser.add_argument('--theta-w', action='store_true')
-        parser.add_argument('--tajima-d', action='store_true')
-        parser.add_argument('--ibd', action='store_true')
-        parser.add_argument('--ld', action='store_true')
-        parser.add_argument('--ne', action='store_true')
-        parser.add_argument('-w', '--windows', nargs='+', type=int, default=[10000, 100000, 500000])
-        parser.add_argument('--overlap', type=float, default=0.9)
-        parser.add_argument('-m', '--maf', type=float, default=0.01)
-        parser.add_argument('-M', '--missing', type=float, default=0.1)
-        parser.add_argument('-H', '--hwe', type=float, default=1e-6)
-        parser.add_argument('--min-dp', type=int, default=10)
-        parser.add_argument('--max-dp', type=int, default=100)
-        parser.add_argument('-f', '--format', choices=['txt', 'csv', 'tsv', 'json'], default='txt')
-        parser.add_argument('-t', '--threads', type=int, default=4)
-        parser.add_argument('--vcftools-path', default='vcftools')
-        parser.add_argument('--plink-path', default='plink')
-        parser.add_argument('--bcftools-path', default='bcftools')
-        parser.add_argument('--smcpp-path', default='smc++')
-        try:
-            args = parser.parse_args()
-            print(f"Argparse would have parsed arguments as: {args}")
-        except Exception as e:
-            print(f"Argparse simulation failed: {e}")
-        
-        print("--- ✅ Analysis finished (simulated) ---")
-    return main_placeholder
-popgen_main = get_original_main_for_demo()
-# END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "群体遗传多样性参数计算工具")
-# --- Required arguments ---
+@click.command(short_help='群体遗传学多样性分析',
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--vcf', '-v',
               required=True,
-              type=click.Path(exists=True, dir_okay=False, resolve_path=True),
-              help='🧬 输入VCF文件路径 | Input VCF file path.')
-# --- Optional arguments ---
+              type=click.Path(exists=True),
+              help='输入VCF文件路径 | Input VCF file path')
 @click.option('--output', '-o',
-              default='./popgen_output', show_default=True,
-              type=click.Path(file_okay=False, resolve_path=True),
-              help='📂 输出目录 | Output directory.')
+              default='./popgen_output',
+              type=click.Path(),
+              help='输出目录 | Output directory (default: ./popgen_output)')
 @click.option('--groups', '-g',
-              type=click.Path(exists=True, dir_okay=False, resolve_path=True),
-              help='👥 分组信息文件 | Group information file.')
-# --- Analysis selection parameters ---
-@click.option('--all', 'run_all', is_flag=True, default=True, show_default=True, help='🔬 计算所有参数 (默认开启) | Calculate all parameters.')
-@click.option('--fst', is_flag=True, help='📈 计算Fst | Calculate Fst.')
-@click.option('--pi', is_flag=True, help='📈 计算π | Calculate π.')
-@click.option('--theta-w', is_flag=True, help='📈 计算θw | Calculate θw.')
-@click.option('--tajima-d', is_flag=True, help='📈 计算Tajima\'s D | Calculate Tajima\'s D.')
-@click.option('--ibd', is_flag=True, help='🔗 计算IBD | Calculate IBD.')
-@click.option('--ld', is_flag=True, help='🔗 计算LD | Calculate LD.')
-@click.option('--ne', is_flag=True, help='📈 计算有效群体大小 | Calculate effective population size.')
-# --- Sliding window parameters ---
+              type=click.Path(exists=True),
+              help='分组信息文件 | Group information file')
+@click.option('--all',
+              is_flag=True,
+              default=True,
+              help='计算所有参数 (默认) | Calculate all parameters (default)')
+@click.option('--fst',
+              is_flag=True,
+              help='计算Fst | Calculate Fst')
+@click.option('--pi',
+              is_flag=True,
+              help='计算π | Calculate π')
+@click.option('--theta-w',
+              is_flag=True,
+              help='计算θw | Calculate θw')
+@click.option('--tajima-d',
+              is_flag=True,
+              help='计算Tajima\'s D | Calculate Tajima\'s D')
+@click.option('--ibd',
+              is_flag=True,
+              help='计算IBD | Calculate IBD')
+@click.option('--ld',
+              is_flag=True,
+              help='计算LD | Calculate LD')
+@click.option('--ne',
+              is_flag=True,
+              help='计算有效群体大小 | Calculate effective population size')
 @click.option('--windows', '-w',
-              multiple=True, type=int, default=[10000, 100000, 500000], show_default=True,
-              help='🪟 滑动窗口大小(bp) | Sliding window sizes (bp).')
+              multiple=True,
+              type=int,
+              default=[10000, 100000, 500000],
+              help='滑动窗口大小 (bp) | Sliding window sizes (bp) (default: 10000,100000,500000)')
 @click.option('--overlap',
-              type=float, default=0.9, show_default=True,
-              help='🔄 窗口重叠率 | Window overlap rate.')
-# --- Quality control parameters ---
+              default=0.9,
+              type=float,
+              help='窗口重叠率 | Window overlap rate (default: 0.9)')
 @click.option('--maf', '-m',
-              type=float, default=0.01, show_default=True,
-              help='🗑️ MAF阈值 | MAF threshold.')
+              default=0.01,
+              type=float,
+              help='MAF阈值 | MAF threshold (default: 0.01)')
 @click.option('--missing', '-M',
-              type=float, default=0.1, show_default=True,
-              help='🗑️ 缺失率阈值 | Missing rate threshold.')
+              default=0.1,
+              type=float,
+              help='缺失率阈值 | Missing rate threshold (default: 0.1)')
 @click.option('--hwe', '-H',
-              type=float, default=1e-6, show_default=True,
-              help='🗑️ HWE p值阈值 | HWE p-value threshold.')
+              default=1e-6,
+              type=float,
+              help='HWE p值阈值 | HWE p-value threshold (default: 1e-6)')
 @click.option('--min-dp',
-              type=int, default=10, show_default=True,
-              help='✅ 最小测序深度 | Minimum depth.')
+              default=10,
+              type=int,
+              help='最小测序深度 | Minimum depth (default: 10)')
 @click.option('--max-dp',
-              type=int, default=100, show_default=True,
-              help='🚫 最大测序深度 | Maximum depth.')
-# --- Output and resources ---
+              default=100,
+              type=int,
+              help='最大测序深度 | Maximum depth (default: 100)')
 @click.option('--format', '-f',
-              type=click.Choice(['txt', 'csv', 'tsv', 'json'], case_sensitive=False),
-              default='txt', show_default=True,
-              help='📄 输出文件格式 | Output file format.')
+              default='txt',
+              type=click.Choice(['txt', 'csv', 'tsv', 'json']),
+              help='输出文件格式 | Output file format (default: txt)')
 @click.option('--threads', '-t',
-              type=int, default=4, show_default=True,
-              help='🚀 线程数 | Number of threads.')
-# --- Tool paths ---
-@click.option('--vcftools-path', default='vcftools', show_default=True, help='🔧 VCFtools路径 | VCFtools path.')
-@click.option('--plink-path', default='plink', show_default=True, help='🔧 PLINK路径 | PLINK path.')
-@click.option('--bcftools-path', default='bcftools', show_default=True, help='🔧 BCFtools路径 | BCFtools path.')
-@click.option('--smcpp-path', default='smc++', show_default=True, help='🔧 SMC++路径 | SMC++ path.')
-def popgen(**kwargs):
+              default=4,
+              type=int,
+              help='线程数 | Number of threads (default: 4)')
+@click.option('--vcftools-path',
+              default='vcftools',
+              type=str,
+              help='VCFtools路径 | VCFtools path (default: vcftools)')
+@click.option('--plink-path',
+              default='plink',
+              type=str,
+              help='PLINK路径 | PLINK path (default: plink)')
+@click.option('--bcftools-path',
+              default='bcftools',
+              type=str,
+              help='BCFtools路径 | BCFtools path (default: bcftools)')
+@click.option('--smcpp-path',
+              default='smc++',
+              type=str,
+              help='SMC++路径 | SMC++ path (default: smc++)')
+def popgen(vcf, output, groups, all, fst, pi, theta_w, tajima_d, ibd, ld, ne,
+           windows, overlap, maf, missing, hwe, min_dp, max_dp, format,
+           threads, vcftools_path, plink_path, bcftools_path, smcpp_path):
     """
-    群体遗传多样性参数计算工具.
-
-    一个集成的工具，用于执行一系列标准的群体遗传学分析，
-    包括遗传多样性、群体分化、连锁不平衡等。
+    群体遗传分析工具 (模块化版本)
     
-    🌟 示例 | Examples:
+    基于VCF文件进行全面的群体遗传学分析，计算多种遗传多样性参数，
+    包括核苷酸多样性、群体分化、连锁不平衡、有效群体大小等指标。
+    
+    功能特点 | Features:
+    - 多种遗传多样性参数计算
+    - 滑动窗口分析支持
+    - 群体分组比较分析
+    - 质量控制和数据过滤
+    - 多种输出格式支持
+    - 并行计算加速
+    
+    输出文件 | Output Files:
+    - diversity_*.txt: 各种多样性参数结果
+    - fst_results.txt: 群体分化指数结果
+    - ibd_results.txt: 同源性分析结果
+    - ld_results.txt: 连锁不平衡分析结果
+    - ne_results.txt: 有效群体大小结果
+    - summary_report.txt: 综合分析报告
+    
+    示例 | Examples:
     
     \b
-    # 🎯 运行所有分析 (默认行为)
-    biopytools popgen -v variants.vcf.gz -g groups.txt -o results
+    # 基本分析（计算所有参数）
+    biopytools popgen -v variants.vcf.gz -o popgen_results
     
     \b
-    # 🔬 只运行Fst和多样性分析
-    biopytools popgen -v data.vcf -g groups.txt -o out --no-all --fst --pi
+    # 带分组信息的分析
+    biopytools popgen -v data.vcf.gz -o results -g groups.txt --fst --pi --ld
     
     \b
-    # 🚀 使用更多线程并调整QC
-    biopytools popgen -v data.vcf -o out --maf 0.05 -t 16
+    # 自定义参数的全面分析
+    biopytools popgen -v variants.vcf -o results -g samples_groups.txt \\
+        --all -t 8 --format csv
+    
+    \b
+    # 仅计算有效群体大小和IBD
+    biopytools popgen -v filtered.vcf.gz -o results --ne --ibd \\
+        --format json --threads 16
+    
+    \b
+    # 严格质控的多样性分析
+    biopytools popgen -v large_dataset.vcf.gz -o strict_analysis \\
+        --maf 0.05 --missing 0.05 --hwe 1e-8 \\
+        --min-dp 20 --max-dp 200 -t 32
+    
+    \b
+    # 自定义滑动窗口分析
+    biopytools popgen -v genome.vcf.gz -o window_analysis \\
+        -w 50000 -w 200000 -w 1000000 --overlap 0.8 \\
+        --pi --theta-w --tajima-d
+    
+    \b
+    # 指定外部工具路径
+    biopytools popgen -v data.vcf.gz -o custom_tools \\
+        --vcftools-path /opt/vcftools/bin/vcftools \\
+        --plink-path /usr/local/bin/plink \\
+        --smcpp-path /home/user/smc++/smc++
+    
+    分组文件格式 | Group File Format:
+    sample1    group1
+    sample2    group1
+    sample3    group2
+    sample4    group2
+    
+    参数说明 | Parameters Description:
+    
+    遗传多样性参数:
+    - π (pi): 核苷酸多样性，衡量序列变异程度
+    - θw (theta-w): Watterson's theta，基于分离位点数的多样性估计
+    - Tajima's D: 检测选择压力和群体历史的统计量
+    - Fst: 群体分化指数，衡量群体间遗传差异
+    - IBD: 同源性分析，个体间亲缘关系
+    - LD: 连锁不平衡，基因座间的关联程度
+    - Ne: 有效群体大小，影响遗传漂变的个体数
+    
+    质控参数:
+    - MAF: 最小等位基因频率，过滤稀有变异
+    - Missing: 缺失率阈值，移除数据质量差的位点
+    - HWE: Hardy-Weinberg平衡检验，检测基因型频率偏离
+    - Depth: 测序深度范围，确保数据可靠性
+    
+    滑动窗口分析:
+    - 支持多种窗口大小同时分析
+    - 可调节窗口重叠率
+    - 适用于基因组尺度的变异模式分析
+    
+    分析流程 | Analysis Pipeline:
+    1. VCF文件质量控制和预处理
+    2. 样本分组信息加载（如果提供）
+    3. 多样性参数计算（π, θw, Tajima's D）
+    4. 群体分化分析（Fst计算）
+    5. 同源性分析（IBD计算）
+    6. 连锁不平衡分析（LD计算）
+    7. 有效群体大小估算（SMC++）
+    8. 结果整合和报告生成
+    
+    外部依赖工具 | External Dependencies:
+    - VCFtools: VCF文件处理和统计计算
+    - PLINK: 群体遗传学分析
+    - BCFtools: VCF文件操作
+    - SMC++: 有效群体大小估算
+    
+    性能建议 | Performance Tips:
+    - 大数据集建议增加线程数和内存
+    - 根据研究目标选择合适的窗口大小
+    - 严格的质控参数有助于提高结果可靠性
+    - 分组分析需要平衡的样本设计
     """
     
-    # 构建参数列表以传递给原始的main函数 🔄 | Build argument list for original main function
-    args = ['biopytools', 'popgen']
+    # 构建参数列表传递给原始main函数
+    args = ['popgen.py']
     
-    # 特殊处理 --all 标志的逻辑
-    # click v8+ has `allow_from_autoenv`, but for compatibility, we handle it manually.
-    # The default for the 'run_all' flag is True. click passes it as True unless --no-all is used.
-    # The original argparse script has a bug where --all is always True.
-    # We will correctly represent the user's intent.
-    specific_analyses_chosen = any([
-        kwargs.get('fst'), kwargs.get('pi'), kwargs.get('theta_w'),
-        kwargs.get('tajima_d'), kwargs.get('ibd'), kwargs.get('ld'), kwargs.get('ne')
-    ])
+    # 必需参数
+    args.extend(['-v', vcf])
     
-    # If specific analyses are chosen, we must assume the user wants to override 'all'.
-    # The original argparse script doesn't support --no-all, so we achieve this by NOT passing --all.
-    # But since its default is True, this won't work without fixing the argparse script.
-    # The following code correctly translates the click command, but relies on a fixed argparse script.
+    # 可选参数（只在非默认值时添加）
+    if output != './popgen_output':
+        args.extend(['-o', output])
     
-    if kwargs.get('run_all') and not specific_analyses_chosen:
+    if groups:
+        args.extend(['-g', groups])
+    
+    # 分析选择参数
+    if not all:
+        if fst:
+            args.append('--fst')
+        if pi:
+            args.append('--pi')
+        if theta_w:
+            args.append('--theta-w')
+        if tajima_d:
+            args.append('--tajima-d')
+        if ibd:
+            args.append('--ibd')
+        if ld:
+            args.append('--ld')
+        if ne:
+            args.append('--ne')
+    elif all and not (fst or pi or theta_w or tajima_d or ibd or ld or ne):
         args.append('--all')
-        
-    # 遍历所有参数
-    for key, value in kwargs.items():
-        if value is None or key == 'run_all': # Skip 'run_all' as we handled it
-            continue
-
-        param_name = '--' + key.replace('_', '-')
-        
-        # 处理布尔标志
-        if isinstance(value, bool) and value:
-            args.append(param_name)
-        # 处理多值参数 (windows)
-        elif isinstance(value, tuple) and value:
-            default_val = popgen.params_by_name[key].default
-            if sorted(value) != sorted(default_val):
-                args.append(param_name)
-                args.extend(map(str, value))
-        # 处理非布尔、非默认值的常规参数
-        elif not isinstance(value, (bool, tuple)):
-            default_val = popgen.params_by_name[key].default
-            if value != default_val:
-                args.append(param_name)
-                args.append(str(value))
     
-    # 补上必需参数
-    args.extend(['-v', kwargs['vcf']])
-
-    # 保存并恢复sys.argv 💾 | Save and restore sys.argv
+    # 滑动窗口参数
+    if windows and set(windows) != {10000, 100000, 500000}:
+        for window in windows:
+            args.extend(['-w', str(window)])
+    
+    if overlap != 0.9:
+        args.extend(['--overlap', str(overlap)])
+    
+    # 质控参数
+    if maf != 0.01:
+        args.extend(['-m', str(maf)])
+    
+    if missing != 0.1:
+        args.extend(['-M', str(missing)])
+    
+    if hwe != 1e-6:
+        args.extend(['-H', str(hwe)])
+    
+    if min_dp != 10:
+        args.extend(['--min-dp', str(min_dp)])
+    
+    if max_dp != 100:
+        args.extend(['--max-dp', str(max_dp)])
+    
+    # 输出格式
+    if format != 'txt':
+        args.extend(['-f', format])
+    
+    # 计算资源
+    if threads != 4:
+        args.extend(['-t', str(threads)])
+    
+    # 工具路径
+    if vcftools_path != 'vcftools':
+        args.extend(['--vcftools-path', vcftools_path])
+    
+    if plink_path != 'plink':
+        args.extend(['--plink-path', plink_path])
+    
+    if bcftools_path != 'bcftools':
+        args.extend(['--bcftools-path', bcftools_path])
+    
+    if smcpp_path != 'smc++':
+        args.extend(['--smcpp-path', smcpp_path])
+    
+    # 保存并恢复sys.argv
     original_argv = sys.argv
     sys.argv = args
     
     try:
-        # 调用原始的main函数 🚀 | Call original main function
+        # 调用原始的main函数
         popgen_main()
     except SystemExit as e:
-        # 处理程序正常退出 ✅ | Handle normal program exit
+        # 处理程序正常退出
         if e.code != 0:
-            click.secho(f"❌ 脚本执行被终止，退出码: {e.code}", fg='red', err=True)
-        sys.exit(e.code)
+            sys.exit(e.code)
+    except KeyboardInterrupt:
+        click.echo("\n分析被用户中断 | Analysis interrupted by user", err=True)
+        sys.exit(1)
     except Exception as e:
-        click.secho(f"💥 发生未知错误 | An unexpected error occurred: {e}", fg='red', err=True)
+        click.echo(f"分析失败 | Analysis failed: {e}", err=True)
         sys.exit(1)
     finally:
-        # 无论如何都要恢复原始的 sys.argv | Restore original sys.argv regardless of outcome
         sys.argv = original_argv
-
-# 如果直接运行此文件用于测试 | If running this file directly for testing
-if __name__ == '__main__':
-    popgen()

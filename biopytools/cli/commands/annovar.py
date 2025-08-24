@@ -7,7 +7,8 @@ import sys
 from ...annovar.main import main as annovar_main
 
 
-@click.command(short_help = "ANNOVAR变异注释工具")
+@click.command(short_help = "ANNOVAR变异注释工具",
+               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
 @click.option('--gff3', '-g',
               required=True,
               type=click.Path(exists=True),

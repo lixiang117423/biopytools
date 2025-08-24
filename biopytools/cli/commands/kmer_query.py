@@ -1,174 +1,216 @@
 """
-🚀 K-mer提取命令 | K-mer Extraction Command
+K-mer提取分析命令 | K-mer Extraction Analysis Command
 """
 
 import click
 import sys
-# In your actual project, you would use a relative import like this:
-# from ...kmer_extractor.main import main as kmer_extractor_main
+from ...kmer_extractor.main import main as kmer_extract_main
 
-# --- Placeholder for the original main function to make this snippet runnable ---
-# --- In your project, delete this section and use the import statement above ---
-# START: Placeholder for demonstration
-def get_original_main_for_demo():
-    def main_placeholder():
-        print("--- 🚀 Original main function called (simulated) ---")
-        print(f"Received sys.argv: {sys.argv}")
-        # The original main() would create a parser and run the analysis.
-        import argparse
-        parser = argparse.ArgumentParser()
-        parser.add_argument('-i', '--input-files', nargs='+', required=True)
-        parser.add_argument('-o', '--output-dir', default='./kmer_output')
-        parser.add_argument('-k', '--kmer-length', type=int, default=51)
-        parser.add_argument('-t', '--threads', type=int, default=88)
-        parser.add_argument('-m', '--memory', type=int, default=880)
-        parser.add_argument('--file-type', choices=['fasta', 'fastq'])
-        parser.add_argument('--fastq-pattern')
-        parser.add_argument('--no-canonical', action='store_true')
-        parser.add_argument('--no-compress', action='store_true')
-        parser.add_argument('--output-bed', action='store_true')
-        parser.add_argument('--no-keep-binary', action='store_true')
-        parser.add_argument('--unikmer-path', default='unikmer')
-        parser.add_argument('--jellyfish-path', default='jellyfish')
-        parser.add_argument('--jellyfish-hash-size', default='10000M')
-        try:
-            args = parser.parse_args()
-            print(f"Argparse would have parsed arguments as: {args}")
-        except Exception as e:
-            print(f"Argparse simulation failed: {e}")
-        
-        print("--- ✅ Extraction finished (simulated) ---")
-    return main_placeholder
-kmer_extractor_main = get_original_main_for_demo()
-# END: Placeholder
 
-@click.command(context_settings=dict(help_option_names=['-h', '--help']), short_help = "K-mer提取工具")
-# --- Required arguments ---
+@click.command(short_help='从FASTA/FASTQ文件中提取K-mer序列',
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--input-files', '-i',
               required=True,
               multiple=True,
-              type=click.Path(exists=True, resolve_path=True),
-              help='🎯 输入文件或目录 (可多个) | Input files or directories (multiple allowed).')
-# --- Output arguments ---
+              type=click.Path(exists=True),
+              help='输入文件路径 (FASTA/FASTQ，支持压缩格式) | Input file paths (FASTA/FASTQ, supports compressed formats)')
 @click.option('--output-dir', '-o',
-              default='./kmer_output', show_default=True,
-              type=click.Path(file_okay=False, resolve_path=True),
-              help='📂 输出目录 | Output directory.')
-# --- K-mer parameters ---
+              default='./kmer_output',
+              type=click.Path(),
+              help='输出目录 | Output directory (default: ./kmer_output)')
 @click.option('--kmer-length', '-k',
-              type=int, default=51, show_default=True,
-              help='🧬 K-mer长度 (1-64) | K-mer length (1-64).')
-# --- Performance parameters ---
+              default=51,
+              type=int,
+              help='K-mer长度 (1-64) | K-mer length (1-64) (default: 51)')
 @click.option('--threads', '-t',
-              type=int, default=88, show_default=True,
-              help='🚀 线程数 | Number of threads.')
+              default=88,
+              type=int,
+              help='线程数 | Number of threads (default: 88)')
 @click.option('--memory', '-m',
-              type=int, default=880, show_default=True,
-              help='💾 内存限制(GB) | Memory limit (GB).')
-# --- File type and pattern ---
+              default=880,
+              type=int,
+              help='内存限制(GB) | Memory limit (GB) (default: 880)')
 @click.option('--file-type',
-              type=click.Choice(['fasta', 'fastq'], case_sensitive=False),
-              help='📁 文件类型 (默认自动检测) | File type (auto-detects if not specified).')
+              type=click.Choice(['fasta', 'fastq']),
+              help='文件类型 (自动检测如果未指定) | File type (auto-detect if not specified)')
 @click.option('--fastq-pattern',
-              help='🔗 FASTQ配对模式 (e.g., "*_1.clean.fq.gz") | FASTQ pairing pattern.')
-# --- Processing options ---
+              type=str,
+              help='FASTQ文件匹配模式 (例如: "*_1.clean.fq.gz") | FASTQ file matching pattern (e.g., "*_1.clean.fq.gz")')
 @click.option('--no-canonical',
               is_flag=True,
-              help='🔄 不使用canonical k-mer | Do not use canonical k-mers.')
+              help='不使用canonical k-mer | Do not use canonical k-mers')
 @click.option('--no-compress',
               is_flag=True,
-              help='🗜️ 不压缩输出文件 | Do not compress output files.')
+              help='不压缩输出文件 | Do not compress output files')
 @click.option('--output-bed',
               is_flag=True,
-              help='📋 输出BED文件 (仅FASTA输入) | Output BED file (FASTA input only).')
+              help='输出BED格式文件 (仅适用于FASTA输入) | Output BED format file (only for FASTA input)')
 @click.option('--no-keep-binary',
               is_flag=True,
-              help='🗑️ 不保留二进制文件 | Do not keep binary files.')
-# --- Tool paths ---
+              help='不保留二进制文件 (默认保留) | Do not keep binary files (keep by default)')
 @click.option('--unikmer-path',
-              default='unikmer', show_default=True,
-              help='⚙️ Unikmer软件路径 | Unikmer software path.')
+              default='unikmer',
+              type=str,
+              help='Unikmer软件路径 | Unikmer software path (default: unikmer)')
 @click.option('--jellyfish-path',
-              default='jellyfish', show_default=True,
-              help='🐟 Jellyfish软件路径 | Jellyfish software path.')
-# --- Jellyfish-specific parameters ---
+              default='jellyfish',
+              type=str,
+              help='Jellyfish软件路径 | Jellyfish software path (default: jellyfish)')
 @click.option('--jellyfish-hash-size',
-              default='10000M', show_default=True,
-              help='🗂️ Jellyfish哈希表大小 | Jellyfish hash table size.')
-def kmer_query(**kwargs):
+              default='10000M',
+              type=str,
+              help='Jellyfish哈希表大小 | Jellyfish hash table size (default: 10000M)')
+def kmer_query(input_files, output_dir, kmer_length, threads, memory, file_type,
+                 fastq_pattern, no_canonical, no_compress, output_bed, no_keep_binary,
+                 unikmer_path, jellyfish_path, jellyfish_hash_size):
     """
-    K-mer提取工具.
-
-    从FASTA或FASTQ文件中高效提取唯一的k-mer。
-    FASTA输入使用unikmer，支持生成BED坐标；
-    FASTQ输入使用jellyfish，支持处理配对文件。
+    K-mer提取工具 (FASTA使用unikmer，FASTQ使用jellyfish)
     
-    🌟 示例 | Examples:
+    从FASTA或FASTQ文件中高效提取K-mer序列，支持多种输入格式和输出选项。
+    根据输入文件类型自动选择最优的提取工具：FASTA文件使用unikmer，FASTQ文件使用jellyfish。
+    
+    功能特点 | Features:
+    - 支持FASTA和FASTQ格式输入（包括压缩文件）
+    - 自动文件类型检测
+    - FASTQ文件的配对模式匹配
+    - 多线程并行处理
+    - 灵活的输出格式选择
+    - 内存使用优化
+    
+    输出文件 | Output Files:
+    - <basename>.fasta: 提取的K-mer序列
+    - <basename>.bed: K-mer位置注释文件（FASTA输入时可选）
+    - <basename>.jf: Jellyfish二进制文件（FASTQ输入时可选保留）
+    
+    示例 | Examples:
     
     \b
-    # 🎯 从单个FASTA文件提取并生成BED
-    biopytools kmer-extractor -i genome.fa -o results --output-bed
+    # 基本FASTA文件处理
+    biopytools kmer-extract -i data.fasta -o results
     
     \b
-    # 🧬 从多个配对FASTQ文件提取
-    biopytools kmer-extractor -i ./fastq_dir -o results -k 31 \\
-        --fastq-pattern "*_R1.fq.gz"
-        
+    # 多个FASTQ文件处理
+    biopytools kmer-extract -i sample1.fastq sample2.fastq -o results -k 31 -t 16
+    
     \b
-    # 🚀 高性能运行
-    biopytools kmer-extractor -i sample.fq.gz -o out -t 64 -m 500
+    # FASTQ配对文件处理
+    biopytools kmer-extract -i /data/*.fastq.gz -o results \\
+        --fastq-pattern "*_1.clean.fq.gz" -k 21
+    
+    \b
+    # FASTA文件生成BED注释
+    biopytools kmer-extract -i data.fasta -o results --output-bed -k 25
+    
+    \b
+    # 多个FASTA文件批量处理
+    biopytools kmer-extract --input-files file1.fa file2.fa \\
+        -o results --threads 8 --memory 100 --output-bed
+    
+    \b
+    # 高性能大数据处理
+    biopytools kmer-extract -i large_genome.fa -o results \\
+        -k 31 -t 128 -m 500 --unikmer-path /opt/unikmer/bin/unikmer
+    
+    \b
+    # FASTQ文件自定义设置
+    biopytools kmer-extract -i reads.fq.gz -o output \\
+        --jellyfish-hash-size 20000M --no-canonical \\
+        --jellyfish-path /usr/local/bin/jellyfish
+    
+    \b
+    # 目录批量处理
+    biopytools kmer-extract -i /data/genomes/ -o results \\
+        --file-type fasta -k 51 --output-bed --no-compress
+    
+    文件格式说明 | File Format Notes:
+    
+    输入格式支持:
+    - FASTA: .fasta, .fa, .fas (.gz压缩)
+    - FASTQ: .fastq, .fq (.gz压缩)
+    
+    FASTQ配对模式示例:
+    - "*_1.fq.gz" 匹配 sample_1.fq.gz 和 sample_2.fq.gz
+    - "*_R1.fastq" 匹配 sample_R1.fastq 和 sample_R2.fastq
+    
+    输出FASTA格式:
+    >kmer_1
+    ATCGATCGATCGATCG...
+    >kmer_2
+    GCTAGCTAGCTAGCTA...
+    
+    BED文件格式 (FASTA输入):
+    chr1    100    151    kmer_1
+    chr1    200    251    kmer_2
+    
+    性能建议 | Performance Tips:
+    - 大基因组建议增加内存限制 (-m 参数)
+    - 使用SSD存储可显著提升I/O性能
+    - 对于FASTQ文件，适当调整哈希表大小
+    - 多文件处理时建议使用更多线程
     """
     
-    # 构建参数列表以传递给原始的main函数 🔄 | Build argument list for original main function
-    args = ['biopytools', 'kmer-extractor']
+    # 构建参数列表传递给原始main函数
+    args = ['kmer_query.py']
     
-    # 处理click传递的参数字典
-    params = kwargs.copy()
+    # 必需参数
+    args.extend(['-i'] + list(input_files))
     
-    # 特殊处理 nargs='+' 的 input_files
-    if 'input_files' in params and params['input_files']:
-        args.append('-i')
-        args.extend(params.pop('input_files'))
-        
-    # 遍历其余参数
-    for key, value in params.items():
-        if value is None:
-            continue
-            
-        # 将Python风格的变量名转为命令行风格
-        param_name = '--' + key.replace('_', '-')
-        
-        # 处理布尔标志
-        if isinstance(value, bool) and value:
-            args.append(param_name)
-        # 处理非布尔、非默认值的常规参数
-        elif not isinstance(value, bool):
-            # 获取参数的默认值
-            default_val = kmer_extractor.params_by_name[key].default
-            # 只有当值不等于默认值时才添加
-            if value != default_val:
-                args.append(param_name)
-                args.append(str(value))
-
-    # 保存并恢复sys.argv 💾 | Save and restore sys.argv
+    # 可选参数（只在非默认值时添加）
+    if output_dir != './kmer_output':
+        args.extend(['-o', output_dir])
+    
+    if kmer_length != 51:
+        args.extend(['-k', str(kmer_length)])
+    
+    if threads != 88:
+        args.extend(['-t', str(threads)])
+    
+    if memory != 880:
+        args.extend(['-m', str(memory)])
+    
+    if file_type:
+        args.extend(['--file-type', file_type])
+    
+    if fastq_pattern:
+        args.extend(['--fastq-pattern', fastq_pattern])
+    
+    if no_canonical:
+        args.append('--no-canonical')
+    
+    if no_compress:
+        args.append('--no-compress')
+    
+    if output_bed:
+        args.append('--output-bed')
+    
+    if no_keep_binary:
+        args.append('--no-keep-binary')
+    
+    if unikmer_path != 'unikmer':
+        args.extend(['--unikmer-path', unikmer_path])
+    
+    if jellyfish_path != 'jellyfish':
+        args.extend(['--jellyfish-path', jellyfish_path])
+    
+    if jellyfish_hash_size != '10000M':
+        args.extend(['--jellyfish-hash-size', jellyfish_hash_size])
+    
+    # 保存并恢复sys.argv
     original_argv = sys.argv
     sys.argv = args
     
     try:
-        # 调用原始的main函数 🚀 | Call original main function
-        kmer_extractor_main()
+        # 调用原始的main函数
+        kmer_extract_main()
     except SystemExit as e:
-        # 处理程序正常退出 ✅ | Handle normal program exit
+        # 处理程序正常退出
         if e.code != 0:
-            click.secho(f"❌ 脚本执行被终止，退出码: {e.code}", fg='red', err=True)
-        sys.exit(e.code)
+            sys.exit(e.code)
+    except KeyboardInterrupt:
+        click.echo("\n提取流程被用户中断 | Extraction pipeline interrupted by user", err=True)
+        sys.exit(1)
     except Exception as e:
-        click.secho(f"💥 发生未知错误 | An unexpected error occurred: {e}", fg='red', err=True)
+        click.echo(f"运行错误 | Runtime error: {e}", err=True)
         sys.exit(1)
     finally:
-        # 无论如何都要恢复原始的 sys.argv | Restore original sys.argv regardless of outcome
         sys.argv = original_argv
-
-# 如果直接运行此文件用于测试 | If running this file directly for testing
-if __name__ == '__main__':
-    kmer_query()
