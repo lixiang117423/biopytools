@@ -39,6 +39,7 @@ def import_available_commands():
         ('vcf_sequence', 'vcf-sequence', '🧬 从基因组和VCF提取序列'),
         ('bismark', 'bismark', '🧬 全基因组甲基化'),
         ('transcriptome_prediction', 'mrna-prediction', '🧬 基于转录组的基因预测'),
+        ('parabricks','parabricks','机遇GPU的全基因组流程')
     ]
     
     for module_name, command_name, description in command_modules:
@@ -58,24 +59,66 @@ def import_available_commands():
 
 # --- 后续代码保持不变 ---
 
-@click.group(invoke_without_command=True)
-@click.version_option(version=__version__, prog_name='biopytools')
+# @click.group(invoke_without_command=True)
+# @click.version_option(version=__version__, prog_name='biopytools')
+# @click.pass_context
+# def cli(ctx):
+#     """
+#     BioPyTools - 生物信息学分析工具包
+#     ... (文档字符串保持不变) ...
+#     """
+#     if ctx.invoked_subcommand is None:
+#         click.echo(ctx.get_help())
+#         # 您的自定义帮助显示逻辑保持不变
+#         available_commands = import_available_commands()
+#         if available_commands:
+#             click.echo(f"\n当前可用的命令 | Currently available commands:")
+#             for cmd_name in sorted(available_commands.keys()):
+#                 _, description = available_commands[cmd_name]
+#                 click.echo(f"  {cmd_name:<20} {description}")
+#         # ... (您的“即将推出”部分也保持不变) ...
+
+@click.group(
+    # 使用 context_settings 统一配置
+    context_settings=dict(
+        # 显式定义触发帮助文档的选项，确保 -h 和 --help 都可用
+        help_option_names=['-h', '--help'],
+        # 设置帮助文档的最大内容宽度，防止不必要的换行
+        max_content_width=120  
+    ),
+    invoke_without_command=True
+)
+# @click.version_option(version=__version__, prog_name='biopytools')
+@click.version_option(__version__, '-v', '--version', prog_name='biopytools', message='%(prog)s, version %(version)s')
 @click.pass_context
 def cli(ctx):
     """
     BioPyTools - 生物信息学分析工具包
-    ... (文档字符串保持不变) ...
+
+    
+    要查看特定命令的帮助，请运行：biopytools <命令> -h/--help, 如biopytools fastp -h
     """
+    # 这段代码只在用户直接运行 `biopytools` (不带任何子命令或-h) 时执行
     if ctx.invoked_subcommand is None:
+        # 显示click生成的标准帮助信息
         click.echo(ctx.get_help())
-        # 您的自定义帮助显示逻辑保持不变
+        
+        # 附加你自定义的命令列表，使其更美观
         available_commands = import_available_commands()
         if available_commands:
             click.echo(f"\n当前可用的命令 | Currently available commands:")
+            # 计算最长命令名的长度以对齐
+            max_len = max(len(name) for name in available_commands.keys()) if available_commands else 20
+            
             for cmd_name in sorted(available_commands.keys()):
                 _, description = available_commands[cmd_name]
-                click.echo(f"  {cmd_name:<20} {description}")
-        # ... (您的“即将推出”部分也保持不变) ...
+                # 使用 f-string 进行格式化对齐
+                click.echo(f"  {cmd_name:<{max_len + 2}} {description}")
+        
+        # click.echo("\n即将推出 | Coming soon:")
+        # click.echo("  vcf-anno             - VCF变异注释")
+        # click.echo("  gsea                 - 基因富集分析")
+        # click.echo("\n项目地址 | Project URL: https://github.com/your-repo")
 
 def register_commands():
     """注册所有可用的子命令"""
