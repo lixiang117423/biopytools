@@ -37,34 +37,7 @@ class KmerCountAnalyzer:
         self.window_analyzer = WindowAnalyzer(config, self.logger)
 
 
-    # def _merge_sample_files(self, sample_files: List[Path]) -> pd.DataFrame:
-    #     """合并样品文件（统一strand为'.'）"""
-    #     self.logger.info("合并所有样本结果")
-        
-    #     if self.config.bed_file:
-    #         # 只使用正向序列作为基础矩阵
-    #         base_bed = self.data_processor.bed_info[self.data_processor.bed_info['strand'] == '+'].copy()
-    #         final_df = base_bed.copy()
-    #         final_df['unique_key'] = final_df['chr'] + '_' + final_df['start'].astype(str) + '_' + final_df['end'].astype(str) + '_' + final_df['kmer']
-    #     else:
-    #         final_df = pd.DataFrame(self.data_processor.kmer_pairs)
-        
-    #     # 为每个样本添加丰度列
-    #     for sample_file in sample_files:
-    #         sample_df = pd.read_csv(sample_file, sep='\t')
-    #         sample_name = sample_file.stem.replace('_kmer_abundance', '')
-            
-    #         unique_abundance = dict(zip(sample_df['unique_key'], sample_df[sample_name]))
-    #         final_df[sample_name] = final_df['unique_key'].map(unique_abundance).fillna(0).astype(int)
-        
-    #     # 统一将strand设为'.'
-    #     final_df['strand'] = '.'
-        
-    #     # 删除unique_key列
-    #     final_df = final_df.drop('unique_key', axis=1)
-        
-    #     self.logger.info(f"最终矩阵: {len(final_df)} 行")
-    #     return final_df
+
 
     def _merge_sample_files(self, sample_files: List[Path]) -> pd.DataFrame:
         """合并样品文件（处理空文件）"""
@@ -171,7 +144,8 @@ class KmerCountAnalyzer:
                     self.logger.info(f"👤 处理样本 | Processing sample: {sample_name}")
                     
                     # 6.1 准备文件 | Prepare files
-                    fastq_files = self.file_processor.decompress_files([r1_file, r2_file])
+                    # fastq_files = self.file_processor.decompress_files([r1_file, r2_file])
+                    fastq_files = [r1_file, r2_file]  # 直接传递原始文件路径
                     
                     # 6.2 k-mer计数 | K-mer counting
                     jf_file = self.jellyfish_processor.count_kmers(sample_name, fastq_files)

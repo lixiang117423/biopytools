@@ -523,74 +523,157 @@ class FileProcessor:
         
     #     return standardized_files
 
-    def decompress_files(self, sample_files: List[str]) -> List[str]:
-        """📦 准备文件列表并标准化格式 | Prepare file list and standardize format"""
-        self.logger.info("📦 准备文件列表 | Preparing file list")
+    # def decompress_files(self, sample_files: List[str]) -> List[str]:
+    #     """📦 准备文件列表并标准化格式 | Prepare file list and standardize format"""
+    #     self.logger.info("📦 准备文件列表 | Preparing file list")
         
-        # 直接返回原始文件路径，让Jellyfish通过generator处理压缩文件
-        processed_files = []
-        for file_path in sample_files:
-            if file_path is None:
-                processed_files.append(None)
-            else:
-                if file_path.endswith('.gz'):
-                    self.logger.info(f"📦 压缩文件将通过generator处理 | Compressed file will be processed via generator: {os.path.basename(file_path)}")
-                else:
-                    self.logger.info(f"📋 普通文件 | Regular file: {os.path.basename(file_path)}")
-                processed_files.append(file_path)
+    #     # 直接返回原始文件路径，让Jellyfish通过generator处理压缩文件
+    #     processed_files = []
+    #     for file_path in sample_files:
+    #         if file_path is None:
+    #             processed_files.append(None)
+    #         else:
+    #             if file_path.endswith('.gz'):
+    #                 self.logger.info(f"📦 压缩文件将通过generator处理 | Compressed file will be processed via generator: {os.path.basename(file_path)}")
+    #             else:
+    #                 self.logger.info(f"📋 普通文件 | Regular file: {os.path.basename(file_path)}")
+    #             processed_files.append(file_path)
         
-        # 标准化输入文件（转换为大写）
-        return self.standardize_input_files(processed_files)
+    #     # 标准化输入文件（转换为大写）
+    #     return self.standardize_input_files(processed_files)
 
-    def standardize_input_files(self, input_files: List[str]) -> List[str]:
-        """🔤 标准化输入文件，转换为大写 | Standardize input files, convert to uppercase"""
-        self.logger.info("🔤 标准化输入文件格式 | Standardizing input file format")
+    # def standardize_input_files(self, input_files: List[str]) -> List[str]:
+    #     """🔤 标准化输入文件，转换为大写 | Standardize input files, convert to uppercase"""
+    #     self.logger.info("🔤 标准化输入文件格式 | Standardizing input file format")
         
-        standardized_files = []
-        for file_path in input_files:
-            if file_path is None:
-                standardized_files.append(None)
-                continue
+    #     standardized_files = []
+    #     for file_path in input_files:
+    #         if file_path is None:
+    #             standardized_files.append(None)
+    #             continue
             
-            # 创建标准化文件名
-            # original_name = os.path.basename(file_path)
-            # std_file = self.config.temp_dir / f"std_{original_name}"
-            # 创建标准化文件名
-            original_name = os.path.basename(file_path)
-            # 如果是压缩文件，去掉.gz扩展名，因为我们输出的是未压缩文件
-            if original_name.endswith('.gz'):
-                base_name = original_name[:-3]  # 去掉 .gz
-            else:
-                base_name = original_name
-            std_file = self.config.temp_dir / f"std_{base_name}"
+    #         # 创建标准化文件名
+    #         # original_name = os.path.basename(file_path)
+    #         # std_file = self.config.temp_dir / f"std_{original_name}"
+    #         # 创建标准化文件名
+    #         original_name = os.path.basename(file_path)
+    #         # 如果是压缩文件，去掉.gz扩展名，因为我们输出的是未压缩文件
+    #         if original_name.endswith('.gz'):
+    #             base_name = original_name[:-3]  # 去掉 .gz
+    #         else:
+    #             base_name = original_name
+    #         std_file = self.config.temp_dir / f"std_{base_name}"
             
+    #         try:
+    #             if file_path.endswith('.gz'):
+    #                 # 处理压缩文件
+    #                 import gzip
+    #                 with gzip.open(file_path, 'rt') as f_in:
+    #                     with open(std_file, 'w') as f_out:
+    #                         for line in f_in:
+    #                             if line.startswith('>'):
+    #                                 f_out.write(line)  # 保持头部行不变
+    #                             else:
+    #                                 f_out.write(line.upper())  # 序列行转大写
+    #             else:
+    #                 # 处理普通文件
+    #                 with open(file_path, 'r') as f_in:
+    #                     with open(std_file, 'w') as f_out:
+    #                         for line in f_in:
+    #                             if line.startswith('>'):
+    #                                 f_out.write(line)  # 保持头部行不变
+    #                             else:
+    #                                 f_out.write(line.upper())  # 序列行转大写
+                
+    #             standardized_files.append(str(std_file))
+    #             self.logger.info(f"✅ 标准化完成 | Standardized: {original_name}")
+                
+    #         except Exception as e:
+    #             self.logger.error(f"❌ 标准化失败 | Standardization failed for {original_name}: {e}")
+    #             # 如果标准化失败，使用原文件
+    #             standardized_files.append(file_path)
+        
+    #     return standardized_files
+
+    def quick_precheck(self, gz_file: str) -> bool:
+        """快速预检：检查文件前1000行是否可读"""
+        try:
+            cmd = f"timeout 10 zcat {gz_file} 2>/dev/null | head -n 1000 | wc -l"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+            actual_lines = int(result.stdout.strip())
+            return actual_lines == 1000
+        except:
+            return False
+
+    def detect_readable_lines(self, gz_file: str) -> int:
+        """检测gzip文件可读取的最大行数"""
+        self.logger.info(f"检测文件可读行数: {os.path.basename(gz_file)}")
+        
+        # 测试不同行数，找到边界
+        test_lines = [200000000, 100000000, 50000000, 20000000, 10000000, 5000000, 1000000]
+        
+        for lines in test_lines:
             try:
-                if file_path.endswith('.gz'):
-                    # 处理压缩文件
-                    import gzip
-                    with gzip.open(file_path, 'rt') as f_in:
-                        with open(std_file, 'w') as f_out:
-                            for line in f_in:
-                                if line.startswith('>'):
-                                    f_out.write(line)  # 保持头部行不变
-                                else:
-                                    f_out.write(line.upper())  # 序列行转大写
-                else:
-                    # 处理普通文件
-                    with open(file_path, 'r') as f_in:
-                        with open(std_file, 'w') as f_out:
-                            for line in f_in:
-                                if line.startswith('>'):
-                                    f_out.write(line)  # 保持头部行不变
-                                else:
-                                    f_out.write(line.upper())  # 序列行转大写
+                cmd = f"timeout 30 zcat {gz_file} 2>/dev/null | head -n {lines} | wc -l"
+                result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+                actual_lines = int(result.stdout.strip())
                 
-                standardized_files.append(str(std_file))
-                self.logger.info(f"✅ 标准化完成 | Standardized: {original_name}")
-                
-            except Exception as e:
-                self.logger.error(f"❌ 标准化失败 | Standardization failed for {original_name}: {e}")
-                # 如果标准化失败，使用原文件
-                standardized_files.append(file_path)
+                if actual_lines == lines:
+                    # 确保是4的倍数（FASTQ格式要求）
+                    readable_lines = (lines // 4) * 4
+                    self.logger.info(f"检测到可读行数: {readable_lines}")
+                    return readable_lines
+            except:
+                continue
         
-        return standardized_files
+        return 0
+
+    def recover_partial_file(self, gz_file: str, readable_lines: int) -> str:
+        """从损坏的gzip文件恢复部分数据"""
+        original_name = os.path.basename(gz_file)
+        base_name = original_name.replace('.gz', '')
+        recovered_file = self.config.temp_dir / f"recovered_{base_name}"
+        
+        self.logger.info(f"恢复部分数据: {original_name} -> {recovered_file.name}")
+        
+        try:
+            cmd = f"zcat {gz_file} 2>/dev/null | head -n {readable_lines} > {recovered_file}"
+            result = subprocess.run(cmd, shell=True, check=True)
+            
+            # 标准化序列为大写
+            temp_file = str(recovered_file) + ".tmp"
+            with open(recovered_file, 'r') as f_in:
+                with open(temp_file, 'w') as f_out:
+                    for line in f_in:
+                        if line.startswith('@'):
+                            f_out.write(line)
+                        else:
+                            f_out.write(line.upper())
+            
+            os.rename(temp_file, recovered_file)
+            self.logger.info(f"数据恢复完成: {recovered_file.name}")
+            return str(recovered_file)
+            
+        except Exception as e:
+            self.logger.error(f"数据恢复失败: {e}")
+            raise
+
+    def enhanced_file_integrity_check(self, file_path: str) -> tuple:
+        """增强的文件完整性检查，返回(是否完整, 是否部分可读)"""
+        if not file_path.endswith('.gz'):
+            return True, True  # 非压缩文件直接认为完整
+        
+        # 快速预检
+        if not self.quick_precheck(file_path):
+            return False, False  # 完全不可读
+        
+        # 完整性检查
+        try:
+            result = subprocess.run(['gzip', '-t', file_path], 
+                                capture_output=True, text=True, timeout=60)
+            if result.returncode == 0:
+                return True, True  # 完全完整
+            else:
+                return False, True  # 部分损坏但可读
+        except:
+            return False, False  # 检查失败，认为不可读
