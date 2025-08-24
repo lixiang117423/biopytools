@@ -553,8 +553,16 @@ class FileProcessor:
                 continue
             
             # 创建标准化文件名
+            # original_name = os.path.basename(file_path)
+            # std_file = self.config.temp_dir / f"std_{original_name}"
+            # 创建标准化文件名
             original_name = os.path.basename(file_path)
-            std_file = self.config.temp_dir / f"std_{original_name}"
+            # 如果是压缩文件，去掉.gz扩展名，因为我们输出的是未压缩文件
+            if original_name.endswith('.gz'):
+                base_name = original_name[:-3]  # 去掉 .gz
+            else:
+                base_name = original_name
+            std_file = self.config.temp_dir / f"std_{base_name}"
             
             try:
                 if file_path.endswith('.gz'):
