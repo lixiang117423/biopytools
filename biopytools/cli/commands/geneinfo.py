@@ -1,21 +1,58 @@
 """
 GFF3文件解析命令 | GFF3 File Parsing Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-from ...gff_utils.main import main as gff_main
+import os
 
 
-@click.command(short_help = '从GFF文件中提取基因和转录本的信息',
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
+def _lazy_import_gff_main():
+    """懒加载gff main函数 | Lazy load gff main function"""
+    try:
+        from ...gff_utils.main import main as gff_main
+        return gff_main
+    except ImportError as e:
+        click.echo(f"❌ 导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_gff3_file(file_path):
+    """验证GFF3文件是否存在（仅在非帮助模式下）| Validate GFF3 file existence (only in non-help mode)"""
+    if not _is_help_request() and not os.path.exists(file_path):
+        raise click.BadParameter(f"GFF3文件不存在 | GFF3 file does not exist: {file_path}")
+    return file_path
+
+
+def _validate_output_path(file_path):
+    """验证输出路径（仅在非帮助模式下）| Validate output path (only in non-help mode)"""
+    if not _is_help_request():
+        # 输出文件可以不存在，但其父目录应该存在或可创建
+        parent_dir = os.path.dirname(os.path.abspath(file_path))
+        if parent_dir and not os.path.exists(parent_dir):
+            try:
+                os.makedirs(parent_dir, exist_ok=True)
+            except OSError as e:
+                raise click.BadParameter(f"无法创建输出目录 | Cannot create output directory: {parent_dir}, Error: {e}")
+    return file_path
+
+
+@click.command(short_help='从GFF文件中提取基因和转录本的信息',
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--gff3', '-g',
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_gff3_file(value) if value else None,
               help='输入的GFF3文件路径 | Input GFF3 file path')
 @click.option('--output', '-o',
               required=True,
-              type=click.Path(),
+              callback=lambda ctx, param, value: _validate_output_path(value) if value else None,
               help='输出的TSV文件路径 | Output TSV file path')
 @click.option('--gene-type',
               default='gene',
@@ -48,6 +85,9 @@ def geneinfo(gff3, output, gene_type, transcript_types):
         --transcript-types mRNA transcript lnc_RNA miRNA
     """
     
+    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    gff_main = _lazy_import_gff_main()
+    
     # 构建参数列表传递给原始main函数
     args = ['geneinfo.py']
     
@@ -60,7 +100,9 @@ def geneinfo(gff3, output, gene_type, transcript_types):
         args.extend(['--gene-type', gene_type])
     
     # transcript-types参数处理
-    if transcript_types and transcript_types != ('mRNA', 'transcript'):
+    # 注意：比较tuple时要考虑顺序和内容
+    default_transcript_types = ('mRNA', 'transcript')
+    if transcript_types and tuple(transcript_types) != default_transcript_types:
         args.extend(['--transcript-types'] + list(transcript_types))
     
     # 保存并恢复sys.argv

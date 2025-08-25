@@ -1,14 +1,38 @@
 """
 ENA数据下载命令 | ENA Data Download Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-from ...ena_downloader.main import main as ena_main
+import os
 
 
-@click.command(short_help = '从ENA下载测序数据样品信息和下载链接',
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
+def _lazy_import_ena_main():
+    """懒加载ena main函数 | Lazy load ena main function"""
+    try:
+        from ...ena_downloader.main import main as ena_main
+        return ena_main
+    except ImportError as e:
+        click.echo(f"❌ 导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_aspera_key(file_path):
+    """验证Aspera密钥文件是否存在（仅在非帮助模式下）| Validate aspera key file existence (only in non-help mode)"""
+    if not _is_help_request() and file_path and not os.path.exists(file_path):
+        raise click.BadParameter(f"Aspera密钥文件不存在 | Aspera key file does not exist: {file_path}")
+    return file_path
+
+
+@click.command(short_help='从ENA下载测序数据样品信息和下载链接',
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--accession', '-a',
               required=True,
               help='ENA项目编号 | ENA accession number (e.g., PRJNA661210, SRP000123)')
@@ -27,7 +51,7 @@ from ...ena_downloader.main import main as ena_main
               default='ftp',
               help='下载协议类型 (默认: ftp) | Download protocol type (default: ftp)')
 @click.option('--aspera-key', '-k',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_aspera_key(value) if value else None,
               help='Aspera私钥路径 | Path to aspera private key')
 @click.option('--method', '-m',
               type=click.Choice(['save', 'run']),
@@ -74,6 +98,9 @@ def ena_downloader(accession, output_dir, create_dir, metadata_format, protocol,
     # 自定义字段
     biopytools ena-download -a PRJNA661210 -F fastq_ftp -F study_title -f csv
     """
+    
+    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    ena_main = _lazy_import_ena_main()
     
     # 构建参数列表传递给原始main函数
     args = ['ena_downloader.py']

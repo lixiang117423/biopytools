@@ -1,17 +1,51 @@
 """
 GTX WGS分析命令 | GTX WGS Analysis Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-from ...gtx.main import main as gtx_main
+import os
 
 
-@click.command(short_help = '运行GTX WGS流程',
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
+def _lazy_import_gtx_main():
+    """懒加载gtx main函数 | Lazy load gtx main function"""
+    try:
+        from ...gtx.main import main as gtx_main
+        return gtx_main
+    except ImportError as e:
+        click.echo(f"❌ 导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_input_dir(dir_path):
+    """验证输入目录是否存在（仅在非帮助模式下）| Validate input directory existence (only in non-help mode)"""
+    if not _is_help_request():
+        if not os.path.exists(dir_path):
+            raise click.BadParameter(f"输入目录不存在 | Input directory does not exist: {dir_path}")
+        if not os.path.isdir(dir_path):
+            raise click.BadParameter(f"输入路径不是目录 | Input path is not a directory: {dir_path}")
+    return dir_path
+
+
+def _validate_reference_file(file_path):
+    """验证参考基因组文件是否存在（仅在非帮助模式下）| Validate reference file existence (only in non-help mode)"""
+    if not _is_help_request() and not os.path.exists(file_path):
+        raise click.BadParameter(f"参考基因组文件不存在 | Reference genome file does not exist: {file_path}")
+    return file_path
+
+
+@click.command(short_help='运行GTX WGS流程',
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--input-dir', '-i',
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_input_dir(value) if value else None,
               help='📂 输入目录路径 (包含clean FASTQ文件) | Input directory path (containing clean FASTQ files)')
 @click.option('--output-dir', '-o',
               required=True,
@@ -19,7 +53,7 @@ from ...gtx.main import main as gtx_main
               help='📤 输出目录路径 | Output directory path')
 @click.option('--reference', '-r',
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_reference_file(value) if value else None,
               help='🧬 参考基因组文件路径 | Reference genome file path')
 @click.option('--threads', '-t',
               default=88,
@@ -105,6 +139,9 @@ def gtx(input_dir, output_dir, reference, threads, gtx_path, tmp_dir,
         --read2-pattern "*_2.clean.fq.gz"
     """
     
+    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    gtx_main = _lazy_import_gtx_main()
+    
     # 构建参数列表传递给原始main函数
     args = ['gtx.py']
     
@@ -161,4 +198,4 @@ def gtx(input_dir, output_dir, reference, threads, gtx_path, tmp_dir,
         click.echo(f"💥 运行错误 | Runtime error: {e}", err=True)
         sys.exit(1)
     finally:
-        sys.argv = original_argv
+        sys.argv = original_argva

@@ -1,23 +1,54 @@
 """
 🧬 BLAST序列比对分析命令 | BLAST Sequence Alignment Analysis Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-from ...blast_analysis.main import main as blast_main
+import os
 
 
-@click.command(short_help = "BLAST序列比对分析工具",
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
+def _lazy_import_blast_main():
+    """懒加载blast main函数 | Lazy load blast main function"""
+    try:
+        from ...blast_analysis.main import main as blast_main
+        return blast_main
+    except ImportError as e:
+        click.echo(f"❌ 导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_file_exists(file_path):
+    """验证文件是否存在（仅在非帮助模式下）| Validate file existence (only in non-help mode)"""
+    if not _is_help_request() and file_path and not os.path.exists(file_path):
+        raise click.BadParameter(f"文件不存在 | File does not exist: {file_path}")
+    return file_path
+
+
+def _validate_required_file_exists(file_path):
+    """验证必需文件是否存在（仅在非帮助模式下）| Validate required file existence (only in non-help mode)"""
+    if not _is_help_request() and not os.path.exists(file_path):
+        raise click.BadParameter(f"文件不存在 | File does not exist: {file_path}")
+    return file_path
+
+
+@click.command(short_help="BLAST序列比对分析工具",
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--input', '-i',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='📁 输入文件或目录路径 | Input file or directory path')
 @click.option('--sample-map-file', '-s',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='🧪 样品映射文件，格式：文件路径<TAB>样品名称 | Sample mapping file, format: file_path<TAB>sample_name')
 @click.option('--target-file', '-t',
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_required_file_exists(value) if value else None,
               help='🎯 目标基因序列文件 | Target gene sequence file')
 @click.option('--output-dir', '-o',
               default='./blast_output',
@@ -124,6 +155,9 @@ def blast(input, sample_map_file, target_file, output_dir, blast_type, evalue,
         --evalue 1e-10 --max-target-seqs 20 --word-size 15 \\
         --blast-type blastx -j 64
     """
+    
+    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    blast_main = _lazy_import_blast_main()
     
     # 验证输入参数 📋 | Validate input parameters
     if not input and not sample_map_file:

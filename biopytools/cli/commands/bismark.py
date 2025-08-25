@@ -1,53 +1,78 @@
 """
 🧬 Bismark甲基化分析命令 | Bismark Methylation Analysis Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-# 在您的实际项目中，您应该使用这样的相对导入
-# from ...bismark.main import main as bismark_main
-# from ...bismark import __version__
+import os
 
-# --- 为了让此代码块能独立运行，我们在此处包含占位符 ---
-# --- 在您的项目中，您应该使用上面的 import 语句，并删除这部分 ---
-# START: Placeholder for demonstration
-def get_original_main_for_demo():
-    def main_placeholder():
-        print("--- 🚀 Original main function called (simulated) ---")
-        print(f"Received sys.argv: {sys.argv}")
-        # 原始的 main() 会创建解析器并运行分析
-        import argparse
-        parser = argparse.ArgumentParser()
-        parser.add_argument('-g', '--genome-fa', required=True)
-        parser.add_argument('-r', '--raw-dir', required=True)
-        parser.add_argument('-o', '--output-dir', required=True)
-        parser.add_argument('-p', '--pattern', default='_1_clean.fq.gz')
-        parser.add_argument('-j', '--threads', type=int, default=88)
-        parser.add_argument('--sort-buffer', type=str, default='400G')
-        parser.add_argument('--no-no-overlap', dest='no_overlap', action='store_false')
-        try:
-            args = parser.parse_args()
-            print(f"Argparse would have parsed arguments as: {args}")
-        except Exception as e:
-            print(f"Argparse simulation failed: {e}")
-        
-        print("--- ✅ Analysis finished (simulated) ---")
-    return main_placeholder
-bismark_main = get_original_main_for_demo()
-__version__ = "1.0.0" # Placeholder version
-# END: Placeholder
 
-@click.command(short_help = "Bismark甲基化分析流程",
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
-@click.version_option(version=__version__, prog_name='Bismark Pipeline')
+def _lazy_import_bismark_main():
+    """懒加载bismark main函数 | Lazy load bismark main function"""
+    try:
+        from ...bismark.main import main as bismark_main
+        return bismark_main
+    except ImportError as e:
+        click.echo(f"❌ 导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _lazy_import_version():
+    """懒加载版本信息 | Lazy load version info"""
+    try:
+        from ...bismark import __version__
+        return __version__
+    except ImportError:
+        return "1.0.0"  # 默认版本 | Default version
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help', '--version'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_file_exists(file_path):
+    """验证文件是否存在（仅在非帮助模式下）| Validate file existence (only in non-help mode)"""
+    if not _is_help_request() and not os.path.exists(file_path):
+        raise click.BadParameter(f"文件不存在 | File does not exist: {file_path}")
+    return file_path
+
+
+def _validate_dir_exists(dir_path):
+    """验证目录是否存在（仅在非帮助模式下）| Validate directory existence (only in non-help mode)"""
+    if not _is_help_request() and not os.path.isdir(dir_path):
+        raise click.BadParameter(f"目录不存在 | Directory does not exist: {dir_path}")
+    return dir_path
+
+
+# 加载版本信息用于装饰器
+def _get_version_option():
+    """获取版本选项装饰器 | Get version option decorator"""
+    if _is_help_request():
+        # 如果是帮助请求，使用默认版本避免导入
+        return click.version_option(version="1.0.0", prog_name='Bismark Pipeline')
+    else:
+        # 实际运行时才懒加载版本
+        version = _lazy_import_version()
+        return click.version_option(version=version, prog_name='Bismark Pipeline')
+
+
+@click.command(short_help="Bismark甲基化分析流程",
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
+# 版本信息懒加载处理
+@click.option('--version', is_flag=True, expose_value=False, is_eager=True,
+              callback=lambda ctx, param, value: _handle_version_request() if value else None,
+              help='显示版本信息 | Show version information')
 # --- Required arguments ---
 @click.option('--genome-fa', '-g',
               required=True,
-              type=click.Path(exists=True, dir_okay=False, resolve_path=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='🧬 基因组FASTA文件路径 | Path to genome FASTA file.')
 @click.option('--raw-dir', '-r',
               required=True,
-              type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),
+              callback=lambda ctx, param, value: _validate_dir_exists(value) if value else None,
               help='📁 原始FASTQ数据目录 | Raw FASTQ data directory.')
 @click.option('--output-dir', '-o',
               required=True,
@@ -86,6 +111,9 @@ def bismark(genome_fa, raw_dir, output_dir, pattern, threads, sort_buffer, inclu
     # 🧪 包含重叠的reads
     biopytools bismark -g genome.fa -r ./data -o ./out --include-overlap
     """
+    
+    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    bismark_main = _lazy_import_bismark_main()
     
     # 构建参数列表以传递给原始的main函数 🔄 | Build argument list for original main function
     args = ['biopytools', 'bismark']
@@ -127,6 +155,14 @@ def bismark(genome_fa, raw_dir, output_dir, pattern, threads, sort_buffer, inclu
     finally:
         # 无论如何都要恢复原始的 sys.argv | Restore original sys.argv regardless of outcome
         sys.argv = original_argv
+
+
+def _handle_version_request():
+    """处理版本信息请求 | Handle version information request"""
+    version = _lazy_import_version()
+    click.echo(f"Bismark Pipeline version {version}")
+    sys.exit(0)
+
 
 # 如果直接运行此文件用于测试 | If running this file directly for testing
 if __name__ == '__main__':

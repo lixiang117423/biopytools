@@ -1,18 +1,47 @@
 """
 📊 BAM覆盖度分析命令 | BAM Depth Analysis Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-from ...depth_analyzer.main import main as depth_main
+import os
 
 
-@click.command(short_help = "BAM/SAM文件覆盖度分析工具",
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
+def _lazy_import_depth_main():
+    """懒加载depth main函数 | Lazy load depth main function"""
+    try:
+        from ...depth_analyzer.main import main as depth_main
+        return depth_main
+    except ImportError as e:
+        click.echo(f"❌ 导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_multiple_files(files_tuple):
+    """验证多个文件是否存在（仅在非帮助模式下）| Validate multiple files existence (only in non-help mode)"""
+    if _is_help_request():
+        return files_tuple
+    
+    for file_path in files_tuple:
+        if not os.path.exists(file_path):
+            raise click.BadParameter(f"文件不存在 | File does not exist: {file_path}")
+    
+    return files_tuple
+
+
+@click.command(short_help="BAM/SAM文件覆盖度分析工具",
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--input', '-i',
               multiple=True,
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_multiple_files(value) if value else None,
               help='🎯 输入BAM/SAM文件路径或文件夹 | Input BAM/SAM file paths or directories')
 @click.option('--output', '-o',
               default='./depth_results.txt',
@@ -91,6 +120,9 @@ def coverage(input, output, chromosome, region, threads, quality, mapping_qualit
     biopytools coverage -i data.bam -o results.txt \\
         -q 20 -Q 30 --compress
     """
+    
+    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    depth_main = _lazy_import_depth_main()
     
     # 构建参数列表传递给原始main函数 🔄 | Build argument list for original main function
     args = ['biopytools', 'bam-depth']

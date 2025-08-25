@@ -1,19 +1,43 @@
 """
 基因组共线性分析命令 | Genome Synteny Analysis Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-from ...genome_syn.main import main as genome_syn_main
+import os
 
 
-@click.command(short_help = '基因组共线性分析',
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
+def _lazy_import_genome_syn_main():
+    """懒加载genome_syn main函数 | Lazy load genome_syn main function"""
+    try:
+        from ...genome_syn.main import main as genome_syn_main
+        return genome_syn_main
+    except ImportError as e:
+        click.echo(f"❌ 导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_file_exists(file_path):
+    """验证文件是否存在（仅在非帮助模式下）| Validate file existence (only in non-help mode)"""
+    if not _is_help_request() and file_path and not os.path.exists(file_path):
+        raise click.BadParameter(f"文件不存在 | File does not exist: {file_path}")
+    return file_path
+
+
+@click.command(short_help='基因组共线性分析',
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--sample-map', '-s',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='📂 样本映射文件 | Sample mapping file (tab-separated: genome_file\\tgenome_name)')
 @click.option('--config', '-c',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='📋 配置文件 | Configuration file (.xlsx or .yaml)')
 @click.option('--output-dir', '-o',
               default='./genome_syn_output',
@@ -93,6 +117,9 @@ def genomesyn(sample_map, config, output_dir, generate_config, aligner,
     biopytools genomesyn --sample-map genomes.tsv --output-dir ./output \\
         --aligner minimap2 --alignment-mode chain --threads 32 --min-length 10000
     """
+    
+    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    genome_syn_main = _lazy_import_genome_syn_main()
     
     # 验证输入参数的互斥性
     if not sample_map and not config:

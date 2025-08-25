@@ -1,17 +1,48 @@
 """
 HiFiasm基因组组装分析命令 | HiFiasm Genome Assembly Analysis Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-from ...hifiasm.main import main as hifiasm_main
+import os
 
 
-@click.command(short_help = '运行hifiasm组装流程',
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
+def _lazy_import_hifiasm_main():
+    """懒加载hifiasm main函数 | Lazy load hifiasm main function"""
+    try:
+        from ...hifiasm.main import main as hifiasm_main
+        return hifiasm_main
+    except ImportError as e:
+        click.echo(f"导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_file_exists(file_path):
+    """验证文件是否存在（仅在非帮助模式下）| Validate file existence (only in non-help mode)"""
+    if not _is_help_request() and file_path and not os.path.exists(file_path):
+        raise click.BadParameter(f"文件不存在 | File does not exist: {file_path}")
+    return file_path
+
+
+def _validate_required_file_exists(file_path):
+    """验证必需文件是否存在（仅在非帮助模式下）| Validate required file existence (only in non-help mode)"""
+    if not _is_help_request() and not os.path.exists(file_path):
+        raise click.BadParameter(f"文件不存在 | File does not exist: {file_path}")
+    return file_path
+
+
+@click.command(short_help='运行hifiasm组装流程',
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--input-reads', '-i',
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_required_file_exists(value) if value else None,
               help='输入HiFi测序数据文件 | Input HiFi sequencing data file')
 @click.option('--output-dir', '-o',
               default='./hifiasm_output',
@@ -42,13 +73,13 @@ from ...hifiasm.main import main as hifiasm_main
               type=float,
               help='相似性阈值 | Similarity threshold (default: 0.75)')
 @click.option('--ont-reads',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='ONT长读长数据文件 | ONT long-read data file')
 @click.option('--hi-c-1',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='Hi-C第一端数据文件 | Hi-C first-end data file')
 @click.option('--hi-c-2',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='Hi-C第二端数据文件 | Hi-C second-end data file')
 @click.option('--extra-hifiasm-args',
               default='',
@@ -69,7 +100,7 @@ from ...hifiasm.main import main as hifiasm_main
               is_flag=True,
               help='跳过QUAST质量评估 | Skip QUAST quality assessment')
 @click.option('--reference-genome',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='参考基因组文件 (用于QUAST) | Reference genome file (for QUAST)')
 @click.option('--analyze-haplotypes',
               is_flag=True,
@@ -148,7 +179,7 @@ from ...hifiasm.main import main as hifiasm_main
               type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'ERROR']),
               help='日志级别 | Log level (default: INFO)')
 @click.option('--config-file',
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='配置文件路径 | Configuration file path')
 @click.option('--dry-run',
               is_flag=True,
@@ -169,55 +200,58 @@ def hifiasm(input_reads, output_dir, prefix, threads, hg_size, purge_level,
     
     示例 | Examples:
     
-    \b
+    \\b
     # 基本用法
     biopytools hifiasm -i sample.hifi.fq.gz -o hifiasm_results -p sample_prefix
     
-    \b
+    \\b
     # 二倍体组装
     biopytools hifiasm -i reads.hifi.fq.gz -o output \\
         --hg-size 1.4g --purge-max 65 -s 0.75
     
-    \b
+    \\b
     # 包含ONT数据的组装
     biopytools hifiasm -i hifi.fq.gz --ont-reads ont.fq.gz \\
         -o output -p sample
     
-    \b
+    \\b
     # Hi-C辅助组装
     biopytools hifiasm -i hifi.fq.gz \\
         --hi-c-1 hic_R1.fq.gz --hi-c-2 hic_R2.fq.gz \\
         -o output -p sample
     
-    \b
+    \\b
     # 完整质量评估
     biopytools hifiasm -i sample.hifi.fq.gz -o output \\
         --busco-lineage embryophyta_odb10 \\
         --reference-genome ref.fa --analyze-haplotypes
     
-    \b
+    \\b
     # 高内存高线程组装
     biopytools hifiasm -i large.hifi.fq.gz -o output \\
         -t 128 --memory 256 --hg-size 5g
     
-    \b
+    \\b
     # 试运行模式检查参数
     biopytools hifiasm -i sample.hifi.fq.gz -o output \\
         --dry-run --debug -vvv
     
-    \b
+    \\b
     # 自定义工具路径
     biopytools hifiasm -i sample.hifi.fq.gz -o output \\
         --hifiasm-path /opt/hifiasm/hifiasm \\
         --busco-path /opt/busco/bin/busco \\
         --quast-path /opt/quast/quast.py
     
-    \b
+    \\b
     # 多倍体组装
     biopytools hifiasm -i polyploid.hifi.fq.gz -o output \\
         --assembly-type polyploid --purge-level 1 \\
         --min-contig-length 10000
     """
+    
+    # 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    hifiasm_main = _lazy_import_hifiasm_main()
     
     # 验证Hi-C数据配对
     if (hi_c_1 and not hi_c_2) or (hi_c_2 and not hi_c_1):

@@ -1,25 +1,49 @@
 """
 🧬 ANNOVAR变异注释命令 | ANNOVAR Variant Annotation Command
+优化版本：使用懒加载解决响应速度问题
 """
 
 import click
 import sys
-from ...annovar.main import main as annovar_main
+import os
 
 
-@click.command(short_help = "ANNOVAR变异注释工具",
-               context_settings=dict(help_option_names=['-h', '--help'],max_content_width=120))
+def _lazy_import_annovar_main():
+    """懒加载annovar main函数 | Lazy load annovar main function"""
+    try:
+        from ...annovar.main import main as annovar_main
+        return annovar_main
+    except ImportError as e:
+        click.echo(f"❌ 导入错误 | Import Error: {e}", err=True)
+        sys.exit(1)
+
+
+def _is_help_request():
+    """检查是否是帮助请求 | Check if this is a help request"""
+    help_flags = {'-h', '--help'}
+    return any(arg in help_flags for arg in sys.argv)
+
+
+def _validate_file_exists(file_path):
+    """验证文件是否存在（仅在非帮助模式下）| Validate file existence (only in non-help mode)"""
+    if not _is_help_request() and not os.path.exists(file_path):
+        raise click.BadParameter(f"文件不存在 | File does not exist: {file_path}")
+    return file_path
+
+
+@click.command(short_help="ANNOVAR变异注释工具",
+               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--gff3', '-g',
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='📂 GFF3注释文件路径 | GFF3 annotation file path')
 @click.option('--genome', '-f',
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='🧬 基因组序列文件路径 | Genome sequence file path')
 @click.option('--vcf', '-v',
               required=True,
-              type=click.Path(exists=True),
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='📄 VCF变异文件路径 | VCF variant file path')
 @click.option('--build-ver', '-b',
               required=True,
@@ -107,6 +131,9 @@ def annovar(gff3, genome, vcf, build_ver, annovar_path, database_path,
         --skip-gff-cleaning \\
         --skip-gff-fix
     """
+    
+    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    annovar_main = _lazy_import_annovar_main()
     
     # 构建参数列表传递给原始main函数 🔄 | Build argument list for original main function
     args = ['biopytools', 'annovar']
