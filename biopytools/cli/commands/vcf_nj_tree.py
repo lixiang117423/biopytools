@@ -33,7 +33,7 @@ from ...vcf_phylo.main import main as vcf_phylo_main
 @click.option('--skip-vcf2dis',
               is_flag=True,
               help='跳过VCF2Dis步骤，直接从距离矩阵构建树 | Skip VCF2Dis step, build tree directly from distance matrix')
-def vcf_nj_tree(input, distance_matrix, output, tree_output, vcf2dis_path, working_dir, skip_vcf2dis):
+def vcf-nj-tree(input, distance_matrix, output, tree_output, vcf2dis_path, working_dir, skip_vcf2dis):
     """
     VCF系统发育分析工具 v2.0
     
@@ -59,28 +59,28 @@ def vcf_nj_tree(input, distance_matrix, output, tree_output, vcf2dis_path, worki
     
     \b
     # 基本系统发育分析
-    biopytools vcf-phylo -i wild.snp.vcf -o wild_snp_phylo
+    biopytools vcf-nj-tree -i wild.snp.vcf -o wild_snp_phylo
     
     \b
     # 指定完整输出路径
-    biopytools vcf-phylo --input data/wild.snp.vcf \\
+    biopytools vcf-nj-tree --input data/wild.snp.vcf \\
         --output results/wild_snp_analysis \\
         --tree-output results/wild_snp.nwk
     
     \b
     # 从已有距离矩阵构建树
-    biopytools vcf-phylo --distance-matrix existing_matrix.txt \\
+    biopytools vcf-nj-tree --distance-matrix existing_matrix.txt \\
         --tree-output phylo_tree.nwk --skip-vcf2dis
     
     \b
     # 自定义工作目录和工具路径
-    biopytools vcf-phylo -i variants.vcf -o analysis \\
+    biopytools vcf-nj-tree -i variants.vcf -o analysis \\
         --vcf2dis-path /opt/vcf2dis/VCF2Dis \\
         --working-dir /tmp/phylo_work/
     
     \b
     # 复杂群体系统发育分析
-    biopytools vcf-phylo -i population_variants.vcf \\
+    biopytools vcf-nj-tree -i population_variants.vcf \\
         -o population_phylogeny \\
         -w ./phylo_analysis/ \\
         -t population_tree.newick
@@ -191,7 +191,7 @@ def vcf_nj_tree(input, distance_matrix, output, tree_output, vcf2dis_path, worki
             raise click.ClickException("必须指定输入VCF文件 | Input VCF file must be specified")
     
     # 构建参数列表传递给原始main函数
-    args = ['vcf_nj_tree.py']
+    args = ['vcf-nj-tree.py']
     
     # 输入文件参数
     if input:

@@ -4,7 +4,7 @@
 
 import click
 import sys
-from ...vcf_sequence_toolkit.main import main as sequence_extractor_main
+from ...vcf-sequence_toolkit.main import main as sequence_extractor_main
 
 
 @click.command(short_help='VCF和基因组序列变异提取工具',
@@ -52,7 +52,7 @@ from ...vcf_sequence_toolkit.main import main as sequence_extractor_main
 @click.option('--exclude-samples',
               type=str,
               help='排除样品列表文件或逗号分隔的样品名称 | Exclude sample list file or comma-separated sample names')
-def vcf_sequence(vcf, genome, chrom, start, end, output_dir, format, second_allele,
+def vcf-sequence(vcf, genome, chrom, start, end, output_dir, format, second_allele,
                  no_reference, min_qual, samples, exclude_samples):
     """
     序列变异提取脚本 (模块化版本)
@@ -91,39 +91,39 @@ def vcf_sequence(vcf, genome, chrom, start, end, output_dir, format, second_alle
     
     \b
     # 基本序列提取
-    biopytools sequence-extractor -v variants.vcf -g genome.fa \\
+    biopytools vcf-sequence -v variants.vcf -g genome.fa \\
         -c chr1 -s 1000000 -e 1001000 -o seq_output
     
     \b
     # 提取FASTA格式序列
-    biopytools sequence-extractor -v variants.vcf.gz -g genome.fa \\
+    biopytools vcf-sequence -v variants.vcf.gz -g genome.fa \\
         -c 1 -s 1000000 -e 1001000 --format fasta -o fasta_output
     
     \b
     # 指定特定样本提取
-    biopytools sequence-extractor -v population.vcf -g reference.fa \\
+    biopytools vcf-sequence -v population.vcf -g reference.fa \\
         -c chr2 -s 500000 -e 502000 --samples "Sample1,Sample2,Sample3"
     
     \b
     # 使用第二等位基因并应用质量过滤
-    biopytools sequence-extractor -v variants.vcf -g genome.fa \\
+    biopytools vcf-sequence -v variants.vcf -g genome.fa \\
         -c chr3 -s 2000000 -e 2005000 --second-allele --min-qual 30
     
     \b
     # 排除低质量样本并输出CSV格式
-    biopytools sequence-extractor -v data.vcf -g genome.fa \\
+    biopytools vcf-sequence -v data.vcf -g genome.fa \\
         -c chrX -s 1000000 -e 1010000 --format csv \\
         --exclude-samples low_quality_samples.txt --min-qual 20
     
     \b
     # 大区间序列提取（不包含参考序列）
-    biopytools sequence-extractor -v large_cohort.vcf.gz -g genome.fa \\
+    biopytools vcf-sequence -v large_cohort.vcf.gz -g genome.fa \\
         -c chr22 -s 10000000 -e 15000000 --no-reference \\
         --format fasta -o large_region
     
     \b
     # 从样本列表文件提取特定群体序列
-    biopytools sequence-extractor -v population_variants.vcf -g reference.fa \\
+    biopytools vcf-sequence -v population_variants.vcf -g reference.fa \\
         -c chr7 -s 5000000 -e 5100000 --samples european_samples.txt \\
         --format tab --min-qual 25
     
@@ -339,7 +339,7 @@ def vcf_sequence(vcf, genome, chrom, start, end, output_dir, format, second_alle
     """
     
     # 构建参数列表传递给原始main函数
-    args = ['vcf_sequence.py']
+    args = ['vcf-sequence.py']
     
     # 必需参数
     args.extend(['-v', vcf])

@@ -72,16 +72,16 @@ def geneinfo(gff3, output, gene_type, transcript_types):
     
     \b
     # 基本提取
-    biopytools gff-utils -g genome.gff3 -o gene_info.tsv
+    biopytools geneinfo -g genome.gff3 -o gene_info.tsv
     
     \b
     # 自定义特征类型
-    biopytools gff-utils -g genome.gff3 -o gene_info.tsv \\
+    biopytools geneinfo -g genome.gff3 -o gene_info.tsv \\
         --gene-type gene --transcript-types mRNA lnc_RNA
     
     \b
     # 提取所有转录本类型
-    biopytools gff-utils -g genome.gff3 -o gene_info.tsv \\
+    biopytools geneinfo -g genome.gff3 -o gene_info.tsv \\
         --transcript-types mRNA transcript lnc_RNA miRNA
     """
     

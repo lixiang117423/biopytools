@@ -97,39 +97,39 @@ def parabricks(input_dir, output_dir, reference, threads, parabricks_path, tmp_d
     
     \b
     # 基本WGS批处理分析
-    biopytools parabricks-wgs -i /path/to/clean/data \\
+    biopytools parabricks -i /path/to/clean/data \\
         -o /path/to/output -r /path/to/reference.fa
     
     \b
     # 指定线程数和自定义parabricks路径
-    biopytools parabricks-wgs -i ./clean_data -o ./parabricks_results \\
+    biopytools parabricks -i ./clean_data -o ./parabricks_results \\
         -r ./reference.fa -t 64 --parabricks-path /custom/parabricks/path
     
     \b
     # 自定义质量控制参数
-    biopytools parabricks-wgs -i /data/clean -o /results \\
+    biopytools parabricks -i /data/clean -o /results \\
         -r /genome/ref.fa --min-confidence 25 --min-base-quality 15
     
     \b
     # 指定临时目录和特殊文件模式
-    biopytools parabricks-wgs -i ./fastq_files -o ./wgs_output \\
+    biopytools parabricks -i ./fastq_files -o ./wgs_output \\
         -r ./genome.fa --tmp-dir /fast_ssd/tmp \\
         --read1-pattern "*_R1_*.fastq.gz" --read2-pattern "*_R2_*.fastq.gz"
     
     \b
     # 高通量批处理 (最大线程数)
-    biopytools parabricks-wgs -i /large_cohort/fastq -o /large_cohort/results \\
+    biopytools parabricks -i /large_cohort/fastq -o /large_cohort/results \\
         -r /reference/genome.fa -t 128 --min-confidence 35
     
     \b
     # 临床级别高精度分析
-    biopytools parabricks-wgs -i /clinical/samples -o /clinical/results \\
+    biopytools parabricks -i /clinical/samples -o /clinical/results \\
         -r /clinical/reference.fa --min-confidence 40 \\
         --min-base-quality 25 --pcr-indel-model AGGRESSIVE
     
     \b
     # 单倍体样本分析
-    biopytools parabricks-wgs -i /haploid/samples -o /haploid/results \\
+    biopytools parabricks -i /haploid/samples -o /haploid/results \\
         -r /reference.fa --ploidy 1 --min-confidence 30
     
     输入文件要求 | Input File Requirements:

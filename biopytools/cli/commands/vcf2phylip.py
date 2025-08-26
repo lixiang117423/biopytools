@@ -89,30 +89,30 @@ def vcf2phylip(input, output, output_prefix, min_samples_locus, outgroup,
     
     \b
     # 基本VCF转换 (默认PHYLIP格式)
-    biopytools vcf-converter -i variants.vcf -o converted_results
+    biopytools vcf2phylip -i variants.vcf -o converted_results
     
     \b
     # 转换为多种格式
-    biopytools vcf-converter -i data.vcf.gz -o results --fasta --nexus
+    biopytools vcf2phylip -i data.vcf.gz -o results --fasta --nexus
     
     \b
     # 指定外群和最小样本数
-    biopytools vcf-converter -i variants.vcf -o results \\
+    biopytools vcf2phylip -i variants.vcf -o results \\
         -m 10 -g outgroup_sample
     
     \b
     # 二进制NEXUS格式转换
-    biopytools vcf-converter -i data.vcf -o results \\
+    biopytools vcf2phylip -i data.vcf -o results \\
         --nexus-binary --resolve-IUPAC
     
     \b
     # 高性能批量转换
-    biopytools vcf-converter -i large_dataset.vcf.gz \\
+    biopytools vcf2phylip -i large_dataset.vcf.gz \\
         -o batch_results --threads 64 --fasta --nexus
     
     \b
     # 完整转换分析
-    biopytools vcf-converter -i population.vcf -o comprehensive \\
+    biopytools vcf2phylip -i population.vcf -o comprehensive \\
         --fasta --nexus --nexus-binary -m 8 -g outgroup \\
         --resolve-IUPAC --write-used-sites --threads 32
     

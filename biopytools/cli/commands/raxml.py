@@ -163,36 +163,36 @@ def raxml(sequence_file, output_name, model, categories, likelihood_epsilon,
     
     \b
     # 基本系统发育分析
-    biopytools raxml-phylo -s alignment.phy -n my_tree
+    biopytools raxml -s alignment.phy -n my_tree
     
     \b
     # 完整的bootstrap分析
-    biopytools raxml-phylo -s data.phy -n phylo_bootstrap \\
+    biopytools raxml -s data.phy -n phylo_bootstrap \\
         -m GTRGAMMA -f a -x 12345 -N 1000
     
     \b
     # 蛋白质序列分析
-    biopytools raxml-phylo -s proteins.phy -n protein_tree \\
+    biopytools raxml -s proteins.phy -n protein_tree \\
         -m PROTGAMMAWAG -T 64
     
     \b
     # 使用约束树分析
-    biopytools raxml-phylo -s alignment.phy -n constrained_tree \\
+    biopytools raxml -s alignment.phy -n constrained_tree \\
         -g constraint.tre -T 88
     
     \b
     # 快速bootstrap收敛分析
-    biopytools raxml-phylo -s sequences.phy -n auto_bootstrap \\
+    biopytools raxml -s sequences.phy -n auto_bootstrap \\
         -f a -m GTRGAMMA -x 12345 -I autoMRE -T 64
     
     \b
     # 大数据集内存优化分析
-    biopytools raxml-phylo -s large_alignment.phy -n large_tree \\
+    biopytools raxml -s large_alignment.phy -n large_tree \\
         -m GTRGAMMA -U -H -T 88 --silent
     
     \b
     # 指定外群的完整分析
-    biopytools raxml-phylo -s data.phy -n outgroup_tree \\
+    biopytools raxml -s data.phy -n outgroup_tree \\
         -o "Outgroup1,Outgroup2" -f a -m GTRGAMMA -x 12345 -N 100
     
     进化模型说明 | Evolutionary Models:

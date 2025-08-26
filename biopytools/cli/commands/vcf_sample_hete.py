@@ -34,7 +34,7 @@ from ...vcf_stats_sample.main import main as vcf_stats_main
 @click.option('--no-summary', '-S',
               is_flag=True,
               help='不输出汇总统计结果 | Do not output summary statistics')
-def vcf_sample_hete(vcf, output, min_depth, min_qual, exclude_missing, no_detailed, no_summary):
+def vcf-sample-hete(vcf, output, min_depth, min_qual, exclude_missing, no_detailed, no_summary):
     """
     VCF基因型统计分析脚本 (模块化版本)
     
@@ -71,34 +71,34 @@ def vcf_sample_hete(vcf, output, min_depth, min_qual, exclude_missing, no_detail
     
     \b
     # 基本统计分析
-    biopytools vcf-stats -v variants.vcf -o vcf_stats_output
+    biopytools vcf-sample-hete -v variants.vcf -o vcf_stats_output
     
     \b
     # 应用质量和深度过滤
-    biopytools vcf-stats -v variants.vcf.gz -o results -d 10 -q 30.0
+    biopytools vcf-sample-hete -v variants.vcf.gz -o results -d 10 -q 30.0
     
     \b
     # 排除缺失基因型，仅输出汇总统计
-    biopytools vcf-stats -v variants.vcf -o results -e -D
+    biopytools vcf-sample-hete -v variants.vcf -o results -e -D
     
     \b
     # 严格质控过滤和完整分析
-    biopytools vcf-stats -v high_quality.vcf -o comprehensive_stats \\
+    biopytools vcf-sample-hete -v high_quality.vcf -o comprehensive_stats \\
         --min-depth 15 --min-qual 40.0 --exclude-missing
     
     \b
     # 快速质量评估（仅汇总统计）
-    biopytools vcf-stats -v variants.vcf -o quick_stats \\
+    biopytools vcf-sample-hete -v variants.vcf -o quick_stats \\
         --no-detailed --min-depth 5
     
     \b
     # 批量样本质量比较
-    biopytools vcf-stats -v population_variants.vcf.gz \\
+    biopytools vcf-sample-hete -v population_variants.vcf.gz \\
         -o population_stats --min-qual 20.0
     
     \b
     # 测序质量评估
-    biopytools vcf-stats -v raw_variants.vcf -o quality_assessment \\
+    biopytools vcf-sample-hete -v raw_variants.vcf -o quality_assessment \\
         --min-depth 8 --exclude-missing
     
     输入文件要求 | Input File Requirements:
@@ -282,7 +282,7 @@ def vcf_sample_hete(vcf, output, min_depth, min_qual, exclude_missing, no_detail
     """
     
     # 构建参数列表传递给原始main函数
-    args = ['vcf_sample_hete.py']
+    args = ['vcf-sample-hete.py']
     
     # 必需参数
     args.extend(['-v', vcf])
