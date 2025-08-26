@@ -33,7 +33,7 @@ from ...vcf_phylo.main import main as vcf_phylo_main
 @click.option('--skip-vcf2dis',
               is_flag=True,
               help='跳过VCF2Dis步骤，直接从距离矩阵构建树 | Skip VCF2Dis step, build tree directly from distance matrix')
-def vcf-nj-tree(input, distance_matrix, output, tree_output, vcf2dis_path, working_dir, skip_vcf2dis):
+def vcf_nj_tree(input, distance_matrix, output, tree_output, vcf2dis_path, working_dir, skip_vcf2dis):
     """
     VCF系统发育分析工具 v2.0
     

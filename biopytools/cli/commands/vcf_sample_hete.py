@@ -34,7 +34,7 @@ from ...vcf_stats_sample.main import main as vcf_stats_main
 @click.option('--no-summary', '-S',
               is_flag=True,
               help='不输出汇总统计结果 | Do not output summary statistics')
-def vcf-sample-hete(vcf, output, min_depth, min_qual, exclude_missing, no_detailed, no_summary):
+def vcf_sample_hete(vcf, output, min_depth, min_qual, exclude_missing, no_detailed, no_summary):
     """
     VCF基因型统计分析脚本 (模块化版本)
     

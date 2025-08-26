@@ -4,7 +4,7 @@
 
 import click
 import sys
-from ...vcf-sequence_toolkit.main import main as sequence_extractor_main
+from ...vcf_sequence_toolkit.main import main as sequence_extractor_main
 
 
 @click.command(short_help='VCF和基因组序列变异提取工具',
@@ -52,7 +52,7 @@ from ...vcf-sequence_toolkit.main import main as sequence_extractor_main
 @click.option('--exclude-samples',
               type=str,
               help='排除样品列表文件或逗号分隔的样品名称 | Exclude sample list file or comma-separated sample names')
-def vcf-sequence(vcf, genome, chrom, start, end, output_dir, format, second_allele,
+def vcf_sequence(vcf, genome, chrom, start, end, output_dir, format, second_allele,
                  no_reference, min_qual, samples, exclude_samples):
     """
     序列变异提取脚本 (模块化版本)
