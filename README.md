@@ -28,26 +28,52 @@ cd biopytools
 pip install -e .
 ```
 
-## 使用方法
+## 使用方法 | Useage
 
-- [parse_gene_info](./docs/parse_gene_info.md)：从GFF文件中提取基因和转录本的信息
-- [parse_longest_mrna](./docs/parse_longest_mrna.md)：使用基因组和GFF文件提取最长的转录本
-- [parse_sequence_vcf](./docs/parse_sequence_vcf.md)：以VCF文件为基础，从基因组中提取特定区域的序列
-- [run_genome_collinearity](./docs/run_genome_collinearity.md)：使用minimap2+SyRi+plotri可视化基因组染色体的共线性
-- [run_kmer_extractor](./docs/run_kmer_extractor.md)：从fasta或fastq文件中提取k-mer
-- [run_kmer_count](./docs/run_kmer_count.md)：计算给定的k-mer的丰度、存在/缺失和滑窗分析结果
+```bash
+biopytools -h           
+Usage: biopytools [OPTIONS] COMMAND [ARGS]...
 
+  BioPyTools - 生物信息学分析工具包
 
-### 贡献代码 | Contributing
+  要查看特定命令的帮助，请运行：biopytools <命令> -h/--help, 如biopytools fastp -h
 
-欢迎贡献代码！请遵循以下步骤：| Contributions are welcome! Please follow these steps:
+Options:
+  -v, --version  Show the version and exit.
+  -h, --help     Show this message and exit.
 
-1. Fork 本仓库 | Fork the repository
-2. 创建特性分支 | Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. 提交更改 | Commit your changes (`git commit -m 'Add amazing feature'`)
-4. 推送到分支 | Push to the branch (`git push origin feature/amazing-feature`)
-5. 创建Pull Request | Create a Pull Request
-
+Commands:
+  admixture        ADMIXTURE群体结构分析
+  annovar          ANNOVAR变异注释工具
+  bismark          Bismark甲基化分析流程
+  blast            BLAST序列比对分析工具
+  coverage         BAM/SAM文件覆盖度分析工具
+  ena-downloader   从ENA下载测序数据样品信息和下载链接
+  fastp            批量运行fastp
+  geneinfo         从GFF文件中提取基因和转录本的信息
+  genomesyn        基因组共线性分析
+  gtx              运行GTX WGS流程
+  hifiasm          运行hifiasm组装流程
+  kaks             计算Ks,Ks及其比值
+  kmer-count       计算K-mer的丰度和滑窗分析
+  kmer-query       从FASTA/FASTQ文件中提取K-mer序列
+  longest-mrna     从基因组中提取每个基因的最长转录本
+  minimap2         Minimap2全基因组比对与未比对区域提取
+  mrna-prediction  转录组预测分析工具
+  parabricks       基于GPU加速的全基因组测序(WGS)批处理分析工具
+  plink-gwas       PLINK全基因组关联分析
+  popgen           群体遗传学多样性分析
+  raxml            RAxML系统发育分析工具
+  rnaseq           RNA-seq表达定量分析流程
+  split-fasta-id   FASTA序列ID分割和清理工具
+  vcf-filter       VCF文件高性能筛选和格式转换
+  vcf-genotype     VCF文件基因型数据提取和格式转换
+  vcf-nj-tree      VCF文件系统发育树构建和分析
+  vcf-pca          VCF文件主成分分析(PCA)工具
+  vcf-sample-hete  VCF基因型统计分析工具
+  vcf-sequence     VCF和基因组序列变异提取工具
+  vcf2phylip       VCF格式转换工具
+```
 
 ## 许可证 | License
 
@@ -73,9 +99,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you encounter problems or have suggestions, please submit an issue on GitHub:
 
 https://github.com/lixiang117423/biopytools/issues
-
-## 更新日志 | Changelog
-
-详细的更新日志请参考：[CHANGELOG.md](CHANGELOG.md)
-
-For detailed changelog, please refer to: [CHANGELOG.md](CHANGELOG.md)
