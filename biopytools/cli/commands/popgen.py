@@ -20,10 +20,17 @@ from ...popgen_toolkit.main import main as popgen_main
 @click.option('--groups', '-g',
               type=click.Path(exists=True),
               help='分组信息文件 | Group information file')
-@click.option('--all',
+# @click.option('--skip-qc',
+#               is_flag=True,
+#               help='跳过质量控制过滤，直接使用输入VCF文件 | Skip quality control filtering, use input VCF file directly')
+@click.option('--skip-qc',
               is_flag=True,
-              default=True,
-              help='计算所有参数 (默认) | Calculate all parameters (default)')
+              default=True,  # 改为True，与config.py一致
+              help='跳过质量控制过滤 | Skip quality control filtering (default)')
+# @click.option('--all',
+#               is_flag=True,
+#               default=False,  # 改为False
+#               help='计算所有参数 | Calculate all parameters')
 @click.option('--fst',
               is_flag=True,
               help='计算Fst | Calculate Fst')
@@ -42,9 +49,9 @@ from ...popgen_toolkit.main import main as popgen_main
 @click.option('--ld',
               is_flag=True,
               help='计算LD | Calculate LD')
-@click.option('--ne',
-              is_flag=True,
-              help='计算有效群体大小 | Calculate effective population size')
+# @click.option('--ne',
+#               is_flag=True,
+#               help='计算有效群体大小 | Calculate effective population size')
 @click.option('--windows', '-w',
               multiple=True,
               type=int,
@@ -100,7 +107,7 @@ from ...popgen_toolkit.main import main as popgen_main
               help='SMC++路径 | SMC++ path (default: smc++)')
 def popgen(vcf, output, groups, all, fst, pi, theta_w, tajima_d, ibd, ld, ne,
            windows, overlap, maf, missing, hwe, min_dp, max_dp, format,
-           threads, vcftools_path, plink_path, bcftools_path, smcpp_path):
+           threads, vcftools_path, plink_path, bcftools_path, smcpp_path, skip_qc):
     """
     群体遗传分析工具 (模块化版本)
     
@@ -137,11 +144,6 @@ def popgen(vcf, output, groups, all, fst, pi, theta_w, tajima_d, ibd, ld, ne,
     # 自定义参数的全面分析
     biopytools popgen -v variants.vcf -o results -g samples_groups.txt \\
         --all -t 8 --format csv
-    
-    \b
-    # 仅计算有效群体大小和IBD
-    biopytools popgen -v filtered.vcf.gz -o results --ne --ibd \\
-        --format json --threads 16
     
     \b
     # 严格质控的多样性分析
@@ -227,7 +229,32 @@ def popgen(vcf, output, groups, all, fst, pi, theta_w, tajima_d, ibd, ld, ne,
         args.extend(['-g', groups])
     
     # 分析选择参数
-    if not all:
+    # if not all:
+    #     if fst:
+    #         args.append('--fst')
+    #     if pi:
+    #         args.append('--pi')
+    #     if theta_w:
+    #         args.append('--theta-w')
+    #     if tajima_d:
+    #         args.append('--tajima-d')
+    #     if ibd:
+    #         args.append('--ibd')
+    #     if ld:
+    #         args.append('--ld')
+    #     if ne:
+    #         args.append('--ne')
+    # elif all and not (fst or pi or theta_w or tajima_d or ibd or ld or ne):
+    #     args.append('--all')
+    # 分析选择参数
+    specific_params = [fst, pi, theta_w, tajima_d, ibd, ld, ne]
+    has_specific_params = any(specific_params)
+
+    if all and not has_specific_params:
+        # 只指定了--all，没有指定具体参数
+        args.append('--all')
+    elif has_specific_params:
+        # 指定了具体的参数，忽略--all标志
         if fst:
             args.append('--fst')
         if pi:
@@ -242,8 +269,19 @@ def popgen(vcf, output, groups, all, fst, pi, theta_w, tajima_d, ibd, ld, ne,
             args.append('--ld')
         if ne:
             args.append('--ne')
-    elif all and not (fst or pi or theta_w or tajima_d or ibd or ld or ne):
-        args.append('--all')
+    else:
+        # 什么都没指定，默认计算所有
+         args.append('--all')
+
+    # 质控选项
+    if skip_qc:
+        args.append('--skip-qc')
+    
+    # if skip_qc:  # 用户明确指定要跳过
+    #     args.append('--skip-qc')
+    # elif not skip_qc:  # 用户没有指定或明确指定不跳过
+    #     # 什么都不做，让main.py使用其默认值
+    #     pass
     
     # 滑动窗口参数
     if windows and set(windows) != {10000, 100000, 500000}:
