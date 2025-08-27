@@ -282,7 +282,7 @@ def vcf_sample_hete(vcf, output, min_depth, min_qual, exclude_missing, no_detail
     """
     
     # 构建参数列表传递给原始main函数
-    args = ['vcf-sample-hete.py']
+    args = ['vcf_sample_hete.py']
     
     # 必需参数
     args.extend(['-v', vcf])

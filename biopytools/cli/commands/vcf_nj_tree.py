@@ -191,7 +191,7 @@ def vcf_nj_tree(input, distance_matrix, output, tree_output, vcf2dis_path, worki
             raise click.ClickException("必须指定输入VCF文件 | Input VCF file must be specified")
     
     # 构建参数列表传递给原始main函数
-    args = ['vcf-nj-tree.py']
+    args = ['vcf_nj_tree.py']
     
     # 输入文件参数
     if input:

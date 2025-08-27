@@ -339,7 +339,7 @@ def vcf_sequence(vcf, genome, chrom, start, end, output_dir, format, second_alle
     """
     
     # 构建参数列表传递给原始main函数
-    args = ['vcf-sequence.py']
+    args = ['vcf_sequence.py']
     
     # 必需参数
     args.extend(['-v', vcf])

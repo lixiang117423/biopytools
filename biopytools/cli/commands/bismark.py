@@ -116,7 +116,7 @@ def bismark(genome_fa, raw_dir, output_dir, pattern, threads, sort_buffer, inclu
     bismark_main = _lazy_import_bismark_main()
     
     # 构建参数列表以传递给原始的main函数 🔄 | Build argument list for original main function
-    args = ['biopytools', 'bismark']
+    args = ['bismark.py']
     
     # 必需参数 📋 | Required parameters
     args.extend(['-g', genome_fa])

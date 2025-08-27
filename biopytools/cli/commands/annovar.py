@@ -136,7 +136,7 @@ def annovar(gff3, genome, vcf, build_ver, annovar_path, database_path,
     annovar_main = _lazy_import_annovar_main()
     
     # 构建参数列表传递给原始main函数 🔄 | Build argument list for original main function
-    args = ['biopytools', 'annovar']
+    args = ['annovar.py']
     
     # 必需参数 📋 | Required parameters
     args.extend(['-g', gff3])

@@ -200,53 +200,53 @@ def hifiasm(input_reads, output_dir, prefix, threads, hg_size, purge_level,
     
     示例 | Examples:
     
-    \\b
+    \b
     # 基本用法
     biopytools hifiasm -i sample.hifi.fq.gz -o hifiasm_results -p sample_prefix
     
-    \\b
+    \b
     # 二倍体组装
-    biopytools hifiasm -i reads.hifi.fq.gz -o output \\
+    biopytools hifiasm -i reads.hifi.fq.gz -o output 
         --hg-size 1.4g --purge-max 65 -s 0.75
     
-    \\b
+    \b
     # 包含ONT数据的组装
-    biopytools hifiasm -i hifi.fq.gz --ont-reads ont.fq.gz \\
+    biopytools hifiasm -i hifi.fq.gz --ont-reads ont.fq.gz 
         -o output -p sample
     
-    \\b
+    \b
     # Hi-C辅助组装
-    biopytools hifiasm -i hifi.fq.gz \\
-        --hi-c-1 hic_R1.fq.gz --hi-c-2 hic_R2.fq.gz \\
+    biopytools hifiasm -i hifi.fq.gz 
+        --hi-c-1 hic_R1.fq.gz --hi-c-2 hic_R2.fq.gz 
         -o output -p sample
     
-    \\b
+    \b
     # 完整质量评估
-    biopytools hifiasm -i sample.hifi.fq.gz -o output \\
-        --busco-lineage embryophyta_odb10 \\
+    biopytools hifiasm -i sample.hifi.fq.gz -o output 
+        --busco-lineage embryophyta_odb10 
         --reference-genome ref.fa --analyze-haplotypes
     
-    \\b
+    \b
     # 高内存高线程组装
-    biopytools hifiasm -i large.hifi.fq.gz -o output \\
+    biopytools hifiasm -i large.hifi.fq.gz -o output 
         -t 128 --memory 256 --hg-size 5g
     
-    \\b
+    \b
     # 试运行模式检查参数
-    biopytools hifiasm -i sample.hifi.fq.gz -o output \\
+    biopytools hifiasm -i sample.hifi.fq.gz -o output 
         --dry-run --debug -vvv
     
-    \\b
+    \b
     # 自定义工具路径
-    biopytools hifiasm -i sample.hifi.fq.gz -o output \\
-        --hifiasm-path /opt/hifiasm/hifiasm \\
-        --busco-path /opt/busco/bin/busco \\
+    biopytools hifiasm -i sample.hifi.fq.gz -o output 
+        --hifiasm-path /opt/hifiasm/hifiasm 
+        --busco-path /opt/busco/bin/busco 
         --quast-path /opt/quast/quast.py
     
-    \\b
+    \b
     # 多倍体组装
-    biopytools hifiasm -i polyploid.hifi.fq.gz -o output \\
-        --assembly-type polyploid --purge-level 1 \\
+    biopytools hifiasm -i polyploid.hifi.fq.gz -o output 
+        --assembly-type polyploid --purge-level 1 
         --min-contig-length 10000
     """
     

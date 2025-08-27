@@ -105,7 +105,7 @@ def admixture(vcf, output, min_k, max_k, cv_folds, threads, maf, missing,
     admixture_main = _lazy_import_admixture_main()
     
     # 构建参数列表传递给原始main函数 🔄 | Build argument list for original main function
-    args = ['biopytools', 'admixture']
+    args = ['admixture.py']
     
     # 必需参数 📋 | Required parameters
     args.extend(['-v', vcf])

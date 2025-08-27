@@ -125,7 +125,7 @@ def coverage(input, output, chromosome, region, threads, quality, mapping_qualit
     depth_main = _lazy_import_depth_main()
     
     # 构建参数列表传递给原始main函数 🔄 | Build argument list for original main function
-    args = ['biopytools', 'bam-depth']
+    args = ['coverage.py']
     
     # 必需参数 📋 | Required parameters
     args.extend(['-i'] + list(input))
