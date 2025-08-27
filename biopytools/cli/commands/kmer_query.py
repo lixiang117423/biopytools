@@ -86,40 +86,40 @@ def kmer_query(input_files, output_dir, kmer_length, threads, memory, file_type,
     
     \b
     # 基本FASTA文件处理
-    biopytools kmer-query -i data.fasta -o results
+    biopytools kmer-extractor -i data.fasta -o results
     
     \b
     # 多个FASTQ文件处理
-    biopytools kmer-query -i sample1.fastq sample2.fastq -o results -k 31 -t 16
+    biopytools kmer-extractor -i sample1.fastq sample2.fastq -o results -k 31 -t 16
     
     \b
     # FASTQ配对文件处理
-    biopytools kmer-query -i /data/*.fastq.gz -o results \\
+    biopytools kmer-extractor -i /data/*.fastq.gz -o results \\
         --fastq-pattern "*_1.clean.fq.gz" -k 21
     
     \b
     # FASTA文件生成BED注释
-    biopytools kmer-query -i data.fasta -o results --output-bed -k 25
+    biopytools kmer-extractor -i data.fasta -o results --output-bed -k 25
     
     \b
     # 多个FASTA文件批量处理
-    biopytools kmer-query --input-files file1.fa file2.fa \\
+    biopytools kmer-extractor --input-files file1.fa file2.fa \\
         -o results --threads 8 --memory 100 --output-bed
     
     \b
     # 高性能大数据处理
-    biopytools kmer-query -i large_genome.fa -o results \\
+    biopytools kmer-extractor -i large_genome.fa -o results \\
         -k 31 -t 128 -m 500 --unikmer-path /opt/unikmer/bin/unikmer
     
     \b
     # FASTQ文件自定义设置
-    biopytools kmer-query -i reads.fq.gz -o output \\
+    biopytools kmer-extractor -i reads.fq.gz -o output \\
         --jellyfish-hash-size 20000M --no-canonical \\
         --jellyfish-path /usr/local/bin/jellyfish
     
     \b
     # 目录批量处理
-    biopytools kmer-query -i /data/genomes/ -o results \\
+    biopytools kmer-extractor -i /data/genomes/ -o results \\
         --file-type fasta -k 51 --output-bed --no-compress
     
     文件格式说明 | File Format Notes:
