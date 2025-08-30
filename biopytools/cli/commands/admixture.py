@@ -36,45 +36,45 @@ def _validate_file_exists(file_path):
 @click.option('--vcf', '-v',
               required=True,
               callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
-              help='📄 输入VCF文件路径 | Input VCF file path')
+              help='输入VCF文件路径 | Input VCF file path')
 @click.option('--output', '-o',
               default='admixture_results',
               type=click.Path(),
-              help='📁 输出目录 | Output directory')
+              help='输出目录 | Output directory')
 @click.option('--min-k', '-k',
               type=int,
               default=2,
-              help='🔢 最小K值 (默认: 2) | Minimum K value (default: 2)')
+              help='最小K值 (默认: 2) | Minimum K value (default: 2)')
 @click.option('--max-k', '-K',
               type=int,
               default=10,
-              help='🔢 最大K值 (默认: 10) | Maximum K value (default: 10)')
+              help='最大K值 (默认: 10) | Maximum K value (default: 10)')
 @click.option('--cv-folds', '-c',
               type=int,
               default=5,
-              help='🔄 交叉验证折数 (默认: 5) | Cross-validation folds (default: 5)')
+              help='交叉验证折数 (默认: 5) | Cross-validation folds (default: 5)')
 @click.option('--threads', '-t',
               type=int,
               default=4,
-              help='⚡ 线程数 (默认: 4) | Number of threads (default: 4)')
+              help='线程数 (默认: 4) | Number of threads (default: 4)')
 @click.option('--maf', '-m',
               type=float,
               default=0.01,
-              help='📊 MAF阈值 (默认: 0.01) | MAF threshold (default: 0.01)')
+              help='MAF阈值 (默认: 0.01) | MAF threshold (default: 0.01)')
 @click.option('--missing', '-M',
               type=float,
               default=0.1,
-              help='❓ 缺失率阈值 (默认: 0.1) | Missing rate threshold (default: 0.1)')
+              help='缺失率阈值 (默认: 0.1) | Missing rate threshold (default: 0.1)')
 @click.option('--hwe', '-H',
               type=float,
               default=1e-6,
-              help='⚖️ HWE p值阈值 (默认: 1e-6) | HWE p-value threshold (default: 1e-6)')
+              help='HWE p值阈值 (默认: 1e-6) | HWE p-value threshold (default: 1e-6)')
 @click.option('--skip-preprocessing', '-s',
               is_flag=True,
-              help='⏩ 跳过VCF预处理 | Skip VCF preprocessing')
+              help='跳过VCF预处理 | Skip VCF preprocessing')
 @click.option('--keep-intermediate', '-i',
               is_flag=True,
-              help='💾 保留中间文件 | Keep intermediate files')
+              help='保留中间文件 | Keep intermediate files')
 def admixture(vcf, output, min_k, max_k, cv_folds, threads, maf, missing,
               hwe, skip_preprocessing, keep_intermediate):
     """
@@ -83,25 +83,25 @@ def admixture(vcf, output, min_k, max_k, cv_folds, threads, maf, missing,
     示例 | Examples:
     
     \b
-    # 🎯 基本分析
+    # 基本分析
     biopytools admixture -v input.vcf -o results
     
     \b
-    # 🔧 指定K值范围和线程数
+    # 指定K值范围和线程数
     biopytools admixture -v input.vcf -o results -k 3 -K 8 -t 8
     
     \b
-    # 📊 自定义质控参数
+    # 自定义质控参数
     biopytools admixture -v input.vcf -o results \\
         --maf 0.05 --missing 0.05 --hwe 1e-5
     
     \b
-    # ⏩ 跳过预处理并保留中间文件
+    # 跳过预处理并保留中间文件
     biopytools admixture -v clean.vcf -o results \\
         --skip-preprocessing --keep-intermediate
     """
     
-    # 🚀 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
+    # 懒加载：只有在实际调用时才导入模块 | Lazy loading: import only when actually called
     admixture_main = _lazy_import_admixture_main()
     
     # 构建参数列表传递给原始main函数 🔄 | Build argument list for original main function
