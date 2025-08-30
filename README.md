@@ -44,35 +44,6 @@ Options:
 
 Commands:
   admixture        ADMIXTURE群体结构分析
-  annovar          ANNOVAR变异注释工具
-  bismark          Bismark甲基化分析流程
-  blast            BLAST序列比对分析工具
-  coverage         BAM/SAM文件覆盖度分析工具
-  ena-downloader   从ENA下载测序数据样品信息和下载链接
-  fastp            批量运行fastp
-  geneinfo         从GFF文件中提取基因和转录本的信息
-  genomesyn        基因组共线性分析
-  gtx              运行GTX WGS流程
-  hifiasm          运行hifiasm组装流程
-  kaks             计算Ks,Ks及其比值
-  kmer-count       计算K-mer的丰度和滑窗分析
-  kmer-query       从FASTA/FASTQ文件中提取K-mer序列
-  longest-mrna     从基因组中提取每个基因的最长转录本
-  minimap2         Minimap2全基因组比对与未比对区域提取
-  mrna-prediction  转录组预测分析工具
-  parabricks       基于GPU加速的全基因组测序(WGS)批处理分析工具
-  plink-gwas       PLINK全基因组关联分析
-  popgen           群体遗传学多样性分析
-  raxml            RAxML系统发育分析工具
-  rnaseq           RNA-seq表达定量分析流程
-  split-fasta-id   FASTA序列ID分割和清理工具
-  vcf-filter       VCF文件高性能筛选和格式转换
-  vcf-genotype     VCF文件基因型数据提取和格式转换
-  vcf-nj-tree      VCF文件系统发育树构建和分析
-  vcf-pca          VCF文件主成分分析(PCA)工具
-  vcf-sample-hete  VCF基因型统计分析工具
-  vcf-sequence     VCF和基因组序列变异提取工具
-  vcf2phylip       VCF格式转换工具
 ```
 
 ## 许可证 | License
