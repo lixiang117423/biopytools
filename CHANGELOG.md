@@ -3,6 +3,11 @@
 ## [.1.0] - 2025-08-30
 
 ### Changed
+## [0.2.1] - 2025-08-31
+
+### Changed
+
+
 ## [0.2.0] - 2025-08-30
 
 ### Changed
@@ -11,7 +16,6 @@
 ## [.1.0] - 2025-08-30
 
 ### Changed
-
 
 - update admixture cli
 - update admixture

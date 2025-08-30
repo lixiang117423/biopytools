@@ -16,7 +16,7 @@ class ResultsProcessor:
     
     def process_blast_results(self, blast_results: List[Tuple[str, str, str]]) -> str:
         """处理BLAST结果"""
-        self.logger.info("📊 开始处理BLAST结果")
+        self.logger.info("开始处理BLAST结果")
         
         # 创建汇总文件
         summary_file = self.config.output_path / "blast_summary_results.tsv"
@@ -39,7 +39,7 @@ class ResultsProcessor:
             if not os.path.exists(result_file) or os.path.getsize(result_file) == 0:
                 continue
             
-            self.logger.info(f"📋 处理结果文件: {result_file}")
+            self.logger.info(f"处理结果文件: {result_file}")
             
             hit_count = 0
             has_hits = False
@@ -69,23 +69,23 @@ class ResultsProcessor:
             if has_hits:
                 files_with_hits += 1
                 total_hits += hit_count
-                self.logger.info(f"  ✅ 处理完成，发现 {hit_count} 个比对结果")
+                self.logger.info(f"处理完成，发现 {hit_count} 个比对结果")
         
-        self.logger.info(f"🎯 汇总统计:")
-        self.logger.info(f"  📂 有比对结果的文件数: {files_with_hits}")
-        self.logger.info(f"  🎯 总比对命中数: {total_hits}")
+        self.logger.info(f"汇总统计:")
+        self.logger.info(f"有比对结果的文件数: {files_with_hits}")
+        self.logger.info(f"总比对命中数: {total_hits}")
         
         return str(summary_file)
     
     def sort_results_by_coverage(self, summary_file: str) -> str:
         """按覆盖度排序结果"""
-        self.logger.info("📊 按目标序列覆盖度排序结果")
+        self.logger.info("按目标序列覆盖度排序结果")
         
         try:
             df = pd.read_csv(summary_file, sep='\t', encoding='utf-8')
             
             if df.empty:
-                self.logger.warning("⚠️  汇总文件为空")
+                self.logger.warning("汇总文件为空")
                 return summary_file
             
             # 按覆盖度和相似度排序
@@ -98,22 +98,22 @@ class ResultsProcessor:
             sorted_file = summary_file.replace('.tsv', '_sorted.tsv')
             df_sorted.to_csv(sorted_file, sep='\t', index=False, encoding='utf-8')
             
-            self.logger.info(f"✅ 排序完成: {sorted_file}")
+            self.logger.info(f"排序完成: {sorted_file}")
             return sorted_file
             
         except Exception as e:
-            self.logger.error(f"❌ 排序过程中出错: {e}")
+            self.logger.error(f"排序过程中出错: {e}")
             return summary_file
     
     def create_high_quality_results(self, summary_file: str) -> str:
         """创建高质量比对结果"""
-        self.logger.info("🌟 筛选高质量比对结果")
+        self.logger.info("筛选高质量比对结果")
         
         try:
             df = pd.read_csv(summary_file, sep='\t', encoding='utf-8')
             
             if df.empty:
-                self.logger.warning("⚠️  无数据可筛选")
+                self.logger.warning("无数据可筛选")
                 return ""
             
             # 筛选高质量结果
@@ -124,18 +124,18 @@ class ResultsProcessor:
             ]
             
             if high_quality_df.empty:
-                self.logger.warning("⚠️  未找到符合条件的高质量比对结果")
+                self.logger.warning("未找到符合条件的高质量比对结果")
                 return ""
             
             # 保存高质量结果
             high_quality_file = summary_file.replace('.tsv', '_high_quality.tsv')
             high_quality_df.to_csv(high_quality_file, sep='\t', index=False, encoding='utf-8')
             
-            self.logger.info(f"🌟 高质量结果文件已创建: {high_quality_file}")
-            self.logger.info(f"🌟 高质量比对数量: {len(high_quality_df)}")
+            self.logger.info(f"高质量结果文件已创建: {high_quality_file}")
+            self.logger.info(f"高质量比对数量: {len(high_quality_df)}")
             
             return high_quality_file
             
         except Exception as e:
-            self.logger.error(f"❌ 创建高质量结果时出错: {e}")
+            self.logger.error(f"创建高质量结果时出错: {e}")
             return ""
