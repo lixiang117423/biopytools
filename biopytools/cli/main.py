@@ -185,7 +185,9 @@ COMMAND_REGISTRY = [
     ('vcf2phylip', 'vcf2phylip', '🔄 vcf转phylip格式'),
     ('repeat_analyzer', 'repeat-analyzer', '🔄 重复序列分析模块'),
     ('edta', 'edta', '🧬 EDTA重复元件注释'),
-    ('genomethreader', 'genome-threader', '🔬 GenomeThreader预测基因结构')
+    ('genomethreader', 'genome-threader', '🔬 GenomeThreader预测基因结构'),
+    ('orthofinder', 'orthofinder', '🧬 OrthoFinder泛基因组分析工具包'),
+    ('genomeasm', 'genomeasm', '🧬 三代基因组组装流程')
 ]
 
 # 将硬编码信息转换为字典，方便查询

@@ -40,64 +40,7 @@ class AdmixtureAnalyzer:
         self.covariate_generator = CovariateGenerator(self.config, self.logger)
         self.plot_generator = PlotGenerator(self.config, self.logger)
         self.summary_generator = SummaryGenerator(self.config, self.logger)
-    
-    # def run_analysis(self):
-    #     """运行完整的ADMIXTURE分析流程 | Run complete ADMIXTURE analysis pipeline"""
-    #     try:
-    #         self.logger.info("="*60)
-    #         self.logger.info("开始ADMIXTURE群体结构分析 | Starting ADMIXTURE Population Structure Analysis")
-    #         self.logger.info("="*60)
-            
-    #         # 步骤1: VCF预处理 | Step 1: VCF preprocessing
-    #         self.logger.info("\n步骤1: VCF文件预处理 | Step 1: VCF file preprocessing")
-    #         processed_vcf = self.vcf_processor.preprocess_vcf()
-    #         if processed_vcf is None:
-    #             processed_vcf = self.config.vcf_file
-            
-    #         # 步骤2: 转换为PLINK格式 | Step 2: Convert to PLINK format
-    #         self.logger.info("\n步骤2: 转换为PLINK格式 | Step 2: Convert to PLINK format")
-    #         raw_prefix = self.plink_processor.convert_vcf_to_plink(processed_vcf)
-            
-    #         # 步骤3: 质量控制 | Step 3: Quality control
-    #         self.logger.info("\n步骤3: 质量控制 | Step 3: Quality control")
-    #         qc_prefix = self.plink_processor.quality_control(raw_prefix)
-            
-    #         # 步骤4: ADMIXTURE分析 | Step 4: ADMIXTURE analysis
-    #         self.logger.info("\n步骤4: ADMIXTURE分析 | Step 4: ADMIXTURE analysis")
-    #         best_k = self.admixture_analyzer.run_admixture_analysis(qc_prefix)
-            
-    #         # 步骤5: 结果处理 | Step 5: Results processing
-    #         self.logger.info("\n步骤5: 结果处理 | Step 5: Results processing")
-    #         q_data, p_data, stats = self.results_processor.process_results(best_k)
-            
-    #         # 步骤6: 生成GWAS协变量 | Step 6: Generate GWAS covariates
-    #         self.logger.info("\n步骤6: 生成GWAS协变量 | Step 6: Generate GWAS covariates")
-    #         covar_file = self.covariate_generator.generate_gwas_covariates(best_k)
-            
-    #         # 步骤7: 生成可视化图表 | Step 7: Generate visualization plots
-    #         self.logger.info("\n步骤7: 生成可视化图表 | Step 7: Generate visualization plots")
-    #         plot_file = self.plot_generator.generate_plots(q_data, best_k)
-            
-    #         # 步骤8: 生成总结报告 | Step 8: Generate summary report
-    #         self.logger.info("\n步骤8: 生成总结报告 | Step 8: Generate summary report")
-    #         summary_file = self.summary_generator.generate_summary(best_k, stats)
-            
-    #         # 完成信息 | Completion information
-    #         self.logger.info("\n" + "="*60)
-    #         self.logger.info("ADMIXTURE分析完成！| ADMIXTURE analysis completed!")
-    #         self.logger.info("="*60)
-    #         self.logger.info(f"最优K值 | Best K value: {best_k}")
-    #         self.logger.info(f"结果目录 | Results directory: {self.config.output_dir}")
-    #         self.logger.info("主要输出文件 | Main output files:")
-    #         self.logger.info("  - admixture_proportions.csv: 个体祖先成分 | Individual ancestry proportions")
-    #         self.logger.info("  - gwas_covariates.txt: GWAS协变量文件 | GWAS covariate file")
-    #         self.logger.info("  - cv_results.csv: 交叉验证结果 | Cross-validation results")
-    #         self.logger.info("  - *.pdf: 可视化图表 | Visualization plots")
-    #         self.logger.info("  - analysis_summary.txt: 分析总结报告 | Analysis summary report")
-            
-    #     except Exception as e:
-    #         self.logger.error(f"分析过程中发生错误 | Error occurred during analysis: {e}")
-    #         sys.exit(1)
+  
     def run_analysis(self):
         """运行完整的ADMIXTURE分析流程 | Run complete ADMIXTURE analysis pipeline"""
         try:
