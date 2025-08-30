@@ -201,7 +201,7 @@ class SummaryGenerator:
         
         with open(summary_file, 'w', encoding='utf-8') as f:
             f.write("ADMIXTURE分析总结报告 | ADMIXTURE Analysis Summary Report\n")
-            f.write("=" * 60 + "\n\n")
+            f.write("=" * 80 + "\n\n")
             
             f.write("输入文件 | Input Files:\n")
             f.write(f"  - VCF文件 | VCF file: {self.config.vcf_file}\n\n")

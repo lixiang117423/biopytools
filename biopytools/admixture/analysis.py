@@ -187,7 +187,7 @@ class ResultsProcessor:
         stats_output = os.path.join(self.config.output_dir, "admixture_statistics.txt")
         with open(stats_output, 'w') as f:
             f.write("ADMIXTURE分析统计信息 | ADMIXTURE Analysis Statistics\n")
-            f.write("=" * 50 + "\n\n")
+            f.write("=" * 80 + "\n\n")
             f.write(f"最优K值 | Best K value: {best_k}\n")
             f.write(f"总个体数 | Total individuals: {stats['total_individuals']}\n")
             f.write(f"高度混合个体数 | Highly admixed individuals: {stats['highly_admixed']}\n")
