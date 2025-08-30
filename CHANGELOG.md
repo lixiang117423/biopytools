@@ -3,6 +3,11 @@
 ## [.1.0] - 2025-08-30
 
 ### Changed
+## [0.2.0] - 2025-08-30
+
+### Changed
+- version 0.2.0: add blast module
+
 ## [.1.0] - 2025-08-30
 
 ### Changed
