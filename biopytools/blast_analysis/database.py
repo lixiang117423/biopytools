@@ -16,7 +16,7 @@ class DatabaseManager:
     
     def create_target_database(self) -> str:
         """创建目标基因数据库"""
-        self.logger.info("🗄️ 创建BLAST数据库...")
+        self.logger.info("创建BLAST数据库...")
         
         target_file = self.config.target_file
         target_path = Path(target_file)
@@ -26,7 +26,7 @@ class DatabaseManager:
         db_exists = all((target_path.parent / f"{target_path.stem}{ext}").exists() for ext in db_extensions)
         
         if db_exists:
-            self.logger.info("✅ 数据库文件已存在，跳过创建")
+            self.logger.info("数据库文件已存在，跳过创建")
             self.target_db_path = str(target_path.parent / target_path.stem)
             return self.target_db_path
         
@@ -44,7 +44,7 @@ class DatabaseManager:
         success = self.cmd_runner.run(cmd, "创建BLAST数据库")
         
         if success:
-            self.logger.info(f"✅ BLAST数据库创建成功: {self.target_db_path}")
+            self.logger.info(f"BLAST数据库创建成功: {self.target_db_path}")
         else:
             raise RuntimeError("BLAST数据库创建失败")
         
@@ -52,7 +52,7 @@ class DatabaseManager:
     
     def create_target_database(self) -> str:
         """创建目标基因数据库"""
-        self.logger.info("🗄️ 创建BLAST数据库...")
+        self.logger.info("创建BLAST数据库...")
         
         target_file = self.config.target_file
         target_path = Path(target_file)
@@ -60,7 +60,7 @@ class DatabaseManager:
         # 在输出目录下创建blast_db子目录
         blast_db_dir = self.config.output_path / "blast_db"
         blast_db_dir.mkdir(exist_ok=True)
-        self.logger.info(f"📁 数据库目录: {blast_db_dir}")
+        self.logger.info(f"数据库目录: {blast_db_dir}")
         
         # 设置数据库文件路径到blast_db目录
         db_name = blast_db_dir / f"{target_path.stem}_db"
@@ -71,7 +71,7 @@ class DatabaseManager:
         db_exists = all((Path(f"{self.target_db_path}{ext}").exists() for ext in db_extensions))
         
         if db_exists:
-            self.logger.info("✅ 数据库文件已存在，跳过创建")
+            self.logger.info("数据库文件已存在，跳过创建")
             return self.target_db_path
         
         # 创建数据库
@@ -85,7 +85,7 @@ class DatabaseManager:
         success = self.cmd_runner.run(cmd, "创建BLAST数据库")
         
         if success:
-            self.logger.info(f"✅ BLAST数据库创建成功: {self.target_db_path}")
+            self.logger.info(f"BLAST数据库创建成功: {self.target_db_path}")
         else:
             raise RuntimeError("BLAST数据库创建失败")
         

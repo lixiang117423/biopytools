@@ -41,80 +41,80 @@ class BLASTAnalyzer:
     def run_analysis(self):
         """运行完整的BLAST分析流程"""
         try:
-            self.logger.info("🧬 开始BLAST分析流程")
+            self.logger.info("开始BLAST分析流程")
             self.logger.info(f"{'=' * 80}")
             
             # 步骤0: 生成或验证样品映射文件
-            self.logger.info("📋 步骤0: 准备样品映射文件")
+            self.logger.info("步骤0: 准备样品映射文件")
             sample_map_file = self.sample_map_generator.generate_sample_map()
             
             # 步骤1: 检查依赖软件
-            self.logger.info("🔍 步骤1: 检查依赖软件")
+            self.logger.info("步骤1: 检查依赖软件")
             self.check_dependencies()
             
             # 步骤2: 创建BLAST数据库
-            self.logger.info("🗄️ 步骤2: 创建BLAST数据库")
+            self.logger.info("步骤2: 创建BLAST数据库")
             target_db_path = self.database_manager.create_target_database()
             
             # 步骤3: 运行BLAST比对
-            self.logger.info("🔬 步骤3: 运行BLAST比对")
+            self.logger.info("步骤3: 运行BLAST比对")
             blast_results = self.blast_runner.run_blast_analysis(target_db_path)
             
             # 步骤4: 处理结果
-            self.logger.info("📊 步骤4: 处理和汇总结果")
+            self.logger.info("步骤4: 处理和汇总结果")
             summary_file = self.results_processor.process_blast_results(blast_results)
             
             # 步骤5: 排序结果
-            self.logger.info("📊 步骤5: 按覆盖度排序结果")
+            self.logger.info("步骤5: 按覆盖度排序结果")
             sorted_file = self.results_processor.sort_results_by_coverage(summary_file)
             
             # 步骤6: 创建高质量结果
-            self.logger.info("🌟 步骤6: 筛选高质量结果")
+            self.logger.info("步骤6: 筛选高质量结果")
             high_quality_file = self.results_processor.create_high_quality_results(sorted_file)
             
             # 步骤7: 生成统计报告
-            self.logger.info("📈 步骤7: 生成统计报告")
+            self.logger.info("步骤7: 生成统计报告")
             stats_file = self.statistics_generator.generate_statistics_report(sorted_file)
             
             # 完成分析
             self._log_completion_summary(sample_map_file, sorted_file, high_quality_file, stats_file)
             
         except Exception as e:
-            self.logger.error(f"❌ 分析流程在执行过程中意外终止: {e}")
+            self.logger.error(f"分析流程在执行过程中意外终止: {e}")
             sys.exit(1)
     
     def _log_completion_summary(self, sample_map_file: str, sorted_file: str, high_quality_file: str, stats_file: str):
         """记录完成摘要"""
         self.logger.info(f"{'=' * 80}")
-        self.logger.info("🎉 BLAST分析完成！")
+        self.logger.info("BLAST分析完成！")
         self.logger.info(f"{'=' * 80}")
-        self.logger.info("📁 输出文件:")
+        self.logger.info("输出文件:")
         
         if self.config.auto_generated_map:
-            self.logger.info(f"  📋 自动生成的样品映射文件: {sample_map_file}")
+            self.logger.info(f"自动生成的样品映射文件: {sample_map_file}")
         else:
-            self.logger.info(f"  📋 使用的样品映射文件: {sample_map_file}")
+            self.logger.info(f"使用的样品映射文件: {sample_map_file}")
         
-        self.logger.info(f"  📊 汇总结果（已排序）: {sorted_file}")
+        self.logger.info(f"汇总结果（已排序）: {sorted_file}")
         
         if high_quality_file:
-            self.logger.info(f"  🌟 高质量结果: {high_quality_file}")
+            self.logger.info(f"高质量结果: {high_quality_file}")
         
         if stats_file:
-            self.logger.info(f"  📈 统计报告: {stats_file}")
+            self.logger.info(f"统计报告: {stats_file}")
         
-        self.logger.info(f"  📁 详细结果目录: {self.config.output_dir}")
-        self.logger.info(f"  📝 日志文件: {self.logger_manager.log_file}")
+        self.logger.info(f"详细结果目录: {self.config.output_dir}")
+        self.logger.info(f"日志文件: {self.logger_manager.log_file}")
         self.logger.info(f"{'=' * 80}")
-        self.logger.info(f"✅ 结果保存在: {self.config.output_dir}")
+        self.logger.info(f"结果保存在: {self.config.output_dir}")
         
         if self.config.auto_generated_map:
-            self.logger.info(f"💡 提示：如需修改样品名称，请编辑 {sample_map_file} 文件后重新运行")
+            self.logger.info(f"提示：如需修改样品名称，请编辑 {sample_map_file} 文件后重新运行")
 
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(
-        description='🧬 BLAST比对分析脚本 (模块化版本)',
+        description='BLAST比对分析脚本 (模块化版本)',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         epilog="""
 🧬 示例:
@@ -147,63 +147,63 @@ def main():
     
     # 输入数据参数
     parser.add_argument('-i', '--input', 
-                       help='📁 输入文件或目录路径（支持单个文件或包含多个文件的目录）')
+                       help='输入文件或目录路径（支持单个文件或包含多个文件的目录）')
     parser.add_argument('-s', '--sample-map-file', 
-                       help='🧪 样品映射文件，格式：文件路径<TAB>样品名称')
+                       help='样品映射文件，格式：文件路径<TAB>样品名称')
     
     # 必需参数
     parser.add_argument('-t', '--target-file', required=True, 
-                       help='🎯 目标基因序列文件')
+                       help='目标基因序列文件')
     
     # 基本参数
     parser.add_argument('-o', '--output-dir', default='./blast_output', 
-                       help='📁 输出目录')
+                       help='输出目录')
     parser.add_argument('--blast-type', choices=['blastn', 'blastp', 'blastx', 'tblastn', 'tblastx'], 
-                       default='blastn', help='🔬 BLAST程序类型')
+                       default='blastn', help='BLAST程序类型')
     
     # BLAST参数
     parser.add_argument('-e', '--evalue', type=float, default=1e-5, 
-                       help='🔢 E-value阈值')
+                       help='E-value阈值')
     parser.add_argument('--max-target-seqs', type=int, default=10, 
-                       help='🎯 最大目标序列数')
+                       help='最大目标序列数')
     parser.add_argument('--word-size', type=int, default=11, 
-                       help='📏 词大小 (仅适用于blastn/tblastx)')
+                       help='词大小 (仅适用于blastn/tblastx)')
     parser.add_argument('--threads', '-j', type=int, default=88, 
-                       help='⚡ 线程数')
+                       help='线程数')
     
     # 文件格式参数
     parser.add_argument('--input-suffix', default='*.fa', 
-                       help='📁 输入文件后缀模式（当输入为目录时使用）')
+                       help='输入文件后缀模式（当输入为目录时使用）')
     parser.add_argument('--target-db-type', choices=['nucl', 'prot'], default='nucl', 
-                       help='🗄️ 目标数据库类型')
+                       help='目标数据库类型')
     
     # 过滤参数
     parser.add_argument('--min-identity', type=float, default=70.0, 
-                       help='📊 最小序列相似度 (%%)')
+                       help='最小序列相似度 (%%)')
     parser.add_argument('--min-coverage', type=float, default=50.0, 
-                       help='📐 最小覆盖度 (%%)')
+                       help='最小覆盖度 (%%)')
     parser.add_argument('--high-quality-evalue', type=float, default=1e-10, 
-                       help='🌟 高质量比对E-value阈值')
+                       help='高质量比对E-value阈值')
     
     # 样品信息参数
     parser.add_argument('--auto-detect-samples', action='store_true', default=True, 
-                       help='🔍 自动检测样品名称（仅当使用-i时有效）')
+                       help='自动检测样品名称（仅当使用-i时有效）')
     parser.add_argument('--sample-name-pattern', default=r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$', 
-                       help='🔍 样品名称提取正则表达式')
+                       help='样品名称提取正则表达式')
     
     # 工具路径参数
     parser.add_argument('--makeblastdb-path', default='makeblastdb', 
-                       help='🗄️ makeblastdb程序路径')
+                       help='makeblastdb程序路径')
     parser.add_argument('--blastn-path', default='blastn', 
-                       help='🔬 blastn程序路径')
+                       help='blastn程序路径')
     parser.add_argument('--blastp-path', default='blastp', 
-                       help='🔬 blastp程序路径')
+                       help='blastp程序路径')
     parser.add_argument('--blastx-path', default='blastx', 
-                       help='🔬 blastx程序路径')
+                       help='blastx程序路径')
     parser.add_argument('--tblastn-path', default='tblastn', 
-                       help='🔬 tblastn程序路径')
+                       help='tblastn程序路径')
     parser.add_argument('--tblastx-path', default='tblastx', 
-                       help='🔬 tblastx程序路径')
+                       help='tblastx程序路径')
     
     args = parser.parse_args()
     
