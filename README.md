@@ -17,8 +17,70 @@ BioPyTools is a Python toolkit designed for bioinformatics research, providing a
 - Pandas >= 1.2.0
 - Matplotlib >= 3.3.0
 
-## 安装方法 | Installation
+## Emoji显示支持 | Emoji Display Support
 
+本工具使用emoji来增强日志的可读性和用户体验。如果你看到乱码或方块字符，请按以下步骤设置：
+
+This tool uses emojis to enhance log readability and user experience. If you see garbled text or square characters, please follow these setup steps:
+
+### 终端配置 | Terminal Configuration
+
+**Linux:**
+```bash
+# 安装emoji字体支持 | Install emoji font support
+sudo apt install fonts-noto-color-emoji  # Ubuntu/Debian
+sudo yum install google-noto-emoji-fonts # CentOS/RHEL
+sudo pacman -S noto-fonts-emoji          # Arch Linux
+
+# 确保locale支持UTF-8 | Ensure UTF-8 locale support
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+```
+
+**macOS:**
+```bash
+# macOS通常自带emoji支持 | macOS usually has built-in emoji support
+# 推荐使用iTerm2获得更好的显示效果 | Recommend iTerm2 for better display
+brew install --cask iterm2
+```
+
+**Windows:**
+```powershell
+# 推荐使用Windows Terminal | Recommend Windows Terminal
+winget install Microsoft.WindowsTerminal
+
+# 设置终端字体为支持emoji的字体 | Set terminal font to emoji-supported font
+# 如：Cascadia Code, Segoe UI Emoji
+```
+
+### SSH远程服务器 | SSH Remote Server
+
+```bash
+# 确保服务器支持UTF-8 | Ensure server supports UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# 永久设置 | Permanent setup
+echo 'export LANG=en_US.UTF-8' >> ~/.bashrc
+echo 'export LC_ALL=en_US.UTF-8' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### 测试emoji显示 | Test Emoji Display
+
+运行以下命令测试emoji是否正确显示 | Run the following command to test emoji display:
+
+```bash
+python -c "print('🧬🔍✅❌⚠️📊 Emoji测试 | Emoji Test')"
+```
+
+如果仍有显示问题，可以设置环境变量禁用emoji | If you still have display issues, you can disable emojis with:
+
+```bash
+export BIOPY_NO_EMOJI=1
+```
+
+## 安装方法 | Installation
 
 ### 从源码安装 | Install from source
 
