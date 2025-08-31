@@ -1,8 +1,10 @@
-## [0.2.6] - 2025-08-31
+## [0.2.9] - 2025-08-31
 
 ### Changed
-- update README
-- Updated files: README.md
+- update changelog file
+- Updated files: CHANGELOG.md
+
+
 ## [0.2.8] - 2025-08-31
 
 ### Changed
@@ -10,9 +12,14 @@
 - Updated files: biopytools/admixture,biopytools/cli/commands/admixture.py
 
 
-
-
 ## [0.2.7] - 2025-08-31
+
+### Changed
+- update README
+- Updated files: README.md
+
+
+## [0.2.6] - 2025-08-31
 
 ### Changed
 - update README
