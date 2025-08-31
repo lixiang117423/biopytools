@@ -1,249 +1,5 @@
-# """
-# 🧬 BLAST分析主程序模块
-# """
-
-# import argparse
-# import sys
-# from pathlib import Path
-# from .config import BLASTConfig
-# from .utils import BLASTLogger, CommandRunner, check_dependencies, SampleMapGenerator
-# from .database import DatabaseManager
-# from .blast_runner import BLASTRunner
-# from .results_processor import ResultsProcessor
-# from .statistics import StatisticsGenerator
-
-# class BLASTAnalyzer:
-#     """🧬 BLAST分析主类"""
-    
-#     def __init__(self, **kwargs):
-#         # 初始化配置
-#         self.config = BLASTConfig(**kwargs)
-#         self.config.validate()
-        
-#         # 初始化日志
-#         self.logger_manager = BLASTLogger(self.config.output_path)
-#         self.logger = self.logger_manager.get_logger()
-        
-#         # 初始化命令执行器
-#         self.cmd_runner = CommandRunner(self.logger, self.config.output_path)
-        
-#         # 初始化各个处理器
-#         self.sample_map_generator = SampleMapGenerator(self.config, self.logger)
-#         self.database_manager = DatabaseManager(self.config, self.logger, self.cmd_runner)
-#         self.blast_runner = BLASTRunner(self.config, self.logger, self.cmd_runner)
-#         self.results_processor = ResultsProcessor(self.config, self.logger)
-#         self.statistics_generator = StatisticsGenerator(self.config, self.logger)
-    
-#     def check_dependencies(self):
-#         """检查依赖软件"""
-#         return check_dependencies(self.config, self.logger)
-    
-#     def run_analysis(self):
-#         """运行完整的BLAST分析流程"""
-#         try:
-#             self.logger.info("开始BLAST分析流程")
-#             self.logger.info(f"{'=' * 80}")
-            
-#             # 步骤0: 生成或验证样品映射文件
-#             self.logger.info("步骤0: 准备样品映射文件")
-#             sample_map_file = self.sample_map_generator.generate_sample_map()
-            
-#             # 步骤1: 检查依赖软件
-#             self.logger.info("步骤1: 检查依赖软件")
-#             self.check_dependencies()
-            
-#             # 步骤2: 创建BLAST数据库
-#             self.logger.info("步骤2: 创建BLAST数据库")
-#             target_db_path = self.database_manager.create_target_database()
-            
-#             # 步骤3: 运行BLAST比对
-#             self.logger.info("步骤3: 运行BLAST比对")
-#             blast_results = self.blast_runner.run_blast_analysis(target_db_path)
-            
-#             # 步骤4: 处理结果
-#             self.logger.info("步骤4: 处理和汇总结果")
-#             summary_file = self.results_processor.process_blast_results(blast_results)
-            
-#             # 步骤5: 排序结果
-#             self.logger.info("步骤5: 按覆盖度排序结果")
-#             sorted_file = self.results_processor.sort_results_by_coverage(summary_file)
-            
-#             # 步骤6: 创建高质量结果
-#             self.logger.info("步骤6: 筛选高质量结果")
-#             high_quality_file = self.results_processor.create_high_quality_results(sorted_file)
-            
-#             # 步骤7: 生成统计报告
-#             self.logger.info("步骤7: 生成统计报告")
-#             stats_file = self.statistics_generator.generate_statistics_report(sorted_file)
-            
-#             # 完成分析
-#             self._log_completion_summary(sample_map_file, sorted_file, high_quality_file, stats_file)
-            
-#         except Exception as e:
-#             self.logger.error(f"分析流程在执行过程中意外终止: {e}")
-#             sys.exit(1)
-    
-#     def _log_completion_summary(self, sample_map_file: str, sorted_file: str, high_quality_file: str, stats_file: str):
-#         """记录完成摘要"""
-#         self.logger.info(f"{'=' * 80}")
-#         self.logger.info("BLAST分析完成！")
-#         self.logger.info(f"{'=' * 80}")
-#         self.logger.info("输出文件:")
-        
-#         if self.config.auto_generated_map:
-#             self.logger.info(f"自动生成的样品映射文件: {sample_map_file}")
-#         else:
-#             self.logger.info(f"使用的样品映射文件: {sample_map_file}")
-        
-#         self.logger.info(f"汇总结果（已排序）: {sorted_file}")
-        
-#         if high_quality_file:
-#             self.logger.info(f"高质量结果: {high_quality_file}")
-        
-#         if stats_file:
-#             self.logger.info(f"统计报告: {stats_file}")
-        
-#         self.logger.info(f"详细结果目录: {self.config.output_dir}")
-#         self.logger.info(f"日志文件: {self.logger_manager.log_file}")
-#         self.logger.info(f"{'=' * 80}")
-#         self.logger.info(f"结果保存在: {self.config.output_dir}")
-        
-#         if self.config.auto_generated_map:
-#             self.logger.info(f"提示：如需修改样品名称，请编辑 {sample_map_file} 文件后重新运行")
-
-# def main():
-#     """主函数"""
-#     parser = argparse.ArgumentParser(
-#         description='BLAST比对分析脚本 (模块化版本)',
-#         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-#         epilog="""
-# 🧬 示例:
-#   # 使用目录（自动生成样品映射文件）
-#   %(prog)s -i sequences/ -t nlr_genes.fa -o blast_results
-  
-#   # 使用单个文件
-#   %(prog)s -i single_sequence.fa -t nlr_genes.fa -o blast_results
-  
-#   # 使用现有样品映射文件
-#   %(prog)s -s sample_map.txt -t nlr_genes.fa -o blast_results
-  
-#   # BLASTP分析
-#   %(prog)s -i proteins/ -t targets.fa -o results --blast-type blastp --threads 32
-  
-#   # 高质量筛选
-#   %(prog)s -i sequences/ -t nlr.fa -o results --min-identity 80 --min-coverage 70
-
-# 📋 样品映射文件格式:
-#   /path/to/sequence1.fa<TAB>Sample1
-#   /path/to/sequence2.fa<TAB>Sample2
-#   # 注释行以#开头
-
-# 💡 工作流程:
-#   1. 如果只提供-i：自动扫描文件，生成样品映射文件
-#   2. 如果只提供-s：直接使用现有样品映射文件
-#   3. 如果同时提供-i和-s：优先使用-s，忽略-i
-#         """
-#     )
-    
-#     # 输入数据参数
-#     parser.add_argument('-i', '--input', 
-#                        help='输入文件或目录路径（支持单个文件或包含多个文件的目录）')
-#     parser.add_argument('-s', '--sample-map-file', 
-#                        help='样品映射文件，格式：文件路径<TAB>样品名称')
-    
-#     # 必需参数
-#     parser.add_argument('-t', '--target-file', required=True, 
-#                        help='目标基因序列文件')
-    
-#     # 基本参数
-#     parser.add_argument('-o', '--output-dir', default='./blast_output', 
-#                        help='输出目录')
-#     parser.add_argument('--blast-type', choices=['blastn', 'blastp', 'blastx', 'tblastn', 'tblastx'], 
-#                        default='blastn', help='BLAST程序类型')
-    
-#     # BLAST参数
-#     parser.add_argument('-e', '--evalue', type=float, default=1e-5, 
-#                        help='E-value阈值')
-#     parser.add_argument('--max-target-seqs', type=int, default=10, 
-#                        help='最大目标序列数')
-#     parser.add_argument('--word-size', type=int, default=11, 
-#                        help='词大小 (仅适用于blastn/tblastx)')
-#     parser.add_argument('--threads', '-j', type=int, default=88, 
-#                        help='线程数')
-    
-#     # 文件格式参数
-#     parser.add_argument('--input-suffix', default='*.fa', 
-#                        help='输入文件后缀模式（当输入为目录时使用）')
-#     parser.add_argument('--target-db-type', choices=['nucl', 'prot'], default='nucl', 
-#                        help='目标数据库类型')
-    
-#     # 过滤参数
-#     parser.add_argument('--min-identity', type=float, default=70.0, 
-#                        help='最小序列相似度 (%%)')
-#     parser.add_argument('--min-coverage', type=float, default=50.0, 
-#                        help='最小覆盖度 (%%)')
-#     parser.add_argument('--high-quality-evalue', type=float, default=1e-10, 
-#                        help='高质量比对E-value阈值')
-    
-#     # 样品信息参数
-#     parser.add_argument('--auto-detect-samples', action='store_true', default=True, 
-#                        help='自动检测样品名称（仅当使用-i时有效）')
-#     parser.add_argument('--sample-name-pattern', default=r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$', 
-#                        help='样品名称提取正则表达式')
-    
-#     # 工具路径参数
-#     parser.add_argument('--makeblastdb-path', default='makeblastdb', 
-#                        help='makeblastdb程序路径')
-#     parser.add_argument('--blastn-path', default='blastn', 
-#                        help='blastn程序路径')
-#     parser.add_argument('--blastp-path', default='blastp', 
-#                        help='blastp程序路径')
-#     parser.add_argument('--blastx-path', default='blastx', 
-#                        help='blastx程序路径')
-#     parser.add_argument('--tblastn-path', default='tblastn', 
-#                        help='tblastn程序路径')
-#     parser.add_argument('--tblastx-path', default='tblastx', 
-#                        help='tblastx程序路径')
-    
-#     args = parser.parse_args()
-    
-#     # 验证输入参数
-#     if not args.input and not args.sample_map_file:
-#         parser.error("必须指定输入路径(-i)或样品映射文件(-s)中的一个")
-    
-#     # 创建分析器并运行
-#     analyzer = BLASTAnalyzer(
-#         input_path=args.input,
-#         target_file=args.target_file,
-#         output_dir=args.output_dir,
-#         sample_map_file=args.sample_map_file,
-#         blast_type=args.blast_type,
-#         evalue=args.evalue,
-#         max_target_seqs=args.max_target_seqs,
-#         word_size=args.word_size,
-#         threads=args.threads,
-#         input_suffix=args.input_suffix,
-#         target_db_type=args.target_db_type,
-#         min_identity=args.min_identity,
-#         min_coverage=args.min_coverage,
-#         high_quality_evalue=args.high_quality_evalue,
-#         auto_detect_samples=args.auto_detect_samples,
-#         sample_name_pattern=args.sample_name_pattern,
-#         makeblastdb_path=args.makeblastdb_path,
-#         blastn_path=args.blastn_path,
-#         blastp_path=args.blastp_path,
-#         blastx_path=args.blastx_path,
-#         tblastn_path=args.tblastn_path,
-#         tblastx_path=args.tblastx_path
-#     )
-    
-#     analyzer.run_analysis()
-
-# if __name__ == "__main__":
-#     main()
-
 """
-🧬 BLAST分析主程序模块 | BLAST Analysis Main Program Module
+🧬 BLAST分析主程序模块
 """
 
 import argparse
@@ -257,21 +13,21 @@ from .results_processor import ResultsProcessor
 from .statistics import StatisticsGenerator
 
 class BLASTAnalyzer:
-    """🧬 BLAST分析主类 | BLAST Analysis Main Class"""
+    """🧬 BLAST分析主类"""
     
     def __init__(self, **kwargs):
-        # 初始化配置 | Initialize configuration
+        # 初始化配置
         self.config = BLASTConfig(**kwargs)
         self.config.validate()
         
-        # 初始化日志 | Initialize logger
+        # 初始化日志
         self.logger_manager = BLASTLogger(self.config.output_path)
         self.logger = self.logger_manager.get_logger()
         
-        # 初始化命令执行器 | Initialize command runner
+        # 初始化命令执行器
         self.cmd_runner = CommandRunner(self.logger, self.config.output_path)
         
-        # 初始化各个处理器 | Initialize various processors
+        # 初始化各个处理器
         self.sample_map_generator = SampleMapGenerator(self.config, self.logger)
         self.database_manager = DatabaseManager(self.config, self.logger, self.cmd_runner)
         self.blast_runner = BLASTRunner(self.config, self.logger, self.cmd_runner)
@@ -279,183 +35,183 @@ class BLASTAnalyzer:
         self.statistics_generator = StatisticsGenerator(self.config, self.logger)
     
     def check_dependencies(self):
-        """检查依赖软件 | Check for dependent software"""
+        """检查依赖软件"""
         return check_dependencies(self.config, self.logger)
     
     def run_analysis(self):
-        """运行完整的BLAST分析流程 | Run the complete BLAST analysis workflow"""
+        """运行完整的BLAST分析流程"""
         try:
-            self.logger.info("开始BLAST分析流程 | Starting BLAST analysis workflow")
+            self.logger.info("🧬 开始BLAST分析流程")
             self.logger.info(f"{'=' * 80}")
             
-            # 步骤0: 生成或验证样品映射文件 | Step 0: Generate or validate the sample mapping file
-            self.logger.info("步骤0: 准备样品映射文件 | Step 0: Preparing sample mapping file")
+            # 步骤0: 生成或验证样品映射文件
+            self.logger.info("📋 步骤0: 准备样品映射文件")
             sample_map_file = self.sample_map_generator.generate_sample_map()
             
-            # 步骤1: 检查依赖软件 | Step 1: Check for dependent software
-            self.logger.info("步骤1: 检查依赖软件 | Step 1: Checking for dependent software")
+            # 步骤1: 检查依赖软件
+            self.logger.info("🔍 步骤1: 检查依赖软件")
             self.check_dependencies()
             
-            # 步骤2: 创建BLAST数据库 | Step 2: Create BLAST database
-            self.logger.info("步骤2: 创建BLAST数据库 | Step 2: Creating BLAST database")
+            # 步骤2: 创建BLAST数据库
+            self.logger.info("🗄️ 步骤2: 创建BLAST数据库")
             target_db_path = self.database_manager.create_target_database()
             
-            # 步骤3: 运行BLAST比对 | Step 3: Run BLAST alignment
-            self.logger.info("步骤3: 运行BLAST比对 | Step 3: Running BLAST alignment")
+            # 步骤3: 运行BLAST比对
+            self.logger.info("🔬 步骤3: 运行BLAST比对")
             blast_results = self.blast_runner.run_blast_analysis(target_db_path)
             
-            # 步骤4: 处理结果 | Step 4: Process results
-            self.logger.info("步骤4: 处理和汇总结果 | Step 4: Processing and summarizing results")
+            # 步骤4: 处理结果
+            self.logger.info("📊 步骤4: 处理和汇总结果")
             summary_file = self.results_processor.process_blast_results(blast_results)
             
-            # 步骤5: 排序结果 | Step 5: Sort results
-            self.logger.info("步骤5: 按覆盖度排序结果 | Step 5: Sorting results by coverage")
+            # 步骤5: 排序结果
+            self.logger.info("📊 步骤5: 按覆盖度排序结果")
             sorted_file = self.results_processor.sort_results_by_coverage(summary_file)
             
-            # 步骤6: 创建高质量结果 | Step 6: Create high-quality results
-            self.logger.info("步骤6: 筛选高质量结果 | Step 6: Filtering for high-quality results")
+            # 步骤6: 创建高质量结果
+            self.logger.info("🌟 步骤6: 筛选高质量结果")
             high_quality_file = self.results_processor.create_high_quality_results(sorted_file)
             
-            # 步骤7: 生成统计报告 | Step 7: Generate statistics report
-            self.logger.info("步骤7: 生成统计报告 | Step 7: Generating statistics report")
+            # 步骤7: 生成统计报告
+            self.logger.info("📈 步骤7: 生成统计报告")
             stats_file = self.statistics_generator.generate_statistics_report(sorted_file)
             
-            # 完成分析 | Complete analysis
+            # 完成分析
             self._log_completion_summary(sample_map_file, sorted_file, high_quality_file, stats_file)
             
         except Exception as e:
-            self.logger.error(f"分析流程在执行过程中意外终止 | Analysis workflow terminated unexpectedly during execution: {e}")
+            self.logger.error(f"❌ 分析流程在执行过程中意外终止: {e}")
             sys.exit(1)
     
     def _log_completion_summary(self, sample_map_file: str, sorted_file: str, high_quality_file: str, stats_file: str):
-        """记录完成摘要 | Log completion summary"""
+        """记录完成摘要"""
         self.logger.info(f"{'=' * 80}")
-        self.logger.info("BLAST分析完成！ | BLAST analysis complete!")
+        self.logger.info("🎉 BLAST分析完成！")
         self.logger.info(f"{'=' * 80}")
-        self.logger.info("输出文件 | Output files:")
+        self.logger.info("📁 输出文件:")
         
         if self.config.auto_generated_map:
-            self.logger.info(f"自动生成的样品映射文件 | Auto-generated sample map file: {sample_map_file}")
+            self.logger.info(f"  📋 自动生成的样品映射文件: {sample_map_file}")
         else:
-            self.logger.info(f"使用的样品映射文件 | Used sample map file: {sample_map_file}")
+            self.logger.info(f"  📋 使用的样品映射文件: {sample_map_file}")
         
-        self.logger.info(f"汇总结果（已排序） | Summary results (sorted): {sorted_file}")
+        self.logger.info(f"  📊 汇总结果（已排序）: {sorted_file}")
         
         if high_quality_file:
-            self.logger.info(f"高质量结果 | High-quality results: {high_quality_file}")
+            self.logger.info(f"  🌟 高质量结果: {high_quality_file}")
         
         if stats_file:
-            self.logger.info(f"统计报告 | Statistics report: {stats_file}")
+            self.logger.info(f"  📈 统计报告: {stats_file}")
         
-        self.logger.info(f"详细结果目录 | Detailed results directory: {self.config.output_dir}")
-        self.logger.info(f"日志文件 | Log file: {self.logger_manager.log_file}")
+        self.logger.info(f"  📁 详细结果目录: {self.config.output_dir}")
+        self.logger.info(f"  📝 日志文件: {self.logger_manager.log_file}")
         self.logger.info(f"{'=' * 80}")
-        self.logger.info(f"结果保存在 | Results saved in: {self.config.output_dir}")
+        self.logger.info(f"✅ 结果保存在: {self.config.output_dir}")
         
         if self.config.auto_generated_map:
-            self.logger.info(f"提示：如需修改样品名称，请编辑 {sample_map_file} 文件后重新运行 | Tip: To modify sample names, please edit the {sample_map_file} file and run again")
+            self.logger.info(f"💡 提示：如需修改样品名称，请编辑 {sample_map_file} 文件后重新运行")
 
 def main():
-    """主函数 | Main function"""
+    """主函数"""
     parser = argparse.ArgumentParser(
-        description='BLAST比对分析脚本 (模块化版本) | BLAST Alignment Analysis Script (Modular Version)',
+        description='🧬 BLAST比对分析脚本 (模块化版本)',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         epilog="""
-🧬 示例 | Examples:
-  # 使用目录（自动生成样品映射文件）| Use a directory (auto-generates sample map)
+🧬 示例:
+  # 使用目录（自动生成样品映射文件）
   %(prog)s -i sequences/ -t nlr_genes.fa -o blast_results
   
-  # 使用单个文件 | Use a single file
+  # 使用单个文件
   %(prog)s -i single_sequence.fa -t nlr_genes.fa -o blast_results
   
-  # 使用现有样品映射文件 | Use an existing sample map file
+  # 使用现有样品映射文件
   %(prog)s -s sample_map.txt -t nlr_genes.fa -o blast_results
   
-  # BLASTP分析 | BLASTP analysis
+  # BLASTP分析
   %(prog)s -i proteins/ -t targets.fa -o results --blast-type blastp --threads 32
   
-  # 高质量筛选 | High-quality filtering
+  # 高质量筛选
   %(prog)s -i sequences/ -t nlr.fa -o results --min-identity 80 --min-coverage 70
 
-📋 样品映射文件格式 | Sample Map File Format:
+📋 样品映射文件格式:
   /path/to/sequence1.fa<TAB>Sample1
   /path/to/sequence2.fa<TAB>Sample2
-  # 注释行以#开头 | Comment lines start with #
+  # 注释行以#开头
 
-💡 工作流程 | Workflow:
-  1. 如果只提供-i：自动扫描文件，生成样品映射文件 | 1. If only -i is provided: Automatically scans files and generates a sample map file
-  2. 如果只提供-s：直接使用现有样品映射文件 | 2. If only -s is provided: Directly uses the existing sample map file
-  3. 如果同时提供-i和-s：优先使用-s，忽略-i | 3. If both -i and -s are provided: -s is prioritized, -i is ignored
+💡 工作流程:
+  1. 如果只提供-i：自动扫描文件，生成样品映射文件
+  2. 如果只提供-s：直接使用现有样品映射文件
+  3. 如果同时提供-i和-s：优先使用-s，忽略-i
         """
     )
     
-    # 输入数据参数 | Input data parameters
+    # 输入数据参数
     parser.add_argument('-i', '--input', 
-                       help='输入文件或目录路径（支持单个文件或包含多个文件的目录） | Input file or directory path (supports single file or a directory with multiple files)')
+                       help='📁 输入文件或目录路径（支持单个文件或包含多个文件的目录）')
     parser.add_argument('-s', '--sample-map-file', 
-                       help='样品映射文件，格式：文件路径<TAB>样品名称 | Sample mapping file, format: file_path<TAB>sample_name')
+                       help='🧪 样品映射文件，格式：文件路径<TAB>样品名称')
     
-    # 必需参数 | Required parameters
+    # 必需参数
     parser.add_argument('-t', '--target-file', required=True, 
-                       help='目标基因序列文件 | Target gene sequence file')
+                       help='🎯 目标基因序列文件')
     
-    # 基本参数 | Basic parameters
+    # 基本参数
     parser.add_argument('-o', '--output-dir', default='./blast_output', 
-                       help='输出目录 | Output directory')
+                       help='📁 输出目录')
     parser.add_argument('--blast-type', choices=['blastn', 'blastp', 'blastx', 'tblastn', 'tblastx'], 
-                       default='blastn', help='BLAST程序类型 | BLAST program type')
+                       default='blastn', help='🔬 BLAST程序类型')
     
-    # BLAST参数 | BLAST parameters
+    # BLAST参数
     parser.add_argument('-e', '--evalue', type=float, default=1e-5, 
-                       help='E-value阈值 | E-value threshold')
+                       help='🔢 E-value阈值')
     parser.add_argument('--max-target-seqs', type=int, default=10, 
-                       help='最大目标序列数 | Maximum number of target sequences')
+                       help='🎯 最大目标序列数')
     parser.add_argument('--word-size', type=int, default=11, 
-                       help='词大小 (仅适用于blastn/tblastx) | Word size (only for blastn/tblastx)')
+                       help='📏 词大小 (仅适用于blastn/tblastx)')
     parser.add_argument('--threads', '-j', type=int, default=88, 
-                       help='线程数 | Number of threads')
+                       help='⚡ 线程数')
     
-    # 文件格式参数 | File format parameters
+    # 文件格式参数
     parser.add_argument('--input-suffix', default='*.fa', 
-                       help='输入文件后缀模式（当输入为目录时使用） | Input file suffix pattern (used when input is a directory)')
+                       help='📁 输入文件后缀模式（当输入为目录时使用）')
     parser.add_argument('--target-db-type', choices=['nucl', 'prot'], default='nucl', 
-                       help='目标数据库类型 | Target database type')
+                       help='🗄️ 目标数据库类型')
     
-    # 过滤参数 | Filtering parameters
+    # 过滤参数
     parser.add_argument('--min-identity', type=float, default=70.0, 
-                       help='最小序列相似度 (%%) | Minimum sequence identity (%%)')
+                       help='📊 最小序列相似度 (%%)')
     parser.add_argument('--min-coverage', type=float, default=50.0, 
-                       help='最小覆盖度 (%%) | Minimum coverage (%%)')
+                       help='📐 最小覆盖度 (%%)')
     parser.add_argument('--high-quality-evalue', type=float, default=1e-10, 
-                       help='高质量比对E-value阈值 | E-value threshold for high-quality alignment')
+                       help='🌟 高质量比对E-value阈值')
     
-    # 样品信息参数 | Sample information parameters
+    # 样品信息参数
     parser.add_argument('--auto-detect-samples', action='store_true', default=True, 
-                       help='自动检测样品名称（仅当使用-i时有效） | Auto-detect sample names (only effective when using -i)')
+                       help='🔍 自动检测样品名称（仅当使用-i时有效）')
     parser.add_argument('--sample-name-pattern', default=r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$', 
-                       help='样品名称提取正则表达式 | Regular expression for extracting sample names')
+                       help='🔍 样品名称提取正则表达式')
     
-    # 工具路径参数 | Tool path parameters
+    # 工具路径参数
     parser.add_argument('--makeblastdb-path', default='makeblastdb', 
-                       help='makeblastdb程序路径 | Path to makeblastdb program')
+                       help='🗄️ makeblastdb程序路径')
     parser.add_argument('--blastn-path', default='blastn', 
-                       help='blastn程序路径 | Path to blastn program')
+                       help='🔬 blastn程序路径')
     parser.add_argument('--blastp-path', default='blastp', 
-                       help='blastp程序路径 | Path to blastp program')
+                       help='🔬 blastp程序路径')
     parser.add_argument('--blastx-path', default='blastx', 
-                       help='blastx程序路径 | Path to blastx program')
+                       help='🔬 blastx程序路径')
     parser.add_argument('--tblastn-path', default='tblastn', 
-                       help='tblastn程序路径 | Path to tblastn program')
+                       help='🔬 tblastn程序路径')
     parser.add_argument('--tblastx-path', default='tblastx', 
-                       help='tblastx程序路径 | Path to tblastx program')
+                       help='🔬 tblastx程序路径')
     
     args = parser.parse_args()
     
-    # 验证输入参数 | Validate input arguments
+    # 验证输入参数
     if not args.input and not args.sample_map_file:
-        parser.error("必须指定输入路径(-i)或样品映射文件(-s)中的一个 | Must specify one of input path (-i) or sample map file (-s)")
+        parser.error("必须指定输入路径(-i)或样品映射文件(-s)中的一个")
     
-    # 创建分析器并运行 | Create and run the analyzer
+    # 创建分析器并运行
     analyzer = BLASTAnalyzer(
         input_path=args.input,
         target_file=args.target_file,
