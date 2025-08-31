@@ -88,6 +88,9 @@ export BIOPY_NO_EMOJI=1
 git clone https://github.com/lixiang117423/biopytools.git
 cd biopytools
 pip install -e .
+
+# or
+pip install .
 ```
 
 ## 使用方法 | Useage

@@ -1,11 +1,13 @@
-## v1.22.0
-- 第一次推送到GitHub | First version at GitHub
-## [.1.0] - 2025-08-30
-
-### Changed
 ## [0.2.5] - 2025-08-31
 
 ### Changed
+
+
+## [0.2.6] - 2025-08-31
+
+### Changed
+- update README
+- Updated files: README.md
 
 
 ## [0.2.4] - 2025-08-31
