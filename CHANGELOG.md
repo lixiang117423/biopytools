@@ -1,3 +1,10 @@
+## [0.2.10] - 2025-09-01
+
+### Changed
+- update blast module
+- Updated files: biopytools/blast_analysis
+
+
 ## [0.2.9] - 2025-08-31
 
 ### Changed

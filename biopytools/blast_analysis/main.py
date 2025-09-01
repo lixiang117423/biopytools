@@ -53,7 +53,7 @@ class BLASTAnalyzer:
             self.check_dependencies()
             
             # 步骤2: 创建BLAST数据库
-            self.logger.info("🗄️ 步骤2: 创建BLAST数据库")
+            self.logger.info("🗄️  步骤2: 创建BLAST数据库")
             target_db_path = self.database_manager.create_target_database()
             
             # 步骤3: 运行BLAST比对

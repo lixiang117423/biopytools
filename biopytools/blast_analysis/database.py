@@ -16,7 +16,7 @@ class DatabaseManager:
     
     def create_target_database(self) -> str:
         """创建目标基因数据库"""
-        self.logger.info("🗄️ 创建BLAST数据库...")
+        self.logger.info("🗄️  创建BLAST数据库...")
         
         target_file = self.config.target_file
         target_path = Path(target_file)
@@ -52,7 +52,7 @@ class DatabaseManager:
     
     def create_target_database(self) -> str:
         """创建目标基因数据库"""
-        self.logger.info("🗄️ 创建BLAST数据库...")
+        self.logger.info("🗄️  创建BLAST数据库...")
         
         target_file = self.config.target_file
         target_path = Path(target_file)
