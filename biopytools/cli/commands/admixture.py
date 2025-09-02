@@ -263,7 +263,7 @@ def _validate_file_exists(file_path):
 def admixture(vcf, output, min_k, max_k, cv_folds, threads, maf, missing,
               hwe, skip_preprocessing, keep_intermediate):
     """
-    🧬 ADMIXTURE群体结构分析. 📊
+    🧬 ADMIXTURE群体结构分析.
 
     💡 示例 | Examples:
     
