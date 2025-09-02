@@ -18,7 +18,7 @@ class AdmixtureAnalyzer:
     
     def run_admixture_analysis(self, plink_prefix: str):
         """🚀 运行ADMIXTURE分析 | Run ADMIXTURE analysis"""
-        self.logger.info("▶️ 开始ADMIXTURE分析 | Starting ADMIXTURE analysis")
+        self.logger.info("▶️  开始ADMIXTURE分析 | Starting ADMIXTURE analysis")
         
         bed_file = f"{plink_prefix}.bed"
         if not os.path.exists(bed_file):

@@ -48,7 +48,7 @@ class CommandRunner:
     def run(self, cmd: str, description: str = "") -> str:
         """🚀 执行命令 | Execute command"""
         if description:
-            self.logger.info(f"▶️ 开始 | Starting: {description}")
+            self.logger.info(f"▶️  开始 | Starting: {description}")
         
         cleaned_cmd = " ".join(cmd.strip().split())
         self.logger.info(f"💻 执行命令 | Executing command: {cleaned_cmd}")

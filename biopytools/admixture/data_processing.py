@@ -18,7 +18,7 @@ class VCFProcessor:
     def preprocess_vcf(self):
         """🧹 预处理VCF文件 | Preprocess VCF file"""
         if self.config.skip_preprocessing:
-            self.logger.info("⏭️ 跳过VCF预处理 | Skipping VCF preprocessing")
+            self.logger.info("⏭️  跳过VCF预处理 | Skipping VCF preprocessing")
             return
         
         vcf_file = self.config.vcf_file
@@ -234,7 +234,7 @@ class PlinkProcessor:
         # 如果染色体数量确定且小于95，添加autosome-num参数
         if chr_count and chr_count < 95:
             cmd += f" --autosome-num {chr_count}"
-            self.logger.info(f"⚙️ 设置autosome-num参数为 {chr_count} | Set autosome-num parameter to {chr_count}")
+            self.logger.info(f"⚙️  设置autosome-num参数为 {chr_count} | Set autosome-num parameter to {chr_count}")
         else:
             self.logger.info("ℹ️ 未设置autosome-num参数 | autosome-num parameter not set")
         
@@ -430,7 +430,7 @@ class PlinkProcessor:
             self.logger.error(f"💥 仍有非数字染色体编号 | Still have non-numeric chromosome codes: {non_numeric}")
             raise ValueError("染色体编号修复失败 | Chromosome code fix failed")
         else:
-            self.logger.info("✅🎉 所有染色体编号已成功修复为数字格式 | All chromosome codes successfully fixed to numeric format")
+            self.logger.info("✅ 所有染色体编号已成功修复为数字格式 | All chromosome codes successfully fixed to numeric format")
     
     def _detect_chromosome_count(self, vcf_file: str):
         """🕵️🔢 检测染色体数量 | Detect chromosome count"""

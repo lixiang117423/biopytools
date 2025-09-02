@@ -1,3 +1,10 @@
+## [0.2.11] - 2025-09-02
+
+### Changed
+- update admixture module
+- Updated files: biopytools/admixture
+
+
 ## [0.2.10] - 2025-09-01
 
 ### Changed

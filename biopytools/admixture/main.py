@@ -4,6 +4,7 @@
 
 import argparse
 import sys
+import os
 from .config import AdmixtureConfig
 from .utils import AdmixtureLogger, CommandRunner, SoftwareChecker
 from .data_processing import VCFProcessor, PlinkProcessor
@@ -49,51 +50,62 @@ class AdmixtureAnalyzer:
             self.logger.info("="*80)
             
             # 1️⃣ 🧹 VCF预处理 | Step 1: VCF preprocessing
-            self.logger.info("1️⃣ 步骤: VCF文件预处理 | Step 1: VCF file preprocessing")
+            self.logger.info("1️⃣  步骤: VCF文件预处理 | Step 1: VCF file preprocessing")
             processed_vcf = self.vcf_processor.preprocess_vcf()
             if processed_vcf is None:
                 processed_vcf = self.config.vcf_file
             
             # 2️⃣ 🔄 转换为PLINK格式 | Step 2: Convert to PLINK format
-            self.logger.info("2️⃣ 步骤: 转换为PLINK格式 | Step 2: Convert to PLINK format")
+            self.logger.info("2️⃣  步骤: 转换为PLINK格式 | Step 2: Convert to PLINK format")
             raw_prefix = self.plink_processor.convert_vcf_to_plink(processed_vcf)
             
             # 修复 #1: 检查是否跳过预处理（包括质量控制）| Check if skip preprocessing (including QC)
             if self.config.skip_preprocessing:
                 self.logger.info("⏭️  跳过质量控制步骤 - 使用已预处理的数据 | Skipping quality control steps - using pre-processed data")
-                self.logger.info("ℹ️ 假设输入数据已经过质量控制 | Assuming input data is already quality controlled")
+                self.logger.info("ℹ️  假设输入数据已经过质量控制 | Assuming input data is already quality controlled")
                 qc_prefix = raw_prefix
             else:
                 # 3️⃣ 🧼 质量控制 | Step 3: Quality control  
-                self.logger.info("3️⃣ 步骤: 质量控制 | Step 3: Quality control")
+                self.logger.info("3️⃣  步骤: 质量控制 | Step 3: Quality control")
                 qc_prefix = self.plink_processor.quality_control(raw_prefix)
             
             # 🔧 修复染色体编号 | Fix chromosome codes
             self.logger.info("🔧 步骤: 修复染色体编号 | Step: Fixing chromosome codes")
             fixed_prefix = self.plink_processor.fix_chromosome_codes(qc_prefix)
+
+            # ======================= START: 添加的代码 =======================
+            # 🔄 更新配置中的 base_name，以匹配ADMIXTURE分析的实际输入文件名
+            # 这可以确保后续的结果处理步骤能找到正确的文件
+            final_base_name = os.path.basename(fixed_prefix)
+            self.config.base_name = final_base_name
+            self.logger.info(f"🧬 更新分析文件基础名称 | Updating analysis base name to: {self.config.base_name}")
+            # ======================== END: 添加的代码 =========================
             
             # 4️⃣ 🧬 ADMIXTURE分析 | Step 4: ADMIXTURE analysis
-            self.logger.info("4️⃣ 步骤: ADMIXTURE分析 | Step 4: ADMIXTURE analysis")
+            self.logger.info("4️⃣  步骤: ADMIXTURE分析 | Step 4: ADMIXTURE analysis")
             best_k = self.admixture_analyzer.run_admixture_analysis(fixed_prefix)
             
             # 5️⃣ 📊 结果处理 | Step 5: Results processing
-            self.logger.info("5️⃣ 步骤: 结果处理 | Step 5: Results processing")
+            self.logger.info("5️⃣  步骤: 结果处理 | Step 5: Results processing")
             q_data, p_data, stats = self.results_processor.process_results(best_k)
             
-            # 6️⃣ 📈 生成GWAS协变量 | Step 6: Generate GWAS covariates
-            self.logger.info("6️⃣ 步骤: 生成GWAS协变量 | Step 6: Generate GWAS covariates")
-            covar_file = self.covariate_generator.generate_gwas_covariates(best_k)
+            # # 6️⃣ 📈 生成GWAS协变量 | Step 6: Generate GWAS covariates
+            # self.logger.info("6️⃣  步骤: 生成GWAS协变量 | Step 6: Generate GWAS covariates")
+            # covar_file = self.covariate_generator.generate_gwas_covariates(best_k)
             
-            # 7️⃣ 🎨 生成可视化图表 | Step 7: Generate visualization plots
-            self.logger.info("7️⃣ 步骤: 生成可视化图表 | Step 7: Generate visualization plots")
-            plot_file = self.plot_generator.generate_plots(q_data, best_k)
+            # # 7️⃣ 🎨 生成可视化图表 | Step 7: Generate visualization plots
+            # self.logger.info("7️⃣  步骤: 生成可视化图表 | Step 7: Generate visualization plots")
+            # plot_file = self.plot_generator.generate_plots(q_data, best_k)
             
             # 8️⃣ 📜 生成总结报告 | Step 8: Generate summary report
-            self.logger.info("8️⃣ 步骤: 生成总结报告 | Step 8: Generate summary report")
+            # self.logger.info("8️⃣  步骤: 生成总结报告 | Step 8: Generate summary report")
+            self.logger.info("6️⃣  步骤: 生成总结报告 | Step 8: Generate summary report")
+
             summary_file = self.summary_generator.generate_summary(best_k, stats)
             
             # 🎉 完成信息 | Completion information
-            self.logger.info("\n" + "="*80)
+            # self.logger.info("\n" + "="*80)
+            self.logger.info("="*80)
             self.logger.info("🎉 ADMIXTURE分析圆满完成！| ADMIXTURE analysis completed successfully!")
             self.logger.info("="*80)
             self.logger.info(f"🏆 最优K值 | Best K value: {best_k}")
@@ -102,7 +114,7 @@ class AdmixtureAnalyzer:
             self.logger.info("  - 📄 admixture_proportions.csv: 个体祖先成分 | Individual ancestry proportions")
             self.logger.info("  - 📄 gwas_covariates.txt: GWAS协变量文件 | GWAS covariate file")
             self.logger.info("  - 📄 cv_results.csv: 交叉验证结果 | Cross-validation results")
-            self.logger.info("  - 🎨 *.pdf: 可视化图表 | Visualization plots")
+            # self.logger.info("  - 🎨 *.pdf: 可视化图表 | Visualization plots")
             self.logger.info("  - 📜 analysis_summary.txt: 分析总结报告 | Analysis summary report")
             
         except Exception as e:
