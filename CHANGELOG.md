@@ -1,3 +1,10 @@
+## [0.3.0] - 2025-09-06
+
+### Changed
+- add orthofinder module
+- Updated files: biopytools/orthofinder_pangenome
+
+
 ## [0.2.12] - 2025-09-02
 
 ### Changed
