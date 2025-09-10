@@ -5,6 +5,13 @@
 - Updated files: biopytools/cli/commands/blast.py
 
 
+## [0.3.1] - 2025-09-10
+
+### Changed
+- add emoji for blast cli
+- Updated files: biopytools/cli/commands/blast.py
+
+
 ## [0.3.1] - 2025-09-09
 
 ### Changed
