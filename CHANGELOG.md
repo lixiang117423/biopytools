@@ -1,3 +1,10 @@
+## [0.3.2] - 2025-09-11
+
+### Changed
+- update blast readme
+- Updated files: docs/blast.md,README.md
+
+
 ## [0.3.1] - 2025-09-10
 
 ### Changed

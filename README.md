@@ -103,10 +103,12 @@ Usage: biopytools [OPTIONS] COMMAND [ARGS]...
 Options:
   -v, --version  Show the version and exit.
   -h, --help     Show this message and exit.
-
-Commands:
-  admixture        ADMIXTURE群体结构分析
 ```
+
+### blast
+
+[Blast比对|Blast](./docs/blast.md)
+
 
 ## 许可证 | License
 
