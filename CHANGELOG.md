@@ -1,3 +1,10 @@
+## [0.4.0] - 2025-09-17
+
+### Changed
+- add annovar module
+- Updated files: biopytools/annovar
+
+
 ## [0.3.2] - 2025-09-11
 
 ### Changed
