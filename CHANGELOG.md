@@ -1,3 +1,10 @@
+## [0.4.1] - 2025-09-18
+
+### Changed
+- add admixture module README doc
+- Updated files: docs/admixture.md
+
+
 ## [0.4.0] - 2025-09-17
 
 ### Changed
