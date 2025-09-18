@@ -1,3 +1,10 @@
+## [0.4.2] - 2025-09-18
+
+### Changed
+- add annovar module README doc
+- Updated files: docs/annovar.md
+
+
 ## [0.4.1] - 2025-09-18
 
 ### Changed
