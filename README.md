@@ -105,8 +105,10 @@ Options:
   -h, --help     Show this message and exit.
 ```
 
-### blast
+## 模块文档 | README
 
+[Admixture|群体结构](./docs/admixture.md)
+[Annovar|变异注释](./docs/annovar.md)
 [Blast比对|Blast](./docs/blast.md)
 
 

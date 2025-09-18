@@ -1,3 +1,10 @@
+## [0.4.3] - 2025-09-18
+
+### Changed
+- update README
+- Updated files: README.md
+
+
 ## [0.4.2] - 2025-09-18
 
 ### Changed
