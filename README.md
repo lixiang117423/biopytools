@@ -111,7 +111,7 @@ Options:
 
 [Annovar|变异注释](./docs/annovar.md)
 
-[Blast比对|Blast](./docs/blast.md)
+[Blast|Blast比对](./docs/blast.md)
 
 
 
