@@ -107,11 +107,13 @@ Options:
 
 ## 模块文档 | README
 
-[Admixture|群体结构](./docs/admixture.md)
+[Admixture | 群体结构](./docs/admixture.md)
 
-[Annovar|变异注释](./docs/annovar.md)
+[Annovar | 变异注释](./docs/annovar.md)
 
-[Blast|Blast比对](./docs/blast.md)
+[Blast | Blast比对](./docs/blast.md)
+
+[Longest mRNA | 提取最长转录本](./docs/longest_mrna.md)
 
 
 
