@@ -1,3 +1,10 @@
+## [0.5.2] - 2025-09-19
+
+### Changed
+- update CLI for longest_mrna
+- Updated files: biopytools/cli/commands/longestmrna.py
+
+
 ## [0.5.1] - 2025-09-19
 
 ### Changed
