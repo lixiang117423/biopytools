@@ -1,6 +1,13 @@
 ## [0.5.4] - 2025-09-19
 
 ### Changed
+- update blast module class BLASTRunner
+- Updated files: biopytools/blast_analysis/blast_runner.py,biopytools/blast_analysis/config.py,biopytools/blast_analysis/database.py,biopytools/blast_analysis/__init__.py,biopytools/blast_analysis/main.py,biopytools/blast_analysis/__pycache__,biopytools/blast_analysis/results_processor.py,biopytools/blast_analysis/statistics.py,biopytools/blast_analysis/utils.py
+
+
+## [0.5.4] - 2025-09-19
+
+### Changed
 - update README
 - Updated files: README.md
 

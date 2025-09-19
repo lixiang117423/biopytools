@@ -43,7 +43,8 @@ class BLASTRunner:
             self.logger.info(f"🧬 [{idx}/{total_files}] 正在处理: {file_name} (样品: {sample_name})")
             
             # 设置输出文件名
-            output_filename = f"{sample_name}_vs_{self.config.blast_type}_results.txt"
+            # output_filename = f"{sample_name}_vs_{self.config.blast_type}_results.txt"
+            output_filename = f"{sample_name}_{self.config.blast_type}_results.txt"
             output_file = self.config.output_path / output_filename
             
             # 构建BLAST命令
