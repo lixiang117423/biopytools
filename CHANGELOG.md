@@ -1,3 +1,10 @@
+## [0.5.3] - 2025-09-19
+
+### Changed
+- add README for longest_mrna module
+- Updated files: docs/longest_mrna.md
+
+
 ## [0.5.2] - 2025-09-19
 
 ### Changed
