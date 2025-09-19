@@ -1,3 +1,10 @@
+## [0.5.1] - 2025-09-19
+
+### Changed
+- add longest_mrna module
+- Updated files: biopytools/longest_mrna
+
+
 ## [0.5.0] - 2025-09-19
 
 ### Changed
