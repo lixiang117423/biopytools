@@ -1,3 +1,10 @@
+## [0.5.5] - 2025-09-29
+
+### Changed
+- update OrthoFinder module
+- Updated files: biopytools/orthofinder_pangenome
+
+
 ## [0.5.4] - 2025-09-19
 
 ### Changed
