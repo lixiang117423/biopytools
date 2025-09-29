@@ -1,3 +1,10 @@
+## [0.5.6] - 2025-09-29
+
+### Changed
+- update OrthoFinder module CLI
+- Updated files: biopytools/cli/commands/orthofinder.py
+
+
 ## [0.5.5] - 2025-09-29
 
 ### Changed
