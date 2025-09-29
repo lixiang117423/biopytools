@@ -1,3 +1,10 @@
+## [0.5.7] - 2025-09-29
+
+### Changed
+- add OrthoFinder module README
+- Updated files: docs/orthofinder.md
+
+
 ## [0.5.6] - 2025-09-29
 
 ### Changed
