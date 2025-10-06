@@ -1,3 +1,10 @@
+## [0.6.0] - 2025-10-06
+
+### Changed
+- add vcf nj_tree module
+- Updated files: biopytools/vcf_phylo
+
+
 ## [0.5.7] - 2025-09-29
 
 ### Changed
