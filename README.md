@@ -115,6 +115,7 @@ Options:
 
 [Longest mRNA | 提取最长转录本](./docs/longest_mrna.md)
 
+[OrthoFinder | 基于基因的泛基因组构建](./docs/orthofinder.md)
 
 
 ## 许可证 | License
