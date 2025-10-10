@@ -1,3 +1,10 @@
+## [0.7.0] - 2025-10-10
+
+### Changed
+- update blast module added alignment output
+- Updated files: biopytools/blast_analysis,biopytools/cli/commands/blast.py
+
+
 ## [0.6.1] - 2025-10-08
 
 ### Changed
