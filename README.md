@@ -117,6 +117,8 @@ Options:
 
 [OrthoFinder | 基于基因的泛基因组构建](./docs/orthofinder.md)
 
+[SRA2FASTQ | SRA转FASTQ](./docs/sra2fastq.md)
+
 
 ## 许可证 | License
 

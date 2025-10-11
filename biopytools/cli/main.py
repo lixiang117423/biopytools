@@ -180,14 +180,26 @@ COMMAND_REGISTRY = [
     ('vcf_sequence', 'vcf-sequence', '🧬 从基因组和VCF提取序列'),
     ('bismark', 'bismark', '🧬 全基因组甲基化'),
     ('transcriptome_prediction', 'mrna-prediction', '🧬 基于转录组的基因预测'),
-    ('parabricks', 'parabricks', '⚡ 基于GPU的全基因组流程'),
+    ('parabricks', 'parabricks', '🧬 基于GPU的全基因组流程'),
     ('raxml', 'raxml', '🌳 RAxML系统发育树'),
     ('vcf2phylip', 'vcf2phylip', '🔄 vcf转phylip格式'),
     ('repeat_analyzer', 'repeat-analyzer', '🔄 重复序列分析模块'),
     ('edta', 'edta', '🧬 EDTA重复元件注释'),
     ('genomethreader', 'genome-threader', '🔬 GenomeThreader预测基因结构'),
     ('orthofinder', 'orthofinder', '🧬 OrthoFinder泛基因组分析工具包'),
-    ('genomeasm', 'genomeasm', '🧬 三代基因组组装流程')
+    ('genomeasm', 'genomeasm', '🧬 三代基因组组装流程'),
+    ('gffconverter', 'renamegff', '✂️  GFF文件整理工具'),
+    ('indelpav', 'indelpav', '🧬 INDEL PAV分析工具'),
+    ('busco', 'busco', '🧬 BUSCO质量评估分析工具'),
+    ('genebank2fasta', 'genebank2fasta','🧬 GenBank序列提取工具'),
+    ('parse_seq', 'parse-seq','🧬 核酸或蛋白序列提取工具'),
+    ('parse_gene_dna', 'parse-gene-dna','🧬 基因DNA序列提取工具'),
+    ('bwa', 'bwa','🧬 全基因组比对工具'),
+    ('mafft_fasttree', 'mafft-fasttree','🌳 系统发育树构建工具'),
+    ('bwa_gatk', 'bwa-gatk','🧬 全基因组比对和编译检测工具'),
+    ('iqtree', 'iqtree','🌲 IQ-TREE系统发育树分析工具'),
+    ('msa', 'msa','🧬 多序列比对分析工具'),
+    ('sra2fastq', 'sra2fastq','🧬 SRA转FASTQ转换工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询

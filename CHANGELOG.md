@@ -1,3 +1,10 @@
+## [0.8.0] - 2025-10-11
+
+### Changed
+- add parallel-fastq-dump module
+- Updated files: biopytools/sra_converter,biopytools/cli/commands/sra2fastq.py,biopytools/cli/main.py,README.md,docs/sra2fastq.md
+
+
 ## [0.7.0] - 2025-10-10
 
 ### Changed
