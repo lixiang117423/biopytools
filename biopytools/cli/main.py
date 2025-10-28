@@ -199,7 +199,11 @@ COMMAND_REGISTRY = [
     ('bwa_gatk', 'bwa-gatk','🧬 全基因组比对和编译检测工具'),
     ('iqtree', 'iqtree','🌲 IQ-TREE系统发育树分析工具'),
     ('msa', 'msa','🧬 多序列比对分析工具'),
-    ('sra2fastq', 'sra2fastq','🧬 SRA转FASTQ转换工具')
+    ('sra2fastq', 'sra2fastq','🧬 SRA转FASTQ转换工具'),
+    ('filter_snp_indel', 'filter-snp-indel','🧬 SNP和INDEL过滤工具'),
+    ('gatk_joint', 'gatk-joint','🧬 GATK Joint Genotyping工具'),
+    ('filter_annovar', 'filter-annovar','🧬 基因区域变异提取工具'),
+    ('metagraph_kmer', 'metagraph-kmer','🧬 K-mer库构建与查询分析工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询

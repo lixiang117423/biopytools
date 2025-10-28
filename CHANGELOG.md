@@ -1,3 +1,10 @@
+## [0.9.0] - 2025-10-28
+
+### Changed
+- add vcf2phylip module
+- Updated files: biopytools/vcf2phylip,biopytools/cli/commands/vcf2phylip.py,biopytools/cli/main.py
+
+
 ## [0.8.0] - 2025-10-11
 
 ### Changed
