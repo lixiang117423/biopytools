@@ -1,3 +1,10 @@
+## [0.10.0] - 2025-12-08
+
+### Changed
+- add parabricks module
+- Updated files: biopytools/parabricks,biopytools/cli/commands/parabricks.py,biopytools/cli/main.py
+
+
 ## [0.9.0] - 2025-10-28
 
 ### Changed
