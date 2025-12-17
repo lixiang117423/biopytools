@@ -117,7 +117,13 @@ Options:
 
 [OrthoFinder | 基于基因的泛基因组构建](./docs/orthofinder.md)
 
+[Parabricks | GPU加速WGS分析](./docs/parabricks.md)
+
 [SRA2FASTQ | SRA转FASTQ](./docs/sra2fastq.md)
+
+[VCF转PHYLIP | VCF格式转换工具](./docs/vcf2phylip.md)
+
+[VCF系统发育 | VCF系统发育分析](./docs/vcf_phylo.md)
 
 
 ## 许可证 | License

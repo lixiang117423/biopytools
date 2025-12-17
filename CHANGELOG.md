@@ -1,3 +1,9 @@
+## [0.10.1] - 2025-12-17
+
+### Changed
+- Updated files: README.md,docs/parabricks.md,docs/vcf2phylip.md,docs/vcf_phylo.md,update project README and module README
+
+
 ## [0.10.0] - 2025-12-08
 
 ### Changed
