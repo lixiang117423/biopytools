@@ -125,6 +125,10 @@ Options:
 
 [VCF系统发育 | VCF系统发育分析](./docs/vcf_phylo.md)
 
+[从CNCB获取链接 | 批量获取测序数据下载链接](./docs/get_link_from_CNCB.md)
+
+[HapHiC | 基因组scaffolding工具](./docs/haphic.md)
+
 
 ## 许可证 | License
 

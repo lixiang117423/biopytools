@@ -203,7 +203,13 @@ COMMAND_REGISTRY = [
     ('filter_snp_indel', 'filter-snp-indel','🧬 SNP和INDEL过滤工具'),
     ('gatk_joint', 'gatk-joint','🧬 GATK Joint Genotyping工具'),
     ('filter_annovar', 'filter-annovar','🧬 基因区域变异提取工具'),
-    ('metagraph_kmer', 'metagraph-kmer','🧬 K-mer库构建与查询分析工具')
+    ('metagraph_kmer', 'metagraph-kmer','🧬 K-mer库构建与查询分析工具'),
+    ('fastq2vcf_parabricks', 'fastq2vcf-parabricks','🧬 Fastq到VCF (Parabricks) 全流程分析'),
+    ('fastq2vcf_gtx', 'fastq2vcf-gtx','🧬 Fastq到VCF (GTX) 全流程分析'),
+    ('hifi_hic', 'hifi-hic',"🧬 使用HiFi和Hi-C数据进行基因组组装"),
+    ('allhic', 'allhic',"'🧬 使用ALLHiC进行染色体挂载'"),
+    ('get_link_from_CNCB', 'get-link-from-CNCB','📥 从CNCB批量获取测序数据下载链接'),
+    ('haphic', 'haphic', '🧬 HapHiC基因组scaffolding工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询

@@ -1,3 +1,10 @@
+## [0.11.0] - 2025-12-18
+
+### Changed
+- add get_link_from_CNCB module
+- Updated files: biopytools/get_link_from_CNCB,biopytools/cli/commands/get_link_from_CNCB.py,biopytools/cli/main.py,docs/get_link_from_CNCB.md,README.md
+
+
 ## [0.10.1] - 2025-12-17
 
 ### Changed
