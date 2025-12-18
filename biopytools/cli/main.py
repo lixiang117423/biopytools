@@ -209,7 +209,8 @@ COMMAND_REGISTRY = [
     ('hifi_hic', 'hifi-hic',"🧬 使用HiFi和Hi-C数据进行基因组组装"),
     ('allhic', 'allhic',"'🧬 使用ALLHiC进行染色体挂载'"),
     ('get_link_from_CNCB', 'get-link-from-CNCB','📥 从CNCB批量获取测序数据下载链接'),
-    ('haphic', 'haphic', '🧬 HapHiC基因组scaffolding工具')
+    ('haphic', 'haphic', '🧬 HapHiC基因组scaffolding工具'),
+    ('subseq', 'subseq', '🧬 序列子集提取工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询

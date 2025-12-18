@@ -1,3 +1,10 @@
+## [0.12.0] - 2025-12-18
+
+### Changed
+- add subseq module
+- Updated files: biopytools/subseq,biopytools/cli/commands/subseq.py,biopytools/cli/main.py,docs/subseq.md,README.md
+
+
 ## [0.11.0] - 2025-12-18
 
 ### Changed

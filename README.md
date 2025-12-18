@@ -129,6 +129,8 @@ Options:
 
 [HapHiC | 基因组scaffolding工具](./docs/haphic.md)
 
+[Subseq | 序列子集提取工具](./docs/subseq.md)
+
 
 ## 许可证 | License
 
