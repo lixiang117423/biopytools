@@ -1,3 +1,10 @@
+## [0.13.1] - 2025-12-19
+
+### Changed
+- update tassel module
+- Updated files: biopytools/tassel_gwas
+
+
 ## [0.13.0] - 2025-12-19
 
 ### Changed

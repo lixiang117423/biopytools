@@ -728,10 +728,27 @@ class TASSELGWASAnalyzer:
             self.logger.info(f"   🔍 搜索MLM输出文件... | Searching for MLM output files...")
             import glob
 
-            # 根据你的实际输出，TASSEL生成的文件格式为：{output_prefix}12.txt 和 {output_prefix}13.txt
+            # 动态计算TASSEL输出文件编号
+            # 如果没有PCA协变量：文件编号为2和3
+            # 如果有PCA协变量：文件编号为PCA数量 + 2 和 PCA数量 + 3
+            if pca_covariate_file and pca_covariate_file.exists():
+                pca_components = self.config.pca_components
+                stats_file_num = pca_components + 2
+                effects_file_num = pca_components + 3
+                self.logger.info(f"   🧮 使用PCA协变量 | Using PCA covariates: {pca_components} components")
+                self.logger.info(f"   📊 统计文件编号 | Statistics file number: {stats_file_num}")
+                self.logger.info(f"   📈 效应文件编号 | Effects file number: {effects_file_num}")
+            else:
+                # 没有PCA协变量时，文件编号为2和3
+                stats_file_num = 2
+                effects_file_num = 3
+                self.logger.info(f"   🚫 无PCA协变量 | No PCA covariates")
+                self.logger.info(f"   📊 统计文件编号 | Statistics file number: {stats_file_num}")
+                self.logger.info(f"   📈 效应文件编号 | Effects file number: {effects_file_num}")
+
             patterns = [
-                f"{mlm_out}12.txt",    # MLM statistics file (主要统计文件)
-                f"{mlm_out}13.txt",    # MLM effects file (效应文件)
+                f"{mlm_out}{stats_file_num}.txt",    # MLM statistics file (主要统计文件)
+                f"{mlm_out}{effects_file_num}.txt",  # MLM effects file (效应文件)
                 f"{mlm_out}2.txt",
                 f"{mlm_out}2.stats.txt",
                 f"{mlm_out}*.txt",
@@ -848,14 +865,52 @@ class TASSELGWASAnalyzer:
         try:
             with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
                 outfile.write("Chr\tPos\tSNP\tP-value\n")  # 写入表头
+
+                line_count = 0
+                extracted_count = 0
+
                 for line in infile:
+                    line_count += 1
                     if line.strip():
                         cols = line.strip().split()
-                        if len(cols) >= 7 and cols[6].replace('.', '').replace('e-', '').replace('e+', '').isdigit():
-                            # 提取Chr, Pos, SNP, P-value (假设格式为: Marker, Chr, Pos, ..., P-value)
-                            outfile.write(f"{cols[1]}\t{cols[2]}\t{cols[0]}\t{cols[6]}\n")
+
+                        # 跳过表头行
+                        if len(cols) < 10 or cols[0] == "Trait" or cols[1] == "Marker":
+                            continue
+
+                        # 检查P-value列是否为数字（第7列，索引6）
+                        if len(cols) >= 7:
+                            try:
+                                # 尝试解析P-value
+                                p_value = float(cols[6])
+
+                                # 检查Marker列（第2列，索引1）和Chr、Pos列
+                                if len(cols) >= 4 and cols[1] != "None":
+                                    # 提取：Chr(2), Pos(3), Marker(1), P-value(6)
+                                    chr_val = cols[2]
+                                    pos_val = cols[3]
+                                    marker_val = cols[1]
+
+                                    outfile.write(f"{chr_val}\t{pos_val}\t{marker_val}\t{p_value}\n")
+                                    extracted_count += 1
+
+                            except (ValueError, IndexError):
+                                # 如果不是数字或索引超出范围，跳过此行
+                                continue
+
+                self.logger.info(f"   📊 MLM结果提取完成 | MLM results extraction completed")
+                self.logger.info(f"   📄 输入文件行数 | Input file lines: {line_count}")
+                self.logger.info(f"   ✅ 成功提取SNPs | Successfully extracted SNPs: {extracted_count}")
+                self.logger.info(f"   📁 输出文件 | Output file: {output_file}")
+
         except Exception as e:
-            self.logger.warning(f"⚠️ MLM结果提取失败 | MLM result extraction failed: {e}")
+            self.logger.error(f"❌ MLM结果提取失败 | MLM result extraction failed: {e}")
+            # 如果提取失败，至少写入空文件，避免后续处理出错
+            try:
+                with open(output_file, 'w') as outfile:
+                    outfile.write("Chr\tPos\tSNP\tP-value\n")  # 写入表头
+            except:
+                pass
 
     def run_analysis(self):
         """运行完整的TASSEL GWAS分析 | Run complete TASSEL GWAS analysis"""
