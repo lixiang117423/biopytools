@@ -156,7 +156,7 @@ COMMAND_REGISTRY = [
     ('admixture', 'admixture', '🧬 ADMIXTURE群体结构分析'),
     ('annovar', 'annovar', '📝 ANNOVAR变异注释'),
     ('blast', 'blast', '🧬 BLAST序列比对分析'),
-    ('coverage', 'coverage', '📊 BAM覆盖度分析'),
+    ('bam_stats', 'bam-stats', '📊 BAM文件批量统计分析'),
     ('ena_downloader', 'ena-downloader', '📥 ENA数据下载工具'),
     ('fastp', 'fastp', '🧹 FASTQ数据质量控制'),
     ('genomesyn', 'genomesyn', '🗺️  基因组共线性分析'),
@@ -210,7 +210,8 @@ COMMAND_REGISTRY = [
     ('allhic', 'allhic',"'🧬 使用ALLHiC进行染色体挂载'"),
     ('get_link_from_CNCB', 'get-link-from-CNCB','📥 从CNCB批量获取测序数据下载链接'),
     ('haphic', 'haphic', '🧬 HapHiC基因组scaffolding工具'),
-    ('subseq', 'subseq', '🧬 序列子集提取工具')
+    ('subseq', 'subseq', '🧬 序列子集提取工具'),
+    ('tassel_gwas', 'tassel-gwas', '🌾 TASSEL GWAS分析工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询

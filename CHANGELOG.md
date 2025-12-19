@@ -1,3 +1,10 @@
+## [0.13.0] - 2025-12-19
+
+### Changed
+- add tassl gwas module
+- Updated files: biopytools/tassel_gwas/,biopytools/cli/commands/tassel_gwas.py,biopytools/cli/main.py,docs/tassel_gwas.md,README.md
+
+
 ## [0.12.1] - 2025-12-19
 
 ### Changed
