@@ -10,6 +10,7 @@ from .utils import ANNOVARLogger, CommandRunner
 from .data_processing import GFF3Processor, SequenceExtractor, VCFProcessor
 from .annotation import VariantAnnotator
 from .results import SummaryGenerator
+from .results_processor import ANNOVARResultsProcessor
 
 class ANNOVARAnnotator:
     """ANNOVAR注释主类 | Main ANNOVAR Annotator Class"""
@@ -32,6 +33,9 @@ class ANNOVARAnnotator:
         self.vcf_processor = VCFProcessor(self.config, self.logger, self.cmd_runner)
         self.variant_annotator = VariantAnnotator(self.config, self.logger, self.cmd_runner)
         self.summary_generator = SummaryGenerator(self.config, self.logger)
+
+        # 初始化结果处理器 | Initialize results processor
+        self.results_processor = ANNOVARResultsProcessor(self.logger, self.config.output_dir)
     
     def step1_gff3_to_genepred(self):
         """步骤1: GFF3转GenPred | Step 1: GFF3 to GenPred"""
@@ -95,6 +99,12 @@ class ANNOVARAnnotator:
         
         self.logger.info("🎉 ANNOVAR注释流程全部完成 | ANNOVAR annotation pipeline completed!")
         self.summary_generator.generate_summary_report()
+
+        # 自动处理注释结果 | Automatically process annotation results
+        if hasattr(self.config, 'vcf_basename'):
+            self.logger.info("🔄 开始处理注释结果 | Starting to process annotation results")
+            self.process_annotation_results()
+
         return True
     
     def run_analysis(self):
@@ -117,6 +127,62 @@ class ANNOVARAnnotator:
         except Exception as e:
             self.logger.error(f"💥 程序执行出错 | Program execution error: {str(e)}")
             sys.exit(1)
+
+    def process_annotation_results(self, apply_filters: bool = False):
+        """处理注释结果 | Process annotation results"""
+        if not hasattr(self.config, 'vcf_basename'):
+            self.logger.warning("⚠️ 缺少VCF基础名称，无法处理结果 | Missing VCF basename, cannot process results")
+            return {}
+
+        try:
+            processed_files = self.results_processor.process_available_results(
+                self.config.vcf_basename, apply_filters
+            )
+
+            # 更新配置中的输出文件列表 | Update output files list in configuration
+            if not hasattr(self.config, 'processed_output_files'):
+                self.config.processed_output_files = []
+
+            self.config.processed_output_files.extend(processed_files.values())
+
+            self.logger.info(f"📊 注释结果处理完成 | Annotation results processing completed")
+            for file_type, file_path in processed_files.items():
+                self.logger.info(f"  📄 {file_type.upper()}: {file_path}")
+
+            return processed_files
+
+        except Exception as e:
+            self.logger.error(f"❌ 处理注释结果时出错 | Error processing annotation results: {str(e)}")
+            return {}
+
+    def process_exonic_results_only(self, exonic_file: str = None, output_prefix: str = None):
+        """仅处理外显子注释结果 | Process exonic annotation results only"""
+        if exonic_file is None:
+            if not hasattr(self.config, 'vcf_basename'):
+                self.logger.error("🚫 缺少VCF基础名称，无法自动查找外显子文件 | Missing VCF basename, cannot automatically find exonic file")
+                return None
+            exonic_file = os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.exonic_variant_function")
+
+        if output_prefix is None and hasattr(self.config, 'vcf_basename'):
+            output_prefix = self.config.vcf_basename
+
+        return self.results_processor.process_exonic_results(exonic_file, output_prefix)
+
+    def process_all_results_only(self, variant_function_file: str = None, output_prefix: str = None,
+                                apply_filters: bool = False, filters: dict = None):
+        """仅处理所有变异注释结果 | Process all variant annotation results only"""
+        if variant_function_file is None:
+            if not hasattr(self.config, 'vcf_basename'):
+                self.logger.error("🚫 缺少VCF基础名称，无法自动查找变异功能文件 | Missing VCF basename, cannot automatically find variant function file")
+                return None
+            variant_function_file = os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.variant_function")
+
+        if output_prefix is None and hasattr(self.config, 'vcf_basename'):
+            output_prefix = self.config.vcf_basename
+
+        return self.results_processor.process_all_results(
+            variant_function_file, output_prefix, apply_filters, filters
+        )
 
 def main():
     """主函数 | Main function"""

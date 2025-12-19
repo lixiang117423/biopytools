@@ -1,3 +1,10 @@
+## [0.12.1] - 2025-12-19
+
+### Changed
+- update annovar module, produce clean result
+- Updated files: biopytools/annovar
+
+
 ## [0.12.0] - 2025-12-18
 
 ### Changed

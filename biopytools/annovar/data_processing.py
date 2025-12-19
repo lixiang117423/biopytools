@@ -46,7 +46,7 @@ class GFF3Processor:
         else:
             self.logger.info("⏭️ 跳过GFF3文件修复（用户指定） | Skipping GFF3 file fix (user specified)")
         
-        command = f"gff3ToGenePred {gff3_file} {output_file}"
+        command = f"gff3ToGenePred -warnAndContinue {gff3_file} {output_file}"
         
         success = self.cmd_runner.run(command, "🔄 GFF3转GenPred格式 | GFF3 to GenPred conversion")
         if success:
@@ -134,7 +134,7 @@ class VCFProcessor:
         # 步骤3b: 转换为ANNOVAR格式 | Step 3b: Convert to ANNOVAR format
         annovar_vcf = os.path.join(output_dir, f"{vcf_basename}.annovar.vcf")
         convert_command = (f"perl {annovar_path}/convert2annovar.pl "
-                          f"-format vcf4 {filtered_vcf} > {annovar_vcf}")
+                          f"-format vcf4 -allsample -withfreq {filtered_vcf} > {annovar_vcf}")
         
         self.logger.info(f"📥 输入VCF文件 | Input VCF file: {filtered_vcf}")
         self.logger.info(f"📤 ANNOVAR格式文件 | ANNOVAR format file: {annovar_vcf}")
