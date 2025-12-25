@@ -1,0 +1,91 @@
+"""
+Genome Analysis Configuration
+基因组分析配置类
+"""
+
+import os
+
+
+class GenomeAnalysisConfig:
+    """基因组分析配置类 | Genome Analysis Configuration Class"""
+
+    def __init__(
+        self,
+        input_dir: str,
+        output_dir: str,
+        read_length: int = 150,
+        kmer_size: int = 21,
+        threads: int = 64,
+        hash_size: str = "10G",
+        max_kmer_cov: int = 1000,
+        genomescope_r_script: str = "~/software/scripts/genomescope.R"
+    ):
+        """
+        初始化配置 | Initialize configuration
+
+        Args:
+            input_dir: 输入FASTQ文件目录 | Input FASTQ directory
+            output_dir: 输出目录 | Output directory
+            read_length: 测序读长 (默认: 150) | Read length (default: 150)
+            kmer_size: K-mer大小 (默认: 21) | K-mer size (default: 21)
+            threads: 线程数 (默认: 64) | Number of threads (default: 64)
+            hash_size: Jellyfish哈希表大小 (默认: 10G) | Jellyfish hash size (default: 10G)
+            max_kmer_cov: GenomeScope最大覆盖度 (默认: 1000) | Max k-mer coverage (default: 1000)
+            genomescope_r_script: GenomeScope R脚本路径 | GenomeScope R script path
+        """
+        self.input_dir = input_dir
+        self.output_dir = output_dir
+        self.read_length = read_length
+        self.kmer_size = kmer_size
+        self.threads = threads
+        self.hash_size = hash_size
+        self.max_kmer_cov = max_kmer_cov
+        self.genomescope_r_script = os.path.expanduser(genomescope_r_script)
+
+        # 运行时变量 | Runtime variables
+        self.kcov = None  # GenomeScope计算得到的k-mer coverage
+        self.ploidy = None  # Smudgeplot推断的倍性
+
+    def validate(self):
+        """
+        验证配置参数 | Validate configuration parameters
+
+        Raises:
+            ValueError: 当配置参数无效时 | When configuration parameters are invalid
+        """
+        # 检查必需目录 | Check required directories
+        if not self.input_dir or not os.path.exists(self.input_dir):
+            raise ValueError(f"输入目录不存在 | Input directory not found: {self.input_dir}")
+
+        # 检查GenomeScope R脚本 | Check GenomeScope R script
+        if not self.genomescope_r_script or not os.path.exists(self.genomescope_r_script):
+            raise ValueError(f"GenomeScope R脚本不存在 | GenomeScope R script not found: {self.genomescope_r_script}")
+
+        # 检查参数范围 | Check parameter ranges
+        if self.read_length <= 0:
+            raise ValueError(f"读长必须大于0 | Read length must be > 0: {self.read_length}")
+
+        if self.kmer_size <= 0:
+            raise ValueError(f"K-mer大小必须大于0 | K-mer size must be > 0: {self.kmer_size}")
+
+        if self.threads <= 0:
+            raise ValueError(f"线程数必须大于0 | Threads must be > 0: {self.threads}")
+
+        if self.max_kmer_cov <= 0:
+            raise ValueError(f"最大覆盖度必须大于0 | Max coverage must be > 0: {self.max_kmer_cov}")
+
+        return True
+
+    def __repr__(self):
+        """配置的字符串表示 | String representation of configuration"""
+        return (
+            f"GenomeAnalysisConfig(\n"
+            f"  input_dir={self.input_dir!r},\n"
+            f"  output_dir={self.output_dir!r},\n"
+            f"  read_length={self.read_length!r},\n"
+            f"  kmer_size={self.kmer_size!r},\n"
+            f"  threads={self.threads!r},\n"
+            f"  hash_size={self.hash_size!r},\n"
+            f"  max_kmer_cov={self.max_kmer_cov!r}\n"
+            f")"
+        )
