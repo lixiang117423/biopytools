@@ -111,7 +111,8 @@ def main():
                 config.bcftools,
                 config.min_alleles,
                 config.max_alleles,
-                config.variant_type
+                config.variant_type,
+                verbose=True  # 收集统计时显示详细信息
             )
 
             if numlines == 0:
@@ -123,13 +124,14 @@ def main():
                 filter_ratio = (numlines / stats['total_variants']) * 100
                 logger.info(f"过滤保留比例: {filter_ratio:.2f}%")
         else:
-            # 不收集统计信息时，仅统计过滤后的变异数 | Only count filtered variants when not collecting stats
+            # 不收集统计信息时，静默统计过滤后的变异数 | Silently count filtered variants when not collecting stats
             numlines = stats_collector.count_filtered_variants(
                 config.vcf_file,
                 config.bcftools,
                 config.min_alleles,
                 config.max_alleles,
-                config.variant_type
+                config.variant_type,
+                verbose=False  # 不显示详细日志
             )
 
             if numlines == 0:
@@ -246,7 +248,8 @@ class DsuiteAnalyzer:
                 self.config.bcftools,
                 self.config.min_alleles,
                 self.config.max_alleles,
-                self.config.variant_type
+                self.config.variant_type,
+                verbose=self.config.collect_stats  # 只在收集统计时显示详细信息
             )
 
             if numlines == 0:

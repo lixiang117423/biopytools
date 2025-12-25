@@ -158,7 +158,8 @@ class VCFStatsCollector:
         bcftools: str,
         min_alleles: int,
         max_alleles: int,
-        variant_type: str
+        variant_type: str,
+        verbose: bool = False
     ) -> int:
         """
         统计过滤后的变异数 | Count filtered variants
@@ -169,17 +170,19 @@ class VCFStatsCollector:
             min_alleles: 最小等位基因数 | Min alleles
             max_alleles: 最大等位基因数 | Max alleles
             variant_type: 变异类型 | Variant type
+            verbose: 是否输出详细日志 | Whether to output verbose logs
 
         Returns:
             过滤后的变异数 | Number of filtered variants
         """
-        self.logger.info("=" * 60)
-        self.logger.info("应用过滤条件并统计")
-        self.logger.info("=" * 60)
-        self.logger.info(f"过滤参数:")
-        self.logger.info(f"  - 最小等位基因数: {min_alleles}")
-        self.logger.info(f"  - 最大等位基因数: {max_alleles}")
-        self.logger.info(f"  - 变异类型: {variant_type}")
+        if verbose:
+            self.logger.info("=" * 60)
+            self.logger.info("应用过滤条件并统计")
+            self.logger.info("=" * 60)
+            self.logger.info(f"过滤参数:")
+            self.logger.info(f"  - 最小等位基因数: {min_alleles}")
+            self.logger.info(f"  - 最大等位基因数: {max_alleles}")
+            self.logger.info(f"  - 变异类型: {variant_type}")
 
         try:
             # 使用bcftools过滤并统计 | Filter and count with bcftools
@@ -193,7 +196,8 @@ class VCFStatsCollector:
             )
 
             count = int(result.stdout.strip())
-            self.logger.info(f"符合条件的变异数: {count}")
+            if verbose:
+                self.logger.info(f"符合条件的变异数: {count}")
 
             return count
 
