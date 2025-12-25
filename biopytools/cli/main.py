@@ -216,7 +216,8 @@ COMMAND_REGISTRY = [
     ('tassel_gwas', 'tassel-gwas', '🌾 TASSEL GWAS分析工具'),
     ('snp_index', 'snp-index', '🧬 SNP index计算和分析工具'),
     ('gtx_joint', 'gtx-joint', '🧬 GTX Joint Calling命令生成工具'),
-    ('vcf_renamer', 'vcf-renamer', '🏷️ VCF样品名称重命名工具')
+    ('vcf_renamer', 'vcf-renamer', '🏷️ VCF样品名称重命名工具'),
+    ('egapx_batch', 'egapx-batch', '🧬 EGAPx批量运行配置生成工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询
