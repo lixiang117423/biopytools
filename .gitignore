@@ -230,7 +230,7 @@ temp/
 # General output directories
 *_output/
 *_results/
-*_analysis/
+#*_analysis/
 reports/
 logs/
 results/

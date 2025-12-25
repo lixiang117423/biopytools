@@ -102,6 +102,8 @@ def _validate_input_dir(ctx, param, value):
 @click.option('--n-haplotypes', type=int, default=2, help='单倍型数量')
 
 # --- 质量控制参数 | Quality Control Arguments ---
+# @click.option('--skip-fastqc', default=True, help='跳过FastQC质量检查 (默认跳过，节省时间) | Skip FastQC quality check (default: skip to save time)')
+@click.option('--skip-fastqc', default=True, help='跳过FastQC质量检查 (默认跳过，节省时间)')
 @click.option('--min-hifi-coverage', type=int, default=30, help='最小HiFi覆盖度')
 @click.option('--min-hic-coverage', type=int, default=50, help='最小Hi-C覆盖度')
 @click.option('--min-mapping-rate', type=float, default=0.7, help='最小映射率')
@@ -145,8 +147,8 @@ def genomeasm(**kwargs):
     original_argv = sys.argv
     sys.argv = args
     
-    click.echo("🚀 启动基因组组装流程...")
-    click.echo(f"   执行命令: {' '.join(sys.argv)}")
+    # click.echo("🚀 启动基因组组装流程...")
+    # click.echo(f"   执行命令: {' '.join(sys.argv)}")
     
     try:
         # 🚀 调用原始的main函数
@@ -169,4 +171,4 @@ def genomeasm(**kwargs):
         sys.argv = original_argv
 
 if __name__ == '__main__':
-    assemble()
+    genomeasm()
