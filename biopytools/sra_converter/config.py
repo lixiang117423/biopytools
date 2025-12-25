@@ -49,21 +49,53 @@ class ConvertConfig:
         # 确定输入文件列表 | Determine input file list
         self._determine_input_files()
     
+    # def _determine_input_files(self):
+    #     """确定输入文件列表 | Determine input file list"""
+    #     input_p = Path(self.input_path)
+        
+    #     if input_p.is_file():
+    #         # 单个文件 | Single file
+    #         if input_p.suffix == '.sra':
+    #             self.input_files = [str(input_p)]
+    #         else:
+    #             raise ValueError(f"输入文件必须是.sra格式 | Input file must be .sra format: {self.input_path}")
+    #     elif input_p.is_dir():
+    #         # 文件夹，查找所有.sra文件 | Folder, find all .sra files
+    #         self.input_files = sorted([str(f) for f in input_p.glob('*.sra')])
+    #         if not self.input_files:
+    #             raise ValueError(f"在目录中未找到.sra文件 | No .sra files found in directory: {self.input_path}")
+    #     else:
+    #         raise ValueError(f"输入路径不存在 | Input path does not exist: {self.input_path}")
+
     def _determine_input_files(self):
         """确定输入文件列表 | Determine input file list"""
         input_p = Path(self.input_path)
         
         if input_p.is_file():
             # 单个文件 | Single file
-            if input_p.suffix == '.sra':
+            # 接受带或不带.sra后缀的文件 | Accept files with or without .sra suffix
+            if input_p.suffix == '.sra' or input_p.suffix == '':
                 self.input_files = [str(input_p)]
             else:
-                raise ValueError(f"输入文件必须是.sra格式 | Input file must be .sra format: {self.input_path}")
+                raise ValueError(f"输入文件格式不正确 | Invalid input file format: {self.input_path}")
         elif input_p.is_dir():
-            # 文件夹，查找所有.sra文件 | Folder, find all .sra files
-            self.input_files = sorted([str(f) for f in input_p.glob('*.sra')])
-            if not self.input_files:
-                raise ValueError(f"在目录中未找到.sra文件 | No .sra files found in directory: {self.input_path}")
+            # 文件夹，查找所有目标文件 | Folder, find all target files
+            # 先查找.sra文件 | First find .sra files
+            sra_files = list(input_p.glob('*.sra'))
+            
+            if sra_files:
+                # 如果有.sra文件，使用它们 | If .sra files exist, use them
+                self.input_files = sorted([str(f) for f in sra_files])
+            else:
+                # 如果没有.sra文件，查找所有文件（排除隐藏文件和目录）
+                # If no .sra files, find all files (exclude hidden files and directories)
+                all_files = [f for f in input_p.iterdir() 
+                            if f.is_file() and not f.name.startswith('.')]
+                
+                if not all_files:
+                    raise ValueError(f"在目录中未找到文件 | No files found in directory: {self.input_path}")
+                
+                self.input_files = sorted([str(f) for f in all_files])
         else:
             raise ValueError(f"输入路径不存在 | Input path does not exist: {self.input_path}")
     
