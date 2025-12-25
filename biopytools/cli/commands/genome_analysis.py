@@ -67,10 +67,10 @@ def _validate_dir_exists(dir_path):
 @click.option('--genomescope-r',
               default='~/software/scripts/genomescope.R',
               help='[FILE] GenomeScope R脚本路径 | GenomeScope R script path')
-@click.option('--run-smudgeplot',
+@click.option('--skip-smudgeplot',
               is_flag=True,
               default=False,
-              help='[FLAG] 运行Smudgeplot倍性分析 | Run Smudgeplot ploidy analysis')
+              help='[FLAG] 跳过Smudgeplot倍性分析 | Skip Smudgeplot ploidy analysis')
 @click.option('--fastk-table',
               default='',
               help='[FILE] FastK表文件路径 (如已存在) | FastK table file path (if exists)')
@@ -78,7 +78,7 @@ def _validate_dir_exists(dir_path):
               default='16G',
               help='[STR] FastK内存大小 (默认: 16G) | FastK memory size (default: 16G)')
 def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
-                   hash_size, max_kmer_cov, genomescope_r, run_smudgeplot,
+                   hash_size, max_kmer_cov, genomescope_r, skip_smudgeplot,
                    fastk_table, fastk_memory):
     """
     GenomeScope2基因组评估工具
@@ -86,12 +86,12 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
     使用Jellyfish和GenomeScope2评估基因组大小、杂合度等特征，
     并自动提取k-mer coverage用于后续分析。
 
-    可选运行Smudgeplot进行倍性分析。
+    默认运行Smudgeplot进行倍性分析，可使用--skip-smudgeplot跳过。
 
     示例 | Examples:
 
     \b
-    # 基本用法 - 仅GenomeScope分析
+    # 基本用法 - 完整分析（GenomeScope + Smudgeplot）
     biopytools genome-analysis \\
         -i fastq_dir \\
         -o output_dir \\
@@ -107,12 +107,12 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
         -t 32
 
     \b
-    # 运行完整的GenomeScope + Smudgeplot分析
+    # 仅运行GenomeScope，跳过Smudgeplot
     biopytools genome-analysis \\
         -i fastq_dir \\
         -o output_dir \\
         -l 150 \\
-        --run-smudgeplot
+        --skip-smudgeplot
 
     \b
     # 使用已存在的FastK表运行Smudgeplot
@@ -120,7 +120,6 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
         -i fastq_dir \\
         -o output_dir \\
         -l 150 \\
-        --run-smudgeplot \\
         --fastk-table /path/to/fastk_table
 
     输出说明 | Output Description:
@@ -135,7 +134,7 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
       - model.txt                - 模型参数（包含kcov值）
       - various plots             - 可视化图表
 
-    Smudgeplot输出 (使用--run-smudgeplot时):
+    Smudgeplot输出 (默认运行，使用--skip-smudgeplot跳过):
 
     \b
     - fastk_table                 - FastK k-mer数据库
@@ -157,6 +156,7 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
     - K-mer大小建议使用21 (默认值)
     - 哈希表大小应根据基因组大小调整
     - Smudgeplot需要FastK工具和额外的计算时间
+    - 如不需要倍性分析，使用--skip-smudgeplot跳过
     - 输入目录中的所有.fastq/.fq/.fastq.gz/.fq.gz文件都会被使用
     """
 
@@ -187,8 +187,8 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
     if genomescope_r != '~/software/scripts/genomescope.R':
         args.extend(['--genomescope-r', genomescope_r])
 
-    if run_smudgeplot:
-        args.append('--run-smudgeplot')
+    if skip_smudgeplot:
+        args.append('--skip-smudgeplot')
 
     if fastk_table:
         args.extend(['--fastk-table', fastk_table])

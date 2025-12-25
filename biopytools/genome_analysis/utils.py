@@ -356,7 +356,7 @@ class SmudgeplotRunner:
             fastk_table: FastK表输出路径 | FastK table output path
             kmer_size: K-mer大小 | K-mer size
             threads: 线程数 | Number of threads
-            memory: 内存大小 | Memory size
+            memory: 内存大小 | Memory size (e.g., "16G")
 
         Returns:
             是否成功 | Whether successful
@@ -377,15 +377,26 @@ class SmudgeplotRunner:
             return True
 
         try:
+            # FastK的-M参数需要纯数字，不带单位
+            # 提取内存数值 | Extract memory value
+            memory_value = memory.rstrip('Gg')
+            try:
+                memory_int = int(memory_value)
+            except ValueError:
+                self.logger.warning(f"无法解析内存值 '{memory}'，使用默认值16")
+                memory_int = 16
+
             # 构建FastK命令
+            # FastK的参数格式：-t threads -k kmer_size -M memory -T threads
+            # 参数和值需要连在一起，如 -t12 -k21 -M16 -T12
             cmd = [
                 'FastK',
                 '-v',
-                '-t', str(threads),
-                '-k', str(kmer_size),
-                '-M', memory,
-                '-T', str(threads),
-            ] + fastq_files + ['-N', fastk_table]
+                f'-t{threads}',
+                f'-k{kmer_size}',
+                f'-M{memory_int}',
+                f'-T{threads}',
+            ] + fastq_files + [f'-N{fastk_table}']
 
             self.logger.info(f"命令: {' '.join(cmd)}")
 
@@ -488,6 +499,7 @@ class SmudgeplotRunner:
             cmd = [
                 'smudgeplot', 'all',
                 '-o', plot_output_prefix,
+                '-cov', str(kcov),  # 使用从GenomeScope提取的kcov值
                 smu_file
             ]
             self.logger.info(f"命令: {' '.join(cmd)}")
