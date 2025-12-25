@@ -214,7 +214,8 @@ COMMAND_REGISTRY = [
     ('haphic', 'haphic', '🧬 HapHiC基因组scaffolding工具'),
     ('subseq', 'subseq', '🧬 序列子集提取工具'),
     ('tassel_gwas', 'tassel-gwas', '🌾 TASSEL GWAS分析工具'),
-    ('snp_index', 'snp-index', '🧬 SNP index计算和分析工具')
+    ('snp_index', 'snp-index', '🧬 SNP index计算和分析工具'),
+    ('gtx_joint', 'gtx-joint', '🧬 GTX Joint Calling命令生成工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询
