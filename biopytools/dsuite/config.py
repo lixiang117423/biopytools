@@ -19,7 +19,8 @@ class DsuiteConfig:
         min_alleles: int = 2,
         max_alleles: int = 2,
         variant_type: str = "snps",
-        bcftools: str = "bcftools"
+        bcftools: str = "bcftools",
+        collect_stats: bool = False
     ):
         """
         初始化配置 | Initialize configuration
@@ -34,6 +35,7 @@ class DsuiteConfig:
             max_alleles: 最大等位基因数 | Max number of alleles
             variant_type: 变异类型 (snps/indels/both) | Variant type
             bcftools: bcftools命令路径 | bcftools command path
+            collect_stats: 是否收集VCF统计信息 | Whether to collect VCF statistics
         """
         self.vcf_file = vcf_file
         self.sets_file = sets_file
@@ -44,6 +46,7 @@ class DsuiteConfig:
         self.max_alleles = max_alleles
         self.variant_type = variant_type
         self.bcftools = bcftools
+        self.collect_stats = collect_stats
 
     def validate(self):
         """

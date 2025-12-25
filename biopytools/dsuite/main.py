@@ -62,6 +62,8 @@ def main():
                          help='[STR] 变异类型 (默认: snps) | Variant type (default: snps)')
     optional.add_argument('--bcftools', default='bcftools',
                          help='[CMD] bcftools命令路径 | bcftools command path')
+    optional.add_argument('--collect-stats', action='store_true',
+                         help='[FLAG] 是否收集VCF统计信息 | Whether to collect VCF statistics')
 
     args = parser.parse_args()
 
@@ -88,7 +90,8 @@ def main():
             min_alleles=args.min_alleles,
             max_alleles=args.max_alleles,
             variant_type=args.variant_type,
-            bcftools=args.bcftools
+            bcftools=args.bcftools,
+            collect_stats=args.collect_stats
         )
 
         config.validate()
@@ -97,26 +100,41 @@ def main():
         stats_collector = VCFStatsCollector(logger)
         dsuite_runner = DsuiteRunner(logger)
 
-        # 收集VCF统计信息 | Collect VCF statistics
-        stats = stats_collector.collect_statistics(config.vcf_file, config.bcftools)
+        # 收集VCF统计信息（可选）| Collect VCF statistics (optional)
+        stats = {}
+        if config.collect_stats:
+            stats = stats_collector.collect_statistics(config.vcf_file, config.bcftools)
 
-        # 统计过滤后的变异数 | Count filtered variants
-        numlines = stats_collector.count_filtered_variants(
-            config.vcf_file,
-            config.bcftools,
-            config.min_alleles,
-            config.max_alleles,
-            config.variant_type
-        )
+            # 统计过滤后的变异数 | Count filtered variants
+            numlines = stats_collector.count_filtered_variants(
+                config.vcf_file,
+                config.bcftools,
+                config.min_alleles,
+                config.max_alleles,
+                config.variant_type
+            )
 
-        if numlines == 0:
-            logger.error("过滤后没有变异位点！请检查过滤参数")
-            return 1
+            if numlines == 0:
+                logger.error("过滤后没有变异位点！请检查过滤参数")
+                return 1
 
-        # 计算过滤比例 | Calculate filter ratio
-        if 'total_variants' in stats:
-            filter_ratio = (numlines / stats['total_variants']) * 100
-            logger.info(f"过滤保留比例: {filter_ratio:.2f}%")
+            # 计算过滤比例 | Calculate filter ratio
+            if 'total_variants' in stats:
+                filter_ratio = (numlines / stats['total_variants']) * 100
+                logger.info(f"过滤保留比例: {filter_ratio:.2f}%")
+        else:
+            # 不收集统计信息时，仅统计过滤后的变异数 | Only count filtered variants when not collecting stats
+            numlines = stats_collector.count_filtered_variants(
+                config.vcf_file,
+                config.bcftools,
+                config.min_alleles,
+                config.max_alleles,
+                config.variant_type
+            )
+
+            if numlines == 0:
+                logger.error("过滤后没有变异位点！请检查过滤参数")
+                return 1
 
         # 构建完整输出前缀 | Build full output prefix
         output_prefix = os.path.join(config.output_dir, config.output_prefix)
@@ -149,8 +167,12 @@ def main():
         logger.info(f"输入VCF: {config.vcf_file}")
         logger.info(f"SETS文件: {config.sets_file}")
         logger.info(f"输出目录: {config.output_dir}")
-        logger.info(f"样本数量: {stats.get('sample_count', 'N/A')}")
-        logger.info(f"总变异数: {stats.get('total_variants', 'N/A')}")
+
+        # 只在收集统计信息时显示详细统计 | Show detailed stats only when collected
+        if config.collect_stats and stats:
+            logger.info(f"样本数量: {stats.get('sample_count', 'N/A')}")
+            logger.info(f"总变异数: {stats.get('total_variants', 'N/A')}")
+
         logger.info(f"过滤后变异数: {numlines}")
         logger.info(f"运行时间: {elapsed_time:.2f} seconds ({elapsed_time/60:.2f} minutes)")
         logger.info("")
@@ -210,11 +232,13 @@ class DsuiteAnalyzer:
             self.logger.info("Dsuite D-trios Analysis Pipeline")
             self.logger.info("=" * 60)
 
-            # 收集VCF统计信息 | Collect VCF statistics
-            stats = self.stats_collector.collect_statistics(
-                self.config.vcf_file,
-                self.config.bcftools
-            )
+            # 收集VCF统计信息（可选）| Collect VCF statistics (optional)
+            stats = {}
+            if self.config.collect_stats:
+                stats = self.stats_collector.collect_statistics(
+                    self.config.vcf_file,
+                    self.config.bcftools
+                )
 
             # 统计过滤后的变异数 | Count filtered variants
             numlines = self.stats_collector.count_filtered_variants(

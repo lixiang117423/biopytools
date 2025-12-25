@@ -220,7 +220,8 @@ COMMAND_REGISTRY = [
     ('egapx_batch', 'egapx-batch', '🧬 EGAPx批量运行配置生成工具'),
     ('genome_analysis', 'genome-analysis', '🧬 GenomeScope2基因组评估工具'),
     ('rename_chromosomes', 'rename-chromosomes', '🧬 染色体重命名工具'),
-    ('dsuite', 'dsuite', '🧬 Dsuite D统计量分析工具')
+    ('dsuite', 'dsuite', '🧬 Dsuite D统计量分析工具'),
+    ('ngenomesyn', 'ngenomesyn', '🧬 NGenomeSyn可视化工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询

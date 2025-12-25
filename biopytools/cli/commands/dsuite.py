@@ -68,7 +68,11 @@ def _validate_file_exists(file_path):
 @click.option('--bcftools',
               default='bcftools',
               help='[CMD] bcftools命令路径 | bcftools command path')
-def dsuite(vcf, sets, output, prefix, dsuite_bin, min_alleles, max_alleles, variant_type, bcftools):
+@click.option('--collect-stats',
+              is_flag=True,
+              default=False,
+              help='[FLAG] 是否收集VCF统计信息 | Whether to collect VCF statistics')
+def dsuite(vcf, sets, output, prefix, dsuite_bin, min_alleles, max_alleles, variant_type, bcftools, collect_stats):
     """
     Dsuite D统计量分析工具
 
@@ -143,6 +147,9 @@ def dsuite(vcf, sets, output, prefix, dsuite_bin, min_alleles, max_alleles, vari
 
     if bcftools != 'bcftools':
         args.extend(['--bcftools', bcftools])
+
+    if collect_stats:
+        args.append('--collect-stats')
 
     # 保存并恢复sys.argv | Save and restore sys.argv
     original_argv = sys.argv
