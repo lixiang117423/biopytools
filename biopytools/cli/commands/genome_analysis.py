@@ -67,18 +67,31 @@ def _validate_dir_exists(dir_path):
 @click.option('--genomescope-r',
               default='~/software/scripts/genomescope.R',
               help='[FILE] GenomeScope R脚本路径 | GenomeScope R script path')
+@click.option('--run-smudgeplot',
+              is_flag=True,
+              default=False,
+              help='[FLAG] 运行Smudgeplot倍性分析 | Run Smudgeplot ploidy analysis')
+@click.option('--fastk-table',
+              default='',
+              help='[FILE] FastK表文件路径 (如已存在) | FastK table file path (if exists)')
+@click.option('--fastk-memory',
+              default='16G',
+              help='[STR] FastK内存大小 (默认: 16G) | FastK memory size (default: 16G)')
 def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
-                   hash_size, max_kmer_cov, genomescope_r):
+                   hash_size, max_kmer_cov, genomescope_r, run_smudgeplot,
+                   fastk_table, fastk_memory):
     """
     GenomeScope2基因组评估工具
 
     使用Jellyfish和GenomeScope2评估基因组大小、杂合度等特征，
     并自动提取k-mer coverage用于后续分析。
 
+    可选运行Smudgeplot进行倍性分析。
+
     示例 | Examples:
 
     \b
-    # 基本用法
+    # 基本用法 - 仅GenomeScope分析
     biopytools genome-analysis \\
         -i fastq_dir \\
         -o output_dir \\
@@ -94,12 +107,21 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
         -t 32
 
     \b
-    # 大基因组使用更大的哈希表
+    # 运行完整的GenomeScope + Smudgeplot分析
     biopytools genome-analysis \\
         -i fastq_dir \\
         -o output_dir \\
         -l 150 \\
-        -s 20G
+        --run-smudgeplot
+
+    \b
+    # 使用已存在的FastK表运行Smudgeplot
+    biopytools genome-analysis \\
+        -i fastq_dir \\
+        -o output_dir \\
+        -l 150 \\
+        --run-smudgeplot \\
+        --fastk-table /path/to/fastk_table
 
     输出说明 | Output Description:
 
@@ -110,21 +132,31 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
     - genome_analysis.histo       - K-mer直方图
     - genome_analysis_genomescope_output/  - GenomeScope结果目录
       - summary.txt              - 基因组特征汇总
+      - model.txt                - 模型参数（包含kcov值）
       - various plots             - 可视化图表
+
+    Smudgeplot输出 (使用--run-smudgeplot时):
+
+    \b
+    - fastk_table                 - FastK k-mer数据库
+    - smudgeplot_result_kmerpairs.smu  - K-mer对文件
+    - smudgeplot_result_*.pdf     - 倍性分析图表
 
     提取的参数 | Extracted Parameters:
 
     \b
-    - kcov (k-mer coverage)       - 用于后续Smudgeplot分析
+    - kcov (k-mer coverage)       - 从GenomeScope model.txt提取
     - 基因组大小                  - 估算的基因组大小
     - 杂合度                      - 杂合度水平
     - 重复序列比例                - 重复序列占比
+    - 倍性推断                    - Smudgeplot推断的倍性
 
     注意事项 | Notes:
 
     \b
     - K-mer大小建议使用21 (默认值)
     - 哈希表大小应根据基因组大小调整
+    - Smudgeplot需要FastK工具和额外的计算时间
     - 输入目录中的所有.fastq/.fq/.fastq.gz/.fq.gz文件都会被使用
     """
 
@@ -152,8 +184,17 @@ def genome_analysis(input_dir, output_dir, read_length, kmer_size, threads,
     if max_kmer_cov != 1000:
         args.extend(['-c', str(max_kmer_cov)])
 
-    if genomescope_r != '/share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R':
+    if genomescope_r != '~/software/scripts/genomescope.R':
         args.extend(['--genomescope-r', genomescope_r])
+
+    if run_smudgeplot:
+        args.append('--run-smudgeplot')
+
+    if fastk_table:
+        args.extend(['--fastk-table', fastk_table])
+
+    if fastk_memory != '16G':
+        args.extend(['--fastk-memory', fastk_memory])
 
     # 保存并恢复sys.argv | Save and restore sys.argv
     original_argv = sys.argv

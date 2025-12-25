@@ -99,6 +99,12 @@ class GenomeScopeRunner:
 
         jf_output = f"{output_prefix}.jf"
 
+        # 检查输出文件是否已存在 | Check if output file already exists
+        if os.path.exists(jf_output):
+            self.logger.info(f"输出文件已存在，跳过此步骤: {jf_output}")
+            self.logger.info("如需重新运行，请删除现有文件")
+            return True
+
         try:
             # 检查是否有压缩文件 | Check for compressed files
             gzip_files = [f for f in fastq_files if f.endswith('.gz')]
@@ -168,6 +174,12 @@ class GenomeScopeRunner:
 
         histo_file = f"{output_prefix}.histo"
 
+        # 检查输出文件是否已存在 | Check if output file already exists
+        if os.path.exists(histo_file):
+            self.logger.info(f"输出文件已存在，跳过此步骤: {histo_file}")
+            self.logger.info("如需重新运行，请删除现有文件")
+            return True
+
         try:
             cmd = [
                 'jellyfish', 'histo',
@@ -215,6 +227,19 @@ class GenomeScopeRunner:
         self.logger.info("步骤 3/3: 运行GenomeScope")
         self.logger.info("=" * 60)
 
+        # 检查GenomeScope是否已经运行完成 | Check if GenomeScope is already completed
+        model_file = os.path.join(output_dir, 'model.txt')
+        if os.path.exists(model_file):
+            self.logger.info(f"GenomeScope输出已存在，跳过运行步骤: {model_file}")
+            self.logger.info("如需重新运行，请删除现有输出目录")
+            # 直接从已有结果中提取kcov | Extract kcov directly from existing results
+            kcov = self._extract_kcov(output_dir)
+            if kcov:
+                self.logger.info(f"从已有结果中提取k-mer coverage: {kcov}")
+                return kcov
+            else:
+                self.logger.warning("已有结果中未能提取kcov值")
+
         try:
             cmd = [
                 'Rscript', r_script,
@@ -236,17 +261,12 @@ class GenomeScopeRunner:
                 self.logger.error(f"GenomeScope失败: {result.stderr}")
                 return None
 
-            # 从summary.txt中提取kcov | Extract kcov from summary.txt
-            summary_file = os.path.join(output_dir, 'summary.txt')
-            if os.path.exists(summary_file):
-                kcov = self._extract_kcov(summary_file)
-                if kcov:
-                    self.logger.info(f"提取的k-mer coverage: {kcov}")
-                    return kcov
-                else:
-                    self.logger.warning("未能从summary.txt中提取kcov值")
+            # 从GenomeScope输出中提取kcov | Extract kcov from GenomeScope output
+            kcov = self._extract_kcov(output_dir)
+            if kcov:
+                return kcov
             else:
-                self.logger.warning(f"未找到summary.txt文件: {summary_file}")
+                self.logger.warning("未能从GenomeScope输出中提取kcov值")
 
             self.logger.info("GenomeScope分析成功完成")
             return None
@@ -255,38 +275,62 @@ class GenomeScopeRunner:
             self.logger.error(f"运行GenomeScope时出错: {str(e)}", exc_info=True)
             return None
 
-    def _extract_kcov(self, summary_file: str) -> Optional[float]:
+    def _extract_kcov(self, output_dir: str) -> Optional[float]:
         """
-        从summary.txt提取kcov | Extract kcov from summary.txt
+        从GenomeScope输出中提取kcov | Extract kcov from GenomeScope output
 
         Args:
-            summary_file: summary.txt文件路径 | summary.txt file path
+            output_dir: GenomeScope输出目录 | GenomeScope output directory
 
         Returns:
             kcov值或None | kcov value or None
         """
         try:
-            with open(summary_file, 'r') as f:
-                for line in f:
-                    # 查找类似 "Kmer_coverage: 53.4471" 的行
-                    if 'Kmer_coverage' in line or 'Kmer coverage' in line:
-                        # 尝试多种模式
-                        match = re.search(r'Kmer_coverage[:\s]+([\d.]+)', line)
-                        if not match:
-                            match = re.search(r'Kmer coverage[:\s]+([\d.]+)', line)
-                        if not match:
-                            match = re.search(r'([\d.]+)', line)
+            # 首先尝试从model.txt中提取 | Try to extract from model.txt first
+            model_file = os.path.join(output_dir, 'model.txt')
+            if os.path.exists(model_file):
+                with open(model_file, 'r') as f:
+                    for line in f:
+                        # 查找类似 "kmercov 1.705e+01" 的行
+                        if line.strip().startswith('kmercov'):
+                            # 使用正则表达式提取kmercov后面的数值
+                            # 格式: kmercov 1.705e+01  2.005e-02  ...
+                            match = re.search(r'kmercov\s+([\d.e+-]+)', line)
+                            if match:
+                                try:
+                                    kcov_value = float(match.group(1))
+                                    self.logger.info(f"从model.txt中提取k-mer coverage: {kcov_value}")
+                                    return kcov_value
+                                except (ValueError, IndexError):
+                                    continue
 
-                        if match:
-                            try:
-                                return float(match.group(1))
-                            except (ValueError, IndexError):
-                                continue
+            # 如果model.txt中没有找到，尝试从summary.txt中提取
+            # If not found in model.txt, try to extract from summary.txt
+            summary_file = os.path.join(output_dir, 'summary.txt')
+            if os.path.exists(summary_file):
+                with open(summary_file, 'r') as f:
+                    for line in f:
+                        # 查找类似 "Kmer_coverage: 53.4471" 的行
+                        if 'Kmer_coverage' in line or 'Kmer coverage' in line:
+                            # 尝试多种模式
+                            match = re.search(r'Kmer_coverage[:\s]+([\d.]+)', line)
+                            if not match:
+                                match = re.search(r'Kmer coverage[:\s]+([\d.]+)', line)
+                            if not match:
+                                match = re.search(r'([\d.]+)', line)
+
+                            if match:
+                                try:
+                                    kcov_value = float(match.group(1))
+                                    self.logger.info(f"从summary.txt中提取k-mer coverage: {kcov_value}")
+                                    return kcov_value
+                                except (ValueError, IndexError):
+                                    continue
 
             return None
 
         except Exception as e:
-            self.logger.error(f"读取summary.txt时出错: {str(e)}")
+            self.logger.error(f"读取GenomeScope输出时出错: {str(e)}")
             return None
 
 
@@ -301,6 +345,66 @@ class SmudgeplotRunner:
             logger: 日志对象 | Logger object
         """
         self.logger = logger
+
+    def run_fastk(self, fastq_files: list, fastk_table: str,
+                  kmer_size: int, threads: int, memory: str = "16G") -> bool:
+        """
+        运行FastK | Run FastK
+
+        Args:
+            fastq_files: FASTQ文件列表 | List of FASTQ files
+            fastk_table: FastK表输出路径 | FastK table output path
+            kmer_size: K-mer大小 | K-mer size
+            threads: 线程数 | Number of threads
+            memory: 内存大小 | Memory size
+
+        Returns:
+            是否成功 | Whether successful
+        """
+        self.logger.info("=" * 60)
+        self.logger.info("步骤 3.5/5: 运行FastK生成FastK表")
+        self.logger.info("=" * 60)
+        self.logger.info(f"配置参数:")
+        self.logger.info(f"  - K-mer大小: {kmer_size}")
+        self.logger.info(f"  - 线程数: {threads}")
+        self.logger.info(f"  - 内存: {memory}")
+        self.logger.info(f"  - 输入文件数: {len(fastq_files)}")
+
+        # 检查FastK表是否已存在 | Check if FastK table already exists
+        if os.path.exists(fastk_table):
+            self.logger.info(f"FastK表已存在，跳过此步骤: {fastk_table}")
+            self.logger.info("如需重新运行，请删除现有文件")
+            return True
+
+        try:
+            # 构建FastK命令
+            cmd = [
+                'FastK',
+                '-v',
+                '-t', str(threads),
+                '-k', str(kmer_size),
+                '-M', memory,
+                '-T', str(threads),
+            ] + fastq_files + ['-N', fastk_table]
+
+            self.logger.info(f"命令: {' '.join(cmd)}")
+
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True
+            )
+
+            if result.returncode != 0:
+                self.logger.error(f"FastK失败: {result.stderr}")
+                return False
+
+            self.logger.info("FastK步骤成功完成")
+            return True
+
+        except Exception as e:
+            self.logger.error(f"运行FastK时出错: {str(e)}", exc_info=True)
+            return False
 
     def run_smudgeplot(self, fastk_table: str, output_prefix: str,
                        kcov: float, kmer_size: int, threads: int) -> bool:
@@ -324,42 +428,66 @@ class SmudgeplotRunner:
         self.logger.info(f"  - K-mer coverage: {kcov}")
         self.logger.info(f"  - K-mer大小: {kmer_size}")
 
+        hetmers_output = f"{output_prefix}_kmerpairs"
+        smu_file = f"{hetmers_output}.smu"
+
+        # 检查.smu文件是否已存在 | Check if .smu file already exists
+        if os.path.exists(smu_file):
+            self.logger.info(f"Hetmers输出已存在，跳过此步骤: {smu_file}")
+            self.logger.info("如需重新运行，请删除现有文件")
+        else:
+            try:
+                # 步骤1: 运行smudgeplot hetmers
+                cmd = [
+                    'smudgeplot', 'hetmers',
+                    '-L', str(int(kcov * 0.5)),  # 使用kcov的50%作为下限
+                    '-t', str(threads),
+                    '-o', hetmers_output,
+                    '--verbose',
+                    fastk_table
+                ]
+                self.logger.info(f"命令: {' '.join(cmd)}")
+
+                result = subprocess.run(
+                    cmd,
+                    capture_output=True,
+                    text=True
+                )
+
+                if result.returncode != 0:
+                    self.logger.error(f"Smudgeplot hetmers失败: {result.stderr}")
+                    return False
+
+                self.logger.info("Hetmers步骤成功完成")
+
+            except Exception as e:
+                self.logger.error(f"运行Hetmers时出错: {str(e)}", exc_info=True)
+                return False
+
+        # 步骤2: 运行smudgeplot plot
+        if not os.path.exists(smu_file):
+            self.logger.error(f"未找到.smu文件: {smu_file}")
+            return False
+
+        self.logger.info("=" * 60)
+        self.logger.info("步骤 5/5: 运行Smudgeplot Plot")
+        self.logger.info("=" * 60)
+
+        # 检查smudgeplot输出是否已存在 | Check if smudgeplot output already exists
+        plot_output_prefix = output_prefix
+        # 检查是否有生成的PDF文件 | Check if PDF files are generated
+        import glob
+        existing_plots = glob.glob(f"{plot_output_prefix}*.pdf")
+        if existing_plots:
+            self.logger.info(f"Smudgeplot输出已存在，跳过此步骤")
+            self.logger.info("如需重新运行，请删除现有输出文件")
+            self.logger.info("Smudgeplot分析成功完成")
+            return True
+
         try:
-            # 步骤1: 运行smudgeplot hetmers
-            hetmers_output = f"{output_prefix}_kmerpairs"
             cmd = [
-                'smudgeplot', 'hetmers',
-                '-L', str(int(kcov * 0.5)),  # 使用kcov的50%作为下限
-                '-t', str(threads),
-                '-o', hetmers_output,
-                fastk_table
-            ]
-            self.logger.info(f"命令: {' '.join(cmd)}")
-
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True
-            )
-
-            if result.returncode != 0:
-                self.logger.error(f"Smudgeplot hetmers失败: {result.stderr}")
-                return False
-
-            # 步骤2: 运行smudgeplot plot
-            smu_file = f"{hetmers_output}.smu"
-            if not os.path.exists(smu_file):
-                self.logger.error(f"未找到.smu文件: {smu_file}")
-                return False
-
-            self.logger.info("=" * 60)
-            self.logger.info("步骤 5/5: 运行Smudgeplot Plot")
-            self.logger.info("=" * 60)
-
-            plot_output = output_prefix
-            cmd = [
-                'smudgeplot', 'plot',
-                '-o', plot_output,
+                'smudgeplot', 'all',
+                '-o', plot_output_prefix,
                 smu_file
             ]
             self.logger.info(f"命令: {' '.join(cmd)}")
@@ -371,7 +499,7 @@ class SmudgeplotRunner:
             )
 
             if result.returncode != 0:
-                self.logger.error(f"Smudgeplot plot失败: {result.stderr}")
+                self.logger.error(f"Smudgeplot all失败: {result.stderr}")
                 return False
 
             self.logger.info("Smudgeplot分析成功完成")

@@ -52,12 +52,13 @@ def find_fastq_files(input_dir: str, logger) -> list:
     return fastq_files
 
 
-def check_dependencies(logger) -> bool:
+def check_dependencies(logger, run_smudgeplot=False) -> bool:
     """
     检查依赖环境 | Check dependencies
 
     Args:
         logger: 日志对象 | Logger object
+        run_smudgeplot: 是否运行Smudgeplot | Whether to run Smudgeplot
 
     Returns:
         是否所有依赖都可用 | Whether all dependencies are available
@@ -69,8 +70,13 @@ def check_dependencies(logger) -> bool:
     dependencies = [
         ('jellyfish', 'jellyfish'),
         ('Rscript', 'R'),
-        ('smudgeplot', 'smudgeplot')
     ]
+
+    # 如果需要运行Smudgeplot，添加相关依赖检查
+    # Add Smudgeplot related dependencies if needed
+    if run_smudgeplot:
+        dependencies.append(('FastK', 'FastK'))
+        dependencies.append(('smudgeplot', 'smudgeplot'))
 
     all_ok = True
     for cmd, name in dependencies:
@@ -124,8 +130,15 @@ def main():
     optional.add_argument('-c', '--max-kmer-cov', type=int, default=1000,
                          help='[INT] 最大k-mer覆盖度 (默认: 1000) | Max k-mer coverage (default: 1000)')
     optional.add_argument('--genomescope-r',
-                         default='/share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R',
+                         default='~/software/scripts/genomescope.R',
                          help='[FILE] GenomeScope R脚本路径 | GenomeScope R script path')
+    optional.add_argument('--skip-smudgeplot', action='store_true',
+                         help='[FLAG] 跳过Smudgeplot倍性分析 | Skip Smudgeplot ploidy analysis')
+    optional.add_argument('--fastk-table',
+                         default='',
+                         help='[FILE] FastK表文件路径 (如已存在) | FastK table file path (if exists)')
+    optional.add_argument('--fastk-memory', default='16G',
+                         help='[STR] FastK内存大小 (默认: 16G) | FastK memory size (default: 16G)')
 
     args = parser.parse_args()
 
@@ -148,7 +161,7 @@ def main():
         logger.info(f"线程数: {args.threads}")
 
         # 检查依赖 | Check dependencies
-        if not check_dependencies(logger):
+        if not check_dependencies(logger, not args.skip_smudgeplot):
             logger.error("依赖检查失败，请安装所需软件")
             sys.exit(1)
 
@@ -209,12 +222,47 @@ def main():
 
         config.kcov = kcov
 
-        # 步骤4-5: Smudgeplot (需要FastK表，这里使用jellyfish输出代替)
-        logger.info("")
-        logger.info("=" * 60)
-        logger.info("Smudgeplot需要FastK格式的输入")
-        logger.info("当前使用Jellyfish输出，如需运行Smudgeplot请提供FastK表")
-        logger.info("=" * 60)
+        # 步骤4-5: Smudgeplot (默认运行，可使用--skip-smudgeplot跳过)
+        sm_runner = SmudgeplotRunner(logger)
+
+        if not args.skip_smudgeplot:
+            logger.info("")
+            logger.info("=" * 60)
+            logger.info("运行Smudgeplot倍性分析")
+            logger.info("=" * 60)
+
+            # 确定FastK表路径 | Determine FastK table path
+            if args.fastk_table:
+                fastk_table = args.fastk_table
+                logger.info(f"使用已存在的FastK表: {fastk_table}")
+            else:
+                # 运行FastK生成FastK表
+                fastk_table = os.path.join(output_dir_abs, "fastk_table")
+                logger.info(f"将生成FastK表: {fastk_table}")
+
+                if not sm_runner.run_fastk(
+                    fastq_files, fastk_table, config.kmer_size,
+                    config.threads, args.fastk_memory
+                ):
+                    logger.error("FastK步骤失败")
+                    sys.exit(1)
+
+            # 运行Smudgeplot
+            smudgeplot_output = os.path.join(output_dir_abs, "smudgeplot_result")
+            if not sm_runner.run_smudgeplot(
+                fastk_table, smudgeplot_output, kcov,
+                config.kmer_size, config.threads
+            ):
+                logger.error("Smudgeplot步骤失败")
+                sys.exit(1)
+
+            logger.info(f"Smudgeplot输出: {smudgeplot_output}")
+        else:
+            logger.info("")
+            logger.info("=" * 60)
+            logger.info("跳过Smudgeplot倍性分析")
+            logger.info("如需运行Smudgeplot，请移除--skip-smudgeplot参数")
+            logger.info("=" * 60)
 
         # 完成统计 | Completion statistics
         elapsed_time = time.time() - start_time
