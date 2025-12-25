@@ -218,7 +218,8 @@ COMMAND_REGISTRY = [
     ('gtx_joint', 'gtx-joint', '🧬 GTX Joint Calling命令生成工具'),
     ('vcf_renamer', 'vcf-renamer', '🏷️ VCF样品名称重命名工具'),
     ('egapx_batch', 'egapx-batch', '🧬 EGAPx批量运行配置生成工具'),
-    ('genome_analysis', 'genome-analysis', '🧬 GenomeScope2基因组评估工具')
+    ('genome_analysis', 'genome-analysis', '🧬 GenomeScope2基因组评估工具'),
+    ('rename_chromosomes', 'rename-chromosomes', '🧬 染色体重命名工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询
