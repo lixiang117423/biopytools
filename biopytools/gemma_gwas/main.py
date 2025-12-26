@@ -299,29 +299,34 @@ def step4_pca_analysis(config: AnalysisConfig,
     logger.info(f"STEP 4/6: PCA Analysis (top {config.n_pca} components)")
     logger.info("=" * 60)
 
+    # 切换到输出目录
+    original_dir = os.getcwd()
+    os.chdir(config.outdir)
+
     cmd = f"plink --bfile genotype " \
           f"--pca {config.n_pca} " \
           f"--out pca --allow-extra-chr " \
           f"--threads {config.threads}"
 
-    log_file = os.path.join(config.outdir, "plink_pca.log")
+    log_file = "plink_pca.log"
     success, error = utils.run_command(cmd, log_file, logger)
 
     if not success:
         logger.error(f"PCA calculation failed: {error}")
+        os.chdir(original_dir)
         return False, ""
 
-    pca_file = os.path.join(config.outdir, "pca.eigenvec")
+    pca_file = "pca.eigenvec"
     if not os.path.exists(pca_file):
         logger.error("PCA output file not found")
+        os.chdir(original_dir)
         return False, ""
 
     logger.info("PCA calculation completed")
 
     # 检查样本数
     pca_samples = utils.count_lines(pca_file) - 1  # 减去表头
-    geno_samples = utils.count_lines(
-        os.path.join(config.outdir, "genotype.fam"))
+    geno_samples = utils.count_lines("genotype.fam")
 
     logger.info(f"PCA samples: {pca_samples}")
     logger.info(f"Genotype samples: {geno_samples}")
@@ -331,24 +336,26 @@ def step4_pca_analysis(config: AnalysisConfig,
         logger.warning("Sample count mismatch, synchronizing...")
         success = utils.match_samples(
             pca_file,
-            os.path.join(config.outdir, "genotype"),
+            "genotype",
             pheno_no_header,
-            os.path.join(config.outdir, "genotype_matched"),
+            "genotype_matched",
             config.threads,
             logger
         )
 
         if not success:
             logger.error("Failed to match samples")
+            os.chdir(original_dir)
             return False, ""
 
         logger.info("Samples synchronized")
 
     # 准备协变量文件
-    covariate_file = os.path.join(config.outdir, "covariate.txt")
+    covariate_file = "covariate.txt"
     success = utils.prepare_covariate_file(pca_file, covariate_file, logger)
 
     if not success:
+        os.chdir(original_dir)
         return False, ""
 
     covariate_samples = utils.count_lines(covariate_file)
@@ -356,7 +363,13 @@ def step4_pca_analysis(config: AnalysisConfig,
     logger.info("Covariate file prepared")
     logger.info("")
 
-    return True, covariate_file
+    # 获取绝对路径返回
+    covariate_file_abs = os.path.abspath(covariate_file)
+
+    # 恢复原工作目录
+    os.chdir(original_dir)
+
+    return True, covariate_file_abs
 
 
 def step5_kinship_matrix(config: AnalysisConfig,
@@ -397,32 +410,45 @@ def step5_kinship_matrix(config: AnalysisConfig,
     logger.info("Sample counts consistent")
     logger.info("")
 
+    # 切换到输出目录
+    original_dir = os.getcwd()
+    os.chdir(config.outdir)
+
     # 构建GEMMA命令
     gemma_output_dir = config.get_gemma_output_dir()
     os.makedirs(gemma_output_dir, exist_ok=True)
+
+    # GEMMA的输出目录是相对路径，但需要绝对路径来访问output/目录
+    gemma_output_abs = os.path.abspath(gemma_output_dir)
 
     qc_args = ' '.join(config.get_gemma_qc_args())
     cmd = f"{config.gemma_path} -bfile genotype " \
           f"-gk {config.gemma.gk_method} " \
           f"{qc_args} " \
-          f"-o kinship"
+          f"-o kinship " \
+          f"-outdir {gemma_output_abs}"
 
     logger.info(f"Running command: {cmd}")
 
-    log_file = os.path.join(config.outdir, "gemma_kinship.log")
+    log_file = "gemma_kinship.log"
     success, error = utils.run_command(cmd, log_file, logger)
 
     if not success:
         logger.error(f"Kinship matrix calculation failed: {error}")
+        os.chdir(original_dir)
         return False
 
-    kinship_file = os.path.join(gemma_output_dir, "kinship.cXX.txt")
+    kinship_file = os.path.join(gemma_output_abs, "kinship.cXX.txt")
     if not os.path.exists(kinship_file):
         logger.error("Kinship matrix output file not found")
+        os.chdir(original_dir)
         return False
 
     logger.info("Kinship matrix calculation completed")
     logger.info("")
+
+    # 恢复原工作目录
+    os.chdir(original_dir)
 
     return True
 
@@ -450,8 +476,13 @@ def step6_gwas_analysis(config: AnalysisConfig,
     logger.info("=" * 60)
     logger.info("")
 
+    # 切换到输出目录
+    original_dir = os.getcwd()
+    os.chdir(config.outdir)
+
     n_phenotypes = len(pheno_names) - 1  # 减去样本ID列
     gemma_output_dir = config.get_gemma_output_dir()
+    gemma_output_abs = os.path.abspath(gemma_output_dir)
 
     # 分析每个表型
     for i in range(1, len(pheno_names)):  # 跳过第一列（样本ID）
@@ -465,20 +496,21 @@ def step6_gwas_analysis(config: AnalysisConfig,
         notsnp_arg = "-notsnp" if config.gemma.notsnp else ""
 
         cmd = f"{config.gemma_path} -bfile genotype " \
-              f"-k {os.path.join(gemma_output_dir, 'kinship.cXX.txt')} " \
+              f"-k {os.path.join(gemma_output_abs, 'kinship.cXX.txt')} " \
               f"-lmm {config.gemma.lmm_method} " \
               f"-p {pheno_no_header} " \
               f"-n {pheno_col} " \
               f"-c {covariate_file} " \
               f"{qc_args} " \
               f"{notsnp_arg} " \
-              f"-o {pheno_name}_lmm"
+              f"-o {pheno_name}_lmm " \
+              f"-outdir {gemma_output_abs}"
 
-        log_file = os.path.join(config.outdir, f"gemma_{pheno_name}.log")
+        log_file = f"gemma_{pheno_name}.log"
         success, error = utils.run_command(cmd, log_file, logger)
 
         if success:
-            assoc_file = os.path.join(gemma_output_dir,
+            assoc_file = os.path.join(gemma_output_abs,
                                       f"{pheno_name}_lmm.assoc.txt")
             if os.path.exists(assoc_file):
                 sig_counts = utils.count_significant_snps(
@@ -493,6 +525,9 @@ def step6_gwas_analysis(config: AnalysisConfig,
             logger.warning(f"  Analysis failed: {error}")
 
         logger.info("")
+
+    # 恢复原工作目录
+    os.chdir(original_dir)
 
     return True
 
