@@ -307,6 +307,13 @@ def match_samples(pca_file: str, genotype_prefix: str, pheno_file: str,
         # 替换原表型文件
         os.replace(pheno_matched_file, pheno_file)
 
+        # 替换基因型文件（将genotype_matched重命名为genotype）
+        for suffix in ['bed', 'bim', 'fam']:
+            src = f"{output_prefix}.{suffix}"
+            dst = f"{genotype_prefix}.{suffix}"
+            if os.path.exists(src):
+                os.replace(src, dst)
+
         # 清理临时文件
         os.remove(keep_file)
 

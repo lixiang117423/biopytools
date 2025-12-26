@@ -273,12 +273,16 @@ def step3_prepare_phenotype(config: AnalysisConfig,
 
     pheno_with_header, pheno_no_header, pheno_names = result
 
-    n_samples = utils.count_lines(pheno_no_header)
+    # 转换为绝对路径以便在后续步骤中使用
+    pheno_with_header_abs = os.path.abspath(pheno_with_header)
+    pheno_no_header_abs = os.path.abspath(pheno_no_header)
+
+    n_samples = utils.count_lines(pheno_no_header_abs)
     logger.info(f"Phenotype samples: {n_samples}")
     logger.info("Phenotype files prepared")
     logger.info("")
 
-    return True, [pheno_with_header, pheno_no_header, pheno_names]
+    return True, [pheno_with_header_abs, pheno_no_header_abs, pheno_names]
 
 
 def step4_pca_analysis(config: AnalysisConfig,
