@@ -115,6 +115,7 @@ Options:
 [Parabricks | GPU加速WGS分析](./docs/parabricks.md) - 🚀 单独的Parabricks GPU加速WGS分析工具
 
 ### 📊 群体遗传与进化 | Population Genetics & Evolution
+[GEMMA GWAS | 全基因组关联分析](./docs/gemma-gwas.md) - 🧬 基于GEMMA的混合线性模型GWAS分析工具
 [TASSEL GWAS | 全基因组关联分析](./docs/tassel_gwas.md) - 🌾 基于TASSEL的GWAS分析工具
 [GWAS Lambda | GWAS质量控制](./docs/gwas_lambda.md) - 📊 GWAS结果Lambda GC计算和质量评估工具
 [MCycDB | 甲烷循环基因丰度分析](./docs/mcyc.md) - 🧬 基于MCycDB的甲烷循环功能基因定量分析工具
