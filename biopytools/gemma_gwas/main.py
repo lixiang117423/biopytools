@@ -503,7 +503,7 @@ def step6_gwas_analysis(config: AnalysisConfig,
               f"-c {covariate_file} " \
               f"{qc_args} " \
               f"{notsnp_arg} " \
-              f"-o output/{pheno_name}_lmm"
+              f"-o {pheno_name}_lmm"
 
         log_file = f"gemma_{pheno_name}.log"
         success, error = utils.run_command(cmd, log_file, logger)
