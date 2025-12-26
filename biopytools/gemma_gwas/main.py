@@ -421,15 +421,12 @@ def step5_kinship_matrix(config: AnalysisConfig,
     original_dir = os.getcwd()
     os.chdir(config.outdir)
 
-    # 构建GEMMA命令
-    gemma_output_dir = config.get_gemma_output_dir()
-    os.makedirs(gemma_output_dir, exist_ok=True)
-
+    # 构建GEMMA命令（GEMMA会自动创建output目录）
     qc_args = ' '.join(config.get_gemma_qc_args())
     cmd = f"{config.gemma_path} -bfile genotype " \
           f"-gk {config.gemma.gk_method} " \
           f"{qc_args} " \
-          f"-o output/kinship"
+          f"-o kinship"
 
     logger.info(f"Running command: {cmd}")
 
@@ -441,9 +438,10 @@ def step5_kinship_matrix(config: AnalysisConfig,
         os.chdir(original_dir)
         return False
 
-    kinship_file = os.path.join(gemma_output_dir, "kinship.cXX.txt")
+    # GEMMA会自动创建output目录
+    kinship_file = "output/kinship.cXX.txt"
     if not os.path.exists(kinship_file):
-        logger.error("Kinship matrix output file not found")
+        logger.error(f"Kinship matrix output file not found: {kinship_file}")
         os.chdir(original_dir)
         return False
 

@@ -226,15 +226,15 @@ def prepare_covariate_file(pca_file: str, output_file: str,
         with open(pca_file, 'r') as f:
             lines = f.readlines()
 
-        # 跳过表头，提取第3列及以后的主成分
+        # PCA eigenvec文件没有表头，不跳过第一行，提取第3列及以后的主成分
         with open(output_file, 'w') as f:
-            for line in lines[1:]:
+            for line in lines:
                 fields = line.strip().split()
                 # 从第3列开始（前两列是FID和IID）
                 pc_values = '\t'.join(fields[2:])
                 f.write(pc_values + '\n')
 
-        logger.info(f"Covariate file prepared: {output_file}")
+        logger.info(f"Covariate file prepared: {output_file} with {len(lines)} samples")
         return True
 
     except Exception as e:
@@ -265,11 +265,16 @@ def match_samples(pca_file: str, genotype_prefix: str, pheno_file: str,
         with open(pca_file, 'r') as f:
             lines = f.readlines()
 
+        logger.info(f"PCA file has {len(lines)} samples")
+
+        # PCA eigenvec文件没有表头，不跳过第一行
         with open(keep_file, 'w') as f:
-            for line in lines[1:]:  # 跳过表头
+            for line in lines:
                 fields = line.strip().split()
                 if len(fields) >= 2:
                     f.write(f"{fields[0]}\t{fields[1]}\n")
+
+        logger.info(f"Created keep file with {len(lines)} samples")
 
         # 使用PLINK过滤样本
         cmd = f"plink --bfile {genotype_prefix} --keep {keep_file} " \
@@ -291,6 +296,9 @@ def match_samples(pca_file: str, genotype_prefix: str, pheno_file: str,
                 if len(fields) >= 2:
                     keep_samples.add(fields[1])  # IID
 
+        logger.info(f"Filtering phenotype file to {len(keep_samples)} samples")
+        logger.info(f"Phenotype file: {pheno_file}")
+
         pheno_matched_file = f"{output_prefix}_pheno_matched.txt"
         with open(pheno_file, 'r') as f_in:
             with open(pheno_matched_file, 'w') as f_out:
@@ -299,10 +307,15 @@ def match_samples(pca_file: str, genotype_prefix: str, pheno_file: str,
                 f_out.write(header)
 
                 # 过滤样本
+                matched_count = 0
                 for line in f_in:
                     fields = line.strip().split('\t')
                     if fields[0] in keep_samples:
                         f_out.write(line)
+                        matched_count += 1
+
+        logger.info(f"Matched {matched_count} samples in phenotype file")
+        logger.info(f"Replacing {pheno_file} with {pheno_matched_file}")
 
         # 替换原表型文件
         os.replace(pheno_matched_file, pheno_file)
