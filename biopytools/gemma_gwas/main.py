@@ -334,10 +334,13 @@ def step4_pca_analysis(config: AnalysisConfig,
     # 同步样本（如果需要）
     if pca_samples != geno_samples:
         logger.warning("Sample count mismatch, synchronizing...")
+        # 获取表型文件的basename（因为已经在输出目录中）
+        pheno_basename = os.path.basename(pheno_no_header)
+
         success = utils.match_samples(
             pca_file,
             "genotype",
-            pheno_no_header,
+            pheno_basename,
             "genotype_matched",
             config.threads,
             logger
@@ -418,15 +421,11 @@ def step5_kinship_matrix(config: AnalysisConfig,
     gemma_output_dir = config.get_gemma_output_dir()
     os.makedirs(gemma_output_dir, exist_ok=True)
 
-    # GEMMA的输出目录是相对路径，但需要绝对路径来访问output/目录
-    gemma_output_abs = os.path.abspath(gemma_output_dir)
-
     qc_args = ' '.join(config.get_gemma_qc_args())
     cmd = f"{config.gemma_path} -bfile genotype " \
           f"-gk {config.gemma.gk_method} " \
           f"{qc_args} " \
-          f"-o kinship " \
-          f"-outdir {gemma_output_abs}"
+          f"-o output/kinship"
 
     logger.info(f"Running command: {cmd}")
 
@@ -438,7 +437,7 @@ def step5_kinship_matrix(config: AnalysisConfig,
         os.chdir(original_dir)
         return False
 
-    kinship_file = os.path.join(gemma_output_abs, "kinship.cXX.txt")
+    kinship_file = os.path.join(gemma_output_dir, "kinship.cXX.txt")
     if not os.path.exists(kinship_file):
         logger.error("Kinship matrix output file not found")
         os.chdir(original_dir)
@@ -482,7 +481,6 @@ def step6_gwas_analysis(config: AnalysisConfig,
 
     n_phenotypes = len(pheno_names) - 1  # 减去样本ID列
     gemma_output_dir = config.get_gemma_output_dir()
-    gemma_output_abs = os.path.abspath(gemma_output_dir)
 
     # 分析每个表型
     for i in range(1, len(pheno_names)):  # 跳过第一列（样本ID）
@@ -496,21 +494,20 @@ def step6_gwas_analysis(config: AnalysisConfig,
         notsnp_arg = "-notsnp" if config.gemma.notsnp else ""
 
         cmd = f"{config.gemma_path} -bfile genotype " \
-              f"-k {os.path.join(gemma_output_abs, 'kinship.cXX.txt')} " \
+              f"-k output/kinship.cXX.txt " \
               f"-lmm {config.gemma.lmm_method} " \
               f"-p {pheno_no_header} " \
               f"-n {pheno_col} " \
               f"-c {covariate_file} " \
               f"{qc_args} " \
               f"{notsnp_arg} " \
-              f"-o {pheno_name}_lmm " \
-              f"-outdir {gemma_output_abs}"
+              f"-o output/{pheno_name}_lmm"
 
         log_file = f"gemma_{pheno_name}.log"
         success, error = utils.run_command(cmd, log_file, logger)
 
         if success:
-            assoc_file = os.path.join(gemma_output_abs,
+            assoc_file = os.path.join(gemma_output_dir,
                                       f"{pheno_name}_lmm.assoc.txt")
             if os.path.exists(assoc_file):
                 sig_counts = utils.count_significant_snps(
