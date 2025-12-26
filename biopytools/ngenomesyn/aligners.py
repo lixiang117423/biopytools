@@ -289,7 +289,7 @@ class Minimap2Aligner(BaseAligner):
             # 运行minimap2生成SAM格式 - 使用 -ax 和 --eqx 参数
             # -ax asm5: 生成SAM格式输出（用于长序列比对）
             # --eqx: 生成扩展的CIGAR字符串（包含=和X操作符）
-            cmd_minimap2 = f"minimap2 -ax {preset} --eqx -t {self.threads} \"{genome2_file}\" \"{genome1_file}\" > \"{sam_file}\""
+            cmd_minimap2 = f"minimap2 -ax {preset} --eqx -t {self.threads} \"{genome1_file}\" \"{genome2_file}\" > \"{sam_file}\""
 
             # 记录命令到日志
             self.log_command(
