@@ -811,9 +811,9 @@ Examples:
                              help='Kinship matrix method (default: 1): '
                                   '1=centered, 2=standardized')
     gemma_group.add_argument('--miss-gemma', type=float,
-                             help='GEMMA missing rate threshold (default: 0.05)')
+                             help='GEMMA missing rate threshold (default: 1.0, no filter)')
     gemma_group.add_argument('--maf-gemma', type=float,
-                             help='GEMMA MAF threshold (default: 0.01)')
+                             help='GEMMA MAF threshold (default: 0.0, no filter)')
     gemma_group.add_argument('--notsnp', action='store_true',
                              help='Do not output estimated values for each SNP (faster)')
 
