@@ -39,8 +39,8 @@ class GEMMAConfig:
     """GEMMA分析参数配置"""
     lmm_method: int = 4       # LMM检验方法: 1=Wald, 2=LRT, 3=Score, 4=all
     gk_method: int = 1        # 亲缘关系矩阵方法: 1=centered, 2=standardized
-    miss: float = 0.05        # GEMMA的缺失率阈值
-    maf: float = 0.01         # GEMMA的MAF阈值
+    miss: float = 1.0         # GEMMA的缺失率阈值（1.0=不过滤）
+    maf: float = 0.0          # GEMMA的MAF阈值（0=不过滤）
     notsnp: bool = False      # 是否跳过SNP输出
 
     def __post_init__(self):
