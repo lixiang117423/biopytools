@@ -1,3 +1,10 @@
+## [0.15.0] - 2025-12-26
+
+### Changed
+- add gemma module
+- Updated files: biopytools/gemma_gwas,biopytools/cli/commands/gemma_gwas.py,biopytools/cli/main.py,docs/gemma-gwas.md,README.md
+
+
 ## [0.14.0] - 2025-12-25
 
 ### Changed
