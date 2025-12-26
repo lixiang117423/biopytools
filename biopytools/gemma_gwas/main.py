@@ -86,32 +86,48 @@ def step1_convert_vcf_to_plink(config: AnalysisConfig,
     logger.info("STEP 1/6: Convert VCF to PLINK format")
     logger.info("=" * 60)
 
-    cmd = f"plink --vcf {config.vcf} " \
+    # 确保输出目录存在
+    os.makedirs(config.outdir, exist_ok=True)
+
+    # 将VCF路径转换为绝对路径（如果它是相对路径）
+    vcf_abs = os.path.abspath(config.vcf) if not os.path.isabs(config.vcf) else config.vcf
+
+    # 切换到输出目录
+    original_dir = os.getcwd()
+    os.chdir(config.outdir)
+
+    cmd = f"plink --vcf {vcf_abs} " \
           f"--make-bed --out genotype_raw " \
           f"--allow-extra-chr --double-id --threads {config.threads}"
 
-    log_file = os.path.join(config.outdir, "plink_convert.log")
+    log_file = "plink_convert.log"
     success, error = utils.run_command(cmd, log_file, logger)
 
     if not success:
         logger.error(f"VCF conversion failed: {error}")
+        os.chdir(original_dir)
         return False
 
-    # 统计信息
-    bed_file = os.path.join(config.outdir, "genotype_raw.bed")
+    # 统计信息（在输出目录中，使用相对路径）
+    bed_file = "genotype_raw.bed"
     if not os.path.exists(bed_file):
         logger.error("Output files not found")
+        logger.error(f"Current directory: {os.getcwd()}")
+        logger.error(f"Looking for: {bed_file}")
+        logger.error(f"Files in current directory: {os.listdir('.')}")
+        os.chdir(original_dir)
         return False
 
-    n_samples = utils.count_lines(
-        os.path.join(config.outdir, "genotype_raw.fam"))
-    n_snps = utils.count_lines(
-        os.path.join(config.outdir, "genotype_raw.bim"))
+    n_samples = utils.count_lines("genotype_raw.fam")
+    n_snps = utils.count_lines("genotype_raw.bim")
 
     logger.info(f"Conversion completed")
     logger.info(f"Original samples: {n_samples}")
     logger.info(f"Original SNPs: {n_snps}")
     logger.info("")
+
+    # 恢复原工作目录
+    os.chdir(original_dir)
 
     return True
 
@@ -132,15 +148,21 @@ def step2_quality_control(config: AnalysisConfig,
     logger.info("STEP 2/6: Quality Control")
     logger.info("=" * 60)
 
+    # 切换到输出目录
+    original_dir = os.getcwd()
+    os.chdir(config.outdir)
+
     if not config.plink_qc.enable:
         logger.info("Quality control skipped")
         # 重命名文件
         for suffix in ['bed', 'bim', 'fam', 'log']:
-            src = os.path.join(config.outdir, f"genotype_raw.{suffix}")
-            dst = os.path.join(config.outdir, f"genotype.{suffix}")
+            src = f"genotype_raw.{suffix}"
+            dst = f"genotype.{suffix}"
             if os.path.exists(src):
                 os.replace(src, dst)
         logger.info("")
+        # 恢复原工作目录
+        os.chdir(original_dir)
         return True
 
     # 构建质控命令
@@ -150,27 +172,25 @@ def step2_quality_control(config: AnalysisConfig,
           f"--make-bed --out genotype " \
           f"--threads {config.threads}"
 
-    log_file = os.path.join(config.outdir, "plink_qc.log")
+    log_file = "plink_qc.log"
     success, error = utils.run_command(cmd, log_file, logger)
 
     if not success:
         logger.error(f"Quality control failed: {error}")
+        os.chdir(original_dir)
         return False
 
     # 统计信息
-    bed_file = os.path.join(config.outdir, "genotype.bed")
+    bed_file = "genotype.bed"
     if not os.path.exists(bed_file):
         logger.error("Output files not found")
+        os.chdir(original_dir)
         return False
 
-    n_samples_raw = utils.count_lines(
-        os.path.join(config.outdir, "genotype_raw.fam"))
-    n_snps_raw = utils.count_lines(
-        os.path.join(config.outdir, "genotype_raw.bim"))
-    n_samples_qc = utils.count_lines(
-        os.path.join(config.outdir, "genotype.fam"))
-    n_snps_qc = utils.count_lines(
-        os.path.join(config.outdir, "genotype.bim"))
+    n_samples_raw = utils.count_lines("genotype_raw.fam")
+    n_snps_raw = utils.count_lines("genotype_raw.bim")
+    n_samples_qc = utils.count_lines("genotype.fam")
+    n_snps_qc = utils.count_lines("genotype.bim")
 
     logger.info(f"Quality control completed")
     logger.info(f"Samples after QC: {n_samples_qc} "
@@ -178,6 +198,9 @@ def step2_quality_control(config: AnalysisConfig,
     logger.info(f"SNPs after QC: {n_snps_qc} "
                f"(removed: {n_snps_raw - n_snps_qc})")
     logger.info("")
+
+    # 恢复原工作目录
+    os.chdir(original_dir)
 
     return True
 
@@ -195,8 +218,18 @@ def step2_fix_fam_file(config: AnalysisConfig, logger: logging.Logger) -> bool:
     """
     logger.info("Fixing FAM file phenotype column...")
 
-    fam_file = os.path.join(config.outdir, "genotype.fam")
-    success = utils.fix_fam_file(config.pheno, fam_file, logger)
+    # 将表型文件路径转换为绝对路径（在切换目录之前）
+    pheno_abs = os.path.abspath(config.pheno) if not os.path.isabs(config.pheno) else config.pheno
+
+    # 切换到输出目录
+    original_dir = os.getcwd()
+    os.chdir(config.outdir)
+
+    fam_file = "genotype.fam"
+    success = utils.fix_fam_file(pheno_abs, fam_file, logger)
+
+    # 恢复原工作目录
+    os.chdir(original_dir)
 
     if success:
         logger.info("FAM file updated")
@@ -223,12 +256,15 @@ def step3_prepare_phenotype(config: AnalysisConfig,
     logger.info("STEP 3/6: Prepare Phenotype Files")
     logger.info("=" * 60)
 
-    n_cols = utils.count_columns(config.pheno)
+    # 将表型文件路径转换为绝对路径
+    pheno_abs = os.path.abspath(config.pheno) if not os.path.isabs(config.pheno) else config.pheno
+
+    n_cols = utils.count_columns(pheno_abs)
     logger.info(f"Phenotype file columns: {n_cols} (including sample ID)")
     logger.info(f"Number of phenotypes: {n_cols - 1}")
 
     success, result = utils.prepare_phenotype_files(
-        config.pheno, config.outdir, logger
+        pheno_abs, config.outdir, logger
     )
 
     if not success:
@@ -548,7 +584,7 @@ def main():
 
     # 创建配置
     config = AnalysisConfig(
-        vcf=args.vcf,
+        vcf=args.input,
         pheno=args.pheno,
         outdir=args.outdir,
         n_pca=args.n_pca,
@@ -617,7 +653,6 @@ def main():
 
         # 创建输出目录
         os.makedirs(config.outdir, exist_ok=True)
-        os.chdir(config.outdir)
 
         # 步骤1: 转换VCF为PLINK格式
         if not step1_convert_vcf_to_plink(config, logger):
@@ -687,23 +722,23 @@ def parse_arguments():
         epilog='''
 Examples:
   # Basic usage
-  %(prog)s -v genotype.vcf.gz -p phenotype.txt
+  %(prog)s -i genotype.vcf.gz -p phenotype.txt
 
   # Specify output directory and PCA number
-  %(prog)s -v genotype.vcf.gz -p phenotype.txt -o results --n-pca 15
+  %(prog)s -i genotype.vcf.gz -p phenotype.txt -o results --n-pca 15
 
   # Full parameters
-  %(prog)s -v genotype.vcf.gz -p phenotype.txt -o results \\
+  %(prog)s -i genotype.vcf.gz -p phenotype.txt -o results \\
      --n-pca 10 --maf 0.05 --geno 0.05 --lmm 4 --notsnp
 
   # Skip quality control
-  %(prog)s -v genotype.vcf.gz -p phenotype.txt --no-qc
+  %(prog)s -i genotype.vcf.gz -p phenotype.txt --no-qc
         '''
     )
 
     # 必需参数
     required = parser.add_argument_group('required arguments')
-    required.add_argument('-v', '--vcf', required=True,
+    required.add_argument('-i', '--input', required=True,
                          help='Input VCF file (can be compressed)')
     required.add_argument('-p', '--pheno', required=True,
                          help='Phenotype file (first column: sample ID, has header)')

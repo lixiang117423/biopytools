@@ -20,7 +20,7 @@ class PLINKQCConfig:
     geno: float = 0.1          # SNP最大缺失率
     mind: float = 0.1          # 样本最大缺失率
     hwe: float = 1e-6          # Hardy-Weinberg平衡p值阈值
-    enable: bool = True        # 是否启用质控
+    enable: bool = False       # 是否启用质控（默认不启用）
 
     def __post_init__(self):
         """验证参数范围"""
@@ -59,7 +59,7 @@ class GEMMAConfig:
 class AnalysisConfig:
     """整体分析配置"""
     # 输入文件
-    vcf: str = ""
+    vcf: str = ""  # VCF文件路径（保持参数名为vcf以兼容）
     pheno: str = ""
 
     # 输出目录

@@ -34,7 +34,7 @@ def _validate_file_exists(file_path):
 @click.command(short_help="GEMMA GWAS批量分析工具",
                context_settings=dict(help_option_names=['-h', '--help'],
                                     max_content_width=120))
-@click.option('--vcf',
+@click.option('--input', '-i',
               required=True,
               callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='VCF format genotype file (can be compressed)')
@@ -96,7 +96,7 @@ def _validate_file_exists(file_path):
 @click.option('--log-file',
               type=click.Path(),
               help='Log file path')
-def gemma_gwas(vcf, pheno, outdir, n_pca, threads, gemma,
+def gemma_gwas(input, pheno, outdir, n_pca, threads, gemma,
                maf, geno, mind, hwe, no_qc,
                lmm, gk, miss_gemma, maf_gemma, notsnp,
                verbose, quiet, log_file):
@@ -111,22 +111,22 @@ def gemma_gwas(vcf, pheno, outdir, n_pca, threads, gemma,
     \b
     # 基本使用
     biopytools gemma-gwas \\
-        --vcf genotype.vcf.gz \\
-        --pheno phenotype.txt
+        -i genotype.vcf.gz \\
+        -p phenotype.txt
 
     \b
     # 指定输出目录和PCA数量
     biopytools gemma-gwas \\
-        --vcf genotype.vcf.gz \\
-        --pheno phenotype.txt \\
+        -i genotype.vcf.gz \\
+        -p phenotype.txt \\
         -o results \\
         --n-pca 15
 
     \b
     # 完整参数示例
     biopytools gemma-gwas \\
-        --vcf genotype.vcf.gz \\
-        --pheno phenotype.txt \\
+        -i genotype.vcf.gz \\
+        -p phenotype.txt \\
         -o results \\
         --n-pca 10 \\
         --maf 0.05 \\
@@ -137,8 +137,8 @@ def gemma_gwas(vcf, pheno, outdir, n_pca, threads, gemma,
     \b
     # 跳过质控
     biopytools gemma-gwas \\
-        --vcf genotype.vcf.gz \\
-        --pheno phenotype.txt \\
+        -i genotype.vcf.gz \\
+        -p phenotype.txt \\
         --no-qc
     """
 
@@ -149,7 +149,7 @@ def gemma_gwas(vcf, pheno, outdir, n_pca, threads, gemma,
     args = ['gemma_gwas.py']
 
     # 必需参数
-    args.extend(['--vcf', vcf])
+    args.extend(['--input', input])
     args.extend(['-p', pheno])
 
     # 可选参数（只在非默认值时添加）
