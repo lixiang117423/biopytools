@@ -222,7 +222,8 @@ COMMAND_REGISTRY = [
     ('rename_chromosomes', 'rename-chromosomes', '🧬 染色体重命名工具'),
     ('dsuite', 'dsuite', '🧬 Dsuite D统计量分析工具'),
     ('ngenomesyn', 'ngenomesyn', '🧬 NGenomeSyn可视化工具'),
-    ('assembly2agp', 'assembly2agp', '🧬 Assembly文件转AGP格式工具')
+    ('assembly2agp', 'assembly2agp', '🧬 Assembly文件转AGP格式工具'),
+    ('gemma_gwas', 'gemma-gwas', '🧬 GEMMA GWAS批量分析工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询
