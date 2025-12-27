@@ -1,5 +1,5 @@
 """
-PopLDdecay主程序模块 | PopLDdecay Main Module
+PopLD主程序模块 | PopLD Main Module
 用于连锁不平衡(LD)衰减分析 | Linkage Disequilibrium Decay Analysis
 """
 
@@ -7,12 +7,13 @@ import os
 import sys
 import argparse
 import time
+from collections import defaultdict
 from .config import PopLDdecayConfig
 from .utils import PopLDdecayLogger, CommandRunner
 
 
-class PopLDdecayRunner:
-    """PopLDdecay运行器类 | PopLDdecay Runner Class"""
+class PopLDRunner:
+    """PopLD运行器类 | PopLD Runner Class"""
 
     def __init__(self, **kwargs):
         # 初始化配置 | Initialize configuration
@@ -71,11 +72,192 @@ class PopLDdecayRunner:
 
         return " ".join(cmd_parts)
 
-    def run_analysis(self):
-        """运行LD衰减分析 | Run LD decay analysis"""
+    def parse_sample_groups(self, sample_file: str) -> dict:
+        """解析样本分组文件（两列格式：样本ID 分组名）| Parse sample group file (two columns: SampleID GroupName)"""
+        groups = defaultdict(list)
+
+        with open(sample_file, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                parts = line.split('\t') if '\t' in line else line.split()
+                if len(parts) >= 2:
+                    sample_id = parts[0]
+                    group_name = parts[1]
+                    groups[group_name].append(sample_id)
+                elif len(parts) == 1:
+                    # 只有一列，归入默认组 | Single column, put in default group
+                    groups['default'].append(parts[0])
+
+        return dict(groups)
+
+    def run_group_analysis(self):
+        """按分组运行LD衰减分析 | Run LD decay analysis by groups"""
+        # 解析样本分组 | Parse sample groups
         self.logger.info("=" * 60)
-        self.logger.info("PopLDdecay: 连锁不平衡衰减分析")
-        self.logger.info("PopLDdecay: Linkage Disequilibrium Decay Analysis")
+        self.logger.info("PopLD: 连锁不平衡衰减分析（分组模式）")
+        self.logger.info("PopLD: Linkage Disequilibrium Decay Analysis (Group Mode)")
+        self.logger.info("=" * 60)
+
+        self.logger.info(f"输入VCF | Input VCF: {self.config.input_vcf}")
+        self.logger.info(f"样本分组文件 | Sample group file: {self.config.sub_pop}")
+
+        groups = self.parse_sample_groups(self.config.sub_pop)
+
+        if not groups:
+            self.logger.error("无法解析样本分组 | Failed to parse sample groups")
+            return False
+
+        self.logger.info(f"检测到 {len(groups)} 个分组 | Found {len(groups)} groups:")
+        for group_name, samples in groups.items():
+            self.logger.info(f"  {group_name}: {len(samples)} 个样本 | samples")
+
+        if len(groups) == 1 and 'default' in groups:
+            self.logger.warning("样本文件只有一列，将作为单一群体处理 | Single column file, treating as single population")
+            return self.run_single_analysis()
+
+        # 创建临时目录存放分组样本列表 | Create temp directory for group sample lists
+        output_dir = os.path.dirname(self.config.output_stat)
+        temp_dir = os.path.join(output_dir, 'temp_groups')
+        os.makedirs(temp_dir, exist_ok=True)
+
+        # 为每个分组生成样本列表文件并运行PopLDdecay | Generate sample list for each group and run PopLDdecay
+        group_results = []
+
+        for group_name, samples in sorted(groups.items()):
+            self.logger.info("")
+            self.logger.info("=" * 60)
+            self.logger.info(f"处理分组 | Processing group: {group_name} ({len(samples)} samples)")
+            self.logger.info("=" * 60)
+
+            # 生成分组样本列表文件 | Generate group sample list file
+            group_sample_file = os.path.join(temp_dir, f"{group_name}_samples.txt")
+            with open(group_sample_file, 'w') as f:
+                for sample in samples:
+                    f.write(f"{sample}\n")
+
+            # 生成分组输出文件前缀 | Generate group output prefix
+            group_output = f"{self.config.output_stat}.{group_name}"
+
+            # 构建命令 | Build command
+            cmd_parts = [
+                self.config.poplddecay_path,
+                "-InVCF", self.config.input_vcf,
+                "-OutStat", group_output,
+                "-SubPop", group_sample_file,
+                "-MaxDist", str(self.config.max_dist),
+                "-MAF", str(self.config.maf),
+                "-Het", str(self.config.het),
+                "-Miss", str(self.config.miss),
+                "-OutType", str(self.config.out_type),
+                "-Method", str(self.config.method)
+            ]
+            cmd = " ".join(cmd_parts)
+
+            # 运行分析 | Run analysis
+            start_time = time.time()
+            success = self.cmd_runner.run(
+                cmd,
+                description=f"{group_name} LD衰减分析 | {group_name} LD decay analysis"
+            )
+            elapsed_time = time.time() - start_time
+
+            if success:
+                expected_output = f"{group_output}.stat.gz"
+                if os.path.exists(expected_output):
+                    file_size = os.path.getsize(expected_output)
+                    self.logger.info(f"输出文件 | Output file: {expected_output}")
+                    self.logger.info(f"文件大小 | File size: {file_size:,} bytes")
+                    self.logger.info(f"运行时间 | Runtime: {elapsed_time:.2f} seconds")
+                    group_results.append((group_name, expected_output))
+                else:
+                    self.logger.warning(f"预期输出文件未找到 | Expected output file not found: {expected_output}")
+            else:
+                self.logger.error(f"分组 {group_name} 分析失败 | Group {group_name} analysis failed")
+
+        # 清理临时文件 | Clean up temporary files
+        import shutil
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
+
+        # 生成分组合并列表文件用于绘图 | Generate merged list file for plotting
+        if group_results:
+            plot_list_file = f"{self.config.output_stat}.groups.list"
+            with open(plot_list_file, 'w') as f:
+                for group_name, result_file in group_results:
+                    f.write(f"{result_file}\t{group_name}\n")
+
+            self.logger.info("")
+            self.logger.info("=" * 60)
+            self.logger.info("所有分组分析完成 | All group analyses completed")
+            self.logger.info(f"成功分析 {len(group_results)} 个分组 | Successfully analyzed {len(group_results)} groups")
+            self.logger.info(f"绘图列表文件 | Plot list file: {plot_list_file}")
+
+            # 合并所有分组结果到一个文件 | Merge all group results into one file
+            self.logger.info("")
+            self.logger.info("合并分组结果 | Merging group results...")
+            merged_file = self.merge_group_results(group_results)
+
+            if merged_file:
+                self.logger.info(f"合并结果文件 | Merged result file: {merged_file}")
+
+            self.logger.info("")
+            self.logger.info("使用以下命令绘图 | Use the following command to plot:")
+            self.logger.info(f"  perl <PopLDdecay_path>/bin/Plot_MutiPop.pl -inList {plot_list_file} -output {self.config.output_stat}")
+            self.logger.info("=" * 60)
+
+            return len(group_results) > 0
+
+        return False
+
+    def merge_group_results(self, group_results: list) -> str:
+        """合并分组结果到一个文件，在最后一列添加分组信息 | Merge group results into one file, add group info in last column"""
+        import gzip
+
+        merged_file = f"{self.config.output_stat}.merged.stat.gz"
+
+        try:
+            with gzip.open(merged_file, 'wt') as outf:
+                # 写入表头（添加Group列）| Write header (add Group column)
+                header = "#Dist\tMean_r^2\tMean_D'\tSum_r^2\tSum_D'\tNumberPairs\tGroup\n"
+                outf.write(header)
+
+                # 读取并合并每个分组的数据 | Read and merge data from each group
+                for group_name, result_file in group_results:
+                    try:
+                        with gzip.open(result_file, 'rt') as inf:
+                            # 跳过原表头 | Skip original header
+                            header_line = inf.readline()
+                            if not header_line:
+                                continue
+
+                            # 读取数据行并添加分组信息 | Read data lines and add group info
+                            for line in inf:
+                                line = line.strip()
+                                if line:
+                                    outf.write(f"{line}\t{group_name}\n")
+
+                        self.logger.debug(f"  已合并 | Merged: {group_name} ({os.path.basename(result_file)})")
+                    except Exception as e:
+                        self.logger.warning(f"  跳过文件 | Skip file {result_file}: {e}")
+
+            # 统计合并的记录数 | Count merged records
+            with gzip.open(merged_file, 'rt') as f:
+                line_count = sum(1 for _ in f) - 1  # 减去表头行 | Subtract header line
+
+            self.logger.info(f"  合并总记录数 | Total merged records: {line_count:,}")
+            return merged_file
+
+        except Exception as e:
+            self.logger.error(f"合并结果失败 | Failed to merge results: {e}")
+            return None
+
+    def run_single_analysis(self):
+        """运行单个群体的LD衰减分析 | Run single population LD decay analysis"""
+        self.logger.info("=" * 60)
+        self.logger.info("PopLD: 连锁不平衡衰减分析")
+        self.logger.info("PopLD: Linkage Disequilibrium Decay Analysis")
         self.logger.info("=" * 60)
 
         # 输出配置信息 | Output configuration
@@ -104,7 +286,7 @@ class PopLDdecayRunner:
 
         success = self.cmd_runner.run(
             cmd,
-            description="PopLDdecay LD衰减分析 | PopLDdecay LD decay analysis"
+            description="PopLD LD衰减分析 | PopLD LD decay analysis"
         )
 
         elapsed_time = time.time() - start_time
@@ -120,6 +302,11 @@ class PopLDdecayRunner:
                 file_size = os.path.getsize(expected_output)
                 self.logger.info(f"输出文件 | Output file: {expected_output}")
                 self.logger.info(f"文件大小 | File size: {file_size:,} bytes")
+
+                # 提供绘图命令 | Provide plotting command
+                self.logger.info("")
+                self.logger.info("使用以下命令绘图 | Use the following command to plot:")
+                self.logger.info(f"  perl <PopLDdecay_path>/bin/Plot_OnePop.pl -inFile {expected_output} -output {self.config.output_stat}")
             else:
                 self.logger.warning(f"预期输出文件未找到 | Expected output file not found: {expected_output}")
 
@@ -130,6 +317,24 @@ class PopLDdecayRunner:
             self.logger.error("分析失败 | Analysis failed")
             self.logger.error("=" * 60)
             return False
+
+    def run_analysis(self):
+        """运行LD衰减分析（自动检测分组）| Run LD decay analysis (auto-detect groups)"""
+        # 检查是否为两列格式的样本文件 | Check if it's a two-column sample file
+        if self.config.sub_pop:
+            try:
+                with open(self.config.sub_pop, 'r') as f:
+                    first_line = f.readline().strip()
+                    if first_line and not first_line.startswith('#'):
+                        parts = first_line.split('\t') if '\t' in first_line else first_line.split()
+                        if len(parts) >= 2:
+                            # 两列格式，使用分组分析 | Two-column format, use group analysis
+                            return self.run_group_analysis()
+            except Exception as e:
+                self.logger.warning(f"无法检测样本文件格式，使用标准模式 | Cannot detect sample file format, using standard mode: {e}")
+
+        # 标准单群体分析 | Standard single population analysis
+        return self.run_single_analysis()
 
 
 def main():
@@ -199,7 +404,7 @@ def main():
 
     try:
         # 创建运行器 | Create runner
-        runner = PopLDdecayRunner(
+        runner = PopLDRunner(
             input_vcf=args.input_vcf,
             output_stat=args.output_stat,
             poplddecay_path=args.poplddecay_path,
