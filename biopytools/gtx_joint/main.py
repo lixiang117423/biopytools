@@ -313,7 +313,7 @@ def main():
                          help='🧵 线程数 | Number of threads (default: 88)')
     optional.add_argument('-T', '--tmp-dir', default='./tmp',
                          help='🗑️ 临时目录 | Temporary directory (default: ./tmp)')
-    optional.add_argument('-s', '--script', default='run_gtx_joint.sh',
+    optional.add_argument('-s', '--script', default='./run_gtx_joint.sh',
                          help='📄 输出脚本文件名 | Output script filename (default: run_gtx_joint.sh)')
     optional.add_argument('-f', '--faketime', default='2020-10-20 00:00:00',
                          help='⏰ faketime时间 | faketime time (default: 2020-10-20 00:00:00)')
