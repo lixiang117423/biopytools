@@ -118,6 +118,7 @@ Options:
 [GEMMA GWAS | 全基因组关联分析](./docs/gemma-gwas.md) - 🧬 基于GEMMA的混合线性模型GWAS分析工具
 [TASSEL GWAS | 全基因组关联分析](./docs/tassel_gwas.md) - 🌾 基于TASSEL的GWAS分析工具
 [GWAS Lambda | GWAS质量控制](./docs/gwas_lambda.md) - 📊 GWAS结果Lambda GC计算和质量评估工具
+[PopLD | 连锁不平衡衰减分析](./docs/popld.md) - 🧬 基于PopLDdecay的LD衰减分析工具，支持分组分析和结果合并
 [MCycDB | 甲烷循环基因丰度分析](./docs/mcyc.md) - 🧬 基于MCycDB的甲烷循环功能基因定量分析工具
 [Admixture | 群体结构](./docs/admixture.md) - 🧬 ADMIXTURE群体结构分析工具
 [OrthoFinder | 基于基因的泛基因组构建](./docs/orthofinder.md) - 🔍 泛基因组分析和系统发育构建
