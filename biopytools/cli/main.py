@@ -83,7 +83,9 @@ COMMAND_REGISTRY = [
     ('gemma_gwas', 'gemma-gwas', '🧬 GEMMA GWAS批量分析工具'),
     ('vcf_merger', 'vcf-merger', '🧬 VCF按染色体合并工具'),
     ('hicanu', 'hicanu', '🧬 HiCanu基因组组装工具'),
-    ('find_telomere', 'find-telomere', '🧬 端粒识别分析工具')
+    ('find_telomere', 'find-telomere', '🧬 端粒识别分析工具'),
+    ('get_plastome', 'get-plastome', '🧬 叶绿体基因组组装工具'),
+    ('vcf_sampler', 'vcf-sampler', '🎲 VCF文件SNP抽样工具')
 ]
 
 # 将硬编码信息转换为字典，方便查询
