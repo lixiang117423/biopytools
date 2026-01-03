@@ -53,7 +53,7 @@ Options:
 
 [Blast | 序列比对](./docs/blast_v2.md) - 序列比对工具
 
-[RNA-seq | Hisat2转录组流程](./docs/rnaseq.md) - Hisat = StringTie2转录组流程
+[RNA-seq | 转录组流程](./docs/rnaseq.md) - Hisat + StringTie2转录组流程
 
 
 
