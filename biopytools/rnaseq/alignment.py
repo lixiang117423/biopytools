@@ -1,12 +1,12 @@
 # """
-# RNA-seq | RNA-seq Alignment Module
+# RNA-seq|RNA-seq Alignment Module
 # """
 
 # import os
 # from .utils import CommandRunner, FileValidator
 
 # class HISAT2Indexer:
-#     """HISAT2 | HISAT2 Index Builder"""
+#     """HISAT2|HISAT2 Index Builder"""
     
 #     def __init__(self, config, logger, cmd_runner: CommandRunner):
 #         self.config = config
@@ -15,53 +15,53 @@
 #         self.file_validator = FileValidator(logger)
     
 #     def extract_splice_sites(self, gtf_file: str, output_file: str) -> bool:
-#         """GTF | Extract splice sites from GTF file"""
+#         """GTF|Extract splice sites from GTF file"""
 #         try:
-#             self.logger.info(f" | Extracting splice sites: {gtf_file} -> {output_file}")
+#             self.logger.info(f"|Extracting splice sites: {gtf_file} -> {output_file}")
             
 #             # output_file
 #             if os.path.exists(output_file):
-#                 self.logger.info(f" | Splice sites file already exists, skipping: {output_file}")
+#                 self.logger.info(f"|Splice sites file already exists, skipping: {output_file}")
 #                 return True
             
 #             # HISAT2
 #             cmd = f"extract_splice_sites.py {gtf_file} > {output_file}"
-#             success = self.cmd_runner.run(cmd, " | Extract splice sites")
+#             success = self.cmd_runner.run(cmd, "|Extract splice sites")
             
 #             if success:
-#                 self.logger.info(f" | Splice sites extraction completed: {output_file}")
+#                 self.logger.info(f"|Splice sites extraction completed: {output_file}")
             
 #             return success
             
 #         except Exception as e:
-#             self.logger.error(f" | Error extracting splice sites: {e}")
+#             self.logger.error(f"|Error extracting splice sites: {e}")
 #             return False
     
 #     def extract_exons(self, gtf_file: str, output_file: str) -> bool:
-#         """GTF | Extract exons from GTF file"""
+#         """GTF|Extract exons from GTF file"""
 #         try:
-#             self.logger.info(f" | Extracting exons: {gtf_file} -> {output_file}")
+#             self.logger.info(f"|Extracting exons: {gtf_file} -> {output_file}")
             
 #             # output_file
 #             if os.path.exists(output_file):
-#                 self.logger.info(f" | Exons file already exists, skipping: {output_file}")
+#                 self.logger.info(f"|Exons file already exists, skipping: {output_file}")
 #                 return True
             
 #             # HISAT2
 #             cmd = f"extract_exons.py {gtf_file} > {output_file}"
-#             success = self.cmd_runner.run(cmd, " | Extract exons")
+#             success = self.cmd_runner.run(cmd, "|Extract exons")
             
 #             if success:
-#                 self.logger.info(f" | Exons extraction completed: {output_file}")
+#                 self.logger.info(f"|Exons extraction completed: {output_file}")
             
 #             return success
             
 #         except Exception as e:
-#             self.logger.error(f" | Error extracting exons: {e}")
+#             self.logger.error(f"|Error extracting exons: {e}")
 #             return False
     
 #     def build_hisat2_index(self) -> str:
-#         """HISAT2 | Build HISAT2 genome index"""
+#         """HISAT2|Build HISAT2 genome index"""
 #         genome_path = self.config.genome_file
 #         gtf_file = self.config.gtf_file
 #         threads = self.config.threads
@@ -70,52 +70,52 @@
 #         genome_name = os.path.splitext(os.path.basename(genome_path))[0]
 #         index_prefix = os.path.join(genome_dir, f"{genome_name}.hisat2.index")
 
-#         #  | Check if index already exists
+#         # |Check if index already exists
 #         if os.path.exists(f"{index_prefix}.1.ht2"):
-#             self.logger.info(f"HISAT2 | HISAT2 index already exists: {index_prefix}")
+#             self.logger.info(f"HISAT2|HISAT2 index already exists: {index_prefix}")
 #             return index_prefix
 
-#         #  | Prepare splice sites and exons file paths
+#         # |Prepare splice sites and exons file paths
 #         splice_sites_file = os.path.join(genome_dir, f"{genome_name}.ss")
 #         exons_file = os.path.join(genome_dir, f"{genome_name}.exon")
         
-#         #  | Extract splice sites
+#         # |Extract splice sites
 #         if not self.extract_splice_sites(gtf_file, splice_sites_file):
-#             self.logger.warning(" | Splice sites extraction failed, building index without splice sites")
+#             self.logger.warning("|Splice sites extraction failed, building index without splice sites")
 #             splice_sites_file = None
         
-#         #  | Extract exons
+#         # |Extract exons
 #         if not self.extract_exons(gtf_file, exons_file):
-#             self.logger.warning(" | Exons extraction failed, building index without exons")
+#             self.logger.warning("|Exons extraction failed, building index without exons")
 #             exons_file = None
         
-#         # HISAT2 | Build HISAT2 index command
+#         # HISAT2|Build HISAT2 index command
 #         cmd_parts = [f"hisat2-build"]
         
-#         #  | Add splice sites parameter
+#         # |Add splice sites parameter
 #         if splice_sites_file and os.path.exists(splice_sites_file):
 #             cmd_parts.append(f"--ss {splice_sites_file}")
-#             self.logger.info(f" | Using splice sites file: {splice_sites_file}")
+#             self.logger.info(f"|Using splice sites file: {splice_sites_file}")
         
-#         #  | Add exons parameter
+#         # |Add exons parameter
 #         if exons_file and os.path.exists(exons_file):
 #             cmd_parts.append(f"--exon {exons_file}")
-#             self.logger.info(f" | Using exons file: {exons_file}")
+#             self.logger.info(f"|Using exons file: {exons_file}")
         
-#         #  | Add threads and basic parameters
+#         # |Add threads and basic parameters
 #         cmd_parts.extend([f"-p {threads}", genome_path, index_prefix])
         
-#         #  | Combine command
+#         # |Combine command
 #         cmd = " ".join(cmd_parts)
         
-#         self.logger.info(f"HISAT2 | Building HISAT2 index with command: {cmd}")
-#         self.cmd_runner.run(cmd, "HISAT2 | Building HISAT2 index")
+#         self.logger.info(f"HISAT2|Building HISAT2 index with command: {cmd}")
+#         self.cmd_runner.run(cmd, "HISAT2|Building HISAT2 index")
         
-#         self.logger.info(f"HISAT2 | HISAT2 index building completed: {index_prefix}")
+#         self.logger.info(f"HISAT2|HISAT2 index building completed: {index_prefix}")
 #         return index_prefix
 
 # class HISAT2Aligner:
-#     """HISAT2 | HISAT2 Aligner"""
+#     """HISAT2|HISAT2 Aligner"""
     
 #     def __init__(self, config, logger, cmd_runner: CommandRunner):
 #         self.config = config
@@ -124,38 +124,38 @@
 #         self.file_validator = FileValidator(logger)
     
 #     def run_hisat2_mapping(self, index_prefix: str, fastq1: str, fastq2: str, output_bam: str) -> bool:
-#         """HISAT2 | Run HISAT2 alignment and sorting"""
+#         """HISAT2|Run HISAT2 alignment and sorting"""
 #         threads = self.config.threads
         
-#         #  | Ensure output directory exists
+#         # |Ensure output directory exists
 #         output_dir = os.path.dirname(output_bam)
 #         os.makedirs(output_dir, exist_ok=True)
 
-#         # BAM | Check if BAM file already exists
-#         if self.file_validator.check_file_exists(output_bam, "BAM | BAM file"):
+#         # BAM|Check if BAM file already exists
+#         if self.file_validator.check_file_exists(output_bam, "BAM|BAM file"):
 #             return True
 
 #         cmd = (
-#             f"hisat2 -x {index_prefix} -1 {fastq1} -2 {fastq2} -p {threads} | "
+#             f"hisat2 -x {index_prefix} -1 {fastq1} -2 {fastq2} -p {threads}|"
 #             f"samtools sort -@ {threads} -O BAM -o {output_bam} -"
 #         )
 
-#         success = self.cmd_runner.run(cmd, f"HISAT2 | HISAT2 alignment and sorting -> {output_bam}")
+#         success = self.cmd_runner.run(cmd, f"HISAT2|HISAT2 alignment and sorting -> {output_bam}")
         
 #         if success:
-#             self.logger.info(f" | Alignment completed: {output_bam}")
+#             self.logger.info(f"|Alignment completed: {output_bam}")
         
 #         return success
 
 """
-RNA-seq | RNA-seq Alignment Module
+RNA-seq|RNA-seq Alignment Module
 """
 
 import os
 from .utils import CommandRunner, FileValidator
 
 class HISAT2Indexer:
-    """HISAT2 | HISAT2 Index Builder"""
+    """HISAT2|HISAT2 Index Builder"""
     
     def __init__(self, config, logger, cmd_runner: CommandRunner):
         self.config = config
@@ -286,7 +286,7 @@ class HISAT2Aligner:
             return True
 
         cmd = (
-            f"hisat2 -x {index_prefix} -1 {fastq1} -2 {fastq2} -p {threads} | "
+            f"hisat2 -x {index_prefix} -1 {fastq1} -2 {fastq2} -p {threads}|"
             f"samtools sort -@ {threads} -O BAM -o {output_bam} -"
         )
 

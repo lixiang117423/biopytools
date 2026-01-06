@@ -1,5 +1,5 @@
 # """
-# RNA-seq | RNA-seq Data Processing Module
+# RNA-seq|RNA-seq Data Processing Module
 # """
 
 # import os
@@ -8,25 +8,25 @@
 # from typing import List, Dict, Tuple
 
 # class FastqPatternParser:
-#     """FASTQ | FASTQ File Pattern Parser"""
+#     """FASTQ|FASTQ File Pattern Parser"""
     
 #     def __init__(self, logger):
 #         self.logger = logger
     
 #     def parse_fastq_pattern(self, pattern: str) -> Tuple[str, str, str, str]:
-#         """fastq | Parse fastq file pattern to extract prefix, suffix and read identifiers"""
+#         """fastq|Parse fastq file pattern to extract prefix, suffix and read identifiers"""
 #         if "*" not in pattern:
-#             raise ValueError("* | File pattern must contain * as sample name placeholder")
+#             raise ValueError("*|File pattern must contain * as sample name placeholder")
 
-#         #  | Split pattern string
+#         # |Split pattern string
 #         parts = pattern.split("*")
 #         if len(parts) != 2:
-#             raise ValueError("* | File pattern can only contain one * placeholder")
+#             raise ValueError("*|File pattern can only contain one * placeholder")
 
-#         prefix = parts[0]  # * | Part before *
-#         suffix = parts[1]  # * | Part after *
+#         prefix = parts[0]  # *|Part before *
+#         suffix = parts[1]  # *|Part after *
 
-#         #  (R1, R2 or 1, 2) | Detect read indicators
+#         #  (R1, R2 or 1, 2)|Detect read indicators
 #         read_indicators = ["R1", "R2", "_1", "_2", ".1", ".2"]
 #         read1_indicator = None
 #         read2_indicator = None
@@ -45,72 +45,72 @@
 
 #         if not read1_indicator:
 #             raise ValueError(
-#                 f" (R1/R2, _1/_2, .1/.2) | Cannot identify read indicator (R1/R2, _1/_2, .1/.2) in pattern '{pattern}'"
+#                 f" (R1/R2, _1/_2, .1/.2)|Cannot identify read indicator (R1/R2, _1/_2, .1/.2) in pattern '{pattern}'"
 #             )
 
 #         return prefix, suffix, read1_indicator, read2_indicator
 
 # class SampleParser:
-#     """ | Sample Parser"""
+#     """|Sample Parser"""
     
 #     def __init__(self, logger):
 #         self.logger = logger
 #         self.pattern_parser = FastqPatternParser(logger)
     
 #     def parse_input_samples(self, input_path: str, fastq_pattern: str = None) -> List[Dict]:
-#         """ | Parse input sample information"""
+#         """|Parse input sample information"""
 #         samples = []
 
 #         if os.path.isdir(input_path):
 #             if fastq_pattern:
-#                 #  | Use user-specified file pattern
+#                 # |Use user-specified file pattern
 #                 samples = self._parse_with_pattern(input_path, fastq_pattern)
 #             else:
-#                 # fastq | Default mode: automatically search for common fastq file pairs
+#                 # fastq|Default mode: automatically search for common fastq file pairs
 #                 samples = self._parse_with_default_patterns(input_path)
 #         else:
-#             #  | If it's a file, assume it's a sample information file
+#             # |If it's a file, assume it's a sample information file
 #             samples = self._parse_sample_file(input_path)
 
 #         return samples
     
 #     def _parse_with_pattern(self, input_path: str, fastq_pattern: str) -> List[Dict]:
-#         """ | Parse samples with specified pattern"""
+#         """|Parse samples with specified pattern"""
 #         samples = []
         
 #         try:
 #             prefix, suffix, read1_indicator, read2_indicator = self.pattern_parser.parse_fastq_pattern(fastq_pattern)
 
-#             #  | Build search pattern
+#             # |Build search pattern
 #             search_pattern = os.path.join(input_path, f"{prefix}*{suffix}")
 #             fastq_files = glob.glob(search_pattern)
 
-#             # R1 | Filter R1 files
+#             # R1|Filter R1 files
 #             r1_files = [f for f in fastq_files if read1_indicator in os.path.basename(f)]
 
 #             for fq1 in r1_files:
-#                 # R2 | Build corresponding R2 file path
+#                 # R2|Build corresponding R2 file path
 #                 fq2 = fq1.replace(read1_indicator, read2_indicator)
 
 #                 if os.path.exists(fq2):
-#                     #  | Extract sample name
+#                     # |Extract sample name
 #                     basename = os.path.basename(fq1)
 #                     sample_name = basename.replace(prefix, "").replace(suffix, "")
 
 #                     samples.append({"name": sample_name, "fastq1": fq1, "fastq2": fq2})
 #                 else:
-#                     self.logger.warning(f"R2 | Warning: Cannot find corresponding R2 file: {fq2}")
+#                     self.logger.warning(f"R2|Warning: Cannot find corresponding R2 file: {fq2}")
         
 #         except Exception as e:
-#             self.logger.error(f" | Error parsing file pattern: {e}")
+#             self.logger.error(f"|Error parsing file pattern: {e}")
         
 #         return samples
     
 #     def _parse_with_default_patterns(self, input_path: str) -> List[Dict]:
-#         """ | Parse samples with default patterns"""
+#         """|Parse samples with default patterns"""
 #         samples = []
         
-#         #  | Default pattern list
+#         # |Default pattern list
 #         patterns = [
 #             ("*_1.fq.gz", "*_2.fq.gz"),
 #             ("*_R1.fq.gz", "*_R2.fq.gz"),
@@ -126,51 +126,51 @@
 #             fastq_files = glob.glob(search_path1)
 
 #             for fq1 in fastq_files:
-#                 # R2 | Build corresponding R2 file path
+#                 # R2|Build corresponding R2 file path
 #                 fq2 = fq1.replace(pattern1.replace("*", ""), pattern2.replace("*", ""))
 
 #                 if os.path.exists(fq2):
-#                     #  | Extract sample name
+#                     # |Extract sample name
 #                     basename = os.path.basename(fq1)
-#                     #  | Remove fixed parts from pattern to get sample name
+#                     # |Remove fixed parts from pattern to get sample name
 #                     sample_name = basename
 #                     for to_remove in [pattern1.replace("*", ""), pattern2.replace("*", "")]:
 #                         if to_remove in sample_name:
 #                             sample_name = sample_name.replace(to_remove, "")
 #                             break
 
-#                     #  | Ensure sample name is not empty
+#                     # |Ensure sample name is not empty
 #                     if not sample_name:
 #                         sample_name = os.path.splitext(os.path.splitext(basename)[0])[0]
 
 #                     samples.append({"name": sample_name, "fastq1": fq1, "fastq2": fq2})
 
-#             #  | If files found, don't try other patterns
+#             # |If files found, don't try other patterns
 #             if samples:
 #                 break
         
 #         return samples
     
 #     def _parse_sample_file(self, input_path: str) -> List[Dict]:
-#         """ | Parse sample information file"""
+#         """|Parse sample information file"""
 #         samples = []
         
-#         # sample_name\tfastq1_path\tfastq2_path | Format: sample_name\tfastq1_path\tfastq2_path
+#         # sample_name\tfastq1_path\tfastq2_path|Format: sample_name\tfastq1_path\tfastq2_path
 #         try:
 #             with open(input_path, "r") as f:
 #                 for line_num, line in enumerate(f, 1):
 #                     parts = line.strip().split("\t")
 #                     if len(parts) >= 3:
 #                         samples.append({"name": parts[0], "fastq1": parts[1], "fastq2": parts[2]})
-#                     elif line.strip():  #  | Non-empty line but incorrect format
-#                         self.logger.warning(f" {line_num}  | Line {line_num} has incorrect format, skipping: {line.strip()}")
+#                     elif line.strip():  # |Non-empty line but incorrect format
+#                         self.logger.warning(f" {line_num} |Line {line_num} has incorrect format, skipping: {line.strip()}")
 #         except Exception as e:
-#             self.logger.error(f" | Error reading sample file: {e}")
+#             self.logger.error(f"|Error reading sample file: {e}")
         
 #         return samples
 
 """
-RNA-seq | RNA-seq Data Processing Module
+RNA-seq|RNA-seq Data Processing Module
 """
 
 import os

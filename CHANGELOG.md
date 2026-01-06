@@ -1,4 +1,11 @@
 
+## [0.3.5] - 2026-01-06
+
+### Changed
+- update rnaseq module
+- Updated files: biopytools/rnaseq,biopytools/cli/commands/rnaseq.py,./docs/rnaseq.md
+
+
 ## [0.3.4] - 2026-01-06
 
 ### Changed
