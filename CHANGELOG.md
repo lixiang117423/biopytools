@@ -1,4 +1,11 @@
 
+## [0.3.3] - 2026-01-06
+
+### Changed
+- update annovar module
+- Updated files: biopytools/annovar,biopytools/cli/main.py,biopytools/cli/commands/annovar.py,README.md,./docs/annovar.md
+
+
 ## [0.3.2] - 2026-01-03
 
 ### Changed
