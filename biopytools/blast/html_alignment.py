@@ -185,11 +185,11 @@ class HTMLAlignmentGenerator:
                     </div>
                     
                     <div style="margin-top: 10px;">
-                        <button class="btn btn-secondary" onclick="copySequence('{alignment_id}')">📋 复制序列</button>
+                        <button class="btn btn-secondary" onclick="copySequence('{alignment_id}')"> 复制序列</button>
                     </div>
                 """
             else:
-                formatted_alignment = "⚠️  序列数据不可用\n提示: 重新运行BLAST时需要在outfmt中包含 qseq 和 sseq 字段"
+                formatted_alignment = "  序列数据不可用\n提示: 重新运行BLAST时需要在outfmt中包含 qseq 和 sseq 字段"
                 stats_html = f"""
                     <div class="alignment-stats">
                         <span>比对长度: {alignment['length']}</span>
@@ -230,7 +230,7 @@ class HTMLAlignmentGenerator:
         
         # 如果没有序列数据，返回提示信息
         if not query_seq or not subject_seq:
-            return "⚠️  序列数据不可用\n提示: 重新运行BLAST时需要在outfmt中包含 qseq 和 sseq 字段"
+            return "  序列数据不可用\n提示: 重新运行BLAST时需要在outfmt中包含 qseq 和 sseq 字段"
         
         lines = []
         width = self.config.alignment_width

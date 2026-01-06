@@ -112,7 +112,7 @@ class AlignmentVisualizer:
         return alignments_data
     
     def _parse_blast_line(self, line: str) -> Dict:
-        """Parse BLAST output line | 解析BLAST输出行"""
+        """Parse BLAST output line|解析BLAST输出行"""
         parts = line.split('\t')
 
         # BLAST output formats:

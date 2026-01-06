@@ -106,12 +106,12 @@ class TextAlignmentGenerator:
         lines.append("=" * 80)
         lines.append(f"Alignment #{index}: {alignment['query_id']} -> {alignment['subject_id']}")
         lines.append("=" * 80)
-        lines.append(f"Identity: {alignment['identity']:.2f}% | "
-                    f"Coverage: {alignment['coverage']:.2f}% | "
-                    f"E-value: {alignment['evalue']} | "
+        lines.append(f"Identity: {alignment['identity']:.2f}%|"
+                    f"Coverage: {alignment['coverage']:.2f}%|"
+                    f"E-value: {alignment['evalue']}|"
                     f"Bit Score: {alignment['bitscore']}")
-        lines.append(f"Length: {alignment['length']} | "
-                    f"Mismatches: {alignment['mismatch']} | "
+        lines.append(f"Length: {alignment['length']}|"
+                    f"Mismatches: {alignment['mismatch']}|"
                     f"Gap Opens: {alignment['gapopen']}")
         lines.append("=" * 80)
         lines.append("")

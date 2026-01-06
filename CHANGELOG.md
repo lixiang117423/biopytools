@@ -1,4 +1,11 @@
 
+## [0.3.4] - 2026-01-06
+
+### Changed
+- update blast module
+- Updated files: biopytools/blast,biopytools/cli/commands/blast.py,README.md,./docs/blast_v2.md
+
+
 ## [0.3.3] - 2026-01-06
 
 ### Changed

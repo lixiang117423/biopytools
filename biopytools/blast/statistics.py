@@ -109,7 +109,7 @@ class StatisticsGenerator:
                     stats['sample_stats'][sample_name]['coverages'].append(coverage)
 
                 except (ValueError, IndexError) as e:
-                    self.logger.debug(f"跳过格式错误的行 | Skipping malformed line: {e}")
+                    self.logger.debug(f"跳过格式错误的行|Skipping malformed line: {e}")
                     continue
 
         stats['unique_queries'] = len(stats['unique_queries'])

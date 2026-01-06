@@ -309,10 +309,10 @@ def get_javascript():
         if (content) {
             const text = content.querySelector('.alignment-view')?.innerText || '';
             navigator.clipboard.writeText(text).then(() => {
-                showNotification('✅ 已复制到剪贴板');
+                showNotification(' 已复制到剪贴板');
             }).catch(err => {
                 console.error('复制失败:', err);
-                showNotification('❌ 复制失败');
+                showNotification(' 复制失败');
             });
         }
     }
@@ -348,18 +348,18 @@ def get_index_template():
 <body>
     <div class="container">
         <header>
-            <h1>🧬 BLAST Alignment Visualization Report</h1>
+            <h1> BLAST Alignment Visualization Report</h1>
             <div class="analysis-info">
                 <span>📅 分析日期: {analysis_date}</span>
-                <span>🔬 BLAST类型: {blast_type}</span>
-                <span>📂 样品数: {sample_count}</span>
-                <span>🎯 总比对数: {total_alignments}</span>
+                <span> BLAST类型: {blast_type}</span>
+                <span> 样品数: {sample_count}</span>
+                <span> 总比对数: {total_alignments}</span>
             </div>
         </header>
         
         <main>
             <section class="search-filter">
-                <input type="text" id="search" placeholder="🔍 搜索样品名称...">
+                <input type="text" id="search" placeholder=" 搜索样品名称...">
                 <select id="identity-filter">
                     <option value="0">所有相似度</option>
                     <option value="70">≥ 70%</option>
@@ -371,7 +371,7 @@ def get_index_template():
             </section>
             
             <section class="sample-list">
-                <h2>📊 样品列表</h2>
+                <h2> 样品列表</h2>
                 {sample_list_html}
             </section>
             
@@ -404,11 +404,11 @@ def get_sample_template():
 <body>
     <div class="container">
         <header>
-            <h1>🧬 {sample_name} - Sequence Alignments</h1>
+            <h1> {sample_name} - Sequence Alignments</h1>
             <div class="analysis-info">
-                <span>📁 输入文件: {file_name}</span>
-                <span>🎯 比对数量: {alignment_count}</span>
-                <span>📊 平均相似度: {avg_identity:.2f}%</span>
+                <span> 输入文件: {file_name}</span>
+                <span> 比对数量: {alignment_count}</span>
+                <span> 平均相似度: {avg_identity:.2f}%</span>
             </div>
         </header>
         
@@ -416,7 +416,7 @@ def get_sample_template():
             <a href="index.html" class="back-link">← 返回主页</a>
             
             <section class="search-filter">
-                <input type="text" id="search" placeholder="🔍 搜索目标序列ID...">
+                <input type="text" id="search" placeholder=" 搜索目标序列ID...">
                 <select id="identity-filter">
                     <option value="0">所有相似度</option>
                     <option value="70">≥ 70%</option>

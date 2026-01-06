@@ -31,14 +31,16 @@ def _validate_file_exists(file_path):
     return file_path
 
 
-@click.command(short_help="BLAST序列比对分析",
-               context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
+@click.command(
+    short_help='BLAST序列比对分析|BLAST sequence alignment analysis',
+    context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120)
+)
 @click.option('--input', '-i',
               type=click.Path(exists=True),
               help='输入文件或目录路径|Input file or directory path')
 @click.option('--sample-map-file', '-s',
               type=click.Path(exists=True),
-              help='样品映射文件，格式: 文件路径<TAB>样品名|Sample mapping file, format: filepath<TAB>samplename')
+              help='样品映射文件|Sample mapping file')
 @click.option('--reference', '-r',
               required=True,
               callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
@@ -46,114 +48,139 @@ def _validate_file_exists(file_path):
               help='目标基因序列文件|Target gene sequence file')
 @click.option('--output', '-o',
               default='./blast_output',
+              show_default=True,
               type=click.Path(),
-              help='输出目录路径 (默认: ./blast_output)|Output directory (default: ./blast_output)')
+              help='输出目录路径|Output directory')
 @click.option('--blast-type',
               default='blastn',
+              show_default=True,
               type=click.Choice(['blastn', 'blastp', 'blastx', 'tblastn', 'tblastx']),
-              help='BLAST程序类型 (默认: blastn)|BLAST program type (default: blastn)')
+              help='BLAST程序类型|BLAST program type')
 @click.option('--evalue', '-e',
               default=1e-5,
+              show_default=True,
               type=float,
-              help='E-value阈值 (默认: 1e-5)|E-value threshold (default: 1e-5)')
+              help='E-value阈值|E-value threshold')
 @click.option('--max-target-seqs',
               default=10,
+              show_default=True,
               type=int,
-              help='最大目标序列数 (默认: 10)|Maximum target sequences (default: 10)')
+              help='最大目标序列数|Maximum target sequences')
 @click.option('--word-size',
               default=11,
+              show_default=True,
               type=int,
-              help='词大小，仅适用于blastn/tblastx (默认: 11)|Word size for blastn/tblastx only (default: 11)')
-@click.option('--threads', '-j',
-              default=4,
+              help='词大小|Word size')
+@click.option('--threads', '-t',
+              default=12,
+              show_default=True,
               type=int,
-              help='线程数 (默认: 4)|Number of threads (default: 4)')
+              help='线程数|Number of threads')
 @click.option('--input-suffix',
               default='*.fa',
+              show_default=True,
               type=str,
-              help='输入文件后缀模式 (默认: *.fa)|Input file suffix pattern (default: *.fa)')
+              help='输入文件后缀模式|Input file suffix pattern')
 @click.option('--target-db-type',
               default='nucl',
+              show_default=True,
               type=click.Choice(['nucl', 'prot']),
-              help='目标数据库类型 (默认: nucl)|Target database type (default: nucl)')
+              help='目标数据库类型|Target database type')
 @click.option('--min-identity',
               default=70.0,
+              show_default=True,
               type=float,
-              help='最小序列相似度% (默认: 70.0)|Minimum sequence identity%% (default: 70.0)')
+              help='最小序列相似度|Minimum sequence identity')
 @click.option('--min-coverage',
               default=50.0,
+              show_default=True,
               type=float,
-              help='最小覆盖度% (默认: 50.0)|Minimum coverage%% (default: 50.0)')
+              help='最小覆盖度|Minimum coverage')
 @click.option('--high-quality-evalue',
               default=1e-10,
+              show_default=True,
               type=float,
-              help='高质量比对E-value阈值 (默认: 1e-10)|High quality alignment E-value threshold (default: 1e-10)')
+              help='高质量比对E-value阈值|High quality alignment E-value threshold')
 @click.option('--auto-detect-samples',
               is_flag=True,
               default=True,
-              help='自动检测样品名称 (仅在使用-i时)|Auto-detect sample names (only when using -i)')
+              help='自动检测样品名称|Auto-detect sample names')
 @click.option('--sample-name-pattern',
               default=r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$',
+              show_default=True,
               type=str,
               help='样品名提取正则表达式|Sample name extraction regex')
 @click.option('--makeblastdb-path',
               default='makeblastdb',
+              show_default=True,
               type=str,
-              help='makeblastdb程序路径 (默认: makeblastdb)|makeblastdb program path (default: makeblastdb)')
+              help='makeblastdb程序路径|makeblastdb program path')
 @click.option('--blastn-path',
               default='blastn',
+              show_default=True,
               type=str,
-              help='blastn程序路径 (默认: blastn)|blastn program path (default: blastn)')
+              help='blastn程序路径|blastn program path')
 @click.option('--blastp-path',
               default='blastp',
+              show_default=True,
               type=str,
-              help='blastp程序路径 (默认: blastp)|blastp program path (default: blastp)')
+              help='blastp程序路径|blastp program path')
 @click.option('--blastx-path',
               default='blastx',
+              show_default=True,
               type=str,
-              help='blastx程序路径 (默认: blastx)|blastx program path (default: blastx)')
+              help='blastx程序路径|blastx program path')
 @click.option('--tblastn-path',
               default='tblastn',
+              show_default=True,
               type=str,
-              help='tblastn程序路径 (默认: tblastn)|tblastn program path (default: tblastn)')
+              help='tblastn程序路径|tblastn program path')
 @click.option('--tblastx-path',
               default='tblastx',
+              show_default=True,
               type=str,
-              help='tblastx程序路径 (默认: tblastx)|tblastx program path (default: tblastx)')
+              help='tblastx程序路径|tblastx program path')
 @click.option('--alignment-output',
               default='both',
+              show_default=True,
               type=click.Choice(['none', 'text', 'html', 'both']),
-              help='比对可视化输出格式 (默认: both)|Alignment visualization output format (default: both)')
+              help='比对可视化输出格式|Alignment visualization output format')
 @click.option('--alignment-width',
               default=80,
+              show_default=True,
               type=int,
-              help='比对每行显示的字符数 (默认: 80)|Characters per line in alignment display (default: 80)')
+              help='比对每行显示的字符数|Characters per line in alignment display')
 @click.option('--alignment-min-identity',
               default=0.0,
+              show_default=True,
               type=float,
-              help='比对可视化最小相似度% (默认: 0.0)|Minimum identity for alignment visualization%% (default: 0.0)')
+              help='比对可视化最小相似度|Minimum identity for alignment visualization')
 @click.option('--alignment-min-coverage',
               default=0.0,
+              show_default=True,
               type=float,
-              help='比对可视化最小覆盖度% (默认: 0.0)|Minimum coverage for alignment visualization%% (default: 0.0)')
+              help='比对可视化最小覆盖度|Minimum coverage for alignment visualization')
 @click.option('--alignment-max-per-sample',
               default=100,
+              show_default=True,
               type=int,
-              help='每个样品最多显示的比对数 (默认: 100)|Maximum alignments to display per sample (default: 100)')
+              help='每个样品最多显示的比对数|Maximum alignments to display per sample')
 @click.option('--html-theme',
               default='modern',
+              show_default=True,
               type=click.Choice(['modern', 'classic', 'dark']),
-              help='HTML主题样式 (默认: modern)|HTML theme style (default: modern)')
+              help='HTML主题样式|HTML theme style')
 @click.option('--verbose', '-v',
               count=True,
-              help='详细输出模式 (多次使用增加详细程度)|Verbose output mode (use multiple times for more verbosity)')
+              help='详细输出模式|Verbose output mode')
 @click.option('--quiet',
               is_flag=True,
-              help='静默模式，仅输出错误信息|Quiet mode, only output error messages')
+              help='静默模式|Quiet mode')
 @click.option('--log-level',
               type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']),
               default='INFO',
-              help='日志级别 (默认: INFO)|Log level (default: INFO)')
+              show_default=True,
+              help='日志级别|Log level')
 @click.option('--log-file',
               type=click.Path(),
               help='日志文件路径|Log file path')
@@ -162,7 +189,7 @@ def _validate_file_exists(file_path):
               help='强制覆盖已存在的结果|Force overwrite existing results')
 @click.option('--dry-run',
               is_flag=True,
-              help='测试模式，不执行实际命令|Test mode, do not execute actual commands')
+              help='测试模式|Test mode')
 @click.option('--version', '-V',
               is_flag=True,
               help='显示版本信息|Show version information')
@@ -177,30 +204,9 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     """
     BLAST序列比对分析工具|BLAST Sequence Alignment Analysis Tool
 
-    基于BLAST+的多序列比对分析，支持批量序列与目标序列的比对分析
-    支持5种BLAST程序类型，自动样品检测，结果可视化和统计
+    基于BLAST+的多序列比对分析|Multi-sequence alignment analysis based on BLAST+
 
-    使用示例|Examples:
-
-    \b
-    # 基本用法 - 分析目录中的所有序列
-    biopytools blast -i sequences/ -r nlr_genes.fa -o blast_results
-
-    \b
-    # 使用自定义E-value和相似度阈值
-    biopytools blast -i sequences/ -r targets.fa -o results -e 1e-10 --min-identity 80
-
-    \b
-    # 使用样品映射文件
-    biopytools blast -s sample_map.txt -r nlr_genes.fa -o results
-
-    \b
-    # 使用tblastx进行翻译比对
-    biopytools blast -i proteins.fa -r genome.fa -o results --blast-type tblastx
-
-    \b
-    # 测试模式
-    biopytools blast -i sequences/ -r targets.fa -o results --dry-run
+    示例|Examples: biopytools blast -i sequences/ -r nlr_genes.fa -o blast_results
     """
 
     # 处理版本信息|Handle version information
@@ -240,7 +246,7 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     if word_size != 11:
         args.extend(['--word-size', str(word_size)])
 
-    if threads != 4:
+    if threads != 12:
         args.extend(['--threads', str(threads)])
 
     if input_suffix != '*.fa':
