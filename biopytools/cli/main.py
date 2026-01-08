@@ -58,6 +58,7 @@ COMMAND_REGISTRY = [
     ('kmer_count', 'kmer-count', 'K-mer丰度矩阵计算|K-mer abundance matrix calculation'),
     ('kmertools', 'kmertools', 'K-mer工具集 - 建库、查询和分析|K-mer Tools - Build, Query and Analysis'),
     ('kmer_query', 'kmer-extractor', 'K-mer提取|K-mer extraction'),
+    ('lai', 'lai', 'LAI组装质量指数计算工具|LAI Assembly Index calculator'),
     ('longestmrna', 'longest-mrna', '提取最长转录本|Extract longest transcript'),
     ('longrnaseq', 'longrnaseq', '三代转录组比对工具|Long RNA-seq alignment tool'),
     ('mafft_fasttree', 'mafft-fasttree', '系统发育树构建工具|Phylogenetic tree construction tool'),
