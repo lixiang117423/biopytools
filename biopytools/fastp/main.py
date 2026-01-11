@@ -116,7 +116,7 @@ def main():
 
     # 必需参数|Required arguments
     required = parser.add_argument_group('必需参数|Required arguments')
-    required.add_argument("-i", "--input-dir", required=True,
+    required.add_argument("-i", "--input", required=True,
                          help="输入原始FASTQ数据目录|Input raw FASTQ data directory")
     required.add_argument("-o", "--output-dir", required=True,
                          help="输出清洁FASTQ数据目录|Output clean FASTQ data directory")
@@ -180,7 +180,7 @@ def main():
 
     # 创建处理器并运行|Create processor and run
     processor = FastpProcessor(
-        input_dir=args.input_dir,
+        input_dir=args.input,
         output_dir=args.output_dir,
         fastp_path=args.fastp_path,
         threads=args.threads,

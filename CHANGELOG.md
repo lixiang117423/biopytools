@@ -1,4 +1,11 @@
 
+## [0.4.1] - 2026-01-11
+
+### Changed
+- update blast annovar fastp rnaseq module
+- Updated files: biopytools/annovar,biopytools/blast,biopytools/rnaseq,biopytools/fastp,biopytools/cli/commands/annovar.py,biopytools/cli/commands/blast.py,biopytools/cli/commands/rnaseq.py,biopytools/cli/commands/fastp
+
+
 ## [0.4.0] - 2026-01-08
 
 ### Changed

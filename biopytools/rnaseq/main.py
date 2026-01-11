@@ -436,7 +436,7 @@ def main():
         print(f"参数错误|Parameter error: {e}", file=sys.stderr)
         sys.exit(1)
     except KeyboardInterrupt:
-        print("\n操作被用户中断|Operation interrupted by user", file=sys.stderr)
+        print("操作被用户中断|Operation interrupted by user", file=sys.stderr)
         sys.exit(130)
     except Exception as e:
         print(f"错误|Error: {e}", file=sys.stderr)

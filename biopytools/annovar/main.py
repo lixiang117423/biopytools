@@ -114,9 +114,9 @@ class ANNOVARAnnotator:
                 # 运行单个步骤|Run single step
                 success = self.run_single_step(self.config.step)
                 if success:
-                    self.logger.info(f"步骤 {self.config.step} 执行成功|Step {self.config.step} executed successfully")
+                    self.logger.info(f"步骤{self.config.step} 执行成功|Step {self.config.step} executed successfully")
                 else:
-                    self.logger.error(f"步骤 {self.config.step} 执行失败|Step {self.config.step} execution failed")
+                    self.logger.error(f"步骤{self.config.step} 执行失败|Step {self.config.step} execution failed")
                     sys.exit(1)
             else:
                 # 运行完整流程|Run full pipeline
