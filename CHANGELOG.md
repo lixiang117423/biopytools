@@ -1,4 +1,11 @@
 
+## [0.4.2] - 2026-01-13
+
+### Changed
+- update blast module
+- Updated files: biopytools/blast,biopytools/cli/commands/rnaseq.py,biopytools/cli/commands/blast.py
+
+
 ## [0.4.1] - 2026-01-11
 
 ### Changed
