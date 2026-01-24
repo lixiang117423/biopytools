@@ -1,4 +1,11 @@
 
+## [0.5.0] - 2026-01-24
+
+### Changed
+- add admixture module
+- Updated files: biopytools/admixture,biopytools/cli/commands/admixture.py
+
+
 ## [0.4.6] - 2026-01-24
 
 ### Changed
