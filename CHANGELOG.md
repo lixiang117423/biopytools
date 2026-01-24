@@ -1,4 +1,11 @@
 
+## [0.4.4] - 2026-01-24
+
+### Changed
+- upload annovae module
+- Updated files: biopytools/annovar,biopytools/cli/commands/annovar.py
+
+
 ## [0.4.3] - 2026-01-24
 
 ### Changed
