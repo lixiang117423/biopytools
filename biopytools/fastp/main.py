@@ -46,11 +46,15 @@ class FastpProcessor:
         self.logger.info("=" * 60)
         self.logger.info("开始FASTQ数据质控批处理|Starting FASTQ data quality control batch processing")
         self.logger.info("=" * 60)
-        self.logger.info(f"输入目录|Input directory: {self.config.input_dir}")
+        self.logger.info(f"输入|Input: {'文件|File' if self.config.is_single_file else '目录|Directory'}: {self.config.input_dir}")
         self.logger.info(f"输出目录|Output directory: {self.config.output_dir}")
-        self.logger.info(f"数据模式|Data mode: {'单末端|Single-end' if self.config.single_end else '双末端|Paired-end'}")
-        self.logger.info(f"文件模式|File pattern: *{self.config.read1_suffix}" +
-                        (f", *{self.config.read2_suffix}" if not self.config.single_end else ""))
+
+        # 只在目录模式下显示文件模式|Only show file pattern in directory mode
+        if not self.config.is_single_file:
+            self.logger.info(f"数据模式|Data mode: {'单末端|Single-end' if self.config.single_end else '双末端|Paired-end'}")
+            self.logger.info(f"文件模式|File pattern: *{self.config.read1_suffix}" +
+                            (f", *{self.config.read2_suffix}" if not self.config.single_end else ""))
+
         self.logger.info(f"线程数|Threads: {self.config.threads}")
         self.logger.info(f"质量阈值|Quality threshold: {self.config.quality_threshold}")
         self.logger.info(f"最小长度|Minimum length: {self.config.min_length}")

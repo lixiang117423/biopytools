@@ -1,4 +1,11 @@
 
+## [0.4.6] - 2026-01-24
+
+### Changed
+- update fastp module
+- Updated files: biopytools/fastp,biopytools/cli/commands/fastp.py
+
+
 ## [0.4.5] - 2026-01-24
 
 ### Changed

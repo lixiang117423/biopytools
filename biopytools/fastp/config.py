@@ -13,7 +13,7 @@ class FastpConfig:
     """FASTP质控配置类|FASTP Quality Control Configuration Class"""
 
     # 必需参数|Required parameters
-    input_dir: str
+    input_dir: str  # 可以是目录或文件路径|Can be directory or file path
     output_dir: str
 
     # 软件配置|Software configuration
@@ -46,6 +46,9 @@ class FastpConfig:
         self.output_path = Path(self.output_dir)
         self.report_path = self.output_path / "fastp_reports"
 
+        # 判断是否为单文件模式|Check if single file mode
+        self.is_single_file = self.input_path.is_file()
+
         # 标准化路径|Normalize paths
         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
@@ -54,9 +57,11 @@ class FastpConfig:
         """验证配置参数|Validate configuration parameters"""
         errors = []
 
-        # 检查输入目录|Check input directory
+        # 检查输入路径（目录或文件）|Check input path (directory or file)
         if not self.input_path.exists():
-            errors.append(f"输入目录不存在|Input directory does not exist: {self.input_dir}")
+            errors.append(f"输入路径不存在|Input path does not exist: {self.input_dir}")
+        elif not (self.input_path.is_dir() or self.input_path.is_file()):
+            errors.append(f"输入路径必须是目录或文件|Input path must be directory or file: {self.input_dir}")
 
         # 检查参数范围|Check parameter ranges
         if self.threads <= 0:

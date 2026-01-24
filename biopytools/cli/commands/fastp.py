@@ -24,14 +24,14 @@ def _is_help_request():
     return any(arg in help_flags for arg in sys.argv)
 
 
-def _validate_input_dir(dir_path):
-    """验证输入目录存在(仅在非帮助模式)|Validate input directory existence (only in non-help mode)"""
+def _validate_input(input_path):
+    """验证输入路径(目录或文件)|Validate input path (directory or file)"""
     if not _is_help_request():
-        if not os.path.exists(dir_path):
-            raise click.BadParameter(f"输入目录不存在|Input directory does not exist: {dir_path}")
-        if not os.path.isdir(dir_path):
-            raise click.BadParameter(f"输入路径不是目录|Input path is not a directory: {dir_path}")
-    return dir_path
+        if not os.path.exists(input_path):
+            raise click.BadParameter(f"输入路径不存在|Input path does not exist: {input_path}")
+        if not (os.path.isdir(input_path) or os.path.isfile(input_path)):
+            raise click.BadParameter(f"输入路径必须是目录或文件|Input path must be a directory or file: {input_path}")
+    return input_path
 
 
 def _validate_output_dir(dir_path):
@@ -48,10 +48,10 @@ def _validate_output_dir(dir_path):
     short_help='FASTQ质控批处理工具|FASTQ Quality Control Batch Processing Tool',
     context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120)
 )
-@click.option('--input-dir', '-i',
+@click.option('--input', '-i',
               required=True,
-              callback=lambda ctx, param, value: _validate_input_dir(value) if value else None,
-              help='输入原始FASTQ数据目录|Input raw FASTQ data directory')
+              callback=lambda ctx, param, value: _validate_input(value) if value else None,
+              help='输入原始FASTQ数据目录或文件|Input raw FASTQ data directory or file')
 @click.option('--output-dir', '-o',
               required=True,
               callback=lambda ctx, param, value: _validate_output_dir(value) if value else None,
@@ -112,7 +112,7 @@ def _validate_output_dir(dir_path):
 @click.option('--dry-run',
               is_flag=True,
               help='模拟运行(不实际执行)|Dry run without execution')
-def fastp(input_dir, output_dir, fastp_path, threads, quality_threshold,
+def fastp(input, output_dir, fastp_path, threads, quality_threshold,
           min_length, unqualified_percent, n_base_limit, read1_suffix, read2_suffix, single_end,
           verbose, quiet, log_level, log_file, force, dry_run):
     """
@@ -120,7 +120,12 @@ def fastp(input_dir, output_dir, fastp_path, threads, quality_threshold,
 
     使用fastp批量处理FASTQ文件质控|Batch quality control FASTQ files using fastp
 
-    示例|Examples: biopytools fastp -i raw_data/ -o clean_data/
+    示例|Examples:
+      # 处理整个目录|Process entire directory:
+      biopytools fastp -i raw_data/ -o clean_data/
+
+      # 处理单个文件|Process single file:
+      biopytools fastp -i sample_1.fq.gz -o clean_data/
     """
 
     # 延迟加载|Lazy load: import only when actually called
@@ -130,7 +135,7 @@ def fastp(input_dir, output_dir, fastp_path, threads, quality_threshold,
     args = ['fastp.py']  # 模拟脚本名|Simulate script name
 
     # 必需参数|Required parameters
-    args.extend(['-i', input_dir])
+    args.extend(['-i', input])
     args.extend(['-o', output_dir])
 
     # 可选参数|Optional parameters (仅在非默认值时添加|add only when non-default)

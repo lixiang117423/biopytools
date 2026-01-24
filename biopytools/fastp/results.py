@@ -48,7 +48,8 @@ class SummaryGenerator:
 
                 # 输入输出信息|Input/Output information
                 f.write("文件路径|File Paths:\n")
-                f.write(f"  - 输入目录|Input directory: {self.config.input_dir}\n")
+                input_type = "输入文件|Input file" if self.config.is_single_file else "输入目录|Input directory"
+                f.write(f"  - {input_type}: {self.config.input_dir}\n")
                 f.write(f"  - 输出目录|Output directory: {self.config.output_dir}\n")
                 f.write(f"  - 报告目录|Report directory: {self.config.report_path}\n\n")
 
@@ -60,8 +61,11 @@ class SummaryGenerator:
                 f.write(f"  - 最小长度|Minimum length: {self.config.min_length}\n")
                 f.write(f"  - 不合格百分比|Unqualified percentage: {self.config.unqualified_percent}\n")
                 f.write(f"  - N碱基限制|N base limit: {self.config.n_base_limit}\n")
-                f.write(f"  - Read1后缀|Read1 suffix: {self.config.read1_suffix}\n")
-                f.write(f"  - Read2后缀|Read2 suffix: {self.config.read2_suffix}\n\n")
+
+                # 只在目录模式下显示文件后缀|Only show file suffixes in directory mode
+                if not self.config.is_single_file:
+                    f.write(f"  - Read1后缀|Read1 suffix: {self.config.read1_suffix}\n")
+                    f.write(f"  - Read2后缀|Read2 suffix: {self.config.read2_suffix}\n")
 
                 # 输出文件说明|Output file description
                 f.write("输出文件说明|Output File Description:\n")
