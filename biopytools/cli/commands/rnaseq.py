@@ -79,7 +79,7 @@ def _validate_file_exists(file_path):
               help='试运行模式|Dry run mode, no actual execution')
 @click.option('--threads', '-t',
               type=int,
-              default=8,
+              default=12,
               show_default=True,
               help='线程数|Number of threads')
 @click.option('--sample-timeout',
