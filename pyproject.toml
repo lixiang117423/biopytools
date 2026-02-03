@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "biopytools"
+version = "0.5.1"
+description = "Bioinformatics tools package with Python."
+authors = [{name = "Xiang LI", email = "lixiang117423@gmail.com"}]
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "numpy",
+    "pyfastx>=0.8.4",
+    "python-rocksdb", 
+    "scikit-learn>=1.0.0",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.11.0",
+    "click>=8.0.0"  # 添加Click依赖
+]
+
+[project.scripts]
+biopytools = "biopytools.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/lixiang117423/biopytools"
+Documentation = "https://lixiang117423.github.io/article/biopytools-readme/"
+Repository = "https://github.com/lixiang117423/biopytools.git"
+Issues = "https://github.com/lixiang117423/biopytools/issues"
+
+[tool.setuptools.packages.find]
+include = ["biopytools*"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8"
+]
+
+docs = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocs-mermaid2-plugin"
+]
