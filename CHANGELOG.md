@@ -1,4 +1,11 @@
 
+## [0.5.2] - 2026-02-03
+
+### Changed
+- update pyproject.toml
+- Updated files: pyproject.toml
+
+
 ## [0.5.1] - 2026-02-03
 
 ### Changed
