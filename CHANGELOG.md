@@ -1,4 +1,11 @@
 
+## [0.5.2] - 2026-02-04
+
+### Changed
+- add doc of admixture
+- Updated files: docs/admixture.md
+
+
 ## [0.5.1] - 2026-02-04
 
 ### Changed
