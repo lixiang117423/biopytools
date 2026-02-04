@@ -1,16 +1,9 @@
 
-## [0.5.2] - 2026-02-04
-
-### Changed
-- add doc of admixture
-- Updated files: docs/admixture.md
-
-
 ## [0.5.1] - 2026-02-04
 
 ### Changed
-- update README
-- Updated files: README.md
+- add doc of fastp
+- Updated files: docs/fastp.md
 
 
 ## [0.5.0] - 2026-01-24
