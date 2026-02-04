@@ -1,9 +1,9 @@
 
-## [0.5.1] - 2026-02-03
+## [0.5.1] - 2026-02-04
 
 ### Changed
-- update pyproject.toml
-- Updated files: pyproject.toml
+- update README
+- Updated files: README.md
 
 
 ## [0.5.0] - 2026-01-24
