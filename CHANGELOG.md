@@ -1,9 +1,9 @@
 
-## [0.5.1] - 2026-02-04
+## [0.5.1] - 2026-02-05
 
 ### Changed
-- add doc of fastp
-- Updated files: docs/fastp.md
+- update README
+- Updated files: README.md
 
 
 ## [0.5.0] - 2026-01-24

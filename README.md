@@ -6,9 +6,9 @@ A Python toolkit for bioinformatics analysis and computational biology.
 
 ## 简介 | Overview
 
-BioPyTools 是一个专为生物信息学研究设计的Python工具包，提供了一系列常用的生物数据分析功能。
+BioPyTools 是一个专为生物信息学研究设计的Python工具包，提供了一系列常用的生物数据处理功能。
 
-BioPyTools is a Python toolkit designed for bioinformatics research, providing a series of commonly used biological data analysis functions.
+BioPyTools is a Python toolkit designed for bioinformatics research, providing a series of commonly used biological data process functions.
 
 ## 系统要求 | Requirements
 
@@ -49,15 +49,15 @@ Options:
 
 ## 模块文档 | README
 
-[Admixture | 群体结构](./docs/admixture.md) - 群体结构分析软件Admixture
-
 [Annovar | 变异注释](./docs/annovar.md) - ANNOVAR变异功能注释工具
 
 [Blast | 序列比对](./docs/blast_v2.md) - 序列比对工具
 
-[fastp | 数据质控](./docs/fastp.md) - fastq文件质控
-
 [RNA-seq | 转录组流程](./docs/rnaseq.md) - Hisat + StringTie2转录组流程
+
+
+
+
 
 
 ## 许可证 | License
