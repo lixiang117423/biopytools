@@ -1,4 +1,11 @@
 
+## [0.6.0] - 2026-02-05
+
+### Changed
+- add vcf2phylip module
+- Updated files: biopytools/vcf2phylip,docs/vcf2phylip.md,biopytools/cli/commands/vcf2phylip.py,biopytools/cli/main.py
+
+
 ## [0.5.2] - 2026-02-05
 
 ### Changed
