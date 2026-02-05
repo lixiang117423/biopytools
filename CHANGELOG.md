@@ -1,4 +1,11 @@
 
+## [0.7.0] - 2026-02-05
+
+### Changed
+- add sra2fastq module
+- Updated files: biopytools/sra2fastq,docs/sra2fastq.md,biopytools/cli/commands/sra2fastq.py,biopytools/cli/main.py
+
+
 ## [0.6.0] - 2026-02-05
 
 ### Changed
