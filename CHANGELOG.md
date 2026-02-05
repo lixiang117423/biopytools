@@ -1,15 +1,8 @@
 
-## [0.5.2] - 2026-02-05
-
-### Changed
-- fix version management
-
-
 ## [0.5.1] - 2026-02-05
 
 ### Changed
-- update README
-- Updated files: README.md
+- fix version management
 
 
 ## [0.5.0] - 2026-01-24
