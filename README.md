@@ -49,17 +49,19 @@ Options:
 
 ## 模块文档 | README
 
-[Admixture | 群体结构](./docs/admixture.md) - 群体结构分析软件Admixture
+[admixture](./docs/admixture.md) - 群体结构分析软件Admixture
 
-[Annovar | 变异注释](./docs/annovar.md) - ANNOVAR变异功能注释工具
+[annovar](./docs/annovar.md) - ANNOVAR变异功能注释工具
 
-[Blast | 序列比对](./docs/blast_v2.md) - 序列比对工具
+[bam-cov](./docs/bam_coverage_stats.md) - BAM文件覆盖度统计
 
-[fastp | 数据质控](./docs/fastp.md) - fastq文件质控
+[blast](./docs/blast_v2.md) - 序列比对工具
 
-[RNA-seq | 转录组流程](./docs/rnaseq.md) - Hisat + StringTie2转录组流程
+[fastp](./docs/fastp.md) - fastq文件质控
 
-[SRA2FASTQ | SRA转FSATQ](docs/sra2fastq.md) - SRA文件转FSATQ文件
+[rna-seq](./docs/rnaseq.md) - Hisat + StringTie2转录组流程
+
+[sra2fastq](docs/sra2fastq.md) - SRA文件转FSATQ文件
 
 
 ## 许可证 | License
