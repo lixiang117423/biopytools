@@ -1,4 +1,11 @@
 
+## [0.8.0] - 2026-02-09
+
+### Changed
+- add bam-cov module
+- Updated files: biopytools/bam_cov,docs/bam_coverage_stats.md,biopytools/cli/commands/bam_cov.py,biopytools/cli/main.py
+
+
 ## [0.7.1] - 2026-02-05
 
 ### Changed
