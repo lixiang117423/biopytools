@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/ANNEVO/prediction.py", line 2, in <module>
+    from src.predict_nucleotide import nucleotide_prediction
+  File "/share/org/YZWL/yzwl_lixg/software/ANNEVO/src/predict_nucleotide.py", line 1, in <module>
+    from src.utils import model_construction, model_load_weights
+  File "/share/org/YZWL/yzwl_lixg/software/ANNEVO/src/utils.py", line 4, in <module>
+    import torch.distributed as dist
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/torch/__init__.py", line 1504, in <module>
+    from . import masked
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/torch/masked/__init__.py", line 3, in <module>
+    from ._ops import (
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/torch/masked/_ops.py", line 11, in <module>
+    from torch._prims_common import corresponding_real_dtype
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/torch/_prims_common/__init__.py", line 23, in <module>
+    import sympy
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/sympy/__init__.py", line 31, in <module>
+    from sympy.core.cache import lazy_function
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/sympy/core/__init__.py", line 4, in <module>
+    from .sympify import sympify, SympifyError
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/sympy/core/sympify.py", line 646, in <module>
+    from .basic import Basic
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/sympy/core/basic.py", line 14, in <module>
+    from .kind import Kind, UndefinedKind
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/annevo_v.2.1/lib/python3.10/site-packages/sympy/core/kind.py", line 31, in <module>
+    from sympy.multipledispatch.dispatcher import (Dispatcher,
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
+Terminated
+Job 68077292 stderr output:
+

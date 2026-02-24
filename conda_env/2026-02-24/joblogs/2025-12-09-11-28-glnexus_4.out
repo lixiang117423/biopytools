@@ -1,0 +1,43 @@
+🚀 作业开始: glnexus_4
+⏰ 开始时间: 2025-12-09 11:28:03
+📍 执行命令: ~/software/scripts/50.运行Glnexus批量合并gVCF文件_singularity版本.sh -r ../../01.data/genome/genome.fa -i ./vcf -o ./ -c Chr04 --keep --no-validate
+==========================================
+[0;36m[STEP][0m 2025-12-09 11:28:03 - 开始环境检查与参数验证
+[0;34m[INFO][0m 2025-12-09 11:28:03 - 检查 Singularity 环境...
+[0;32m[SUCCESS][0m 2025-12-09 11:28:04 - Singularity 版本: singularity version 3.8.6
+[0;32m[SUCCESS][0m 2025-12-09 11:28:04 - 镜像文件: /share/org/YZWL/yzwl_lixg/software/singularity/glnexus_v1.4.1.sif (584M)
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 检查依赖工具...
+[0;32m[SUCCESS][0m 2025-12-09 11:28:04 - 依赖工具检查通过: bcftools, samtools
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 检查输入文件...
+[0;32m[SUCCESS][0m 2025-12-09 11:28:04 - 找到 2162 个 gVCF 文件
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 挂载配置: 参考基因组(只读), gVCF(只读), 输出(读写)
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 检查磁盘空间...
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 可用空间: 2057893 GB
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 输入数据: 3288 GB
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 预估需求: 9864 GB (约为输入的3倍)
+[0;36m[STEP][0m 2025-12-09 11:28:04 - 初始化工作目录
+[0;36m[STEP][0m 2025-12-09 11:28:04 - 准备染色体列表
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 参考基因组包含 20 条染色体
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 基因组总长度: 1024 Mbp
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 目标染色体: Chr04
+[0;32m[SUCCESS][0m 2025-12-09 11:28:04 - 将处理 1 条染色体
+[0;36m[STEP][0m 2025-12-09 11:28:04 - 分染色体处理模式
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 串行处理模式
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 处理染色体: Chr04 (长度: 53500411 bp)
+[0;34m[INFO][0m 2025-12-09 11:28:04 - 启动 GLnexus (线程: 64, 内存: 500GB)...
+/share/org/YZWL/yzwl_lixg/software/scripts/50.运行Glnexus批量合并gVCF文件_singularity版本.sh: 行 356: 1905731 Killed                  "${SINGULARITY_BIN}" exec ${BIND_ARGS} "${SINGULARITY_IMAGE}" glnexus_cli --config "${GLNEXUS_CONFIG}" --bed "${CURRENT_BED}" --dir "${CURRENT_DB}" --threads "${GLNEXUS_THREADS}" --mem-gbytes "${GLNEXUS_MEMORY}" "${GVCF_ABS}"/*.g.vcf.gz > "${CURRENT_BCF}" 2> "${CHROM_LOG}"
+[0;31m[ERROR][0m 2025-12-09 11:28:23 - 染色体 Chr04 处理失败
+[0;31m[ERROR][0m 2025-12-09 11:28:23 - 查看详细日志: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/02.glnexus_joint/logs/Chr04.log
+[0;31m[ERROR][0m 2025-12-09 11:28:23 - 最后 10 行日志:
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   - {orig_names: [GQ], name: GQ, description: "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   - {orig_names: [PL], name: PL, description: "##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Phred-scaled genotype Likelihoods">", type: int, number: genotype, default_type: missing, count: 0, combi_method: missing, ignore_non_variants: true}
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   [1905918] [2025-12-09 11:28:10.221] [GLnexus] [info] config CRC32C = 1926883223
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   [1905918] [2025-12-09 11:28:10.221] [GLnexus] [info] init database, exemplar_vcf=/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/02.glnexus_joint/vcf/CRR071751.g.vcf.gz
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   [1905918] [2025-12-09 11:28:10.301] [GLnexus] [info] Initialized GLnexus database in /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/02.glnexus_joint/per_chrom_output/GLnexus.DB.Chr04
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   [1905918] [2025-12-09 11:28:10.301] [GLnexus] [info] bucket size: 30000
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   [1905918] [2025-12-09 11:28:10.301] [GLnexus] [info] contigs: Chr01 Chr02 Chr03 Chr04 Chr05 Chr06 Chr07 Chr08 Chr09 Chr10 Chr11 Chr12 Chr13 Chr14 Chr15 Chr16 Chr17 Chr18 Chr19 Chr20
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   [1905918] [2025-12-09 11:28:10.310] [GLnexus] [info] db_get_contigs /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/02.glnexus_joint/per_chrom_output/GLnexus.DB.Chr04
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   [1905918] [2025-12-09 11:28:10.338] [GLnexus] [info] Beginning bulk load with no range filter.
+[0;31m[ERROR][0m 2025-12-09 11:28:23 -   INFO:    Cleaning up image...
+[0;31m[ERROR][0m 2025-12-09 11:28:23 - 脚本异常退出 (退出码: 1)
+[0;31m[ERROR][0m 2025-12-09 11:28:23 - 查看日志文件: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/02.glnexus_joint/logs/glnexus_run.log

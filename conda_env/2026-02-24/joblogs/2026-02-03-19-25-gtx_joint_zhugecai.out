@@ -1,0 +1,46 @@
+2026-02-03 19:25:15.342 - INFO - ============================================================
+2026-02-03 19:25:15.342 - INFO - 开始生成 GTX Joint Calling 命令|Starting GTX Joint Calling Command Generation
+2026-02-03 19:25:15.342 - INFO - ============================================================
+2026-02-03 19:25:15.342 - INFO - 配置信息|Configuration:
+GTXJointConfig(
+  gtx_exec='/share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx',
+  reference='../49.最终的基因组和gff文件/OV53_Chr.fa',
+  gvcf_dir='vcf',
+  output_dir='./',
+  threads=64,
+  tmp_dir='./tmp',
+  script_name='run_gtx_joint.sh',
+  chr_pattern=None,
+  window_size=None
+)
+2026-02-03 19:25:15.408 - INFO - faketime 可用|faketime is available
+2026-02-03 19:25:15.408 - INFO - 输出目录已创建/存在|Output directory ready: ./
+2026-02-03 19:25:15.409 - INFO - 临时目录已创建/存在|Temporary directory ready: ./tmp
+2026-02-03 19:25:15.409 - INFO - 正在扫描 GVCF 文件...|Scanning GVCF files...
+2026-02-03 19:25:16.606 - INFO - 找到 106 个 GVCF 文件|Found 106 GVCF files
+2026-02-03 19:25:16.606 - INFO - 正在读取染色体信息...|Reading chromosome information...
+2026-02-03 19:25:16.606 - INFO - 参考基因组共有 12 条染色体/scaffold|Reference has 12 chromosomes/scaffolds
+2026-02-03 19:25:16.606 - INFO - ============================================================
+2026-02-03 19:25:16.606 - INFO - 正在生成命令脚本...|Generating command script...
+2026-02-03 19:25:16.606 - INFO - 运行模式|Mode: 按染色体拆分|By chromosome
+2026-02-03 19:25:16.606 - INFO - ============================================================
+2026-02-03 19:25:16.609 - INFO - 进度|Progress: 10/12 条命令已生成
+2026-02-03 19:25:16.609 - INFO - 进度|Progress: 12/12 条命令已生成
+2026-02-03 19:25:16.609 - INFO - ============================================================
+2026-02-03 19:25:16.609 - INFO - 命令生成完成！| Command generation completed!
+2026-02-03 19:25:16.609 - INFO - ============================================================
+2026-02-03 19:25:16.609 - INFO - 统计信息|Statistics:
+2026-02-03 19:25:16.609 - INFO -   • 输入 GVCF 文件数|Input GVCF files: 106
+2026-02-03 19:25:16.609 - INFO -   • 处理染色体数|Processed chromosomes: 12
+2026-02-03 19:25:16.609 - INFO -   • 命令脚本文件|Script file: ./run_gtx_joint.sh
+2026-02-03 19:25:16.609 - INFO -   • 总耗时|Total time: 1.27 seconds
+2026-02-03 19:25:16.609 - INFO - ============================================================
+2026-02-03 19:25:16.609 - INFO - 执行方式|Execution methods:
+2026-02-03 19:25:16.610 - INFO - ============================================================
+2026-02-03 19:25:16.610 - INFO - 串行执行|Serial execution:
+2026-02-03 19:25:16.610 - INFO -    bash ./run_gtx_joint.sh
+2026-02-03 19:25:16.610 - INFO - 
+2026-02-03 19:25:16.610 - INFO - GNU Parallel 并行|Parallel execution:
+2026-02-03 19:25:16.610 - INFO -    parallel -j 4 < ./run_gtx_joint.sh
+2026-02-03 19:25:16.610 - INFO - 
+2026-02-03 19:25:16.610 - INFO - ============================================================

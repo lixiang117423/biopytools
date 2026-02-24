@@ -1,0 +1,22 @@
+name: mummer_v.3.23
+channels:
+  - ursky
+  - bioconda
+  - conda-forge
+  - defaults
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+dependencies:
+  - _libgcc_mutex=0.1
+  - _openmp_mutex=4.5
+  - libgcc=15.1.0
+  - libgcc-ng=15.1.0
+  - libgomp=15.1.0
+  - libstdcxx=15.1.0
+  - libxcrypt=4.4.36
+  - mummer=3.23
+  - perl=5.32.1
+prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/mummer_v.3.23

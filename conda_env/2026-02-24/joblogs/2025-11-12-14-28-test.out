@@ -1,0 +1,100 @@
+[2025-11-12 14:28:36] INFO - ✨ Parabricks + GATK joint Calling的 SNP/INDEL 鉴定流程 ✨
+[2025-11-12 14:28:36] INFO - =============================================================
+[2025-11-12 14:28:36] INFO - ⚙️ 步骤 0: 创建输出目录...
+[2025-11-12 14:28:36] INFO - ✅ 输出目录创建完成。
+[2025-11-12 14:28:36] INFO - 📝 步骤 0.5: 准备参考基因组索引...
+[2025-11-12 14:28:36] INFO - 👍 BWA 索引已存在，跳过创建。
+[2025-11-12 14:28:36] INFO - 👍 SAMtools 索引 (.fai) 已存在，跳过创建。
+[2025-11-12 14:28:36] INFO - 👍 GATK 序列字典 (.dict) 已存在，跳过创建。
+[2025-11-12 14:28:36] INFO - ✅ 参考基因组索引准备完成。
+[2025-11-12 14:28:36] INFO - 📊 步骤 1: 运行测序数据比对 (biopytools parabricks)...
+[2025-11-12 14:28:38] INFO - 🐳 使用容器引擎 | Using container engine: apptainer
+[2025-11-12 14:28:38] INFO - 🚀 开始parabricks WGS分析 | Starting parabricks WGS analysis
+[2025-11-12 14:28:38] INFO - 📂 输入目录 | Input: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean
+[2025-11-12 14:28:38] INFO - 📤 输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test
+[2025-11-12 14:28:38] INFO - 🧬 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa
+[2025-11-12 14:28:38] INFO - 🔀 工作流程 | Workflow: all
+[2025-11-12 14:28:38] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-11-12 14:28:38] INFO - ✅ ✓ parabricks程序检查通过 | parabricks program check passed
+[2025-11-12 14:28:38] INFO - 🔍 搜索输入文件，模式: *_1.clean.fq.gz | Searching input files with pattern: *_1.clean.fq.gz
+[2025-11-12 14:28:39] INFO - ✅ 找到 416 个样品需要处理 | Found 416 samples to process
+[2025-11-12 14:28:39] INFO - ============================================================
+[2025-11-12 14:28:39] INFO - 🔬 开始批量处理 (all) | Starting batch processing
+[2025-11-12 14:28:39] INFO - [1/416] 🧪 处理样品 | Processing: 41
+[2025-11-12 14:28:39] INFO - 🚀 开始处理样品 | Starting to process sample: 41
+[2025-11-12 14:28:39] INFO -   📄 R1文件 | R1 file: 41_1.clean.fq.gz
+[2025-11-12 14:28:39] INFO -   📄 R2文件 | R2 file: 41_2.clean.fq.gz
+[2025-11-12 14:28:39] INFO -   📜 输出 GVCF | Output GVCF: vcf/41.g.vcf.gz
+[2025-11-12 14:28:39] INFO -   💾 输出 BAM | Output BAM: bam/41.sorted.bam
+[2025-11-12 14:28:39] INFO -   1️⃣  步骤1: FASTQ to BAM | Step 1: FASTQ to BAM
+[2025-11-12 14:28:39] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: 41) | fq2bam (sample: 41)
+[2025-11-12 14:28:39] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa --in-fq /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean/41_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean/41_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam/41.sorted.bam --read-group-sm 41 --read-group-pl ILLUMINA
+[2025-11-12 14:28:39] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test
+[2025-11-12 14:29:38] INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 fq2bam (样品: 41) | fq2bam (sample: 41)
+[2025-11-12 14:29:38] INFO -   2️⃣  步骤2: BAM to VCF/GVCF | Step 2: BAM to VCF/GVCF
+[2025-11-12 14:29:38] INFO - 🚀 执行步骤 | Executing step: 📜 haplotypecaller (样品: 41) | haplotypecaller (sample: 41)
+[2025-11-12 14:29:38] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam /share/apps/containers/parabricks.sif pbrun haplotypecaller --ref /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa --in-bam /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam/41.sorted.bam --out-variants /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/vcf/41.g.vcf.gz --gvcf
+[2025-11-12 14:29:38] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test
+[2025-11-12 14:30:10] INFO - ✅ 命令执行成功 | Command executed successfully: 📜 haplotypecaller (样品: 41) | haplotypecaller (sample: 41)
+[2025-11-12 14:30:10] INFO -   ✅ ✓ 样品 41 处理完成 | Sample 41 processing completed
+[2025-11-12 14:30:10] INFO -   📏 GVCF 文件大小 | GVCF file size: 31.1 MB
+[2025-11-12 14:30:10] INFO -   📏 BAM文件大小 | BAM file size: 3.2 GB
+[2025-11-12 14:30:10] INFO -   ✅ 完成 (1/416) | Completed
+[2025-11-12 14:30:10] INFO - ----------------------------------------
+[2025-11-12 14:30:10] INFO - [2/416] 🧪 处理样品 | Processing: 6497
+[2025-11-12 14:30:10] INFO - 🚀 开始处理样品 | Starting to process sample: 6497
+[2025-11-12 14:30:10] INFO -   📄 R1文件 | R1 file: 6497_1.clean.fq.gz
+[2025-11-12 14:30:10] INFO -   📄 R2文件 | R2 file: 6497_2.clean.fq.gz
+[2025-11-12 14:30:10] INFO -   📜 输出 GVCF | Output GVCF: vcf/6497.g.vcf.gz
+[2025-11-12 14:30:10] INFO -   💾 输出 BAM | Output BAM: bam/6497.sorted.bam
+[2025-11-12 14:30:10] INFO -   1️⃣  步骤1: FASTQ to BAM | Step 1: FASTQ to BAM
+[2025-11-12 14:30:10] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: 6497) | fq2bam (sample: 6497)
+[2025-11-12 14:30:10] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa --in-fq /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean/6497_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean/6497_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam/6497.sorted.bam --read-group-sm 6497 --read-group-pl ILLUMINA
+[2025-11-12 14:30:10] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test
+[2025-11-12 14:31:09] INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 fq2bam (样品: 6497) | fq2bam (sample: 6497)
+[2025-11-12 14:31:09] INFO -   2️⃣  步骤2: BAM to VCF/GVCF | Step 2: BAM to VCF/GVCF
+[2025-11-12 14:31:09] INFO - 🚀 执行步骤 | Executing step: 📜 haplotypecaller (样品: 6497) | haplotypecaller (sample: 6497)
+[2025-11-12 14:31:09] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam /share/apps/containers/parabricks.sif pbrun haplotypecaller --ref /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa --in-bam /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam/6497.sorted.bam --out-variants /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/vcf/6497.g.vcf.gz --gvcf
+[2025-11-12 14:31:09] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test
+[2025-11-12 14:31:31] INFO - ✅ 命令执行成功 | Command executed successfully: 📜 haplotypecaller (样品: 6497) | haplotypecaller (sample: 6497)
+[2025-11-12 14:31:31] INFO -   ✅ ✓ 样品 6497 处理完成 | Sample 6497 processing completed
+[2025-11-12 14:31:31] INFO -   📏 GVCF 文件大小 | GVCF file size: 80.0 MB
+[2025-11-12 14:31:31] INFO -   📏 BAM文件大小 | BAM file size: 2.1 GB
+[2025-11-12 14:31:31] INFO -   ✅ 完成 (2/416) | Completed
+[2025-11-12 14:31:31] INFO - ----------------------------------------
+[2025-11-12 14:31:31] INFO - [3/416] 🧪 处理样品 | Processing: 7076
+[2025-11-12 14:31:31] INFO - 🚀 开始处理样品 | Starting to process sample: 7076
+[2025-11-12 14:31:31] INFO -   📄 R1文件 | R1 file: 7076_1.clean.fq.gz
+[2025-11-12 14:31:31] INFO -   📄 R2文件 | R2 file: 7076_2.clean.fq.gz
+[2025-11-12 14:31:31] INFO -   📜 输出 GVCF | Output GVCF: vcf/7076.g.vcf.gz
+[2025-11-12 14:31:31] INFO -   💾 输出 BAM | Output BAM: bam/7076.sorted.bam
+[2025-11-12 14:31:31] INFO -   1️⃣  步骤1: FASTQ to BAM | Step 1: FASTQ to BAM
+[2025-11-12 14:31:31] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: 7076) | fq2bam (sample: 7076)
+[2025-11-12 14:31:31] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa --in-fq /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean/7076_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean/7076_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam/7076.sorted.bam --read-group-sm 7076 --read-group-pl ILLUMINA
+[2025-11-12 14:31:31] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test
+[2025-11-12 14:32:30] INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 fq2bam (样品: 7076) | fq2bam (sample: 7076)
+[2025-11-12 14:32:30] INFO -   2️⃣  步骤2: BAM to VCF/GVCF | Step 2: BAM to VCF/GVCF
+[2025-11-12 14:32:30] INFO - 🚀 执行步骤 | Executing step: 📜 haplotypecaller (样品: 7076) | haplotypecaller (sample: 7076)
+[2025-11-12 14:32:30] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam /share/apps/containers/parabricks.sif pbrun haplotypecaller --ref /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa --in-bam /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam/7076.sorted.bam --out-variants /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/vcf/7076.g.vcf.gz --gvcf
+[2025-11-12 14:32:30] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test
+[2025-11-12 14:33:02] INFO - ✅ 命令执行成功 | Command executed successfully: 📜 haplotypecaller (样品: 7076) | haplotypecaller (sample: 7076)
+[2025-11-12 14:33:02] INFO -   ✅ ✓ 样品 7076 处理完成 | Sample 7076 processing completed
+[2025-11-12 14:33:02] INFO -   📏 GVCF 文件大小 | GVCF file size: 49.8 MB
+[2025-11-12 14:33:02] INFO -   📏 BAM文件大小 | BAM file size: 2.4 GB
+[2025-11-12 14:33:02] INFO -   ✅ 完成 (3/416) | Completed
+[2025-11-12 14:33:02] INFO - ----------------------------------------
+[2025-11-12 14:33:02] INFO - [4/416] 🧪 处理样品 | Processing: A1-10
+[2025-11-12 14:33:02] INFO - 🚀 开始处理样品 | Starting to process sample: A1-10
+[2025-11-12 14:33:02] INFO -   📄 R1文件 | R1 file: A1-10_1.clean.fq.gz
+[2025-11-12 14:33:02] INFO -   📄 R2文件 | R2 file: A1-10_2.clean.fq.gz
+[2025-11-12 14:33:02] INFO -   📜 输出 GVCF | Output GVCF: vcf/A1-10.g.vcf.gz
+[2025-11-12 14:33:02] INFO -   💾 输出 BAM | Output BAM: bam/A1-10.sorted.bam
+[2025-11-12 14:33:02] INFO -   1️⃣  步骤1: FASTQ to BAM | Step 1: FASTQ to BAM
+[2025-11-12 14:33:02] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: A1-10) | fq2bam (sample: A1-10)
+[2025-11-12 14:33:02] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa --in-fq /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean/A1-10_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean/A1-10_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam/A1-10.sorted.bam --read-group-sm A1-10 --read-group-pl ILLUMINA
+[2025-11-12 14:33:02] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test
+[2025-11-12 14:33:49] INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 fq2bam (样品: A1-10) | fq2bam (sample: A1-10)
+[2025-11-12 14:33:49] INFO -   2️⃣  步骤2: BAM to VCF/GVCF | Step 2: BAM to VCF/GVCF
+[2025-11-12 14:33:49] INFO - 🚀 执行步骤 | Executing step: 📜 haplotypecaller (样品: A1-10) | haplotypecaller (sample: A1-10)
+[2025-11-12 14:33:49] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test --bind=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam:/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam /share/apps/containers/parabricks.sif pbrun haplotypecaller --ref /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa --in-bam /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/bam/A1-10.sorted.bam --out-variants /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test/vcf/A1-10.g.vcf.gz --gvcf
+[2025-11-12 14:33:49] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping.test

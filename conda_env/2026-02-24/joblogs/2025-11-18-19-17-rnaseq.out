@@ -1,0 +1,79 @@
+2025-11-18 19:17:56,877 - INFO - ============================================================
+2025-11-18 19:17:56,878 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-11-18 19:17:56,878 - INFO - ============================================================
+2025-11-18 19:17:56,878 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/raw
+2025-11-18 19:17:56,878 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean
+2025-11-18 19:17:56,878 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-11-18 19:17:56,878 - INFO - ============================================================
+2025-11-18 19:17:57,103 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-11-18 19:17:57,104 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean
+2025-11-18 19:17:57,104 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/fastp_reports
+2025-11-18 19:17:57,105 - INFO - 📄 找到 27 个read1文件 | Found 27 read1 files
+2025-11-18 19:17:57,135 - WARNING - ⚠️ 样本 326 的read2文件为空 | Read2 file is empty for sample 326
+2025-11-18 19:17:57,137 - WARNING - ⚠️ 样本 307 的read2文件为空 | Read2 file is empty for sample 307
+2025-11-18 19:17:57,139 - INFO - 🧬 找到 27 个有效样本配对 | Found 27 valid sample pairs:
+2025-11-18 19:17:57,139 - INFO -   - 📋 336
+2025-11-18 19:17:57,139 - INFO -   - 📋 309
+2025-11-18 19:17:57,139 - INFO -   - 📋 349
+2025-11-18 19:17:57,139 - INFO -   - 📋 328叶
+2025-11-18 19:17:57,139 - INFO -   - 📋 331
+2025-11-18 19:17:57,139 - INFO -   - 📋 329
+2025-11-18 19:17:57,139 - INFO -   - 📋 321
+2025-11-18 19:17:57,139 - INFO -   - 📋 328
+2025-11-18 19:17:57,139 - INFO -   - 📋 311叶
+2025-11-18 19:17:57,139 - INFO -   - 📋 318
+2025-11-18 19:17:57,140 - INFO -   - 📋 322
+2025-11-18 19:17:57,140 - INFO -   - 📋 331叶
+2025-11-18 19:17:57,140 - INFO -   - 📋 315
+2025-11-18 19:17:57,140 - INFO -   - 📋 304
+2025-11-18 19:17:57,140 - INFO -   - 📋 326
+2025-11-18 19:17:57,140 - INFO -   - 📋 323叶
+2025-11-18 19:17:57,140 - INFO -   - 📋 354
+2025-11-18 19:17:57,140 - INFO -   - 📋 336叶
+2025-11-18 19:17:57,140 - INFO -   - 📋 316
+2025-11-18 19:17:57,140 - INFO -   - 📋 307
+2025-11-18 19:17:57,140 - INFO -   - 📋 344
+2025-11-18 19:17:57,140 - INFO -   - 📋 317
+2025-11-18 19:17:57,140 - INFO -   - 📋 324
+2025-11-18 19:17:57,140 - INFO -   - 📋 330
+2025-11-18 19:17:57,140 - INFO -   - 📋 311
+2025-11-18 19:17:57,140 - INFO -   - 📋 326叶
+2025-11-18 19:17:57,140 - INFO -   - 📋 323
+2025-11-18 19:17:57,140 - INFO - ---
+2025-11-18 19:17:57,140 - INFO - ⚡ 正在处理样本 | Processing sample: 336
+2025-11-18 19:17:57,140 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/raw/336_1.fq.gz
+2025-11-18 19:17:57,140 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/raw/336_2.fq.gz
+2025-11-18 19:17:57,140 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336_1.clean.fq.gz
+2025-11-18 19:17:57,140 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336_2.clean.fq.gz
+2025-11-18 19:17:57,140 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/fastp_reports/336.html
+2025-11-18 19:17:57,144 - INFO - ---
+2025-11-18 19:17:57,144 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 336
+2025-11-18 19:17:57,144 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/raw/336_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/raw/336_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/fastp_reports/336.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/fastp_reports/336.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-11-18 19:18:34,758 - INFO - ============================================================
+2025-11-18 19:18:34,758 - INFO - 🚀 RNA-seq分析流程开始 | RNA-seq analysis pipeline started
+2025-11-18 19:18:34,758 - INFO - ============================================================
+2025-11-18 19:18:34,758 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.fa
+2025-11-18 19:18:34,758 - INFO - 📂 输入路径 | Input path: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean
+2025-11-18 19:18:34,758 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上
+2025-11-18 19:18:34,758 - INFO - 📋 GTF文件 | GTF file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf
+2025-11-18 19:18:34,758 - INFO - 🔧 线程数 | Threads: 88
+2025-11-18 19:18:34,758 - INFO - 🗑️  删除BAM文件 | Remove BAM files: no
+2025-11-18 19:18:34,759 - INFO - 📋 文件模式 | File pattern: *_1.clean.fq.gz
+2025-11-18 19:18:34,759 - INFO - ============================================================
+2025-11-18 19:18:34,759 - INFO - 🔨 步骤1: 构建HISAT2索引 | Step 1: Building HISAT2 index
+2025-11-18 19:18:34,759 - INFO - ============================================================
+2025-11-18 19:18:34,759 - INFO - 🧬 提取剪接位点信息 | Extracting splice sites: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss
+2025-11-18 19:18:34,759 - INFO - 🚀 运行 | Running: 🔍 提取剪接位点信息 | Extract splice sites
+2025-11-18 19:18:34,759 - INFO - 💻 命令 | Command: extract_splice_sites.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss
+2025-11-18 19:18:36,052 - INFO - ✅ 🔍 提取剪接位点信息 | Extract splice sites 完成 | completed
+2025-11-18 19:18:36,052 - INFO - ✅ 剪接位点信息提取完成 | Splice sites extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss
+2025-11-18 19:18:36,052 - INFO - 🧬 提取外显子信息 | Extracting exons: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon
+2025-11-18 19:18:36,052 - INFO - 🚀 运行 | Running: 🔍 提取外显子信息 | Extract exons
+2025-11-18 19:18:36,052 - INFO - 💻 命令 | Command: extract_exons.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon
+2025-11-18 19:18:36,282 - INFO - ✅ 🔍 提取外显子信息 | Extract exons 完成 | completed
+2025-11-18 19:18:36,282 - INFO - ✅ 外显子信息提取完成 | Exons extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon
+2025-11-18 19:18:36,282 - INFO - ✨ 使用剪接位点文件 | Using splice sites file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss
+2025-11-18 19:18:36,283 - INFO - ✨ 使用外显子文件 | Using exons file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon
+2025-11-18 19:18:36,284 - INFO - 🔨 构建HISAT2索引 | Building HISAT2 index with command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss --exon /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon -p 88 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.hisat2.index
+2025-11-18 19:18:36,284 - INFO - 🚀 运行 | Running: 🔨 构建HISAT2索引 | Building HISAT2 index
+2025-11-18 19:18:36,284 - INFO - 💻 命令 | Command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss --exon /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon -p 88 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.hisat2.index

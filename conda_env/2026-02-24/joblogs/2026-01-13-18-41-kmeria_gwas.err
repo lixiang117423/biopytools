@@ -1,0 +1,6 @@
+Usage: biopytools kmeria pipeline [OPTIONS]
+Try 'biopytools kmeria pipeline -h' for help.
+
+Error: No such option: --samples Did you mean --sample?
+Job 68855997 stderr output:
+

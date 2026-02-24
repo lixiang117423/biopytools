@@ -1,0 +1,12 @@
+INFO:hicexplorer.hicFindRestSite:Sorting file ...
+Building a SMALL index
+Renaming mapping/OV53_1.3.bt2.tmp to mapping/OV53_1.3.bt2
+Renaming mapping/OV53_1.4.bt2.tmp to mapping/OV53_1.4.bt2
+Renaming mapping/OV53_1.1.bt2.tmp to mapping/OV53_1.1.bt2
+Renaming mapping/OV53_1.2.bt2.tmp to mapping/OV53_1.2.bt2
+Renaming mapping/OV53_1.rev.1.bt2.tmp to mapping/OV53_1.rev.1.bt2
+Renaming mapping/OV53_1.rev.2.bt2.tmp to mapping/OV53_1.rev.2.bt2
+[bam_sort_core] merging from 0 files and 32 in-memory blocks...
+[bam_sort_core] merging from 0 files and 32 in-memory blocks...
+Job 67500979 stderr output:
+

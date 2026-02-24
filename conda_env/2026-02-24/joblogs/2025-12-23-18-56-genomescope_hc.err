@@ -1,0 +1,8 @@
+[2025-12-23 18:56:43] ERROR: ❌ Jellyfish count 执行失败 | Jellyfish count execution failed
+[2025-12-23 18:56:43] ERROR: 错误信息 | Error message: zcat error: 
+jellyfish error: terminate called after throwing an instance of 'jellyfish::large_hash::array_base<jellyfish::mer_dna_ns::mer_base_static<unsigned long, 0>, unsigned long, atomic::gcc, jellyfish::large_hash::unbounded_array<jellyfish::mer_dna_ns::mer_base_static<unsigned long, 0>, unsigned long, atomic::gcc, allocators::mmap> >::ErrorAllocation'
+  what():  Failed to allocate 29268292800 bytes of memory
+
+
+Job 68660898 stderr output:
+

@@ -1,0 +1,17 @@
+grep: 06.二代比对的bam/41/41_high_quality.list: No such file or directory
+[33m[WARN][0m 0 patterns loaded from file
+test_41.sh:行8: a/clean/hifi/41.clean.fq.gz: No such file or directory
+Usage: biopytools ragtag [OPTIONS]
+Try 'biopytools ragtag -h' for help.
+
+Error: Invalid value for '-q' / '--query': 文件不存在|File does not exist: 07.筛选的reads重新组装/02.hifiasm/41/02.fasta/41.primary.fa
+Usage: biopytools ragtag [OPTIONS]
+Try 'biopytools ragtag -h' for help.
+
+Error: Invalid value for '-q' / '--query': 文件不存在|File does not exist: 07.筛选的reads重新组装/02.hifiasm/41/02.fasta/41.hap1.fa
+Usage: biopytools ragtag [OPTIONS]
+Try 'biopytools ragtag -h' for help.
+
+Error: Invalid value for '-q' / '--query': 文件不存在|File does not exist: 07.筛选的reads重新组装/02.hifiasm/41/02.fasta/41.hap2.fa
+Job 69051277 stderr output:
+

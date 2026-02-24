@@ -1,0 +1,15 @@
+name: aspera_v.3.9.6
+channels:
+  - hcc
+  - ursky
+  - bioconda
+  - conda-forge
+  - defaults
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+dependencies:
+  - aspera-cli=3.9.6
+prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/aspera_v.3.9.6

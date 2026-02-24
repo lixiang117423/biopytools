@@ -1,0 +1,97 @@
+2026-01-21 16:28:42.993 - INFO - ============================================================
+2026-01-21 16:28:42.994 - INFO - HiCanu基因组组装流程|HiCanu Genome Assembly Pipeline
+2026-01-21 16:28:42.994 - INFO - ============================================================
+2026-01-21 16:28:42.994 - INFO - 输入reads|Input reads: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/clean/hifi/EcA.clean.fq.gz
+2026-01-21 16:28:42.994 - INFO - 基因组大小|Genome size: 180m
+2026-01-21 16:28:42.994 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA
+2026-01-21 16:28:42.994 - INFO - 输出前缀|Output prefix: EcA
+2026-01-21 16:28:42.994 - INFO - ============================================================
+2026-01-21 16:28:42.994 - INFO - ============================================================
+2026-01-21 16:28:42.994 - INFO - 开始HiCanu组装|Starting HiCanu assembly
+2026-01-21 16:28:42.994 - INFO - ============================================================
+2026-01-21 16:28:42.994 - INFO - 组装配置|Assembly configuration:
+2026-01-21 16:28:42.994 - INFO -   Reads文件|Reads file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/clean/hifi/EcA.clean.fq.gz
+2026-01-21 16:28:42.994 - INFO -   基因组大小|Genome size: 180m
+2026-01-21 16:28:42.994 - INFO -   工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA
+2026-01-21 16:28:42.994 - INFO -   前缀|Prefix: EcA
+2026-01-21 16:28:42.994 - INFO -   组装阶段|Assembly stage: assemble
+2026-01-21 16:28:42.994 - INFO -   最小reads长度|Min read length: 1000
+2026-01-21 16:28:42.994 - INFO -   最小重叠长度|Min overlap length: 500
+2026-01-21 16:28:42.994 - INFO -   线程数|Threads: 64
+2026-01-21 16:28:42.994 - INFO -   内存限制|Memory limit: 100G
+2026-01-21 16:28:42.994 - INFO - ============================================================
+2026-01-21 16:28:42.994 - INFO - 断点续传模式|Resume mode: enabled
+2026-01-21 16:28:42.994 - INFO - ============================================================
+2026-01-21 16:28:42.994 - INFO - 检查已完成步骤|Checking completed steps:
+2026-01-21 16:28:42.994 - INFO -   [未完成|pending] Canu组装|Canu assembly
+2026-01-21 16:28:42.994 - INFO -   [未完成|pending] FASTA文件复制|FASTA files copied
+2026-01-21 16:28:42.994 - INFO -   [未完成|pending] Contig-reads映射生成|Contig-reads mapping generated
+2026-01-21 16:28:42.994 - INFO - ============================================================
+2026-01-21 16:28:42.994 - INFO - 执行命令|Executing command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/canu -d /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output -p EcA genomeSize=180m -assemble -pacbio-hifi /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/clean/hifi/EcA.clean.fq.gz useGrid=false
+2026-01-21 18:50:53.477 - INFO - 命令执行成功|Command executed successfully
+2026-01-21 18:50:53.478 - INFO - 检查输出文件|Checking output files
+2026-01-21 18:50:53.478 - INFO - 输出文件已生成|Output file generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.contigs.fasta (211,665,818 bytes)
+2026-01-21 18:50:53.478 - INFO -   Contigs文件|Contigs file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.contigs.fasta
+2026-01-21 18:50:53.478 - INFO -   报告文件|Report file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.report
+2026-01-21 18:50:53.478 - INFO - ============================================================
+2026-01-21 18:50:53.478 - INFO - 解析组装结果|Parsing assembly results
+2026-01-21 18:50:53.478 - INFO - ============================================================
+2026-01-21 18:50:53.480 - INFO - 解析Contigs|Parsing contigs:
+2026-01-21 18:50:53.480 - INFO - 解析FASTA文件|Parsing FASTA file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.contigs.fasta
+2026-01-21 18:50:53.928 - INFO - FASTA统计信息|FASTA statistics:
+2026-01-21 18:50:53.929 - INFO -   序列数量|Number of sequences: 670
+2026-01-21 18:50:53.929 - INFO -   总长度|Total bp: 209,495,809
+2026-01-21 18:50:53.929 - INFO -   N50: 14,057,232
+2026-01-21 18:50:53.929 - INFO -   L50: 6
+2026-01-21 18:50:53.929 - INFO -   最短序列|Min length: 18,632
+2026-01-21 18:50:53.929 - INFO -   最长序列|Max length: 26,226,239
+2026-01-21 18:50:53.929 - INFO -   组装大小|Assembly size: 209.50 Mb
+2026-01-21 18:50:53.929 - INFO -   Contigs数量|Number of contigs: 670
+2026-01-21 18:50:53.929 - INFO -   N50: 14.06 Mb
+2026-01-21 18:50:53.929 - INFO -   L50: 6
+2026-01-21 18:50:53.929 - INFO - 解析Canu报告|Parsing Canu report:
+2026-01-21 18:50:53.929 - INFO -   --   contigs:      509 sequences, total length 141113177 bp (including 233 repeats of total length 6679706 bp).
+2026-01-21 18:50:53.929 - INFO -   --   bubbles:      161 sequences, total length 4254299 bp.
+2026-01-21 18:50:53.929 - INFO -   --   unassembled:  81224 sequences, total length 1120475367 bp.
+2026-01-21 18:50:53.929 - INFO -   --   contigs:      509 sequences, total length 203387154 bp (including 233 repeats of total length 9656100 bp).
+2026-01-21 18:50:53.929 - INFO -   --   bubbles:      161 sequences, total length 6108655 bp.
+2026-01-21 18:50:53.929 - INFO -   --   unassembled:  81224 sequences, total length 1639831889 bp.
+2026-01-21 18:50:53.929 - INFO - ============================================================
+2026-01-21 18:50:53.929 - INFO - 复制FASTA文件|Copying FASTA files
+2026-01-21 18:50:53.929 - INFO - ============================================================
+2026-01-21 18:50:54.254 - INFO -   已复制|Copied: EcA.contigs.fasta
+2026-01-21 18:50:56.704 - INFO -   已复制|Copied: EcA.unassembled.fasta
+2026-01-21 18:50:56.704 - INFO - 共复制 2 个文件到|Copied 2 files to: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/02.fasta
+2026-01-21 18:50:56.704 - INFO - ============================================================
+2026-01-21 18:50:56.704 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-01-21 18:50:56.704 - INFO - ============================================================
+2026-01-21 18:50:56.704 - INFO - 读取read名称映射|Reading read name mapping: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.seqStore/readNames.txt
+2026-01-21 18:50:59.274 - INFO -   共读取|Total reads loaded: 5,216,044
+2026-01-21 18:50:59.274 - INFO - 读取readToTig映射|Reading readToTig mapping: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.contigs.layout.readToTig
+2026-01-21 18:50:59.660 - INFO -   共处理|Total reads processed: 434,357
+2026-01-21 18:50:59.660 - INFO -   共发现|Total contigs found: 81,894
+2026-01-21 18:50:59.660 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/02.fasta/EcA.contig_reads.tsv
+2026-01-21 18:50:59.803 - INFO - 映射统计|Mapping statistics:
+2026-01-21 18:50:59.803 - INFO -   总contig数|Total contigs: 81,894
+2026-01-21 18:50:59.806 - INFO -   平均reads数/contig|Avg reads/contig: 5.3
+2026-01-21 18:50:59.806 - INFO -   最少reads数|Min reads: 1
+2026-01-21 18:50:59.807 - INFO -   最多reads数|Max reads: 50,968
+2026-01-21 18:50:59.807 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/02.fasta/EcA.contig_reads.tsv
+2026-01-21 18:50:59.807 - INFO - ============================================================
+2026-01-21 18:50:59.807 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-01-21 18:50:59.807 - INFO - ============================================================
+2026-01-21 18:50:59.902 - INFO - ============================================================
+2026-01-21 18:50:59.902 - INFO - HiCanu组装完成|HiCanu assembly completed successfully
+2026-01-21 18:50:59.902 - INFO - ============================================================
+2026-01-21 18:50:59.902 - INFO - ============================================================
+2026-01-21 18:50:59.902 - INFO - 流程总结|Pipeline Summary
+2026-01-21 18:50:59.902 - INFO - ============================================================
+2026-01-21 18:50:59.902 - INFO - 总运行时间|Total runtime: 8536.91 seconds (142.28 minutes)
+2026-01-21 18:50:59.902 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA
+2026-01-21 18:50:59.902 - INFO - 主要输出文件|Main output files:
+2026-01-21 18:50:59.902 - INFO -   Contigs: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.contigs.fasta
+2026-01-21 18:50:59.902 - INFO -   Unitigs: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.unitigs.fasta
+2026-01-21 18:50:59.902 - INFO -   报告|Report: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/01.raw_output/EcA.report
+2026-01-21 18:50:59.902 - INFO - ============================================================
+2026-01-21 18:50:59.902 - INFO - 流程成功完成|Pipeline completed successfully
+2026-01-21 18:50:59.902 - INFO - ============================================================

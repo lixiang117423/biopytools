@@ -1,0 +1,42 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/mutmap", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/site-packages/mutmap/mutmap.py", line 157, in main
+    MutMap(args).run()
+    ~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/site-packages/mutmap/mutmap.py", line 151, in run
+    self.alignment()
+    ~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/site-packages/mutmap/mutmap.py", line 107, in alignment
+    aln.run(fastq1, fastq2, index)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/site-packages/mutmap/alignment.py", line 33, in run
+    sbp.run(cmd,
+    ~~~~~~~^^^^^
+            stdout=sbp.DEVNULL,
+            ^^^^^^^^^^^^^^^^^^^
+            stderr=sbp.DEVNULL,
+            ^^^^^^^^^^^^^^^^^^^
+            shell=True,
+            ^^^^^^^^^^^
+            check=True)
+            ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/subprocess.py", line 1212, in communicate
+    self.wait()
+    ~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/subprocess.py", line 1278, in wait
+    return self._wait(timeout=timeout)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/subprocess.py", line 2064, in _wait
+    (pid, sts) = self._try_wait(0)
+                 ~~~~~~~~~~~~~~^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/mutmap/lib/python3.14/subprocess.py", line 2022, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+                 ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Job 67504818 stderr output:
+

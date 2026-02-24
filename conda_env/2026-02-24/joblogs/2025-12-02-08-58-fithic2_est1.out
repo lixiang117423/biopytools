@@ -1,0 +1,86 @@
+=== FitHiC Pipeline Started ===
+Resolution: 5000
+Output Directory: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb
+Step 1: Creating chromosome lengths file...
+Chromosome lengths file created at: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/chr_lengths.txt
+Step 2: Creating fragments file...
+ChrSizeFile: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/chr_lengths.txt
+OutFile: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/fragments.txt
+BinSize: 5000
+Fragments file created: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/fragments.txt.gz
+Step 3: Extracting contacts from .hic file...
+  Extracting Chr1 - Chr1...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:01,997]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr1 - Chr2...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:09,842]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr1 - Chr3...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:14,316]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr1 - Chr4...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:19,745]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr1 - Chr5...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:23,949]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr2 - Chr2...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:30,052]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr2 - Chr3...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:33,898]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr2 - Chr4...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:37,500]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr2 - Chr5...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:40,572]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr3 - Chr3...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:44,598]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr3 - Chr4...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:49,484]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr3 - Chr5...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:53,109]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr4 - Chr4...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T08:59:58,007]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr4 - Chr5...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T09:00:01,499]  [Globals.java:138] [main]  Development mode is enabled
+  Extracting Chr5 - Chr5...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-02T09:00:05,349]  [Globals.java:138] [main]  Development mode is enabled
+Contacts file created: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/contacts/all_contacts.txt.gz
+Total contact lines: 92192315
+Step 4: Running FitHiC...
+
+
+GIVEN FIT-HI-C ARGUMENTS
+=========================
+Reading fragments file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/fragments.txt.gz
+Reading interactions file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/contacts/all_contacts.txt.gz
+Output path being used from /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb
+Fixed size option detected... Fast version of FitHiC will be used
+Resolution is 5.0 kb
+No bias file
+The number of spline passes is 2
+The number of bins is 100
+The number of reads required to consider an interaction is 1
+The name of the library for outputted files will be inter_30_5000bp
+Upper Distance threshold is 3000000
+Lower Distance threshold is 2000
+Graphs will be outputted
+Only intra-chromosomal regions will be analyzed
+Lower bound of bias values is 0.5
+Upper bound of bias values is 2
+All arguments processed. Running FitHiC now...
+=========================
+
+
+Reading the contact counts file to generate bins...
+Interactions file read. Time took 95.24829459190369
+Error: FitHiC analysis failed!

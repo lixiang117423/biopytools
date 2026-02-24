@@ -1,0 +1,18 @@
+[2025-12-30 22:10:39] ERROR: 命令执行失败 | Command execution failed
+[2025-12-30 22:10:39] ERROR: 返回码 | Return code: 255
+[2025-12-30 22:10:39] ERROR: 标准输出 | Stdout: [2020-10-20 00:00:00.355] [index] [error] reference index file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.bwt.2bit.64 already exist! If you want to overwite it, please specify -f option.
+
+[2025-12-30 22:10:39] ERROR: GTX索引构建失败 | GTX index building failed
+[2025-12-30 22:34:35] ERROR: 命令执行失败 | Command execution failed
+[2025-12-30 22:34:35] ERROR: 返回码 | Return code: 1
+[2025-12-30 22:34:35] ERROR:   样品 72_4_gang 处理失败 | Sample 72_4_gang processing failed
+[2025-12-30 22:58:01] ERROR: 命令执行失败 | Command execution failed
+[2025-12-30 22:58:01] ERROR: 返回码 | Return code: 1
+[2025-12-30 22:58:01] ERROR:   样品 72_3_kang 处理失败 | Sample 72_3_kang processing failed
+[2025-12-30 22:58:01] WARNING: 失败的样品 | Failed samples:
+[2025-12-30 22:58:01] WARNING:   - 72_4_gang
+[2025-12-30 22:58:01] WARNING:   - 72_3_kang
+[2025-12-30 22:58:01] ERROR: GTX比对失败 | GTX mapping failed
+[2025-12-30 22:58:01] ERROR: 步骤 3 失败 | Step 3 failed: 序列比对 | Sequence Mapping
+Job 68727171 stderr output:
+

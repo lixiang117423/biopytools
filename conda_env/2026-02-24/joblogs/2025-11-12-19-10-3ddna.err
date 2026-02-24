@@ -1,0 +1,120 @@
+java.io.IOException: Unexpected column count.  Only 11 or 16 columns supported.  Check file format
+	at juicebox.tools.utils.original.AsciiPairIterator.advance(AsciiPairIterator.java:108)
+	at juicebox.tools.utils.original.AsciiPairIterator.<init>(AsciiPairIterator.java:70)
+	at juicebox.tools.utils.original.Preprocessor.computeWholeGenomeMatrix(Preprocessor.java:487)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:371)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:283)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:108)
+	at juicebox.tools.HiCTools.main(HiCTools.java:86)
+java.lang.RuntimeException: No reads in Hi-C contact matrices. This could be because the MAPQ filter is set too high (-q) or because all reads map to the same fragment.
+	at juicebox.tools.utils.original.Preprocessor$MatrixZoomDataPP.mergeAndWriteBlocks(Preprocessor.java:1466)
+	at juicebox.tools.utils.original.Preprocessor$MatrixZoomDataPP.access$000(Preprocessor.java:1237)
+	at juicebox.tools.utils.original.Preprocessor.writeMatrix(Preprocessor.java:651)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:373)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:283)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:108)
+	at juicebox.tools.HiCTools.main(HiCTools.java:86)
+Could not read hic file: null
+:( Juicebox dump is empty! Perhaps something is wrong with the hic file or the requested resolution is too high. Exiting!
+Could not read hic file: null
+:( Juicebox coverage dump is empty! Perhaps something is wrong with the hic file or the requested resolution is too high. Exiting!
+mv: 对 'depletion_score_wide.wig' 调用 stat 失败: No such file or directory
+mv: 对 'depletion_score_narrow.wig' 调用 stat 失败: No such file or directory
+mv: 对 'mismatch_wide.bed' 调用 stat 失败: No such file or directory
+mv: 对 'mismatch_narrow.bed' 调用 stat 失败: No such file or directory
+mv: 对 'coverage_wide.wig' 调用 stat 失败: No such file or directory
+mv: 对 'repeats_wide.bed' 调用 stat 失败: No such file or directory
+cat: mismatch_narrow.at.step.0.bed: No such file or directory
+cat: repeats_wide.at.step.0.bed: No such file or directory
+java.lang.NumberFormatException: For input string: "-"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:658)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at juicebox.tools.utils.original.AsciiPairIterator.advance(AsciiPairIterator.java:148)
+	at juicebox.tools.utils.original.AsciiPairIterator.<init>(AsciiPairIterator.java:70)
+	at juicebox.tools.utils.original.Preprocessor.computeWholeGenomeMatrix(Preprocessor.java:487)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:371)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:283)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:108)
+	at juicebox.tools.HiCTools.main(HiCTools.java:86)
+Could not read hic file: null
+:( Juicebox dump is empty! Perhaps something is wrong with the hic file or the requested resolution is too high. Exiting!
+Could not read hic file: null
+:( Juicebox coverage dump is empty! Perhaps something is wrong with the hic file or the requested resolution is too high. Exiting!
+mv: 对 'depletion_score_wide.wig' 调用 stat 失败: No such file or directory
+mv: 对 'depletion_score_narrow.wig' 调用 stat 失败: No such file or directory
+mv: 对 'mismatch_wide.bed' 调用 stat 失败: No such file or directory
+mv: 对 'mismatch_narrow.bed' 调用 stat 失败: No such file or directory
+mv: 对 'coverage_wide.wig' 调用 stat 失败: No such file or directory
+mv: 对 'repeats_wide.bed' 调用 stat 失败: No such file or directory
+cat: mismatch_narrow.at.step.1.bed: No such file or directory
+cat: repeats_wide.at.step.1.bed: No such file or directory
+java.lang.NumberFormatException: For input string: "-"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:658)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at juicebox.tools.utils.original.AsciiPairIterator.advance(AsciiPairIterator.java:148)
+	at juicebox.tools.utils.original.AsciiPairIterator.<init>(AsciiPairIterator.java:70)
+	at juicebox.tools.utils.original.Preprocessor.computeWholeGenomeMatrix(Preprocessor.java:487)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:371)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:283)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:108)
+	at juicebox.tools.HiCTools.main(HiCTools.java:86)
+Could not read hic file: null
+:( Juicebox dump is empty! Perhaps something is wrong with the hic file or the requested resolution is too high. Exiting!
+mv: 对 'depletion_score_wide.wig' 调用 stat 失败: No such file or directory
+mv: 对 'depletion_score_narrow.wig' 调用 stat 失败: No such file or directory
+mv: 对 'mismatch_wide.bed' 调用 stat 失败: No such file or directory
+mv: 对 'mismatch_narrow.bed' 调用 stat 失败: No such file or directory
+awk: /share/org/YZWL/yzwl_lixg/software/3d-dna/edit/overlay-edits.awk:37: 致命错误：无法打开文件“genome.resolved.polish.mismatch_narrow.bed”进行读取：No such file or directory
+java.lang.NumberFormatException: For input string: "-"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:658)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at juicebox.tools.utils.original.AsciiPairIterator.advance(AsciiPairIterator.java:148)
+	at juicebox.tools.utils.original.AsciiPairIterator.<init>(AsciiPairIterator.java:70)
+	at juicebox.tools.utils.original.Preprocessor.computeWholeGenomeMatrix(Preprocessor.java:487)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:371)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:283)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:108)
+	at juicebox.tools.HiCTools.main(HiCTools.java:86)
+mv: 对 'genome.resolved.polish.mismatch_narrow.bed' 调用 stat 失败: No such file or directory
+mv: 对 'genome.resolved.polish.depletion_score_narrow.wig' 调用 stat 失败: No such file or directory
+mv: 对 'genome.resolved.polish.mismatch_wide.bed' 调用 stat 失败: No such file or directory
+mv: 对 'genome.resolved.polish.depletion_score_wide.wig' 调用 stat 失败: No such file or directory
+Could not read hic file: null
+:( Juicebox dump is empty! Perhaps something is wrong with the hic file or the requested resolution is too high. Exiting!
+mv: 对 'depletion_score_wide.wig' 调用 stat 失败: No such file or directory
+mv: 对 'depletion_score_narrow.wig' 调用 stat 失败: No such file or directory
+mv: 对 'mismatch_wide.bed' 调用 stat 失败: No such file or directory
+mv: 对 'mismatch_narrow.bed' 调用 stat 失败: No such file or directory
+awk: /share/org/YZWL/yzwl_lixg/software/3d-dna/split/overlay-edits.awk:37: 致命错误：无法打开文件“genome.polished.split.mismatch_narrow.bed”进行读取：No such file or directory
+java.lang.NumberFormatException: For input string: "-"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:658)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at juicebox.tools.utils.original.AsciiPairIterator.advance(AsciiPairIterator.java:148)
+	at juicebox.tools.utils.original.AsciiPairIterator.<init>(AsciiPairIterator.java:70)
+	at juicebox.tools.utils.original.Preprocessor.computeWholeGenomeMatrix(Preprocessor.java:487)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:371)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:283)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:108)
+	at juicebox.tools.HiCTools.main(HiCTools.java:86)
+:| Warning: no explicit bundle size was listed. Will use the same one as listed for false positive size threshold: this is the most typical scenario.
+:| Warning: No input for label1 was provided. Default for label1 is ":::fragment_"
+:| Warning: No input for label2 was provided. Default for label2 is ":::debris"
+java.lang.NumberFormatException: For input string: "-"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:658)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at juicebox.tools.utils.original.AsciiPairIterator.advance(AsciiPairIterator.java:148)
+	at juicebox.tools.utils.original.AsciiPairIterator.<init>(AsciiPairIterator.java:70)
+	at juicebox.tools.utils.original.Preprocessor.computeWholeGenomeMatrix(Preprocessor.java:487)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:371)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:283)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:108)
+	at juicebox.tools.HiCTools.main(HiCTools.java:86)
+:| Warning: No input for label1 was provided. Default for label1 is ":::fragment_"
+:| Warning: No input for label2 was provided. Default for label2 is ":::debris"
+Job 68015949 stderr output:
+

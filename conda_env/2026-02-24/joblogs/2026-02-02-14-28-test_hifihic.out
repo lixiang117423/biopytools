@@ -1,0 +1,163 @@
+2026-02-02 14:28:17.643 - INFO - ================================================================================
+2026-02-02 14:28:17.643 - INFO - 开始基因组组装流程|Starting Genome Assembly Pipeline
+2026-02-02 14:28:17.643 - INFO - ================================================================================
+2026-02-02 14:28:17.643 - INFO - 检查依赖软件|Checking dependencies
+2026-02-02 14:28:17.837 - INFO - 组装配置|Assembly Configuration:
+2026-02-02 14:28:17.837 - INFO -   样本名称|Sample Name: OV53
+2026-02-02 14:28:17.837 - INFO -   基因组大小|Genome Size: 1.45g
+2026-02-02 14:28:17.837 - INFO -   倍性|Ploidy: 2
+2026-02-02 14:28:17.837 - INFO -   线程数|Threads: 64
+2026-02-02 14:28:17.837 - INFO -   HiFi数据|HiFi Data: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/01.data/OV53_1-hifi.fq
+2026-02-02 14:28:17.837 - INFO -   Hi-C R1|Hi-C R1: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/01.data/OV53_1-hic_R1.fastq.gz
+2026-02-02 14:28:17.837 - INFO -   Hi-C R2|Hi-C R2: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/01.data/OV53_1-hic_R2.fastq.gz
+2026-02-02 14:28:17.837 - INFO -   组装模式|Assembly Mode: HiFi + Hi-C
+2026-02-02 14:28:17.837 - INFO -   NGS数据目录|NGS Data Directory: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/01.data/2nd
+2026-02-02 14:28:17.837 - INFO -   高质量覆盖度阈值|High Coverage Threshold: 95.0%
+2026-02-02 14:28:17.837 - INFO -   NGS polish|NGS Polish: 启用|Enabled
+2026-02-02 14:28:17.837 - INFO -   工作目录|Work Directory: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53
+2026-02-02 14:28:17.837 - INFO - ================================================================================
+2026-02-02 14:28:17.837 - INFO - 断点续传模式|Resume mode: enabled
+2026-02-02 14:28:17.837 - INFO - ================================================================================
+2026-02-02 14:28:17.837 - INFO - 检查已完成步骤|Checking completed steps:
+2026-02-02 14:28:17.837 - INFO - 初次组装步骤|Initial assembly steps:
+2026-02-02 14:28:17.837 - INFO -   [已完成|completed] Hifiasm组装|Hifiasm assembly
+2026-02-02 14:28:17.837 - INFO -   [已完成|completed] GFA转FASTA|GFA to FASTA conversion
+2026-02-02 14:28:17.837 - INFO -   [已完成|completed] Contig-reads映射生成|Contig-reads mapping generated
+2026-02-02 14:28:17.838 - INFO - NGS polish步骤|NGS polish steps:
+2026-02-02 14:28:17.838 - INFO -   [未完成|pending] BWA比对|BWA alignment
+2026-02-02 14:28:17.838 - INFO -   [未完成|pending] 覆盖度过滤|Coverage filter
+2026-02-02 14:28:17.838 - INFO -   [未完成|pending] 筛选reads|Filter reads
+2026-02-02 14:28:17.838 - INFO -   [未完成|pending] 重新组装|Reassembly
+2026-02-02 14:28:17.838 - INFO - ================================================================================
+2026-02-02 14:28:17.838 - INFO - 检测到组装已完成，跳过|Assembly already completed, skipping
+2026-02-02 14:28:17.838 - INFO - 检测到FASTA转换已完成，跳过|FASTA conversion already completed, skipping
+2026-02-02 14:28:17.838 - INFO - 转换GFA为FASTA格式|Converting GFA to FASTA format
+2026-02-02 14:28:17.838 - INFO - 转换|Converting: OV53.hic.hap1.p_ctg.gfa -> OV53.hap1.fa
+2026-02-02 14:28:17.838 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/01.raw_output/OV53.hic.hap1.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/02.fasta/OV53.hap1.fa
+2026-02-02 14:28:20.272 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 14:28:28.195 - INFO - 转换成功|Successfully converted: OV53.hap1.fa
+2026-02-02 14:28:28.197 - INFO - 序列数|Sequences: 1282
+2026-02-02 14:28:28.197 - INFO - 总长度|Total length: 1,342,936,994 bp
+2026-02-02 14:28:28.197 - INFO - 转换|Converting: OV53.hic.hap2.p_ctg.gfa -> OV53.hap2.fa
+2026-02-02 14:28:28.197 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/01.raw_output/OV53.hic.hap2.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/02.fasta/OV53.hap2.fa
+2026-02-02 14:28:30.377 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 14:28:37.206 - INFO - 转换成功|Successfully converted: OV53.hap2.fa
+2026-02-02 14:28:37.207 - INFO - 序列数|Sequences: 972
+2026-02-02 14:28:37.207 - INFO - 总长度|Total length: 1,167,703,788 bp
+2026-02-02 14:28:37.207 - INFO - 转换|Converting: OV53.hic.p_ctg.gfa -> OV53.primary.fa
+2026-02-02 14:28:37.207 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/01.raw_output/OV53.hic.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/02.fasta/OV53.primary.fa
+2026-02-02 14:28:39.990 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 14:28:49.019 - INFO - 转换成功|Successfully converted: OV53.primary.fa
+2026-02-02 14:28:49.019 - INFO - 序列数|Sequences: 1211
+2026-02-02 14:28:49.019 - INFO - 总长度|Total length: 1,514,438,242 bp
+2026-02-02 14:28:49.020 - WARNING - 文件不存在|File not found: OV53.hic.a_ctg.gfa
+2026-02-02 14:28:49.020 - INFO - 检测到contig-reads映射已生成，跳过|Contig-reads mapping already generated, skipping
+2026-02-02 14:28:49.020 - INFO - ================================================================================
+2026-02-02 14:28:49.020 - INFO - 检测到NGS数据，开始NGS polish流程|NGS data detected, starting NGS polish
+2026-02-02 14:28:49.020 - INFO - ================================================================================
+2026-02-02 14:28:49.020 - INFO - ================================================================================
+2026-02-02 14:28:49.020 - INFO - 开始NGS polish流程|Starting NGS Polish Pipeline
+2026-02-02 14:28:49.020 - INFO - ================================================================================
+2026-02-02 14:28:49.020 - INFO - [1/4] 运行BWA比对|Running BWA alignment
+2026-02-02 14:28:49.041 - INFO - ================================================================================
+2026-02-02 14:28:49.041 - INFO - 开始BWA全基因组比对分析流程|Starting BWA alignment pipeline
+2026-02-02 14:28:49.041 - INFO - ================================================================================
+2026-02-02 14:28:49.041 - INFO - 步骤1/6: 检查依赖软件|Step 1/6: Checking dependencies
+2026-02-02 14:28:49.041 - INFO - 检查依赖软件|Checking dependencies
+2026-02-02 14:28:49.074 - INFO - BWA 可用|BWA available: [main]
+2026-02-02 14:28:49.429 - INFO - SAMtools 可用|SAMtools available: samtools
+2026-02-02 14:28:49.429 - INFO - 步骤2/6: 检查基因组索引|Step 2/6: Checking genome index
+2026-02-02 14:28:49.429 - INFO - 检查基因组索引|Checking genome index
+2026-02-02 14:28:49.429 - INFO - 基因组索引已存在|Genome index already exists
+2026-02-02 14:28:49.429 - INFO - 步骤3/6: 查找FASTQ文件|Step 3/6: Finding FASTQ files
+2026-02-02 14:28:49.429 - INFO - 查找FASTQ文件|Finding FASTQ files
+2026-02-02 14:28:49.429 - INFO - 输入目录|Input directory: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/01.data/2nd
+2026-02-02 14:28:49.430 - INFO - 匹配模式|Pattern: _1.clean.fq.gz
+2026-02-02 14:28:49.430 - INFO - 找到样品|Found sample: OV8-105
+2026-02-02 14:28:49.430 - INFO - 共找到 1 个样品对|Found 1 sample pairs
+2026-02-02 14:28:49.430 - INFO - 步骤4/6: 批量比对 (1 个样品)|Step 4/6: Batch alignment (1 samples)
+2026-02-02 14:28:49.430 - INFO - ================================================================================
+2026-02-02 14:28:49.430 - INFO - 处理样品 1/1: OV8-105|Processing sample 1/1: OV8-105
+2026-02-02 14:28:49.430 - INFO - ================================================================================
+2026-02-02 14:28:49.430 - INFO - 开始比对样品|Starting alignment for sample: OV8-105
+2026-02-02 14:28:49.430 - INFO - 执行步骤|Executing step: BWA mem比对|BWA mem alignment: OV8-105
+2026-02-02 14:28:49.430 - INFO - 命令|Command: bwa mem -t 64 -k 19 -w 100 -d 100 -r 1.5 -y 20 -c 500 -D 0.5 -W 0 -m 50 -A 1 -B 4 -O 6,6 -E 1,1 -L 5,5 -U 17 -T 30 -h 5,200 -R '@RG\tID:OV8-105\tSM:OV8-105\tPL:ILLUMINA' /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/02.fasta/OV53.primary.fa /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/01.data/2nd/OV8-105_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/01.data/2nd/OV8-105_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.sam
+2026-02-02 14:55:40.013 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 14:55:40.014 - INFO - 执行步骤|Executing step: SAM转BAM|SAM to BAM conversion
+2026-02-02 14:55:40.014 - INFO - 命令|Command: samtools view -@ 64 -b -o /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.raw.bam /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.sam
+2026-02-02 14:56:26.464 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 14:56:26.464 - INFO - 执行步骤|Executing step: 排序BAM|Sorting BAM
+2026-02-02 14:56:26.464 - INFO - 命令|Command: samtools sort -@ 64 -o /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.sorted.bam /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.raw.bam
+2026-02-02 14:57:44.190 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 14:57:44.191 - INFO - 执行步骤|Executing step: 构建BAM索引|Building BAM index
+2026-02-02 14:57:44.191 - INFO - 命令|Command: samtools index -@ 64 /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.bam
+2026-02-02 14:57:54.034 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 14:57:54.034 - INFO - 清理中间文件|Cleaning up intermediate files
+2026-02-02 14:57:54.034 - INFO - 已删除SAM文件|Removed SAM file: OV8-105.sam
+2026-02-02 14:57:54.035 - INFO - 已删除原始BAM|Removed raw BAM: OV8-105.raw.bam
+2026-02-02 14:57:54.035 - INFO - 样品比对完成|Sample alignment completed: OV8-105
+2026-02-02 14:57:54.035 - INFO - 生成比对统计|Generating alignment statistics: OV8-105
+2026-02-02 14:57:54.035 - INFO - 执行步骤|Executing step: 生成flagstat统计|Generating flagstat: OV8-105
+2026-02-02 14:57:54.035 - INFO - 命令|Command: samtools flagstat /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.bam > /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/stats/OV8-105.flagstat.txt
+2026-02-02 14:58:47.522 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 14:58:47.523 - INFO - 执行步骤|Executing step: 生成详细统计|Generating detailed stats: OV8-105
+2026-02-02 14:58:47.523 - INFO - 命令|Command: samtools stats /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.bam > /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/stats/OV8-105.stats.txt
+2026-02-02 15:03:22.179 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 15:03:22.179 - INFO - 统计生成完成|Statistics generation completed: OV8-105
+2026-02-02 15:03:22.179 - INFO - 开始覆盖度分析|Starting coverage analysis: OV8-105
+2026-02-02 15:03:22.179 - INFO - 执行步骤|Executing step: 计算位点覆盖度|Calculating depth: OV8-105
+2026-02-02 15:03:22.179 - INFO - 命令|Command: samtools depth /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.bam > /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/coverage/OV8-105.depth.txt
+2026-02-02 15:05:07.922 - INFO - 命令执行成功|Command executed successfully
+2026-02-02 15:05:07.922 - INFO - 计算滑窗覆盖度|Calculating windowed coverage
+2026-02-02 15:05:07.922 - INFO -    窗口大小|Window size: 1,000,000 bp
+2026-02-02 15:05:07.922 - INFO -    步长|Step size: 100,000 bp
+2026-02-02 15:25:21.595 - INFO - 滑窗覆盖度计算完成|Windowed coverage completed
+2026-02-02 15:25:21.596 - INFO -    输出文件|Output file: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/windows/OV8-105.window.bed
+2026-02-02 15:25:21.598 - INFO - 覆盖度分析完成|Coverage analysis completed: OV8-105
+2026-02-02 15:25:21.598 - INFO - 步骤6/6: 生成汇总报告|Step 6/6: Generating summary report
+2026-02-02 15:25:21.598 - INFO - 生成汇总报告|Generating summary report
+2026-02-02 15:25:21.598 - INFO - 汇总报告已生成|Summary report generated: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/alignment_summary.txt
+2026-02-02 15:25:21.598 - INFO - ================================================================================
+2026-02-02 15:25:21.598 - INFO - BWA全基因组比对分析完成|BWA alignment analysis completed
+2026-02-02 15:25:21.598 - INFO - ================================================================================
+2026-02-02 15:25:21.598 - INFO - 成功处理样品数|Successfully processed: 1/1
+2026-02-02 15:25:21.598 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment
+2026-02-02 15:25:21.598 - INFO - BWA比对完成|BWA alignment completed: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment
+2026-02-02 15:25:21.598 - INFO - [2/4] 运行覆盖度过滤|Running coverage filter
+2026-02-02 15:25:21.708 - INFO - 使用BAM文件|Using BAM file: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/01.bwa_alignment/bam/OV8-105.bam
+2026-02-02 15:25:21.710 - INFO - ============================================================
+2026-02-02 15:25:21.710 - INFO - 覆盖度过滤流程|Coverage Filter Pipeline
+2026-02-02 15:25:21.710 - INFO - ============================================================
+2026-02-02 15:25:21.799 - INFO - 所有依赖检查通过|All dependencies check passed
+2026-02-02 15:25:21.799 - INFO - [1/4] 计算覆盖度|Calculating coverage
+2026-02-02 15:25:21.799 - INFO - 开始计算覆盖度|Starting coverage calculation
+2026-02-02 15:25:21.799 - INFO - 执行步骤|Executing step: 覆盖度计算|Coverage calculation
+2026-02-02 15:29:02.627 - INFO - 覆盖度文件已生成|Coverage file generated: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/02.coverage_filter/OV53_coverage.txt
+2026-02-02 15:29:02.628 - INFO - [2/4] 分类序列质量|Classifying sequence quality
+2026-02-02 15:29:02.628 - INFO - 开始分类序列质量|Starting sequence quality classification
+2026-02-02 15:29:02.628 - INFO - 执行步骤|Executing step: 提取高质量序列|Extracting high quality sequences
+2026-02-02 15:29:02.634 - INFO - 高质量序列|High quality sequences: 782
+2026-02-02 15:29:02.634 - INFO - 执行步骤|Executing step: 提取中等质量序列|Extracting medium quality sequences
+2026-02-02 15:29:02.638 - INFO - 中等质量序列|Medium quality sequences: 305
+2026-02-02 15:29:02.638 - INFO - 执行步骤|Executing step: 提取低质量序列|Extracting low quality sequences
+2026-02-02 15:29:02.642 - INFO - 低质量序列|Low quality sequences: 124
+2026-02-02 15:29:02.642 - INFO - [3/4] 提取过滤后的序列|Extracting filtered sequences
+2026-02-02 15:29:02.642 - INFO - 开始提取序列|Starting sequence extraction
+2026-02-02 15:29:02.642 - INFO - 执行步骤|Executing step: 提取高质量序列|Extracting high quality sequences
+2026-02-02 15:29:06.769 - INFO - 执行步骤|Executing step: 提取中等质量序列|Extracting medium quality sequences
+2026-02-02 15:29:08.563 - INFO - 执行步骤|Executing step: 提取低质量序列|Extracting low quality sequences
+2026-02-02 15:29:09.446 - INFO - 序列提取完成|Sequence extraction completed
+2026-02-02 15:29:09.446 - INFO - [4/4] 生成统计报告|Generating statistics report
+2026-02-02 15:29:09.446 - INFO - 开始生成统计信息|Starting statistics generation
+2026-02-02 15:29:10.239 - INFO - 原始序列统计完成|Original sequence statistics completed
+2026-02-02 15:29:10.672 - INFO - 高质量序列统计完成|High quality sequence statistics completed
+2026-02-02 15:29:10.838 - INFO - 中等质量序列统计完成|Medium quality sequence statistics completed
+2026-02-02 15:29:10.872 - INFO - 低质量序列统计完成|Low quality sequence statistics completed
+2026-02-02 15:29:10.872 - INFO - 报告已保存到|Report saved to: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/02.coverage_filter/OV53_report.txt
+2026-02-02 15:29:10.872 - INFO - ============================================================
+2026-02-02 15:29:10.872 - INFO - 过滤流程完成|Filter pipeline completed
+2026-02-02 15:29:10.872 - INFO - ============================================================
+2026-02-02 15:29:10.872 - INFO - 覆盖度过滤完成|Coverage filter completed: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/03.ngs_polish/02.coverage_filter/OV53_high_quality.list
+2026-02-02 15:29:10.872 - INFO - [3/4] 提取高质量HiFi reads|Extracting high-quality HiFi reads
+2026-02-02 15:29:10.873 - ERROR - Contig-reads映射文件不存在|Contig-reads mapping file not found: /share/org/YZWL/yzwl_lixg/tmp/test_hifihic/assembly_output/OV53/02.fasta/OV53.hic.p_ctg.contig_reads.tsv
+2026-02-02 15:29:10.873 - ERROR - NGS polish流程失败|NGS polish pipeline failed

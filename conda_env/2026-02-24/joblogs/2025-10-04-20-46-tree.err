@@ -1,0 +1,6 @@
+/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/Bio/SeqRecord.py:354: BiopythonDeprecationWarning: Using a string as the sequence is deprecated and will raise a TypeError in future. It has been converted to a Seq object.
+  warnings.warn(
+
+🛑 系统发育树构建被用户中断
+Job 67253445 stderr output:
+

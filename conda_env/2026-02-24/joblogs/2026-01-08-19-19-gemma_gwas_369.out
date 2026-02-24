@@ -1,0 +1,80 @@
+2026-01-08 19:19:01.507 - INFO - ============================================================
+2026-01-08 19:19:01.507 - INFO - Program: GEMMA GWAS Batch Analysis
+2026-01-08 19:19:01.507 - INFO - Version: 1.0.0
+2026-01-08 19:19:01.507 - INFO - ============================================================
+2026-01-08 19:19:01.508 - INFO - Input VCF: ../variation.filtered.snp.biallelic.vcf.gz
+2026-01-08 19:19:01.508 - INFO - Input phenotype: ../88.第一批369个样品表型-病斑长度均值.txt
+2026-01-08 19:19:01.508 - INFO - Output directory: ./
+2026-01-08 19:19:01.508 - INFO - PCA components: 10
+2026-01-08 19:19:01.508 - INFO - LMM method: 4
+2026-01-08 19:19:01.508 - INFO - GK method: 1
+2026-01-08 19:19:01.508 - INFO - Quality control: disabled
+2026-01-08 19:19:01.508 - INFO - GEMMA MAF: 0.0
+2026-01-08 19:19:01.508 - INFO - GEMMA missing rate: 1.0
+2026-01-08 19:19:01.508 - INFO - Threads: 12
+2026-01-08 19:19:01.508 - INFO - 
+2026-01-08 19:19:01.627 - INFO - ============================================================
+2026-01-08 19:19:01.627 - INFO - STEP 1/6: Prepare Phenotype Files
+2026-01-08 19:19:01.627 - INFO - ============================================================
+2026-01-08 19:19:01.641 - INFO - Phenotype file columns: 2 (including sample ID)
+2026-01-08 19:19:01.641 - INFO - Number of phenotypes: 1
+2026-01-08 19:19:01.643 - INFO - Prepared phenotype files:
+2026-01-08 19:19:01.643 - INFO -   With header: ./88.第一批369个样品表型-病斑长度均值_with_header.txt
+2026-01-08 19:19:01.643 - INFO -   No header: ./88.第一批369个样品表型-病斑长度均值_no_header.txt
+2026-01-08 19:19:01.643 - INFO -   Phenotypes: sample, length
+2026-01-08 19:19:01.644 - INFO - Phenotype samples: 368
+2026-01-08 19:19:01.644 - INFO - Phenotype files prepared
+2026-01-08 19:19:01.644 - INFO - 
+2026-01-08 19:19:01.644 - INFO - ============================================================
+2026-01-08 19:19:01.644 - INFO - STEP 2/6: Filter to Common Samples (using bcftools)
+2026-01-08 19:19:01.644 - INFO - ============================================================
+2026-01-08 19:19:02.248 - INFO - VCF samples: 197
+2026-01-08 19:19:02.248 - INFO - Phenotype samples: 368
+2026-01-08 19:19:02.248 - INFO - Common samples: 197
+2026-01-08 19:19:02.249 - INFO - Filtering VCF from 197 to 197 samples...
+2026-01-08 19:25:15.616 - INFO - VCF filtering completed with bcftools
+2026-01-08 19:25:15.617 - INFO - Converting filtered VCF to PLINK format...
+2026-01-08 19:27:21.344 - INFO - PLINK conversion completed
+2026-01-08 19:27:21.346 - INFO - Filtered to 197 common samples
+2026-01-08 19:27:21.346 - INFO - Filtered phenotype files:
+2026-01-08 19:27:21.346 - INFO -   With header: genotype_pheno_filtered.txt
+2026-01-08 19:27:21.346 - INFO -   No header: genotype_pheno_filtered_no_header.txt
+2026-01-08 19:27:21.346 - INFO - Filtered VCF: genotype_filtered.vcf.gz
+2026-01-08 19:27:21.346 - INFO - Common samples filtering completed
+2026-01-08 19:27:21.346 - INFO - 
+2026-01-08 19:27:21.346 - INFO - ============================================================
+2026-01-08 19:27:21.346 - INFO - STEP 3/6: Quality Control
+2026-01-08 19:27:21.346 - INFO - ============================================================
+2026-01-08 19:27:21.346 - INFO - Quality control skipped
+2026-01-08 19:27:21.346 - INFO - 
+2026-01-08 19:27:21.346 - INFO - Fixing FAM file phenotype column...
+2026-01-08 19:27:21.347 - INFO - FAM file phenotype column updated
+2026-01-08 19:27:21.347 - INFO - FAM file updated
+2026-01-08 19:27:21.347 - INFO - 
+2026-01-08 19:27:21.347 - INFO - ============================================================
+2026-01-08 19:27:21.347 - INFO - STEP 4/6: PCA Analysis (top 10 components)
+2026-01-08 19:27:21.347 - INFO - ============================================================
+2026-01-08 19:27:43.706 - INFO - PCA calculation completed
+2026-01-08 19:27:43.706 - INFO - PCA samples: 197
+2026-01-08 19:27:43.706 - INFO - Genotype samples: 197
+2026-01-08 19:27:43.709 - INFO - Covariate file prepared: covariate.txt with 197 samples
+2026-01-08 19:27:43.709 - INFO - Covariate samples: 197
+2026-01-08 19:27:43.709 - INFO - Covariate file prepared
+2026-01-08 19:27:43.709 - INFO - 
+2026-01-08 19:27:43.709 - INFO - ============================================================
+2026-01-08 19:27:43.709 - INFO - STEP 5/6: Calculate Kinship Matrix
+2026-01-08 19:27:43.709 - INFO - ============================================================
+2026-01-08 19:27:43.709 - INFO - Final sample count check:
+2026-01-08 19:27:43.709 - INFO -   Genotype: 197
+2026-01-08 19:27:43.709 - INFO -   Phenotype: 197
+2026-01-08 19:27:43.709 - INFO -   Covariate: 197
+2026-01-08 19:27:43.709 - INFO - Sample counts consistent
+2026-01-08 19:27:43.709 - INFO - 
+2026-01-08 19:27:43.710 - INFO - Running command: /share/org/YZWL/yzwl_lixg/.local/bin/gemma -bfile genotype -gk 1 -miss 1.0 -maf 0.0 -o kinship
+2026-01-08 19:28:43.511 - INFO - Kinship matrix calculation completed
+2026-01-08 19:28:43.511 - INFO - 
+2026-01-08 19:28:43.511 - INFO - ============================================================
+2026-01-08 19:28:43.511 - INFO - STEP 6/6: GWAS Analysis
+2026-01-08 19:28:43.512 - INFO - ============================================================
+2026-01-08 19:28:43.512 - INFO - 
+2026-01-08 19:28:43.512 - INFO - Analyzing phenotype 1/1: length

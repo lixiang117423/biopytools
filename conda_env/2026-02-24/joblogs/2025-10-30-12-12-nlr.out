@@ -1,0 +1,16 @@
+🔎 Checking for required software and paths...
+✅ All required software and paths are configured correctly.
+🚀 Running in BATCH mode. Scanning directory: data
+
+   Found prefix 'S1'. Checking files...
+   ✅ All required files found for S1. Starting pipeline.
+
+==============================================================================
+  🌱 Processing Species: S1 | ⚡ Threads: 50
+==============================================================================
+
+--- 🧬 STEP 1: Identifying and refining NLR regions ---
+   Running NLR-Annotator with 50 threads...
+Ran MotifParser with 50 threads in 749 seconds
+   Converting NLR-Annotator output to GFF3 format...
+   Sorting GFF and refining NLR regions...

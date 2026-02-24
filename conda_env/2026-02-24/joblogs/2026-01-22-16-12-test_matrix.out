@@ -1,0 +1,19 @@
+2026-01-22 16:12:22.768 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-22 16:12:22.768 - INFO - 使用自定义输入目录|Using custom input directory: output/kmc_databases
+2026-01-22 16:12:22.768 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-22 16:12:22.768 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-22 16:12:22.768 - INFO - 找到 10 个KMC数据库|Found 10 KMC databases
+2026-01-22 16:12:22.768 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 10 样本|samples
+2026-01-22 16:12:22.768 - INFO - 检测到已存在的k-mer文件，跳过union步骤|Found existing k-mer file, skipping union: output/global_kmers_with_id.txt
+2026-01-22 16:12:22.768 - INFO - 从元数据加载 1,492,408,640 个k-mer|Loaded 1,492,408,640 k-mers from metadata
+2026-01-22 16:12:22.768 - INFO - 初始化矩阵文件|Initializing matrix file
+2026-01-22 16:12:22.776 - INFO - 矩阵文件初始化完成|Matrix file initialized
+2026-01-22 16:12:22.776 - INFO - k-mer文件大小|K-mer file size: 91.09GB
+2026-01-22 16:12:22.777 - INFO - 加载或构建索引|Loading or building index
+2026-01-22 16:12:22.777 - INFO - 文件大小 91.09GB >= 阈值 10.0GB，使用数据库索引|File size 91.09GB >= threshold 10.0GB, using database index
+2026-01-22 16:12:22.796 - INFO - 检测到已存在的LevelDB索引，直接加载|Found existing LevelDB index, loading: output/kmer_index.ldb
+2026-01-22 16:12:23.074 - INFO - 处理样本|Processing sample 1/10: W681A
+2026-01-22 16:12:23.074 - INFO - 查询样本丰度|Querying sample abundances: W681A
+2026-01-22 16:30:43.261 - INFO - 查询完成|Query completed: 40,570,808 个k-mer
+2026-01-22 16:30:43.261 - INFO - 保存样本丰度|Saving sample abundances: W681A
+2026-01-22 16:30:43.416 - ERROR - 程序执行出错|Program execution error: 2 indexing arguments for 1 dimensions

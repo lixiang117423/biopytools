@@ -1,0 +1,48 @@
+[2025-12-19 08:32:28] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-19 08:32:28] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-19 08:32:28]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/24.hifi_genome/hifiasm/OV53_1.primary.fasta
+[2025-12-19 08:32:28]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-19 08:32:28]   hic_file_type: fastq
+[2025-12-19 08:32:28]   nchrs: 12
+[2025-12-19 08:32:28]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/29.纯hifi数据组装的基因组进行挂载
+[2025-12-19 08:32:28]   prefix: OV53_1.primary
+[2025-12-19 08:32:28]   threads: 64
+[2025-12-19 08:32:28]   processes: 64
+[2025-12-19 08:32:28]   quick_view: False
+[2025-12-19 08:32:28]   restriction_sites: ['GATC']
+[2025-12-19 08:32:28]   correct_nrounds: 2
+[2025-12-19 08:32:28]   remove_allelic_links: None
+[2025-12-19 08:32:28]   phasing_weight: 1.0
+[2025-12-19 08:32:28]   gfa_files: None
+[2025-12-19 08:32:28]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-19 08:32:28]   bwa_bin: bwa
+[2025-12-19 08:32:28]   samtools_bin: samtools
+[2025-12-19 08:32:28] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-19 08:32:28] 🔍 系统预检查 | System pre-flight checks
+[2025-12-19 08:32:28] 🔍 验证输入文件 | Validating input files
+[2025-12-19 08:32:31] 📊 基因组序列数量 | Assembly sequence count: 1455
+[2025-12-19 08:32:31] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 60.14 GB
+[2025-12-19 08:32:31] ✅ 输入文件验证通过 | Input files validated
+[2025-12-19 08:32:31] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-19 08:32:31] 💾 可用内存 | Available memory: 880.6 GB
+[2025-12-19 08:32:31] 💾 可用磁盘空间 | Available disk space: 2616906.9 GB
+[2025-12-19 08:32:31] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-19 08:32:31] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-19 08:32:31] 🔍 检查已存在的比对结果 | Checking for existing alignment results
+[2025-12-19 08:32:31] 📂 输出目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/29.纯hifi数据组装的基因组进行挂载
+[2025-12-19 08:32:31] 📂 比对目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/29.纯hifi数据组装的基因组进行挂载/00.mapping
+[2025-12-19 08:32:31] 📄 潜在BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/29.纯hifi数据组装的基因组进行挂载/00.mapping/HiC.bam
+[2025-12-19 08:32:31] 📄 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/29.纯hifi数据组装的基因组进行挂载/00.mapping/HiC.filtered.bam
+[2025-12-19 08:32:31] ✅ 比对目录存在 | Alignment directory exists
+[2025-12-19 08:32:31] 📋 比对目录内容: ['assembly.fa.amb', 'assembly.fa.bwt', 'assembly.fa.ann', 'assembly.fa', 'assembly.fa.pac', 'read1_1.fastq.gz', 'HiC.bam.bak', 'HiC.bam', 'assembly.fa.sa', 'read2_1.fastq.gz']
+[2025-12-19 08:32:31] ✅ 发现已存在的BAM文件，跳过BWA比对步骤 | Found existing BAM file, skipping BWA alignment: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/29.纯hifi数据组装的基因组进行挂载/00.mapping/HiC.bam (93,572,708,225 bytes)
+[2025-12-19 08:32:31] ✅ 使用按read name排序的BAM文件以满足HapHiC要求 | Using read name-sorted BAM file to meet HapHiC requirements
+[2025-12-19 08:32:31] 🚀 开始HapHiC完整流程 | Starting complete HapHiC pipeline
+[2025-12-19 08:32:31] 📁 创建目录结构 | Creating directory structure
+[2025-12-19 08:32:31] ✅ 目录结构创建完成 | Directory structure created
+[2025-12-19 08:32:31] 🔍 [步骤1] 聚类分析 | [Step 1] Clustering analysis
+[2025-12-19 08:32:31] 🚀 聚类分析
+[2025-12-19 09:32:31] ❌ 命令执行超时 | Command timeout after 1 hour
+[2025-12-19 09:32:31] 📊 处理统计 | Processing Statistics:
+[2025-12-19 09:32:31]   ⏱️ 总耗时 | Total time: 3603.00秒
+[2025-12-19 09:32:31]   📄 log_file: OV53_1.primary_haphic.log (27,014 bytes)

@@ -1,0 +1,21 @@
+✨ 启动小花糖芥 SNP/INDEL 发现流程 ✨
+⚙️ 步骤 0: 创建输出目录...
+✅ 输出目录创建完成。
+📝 步骤 0.5: 准备参考基因组索引...
+🔎 创建 BWA 索引: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/05.新基因组比对/01.data/genome/Erysimum_cheiranthoides.chr.fna.bwt 等...
+🔎 创建 SAMtools 索引: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/05.新基因组比对/01.data/genome/Erysimum_cheiranthoides.chr.fna.fai...
+🔎 创建 GATK 序列字典: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/05.新基因组比对/01.data/genome/Erysimum_cheiranthoides.chr.dict...
+Tool returned:
+0
+✅ 参考基因组索引准备完成。
+📊 步骤 1: 运行测序数据比对 (biopytools parabricks)...
+[2025-10-28 10:22:21] INFO - 🐳 使用容器引擎 | Using container engine: apptainer
+[2025-10-28 10:22:21] INFO - 🚀 开始parabricks WGS分析 | Starting parabricks WGS analysis
+[2025-10-28 10:22:21] INFO - 📂 输入目录 | Input: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/05.新基因组比对/01.data/fastq
+[2025-10-28 10:22:21] INFO - 📤 输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/05.新基因组比对/02.mapping
+[2025-10-28 10:22:21] INFO - 🧬 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/05.新基因组比对/01.data/genome/Erysimum_cheiranthoides.chr.fna
+[2025-10-28 10:22:21] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-28 10:22:21] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-28 10:22:21] INFO - ✅ ✓ parabricks程序检查通过 | parabricks program check passed
+[2025-10-28 10:22:21] INFO - 🔍 搜索输入文件，模式: *_1.clean.fq.gz | Searching input files with pattern: *_1.clean.fq.gz
+[2025-10-28 10:22:21] ERROR - 💥 分析流程异常终止 | Pipeline terminated: 在 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/05.新基因组比对/01.data/fastq 中未找到匹配 *_1.clean.fq.gz 的文件

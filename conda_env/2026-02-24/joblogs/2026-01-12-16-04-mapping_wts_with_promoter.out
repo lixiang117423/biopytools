@@ -1,0 +1,568 @@
+2026-01-12 16:04:21.430 - INFO - ============================================================
+2026-01-12 16:04:21.430 - INFO - 开始Fastq到VCF (GTX) 流程|Starting Fastq to VCF (GTX) Pipeline
+2026-01-12 16:04:21.431 - INFO - ============================================================
+2026-01-12 16:04:21.431 - INFO - 系统预检查|System pre-flight checks
+2026-01-12 16:04:21.431 - INFO - 开始更新所有组件的基因组路径...|Starting genome path update for all components...
+2026-01-12 16:04:21.431 - INFO - 拷贝基因组文件到 /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa|Copying genome file to /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa
+2026-01-12 16:04:21.452 - INFO - 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/wts_with_promoter.fa -> /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa|Force updated genome path
+2026-01-12 16:04:21.453 - INFO - 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa|Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa
+2026-01-12 16:04:21.453 - INFO - 基因组路径更新完成|Genome path update completed
+2026-01-12 16:04:21.455 - INFO - 命令存在|Command exists: samtools
+2026-01-12 16:04:21.496 - INFO - 命令存在|Command exists: bcftools
+2026-01-12 16:04:21.497 - INFO - 命令存在|Command exists: biopytools
+2026-01-12 16:04:21.498 - INFO - 磁盘空间充足|Sufficient disk space: 1518236GB available
+2026-01-12 16:04:21.498 - INFO - 系统内存充足|Sufficient system memory: 503GB total
+2026-01-12 16:04:21.498 - INFO - 配置摘要|Configuration Summary:
+2026-01-12 16:04:21.498 - INFO -   项目路径|Project path: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性
+2026-01-12 16:04:21.498 - INFO -   原始数据目录|Raw data directory: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/F35/fastq
+2026-01-12 16:04:21.498 - INFO -   参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa
+2026-01-12 16:04:21.498 - INFO -   线程配置|Thread config: Mapping=64, Filtering=64
+2026-01-12 16:04:21.498 - INFO -   断点续传|Checkpoint: True
+2026-01-12 16:04:21.499 - INFO -   测试模式|Dry run: False
+2026-01-12 16:04:21.499 - INFO - 预检查通过|Pre-flight checks passed
+2026-01-12 16:04:21.499 - INFO - 执行步骤1|Executing step 1: 质量控制|Quality Control
+2026-01-12 16:04:21.499 - INFO - 执行步骤2|Executing step 2: 构建基因组索引|Build Genome Index
+2026-01-12 16:04:21.499 - INFO - 准备执行索引构建步骤|Preparing to execute index building step
+2026-01-12 16:04:21.499 - INFO - 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa|Current genome path in config
+2026-01-12 16:04:21.499 - INFO - GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa|Genome path in GTX mapper
+2026-01-12 16:04:21.499 - INFO - 执行步骤3|Executing step 3: 序列比对|Sequence Mapping
+2026-01-12 16:04:21.499 - INFO - 执行步骤4|Executing step 4: 联合变异检测|Joint Variant Calling
+2026-01-12 16:04:21.503 - INFO - 执行步骤5|Executing step 5: 变异过滤|Variant Filtering
+2026-01-12 16:04:21.503 - INFO - 执行步骤1|Executing step 1: 质量控制|Quality Control
+2026-01-12 16:04:21.503 - INFO - ============================================================
+2026-01-12 16:04:21.503 - INFO - Step 1: 质量控制|Quality Control
+2026-01-12 16:04:21.503 - INFO - ============================================================
+2026-01-12 16:04:21.503 - INFO - 调试信息: skip_qc = True
+2026-01-12 16:04:21.503 - INFO - 调试信息: read1_pattern_fastp = _1.fq.gz
+2026-01-12 16:04:21.503 - INFO - 调试信息: read2_pattern_fastp = _2.fq.gz
+2026-01-12 16:04:21.503 - INFO - 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/F35/fastq
+2026-01-12 16:04:21.503 - INFO - 用户指定跳过质控步骤|User specified to skip QC step
+2026-01-12 16:04:21.503 - INFO - ============================================================
+2026-01-12 16:04:21.503 - INFO - 强制构建GTX索引|Force Build GTX Index
+2026-01-12 16:04:21.503 - INFO - ============================================================
+2026-01-12 16:04:21.503 - INFO - 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa
+2026-01-12 16:04:21.504 - INFO - 强制执行GTX索引构建|Force executing GTX index build
+2026-01-12 16:04:21.504 - INFO - 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp
+2026-01-12 16:04:21.504 - INFO - 基因组文件: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa
+2026-01-12 16:04:21.504 - INFO - 临时目录: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp
+2026-01-12 16:04:21.504 - INFO - 强制构建GTX索引|Force build GTX index
+2026-01-12 16:04:21.504 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp
+2026-01-12 16:04:21.959 - INFO - 标准输出|Stdout: [2020-10-20 00:00:00.920] [index] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp available: 1518236GB, memory available: 447GB, ulimit of open files: 100000
+[2020-10-20 00:00:00.921] [index] [info] Job: index, pid: 401173
+[2020-10-20 00:00:00.921] [index] [info] Indexing...
+[2020-10-20 00:00:00.922] [index] [info] build optimized BWA2 FM-index
+[2020-10-20 00:00:00.954] [index] [info] Read 0 ALT contigs.
+[2020-10-20 00:00:00.956] [index] [info] build optimized BWA2 FM-index successed.
+[2020-10-20 00:00:00.958] [index] [info] index exited normally.
+
+2026-01-12 16:04:21.960 - INFO - 标准错误|Stderr: indexing finished in 0.019192 CPU sec, 0.035259 real sec.
+
+2026-01-12 16:04:21.960 - INFO - 命令执行成功|Command executed successfully
+2026-01-12 16:04:21.960 - INFO - GTX索引构建成功|GTX index building successful
+2026-01-12 16:04:21.960 - INFO - 验证GTX索引文件:
+2026-01-12 16:04:21.960 - INFO -    /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa.gtx: ✗ (0 B)
+2026-01-12 16:04:21.960 - INFO -    /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa.gtx.bwt: ✗ (0 B)
+2026-01-12 16:04:21.960 - INFO -    /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa.gtx.sa: ✗ (0 B)
+2026-01-12 16:04:21.960 - INFO -    /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa.gtx.ann: ✗ (0 B)
+2026-01-12 16:04:21.960 - INFO -    /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa.gtx.amb: ✗ (0 B)
+2026-01-12 16:04:21.960 - INFO - 步骤1 完成|Step 1 completed: 质量控制|Quality Control
+2026-01-12 16:04:21.960 - INFO - 执行步骤2|Executing step 2: 构建基因组索引|Build Genome Index
+2026-01-12 16:04:21.960 - INFO - ============================================================
+2026-01-12 16:04:21.960 - INFO - 构建基因组索引|Building Genome Index
+2026-01-12 16:04:21.960 - INFO - ============================================================
+2026-01-12 16:04:21.960 - INFO - GTX索引已在step1中构建，跳过|GTX index already built in step1, skipping
+2026-01-12 16:04:21.960 - INFO - 步骤2 完成|Step 2 completed: 构建基因组索引|Build Genome Index
+2026-01-12 16:04:21.960 - INFO - 执行步骤3|Executing step 3: 序列比对|Sequence Mapping
+2026-01-12 16:04:21.960 - INFO - ============================================================
+2026-01-12 16:04:21.960 - INFO - Step 3: 序列比对|Sequence Mapping
+2026-01-12 16:04:21.960 - INFO - ============================================================
+2026-01-12 16:04:21.960 - INFO - 刷新配置后的基因组路径: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa|Genome path after config refresh
+2026-01-12 16:04:21.960 - INFO - 使用GTX WGS进行序列比对 (CPU优化，比对+变异检测一体化)|Using GTX WGS for sequence mapping (CPU optimized, alignment+variant calling integrated)
+2026-01-12 16:04:21.960 - INFO - 使用 64 线程进行比对|Using 64 threads for mapping
+2026-01-12 16:04:21.960 - INFO - 使用GTX WGS完整流程 (CPU优化，比对+变异检测一体化)|Using GTX WGS complete pipeline (CPU optimized, alignment+variant calling integrated)
+2026-01-12 16:04:21.960 - INFO - 使用 64 线程处理|Using 64 threads
+2026-01-12 16:04:21.960 - INFO - 跳过质控模式，从原始目录查找FASTQ文件|Skip QC mode, searching for FASTQ files in raw directory: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/F35/fastq
+2026-01-12 16:04:21.961 - INFO - 找到 2 个样品需要处理|Found 2 samples to process
+2026-01-12 16:04:21.961 - INFO - [1/2] 处理样品: F35_1|Processing sample: F35_1
+2026-01-12 16:04:21.961 - INFO - GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa|Genome path used by GTX
+2026-01-12 16:04:21.962 - INFO - GTX WGS处理 F35_1|GTX WGS processing F35_1
+2026-01-12 16:04:21.962 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:F35_1\tSM:F35_1\tPL:ILLUMINA\tLB:F35_1" -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/02.mapping/vcf/F35_1.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/02.mapping/bam/F35_1.sorted.bam -t 64 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/F35/fastq/F35_1_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/F35/fastq/F35_1_2.clean.fq.gz
+2026-01-12 16:04:22.167 - INFO - [2020-10-20 00:00:01.166] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp available: 1518236GB, memory available: 447GB, ulimit of open files: 100000
+2026-01-12 16:04:23.170 - INFO - [2020-10-20 00:00:01.167] [wgs] [info] Use bwa mem2 to align!
+2026-01-12 16:04:24.170 - INFO - [2020-10-20 00:00:01.167] [align] [info] Job: mapping, pid: 401177
+2026-01-12 16:04:25.171 - INFO - [2020-10-20 00:00:01.167] [align] [info] Mapping...
+2026-01-12 16:04:26.172 - INFO - [2020-10-20 00:00:01.324] [align] [info] Read 0 ALT contigs.
+2026-01-12 16:04:27.173 - INFO - Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+2026-01-12 16:04:28.174 - INFO - Processed 1490944 reads in 1.00 seconds. Average speed: 1.49M/s.
+2026-01-12 16:04:29.177 - INFO - Processed 2359296 reads in 1.50 seconds. Average speed: 1.57M/s.
+2026-01-12 16:04:30.179 - INFO - Processed 3276800 reads in 2.00 seconds. Average speed: 1.64M/s.
+2026-01-12 16:04:31.180 - INFO - Processed 5062656 reads in 3.00 seconds. Average speed: 1.69M/s.
+2026-01-12 16:04:32.181 - INFO - Processed 5980160 reads in 3.51 seconds. Average speed: 1.71M/s.
+2026-01-12 16:04:33.182 - INFO - Processed 6848512 reads in 4.01 seconds. Average speed: 1.71M/s.
+2026-01-12 16:04:34.185 - INFO - Processed 7716864 reads in 4.51 seconds. Average speed: 1.71M/s.
+2026-01-12 16:04:35.186 - INFO - Processed 8601600 reads in 5.01 seconds. Average speed: 1.72M/s.
+2026-01-12 16:04:36.187 - INFO - Processed 9486336 reads in 5.51 seconds. Average speed: 1.72M/s.
+2026-01-12 16:04:37.188 - INFO - Processed 11304960 reads in 6.51 seconds. Average speed: 1.74M/s.
+2026-01-12 16:04:38.189 - INFO - Processed 12189696 reads in 7.01 seconds. Average speed: 1.74M/s.
+2026-01-12 16:04:39.190 - INFO - Processed 13025280 reads in 7.51 seconds. Average speed: 1.73M/s.
+2026-01-12 16:04:40.199 - INFO - Processed 13926400 reads in 8.01 seconds. Average speed: 1.74M/s.
+2026-01-12 16:04:41.200 - INFO - Processed 14778368 reads in 8.51 seconds. Average speed: 1.74M/s.
+2026-01-12 16:04:42.202 - INFO - Processed 16547840 reads in 9.51 seconds. Average speed: 1.74M/s.
+2026-01-12 16:04:43.203 - INFO - Processed 17481728 reads in 10.01 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:44.204 - INFO - Processed 18366464 reads in 10.51 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:45.205 - INFO - Processed 19251200 reads in 11.01 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:46.206 - INFO - Processed 20103168 reads in 11.52 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:47.207 - INFO - Processed 21037056 reads in 12.02 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:48.208 - INFO - Processed 22740992 reads in 13.02 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:49.209 - INFO - Processed 23691264 reads in 13.52 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:50.210 - INFO - Processed 24576000 reads in 14.03 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:51.218 - INFO - Processed 25477120 reads in 14.53 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:52.219 - INFO - Processed 26361856 reads in 15.03 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:53.222 - INFO - Processed 28131328 reads in 16.02 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:54.223 - INFO - Processed 29016064 reads in 16.52 seconds. Average speed: 1.75M/s.
+2026-01-12 16:04:55.232 - INFO - Processed 29917184 reads in 17.03 seconds. Average speed: 1.76M/s.
+2026-01-12 16:04:56.233 - INFO - Processed 30801920 reads in 17.53 seconds. Average speed: 1.76M/s.
+2026-01-12 16:04:57.234 - INFO - Processed 31670272 reads in 18.03 seconds. Average speed: 1.76M/s.
+2026-01-12 16:04:58.238 - INFO - Processed 32587776 reads in 18.53 seconds. Average speed: 1.76M/s.
+2026-01-12 16:04:59.239 - INFO - Processed 34308096 reads in 19.53 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:00.240 - INFO - Processed 35241984 reads in 20.03 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:01.245 - INFO - Processed 36093952 reads in 20.54 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:02.246 - INFO - Processed 37011456 reads in 21.04 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:03.247 - INFO - Processed 37896192 reads in 21.54 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:04.248 - INFO - Processed 39665664 reads in 22.54 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:05.249 - INFO - Processed 40583168 reads in 23.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:06.251 - INFO - Processed 41467904 reads in 23.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:07.252 - INFO - Processed 42385408 reads in 24.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:08.253 - INFO - Processed 43204608 reads in 24.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:09.258 - INFO - Processed 44122112 reads in 25.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:10.259 - INFO - Processed 45924352 reads in 26.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:11.260 - INFO - Processed 46809088 reads in 26.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:12.261 - INFO - Processed 47726592 reads in 27.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:13.264 - INFO - Processed 48578560 reads in 27.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:14.266 - INFO - Processed 50200576 reads in 28.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:15.267 - INFO - Processed 51068928 reads in 29.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:16.268 - INFO - Processed 51986432 reads in 29.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:17.269 - INFO - Processed 52871168 reads in 30.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:18.271 - INFO - Processed 53739520 reads in 30.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:19.271 - INFO - Processed 54640640 reads in 31.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:20.272 - INFO - Processed 56442880 reads in 32.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:21.281 - INFO - Processed 57327616 reads in 32.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:22.282 - INFO - Processed 58179584 reads in 33.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:23.283 - INFO - Processed 59113472 reads in 33.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:24.284 - INFO - Processed 59998208 reads in 34.05 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:25.285 - INFO - Processed 60899328 reads in 34.55 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:26.294 - INFO - Processed 62603264 reads in 35.56 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:27.295 - INFO - Processed 63569920 reads in 36.06 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:28.303 - INFO - Processed 64471040 reads in 36.57 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:29.304 - INFO - Processed 65388544 reads in 37.07 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:30.305 - INFO - Processed 66273280 reads in 37.58 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:31.306 - INFO - Processed 67158016 reads in 38.08 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:32.307 - INFO - Processed 68976640 reads in 39.08 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:33.315 - INFO - Processed 69861376 reads in 39.58 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:34.316 - INFO - Processed 70762496 reads in 40.08 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:35.318 - INFO - Processed 71680000 reads in 40.59 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:36.319 - INFO - Processed 72531968 reads in 41.09 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:37.320 - INFO - Processed 73433088 reads in 41.59 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:38.321 - INFO - Processed 75186176 reads in 42.59 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:39.322 - INFO - Processed 76103680 reads in 43.09 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:40.323 - INFO - Processed 76988416 reads in 43.60 seconds. Average speed: 1.76M/s.
+2026-01-12 16:05:41.324 - INFO - Processed 77905920 reads in 44.10 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:42.325 - INFO - Processed 78774272 reads in 44.60 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:43.326 - INFO - Processed 80609280 reads in 45.60 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:44.327 - INFO - Processed 81477632 reads in 46.10 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:45.328 - INFO - Processed 82345984 reads in 46.60 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:46.329 - INFO - Processed 83279872 reads in 47.10 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:47.330 - INFO - Processed 84180992 reads in 47.60 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:48.331 - INFO - Processed 85065728 reads in 48.10 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:49.332 - INFO - Processed 86884352 reads in 49.10 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:50.333 - INFO - Processed 87769088 reads in 49.60 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:51.334 - INFO - Processed 88637440 reads in 50.10 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:52.336 - INFO - Processed 89571328 reads in 50.60 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:53.337 - INFO - Processed 90472448 reads in 51.10 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:54.338 - INFO - Processed 91357184 reads in 51.60 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:55.339 - INFO - Processed 93143040 reads in 52.60 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:56.340 - INFO - Processed 94027776 reads in 53.11 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:57.341 - INFO - Processed 94928896 reads in 53.61 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:58.342 - INFO - Processed 95830016 reads in 54.11 seconds. Average speed: 1.77M/s.
+2026-01-12 16:05:59.343 - INFO - Processed 96681984 reads in 54.61 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:00.344 - INFO - Processed 97632256 reads in 55.11 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:01.345 - INFO - Processed 99418112 reads in 56.11 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:02.346 - INFO - Processed 100302848 reads in 56.61 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:03.347 - INFO - Processed 101138432 reads in 57.11 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:04.348 - INFO - Processed 102072320 reads in 57.62 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:05.349 - INFO - Processed 102973440 reads in 58.12 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:06.350 - INFO - Processed 103874560 reads in 58.62 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:07.351 - INFO - Processed 105676800 reads in 59.62 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:08.352 - INFO - Processed 106561536 reads in 60.12 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:09.353 - INFO - Processed 107429888 reads in 60.62 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:10.354 - INFO - Processed 108380160 reads in 61.12 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:11.356 - INFO - Processed 109232128 reads in 61.62 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:12.357 - INFO - Processed 110149632 reads in 62.12 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:13.358 - INFO - Processed 111886336 reads in 63.12 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:14.359 - INFO - Processed 112820224 reads in 63.62 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:15.360 - INFO - Processed 113721344 reads in 64.12 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:16.361 - INFO - Processed 114638848 reads in 64.62 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:17.362 - INFO - Processed 115523584 reads in 65.12 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:18.363 - INFO - Processed 117309440 reads in 66.12 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:19.364 - INFO - Processed 118177792 reads in 66.62 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:20.365 - INFO - Processed 119062528 reads in 67.13 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:21.366 - INFO - Processed 119980032 reads in 67.63 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:22.367 - INFO - Processed 120881152 reads in 68.13 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:23.368 - INFO - Processed 121765888 reads in 68.63 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:24.369 - INFO - Processed 123551744 reads in 69.63 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:25.370 - INFO - Processed 124420096 reads in 70.13 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:26.371 - INFO - Processed 125304832 reads in 70.63 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:27.372 - INFO - Processed 126173184 reads in 71.13 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:28.373 - INFO - Processed 127057920 reads in 71.63 seconds. Average speed: 1.77M/s.
+2026-01-12 16:06:29.374 - INFO - Processed 127422178 reads in 72.13 seconds. Average speed: 1.77M/s.
+2026-01-12 16:08:21.001 - INFO - mapping finished in 3368.52 CPU sec, 238.83 real sec.
+2026-01-12 16:08:22.002 - INFO - [2020-10-20 00:04:00.018] [align] [info] mapping exited normally.
+2026-01-12 16:08:23.003 - INFO - [2020-10-20 00:04:00.019] [save_bam] [info] Job: bam writing, pid: 403194
+2026-01-12 16:08:24.004 - INFO - [2020-10-20 00:04:00.019] [save_bam] [info] BAM writting...
+2026-01-12 16:08:25.005 - INFO - [2020-10-20 00:04:00.019] [save_bam] [info] Sorting and marking duplicates...
+2026-01-12 16:10:11.607 - INFO - bam writing finished in 673.476 CPU sec, 110.588 real sec.
+2026-01-12 16:10:12.607 - INFO - [2020-10-20 00:05:50.610] [save_bam] [info] bam writing exited normally.
+2026-01-12 16:10:13.608 - INFO - [2020-10-20 00:05:50.611] [haplotype_caller] [info] Job: variants calling, pid: 404125
+[2020-10-20 00:05:50.611] [haplotype_caller] [info] Variants calling...
+[                                ] 0%
+[#######                         ] 23%
+[########                        ] 25%
+[#########################       ] 79%
+[###########################     ] 86%
+[################################] 100%
+[################################] 100%
+variants calling finished in 1.13033 CPU sec, 1.00809 real sec.
+[2020-10-20 00:05:51.622] [haplotype_caller] [info] variants calling exited normally.
+2026-01-12 16:10:13.609 - INFO - 命令执行成功|Command executed successfully
+2026-01-12 16:10:13.609 - INFO -   样品 F35_1 完成|Sample F35_1 completed
+2026-01-12 16:10:13.609 - INFO -     VCF: 16.9 KB|VCF: 16.9 KB
+2026-01-12 16:10:13.609 - INFO -     BAM: 14.0 GB|BAM: 14.0 GB
+2026-01-12 16:10:13.612 - INFO - [2/2] 处理样品: F35_2|Processing sample: F35_2
+2026-01-12 16:10:13.612 - INFO - GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa|Genome path used by GTX
+2026-01-12 16:10:13.612 - INFO - GTX WGS处理 F35_2|GTX WGS processing F35_2
+2026-01-12 16:10:13.612 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:F35_2\tSM:F35_2\tPL:ILLUMINA\tLB:F35_2" -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/02.mapping/vcf/F35_2.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/02.mapping/bam/F35_2.sorted.bam -t 64 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/F35/fastq/F35_2_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/F35/fastq/F35_2_2.clean.fq.gz
+2026-01-12 16:10:13.820 - INFO - [2020-10-20 00:00:00.820] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp available: 1517468GB, memory available: 447GB, ulimit of open files: 100000
+2026-01-12 16:10:14.821 - INFO - [2020-10-20 00:00:00.821] [wgs] [info] Use bwa mem2 to align!
+2026-01-12 16:10:15.822 - INFO - [2020-10-20 00:00:00.821] [align] [info] Job: mapping, pid: 404255
+2026-01-12 16:10:16.825 - INFO - [2020-10-20 00:00:00.821] [align] [info] Mapping...
+2026-01-12 16:10:17.826 - INFO - [2020-10-20 00:00:00.947] [align] [info] Read 0 ALT contigs.
+2026-01-12 16:10:18.827 - INFO - Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+2026-01-12 16:10:19.828 - INFO - Processed 1523712 reads in 1.01 seconds. Average speed: 1.51M/s.
+2026-01-12 16:10:20.829 - INFO - Processed 2424832 reads in 1.51 seconds. Average speed: 1.61M/s.
+2026-01-12 16:10:21.830 - INFO - Processed 3325952 reads in 2.01 seconds. Average speed: 1.66M/s.
+2026-01-12 16:10:22.832 - INFO - Processed 4210688 reads in 2.51 seconds. Average speed: 1.68M/s.
+2026-01-12 16:10:23.833 - INFO - Processed 5947392 reads in 3.51 seconds. Average speed: 1.69M/s.
+2026-01-12 16:10:24.834 - INFO - Processed 6848512 reads in 4.01 seconds. Average speed: 1.71M/s.
+2026-01-12 16:10:25.837 - INFO - Processed 7733248 reads in 4.51 seconds. Average speed: 1.71M/s.
+2026-01-12 16:10:26.838 - INFO - Processed 8634368 reads in 5.01 seconds. Average speed: 1.72M/s.
+2026-01-12 16:10:27.839 - INFO - Processed 9568256 reads in 5.51 seconds. Average speed: 1.74M/s.
+2026-01-12 16:10:28.840 - INFO - Processed 11386880 reads in 6.51 seconds. Average speed: 1.75M/s.
+2026-01-12 16:10:29.842 - INFO - Processed 12255232 reads in 7.02 seconds. Average speed: 1.75M/s.
+2026-01-12 16:10:30.844 - INFO - Processed 13139968 reads in 7.52 seconds. Average speed: 1.75M/s.
+2026-01-12 16:10:31.844 - INFO - Processed 14073856 reads in 8.02 seconds. Average speed: 1.75M/s.
+2026-01-12 16:10:32.845 - INFO - Processed 14893056 reads in 8.52 seconds. Average speed: 1.75M/s.
+2026-01-12 16:10:33.847 - INFO - Processed 15843328 reads in 9.02 seconds. Average speed: 1.76M/s.
+2026-01-12 16:10:34.851 - INFO - Processed 17596416 reads in 10.02 seconds. Average speed: 1.76M/s.
+2026-01-12 16:10:35.852 - INFO - Processed 18497536 reads in 10.52 seconds. Average speed: 1.76M/s.
+2026-01-12 16:10:36.861 - INFO - Processed 19415040 reads in 11.02 seconds. Average speed: 1.76M/s.
+2026-01-12 16:10:37.862 - INFO - Processed 20316160 reads in 11.52 seconds. Average speed: 1.76M/s.
+2026-01-12 16:10:38.866 - INFO - Processed 21151744 reads in 12.02 seconds. Average speed: 1.76M/s.
+2026-01-12 16:10:39.866 - INFO - Processed 22118400 reads in 12.52 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:40.867 - INFO - Processed 23887872 reads in 13.52 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:41.868 - INFO - Processed 24772608 reads in 14.02 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:42.869 - INFO - Processed 25640960 reads in 14.52 seconds. Average speed: 1.76M/s.
+2026-01-12 16:10:43.870 - INFO - Processed 26591232 reads in 15.02 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:44.871 - INFO - Processed 27475968 reads in 15.52 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:45.872 - INFO - Processed 28344320 reads in 16.02 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:46.873 - INFO - Processed 30162944 reads in 17.02 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:47.874 - INFO - Processed 31064064 reads in 17.52 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:48.875 - INFO - Processed 31932416 reads in 18.02 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:49.876 - INFO - Processed 32800768 reads in 18.52 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:50.877 - INFO - Processed 33685504 reads in 19.02 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:51.878 - INFO - Processed 34619392 reads in 19.52 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:52.879 - INFO - Processed 36388864 reads in 20.53 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:53.880 - INFO - Processed 37306368 reads in 21.03 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:54.881 - INFO - Processed 38191104 reads in 21.53 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:55.882 - INFO - Processed 39092224 reads in 22.03 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:56.883 - INFO - Processed 39976960 reads in 22.53 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:57.884 - INFO - Processed 41762816 reads in 23.53 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:58.885 - INFO - Processed 42647552 reads in 24.03 seconds. Average speed: 1.77M/s.
+2026-01-12 16:10:59.886 - INFO - Processed 43548672 reads in 24.54 seconds. Average speed: 1.77M/s.
+2026-01-12 16:11:00.887 - INFO - Processed 44449792 reads in 25.04 seconds. Average speed: 1.77M/s.
+2026-01-12 16:11:01.889 - INFO - Processed 45301760 reads in 25.55 seconds. Average speed: 1.77M/s.
+2026-01-12 16:11:02.890 - INFO - Processed 46268416 reads in 26.06 seconds. Average speed: 1.77M/s.
+2026-01-12 16:11:03.891 - INFO - Processed 47185920 reads in 26.57 seconds. Average speed: 1.77M/s.
+2026-01-12 16:11:04.892 - INFO - Processed 48971776 reads in 27.58 seconds. Average speed: 1.77M/s.
+2026-01-12 16:11:05.893 - INFO - Processed 49872896 reads in 28.08 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:06.894 - INFO - Processed 50790400 reads in 28.58 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:07.897 - INFO - Processed 51675136 reads in 29.08 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:08.897 - INFO - Processed 52527104 reads in 29.58 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:09.899 - INFO - Processed 54345728 reads in 30.58 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:10.899 - INFO - Processed 55263232 reads in 31.09 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:11.900 - INFO - Processed 56131584 reads in 31.59 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:12.902 - INFO - Processed 57049088 reads in 32.09 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:13.903 - INFO - Processed 57884672 reads in 32.59 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:14.904 - INFO - Processed 58834944 reads in 33.10 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:15.905 - INFO - Processed 60637184 reads in 34.10 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:16.906 - INFO - Processed 61521920 reads in 34.60 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:17.907 - INFO - Processed 62423040 reads in 35.10 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:18.908 - INFO - Processed 63307776 reads in 35.60 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:19.909 - INFO - Processed 64208896 reads in 36.10 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:20.910 - INFO - Processed 65110016 reads in 36.60 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:21.911 - INFO - Processed 66928640 reads in 37.60 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:22.912 - INFO - Processed 67813376 reads in 38.10 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:23.914 - INFO - Processed 68665344 reads in 38.60 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:24.915 - INFO - Processed 69550080 reads in 39.10 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:25.916 - INFO - Processed 70467584 reads in 39.60 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:26.917 - INFO - Processed 71335936 reads in 40.11 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:27.918 - INFO - Processed 73154560 reads in 41.11 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:28.919 - INFO - Processed 74055680 reads in 41.61 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:29.920 - INFO - Processed 74924032 reads in 42.11 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:30.921 - INFO - Processed 75825152 reads in 42.61 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:31.922 - INFO - Processed 76726272 reads in 43.11 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:32.923 - INFO - Processed 77627392 reads in 43.61 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:33.924 - INFO - Processed 79380480 reads in 44.61 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:34.925 - INFO - Processed 80314368 reads in 45.11 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:35.926 - INFO - Processed 81182720 reads in 45.61 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:36.927 - INFO - Processed 82083840 reads in 46.11 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:37.928 - INFO - Processed 82968576 reads in 46.61 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:38.929 - INFO - Processed 84754432 reads in 47.61 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:39.930 - INFO - Processed 85639168 reads in 48.11 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:40.931 - INFO - Processed 86573056 reads in 48.61 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:41.932 - INFO - Processed 87441408 reads in 49.12 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:42.934 - INFO - Processed 88358912 reads in 49.63 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:43.935 - INFO - Processed 89260032 reads in 50.13 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:44.936 - INFO - Processed 90996736 reads in 51.13 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:45.937 - INFO - Processed 91897856 reads in 51.63 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:46.938 - INFO - Processed 92831744 reads in 52.13 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:47.939 - INFO - Processed 93716480 reads in 52.63 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:48.940 - INFO - Processed 94617600 reads in 53.13 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:49.941 - INFO - Processed 95518720 reads in 53.64 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:50.942 - INFO - Processed 97337344 reads in 54.64 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:51.943 - INFO - Processed 98222080 reads in 55.15 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:52.944 - INFO - Processed 99123200 reads in 55.65 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:53.945 - INFO - Processed 100007936 reads in 56.15 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:54.946 - INFO - Processed 100859904 reads in 56.65 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:55.947 - INFO - Processed 101777408 reads in 57.15 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:56.948 - INFO - Processed 103579648 reads in 58.15 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:57.949 - INFO - Processed 104464384 reads in 58.65 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:58.950 - INFO - Processed 105349120 reads in 59.15 seconds. Average speed: 1.78M/s.
+2026-01-12 16:11:59.951 - INFO - Processed 106250240 reads in 59.65 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:00.953 - INFO - Processed 107167744 reads in 60.15 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:01.954 - INFO - Processed 108036096 reads in 60.65 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:02.955 - INFO - Processed 109871104 reads in 61.66 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:03.956 - INFO - Processed 110706688 reads in 62.16 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:04.957 - INFO - Processed 111624192 reads in 62.66 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:05.958 - INFO - Processed 112541696 reads in 63.16 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:06.959 - INFO - Processed 113426432 reads in 63.66 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:07.960 - INFO - Processed 114311168 reads in 64.16 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:08.961 - INFO - Processed 116080640 reads in 65.16 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:09.962 - INFO - Processed 116834304 reads in 65.66 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:10.963 - INFO - Processed 117882880 reads in 66.16 seconds. Average speed: 1.78M/s.
+2026-01-12 16:12:11.964 - INFO - Processed 118345368 reads in 66.66 seconds. Average speed: 1.77M/s.
+2026-01-12 16:13:57.530 - INFO - mapping finished in 3125.53 CPU sec, 223.71 real sec.
+2026-01-12 16:13:58.531 - INFO - [2020-10-20 00:03:44.546] [align] [info] mapping exited normally.
+2026-01-12 16:13:59.533 - INFO - [2020-10-20 00:03:44.546] [save_bam] [info] Job: bam writing, pid: 406212
+2026-01-12 16:14:00.534 - INFO - [2020-10-20 00:03:44.546] [save_bam] [info] BAM writting...
+2026-01-12 16:14:01.535 - INFO - [2020-10-20 00:03:44.546] [save_bam] [info] Sorting and marking duplicates...
+2026-01-12 16:15:43.534 - INFO - bam writing finished in 624.287 CPU sec, 105.987 real sec.
+2026-01-12 16:15:44.535 - INFO - [2020-10-20 00:05:30.540] [save_bam] [info] bam writing exited normally.
+2026-01-12 16:15:45.536 - INFO - [2020-10-20 00:05:30.541] [haplotype_caller] [info] Job: variants calling, pid: 407104
+[2020-10-20 00:05:30.541] [haplotype_caller] [info] Variants calling...
+[                                ] 0%
+[#######                         ] 22%
+[###########################     ] 86%
+[################################] 100%
+[################################] 100%
+variants calling finished in 0.622747 CPU sec, 0.567896 real sec.
+[2020-10-20 00:05:31.111] [haplotype_caller] [info] variants calling exited normally.
+2026-01-12 16:15:45.536 - INFO - 命令执行成功|Command executed successfully
+2026-01-12 16:15:45.536 - INFO -   样品 F35_2 完成|Sample F35_2 completed
+2026-01-12 16:15:45.536 - INFO -     VCF: 11.1 KB|VCF: 11.1 KB
+2026-01-12 16:15:45.536 - INFO -     BAM: 13.0 GB|BAM: 13.0 GB
+2026-01-12 16:15:45.536 - INFO - GTX WGS处理完成|GTX WGS processing completed:
+2026-01-12 16:15:45.536 - INFO -   成功: 2/2|Success: 2/2
+2026-01-12 16:15:45.536 - INFO -   失败: 0/2|Failed: 0/2
+2026-01-12 16:15:45.537 - INFO - 比对完成: 2 个 gVCF 文件, 2 个 BAM 文件|Mapping completed: 2 gVCF files, 2 BAM files
+2026-01-12 16:15:45.538 - INFO - 创建检查点|Create checkpoint: mapping
+2026-01-12 16:15:45.538 - INFO - 步骤3 完成|Step 3 completed: 序列比对|Sequence Mapping
+2026-01-12 16:15:45.538 - INFO - 执行步骤4|Executing step 4: 联合变异检测|Joint Variant Calling
+2026-01-12 16:15:45.538 - INFO - ============================================================
+2026-01-12 16:15:45.538 - INFO - Step 4: 联合变异检测|Joint Variant Calling
+2026-01-12 16:15:45.539 - INFO - ============================================================
+2026-01-12 16:15:45.539 - INFO - 检测到 2 个 gVCF 样本|Found 2 gVCF samples
+2026-01-12 16:15:45.539 - INFO - 样本数分析策略选择|Sample count analysis for strategy selection:
+2026-01-12 16:15:45.539 - INFO -   < 200 → GTX单机模式
+2026-01-12 16:15:45.539 - INFO -   >= 200 → GTX集群模式
+2026-01-12 16:15:45.539 - INFO - 使用 GTX 单机模式|Using GTX single machine mode
+2026-01-12 16:15:45.539 - INFO - 准备处理 2 个样本|Preparing to process 2 samples
+2026-01-12 16:15:45.539 - INFO - GTX联合变异检测|GTX Joint Variant Calling
+2026-01-12 16:15:45.539 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx joint -r /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/01.data/genome/wts_with_promoter.fa -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz -t 64 --tmp-dir /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp/gtx -v /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/02.mapping/vcf/F35_1.g.vcf.gz -v /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/02.mapping/vcf/F35_2.g.vcf.gz
+2026-01-12 16:15:45.746 - INFO - [2020-10-20 00:00:00.746] [gtx] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp/gtx available: 1518559GB, memory available: 447GB, ulimit of open files: 100000
+2026-01-12 16:15:46.747 - INFO - [2020-10-20 00:00:00.747] [gtx] [info] Job: joint, pid: 407255
+[2020-10-20 00:00:00.747] [gtx] [info] joint...
+[2020-10-20 00:00:00.895] [genotype_gvcfs] [info] progress_meter -    Current Locus         Elapsed Minutes  Variants Processed    Variants/Minute
+[2020-10-20 00:00:00.895] [genotype_gvcfs] [info] Vid Map JSON file will be written to /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp/gtx/.gtx_joint_1603123200746503908/gendb/vidmap.json
+[2020-10-20 00:00:00.895] [genotype_gvcfs] [info] Callset Map JSON file will be written to /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp/gtx/.gtx_joint_1603123200746503908/gendb/callset.json
+[2020-10-20 00:00:00.895] [genotype_gvcfs] [info] Complete VCF Header will be written to /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp/gtx/.gtx_joint_1603123200746503908/gendb/vcfheader.vcf
+[2020-10-20 00:00:00.895] [genotype_gvcfs] [info] Importing to array -  /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/.tmp/gtx/.gtx_joint_1603123200746503908/gendb/genomicsdb_array
+00:00:00.903 info  NativeGenomicsDB - pid=407255 tid=407247 No valid combination operation found for INFO field MLEAC  - the field will NOT be part of INFO fields in the generated VCF records
+00:00:00.903 info  NativeGenomicsDB - pid=407255 tid=407247 No valid combination operation found for INFO field MLEAF  - the field will NOT be part of INFO fields in the generated VCF records
+[2020-10-20 00:00:00.940] [genotype_gvcfs] [info] progress_meter -    unmapped                          0.0                     0              0.0
+[2020-10-20 00:00:00.940] [genotype_gvcfs] [info] 
+0.17user 0.02system 0.04elapsed 408.89%CPU (39004maxresident)k
+0inputs+8outputs (0major+1593minor)pagefaults 0swaps
+[2020-10-20 00:00:00.941] [gtx] [info] joint exited normally.
+2026-01-12 16:15:46.747 - INFO - 命令执行成功|Command executed successfully
+2026-01-12 16:15:46.747 - INFO - GTX 输出: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz|GTX output: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-12 16:15:46.748 - INFO - 创建检查点|Create checkpoint: joint_calling
+2026-01-12 16:15:46.748 - INFO - 步骤4 完成|Step 4 completed: 联合变异检测|Joint Variant Calling
+2026-01-12 16:15:46.748 - INFO - 执行步骤5|Executing step 5: 变异过滤|Variant Filtering
+2026-01-12 16:15:46.748 - INFO - ============================================================
+2026-01-12 16:15:46.748 - INFO - Step 5: 变异过滤|Variant Filtering
+2026-01-12 16:15:46.748 - INFO - ============================================================
+2026-01-12 16:15:46.748 - INFO - 输入 VCF: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz|Input VCF: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-12 16:15:46.748 - INFO - 过滤参数|Filtering parameters:
+2026-01-12 16:15:46.748 - INFO -   SNP  - 最小深度: 5, 最小质量: 30
+2026-01-12 16:15:46.748 - INFO -   InDel - 最小深度: 5, 最小质量: 30
+2026-01-12 16:15:46.748 - INFO - 变异过滤|Variant Filtering
+2026-01-12 16:15:46.748 - INFO - 执行命令|Running command: biopytools filter-snp-indel -i /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/04.filtered_snp_indel -t 64 --snp-dp 5 --indel-dp 5
+2026-01-12 16:15:46.905 - INFO - 2026-01-12 16:15:46.905 - INFO - ============================================================
+2026-01-12 16:15:47.906 - INFO - 2026-01-12 16:15:46.905 - INFO - Program: VCF SNP/INDEL Filtering
+2026-01-12 16:15:46.905 - INFO - Version: 1.0.0
+2026-01-12 16:15:46.905 - INFO - ============================================================
+2026-01-12 16:15:46.905 - INFO - ============================================================
+2026-01-12 16:15:46.905 - INFO - 开始VCF SNP/INDEL过滤流程|Starting VCF SNP/INDEL Filtering Pipeline
+2026-01-12 16:15:46.905 - INFO - ============================================================
+2026-01-12 16:15:46.905 - INFO - 输入VCF文件|Input VCF file: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-12 16:15:46.905 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/04.filtered_snp_indel
+2026-01-12 16:15:46.905 - INFO - 线程数|Threads: 64
+2026-01-12 16:15:46.905 - INFO - BCFtools路径|BCFtools path: bcftools
+2026-01-12 16:15:46.905 - INFO - ============================================================
+2026-01-12 16:15:46.905 - INFO - 检查依赖软件|Checking dependencies
+2026-01-12 16:15:46.905 - INFO - 检查依赖软件|Checking dependencies
+2026-01-12 16:15:47.143 - INFO - BCFtools可用|BCFtools available
+2026-01-12 16:15:47.143 - INFO - ============================================================
+2026-01-12 16:15:47.143 - INFO - 步骤1: 分离SNP和INDEL|Step 1: Separating SNPs and INDELs
+2026-01-12 16:15:47.144 - INFO - ============================================================
+2026-01-12 16:15:47.144 - INFO - 执行步骤|Executing step: 提取SNP变异|Extracting SNP variants
+2026-01-12 16:15:47.144 - INFO - 命令|Command: bcftools view --types snps --threads 64 -Oz -o variation.raw.snp.vcf.gz /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-12 16:15:47.204 - INFO - 命令执行成功|Command executed successfully: 提取SNP变异|Extracting SNP variants
+2026-01-12 16:15:47.205 - INFO - 执行步骤|Executing step: 提取INDEL变异|Extracting INDEL variants
+2026-01-12 16:15:47.205 - INFO - 命令|Command: bcftools view --types indels --threads 64 -Oz -o variation.raw.indel.vcf.gz /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-12 16:15:47.304 - INFO - 命令执行成功|Command executed successfully: 提取INDEL变异|Extracting INDEL variants
+2026-01-12 16:15:47.304 - INFO - 创建VCF索引|Creating VCF index
+2026-01-12 16:15:47.304 - INFO - 执行步骤|Executing step: 索引文件|Indexing variation.raw.snp.vcf.gz
+2026-01-12 16:15:47.304 - INFO - 命令|Command: bcftools index -f variation.raw.snp.vcf.gz
+2026-01-12 16:15:47.318 - INFO - 命令执行成功|Command executed successfully: 索引文件|Indexing variation.raw.snp.vcf.gz
+2026-01-12 16:15:47.318 - INFO - 执行步骤|Executing step: 索引文件|Indexing variation.raw.indel.vcf.gz
+2026-01-12 16:15:47.318 - INFO - 命令|Command: bcftools index -f variation.raw.indel.vcf.gz
+2026-01-12 16:15:47.331 - INFO - 命令执行成功|Command executed successfully: 索引文件|Indexing variation.raw.indel.vcf.gz
+2026-01-12 16:15:47.332 - INFO - SNP和INDEL分离完成|SNP and INDEL separation completed
+2026-01-12 16:15:47.332 - INFO - ============================================================
+2026-01-12 16:15:47.332 - INFO - 步骤2a: 过滤SNP|Step 2a: Filtering SNPs
+2026-01-12 16:15:47.332 - INFO - ============================================================
+2026-01-12 16:15:47.332 - INFO - SNP过滤条件|SNP filter criteria:
+2026-01-12 16:15:47.332 - INFO -    • QUAL >= 30.0
+2026-01-12 16:15:47.332 - INFO -    • INFO/DP >= 5
+2026-01-12 16:15:47.334 - INFO -    • MQ >= 40.0
+2026-01-12 16:15:47.334 - INFO -    • QD >= 2.0
+2026-01-12 16:15:47.334 - INFO -    • FS <= 60.0
+2026-01-12 16:15:47.334 - INFO -    • SOR <= 3.0
+2026-01-12 16:15:47.334 - INFO -    • MQRankSum >= -12.5
+2026-01-12 16:15:47.334 - INFO -    • ReadPosRankSum >= -8.0
+2026-01-12 16:15:47.334 - INFO -    • MAF >= 0.05
+2026-01-12 16:15:47.334 - INFO - 执行步骤|Executing step: 应用SNP过滤|Applying SNP filters
+2026-01-12 16:15:47.334 - INFO - 命令|Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 5 && MQ >= 40.0 && QD >= 2.0 && FS <= 60.0 && SOR <= 3.0 && MQRankSum >= -12.5 && ReadPosRankSum >= -8.0 && MAF >= 0.05' --threads 64 -Oz -o variation.filtered.snp.vcf.gz variation.raw.snp.vcf.gz
+2026-01-12 16:15:47.442 - INFO - 命令执行成功|Command executed successfully: 应用SNP过滤|Applying SNP filters
+2026-01-12 16:15:47.442 - INFO - 执行步骤|Executing step: 索引过滤后的SNP文件|Indexing filtered SNP file
+2026-01-12 16:15:47.442 - INFO - 命令|Command: bcftools index -f variation.filtered.snp.vcf.gz
+2026-01-12 16:15:47.455 - INFO - 命令执行成功|Command executed successfully: 索引过滤后的SNP文件|Indexing filtered SNP file
+2026-01-12 16:15:47.455 - INFO - SNP过滤完成|SNP filtering completed
+2026-01-12 16:15:47.455 - INFO - ============================================================
+2026-01-12 16:15:47.455 - INFO - 步骤2b: 过滤INDEL|Step 2b: Filtering INDELs
+2026-01-12 16:15:47.455 - INFO - ============================================================
+2026-01-12 16:15:47.455 - INFO - INDEL过滤条件|INDEL filter criteria:
+2026-01-12 16:15:47.455 - INFO -    • QUAL >= 30.0
+2026-01-12 16:15:47.455 - INFO -    • INFO/DP >= 5
+2026-01-12 16:15:47.455 - INFO -    • MQ >= 40.0
+2026-01-12 16:15:47.455 - INFO -    • QD >= 2.0
+2026-01-12 16:15:47.455 - INFO -    • FS <= 200.0
+2026-01-12 16:15:47.455 - INFO -    • SOR <= 10.0
+2026-01-12 16:15:47.455 - INFO -    • ReadPosRankSum >= -20.0
+2026-01-12 16:15:47.455 - INFO - 执行步骤|Executing step: 应用INDEL过滤|Applying INDEL filters
+2026-01-12 16:15:47.455 - INFO - 命令|Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 5 && MQ >= 40.0 && QD >= 2.0 && FS <= 200.0 && SOR <= 10.0 && ReadPosRankSum >= -20.0' --threads 64 -Oz -o variation.filtered.indel.vcf.gz variation.raw.indel.vcf.gz
+2026-01-12 16:15:47.536 - INFO - 命令执行成功|Command executed successfully: 应用INDEL过滤|Applying INDEL filters
+2026-01-12 16:15:47.536 - INFO - 执行步骤|Executing step: 索引过滤后的INDEL文件|Indexing filtered INDEL file
+2026-01-12 16:15:47.536 - INFO - 命令|Command: bcftools index -f variation.filtered.indel.vcf.gz
+2026-01-12 16:15:47.548 - INFO - 命令执行成功|Command executed successfully: 索引过滤后的INDEL文件|Indexing filtered INDEL file
+2026-01-12 16:15:47.549 - INFO - INDEL过滤完成|INDEL filtering completed
+2026-01-12 16:15:47.549 - INFO - ============================================================
+2026-01-12 16:15:47.549 - INFO - 步骤2c: 过滤双等位位点SNP|Step 2c: Filtering biallelic SNPs
+2026-01-12 16:15:47.549 - INFO - ============================================================
+2026-01-12 16:15:47.549 - INFO - 双等位位点过滤条件|Biallelic filter criteria:
+2026-01-12 16:15:47.549 - INFO -    • 双等位位点|Biallelic sites only (max 2 alleles)
+2026-01-12 16:15:47.549 - INFO -    • MAF > 0.05
+2026-01-12 16:15:47.549 - INFO - 执行步骤|Executing step: 应用双等位位点过滤|Applying biallelic filters
+2026-01-12 16:15:47.549 - INFO - 命令|Command: bcftools view -m2 -M2 -v snps -i 'MAF > 0.05' --threads 64 -Oz -o variation.filtered.snp.biallelic.vcf.gz variation.filtered.snp.vcf.gz
+2026-01-12 16:15:47.600 - INFO - 命令执行成功|Command executed successfully: 应用双等位位点过滤|Applying biallelic filters
+2026-01-12 16:15:47.600 - INFO - 执行步骤|Executing step: 索引双等位位点SNP文件|Indexing biallelic SNP file
+2026-01-12 16:15:47.600 - INFO - 命令|Command: bcftools index -f variation.filtered.snp.biallelic.vcf.gz
+2026-01-12 16:15:47.613 - INFO - 命令执行成功|Command executed successfully: 索引双等位位点SNP文件|Indexing biallelic SNP file
+2026-01-12 16:15:47.613 - INFO - 双等位位点SNP过滤完成|Biallelic SNP filtering completed
+2026-01-12 16:15:47.613 - INFO - ============================================================
+2026-01-12 16:15:47.613 - INFO - 步骤3: 合并过滤后的变异|Step 3: Merging filtered variants
+2026-01-12 16:15:47.613 - INFO - ============================================================
+2026-01-12 16:15:47.613 - INFO - 使用双等位位点过滤后的SNP|Using biallelic-filtered SNPs
+2026-01-12 16:15:47.613 - INFO - 执行步骤|Executing step: 合并SNP和INDEL|Merging SNPs and INDELs
+2026-01-12 16:15:47.613 - INFO - 命令|Command: bcftools concat -a -D --threads 64 -Oz -o variation.filtered.merged.unsorted.vcf.gz variation.filtered.snp.biallelic.vcf.gz variation.filtered.indel.vcf.gz
+2026-01-12 16:15:47.725 - INFO - 命令执行成功|Command executed successfully: 合并SNP和INDEL|Merging SNPs and INDELs
+2026-01-12 16:15:47.725 - INFO - 执行步骤|Executing step: 按位置排序|Sorting by position
+2026-01-12 16:15:47.725 - INFO - 命令|Command: bcftools sort -Oz -o variation.filtered.merged.vcf.gz variation.filtered.merged.unsorted.vcf.gz
+2026-01-12 16:15:47.749 - INFO - 命令执行成功|Command executed successfully: 按位置排序|Sorting by position
+2026-01-12 16:15:47.749 - INFO - 清理临时文件|Cleaning up temporary file: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/04.filtered_snp_indel/variation.filtered.merged.unsorted.vcf.gz
+2026-01-12 16:15:47.749 - INFO - 临时文件已删除|Temporary file deleted.
+2026-01-12 16:15:47.749 - INFO - 执行步骤|Executing step: 索引合并文件|Indexing merged file
+2026-01-12 16:15:47.750 - INFO - 命令|Command: bcftools index -f variation.filtered.merged.vcf.gz
+2026-01-12 16:15:47.762 - INFO - 命令执行成功|Command executed successfully: 索引合并文件|Indexing merged file
+2026-01-12 16:15:47.762 - INFO - 变异合并完成|Variant merging completed
+2026-01-12 16:15:47.762 - INFO - ============================================================
+2026-01-12 16:15:47.762 - INFO - 步骤4: 生成统计报告|Step 4: Generating statistics report
+2026-01-12 16:15:47.762 - INFO - ============================================================
+2026-01-12 16:15:47.836 - INFO - ============================================================
+2026-01-12 16:15:47.836 - INFO - 过滤统计|Filtering Statistics
+2026-01-12 16:15:47.836 - INFO - ============================================================
+2026-01-12 16:15:47.836 - INFO - 原始SNP|Raw SNPs: 145
+2026-01-12 16:15:47.836 - INFO - 过滤后SNP|Filtered SNPs: 38
+2026-01-12 16:15:47.836 - INFO - 原始INDEL|Raw INDELs: 30
+2026-01-12 16:15:47.836 - INFO - 过滤后INDEL|Filtered INDELs: 7
+2026-01-12 16:15:47.836 - INFO - 合并后变异|Merged variants: 45
+2026-01-12 16:15:47.836 - INFO - 双等位位点SNP|Biallelic SNPs: 38
+2026-01-12 16:15:47.836 - INFO - SNP保留率|SNP retention rate: 26.21%
+2026-01-12 16:15:47.836 - INFO - 双等位位点保留率|Biallelic retention rate: 100.00%
+2026-01-12 16:15:47.836 - INFO - INDEL保留率|INDEL retention rate: 23.33%
+2026-01-12 16:15:47.836 - INFO - 统计报告已保存|Statistics report saved: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/04.filtered_snp_indel/filtering_statistics.txt
+2026-01-12 16:15:47.836 - INFO - ============================================================
+2026-01-12 16:15:47.836 - INFO - VCF过滤流程成功完成|VCF Filtering Pipeline Completed Successfully!
+2026-01-12 16:15:47.837 - INFO - ============================================================
+2026-01-12 16:15:47.837 - INFO - 结果保存在|Results saved in: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/04.filtered_snp_indel
+2026-01-12 16:15:47.837 - INFO - ============================================================
+
+2026-01-12 16:15:47.837 - INFO - ============================================================
+2026-01-12 16:15:47.837 - INFO - Pipeline Summary
+2026-01-12 16:15:47.837 - INFO - ============================================================
+2026-01-12 16:15:47.837 - INFO - Total runtime: 0.94 seconds
+2026-01-12 16:15:47.837 - INFO - Output directory: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/04.filtered_snp_indel
+2026-01-12 16:15:47.837 - INFO - Pipeline completed successfully
+2026-01-12 16:15:47.906 - INFO - 命令执行成功|Command executed successfully
+2026-01-12 16:15:47.906 - INFO - 过滤完成|Filtering completed
+2026-01-12 16:15:47.919 - INFO -   variation.raw.indel.vcf.gz: 30 个变异|variants
+2026-01-12 16:15:47.931 - INFO -   variation.filtered.indel.vcf.gz: 7 个变异|variants
+2026-01-12 16:15:47.943 - INFO -   variation.filtered.merged.vcf.gz: 45 个变异|variants
+2026-01-12 16:15:47.955 - INFO -   variation.filtered.snp.biallelic.vcf.gz: 38 个变异|variants
+2026-01-12 16:15:47.967 - INFO -   variation.filtered.snp.vcf.gz: 38 个变异|variants
+2026-01-12 16:15:47.979 - INFO -   variation.raw.snp.vcf.gz: 145 个变异|variants
+2026-01-12 16:15:47.979 - INFO - 创建检查点|Create checkpoint: variant_filtering
+2026-01-12 16:15:47.979 - INFO - 步骤5 完成|Step 5 completed: 变异过滤|Variant Filtering
+2026-01-12 16:15:47.981 - INFO - 报告已生成|Report generated: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/09.WTS加上启动子的全基因组比对和共线性/ANALYSIS_REPORT.txt
+2026-01-12 16:15:47.981 - INFO - Fastq到VCF (GTX) 流程全部完成|Fastq to VCF (GTX) pipeline completed!

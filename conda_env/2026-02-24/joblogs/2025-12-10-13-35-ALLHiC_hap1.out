@@ -1,0 +1,1079 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/logs/allhic_20251210_133513.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 13:35:15] Checking required tools...
+[2025-12-10 13:35:15] ✅ Environment ready
+[2025-12-10 13:35:15] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1
+[2025-12-10 13:35:15] Threads: 88
+[2025-12-10 13:35:15] Memory: 800G
+[2025-12-10 13:35:15] Chromosomes: 12
+[2025-12-10 13:35:15] Enzyme: GATC
+[2025-12-10 13:35:15] ⏱️  Step completed in 2s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v4.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 [Step 0] Preparing input data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 13:35:15] ✅ Input files linked
+[2025-12-10 13:35:15] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔍 [Step 1] Mapping Hi-C reads
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 13:35:15] Building BWA index...
+[2025-12-10 13:35:15] ▶️  bwa index draft.asm.fasta
+[bwa_index] Pack FASTA... 5.40 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=2685873988, availableWord=200987748
+[BWTIncConstructFromPacked] 10 iterations done. 99999988 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 199999988 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 299999988 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 399999988 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 499999988 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 599999988 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 699999988 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 799999988 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 899999988 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 999999988 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 1099999988 characters processed.
+[BWTIncConstructFromPacked] 120 iterations done. 1199999988 characters processed.
+[BWTIncConstructFromPacked] 130 iterations done. 1299999988 characters processed.
+[BWTIncConstructFromPacked] 140 iterations done. 1399999988 characters processed.
+[BWTIncConstructFromPacked] 150 iterations done. 1499999988 characters processed.
+[BWTIncConstructFromPacked] 160 iterations done. 1599999988 characters processed.
+[BWTIncConstructFromPacked] 170 iterations done. 1699999988 characters processed.
+[BWTIncConstructFromPacked] 180 iterations done. 1799999988 characters processed.
+[BWTIncConstructFromPacked] 190 iterations done. 1899999988 characters processed.
+[BWTIncConstructFromPacked] 200 iterations done. 1999999988 characters processed.
+[BWTIncConstructFromPacked] 210 iterations done. 2095332436 characters processed.
+[BWTIncConstructFromPacked] 220 iterations done. 2180106868 characters processed.
+[BWTIncConstructFromPacked] 230 iterations done. 2255450596 characters processed.
+[BWTIncConstructFromPacked] 240 iterations done. 2322412308 characters processed.
+[BWTIncConstructFromPacked] 250 iterations done. 2381924036 characters processed.
+[BWTIncConstructFromPacked] 260 iterations done. 2434814196 characters processed.
+[BWTIncConstructFromPacked] 270 iterations done. 2481819076 characters processed.
+[BWTIncConstructFromPacked] 280 iterations done. 2523593124 characters processed.
+[BWTIncConstructFromPacked] 290 iterations done. 2560717956 characters processed.
+[BWTIncConstructFromPacked] 300 iterations done. 2593710580 characters processed.
+[BWTIncConstructFromPacked] 310 iterations done. 2623030484 characters processed.
+[BWTIncConstructFromPacked] 320 iterations done. 2649086036 characters processed.
+[BWTIncConstructFromPacked] 330 iterations done. 2672240260 characters processed.
+[bwt_gen] Finished constructing BWT in 337 iterations.
+[bwa_index] 752.73 seconds elapse.
+[bwa_index] Update BWT... 5.07 sec
+[bwa_index] Pack forward-only FASTA... 3.20 sec
+[bwa_index] Construct SA from BWT and Occ... 327.93 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index draft.asm.fasta
+[main] Real time: 1096.996 sec; CPU: 1094.325 sec
+[2025-12-10 13:53:32] Building samtools index...
+[2025-12-10 13:53:32] ▶️  samtools faidx draft.asm.fasta
+[2025-12-10 13:53:36] Running BWA MEM alignment...
+[2025-12-10 13:53:36] ▶️  bwa mem -t 88 -5SP draft.asm.fasta reads_R1.fastq.gz reads_R2.fastq.gz 2>logs/bwa_mapping.log |              samtools view -@ 88 -hF 2316 -q 30 - |              samtools sort -@ 88 -n -o sample.clean.bam -
+[bam_sort_core] merging from 0 files and 88 in-memory blocks...
+[2025-12-10 13:54:14] ✅ Mapping completed
+[2025-12-10 13:54:14] ⏱️  Step completed in 18m 59s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 [Step 1.5] Allele detection
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 13:54:14] ▶️  allhic extract sample.clean.bam draft.asm.fasta --RE GATC
+[32m13:54:16 writeRE | NOTICE [0m RE counts in 1282 contigs (total: 6849666, avg 1 per 196 bp) written to `sample.clean.counts_GATC.txt`
+[32m13:54:16 extractContigLinks | NOTICE [0m Parse bamfile `sample.clean.bam`
+[32m13:54:17 extractContigLinks | NOTICE [0m Extracted 887 intra-contig link groups (total = 48729)
+[32m13:54:17 extractContigLinks | NOTICE [0m Extracted 132229 inter-contig groups to `sample.clean.clm` (total = 1182240, maxLinks = 470, minLinks = 3)
+[32m13:54:17 fitPowerLaw | NOTICE [0m Power law Y = 2.56e-07 * X ^ -0.7202
+[32m13:54:17 writeDistribution | NOTICE [0m Link size distribution written to `sample.clean.distribution.txt`
+[32m13:54:17 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m13:54:17 calcInterContigs | NOTICE [0m Contig pair analyses written to `sample.clean.pairs.txt`
+[32m13:54:17 Run | NOTICE [0m Success
+[2025-12-10 13:54:17] ▶️  minimap2 -DP -k19 -w19 -m200 -t 88 draft.asm.fasta draft.asm.fasta 2>logs/minimap2.log > draft.asm.paf
+[2025-12-10 14:08:49] ▶️  allhic alleles draft.asm.paf sample.clean.counts_GATC.txt > alleles.table
+[32m14:08:49 ParseRecords | NOTICE [0m Parse paffile `draft.asm.paf`
+[32m14:11:11 ReadCSVLines | NOTICE [0m Parse csvfile `sample.clean.counts_GATC.txt`
+[32m14:11:11 Run | NOTICE [0m Success
+[2025-12-10 14:11:12] ✅ Allele detection completed
+[2025-12-10 14:11:12] ⏱️  Step completed in 16m 58s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✂️  [Step 2] Pruning chimeric contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:11:12] ⚠️  No allele table found, using original BAM
+[2025-12-10 14:11:12] ✅ Pruning completed
+[2025-12-10 14:11:12] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 [Step 3] Partitioning contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:11:12] ▶️  ALLHiC_partition -b prunning.bam -r draft.asm.fasta -e GATC -k 12
+Extract function: calculate an empirical distribution of Hi-C link size based on intra-contig links
+CMD: allhic extract prunning.bam draft.asm.fasta --RE GATC
+[32m14:11:14 writeRE | NOTICE [0m RE counts in 1282 contigs (total: 6849666, avg 1 per 196 bp) written to `prunning.counts_GATC.txt`
+[32m14:11:14 extractContigLinks | NOTICE [0m Parse bamfile `prunning.bam`
+[32m14:11:15 extractContigLinks | NOTICE [0m Extracted 887 intra-contig link groups (total = 48729)
+[32m14:11:15 extractContigLinks | NOTICE [0m Extracted 132229 inter-contig groups to `prunning.clm` (total = 1182240, maxLinks = 470, minLinks = 3)
+[32m14:11:15 fitPowerLaw | NOTICE [0m Power law Y = 2.56e-07 * X ^ -0.7202
+[32m14:11:15 writeDistribution | NOTICE [0m Link size distribution written to `prunning.distribution.txt`
+[32m14:11:15 readClmLines | NOTICE [0m Parse clmfile `prunning.clm`
+[32m14:11:15 calcInterContigs | NOTICE [0m Contig pair analyses written to `prunning.pairs.txt`
+[32m14:11:15 Run | NOTICE [0m Success
+Partition contigs based on prunning bam file
+CMD: allhic partition prunning.counts_GATC.txt prunning.pairs.txt 12 --minREs 25
+[32m14:11:15 ReadCSVLines | NOTICE [0m Parse csvfile `prunning.counts_GATC.txt`
+[32m14:11:15 readRE | NOTICE [0m Loaded 1282 contig RE lengths for normalization from `prunning.counts_GATC.txt`
+[32m14:11:15 skipContigsWithFewREs | NOTICE [0m skipContigsWithFewREs with MinREs = 25 (RE = GATC)
+[32m14:11:15 skipContigsWithFewREs | NOTICE [0m Marked 0 contigs (avg 0.0 RE sites, len 0) since they contain too few REs (MinREs = 25)
+[32m14:11:15 ReadCSVLines | NOTICE [0m Parse csvfile `prunning.pairs.txt`
+[32m14:11:15 skipRepeats | NOTICE [0m skipRepeats with multiplicity = 2
+Contig #1 (h1tg000002l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #8 (h1tg000009l) has 3.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #10 (h1tg000011l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #13 (h1tg000014l) has 3.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #23 (h1tg000024l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #26 (h1tg000027l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #33 (h1tg000034l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #34 (h1tg000035l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #51 (h1tg000052l) has 2.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #52 (h1tg000053l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #53 (h1tg000054l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #54 (h1tg000055l) has 2.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #58 (h1tg000059l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #59 (h1tg000060l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #61 (h1tg000062l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #63 (h1tg000064l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #65 (h1tg000066l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #68 (h1tg000069l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #70 (h1tg000071l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #72 (h1tg000073l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #74 (h1tg000075l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #76 (h1tg000077l) has 3.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #83 (h1tg000084l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #84 (h1tg000085l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #93 (h1tg000094l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #119 (h1tg000120l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #121 (h1tg000122l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #128 (h1tg000129l) has 3.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #130 (h1tg000131l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #133 (h1tg000134l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #135 (h1tg000136l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #136 (h1tg000137l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #141 (h1tg000142l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #145 (h1tg000146l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #153 (h1tg000154l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #160 (h1tg000161l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #165 (h1tg000166l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #166 (h1tg000167l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #167 (h1tg000168l) has 3.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #175 (h1tg000176l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #179 (h1tg000180l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #180 (h1tg000181l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #183 (h1tg000184l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #185 (h1tg000186l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #186 (h1tg000187l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #188 (h1tg000189l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #199 (h1tg000200l) has 3.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #211 (h1tg000212l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #215 (h1tg000216l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #224 (h1tg000225l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #227 (h1tg000228l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #232 (h1tg000233l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #234 (h1tg000235l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #235 (h1tg000236l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #241 (h1tg000242l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #246 (h1tg000247l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #247 (h1tg000248l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #250 (h1tg000251l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #256 (h1tg000257l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #272 (h1tg000273l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #277 (h1tg000278l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #289 (h1tg000290l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #298 (h1tg000299l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #302 (h1tg000303l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #310 (h1tg000311l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #314 (h1tg000315l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #321 (h1tg000322l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #335 (h1tg000336l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #362 (h1tg000363l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #373 (h1tg000374l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #382 (h1tg000383l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #393 (h1tg000394l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #397 (h1tg000398l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #403 (h1tg000404l) has 3.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #409 (h1tg000410l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #412 (h1tg000413l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #425 (h1tg000426l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #430 (h1tg000431l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #431 (h1tg000432l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #433 (h1tg000434l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #434 (h1tg000435l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #435 (h1tg000436l) has 3.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #449 (h1tg000450l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #451 (h1tg000452l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #454 (h1tg000455l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #458 (h1tg000459l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #466 (h1tg000467l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #478 (h1tg000479l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #480 (h1tg000481l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #512 (h1tg000513l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #515 (h1tg000516l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #536 (h1tg000537l) has 3.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #554 (h1tg000555l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #575 (h1tg000576l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #590 (h1tg000591l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #595 (h1tg000596l) has 2.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #603 (h1tg000604l) has 2.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #614 (h1tg000615l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #630 (h1tg000631l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #639 (h1tg000640l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #646 (h1tg000647l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #651 (h1tg000652l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #658 (h1tg000659l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #662 (h1tg000663l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #718 (h1tg000719l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #757 (h1tg000758l) has 3.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #774 (h1tg000775l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #780 (h1tg000781l) has 4.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #808 (h1tg000809l) has 2.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #811 (h1tg000812l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #819 (h1tg000820l) has 2.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #846 (h1tg000847l) has 6.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #857 (h1tg000858l) has 3.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #873 (h1tg000874l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #879 (h1tg000880l) has 3.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #994 (h1tg000995l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1017 (h1tg001018l) has 2.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1023 (h1tg001024l) has 85.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1033 (h1tg001034l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1228 (h1tg001229l) has 6.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1261 (h1tg001262l) has 85.5x the average number of Hi-C links -> MARKED REPETITIVE
+[32m14:11:15 skipRepeats | NOTICE [0m Marked 121 contigs (avg len 3174638) as repetitive (MaxLinkDensity = 2)
+[32m14:11:15 Cluster | NOTICE [0m Clustering starts with 1282 (1161 informative) contigs with target of 12 clusters
+[32m14:11:15 Cluster | NOTICE [0m Merge #50: Clusters	497 + 976 -> 1331, Linkage = 41755
+[32m14:11:15 Cluster | NOTICE [0m Merge #100: Clusters	114 + 617 -> 1381, Linkage = 28240
+[32m14:11:15 Cluster | NOTICE [0m Merge #150: Clusters	854 + 987 -> 1431, Linkage = 20790
+[32m14:11:15 Cluster | NOTICE [0m Merge #200: Clusters	600 + 607 -> 1481, Linkage = 16028
+[32m14:11:15 Cluster | NOTICE [0m Merge #250: Clusters	544 + 604 -> 1531, Linkage = 12826
+[32m14:11:15 Cluster | NOTICE [0m Merge #300: Clusters	1546 + 1580 -> 1581, Linkage = 11808.5
+[32m14:11:15 Cluster | NOTICE [0m Merge #350: Clusters	1494 + 1630 -> 1631, Linkage = 9232.75
+[32m14:11:15 Cluster | NOTICE [0m Merge #400: Clusters	150 + 1473 -> 1681, Linkage = 7638
+[32m14:11:15 Cluster | NOTICE [0m Merge #450: Clusters	86 + 1468 -> 1731, Linkage = 6067
+[32m14:11:15 Cluster | NOTICE [0m Merge #500: Clusters	213 + 1763 -> 1781, Linkage = 4872.833333333333
+[32m14:11:15 Cluster | NOTICE [0m Merge #550: Clusters	1673 + 1706 -> 1831, Linkage = 3848.4
+[32m14:11:15 Cluster | NOTICE [0m Merge #600: Clusters	196 + 1484 -> 1881, Linkage = 3060.5
+[32m14:11:15 Cluster | NOTICE [0m Merge #650: Clusters	1371 + 1727 -> 1931, Linkage = 2401.1
+[32m14:11:15 Cluster | NOTICE [0m Merge #700: Clusters	1830 + 1870 -> 1981, Linkage = 1686.4761904761904
+[32m14:11:15 Cluster | NOTICE [0m Merge #750: Clusters	1880 + 1886 -> 2031, Linkage = 989.78125
+[32m14:11:15 Cluster | NOTICE [0m Merge #800: Clusters	2022 + 2061 -> 2081, Linkage = 386.5833333333333
+[32m14:11:15 Cluster | NOTICE [0m 834 merges made so far; this leaves 12 clusters, and so we'r done!
+[32m14:11:15 setClusters | NOTICE [0m setClusters summary (NonInformativeRatio = 3): nPassRatio = 63, nFailRatio = 54, nFailCluster=4
+[32m14:11:15 printClusters | NOTICE [0m Write 12 partitions to `prunning.clusters.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 109 contigs (total: 666910, avg 1 per 190 bp) written to `prunning.counts_GATC.12g1.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 56 contigs (total: 640898, avg 1 per 182 bp) written to `prunning.counts_GATC.12g2.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 61 contigs (total: 433181, avg 1 per 214 bp) written to `prunning.counts_GATC.12g8.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 35 contigs (total: 307085, avg 1 per 180 bp) written to `prunning.counts_GATC.12g10.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 114 contigs (total: 558067, avg 1 per 196 bp) written to `prunning.counts_GATC.12g3.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 81 contigs (total: 499440, avg 1 per 198 bp) written to `prunning.counts_GATC.12g4.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 94 contigs (total: 504795, avg 1 per 193 bp) written to `prunning.counts_GATC.12g5.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 81 contigs (total: 518013, avg 1 per 187 bp) written to `prunning.counts_GATC.12g6.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 92 contigs (total: 498643, avg 1 per 188 bp) written to `prunning.counts_GATC.12g7.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 103 contigs (total: 478322, avg 1 per 189 bp) written to `prunning.counts_GATC.12g9.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 41 contigs (total: 216560, avg 1 per 219 bp) written to `prunning.counts_GATC.12g11.txt`
+[32m14:11:15 writeRE | NOTICE [0m RE counts in 42 contigs (total: 204358, avg 1 per 196 bp) written to `prunning.counts_GATC.12g12.txt`
+[32m14:11:15 Run | NOTICE [0m Success
+[2025-12-10 14:11:15] ✅ Partition completed
+[2025-12-10 14:11:15] ⏱️  Step completed in 3s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 [Step 3.5] Extracting contact matrix
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:11:15] ✅ Found existing: sample.clean.clm
+[2025-12-10 14:11:15] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚑 [Step 4] Rescuing unplaced contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:11:15] ▶️  ALLHiC_rescue -b sample.clean.bam -r draft.asm.fasta              -c prunning.clusters.txt -i sample.clean.counts_GATC.txt
+Starting rescue ungrouped contigs
+Reading contig length
+Reading link signals ...
+Reading sample.clean.bam
+find ungrouped contigs ...
+output HiC link signals ...
+Output refined clusters 
+Number of original contigs in group9: 103
+Number of rescued contigs in group9: 2
+Number of original contigs in group5: 94
+Number of rescued contigs in group5: 5
+Number of original contigs in group11: 41
+Number of rescued contigs in group11: 2
+Number of original contigs in group2: 56
+Number of rescued contigs in group2: 4
+Number of original contigs in group12: 42
+Number of rescued contigs in group12: 2
+Number of original contigs in group10: 35
+Number of rescued contigs in group10: 1
+Number of original contigs in group1: 109
+Number of rescued contigs in group1: 14
+Number of original contigs in group8: 61
+Number of rescued contigs in group8: 13
+Number of original contigs in group6: 81
+Number of rescued contigs in group6: 7
+Number of original contigs in group3: 114
+Number of rescued contigs in group3: 15
+Number of original contigs in group7: 92
+Number of rescued contigs in group7: 7
+Number of original contigs in group4: 81
+Number of rescued contigs in group4: 6
+[2025-12-10 14:11:18] ✅ Rescue completed
+[2025-12-10 14:11:18] ⏱️  Step completed in 3s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️  [Step 5] Optimizing contig order
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:11:18] Running 12 optimization tasks in parallel...
+[2025-12-10 14:11:18] ▶️  parallel -j 88 < optimize_cmds.sh
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+>INIT
+h1tg000072l+ h1tg000698l+ h1tg001074l+ h1tg000552l+ h1tg000325l+ h1tg000557l+ h1tg000474l+ h1tg000195l+ h1tg000381l+ h1tg000666l+ h1tg000913l+ h1tg000766l+ h1tg000727l+ h1tg000690l+ h1tg000978l+ h1tg000269l+ h1tg000722l+ h1tg000721l+ h1tg000343l+ h1tg000819l+ h1tg000284l+ h1tg000539l+ h1tg000174l+ h1tg000005l+ h1tg000316l+ h1tg000858l+ h1tg000603l+ h1tg000304l+ h1tg000406l+ h1tg000519l+ h1tg000164l+ h1tg000517l+ h1tg000638l+ h1tg000510l+ h1tg000957l+ h1tg000451l+ h1tg000757l+ h1tg000463l+ h1tg000563l+ h1tg000389l+ h1tg000057l+ h1tg000620l+ h1tg000902l+ h1tg000618l+ h1tg000165l+ h1tg000511l+ h1tg000749l+ h1tg000641l+ h1tg000579l+ h1tg000377l+ h1tg000203l+ h1tg000253l+ h1tg000503l+ h1tg000971l+ h1tg000525l+ h1tg000112l+ h1tg000373l+ h1tg000115l+ h1tg000578l+ h1tg000616l+ h1tg000832l+ h1tg000908l+ h1tg000534l+ h1tg000590l+ h1tg000224l+ h1tg000996l+ h1tg001080l+ h1tg000128l+ h1tg000688l+ h1tg000549l+ h1tg000132l+ h1tg000157l+ h1tg000742l+ h1tg000719l+ h1tg000327l+ h1tg000391l+ h1tg000621l+ h1tg000689l+ h1tg000407l+ h1tg000393l+ h1tg000753l+ h1tg000724l+ h1tg000788l+ h1tg000306l+ h1tg000289l+ h1tg000848l+ h1tg000783l+ h1tg001006l+ h1tg000489l+ h1tg000597l+ h1tg000777l+ h1tg000538l+ h1tg000172l+ h1tg000712l+ h1tg000500l+ h1tg000159l+ h1tg000528l+ h1tg000211l+ h1tg000600l+ h1tg000002l+ h1tg000106l+ h1tg000079l+ h1tg000780l+
+Current iteration GA1-0: max_score=0.00014
+Current iteration GA1-500: max_score=0.00089
+Current iteration GA1-1000: max_score=0.00107
+Current iteration GA1-1500: max_score=0.00114
+Current iteration GA1-2000: max_score=0.00117
+Current iteration GA1-2500: max_score=0.00118
+Current iteration GA1-3000: max_score=0.00120
+Current iteration GA1-3500: max_score=0.00121
+Current iteration GA1-4000: max_score=0.00122
+Current iteration GA1-4500: max_score=0.00122
+Current iteration GA1-5000: max_score=0.00122
+Current iteration GA1-5500: max_score=0.00122
+Current iteration GA1-6000: max_score=0.00122
+Current iteration GA1-6500: max_score=0.00122
+Current iteration GA1-7000: max_score=0.00122
+Current iteration GA1-7500: max_score=0.00122
+Current iteration GA1-8000: max_score=0.00122
+Current iteration GA1-8500: max_score=0.00122
+Current iteration GA1-9000: max_score=0.00122
+Current iteration GA1-9500: max_score=0.00122
+Current iteration GA2-0: max_score=0.00122
+Current iteration GA2-500: max_score=0.00122
+Current iteration GA2-1000: max_score=0.00122
+Current iteration GA2-1500: max_score=0.00122
+Current iteration GA2-2000: max_score=0.00122
+Current iteration GA2-2500: max_score=0.00122
+Current iteration GA2-3000: max_score=0.00122
+Current iteration GA2-3500: max_score=0.00122
+Current iteration GA2-4000: max_score=0.00122
+Current iteration GA2-4500: max_score=0.00122
+Current iteration GA2-5000: max_score=0.00122
+>FINAL
+h1tg000510l- h1tg000463l- h1tg000957l- h1tg000115l- h1tg000269l- h1tg000304l- h1tg000284l- h1tg000132l+ h1tg000971l- h1tg000005l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l+ h1tg000500l+ h1tg000819l+ h1tg000712l- h1tg000780l- h1tg000902l- h1tg000203l+ h1tg000783l- h1tg000534l- h1tg000539l- h1tg000788l+ h1tg000766l+ h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000327l- h1tg000848l+ h1tg000690l- h1tg000391l- h1tg000381l+ h1tg000503l- h1tg000832l- h1tg000393l- h1tg000722l- h1tg000128l+ h1tg000538l- h1tg000325l- h1tg000511l- h1tg000406l- h1tg000159l+ h1tg000057l+ h1tg000552l+ h1tg000164l+ h1tg000908l+ h1tg000289l- h1tg000557l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg000719l+ h1tg000858l+ h1tg001074l+ h1tg000525l- h1tg000603l+ h1tg000517l- h1tg000112l- h1tg000724l- h1tg000002l- h1tg000742l+ h1tg000377l+ h1tg000666l+ h1tg000316l- h1tg000621l- h1tg000563l+ h1tg000996l- h1tg000253l- h1tg001006l- h1tg000224l- h1tg000618l- h1tg000600l+ h1tg000777l+ h1tg000620l+ h1tg000172l- h1tg000343l+ h1tg000157l- h1tg000616l- h1tg000638l- h1tg000195l- h1tg000174l- h1tg000913l- h1tg000749l- h1tg000641l- h1tg000165l+ h1tg000451l- h1tg000578l+ h1tg000389l- h1tg000590l- h1tg000727l- h1tg000579l- h1tg000597l+ h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000489l+ h1tg000689l+ h1tg000698l- h1tg000306l- h1tg000978l- h1tg000528l-
+[32m14:11:19 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m14:11:19 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:11:19 reportActive | NOTICE [0m Active tigs: 103 (length=90488398)
+[32m14:11:19 flipLog | NOTICE [0m FLIPALL: -9529.58685 => -9530.65537 REJECT
+[32m14:11:19 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m14:11:19 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:22 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -34013.73809 => -33937.97417 ACCEPT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33877.00229 => -33879.73692 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33813.60922 => -33813.60922 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=38 N_rejects=65
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33813.60922 => -34087.03019 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33810.94098 => -33815.40178 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33810.11888 => -33810.11888 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=99
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33810.11888 => -34084.42379 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=101
+[32m14:11:23 flipLog | NOTICE [0m FLIPWHOLE: -33809.03749 => -34082.28601 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (50/103): -33809.03749 => -33813.49828 REJECT
+[32m14:11:23 flipLog | NOTICE [0m FLIPONE (100/103): -33809.03749 => -33809.03749 REJECT
+[32m14:11:23 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=103
+[32m14:11:23 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m14:11:23 Run | NOTICE [0m Success
+[2025-12-10 14:11:23] ✅ Optimization completed
+[2025-12-10 14:11:23] ⏱️  Step completed in 5s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️  [Step 6] Building final assembly
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:11:23] ▶️  ALLHiC_build draft.asm.fasta
+1. tour format to agp ...
+Processing group12.tour ...
+[2025-12-10 14:11:27] ✅ Build completed
+[2025-12-10 14:11:27] ⏱️  Step completed in 4s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 [Step 7] Generating contact maps
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:11:30] ▶️  ALLHiC_plot -b sample.clean.bam -a groups.agp -l chrn.list              -m 50k -s 500k -o ./
+/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot:178: UserWarning: Attempting to set identical low and high xlims makes transformation singular; automatically expanding.
+  hmap = ax.imshow(np.log2(sub_data[: plt_cnt, : plt_cnt]), interpolation='nearest', origin='lower', cmap=cmap, aspect='equal')
+/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot:178: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
+  hmap = ax.imshow(np.log2(sub_data[: plt_cnt, : plt_cnt]), interpolation='nearest', origin='lower', cmap=cmap, aspect='equal')

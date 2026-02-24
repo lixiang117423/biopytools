@@ -1,0 +1,134 @@
+🚀 作业开始: filter_vcf_soybean_4
+⏰ 开始时间: 2025-12-31 08:10:46
+📍 执行命令: biopytools filter-snp-indel -i 02.按染色体合并VCF文件/Chr04.joint.merged.vcf.gz -o 03.按染色体过滤VCF文件/chr04
+==========================================
+[2025-12-31 08:10:46] INFO: ============================================================
+[2025-12-31 08:10:46] INFO: Program: VCF SNP/INDEL Filtering
+[2025-12-31 08:10:46] INFO: Version: 1.0.0
+[2025-12-31 08:10:46] INFO: ============================================================
+[2025-12-31 08:10:46] INFO: ============================================================
+[2025-12-31 08:10:46] INFO: 开始VCF SNP/INDEL过滤流程 | Starting VCF SNP/INDEL Filtering Pipeline
+[2025-12-31 08:10:46] INFO: ============================================================
+[2025-12-31 08:10:46] INFO: 输入VCF文件 | Input VCF file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/02.按染色体合并VCF文件/Chr04.joint.merged.vcf.gz
+[2025-12-31 08:10:46] INFO: 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/03.按染色体过滤VCF文件/chr04
+[2025-12-31 08:10:46] INFO: 线程数 | Threads: 64
+[2025-12-31 08:10:46] INFO: BCFtools路径 | BCFtools path: bcftools
+[2025-12-31 08:10:46] INFO: ============================================================
+[2025-12-31 08:10:46] INFO: 检查依赖软件 | Checking dependencies
+[2025-12-31 08:10:46] INFO: 检查依赖软件 | Checking dependencies
+[2025-12-31 08:10:46] INFO: BCFtools 可用 | BCFtools available
+[2025-12-31 08:10:46] INFO: ============================================================
+[2025-12-31 08:10:46] INFO: 步骤1: 分离SNP和INDEL | Step 1: Separating SNPs and INDELs
+[2025-12-31 08:10:46] INFO: ============================================================
+[2025-12-31 08:10:46] INFO: 执行步骤 | Executing step: 提取SNP变异 | Extracting SNP variants
+[2025-12-31 08:10:46] INFO: 命令 | Command: bcftools view --types snps --threads 64 -Oz -o variation.raw.snp.vcf.gz /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/02.按染色体合并VCF文件/Chr04.joint.merged.vcf.gz
+[2025-12-31 09:44:30] INFO: 命令执行成功 | Command executed successfully: 提取SNP变异 | Extracting SNP variants
+[2025-12-31 09:44:30] INFO: 执行步骤 | Executing step: 提取INDEL变异 | Extracting INDEL variants
+[2025-12-31 09:44:30] INFO: 命令 | Command: bcftools view --types indels --threads 64 -Oz -o variation.raw.indel.vcf.gz /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/02.按染色体合并VCF文件/Chr04.joint.merged.vcf.gz
+[2025-12-31 10:51:27] INFO: 命令执行成功 | Command executed successfully: 提取INDEL变异 | Extracting INDEL variants
+[2025-12-31 10:51:27] INFO: 创建VCF索引 | Creating VCF index
+[2025-12-31 10:51:27] INFO: 执行步骤 | Executing step: 索引文件 | Indexing variation.raw.snp.vcf.gz
+[2025-12-31 10:51:27] INFO: 命令 | Command: bcftools index -f variation.raw.snp.vcf.gz
+[2025-12-31 11:15:43] INFO: 命令执行成功 | Command executed successfully: 索引文件 | Indexing variation.raw.snp.vcf.gz
+[2025-12-31 11:15:43] INFO: 执行步骤 | Executing step: 索引文件 | Indexing variation.raw.indel.vcf.gz
+[2025-12-31 11:15:43] INFO: 命令 | Command: bcftools index -f variation.raw.indel.vcf.gz
+[2025-12-31 11:22:49] INFO: 命令执行成功 | Command executed successfully: 索引文件 | Indexing variation.raw.indel.vcf.gz
+[2025-12-31 11:22:49] INFO: SNP和INDEL分离完成 | SNP and INDEL separation completed
+[2025-12-31 11:22:49] INFO: ============================================================
+[2025-12-31 11:22:49] INFO: 步骤2a: 过滤SNP | Step 2a: Filtering SNPs
+[2025-12-31 11:22:49] INFO: ============================================================
+[2025-12-31 11:22:49] INFO: SNP过滤条件 | SNP filter criteria:
+[2025-12-31 11:22:49] INFO:    • QUAL >= 30.0
+[2025-12-31 11:22:49] INFO:    • INFO/DP >= 10
+[2025-12-31 11:22:49] INFO:    • MQ >= 40.0
+[2025-12-31 11:22:49] INFO:    • QD >= 2.0
+[2025-12-31 11:22:49] INFO:    • FS <= 60.0
+[2025-12-31 11:22:49] INFO:    • SOR <= 3.0
+[2025-12-31 11:22:49] INFO:    • MQRankSum >= -12.5
+[2025-12-31 11:22:49] INFO:    • ReadPosRankSum >= -8.0
+[2025-12-31 11:22:49] INFO:    • MAF >= 0.05
+[2025-12-31 11:22:49] INFO: 执行步骤 | Executing step: 应用SNP过滤 | Applying SNP filters
+[2025-12-31 11:22:49] INFO: 命令 | Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 10 && MQ >= 40.0 && QD >= 2.0 && FS <= 60.0 && SOR <= 3.0 && MQRankSum >= -12.5 && ReadPosRankSum >= -8.0 && MAF >= 0.05' --threads 64 -Oz -o variation.filtered.snp.vcf.gz variation.raw.snp.vcf.gz
+[2025-12-31 12:13:39] INFO: 命令执行成功 | Command executed successfully: 应用SNP过滤 | Applying SNP filters
+[2025-12-31 12:13:39] INFO: 执行步骤 | Executing step: 索引过滤后的SNP文件 | Indexing filtered SNP file
+[2025-12-31 12:13:39] INFO: 命令 | Command: bcftools index -f variation.filtered.snp.vcf.gz
+[2025-12-31 12:15:43] INFO: 命令执行成功 | Command executed successfully: 索引过滤后的SNP文件 | Indexing filtered SNP file
+[2025-12-31 12:15:43] INFO: SNP过滤完成 | SNP filtering completed
+[2025-12-31 12:15:43] INFO: ============================================================
+[2025-12-31 12:15:43] INFO: 步骤2b: 过滤INDEL | Step 2b: Filtering INDELs
+[2025-12-31 12:15:43] INFO: ============================================================
+[2025-12-31 12:15:43] INFO: INDEL过滤条件 | INDEL filter criteria:
+[2025-12-31 12:15:43] INFO:    • QUAL >= 30.0
+[2025-12-31 12:15:43] INFO:    • INFO/DP >= 10
+[2025-12-31 12:15:43] INFO:    • MQ >= 40.0
+[2025-12-31 12:15:43] INFO:    • QD >= 2.0
+[2025-12-31 12:15:43] INFO:    • FS <= 200.0
+[2025-12-31 12:15:43] INFO:    • SOR <= 10.0
+[2025-12-31 12:15:43] INFO:    • ReadPosRankSum >= -20.0
+[2025-12-31 12:15:43] INFO: 执行步骤 | Executing step: 应用INDEL过滤 | Applying INDEL filters
+[2025-12-31 12:15:43] INFO: 命令 | Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 10 && MQ >= 40.0 && QD >= 2.0 && FS <= 200.0 && SOR <= 10.0 && ReadPosRankSum >= -20.0' --threads 64 -Oz -o variation.filtered.indel.vcf.gz variation.raw.indel.vcf.gz
+[2025-12-31 12:34:44] INFO: 命令执行成功 | Command executed successfully: 应用INDEL过滤 | Applying INDEL filters
+[2025-12-31 12:34:44] INFO: 执行步骤 | Executing step: 索引过滤后的INDEL文件 | Indexing filtered INDEL file
+[2025-12-31 12:34:44] INFO: 命令 | Command: bcftools index -f variation.filtered.indel.vcf.gz
+[2025-12-31 12:38:29] INFO: 命令执行成功 | Command executed successfully: 索引过滤后的INDEL文件 | Indexing filtered INDEL file
+[2025-12-31 12:38:29] INFO: INDEL过滤完成 | INDEL filtering completed
+[2025-12-31 12:38:29] INFO: ============================================================
+[2025-12-31 12:38:29] INFO: 步骤2c: 过滤双等位位点SNP | Step 2c: Filtering biallelic SNPs
+[2025-12-31 12:38:29] INFO: ============================================================
+[2025-12-31 12:38:29] INFO: 双等位位点过滤条件 | Biallelic filter criteria:
+[2025-12-31 12:38:29] INFO:    • 双等位位点 | Biallelic sites only (max 2 alleles)
+[2025-12-31 12:38:29] INFO:    • MAF > 0.05
+[2025-12-31 12:38:29] INFO: 执行步骤 | Executing step: 应用双等位位点过滤 | Applying biallelic filters
+[2025-12-31 12:38:29] INFO: 命令 | Command: bcftools view -m2 -M2 -v snps -i 'MAF > 0.05' --threads 64 -Oz -o variation.filtered.snp.biallelic.vcf.gz variation.filtered.snp.vcf.gz
+[2025-12-31 12:43:56] INFO: 命令执行成功 | Command executed successfully: 应用双等位位点过滤 | Applying biallelic filters
+[2025-12-31 12:43:56] INFO: 执行步骤 | Executing step: 索引双等位位点SNP文件 | Indexing biallelic SNP file
+[2025-12-31 12:43:56] INFO: 命令 | Command: bcftools index -f variation.filtered.snp.biallelic.vcf.gz
+[2025-12-31 12:45:00] INFO: 命令执行成功 | Command executed successfully: 索引双等位位点SNP文件 | Indexing biallelic SNP file
+[2025-12-31 12:45:00] INFO: 双等位位点SNP过滤完成 | Biallelic SNP filtering completed
+[2025-12-31 12:45:00] INFO: ============================================================
+[2025-12-31 12:45:00] INFO: 步骤3: 合并过滤后的变异 | Step 3: Merging filtered variants
+[2025-12-31 12:45:00] INFO: ============================================================
+[2025-12-31 12:45:00] INFO: 使用双等位位点过滤后的SNP | Using biallelic-filtered SNPs
+[2025-12-31 12:45:00] INFO: 执行步骤 | Executing step: 合并SNP和INDEL | Merging SNPs and INDELs
+[2025-12-31 12:45:00] INFO: 命令 | Command: bcftools concat -a -D --threads 64 -Oz -o variation.filtered.merged.unsorted.vcf.gz variation.filtered.snp.biallelic.vcf.gz variation.filtered.indel.vcf.gz
+[2025-12-31 13:04:25] INFO: 命令执行成功 | Command executed successfully: 合并SNP和INDEL | Merging SNPs and INDELs
+[2025-12-31 13:04:25] INFO: 执行步骤 | Executing step: 按位置排序 | Sorting by position
+[2025-12-31 13:04:25] INFO: 命令 | Command: bcftools sort -Oz -o variation.filtered.merged.vcf.gz variation.filtered.merged.unsorted.vcf.gz
+[2025-12-31 14:25:08] INFO: 命令执行成功 | Command executed successfully: 按位置排序 | Sorting by position
+[2025-12-31 14:25:08] INFO: 清理临时文件 | Cleaning up temporary file: 03.按染色体过滤VCF文件/chr04/variation.filtered.merged.unsorted.vcf.gz
+[2025-12-31 14:25:08] INFO: 临时文件已删除 | Temporary file deleted.
+[2025-12-31 14:25:08] INFO: 执行步骤 | Executing step: 索引合并文件 | Indexing merged file
+[2025-12-31 14:25:08] INFO: 命令 | Command: bcftools index -f variation.filtered.merged.vcf.gz
+[2025-12-31 14:29:51] INFO: 命令执行成功 | Command executed successfully: 索引合并文件 | Indexing merged file
+[2025-12-31 14:29:51] INFO: 变异合并完成 | Variant merging completed
+[2025-12-31 14:29:51] INFO: ============================================================
+[2025-12-31 14:29:51] INFO: 步骤4: 生成统计报告 | Step 4: Generating statistics report
+[2025-12-31 14:29:51] INFO: ============================================================
+[2025-12-31 17:13:14] INFO: ============================================================
+[2025-12-31 17:13:14] INFO: 过滤统计 | Filtering Statistics
+[2025-12-31 17:13:14] INFO: ============================================================
+[2025-12-31 17:13:14] INFO: 原始SNP | Raw SNPs: 9,088,846
+[2025-12-31 17:13:14] INFO: 过滤后SNP | Filtered SNPs: 590,111
+[2025-12-31 17:13:14] INFO: 原始INDEL | Raw INDELs: 2,191,407
+[2025-12-31 17:13:14] INFO: 过滤后INDEL | Filtered INDELs: 1,129,179
+[2025-12-31 17:13:14] INFO: 合并后变异 | Merged variants: 1,490,954
+[2025-12-31 17:13:14] INFO: 双等位位点SNP | Biallelic SNPs: 361,775
+[2025-12-31 17:13:14] INFO: SNP保留率 | SNP retention rate: 6.49%
+[2025-12-31 17:13:14] INFO: 双等位位点保留率 | Biallelic retention rate: 61.31%
+[2025-12-31 17:13:14] INFO: INDEL保留率 | INDEL retention rate: 51.53%
+[2025-12-31 17:13:14] INFO: 统计报告已保存 | Statistics report saved: 03.按染色体过滤VCF文件/chr04/filtering_statistics.txt
+[2025-12-31 17:13:14] INFO: ============================================================
+[2025-12-31 17:13:14] INFO: VCF过滤流程成功完成 | VCF Filtering Pipeline Completed Successfully!
+[2025-12-31 17:13:14] INFO: ============================================================
+[2025-12-31 17:13:14] INFO: 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/03.按染色体过滤VCF文件/chr04
+[2025-12-31 17:13:14] INFO: ============================================================
+
+[2025-12-31 17:13:14] INFO: ============================================================
+[2025-12-31 17:13:14] INFO: Pipeline Summary
+[2025-12-31 17:13:14] INFO: ============================================================
+[2025-12-31 17:13:14] INFO: Total runtime: 32548.16 seconds
+[2025-12-31 17:13:14] INFO: Output directory: 03.按染色体过滤VCF文件/chr04
+[2025-12-31 17:13:14] INFO: Pipeline completed successfully
+==========================================
+⏰ 结束时间: 2025-12-31 17:13:14
+✅ 作业成功: filter_vcf_soybean_4

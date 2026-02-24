@@ -1,0 +1,100 @@
+[0;34mℹ️  INFO:[0m 作业开始于: 2025-12-06 11:03:01
+[0;34mℹ️  INFO:[0m 运行于计算节点: c01n0613
+[0;34mℹ️  INFO:[0m 当前用户: yzwl_lixg
+[0;34mℹ️  INFO:[0m 检测到系统总内存: 1007G
+[0;34mℹ️  INFO:[0m 排序内存配置: 1007G
+[0;34mℹ️  INFO:[0m Java堆内存配置: 1007G
+[0;34mℹ️  INFO:[0m 执行环境检查...
+[0;32m✅ SUCCESS:[0m 所有必需软件检查通过
+[0;34mℹ️  INFO:[0m 检查输入文件完整性...
+[0;32m✅ SUCCESS:[0m 输入文件检查通过
+[0;34mℹ️  INFO:[0m 工作目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/04.YaHS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 步骤 1: 检查/构建基因组索引
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 发现已有BWA索引，跳过
+[0;34mℹ️  INFO:[0m 发现已有SAMtools索引，跳过
+[0;32m✅ SUCCESS:[0m 所有索引文件完整
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 步骤 2: Hi-C测序数据比对与预处理
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 发现已有BAM文件及索引，跳过比对步骤
+[0;34mℹ️  INFO:[0m 现有BAM文件统计:
+2549383927 + 0 in total (QC-passed reads + QC-failed reads)
+1829619971 + 0 primary
+0 + 0 secondary
+719763956 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+2535791551 + 0 mapped (99.47% : N/A)
+1816027595 + 0 primary mapped (99.26% : N/A)
+1829619971 + 0 paired in sequencing
+915033706 + 0 read1
+914586265 + 0 read2
+0 + 0 properly paired (0.00% : N/A)
+1814705150 + 0 with itself and mate mapped
+1322445 + 0 singletons (0.07% : N/A)
+1248675688 + 0 with mate mapped to a different chr
+541233609 + 0 with mate mapped to a different chr (mapQ>=5)
+[0;34mℹ️  INFO:[0m 生成比对统计信息...
+
+[0;34mℹ️  INFO:[0m 比对质量总结:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2549383927 + 0 in total (QC-passed reads + QC-failed reads)
+1829619971 + 0 primary
+0 + 0 secondary
+719763956 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+2535791551 + 0 mapped (99.47% : N/A)
+1816027595 + 0 primary mapped (99.26% : N/A)
+1829619971 + 0 paired in sequencing
+915033706 + 0 read1
+914586265 + 0 read2
+0 + 0 properly paired (0.00% : N/A)
+1814705150 + 0 with itself and mate mapped
+1322445 + 0 singletons (0.07% : N/A)
+1248675688 + 0 with mate mapped to a different chr
+541233609 + 0 with mate mapped to a different chr (mapQ>=5)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 总reads数: 2549383927
+[0;34mℹ️  INFO:[0m 比对成功reads: 2535791551 ((99.47%)
+[0;34mℹ️  INFO:[0m 正确配对reads: 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 步骤 3: 执行YaHS染色体挂载
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 发现已有scaffold文件，跳过YaHS步骤
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 步骤 4: 生成Hi-C热图文件 (.hic)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 发现已有.hic文件 (5.3G)，跳过生成步骤
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 步骤 5: 生成JBAT文件 (用于Juicebox Assembly Tools手动纠错)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0;34mℹ️  INFO:[0m 生成JBAT格式文件...
+[0;34mℹ️  INFO:[0m 正在对JBAT文件进行排序 (解决内存溢出关键步骤)...
+[0;34mℹ️  INFO:[0m 生成JBAT .hic文件...
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-06T15:52:31,360]  [Globals.java:138] [main]  Development mode is enabled
+Using 1 CPU thread(s)
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+.Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.base/java.util.regex.Pattern.split(Pattern.java:1296)
+	at java.base/java.lang.String.split(String.java:3155)
+	at java.base/java.lang.String.split(String.java:3201)
+	at juicebox.tools.clt.JuiceboxCLT.splitToList(JuiceboxCLT.java:47)
+	at juicebox.tools.utils.original.AsciiPairIterator.advance(AsciiPairIterator.java:125)
+	at juicebox.tools.utils.original.AsciiPairIterator.next(AsciiPairIterator.java:287)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:673)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:425)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:139)
+	at juicebox.tools.HiCTools.main(HiCTools.java:94)
+[0;31m❌ ERROR:[0m 脚本在第 425 行失败，退出码: 1

@@ -1,0 +1,10 @@
+2026-01-25 07:48:51.155 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-25 07:48:51.155 - INFO - 使用自定义输入目录|Using custom input directory: database/kmc_databases
+2026-01-25 07:48:51.156 - INFO - 从count metadata读取k-mer大小|Read k-mer size from count metadata: 21 → 51
+2026-01-25 07:48:51.156 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-25 07:48:51.156 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-25 07:48:51.169 - INFO - 找到 99 个KMC数据库|Found 99 KMC databases
+2026-01-25 07:48:51.169 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 99 样本|samples
+2026-01-25 07:48:51.186 - INFO - 发现已存在的矩阵包含 99 个样本|Found existing matrix with 99 samples
+2026-01-25 07:48:51.186 - INFO - 已处理样本|Already processed: ['OV8-196', 'OV8-80', 'OV8-67', 'OV8-68', 'OV8-71', 'OV8-30', 'OV8-74', 'OV8-40', 'OV8-29', 'OV8-106', 'OV8-105', 'OV8-2', 'OV8-180', 'OV8-20', 'OV8-179', 'OV8-272', 'OV8-6', 'OV8-88', 'OV8-17', 'OV8-45', 'OV8-263', 'OV8-43', 'OV8-137', 'OV8-259', 'OV8-260', 'OV8-141', 'OV8-114', 'OV8-33', 'OV8-8', 'OV8-31', 'OV8-3', 'OV8-157', 'OV8-138', 'OV8-39', 'OV8-95', 'OV8-158', 'OV8-72', 'OV8-117', 'OV8-94', 'OV8-142', 'OV8-276', 'OV8-143', 'OV8-87', 'OV8-27', 'OV8-19', 'OV8-206', 'OV8-118', 'OV8-277', 'OV8-268', 'OV8-4', 'OV8-107', 'OV8-275', 'OV8-269', 'OV8-273', 'OV8-5', 'OV8-116', 'OV8-70', 'OV8-32', 'OV8-28', 'OV8-98', 'OV8-35', 'OV8-81', 'OV8-75', 'OV8-216', 'OV8-78', 'OV8-217', 'OV8-274', 'OV8-265', 'OV8-76', 'OV8-9', 'OV8-99', 'OV8-144', 'OV8-44', 'OV8-7', 'OV8-111', 'OV8-171', 'OV8-77', 'OV8-108', 'OV8-172', 'OV8-136', 'OV8-15', 'OV8-1', 'OV8-79', 'OV8-34', 'OV8-258', 'OV8-26', 'OV8-115', 'OV8-264', 'OV8-267', 'OV8-139', 'OV8-73', 'OV8-271', 'OV8-112', 'OV8-11', 'OV8-113', 'OV8-83', 'OV8-89', 'OV8-21', 'OV8-42']
+2026-01-25 07:48:51.186 - INFO - 所有样本已处理，无需重新构建|All samples already processed, no need to rebuild

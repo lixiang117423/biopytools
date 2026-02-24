@@ -1,0 +1,1128 @@
+2025-10-03 13:53:05,200 - INFO - 🧬 WRKY Analysis Pipeline Started - Fixed Version
+2025-10-03 13:53:05,225 - INFO - 📂 Working directory: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类
+2025-10-03 13:53:05,250 - INFO - 🔧 Script PID: 177475
+2025-10-03 13:53:05,274 - INFO - 🗂️ Log file: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/pipeline.log
+
+2025-10-03 13:53:05,304 - INFO - 🚀 Starting WRKY pipeline with classification in serial mode...
+2025-10-03 13:53:05,328 - INFO - 🔍 Checking dependencies...
+2025-10-03 13:53:05,470 - INFO - ✅ All dependencies found
+2025-10-03 13:53:05,494 - INFO - 🧬 Starting WRKY analysis pipeline (Serial Mode with Classification)...
+2025-10-03 13:53:05,530 - INFO - 📋 Found 123 samples to process
+2025-10-03 13:53:05,553 - INFO - 📝 Samples: scaffold_1009-Hedwigia_ciliata scaffold_1010-Timmia_megapolitana scaffold_1011-Tetraphis_pellucida scaffold_1012-Andreaea_wilsonii scaffold_1013-Pleuridium_subulatum scaffold_1015-Atrichum_angustatum scaffold_1016-Treubia_lacunosa scaffold_1017-Porella_caespitans_var._nipponica scaffold_1020-Hypopterygium_elatum scaffold_1023-Encalypta_ciliata scaffold_1024-Homaliodendron_scalpellifolium scaffold_1025-Porella_chinensis scaffold_1026-Bazzania_tridens scaffold_1030-Bartramia_ithyphylla scaffold_1032-Phaeoceros_laevis scaffold_1035-Polytrichastrum_ohioense scaffold_1036-Calliergon_cordifolium scaffold_1088-Gymnostomum_aurantiacum scaffold_1089-Polytrichum_commune scaffold_1092-Pogonatum_subfuscatum scaffold_1114-Regmatodon_serrulatus scaffold_1120-Splachnum_ampullaceum scaffold_1122-Syntrichia_ruralis scaffold_1123-Grimmia_obtusifolia scaffold_1124-Paraleucobryum_enerve scaffold_1125-Encalypta_ciliata scaffold_1126-Tayloria_subglabra scaffold_1127-Archidium_alternifolium scaffold_1151-Gigaspermum_repens scaffold_1208-Racopilum_cuspidigerum scaffold_225-Ptilidium_ciliare scaffold_231-Lunularia_cruciata scaffold_302-Haplomitrium_mnioides scaffold_322-Climacium_americanum_ scaffold_323-Leucobryum_albidum scaffold_324-Aulacomnium_palustre_ scaffold_325-Pseudobryum_cinclidioides_ scaffold_326-Ulota_hutchinsiae scaffold_328-Tetraphis_pellucida scaffold_329-Hedwigia_ciliata scaffold_334-Fontinalis_sullivantii scaffold_335-Dicranum_fulvum scaffold_336-Brachythecium_laetum scaffold_337-Bryoandersonia_illecebra_ scaffold_338-Mnium_hornum_ scaffold_340-Anomodon_attenuatus scaffold_341-Plagiomnium_ciliare scaffold_342-Bryhnia_novae-angliae scaffold_343-Odontoschisma_sphagni scaffold_344-Hygroamblystegium_varium scaffold_349-Blasia_pusilla scaffold_350-Andreaeobryum_macrosporum scaffold_359-Scapania_nepalensis scaffold_368-Metzgeria_furcata scaffold_369-Plagiochila_semidecurrens scaffold_600-Catagonium_nitens scaffold_601-Lepyrodon_lagurus scaffold_604-Gackstroemia_magellanica scaffold_606-Ptychomnion_cygnisetum scaffold_607-Polytrichum_strictum scaffold_608-Schistidium_cupulare scaffold_612-Dicranoloma_chilense scaffold_613-Bartramia_mossmaniana_ scaffold_614-Polytrichadelphus_magellanicus scaffold_615-Leptotheca_gaudichaudii scaffold_616-Chorisodontium_acidophyllum scaffold_617-Catagonium_nitens scaffold_618-Catagonium_nitens scaffold_620-Vetaforma_dusenii scaffold_621-Plagiochila_sp. scaffold_623-Mesoptychia_sp. scaffold_625-Noteroclada_confluens scaffold_626-Acrobolbus_urvilleanus scaffold_627-Rhytidiadelphus_subpinnatus scaffold_628-Kindbergia_praelongum scaffold_630-Porella_platyphylla_ scaffold_639-Folioceros_fuciformis scaffold_644-Sphagnum_palustre scaffold_646-Buxbaumia_aphylla scaffold_658-Andreaea_rupestris scaffold_664-Conocephalum_conicum scaffold_665-Philonotis_turneriana scaffold_667-Pyrrhobryum_spiniforme scaffold_668-Aerobryopsis_subdivergens scaffold_670-Ptychomitrium_wilsonii scaffold_671-Leucobryum_bowringii scaffold_795-Orthotrichum_anomalum scaffold_805-Aulacomnium_androgynum scaffold_888-Acrolejeunea_sandvicensis scaffold_889-Fossombronia_cristula scaffold_890-Blasia_pusilla scaffold_891-Pleurozia_purpurea scaffold_893-Hypopterygium_japonicum scaffold_898-Fissidens_javanicus scaffold_899-Notothylas_yunnanensis scaffold_900-Schistostega_pennata scaffold_902-Phaeoceros_laevis scaffold_904-Sphagnum_girgensohnii scaffold_905-Metzgeria_hamata scaffold_906-Herbertus_kurzii scaffold_908-Cyathodium_cavernarum scaffold_909-Ricciocarpos_natans scaffold_910-Diphyscium_fulvifolium scaffold_911-Bryoxiphium_norvegicum scaffold_912-Pallavicinia_ambigua scaffold_952-Plagiochasma_appendiculatum scaffold_953-Ectropothecium_obtusulum scaffold_954-Gollania_philippinensis scaffold_955-Jungermannia_erectum scaffold_956-Pogonatum_microstomum scaffold_957-Frullania_moniliata scaffold_958-Racomitrium_nitidulum scaffold_960A-Hygrohypnum_luridum scaffold_960B-Cratoneuron_filicinum scaffold_961-Lepidozia_reptans scaffold_962-Thamnobryum_sandei scaffold_963-Plicanthus_hirtellus scaffold_964-Calliergonella_cuspidata scaffold_965-Tetralophozia_filiformis scaffold_966-Tritomaria_exsectiformis scaffold_967-Barbula_amplexifolia scaffold_969-Distichophyllum_collenchymatosum scaffold_M158-Sphaerocarpos_donnellii
+2025-10-03 13:53:05,581 - INFO - 
+2025-10-03 13:53:05,605 - INFO - 🚀 Processing sample 1/123: scaffold_1009-Hedwigia_ciliata
+2025-10-03 13:53:05,629 - INFO - 
+2025-10-03 13:53:05,653 - INFO - 🧬 Processing sample: scaffold_1009-Hedwigia_ciliata
+2025-10-03 13:53:05,676 - INFO - ========================================
+2025-10-03 13:53:05,700 - INFO - 📊 Extracting longest transcript for scaffold_1009-Hedwigia_ciliata...
+2025-10-03 13:53:05,765 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1009-Hedwigia_ciliata.gff
+2025-10-03 13:53:05,788 - ERROR - ❌ Skipping scaffold_1009-Hedwigia_ciliata due to extraction error
+2025-10-03 13:53:05,812 - WARN - ⚠️ Failed to process scaffold_1009-Hedwigia_ciliata, continuing with next sample...
+2025-10-03 13:53:05,836 - INFO - 
+2025-10-03 13:53:05,859 - INFO - 🚀 Processing sample 2/123: scaffold_1010-Timmia_megapolitana
+2025-10-03 13:53:05,883 - INFO - 
+2025-10-03 13:53:05,907 - INFO - 🧬 Processing sample: scaffold_1010-Timmia_megapolitana
+2025-10-03 13:53:05,930 - INFO - ========================================
+2025-10-03 13:53:05,954 - INFO - 📊 Extracting longest transcript for scaffold_1010-Timmia_megapolitana...
+2025-10-03 13:53:05,978 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1010-Timmia_megapolitana.gff
+2025-10-03 13:53:06,001 - ERROR - ❌ Skipping scaffold_1010-Timmia_megapolitana due to extraction error
+2025-10-03 13:53:06,025 - WARN - ⚠️ Failed to process scaffold_1010-Timmia_megapolitana, continuing with next sample...
+2025-10-03 13:53:06,049 - INFO - 
+2025-10-03 13:53:06,072 - INFO - 🚀 Processing sample 3/123: scaffold_1011-Tetraphis_pellucida
+2025-10-03 13:53:06,095 - INFO - 
+2025-10-03 13:53:06,119 - INFO - 🧬 Processing sample: scaffold_1011-Tetraphis_pellucida
+2025-10-03 13:53:06,143 - INFO - ========================================
+2025-10-03 13:53:06,166 - INFO - 📊 Extracting longest transcript for scaffold_1011-Tetraphis_pellucida...
+2025-10-03 13:53:06,190 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1011-Tetraphis_pellucida.gff
+2025-10-03 13:53:06,214 - ERROR - ❌ Skipping scaffold_1011-Tetraphis_pellucida due to extraction error
+2025-10-03 13:53:06,237 - WARN - ⚠️ Failed to process scaffold_1011-Tetraphis_pellucida, continuing with next sample...
+2025-10-03 13:53:06,261 - INFO - 
+2025-10-03 13:53:06,284 - INFO - 🚀 Processing sample 4/123: scaffold_1012-Andreaea_wilsonii
+2025-10-03 13:53:06,308 - INFO - 
+2025-10-03 13:53:06,331 - INFO - 🧬 Processing sample: scaffold_1012-Andreaea_wilsonii
+2025-10-03 13:53:06,355 - INFO - ========================================
+2025-10-03 13:53:06,378 - INFO - 📊 Extracting longest transcript for scaffold_1012-Andreaea_wilsonii...
+2025-10-03 13:53:06,402 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1012-Andreaea_wilsonii.gff
+2025-10-03 13:53:06,426 - ERROR - ❌ Skipping scaffold_1012-Andreaea_wilsonii due to extraction error
+2025-10-03 13:53:06,449 - WARN - ⚠️ Failed to process scaffold_1012-Andreaea_wilsonii, continuing with next sample...
+2025-10-03 13:53:06,473 - INFO - 
+2025-10-03 13:53:06,497 - INFO - 🚀 Processing sample 5/123: scaffold_1013-Pleuridium_subulatum
+2025-10-03 13:53:06,520 - INFO - 
+2025-10-03 13:53:06,544 - INFO - 🧬 Processing sample: scaffold_1013-Pleuridium_subulatum
+2025-10-03 13:53:06,567 - INFO - ========================================
+2025-10-03 13:53:06,591 - INFO - 📊 Extracting longest transcript for scaffold_1013-Pleuridium_subulatum...
+2025-10-03 13:53:06,615 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1013-Pleuridium_subulatum.gff
+2025-10-03 13:53:06,638 - ERROR - ❌ Skipping scaffold_1013-Pleuridium_subulatum due to extraction error
+2025-10-03 13:53:06,662 - WARN - ⚠️ Failed to process scaffold_1013-Pleuridium_subulatum, continuing with next sample...
+2025-10-03 13:53:06,686 - INFO - 
+2025-10-03 13:53:06,709 - INFO - 🚀 Processing sample 6/123: scaffold_1015-Atrichum_angustatum
+2025-10-03 13:53:06,733 - INFO - 
+2025-10-03 13:53:06,756 - INFO - 🧬 Processing sample: scaffold_1015-Atrichum_angustatum
+2025-10-03 13:53:06,780 - INFO - ========================================
+2025-10-03 13:53:06,803 - INFO - 📊 Extracting longest transcript for scaffold_1015-Atrichum_angustatum...
+2025-10-03 13:53:06,827 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1015-Atrichum_angustatum.gff
+2025-10-03 13:53:06,851 - ERROR - ❌ Skipping scaffold_1015-Atrichum_angustatum due to extraction error
+2025-10-03 13:53:06,874 - WARN - ⚠️ Failed to process scaffold_1015-Atrichum_angustatum, continuing with next sample...
+2025-10-03 13:53:06,898 - INFO - 
+2025-10-03 13:53:06,923 - INFO - 🚀 Processing sample 7/123: scaffold_1016-Treubia_lacunosa
+2025-10-03 13:53:06,948 - INFO - 
+2025-10-03 13:53:06,972 - INFO - 🧬 Processing sample: scaffold_1016-Treubia_lacunosa
+2025-10-03 13:53:06,996 - INFO - ========================================
+2025-10-03 13:53:07,020 - INFO - 📊 Extracting longest transcript for scaffold_1016-Treubia_lacunosa...
+2025-10-03 13:53:07,044 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1016-Treubia_lacunosa.gff
+2025-10-03 13:53:07,068 - ERROR - ❌ Skipping scaffold_1016-Treubia_lacunosa due to extraction error
+2025-10-03 13:53:07,092 - WARN - ⚠️ Failed to process scaffold_1016-Treubia_lacunosa, continuing with next sample...
+2025-10-03 13:53:07,116 - INFO - 
+2025-10-03 13:53:07,140 - INFO - 🚀 Processing sample 8/123: scaffold_1017-Porella_caespitans_var._nipponica
+2025-10-03 13:53:07,164 - INFO - 
+2025-10-03 13:53:07,187 - INFO - 🧬 Processing sample: scaffold_1017-Porella_caespitans_var._nipponica
+2025-10-03 13:53:07,211 - INFO - ========================================
+2025-10-03 13:53:07,235 - INFO - 📊 Extracting longest transcript for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-10-03 13:53:07,259 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1017-Porella_caespitans_var._nipponica.gff
+2025-10-03 13:53:07,283 - ERROR - ❌ Skipping scaffold_1017-Porella_caespitans_var._nipponica due to extraction error
+2025-10-03 13:53:07,307 - WARN - ⚠️ Failed to process scaffold_1017-Porella_caespitans_var._nipponica, continuing with next sample...
+2025-10-03 13:53:07,330 - INFO - 
+2025-10-03 13:53:07,354 - INFO - 🚀 Processing sample 9/123: scaffold_1020-Hypopterygium_elatum
+2025-10-03 13:53:07,378 - INFO - 
+2025-10-03 13:53:07,402 - INFO - 🧬 Processing sample: scaffold_1020-Hypopterygium_elatum
+2025-10-03 13:53:07,425 - INFO - ========================================
+2025-10-03 13:53:07,449 - INFO - 📊 Extracting longest transcript for scaffold_1020-Hypopterygium_elatum...
+2025-10-03 13:53:07,473 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1020-Hypopterygium_elatum.gff
+2025-10-03 13:53:07,497 - ERROR - ❌ Skipping scaffold_1020-Hypopterygium_elatum due to extraction error
+2025-10-03 13:53:07,521 - WARN - ⚠️ Failed to process scaffold_1020-Hypopterygium_elatum, continuing with next sample...
+2025-10-03 13:53:07,545 - INFO - 
+2025-10-03 13:53:07,568 - INFO - 🚀 Processing sample 10/123: scaffold_1023-Encalypta_ciliata
+2025-10-03 13:53:07,592 - INFO - 
+2025-10-03 13:53:07,616 - INFO - 🧬 Processing sample: scaffold_1023-Encalypta_ciliata
+2025-10-03 13:53:07,640 - INFO - ========================================
+2025-10-03 13:53:07,663 - INFO - 📊 Extracting longest transcript for scaffold_1023-Encalypta_ciliata...
+2025-10-03 13:53:07,687 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1023-Encalypta_ciliata.gff
+2025-10-03 13:53:07,711 - ERROR - ❌ Skipping scaffold_1023-Encalypta_ciliata due to extraction error
+2025-10-03 13:53:07,735 - WARN - ⚠️ Failed to process scaffold_1023-Encalypta_ciliata, continuing with next sample...
+2025-10-03 13:53:07,759 - INFO - 
+2025-10-03 13:53:07,782 - INFO - 🚀 Processing sample 11/123: scaffold_1024-Homaliodendron_scalpellifolium
+2025-10-03 13:53:07,806 - INFO - 
+2025-10-03 13:53:07,830 - INFO - 🧬 Processing sample: scaffold_1024-Homaliodendron_scalpellifolium
+2025-10-03 13:53:07,854 - INFO - ========================================
+2025-10-03 13:53:07,879 - INFO - 📊 Extracting longest transcript for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-10-03 13:53:07,903 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1024-Homaliodendron_scalpellifolium.gff
+2025-10-03 13:53:07,926 - ERROR - ❌ Skipping scaffold_1024-Homaliodendron_scalpellifolium due to extraction error
+2025-10-03 13:53:07,950 - WARN - ⚠️ Failed to process scaffold_1024-Homaliodendron_scalpellifolium, continuing with next sample...
+2025-10-03 13:53:07,974 - INFO - 
+2025-10-03 13:53:07,998 - INFO - 🚀 Processing sample 12/123: scaffold_1025-Porella_chinensis
+2025-10-03 13:53:08,021 - INFO - 
+2025-10-03 13:53:08,045 - INFO - 🧬 Processing sample: scaffold_1025-Porella_chinensis
+2025-10-03 13:53:08,069 - INFO - ========================================
+2025-10-03 13:53:08,093 - INFO - 📊 Extracting longest transcript for scaffold_1025-Porella_chinensis...
+2025-10-03 13:53:08,117 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1025-Porella_chinensis.gff
+2025-10-03 13:53:08,141 - ERROR - ❌ Skipping scaffold_1025-Porella_chinensis due to extraction error
+2025-10-03 13:53:08,165 - WARN - ⚠️ Failed to process scaffold_1025-Porella_chinensis, continuing with next sample...
+2025-10-03 13:53:08,189 - INFO - 
+2025-10-03 13:53:08,212 - INFO - 🚀 Processing sample 13/123: scaffold_1026-Bazzania_tridens
+2025-10-03 13:53:08,236 - INFO - 
+2025-10-03 13:53:08,260 - INFO - 🧬 Processing sample: scaffold_1026-Bazzania_tridens
+2025-10-03 13:53:08,284 - INFO - ========================================
+2025-10-03 13:53:08,307 - INFO - 📊 Extracting longest transcript for scaffold_1026-Bazzania_tridens...
+2025-10-03 13:53:08,331 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1026-Bazzania_tridens.gff
+2025-10-03 13:53:08,355 - ERROR - ❌ Skipping scaffold_1026-Bazzania_tridens due to extraction error
+2025-10-03 13:53:08,378 - WARN - ⚠️ Failed to process scaffold_1026-Bazzania_tridens, continuing with next sample...
+2025-10-03 13:53:08,402 - INFO - 
+2025-10-03 13:53:08,426 - INFO - 🚀 Processing sample 14/123: scaffold_1030-Bartramia_ithyphylla
+2025-10-03 13:53:08,450 - INFO - 
+2025-10-03 13:53:08,473 - INFO - 🧬 Processing sample: scaffold_1030-Bartramia_ithyphylla
+2025-10-03 13:53:08,497 - INFO - ========================================
+2025-10-03 13:53:08,521 - INFO - 📊 Extracting longest transcript for scaffold_1030-Bartramia_ithyphylla...
+2025-10-03 13:53:08,545 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1030-Bartramia_ithyphylla.gff
+2025-10-03 13:53:08,568 - ERROR - ❌ Skipping scaffold_1030-Bartramia_ithyphylla due to extraction error
+2025-10-03 13:53:08,592 - WARN - ⚠️ Failed to process scaffold_1030-Bartramia_ithyphylla, continuing with next sample...
+2025-10-03 13:53:08,616 - INFO - 
+2025-10-03 13:53:08,639 - INFO - 🚀 Processing sample 15/123: scaffold_1032-Phaeoceros_laevis
+2025-10-03 13:53:08,663 - INFO - 
+2025-10-03 13:53:08,687 - INFO - 🧬 Processing sample: scaffold_1032-Phaeoceros_laevis
+2025-10-03 13:53:08,710 - INFO - ========================================
+2025-10-03 13:53:08,734 - INFO - 📊 Extracting longest transcript for scaffold_1032-Phaeoceros_laevis...
+2025-10-03 13:53:08,758 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1032-Phaeoceros_laevis.gff
+2025-10-03 13:53:08,782 - ERROR - ❌ Skipping scaffold_1032-Phaeoceros_laevis due to extraction error
+2025-10-03 13:53:08,806 - WARN - ⚠️ Failed to process scaffold_1032-Phaeoceros_laevis, continuing with next sample...
+2025-10-03 13:53:08,830 - INFO - 
+2025-10-03 13:53:08,854 - INFO - 🚀 Processing sample 16/123: scaffold_1035-Polytrichastrum_ohioense
+2025-10-03 13:53:08,877 - INFO - 
+2025-10-03 13:53:08,901 - INFO - 🧬 Processing sample: scaffold_1035-Polytrichastrum_ohioense
+2025-10-03 13:53:08,925 - INFO - ========================================
+2025-10-03 13:53:08,948 - INFO - 📊 Extracting longest transcript for scaffold_1035-Polytrichastrum_ohioense...
+2025-10-03 13:53:08,972 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1035-Polytrichastrum_ohioense.gff
+2025-10-03 13:53:08,996 - ERROR - ❌ Skipping scaffold_1035-Polytrichastrum_ohioense due to extraction error
+2025-10-03 13:53:09,020 - WARN - ⚠️ Failed to process scaffold_1035-Polytrichastrum_ohioense, continuing with next sample...
+2025-10-03 13:53:09,043 - INFO - 
+2025-10-03 13:53:09,067 - INFO - 🚀 Processing sample 17/123: scaffold_1036-Calliergon_cordifolium
+2025-10-03 13:53:09,091 - INFO - 
+2025-10-03 13:53:09,114 - INFO - 🧬 Processing sample: scaffold_1036-Calliergon_cordifolium
+2025-10-03 13:53:09,138 - INFO - ========================================
+2025-10-03 13:53:09,162 - INFO - 📊 Extracting longest transcript for scaffold_1036-Calliergon_cordifolium...
+2025-10-03 13:53:09,186 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1036-Calliergon_cordifolium.gff
+2025-10-03 13:53:09,210 - ERROR - ❌ Skipping scaffold_1036-Calliergon_cordifolium due to extraction error
+2025-10-03 13:53:09,234 - WARN - ⚠️ Failed to process scaffold_1036-Calliergon_cordifolium, continuing with next sample...
+2025-10-03 13:53:09,258 - INFO - 
+2025-10-03 13:53:09,281 - INFO - 🚀 Processing sample 18/123: scaffold_1088-Gymnostomum_aurantiacum
+2025-10-03 13:53:09,305 - INFO - 
+2025-10-03 13:53:09,329 - INFO - 🧬 Processing sample: scaffold_1088-Gymnostomum_aurantiacum
+2025-10-03 13:53:09,352 - INFO - ========================================
+2025-10-03 13:53:09,376 - INFO - 📊 Extracting longest transcript for scaffold_1088-Gymnostomum_aurantiacum...
+2025-10-03 13:53:09,400 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1088-Gymnostomum_aurantiacum.gff
+2025-10-03 13:53:09,424 - ERROR - ❌ Skipping scaffold_1088-Gymnostomum_aurantiacum due to extraction error
+2025-10-03 13:53:09,448 - WARN - ⚠️ Failed to process scaffold_1088-Gymnostomum_aurantiacum, continuing with next sample...
+2025-10-03 13:53:09,471 - INFO - 
+2025-10-03 13:53:09,495 - INFO - 🚀 Processing sample 19/123: scaffold_1089-Polytrichum_commune
+2025-10-03 13:53:09,519 - INFO - 
+2025-10-03 13:53:09,543 - INFO - 🧬 Processing sample: scaffold_1089-Polytrichum_commune
+2025-10-03 13:53:09,567 - INFO - ========================================
+2025-10-03 13:53:09,591 - INFO - 📊 Extracting longest transcript for scaffold_1089-Polytrichum_commune...
+2025-10-03 13:53:09,615 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1089-Polytrichum_commune.gff
+2025-10-03 13:53:09,639 - ERROR - ❌ Skipping scaffold_1089-Polytrichum_commune due to extraction error
+2025-10-03 13:53:09,663 - WARN - ⚠️ Failed to process scaffold_1089-Polytrichum_commune, continuing with next sample...
+2025-10-03 13:53:09,686 - INFO - 
+2025-10-03 13:53:09,710 - INFO - 🚀 Processing sample 20/123: scaffold_1092-Pogonatum_subfuscatum
+2025-10-03 13:53:09,735 - INFO - 
+2025-10-03 13:53:09,758 - INFO - 🧬 Processing sample: scaffold_1092-Pogonatum_subfuscatum
+2025-10-03 13:53:09,782 - INFO - ========================================
+2025-10-03 13:53:09,806 - INFO - 📊 Extracting longest transcript for scaffold_1092-Pogonatum_subfuscatum...
+2025-10-03 13:53:09,830 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1092-Pogonatum_subfuscatum.gff
+2025-10-03 13:53:09,854 - ERROR - ❌ Skipping scaffold_1092-Pogonatum_subfuscatum due to extraction error
+2025-10-03 13:53:09,878 - WARN - ⚠️ Failed to process scaffold_1092-Pogonatum_subfuscatum, continuing with next sample...
+2025-10-03 13:53:09,902 - INFO - 
+2025-10-03 13:53:09,926 - INFO - 🚀 Processing sample 21/123: scaffold_1114-Regmatodon_serrulatus
+2025-10-03 13:53:09,949 - INFO - 
+2025-10-03 13:53:09,973 - INFO - 🧬 Processing sample: scaffold_1114-Regmatodon_serrulatus
+2025-10-03 13:53:09,997 - INFO - ========================================
+2025-10-03 13:53:10,021 - INFO - 📊 Extracting longest transcript for scaffold_1114-Regmatodon_serrulatus...
+2025-10-03 13:53:10,045 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1114-Regmatodon_serrulatus.gff
+2025-10-03 13:53:10,069 - ERROR - ❌ Skipping scaffold_1114-Regmatodon_serrulatus due to extraction error
+2025-10-03 13:53:10,092 - WARN - ⚠️ Failed to process scaffold_1114-Regmatodon_serrulatus, continuing with next sample...
+2025-10-03 13:53:10,116 - INFO - 
+2025-10-03 13:53:10,140 - INFO - 🚀 Processing sample 22/123: scaffold_1120-Splachnum_ampullaceum
+2025-10-03 13:53:10,164 - INFO - 
+2025-10-03 13:53:10,188 - INFO - 🧬 Processing sample: scaffold_1120-Splachnum_ampullaceum
+2025-10-03 13:53:10,211 - INFO - ========================================
+2025-10-03 13:53:10,235 - INFO - 📊 Extracting longest transcript for scaffold_1120-Splachnum_ampullaceum...
+2025-10-03 13:53:10,259 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1120-Splachnum_ampullaceum.gff
+2025-10-03 13:53:10,283 - ERROR - ❌ Skipping scaffold_1120-Splachnum_ampullaceum due to extraction error
+2025-10-03 13:53:10,307 - WARN - ⚠️ Failed to process scaffold_1120-Splachnum_ampullaceum, continuing with next sample...
+2025-10-03 13:53:10,331 - INFO - 
+2025-10-03 13:53:10,355 - INFO - 🚀 Processing sample 23/123: scaffold_1122-Syntrichia_ruralis
+2025-10-03 13:53:10,378 - INFO - 
+2025-10-03 13:53:10,402 - INFO - 🧬 Processing sample: scaffold_1122-Syntrichia_ruralis
+2025-10-03 13:53:10,426 - INFO - ========================================
+2025-10-03 13:53:10,450 - INFO - 📊 Extracting longest transcript for scaffold_1122-Syntrichia_ruralis...
+2025-10-03 13:53:10,474 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1122-Syntrichia_ruralis.gff
+2025-10-03 13:53:10,498 - ERROR - ❌ Skipping scaffold_1122-Syntrichia_ruralis due to extraction error
+2025-10-03 13:53:10,521 - WARN - ⚠️ Failed to process scaffold_1122-Syntrichia_ruralis, continuing with next sample...
+2025-10-03 13:53:10,545 - INFO - 
+2025-10-03 13:53:10,569 - INFO - 🚀 Processing sample 24/123: scaffold_1123-Grimmia_obtusifolia
+2025-10-03 13:53:10,593 - INFO - 
+2025-10-03 13:53:10,616 - INFO - 🧬 Processing sample: scaffold_1123-Grimmia_obtusifolia
+2025-10-03 13:53:10,640 - INFO - ========================================
+2025-10-03 13:53:10,664 - INFO - 📊 Extracting longest transcript for scaffold_1123-Grimmia_obtusifolia...
+2025-10-03 13:53:10,688 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1123-Grimmia_obtusifolia.gff
+2025-10-03 13:53:10,712 - ERROR - ❌ Skipping scaffold_1123-Grimmia_obtusifolia due to extraction error
+2025-10-03 13:53:10,736 - WARN - ⚠️ Failed to process scaffold_1123-Grimmia_obtusifolia, continuing with next sample...
+2025-10-03 13:53:10,760 - INFO - 
+2025-10-03 13:53:10,783 - INFO - 🚀 Processing sample 25/123: scaffold_1124-Paraleucobryum_enerve
+2025-10-03 13:53:10,807 - INFO - 
+2025-10-03 13:53:10,831 - INFO - 🧬 Processing sample: scaffold_1124-Paraleucobryum_enerve
+2025-10-03 13:53:10,855 - INFO - ========================================
+2025-10-03 13:53:10,879 - INFO - 📊 Extracting longest transcript for scaffold_1124-Paraleucobryum_enerve...
+2025-10-03 13:53:10,903 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1124-Paraleucobryum_enerve.gff
+2025-10-03 13:53:10,927 - ERROR - ❌ Skipping scaffold_1124-Paraleucobryum_enerve due to extraction error
+2025-10-03 13:53:10,951 - WARN - ⚠️ Failed to process scaffold_1124-Paraleucobryum_enerve, continuing with next sample...
+2025-10-03 13:53:10,974 - INFO - 
+2025-10-03 13:53:10,998 - INFO - 🚀 Processing sample 26/123: scaffold_1125-Encalypta_ciliata
+2025-10-03 13:53:11,022 - INFO - 
+2025-10-03 13:53:11,046 - INFO - 🧬 Processing sample: scaffold_1125-Encalypta_ciliata
+2025-10-03 13:53:11,069 - INFO - ========================================
+2025-10-03 13:53:11,093 - INFO - 📊 Extracting longest transcript for scaffold_1125-Encalypta_ciliata...
+2025-10-03 13:53:11,117 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1125-Encalypta_ciliata.gff
+2025-10-03 13:53:11,141 - ERROR - ❌ Skipping scaffold_1125-Encalypta_ciliata due to extraction error
+2025-10-03 13:53:11,165 - WARN - ⚠️ Failed to process scaffold_1125-Encalypta_ciliata, continuing with next sample...
+2025-10-03 13:53:11,189 - INFO - 
+2025-10-03 13:53:11,213 - INFO - 🚀 Processing sample 27/123: scaffold_1126-Tayloria_subglabra
+2025-10-03 13:53:11,237 - INFO - 
+2025-10-03 13:53:11,261 - INFO - 🧬 Processing sample: scaffold_1126-Tayloria_subglabra
+2025-10-03 13:53:11,284 - INFO - ========================================
+2025-10-03 13:53:11,308 - INFO - 📊 Extracting longest transcript for scaffold_1126-Tayloria_subglabra...
+2025-10-03 13:53:11,333 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1126-Tayloria_subglabra.gff
+2025-10-03 13:53:11,358 - ERROR - ❌ Skipping scaffold_1126-Tayloria_subglabra due to extraction error
+2025-10-03 13:53:11,382 - WARN - ⚠️ Failed to process scaffold_1126-Tayloria_subglabra, continuing with next sample...
+2025-10-03 13:53:11,405 - INFO - 
+2025-10-03 13:53:11,429 - INFO - 🚀 Processing sample 28/123: scaffold_1127-Archidium_alternifolium
+2025-10-03 13:53:11,453 - INFO - 
+2025-10-03 13:53:11,477 - INFO - 🧬 Processing sample: scaffold_1127-Archidium_alternifolium
+2025-10-03 13:53:11,500 - INFO - ========================================
+2025-10-03 13:53:11,524 - INFO - 📊 Extracting longest transcript for scaffold_1127-Archidium_alternifolium...
+2025-10-03 13:53:11,548 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1127-Archidium_alternifolium.gff
+2025-10-03 13:53:11,572 - ERROR - ❌ Skipping scaffold_1127-Archidium_alternifolium due to extraction error
+2025-10-03 13:53:11,595 - WARN - ⚠️ Failed to process scaffold_1127-Archidium_alternifolium, continuing with next sample...
+2025-10-03 13:53:11,619 - INFO - 
+2025-10-03 13:53:11,642 - INFO - 🚀 Processing sample 29/123: scaffold_1151-Gigaspermum_repens
+2025-10-03 13:53:11,666 - INFO - 
+2025-10-03 13:53:11,689 - INFO - 🧬 Processing sample: scaffold_1151-Gigaspermum_repens
+2025-10-03 13:53:11,713 - INFO - ========================================
+2025-10-03 13:53:11,736 - INFO - 📊 Extracting longest transcript for scaffold_1151-Gigaspermum_repens...
+2025-10-03 13:53:11,760 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1151-Gigaspermum_repens.gff
+2025-10-03 13:53:11,783 - ERROR - ❌ Skipping scaffold_1151-Gigaspermum_repens due to extraction error
+2025-10-03 13:53:11,807 - WARN - ⚠️ Failed to process scaffold_1151-Gigaspermum_repens, continuing with next sample...
+2025-10-03 13:53:11,831 - INFO - 
+2025-10-03 13:53:11,854 - INFO - 🚀 Processing sample 30/123: scaffold_1208-Racopilum_cuspidigerum
+2025-10-03 13:53:11,877 - INFO - 
+2025-10-03 13:53:11,901 - INFO - 🧬 Processing sample: scaffold_1208-Racopilum_cuspidigerum
+2025-10-03 13:53:11,924 - INFO - ========================================
+2025-10-03 13:53:11,948 - INFO - 📊 Extracting longest transcript for scaffold_1208-Racopilum_cuspidigerum...
+2025-10-03 13:53:11,971 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_1208-Racopilum_cuspidigerum.gff
+2025-10-03 13:53:11,995 - ERROR - ❌ Skipping scaffold_1208-Racopilum_cuspidigerum due to extraction error
+2025-10-03 13:53:12,018 - WARN - ⚠️ Failed to process scaffold_1208-Racopilum_cuspidigerum, continuing with next sample...
+2025-10-03 13:53:12,042 - INFO - 
+2025-10-03 13:53:12,065 - INFO - 🚀 Processing sample 31/123: scaffold_225-Ptilidium_ciliare
+2025-10-03 13:53:12,089 - INFO - 
+2025-10-03 13:53:12,112 - INFO - 🧬 Processing sample: scaffold_225-Ptilidium_ciliare
+2025-10-03 13:53:12,135 - INFO - ========================================
+2025-10-03 13:53:12,159 - INFO - 📊 Extracting longest transcript for scaffold_225-Ptilidium_ciliare...
+2025-10-03 13:53:12,182 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_225-Ptilidium_ciliare.gff
+2025-10-03 13:53:12,206 - ERROR - ❌ Skipping scaffold_225-Ptilidium_ciliare due to extraction error
+2025-10-03 13:53:12,229 - WARN - ⚠️ Failed to process scaffold_225-Ptilidium_ciliare, continuing with next sample...
+2025-10-03 13:53:12,253 - INFO - 
+2025-10-03 13:53:12,276 - INFO - 🚀 Processing sample 32/123: scaffold_231-Lunularia_cruciata
+2025-10-03 13:53:12,299 - INFO - 
+2025-10-03 13:53:12,323 - INFO - 🧬 Processing sample: scaffold_231-Lunularia_cruciata
+2025-10-03 13:53:12,346 - INFO - ========================================
+2025-10-03 13:53:12,369 - INFO - 📊 Extracting longest transcript for scaffold_231-Lunularia_cruciata...
+2025-10-03 13:53:12,393 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_231-Lunularia_cruciata.gff
+2025-10-03 13:53:12,417 - ERROR - ❌ Skipping scaffold_231-Lunularia_cruciata due to extraction error
+2025-10-03 13:53:12,440 - WARN - ⚠️ Failed to process scaffold_231-Lunularia_cruciata, continuing with next sample...
+2025-10-03 13:53:12,463 - INFO - 
+2025-10-03 13:53:12,487 - INFO - 🚀 Processing sample 33/123: scaffold_302-Haplomitrium_mnioides
+2025-10-03 13:53:12,510 - INFO - 
+2025-10-03 13:53:12,534 - INFO - 🧬 Processing sample: scaffold_302-Haplomitrium_mnioides
+2025-10-03 13:53:12,557 - INFO - ========================================
+2025-10-03 13:53:12,581 - INFO - 📊 Extracting longest transcript for scaffold_302-Haplomitrium_mnioides...
+2025-10-03 13:53:12,604 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_302-Haplomitrium_mnioides.gff
+2025-10-03 13:53:12,628 - ERROR - ❌ Skipping scaffold_302-Haplomitrium_mnioides due to extraction error
+2025-10-03 13:53:12,651 - WARN - ⚠️ Failed to process scaffold_302-Haplomitrium_mnioides, continuing with next sample...
+2025-10-03 13:53:12,675 - INFO - 
+2025-10-03 13:53:12,698 - INFO - 🚀 Processing sample 34/123: scaffold_322-Climacium_americanum_
+2025-10-03 13:53:12,722 - INFO - 
+2025-10-03 13:53:12,745 - INFO - 🧬 Processing sample: scaffold_322-Climacium_americanum_
+2025-10-03 13:53:12,769 - INFO - ========================================
+2025-10-03 13:53:12,792 - INFO - 📊 Extracting longest transcript for scaffold_322-Climacium_americanum_...
+2025-10-03 13:53:12,816 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_322-Climacium_americanum_.gff
+2025-10-03 13:53:12,839 - ERROR - ❌ Skipping scaffold_322-Climacium_americanum_ due to extraction error
+2025-10-03 13:53:12,863 - WARN - ⚠️ Failed to process scaffold_322-Climacium_americanum_, continuing with next sample...
+2025-10-03 13:53:12,886 - INFO - 
+2025-10-03 13:53:12,910 - INFO - 🚀 Processing sample 35/123: scaffold_323-Leucobryum_albidum
+2025-10-03 13:53:12,933 - INFO - 
+2025-10-03 13:53:12,957 - INFO - 🧬 Processing sample: scaffold_323-Leucobryum_albidum
+2025-10-03 13:53:12,980 - INFO - ========================================
+2025-10-03 13:53:13,003 - INFO - 📊 Extracting longest transcript for scaffold_323-Leucobryum_albidum...
+2025-10-03 13:53:13,027 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_323-Leucobryum_albidum.gff
+2025-10-03 13:53:13,050 - ERROR - ❌ Skipping scaffold_323-Leucobryum_albidum due to extraction error
+2025-10-03 13:53:13,074 - WARN - ⚠️ Failed to process scaffold_323-Leucobryum_albidum, continuing with next sample...
+2025-10-03 13:53:13,097 - INFO - 
+2025-10-03 13:53:13,121 - INFO - 🚀 Processing sample 36/123: scaffold_324-Aulacomnium_palustre_
+2025-10-03 13:53:13,144 - INFO - 
+2025-10-03 13:53:13,168 - INFO - 🧬 Processing sample: scaffold_324-Aulacomnium_palustre_
+2025-10-03 13:53:13,191 - INFO - ========================================
+2025-10-03 13:53:13,215 - INFO - 📊 Extracting longest transcript for scaffold_324-Aulacomnium_palustre_...
+2025-10-03 13:53:13,239 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_324-Aulacomnium_palustre_.gff
+2025-10-03 13:53:13,262 - ERROR - ❌ Skipping scaffold_324-Aulacomnium_palustre_ due to extraction error
+2025-10-03 13:53:13,285 - WARN - ⚠️ Failed to process scaffold_324-Aulacomnium_palustre_, continuing with next sample...
+2025-10-03 13:53:13,309 - INFO - 
+2025-10-03 13:53:13,332 - INFO - 🚀 Processing sample 37/123: scaffold_325-Pseudobryum_cinclidioides_
+2025-10-03 13:53:13,356 - INFO - 
+2025-10-03 13:53:13,379 - INFO - 🧬 Processing sample: scaffold_325-Pseudobryum_cinclidioides_
+2025-10-03 13:53:13,402 - INFO - ========================================
+2025-10-03 13:53:13,426 - INFO - 📊 Extracting longest transcript for scaffold_325-Pseudobryum_cinclidioides_...
+2025-10-03 13:53:13,450 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_325-Pseudobryum_cinclidioides_.gff
+2025-10-03 13:53:13,473 - ERROR - ❌ Skipping scaffold_325-Pseudobryum_cinclidioides_ due to extraction error
+2025-10-03 13:53:13,497 - WARN - ⚠️ Failed to process scaffold_325-Pseudobryum_cinclidioides_, continuing with next sample...
+2025-10-03 13:53:13,520 - INFO - 
+2025-10-03 13:53:13,544 - INFO - 🚀 Processing sample 38/123: scaffold_326-Ulota_hutchinsiae
+2025-10-03 13:53:13,567 - INFO - 
+2025-10-03 13:53:13,590 - INFO - 🧬 Processing sample: scaffold_326-Ulota_hutchinsiae
+2025-10-03 13:53:13,614 - INFO - ========================================
+2025-10-03 13:53:13,637 - INFO - 📊 Extracting longest transcript for scaffold_326-Ulota_hutchinsiae...
+2025-10-03 13:53:13,661 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_326-Ulota_hutchinsiae.gff
+2025-10-03 13:53:13,685 - ERROR - ❌ Skipping scaffold_326-Ulota_hutchinsiae due to extraction error
+2025-10-03 13:53:13,708 - WARN - ⚠️ Failed to process scaffold_326-Ulota_hutchinsiae, continuing with next sample...
+2025-10-03 13:53:13,732 - INFO - 
+2025-10-03 13:53:13,755 - INFO - 🚀 Processing sample 39/123: scaffold_328-Tetraphis_pellucida
+2025-10-03 13:53:13,779 - INFO - 
+2025-10-03 13:53:13,802 - INFO - 🧬 Processing sample: scaffold_328-Tetraphis_pellucida
+2025-10-03 13:53:13,826 - INFO - ========================================
+2025-10-03 13:53:13,849 - INFO - 📊 Extracting longest transcript for scaffold_328-Tetraphis_pellucida...
+2025-10-03 13:53:13,873 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_328-Tetraphis_pellucida.gff
+2025-10-03 13:53:13,897 - ERROR - ❌ Skipping scaffold_328-Tetraphis_pellucida due to extraction error
+2025-10-03 13:53:13,920 - WARN - ⚠️ Failed to process scaffold_328-Tetraphis_pellucida, continuing with next sample...
+2025-10-03 13:53:13,944 - INFO - 
+2025-10-03 13:53:13,967 - INFO - 🚀 Processing sample 40/123: scaffold_329-Hedwigia_ciliata
+2025-10-03 13:53:13,991 - INFO - 
+2025-10-03 13:53:14,014 - INFO - 🧬 Processing sample: scaffold_329-Hedwigia_ciliata
+2025-10-03 13:53:14,038 - INFO - ========================================
+2025-10-03 13:53:14,062 - INFO - 📊 Extracting longest transcript for scaffold_329-Hedwigia_ciliata...
+2025-10-03 13:53:14,086 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_329-Hedwigia_ciliata.gff
+2025-10-03 13:53:14,109 - ERROR - ❌ Skipping scaffold_329-Hedwigia_ciliata due to extraction error
+2025-10-03 13:53:14,133 - WARN - ⚠️ Failed to process scaffold_329-Hedwigia_ciliata, continuing with next sample...
+2025-10-03 13:53:14,156 - INFO - 
+2025-10-03 13:53:14,179 - INFO - 🚀 Processing sample 41/123: scaffold_334-Fontinalis_sullivantii
+2025-10-03 13:53:14,203 - INFO - 
+2025-10-03 13:53:14,226 - INFO - 🧬 Processing sample: scaffold_334-Fontinalis_sullivantii
+2025-10-03 13:53:14,249 - INFO - ========================================
+2025-10-03 13:53:14,273 - INFO - 📊 Extracting longest transcript for scaffold_334-Fontinalis_sullivantii...
+2025-10-03 13:53:14,297 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_334-Fontinalis_sullivantii.gff
+2025-10-03 13:53:14,320 - ERROR - ❌ Skipping scaffold_334-Fontinalis_sullivantii due to extraction error
+2025-10-03 13:53:14,344 - WARN - ⚠️ Failed to process scaffold_334-Fontinalis_sullivantii, continuing with next sample...
+2025-10-03 13:53:14,367 - INFO - 
+2025-10-03 13:53:14,391 - INFO - 🚀 Processing sample 42/123: scaffold_335-Dicranum_fulvum
+2025-10-03 13:53:14,414 - INFO - 
+2025-10-03 13:53:14,438 - INFO - 🧬 Processing sample: scaffold_335-Dicranum_fulvum
+2025-10-03 13:53:14,461 - INFO - ========================================
+2025-10-03 13:53:14,485 - INFO - 📊 Extracting longest transcript for scaffold_335-Dicranum_fulvum...
+2025-10-03 13:53:14,508 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_335-Dicranum_fulvum.gff
+2025-10-03 13:53:14,532 - ERROR - ❌ Skipping scaffold_335-Dicranum_fulvum due to extraction error
+2025-10-03 13:53:14,555 - WARN - ⚠️ Failed to process scaffold_335-Dicranum_fulvum, continuing with next sample...
+2025-10-03 13:53:14,578 - INFO - 
+2025-10-03 13:53:14,602 - INFO - 🚀 Processing sample 43/123: scaffold_336-Brachythecium_laetum
+2025-10-03 13:53:14,625 - INFO - 
+2025-10-03 13:53:14,649 - INFO - 🧬 Processing sample: scaffold_336-Brachythecium_laetum
+2025-10-03 13:53:14,672 - INFO - ========================================
+2025-10-03 13:53:14,696 - INFO - 📊 Extracting longest transcript for scaffold_336-Brachythecium_laetum...
+2025-10-03 13:53:14,720 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_336-Brachythecium_laetum.gff
+2025-10-03 13:53:14,745 - ERROR - ❌ Skipping scaffold_336-Brachythecium_laetum due to extraction error
+2025-10-03 13:53:14,769 - WARN - ⚠️ Failed to process scaffold_336-Brachythecium_laetum, continuing with next sample...
+2025-10-03 13:53:14,794 - INFO - 
+2025-10-03 13:53:14,818 - INFO - 🚀 Processing sample 44/123: scaffold_337-Bryoandersonia_illecebra_
+2025-10-03 13:53:14,842 - INFO - 
+2025-10-03 13:53:14,865 - INFO - 🧬 Processing sample: scaffold_337-Bryoandersonia_illecebra_
+2025-10-03 13:53:14,889 - INFO - ========================================
+2025-10-03 13:53:14,913 - INFO - 📊 Extracting longest transcript for scaffold_337-Bryoandersonia_illecebra_...
+2025-10-03 13:53:14,938 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_337-Bryoandersonia_illecebra_.gff
+2025-10-03 13:53:14,961 - ERROR - ❌ Skipping scaffold_337-Bryoandersonia_illecebra_ due to extraction error
+2025-10-03 13:53:14,985 - WARN - ⚠️ Failed to process scaffold_337-Bryoandersonia_illecebra_, continuing with next sample...
+2025-10-03 13:53:15,009 - INFO - 
+2025-10-03 13:53:15,033 - INFO - 🚀 Processing sample 45/123: scaffold_338-Mnium_hornum_
+2025-10-03 13:53:15,057 - INFO - 
+2025-10-03 13:53:15,080 - INFO - 🧬 Processing sample: scaffold_338-Mnium_hornum_
+2025-10-03 13:53:15,104 - INFO - ========================================
+2025-10-03 13:53:15,128 - INFO - 📊 Extracting longest transcript for scaffold_338-Mnium_hornum_...
+2025-10-03 13:53:15,153 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_338-Mnium_hornum_.gff
+2025-10-03 13:53:15,177 - ERROR - ❌ Skipping scaffold_338-Mnium_hornum_ due to extraction error
+2025-10-03 13:53:15,201 - WARN - ⚠️ Failed to process scaffold_338-Mnium_hornum_, continuing with next sample...
+2025-10-03 13:53:15,225 - INFO - 
+2025-10-03 13:53:15,249 - INFO - 🚀 Processing sample 46/123: scaffold_340-Anomodon_attenuatus
+2025-10-03 13:53:15,273 - INFO - 
+2025-10-03 13:53:15,296 - INFO - 🧬 Processing sample: scaffold_340-Anomodon_attenuatus
+2025-10-03 13:53:15,320 - INFO - ========================================
+2025-10-03 13:53:15,344 - INFO - 📊 Extracting longest transcript for scaffold_340-Anomodon_attenuatus...
+2025-10-03 13:53:15,369 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_340-Anomodon_attenuatus.gff
+2025-10-03 13:53:15,393 - ERROR - ❌ Skipping scaffold_340-Anomodon_attenuatus due to extraction error
+2025-10-03 13:53:15,416 - WARN - ⚠️ Failed to process scaffold_340-Anomodon_attenuatus, continuing with next sample...
+2025-10-03 13:53:15,440 - INFO - 
+2025-10-03 13:53:15,464 - INFO - 🚀 Processing sample 47/123: scaffold_341-Plagiomnium_ciliare
+2025-10-03 13:53:15,488 - INFO - 
+2025-10-03 13:53:15,512 - INFO - 🧬 Processing sample: scaffold_341-Plagiomnium_ciliare
+2025-10-03 13:53:15,536 - INFO - ========================================
+2025-10-03 13:53:15,559 - INFO - 📊 Extracting longest transcript for scaffold_341-Plagiomnium_ciliare...
+2025-10-03 13:53:15,584 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_341-Plagiomnium_ciliare.gff
+2025-10-03 13:53:15,608 - ERROR - ❌ Skipping scaffold_341-Plagiomnium_ciliare due to extraction error
+2025-10-03 13:53:15,632 - WARN - ⚠️ Failed to process scaffold_341-Plagiomnium_ciliare, continuing with next sample...
+2025-10-03 13:53:15,656 - INFO - 
+2025-10-03 13:53:15,679 - INFO - 🚀 Processing sample 48/123: scaffold_342-Bryhnia_novae-angliae
+2025-10-03 13:53:15,702 - INFO - 
+2025-10-03 13:53:15,726 - INFO - 🧬 Processing sample: scaffold_342-Bryhnia_novae-angliae
+2025-10-03 13:53:15,750 - INFO - ========================================
+2025-10-03 13:53:15,773 - INFO - 📊 Extracting longest transcript for scaffold_342-Bryhnia_novae-angliae...
+2025-10-03 13:53:15,797 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_342-Bryhnia_novae-angliae.gff
+2025-10-03 13:53:15,821 - ERROR - ❌ Skipping scaffold_342-Bryhnia_novae-angliae due to extraction error
+2025-10-03 13:53:15,844 - WARN - ⚠️ Failed to process scaffold_342-Bryhnia_novae-angliae, continuing with next sample...
+2025-10-03 13:53:15,868 - INFO - 
+2025-10-03 13:53:15,891 - INFO - 🚀 Processing sample 49/123: scaffold_343-Odontoschisma_sphagni
+2025-10-03 13:53:15,915 - INFO - 
+2025-10-03 13:53:15,938 - INFO - 🧬 Processing sample: scaffold_343-Odontoschisma_sphagni
+2025-10-03 13:53:15,961 - INFO - ========================================
+2025-10-03 13:53:15,985 - INFO - 📊 Extracting longest transcript for scaffold_343-Odontoschisma_sphagni...
+2025-10-03 13:53:16,008 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_343-Odontoschisma_sphagni.gff
+2025-10-03 13:53:16,032 - ERROR - ❌ Skipping scaffold_343-Odontoschisma_sphagni due to extraction error
+2025-10-03 13:53:16,055 - WARN - ⚠️ Failed to process scaffold_343-Odontoschisma_sphagni, continuing with next sample...
+2025-10-03 13:53:16,079 - INFO - 
+2025-10-03 13:53:16,102 - INFO - 🚀 Processing sample 50/123: scaffold_344-Hygroamblystegium_varium
+2025-10-03 13:53:16,126 - INFO - 
+2025-10-03 13:53:16,149 - INFO - 🧬 Processing sample: scaffold_344-Hygroamblystegium_varium
+2025-10-03 13:53:16,172 - INFO - ========================================
+2025-10-03 13:53:16,196 - INFO - 📊 Extracting longest transcript for scaffold_344-Hygroamblystegium_varium...
+2025-10-03 13:53:16,219 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_344-Hygroamblystegium_varium.gff
+2025-10-03 13:53:16,243 - ERROR - ❌ Skipping scaffold_344-Hygroamblystegium_varium due to extraction error
+2025-10-03 13:53:16,266 - WARN - ⚠️ Failed to process scaffold_344-Hygroamblystegium_varium, continuing with next sample...
+2025-10-03 13:53:16,289 - INFO - 
+2025-10-03 13:53:16,313 - INFO - 🚀 Processing sample 51/123: scaffold_349-Blasia_pusilla
+2025-10-03 13:53:16,336 - INFO - 
+2025-10-03 13:53:16,359 - INFO - 🧬 Processing sample: scaffold_349-Blasia_pusilla
+2025-10-03 13:53:16,383 - INFO - ========================================
+2025-10-03 13:53:16,406 - INFO - 📊 Extracting longest transcript for scaffold_349-Blasia_pusilla...
+2025-10-03 13:53:16,430 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_349-Blasia_pusilla.gff
+2025-10-03 13:53:16,453 - ERROR - ❌ Skipping scaffold_349-Blasia_pusilla due to extraction error
+2025-10-03 13:53:16,477 - WARN - ⚠️ Failed to process scaffold_349-Blasia_pusilla, continuing with next sample...
+2025-10-03 13:53:16,500 - INFO - 
+2025-10-03 13:53:16,524 - INFO - 🚀 Processing sample 52/123: scaffold_350-Andreaeobryum_macrosporum
+2025-10-03 13:53:16,547 - INFO - 
+2025-10-03 13:53:16,571 - INFO - 🧬 Processing sample: scaffold_350-Andreaeobryum_macrosporum
+2025-10-03 13:53:16,594 - INFO - ========================================
+2025-10-03 13:53:16,618 - INFO - 📊 Extracting longest transcript for scaffold_350-Andreaeobryum_macrosporum...
+2025-10-03 13:53:16,641 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_350-Andreaeobryum_macrosporum.gff
+2025-10-03 13:53:16,665 - ERROR - ❌ Skipping scaffold_350-Andreaeobryum_macrosporum due to extraction error
+2025-10-03 13:53:16,688 - WARN - ⚠️ Failed to process scaffold_350-Andreaeobryum_macrosporum, continuing with next sample...
+2025-10-03 13:53:16,712 - INFO - 
+2025-10-03 13:53:16,735 - INFO - 🚀 Processing sample 53/123: scaffold_359-Scapania_nepalensis
+2025-10-03 13:53:16,759 - INFO - 
+2025-10-03 13:53:16,782 - INFO - 🧬 Processing sample: scaffold_359-Scapania_nepalensis
+2025-10-03 13:53:16,806 - INFO - ========================================
+2025-10-03 13:53:16,829 - INFO - 📊 Extracting longest transcript for scaffold_359-Scapania_nepalensis...
+2025-10-03 13:53:16,853 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_359-Scapania_nepalensis.gff
+2025-10-03 13:53:16,876 - ERROR - ❌ Skipping scaffold_359-Scapania_nepalensis due to extraction error
+2025-10-03 13:53:16,900 - WARN - ⚠️ Failed to process scaffold_359-Scapania_nepalensis, continuing with next sample...
+2025-10-03 13:53:16,923 - INFO - 
+2025-10-03 13:53:16,947 - INFO - 🚀 Processing sample 54/123: scaffold_368-Metzgeria_furcata
+2025-10-03 13:53:16,970 - INFO - 
+2025-10-03 13:53:16,994 - INFO - 🧬 Processing sample: scaffold_368-Metzgeria_furcata
+2025-10-03 13:53:17,017 - INFO - ========================================
+2025-10-03 13:53:17,041 - INFO - 📊 Extracting longest transcript for scaffold_368-Metzgeria_furcata...
+2025-10-03 13:53:17,065 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_368-Metzgeria_furcata.gff
+2025-10-03 13:53:17,088 - ERROR - ❌ Skipping scaffold_368-Metzgeria_furcata due to extraction error
+2025-10-03 13:53:17,112 - WARN - ⚠️ Failed to process scaffold_368-Metzgeria_furcata, continuing with next sample...
+2025-10-03 13:53:17,135 - INFO - 
+2025-10-03 13:53:17,159 - INFO - 🚀 Processing sample 55/123: scaffold_369-Plagiochila_semidecurrens
+2025-10-03 13:53:17,182 - INFO - 
+2025-10-03 13:53:17,205 - INFO - 🧬 Processing sample: scaffold_369-Plagiochila_semidecurrens
+2025-10-03 13:53:17,229 - INFO - ========================================
+2025-10-03 13:53:17,252 - INFO - 📊 Extracting longest transcript for scaffold_369-Plagiochila_semidecurrens...
+2025-10-03 13:53:17,276 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_369-Plagiochila_semidecurrens.gff
+2025-10-03 13:53:17,299 - ERROR - ❌ Skipping scaffold_369-Plagiochila_semidecurrens due to extraction error
+2025-10-03 13:53:17,323 - WARN - ⚠️ Failed to process scaffold_369-Plagiochila_semidecurrens, continuing with next sample...
+2025-10-03 13:53:17,346 - INFO - 
+2025-10-03 13:53:17,370 - INFO - 🚀 Processing sample 56/123: scaffold_600-Catagonium_nitens
+2025-10-03 13:53:17,393 - INFO - 
+2025-10-03 13:53:17,416 - INFO - 🧬 Processing sample: scaffold_600-Catagonium_nitens
+2025-10-03 13:53:17,440 - INFO - ========================================
+2025-10-03 13:53:17,463 - INFO - 📊 Extracting longest transcript for scaffold_600-Catagonium_nitens...
+2025-10-03 13:53:17,487 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_600-Catagonium_nitens.gff
+2025-10-03 13:53:17,510 - ERROR - ❌ Skipping scaffold_600-Catagonium_nitens due to extraction error
+2025-10-03 13:53:17,534 - WARN - ⚠️ Failed to process scaffold_600-Catagonium_nitens, continuing with next sample...
+2025-10-03 13:53:17,557 - INFO - 
+2025-10-03 13:53:17,580 - INFO - 🚀 Processing sample 57/123: scaffold_601-Lepyrodon_lagurus
+2025-10-03 13:53:17,604 - INFO - 
+2025-10-03 13:53:17,627 - INFO - 🧬 Processing sample: scaffold_601-Lepyrodon_lagurus
+2025-10-03 13:53:17,650 - INFO - ========================================
+2025-10-03 13:53:17,674 - INFO - 📊 Extracting longest transcript for scaffold_601-Lepyrodon_lagurus...
+2025-10-03 13:53:17,697 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_601-Lepyrodon_lagurus.gff
+2025-10-03 13:53:17,721 - ERROR - ❌ Skipping scaffold_601-Lepyrodon_lagurus due to extraction error
+2025-10-03 13:53:17,744 - WARN - ⚠️ Failed to process scaffold_601-Lepyrodon_lagurus, continuing with next sample...
+2025-10-03 13:53:17,768 - INFO - 
+2025-10-03 13:53:17,791 - INFO - 🚀 Processing sample 58/123: scaffold_604-Gackstroemia_magellanica
+2025-10-03 13:53:17,815 - INFO - 
+2025-10-03 13:53:17,838 - INFO - 🧬 Processing sample: scaffold_604-Gackstroemia_magellanica
+2025-10-03 13:53:17,862 - INFO - ========================================
+2025-10-03 13:53:17,885 - INFO - 📊 Extracting longest transcript for scaffold_604-Gackstroemia_magellanica...
+2025-10-03 13:53:17,909 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_604-Gackstroemia_magellanica.gff
+2025-10-03 13:53:17,932 - ERROR - ❌ Skipping scaffold_604-Gackstroemia_magellanica due to extraction error
+2025-10-03 13:53:17,956 - WARN - ⚠️ Failed to process scaffold_604-Gackstroemia_magellanica, continuing with next sample...
+2025-10-03 13:53:17,979 - INFO - 
+2025-10-03 13:53:18,002 - INFO - 🚀 Processing sample 59/123: scaffold_606-Ptychomnion_cygnisetum
+2025-10-03 13:53:18,026 - INFO - 
+2025-10-03 13:53:18,049 - INFO - 🧬 Processing sample: scaffold_606-Ptychomnion_cygnisetum
+2025-10-03 13:53:18,073 - INFO - ========================================
+2025-10-03 13:53:18,096 - INFO - 📊 Extracting longest transcript for scaffold_606-Ptychomnion_cygnisetum...
+2025-10-03 13:53:18,120 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_606-Ptychomnion_cygnisetum.gff
+2025-10-03 13:53:18,144 - ERROR - ❌ Skipping scaffold_606-Ptychomnion_cygnisetum due to extraction error
+2025-10-03 13:53:18,167 - WARN - ⚠️ Failed to process scaffold_606-Ptychomnion_cygnisetum, continuing with next sample...
+2025-10-03 13:53:18,191 - INFO - 
+2025-10-03 13:53:18,214 - INFO - 🚀 Processing sample 60/123: scaffold_607-Polytrichum_strictum
+2025-10-03 13:53:18,237 - INFO - 
+2025-10-03 13:53:18,261 - INFO - 🧬 Processing sample: scaffold_607-Polytrichum_strictum
+2025-10-03 13:53:18,284 - INFO - ========================================
+2025-10-03 13:53:18,308 - INFO - 📊 Extracting longest transcript for scaffold_607-Polytrichum_strictum...
+2025-10-03 13:53:18,331 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_607-Polytrichum_strictum.gff
+2025-10-03 13:53:18,355 - ERROR - ❌ Skipping scaffold_607-Polytrichum_strictum due to extraction error
+2025-10-03 13:53:18,378 - WARN - ⚠️ Failed to process scaffold_607-Polytrichum_strictum, continuing with next sample...
+2025-10-03 13:53:18,402 - INFO - 
+2025-10-03 13:53:18,425 - INFO - 🚀 Processing sample 61/123: scaffold_608-Schistidium_cupulare
+2025-10-03 13:53:18,448 - INFO - 
+2025-10-03 13:53:18,472 - INFO - 🧬 Processing sample: scaffold_608-Schistidium_cupulare
+2025-10-03 13:53:18,495 - INFO - ========================================
+2025-10-03 13:53:18,518 - INFO - 📊 Extracting longest transcript for scaffold_608-Schistidium_cupulare...
+2025-10-03 13:53:18,542 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_608-Schistidium_cupulare.gff
+2025-10-03 13:53:18,566 - ERROR - ❌ Skipping scaffold_608-Schistidium_cupulare due to extraction error
+2025-10-03 13:53:18,589 - WARN - ⚠️ Failed to process scaffold_608-Schistidium_cupulare, continuing with next sample...
+2025-10-03 13:53:18,613 - INFO - 
+2025-10-03 13:53:18,636 - INFO - 🚀 Processing sample 62/123: scaffold_612-Dicranoloma_chilense
+2025-10-03 13:53:18,660 - INFO - 
+2025-10-03 13:53:18,683 - INFO - 🧬 Processing sample: scaffold_612-Dicranoloma_chilense
+2025-10-03 13:53:18,706 - INFO - ========================================
+2025-10-03 13:53:18,730 - INFO - 📊 Extracting longest transcript for scaffold_612-Dicranoloma_chilense...
+2025-10-03 13:53:18,754 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_612-Dicranoloma_chilense.gff
+2025-10-03 13:53:18,777 - ERROR - ❌ Skipping scaffold_612-Dicranoloma_chilense due to extraction error
+2025-10-03 13:53:18,801 - WARN - ⚠️ Failed to process scaffold_612-Dicranoloma_chilense, continuing with next sample...
+2025-10-03 13:53:18,824 - INFO - 
+2025-10-03 13:53:18,848 - INFO - 🚀 Processing sample 63/123: scaffold_613-Bartramia_mossmaniana_
+2025-10-03 13:53:18,871 - INFO - 
+2025-10-03 13:53:18,895 - INFO - 🧬 Processing sample: scaffold_613-Bartramia_mossmaniana_
+2025-10-03 13:53:18,918 - INFO - ========================================
+2025-10-03 13:53:18,942 - INFO - 📊 Extracting longest transcript for scaffold_613-Bartramia_mossmaniana_...
+2025-10-03 13:53:18,965 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_613-Bartramia_mossmaniana_.gff
+2025-10-03 13:53:18,989 - ERROR - ❌ Skipping scaffold_613-Bartramia_mossmaniana_ due to extraction error
+2025-10-03 13:53:19,012 - WARN - ⚠️ Failed to process scaffold_613-Bartramia_mossmaniana_, continuing with next sample...
+2025-10-03 13:53:19,035 - INFO - 
+2025-10-03 13:53:19,059 - INFO - 🚀 Processing sample 64/123: scaffold_614-Polytrichadelphus_magellanicus
+2025-10-03 13:53:19,082 - INFO - 
+2025-10-03 13:53:19,106 - INFO - 🧬 Processing sample: scaffold_614-Polytrichadelphus_magellanicus
+2025-10-03 13:53:19,129 - INFO - ========================================
+2025-10-03 13:53:19,152 - INFO - 📊 Extracting longest transcript for scaffold_614-Polytrichadelphus_magellanicus...
+2025-10-03 13:53:19,176 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_614-Polytrichadelphus_magellanicus.gff
+2025-10-03 13:53:19,199 - ERROR - ❌ Skipping scaffold_614-Polytrichadelphus_magellanicus due to extraction error
+2025-10-03 13:53:19,223 - WARN - ⚠️ Failed to process scaffold_614-Polytrichadelphus_magellanicus, continuing with next sample...
+2025-10-03 13:53:19,246 - INFO - 
+2025-10-03 13:53:19,270 - INFO - 🚀 Processing sample 65/123: scaffold_615-Leptotheca_gaudichaudii
+2025-10-03 13:53:19,293 - INFO - 
+2025-10-03 13:53:19,316 - INFO - 🧬 Processing sample: scaffold_615-Leptotheca_gaudichaudii
+2025-10-03 13:53:19,339 - INFO - ========================================
+2025-10-03 13:53:19,363 - INFO - 📊 Extracting longest transcript for scaffold_615-Leptotheca_gaudichaudii...
+2025-10-03 13:53:19,386 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_615-Leptotheca_gaudichaudii.gff
+2025-10-03 13:53:19,410 - ERROR - ❌ Skipping scaffold_615-Leptotheca_gaudichaudii due to extraction error
+2025-10-03 13:53:19,434 - WARN - ⚠️ Failed to process scaffold_615-Leptotheca_gaudichaudii, continuing with next sample...
+2025-10-03 13:53:19,457 - INFO - 
+2025-10-03 13:53:19,480 - INFO - 🚀 Processing sample 66/123: scaffold_616-Chorisodontium_acidophyllum
+2025-10-03 13:53:19,503 - INFO - 
+2025-10-03 13:53:19,527 - INFO - 🧬 Processing sample: scaffold_616-Chorisodontium_acidophyllum
+2025-10-03 13:53:19,551 - INFO - ========================================
+2025-10-03 13:53:19,574 - INFO - 📊 Extracting longest transcript for scaffold_616-Chorisodontium_acidophyllum...
+2025-10-03 13:53:19,598 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_616-Chorisodontium_acidophyllum.gff
+2025-10-03 13:53:19,622 - ERROR - ❌ Skipping scaffold_616-Chorisodontium_acidophyllum due to extraction error
+2025-10-03 13:53:19,645 - WARN - ⚠️ Failed to process scaffold_616-Chorisodontium_acidophyllum, continuing with next sample...
+2025-10-03 13:53:19,669 - INFO - 
+2025-10-03 13:53:19,692 - INFO - 🚀 Processing sample 67/123: scaffold_617-Catagonium_nitens
+2025-10-03 13:53:19,715 - INFO - 
+2025-10-03 13:53:19,739 - INFO - 🧬 Processing sample: scaffold_617-Catagonium_nitens
+2025-10-03 13:53:19,762 - INFO - ========================================
+2025-10-03 13:53:19,786 - INFO - 📊 Extracting longest transcript for scaffold_617-Catagonium_nitens...
+2025-10-03 13:53:19,810 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_617-Catagonium_nitens.gff
+2025-10-03 13:53:19,833 - ERROR - ❌ Skipping scaffold_617-Catagonium_nitens due to extraction error
+2025-10-03 13:53:19,856 - WARN - ⚠️ Failed to process scaffold_617-Catagonium_nitens, continuing with next sample...
+2025-10-03 13:53:19,880 - INFO - 
+2025-10-03 13:53:19,903 - INFO - 🚀 Processing sample 68/123: scaffold_618-Catagonium_nitens
+2025-10-03 13:53:19,927 - INFO - 
+2025-10-03 13:53:19,950 - INFO - 🧬 Processing sample: scaffold_618-Catagonium_nitens
+2025-10-03 13:53:19,974 - INFO - ========================================
+2025-10-03 13:53:19,997 - INFO - 📊 Extracting longest transcript for scaffold_618-Catagonium_nitens...
+2025-10-03 13:53:20,021 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_618-Catagonium_nitens.gff
+2025-10-03 13:53:20,044 - ERROR - ❌ Skipping scaffold_618-Catagonium_nitens due to extraction error
+2025-10-03 13:53:20,068 - WARN - ⚠️ Failed to process scaffold_618-Catagonium_nitens, continuing with next sample...
+2025-10-03 13:53:20,092 - INFO - 
+2025-10-03 13:53:20,115 - INFO - 🚀 Processing sample 69/123: scaffold_620-Vetaforma_dusenii
+2025-10-03 13:53:20,139 - INFO - 
+2025-10-03 13:53:20,162 - INFO - 🧬 Processing sample: scaffold_620-Vetaforma_dusenii
+2025-10-03 13:53:20,185 - INFO - ========================================
+2025-10-03 13:53:20,209 - INFO - 📊 Extracting longest transcript for scaffold_620-Vetaforma_dusenii...
+2025-10-03 13:53:20,233 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_620-Vetaforma_dusenii.gff
+2025-10-03 13:53:20,256 - ERROR - ❌ Skipping scaffold_620-Vetaforma_dusenii due to extraction error
+2025-10-03 13:53:20,280 - WARN - ⚠️ Failed to process scaffold_620-Vetaforma_dusenii, continuing with next sample...
+2025-10-03 13:53:20,303 - INFO - 
+2025-10-03 13:53:20,327 - INFO - 🚀 Processing sample 70/123: scaffold_621-Plagiochila_sp.
+2025-10-03 13:53:20,350 - INFO - 
+2025-10-03 13:53:20,374 - INFO - 🧬 Processing sample: scaffold_621-Plagiochila_sp.
+2025-10-03 13:53:20,397 - INFO - ========================================
+2025-10-03 13:53:20,420 - INFO - 📊 Extracting longest transcript for scaffold_621-Plagiochila_sp....
+2025-10-03 13:53:20,444 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_621-Plagiochila_sp..gff
+2025-10-03 13:53:20,468 - ERROR - ❌ Skipping scaffold_621-Plagiochila_sp. due to extraction error
+2025-10-03 13:53:20,492 - WARN - ⚠️ Failed to process scaffold_621-Plagiochila_sp., continuing with next sample...
+2025-10-03 13:53:20,515 - INFO - 
+2025-10-03 13:53:20,539 - INFO - 🚀 Processing sample 71/123: scaffold_623-Mesoptychia_sp.
+2025-10-03 13:53:20,562 - INFO - 
+2025-10-03 13:53:20,585 - INFO - 🧬 Processing sample: scaffold_623-Mesoptychia_sp.
+2025-10-03 13:53:20,609 - INFO - ========================================
+2025-10-03 13:53:20,632 - INFO - 📊 Extracting longest transcript for scaffold_623-Mesoptychia_sp....
+2025-10-03 13:53:20,656 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_623-Mesoptychia_sp..gff
+2025-10-03 13:53:20,679 - ERROR - ❌ Skipping scaffold_623-Mesoptychia_sp. due to extraction error
+2025-10-03 13:53:20,703 - WARN - ⚠️ Failed to process scaffold_623-Mesoptychia_sp., continuing with next sample...
+2025-10-03 13:53:20,726 - INFO - 
+2025-10-03 13:53:20,749 - INFO - 🚀 Processing sample 72/123: scaffold_625-Noteroclada_confluens
+2025-10-03 13:53:20,773 - INFO - 
+2025-10-03 13:53:20,796 - INFO - 🧬 Processing sample: scaffold_625-Noteroclada_confluens
+2025-10-03 13:53:20,820 - INFO - ========================================
+2025-10-03 13:53:20,843 - INFO - 📊 Extracting longest transcript for scaffold_625-Noteroclada_confluens...
+2025-10-03 13:53:20,867 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_625-Noteroclada_confluens.gff
+2025-10-03 13:53:20,890 - ERROR - ❌ Skipping scaffold_625-Noteroclada_confluens due to extraction error
+2025-10-03 13:53:20,914 - WARN - ⚠️ Failed to process scaffold_625-Noteroclada_confluens, continuing with next sample...
+2025-10-03 13:53:20,937 - INFO - 
+2025-10-03 13:53:20,961 - INFO - 🚀 Processing sample 73/123: scaffold_626-Acrobolbus_urvilleanus
+2025-10-03 13:53:20,984 - INFO - 
+2025-10-03 13:53:21,008 - INFO - 🧬 Processing sample: scaffold_626-Acrobolbus_urvilleanus
+2025-10-03 13:53:21,031 - INFO - ========================================
+2025-10-03 13:53:21,054 - INFO - 📊 Extracting longest transcript for scaffold_626-Acrobolbus_urvilleanus...
+2025-10-03 13:53:21,078 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_626-Acrobolbus_urvilleanus.gff
+2025-10-03 13:53:21,102 - ERROR - ❌ Skipping scaffold_626-Acrobolbus_urvilleanus due to extraction error
+2025-10-03 13:53:21,126 - WARN - ⚠️ Failed to process scaffold_626-Acrobolbus_urvilleanus, continuing with next sample...
+2025-10-03 13:53:21,149 - INFO - 
+2025-10-03 13:53:21,173 - INFO - 🚀 Processing sample 74/123: scaffold_627-Rhytidiadelphus_subpinnatus
+2025-10-03 13:53:21,196 - INFO - 
+2025-10-03 13:53:21,220 - INFO - 🧬 Processing sample: scaffold_627-Rhytidiadelphus_subpinnatus
+2025-10-03 13:53:21,243 - INFO - ========================================
+2025-10-03 13:53:21,266 - INFO - 📊 Extracting longest transcript for scaffold_627-Rhytidiadelphus_subpinnatus...
+2025-10-03 13:53:21,290 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_627-Rhytidiadelphus_subpinnatus.gff
+2025-10-03 13:53:21,314 - ERROR - ❌ Skipping scaffold_627-Rhytidiadelphus_subpinnatus due to extraction error
+2025-10-03 13:53:21,340 - WARN - ⚠️ Failed to process scaffold_627-Rhytidiadelphus_subpinnatus, continuing with next sample...
+2025-10-03 13:53:21,364 - INFO - 
+2025-10-03 13:53:21,388 - INFO - 🚀 Processing sample 75/123: scaffold_628-Kindbergia_praelongum
+2025-10-03 13:53:21,411 - INFO - 
+2025-10-03 13:53:21,435 - INFO - 🧬 Processing sample: scaffold_628-Kindbergia_praelongum
+2025-10-03 13:53:21,458 - INFO - ========================================
+2025-10-03 13:53:21,482 - INFO - 📊 Extracting longest transcript for scaffold_628-Kindbergia_praelongum...
+2025-10-03 13:53:21,505 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_628-Kindbergia_praelongum.gff
+2025-10-03 13:53:21,529 - ERROR - ❌ Skipping scaffold_628-Kindbergia_praelongum due to extraction error
+2025-10-03 13:53:21,552 - WARN - ⚠️ Failed to process scaffold_628-Kindbergia_praelongum, continuing with next sample...
+2025-10-03 13:53:21,576 - INFO - 
+2025-10-03 13:53:21,599 - INFO - 🚀 Processing sample 76/123: scaffold_630-Porella_platyphylla_
+2025-10-03 13:53:21,622 - INFO - 
+2025-10-03 13:53:21,646 - INFO - 🧬 Processing sample: scaffold_630-Porella_platyphylla_
+2025-10-03 13:53:21,669 - INFO - ========================================
+2025-10-03 13:53:21,692 - INFO - 📊 Extracting longest transcript for scaffold_630-Porella_platyphylla_...
+2025-10-03 13:53:21,716 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_630-Porella_platyphylla_.gff
+2025-10-03 13:53:21,740 - ERROR - ❌ Skipping scaffold_630-Porella_platyphylla_ due to extraction error
+2025-10-03 13:53:21,763 - WARN - ⚠️ Failed to process scaffold_630-Porella_platyphylla_, continuing with next sample...
+2025-10-03 13:53:21,787 - INFO - 
+2025-10-03 13:53:21,810 - INFO - 🚀 Processing sample 77/123: scaffold_639-Folioceros_fuciformis
+2025-10-03 13:53:21,833 - INFO - 
+2025-10-03 13:53:21,857 - INFO - 🧬 Processing sample: scaffold_639-Folioceros_fuciformis
+2025-10-03 13:53:21,880 - INFO - ========================================
+2025-10-03 13:53:21,903 - INFO - 📊 Extracting longest transcript for scaffold_639-Folioceros_fuciformis...
+2025-10-03 13:53:21,927 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_639-Folioceros_fuciformis.gff
+2025-10-03 13:53:21,951 - ERROR - ❌ Skipping scaffold_639-Folioceros_fuciformis due to extraction error
+2025-10-03 13:53:21,974 - WARN - ⚠️ Failed to process scaffold_639-Folioceros_fuciformis, continuing with next sample...
+2025-10-03 13:53:21,997 - INFO - 
+2025-10-03 13:53:22,021 - INFO - 🚀 Processing sample 78/123: scaffold_644-Sphagnum_palustre
+2025-10-03 13:53:22,045 - INFO - 
+2025-10-03 13:53:22,069 - INFO - 🧬 Processing sample: scaffold_644-Sphagnum_palustre
+2025-10-03 13:53:22,092 - INFO - ========================================
+2025-10-03 13:53:22,116 - INFO - 📊 Extracting longest transcript for scaffold_644-Sphagnum_palustre...
+2025-10-03 13:53:22,140 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_644-Sphagnum_palustre.gff
+2025-10-03 13:53:22,164 - ERROR - ❌ Skipping scaffold_644-Sphagnum_palustre due to extraction error
+2025-10-03 13:53:22,187 - WARN - ⚠️ Failed to process scaffold_644-Sphagnum_palustre, continuing with next sample...
+2025-10-03 13:53:22,211 - INFO - 
+2025-10-03 13:53:22,234 - INFO - 🚀 Processing sample 79/123: scaffold_646-Buxbaumia_aphylla
+2025-10-03 13:53:22,257 - INFO - 
+2025-10-03 13:53:22,281 - INFO - 🧬 Processing sample: scaffold_646-Buxbaumia_aphylla
+2025-10-03 13:53:22,304 - INFO - ========================================
+2025-10-03 13:53:22,328 - INFO - 📊 Extracting longest transcript for scaffold_646-Buxbaumia_aphylla...
+2025-10-03 13:53:22,352 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_646-Buxbaumia_aphylla.gff
+2025-10-03 13:53:22,375 - ERROR - ❌ Skipping scaffold_646-Buxbaumia_aphylla due to extraction error
+2025-10-03 13:53:22,398 - WARN - ⚠️ Failed to process scaffold_646-Buxbaumia_aphylla, continuing with next sample...
+2025-10-03 13:53:22,422 - INFO - 
+2025-10-03 13:53:22,445 - INFO - 🚀 Processing sample 80/123: scaffold_658-Andreaea_rupestris
+2025-10-03 13:53:22,469 - INFO - 
+2025-10-03 13:53:22,492 - INFO - 🧬 Processing sample: scaffold_658-Andreaea_rupestris
+2025-10-03 13:53:22,516 - INFO - ========================================
+2025-10-03 13:53:22,539 - INFO - 📊 Extracting longest transcript for scaffold_658-Andreaea_rupestris...
+2025-10-03 13:53:22,563 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_658-Andreaea_rupestris.gff
+2025-10-03 13:53:22,587 - ERROR - ❌ Skipping scaffold_658-Andreaea_rupestris due to extraction error
+2025-10-03 13:53:22,610 - WARN - ⚠️ Failed to process scaffold_658-Andreaea_rupestris, continuing with next sample...
+2025-10-03 13:53:22,633 - INFO - 
+2025-10-03 13:53:22,657 - INFO - 🚀 Processing sample 81/123: scaffold_664-Conocephalum_conicum
+2025-10-03 13:53:22,680 - INFO - 
+2025-10-03 13:53:22,704 - INFO - 🧬 Processing sample: scaffold_664-Conocephalum_conicum
+2025-10-03 13:53:22,727 - INFO - ========================================
+2025-10-03 13:53:22,751 - INFO - 📊 Extracting longest transcript for scaffold_664-Conocephalum_conicum...
+2025-10-03 13:53:22,774 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_664-Conocephalum_conicum.gff
+2025-10-03 13:53:22,797 - ERROR - ❌ Skipping scaffold_664-Conocephalum_conicum due to extraction error
+2025-10-03 13:53:22,821 - WARN - ⚠️ Failed to process scaffold_664-Conocephalum_conicum, continuing with next sample...
+2025-10-03 13:53:22,844 - INFO - 
+2025-10-03 13:53:22,867 - INFO - 🚀 Processing sample 82/123: scaffold_665-Philonotis_turneriana
+2025-10-03 13:53:22,891 - INFO - 
+2025-10-03 13:53:22,914 - INFO - 🧬 Processing sample: scaffold_665-Philonotis_turneriana
+2025-10-03 13:53:22,937 - INFO - ========================================
+2025-10-03 13:53:22,961 - INFO - 📊 Extracting longest transcript for scaffold_665-Philonotis_turneriana...
+2025-10-03 13:53:22,985 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_665-Philonotis_turneriana.gff
+2025-10-03 13:53:23,009 - ERROR - ❌ Skipping scaffold_665-Philonotis_turneriana due to extraction error
+2025-10-03 13:53:23,032 - WARN - ⚠️ Failed to process scaffold_665-Philonotis_turneriana, continuing with next sample...
+2025-10-03 13:53:23,056 - INFO - 
+2025-10-03 13:53:23,079 - INFO - 🚀 Processing sample 83/123: scaffold_667-Pyrrhobryum_spiniforme
+2025-10-03 13:53:23,103 - INFO - 
+2025-10-03 13:53:23,126 - INFO - 🧬 Processing sample: scaffold_667-Pyrrhobryum_spiniforme
+2025-10-03 13:53:23,149 - INFO - ========================================
+2025-10-03 13:53:23,172 - INFO - 📊 Extracting longest transcript for scaffold_667-Pyrrhobryum_spiniforme...
+2025-10-03 13:53:23,196 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_667-Pyrrhobryum_spiniforme.gff
+2025-10-03 13:53:23,220 - ERROR - ❌ Skipping scaffold_667-Pyrrhobryum_spiniforme due to extraction error
+2025-10-03 13:53:23,243 - WARN - ⚠️ Failed to process scaffold_667-Pyrrhobryum_spiniforme, continuing with next sample...
+2025-10-03 13:53:23,266 - INFO - 
+2025-10-03 13:53:23,290 - INFO - 🚀 Processing sample 84/123: scaffold_668-Aerobryopsis_subdivergens
+2025-10-03 13:53:23,313 - INFO - 
+2025-10-03 13:53:23,337 - INFO - 🧬 Processing sample: scaffold_668-Aerobryopsis_subdivergens
+2025-10-03 13:53:23,360 - INFO - ========================================
+2025-10-03 13:53:23,384 - INFO - 📊 Extracting longest transcript for scaffold_668-Aerobryopsis_subdivergens...
+2025-10-03 13:53:23,407 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_668-Aerobryopsis_subdivergens.gff
+2025-10-03 13:53:23,431 - ERROR - ❌ Skipping scaffold_668-Aerobryopsis_subdivergens due to extraction error
+2025-10-03 13:53:23,454 - WARN - ⚠️ Failed to process scaffold_668-Aerobryopsis_subdivergens, continuing with next sample...
+2025-10-03 13:53:23,478 - INFO - 
+2025-10-03 13:53:23,501 - INFO - 🚀 Processing sample 85/123: scaffold_670-Ptychomitrium_wilsonii
+2025-10-03 13:53:23,525 - INFO - 
+2025-10-03 13:53:23,548 - INFO - 🧬 Processing sample: scaffold_670-Ptychomitrium_wilsonii
+2025-10-03 13:53:23,571 - INFO - ========================================
+2025-10-03 13:53:23,595 - INFO - 📊 Extracting longest transcript for scaffold_670-Ptychomitrium_wilsonii...
+2025-10-03 13:53:23,618 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_670-Ptychomitrium_wilsonii.gff
+2025-10-03 13:53:23,642 - ERROR - ❌ Skipping scaffold_670-Ptychomitrium_wilsonii due to extraction error
+2025-10-03 13:53:23,665 - WARN - ⚠️ Failed to process scaffold_670-Ptychomitrium_wilsonii, continuing with next sample...
+2025-10-03 13:53:23,688 - INFO - 
+2025-10-03 13:53:23,712 - INFO - 🚀 Processing sample 86/123: scaffold_671-Leucobryum_bowringii
+2025-10-03 13:53:23,735 - INFO - 
+2025-10-03 13:53:23,759 - INFO - 🧬 Processing sample: scaffold_671-Leucobryum_bowringii
+2025-10-03 13:53:23,782 - INFO - ========================================
+2025-10-03 13:53:23,805 - INFO - 📊 Extracting longest transcript for scaffold_671-Leucobryum_bowringii...
+2025-10-03 13:53:23,829 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_671-Leucobryum_bowringii.gff
+2025-10-03 13:53:23,852 - ERROR - ❌ Skipping scaffold_671-Leucobryum_bowringii due to extraction error
+2025-10-03 13:53:23,876 - WARN - ⚠️ Failed to process scaffold_671-Leucobryum_bowringii, continuing with next sample...
+2025-10-03 13:53:23,899 - INFO - 
+2025-10-03 13:53:23,923 - INFO - 🚀 Processing sample 87/123: scaffold_795-Orthotrichum_anomalum
+2025-10-03 13:53:23,946 - INFO - 
+2025-10-03 13:53:23,970 - INFO - 🧬 Processing sample: scaffold_795-Orthotrichum_anomalum
+2025-10-03 13:53:23,993 - INFO - ========================================
+2025-10-03 13:53:24,016 - INFO - 📊 Extracting longest transcript for scaffold_795-Orthotrichum_anomalum...
+2025-10-03 13:53:24,040 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_795-Orthotrichum_anomalum.gff
+2025-10-03 13:53:24,064 - ERROR - ❌ Skipping scaffold_795-Orthotrichum_anomalum due to extraction error
+2025-10-03 13:53:24,087 - WARN - ⚠️ Failed to process scaffold_795-Orthotrichum_anomalum, continuing with next sample...
+2025-10-03 13:53:24,110 - INFO - 
+2025-10-03 13:53:24,134 - INFO - 🚀 Processing sample 88/123: scaffold_805-Aulacomnium_androgynum
+2025-10-03 13:53:24,157 - INFO - 
+2025-10-03 13:53:24,181 - INFO - 🧬 Processing sample: scaffold_805-Aulacomnium_androgynum
+2025-10-03 13:53:24,204 - INFO - ========================================
+2025-10-03 13:53:24,228 - INFO - 📊 Extracting longest transcript for scaffold_805-Aulacomnium_androgynum...
+2025-10-03 13:53:24,251 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_805-Aulacomnium_androgynum.gff
+2025-10-03 13:53:24,275 - ERROR - ❌ Skipping scaffold_805-Aulacomnium_androgynum due to extraction error
+2025-10-03 13:53:24,298 - WARN - ⚠️ Failed to process scaffold_805-Aulacomnium_androgynum, continuing with next sample...
+2025-10-03 13:53:24,322 - INFO - 
+2025-10-03 13:53:24,345 - INFO - 🚀 Processing sample 89/123: scaffold_888-Acrolejeunea_sandvicensis
+2025-10-03 13:53:24,368 - INFO - 
+2025-10-03 13:53:24,392 - INFO - 🧬 Processing sample: scaffold_888-Acrolejeunea_sandvicensis
+2025-10-03 13:53:24,415 - INFO - ========================================
+2025-10-03 13:53:24,439 - INFO - 📊 Extracting longest transcript for scaffold_888-Acrolejeunea_sandvicensis...
+2025-10-03 13:53:24,462 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_888-Acrolejeunea_sandvicensis.gff
+2025-10-03 13:53:24,486 - ERROR - ❌ Skipping scaffold_888-Acrolejeunea_sandvicensis due to extraction error
+2025-10-03 13:53:24,509 - WARN - ⚠️ Failed to process scaffold_888-Acrolejeunea_sandvicensis, continuing with next sample...
+2025-10-03 13:53:24,533 - INFO - 
+2025-10-03 13:53:24,556 - INFO - 🚀 Processing sample 90/123: scaffold_889-Fossombronia_cristula
+2025-10-03 13:53:24,579 - INFO - 
+2025-10-03 13:53:24,603 - INFO - 🧬 Processing sample: scaffold_889-Fossombronia_cristula
+2025-10-03 13:53:24,626 - INFO - ========================================
+2025-10-03 13:53:24,650 - INFO - 📊 Extracting longest transcript for scaffold_889-Fossombronia_cristula...
+2025-10-03 13:53:24,674 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_889-Fossombronia_cristula.gff
+2025-10-03 13:53:24,697 - ERROR - ❌ Skipping scaffold_889-Fossombronia_cristula due to extraction error
+2025-10-03 13:53:24,721 - WARN - ⚠️ Failed to process scaffold_889-Fossombronia_cristula, continuing with next sample...
+2025-10-03 13:53:24,744 - INFO - 
+2025-10-03 13:53:24,768 - INFO - 🚀 Processing sample 91/123: scaffold_890-Blasia_pusilla
+2025-10-03 13:53:24,791 - INFO - 
+2025-10-03 13:53:24,814 - INFO - 🧬 Processing sample: scaffold_890-Blasia_pusilla
+2025-10-03 13:53:24,838 - INFO - ========================================
+2025-10-03 13:53:24,861 - INFO - 📊 Extracting longest transcript for scaffold_890-Blasia_pusilla...
+2025-10-03 13:53:24,885 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_890-Blasia_pusilla.gff
+2025-10-03 13:53:24,909 - ERROR - ❌ Skipping scaffold_890-Blasia_pusilla due to extraction error
+2025-10-03 13:53:24,932 - WARN - ⚠️ Failed to process scaffold_890-Blasia_pusilla, continuing with next sample...
+2025-10-03 13:53:24,956 - INFO - 
+2025-10-03 13:53:24,979 - INFO - 🚀 Processing sample 92/123: scaffold_891-Pleurozia_purpurea
+2025-10-03 13:53:25,003 - INFO - 
+2025-10-03 13:53:25,026 - INFO - 🧬 Processing sample: scaffold_891-Pleurozia_purpurea
+2025-10-03 13:53:25,050 - INFO - ========================================
+2025-10-03 13:53:25,073 - INFO - 📊 Extracting longest transcript for scaffold_891-Pleurozia_purpurea...
+2025-10-03 13:53:25,096 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_891-Pleurozia_purpurea.gff
+2025-10-03 13:53:25,120 - ERROR - ❌ Skipping scaffold_891-Pleurozia_purpurea due to extraction error
+2025-10-03 13:53:25,143 - WARN - ⚠️ Failed to process scaffold_891-Pleurozia_purpurea, continuing with next sample...
+2025-10-03 13:53:25,167 - INFO - 
+2025-10-03 13:53:25,190 - INFO - 🚀 Processing sample 93/123: scaffold_893-Hypopterygium_japonicum
+2025-10-03 13:53:25,214 - INFO - 
+2025-10-03 13:53:25,237 - INFO - 🧬 Processing sample: scaffold_893-Hypopterygium_japonicum
+2025-10-03 13:53:25,261 - INFO - ========================================
+2025-10-03 13:53:25,284 - INFO - 📊 Extracting longest transcript for scaffold_893-Hypopterygium_japonicum...
+2025-10-03 13:53:25,307 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_893-Hypopterygium_japonicum.gff
+2025-10-03 13:53:25,331 - ERROR - ❌ Skipping scaffold_893-Hypopterygium_japonicum due to extraction error
+2025-10-03 13:53:25,354 - WARN - ⚠️ Failed to process scaffold_893-Hypopterygium_japonicum, continuing with next sample...
+2025-10-03 13:53:25,378 - INFO - 
+2025-10-03 13:53:25,401 - INFO - 🚀 Processing sample 94/123: scaffold_898-Fissidens_javanicus
+2025-10-03 13:53:25,424 - INFO - 
+2025-10-03 13:53:25,448 - INFO - 🧬 Processing sample: scaffold_898-Fissidens_javanicus
+2025-10-03 13:53:25,471 - INFO - ========================================
+2025-10-03 13:53:25,495 - INFO - 📊 Extracting longest transcript for scaffold_898-Fissidens_javanicus...
+2025-10-03 13:53:25,518 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_898-Fissidens_javanicus.gff
+2025-10-03 13:53:25,542 - ERROR - ❌ Skipping scaffold_898-Fissidens_javanicus due to extraction error
+2025-10-03 13:53:25,565 - WARN - ⚠️ Failed to process scaffold_898-Fissidens_javanicus, continuing with next sample...
+2025-10-03 13:53:25,589 - INFO - 
+2025-10-03 13:53:25,612 - INFO - 🚀 Processing sample 95/123: scaffold_899-Notothylas_yunnanensis
+2025-10-03 13:53:25,636 - INFO - 
+2025-10-03 13:53:25,659 - INFO - 🧬 Processing sample: scaffold_899-Notothylas_yunnanensis
+2025-10-03 13:53:25,682 - INFO - ========================================
+2025-10-03 13:53:25,706 - INFO - 📊 Extracting longest transcript for scaffold_899-Notothylas_yunnanensis...
+2025-10-03 13:53:25,729 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_899-Notothylas_yunnanensis.gff
+2025-10-03 13:53:25,753 - ERROR - ❌ Skipping scaffold_899-Notothylas_yunnanensis due to extraction error
+2025-10-03 13:53:25,776 - WARN - ⚠️ Failed to process scaffold_899-Notothylas_yunnanensis, continuing with next sample...
+2025-10-03 13:53:25,800 - INFO - 
+2025-10-03 13:53:25,823 - INFO - 🚀 Processing sample 96/123: scaffold_900-Schistostega_pennata
+2025-10-03 13:53:25,847 - INFO - 
+2025-10-03 13:53:25,870 - INFO - 🧬 Processing sample: scaffold_900-Schistostega_pennata
+2025-10-03 13:53:25,894 - INFO - ========================================
+2025-10-03 13:53:25,917 - INFO - 📊 Extracting longest transcript for scaffold_900-Schistostega_pennata...
+2025-10-03 13:53:25,941 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_900-Schistostega_pennata.gff
+2025-10-03 13:53:25,965 - ERROR - ❌ Skipping scaffold_900-Schistostega_pennata due to extraction error
+2025-10-03 13:53:25,989 - WARN - ⚠️ Failed to process scaffold_900-Schistostega_pennata, continuing with next sample...
+2025-10-03 13:53:26,012 - INFO - 
+2025-10-03 13:53:26,036 - INFO - 🚀 Processing sample 97/123: scaffold_902-Phaeoceros_laevis
+2025-10-03 13:53:26,059 - INFO - 
+2025-10-03 13:53:26,083 - INFO - 🧬 Processing sample: scaffold_902-Phaeoceros_laevis
+2025-10-03 13:53:26,106 - INFO - ========================================
+2025-10-03 13:53:26,130 - INFO - 📊 Extracting longest transcript for scaffold_902-Phaeoceros_laevis...
+2025-10-03 13:53:26,154 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_902-Phaeoceros_laevis.gff
+2025-10-03 13:53:26,177 - ERROR - ❌ Skipping scaffold_902-Phaeoceros_laevis due to extraction error
+2025-10-03 13:53:26,200 - WARN - ⚠️ Failed to process scaffold_902-Phaeoceros_laevis, continuing with next sample...
+2025-10-03 13:53:26,224 - INFO - 
+2025-10-03 13:53:26,247 - INFO - 🚀 Processing sample 98/123: scaffold_904-Sphagnum_girgensohnii
+2025-10-03 13:53:26,271 - INFO - 
+2025-10-03 13:53:26,295 - INFO - 🧬 Processing sample: scaffold_904-Sphagnum_girgensohnii
+2025-10-03 13:53:26,318 - INFO - ========================================
+2025-10-03 13:53:26,341 - INFO - 📊 Extracting longest transcript for scaffold_904-Sphagnum_girgensohnii...
+2025-10-03 13:53:26,365 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_904-Sphagnum_girgensohnii.gff
+2025-10-03 13:53:26,389 - ERROR - ❌ Skipping scaffold_904-Sphagnum_girgensohnii due to extraction error
+2025-10-03 13:53:26,412 - WARN - ⚠️ Failed to process scaffold_904-Sphagnum_girgensohnii, continuing with next sample...
+2025-10-03 13:53:26,436 - INFO - 
+2025-10-03 13:53:26,459 - INFO - 🚀 Processing sample 99/123: scaffold_905-Metzgeria_hamata
+2025-10-03 13:53:26,483 - INFO - 
+2025-10-03 13:53:26,506 - INFO - 🧬 Processing sample: scaffold_905-Metzgeria_hamata
+2025-10-03 13:53:26,529 - INFO - ========================================
+2025-10-03 13:53:26,553 - INFO - 📊 Extracting longest transcript for scaffold_905-Metzgeria_hamata...
+2025-10-03 13:53:26,577 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_905-Metzgeria_hamata.gff
+2025-10-03 13:53:26,600 - ERROR - ❌ Skipping scaffold_905-Metzgeria_hamata due to extraction error
+2025-10-03 13:53:26,624 - WARN - ⚠️ Failed to process scaffold_905-Metzgeria_hamata, continuing with next sample...
+2025-10-03 13:53:26,647 - INFO - 
+2025-10-03 13:53:26,670 - INFO - 🚀 Processing sample 100/123: scaffold_906-Herbertus_kurzii
+2025-10-03 13:53:26,694 - INFO - 
+2025-10-03 13:53:26,717 - INFO - 🧬 Processing sample: scaffold_906-Herbertus_kurzii
+2025-10-03 13:53:26,741 - INFO - ========================================
+2025-10-03 13:53:26,764 - INFO - 📊 Extracting longest transcript for scaffold_906-Herbertus_kurzii...
+2025-10-03 13:53:26,788 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_906-Herbertus_kurzii.gff
+2025-10-03 13:53:26,811 - ERROR - ❌ Skipping scaffold_906-Herbertus_kurzii due to extraction error
+2025-10-03 13:53:26,835 - WARN - ⚠️ Failed to process scaffold_906-Herbertus_kurzii, continuing with next sample...
+2025-10-03 13:53:26,858 - INFO - 
+2025-10-03 13:53:26,882 - INFO - 🚀 Processing sample 101/123: scaffold_908-Cyathodium_cavernarum
+2025-10-03 13:53:26,905 - INFO - 
+2025-10-03 13:53:26,928 - INFO - 🧬 Processing sample: scaffold_908-Cyathodium_cavernarum
+2025-10-03 13:53:26,952 - INFO - ========================================
+2025-10-03 13:53:26,975 - INFO - 📊 Extracting longest transcript for scaffold_908-Cyathodium_cavernarum...
+2025-10-03 13:53:26,999 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_908-Cyathodium_cavernarum.gff
+2025-10-03 13:53:27,022 - ERROR - ❌ Skipping scaffold_908-Cyathodium_cavernarum due to extraction error
+2025-10-03 13:53:27,046 - WARN - ⚠️ Failed to process scaffold_908-Cyathodium_cavernarum, continuing with next sample...
+2025-10-03 13:53:27,069 - INFO - 
+2025-10-03 13:53:27,093 - INFO - 🚀 Processing sample 102/123: scaffold_909-Ricciocarpos_natans
+2025-10-03 13:53:27,116 - INFO - 
+2025-10-03 13:53:27,139 - INFO - 🧬 Processing sample: scaffold_909-Ricciocarpos_natans
+2025-10-03 13:53:27,163 - INFO - ========================================
+2025-10-03 13:53:27,186 - INFO - 📊 Extracting longest transcript for scaffold_909-Ricciocarpos_natans...
+2025-10-03 13:53:27,210 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_909-Ricciocarpos_natans.gff
+2025-10-03 13:53:27,234 - ERROR - ❌ Skipping scaffold_909-Ricciocarpos_natans due to extraction error
+2025-10-03 13:53:27,257 - WARN - ⚠️ Failed to process scaffold_909-Ricciocarpos_natans, continuing with next sample...
+2025-10-03 13:53:27,281 - INFO - 
+2025-10-03 13:53:27,305 - INFO - 🚀 Processing sample 103/123: scaffold_910-Diphyscium_fulvifolium
+2025-10-03 13:53:27,328 - INFO - 
+2025-10-03 13:53:27,351 - INFO - 🧬 Processing sample: scaffold_910-Diphyscium_fulvifolium
+2025-10-03 13:53:27,374 - INFO - ========================================
+2025-10-03 13:53:27,398 - INFO - 📊 Extracting longest transcript for scaffold_910-Diphyscium_fulvifolium...
+2025-10-03 13:53:27,421 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_910-Diphyscium_fulvifolium.gff
+2025-10-03 13:53:27,445 - ERROR - ❌ Skipping scaffold_910-Diphyscium_fulvifolium due to extraction error
+2025-10-03 13:53:27,468 - WARN - ⚠️ Failed to process scaffold_910-Diphyscium_fulvifolium, continuing with next sample...
+2025-10-03 13:53:27,491 - INFO - 
+2025-10-03 13:53:27,515 - INFO - 🚀 Processing sample 104/123: scaffold_911-Bryoxiphium_norvegicum
+2025-10-03 13:53:27,538 - INFO - 
+2025-10-03 13:53:27,562 - INFO - 🧬 Processing sample: scaffold_911-Bryoxiphium_norvegicum
+2025-10-03 13:53:27,585 - INFO - ========================================
+2025-10-03 13:53:27,609 - INFO - 📊 Extracting longest transcript for scaffold_911-Bryoxiphium_norvegicum...
+2025-10-03 13:53:27,633 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_911-Bryoxiphium_norvegicum.gff
+2025-10-03 13:53:27,656 - ERROR - ❌ Skipping scaffold_911-Bryoxiphium_norvegicum due to extraction error
+2025-10-03 13:53:27,680 - WARN - ⚠️ Failed to process scaffold_911-Bryoxiphium_norvegicum, continuing with next sample...
+2025-10-03 13:53:27,703 - INFO - 
+2025-10-03 13:53:27,727 - INFO - 🚀 Processing sample 105/123: scaffold_912-Pallavicinia_ambigua
+2025-10-03 13:53:27,750 - INFO - 
+2025-10-03 13:53:27,773 - INFO - 🧬 Processing sample: scaffold_912-Pallavicinia_ambigua
+2025-10-03 13:53:27,797 - INFO - ========================================
+2025-10-03 13:53:27,821 - INFO - 📊 Extracting longest transcript for scaffold_912-Pallavicinia_ambigua...
+2025-10-03 13:53:27,844 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_912-Pallavicinia_ambigua.gff
+2025-10-03 13:53:27,868 - ERROR - ❌ Skipping scaffold_912-Pallavicinia_ambigua due to extraction error
+2025-10-03 13:53:27,891 - WARN - ⚠️ Failed to process scaffold_912-Pallavicinia_ambigua, continuing with next sample...
+2025-10-03 13:53:27,914 - INFO - 
+2025-10-03 13:53:27,938 - INFO - 🚀 Processing sample 106/123: scaffold_952-Plagiochasma_appendiculatum
+2025-10-03 13:53:27,961 - INFO - 
+2025-10-03 13:53:27,985 - INFO - 🧬 Processing sample: scaffold_952-Plagiochasma_appendiculatum
+2025-10-03 13:53:28,008 - INFO - ========================================
+2025-10-03 13:53:28,031 - INFO - 📊 Extracting longest transcript for scaffold_952-Plagiochasma_appendiculatum...
+2025-10-03 13:53:28,055 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_952-Plagiochasma_appendiculatum.gff
+2025-10-03 13:53:28,079 - ERROR - ❌ Skipping scaffold_952-Plagiochasma_appendiculatum due to extraction error
+2025-10-03 13:53:28,102 - WARN - ⚠️ Failed to process scaffold_952-Plagiochasma_appendiculatum, continuing with next sample...
+2025-10-03 13:53:28,125 - INFO - 
+2025-10-03 13:53:28,149 - INFO - 🚀 Processing sample 107/123: scaffold_953-Ectropothecium_obtusulum
+2025-10-03 13:53:28,172 - INFO - 
+2025-10-03 13:53:28,196 - INFO - 🧬 Processing sample: scaffold_953-Ectropothecium_obtusulum
+2025-10-03 13:53:28,219 - INFO - ========================================
+2025-10-03 13:53:28,243 - INFO - 📊 Extracting longest transcript for scaffold_953-Ectropothecium_obtusulum...
+2025-10-03 13:53:28,266 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_953-Ectropothecium_obtusulum.gff
+2025-10-03 13:53:28,290 - ERROR - ❌ Skipping scaffold_953-Ectropothecium_obtusulum due to extraction error
+2025-10-03 13:53:28,313 - WARN - ⚠️ Failed to process scaffold_953-Ectropothecium_obtusulum, continuing with next sample...
+2025-10-03 13:53:28,337 - INFO - 
+2025-10-03 13:53:28,360 - INFO - 🚀 Processing sample 108/123: scaffold_954-Gollania_philippinensis
+2025-10-03 13:53:28,384 - INFO - 
+2025-10-03 13:53:28,407 - INFO - 🧬 Processing sample: scaffold_954-Gollania_philippinensis
+2025-10-03 13:53:28,431 - INFO - ========================================
+2025-10-03 13:53:28,454 - INFO - 📊 Extracting longest transcript for scaffold_954-Gollania_philippinensis...
+2025-10-03 13:53:28,478 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_954-Gollania_philippinensis.gff
+2025-10-03 13:53:28,501 - ERROR - ❌ Skipping scaffold_954-Gollania_philippinensis due to extraction error
+2025-10-03 13:53:28,525 - WARN - ⚠️ Failed to process scaffold_954-Gollania_philippinensis, continuing with next sample...
+2025-10-03 13:53:28,548 - INFO - 
+2025-10-03 13:53:28,571 - INFO - 🚀 Processing sample 109/123: scaffold_955-Jungermannia_erectum
+2025-10-03 13:53:28,595 - INFO - 
+2025-10-03 13:53:28,618 - INFO - 🧬 Processing sample: scaffold_955-Jungermannia_erectum
+2025-10-03 13:53:28,641 - INFO - ========================================
+2025-10-03 13:53:28,665 - INFO - 📊 Extracting longest transcript for scaffold_955-Jungermannia_erectum...
+2025-10-03 13:53:28,689 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_955-Jungermannia_erectum.gff
+2025-10-03 13:53:28,712 - ERROR - ❌ Skipping scaffold_955-Jungermannia_erectum due to extraction error
+2025-10-03 13:53:28,735 - WARN - ⚠️ Failed to process scaffold_955-Jungermannia_erectum, continuing with next sample...
+2025-10-03 13:53:28,759 - INFO - 
+2025-10-03 13:53:28,782 - INFO - 🚀 Processing sample 110/123: scaffold_956-Pogonatum_microstomum
+2025-10-03 13:53:28,805 - INFO - 
+2025-10-03 13:53:28,828 - INFO - 🧬 Processing sample: scaffold_956-Pogonatum_microstomum
+2025-10-03 13:53:28,852 - INFO - ========================================
+2025-10-03 13:53:28,875 - INFO - 📊 Extracting longest transcript for scaffold_956-Pogonatum_microstomum...
+2025-10-03 13:53:28,899 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_956-Pogonatum_microstomum.gff
+2025-10-03 13:53:28,922 - ERROR - ❌ Skipping scaffold_956-Pogonatum_microstomum due to extraction error
+2025-10-03 13:53:28,946 - WARN - ⚠️ Failed to process scaffold_956-Pogonatum_microstomum, continuing with next sample...
+2025-10-03 13:53:28,969 - INFO - 
+2025-10-03 13:53:28,993 - INFO - 🚀 Processing sample 111/123: scaffold_957-Frullania_moniliata
+2025-10-03 13:53:29,017 - INFO - 
+2025-10-03 13:53:29,040 - INFO - 🧬 Processing sample: scaffold_957-Frullania_moniliata
+2025-10-03 13:53:29,064 - INFO - ========================================
+2025-10-03 13:53:29,088 - INFO - 📊 Extracting longest transcript for scaffold_957-Frullania_moniliata...
+2025-10-03 13:53:29,112 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_957-Frullania_moniliata.gff
+2025-10-03 13:53:29,135 - ERROR - ❌ Skipping scaffold_957-Frullania_moniliata due to extraction error
+2025-10-03 13:53:29,158 - WARN - ⚠️ Failed to process scaffold_957-Frullania_moniliata, continuing with next sample...
+2025-10-03 13:53:29,182 - INFO - 
+2025-10-03 13:53:29,205 - INFO - 🚀 Processing sample 112/123: scaffold_958-Racomitrium_nitidulum
+2025-10-03 13:53:29,229 - INFO - 
+2025-10-03 13:53:29,252 - INFO - 🧬 Processing sample: scaffold_958-Racomitrium_nitidulum
+2025-10-03 13:53:29,276 - INFO - ========================================
+2025-10-03 13:53:29,299 - INFO - 📊 Extracting longest transcript for scaffold_958-Racomitrium_nitidulum...
+2025-10-03 13:53:29,323 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_958-Racomitrium_nitidulum.gff
+2025-10-03 13:53:29,346 - ERROR - ❌ Skipping scaffold_958-Racomitrium_nitidulum due to extraction error
+2025-10-03 13:53:29,370 - WARN - ⚠️ Failed to process scaffold_958-Racomitrium_nitidulum, continuing with next sample...
+2025-10-03 13:53:29,393 - INFO - 
+2025-10-03 13:53:29,417 - INFO - 🚀 Processing sample 113/123: scaffold_960A-Hygrohypnum_luridum
+2025-10-03 13:53:29,440 - INFO - 
+2025-10-03 13:53:29,464 - INFO - 🧬 Processing sample: scaffold_960A-Hygrohypnum_luridum
+2025-10-03 13:53:29,487 - INFO - ========================================
+2025-10-03 13:53:29,511 - INFO - 📊 Extracting longest transcript for scaffold_960A-Hygrohypnum_luridum...
+2025-10-03 13:53:29,534 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_960A-Hygrohypnum_luridum.gff
+2025-10-03 13:53:29,558 - ERROR - ❌ Skipping scaffold_960A-Hygrohypnum_luridum due to extraction error
+2025-10-03 13:53:29,581 - WARN - ⚠️ Failed to process scaffold_960A-Hygrohypnum_luridum, continuing with next sample...
+2025-10-03 13:53:29,605 - INFO - 
+2025-10-03 13:53:29,628 - INFO - 🚀 Processing sample 114/123: scaffold_960B-Cratoneuron_filicinum
+2025-10-03 13:53:29,651 - INFO - 
+2025-10-03 13:53:29,675 - INFO - 🧬 Processing sample: scaffold_960B-Cratoneuron_filicinum
+2025-10-03 13:53:29,698 - INFO - ========================================
+2025-10-03 13:53:29,722 - INFO - 📊 Extracting longest transcript for scaffold_960B-Cratoneuron_filicinum...
+2025-10-03 13:53:29,746 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_960B-Cratoneuron_filicinum.gff
+2025-10-03 13:53:29,769 - ERROR - ❌ Skipping scaffold_960B-Cratoneuron_filicinum due to extraction error
+2025-10-03 13:53:29,793 - WARN - ⚠️ Failed to process scaffold_960B-Cratoneuron_filicinum, continuing with next sample...
+2025-10-03 13:53:29,816 - INFO - 
+2025-10-03 13:53:29,841 - INFO - 🚀 Processing sample 115/123: scaffold_961-Lepidozia_reptans
+2025-10-03 13:53:29,866 - INFO - 
+2025-10-03 13:53:29,890 - INFO - 🧬 Processing sample: scaffold_961-Lepidozia_reptans
+2025-10-03 13:53:29,914 - INFO - ========================================
+2025-10-03 13:53:29,938 - INFO - 📊 Extracting longest transcript for scaffold_961-Lepidozia_reptans...
+2025-10-03 13:53:29,962 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_961-Lepidozia_reptans.gff
+2025-10-03 13:53:29,986 - ERROR - ❌ Skipping scaffold_961-Lepidozia_reptans due to extraction error
+2025-10-03 13:53:30,010 - WARN - ⚠️ Failed to process scaffold_961-Lepidozia_reptans, continuing with next sample...
+2025-10-03 13:53:30,034 - INFO - 
+2025-10-03 13:53:30,058 - INFO - 🚀 Processing sample 116/123: scaffold_962-Thamnobryum_sandei
+2025-10-03 13:53:30,082 - INFO - 
+2025-10-03 13:53:30,106 - INFO - 🧬 Processing sample: scaffold_962-Thamnobryum_sandei
+2025-10-03 13:53:30,130 - INFO - ========================================
+2025-10-03 13:53:30,154 - INFO - 📊 Extracting longest transcript for scaffold_962-Thamnobryum_sandei...
+2025-10-03 13:53:30,178 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_962-Thamnobryum_sandei.gff
+2025-10-03 13:53:30,204 - ERROR - ❌ Skipping scaffold_962-Thamnobryum_sandei due to extraction error
+2025-10-03 13:53:30,228 - WARN - ⚠️ Failed to process scaffold_962-Thamnobryum_sandei, continuing with next sample...
+2025-10-03 13:53:30,252 - INFO - 
+2025-10-03 13:53:30,275 - INFO - 🚀 Processing sample 117/123: scaffold_963-Plicanthus_hirtellus
+2025-10-03 13:53:30,299 - INFO - 
+2025-10-03 13:53:30,323 - INFO - 🧬 Processing sample: scaffold_963-Plicanthus_hirtellus
+2025-10-03 13:53:30,347 - INFO - ========================================
+2025-10-03 13:53:30,371 - INFO - 📊 Extracting longest transcript for scaffold_963-Plicanthus_hirtellus...
+2025-10-03 13:53:30,395 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_963-Plicanthus_hirtellus.gff
+2025-10-03 13:53:30,419 - ERROR - ❌ Skipping scaffold_963-Plicanthus_hirtellus due to extraction error
+2025-10-03 13:53:30,443 - WARN - ⚠️ Failed to process scaffold_963-Plicanthus_hirtellus, continuing with next sample...
+2025-10-03 13:53:30,467 - INFO - 
+2025-10-03 13:53:30,490 - INFO - 🚀 Processing sample 118/123: scaffold_964-Calliergonella_cuspidata
+2025-10-03 13:53:30,514 - INFO - 
+2025-10-03 13:53:30,538 - INFO - 🧬 Processing sample: scaffold_964-Calliergonella_cuspidata
+2025-10-03 13:53:30,562 - INFO - ========================================
+2025-10-03 13:53:30,586 - INFO - 📊 Extracting longest transcript for scaffold_964-Calliergonella_cuspidata...
+2025-10-03 13:53:30,610 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_964-Calliergonella_cuspidata.gff
+2025-10-03 13:53:30,634 - ERROR - ❌ Skipping scaffold_964-Calliergonella_cuspidata due to extraction error
+2025-10-03 13:53:30,658 - WARN - ⚠️ Failed to process scaffold_964-Calliergonella_cuspidata, continuing with next sample...
+2025-10-03 13:53:30,682 - INFO - 
+2025-10-03 13:53:30,706 - INFO - 🚀 Processing sample 119/123: scaffold_965-Tetralophozia_filiformis
+2025-10-03 13:53:30,730 - INFO - 
+2025-10-03 13:53:30,754 - INFO - 🧬 Processing sample: scaffold_965-Tetralophozia_filiformis
+2025-10-03 13:53:30,777 - INFO - ========================================
+2025-10-03 13:53:30,801 - INFO - 📊 Extracting longest transcript for scaffold_965-Tetralophozia_filiformis...
+2025-10-03 13:53:30,825 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_965-Tetralophozia_filiformis.gff
+2025-10-03 13:53:30,849 - ERROR - ❌ Skipping scaffold_965-Tetralophozia_filiformis due to extraction error
+2025-10-03 13:53:30,873 - WARN - ⚠️ Failed to process scaffold_965-Tetralophozia_filiformis, continuing with next sample...
+2025-10-03 13:53:30,897 - INFO - 
+2025-10-03 13:53:30,921 - INFO - 🚀 Processing sample 120/123: scaffold_966-Tritomaria_exsectiformis
+2025-10-03 13:53:30,945 - INFO - 
+2025-10-03 13:53:30,969 - INFO - 🧬 Processing sample: scaffold_966-Tritomaria_exsectiformis
+2025-10-03 13:53:30,993 - INFO - ========================================
+2025-10-03 13:53:31,017 - INFO - 📊 Extracting longest transcript for scaffold_966-Tritomaria_exsectiformis...
+2025-10-03 13:53:31,041 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_966-Tritomaria_exsectiformis.gff
+2025-10-03 13:53:31,065 - ERROR - ❌ Skipping scaffold_966-Tritomaria_exsectiformis due to extraction error
+2025-10-03 13:53:31,089 - WARN - ⚠️ Failed to process scaffold_966-Tritomaria_exsectiformis, continuing with next sample...
+2025-10-03 13:53:31,113 - INFO - 
+2025-10-03 13:53:31,136 - INFO - 🚀 Processing sample 121/123: scaffold_967-Barbula_amplexifolia
+2025-10-03 13:53:31,160 - INFO - 
+2025-10-03 13:53:31,184 - INFO - 🧬 Processing sample: scaffold_967-Barbula_amplexifolia
+2025-10-03 13:53:31,208 - INFO - ========================================
+2025-10-03 13:53:31,232 - INFO - 📊 Extracting longest transcript for scaffold_967-Barbula_amplexifolia...
+2025-10-03 13:53:31,256 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_967-Barbula_amplexifolia.gff
+2025-10-03 13:53:31,280 - ERROR - ❌ Skipping scaffold_967-Barbula_amplexifolia due to extraction error
+2025-10-03 13:53:31,304 - WARN - ⚠️ Failed to process scaffold_967-Barbula_amplexifolia, continuing with next sample...
+2025-10-03 13:53:31,328 - INFO - 
+2025-10-03 13:53:31,352 - INFO - 🚀 Processing sample 122/123: scaffold_969-Distichophyllum_collenchymatosum
+2025-10-03 13:53:31,375 - INFO - 
+2025-10-03 13:53:31,399 - INFO - 🧬 Processing sample: scaffold_969-Distichophyllum_collenchymatosum
+2025-10-03 13:53:31,423 - INFO - ========================================
+2025-10-03 13:53:31,447 - INFO - 📊 Extracting longest transcript for scaffold_969-Distichophyllum_collenchymatosum...
+2025-10-03 13:53:31,471 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_969-Distichophyllum_collenchymatosum.gff
+2025-10-03 13:53:31,495 - ERROR - ❌ Skipping scaffold_969-Distichophyllum_collenchymatosum due to extraction error
+2025-10-03 13:53:31,519 - WARN - ⚠️ Failed to process scaffold_969-Distichophyllum_collenchymatosum, continuing with next sample...
+2025-10-03 13:53:31,543 - INFO - 
+2025-10-03 13:53:31,567 - INFO - 🚀 Processing sample 123/123: scaffold_M158-Sphaerocarpos_donnellii
+2025-10-03 13:53:31,591 - INFO - 
+2025-10-03 13:53:31,615 - INFO - 🧬 Processing sample: scaffold_M158-Sphaerocarpos_donnellii
+2025-10-03 13:53:31,638 - INFO - ========================================
+2025-10-03 13:53:31,662 - INFO - 📊 Extracting longest transcript for scaffold_M158-Sphaerocarpos_donnellii...
+2025-10-03 13:53:31,687 - ERROR - ❌ GFF file not found: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/01.data/gff/fixed/scaffold_M158-Sphaerocarpos_donnellii.gff
+2025-10-03 13:53:31,710 - ERROR - ❌ Skipping scaffold_M158-Sphaerocarpos_donnellii due to extraction error
+2025-10-03 13:53:31,734 - WARN - ⚠️ Failed to process scaffold_M158-Sphaerocarpos_donnellii, continuing with next sample...
+2025-10-03 13:53:31,758 - INFO - 
+2025-10-03 13:53:31,782 - INFO - 📈 Generating analysis summary...
+2025-10-03 13:53:31,992 - INFO - 📊 Summary saved to: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/analysis_summary.txt
+2025-10-03 13:53:32,016 - INFO - 
+2025-10-03 13:53:32,040 - INFO - 🎉 WRKY analysis pipeline completed!
+2025-10-03 13:53:32,064 - INFO - 📊 Processing summary: 123 total, 0 successful, 123 failed
+2025-10-03 13:53:32,088 - INFO - 📊 Check results in: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类
+2025-10-03 13:53:32,111 - INFO - 📈 Summary: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/analysis_summary.txt
+2025-10-03 13:53:32,135 - INFO - 🔬 WRKY classifications: /share/org/YZWL/yzwl_lixg/project/98.wrky/08.苔藓类/06.final_classification/
+2025-10-03 13:53:32,160 - INFO - ⏰ Analysis finished at: 2025年 10月 03日 星期五 13:53:32 CST

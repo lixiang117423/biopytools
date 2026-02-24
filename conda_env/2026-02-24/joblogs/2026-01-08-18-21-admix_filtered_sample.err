@@ -1,0 +1,22 @@
+[E::bgzf_read_block] Failed to read BGZF block data at offset 7826762182 expected 8744 bytes; hread returned 8024
+2026-01-08 18:56:39.197 - ERROR - 使用pysam写入失败，回退到Python方法|pysam writing failed, falling back to Python method: [Errno 2] Closing failed: No such file or directory: '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/variation.filtered.snp.vcf.gz'
+2026-01-08 18:56:39.200 - ERROR - VCF抽样流程失败|VCF sampling pipeline failed: division by zero
+[ERROR] 程序执行失败|Program execution failed: division by zero
+[tabix] the compression of './lab.snp.0.1.vcf.gz' is not BGZF
+2026-01-08 18:56:47.548 - ERROR - 命令执行失败|Command execution failed: plink --vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/lab.snp.0.1.vcf.gz --make-bed --out /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/raw_data --allow-extra-chr --double-id
+   - 返回码|Return code: 7
+   - 标准输出|Stdout: PLINK v1.9.0-b.8 64-bit (22 Oct 2024)              cog-genomics.org/plink/1.9/
+(C) 2005-2024 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/raw_data.log.
+Options in effect:
+  --allow-extra-chr
+  --double-id
+  --make-bed
+  --out /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/raw_data
+  --vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/lab.snp.0.1.vcf.gz
+
+515165 MB RAM detected; reserving 257582 MB for main workspace.
+   - 标准错误|Stderr: Error: File read failure.
+2026-01-08 18:56:47.551 - ERROR - 分析过程中发生严重错误|A critical error occurred during analysis: Command 'plink --vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/lab.snp.0.1.vcf.gz --make-bed --out /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/raw_data --allow-extra-chr --double-id' returned non-zero exit status 7.
+Job 68792223 stderr output:
+

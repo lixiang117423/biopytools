@@ -1,0 +1,78 @@
+2026-01-07 13:14:50.278 - INFO - ============================================================
+2026-01-07 13:14:50.278 - INFO - Program: VCF SNP/INDEL Filtering
+2026-01-07 13:14:50.278 - INFO - Version: 1.0.0
+2026-01-07 13:14:50.278 - INFO - ============================================================
+2026-01-07 13:14:50.278 - INFO - ============================================================
+2026-01-07 13:14:50.278 - INFO - 开始VCF SNP/INDEL过滤流程|Starting VCF SNP/INDEL Filtering Pipeline
+2026-01-07 13:14:50.279 - INFO - ============================================================
+2026-01-07 13:14:50.279 - INFO - 输入VCF文件|Input VCF file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品单独建树/chr.snp.lab.vcf.gz
+2026-01-07 13:14:50.279 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品单独建树
+2026-01-07 13:14:50.279 - INFO - 线程数|Threads: 64
+2026-01-07 13:14:50.279 - INFO - BCFtools路径|BCFtools path: bcftools
+2026-01-07 13:14:50.279 - INFO - ============================================================
+2026-01-07 13:14:50.279 - INFO - 检查依赖软件|Checking dependencies
+2026-01-07 13:14:50.279 - INFO - 检查依赖软件|Checking dependencies
+2026-01-07 13:14:50.294 - INFO - BCFtools可用|BCFtools available
+2026-01-07 13:14:50.294 - INFO - ============================================================
+2026-01-07 13:14:50.294 - INFO - 步骤1: 分离SNP和INDEL|Step 1: Separating SNPs and INDELs
+2026-01-07 13:14:50.294 - INFO - ============================================================
+2026-01-07 13:14:50.294 - INFO - 执行步骤|Executing step: 提取SNP变异|Extracting SNP variants
+2026-01-07 13:14:50.294 - INFO - 命令|Command: bcftools view --types snps --threads 64 -Oz -o variation.raw.snp.vcf.gz /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品单独建树/chr.snp.lab.vcf.gz
+2026-01-07 13:52:41.861 - INFO - 命令执行成功|Command executed successfully: 提取SNP变异|Extracting SNP variants
+2026-01-07 13:52:41.862 - INFO - 执行步骤|Executing step: 提取INDEL变异|Extracting INDEL variants
+2026-01-07 13:52:41.862 - INFO - 命令|Command: bcftools view --types indels --threads 64 -Oz -o variation.raw.indel.vcf.gz /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品单独建树/chr.snp.lab.vcf.gz
+2026-01-07 14:13:06.098 - INFO - 命令执行成功|Command executed successfully: 提取INDEL变异|Extracting INDEL variants
+2026-01-07 14:13:06.098 - INFO - 创建VCF索引|Creating VCF index
+2026-01-07 14:13:06.098 - INFO - 执行步骤|Executing step: 索引文件|Indexing variation.raw.snp.vcf.gz
+2026-01-07 14:13:06.098 - INFO - 命令|Command: bcftools index -f variation.raw.snp.vcf.gz
+2026-01-07 14:23:52.738 - INFO - 命令执行成功|Command executed successfully: 索引文件|Indexing variation.raw.snp.vcf.gz
+2026-01-07 14:23:52.738 - INFO - 执行步骤|Executing step: 索引文件|Indexing variation.raw.indel.vcf.gz
+2026-01-07 14:23:52.738 - INFO - 命令|Command: bcftools index -f variation.raw.indel.vcf.gz
+2026-01-07 14:23:52.773 - INFO - 命令执行成功|Command executed successfully: 索引文件|Indexing variation.raw.indel.vcf.gz
+2026-01-07 14:23:52.773 - INFO - SNP和INDEL分离完成|SNP and INDEL separation completed
+2026-01-07 14:23:52.773 - INFO - ============================================================
+2026-01-07 14:23:52.773 - INFO - 步骤2a: 过滤SNP|Step 2a: Filtering SNPs
+2026-01-07 14:23:52.773 - INFO - ============================================================
+2026-01-07 14:23:52.917 - INFO - SNP过滤条件|SNP filter criteria:
+2026-01-07 14:23:52.917 - INFO -    • QUAL >= 30.0
+2026-01-07 14:23:52.917 - INFO -    • INFO/DP >= 10
+2026-01-07 14:23:52.917 - INFO -    • MQ >= 40.0
+2026-01-07 14:23:52.917 - INFO -    • QD >= 2.0
+2026-01-07 14:23:52.921 - INFO -    • FS <= 60.0
+2026-01-07 14:23:52.921 - INFO -    • SOR <= 3.0
+2026-01-07 14:23:52.921 - INFO -    • MQRankSum >= -12.5
+2026-01-07 14:23:52.921 - INFO -    • ReadPosRankSum >= -8.0
+2026-01-07 14:23:52.921 - INFO -    • MAF >= 0.05
+2026-01-07 14:23:52.921 - INFO - 执行步骤|Executing step: 应用SNP过滤|Applying SNP filters
+2026-01-07 14:23:52.921 - INFO - 命令|Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 10 && MQ >= 40.0 && QD >= 2.0 && FS <= 60.0 && SOR <= 3.0 && MQRankSum >= -12.5 && ReadPosRankSum >= -8.0 && MAF >= 0.05' --threads 64 -Oz -o variation.filtered.snp.vcf.gz variation.raw.snp.vcf.gz
+2026-01-07 15:01:25.221 - INFO - 命令执行成功|Command executed successfully: 应用SNP过滤|Applying SNP filters
+2026-01-07 15:01:25.221 - INFO - 执行步骤|Executing step: 索引过滤后的SNP文件|Indexing filtered SNP file
+2026-01-07 15:01:25.221 - INFO - 命令|Command: bcftools index -f variation.filtered.snp.vcf.gz
+2026-01-07 15:11:30.894 - INFO - 命令执行成功|Command executed successfully: 索引过滤后的SNP文件|Indexing filtered SNP file
+2026-01-07 15:11:30.894 - INFO - SNP过滤完成|SNP filtering completed
+2026-01-07 15:11:30.894 - INFO - ============================================================
+2026-01-07 15:11:30.894 - INFO - 步骤2b: 过滤INDEL|Step 2b: Filtering INDELs
+2026-01-07 15:11:30.894 - INFO - ============================================================
+2026-01-07 15:11:30.894 - INFO - INDEL过滤条件|INDEL filter criteria:
+2026-01-07 15:11:30.894 - INFO -    • QUAL >= 30.0
+2026-01-07 15:11:30.894 - INFO -    • INFO/DP >= 10
+2026-01-07 15:11:30.894 - INFO -    • MQ >= 40.0
+2026-01-07 15:11:30.894 - INFO -    • QD >= 2.0
+2026-01-07 15:11:30.894 - INFO -    • FS <= 200.0
+2026-01-07 15:11:30.894 - INFO -    • SOR <= 10.0
+2026-01-07 15:11:30.894 - INFO -    • ReadPosRankSum >= -20.0
+2026-01-07 15:11:30.894 - INFO - 执行步骤|Executing step: 应用INDEL过滤|Applying INDEL filters
+2026-01-07 15:11:30.894 - INFO - 命令|Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 10 && MQ >= 40.0 && QD >= 2.0 && FS <= 200.0 && SOR <= 10.0 && ReadPosRankSum >= -20.0' --threads 64 -Oz -o variation.filtered.indel.vcf.gz variation.raw.indel.vcf.gz
+2026-01-07 15:11:31.016 - INFO - 命令执行成功|Command executed successfully: 应用INDEL过滤|Applying INDEL filters
+2026-01-07 15:11:31.016 - INFO - 执行步骤|Executing step: 索引过滤后的INDEL文件|Indexing filtered INDEL file
+2026-01-07 15:11:31.016 - INFO - 命令|Command: bcftools index -f variation.filtered.indel.vcf.gz
+2026-01-07 15:11:31.047 - INFO - 命令执行成功|Command executed successfully: 索引过滤后的INDEL文件|Indexing filtered INDEL file
+2026-01-07 15:11:31.047 - INFO - INDEL过滤完成|INDEL filtering completed
+2026-01-07 15:11:31.047 - INFO - ============================================================
+2026-01-07 15:11:31.047 - INFO - 步骤2c: 过滤双等位位点SNP|Step 2c: Filtering biallelic SNPs
+2026-01-07 15:11:31.047 - INFO - ============================================================
+2026-01-07 15:11:31.047 - INFO - 双等位位点过滤条件|Biallelic filter criteria:
+2026-01-07 15:11:31.047 - INFO -    • 双等位位点|Biallelic sites only (max 2 alleles)
+2026-01-07 15:11:31.048 - INFO -    • MAF > 0.05
+2026-01-07 15:11:31.048 - INFO - 执行步骤|Executing step: 应用双等位位点过滤|Applying biallelic filters
+2026-01-07 15:11:31.048 - INFO - 命令|Command: bcftools view -m2 -M2 -v snps -i 'MAF > 0.05' --threads 64 -Oz -o variation.filtered.snp.biallelic.vcf.gz variation.filtered.snp.vcf.gz

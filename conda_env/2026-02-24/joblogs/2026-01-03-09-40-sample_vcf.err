@@ -1,0 +1,18 @@
+/share/org/YZWL/yzwl_lixg/miniforge3/envs/bcftools_v.1.22/libexec/bcftools/random.so:
+	dlopen   .. /share/org/YZWL/yzwl_lixg/miniforge3/envs/bcftools_v.1.22/libexec/bcftools/random.so: cannot open shared object file: No such file or directory
+random:
+	dlopen   .. random: cannot open shared object file: No such file or directory
+
+The bcftools plugin "random" was not found or is not functional. The environment variable BCFTOOLS_PLUGINS is not set
+and no usable plugins were found in /share/org/YZWL/yzwl_lixg/miniforge3/envs/bcftools_v.1.22/libexec/bcftools.
+
+Could not load "random".
+
+tbx_index_build3 failed: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/08.10%的SNP的admixture/chr.snp.10p.random.vcf.gz
+gzip: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/08.10%的SNP的admixture/chr.snp.10p.random.vcf.gz: No such file or directory
+Usage: biopytools admixture [OPTIONS]
+Try 'biopytools admixture -h' for help.
+
+Error: Invalid value for '--vcf' / '-i': 文件不存在|File does not exist: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/08.10%的SNP的admixture/chr.snp.10p.thin.vcf.gz
+Job 68731343 stderr output:
+

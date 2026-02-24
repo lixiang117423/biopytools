@@ -1,0 +1,877 @@
+==> Processed 0/212 genomes (0%) |               | [?genome/s, ETA ?]==> Processed 15/212 genomes (7%) |█              | [146.92genome/s, ETA 00:01]==> Processed 130/212 genomes (61%) |█████████▏     | [663.66genome/s, ETA 00:00]==> Processed 212/212 genomes (100%) |███████████████| [708.46genome/s, ETA 00:00]                                                                                  ==> Processed 212/212 genomes (100%) |███████████████| [708.46genome/s, ETA 00:00]                                                                                  ==> Processed 0/212 genomes (0%) |               | [?genome/s, ETA ?]==> Processed 107/212 genomes (50%) |███████▌       | [1066.26genome/s, ETA 00:00]                                                                                  ==> Processed 212/212 genomes (100%) |███████████████| [1066.26genome/s, ETA 00:00]                                                                                   ==> Processed 0/212 genomes (0%) |               | [?genome/s, ETA ?]                                                                     ==> Processed 212/212 genomes (100%) |███████████████| [1674.81genome/s, ETA 00:00]                                                                                   ==> Processed 0/212 genomes (0%) |               | [?genome/s, ETA ?]==> Processed 9/212 genomes (4%) |▋              | [83.44genome/s, ETA 00:02]==> Processed 18/212 genomes (8%) |█▎             | [79.31genome/s, ETA 00:02]==> Processed 26/212 genomes (12%) |█▊             | [75.80genome/s, ETA 00:02]==> Processed 34/212 genomes (16%) |██▍            | [73.82genome/s, ETA 00:02]==> Processed 42/212 genomes (20%) |██▉            | [71.95genome/s, ETA 00:02]==> Processed 51/212 genomes (24%) |███▌           | [72.34genome/s, ETA 00:02]==> Processed 59/212 genomes (28%) |████▏          | [72.23genome/s, ETA 00:02]==> Processed 67/212 genomes (32%) |████▋          | [72.79genome/s, ETA 00:01]==> Processed 76/212 genomes (36%) |█████▍         | [74.37genome/s, ETA 00:01]==> Processed 86/212 genomes (41%) |██████         | [76.12genome/s, ETA 00:01]==> Processed 94/212 genomes (44%) |██████▋        | [73.39genome/s, ETA 00:01]==> Processed 102/212 genomes (48%) |███████▏       | [70.81genome/s, ETA 00:01]==> Processed 111/212 genomes (52%) |███████▊       | [72.27genome/s, ETA 00:01]==> Processed 119/212 genomes (56%) |████████▍      | [70.28genome/s, ETA 00:01]==> Processed 129/212 genomes (61%) |█████████▏     | [72.25genome/s, ETA 00:01]==> Processed 139/212 genomes (66%) |█████████▊     | [75.02genome/s, ETA 00:00]==> Processed 148/212 genomes (70%) |██████████▍    | [76.44genome/s, ETA 00:00]==> Processed 156/212 genomes (74%) |███████████    | [75.67genome/s, ETA 00:00]==> Processed 164/212 genomes (77%) |███████████▌   | [73.21genome/s, ETA 00:00]==> Processed 173/212 genomes (82%) |████████████▏  | [74.08genome/s, ETA 00:00]==> Processed 181/212 genomes (85%) |████████████▊  | [74.41genome/s, ETA 00:00]==> Processed 189/212 genomes (89%) |█████████████▎ | [73.99genome/s, ETA 00:00]==> Processed 197/212 genomes (93%) |█████████████▉ | [73.98genome/s, ETA 00:00]==> Processed 205/212 genomes (97%) |██████████████▌| [73.96genome/s, ETA 00:00]                                                                                Process ForkPoolWorker-314:
+Process ForkPoolWorker-315:
+Process ForkPoolWorker-312:
+Process ForkPoolWorker-318:
+Process ForkPoolWorker-311:
+Process ForkPoolWorker-310:
+Process ForkPoolWorker-313:
+Process ForkPoolWorker-316:
+Process ForkPoolWorker-317:
+Process ForkPoolWorker-319:
+Process ForkPoolWorker-309:
+Process ForkPoolWorker-308:
+Process ForkPoolWorker-306:
+Process ForkPoolWorker-307:
+Process ForkPoolWorker-304:
+Process ForkPoolWorker-305:
+Process ForkPoolWorker-303:
+Process ForkPoolWorker-301:
+Process ForkPoolWorker-302:
+Process ForkPoolWorker-291:
+Process ForkPoolWorker-297:
+Process ForkPoolWorker-300:
+Process ForkPoolWorker-298:
+Process ForkPoolWorker-287:
+Process ForkPoolWorker-272:
+Process ForkPoolWorker-292:
+Process ForkPoolWorker-279:
+Process ForkPoolWorker-289:
+Process ForkPoolWorker-295:
+Process ForkPoolWorker-274:
+Process ForkPoolWorker-286:
+Process ForkPoolWorker-290:
+Process ForkPoolWorker-296:
+Process ForkPoolWorker-299:
+Process ForkPoolWorker-270:
+Process ForkPoolWorker-283:
+Process ForkPoolWorker-277:
+Process ForkPoolWorker-276:
+Process ForkPoolWorker-293:
+Process ForkPoolWorker-294:
+Process ForkPoolWorker-282:
+Process ForkPoolWorker-288:
+Process ForkPoolWorker-273:
+Process ForkPoolWorker-278:
+Process ForkPoolWorker-281:
+Process ForkPoolWorker-285:
+Process ForkPoolWorker-284:
+Process ForkPoolWorker-275:
+Process ForkPoolWorker-269:
+Process ForkPoolWorker-280:
+Process ForkPoolWorker-271:
+Exception ignored in: <function _afterFork at 0x145843220cc0>
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/logging/__init__.py", line 245, in _afterFork
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+KeyboardInterrupt
+KeyboardInterrupt
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+KeyboardInterrupt
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+KeyboardInterrupt
+KeyboardInterrupt
+KeyboardInterrupt
+KeyboardInterrupt
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 385, in get
+    res = self._reader.recv_bytes()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/connection.py", line 216, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/connection.py", line 395, in _recv
+    chunk = read(handle, remaining)
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+    def _afterFork():
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt: 
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/queues.py", line 384, in get
+    with self._rlock:
+         ^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/GTDB-Tk_v.2.4.1/lib/python3.13/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+KeyboardInterrupt
+==> Processed 0/208 genomes (0%) |               | [?genome/s, ETA ?]Terminated
+Job 67753486 stderr output:
+

@@ -1,0 +1,13 @@
+2026-01-31 13:08:15.245 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
+2026-01-31 13:08:15.270 - INFO - 生成FOF文件|Generating FOF file
+2026-01-31 13:08:15.291 - INFO - 检测到双末端数据|Detected paired-end data: 1489 samples
+2026-01-31 13:08:15.467 - WARNING - 检测到异常样品名|Detected invalid sample name: GDW108_①A -> GDW108_1A
+2026-01-31 13:08:15.467 - WARNING - 检测到异常样品名|Detected invalid sample name: GDW108_②A -> GDW108_2A
+2026-01-31 13:08:16.007 - INFO - 发现 2 个异常样品，进行处理中|Found 2 invalid samples, processing...
+2026-01-31 13:09:04.414 - INFO - 样品映射文件已生成|Sample mapping file generated: sample_mapping.txt
+2026-01-31 13:09:04.452 - INFO - FOF文件已生成（双末端）|FOF file generated (paired-end): input.fof
+2026-01-31 13:09:04.453 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
+2026-01-31 13:09:04.468 - INFO - 自动计算分区数|Auto-calculated partitions: 640
+2026-01-31 13:09:04.468 - INFO - 样本数|Samples: 1489, 线程数|Threads: 32
+2026-01-31 13:09:04.468 - INFO - 使用分区数|Using partitions: 640
+2026-01-31 13:09:04.468 - INFO - 执行kmtricks pipeline|Executing kmtricks pipeline|执行kmtricks pipeline|Executing kmtricks pipeline

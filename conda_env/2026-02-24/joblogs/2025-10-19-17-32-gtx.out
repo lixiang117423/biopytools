@@ -1,0 +1,16 @@
+[2025-10-19 17:32:29] INFO - 🚀 开始GTX WGS批处理分析流程 (Joint Calling模式) | Starting GTX WGS batch processing analysis pipeline (Joint Calling模式)
+[2025-10-19 17:32:29] INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples
+[2025-10-19 17:32:29] INFO - 📤 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping
+[2025-10-19 17:32:29] INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/genome.fa
+[2025-10-19 17:32:29] INFO - 📁 R1文件模式 | R1 file pattern: *_1.fq
+[2025-10-19 17:32:29] INFO - 📁 R2文件模式 | R2 file pattern: *_2.fq
+[2025-10-19 17:32:29] INFO - 🤝 Joint calling已启用 | Joint calling enabled
+[2025-10-19 17:32:29] INFO -   📜 Joint输出文件 | Joint output file: merged_gtx.vcf.gz
+[2025-10-19 17:32:29] INFO -   🧵 Joint calling线程数 | Joint calling threads: 88
+[2025-10-19 17:32:29] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-19 17:32:29] INFO - ✅ ✓ GTX Joint Calling功能可用 | GTX Joint Calling functionality available
+[2025-10-19 17:32:29] INFO - ✅ ✓ GTX程序检查通过 | GTX program check passed
+[2025-10-19 17:32:29] INFO - ✅ 参考基因组索引完整 | Reference index complete
+[2025-10-19 17:32:29] INFO - 🔬 开始单样品WGS分析阶段 | Starting individual WGS analysis phase
+[2025-10-19 17:32:29] INFO - 🔍 搜索输入文件 | Searching input files
+[2025-10-19 17:32:29] ERROR - 💥 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: 在 /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples 中未找到 *_1.fq 文件

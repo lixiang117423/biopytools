@@ -1,0 +1,9 @@
+2026-01-21 19:00:27.911 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/06.ragtag
+2026-01-21 19:00:27.912 - INFO - 开始RagTag scaffolding流程|Starting RagTag scaffolding pipeline
+2026-01-21 19:00:27.912 - INFO - 参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/05.和参考基因组的共线性/genome.fa
+2026-01-21 19:00:27.912 - INFO - 查询基因组|Query genome: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/02.fasta/EcA.contigs.fasta
+2026-01-21 19:00:27.912 - INFO - 样品名称|Sample name: EcA
+2026-01-21 19:00:27.912 - INFO - 线程数|Threads: 12
+2026-01-21 19:00:27.912 - INFO - 步骤1: 运行RagTag scaffold|Step 1: Running RagTag scaffold
+2026-01-21 19:00:27.912 - INFO - 执行命令|Executing command: ragtag.py scaffold /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/05.和参考基因组的共线性/genome.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/02.fasta/EcA.contigs.fasta -t 12 -f 1000 -q 10 -d 100000 -i 0.2 -a 0.0 -s 0.0 --aligner minimap2 -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/06.ragtag
+2026-01-21 19:00:29.825 - ERROR - 流程执行失败|Pipeline execution failed: RagTag输出文件未找到|RagTag output file not found: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/06.ragtag/ragtag.scaffold.fasta

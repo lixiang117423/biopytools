@@ -1,0 +1,58 @@
+2026-02-03 15:40:12.436 - INFO - 检查JanusX依赖|Checking JanusX dependencies
+2026-02-03 15:40:12.436 - INFO - JanusX路径|JanusX path: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin
+2026-02-03 15:40:14.969 - INFO - JanusX可执行文件检查通过|JanusX executable check passed
+2026-02-03 15:40:14.969 - INFO - ============================================================
+2026-02-03 15:40:14.969 - INFO - 开始JanusX GWAS分析|Starting JanusX GWAS analysis
+2026-02-03 15:40:14.969 - INFO - ============================================================
+2026-02-03 15:40:14.969 - INFO - 基因型文件|Genotype file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/02.kmer2vcf_快速模式/kmer.vcf.gz
+2026-02-03 15:40:14.969 - INFO - 表型文件|Phenotype file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-02-03 15:40:14.969 - INFO - GWAS模型|GWAS models: farmcpu
+2026-02-03 15:40:14.969 - INFO - MAF阈值|MAF threshold: 0.05
+2026-02-03 15:40:14.970 - INFO - 缺失率阈值|Missing rate threshold: 0.0
+2026-02-03 15:40:14.970 - INFO - 线程数|Threads: 12
+2026-02-03 15:40:14.970 - INFO - 输出目录|Output directory: ./janusx_gwas_output
+2026-02-03 15:40:14.970 - INFO - 构建命令|Command built: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/02.kmer2vcf_快速模式/kmer.vcf.gz -p /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -farmcpu -maf 0.05 -geno 0.0 -t 12 -o ./janusx_gwas_output -prefix kmer.vcf
+2026-02-03 15:40:14.970 - INFO - 运行GWAS分析|Running GWAS analysis: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/02.kmer2vcf_快速模式/kmer.vcf.gz -p /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -farmcpu -maf 0.05 -geno 0.0 -t 12 -o ./janusx_gwas_output -prefix kmer.vcf
+2026-02-03 15:40:17.450 - INFO - 输出|Output:        _                      __   __
+2026-02-03 15:40:17.450 - INFO - 输出|Output:       | |                     \ \ / /
+2026-02-03 15:40:17.450 - INFO - 输出|Output:       | | __ _ _ __  _   _ ___ \ V / 
+2026-02-03 15:40:17.450 - INFO - 输出|Output:   _   | |/ _` | '_ \| | | / __| > <  
+2026-02-03 15:40:17.450 - INFO - 输出|Output:  | |__| | (_| | | | | |_| \__ \/ . \ 
+2026-02-03 15:40:17.450 - INFO - 输出|Output:   \____/ \__,_|_| |_|\__,_|___/_/ \_\ Tools for GWAS and GS
+2026-02-03 15:40:17.450 - INFO - 输出|Output: JanusX - High Performance GWAS CLI (LMM/LM: streaming low-memory; FarmCPU: full-memory)
+2026-02-03 15:40:17.450 - INFO - 输出|Output: Host: c02n0007
+2026-02-03 15:40:17.450 - INFO - 输出|Output: ************************************************************
+2026-02-03 15:40:17.450 - INFO - 输出|Output: GWAS CONFIGURATION
+2026-02-03 15:40:17.450 - INFO - 输出|Output: ************************************************************
+2026-02-03 15:40:17.450 - INFO - 输出|Output: Genotype file:    /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/02.kmer2vcf_快速模式/kmer.vcf.gz
+2026-02-03 15:40:17.450 - INFO - 输出|Output: Phenotype file:   /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-02-03 15:40:17.450 - INFO - 输出|Output: Phenotype cols:   All
+2026-02-03 15:40:17.450 - INFO - 输出|Output: Mmap limit:       False
+2026-02-03 15:40:17.454 - INFO - 输出|Output: Models:           FarmCPU
+2026-02-03 15:40:17.454 - INFO - 输出|Output: GRM option:       1
+2026-02-03 15:40:17.454 - INFO - 输出|Output: Q option:         0
+2026-02-03 15:40:17.454 - INFO - 输出|Output: Maf threshold:    0.05
+2026-02-03 15:40:17.454 - INFO - 输出|Output: Miss threshold:   0.0
+2026-02-03 15:40:17.454 - INFO - 输出|Output: Chunk size:       100000
+2026-02-03 15:40:17.454 - INFO - 输出|Output: Threads:          12 (64 available)
+2026-02-03 15:40:17.454 - INFO - 输出|Output: Output prefix:    ./janusx_gwas_output/kmer.vcf
+2026-02-03 15:40:17.455 - INFO - 输出|Output: ************************************************************
+2026-02-03 15:40:17.455 - INFO - 输出|Output: ============================================================
+2026-02-03 15:40:17.455 - INFO - 输出|Output: Run FarmCPU (full memory)
+2026-02-03 15:40:17.455 - INFO - 输出|Output: ============================================================
+2026-02-03 15:40:17.455 - INFO - 输出|Output: * FarmCPU pipeline: loading genotype and phenotype
+2026-02-03 15:40:17.455 - INFO - 输出|Output: Loading phenotype from /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt...
+2026-02-03 15:40:17.455 - INFO - 输出|Output: Error in JanusX GWAS pipeline: invalid gzip header
+2026-02-03 15:40:17.455 - INFO - 输出|Output: Traceback (most recent call last):
+2026-02-03 15:40:17.455 - INFO - 输出|Output:   File "/tmp/onefile_3922205_1770104414_971031/janusx/script/gwas.py", line 1052, in main
+2026-02-03 15:40:17.455 - INFO - 输出|Output:   File "/tmp/onefile_3922205_1770104414_971031/janusx/script/gwas.py", line 723, in run_farmcpu_fullmem
+2026-02-03 15:40:17.455 - INFO - 输出|Output:   File "/tmp/onefile_3922205_1770104414_971031/janusx/gfreader/base.py", line 86, in vcfreader
+2026-02-03 15:40:17.455 - INFO - 输出|Output:   File "/tmp/onefile_3922205_1770104414_971031/janusx/gfreader/gfreader.py", line 252, in inspect_genotype_file
+2026-02-03 15:40:17.455 - INFO - 输出|Output: RuntimeError: invalid gzip header
+2026-02-03 15:40:17.455 - INFO - 输出|Output: Finished. Total wall time: 0.29 seconds
+2026-02-03 15:40:17.455 - INFO - 输出|Output: 2026-2-3 15:40:17
+2026-02-03 15:40:17.455 - INFO - ============================================================
+2026-02-03 15:40:17.455 - INFO - GWAS分析完成|GWAS analysis completed
+2026-02-03 15:40:17.455 - INFO - ============================================================
+2026-02-03 15:40:17.455 - INFO - 输出文件|Output files:
+2026-02-03 15:40:17.455 - INFO -   kmer.vcf.gwas.log (0.00 MB)

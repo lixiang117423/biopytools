@@ -1,0 +1,1 @@
+biopytools admixture -v variation.filtered.snp.biallelic.vcf.gz -o ./ -K 30 --skip-preprocessing

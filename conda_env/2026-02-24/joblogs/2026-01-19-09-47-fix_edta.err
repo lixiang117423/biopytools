@@ -1,0 +1,22 @@
+TIR raw library file OV53_Chr.fa.mod.EDTA.raw/OV53_Chr.fa.mod.TIR.intact.raw.fa not exists!
+
+Perform EDTA basic and advance filtering for raw TE candidates and generate the stage 1 library
+	perl EDTA_processF.pl [options]
+		-genome	[File]	The genome FASTA
+		-ltr	[File]	The raw LTR library FASTA
+		-ltrint	[File]	The intact LTR library FASTA
+		-sine	[File]	The raw SINE library FASTA
+		-line	[File]	The raw LINE library FASTA
+		-tir	[File]	The raw TIR library FASTA
+		-helitron	[File]	The raw Helitron library FASTA
+		-mindiff_ltr	[float]	The minimum fold difference in richness between LTRs and contaminants (default: 1)
+		-mindiff_tir	[float]	The minimum fold difference in richness between TIRs and contaminants (default: 1)
+		-mindiff_hel	[float]	The minimum fold difference in richness between Helitrons and contaminants (default: 2)
+		-repeatmasker [path]	The directory containing RepeatMasker (default: read from ENV)
+		-blast [path]	The directory containing Blastn (default: read from ENV)
+		-threads|-t	[int]	Number of theads to run this script
+		-help|-h	Display this help info
+
+ERROR: Stage 1 library not found in OV53_Chr.fa.mod.EDTA.combine/OV53_Chr.fa.mod.EDTA.fa.stg1 at /share/org/YZWL/yzwl_lixg/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/EDTA.pl line 525.
+Job 68932657 stderr output:
+

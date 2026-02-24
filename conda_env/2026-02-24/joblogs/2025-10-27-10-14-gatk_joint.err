@@ -1,0 +1,6 @@
+Usage: biopytools gatk-joint [OPTIONS]
+Try 'biopytools gatk-joint -h' for help.
+
+Error: Invalid value for '--input-dir' / '-i': ❌ 路径不存在 | Path does not exist: -o
+Job 67803424 stderr output:
+

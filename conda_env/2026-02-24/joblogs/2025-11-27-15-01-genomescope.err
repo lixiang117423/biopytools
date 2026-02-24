@@ -1,0 +1,6 @@
+terminate called after throwing an instance of 'jellyfish::large_hash::array_base<jellyfish::mer_dna_ns::mer_base_static<unsigned long, 0>, unsigned long, atomic::gcc, jellyfish::large_hash::unbounded_array<jellyfish::mer_dna_ns::mer_base_static<unsigned long, 0>, unsigned long, atomic::gcc, allocators::mmap> >::ErrorAllocation'
+  what():  Failed to allocate 914285714288 bytes of memory
+/share/org/YZWL/yzwl_lixg/software/scripts/06.run_genomescope2.sh: 行 110: 3743131 Broken pipe             zcat $GZIP_FILES $PLAIN_FILES 2> /dev/null
+     3743132 Aborted                 (核心已转储)| jellyfish count -C -m "$KMER_SIZE" -s "$MEMORY" -t "$THREADS" -o "$JF_OUTPUT_FILE" /dev/fd/0
+Job 68128100 stderr output:
+

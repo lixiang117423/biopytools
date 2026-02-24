@@ -1,0 +1,7 @@
+gzip: ./splits/CRR564433_R2.fastq.gz: No such file or directory
+gzip: ./splits/CRR564433_R1.fastq.gz: No such file or directory
+gzip: ./splits/CRR564433_R1.fastq.gz: No such file or directory
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[E::main_mem] fail to open file `./splits/CRR564433_R1.fastq.gz'.
+Job 68032745 stderr output:
+

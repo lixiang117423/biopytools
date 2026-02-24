@@ -1,0 +1,48 @@
+🌾 开始GWAS分析 | Starting GWAS analysis
+📊 VCF文件 | VCF file: variation.filtered.snp.maf5.vcf.gz
+📋 表型文件 | Phenotype file: trait.txt
+📁 输出目录 | Output directory: .
+2025-12-18 20:22:14,137 - INFO - 检测到总列数 | Detected total columns: 3
+2025-12-18 20:22:14,137 - INFO - 表头信息 | Header info: ['<Trait>', 'feture_1', 'feture_2']
+2025-12-18 20:22:14,137 - INFO - 开始处理表型列 | Starting to process trait columns: [1, 2]
+2025-12-18 20:22:14,137 - INFO - 表型名称 | Trait names: ['feture_1', 'feture_2']
+2025-12-18 20:22:14,137 - INFO - 📝 使用串行处理 | Using serial processing
+2025-12-18 20:22:14,138 - INFO - ------------------------------------------------------
+2025-12-18 20:22:14,138 - INFO - 开始处理表型 | Starting trait processing: feture_1 (列索引 | column index: 2)
+2025-12-18 20:22:14,138 - INFO - 正在处理表型 | Processing trait: feture_1 (列索引 | column index: 2)
+2025-12-18 20:22:14,196 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-18 20:22:14,472 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-18 20:22:14,515 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-18 20:22:14,516 - INFO - 🚀 开始TASSEL GWAS分析流程 | Starting TASSEL GWAS analysis pipeline
+2025-12-18 20:22:14,517 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-18 20:22:14,546 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-18 20:22:14,568 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-18 20:22:14,568 - INFO - 🔍 验证输入文件 | Validating input files
+2025-12-18 20:22:16,835 - ERROR - ❌ VCF文件验证失败 | VCF file validation failed: 
+2025-12-18 20:22:16,853 - ERROR - ❌ 表型 feture_1 运行失败 | Trait feture_1 failed
+2025-12-18 20:22:16,855 - INFO - ------------------------------------------------------
+2025-12-18 20:22:16,856 - INFO - 开始处理表型 | Starting trait processing: feture_2 (列索引 | column index: 3)
+2025-12-18 20:22:16,856 - INFO - 正在处理表型 | Processing trait: feture_2 (列索引 | column index: 3)
+2025-12-18 20:22:16,868 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-18 20:22:16,900 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-18 20:22:16,934 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-18 20:22:16,934 - INFO - 🚀 开始TASSEL GWAS分析流程 | Starting TASSEL GWAS analysis pipeline
+2025-12-18 20:22:16,935 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-18 20:22:16,964 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-18 20:22:16,998 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-18 20:22:16,998 - INFO - 🔍 验证输入文件 | Validating input files
+2025-12-18 20:22:19,161 - ERROR - ❌ VCF文件验证失败 | VCF file validation failed: 
+2025-12-18 20:22:19,179 - ERROR - ❌ 表型 feture_2 运行失败 | Trait feture_2 failed
+2025-12-18 20:22:19,273 - INFO - ✅ 批量处理报告已生成 | Batch processing report generated: batch_processing_report.txt
+2025-12-18 20:22:19,273 - INFO -    • 成功处理 | Successful: 0/2 (0.0%)
+2025-12-18 20:22:19,273 - INFO -    • 处理失败 | Failed: 2/2
+
+📊 分析完成 | Analysis completed
+   总表型数 | Total traits: 2
+   成功处理 | Successful: 0
+   处理失败 | Failed: 2
+   成功率 | Success rate: 0.0%
+
+❌ 失败的表型 | Failed traits:
+   • feture_1: GWAS分析失败 | GWAS analysis failed
+   • feture_2: GWAS分析失败 | GWAS analysis failed

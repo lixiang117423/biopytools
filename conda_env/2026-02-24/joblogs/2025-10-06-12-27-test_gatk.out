@@ -1,0 +1,18 @@
+2025-10-06 12:27:16 - INFO - ================================================================================
+2025-10-06 12:27:16 - INFO - 🧬 BWA-GATK变异检测流程启动 | BWA-GATK Variant Calling Pipeline Started
+2025-10-06 12:27:16 - INFO - ================================================================================
+2025-10-06 12:27:16 - INFO - 📝 日志文件 | Log file: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/logs/pipeline_20251006_122716.log
+2025-10-06 12:27:16 - INFO - 📊 详细模式 | Verbose mode: 关闭
+2025-10-06 12:27:16 - INFO - 🚀 开始BWA-GATK变异检测流程 | Starting BWA-GATK variant calling pipeline
+2025-10-06 12:27:16 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-06 12:27:17 - INFO -   ✅ SAMtools: samtools 1.22
+2025-10-06 12:27:20 - INFO -   ✅ GATK: The Genome Analysis Toolkit (GATK) v4.6.2.0
+2025-10-06 12:27:20 - ERROR - 缺少依赖软件 | Missing dependencies: BWA
+2025-10-06 12:27:20 - ERROR - ❌ 流程执行失败 | Pipeline execution failed: 缺少依赖软件 | Missing dependencies: BWA
+2025-10-06 12:27:20 - ERROR - Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/bwa_gatk/main.py", line 53, in run
+    check_dependencies(self.config, self.logger)
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/bwa_gatk/utils.py", line 86, in check_dependencies
+    raise RuntimeError(error_msg)
+RuntimeError: 缺少依赖软件 | Missing dependencies: BWA
+

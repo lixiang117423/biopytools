@@ -1,0 +1,130 @@
+🌾 开始GWAS分析 | Starting GWAS analysis
+📊 VCF文件 | VCF file: variation.filtered.snp.maf5.vcf.gz
+📋 表型文件 | Phenotype file: trait.txt
+📁 输出目录 | Output directory: .
+2025-12-19 18:44:19,689 - INFO - 检测到总列数 | Detected total columns: 3
+2025-12-19 18:44:19,689 - INFO - 表头信息 | Header info: ['<Trait>', 'feture_1', 'feture_2']
+2025-12-19 18:44:19,689 - INFO - 开始处理表型列 | Starting to process trait columns: [1, 2]
+2025-12-19 18:44:19,689 - INFO - 表型名称 | Trait names: ['feture_1', 'feture_2']
+2025-12-19 18:44:19,689 - INFO - 🔬 检测到MLM模型，预计算共享矩阵 | Detected MLM model, pre-computing shared matrices
+2025-12-19 18:44:19,689 - INFO - 正在处理表型 | Processing trait: feture_1 (列索引 | column index: 2)
+2025-12-19 18:44:19,827 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 18:44:20,247 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 18:44:23,103 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 18:44:23,104 - INFO - 🔄 计算K矩阵（Kinship）| Calculating K matrix (Kinship)...
+2025-12-19 18:45:10,390 - ERROR - ❌ K矩阵计算失败 | K matrix calculation failed: 
+2025-12-19 18:45:10,446 - INFO - 🔄 计算PCA协变量（用于MLM）| Calculating PCA covariates (for MLM)...
+2025-12-19 18:45:10,446 - INFO - 🧮 计算PCA主成分（MLM协变量）| Calculating PCA eigenvectors (for MLM covariates)...
+2025-12-19 18:45:10,446 - INFO -    使用工具 | Using tool: VCF2PCACluster
+2025-12-19 18:45:10,446 - INFO -    输入VCF | Input VCF: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 18:45:10,446 - INFO -    PCA输出 | PCA output: temp_matrix_calculation_pca.eigenvec
+2025-12-19 18:45:10,464 - INFO -    执行命令 | Executing command: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin/VCF2PCACluster -InVCF /share/org/YZWL/yzwl_lixg/tmp/test_tassel/test/variation.filtered.snp.maf5.vcf.gz -OutPut temp_matrix_calculation_pca -Threads 88
+2025-12-19 18:45:10,464 - INFO -    工作目录 | Working directory: .
+2025-12-19 18:45:23,772 - INFO -    命令返回码 | Command return code: 0
+2025-12-19 18:45:23,772 - INFO -    标准输出 | Stdout: #Warning skip non bi-allelic(Singleton/ThreeMulti allelic) site, and total skip allelic sites number is :48713
+#Warning skip high missing site, and total skip allelic sites number is :385005
+#After Filtering, total Number of 623634 SNPs were taken for the PCA calculation 
+Start To Create Normalized_IBS/Yang/BaldingNicolsKinship ...
+Eigenvalues of 88 individuals have been saved in [ temp_matrix_calculation_pca.eigenval ].
+	 EM init K by auto of K-mean, Best cluster K = 5
+EM Clustering Max its reached: Eps= 0
+The first 10 eigenvectors of 88 individuals have been saved in [ temp_matrix_calculation_pca.eigenvec ].
+
+2025-12-19 18:45:23,772 - WARNING -    标准错误 | Stderr: sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot2Deig: Permission denied
+sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot2Deig: Permission denied
+sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot3Deig: Permission denied
+
+2025-12-19 18:45:23,772 - INFO - ✅ PCA计算完成 | PCA calculation completed in 13s
+2025-12-19 18:45:23,772 - INFO -    文件大小 | File size: 11745 bytes
+2025-12-19 18:45:23,772 - INFO -    样本数 | Samples: 88
+2025-12-19 18:45:23,772 - INFO -    PC数量 | PC components: 10 (default)
+2025-12-19 18:45:23,773 - INFO - 🔄 格式化PCA文件作为TASSEL协变量 | Formatting PCA file as TASSEL covariate...
+2025-12-19 18:45:23,774 - INFO -    可用PC数量 | Available PC count: 10
+2025-12-19 18:45:23,774 - INFO -    请求PC数量 | Requested PC count: 3
+2025-12-19 18:45:23,774 - INFO -    实际使用PC数量 | Actually using PC count: 3
+2025-12-19 18:45:23,774 - INFO - ✅ PCA协变量格式转换完成 | PCA covariate format conversion completed
+2025-12-19 18:45:23,775 - INFO -    输出文件 | Output file: temp_matrix_calculation_pca.covariate.txt
+2025-12-19 18:45:23,777 - INFO -    最终PC数量 | Final PC count: 3
+2025-12-19 18:45:23,777 - INFO -    样本数量 | Sample count: 88
+2025-12-19 18:45:23,777 - INFO - ✅ PCA协变量计算完成 | PCA covariate calculated: temp_matrix_calculation_pca.covariate.txt
+2025-12-19 18:45:23,777 - INFO - 🎯 矩阵预计算完成，所有表型将共享这些矩阵 | Matrix pre-computation completed, all traits will share these matrices
+2025-12-19 18:45:23,777 - INFO - 📝 使用串行处理 | Using serial processing
+2025-12-19 18:45:23,778 - INFO - ------------------------------------------------------
+2025-12-19 18:45:23,778 - INFO - 开始处理表型 | Starting trait processing: feture_1 (列索引 | column index: 2)
+2025-12-19 18:45:23,778 - INFO - 正在处理表型 | Processing trait: feture_1 (列索引 | column index: 2)
+2025-12-19 18:45:23,783 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 18:45:23,816 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 18:45:24,264 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 18:45:24,264 - INFO -    使用预计算矩阵 | Using pre-computed matrices:
+2025-12-19 18:45:24,264 - INFO -    • PCA协变量 | PCA covariate: temp_matrix_calculation_pca.covariate.txt
+2025-12-19 18:45:24,264 - INFO - 🚀 开始TASSEL GWAS分析流程 | Starting TASSEL GWAS analysis pipeline
+2025-12-19 18:45:24,267 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 18:45:24,298 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 18:45:24,735 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 18:45:24,735 - INFO - 🔍 验证输入文件 | Validating input files
+2025-12-19 18:45:47,416 - INFO - 📊 VCF文件验证通过 | VCF file validation passed: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 18:45:47,416 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 18:45:47,416 - INFO -    • 样本数 | Samples: 88
+2025-12-19 18:45:47,416 - INFO - 📊 表型文件验证通过 | Phenotype file validation passed: feture_1/feture_1.pheno.txt
+2025-12-19 18:45:47,416 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 18:45:47,416 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 18:45:47,417 - INFO - ✅ Q矩阵已提供 | Q matrix provided: temp_matrix_calculation_pca.covariate.txt (K=4)
+2025-12-19 18:46:10,074 - INFO - 📊 输入VCF | Input VCF: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 18:46:10,074 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 18:46:10,074 - INFO -    • 样本数 | Samples: 88
+2025-12-19 18:46:10,074 - INFO - 📊 表型文件 | Phenotype file: feture_1/feture_1.pheno.txt
+2025-12-19 18:46:10,074 - INFO -    • 样本数 | Samples: 88
+2025-12-19 18:46:10,074 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 18:46:10,075 - INFO - 📝 准备表型文件 | Preparing phenotype file: feture_1/feture_1.pheno.txt
+2025-12-19 18:46:10,082 - INFO - ✅ 表型文件准备完成 | Phenotype file prepared: feture_1/feture_1_GWAS.pheno_ready.txt
+2025-12-19 18:46:10,082 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 18:46:10,082 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 18:46:10,082 - INFO - ⏭️ 跳过VCF排序，使用原始文件 | Skipping VCF sorting, using original file
+2025-12-19 18:46:10,082 - WARNING - ⚠️ 未提供K矩阵但跳过了排序，请确保已预计算K矩阵 | No K matrix provided but sorting skipped, please ensure K matrix is pre-computed
+2025-12-19 18:46:10,082 - INFO - ✅ 统计报告已保存 | Statistics report saved: feture_1/feture_1_GWAS.stats.txt
+2025-12-19 18:46:10,083 - INFO - 🎉 分析完成！总运行时间 | Analysis completed! Total runtime: 45s
+2025-12-19 18:46:10,083 - INFO - ✅ 表型 feture_1 运行成功 | Trait feture_1 completed successfully
+2025-12-19 18:46:10,090 - INFO - ------------------------------------------------------
+2025-12-19 18:46:10,090 - INFO - 开始处理表型 | Starting trait processing: feture_2 (列索引 | column index: 3)
+2025-12-19 18:46:10,090 - INFO - 正在处理表型 | Processing trait: feture_2 (列索引 | column index: 3)
+2025-12-19 18:46:10,095 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 18:46:10,128 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 18:46:10,567 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 18:46:10,567 - INFO -    使用预计算矩阵 | Using pre-computed matrices:
+2025-12-19 18:46:10,567 - INFO -    • PCA协变量 | PCA covariate: temp_matrix_calculation_pca.covariate.txt
+2025-12-19 18:46:10,567 - INFO - 🚀 开始TASSEL GWAS分析流程 | Starting TASSEL GWAS analysis pipeline
+2025-12-19 18:46:10,569 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 18:46:10,601 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 18:46:11,044 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 18:46:11,044 - INFO - 🔍 验证输入文件 | Validating input files
+2025-12-19 18:46:33,721 - INFO - 📊 VCF文件验证通过 | VCF file validation passed: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 18:46:33,721 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 18:46:33,721 - INFO -    • 样本数 | Samples: 88
+2025-12-19 18:46:33,721 - INFO - 📊 表型文件验证通过 | Phenotype file validation passed: feture_2/feture_2.pheno.txt
+2025-12-19 18:46:33,721 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 18:46:33,721 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 18:46:33,721 - INFO - ✅ Q矩阵已提供 | Q matrix provided: temp_matrix_calculation_pca.covariate.txt (K=4)
+2025-12-19 18:46:56,397 - INFO - 📊 输入VCF | Input VCF: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 18:46:56,398 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 18:46:56,398 - INFO -    • 样本数 | Samples: 88
+2025-12-19 18:46:56,398 - INFO - 📊 表型文件 | Phenotype file: feture_2/feture_2.pheno.txt
+2025-12-19 18:46:56,398 - INFO -    • 样本数 | Samples: 88
+2025-12-19 18:46:56,398 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 18:46:56,398 - INFO - 📝 准备表型文件 | Preparing phenotype file: feture_2/feture_2.pheno.txt
+2025-12-19 18:46:56,398 - INFO - ✅ 表型文件准备完成 | Phenotype file prepared: feture_2/feture_2_GWAS.pheno_ready.txt
+2025-12-19 18:46:56,398 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 18:46:56,398 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 18:46:56,398 - INFO - ⏭️ 跳过VCF排序，使用原始文件 | Skipping VCF sorting, using original file
+2025-12-19 18:46:56,398 - WARNING - ⚠️ 未提供K矩阵但跳过了排序，请确保已预计算K矩阵 | No K matrix provided but sorting skipped, please ensure K matrix is pre-computed
+2025-12-19 18:46:56,398 - INFO - ✅ 统计报告已保存 | Statistics report saved: feture_2/feture_2_GWAS.stats.txt
+2025-12-19 18:46:56,398 - INFO - 🎉 分析完成！总运行时间 | Analysis completed! Total runtime: 45s
+2025-12-19 18:46:56,398 - INFO - ✅ 表型 feture_2 运行成功 | Trait feture_2 completed successfully
+2025-12-19 18:46:56,407 - INFO - ✅ 批量处理报告已生成 | Batch processing report generated: batch_processing_report.txt
+2025-12-19 18:46:56,407 - INFO -    • 成功处理 | Successful: 2/2 (100.0%)
+2025-12-19 18:46:56,407 - INFO -    • 处理失败 | Failed: 0/2
+
+📊 分析完成 | Analysis completed
+   总表型数 | Total traits: 2
+   成功处理 | Successful: 2
+   处理失败 | Failed: 0
+   成功率 | Success rate: 100.0%

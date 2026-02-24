@@ -1,0 +1,3 @@
+2026-01-30 12:00:11.047 - INFO - 从RocksDB查询kmer|Querying kmers from RocksDB
+2026-01-30 12:00:14.250 - INFO - 已打开RocksDB数据库|RocksDB database opened: ../01.kmer_db/kmer_rocksdb
+2026-01-30 12:04:05.961 - INFO - 待查询kmer数量|Kmers to query: 122509421

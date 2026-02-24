@@ -1,0 +1,363 @@
+>>> [初始化] 正在构建绝对路径...
+>>> 项目根目录: /share/org/YZWL/yzwl_lixg/project/23.蔊菜
+>>> 物种前缀: hancai
+>>> [检查] 验证输入文件...
+
+========================================================
+[1/6] Mapping & HaplotypeCaller (BWA + GATK)...
+========================================================
+
+========================================================
+[2/6] GATK Joint Calling (联合变异检测)...
+========================================================
+   -> 清理旧的 Joint Call 输出目录...
+2025-11-26 10:07:41,028 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-11-26 10:07:41,028 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/02.mapping/02.gvcf
+2025-11-26 10:07:41,028 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa
+2025-11-26 10:07:41,028 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 10:07:41,028 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-26 10:07:43,260 - INFO - ✅ GATK 可用 | available
+2025-11-26 10:07:43,586 - INFO - ✅ BCFtools 可用 | available
+2025-11-26 10:07:43,586 - INFO - ================================================================================
+2025-11-26 10:07:43,586 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-11-26 10:07:43,586 - INFO - ================================================================================
+2025-11-26 10:07:43,586 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-11-26 10:07:43,586 - INFO - ✅ 检测到GVCF文件 | Detected GVCF files: 3 files
+2025-11-26 10:07:43,586 - INFO - 📊 共找到 3 个文件 | Total 3 files found
+2025-11-26 10:07:43,586 - INFO - 📝 创建样本映射文件 | Creating sample map file
+2025-11-26 10:07:43,587 - INFO - ✅ 样本映射文件已创建 | Sample map created: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/sample_map.txt
+2025-11-26 10:07:43,587 - INFO - ================================================================================
+2025-11-26 10:07:43,587 - INFO - 步骤2: GenomicsDB导入 | Step 2: GenomicsDB import
+2025-11-26 10:07:43,587 - INFO - ================================================================================
+2025-11-26 10:07:43,587 - INFO - 📦 开始GenomicsDB导入 | Starting GenomicsDB import
+2025-11-26 10:07:43,587 - INFO - ⚠️ 未指定区间，自动从参考基因组提取 | No intervals specified, extracting from reference
+2025-11-26 10:07:43,587 - INFO - 📍 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa
+2025-11-26 10:07:43,587 - INFO - 📍 字典文件路径 | Dict path: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.dict
+2025-11-26 10:07:43,587 - INFO - 📍 索引文件路径 | Fai path: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa.fai
+2025-11-26 10:07:43,588 - INFO - ✅ 使用字典文件 | Using dict file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.dict
+2025-11-26 10:07:43,623 - INFO - ✅ 生成区间文件 | Generated intervals: 3332 chromosomes
+2025-11-26 10:07:43,623 - INFO - 📄 区间文件位置 | Intervals file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/intervals.list
+2025-11-26 10:07:43,623 - INFO - 🚀 执行步骤 | Executing step: GenomicsDB导入 | GenomicsDB import
+2025-11-26 10:07:43,623 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenomicsDBImport --genomicsdb-workspace-path /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/genomicsdb_workspace --sample-name-map /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/sample_map.txt --reader-threads 88 -L /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/intervals.list
+2025-11-26 10:07:43,623 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 10:35:27,793 - INFO - ✅ 命令执行成功 | Command executed successfully: GenomicsDB导入 | GenomicsDB import
+2025-11-26 10:35:27,794 - INFO - ================================================================================
+2025-11-26 10:35:27,794 - INFO - 步骤3: 联合分型 | Step 3: Joint genotyping
+2025-11-26 10:35:27,794 - INFO - ================================================================================
+2025-11-26 10:35:27,795 - INFO - 🧬 开始联合分型 | Starting joint genotyping
+2025-11-26 10:35:27,795 - INFO - 🚀 执行步骤 | Executing step: 联合分型 | Joint genotyping
+2025-11-26 10:35:27,795 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenotypeGVCFs -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa -V gendb:///share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/genomicsdb_workspace -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_raw.vcf.gz -L /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/intervals.list
+2025-11-26 10:35:27,795 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 11:05:14,746 - INFO - ✅ 命令执行成功 | Command executed successfully: 联合分型 | Joint genotyping
+2025-11-26 11:05:14,747 - INFO - ✅ 原始VCF已生成 | Raw VCF generated: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_raw.vcf.gz
+2025-11-26 11:05:14,747 - INFO - ================================================================================
+2025-11-26 11:05:14,747 - INFO - 步骤4: 提取和过滤SNP | Step 4: Extract and filter SNPs
+2025-11-26 11:05:14,747 - INFO - ================================================================================
+2025-11-26 11:05:14,747 - INFO - 🔬 提取SNP变异 | Extracting SNP variants
+2025-11-26 11:05:14,747 - INFO - 🚀 执行步骤 | Executing step: 提取SNP | Extract SNPs
+2025-11-26 11:05:14,747 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' SelectVariants -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_raw.vcf.gz -select-type SNP -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_snps_raw.vcf.gz
+2025-11-26 11:05:14,747 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 11:05:56,877 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取SNP | Extract SNPs
+2025-11-26 11:05:56,877 - INFO - 🧹 过滤SNP变异 | Filtering SNP variants
+2025-11-26 11:05:56,877 - INFO - 🚀 执行步骤 | Executing step: 过滤SNP | Filter SNPs
+2025-11-26 11:05:56,878 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' VariantFiltration -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_snps_raw.vcf.gz -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_snps_filtered.vcf.gz --filter-expression "QD < 2.0" --filter-name "QD_filter" --filter-expression "FS > 60.0" --filter-name "FS_filter" --filter-expression "MQ < 40.0" --filter-name "MQ_filter" --filter-expression "MQRankSum < -12.5" --filter-name "MQRS_filter" --filter-expression "ReadPosRankSum < -8.0" --filter-name "RPRS_filter" --filter-expression "SOR > 3.0" --filter-name "SOR_filter"
+2025-11-26 11:05:56,878 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 11:07:24,133 - INFO - ✅ 命令执行成功 | Command executed successfully: 过滤SNP | Filter SNPs
+2025-11-26 11:07:24,137 - INFO - ================================================================================
+2025-11-26 11:07:24,137 - INFO - 步骤5: 提取和过滤INDEL | Step 5: Extract and filter INDELs
+2025-11-26 11:07:24,137 - INFO - ================================================================================
+2025-11-26 11:07:24,137 - INFO - 🔬 提取INDEL变异 | Extracting INDEL variants
+2025-11-26 11:07:24,137 - INFO - 🚀 执行步骤 | Executing step: 提取INDEL | Extract INDELs
+2025-11-26 11:07:24,137 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' SelectVariants -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_raw.vcf.gz -select-type INDEL -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_indels_raw.vcf.gz
+2025-11-26 11:07:24,137 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 11:07:51,036 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取INDEL | Extract INDELs
+2025-11-26 11:07:51,036 - INFO - 🧹 过滤INDEL变异 | Filtering INDEL variants
+2025-11-26 11:07:51,036 - INFO - 🚀 执行步骤 | Executing step: 过滤INDEL | Filter INDELs
+2025-11-26 11:07:51,036 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' VariantFiltration -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_indels_raw.vcf.gz -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_indels_filtered.vcf.gz --filter-expression "QD < 2.0" --filter-name "QD_filter" --filter-expression "FS > 200.0" --filter-name "FS_filter" --filter-expression "ReadPosRankSum < -20.0" --filter-name "RPRS_filter" --filter-expression "SOR > 10.0" --filter-name "SOR_filter"
+2025-11-26 11:07:51,036 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 11:08:13,602 - INFO - ✅ 命令执行成功 | Command executed successfully: 过滤INDEL | Filter INDELs
+2025-11-26 11:08:13,604 - INFO - ================================================================================
+2025-11-26 11:08:13,604 - INFO - 步骤6: 合并SNP和INDEL | Step 6: Merge SNPs and INDELs
+2025-11-26 11:08:13,604 - INFO - ================================================================================
+2025-11-26 11:08:13,604 - INFO - 🔗 合并SNP和INDEL | Merging SNPs and INDELs
+2025-11-26 11:08:13,604 - INFO - 🚀 执行步骤 | Executing step: 合并变异 | Merge variants
+2025-11-26 11:08:13,604 - INFO - 💻 命令 | Command: bcftools concat -a -O z -o /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_snps_filtered.vcf.gz /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_indels_filtered.vcf.gz
+2025-11-26 11:08:13,604 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 11:09:00,290 - INFO - ✅ 命令执行成功 | Command executed successfully: 合并变异 | Merge variants
+2025-11-26 11:09:00,291 - INFO - 🚀 执行步骤 | Executing step: 索引VCF | Index VCF: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-26 11:09:00,291 - INFO - 💻 命令 | Command: bcftools index -t /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-26 11:09:00,291 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 11:09:05,055 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引VCF | Index VCF: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-26 11:09:05,055 - INFO - 📊 生成结果汇总报告 | Generating summary report
+2025-11-26 11:09:51,505 - INFO - ✅ 汇总报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/analysis_summary.txt
+2025-11-26 11:09:51,505 - INFO - ================================================================================
+2025-11-26 11:09:51,505 - INFO - 🎉 Joint Genotyping分析完成! | Joint Genotyping analysis completed!
+2025-11-26 11:09:51,505 - INFO - ================================================================================
+2025-11-26 11:09:51,505 - INFO - 📂 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+
+========================================================
+[3/6] 过滤 SNP 和 INDEL...
+========================================================
+2025-11-26 11:09:53,496 - INFO - ============================================================
+2025-11-26 11:09:53,496 - INFO - 🧬 开始VCF SNP/INDEL过滤流程 | Starting VCF SNP/INDEL Filtering Pipeline
+2025-11-26 11:09:53,496 - INFO - ============================================================
+2025-11-26 11:09:53,496 - INFO - 📦 检查依赖软件 | Checking dependencies
+2025-11-26 11:09:53,496 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-26 11:09:53,513 - INFO - ✅ BCFtools 可用 | BCFtools available
+2025-11-26 11:09:53,513 - INFO - ============================================================
+2025-11-26 11:09:53,513 - INFO - 🔬 步骤1: 分离SNP和INDEL | Step 1: Separating SNPs and INDELs
+2025-11-26 11:09:53,513 - INFO - ============================================================
+2025-11-26 11:09:53,513 - INFO - 🔧 执行步骤 | Executing step: 提取SNP变异 | Extracting SNP variants
+2025-11-26 11:09:53,513 - INFO - 📝 命令 | Command: bcftools view --types snps --threads 64 -Oz -o variation.raw.snp.vcf.gz /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-26 11:10:10,769 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取SNP变异 | Extracting SNP variants
+2025-11-26 11:10:10,770 - INFO - 🔧 执行步骤 | Executing step: 提取INDEL变异 | Extracting INDEL variants
+2025-11-26 11:10:10,770 - INFO - 📝 命令 | Command: bcftools view --types indels --threads 64 -Oz -o variation.raw.indel.vcf.gz /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-26 11:10:24,458 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取INDEL变异 | Extracting INDEL variants
+2025-11-26 11:10:24,459 - INFO - 📇 创建VCF索引 | Creating VCF index
+2025-11-26 11:10:24,459 - INFO - 🔧 执行步骤 | Executing step: 索引文件 | Indexing variation.raw.snp.vcf.gz
+2025-11-26 11:10:24,459 - INFO - 📝 命令 | Command: bcftools index -f variation.raw.snp.vcf.gz
+2025-11-26 11:10:28,147 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引文件 | Indexing variation.raw.snp.vcf.gz
+2025-11-26 11:10:28,147 - INFO - 🔧 执行步骤 | Executing step: 索引文件 | Indexing variation.raw.indel.vcf.gz
+2025-11-26 11:10:28,147 - INFO - 📝 命令 | Command: bcftools index -f variation.raw.indel.vcf.gz
+2025-11-26 11:10:29,414 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引文件 | Indexing variation.raw.indel.vcf.gz
+2025-11-26 11:10:29,415 - INFO - ✅ SNP和INDEL分离完成 | SNP and INDEL separation completed
+2025-11-26 11:10:29,415 - INFO - ============================================================
+2025-11-26 11:10:29,415 - INFO - 🧹 步骤2a: 过滤SNP | Step 2a: Filtering SNPs
+2025-11-26 11:10:29,415 - INFO - ============================================================
+2025-11-26 11:10:29,415 - INFO - 📋 SNP过滤条件 | SNP filter criteria:
+2025-11-26 11:10:29,415 - INFO -    • QUAL >= 30.0
+2025-11-26 11:10:29,415 - INFO -    • INFO/DP >= 10
+2025-11-26 11:10:29,415 - INFO -    • MQ >= 40.0
+2025-11-26 11:10:29,415 - INFO -    • QD >= 2.0
+2025-11-26 11:10:29,415 - INFO -    • FS <= 60.0
+2025-11-26 11:10:29,415 - INFO -    • SOR <= 3.0
+2025-11-26 11:10:29,415 - INFO -    • MQRankSum >= -12.5
+2025-11-26 11:10:29,415 - INFO -    • ReadPosRankSum >= -8.0
+2025-11-26 11:10:29,415 - INFO - 🔧 执行步骤 | Executing step: 应用SNP过滤 | Applying SNP filters
+2025-11-26 11:10:29,415 - INFO - 📝 命令 | Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 10 && MQ >= 40.0 && QD >= 2.0 && FS <= 60.0 && SOR <= 3.0 && MQRankSum >= -12.5 && ReadPosRankSum >= -8.0' --threads 64 -Oz -o variation.filtered.snp.vcf.gz variation.raw.snp.vcf.gz
+2025-11-26 11:10:40,978 - INFO - ✅ 命令执行成功 | Command executed successfully: 应用SNP过滤 | Applying SNP filters
+2025-11-26 11:10:40,978 - INFO - 🔧 执行步骤 | Executing step: 索引过滤后的SNP文件 | Indexing filtered SNP file
+2025-11-26 11:10:40,980 - INFO - 📝 命令 | Command: bcftools index -f variation.filtered.snp.vcf.gz
+2025-11-26 11:10:41,414 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引过滤后的SNP文件 | Indexing filtered SNP file
+2025-11-26 11:10:41,414 - INFO - ✅ SNP过滤完成 | SNP filtering completed
+2025-11-26 11:10:41,414 - INFO - ============================================================
+2025-11-26 11:10:41,414 - INFO - 🧹 步骤2b: 过滤INDEL | Step 2b: Filtering INDELs
+2025-11-26 11:10:41,414 - INFO - ============================================================
+2025-11-26 11:10:41,414 - INFO - 📋 INDEL过滤条件 | INDEL filter criteria:
+2025-11-26 11:10:41,414 - INFO -    • QUAL >= 30.0
+2025-11-26 11:10:41,414 - INFO -    • INFO/DP >= 10
+2025-11-26 11:10:41,414 - INFO -    • MQ >= 40.0
+2025-11-26 11:10:41,414 - INFO -    • QD >= 2.0
+2025-11-26 11:10:41,415 - INFO -    • FS <= 200.0
+2025-11-26 11:10:41,415 - INFO -    • SOR <= 10.0
+2025-11-26 11:10:41,415 - INFO -    • ReadPosRankSum >= -20.0
+2025-11-26 11:10:41,415 - INFO - 🔧 执行步骤 | Executing step: 应用INDEL过滤 | Applying INDEL filters
+2025-11-26 11:10:41,415 - INFO - 📝 命令 | Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 10 && MQ >= 40.0 && QD >= 2.0 && FS <= 200.0 && SOR <= 10.0 && ReadPosRankSum >= -20.0' --threads 64 -Oz -o variation.filtered.indel.vcf.gz variation.raw.indel.vcf.gz
+2025-11-26 11:10:45,267 - INFO - ✅ 命令执行成功 | Command executed successfully: 应用INDEL过滤 | Applying INDEL filters
+2025-11-26 11:10:45,267 - INFO - 🔧 执行步骤 | Executing step: 索引过滤后的INDEL文件 | Indexing filtered INDEL file
+2025-11-26 11:10:45,267 - INFO - 📝 命令 | Command: bcftools index -f variation.filtered.indel.vcf.gz
+2025-11-26 11:10:45,497 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引过滤后的INDEL文件 | Indexing filtered INDEL file
+2025-11-26 11:10:45,497 - INFO - ✅ INDEL过滤完成 | INDEL filtering completed
+2025-11-26 11:10:45,497 - INFO - ============================================================
+2025-11-26 11:10:45,497 - INFO - 🔗 步骤3: 合并过滤后的变异 | Step 3: Merging filtered variants
+2025-11-26 11:10:45,497 - INFO - ============================================================
+2025-11-26 11:10:45,497 - INFO - 🔧 执行步骤 | Executing step: 合并SNP和INDEL | Merging SNPs and INDELs
+2025-11-26 11:10:45,497 - INFO - 📝 命令 | Command: bcftools concat -a -D --threads 64 -Oz -o variation.filtered.merged.unsorted.vcf.gz variation.filtered.snp.vcf.gz variation.filtered.indel.vcf.gz
+2025-11-26 11:10:48,130 - INFO - ✅ 命令执行成功 | Command executed successfully: 合并SNP和INDEL | Merging SNPs and INDELs
+2025-11-26 11:10:48,130 - INFO - 🔧 执行步骤 | Executing step: 按位置排序 | Sorting by position
+2025-11-26 11:10:48,130 - INFO - 📝 命令 | Command: bcftools sort -Oz -o variation.filtered.merged.vcf.gz variation.filtered.merged.unsorted.vcf.gz
+2025-11-26 11:10:55,530 - INFO - ✅ 命令执行成功 | Command executed successfully: 按位置排序 | Sorting by position
+2025-11-26 11:10:55,530 - INFO - 🗑️ 清理临时文件 | Cleaning up temporary file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/04.filtered_snp_indel/variation.filtered.merged.unsorted.vcf.gz
+2025-11-26 11:10:55,531 - INFO - ✅ 临时文件已删除 | Temporary file deleted.
+2025-11-26 11:10:55,531 - INFO - 🔧 执行步骤 | Executing step: 索引合并文件 | Indexing merged file
+2025-11-26 11:10:55,531 - INFO - 📝 命令 | Command: bcftools index -f variation.filtered.merged.vcf.gz
+2025-11-26 11:10:56,143 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引合并文件 | Indexing merged file
+2025-11-26 11:10:56,143 - INFO - ✅ 变异合并完成 | Variant merging completed
+2025-11-26 11:10:56,143 - INFO - ============================================================
+2025-11-26 11:10:56,143 - INFO - 📊 步骤4: 生成统计报告 | Step 4: Generating statistics report
+2025-11-26 11:10:56,143 - INFO - ============================================================
+2025-11-26 11:11:21,340 - INFO - ============================================================
+2025-11-26 11:11:21,340 - INFO - 📊 过滤统计 | Filtering Statistics
+2025-11-26 11:11:21,340 - INFO - ============================================================
+2025-11-26 11:11:21,340 - INFO - 原始SNP | Raw SNPs: 5,644,296
+2025-11-26 11:11:21,340 - INFO - 过滤后SNP | Filtered SNPs: 482,719
+2025-11-26 11:11:21,340 - INFO - 原始INDEL | Raw INDELs: 1,705,130
+2025-11-26 11:11:21,340 - INFO - 过滤后INDEL | Filtered INDELs: 215,782
+2025-11-26 11:11:21,340 - INFO - 合并后变异 | Merged variants: 698,501
+2025-11-26 11:11:21,340 - INFO - 📈 SNP保留率 | SNP retention rate: 8.55%
+2025-11-26 11:11:21,340 - INFO - 📈 INDEL保留率 | INDEL retention rate: 12.65%
+2025-11-26 11:11:21,340 - INFO - 📄 统计报告已保存 | Statistics report saved: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/04.filtered_snp_indel/filtering_statistics.txt
+2025-11-26 11:11:21,340 - INFO - ============================================================
+2025-11-26 11:11:21,340 - INFO - 🎉 VCF过滤流程成功完成 | VCF Filtering Pipeline Completed Successfully!
+2025-11-26 11:11:21,340 - INFO - ============================================================
+2025-11-26 11:11:21,340 - INFO - 📂 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/04.filtered_snp_indel
+2025-11-26 11:11:21,340 - INFO - ============================================================
+
+
+========================================================
+[4/6] 执行 MAF > 0.05 筛选...
+========================================================
+   -> 建立索引...
+
+========================================================
+[5/6] 提取基因型矩阵 (前缀: hancai)...
+========================================================
+   -> 正在处理 SNP...
+2025-11-26 11:11:31,374 - INFO - 🔍 依赖检查 | Dependency check:
+2025-11-26 11:11:31,374 - INFO -   cyvcf2: ✅ 可用 | Available
+2025-11-26 11:11:31,374 - INFO -   pandas: ✅ 可用 | Available
+2025-11-26 11:11:31,385 - INFO - 🚀 使用cyvcf2加速解析VCF文件 | Using cyvcf2 for fast VCF parsing
+2025-11-26 11:11:31,385 - INFO - 🚀 开始VCF基因型提取 | Starting VCF genotype extraction
+2025-11-26 11:11:31,385 - INFO - 📁 输入文件 | Input file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/04.filtered_snp_indel/variation.filtered.snp.maf_05.vcf.gz
+2025-11-26 11:11:31,385 - INFO - 📝 输出前缀 | Output prefix: hancai
+2025-11-26 11:11:31,385 - INFO - 📊 输出格式 | Output format: csv
+2025-11-26 11:11:31,385 - INFO - 👥 目标样本数 | Number of target samples: 3
+2025-11-26 11:11:31,521 - INFO - 📊 已处理 | Processed 10000 variants
+2025-11-26 11:11:31,657 - INFO - 📊 已处理 | Processed 20000 variants
+2025-11-26 11:11:31,792 - INFO - 📊 已处理 | Processed 30000 variants
+2025-11-26 11:11:31,929 - INFO - 📊 已处理 | Processed 40000 variants
+2025-11-26 11:11:32,066 - INFO - 📊 已处理 | Processed 50000 variants
+2025-11-26 11:11:32,205 - INFO - 📊 已处理 | Processed 60000 variants
+2025-11-26 11:11:32,342 - INFO - 📊 已处理 | Processed 70000 variants
+2025-11-26 11:11:32,479 - INFO - 📊 已处理 | Processed 80000 variants
+2025-11-26 11:11:32,617 - INFO - 📊 已处理 | Processed 90000 variants
+2025-11-26 11:11:32,754 - INFO - 📊 已处理 | Processed 100000 variants
+2025-11-26 11:11:32,891 - INFO - 📊 已处理 | Processed 110000 variants
+2025-11-26 11:11:33,029 - INFO - 📊 已处理 | Processed 120000 variants
+2025-11-26 11:11:33,167 - INFO - 📊 已处理 | Processed 130000 variants
+2025-11-26 11:11:33,305 - INFO - 📊 已处理 | Processed 140000 variants
+2025-11-26 11:11:33,443 - INFO - 📊 已处理 | Processed 150000 variants
+2025-11-26 11:11:33,580 - INFO - 📊 已处理 | Processed 160000 variants
+2025-11-26 11:11:33,717 - INFO - 📊 已处理 | Processed 170000 variants
+2025-11-26 11:11:33,854 - INFO - 📊 已处理 | Processed 180000 variants
+2025-11-26 11:11:33,992 - INFO - 📊 已处理 | Processed 190000 variants
+2025-11-26 11:11:34,129 - INFO - 📊 已处理 | Processed 200000 variants
+2025-11-26 11:11:34,266 - INFO - 📊 已处理 | Processed 210000 variants
+2025-11-26 11:11:34,405 - INFO - 📊 已处理 | Processed 220000 variants
+2025-11-26 11:11:34,543 - INFO - 📊 已处理 | Processed 230000 variants
+2025-11-26 11:11:34,680 - INFO - 📊 已处理 | Processed 240000 variants
+2025-11-26 11:11:34,817 - INFO - 📊 已处理 | Processed 250000 variants
+2025-11-26 11:11:34,954 - INFO - 📊 已处理 | Processed 260000 variants
+2025-11-26 11:11:35,091 - INFO - 📊 已处理 | Processed 270000 variants
+2025-11-26 11:11:35,228 - INFO - 📊 已处理 | Processed 280000 variants
+2025-11-26 11:11:35,365 - INFO - 📊 已处理 | Processed 290000 variants
+2025-11-26 11:11:35,502 - INFO - 📊 已处理 | Processed 300000 variants
+2025-11-26 11:11:35,640 - INFO - 📊 已处理 | Processed 310000 variants
+2025-11-26 11:11:35,779 - INFO - 📊 已处理 | Processed 320000 variants
+2025-11-26 11:11:35,916 - INFO - 📊 已处理 | Processed 330000 variants
+2025-11-26 11:11:36,054 - INFO - 📊 已处理 | Processed 340000 variants
+2025-11-26 11:11:36,191 - INFO - 📊 已处理 | Processed 350000 variants
+2025-11-26 11:11:36,328 - INFO - 📊 已处理 | Processed 360000 variants
+2025-11-26 11:11:36,465 - INFO - 📊 已处理 | Processed 370000 variants
+2025-11-26 11:11:36,603 - INFO - 📊 已处理 | Processed 380000 variants
+2025-11-26 11:11:36,741 - INFO - 📊 已处理 | Processed 390000 variants
+2025-11-26 11:11:36,878 - INFO - 📊 已处理 | Processed 400000 variants
+2025-11-26 11:11:37,016 - INFO - 📊 已处理 | Processed 410000 variants
+2025-11-26 11:11:37,153 - INFO - 📊 已处理 | Processed 420000 variants
+2025-11-26 11:11:37,292 - INFO - 📊 已处理 | Processed 430000 variants
+2025-11-26 11:11:37,429 - INFO - 📊 已处理 | Processed 440000 variants
+2025-11-26 11:11:37,568 - INFO - 📊 已处理 | Processed 450000 variants
+2025-11-26 11:11:37,705 - INFO - 📊 已处理 | Processed 460000 variants
+2025-11-26 11:11:37,842 - INFO - 📊 已处理 | Processed 470000 variants
+2025-11-26 11:11:37,970 - INFO - ✅ 处理完成，共处理 | Processing completed, total processed: 479323 variants
+2025-11-26 11:11:38,024 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA01.csv (23925 variants)
+2025-11-26 11:11:38,066 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA02.csv (17989 variants)
+2025-11-26 11:11:38,139 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA03.csv (30731 variants)
+2025-11-26 11:11:38,174 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA04.csv (14637 variants)
+2025-11-26 11:11:38,223 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA05.csv (20805 variants)
+2025-11-26 11:11:38,289 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA06.csv (28292 variants)
+2025-11-26 11:11:38,343 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA07.csv (22821 variants)
+2025-11-26 11:11:38,379 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA08.csv (15169 variants)
+2025-11-26 11:11:38,459 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA09.csv (34070 variants)
+2025-11-26 11:11:38,506 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldA10.csv (19876 variants)
+2025-11-26 11:11:38,564 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC01.csv (24765 variants)
+2025-11-26 11:11:38,613 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC02.csv (20596 variants)
+2025-11-26 11:11:38,701 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC03.csv (37601 variants)
+2025-11-26 11:11:38,769 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC04.csv (30167 variants)
+2025-11-26 11:11:38,839 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC05.csv (31639 variants)
+2025-11-26 11:11:38,890 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC06.csv (22928 variants)
+2025-11-26 11:11:38,954 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC07.csv (28899 variants)
+2025-11-26 11:11:39,004 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC08.csv (22335 variants)
+2025-11-26 11:11:39,070 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffoldC09.csv (32023 variants)
+2025-11-26 11:11:39,070 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold0025.csv (2 variants)
+2025-11-26 11:11:39,071 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold0026.csv (4 variants)
+2025-11-26 11:11:39,071 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold0027.csv (2 variants)
+2025-11-26 11:11:39,071 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold0129.csv (2 variants)
+2025-11-26 11:11:39,071 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold0695.csv (18 variants)
+2025-11-26 11:11:39,072 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold0746.csv (5 variants)
+2025-11-26 11:11:39,072 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold0947.csv (2 variants)
+2025-11-26 11:11:39,072 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold0965.csv (2 variants)
+2025-11-26 11:11:39,072 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold1431.csv (2 variants)
+2025-11-26 11:11:39,073 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold2542.csv (4 variants)
+2025-11-26 11:11:39,073 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold2773.csv (2 variants)
+2025-11-26 11:11:39,073 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold2903.csv (5 variants)
+2025-11-26 11:11:39,073 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_scaffold3068.csv (5 variants)
+2025-11-26 11:11:39,074 - INFO - ✅ 已保存汇总文件 | Saved summary file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/snp/hancai_summary.txt
+2025-11-26 11:11:39,074 - INFO - 🎉 VCF基因型提取完成 | VCF genotype extraction completed
+   -> 正在处理 INDEL...
+2025-11-26 11:11:39,496 - INFO - 🔍 依赖检查 | Dependency check:
+2025-11-26 11:11:39,496 - INFO -   cyvcf2: ✅ 可用 | Available
+2025-11-26 11:11:39,496 - INFO -   pandas: ✅ 可用 | Available
+2025-11-26 11:11:39,505 - INFO - 🚀 使用cyvcf2加速解析VCF文件 | Using cyvcf2 for fast VCF parsing
+2025-11-26 11:11:39,505 - INFO - 🚀 开始VCF基因型提取 | Starting VCF genotype extraction
+2025-11-26 11:11:39,505 - INFO - 📁 输入文件 | Input file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/04.filtered_snp_indel/variation.filtered.indel.vcf.gz
+2025-11-26 11:11:39,505 - INFO - 📝 输出前缀 | Output prefix: hancai
+2025-11-26 11:11:39,505 - INFO - 📊 输出格式 | Output format: csv
+2025-11-26 11:11:39,505 - INFO - 👥 目标样本数 | Number of target samples: 3
+2025-11-26 11:11:39,650 - INFO - 📊 已处理 | Processed 10000 variants
+2025-11-26 11:11:39,793 - INFO - 📊 已处理 | Processed 20000 variants
+2025-11-26 11:11:39,937 - INFO - 📊 已处理 | Processed 30000 variants
+2025-11-26 11:11:40,083 - INFO - 📊 已处理 | Processed 40000 variants
+2025-11-26 11:11:40,229 - INFO - 📊 已处理 | Processed 50000 variants
+2025-11-26 11:11:40,374 - INFO - 📊 已处理 | Processed 60000 variants
+2025-11-26 11:11:40,520 - INFO - 📊 已处理 | Processed 70000 variants
+2025-11-26 11:11:40,665 - INFO - 📊 已处理 | Processed 80000 variants
+2025-11-26 11:11:40,810 - INFO - 📊 已处理 | Processed 90000 variants
+2025-11-26 11:11:40,955 - INFO - 📊 已处理 | Processed 100000 variants
+2025-11-26 11:11:41,101 - INFO - 📊 已处理 | Processed 110000 variants
+2025-11-26 11:11:41,246 - INFO - 📊 已处理 | Processed 120000 variants
+2025-11-26 11:11:41,392 - INFO - 📊 已处理 | Processed 130000 variants
+2025-11-26 11:11:41,537 - INFO - 📊 已处理 | Processed 140000 variants
+2025-11-26 11:11:41,683 - INFO - 📊 已处理 | Processed 150000 variants
+2025-11-26 11:11:41,828 - INFO - 📊 已处理 | Processed 160000 variants
+2025-11-26 11:11:41,973 - INFO - 📊 已处理 | Processed 170000 variants
+2025-11-26 11:11:42,119 - INFO - 📊 已处理 | Processed 180000 variants
+2025-11-26 11:11:42,264 - INFO - 📊 已处理 | Processed 190000 variants
+2025-11-26 11:11:42,411 - INFO - 📊 已处理 | Processed 200000 variants
+2025-11-26 11:11:42,557 - INFO - 📊 已处理 | Processed 210000 variants
+2025-11-26 11:11:42,641 - INFO - ✅ 处理完成，共处理 | Processing completed, total processed: 215782 variants
+2025-11-26 11:11:42,668 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA01.csv (11082 variants)
+2025-11-26 11:11:42,688 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA02.csv (7899 variants)
+2025-11-26 11:11:42,721 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA03.csv (13959 variants)
+2025-11-26 11:11:42,738 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA04.csv (6693 variants)
+2025-11-26 11:11:42,762 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA05.csv (9853 variants)
+2025-11-26 11:11:42,794 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA06.csv (12851 variants)
+2025-11-26 11:11:42,820 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA07.csv (10388 variants)
+2025-11-26 11:11:42,837 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA08.csv (6794 variants)
+2025-11-26 11:11:42,877 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA09.csv (15663 variants)
+2025-11-26 11:11:42,899 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldA10.csv (9255 variants)
+2025-11-26 11:11:42,927 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC01.csv (10970 variants)
+2025-11-26 11:11:42,948 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC02.csv (8868 variants)
+2025-11-26 11:11:42,988 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC03.csv (17001 variants)
+2025-11-26 11:11:43,019 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC04.csv (13494 variants)
+2025-11-26 11:11:43,052 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC05.csv (14148 variants)
+2025-11-26 11:11:43,076 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC06.csv (10445 variants)
+2025-11-26 11:11:43,106 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC07.csv (12888 variants)
+2025-11-26 11:11:43,128 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC08.csv (10033 variants)
+2025-11-26 11:11:43,157 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffoldC09.csv (13475 variants)
+2025-11-26 11:11:43,158 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold0025.csv (3 variants)
+2025-11-26 11:11:43,158 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold0026.csv (2 variants)
+2025-11-26 11:11:43,158 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold0129.csv (2 variants)
+2025-11-26 11:11:43,158 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold0695.csv (3 variants)
+2025-11-26 11:11:43,159 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold0746.csv (2 variants)
+2025-11-26 11:11:43,159 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold0965.csv (1 variants)
+2025-11-26 11:11:43,159 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold2362.csv (2 variants)
+2025-11-26 11:11:43,159 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold2773.csv (4 variants)
+2025-11-26 11:11:43,159 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold2903.csv (1 variants)
+2025-11-26 11:11:43,160 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_scaffold3068.csv (3 variants)
+2025-11-26 11:11:43,160 - INFO - ✅ 已保存汇总文件 | Saved summary file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.snp_indel_genotype/indel/hancai_summary.txt
+2025-11-26 11:11:43,160 - INFO - 🎉 VCF基因型提取完成 | VCF genotype extraction completed
+
+========================================================
+[6/6] 统计 BAM 比对率...
+========================================================

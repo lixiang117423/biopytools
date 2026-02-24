@@ -1,0 +1,103 @@
+🌾 开始GWAS分析 | Starting GWAS analysis
+📊 VCF文件 | VCF file: variation.filtered.snp.maf5.vcf.gz
+📋 表型文件 | Phenotype file: trait.txt
+📁 输出目录 | Output directory: .
+2025-12-19 17:24:35,550 - INFO - 检测到总列数 | Detected total columns: 3
+2025-12-19 17:24:35,551 - INFO - 表头信息 | Header info: ['<Trait>', 'feture_1', 'feture_2']
+2025-12-19 17:24:35,551 - INFO - 开始处理表型列 | Starting to process trait columns: [1, 2]
+2025-12-19 17:24:35,551 - INFO - 表型名称 | Trait names: ['feture_1', 'feture_2']
+2025-12-19 17:24:35,551 - INFO - 🔬 检测到MLM模型，预计算共享矩阵 | Detected MLM model, pre-computing shared matrices
+2025-12-19 17:24:35,551 - INFO - 正在处理表型 | Processing trait: feture_1 (列索引 | column index: 2)
+2025-12-19 17:24:35,707 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 17:24:36,142 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 17:24:39,004 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 17:24:39,006 - INFO - 🔄 计算K矩阵（Kinship）| Calculating K matrix (Kinship)...
+2025-12-19 17:25:26,085 - ERROR - ❌ K矩阵计算失败 | K matrix calculation failed: 
+2025-12-19 17:25:26,119 - INFO - 🔄 计算PCA协变量（用于MLM）| Calculating PCA covariates (for MLM)...
+2025-12-19 17:25:26,119 - INFO - 🧮 计算PCA主成分（MLM协变量）| Calculating PCA eigenvectors (for MLM covariates)...
+2025-12-19 17:25:26,119 - INFO -    使用工具 | Using tool: VCF2PCACluster
+2025-12-19 17:25:26,119 - INFO -    输入VCF | Input VCF: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 17:25:26,119 - INFO -    PCA输出 | PCA output: temp_matrix_calculation_pca.eigenvec
+2025-12-19 17:25:26,126 - INFO -    执行命令 | Executing command: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin/VCF2PCACluster -InVCF /share/org/YZWL/yzwl_lixg/tmp/test_tassel/test/variation.filtered.snp.maf5.vcf.gz -OutPut temp_matrix_calculation_pca -Threads 88
+2025-12-19 17:25:26,126 - INFO -    工作目录 | Working directory: .
+2025-12-19 17:25:39,280 - INFO -    命令返回码 | Command return code: 0
+2025-12-19 17:25:39,282 - INFO -    标准输出 | Stdout: #Warning skip non bi-allelic(Singleton/ThreeMulti allelic) site, and total skip allelic sites number is :48713
+#Warning skip high missing site, and total skip allelic sites number is :385005
+#After Filtering, total Number of 623634 SNPs were taken for the PCA calculation 
+Start To Create Normalized_IBS/Yang/BaldingNicolsKinship ...
+Eigenvalues of 88 individuals have been saved in [ temp_matrix_calculation_pca.eigenval ].
+	 EM init K by auto of K-mean, Best cluster K = 5
+EM Clustering Max its reached: Eps= 0
+The first 10 eigenvectors of 88 individuals have been saved in [ temp_matrix_calculation_pca.eigenvec ].
+
+2025-12-19 17:25:39,282 - WARNING -    标准错误 | Stderr: sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot2Deig: Permission denied
+sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot2Deig: Permission denied
+sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot3Deig: Permission denied
+
+2025-12-19 17:25:39,282 - INFO - ✅ PCA计算完成 | PCA calculation completed in 13s
+2025-12-19 17:25:39,282 - INFO -    文件大小 | File size: 11745 bytes
+2025-12-19 17:25:39,282 - INFO -    样本数 | Samples: 88
+2025-12-19 17:25:39,282 - INFO -    PC数量 | PC components: 10 (default)
+2025-12-19 17:25:39,282 - INFO - 🔄 格式化PCA文件作为TASSEL协变量 | Formatting PCA file as TASSEL covariate...
+2025-12-19 17:25:39,293 - INFO -    可用PC数量 | Available PC count: 10
+2025-12-19 17:25:39,293 - INFO -    请求PC数量 | Requested PC count: 3
+2025-12-19 17:25:39,294 - INFO -    实际使用PC数量 | Actually using PC count: 3
+2025-12-19 17:25:39,294 - INFO - ✅ PCA协变量格式转换完成 | PCA covariate format conversion completed
+2025-12-19 17:25:39,295 - INFO -    输出文件 | Output file: temp_matrix_calculation_pca.covariate.txt
+2025-12-19 17:25:39,297 - INFO -    最终PC数量 | Final PC count: 3
+2025-12-19 17:25:39,297 - INFO -    样本数量 | Sample count: 88
+2025-12-19 17:25:39,297 - INFO - ✅ PCA协变量计算完成 | PCA covariate calculated: temp_matrix_calculation_pca.covariate.txt
+2025-12-19 17:25:39,297 - INFO - 🎯 矩阵预计算完成，所有表型将共享这些矩阵 | Matrix pre-computation completed, all traits will share these matrices
+2025-12-19 17:25:39,297 - INFO - 📝 使用串行处理 | Using serial processing
+2025-12-19 17:25:39,301 - INFO - ------------------------------------------------------
+2025-12-19 17:25:39,301 - INFO - 开始处理表型 | Starting trait processing: feture_1 (列索引 | column index: 2)
+2025-12-19 17:25:39,301 - INFO - 正在处理表型 | Processing trait: feture_1 (列索引 | column index: 2)
+2025-12-19 17:25:39,306 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 17:25:39,356 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 17:25:39,795 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 17:25:39,795 - INFO -    使用预计算矩阵 | Using pre-computed matrices:
+2025-12-19 17:25:39,796 - INFO -    • PCA协变量 | PCA covariate: temp_matrix_calculation_pca.covariate.txt
+2025-12-19 17:25:39,796 - INFO - 🚀 开始TASSEL GWAS分析流程 | Starting TASSEL GWAS analysis pipeline
+2025-12-19 17:25:39,798 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 17:25:39,828 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 17:25:40,274 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 17:25:40,274 - INFO - 🔍 验证输入文件 | Validating input files
+2025-12-19 17:26:03,089 - INFO - 📊 VCF文件验证通过 | VCF file validation passed: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 17:26:03,090 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 17:26:03,090 - INFO -    • 样本数 | Samples: 88
+2025-12-19 17:26:03,091 - INFO - 📊 表型文件验证通过 | Phenotype file validation passed: feture_1/feture_1.pheno.txt
+2025-12-19 17:26:03,091 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 17:26:03,091 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 17:26:03,091 - INFO - ✅ Q矩阵已提供 | Q matrix provided: temp_matrix_calculation_pca.covariate.txt (K=4)
+2025-12-19 17:26:06,482 - INFO - 
+🛑 用户中断操作 | User interrupted operation
+2025-12-19 17:26:06,482 - ERROR - ❌ 表型 feture_1 运行失败 | Trait feture_1 failed
+2025-12-19 17:26:06,495 - INFO - ------------------------------------------------------
+2025-12-19 17:26:06,495 - INFO - 开始处理表型 | Starting trait processing: feture_2 (列索引 | column index: 3)
+2025-12-19 17:26:06,496 - INFO - 正在处理表型 | Processing trait: feture_2 (列索引 | column index: 3)
+2025-12-19 17:26:06,501 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 17:26:06,544 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 17:26:06,974 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 17:26:06,974 - INFO -    使用预计算矩阵 | Using pre-computed matrices:
+2025-12-19 17:26:06,974 - INFO -    • PCA协变量 | PCA covariate: temp_matrix_calculation_pca.covariate.txt
+2025-12-19 17:26:06,974 - INFO - 🚀 开始TASSEL GWAS分析流程 | Starting TASSEL GWAS analysis pipeline
+2025-12-19 17:26:06,976 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 17:26:07,006 - INFO - ✅ Java 已找到 | Java found: Unknown
+2025-12-19 17:26:07,441 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 17:26:07,442 - INFO - 🔍 验证输入文件 | Validating input files
+2025-12-19 17:26:08,078 - INFO - 
+🛑 用户中断操作 | User interrupted operation
+2025-12-19 17:26:08,078 - ERROR - ❌ 表型 feture_2 运行失败 | Trait feture_2 failed
+2025-12-19 17:26:08,079 - INFO - ✅ 批量处理报告已生成 | Batch processing report generated: batch_processing_report.txt
+2025-12-19 17:26:08,079 - INFO -    • 成功处理 | Successful: 0/2 (0.0%)
+2025-12-19 17:26:08,079 - INFO -    • 处理失败 | Failed: 2/2
+
+📊 分析完成 | Analysis completed
+   总表型数 | Total traits: 2
+   成功处理 | Successful: 0
+   处理失败 | Failed: 2
+   成功率 | Success rate: 0.0%
+
+❌ 失败的表型 | Failed traits:
+   • feture_1: GWAS分析失败 | GWAS analysis failed
+   • feture_2: GWAS分析失败 | GWAS analysis failed

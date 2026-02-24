@@ -1,0 +1,21 @@
+[2020-10-20 00:00:01.938] [gtx] [info] Current sys info: ./tmp available: 4058453GB, memory available: 460GB, ulimit of open files: 100000
+[2020-10-20 00:00:01.981] [gtx] [info] Job: joint, pid: 2268992
+[2020-10-20 00:00:01.981] [gtx] [info] joint...
+[2020-10-20 00:00:02.129] [genotype_gvcfs] [info] progress_meter -    Current Locus         Elapsed Minutes  Variants Processed    Variants/Minute
+[2020-10-20 00:00:02.208] [genotype_gvcfs] [info] Vid Map JSON file will be written to ./tmp/.gtx_joint_1603123201938944270/gendb/vidmap.json
+[2020-10-20 00:00:02.208] [genotype_gvcfs] [info] Callset Map JSON file will be written to ./tmp/.gtx_joint_1603123201938944270/gendb/callset.json
+[2020-10-20 00:00:02.208] [genotype_gvcfs] [info] Complete VCF Header will be written to ./tmp/.gtx_joint_1603123201938944270/gendb/vcfheader.vcf
+[2020-10-20 00:00:02.208] [genotype_gvcfs] [info] Importing to array -  ./tmp/.gtx_joint_1603123201938944270/gendb/genomicsdb_array
+[2020-10-20 00:02:43.506] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr02:26489124
+[2020-10-20 00:07:58.030] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr07:107973895
+[2020-10-20 00:32:48.334] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr10:2714579
+[2020-10-20 00:49:14.614] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr09:111314234
+[2020-10-20 01:02:14.882] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr04:89400920
+[2020-10-20 01:05:10.729] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr09:50941820
+[2020-10-20 01:22:22.739] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr05:20086631
+[2020-10-20 01:25:58.170] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr06:126349452
+[2020-10-20 01:59:20.635] [genotype_gvcfs] [info] progress_meter -    unmapped                        119.3                     0              0.0
+[2020-10-20 01:59:20.684] [genotype_gvcfs] [info] 
+170385.53user 708.59system 1:59:18.51elapsed 2390.08%CPU (20238392maxresident)k
+0inputs+320outputs (40major+19450888minor)pagefaults 0swaps
+[2020-10-20 01:59:21.091] [gtx] [info] joint exited normally.

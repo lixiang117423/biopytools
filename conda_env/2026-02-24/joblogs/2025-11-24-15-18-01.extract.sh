@@ -1,0 +1,1 @@
+allhic extract mapq30.bam OV53_1.primary.fa 

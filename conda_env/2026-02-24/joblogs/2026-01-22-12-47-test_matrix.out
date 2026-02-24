@@ -1,0 +1,37 @@
+2026-01-22 12:47:15.609 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-22 12:47:15.609 - INFO - 使用自定义输入目录|Using custom input directory: output/kmc_databases
+2026-01-22 12:47:15.609 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-22 12:47:15.609 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-22 12:47:15.609 - INFO - 找到 10 个KMC数据库|Found 10 KMC databases
+2026-01-22 12:47:15.609 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 10 样本|samples
+2026-01-22 12:47:15.609 - INFO - 开始构建k-mer字典|Starting to build k-mer dictionary
+2026-01-22 12:47:15.609 - INFO - 合并所有样本数据库|Union all sample databases
+2026-01-22 12:47:15.609 - INFO - 开始合并 10 个数据库|Starting to union 10 databases
+2026-01-22 12:47:15.609 - INFO - 执行步骤|Executing step: 合并数据库 1-2|Union databases 1-2
+2026-01-22 12:47:15.609 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple W681A W689A union .temp_union_0
+2026-01-22 12:49:09.845 - INFO - 命令执行成功|Command executed successfully: 合并数据库 1-2|Union databases 1-2
+2026-01-22 12:49:09.846 - INFO - 执行步骤|Executing step: 合并数据库 3|Union database 3
+2026-01-22 12:49:09.846 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_0 W684A union .temp_union_2
+2026-01-22 12:51:02.429 - INFO - 命令执行成功|Command executed successfully: 合并数据库 3|Union database 3
+2026-01-22 12:51:02.430 - INFO - 执行步骤|Executing step: 合并数据库 4|Union database 4
+2026-01-22 12:51:02.430 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_2 W685A union .temp_union_3
+2026-01-22 12:52:57.755 - INFO - 命令执行成功|Command executed successfully: 合并数据库 4|Union database 4
+2026-01-22 12:52:57.755 - INFO - 执行步骤|Executing step: 合并数据库 5|Union database 5
+2026-01-22 12:52:57.755 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_3 W686A union .temp_union_4
+2026-01-22 12:54:54.629 - INFO - 命令执行成功|Command executed successfully: 合并数据库 5|Union database 5
+2026-01-22 12:54:54.630 - INFO - 执行步骤|Executing step: 合并数据库 6|Union database 6
+2026-01-22 12:54:54.630 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_4 W680A union .temp_union_5
+2026-01-22 12:56:49.329 - INFO - 命令执行成功|Command executed successfully: 合并数据库 6|Union database 6
+2026-01-22 12:56:49.330 - INFO - 执行步骤|Executing step: 合并数据库 7|Union database 7
+2026-01-22 12:56:49.330 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_5 W687A union .temp_union_6
+2026-01-22 12:58:46.640 - INFO - 命令执行成功|Command executed successfully: 合并数据库 7|Union database 7
+2026-01-22 12:58:46.641 - INFO - 执行步骤|Executing step: 合并数据库 8|Union database 8
+2026-01-22 12:58:46.641 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_6 W688A union .temp_union_7
+2026-01-22 13:00:43.124 - INFO - 命令执行成功|Command executed successfully: 合并数据库 8|Union database 8
+2026-01-22 13:00:43.124 - INFO - 执行步骤|Executing step: 合并数据库 9|Union database 9
+2026-01-22 13:00:43.124 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_7 W683A union .temp_union_8
+2026-01-22 13:02:41.136 - INFO - 命令执行成功|Command executed successfully: 合并数据库 9|Union database 9
+2026-01-22 13:02:41.142 - INFO - 执行步骤|Executing step: 合并数据库 10|Union database 10
+2026-01-22 13:02:41.142 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_8 W682A union .temp_union_9
+2026-01-22 13:04:38.130 - INFO - 命令执行成功|Command executed successfully: 合并数据库 10|Union database 10
+2026-01-22 13:04:38.132 - INFO - 数据库合并完成|Database union completed: global_kmers

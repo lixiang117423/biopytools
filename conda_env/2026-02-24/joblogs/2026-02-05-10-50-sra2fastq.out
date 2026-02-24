@@ -1,0 +1,67 @@
+2026-02-05 10:50:47.205 - INFO - ================================================================================
+2026-02-05 10:50:47.205 - INFO - 开始SRA转FASTQ转换流程|Starting SRA to FASTQ Conversion Pipeline
+2026-02-05 10:50:47.205 - INFO - ================================================================================
+2026-02-05 10:50:47.205 - INFO - 检查依赖软件|Checking dependencies
+2026-02-05 10:50:48.400 - INFO - parallel-fastq-dump 可用 (推荐)|available (recommended)
+2026-02-05 10:50:48.400 - INFO -    版本|Version: fastq-dump : 3.2.1
+
+parallel-fastq-dump : 0.6.7
+2026-02-05 10:50:48.421 - INFO - fastq-dump 可用 (备选)|available (fallback)
+2026-02-05 10:50:48.421 - INFO - 转换配置|Conversion Configuration:
+2026-02-05 10:50:48.421 - INFO -   输入路径|Input: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw/sra
+2026-02-05 10:50:48.421 - INFO -   输出目录|Output: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw
+2026-02-05 10:50:48.421 - INFO -   文件数量|Files: 4
+2026-02-05 10:50:48.421 - INFO -   转换工具|Tool: parallel-fastq-dump (推荐)
+2026-02-05 10:50:48.421 - INFO -   线程数|Threads: 64
+2026-02-05 10:50:48.421 - INFO -   压缩输出|Compress: True
+2026-02-05 10:50:48.421 - INFO - 开始批量转换|Starting batch conversion...
+2026-02-05 10:50:48.421 - INFO -  共找到 4 个SRA文件|Found 4 SRA files
+2026-02-05 10:50:48.421 - INFO -  总进度|Overall Progress: [1/4]
+2026-02-05 10:50:48.421 - INFO - ============================================================
+2026-02-05 10:50:48.421 - INFO - 处理文件|Processing file: SRR10321553
+2026-02-05 10:50:48.421 - INFO - ============================================================
+2026-02-05 10:50:48.421 - INFO - 使用工具|Using tool: parallel-fastq-dump (多线程加速)|(multi-threaded)
+2026-02-05 10:50:48.421 - INFO - 线程数|Threads: 64
+2026-02-05 10:50:48.421 - INFO - 执行步骤|Executing step: 转换SRA文件|Converting SRA file: SRR10321553
+2026-02-05 10:50:48.421 - INFO - 命令|Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw/sra/SRR10321553.sra --threads 64 --outdir /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw --split-files --gzip --skip-technical
+2026-02-05 10:51:09.331 - INFO - 命令执行成功|Command executed successfully
+2026-02-05 10:51:09.332 - INFO - 完成|Completed: SRR10321553
+2026-02-05 10:51:09.332 - INFO -  总进度|Overall Progress: [2/4]
+2026-02-05 10:51:09.332 - INFO - ============================================================
+2026-02-05 10:51:09.332 - INFO - 处理文件|Processing file: SRR10321554
+2026-02-05 10:51:09.332 - INFO - ============================================================
+2026-02-05 10:51:09.332 - INFO - 使用工具|Using tool: parallel-fastq-dump (多线程加速)|(multi-threaded)
+2026-02-05 10:51:09.332 - INFO - 线程数|Threads: 64
+2026-02-05 10:51:09.332 - INFO - 执行步骤|Executing step: 转换SRA文件|Converting SRA file: SRR10321554
+2026-02-05 10:51:09.332 - INFO - 命令|Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw/sra/SRR10321554.sra --threads 64 --outdir /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw --split-files --gzip --skip-technical
+2026-02-05 10:51:28.647 - INFO - 命令执行成功|Command executed successfully
+2026-02-05 10:51:28.648 - INFO - 完成|Completed: SRR10321554
+2026-02-05 10:51:28.648 - INFO -  总进度|Overall Progress: [3/4]
+2026-02-05 10:51:28.648 - INFO - ============================================================
+2026-02-05 10:51:28.648 - INFO - 处理文件|Processing file: SRR10321574
+2026-02-05 10:51:28.652 - INFO - ============================================================
+2026-02-05 10:51:28.652 - INFO - 使用工具|Using tool: parallel-fastq-dump (多线程加速)|(multi-threaded)
+2026-02-05 10:51:28.652 - INFO - 线程数|Threads: 64
+2026-02-05 10:51:28.652 - INFO - 执行步骤|Executing step: 转换SRA文件|Converting SRA file: SRR10321574
+2026-02-05 10:51:28.652 - INFO - 命令|Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw/sra/SRR10321574.sra --threads 64 --outdir /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw --split-files --gzip --skip-technical
+2026-02-05 10:51:49.079 - INFO - 命令执行成功|Command executed successfully
+2026-02-05 10:51:49.079 - INFO - 完成|Completed: SRR10321574
+2026-02-05 10:51:49.080 - INFO -  总进度|Overall Progress: [4/4]
+2026-02-05 10:51:49.080 - INFO - ============================================================
+2026-02-05 10:51:49.080 - INFO - 处理文件|Processing file: SRR22586158
+2026-02-05 10:51:49.080 - INFO - ============================================================
+2026-02-05 10:51:49.080 - INFO - 使用工具|Using tool: parallel-fastq-dump (多线程加速)|(multi-threaded)
+2026-02-05 10:51:49.080 - INFO - 线程数|Threads: 64
+2026-02-05 10:51:49.080 - INFO - 执行步骤|Executing step: 转换SRA文件|Converting SRA file: SRR22586158
+2026-02-05 10:51:49.080 - INFO - 命令|Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw/sra/SRR22586158.sra --threads 64 --outdir /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw --split-files --gzip --skip-technical
+2026-02-05 10:52:22.118 - INFO - 命令执行成功|Command executed successfully
+2026-02-05 10:52:22.118 - INFO - 完成|Completed: SRR22586158
+2026-02-05 10:52:22.118 - INFO - 生成转换报告|Generating conversion report...
+2026-02-05 10:52:22.119 - INFO - 转换摘要已生成|Summary report generated: conversion_summary.txt
+2026-02-05 10:52:22.119 - INFO - ================================================================================
+2026-02-05 10:52:22.119 - INFO - 转换流程完成|Conversion Pipeline Completed
+2026-02-05 10:52:22.119 - INFO - ================================================================================
+2026-02-05 10:52:22.119 - INFO - 总耗时|Duration: 94.9 秒|seconds
+2026-02-05 10:52:22.119 - INFO - 成功: 4|Success: 4
+2026-02-05 10:52:22.119 - INFO - 失败: 0|Failed: 0
+2026-02-05 10:52:22.119 - INFO - 结果保存在|Results saved in: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/06.测试NC文章的数据/01.data/raw

@@ -1,0 +1,207 @@
+
+==================================================
+🎯 开始Fastq到VCF (Parabricks) 流程 | Starting Fastq to VCF (Parabricks) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2779243GB available
+✓ 系统内存充足 | Sufficient system memory: 503GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+开始质控处理 | Starting quality control
+检测到 20 个原始 FASTQ 文件 | Found 20 raw FASTQ files
+🧹 质量控制 | Quality Control
+🔄 执行命令 | Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean --read1-suffix _1.clean.fq.gz --read2-suffix _2.clean.fq.gz
+标准输出 | Stdout: 2025-12-18 18:28:21,455 - INFO - ============================================================
+2025-12-18 18:28:21,455 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-12-18 18:28:21,455 - INFO - ============================================================
+2025-12-18 18:28:21,455 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw
+2025-12-18 18:28:21,455 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean
+2025-12-18 18:28:21,455 - INFO - 📄 文件模式 | File pattern: *_1.clean.fq.gz, *_2.clean.fq.gz
+2025-12-18 18:28:21,455 - INFO - ============================================================
+2025-12-18 18:28:21,458 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-12-18 18:28:21,523 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean
+2025-12-18 18:28:21,523 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports
+2025-12-18 18:28:21,523 - INFO - 📄 找到 10 个read1文件 | Found 10 read1 files
+2025-12-18 18:28:21,533 - INFO - 🧬 找到 10 个有效样本配对 | Found 10 valid sample pairs:
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-8
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-4
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-7
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-9
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-2
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-5
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-6
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-1
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-10
+2025-12-18 18:28:21,533 - INFO -   - 📋 D4-3
+2025-12-18 18:28:21,534 - INFO - ---
+2025-12-18 18:28:21,534 - INFO - ⚡ 正在处理样本 | Processing sample: D4-8
+2025-12-18 18:28:21,534 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-8_1.clean.fq.gz
+2025-12-18 18:28:21,534 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-8_2.clean.fq.gz
+2025-12-18 18:28:21,534 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-8_1.clean.fq.gz
+2025-12-18 18:28:21,534 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-8_2.clean.fq.gz
+2025-12-18 18:28:21,534 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-8.html
+2025-12-18 18:28:21,534 - INFO - ---
+2025-12-18 18:28:21,534 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-8
+2025-12-18 18:28:21,534 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-8_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-8_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-8_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-8_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-8.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-8.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:28:54,539 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-8
+2025-12-18 18:28:54,539 - INFO - ✅ 样本 D4-8 处理完成 | Sample D4-8 processing completed
+2025-12-18 18:28:54,539 - INFO - ---
+2025-12-18 18:28:54,539 - INFO - ⚡ 正在处理样本 | Processing sample: D4-4
+2025-12-18 18:28:54,539 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-4_1.clean.fq.gz
+2025-12-18 18:28:54,539 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-4_2.clean.fq.gz
+2025-12-18 18:28:54,539 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-4_1.clean.fq.gz
+2025-12-18 18:28:54,539 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-4_2.clean.fq.gz
+2025-12-18 18:28:54,539 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-4.html
+2025-12-18 18:28:54,539 - INFO - ---
+2025-12-18 18:28:54,539 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-4
+2025-12-18 18:28:54,539 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-4_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-4_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-4_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-4_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-4.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-4.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:29:53,959 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-4
+2025-12-18 18:29:53,960 - INFO - ✅ 样本 D4-4 处理完成 | Sample D4-4 processing completed
+2025-12-18 18:29:53,960 - INFO - ---
+2025-12-18 18:29:53,960 - INFO - ⚡ 正在处理样本 | Processing sample: D4-7
+2025-12-18 18:29:53,960 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-7_1.clean.fq.gz
+2025-12-18 18:29:53,960 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-7_2.clean.fq.gz
+2025-12-18 18:29:53,960 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-7_1.clean.fq.gz
+2025-12-18 18:29:53,960 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-7_2.clean.fq.gz
+2025-12-18 18:29:53,960 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-7.html
+2025-12-18 18:29:53,960 - INFO - ---
+2025-12-18 18:29:53,960 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-7
+2025-12-18 18:29:53,960 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-7_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-7_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-7_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-7_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-7.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-7.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:30:22,305 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-7
+2025-12-18 18:30:22,305 - INFO - ✅ 样本 D4-7 处理完成 | Sample D4-7 processing completed
+2025-12-18 18:30:22,305 - INFO - ---
+2025-12-18 18:30:22,305 - INFO - ⚡ 正在处理样本 | Processing sample: D4-9
+2025-12-18 18:30:22,305 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-9_1.clean.fq.gz
+2025-12-18 18:30:22,305 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-9_2.clean.fq.gz
+2025-12-18 18:30:22,305 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-9_1.clean.fq.gz
+2025-12-18 18:30:22,305 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-9_2.clean.fq.gz
+2025-12-18 18:30:22,305 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-9.html
+2025-12-18 18:30:22,305 - INFO - ---
+2025-12-18 18:30:22,305 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-9
+2025-12-18 18:30:22,305 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-9_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-9_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-9_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-9_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-9.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-9.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:30:46,667 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-9
+2025-12-18 18:30:46,667 - INFO - ✅ 样本 D4-9 处理完成 | Sample D4-9 processing completed
+2025-12-18 18:30:46,667 - INFO - ---
+2025-12-18 18:30:46,667 - INFO - ⚡ 正在处理样本 | Processing sample: D4-2
+2025-12-18 18:30:46,667 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-2_1.clean.fq.gz
+2025-12-18 18:30:46,667 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-2_2.clean.fq.gz
+2025-12-18 18:30:46,667 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-2_1.clean.fq.gz
+2025-12-18 18:30:46,667 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-2_2.clean.fq.gz
+2025-12-18 18:30:46,667 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-2.html
+2025-12-18 18:30:46,667 - INFO - ---
+2025-12-18 18:30:46,667 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-2
+2025-12-18 18:30:46,667 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-2_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-2_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-2_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-2_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-2.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:31:43,149 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-2
+2025-12-18 18:31:43,149 - INFO - ✅ 样本 D4-2 处理完成 | Sample D4-2 processing completed
+2025-12-18 18:31:43,149 - INFO - ---
+2025-12-18 18:31:43,149 - INFO - ⚡ 正在处理样本 | Processing sample: D4-5
+2025-12-18 18:31:43,149 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-5_1.clean.fq.gz
+2025-12-18 18:31:43,149 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-5_2.clean.fq.gz
+2025-12-18 18:31:43,149 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-5_1.clean.fq.gz
+2025-12-18 18:31:43,149 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-5_2.clean.fq.gz
+2025-12-18 18:31:43,149 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-5.html
+2025-12-18 18:31:43,149 - INFO - ---
+2025-12-18 18:31:43,149 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-5
+2025-12-18 18:31:43,149 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-5_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-5_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-5_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-5_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-5.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-5.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:32:36,641 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-5
+2025-12-18 18:32:36,642 - INFO - ✅ 样本 D4-5 处理完成 | Sample D4-5 processing completed
+2025-12-18 18:32:36,642 - INFO - ---
+2025-12-18 18:32:36,642 - INFO - ⚡ 正在处理样本 | Processing sample: D4-6
+2025-12-18 18:32:36,642 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-6_1.clean.fq.gz
+2025-12-18 18:32:36,642 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-6_2.clean.fq.gz
+2025-12-18 18:32:36,642 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-6_1.clean.fq.gz
+2025-12-18 18:32:36,642 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-6_2.clean.fq.gz
+2025-12-18 18:32:36,642 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-6.html
+2025-12-18 18:32:36,642 - INFO - ---
+2025-12-18 18:32:36,642 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-6
+2025-12-18 18:32:36,642 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-6_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-6_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-6_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-6_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-6.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-6.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:33:27,285 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-6
+2025-12-18 18:33:27,286 - INFO - ✅ 样本 D4-6 处理完成 | Sample D4-6 processing completed
+2025-12-18 18:33:27,286 - INFO - ---
+2025-12-18 18:33:27,286 - INFO - ⚡ 正在处理样本 | Processing sample: D4-1
+2025-12-18 18:33:27,286 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-1_1.clean.fq.gz
+2025-12-18 18:33:27,286 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-1_2.clean.fq.gz
+2025-12-18 18:33:27,286 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-1_1.clean.fq.gz
+2025-12-18 18:33:27,286 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-1_2.clean.fq.gz
+2025-12-18 18:33:27,286 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-1.html
+2025-12-18 18:33:27,286 - INFO - ---
+2025-12-18 18:33:27,286 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-1
+2025-12-18 18:33:27,286 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-1_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-1_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-1_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-1_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-1.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:34:26,141 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-1
+2025-12-18 18:34:26,142 - INFO - ✅ 样本 D4-1 处理完成 | Sample D4-1 processing completed
+2025-12-18 18:34:26,142 - INFO - ---
+2025-12-18 18:34:26,142 - INFO - ⚡ 正在处理样本 | Processing sample: D4-10
+2025-12-18 18:34:26,142 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-10_1.clean.fq.gz
+2025-12-18 18:34:26,142 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-10_2.clean.fq.gz
+2025-12-18 18:34:26,142 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-10_1.clean.fq.gz
+2025-12-18 18:34:26,142 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-10_2.clean.fq.gz
+2025-12-18 18:34:26,142 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-10.html
+2025-12-18 18:34:26,142 - INFO - ---
+2025-12-18 18:34:26,142 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-10
+2025-12-18 18:34:26,142 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-10_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-10_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-10_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-10_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-10.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-10.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:35:29,764 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-10
+2025-12-18 18:35:29,764 - INFO - ✅ 样本 D4-10 处理完成 | Sample D4-10 processing completed
+2025-12-18 18:35:29,764 - INFO - ---
+2025-12-18 18:35:29,764 - INFO - ⚡ 正在处理样本 | Processing sample: D4-3
+2025-12-18 18:35:29,764 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-3_1.clean.fq.gz
+2025-12-18 18:35:29,764 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-3_2.clean.fq.gz
+2025-12-18 18:35:29,764 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-3_1.clean.fq.gz
+2025-12-18 18:35:29,764 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-3_2.clean.fq.gz
+2025-12-18 18:35:29,764 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-3.html
+2025-12-18 18:35:29,764 - INFO - ---
+2025-12-18 18:35:29,764 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-3
+2025-12-18 18:35:29,764 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-3_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/raw/D4-3_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-3_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/D4-3_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-3.html -j /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports/D4-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-18 18:36:25,263 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-3
+2025-12-18 18:36:25,263 - INFO - ✅ 样本 D4-3 处理完成 | Sample D4-3 processing completed
+2025-12-18 18:36:25,264 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_processing_summary.txt
+2025-12-18 18:36:25,264 - INFO - ============================================================
+2025-12-18 18:36:25,264 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-12-18 18:36:25,264 - INFO - 🧮 总样本数 | Total samples: 10
+2025-12-18 18:36:25,264 - INFO - ✅ 成功处理 | Successfully processed: 10
+2025-12-18 18:36:25,264 - INFO - ❌ 失败样本 | Failed samples: 0
+2025-12-18 18:36:25,264 - INFO - 📊 成功率 | Success rate: 100.0%
+2025-12-18 18:36:25,264 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean
+2025-12-18 18:36:25,264 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks/01.data/clean/fastp_reports
+2025-12-18 18:36:25,264 - INFO - ============================================================
+
+✅ 命令执行成功 | Command executed successfully
+✅ 质控完成: 20 个清洁文件 | QC completed: 20 clean files
+📍 创建检查点 | Create checkpoint: quality_control
+✅ 步骤 1 完成 | Step 1 completed: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+
+==================================================
+📊 Step 2: 构建基因组索引 | Build Genome Index
+==================================================
+检查点已存在，跳过索引构建 | Checkpoint exists, skipping index building
+✅ 步骤 2 完成 | Step 2 completed: 📊 构建基因组索引 | Build Genome Index
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+
+==================================================
+🗺️ Step 3: 序列比对 | Sequence Mapping
+==================================================
+检查点已存在，跳过比对 | Checkpoint exists, skipping mapping
+✅ 步骤 3 完成 | Step 3 completed: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+
+==================================================
+🧬 Step 4: 联合变异检测 | Joint Variant Calling
+==================================================
+❌ 未找到任何 gVCF 文件 | No gVCF files found
+❌ 步骤 4 失败 | Step 4 failed: 🧬 联合变异检测 | Joint Variant Calling

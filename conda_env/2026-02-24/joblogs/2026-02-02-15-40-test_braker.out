@@ -1,0 +1,16 @@
+检测到三代转录组为目录，自动识别文件|Detected long-read directory, auto-detecting files...
+找到三代转录组文件|Found long-read file: 3rd_rnaseq/jingyeA.fastq.gz
+2026-02-02 15:40:27.826 - INFO - ================================================================================
+2026-02-02 15:40:27.826 - INFO - 开始BRAKER3基因组注释流程|Starting BRAKER3 Genome Annotation Pipeline
+2026-02-02 15:40:27.826 - INFO - ================================================================================
+2026-02-02 15:40:27.826 - INFO - --------------------------------------------------------------------------------
+2026-02-02 15:40:27.826 - INFO - 步骤1: 重复序列屏蔽|Step 1: Repeat Masking
+2026-02-02 15:40:27.826 - INFO - --------------------------------------------------------------------------------
+2026-02-02 15:40:27.826 - INFO - 步骤1.1: 运行RepeatModeler构建重复序列库|Step 1.1: Running RepeatModeler
+2026-02-02 15:40:27.827 - INFO - 执行步骤|Executing step: 构建RepeatModeler数据库|Build RepeatModeler database
+2026-02-02 15:40:32.197 - INFO - 命令执行成功|Command executed successfully: 构建RepeatModeler数据库|Build RepeatModeler database
+2026-02-02 15:40:32.198 - INFO - 执行步骤|Executing step: 运行RepeatModeler|Run RepeatModeler
+2026-02-02 16:45:01.419 - INFO - 命令执行成功|Command executed successfully: 运行RepeatModeler|Run RepeatModeler
+2026-02-02 16:45:01.420 - INFO - 步骤1.2: 运行RepeatMasker屏蔽重复序列|Step 1.2: Running RepeatMasker
+2026-02-02 16:45:01.420 - ERROR - 流程执行失败|Pipeline execution failed: 找不到 RepeatModeler 输出的 consensi.fa.classified 文件|Cannot find consensi.fa.classified from RepeatModeler in /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/01.repeat_masking
+运行错误|Runtime error: 找不到 RepeatModeler 输出的 consensi.fa.classified 文件|Cannot find consensi.fa.classified from RepeatModeler in /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/01.repeat_masking

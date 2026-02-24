@@ -1,0 +1,12 @@
+2025-11-05 10:51:20,970 - INFO - ============================================================
+2025-11-05 10:51:20,970 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-11-05 10:51:20,970 - INFO - ============================================================
+2025-11-05 10:51:20,970 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第二批
+2025-11-05 10:51:20,970 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/clean/第二批
+2025-11-05 10:51:20,970 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-11-05 10:51:20,970 - INFO - ============================================================
+2025-11-05 10:51:21,257 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-11-05 10:51:21,258 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: 01.data/clean/第二批
+2025-11-05 10:51:21,258 - INFO - 📋 创建报告文件输出目录 | Created report output directory: 01.data/clean/第二批/fastp_reports
+2025-11-05 10:51:21,275 - WARNING - ⚠️ 在输入目录中未找到匹配模式的文件 | No files matching pattern found in input directory: *_1.fq.gz
+2025-11-05 10:51:21,275 - ERROR - ❌ 未找到有效的样本配对文件 | No valid sample pairs found

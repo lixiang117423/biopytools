@@ -1,0 +1,8 @@
+2026-01-12 09:12:42.136 - INFO - 开始InterProScan注释流程|Starting InterProScan annotation pipeline
+2026-01-12 09:12:42.238 - INFO - 输入序列数量|Input sequence count: 71.30K
+2026-01-12 09:12:42.238 - INFO - InterProScan命令|InterProScan command: /share/org/YZWL/yzwl_lixg/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/47.interproscan注释组装的基因组/OV53_Chr.pep.fa -f TSV -b OV53_Chr.pep.interproscan -cpu 64 -dp --goterms --pathways
+2026-01-12 09:12:42.239 - INFO - 执行步骤|Executing step: InterProScan蛋白质注释|InterProScan protein annotation
+2026-01-12 09:12:42.239 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/47.interproscan注释组装的基因组/OV53_Chr.pep.fa -f TSV -b OV53_Chr.pep.interproscan -cpu 64 -dp --goterms --pathways
+2026-01-12 12:14:22.769 - INFO - 命令执行成功|Command executed successfully: InterProScan蛋白质注释|InterProScan protein annotation
+2026-01-12 12:14:22.770 - INFO - InterProScan注释完成|InterProScan annotation completed
+2026-01-12 12:14:22.770 - INFO - 输出文件|Output file: OV53_Chr.pep.interproscan.tsv

@@ -1,0 +1,10 @@
+Building a SMALL index
+Renaming /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.3.bt2.tmp to /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.3.bt2
+Renaming /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.4.bt2.tmp to /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.4.bt2
+Renaming /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.1.bt2.tmp to /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.1.bt2
+Renaming /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.2.bt2.tmp to /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.2.bt2
+Renaming /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.rev.1.bt2.tmp to /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.rev.1.bt2
+Renaming /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.rev.2.bt2.tmp to /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/hicpro/reference/genome.rev.2.bt2
+run_hicpro.sh:行103: digest_genome.py: 未找到命令
+Job 67971404 stderr output:
+

@@ -1,0 +1,372 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/logs/allhic_20251212_170510.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-12 17:05:13] Checking required tools...
+[2025-12-12 17:05:13] ✅ Environment ready
+[2025-12-12 17:05:13] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output
+[2025-12-12 17:05:13] Threads: 88
+[2025-12-12 17:05:13] Memory: 500G
+[2025-12-12 17:05:13] Chromosomes: 12
+[2025-12-12 17:05:13] Enzyme: GATC
+[2025-12-12 17:05:13] MapQ Step1: 10
+[2025-12-12 17:05:13] MapQ JBAT: 1
+[2025-12-12 17:05:13] ⏱️  Step completed in 3s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v4.2
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 [Step 0] Preparing input data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-12 17:05:13] ✅ Input files linked
+[2025-12-12 17:05:13] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔍 [Step 1] Mapping Hi-C reads (MapQ >= 10)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-12 17:05:13] Building BWA index...
+[2025-12-12 17:05:13] ▶️  bwa index draft.asm.fasta
+[bwa_index] Pack FASTA... 6.12 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=3028876484, availableWord=225122508
+[BWTIncConstructFromPacked] 10 iterations done. 99999988 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 199999988 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 299999988 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 399999988 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 499999988 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 599999988 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 699999988 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 799999988 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 899999988 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 999999988 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 1099999988 characters processed.
+[BWTIncConstructFromPacked] 120 iterations done. 1199999988 characters processed.
+[BWTIncConstructFromPacked] 130 iterations done. 1299999988 characters processed.
+[BWTIncConstructFromPacked] 140 iterations done. 1399999988 characters processed.
+[BWTIncConstructFromPacked] 150 iterations done. 1499999988 characters processed.
+[BWTIncConstructFromPacked] 160 iterations done. 1599999988 characters processed.
+[BWTIncConstructFromPacked] 170 iterations done. 1699999988 characters processed.
+[BWTIncConstructFromPacked] 180 iterations done. 1799999988 characters processed.
+[BWTIncConstructFromPacked] 190 iterations done. 1899999988 characters processed.
+[BWTIncConstructFromPacked] 200 iterations done. 1999999988 characters processed.
+[BWTIncConstructFromPacked] 210 iterations done. 2099999988 characters processed.
+[BWTIncConstructFromPacked] 220 iterations done. 2199999988 characters processed.
+[BWTIncConstructFromPacked] 230 iterations done. 2299999988 characters processed.
+[BWTIncConstructFromPacked] 240 iterations done. 2398701460 characters processed.
+[BWTIncConstructFromPacked] 250 iterations done. 2487898420 characters processed.
+[BWTIncConstructFromPacked] 260 iterations done. 2567172884 characters processed.
+[BWTIncConstructFromPacked] 270 iterations done. 2637628212 characters processed.
+[BWTIncConstructFromPacked] 280 iterations done. 2700245076 characters processed.
+[BWTIncConstructFromPacked] 290 iterations done. 2755895108 characters processed.
+[BWTIncConstructFromPacked] 300 iterations done. 2805352996 characters processed.
+[BWTIncConstructFromPacked] 310 iterations done. 2849307252 characters processed.
+[BWTIncConstructFromPacked] 320 iterations done. 2888369860 characters processed.
+[BWTIncConstructFromPacked] 330 iterations done. 2923084772 characters processed.
+[BWTIncConstructFromPacked] 340 iterations done. 2953935460 characters processed.
+[BWTIncConstructFromPacked] 350 iterations done. 2981351588 characters processed.
+[BWTIncConstructFromPacked] 360 iterations done. 3005715092 characters processed.
+[BWTIncConstructFromPacked] 370 iterations done. 3027365412 characters processed.
+[bwt_gen] Finished constructing BWT in 371 iterations.
+[bwa_index] 854.92 seconds elapse.
+[bwa_index] Update BWT... 5.73 sec
+[bwa_index] Pack forward-only FASTA... 3.60 sec
+[bwa_index] Construct SA from BWT and Occ... 371.06 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index draft.asm.fasta
+[main] Real time: 1243.937 sec; CPU: 1241.422 sec
+[2025-12-12 17:25:57] Building samtools index...
+[2025-12-12 17:25:57] ▶️  samtools faidx draft.asm.fasta
+[2025-12-12 17:26:02] Running BWA MEM alignment with MapQ filter >= 10...
+[2025-12-12 17:26:02] ▶️  bwa mem -t 88 -5SP draft.asm.fasta reads_R1.fastq.gz reads_R2.fastq.gz 2>logs/bwa_mapping.log |              samtools view -@ 88 -hF 2316 -q 10 - |              samtools sort -@ 88 -n -o sample.clean.bam -
+[bam_sort_core] merging from 5 files and 88 in-memory blocks...
+[2025-12-13 02:08:12] ✅ Mapping completed
+[2025-12-13 02:08:12] ⏱️  Step completed in 9h 2m 59s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 [Step 1.5] Allele detection
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 02:08:12] ▶️  allhic extract sample.clean.bam draft.asm.fasta --RE GATC
+[32m02:08:14 writeRE | NOTICE [0m RE counts in 1211 contigs (total: 7737245, avg 1 per 195 bp) written to `sample.clean.counts_GATC.txt`
+[32m02:08:14 extractContigLinks | NOTICE [0m Parse bamfile `sample.clean.bam`
+[32m02:23:38 extractContigLinks | NOTICE [0m Extracted 1046 intra-contig link groups (total = 60246705)
+[32m02:30:22 extractContigLinks | NOTICE [0m Extracted 651530 inter-contig groups to `sample.clean.clm` (total = 1996316608, maxLinks = 512456, minLinks = 3)
+[32m02:30:24 fitPowerLaw | NOTICE [0m Power law Y = 0.000225 * X ^ -0.7054
+[32m02:30:24 writeDistribution | NOTICE [0m Link size distribution written to `sample.clean.distribution.txt`
+[32m02:30:24 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m02:31:44 calcInterContigs | NOTICE [0m Contig pair analyses written to `sample.clean.pairs.txt`
+[32m02:31:44 Run | NOTICE [0m Success
+[2025-12-13 02:31:44] ▶️  minimap2 -DP -k19 -w19 -m200 -t 88 draft.asm.fasta draft.asm.fasta 2>logs/minimap2.log > draft.asm.paf
+[2025-12-13 02:53:00] ▶️  allhic alleles draft.asm.paf sample.clean.counts_GATC.txt > alleles.table
+[32m02:53:00 ParseRecords | NOTICE [0m Parse paffile `draft.asm.paf`
+[32m02:55:33 ReadCSVLines | NOTICE [0m Parse csvfile `sample.clean.counts_GATC.txt`
+[32m02:55:33 Run | NOTICE [0m Success
+[2025-12-13 02:55:34] ✅ Allele detection completed
+[2025-12-13 02:55:34] ⏱️  Step completed in 47m 22s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✂️  [Step 2] Pruning chimeric contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 02:55:34] ⚠️  No allele table found, using original BAM
+[2025-12-13 02:55:34] ✅ Pruning completed
+[2025-12-13 02:55:34] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 [Step 3] Partitioning contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 02:55:34] ▶️  ALLHiC_partition -b prunning.bam -r draft.asm.fasta -e GATC -k 12
+Extract function: calculate an empirical distribution of Hi-C link size based on intra-contig links
+CMD: allhic extract prunning.bam draft.asm.fasta --RE GATC
+[32m02:55:36 writeRE | NOTICE [0m RE counts in 1211 contigs (total: 7737245, avg 1 per 195 bp) written to `prunning.counts_GATC.txt`
+[32m02:55:36 extractContigLinks | NOTICE [0m Parse bamfile `prunning.bam`
+[32m03:11:08 extractContigLinks | NOTICE [0m Extracted 1046 intra-contig link groups (total = 60246705)
+[32m03:17:54 extractContigLinks | NOTICE [0m Extracted 651530 inter-contig groups to `prunning.clm` (total = 1996316608, maxLinks = 512456, minLinks = 3)
+[32m03:17:56 fitPowerLaw | NOTICE [0m Power law Y = 0.000225 * X ^ -0.7054
+[32m03:17:56 writeDistribution | NOTICE [0m Link size distribution written to `prunning.distribution.txt`
+[32m03:17:56 readClmLines | NOTICE [0m Parse clmfile `prunning.clm`
+[32m03:19:16 calcInterContigs | NOTICE [0m Contig pair analyses written to `prunning.pairs.txt`
+[32m03:19:16 Run | NOTICE [0m Success
+Partition contigs based on prunning bam file
+CMD: allhic partition prunning.counts_GATC.txt prunning.pairs.txt 12 --minREs 25
+[32m03:19:16 ReadCSVLines | NOTICE [0m Parse csvfile `prunning.counts_GATC.txt`
+[32m03:19:16 readRE | NOTICE [0m Loaded 1211 contig RE lengths for normalization from `prunning.counts_GATC.txt`
+[32m03:19:16 skipContigsWithFewREs | NOTICE [0m skipContigsWithFewREs with MinREs = 25 (RE = GATC)
+[32m03:19:16 skipContigsWithFewREs | NOTICE [0m Marked 0 contigs (avg 0.0 RE sites, len 0) since they contain too few REs (MinREs = 25)
+[32m03:19:16 ReadCSVLines | NOTICE [0m Parse csvfile `prunning.pairs.txt`
+[32m03:19:17 skipRepeats | NOTICE [0m skipRepeats with multiplicity = 2
+Contig #797 (ptg000798l) has 26.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #800 (ptg000801l) has 3.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #909 (ptg000910l) has 48.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #958 (ptg000959l) has 49.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #960 (ptg000961l) has 66.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #962 (ptg000963l) has 5.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #976 (ptg000977l) has 7.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1023 (ptg001024l) has 21.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1075 (ptg001076l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1132 (ptg001133l) has 20.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1133 (ptg001134l) has 12.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1138 (ptg001139l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1143 (ptg001144l) has 4.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1168 (ptg001169l) has 36.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1178 (ptg001179l) has 9.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1195 (ptg001196l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1210 (ptg001211l) has 6.5x the average number of Hi-C links -> MARKED REPETITIVE
+[32m03:19:17 skipRepeats | NOTICE [0m Marked 17 contigs (avg len 48857) as repetitive (MaxLinkDensity = 2)
+[32m03:19:17 Cluster | NOTICE [0m Clustering starts with 1211 (1194 informative) contigs with target of 12 clusters
+[32m03:19:18 Cluster | NOTICE [0m Merge #50: Clusters	702 + 1220 -> 1260, Linkage = 3.8288991e+07
+[32m03:19:19 Cluster | NOTICE [0m Merge #100: Clusters	154 + 1280 -> 1310, Linkage = 2.4921087e+07
+[32m03:19:19 Cluster | NOTICE [0m Merge #150: Clusters	181 + 1054 -> 1360, Linkage = 1.9537661e+07
+[32m03:19:20 Cluster | NOTICE [0m Merge #200: Clusters	185 + 807 -> 1410, Linkage = 1.6697113e+07
+[32m03:19:20 Cluster | NOTICE [0m Merge #250: Clusters	1183 + 1459 -> 1460, Linkage = 2.48405585e+07
+[32m03:19:21 Cluster | NOTICE [0m Merge #300: Clusters	521 + 1428 -> 1510, Linkage = 1.2756753e+07
+[32m03:19:21 Cluster | NOTICE [0m Merge #350: Clusters	98 + 680 -> 1560, Linkage = 1.1724019e+07
+[32m03:19:22 Cluster | NOTICE [0m Merge #400: Clusters	267 + 670 -> 1610, Linkage = 1.0518348e+07
+[32m03:19:22 Cluster | NOTICE [0m Merge #450: Clusters	599 + 1529 -> 1660, Linkage = 9.554767e+06
+[32m03:19:22 Cluster | NOTICE [0m Merge #500: Clusters	982 + 1109 -> 1710, Linkage = 8.335048e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #550: Clusters	1498 + 1592 -> 1760, Linkage = 7.502745e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #600: Clusters	1598 + 1809 -> 1810, Linkage = 7.8975515e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #650: Clusters	15 + 1605 -> 1860, Linkage = 6.049507e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #700: Clusters	1375 + 1909 -> 1910, Linkage = 5.84802375e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #750: Clusters	1410 + 1842 -> 1960, Linkage = 4.728253e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #800: Clusters	1789 + 1982 -> 2010, Linkage = 4.1729021666666665e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #850: Clusters	1776 + 2030 -> 2060, Linkage = 3.563683e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #900: Clusters	1869 + 2007 -> 2110, Linkage = 2.9623866666666665e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #950: Clusters	2042 + 2126 -> 2160, Linkage = 2.27465778125e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #1000: Clusters	1940 + 2146 -> 2210, Linkage = 1.648536768115942e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #1050: Clusters	2127 + 2237 -> 2260, Linkage = 1.2119708915441176e+06
+[32m03:19:23 Cluster | NOTICE [0m Merge #1100: Clusters	861 + 2192 -> 2310, Linkage = 851993
+[32m03:19:23 Cluster | NOTICE [0m Merge #1150: Clusters	880 + 2357 -> 2360, Linkage = 612496.1318681319
+[32m03:19:23 Cluster | NOTICE [0m 1179 merges made so far; this leaves 12 clusters, and so we'r done!
+[32m03:19:23 setClusters | NOTICE [0m setClusters summary (NonInformativeRatio = 3): nPassRatio = 12, nFailRatio = 5, nFailCluster=0
+[32m03:19:23 printClusters | NOTICE [0m Write 12 partitions to `prunning.clusters.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 59 contigs (total: 400815, avg 1 per 184 bp) written to `prunning.counts_GATC.12g9.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 46 contigs (total: 314729, avg 1 per 185 bp) written to `prunning.counts_GATC.12g10.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 131 contigs (total: 703266, avg 1 per 196 bp) written to `prunning.counts_GATC.12g2.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 104 contigs (total: 658956, avg 1 per 191 bp) written to `prunning.counts_GATC.12g6.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 96 contigs (total: 627512, avg 1 per 193 bp) written to `prunning.counts_GATC.12g7.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 93 contigs (total: 483224, avg 1 per 193 bp) written to `prunning.counts_GATC.12g8.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 62 contigs (total: 253981, avg 1 per 216 bp) written to `prunning.counts_GATC.12g11.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 25 contigs (total: 2460, avg 1 per 420 bp) written to `prunning.counts_GATC.12g12.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 322 contigs (total: 2237158, avg 1 per 204 bp) written to `prunning.counts_GATC.12g1.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 127 contigs (total: 673927, avg 1 per 198 bp) written to `prunning.counts_GATC.12g3.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 89 contigs (total: 661809, avg 1 per 194 bp) written to `prunning.counts_GATC.12g4.txt`
+[32m03:19:23 writeRE | NOTICE [0m RE counts in 49 contigs (total: 717385, avg 1 per 177 bp) written to `prunning.counts_GATC.12g5.txt`
+[32m03:19:23 Run | NOTICE [0m Success
+[2025-12-13 03:19:23] ✅ Partition completed
+[2025-12-13 03:19:23] ⏱️  Step completed in 23m 49s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 [Step 3.5] Extracting contact matrix
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 03:19:23] ✅ Found existing: sample.clean.clm
+[2025-12-13 03:19:23] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚑 [Step 4] Rescuing unplaced contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 03:19:23] ▶️  ALLHiC_rescue -b sample.clean.bam -r draft.asm.fasta              -c prunning.clusters.txt -i sample.clean.counts_GATC.txt
+Starting rescue ungrouped contigs
+Reading contig length
+Reading link signals ...
+Reading sample.clean.bam
+find ungrouped contigs ...
+output HiC link signals ...
+Output refined clusters 
+Number of original contigs in group4: 89
+Number of rescued contigs in group4: 0
+Number of original contigs in group7: 96
+Number of rescued contigs in group7: 0
+Number of original contigs in group3: 127
+Number of rescued contigs in group3: 0
+Number of original contigs in group10: 46
+Number of rescued contigs in group10: 0
+Number of original contigs in group8: 93
+Number of rescued contigs in group8: 0
+Number of original contigs in group11: 62
+Number of rescued contigs in group11: 0
+Number of original contigs in group5: 49
+Number of rescued contigs in group5: 0
+Number of original contigs in group9: 59
+Number of rescued contigs in group9: 0
+Number of original contigs in group6: 104
+Number of rescued contigs in group6: 0
+Number of original contigs in group2: 131
+Number of rescued contigs in group2: 0
+Number of original contigs in group12: 25
+Number of rescued contigs in group12: 1
+Number of original contigs in group1: 322
+Number of rescued contigs in group1: 5
+[2025-12-13 04:12:23] ✅ Rescue completed
+[2025-12-13 04:12:23] ⏱️  Step completed in 53m 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️  [Step 5] Optimizing contig order
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g10.txt -> group10.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g11.txt -> group11.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g12.txt -> group12.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g1.txt -> group1.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g2.txt -> group2.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g3.txt -> group3.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g4.txt -> group4.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g5.txt -> group5.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g6.txt -> group6.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g7.txt -> group7.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g8.txt -> group8.txt
+[2025-12-13 04:12:23]   Processing: prunning.counts_GATC.12g9.txt -> group9.txt
+[2025-12-13 04:12:23] Found 12 chromosome groups
+[2025-12-13 04:12:23] Need to optimize 12 groups: 1 2 3 4 5 6 7 8 9 10 11 12
+[2025-12-13 04:12:23] Running optimization in parallel (max 88 jobs)...
+[2025-12-13 04:12:23] Using GNU Parallel for optimization
+[04:12:23] Starting optimization for group1
+[04:12:23] Starting optimization for group2
+[04:12:23] Starting optimization for group3
+[04:12:23] Starting optimization for group4
+[2025-12-13 04:12:23] ⚠️  Some optimization tasks failed
+[2025-12-13 04:12:23] 
+[2025-12-13 04:12:23] Checking optimization results...
+[2025-12-13 04:12:23]   ❌ Group 1: FAILED
+[2025-12-13 04:12:23]   ❌ Group 2: FAILED
+[2025-12-13 04:12:23]   ❌ Group 3: FAILED
+[2025-12-13 04:12:23]   ❌ Group 4: FAILED
+[2025-12-13 04:12:23]   ❌ Group 5: FAILED
+[2025-12-13 04:12:23]   ❌ Group 6: FAILED
+[2025-12-13 04:12:23]   ❌ Group 7: FAILED
+[2025-12-13 04:12:23]   ❌ Group 8: FAILED
+[2025-12-13 04:12:23]   ❌ Group 9: FAILED
+[2025-12-13 04:12:23]   ❌ Group 10: FAILED
+[2025-12-13 04:12:23]   ❌ Group 11: FAILED
+[2025-12-13 04:12:23]   ❌ Group 12: FAILED
+[2025-12-13 04:12:23] 
+[2025-12-13 04:12:23] Optimization summary: 0/12 groups succeeded
+[2025-12-13 04:12:23] ❌ Failed groups: 1 2 3 4 5 6 7 8 9 10 11 12
+[2025-12-13 04:12:23] 
+[2025-12-13 04:12:23] 💡 Troubleshooting tips:
+[2025-12-13 04:12:23]    1. Check if sample.clean.clm file is valid
+[2025-12-13 04:12:23]    2. Try running failed groups manually:
+[2025-12-13 04:12:23]       allhic optimize group1.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group2.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group3.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group4.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group5.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group6.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group7.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group8.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group9.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group10.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group11.txt sample.clean.clm
+[2025-12-13 04:12:23]       allhic optimize group12.txt sample.clean.clm
+[2025-12-13 04:12:23]    3. Check group*.txt files have valid contig IDs
+[2025-12-13 04:12:23]    4. Increase memory if optimization is crashing
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️  [Step 6] Building final assembly
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 04:12:23] ▶️  ALLHiC_build draft.asm.fasta
+1. tour format to agp ...
+[2025-12-13 04:12:27] ✅ Build completed
+[2025-12-13 04:12:27] ⏱️  Step completed in 4s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 [Step 7] Generating contact maps
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 04:12:31] ▶️  ALLHiC_plot -b sample.clean.bam -a groups.agp -l chrn.list              -m 50k -s 500k -o ./
+/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot:178: UserWarning: Attempting to set identical low and high xlims makes transformation singular; automatically expanding.
+  hmap = ax.imshow(np.log2(sub_data[: plt_cnt, : plt_cnt]), interpolation='nearest', origin='lower', cmap=cmap, aspect='equal')
+/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot:178: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
+  hmap = ax.imshow(np.log2(sub_data[: plt_cnt, : plt_cnt]), interpolation='nearest', origin='lower', cmap=cmap, aspect='equal')
+[32m[04:12:41][0m Step1: Get chromosome length
+[32m[04:12:41][0m Step2: Get signal matrix
+[32m[08:09:23][0m Step3: Draw heatmap
+[32m[08:09:23][0m Drawing with bin size 500k
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot", line 250, in <module>
+    ALLHiC_plot(bam, agp, chrlist, npzfile, minsize, binsize, outdir)
+  File "/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot", line 235, in ALLHiC_plot
+    draw_heatmap(read_count_whole_genome_min_size, bin_offset_min_size, ratio, chr_order, min_size)
+  File "/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot", line 185, in draw_heatmap
+    plt.savefig(all_fn, bbox_inches='tight', dpi=200)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/pyplot.py", line 1250, in savefig
+    res = fig.savefig(*args, **kwargs)  # type: ignore[func-returns-value]
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/figure.py", line 3490, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/backend_bases.py", line 2186, in print_figure
+    result = print_method(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/backend_bases.py", line 2042, in <lambda>
+    print_method = functools.wraps(meth)(lambda *args, **kwargs: meth(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/backends/backend_pdf.py", line 2786, in print_pdf
+    self.figure.draw(renderer)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/artist.py", line 94, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/figure.py", line 3257, in draw
+    mimage._draw_list_compositing_images(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/axes/_base.py", line 3226, in draw
+    mimage._draw_list_compositing_images(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/artist.py", line 58, in draw_wrapper
+    renderer.start_rasterizing()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/backends/backend_mixed.py", line 83, in start_rasterizing
+    self._raster_renderer = self._raster_renderer_class(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/matplotlib/backends/backend_agg.py", line 69, in __init__
+    self._renderer = _RendererAgg(int(width), int(height), dpi)
+MemoryError: std::bad_alloc
+[2025-12-13 08:27:06] ✅ Plotting completed
+[2025-12-13 08:27:06] ⏱️  Step completed in 4h 14m 39s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🐳 [Step 8] Generating JBAT .hic (Re-mapping Mode, MapQ >= 1)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 08:27:06] Generating Assembly file...
+[2025-12-13 08:27:06] ▶️  python3 '/share/org/YZWL/yzwl_lixg/software/3d-dna/utils/agp2assembly.py' groups.agp 'jbat_results/out_JBAT.assembly'
+[2025-12-13 08:27:06] Generating Chrom sizes...
+[2025-12-13 08:27:06] 🚀 Starting Re-mapping pipeline (BWA MEM) with MapQ >= 1...
+[2025-12-13 08:27:06]    Step 1: Generating filtered BAM file...

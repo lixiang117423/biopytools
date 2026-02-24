@@ -1,0 +1,59 @@
+2026-01-24 13:54:20.934 - INFO - 检查JanusX依赖|Checking JanusX dependencies
+2026-01-24 13:54:20.934 - INFO - JanusX路径|JanusX path: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin
+2026-01-24 13:54:23.676 - INFO - JanusX可执行文件检查通过|JanusX executable check passed
+2026-01-24 13:54:23.676 - INFO - ============================================================
+2026-01-24 13:54:23.676 - INFO - 开始JanusX GWAS分析|Starting JanusX GWAS analysis
+2026-01-24 13:54:23.676 - INFO - ============================================================
+2026-01-24 13:54:23.676 - INFO - 基因型文件|Genotype file: /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.vcf.gz
+2026-01-24 13:54:23.676 - INFO - 表型文件|Phenotype file: /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-01-24 13:54:23.676 - INFO - GWAS模型|GWAS models: farmcpu
+2026-01-24 13:54:23.677 - INFO - MAF阈值|MAF threshold: 0.05
+2026-01-24 13:54:23.677 - INFO - 缺失率阈值|Missing rate threshold: 0.05
+2026-01-24 13:54:23.677 - INFO - 线程数|Threads: 64
+2026-01-24 13:54:23.677 - INFO - 输出目录|Output directory: farmcpu
+2026-01-24 13:54:23.677 - INFO - 构建命令|Command built: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.vcf.gz -p /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -farmcpu -maf 0.05 -q 5 -t 64 -o farmcpu -prefix chr.snp.182.samples.maf005.vcf
+2026-01-24 13:54:23.677 - INFO - 运行GWAS分析|Running GWAS analysis: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.vcf.gz -p /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -farmcpu -maf 0.05 -q 5 -t 64 -o farmcpu -prefix chr.snp.182.samples.maf005.vcf
+2026-01-24 13:58:22.655 - INFO - 输出|Output:        _                      __   __
+2026-01-24 13:58:22.656 - INFO - 输出|Output:       | |                     \ \ / /
+2026-01-24 13:58:22.656 - INFO - 输出|Output:       | | __ _ _ __  _   _ ___ \ V / 
+2026-01-24 13:58:22.656 - INFO - 输出|Output:   _   | |/ _` | '_ \| | | / __| > <  
+2026-01-24 13:58:22.656 - INFO - 输出|Output:  | |__| | (_| | | | | |_| \__ \/ . \ 
+2026-01-24 13:58:22.656 - INFO - 输出|Output:   \____/ \__,_|_| |_|\__,_|___/_/ \_\ Tools for GWAS and GS
+2026-01-24 13:58:22.656 - INFO - 输出|Output: JanusX - High Performance GWAS CLI (LMM/LM: streaming low-memory; FarmCPU: full-memory)
+2026-01-24 13:58:22.656 - INFO - 输出|Output: Host: c02n0017
+2026-01-24 13:58:22.656 - INFO - 输出|Output: ************************************************************
+2026-01-24 13:58:22.656 - INFO - 输出|Output: GWAS CONFIGURATION
+2026-01-24 13:58:22.656 - INFO - 输出|Output: ************************************************************
+2026-01-24 13:58:22.656 - INFO - 输出|Output: Genotype file:    /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.vcf.gz
+2026-01-24 13:58:22.656 - INFO - 输出|Output: Phenotype file:   /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-01-24 13:58:22.656 - INFO - 输出|Output: Phenotype cols:   All
+2026-01-24 13:58:22.656 - INFO - 输出|Output: Mmap limit:       False
+2026-01-24 13:58:22.656 - INFO - 输出|Output: Models:           FarmCPU
+2026-01-24 13:58:22.656 - INFO - 输出|Output: GRM option:       1
+2026-01-24 13:58:22.656 - INFO - 输出|Output: Q option:         5
+2026-01-24 13:58:22.656 - INFO - 输出|Output: Maf threshold:    0.05
+2026-01-24 13:58:22.657 - INFO - 输出|Output: Miss threshold:   0.05
+2026-01-24 13:58:22.657 - INFO - 输出|Output: Chunk size:       100000
+2026-01-24 13:58:22.661 - INFO - 输出|Output: Threads:          64 (64 available)
+2026-01-24 13:58:22.661 - INFO - 输出|Output: Output prefix:    farmcpu/chr.snp.182.samples.maf005.vcf
+2026-01-24 13:58:22.661 - INFO - 输出|Output: ************************************************************
+2026-01-24 13:58:22.661 - INFO - 输出|Output: ============================================================
+2026-01-24 13:58:22.661 - INFO - 输出|Output: Run FarmCPU (full memory)
+2026-01-24 13:58:22.661 - INFO - 输出|Output: ============================================================
+2026-01-24 13:58:22.661 - INFO - 输出|Output: * FarmCPU pipeline: loading genotype and phenotype
+2026-01-24 13:58:22.661 - INFO - 输出|Output: Loading phenotype from /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt...
+2026-01-24 13:58:22.661 - INFO - 输出|Output: Genotype and phenotype loaded in 232.65 seconds
+2026-01-24 13:58:22.661 - INFO - 输出|Output: * PCA dimension for FarmCPU Q matrix: 5
+2026-01-24 13:58:22.661 - INFO - 输出|Output: Error in JanusX GWAS pipeline: too many indices for array: array is 1-dimensional, but 2 were indexed
+2026-01-24 13:58:22.661 - INFO - 输出|Output: Traceback (most recent call last):
+2026-01-24 13:58:22.661 - INFO - 输出|Output:   File "/tmp/onefile_2441130_1769234063_678060/janusx/script/gwas.py", line 1052, in main
+2026-01-24 13:58:22.661 - INFO - 输出|Output:   File "/tmp/onefile_2441130_1769234063_678060/janusx/script/gwas.py", line 735, in run_farmcpu_fullmem
+2026-01-24 13:58:22.661 - INFO - 输出|Output:   File "/tmp/onefile_2441130_1769234063_678060/janusx/script/gwas.py", line 677, in build_qmatrix_farmcpu
+2026-01-24 13:58:22.661 - INFO - 输出|Output: IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+2026-01-24 13:58:22.661 - INFO - 输出|Output: Finished. Total wall time: 236.79 seconds
+2026-01-24 13:58:22.661 - INFO - 输出|Output: 2026-1-24 13:58:22
+2026-01-24 13:58:22.661 - INFO - ============================================================
+2026-01-24 13:58:22.661 - INFO - GWAS分析完成|GWAS analysis completed
+2026-01-24 13:58:22.661 - INFO - ============================================================
+2026-01-24 13:58:22.662 - INFO - 输出文件|Output files:
+2026-01-24 13:58:22.662 - INFO -   chr.snp.182.samples.maf005.vcf.gwas.log (0.00 MB)

@@ -1,0 +1,114 @@
+2026-01-22 18:23:12.992 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-22 18:23:12.992 - INFO - 使用自定义输入目录|Using custom input directory: output/kmc_databases
+2026-01-22 18:23:12.992 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-22 18:23:12.993 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-22 18:23:12.993 - INFO - 找到 10 个KMC数据库|Found 10 KMC databases
+2026-01-22 18:23:12.993 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 10 样本|samples
+2026-01-22 18:23:12.993 - INFO - 检测到已存在的k-mer文件，跳过union步骤|Found existing k-mer file, skipping union: output/global_kmers_with_id.txt
+2026-01-22 18:23:12.993 - INFO - 从元数据加载 1,492,408,640 个k-mer|Loaded 1,492,408,640 k-mers from metadata
+2026-01-22 18:23:12.993 - INFO - 初始化矩阵文件|Initializing matrix file
+2026-01-22 18:23:12.997 - INFO - 矩阵文件初始化完成|Matrix file initialized
+2026-01-22 18:23:12.997 - INFO - k-mer文件大小|K-mer file size: 91.09GB
+2026-01-22 18:23:12.997 - INFO - 加载或构建索引|Loading or building index
+2026-01-22 18:23:12.997 - INFO - 文件大小 91.09GB >= 阈值 10.0GB，使用数据库索引|File size 91.09GB >= threshold 10.0GB, using database index
+2026-01-22 18:23:12.998 - INFO - 检测到已存在的LevelDB索引，直接加载|Found existing LevelDB index, loading: output/kmer_index.ldb
+2026-01-22 18:23:13.010 - INFO - 处理样本|Processing sample 1/10: W681A
+2026-01-22 18:23:13.010 - INFO - 查询样本丰度|Querying sample abundances: W681A
+2026-01-22 18:41:18.740 - INFO - 查询完成|Query completed: 40,570,808 个k-mer
+2026-01-22 18:41:18.741 - INFO - 保存样本丰度|Saving sample abundances: W681A
+2026-01-22 18:41:18.742 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 18:41:18.742 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 18:41:18.742 - INFO - 当前数据集大小|Current dataset size: 746204320, 新增|new: 40570808
+2026-01-22 18:41:18.742 - INFO - 数据集已扩展|Dataset resized to: 786775128
+2026-01-22 18:41:28.353 - INFO - 样本丰度已保存|Sample abundances saved: W681A
+2026-01-22 18:41:28.354 - INFO - 处理样本|Processing sample 2/10: W689A
+2026-01-22 18:41:28.354 - INFO - 查询样本丰度|Querying sample abundances: W689A
+2026-01-22 18:59:31.171 - INFO - 查询完成|Query completed: 40,387,127 个k-mer
+2026-01-22 18:59:31.667 - INFO - 保存样本丰度|Saving sample abundances: W689A
+2026-01-22 18:59:31.700 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 18:59:31.700 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 18:59:31.700 - INFO - 当前数据集大小|Current dataset size: 786775128, 新增|new: 40387127
+2026-01-22 18:59:31.701 - INFO - 数据集已扩展|Dataset resized to: 827162255
+2026-01-22 18:59:41.354 - INFO - 样本丰度已保存|Sample abundances saved: W689A
+2026-01-22 18:59:41.355 - INFO - 处理样本|Processing sample 3/10: W684A
+2026-01-22 18:59:41.355 - INFO - 查询样本丰度|Querying sample abundances: W684A
+2026-01-22 19:17:40.941 - INFO - 查询完成|Query completed: 40,463,121 个k-mer
+2026-01-22 19:17:41.438 - INFO - 保存样本丰度|Saving sample abundances: W684A
+2026-01-22 19:17:41.439 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 19:17:41.440 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 19:17:41.440 - INFO - 当前数据集大小|Current dataset size: 827162255, 新增|new: 40463121
+2026-01-22 19:17:41.440 - INFO - 数据集已扩展|Dataset resized to: 867625376
+2026-01-22 19:17:51.138 - INFO - 样本丰度已保存|Sample abundances saved: W684A
+2026-01-22 19:17:51.139 - INFO - 处理样本|Processing sample 4/10: W685A
+2026-01-22 19:17:51.139 - INFO - 查询样本丰度|Querying sample abundances: W685A
+2026-01-22 19:35:54.496 - INFO - 查询完成|Query completed: 40,369,724 个k-mer
+2026-01-22 19:35:54.984 - INFO - 保存样本丰度|Saving sample abundances: W685A
+2026-01-22 19:35:54.985 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 19:35:54.985 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 19:35:54.986 - INFO - 当前数据集大小|Current dataset size: 867625376, 新增|new: 40369724
+2026-01-22 19:35:54.986 - INFO - 数据集已扩展|Dataset resized to: 907995100
+2026-01-22 19:36:04.677 - INFO - 样本丰度已保存|Sample abundances saved: W685A
+2026-01-22 19:36:04.678 - INFO - 处理样本|Processing sample 5/10: W686A
+2026-01-22 19:36:04.678 - INFO - 查询样本丰度|Querying sample abundances: W686A
+2026-01-22 19:54:01.949 - INFO - 查询完成|Query completed: 40,389,060 个k-mer
+2026-01-22 19:54:02.371 - INFO - 保存样本丰度|Saving sample abundances: W686A
+2026-01-22 19:54:02.372 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 19:54:02.372 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 19:54:02.373 - INFO - 当前数据集大小|Current dataset size: 907995100, 新增|new: 40389060
+2026-01-22 19:54:02.373 - INFO - 数据集已扩展|Dataset resized to: 948384160
+2026-01-22 19:54:12.053 - INFO - 样本丰度已保存|Sample abundances saved: W686A
+2026-01-22 19:54:12.054 - INFO - 处理样本|Processing sample 6/10: W680A
+2026-01-22 19:54:12.054 - INFO - 查询样本丰度|Querying sample abundances: W680A
+2026-01-22 20:12:14.442 - INFO - 查询完成|Query completed: 40,326,605 个k-mer
+2026-01-22 20:12:14.756 - INFO - 保存样本丰度|Saving sample abundances: W680A
+2026-01-22 20:12:14.823 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 20:12:14.823 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 20:12:14.824 - INFO - 当前数据集大小|Current dataset size: 948384160, 新增|new: 40326605
+2026-01-22 20:12:14.824 - INFO - 数据集已扩展|Dataset resized to: 988710765
+2026-01-22 20:12:24.690 - INFO - 样本丰度已保存|Sample abundances saved: W680A
+2026-01-22 20:12:24.692 - INFO - 处理样本|Processing sample 7/10: W687A
+2026-01-22 20:12:24.692 - INFO - 查询样本丰度|Querying sample abundances: W687A
+2026-01-22 20:30:23.050 - INFO - 查询完成|Query completed: 40,466,162 个k-mer
+2026-01-22 20:30:23.544 - INFO - 保存样本丰度|Saving sample abundances: W687A
+2026-01-22 20:30:23.545 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 20:30:23.545 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 20:30:23.545 - INFO - 当前数据集大小|Current dataset size: 988710765, 新增|new: 40466162
+2026-01-22 20:30:23.545 - INFO - 数据集已扩展|Dataset resized to: 1029176927
+2026-01-22 20:30:33.281 - INFO - 样本丰度已保存|Sample abundances saved: W687A
+2026-01-22 20:30:33.282 - INFO - 处理样本|Processing sample 8/10: W688A
+2026-01-22 20:30:33.282 - INFO - 查询样本丰度|Querying sample abundances: W688A
+2026-01-22 20:48:37.782 - INFO - 查询完成|Query completed: 40,368,759 个k-mer
+2026-01-22 20:48:38.268 - INFO - 保存样本丰度|Saving sample abundances: W688A
+2026-01-22 20:48:38.269 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 20:48:38.269 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 20:48:38.269 - INFO - 当前数据集大小|Current dataset size: 1029176927, 新增|new: 40368759
+2026-01-22 20:48:38.269 - INFO - 数据集已扩展|Dataset resized to: 1069545686
+2026-01-22 20:48:47.996 - INFO - 样本丰度已保存|Sample abundances saved: W688A
+2026-01-22 20:48:47.997 - INFO - 处理样本|Processing sample 9/10: W683A
+2026-01-22 20:48:47.997 - INFO - 查询样本丰度|Querying sample abundances: W683A
+2026-01-22 21:06:48.749 - INFO - 查询完成|Query completed: 40,643,659 个k-mer
+2026-01-22 21:06:49.274 - INFO - 保存样本丰度|Saving sample abundances: W683A
+2026-01-22 21:06:49.337 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 21:06:49.337 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 21:06:49.351 - INFO - 当前数据集大小|Current dataset size: 1069545686, 新增|new: 40643659
+2026-01-22 21:06:49.351 - INFO - 数据集已扩展|Dataset resized to: 1110189345
+2026-01-22 21:06:59.155 - INFO - 样本丰度已保存|Sample abundances saved: W683A
+2026-01-22 21:06:59.156 - INFO - 处理样本|Processing sample 10/10: W682A
+2026-01-22 21:06:59.156 - INFO - 查询样本丰度|Querying sample abundances: W682A
+2026-01-22 21:25:00.666 - INFO - 查询完成|Query completed: 40,362,515 个k-mer
+2026-01-22 21:25:01.214 - INFO - 保存样本丰度|Saving sample abundances: W682A
+2026-01-22 21:25:01.246 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-22 21:25:01.246 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-22 21:25:01.246 - INFO - 当前数据集大小|Current dataset size: 1110189345, 新增|new: 40362515
+2026-01-22 21:25:01.247 - INFO - 数据集已扩展|Dataset resized to: 1150551860
+2026-01-22 21:25:11.006 - INFO - 样本丰度已保存|Sample abundances saved: W682A
+2026-01-22 21:25:11.062 - INFO - LevelDB索引已关闭|LevelDB index closed
+2026-01-22 21:25:11.062 - INFO - 从文件保存k-mer字典到HDF5|Saving k-mer dictionary from file to HDF5
+2026-01-22 21:54:45.064 - INFO - k-mer字典已保存|K-mer dictionary saved: output/kmer_dictionary.h5
+2026-01-22 21:55:37.483 - INFO - 丰度矩阵构建完成|Abundance matrix built: output/abundance_matrix.h5
+2026-01-22 21:55:37.999 - INFO - 矩阵统计|Matrix statistics:
+2026-01-22 21:55:37.999 - INFO -   k-mer数量|K-mer count: 1492.41M
+2026-01-22 21:55:37.999 - INFO -   样本数量|Sample count: 10
+2026-01-22 21:55:37.999 - INFO -   k-mer长度|K-mer size: 21
+2026-01-22 21:55:37.999 - INFO -   存储类型|Storage type: sparse
+2026-01-22 21:55:37.999 - INFO -   稀疏度|Sparsity: 7.71%

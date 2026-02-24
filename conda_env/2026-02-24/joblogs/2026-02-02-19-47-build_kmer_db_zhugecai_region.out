@@ -1,0 +1,62 @@
+2026-02-02 19:47:28.948 - INFO - 找到kmtricks|Found kmtricks: unknown
+2026-02-02 19:47:29.012 - INFO - 找到bgzip|Found bgzip
+2026-02-02 19:47:29.012 - INFO - ============================================================
+2026-02-02 19:47:29.012 - INFO - 开始K-mer库构建|Starting K-mer database build
+2026-02-02 19:47:29.012 - INFO - ============================================================
+2026-02-02 19:47:29.391 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
+2026-02-02 19:47:29.391 - INFO - 生成FOF文件|Generating FOF file
+2026-02-02 19:47:29.392 - INFO - 检测到双末端数据|Detected paired-end data: 99 samples
+2026-02-02 19:47:29.435 - INFO - FOF文件已生成（双末端）|FOF file generated (paired-end): input.fof
+2026-02-02 19:47:29.435 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
+2026-02-02 19:47:29.435 - INFO - 自动计算分区数|Auto-calculated partitions: 50
+2026-02-02 19:47:29.435 - INFO - 样本数|Samples: 99, 线程数|Threads: 32
+2026-02-02 19:47:29.435 - INFO - 使用分区数|Using partitions: 50
+2026-02-02 19:47:29.435 - INFO - 执行步骤|Executing step: 执行kmtricks pipeline|Executing kmtricks pipeline
+2026-02-02 19:47:29.435 - INFO - 命令|Command: kmtricks pipeline --file input.fof --run-dir kmtricks_run --kmer-size 51 --hard-min 2 --recurrence-min 1 --mode kmer:pa:bin --cpr -t 32 --nb-partitions 50
+2026-02-03 00:45:37.746 - INFO - 命令执行成功|Command executed successfully
+2026-02-03 00:45:37.750 - WARNING - 标准错误|Stderr: [2026-02-02 19:47:29.439] [info] Run with Kmer<64> - __uint128_t implementation
+[2026-02-02 19:47:29.443] [info] Compute configuration...
+[2026-02-02 19:47:29.443] [info] 99 samples found (198 read files).
+[2026-02-02 19:47:58.835] [info] Use 50 partitions.
+[2026-02-02 19:47:58.839] [info] Compute minimizer repartition...
+[2026-02-03 00:45:37.709] [info] Done in 04h58m08s - Peak RSS -> 66888.07 MB.
+
+2026-02-03 00:45:37.750 - INFO - kmtricks pipeline完成|kmtricks pipeline completed
+2026-02-03 00:45:37.750 - INFO - 运行kmtricks aggregate|Running kmtricks aggregate
+2026-02-03 00:45:37.750 - INFO - 执行步骤|Executing step: 执行kmtricks aggregate|Executing kmtricks aggregate
+2026-02-03 00:45:37.750 - INFO - 命令|Command: kmtricks aggregate --run-dir kmtricks_run --pa-matrix kmer --format text --cpr-in -t 32 --output kmer_matrix.txt
+2026-02-03 02:53:32.258 - INFO - 命令执行成功|Command executed successfully
+2026-02-03 02:53:32.279 - WARNING - 标准错误|Stderr: [2026-02-03 00:45:38.079] [info] Run with Kmer<64> - __uint128_t implementation
+
+2026-02-03 02:53:32.279 - INFO - kmtricks aggregate完成|kmtricks aggregate completed: kmer_matrix.txt
+2026-02-03 02:53:32.279 - INFO - 压缩矩阵文件|Compressing matrix file
+2026-02-03 02:53:32.288 - INFO - 执行步骤|Executing step: 压缩矩阵文件|Compressing matrix file
+2026-02-03 02:53:32.288 - INFO - 命令|Command: bgzip -k kmer_matrix.txt -@ 32
+2026-02-03 03:23:40.939 - INFO - 命令执行成功|Command executed successfully
+2026-02-03 03:23:40.939 - INFO - 矩阵文件已压缩|Matrix file compressed: kmer_matrix.txt.gz
+2026-02-03 03:23:40.939 - INFO - 提取样本名|Extracting sample names
+2026-02-03 03:23:40.951 - INFO - 样本名已提取|Sample names extracted: header.txt
+2026-02-03 03:23:40.951 - INFO - 导入矩阵到RocksDB|Importing matrix to RocksDB
+2026-02-03 03:23:40.951 - INFO - 开始导入kmer矩阵到RocksDB|Starting kmer matrix import to RocksDB: rocksdb
+Starting import from 'kmer_matrix.txt.gz' to RocksDB at 'rocksdb'...
+INFO: Header file: 'header.txt', DB key: 'kmer_header', Storage delimiter for header fields: '	'
+Input delimiter: ' '
+Data value join character (for storage): '' (Empty means concatenation)
+INFO: Attempting to open DB with ZSTD compression...
+SUCCESS: Opened DB with ZSTD compression.
+INFO: Added processed header to batch (key='kmer_header'): 'OV8-105	OV8-106	OV8-107	OV8-108	OV8-111	OV8-112	OV8-113	OV8-114	OV8-115	OV8-116	OV8-117	OV8-118	OV8-11	OV8-136	OV8-137	OV8-138	OV8-139	OV8-141	OV8-142	OV8-143	OV8-144	OV8-157	OV8-158	OV8-15	OV8-171	OV8-172	OV8-179	OV8-17	OV8-180	OV8-196	OV8-19	OV8-1	OV8-206	OV8-20	OV8-216	OV8-217	OV8-21	OV8-258	OV8-259	OV8-260	OV8-263	OV8-264	OV8-265	OV8-267	OV8-268	OV8-269	OV8-26	OV8-271	OV8-272	OV8-273	OV8-274	OV8-275	OV8-276	OV8-277	OV8-27	OV8-28	OV8-29	OV8-2	OV8-30	OV8-31	OV8-32	OV8-33	OV8-34	OV8-35	OV8-39	OV8-3	OV8-40	OV8-42	OV8-43	OV8-44	OV8-45	OV8-4	OV8-5	OV8-67	OV8-68	OV8-6	OV8-70	OV8-71	OV8-72	OV8-73	OV8-74	OV8-75	OV8-76	OV8-77	OV8-78	OV8-79	OV8-7	OV8-80	OV8-81	OV8-83	OV8-87	OV8-88	OV8-89	OV8-8	OV8-94	OV8-95	OV8-98	OV8-99	OV8-9'
+------------------------------
+Import finished successfully!
+Total lines read from input file: 3526900156
+Total data records imported: 3526900156
+Header record was also imported.
+2026-02-03 07:52:07.322 - INFO - RocksDB导入成功|RocksDB import successful: rocksdb
+2026-02-03 07:52:07.324 - INFO - 生成带表头的矩阵文件|Generating matrix file with header
+2026-02-03 08:08:33.492 - INFO - 带表头的矩阵文件已生成|Matrix file with header generated: kmer_matrix_with_header.txt
+2026-02-03 08:08:33.492 - INFO - KmerPAV流程完成|KmerPAV pipeline completed
+2026-02-03 08:08:33.492 - INFO - ============================================================
+2026-02-03 08:08:33.509 - INFO - K-mer库构建完成 (kmtricks+RocksDB模式)|K-mer database build completed (kmtricks+RocksDB mode)
+2026-02-03 08:08:33.509 - INFO - ============================================================
+2026-02-03 08:08:33.509 - INFO - 输入目录|Input directory: ../01.data/clean/
+2026-02-03 08:08:33.509 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/76.所有样品kmer建库
+2026-02-03 08:08:33.509 - INFO - 建库成功|Build completed successfully

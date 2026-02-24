@@ -1,0 +1,76 @@
+============================================================
+文件夹模式|Directory mode
+找到|Found 2 个文件|files
+============================================================
+
+处理文件 1/2|Processing file 1/2: genA.sreads.bam
+------------------------------------------------------------
+2026-01-06 19:44:08 - INFO - 检测到输入类型|Detected input type: bam
+2026-01-06 19:44:08 - INFO - 检查依赖工具|Checking dependency tools
+2026-01-06 19:44:08 - INFO - 找到工具|Found tool: minimap2 - 2.30-r1287
+2026-01-06 19:44:09 - INFO - 找到工具|Found tool: samtools - samtools 1.22
+2026-01-06 19:44:09 - INFO - ============================================================
+2026-01-06 19:44:09 - INFO - 开始三代转录组比对分析|Starting long RNA-seq alignment
+2026-01-06 19:44:09 - INFO - ============================================================
+2026-01-06 19:44:09 - INFO - 样本名称|Sample name: genA.sreads
+2026-01-06 19:44:09 - INFO - 参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/39.前后两次注释结果的蛋白序列blast/Chr12.fa
+2026-01-06 19:44:09 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/pacbio/genA.sreads.bam
+2026-01-06 19:44:09 - INFO - 输入类型|Input type: bam
+2026-01-06 19:44:09 - INFO - 线程数|Threads: 64
+2026-01-06 19:44:09 - INFO - 最大intron长度|Max intron length: 100000
+2026-01-06 19:44:09 - INFO - 最小MAPQ|Min MAPQ: 20
+2026-01-06 19:44:09 - INFO - 步骤1: 准备FASTQ文件|Step 1: Preparing FASTQ file
+2026-01-06 19:44:09 - INFO - 检测到BAM输入文件，正在转换为FASTQ|Detected BAM input file, converting to FASTQ
+2026-01-06 19:44:09 - INFO - 转换BAM到FASTQ|Converting BAM to FASTQ: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/alignment_results/tmp/genA.sreads.fastq
+2026-01-06 19:46:20 - INFO - 总reads数|Total reads: 12341577
+2026-01-06 19:46:20 - INFO - 步骤2: minimap2比对|Step 2: Aligning with minimap2
+2026-01-06 19:46:20 - INFO - 比对参数|Alignment parameters: -ax splice -uf --eqx --MD --cs -Y --sam-hit-only -G 100000 -p 0.9 -p 0.9 -t 64
+2026-01-06 19:46:20 - INFO - 单端比对模式|Single-end alignment mode
+2026-01-06 19:46:20 - INFO - 运行比对管道|Running alignment pipeline
+2026-01-06 19:55:32 - ERROR - samtools view失败|samtools view failed: [E::parse_cigar] CIGAR length invalid at position 41 (IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII7IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII+IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII	NM:i:88	ms:i:176	AS:i:132	nn:i:0	ts:A:+	tp:A:P	cm:i:11	s1:i:83	s2:i:0	de:f:0.1111	MD:Z:3A14G9A12C20C21T16A4A21C11G35C4G0A1T10A1T18^CAT11T3A13C7A9^C0A5A16	rl:i:32)
+samtools view: error reading file "-"
+[E::sam_parse1] SEQ and QUAL are of different length
+samtools view: error closing "-": -5
+
+2026-01-06 19:55:33 - ERROR - 分析失败|Analysis failed
+
+处理文件 2/2|Processing file 2/2: jingyeA.sreads.bam
+------------------------------------------------------------
+2026-01-06 19:55:33 - INFO - 检测到输入类型|Detected input type: bam
+2026-01-06 19:55:33 - INFO - 检查依赖工具|Checking dependency tools
+2026-01-06 19:55:33 - INFO - 找到工具|Found tool: minimap2 - 2.30-r1287
+2026-01-06 19:55:33 - INFO - 找到工具|Found tool: samtools - samtools 1.22
+2026-01-06 19:55:33 - INFO - ============================================================
+2026-01-06 19:55:33 - INFO - 开始三代转录组比对分析|Starting long RNA-seq alignment
+2026-01-06 19:55:33 - INFO - ============================================================
+2026-01-06 19:55:33 - INFO - 样本名称|Sample name: jingyeA.sreads
+2026-01-06 19:55:33 - INFO - 参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/39.前后两次注释结果的蛋白序列blast/Chr12.fa
+2026-01-06 19:55:33 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/pacbio/jingyeA.sreads.bam
+2026-01-06 19:55:33 - INFO - 输入类型|Input type: bam
+2026-01-06 19:55:33 - INFO - 线程数|Threads: 64
+2026-01-06 19:55:33 - INFO - 最大intron长度|Max intron length: 100000
+2026-01-06 19:55:33 - INFO - 最小MAPQ|Min MAPQ: 20
+2026-01-06 19:55:33 - INFO - 步骤1: 准备FASTQ文件|Step 1: Preparing FASTQ file
+2026-01-06 19:55:33 - INFO - 检测到BAM输入文件，正在转换为FASTQ|Detected BAM input file, converting to FASTQ
+2026-01-06 19:55:33 - INFO - 转换BAM到FASTQ|Converting BAM to FASTQ: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/alignment_results/tmp/jingyeA.sreads.fastq
+2026-01-06 20:03:01 - INFO - 总reads数|Total reads: 46245959
+2026-01-06 20:03:03 - INFO - 步骤2: minimap2比对|Step 2: Aligning with minimap2
+2026-01-06 20:03:03 - INFO - 比对参数|Alignment parameters: -ax splice -uf --eqx --MD --cs -Y --sam-hit-only -G 100000 -p 0.9 -p 0.9 -t 64
+2026-01-06 20:03:03 - INFO - 单端比对模式|Single-end alignment mode
+2026-01-06 20:03:03 - INFO - 运行比对管道|Running alignment pipeline
+2026-01-06 20:29:40 - ERROR - samtools view失败|samtools view failed: [E::sam_parse1] SEQ and QUAL are of different length
+samtools view: error reading file "-"
+[E::sam_parse1] SEQ and QUAL are of different length
+samtools view: error closing "-": -5
+
+2026-01-06 20:29:40 - ERROR - 分析失败|Analysis failed
+
+============================================================
+批量处理完成|Batch processing completed
+============================================================
+成功|Success: 0/2
+失败|Failed: 2/2
+
+失败文件列表|Failed files:
+  - /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/pacbio/genA.sreads.bam
+  - /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/pacbio/jingyeA.sreads.bam

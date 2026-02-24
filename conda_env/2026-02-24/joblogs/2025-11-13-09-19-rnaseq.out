@@ -1,0 +1,233 @@
+2025-11-13 09:19:21,070 - INFO - ============================================================
+2025-11-13 09:19:21,070 - INFO - 🚀 RNA-seq分析流程开始 | RNA-seq analysis pipeline started
+2025-11-13 09:19:21,070 - INFO - ============================================================
+2025-11-13 09:19:21,070 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.fa
+2025-11-13 09:19:21,070 - INFO - 📂 输入路径 | Input path: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean
+2025-11-13 09:19:21,070 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output
+2025-11-13 09:19:21,070 - INFO - 📋 GTF文件 | GTF file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf
+2025-11-13 09:19:21,070 - INFO - 🔧 线程数 | Threads: 80
+2025-11-13 09:19:21,070 - INFO - 🗑️  删除BAM文件 | Remove BAM files: no
+2025-11-13 09:19:21,070 - INFO - 📋 文件模式 | File pattern: *_1.clean.fq.gz
+2025-11-13 09:19:21,070 - INFO - ============================================================
+2025-11-13 09:19:21,070 - INFO - 🔨 步骤1: 构建HISAT2索引 | Step 1: Building HISAT2 index
+2025-11-13 09:19:21,070 - INFO - ============================================================
+2025-11-13 09:19:21,070 - INFO - 🧬 提取剪接位点信息 | Extracting splice sites: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.ss
+2025-11-13 09:19:21,071 - INFO - 🚀 运行 | Running: 🔍 提取剪接位点信息 | Extract splice sites
+2025-11-13 09:19:21,071 - INFO - 💻 命令 | Command: extract_splice_sites.py /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf > /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.ss
+2025-11-13 09:19:22,730 - INFO - ✅ 🔍 提取剪接位点信息 | Extract splice sites 完成 | completed
+2025-11-13 09:19:22,730 - INFO - ✅ 剪接位点信息提取完成 | Splice sites extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.ss
+2025-11-13 09:19:22,730 - INFO - 🧬 提取外显子信息 | Extracting exons: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.exon
+2025-11-13 09:19:22,730 - INFO - 🚀 运行 | Running: 🔍 提取外显子信息 | Extract exons
+2025-11-13 09:19:22,730 - INFO - 💻 命令 | Command: extract_exons.py /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf > /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.exon
+2025-11-13 09:19:22,955 - INFO - ✅ 🔍 提取外显子信息 | Extract exons 完成 | completed
+2025-11-13 09:19:22,955 - INFO - ✅ 外显子信息提取完成 | Exons extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.exon
+2025-11-13 09:19:22,955 - INFO - ✨ 使用剪接位点文件 | Using splice sites file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.ss
+2025-11-13 09:19:22,955 - INFO - ✨ 使用外显子文件 | Using exons file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.exon
+2025-11-13 09:19:22,955 - INFO - 🔨 构建HISAT2索引 | Building HISAT2 index with command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.ss --exon /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.exon -p 80 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.fa /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index
+2025-11-13 09:19:22,958 - INFO - 🚀 运行 | Running: 🔨 构建HISAT2索引 | Building HISAT2 index
+2025-11-13 09:19:22,958 - INFO - 💻 命令 | Command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.ss --exon /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.exon -p 80 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.fa /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index
+2025-11-13 09:19:48,704 - INFO - ✅ 🔨 构建HISAT2索引 | Building HISAT2 index 完成 | completed
+2025-11-13 09:19:48,705 - INFO - ✅ HISAT2索引构建完成 | HISAT2 index building completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index
+2025-11-13 09:19:48,705 - INFO - ============================================================
+2025-11-13 09:19:48,705 - INFO - 📋 步骤2: 解析输入样本 | Step 2: Parsing input samples
+2025-11-13 09:19:48,705 - INFO - ============================================================
+2025-11-13 09:19:48,705 - INFO - 📂 使用指定文件模式 | Using specified file pattern: *_1.clean.fq.gz
+2025-11-13 09:19:48,705 - INFO - 🔍 检测到读取指示符 | Detected read indicator: _1 <-> _2
+2025-11-13 09:19:48,706 - INFO - 🔎 搜索模式 | Search pattern: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/*_1.clean.fq.gz
+2025-11-13 09:19:48,706 - INFO - 📊 找到 8 个read1文件 | Found 8 read1 files
+2025-11-13 09:19:48,706 - INFO - 🔍 样本 | Sample: H2O-24h
+2025-11-13 09:19:48,706 - INFO -    📄 Read1: H2O-24h_1.clean.fq.gz
+2025-11-13 09:19:48,706 - INFO -    📄 Read2: H2O-24h_2.clean.fq.gz (期望 | expected)
+2025-11-13 09:19:48,707 - INFO -    ✅ 配对成功 | Paired successfully
+2025-11-13 09:19:48,707 - INFO - 🔍 样本 | Sample: H2O-48h
+2025-11-13 09:19:48,707 - INFO -    📄 Read1: H2O-48h_1.clean.fq.gz
+2025-11-13 09:19:48,707 - INFO -    📄 Read2: H2O-48h_2.clean.fq.gz (期望 | expected)
+2025-11-13 09:19:48,708 - INFO -    ✅ 配对成功 | Paired successfully
+2025-11-13 09:19:48,708 - INFO - 🔍 样本 | Sample: H2O-72h
+2025-11-13 09:19:48,708 - INFO -    📄 Read1: H2O-72h_1.clean.fq.gz
+2025-11-13 09:19:48,708 - INFO -    📄 Read2: H2O-72h_2.clean.fq.gz (期望 | expected)
+2025-11-13 09:19:48,708 - INFO -    ✅ 配对成功 | Paired successfully
+2025-11-13 09:19:48,708 - INFO - 🔍 样本 | Sample: H2O-96h
+2025-11-13 09:19:48,708 - INFO -    📄 Read1: H2O-96h_1.clean.fq.gz
+2025-11-13 09:19:48,709 - INFO -    📄 Read2: H2O-96h_2.clean.fq.gz (期望 | expected)
+2025-11-13 09:19:48,713 - INFO -    ✅ 配对成功 | Paired successfully
+2025-11-13 09:19:48,713 - INFO - 🔍 样本 | Sample: ZH-5-24h
+2025-11-13 09:19:48,713 - INFO -    📄 Read1: ZH-5-24h_1.clean.fq.gz
+2025-11-13 09:19:48,713 - INFO -    📄 Read2: ZH-5-24h_2.clean.fq.gz (期望 | expected)
+2025-11-13 09:19:48,714 - INFO -    ✅ 配对成功 | Paired successfully
+2025-11-13 09:19:48,714 - INFO - 🔍 样本 | Sample: ZH-5-48h
+2025-11-13 09:19:48,714 - INFO -    📄 Read1: ZH-5-48h_1.clean.fq.gz
+2025-11-13 09:19:48,714 - INFO -    📄 Read2: ZH-5-48h_2.clean.fq.gz (期望 | expected)
+2025-11-13 09:19:48,715 - INFO -    ✅ 配对成功 | Paired successfully
+2025-11-13 09:19:48,715 - INFO - 🔍 样本 | Sample: ZH-5-72h
+2025-11-13 09:19:48,715 - INFO -    📄 Read1: ZH-5-72h_1.clean.fq.gz
+2025-11-13 09:19:48,715 - INFO -    📄 Read2: ZH-5-72h_2.clean.fq.gz (期望 | expected)
+2025-11-13 09:19:48,716 - INFO -    ✅ 配对成功 | Paired successfully
+2025-11-13 09:19:48,716 - INFO - 🔍 样本 | Sample: ZH-5-96h
+2025-11-13 09:19:48,716 - INFO -    📄 Read1: ZH-5-96h_1.clean.fq.gz
+2025-11-13 09:19:48,716 - INFO -    📄 Read2: ZH-5-96h_2.clean.fq.gz (期望 | expected)
+2025-11-13 09:19:48,717 - INFO -    ✅ 配对成功 | Paired successfully
+2025-11-13 09:19:48,717 - INFO - ✨ 找到 8 个样本 | Found 8 samples:
+2025-11-13 09:19:48,717 - INFO -   📌 H2O-24h: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-24h_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-24h_2.clean.fq.gz
+2025-11-13 09:19:48,717 - INFO -   📌 H2O-48h: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-48h_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-48h_2.clean.fq.gz
+2025-11-13 09:19:48,717 - INFO -   📌 H2O-72h: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-72h_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-72h_2.clean.fq.gz
+2025-11-13 09:19:48,717 - INFO -   📌 H2O-96h: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-96h_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-96h_2.clean.fq.gz
+2025-11-13 09:19:48,717 - INFO -   📌 ZH-5-24h: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-24h_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-24h_2.clean.fq.gz
+2025-11-13 09:19:48,717 - INFO -   📌 ZH-5-48h: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-48h_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-48h_2.clean.fq.gz
+2025-11-13 09:19:48,717 - INFO -   📌 ZH-5-72h: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-72h_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-72h_2.clean.fq.gz
+2025-11-13 09:19:48,717 - INFO -   📌 ZH-5-96h: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-96h_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-96h_2.clean.fq.gz
+2025-11-13 09:19:48,717 - INFO - ============================================================
+2025-11-13 09:19:48,717 - INFO - 🔄 步骤3: 处理所有样本 | Step 3: Processing all samples
+2025-11-13 09:19:48,717 - INFO - ============================================================
+2025-11-13 09:19:48,717 - INFO - ============================================================
+2025-11-13 09:19:48,717 - INFO - 🧪 处理样本 | Processing sample: H2O-24h
+2025-11-13 09:19:48,717 - INFO - ============================================================
+2025-11-13 09:19:48,717 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-24h.sorted.bam
+2025-11-13 09:19:48,717 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-24h_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-24h_2.clean.fq.gz -p 80 | samtools sort -@ 80 -O BAM -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-24h.sorted.bam -
+2025-11-13 09:37:13,908 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-24h.sorted.bam 完成 | completed
+2025-11-13 09:37:13,908 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-24h.sorted.bam
+2025-11-13 09:37:13,909 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-24h.gtf
+2025-11-13 09:37:13,909 - INFO - 💻 命令 | Command: stringtie -p 80 -G /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-24h.gtf -e /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-24h.sorted.bam
+2025-11-13 09:37:40,036 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-24h.gtf 完成 | completed
+2025-11-13 09:37:40,036 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-24h.gtf
+2025-11-13 09:37:40,036 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-24h.gtf
+2025-11-13 09:37:40,087 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/H2O-24h.fpkm.txt
+2025-11-13 09:37:40,087 - INFO - 📊 提取了 12100 个转录本 | Extracted 12100 transcripts
+2025-11-13 09:37:40,087 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-24h.sorted.bam
+2025-11-13 09:37:40,087 - INFO - ============================================================
+2025-11-13 09:37:40,087 - INFO - 🧪 处理样本 | Processing sample: H2O-48h
+2025-11-13 09:37:40,087 - INFO - ============================================================
+2025-11-13 09:37:40,087 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-48h.sorted.bam
+2025-11-13 09:37:40,087 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-48h_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-48h_2.clean.fq.gz -p 80 | samtools sort -@ 80 -O BAM -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-48h.sorted.bam -
+2025-11-13 09:55:14,826 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-48h.sorted.bam 完成 | completed
+2025-11-13 09:55:14,828 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-48h.sorted.bam
+2025-11-13 09:55:14,828 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-48h.gtf
+2025-11-13 09:55:14,828 - INFO - 💻 命令 | Command: stringtie -p 80 -G /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-48h.gtf -e /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-48h.sorted.bam
+2025-11-13 09:55:40,721 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-48h.gtf 完成 | completed
+2025-11-13 09:55:40,721 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-48h.gtf
+2025-11-13 09:55:40,721 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-48h.gtf
+2025-11-13 09:55:40,773 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/H2O-48h.fpkm.txt
+2025-11-13 09:55:40,773 - INFO - 📊 提取了 12100 个转录本 | Extracted 12100 transcripts
+2025-11-13 09:55:40,773 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-48h.sorted.bam
+2025-11-13 09:55:40,773 - INFO - ============================================================
+2025-11-13 09:55:40,773 - INFO - 🧪 处理样本 | Processing sample: H2O-72h
+2025-11-13 09:55:40,773 - INFO - ============================================================
+2025-11-13 09:55:40,773 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-72h.sorted.bam
+2025-11-13 09:55:40,773 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-72h_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-72h_2.clean.fq.gz -p 80 | samtools sort -@ 80 -O BAM -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-72h.sorted.bam -
+2025-11-13 10:12:52,918 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-72h.sorted.bam 完成 | completed
+2025-11-13 10:12:52,918 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-72h.sorted.bam
+2025-11-13 10:12:52,918 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-72h.gtf
+2025-11-13 10:12:52,918 - INFO - 💻 命令 | Command: stringtie -p 80 -G /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-72h.gtf -e /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-72h.sorted.bam
+2025-11-13 10:13:19,664 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-72h.gtf 完成 | completed
+2025-11-13 10:13:19,664 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-72h.gtf
+2025-11-13 10:13:19,664 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-72h.gtf
+2025-11-13 10:13:19,714 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/H2O-72h.fpkm.txt
+2025-11-13 10:13:19,715 - INFO - 📊 提取了 12100 个转录本 | Extracted 12100 transcripts
+2025-11-13 10:13:19,715 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-72h.sorted.bam
+2025-11-13 10:13:19,715 - INFO - ============================================================
+2025-11-13 10:13:19,715 - INFO - 🧪 处理样本 | Processing sample: H2O-96h
+2025-11-13 10:13:19,715 - INFO - ============================================================
+2025-11-13 10:13:19,715 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-96h.sorted.bam
+2025-11-13 10:13:19,715 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-96h_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/H2O-96h_2.clean.fq.gz -p 80 | samtools sort -@ 80 -O BAM -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-96h.sorted.bam -
+2025-11-13 10:27:22,207 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-96h.sorted.bam 完成 | completed
+2025-11-13 10:27:22,207 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-96h.sorted.bam
+2025-11-13 10:27:22,207 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-96h.gtf
+2025-11-13 10:27:22,207 - INFO - 💻 命令 | Command: stringtie -p 80 -G /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-96h.gtf -e /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-96h.sorted.bam
+2025-11-13 10:27:48,288 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-96h.gtf 完成 | completed
+2025-11-13 10:27:48,289 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-96h.gtf
+2025-11-13 10:27:48,289 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/H2O-96h.gtf
+2025-11-13 10:27:48,339 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/H2O-96h.fpkm.txt
+2025-11-13 10:27:48,339 - INFO - 📊 提取了 12100 个转录本 | Extracted 12100 transcripts
+2025-11-13 10:27:48,339 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/H2O-96h.sorted.bam
+2025-11-13 10:27:48,339 - INFO - ============================================================
+2025-11-13 10:27:48,339 - INFO - 🧪 处理样本 | Processing sample: ZH-5-24h
+2025-11-13 10:27:48,339 - INFO - ============================================================
+2025-11-13 10:27:48,339 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-24h.sorted.bam
+2025-11-13 10:27:48,339 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-24h_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-24h_2.clean.fq.gz -p 80 | samtools sort -@ 80 -O BAM -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-24h.sorted.bam -
+2025-11-13 10:45:33,911 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-24h.sorted.bam 完成 | completed
+2025-11-13 10:45:33,912 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-24h.sorted.bam
+2025-11-13 10:45:33,912 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-24h.gtf
+2025-11-13 10:45:33,912 - INFO - 💻 命令 | Command: stringtie -p 80 -G /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-24h.gtf -e /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-24h.sorted.bam
+2025-11-13 10:46:00,929 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-24h.gtf 完成 | completed
+2025-11-13 10:46:00,929 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-24h.gtf
+2025-11-13 10:46:00,929 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-24h.gtf
+2025-11-13 10:46:00,980 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/ZH-5-24h.fpkm.txt
+2025-11-13 10:46:00,981 - INFO - 📊 提取了 12100 个转录本 | Extracted 12100 transcripts
+2025-11-13 10:46:00,981 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-24h.sorted.bam
+2025-11-13 10:46:00,981 - INFO - ============================================================
+2025-11-13 10:46:00,981 - INFO - 🧪 处理样本 | Processing sample: ZH-5-48h
+2025-11-13 10:46:00,981 - INFO - ============================================================
+2025-11-13 10:46:00,981 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-48h.sorted.bam
+2025-11-13 10:46:00,981 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-48h_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-48h_2.clean.fq.gz -p 80 | samtools sort -@ 80 -O BAM -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-48h.sorted.bam -
+2025-11-13 11:04:03,468 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-48h.sorted.bam 完成 | completed
+2025-11-13 11:04:03,468 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-48h.sorted.bam
+2025-11-13 11:04:03,468 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-48h.gtf
+2025-11-13 11:04:03,468 - INFO - 💻 命令 | Command: stringtie -p 80 -G /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-48h.gtf -e /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-48h.sorted.bam
+2025-11-13 11:04:29,244 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-48h.gtf 完成 | completed
+2025-11-13 11:04:29,245 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-48h.gtf
+2025-11-13 11:04:29,245 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-48h.gtf
+2025-11-13 11:04:29,296 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/ZH-5-48h.fpkm.txt
+2025-11-13 11:04:29,296 - INFO - 📊 提取了 12100 个转录本 | Extracted 12100 transcripts
+2025-11-13 11:04:29,296 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-48h.sorted.bam
+2025-11-13 11:04:29,296 - INFO - ============================================================
+2025-11-13 11:04:29,296 - INFO - 🧪 处理样本 | Processing sample: ZH-5-72h
+2025-11-13 11:04:29,296 - INFO - ============================================================
+2025-11-13 11:04:29,296 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-72h.sorted.bam
+2025-11-13 11:04:29,296 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-72h_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-72h_2.clean.fq.gz -p 80 | samtools sort -@ 80 -O BAM -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-72h.sorted.bam -
+2025-11-13 11:19:40,991 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-72h.sorted.bam 完成 | completed
+2025-11-13 11:19:40,991 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-72h.sorted.bam
+2025-11-13 11:19:40,991 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-72h.gtf
+2025-11-13 11:19:40,991 - INFO - 💻 命令 | Command: stringtie -p 80 -G /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-72h.gtf -e /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-72h.sorted.bam
+2025-11-13 11:20:15,969 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-72h.gtf 完成 | completed
+2025-11-13 11:20:15,970 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-72h.gtf
+2025-11-13 11:20:15,970 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-72h.gtf
+2025-11-13 11:20:16,023 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/ZH-5-72h.fpkm.txt
+2025-11-13 11:20:16,023 - INFO - 📊 提取了 12100 个转录本 | Extracted 12100 transcripts
+2025-11-13 11:20:16,023 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-72h.sorted.bam
+2025-11-13 11:20:16,023 - INFO - ============================================================
+2025-11-13 11:20:16,023 - INFO - 🧪 处理样本 | Processing sample: ZH-5-96h
+2025-11-13 11:20:16,023 - INFO - ============================================================
+2025-11-13 11:20:16,023 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-96h.sorted.bam
+2025-11-13 11:20:16,023 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-96h_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/clean/ZH-5-96h_2.clean.fq.gz -p 80 | samtools sort -@ 80 -O BAM -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-96h.sorted.bam -
+2025-11-13 11:38:27,768 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-96h.sorted.bam 完成 | completed
+2025-11-13 11:38:27,769 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-96h.sorted.bam
+2025-11-13 11:38:27,769 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-96h.gtf
+2025-11-13 11:38:27,769 - INFO - 💻 命令 | Command: stringtie -p 80 -G /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/01.data/genome/T2T70-15_chr.gtf -o /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-96h.gtf -e /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-96h.sorted.bam
+2025-11-13 11:39:01,176 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-96h.gtf 完成 | completed
+2025-11-13 11:39:01,176 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-96h.gtf
+2025-11-13 11:39:01,176 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/stringtie_output/ZH-5-96h.gtf
+2025-11-13 11:39:01,264 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/ZH-5-96h.fpkm.txt
+2025-11-13 11:39:01,264 - INFO - 📊 提取了 12100 个转录本 | Extracted 12100 transcripts
+2025-11-13 11:39:01,264 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/ZH-5-96h.sorted.bam
+2025-11-13 11:39:01,264 - INFO - ============================================================
+2025-11-13 11:39:01,264 - INFO - 📊 步骤4: 合并表达矩阵 | Step 4: Merging expression matrix
+2025-11-13 11:39:01,264 - INFO - ============================================================
+2025-11-13 11:39:01,264 - INFO - 📊 合并表达矩阵 | Merging expression matrix
+2025-11-13 11:39:01,264 - INFO - 📂 读取文件 | Reading file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/H2O-24h.fpkm.txt
+2025-11-13 11:39:01,459 - INFO -   ✅ 成功读取 12100 行数据 | Successfully read 12100 rows of data
+2025-11-13 11:39:01,460 - INFO - 📂 读取文件 | Reading file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/H2O-48h.fpkm.txt
+2025-11-13 11:39:01,491 - INFO -   ✅ 成功读取 12100 行数据 | Successfully read 12100 rows of data
+2025-11-13 11:39:01,491 - INFO - 📂 读取文件 | Reading file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/H2O-72h.fpkm.txt
+2025-11-13 11:39:01,503 - INFO -   ✅ 成功读取 12100 行数据 | Successfully read 12100 rows of data
+2025-11-13 11:39:01,503 - INFO - 📂 读取文件 | Reading file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/H2O-96h.fpkm.txt
+2025-11-13 11:39:01,516 - INFO -   ✅ 成功读取 12100 行数据 | Successfully read 12100 rows of data
+2025-11-13 11:39:01,516 - INFO - 📂 读取文件 | Reading file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/ZH-5-24h.fpkm.txt
+2025-11-13 11:39:01,529 - INFO -   ✅ 成功读取 12100 行数据 | Successfully read 12100 rows of data
+2025-11-13 11:39:01,529 - INFO - 📂 读取文件 | Reading file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/ZH-5-48h.fpkm.txt
+2025-11-13 11:39:01,542 - INFO -   ✅ 成功读取 12100 行数据 | Successfully read 12100 rows of data
+2025-11-13 11:39:01,542 - INFO - 📂 读取文件 | Reading file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/ZH-5-72h.fpkm.txt
+2025-11-13 11:39:01,555 - INFO -   ✅ 成功读取 12100 行数据 | Successfully read 12100 rows of data
+2025-11-13 11:39:01,555 - INFO - 📂 读取文件 | Reading file: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/fpkm_output/ZH-5-96h.fpkm.txt
+2025-11-13 11:39:01,568 - INFO -   ✅ 成功读取 12100 行数据 | Successfully read 12100 rows of data
+2025-11-13 11:39:01,568 - INFO - 📊 找到 8 个有效数据文件 | Found 8 valid data files
+2025-11-13 11:39:01,571 - INFO - 🔄 合并后总计 96800 行 | Total 96800 rows after merging
+2025-11-13 11:39:01,573 - INFO - 📋 样本名称 | Sample names: H2O-24h, H2O-48h, H2O-72h, H2O-96h, ZH-5-24h, ZH-5-48h, ZH-5-72h, ZH-5-96h
+2025-11-13 11:39:01,573 - INFO - 💾 生成 all.fpkm.tpm.txt | Generating all.fpkm.tpm.txt...
+2025-11-13 11:39:01,838 - INFO - ✅ 保存完成 | Save completed: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/all.fpkm.tpm.txt (96800 行 | rows)
+2025-11-13 11:39:01,845 - INFO - 📝 生成总结报告 | Generating summary report
+2025-11-13 11:39:01,846 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output/rnaseq_summary.txt
+2025-11-13 11:39:01,846 - INFO - ============================================================
+2025-11-13 11:39:01,846 - INFO - 🎉 分析完成！| Analysis completed!
+2025-11-13 11:39:01,846 - INFO - ============================================================
+2025-11-13 11:39:01,846 - INFO - 📁 输出文件位于 | Output files in: /share/org/YZWL/yzwl_lixg/project/02.稻瘟病菌侵染/02.output
+2025-11-13 11:39:01,846 - INFO -   📊 all.fpkm.tpm.txt: 所有样本的FPKM和TPM矩阵 | FPKM and TPM matrix for all samples.

@@ -1,0 +1,41 @@
+2025-10-13 14:09:55 - INFO - ================================================================================
+2025-10-13 14:09:55 - INFO - 🧬 K-mer库构建与查询分析流程启动 | K-mer Library Construction and Query Analysis Pipeline Started
+2025-10-13 14:09:55 - INFO - ================================================================================
+2025-10-13 14:09:55 - INFO - 
+🔍 步骤0: 检查依赖软件 | Step 0: Checking Dependencies
+2025-10-13 14:09:55 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-13 14:09:56 - INFO - ✅ KMC 可用 | available
+2025-10-13 14:09:56 - INFO - ✅ KMC-tools 可用 | available
+2025-10-13 14:09:56 - INFO - ✅ pandas 可用 | available
+2025-10-13 14:09:56 - INFO - ✅ biopython 可用 | available
+2025-10-13 14:09:56 - INFO - 
+🏗️  步骤1/3: 构建参考k-mer库 | Step 1/3: Building Reference K-mer Library
+2025-10-13 14:09:56 - INFO -    📁 参考输入 | Reference input: /share/org/YZWL/yzwl_lixg/tmp/kmer/fastq
+2025-10-13 14:09:56 - INFO -    🔢 k-mer长度 | k-mer length: 31
+2025-10-13 14:09:56 - INFO -    🧵 线程数 | Threads: 88
+2025-10-13 14:09:56 - INFO - 📁 找到 4 个参考文件 | Found 4 reference file(s)
+2025-10-13 14:09:56 - INFO - 📄 文件格式 | File format: FASTQ
+2025-10-13 14:09:56 - INFO - 🧬 从FASTQ文件提取k-mer | Extracting k-mers from FASTQ
+2025-10-13 14:09:56 - WARNING - ⚠️  FASTQ输入不支持坐标信息 | FASTQ input doesn't support coordinate information
+2025-10-13 14:09:56 - INFO - 🔄 执行步骤 | Executing step: 使用KMC构建参考k-mer数据库
+2025-10-13 14:09:56 - INFO - 💻 命令 | Command: kmc -k31 -ci1 -t88 -m64 @output/tmp/ref_files.txt output/tmp/ref_kmc output/tmp
+2025-10-13 14:09:56 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-13 14:09:56 - INFO - 🔄 执行步骤 | Executing step: 导出k-mer列表
+2025-10-13 14:09:56 - INFO - 💻 命令 | Command: kmc_tools transform output/tmp/ref_kmc dump output/ref_kmers.txt
+2025-10-13 14:09:56 - ERROR - ❌ 命令执行失败 | Command execution failed
+2025-10-13 14:09:56 - ERROR - 错误代码 | Error code: 1
+2025-10-13 14:09:56 - ERROR - 错误信息 | Error message: Error: Cannot open file output/tmp/ref_kmc.kmc_pre
+
+2025-10-13 14:09:56 - ERROR - 
+❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly
+2025-10-13 14:09:56 - ERROR - 错误信息 | Error message: ❌ k-mer导出失败 | k-mer export failed
+2025-10-13 14:09:56 - ERROR - 详细错误 | Detailed error:
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/metagraph_kmer/main.py", line 55, in run_analysis
+    coords_file = self.library_builder.build_library()
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/metagraph_kmer/kmer_builder.py", line 44, in build_library
+    return self._build_from_fastq(ref_files)
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/metagraph_kmer/kmer_builder.py", line 158, in _build_from_fastq
+    raise RuntimeError("❌ k-mer导出失败 | k-mer export failed")
+RuntimeError: ❌ k-mer导出失败 | k-mer export failed
+

@@ -1,0 +1,74 @@
+[1299135] [2025-11-30 16:10:41.487] [GLnexus] [info] glnexus_cli release v1.4.1-0-g68e25e5 Aug 13 2021
+[1299135] [2025-11-30 16:10:41.487] [GLnexus] [warning] jemalloc absent, which will impede performance with high thread counts. See https://github.com/dnanexus-rnd/GLnexus/wiki/Performance
+[1299135] [2025-11-30 16:10:41.487] [GLnexus] [info] Loading config preset gatk
+[1299135] [2025-11-30 16:10:41.490] [GLnexus] [info] config:
+unifier_config:
+  drop_filtered: false
+  min_allele_copy_number: 1
+  min_AQ1: 70
+  min_AQ2: 40
+  min_GQ: 40
+  max_alleles_per_site: 32
+  monoallelic_sites_for_lost_alleles: true
+  preference: common
+genotyper_config:
+  revise_genotypes: true
+  min_assumed_allele_frequency: 9.99999975e-05
+  snv_prior_calibration: 1
+  indel_prior_calibration: 1
+  required_dp: 1
+  allow_partial_data: false
+  allele_dp_format: AD
+  ref_dp_format: MIN_DP
+  output_residuals: false
+  more_PL: false
+  squeeze: false
+  trim_uncalled_alleles: false
+  top_two_half_calls: false
+  output_format: BCF
+  liftover_fields:
+    - {orig_names: [MIN_DP, DP], name: DP, description: "##FORMAT=<ID=DP,Number=1,Type=Integer,Description=\"Approximate read depth (reads with MQ=255 or with bad mates are filtered)\">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+    - {orig_names: [AD], name: AD, description: "##FORMAT=<ID=AD,Number=R,Type=Integer,Description=\"Allelic depths for the ref and alt alleles in the order listed\">", type: int, number: alleles, default_type: zero, count: 0, combi_method: min, ignore_non_variants: false}
+    - {orig_names: [SB], name: SB, description: "##FORMAT=<ID=SB,Number=4,Type=Integer,Description=\"Per-sample component statistics which comprise the Fishers Exact Test to detect strand bias.\">", type: int, number: basic, default_type: missing, count: 4, combi_method: missing, ignore_non_variants: false}
+    - {orig_names: [GQ], name: GQ, description: "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+    - {orig_names: [PL], name: PL, description: "##FORMAT=<ID=PL,Number=G,Type=Integer,Description=\"Phred-scaled genotype Likelihoods\">", type: int, number: genotype, default_type: missing, count: 0, combi_method: missing, ignore_non_variants: true}
+[1299135] [2025-11-30 16:10:41.490] [GLnexus] [info] config CRC32C = 1926883223
+[1299135] [2025-11-30 16:10:41.491] [GLnexus] [info] init database, exemplar_vcf=/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/02.mapping/vcf/CRR071751.g.vcf.gz
+[1299135] [2025-11-30 16:10:41.599] [GLnexus] [info] Initialized GLnexus database in GLnexus.DB
+[1299135] [2025-11-30 16:10:41.599] [GLnexus] [info] bucket size: 30000
+[1299135] [2025-11-30 16:10:41.599] [GLnexus] [info] contigs: Chr01 Chr02 Chr03 Chr04 Chr05 Chr06 Chr07 Chr08 Chr09 Chr10 Chr11 Chr12 Chr13 Chr14 Chr15 Chr16 Chr17 Chr18 Chr19 Chr20
+[1299135] [2025-11-30 16:10:41.606] [GLnexus] [info] db_get_contigs GLnexus.DB
+[1299135] [2025-11-30 16:10:41.628] [GLnexus] [info] Beginning bulk load with no range filter.
+[1299549] [2025-11-30 16:33:54.735] [GLnexus] [info] 100/2162 (CRR106914)...
+[1299567] [2025-11-30 16:48:19.343] [GLnexus] [info] 200/2162 (S18)...
+[1299565] [2025-11-30 16:53:30.933] [GLnexus] [info] 300/2162 (SRR12190585)...
+[W::hts_idx_load2] The index file is older than the data file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+[1299572] [2025-11-30 17:01:10.822] [GLnexus] [info] 400/2162 (SRR12190957)...
+[1299584] [2025-11-30 17:07:01.021] [GLnexus] [info] 500/2162 (SRR12191087)...
+[1299524] [2025-11-30 17:12:35.131] [GLnexus] [info] 600/2162 (SRR12191347)...
+[1299538] [2025-11-30 17:20:12.976] [GLnexus] [info] 700/2162 (SRR12191404)...
+[1299522] [2025-11-30 17:29:25.049] [GLnexus] [info] 800/2162 (SRR15033575)...
+[1299572] [2025-11-30 17:46:31.916] [GLnexus] [info] 900/2162 (SRR1533184)...
+[1299570] [2025-11-30 18:00:00.209] [GLnexus] [info] 1000/2162 (SRR20462014)...
+[1299576] [2025-11-30 18:16:14.739] [GLnexus] [info] 1100/2162 (SRR9714239)...
+[1299563] [2025-11-30 18:34:04.403] [GLnexus] [info] 1200/2162 (SRR9714392)...
+[1299549] [2025-11-30 18:51:24.788] [GLnexus] [info] 1300/2162 (SRR9714608)...
+[1299553] [2025-11-30 19:11:35.354] [GLnexus] [info] 1400/2162 (SRR9714819)...
+[W::hts_idx_load2] The index file is older than the data file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load2] The index file is older than the data file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/02.mapping/vcf/W211A.g.vcf.gz.tbi
+[1299582] [2025-11-30 19:27:53.979] [GLnexus] [info] 1500/2162 (W14A)...
+[1299533] [2025-11-30 19:45:48.451] [GLnexus] [info] 1600/2162 (W244A)...
+[W::hts_idx_load2] The index file is older than the data file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/02.mapping/vcf/W398A.g.vcf.gz.tbi
+[1299547] [2025-11-30 20:03:50.914] [GLnexus] [info] 1700/2162 (W330A)...
+[1299562] [2025-11-30 20:20:03.789] [GLnexus] [info] 1800/2162 (W423A)...
+[1299557] [2025-11-30 20:41:19.668] [GLnexus] [info] 1900/2162 (W515A)...
+[1299576] [2025-11-30 20:59:23.750] [GLnexus] [info] 2000/2162 (W609A)...
+[1299584] [2025-11-30 21:19:14.929] [GLnexus] [info] 2100/2162 (W699A)...
+[1299135] [2025-11-30 21:23:08.837] [GLnexus] [info] Loaded 2161 datasets with 2161 samples; 28546658016528 bytes in 284890012511 BCF records (63790887 duplicate) in 73396614 buckets. Bucket max 1523152 bytes, 15553 records. 65950 BCF records skipped due to caller-specific exceptions
+[1299135] [2025-11-30 21:23:08.840] [GLnexus] [info] Created sample set *@2161
+[1299135] [2025-11-30 21:23:08.840] [GLnexus] [error] /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/02.mapping/vcf/SRR12191373.g.vcf.gz Invalid: negative PL entry in gVCF record (/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/02.mapping/vcf/SRR12191373.g.vcf.gz Chr18:6243877-6243877)
+[1299135] [2025-12-01 03:55:26.235] [GLnexus] [error] Failed to bulk load into DB: Failure: One or more gVCF inputs failed validation or database loading; check log for details.
+Failed to read from /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.glnexus_joint/glnexus_output.bcf: unknown file type
+index: "/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.glnexus_joint/glnexus_output.vcf.gz" is in a format that cannot be usefully indexed
+Job 68241541 stderr output:
+

@@ -1,0 +1,25 @@
+optimize_tmp_3270737/optimize_task.sh:行21: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/optimize_tmp_3583990/group1.log: No such file or directory
+ERROR: allhic optimize failed for group1
+cat: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/optimize_tmp_3583990/group1.log: No such file or directory
+parallel: This job failed:
+optimize_tmp_3270737/optimize_task.sh 1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output
+parallel: Starting no more jobs. Waiting for 3 jobs to finish.
+optimize_tmp_3270737/optimize_task.sh:行21: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/optimize_tmp_3583991/group2.log: No such file or directory
+ERROR: allhic optimize failed for group2
+cat: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/optimize_tmp_3583991/group2.log: No such file or directory
+parallel: This job failed:
+optimize_tmp_3270737/optimize_task.sh 2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output
+parallel: Starting no more jobs. Waiting for 2 jobs to finish.
+optimize_tmp_3270737/optimize_task.sh:行21: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/optimize_tmp_3583993/group3.log: No such file or directory
+ERROR: allhic optimize failed for group3
+cat: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/optimize_tmp_3583993/group3.log: No such file or directory
+parallel: This job failed:
+optimize_tmp_3270737/optimize_task.sh 3 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output
+parallel: Starting no more jobs. Waiting for 1 jobs to finish.
+optimize_tmp_3270737/optimize_task.sh:行21: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/optimize_tmp_3583997/group4.log: No such file or directory
+ERROR: allhic optimize failed for group4
+cat: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/optimize_tmp_3583997/group4.log: No such file or directory
+parallel: This job failed:
+optimize_tmp_3270737/optimize_task.sh 4 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output
+Job 68399463 stderr output:
+

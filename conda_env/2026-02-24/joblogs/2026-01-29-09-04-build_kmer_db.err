@@ -1,0 +1,3 @@
+错误|Error: 'PipelineProcessor' object has no attribute 'output_path'
+Job 69094412 stderr output:
+

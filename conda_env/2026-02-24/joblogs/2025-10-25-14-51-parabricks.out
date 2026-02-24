@@ -1,0 +1,169 @@
+>>> Starting SNP/Indel calling pipeline for Erysimum cheiranthoides...
+>>> Step 0: Creating output directories...
+>>> Step 0: Copying clean reads...
+--- Data preparation complete.
+>>> Step 1: Running mapping with biopytools parabricks...
+[2025-10-25 14:53:08] INFO - 🐳 使用容器引擎 | Using container engine: apptainer
+[2025-10-25 14:53:08] INFO - 🚀 开始parabricks WGS分析 | Starting parabricks WGS analysis
+[2025-10-25 14:53:08] INFO - 📂 输入目录 | Input: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data
+[2025-10-25 14:53:08] INFO - 📤 输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping
+[2025-10-25 14:53:08] INFO - 🧬 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna
+[2025-10-25 14:53:08] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-25 14:53:08] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-25 14:53:08] INFO - ✅ ✓ parabricks程序检查通过 | parabricks program check passed
+[2025-10-25 14:53:08] INFO - 🔍 搜索输入文件 | Searching input files
+[2025-10-25 14:53:08] INFO - ✅ 找到 2 个样品 | Found 2 samples
+[2025-10-25 14:53:08] INFO - ============================================================
+[2025-10-25 14:53:08] INFO - 🔬 开始批量处理 (all) | Starting batch processing
+[2025-10-25 14:53:08] INFO - [1/2] 🧪 处理样品 | Processing: EcAA_1
+[2025-10-25 14:53:08] INFO - 🚀 开始处理样品 | Processing sample: EcAA_1
+[2025-10-25 14:53:08] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-25 14:53:08] INFO - 🧬 [fq2bam] 开始处理样品 | Starting fq2bam for sample: EcAA_1
+[2025-10-25 14:53:08] INFO -   📄 R1文件 | R1 file: EcAA_1.clean.fq.gz
+[2025-10-25 14:53:08] INFO -   📄 R2文件 | R2 file: EcAA_2.clean.fq.gz
+[2025-10-25 14:53:08] INFO -   💾 输出BAM | Output BAM: EcAA_1.sorted.bam
+[2025-10-25 14:53:08] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: EcAA_1)
+[2025-10-25 14:53:08] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna --in-fq /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/EcAA_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/EcAA_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/bam/EcAA_1.sorted.bam --read-group-sm EcAA_1 --read-group-pl ILLUMINA
+[2025-10-25 14:53:08] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping
+[2025-10-25 14:55:35] INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 fq2bam (样品: EcAA_1)
+[2025-10-25 14:55:35] INFO -   ✅ fq2bam完成 | fq2bam completed: EcAA_1
+[2025-10-25 14:55:35] INFO -   📏 BAM文件大小 | BAM file size: 3.9 GB
+[2025-10-25 14:55:35] INFO - 📜 [haplotypecaller] 开始处理样品 | Starting haplotypecaller for sample: EcAA_1
+[2025-10-25 14:55:35] INFO -   💾 输入BAM | Input BAM: EcAA_1.sorted.bam
+[2025-10-25 14:55:35] INFO -   📜 输出GVCF | Output GVCF: EcAA_1.g.vcf.gz
+[2025-10-25 14:55:35] INFO - 🚀 执行步骤 | Executing step: 📜 haplotypecaller (样品: EcAA_1)
+[2025-10-25 14:55:35] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/bam:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/bam /share/apps/containers/parabricks.sif pbrun haplotypecaller --ref /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna --in-bam /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/bam/EcAA_1.sorted.bam --ploidy 2 --out-variants /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/vcf/EcAA_1.g.vcf.gz --gvcf
+[2025-10-25 14:55:35] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping
+[2025-10-25 14:56:49] INFO - ✅ 命令执行成功 | Command executed successfully: 📜 haplotypecaller (样品: EcAA_1)
+[2025-10-25 14:56:49] INFO -   ✅ haplotypecaller完成 | haplotypecaller completed: EcAA_1
+[2025-10-25 14:56:49] INFO -   📏 VCF文件大小 | VCF file size: 137.8 MB
+[2025-10-25 14:56:49] INFO - ✅ 样品 EcAA_1 处理完成 | Sample completed: EcAA_1
+[2025-10-25 14:56:49] INFO -   ✅ 完成 (1/2) | Completed
+[2025-10-25 14:56:49] INFO - ----------------------------------------
+[2025-10-25 14:56:49] INFO - [2/2] 🧪 处理样品 | Processing: KostanzA_1
+[2025-10-25 14:56:49] INFO - 🚀 开始处理样品 | Processing sample: KostanzA_1
+[2025-10-25 14:56:49] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-25 14:56:49] INFO - 🧬 [fq2bam] 开始处理样品 | Starting fq2bam for sample: KostanzA_1
+[2025-10-25 14:56:49] INFO -   📄 R1文件 | R1 file: KostanzA_1.clean.fq.gz
+[2025-10-25 14:56:49] INFO -   📄 R2文件 | R2 file: KostanzA_2.clean.fq.gz
+[2025-10-25 14:56:49] INFO -   💾 输出BAM | Output BAM: KostanzA_1.sorted.bam
+[2025-10-25 14:56:49] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: KostanzA_1)
+[2025-10-25 14:56:49] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna --in-fq /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/KostanzA_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/KostanzA_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/bam/KostanzA_1.sorted.bam --read-group-sm KostanzA_1 --read-group-pl ILLUMINA
+[2025-10-25 14:56:49] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping
+[2025-10-25 15:00:28] INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 fq2bam (样品: KostanzA_1)
+[2025-10-25 15:00:28] INFO -   ✅ fq2bam完成 | fq2bam completed: KostanzA_1
+[2025-10-25 15:00:28] INFO -   📏 BAM文件大小 | BAM file size: 4.2 GB
+[2025-10-25 15:00:28] INFO - 📜 [haplotypecaller] 开始处理样品 | Starting haplotypecaller for sample: KostanzA_1
+[2025-10-25 15:00:28] INFO -   💾 输入BAM | Input BAM: KostanzA_1.sorted.bam
+[2025-10-25 15:00:28] INFO -   📜 输出GVCF | Output GVCF: KostanzA_1.g.vcf.gz
+[2025-10-25 15:00:28] INFO - 🚀 执行步骤 | Executing step: 📜 haplotypecaller (样品: KostanzA_1)
+[2025-10-25 15:00:28] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/bam:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/bam /share/apps/containers/parabricks.sif pbrun haplotypecaller --ref /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna --in-bam /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/bam/KostanzA_1.sorted.bam --ploidy 2 --out-variants /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/vcf/KostanzA_1.g.vcf.gz --gvcf
+[2025-10-25 15:00:28] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping
+[2025-10-25 15:02:31] INFO - ✅ 命令执行成功 | Command executed successfully: 📜 haplotypecaller (样品: KostanzA_1)
+[2025-10-25 15:02:31] INFO -   ✅ haplotypecaller完成 | haplotypecaller completed: KostanzA_1
+[2025-10-25 15:02:31] INFO -   📏 VCF文件大小 | VCF file size: 172.4 MB
+[2025-10-25 15:02:31] INFO - ✅ 样品 KostanzA_1 处理完成 | Sample completed: KostanzA_1
+[2025-10-25 15:02:31] INFO -   ✅ 完成 (2/2) | Completed
+[2025-10-25 15:02:31] INFO - ----------------------------------------
+[2025-10-25 15:02:31] INFO - ============================================================
+[2025-10-25 15:02:31] INFO - 🎉 批量处理完成 | Batch processing completed
+[2025-10-25 15:02:31] INFO - ✅ 成功: 2 | Success: 2
+[2025-10-25 15:02:31] INFO - ❌ 失败: 0 | Failed: 0
+[2025-10-25 15:02:31] INFO - 📄 生成处理报告 | Generating processing report
+[2025-10-25 15:02:31] INFO - 📊 生成的文件统计 | Generated files statistics:
+[2025-10-25 15:02:31] INFO -   📜 VCF文件 | VCF files: 2 个
+[2025-10-25 15:02:31] INFO -   💾 BAM文件 | BAM files: 2 个
+[2025-10-25 15:02:31] INFO -   📏 VCF目录大小 | VCF directory size: 310.4 MB
+[2025-10-25 15:02:31] INFO -   📏 BAM目录大小 | BAM directory size: 8.1 GB
+[2025-10-25 15:02:31] INFO -   📏 总输出大小 | Total output size: 8.4 GB
+[2025-10-25 15:02:31] INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/parabricks_analysis_summary.txt
+[2025-10-25 15:02:31] INFO - 
+[2025-10-25 15:02:31] INFO - 🌳 输出目录结构 | Output structure:
+[2025-10-25 15:02:31] INFO -   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/
+[2025-10-25 15:02:31] INFO -   ├── bam/     (💾 BAM: 2 个)
+[2025-10-25 15:02:31] INFO -   ├── vcf/     (📜 GVCF: 2 个)
+[2025-10-25 15:02:31] INFO -   └── tmp/     (🗑️ 临时文件)
+[2025-10-25 15:02:31] INFO - ============================================================
+[2025-10-25 15:02:31] INFO - 🎉 parabricks WGS分析完成 | Analysis completed
+[2025-10-25 15:02:31] INFO - 📁 结果保存在 | Results in: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping
+--- Mapping complete.
+>>> Step 2: Running joint genotyping with biopytools gatk-joint...
+2025-10-25 15:02:31,917 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-10-25 15:02:31,917 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/02.mapping/vcf
+2025-10-25 15:02:31,918 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna
+2025-10-25 15:02:31,944 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint
+2025-10-25 15:02:31,944 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-25 15:02:37,000 - INFO - ✅ GATK 可用 | available
+2025-10-25 15:02:37,788 - INFO - ✅ BCFtools 可用 | available
+2025-10-25 15:02:37,788 - INFO - 
+================================================================================
+2025-10-25 15:02:37,788 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-10-25 15:02:37,788 - INFO - ================================================================================
+2025-10-25 15:02:37,788 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-10-25 15:02:37,789 - INFO - ✅ 检测到GVCF文件 | Detected GVCF files: 2 files
+2025-10-25 15:02:37,789 - INFO - 📊 共找到 2 个文件 | Total 2 files found
+2025-10-25 15:02:37,789 - INFO - 📝 创建样本映射文件 | Creating sample map file
+2025-10-25 15:02:37,789 - INFO - ✅ 样本映射文件已创建 | Sample map created: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/sample_map.txt
+2025-10-25 15:02:37,789 - INFO - 
+================================================================================
+2025-10-25 15:02:37,789 - INFO - 步骤2: GenomicsDB导入 | Step 2: GenomicsDB import
+2025-10-25 15:02:37,789 - INFO - ================================================================================
+2025-10-25 15:02:37,789 - INFO - 📦 开始GenomicsDB导入 | Starting GenomicsDB import
+2025-10-25 15:02:37,789 - INFO - ⚠️ 未指定区间，自动从参考基因组提取 | No intervals specified, extracting from reference
+2025-10-25 15:02:37,789 - INFO - 📍 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna
+2025-10-25 15:02:37,789 - INFO - 📍 字典文件路径 | Dict path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.dict
+2025-10-25 15:02:37,789 - INFO - 📍 索引文件路径 | Fai path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna.fai
+2025-10-25 15:02:37,790 - INFO - ⚠️ 未找到字典文件，正在创建... | Dict file not found, creating...
+2025-10-25 15:02:41,832 - INFO - ✅ 字典文件创建成功 | Dict file created successfully
+2025-10-25 15:02:41,832 - INFO - ✅ 使用字典文件 | Using dict file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.dict
+2025-10-25 15:02:41,832 - INFO - ✅ 生成区间文件 | Generated intervals: 8 chromosomes
+2025-10-25 15:02:41,832 - INFO - 📄 区间文件位置 | Intervals file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/intervals.list
+2025-10-25 15:02:41,832 - INFO - 🚀 执行步骤 | Executing step: GenomicsDB导入 | GenomicsDB import
+2025-10-25 15:02:41,832 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenomicsDBImport --genomicsdb-workspace-path /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/genomicsdb_workspace --sample-name-map /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/sample_map.txt --reader-threads 88 -L /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/intervals.list
+2025-10-25 15:02:41,834 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint
+2025-10-25 15:13:19,214 - INFO - ✅ 命令执行成功 | Command executed successfully: GenomicsDB导入 | GenomicsDB import
+2025-10-25 15:13:19,214 - INFO - 
+================================================================================
+2025-10-25 15:13:19,240 - INFO - 步骤3: 联合分型 | Step 3: Joint genotyping
+2025-10-25 15:13:19,240 - INFO - ================================================================================
+2025-10-25 15:13:19,240 - INFO - 🧬 开始联合分型 | Starting joint genotyping
+2025-10-25 15:13:19,240 - INFO - 🚀 执行步骤 | Executing step: 联合分型 | Joint genotyping
+2025-10-25 15:13:19,240 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenotypeGVCFs -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna -V gendb:///share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/genomicsdb_workspace -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/joint_genotyping_raw.vcf.gz -L /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/intervals.list
+2025-10-25 15:13:19,240 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint
+2025-10-25 15:13:20,632 - ERROR - ❌ 命令执行失败 | Command execution failed: 联合分型 | Joint genotyping
+2025-10-25 15:13:20,632 - ERROR - 🔢 错误代码 | Error code: 2
+2025-10-25 15:13:20,633 - ERROR - 📛 错误信息 | Error message: Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -Xmx100g -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar GenotypeGVCFs -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fna -V gendb:///share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/genomicsdb_workspace -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/joint_genotyping_raw.vcf.gz -L /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/03.gatk_joint/intervals.list
+15:13:20.513 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+15:13:20.595 INFO  GenotypeGVCFs - ------------------------------------------------------------
+15:13:20.597 INFO  GenotypeGVCFs - The Genome Analysis Toolkit (GATK) v4.6.2.0
+15:13:20.597 INFO  GenotypeGVCFs - For support and documentation go to https://software.broadinstitute.org/gatk/
+15:13:20.597 INFO  GenotypeGVCFs - Executing as yzwl_lixg@g02n010 on Linux v4.18.0-513.5.1.el8_9.x86_64 amd64
+15:13:20.597 INFO  GenotypeGVCFs - Java runtime: OpenJDK 64-Bit Server VM v17.0.15-internal+0-adhoc..src
+15:13:20.598 INFO  GenotypeGVCFs - Start Date/Time: 2025年10月25日 CST 下午3:13:20
+15:13:20.598 INFO  GenotypeGVCFs - ------------------------------------------------------------
+15:13:20.598 INFO  GenotypeGVCFs - ------------------------------------------------------------
+15:13:20.598 INFO  GenotypeGVCFs - HTSJDK Version: 4.2.0
+15:13:20.598 INFO  GenotypeGVCFs - Picard Version: 3.4.0
+15:13:20.598 INFO  GenotypeGVCFs - Built for Spark Version: 3.5.0
+15:13:20.600 INFO  GenotypeGVCFs - HTSJDK Defaults.COMPRESSION_LEVEL : 2
+15:13:20.600 INFO  GenotypeGVCFs - HTSJDK Defaults.USE_ASYNC_IO_READ_FOR_SAMTOOLS : false
+15:13:20.600 INFO  GenotypeGVCFs - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_SAMTOOLS : true
+15:13:20.600 INFO  GenotypeGVCFs - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_TRIBBLE : false
+15:13:20.600 INFO  GenotypeGVCFs - Deflater: IntelDeflater
+15:13:20.600 INFO  GenotypeGVCFs - Inflater: IntelInflater
+15:13:20.601 INFO  GenotypeGVCFs - GCS max retries/reopens: 20
+15:13:20.601 INFO  GenotypeGVCFs - Requester pays: disabled
+15:13:20.601 INFO  GenotypeGVCFs - Initializing engine
+15:13:20.603 INFO  GenotypeGVCFs - Shutting down engine
+[2025年10月25日 CST 下午3:13:20] org.broadinstitute.hellbender.tools.walkers.GenotypeGVCFs done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=335544320
+***********************************************************************
+
+A USER ERROR has occurred: Fasta index file file:///share/org/YZWL/yzwl_lixg/project/18.%E5%B0%8F%E8%8A%B1%E7%B3%96%E8%8A%A5/02.%E5%B0%8F%E8%8A%B1%E7%B3%96%E8%8A%A5%E6%8A%97%E6%84%9F%E6%A0%87%E8%AE%B0/01.data/Erysimum_cheiranthoides_chromosomes.fna.fai for reference file:///share/org/YZWL/yzwl_lixg/project/18.%E5%B0%8F%E8%8A%B1%E7%B3%96%E8%8A%A5/02.%E5%B0%8F%E8%8A%B1%E7%B3%96%E8%8A%A5%E6%8A%97%E6%84%9F%E6%A0%87%E8%AE%B0/01.data/Erysimum_cheiranthoides_chromosomes.fna does not exist. Please see https://gatk.broadinstitute.org/hc/articles/360035531652-FASTA-Reference-genome-format for help creating it.
+
+***********************************************************************
+Set the system property GATK_STACKTRACE_ON_USER_EXCEPTION (--java-options '-DGATK_STACKTRACE_ON_USER_EXCEPTION=true') to print the stack trace.
+
+2025-10-25 15:13:20,633 - ERROR - ❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: ❌ 联合分型失败 | Joint genotyping failed

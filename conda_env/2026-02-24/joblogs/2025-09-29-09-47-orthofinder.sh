@@ -1,0 +1,1 @@
+biopytools orthofinder -i processed_fasta -o ./ -s diamond --generate-trees

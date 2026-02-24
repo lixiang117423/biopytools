@@ -1,0 +1,17 @@
+2026-01-07 08:56:41.826 - INFO - ==================================================
+2026-01-07 08:56:41.827 - INFO - BAM to FASTQ转换工具|BAM to FASTQ Conversion Tool
+2026-01-07 08:56:41.827 - INFO - ==================================================
+2026-01-07 08:56:41.919 - INFO - 找到bam2fastq|Found bam2fastq: bam2fastq 3.5.0 (commit v3.5.0)
+
+Using:
+  pbbam     : 2.8.0 (commit v2.8.0)
+  pbcopper  : 2.7.0 (commit v2.7.0)
+  boost     : 1.81
+  htslib    : 1.17
+  zlib      : 1.2.13
+2026-01-07 08:56:41.920 - INFO - 找到|Found 36 个BAM文件|BAM files
+2026-01-07 08:56:41.920 - INFO - 每个文件使用|Each file uses 64 个线程|threads
+2026-01-07 08:56:41.920 - INFO - 并行处理|Parallel processing 1 个文件|files
+2026-01-07 08:56:41.920 - INFO - 正在处理|Processing: A3-57.hifi_reads.bam
+2026-01-07 08:56:58.196 - ERROR - 转换失败|Conversion failed for A3-57.hifi_reads.bam: 
+2026-01-07 08:56:58.196 - INFO - 正在处理|Processing: B3-2.hifi_reads.bam

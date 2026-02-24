@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/tmp/zhangxing/split_tsv.py", line 46, in <module>
+    split_tsv_to_excel("interproscan.result.tsv", chunk_size=500000)
+  File "/share/org/YZWL/yzwl_lixg/tmp/zhangxing/split_tsv.py", line 36, in split_tsv_to_excel
+    with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/pandas/io/excel/_base.py", line 1353, in __exit__
+    self.close()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/pandas/io/excel/_base.py", line 1357, in close
+    self._save()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/pandas/io/excel/_openpyxl.py", line 110, in _save
+    self.book.save(self._handles.handle)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/workbook/workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/writer/excel.py", line 294, in save_workbook
+    writer.save()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/writer/excel.py", line 275, in save
+    self.write_data()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/writer/excel.py", line 77, in write_data
+    self._write_worksheets()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/writer/excel.py", line 215, in _write_worksheets
+    self.write_worksheet(ws)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/writer/excel.py", line 200, in write_worksheet
+    writer.write()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/worksheet/_writer.py", line 359, in write
+    self.write_rows()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/worksheet/_writer.py", line 125, in write_rows
+    self.write_row(xf, row, row_idx)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/worksheet/_writer.py", line 147, in write_row
+    write_cell(xf, self.ws, cell, cell.has_style)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/openpyxl/cell/_writer.py", line 86, in etree_write_cell
+    xf.write(el)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/et_xmlfile/xmlfile.py", line 120, in write
+    incremental_tree._serialize_ns_xml(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/et_xmlfile/incremental_tree.py", line 613, in _serialize_ns_xml
+    ) = write_elem_start(
+KeyboardInterrupt
+Job 67191052 stderr output:
+

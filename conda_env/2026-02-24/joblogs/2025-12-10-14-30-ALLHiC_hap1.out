@@ -1,0 +1,41 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/logs/allhic_20251210_143026.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:30:34] Checking required tools...
+[2025-12-10 14:30:34] ✅ Environment ready
+[2025-12-10 14:30:34] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1
+[2025-12-10 14:30:34] Threads: 88
+[2025-12-10 14:30:34] Memory: 800G
+[2025-12-10 14:30:34] Chromosomes: 12
+[2025-12-10 14:30:34] Enzyme: GATC
+[2025-12-10 14:30:34] ⏱️  Step completed in 8s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v4.1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 [Step 0] Preparing input data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:30:35] ✅ Input files linked
+[2025-12-10 14:30:35] ⏱️  Step completed in 1s
+[2025-12-10 14:30:35] ⏭️  Skipping mapping step
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 [Step 1.5] Allele detection
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:30:35] ▶️  allhic extract sample.clean.bam draft.asm.fasta --RE GATC
+[32m14:30:37 writeRE | NOTICE [0m RE counts in 1282 contigs (total: 6849666, avg 1 per 196 bp) written to `sample.clean.counts_GATC.txt`
+[32m14:30:37 extractContigLinks | NOTICE [0m Parse bamfile `sample.clean.bam`
+[32m14:30:37 extractContigLinks | NOTICE [0m Extracted 887 intra-contig link groups (total = 48729)
+[32m14:30:38 extractContigLinks | NOTICE [0m Extracted 132229 inter-contig groups to `sample.clean.clm` (total = 1182240, maxLinks = 470, minLinks = 3)
+[32m14:30:38 fitPowerLaw | NOTICE [0m Power law Y = 2.56e-07 * X ^ -0.7202
+[32m14:30:38 writeDistribution | NOTICE [0m Link size distribution written to `sample.clean.distribution.txt`
+[32m14:30:38 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m14:30:38 calcInterContigs | NOTICE [0m Contig pair analyses written to `sample.clean.pairs.txt`
+[32m14:30:38 Run | NOTICE [0m Success
+[2025-12-10 14:30:38] ▶️  minimap2 -DP -k19 -w19 -m200 -t 88 draft.asm.fasta draft.asm.fasta 2>logs/minimap2.log > draft.asm.paf
+[2025-12-10 14:45:12] ▶️  allhic alleles draft.asm.paf sample.clean.counts_GATC.txt > alleles.table
+[32m14:45:12 ParseRecords | NOTICE [0m Parse paffile `draft.asm.paf`

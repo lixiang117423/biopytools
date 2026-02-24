@@ -1,0 +1,1128 @@
+🚀 作业开始: assembly_psoja_86
+⏰ 开始时间: 2026-01-20 14:15:17
+📍 执行命令: bash 13.所有样品批量处理/N3-15.sh
+==========================================
+2026-01-20 14:15:17.128 - INFO - ================================================================================
+2026-01-20 14:15:17.128 - INFO - 开始基因组组装流程|Starting Genome Assembly Pipeline
+2026-01-20 14:15:17.128 - INFO - ================================================================================
+2026-01-20 14:15:17.128 - INFO - 检查依赖软件|Checking dependencies
+2026-01-20 14:15:17.264 - INFO - 组装配置|Assembly Configuration:
+2026-01-20 14:15:17.265 - INFO -   样本名称|Sample Name: N3-15
+2026-01-20 14:15:17.265 - INFO -   基因组大小|Genome Size: 85m
+2026-01-20 14:15:17.265 - INFO -   倍性|Ploidy: 2
+2026-01-20 14:15:17.265 - INFO -   线程数|Threads: 64
+2026-01-20 14:15:17.265 - INFO -   HiFi数据|HiFi Data: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/N3-15.clean.fq.gz
+2026-01-20 14:15:17.265 - INFO -   组装模式|Assembly Mode: HiFi only
+2026-01-20 14:15:17.265 - INFO -   工作目录|Work Directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15
+2026-01-20 14:15:17.265 - INFO - ================================================================================
+2026-01-20 14:15:17.265 - INFO - 断点续传模式|Resume mode: enabled
+2026-01-20 14:15:17.265 - INFO - ================================================================================
+2026-01-20 14:15:17.265 - INFO - 检查已完成步骤|Checking completed steps:
+2026-01-20 14:15:17.265 - INFO -   [未完成|pending] Hifiasm组装|Hifiasm assembly
+2026-01-20 14:15:17.265 - INFO -   [未完成|pending] GFA转FASTA|GFA to FASTA conversion
+2026-01-20 14:15:17.265 - INFO -   [未完成|pending] Contig-reads映射生成|Contig-reads mapping generated
+2026-01-20 14:15:17.265 - INFO - ================================================================================
+2026-01-20 14:15:17.265 - INFO - 运行hifiasm组装(仅HiFi模式)|Running hifiasm assembly (HiFi only mode)
+2026-01-20 14:15:17.265 - INFO - 执行命令|Executing command: hifiasm -o N3-15 -t 64 --hg-size 85m --n-hap 2 -l 3 /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/N3-15.clean.fq.gz 2>&1|tee /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/03.logs/hifiasm_assembly.log
+[M::ha_analyze_count] lowest: count[5] = 602314
+[M::ha_analyze_count] highest: count[10] = 1849669
+[M::ha_hist_line]     2: ****************************************************************************************************> 3627445
+[M::ha_hist_line]     3: *********************************************** 866124
+[M::ha_hist_line]     4: ***************************** 542743
+[M::ha_hist_line]     5: ********************************* 602314
+[M::ha_hist_line]     6: ******************************************* 804313
+[M::ha_hist_line]     7: *************************************************************** 1173813
+[M::ha_hist_line]     8: ********************************************************************************** 1518740
+[M::ha_hist_line]     9: ********************************************************************************************* 1715739
+[M::ha_hist_line]    10: **************************************************************************************************** 1849669
+[M::ha_hist_line]    11: **************************************************************************************************** 1849139
+[M::ha_hist_line]    12: ************************************************************************************** 1599334
+[M::ha_hist_line]    13: ************************************************************************** 1370404
+[M::ha_hist_line]    14: ******************************************************** 1044940
+[M::ha_hist_line]    15: ******************************************** 806347
+[M::ha_hist_line]    16: ******************************** 587780
+[M::ha_hist_line]    17: ******************** 373914
+[M::ha_hist_line]    18: ************* 245691
+[M::ha_hist_line]    19: ******** 147256
+[M::ha_hist_line]    20: **** 73838
+[M::ha_hist_line]    21: ** 38213
+[M::ha_hist_line]    22: ** 28351
+[M::ha_hist_line]    23: * 16752
+[M::ha_hist_line]    24: * 11390
+[M::ha_hist_line]  rest: ****************************************************************************************************> 50229039
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_ft_gen] peak_hom: 273; peak_het: 10
+[M::ha_ct_shrink::227.367*6.28] ==> counted 598459 distinct minimizer k-mers
+[M::ha_ft_gen::227.614*6.27@17.767GB] ==> filtered out 598459 k-mers occurring 1365 or more times
+[M::ha_opt_update_cov] updated max_n_chain to 1365
+[M::yak_count] collected 574327469 minimizers
+[M::ha_pt_gen::440.437*5.21] ==> counted 8595757 distinct minimizer k-mers
+[M::ha_pt_gen] count[4095] = 0 (for sanity check)
+[M::ha_analyze_count] lowest: count[6] = 47529
+[M::ha_analyze_count] highest: count[10] = 76710
+[M::ha_hist_line]     1: ****************************************************************************************************> 5176720
+[M::ha_hist_line]     2: ****************************************************************************************************> 392707
+[M::ha_hist_line]     3: ****************************************************************************************************> 121634
+[M::ha_hist_line]     4: *********************************************************************************** 63805
+[M::ha_hist_line]     5: *************************************************************** 48032
+[M::ha_hist_line]     6: ************************************************************** 47529
+[M::ha_hist_line]     7: *************************************************************************** 57274
+[M::ha_hist_line]     8: **************************************************************************************** 67602
+[M::ha_hist_line]     9: *********************************************************************************************** 73171
+[M::ha_hist_line]    10: **************************************************************************************************** 76710
+[M::ha_hist_line]    11: ************************************************************************************************** 75438
+[M::ha_hist_line]    12: ************************************************************************************ 64606
+[M::ha_hist_line]    13: ************************************************************************ 55501
+[M::ha_hist_line]    14: ******************************************************* 42542
+[M::ha_hist_line]    15: ******************************************* 32871
+[M::ha_hist_line]    16: ******************************* 23912
+[M::ha_hist_line]    17: ********************* 15816
+[M::ha_hist_line]    18: ************** 10671
+[M::ha_hist_line]    19: ********* 6766
+[M::ha_hist_line]    20: ***** 3771
+[M::ha_hist_line]    21: *** 2511
+[M::ha_hist_line]    22: *** 1968
+[M::ha_hist_line]    23: ** 1437
+[M::ha_hist_line]    24: * 1125
+[M::ha_hist_line]    25: * 849
+[M::ha_hist_line]    26: * 731
+[M::ha_hist_line]    27: * 720
+[M::ha_hist_line]    28: * 598
+[M::ha_hist_line]    29: * 526
+[M::ha_hist_line]    30: * 546
+[M::ha_hist_line]    31: * 502
+[M::ha_hist_line]    32: * 480
+[M::ha_hist_line]    33: * 392
+[M::ha_hist_line]    34: * 391
+[M::ha_hist_line]  rest: ****************************************************************************************************> 2125903
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_pt_gen] peak_hom: 273; peak_het: 10
+[M::ha_ct_shrink::440.448*5.21] ==> counted 3419037 distinct minimizer k-mers
+[M::ha_pt_gen::] counting in normal mode
+[M::yak_count] collected 574327469 minimizers
+[M::ha_pt_gen::470.754*6.49] ==> indexed 569150749 positions, counted 3419037 distinct minimizer k-mers
+[M::pec::3036.965] # bases: 23281012810; # corrected bases: 26794859
+[M::pec::20.610] # exact o: 638982649; # non-exact o: 26580090
+[M::ha_assemble::3530.483*56.03@46.152GB] ==> corrected reads for round 1
+[M::ha_assemble] # bases: 23281012810; # corrected bases: 26794859
+[M::yak_count] collected 572187369 minimizers
+[M::ha_pt_gen::3554.849*55.84] ==> counted 3541482 distinct minimizer k-mers
+[M::ha_pt_gen] count[4095] = 0 (for sanity check)
+[M::ha_analyze_count] lowest: count[5] = 26176
+[M::ha_analyze_count] highest: count[11] = 72219
+[M::ha_hist_line]     1: ****************************************************************************************************> 651352
+[M::ha_hist_line]     2: ****************************************************************************************************> 75698
+[M::ha_hist_line]     3: ************************************************* 35028
+[M::ha_hist_line]     4: *********************************** 24979
+[M::ha_hist_line]     5: ************************************ 26176
+[M::ha_hist_line]     6: ********************************************** 33524
+[M::ha_hist_line]     7: ***************************************************************** 46867
+[M::ha_hist_line]     8: *********************************************************************************** 59866
+[M::ha_hist_line]     9: ********************************************************************************************* 67164
+[M::ha_hist_line]    10: *************************************************************************************************** 71724
+[M::ha_hist_line]    11: **************************************************************************************************** 72219
+[M::ha_hist_line]    12: *************************************************************************************** 62775
+[M::ha_hist_line]    13: *************************************************************************** 54166
+[M::ha_hist_line]    14: ********************************************************* 41174
+[M::ha_hist_line]    15: ******************************************** 32004
+[M::ha_hist_line]    16: ******************************** 23471
+[M::ha_hist_line]    17: ********************* 15029
+[M::ha_hist_line]    18: ************** 10065
+[M::ha_hist_line]    19: ********* 6188
+[M::ha_hist_line]    20: **** 3126
+[M::ha_hist_line]    21: ** 1726
+[M::ha_hist_line]    22: ** 1431
+[M::ha_hist_line]    23: * 794
+[M::ha_hist_line]    24: * 595
+[M::ha_hist_line]    25: * 414
+[M::ha_hist_line]  rest: ****************************************************************************************************> 2123927
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_pt_gen] peak_hom: 273; peak_het: 11
+[M::ha_ct_shrink::3554.856*55.84] ==> counted 2890130 distinct minimizer k-mers
+[M::ha_pt_gen::] counting in normal mode
+[M::yak_count] collected 572187369 minimizers
+[M::ha_pt_gen::3582.715*55.61] ==> indexed 571536017 positions, counted 2890130 distinct minimizer k-mers
+[M::pec::2098.742] # bases: 23280571504; # corrected bases: 1270579
+[M::pec::17.669] # exact o: 681869014; # non-exact o: 5873798
+[M::ha_assemble::5700.048*58.59@49.020GB] ==> corrected reads for round 2
+[M::ha_assemble] # bases: 23280571504; # corrected bases: 1270579
+[M::yak_count] collected 571860954 minimizers
+[M::ha_pt_gen::5724.496*58.46] ==> counted 3255931 distinct minimizer k-mers
+[M::ha_pt_gen] count[4095] = 0 (for sanity check)
+[M::ha_analyze_count] lowest: count[5] = 22765
+[M::ha_analyze_count] highest: count[11] = 71491
+[M::ha_hist_line]     1: ****************************************************************************************************> 421202
+[M::ha_hist_line]     2: ************************************************************************* 52307
+[M::ha_hist_line]     3: *********************************** 25351
+[M::ha_hist_line]     4: *************************** 19362
+[M::ha_hist_line]     5: ******************************** 22765
+[M::ha_hist_line]     6: ******************************************** 31172
+[M::ha_hist_line]     7: *************************************************************** 45315
+[M::ha_hist_line]     8: ********************************************************************************** 58500
+[M::ha_hist_line]     9: ******************************************************************************************** 65646
+[M::ha_hist_line]    10: *************************************************************************************************** 70818
+[M::ha_hist_line]    11: **************************************************************************************************** 71491
+[M::ha_hist_line]    12: *************************************************************************************** 62324
+[M::ha_hist_line]    13: *************************************************************************** 53632
+[M::ha_hist_line]    14: ********************************************************* 40716
+[M::ha_hist_line]    15: ******************************************** 31646
+[M::ha_hist_line]    16: ******************************** 23175
+[M::ha_hist_line]    17: ******************** 14622
+[M::ha_hist_line]    18: ************** 9824
+[M::ha_hist_line]    19: ******** 5996
+[M::ha_hist_line]    20: **** 2950
+[M::ha_hist_line]    21: ** 1511
+[M::ha_hist_line]    22: ** 1212
+[M::ha_hist_line]    23: * 674
+[M::ha_hist_line]    24: * 485
+[M::ha_hist_line]  rest: ****************************************************************************************************> 2123235
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_pt_gen] peak_hom: 273; peak_het: 11
+[M::ha_ct_shrink::5724.502*58.46] ==> counted 2834729 distinct minimizer k-mers
+[M::ha_pt_gen::] counting in normal mode
+[M::yak_count] collected 571860954 minimizers
+[M::ha_pt_gen::5753.299*58.29] ==> indexed 571439752 positions, counted 2834729 distinct minimizer k-mers
+[M::pec::2017.204] # bases: 23280712114; # corrected bases: 375033
+[M::pec::17.701] # exact o: 684791271; # non-exact o: 4530577
+[M::ha_assemble::7788.260*59.69@49.794GB] ==> corrected reads for round 3
+[M::ha_assemble] # bases: 23280712114; # corrected bases: 375033
+[M::yak_count] collected 571756374 minimizers
+[M::ha_pt_gen::7811.044*59.60] ==> counted 3202561 distinct minimizer k-mers
+[M::ha_pt_gen] count[4095] = 0 (for sanity check)
+[M::ha_analyze_count] lowest: count[5] = 21808
+[M::ha_analyze_count] highest: count[11] = 71289
+[M::ha_hist_line]     1: ****************************************************************************************************> 386737
+[M::ha_hist_line]     2: ************************************************************** 43924
+[M::ha_hist_line]     3: ****************************** 21660
+[M::ha_hist_line]     4: ************************* 17775
+[M::ha_hist_line]     5: ******************************* 21808
+[M::ha_hist_line]     6: ******************************************* 30566
+[M::ha_hist_line]     7: ************************************************************** 44510
+[M::ha_hist_line]     8: ********************************************************************************* 57907
+[M::ha_hist_line]     9: ******************************************************************************************** 65357
+[M::ha_hist_line]    10: *************************************************************************************************** 70555
+[M::ha_hist_line]    11: **************************************************************************************************** 71289
+[M::ha_hist_line]    12: *************************************************************************************** 61890
+[M::ha_hist_line]    13: *************************************************************************** 53475
+[M::ha_hist_line]    14: ********************************************************* 40577
+[M::ha_hist_line]    15: ******************************************** 31586
+[M::ha_hist_line]    16: ******************************** 23097
+[M::ha_hist_line]    17: ******************** 14585
+[M::ha_hist_line]    18: ************** 9707
+[M::ha_hist_line]    19: ******** 5939
+[M::ha_hist_line]    20: **** 2878
+[M::ha_hist_line]    21: ** 1509
+[M::ha_hist_line]    22: ** 1187
+[M::ha_hist_line]    23: * 659
+[M::ha_hist_line]    24: * 423
+[M::ha_hist_line]  rest: ****************************************************************************************************> 2122961
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_pt_gen] peak_hom: 273; peak_het: 11
+[M::ha_ct_shrink::7811.049*59.60] ==> counted 2815824 distinct minimizer k-mers
+[M::ha_pt_gen::] counting in normal mode
+[M::yak_count] collected 571756374 minimizers
+[M::ha_pt_gen::7838.790*59.48] ==> indexed 571369637 positions, counted 2815824 distinct minimizer k-mers
+[M::ha_print_ovlp_stat_0] # overlaps: 689837495
+[M::ha_print_ovlp_stat_0] # strong overlaps: 244170526
+[M::ha_print_ovlp_stat_0] # weak overlaps: 445666969
+[M::ha_print_ovlp_stat_0] # exact overlaps: 684665073
+[M::ha_print_ovlp_stat_0] # inexact overlaps: 5172422
+[M::ha_print_ovlp_stat_0] # overlaps without large indels: 688461993
+[M::ha_print_ovlp_stat_0] # reverse overlaps: 130529597
+[M::ha_print_ovlp_stat_0] # running time: 582.382
+[M::ha_assemble::8422.178*59.76@49.794GB] ==> found overlaps for the final round
+[M::ha_opt_update_cov_min] updated max_n_chain to 1365
+Writing reads to disk... 
+Reads has been written.
+Writing ma_hit_ts to disk... 
+ma_hit_ts has been written.
+Writing ma_hit_ts to disk... 
+ma_hit_ts has been written.
+bin files have been written.
+[M::purge_dups] homozygous read coverage threshold: 272
+[M::purge_dups] purge duplication coverage threshold: 341
+[M::ug_ext_gfa::] # tips::139
+Writing raw unitig GFA to disk... 
+Writing processed unitig GFA to disk... 
+[M::purge_dups] homozygous read coverage threshold: 272
+[M::purge_dups] purge duplication coverage threshold: 341
+[M::mc_solve:: # edges: 636]
+[M::mc_solve_core_adv::0.079] ==> Partition
+[M::adjust_utg_by_primary] primary contig coverage range: [231, infinity]
+Writing N3-15.bp.p_ctg.gfa to disk... 
+[M::reduce_hamming_error_adv::0.096] # inserted edges: 42, # fixed bubbles: 13
+[M::adjust_utg_by_trio] primary contig coverage range: [231, infinity]
+[M::recall_arcs] # transitive arcs::178
+[M::recall_arcs] # new arcs::10900, # old arcs::6832
+[M::clean_trio_untig_graph] # adjusted arcs::0
+[M::adjust_utg_by_trio] primary contig coverage range: [231, infinity]
+[M::recall_arcs] # transitive arcs::362
+[M::recall_arcs] # new arcs::10830, # old arcs::7656
+[M::clean_trio_untig_graph] # adjusted arcs::0
+[M::output_trio_graph_joint] dedup_base::27703394, miss_base::0
+Writing N3-15.bp.hap1.p_ctg.gfa to disk... 
+Writing N3-15.bp.hap2.p_ctg.gfa to disk... 
+Inconsistency threshold for low-quality regions in BED files: 70%
+[M::main] Version: 0.25.0-r726
+[M::main] CMD: hifiasm -o N3-15 -t 64 --hg-size 85m --n-hap 2 -l 3 /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/N3-15.clean.fq.gz
+[M::main] Real time: 10508.730 sec; CPU: 505445.276 sec; Peak RSS: 50.766 GB
+2026-01-20 17:10:26.930 - INFO - 命令执行成功|Command executed successfully
+2026-01-20 17:10:26.931 - INFO - 组装完成(HiFi only)|Assembly completed(HiFi only)
+2026-01-20 17:10:26.931 - INFO - 转换GFA为FASTA格式|Converting GFA to FASTA format
+2026-01-20 17:10:26.950 - INFO - 转换|Converting: N3-15.bp.hap1.p_ctg.gfa -> N3-15.hap1.fa
+2026-01-20 17:10:26.950 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/01.raw_output/N3-15.bp.hap1.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/N3-15.hap1.fa
+2026-01-20 17:10:27.308 - INFO - 命令执行成功|Command executed successfully
+2026-01-20 17:10:28.097 - INFO - 转换成功|Successfully converted: N3-15.hap1.fa
+2026-01-20 17:10:28.097 - INFO - 序列数|Sequences: 754
+2026-01-20 17:10:28.097 - INFO - 总长度|Total length: 122,930,118 bp
+2026-01-20 17:10:28.097 - INFO - 转换|Converting: N3-15.bp.hap2.p_ctg.gfa -> N3-15.hap2.fa
+2026-01-20 17:10:28.097 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/01.raw_output/N3-15.bp.hap2.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/N3-15.hap2.fa
+2026-01-20 17:10:28.227 - INFO - 命令执行成功|Command executed successfully
+2026-01-20 17:10:28.600 - INFO - 转换成功|Successfully converted: N3-15.hap2.fa
+2026-01-20 17:10:28.600 - INFO - 序列数|Sequences: 156
+2026-01-20 17:10:28.602 - INFO - 总长度|Total length: 56,488,680 bp
+2026-01-20 17:10:28.602 - INFO - 转换|Converting: N3-15.bp.p_ctg.gfa -> N3-15.primary.fa
+2026-01-20 17:10:28.602 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/01.raw_output/N3-15.bp.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/N3-15.primary.fa
+2026-01-20 17:10:28.921 - INFO - 命令执行成功|Command executed successfully
+2026-01-20 17:10:30.017 - INFO - 转换成功|Successfully converted: N3-15.primary.fa
+2026-01-20 17:10:30.017 - INFO - 序列数|Sequences: 749
+2026-01-20 17:10:30.017 - INFO - 总长度|Total length: 141,735,904 bp
+2026-01-20 17:10:30.017 - WARNING - 文件不存在|File not found: N3-15.bp.a_ctg.gfa
+2026-01-20 17:10:30.017 - INFO - ============================================================
+2026-01-20 17:10:30.017 - INFO - 生成Contig-Reads映射|Generating Contig-Reads mapping
+2026-01-20 17:10:30.017 - INFO - ============================================================
+2026-01-20 17:10:30.017 - INFO - 处理|Processing: N3-15.bp.p_ctg.gfa
+2026-01-20 17:10:30.017 - INFO - ============================================================
+2026-01-20 17:10:30.017 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-01-20 17:10:30.017 - INFO - ============================================================
+2026-01-20 17:10:30.017 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/01.raw_output/N3-15.bp.p_ctg.gfa
+2026-01-20 17:10:31.091 - INFO -   共处理|Total alignments processed: 61,733
+2026-01-20 17:10:31.091 - INFO -   共发现|Total contigs found: 749
+2026-01-20 17:10:31.091 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/bp.p_ctg.contig_reads.tsv
+2026-01-20 17:10:31.154 - INFO - 映射统计|Mapping statistics:
+2026-01-20 17:10:31.154 - INFO -   总contig数|Total contigs: 749
+2026-01-20 17:10:31.154 - INFO -   平均reads数/contig|Avg reads/contig: 82.4
+2026-01-20 17:10:31.154 - INFO -   最少reads数|Min reads: 2
+2026-01-20 17:10:31.154 - INFO -   最多reads数|Max reads: 6,830
+2026-01-20 17:10:31.154 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/bp.p_ctg.contig_reads.tsv
+2026-01-20 17:10:31.154 - INFO - ============================================================
+2026-01-20 17:10:31.154 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-01-20 17:10:31.154 - INFO - ============================================================
+2026-01-20 17:10:31.155 - INFO - 处理|Processing: N3-15.bp.hap1.p_ctg.gfa
+2026-01-20 17:10:31.155 - INFO - ============================================================
+2026-01-20 17:10:31.155 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-01-20 17:10:31.155 - INFO - ============================================================
+2026-01-20 17:10:31.155 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/01.raw_output/N3-15.bp.hap1.p_ctg.gfa
+2026-01-20 17:10:31.916 - INFO -   共处理|Total alignments processed: 50,949
+2026-01-20 17:10:31.916 - INFO -   共发现|Total contigs found: 754
+2026-01-20 17:10:31.916 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/bp.hap1.p_ctg.contig_reads.tsv
+2026-01-20 17:10:31.923 - INFO - 映射统计|Mapping statistics:
+2026-01-20 17:10:31.923 - INFO -   总contig数|Total contigs: 754
+2026-01-20 17:10:31.923 - INFO -   平均reads数/contig|Avg reads/contig: 67.6
+2026-01-20 17:10:31.923 - INFO -   最少reads数|Min reads: 2
+2026-01-20 17:10:31.923 - INFO -   最多reads数|Max reads: 6,830
+2026-01-20 17:10:31.923 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/bp.hap1.p_ctg.contig_reads.tsv
+2026-01-20 17:10:31.923 - INFO - ============================================================
+2026-01-20 17:10:31.923 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-01-20 17:10:31.923 - INFO - ============================================================
+2026-01-20 17:10:31.924 - INFO - 处理|Processing: N3-15.bp.hap2.p_ctg.gfa
+2026-01-20 17:10:31.924 - INFO - ============================================================
+2026-01-20 17:10:31.924 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-01-20 17:10:31.924 - INFO - ============================================================
+2026-01-20 17:10:31.924 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/01.raw_output/N3-15.bp.hap2.p_ctg.gfa
+2026-01-20 17:10:32.452 - INFO -   共处理|Total alignments processed: 28,824
+2026-01-20 17:10:32.452 - INFO -   共发现|Total contigs found: 156
+2026-01-20 17:10:32.453 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/bp.hap2.p_ctg.contig_reads.tsv
+2026-01-20 17:10:32.457 - INFO - 映射统计|Mapping statistics:
+2026-01-20 17:10:32.457 - INFO -   总contig数|Total contigs: 156
+2026-01-20 17:10:32.457 - INFO -   平均reads数/contig|Avg reads/contig: 184.8
+2026-01-20 17:10:32.457 - INFO -   最少reads数|Min reads: 2
+2026-01-20 17:10:32.457 - INFO -   最多reads数|Max reads: 6,195
+2026-01-20 17:10:32.457 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/bp.hap2.p_ctg.contig_reads.tsv
+2026-01-20 17:10:32.457 - INFO - ============================================================
+2026-01-20 17:10:32.457 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-01-20 17:10:32.457 - INFO - ============================================================
+2026-01-20 17:10:32.457 - INFO - 成功处理|Successfully processed: 3/3 个文件
+2026-01-20 17:10:32.458 - INFO - ============================================================
+2026-01-20 17:10:33.415 - INFO -  统计报告已生成|Statistics report generated: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/04.statistics/N3-15_assembly_statistics.txt
+2026-01-20 17:10:33.416 - INFO - ================================================================================
+2026-01-20 17:10:33.416 - INFO - 组装流程完成|Assembly Pipeline Completed
+2026-01-20 17:10:33.416 - INFO - ================================================================================
+2026-01-20 17:10:33.416 - INFO - 总耗时|Total Duration: 10515 秒
+2026-01-20 17:10:33.416 - INFO - 生成FASTA文件|Generated FASTA files: 3
+2026-01-20 17:10:33.416 - INFO - 输出文件结构|Output File Structure:
+2026-01-20 17:10:33.416 - INFO - 
+ /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/
+   │
+   ├──  01.raw_output/     (原始输出文件|Raw output files)
+   │   ├──  N3-15.bp.hap1.p_ctg.gfa
+   │   ├──  N3-15.bp.hap2.p_ctg.gfa
+   │   ├──  N3-15.bp.p_ctg.gfa
+   │   ├──  N3-15.bp.a_ctg.gfa (如果存在|if present)
+   │   └──  其他中间文件|Other intermediate files
+   │
+   ├──  02.fasta/          (FASTA格式|FASTA format)
+   │   ├──  N3-15.hap1.fa
+   │   ├──  N3-15.hap2.fa
+   │   ├──  N3-15.primary.fa
+   │   ├──  N3-15.alternate.fa
+   │   ├──  N3-15.p_ctg.contig_reads.tsv (contig-reads映射|contig-reads mapping)
+   │   ├──  N3-15.hap1.p_ctg.contig_reads.tsv
+   │   └──  N3-15.hap2.p_ctg.contig_reads.tsv
+   │
+   ├──  03.logs/           (日志文件|Log files)
+   │   └──  hifiasm_assembly.log
+   │
+   └──  04.statistics/     (统计信息|Statistics)
+       └──  N3-15_assembly_statistics.txt
+        
+2026-01-20 17:10:33.416 - INFO -  下一步建议|Next Steps:
+2026-01-20 17:10:33.416 - INFO -    1. 查看统计报告|1. View statistics report
+2026-01-20 17:10:33.416 - INFO -    2. 检查组装质量|2. Check assembly quality (QUAST/BUSCO)
+2026-01-20 17:10:33.416 - INFO -    3. 可视化组装|3. Visualize assembly (Bandage)
+2026-01-20 17:10:33.416 - INFO -    4. 查看contig-reads映射|4. View contig-reads mapping
+2026-01-20 17:10:33.688 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm
+2026-01-20 17:10:33.688 - INFO - 开始RagTag scaffolding流程|Starting RagTag scaffolding pipeline
+2026-01-20 17:10:33.689 - INFO - 参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa
+2026-01-20 17:10:33.689 - INFO - 查询基因组|Query genome: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/N3-15.primary.fa
+2026-01-20 17:10:33.689 - INFO - 样品名称|Sample name: N3-15
+2026-01-20 17:10:33.689 - INFO - 线程数|Threads: 12
+2026-01-20 17:10:33.689 - INFO - 步骤1: 运行RagTag scaffold|Step 1: Running RagTag scaffold
+2026-01-20 17:10:33.689 - INFO - 执行命令|Executing command: ragtag.py scaffold /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/02.hifiasm/N3-15/02.fasta/N3-15.primary.fa -t 12 -f 1000 -q 10 -d 100000 -i 0.2 -a 0.0 -s 0.0 --aligner minimap2 -o /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm
+2026-01-20 17:11:07.344 - INFO - RagTag scaffold执行完成|RagTag scaffold execution completed
+2026-01-20 17:11:07.344 - INFO - 步骤2: 处理输出文件，重命名序列ID并分类|Step 2: Processing output files, renaming sequence IDs and categorizing
+2026-01-20 17:11:07.344 - INFO - 使用序列ID前缀|Using sequence ID prefix: hifiasm
+2026-01-20 17:11:07.730 - INFO - 写入scaffolded序列|Wrote scaffolded sequences: 12条序列|sequences
+2026-01-20 17:11:07.828 - INFO - 写入unscaffolded序列|Wrote unscaffolded sequences: 729条序列|sequences
+2026-01-20 17:11:07.828 - INFO - 步骤3: 重命名RagTag原始输出文件|Step 3: Renaming RagTag original output files
+2026-01-20 17:11:07.830 - INFO - 完成重命名RagTag输出文件|Completed renaming RagTag output files: 8个文件|files
+2026-01-20 17:11:07.830 - INFO - RagTag scaffolding流程完成|RagTag scaffolding pipeline completed
+2026-01-20 17:11:07.830 - INFO - Scaffolded输出|Scaffolded output: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/N3-15_RagTag_scaffolded.fa
+2026-01-20 17:11:07.830 - INFO - Unscaffolded输出|Unscaffolded output: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/N3-15_RagTag_unscaffolded.fa
+2026-01-20 17:11:16.255 - INFO - ============================================================
+2026-01-20 17:11:16.255 - INFO - 开始基因组共线性分析|Starting genome synteny analysis
+2026-01-20 17:11:16.255 - INFO - ============================================================
+2026-01-20 17:11:16.255 - INFO -  开始环境检查|Starting environment check
+2026-01-20 17:11:16.255 - INFO - ==================================================
+2026-01-20 17:11:16.255 - INFO - ============================================================
+2026-01-20 17:11:16.255 - INFO - 环境检查命令|Environment check command: 检查NGenomeSyn是否在PATH中
+2026-01-20 17:11:16.255 - INFO - 命令内容|Command: which NGenomeSyn
+2026-01-20 17:11:16.255 - INFO - ============================================================
+2026-01-20 17:11:16.257 - INFO -  NGenomeSyn 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/NGenomeSyn
+2026-01-20 17:11:16.257 - INFO - ============================================================
+2026-01-20 17:11:16.257 - INFO - 环境检查命令|Environment check command: 测试NGenomeSyn是否可执行
+2026-01-20 17:11:16.257 - INFO - 命令内容|Command: NGenomeSyn
+2026-01-20 17:11:16.258 - INFO - ============================================================
+2026-01-20 17:11:17.024 - INFO -  NGenomeSyn 验证通过|NGenomeSyn verification passed
+2026-01-20 17:11:17.024 - INFO - ============================================================
+2026-01-20 17:11:17.024 - INFO - 环境检查命令|Environment check command: 检查 minimap2 是否安装
+2026-01-20 17:11:17.024 - INFO - 命令内容|Command: which minimap2
+2026-01-20 17:11:17.024 - INFO - ============================================================
+2026-01-20 17:11:17.025 - INFO -  minimap2 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/minimap2
+2026-01-20 17:11:17.025 - INFO - ============================================================
+2026-01-20 17:11:17.025 - INFO - 环境检查命令|Environment check command: 检查 nucmer 是否安装
+2026-01-20 17:11:17.025 - INFO - 命令内容|Command: which nucmer
+2026-01-20 17:11:17.025 - INFO - ============================================================
+2026-01-20 17:11:17.027 - INFO -  nucmer 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/nucmer
+2026-01-20 17:11:17.027 - INFO - ============================================================
+2026-01-20 17:11:17.027 - INFO - 环境检查命令|Environment check command: 检查 show-coords 是否安装
+2026-01-20 17:11:17.027 - INFO - 命令内容|Command: which show-coords
+2026-01-20 17:11:17.027 - INFO - ============================================================
+2026-01-20 17:11:17.050 - INFO -  show-coords 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/show-coords
+2026-01-20 17:11:17.050 - INFO - ============================================================
+2026-01-20 17:11:17.050 - INFO - 环境检查命令|Environment check command: 检查 syri 是否安装
+2026-01-20 17:11:17.050 - INFO - 命令内容|Command: which syri
+2026-01-20 17:11:17.050 - INFO - ============================================================
+2026-01-20 17:11:17.062 - INFO -  syri 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/syri
+2026-01-20 17:11:17.062 - INFO - ============================================================
+2026-01-20 17:11:17.062 - INFO - 环境检查命令|Environment check command: 检查 convert 是否安装
+2026-01-20 17:11:17.062 - INFO - 命令内容|Command: which convert
+2026-01-20 17:11:17.062 - INFO - ============================================================
+2026-01-20 17:11:17.063 - INFO -  convert 已安装|installed: /usr/bin/convert
+2026-01-20 17:11:17.063 - INFO - ==================================================
+2026-01-20 17:11:17.063 - INFO -  环境检查通过|Environment check passed
+2026-01-20 17:11:17.081 - INFO -  环境检查脚本已保存|Environment check script saved: ./check_environment.sh
+2026-01-20 17:11:17.081 - INFO -  您可以使用以下命令检查环境:
+2026-01-20 17:11:17.081 - INFO - bash ./check_environment.sh
+2026-01-20 17:11:17.081 - INFO - 开始完整分析流程|Starting full analysis pipeline
+2026-01-20 17:11:17.081 - INFO - ============================================================
+2026-01-20 17:11:17.081 - INFO - 数据处理步骤|Data processing step: read_sample_map
+2026-01-20 17:11:17.081 - INFO - 描述|Description: 读取样本映射文件
+2026-01-20 17:11:17.081 - INFO - 文件|File: 04.ragtag/N3-15/hifiasm/共线性/.temp_sample_map.txt
+2026-01-20 17:11:17.081 - INFO - ============================================================
+2026-01-20 17:11:17.081 - INFO - ============================================================
+2026-01-20 17:11:17.081 - INFO - 数据处理步骤|Data processing step: sample_added
+2026-01-20 17:11:17.081 - INFO - 描述|Description: 添加基因组: N3-15_RagTag_scaffolded
+2026-01-20 17:11:17.081 - INFO - 文件|File: 04.ragtag/N3-15/hifiasm/N3-15_RagTag_scaffolded.fa
+2026-01-20 17:11:17.081 - INFO - ============================================================
+2026-01-20 17:11:17.081 - INFO - ============================================================
+2026-01-20 17:11:17.081 - INFO - 数据处理步骤|Data processing step: sample_added
+2026-01-20 17:11:17.081 - INFO - 描述|Description: 添加基因组: Psoja_T2T
+2026-01-20 17:11:17.081 - INFO - 文件|File: 01.data/genome/Psoja_T2T.fa
+2026-01-20 17:11:17.081 - INFO - ============================================================
+2026-01-20 17:11:17.081 - INFO -  成功读取 2 个基因组|Successfully read 2 genomes
+2026-01-20 17:11:17.082 - INFO -  数据处理脚本已保存|Data processing script saved: 04.ragtag/N3-15/hifiasm/共线性/data_processing_steps.sh
+2026-01-20 17:11:17.082 - INFO -  配置生成步骤|Config step: start - 开始生成默认配置文件
+2026-01-20 17:11:17.082 - INFO -  配置生成步骤|Config step: chromosome_analysis - 分析基因组染色体信息
+2026-01-20 17:11:17.082 - INFO -  配置生成步骤|Config step: chromosome_all -  计算基因组 N3-15_RagTag_scaffolded 的所有染色体
+2026-01-20 17:11:17.082 - INFO - ============================================================
+2026-01-20 17:11:17.082 - INFO - 数据处理步骤|Data processing step: calculate_chr_lengths
+2026-01-20 17:11:17.082 - INFO - 描述|Description: 计算染色体长度
+2026-01-20 17:11:17.082 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/N3-15_RagTag_scaffolded.fa
+2026-01-20 17:11:17.082 - INFO - ============================================================
+2026-01-20 17:11:17.365 - INFO -  发现 12 条染色体|Found 12 chromosomes
+2026-01-20 17:11:17.365 - INFO - ============================================================
+2026-01-20 17:11:17.365 - INFO - 数据处理步骤|Data processing step: chr_calculation_complete
+2026-01-20 17:11:17.365 - INFO - 描述|Description:  完成染色体长度计算，共 12 条染色体
+2026-01-20 17:11:17.365 - INFO - ============================================================
+2026-01-20 17:11:17.365 - INFO -  配置生成步骤|Config step: chromosome_all -  计算基因组 Psoja_T2T 的所有染色体
+2026-01-20 17:11:17.365 - INFO - ============================================================
+2026-01-20 17:11:17.365 - INFO - 数据处理步骤|Data processing step: calculate_chr_lengths
+2026-01-20 17:11:17.365 - INFO - 描述|Description: 计算染色体长度
+2026-01-20 17:11:17.365 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa
+2026-01-20 17:11:17.365 - INFO - ============================================================
+2026-01-20 17:11:17.638 - INFO -  发现 12 条染色体|Found 12 chromosomes
+2026-01-20 17:11:17.638 - INFO - ============================================================
+2026-01-20 17:11:17.638 - INFO - 数据处理步骤|Data processing step: chr_calculation_complete
+2026-01-20 17:11:17.638 - INFO - 描述|Description:  完成染色体长度计算，共 12 条染色体
+2026-01-20 17:11:17.638 - INFO - ============================================================
+2026-01-20 17:11:17.639 - INFO -  配置生成步骤|Config step: generate_links - 生成基因组比对链接关系
+2026-01-20 17:11:17.639 - INFO -  配置生成步骤|Config step: chain_links - 为 2 个基因组生成链式比对关系
+2026-01-20 17:11:17.639 - INFO -  配置生成步骤|Config step: yaml_config -  构建YAML配置数据结构
+2026-01-20 17:11:17.639 - INFO -  配置生成步骤|Config step: threads_config -  配置线程数: 12
+2026-01-20 17:11:17.639 - INFO -  使用配置线程数|Using configured threads: 12
+2026-01-20 17:11:17.639 - INFO -  配置生成步骤|Config step: save_yaml -  保存YAML配置文件
+2026-01-20 17:11:17.642 - INFO -  配置生成步骤|Config step: convert_excel -  转换为Excel配置文件
+2026-01-20 17:11:17.642 - INFO -  配置生成步骤|Config step: excel_conversion -  开始YAML到Excel的转换
+2026-01-20 17:11:22.380 - INFO -  配置生成步骤|Config step: excel_complete -  Excel文件保存完成: 04.ragtag/N3-15/hifiasm/共线性/genome_syn_config.xlsx
+2026-01-20 17:11:22.380 - INFO -  配置生成脚本已保存|Config generation script saved: 04.ragtag/N3-15/hifiasm/共线性/regenerate_config.sh
+2026-01-20 17:11:22.380 - INFO -  YAML配置文件已生成|YAML config file generated: 04.ragtag/N3-15/hifiasm/共线性/genome_syn_config.yaml
+2026-01-20 17:11:22.380 - INFO -  Excel配置文件已生成|Excel config file generated: 04.ragtag/N3-15/hifiasm/共线性/genome_syn_config.xlsx
+2026-01-20 17:11:22.385 - INFO - ==================================================
+2026-01-20 17:11:22.385 - INFO - 步骤1: 执行基因组比对|Step 1: Performing genome alignment
+2026-01-20 17:11:22.385 - INFO - ==================================================
+2026-01-20 17:11:22.385 - INFO - 创建比对器|Creating aligner: minimap2 with 12 threads
+2026-01-20 17:11:22.385 - INFO -  Minimap2比对器初始化|Minimap2 aligner initialized with 12 threads
+2026-01-20 17:11:22.386 - INFO -  开始比对|Starting alignment: N3-15_RagTag_scaffolded vs Psoja_T2T
+2026-01-20 17:11:22.386 - INFO -  开始Minimap2比对|Starting Minimap2 alignment: N3-15_RagTag_scaffolded vs Psoja_T2T
+2026-01-20 17:11:22.386 - INFO -  输出PAF文件|Output PAF file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf
+2026-01-20 17:11:22.386 - INFO - 输出LINK文件|Output LINK file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 17:11:22.386 - INFO - ================================================================================
+2026-01-20 17:11:22.386 - INFO - 执行命令|Executing command:  Minimap2比对: N3-15_RagTag_scaffolded vs Psoja_T2T
+2026-01-20 17:11:22.386 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:11:22.386 - INFO - 命令内容|Command: minimap2 -x asm5 -t 12 "/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa" "/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/N3-15_RagTag_scaffolded.fa" > "/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf"
+2026-01-20 17:11:22.386 - INFO - ================================================================================
+2026-01-20 17:12:19.384 - INFO -  Minimap2比对完成|Minimap2 alignment completed: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf
+2026-01-20 17:12:19.386 - INFO - ================================================================================
+2026-01-20 17:12:19.386 - INFO - 执行命令|Executing command:  检查GetTwoGenomeSyn.pl脚本是否可用
+2026-01-20 17:12:19.386 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.386 - INFO - 命令内容|Command: which GetTwoGenomeSyn.pl
+2026-01-20 17:12:19.386 - INFO - ================================================================================
+2026-01-20 17:12:19.386 - INFO - ================================================================================
+2026-01-20 17:12:19.386 - INFO - 执行命令|Executing command:  PAF转LINK格式转换: Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf -> Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 17:12:19.386 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.386 - INFO - 命令内容|Command: GetTwoGenomeSyn.pl Paf2Link "Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf" 100000 "Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link"
+2026-01-20 17:12:19.386 - INFO - ================================================================================
+2026-01-20 17:12:19.417 - INFO -  LINK文件转换完成|LINK file conversion completed: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 17:12:19.417 - INFO -  命令脚本已保存|Command script saved: 04.ragtag/N3-15/hifiasm/共线性/alignment_commands_N3-15_RagTag_scaffolded_vs_Psoja_T2T.sh
+2026-01-20 17:12:19.417 - INFO -  您可以使用以下命令手动执行|You can manually execute with:
+2026-01-20 17:12:19.417 - INFO - bash 04.ragtag/N3-15/hifiasm/共线性/alignment_commands_N3-15_RagTag_scaffolded_vs_Psoja_T2T.sh
+2026-01-20 17:12:19.417 - INFO -  比对文件已生成|Alignment file generated: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 17:12:19.418 - INFO -  比对成功完成|Alignment successfully completed: Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 17:12:19.418 - INFO - ==================================================
+2026-01-20 17:12:19.418 - INFO - 步骤2: 生成可视化图形|Step 2: Generating visualization
+2026-01-20 17:12:19.418 - INFO - ==================================================
+2026-01-20 17:12:19.418 - INFO -  生成NGenomeSyn配置文件|Generating NGenomeSyn configuration file
+2026-01-20 17:12:19.418 - INFO - ============================================================
+2026-01-20 17:12:19.418 - INFO - 数据处理步骤|Data processing step: generate_len_file
+2026-01-20 17:12:19.418 - INFO - 描述|Description: 生成基因组长度文件
+2026-01-20 17:12:19.418 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/N3-15_RagTag_scaffolded.fa
+2026-01-20 17:12:19.418 - INFO - ============================================================
+2026-01-20 17:12:19.418 - INFO - ============================================================
+2026-01-20 17:12:19.418 - INFO - 数据处理步骤|Data processing step: calculate_chr_lengths
+2026-01-20 17:12:19.418 - INFO - 描述|Description: 计算染色体长度
+2026-01-20 17:12:19.418 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/N3-15_RagTag_scaffolded.fa
+2026-01-20 17:12:19.418 - INFO - ============================================================
+2026-01-20 17:12:19.695 - INFO -  发现 12 条染色体|Found 12 chromosomes
+2026-01-20 17:12:19.695 - INFO - ============================================================
+2026-01-20 17:12:19.695 - INFO - 数据处理步骤|Data processing step: chr_calculation_complete
+2026-01-20 17:12:19.695 - INFO - 描述|Description:  完成染色体长度计算，共 12 条染色体
+2026-01-20 17:12:19.695 - INFO - ============================================================
+2026-01-20 17:12:19.696 - INFO - ============================================================
+2026-01-20 17:12:19.696 - INFO - 数据处理步骤|Data processing step: color_scheme
+2026-01-20 17:12:19.696 - INFO - 描述|Description: 生成颜色方案: paired，12 种颜色
+2026-01-20 17:12:19.696 - INFO - ============================================================
+2026-01-20 17:12:19.696 - INFO -  生成.len文件|Generated .len file: 04.ragtag/N3-15/hifiasm/共线性/N3-15_RagTag_scaffolded.len
+2026-01-20 17:12:19.696 - INFO - ============================================================
+2026-01-20 17:12:19.696 - INFO - 数据处理步骤|Data processing step: len_file_complete
+2026-01-20 17:12:19.696 - INFO - 描述|Description:  完成.len文件生成
+2026-01-20 17:12:19.696 - INFO - 文件|File: 04.ragtag/N3-15/hifiasm/共线性/N3-15_RagTag_scaffolded.len
+2026-01-20 17:12:19.696 - INFO - ============================================================
+2026-01-20 17:12:19.696 - INFO - ================================================================================
+2026-01-20 17:12:19.696 - INFO - 执行命令|Executing command: 生成基因组 N3-15_RagTag_scaffolded 的长度文件
+2026-01-20 17:12:19.696 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.696 - INFO - 命令内容|Command: # 生成基因组长度文件: python -c "from data_processing import GenomeProcessor; GenomeProcessor().generate_len_file('/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hifiasm/N3-15_RagTag_scaffolded.fa', '04.ragtag/N3-15/hifiasm/共线性/N3-15_RagTag_scaffolded.len', selected_chromosomes=None)"
+2026-01-20 17:12:19.696 - INFO - ================================================================================
+2026-01-20 17:12:19.696 - INFO -  生成基因组信息文件|Generated genome info file: 04.ragtag/N3-15/hifiasm/共线性/N3-15_RagTag_scaffolded.len
+2026-01-20 17:12:19.696 - INFO - ============================================================
+2026-01-20 17:12:19.696 - INFO - 数据处理步骤|Data processing step: generate_len_file
+2026-01-20 17:12:19.696 - INFO - 描述|Description: 生成基因组长度文件
+2026-01-20 17:12:19.696 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa
+2026-01-20 17:12:19.696 - INFO - ============================================================
+2026-01-20 17:12:19.696 - INFO - ============================================================
+2026-01-20 17:12:19.696 - INFO - 数据处理步骤|Data processing step: calculate_chr_lengths
+2026-01-20 17:12:19.696 - INFO - 描述|Description: 计算染色体长度
+2026-01-20 17:12:19.696 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa
+2026-01-20 17:12:19.696 - INFO - ============================================================
+2026-01-20 17:12:19.969 - INFO -  发现 12 条染色体|Found 12 chromosomes
+2026-01-20 17:12:19.969 - INFO - ============================================================
+2026-01-20 17:12:19.969 - INFO - 数据处理步骤|Data processing step: chr_calculation_complete
+2026-01-20 17:12:19.969 - INFO - 描述|Description:  完成染色体长度计算，共 12 条染色体
+2026-01-20 17:12:19.969 - INFO - ============================================================
+2026-01-20 17:12:19.969 - INFO - ============================================================
+2026-01-20 17:12:19.969 - INFO - 数据处理步骤|Data processing step: color_scheme
+2026-01-20 17:12:19.969 - INFO - 描述|Description: 生成颜色方案: paired，12 种颜色
+2026-01-20 17:12:19.969 - INFO - ============================================================
+2026-01-20 17:12:19.970 - INFO -  生成.len文件|Generated .len file: 04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T.len
+2026-01-20 17:12:19.970 - INFO - ============================================================
+2026-01-20 17:12:19.970 - INFO - 数据处理步骤|Data processing step: len_file_complete
+2026-01-20 17:12:19.970 - INFO - 描述|Description:  完成.len文件生成
+2026-01-20 17:12:19.970 - INFO - 文件|File: 04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T.len
+2026-01-20 17:12:19.970 - INFO - ============================================================
+2026-01-20 17:12:19.970 - INFO - ================================================================================
+2026-01-20 17:12:19.970 - INFO - 执行命令|Executing command: 生成基因组 Psoja_T2T 的长度文件
+2026-01-20 17:12:19.970 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.970 - INFO - 命令内容|Command: # 生成基因组长度文件: python -c "from data_processing import GenomeProcessor; GenomeProcessor().generate_len_file('/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa', '04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T.len', selected_chromosomes=None)"
+2026-01-20 17:12:19.970 - INFO - ================================================================================
+2026-01-20 17:12:19.970 - INFO -  生成基因组信息文件|Generated genome info file: 04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T.len
+2026-01-20 17:12:19.970 - INFO - 使用链接文件|Using link file: Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 17:12:19.970 - INFO - ================================================================================
+2026-01-20 17:12:19.970 - INFO - 执行命令|Executing command:  查看生成的NGenomeSyn配置文件内容
+2026-01-20 17:12:19.970 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.970 - INFO - 命令内容|Command: cat "ngenomesyn.conf"
+2026-01-20 17:12:19.970 - INFO - ================================================================================
+2026-01-20 17:12:19.970 - INFO -  NGenomeSyn配置文件内容|NGenomeSyn config file content:
+2026-01-20 17:12:19.970 - INFO -  配置内容|Config content:
+SetParaFor = global
+
+GenomeInfoFile1=N3-15_RagTag_scaffolded.len
+GenomeInfoFile2=Psoja_T2T.len
+
+LinkFileRef1VsRef2=Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+
+body=1200
+CanvasHeightRatio=0.67
+
+SetParaFor = Genome1
+ChrWidth=20
+ChrNameShow=1
+ChrNameColor=black
+ChrNameShiftX=0
+ChrNameShiftY=10
+
+SetParaFor = Genome2
+ChrWidth=20
+ChrNameShow=1
+ChrNameColor=black
+ChrNameShiftX=0
+ChrNameShiftY=10
+
+
+2026-01-20 17:12:19.970 - INFO -  NGenomeSyn配置文件已生成|NGenomeSyn config generated: 04.ragtag/N3-15/hifiasm/共线性/ngenomesyn.conf
+2026-01-20 17:12:19.970 - INFO - 开始NGenomeSyn可视化|Starting NGenomeSyn visualization
+2026-01-20 17:12:19.970 - INFO -  检查输入文件状态|Checking input file status
+2026-01-20 17:12:19.970 - INFO -  工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.970 - INFO -  配置文件|Config file: 04.ragtag/N3-15/hifiasm/共线性/ngenomesyn.conf
+2026-01-20 17:12:19.970 - INFO - ================================================================================
+2026-01-20 17:12:19.970 - INFO - 执行命令|Executing command:  检查输出目录中的文件
+2026-01-20 17:12:19.971 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.971 - INFO - 命令内容|Command: ls -la "04.ragtag/N3-15/hifiasm/共线性"
+2026-01-20 17:12:19.971 - INFO - ================================================================================
+2026-01-20 17:12:19.971 - INFO -  输出目录文件列表|Output directory file list: ['.temp_sample_map.txt', 'regenerate_config.sh', 'genome_syn_config.xlsx', 'ngenomesyn.conf', 'N3-15_RagTag_scaffolded.len', 'data_processing_steps.sh', 'Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link', 'Psoja_T2T.len', 'alignment_commands_N3-15_RagTag_scaffolded_vs_Psoja_T2T.sh', 'genome_syn_config.yaml', 'Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf']
+2026-01-20 17:12:19.971 - INFO -  执行命令|Executing command: NGenomeSyn -InConf "ngenomesyn.conf" -OutPut "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny"
+2026-01-20 17:12:19.971 - INFO -  工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.971 - INFO - ================================================================================
+2026-01-20 17:12:19.971 - INFO - 执行命令|Executing command:  测试NGenomeSyn是否可用
+2026-01-20 17:12:19.971 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:19.971 - INFO - 命令内容|Command: NGenomeSyn
+2026-01-20 17:12:19.971 - INFO - ================================================================================
+2026-01-20 17:12:20.411 - INFO -  NGenomeSyn测试结果|NGenomeSyn test result: returncode=1
+2026-01-20 17:12:20.412 - INFO -  NGenomeSyn输出|NGenomeSyn output: Warining: SVG module in Perl is missing, trying to loading the built-in [SVG.pm]...
+Loading SVG module done
+
+2026-01-20 17:12:20.412 - INFO -  NGenomeSyn错误|NGenomeSyn stderr: 
+		Version:1.43         hewm2008@gmail.com
+
+		Options
+
+		-InConf       <s> : InPut Configuration File
+		-OutPut       <s> : OutPut svg file result
+
+		-help             : Show more help with more parameter
+
+
+2026-01-20 17:12:20.412 - INFO - ================================================================================
+2026-01-20 17:12:20.412 - INFO - 执行命令|Executing command: 执行NGenomeSyn生成共线性图: Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny
+2026-01-20 17:12:20.412 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:20.412 - INFO - 命令内容|Command: NGenomeSyn -InConf "ngenomesyn.conf" -OutPut "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny"
+2026-01-20 17:12:20.412 - INFO - ================================================================================
+2026-01-20 17:12:21.062 - INFO -  命令执行结果|Command execution result:
+2026-01-20 17:12:21.062 - INFO - 返回码|Return code: 1
+2026-01-20 17:12:21.062 - INFO -  标准输出|STDOUT: Warining: SVG module in Perl is missing, trying to loading the built-in [SVG.pm]...
+Loading SVG module done
+convert   SVG ---> PNG ...
+
+2026-01-20 17:12:21.062 - INFO -  标准错误为空|STDERR is empty
+2026-01-20 17:12:21.062 - INFO - ================================================================================
+2026-01-20 17:12:21.062 - INFO - 执行命令|Executing command:  检查生成的输出文件
+2026-01-20 17:12:21.062 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:21.062 - INFO - 命令内容|Command: ls -la "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny"*
+2026-01-20 17:12:21.063 - INFO - ================================================================================
+2026-01-20 17:12:21.063 - INFO - SVG文件已生成|SVG file generated: 04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.svg
+2026-01-20 17:12:21.063 - WARNING -  NGenomeSyn返回非零退出码但文件已成功生成|NGenomeSyn returned non-zero exit code but files were generated successfully
+2026-01-20 17:12:21.063 - INFO - ================================================================================
+2026-01-20 17:12:21.063 - INFO - 执行命令|Executing command: 将SVG转换为PNG格式: Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.svg -> Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.png
+2026-01-20 17:12:21.063 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hifiasm/共线性
+2026-01-20 17:12:21.063 - INFO - 命令内容|Command: convert "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.svg" "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.png"
+2026-01-20 17:12:21.063 - INFO - ================================================================================
+2026-01-20 17:12:21.171 - INFO - PNG文件已生成|PNG file generated: 04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.png
+2026-01-20 17:12:21.172 - INFO -  可视化命令脚本已保存|Visualization command script saved: 04.ragtag/N3-15/hifiasm/共线性/visualization_commands.sh
+2026-01-20 17:12:21.172 - INFO -  您可以使用以下命令手动执行可视化|You can manually execute visualization with:
+2026-01-20 17:12:21.172 - INFO - bash 04.ragtag/N3-15/hifiasm/共线性/visualization_commands.sh
+2026-01-20 17:12:21.172 - INFO - ==================================================
+2026-01-20 17:12:21.172 - INFO - 步骤3: 生成完整命令脚本|Step 3: Generating complete command script
+2026-01-20 17:12:21.172 - INFO - ==================================================
+2026-01-20 17:12:21.172 - INFO - 完整流程脚本已生成|Complete pipeline script generated: 04.ragtag/N3-15/hifiasm/共线性/complete_genome_syn_pipeline.sh
+2026-01-20 17:12:21.172 - INFO - 您可以使用以下命令重新运行整个分析流程:
+2026-01-20 17:12:21.172 - INFO - bash 04.ragtag/N3-15/hifiasm/共线性/complete_genome_syn_pipeline.sh
+2026-01-20 17:12:21.172 - INFO - 注意: 脚本中的某些步骤需要手动替换实际的输入文件路径
+2026-01-20 17:12:21.172 - INFO - ============================================================
+2026-01-20 17:12:21.172 - INFO - 分析完成|Analysis completed
+2026-01-20 17:12:21.172 - INFO - 输出文件|Output file: 04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.svg
+2026-01-20 17:12:21.172 - INFO - 输出文件|Output file: 04.ragtag/N3-15/hifiasm/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.png
+2026-01-20 17:12:21.172 - INFO - ============================================================
+2026-01-20 17:12:22.082 - INFO - ============================================================
+2026-01-20 17:12:22.082 - INFO - HiCanu基因组组装流程|HiCanu Genome Assembly Pipeline
+2026-01-20 17:12:22.082 - INFO - ============================================================
+2026-01-20 17:12:22.082 - INFO - 输入reads|Input reads: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/N3-15.clean.fq.gz
+2026-01-20 17:12:22.082 - INFO - 基因组大小|Genome size: 85m
+2026-01-20 17:12:22.082 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15
+2026-01-20 17:12:22.082 - INFO - 输出前缀|Output prefix: N3-15
+2026-01-20 17:12:22.082 - INFO - ============================================================
+2026-01-20 17:12:22.082 - INFO - ============================================================
+2026-01-20 17:12:22.082 - INFO - 开始HiCanu组装|Starting HiCanu assembly
+2026-01-20 17:12:22.082 - INFO - ============================================================
+2026-01-20 17:12:22.082 - INFO - 组装配置|Assembly configuration:
+2026-01-20 17:12:22.082 - INFO -   Reads文件|Reads file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/N3-15.clean.fq.gz
+2026-01-20 17:12:22.082 - INFO -   基因组大小|Genome size: 85m
+2026-01-20 17:12:22.082 - INFO -   工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15
+2026-01-20 17:12:22.082 - INFO -   前缀|Prefix: N3-15
+2026-01-20 17:12:22.082 - INFO -   组装阶段|Assembly stage: assemble
+2026-01-20 17:12:22.082 - INFO -   最小reads长度|Min read length: 1000
+2026-01-20 17:12:22.082 - INFO -   最小重叠长度|Min overlap length: 500
+2026-01-20 17:12:22.082 - INFO -   线程数|Threads: 12
+2026-01-20 17:12:22.082 - INFO -   内存限制|Memory limit: 100G
+2026-01-20 17:12:22.083 - INFO - ============================================================
+2026-01-20 17:12:22.083 - INFO - 断点续传模式|Resume mode: enabled
+2026-01-20 17:12:22.083 - INFO - ============================================================
+2026-01-20 17:12:22.083 - INFO - 检查已完成步骤|Checking completed steps:
+2026-01-20 17:12:22.083 - INFO -   [未完成|pending] Canu组装|Canu assembly
+2026-01-20 17:12:22.083 - INFO -   [未完成|pending] FASTA文件复制|FASTA files copied
+2026-01-20 17:12:22.083 - INFO -   [未完成|pending] Contig-reads映射生成|Contig-reads mapping generated
+2026-01-20 17:12:22.083 - INFO - ============================================================
+2026-01-20 17:12:22.083 - INFO - 执行命令|Executing command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/canu -d /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output -p N3-15 genomeSize=85m -assemble -pacbio-hifi /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/N3-15.clean.fq.gz useGrid=false
+2026-01-20 18:55:05.404 - INFO - 命令执行成功|Command executed successfully
+2026-01-20 18:55:05.404 - INFO - 检查输出文件|Checking output files
+2026-01-20 18:55:05.404 - INFO - 输出文件已生成|Output file generated: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.contigs.fasta (100,208,886 bytes)
+2026-01-20 18:55:05.404 - INFO -   Contigs文件|Contigs file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.contigs.fasta
+2026-01-20 18:55:05.405 - INFO -   报告文件|Report file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.report
+2026-01-20 18:55:05.405 - INFO - ============================================================
+2026-01-20 18:55:05.405 - INFO - 解析组装结果|Parsing assembly results
+2026-01-20 18:55:05.405 - INFO - ============================================================
+2026-01-20 18:55:05.405 - INFO - 解析Contigs|Parsing contigs:
+2026-01-20 18:55:05.405 - INFO - 解析FASTA文件|Parsing FASTA file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.contigs.fasta
+2026-01-20 18:55:05.594 - INFO - FASTA统计信息|FASTA statistics:
+2026-01-20 18:55:05.594 - INFO -   序列数量|Number of sequences: 412
+2026-01-20 18:55:05.594 - INFO -   总长度|Total bp: 99,170,876
+2026-01-20 18:55:05.594 - INFO -   N50: 5,212,045
+2026-01-20 18:55:05.594 - INFO -   L50: 7
+2026-01-20 18:55:05.594 - INFO -   最短序列|Min length: 11,623
+2026-01-20 18:55:05.594 - INFO -   最长序列|Max length: 11,403,755
+2026-01-20 18:55:05.594 - INFO -   组装大小|Assembly size: 99.17 Mb
+2026-01-20 18:55:05.594 - INFO -   Contigs数量|Number of contigs: 412
+2026-01-20 18:55:05.594 - INFO -   N50: 5.21 Mb
+2026-01-20 18:55:05.594 - INFO -   L50: 7
+2026-01-20 18:55:05.595 - INFO - 解析Canu报告|Parsing Canu report:
+2026-01-20 18:55:05.595 - INFO -   --   contigs:      250 sequences, total length 71818074 bp (including 177 repeats of total length 3721932 bp).
+2026-01-20 18:55:05.595 - INFO -   --   bubbles:      162 sequences, total length 3712486 bp.
+2026-01-20 18:55:05.595 - INFO -   --   unassembled:  43684 sequences, total length 420189977 bp.
+2026-01-20 18:55:05.595 - INFO -   --   contigs:      250 sequences, total length 94130938 bp (including 177 repeats of total length 5150352 bp).
+2026-01-20 18:55:05.595 - INFO -   --   bubbles:      162 sequences, total length 5039938 bp.
+2026-01-20 18:55:05.595 - INFO -   --   unassembled:  43684 sequences, total length 617623094 bp.
+2026-01-20 18:55:05.595 - INFO - ============================================================
+2026-01-20 18:55:05.595 - INFO - 复制FASTA文件|Copying FASTA files
+2026-01-20 18:55:05.595 - INFO - ============================================================
+2026-01-20 18:55:05.751 - INFO -   已复制|Copied: N3-15.contigs.fasta
+2026-01-20 18:55:06.740 - INFO -   已复制|Copied: N3-15.unassembled.fasta
+2026-01-20 18:55:06.741 - INFO - 共复制 2 个文件到|Copied 2 files to: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/02.fasta
+2026-01-20 18:55:06.741 - INFO - ============================================================
+2026-01-20 18:55:06.741 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-01-20 18:55:06.741 - INFO - ============================================================
+2026-01-20 18:55:06.741 - INFO - 读取read名称映射|Reading read name mapping: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.seqStore/readNames.txt
+2026-01-20 18:55:07.481 - INFO -   共读取|Total reads loaded: 1,730,910
+2026-01-20 18:55:07.481 - INFO - 读取readToTig映射|Reading readToTig mapping: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.contigs.layout.readToTig
+2026-01-20 18:55:07.736 - INFO -   共处理|Total reads processed: 315,629
+2026-01-20 18:55:07.736 - INFO -   共发现|Total contigs found: 44,096
+2026-01-20 18:55:07.736 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/02.fasta/N3-15.contig_reads.tsv
+2026-01-20 18:55:07.826 - INFO - 映射统计|Mapping statistics:
+2026-01-20 18:55:07.826 - INFO -   总contig数|Total contigs: 44,096
+2026-01-20 18:55:07.827 - INFO -   平均reads数/contig|Avg reads/contig: 7.2
+2026-01-20 18:55:07.828 - INFO -   最少reads数|Min reads: 1
+2026-01-20 18:55:07.828 - INFO -   最多reads数|Max reads: 34,413
+2026-01-20 18:55:07.828 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/02.fasta/N3-15.contig_reads.tsv
+2026-01-20 18:55:07.828 - INFO - ============================================================
+2026-01-20 18:55:07.828 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-01-20 18:55:07.828 - INFO - ============================================================
+2026-01-20 18:55:07.871 - INFO - ============================================================
+2026-01-20 18:55:07.871 - INFO - HiCanu组装完成|HiCanu assembly completed successfully
+2026-01-20 18:55:07.871 - INFO - ============================================================
+2026-01-20 18:55:07.871 - INFO - ============================================================
+2026-01-20 18:55:07.871 - INFO - 流程总结|Pipeline Summary
+2026-01-20 18:55:07.871 - INFO - ============================================================
+2026-01-20 18:55:07.871 - INFO - 总运行时间|Total runtime: 6165.79 seconds (102.76 minutes)
+2026-01-20 18:55:07.871 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15
+2026-01-20 18:55:07.871 - INFO - 主要输出文件|Main output files:
+2026-01-20 18:55:07.871 - INFO -   Contigs: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.contigs.fasta
+2026-01-20 18:55:07.871 - INFO -   Unitigs: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.unitigs.fasta
+2026-01-20 18:55:07.871 - INFO -   报告|Report: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/01.raw_output/N3-15.report
+2026-01-20 18:55:07.871 - INFO - ============================================================
+2026-01-20 18:55:07.871 - INFO - 流程成功完成|Pipeline completed successfully
+2026-01-20 18:55:07.871 - INFO - ============================================================
+2026-01-20 18:55:08.083 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu
+2026-01-20 18:55:08.083 - INFO - 开始RagTag scaffolding流程|Starting RagTag scaffolding pipeline
+2026-01-20 18:55:08.083 - INFO - 参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa
+2026-01-20 18:55:08.083 - INFO - 查询基因组|Query genome: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/02.fasta/N3-15.contigs.fasta
+2026-01-20 18:55:08.083 - INFO - 样品名称|Sample name: N3-15
+2026-01-20 18:55:08.083 - INFO - 线程数|Threads: 12
+2026-01-20 18:55:08.083 - INFO - 步骤1: 运行RagTag scaffold|Step 1: Running RagTag scaffold
+2026-01-20 18:55:08.083 - INFO - 执行命令|Executing command: ragtag.py scaffold /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/N3-15/02.fasta/N3-15.contigs.fasta -t 12 -f 1000 -q 10 -d 100000 -i 0.2 -a 0.0 -s 0.0 --aligner minimap2 -o /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu
+2026-01-20 18:55:41.413 - INFO - RagTag scaffold执行完成|RagTag scaffold execution completed
+2026-01-20 18:55:41.413 - INFO - 步骤2: 处理输出文件，重命名序列ID并分类|Step 2: Processing output files, renaming sequence IDs and categorizing
+2026-01-20 18:55:41.413 - INFO - 使用序列ID前缀|Using sequence ID prefix: hicanu
+2026-01-20 18:55:41.652 - INFO - 写入scaffolded序列|Wrote scaffolded sequences: 12条序列|sequences
+2026-01-20 18:55:41.675 - INFO - 写入unscaffolded序列|Wrote unscaffolded sequences: 378条序列|sequences
+2026-01-20 18:55:41.675 - INFO - 步骤3: 重命名RagTag原始输出文件|Step 3: Renaming RagTag original output files
+2026-01-20 18:55:41.676 - INFO - 完成重命名RagTag输出文件|Completed renaming RagTag output files: 8个文件|files
+2026-01-20 18:55:41.677 - INFO - RagTag scaffolding流程完成|RagTag scaffolding pipeline completed
+2026-01-20 18:55:41.677 - INFO - Scaffolded输出|Scaffolded output: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/N3-15_RagTag_scaffolded.fa
+2026-01-20 18:55:41.677 - INFO - Unscaffolded输出|Unscaffolded output: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/N3-15_RagTag_unscaffolded.fa
+2026-01-20 18:55:42.540 - INFO - ============================================================
+2026-01-20 18:55:42.540 - INFO - 开始基因组共线性分析|Starting genome synteny analysis
+2026-01-20 18:55:42.540 - INFO - ============================================================
+2026-01-20 18:55:42.540 - INFO -  开始环境检查|Starting environment check
+2026-01-20 18:55:42.540 - INFO - ==================================================
+2026-01-20 18:55:42.540 - INFO - ============================================================
+2026-01-20 18:55:42.540 - INFO - 环境检查命令|Environment check command: 检查NGenomeSyn是否在PATH中
+2026-01-20 18:55:42.540 - INFO - 命令内容|Command: which NGenomeSyn
+2026-01-20 18:55:42.540 - INFO - ============================================================
+2026-01-20 18:55:42.542 - INFO -  NGenomeSyn 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/NGenomeSyn
+2026-01-20 18:55:42.542 - INFO - ============================================================
+2026-01-20 18:55:42.543 - INFO - 环境检查命令|Environment check command: 测试NGenomeSyn是否可执行
+2026-01-20 18:55:42.543 - INFO - 命令内容|Command: NGenomeSyn
+2026-01-20 18:55:42.543 - INFO - ============================================================
+2026-01-20 18:55:42.993 - INFO -  NGenomeSyn 验证通过|NGenomeSyn verification passed
+2026-01-20 18:55:42.993 - INFO - ============================================================
+2026-01-20 18:55:42.993 - INFO - 环境检查命令|Environment check command: 检查 minimap2 是否安装
+2026-01-20 18:55:42.993 - INFO - 命令内容|Command: which minimap2
+2026-01-20 18:55:42.993 - INFO - ============================================================
+2026-01-20 18:55:42.994 - INFO -  minimap2 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/minimap2
+2026-01-20 18:55:42.994 - INFO - ============================================================
+2026-01-20 18:55:42.994 - INFO - 环境检查命令|Environment check command: 检查 nucmer 是否安装
+2026-01-20 18:55:42.994 - INFO - 命令内容|Command: which nucmer
+2026-01-20 18:55:42.994 - INFO - ============================================================
+2026-01-20 18:55:42.996 - INFO -  nucmer 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/nucmer
+2026-01-20 18:55:42.996 - INFO - ============================================================
+2026-01-20 18:55:42.996 - INFO - 环境检查命令|Environment check command: 检查 show-coords 是否安装
+2026-01-20 18:55:42.996 - INFO - 命令内容|Command: which show-coords
+2026-01-20 18:55:42.996 - INFO - ============================================================
+2026-01-20 18:55:42.998 - INFO -  show-coords 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/show-coords
+2026-01-20 18:55:42.998 - INFO - ============================================================
+2026-01-20 18:55:42.998 - INFO - 环境检查命令|Environment check command: 检查 syri 是否安装
+2026-01-20 18:55:42.998 - INFO - 命令内容|Command: which syri
+2026-01-20 18:55:42.998 - INFO - ============================================================
+2026-01-20 18:55:43.000 - INFO -  syri 已安装|installed: /share/org/YZWL/yzwl_lixg/.local/bin/syri
+2026-01-20 18:55:43.000 - INFO - ============================================================
+2026-01-20 18:55:43.000 - INFO - 环境检查命令|Environment check command: 检查 convert 是否安装
+2026-01-20 18:55:43.000 - INFO - 命令内容|Command: which convert
+2026-01-20 18:55:43.000 - INFO - ============================================================
+2026-01-20 18:55:43.001 - INFO -  convert 已安装|installed: /usr/bin/convert
+2026-01-20 18:55:43.001 - INFO - ==================================================
+2026-01-20 18:55:43.001 - INFO -  环境检查通过|Environment check passed
+2026-01-20 18:55:43.003 - INFO -  环境检查脚本已保存|Environment check script saved: ./check_environment.sh
+2026-01-20 18:55:43.003 - INFO -  您可以使用以下命令检查环境:
+2026-01-20 18:55:43.003 - INFO - bash ./check_environment.sh
+2026-01-20 18:55:43.003 - INFO - 开始完整分析流程|Starting full analysis pipeline
+2026-01-20 18:55:43.003 - INFO - ============================================================
+2026-01-20 18:55:43.003 - INFO - 数据处理步骤|Data processing step: read_sample_map
+2026-01-20 18:55:43.003 - INFO - 描述|Description: 读取样本映射文件
+2026-01-20 18:55:43.003 - INFO - 文件|File: 04.ragtag/N3-15/hicanu/共线性/.temp_sample_map.txt
+2026-01-20 18:55:43.003 - INFO - ============================================================
+2026-01-20 18:55:43.004 - INFO - ============================================================
+2026-01-20 18:55:43.004 - INFO - 数据处理步骤|Data processing step: sample_added
+2026-01-20 18:55:43.004 - INFO - 描述|Description: 添加基因组: N3-15_RagTag_scaffolded
+2026-01-20 18:55:43.004 - INFO - 文件|File: 04.ragtag/N3-15/hicanu/N3-15_RagTag_scaffolded.fa
+2026-01-20 18:55:43.004 - INFO - ============================================================
+2026-01-20 18:55:43.004 - INFO - ============================================================
+2026-01-20 18:55:43.004 - INFO - 数据处理步骤|Data processing step: sample_added
+2026-01-20 18:55:43.004 - INFO - 描述|Description: 添加基因组: Psoja_T2T
+2026-01-20 18:55:43.004 - INFO - 文件|File: 01.data/genome/Psoja_T2T.fa
+2026-01-20 18:55:43.004 - INFO - ============================================================
+2026-01-20 18:55:43.004 - INFO -  成功读取 2 个基因组|Successfully read 2 genomes
+2026-01-20 18:55:43.004 - INFO -  数据处理脚本已保存|Data processing script saved: 04.ragtag/N3-15/hicanu/共线性/data_processing_steps.sh
+2026-01-20 18:55:43.004 - INFO -  配置生成步骤|Config step: start - 开始生成默认配置文件
+2026-01-20 18:55:43.004 - INFO -  配置生成步骤|Config step: chromosome_analysis - 分析基因组染色体信息
+2026-01-20 18:55:43.004 - INFO -  配置生成步骤|Config step: chromosome_all -  计算基因组 N3-15_RagTag_scaffolded 的所有染色体
+2026-01-20 18:55:43.004 - INFO - ============================================================
+2026-01-20 18:55:43.004 - INFO - 数据处理步骤|Data processing step: calculate_chr_lengths
+2026-01-20 18:55:43.004 - INFO - 描述|Description: 计算染色体长度
+2026-01-20 18:55:43.004 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/N3-15_RagTag_scaffolded.fa
+2026-01-20 18:55:43.004 - INFO - ============================================================
+2026-01-20 18:55:43.272 - INFO -  发现 12 条染色体|Found 12 chromosomes
+2026-01-20 18:55:43.272 - INFO - ============================================================
+2026-01-20 18:55:43.272 - INFO - 数据处理步骤|Data processing step: chr_calculation_complete
+2026-01-20 18:55:43.272 - INFO - 描述|Description:  完成染色体长度计算，共 12 条染色体
+2026-01-20 18:55:43.272 - INFO - ============================================================
+2026-01-20 18:55:43.273 - INFO -  配置生成步骤|Config step: chromosome_all -  计算基因组 Psoja_T2T 的所有染色体
+2026-01-20 18:55:43.273 - INFO - ============================================================
+2026-01-20 18:55:43.273 - INFO - 数据处理步骤|Data processing step: calculate_chr_lengths
+2026-01-20 18:55:43.273 - INFO - 描述|Description: 计算染色体长度
+2026-01-20 18:55:43.273 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa
+2026-01-20 18:55:43.273 - INFO - ============================================================
+2026-01-20 18:55:43.542 - INFO -  发现 12 条染色体|Found 12 chromosomes
+2026-01-20 18:55:43.543 - INFO - ============================================================
+2026-01-20 18:55:43.543 - INFO - 数据处理步骤|Data processing step: chr_calculation_complete
+2026-01-20 18:55:43.543 - INFO - 描述|Description:  完成染色体长度计算，共 12 条染色体
+2026-01-20 18:55:43.543 - INFO - ============================================================
+2026-01-20 18:55:43.543 - INFO -  配置生成步骤|Config step: generate_links - 生成基因组比对链接关系
+2026-01-20 18:55:43.543 - INFO -  配置生成步骤|Config step: chain_links - 为 2 个基因组生成链式比对关系
+2026-01-20 18:55:43.543 - INFO -  配置生成步骤|Config step: yaml_config -  构建YAML配置数据结构
+2026-01-20 18:55:43.543 - INFO -  配置生成步骤|Config step: threads_config -  配置线程数: 12
+2026-01-20 18:55:43.543 - INFO -  使用配置线程数|Using configured threads: 12
+2026-01-20 18:55:43.543 - INFO -  配置生成步骤|Config step: save_yaml -  保存YAML配置文件
+2026-01-20 18:55:43.546 - INFO -  配置生成步骤|Config step: convert_excel -  转换为Excel配置文件
+2026-01-20 18:55:43.546 - INFO -  配置生成步骤|Config step: excel_conversion -  开始YAML到Excel的转换
+2026-01-20 18:55:43.874 - INFO -  配置生成步骤|Config step: excel_complete -  Excel文件保存完成: 04.ragtag/N3-15/hicanu/共线性/genome_syn_config.xlsx
+2026-01-20 18:55:43.875 - INFO -  配置生成脚本已保存|Config generation script saved: 04.ragtag/N3-15/hicanu/共线性/regenerate_config.sh
+2026-01-20 18:55:43.875 - INFO -  YAML配置文件已生成|YAML config file generated: 04.ragtag/N3-15/hicanu/共线性/genome_syn_config.yaml
+2026-01-20 18:55:43.875 - INFO -  Excel配置文件已生成|Excel config file generated: 04.ragtag/N3-15/hicanu/共线性/genome_syn_config.xlsx
+2026-01-20 18:55:43.879 - INFO - ==================================================
+2026-01-20 18:55:43.879 - INFO - 步骤1: 执行基因组比对|Step 1: Performing genome alignment
+2026-01-20 18:55:43.879 - INFO - ==================================================
+2026-01-20 18:55:43.879 - INFO - 创建比对器|Creating aligner: minimap2 with 12 threads
+2026-01-20 18:55:43.879 - INFO -  Minimap2比对器初始化|Minimap2 aligner initialized with 12 threads
+2026-01-20 18:55:43.879 - INFO -  开始比对|Starting alignment: N3-15_RagTag_scaffolded vs Psoja_T2T
+2026-01-20 18:55:43.879 - INFO -  开始Minimap2比对|Starting Minimap2 alignment: N3-15_RagTag_scaffolded vs Psoja_T2T
+2026-01-20 18:55:43.879 - INFO -  输出PAF文件|Output PAF file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf
+2026-01-20 18:55:43.879 - INFO - 输出LINK文件|Output LINK file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 18:55:43.879 - INFO - ================================================================================
+2026-01-20 18:55:43.879 - INFO - 执行命令|Executing command:  Minimap2比对: N3-15_RagTag_scaffolded vs Psoja_T2T
+2026-01-20 18:55:43.879 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:55:43.879 - INFO - 命令内容|Command: minimap2 -x asm5 -t 12 "/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa" "/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/N3-15_RagTag_scaffolded.fa" > "/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf"
+2026-01-20 18:55:43.879 - INFO - ================================================================================
+2026-01-20 18:56:21.812 - INFO -  Minimap2比对完成|Minimap2 alignment completed: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf
+2026-01-20 18:56:21.814 - INFO - ================================================================================
+2026-01-20 18:56:21.814 - INFO - 执行命令|Executing command:  检查GetTwoGenomeSyn.pl脚本是否可用
+2026-01-20 18:56:21.814 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:21.814 - INFO - 命令内容|Command: which GetTwoGenomeSyn.pl
+2026-01-20 18:56:21.814 - INFO - ================================================================================
+2026-01-20 18:56:21.814 - INFO - ================================================================================
+2026-01-20 18:56:21.814 - INFO - 执行命令|Executing command:  PAF转LINK格式转换: Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf -> Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 18:56:21.814 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:21.814 - INFO - 命令内容|Command: GetTwoGenomeSyn.pl Paf2Link "Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf" 100000 "Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link"
+2026-01-20 18:56:21.814 - INFO - ================================================================================
+2026-01-20 18:56:21.836 - INFO -  LINK文件转换完成|LINK file conversion completed: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 18:56:21.837 - INFO -  命令脚本已保存|Command script saved: 04.ragtag/N3-15/hicanu/共线性/alignment_commands_N3-15_RagTag_scaffolded_vs_Psoja_T2T.sh
+2026-01-20 18:56:21.837 - INFO -  您可以使用以下命令手动执行|You can manually execute with:
+2026-01-20 18:56:21.837 - INFO - bash 04.ragtag/N3-15/hicanu/共线性/alignment_commands_N3-15_RagTag_scaffolded_vs_Psoja_T2T.sh
+2026-01-20 18:56:21.837 - INFO -  比对文件已生成|Alignment file generated: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 18:56:21.837 - INFO -  比对成功完成|Alignment successfully completed: Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 18:56:21.837 - INFO - ==================================================
+2026-01-20 18:56:21.837 - INFO - 步骤2: 生成可视化图形|Step 2: Generating visualization
+2026-01-20 18:56:21.837 - INFO - ==================================================
+2026-01-20 18:56:21.837 - INFO -  生成NGenomeSyn配置文件|Generating NGenomeSyn configuration file
+2026-01-20 18:56:21.837 - INFO - ============================================================
+2026-01-20 18:56:21.837 - INFO - 数据处理步骤|Data processing step: generate_len_file
+2026-01-20 18:56:21.837 - INFO - 描述|Description: 生成基因组长度文件
+2026-01-20 18:56:21.837 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/N3-15_RagTag_scaffolded.fa
+2026-01-20 18:56:21.837 - INFO - ============================================================
+2026-01-20 18:56:21.837 - INFO - ============================================================
+2026-01-20 18:56:21.837 - INFO - 数据处理步骤|Data processing step: calculate_chr_lengths
+2026-01-20 18:56:21.837 - INFO - 描述|Description: 计算染色体长度
+2026-01-20 18:56:21.837 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/N3-15_RagTag_scaffolded.fa
+2026-01-20 18:56:21.837 - INFO - ============================================================
+2026-01-20 18:56:22.109 - INFO -  发现 12 条染色体|Found 12 chromosomes
+2026-01-20 18:56:22.110 - INFO - ============================================================
+2026-01-20 18:56:22.110 - INFO - 数据处理步骤|Data processing step: chr_calculation_complete
+2026-01-20 18:56:22.110 - INFO - 描述|Description:  完成染色体长度计算，共 12 条染色体
+2026-01-20 18:56:22.110 - INFO - ============================================================
+2026-01-20 18:56:22.110 - INFO - ============================================================
+2026-01-20 18:56:22.110 - INFO - 数据处理步骤|Data processing step: color_scheme
+2026-01-20 18:56:22.110 - INFO - 描述|Description: 生成颜色方案: paired，12 种颜色
+2026-01-20 18:56:22.110 - INFO - ============================================================
+2026-01-20 18:56:22.111 - INFO -  生成.len文件|Generated .len file: 04.ragtag/N3-15/hicanu/共线性/N3-15_RagTag_scaffolded.len
+2026-01-20 18:56:22.111 - INFO - ============================================================
+2026-01-20 18:56:22.111 - INFO - 数据处理步骤|Data processing step: len_file_complete
+2026-01-20 18:56:22.111 - INFO - 描述|Description:  完成.len文件生成
+2026-01-20 18:56:22.111 - INFO - 文件|File: 04.ragtag/N3-15/hicanu/共线性/N3-15_RagTag_scaffolded.len
+2026-01-20 18:56:22.111 - INFO - ============================================================
+2026-01-20 18:56:22.111 - INFO - ================================================================================
+2026-01-20 18:56:22.111 - INFO - 执行命令|Executing command: 生成基因组 N3-15_RagTag_scaffolded 的长度文件
+2026-01-20 18:56:22.111 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:22.111 - INFO - 命令内容|Command: # 生成基因组长度文件: python -c "from data_processing import GenomeProcessor; GenomeProcessor().generate_len_file('/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/04.ragtag/N3-15/hicanu/N3-15_RagTag_scaffolded.fa', '04.ragtag/N3-15/hicanu/共线性/N3-15_RagTag_scaffolded.len', selected_chromosomes=None)"
+2026-01-20 18:56:22.111 - INFO - ================================================================================
+2026-01-20 18:56:22.111 - INFO -  生成基因组信息文件|Generated genome info file: 04.ragtag/N3-15/hicanu/共线性/N3-15_RagTag_scaffolded.len
+2026-01-20 18:56:22.111 - INFO - ============================================================
+2026-01-20 18:56:22.111 - INFO - 数据处理步骤|Data processing step: generate_len_file
+2026-01-20 18:56:22.111 - INFO - 描述|Description: 生成基因组长度文件
+2026-01-20 18:56:22.111 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa
+2026-01-20 18:56:22.111 - INFO - ============================================================
+2026-01-20 18:56:22.111 - INFO - ============================================================
+2026-01-20 18:56:22.111 - INFO - 数据处理步骤|Data processing step: calculate_chr_lengths
+2026-01-20 18:56:22.111 - INFO - 描述|Description: 计算染色体长度
+2026-01-20 18:56:22.111 - INFO - 文件|File: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa
+2026-01-20 18:56:22.111 - INFO - ============================================================
+2026-01-20 18:56:22.387 - INFO -  发现 12 条染色体|Found 12 chromosomes
+2026-01-20 18:56:22.387 - INFO - ============================================================
+2026-01-20 18:56:22.387 - INFO - 数据处理步骤|Data processing step: chr_calculation_complete
+2026-01-20 18:56:22.387 - INFO - 描述|Description:  完成染色体长度计算，共 12 条染色体
+2026-01-20 18:56:22.387 - INFO - ============================================================
+2026-01-20 18:56:22.388 - INFO - ============================================================
+2026-01-20 18:56:22.388 - INFO - 数据处理步骤|Data processing step: color_scheme
+2026-01-20 18:56:22.388 - INFO - 描述|Description: 生成颜色方案: paired，12 种颜色
+2026-01-20 18:56:22.388 - INFO - ============================================================
+2026-01-20 18:56:22.388 - INFO -  生成.len文件|Generated .len file: 04.ragtag/N3-15/hicanu/共线性/Psoja_T2T.len
+2026-01-20 18:56:22.388 - INFO - ============================================================
+2026-01-20 18:56:22.388 - INFO - 数据处理步骤|Data processing step: len_file_complete
+2026-01-20 18:56:22.388 - INFO - 描述|Description:  完成.len文件生成
+2026-01-20 18:56:22.388 - INFO - 文件|File: 04.ragtag/N3-15/hicanu/共线性/Psoja_T2T.len
+2026-01-20 18:56:22.388 - INFO - ============================================================
+2026-01-20 18:56:22.388 - INFO - ================================================================================
+2026-01-20 18:56:22.388 - INFO - 执行命令|Executing command: 生成基因组 Psoja_T2T 的长度文件
+2026-01-20 18:56:22.388 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:22.388 - INFO - 命令内容|Command: # 生成基因组长度文件: python -c "from data_processing import GenomeProcessor; GenomeProcessor().generate_len_file('/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/genome/Psoja_T2T.fa', '04.ragtag/N3-15/hicanu/共线性/Psoja_T2T.len', selected_chromosomes=None)"
+2026-01-20 18:56:22.388 - INFO - ================================================================================
+2026-01-20 18:56:22.388 - INFO -  生成基因组信息文件|Generated genome info file: 04.ragtag/N3-15/hicanu/共线性/Psoja_T2T.len
+2026-01-20 18:56:22.388 - INFO - 使用链接文件|Using link file: Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+2026-01-20 18:56:22.389 - INFO - ================================================================================
+2026-01-20 18:56:22.389 - INFO - 执行命令|Executing command:  查看生成的NGenomeSyn配置文件内容
+2026-01-20 18:56:22.389 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:22.389 - INFO - 命令内容|Command: cat "ngenomesyn.conf"
+2026-01-20 18:56:22.389 - INFO - ================================================================================
+2026-01-20 18:56:22.389 - INFO -  NGenomeSyn配置文件内容|NGenomeSyn config file content:
+2026-01-20 18:56:22.389 - INFO -  配置内容|Config content:
+SetParaFor = global
+
+GenomeInfoFile1=N3-15_RagTag_scaffolded.len
+GenomeInfoFile2=Psoja_T2T.len
+
+LinkFileRef1VsRef2=Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link
+
+body=1200
+CanvasHeightRatio=0.67
+
+SetParaFor = Genome1
+ChrWidth=20
+ChrNameShow=1
+ChrNameColor=black
+ChrNameShiftX=0
+ChrNameShiftY=10
+
+SetParaFor = Genome2
+ChrWidth=20
+ChrNameShow=1
+ChrNameColor=black
+ChrNameShiftX=0
+ChrNameShiftY=10
+
+
+2026-01-20 18:56:22.389 - INFO -  NGenomeSyn配置文件已生成|NGenomeSyn config generated: 04.ragtag/N3-15/hicanu/共线性/ngenomesyn.conf
+2026-01-20 18:56:22.389 - INFO - 开始NGenomeSyn可视化|Starting NGenomeSyn visualization
+2026-01-20 18:56:22.389 - INFO -  检查输入文件状态|Checking input file status
+2026-01-20 18:56:22.389 - INFO -  工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:22.389 - INFO -  配置文件|Config file: 04.ragtag/N3-15/hicanu/共线性/ngenomesyn.conf
+2026-01-20 18:56:22.389 - INFO - ================================================================================
+2026-01-20 18:56:22.389 - INFO - 执行命令|Executing command:  检查输出目录中的文件
+2026-01-20 18:56:22.389 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:22.389 - INFO - 命令内容|Command: ls -la "04.ragtag/N3-15/hicanu/共线性"
+2026-01-20 18:56:22.389 - INFO - ================================================================================
+2026-01-20 18:56:22.389 - INFO -  输出目录文件列表|Output directory file list: ['.temp_sample_map.txt', 'regenerate_config.sh', 'genome_syn_config.xlsx', 'ngenomesyn.conf', 'N3-15_RagTag_scaffolded.len', 'data_processing_steps.sh', 'Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.link', 'Psoja_T2T.len', 'alignment_commands_N3-15_RagTag_scaffolded_vs_Psoja_T2T.sh', 'genome_syn_config.yaml', 'Psoja_T2T_vs_N3-15_RagTag_scaffolded_N3-15_RagTag_scaffolded_vs_Psoja_T2T.paf']
+2026-01-20 18:56:22.389 - INFO -  执行命令|Executing command: NGenomeSyn -InConf "ngenomesyn.conf" -OutPut "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny"
+2026-01-20 18:56:22.389 - INFO -  工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:22.389 - INFO - ================================================================================
+2026-01-20 18:56:22.389 - INFO - 执行命令|Executing command:  测试NGenomeSyn是否可用
+2026-01-20 18:56:22.389 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:22.389 - INFO - 命令内容|Command: NGenomeSyn
+2026-01-20 18:56:22.389 - INFO - ================================================================================
+2026-01-20 18:56:22.829 - INFO -  NGenomeSyn测试结果|NGenomeSyn test result: returncode=1
+2026-01-20 18:56:22.829 - INFO -  NGenomeSyn输出|NGenomeSyn output: Warining: SVG module in Perl is missing, trying to loading the built-in [SVG.pm]...
+Loading SVG module done
+
+2026-01-20 18:56:22.829 - INFO -  NGenomeSyn错误|NGenomeSyn stderr: 
+		Version:1.43         hewm2008@gmail.com
+
+		Options
+
+		-InConf       <s> : InPut Configuration File
+		-OutPut       <s> : OutPut svg file result
+
+		-help             : Show more help with more parameter
+
+
+2026-01-20 18:56:22.829 - INFO - ================================================================================
+2026-01-20 18:56:22.829 - INFO - 执行命令|Executing command: 执行NGenomeSyn生成共线性图: Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny
+2026-01-20 18:56:22.829 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:22.829 - INFO - 命令内容|Command: NGenomeSyn -InConf "ngenomesyn.conf" -OutPut "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny"
+2026-01-20 18:56:22.829 - INFO - ================================================================================
+2026-01-20 18:56:23.404 - INFO -  命令执行结果|Command execution result:
+2026-01-20 18:56:23.404 - INFO - 返回码|Return code: 1
+2026-01-20 18:56:23.404 - INFO -  标准输出|STDOUT: Warining: SVG module in Perl is missing, trying to loading the built-in [SVG.pm]...
+Loading SVG module done
+convert   SVG ---> PNG ...
+
+2026-01-20 18:56:23.404 - INFO -  标准错误为空|STDERR is empty
+2026-01-20 18:56:23.404 - INFO - ================================================================================
+2026-01-20 18:56:23.404 - INFO - 执行命令|Executing command:  检查生成的输出文件
+2026-01-20 18:56:23.404 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:23.404 - INFO - 命令内容|Command: ls -la "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny"*
+2026-01-20 18:56:23.404 - INFO - ================================================================================
+2026-01-20 18:56:23.404 - INFO - SVG文件已生成|SVG file generated: 04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.svg
+2026-01-20 18:56:23.404 - WARNING -  NGenomeSyn返回非零退出码但文件已成功生成|NGenomeSyn returned non-zero exit code but files were generated successfully
+2026-01-20 18:56:23.404 - INFO - ================================================================================
+2026-01-20 18:56:23.404 - INFO - 执行命令|Executing command: 将SVG转换为PNG格式: Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.svg -> Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.png
+2026-01-20 18:56:23.404 - INFO - 工作目录|Working directory: 04.ragtag/N3-15/hicanu/共线性
+2026-01-20 18:56:23.404 - INFO - 命令内容|Command: convert "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.svg" "Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.png"
+2026-01-20 18:56:23.404 - INFO - ================================================================================
+2026-01-20 18:56:23.507 - INFO - PNG文件已生成|PNG file generated: 04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.png
+2026-01-20 18:56:23.507 - INFO -  可视化命令脚本已保存|Visualization command script saved: 04.ragtag/N3-15/hicanu/共线性/visualization_commands.sh
+2026-01-20 18:56:23.507 - INFO -  您可以使用以下命令手动执行可视化|You can manually execute visualization with:
+2026-01-20 18:56:23.507 - INFO - bash 04.ragtag/N3-15/hicanu/共线性/visualization_commands.sh
+2026-01-20 18:56:23.507 - INFO - ==================================================
+2026-01-20 18:56:23.507 - INFO - 步骤3: 生成完整命令脚本|Step 3: Generating complete command script
+2026-01-20 18:56:23.507 - INFO - ==================================================
+2026-01-20 18:56:23.508 - INFO - 完整流程脚本已生成|Complete pipeline script generated: 04.ragtag/N3-15/hicanu/共线性/complete_genome_syn_pipeline.sh
+2026-01-20 18:56:23.508 - INFO - 您可以使用以下命令重新运行整个分析流程:
+2026-01-20 18:56:23.508 - INFO - bash 04.ragtag/N3-15/hicanu/共线性/complete_genome_syn_pipeline.sh
+2026-01-20 18:56:23.508 - INFO - 注意: 脚本中的某些步骤需要手动替换实际的输入文件路径
+2026-01-20 18:56:23.508 - INFO - ============================================================
+2026-01-20 18:56:23.508 - INFO - 分析完成|Analysis completed
+2026-01-20 18:56:23.508 - INFO - 输出文件|Output file: 04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.svg
+2026-01-20 18:56:23.508 - INFO - 输出文件|Output file: 04.ragtag/N3-15/hicanu/共线性/Psoja_T2T_vs_N3-15_RagTag_scaffolded_genome_synteny.png
+2026-01-20 18:56:23.508 - INFO - ============================================================
+==========================================
+⏰ 结束时间: 2026-01-20 18:56:23
+✅ 作业成功: assembly_psoja_86

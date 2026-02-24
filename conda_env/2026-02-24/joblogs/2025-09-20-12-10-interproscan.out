@@ -1,0 +1,9 @@
+20/09/2025 12:10:06:141 Welcome to InterProScan-5.75-106.0
+20/09/2025 12:10:06:142 Running InterProScan v5 in STANDALONE mode... on Linux
+20/09/2025 12:10:09:143 RunID: c01n0391_20250920_121008949_2gz7
+20/09/2025 12:10:24:776 Loading file /share/org/YZWL/yzwl_lixg/tmp/zhangxing/all.fa
+20/09/2025 12:10:24:777 Running the following analyses:
+[AntiFam-8.0,CDD-3.21,Coils-2.2.1,FunFam-4.3.0,Gene3D-4.3.0,Hamap-2025_01,MobiDBLite-4.0,NCBIfam-17.0,PANTHER-19.0,Pfam-37.4,PIRSF-3.10,PIRSR-2025_01,PRINTS-42.0,ProSitePatterns-2025_01,ProSiteProfiles-2025_01,SFLD-4,SMART-9.0,SUPERFAMILY-1.75]
+Available matches will be retrieved from the pre-calculated match lookup service.
+
+Matches for any sequences that are not represented in the lookup service will be calculated locally.

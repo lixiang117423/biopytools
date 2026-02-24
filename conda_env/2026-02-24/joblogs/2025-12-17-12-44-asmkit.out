@@ -1,0 +1,125 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/logs/allhic_20251217_124414.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 12:44:14] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output
+[2025-12-17 12:44:14] Threads: 88
+[2025-12-17 12:44:14] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v5.4 (Asmkit)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 [Step 0] Preparing input data (00_data)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 12:44:14] ✅ Data preparation completed
+[2025-12-17 12:44:14] ⏱️  Step completed in 0s
+[2025-12-17 12:44:14] ⏭️  Skipping mapping step
+[2025-12-17 12:44:14] ⏭️  Skipping allele detection
+[2025-12-17 12:44:14] ⏭️  Skipping pruning
+[2025-12-17 12:44:14] ⏭️  Skipping partition
+[2025-12-17 12:44:14] ⏭️  Skipping extract
+[2025-12-17 12:44:14] ⏭️  Skipping rescue
+[2025-12-17 12:44:14] ⏭️  Skipping optimization
+[2025-12-17 12:44:14] ⏭️  Skipping build
+[2025-12-17 12:44:14] ⏭️  Skipping plot
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 [Step 8] Generating JBAT files with asmkit (10_jbat_asmkit)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 12:44:14] 📌 Strategy: Using ALLHiC results (sample.clean.bam + groups.agp)
+[2025-12-17 12:44:14] Linking input files...
+[2025-12-17 12:44:14] ✅ Input files prepared
+[2025-12-17 12:44:14] ✅ Found asmkit: /share/org/YZWL/yzwl_lixg/software/asmkit/asmkit
+[2025-12-17 12:44:14] 
+[2025-12-17 12:44:14] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 12:44:14] Step 8.1: Generating links file from BAM...
+[2025-12-17 12:44:14] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 12:44:14] Running: /share/org/YZWL/yzwl_lixg/software/asmkit/asmkit bam2links sample.clean.bam out.links
+2025/12/17 12:44:14 Start processing bam ...
+2025/12/17 13:02:52 Done.
+[2025-12-17 13:03:12] ✅ Generated out.links successfully (939981913 lines, 53G)
+[2025-12-17 13:03:12]    Time: 18m 38s
+[2025-12-17 13:03:12] 
+[2025-12-17 13:03:12] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 13:03:12] Step 8.2: Generating assembly file from AGP...
+[2025-12-17 13:03:12] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 13:03:12] Running: /share/org/YZWL/yzwl_lixg/software/asmkit/asmkit agp2assembly groups.agp groups.assembly
+2025/12/17 13:03:12 Loading agpfile `groups.agp`.
+2025/12/17 13:03:12 Done.
+[2025-12-17 13:03:12] ✅ Generated groups.assembly successfully
+[2025-12-17 13:03:12]    Time: 0s
+[2025-12-17 13:03:12] 
+[2025-12-17 13:03:12] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 13:03:12] Step 8.3: Generating .hic file using visualizer...
+[2025-12-17 13:03:12] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-17 13:03:12] Running: bash /share/org/YZWL/yzwl_lixg/software/3d-dna/visualize/run-assembly-visualizer.sh groups.assembly out.links
+...Remapping contact data from the original contig set to assembly
+...Building track files
+...Building the hic file
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+..
+Writing footer
+
+Finished preprocess
+HiC file version: 8
+
+Calculating norms for zoom BP_2500000
+Calculating norms for zoom BP_1000000
+Calculating norms for zoom BP_500000
+Calculating norms for zoom BP_250000
+Calculating norms for zoom BP_100000
+Calculating norms for zoom BP_50000
+Calculating norms for zoom BP_25000
+Calculating norms for zoom BP_10000
+Calculating norms for zoom BP_5000
+Calculating norms for zoom BP_1000
+Writing expected
+Writing norms
+Finished writing norms
+[2025-12-18 06:42:22] ✅ Generated groups.hic successfully (4.0G)
+[2025-12-18 06:42:22]    Time: 17h 39m 10s
+[2025-12-18 06:42:22] 
+[2025-12-18 06:42:22] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-18 06:42:22] 📦 JBAT Generation Complete!
+[2025-12-18 06:42:22] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-18 06:42:22] Output: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/10_jbat_asmkit/
+   -rw-r--r-- 1 yzwl_lixg yzwl_lixg  33K 12月 17 13:03 groups.assembly
+   -rw-r--r-- 1 yzwl_lixg yzwl_lixg 4.1G 12月 18 06:42 groups.hic
+   -rw-r--r-- 1 yzwl_lixg yzwl_lixg  53G 12月 17 13:02 out.links
+[2025-12-18 06:42:22] 
+[2025-12-18 06:42:22] 💡 Next Steps (Manual Curation):
+[2025-12-18 06:42:22]    1. Download 'groups.assembly' and 'groups.hic' (if generated)
+[2025-12-18 06:42:22]    2. Load into Juicebox Assembly Tools
+[2025-12-18 06:42:22]    3. Edit and save as 'reviewed.assembly'
+[2025-12-18 06:42:22] ⏱️  Step completed in 17h 58m 8s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎉 Pipeline Completed in 17h 58m 8s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-18 06:42:22] 
+[2025-12-18 06:42:22] 📂 Output Summary:
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/00_data/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/01_mapping/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/02_allele_table/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/03_pruning/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/05_extract_matrix/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/06_rescue/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/07_optimize/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/08_build/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/09_plot/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/10_jbat_asmkit/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/10_jbat_pre/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/11_jbat_post/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/12_3d_dna/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/13.asmkit/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/jbat_output/
+   📂 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/logs/
+[2025-12-18 06:42:22] 
+[2025-12-18 06:42:22] 📝 Full log: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/logs/allhic_20251217_124414.log

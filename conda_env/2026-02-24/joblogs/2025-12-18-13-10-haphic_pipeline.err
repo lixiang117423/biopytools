@@ -1,0 +1,83 @@
+[2025-12-18 13:10:35] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-18 13:10:35] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-18 13:10:35]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa
+[2025-12-18 13:10:35]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-18 13:10:35]   hic_file_type: fastq
+[2025-12-18 13:10:35]   nchrs: 12
+[2025-12-18 13:10:35]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/pipeline
+[2025-12-18 13:10:35]   prefix: OV53_1.primary
+[2025-12-18 13:10:35]   threads: 64
+[2025-12-18 13:10:35]   processes: 64
+[2025-12-18 13:10:35]   quick_view: False
+[2025-12-18 13:10:35]   restriction_sites: ['GATC']
+[2025-12-18 13:10:35]   correct_nrounds: 2
+[2025-12-18 13:10:35]   remove_allelic_links: None
+[2025-12-18 13:10:35]   phasing_weight: 1.0
+[2025-12-18 13:10:35]   gfa_files: None
+[2025-12-18 13:10:35]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-18 13:10:35]   bwa_bin: bwa
+[2025-12-18 13:10:35]   samtools_bin: samtools
+[2025-12-18 13:10:35] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-18 13:10:35] 🔍 系统预检查 | System pre-flight checks
+[2025-12-18 13:10:35] 🔍 验证输入文件 | Validating input files
+[2025-12-18 13:10:36] 📊 基因组序列数量 | Assembly sequence count: 1211
+[2025-12-18 13:10:36] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 60.14 GB
+[2025-12-18 13:10:36] ✅ 输入文件验证通过 | Input files validated
+[2025-12-18 13:10:36] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-18 13:10:36] 💾 可用内存 | Available memory: 912.2 GB
+[2025-12-18 13:10:36] 💾 可用磁盘空间 | Available disk space: 2564419.2 GB
+[2025-12-18 13:10:36] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-18 13:10:36] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-18 13:10:36] 🔗 执行BWA比对 | Executing BWA alignment
+[2025-12-18 13:10:36] 🔗 开始BWA比对 | Starting BWA alignment (official method)
+[2025-12-18 13:10:36] 📄 使用提供的FASTQ文件对 | Using provided FASTQ pair: OV53_1-hic_R1.fastq.gz
+[2025-12-18 13:10:36] 📄 找到 1 对FASTQ文件 | Found 1 FASTQ pairs
+[2025-12-18 13:10:36] 🔗 创建基因组软链接 | Created assembly symlink: assembly.fa
+[2025-12-18 13:10:36] 🔗 创建FASTQ软链接 | Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+[2025-12-18 13:10:36] 📝 创建BWA索引 | Creating BWA index: assembly.fa
+[2025-12-18 13:31:31] ✅ BWA索引创建完成 | BWA index created
+[2025-12-18 13:31:31] 🔗 步骤1: BWA比对 + 去重 + 初步过滤 | Step 1: BWA alignment + deduplication + initial filtering
+[2025-12-18 22:19:08] ✅ BWA比对完成，生成 HiC.bam
+[2025-12-18 22:19:08] 📊 BAM文件大小: 87253.33 MB
+[2025-12-18 22:19:08] 🔍 步骤2: HapHiC过滤 | Step 2: HapHiC filtering
+[2025-12-18 22:19:09] ❌ HapHiC过滤失败: [Errno 2] No such file or directory: '/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/HapHiC/utils/filter_bam'
+[2025-12-18 22:19:09] ⚠️ 使用原始BAM文件继续 | Continuing with original BAM file
+[2025-12-18 22:19:09] 📝 创建BAM索引 | Creating BAM index: HiC.bam
+[2025-12-18 22:19:09] ⚠️ BAM索引创建失败 | BAM index creation failed: [E::hts_idx_push] Unsorted positions on sequence #9: 1903634 followed by 1899581
+[E::sam_index] Read 'E250159834L1C001R00300000965' with ref_name='ptg000009l', ref_length=3347581, flags=129, pos=1899581 cannot be indexed
+samtools index: failed to create index for "HiC.bam"
+
+[2025-12-18 22:19:09] ✅ BWA比对完成 | BWA alignment completed: HiC.bam
+[2025-12-18 22:19:09] 🚀 开始HapHiC完整流程 | Starting complete HapHiC pipeline
+[2025-12-18 22:19:09] 📁 创建目录结构 | Creating directory structure
+[2025-12-18 22:19:09] ✅ 目录结构创建完成 | Directory structure created
+[2025-12-18 22:19:09] 🔍 [步骤1] 聚类分析 | [Step 1] Clustering analysis
+[2025-12-18 22:19:09] 🚀 聚类分析
+[2025-12-18 22:19:41] ❌ 命令执行失败 | Command failed (返回码: 1)
+[2025-12-18 22:19:41] 错误信息 | Error: usage: haphic cluster [-h] [--aln_format {pairs,bam,auto,bgzipped_pairs}] [--RE RE] [--quick_view] [--gfa GFA] [--ul UL]
+                      [--correct_nrounds CORRECT_NROUNDS] [--correct_resolution CORRECT_RESOLUTION] [--median_cov_ratio MEDIAN_COV_RATIO]
+                      [--region_len_ratio REGION_LEN_RATIO] [--min_region_cutoff MIN_REGION_CUTOFF] [--Nx NX] [--RE_site_cutoff RE_SITE_CUTOFF]
+                      [--density_lower DENSITY_LOWER] [--density_upper DENSITY_UPPER] [--read_depth_upper READ_DEPTH_UPPER] [--topN TOPN]
+                      [--rank_sum_hard_cutoff RANK_SUM_HARD_CUTOFF] [--rank_sum_upper RANK_SUM_UPPER]
+                      [--remove_allelic_links REMOVE_ALLELIC_LINKS] [--concordance_ratio_cutoff CONCORDANCE_RATIO_CUTOFF] [--nwindows NWINDOWS]
+                      [--remove_concentrated_links] [--max_read_pairs MAX_READ_PAIRS] [--min_read_pairs MIN_READ_PAIRS]
+                      [--phasing_weight PHASING_WEIGHT] [--min_ul_mapq MIN_UL_MAPQ] [--min_ul_alignment_length MIN_UL_ALIGNMENT_LENGTH]
+                      [--max_distance_to_end MAX_DISTANCE_TO_END] [--max_overlap_ratio MAX_OVERLAP_RATIO] [--max_gap_len MAX_GAP_LEN]
+                      [--min_ul_support MIN_UL_SUPPORT] [--bin_size BIN_SIZE] [--flank FLANK] [--normalize_by_nlinks] [--expansion EXPANSION]
+                      [--min_inflation MIN_INFLATION] [--max_inflation MAX_INFLATION] [--inflation_step INFLATION_STEP] [--max_iter MAX_ITER]
+                      [--pruning PRUNING] [--skip_clustering] [--threads THREADS] [--dense_matrix] [--verbose]
+                      fasta alignments nchrs
+haphic cluster: error: unrecognized arguments: --min_group_len 0 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --correct_min_coverage 10.0
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic", line 117, in <module>
+    subprocess.run(commands, check=True)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_cluster.py', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/pipeline/00.mapping/HiC.bam', '12', '--threads', '64', '--min_inflation', '1.0', '--max_inflation', '3.0', '--inflation_step', '0.2', '--Nx', '80', '--min_group_len', '0', '--min_RE_sites', '25', '--min_links', '25', '--min_link_density', '0.0001', '--correct_nrounds', '2', '--correct_min_coverage', '10.0']' returned non-zero exit status 2.
+
+[2025-12-18 22:19:41] 📊 处理统计 | Processing Statistics:
+[2025-12-18 22:19:41]   ⏱️ 总耗时 | Total time: 32946.13秒
+[2025-12-18 22:19:41] 💥 HapHiC流程执行失败 | HapHiC pipeline execution failed: stat: path should be string, bytes, os.PathLike or integer, not NoneType
+❌ HapHiC scaffolding失败!
+Job 68572373 stderr output:
+

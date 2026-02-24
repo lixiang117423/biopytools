@@ -1,0 +1,15 @@
+2026-01-31 12:49:25.895 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
+2026-01-31 12:49:25.896 - INFO - 生成FOF文件|Generating FOF file
+2026-01-31 12:49:25.904 - INFO - 检测到双末端数据|Detected paired-end data: 1489 samples
+2026-01-31 12:49:25.921 - INFO - FOF文件已生成（双末端）|FOF file generated (paired-end): input.fof
+2026-01-31 12:49:25.921 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
+2026-01-31 12:49:25.922 - INFO - 自动计算分区数|Auto-calculated partitions: 640
+2026-01-31 12:49:25.922 - INFO - 样本数|Samples: 1489, 线程数|Threads: 32
+2026-01-31 12:49:25.922 - INFO - 使用分区数|Using partitions: 640
+2026-01-31 12:49:25.922 - INFO - 执行kmtricks pipeline|Executing kmtricks pipeline|执行kmtricks pipeline|Executing kmtricks pipeline
+2026-01-31 12:49:25.928 - ERROR - 命令执行失败|Command execution failed: Command '['kmtricks', 'pipeline', '--file', 'input.fof', '--run-dir', 'kmtricks_run', '--kmer-size', '51', '--hard-min', '2', '--recurrence-min', '2', '--mode', 'kmer:pa:bin', '--cpr', '-t', '32', '--nb-partitions', '640']' returned non-zero exit status 1.
+2026-01-31 12:49:25.929 - ERROR - STDERR: [2026-01-31 12:49:25.925] [info] Run with Kmer<64> - __uint128_t implementation
+[2026-01-31 12:49:25.927] [error] IOError - Invalid fof format.
+
+2026-01-31 12:49:25.929 - ERROR - kmtricks pipeline失败|kmtricks pipeline failed
+2026-01-31 12:49:25.929 - ERROR - kmer数据库构建失败|kmer database building failed

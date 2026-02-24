@@ -1,0 +1,6 @@
+2025-09-20 15:47:28,900 - INFO - 🧬 开始BUSCO质量评估分析流程 | Starting BUSCO quality assessment analysis pipeline
+2025-09-20 15:47:28,900 - INFO - 📁 输入路径 | Input path: /share/org/YZWL/yzwl_lixg/database/brassicaceae/longest_pep
+2025-09-20 15:47:28,901 - INFO - 🗄️  数据库 | Database: /share/org/YZWL/yzwl_lixg/database/busco/brassicales_odb12
+2025-09-20 15:47:28,901 - INFO - 📂 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/02.busco/protein
+2025-09-20 15:47:28,901 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-09-20 15:47:29,975 - ERROR - ❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: BUSCO版本检查失败 | BUSCO version check failed

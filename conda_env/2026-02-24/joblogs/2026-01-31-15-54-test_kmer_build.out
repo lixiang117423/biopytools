@@ -1,0 +1,7 @@
+2026-01-31 15:54:15.994 - INFO - 找到kmtricks|Found kmtricks: unknown
+2026-01-31 15:54:16.096 - INFO - 找到bgzip|Found bgzip
+2026-01-31 15:54:16.097 - INFO - ============================================================
+2026-01-31 15:54:16.097 - INFO - 开始K-mer库构建|Starting K-mer database build
+2026-01-31 15:54:16.097 - INFO - ============================================================
+2026-01-31 15:54:16.511 - ERROR - 建库失败|Build failed: cannot import name 'CommandRunner' from 'biopytools.kmertools.utils' (/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/kmertools/utils.py)
+2026-01-31 15:54:16.511 - ERROR - 建库失败|Build failed: cannot import name 'CommandRunner' from 'biopytools.kmertools.utils' (/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/kmertools/utils.py)

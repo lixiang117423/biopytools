@@ -1,0 +1,98 @@
+metawrap assembly -1 /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/all_1.fq -2 /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/all_2.fq -o /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly -m 300 -t 80 --megahit
+Warning: /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly already exists.
+
+########################################################################################################################
+#####                                         ASSEMBLING READS WITH MEGAHIT                                        #####
+########################################################################################################################
+
+
+------------------------------------------------------------------------------------------------------------------------
+-----              assembling /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/all_1.fq and             -----
+-----              /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/all_2.fq with megahit               -----
+------------------------------------------------------------------------------------------------------------------------
+
+
+########################################################################################################################
+#####                                              FORMAT THE ASSEMBLY                                             #####
+########################################################################################################################
+
+
+------------------------------------------------------------------------------------------------------------------------
+-----                   Reads were assembled with megahit. Formatting and sorting the assembly...                  -----
+------------------------------------------------------------------------------------------------------------------------
+
+
+########################################################################################################################
+#####                                        RUNNING ASSEMBLY QC WITH QUAST                                        #####
+########################################################################################################################
+
+/share/org/YZWL/yzwl_lixg/.local/bin/quast -t 80 -o /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out -m 500 /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/final_assembly.fasta
+
+Version: 5.3.0
+
+System information:
+  OS: Linux-4.18.0-513.5.1.el8_9.x86_64-x86_64-with-glibc2.28 (linux_64)
+  Python version: 3.12.10
+  CPUs number: 88
+
+Started: 2025-09-30 19:57:04
+
+Logging to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/quast.log
+
+CWD: /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome
+Main parameters: 
+  MODE: default, threads: 80, min contig length: 500, min alignment length: 65, min alignment IDY: 95.0, \
+  ambiguity: one, min local misassembly length: 200, min extensive misassembly length: 1000
+
+Contigs:
+  Pre-processing...
+  /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/final_assembly.fasta ==> final_assembly
+
+2025-09-30 19:58:05
+Running Basic statistics processor...
+  Contig files: 
+    final_assembly
+  Calculating N50 and L50...
+    final_assembly, N50 = 2814, L50 = 219287, auN = 9916.7, Total length = 2729572197, GC % = 60.50, # N's per 100 kbp =  0.00
+  Drawing Nx plot...
+    saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/basic_stats/Nx_plot.pdf
+  Drawing cumulative plot...
+    saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/basic_stats/cumulative_plot.pdf
+  Drawing GC content plot...
+    saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/basic_stats/GC_content_plot.pdf
+  Drawing final_assembly GC content plot...
+    saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/basic_stats/final_assembly_GC_content_plot.pdf
+  Drawing Coverage histogram (bin size: 1x)...
+    saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/basic_stats/coverage_histogram.pdf
+  Drawing final_assembly coverage histogram (bin size: 1x)...
+    saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/basic_stats/final_assembly_coverage_histogram.pdf
+Done.
+
+NOTICE: Genes are not predicted by default. Use --gene-finding or --glimmer option to enable it.
+
+2025-09-30 19:59:49
+Creating large visual summaries...
+This may take a while: press Ctrl-C to skip this step..
+  1 of 2: Creating PDF with all tables and plots...
+  2 of 2: Creating Icarus viewers...
+Done
+
+2025-09-30 20:00:02
+RESULTS:
+  Text versions of total report are saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/report.txt, report.tsv, and report.tex
+  Text versions of transposed total report are saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/transposed_report.txt, transposed_report.tsv, and transposed_report.tex
+  HTML version (interactive tables and plots) is saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/report.html
+  PDF version (tables and plots) is saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/report.pdf
+  Icarus (contig browser) is saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/icarus.html
+  Log is saved to /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/QUAST_out/quast.log
+
+Finished: 2025-09-30 20:00:02
+Elapsed time: 0:02:58.465037
+NOTICEs: 1; WARNINGs: 0; non-fatal ERRORs: 0
+
+Thank you for using QUAST!
+
+########################################################################################################################
+#####                                  ASSEMBLY PIPELINE COMPLETED SUCCESSFULLY!!!                                 #####
+########################################################################################################################
+

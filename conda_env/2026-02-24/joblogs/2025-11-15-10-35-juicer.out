@@ -1,0 +1,2562 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 Juicer + 3D-DNA 分析流程配置摘要
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 工作目录 (绝对路径): /share/org/YZWL/yzwl_lixg/tmp/test_hic
+🧬 基因组文件 (绝对路径): /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta
+🏷️  基因组 ID: Est1
+✂️  限制性内切酶: MboI
+🔢 线程数: 88
+
+🧬 3D-DNA 配置:
+   • 运行状态: ✅ 启用
+   • 运行模式: haploid
+   • 输入阈值: 15000 bp
+   • 迭代轮数: 2
+
+📊 调度参数:
+   • 作业名称: Juicer_3DDNA
+   • 队列: c01
+   • 核心数: 64
+   • 内存: 640000 MB
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+#CSUB -L /bin/bash
+#CSUB -J Juicer_3DDNA
+#CSUB -q c01
+#CSUB -o Outlog/%J.out
+#CSUB -e Outlog/%J.error
+#CSUB -n 64
+#CSUB -R "span[hosts=1]"
+#CSUB -R "rusage[mem=640000]"
+ℹ️  INFO: 作业开始于: 2025年 11月 15日 星期六 10:35:55 CST
+🖥️  INFO: 运行于计算节点: c01n0430
+☕ INFO: 正在设置 Java 环境...
+📂 INFO: --- 开始自动化文件准备 ---
+✅ INFO: 目录结构创建完毕。
+🔍 INFO: 检查 fastq 文件...
+✅ INFO: 找到 2 个 fastq 文件
+📄 INFO: fastq 文件列表:
+         /share/org/YZWL/yzwl_lixg/tmp/test_hic/fastq/CRR564433_R1.fastq.gz
+         /share/org/YZWL/yzwl_lixg/tmp/test_hic/fastq/CRR564433_R2.fastq.gz
+✅ INFO: BWA 索引已存在。
+✅ INFO: 染色体大小文件已存在。
+✅ INFO: 酶切位点文件已存在且不为空, 跳过。
+🎉 INFO: --- 所有必需的输入文件准备工作完成 ---
+🚀 INFO: --- 准备启动 Juicer ---
+🧹 INFO: 正在清理旧的 'aligned' 和 'splits' 目录...
+✅ INFO: 清理完成。
+⚡ INFO: 即将以 88 个线程运行 Juicer...
+Using /share/org/YZWL/yzwl_lixg/tmp/test_hic/restriction_sites/Est1_MboI.txt as site file
+(-: Looking for fastq files...fastq files exist
+(-: Created /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits.
+(-: Aligning files matching /share/org/YZWL/yzwl_lixg/tmp/test_hic/fastq/*_R*.fastq*
+ to genome /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta with no fragment delimited maps.
+Running command bwa mem -SP5M -t 88 -R @RG\tID:CRR564433\tSM:HiC_sample\tPL:ILM\tLB:HiC_library /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/CRR564433_R1.fastq.gz /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/CRR564433_R2.fastq.gz > /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/CRR564433.fastq.gz.sam
+(-:  Align of /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/CRR564433.fastq.gz.sam done successfully
+(-: Finished sorting all sorted files into a single merge.
+(-:  Mark duplicates done successfully
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+(-: Pipeline successfully completed (-:
+Run cleanup.sh to remove the splits directory
+Check /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned for results
+✅ INFO: Juicer 流程执行完毕。
+📊 INFO: --- 开始生成质量评估报告 ---
+✅ INFO: --- 质量评估报告生成完毕 ---
+📄 INFO: 报告文件路径: /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/QC_SUMMARY_REPORT.md
+ℹ️  INFO: 您可以查看此文件以获取详细的评估结果。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 INFO: --- 开始 3D-DNA 基因组组装流程 ---
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ INFO: 所有输入文件检查完毕。
+📋 INFO: 组装模式: haploid
+📏 INFO: 输入大小阈值: 15000 bp
+🔄 INFO: 迭代轮数: 2
+
+🚀 INFO: 正在运行 3D-DNA 组装流程 (这可能需要较长时间)...
+/share/org/YZWL/yzwl_lixg/software/3d-dna/run-asm-pipeline.sh --mode haploid --input 15000 --rounds 2 /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/merged_nodups.txt
+version: 180922
+ -m|--mode flag was triggered. Running in haploid mode.
+ -i|--input flag was triggered, filtering draft contigs/scaffolds smaller than 15000.
+ -r|--rounds flag was triggered, will run 2 round(s) of misjoin correction.
+###############
+Starting iterating scaffolding with editing:
+...starting round 0 of scaffolding:
+:) -p flag was triggered. Running LIGer with GNU Parallel support parameter set to false.
+:) -s flag was triggered, starting calculations with 15000 threshold starting contig/scaffold size
+:) -q flag was triggered, starting calculations with 1 threshold mapping quality
+...Using cprops file: OV53_1.primary.0.cprops
+...Using merged_nodups file: OV53_1.primary.mnd.0.txt
+...Scaffolding all scaffolds and contigs greater or equal to 15000 bp.
+...Starting iteration # 1
+...Starting iteration # 2
+...Starting iteration # 3
+...Starting iteration # 4
+...Starting iteration # 5
+...Starting iteration # 6
+...Starting iteration # 7
+...Starting iteration # 8
+...Starting iteration # 9
+...Starting iteration # 10
+...Starting iteration # 11
+...Starting iteration # 12
+...Starting iteration # 13
+...Starting iteration # 14
+...Starting iteration # 15
+...Starting iteration # 16
+...Starting iteration # 17
+...Starting iteration # 18
+...Starting iteration # 19
+...Starting iteration # 20
+...Starting iteration # 21
+...Starting iteration # 22
+...Starting iteration # 23
+...Starting iteration # 24
+...Starting iteration # 25
+...Starting iteration # 26
+...Starting iteration # 27
+...Starting iteration # 28
+...Starting iteration # 29
+...Starting iteration # 30
+...Starting iteration # 31
+...Starting iteration # 32
+...Starting iteration # 33
+...Starting iteration # 34
+...Starting iteration # 35
+...Starting iteration # 36
+...Starting iteration # 37
+...Starting iteration # 38
+...Starting iteration # 39
+...Starting iteration # 40
+...Starting iteration # 41
+...Starting iteration # 42
+...Starting iteration # 43
+...Starting iteration # 44
+...Starting iteration # 45
+...Starting iteration # 46
+...Starting iteration # 47
+...Starting iteration # 48
+...Starting iteration # 49
+...Starting iteration # 50
+...Starting iteration # 51
+...Starting iteration # 52
+...Starting iteration # 53
+...Starting iteration # 54
+...Starting iteration # 55
+...Starting iteration # 56
+...Starting iteration # 57
+...Starting iteration # 58
+...Starting iteration # 59
+...Starting iteration # 60
+...Starting iteration # 61
+...Starting iteration # 62
+...Starting iteration # 63
+...Starting iteration # 64
+...Starting iteration # 65
+...Starting iteration # 66
+...Starting iteration # 67
+...Starting iteration # 68
+...Starting iteration # 69
+...Starting iteration # 70
+...Starting iteration # 71
+...Starting iteration # 72
+...Starting iteration # 73
+...Starting iteration # 74
+...Starting iteration # 75
+...Starting iteration # 76
+...Starting iteration # 77
+...Starting iteration # 78
+...Starting iteration # 79
+...Starting iteration # 80
+...Starting iteration # 81
+:) DONE!
+...visualizing round 0 results:
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -q flag was triggered, starting calculations for 1 threshold mapping quality
+:) -i flag was triggered, building mapq without
+:) -c flag was triggered, will remove temporary files after completion
+...Remapping contact data from the original contig set to assembly
+...Building track files
+...Building the hic file
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+..
+Writing footer
+
+Finished preprocess
+HiC file version: 8
+
+Calculating norms for zoom BP_2500000
+Calculating norms for zoom BP_1000000
+Calculating norms for zoom BP_500000
+Calculating norms for zoom BP_250000
+Calculating norms for zoom BP_100000
+Calculating norms for zoom BP_50000
+Calculating norms for zoom BP_25000
+Calculating norms for zoom BP_10000
+Calculating norms for zoom BP_5000
+Calculating norms for zoom BP_1000
+Writing expected
+Writing norms
+Finished writing norms
+...detecting misjoins in round 0 assembly:
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -c flag was triggered, starting calculations with 5% saturation level
+:) -w flag was triggered, performing cursory search for mismatches at 25000 resolution
+:) -d flag was triggered, depletion score will be averaged across a region bounded by 125000 superdiagonal
+:) -k flag was triggered, starting calculations with 55% depletion as mismatch threshold
+:) -n flag was triggered, performing mismatch region thinning at 1000 resolution
+...Dumping 25000 resolution matrix
+HiC file version: 8
+...Estimating necessary saturation level for requested misassembly sensitivity
+...Coarse resolution saturation level = 3.38679
+...Analyzing near-diagonal mismatches
+...Filtering mismatch calls without better alternative: Not functional yet, skipping
+...Thinning mismatch region boundaries.
+...Dumping 1000 resolution matrix
+HiC file version: 8
+...Estimating necessary saturation level for requested misassembly sensitivity
+...Fine resolution saturation level = 1
+...Analyzing near-diagonal mismatches
+:) -w flag was triggered, performing cursory search for repeat at 25000 resolution
+:) -t flag was triggered, flagging regions with coverage higher than 2
+...Dumping 25000 resolution coverage track
+HiC file version: 8
+...-p flag was triggered. Running with GNU Parallel support parameter set to false.
+...-r flag was triggered, output will be labeled as *.1.*
+...applying edits to cprops file
+...applying edits to mnd file
+...starting round 1 of scaffolding:
+:) -p flag was triggered. Running LIGer with GNU Parallel support parameter set to false.
+:) -s flag was triggered, starting calculations with 15000 threshold starting contig/scaffold size
+:) -q flag was triggered, starting calculations with 1 threshold mapping quality
+...Using cprops file: OV53_1.primary.1.cprops
+...Using merged_nodups file: OV53_1.primary.mnd.1.txt
+...Scaffolding all scaffolds and contigs greater or equal to 15000 bp.
+...Starting iteration # 1
+...Starting iteration # 2
+...Starting iteration # 3
+...Starting iteration # 4
+...Starting iteration # 5
+...Starting iteration # 6
+...Starting iteration # 7
+...Starting iteration # 8
+...Starting iteration # 9
+...Starting iteration # 10
+...Starting iteration # 11
+...Starting iteration # 12
+...Starting iteration # 13
+...Starting iteration # 14
+...Starting iteration # 15
+...Starting iteration # 16
+...Starting iteration # 17
+...Starting iteration # 18
+...Starting iteration # 19
+...Starting iteration # 20
+...Starting iteration # 21
+...Starting iteration # 22
+...Starting iteration # 23
+...Starting iteration # 24
+...Starting iteration # 25
+...Starting iteration # 26
+...Starting iteration # 27
+...Starting iteration # 28
+...Starting iteration # 29
+...Starting iteration # 30
+...Starting iteration # 31
+...Starting iteration # 32
+...Starting iteration # 33
+...Starting iteration # 34
+...Starting iteration # 35
+...Starting iteration # 36
+...Starting iteration # 37
+...Starting iteration # 38
+...Starting iteration # 39
+...Starting iteration # 40
+...Starting iteration # 41
+...Starting iteration # 42
+...Starting iteration # 43
+...Starting iteration # 44
+...Starting iteration # 45
+...Starting iteration # 46
+...Starting iteration # 47
+...Starting iteration # 48
+...Starting iteration # 49
+...Starting iteration # 50
+...Starting iteration # 51
+...Starting iteration # 52
+...Starting iteration # 53
+...Starting iteration # 54
+...Starting iteration # 55
+...Starting iteration # 56
+...Starting iteration # 57
+...Starting iteration # 58
+...Starting iteration # 59
+...Starting iteration # 60
+...Starting iteration # 61
+...Starting iteration # 62
+...Starting iteration # 63
+...Starting iteration # 64
+...Starting iteration # 65
+...Starting iteration # 66
+...Starting iteration # 67
+...Starting iteration # 68
+...Starting iteration # 69
+...Starting iteration # 70
+...Starting iteration # 71
+...Starting iteration # 72
+...Starting iteration # 73
+...Starting iteration # 74
+...Starting iteration # 75
+...Starting iteration # 76
+...Starting iteration # 77
+...Starting iteration # 78
+...Starting iteration # 79
+...Starting iteration # 80
+...Starting iteration # 81
+...Starting iteration # 82
+...Starting iteration # 83
+...Starting iteration # 84
+...Starting iteration # 85
+...Starting iteration # 86
+...Starting iteration # 87
+...Starting iteration # 88
+...Starting iteration # 89
+...Starting iteration # 90
+...Starting iteration # 91
+...Starting iteration # 92
+...Starting iteration # 93
+...Starting iteration # 94
+...Starting iteration # 95
+...Starting iteration # 96
+...Starting iteration # 97
+...Starting iteration # 98
+...Starting iteration # 99
+...Starting iteration # 100
+...Starting iteration # 101
+...Starting iteration # 102
+...Starting iteration # 103
+...Starting iteration # 104
+...Starting iteration # 105
+...Starting iteration # 106
+...Starting iteration # 107
+...Starting iteration # 108
+...Starting iteration # 109
+...Starting iteration # 110
+...Starting iteration # 111
+...Starting iteration # 112
+...Starting iteration # 113
+...Starting iteration # 114
+...Starting iteration # 115
+...Starting iteration # 116
+...Starting iteration # 117
+...Starting iteration # 118
+...Starting iteration # 119
+...Starting iteration # 120
+...Starting iteration # 121
+...Starting iteration # 122
+...Starting iteration # 123
+...Starting iteration # 124
+...Starting iteration # 125
+...Starting iteration # 126
+...Starting iteration # 127
+...Starting iteration # 128
+...Starting iteration # 129
+...Starting iteration # 130
+...Starting iteration # 131
+...Starting iteration # 132
+...Starting iteration # 133
+...Starting iteration # 134
+...Starting iteration # 135
+...Starting iteration # 136
+...Starting iteration # 137
+...Starting iteration # 138
+...Starting iteration # 139
+...Starting iteration # 140
+...Starting iteration # 141
+...Starting iteration # 142
+...Starting iteration # 143
+...Starting iteration # 144
+...Starting iteration # 145
+...Starting iteration # 146
+...Starting iteration # 147
+...Starting iteration # 148
+...Starting iteration # 149
+...Starting iteration # 150
+...Starting iteration # 151
+...Starting iteration # 152
+...Starting iteration # 153
+...Starting iteration # 154
+...Starting iteration # 155
+...Starting iteration # 156
+...Starting iteration # 157
+...Starting iteration # 158
+...Starting iteration # 159
+...Starting iteration # 160
+...Starting iteration # 161
+...Starting iteration # 162
+...Starting iteration # 163
+...Starting iteration # 164
+...Starting iteration # 165
+...Starting iteration # 166
+...Starting iteration # 167
+...Starting iteration # 168
+...Starting iteration # 169
+...Starting iteration # 170
+...Starting iteration # 171
+...Starting iteration # 172
+...Starting iteration # 173
+...Starting iteration # 174
+...Starting iteration # 175
+...Starting iteration # 176
+...Starting iteration # 177
+...Starting iteration # 178
+...Starting iteration # 179
+...Starting iteration # 180
+...Starting iteration # 181
+...Starting iteration # 182
+...Starting iteration # 183
+...Starting iteration # 184
+...Starting iteration # 185
+...Starting iteration # 186
+...Starting iteration # 187
+...Starting iteration # 188
+...Starting iteration # 189
+...Starting iteration # 190
+...Starting iteration # 191
+...Starting iteration # 192
+...Starting iteration # 193
+...Starting iteration # 194
+...Starting iteration # 195
+...Starting iteration # 196
+...Starting iteration # 197
+...Starting iteration # 198
+...Starting iteration # 199
+...Starting iteration # 200
+...Starting iteration # 201
+...Starting iteration # 202
+...Starting iteration # 203
+...Starting iteration # 204
+...Starting iteration # 205
+...Starting iteration # 206
+...Starting iteration # 207
+...Starting iteration # 208
+...Starting iteration # 209
+...Starting iteration # 210
+...Starting iteration # 211
+...Starting iteration # 212
+...Starting iteration # 213
+...Starting iteration # 214
+...Starting iteration # 215
+...Starting iteration # 216
+...Starting iteration # 217
+...Starting iteration # 218
+...Starting iteration # 219
+...Starting iteration # 220
+...Starting iteration # 221
+...Starting iteration # 222
+...Starting iteration # 223
+...Starting iteration # 224
+...Starting iteration # 225
+...Starting iteration # 226
+...Starting iteration # 227
+...Starting iteration # 228
+...Starting iteration # 229
+...Starting iteration # 230
+...Starting iteration # 231
+...Starting iteration # 232
+...Starting iteration # 233
+...Starting iteration # 234
+...Starting iteration # 235
+...Starting iteration # 236
+...Starting iteration # 237
+...Starting iteration # 238
+...Starting iteration # 239
+...Starting iteration # 240
+...Starting iteration # 241
+...Starting iteration # 242
+...Starting iteration # 243
+...Starting iteration # 244
+...Starting iteration # 245
+...Starting iteration # 246
+...Starting iteration # 247
+...Starting iteration # 248
+...Starting iteration # 249
+...Starting iteration # 250
+...Starting iteration # 251
+...Starting iteration # 252
+...Starting iteration # 253
+...Starting iteration # 254
+...Starting iteration # 255
+...Starting iteration # 256
+...Starting iteration # 257
+...Starting iteration # 258
+...Starting iteration # 259
+...Starting iteration # 260
+...Starting iteration # 261
+...Starting iteration # 262
+...Starting iteration # 263
+...Starting iteration # 264
+...Starting iteration # 265
+...Starting iteration # 266
+...Starting iteration # 267
+...Starting iteration # 268
+...Starting iteration # 269
+...Starting iteration # 270
+...Starting iteration # 271
+...Starting iteration # 272
+...Starting iteration # 273
+...Starting iteration # 274
+...Starting iteration # 275
+...Starting iteration # 276
+...Starting iteration # 277
+...Starting iteration # 278
+...Starting iteration # 279
+...Starting iteration # 280
+...Starting iteration # 281
+...Starting iteration # 282
+...Starting iteration # 283
+...Starting iteration # 284
+...Starting iteration # 285
+...Starting iteration # 286
+...Starting iteration # 287
+...Starting iteration # 288
+...Starting iteration # 289
+...Starting iteration # 290
+...Starting iteration # 291
+...Starting iteration # 292
+...Starting iteration # 293
+...Starting iteration # 294
+...Starting iteration # 295
+...Starting iteration # 296
+...Starting iteration # 297
+...Starting iteration # 298
+...Starting iteration # 299
+...Starting iteration # 300
+...Starting iteration # 301
+...Starting iteration # 302
+...Starting iteration # 303
+...Starting iteration # 304
+...Starting iteration # 305
+...Starting iteration # 306
+...Starting iteration # 307
+...Starting iteration # 308
+...Starting iteration # 309
+...Starting iteration # 310
+...Starting iteration # 311
+...Starting iteration # 312
+...Starting iteration # 313
+...Starting iteration # 314
+...Starting iteration # 315
+...Starting iteration # 316
+...Starting iteration # 317
+...Starting iteration # 318
+...Starting iteration # 319
+...Starting iteration # 320
+...Starting iteration # 321
+...Starting iteration # 322
+...Starting iteration # 323
+...Starting iteration # 324
+...Starting iteration # 325
+...Starting iteration # 326
+...Starting iteration # 327
+...Starting iteration # 328
+...Starting iteration # 329
+...Starting iteration # 330
+...Starting iteration # 331
+...Starting iteration # 332
+...Starting iteration # 333
+...Starting iteration # 334
+...Starting iteration # 335
+...Starting iteration # 336
+...Starting iteration # 337
+...Starting iteration # 338
+...Starting iteration # 339
+...Starting iteration # 340
+...Starting iteration # 341
+...Starting iteration # 342
+...Starting iteration # 343
+...Starting iteration # 344
+...Starting iteration # 345
+...Starting iteration # 346
+...Starting iteration # 347
+...Starting iteration # 348
+...Starting iteration # 349
+...Starting iteration # 350
+...Starting iteration # 351
+...Starting iteration # 352
+...Starting iteration # 353
+...Starting iteration # 354
+...Starting iteration # 355
+...Starting iteration # 356
+...Starting iteration # 357
+...Starting iteration # 358
+...Starting iteration # 359
+...Starting iteration # 360
+...Starting iteration # 361
+...Starting iteration # 362
+...Starting iteration # 363
+...Starting iteration # 364
+...Starting iteration # 365
+...Starting iteration # 366
+...Starting iteration # 367
+...Starting iteration # 368
+...Starting iteration # 369
+...Starting iteration # 370
+...Starting iteration # 371
+...Starting iteration # 372
+...Starting iteration # 373
+...Starting iteration # 374
+...Starting iteration # 375
+...Starting iteration # 376
+...Starting iteration # 377
+...Starting iteration # 378
+...Starting iteration # 379
+...Starting iteration # 380
+...Starting iteration # 381
+...Starting iteration # 382
+...Starting iteration # 383
+...Starting iteration # 384
+...Starting iteration # 385
+...Starting iteration # 386
+...Starting iteration # 387
+...Starting iteration # 388
+...Starting iteration # 389
+...Starting iteration # 390
+...Starting iteration # 391
+...Starting iteration # 392
+...Starting iteration # 393
+...Starting iteration # 394
+...Starting iteration # 395
+...Starting iteration # 396
+...Starting iteration # 397
+...Starting iteration # 398
+...Starting iteration # 399
+...Starting iteration # 400
+...Starting iteration # 401
+...Starting iteration # 402
+...Starting iteration # 403
+...Starting iteration # 404
+...Starting iteration # 405
+...Starting iteration # 406
+...Starting iteration # 407
+...Starting iteration # 408
+...Starting iteration # 409
+...Starting iteration # 410
+...Starting iteration # 411
+...Starting iteration # 412
+...Starting iteration # 413
+...Starting iteration # 414
+...Starting iteration # 415
+...Starting iteration # 416
+...Starting iteration # 417
+...Starting iteration # 418
+...Starting iteration # 419
+...Starting iteration # 420
+...Starting iteration # 421
+...Starting iteration # 422
+...Starting iteration # 423
+...Starting iteration # 424
+...Starting iteration # 425
+...Starting iteration # 426
+...Starting iteration # 427
+...Starting iteration # 428
+...Starting iteration # 429
+...Starting iteration # 430
+...Starting iteration # 431
+...Starting iteration # 432
+...Starting iteration # 433
+...Starting iteration # 434
+...Starting iteration # 435
+...Starting iteration # 436
+...Starting iteration # 437
+...Starting iteration # 438
+...Starting iteration # 439
+...Starting iteration # 440
+...Starting iteration # 441
+...Starting iteration # 442
+...Starting iteration # 443
+...Starting iteration # 444
+...Starting iteration # 445
+...Starting iteration # 446
+...Starting iteration # 447
+...Starting iteration # 448
+...Starting iteration # 449
+...Starting iteration # 450
+...Starting iteration # 451
+...Starting iteration # 452
+...Starting iteration # 453
+...Starting iteration # 454
+...Starting iteration # 455
+...Starting iteration # 456
+...Starting iteration # 457
+...Starting iteration # 458
+...Starting iteration # 459
+...Starting iteration # 460
+...Starting iteration # 461
+...Starting iteration # 462
+...Starting iteration # 463
+...Starting iteration # 464
+...Starting iteration # 465
+...Starting iteration # 466
+...Starting iteration # 467
+...Starting iteration # 468
+...Starting iteration # 469
+...Starting iteration # 470
+...Starting iteration # 471
+...Starting iteration # 472
+...Starting iteration # 473
+...Starting iteration # 474
+...Starting iteration # 475
+...Starting iteration # 476
+...Starting iteration # 477
+...Starting iteration # 478
+...Starting iteration # 479
+...Starting iteration # 480
+...Starting iteration # 481
+...Starting iteration # 482
+...Starting iteration # 483
+...Starting iteration # 484
+...Starting iteration # 485
+...Starting iteration # 486
+...Starting iteration # 487
+...Starting iteration # 488
+...Starting iteration # 489
+...Starting iteration # 490
+...Starting iteration # 491
+...Starting iteration # 492
+...Starting iteration # 493
+...Starting iteration # 494
+...Starting iteration # 495
+...Starting iteration # 496
+...Starting iteration # 497
+...Starting iteration # 498
+...Starting iteration # 499
+...Starting iteration # 500
+...Starting iteration # 501
+...Starting iteration # 502
+...Starting iteration # 503
+...Starting iteration # 504
+...Starting iteration # 505
+...Starting iteration # 506
+...Starting iteration # 507
+...Starting iteration # 508
+...Starting iteration # 509
+...Starting iteration # 510
+...Starting iteration # 511
+...Starting iteration # 512
+...Starting iteration # 513
+...Starting iteration # 514
+...Starting iteration # 515
+...Starting iteration # 516
+...Starting iteration # 517
+...Starting iteration # 518
+...Starting iteration # 519
+...Starting iteration # 520
+...Starting iteration # 521
+...Starting iteration # 522
+...Starting iteration # 523
+...Starting iteration # 524
+...Starting iteration # 525
+...Starting iteration # 526
+...Starting iteration # 527
+...Starting iteration # 528
+...Starting iteration # 529
+...Starting iteration # 530
+...Starting iteration # 531
+...Starting iteration # 532
+...Starting iteration # 533
+...Starting iteration # 534
+...Starting iteration # 535
+...Starting iteration # 536
+...Starting iteration # 537
+...Starting iteration # 538
+...Starting iteration # 539
+...Starting iteration # 540
+...Starting iteration # 541
+...Starting iteration # 542
+...Starting iteration # 543
+...Starting iteration # 544
+...Starting iteration # 545
+...Starting iteration # 546
+...Starting iteration # 547
+...Starting iteration # 548
+...Starting iteration # 549
+...Starting iteration # 550
+...Starting iteration # 551
+...Starting iteration # 552
+...Starting iteration # 553
+...Starting iteration # 554
+...Starting iteration # 555
+...Starting iteration # 556
+...Starting iteration # 557
+...Starting iteration # 558
+...Starting iteration # 559
+...Starting iteration # 560
+...Starting iteration # 561
+...Starting iteration # 562
+...Starting iteration # 563
+...Starting iteration # 564
+...Starting iteration # 565
+...Starting iteration # 566
+...Starting iteration # 567
+...Starting iteration # 568
+...Starting iteration # 569
+...Starting iteration # 570
+...Starting iteration # 571
+...Starting iteration # 572
+...Starting iteration # 573
+...Starting iteration # 574
+...Starting iteration # 575
+...Starting iteration # 576
+...Starting iteration # 577
+...Starting iteration # 578
+...Starting iteration # 579
+...Starting iteration # 580
+...Starting iteration # 581
+...Starting iteration # 582
+...Starting iteration # 583
+...Starting iteration # 584
+...Starting iteration # 585
+...Starting iteration # 586
+...Starting iteration # 587
+...Starting iteration # 588
+...Starting iteration # 589
+...Starting iteration # 590
+...Starting iteration # 591
+...Starting iteration # 592
+...Starting iteration # 593
+...Starting iteration # 594
+...Starting iteration # 595
+...Starting iteration # 596
+...Starting iteration # 597
+...Starting iteration # 598
+...Starting iteration # 599
+...Starting iteration # 600
+...Starting iteration # 601
+...Starting iteration # 602
+...Starting iteration # 603
+...Starting iteration # 604
+...Starting iteration # 605
+...Starting iteration # 606
+...Starting iteration # 607
+...Starting iteration # 608
+...Starting iteration # 609
+...Starting iteration # 610
+...Starting iteration # 611
+...Starting iteration # 612
+...Starting iteration # 613
+...Starting iteration # 614
+...Starting iteration # 615
+...Starting iteration # 616
+...Starting iteration # 617
+...Starting iteration # 618
+...Starting iteration # 619
+...Starting iteration # 620
+...Starting iteration # 621
+...Starting iteration # 622
+...Starting iteration # 623
+...Starting iteration # 624
+...Starting iteration # 625
+...Starting iteration # 626
+...Starting iteration # 627
+...Starting iteration # 628
+...Starting iteration # 629
+...Starting iteration # 630
+...Starting iteration # 631
+...Starting iteration # 632
+...Starting iteration # 633
+...Starting iteration # 634
+...Starting iteration # 635
+...Starting iteration # 636
+...Starting iteration # 637
+...Starting iteration # 638
+...Starting iteration # 639
+...Starting iteration # 640
+...Starting iteration # 641
+...Starting iteration # 642
+...Starting iteration # 643
+...Starting iteration # 644
+...Starting iteration # 645
+...Starting iteration # 646
+...Starting iteration # 647
+...Starting iteration # 648
+...Starting iteration # 649
+...Starting iteration # 650
+...Starting iteration # 651
+...Starting iteration # 652
+...Starting iteration # 653
+...Starting iteration # 654
+...Starting iteration # 655
+...Starting iteration # 656
+...Starting iteration # 657
+...Starting iteration # 658
+...Starting iteration # 659
+...Starting iteration # 660
+...Starting iteration # 661
+...Starting iteration # 662
+...Starting iteration # 663
+...Starting iteration # 664
+...Starting iteration # 665
+...Starting iteration # 666
+...Starting iteration # 667
+...Starting iteration # 668
+...Starting iteration # 669
+...Starting iteration # 670
+...Starting iteration # 671
+...Starting iteration # 672
+...Starting iteration # 673
+...Starting iteration # 674
+...Starting iteration # 675
+...Starting iteration # 676
+...Starting iteration # 677
+...Starting iteration # 678
+...Starting iteration # 679
+...Starting iteration # 680
+...Starting iteration # 681
+...Starting iteration # 682
+...Starting iteration # 683
+...Starting iteration # 684
+...Starting iteration # 685
+...Starting iteration # 686
+...Starting iteration # 687
+...Starting iteration # 688
+...Starting iteration # 689
+...Starting iteration # 690
+...Starting iteration # 691
+...Starting iteration # 692
+...Starting iteration # 693
+...Starting iteration # 694
+...Starting iteration # 695
+...Starting iteration # 696
+...Starting iteration # 697
+...Starting iteration # 698
+...Starting iteration # 699
+...Starting iteration # 700
+...Starting iteration # 701
+...Starting iteration # 702
+...Starting iteration # 703
+...Starting iteration # 704
+...Starting iteration # 705
+...Starting iteration # 706
+...Starting iteration # 707
+...Starting iteration # 708
+...Starting iteration # 709
+...Starting iteration # 710
+...Starting iteration # 711
+...Starting iteration # 712
+...Starting iteration # 713
+...Starting iteration # 714
+...Starting iteration # 715
+...Starting iteration # 716
+...Starting iteration # 717
+...Starting iteration # 718
+...Starting iteration # 719
+...Starting iteration # 720
+...Starting iteration # 721
+...Starting iteration # 722
+...Starting iteration # 723
+...Starting iteration # 724
+...Starting iteration # 725
+...Starting iteration # 726
+...Starting iteration # 727
+...Starting iteration # 728
+...Starting iteration # 729
+...Starting iteration # 730
+...Starting iteration # 731
+...Starting iteration # 732
+...Starting iteration # 733
+...Starting iteration # 734
+...Starting iteration # 735
+...Starting iteration # 736
+...Starting iteration # 737
+...Starting iteration # 738
+...Starting iteration # 739
+...Starting iteration # 740
+...Starting iteration # 741
+...Starting iteration # 742
+...Starting iteration # 743
+...Starting iteration # 744
+...Starting iteration # 745
+...Starting iteration # 746
+...Starting iteration # 747
+...Starting iteration # 748
+...Starting iteration # 749
+...Starting iteration # 750
+...Starting iteration # 751
+...Starting iteration # 752
+...Starting iteration # 753
+...Starting iteration # 754
+...Starting iteration # 755
+...Starting iteration # 756
+...Starting iteration # 757
+...Starting iteration # 758
+...Starting iteration # 759
+...Starting iteration # 760
+...Starting iteration # 761
+...Starting iteration # 762
+...Starting iteration # 763
+...Starting iteration # 764
+...Starting iteration # 765
+...Starting iteration # 766
+...Starting iteration # 767
+...Starting iteration # 768
+...Starting iteration # 769
+...Starting iteration # 770
+...Starting iteration # 771
+...Starting iteration # 772
+...Starting iteration # 773
+...Starting iteration # 774
+...Starting iteration # 775
+...Starting iteration # 776
+...Starting iteration # 777
+...Starting iteration # 778
+...Starting iteration # 779
+...Starting iteration # 780
+...Starting iteration # 781
+...Starting iteration # 782
+...Starting iteration # 783
+...Starting iteration # 784
+...Starting iteration # 785
+...Starting iteration # 786
+...Starting iteration # 787
+...Starting iteration # 788
+...Starting iteration # 789
+...Starting iteration # 790
+...Starting iteration # 791
+...Starting iteration # 792
+...Starting iteration # 793
+...Starting iteration # 794
+...Starting iteration # 795
+...Starting iteration # 796
+...Starting iteration # 797
+...Starting iteration # 798
+...Starting iteration # 799
+...Starting iteration # 800
+...Starting iteration # 801
+...Starting iteration # 802
+...Starting iteration # 803
+...Starting iteration # 804
+...Starting iteration # 805
+...Starting iteration # 806
+...Starting iteration # 807
+...Starting iteration # 808
+...Starting iteration # 809
+...Starting iteration # 810
+...Starting iteration # 811
+...Starting iteration # 812
+...Starting iteration # 813
+...Starting iteration # 814
+...Starting iteration # 815
+...Starting iteration # 816
+...Starting iteration # 817
+...Starting iteration # 818
+...Starting iteration # 819
+...Starting iteration # 820
+...Starting iteration # 821
+...Starting iteration # 822
+...Starting iteration # 823
+...Starting iteration # 824
+...Starting iteration # 825
+...Starting iteration # 826
+...Starting iteration # 827
+...Starting iteration # 828
+...Starting iteration # 829
+...Starting iteration # 830
+...Starting iteration # 831
+...Starting iteration # 832
+...Starting iteration # 833
+...Starting iteration # 834
+...Starting iteration # 835
+...Starting iteration # 836
+...Starting iteration # 837
+...Starting iteration # 838
+...Starting iteration # 839
+...Starting iteration # 840
+...Starting iteration # 841
+...Starting iteration # 842
+...Starting iteration # 843
+...Starting iteration # 844
+...Starting iteration # 845
+...Starting iteration # 846
+...Starting iteration # 847
+...Starting iteration # 848
+...Starting iteration # 849
+...Starting iteration # 850
+...Starting iteration # 851
+...Starting iteration # 852
+...Starting iteration # 853
+...Starting iteration # 854
+...Starting iteration # 855
+...Starting iteration # 856
+...Starting iteration # 857
+...Starting iteration # 858
+...Starting iteration # 859
+...Starting iteration # 860
+...Starting iteration # 861
+...Starting iteration # 862
+...Starting iteration # 863
+...Starting iteration # 864
+...Starting iteration # 865
+...Starting iteration # 866
+...Starting iteration # 867
+...Starting iteration # 868
+...Starting iteration # 869
+...Starting iteration # 870
+...Starting iteration # 871
+...Starting iteration # 872
+...Starting iteration # 873
+...Starting iteration # 874
+...Starting iteration # 875
+...Starting iteration # 876
+...Starting iteration # 877
+...Starting iteration # 878
+...Starting iteration # 879
+...Starting iteration # 880
+...Starting iteration # 881
+...Starting iteration # 882
+...Starting iteration # 883
+...Starting iteration # 884
+...Starting iteration # 885
+...Starting iteration # 886
+...Starting iteration # 887
+...Starting iteration # 888
+...Starting iteration # 889
+...Starting iteration # 890
+...Starting iteration # 891
+...Starting iteration # 892
+...Starting iteration # 893
+...Starting iteration # 894
+...Starting iteration # 895
+...Starting iteration # 896
+...Starting iteration # 897
+...Starting iteration # 898
+...Starting iteration # 899
+...Starting iteration # 900
+...Starting iteration # 901
+...Starting iteration # 902
+...Starting iteration # 903
+...Starting iteration # 904
+...Starting iteration # 905
+...Starting iteration # 906
+...Starting iteration # 907
+...Starting iteration # 908
+...Starting iteration # 909
+...Starting iteration # 910
+...Starting iteration # 911
+...Starting iteration # 912
+...Starting iteration # 913
+...Starting iteration # 914
+...Starting iteration # 915
+...Starting iteration # 916
+...Starting iteration # 917
+...Starting iteration # 918
+...Starting iteration # 919
+...Starting iteration # 920
+...Starting iteration # 921
+...Starting iteration # 922
+...Starting iteration # 923
+...Starting iteration # 924
+...Starting iteration # 925
+...Starting iteration # 926
+...Starting iteration # 927
+...Starting iteration # 928
+...Starting iteration # 929
+...Starting iteration # 930
+...Starting iteration # 931
+...Starting iteration # 932
+...Starting iteration # 933
+...Starting iteration # 934
+...Starting iteration # 935
+...Starting iteration # 936
+...Starting iteration # 937
+...Starting iteration # 938
+...Starting iteration # 939
+...Starting iteration # 940
+...Starting iteration # 941
+...Starting iteration # 942
+...Starting iteration # 943
+...Starting iteration # 944
+...Starting iteration # 945
+...Starting iteration # 946
+...Starting iteration # 947
+...Starting iteration # 948
+...Starting iteration # 949
+...Starting iteration # 950
+...Starting iteration # 951
+...Starting iteration # 952
+...Starting iteration # 953
+...Starting iteration # 954
+...Starting iteration # 955
+...Starting iteration # 956
+...Starting iteration # 957
+...Starting iteration # 958
+...Starting iteration # 959
+...Starting iteration # 960
+...Starting iteration # 961
+...Starting iteration # 962
+...Starting iteration # 963
+...Starting iteration # 964
+...Starting iteration # 965
+...Starting iteration # 966
+...Starting iteration # 967
+...Starting iteration # 968
+...Starting iteration # 969
+...Starting iteration # 970
+...Starting iteration # 971
+...Starting iteration # 972
+...Starting iteration # 973
+...Starting iteration # 974
+...Starting iteration # 975
+...Starting iteration # 976
+...Starting iteration # 977
+...Starting iteration # 978
+...Starting iteration # 979
+...Starting iteration # 980
+...Starting iteration # 981
+...Starting iteration # 982
+...Starting iteration # 983
+...Starting iteration # 984
+...Starting iteration # 985
+...Starting iteration # 986
+...Starting iteration # 987
+...Starting iteration # 988
+...Starting iteration # 989
+...Starting iteration # 990
+...Starting iteration # 991
+...Starting iteration # 992
+...Starting iteration # 993
+...Starting iteration # 994
+...Starting iteration # 995
+...Starting iteration # 996
+...Starting iteration # 997
+...Starting iteration # 998
+...Starting iteration # 999
+...Starting iteration # 1000
+...Starting iteration # 1001
+...Starting iteration # 1002
+...Starting iteration # 1003
+...Starting iteration # 1004
+...Starting iteration # 1005
+...Starting iteration # 1006
+...Starting iteration # 1007
+...Starting iteration # 1008
+...Starting iteration # 1009
+...Starting iteration # 1010
+...Starting iteration # 1011
+...Starting iteration # 1012
+...Starting iteration # 1013
+...Starting iteration # 1014
+...Starting iteration # 1015
+...Starting iteration # 1016
+...Starting iteration # 1017
+...Starting iteration # 1018
+...Starting iteration # 1019
+...Starting iteration # 1020
+...Starting iteration # 1021
+...Starting iteration # 1022
+...Starting iteration # 1023
+...Starting iteration # 1024
+...Starting iteration # 1025
+...Starting iteration # 1026
+...Starting iteration # 1027
+...Starting iteration # 1028
+...Starting iteration # 1029
+...Starting iteration # 1030
+...Starting iteration # 1031
+...Starting iteration # 1032
+...Starting iteration # 1033
+...Starting iteration # 1034
+...Starting iteration # 1035
+...Starting iteration # 1036
+...Starting iteration # 1037
+...Starting iteration # 1038
+...Starting iteration # 1039
+...Starting iteration # 1040
+...Starting iteration # 1041
+...Starting iteration # 1042
+...Starting iteration # 1043
+...Starting iteration # 1044
+...Starting iteration # 1045
+...Starting iteration # 1046
+...Starting iteration # 1047
+...Starting iteration # 1048
+...Starting iteration # 1049
+...Starting iteration # 1050
+...Starting iteration # 1051
+...Starting iteration # 1052
+...Starting iteration # 1053
+...Starting iteration # 1054
+...Starting iteration # 1055
+...Starting iteration # 1056
+...Starting iteration # 1057
+...Starting iteration # 1058
+...Starting iteration # 1059
+...Starting iteration # 1060
+...Starting iteration # 1061
+...Starting iteration # 1062
+...Starting iteration # 1063
+...Starting iteration # 1064
+...Starting iteration # 1065
+...Starting iteration # 1066
+...Starting iteration # 1067
+...Starting iteration # 1068
+...Starting iteration # 1069
+...Starting iteration # 1070
+...Starting iteration # 1071
+...Starting iteration # 1072
+...Starting iteration # 1073
+...Starting iteration # 1074
+...Starting iteration # 1075
+...Starting iteration # 1076
+...Starting iteration # 1077
+...Starting iteration # 1078
+...Starting iteration # 1079
+...Starting iteration # 1080
+...Starting iteration # 1081
+...Starting iteration # 1082
+...Starting iteration # 1083
+...Starting iteration # 1084
+...Starting iteration # 1085
+...Starting iteration # 1086
+...Starting iteration # 1087
+...Starting iteration # 1088
+...Starting iteration # 1089
+...Starting iteration # 1090
+...Starting iteration # 1091
+...Starting iteration # 1092
+...Starting iteration # 1093
+...Starting iteration # 1094
+...Starting iteration # 1095
+...Starting iteration # 1096
+...Starting iteration # 1097
+...Starting iteration # 1098
+...Starting iteration # 1099
+...Starting iteration # 1100
+...Starting iteration # 1101
+...Starting iteration # 1102
+...Starting iteration # 1103
+...Starting iteration # 1104
+...Starting iteration # 1105
+...Starting iteration # 1106
+...Starting iteration # 1107
+...Starting iteration # 1108
+...Starting iteration # 1109
+...Starting iteration # 1110
+...Starting iteration # 1111
+...Starting iteration # 1112
+...Starting iteration # 1113
+...Starting iteration # 1114
+...Starting iteration # 1115
+...Starting iteration # 1116
+...Starting iteration # 1117
+...Starting iteration # 1118
+...Starting iteration # 1119
+...Starting iteration # 1120
+...Starting iteration # 1121
+...Starting iteration # 1122
+...Starting iteration # 1123
+...Starting iteration # 1124
+...Starting iteration # 1125
+...Starting iteration # 1126
+...Starting iteration # 1127
+...Starting iteration # 1128
+...Starting iteration # 1129
+...Starting iteration # 1130
+...Starting iteration # 1131
+...Starting iteration # 1132
+...Starting iteration # 1133
+...Starting iteration # 1134
+...Starting iteration # 1135
+...Starting iteration # 1136
+...Starting iteration # 1137
+...Starting iteration # 1138
+...Starting iteration # 1139
+...Starting iteration # 1140
+...Starting iteration # 1141
+...Starting iteration # 1142
+...Starting iteration # 1143
+...Starting iteration # 1144
+...Starting iteration # 1145
+...Starting iteration # 1146
+...Starting iteration # 1147
+...Starting iteration # 1148
+...Starting iteration # 1149
+...Starting iteration # 1150
+...Starting iteration # 1151
+...Starting iteration # 1152
+...Starting iteration # 1153
+...Starting iteration # 1154
+...Starting iteration # 1155
+...Starting iteration # 1156
+...Starting iteration # 1157
+...Starting iteration # 1158
+...Starting iteration # 1159
+...Starting iteration # 1160
+...Starting iteration # 1161
+...Starting iteration # 1162
+...Starting iteration # 1163
+...Starting iteration # 1164
+...Starting iteration # 1165
+...Starting iteration # 1166
+...Starting iteration # 1167
+...Starting iteration # 1168
+...Starting iteration # 1169
+...Starting iteration # 1170
+...Starting iteration # 1171
+...Starting iteration # 1172
+...Starting iteration # 1173
+...Starting iteration # 1174
+...Starting iteration # 1175
+...Starting iteration # 1176
+...Starting iteration # 1177
+...Starting iteration # 1178
+...Starting iteration # 1179
+...Starting iteration # 1180
+...Starting iteration # 1181
+...Starting iteration # 1182
+...Starting iteration # 1183
+...Starting iteration # 1184
+...Starting iteration # 1185
+...Starting iteration # 1186
+...Starting iteration # 1187
+...Starting iteration # 1188
+...Starting iteration # 1189
+...Starting iteration # 1190
+...Starting iteration # 1191
+...Starting iteration # 1192
+...Starting iteration # 1193
+...Starting iteration # 1194
+...Starting iteration # 1195
+...Starting iteration # 1196
+...Starting iteration # 1197
+...Starting iteration # 1198
+...Starting iteration # 1199
+...Starting iteration # 1200
+...Starting iteration # 1201
+...Starting iteration # 1202
+...Starting iteration # 1203
+...Starting iteration # 1204
+...Starting iteration # 1205
+...Starting iteration # 1206
+...Starting iteration # 1207
+...Starting iteration # 1208
+...Starting iteration # 1209
+...Starting iteration # 1210
+...Starting iteration # 1211
+...Starting iteration # 1212
+...Starting iteration # 1213
+...Starting iteration # 1214
+...Starting iteration # 1215
+...Starting iteration # 1216
+:) DONE!
+...visualizing round 1 results:
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -q flag was triggered, starting calculations for 1 threshold mapping quality
+:) -i flag was triggered, building mapq without
+:) -c flag was triggered, will remove temporary files after completion
+...Remapping contact data from the original contig set to assembly
+...Building track files
+...Building the hic file
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+..
+Writing footer
+
+Finished preprocess
+HiC file version: 8
+
+Calculating norms for zoom BP_2500000
+Calculating norms for zoom BP_1000000
+Calculating norms for zoom BP_500000
+Calculating norms for zoom BP_250000
+Calculating norms for zoom BP_100000
+Calculating norms for zoom BP_50000
+Calculating norms for zoom BP_25000
+Calculating norms for zoom BP_10000
+Calculating norms for zoom BP_5000
+Calculating norms for zoom BP_1000
+Writing expected
+Writing norms
+Finished writing norms
+...detecting misjoins in round 1 assembly:
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -c flag was triggered, starting calculations with 5% saturation level
+:) -w flag was triggered, performing cursory search for mismatches at 25000 resolution
+:) -d flag was triggered, depletion score will be averaged across a region bounded by 125000 superdiagonal
+:) -k flag was triggered, starting calculations with 55% depletion as mismatch threshold
+:) -n flag was triggered, performing mismatch region thinning at 1000 resolution
+...Dumping 25000 resolution matrix
+HiC file version: 8
+...Estimating necessary saturation level for requested misassembly sensitivity
+...Coarse resolution saturation level = 3.41818
+...Analyzing near-diagonal mismatches
+...Filtering mismatch calls without better alternative: Not functional yet, skipping
+...Thinning mismatch region boundaries.
+...Dumping 1000 resolution matrix
+HiC file version: 8
+...Estimating necessary saturation level for requested misassembly sensitivity
+...Fine resolution saturation level = 1
+...Analyzing near-diagonal mismatches
+:) -w flag was triggered, performing cursory search for repeat at 25000 resolution
+:) -t flag was triggered, flagging regions with coverage higher than 2
+...Dumping 25000 resolution coverage track
+HiC file version: 8
+...-p flag was triggered. Running with GNU Parallel support parameter set to false.
+...-r flag was triggered, output will be labeled as *.2.*
+...applying edits to cprops file
+...applying edits to mnd file
+...starting round 2 of scaffolding:
+:) -p flag was triggered. Running LIGer with GNU Parallel support parameter set to false.
+:) -s flag was triggered, starting calculations with 15000 threshold starting contig/scaffold size
+:) -q flag was triggered, starting calculations with 1 threshold mapping quality
+...Using cprops file: OV53_1.primary.2.cprops
+...Using merged_nodups file: OV53_1.primary.mnd.2.txt
+...Scaffolding all scaffolds and contigs greater or equal to 15000 bp.
+...Starting iteration # 1
+...Starting iteration # 2
+...Starting iteration # 3
+...Starting iteration # 4
+...Starting iteration # 5
+...Starting iteration # 6
+...Starting iteration # 7
+...Starting iteration # 8
+...Starting iteration # 9
+...Starting iteration # 10
+...Starting iteration # 11
+...Starting iteration # 12
+...Starting iteration # 13
+...Starting iteration # 14
+...Starting iteration # 15
+...Starting iteration # 16
+...Starting iteration # 17
+...Starting iteration # 18
+...Starting iteration # 19
+...Starting iteration # 20
+...Starting iteration # 21
+...Starting iteration # 22
+...Starting iteration # 23
+...Starting iteration # 24
+...Starting iteration # 25
+...Starting iteration # 26
+...Starting iteration # 27
+...Starting iteration # 28
+...Starting iteration # 29
+...Starting iteration # 30
+...Starting iteration # 31
+...Starting iteration # 32
+...Starting iteration # 33
+...Starting iteration # 34
+...Starting iteration # 35
+...Starting iteration # 36
+...Starting iteration # 37
+...Starting iteration # 38
+...Starting iteration # 39
+...Starting iteration # 40
+...Starting iteration # 41
+...Starting iteration # 42
+...Starting iteration # 43
+...Starting iteration # 44
+...Starting iteration # 45
+...Starting iteration # 46
+...Starting iteration # 47
+...Starting iteration # 48
+...Starting iteration # 49
+...Starting iteration # 50
+...Starting iteration # 51
+...Starting iteration # 52
+...Starting iteration # 53
+...Starting iteration # 54
+...Starting iteration # 55
+...Starting iteration # 56
+...Starting iteration # 57
+...Starting iteration # 58
+...Starting iteration # 59
+...Starting iteration # 60
+...Starting iteration # 61
+...Starting iteration # 62
+...Starting iteration # 63
+...Starting iteration # 64
+...Starting iteration # 65
+...Starting iteration # 66
+...Starting iteration # 67
+...Starting iteration # 68
+...Starting iteration # 69
+...Starting iteration # 70
+...Starting iteration # 71
+...Starting iteration # 72
+...Starting iteration # 73
+...Starting iteration # 74
+...Starting iteration # 75
+...Starting iteration # 76
+...Starting iteration # 77
+...Starting iteration # 78
+...Starting iteration # 79
+...Starting iteration # 80
+...Starting iteration # 81
+...Starting iteration # 82
+...Starting iteration # 83
+...Starting iteration # 84
+...Starting iteration # 85
+...Starting iteration # 86
+...Starting iteration # 87
+...Starting iteration # 88
+...Starting iteration # 89
+...Starting iteration # 90
+...Starting iteration # 91
+...Starting iteration # 92
+...Starting iteration # 93
+...Starting iteration # 94
+...Starting iteration # 95
+...Starting iteration # 96
+...Starting iteration # 97
+...Starting iteration # 98
+...Starting iteration # 99
+...Starting iteration # 100
+...Starting iteration # 101
+...Starting iteration # 102
+...Starting iteration # 103
+...Starting iteration # 104
+...Starting iteration # 105
+...Starting iteration # 106
+...Starting iteration # 107
+...Starting iteration # 108
+...Starting iteration # 109
+...Starting iteration # 110
+...Starting iteration # 111
+...Starting iteration # 112
+...Starting iteration # 113
+...Starting iteration # 114
+...Starting iteration # 115
+...Starting iteration # 116
+...Starting iteration # 117
+...Starting iteration # 118
+...Starting iteration # 119
+...Starting iteration # 120
+...Starting iteration # 121
+...Starting iteration # 122
+...Starting iteration # 123
+...Starting iteration # 124
+...Starting iteration # 125
+...Starting iteration # 126
+...Starting iteration # 127
+...Starting iteration # 128
+...Starting iteration # 129
+...Starting iteration # 130
+...Starting iteration # 131
+...Starting iteration # 132
+...Starting iteration # 133
+...Starting iteration # 134
+...Starting iteration # 135
+...Starting iteration # 136
+...Starting iteration # 137
+...Starting iteration # 138
+...Starting iteration # 139
+...Starting iteration # 140
+...Starting iteration # 141
+...Starting iteration # 142
+...Starting iteration # 143
+...Starting iteration # 144
+...Starting iteration # 145
+...Starting iteration # 146
+...Starting iteration # 147
+...Starting iteration # 148
+...Starting iteration # 149
+...Starting iteration # 150
+...Starting iteration # 151
+...Starting iteration # 152
+...Starting iteration # 153
+...Starting iteration # 154
+...Starting iteration # 155
+...Starting iteration # 156
+...Starting iteration # 157
+...Starting iteration # 158
+...Starting iteration # 159
+...Starting iteration # 160
+...Starting iteration # 161
+...Starting iteration # 162
+...Starting iteration # 163
+...Starting iteration # 164
+...Starting iteration # 165
+...Starting iteration # 166
+...Starting iteration # 167
+...Starting iteration # 168
+...Starting iteration # 169
+...Starting iteration # 170
+...Starting iteration # 171
+...Starting iteration # 172
+...Starting iteration # 173
+...Starting iteration # 174
+...Starting iteration # 175
+...Starting iteration # 176
+...Starting iteration # 177
+...Starting iteration # 178
+...Starting iteration # 179
+...Starting iteration # 180
+...Starting iteration # 181
+...Starting iteration # 182
+...Starting iteration # 183
+...Starting iteration # 184
+...Starting iteration # 185
+...Starting iteration # 186
+...Starting iteration # 187
+...Starting iteration # 188
+...Starting iteration # 189
+...Starting iteration # 190
+...Starting iteration # 191
+...Starting iteration # 192
+...Starting iteration # 193
+...Starting iteration # 194
+...Starting iteration # 195
+...Starting iteration # 196
+...Starting iteration # 197
+...Starting iteration # 198
+...Starting iteration # 199
+...Starting iteration # 200
+...Starting iteration # 201
+...Starting iteration # 202
+...Starting iteration # 203
+...Starting iteration # 204
+...Starting iteration # 205
+...Starting iteration # 206
+...Starting iteration # 207
+...Starting iteration # 208
+...Starting iteration # 209
+...Starting iteration # 210
+...Starting iteration # 211
+...Starting iteration # 212
+...Starting iteration # 213
+...Starting iteration # 214
+...Starting iteration # 215
+...Starting iteration # 216
+...Starting iteration # 217
+...Starting iteration # 218
+...Starting iteration # 219
+...Starting iteration # 220
+...Starting iteration # 221
+...Starting iteration # 222
+...Starting iteration # 223
+...Starting iteration # 224
+...Starting iteration # 225
+...Starting iteration # 226
+...Starting iteration # 227
+...Starting iteration # 228
+...Starting iteration # 229
+...Starting iteration # 230
+...Starting iteration # 231
+...Starting iteration # 232
+...Starting iteration # 233
+...Starting iteration # 234
+...Starting iteration # 235
+...Starting iteration # 236
+...Starting iteration # 237
+...Starting iteration # 238
+...Starting iteration # 239
+...Starting iteration # 240
+...Starting iteration # 241
+...Starting iteration # 242
+...Starting iteration # 243
+...Starting iteration # 244
+...Starting iteration # 245
+...Starting iteration # 246
+...Starting iteration # 247
+...Starting iteration # 248
+...Starting iteration # 249
+...Starting iteration # 250
+...Starting iteration # 251
+...Starting iteration # 252
+...Starting iteration # 253
+...Starting iteration # 254
+...Starting iteration # 255
+...Starting iteration # 256
+...Starting iteration # 257
+...Starting iteration # 258
+...Starting iteration # 259
+...Starting iteration # 260
+...Starting iteration # 261
+...Starting iteration # 262
+...Starting iteration # 263
+...Starting iteration # 264
+...Starting iteration # 265
+...Starting iteration # 266
+...Starting iteration # 267
+...Starting iteration # 268
+...Starting iteration # 269
+...Starting iteration # 270
+...Starting iteration # 271
+...Starting iteration # 272
+...Starting iteration # 273
+...Starting iteration # 274
+...Starting iteration # 275
+...Starting iteration # 276
+...Starting iteration # 277
+...Starting iteration # 278
+...Starting iteration # 279
+...Starting iteration # 280
+...Starting iteration # 281
+...Starting iteration # 282
+...Starting iteration # 283
+...Starting iteration # 284
+...Starting iteration # 285
+...Starting iteration # 286
+...Starting iteration # 287
+...Starting iteration # 288
+...Starting iteration # 289
+...Starting iteration # 290
+...Starting iteration # 291
+...Starting iteration # 292
+...Starting iteration # 293
+...Starting iteration # 294
+...Starting iteration # 295
+...Starting iteration # 296
+...Starting iteration # 297
+...Starting iteration # 298
+...Starting iteration # 299
+...Starting iteration # 300
+...Starting iteration # 301
+...Starting iteration # 302
+...Starting iteration # 303
+...Starting iteration # 304
+...Starting iteration # 305
+...Starting iteration # 306
+...Starting iteration # 307
+...Starting iteration # 308
+...Starting iteration # 309
+...Starting iteration # 310
+...Starting iteration # 311
+...Starting iteration # 312
+...Starting iteration # 313
+...Starting iteration # 314
+...Starting iteration # 315
+...Starting iteration # 316
+...Starting iteration # 317
+...Starting iteration # 318
+...Starting iteration # 319
+...Starting iteration # 320
+...Starting iteration # 321
+...Starting iteration # 322
+...Starting iteration # 323
+...Starting iteration # 324
+...Starting iteration # 325
+...Starting iteration # 326
+...Starting iteration # 327
+...Starting iteration # 328
+...Starting iteration # 329
+...Starting iteration # 330
+...Starting iteration # 331
+...Starting iteration # 332
+...Starting iteration # 333
+...Starting iteration # 334
+...Starting iteration # 335
+...Starting iteration # 336
+...Starting iteration # 337
+...Starting iteration # 338
+...Starting iteration # 339
+...Starting iteration # 340
+...Starting iteration # 341
+...Starting iteration # 342
+...Starting iteration # 343
+...Starting iteration # 344
+...Starting iteration # 345
+...Starting iteration # 346
+...Starting iteration # 347
+...Starting iteration # 348
+...Starting iteration # 349
+...Starting iteration # 350
+...Starting iteration # 351
+...Starting iteration # 352
+...Starting iteration # 353
+...Starting iteration # 354
+...Starting iteration # 355
+...Starting iteration # 356
+...Starting iteration # 357
+...Starting iteration # 358
+...Starting iteration # 359
+...Starting iteration # 360
+...Starting iteration # 361
+...Starting iteration # 362
+...Starting iteration # 363
+...Starting iteration # 364
+...Starting iteration # 365
+...Starting iteration # 366
+...Starting iteration # 367
+...Starting iteration # 368
+...Starting iteration # 369
+...Starting iteration # 370
+...Starting iteration # 371
+...Starting iteration # 372
+...Starting iteration # 373
+...Starting iteration # 374
+...Starting iteration # 375
+...Starting iteration # 376
+...Starting iteration # 377
+...Starting iteration # 378
+...Starting iteration # 379
+...Starting iteration # 380
+...Starting iteration # 381
+...Starting iteration # 382
+...Starting iteration # 383
+...Starting iteration # 384
+...Starting iteration # 385
+...Starting iteration # 386
+...Starting iteration # 387
+...Starting iteration # 388
+...Starting iteration # 389
+...Starting iteration # 390
+...Starting iteration # 391
+...Starting iteration # 392
+...Starting iteration # 393
+...Starting iteration # 394
+...Starting iteration # 395
+...Starting iteration # 396
+...Starting iteration # 397
+...Starting iteration # 398
+...Starting iteration # 399
+...Starting iteration # 400
+...Starting iteration # 401
+...Starting iteration # 402
+...Starting iteration # 403
+...Starting iteration # 404
+...Starting iteration # 405
+...Starting iteration # 406
+...Starting iteration # 407
+...Starting iteration # 408
+...Starting iteration # 409
+...Starting iteration # 410
+...Starting iteration # 411
+...Starting iteration # 412
+...Starting iteration # 413
+...Starting iteration # 414
+...Starting iteration # 415
+...Starting iteration # 416
+...Starting iteration # 417
+...Starting iteration # 418
+...Starting iteration # 419
+...Starting iteration # 420
+...Starting iteration # 421
+...Starting iteration # 422
+...Starting iteration # 423
+...Starting iteration # 424
+...Starting iteration # 425
+...Starting iteration # 426
+...Starting iteration # 427
+...Starting iteration # 428
+...Starting iteration # 429
+...Starting iteration # 430
+...Starting iteration # 431
+...Starting iteration # 432
+...Starting iteration # 433
+...Starting iteration # 434
+...Starting iteration # 435
+...Starting iteration # 436
+...Starting iteration # 437
+...Starting iteration # 438
+...Starting iteration # 439
+...Starting iteration # 440
+...Starting iteration # 441
+...Starting iteration # 442
+...Starting iteration # 443
+...Starting iteration # 444
+...Starting iteration # 445
+...Starting iteration # 446
+...Starting iteration # 447
+...Starting iteration # 448
+...Starting iteration # 449
+...Starting iteration # 450
+...Starting iteration # 451
+...Starting iteration # 452
+...Starting iteration # 453
+...Starting iteration # 454
+...Starting iteration # 455
+...Starting iteration # 456
+...Starting iteration # 457
+...Starting iteration # 458
+...Starting iteration # 459
+...Starting iteration # 460
+...Starting iteration # 461
+...Starting iteration # 462
+...Starting iteration # 463
+...Starting iteration # 464
+...Starting iteration # 465
+...Starting iteration # 466
+...Starting iteration # 467
+...Starting iteration # 468
+...Starting iteration # 469
+...Starting iteration # 470
+...Starting iteration # 471
+...Starting iteration # 472
+...Starting iteration # 473
+...Starting iteration # 474
+...Starting iteration # 475
+...Starting iteration # 476
+...Starting iteration # 477
+...Starting iteration # 478
+...Starting iteration # 479
+...Starting iteration # 480
+...Starting iteration # 481
+...Starting iteration # 482
+...Starting iteration # 483
+...Starting iteration # 484
+...Starting iteration # 485
+...Starting iteration # 486
+...Starting iteration # 487
+...Starting iteration # 488
+...Starting iteration # 489
+...Starting iteration # 490
+...Starting iteration # 491
+...Starting iteration # 492
+...Starting iteration # 493
+...Starting iteration # 494
+...Starting iteration # 495
+...Starting iteration # 496
+...Starting iteration # 497
+...Starting iteration # 498
+...Starting iteration # 499
+...Starting iteration # 500
+...Starting iteration # 501
+...Starting iteration # 502
+...Starting iteration # 503
+...Starting iteration # 504
+...Starting iteration # 505
+...Starting iteration # 506
+...Starting iteration # 507
+...Starting iteration # 508
+...Starting iteration # 509
+...Starting iteration # 510
+...Starting iteration # 511
+...Starting iteration # 512
+...Starting iteration # 513
+...Starting iteration # 514
+...Starting iteration # 515
+...Starting iteration # 516
+...Starting iteration # 517
+...Starting iteration # 518
+...Starting iteration # 519
+...Starting iteration # 520
+...Starting iteration # 521
+...Starting iteration # 522
+...Starting iteration # 523
+...Starting iteration # 524
+...Starting iteration # 525
+...Starting iteration # 526
+...Starting iteration # 527
+...Starting iteration # 528
+...Starting iteration # 529
+...Starting iteration # 530
+...Starting iteration # 531
+...Starting iteration # 532
+...Starting iteration # 533
+...Starting iteration # 534
+...Starting iteration # 535
+...Starting iteration # 536
+...Starting iteration # 537
+...Starting iteration # 538
+...Starting iteration # 539
+...Starting iteration # 540
+...Starting iteration # 541
+...Starting iteration # 542
+...Starting iteration # 543
+...Starting iteration # 544
+...Starting iteration # 545
+...Starting iteration # 546
+...Starting iteration # 547
+...Starting iteration # 548
+...Starting iteration # 549
+...Starting iteration # 550
+...Starting iteration # 551
+...Starting iteration # 552
+...Starting iteration # 553
+...Starting iteration # 554
+...Starting iteration # 555
+...Starting iteration # 556
+...Starting iteration # 557
+...Starting iteration # 558
+...Starting iteration # 559
+...Starting iteration # 560
+...Starting iteration # 561
+...Starting iteration # 562
+...Starting iteration # 563
+...Starting iteration # 564
+...Starting iteration # 565
+...Starting iteration # 566
+...Starting iteration # 567
+...Starting iteration # 568
+...Starting iteration # 569
+...Starting iteration # 570
+...Starting iteration # 571
+...Starting iteration # 572
+...Starting iteration # 573
+...Starting iteration # 574
+...Starting iteration # 575
+...Starting iteration # 576
+...Starting iteration # 577
+...Starting iteration # 578
+...Starting iteration # 579
+...Starting iteration # 580
+...Starting iteration # 581
+...Starting iteration # 582
+...Starting iteration # 583
+...Starting iteration # 584
+...Starting iteration # 585
+...Starting iteration # 586
+...Starting iteration # 587
+...Starting iteration # 588
+...Starting iteration # 589
+...Starting iteration # 590
+...Starting iteration # 591
+...Starting iteration # 592
+...Starting iteration # 593
+...Starting iteration # 594
+...Starting iteration # 595
+...Starting iteration # 596
+...Starting iteration # 597
+...Starting iteration # 598
+...Starting iteration # 599
+...Starting iteration # 600
+...Starting iteration # 601
+...Starting iteration # 602
+...Starting iteration # 603
+...Starting iteration # 604
+...Starting iteration # 605
+...Starting iteration # 606
+...Starting iteration # 607
+...Starting iteration # 608
+...Starting iteration # 609
+...Starting iteration # 610
+...Starting iteration # 611
+...Starting iteration # 612
+...Starting iteration # 613
+...Starting iteration # 614
+...Starting iteration # 615
+...Starting iteration # 616
+...Starting iteration # 617
+...Starting iteration # 618
+...Starting iteration # 619
+...Starting iteration # 620
+...Starting iteration # 621
+...Starting iteration # 622
+...Starting iteration # 623
+...Starting iteration # 624
+...Starting iteration # 625
+...Starting iteration # 626
+...Starting iteration # 627
+...Starting iteration # 628
+...Starting iteration # 629
+...Starting iteration # 630
+...Starting iteration # 631
+...Starting iteration # 632
+...Starting iteration # 633
+...Starting iteration # 634
+...Starting iteration # 635
+...Starting iteration # 636
+...Starting iteration # 637
+...Starting iteration # 638
+...Starting iteration # 639
+...Starting iteration # 640
+...Starting iteration # 641
+...Starting iteration # 642
+...Starting iteration # 643
+...Starting iteration # 644
+...Starting iteration # 645
+...Starting iteration # 646
+...Starting iteration # 647
+...Starting iteration # 648
+...Starting iteration # 649
+...Starting iteration # 650
+...Starting iteration # 651
+...Starting iteration # 652
+...Starting iteration # 653
+...Starting iteration # 654
+...Starting iteration # 655
+...Starting iteration # 656
+...Starting iteration # 657
+...Starting iteration # 658
+...Starting iteration # 659
+...Starting iteration # 660
+...Starting iteration # 661
+...Starting iteration # 662
+...Starting iteration # 663
+...Starting iteration # 664
+...Starting iteration # 665
+...Starting iteration # 666
+...Starting iteration # 667
+...Starting iteration # 668
+...Starting iteration # 669
+...Starting iteration # 670
+...Starting iteration # 671
+...Starting iteration # 672
+...Starting iteration # 673
+...Starting iteration # 674
+...Starting iteration # 675
+...Starting iteration # 676
+...Starting iteration # 677
+...Starting iteration # 678
+...Starting iteration # 679
+...Starting iteration # 680
+...Starting iteration # 681
+...Starting iteration # 682
+...Starting iteration # 683
+...Starting iteration # 684
+...Starting iteration # 685
+...Starting iteration # 686
+...Starting iteration # 687
+...Starting iteration # 688
+...Starting iteration # 689
+...Starting iteration # 690
+...Starting iteration # 691
+...Starting iteration # 692
+...Starting iteration # 693
+...Starting iteration # 694
+...Starting iteration # 695
+...Starting iteration # 696
+...Starting iteration # 697
+...Starting iteration # 698
+...Starting iteration # 699
+...Starting iteration # 700
+...Starting iteration # 701
+...Starting iteration # 702
+...Starting iteration # 703
+...Starting iteration # 704
+...Starting iteration # 705
+...Starting iteration # 706
+...Starting iteration # 707
+...Starting iteration # 708
+...Starting iteration # 709
+...Starting iteration # 710
+...Starting iteration # 711
+...Starting iteration # 712
+...Starting iteration # 713
+...Starting iteration # 714
+...Starting iteration # 715
+...Starting iteration # 716
+...Starting iteration # 717
+...Starting iteration # 718
+...Starting iteration # 719
+...Starting iteration # 720
+...Starting iteration # 721
+...Starting iteration # 722
+...Starting iteration # 723
+...Starting iteration # 724
+...Starting iteration # 725
+...Starting iteration # 726
+...Starting iteration # 727
+...Starting iteration # 728
+...Starting iteration # 729
+...Starting iteration # 730
+...Starting iteration # 731
+...Starting iteration # 732
+...Starting iteration # 733
+...Starting iteration # 734
+...Starting iteration # 735
+...Starting iteration # 736
+...Starting iteration # 737
+...Starting iteration # 738
+...Starting iteration # 739
+...Starting iteration # 740
+...Starting iteration # 741
+...Starting iteration # 742
+...Starting iteration # 743
+...Starting iteration # 744
+...Starting iteration # 745
+...Starting iteration # 746
+...Starting iteration # 747
+...Starting iteration # 748
+...Starting iteration # 749
+...Starting iteration # 750
+...Starting iteration # 751
+...Starting iteration # 752
+...Starting iteration # 753
+...Starting iteration # 754
+...Starting iteration # 755
+...Starting iteration # 756
+...Starting iteration # 757
+...Starting iteration # 758
+...Starting iteration # 759
+...Starting iteration # 760
+...Starting iteration # 761
+...Starting iteration # 762
+...Starting iteration # 763
+...Starting iteration # 764
+...Starting iteration # 765
+...Starting iteration # 766
+...Starting iteration # 767
+...Starting iteration # 768
+...Starting iteration # 769
+...Starting iteration # 770
+...Starting iteration # 771
+:) DONE!
+...visualizing round 2 results:
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -q flag was triggered, starting calculations for 1 threshold mapping quality
+:) -i flag was triggered, building mapq without
+:) -c flag was triggered, will remove temporary files after completion
+...Remapping contact data from the original contig set to assembly
+...Building track files
+...Building the hic file
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+..
+Writing footer
+
+Finished preprocess
+HiC file version: 8
+
+Calculating norms for zoom BP_2500000
+Calculating norms for zoom BP_1000000
+Calculating norms for zoom BP_500000
+Calculating norms for zoom BP_250000
+Calculating norms for zoom BP_100000
+Calculating norms for zoom BP_50000
+Calculating norms for zoom BP_25000
+Calculating norms for zoom BP_10000
+Calculating norms for zoom BP_5000
+Calculating norms for zoom BP_1000
+Writing expected
+Writing norms
+Finished writing norms
+###############
+Starting polish:
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -q flag was triggered, performing polishing taking into account signal with minimum 1 mapping quality
+...-j flag was triggered, will use Juicebox map OV53_1.primary.resolved.hic
+...-a flag was triggered, will use scaffold annotation file OV53_1.primary.resolved_asm.scaffold_track.txt
+...-b flag was triggered, will use superscaffold annotation file OV53_1.primary.resolved_asm.superscaf_track.txt
+...-s flag was triggered, will ignore all scaffolds shorter than 1000000 for polishing
+:) -c flag was triggered, starting calculations with 5% saturation level
+:) -w flag was triggered, performing cursory search for mismatches at 100000 resolution
+:) -d flag was triggered, depletion score will be averaged across a region bounded by 3000000 superdiagonal
+:) -k flag was triggered, starting calculations with 55% depletion as mismatch threshold
+:) -n flag was triggered, performing mismatch region thinning at 1000 resolution
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -c flag was triggered, starting calculations with 5% saturation level
+:) -w flag was triggered, performing cursory search for mismatches at 100000 resolution
+:) -k flag was triggered, starting calculations with 55% depletion as mismatch threshold
+:) -d flag was triggered, depletion score will be averaged across a region bounded by 3000000 superdiagonal
+:) -n flag was triggered, performing mismatch region thinning at 1000 resolution
+...Dumping 100000 resolution matrix
+HiC file version: 8
+...Estimating necessary saturation level for requested misassembly sensitivity
+...Coarse resolution saturation level = 3.5514
+...Analyzing near-diagonal mismatches
+...Filtering mismatch calls without better alternative: Not functional yet, skipping
+...Thinning mismatch region boundaries.
+...Dumping 1000 resolution matrix
+HiC file version: 8
+...Estimating necessary saturation level for requested misassembly sensitivity
+...Fine resolution saturation level = 1
+...Analyzing near-diagonal mismatches
+...-p flag was triggered. Running with GNU Parallel support parameter set to false.
+...-r flag was triggered, output will be labeled as *.polish.*
+...applying edits to cprops file
+...applying edits to mnd file
+:) -p flag was triggered. Running LIGer with GNU Parallel support parameter set to false.
+:) -q flag was triggered, starting calculations with 1 threshold mapping quality
+:) -s flag was triggered, starting calculations with 1000000 threshold starting contig/scaffold size
+...Using cprops file: OV53_1.primary.resolved.polish.cprops
+...Using merged_nodups file: OV53_1.primary.resolved.polish.mnd.txt
+...Explicit scaffold set has been listed as input. Using set as a first iteration.
+...Starting iteration # 1
+...Starting iteration # 2
+...Starting iteration # 3
+...Starting iteration # 4
+...Starting iteration # 5
+...Starting iteration # 6
+...Starting iteration # 7
+...Starting iteration # 8
+...Starting iteration # 9
+:) DONE!
+:) -p flag was triggered. Running LIGer with GNU Parallel support parameter set to false.
+:) -q flag was triggered, starting calculations with 1 threshold mapping quality
+:) -s flag was triggered, starting calculations with 1000000 threshold starting contig/scaffold size
+...Using cprops file: OV53_1.primary.resolved.polish.cprops
+...Using merged_nodups file: OV53_1.primary.resolved.polish.mnd.txt
+...Explicit scaffold set has been listed as input. Using set as a first iteration.
+...Starting iteration # 1
+...Starting iteration # 2
+...Starting iteration # 3
+:) DONE!
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -q flag was triggered, starting calculations for 1 threshold mapping quality
+:) -i flag was triggered, building mapq without
+:) -c flag was triggered, will remove temporary files after completion
+...Remapping contact data from the original contig set to assembly
+...Building track files
+...Building the hic file
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+..
+Writing footer
+
+Finished preprocess
+HiC file version: 8
+
+Calculating norms for zoom BP_2500000
+Calculating norms for zoom BP_1000000
+Calculating norms for zoom BP_500000
+Calculating norms for zoom BP_250000
+Calculating norms for zoom BP_100000
+Calculating norms for zoom BP_50000
+Calculating norms for zoom BP_25000
+Calculating norms for zoom BP_10000
+Calculating norms for zoom BP_5000
+Calculating norms for zoom BP_1000
+Writing expected
+Writing norms
+Finished writing norms
+###############
+Starting split:
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+...-q flag was triggered, will ignore all reads with mapping quality less then 1 for polishing
+...-j flag was triggered, will use Juicebox map OV53_1.primary.polished.hic
+...-a flag was triggered, will use scaffold annotation file OV53_1.primary.polished_asm.scaffold_track.txt
+...-b flag was triggered, will use superscaffold annotation file OV53_1.primary.polished_asm.superscaf_track.txt
+...-s flag was triggered, will ignore all scaffolds shorter than 100000 for polishing
+:) -c flag was triggered, starting calculations with 5% saturation level
+:) -w flag was triggered, performing cursory search for mismatches at 100000 resolution
+:) -d flag was triggered, depletion score will be averaged across a region bounded by 3000000 superdiagonal
+:) -k flag was triggered, starting calculations with 55% depletion as mismatch threshold
+:) -n flag was triggered, performing mismatch region thinning at 1000 resolution
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -c flag was triggered, starting calculations with 5% saturation level
+:) -w flag was triggered, performing cursory search for mismatches at 100000 resolution
+:) -k flag was triggered, starting calculations with 55% depletion as mismatch threshold
+:) -d flag was triggered, depletion score will be averaged across a region bounded by 3000000 superdiagonal
+:) -n flag was triggered, performing mismatch region thinning at 1000 resolution
+...Dumping 100000 resolution matrix
+HiC file version: 8
+...Estimating necessary saturation level for requested misassembly sensitivity
+...Coarse resolution saturation level = 3.55129
+...Analyzing near-diagonal mismatches
+...Filtering mismatch calls without better alternative: Not functional yet, skipping
+...Thinning mismatch region boundaries.
+...Dumping 1000 resolution matrix
+HiC file version: 8
+...Estimating necessary saturation level for requested misassembly sensitivity
+...Fine resolution saturation level = 1
+...Analyzing near-diagonal mismatches
+...-p flag was triggered. Running with GNU Parallel support parameter set to false.
+...-r flag was triggered, output will be labeled as *.split.*
+...applying edits to cprops file
+...applying edits to mnd file
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -q flag was triggered, starting calculations for 1 threshold mapping quality
+:) -i flag was triggered, building mapq without
+:) -c flag was triggered, will remove temporary files after completion
+...Remapping contact data from the original contig set to assembly
+...Building track files
+...Building the hic file
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+..
+Writing footer
+
+Finished preprocess
+HiC file version: 8
+
+Calculating norms for zoom BP_2500000
+Calculating norms for zoom BP_1000000
+Calculating norms for zoom BP_500000
+Calculating norms for zoom BP_250000
+Calculating norms for zoom BP_100000
+Calculating norms for zoom BP_50000
+Calculating norms for zoom BP_25000
+Calculating norms for zoom BP_10000
+Calculating norms for zoom BP_5000
+Calculating norms for zoom BP_1000
+Writing expected
+Writing norms
+Finished writing norms
+###############
+Starting sealing:
+... -i flag was triggered, will attempt to place back only debris contigs/scaffolds and those less than 15000
+:) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+:) -q flag was triggered, starting calculations for 1 threshold mapping quality
+:) -i flag was triggered, building mapq without
+:) -c flag was triggered, will remove temporary files after completion
+...Remapping contact data from the original contig set to assembly
+...Building track files
+...Building the hic file
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+..
+Writing footer
+
+Finished preprocess
+HiC file version: 8
+
+Calculating norms for zoom BP_2500000
+Calculating norms for zoom BP_1000000
+Calculating norms for zoom BP_500000
+Calculating norms for zoom BP_250000
+Calculating norms for zoom BP_100000
+Calculating norms for zoom BP_50000
+Calculating norms for zoom BP_25000
+Calculating norms for zoom BP_10000
+Calculating norms for zoom BP_5000
+Calculating norms for zoom BP_1000
+Writing expected
+Writing norms
+Finished writing norms
+###############
+Finilizing output:
+... -s flag was triggered, treating all contigs/scaffolds shorter than 15000 as unattempted.
+... -l flag was triggered. Output will appear with headers of the form OV53_1.primary_hic_scaffold_#.
+... -g flag was triggered, making gap size between scaffolded draft sequences to be equal to 500.
+Analyzing the merged assembly
+...trimming N overhangs
+...adding gaps
+✅ INFO: 3D-DNA 组装流程完成！
+
+📦 INFO: 输出文件位于: /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/
+   主要输出文件包括:
+   • OV53_1.primary.rawchrom.assembly - 原始组装结果
+   • OV53_1.primary.rawchrom.hic - 组装后的 Hi-C 图谱
+   • *.assembly 文件可在 Juicebox Assembly Tools 中打开进行手动校正
+
+🔍 下一步建议:
+   1. 使用 Juicebox Assembly Tools 打开 .hic 和 .assembly 文件
+   2. 手动检查和校正组装错误
+   3. 保存校正后的 .review.assembly 文件
+   4. 使用 run-asm-pipeline-post-review.sh 生成最终基因组
+
+💡 提示: 如需运行 post-review 步骤，请参考以下命令:
+   bash /share/org/YZWL/yzwl_lixg/software/3d-dna/run-asm-pipeline-post-review.sh \
+       -r <path_to_review.assembly> \
+       /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/merged_nodups.txt
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎊 INFO: 作业全部完成！
+⏰ INFO: 结束时间: 2025年 11月 18日 星期二 02:06:07 CST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 关键输出文件汇总:
+  1️⃣  质量评估报告: /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/QC_SUMMARY_REPORT.md
+  2️⃣  Juicebox 可视化: /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/inter_30.hic
+  3️⃣  3D-DNA 输入文件: /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/merged_nodups.txt
+  4️⃣  3D-DNA 组装结果: /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/OV53_1.primary.rawchrom.assembly
+  5️⃣  3D-DNA Hi-C 图谱: /share/org/YZWL/yzwl_lixg/tmp/test_hic/aligned/OV53_1.primary.rawchrom.hic
+
+🔍 建议下一步:
+  • 查看质量评估报告，评估数据质量
+  • 使用 Juicebox 可视化 Hi-C 互作图谱
+  • 使用 Juicebox Assembly Tools 打开 .assembly 文件进行手动校正
+  • 完成校正后运行 post-review 脚本生成最终基因组序列
+
+✨ 祝您分析顺利！
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -1,0 +1,168 @@
+2026-01-19 10:19:04.325 - INFO - EDTA植物基因组TE注释工具启动|EDTA Plant Genome TE Annotation Tool Started
+2026-01-19 10:19:04.325 - INFO - 日志文件|Log file: output/edta_analysis.log
+2026-01-19 10:19:04.325 - INFO - 检查EDTA依赖软件|Checking EDTA dependencies
+2026-01-19 10:19:05.285 - INFO - EDTA可用|EDTA available
+2026-01-19 10:19:05.285 - INFO - 依赖检查完成|Dependencies check completed
+2026-01-19 10:19:05.285 - INFO - ============================================================
+2026-01-19 10:19:05.285 - INFO - 开始EDTA转座子注释分析|Starting EDTA TE annotation analysis
+2026-01-19 10:19:05.285 - INFO - ============================================================
+2026-01-19 10:19:05.285 - INFO - EDTA运行参数|EDTA running parameters:
+2026-01-19 10:19:05.285 - INFO -   基因组文件|Genome: /share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.fa
+2026-01-19 10:19:05.286 - INFO -   物种|Species: others
+2026-01-19 10:19:05.286 - INFO -   步骤|Step: all
+2026-01-19 10:19:05.286 - INFO -   覆盖|Overwrite: 0
+2026-01-19 10:19:05.286 - INFO -   线程数|Threads: 64
+2026-01-19 10:19:05.286 - INFO -   敏感模式|Sensitive: 0
+2026-01-19 10:19:05.286 - INFO -   注释|Annotation: 1
+2026-01-19 10:19:05.286 - INFO -   评估|Evaluate: 0
+2026-01-19 10:19:05.286 - INFO -   最大分歧度|Max divergence: 40
+2026-01-19 10:19:05.286 - INFO -   输出目录|Output directory: output
+2026-01-19 10:19:05.286 - INFO - 开始执行EDTA.pl|Starting EDTA.pl execution
+2026-01-19 10:19:05.286 - INFO - 执行步骤|Executing step: EDTA转座子注释|EDTA TE annotation
+2026-01-19 10:19:05.286 - INFO - 命令|Command: perl /share/org/YZWL/yzwl_lixg/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/EDTA.pl --genome /share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.fa --species others --step all --overwrite 0 --maxdiv 40 --u 1.3e-08 --threads 64 --debug 0 --anno 1
+2026-01-19 10:19:05.286 - INFO - 工作目录|Working directory: /share/org/YZWL/yzwl_lixg/tmp/test_edta/output
+2026-01-19 10:19:05.286 - INFO - 开始监控进度|Starting progress monitoring...
+2026-01-19 10:19:05.328 - INFO - EDTA: 
+2026-01-19 10:19:05.328 - INFO - EDTA: #########################################################
+2026-01-19 10:19:05.329 - INFO - EDTA: ##### Extensive de-novo TE Annotator (EDTA) v2.2.2  #####
+2026-01-19 10:19:05.329 - INFO - EDTA: ##### Shujun Ou (shujun.ou.1@gmail.com)             #####
+2026-01-19 10:19:05.329 - INFO - EDTA: #########################################################
+2026-01-19 10:19:05.329 - INFO - EDTA: 
+2026-01-19 10:19:05.329 - INFO - EDTA: 
+2026-01-19 10:19:05.329 - INFO - EDTA: Parameters: --genome /share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.fa --species others --step all --overwrite 0 --maxdiv 40 --u 1.3e-08 --threads 64 --debug 0 --anno 1
+2026-01-19 10:19:05.329 - INFO - EDTA: 
+2026-01-19 10:19:05.329 - INFO - EDTA: 
+2026-01-19 10:19:05.365 - INFO - EDTA: 2026年 01月 19日 星期一 10:19:05 CST	Dependency checking:
+2026-01-19 10:19:12.937 - INFO - EDTA: All passed!
+2026-01-19 10:19:12.937 - INFO - EDTA: 
+2026-01-19 10:19:25.105 - INFO - EDTA: 2026年 01月 19日 星期一 10:19:25 CST	Obtain raw TE libraries using various structure-based programs:
+2026-01-19 10:19:25.160 - INFO - EDTA: 2026年 01月 19日 星期一 10:19:25 CST	EDTA_raw: Check dependencies, prepare working directories.
+2026-01-19 10:19:25.160 - INFO - EDTA: 
+2026-01-19 10:20:33.431 - INFO - EDTA: 2026年 01月 19日 星期一 10:20:33 CST	Start to find LTR candidates.
+2026-01-19 10:20:33.432 - INFO - EDTA: 
+2026-01-19 10:20:33.441 - INFO - EDTA: 2026年 01月 19日 星期一 10:20:33 CST	Identify LTR retrotransposon candidates from scratch.
+2026-01-19 10:20:33.441 - INFO - EDTA: 
+2026-01-19 19:10:04.695 - INFO - EDTA: 2026年 01月 19日 星期一 19:10:04 CST	Finish finding LTR candidates.
+2026-01-19 19:10:04.696 - INFO - EDTA: 
+2026-01-19 19:10:04.696 - INFO - EDTA: 2026年 01月 19日 星期一 19:10:04 CST	Start to find SINE candidates.
+2026-01-19 19:10:04.699 - INFO - EDTA: 
+2026-01-19 20:37:40.482 - INFO - EDTA: cp: 无法获取'OV53_Chr.fa.mod.SINE.raw.fa' 的文件状态(stat): No such file or directory
+2026-01-19 20:37:40.484 - INFO - EDTA: Error: SINE results not found!
+2026-01-19 20:37:40.484 - INFO - EDTA: 
+2026-01-19 20:37:40.485 - INFO - EDTA: ERROR: Raw SINE results not found in OV53_Chr.fa.mod.EDTA.raw/OV53_Chr.fa.mod.SINE.raw.fa
+2026-01-19 20:37:40.485 - INFO - EDTA: If you believe the program is working properly, this may be caused by the lack of SINEs in your genome.
+2026-01-19 20:37:40.487 - ERROR - 命令执行失败|Command execution failed: EDTA转座子注释|EDTA TE annotation
+2026-01-19 20:37:40.487 - ERROR - 失败前耗时|Time before failure: 37115.20 seconds
+2026-01-19 20:37:40.487 - ERROR - 错误代码|Error code: 2
+2026-01-19 20:37:40.487 - ERROR - 标准输出|Stdout: 
+#########################################################
+##### Extensive de-novo TE Annotator (EDTA) v2.2.2  #####
+##### Shujun Ou (shujun.ou.1@gmail.com)             #####
+#########################################################
+
+
+Parameters: --genome /share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.fa --species others --step all --overwrite 0 --maxdiv 40 --u 1.3e-08 --threads 64 --debug 0 --anno 1
+
+
+2026年 01月 19日 星期一 10:19:05 CST	Dependency checking:
+All passed!
+
+2026年 01月 19日 星期一 10:19:25 CST	Obtain raw TE libraries using various structure-based programs:
+2026年 01月 19日 星期一 10:19:25 CST	EDTA_raw: Check dependencies, prepare working directories.
+
+2026年 01月 19日 星期一 10:20:33 CST	Start to find LTR candidates.
+
+2026年 01月 19日 星期一 10:20:33 CST	Identify LTR retrotransposon candidates from scratch.
+
+2026年 01月 19日 星期一 19:10:04 CST	Finish finding LTR candidates.
+
+2026年 01月 19日 星期一 19:10:04 CST	Start to find SINE candidates.
+
+cp: 无法获取'OV53_Chr.fa.mod.SINE.raw.fa' 的文件状态(stat): No such file or directory
+Error: SINE results not found!
+
+ERROR: Raw SINE results not found in OV53_Chr.fa.mod.EDTA.raw/OV53_Chr.fa.mod.SINE.raw.fa
+If you believe the program is working properly, this may be caused by the lack of SINEs in your genome.
+2026-01-19 20:37:40.487 - WARNING - 检测到SINE查找失败|SINE detection failed
+2026-01-19 20:37:40.487 - INFO - 尝试创建空文件并使用--force 1继续|Attempting to create empty file and continue with --force 1
+2026-01-19 20:37:40.503 - INFO - 已创建空SINE文件|Created empty SINE file: /share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.mod.EDTA.raw/OV53_Chr.mod.SINE.raw.fa
+2026-01-19 20:37:40.517 - INFO - 继续执行EDTA filter步骤（使用--force 1）|Continuing with EDTA filter step (--force 1)
+2026-01-19 20:37:40.517 - INFO - --force参数将自动填充缺失的TIR/LINE/Helitron文件|--force will auto-fill missing TIR/LINE/Helitron files
+2026-01-19 20:37:40.517 - INFO - 执行步骤|Executing step: EDTA filter步骤|EDTA filter step
+2026-01-19 20:37:40.517 - INFO - 命令|Command: perl /share/org/YZWL/yzwl_lixg/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/EDTA.pl --genome /share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.fa --species others --step filter --overwrite 0 --maxdiv 40 --u 1.3e-08 --threads 64 --debug 0 --anno 1 --force 1
+2026-01-19 20:37:40.517 - INFO - 工作目录|Working directory: /share/org/YZWL/yzwl_lixg/tmp/test_edta/output
+2026-01-19 20:37:40.518 - INFO - 开始监控进度|Starting progress monitoring...
+2026-01-19 20:37:40.882 - INFO - EDTA: 
+2026-01-19 20:37:40.882 - INFO - EDTA: #########################################################
+2026-01-19 20:37:40.882 - INFO - EDTA: ##### Extensive de-novo TE Annotator (EDTA) v2.2.2  #####
+2026-01-19 20:37:40.882 - INFO - EDTA: ##### Shujun Ou (shujun.ou.1@gmail.com)             #####
+2026-01-19 20:37:40.882 - INFO - EDTA: #########################################################
+2026-01-19 20:37:40.882 - INFO - EDTA: 
+2026-01-19 20:37:40.882 - INFO - EDTA: 
+2026-01-19 20:37:40.882 - INFO - EDTA: Parameters: --genome /share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.fa --species others --step filter --overwrite 0 --maxdiv 40 --u 1.3e-08 --threads 64 --debug 0 --anno 1 --force 1
+2026-01-19 20:37:40.883 - INFO - EDTA: 
+2026-01-19 20:37:40.883 - INFO - EDTA: 
+2026-01-19 20:37:41.001 - INFO - EDTA: 2026年 01月 19日 星期一 20:37:40 CST	Dependency checking:
+2026-01-19 20:37:42.422 - INFO - EDTA: All passed!
+2026-01-19 20:37:42.422 - INFO - EDTA: 
+2026-01-19 20:37:54.260 - INFO - EDTA: 2026年 01月 19日 星期一 20:37:54 CST	Perform EDTA advance filtering for raw TE candidates and generate the stage 1 library:
+2026-01-19 20:37:54.260 - INFO - EDTA: 
+2026-01-19 20:37:54.286 - INFO - EDTA: TIR raw library file OV53_Chr.fa.mod.EDTA.raw/OV53_Chr.fa.mod.TIR.intact.raw.fa not exists!
+2026-01-19 20:37:54.286 - INFO - EDTA: 
+2026-01-19 20:37:54.286 - INFO - EDTA: Perform EDTA basic and advance filtering for raw TE candidates and generate the stage 1 library
+2026-01-19 20:37:54.286 - INFO - EDTA: perl EDTA_processF.pl [options]
+2026-01-19 20:37:54.286 - INFO - EDTA: -genome	[File]	The genome FASTA
+2026-01-19 20:37:54.286 - INFO - EDTA: -ltr	[File]	The raw LTR library FASTA
+2026-01-19 20:37:54.286 - INFO - EDTA: -ltrint	[File]	The intact LTR library FASTA
+2026-01-19 20:37:54.286 - INFO - EDTA: -sine	[File]	The raw SINE library FASTA
+2026-01-19 20:37:54.286 - INFO - EDTA: -line	[File]	The raw LINE library FASTA
+2026-01-19 20:37:54.286 - INFO - EDTA: -tir	[File]	The raw TIR library FASTA
+2026-01-19 20:37:54.286 - INFO - EDTA: -helitron	[File]	The raw Helitron library FASTA
+2026-01-19 20:37:54.286 - INFO - EDTA: -mindiff_ltr	[float]	The minimum fold difference in richness between LTRs and contaminants (default: 1)
+2026-01-19 20:37:54.286 - INFO - EDTA: -mindiff_tir	[float]	The minimum fold difference in richness between TIRs and contaminants (default: 1)
+2026-01-19 20:37:54.286 - INFO - EDTA: -mindiff_hel	[float]	The minimum fold difference in richness between Helitrons and contaminants (default: 2)
+2026-01-19 20:37:54.286 - INFO - EDTA: -repeatmasker [path]	The directory containing RepeatMasker (default: read from ENV)
+2026-01-19 20:37:54.286 - INFO - EDTA: -blast [path]	The directory containing Blastn (default: read from ENV)
+2026-01-19 20:37:54.286 - INFO - EDTA: -threads|-t	[int]	Number of theads to run this script
+2026-01-19 20:37:54.286 - INFO - EDTA: -help|-h	Display this help info
+2026-01-19 20:37:54.286 - INFO - EDTA: 
+2026-01-19 20:37:54.286 - INFO - EDTA: ERROR: Stage 1 library not found in OV53_Chr.fa.mod.EDTA.combine/OV53_Chr.fa.mod.EDTA.fa.stg1 at /share/org/YZWL/yzwl_lixg/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/EDTA.pl line 525.
+2026-01-19 20:37:54.288 - ERROR - 命令执行失败|Command execution failed: EDTA filter步骤|EDTA filter step
+2026-01-19 20:37:54.288 - ERROR - 失败前耗时|Time before failure: 13.77 seconds
+2026-01-19 20:37:54.288 - ERROR - 错误代码|Error code: 2
+2026-01-19 20:37:54.288 - ERROR - 标准输出|Stdout: 
+#########################################################
+##### Extensive de-novo TE Annotator (EDTA) v2.2.2  #####
+##### Shujun Ou (shujun.ou.1@gmail.com)             #####
+#########################################################
+
+
+Parameters: --genome /share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.fa --species others --step filter --overwrite 0 --maxdiv 40 --u 1.3e-08 --threads 64 --debug 0 --anno 1 --force 1
+
+
+2026年 01月 19日 星期一 20:37:40 CST	Dependency checking:
+All passed!
+
+2026年 01月 19日 星期一 20:37:54 CST	Perform EDTA advance filtering for raw TE candidates and generate the stage 1 library:
+
+TIR raw library file OV53_Chr.fa.mod.EDTA.raw/OV53_Chr.fa.mod.TIR.intact.raw.fa not exists!
+
+Perform EDTA basic and advance filtering for raw TE candidates and generate the stage 1 library
+perl EDTA_processF.pl [options]
+-genome	[File]	The genome FASTA
+-ltr	[File]	The raw LTR library FASTA
+-ltrint	[File]	The intact LTR library FASTA
+-sine	[File]	The raw SINE library FASTA
+-line	[File]	The raw LINE library FASTA
+-tir	[File]	The raw TIR library FASTA
+-helitron	[File]	The raw Helitron library FASTA
+-mindiff_ltr	[float]	The minimum fold difference in richness between LTRs and contaminants (default: 1)
+-mindiff_tir	[float]	The minimum fold difference in richness between TIRs and contaminants (default: 1)
+-mindiff_hel	[float]	The minimum fold difference in richness between Helitrons and contaminants (default: 2)
+-repeatmasker [path]	The directory containing RepeatMasker (default: read from ENV)
+-blast [path]	The directory containing Blastn (default: read from ENV)
+-threads|-t	[int]	Number of theads to run this script
+-help|-h	Display this help info
+
+ERROR: Stage 1 library not found in OV53_Chr.fa.mod.EDTA.combine/OV53_Chr.fa.mod.EDTA.fa.stg1 at /share/org/YZWL/yzwl_lixg/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/EDTA.pl line 525.
+2026-01-19 20:37:54.288 - ERROR - EDTA filter步骤运行出错|EDTA filter step runtime error: Command '['perl', '/share/org/YZWL/yzwl_lixg/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/EDTA.pl', '--genome', '/share/org/YZWL/yzwl_lixg/tmp/test_edta/OV53_Chr.fa', '--species', 'others', '--step', 'filter', '--overwrite', '0', '--maxdiv', '40', '--u', '1.3e-08', '--threads', '64', '--debug', '0', '--anno', '1', '--force', '1']' returned non-zero exit status 2.

@@ -1,0 +1,1588 @@
+🔧 加载GTX环境...
+🧬==============================================
+🧬    单样品变异检测+BSA变异检测流程开始
+🧬==============================================
+🕒 开始时间: 2025年 10月 01日 星期三 08:54:56 CST
+📂 原始数据: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw
+📂 清理数据: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+📂 单样品结果: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+📂 BSA结果: /share/org/YZWL/yzwl_lixg/project/16.荠菜/03.bsa.2
+📋 分组文件: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/sample_groups.txt
+
+🔍==============================================
+🔍    阶段2: 单样品变异检测 (GTX)
+🔍==============================================
+🕒 开始时间: 2025年 10月 01日 星期三 08:54:56 CST
+🔍 检查参考基因组...
+📊 参考基因组: genome.fa
+📊 参考基因组大小: 316M
+🏃 运行GTX单样品变异检测...
+⚡ 使用线程数: 80
+⚡ 联合线程数: 80
+[2025-10-01 08:54:56] INFO - 🚀 开始GTX WGS批处理分析流程 (Joint Calling模式) | Starting GTX WGS batch processing analysis pipeline (Joint Calling模式)
+[2025-10-01 08:54:56] INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+[2025-10-01 08:54:56] INFO - 📤 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:56] INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa
+[2025-10-01 08:54:56] INFO - 📁 R1文件模式 | R1 file pattern: *_1.clean.fq.gz
+[2025-10-01 08:54:56] INFO - 📁 R2文件模式 | R2 file pattern: *_2.clean.fq.gz
+[2025-10-01 08:54:56] INFO - 🤝 Joint calling已启用 | Joint calling enabled
+[2025-10-01 08:54:56] INFO -   📜 Joint输出文件 | Joint output file: merged_gtx.vcf.gz
+[2025-10-01 08:54:56] INFO -   🧵 Joint calling线程数 | Joint calling threads: 80
+[2025-10-01 08:54:56] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-01 08:54:56] INFO - ✅ ✓ GTX Joint Calling功能可用 | GTX Joint Calling functionality available
+[2025-10-01 08:54:56] INFO - ✅ ✓ GTX程序检查通过 | GTX program check passed
+[2025-10-01 08:54:57] INFO - ✅ 参考基因组索引完整 | Reference index complete
+[2025-10-01 08:54:57] INFO - 🔬 开始单样品WGS分析阶段 | Starting individual WGS analysis phase
+[2025-10-01 08:54:57] INFO - 🔍 搜索输入文件 | Searching input files
+[2025-10-01 08:54:57] INFO - 找到 50 个R1文件 | Found 50 R1 files
+[2025-10-01 08:54:57] INFO -   R1文件示例 | R1 file example: 100_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   R1文件示例 | R1 file example: 103_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   R1文件示例 | R1 file example: 105_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   R1文件示例 | R1 file example: 106_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   R1文件示例 | R1 file example: 10_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   ... 还有 45 个文件 | ... and 45 more files
+[2025-10-01 08:54:57] INFO - ✅ 找到 50 个样品需要处理 | Found 50 samples to process
+[2025-10-01 08:54:57] INFO - 样品列表示例 | Sample list examples:
+[2025-10-01 08:54:57] INFO -   1. 100
+[2025-10-01 08:54:57] INFO -      R1: 100_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -      R2: 100_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   2. 103
+[2025-10-01 08:54:57] INFO -      R1: 103_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -      R2: 103_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   3. 105
+[2025-10-01 08:54:57] INFO -      R1: 105_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -      R2: 105_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   ... 还有 47 个样品 | ... and 47 more samples
+[2025-10-01 08:54:57] INFO - ============================================================
+[2025-10-01 08:54:57] INFO - 🔬 开始批量处理样品 | Starting batch processing of samples
+[2025-10-01 08:54:57] INFO - [1/50] 🧪 处理样品 | Processing sample: 100
+[2025-10-01 08:54:57] INFO - 🚀 开始处理样品 | Starting to process sample: 100
+[2025-10-01 08:54:57] INFO -   📄 R1文件 | R1 file: 100_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📄 R2文件 | R2 file: 100_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📜 输出VCF | Output VCF: vcf/100.vcf.gz
+[2025-10-01 08:54:57] INFO -   💾 输出BAM | Output BAM: bam/100.sorted.bam
+[2025-10-01 08:54:57] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 100) | GTX WGS analysis (sample: 100)
+[2025-10-01 08:54:57] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:100\tSM:100\tPL:ILLUMINA\tLB:100" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/100.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/100.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/100_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/100_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:57] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 100) | GTX WGS analysis (sample: 100)
+[2025-10-01 08:54:57] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:57] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:57.268] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:57.287] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:57.287] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:57.300] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:57.300] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:57.300] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:57.300] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:57.300] [align] [info] Job: mapping, pid: 3969381
+[2025-10-01 08:54:57.391] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:57.392] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:57.392] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:57.392] [align] [error] clean up finished.
+[2025-10-01 08:54:57.392] [align] [info] 
+0.00user 0.00system 0.09elapsed 4.35%CPU (26368maxresident)k
+
+
+[2025-10-01 08:54:57] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:57] ERROR -   ❌ ✗ 样品 100 处理失败 | Sample 100 processing failed
+[2025-10-01 08:54:57] INFO - ----------------------------------------
+[2025-10-01 08:54:57] INFO - [2/50] 🧪 处理样品 | Processing sample: 103
+[2025-10-01 08:54:57] INFO - 🚀 开始处理样品 | Starting to process sample: 103
+[2025-10-01 08:54:57] INFO -   📄 R1文件 | R1 file: 103_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📄 R2文件 | R2 file: 103_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📜 输出VCF | Output VCF: vcf/103.vcf.gz
+[2025-10-01 08:54:57] INFO -   💾 输出BAM | Output BAM: bam/103.sorted.bam
+[2025-10-01 08:54:57] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 103) | GTX WGS analysis (sample: 103)
+[2025-10-01 08:54:57] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:103\tSM:103\tPL:ILLUMINA\tLB:103" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/103.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/103.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/103_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/103_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:57] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 103) | GTX WGS analysis (sample: 103)
+[2025-10-01 08:54:57] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:57] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:57.443] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:57.444] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:57.444] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:57.457] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:57.457] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:57.457] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:57.457] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:57.457] [align] [info] Job: mapping, pid: 3969390
+[2025-10-01 08:54:57.512] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:57.512] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:57.512] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:57.513] [align] [error] clean up finished.
+[2025-10-01 08:54:57.513] [align] [info] 
+0.00user 0.00system 0.06elapsed 7.27%CPU (26316maxresident)k
+
+
+[2025-10-01 08:54:57] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:57] ERROR -   ❌ ✗ 样品 103 处理失败 | Sample 103 processing failed
+[2025-10-01 08:54:57] INFO - ----------------------------------------
+[2025-10-01 08:54:57] INFO - [3/50] 🧪 处理样品 | Processing sample: 105
+[2025-10-01 08:54:57] INFO - 🚀 开始处理样品 | Starting to process sample: 105
+[2025-10-01 08:54:57] INFO -   📄 R1文件 | R1 file: 105_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📄 R2文件 | R2 file: 105_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📜 输出VCF | Output VCF: vcf/105.vcf.gz
+[2025-10-01 08:54:57] INFO -   💾 输出BAM | Output BAM: bam/105.sorted.bam
+[2025-10-01 08:54:57] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 105) | GTX WGS analysis (sample: 105)
+[2025-10-01 08:54:57] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:105\tSM:105\tPL:ILLUMINA\tLB:105" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/105.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/105.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/105_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/105_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:57] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 105) | GTX WGS analysis (sample: 105)
+[2025-10-01 08:54:57] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:57] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:57.563] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:57.565] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:57.565] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:57.578] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:57.578] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:57.578] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:57.578] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:57.578] [align] [info] Job: mapping, pid: 3969399
+[2025-10-01 08:54:57.580] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:57.581] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:57.581] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:57.581] [align] [error] clean up finished.
+[2025-10-01 08:54:57.581] [align] [info] 
+0.00user 0.00system 0.00elapsed 133.33%CPU (26128maxresident)k
+
+
+[2025-10-01 08:54:57] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:57] ERROR -   ❌ ✗ 样品 105 处理失败 | Sample 105 processing failed
+[2025-10-01 08:54:57] INFO - ----------------------------------------
+[2025-10-01 08:54:57] INFO - [4/50] 🧪 处理样品 | Processing sample: 106
+[2025-10-01 08:54:57] INFO - 🚀 开始处理样品 | Starting to process sample: 106
+[2025-10-01 08:54:57] INFO -   📄 R1文件 | R1 file: 106_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📄 R2文件 | R2 file: 106_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📜 输出VCF | Output VCF: vcf/106.vcf.gz
+[2025-10-01 08:54:57] INFO -   💾 输出BAM | Output BAM: bam/106.sorted.bam
+[2025-10-01 08:54:57] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 106) | GTX WGS analysis (sample: 106)
+[2025-10-01 08:54:57] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:106\tSM:106\tPL:ILLUMINA\tLB:106" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/106.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/106.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/106_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/106_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:57] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 106) | GTX WGS analysis (sample: 106)
+[2025-10-01 08:54:57] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:57] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:57.631] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:57.632] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:57.632] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:57.634] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:57.634] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:57.634] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:57.634] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:57.634] [align] [info] Job: mapping, pid: 3969406
+[2025-10-01 08:54:57.652] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:57.652] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:57.652] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:57.652] [align] [error] clean up finished.
+[2025-10-01 08:54:57.652] [align] [info] 
+0.00user 0.00system 0.02elapsed 22.22%CPU (26376maxresident)k
+
+
+[2025-10-01 08:54:57] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:57] ERROR -   ❌ ✗ 样品 106 处理失败 | Sample 106 processing failed
+[2025-10-01 08:54:57] INFO - ----------------------------------------
+[2025-10-01 08:54:57] INFO - [5/50] 🧪 处理样品 | Processing sample: 10
+[2025-10-01 08:54:57] INFO - 🚀 开始处理样品 | Starting to process sample: 10
+[2025-10-01 08:54:57] INFO -   📄 R1文件 | R1 file: 10_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📄 R2文件 | R2 file: 10_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📜 输出VCF | Output VCF: vcf/10.vcf.gz
+[2025-10-01 08:54:57] INFO -   💾 输出BAM | Output BAM: bam/10.sorted.bam
+[2025-10-01 08:54:57] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 10) | GTX WGS analysis (sample: 10)
+[2025-10-01 08:54:57] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:10\tSM:10\tPL:ILLUMINA\tLB:10" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/10.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/10.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/10_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/10_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:57] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 10) | GTX WGS analysis (sample: 10)
+[2025-10-01 08:54:57] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:57] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:57.702] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:57.703] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:57.703] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:57.717] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:57.717] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:57.717] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:57.717] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:57.717] [align] [info] Job: mapping, pid: 3969416
+[2025-10-01 08:54:57.771] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:57.772] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:57.772] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:57.772] [align] [error] clean up finished.
+[2025-10-01 08:54:57.772] [align] [info] 
+0.00user 0.00system 0.06elapsed 7.27%CPU (25744maxresident)k
+
+
+[2025-10-01 08:54:57] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:57] ERROR -   ❌ ✗ 样品 10 处理失败 | Sample 10 processing failed
+[2025-10-01 08:54:57] INFO - ----------------------------------------
+[2025-10-01 08:54:57] INFO - [6/50] 🧪 处理样品 | Processing sample: 113
+[2025-10-01 08:54:57] INFO - 🚀 开始处理样品 | Starting to process sample: 113
+[2025-10-01 08:54:57] INFO -   📄 R1文件 | R1 file: 113_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📄 R2文件 | R2 file: 113_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📜 输出VCF | Output VCF: vcf/113.vcf.gz
+[2025-10-01 08:54:57] INFO -   💾 输出BAM | Output BAM: bam/113.sorted.bam
+[2025-10-01 08:54:57] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 113) | GTX WGS analysis (sample: 113)
+[2025-10-01 08:54:57] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:113\tSM:113\tPL:ILLUMINA\tLB:113" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/113.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/113.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/113_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/113_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:57] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 113) | GTX WGS analysis (sample: 113)
+[2025-10-01 08:54:57] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:57] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:57.822] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:57.824] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:57.824] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:57.825] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:57.825] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:57.825] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:57.825] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:57.825] [align] [info] Job: mapping, pid: 3969426
+[2025-10-01 08:54:57.882] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:57.882] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:57.882] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:57.882] [align] [error] clean up finished.
+[2025-10-01 08:54:57.882] [align] [info] 
+0.00user 0.00system 0.06elapsed 7.02%CPU (25720maxresident)k
+
+
+[2025-10-01 08:54:57] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:57] ERROR -   ❌ ✗ 样品 113 处理失败 | Sample 113 processing failed
+[2025-10-01 08:54:57] INFO - ----------------------------------------
+[2025-10-01 08:54:57] INFO - [7/50] 🧪 处理样品 | Processing sample: 117
+[2025-10-01 08:54:57] INFO - 🚀 开始处理样品 | Starting to process sample: 117
+[2025-10-01 08:54:57] INFO -   📄 R1文件 | R1 file: 117_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📄 R2文件 | R2 file: 117_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📜 输出VCF | Output VCF: vcf/117.vcf.gz
+[2025-10-01 08:54:57] INFO -   💾 输出BAM | Output BAM: bam/117.sorted.bam
+[2025-10-01 08:54:57] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 117) | GTX WGS analysis (sample: 117)
+[2025-10-01 08:54:57] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:117\tSM:117\tPL:ILLUMINA\tLB:117" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/117.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/117.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/117_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/117_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:57] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 117) | GTX WGS analysis (sample: 117)
+[2025-10-01 08:54:57] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:57] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:57.933] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:57.934] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:57.934] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:57.935] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:57.935] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:57.935] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:57.935] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:57.935] [align] [info] Job: mapping, pid: 3969433
+[2025-10-01 08:54:57.938] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:57.938] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:57.939] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:57.939] [align] [error] clean up finished.
+[2025-10-01 08:54:57.939] [align] [info] 
+0.00user 0.00system 0.00elapsed 133.33%CPU (25856maxresident)k
+
+
+[2025-10-01 08:54:57] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:57] ERROR -   ❌ ✗ 样品 117 处理失败 | Sample 117 processing failed
+[2025-10-01 08:54:57] INFO - ----------------------------------------
+[2025-10-01 08:54:57] INFO - [8/50] 🧪 处理样品 | Processing sample: 12
+[2025-10-01 08:54:57] INFO - 🚀 开始处理样品 | Starting to process sample: 12
+[2025-10-01 08:54:57] INFO -   📄 R1文件 | R1 file: 12_1.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📄 R2文件 | R2 file: 12_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO -   📜 输出VCF | Output VCF: vcf/12.vcf.gz
+[2025-10-01 08:54:57] INFO -   💾 输出BAM | Output BAM: bam/12.sorted.bam
+[2025-10-01 08:54:57] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 12) | GTX WGS analysis (sample: 12)
+[2025-10-01 08:54:57] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:12\tSM:12\tPL:ILLUMINA\tLB:12" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/12.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/12.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/12_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/12_2.clean.fq.gz
+[2025-10-01 08:54:57] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 12) | GTX WGS analysis (sample: 12)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:57.989] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:57.990] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:57.990] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:57.991] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:57.991] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:57.991] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:57.991] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:57.992] [align] [info] Job: mapping, pid: 3969440
+[2025-10-01 08:54:58.011] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.012] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.012] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.012] [align] [error] clean up finished.
+[2025-10-01 08:54:58.012] [align] [info] 
+0.00user 0.00system 0.02elapsed 20.00%CPU (25920maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 12 处理失败 | Sample 12 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [9/50] 🧪 处理样品 | Processing sample: 140
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 140
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 140_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 140_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/140.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/140.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 140) | GTX WGS analysis (sample: 140)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:140\tSM:140\tPL:ILLUMINA\tLB:140" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/140.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/140.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/140_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/140_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 140) | GTX WGS analysis (sample: 140)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.062] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.063] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.063] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.077] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.077] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.077] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.077] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.077] [align] [info] Job: mapping, pid: 3969447
+[2025-10-01 08:54:58.079] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.080] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.080] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.080] [align] [error] clean up finished.
+[2025-10-01 08:54:58.080] [align] [info] 
+0.00user 0.00system 0.00elapsed 133.33%CPU (26180maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 140 处理失败 | Sample 140 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [10/50] 🧪 处理样品 | Processing sample: 148
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 148
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 148_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 148_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/148.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/148.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 148) | GTX WGS analysis (sample: 148)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:148\tSM:148\tPL:ILLUMINA\tLB:148" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/148.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/148.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/148_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/148_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 148) | GTX WGS analysis (sample: 148)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.130] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.131] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.131] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.133] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.133] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.133] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.133] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.133] [align] [info] Job: mapping, pid: 3969456
+[2025-10-01 08:54:58.156] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.157] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.157] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.157] [align] [error] clean up finished.
+[2025-10-01 08:54:58.157] [align] [info] 
+0.00user 0.00system 0.02elapsed 16.67%CPU (26640maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 148 处理失败 | Sample 148 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [11/50] 🧪 处理样品 | Processing sample: 150
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 150
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 150_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 150_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/150.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/150.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 150) | GTX WGS analysis (sample: 150)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:150\tSM:150\tPL:ILLUMINA\tLB:150" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/150.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/150.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/150_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/150_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 150) | GTX WGS analysis (sample: 150)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.207] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.208] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.208] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.209] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.209] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.209] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.209] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.210] [align] [info] Job: mapping, pid: 3969463
+[2025-10-01 08:54:58.280] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.281] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.281] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.281] [align] [error] clean up finished.
+[2025-10-01 08:54:58.281] [align] [info] 
+0.00user 0.00system 0.07elapsed 5.63%CPU (26620maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 150 处理失败 | Sample 150 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [12/50] 🧪 处理样品 | Processing sample: 16
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 16
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 16_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 16_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/16.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/16.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 16) | GTX WGS analysis (sample: 16)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:16\tSM:16\tPL:ILLUMINA\tLB:16" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/16.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/16.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/16_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/16_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 16) | GTX WGS analysis (sample: 16)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.331] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.333] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.333] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.334] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.334] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.334] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.334] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.334] [align] [info] Job: mapping, pid: 3969470
+[2025-10-01 08:54:58.358] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.358] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.358] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.358] [align] [error] clean up finished.
+[2025-10-01 08:54:58.358] [align] [info] 
+0.00user 0.00system 0.02elapsed 16.67%CPU (26304maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 16 处理失败 | Sample 16 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [13/50] 🧪 处理样品 | Processing sample: 23
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 23
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 23_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 23_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/23.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/23.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 23) | GTX WGS analysis (sample: 23)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:23\tSM:23\tPL:ILLUMINA\tLB:23" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/23.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/23.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/23_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/23_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 23) | GTX WGS analysis (sample: 23)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.408] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.409] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.409] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.411] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.411] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.411] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.411] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.411] [align] [info] Job: mapping, pid: 3969477
+[2025-10-01 08:54:58.417] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.417] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.417] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.417] [align] [error] clean up finished.
+[2025-10-01 08:54:58.417] [align] [info] 
+0.00user 0.00system 0.01elapsed 66.67%CPU (26008maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 23 处理失败 | Sample 23 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [14/50] 🧪 处理样品 | Processing sample: 26
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 26
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 26_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 26_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/26.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/26.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 26) | GTX WGS analysis (sample: 26)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:26\tSM:26\tPL:ILLUMINA\tLB:26" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/26.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/26.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/26_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/26_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 26) | GTX WGS analysis (sample: 26)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.468] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.469] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.469] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.470] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.470] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.470] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.470] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.470] [align] [info] Job: mapping, pid: 3969484
+[2025-10-01 08:54:58.546] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.547] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.547] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.547] [align] [error] clean up finished.
+[2025-10-01 08:54:58.547] [align] [info] 
+0.00user 0.00system 0.08elapsed 5.26%CPU (25996maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 26 处理失败 | Sample 26 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [15/50] 🧪 处理样品 | Processing sample: 28
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 28
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 28_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 28_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/28.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/28.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 28) | GTX WGS analysis (sample: 28)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:28\tSM:28\tPL:ILLUMINA\tLB:28" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/28.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/28.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/28_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/28_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 28) | GTX WGS analysis (sample: 28)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.597] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.598] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.598] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.599] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.599] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.599] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.600] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.600] [align] [info] Job: mapping, pid: 3969491
+[2025-10-01 08:54:58.604] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.604] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.604] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.604] [align] [error] clean up finished.
+[2025-10-01 08:54:58.604] [align] [info] 
+0.00user 0.00system 0.00elapsed 100.00%CPU (26632maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 28 处理失败 | Sample 28 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [16/50] 🧪 处理样品 | Processing sample: 2
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 2
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 2_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 2_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/2.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/2.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 2) | GTX WGS analysis (sample: 2)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:2\tSM:2\tPL:ILLUMINA\tLB:2" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/2.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/2.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/2_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/2_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 2) | GTX WGS analysis (sample: 2)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.655] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.656] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.656] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.657] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.657] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.657] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.657] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.657] [align] [info] Job: mapping, pid: 3969498
+[2025-10-01 08:54:58.707] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.708] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.708] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.708] [align] [error] clean up finished.
+[2025-10-01 08:54:58.708] [align] [info] 
+0.00user 0.00system 0.05elapsed 8.00%CPU (26188maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 2 处理失败 | Sample 2 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [17/50] 🧪 处理样品 | Processing sample: 40
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 40
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 40_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 40_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/40.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/40.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 40) | GTX WGS analysis (sample: 40)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:40\tSM:40\tPL:ILLUMINA\tLB:40" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/40.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/40.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/40_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/40_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 40) | GTX WGS analysis (sample: 40)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.758] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.759] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.759] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.761] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.761] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.761] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.761] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.761] [align] [info] Job: mapping, pid: 3969505
+[2025-10-01 08:54:58.813] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.814] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.814] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.814] [align] [error] clean up finished.
+[2025-10-01 08:54:58.814] [align] [info] 
+0.00user 0.00system 0.05elapsed 7.55%CPU (25628maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 40 处理失败 | Sample 40 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [18/50] 🧪 处理样品 | Processing sample: 41
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 41
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 41_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 41_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/41.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/41.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 41) | GTX WGS analysis (sample: 41)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:41\tSM:41\tPL:ILLUMINA\tLB:41" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/41.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/41.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/41_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/41_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 41) | GTX WGS analysis (sample: 41)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.866] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.868] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.868] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.881] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.881] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.881] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.881] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.881] [align] [info] Job: mapping, pid: 3969530
+[2025-10-01 08:54:58.922] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.923] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.923] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.923] [align] [error] clean up finished.
+[2025-10-01 08:54:58.923] [align] [info] 
+0.00user 0.00system 0.04elapsed 11.90%CPU (25340maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 41 处理失败 | Sample 41 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [19/50] 🧪 处理样品 | Processing sample: 42
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 42
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 42_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 42_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/42.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/42.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 42) | GTX WGS analysis (sample: 42)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:42\tSM:42\tPL:ILLUMINA\tLB:42" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/42.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/42.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/42_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/42_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:58] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 42) | GTX WGS analysis (sample: 42)
+[2025-10-01 08:54:58] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:58] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:58.974] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:58.975] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:58.975] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:58.988] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:58.988] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:58.988] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:58.988] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:58.988] [align] [info] Job: mapping, pid: 3969537
+[2025-10-01 08:54:58.991] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:58.991] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:58.991] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:58.991] [align] [error] clean up finished.
+[2025-10-01 08:54:58.991] [align] [info] 
+0.00user 0.00system 0.00elapsed 133.33%CPU (26460maxresident)k
+
+
+[2025-10-01 08:54:58] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:58] ERROR -   ❌ ✗ 样品 42 处理失败 | Sample 42 processing failed
+[2025-10-01 08:54:58] INFO - ----------------------------------------
+[2025-10-01 08:54:58] INFO - [20/50] 🧪 处理样品 | Processing sample: 43
+[2025-10-01 08:54:58] INFO - 🚀 开始处理样品 | Starting to process sample: 43
+[2025-10-01 08:54:58] INFO -   📄 R1文件 | R1 file: 43_1.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📄 R2文件 | R2 file: 43_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO -   📜 输出VCF | Output VCF: vcf/43.vcf.gz
+[2025-10-01 08:54:58] INFO -   💾 输出BAM | Output BAM: bam/43.sorted.bam
+[2025-10-01 08:54:58] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 43) | GTX WGS analysis (sample: 43)
+[2025-10-01 08:54:58] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:43\tSM:43\tPL:ILLUMINA\tLB:43" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/43.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/43.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/43_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/43_2.clean.fq.gz
+[2025-10-01 08:54:58] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 43) | GTX WGS analysis (sample: 43)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.042] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.043] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.043] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.056] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.056] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.056] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.056] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.056] [align] [info] Job: mapping, pid: 3969544
+[2025-10-01 08:54:59.098] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.099] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.099] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.099] [align] [error] clean up finished.
+[2025-10-01 08:54:59.099] [align] [info] 
+0.00user 0.00system 0.04elapsed 9.30%CPU (26372maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 43 处理失败 | Sample 43 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [21/50] 🧪 处理样品 | Processing sample: 44
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 44
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 44_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 44_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/44.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/44.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 44) | GTX WGS analysis (sample: 44)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:44\tSM:44\tPL:ILLUMINA\tLB:44" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/44.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/44.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/44_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/44_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 44) | GTX WGS analysis (sample: 44)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.149] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.150] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5493743GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.150] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.151] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.151] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.151] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.151] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.151] [align] [info] Job: mapping, pid: 3969551
+[2025-10-01 08:54:59.154] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.154] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.154] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.154] [align] [error] clean up finished.
+[2025-10-01 08:54:59.154] [align] [info] 
+0.00user 0.00system 0.00elapsed 200.00%CPU (25968maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 44 处理失败 | Sample 44 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [22/50] 🧪 处理样品 | Processing sample: 45
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 45
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 45_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 45_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/45.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/45.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 45) | GTX WGS analysis (sample: 45)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:45\tSM:45\tPL:ILLUMINA\tLB:45" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/45.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/45.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/45_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/45_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 45) | GTX WGS analysis (sample: 45)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.205] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.207] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.207] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.220] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.220] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.220] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.220] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.220] [align] [info] Job: mapping, pid: 3969558
+[2025-10-01 08:54:59.222] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.223] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.223] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.223] [align] [error] clean up finished.
+[2025-10-01 08:54:59.223] [align] [info] 
+0.00user 0.00system 0.00elapsed 133.33%CPU (26644maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 45 处理失败 | Sample 45 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [23/50] 🧪 处理样品 | Processing sample: 46
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 46
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 46_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 46_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/46.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/46.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 46) | GTX WGS analysis (sample: 46)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:46\tSM:46\tPL:ILLUMINA\tLB:46" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/46.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/46.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/46_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/46_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 46) | GTX WGS analysis (sample: 46)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.274] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.275] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.275] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.289] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.289] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.289] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.289] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.289] [align] [info] Job: mapping, pid: 3969565
+[2025-10-01 08:54:59.291] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.291] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.291] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.292] [align] [error] clean up finished.
+[2025-10-01 08:54:59.292] [align] [info] 
+0.00user 0.00system 0.00elapsed 200.00%CPU (26304maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 46 处理失败 | Sample 46 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [24/50] 🧪 处理样品 | Processing sample: 47
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 47
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 47_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 47_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/47.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/47.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 47) | GTX WGS analysis (sample: 47)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:47\tSM:47\tPL:ILLUMINA\tLB:47" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/47.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/47.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/47_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/47_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 47) | GTX WGS analysis (sample: 47)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.342] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.343] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.343] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.356] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.356] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.356] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.356] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.356] [align] [info] Job: mapping, pid: 3969572
+[2025-10-01 08:54:59.406] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.406] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.406] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.406] [align] [error] clean up finished.
+[2025-10-01 08:54:59.406] [align] [info] 
+0.00user 0.00system 0.05elapsed 8.00%CPU (26200maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 47 处理失败 | Sample 47 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [25/50] 🧪 处理样品 | Processing sample: 48
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 48
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 48_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 48_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/48.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/48.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 48) | GTX WGS analysis (sample: 48)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:48\tSM:48\tPL:ILLUMINA\tLB:48" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/48.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/48.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/48_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/48_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 48) | GTX WGS analysis (sample: 48)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.456] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.458] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.458] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.459] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.459] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.459] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.459] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.459] [align] [info] Job: mapping, pid: 3969579
+[2025-10-01 08:54:59.461] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.462] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.462] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.462] [align] [error] clean up finished.
+[2025-10-01 08:54:59.462] [align] [info] 
+0.00user 0.00system 0.00elapsed 200.00%CPU (26260maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 48 处理失败 | Sample 48 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [26/50] 🧪 处理样品 | Processing sample: 49
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 49
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 49_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 49_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/49.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/49.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 49) | GTX WGS analysis (sample: 49)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:49\tSM:49\tPL:ILLUMINA\tLB:49" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/49.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/49.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/49_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/49_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 49) | GTX WGS analysis (sample: 49)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.512] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.513] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.513] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.526] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.526] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.526] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.526] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.526] [align] [info] Job: mapping, pid: 3969586
+[2025-10-01 08:54:59.584] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.584] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.584] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.584] [align] [error] clean up finished.
+[2025-10-01 08:54:59.584] [align] [info] 
+0.00user 0.00system 0.06elapsed 6.90%CPU (26520maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 49 处理失败 | Sample 49 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [27/50] 🧪 处理样品 | Processing sample: 50
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 50
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 50_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 50_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/50.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/50.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 50) | GTX WGS analysis (sample: 50)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:50\tSM:50\tPL:ILLUMINA\tLB:50" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/50.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/50.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/50_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/50_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 50) | GTX WGS analysis (sample: 50)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.634] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.635] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.635] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.637] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.637] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.637] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.637] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.637] [align] [info] Job: mapping, pid: 3969593
+[2025-10-01 08:54:59.644] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.644] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.644] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.644] [align] [error] clean up finished.
+[2025-10-01 08:54:59.644] [align] [info] 
+0.00user 0.00system 0.01elapsed 57.14%CPU (26012maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 50 处理失败 | Sample 50 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [28/50] 🧪 处理样品 | Processing sample: 51
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 51
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 51_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 51_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/51.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/51.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 51) | GTX WGS analysis (sample: 51)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:51\tSM:51\tPL:ILLUMINA\tLB:51" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/51.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/51.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/51_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/51_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 51) | GTX WGS analysis (sample: 51)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.694] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.695] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.695] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.696] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.696] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.696] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.696] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.697] [align] [info] Job: mapping, pid: 3969600
+[2025-10-01 08:54:59.764] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.765] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.765] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.765] [align] [error] clean up finished.
+[2025-10-01 08:54:59.765] [align] [info] 
+0.00user 0.00system 0.07elapsed 5.88%CPU (25404maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 51 处理失败 | Sample 51 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [29/50] 🧪 处理样品 | Processing sample: 52
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 52
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 52_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 52_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/52.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/52.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 52) | GTX WGS analysis (sample: 52)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:52\tSM:52\tPL:ILLUMINA\tLB:52" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/52.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/52.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/52_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/52_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 52) | GTX WGS analysis (sample: 52)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.815] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.816] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.816] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.817] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.817] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.817] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.817] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.818] [align] [info] Job: mapping, pid: 3969607
+[2025-10-01 08:54:59.821] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.821] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.821] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.822] [align] [error] clean up finished.
+[2025-10-01 08:54:59.822] [align] [info] 
+0.00user 0.00system 0.00elapsed 100.00%CPU (26396maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 52 处理失败 | Sample 52 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [30/50] 🧪 处理样品 | Processing sample: 53
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 53
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 53_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 53_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/53.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/53.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 53) | GTX WGS analysis (sample: 53)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:53\tSM:53\tPL:ILLUMINA\tLB:53" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/53.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/53.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/53_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/53_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:54:59] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 53) | GTX WGS analysis (sample: 53)
+[2025-10-01 08:54:59] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:54:59] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.872] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.873] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.873] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.886] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.886] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.886] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.886] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.886] [align] [info] Job: mapping, pid: 3969614
+[2025-10-01 08:54:59.902] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:54:59.902] [align] [error] mapping exited abnormally.
+[2025-10-01 08:54:59.902] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:54:59.902] [align] [error] clean up finished.
+[2025-10-01 08:54:59.902] [align] [info] 
+0.00user 0.00system 0.02elapsed 25.00%CPU (26496maxresident)k
+
+
+[2025-10-01 08:54:59] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:54:59] ERROR -   ❌ ✗ 样品 53 处理失败 | Sample 53 processing failed
+[2025-10-01 08:54:59] INFO - ----------------------------------------
+[2025-10-01 08:54:59] INFO - [31/50] 🧪 处理样品 | Processing sample: 54
+[2025-10-01 08:54:59] INFO - 🚀 开始处理样品 | Starting to process sample: 54
+[2025-10-01 08:54:59] INFO -   📄 R1文件 | R1 file: 54_1.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📄 R2文件 | R2 file: 54_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO -   📜 输出VCF | Output VCF: vcf/54.vcf.gz
+[2025-10-01 08:54:59] INFO -   💾 输出BAM | Output BAM: bam/54.sorted.bam
+[2025-10-01 08:54:59] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 54) | GTX WGS analysis (sample: 54)
+[2025-10-01 08:54:59] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:54\tSM:54\tPL:ILLUMINA\tLB:54" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/54.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/54.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/54_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/54_2.clean.fq.gz
+[2025-10-01 08:54:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 54) | GTX WGS analysis (sample: 54)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:54:59.952] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:54:59.953] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:54:59.953] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:54:59.955] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:54:59.955] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:54:59.955] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:54:59.955] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:54:59.955] [align] [info] Job: mapping, pid: 3969621
+[2025-10-01 08:55:00.016] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.017] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.017] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.017] [align] [error] clean up finished.
+[2025-10-01 08:55:00.017] [align] [info] 
+0.00user 0.00system 0.06elapsed 6.56%CPU (26516maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 54 处理失败 | Sample 54 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [32/50] 🧪 处理样品 | Processing sample: 55
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 55
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 55_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 55_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/55.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/55.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 55) | GTX WGS analysis (sample: 55)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:55\tSM:55\tPL:ILLUMINA\tLB:55" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/55.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/55.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/55_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/55_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 55) | GTX WGS analysis (sample: 55)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.067] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.068] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.068] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.081] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.081] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.081] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.081] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.081] [align] [info] Job: mapping, pid: 3969628
+[2025-10-01 08:55:00.102] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.103] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.103] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.103] [align] [error] clean up finished.
+[2025-10-01 08:55:00.103] [align] [info] 
+0.00user 0.00system 0.02elapsed 18.18%CPU (26100maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 55 处理失败 | Sample 55 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [33/50] 🧪 处理样品 | Processing sample: 56
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 56
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 56_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 56_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/56.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/56.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 56) | GTX WGS analysis (sample: 56)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:56\tSM:56\tPL:ILLUMINA\tLB:56" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/56.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/56.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/56_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/56_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 56) | GTX WGS analysis (sample: 56)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.153] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.154] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.154] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.155] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.155] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.155] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.155] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.156] [align] [info] Job: mapping, pid: 3969635
+[2025-10-01 08:55:00.189] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.190] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.190] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.190] [align] [error] clean up finished.
+[2025-10-01 08:55:00.190] [align] [info] 
+0.00user 0.00system 0.03elapsed 11.76%CPU (26196maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 56 处理失败 | Sample 56 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [34/50] 🧪 处理样品 | Processing sample: 57
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 57
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 57_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 57_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/57.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/57.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 57) | GTX WGS analysis (sample: 57)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:57\tSM:57\tPL:ILLUMINA\tLB:57" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/57.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/57.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/57_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/57_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 57) | GTX WGS analysis (sample: 57)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.266] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.267] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.267] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.268] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.268] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.268] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.268] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.268] [align] [info] Job: mapping, pid: 3969642
+[2025-10-01 08:55:00.334] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.334] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.334] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.335] [align] [error] clean up finished.
+[2025-10-01 08:55:00.335] [align] [info] 
+0.00user 0.00system 0.07elapsed 6.06%CPU (25392maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 57 处理失败 | Sample 57 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [35/50] 🧪 处理样品 | Processing sample: 58
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 58
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 58_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 58_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/58.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/58.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 58) | GTX WGS analysis (sample: 58)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:58\tSM:58\tPL:ILLUMINA\tLB:58" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/58.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/58.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/58_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/58_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 58) | GTX WGS analysis (sample: 58)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.384] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.385] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.385] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.387] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.387] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.387] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.387] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.387] [align] [info] Job: mapping, pid: 3969649
+[2025-10-01 08:55:00.403] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.403] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.403] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.403] [align] [error] clean up finished.
+[2025-10-01 08:55:00.403] [align] [info] 
+0.00user 0.00system 0.02elapsed 18.75%CPU (25996maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 58 处理失败 | Sample 58 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [36/50] 🧪 处理样品 | Processing sample: 59
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 59
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 59_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 59_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/59.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/59.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 59) | GTX WGS analysis (sample: 59)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:59\tSM:59\tPL:ILLUMINA\tLB:59" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/59.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/59.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/59_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/59_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 59) | GTX WGS analysis (sample: 59)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.453] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.454] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.454] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.456] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.456] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.456] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.456] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.456] [align] [info] Job: mapping, pid: 3969656
+[2025-10-01 08:55:00.472] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.473] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.473] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.473] [align] [error] clean up finished.
+[2025-10-01 08:55:00.473] [align] [info] 
+0.00user 0.00system 0.02elapsed 23.53%CPU (25452maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 59 处理失败 | Sample 59 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [37/50] 🧪 处理样品 | Processing sample: 60
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 60
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 60_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 60_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/60.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/60.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 60) | GTX WGS analysis (sample: 60)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:60\tSM:60\tPL:ILLUMINA\tLB:60" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/60.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/60.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/60_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/60_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 60) | GTX WGS analysis (sample: 60)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.523] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.524] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.524] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.525] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.525] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.525] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.525] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.525] [align] [info] Job: mapping, pid: 3969663
+[2025-10-01 08:55:00.528] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.528] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.528] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.528] [align] [error] clean up finished.
+[2025-10-01 08:55:00.528] [align] [info] 
+0.00user 0.00system 0.00elapsed 150.00%CPU (26188maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 60 处理失败 | Sample 60 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [38/50] 🧪 处理样品 | Processing sample: 69
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 69
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 69_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 69_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/69.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/69.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 69) | GTX WGS analysis (sample: 69)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:69\tSM:69\tPL:ILLUMINA\tLB:69" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/69.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/69.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/69_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/69_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 69) | GTX WGS analysis (sample: 69)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.578] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.579] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.579] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.592] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.592] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.592] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.592] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.592] [align] [info] Job: mapping, pid: 3969670
+[2025-10-01 08:55:00.594] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.594] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.594] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.595] [align] [error] clean up finished.
+[2025-10-01 08:55:00.595] [align] [info] 
+0.00user 0.00system 0.00elapsed 150.00%CPU (25960maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 69 处理失败 | Sample 69 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [39/50] 🧪 处理样品 | Processing sample: 74
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 74
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 74_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 74_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/74.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/74.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 74) | GTX WGS analysis (sample: 74)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:74\tSM:74\tPL:ILLUMINA\tLB:74" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/74.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/74.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/74_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/74_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 74) | GTX WGS analysis (sample: 74)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.644] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.646] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.646] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.647] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.647] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.647] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.647] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.647] [align] [info] Job: mapping, pid: 3969677
+[2025-10-01 08:55:00.669] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.669] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.669] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.670] [align] [error] clean up finished.
+[2025-10-01 08:55:00.670] [align] [info] 
+0.00user 0.00system 0.02elapsed 18.18%CPU (25920maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 74 处理失败 | Sample 74 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [40/50] 🧪 处理样品 | Processing sample: 75
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 75
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 75_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 75_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/75.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/75.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 75) | GTX WGS analysis (sample: 75)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:75\tSM:75\tPL:ILLUMINA\tLB:75" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/75.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/75.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/75_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/75_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 75) | GTX WGS analysis (sample: 75)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.719] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.721] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.721] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.722] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.722] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.722] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.722] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.722] [align] [info] Job: mapping, pid: 3969684
+[2025-10-01 08:55:00.759] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.760] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.760] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.760] [align] [error] clean up finished.
+[2025-10-01 08:55:00.760] [align] [info] 
+0.00user 0.00system 0.04elapsed 8.11%CPU (25920maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 75 处理失败 | Sample 75 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [41/50] 🧪 处理样品 | Processing sample: 77
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 77
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 77_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 77_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/77.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/77.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 77) | GTX WGS analysis (sample: 77)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:77\tSM:77\tPL:ILLUMINA\tLB:77" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/77.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/77.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/77_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/77_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:00] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 77) | GTX WGS analysis (sample: 77)
+[2025-10-01 08:55:00] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:00] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.810] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.811] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.811] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.812] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.812] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.812] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.812] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.812] [align] [info] Job: mapping, pid: 3969691
+[2025-10-01 08:55:00.898] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:00.898] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:00.898] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:00.898] [align] [error] clean up finished.
+[2025-10-01 08:55:00.898] [align] [info] 
+0.00user 0.00system 0.09elapsed 4.65%CPU (25712maxresident)k
+
+
+[2025-10-01 08:55:00] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:00] ERROR -   ❌ ✗ 样品 77 处理失败 | Sample 77 processing failed
+[2025-10-01 08:55:00] INFO - ----------------------------------------
+[2025-10-01 08:55:00] INFO - [42/50] 🧪 处理样品 | Processing sample: 78
+[2025-10-01 08:55:00] INFO - 🚀 开始处理样品 | Starting to process sample: 78
+[2025-10-01 08:55:00] INFO -   📄 R1文件 | R1 file: 78_1.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📄 R2文件 | R2 file: 78_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO -   📜 输出VCF | Output VCF: vcf/78.vcf.gz
+[2025-10-01 08:55:00] INFO -   💾 输出BAM | Output BAM: bam/78.sorted.bam
+[2025-10-01 08:55:00] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 78) | GTX WGS analysis (sample: 78)
+[2025-10-01 08:55:00] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:78\tSM:78\tPL:ILLUMINA\tLB:78" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/78.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/78.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/78_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/78_2.clean.fq.gz
+[2025-10-01 08:55:00] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 78) | GTX WGS analysis (sample: 78)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:00.948] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:00.950] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:00.950] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:00.951] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:00.951] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:00.951] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:00.951] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:00.951] [align] [info] Job: mapping, pid: 3969698
+[2025-10-01 08:55:01.048] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.049] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.049] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.049] [align] [error] clean up finished.
+[2025-10-01 08:55:01.049] [align] [info] 
+0.00user 0.00system 0.10elapsed 4.08%CPU (26008maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 78 处理失败 | Sample 78 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - [43/50] 🧪 处理样品 | Processing sample: 79
+[2025-10-01 08:55:01] INFO - 🚀 开始处理样品 | Starting to process sample: 79
+[2025-10-01 08:55:01] INFO -   📄 R1文件 | R1 file: 79_1.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📄 R2文件 | R2 file: 79_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📜 输出VCF | Output VCF: vcf/79.vcf.gz
+[2025-10-01 08:55:01] INFO -   💾 输出BAM | Output BAM: bam/79.sorted.bam
+[2025-10-01 08:55:01] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 79) | GTX WGS analysis (sample: 79)
+[2025-10-01 08:55:01] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:79\tSM:79\tPL:ILLUMINA\tLB:79" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/79.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/79.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/79_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/79_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 79) | GTX WGS analysis (sample: 79)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:01.099] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:01.100] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:01.100] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:01.102] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:01.102] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:01.102] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:01.102] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:01.102] [align] [info] Job: mapping, pid: 3969705
+[2025-10-01 08:55:01.117] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.118] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.118] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.118] [align] [error] clean up finished.
+[2025-10-01 08:55:01.118] [align] [info] 
+0.00user 0.00system 0.02elapsed 25.00%CPU (25900maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 79 处理失败 | Sample 79 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - [44/50] 🧪 处理样品 | Processing sample: 7
+[2025-10-01 08:55:01] INFO - 🚀 开始处理样品 | Starting to process sample: 7
+[2025-10-01 08:55:01] INFO -   📄 R1文件 | R1 file: 7_1.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📄 R2文件 | R2 file: 7_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📜 输出VCF | Output VCF: vcf/7.vcf.gz
+[2025-10-01 08:55:01] INFO -   💾 输出BAM | Output BAM: bam/7.sorted.bam
+[2025-10-01 08:55:01] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 7) | GTX WGS analysis (sample: 7)
+[2025-10-01 08:55:01] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:7\tSM:7\tPL:ILLUMINA\tLB:7" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/7.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/7.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/7_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/7_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 7) | GTX WGS analysis (sample: 7)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:01.168] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:01.169] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:01.169] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:01.170] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:01.170] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:01.170] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:01.170] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:01.170] [align] [info] Job: mapping, pid: 3969712
+[2025-10-01 08:55:01.172] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.173] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.173] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.173] [align] [error] clean up finished.
+[2025-10-01 08:55:01.173] [align] [info] 
+0.00user 0.00system 0.00elapsed 200.00%CPU (26384maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 7 处理失败 | Sample 7 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - [45/50] 🧪 处理样品 | Processing sample: 85
+[2025-10-01 08:55:01] INFO - 🚀 开始处理样品 | Starting to process sample: 85
+[2025-10-01 08:55:01] INFO -   📄 R1文件 | R1 file: 85_1.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📄 R2文件 | R2 file: 85_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📜 输出VCF | Output VCF: vcf/85.vcf.gz
+[2025-10-01 08:55:01] INFO -   💾 输出BAM | Output BAM: bam/85.sorted.bam
+[2025-10-01 08:55:01] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 85) | GTX WGS analysis (sample: 85)
+[2025-10-01 08:55:01] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:85\tSM:85\tPL:ILLUMINA\tLB:85" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/85.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/85.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/85_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/85_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 85) | GTX WGS analysis (sample: 85)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:01.223] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:01.224] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:01.224] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:01.225] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:01.225] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:01.225] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:01.225] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:01.226] [align] [info] Job: mapping, pid: 3969719
+[2025-10-01 08:55:01.228] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.228] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.228] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.228] [align] [error] clean up finished.
+[2025-10-01 08:55:01.228] [align] [info] 
+0.00user 0.00system 0.00elapsed 200.00%CPU (25920maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 85 处理失败 | Sample 85 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - [46/50] 🧪 处理样品 | Processing sample: 88
+[2025-10-01 08:55:01] INFO - 🚀 开始处理样品 | Starting to process sample: 88
+[2025-10-01 08:55:01] INFO -   📄 R1文件 | R1 file: 88_1.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📄 R2文件 | R2 file: 88_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📜 输出VCF | Output VCF: vcf/88.vcf.gz
+[2025-10-01 08:55:01] INFO -   💾 输出BAM | Output BAM: bam/88.sorted.bam
+[2025-10-01 08:55:01] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 88) | GTX WGS analysis (sample: 88)
+[2025-10-01 08:55:01] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:88\tSM:88\tPL:ILLUMINA\tLB:88" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/88.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/88.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/88_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/88_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 88) | GTX WGS analysis (sample: 88)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:01.278] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:01.279] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:01.279] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:01.280] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:01.280] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:01.280] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:01.280] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:01.281] [align] [info] Job: mapping, pid: 3969726
+[2025-10-01 08:55:01.387] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.388] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.388] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.388] [align] [error] clean up finished.
+[2025-10-01 08:55:01.388] [align] [info] 
+0.00user 0.00system 0.11elapsed 3.74%CPU (25612maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 88 处理失败 | Sample 88 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - [47/50] 🧪 处理样品 | Processing sample: 89
+[2025-10-01 08:55:01] INFO - 🚀 开始处理样品 | Starting to process sample: 89
+[2025-10-01 08:55:01] INFO -   📄 R1文件 | R1 file: 89_1.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📄 R2文件 | R2 file: 89_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📜 输出VCF | Output VCF: vcf/89.vcf.gz
+[2025-10-01 08:55:01] INFO -   💾 输出BAM | Output BAM: bam/89.sorted.bam
+[2025-10-01 08:55:01] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 89) | GTX WGS analysis (sample: 89)
+[2025-10-01 08:55:01] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:89\tSM:89\tPL:ILLUMINA\tLB:89" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/89.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/89.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/89_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/89_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 89) | GTX WGS analysis (sample: 89)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:01.438] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:01.439] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:01.439] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:01.440] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:01.440] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:01.440] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:01.440] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:01.441] [align] [info] Job: mapping, pid: 3969733
+[2025-10-01 08:55:01.467] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.468] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.468] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.468] [align] [error] clean up finished.
+[2025-10-01 08:55:01.468] [align] [info] 
+0.00user 0.00system 0.03elapsed 14.81%CPU (26048maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 89 处理失败 | Sample 89 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - [48/50] 🧪 处理样品 | Processing sample: 90
+[2025-10-01 08:55:01] INFO - 🚀 开始处理样品 | Starting to process sample: 90
+[2025-10-01 08:55:01] INFO -   📄 R1文件 | R1 file: 90_1.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📄 R2文件 | R2 file: 90_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📜 输出VCF | Output VCF: vcf/90.vcf.gz
+[2025-10-01 08:55:01] INFO -   💾 输出BAM | Output BAM: bam/90.sorted.bam
+[2025-10-01 08:55:01] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 90) | GTX WGS analysis (sample: 90)
+[2025-10-01 08:55:01] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:90\tSM:90\tPL:ILLUMINA\tLB:90" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/90.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/90.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/90_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/90_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 90) | GTX WGS analysis (sample: 90)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:01.518] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:01.519] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:01.519] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:01.520] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:01.520] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:01.520] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:01.520] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:01.520] [align] [info] Job: mapping, pid: 3969740
+[2025-10-01 08:55:01.614] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.614] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.614] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.614] [align] [error] clean up finished.
+[2025-10-01 08:55:01.614] [align] [info] 
+0.00user 0.00system 0.09elapsed 4.26%CPU (26252maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 90 处理失败 | Sample 90 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - [49/50] 🧪 处理样品 | Processing sample: 94
+[2025-10-01 08:55:01] INFO - 🚀 开始处理样品 | Starting to process sample: 94
+[2025-10-01 08:55:01] INFO -   📄 R1文件 | R1 file: 94_1.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📄 R2文件 | R2 file: 94_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📜 输出VCF | Output VCF: vcf/94.vcf.gz
+[2025-10-01 08:55:01] INFO -   💾 输出BAM | Output BAM: bam/94.sorted.bam
+[2025-10-01 08:55:01] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 94) | GTX WGS analysis (sample: 94)
+[2025-10-01 08:55:01] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:94\tSM:94\tPL:ILLUMINA\tLB:94" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/94.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/94.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/94_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/94_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 94) | GTX WGS analysis (sample: 94)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:01.665] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:01.666] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:01.666] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:01.667] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:01.667] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:01.667] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:01.667] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:01.667] [align] [info] Job: mapping, pid: 3969747
+[2025-10-01 08:55:01.734] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.734] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.734] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.734] [align] [error] clean up finished.
+[2025-10-01 08:55:01.734] [align] [info] 
+0.00user 0.00system 0.07elapsed 5.97%CPU (26276maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 94 处理失败 | Sample 94 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - [50/50] 🧪 处理样品 | Processing sample: 95
+[2025-10-01 08:55:01] INFO - 🚀 开始处理样品 | Starting to process sample: 95
+[2025-10-01 08:55:01] INFO -   📄 R1文件 | R1 file: 95_1.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📄 R2文件 | R2 file: 95_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO -   📜 输出VCF | Output VCF: vcf/95.vcf.gz
+[2025-10-01 08:55:01] INFO -   💾 输出BAM | Output BAM: bam/95.sorted.bam
+[2025-10-01 08:55:01] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: 95) | GTX WGS analysis (sample: 95)
+[2025-10-01 08:55:01] INFO - 💻 命令 | Command: /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:95\tSM:95\tPL:ILLUMINA\tLB:95" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/vcf/95.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/bam/95.sorted.bam -t 80 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 4 /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/95_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/95_2.clean.fq.gz
+[2025-10-01 08:55:01] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-01 08:55:01] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: 95) | GTX WGS analysis (sample: 95)
+[2025-10-01 08:55:01] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-01 08:55:01] ERROR - 💬 错误信息 | Error message: [2025-10-01 08:55:01.784] [gtx] [info] Version: gtx-2.2.1
+[2025-10-01 08:55:01.785] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/tmp available: 5494082GB, memory available: 964GB, ulimit of open files: 400000
+[2025-10-01 08:55:01.785] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2025-10-01 08:55:01.787] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2025-10-01 08:55:01.787] [wgs] [info] cpu vendor:GenuineIntel
+[2025-10-01 08:55:01.787] [wgs] [info] threads: 80 max : 88
+[2025-10-01 08:55:01.787] [wgs] [info] Use bwa mem to align!
+[2025-10-01 08:55:01.787] [align] [info] Job: mapping, pid: 3969754
+[2025-10-01 08:55:01.855] [align] [error] start gtx failed, #FailedToGetLicense: @server#LicenseExpiredException: GTX.CAT: License is expired at 2025-09-30T23:59:59
+[2025-10-01 08:55:01.855] [align] [error] mapping exited abnormally.
+[2025-10-01 08:55:01.855] [align] [error] clean temporary files, please waiting...
+[2025-10-01 08:55:01.855] [align] [error] clean up finished.
+[2025-10-01 08:55:01.855] [align] [info] 
+0.00user 0.00system 0.07elapsed 5.88%CPU (26244maxresident)k
+
+
+[2025-10-01 08:55:01] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-01 08:55:01] ERROR -   ❌ ✗ 样品 95 处理失败 | Sample 95 processing failed
+[2025-10-01 08:55:01] INFO - ----------------------------------------
+[2025-10-01 08:55:01] INFO - ============================================================
+[2025-10-01 08:55:01] INFO - 🎉 单样品分析阶段完成 | Individual analysis phase completed
+[2025-10-01 08:55:01] INFO - ✅ 成功处理样品数 | Successfully processed samples: 0
+[2025-10-01 08:55:01] INFO - ❌ 失败样品数 | Failed samples: 50
+[2025-10-01 08:55:01] WARNING - ⚠️ 失败样品列表 | Failed samples list: 100, 103, 105, 106, 10, 113, 117, 12, 140, 148, 150, 16, 23, 26, 28, 2, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 69, 74, 75, 77, 78, 79, 7, 85, 88, 89, 90, 94, 95
+[2025-10-01 08:55:01] WARNING - ⚠️ 需要至少2个成功处理的样品才能进行Joint calling | Need at least 2 successfully processed samples for joint calling
+[2025-10-01 08:55:01] INFO - 📄 生成处理报告 | Generating processing report
+[2025-10-01 08:55:01] INFO - 📊 生成的文件统计 | Generated files statistics:
+[2025-10-01 08:55:01] INFO -   📜 单样品VCF文件 | Individual VCF files: 0 个
+[2025-10-01 08:55:01] INFO -   💾 BAM文件 | BAM files: 0 个
+[2025-10-01 08:55:01] INFO -   🤝 Joint calling文件 | Joint calling files: 0 个
+[2025-10-01 08:55:01] INFO -     ✓ Joint VCF文件: 不存在
+[2025-10-01 08:55:01] INFO -     ✓ 样品映射文件: 不存在
+[2025-10-01 08:55:01] INFO -   📏 单样品VCF目录大小 | Individual VCF directory size: 0 B
+[2025-10-01 08:55:01] INFO -   📏 BAM目录大小 | BAM directory size: 0 B
+[2025-10-01 08:55:01] INFO -   📏 Joint calling目录大小 | Joint calling directory size: 0 B
+[2025-10-01 08:55:01] INFO -   📏 总输出大小 | Total output size: 153.3 KB
+[2025-10-01 08:55:01] INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/gtx_analysis_summary.txt
+[2025-10-01 08:55:01] INFO - 
+[2025-10-01 08:55:01] INFO - 🌳 最终输出目录结构 | Final output directory structure:
+[2025-10-01 08:55:01] INFO -   /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/
+[2025-10-01 08:55:01] INFO -   ├── bam/     (💾 BAM文件: 0 个)
+[2025-10-01 08:55:01] INFO -   ├── vcf/     (📜 VCF文件: 0 个)
+[2025-10-01 08:55:01] INFO -   ├── joint/   (🤝 Joint calling结果: 0 个文件)
+[2025-10-01 08:55:01] INFO -   └── tmp/     (🗑️ 临时文件目录)
+[2025-10-01 08:55:01] INFO - ============================================================
+[2025-10-01 08:55:01] WARNING - ⚠️ GTX WGS批处理分析部分完成 (Joint calling失败) | GTX WGS batch processing analysis partially completed (Joint calling failed)
+[2025-10-01 08:55:01] INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+✅ GTX单样品变异检测完成
+⏱️ 耗时: 5 秒 (00:00:05)
+❌ 错误: 未找到预期的VCF输出文件: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/joint/merged_gtx.vcf.gz

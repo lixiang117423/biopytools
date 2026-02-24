@@ -1,0 +1,39 @@
+🚀 [Start] Pipeline started at 2025年 11月 25日 星期二 20:23:03 CST
+📂 Working Directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/05.allhic_2/06.juicebox_curation
+🧬 [Step 1] Indexing Reference FASTA...
+⚔️ [Step 2] Aligning Hi-C reads to Reference (Scaffolds)...
+✅ Mapping complete.
+🔄 [Step 3] Converting BAM to Merged_Nodups.txt format...
+✅ MND file generated: mapped.mnd.txt
+📊 [Step 4] Running 3d-dna Assembly Visualizer...
+:) -q flag was triggered, starting calculations for 10 threshold mapping quality
+:( Illegal options. Exiting.
+
+*****************************************************
+Visualizing draft genomes in juicebox: 18 July 2016
+
+USAGE: ./run-asm-visualizer.sh [options] <path_to_cprops> <path_to_asm> <path_to_contig_mnd> 
+
+DESCRIPTION:
+This is a script to visualize draft assemblies (represented in input by their cprops and asm files) from pairwise contact data represented by Juicer merged_nodups.txt file. The script will produce hic files for viewing in Juicebox as well as scaffold annotation files. Metadata can be attached to the map by passing -i and -g flags with paths to stats and graph files.
+
+ARGUMENTS:
+path_to_cprops				Specify cprops file path.
+path_to_asm					Specify asm file.
+path_to_contig_mnd			Specify path to mnd file describing pairwise Hi-C contacts between assembly contigs.
+
+OPTIONS:
+-q mapq						Build map for a specific mapq threshold (default is 1). 
+-p true/false				Use GNU Parallel to speed up computation (default is true).
+-z zoom						Build map with hardcoded zoom level. By default this is calculated based on the cprops file and applied only to genomes >= 2.1 Gb.
+
+**unprompted**
+#-l gap_file				Path to gap bed file - necessary to build contig annotation track.
+-m path_to_asm_mnd			Path to mnd already lifted from input to assembly chromosome: used to skip the remapping step.
+-n							Skip normalization.
+-r							Build for specific resolutions (default is -r 2500000,1000000,500000,250000,100000,50000,25000,10000,5000,1000)
+-c							Clean up when done (default: no cleanup.)
+-i							Ignore mapq suffix.
+-h							Shows this help
+*****************************************************
+

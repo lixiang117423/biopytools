@@ -1,0 +1,177 @@
+>>> [Start] FitHiC Pipeline v7 (Jar 1.22.01)
+>>> Resolution: 5000 bp
+>>> Using JAR: /share/org/YZWL/yzwl_lixg/software/juicer/scripts/juicer_tools_1.22.01.jar
+>>> Step 1: Creating chrom.sizes...
+>>> Step 2: Creating Fragments file...
+ChrSizeFile: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/chrom.sizes
+OutFile: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/fragments_5000.txt
+BinSize: 5000
+    -> Generated: fragments_5000.txt
+--------------------------------------------------
+>>> Processing Chromosome: Chr1
+    [3.1] Dumping Observed Counts...
+    [3.2] Dumping KR Norm Vector...
+    [3.3] Running FitHiC...
+
+
+GIVEN FIT-HI-C ARGUMENTS
+=========================
+Reading fragments file from: fragments_5000.txt
+Reading interactions file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr1/interactions.txt
+Interactions file is not gzipped. Exiting now...
+Output path being used from /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr1
+Fixed size option detected... Fast version of FitHiC will be used
+Resolution is 5.0 kb
+Reading bias file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr1/bias.txt
+The number of spline passes is 2
+The number of bins is 100
+The number of reads required to consider an interaction is 1
+The name of the library for outputted files will be At_Chr1
+Upper Distance threshold is 3000000
+Lower Distance threshold is 2000
+Graphs will be outputted
+Only intra-chromosomal regions will be analyzed
+Lower bound of bias values is 0.5
+Upper bound of bias values is 2
+All arguments processed. Running FitHiC now...
+=========================
+
+
+Reading the contact counts file to generate bins...
+    [3.4] Merging and Filtering (Q < 0.01)...
+    !!! ERROR: FitHiC output not found: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr1/At_Chr1.spline_pass2.significances.txt.gz
+--------------------------------------------------
+>>> Processing Chromosome: Chr2
+    [3.1] Dumping Observed Counts...
+    [3.2] Dumping KR Norm Vector...
+    [3.3] Running FitHiC...
+
+
+GIVEN FIT-HI-C ARGUMENTS
+=========================
+Reading fragments file from: fragments_5000.txt
+Reading interactions file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr2/interactions.txt
+Interactions file is not gzipped. Exiting now...
+Output path being used from /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr2
+Fixed size option detected... Fast version of FitHiC will be used
+Resolution is 5.0 kb
+Reading bias file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr2/bias.txt
+The number of spline passes is 2
+The number of bins is 100
+The number of reads required to consider an interaction is 1
+The name of the library for outputted files will be At_Chr2
+Upper Distance threshold is 3000000
+Lower Distance threshold is 2000
+Graphs will be outputted
+Only intra-chromosomal regions will be analyzed
+Lower bound of bias values is 0.5
+Upper bound of bias values is 2
+All arguments processed. Running FitHiC now...
+=========================
+
+
+Reading the contact counts file to generate bins...
+    [3.4] Merging and Filtering (Q < 0.01)...
+    !!! ERROR: FitHiC output not found: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr2/At_Chr2.spline_pass2.significances.txt.gz
+--------------------------------------------------
+>>> Processing Chromosome: Chr3
+    [3.1] Dumping Observed Counts...
+    [3.2] Dumping KR Norm Vector...
+    [3.3] Running FitHiC...
+
+
+GIVEN FIT-HI-C ARGUMENTS
+=========================
+Reading fragments file from: fragments_5000.txt
+Reading interactions file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr3/interactions.txt
+Interactions file is not gzipped. Exiting now...
+Output path being used from /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr3
+Fixed size option detected... Fast version of FitHiC will be used
+Resolution is 5.0 kb
+Reading bias file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr3/bias.txt
+The number of spline passes is 2
+The number of bins is 100
+The number of reads required to consider an interaction is 1
+The name of the library for outputted files will be At_Chr3
+Upper Distance threshold is 3000000
+Lower Distance threshold is 2000
+Graphs will be outputted
+Only intra-chromosomal regions will be analyzed
+Lower bound of bias values is 0.5
+Upper bound of bias values is 2
+All arguments processed. Running FitHiC now...
+=========================
+
+
+Reading the contact counts file to generate bins...
+    [3.4] Merging and Filtering (Q < 0.01)...
+    !!! ERROR: FitHiC output not found: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr3/At_Chr3.spline_pass2.significances.txt.gz
+--------------------------------------------------
+>>> Processing Chromosome: Chr4
+    [3.1] Dumping Observed Counts...
+    [3.2] Dumping KR Norm Vector...
+    [3.3] Running FitHiC...
+
+
+GIVEN FIT-HI-C ARGUMENTS
+=========================
+Reading fragments file from: fragments_5000.txt
+Reading interactions file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr4/interactions.txt
+Interactions file is not gzipped. Exiting now...
+Output path being used from /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr4
+Fixed size option detected... Fast version of FitHiC will be used
+Resolution is 5.0 kb
+Reading bias file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr4/bias.txt
+The number of spline passes is 2
+The number of bins is 100
+The number of reads required to consider an interaction is 1
+The name of the library for outputted files will be At_Chr4
+Upper Distance threshold is 3000000
+Lower Distance threshold is 2000
+Graphs will be outputted
+Only intra-chromosomal regions will be analyzed
+Lower bound of bias values is 0.5
+Upper bound of bias values is 2
+All arguments processed. Running FitHiC now...
+=========================
+
+
+Reading the contact counts file to generate bins...
+    [3.4] Merging and Filtering (Q < 0.01)...
+    !!! ERROR: FitHiC output not found: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr4/At_Chr4.spline_pass2.significances.txt.gz
+--------------------------------------------------
+>>> Processing Chromosome: Chr5
+    [3.1] Dumping Observed Counts...
+    [3.2] Dumping KR Norm Vector...
+    [3.3] Running FitHiC...
+
+
+GIVEN FIT-HI-C ARGUMENTS
+=========================
+Reading fragments file from: fragments_5000.txt
+Reading interactions file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr5/interactions.txt
+Interactions file is not gzipped. Exiting now...
+Output path being used from /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr5
+Fixed size option detected... Fast version of FitHiC will be used
+Resolution is 5.0 kb
+Reading bias file from: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr5/bias.txt
+The number of spline passes is 2
+The number of bins is 100
+The number of reads required to consider an interaction is 1
+The name of the library for outputted files will be At_Chr5
+Upper Distance threshold is 3000000
+Lower Distance threshold is 2000
+Graphs will be outputted
+Only intra-chromosomal regions will be analyzed
+Lower bound of bias values is 0.5
+Upper bound of bias values is 2
+All arguments processed. Running FitHiC now...
+=========================
+
+
+Reading the contact counts file to generate bins...
+    [3.4] Merging and Filtering (Q < 0.01)...
+    !!! ERROR: FitHiC output not found: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/fithic2/result_5kb/Chr5/At_Chr5.spline_pass2.significances.txt.gz
+==================================================
+>>> All Finished.
+==================================================

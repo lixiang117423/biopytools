@@ -1,0 +1,46 @@
+
+==================================================
+🎯 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+🔄 开始更新所有组件的基因组路径... | Starting genome path update for all components...
+🔄 拷贝基因组文件到 /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/genome/genome.fa | Copying genome file to /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/genome/genome.fa
+🔄 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/genome/genome.fa -> /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/genome/genome.fa | Force updated genome path
+✅ 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/genome/genome.fa | Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/genome/genome.fa
+✅ 基因组路径更新完成 | Genome path update completed
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2667673GB available
+✓ 系统内存充足 | Sufficient system memory: 503GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/merged
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/genome/genome.fa
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+🔍 准备执行索引构建步骤 | Preparing to execute index building step
+🔍 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/genome/genome.fa | Current genome path in config
+🔍 GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/genome/genome.fa | Genome path in GTX mapper
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+🚀 执行步骤 5 | Executing step 5: 🧹 变异过滤 | Variant Filtering
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+🔍 调试信息: skip_qc = False
+🔍 调试信息: read1_pattern_fastp = _1.fq.gz
+🔍 调试信息: read2_pattern_fastp = _2.fq.gz
+🔍 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/merged
+开始质控处理 | Starting quality control
+检测到 1538 个原始 FASTQ 文件 | Found 1538 raw FASTQ files
+🧹 质量控制 | Quality Control
+🔄 执行命令 | Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/merged -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/01.data/clean --read1-suffix _1.fq.gz --read2-suffix _2.fq.gz

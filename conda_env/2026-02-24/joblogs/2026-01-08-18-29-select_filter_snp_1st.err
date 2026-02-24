@@ -1,0 +1,56 @@
+view: invalid option -- '@'
+
+About:   VCF/BCF conversion, view, subset and filter VCF/BCF files.
+Usage:   bcftools view [options] <in.vcf.gz> [region1 [...]]
+
+Output options:
+    -G, --drop-genotypes              Drop individual genotype information (after subsetting if -s option set)
+    -h, --header-only                 Print only the header in VCF output (equivalent to bcftools head)
+    -H, --no-header                   Suppress the header in VCF output
+        --with-header                 Print both header and records in VCF output [default]
+    -l, --compression-level [0-9]     Compression level: 0 uncompressed, 1 best speed, 9 best compression [-1]
+        --no-version                  Do not append version and command line to the header
+    -o, --output FILE                 Output file name [stdout]
+    -O, --output-type u|b|v|z[0-9]    u/b: un/compressed BCF, v/z: un/compressed VCF, 0-9: compression level [v]
+    -r, --regions REGION              Restrict to comma-separated list of regions
+    -R, --regions-file FILE           Restrict to regions listed in FILE
+        --regions-overlap 0|1|2       Include if POS in the region (0), record overlaps (1), variant overlaps (2) [1]
+    -t, --targets [^]REGION           Similar to -r but streams rather than index-jumps. Exclude regions with "^" prefix
+    -T, --targets-file [^]FILE        Similar to -R but streams rather than index-jumps. Exclude regions with "^" prefix
+        --targets-overlap 0|1|2       Include if POS in the region (0), record overlaps (1), variant overlaps (2) [0]
+        --threads INT                 Use multithreading with INT worker threads [0]
+        --verbosity INT               Verbosity level
+
+Subset options:
+    -A, --trim-unseen-allele          Remove '<*>' or '<NON_REF>' at variant (-A) or at all (-AA) sites
+    -a, --trim-alt-alleles            Trim ALT alleles not seen in the genotype fields (or their subset with -s/-S)
+    -I, --no-update                   Do not (re)calculate INFO fields for the subset (currently INFO/AC and INFO/AN)
+    -s, --samples [^]LIST             Comma separated list of samples to include (or exclude with "^" prefix). Be careful
+                                        when combining filtering with sample subsetting as filtering comes (usually) first.
+                                        If unsure, split sample subsetting and filtering in two commands, using -Ou when piping.
+    -S, --samples-file [^]FILE        File of samples to include (or exclude with "^" prefix)
+        --force-samples               Only warn about unknown subset samples
+
+Filter options:
+    -c/C, --min-ac/--max-ac INT[:TYPE]     Minimum/maximum count for non-reference (nref), 1st alternate (alt1), least frequent
+                                               (minor), most frequent (major) or sum of all but most frequent (nonmajor) alleles [nref]
+    -f,   --apply-filters LIST             Require at least one of the listed FILTER strings (e.g. "PASS,.")
+    -g,   --genotype [^]hom|het|miss       Require one or more hom/het/missing genotype or, if prefixed with "^", exclude such sites
+    -i/e, --include/--exclude EXPR         Select/exclude sites for which the expression is true (see man page for details)
+    -k/n, --known/--novel                  Select known/novel sites only (ID is not/is '.')
+    -m/M, --min-alleles/--max-alleles INT  Minimum/maximum number of alleles listed in REF and ALT (e.g. -m2 -M2 for biallelic sites)
+    -p/P, --phased/--exclude-phased        Select/exclude sites where all samples are phased
+    -q/Q, --min-af/--max-af FLOAT[:TYPE]   Minimum/maximum frequency for non-reference (nref), 1st alternate (alt1), least frequent
+                                               (minor), most frequent (major) or sum of all but most frequent (nonmajor) alleles [nref]
+    -u/U, --uncalled/--exclude-uncalled    Select/exclude sites without a called genotype
+    -v/V, --types/--exclude-types LIST     Select/exclude comma-separated list of variant types: snps,indels,mnps,ref,bnd,other [null]
+    -x/X, --private/--exclude-private      Select/exclude sites where the non-reference alleles are exclusive (private) to the subset samples
+    -W,   --write-index[=FMT]              Automatically index the output files [off]
+
+tbx_index_build3 failed: ./filtered_369samples.vcf.gz
+Usage: biopytools filter-snp-indel [OPTIONS]
+Try 'biopytools filter-snp-indel -h' for help.
+
+Error: Invalid value for '--input' / '-i': 文件不存在|File does not exist: ./filtered_369samples.vcf.gz
+Job 68792230 stderr output:
+

@@ -1,0 +1,109 @@
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-11-28T08:52:34,684]  [Globals.java:138] [main]  Development mode is enabled
+Reading file: aligned/inter_30.hic
+HiC file version: 8
+Using the following configurations for HiCCUPS:
+Config res: 10000 peak: 2 window: 5 fdr: 10% radius: 20000
+Config res: 5000 peak: 4 window: 7 fdr: 10% radius: 20000
+WARNING - You are using the CPU version of HiCCUPS.
+The GPU version of HiCCUPS is the official version and has been tested extensively.
+The CPU version only searches for loops within 8MB (by default) of the diagonal and is still experimental.
+Using 1 CPU thread(s) for primary task
+Running HiCCUPS for resolution 10000
+4% 
+8% 
+12% 
+16% 
+20% 
+24% 
+28% 
+32% 
+36% 
+40% 
+44% 
+48% 
+52% 
+56% 
+60% 
+64% 
+68% 
+72% 
+76% 
+80% 
+84% 
+88% 
+92% 
+96% 
+100% 
+4% 
+8% 
+12% 
+16% 
+20% 
+24% 
+28% 
+32% 
+36% 
+40% 
+44% 
+48% 
+52% 
+56% 
+60% 
+64% 
+68% 
+72% 
+76% 
+80% 
+84% 
+88% 
+92% 
+96% 
+100% 
+1294 features written to file: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/hiccups_output/enriched_pixels_10000.bedpe
+Running HiCCUPS for resolution 5000
+4% 
+9% 
+14% 
+19% 
+24% 
+29% 
+34% 
+39% 
+44% 
+49% 
+54% 
+59% 
+64% 
+69% 
+74% 
+79% 
+84% 
+89% 
+94% 
+99% 
+4% 
+9% 
+14% 
+19% 
+24% 
+29% 
+34% 
+39% 
+44% 
+49% 
+54% 
+59% 
+64% 
+69% 
+74% 
+79% 
+84% 
+89% 
+94% 
+99% 
+1438 features written to file: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/hiccups_output/enriched_pixels_5000.bedpe
+154 features written to file: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/hiccups_output/postprocessed_pixels_10000.bedpe
+190 features written to file: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/hiccups_output/postprocessed_pixels_5000.bedpe
+193 features written to file: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/03.hic/hiccups_output/merged_loops.bedpe
+HiCCUPS complete

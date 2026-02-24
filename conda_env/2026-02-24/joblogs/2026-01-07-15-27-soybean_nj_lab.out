@@ -1,0 +1,11 @@
+2026-01-07 15:27:21.853 - INFO - ================================================================================
+2026-01-07 15:27:21.853 - INFO - 开始VCF系统发育分析|Starting VCF phylogenetic analysis
+2026-01-07 15:27:21.853 - INFO - ================================================================================
+2026-01-07 15:27:21.853 - INFO - 检查依赖软件|Checking dependencies
+2026-01-07 15:27:21.950 - INFO - VCF2Dis 可用|available
+2026-01-07 15:27:22.075 - INFO - Python包 numpy 可用|Python package numpy available
+2026-01-07 15:27:27.265 - INFO - Python包 pandas 可用|Python package pandas available
+2026-01-07 15:27:27.420 - INFO - Python包 scipy 可用|Python package scipy available
+2026-01-07 15:27:48.171 - INFO - Python包 scikit-bio 可用|Python package scikit-bio available
+2026-01-07 15:27:48.173 - ERROR - 缺少外部依赖软件|Missing external dependencies: nw_reroot
+2026-01-07 15:27:48.173 - ERROR - 分析失败|Analysis failed: 缺少外部依赖软件|Missing external dependencies: nw_reroot

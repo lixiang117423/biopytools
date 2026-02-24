@@ -1,0 +1,5 @@
+thread 'main' panicked at src/main.rs:70:25:
+BAM may be coord-sorted or has singletons. Sort it by read name or try --remove-singletons
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Job 68569609 stderr output:
+

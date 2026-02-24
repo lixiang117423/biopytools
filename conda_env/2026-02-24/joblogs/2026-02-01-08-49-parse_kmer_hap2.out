@@ -1,0 +1,12 @@
+2026-02-01 08:49:09.103 - INFO - 使用unikmer方法提取kmer|Using unikmer method for extraction
+2026-02-01 08:49:09.103 - INFO - 从FASTA文件提取kmer (unikmer)|Extracting kmers from FASTA using unikmer: hap2_group9_chr12.fa
+2026-02-01 08:49:09.103 - INFO - 执行unikmer命令|Running unikmer command: /share/org/YZWL/yzwl_lixg/.local/bin/unikmer count -k 51 -j 64 --canonical -o hap2_group9_chr12 hap2_group9_chr12.fa
+2026-02-01 08:49:30.068 - INFO - unikmer执行成功|unikmer execution completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/52.候选区间上下游10M区间的交换图/05.hap2/hap2_group9_chr12.unik
+2026-02-01 08:49:30.068 - INFO - 生成BED文件|Generating BED file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/52.候选区间上下游10M区间的交换图/05.hap2/hap2_group9_chr12.bed
+2026-02-01 08:57:21.567 - INFO - BED文件生成完成|BED file generation completed
+2026-02-01 08:57:21.568 - INFO - BED文件已生成|BED file generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/52.候选区间上下游10M区间的交换图/05.hap2/hap2_group9_chr12.bed
+2026-02-01 08:57:21.568 - INFO - 从BED文件生成FASTA|Generating FASTA from BED: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/52.候选区间上下游10M区间的交换图/05.hap2/hap2_group9_chr12.bed
+2026-02-01 08:59:09.415 - INFO - FASTA文件生成完成|FASTA file generation completed: 86710476 k-mers
+2026-02-01 08:59:14.415 - INFO - Kmer FASTA文件已生成|Kmer FASTA file generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/52.候选区间上下游10M区间的交换图/05.hap2/hap2_group9_chr12_kmer_51.fa
+2026-02-01 08:59:14.415 - INFO - kmer提取完成|Kmer extraction completed
+2026-02-01 08:59:14.415 - INFO - K-mer提取成功|K-mer extraction completed successfully

@@ -1,0 +1,35 @@
+Tue Dec 23 16:52:09 2025 --- VERSION: RagTag v2.1.0
+Tue Dec 23 16:52:09 2025 --- CMD: ragtag.py scaffold -u -r -o ./ ../ref.fa ../OV53_1.primary_corrected.chr.fa -t 88
+Tue Dec 23 16:52:09 2025 --- INFO: Mapping the query genome to the reference genome
+Tue Dec 23 16:52:09 2025 --- INFO: Retaining pre-existing file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.asm.paf
+Tue Dec 23 16:52:09 2025 --- INFO: Reading whole genome alignments
+Tue Dec 23 16:52:09 2025 --- INFO: Filtering and merging alignments
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/ragtag_scaffold.py", line 577, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/ragtag_scaffold.py", line 488, in main
+    raise RuntimeError("There are no useful alignments. Check output alignment files.")
+RuntimeError: There are no useful alignments. Check output alignment files.
+Job 68660051 stderr output:
+
+Tue Dec 23 16:52:31 2025 --- VERSION: RagTag v2.1.0
+Tue Dec 23 16:52:31 2025 --- CMD: ragtag.py scaffold -u -r -o ./ ../ref.fa ../OV53_1.primary_corrected.chr.fa -t 88
+Tue Dec 23 16:52:31 2025 --- INFO: Mapping the query genome to the reference genome
+Tue Dec 23 16:52:31 2025 --- INFO: Running: minimap2 -x asm5 -t 88 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ref.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/OV53_1.primary_corrected.chr.fa > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.asm.paf 2> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.asm.paf.log
+Tue Dec 23 18:16:42 2025 --- INFO: Finished running : minimap2 -x asm5 -t 88 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ref.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/OV53_1.primary_corrected.chr.fa > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.asm.paf 2> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.asm.paf.log
+Tue Dec 23 18:16:42 2025 --- INFO: Reading whole genome alignments
+Tue Dec 23 18:16:42 2025 --- INFO: Filtering and merging alignments
+Tue Dec 23 18:16:43 2025 --- INFO: Ordering and orienting query sequences
+Tue Dec 23 18:16:43 2025 --- INFO: 0 inferred gap
+Tue Dec 23 18:16:43 2025 --- INFO: 0 adjacent contig within min distance (100) of each other
+Tue Dec 23 18:16:43 2025 --- INFO: 0 inferred gaps exceed length threshold (100000)
+Tue Dec 23 18:16:43 2025 --- INFO: Writing scaffolds
+Tue Dec 23 18:16:43 2025 --- INFO: Writing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.agp
+Tue Dec 23 18:16:43 2025 --- INFO: Running: ragtag_agp2fa.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.agp /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/OV53_1.primary_corrected.chr.fa > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.fasta 2> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.err
+Tue Dec 23 18:16:47 2025 --- INFO: Finished running : ragtag_agp2fa.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.agp /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/OV53_1.primary_corrected.chr.fa > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.fasta 2> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.err
+Tue Dec 23 18:16:47 2025 --- INFO: Running: ragtag_stats.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.agp /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.confidence.txt > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.stats 2> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.err
+Tue Dec 23 18:16:47 2025 --- INFO: Finished running : ragtag_stats.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.agp /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.confidence.txt > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.stats 2> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/32.ragtag校正/ragtag_scaffold/ragtag.scaffold.err
+Tue Dec 23 18:16:47 2025 --- INFO: Goodbye
+Job 68660059 stderr output:
+

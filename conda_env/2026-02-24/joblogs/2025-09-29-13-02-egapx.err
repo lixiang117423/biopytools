@@ -1,0 +1,6 @@
+usage: egapx.py [-h] [-o OUTPUT] [-e EXECUTOR] [-c CONFIG_DIR] [-w WORKDIR] [-r REPORT] [-n] [-st] [-so] [-lo] [-ot ORTHO_TAXID] [-dl] [-lc LOCAL_CACHE]
+                [-q] [-v] [-V] [-fn FUNC_NAME] [--force]
+                [filename]
+egapx.py: error: argument -r/--report: expected one argument
+Job 67218050 stderr output:
+

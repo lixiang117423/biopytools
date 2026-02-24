@@ -1,0 +1,1277 @@
+[wgsim] seed = 1761873238
+[wgsim_core] calculating the total length of the reference sequence...
+[wgsim_core] 292 sequences, total length: 287905736
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar CreateSequenceDictionary -R 120.sorted.genome.fa -O 120.sorted.genome.dict
+09:17:08.341 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+[Fri Oct 31 09:17:08 CST 2025] CreateSequenceDictionary --OUTPUT 120.sorted.genome.dict --REFERENCE 120.sorted.genome.fa --TRUNCATE_NAMES_AT_WHITESPACE true --NUM_SEQUENCES 2147483647 --VERBOSITY INFO --QUIET false --VALIDATION_STRINGENCY STRICT --COMPRESSION_LEVEL 2 --MAX_RECORDS_IN_RAM 500000 --CREATE_INDEX false --CREATE_MD5_FILE false --help false --version false --showHidden false --USE_JDK_DEFLATER false --USE_JDK_INFLATER false
+[Fri Oct 31 09:17:08 CST 2025] Executing as yzwl_lixg@c01n0310 on Linux 4.18.0-513.5.1.el8_9.x86_64 amd64; OpenJDK 64-Bit Server VM 17.0.15-internal+0-adhoc..src; Deflater: Intel; Inflater: Intel; Provider GCS is available; Picard version: Version:4.6.2.0
+[Fri Oct 31 09:17:09 CST 2025] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.02 minutes.
+Runtime.totalMemory()=1224736768
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (38, 1575847, 348, 46)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (284, 407, 588)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1196)
+[M::mem_pestat] mean and std.dev: (441.68, 238.30)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1500)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.67, 50.03)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (575, 633, 2638)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 6764)
+[M::mem_pestat] mean and std.dev: (1501.01, 1716.62)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 8827)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (260, 439, 808)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1904)
+[M::mem_pestat] mean and std.dev: (484.40, 307.33)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2452)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1178.634 CPU sec, 15.670 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (36, 1575095, 322, 55)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (300, 361, 578)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1134)
+[M::mem_pestat] mean and std.dev: (399.31, 263.29)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1452)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.67, 50.00)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (577, 636, 2239)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 5563)
+[M::mem_pestat] mean and std.dev: (1326.96, 1484.77)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 7266)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (361, 529, 941)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 2101)
+[M::mem_pestat] mean and std.dev: (619.87, 408.83)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2681)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1237.172 CPU sec, 16.701 real sec
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (43, 1586128, 292, 42)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (333, 478, 979)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 2271)
+[M::mem_pestat] mean and std.dev: (577.38, 415.86)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2917)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.60, 50.02)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (588, 662, 3996)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 10812)
+[M::mem_pestat] mean and std.dev: (2205.95, 2516.89)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 14220)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (247, 443, 577)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1237)
+[M::mem_pestat] mean and std.dev: (436.26, 262.74)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1567)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1175.430 CPU sec, 15.377 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (8, 1620823, 199, 6)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.69, 50.05)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (2273, 4215, 6977)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 16385)
+[M::mem_pestat] mean and std.dev: (4749.60, 2906.57)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 21089)
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation RF
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_process_seqs] Processed 5333334 reads in 1132.841 CPU sec, 14.713 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (6, 1619823, 201, 8)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.62, 50.00)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (2160, 3367, 6247)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 14421)
+[M::mem_pestat] mean and std.dev: (4144.84, 2865.94)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 18508)
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation RF
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_process_seqs] Processed 5333334 reads in 1116.537 CPU sec, 14.436 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (50, 1493057, 200, 57)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (362, 626, 846)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1814)
+[M::mem_pestat] mean and std.dev: (583.71, 306.21)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2298)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.62, 50.04)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (815, 3429, 6775)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 18695)
+[M::mem_pestat] mean and std.dev: (3999.55, 3090.36)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 24655)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (375, 578, 812)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1686)
+[M::mem_pestat] mean and std.dev: (573.87, 286.25)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2123)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_process_seqs] Processed 5333334 reads in 1513.202 CPU sec, 19.806 real sec
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (62, 1422681, 164, 68)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (342, 515, 734)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1518)
+[M::mem_pestat] mean and std.dev: (563.71, 262.41)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1910)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.69, 50.02)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (736, 1425, 4759)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 12805)
+[M::mem_pestat] mean and std.dev: (2684.60, 2505.53)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 16828)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (321, 499, 707)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1479)
+[M::mem_pestat] mean and std.dev: (556.51, 354.30)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1974)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1700.261 CPU sec, 21.924 real sec
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (62, 1432581, 198, 57)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (417, 624, 888)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1830)
+[M::mem_pestat] mean and std.dev: (642.24, 330.37)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2301)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.66, 50.06)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (728, 1360, 4703)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 12653)
+[M::mem_pestat] mean and std.dev: (2631.66, 2356.52)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 16628)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (427, 594, 985)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 2101)
+[M::mem_pestat] mean and std.dev: (666.67, 336.04)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2659)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1650.420 CPU sec, 21.344 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (8, 1562440, 208, 4)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.70, 50.01)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (744, 4947, 5775)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 15837)
+[M::mem_pestat] mean and std.dev: (3928.50, 2368.39)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 20868)
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation RF
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_process_seqs] Processed 5333334 reads in 1133.997 CPU sec, 15.223 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (10, 1562575, 202, 6)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (2629, 2644, 2685)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (2517, 2797)
+[M::mem_pestat] mean and std.dev: (2641.71, 19.10)
+[M::mem_pestat] low and high boundaries for proper pairs: (2461, 2853)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.72, 50.06)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (750, 4859, 5785)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 15855)
+[M::mem_pestat] mean and std.dev: (4016.94, 2367.58)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 20890)
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_process_seqs] Processed 5333334 reads in 1141.328 CPU sec, 15.803 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (22, 1639639, 271, 27)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (210, 475, 851)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 2133)
+[M::mem_pestat] mean and std.dev: (412.11, 269.91)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2774)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.63, 50.05)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (365, 2124, 5591)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 16043)
+[M::mem_pestat] mean and std.dev: (2695.31, 2476.58)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 21269)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (199, 370, 578)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1336)
+[M::mem_pestat] mean and std.dev: (366.00, 211.95)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1715)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_process_seqs] Processed 5333334 reads in 1094.592 CPU sec, 14.171 real sec
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (40, 1677788, 307, 32)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (160, 349, 639)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1597)
+[M::mem_pestat] mean and std.dev: (297.42, 209.90)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2076)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.66, 50.05)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (282, 2026, 4104)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 11748)
+[M::mem_pestat] mean and std.dev: (2350.78, 2418.93)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 15570)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (284, 384, 678)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1466)
+[M::mem_pestat] mean and std.dev: (383.00, 202.11)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1860)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1054.659 CPU sec, 13.575 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (49, 1635235, 303, 50)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (186, 517, 3079)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 8865)
+[M::mem_pestat] mean and std.dev: (1733.82, 2363.94)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 11758)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.64, 50.07)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (243, 1666, 3959)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 11391)
+[M::mem_pestat] mean and std.dev: (2304.26, 2386.39)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 15107)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (246, 420, 3079)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 8745)
+[M::mem_pestat] mean and std.dev: (1947.12, 2774.57)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 13045)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_process_seqs] Processed 5333334 reads in 1284.191 CPU sec, 16.905 real sec
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (51, 1549836, 375, 62)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (131, 379, 3184)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 9290)
+[M::mem_pestat] mean and std.dev: (1781.00, 2135.99)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 12343)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.63, 50.14)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (544, 3784, 4847)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 13453)
+[M::mem_pestat] mean and std.dev: (3442.23, 2492.96)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 17756)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (149, 468, 3714)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 10844)
+[M::mem_pestat] mean and std.dev: (2089.11, 2449.88)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 14409)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1653.842 CPU sec, 21.298 real sec
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (57, 1547856, 359, 57)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (133, 478, 3847)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 11275)
+[M::mem_pestat] mean and std.dev: (2005.77, 2225.82)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 14989)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.58, 50.12)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (302, 3457, 4772)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 13712)
+[M::mem_pestat] mean and std.dev: (2949.64, 2507.80)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 18182)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (209, 2134, 3894)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 11264)
+[M::mem_pestat] mean and std.dev: (2489.16, 2545.63)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 14949)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1665.784 CPU sec, 21.771 real sec
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (90, 1440019, 334, 75)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (1800, 2439, 5197)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 11991)
+[M::mem_pestat] mean and std.dev: (2919.28, 1731.93)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 15388)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.63, 50.06)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (1773, 3293, 3888)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 8118)
+[M::mem_pestat] mean and std.dev: (2920.80, 1966.85)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 10788)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (1833, 2194, 2876)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 4962)
+[M::mem_pestat] mean and std.dev: (1813.92, 844.82)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 6005)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1822.645 CPU sec, 23.455 real sec
+[M::process] read 5333334 sequences (800000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (79, 1441302, 281, 67)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (1896, 2324, 3031)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 5301)
+[M::mem_pestat] mean and std.dev: (2156.01, 1168.61)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 6830)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (465, 499, 533)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (329, 669)
+[M::mem_pestat] mean and std.dev: (498.59, 50.08)
+[M::mem_pestat] low and high boundaries for proper pairs: (261, 737)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (532, 2879, 3803)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 10345)
+[M::mem_pestat] mean and std.dev: (2773.95, 2194.61)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 13616)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (1723, 2196, 2843)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 5083)
+[M::mem_pestat] mean and std.dev: (1855.46, 825.01)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 6203)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 1845.072 CPU sec, 23.820 real sec
+[M::process] read 1568086 sequences (235212900 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (46, 740573, 142, 60)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (347, 436, 2558)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 6980)
+[M::mem_pestat] mean and std.dev: (1831.78, 1946.75)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 9619)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (463, 497, 532)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (325, 670)
+[M::mem_pestat] mean and std.dev: (497.01, 51.02)
+[M::mem_pestat] low and high boundaries for proper pairs: (256, 739)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (1829, 3298, 5094)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 11624)
+[M::mem_pestat] mean and std.dev: (3301.51, 2023.91)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 14889)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (392, 614, 2304)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 6128)
+[M::mem_pestat] mean and std.dev: (1491.98, 1489.60)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 8040)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 5333334 reads in 2205.010 CPU sec, 29.877 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (10, 33185, 0, 7)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (2331, 2364, 2374)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (2245, 2460)
+[M::mem_pestat] mean and std.dev: (2358.12, 42.58)
+[M::mem_pestat] low and high boundaries for proper pairs: (2188, 2528)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (460, 495, 530)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (320, 670)
+[M::mem_pestat] mean and std.dev: (494.65, 52.86)
+[M::mem_pestat] low and high boundaries for proper pairs: (250, 740)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_process_seqs] Processed 1568086 reads in 768.037 CPU sec, 10.104 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -t 80 -R @RG\tID:sim_group\tSM:sample119\tPL:ILLUMINA\tLB:lib1 120.sorted.genome.fa 119_sim_on_120_gatk.read1.fq.gz 119_sim_on_120_gatk.read2.fq.gz
+[main] Real time: 353.868 sec; CPU: 26382.354 sec
+[bam_sort_core] merging from 0 files and 80 in-memory blocks...
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -Xmx160g -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar MarkDuplicates -I 119_sim_on_120_gatk.sorted.bam -O 119_sim_on_120_gatk.dedup.bam -M 119_sim_on_120_gatk.dedup_metrics.txt
+09:24:21.958 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+[Fri Oct 31 09:24:21 CST 2025] MarkDuplicates --INPUT 119_sim_on_120_gatk.sorted.bam --OUTPUT 119_sim_on_120_gatk.dedup.bam --METRICS_FILE 119_sim_on_120_gatk.dedup_metrics.txt --MAX_SEQUENCES_FOR_DISK_READ_ENDS_MAP 50000 --MAX_FILE_HANDLES_FOR_READ_ENDS_MAP 8000 --SORTING_COLLECTION_SIZE_RATIO 0.25 --TAG_DUPLICATE_SET_MEMBERS false --REMOVE_SEQUENCING_DUPLICATES false --TAGGING_POLICY DontTag --CLEAR_DT true --DUPLEX_UMI false --FLOW_MODE false --FLOW_DUP_STRATEGY FLOW_QUALITY_SUM_STRATEGY --FLOW_USE_END_IN_UNPAIRED_READS false --FLOW_USE_UNPAIRED_CLIPPED_END false --FLOW_UNPAIRED_END_UNCERTAINTY 0 --FLOW_UNPAIRED_START_UNCERTAINTY 0 --FLOW_SKIP_FIRST_N_FLOWS 0 --FLOW_Q_IS_KNOWN_END false --FLOW_EFFECTIVE_QUALITY_THRESHOLD 15 --ADD_PG_TAG_TO_READS true --REMOVE_DUPLICATES false --ASSUME_SORTED false --DUPLICATE_SCORING_STRATEGY SUM_OF_BASE_QUALITIES --PROGRAM_RECORD_ID MarkDuplicates --PROGRAM_GROUP_NAME MarkDuplicates --READ_NAME_REGEX <optimized capture of last three ':' separated fields as numeric values> --OPTICAL_DUPLICATE_PIXEL_DISTANCE 100 --MAX_OPTICAL_DUPLICATE_SET_SIZE 300000 --VERBOSITY INFO --QUIET false --VALIDATION_STRINGENCY STRICT --COMPRESSION_LEVEL 2 --MAX_RECORDS_IN_RAM 500000 --CREATE_INDEX false --CREATE_MD5_FILE false --help false --version false --showHidden false --USE_JDK_DEFLATER false --USE_JDK_INFLATER false
+[Fri Oct 31 09:24:22 CST 2025] Executing as yzwl_lixg@c01n0310 on Linux 4.18.0-513.5.1.el8_9.x86_64 amd64; OpenJDK 64-Bit Server VM 17.0.15-internal+0-adhoc..src; Deflater: Intel; Inflater: Intel; Provider GCS is available; Picard version: Version:4.6.2.0
+INFO	2025-10-31 09:24:22	MarkDuplicates	Start of doWork freeMemory: 103378672; totalMemory: 134217728; maxMemory: 171798691840
+INFO	2025-10-31 09:24:22	MarkDuplicates	Reading input file and constructing read end information.
+INFO	2025-10-31 09:24:22	MarkDuplicates	Will retain up to 622459028 data points before spilling to disk.
+INFO	2025-10-31 09:24:25	MarkDuplicates	Read     1,000,000 records.  Elapsed time: 00:00:02s.  Time for last 1,000,000:    2s.  Last read position: So120_Chr1:3,057,851
+INFO	2025-10-31 09:24:25	MarkDuplicates	Tracking 5583 as yet unmatched pairs. 852 records in RAM.
+INFO	2025-10-31 09:24:27	MarkDuplicates	Read     2,000,000 records.  Elapsed time: 00:00:03s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:6,220,164
+INFO	2025-10-31 09:24:27	MarkDuplicates	Tracking 16822 as yet unmatched pairs. 2281 records in RAM.
+INFO	2025-10-31 09:24:28	MarkDuplicates	Read     3,000,000 records.  Elapsed time: 00:00:05s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:9,142,833
+INFO	2025-10-31 09:24:28	MarkDuplicates	Tracking 25969 as yet unmatched pairs. 2794 records in RAM.
+INFO	2025-10-31 09:24:30	MarkDuplicates	Read     4,000,000 records.  Elapsed time: 00:00:07s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:12,063,904
+INFO	2025-10-31 09:24:30	MarkDuplicates	Tracking 34775 as yet unmatched pairs. 3256 records in RAM.
+INFO	2025-10-31 09:24:32	MarkDuplicates	Read     5,000,000 records.  Elapsed time: 00:00:08s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:14,893,732
+INFO	2025-10-31 09:24:32	MarkDuplicates	Tracking 43840 as yet unmatched pairs. 3801 records in RAM.
+INFO	2025-10-31 09:24:34	MarkDuplicates	Read     6,000,000 records.  Elapsed time: 00:00:10s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:17,715,661
+INFO	2025-10-31 09:24:34	MarkDuplicates	Tracking 53229 as yet unmatched pairs. 3849 records in RAM.
+INFO	2025-10-31 09:24:36	MarkDuplicates	Read     7,000,000 records.  Elapsed time: 00:00:12s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:20,171,048
+INFO	2025-10-31 09:24:36	MarkDuplicates	Tracking 86421 as yet unmatched pairs. 6600 records in RAM.
+INFO	2025-10-31 09:24:37	MarkDuplicates	Read     8,000,000 records.  Elapsed time: 00:00:14s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:23,311,584
+INFO	2025-10-31 09:24:37	MarkDuplicates	Tracking 99972 as yet unmatched pairs. 2969 records in RAM.
+INFO	2025-10-31 09:24:39	MarkDuplicates	Read     9,000,000 records.  Elapsed time: 00:00:15s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:26,180,910
+INFO	2025-10-31 09:24:39	MarkDuplicates	Tracking 106940 as yet unmatched pairs. 2380 records in RAM.
+INFO	2025-10-31 09:24:40	MarkDuplicates	Read    10,000,000 records.  Elapsed time: 00:00:17s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:29,084,434
+INFO	2025-10-31 09:24:40	MarkDuplicates	Tracking 112701 as yet unmatched pairs. 1518 records in RAM.
+INFO	2025-10-31 09:24:42	MarkDuplicates	Read    11,000,000 records.  Elapsed time: 00:00:19s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:31,985,292
+INFO	2025-10-31 09:24:42	MarkDuplicates	Tracking 117453 as yet unmatched pairs. 1349 records in RAM.
+INFO	2025-10-31 09:24:44	MarkDuplicates	Read    12,000,000 records.  Elapsed time: 00:00:20s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:34,899,863
+INFO	2025-10-31 09:24:44	MarkDuplicates	Tracking 119616 as yet unmatched pairs. 1043 records in RAM.
+INFO	2025-10-31 09:24:45	MarkDuplicates	Read    13,000,000 records.  Elapsed time: 00:00:22s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:37,865,595
+INFO	2025-10-31 09:24:45	MarkDuplicates	Tracking 121474 as yet unmatched pairs. 519 records in RAM.
+INFO	2025-10-31 09:24:47	MarkDuplicates	Read    14,000,000 records.  Elapsed time: 00:00:23s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr1:40,819,974
+INFO	2025-10-31 09:24:47	MarkDuplicates	Tracking 122602 as yet unmatched pairs. 374 records in RAM.
+INFO	2025-10-31 09:24:49	MarkDuplicates	Read    15,000,000 records.  Elapsed time: 00:00:25s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:731,179
+INFO	2025-10-31 09:24:49	MarkDuplicates	Tracking 124113 as yet unmatched pairs. 18253 records in RAM.
+INFO	2025-10-31 09:24:50	MarkDuplicates	Read    16,000,000 records.  Elapsed time: 00:00:27s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:3,673,243
+INFO	2025-10-31 09:24:50	MarkDuplicates	Tracking 124930 as yet unmatched pairs. 18234 records in RAM.
+INFO	2025-10-31 09:24:52	MarkDuplicates	Read    17,000,000 records.  Elapsed time: 00:00:28s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:6,664,611
+INFO	2025-10-31 09:24:52	MarkDuplicates	Tracking 126649 as yet unmatched pairs. 18095 records in RAM.
+INFO	2025-10-31 09:24:53	MarkDuplicates	Read    18,000,000 records.  Elapsed time: 00:00:30s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:9,608,505
+INFO	2025-10-31 09:24:53	MarkDuplicates	Tracking 128065 as yet unmatched pairs. 17838 records in RAM.
+INFO	2025-10-31 09:24:55	MarkDuplicates	Read    19,000,000 records.  Elapsed time: 00:00:31s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:12,526,803
+INFO	2025-10-31 09:24:55	MarkDuplicates	Tracking 130594 as yet unmatched pairs. 17671 records in RAM.
+INFO	2025-10-31 09:24:56	MarkDuplicates	Read    20,000,000 records.  Elapsed time: 00:00:33s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:15,330,926
+INFO	2025-10-31 09:24:56	MarkDuplicates	Tracking 133826 as yet unmatched pairs. 17402 records in RAM.
+INFO	2025-10-31 09:24:58	MarkDuplicates	Read    21,000,000 records.  Elapsed time: 00:00:35s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:18,231,519
+INFO	2025-10-31 09:24:58	MarkDuplicates	Tracking 138642 as yet unmatched pairs. 16785 records in RAM.
+INFO	2025-10-31 09:25:00	MarkDuplicates	Read    22,000,000 records.  Elapsed time: 00:00:36s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:20,981,870
+INFO	2025-10-31 09:25:00	MarkDuplicates	Tracking 146156 as yet unmatched pairs. 15596 records in RAM.
+INFO	2025-10-31 09:25:01	MarkDuplicates	Read    23,000,000 records.  Elapsed time: 00:00:38s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:23,874,787
+INFO	2025-10-31 09:25:01	MarkDuplicates	Tracking 151938 as yet unmatched pairs. 14409 records in RAM.
+INFO	2025-10-31 09:25:03	MarkDuplicates	Read    24,000,000 records.  Elapsed time: 00:00:40s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:27,283,030
+INFO	2025-10-31 09:25:03	MarkDuplicates	Tracking 163569 as yet unmatched pairs. 9027 records in RAM.
+INFO	2025-10-31 09:25:05	MarkDuplicates	Read    25,000,000 records.  Elapsed time: 00:00:41s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:30,092,590
+INFO	2025-10-31 09:25:05	MarkDuplicates	Tracking 169132 as yet unmatched pairs. 7492 records in RAM.
+INFO	2025-10-31 09:25:06	MarkDuplicates	Read    26,000,000 records.  Elapsed time: 00:00:43s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:32,944,834
+INFO	2025-10-31 09:25:06	MarkDuplicates	Tracking 173543 as yet unmatched pairs. 5691 records in RAM.
+INFO	2025-10-31 09:25:08	MarkDuplicates	Read    27,000,000 records.  Elapsed time: 00:00:45s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:35,871,297
+INFO	2025-10-31 09:25:08	MarkDuplicates	Tracking 176637 as yet unmatched pairs. 4144 records in RAM.
+INFO	2025-10-31 09:25:10	MarkDuplicates	Read    28,000,000 records.  Elapsed time: 00:00:46s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr2:38,852,042
+INFO	2025-10-31 09:25:10	MarkDuplicates	Tracking 181555 as yet unmatched pairs. 2170 records in RAM.
+INFO	2025-10-31 09:25:12	MarkDuplicates	Read    29,000,000 records.  Elapsed time: 00:00:48s.  Time for last 1,000,000:    2s.  Last read position: So120_Chr3:587,009
+INFO	2025-10-31 09:25:12	MarkDuplicates	Tracking 184280 as yet unmatched pairs. 43592 records in RAM.
+INFO	2025-10-31 09:25:13	MarkDuplicates	Read    30,000,000 records.  Elapsed time: 00:00:50s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:3,561,508
+INFO	2025-10-31 09:25:13	MarkDuplicates	Tracking 185007 as yet unmatched pairs. 43404 records in RAM.
+INFO	2025-10-31 09:25:15	MarkDuplicates	Read    31,000,000 records.  Elapsed time: 00:00:51s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:6,572,749
+INFO	2025-10-31 09:25:15	MarkDuplicates	Tracking 186776 as yet unmatched pairs. 42979 records in RAM.
+INFO	2025-10-31 09:25:16	MarkDuplicates	Read    32,000,000 records.  Elapsed time: 00:00:53s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:9,491,782
+INFO	2025-10-31 09:25:16	MarkDuplicates	Tracking 187990 as yet unmatched pairs. 42293 records in RAM.
+INFO	2025-10-31 09:25:18	MarkDuplicates	Read    33,000,000 records.  Elapsed time: 00:00:55s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:12,321,113
+INFO	2025-10-31 09:25:18	MarkDuplicates	Tracking 190240 as yet unmatched pairs. 41080 records in RAM.
+INFO	2025-10-31 09:25:20	MarkDuplicates	Read    34,000,000 records.  Elapsed time: 00:00:56s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:15,126,123
+INFO	2025-10-31 09:25:20	MarkDuplicates	Tracking 194233 as yet unmatched pairs. 40274 records in RAM.
+INFO	2025-10-31 09:25:21	MarkDuplicates	Read    35,000,000 records.  Elapsed time: 00:00:58s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:18,204,093
+INFO	2025-10-31 09:25:21	MarkDuplicates	Tracking 199186 as yet unmatched pairs. 38343 records in RAM.
+INFO	2025-10-31 09:25:23	MarkDuplicates	Read    36,000,000 records.  Elapsed time: 00:01:00s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:21,220,334
+INFO	2025-10-31 09:25:23	MarkDuplicates	Tracking 210892 as yet unmatched pairs. 34743 records in RAM.
+INFO	2025-10-31 09:25:25	MarkDuplicates	Read    37,000,000 records.  Elapsed time: 00:01:01s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:24,693,469
+INFO	2025-10-31 09:25:25	MarkDuplicates	Tracking 231560 as yet unmatched pairs. 21506 records in RAM.
+INFO	2025-10-31 09:25:26	MarkDuplicates	Read    38,000,000 records.  Elapsed time: 00:01:03s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:27,720,161
+INFO	2025-10-31 09:25:26	MarkDuplicates	Tracking 233696 as yet unmatched pairs. 15507 records in RAM.
+INFO	2025-10-31 09:25:28	MarkDuplicates	Read    39,000,000 records.  Elapsed time: 00:01:05s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:30,513,502
+INFO	2025-10-31 09:25:28	MarkDuplicates	Tracking 235193 as yet unmatched pairs. 11483 records in RAM.
+INFO	2025-10-31 09:25:29	MarkDuplicates	Read    40,000,000 records.  Elapsed time: 00:01:06s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:33,372,266
+INFO	2025-10-31 09:25:29	MarkDuplicates	Tracking 237327 as yet unmatched pairs. 8206 records in RAM.
+INFO	2025-10-31 09:25:31	MarkDuplicates	Read    41,000,000 records.  Elapsed time: 00:01:08s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:36,299,351
+INFO	2025-10-31 09:25:31	MarkDuplicates	Tracking 239077 as yet unmatched pairs. 4829 records in RAM.
+INFO	2025-10-31 09:25:33	MarkDuplicates	Read    42,000,000 records.  Elapsed time: 00:01:09s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr3:39,242,271
+INFO	2025-10-31 09:25:33	MarkDuplicates	Tracking 240691 as yet unmatched pairs. 584 records in RAM.
+INFO	2025-10-31 09:25:35	MarkDuplicates	Read    43,000,000 records.  Elapsed time: 00:01:11s.  Time for last 1,000,000:    2s.  Last read position: So120_Chr4:2,610,704
+INFO	2025-10-31 09:25:35	MarkDuplicates	Tracking 241556 as yet unmatched pairs. 52325 records in RAM.
+INFO	2025-10-31 09:25:36	MarkDuplicates	Read    44,000,000 records.  Elapsed time: 00:01:13s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:5,548,698
+INFO	2025-10-31 09:25:36	MarkDuplicates	Tracking 241691 as yet unmatched pairs. 50559 records in RAM.
+INFO	2025-10-31 09:25:38	MarkDuplicates	Read    45,000,000 records.  Elapsed time: 00:01:15s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:8,403,209
+INFO	2025-10-31 09:25:38	MarkDuplicates	Tracking 242844 as yet unmatched pairs. 49106 records in RAM.
+INFO	2025-10-31 09:25:39	MarkDuplicates	Read    46,000,000 records.  Elapsed time: 00:01:16s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:11,409,226
+INFO	2025-10-31 09:25:39	MarkDuplicates	Tracking 244138 as yet unmatched pairs. 45789 records in RAM.
+INFO	2025-10-31 09:25:41	MarkDuplicates	Read    47,000,000 records.  Elapsed time: 00:01:18s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:14,223,628
+INFO	2025-10-31 09:25:41	MarkDuplicates	Tracking 245121 as yet unmatched pairs. 42670 records in RAM.
+INFO	2025-10-31 09:25:43	MarkDuplicates	Read    48,000,000 records.  Elapsed time: 00:01:20s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:16,934,262
+INFO	2025-10-31 09:25:43	MarkDuplicates	Tracking 245260 as yet unmatched pairs. 35477 records in RAM.
+INFO	2025-10-31 09:25:44	MarkDuplicates	Read    49,000,000 records.  Elapsed time: 00:01:21s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:19,635,481
+INFO	2025-10-31 09:25:44	MarkDuplicates	Tracking 243971 as yet unmatched pairs. 23527 records in RAM.
+INFO	2025-10-31 09:25:46	MarkDuplicates	Read    50,000,000 records.  Elapsed time: 00:01:23s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:22,606,978
+INFO	2025-10-31 09:25:46	MarkDuplicates	Tracking 242714 as yet unmatched pairs. 18179 records in RAM.
+INFO	2025-10-31 09:25:48	MarkDuplicates	Read    51,000,000 records.  Elapsed time: 00:01:24s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:25,428,705
+INFO	2025-10-31 09:25:48	MarkDuplicates	Tracking 241482 as yet unmatched pairs. 12833 records in RAM.
+INFO	2025-10-31 09:25:49	MarkDuplicates	Read    52,000,000 records.  Elapsed time: 00:01:26s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:28,281,516
+INFO	2025-10-31 09:25:49	MarkDuplicates	Tracking 241398 as yet unmatched pairs. 9120 records in RAM.
+INFO	2025-10-31 09:25:51	MarkDuplicates	Read    53,000,000 records.  Elapsed time: 00:01:28s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:31,236,678
+INFO	2025-10-31 09:25:51	MarkDuplicates	Tracking 240737 as yet unmatched pairs. 3946 records in RAM.
+INFO	2025-10-31 09:25:52	MarkDuplicates	Read    54,000,000 records.  Elapsed time: 00:01:29s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:34,161,713
+INFO	2025-10-31 09:25:52	MarkDuplicates	Tracking 240873 as yet unmatched pairs. 2203 records in RAM.
+INFO	2025-10-31 09:25:54	MarkDuplicates	Read    55,000,000 records.  Elapsed time: 00:01:31s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr4:37,081,844
+INFO	2025-10-31 09:25:54	MarkDuplicates	Tracking 240425 as yet unmatched pairs. 559 records in RAM.
+INFO	2025-10-31 09:25:56	MarkDuplicates	Read    56,000,000 records.  Elapsed time: 00:01:33s.  Time for last 1,000,000:    2s.  Last read position: So120_Chr5:2,302,131
+INFO	2025-10-31 09:25:56	MarkDuplicates	Tracking 239163 as yet unmatched pairs. 61865 records in RAM.
+INFO	2025-10-31 09:25:58	MarkDuplicates	Read    57,000,000 records.  Elapsed time: 00:01:35s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:5,423,501
+INFO	2025-10-31 09:25:58	MarkDuplicates	Tracking 236686 as yet unmatched pairs. 55930 records in RAM.
+INFO	2025-10-31 09:25:59	MarkDuplicates	Read    58,000,000 records.  Elapsed time: 00:01:36s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:8,388,924
+INFO	2025-10-31 09:25:59	MarkDuplicates	Tracking 234134 as yet unmatched pairs. 50672 records in RAM.
+INFO	2025-10-31 09:26:01	MarkDuplicates	Read    59,000,000 records.  Elapsed time: 00:01:38s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:11,258,574
+INFO	2025-10-31 09:26:01	MarkDuplicates	Tracking 232479 as yet unmatched pairs. 47290 records in RAM.
+INFO	2025-10-31 09:26:03	MarkDuplicates	Read    60,000,000 records.  Elapsed time: 00:01:40s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:15,148,816
+INFO	2025-10-31 09:26:03	MarkDuplicates	Tracking 229393 as yet unmatched pairs. 40340 records in RAM.
+INFO	2025-10-31 09:26:04	MarkDuplicates	Read    61,000,000 records.  Elapsed time: 00:01:41s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:18,153,712
+INFO	2025-10-31 09:26:04	MarkDuplicates	Tracking 223271 as yet unmatched pairs. 25840 records in RAM.
+INFO	2025-10-31 09:26:06	MarkDuplicates	Read    62,000,000 records.  Elapsed time: 00:01:43s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:20,959,961
+INFO	2025-10-31 09:26:06	MarkDuplicates	Tracking 218458 as yet unmatched pairs. 18253 records in RAM.
+INFO	2025-10-31 09:26:08	MarkDuplicates	Read    63,000,000 records.  Elapsed time: 00:01:44s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:23,784,098
+INFO	2025-10-31 09:26:08	MarkDuplicates	Tracking 216112 as yet unmatched pairs. 13518 records in RAM.
+INFO	2025-10-31 09:26:09	MarkDuplicates	Read    64,000,000 records.  Elapsed time: 00:01:46s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:26,601,444
+INFO	2025-10-31 09:26:09	MarkDuplicates	Tracking 212489 as yet unmatched pairs. 7234 records in RAM.
+INFO	2025-10-31 09:26:11	MarkDuplicates	Read    65,000,000 records.  Elapsed time: 00:01:48s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:29,698,187
+INFO	2025-10-31 09:26:11	MarkDuplicates	Tracking 210890 as yet unmatched pairs. 3990 records in RAM.
+INFO	2025-10-31 09:26:13	MarkDuplicates	Read    66,000,000 records.  Elapsed time: 00:01:49s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:32,626,777
+INFO	2025-10-31 09:26:13	MarkDuplicates	Tracking 209692 as yet unmatched pairs. 1941 records in RAM.
+INFO	2025-10-31 09:26:14	MarkDuplicates	Read    67,000,000 records.  Elapsed time: 00:01:51s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr5:35,522,415
+INFO	2025-10-31 09:26:14	MarkDuplicates	Tracking 209107 as yet unmatched pairs. 725 records in RAM.
+INFO	2025-10-31 09:26:17	MarkDuplicates	Read    68,000,000 records.  Elapsed time: 00:01:53s.  Time for last 1,000,000:    2s.  Last read position: So120_Chr6:825,950
+INFO	2025-10-31 09:26:17	MarkDuplicates	Tracking 208405 as yet unmatched pairs. 93740 records in RAM.
+INFO	2025-10-31 09:26:18	MarkDuplicates	Read    69,000,000 records.  Elapsed time: 00:01:55s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:3,885,326
+INFO	2025-10-31 09:26:18	MarkDuplicates	Tracking 207421 as yet unmatched pairs. 92584 records in RAM.
+INFO	2025-10-31 09:26:20	MarkDuplicates	Read    70,000,000 records.  Elapsed time: 00:01:57s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:6,825,690
+INFO	2025-10-31 09:26:20	MarkDuplicates	Tracking 206755 as yet unmatched pairs. 91688 records in RAM.
+INFO	2025-10-31 09:26:22	MarkDuplicates	Read    71,000,000 records.  Elapsed time: 00:01:58s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:9,854,505
+INFO	2025-10-31 09:26:22	MarkDuplicates	Tracking 205507 as yet unmatched pairs. 89962 records in RAM.
+INFO	2025-10-31 09:26:24	MarkDuplicates	Read    72,000,000 records.  Elapsed time: 00:02:00s.  Time for last 1,000,000:    2s.  Last read position: So120_Chr6:12,816,258
+INFO	2025-10-31 09:26:24	MarkDuplicates	Tracking 202732 as yet unmatched pairs. 86482 records in RAM.
+INFO	2025-10-31 09:26:26	MarkDuplicates	Read    73,000,000 records.  Elapsed time: 00:02:02s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:15,998,825
+INFO	2025-10-31 09:26:26	MarkDuplicates	Tracking 194535 as yet unmatched pairs. 76455 records in RAM.
+INFO	2025-10-31 09:26:28	MarkDuplicates	Read    74,000,000 records.  Elapsed time: 00:02:04s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:18,835,361
+INFO	2025-10-31 09:26:28	MarkDuplicates	Tracking 190194 as yet unmatched pairs. 70705 records in RAM.
+INFO	2025-10-31 09:26:29	MarkDuplicates	Read    75,000,000 records.  Elapsed time: 00:02:06s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:21,633,052
+INFO	2025-10-31 09:26:29	MarkDuplicates	Tracking 183725 as yet unmatched pairs. 60781 records in RAM.
+INFO	2025-10-31 09:26:31	MarkDuplicates	Read    76,000,000 records.  Elapsed time: 00:02:08s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:24,129,982
+INFO	2025-10-31 09:26:31	MarkDuplicates	Tracking 170290 as yet unmatched pairs. 41393 records in RAM.
+INFO	2025-10-31 09:26:33	MarkDuplicates	Read    77,000,000 records.  Elapsed time: 00:02:09s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:26,907,906
+INFO	2025-10-31 09:26:33	MarkDuplicates	Tracking 161348 as yet unmatched pairs. 29831 records in RAM.
+INFO	2025-10-31 09:26:34	MarkDuplicates	Read    78,000,000 records.  Elapsed time: 00:02:11s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:30,091,063
+INFO	2025-10-31 09:26:34	MarkDuplicates	Tracking 151225 as yet unmatched pairs. 17310 records in RAM.
+INFO	2025-10-31 09:26:36	MarkDuplicates	Read    79,000,000 records.  Elapsed time: 00:02:13s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:33,011,734
+INFO	2025-10-31 09:26:36	MarkDuplicates	Tracking 146346 as yet unmatched pairs. 11202 records in RAM.
+INFO	2025-10-31 09:26:38	MarkDuplicates	Read    80,000,000 records.  Elapsed time: 00:02:14s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr6:36,592,007
+INFO	2025-10-31 09:26:38	MarkDuplicates	Tracking 138113 as yet unmatched pairs. 1261 records in RAM.
+INFO	2025-10-31 09:26:40	MarkDuplicates	Read    81,000,000 records.  Elapsed time: 00:02:17s.  Time for last 1,000,000:    2s.  Last read position: So120_Chr7:2,176,419
+INFO	2025-10-31 09:26:40	MarkDuplicates	Tracking 134534 as yet unmatched pairs. 129961 records in RAM.
+INFO	2025-10-31 09:26:42	MarkDuplicates	Read    82,000,000 records.  Elapsed time: 00:02:19s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:5,242,646
+INFO	2025-10-31 09:26:42	MarkDuplicates	Tracking 127728 as yet unmatched pairs. 123139 records in RAM.
+INFO	2025-10-31 09:26:44	MarkDuplicates	Read    83,000,000 records.  Elapsed time: 00:02:20s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:8,182,085
+INFO	2025-10-31 09:26:44	MarkDuplicates	Tracking 120763 as yet unmatched pairs. 116124 records in RAM.
+INFO	2025-10-31 09:26:45	MarkDuplicates	Read    84,000,000 records.  Elapsed time: 00:02:22s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:11,367,588
+INFO	2025-10-31 09:26:45	MarkDuplicates	Tracking 108062 as yet unmatched pairs. 103260 records in RAM.
+INFO	2025-10-31 09:26:47	MarkDuplicates	Read    85,000,000 records.  Elapsed time: 00:02:24s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:14,240,699
+INFO	2025-10-31 09:26:47	MarkDuplicates	Tracking 99475 as yet unmatched pairs. 94654 records in RAM.
+INFO	2025-10-31 09:26:49	MarkDuplicates	Read    86,000,000 records.  Elapsed time: 00:02:26s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:17,211,204
+INFO	2025-10-31 09:26:49	MarkDuplicates	Tracking 84567 as yet unmatched pairs. 79666 records in RAM.
+INFO	2025-10-31 09:26:51	MarkDuplicates	Read    87,000,000 records.  Elapsed time: 00:02:28s.  Time for last 1,000,000:    2s.  Last read position: So120_Chr7:20,383,200
+INFO	2025-10-31 09:26:51	MarkDuplicates	Tracking 41478 as yet unmatched pairs. 35765 records in RAM.
+INFO	2025-10-31 09:26:53	MarkDuplicates	Read    88,000,000 records.  Elapsed time: 00:02:29s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:23,129,996
+INFO	2025-10-31 09:26:53	MarkDuplicates	Tracking 26643 as yet unmatched pairs. 20909 records in RAM.
+INFO	2025-10-31 09:26:54	MarkDuplicates	Read    89,000,000 records.  Elapsed time: 00:02:31s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:26,534,776
+INFO	2025-10-31 09:26:54	MarkDuplicates	Tracking 15750 as yet unmatched pairs. 9963 records in RAM.
+INFO	2025-10-31 09:26:56	MarkDuplicates	Read    90,000,000 records.  Elapsed time: 00:02:33s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:29,459,886
+INFO	2025-10-31 09:26:56	MarkDuplicates	Tracking 10530 as yet unmatched pairs. 4724 records in RAM.
+INFO	2025-10-31 09:26:57	MarkDuplicates	Read    91,000,000 records.  Elapsed time: 00:02:34s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:32,391,153
+INFO	2025-10-31 09:26:57	MarkDuplicates	Tracking 8235 as yet unmatched pairs. 2382 records in RAM.
+INFO	2025-10-31 09:26:59	MarkDuplicates	Read    92,000,000 records.  Elapsed time: 00:02:36s.  Time for last 1,000,000:    1s.  Last read position: So120_Chr7:35,359,173
+INFO	2025-10-31 09:26:59	MarkDuplicates	Tracking 6876 as yet unmatched pairs. 1023 records in RAM.
+INFO	2025-10-31 09:27:01	MarkDuplicates	Read    93,000,000 records.  Elapsed time: 00:02:37s.  Time for last 1,000,000:    1s.  Last read position: So120_HiCscaffold21:147,353
+INFO	2025-10-31 09:27:01	MarkDuplicates	Tracking 6242 as yet unmatched pairs. 316 records in RAM.
+INFO	2025-10-31 09:27:02	MarkDuplicates	Read    94,000,000 records.  Elapsed time: 00:02:39s.  Time for last 1,000,000:    1s.  Last read position: So120_HiCscaffold78:75,390
+INFO	2025-10-31 09:27:02	MarkDuplicates	Tracking 5968 as yet unmatched pairs. 105 records in RAM.
+INFO	2025-10-31 09:27:04	MarkDuplicates	Read    95,000,000 records.  Elapsed time: 00:02:41s.  Time for last 1,000,000:    1s.  Last read position: So120_HiCscaffold179:53,110
+INFO	2025-10-31 09:27:04	MarkDuplicates	Tracking 2831 as yet unmatched pairs. 93 records in RAM.
+INFO	2025-10-31 09:27:06	MarkDuplicates	Read    96,000,000 records.  Elapsed time: 00:02:42s.  Time for last 1,000,000:    1s.  Last read position: So120_HiCscaffold295:19,203
+INFO	2025-10-31 09:27:06	MarkDuplicates	Tracking 557 as yet unmatched pairs. 68 records in RAM.
+INFO	2025-10-31 09:27:06	MarkDuplicates	Read 96393341 records. 0 pairs never matched.
+INFO	2025-10-31 09:27:07	MarkDuplicates	After buildSortedReadEndLists freeMemory: 14915937824; totalMemory: 35366371328; maxMemory: 171798691840
+INFO	2025-10-31 09:27:07	MarkDuplicates	Will retain up to 2147483615 duplicate indices before spilling to disk.
+INFO	2025-10-31 09:27:09	MarkDuplicates	Traversing read pair information and detecting duplicates.
+INFO	2025-10-31 09:27:12	MarkDuplicates	Traversing fragment information and detecting duplicates.
+INFO	2025-10-31 09:27:15	MarkDuplicates	Sorting list of duplicate records.
+INFO	2025-10-31 09:27:15	MarkDuplicates	After generateDuplicateIndexes freeMemory: 35285457104; totalMemory: 52512686080; maxMemory: 171798691840
+INFO	2025-10-31 09:27:15	MarkDuplicates	Marking 86810 records as duplicates.
+INFO	2025-10-31 09:27:15	MarkDuplicates	Found 15548 optical duplicate clusters.
+INFO	2025-10-31 09:27:15	MarkDuplicates	Reads are assumed to be ordered by: coordinate
+INFO	2025-10-31 09:27:35	MarkDuplicates	Written    10,000,000 records.  Elapsed time: 00:00:20s.  Time for last 10,000,000:   20s.  Last read position: So120_Chr1:29,084,434
+INFO	2025-10-31 09:27:55	MarkDuplicates	Written    20,000,000 records.  Elapsed time: 00:00:40s.  Time for last 10,000,000:   19s.  Last read position: So120_Chr2:15,330,926
+INFO	2025-10-31 09:28:15	MarkDuplicates	Written    30,000,000 records.  Elapsed time: 00:01:00s.  Time for last 10,000,000:   19s.  Last read position: So120_Chr3:3,561,508
+INFO	2025-10-31 09:28:35	MarkDuplicates	Written    40,000,000 records.  Elapsed time: 00:01:19s.  Time for last 10,000,000:   19s.  Last read position: So120_Chr3:33,372,266
+INFO	2025-10-31 09:28:54	MarkDuplicates	Written    50,000,000 records.  Elapsed time: 00:01:39s.  Time for last 10,000,000:   19s.  Last read position: So120_Chr4:22,606,978
+INFO	2025-10-31 09:29:13	MarkDuplicates	Written    60,000,000 records.  Elapsed time: 00:01:58s.  Time for last 10,000,000:   19s.  Last read position: So120_Chr5:15,148,816
+INFO	2025-10-31 09:29:33	MarkDuplicates	Written    70,000,000 records.  Elapsed time: 00:02:18s.  Time for last 10,000,000:   19s.  Last read position: So120_Chr6:6,825,690
+INFO	2025-10-31 09:29:53	MarkDuplicates	Written    80,000,000 records.  Elapsed time: 00:02:38s.  Time for last 10,000,000:   19s.  Last read position: So120_Chr6:36,592,007
+INFO	2025-10-31 09:30:13	MarkDuplicates	Written    90,000,000 records.  Elapsed time: 00:02:58s.  Time for last 10,000,000:   20s.  Last read position: So120_Chr7:29,459,886
+INFO	2025-10-31 09:30:30	MarkDuplicates	Writing complete. Closing input iterator.
+INFO	2025-10-31 09:30:30	MarkDuplicates	Duplicate Index cleanup.
+INFO	2025-10-31 09:30:30	MarkDuplicates	Getting Memory Stats.
+INFO	2025-10-31 09:30:30	MarkDuplicates	Before output close freeMemory: 3633853920; totalMemory: 3690987520; maxMemory: 171798691840
+INFO	2025-10-31 09:30:30	MarkDuplicates	Closed outputs. Getting more Memory Stats.
+INFO	2025-10-31 09:30:30	MarkDuplicates	After output close freeMemory: 1099129536; totalMemory: 1140850688; maxMemory: 171798691840
+[Fri Oct 31 09:30:30 CST 2025] picard.sam.markduplicates.MarkDuplicates done. Elapsed time: 6.14 minutes.
+Runtime.totalMemory()=1140850688
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -Xmx160g -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar HaplotypeCaller -R 120.sorted.genome.fa -I 119_sim_on_120_gatk.dedup.bam -O 119_sim_on_120_gatk.raw.vcf.gz -ploidy 2
+09:30:54.777 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+09:30:54.855 INFO  HaplotypeCaller - ------------------------------------------------------------
+09:30:54.858 INFO  HaplotypeCaller - The Genome Analysis Toolkit (GATK) v4.6.2.0
+09:30:54.858 INFO  HaplotypeCaller - For support and documentation go to https://software.broadinstitute.org/gatk/
+09:30:54.858 INFO  HaplotypeCaller - Executing as yzwl_lixg@c01n0310 on Linux v4.18.0-513.5.1.el8_9.x86_64 amd64
+09:30:54.858 INFO  HaplotypeCaller - Java runtime: OpenJDK 64-Bit Server VM v17.0.15-internal+0-adhoc..src
+09:30:54.858 INFO  HaplotypeCaller - Start Date/Time: 2025年10月31日 CST 上午9:30:54
+09:30:54.858 INFO  HaplotypeCaller - ------------------------------------------------------------
+09:30:54.858 INFO  HaplotypeCaller - ------------------------------------------------------------
+09:30:54.859 INFO  HaplotypeCaller - HTSJDK Version: 4.2.0
+09:30:54.859 INFO  HaplotypeCaller - Picard Version: 3.4.0
+09:30:54.859 INFO  HaplotypeCaller - Built for Spark Version: 3.5.0
+09:30:54.860 INFO  HaplotypeCaller - HTSJDK Defaults.COMPRESSION_LEVEL : 2
+09:30:54.861 INFO  HaplotypeCaller - HTSJDK Defaults.USE_ASYNC_IO_READ_FOR_SAMTOOLS : false
+09:30:54.861 INFO  HaplotypeCaller - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_SAMTOOLS : true
+09:30:54.861 INFO  HaplotypeCaller - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_TRIBBLE : false
+09:30:54.861 INFO  HaplotypeCaller - Deflater: IntelDeflater
+09:30:54.861 INFO  HaplotypeCaller - Inflater: IntelInflater
+09:30:54.861 INFO  HaplotypeCaller - GCS max retries/reopens: 20
+09:30:54.861 INFO  HaplotypeCaller - Requester pays: disabled
+09:30:54.861 INFO  HaplotypeCaller - Initializing engine
+09:30:54.973 INFO  HaplotypeCaller - Done initializing engine
+09:30:54.989 INFO  NativeLibraryLoader - Loading libgkl_utils.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_utils.so
+09:30:55.029 INFO  NativeLibraryLoader - Loading libgkl_smithwaterman.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_smithwaterman.so
+09:30:55.029 INFO  IntelSmithWaterman - Using CPU-supported AVX-512 instructions
+09:30:55.030 INFO  SmithWatermanAligner - Using AVX accelerated SmithWaterman implementation
+09:30:55.031 INFO  HaplotypeCallerEngine - Disabling physical phasing, which is supported only for reference-model confidence output
+09:30:55.039 INFO  NativeLibraryLoader - Loading libgkl_pairhmm_omp.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_pairhmm_omp.so
+09:30:55.054 INFO  IntelPairHmm - Using CPU-supported AVX-512 instructions
+09:30:55.055 INFO  IntelPairHmm - Flush-to-zero (FTZ) is enabled when running PairHMM
+09:30:55.055 INFO  IntelPairHmm - Available threads: 88
+09:30:55.055 INFO  IntelPairHmm - Requested threads: 4
+09:30:55.055 INFO  PairHMM - Using the OpenMP multi-threaded AVX-accelerated native PairHMM implementation
+09:30:55.088 INFO  ProgressMeter - Starting traversal
+09:30:55.088 INFO  ProgressMeter -        Current Locus  Elapsed Minutes     Regions Processed   Regions/Minute
+09:30:55.469 WARN  InbreedingCoeff - InbreedingCoeff will not be calculated at position So120_Chr1:28641 and possibly subsequent; at least 10 samples must have called genotypes
+09:31:05.100 INFO  ProgressMeter -    So120_Chr1:674232              0.2                  3000          17982.0
+09:31:15.162 INFO  ProgressMeter -   So120_Chr1:1510342              0.3                  6530          19519.7
+09:31:25.186 INFO  ProgressMeter -   So120_Chr1:2093804              0.5                  9060          18061.6
+09:31:35.205 INFO  ProgressMeter -   So120_Chr1:2628441              0.7                 11740          17559.1
+09:31:45.219 INFO  ProgressMeter -   So120_Chr1:2864116              0.8                 13150          15739.4
+09:31:55.460 INFO  ProgressMeter -   So120_Chr1:3343946              1.0                 15380          15285.5
+09:32:05.469 INFO  ProgressMeter -   So120_Chr1:3863217              1.2                 17890          15251.5
+09:32:15.683 INFO  ProgressMeter -   So120_Chr1:4210536              1.3                 19750          14703.3
+09:32:25.694 INFO  ProgressMeter -   So120_Chr1:4573226              1.5                 21460          14211.1
+09:32:35.922 INFO  ProgressMeter -   So120_Chr1:4886774              1.7                 22910          13632.6
+09:32:46.017 INFO  ProgressMeter -   So120_Chr1:5623127              1.8                 26260          14203.8
+09:32:56.028 INFO  ProgressMeter -   So120_Chr1:6298622              2.0                 29690          14729.7
+09:33:06.035 INFO  ProgressMeter -   So120_Chr1:6389770              2.2                 30370          13915.7
+09:33:16.071 INFO  ProgressMeter -   So120_Chr1:7149096              2.3                 33900          14427.4
+09:33:26.080 INFO  ProgressMeter -   So120_Chr1:7730456              2.5                 37060          14726.8
+09:33:36.123 INFO  ProgressMeter -   So120_Chr1:8224265              2.7                 40130          14952.1
+09:33:46.136 INFO  ProgressMeter -   So120_Chr1:8915811              2.9                 43420          15230.9
+09:33:56.168 INFO  ProgressMeter -   So120_Chr1:9646406              3.0                 46420          15381.1
+09:34:06.174 INFO  ProgressMeter -  So120_Chr1:10531611              3.2                 50000          15699.8
+09:34:16.359 INFO  ProgressMeter -  So120_Chr1:10995553              3.4                 52290          15588.0
+09:34:26.374 INFO  ProgressMeter -  So120_Chr1:11456397              3.5                 55170          15667.0
+09:34:36.389 INFO  ProgressMeter -  So120_Chr1:11833968              3.7                 57860          15687.3
+09:34:46.414 INFO  ProgressMeter -  So120_Chr1:12100073              3.9                 59930          15544.4
+09:34:56.437 INFO  ProgressMeter -  So120_Chr1:12756001              4.0                 62670          15580.0
+09:35:06.496 INFO  ProgressMeter -  So120_Chr1:13642406              4.2                 66210          15801.5
+09:35:16.512 INFO  ProgressMeter -  So120_Chr1:14458756              4.4                 69460          15942.0
+09:35:26.512 INFO  ProgressMeter -  So120_Chr1:15276268              4.5                 72680          16066.4
+09:35:36.529 INFO  ProgressMeter -  So120_Chr1:16382422              4.7                 77100          16436.9
+09:35:46.539 INFO  ProgressMeter -  So120_Chr1:17109439              4.9                 80000          16469.4
+09:35:56.546 INFO  ProgressMeter -  So120_Chr1:18016194              5.0                 83610          16641.2
+09:36:06.551 INFO  ProgressMeter -  So120_Chr1:18583930              5.2                 86070          16580.5
+09:36:16.556 INFO  ProgressMeter -  So120_Chr1:19212281              5.4                 88780          16570.3
+09:36:26.567 INFO  ProgressMeter -  So120_Chr1:19765102              5.5                 91350          16535.1
+09:36:36.678 INFO  ProgressMeter -  So120_Chr1:20109634              5.7                 93050          16344.2
+09:36:46.715 INFO  ProgressMeter -  So120_Chr1:20512162              5.9                 94890          16191.6
+09:36:56.764 INFO  ProgressMeter -  So120_Chr1:21318061              6.0                 98570          16352.2
+09:37:06.773 INFO  ProgressMeter -  So120_Chr1:22022204              6.2                101420          16372.0
+09:37:16.880 INFO  ProgressMeter -  So120_Chr1:22910407              6.4                104960          16494.9
+09:37:26.885 INFO  ProgressMeter -  So120_Chr1:23780483              6.5                108430          16605.1
+09:37:36.886 INFO  ProgressMeter -  So120_Chr1:24463268              6.7                111510          16651.7
+09:37:46.962 INFO  ProgressMeter -  So120_Chr1:25300392              6.9                115120          16770.2
+09:37:56.998 INFO  ProgressMeter -  So120_Chr1:25845815              7.0                118280          16820.7
+09:38:07.033 INFO  ProgressMeter -  So120_Chr1:26031033              7.2                119600          16613.3
+09:38:17.033 INFO  ProgressMeter -  So120_Chr1:26443102              7.4                122350          16610.7
+09:38:27.044 INFO  ProgressMeter -  So120_Chr1:27211020              7.5                126000          16727.3
+09:38:37.048 INFO  ProgressMeter -  So120_Chr1:27623321              7.7                128390          16675.5
+09:38:47.111 INFO  ProgressMeter -  So120_Chr1:28151074              7.9                131230          16681.0
+09:38:57.121 INFO  ProgressMeter -  So120_Chr1:28969294              8.0                134720          16769.0
+09:39:07.133 INFO  ProgressMeter -  So120_Chr1:29786166              8.2                137880          16813.1
+09:39:17.135 INFO  ProgressMeter -  So120_Chr1:30546269              8.4                141120          16865.4
+09:39:27.143 INFO  ProgressMeter -  So120_Chr1:31100511              8.5                143930          16865.0
+09:39:37.154 INFO  ProgressMeter -  So120_Chr1:32248618              8.7                148470          17063.4
+09:39:47.165 INFO  ProgressMeter -  So120_Chr1:33202665              8.9                152600          17208.1
+09:39:57.269 INFO  ProgressMeter -  So120_Chr1:34332078              9.0                156970          17371.0
+09:40:07.292 INFO  ProgressMeter -  So120_Chr1:35141095              9.2                160630          17453.4
+09:40:17.379 INFO  ProgressMeter -  So120_Chr1:36036657              9.4                164360          17538.3
+09:40:27.440 INFO  ProgressMeter -  So120_Chr1:36378709              9.5                166230          17426.0
+09:40:37.487 INFO  ProgressMeter -  So120_Chr1:37066404              9.7                169290          17440.7
+09:40:47.493 INFO  ProgressMeter -  So120_Chr1:37745069              9.9                172180          17438.8
+09:40:57.497 INFO  ProgressMeter -  So120_Chr1:38696559             10.0                176130          17542.6
+09:41:07.505 INFO  ProgressMeter -  So120_Chr1:39903283             10.2                180730          17706.6
+09:41:17.719 INFO  ProgressMeter -  So120_Chr1:41034181             10.4                185180          17844.9
+09:41:27.728 INFO  ProgressMeter -  So120_Chr1:42169191             10.5                189530          17975.2
+09:41:37.741 INFO  ProgressMeter -    So120_Chr2:252950             10.7                193870          18100.3
+09:41:47.760 INFO  ProgressMeter -   So120_Chr2:1577173             10.9                198800          18275.7
+09:41:57.770 INFO  ProgressMeter -   So120_Chr2:2822173             11.0                203690          18442.4
+09:42:07.973 INFO  ProgressMeter -   So120_Chr2:3658908             11.2                207160          18472.1
+09:42:17.983 INFO  ProgressMeter -   So120_Chr2:4280638             11.4                209930          18444.7
+09:42:27.997 INFO  ProgressMeter -   So120_Chr2:5082334             11.5                213310          18470.9
+09:42:38.005 INFO  ProgressMeter -   So120_Chr2:6374634             11.7                218350          18638.1
+09:42:48.015 INFO  ProgressMeter -   So120_Chr2:7645590             11.9                223120          18777.8
+09:42:58.034 INFO  ProgressMeter -   So120_Chr2:8324602             12.0                226260          18778.2
+09:43:08.109 INFO  ProgressMeter -   So120_Chr2:8804093             12.2                228580          18710.0
+09:43:18.109 INFO  ProgressMeter -   So120_Chr2:9651829             12.4                232210          18751.3
+09:43:28.128 INFO  ProgressMeter -  So120_Chr2:10572928             12.6                236030          18806.2
+09:43:38.132 INFO  ProgressMeter -  So120_Chr2:11248111             12.7                239130          18803.4
+09:43:48.237 INFO  ProgressMeter -  So120_Chr2:12442410             12.9                243700          18912.3
+09:43:58.251 INFO  ProgressMeter -  So120_Chr2:13097448             13.1                246500          18885.0
+09:44:08.398 INFO  ProgressMeter -  So120_Chr2:13845079             13.2                249790          18892.3
+09:44:18.404 INFO  ProgressMeter -  So120_Chr2:14836943             13.4                253960          18968.4
+09:44:28.418 INFO  ProgressMeter -  So120_Chr2:15531096             13.6                256890          18951.0
+09:44:38.680 INFO  ProgressMeter -  So120_Chr2:16014413             13.7                259320          18891.9
+09:44:48.795 INFO  ProgressMeter -  So120_Chr2:16581677             13.9                262000          18855.6
+09:44:58.807 INFO  ProgressMeter -  So120_Chr2:17522536             14.1                265600          18887.8
+09:45:08.880 INFO  ProgressMeter -  So120_Chr2:18418066             14.2                269200          18918.0
+09:45:18.905 INFO  ProgressMeter -  So120_Chr2:18945517             14.4                271320          18845.7
+09:45:28.911 INFO  ProgressMeter -  So120_Chr2:19671895             14.6                274140          18823.5
+09:45:38.928 INFO  ProgressMeter -  So120_Chr2:20644033             14.7                277990          18871.5
+09:45:48.988 INFO  ProgressMeter -  So120_Chr2:21632868             14.9                281880          18920.3
+09:45:59.001 INFO  ProgressMeter -  So120_Chr2:22594232             15.1                285630          18959.6
+09:46:09.003 INFO  ProgressMeter -  So120_Chr2:23523287             15.2                289230          18988.4
+09:46:19.026 INFO  ProgressMeter -  So120_Chr2:24319586             15.4                292620          19002.6
+09:46:29.074 INFO  ProgressMeter -  So120_Chr2:25405500             15.6                297000          19079.6
+09:46:39.073 INFO  ProgressMeter -  So120_Chr2:26865516             15.7                302770          19244.2
+09:46:49.132 INFO  ProgressMeter -  So120_Chr2:27756080             15.9                306310          19263.9
+09:46:59.135 INFO  ProgressMeter -  So120_Chr2:28658988             16.1                309890          19286.8
+09:47:09.150 INFO  ProgressMeter -  So120_Chr2:29533568             16.2                313320          19299.8
+09:47:19.379 INFO  ProgressMeter -  So120_Chr2:30180376             16.4                315880          19255.3
+09:47:29.412 INFO  ProgressMeter -  So120_Chr2:31189903             16.6                319810          19298.2
+09:47:39.457 INFO  ProgressMeter -  So120_Chr2:31761932             16.7                322120          19243.1
+09:47:49.463 INFO  ProgressMeter -  So120_Chr2:32639045             16.9                325500          19253.3
+09:47:59.474 INFO  ProgressMeter -  So120_Chr2:33513828             17.1                328910          19264.8
+09:48:09.498 INFO  ProgressMeter -  So120_Chr2:34575821             17.2                332970          19313.6
+09:48:19.514 INFO  ProgressMeter -  So120_Chr2:35572498             17.4                336830          19350.2
+09:48:29.574 INFO  ProgressMeter -  So120_Chr2:36600838             17.6                340990          19402.3
+09:48:39.617 INFO  ProgressMeter -  So120_Chr2:36955625             17.7                343150          19341.0
+09:48:49.628 INFO  ProgressMeter -  So120_Chr2:37329130             17.9                345080          19268.5
+09:48:59.649 INFO  ProgressMeter -  So120_Chr2:37844289             18.1                347970          19250.4
+09:49:09.654 INFO  ProgressMeter -  So120_Chr2:38463839             18.2                350680          19223.0
+09:49:19.680 INFO  ProgressMeter -  So120_Chr2:38990907             18.4                353340          19193.0
+09:49:29.701 INFO  ProgressMeter -  So120_Chr2:39308424             18.6                355190          19120.0
+09:49:39.726 INFO  ProgressMeter -  So120_Chr2:39458975             18.7                356130          18999.7
+09:49:49.869 INFO  ProgressMeter -  So120_Chr2:39872880             18.9                358280          18943.6
+09:49:59.870 INFO  ProgressMeter -  So120_Chr2:40427726             19.1                360910          18915.9
+09:50:10.033 INFO  ProgressMeter -  So120_Chr2:41102349             19.2                363950          18907.4
+09:50:20.043 INFO  ProgressMeter -    So120_Chr3:898805             19.4                368240          18965.9
+09:50:30.049 INFO  ProgressMeter -   So120_Chr3:1933353             19.6                372360          19014.8
+09:50:40.051 INFO  ProgressMeter -   So120_Chr3:2924973             19.7                376460          19061.9
+09:50:50.520 INFO  ProgressMeter -   So120_Chr3:4131231             19.9                381100          19127.8
+09:51:00.545 INFO  ProgressMeter -   So120_Chr3:4840846             20.1                384040          19115.1
+09:51:10.548 INFO  ProgressMeter -   So120_Chr3:5615057             20.3                387360          19121.7
+09:51:20.557 INFO  ProgressMeter -   So120_Chr3:6996627             20.4                392610          19222.5
+09:51:30.558 INFO  ProgressMeter -   So120_Chr3:7929437             20.6                396380          19250.0
+09:51:40.573 INFO  ProgressMeter -   So120_Chr3:8785471             20.8                399810          19260.5
+09:51:50.609 INFO  ProgressMeter -   So120_Chr3:9461500             20.9                402840          19251.3
+09:52:00.611 INFO  ProgressMeter -  So120_Chr3:10099733             21.1                405920          19245.2
+09:52:10.614 INFO  ProgressMeter -  So120_Chr3:11064944             21.3                409650          19269.7
+09:52:20.617 INFO  ProgressMeter -  So120_Chr3:11511070             21.4                412070          19232.7
+09:52:30.636 INFO  ProgressMeter -  So120_Chr3:11980940             21.6                414740          19207.6
+09:52:40.637 INFO  ProgressMeter -  So120_Chr3:13088290             21.8                418980          19255.4
+09:52:50.640 INFO  ProgressMeter -  So120_Chr3:13770493             21.9                421630          19229.8
+09:53:00.641 INFO  ProgressMeter -  So120_Chr3:14782166             22.1                425580          19263.5
+09:53:10.793 INFO  ProgressMeter -  So120_Chr3:15367179             22.3                427890          19220.9
+09:53:20.819 INFO  ProgressMeter -  So120_Chr3:15920232             22.4                430630          19199.8
+09:53:30.838 INFO  ProgressMeter -  So120_Chr3:16220177             22.6                432890          19158.0
+09:53:41.182 INFO  ProgressMeter -  So120_Chr3:16515201             22.8                435120          19110.9
+09:53:51.215 INFO  ProgressMeter -  So120_Chr3:16826205             22.9                437600          19079.6
+09:54:01.229 INFO  ProgressMeter -  So120_Chr3:17094588             23.1                439650          19030.5
+09:54:11.234 INFO  ProgressMeter -  So120_Chr3:17527726             23.3                442350          19010.2
+09:54:21.265 INFO  ProgressMeter -  So120_Chr3:17753295             23.4                444050          18947.1
+09:54:31.286 INFO  ProgressMeter -  So120_Chr3:18024665             23.6                446150          18902.0
+09:54:41.293 INFO  ProgressMeter -  So120_Chr3:18261076             23.8                448080          18850.6
+09:54:51.326 INFO  ProgressMeter -  So120_Chr3:18470564             23.9                449840          18792.4
+09:55:01.329 INFO  ProgressMeter -  So120_Chr3:18734087             24.1                452020          18752.9
+09:55:11.364 INFO  ProgressMeter -  So120_Chr3:18971844             24.3                454020          18706.1
+09:55:21.731 INFO  ProgressMeter -  So120_Chr3:19183502             24.4                455610          18638.9
+09:55:31.737 INFO  ProgressMeter -  So120_Chr3:19424315             24.6                457470          18588.2
+09:55:41.905 INFO  ProgressMeter -  So120_Chr3:19651055             24.8                459280          18534.1
+09:55:51.905 INFO  ProgressMeter -  So120_Chr3:19945294             24.9                461640          18504.9
+09:56:01.970 INFO  ProgressMeter -  So120_Chr3:20198483             25.1                463640          18460.9
+09:56:11.983 INFO  ProgressMeter -  So120_Chr3:20483086             25.3                465740          18422.1
+09:56:21.985 INFO  ProgressMeter -  So120_Chr3:21003874             25.4                468670          18416.6
+09:56:32.325 INFO  ProgressMeter -  So120_Chr3:21627776             25.6                471490          18402.8
+09:56:42.453 INFO  ProgressMeter -  So120_Chr3:22142871             25.8                473940          18377.3
+09:56:52.467 INFO  ProgressMeter -  So120_Chr3:22510289             26.0                476330          18351.2
+09:57:02.612 INFO  ProgressMeter -  So120_Chr3:22665966             26.1                477520          18278.0
+09:57:13.048 INFO  ProgressMeter -  So120_Chr3:22842215             26.3                478760          18204.3
+09:57:23.054 INFO  ProgressMeter -  So120_Chr3:23302753             26.5                481480          18192.3
+09:57:33.057 INFO  ProgressMeter -  So120_Chr3:23823537             26.6                484460          18190.4
+09:57:43.248 INFO  ProgressMeter -  So120_Chr3:24054793             26.8                486300          18143.7
+09:57:53.274 INFO  ProgressMeter -  So120_Chr3:24270718             27.0                488140          18099.5
+09:58:03.301 INFO  ProgressMeter -  So120_Chr3:24453175             27.1                489460          18036.7
+09:58:13.380 INFO  ProgressMeter -  So120_Chr3:24691198             27.3                491350          17995.0
+09:58:23.402 INFO  ProgressMeter -  So120_Chr3:24984121             27.5                493560          17966.0
+09:58:33.415 INFO  ProgressMeter -  So120_Chr3:25259182             27.6                495470          17926.6
+09:58:43.418 INFO  ProgressMeter -  So120_Chr3:25485001             27.8                497310          17885.3
+09:58:53.436 INFO  ProgressMeter -  So120_Chr3:25696216             28.0                499070          17841.5
+09:59:03.465 INFO  ProgressMeter -  So120_Chr3:25924622             28.1                500920          17801.2
+09:59:13.478 INFO  ProgressMeter -  So120_Chr3:26194858             28.3                503070          17772.3
+09:59:23.526 INFO  ProgressMeter -  So120_Chr3:26422490             28.5                504830          17729.5
+09:59:33.548 INFO  ProgressMeter -  So120_Chr3:26678850             28.6                506920          17699.1
+09:59:43.551 INFO  ProgressMeter -  So120_Chr3:26947457             28.8                509140          17673.7
+09:59:53.574 INFO  ProgressMeter -  So120_Chr3:27204826             29.0                511190          17642.6
+10:00:03.658 INFO  ProgressMeter -  So120_Chr3:27464229             29.1                513270          17612.2
+10:00:13.659 INFO  ProgressMeter -  So120_Chr3:27809614             29.3                515560          17590.2
+10:00:23.665 INFO  ProgressMeter -  So120_Chr3:28486416             29.5                518360          17585.7
+10:00:33.714 INFO  ProgressMeter -  So120_Chr3:29200137             29.6                521260          17584.1
+10:00:43.716 INFO  ProgressMeter -  So120_Chr3:30021742             29.8                524500          17594.5
+10:00:53.726 INFO  ProgressMeter -  So120_Chr3:30846656             30.0                527710          17603.7
+10:01:03.885 INFO  ProgressMeter -  So120_Chr3:31610583             30.1                530800          17607.3
+10:01:13.889 INFO  ProgressMeter -  So120_Chr3:32631551             30.3                534650          17637.5
+10:01:23.898 INFO  ProgressMeter -  So120_Chr3:33263403             30.5                537140          17622.6
+10:01:33.902 INFO  ProgressMeter -  So120_Chr3:33593569             30.6                539430          17601.5
+10:01:43.928 INFO  ProgressMeter -  So120_Chr3:34184480             30.8                542100          17592.7
+10:01:53.941 INFO  ProgressMeter -  So120_Chr3:34453486             31.0                544020          17559.9
+10:02:03.946 INFO  ProgressMeter -  So120_Chr3:35027284             31.1                546810          17555.4
+10:02:13.972 INFO  ProgressMeter -  So120_Chr3:35755726             31.3                550060          17565.5
+10:02:23.973 INFO  ProgressMeter -  So120_Chr3:36417005             31.5                553110          17569.4
+10:02:34.004 INFO  ProgressMeter -  So120_Chr3:37061633             31.6                556080          17570.5
+10:02:44.097 INFO  ProgressMeter -  So120_Chr3:37298163             31.8                557500          17522.2
+10:02:54.104 INFO  ProgressMeter -  So120_Chr3:37604731             32.0                559200          17484.0
+10:03:04.109 INFO  ProgressMeter -  So120_Chr3:37894035             32.2                561030          17450.2
+10:03:14.117 INFO  ProgressMeter -  So120_Chr3:38045371             32.3                562060          17392.0
+10:03:24.121 INFO  ProgressMeter -  So120_Chr3:38537266             32.5                564590          17380.6
+10:03:34.143 INFO  ProgressMeter -  So120_Chr3:39466194             32.7                568430          17409.3
+10:03:44.204 INFO  ProgressMeter -    So120_Chr4:380306             32.8                571230          17405.7
+10:03:54.211 INFO  ProgressMeter -   So120_Chr4:1294275             33.0                575100          17435.0
+10:04:04.215 INFO  ProgressMeter -   So120_Chr4:1996251             33.2                578360          17445.7
+10:04:14.217 INFO  ProgressMeter -   So120_Chr4:2575133             33.3                581120          17441.2
+10:04:24.262 INFO  ProgressMeter -   So120_Chr4:3456424             33.5                584830          17464.8
+10:04:34.339 INFO  ProgressMeter -   So120_Chr4:3938347             33.7                587350          17452.5
+10:04:44.399 INFO  ProgressMeter -   So120_Chr4:4230675             33.8                588990          17414.5
+10:04:54.407 INFO  ProgressMeter -   So120_Chr4:4740467             34.0                591430          17400.8
+10:05:04.415 INFO  ProgressMeter -   So120_Chr4:5718499             34.2                595410          17432.4
+10:05:14.431 INFO  ProgressMeter -   So120_Chr4:6742501             34.3                599650          17471.1
+10:05:24.441 INFO  ProgressMeter -   So120_Chr4:7278629             34.5                602400          17466.3
+10:05:34.447 INFO  ProgressMeter -   So120_Chr4:8397356             34.7                606640          17504.6
+10:05:44.448 INFO  ProgressMeter -   So120_Chr4:8626851             34.8                608020          17460.5
+10:05:54.547 INFO  ProgressMeter -   So120_Chr4:9001561             35.0                610030          17433.9
+10:06:04.568 INFO  ProgressMeter -   So120_Chr4:9368861             35.2                612210          17413.1
+10:06:14.646 INFO  ProgressMeter -   So120_Chr4:9895605             35.3                615280          17417.2
+10:06:24.774 INFO  ProgressMeter -  So120_Chr4:10550921             35.5                618160          17415.5
+10:06:34.774 INFO  ProgressMeter -  So120_Chr4:11405702             35.7                621480          17427.2
+10:06:44.803 INFO  ProgressMeter -  So120_Chr4:12155109             35.8                624550          17431.6
+10:06:54.813 INFO  ProgressMeter -  So120_Chr4:12916083             36.0                627570          17434.7
+10:07:04.816 INFO  ProgressMeter -  So120_Chr4:13963921             36.2                631630          17466.6
+10:07:14.825 INFO  ProgressMeter -  So120_Chr4:14632765             36.3                634340          17461.0
+10:07:24.833 INFO  ProgressMeter -  So120_Chr4:15550599             36.5                637960          17480.4
+10:07:34.856 INFO  ProgressMeter -  So120_Chr4:16160835             36.7                640470          17469.2
+10:07:44.977 INFO  ProgressMeter -  So120_Chr4:16961897             36.8                643720          17477.4
+10:07:55.011 INFO  ProgressMeter -  So120_Chr4:17635009             37.0                646600          17476.3
+10:08:05.023 INFO  ProgressMeter -  So120_Chr4:18288766             37.2                649360          17472.1
+10:08:15.193 INFO  ProgressMeter -  So120_Chr4:19265814             37.3                653130          17493.7
+10:08:25.207 INFO  ProgressMeter -  So120_Chr4:20129032             37.5                656490          17505.5
+10:08:35.594 INFO  ProgressMeter -  So120_Chr4:21390007             37.7                661160          17549.0
+10:08:45.605 INFO  ProgressMeter -  So120_Chr4:22081260             37.8                663900          17544.0
+10:08:55.972 INFO  ProgressMeter -  So120_Chr4:22815480             38.0                666760          17539.5
+10:09:06.156 INFO  ProgressMeter -  So120_Chr4:23577508             38.2                669740          17539.6
+10:09:16.160 INFO  ProgressMeter -  So120_Chr4:24611984             38.4                673710          17566.9
+10:09:26.164 INFO  ProgressMeter -  So120_Chr4:25449197             38.5                676930          17574.4
+10:09:36.174 INFO  ProgressMeter -  So120_Chr4:26676964             38.7                681620          17619.9
+10:09:46.361 INFO  ProgressMeter -  So120_Chr4:27730892             38.9                685710          17648.1
+10:09:56.365 INFO  ProgressMeter -  So120_Chr4:28273799             39.0                688730          17650.1
+10:10:06.395 INFO  ProgressMeter -  So120_Chr4:28463710             39.2                690000          17607.2
+10:10:16.510 INFO  ProgressMeter -  So120_Chr4:28928699             39.4                692170          17587.0
+10:10:26.974 INFO  ProgressMeter -  So120_Chr4:29285032             39.5                694410          17566.0
+10:10:37.184 INFO  ProgressMeter -  So120_Chr4:29559669             39.7                696270          17537.6
+10:10:47.189 INFO  ProgressMeter -  So120_Chr4:30076687             39.9                698720          17525.7
+10:10:57.192 INFO  ProgressMeter -  So120_Chr4:30669764             40.0                701480          17521.6
+10:11:07.210 INFO  ProgressMeter -  So120_Chr4:31389914             40.2                704740          17530.0
+10:11:17.267 INFO  ProgressMeter -  So120_Chr4:31865126             40.4                707290          17520.3
+10:11:27.279 INFO  ProgressMeter -  So120_Chr4:32881977             40.5                711260          17546.2
+10:11:37.288 INFO  ProgressMeter -  So120_Chr4:33718094             40.7                714800          17561.2
+10:11:47.460 INFO  ProgressMeter -  So120_Chr4:34316137             40.9                717660          17558.4
+10:11:57.465 INFO  ProgressMeter -  So120_Chr4:35324600             41.0                721670          17584.7
+10:12:07.467 INFO  ProgressMeter -  So120_Chr4:36274494             41.2                725380          17603.6
+10:12:17.484 INFO  ProgressMeter -  So120_Chr4:36792235             41.4                727970          17595.2
+10:12:27.519 INFO  ProgressMeter -  So120_Chr4:37748473             41.5                731970          17620.6
+10:12:37.532 INFO  ProgressMeter -    So120_Chr5:488175             41.7                734490          17610.6
+10:12:47.566 INFO  ProgressMeter -    So120_Chr5:945309             41.9                736870          17597.1
+10:12:57.584 INFO  ProgressMeter -   So120_Chr5:1276245             42.0                738820          17573.6
+10:13:07.601 INFO  ProgressMeter -   So120_Chr5:1722726             42.2                741260          17561.9
+10:13:17.606 INFO  ProgressMeter -   So120_Chr5:2026152             42.4                742940          17532.4
+10:13:27.636 INFO  ProgressMeter -   So120_Chr5:2580171             42.5                745810          17531.0
+10:13:37.953 INFO  ProgressMeter -   So120_Chr5:2836994             42.7                747440          17498.5
+10:13:47.954 INFO  ProgressMeter -   So120_Chr5:3759585             42.9                751380          17522.4
+10:13:58.028 INFO  ProgressMeter -   So120_Chr5:4288171             43.0                754080          17516.8
+10:14:08.155 INFO  ProgressMeter -   So120_Chr5:4451373             43.2                755100          17472.0
+10:14:18.162 INFO  ProgressMeter -   So120_Chr5:4863420             43.4                757170          17452.5
+10:14:28.169 INFO  ProgressMeter -   So120_Chr5:5627441             43.6                760660          17465.8
+10:14:38.212 INFO  ProgressMeter -   So120_Chr5:6067419             43.7                763380          17461.2
+10:14:48.254 INFO  ProgressMeter -   So120_Chr5:6492526             43.9                765970          17453.6
+10:14:58.294 INFO  ProgressMeter -   So120_Chr5:6914032             44.1                768000          17433.4
+10:15:08.339 INFO  ProgressMeter -   So120_Chr5:7502288             44.2                770710          17428.7
+10:15:18.352 INFO  ProgressMeter -   So120_Chr5:7787069             44.4                772710          17408.2
+10:15:28.368 INFO  ProgressMeter -   So120_Chr5:8565945             44.6                776250          17422.4
+10:15:38.428 INFO  ProgressMeter -   So120_Chr5:9505374             44.7                779990          17440.7
+10:15:48.438 INFO  ProgressMeter -  So120_Chr5:10642922             44.9                784440          17475.0
+10:15:58.496 INFO  ProgressMeter -  So120_Chr5:11670273             45.1                788540          17501.0
+10:16:08.508 INFO  ProgressMeter -  So120_Chr5:12193635             45.2                790780          17486.0
+10:16:18.645 INFO  ProgressMeter -  So120_Chr5:14129767             45.4                798000          17580.0
+10:16:28.660 INFO  ProgressMeter -  So120_Chr5:15200720             45.6                802240          17608.6
+10:16:38.708 INFO  ProgressMeter -  So120_Chr5:15978355             45.7                805320          17611.5
+10:16:48.710 INFO  ProgressMeter -  So120_Chr5:17321158             45.9                810600          17662.6
+10:16:58.724 INFO  ProgressMeter -  So120_Chr5:18003075             46.1                813420          17659.8
+10:17:08.728 INFO  ProgressMeter -  So120_Chr5:18939697             46.2                817140          17676.6
+10:17:18.739 INFO  ProgressMeter -  So120_Chr5:19663845             46.4                820060          17675.9
+10:17:28.752 INFO  ProgressMeter -  So120_Chr5:20250491             46.6                822700          17669.3
+10:17:38.763 INFO  ProgressMeter -  So120_Chr5:20830182             46.7                825710          17670.6
+10:17:48.783 INFO  ProgressMeter -  So120_Chr5:21329268             46.9                828100          17658.6
+10:17:58.811 INFO  ProgressMeter -  So120_Chr5:21782331             47.1                830430          17645.4
+10:18:08.815 INFO  ProgressMeter -  So120_Chr5:22566062             47.2                834170          17662.3
+10:18:18.816 INFO  ProgressMeter -  So120_Chr5:23212470             47.4                837240          17665.0
+10:18:29.132 INFO  ProgressMeter -  So120_Chr5:23846301             47.6                840040          17660.0
+10:18:39.279 INFO  ProgressMeter -  So120_Chr5:24626574             47.7                843570          17671.4
+10:18:49.385 INFO  ProgressMeter -  So120_Chr5:25115481             47.9                846270          17665.6
+10:18:59.473 INFO  ProgressMeter -  So120_Chr5:25487320             48.1                848240          17644.8
+10:19:09.539 INFO  ProgressMeter -  So120_Chr5:26385865             48.2                851870          17658.7
+10:19:19.579 INFO  ProgressMeter -  So120_Chr5:27292416             48.4                855810          17679.0
+10:19:29.580 INFO  ProgressMeter -  So120_Chr5:27759640             48.6                858060          17664.7
+10:19:39.580 INFO  ProgressMeter -  So120_Chr5:28443248             48.7                861190          17668.5
+10:19:49.581 INFO  ProgressMeter -  So120_Chr5:29829720             48.9                866410          17715.0
+10:19:59.581 INFO  ProgressMeter -  So120_Chr5:30780100             49.1                870580          17739.8
+10:20:09.590 INFO  ProgressMeter -  So120_Chr5:31645873             49.2                874160          17752.4
+10:20:19.591 INFO  ProgressMeter -  So120_Chr5:32801954             49.4                878740          17785.2
+10:20:29.675 INFO  ProgressMeter -  So120_Chr5:33808799             49.6                882890          17808.7
+10:20:39.698 INFO  ProgressMeter -  So120_Chr5:34884826             49.7                887240          17836.3
+10:20:49.702 INFO  ProgressMeter -  So120_Chr5:35974663             49.9                891390          17859.9
+10:20:59.711 INFO  ProgressMeter -  So120_Chr5:37400446             50.1                896670          17905.8
+10:21:09.713 INFO  ProgressMeter -    So120_Chr6:420174             50.2                899880          17910.3
+10:21:19.713 INFO  ProgressMeter -    So120_Chr6:828742             50.4                901800          17889.2
+10:21:29.758 INFO  ProgressMeter -   So120_Chr6:2054271             50.6                906500          17922.9
+10:21:39.808 INFO  ProgressMeter -   So120_Chr6:2726465             50.7                909520          17923.2
+10:21:49.819 INFO  ProgressMeter -   So120_Chr6:3978759             50.9                914240          17957.2
+10:21:59.829 INFO  ProgressMeter -   So120_Chr6:5395489             51.1                919530          18002.1
+10:22:09.876 INFO  ProgressMeter -   So120_Chr6:6676634             51.2                924510          18040.5
+10:22:19.883 INFO  ProgressMeter -   So120_Chr6:7466041             51.4                928150          18052.7
+10:22:30.595 INFO  ProgressMeter -   So120_Chr6:8195965             51.6                931100          18047.5
+10:22:40.707 INFO  ProgressMeter -   So120_Chr6:8692194             51.8                933630          18037.6
+10:22:50.823 INFO  ProgressMeter -   So120_Chr6:9340761             51.9                936490          18034.1
+10:23:00.840 INFO  ProgressMeter -  So120_Chr6:10160662             52.1                939950          18042.7
+10:23:10.858 INFO  ProgressMeter -  So120_Chr6:10639442             52.3                942150          18027.2
+10:23:20.889 INFO  ProgressMeter -  So120_Chr6:11291049             52.4                945210          18028.0
+10:23:30.920 INFO  ProgressMeter -  So120_Chr6:12025798             52.6                948590          18035.0
+10:23:40.927 INFO  ProgressMeter -  So120_Chr6:12543872             52.8                951420          18031.6
+10:23:50.944 INFO  ProgressMeter -  So120_Chr6:12798233             52.9                952850          18001.8
+10:24:01.023 INFO  ProgressMeter -  So120_Chr6:13260377             53.1                955260          17990.2
+10:24:11.036 INFO  ProgressMeter -  So120_Chr6:13558694             53.3                956940          17965.4
+10:24:21.043 INFO  ProgressMeter -  So120_Chr6:14100560             53.4                959370          17954.8
+10:24:31.052 INFO  ProgressMeter -  So120_Chr6:14595083             53.6                961920          17946.5
+10:24:41.069 INFO  ProgressMeter -  So120_Chr6:14786455             53.8                963100          17912.7
+10:24:51.192 INFO  ProgressMeter -  So120_Chr6:15181553             53.9                965340          17898.2
+10:25:01.466 INFO  ProgressMeter -  So120_Chr6:15467154             54.1                966670          17866.1
+10:25:11.493 INFO  ProgressMeter -  So120_Chr6:16082912             54.3                969360          17860.7
+10:25:21.499 INFO  ProgressMeter -  So120_Chr6:16812334             54.4                972570          17864.9
+10:25:31.597 INFO  ProgressMeter -  So120_Chr6:17578516             54.6                975680          17866.8
+10:25:41.616 INFO  ProgressMeter -  So120_Chr6:18407683             54.8                978970          17872.4
+10:25:51.632 INFO  ProgressMeter -  So120_Chr6:19352377             54.9                982770          17887.3
+10:26:01.634 INFO  ProgressMeter -  So120_Chr6:20210226             55.1                986340          17898.0
+10:26:11.635 INFO  ProgressMeter -  So120_Chr6:20911164             55.3                989240          17896.5
+10:26:21.745 INFO  ProgressMeter -  So120_Chr6:22688561             55.4                996470          17972.5
+10:26:32.409 INFO  ProgressMeter -  So120_Chr6:23274651             55.6                999160          17963.4
+10:26:42.755 INFO  ProgressMeter -  So120_Chr6:23831268             55.8               1001650          17952.5
+10:26:52.760 INFO  ProgressMeter -  So120_Chr6:24374309             56.0               1004100          17942.8
+10:27:02.769 INFO  ProgressMeter -  So120_Chr6:25213098             56.1               1007710          17953.8
+10:27:12.785 INFO  ProgressMeter -  So120_Chr6:26086157             56.3               1011320          17964.7
+10:27:22.787 INFO  ProgressMeter -  So120_Chr6:26632293             56.5               1013620          17952.4
+10:27:32.884 INFO  ProgressMeter -  So120_Chr6:27005494             56.6               1015640          17934.7
+10:27:42.950 INFO  ProgressMeter -  So120_Chr6:27214811             56.8               1017410          17912.9
+10:27:52.977 INFO  ProgressMeter -  So120_Chr6:27450999             57.0               1019320          17893.9
+10:28:03.103 INFO  ProgressMeter -  So120_Chr6:27634400             57.1               1020780          17866.6
+10:28:13.129 INFO  ProgressMeter -  So120_Chr6:27913137             57.3               1022970          17852.7
+10:28:23.138 INFO  ProgressMeter -  So120_Chr6:28082877             57.5               1024330          17824.5
+10:28:33.163 INFO  ProgressMeter -  So120_Chr6:28264959             57.6               1025740          17797.3
+10:28:43.166 INFO  ProgressMeter -  So120_Chr6:28819742             57.8               1029160          17805.1
+10:28:53.170 INFO  ProgressMeter -  So120_Chr6:29200859             58.0               1031000          17785.7
+10:29:03.214 INFO  ProgressMeter -  So120_Chr6:29624422             58.1               1033630          17779.7
+10:29:13.228 INFO  ProgressMeter -  So120_Chr6:29949357             58.3               1035480          17760.5
+10:29:23.367 INFO  ProgressMeter -  So120_Chr6:30994655             58.5               1039500          17778.0
+10:29:33.384 INFO  ProgressMeter -  So120_Chr6:31410456             58.6               1041860          17767.6
+10:29:43.385 INFO  ProgressMeter -  So120_Chr6:31884904             58.8               1044350          17759.6
+10:29:53.418 INFO  ProgressMeter -  So120_Chr6:32560709             59.0               1047270          17758.7
+10:30:03.564 INFO  ProgressMeter -  So120_Chr6:33225388             59.1               1050410          17761.0
+10:30:13.605 INFO  ProgressMeter -  So120_Chr6:33467021             59.3               1051590          17730.8
+10:30:23.625 INFO  ProgressMeter -  So120_Chr6:33701787             59.5               1053160          17707.4
+10:30:33.640 INFO  ProgressMeter -  So120_Chr6:34615526             59.6               1057050          17723.1
+10:30:43.686 INFO  ProgressMeter -  So120_Chr6:35400157             59.8               1060320          17728.2
+10:30:53.701 INFO  ProgressMeter -  So120_Chr6:35978244             60.0               1063080          17724.8
+10:31:03.733 INFO  ProgressMeter -  So120_Chr6:36447548             60.1               1065210          17711.0
+10:31:13.743 INFO  ProgressMeter -  So120_Chr6:36805062             60.3               1066790          17688.2
+10:31:23.811 INFO  ProgressMeter -    So120_Chr7:193668             60.5               1070100          17693.8
+10:31:33.814 INFO  ProgressMeter -    So120_Chr7:803233             60.6               1073040          17693.7
+10:31:43.933 INFO  ProgressMeter -   So120_Chr7:1539052             60.8               1076220          17696.9
+10:31:53.960 INFO  ProgressMeter -   So120_Chr7:2217341             61.0               1079230          17697.8
+10:32:03.984 INFO  ProgressMeter -   So120_Chr7:2927713             61.1               1082450          17702.1
+10:32:14.140 INFO  ProgressMeter -   So120_Chr7:3444394             61.3               1085030          17695.3
+10:32:24.297 INFO  ProgressMeter -   So120_Chr7:3914945             61.5               1087490          17686.6
+10:32:34.297 INFO  ProgressMeter -   So120_Chr7:4407351             61.7               1090160          17682.1
+10:32:44.305 INFO  ProgressMeter -   So120_Chr7:5241235             61.8               1093580          17689.7
+10:32:54.311 INFO  ProgressMeter -   So120_Chr7:5500601             62.0               1095010          17665.1
+10:33:04.358 INFO  ProgressMeter -   So120_Chr7:5806441             62.2               1097160          17652.1
+10:33:14.395 INFO  ProgressMeter -   So120_Chr7:6214683             62.3               1099870          17648.2
+10:33:24.433 INFO  ProgressMeter -   So120_Chr7:6643540             62.5               1102810          17648.0
+10:33:34.433 INFO  ProgressMeter -   So120_Chr7:7111041             62.7               1105860          17649.8
+10:33:44.445 INFO  ProgressMeter -   So120_Chr7:7693599             62.8               1109260          17657.0
+10:33:54.466 INFO  ProgressMeter -   So120_Chr7:8042168             63.0               1111760          17649.9
+10:34:04.511 INFO  ProgressMeter -   So120_Chr7:8459164             63.2               1114330          17643.8
+10:34:14.699 INFO  ProgressMeter -   So120_Chr7:8622218             63.3               1115470          17614.5
+10:34:25.383 INFO  ProgressMeter -   So120_Chr7:8758219             63.5               1116440          17580.4
+10:34:35.392 INFO  ProgressMeter -   So120_Chr7:8892062             63.7               1117460          17550.3
+10:34:45.406 INFO  ProgressMeter -   So120_Chr7:9020719             63.8               1118300          17517.6
+10:34:55.588 INFO  ProgressMeter -   So120_Chr7:9232304             64.0               1119590          17491.3
+10:35:05.651 INFO  ProgressMeter -   So120_Chr7:9563728             64.2               1121870          17481.1
+10:35:15.666 INFO  ProgressMeter -  So120_Chr7:10031381             64.3               1124780          17481.0
+10:35:25.683 INFO  ProgressMeter -  So120_Chr7:10515472             64.5               1127630          17480.0
+10:35:35.687 INFO  ProgressMeter -  So120_Chr7:10916365             64.7               1130220          17474.9
+10:35:45.698 INFO  ProgressMeter -  So120_Chr7:11191970             64.8               1132090          17458.8
+10:35:55.937 INFO  ProgressMeter -  So120_Chr7:11575730             65.0               1134560          17451.0
+10:36:05.947 INFO  ProgressMeter -  So120_Chr7:11869786             65.2               1136550          17436.8
+10:36:15.998 INFO  ProgressMeter -  So120_Chr7:12209286             65.3               1138770          17426.1
+10:36:26.006 INFO  ProgressMeter -  So120_Chr7:12607900             65.5               1141260          17419.8
+10:36:36.009 INFO  ProgressMeter -  So120_Chr7:12952524             65.7               1143650          17411.9
+10:36:46.021 INFO  ProgressMeter -  So120_Chr7:13300349             65.8               1146100          17405.0
+10:36:56.113 INFO  ProgressMeter -  So120_Chr7:13545550             66.0               1147880          17387.6
+10:37:06.132 INFO  ProgressMeter -  So120_Chr7:13981735             66.2               1150840          17388.5
+10:37:16.139 INFO  ProgressMeter -  So120_Chr7:14352081             66.4               1153580          17386.1
+10:37:26.193 INFO  ProgressMeter -  So120_Chr7:14686479             66.5               1155770          17375.2
+10:37:36.200 INFO  ProgressMeter -  So120_Chr7:15035358             66.7               1157930          17364.1
+10:37:46.210 INFO  ProgressMeter -  So120_Chr7:15455911             66.9               1160660          17361.6
+10:37:56.239 INFO  ProgressMeter -  So120_Chr7:15704060             67.0               1162420          17344.6
+10:38:06.256 INFO  ProgressMeter -  So120_Chr7:16082942             67.2               1164960          17339.3
+10:38:16.350 INFO  ProgressMeter -  So120_Chr7:16440045             67.4               1167420          17332.5
+10:38:26.546 INFO  ProgressMeter -  So120_Chr7:16905261             67.5               1170490          17334.4
+10:38:36.570 INFO  ProgressMeter -  So120_Chr7:17243998             67.7               1172970          17328.2
+10:38:46.577 INFO  ProgressMeter -  So120_Chr7:17584121             67.9               1175290          17319.8
+10:38:56.752 INFO  ProgressMeter -  So120_Chr7:18124750             68.0               1178310          17321.0
+10:39:06.840 INFO  ProgressMeter -  So120_Chr7:18614561             68.2               1180760          17314.3
+10:39:16.840 INFO  ProgressMeter -  So120_Chr7:19030042             68.4               1183280          17308.9
+10:39:26.877 INFO  ProgressMeter -  So120_Chr7:19763340             68.5               1187050          17321.7
+10:39:36.902 INFO  ProgressMeter -  So120_Chr7:20567691             68.7               1191540          17344.9
+10:39:46.917 INFO  ProgressMeter -  So120_Chr7:20734315             68.9               1192700          17319.7
+10:39:56.950 INFO  ProgressMeter -  So120_Chr7:21175095             69.0               1195670          17320.8
+10:40:07.126 INFO  ProgressMeter -  So120_Chr7:21504545             69.2               1197750          17308.4
+10:40:17.145 INFO  ProgressMeter -  So120_Chr7:21674237             69.4               1198880          17283.0
+10:40:27.168 INFO  ProgressMeter -  So120_Chr7:22115982             69.5               1201550          17279.9
+10:40:37.174 INFO  ProgressMeter -  So120_Chr7:22693856             69.7               1204580          17282.0
+10:40:47.186 INFO  ProgressMeter -  So120_Chr7:23135545             69.9               1206800          17272.5
+10:40:57.304 INFO  ProgressMeter -  So120_Chr7:23480138             70.0               1208560          17256.0
+10:41:07.465 INFO  ProgressMeter -  So120_Chr7:23844670             70.2               1210560          17242.9
+10:41:17.486 INFO  ProgressMeter -  So120_Chr7:24221144             70.4               1212420          17228.4
+10:41:27.508 INFO  ProgressMeter -  So120_Chr7:24828132             70.5               1215340          17229.0
+10:41:37.565 INFO  ProgressMeter -  So120_Chr7:25266629             70.7               1217870          17224.0
+10:41:47.656 INFO  ProgressMeter -  So120_Chr7:26623922             70.9               1222730          17251.7
+10:41:57.671 INFO  ProgressMeter -  So120_Chr7:27596638             71.0               1226670          17266.6
+10:42:07.682 INFO  ProgressMeter -  So120_Chr7:27921095             71.2               1228650          17253.9
+10:42:17.696 INFO  ProgressMeter -  So120_Chr7:28760180             71.4               1232210          17263.5
+10:42:27.704 INFO  ProgressMeter -  So120_Chr7:29699363             71.5               1236090          17277.4
+10:42:37.709 INFO  ProgressMeter -  So120_Chr7:30894360             71.7               1240610          17300.3
+10:42:47.711 INFO  ProgressMeter -  So120_Chr7:31781319             71.9               1244220          17310.4
+10:42:57.712 INFO  ProgressMeter -  So120_Chr7:32984858             72.0               1248830          17334.3
+10:43:07.722 INFO  ProgressMeter -  So120_Chr7:33711422             72.2               1252040          17338.7
+10:43:17.726 INFO  ProgressMeter -  So120_Chr7:35238486             72.4               1257670          17376.6
+10:43:27.739 INFO  ProgressMeter -  So120_Chr7:36313268             72.5               1262080          17397.4
+10:43:37.742 INFO  ProgressMeter -  So120_Chr7:37110188             72.7               1265670          17406.9
+10:43:47.770 INFO  ProgressMeter - So120_HiCscaffold16:54315             72.9               1281310          17581.6
+10:43:57.980 INFO  ProgressMeter - So120_HiCscaffold26:136432             73.0               1287680          17627.8
+10:44:08.372 INFO  ProgressMeter - So120_HiCscaffold37:44043             73.2               1293100          17660.1
+10:44:18.543 INFO  ProgressMeter - So120_HiCscaffold39:25936             73.4               1294140          17633.5
+10:44:28.602 INFO  ProgressMeter - So120_HiCscaffold39:101789             73.6               1294570          17599.2
+10:44:38.620 INFO  ProgressMeter - So120_HiCscaffold43:113043             73.7               1296630          17587.3
+10:44:48.938 INFO  ProgressMeter - So120_HiCscaffold51:64109             73.9               1300070          17592.9
+10:44:59.003 INFO  ProgressMeter - So120_HiCscaffold57:13482             74.1               1302570          17586.8
+10:45:09.165 INFO  ProgressMeter - So120_HiCscaffold60:19874             74.2               1304140          17567.8
+10:45:19.222 INFO  ProgressMeter - So120_HiCscaffold65:63548             74.4               1306430          17559.0
+10:45:29.289 INFO  ProgressMeter - So120_HiCscaffold80:22156             74.6               1312130          17596.0
+10:45:39.418 INFO  ProgressMeter - So120_HiCscaffold87:47491             74.7               1314930          17593.7
+10:45:49.502 INFO  ProgressMeter - So120_HiCscaffold111:42897             74.9               1322430          17654.3
+10:45:59.582 INFO  ProgressMeter - So120_HiCscaffold125:23635             75.1               1326320          17666.6
+10:46:09.708 INFO  ProgressMeter - So120_HiCscaffold144:42198             75.2               1331230          17692.3
+10:46:19.717 INFO  ProgressMeter - So120_HiCscaffold154:17241             75.4               1333720          17686.1
+10:46:29.737 INFO  ProgressMeter - So120_HiCscaffold179:43820             75.6               1339520          17723.8
+10:46:40.004 INFO  ProgressMeter - So120_HiCscaffold200:34561             75.7               1343930          17742.0
+10:46:50.062 INFO  ProgressMeter - So120_HiCscaffold210:7365             75.9               1345910          17728.9
+10:47:00.185 INFO  ProgressMeter - So120_HiCscaffold228:27634             76.1               1349410          17735.6
+10:47:10.238 INFO  ProgressMeter - So120_HiCscaffold252:21984             76.3               1353630          17751.9
+10:47:20.251 INFO  ProgressMeter - So120_HiCscaffold274:43721             76.4               1357500          17763.8
+10:47:30.280 INFO  ProgressMeter - So120_HiCscaffold312:617             76.6               1362940          17796.1
+10:47:40.322 INFO  ProgressMeter - So120_HiCscaffold344:14921             76.8               1367100          17811.5
+10:47:46.475 INFO  HaplotypeCaller - 10197655 read(s) filtered by: MappingQualityReadFilter 
+0 read(s) filtered by: MappingQualityAvailableReadFilter 
+0 read(s) filtered by: MappedReadFilter 
+0 read(s) filtered by: NotSecondaryAlignmentReadFilter 
+61332 read(s) filtered by: NotDuplicateReadFilter 
+0 read(s) filtered by: PassesVendorQualityCheckReadFilter 
+0 read(s) filtered by: NonZeroReferenceLengthAlignmentReadFilter 
+0 read(s) filtered by: GoodCigarReadFilter 
+0 read(s) filtered by: WellformedReadFilter 
+10258987 total reads filtered out of 96393341 reads processed
+10:47:46.475 INFO  ProgressMeter - So120_HiCscaffold357:21184             76.9               1368598          17807.2
+10:47:46.475 INFO  ProgressMeter - Traversal complete. Processed 1368598 total regions in 76.9 minutes.
+10:47:46.593 INFO  VectorLoglessPairHMM - Time spent in setup for JNI call : 5.357105235000001
+10:47:46.593 INFO  PairHMM - Total compute time in PairHMM computeLogLikelihoods() : 977.157438585
+10:47:46.593 INFO  SmithWatermanAligner - Total compute time in native Smith-Waterman : 514.44 sec
+10:47:46.594 INFO  HaplotypeCaller - Shutting down engine
+[2025年10月31日 CST 上午10:47:46] org.broadinstitute.hellbender.tools.walkers.haplotypecaller.HaplotypeCaller done. Elapsed time: 76.87 minutes.
+Runtime.totalMemory()=1979711488
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar SelectVariants -R 120.sorted.genome.fa -V 119_sim_on_120_gatk.raw.vcf.gz --select-type-to-include INDEL -O 119_sim_on_120_gatk.raw_indels.vcf.gz
+10:47:47.949 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+10:47:48.027 INFO  SelectVariants - ------------------------------------------------------------
+10:47:48.029 INFO  SelectVariants - The Genome Analysis Toolkit (GATK) v4.6.2.0
+10:47:48.029 INFO  SelectVariants - For support and documentation go to https://software.broadinstitute.org/gatk/
+10:47:48.029 INFO  SelectVariants - Executing as yzwl_lixg@c01n0310 on Linux v4.18.0-513.5.1.el8_9.x86_64 amd64
+10:47:48.029 INFO  SelectVariants - Java runtime: OpenJDK 64-Bit Server VM v17.0.15-internal+0-adhoc..src
+10:47:48.029 INFO  SelectVariants - Start Date/Time: 2025年10月31日 CST 上午10:47:47
+10:47:48.029 INFO  SelectVariants - ------------------------------------------------------------
+10:47:48.029 INFO  SelectVariants - ------------------------------------------------------------
+10:47:48.030 INFO  SelectVariants - HTSJDK Version: 4.2.0
+10:47:48.030 INFO  SelectVariants - Picard Version: 3.4.0
+10:47:48.030 INFO  SelectVariants - Built for Spark Version: 3.5.0
+10:47:48.031 INFO  SelectVariants - HTSJDK Defaults.COMPRESSION_LEVEL : 2
+10:47:48.032 INFO  SelectVariants - HTSJDK Defaults.USE_ASYNC_IO_READ_FOR_SAMTOOLS : false
+10:47:48.032 INFO  SelectVariants - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_SAMTOOLS : true
+10:47:48.032 INFO  SelectVariants - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_TRIBBLE : false
+10:47:48.032 INFO  SelectVariants - Deflater: IntelDeflater
+10:47:48.032 INFO  SelectVariants - Inflater: IntelInflater
+10:47:48.032 INFO  SelectVariants - GCS max retries/reopens: 20
+10:47:48.032 INFO  SelectVariants - Requester pays: disabled
+10:47:48.033 INFO  SelectVariants - Initializing engine
+10:47:48.119 INFO  FeatureManager - Using codec VCFCodec to read file file:///share/org/YZWL/yzwl_lixg/project/20.%E9%92%BB%E6%9E%9C%E5%A4%A7%E8%92%9C%E8%8A%A5/02.INDEL%E6%A0%87%E8%AE%B0/119_sim_on_120_gatk.raw.vcf.gz
+10:47:48.162 INFO  SelectVariants - Done initializing engine
+10:47:48.186 INFO  ProgressMeter - Starting traversal
+10:47:48.187 INFO  ProgressMeter -        Current Locus  Elapsed Minutes    Variants Processed  Variants/Minute
+10:47:50.671 INFO  ProgressMeter - So120_HiCscaffold274:41710              0.0                116997        2829431.7
+10:47:50.672 INFO  ProgressMeter - Traversal complete. Processed 116997 total variants in 0.0 minutes.
+10:47:50.689 INFO  SelectVariants - Shutting down engine
+[2025年10月31日 CST 上午10:47:50] org.broadinstitute.hellbender.tools.walkers.variantutils.SelectVariants done. Elapsed time: 0.05 minutes.
+Runtime.totalMemory()=1224736768
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar VariantFiltration -R 120.sorted.genome.fa -V 119_sim_on_120_gatk.raw_indels.vcf.gz -O 119_sim_on_120_gatk.filtered_indels.vcf.gz --filter-expression QD < 2.0 || FS > 200.0 || SOR > 10.0 || MQ < 40.0 --filter-name StandardFilters
+10:47:51.897 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+10:47:51.977 INFO  VariantFiltration - ------------------------------------------------------------
+10:47:51.979 INFO  VariantFiltration - The Genome Analysis Toolkit (GATK) v4.6.2.0
+10:47:51.979 INFO  VariantFiltration - For support and documentation go to https://software.broadinstitute.org/gatk/
+10:47:51.979 INFO  VariantFiltration - Executing as yzwl_lixg@c01n0310 on Linux v4.18.0-513.5.1.el8_9.x86_64 amd64
+10:47:51.979 INFO  VariantFiltration - Java runtime: OpenJDK 64-Bit Server VM v17.0.15-internal+0-adhoc..src
+10:47:51.980 INFO  VariantFiltration - Start Date/Time: 2025年10月31日 CST 上午10:47:51
+10:47:51.980 INFO  VariantFiltration - ------------------------------------------------------------
+10:47:51.980 INFO  VariantFiltration - ------------------------------------------------------------
+10:47:51.980 INFO  VariantFiltration - HTSJDK Version: 4.2.0
+10:47:51.981 INFO  VariantFiltration - Picard Version: 3.4.0
+10:47:51.981 INFO  VariantFiltration - Built for Spark Version: 3.5.0
+10:47:51.982 INFO  VariantFiltration - HTSJDK Defaults.COMPRESSION_LEVEL : 2
+10:47:51.982 INFO  VariantFiltration - HTSJDK Defaults.USE_ASYNC_IO_READ_FOR_SAMTOOLS : false
+10:47:51.982 INFO  VariantFiltration - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_SAMTOOLS : true
+10:47:51.983 INFO  VariantFiltration - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_TRIBBLE : false
+10:47:51.983 INFO  VariantFiltration - Deflater: IntelDeflater
+10:47:51.983 INFO  VariantFiltration - Inflater: IntelInflater
+10:47:51.983 INFO  VariantFiltration - GCS max retries/reopens: 20
+10:47:51.983 INFO  VariantFiltration - Requester pays: disabled
+10:47:51.983 INFO  VariantFiltration - Initializing engine
+10:47:52.072 INFO  FeatureManager - Using codec VCFCodec to read file file:///share/org/YZWL/yzwl_lixg/project/20.%E9%92%BB%E6%9E%9C%E5%A4%A7%E8%92%9C%E8%8A%A5/02.INDEL%E6%A0%87%E8%AE%B0/119_sim_on_120_gatk.raw_indels.vcf.gz
+10:47:52.114 INFO  VariantFiltration - Done initializing engine
+10:47:52.149 INFO  ProgressMeter - Starting traversal
+10:47:52.149 INFO  ProgressMeter -        Current Locus  Elapsed Minutes    Variants Processed  Variants/Minute
+10:47:53.274 INFO  ProgressMeter - So120_HiCscaffold274:41710              0.0                116997        6256524.1
+10:47:53.275 INFO  ProgressMeter - Traversal complete. Processed 116997 total variants in 0.0 minutes.
+10:47:53.291 INFO  VariantFiltration - Shutting down engine
+[2025年10月31日 CST 上午10:47:53] org.broadinstitute.hellbender.tools.walkers.filters.VariantFiltration done. Elapsed time: 0.02 minutes.
+Runtime.totalMemory()=1224736768
+Error: no such tag defined in the VCF header: INFO/ILEN
+Job 67841854 stderr output:
+

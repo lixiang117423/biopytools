@@ -1,0 +1,97 @@
+
+==========================================
+[2025-11-16 18:43:20] 🚀 检查输入文件和依赖
+==========================================
+[2025-11-16 18:43:20] ✅ SUCCESS: 文件存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/Orychophragmus_violaceus_OV53_1_HiFi.fa
+[2025-11-16 18:43:20] ✅ SUCCESS: 文件存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/pacbio/jingyeA.sreads.bam
+[2025-11-16 18:43:20] ✅ SUCCESS: 文件存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/pacbio/genA.sreads.bam
+[2025-11-16 18:43:20] ✅ SUCCESS: 命令可用: minimap2 (/share/org/YZWL/yzwl_lixg/.local/bin/minimap2)
+[2025-11-16 18:43:20] ✅ SUCCESS: 命令可用: samtools (/share/org/YZWL/yzwl_lixg/.local/bin/samtools)
+
+==========================================
+[2025-11-16 18:43:20] 🚀 开始三代转录组比对分析
+==========================================
+
+==========================================
+[2025-11-16 18:43:20] 🚀 处理样本: jingyeA
+==========================================
+[2025-11-16 18:43:20] ℹ️  INFO: 步骤1️⃣: 将BAM转换为FASTQ...
+[2025-11-16 18:48:07] ✅ SUCCESS: FASTQ文件生成: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/alignment_results/jingyeA.fastq
+[2025-11-16 18:48:33] ℹ️  INFO: 📊 总reads数: 46245959
+[2025-11-16 18:48:33] ℹ️  INFO: 步骤2️⃣: 使用minimap2比对到参考基因组（使用88线程）...
+[2025-11-16 19:08:56] ✅ SUCCESS: 比对完成: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/alignment_results/jingyeA_aligned.sam
+[2025-11-16 19:08:56] ℹ️  INFO: 步骤3️⃣: 转换为BAM格式...
+[2025-11-16 19:24:14] ✅ SUCCESS: BAM文件生成: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/alignment_results/jingyeA_aligned.bam
+[2025-11-16 19:24:14] ℹ️  INFO: 步骤4️⃣: 排序BAM文件（使用88线程）...
+[2025-11-16 19:28:37] ✅ SUCCESS: 排序完成: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/alignment_results/jingyeA_aligned.sorted.bam
+[2025-11-16 19:28:37] ℹ️  INFO: 步骤5️⃣: 建立索引...
+[2025-11-16 19:29:35] ✅ SUCCESS: 索引创建完成
+[2025-11-16 19:29:35] ℹ️  INFO: 步骤6️⃣: 生成比对统计...
+
+📈 jingyeA 比对统计结果:
+----------------------------------------
+46859869 + 0 in total (QC-passed reads + QC-failed reads)
+46245959 + 0 primary
+0 + 0 secondary
+613910 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+43975899 + 0 mapped (93.85% : N/A)
+43361989 + 0 primary mapped (93.76% : N/A)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (N/A : N/A)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (N/A : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+----------------------------------------
+[2025-11-16 19:30:31] ✅ SUCCESS: 总reads数: 46859869
+[2025-11-16 19:30:31] ✅ SUCCESS: 比对上的reads: 43975899
+[2025-11-16 19:30:31] ✅ SUCCESS: 比对率: 93.85%
+[2025-11-16 19:30:31] ℹ️  INFO: 步骤7️⃣: 清理中间文件...
+[2025-11-16 19:30:31] ✅ SUCCESS: 中间文件已清理
+
+
+==========================================
+[2025-11-16 19:30:31] 🚀 处理样本: genA
+==========================================
+[2025-11-16 19:30:31] ℹ️  INFO: 步骤1️⃣: 将BAM转换为FASTQ...
+[2025-11-16 19:32:05] ✅ SUCCESS: FASTQ文件生成: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/alignment_results/genA.fastq
+[2025-11-16 19:32:13] ℹ️  INFO: 📊 总reads数: 12341577
+[2025-11-16 19:32:13] ℹ️  INFO: 步骤2️⃣: 使用minimap2比对到参考基因组（使用88线程）...
+[2025-11-16 19:38:55] ✅ SUCCESS: 比对完成: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/alignment_results/genA_aligned.sam
+[2025-11-16 19:38:55] ℹ️  INFO: 步骤3️⃣: 转换为BAM格式...
+[2025-11-16 19:43:57] ✅ SUCCESS: BAM文件生成: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/alignment_results/genA_aligned.bam
+[2025-11-16 19:43:57] ℹ️  INFO: 步骤4️⃣: 排序BAM文件（使用88线程）...
+[2025-11-16 19:44:48] ✅ SUCCESS: 排序完成: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/66.三代转录组比对到组装的基因组/alignment_results/genA_aligned.sorted.bam
+[2025-11-16 19:44:48] ℹ️  INFO: 步骤5️⃣: 建立索引...
+[2025-11-16 19:45:07] ✅ SUCCESS: 索引创建完成
+[2025-11-16 19:45:07] ℹ️  INFO: 步骤6️⃣: 生成比对统计...
+
+📈 genA 比对统计结果:
+----------------------------------------
+12532241 + 0 in total (QC-passed reads + QC-failed reads)
+12341577 + 0 primary
+0 + 0 secondary
+190664 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+11692266 + 0 mapped (93.30% : N/A)
+11501602 + 0 primary mapped (93.19% : N/A)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (N/A : N/A)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (N/A : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+----------------------------------------
+[2025-11-16 19:45:26] ✅ SUCCESS: 总reads数: 12532241
+[2025-11-16 19:45:26] ✅ SUCCESS: 比对上的reads: 11692266
+[2025-11-16 19:45:26] ✅ SUCCESS: 比对率: 93.30%
+[2025-11-16 19:45:26] ℹ️  INFO: 步骤7️⃣: 清理中间文件...
+[2025-11-16 19:45:26] ✅ SUCCESS: 中间文件已清理
+

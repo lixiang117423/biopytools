@@ -1,0 +1,15 @@
+2026-02-05 22:05:47.827 - INFO - 找到kmtricks|Found kmtricks: unknown
+2026-02-05 22:05:47.955 - INFO - 找到bgzip|Found bgzip
+2026-02-05 22:05:47.956 - INFO - ============================================================
+2026-02-05 22:05:47.956 - INFO - 开始K-mer库构建|Starting K-mer database build
+2026-02-05 22:05:47.956 - INFO - ============================================================
+2026-02-05 22:05:48.441 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
+2026-02-05 22:05:48.441 - INFO - 生成FOF文件|Generating FOF file
+2026-02-05 22:05:48.442 - INFO - 检测到双末端数据|Detected paired-end data: 18 samples
+2026-02-05 22:05:48.539 - INFO - FOF文件已生成（双末端）|FOF file generated (paired-end): 02.kmer_db/input.fof
+2026-02-05 22:05:48.539 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
+2026-02-05 22:05:48.539 - INFO - 自动计算分区数|Auto-calculated partitions: 20
+2026-02-05 22:05:48.539 - INFO - 样本数|Samples: 18, 线程数|Threads: 64
+2026-02-05 22:05:48.540 - INFO - 使用分区数|Using partitions: 20
+2026-02-05 22:05:48.540 - INFO - 执行步骤|Executing step: 执行kmtricks pipeline|Executing kmtricks pipeline
+2026-02-05 22:05:48.540 - INFO - 命令|Command: kmtricks pipeline --file 02.kmer_db/input.fof --run-dir 02.kmer_db/kmtricks_run --kmer-size 51 --hard-min 2 --recurrence-min 1 --mode kmer:pa:bin --cpr -t 64 --nb-partitions 20

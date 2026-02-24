@@ -1,0 +1,43 @@
+2026-01-05 19:16:09.969 - INFO - ============================================================
+2026-01-05 19:16:09.969 - INFO - IQ-TREE 系统发育树分析流程启动|IQ-TREE Phylogenetic Analysis Pipeline Started
+2026-01-05 19:16:09.969 - INFO - ============================================================
+2026-01-05 19:16:09.969 - INFO - 步骤 1: 检查软件依赖|Step 1: Checking software dependencies
+2026-01-05 19:16:09.969 - INFO - 检查依赖软件|Checking dependencies
+2026-01-05 19:16:10.160 - INFO - IQ-TREE 可用|IQ-TREE available: IQ-TREE version 3.0.1 for Linux x86 64-bit built Jul  9 2025
+2026-01-05 19:16:10.160 - INFO - 步骤 2: 构建系统发育树|Step 2: Building phylogenetic tree
+2026-01-05 19:16:10.160 - INFO - ============================================================
+2026-01-05 19:16:10.160 - INFO - 🌳 开始系统发育树构建 | Starting phylogenetic tree construction
+2026-01-05 19:16:10.160 - INFO - ============================================================
+2026-01-05 19:16:10.160 - INFO - 🔬 使用自动模型选择 | Using automatic model selection (MFP)
+2026-01-05 19:16:10.160 - INFO - 🔄 使用UFBoot，重复1000次 | Using UFBoot with 1000 replicates
+2026-01-05 19:16:10.160 - INFO - 🎯 设置外群 | Setting outgroup: S10,S5
+2026-01-05 19:16:10.160 - INFO - 执行步骤|Executing step: 系统发育树推断 | Phylogenetic tree inference
+2026-01-05 19:16:10.160 - INFO - 命令|Command: iqtree -s /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/12.1%SNP用iqtree建树/gsoja.min4.phy --prefix gsoja -m MFP -B 1000 -T 64 -o S10,S5
+2026-01-05 19:16:10.161 - INFO - 工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/12.1%SNP用iqtree建树
+2026-01-05 19:16:15.343 - ERROR - 命令执行失败|Command execution failed: 系统发育树推断 | Phylogenetic tree inference
+2026-01-05 19:16:15.343 - ERROR - 错误代码|Error code: 2
+2026-01-05 19:16:15.343 - ERROR - 错误信息|Error message: ERROR: Please rename sequences listed above!
+
+2026-01-05 19:16:15.343 - ERROR - 标准输出|Stdout: IQ-TREE version 3.0.1 for Linux x86 64-bit built Jul  9 2025
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    c02n0075 (AVX512, FMA3, 503 GB RAM)
+Command: iqtree -s /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/12.1%SNP用iqtree建树/gsoja.min4.phy --prefix gsoja -m MFP -B 1000 -T 64 -o S10,S5
+Seed:    164527 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Mon Jan  5 19:16:10 2026
+Kernel:  AVX+FMA - 64 threads (64 CPU cores detected)
+
+Reading alignment file /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/12.1%SNP用iqtree建树/gsoja.min4.phy ... Phylip format detected
+Alignment most likely contains DNA/RNA sequences
+Constructing alignment: done in 2.57583 secs using 72.43% CPU
+Alignment has 2932 sequences with 72908 columns, 72908 distinct patterns
+71878 parsimony-informative, 557 singleton sites, 473 constant sites
+WARNING: Some sequence names are changed as follows:
+GDW108_①A -> GDW108____A
+GDW108_②A -> GDW108____A
+
+ERROR: Duplicated sequence name GDW108____A
+
+2026-01-05 19:16:15.343 - ERROR - 系统发育树构建失败|Tree construction failed

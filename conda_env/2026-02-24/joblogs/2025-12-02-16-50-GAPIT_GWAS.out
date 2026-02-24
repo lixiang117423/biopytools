@@ -1,0 +1,14 @@
+Singularity Path: /share/org/YZWL/yzwl_lixg/miniforge3/envs/singularity_v.3.8.7/bin/singularity
+Image Path: /share/org/YZWL/yzwl_lixg/software/singularity/gapit_v1.5.sif
+Working Directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/10.gapit_gwas
+[1] "Current Working Directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/10.gapit_gwas"
+[1] "Reading Phenotype Data..."
+[1] "Formatting phenotype columns..."
+[1] "Reading Genotype Data (this may take a while)..."
+[1] "Converting HapMap to Numeric Genotype Format..."
+[1] "Ensuring genotype matrix is character type..."
+[1] "Converting HapMap format to numerical under model of Middle"
+[1] "Perform numericalization"
+[1] "Error during HapMap conversion:"
+<subscriptOutOfBoundsError in count.temp[, 2]: subscript out of bounds>
+任务运行结束。

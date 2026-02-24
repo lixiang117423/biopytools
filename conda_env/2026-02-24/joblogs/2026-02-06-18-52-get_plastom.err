@@ -1,0 +1,458 @@
+2026-02-06 18:52:57.666 - WARNING - Traceback (most recent call last):
+2026-02-06 18:52:57.666 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:52:57.666 - WARNING -     main()
+2026-02-06 18:52:57.666 - WARNING -     ~~~~^^
+2026-02-06 18:52:57.666 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:52:57.666 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:52:57.666 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:52:57.666 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:52:57.666 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:52:57.666 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:52:57.666 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:52:57.666 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/62-2
+
+2026-02-06 18:52:57.666 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:52:58.388 - WARNING - Traceback (most recent call last):
+2026-02-06 18:52:58.388 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:52:58.388 - WARNING -     main()
+2026-02-06 18:52:58.388 - WARNING -     ~~~~^^
+2026-02-06 18:52:58.388 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:52:58.388 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:52:58.388 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:52:58.388 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:52:58.388 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:52:58.388 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:52:58.389 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:52:58.389 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/67-quan1
+
+2026-02-06 18:52:58.391 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:52:59.115 - WARNING - Traceback (most recent call last):
+2026-02-06 18:52:59.115 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:52:59.115 - WARNING -     main()
+2026-02-06 18:52:59.115 - WARNING -     ~~~~^^
+2026-02-06 18:52:59.115 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:52:59.115 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:52:59.115 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:52:59.115 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:52:59.115 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:52:59.115 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:52:59.115 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:52:59.115 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/68-1A
+
+2026-02-06 18:52:59.115 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:52:59.820 - WARNING - Traceback (most recent call last):
+2026-02-06 18:52:59.820 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:52:59.820 - WARNING -     main()
+2026-02-06 18:52:59.820 - WARNING -     ~~~~^^
+2026-02-06 18:52:59.820 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:52:59.820 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:52:59.820 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:52:59.820 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:52:59.820 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:52:59.820 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:52:59.820 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:52:59.820 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/69A
+
+2026-02-06 18:52:59.821 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:00.524 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:00.524 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:00.524 - WARNING -     main()
+2026-02-06 18:53:00.524 - WARNING -     ~~~~^^
+2026-02-06 18:53:00.524 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:00.524 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:00.524 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:00.524 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:00.524 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:00.524 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:00.524 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:00.524 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/716A
+
+2026-02-06 18:53:00.524 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:01.292 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:01.292 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:01.292 - WARNING -     main()
+2026-02-06 18:53:01.292 - WARNING -     ~~~~^^
+2026-02-06 18:53:01.292 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:01.292 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:01.292 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:01.292 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:01.292 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:01.292 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:01.292 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:01.292 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/72-4A
+
+2026-02-06 18:53:01.292 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:01.994 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:01.994 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:01.994 - WARNING -     main()
+2026-02-06 18:53:01.994 - WARNING -     ~~~~^^
+2026-02-06 18:53:01.994 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:01.994 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:01.994 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:01.994 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:01.994 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:01.994 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:01.994 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:01.994 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/72_3_kang
+
+2026-02-06 18:53:01.994 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:02.696 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:02.696 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:02.696 - WARNING -     main()
+2026-02-06 18:53:02.696 - WARNING -     ~~~~^^
+2026-02-06 18:53:02.696 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:02.696 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:02.696 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:02.697 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:02.697 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:02.697 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:02.697 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:02.697 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/72_4_gang
+
+2026-02-06 18:53:02.697 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:03.518 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:03.518 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:03.518 - WARNING -     main()
+2026-02-06 18:53:03.518 - WARNING -     ~~~~^^
+2026-02-06 18:53:03.518 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:03.518 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:03.518 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:03.518 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:03.518 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:03.518 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:03.518 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:03.518 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/92-1
+
+2026-02-06 18:53:03.518 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:04.234 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:04.235 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:04.235 - WARNING -     main()
+2026-02-06 18:53:04.235 - WARNING -     ~~~~^^
+2026-02-06 18:53:04.235 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:04.235 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:04.235 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:04.235 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:04.235 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:04.235 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:04.235 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:04.235 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/93-4
+
+2026-02-06 18:53:04.235 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:04.939 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:04.939 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:04.939 - WARNING -     main()
+2026-02-06 18:53:04.939 - WARNING -     ~~~~^^
+2026-02-06 18:53:04.939 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:04.939 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:04.939 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:04.939 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:04.939 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:04.939 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:04.939 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:04.939 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/93-7
+
+2026-02-06 18:53:04.939 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:05.643 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:05.643 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:05.643 - WARNING -     main()
+2026-02-06 18:53:05.643 - WARNING -     ~~~~^^
+2026-02-06 18:53:05.643 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:05.643 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:05.643 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:05.643 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:05.643 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:05.643 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:05.643 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:05.644 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/Arabidopsis_thaliana
+
+2026-02-06 18:53:05.644 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:06.350 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:06.350 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:06.350 - WARNING -     main()
+2026-02-06 18:53:06.350 - WARNING -     ~~~~^^
+2026-02-06 18:53:06.350 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:06.350 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:06.350 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:06.350 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:06.350 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:06.350 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:06.350 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:06.350 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/EcAA
+
+2026-02-06 18:53:06.350 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:07.053 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:07.053 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:07.053 - WARNING -     main()
+2026-02-06 18:53:07.053 - WARNING -     ~~~~^^
+2026-02-06 18:53:07.053 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:07.053 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:07.053 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:07.053 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:07.053 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:07.053 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:07.053 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:07.053 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/Enew
+
+2026-02-06 18:53:07.053 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:07.776 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:07.776 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:07.776 - WARNING -     main()
+2026-02-06 18:53:07.776 - WARNING -     ~~~~^^
+2026-02-06 18:53:07.776 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:07.776 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:07.776 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:07.776 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:07.776 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:07.776 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:07.776 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:07.777 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/Ery17
+
+2026-02-06 18:53:07.777 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:08.483 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:08.483 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:08.483 - WARNING -     main()
+2026-02-06 18:53:08.483 - WARNING -     ~~~~^^
+2026-02-06 18:53:08.483 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:08.483 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:08.483 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:08.483 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:08.483 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:08.483 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:08.483 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:08.483 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/EryR13
+
+2026-02-06 18:53:08.483 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:09.203 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:09.203 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:09.203 - WARNING -     main()
+2026-02-06 18:53:09.203 - WARNING -     ~~~~^^
+2026-02-06 18:53:09.203 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:09.203 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:09.203 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:09.204 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:09.204 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:09.204 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:09.204 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:09.204 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/EryR16
+
+2026-02-06 18:53:09.204 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:09.909 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:09.909 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:09.909 - WARNING -     main()
+2026-02-06 18:53:09.909 - WARNING -     ~~~~^^
+2026-02-06 18:53:09.909 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:09.909 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:09.909 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:09.909 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:09.909 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:09.909 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:09.909 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:09.909 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/Jan-70A
+
+2026-02-06 18:53:09.909 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+2026-02-06 18:53:10.629 - WARNING - Traceback (most recent call last):
+2026-02-06 18:53:10.629 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+2026-02-06 18:53:10.629 - WARNING -     main()
+2026-02-06 18:53:10.629 - WARNING -     ~~~~^^
+2026-02-06 18:53:10.629 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+2026-02-06 18:53:10.629 - WARNING -     get_options(description=title, version=get_versions())
+2026-02-06 18:53:10.629 - WARNING -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:10.629 - WARNING -   File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+2026-02-06 18:53:10.629 - WARNING -     assert is_valid_path(os.path.realpath(fq_file)), \
+2026-02-06 18:53:10.629 - WARNING -            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-06 18:53:10.629 - ERROR - 命令执行失败|Command failed with return code 1
+2026-02-06 18:53:10.629 - ERROR - 错误信息|Error message: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 4203, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 3773, in main
+    get_options(description=title, version=get_versions())
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py", line 729, in get_options
+    assert is_valid_path(os.path.realpath(fq_file)), \
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Invalid characters (e.g. space, non-ascii) for SPAdes in path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/04.叶绿体基因组/KostanzA
+
+2026-02-06 18:53:10.629 - ERROR - 叶绿体基因组组装失败|Plastome assembly failed
+Job 69288202 stderr output:
+

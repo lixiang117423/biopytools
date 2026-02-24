@@ -1,0 +1,270 @@
+2025-10-06 12:30:28 - INFO - ================================================================================
+2025-10-06 12:30:28 - INFO - 🧬 BWA-GATK变异检测流程启动 | BWA-GATK Variant Calling Pipeline Started
+2025-10-06 12:30:28 - INFO - ================================================================================
+2025-10-06 12:30:28 - INFO - 📝 日志文件 | Log file: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/logs/pipeline_20251006_123028.log
+2025-10-06 12:30:28 - INFO - 📊 详细模式 | Verbose mode: 关闭
+2025-10-06 12:30:28 - INFO - 🚀 开始BWA-GATK变异检测流程 | Starting BWA-GATK variant calling pipeline
+2025-10-06 12:30:28 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-06 12:30:28 - INFO -   ✅ SAMtools: samtools 1.22
+2025-10-06 12:30:29 - INFO -   ✅ GATK: The Genome Analysis Toolkit (GATK) v4.6.2.0
+2025-10-06 12:30:29 - INFO - ✅ 所有依赖软件检查完成 | All dependencies checked
+2025-10-06 12:30:29 - INFO - ================================================================================
+2025-10-06 12:30:29 - INFO - 📚 检查参考基因组索引 | Checking reference genome indices
+2025-10-06 12:30:29 - INFO - ================================================================================
+2025-10-06 12:30:29 - INFO - 🔍 检查BWA索引 | Checking BWA index
+2025-10-06 12:30:29 - WARNING - ⚠️  缺少BWA索引文件 | Missing BWA index files: .amb, .ann, .bwt, .pac, .sa
+2025-10-06 12:30:29 - INFO - 🔨 构建BWA索引 | Building BWA index
+2025-10-06 12:30:29 - INFO - 📌 构建BWA索引 | Building BWA index
+2025-10-06 12:30:29 - INFO - 💻 命令 | Command: bwa index /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa
+2025-10-06 12:33:58 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:33:58 - INFO - 🔍 检查SAMtools fai索引 | Checking SAMtools fai index
+2025-10-06 12:33:58 - WARNING - ⚠️  缺少.fai索引文件 | Missing .fai index file
+2025-10-06 12:33:58 - INFO - 🔨 构建SAMtools索引 | Building SAMtools index
+2025-10-06 12:33:58 - INFO - 📌 构建SAMtools索引 | Building SAMtools index
+2025-10-06 12:33:58 - INFO - 💻 命令 | Command: samtools faidx /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa
+2025-10-06 12:33:59 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:33:59 - INFO - 🔍 检查GATK字典文件 | Checking GATK dictionary
+2025-10-06 12:33:59 - WARNING - ⚠️  缺少.dict字典文件 | Missing .dict dictionary file
+2025-10-06 12:33:59 - INFO - 🔨 构建GATK字典 | Building GATK dictionary
+2025-10-06 12:33:59 - INFO - 📌 构建GATK字典 | Building GATK dictionary
+2025-10-06 12:33:59 - INFO - 💻 命令 | Command: gatk CreateSequenceDictionary -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.dict
+Tool returned:
+0
+2025-10-06 12:34:02 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:34:02 - INFO - ✅ 参考基因组索引检查完成 | Reference genome indices check completed
+2025-10-06 12:34:02 - INFO - ================================================================================
+2025-10-06 12:34:02 - INFO - 🔬 检测样本信息 | Detecting sample information
+2025-10-06 12:34:02 - INFO - ================================================================================
+2025-10-06 12:34:02 - INFO - ✅ 检测到 5 个样本 | Detected 5 samples
+2025-10-06 12:34:02 - INFO - 📊 测序类型 | Sequencing type: 双端测序 | Paired-end
+2025-10-06 12:34:02 - INFO -   📌 100: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/100_1.clean.fq.gz + /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/100_2.clean.fq.gz
+2025-10-06 12:34:02 - INFO -   📌 103: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/103_1.clean.fq.gz + /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/103_2.clean.fq.gz
+2025-10-06 12:34:02 - INFO -   📌 105: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/105_1.clean.fq.gz + /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/105_2.clean.fq.gz
+2025-10-06 12:34:02 - INFO -   📌 106: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/106_1.clean.fq.gz + /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/106_2.clean.fq.gz
+2025-10-06 12:34:02 - INFO -   📌 10: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/10_1.clean.fq.gz + /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/10_2.clean.fq.gz
+2025-10-06 12:34:02 - INFO - ================================================================================
+2025-10-06 12:34:02 - INFO - 🧬 比对样本 | Aligning sample: 100
+2025-10-06 12:34:02 - INFO - ================================================================================
+2025-10-06 12:34:02 - INFO - 📌 BWA比对 | BWA alignment: 100
+2025-10-06 12:34:02 - INFO - 💻 命令 | Command: bwa mem -t 88 -R '@RG\tID:100\tSM:100\tPL:ILLUMINA\tLB:lib1' /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/100_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/100_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/100.sam
+2025-10-06 12:42:01 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:42:01 - INFO - ================================================================================
+2025-10-06 12:42:01 - INFO - 🔧 BAM预处理 | BAM preprocessing: 100
+2025-10-06 12:42:01 - INFO - ================================================================================
+2025-10-06 12:42:01 - INFO - 📦 SAM转BAM | Converting SAM to BAM
+2025-10-06 12:42:01 - INFO - 📌 SAM转BAM | SAM to BAM
+2025-10-06 12:42:01 - INFO - 💻 命令 | Command: samtools view -@ 88 -b /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/100.sam -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/100.bam
+2025-10-06 12:42:18 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:42:18 - INFO - 🔄 排序BAM | Sorting BAM
+2025-10-06 12:42:18 - INFO - 📌 排序BAM | Sort BAM
+2025-10-06 12:42:18 - INFO - 💻 命令 | Command: samtools sort -@ 88 -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/100.sorted.bam /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/100.bam
+2025-10-06 12:42:43 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:42:43 - INFO - 🏷️  标记重复序列 | Marking duplicates
+2025-10-06 12:42:43 - INFO - 📌 标记重复 | Mark duplicates
+2025-10-06 12:42:43 - INFO - 💻 命令 | Command: gatk MarkDuplicates -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/100.sorted.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/100.dedup.bam -M /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/stats/100.dedup_metrics.txt --TMP_DIR /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp
+Tool returned:
+0
+2025-10-06 12:47:14 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:47:14 - INFO - 📑 建立BAM索引 | Indexing BAM
+2025-10-06 12:47:14 - INFO - 📌 建立BAM索引 | Index BAM
+2025-10-06 12:47:14 - INFO - 💻 命令 | Command: samtools index /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/100.dedup.bam
+2025-10-06 12:47:39 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:47:39 - INFO - 🧹 清理中间文件 | Cleaning up intermediate files
+2025-10-06 12:47:39 - INFO -   🗑️  已删除 | Deleted: 100.sam
+2025-10-06 12:47:39 - INFO -   🗑️  已删除 | Deleted: 100.bam
+2025-10-06 12:47:39 - INFO - ================================================================================
+2025-10-06 12:47:39 - INFO - 🧬 比对样本 | Aligning sample: 103
+2025-10-06 12:47:39 - INFO - ================================================================================
+2025-10-06 12:47:39 - INFO - 📌 BWA比对 | BWA alignment: 103
+2025-10-06 12:47:39 - INFO - 💻 命令 | Command: bwa mem -t 88 -R '@RG\tID:103\tSM:103\tPL:ILLUMINA\tLB:lib1' /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/103_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/103_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/103.sam
+2025-10-06 12:56:09 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:56:09 - INFO - ================================================================================
+2025-10-06 12:56:09 - INFO - 🔧 BAM预处理 | BAM preprocessing: 103
+2025-10-06 12:56:09 - INFO - ================================================================================
+2025-10-06 12:56:09 - INFO - 📦 SAM转BAM | Converting SAM to BAM
+2025-10-06 12:56:09 - INFO - 📌 SAM转BAM | SAM to BAM
+2025-10-06 12:56:09 - INFO - 💻 命令 | Command: samtools view -@ 88 -b /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/103.sam -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/103.bam
+2025-10-06 12:56:28 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:56:28 - INFO - 🔄 排序BAM | Sorting BAM
+2025-10-06 12:56:28 - INFO - 📌 排序BAM | Sort BAM
+2025-10-06 12:56:28 - INFO - 💻 命令 | Command: samtools sort -@ 88 -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/103.sorted.bam /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/103.bam
+2025-10-06 12:56:57 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 12:56:57 - INFO - 🏷️  标记重复序列 | Marking duplicates
+2025-10-06 12:56:57 - INFO - 📌 标记重复 | Mark duplicates
+2025-10-06 12:56:57 - INFO - 💻 命令 | Command: gatk MarkDuplicates -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/103.sorted.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/103.dedup.bam -M /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/stats/103.dedup_metrics.txt --TMP_DIR /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp
+Tool returned:
+0
+2025-10-06 13:01:06 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:01:06 - INFO - 📑 建立BAM索引 | Indexing BAM
+2025-10-06 13:01:06 - INFO - 📌 建立BAM索引 | Index BAM
+2025-10-06 13:01:06 - INFO - 💻 命令 | Command: samtools index /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/103.dedup.bam
+2025-10-06 13:01:31 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:01:31 - INFO - 🧹 清理中间文件 | Cleaning up intermediate files
+2025-10-06 13:01:31 - INFO -   🗑️  已删除 | Deleted: 103.sam
+2025-10-06 13:01:31 - INFO -   🗑️  已删除 | Deleted: 103.bam
+2025-10-06 13:01:31 - INFO - ================================================================================
+2025-10-06 13:01:31 - INFO - 🧬 比对样本 | Aligning sample: 105
+2025-10-06 13:01:31 - INFO - ================================================================================
+2025-10-06 13:01:31 - INFO - 📌 BWA比对 | BWA alignment: 105
+2025-10-06 13:01:31 - INFO - 💻 命令 | Command: bwa mem -t 88 -R '@RG\tID:105\tSM:105\tPL:ILLUMINA\tLB:lib1' /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/105_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/105_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/105.sam
+2025-10-06 13:10:01 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:10:01 - INFO - ================================================================================
+2025-10-06 13:10:01 - INFO - 🔧 BAM预处理 | BAM preprocessing: 105
+2025-10-06 13:10:01 - INFO - ================================================================================
+2025-10-06 13:10:01 - INFO - 📦 SAM转BAM | Converting SAM to BAM
+2025-10-06 13:10:01 - INFO - 📌 SAM转BAM | SAM to BAM
+2025-10-06 13:10:01 - INFO - 💻 命令 | Command: samtools view -@ 88 -b /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/105.sam -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/105.bam
+2025-10-06 13:10:20 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:10:20 - INFO - 🔄 排序BAM | Sorting BAM
+2025-10-06 13:10:20 - INFO - 📌 排序BAM | Sort BAM
+2025-10-06 13:10:20 - INFO - 💻 命令 | Command: samtools sort -@ 88 -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/105.sorted.bam /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/105.bam
+2025-10-06 13:10:51 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:10:51 - INFO - 🏷️  标记重复序列 | Marking duplicates
+2025-10-06 13:10:51 - INFO - 📌 标记重复 | Mark duplicates
+2025-10-06 13:10:51 - INFO - 💻 命令 | Command: gatk MarkDuplicates -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/105.sorted.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/105.dedup.bam -M /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/stats/105.dedup_metrics.txt --TMP_DIR /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp
+Tool returned:
+0
+2025-10-06 13:15:33 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:15:33 - INFO - 📑 建立BAM索引 | Indexing BAM
+2025-10-06 13:15:33 - INFO - 📌 建立BAM索引 | Index BAM
+2025-10-06 13:15:33 - INFO - 💻 命令 | Command: samtools index /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/105.dedup.bam
+2025-10-06 13:16:00 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:16:00 - INFO - 🧹 清理中间文件 | Cleaning up intermediate files
+2025-10-06 13:16:00 - INFO -   🗑️  已删除 | Deleted: 105.sam
+2025-10-06 13:16:00 - INFO -   🗑️  已删除 | Deleted: 105.bam
+2025-10-06 13:16:00 - INFO - ================================================================================
+2025-10-06 13:16:00 - INFO - 🧬 比对样本 | Aligning sample: 106
+2025-10-06 13:16:00 - INFO - ================================================================================
+2025-10-06 13:16:00 - INFO - 📌 BWA比对 | BWA alignment: 106
+2025-10-06 13:16:00 - INFO - 💻 命令 | Command: bwa mem -t 88 -R '@RG\tID:106\tSM:106\tPL:ILLUMINA\tLB:lib1' /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/106_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/106_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/106.sam
+2025-10-06 13:25:39 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:25:39 - INFO - ================================================================================
+2025-10-06 13:25:39 - INFO - 🔧 BAM预处理 | BAM preprocessing: 106
+2025-10-06 13:25:39 - INFO - ================================================================================
+2025-10-06 13:25:39 - INFO - 📦 SAM转BAM | Converting SAM to BAM
+2025-10-06 13:25:39 - INFO - 📌 SAM转BAM | SAM to BAM
+2025-10-06 13:25:39 - INFO - 💻 命令 | Command: samtools view -@ 88 -b /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/106.sam -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/106.bam
+2025-10-06 13:25:56 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:25:56 - INFO - 🔄 排序BAM | Sorting BAM
+2025-10-06 13:25:56 - INFO - 📌 排序BAM | Sort BAM
+2025-10-06 13:25:56 - INFO - 💻 命令 | Command: samtools sort -@ 88 -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/106.sorted.bam /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/106.bam
+2025-10-06 13:26:22 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:26:22 - INFO - 🏷️  标记重复序列 | Marking duplicates
+2025-10-06 13:26:22 - INFO - 📌 标记重复 | Mark duplicates
+2025-10-06 13:26:22 - INFO - 💻 命令 | Command: gatk MarkDuplicates -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/106.sorted.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/106.dedup.bam -M /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/stats/106.dedup_metrics.txt --TMP_DIR /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp
+Tool returned:
+0
+2025-10-06 13:31:03 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:31:03 - INFO - 📑 建立BAM索引 | Indexing BAM
+2025-10-06 13:31:03 - INFO - 📌 建立BAM索引 | Index BAM
+2025-10-06 13:31:03 - INFO - 💻 命令 | Command: samtools index /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/106.dedup.bam
+2025-10-06 13:31:31 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:31:31 - INFO - 🧹 清理中间文件 | Cleaning up intermediate files
+2025-10-06 13:31:31 - INFO -   🗑️  已删除 | Deleted: 106.sam
+2025-10-06 13:31:31 - INFO -   🗑️  已删除 | Deleted: 106.bam
+2025-10-06 13:31:31 - INFO - ================================================================================
+2025-10-06 13:31:31 - INFO - 🧬 比对样本 | Aligning sample: 10
+2025-10-06 13:31:31 - INFO - ================================================================================
+2025-10-06 13:31:31 - INFO - 📌 BWA比对 | BWA alignment: 10
+2025-10-06 13:31:31 - INFO - 💻 命令 | Command: bwa mem -t 88 -R '@RG\tID:10\tSM:10\tPL:ILLUMINA\tLB:lib1' /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/10_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/fastq/10_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/10.sam
+2025-10-06 13:41:22 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:41:22 - INFO - ================================================================================
+2025-10-06 13:41:22 - INFO - 🔧 BAM预处理 | BAM preprocessing: 10
+2025-10-06 13:41:22 - INFO - ================================================================================
+2025-10-06 13:41:22 - INFO - 📦 SAM转BAM | Converting SAM to BAM
+2025-10-06 13:41:22 - INFO - 📌 SAM转BAM | SAM to BAM
+2025-10-06 13:41:22 - INFO - 💻 命令 | Command: samtools view -@ 88 -b /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/10.sam -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/10.bam
+2025-10-06 13:41:41 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:41:41 - INFO - 🔄 排序BAM | Sorting BAM
+2025-10-06 13:41:41 - INFO - 📌 排序BAM | Sort BAM
+2025-10-06 13:41:41 - INFO - 💻 命令 | Command: samtools sort -@ 88 -o /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/10.sorted.bam /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/10.bam
+2025-10-06 13:42:12 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:42:12 - INFO - 🏷️  标记重复序列 | Marking duplicates
+2025-10-06 13:42:12 - INFO - 📌 标记重复 | Mark duplicates
+2025-10-06 13:42:12 - INFO - 💻 命令 | Command: gatk MarkDuplicates -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp/10.sorted.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/10.dedup.bam -M /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/stats/10.dedup_metrics.txt --TMP_DIR /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/temp
+Tool returned:
+0
+2025-10-06 13:47:11 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:47:11 - INFO - 📑 建立BAM索引 | Indexing BAM
+2025-10-06 13:47:11 - INFO - 📌 建立BAM索引 | Index BAM
+2025-10-06 13:47:11 - INFO - 💻 命令 | Command: samtools index /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/10.dedup.bam
+2025-10-06 13:47:41 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 13:47:41 - INFO - 🧹 清理中间文件 | Cleaning up intermediate files
+2025-10-06 13:47:41 - INFO -   🗑️  已删除 | Deleted: 10.sam
+2025-10-06 13:47:41 - INFO -   🗑️  已删除 | Deleted: 10.bam
+2025-10-06 13:47:41 - INFO - ================================================================================
+2025-10-06 13:47:41 - INFO - 🔬 GVCF模式变异检测 | GVCF mode variant calling
+2025-10-06 13:47:41 - INFO - ================================================================================
+2025-10-06 13:47:41 - INFO - 📊 HaplotypeCaller: 100
+2025-10-06 13:47:41 - INFO - 📌 生成GVCF | Generate GVCF: 100
+2025-10-06 13:47:41 - INFO - 💻 命令 | Command: gatk HaplotypeCaller -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/100.dedup.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/100.g.vcf.gz -ERC GVCF --sample-ploidy 2 --native-pair-hmm-threads 88
+2025-10-06 16:39:46 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 16:39:46 - INFO - 📊 HaplotypeCaller: 103
+2025-10-06 16:39:46 - INFO - 📌 生成GVCF | Generate GVCF: 103
+2025-10-06 16:39:46 - INFO - 💻 命令 | Command: gatk HaplotypeCaller -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/103.dedup.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/103.g.vcf.gz -ERC GVCF --sample-ploidy 2 --native-pair-hmm-threads 88
+2025-10-06 19:27:36 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 19:27:36 - INFO - 📊 HaplotypeCaller: 105
+2025-10-06 19:27:36 - INFO - 📌 生成GVCF | Generate GVCF: 105
+2025-10-06 19:27:36 - INFO - 💻 命令 | Command: gatk HaplotypeCaller -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/105.dedup.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/105.g.vcf.gz -ERC GVCF --sample-ploidy 2 --native-pair-hmm-threads 88
+2025-10-06 22:22:15 - INFO - ✅ 执行成功 | Execution successful
+2025-10-06 22:22:15 - INFO - 📊 HaplotypeCaller: 106
+2025-10-06 22:22:15 - INFO - 📌 生成GVCF | Generate GVCF: 106
+2025-10-06 22:22:15 - INFO - 💻 命令 | Command: gatk HaplotypeCaller -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/106.dedup.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/106.g.vcf.gz -ERC GVCF --sample-ploidy 2 --native-pair-hmm-threads 88
+2025-10-07 01:20:46 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 01:20:46 - INFO - 📊 HaplotypeCaller: 10
+2025-10-07 01:20:46 - INFO - 📌 生成GVCF | Generate GVCF: 10
+2025-10-07 01:20:46 - INFO - 💻 命令 | Command: gatk HaplotypeCaller -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -I /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/bam/10.dedup.bam -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/10.g.vcf.gz -ERC GVCF --sample-ploidy 2 --native-pair-hmm-threads 88
+2025-10-07 04:26:53 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 04:26:53 - INFO - 🔗 合并GVCF文件 | Combining GVCF files
+2025-10-07 04:26:53 - INFO - 📌 合并GVCF | Combine GVCFs
+2025-10-07 04:26:53 - INFO - 💻 命令 | Command: gatk CombineGVCFs -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/100.g.vcf.gz -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/103.g.vcf.gz -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/105.g.vcf.gz -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/106.g.vcf.gz -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/10.g.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/combined.g.vcf.gz
+2025-10-07 04:53:34 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 04:53:34 - INFO - 🧬 联合分型 | Joint genotyping
+2025-10-07 04:53:34 - INFO - 📌 联合分型 | Joint genotyping
+2025-10-07 04:53:34 - INFO - 💻 命令 | Command: gatk GenotypeGVCFs -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/gvcf/combined.g.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_variants.vcf.gz --sample-ploidy 2
+2025-10-07 05:16:07 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:16:07 - INFO - ================================================================================
+2025-10-07 05:16:07 - INFO - 🎯 变异过滤 | Variant filtering
+2025-10-07 05:16:07 - INFO - ================================================================================
+2025-10-07 05:16:07 - INFO - 📌 分离SNP | Separating SNP
+2025-10-07 05:16:07 - INFO - 📌 分离SNP | Select SNP
+2025-10-07 05:16:07 - INFO - 💻 命令 | Command: gatk SelectVariants -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_variants.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_snp.vcf.gz --select-type-to-include SNP
+2025-10-07 05:16:39 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:16:39 - INFO - 📌 分离INDEL | Separating INDEL
+2025-10-07 05:16:39 - INFO - 📌 分离INDEL | Select INDEL
+2025-10-07 05:16:39 - INFO - 💻 命令 | Command: gatk SelectVariants -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_variants.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_indel.vcf.gz --select-type-to-include INDEL
+2025-10-07 05:16:59 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:16:59 - INFO - 🔨 执行硬过滤 | Performing hard filtering
+2025-10-07 05:16:59 - INFO - 📌 硬过滤SNP | Hard filter SNP
+2025-10-07 05:16:59 - INFO - 💻 命令 | Command: gatk VariantFiltration -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_snp.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/filtered.hard.SNP.vcf.gz --filter-expression "QD < 2.0 || FS > 60.0 || SOR > 5.5 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0" --filter-name "GATK_HARD_FILTER"
+2025-10-07 05:17:38 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:17:38 - INFO - 📌 移除过滤位点 | Remove filtered sites
+2025-10-07 05:17:38 - INFO - 💻 命令 | Command: gatk SelectVariants -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/filtered.hard.SNP.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/all_samples.filtered.SNP.vcf.gz --exclude-filtered
+2025-10-07 05:18:02 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:18:02 - INFO - 📌 硬过滤INDEL | Hard filter INDEL
+2025-10-07 05:18:02 - INFO - 💻 命令 | Command: gatk VariantFiltration -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_indel.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/filtered.hard.INDEL.vcf.gz --filter-expression "QD < 2.0 || FS > 200.0 || SOR > 10.0 || InbreedingCoeff < -0.8 || ReadPosRankSum < -20.0" --filter-name "GATK_HARD_FILTER"
+2025-10-07 05:18:20 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:18:20 - INFO - 📌 移除过滤位点 | Remove filtered sites
+2025-10-07 05:18:20 - INFO - 💻 命令 | Command: gatk SelectVariants -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/filtered.hard.INDEL.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/all_samples.filtered.INDEL.vcf.gz --exclude-filtered
+2025-10-07 05:18:30 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:18:30 - INFO - 🏷️  执行软过滤 | Performing soft filtering
+2025-10-07 05:18:30 - INFO - 📌 软过滤SNP | Soft filter SNP
+2025-10-07 05:18:30 - INFO - 💻 命令 | Command: gatk VariantFiltration -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_snp.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/filtered.soft.SNP.vcf.gz --filter-expression "QD < 2.0 || FS > 60.0 || SOR > 5.5 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0" --filter-name "GATK_SOFT_FILTER"
+2025-10-07 05:19:09 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:19:09 - INFO - 📌 软过滤INDEL | Soft filter INDEL
+2025-10-07 05:19:09 - INFO - 💻 命令 | Command: gatk VariantFiltration -R /share/org/YZWL/yzwl_lixg/tmp/test_gatk/data/genome.fa -V /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/raw_indel.vcf.gz -O /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/vcf/filtered.soft.INDEL.vcf.gz --filter-expression "QD < 2.0 || FS > 200.0 || SOR > 10.0 || InbreedingCoeff < -0.8 || ReadPosRankSum < -20.0" --filter-name "GATK_SOFT_FILTER"
+2025-10-07 05:19:27 - INFO - ✅ 执行成功 | Execution successful
+2025-10-07 05:19:27 - INFO -   ✅ 文件已存在 | File exists: all_samples.filtered.SNP.vcf.gz.tbi
+2025-10-07 05:19:27 - INFO -   ✅ 文件已存在 | File exists: all_samples.filtered.INDEL.vcf.gz.tbi
+2025-10-07 05:19:27 - INFO -   ✅ 文件已存在 | File exists: filtered.soft.SNP.vcf.gz.tbi
+2025-10-07 05:19:27 - INFO -   ✅ 文件已存在 | File exists: filtered.soft.INDEL.vcf.gz.tbi
+2025-10-07 05:19:27 - INFO - ================================================================================
+2025-10-07 05:19:27 - INFO - 📊 生成统计信息 | Generating statistics
+2025-10-07 05:19:27 - INFO - ================================================================================
+2025-10-07 05:22:16 - INFO - ✅ 统计报告已生成 | Statistics report generated: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/stats/pipeline_statistics.txt
+2025-10-07 05:22:16 - INFO - ================================================================================
+2025-10-07 05:22:16 - INFO - 🎉 流程完成！| Pipeline completed successfully!
+2025-10-07 05:22:16 - INFO - ================================================================================
+2025-10-07 05:22:16 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output
+2025-10-07 05:22:16 - INFO - 📊 统计报告 | Statistics report: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/stats/pipeline_statistics.txt
+2025-10-07 05:22:16 - INFO - 📝 日志文件 | Log file: /share/org/YZWL/yzwl_lixg/tmp/test_gatk/output/logs/pipeline_20251006_123028.log

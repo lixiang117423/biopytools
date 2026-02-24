@@ -1,0 +1,6 @@
+Usage: biopytools genomesyn [OPTIONS]
+Try 'biopytools genomesyn -h' for help.
+
+Error: Invalid value for '--sample-map' / '-s': 文件不存在 | File does not exist: sample_map.txt
+Job 68671093 stderr output:
+

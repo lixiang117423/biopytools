@@ -1,0 +1,11 @@
+2026-01-30 16:36:12.330 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
+2026-01-30 16:36:12.348 - INFO - 生成FOF文件|Generating FOF file
+2026-01-30 16:36:12.361 - INFO - 检测到双末端数据|Detected paired-end data: 181 samples
+2026-01-30 16:36:14.776 - INFO - FOF文件已生成（双末端）|FOF file generated (paired-end): 01.kmer_db/input.fof
+2026-01-30 16:36:14.776 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
+2026-01-30 16:36:14.778 - INFO - 执行kmtricks pipeline|Executing kmtricks pipeline|执行kmtricks pipeline|Executing kmtricks pipeline
+2026-01-30 16:36:15.168 - ERROR - 命令执行失败|Command execution failed: Command '['kmtricks', 'pipeline', '--file', '01.kmer_db/input.fof', '--run-dir', '01.kmer_db/kmtricks_run', '--kmer-size', '51', '--hard-min', '2', '--recurrence-min', '2', '--mode', 'kmer:pa:bin', '--cpr', '-t', '12']' returned non-zero exit status 1.
+2026-01-30 16:36:15.170 - ERROR - STDERR: [CheckFailedError] -> [--run-dir 01.kmer_db/kmtricks_run] ~ Directory already exists!
+
+2026-01-30 16:36:15.170 - ERROR - kmtricks pipeline失败|kmtricks pipeline failed
+2026-01-30 16:36:15.170 - ERROR - kmer数据库构建失败|kmer database building failed

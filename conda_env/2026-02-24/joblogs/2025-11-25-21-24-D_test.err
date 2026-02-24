@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/scripts/34.run_Dstat_wrapper.py", line 225, in <module>
+    main()
+  File "/share/org/YZWL/yzwl_lixg/software/scripts/34.run_Dstat_wrapper.py", line 173, in main
+    success = run_command(cmd)
+  File "/share/org/YZWL/yzwl_lixg/software/scripts/34.run_Dstat_wrapper.py", line 43, in run_command
+    subprocess.check_call(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/subprocess.py", line 364, in check_call
+    retcode = call(*popenargs, **kwargs)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/subprocess.py", line 347, in call
+    return p.wait(timeout=timeout)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/subprocess.py", line 1209, in wait
+    return self._wait(timeout=timeout)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/subprocess.py", line 1959, in _wait
+    (pid, sts) = self._try_wait(0)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/subprocess.py", line 1917, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+KeyboardInterrupt
+Job 68103819 stderr output:
+

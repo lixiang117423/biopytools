@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/plink_gwas/main.py", line 338, in main
+    gwas.run_analysis()
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/plink_gwas/main.py", line 114, in run_analysis
+    model_results = self.results_processor.process_results(main_result)
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/plink_gwas/results.py", line 1282, in process_results
+    return self._process_single_model_results(main_result)
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/plink_gwas/results.py", line 1336, in _process_single_model_results
+    raise FileNotFoundError(f"结果文件不存在: {result_file}")
+FileNotFoundError: 结果文件不存在: gwas_basic_dominant.assoc.logistic
+Job 68687732 stderr output:
+

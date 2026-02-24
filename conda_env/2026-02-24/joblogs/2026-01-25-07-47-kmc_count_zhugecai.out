@@ -1,0 +1,18 @@
+2026-01-25 07:47:12.105 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-25 07:47:12.105 - INFO - 使用自定义输入目录|Using custom input directory: database/kmc_databases
+2026-01-25 07:47:12.106 - INFO - 从count metadata读取k-mer大小|Read k-mer size from count metadata: 21 → 51
+2026-01-25 07:47:12.106 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-25 07:47:12.106 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-25 07:47:12.121 - INFO - 找到 99 个KMC数据库|Found 99 KMC databases
+2026-01-25 07:47:12.121 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 99 样本|samples
+2026-01-25 07:47:12.121 - INFO - 检测到已存在的k-mer文件，跳过union步骤|Found existing k-mer file, skipping union: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/database/global_kmers_with_id.txt
+2026-01-25 07:47:12.121 - INFO - 从元数据加载 3,526,900,156 个k-mer|Loaded 3,526,900,156 k-mers from metadata
+2026-01-25 07:47:12.121 - INFO - 初始化矩阵文件|Initializing matrix file
+2026-01-25 07:47:12.127 - INFO - 矩阵文件初始化完成|Matrix file initialized
+2026-01-25 07:47:12.127 - INFO - k-mer文件大小|K-mer file size: 215.07GB
+2026-01-25 07:47:12.127 - INFO - 加载或构建索引|Loading or building index
+2026-01-25 07:47:12.127 - INFO - 文件大小 215.07GB >= 阈值 1.0GB，使用数据库索引|File size 215.07GB >= threshold 1.0GB, using database index
+2026-01-25 07:47:12.138 - INFO - 检测到已存在的RocksDB索引，直接加载|Found existing RocksDB index, loading: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/database/kmer_index.rdb
+2026-01-25 07:47:16.236 - INFO - 处理样本|Processing sample 1/99: OV8-196
+2026-01-25 07:47:16.236 - INFO - 查询样本丰度|Querying sample abundances: OV8-196
+2026-01-25 07:47:16.236 - INFO - 使用已有dump文件|Using existing dump file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/database/dump_files/OV8-196_dump.txt

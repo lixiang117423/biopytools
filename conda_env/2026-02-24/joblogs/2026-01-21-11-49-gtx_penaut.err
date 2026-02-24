@@ -1,0 +1,6 @@
+2026-01-21 13:35:06.153 - ERROR - 命令执行失败|Command execution failed
+2026-01-21 13:35:06.156 - ERROR - 返回码|Return code: -2
+2026-01-21 13:35:06.156 - ERROR -   样品 P3_1 处理失败|Sample P3_1 processing failed
+Terminated
+Job 68970133 stderr output:
+

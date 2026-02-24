@@ -1,0 +1,99 @@
+2026-01-29 22:30:05.267 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 922044
+	             Genomic kmers: 789825
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 132219
+	             Fraction of errors: 0.143
+User defined coverage: 28.800
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 22:30:05.268 - ERROR - 样品 J_CZ Smudgeplot步骤失败
+2026-01-29 22:30:23.398 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-29 22:30:23.398 - WARNING - 样品 OV44_23 未能获取kcov值，将尝试使用默认值继续
+2026-01-29 22:34:44.386 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 2226924
+	             Genomic kmers: 2218322
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 8602
+	             Fraction of errors: 0.004
+User defined coverage: 50.000
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 22:34:44.388 - ERROR - 样品 OV44_23 Smudgeplot步骤失败
+2026-01-29 22:34:45.801 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-29 22:34:45.801 - WARNING - 样品 OV47_12 未能获取kcov值，将尝试使用默认值继续
+2026-01-29 22:38:22.975 - WARNING - 用户中断操作
+Job 69107229 stderr output:
+

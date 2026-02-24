@@ -1,0 +1,2 @@
+# biopytools bwa -g 01.data/genome/Erysimum_cheiranthoides_chromosomes.fna -i 01.data/clean -o 02.mapping -t 64 
+biopytools bwa-gatk -i 01.data/clean -r 01.data/genome/Erysimum_cheiranthoides_chromosomes.fna -o 02.mapping -t 64 --memory 400G

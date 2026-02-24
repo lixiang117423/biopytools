@@ -1,0 +1,22 @@
+name: newick_utils_v.1.6
+channels:
+  - ursky
+  - bioconda
+  - conda-forge
+  - defaults
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+dependencies:
+  - _libgcc_mutex=0.1
+  - _openmp_mutex=4.5
+  - libgcc=15.1.0
+  - libgomp=15.1.0
+  - libiconv=1.18
+  - liblzma=5.8.1
+  - libxml2=2.14.5
+  - libzlib=1.3.1
+  - newick_utils=1.6
+prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/newick_utils_v.1.6

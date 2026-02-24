@@ -1,0 +1,8 @@
+usage: gtdbtk classify_wf (--genome_dir GENOME_DIR | --batchfile BATCHFILE) --out_dir OUT_DIR (--skip_ani_screen | --mash_db MASH_DB) [--no_mash]
+                          [--mash_k MASH_K] [--mash_s MASH_S] [--mash_v MASH_V] [--mash_max_distance MASH_MAX_DISTANCE] [-f] [-x EXTENSION]
+                          [--min_perc_aa MIN_PERC_AA] [--prefix PREFIX] [--genes] [--cpus CPUS] [--pplacer_cpus PPLACER_CPUS] [--force]
+                          [--scratch_dir SCRATCH_DIR] [--write_single_copy_genes] [--keep_intermediates] [--min_af MIN_AF] [--tmpdir TMPDIR] [--debug]
+                          [-h]
+gtdbtk classify_wf: error: one of the arguments --skip_ani_screen --mash_db is required
+Job 67587900 stderr output:
+

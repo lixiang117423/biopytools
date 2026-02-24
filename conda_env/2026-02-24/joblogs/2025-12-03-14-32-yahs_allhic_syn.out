@@ -1,0 +1,516 @@
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - 🎯============================================================
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - 🧬 开始基因组共线性分析 | Starting genome synteny analysis
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - 🎯============================================================
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - 🔍 开始环境检查 | Starting environment check
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - ==================================================
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查NGenomeSyn是否在PATH中
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - 💻 命令内容 | Command: which NGenomeSyn
+2025-12-03 14:32:53,369 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,370 - GenomeSyn - INFO - ✅ NGenomeSyn 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/NGenomeSyn
+2025-12-03 14:32:53,370 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,370 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 测试NGenomeSyn是否可执行
+2025-12-03 14:32:53,370 - GenomeSyn - INFO - 💻 命令内容 | Command: NGenomeSyn
+2025-12-03 14:32:53,370 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,809 - GenomeSyn - INFO - ✅ NGenomeSyn 验证通过 | NGenomeSyn verification passed
+2025-12-03 14:32:53,809 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,809 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 minimap2 是否安装
+2025-12-03 14:32:53,809 - GenomeSyn - INFO - 💻 命令内容 | Command: which minimap2
+2025-12-03 14:32:53,809 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,810 - GenomeSyn - INFO - ✅ minimap2 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/minimap2
+2025-12-03 14:32:53,810 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,810 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 nucmer 是否安装
+2025-12-03 14:32:53,810 - GenomeSyn - INFO - 💻 命令内容 | Command: which nucmer
+2025-12-03 14:32:53,810 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - ✅ nucmer 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/nucmer
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 show-coords 是否安装
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - 💻 命令内容 | Command: which show-coords
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,811 - GenomeSyn - WARNING - ⚠️ show-coords 未安装 | not installed
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 syri 是否安装
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - 💻 命令内容 | Command: which syri
+2025-12-03 14:32:53,811 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,812 - GenomeSyn - INFO - ✅ syri 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/syri
+2025-12-03 14:32:53,812 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,812 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 convert 是否安装
+2025-12-03 14:32:53,815 - GenomeSyn - INFO - 💻 命令内容 | Command: which convert
+2025-12-03 14:32:53,815 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - ✅ convert 已安装 | installed: /usr/bin/convert
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - ==================================================
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - ✅ 环境检查通过 | Environment check passed
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - 📝 环境检查脚本已保存 | Environment check script saved: ./check_environment.sh
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - 🚀 您可以使用以下命令检查环境:
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - bash ./check_environment.sh
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - 📋 配置文件生成模式 | Configuration generation mode
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: read_sample_map
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - 📝 描述 | Description: 📂 读取样本映射文件
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - 📁 文件 | File: sample_map.txt
+2025-12-03 14:32:53,816 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:53,817 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:53,817 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: sample_added
+2025-12-03 14:32:53,817 - GenomeSyn - INFO - 📝 描述 | Description: ➕ 添加基因组: YaHS
+2025-12-03 14:32:53,817 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/yahs_top12.fa
+2025-12-03 14:32:53,817 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: sample_added
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📝 描述 | Description: ➕ 添加基因组: ALLHiC
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/allhic.fa
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - ✅ 成功读取 2 个基因组 | Successfully read 2 genomes
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📝 数据处理脚本已保存 | Data processing script saved: ./data_processing_steps.sh
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: start - 开始生成默认配置文件
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: chromosome_analysis - 分析基因组染色体信息
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: chromosome_all - 📊 计算基因组 YaHS 的所有染色体
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: calculate_chr_lengths
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📝 描述 | Description: 📏 计算染色体长度
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/yahs_top12.fa
+2025-12-03 14:32:53,818 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:58,666 - GenomeSyn - INFO - 🧬 发现 12 条染色体 | Found 12 chromosomes
+2025-12-03 14:32:58,666 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:58,666 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: chr_calculation_complete
+2025-12-03 14:32:58,666 - GenomeSyn - INFO - 📝 描述 | Description: 🧬 完成染色体长度计算，共 12 条染色体
+2025-12-03 14:32:58,666 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:58,667 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: chromosome_all - 📊 计算基因组 ALLHiC 的所有染色体
+2025-12-03 14:32:58,667 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:32:58,667 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: calculate_chr_lengths
+2025-12-03 14:32:58,667 - GenomeSyn - INFO - 📝 描述 | Description: 📏 计算染色体长度
+2025-12-03 14:32:58,667 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/allhic.fa
+2025-12-03 14:32:58,667 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 🧬 发现 12 条染色体 | Found 12 chromosomes
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: chr_calculation_complete
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📝 描述 | Description: 🧬 完成染色体长度计算，共 12 条染色体
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: generate_links - 🔗 生成基因组比对链接关系
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: chain_links - 🔗 为 2 个基因组生成链式比对关系
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: yaml_config - 📝 构建YAML配置数据结构
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: threads_config - ⚡ 配置线程数: 16
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - ⚡ 使用配置线程数 | Using configured threads: 16
+2025-12-03 14:33:04,622 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: save_yaml - 💾 保存YAML配置文件
+2025-12-03 14:33:04,626 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: convert_excel - 📊 转换为Excel配置文件
+2025-12-03 14:33:04,626 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: excel_conversion - 🔄 开始YAML到Excel的转换
+2025-12-03 14:33:04,709 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: excel_complete - ✅ Excel文件保存完成: ./output/genome_syn_config.xlsx
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - 📝 配置生成脚本已保存 | Config generation script saved: ./output/regenerate_config.sh
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - 📄 YAML配置文件已生成 | YAML config file generated: ./output/genome_syn_config.yaml
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - 📊 Excel配置文件已生成 | Excel config file generated: ./output/genome_syn_config.xlsx
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - 🎉============================================================
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - ✅ 配置文件已生成完成 | Configuration files generated
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - 📄 YAML配置文件 | YAML config: ./output/genome_syn_config.yaml
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - 📊 Excel配置文件 | Excel config: ./output/genome_syn_config.xlsx
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - 💡 请编辑Excel文件后使用 --config 参数运行分析 | Please edit Excel file and run with --config parameter
+2025-12-03 14:33:04,710 - GenomeSyn - INFO - 🎉============================================================
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - 🎯============================================================
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - 🧬 开始基因组共线性分析 | Starting genome synteny analysis
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - 🎯============================================================
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - 🔍 开始环境检查 | Starting environment check
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - ==================================================
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查NGenomeSyn是否在PATH中
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - 💻 命令内容 | Command: which NGenomeSyn
+2025-12-03 14:33:05,064 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,065 - GenomeSyn - INFO - ✅ NGenomeSyn 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/NGenomeSyn
+2025-12-03 14:33:05,065 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,065 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 测试NGenomeSyn是否可执行
+2025-12-03 14:33:05,065 - GenomeSyn - INFO - 💻 命令内容 | Command: NGenomeSyn
+2025-12-03 14:33:05,065 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,503 - GenomeSyn - INFO - ✅ NGenomeSyn 验证通过 | NGenomeSyn verification passed
+2025-12-03 14:33:05,503 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,504 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 minimap2 是否安装
+2025-12-03 14:33:05,504 - GenomeSyn - INFO - 💻 命令内容 | Command: which minimap2
+2025-12-03 14:33:05,504 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,504 - GenomeSyn - INFO - ✅ minimap2 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/minimap2
+2025-12-03 14:33:05,504 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,504 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 nucmer 是否安装
+2025-12-03 14:33:05,504 - GenomeSyn - INFO - 💻 命令内容 | Command: which nucmer
+2025-12-03 14:33:05,504 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,505 - GenomeSyn - INFO - ✅ nucmer 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/nucmer
+2025-12-03 14:33:05,505 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,505 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 show-coords 是否安装
+2025-12-03 14:33:05,505 - GenomeSyn - INFO - 💻 命令内容 | Command: which show-coords
+2025-12-03 14:33:05,505 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,506 - GenomeSyn - WARNING - ⚠️ show-coords 未安装 | not installed
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 syri 是否安装
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - 💻 命令内容 | Command: which syri
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - ✅ syri 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/syri
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 convert 是否安装
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - 💻 命令内容 | Command: which convert
+2025-12-03 14:33:05,506 - GenomeSyn - INFO - 🔍============================================================
+2025-12-03 14:33:05,507 - GenomeSyn - INFO - ✅ convert 已安装 | installed: /usr/bin/convert
+2025-12-03 14:33:05,507 - GenomeSyn - INFO - ==================================================
+2025-12-03 14:33:05,507 - GenomeSyn - INFO - ✅ 环境检查通过 | Environment check passed
+2025-12-03 14:33:05,507 - GenomeSyn - INFO - 📝 环境检查脚本已保存 | Environment check script saved: ./check_environment.sh
+2025-12-03 14:33:05,507 - GenomeSyn - INFO - 🚀 您可以使用以下命令检查环境:
+2025-12-03 14:33:05,507 - GenomeSyn - INFO - bash ./check_environment.sh
+2025-12-03 14:33:05,507 - GenomeSyn - INFO - 🚀 开始完整分析流程 | Starting full analysis pipeline
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 
+🔗==================================================
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 🔗 步骤1: 执行基因组比对 | Step 1: Performing genome alignment
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 🔗==================================================
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 🔧 创建比对器 | Creating aligner: minimap2 with 16 threads
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 🔧 Minimap2比对器初始化 | Minimap2 aligner initialized with 16 threads
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - ⭐️ LINK文件已存在且有效，跳过比对 | Valid LINK file exists, skipping: YaHS_vs_ALLHiC.link
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 
+🎨==================================================
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 🎨 步骤2: 生成可视化图形 | Step 2: Generating visualization
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 🎨==================================================
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📝 生成NGenomeSyn配置文件 | Generating NGenomeSyn configuration file
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: generate_len_file
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📝 描述 | Description: 📏 生成基因组长度文件
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/yahs_top12.fa
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: calculate_chr_lengths
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📝 描述 | Description: 📏 计算染色体长度
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/yahs_top12.fa
+2025-12-03 14:33:05,511 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,304 - GenomeSyn - INFO - 🧬 发现 12 条染色体 | Found 12 chromosomes
+2025-12-03 14:33:10,304 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,304 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: chr_calculation_complete
+2025-12-03 14:33:10,304 - GenomeSyn - INFO - 📝 描述 | Description: 🧬 完成染色体长度计算，共 12 条染色体
+2025-12-03 14:33:10,304 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: color_scheme
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📝 描述 | Description: 🎨 生成颜色方案: paired，12 种颜色
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - ✅ 生成.len文件 | Generated .len file: ./output/YaHS.len
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: len_file_complete
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📝 描述 | Description: ✅ 完成.len文件生成
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📁 文件 | File: ./output/YaHS.len
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 🎨 执行命令 | Executing command: 📏 生成基因组 YaHS 的长度文件
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 💻 命令内容 | Command: # 📏 生成基因组长度文件: python -c "from data_processing import GenomeProcessor; GenomeProcessor().generate_len_file('/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/yahs_top12.fa', './output/YaHS.len', selected_chromosomes=None)"
+2025-12-03 14:33:10,305 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - ✅ 生成基因组信息文件 | Generated genome info file: ./output/YaHS.len
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: generate_len_file
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📝 描述 | Description: 📏 生成基因组长度文件
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/allhic.fa
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: calculate_chr_lengths
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📝 描述 | Description: 📏 计算染色体长度
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/allhic.fa
+2025-12-03 14:33:10,306 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:16,242 - GenomeSyn - INFO - 🧬 发现 12 条染色体 | Found 12 chromosomes
+2025-12-03 14:33:16,242 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:16,242 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: chr_calculation_complete
+2025-12-03 14:33:16,242 - GenomeSyn - INFO - 📝 描述 | Description: 🧬 完成染色体长度计算，共 12 条染色体
+2025-12-03 14:33:16,242 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: color_scheme
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📝 描述 | Description: 🎨 生成颜色方案: paired，12 种颜色
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - ✅ 生成.len文件 | Generated .len file: ./output/ALLHiC.len
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: len_file_complete
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📝 描述 | Description: ✅ 完成.len文件生成
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📁 文件 | File: ./output/ALLHiC.len
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📊============================================================
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 🎨 执行命令 | Executing command: 📏 生成基因组 ALLHiC 的长度文件
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 💻 命令内容 | Command: # 📏 生成基因组长度文件: python -c "from data_processing import GenomeProcessor; GenomeProcessor().generate_len_file('/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/14.YaHS和ALLHiC挂载结果的共线性/allhic.fa', './output/ALLHiC.len', selected_chromosomes=None)"
+2025-12-03 14:33:16,243 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - ✅ 生成基因组信息文件 | Generated genome info file: ./output/ALLHiC.len
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🔗 使用链接文件 | Using link file: YaHS_vs_ALLHiC.link
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🎨 执行命令 | Executing command: 📋 查看生成的NGenomeSyn配置文件内容
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 💻 命令内容 | Command: cat "ngenomesyn.conf"
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 📋 NGenomeSyn配置文件内容 | NGenomeSyn config file content:
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 📄 配置内容 | Config content:
+SetParaFor = global
+
+GenomeInfoFile1=YaHS.len
+GenomeInfoFile2=ALLHiC.len
+
+LinkFileRef1VsRef2=YaHS_vs_ALLHiC.link
+
+body=1200
+CanvasHeightRatio=0.67
+
+SetParaFor = Genome1
+ChrNameShow=1
+ChrNameColor=black
+ChrNameShiftX=0
+ChrNameShiftY=15
+
+SetParaFor = Genome2
+ChrNameShow=1
+ChrNameColor=black
+ChrNameShiftX=0
+ChrNameShiftY=15
+
+
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - ✅ NGenomeSyn配置文件已生成 | NGenomeSyn config generated: ./output/ngenomesyn.conf
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🎨 开始NGenomeSyn可视化 | Starting NGenomeSyn visualization
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🔍 检查输入文件状态 | Checking input file status
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 📋 配置文件 | Config file: ./output/ngenomesyn.conf
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🎨 执行命令 | Executing command: 🔍 检查输出目录中的文件
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 💻 命令内容 | Command: ls -la "./output"
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 📂 输出目录文件列表 | Output directory file list: ['YaHS_vs_ALLHiC.link', 'visualization_commands.sh', 'regenerate_config.sh', 'genome_syn_config.xlsx', 'genome_synteny.svg', 'ALLHiC.len', 'ngenomesyn.conf', 'YaHS.len', 'genome_synteny.png', 'YaHS_vs_ALLHiC.paf', 'alignment_commands_YaHS_vs_ALLHiC.sh', 'complete_genome_syn_pipeline.sh', 'genome_syn_config.yaml']
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🚀 执行命令 | Executing command: NGenomeSyn -InConf "ngenomesyn.conf" -OutPut "genome_synteny"
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:16,244 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,245 - GenomeSyn - INFO - 🎨 执行命令 | Executing command: 🔧 测试NGenomeSyn是否可用
+2025-12-03 14:33:16,245 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:16,245 - GenomeSyn - INFO - 💻 命令内容 | Command: NGenomeSyn
+2025-12-03 14:33:16,245 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,685 - GenomeSyn - INFO - 🔧 NGenomeSyn测试结果 | NGenomeSyn test result: returncode=1
+2025-12-03 14:33:16,685 - GenomeSyn - INFO - 📤 NGenomeSyn输出 | NGenomeSyn output: Warining: SVG module in Perl is missing, trying to loading the built-in [SVG.pm]...
+Loading SVG module done
+
+2025-12-03 14:33:16,685 - GenomeSyn - INFO - ❌ NGenomeSyn错误 | NGenomeSyn stderr: 
+		Version:1.43         hewm2008@gmail.com
+
+		Options
+
+		-InConf       <s> : InPut Configuration File
+		-OutPut       <s> : OutPut svg file result
+
+		-help             : Show more help with more parameter
+
+
+2025-12-03 14:33:16,685 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:16,685 - GenomeSyn - INFO - 🎨 执行命令 | Executing command: 🎨 执行NGenomeSyn生成共线性图: genome_synteny
+2025-12-03 14:33:16,685 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:16,685 - GenomeSyn - INFO - 💻 命令内容 | Command: NGenomeSyn -InConf "ngenomesyn.conf" -OutPut "genome_synteny"
+2025-12-03 14:33:16,685 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 📊 命令执行结果 | Command execution result:
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 🔢 返回码 | Return code: 1
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 📤 标准输出 | STDOUT: Warining: SVG module in Perl is missing, trying to loading the built-in [SVG.pm]...
+Loading SVG module done
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_13 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_14 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_15 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_16 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_17 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_18 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_19 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+Warning : at Link File YaHS_vs_ALLHiC.link can't find the chr scaffold_20 at the  the 1 Genome File info
+convert   SVG ---> PNG ...
+
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - ✅ 标准错误为空 | STDERR is empty
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 🎨 执行命令 | Executing command: 🔍 检查生成的输出文件
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 💻 命令内容 | Command: ls -la "genome_synteny"*
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 🎨 SVG文件已生成 | SVG file generated: ./output/genome_synteny.svg
+2025-12-03 14:33:17,445 - GenomeSyn - WARNING - ⚠️ NGenomeSyn返回非零退出码但文件已成功生成 | NGenomeSyn returned non-zero exit code but files were generated successfully
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 🎨 执行命令 | Executing command: 🖼️ 将SVG转换为PNG格式: genome_synteny.svg -> genome_synteny.png
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 💻 命令内容 | Command: convert "genome_synteny.svg" "genome_synteny.png"
+2025-12-03 14:33:17,445 - GenomeSyn - INFO - 🎨================================================================================
+2025-12-03 14:33:17,746 - GenomeSyn - INFO - 🖼️ PNG文件已生成 | PNG file generated: ./output/genome_synteny.png
+2025-12-03 14:33:17,746 - GenomeSyn - INFO - 📝 可视化命令脚本已保存 | Visualization command script saved: ./output/visualization_commands.sh
+2025-12-03 14:33:17,746 - GenomeSyn - INFO - 🚀 您可以使用以下命令手动执行可视化 | You can manually execute visualization with:
+2025-12-03 14:33:17,746 - GenomeSyn - INFO - bash ./output/visualization_commands.sh
+2025-12-03 14:33:17,746 - GenomeSyn - INFO - 
+📝==================================================
+2025-12-03 14:33:17,746 - GenomeSyn - INFO - 📝 步骤3: 生成完整命令脚本 | Step 3: Generating complete command script
+2025-12-03 14:33:17,746 - GenomeSyn - INFO - 📝==================================================
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - 📝 完整流程脚本已生成 | Complete pipeline script generated: ./output/complete_genome_syn_pipeline.sh
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - 🚀 您可以使用以下命令重新运行整个分析流程:
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - bash ./output/complete_genome_syn_pipeline.sh
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - 
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - ⚠️ 注意: 脚本中的某些步骤需要手动替换实际的输入文件路径
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - 🎉============================================================
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - 🎉 分析完成 | Analysis completed
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - 📤 输出文件 | Output file: ./output/genome_synteny.svg
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - 📤 输出文件 | Output file: ./output/genome_synteny.png
+2025-12-03 14:33:17,747 - GenomeSyn - INFO - 🎉============================================================

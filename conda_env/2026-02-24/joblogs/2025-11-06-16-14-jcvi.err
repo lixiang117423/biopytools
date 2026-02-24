@@ -1,0 +1,47 @@
+[error] --window not a valid ACTION
+
+Did you mean one of these?
+	
+
+Usage:
+    python -m jcvi.formats.bed ACTION
+
+
+Available ACTIONs:
+             bedpe | Convert to bedpe format
+              bins | Bin bed lengths into each window
+             chain | Chain bed segments together
+           closest | Find closest BED feature
+           density | Calculates density of features per seqid
+             depth | Calculate average depth per feature using coverageBed
+          distance | Calculate distance between bed features
+          evaluate | Make truth table and calculate sensitivity and specificity
+            filter | Filter bedfile to retain records between size range
+    filterbedgraph | Filter bedgraph to extract unique regions
+               fix | Fix non-standard bed files
+          flanking | Get n flanking features for a given position
+            format | Reformat BED file
+              gaps | Define gaps in BED file using complementBed
+             index | Index bed file using tabix
+             juncs | Trim junctions.bed overhang to get intron, merge multiple beds
+           longest | Select longest feature within overlapping piles
+             mates | Print paired reads from bedfile
+             merge | Merge bed files
+      mergebydepth | Returns union of features beyond certain depth
+           overlap | Estimate the overlap between two bed files
+             pairs | Estimate insert size between paired reads from bedfile
+              pile | Find the ids that intersect
+            random | Extract a random subset of features
+            refine | Refine bed file using a second bed file
+            sample | Sample bed file and remove high-coverage regions
+            seqids | Print out all seqids on one line
+             sizes | Infer the sizes for each seqid
+              some | Get a subset of bed features given a list
+              sort | Sort bed file
+           summary | Summarize the lengths of the intervals
+            tiling | Compute the minimum tiling path
+              uniq | Remove overlapping features with higher scores
+
+JCVI utility libraries 1.5.6 [Copyright (c) 2010-2025, Haibao Tang]
+Job 67898106 stderr output:
+

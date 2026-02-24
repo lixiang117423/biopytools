@@ -1,0 +1,22 @@
+2026-02-07 18:15:28.641 - INFO - ============================================================
+2026-02-07 18:15:28.641 - INFO - IQ-TREE 系统发育树分析流程启动|IQ-TREE Phylogenetic Analysis Pipeline Started
+2026-02-07 18:15:28.641 - INFO - ============================================================
+2026-02-07 18:15:28.641 - INFO - 步骤1: 检查软件依赖|Step 1: Checking software dependencies
+2026-02-07 18:15:28.641 - INFO - 检查依赖软件|Checking dependencies
+2026-02-07 18:15:29.008 - INFO - IQ-TREE 可用|IQ-TREE available: IQ-TREE version 3.0.1 for Linux x86 64-bit built Jul  9 2025
+2026-02-07 18:15:29.008 - INFO - 步骤2: 构建系统发育树|Step 2: Building phylogenetic tree
+2026-02-07 18:15:29.008 - INFO - ============================================================
+2026-02-07 18:15:29.008 - INFO - 开始系统发育树构建|Starting phylogenetic tree construction
+2026-02-07 18:15:29.008 - INFO - ============================================================
+2026-02-07 18:15:29.008 - INFO - 使用自动模型选择|Using automatic model selection (MFP)
+2026-02-07 18:15:29.008 - INFO - 使用UFBoot，重复1000次|Using UFBoot with 1000 replicates
+2026-02-07 18:15:29.008 - INFO - 设置外群|Setting outgroup: Arabidopsis_thaliana
+2026-02-07 18:15:29.008 - INFO - 执行步骤|Executing step: 系统发育树推断|Phylogenetic tree inference
+2026-02-07 18:15:29.008 - INFO - 命令|Command: iqtree -s /share/org/YZWL/yzwl_lixg/tmp/yelvti/mafft_tree/all.plastome.mafft.fa --prefix iqtree/xiaohuatangjie -m MFP -B 1000 -T 12 -o Arabidopsis_thaliana
+2026-02-07 18:15:29.008 - INFO - 工作目录|Working directory: /share/org/YZWL/yzwl_lixg/tmp/yelvti/mafft_tree/iqtree
+2026-02-07 18:15:29.013 - ERROR - 命令执行失败|Command execution failed: 系统发育树推断|Phylogenetic tree inference
+2026-02-07 18:15:29.013 - ERROR - 错误代码|Error code: 1
+2026-02-07 18:15:29.013 - ERROR - 错误信息|Error message: ERROR: Could not open iqtree/xiaohuatangjie.log for logging
+
+2026-02-07 18:15:29.013 - ERROR - 标准输出|Stdout: 
+2026-02-07 18:15:29.013 - ERROR - 系统发育树构建失败|Tree construction failed

@@ -1,0 +1,34 @@
+🔧 加载GTX环境...
+🧬==============================================
+🧬    单样品变异检测+BSA变异检测流程开始
+🧬==============================================
+🕒 开始时间: 2025年 10月 11日 星期六 17:20:00 CST
+📂 原始数据: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw
+📂 清理数据: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+📂 单样品结果: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+📂 BSA结果: /share/org/YZWL/yzwl_lixg/project/16.荠菜/03.bsa.2
+📋 分组文件: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/sample_groups.txt
+
+🔍==============================================
+🔍    阶段2: 单样品变异检测 (GTX)
+🔍==============================================
+🕒 开始时间: 2025年 10月 11日 星期六 17:20:00 CST
+🔍 检查参考基因组...
+📊 参考基因组: genome.fa
+📊 参考基因组大小: 316M
+🏃 运行GTX单样品变异检测...
+⚡ 使用线程数: 80
+⚡ 联合线程数: 80
+[2025-10-11 17:20:01] INFO - 🚀 开始GTX WGS批处理分析流程 (Joint Calling模式) | Starting GTX WGS batch processing analysis pipeline (Joint Calling模式)
+[2025-10-11 17:20:01] INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+[2025-10-11 17:20:01] INFO - 📤 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2
+[2025-10-11 17:20:01] INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa
+[2025-10-11 17:20:01] INFO - 📁 R1文件模式 | R1 file pattern: *_1.clean.fq.gz
+[2025-10-11 17:20:01] INFO - 📁 R2文件模式 | R2 file pattern: *_2.clean.fq.gz
+[2025-10-11 17:20:01] INFO - 🤝 Joint calling已启用 | Joint calling enabled
+[2025-10-11 17:20:01] INFO -   📜 Joint输出文件 | Joint output file: merged_gtx.vcf.gz
+[2025-10-11 17:20:01] INFO -   🧵 Joint calling线程数 | Joint calling threads: 80
+[2025-10-11 17:20:01] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-11 17:20:01] ERROR - ❌ GTX程序不存在 | GTX program does not exist: faketime '2020-10-20 00:00:00' /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx
+[2025-10-11 17:20:01] ERROR - 💥 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: ❌ GTX程序不存在 | GTX program does not exist: faketime '2020-10-20 00:00:00' /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx
+❌ 错误: GTX单样品变异检测失败

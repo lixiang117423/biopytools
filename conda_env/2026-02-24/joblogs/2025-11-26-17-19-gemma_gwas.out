@@ -1,0 +1,44 @@
+ℹ️  [INFO] 检查依赖软件...
+✅ [SUCCESS] 所有依赖软件检查通过
+
+════════════════════════════════════════════════════════════════
+            🧬 GWAS 自动化分析流程 v2.1
+════════════════════════════════════════════════════════════════
+
+ℹ️  [INFO] 输入 VCF 文件: variation.filtered.snp.vcf.gz
+ℹ️  [INFO] 输入表型文件: 58.拟合用于测试GWAS的数据.txt
+ℹ️  [INFO] 输出文件夹: output
+ℹ️  [INFO] 主成分数量: 5
+ℹ️  [INFO] MAF阈值: 0.01
+ℹ️  [INFO] SNP缺失率阈值: 0.1
+ℹ️  [INFO] 样本缺失率阈值: 0.1
+ℹ️  [INFO] 线程数: 12
+────────────────────────────────────────────────────────────────
+
+ℹ️  [INFO] 为GEMMA准备一个无表头的临时表型文件...
+✅ [SUCCESS] 临时表型文件已创建。
+
+🔹 [STEP 1/6] 转换VCF文件为PLINK二进制格式 📁
+✅ [SUCCESS] PLINK文件生成完成: output/genotypes.{bed,bim,fam}
+ℹ️  [INFO] 样本数: 419
+ℹ️  [INFO] SNP数: 370681
+
+🔹 [STEP 2/6] 执行质量控制过滤 🔍
+✅ [SUCCESS] 质控过滤完成
+ℹ️  [INFO] 过滤后样本数: 414 (移除: 5)
+ℹ️  [INFO] 过滤后SNP数: 28532 (移除: 342149)
+
+🔹 [STEP 3/6] 执行主成分分析 (PCA) 📊
+✅ [SUCCESS] PCA分析完成: output/pca.eigenvec
+
+🔹 [STEP 4/6] 准备GEMMA协变量文件 📝
+✅ [SUCCESS] 协变量文件生成完成: output/covariates.txt
+ℹ️  [INFO] 包含: 截距 + 5 个主成分
+
+🔹 [STEP 5/6] 计算标准化亲缘关系矩阵 🧮
+✅ [SUCCESS] 亲缘关系矩阵生成完成: output/kinship/kinship.cXX.txt
+
+🔹 [STEP 6/6] 执行GEMMA关联分析 🚀
+ℹ️  [INFO] 检测到 1 个性状，开始逐一分析...
+
+  🔬 分析性状 [1/1]: DI

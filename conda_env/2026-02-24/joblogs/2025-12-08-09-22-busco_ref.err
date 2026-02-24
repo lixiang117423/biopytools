@@ -1,0 +1,11 @@
+2025-12-08 09:22:19 ERROR:	The following job failed with the error code -9:
+miniprot -t 64 -d /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/18.busco/ref/busco_result/run_brassicales_odb12/miniprot_output/ref.mpi /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/18.busco/ref/genome.len60.fa
+2025-12-08 09:22:20 ERROR:	Error message: [M::mp_ntseq_read@2.692*1.00] read 1338903767 bases in 198 contigs
+[M::mp_idx_build@2.692*1.00] 10460372 blocks
+
+2025-12-08 09:22:22 ERROR:	Job failed with error code -9
+2025-12-08 09:22:22 ERROR:	BUSCO analysis failed!
+2025-12-08 09:22:22 ERROR:	Check the logs, read the user guide (https://busco.ezlab.org/busco_userguide.html), and check the BUSCO issue board on https://gitlab.com/ezlab/busco/issues
+
+Job 68322748 stderr output:
+

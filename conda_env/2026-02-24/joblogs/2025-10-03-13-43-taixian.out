@@ -1,0 +1,19 @@
+2025-10-03 13:43:13,934 - INFO - Simplified WRKY Analysis Pipeline with gffread Started
+2025-10-03 13:43:13,961 - INFO - Working directory: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类
+2025-10-03 13:43:13,986 - INFO - Script PID: 2820881
+2025-10-03 13:43:14,014 - INFO - Starting simplified WRKY pipeline with gffread...
+2025-10-03 13:43:14,039 - INFO - Checking dependencies...
+2025-10-03 13:43:14,429 - INFO - All dependencies found
+2025-10-03 13:43:14,454 - INFO - Starting simplified WRKY analysis pipeline with gffread...
+2025-10-03 13:43:14,480 - INFO - Found 0 samples to process
+2025-10-03 13:43:14,504 - INFO - Samples: 
+2025-10-03 13:43:14,528 - INFO - 
+2025-10-03 13:43:14,551 - INFO - Generating analysis summary...
+2025-10-03 13:43:14,579 - INFO - Summary saved to: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/analysis_summary.txt
+2025-10-03 13:43:14,603 - INFO - 
+2025-10-03 13:43:14,626 - INFO - WRKY analysis pipeline completed!
+2025-10-03 13:43:14,650 - INFO - Processing summary: 0 total, 0 successful, 0 failed
+2025-10-03 13:43:14,674 - INFO - Check results in: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类
+2025-10-03 13:43:14,697 - INFO - Summary: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/analysis_summary.txt
+2025-10-03 13:43:14,720 - INFO - Individual results: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/04.results/
+2025-10-03 13:43:14,744 - INFO - Analysis finished at: 2025年 10月 03日 星期五 13:43:14 CST

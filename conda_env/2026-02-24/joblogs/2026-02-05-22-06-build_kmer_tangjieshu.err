@@ -1,0 +1,11 @@
+
+Aborted!
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/kmertools/main.py", line 705, in cmd_vcf
+    config.validate()
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/kmertools/kmer2vcf/config.py", line 181, in validate
+    raise ValueError("\n".join(errors))
+ValueError: 输入矩阵文件不存在|Input matrix file does not exist: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/14.所有糖芥属进化树/02.kmer_db/kmer_matrix_with_header.txt
+未能解析样本名|Failed to parse sample names from input file
+Job 69281802 stderr output:
+

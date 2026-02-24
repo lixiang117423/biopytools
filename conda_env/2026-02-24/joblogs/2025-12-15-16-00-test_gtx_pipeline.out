@@ -1,0 +1,30 @@
+
+[0;34m========================================[0m
+[0;34m✨ 全基因组重测序自动化分析流程 v3.0 ✨[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:00:59 - 项目: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx[0m
+[0;32m[INFO] 2025-12-15 16:00:59 - 日志: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/99.logs/pipeline_20251215_160059.log[0m
+[0;32m[INFO] 2025-12-15 16:00:59 - 开始时间: 2025-12-15 16:00:59[0m
+
+[0;34m========================================[0m
+[0;34m🔍 Step 0: 系统预检查[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:00:59 - 创建项目目录结构...[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping/bam[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping/vcf[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/03.joint_calling[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/04.filtered_snp_indel[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/00.scripts[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/99.logs[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/.checkpoints[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/.tmp[0m
+[0;32m[INFO] 2025-12-15 16:00:59 - 检查必需工具...[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - ✓ GTX可执行文件: /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx[0m
+[0;32m[INFO] 2025-12-15 16:00:59 - 检查参考基因组...[0m
+[0;31m[ERROR] 2025-12-15 16:00:59 - 参考基因组不存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/genome/genome.fa[0m
+[0;31m[ERROR] 2025-12-15 16:00:59 - 脚本异常退出 (Exit Code: 1)[0m
+[0;31m[ERROR] 2025-12-15 16:00:59 - 请查看错误日志: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/99.logs/error_20251215_160059.log[0m
+[0;36m[DEBUG] 2025-12-15 16:00:59 - 清理临时文件...[0m
+[0;32m[INFO] 2025-12-15 16:00:59 - 总运行时间: 00:00:00[0m

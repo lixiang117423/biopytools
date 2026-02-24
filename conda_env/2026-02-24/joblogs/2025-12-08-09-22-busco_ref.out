@@ -1,0 +1,11 @@
+2025-12-08 09:22:00 INFO:	***** Start a BUSCO v6.0.0 analysis, current time: 12/08/2025 09:22:00 *****
+2025-12-08 09:22:00 INFO:	Configuring BUSCO with local environment
+2025-12-08 09:22:00 INFO:	Running genome mode
+2025-12-08 09:22:00 INFO:	'Force' option selected; overwriting previous results directory
+2025-12-08 09:22:01 INFO:	Input file is /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/18.busco/ref/genome.len60.fa
+2025-12-08 09:22:01 INFO:	Using local lineages directory /share/org/YZWL/yzwl_lixg/database/busco/brassicales_odb12
+2025-12-08 09:22:04 INFO:	Running BUSCO using lineage dataset brassicales_odb12 (eukaryota, 2025-07-01)
+2025-12-08 09:22:04 INFO:	Running 1 job(s) on bbtools, starting at 12/08/2025 09:22:04
+2025-12-08 09:22:10 INFO:	[bbtools]	1 of 1 task(s) completed
+2025-12-08 09:22:10 INFO:	Running 1 job(s) on miniprot_index, starting at 12/08/2025 09:22:10
+2025-12-08 09:22:22 INFO:	Thank you for using BUSCO! Anonymous usage data is gathered to improve the tool. You may opt out with --opt-out-run-stats.

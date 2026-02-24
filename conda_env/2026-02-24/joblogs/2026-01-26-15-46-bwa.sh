@@ -1,0 +1,2 @@
+biopytools bwa -i 01.data/clean -o 02.挂载的基因组 -g 01.data/genome/41.primary.fa  -p _1.clean.fq.gz -t 64
+biopytools coverage-filter -i bam/41.bam -f ../01.data/genome/41_RagTag_unscaffolded.fa -o 41 --high-cov 95

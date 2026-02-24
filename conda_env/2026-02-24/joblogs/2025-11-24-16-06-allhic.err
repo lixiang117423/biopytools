@@ -1,0 +1,247 @@
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group11.txt`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group10.txt`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group8.txt`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group5.txt`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group6.txt`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group1.txt`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group4.txt`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group7.txt`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group9.txt`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group3.txt`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:05:49 readRE | NOTICE [0m Parse REfile `group2.txt`
+[32m04:05:49 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m04:06:58 reportActive | NOTICE [0m Active tigs: 26 (length=47839149)
+[32m04:06:58 flipLog | NOTICE [0m FLIPALL: -9294139.33377 => -9293466.66066 ACCEPT
+[32m04:06:58 Run | NOTICE [0m Optimization history logged to `group2.tour`
+[32m04:06:58 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:06:59 reportActive | NOTICE [0m Active tigs: 138 (length=150613492)
+[32m04:06:59 flipLog | NOTICE [0m FLIPALL: -18053682.35181 => -18058368.62064 REJECT
+[32m04:06:59 Run | NOTICE [0m Optimization history logged to `group5.tour`
+[32m04:06:59 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:06:59 reportActive | NOTICE [0m Active tigs: 25 (length=1033222)
+[32m04:06:59 flipLog | NOTICE [0m FLIPALL: -134728.98585 => -134874.07380 REJECT
+[32m04:06:59 Run | NOTICE [0m Optimization history logged to `group3.tour`
+[32m04:06:59 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:06:59 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:00 reportActive | NOTICE [0m Active tigs: 129 (length=136896685)
+[32m04:07:00 flipLog | NOTICE [0m FLIPALL: -15798189.52819 => -15798679.39313 REJECT
+[32m04:07:00 Run | NOTICE [0m Optimization history logged to `group6.tour`
+[32m04:07:00 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:00 reportActive | NOTICE [0m Active tigs: 95 (length=121660827)
+[32m04:07:00 flipLog | NOTICE [0m FLIPALL: -17385397.82662 => -17381525.21371 ACCEPT
+[32m04:07:00 Run | NOTICE [0m Optimization history logged to `group11.tour`
+[32m04:07:00 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:00 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:00 flipLog | NOTICE [0m FLIPWHOLE: -13564641.23361 => -13565140.11667 REJECT
+[32m04:07:00 flipOne | NOTICE [0m FLIPONE: N_accepts=8 N_rejects=18
+[32m04:07:00 flipLog | NOTICE [0m FLIPWHOLE: -13556257.48431 => -13571474.43713 REJECT
+[32m04:07:00 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=26
+[32m04:07:00 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:00 Run | NOTICE [0m Success
+[32m04:07:01 reportActive | NOTICE [0m Active tigs: 120 (length=128496569)
+[32m04:07:01 flipLog | NOTICE [0m FLIPALL: -16964106.83516 => -16961155.89945 ACCEPT
+[32m04:07:01 Run | NOTICE [0m Optimization history logged to `group9.tour`
+[32m04:07:01 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:01 flipLog | NOTICE [0m FLIPWHOLE: -122446.42310 => -123766.90911 REJECT
+[32m04:07:01 flipOne | NOTICE [0m FLIPONE: N_accepts=9 N_rejects=16
+[32m04:07:01 flipLog | NOTICE [0m FLIPWHOLE: -121927.82482 => -124423.39094 REJECT
+[32m04:07:01 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=25
+[32m04:07:01 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:01 Run | NOTICE [0m Success
+[32m04:07:01 reportActive | NOTICE [0m Active tigs: 99 (length=133547791)
+[32m04:07:01 flipLog | NOTICE [0m FLIPALL: -14765662.99434 => -14763516.55246 ACCEPT
+[32m04:07:01 Run | NOTICE [0m Optimization history logged to `group7.tour`
+[32m04:07:01 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:02 reportActive | NOTICE [0m Active tigs: 102 (length=126116096)
+[32m04:07:02 flipLog | NOTICE [0m FLIPALL: -20897506.00674 => -20900810.93351 REJECT
+[32m04:07:02 Run | NOTICE [0m Optimization history logged to `group10.tour`
+[32m04:07:02 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:02 reportActive | NOTICE [0m Active tigs: 28 (length=75415753)
+[32m04:07:02 flipLog | NOTICE [0m FLIPALL: -19469240.14522 => -19458734.88104 ACCEPT
+[32m04:07:02 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m04:07:02 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:02 reportActive | NOTICE [0m Active tigs: 27 (length=55646365)
+[32m04:07:02 flipLog | NOTICE [0m FLIPALL: -8915344.28339 => -8918305.65168 REJECT
+[32m04:07:02 Run | NOTICE [0m Optimization history logged to `group1.tour`
+[32m04:07:02 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:03 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:03 reportActive | NOTICE [0m Active tigs: 125 (length=131168414)
+[32m04:07:03 flipLog | NOTICE [0m FLIPALL: -15751567.07518 => -15746550.27683 ACCEPT
+[32m04:07:03 Run | NOTICE [0m Optimization history logged to `group8.tour`
+[32m04:07:03 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:03 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:03 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:04 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:04 flipLog | NOTICE [0m FLIPWHOLE: -41889766.32052 => -41920955.29950 REJECT
+[32m04:07:04 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:04 flipLog | NOTICE [0m FLIPONE (50/95): -41858188.86456 => -41855899.77484 ACCEPT
+[32m04:07:04 flipOne | NOTICE [0m FLIPONE: N_accepts=48 N_rejects=47
+[32m04:07:04 flipLog | NOTICE [0m FLIPWHOLE: -41827284.78046 => -41966359.26587 REJECT
+[32m04:07:04 flipLog | NOTICE [0m FLIPONE (50/95): -41825698.13114 => -41827766.72354 REJECT
+[32m04:07:04 flipOne | NOTICE [0m FLIPONE: N_accepts=3 N_rejects=92
+[32m04:07:04 flipLog | NOTICE [0m FLIPWHOLE: -41825446.03756 => -41964814.77382 REJECT
+[32m04:07:04 flipLog | NOTICE [0m FLIPONE (50/95): -41825446.03756 => -41827514.62996 REJECT
+[32m04:07:04 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=95
+[32m04:07:04 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:04 Run | NOTICE [0m Success
+[32m04:07:04 flipLog | NOTICE [0m FLIPWHOLE: -38602156.61631 => -38669166.17740 REJECT
+[32m04:07:04 flipOne | NOTICE [0m FLIPONE: N_accepts=6 N_rejects=22
+[32m04:07:04 flipLog | NOTICE [0m FLIPWHOLE: -38598989.88208 => -38682616.85433 REJECT
+[32m04:07:04 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=26
+[32m04:07:04 flipLog | NOTICE [0m FLIPWHOLE: -38591752.09885 => -38682248.76017 REJECT
+[32m04:07:04 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=28
+[32m04:07:04 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:04 Run | NOTICE [0m Success
+[32m04:07:04 flipLog | NOTICE [0m FLIPWHOLE: -47537515.29168 => -47544157.47286 REJECT
+[32m04:07:04 flipLog | NOTICE [0m FLIPONE (50/129): -47503631.19452 => -47503207.30663 ACCEPT
+[32m04:07:05 flipLog | NOTICE [0m FLIPONE (100/129): -47475405.35032 => -47475421.52461 REJECT
+[32m04:07:05 flipLog | NOTICE [0m FLIPWHOLE: -19649514.69992 => -19617146.99223 ACCEPT
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=11 N_rejects=16
+[32m04:07:05 flipLog | NOTICE [0m FLIPWHOLE: -19582948.01352 => -19662198.45667 REJECT
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=26
+[32m04:07:05 flipLog | NOTICE [0m FLIPWHOLE: -19582814.34851 => -19662395.36314 REJECT
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=27
+[32m04:07:05 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:05 Run | NOTICE [0m Success
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=64 N_rejects=65
+[32m04:07:05 flipLog | NOTICE [0m FLIPWHOLE: -47467415.43976 => -47591806.20451 REJECT
+[32m04:07:05 flipLog | NOTICE [0m FLIPONE (50/129): -47465264.04205 => -47465851.63333 REJECT
+[32m04:07:05 flipLog | NOTICE [0m FLIPONE (100/129): -47465234.29352 => -47465201.76571 ACCEPT
+[32m04:07:05 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=6 N_rejects=123
+[32m04:07:05 flipLog | NOTICE [0m FLIPWHOLE: -47465201.76571 => -47591074.20292 REJECT
+[32m04:07:05 flipLog | NOTICE [0m FLIPONE (50/129): -47465201.76571 => -47465789.17157 REJECT
+[32m04:07:05 flipLog | NOTICE [0m FLIPWHOLE: -50232792.77470 => -50328630.86932 REJECT
+[32m04:07:05 flipLog | NOTICE [0m FLIPONE (100/129): -47465201.76571 => -47465234.29352 REJECT
+[32m04:07:05 flipLog | NOTICE [0m FLIPONE (50/99): -50207534.40288 => -50207533.89719 ACCEPT
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=37 N_rejects=62
+[32m04:07:05 flipLog | NOTICE [0m FLIPWHOLE: -50191546.92567 => -50351963.13943 REJECT
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=129
+[32m04:07:05 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:05 Run | NOTICE [0m Success
+[32m04:07:05 flipLog | NOTICE [0m FLIPONE (50/99): -50191546.65094 => -50191546.95683 REJECT
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=97
+[32m04:07:05 flipLog | NOTICE [0m FLIPWHOLE: -50191463.86598 => -50351942.41263 REJECT
+[32m04:07:05 flipLog | NOTICE [0m FLIPONE (50/99): -50191463.86598 => -50191464.17186 REJECT
+[32m04:07:05 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=99
+[32m04:07:05 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:05 Run | NOTICE [0m Success
+[32m04:07:06 reportActive | NOTICE [0m Active tigs: 282 (length=397803085)
+[32m04:07:06 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:06 flipLog | NOTICE [0m FLIPALL: -25990045.57494 => -25993049.64433 REJECT
+[32m04:07:06 Run | NOTICE [0m Optimization history logged to `group4.tour`
+[32m04:07:06 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:06 flipLog | NOTICE [0m FLIPWHOLE: -61329206.07431 => -61462297.72323 REJECT
+[32m04:07:06 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:06 flipLog | NOTICE [0m FLIPONE (50/120): -61306105.37248 => -61307321.61018 REJECT
+[32m04:07:06 flipLog | NOTICE [0m FLIPONE (100/120): -61280539.41649 => -61280451.38104 ACCEPT
+[32m04:07:06 flipOne | NOTICE [0m FLIPONE: N_accepts=40 N_rejects=80
+[32m04:07:06 flipLog | NOTICE [0m FLIPWHOLE: -61280430.50468 => -61494808.65486 REJECT
+[32m04:07:06 flipLog | NOTICE [0m FLIPONE (50/120): -61280430.38769 => -61281646.58217 REJECT
+[32m04:07:07 flipLog | NOTICE [0m FLIPONE (100/120): -61280345.22799 => -61280514.40716 REJECT
+[32m04:07:07 flipOne | NOTICE [0m FLIPONE: N_accepts=3 N_rejects=117
+[32m04:07:07 flipLog | NOTICE [0m FLIPWHOLE: -61280345.22799 => -61495055.80785 REJECT
+[32m04:07:07 flipLog | NOTICE [0m FLIPONE (50/120): -61280345.22799 => -61281561.42247 REJECT
+[32m04:07:07 flipLog | NOTICE [0m FLIPONE (100/120): -61280345.22799 => -61280514.40716 REJECT
+[32m04:07:07 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=120
+[32m04:07:07 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:07 Run | NOTICE [0m Success
+[32m04:07:07 flipLog | NOTICE [0m FLIPWHOLE: -50818533.54375 => -50827602.17174 REJECT
+[32m04:07:07 flipLog | NOTICE [0m FLIPONE (50/125): -50801265.63387 => -50802381.26831 REJECT
+[32m04:07:07 flipLog | NOTICE [0m FLIPONE (100/125): -50775959.80302 => -50771296.57956 ACCEPT
+[32m04:07:07 flipOne | NOTICE [0m FLIPONE: N_accepts=59 N_rejects=66
+[32m04:07:08 flipLog | NOTICE [0m FLIPWHOLE: -50734879.39244 => -50903463.31679 REJECT
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (50/125): -50734879.39244 => -50736000.66185 REJECT
+[32m04:07:08 flipLog | NOTICE [0m FLIPWHOLE: -51529323.67427 => -51505573.57827 ACCEPT
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (100/125): -50734729.48820 => -50750142.61085 REJECT
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (50/138): -51489211.50038 => -51489231.86263 REJECT
+[32m04:07:08 flipOne | NOTICE [0m FLIPONE: N_accepts=4 N_rejects=121
+[32m04:07:08 flipLog | NOTICE [0m FLIPWHOLE: -50733026.02177 => -50903708.02624 REJECT
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (100/138): -51445320.71425 => -51445282.67667 ACCEPT
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (50/125): -50733026.02177 => -50734147.20315 REJECT
+[32m04:07:08 flipOne | NOTICE [0m FLIPONE: N_accepts=65 N_rejects=73
+[32m04:07:08 flipLog | NOTICE [0m FLIPWHOLE: -51413730.31812 => -51596867.28690 REJECT
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (50/138): -51411811.34628 => -51412134.02686 REJECT
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (100/125): -50733026.02177 => -50748439.14443 REJECT
+[32m04:07:08 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=124
+[32m04:07:08 flipLog | NOTICE [0m FLIPWHOLE: -50732574.38421 => -50903060.84763 REJECT
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (100/138): -51411811.34628 => -51411822.79408 REJECT
+[32m04:07:08 flipOne | NOTICE [0m FLIPONE: N_accepts=3 N_rejects=135
+[32m04:07:08 flipLog | NOTICE [0m FLIPONE (50/125): -50732574.38421 => -50733695.56559 REJECT
+[32m04:07:08 flipLog | NOTICE [0m FLIPWHOLE: -51411500.17226 => -51596124.06054 REJECT
+[32m04:07:09 flipLog | NOTICE [0m FLIPONE (50/138): -51411500.17226 => -51411822.85284 REJECT
+[32m04:07:09 flipLog | NOTICE [0m FLIPONE (100/125): -50732574.38421 => -50747987.50687 REJECT
+[32m04:07:09 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=125
+[32m04:07:09 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:09 Run | NOTICE [0m Success
+[32m04:07:09 flipLog | NOTICE [0m FLIPONE (100/138): -51411500.17226 => -51411511.81194 REJECT
+[32m04:07:09 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=138
+[32m04:07:09 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:09 Run | NOTICE [0m Success
+[32m04:07:09 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:11 flipLog | NOTICE [0m FLIPWHOLE: -66379021.39028 => -66321060.11772 ACCEPT
+[32m04:07:11 flipLog | NOTICE [0m FLIPONE (50/102): -66269514.38550 => -66270066.70321 REJECT
+[32m04:07:11 flipLog | NOTICE [0m FLIPONE (100/102): -66208185.86927 => -66208185.86927 REJECT
+[32m04:07:11 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=56
+[32m04:07:11 flipLog | NOTICE [0m FLIPWHOLE: -66208185.86927 => -66432460.14009 REJECT
+[32m04:07:11 flipLog | NOTICE [0m FLIPONE (50/102): -66208134.13549 => -66210483.09210 REJECT
+[32m04:07:11 flipLog | NOTICE [0m FLIPONE (100/102): -66208134.13549 => -66208134.13549 REJECT
+[32m04:07:11 flipOne | NOTICE [0m FLIPONE: N_accepts=3 N_rejects=99
+[32m04:07:11 flipLog | NOTICE [0m FLIPWHOLE: -66208134.13549 => -66432432.10958 REJECT
+[32m04:07:11 flipLog | NOTICE [0m FLIPONE (50/102): -66208134.13549 => -66210483.09210 REJECT
+[32m04:07:11 flipLog | NOTICE [0m FLIPONE (100/102): -66208134.13549 => -66208134.13549 REJECT
+[32m04:07:11 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=102
+[32m04:07:11 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:11 Run | NOTICE [0m Success
+[32m04:07:29 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m04:07:31 flipLog | NOTICE [0m FLIPWHOLE: -163679910.88930 => -163695510.61943 REJECT
+[32m04:07:31 flipLog | NOTICE [0m FLIPONE (50/282): -163584082.74770 => -163589148.89106 REJECT
+[32m04:07:32 flipLog | NOTICE [0m FLIPONE (100/282): -163513477.97611 => -163513283.41054 ACCEPT
+[32m04:07:33 flipLog | NOTICE [0m FLIPONE (150/282): -163512768.41213 => -163512975.84209 REJECT
+[32m04:07:34 flipLog | NOTICE [0m FLIPONE (200/282): -163512720.23783 => -163512720.79686 REJECT
+[32m04:07:34 flipLog | NOTICE [0m FLIPONE (250/282): -163424448.50985 => -163423073.23975 ACCEPT
+[32m04:07:35 flipOne | NOTICE [0m FLIPONE: N_accepts=140 N_rejects=142
+[32m04:07:35 flipLog | NOTICE [0m FLIPWHOLE: -163358360.05795 => -163868437.55909 REJECT
+[32m04:07:36 flipLog | NOTICE [0m FLIPONE (50/282): -163357941.73715 => -163368079.63646 REJECT
+[32m04:07:36 flipLog | NOTICE [0m FLIPONE (100/282): -163356039.09013 => -163356248.79465 REJECT
+[32m04:07:37 flipLog | NOTICE [0m FLIPONE (150/282): -163356030.41523 => -163356239.69939 REJECT
+[32m04:07:38 flipLog | NOTICE [0m FLIPONE (200/282): -163356028.78954 => -163356029.57353 REJECT
+[32m04:07:39 flipLog | NOTICE [0m FLIPONE (250/282): -163354065.64249 => -163355287.76121 REJECT
+[32m04:07:39 flipOne | NOTICE [0m FLIPONE: N_accepts=47 N_rejects=235
+[32m04:07:39 flipLog | NOTICE [0m FLIPWHOLE: -163353888.47681 => -163862971.22042 REJECT
+[32m04:07:40 flipLog | NOTICE [0m FLIPONE (50/282): -163353888.47681 => -163364026.37612 REJECT
+[32m04:07:40 flipLog | NOTICE [0m FLIPONE (100/282): -163353888.47681 => -163354098.15929 REJECT
+[32m04:07:41 flipLog | NOTICE [0m FLIPONE (150/282): -163353888.47681 => -163354097.75029 REJECT
+[32m04:07:42 flipLog | NOTICE [0m FLIPONE (200/282): -163353886.59156 => -163353887.34362 REJECT
+[32m04:07:43 flipLog | NOTICE [0m FLIPONE (250/282): -163353886.59156 => -163355144.50766 REJECT
+[32m04:07:43 flipOne | NOTICE [0m FLIPONE: N_accepts=8 N_rejects=274
+[32m04:07:43 flipLog | NOTICE [0m FLIPWHOLE: -163353886.59156 => -163862971.34313 REJECT
+[32m04:07:44 flipLog | NOTICE [0m FLIPONE (50/282): -163353886.59156 => -163364024.49087 REJECT
+[32m04:07:45 flipLog | NOTICE [0m FLIPONE (100/282): -163353886.59156 => -163354096.27404 REJECT
+[32m04:07:45 flipLog | NOTICE [0m FLIPONE (150/282): -163353886.59156 => -163354094.17620 REJECT
+[32m04:07:46 flipLog | NOTICE [0m FLIPONE (200/282): -163353886.51882 => -163353887.27088 REJECT
+[32m04:07:47 flipLog | NOTICE [0m FLIPONE (250/282): -163353886.51882 => -163355144.43492 REJECT
+[32m04:07:47 flipOne | NOTICE [0m FLIPONE: N_accepts=2 N_rejects=280
+[32m04:07:47 flipLog | NOTICE [0m FLIPWHOLE: -163353886.51882 => -163862969.64853 REJECT
+[32m04:07:48 flipLog | NOTICE [0m FLIPONE (50/282): -163353886.51882 => -163364024.41813 REJECT
+[32m04:07:49 flipLog | NOTICE [0m FLIPONE (100/282): -163353886.51882 => -163354096.20130 REJECT
+[32m04:07:50 flipLog | NOTICE [0m FLIPONE (150/282): -163353886.51882 => -163354094.10346 REJECT
+[32m04:07:50 flipLog | NOTICE [0m FLIPONE (200/282): -163353886.51882 => -163353887.27088 REJECT
+[32m04:07:51 flipLog | NOTICE [0m FLIPONE (250/282): -163353886.51882 => -163355144.43492 REJECT
+[32m04:07:52 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=282
+[32m04:07:52 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m04:07:52 Run | NOTICE [0m Success
+Job 68089429 stderr output:
+

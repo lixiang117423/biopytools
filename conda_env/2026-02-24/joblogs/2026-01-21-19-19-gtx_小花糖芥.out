@@ -1,0 +1,118 @@
+2026-01-21 19:19:19.069 - INFO - ============================================================
+2026-01-21 19:19:19.069 - INFO - 开始Fastq到VCF (GTX) 流程|Starting Fastq to VCF (GTX) Pipeline
+2026-01-21 19:19:19.069 - INFO - ============================================================
+2026-01-21 19:19:19.069 - INFO - 系统预检查|System pre-flight checks
+2026-01-21 19:19:19.069 - INFO - 开始更新所有组件的基因组路径...|Starting genome path update for all components...
+2026-01-21 19:19:19.069 - INFO - 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa -> /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa|Force updated genome path
+2026-01-21 19:19:19.069 - INFO - 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa|Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa
+2026-01-21 19:19:19.069 - INFO - 基因组路径更新完成|Genome path update completed
+2026-01-21 19:19:19.072 - INFO - 命令存在|Command exists: samtools
+2026-01-21 19:19:19.073 - INFO - 命令存在|Command exists: bcftools
+2026-01-21 19:19:19.074 - INFO - 命令存在|Command exists: biopytools
+2026-01-21 19:19:19.075 - INFO - 磁盘空间充足|Sufficient disk space: 4159703GB available
+2026-01-21 19:19:19.075 - INFO - 系统内存充足|Sufficient system memory: 503GB total
+2026-01-21 19:19:19.075 - INFO - 配置摘要|Configuration Summary:
+2026-01-21 19:19:19.075 - INFO -   项目路径|Project path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA
+2026-01-21 19:19:19.075 - INFO -   原始数据目录|Raw data directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw
+2026-01-21 19:19:19.075 - INFO -   参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa
+2026-01-21 19:19:19.075 - INFO -   线程配置|Thread config: 64 threads
+2026-01-21 19:19:19.075 - INFO -   断点续传|Checkpoint: True
+2026-01-21 19:19:19.075 - INFO -   测试模式|Dry run: False
+2026-01-21 19:19:19.075 - INFO - 预检查通过|Pre-flight checks passed
+2026-01-21 19:19:19.075 - INFO - 执行步骤1|Executing step 1: 质量控制|Quality Control
+2026-01-21 19:19:19.075 - INFO - 执行步骤2|Executing step 2: 构建基因组索引|Build Genome Index
+2026-01-21 19:19:19.075 - INFO - 准备执行索引构建步骤|Preparing to execute index building step
+2026-01-21 19:19:19.075 - INFO - 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa|Current genome path in config
+2026-01-21 19:19:19.075 - INFO - GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa|Genome path in GTX mapper
+2026-01-21 19:19:19.075 - INFO - 执行步骤3|Executing step 3: 序列比对|Sequence Mapping
+2026-01-21 19:19:19.075 - INFO - 执行步骤4|Executing step 4: 联合变异检测|Joint Variant Calling
+2026-01-21 19:19:19.075 - INFO - 执行步骤5|Executing step 5: 变异过滤|Variant Filtering
+2026-01-21 19:19:19.075 - INFO - 执行步骤1|Executing step 1: 质量控制|Quality Control
+2026-01-21 19:19:19.075 - INFO - ============================================================
+2026-01-21 19:19:19.076 - INFO - Step 1: 质量控制|Quality Control
+2026-01-21 19:19:19.076 - INFO - ============================================================
+2026-01-21 19:19:19.076 - INFO - 调试信息: skip_qc = False
+2026-01-21 19:19:19.079 - INFO - 调试信息: read1_pattern_fastp = _1.fq.gz
+2026-01-21 19:19:19.079 - INFO - 调试信息: read2_pattern_fastp = _2.fq.gz
+2026-01-21 19:19:19.079 - INFO - 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw
+2026-01-21 19:19:19.079 - INFO - 开始质控处理|Starting quality control
+2026-01-21 19:19:19.079 - INFO - 检测到 4 个原始 FASTQ 文件|Found 4 raw FASTQ files
+2026-01-21 19:19:19.079 - INFO - 质量控制|Quality Control
+2026-01-21 19:19:19.080 - INFO - 执行命令|Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean -t 64 --read1-suffix _1.fq.gz --read2-suffix _2.fq.gz
+2026-01-21 19:35:51.127 - INFO - 标准输出|Stdout: 2026-01-21 19:19:19.138 - INFO - ============================================================
+2026-01-21 19:19:19.138 - INFO - Program: FASTQ Quality Control Batch Processing
+2026-01-21 19:19:19.138 - INFO - Version: 1.0.0
+2026-01-21 19:19:19.138 - INFO - ============================================================
+2026-01-21 19:19:19.138 - INFO - ============================================================
+2026-01-21 19:19:19.138 - INFO - 开始FASTQ数据质控批处理|Starting FASTQ data quality control batch processing
+2026-01-21 19:19:19.138 - INFO - ============================================================
+2026-01-21 19:19:19.138 - INFO - 输入|Input: 目录|Directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw
+2026-01-21 19:19:19.138 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean
+2026-01-21 19:19:19.138 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-21 19:19:19.138 - INFO - 文件模式|File pattern: *_1.fq.gz, *_2.fq.gz
+2026-01-21 19:19:19.138 - INFO - 线程数|Threads: 64
+2026-01-21 19:19:19.138 - INFO - 质量阈值|Quality threshold: 30
+2026-01-21 19:19:19.138 - INFO - 最小长度|Minimum length: 50
+2026-01-21 19:19:19.138 - INFO - ============================================================
+2026-01-21 19:19:19.401 - INFO - Fastp可执行文件验证成功|Fastp executable validated: fastp
+2026-01-21 19:19:19.401 - INFO - 创建清洁数据输出目录|Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean
+2026-01-21 19:19:19.401 - INFO - 创建报告文件输出目录|Created report output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_reports
+2026-01-21 19:19:19.401 - INFO - 找到 2 个read1文件|Found 2 read1 files
+2026-01-21 19:19:19.418 - INFO - 找到 2 个有效样本配对|Found 2 valid sample pairs:
+2026-01-21 19:19:19.418 - INFO -   - 72_3_kang
+2026-01-21 19:19:19.418 - INFO -   - 72_4_gang
+2026-01-21 19:19:19.418 - INFO - ---
+2026-01-21 19:19:19.418 - INFO - 正在处理样本（双末端模式）|Processing sample (paired-end mode): 72_3_kang
+2026-01-21 19:19:19.418 - INFO -   Read 1 (输入|input): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw/72_3_kang_1.fq.gz
+2026-01-21 19:19:19.418 - INFO -   Read 2 (输入|input): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw/72_3_kang_2.fq.gz
+2026-01-21 19:19:19.418 - INFO -   Read 1 (输出|output): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/72_3_kang_1.clean.fq.gz
+2026-01-21 19:19:19.418 - INFO -   Read 2 (输出|output): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/72_3_kang_2.clean.fq.gz
+2026-01-21 19:19:19.418 - INFO -   HTML report (报告): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_reports/72_3_kang.html
+2026-01-21 19:19:19.418 - INFO - ---
+2026-01-21 19:19:19.418 - INFO - 执行步骤|Executing step: FASTP质控处理|FASTP quality control -> 72_3_kang
+2026-01-21 19:19:19.418 - INFO - 命令|Command: fastp -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw/72_3_kang_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw/72_3_kang_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/72_3_kang_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/72_3_kang_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_reports/72_3_kang.html -j /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_reports/72_3_kang.json -w 64 -q 30 -l 50 -u 40 -n 10
+2026-01-21 19:27:39.857 - INFO - 命令执行成功|Command executed successfully: FASTP质控处理|FASTP quality control -> 72_3_kang
+2026-01-21 19:27:39.858 - INFO - 样本 72_3_kang 处理完成|Sample 72_3_kang processing completed
+2026-01-21 19:27:39.858 - INFO - ---
+2026-01-21 19:27:39.858 - INFO - 正在处理样本（双末端模式）|Processing sample (paired-end mode): 72_4_gang
+2026-01-21 19:27:39.858 - INFO -   Read 1 (输入|input): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw/72_4_gang_1.fq.gz
+2026-01-21 19:27:39.858 - INFO -   Read 2 (输入|input): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw/72_4_gang_2.fq.gz
+2026-01-21 19:27:39.858 - INFO -   Read 1 (输出|output): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/72_4_gang_1.clean.fq.gz
+2026-01-21 19:27:39.858 - INFO -   Read 2 (输出|output): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/72_4_gang_2.clean.fq.gz
+2026-01-21 19:27:39.858 - INFO -   HTML report (报告): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_reports/72_4_gang.html
+2026-01-21 19:27:39.858 - INFO - ---
+2026-01-21 19:27:39.858 - INFO - 执行步骤|Executing step: FASTP质控处理|FASTP quality control -> 72_4_gang
+2026-01-21 19:27:39.858 - INFO - 命令|Command: fastp -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw/72_4_gang_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/raw/72_4_gang_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/72_4_gang_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/72_4_gang_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_reports/72_4_gang.html -j /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_reports/72_4_gang.json -w 64 -q 30 -l 50 -u 40 -n 10
+2026-01-21 19:35:51.114 - INFO - 命令执行成功|Command executed successfully: FASTP质控处理|FASTP quality control -> 72_4_gang
+2026-01-21 19:35:51.115 - INFO - 样本 72_4_gang 处理完成|Sample 72_4_gang processing completed
+2026-01-21 19:35:51.117 - INFO - 总结报告已生成|Summary report generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_processing_summary.txt
+2026-01-21 19:35:51.117 - INFO - ============================================================
+2026-01-21 19:35:51.117 - INFO - FASTQ质控批处理完成|FASTQ quality control batch processing completed!
+2026-01-21 19:35:51.117 - INFO - 总样本数|Total samples: 2
+2026-01-21 19:35:51.117 - INFO - 成功处理|Successfully processed: 2
+2026-01-21 19:35:51.117 - INFO - 失败样本|Failed samples: 0
+2026-01-21 19:35:51.117 - INFO - 成功率|Success rate: 100.0%
+2026-01-21 19:35:51.117 - INFO - 质控后的清洁数据位于|Clean data location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean
+2026-01-21 19:35:51.117 - INFO - 质控报告位于|QC reports location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean/fastp_reports
+2026-01-21 19:35:51.117 - INFO - ============================================================
+2026-01-21 19:35:51.117 - INFO - ============================================================
+2026-01-21 19:35:51.117 - INFO - Pipeline Summary
+2026-01-21 19:35:51.117 - INFO - ============================================================
+2026-01-21 19:35:51.117 - INFO - Total runtime: 991.98 seconds
+2026-01-21 19:35:51.117 - INFO - Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/clean
+2026-01-21 19:35:51.118 - INFO - Pipeline completed successfully
+
+2026-01-21 19:35:51.128 - INFO - 命令执行成功|Command executed successfully
+2026-01-21 19:35:51.128 - INFO - 质控完成: 4 个清洁文件|QC completed: 4 clean files
+2026-01-21 19:35:51.129 - INFO - 创建检查点|Create checkpoint: quality_control
+2026-01-21 19:35:51.129 - INFO - Fastp质量控制完成，立即执行GTX索引构建|Fastp QC completed, immediately executing GTX index building
+2026-01-21 19:35:51.129 - INFO - ============================================================
+2026-01-21 19:35:51.129 - INFO - 强制构建GTX索引|Force Build GTX Index
+2026-01-21 19:35:51.129 - INFO - ============================================================
+2026-01-21 19:35:51.129 - INFO - 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa
+2026-01-21 19:35:51.130 - INFO - 强制执行GTX索引构建|Force executing GTX index build
+2026-01-21 19:35:51.130 - INFO - 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/.tmp
+2026-01-21 19:35:51.130 - INFO - 基因组文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa
+2026-01-21 19:35:51.130 - INFO - 临时目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/.tmp
+2026-01-21 19:35:51.130 - INFO - 强制构建GTX索引|Force build GTX index
+2026-01-21 19:35:51.130 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/01.data/genome/EcA_RagTag_scaffolded.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/12.hicanu组装的基因组进行BSA/.tmp

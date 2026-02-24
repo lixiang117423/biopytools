@@ -1,0 +1,5 @@
+00:00:07.453 info  NativeGenomicsDB - pid=1427021 tid=1427122 No valid combination operation found for INFO field InbreedingCoeff  - the field will NOT be part of INFO fields in the generated VCF records
+00:00:07.453 info  NativeGenomicsDB - pid=1427021 tid=1427104 No valid combination operation found for INFO field MLEAC  - the field will NOT be part of INFO fields in the generated VCF records
+00:00:07.453 info  NativeGenomicsDB - pid=1427021 tid=1427054 No valid combination operation found for INFO field MLEAF  - the field will NOT be part of INFO fields in the generated VCF records
+Job 68400493 stderr output:
+

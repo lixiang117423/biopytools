@@ -1,0 +1,236 @@
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3286.984 CPU sec, 57.279 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_001.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_001.fa
+[main] Real time: 83.708 sec; CPU: 3310.742 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3220.709 CPU sec, 55.997 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_002.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_002.fa
+[main] Real time: 78.307 sec; CPU: 3242.260 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3290.788 CPU sec, 57.729 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_003.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_003.fa
+[main] Real time: 82.176 sec; CPU: 3312.532 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3171.647 CPU sec, 53.872 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_004.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_004.fa
+[main] Real time: 75.662 sec; CPU: 3192.660 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3289.621 CPU sec, 62.858 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_005.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_005.fa
+[main] Real time: 84.968 sec; CPU: 3310.829 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3274.510 CPU sec, 62.435 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_006.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_006.fa
+[main] Real time: 88.679 sec; CPU: 3299.476 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3300.534 CPU sec, 62.089 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_007.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_007.fa
+[main] Real time: 86.495 sec; CPU: 3322.703 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3211.207 CPU sec, 61.933 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_008.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_008.fa
+[main] Real time: 83.955 sec; CPU: 3231.399 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3255.224 CPU sec, 55.985 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_009.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_009.fa
+[main] Real time: 82.603 sec; CPU: 3278.816 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3323.045 CPU sec, 58.191 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_010.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_010.fa
+[main] Real time: 81.371 sec; CPU: 3345.304 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3211.551 CPU sec, 55.752 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_011.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_011.fa
+[main] Real time: 83.393 sec; CPU: 3236.616 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3230.936 CPU sec, 56.053 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_012.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_012.fa
+[main] Real time: 81.175 sec; CPU: 3254.384 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3233.809 CPU sec, 56.682 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_013.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_013.fa
+[main] Real time: 81.612 sec; CPU: 3258.170 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3208.738 CPU sec, 56.282 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_014.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_014.fa
+[main] Real time: 85.995 sec; CPU: 3232.299 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3217.994 CPU sec, 54.817 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_015.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_015.fa
+[main] Real time: 81.395 sec; CPU: 3242.180 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3307.062 CPU sec, 58.671 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_016.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_016.fa
+[main] Real time: 82.512 sec; CPU: 3328.153 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3287.711 CPU sec, 57.661 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_017.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_017.fa
+[main] Real time: 80.250 sec; CPU: 3308.948 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3064.120 CPU sec, 49.467 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_018.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_018.fa
+[main] Real time: 71.111 sec; CPU: 3084.428 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3211.800 CPU sec, 55.071 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_019.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_019.fa
+[main] Real time: 77.427 sec; CPU: 3233.609 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3262.556 CPU sec, 57.286 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_020.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_020.fa
+[main] Real time: 78.992 sec; CPU: 3283.650 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3184.711 CPU sec, 55.585 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_021.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_021.fa
+[main] Real time: 77.853 sec; CPU: 3206.359 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3259.652 CPU sec, 56.821 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_022.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_022.fa
+[main] Real time: 82.065 sec; CPU: 3283.534 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3208.257 CPU sec, 55.341 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_023.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_023.fa
+[main] Real time: 79.696 sec; CPU: 3231.965 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3223.294 CPU sec, 55.886 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_024.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_024.fa
+[main] Real time: 78.238 sec; CPU: 3244.409 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3130.706 CPU sec, 52.950 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_025.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_025.fa
+[main] Real time: 75.141 sec; CPU: 3152.490 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3262.604 CPU sec, 56.215 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_026.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_026.fa
+[main] Real time: 79.527 sec; CPU: 3284.800 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3232.232 CPU sec, 56.146 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_027.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_027.fa
+[main] Real time: 77.073 sec; CPU: 3252.765 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3176.018 CPU sec, 53.641 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_028.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_028.fa
+[main] Real time: 77.485 sec; CPU: 3199.474 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3247.144 CPU sec, 56.910 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_029.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_029.fa
+[main] Real time: 81.715 sec; CPU: 3269.998 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3274.419 CPU sec, 57.376 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_030.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_030.fa
+[main] Real time: 82.486 sec; CPU: 3299.150 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3053.555 CPU sec, 51.446 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_031.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_031.fa
+[main] Real time: 71.592 sec; CPU: 3072.814 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3172.261 CPU sec, 53.646 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_032.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_032.fa
+[main] Real time: 78.070 sec; CPU: 3195.814 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3261.418 CPU sec, 57.311 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_033.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_033.fa
+[main] Real time: 84.988 sec; CPU: 3288.115 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3286.533 CPU sec, 58.350 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_034.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_034.fa
+[main] Real time: 84.053 sec; CPU: 3311.722 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3225.007 CPU sec, 56.417 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_035.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_035.fa
+[main] Real time: 79.673 sec; CPU: 3247.682 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3070.204 CPU sec, 50.048 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_036.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_036.fa
+[main] Real time: 75.028 sec; CPU: 3090.368 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3189.943 CPU sec, 54.657 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_037.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_037.fa
+[main] Real time: 75.898 sec; CPU: 3210.297 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 2000000 sequences (62000000 bp)...
+[M::mem_process_seqs] Processed 2000000 reads in 3266.758 CPU sec, 55.837 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_038.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_038.fa
+[main] Real time: 78.626 sec; CPU: 3289.046 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 1371814 sequences (42526234 bp)...
+[M::mem_process_seqs] Processed 1371814 reads in 2201.725 CPU sec, 38.188 real sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa mem -k 9 -T 10 -a -t 64 -o output/07_post_gwas_bwa/batches/batch_039.sam /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa output/07_post_gwas_bwa/batches/batch_039.fa
+[main] Real time: 55.666 sec; CPU: 2218.272 sec
+Job 68925060 stderr output:
+

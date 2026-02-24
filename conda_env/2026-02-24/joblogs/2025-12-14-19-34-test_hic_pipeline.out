@@ -1,0 +1,133 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/logs/allhic_20251214_193451.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 19:35:00] Checking required tools...
+[2025-12-14 19:35:01] ✅ Environment ready
+[2025-12-14 19:35:01] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output
+[2025-12-14 19:35:01] Threads: 88
+[2025-12-14 19:35:01] ALLHiC Enzyme: GATC
+[2025-12-14 19:35:01] Juicer Enzyme: MboI
+[2025-12-14 19:35:01] ⏱️  Step completed in 10s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v5.3
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 [Step 0] Preparing input data (00_data)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 19:35:01] ✅ Data preparation completed
+[2025-12-14 19:35:01] ⏱️  Step completed in 0s
+[2025-12-14 19:35:01] ⏭️  Skipping mapping step
+[2025-12-14 19:35:01] ⏭️  Skipping allele detection
+[2025-12-14 19:35:01] ⏭️  Skipping pruning
+[2025-12-14 19:35:01] ⏭️  Skipping partition
+[2025-12-14 19:35:01] ⏭️  Skipping extract
+[2025-12-14 19:35:01] ⏭️  Skipping rescue
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️  [Step 5] Optimizing contig order (07_optimize)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g10.txt -> group10.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g11.txt -> group11.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g12.txt -> group12.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g1.txt -> group1.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g2.txt -> group2.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g3.txt -> group3.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g4.txt -> group4.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g5.txt -> group5.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g6.txt -> group6.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g7.txt -> group7.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g8.txt -> group8.txt
+[2025-12-14 19:35:01]   Processing: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/04_partition/prunning.counts_GATC.12g9.txt -> group9.txt
+[2025-12-14 19:35:01] Found 12 chromosome groups
+[2025-12-14 19:35:01] Need to optimize 12 groups: 1 2 3 4 5 6 7 8 9 10 11 12
+[2025-12-14 19:35:01] Running optimization in parallel (max 88 jobs)...
+[2025-12-14 19:35:01] Using GNU Parallel for optimization
+[19:35:01] Starting optimization for group9
+[19:35:01] Starting optimization for group6
+[19:35:01] Starting optimization for group3
+[19:35:01] Starting optimization for group5
+[19:35:01] Starting optimization for group2
+[19:35:01] Starting optimization for group4
+[19:35:01] Starting optimization for group10
+[19:35:01] Starting optimization for group8
+[19:35:01] Starting optimization for group11
+[19:35:01] Starting optimization for group1
+[19:35:01] Starting optimization for group7
+[19:35:01] Starting optimization for group12
+[19:36:34] ✅ Group 12 completed
+[19:36:35] ✅ Group 10 completed
+[19:36:35] ✅ Group 11 completed
+[19:36:35] ✅ Group 9 completed
+[19:36:36] ✅ Group 7 completed
+[19:36:37] ✅ Group 4 completed
+[19:36:37] ✅ Group 5 completed
+[19:36:37] ✅ Group 2 completed
+[19:36:37] ✅ Group 8 completed
+[19:36:38] ✅ Group 3 completed
+[19:36:41] ✅ Group 6 completed
+[19:37:25] ✅ Group 1 completed
+[2025-12-14 19:37:25] 
+[2025-12-14 19:37:25] Checking optimization results...
+[2025-12-14 19:37:25]   ✅ Group 1: success
+[2025-12-14 19:37:25]   ✅ Group 2: success
+[2025-12-14 19:37:25]   ✅ Group 3: success
+[2025-12-14 19:37:25]   ✅ Group 4: success
+[2025-12-14 19:37:25]   ✅ Group 5: success
+[2025-12-14 19:37:25]   ✅ Group 6: success
+[2025-12-14 19:37:25]   ✅ Group 7: success
+[2025-12-14 19:37:25]   ✅ Group 8: success
+[2025-12-14 19:37:25]   ✅ Group 9: success
+[2025-12-14 19:37:25]   ✅ Group 10: success
+[2025-12-14 19:37:25]   ✅ Group 11: success
+[2025-12-14 19:37:25]   ✅ Group 12: success
+[2025-12-14 19:37:25] 
+[2025-12-14 19:37:25] Optimization summary: 12/12 groups succeeded
+[2025-12-14 19:37:25] ✅ All groups optimized successfully
+[2025-12-14 19:37:25] ⏱️  Step completed in 2m 24s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️  [Step 6] Building final assembly (08_build)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 19:37:25] ▶️  ALLHiC_build draft.asm.fasta
+1. tour format to agp ...
+Processing group1.tour ...
+Processing group10.tour ...
+Processing group11.tour ...
+Processing group12.tour ...
+Processing group2.tour ...
+Processing group3.tour ...
+Processing group4.tour ...
+Processing group5.tour ...
+Processing group6.tour ...
+Processing group7.tour ...
+Processing group8.tour ...
+Processing group9.tour ...
+[2025-12-14 19:37:36] ✅ Build completed
+[2025-12-14 19:37:36] ⏱️  Step completed in 11s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 [Step 7] Generating contact maps (09_plot)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 19:37:36] ▶️  ALLHiC_plot -b sample.clean.bam -a groups.agp -l chrn.list              -m 50k -s 500k -o ./
+/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot:178: UserWarning: Attempting to set identical low and high xlims makes transformation singular; automatically expanding.
+  hmap = ax.imshow(np.log2(sub_data[: plt_cnt, : plt_cnt]), interpolation='nearest', origin='lower', cmap=cmap, aspect='equal')
+/share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_plot:178: UserWarning: Attempting to set identical low and high ylims makes transformation singular; automatically expanding.
+  hmap = ax.imshow(np.log2(sub_data[: plt_cnt, : plt_cnt]), interpolation='nearest', origin='lower', cmap=cmap, aspect='equal')
+[32m[19:37:45][0m Step1: Get chromosome length
+[32m[19:37:45][0m Step2: Get signal matrix
+[32m[20:18:02][0m Step3: Draw heatmap
+[32m[20:18:02][0m Drawing with bin size 500k
+[32m[20:38:45][0m Success
+[2025-12-14 20:38:49] ✅ Plotting completed
+[2025-12-14 20:38:49] ⏱️  Step completed in 1h 1m 13s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 [Step 8] Generating Pre-Scaffolding HiC (10_jbat_pre)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 20:38:49] 📌 Strategy: Using draft.asm.fasta
+[2025-12-14 20:38:53] Generating restriction sites for MboI...
+[2025-12-14 20:47:25] ❌ Failed to generate restriction sites

@@ -1,0 +1,23 @@
+2026-02-04 18:40:08.710 - INFO - ================================================================================
+2026-02-04 18:40:08.710 - INFO - 开始SignalP 6.0信号肽预测|Starting SignalP 6.0 Signal Peptide Prediction
+2026-02-04 18:40:08.710 - INFO - ================================================================================
+2026-02-04 18:40:08.710 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/tmp/test_signalp/Phytophthora_sojae_JS2.pep.fa
+2026-02-04 18:40:08.710 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/tmp/test_signalp/output
+2026-02-04 18:40:08.710 - INFO - 生物类型|Organism: eukarya
+2026-02-04 18:40:08.710 - INFO - 预测模式|Mode: fast
+2026-02-04 18:40:08.711 - INFO - 输出格式|Format: txt
+2026-02-04 18:40:08.711 - INFO - 批处理大小|Batch size: 10
+2026-02-04 18:40:08.711 - INFO - 写入进程数|Write processes: 32
+2026-02-04 18:40:08.711 - INFO - PyTorch线程数|PyTorch threads: 32
+2026-02-04 18:40:08.711 - INFO - ================================================================================
+2026-02-04 18:40:08.711 - INFO - 执行命令|Executing command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/signalp6/bin/signalp6 --fastafile /share/org/YZWL/yzwl_lixg/tmp/test_signalp/Phytophthora_sojae_JS2.pep.fa --output_dir /share/org/YZWL/yzwl_lixg/tmp/test_signalp/output --format txt --organism eukarya --mode fast --bsize 10 --write_procs 32 --torch_num_threads 32
+2026-02-04 18:51:55.274 - INFO - ================================================================================
+2026-02-04 18:51:55.276 - INFO - SignalP预测完成|SignalP prediction completed
+2026-02-04 18:51:55.276 - INFO - ================================================================================
+2026-02-04 18:51:55.276 - INFO - 检查输出文件|Checking output files:
+2026-02-04 18:51:55.276 - INFO -   ✓ prediction_results.txt (702616 bytes)
+2026-02-04 18:51:55.276 - INFO -   ✓ processed_entries.fasta (982303 bytes)
+2026-02-04 18:51:55.276 - INFO -   ✓ output.gff3 (136576 bytes)
+2026-02-04 18:51:55.276 - INFO -   ✓ region_output.gff3 (305880 bytes)
+2026-02-04 18:51:55.276 - INFO -   ✓ output.json (7871611 bytes)
+2026-02-04 18:51:55.276 - INFO - 预测流程成功完成|Prediction workflow completed successfully

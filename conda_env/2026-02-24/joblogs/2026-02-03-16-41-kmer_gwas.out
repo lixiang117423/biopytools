@@ -1,0 +1,65 @@
+2026-02-03 16:41:56.681 - INFO - 检查JanusX依赖|Checking JanusX dependencies
+2026-02-03 16:41:56.699 - INFO - JanusX路径|JanusX path: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin
+2026-02-03 16:42:00.442 - INFO - JanusX可执行文件检查通过|JanusX executable check passed
+2026-02-03 16:42:00.442 - INFO - ============================================================
+2026-02-03 16:42:00.442 - INFO - 开始JanusX GWAS分析|Starting JanusX GWAS analysis
+2026-02-03 16:42:00.442 - INFO - ============================================================
+2026-02-03 16:42:00.442 - INFO - 基因型文件|Genotype file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf
+2026-02-03 16:42:00.442 - INFO - 表型文件|Phenotype file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-02-03 16:42:00.442 - INFO - GWAS模型|GWAS models: farmcpu
+2026-02-03 16:42:00.442 - INFO - MAF阈值|MAF threshold: 0.05
+2026-02-03 16:42:00.442 - INFO - 缺失率阈值|Missing rate threshold: 0.0
+2026-02-03 16:42:00.442 - INFO - 线程数|Threads: 64
+2026-02-03 16:42:00.442 - INFO - 输出目录|Output directory: ./janusx_gwas_output
+2026-02-03 16:42:00.442 - INFO - 构建命令|Command built: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf -p /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -farmcpu -maf 0.05 -geno 0.0 -t 64 -o ./janusx_gwas_output -prefix kmer
+2026-02-03 16:42:00.442 - INFO - 运行GWAS分析|Running GWAS analysis: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf -p /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -farmcpu -maf 0.05 -geno 0.0 -t 64 -o ./janusx_gwas_output -prefix kmer
+2026-02-03 23:22:45.388 - INFO - 输出|Output:        _                      __   __
+2026-02-03 23:22:45.388 - INFO - 输出|Output:       | |                     \ \ / /
+2026-02-03 23:22:45.388 - INFO - 输出|Output:       | | __ _ _ __  _   _ ___ \ V / 
+2026-02-03 23:22:45.389 - INFO - 输出|Output:   _   | |/ _` | '_ \| | | / __| > <  
+2026-02-03 23:22:45.389 - INFO - 输出|Output:  | |__| | (_| | | | | |_| \__ \/ . \ 
+2026-02-03 23:22:45.389 - INFO - 输出|Output:   \____/ \__,_|_| |_|\__,_|___/_/ \_\ Tools for GWAS and GS
+2026-02-03 23:22:45.389 - INFO - 输出|Output: JanusX - High Performance GWAS CLI (LMM/LM: streaming low-memory; FarmCPU: full-memory)
+2026-02-03 23:22:45.389 - INFO - 输出|Output: Host: c01n0469
+2026-02-03 23:22:45.389 - INFO - 输出|Output: ************************************************************
+2026-02-03 23:22:45.389 - INFO - 输出|Output: GWAS CONFIGURATION
+2026-02-03 23:22:45.389 - INFO - 输出|Output: ************************************************************
+2026-02-03 23:22:45.389 - INFO - 输出|Output: Genotype file:    /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf
+2026-02-03 23:22:45.389 - INFO - 输出|Output: Phenotype file:   /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-02-03 23:22:45.389 - INFO - 输出|Output: Phenotype cols:   All
+2026-02-03 23:22:45.389 - INFO - 输出|Output: Mmap limit:       False
+2026-02-03 23:22:45.389 - INFO - 输出|Output: Models:           FarmCPU
+2026-02-03 23:22:45.391 - INFO - 输出|Output: GRM option:       1
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Q option:         0
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Maf threshold:    0.05
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Miss threshold:   0.0
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Chunk size:       100000
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Threads:          64 (88 available)
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Output prefix:    ./janusx_gwas_output/kmer
+2026-02-03 23:22:45.391 - INFO - 输出|Output: ************************************************************
+2026-02-03 23:22:45.391 - INFO - 输出|Output: ============================================================
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Run FarmCPU (full memory)
+2026-02-03 23:22:45.391 - INFO - 输出|Output: ============================================================
+2026-02-03 23:22:45.391 - INFO - 输出|Output: * FarmCPU pipeline: loading genotype and phenotype
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Loading phenotype from /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt...
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Error in JanusX GWAS pipeline: Unable to allocate 706. GiB for an array with shape (181, 4188800587) and data type int8
+2026-02-03 23:22:45.391 - INFO - 输出|Output: Traceback (most recent call last):
+2026-02-03 23:22:45.391 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/janusx/script/gwas.py", line 1052, in main
+2026-02-03 23:22:45.391 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/janusx/script/gwas.py", line 723, in run_farmcpu_fullmem
+2026-02-03 23:22:45.391 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/janusx/gfreader/base.py", line 100, in vcfreader
+2026-02-03 23:22:45.391 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/pandas/core/reshape/concat.py", line 395, in concat
+2026-02-03 23:22:45.391 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/pandas/core/reshape/concat.py", line 684, in get_result
+2026-02-03 23:22:45.391 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/pandas/core/internals/concat.py", line 131, in concatenate_managers
+2026-02-03 23:22:45.529 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/pandas/core/internals/concat.py", line 230, in _maybe_reindex_columns_na_proxy
+2026-02-03 23:22:45.529 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/pandas/core/internals/managers.py", line 612, in copy
+2026-02-03 23:22:45.529 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/pandas/core/internals/managers.py", line 363, in apply
+2026-02-03 23:22:45.529 - INFO - 输出|Output:   File "/tmp/onefile_2113541_1770108120_443679/pandas/core/internals/blocks.py", line 822, in copy
+2026-02-03 23:22:45.529 - INFO - 输出|Output: numpy._core._exceptions._ArrayMemoryError: Unable to allocate 706. GiB for an array with shape (181, 4188800587) and data type int8
+2026-02-03 23:22:45.529 - INFO - 输出|Output: Finished. Total wall time: 24042.8 seconds
+2026-02-03 23:22:45.529 - INFO - 输出|Output: 2026-2-3 23:22:45
+2026-02-03 23:22:45.529 - INFO - ============================================================
+2026-02-03 23:22:45.529 - INFO - GWAS分析完成|GWAS analysis completed
+2026-02-03 23:22:45.529 - INFO - ============================================================
+2026-02-03 23:22:45.529 - INFO - 输出文件|Output files:
+2026-02-03 23:22:45.530 - INFO -   kmer.gwas.log (0.00 MB)
+2026-02-03 23:22:45.530 - INFO -   kmer.vcf.gwas.log (0.00 MB)

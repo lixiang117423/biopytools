@@ -1,0 +1,21 @@
+检测到三代转录组为目录，自动识别文件|Detected long-read directory, auto-detecting files...
+找到三代转录组文件|Found long-read file: 3rd_rnaseq/jingyeA.fastq.gz
+2026-02-02 14:22:32.282 - INFO - ================================================================================
+2026-02-02 14:22:32.283 - INFO - 开始BRAKER3基因组注释流程|Starting BRAKER3 Genome Annotation Pipeline
+2026-02-02 14:22:32.283 - INFO - ================================================================================
+2026-02-02 14:22:32.283 - INFO - --------------------------------------------------------------------------------
+2026-02-02 14:22:32.283 - INFO - 步骤1: 重复序列屏蔽|Step 1: Repeat Masking
+2026-02-02 14:22:32.283 - INFO - --------------------------------------------------------------------------------
+2026-02-02 14:22:32.283 - INFO - 步骤1.1: 运行RepeatModeler构建重复序列库|Step 1.1: Running RepeatModeler
+2026-02-02 14:22:32.283 - INFO - 执行步骤|Executing step: 构建RepeatModeler数据库|Build RepeatModeler database
+2026-02-02 14:22:38.548 - INFO - 命令执行成功|Command executed successfully: 构建RepeatModeler数据库|Build RepeatModeler database
+2026-02-02 14:22:38.550 - INFO - 执行步骤|Executing step: 运行RepeatModeler|Run RepeatModeler
+2026-02-02 15:30:11.427 - INFO - 命令执行成功|Command executed successfully: 运行RepeatModeler|Run RepeatModeler
+2026-02-02 15:30:11.427 - INFO - 步骤1.2: 运行RepeatMasker屏蔽重复序列|Step 1.2: Running RepeatMasker
+2026-02-02 15:30:11.427 - INFO - 执行步骤|Executing step: 运行RepeatMasker|Run RepeatMasker
+2026-02-02 15:30:14.215 - ERROR - 命令执行失败|Command execution failed: 运行RepeatMasker|Run RepeatMasker
+2026-02-02 15:30:14.215 - ERROR - 错误代码|Error code: 2
+2026-02-02 15:30:14.215 - ERROR - 错误信息|Error message: RepeatMasker::setspecies: Could not find user specified library consensi.fa.classified, or the file is empty.
+
+2026-02-02 15:30:14.215 - ERROR - 流程执行失败|Pipeline execution failed: RepeatMasker运行失败|RepeatMasker execution failed
+运行错误|Runtime error: RepeatMasker运行失败|RepeatMasker execution failed

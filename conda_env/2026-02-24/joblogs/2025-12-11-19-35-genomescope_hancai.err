@@ -1,0 +1,8 @@
+Loading custom .Rprofile...
+Setting CRAN and Bioconductor mirrors...
+Mirrors set successfully.
+在启动过程中 - 警告信息:
+In sub("%bm", as.character(getOption("BioC_mirror", "https://bioconductor.org")),  :
+  变量'replacement'的长度大于一，因此只能用其第一元素
+Job 68368392 stderr output:
+

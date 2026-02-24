@@ -1,0 +1,68 @@
+2025-10-27 19:40:08,367 - INFO - 🧬 VCF转换工具已初始化 | VCF Converter initialized
+2025-10-27 19:40:08,367 - INFO - 🚀 开始VCF转换流程 | Starting VCF conversion pipeline
+2025-10-27 19:40:08,367 - INFO - 📁 输入文件 | Input file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/07.系统发育树-IQTREE/filtered.filtered.snp.vcf.gz
+2025-10-27 19:40:08,367 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/07.系统发育树-IQTREE
+2025-10-27 19:40:08,367 - INFO - 🧵 使用线程数 | Using threads: 88
+2025-10-27 19:40:08,439 - INFO - 📊 检测到样本数量 | Detected samples: 9
+2025-10-27 19:40:08,439 - INFO - 👥 VCF中的样本数量 | Number of samples in VCF: 9
+2025-10-27 19:40:08,439 - INFO - 🔄 开始处理VCF基因型数据 | Starting VCF genotype processing
+2025-10-27 19:40:15,008 - INFO - 📊 已处理基因型 | Genotypes processed: 500000
+2025-10-27 19:40:21,619 - INFO - 📊 已处理基因型 | Genotypes processed: 1000000
+2025-10-27 19:40:23,268 - INFO - 📈 处理统计 | Processing Statistics:
+2025-10-27 19:40:23,269 - INFO -   总基因型数 | Total genotypes: 1124884
+2025-10-27 19:40:23,269 - INFO -   缺失数据过多被排除 | Excluded (missing data): 7621
+2025-10-27 19:40:23,269 - INFO -   MNP被排除 | Excluded (MNPs): 39447
+2025-10-27 19:40:23,269 - INFO -   通过筛选的SNP | SNPs passed filters: 1077816
+2025-10-27 19:40:23,281 - INFO - 🧬 PHYLIP输出已初始化 | PHYLIP output initialized
+2025-10-27 19:40:23,281 - INFO - ✍️ 开始写入输出矩阵 | Starting to write output matrices
+2025-10-27 19:40:23,349 - INFO - 📝 样本 1/9 已处理 | Sample 1/9 processed: 68-1A.vcf
+2025-10-27 19:40:23,416 - INFO - 📝 样本 2/9 已处理 | Sample 2/9 processed: 69A.vcf
+2025-10-27 19:40:23,483 - INFO - 📝 样本 3/9 已处理 | Sample 3/9 processed: 716A.vcf
+2025-10-27 19:40:23,550 - INFO - 📝 样本 4/9 已处理 | Sample 4/9 processed: 72-4A.vcf
+2025-10-27 19:40:23,617 - INFO - 📝 样本 5/9 已处理 | Sample 5/9 processed: Arabidopsis_thaliana.vcf
+2025-10-27 19:40:23,684 - INFO - 📝 样本 6/9 已处理 | Sample 6/9 processed: EcAA.vcf
+2025-10-27 19:40:23,751 - INFO - 📝 样本 7/9 已处理 | Sample 7/9 processed: Jan-70A.vcf
+2025-10-27 19:40:23,818 - INFO - 📝 样本 8/9 已处理 | Sample 8/9 processed: KostanzA.vcf
+2025-10-27 19:40:23,885 - INFO - 📝 样本 9/9 已处理 | Sample 9/9 processed: SRR28731538.vcf
+2025-10-27 19:40:23,885 - INFO - ✅ PHYLIP矩阵已保存 | PHYLIP matrix saved: filtered.filtered.snp.min4.phy
+2025-10-27 19:40:23,890 - INFO - 🎉 VCF转换完成！| VCF conversion completed successfully!
+2025-10-27 19:40:23,890 - INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/07.系统发育树-IQTREE
+2025-10-27 19:40:30,890 - INFO - ============================================================
+2025-10-27 19:40:30,890 - INFO - 🌳 IQ-TREE 系统发育树分析流程启动 | IQ-TREE Phylogenetic Analysis Pipeline Started
+2025-10-27 19:40:30,890 - INFO - ============================================================
+2025-10-27 19:40:30,890 - INFO - 📋 步骤 1: 检查软件依赖 | Step 1: Checking software dependencies
+2025-10-27 19:40:30,890 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-27 19:40:31,069 - INFO - ✅ IQ-TREE 可用 | IQ-TREE available: IQ-TREE version 3.0.1 for Linux x86 64-bit built Jul  9 2025
+2025-10-27 19:40:31,069 - INFO - 📋 步骤 2: 构建系统发育树 | Step 2: Building phylogenetic tree
+2025-10-27 19:40:31,069 - INFO - ============================================================
+2025-10-27 19:40:31,069 - INFO - 🌳 开始系统发育树构建 | Starting phylogenetic tree construction
+2025-10-27 19:40:31,069 - INFO - ============================================================
+2025-10-27 19:40:31,071 - INFO - 🔬 使用自动模型选择 | Using automatic model selection (MFP)
+2025-10-27 19:40:31,071 - INFO - 🔄 使用UFBoot，重复1000次 | Using UFBoot with 1000 replicates
+2025-10-27 19:40:31,071 - INFO - 🚀 执行步骤 | Executing step: 系统发育树推断 | Phylogenetic tree inference
+2025-10-27 19:40:31,071 - INFO - 💻 命令 | Command: iqtree -s /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/07.系统发育树-IQTREE/filtered.filtered.snp.min4.phy --prefix xiaohuatangjie -m MFP -B 1000 -T 88
+2025-10-27 19:40:31,071 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/07.系统发育树-IQTREE
+2025-10-27 19:43:31,858 - INFO - ✅ 命令执行成功 | Command executed successfully: 系统发育树推断 | Phylogenetic tree inference
+2025-10-27 19:43:31,860 - INFO - ✅ 系统发育树构建完成 | Tree construction completed
+2025-10-27 19:43:31,860 - INFO - 📁 输出文件 | Output files:
+2025-10-27 19:43:31,860 - INFO -   ✓ 最佳树文件 | Best tree file: xiaohuatangjie.treefile
+2025-10-27 19:43:31,860 - INFO -   ✓ 主要结果文件 | Main result file: xiaohuatangjie.iqtree
+2025-10-27 19:43:31,860 - INFO -   ✓ 运行日志 | Run log: xiaohuatangjie.log
+2025-10-27 19:43:31,860 - INFO -   ✓ 共识树 | Consensus tree: xiaohuatangjie.contree
+2025-10-27 19:43:31,860 - INFO -   ✓ 模型选择结果 | Model selection results: xiaohuatangjie.model.gz
+2025-10-27 19:43:31,860 - INFO - ============================================================
+2025-10-27 19:43:31,860 - INFO - 📌 推荐使用的文件 | Recommended Output Files
+2025-10-27 19:43:31,860 - INFO - ============================================================
+2025-10-27 19:43:31,860 - INFO - ⭐ 主要结果（带bootstrap支持值）| Main result (with bootstrap):
+2025-10-27 19:43:31,860 - INFO -    👉 xiaohuatangjie.contree
+2025-10-27 19:43:31,860 - INFO -    💡 用途：可视化、发表、展示 | For visualization, publication
+2025-10-27 19:43:31,860 - INFO - 📊 最佳ML树（精确branch length）| Best ML tree:
+2025-10-27 19:43:31,860 - INFO -    👉 xiaohuatangjie.treefile
+2025-10-27 19:43:31,860 - INFO -    💡 用途：进一步进化分析 | For further evolutionary analysis
+2025-10-27 19:43:31,860 - INFO - 📄 详细结果文件 | Detailed results:
+2025-10-27 19:43:31,860 - INFO -    👉 xiaohuatangjie.iqtree
+2025-10-27 19:43:31,860 - INFO -    💡 包含模型参数、统计信息 | Contains model parameters, statistics
+2025-10-27 19:43:31,860 - INFO - ============================================================
+2025-10-27 19:43:31,860 - INFO - ✅ IQ-TREE 分析流程完成 | IQ-TREE Analysis Pipeline Completed
+2025-10-27 19:43:31,860 - INFO - ============================================================
+2025-10-27 19:43:31,860 - INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/07.系统发育树-IQTREE

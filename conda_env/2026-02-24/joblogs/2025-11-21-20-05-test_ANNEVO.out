@@ -1,0 +1,6 @@
+---------------------------------------Prediction on chunk 1---------------------------------------
+file saving cost 0.5 seconds
+The model prediction took 436.2 seconds
+file loading cost 1.4 seconds
+The gene decoding took 64.2 seconds
+The gene annotation took 539.8 seconds

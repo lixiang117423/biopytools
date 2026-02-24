@@ -1,0 +1,47 @@
+[W::hts_idx_load3] [W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] [W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] [W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+00:03:23.266 info  NativeGenomicsDB - pid=3277312 tid=3277989 No valid combination operation found for INFO field InbreedingCoeff  - the field will NOT be part of INFO fields in the generated VCF records
+00:03:23.266 info  NativeGenomicsDB - pid=3277312 tid=3277987 No valid combination operation found for INFO field MLEAC  - the field will NOT be part of INFO fields in the generated VCF records
+00:03:23.266 info  NativeGenomicsDB - pid=3277312 tid=3278027 No valid combination operation found for INFO field MLEAF  - the field will NOT be part of INFO fields in the generated VCF records
+Chromosome Chr06 position 26001829 (TileDB column 293323646) has too many alleles in the combined VCF record : 51 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr06 position 32002450 (TileDB column 299324267) has too many alleles in the combined VCF record : 58 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Job 68683299 stderr output:
+

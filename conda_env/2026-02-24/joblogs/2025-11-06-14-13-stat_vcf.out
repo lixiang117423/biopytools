@@ -1,0 +1,6 @@
+正在处理 SNP 文件: variation.filtered.snp.vcf.gz...
+SNP 文件处理完成.
+正在处理 INDEL 文件: variation.filtered.indle.vcf.gz...
+错误: 文件不存在 - variation.filtered.indle.vcf.gz
+
+#CHROM	SAMPLE	SNP_COUNT	INDEL_COUNT	INDEL_TYPE

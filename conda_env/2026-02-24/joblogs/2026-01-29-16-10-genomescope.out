@@ -1,0 +1,33 @@
+2026-01-29 16:11:01.051 - INFO - ============================================================
+2026-01-29 16:11:01.051 - INFO - Genome Analysis Pipeline
+2026-01-29 16:11:01.051 - INFO - ============================================================
+2026-01-29 16:11:01.051 - INFO - 输入路径: 01.data/clean
+2026-01-29 16:11:01.051 - INFO - 输出目录: 02.genomescope评估结果
+2026-01-29 16:11:01.051 - INFO - 读长: 150
+2026-01-29 16:11:01.051 - INFO - K-mer大小: 21
+2026-01-29 16:11:01.051 - INFO - 线程数: 64
+2026-01-29 16:11:01.051 - INFO - ============================================================
+2026-01-29 16:11:01.051 - INFO - 检查依赖环境|Checking dependencies
+2026-01-29 16:11:01.051 - INFO - ============================================================
+2026-01-29 16:11:01.122 - INFO - [OK] jellyfish 已找到|jellyfish found
+2026-01-29 16:11:01.208 - INFO - [OK] R 已找到|R found
+2026-01-29 16:11:01.237 - INFO - [OK] FastK 已找到|FastK found
+2026-01-29 16:11:01.265 - INFO - [OK] smudgeplot 已找到|smudgeplot found
+2026-01-29 16:11:01.265 - INFO - 正在目录中搜索FASTQ文件: 01.data/clean|Searching FASTQ files in directory: 01.data/clean
+2026-01-29 16:11:01.279 - INFO - 找到24个FASTQ文件|Found 24 FASTQ files
+2026-01-29 16:11:01.279 - INFO -   - 01.data/clean/J_CZ_1.clean.fq.gz
+2026-01-29 16:11:01.279 - INFO -   - 01.data/clean/OV54_2_2.clean.fq.gz
+2026-01-29 16:11:01.279 - INFO -   - 01.data/clean/OV47_12_1.clean.fq.gz
+2026-01-29 16:11:01.279 - INFO -   - 01.data/clean/T108_2_2.clean.fq.gz
+2026-01-29 16:11:01.279 - INFO -   - 01.data/clean/SMJ5_3_2.clean.fq.gz
+2026-01-29 16:11:01.279 - INFO -   ... 还有19个文件|... and 19 more files
+2026-01-29 16:11:01.318 - INFO - ============================================================
+2026-01-29 16:11:01.318 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-29 16:11:01.318 - INFO - ============================================================
+2026-01-29 16:11:01.318 - INFO - 配置参数|Configuration parameters:
+2026-01-29 16:11:01.318 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-29 16:11:01.318 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-29 16:11:01.318 - INFO -   - 线程数|Threads: 64
+2026-01-29 16:11:01.318 - INFO -   - 输入文件数|Input files: 24
+2026-01-29 16:11:01.318 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-29 16:11:01.318 - INFO - 命令: zcat 01.data/clean/J_CZ_1.clean.fq.gz 01.data/clean/OV54_2_2.clean.fq.gz 01.data/clean/OV47_12_1.clean.fq.gz 01.data/clean/T108_2_2.clean.fq.gz 01.data/clean/SMJ5_3_2.clean.fq.gz 01.data/clean/OV48_12_2.clean.fq.gz 01.data/clean/OV52_4_1.clean.fq.gz 01.data/clean/OV44_23_1.clean.fq.gz 01.data/clean/QG_ZS_2.clean.fq.gz 01.data/clean/T94_2_1.clean.fq.gz 01.data/clean/OV48_12_1.clean.fq.gz 01.data/clean/OV50_2_2.clean.fq.gz 01.data/clean/T108_2_1.clean.fq.gz 01.data/clean/J_CZ_2.clean.fq.gz 01.data/clean/QG_ZS_1.clean.fq.gz 01.data/clean/OV51_5_1.clean.fq.gz 01.data/clean/OV50_2_1.clean.fq.gz 01.data/clean/SMJ5_3_1.clean.fq.gz 01.data/clean/T94_2_2.clean.fq.gz 01.data/clean/OV54_2_1.clean.fq.gz 01.data/clean/OV47_12_2.clean.fq.gz 01.data/clean/OV51_5_2.clean.fq.gz 01.data/clean/OV44_23_2.clean.fq.gz 01.data/clean/OV52_4_2.clean.fq.gz |jellyfish count -C -m 21 -s 10G -t 64 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/genome_analysis.jf /dev/fd/0

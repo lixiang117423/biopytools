@@ -1,0 +1,10 @@
+FastTree Version 2.1.11 Double precision (No SSE3)
+Alignment: all.nlr.pep.mafft.fa
+Amino acid distances: BLOSUM45 Joins: balanced Support: SH-like 1000
+Search: Normal +NNI +SPR (2 rounds range 10) +ML-NNI opt-each=1
+TopHits: 1.00*sqrtN close=default refresh=0.80
+ML Model: Jones-Taylor-Thorton, CAT approximation with 20 rate categories
+Warning! Found "." character(s). These are treated as gaps
+Non-unique name 'transcript' in the alignment
+Job 67191160 stderr output:
+

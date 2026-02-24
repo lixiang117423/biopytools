@@ -1,0 +1,14 @@
+[M::mm_idx_gen::13.300*1.35] collected minimizers
+[M::mm_idx_gen::14.693*2.75] sorted minimizers
+[M::main::14.693*2.75] loaded/built the index for 12 target sequence(s)
+[M::mm_mapopt_update::15.773*2.63] mid_occ = 500
+[M::mm_idx_stat] kmer size: 19; skip: 19; is_hpc: 0; #seq: 12
+[M::mm_idx_stat::17.043*2.51] distinct minimizers: 54205594 (83.19% are singletons); average occurrences: 2.236; average spacing: 9.948; total length: 1205648910
+[M::worker_pipeline::2822.654*2.19] mapped 3 sequences
+[M::worker_pipeline::3769.470*2.84] mapped 6 sequences
+[M::worker_pipeline::4243.855*2.74] mapped 3 sequences
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -x asm5 -t 64 genome_chr.fa OV53_YaHS_Chr.fa
+[M::main] Real time: 4243.991 sec; CPU: 11614.175 sec; Peak RSS: 113.939 GB
+Job 68324126 stderr output:
+

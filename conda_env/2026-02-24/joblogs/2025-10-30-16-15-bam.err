@@ -1,0 +1,20 @@
+[wgsim] seed = 1761812127
+[wgsim_core] calculating the total length of the reference sequence...
+[wgsim_core] 292 sequences, total length: 287905736
+simulate_and_call.sh:行33: bwa-mem2: 未找到命令
+simulate_and_call.sh:行40: bwa-mem2: 未找到命令
+[main_samview] fail to read the header from "-".
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "-"
+[E::hts_open_format] Failed to open file "119_sim_on_120.sorted.bam" : No such file or directory
+samtools index: failed to open "119_sim_on_120.sorted.bam": No such file or directory
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[E::hts_open_format] Failed to open file "119_sim_on_120.sorted.bam" : No such file or directory
+[mpileup] failed to open 119_sim_on_120.sorted.bam: No such file or directory
+Failed to read from standard input: unknown file type
+[E::hts_open_format] Failed to open file "119_sim_on_120.raw.vcf" : No such file or directory
+Failed to read from 119_sim_on_120.raw.vcf: No such file or directory
+[E::hts_open_format] Failed to open file "119_sim_on_120.large_indels.vcf" : No such file or directory
+Failed to read from 119_sim_on_120.large_indels.vcf: No such file or directory
+Job 67837986 stderr output:
+

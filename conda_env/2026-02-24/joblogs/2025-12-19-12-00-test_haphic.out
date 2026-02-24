@@ -1,0 +1,62 @@
+[2025-12-19 12:00:50] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-19 12:00:50] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-19 12:00:50]   assembly_file: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/genome.fa
+[2025-12-19 12:00:50]   hic_file: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/FZY4201_1.fq.gz
+[2025-12-19 12:00:50]   hic_file_type: fastq
+[2025-12-19 12:00:50]   nchrs: 8
+[2025-12-19 12:00:50]   output_dir: /share/org/YZWL/yzwl_lixg/tmp/test_haphic
+[2025-12-19 12:00:50]   prefix: genome
+[2025-12-19 12:00:50]   threads: 64
+[2025-12-19 12:00:50]   processes: 64
+[2025-12-19 12:00:50]   quick_view: False
+[2025-12-19 12:00:50]   restriction_sites: ['GATC']
+[2025-12-19 12:00:50]   correct_nrounds: 2
+[2025-12-19 12:00:50]   remove_allelic_links: None
+[2025-12-19 12:00:50]   phasing_weight: 1.0
+[2025-12-19 12:00:50]   gfa_files: None
+[2025-12-19 12:00:50]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-19 12:00:50]   bwa_bin: bwa
+[2025-12-19 12:00:50]   samtools_bin: samtools
+[2025-12-19 12:00:50] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-19 12:00:50] 🔍 系统预检查 | System pre-flight checks
+[2025-12-19 12:00:50] 🔍 验证输入文件 | Validating input files
+[2025-12-19 12:00:50] 📊 基因组序列数量 | Assembly sequence count: 8
+[2025-12-19 12:00:50] 📊 FASTQ文件大小 | FASTQ file sizes: R1 1.27 GB, R2 1.29 GB
+[2025-12-19 12:00:50] ✅ 输入文件验证通过 | Input files validated
+[2025-12-19 12:00:50] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-19 12:00:50] 💾 可用内存 | Available memory: 913.9 GB
+[2025-12-19 12:00:50] 💾 可用磁盘空间 | Available disk space: 2611067.0 GB
+[2025-12-19 12:00:50] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-19 12:00:51] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-19 12:00:51] 🔍 检查已存在的比对结果 | Checking for existing alignment results
+[2025-12-19 12:00:51] 📂 输出目录: /share/org/YZWL/yzwl_lixg/tmp/test_haphic
+[2025-12-19 12:00:51] 📂 比对目录: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/00.mapping
+[2025-12-19 12:00:51] 📄 潜在BAM文件: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/00.mapping/HiC.bam
+[2025-12-19 12:00:51] 📄 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/00.mapping/HiC.filtered.bam
+[2025-12-19 12:00:51] ❌ 比对目录不存在 | Alignment directory does not exist
+[2025-12-19 12:00:51] 🔗 执行BWA比对 | Executing BWA alignment
+[2025-12-19 12:00:51] 🔗 开始BWA比对 | Starting BWA alignment (official method)
+[2025-12-19 12:00:51] 📄 使用提供的FASTQ文件对 | Using provided FASTQ pair: FZY4201_1.fq.gz
+[2025-12-19 12:00:51] 📄 找到 1 对FASTQ文件 | Found 1 FASTQ pairs
+[2025-12-19 12:00:51] 🔗 创建基因组软链接 | Created assembly symlink: assembly.fa
+[2025-12-19 12:00:51] 🔗 创建FASTQ软链接 | Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+[2025-12-19 12:00:51] 📝 创建BWA索引 | Creating BWA index: assembly.fa
+[2025-12-19 12:01:58] ✅ BWA索引创建完成 | BWA index created
+[2025-12-19 12:01:58] 🔗 步骤1: BWA比对 + 去重 + 初步过滤 | Step 1: BWA alignment + deduplication + initial filtering
+[2025-12-19 12:07:49] ✅ BWA比对完成，生成 HiC.bam
+[2025-12-19 12:07:49] 📊 BAM文件大小: 1475.05 MB
+[2025-12-19 12:07:49] 🔍 步骤2: HapHiC过滤 | Step 2: HapHiC filtering
+[2025-12-19 12:07:49] ❌ HapHiC过滤失败: [Errno 2] No such file or directory: '/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/HapHiC/utils/filter_bam'
+[2025-12-19 12:07:49] ⚠️ 使用原始BAM文件继续 | Continuing with original BAM file
+[2025-12-19 12:07:49] ✅ BWA比对完成 | BWA alignment completed: HiC.bam
+[2025-12-19 12:07:49] 🚀 开始HapHiC完整流程 | Starting complete HapHiC pipeline
+[2025-12-19 12:07:49] 📁 创建目录结构 | Creating directory structure
+[2025-12-19 12:07:49] ✅ 目录结构创建完成 | Directory structure created
+[2025-12-19 12:07:49] 🔍 [步骤1] 聚类分析 | [Step 1] Clustering analysis
+[2025-12-19 12:07:49] 🚀 聚类分析
+[2025-12-19 12:09:01] ✅ 命令执行成功 | Command executed successfully (耗时: 72.42秒)
+[2025-12-19 12:09:01] 🔄 [步骤2] 重新分配 | [Step 2] Reassignment
+[2025-12-19 12:09:01] ❌ 无法找到最佳聚类结果 | Cannot find best clustering result
+[2025-12-19 12:09:01] 📊 处理统计 | Processing Statistics:
+[2025-12-19 12:09:01]   ⏱️ 总耗时 | Total time: 490.96秒
+[2025-12-19 12:09:01]   📄 log_file: genome_haphic.log (11,826 bytes)

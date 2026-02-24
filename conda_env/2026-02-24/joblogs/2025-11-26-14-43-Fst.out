@@ -1,0 +1,14 @@
+🚀 开始 Fst 分析流程...
+📄 VCF 文件: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/13.Fst/variation.filtered.snp.vcf.gz
+📂 输出目录: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/13.Fst/Fst_Output
+------------------------------------------------------------------
+🧩 第一步: 正在从分组文件中拆分群体列表...
+   - 已生成群体列表: 31542 (包含 0 个样本)
+✅ 群体列表拆分完成！共发现 1 个有效群体。
+------------------------------------------------------------------
+⚔️  第二步: 开始两两计算 Fst (基于 Weir and Cockerham 1984)...
+------------------------------------------------------------------
+🎉 Fst 计算全部完成！
+📊 最终汇总结果请查看: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/13.Fst/Fst_Output/Final_Fst_Summary.txt
+📂 详细 Log 和 单位点 Fst 数据在: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/13.Fst/Fst_Output/logs
+------------------------------------------------------------------

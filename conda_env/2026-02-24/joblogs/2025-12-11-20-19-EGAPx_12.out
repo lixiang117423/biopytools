@@ -1,0 +1,15 @@
+🚀 作业开始: EGAPx_12
+⏰ 开始时间: 2025-12-11 20:19:55
+📍 执行命令: bash /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/egapx_Chr12.sh
+==========================================
+
+!!WARNING!!
+This is an alpha release with limited features and organism scope to collect initial feedback on execution. Outputs are not yet complete and not intended for production use.
+
+['nextflow', '-C', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/egapx_config/singularity.config,/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/ui/assets/config/default.config,/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/ui/assets/config/process_resources.config', '-log', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/output/nextflow/nextflow.log', 'run', PosixPath('/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/ui/../nf/ui.nf'), '--output', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/output', '-with-report', 'zhugecai_Chr12.report.html', '-with-timeline', 'zhugecai_Chr12.timeline.html', '-with-dag', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/output/nextflow/run.dag.dot', '-with-trace', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/output/nextflow/run.trace.txt', '-params-file', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/output/nextflow/run_params.yaml']
+None
+To resume execution, run: sh /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr12/output/nextflow/resume.sh
+[INFO] 已清理软链接
+==========================================
+⏰ 结束时间: 2025-12-11 20:19:56
+✅ 作业成功: EGAPx_12

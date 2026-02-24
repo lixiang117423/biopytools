@@ -1,0 +1,35 @@
+metawrap binning -o /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/03.binning -t 80 -a /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/02.assembly/final_assembly.fasta --metabat2 --maxbin2 --concoct /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290116_1.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290116_2.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290117_1.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290117_2.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290118_1.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290118_2.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290119_1.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290119_2.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290120_1.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290120_2.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290121_1.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290121_2.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290122_1.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290122_2.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290123_1.clean.fastq /share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/01.data/clean/SRR34290123_2.clean.fastq
+
+------------------------------------------------------------------------------------------------------------------------
+-----                                           Entered read type: paired                                          -----
+------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------
+-----                  Unable to find proper fastq read pair in the format *_1.fastq and *_2.fastq                 -----
+------------------------------------------------------------------------------------------------------------------------
+
+
+Usage: metaWRAP binning [options] -a assembly.fa -o output_dir readsA_1.fastq readsA_2.fastq ... [readsX_1.fastq readsX_2.fastq]
+Note1: Make sure to provide all your separately replicate read files, not the joined file.
+Note2: You may provide single end or interleaved reads as well with the use of the correct option
+Note3: If the output already has the .bam alignments files from previous runs, the module will skip re-aligning the reads
+
+Options:
+
+	-a STR          metagenomic assembly file
+	-o STR          output directory
+	-t INT          number of threads (default=1)
+	-m INT		amount of RAM available (default=4)
+	-l INT		minimum contig length to bin (default=1000bp). Note: metaBAT will default to 1500bp minimum
+
+	--metabat2      bin contigs with metaBAT2
+	--metabat1	bin contigs with the original metaBAT
+	--maxbin2	bin contigs with MaxBin2
+	--concoct	bin contigs with CONCOCT
+
+	--universal	use universal marker genes instead of bacterial markers in MaxBin2 (improves Archaea binning)
+	--run-checkm	immediately run CheckM on the bin results (requires 40GB+ of memory)
+	--single-end	non-paired reads mode (provide *.fastq files)
+	--interleaved	the input read files contain interleaved paired-end reads
+

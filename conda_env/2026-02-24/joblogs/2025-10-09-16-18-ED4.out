@@ -1,0 +1,11 @@
+----------------------------------------------------------------------------------------------------
+file path:filtered_merged_gtx.recode.vcf
+method:ED4
+is pretreatment:True
+read number:0
+Chi-square test:True
+Continuity test:True
+smooth method:LOWESS
+smooth window size:0
+threshold:0
+----------------------------------------------------------------------------------------------------

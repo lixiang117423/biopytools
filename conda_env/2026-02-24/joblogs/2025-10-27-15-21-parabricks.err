@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/biopytools", line 8, in <module>
+    sys.exit(main())
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/cli/main.py", line 273, in main
+    cli()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/click/core.py", line 1442, in __call__
+    return self.main(*args, **kwargs)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/click/core.py", line 1363, in main
+    rv = self.invoke(ctx)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/click/core.py", line 1830, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/click/core.py", line 1226, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/site-packages/click/core.py", line 794, in invoke
+    return callback(*args, **kwargs)
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/cli/commands/parabricks.py", line 1040, in parabricks
+    parabricks_main = _lazy_import_parabricks_main()
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/cli/commands/parabricks.py", line 577, in _lazy_import_parabricks_main
+    from ...parabricks.main import main as parabricks_main
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/parabricks/__init__.py", line 27, in <module>
+    from .main import parabricksAnalyzer
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/parabricks/main.py", line 301, in <module>
+    from .processor import parabricksProcessor
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/parabricks/processor.py", line 362
+    self.logger.info("="
+                    ^
+SyntaxError: '(' was never closed
+Job 67807216 stderr output:
+

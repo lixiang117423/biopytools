@@ -1,0 +1,14 @@
+name: pilon_v.1.24
+channels:
+  - ursky
+  - bioconda
+  - conda-forge
+  - defaults
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+dependencies:
+  - python_abi=3.14
+prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/pilon_v.1.24

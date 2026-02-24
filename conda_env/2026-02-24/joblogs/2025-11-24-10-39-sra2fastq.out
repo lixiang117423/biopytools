@@ -1,0 +1,907 @@
+2025-11-24 10:42:32,320 - INFO - ================================================================================
+2025-11-24 10:42:32,321 - INFO - 🚀 开始SRA转FASTQ转换流程 | Starting SRA to FASTQ Conversion Pipeline
+2025-11-24 10:42:32,321 - INFO - ================================================================================
+2025-11-24 10:42:32,321 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-24 10:42:34,082 - INFO - ✅ parallel-fastq-dump 可用 (推荐) | available (recommended)
+2025-11-24 10:42:34,082 - INFO -    版本 | Version: fastq-dump : 3.2.1
+
+parallel-fastq-dump : 0.6.7
+2025-11-24 10:42:34,103 - INFO - ✅ fastq-dump 可用 (备选) | available (fallback)
+2025-11-24 10:42:34,103 - INFO - 📋 转换配置 | Conversion Configuration:
+2025-11-24 10:42:34,103 - INFO -   输入路径 | Input: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra
+2025-11-24 10:42:34,103 - INFO -   输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq
+2025-11-24 10:42:34,103 - INFO -   文件数量 | Files: 88
+2025-11-24 10:42:34,103 - INFO -   转换工具 | Tool: parallel-fastq-dump ⚡ (推荐)
+2025-11-24 10:42:34,103 - INFO -   线程数 | Threads: 88
+2025-11-24 10:42:34,103 - INFO -   压缩输出 | Compress: True
+2025-11-24 10:42:34,103 - INFO - 🔄 开始批量转换 | Starting batch conversion...
+2025-11-24 10:42:34,103 - INFO - 📊 共找到 88 个SRA文件 | Found 88 SRA files
+2025-11-24 10:42:34,103 - INFO - 🔄 总进度 | Overall Progress: [1/88]
+2025-11-24 10:42:34,103 - INFO - ============================================================
+2025-11-24 10:42:34,103 - INFO - 📦 处理文件 | Processing file: DRR054136
+2025-11-24 10:42:34,103 - INFO - ============================================================
+2025-11-24 10:42:34,103 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 10:42:34,103 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 10:42:34,103 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: DRR054136
+2025-11-24 10:42:34,103 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/DRR054136.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 10:42:42,799 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 10:42:42,799 - INFO - ✅ 完成 | Completed: DRR054136
+2025-11-24 10:42:42,799 - INFO - 🔄 总进度 | Overall Progress: [2/88]
+2025-11-24 10:42:42,799 - INFO - ============================================================
+2025-11-24 10:42:42,799 - INFO - 📦 处理文件 | Processing file: ERR626208
+2025-11-24 10:42:42,799 - INFO - ============================================================
+2025-11-24 10:42:42,799 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 10:42:42,799 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 10:42:42,800 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR626208
+2025-11-24 10:42:42,800 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/ERR626208.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 10:42:46,691 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 10:42:46,691 - INFO - ✅ 完成 | Completed: ERR626208
+2025-11-24 10:42:46,691 - INFO - 🔄 总进度 | Overall Progress: [3/88]
+2025-11-24 10:42:46,691 - INFO - ============================================================
+2025-11-24 10:42:46,691 - INFO - 📦 处理文件 | Processing file: ERR661803
+2025-11-24 10:42:46,691 - INFO - ============================================================
+2025-11-24 10:42:46,694 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 10:42:46,694 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 10:42:46,694 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR661803
+2025-11-24 10:42:46,694 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/ERR661803.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 10:42:51,308 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 10:42:51,308 - INFO - ✅ 完成 | Completed: ERR661803
+2025-11-24 10:42:51,308 - INFO - 🔄 总进度 | Overall Progress: [4/88]
+2025-11-24 10:42:51,308 - INFO - ============================================================
+2025-11-24 10:42:51,308 - INFO - 📦 处理文件 | Processing file: SRR1239608
+2025-11-24 10:42:51,308 - INFO - ============================================================
+2025-11-24 10:42:51,309 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 10:42:51,309 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 10:42:51,309 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239608
+2025-11-24 10:42:51,309 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239608.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 10:46:28,936 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 10:46:28,937 - INFO - ✅ 完成 | Completed: SRR1239608
+2025-11-24 10:46:28,937 - INFO - 🔄 总进度 | Overall Progress: [5/88]
+2025-11-24 10:46:28,937 - INFO - ============================================================
+2025-11-24 10:46:28,937 - INFO - 📦 处理文件 | Processing file: SRR1239614
+2025-11-24 10:46:28,937 - INFO - ============================================================
+2025-11-24 10:46:28,937 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 10:46:28,937 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 10:46:28,937 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239614
+2025-11-24 10:46:28,937 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239614.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 10:50:06,719 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 10:50:06,720 - INFO - ✅ 完成 | Completed: SRR1239614
+2025-11-24 10:50:06,720 - INFO - 🔄 总进度 | Overall Progress: [6/88]
+2025-11-24 10:50:06,721 - INFO - ============================================================
+2025-11-24 10:50:06,721 - INFO - 📦 处理文件 | Processing file: SRR1239805
+2025-11-24 10:50:06,721 - INFO - ============================================================
+2025-11-24 10:50:06,721 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 10:50:06,721 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 10:50:06,721 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239805
+2025-11-24 10:50:06,721 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239805.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 10:53:40,463 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 10:53:40,463 - INFO - ✅ 完成 | Completed: SRR1239805
+2025-11-24 10:53:40,463 - INFO - 🔄 总进度 | Overall Progress: [7/88]
+2025-11-24 10:53:40,463 - INFO - ============================================================
+2025-11-24 10:53:40,463 - INFO - 📦 处理文件 | Processing file: SRR1239806
+2025-11-24 10:53:40,463 - INFO - ============================================================
+2025-11-24 10:53:40,463 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 10:53:40,463 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 10:53:40,463 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239806
+2025-11-24 10:53:40,463 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239806.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 10:57:14,856 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 10:57:14,858 - INFO - ✅ 完成 | Completed: SRR1239806
+2025-11-24 10:57:14,858 - INFO - 🔄 总进度 | Overall Progress: [8/88]
+2025-11-24 10:57:14,858 - INFO - ============================================================
+2025-11-24 10:57:14,858 - INFO - 📦 处理文件 | Processing file: SRR1239807
+2025-11-24 10:57:14,858 - INFO - ============================================================
+2025-11-24 10:57:14,858 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 10:57:14,858 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 10:57:14,858 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239807
+2025-11-24 10:57:14,858 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239807.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:00:46,068 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:00:46,068 - INFO - ✅ 完成 | Completed: SRR1239807
+2025-11-24 11:00:46,069 - INFO - 🔄 总进度 | Overall Progress: [9/88]
+2025-11-24 11:00:46,069 - INFO - ============================================================
+2025-11-24 11:00:46,069 - INFO - 📦 处理文件 | Processing file: SRR1239809
+2025-11-24 11:00:46,069 - INFO - ============================================================
+2025-11-24 11:00:46,069 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:00:46,069 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:00:46,069 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239809
+2025-11-24 11:00:46,069 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239809.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:04:20,610 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:04:20,610 - INFO - ✅ 完成 | Completed: SRR1239809
+2025-11-24 11:04:20,610 - INFO - 🔄 总进度 | Overall Progress: [10/88]
+2025-11-24 11:04:20,610 - INFO - ============================================================
+2025-11-24 11:04:20,610 - INFO - 📦 处理文件 | Processing file: SRR1239810
+2025-11-24 11:04:20,610 - INFO - ============================================================
+2025-11-24 11:04:20,610 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:04:20,610 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:04:20,610 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239810
+2025-11-24 11:04:20,610 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239810.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:07:58,166 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:07:58,166 - INFO - ✅ 完成 | Completed: SRR1239810
+2025-11-24 11:07:58,166 - INFO - 🔄 总进度 | Overall Progress: [11/88]
+2025-11-24 11:07:58,166 - INFO - ============================================================
+2025-11-24 11:07:58,166 - INFO - 📦 处理文件 | Processing file: SRR1239814
+2025-11-24 11:07:58,166 - INFO - ============================================================
+2025-11-24 11:07:58,166 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:07:58,166 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:07:58,166 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239814
+2025-11-24 11:07:58,166 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239814.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:11:28,295 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:11:28,295 - INFO - ✅ 完成 | Completed: SRR1239814
+2025-11-24 11:11:28,295 - INFO - 🔄 总进度 | Overall Progress: [12/88]
+2025-11-24 11:11:28,295 - INFO - ============================================================
+2025-11-24 11:11:28,295 - INFO - 📦 处理文件 | Processing file: SRR1239815
+2025-11-24 11:11:28,296 - INFO - ============================================================
+2025-11-24 11:11:28,296 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:11:28,296 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:11:28,296 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239815
+2025-11-24 11:11:28,296 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239815.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:14:59,864 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:14:59,864 - INFO - ✅ 完成 | Completed: SRR1239815
+2025-11-24 11:14:59,864 - INFO - 🔄 总进度 | Overall Progress: [13/88]
+2025-11-24 11:14:59,864 - INFO - ============================================================
+2025-11-24 11:14:59,864 - INFO - 📦 处理文件 | Processing file: SRR1239816
+2025-11-24 11:14:59,864 - INFO - ============================================================
+2025-11-24 11:14:59,865 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:14:59,865 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:14:59,865 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239816
+2025-11-24 11:14:59,865 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239816.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:18:33,900 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:18:33,900 - INFO - ✅ 完成 | Completed: SRR1239816
+2025-11-24 11:18:33,900 - INFO - 🔄 总进度 | Overall Progress: [14/88]
+2025-11-24 11:18:33,901 - INFO - ============================================================
+2025-11-24 11:18:33,901 - INFO - 📦 处理文件 | Processing file: SRR1239817
+2025-11-24 11:18:33,901 - INFO - ============================================================
+2025-11-24 11:18:33,901 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:18:33,901 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:18:33,901 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239817
+2025-11-24 11:18:33,901 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239817.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:22:07,859 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:22:07,860 - INFO - ✅ 完成 | Completed: SRR1239817
+2025-11-24 11:22:07,860 - INFO - 🔄 总进度 | Overall Progress: [15/88]
+2025-11-24 11:22:07,860 - INFO - ============================================================
+2025-11-24 11:22:07,860 - INFO - 📦 处理文件 | Processing file: SRR1239818
+2025-11-24 11:22:07,860 - INFO - ============================================================
+2025-11-24 11:22:07,860 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:22:07,860 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:22:07,860 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239818
+2025-11-24 11:22:07,860 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239818.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:25:46,013 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:25:46,013 - INFO - ✅ 完成 | Completed: SRR1239818
+2025-11-24 11:25:46,013 - INFO - 🔄 总进度 | Overall Progress: [16/88]
+2025-11-24 11:25:46,013 - INFO - ============================================================
+2025-11-24 11:25:46,014 - INFO - 📦 处理文件 | Processing file: SRR1239819
+2025-11-24 11:25:46,014 - INFO - ============================================================
+2025-11-24 11:25:46,014 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:25:46,014 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:25:46,014 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239819
+2025-11-24 11:25:46,014 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239819.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:29:20,397 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:29:20,397 - INFO - ✅ 完成 | Completed: SRR1239819
+2025-11-24 11:29:20,397 - INFO - 🔄 总进度 | Overall Progress: [17/88]
+2025-11-24 11:29:20,397 - INFO - ============================================================
+2025-11-24 11:29:20,397 - INFO - 📦 处理文件 | Processing file: SRR1239820
+2025-11-24 11:29:20,397 - INFO - ============================================================
+2025-11-24 11:29:20,397 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:29:20,397 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:29:20,397 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239820
+2025-11-24 11:29:20,397 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239820.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:32:56,611 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:32:56,611 - INFO - ✅ 完成 | Completed: SRR1239820
+2025-11-24 11:32:56,611 - INFO - 🔄 总进度 | Overall Progress: [18/88]
+2025-11-24 11:32:56,611 - INFO - ============================================================
+2025-11-24 11:32:56,611 - INFO - 📦 处理文件 | Processing file: SRR1239821
+2025-11-24 11:32:56,611 - INFO - ============================================================
+2025-11-24 11:32:56,611 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:32:56,611 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:32:56,611 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239821
+2025-11-24 11:32:56,611 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239821.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:36:32,730 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:36:32,730 - INFO - ✅ 完成 | Completed: SRR1239821
+2025-11-24 11:36:32,730 - INFO - 🔄 总进度 | Overall Progress: [19/88]
+2025-11-24 11:36:32,730 - INFO - ============================================================
+2025-11-24 11:36:32,730 - INFO - 📦 处理文件 | Processing file: SRR1239823
+2025-11-24 11:36:32,730 - INFO - ============================================================
+2025-11-24 11:36:32,730 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:36:32,730 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:36:32,730 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239823
+2025-11-24 11:36:32,730 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239823.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:40:06,155 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:40:06,155 - INFO - ✅ 完成 | Completed: SRR1239823
+2025-11-24 11:40:06,155 - INFO - 🔄 总进度 | Overall Progress: [20/88]
+2025-11-24 11:40:06,155 - INFO - ============================================================
+2025-11-24 11:40:06,155 - INFO - 📦 处理文件 | Processing file: SRR1239824
+2025-11-24 11:40:06,155 - INFO - ============================================================
+2025-11-24 11:40:06,155 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:40:06,155 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:40:06,155 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239824
+2025-11-24 11:40:06,155 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239824.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:43:40,321 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:43:40,321 - INFO - ✅ 完成 | Completed: SRR1239824
+2025-11-24 11:43:40,321 - INFO - 🔄 总进度 | Overall Progress: [21/88]
+2025-11-24 11:43:40,321 - INFO - ============================================================
+2025-11-24 11:43:40,321 - INFO - 📦 处理文件 | Processing file: SRR1239825
+2025-11-24 11:43:40,321 - INFO - ============================================================
+2025-11-24 11:43:40,321 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:43:40,321 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:43:40,321 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239825
+2025-11-24 11:43:40,322 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239825.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:47:19,180 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:47:19,180 - INFO - ✅ 完成 | Completed: SRR1239825
+2025-11-24 11:47:19,180 - INFO - 🔄 总进度 | Overall Progress: [22/88]
+2025-11-24 11:47:19,181 - INFO - ============================================================
+2025-11-24 11:47:19,181 - INFO - 📦 处理文件 | Processing file: SRR1239826
+2025-11-24 11:47:19,181 - INFO - ============================================================
+2025-11-24 11:47:19,181 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:47:19,181 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:47:19,181 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239826
+2025-11-24 11:47:19,181 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239826.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:50:55,546 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:50:55,546 - INFO - ✅ 完成 | Completed: SRR1239826
+2025-11-24 11:50:55,546 - INFO - 🔄 总进度 | Overall Progress: [23/88]
+2025-11-24 11:50:55,546 - INFO - ============================================================
+2025-11-24 11:50:55,546 - INFO - 📦 处理文件 | Processing file: SRR1239827
+2025-11-24 11:50:55,546 - INFO - ============================================================
+2025-11-24 11:50:55,546 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:50:55,546 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:50:55,546 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239827
+2025-11-24 11:50:55,546 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239827.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:54:29,443 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:54:29,443 - INFO - ✅ 完成 | Completed: SRR1239827
+2025-11-24 11:54:29,443 - INFO - 🔄 总进度 | Overall Progress: [24/88]
+2025-11-24 11:54:29,443 - INFO - ============================================================
+2025-11-24 11:54:29,443 - INFO - 📦 处理文件 | Processing file: SRR1239829
+2025-11-24 11:54:29,443 - INFO - ============================================================
+2025-11-24 11:54:29,443 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:54:29,443 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:54:29,443 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239829
+2025-11-24 11:54:29,443 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239829.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 11:58:04,067 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 11:58:04,068 - INFO - ✅ 完成 | Completed: SRR1239829
+2025-11-24 11:58:04,068 - INFO - 🔄 总进度 | Overall Progress: [25/88]
+2025-11-24 11:58:04,068 - INFO - ============================================================
+2025-11-24 11:58:04,068 - INFO - 📦 处理文件 | Processing file: SRR1239830
+2025-11-24 11:58:04,068 - INFO - ============================================================
+2025-11-24 11:58:04,068 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 11:58:04,068 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 11:58:04,068 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239830
+2025-11-24 11:58:04,068 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239830.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:01:38,262 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:01:38,262 - INFO - ✅ 完成 | Completed: SRR1239830
+2025-11-24 12:01:38,262 - INFO - 🔄 总进度 | Overall Progress: [26/88]
+2025-11-24 12:01:38,262 - INFO - ============================================================
+2025-11-24 12:01:38,262 - INFO - 📦 处理文件 | Processing file: SRR1239831
+2025-11-24 12:01:38,262 - INFO - ============================================================
+2025-11-24 12:01:38,262 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:01:38,262 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:01:38,262 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239831
+2025-11-24 12:01:38,262 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239831.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:05:17,030 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:05:17,030 - INFO - ✅ 完成 | Completed: SRR1239831
+2025-11-24 12:05:17,030 - INFO - 🔄 总进度 | Overall Progress: [27/88]
+2025-11-24 12:05:17,030 - INFO - ============================================================
+2025-11-24 12:05:17,030 - INFO - 📦 处理文件 | Processing file: SRR1239835
+2025-11-24 12:05:17,030 - INFO - ============================================================
+2025-11-24 12:05:17,030 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:05:17,030 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:05:17,031 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239835
+2025-11-24 12:05:17,031 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239835.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:08:55,847 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:08:55,848 - INFO - ✅ 完成 | Completed: SRR1239835
+2025-11-24 12:08:55,848 - INFO - 🔄 总进度 | Overall Progress: [28/88]
+2025-11-24 12:08:55,848 - INFO - ============================================================
+2025-11-24 12:08:55,848 - INFO - 📦 处理文件 | Processing file: SRR1239837
+2025-11-24 12:08:55,848 - INFO - ============================================================
+2025-11-24 12:08:55,848 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:08:55,848 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:08:55,848 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239837
+2025-11-24 12:08:55,848 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239837.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:12:33,101 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:12:33,101 - INFO - ✅ 完成 | Completed: SRR1239837
+2025-11-24 12:12:33,101 - INFO - 🔄 总进度 | Overall Progress: [29/88]
+2025-11-24 12:12:33,101 - INFO - ============================================================
+2025-11-24 12:12:33,101 - INFO - 📦 处理文件 | Processing file: SRR1239841
+2025-11-24 12:12:33,101 - INFO - ============================================================
+2025-11-24 12:12:33,101 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:12:33,101 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:12:33,102 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239841
+2025-11-24 12:12:33,102 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239841.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:16:11,064 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:16:11,064 - INFO - ✅ 完成 | Completed: SRR1239841
+2025-11-24 12:16:11,064 - INFO - 🔄 总进度 | Overall Progress: [30/88]
+2025-11-24 12:16:11,064 - INFO - ============================================================
+2025-11-24 12:16:11,064 - INFO - 📦 处理文件 | Processing file: SRR1239843
+2025-11-24 12:16:11,064 - INFO - ============================================================
+2025-11-24 12:16:11,064 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:16:11,064 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:16:11,064 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239843
+2025-11-24 12:16:11,064 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239843.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:19:47,754 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:19:47,755 - INFO - ✅ 完成 | Completed: SRR1239843
+2025-11-24 12:19:47,755 - INFO - 🔄 总进度 | Overall Progress: [31/88]
+2025-11-24 12:19:47,755 - INFO - ============================================================
+2025-11-24 12:19:47,755 - INFO - 📦 处理文件 | Processing file: SRR1239844
+2025-11-24 12:19:47,755 - INFO - ============================================================
+2025-11-24 12:19:47,755 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:19:47,755 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:19:47,755 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239844
+2025-11-24 12:19:47,755 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239844.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:23:20,109 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:23:20,110 - INFO - ✅ 完成 | Completed: SRR1239844
+2025-11-24 12:23:20,110 - INFO - 🔄 总进度 | Overall Progress: [32/88]
+2025-11-24 12:23:20,110 - INFO - ============================================================
+2025-11-24 12:23:20,110 - INFO - 📦 处理文件 | Processing file: SRR1239846
+2025-11-24 12:23:20,110 - INFO - ============================================================
+2025-11-24 12:23:20,110 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:23:20,110 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:23:20,110 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239846
+2025-11-24 12:23:20,110 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239846.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:27:08,067 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:27:08,067 - INFO - ✅ 完成 | Completed: SRR1239846
+2025-11-24 12:27:08,067 - INFO - 🔄 总进度 | Overall Progress: [33/88]
+2025-11-24 12:27:08,067 - INFO - ============================================================
+2025-11-24 12:27:08,067 - INFO - 📦 处理文件 | Processing file: SRR1239852
+2025-11-24 12:27:08,067 - INFO - ============================================================
+2025-11-24 12:27:08,067 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:27:08,067 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:27:08,067 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239852
+2025-11-24 12:27:08,067 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239852.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:30:43,601 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:30:43,602 - INFO - ✅ 完成 | Completed: SRR1239852
+2025-11-24 12:30:43,602 - INFO - 🔄 总进度 | Overall Progress: [34/88]
+2025-11-24 12:30:43,602 - INFO - ============================================================
+2025-11-24 12:30:43,602 - INFO - 📦 处理文件 | Processing file: SRR1239853
+2025-11-24 12:30:43,602 - INFO - ============================================================
+2025-11-24 12:30:43,602 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:30:43,602 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:30:43,602 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239853
+2025-11-24 12:30:43,602 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239853.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:34:21,244 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:34:21,244 - INFO - ✅ 完成 | Completed: SRR1239853
+2025-11-24 12:34:21,244 - INFO - 🔄 总进度 | Overall Progress: [35/88]
+2025-11-24 12:34:21,244 - INFO - ============================================================
+2025-11-24 12:34:21,244 - INFO - 📦 处理文件 | Processing file: SRR1239856
+2025-11-24 12:34:21,244 - INFO - ============================================================
+2025-11-24 12:34:21,244 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:34:21,244 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:34:21,244 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239856
+2025-11-24 12:34:21,244 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239856.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:37:55,175 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:37:55,175 - INFO - ✅ 完成 | Completed: SRR1239856
+2025-11-24 12:37:55,175 - INFO - 🔄 总进度 | Overall Progress: [36/88]
+2025-11-24 12:37:55,175 - INFO - ============================================================
+2025-11-24 12:37:55,175 - INFO - 📦 处理文件 | Processing file: SRR1239859
+2025-11-24 12:37:55,175 - INFO - ============================================================
+2025-11-24 12:37:55,175 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:37:55,175 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:37:55,175 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239859
+2025-11-24 12:37:55,175 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239859.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:41:31,332 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:41:31,333 - INFO - ✅ 完成 | Completed: SRR1239859
+2025-11-24 12:41:31,333 - INFO - 🔄 总进度 | Overall Progress: [37/88]
+2025-11-24 12:41:31,333 - INFO - ============================================================
+2025-11-24 12:41:31,333 - INFO - 📦 处理文件 | Processing file: SRR1239862
+2025-11-24 12:41:31,333 - INFO - ============================================================
+2025-11-24 12:41:31,333 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:41:31,333 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:41:31,333 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239862
+2025-11-24 12:41:31,333 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239862.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:45:03,841 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:45:03,841 - INFO - ✅ 完成 | Completed: SRR1239862
+2025-11-24 12:45:03,841 - INFO - 🔄 总进度 | Overall Progress: [38/88]
+2025-11-24 12:45:03,841 - INFO - ============================================================
+2025-11-24 12:45:03,841 - INFO - 📦 处理文件 | Processing file: SRR1239863
+2025-11-24 12:45:03,841 - INFO - ============================================================
+2025-11-24 12:45:03,841 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:45:03,841 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:45:03,841 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239863
+2025-11-24 12:45:03,841 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239863.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:48:40,547 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:48:40,547 - INFO - ✅ 完成 | Completed: SRR1239863
+2025-11-24 12:48:40,547 - INFO - 🔄 总进度 | Overall Progress: [39/88]
+2025-11-24 12:48:40,547 - INFO - ============================================================
+2025-11-24 12:48:40,547 - INFO - 📦 处理文件 | Processing file: SRR1239864
+2025-11-24 12:48:40,547 - INFO - ============================================================
+2025-11-24 12:48:40,547 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:48:40,547 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:48:40,547 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239864
+2025-11-24 12:48:40,548 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239864.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:52:15,812 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:52:15,812 - INFO - ✅ 完成 | Completed: SRR1239864
+2025-11-24 12:52:15,812 - INFO - 🔄 总进度 | Overall Progress: [40/88]
+2025-11-24 12:52:15,812 - INFO - ============================================================
+2025-11-24 12:52:15,812 - INFO - 📦 处理文件 | Processing file: SRR1239865
+2025-11-24 12:52:15,812 - INFO - ============================================================
+2025-11-24 12:52:15,812 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:52:15,812 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:52:15,812 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239865
+2025-11-24 12:52:15,812 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239865.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:55:48,503 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:55:48,503 - INFO - ✅ 完成 | Completed: SRR1239865
+2025-11-24 12:55:48,503 - INFO - 🔄 总进度 | Overall Progress: [41/88]
+2025-11-24 12:55:48,503 - INFO - ============================================================
+2025-11-24 12:55:48,503 - INFO - 📦 处理文件 | Processing file: SRR1239867
+2025-11-24 12:55:48,503 - INFO - ============================================================
+2025-11-24 12:55:48,503 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:55:48,503 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:55:48,504 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239867
+2025-11-24 12:55:48,504 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239867.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 12:59:25,948 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 12:59:25,948 - INFO - ✅ 完成 | Completed: SRR1239867
+2025-11-24 12:59:25,948 - INFO - 🔄 总进度 | Overall Progress: [42/88]
+2025-11-24 12:59:25,948 - INFO - ============================================================
+2025-11-24 12:59:25,948 - INFO - 📦 处理文件 | Processing file: SRR1239869
+2025-11-24 12:59:25,948 - INFO - ============================================================
+2025-11-24 12:59:25,948 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 12:59:25,948 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 12:59:25,948 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239869
+2025-11-24 12:59:25,949 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239869.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:03:04,747 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:03:04,753 - INFO - ✅ 完成 | Completed: SRR1239869
+2025-11-24 13:03:04,753 - INFO - 🔄 总进度 | Overall Progress: [43/88]
+2025-11-24 13:03:04,753 - INFO - ============================================================
+2025-11-24 13:03:04,753 - INFO - 📦 处理文件 | Processing file: SRR1239870
+2025-11-24 13:03:04,753 - INFO - ============================================================
+2025-11-24 13:03:04,753 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:03:04,753 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:03:04,753 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239870
+2025-11-24 13:03:04,753 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239870.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:06:39,032 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:06:39,032 - INFO - ✅ 完成 | Completed: SRR1239870
+2025-11-24 13:06:39,032 - INFO - 🔄 总进度 | Overall Progress: [44/88]
+2025-11-24 13:06:39,032 - INFO - ============================================================
+2025-11-24 13:06:39,032 - INFO - 📦 处理文件 | Processing file: SRR1239871
+2025-11-24 13:06:39,032 - INFO - ============================================================
+2025-11-24 13:06:39,032 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:06:39,032 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:06:39,032 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239871
+2025-11-24 13:06:39,032 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239871.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:10:17,405 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:10:17,405 - INFO - ✅ 完成 | Completed: SRR1239871
+2025-11-24 13:10:17,405 - INFO - 🔄 总进度 | Overall Progress: [45/88]
+2025-11-24 13:10:17,405 - INFO - ============================================================
+2025-11-24 13:10:17,405 - INFO - 📦 处理文件 | Processing file: SRR1239875
+2025-11-24 13:10:17,405 - INFO - ============================================================
+2025-11-24 13:10:17,405 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:10:17,405 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:10:17,405 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239875
+2025-11-24 13:10:17,405 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239875.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:13:58,130 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:13:58,130 - INFO - ✅ 完成 | Completed: SRR1239875
+2025-11-24 13:13:58,130 - INFO - 🔄 总进度 | Overall Progress: [46/88]
+2025-11-24 13:13:58,130 - INFO - ============================================================
+2025-11-24 13:13:58,130 - INFO - 📦 处理文件 | Processing file: SRR1239878
+2025-11-24 13:13:58,130 - INFO - ============================================================
+2025-11-24 13:13:58,130 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:13:58,130 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:13:58,130 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239878
+2025-11-24 13:13:58,130 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239878.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:17:35,302 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:17:35,303 - INFO - ✅ 完成 | Completed: SRR1239878
+2025-11-24 13:17:35,303 - INFO - 🔄 总进度 | Overall Progress: [47/88]
+2025-11-24 13:17:35,303 - INFO - ============================================================
+2025-11-24 13:17:35,303 - INFO - 📦 处理文件 | Processing file: SRR1239879
+2025-11-24 13:17:35,303 - INFO - ============================================================
+2025-11-24 13:17:35,303 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:17:35,303 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:17:35,303 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239879
+2025-11-24 13:17:35,303 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239879.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:21:12,792 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:21:12,792 - INFO - ✅ 完成 | Completed: SRR1239879
+2025-11-24 13:21:12,792 - INFO - 🔄 总进度 | Overall Progress: [48/88]
+2025-11-24 13:21:12,792 - INFO - ============================================================
+2025-11-24 13:21:12,792 - INFO - 📦 处理文件 | Processing file: SRR1239880
+2025-11-24 13:21:12,792 - INFO - ============================================================
+2025-11-24 13:21:12,792 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:21:12,792 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:21:12,792 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239880
+2025-11-24 13:21:12,792 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239880.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:24:45,765 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:24:45,766 - INFO - ✅ 完成 | Completed: SRR1239880
+2025-11-24 13:24:45,766 - INFO - 🔄 总进度 | Overall Progress: [49/88]
+2025-11-24 13:24:45,766 - INFO - ============================================================
+2025-11-24 13:24:45,766 - INFO - 📦 处理文件 | Processing file: SRR1239883
+2025-11-24 13:24:45,766 - INFO - ============================================================
+2025-11-24 13:24:45,766 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:24:45,766 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:24:45,766 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239883
+2025-11-24 13:24:45,766 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239883.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:28:22,122 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:28:22,123 - INFO - ✅ 完成 | Completed: SRR1239883
+2025-11-24 13:28:22,123 - INFO - 🔄 总进度 | Overall Progress: [50/88]
+2025-11-24 13:28:22,123 - INFO - ============================================================
+2025-11-24 13:28:22,123 - INFO - 📦 处理文件 | Processing file: SRR1239884
+2025-11-24 13:28:22,123 - INFO - ============================================================
+2025-11-24 13:28:22,123 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:28:22,123 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:28:22,123 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239884
+2025-11-24 13:28:22,123 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239884.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:31:58,369 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:31:58,370 - INFO - ✅ 完成 | Completed: SRR1239884
+2025-11-24 13:31:58,370 - INFO - 🔄 总进度 | Overall Progress: [51/88]
+2025-11-24 13:31:58,370 - INFO - ============================================================
+2025-11-24 13:31:58,370 - INFO - 📦 处理文件 | Processing file: SRR1239885
+2025-11-24 13:31:58,370 - INFO - ============================================================
+2025-11-24 13:31:58,370 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:31:58,370 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:31:58,370 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239885
+2025-11-24 13:31:58,370 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239885.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:35:30,758 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:35:30,758 - INFO - ✅ 完成 | Completed: SRR1239885
+2025-11-24 13:35:30,758 - INFO - 🔄 总进度 | Overall Progress: [52/88]
+2025-11-24 13:35:30,758 - INFO - ============================================================
+2025-11-24 13:35:30,759 - INFO - 📦 处理文件 | Processing file: SRR1239891
+2025-11-24 13:35:30,759 - INFO - ============================================================
+2025-11-24 13:35:30,759 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:35:30,759 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:35:30,759 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239891
+2025-11-24 13:35:30,759 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239891.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:39:12,590 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:39:12,591 - INFO - ✅ 完成 | Completed: SRR1239891
+2025-11-24 13:39:12,591 - INFO - 🔄 总进度 | Overall Progress: [53/88]
+2025-11-24 13:39:12,591 - INFO - ============================================================
+2025-11-24 13:39:12,591 - INFO - 📦 处理文件 | Processing file: SRR1239892
+2025-11-24 13:39:12,591 - INFO - ============================================================
+2025-11-24 13:39:12,591 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:39:12,591 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:39:12,592 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239892
+2025-11-24 13:39:12,592 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239892.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:42:50,906 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:42:50,906 - INFO - ✅ 完成 | Completed: SRR1239892
+2025-11-24 13:42:50,906 - INFO - 🔄 总进度 | Overall Progress: [54/88]
+2025-11-24 13:42:50,906 - INFO - ============================================================
+2025-11-24 13:42:50,906 - INFO - 📦 处理文件 | Processing file: SRR1239894
+2025-11-24 13:42:50,906 - INFO - ============================================================
+2025-11-24 13:42:50,906 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:42:50,906 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:42:50,906 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239894
+2025-11-24 13:42:50,906 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239894.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:46:29,080 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:46:29,080 - INFO - ✅ 完成 | Completed: SRR1239894
+2025-11-24 13:46:29,080 - INFO - 🔄 总进度 | Overall Progress: [55/88]
+2025-11-24 13:46:29,080 - INFO - ============================================================
+2025-11-24 13:46:29,080 - INFO - 📦 处理文件 | Processing file: SRR1239895
+2025-11-24 13:46:29,080 - INFO - ============================================================
+2025-11-24 13:46:29,080 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:46:29,080 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:46:29,080 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239895
+2025-11-24 13:46:29,080 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239895.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:50:02,543 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:50:02,543 - INFO - ✅ 完成 | Completed: SRR1239895
+2025-11-24 13:50:02,543 - INFO - 🔄 总进度 | Overall Progress: [56/88]
+2025-11-24 13:50:02,543 - INFO - ============================================================
+2025-11-24 13:50:02,544 - INFO - 📦 处理文件 | Processing file: SRR1239897
+2025-11-24 13:50:02,544 - INFO - ============================================================
+2025-11-24 13:50:02,544 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:50:02,544 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:50:02,544 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239897
+2025-11-24 13:50:02,544 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239897.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:53:38,262 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:53:38,262 - INFO - ✅ 完成 | Completed: SRR1239897
+2025-11-24 13:53:38,262 - INFO - 🔄 总进度 | Overall Progress: [57/88]
+2025-11-24 13:53:38,262 - INFO - ============================================================
+2025-11-24 13:53:38,262 - INFO - 📦 处理文件 | Processing file: SRR1239898
+2025-11-24 13:53:38,262 - INFO - ============================================================
+2025-11-24 13:53:38,262 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:53:38,262 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:53:38,262 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239898
+2025-11-24 13:53:38,262 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239898.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 13:57:14,426 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 13:57:14,426 - INFO - ✅ 完成 | Completed: SRR1239898
+2025-11-24 13:57:14,426 - INFO - 🔄 总进度 | Overall Progress: [58/88]
+2025-11-24 13:57:14,426 - INFO - ============================================================
+2025-11-24 13:57:14,426 - INFO - 📦 处理文件 | Processing file: SRR1239899
+2025-11-24 13:57:14,426 - INFO - ============================================================
+2025-11-24 13:57:14,426 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 13:57:14,426 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 13:57:14,426 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239899
+2025-11-24 13:57:14,426 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239899.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:00:47,721 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:00:47,722 - INFO - ✅ 完成 | Completed: SRR1239899
+2025-11-24 14:00:47,722 - INFO - 🔄 总进度 | Overall Progress: [59/88]
+2025-11-24 14:00:47,722 - INFO - ============================================================
+2025-11-24 14:00:47,722 - INFO - 📦 处理文件 | Processing file: SRR1239905
+2025-11-24 14:00:47,722 - INFO - ============================================================
+2025-11-24 14:00:47,722 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:00:47,722 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:00:47,722 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239905
+2025-11-24 14:00:47,722 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239905.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:04:24,667 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:04:24,668 - INFO - ✅ 完成 | Completed: SRR1239905
+2025-11-24 14:04:24,668 - INFO - 🔄 总进度 | Overall Progress: [60/88]
+2025-11-24 14:04:24,668 - INFO - ============================================================
+2025-11-24 14:04:24,668 - INFO - 📦 处理文件 | Processing file: SRR1239906
+2025-11-24 14:04:24,668 - INFO - ============================================================
+2025-11-24 14:04:24,668 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:04:24,668 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:04:24,668 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239906
+2025-11-24 14:04:24,668 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239906.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:07:58,163 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:07:58,163 - INFO - ✅ 完成 | Completed: SRR1239906
+2025-11-24 14:07:58,163 - INFO - 🔄 总进度 | Overall Progress: [61/88]
+2025-11-24 14:07:58,163 - INFO - ============================================================
+2025-11-24 14:07:58,163 - INFO - 📦 处理文件 | Processing file: SRR1239909
+2025-11-24 14:07:58,163 - INFO - ============================================================
+2025-11-24 14:07:58,163 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:07:58,163 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:07:58,163 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239909
+2025-11-24 14:07:58,163 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239909.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:11:33,567 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:11:33,567 - INFO - ✅ 完成 | Completed: SRR1239909
+2025-11-24 14:11:33,567 - INFO - 🔄 总进度 | Overall Progress: [62/88]
+2025-11-24 14:11:33,567 - INFO - ============================================================
+2025-11-24 14:11:33,567 - INFO - 📦 处理文件 | Processing file: SRR1239911
+2025-11-24 14:11:33,567 - INFO - ============================================================
+2025-11-24 14:11:33,567 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:11:33,567 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:11:33,567 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239911
+2025-11-24 14:11:33,567 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239911.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:15:10,555 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:15:10,555 - INFO - ✅ 完成 | Completed: SRR1239911
+2025-11-24 14:15:10,555 - INFO - 🔄 总进度 | Overall Progress: [63/88]
+2025-11-24 14:15:10,555 - INFO - ============================================================
+2025-11-24 14:15:10,555 - INFO - 📦 处理文件 | Processing file: SRR1239912
+2025-11-24 14:15:10,555 - INFO - ============================================================
+2025-11-24 14:15:10,556 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:15:10,556 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:15:10,556 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239912
+2025-11-24 14:15:10,556 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239912.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:18:48,967 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:18:48,967 - INFO - ✅ 完成 | Completed: SRR1239912
+2025-11-24 14:18:48,967 - INFO - 🔄 总进度 | Overall Progress: [64/88]
+2025-11-24 14:18:48,967 - INFO - ============================================================
+2025-11-24 14:18:48,967 - INFO - 📦 处理文件 | Processing file: SRR1239913
+2025-11-24 14:18:48,967 - INFO - ============================================================
+2025-11-24 14:18:48,967 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:18:48,968 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:18:48,968 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239913
+2025-11-24 14:18:48,968 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239913.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:22:27,736 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:22:27,737 - INFO - ✅ 完成 | Completed: SRR1239913
+2025-11-24 14:22:27,737 - INFO - 🔄 总进度 | Overall Progress: [65/88]
+2025-11-24 14:22:27,737 - INFO - ============================================================
+2025-11-24 14:22:27,737 - INFO - 📦 处理文件 | Processing file: SRR1239914
+2025-11-24 14:22:27,737 - INFO - ============================================================
+2025-11-24 14:22:27,737 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:22:27,737 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:22:27,737 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239914
+2025-11-24 14:22:27,737 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239914.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:26:00,968 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:26:00,968 - INFO - ✅ 完成 | Completed: SRR1239914
+2025-11-24 14:26:00,968 - INFO - 🔄 总进度 | Overall Progress: [66/88]
+2025-11-24 14:26:00,968 - INFO - ============================================================
+2025-11-24 14:26:00,968 - INFO - 📦 处理文件 | Processing file: SRR1239916
+2025-11-24 14:26:00,968 - INFO - ============================================================
+2025-11-24 14:26:00,968 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:26:00,968 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:26:00,968 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239916
+2025-11-24 14:26:00,968 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239916.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:29:38,860 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:29:38,860 - INFO - ✅ 完成 | Completed: SRR1239916
+2025-11-24 14:29:38,860 - INFO - 🔄 总进度 | Overall Progress: [67/88]
+2025-11-24 14:29:38,860 - INFO - ============================================================
+2025-11-24 14:29:38,860 - INFO - 📦 处理文件 | Processing file: SRR1239918
+2025-11-24 14:29:38,860 - INFO - ============================================================
+2025-11-24 14:29:38,860 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:29:38,860 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:29:38,860 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239918
+2025-11-24 14:29:38,860 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239918.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:33:13,200 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:33:13,200 - INFO - ✅ 完成 | Completed: SRR1239918
+2025-11-24 14:33:13,200 - INFO - 🔄 总进度 | Overall Progress: [68/88]
+2025-11-24 14:33:13,200 - INFO - ============================================================
+2025-11-24 14:33:13,200 - INFO - 📦 处理文件 | Processing file: SRR1239919
+2025-11-24 14:33:13,200 - INFO - ============================================================
+2025-11-24 14:33:13,200 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:33:13,200 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:33:13,200 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239919
+2025-11-24 14:33:13,200 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239919.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:36:58,819 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:36:58,819 - INFO - ✅ 完成 | Completed: SRR1239919
+2025-11-24 14:36:58,819 - INFO - 🔄 总进度 | Overall Progress: [69/88]
+2025-11-24 14:36:58,819 - INFO - ============================================================
+2025-11-24 14:36:58,819 - INFO - 📦 处理文件 | Processing file: SRR1239920
+2025-11-24 14:36:58,819 - INFO - ============================================================
+2025-11-24 14:36:58,819 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:36:58,819 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:36:58,819 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239920
+2025-11-24 14:36:58,819 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239920.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:40:33,266 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:40:33,267 - INFO - ✅ 完成 | Completed: SRR1239920
+2025-11-24 14:40:33,267 - INFO - 🔄 总进度 | Overall Progress: [70/88]
+2025-11-24 14:40:33,267 - INFO - ============================================================
+2025-11-24 14:40:33,267 - INFO - 📦 处理文件 | Processing file: SRR1239921
+2025-11-24 14:40:33,267 - INFO - ============================================================
+2025-11-24 14:40:33,267 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:40:33,267 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:40:33,267 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239921
+2025-11-24 14:40:33,267 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239921.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:44:10,726 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:44:10,726 - INFO - ✅ 完成 | Completed: SRR1239921
+2025-11-24 14:44:10,726 - INFO - 🔄 总进度 | Overall Progress: [71/88]
+2025-11-24 14:44:10,726 - INFO - ============================================================
+2025-11-24 14:44:10,726 - INFO - 📦 处理文件 | Processing file: SRR1239923
+2025-11-24 14:44:10,726 - INFO - ============================================================
+2025-11-24 14:44:10,726 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:44:10,726 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:44:10,726 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239923
+2025-11-24 14:44:10,726 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239923.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:47:44,159 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:47:44,160 - INFO - ✅ 完成 | Completed: SRR1239923
+2025-11-24 14:47:44,160 - INFO - 🔄 总进度 | Overall Progress: [72/88]
+2025-11-24 14:47:44,160 - INFO - ============================================================
+2025-11-24 14:47:44,160 - INFO - 📦 处理文件 | Processing file: SRR1239926
+2025-11-24 14:47:44,160 - INFO - ============================================================
+2025-11-24 14:47:44,160 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:47:44,160 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:47:44,160 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239926
+2025-11-24 14:47:44,160 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239926.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:51:20,576 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:51:20,576 - INFO - ✅ 完成 | Completed: SRR1239926
+2025-11-24 14:51:20,576 - INFO - 🔄 总进度 | Overall Progress: [73/88]
+2025-11-24 14:51:20,576 - INFO - ============================================================
+2025-11-24 14:51:20,576 - INFO - 📦 处理文件 | Processing file: SRR1239927
+2025-11-24 14:51:20,576 - INFO - ============================================================
+2025-11-24 14:51:20,576 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:51:20,576 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:51:20,576 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239927
+2025-11-24 14:51:20,576 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239927.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:55:07,913 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:55:07,913 - INFO - ✅ 完成 | Completed: SRR1239927
+2025-11-24 14:55:07,913 - INFO - 🔄 总进度 | Overall Progress: [74/88]
+2025-11-24 14:55:07,913 - INFO - ============================================================
+2025-11-24 14:55:07,913 - INFO - 📦 处理文件 | Processing file: SRR1239930
+2025-11-24 14:55:07,913 - INFO - ============================================================
+2025-11-24 14:55:07,913 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:55:07,913 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:55:07,913 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239930
+2025-11-24 14:55:07,913 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239930.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 14:58:41,483 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 14:58:41,483 - INFO - ✅ 完成 | Completed: SRR1239930
+2025-11-24 14:58:41,483 - INFO - 🔄 总进度 | Overall Progress: [75/88]
+2025-11-24 14:58:41,483 - INFO - ============================================================
+2025-11-24 14:58:41,483 - INFO - 📦 处理文件 | Processing file: SRR1239932
+2025-11-24 14:58:41,483 - INFO - ============================================================
+2025-11-24 14:58:41,483 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 14:58:41,483 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 14:58:41,483 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239932
+2025-11-24 14:58:41,484 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239932.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:02:16,363 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:02:16,363 - INFO - ✅ 完成 | Completed: SRR1239932
+2025-11-24 15:02:16,363 - INFO - 🔄 总进度 | Overall Progress: [76/88]
+2025-11-24 15:02:16,363 - INFO - ============================================================
+2025-11-24 15:02:16,363 - INFO - 📦 处理文件 | Processing file: SRR1239933
+2025-11-24 15:02:16,363 - INFO - ============================================================
+2025-11-24 15:02:16,363 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:02:16,363 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:02:16,363 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239933
+2025-11-24 15:02:16,363 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239933.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:05:53,951 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:05:53,952 - INFO - ✅ 完成 | Completed: SRR1239933
+2025-11-24 15:05:53,952 - INFO - 🔄 总进度 | Overall Progress: [77/88]
+2025-11-24 15:05:53,952 - INFO - ============================================================
+2025-11-24 15:05:53,952 - INFO - 📦 处理文件 | Processing file: SRR1239934
+2025-11-24 15:05:53,952 - INFO - ============================================================
+2025-11-24 15:05:53,952 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:05:53,952 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:05:53,952 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239934
+2025-11-24 15:05:53,952 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239934.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:09:29,182 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:09:29,182 - INFO - ✅ 完成 | Completed: SRR1239934
+2025-11-24 15:09:29,182 - INFO - 🔄 总进度 | Overall Progress: [78/88]
+2025-11-24 15:09:29,182 - INFO - ============================================================
+2025-11-24 15:09:29,182 - INFO - 📦 处理文件 | Processing file: SRR1239935
+2025-11-24 15:09:29,182 - INFO - ============================================================
+2025-11-24 15:09:29,182 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:09:29,182 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:09:29,182 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239935
+2025-11-24 15:09:29,182 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239935.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:13:04,251 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:13:04,251 - INFO - ✅ 完成 | Completed: SRR1239935
+2025-11-24 15:13:04,251 - INFO - 🔄 总进度 | Overall Progress: [79/88]
+2025-11-24 15:13:04,251 - INFO - ============================================================
+2025-11-24 15:13:04,251 - INFO - 📦 处理文件 | Processing file: SRR1239937
+2025-11-24 15:13:04,251 - INFO - ============================================================
+2025-11-24 15:13:04,251 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:13:04,251 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:13:04,251 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239937
+2025-11-24 15:13:04,251 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239937.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:16:39,790 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:16:39,790 - INFO - ✅ 完成 | Completed: SRR1239937
+2025-11-24 15:16:39,790 - INFO - 🔄 总进度 | Overall Progress: [80/88]
+2025-11-24 15:16:39,790 - INFO - ============================================================
+2025-11-24 15:16:39,790 - INFO - 📦 处理文件 | Processing file: SRR1239939
+2025-11-24 15:16:39,790 - INFO - ============================================================
+2025-11-24 15:16:39,790 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:16:39,790 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:16:39,790 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239939
+2025-11-24 15:16:39,790 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239939.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:20:17,928 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:20:17,929 - INFO - ✅ 完成 | Completed: SRR1239939
+2025-11-24 15:20:17,929 - INFO - 🔄 总进度 | Overall Progress: [81/88]
+2025-11-24 15:20:17,929 - INFO - ============================================================
+2025-11-24 15:20:17,929 - INFO - 📦 处理文件 | Processing file: SRR1239942
+2025-11-24 15:20:17,929 - INFO - ============================================================
+2025-11-24 15:20:17,929 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:20:17,929 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:20:17,929 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239942
+2025-11-24 15:20:17,929 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239942.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:23:48,371 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:23:48,372 - INFO - ✅ 完成 | Completed: SRR1239942
+2025-11-24 15:23:48,372 - INFO - 🔄 总进度 | Overall Progress: [82/88]
+2025-11-24 15:23:48,372 - INFO - ============================================================
+2025-11-24 15:23:48,372 - INFO - 📦 处理文件 | Processing file: SRR1239943
+2025-11-24 15:23:48,372 - INFO - ============================================================
+2025-11-24 15:23:48,372 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:23:48,372 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:23:48,372 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239943
+2025-11-24 15:23:48,372 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239943.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:27:22,728 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:27:22,728 - INFO - ✅ 完成 | Completed: SRR1239943
+2025-11-24 15:27:22,728 - INFO - 🔄 总进度 | Overall Progress: [83/88]
+2025-11-24 15:27:22,728 - INFO - ============================================================
+2025-11-24 15:27:22,728 - INFO - 📦 处理文件 | Processing file: SRR1239944
+2025-11-24 15:27:22,728 - INFO - ============================================================
+2025-11-24 15:27:22,728 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:27:22,728 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:27:22,728 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239944
+2025-11-24 15:27:22,728 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239944.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:30:58,170 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:30:58,171 - INFO - ✅ 完成 | Completed: SRR1239944
+2025-11-24 15:30:58,171 - INFO - 🔄 总进度 | Overall Progress: [84/88]
+2025-11-24 15:30:58,171 - INFO - ============================================================
+2025-11-24 15:30:58,171 - INFO - 📦 处理文件 | Processing file: SRR1239949
+2025-11-24 15:30:58,171 - INFO - ============================================================
+2025-11-24 15:30:58,171 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:30:58,171 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:30:58,171 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1239949
+2025-11-24 15:30:58,171 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1239949.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:34:38,243 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:34:38,243 - INFO - ✅ 完成 | Completed: SRR1239949
+2025-11-24 15:34:38,243 - INFO - 🔄 总进度 | Overall Progress: [85/88]
+2025-11-24 15:34:38,243 - INFO - ============================================================
+2025-11-24 15:34:38,243 - INFO - 📦 处理文件 | Processing file: SRR1240106
+2025-11-24 15:34:38,243 - INFO - ============================================================
+2025-11-24 15:34:38,243 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:34:38,244 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:34:38,244 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1240106
+2025-11-24 15:34:38,244 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1240106.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:38:13,334 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:38:13,334 - INFO - ✅ 完成 | Completed: SRR1240106
+2025-11-24 15:38:13,334 - INFO - 🔄 总进度 | Overall Progress: [86/88]
+2025-11-24 15:38:13,334 - INFO - ============================================================
+2025-11-24 15:38:13,334 - INFO - 📦 处理文件 | Processing file: SRR1240132
+2025-11-24 15:38:13,334 - INFO - ============================================================
+2025-11-24 15:38:13,334 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:38:13,334 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:38:13,334 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1240132
+2025-11-24 15:38:13,334 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1240132.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:41:49,194 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:41:49,195 - INFO - ✅ 完成 | Completed: SRR1240132
+2025-11-24 15:41:49,195 - INFO - 🔄 总进度 | Overall Progress: [87/88]
+2025-11-24 15:41:49,195 - INFO - ============================================================
+2025-11-24 15:41:49,195 - INFO - 📦 处理文件 | Processing file: SRR1240133
+2025-11-24 15:41:49,195 - INFO - ============================================================
+2025-11-24 15:41:49,195 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:41:49,195 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:41:49,195 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1240133
+2025-11-24 15:41:49,195 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR1240133.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:45:24,968 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:45:24,968 - INFO - ✅ 完成 | Completed: SRR1240133
+2025-11-24 15:45:24,968 - INFO - 🔄 总进度 | Overall Progress: [88/88]
+2025-11-24 15:45:24,968 - INFO - ============================================================
+2025-11-24 15:45:24,968 - INFO - 📦 处理文件 | Processing file: SRR12881292
+2025-11-24 15:45:24,968 - INFO - ============================================================
+2025-11-24 15:45:24,968 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-24 15:45:24,968 - INFO - 🧵 线程数 | Threads: 88
+2025-11-24 15:45:24,968 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR12881292
+2025-11-24 15:45:24,968 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/sra/SRR12881292.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq --split-files --gzip --skip-technical
+2025-11-24 15:45:27,670 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-24 15:45:27,670 - INFO - ✅ 完成 | Completed: SRR12881292
+2025-11-24 15:45:27,671 - INFO - 📊 生成转换报告 | Generating conversion report...
+2025-11-24 15:45:27,754 - INFO - 📊 转换摘要已生成 | Summary report generated: fastq/conversion_summary.txt
+2025-11-24 15:45:27,754 - INFO - ================================================================================
+2025-11-24 15:45:27,754 - INFO - 🎉 转换流程完成 | Conversion Pipeline Completed
+2025-11-24 15:45:27,754 - INFO - ================================================================================
+2025-11-24 15:45:27,754 - INFO - ⏱️  总耗时 | Duration: 18175.4 秒 | seconds
+2025-11-24 15:45:27,754 - INFO - ✅ 成功: 88 | Success: 88
+2025-11-24 15:45:27,754 - INFO - ❌ 失败: 0 | Failed: 0
+2025-11-24 15:45:27,754 - INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/raw/resequence/fastq

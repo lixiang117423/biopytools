@@ -1,0 +1,37 @@
+name: evidencemodeler
+channels:
+  - ursky
+  - bioconda
+  - conda-forge
+  - defaults
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+dependencies:
+  - _libgcc_mutex=0.1
+  - _openmp_mutex=4.5
+  - evidencemodeler=2.1.0
+  - libdb=6.2.32
+  - libgcc=15.1.0
+  - libgcc-ng=15.1.0
+  - libgomp=15.1.0
+  - libstdcxx=15.1.0
+  - libstdcxx-ng=15.1.0
+  - libxcrypt=4.4.36
+  - perl=5.32.1
+  - perl-business-isbn=3.007
+  - perl-business-isbn-data=20210112.006
+  - perl-carp=1.38
+  - perl-constant=1.33
+  - perl-data-dumper=2.183
+  - perl-db_file=1.858
+  - perl-dbi=1.643
+  - perl-encode=3.19
+  - perl-exporter=5.72
+  - perl-extutils-makemaker=7.70
+  - perl-mime-base64=3.16
+  - perl-parent=0.236
+  - perl-uri=5.12
+prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/evidencemodeler

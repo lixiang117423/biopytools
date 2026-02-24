@@ -1,0 +1,6 @@
+Usage: biopytools haphic [OPTIONS] ASM_FILE HIC_FILE NCHRS
+Try 'biopytools haphic -h' for help.
+
+Error: Invalid value for 'HIC_FILE': File '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic' is a directory.
+Job 68571066 stderr output:
+

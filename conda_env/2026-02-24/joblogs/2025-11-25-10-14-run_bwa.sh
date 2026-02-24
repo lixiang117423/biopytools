@@ -1,0 +1,1 @@
+./run_bwa_gatk.sh -i 01.data/clean -r 01.data/genome/Erysimum_cheiranthoides_chromosomes.fna -o 02.mapping

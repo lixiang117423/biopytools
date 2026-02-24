@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/project/94.rice_gas/11.tassel_gwas/cal_gwas_lambda.py", line 89, in <module>
+    main()
+  File "/share/org/YZWL/yzwl_lixg/project/94.rice_gas/11.tassel_gwas/cal_gwas_lambda.py", line 72, in main
+    lambda_val, info = calculate_lambda(file_path)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/project/94.rice_gas/11.tassel_gwas/cal_gwas_lambda.py", line 31, in calculate_lambda
+    chisq_stats = chi2.ppf(1 - p_values, df=1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/lib/python3.12/site-packages/scipy/stats/_distn_infrastructure.py", line 2331, in ppf
+    place(output, cond, self._ppf(*goodargs) * scale + loc)
+                        ^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/lib/python3.12/site-packages/scipy/stats/_continuous_distns.py", line 1655, in _ppf
+    return 2*sc.gammaincinv(df/2, p)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Job 68295392 stderr output:
+

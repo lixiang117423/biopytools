@@ -1,0 +1,66 @@
+[2025-12-21 13:15:39] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-21 13:15:39] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-21 13:15:39]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa
+[2025-12-21 13:15:39]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-21 13:15:39]   hic_file_type: fastq
+[2025-12-21 13:15:39]   nchrs: 12
+[2025-12-21 13:15:39]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary
+[2025-12-21 13:15:39]   prefix: OV53_1.primary
+[2025-12-21 13:15:39]   threads: 64
+[2025-12-21 13:15:39]   processes: 8
+[2025-12-21 13:15:39]   quick_view: False
+[2025-12-21 13:15:39]   restriction_sites: ['GATC']
+[2025-12-21 13:15:39]   correct_nrounds: 2
+[2025-12-21 13:15:39]   remove_allelic_links: None
+[2025-12-21 13:15:39]   phasing_weight: 1.0
+[2025-12-21 13:15:39]   gfa_files: None
+[2025-12-21 13:15:39]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-21 13:15:39]   bwa_bin: bwa
+[2025-12-21 13:15:39]   samtools_bin: samtools
+[2025-12-21 13:15:39] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-21 13:15:39] 🔍 系统预检查 | System pre-flight checks
+[2025-12-21 13:15:39] 🔍 验证输入文件 | Validating input files
+[2025-12-21 13:15:41] 📊 基因组序列数量 | Assembly sequence count: 1211
+[2025-12-21 13:15:41] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 58.01 GB
+[2025-12-21 13:15:41] ✅ 输入文件验证通过 | Input files validated
+[2025-12-21 13:15:41] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-21 13:15:41] 💾 可用内存 | Available memory: 876.6 GB
+[2025-12-21 13:15:41] 💾 可用磁盘空间 | Available disk space: 2127462.1 GB
+[2025-12-21 13:15:41] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-21 13:15:43] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-21 13:15:43] 🔍 检查已存在的比对结果 | Checking for existing alignment results
+[2025-12-21 13:15:43] 📂 输出目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary
+[2025-12-21 13:15:43] 📂 比对目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping
+[2025-12-21 13:15:43] 📄 潜在BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.bam
+[2025-12-21 13:15:43] 📄 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.filtered.bam
+[2025-12-21 13:15:43] ✅ 比对目录存在 | Alignment directory exists
+[2025-12-21 13:15:43] 📋 比对目录内容: ['assembly.fa.amb', 'assembly.fa.bwt', 'assembly.fa.ann', 'assembly.fa', 'HiC.filtered.bam', 'assembly.fa.pac', 'read1_1.fastq.gz', 'HiC.bam', 'assembly.fa.sa', 'read2_1.fastq.gz']
+[2025-12-21 13:15:43] ✅ 发现已存在的过滤BAM文件，跳过BWA比对步骤 | Found existing filtered BAM file, skipping BWA alignment: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.filtered.bam (67,442,747,903 bytes)
+[2025-12-21 13:15:43] ✅ 使用按read name排序的过滤BAM文件以满足HapHiC要求 | Using read name-sorted filtered BAM file to meet HapHiC requirements
+[2025-12-21 13:15:43] 🚀 开始HapHiC Pipeline流程 | Starting HapHiC Pipeline
+[2025-12-21 13:15:43] 📁 设置目录结构 | Setting up directory structure
+[2025-12-21 13:15:43] ✅ 目录结构设置完成 | Directory structure setup complete
+[2025-12-21 13:15:43] 🔍 检查HapHiC Pipeline完成状态 | Checking HapHiC Pipeline completion status
+[2025-12-21 13:15:43] ✅ Cluster步骤已完成 | Cluster step completed
+[2025-12-21 13:15:43] ✅ Reassign步骤已完成 | Reassign step completed
+[2025-12-21 13:15:43] ✅ Sort步骤已完成 | Sort step completed
+[2025-12-21 13:15:43] ✅ Build步骤已完成 | Build step completed
+[2025-12-21 13:15:43] ✅ HapHiC Pipeline已完成，跳过执行 | HapHiC Pipeline already completed, skipping execution
+[2025-12-21 13:15:43] 📊 可视化生成已禁用 | Visualization generation disabled
+[2025-12-21 13:15:43] 🥤 生成Juicebox文件 | Generating Juicebox files
+[2025-12-21 13:15:43] 📂 Juicebox目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/06.juicebox
+[2025-12-21 13:15:43] 🔧 使用YaHS-style方法生成Juicebox文件
+[2025-12-21 13:15:43] 📁 原始assembly: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa
+[2025-12-21 13:15:43] 📁 Raw AGP文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/04.build/OV53_1.primary.raw.agp
+[2025-12-21 13:15:43] 📁 BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.filtered.bam
+[2025-12-21 13:15:43] 🔧 步骤1: 创建软链接到06.juicebox目录 | Step 1: Create symlinks to 06.juicebox directory
+[2025-12-21 13:15:43] 🔧 步骤2: 运行juicer pre命令 | Step 2: Run juicer pre command
+[2025-12-21 13:15:43] 🔧 执行命令: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/juicer pre -a -q 1 -o out_JBAT /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/06.juicebox/HiC.filtered.bam /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/06.juicebox/OV53_1.primary.raw.agp /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/06.juicebox/OV53_1.primary.fa.fai
+[2025-12-21 13:15:43] 🚀 juicer pre
+[2025-12-21 13:34:27] ✅ 命令执行完成 | Command completed successfully (1124.2s)
+[2025-12-21 13:34:27] 🔧 步骤3: 生成.hic文件 | Step 3: Generate .hic file
+[2025-12-21 13:34:27] 🔧 步骤3a: 提取染色体大小信息 | Step 3a: Extract chromosome sizes
+[2025-12-21 13:34:27] 🚀 提取染色体大小
+[2025-12-21 13:34:27] ✅ 命令执行完成 | Command completed successfully (0.0s)
+[2025-12-21 13:34:27] 🔧 步骤3b: 使用染色体大小信息生成.hic文件 | Step 3b: Generate .hic file with chromosome sizes
+[2025-12-21 13:34:27] 🚀 生成.hic文件（part）

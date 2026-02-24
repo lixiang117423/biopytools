@@ -1,0 +1,70 @@
+2026-02-04 10:31:04.430 - INFO - 检查JanusX依赖|Checking JanusX dependencies
+2026-02-04 10:31:04.445 - INFO - JanusX路径|JanusX path: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin
+2026-02-04 10:31:06.981 - INFO - JanusX可执行文件检查通过|JanusX executable check passed
+2026-02-04 10:31:06.981 - INFO - ============================================================
+2026-02-04 10:31:06.981 - INFO - 开始JanusX GWAS分析|Starting JanusX GWAS analysis
+2026-02-04 10:31:06.981 - INFO - ============================================================
+2026-02-04 10:31:06.981 - INFO - 基因型文件|Genotype file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf
+2026-02-04 10:31:06.981 - INFO - 表型文件|Phenotype file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-02-04 10:31:06.981 - INFO - GWAS模型|GWAS models: lmm
+2026-02-04 10:31:06.981 - INFO - MAF阈值|MAF threshold: 0.05
+2026-02-04 10:31:06.981 - INFO - 缺失率阈值|Missing rate threshold: 0.0
+2026-02-04 10:31:06.981 - INFO - 线程数|Threads: 64
+2026-02-04 10:31:06.981 - INFO - 输出目录|Output directory: ./janusx_gwas_output
+2026-02-04 10:31:06.981 - INFO - 构建命令|Command built: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf -p /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -lmm -maf 0.05 -geno 0.0 -t 64 -o ./janusx_gwas_output -prefix kmer
+2026-02-04 10:31:06.981 - INFO - 运行GWAS分析|Running GWAS analysis: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf -p /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -lmm -maf 0.05 -geno 0.0 -t 64 -o ./janusx_gwas_output -prefix kmer
+2026-02-05 02:02:53.105 - INFO - 输出|Output:        _                      __   __
+2026-02-05 02:02:53.107 - INFO - 输出|Output:       | |                     \ \ / /
+2026-02-05 02:02:53.107 - INFO - 输出|Output:       | | __ _ _ __  _   _ ___ \ V / 
+2026-02-05 02:02:53.132 - INFO - 输出|Output:   _   | |/ _` | '_ \| | | / __| > <  
+2026-02-05 02:02:53.133 - INFO - 输出|Output:  | |__| | (_| | | | | |_| \__ \/ . \ 
+2026-02-05 02:02:53.133 - INFO - 输出|Output:   \____/ \__,_|_| |_|\__,_|___/_/ \_\ Tools for GWAS and GS
+2026-02-05 02:02:53.133 - INFO - 输出|Output: JanusX - High Performance GWAS CLI (LMM/LM: streaming low-memory; FarmCPU: full-memory)
+2026-02-05 02:02:53.133 - INFO - 输出|Output: Host: c02n0105
+2026-02-05 02:02:53.133 - INFO - 输出|Output: ************************************************************
+2026-02-05 02:02:53.133 - INFO - 输出|Output: GWAS CONFIGURATION
+2026-02-05 02:02:53.133 - INFO - 输出|Output: ************************************************************
+2026-02-05 02:02:53.133 - INFO - 输出|Output: Genotype file:    /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf
+2026-02-05 02:02:53.133 - INFO - 输出|Output: Phenotype file:   /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-02-05 02:02:53.133 - INFO - 输出|Output: Phenotype cols:   All
+2026-02-05 02:02:53.133 - INFO - 输出|Output: Mmap limit:       False
+2026-02-05 02:02:53.133 - INFO - 输出|Output: Models:           LMM 
+2026-02-05 02:02:53.135 - INFO - 输出|Output: GRM option:       1
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Q option:         0
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Maf threshold:    0.05
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Miss threshold:   0.0
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Chunk size:       100000
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Threads:          64 (64 available)
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Output prefix:    ./janusx_gwas_output/kmer
+2026-02-05 02:02:53.135 - INFO - 输出|Output: ************************************************************
+2026-02-05 02:02:53.135 - INFO - 输出|Output: ============================================================
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Prepare streaming context (phenotype/genotype meta/GRM/Q/cov)
+2026-02-05 02:02:53.135 - INFO - 输出|Output: ============================================================
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Loading phenotype from /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt...
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Genotype meta: 181 samples, 4188800587 SNPs.
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Cache prefix (genotype folder): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Building GRM (streaming), method=1
+2026-02-05 02:02:53.135 - INFO - 输出|Output: GRM construction finished.
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Cached GRM written to /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.k.1.npy
+2026-02-05 02:02:53.135 - INFO - 输出|Output: GRM shape: (181, 181)
+2026-02-05 02:02:53.135 - INFO - 输出|Output: PC dimension set to 0; using empty Q matrix.
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Q matrix shape: (181, 0)
+2026-02-05 02:02:53.135 - INFO - 输出|Output: ============================================================
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Run streaming LMM
+2026-02-05 02:02:53.135 - INFO - 输出|Output: ============================================================
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Streaming LMM GWAS for trait: level
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Start Eigen-Decomposition...
+2026-02-05 02:02:53.135 - INFO - 输出|Output: EVD cost 0.04 secs
+2026-02-05 02:02:53.135 - INFO - 输出|Output: Samples: 181, Total SNPs: 1295069371, PVE(null): 0.242
+2026-02-05 02:02:53.136 - INFO - 输出|Output: Effective SNP: 1295069371 | Resource usage for LMM / level: 
+2026-02-05 02:02:53.136 - INFO - 输出|Output: wall=32133.05 s, avg CPU=9.7% of 88 cores, avg RSS=0.69 GB, peak RSS ~ 1.15 GB
+2026-02-05 02:02:53.136 - INFO - 输出|Output: Saved LMM results to ./janusx_gwas_output/kmer.level.lmm.tsv
+2026-02-05 02:02:53.136 - INFO - 输出|Output: Finished. Total wall time: 55903.68 seconds
+2026-02-05 02:02:53.136 - INFO - 输出|Output: 2026-2-5 2:2:52
+2026-02-05 02:02:53.136 - INFO - ============================================================
+2026-02-05 02:02:53.136 - INFO - GWAS分析完成|GWAS analysis completed
+2026-02-05 02:02:53.136 - INFO - ============================================================
+2026-02-05 02:02:53.136 - INFO - 输出文件|Output files:
+2026-02-05 02:02:53.136 - INFO -   kmer.gwas.log (0.00 MB)
+2026-02-05 02:02:53.136 - INFO -   kmer.level.lmm.tsv (63134.77 MB)
+2026-02-05 02:02:53.137 - INFO -   kmer.vcf.gwas.log (0.00 MB)

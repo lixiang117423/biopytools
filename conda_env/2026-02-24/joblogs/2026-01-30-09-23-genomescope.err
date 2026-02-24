@@ -1,0 +1,17 @@
+2026-01-30 09:27:42.664 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 09:27:42.664 - WARNING - 样品 J_CZ Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 09:28:03.908 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 09:28:03.908 - WARNING - 样品 OV44_23 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 09:30:42.935 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 09:30:42.935 - WARNING - 样品 OV44_23 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 09:37:48.706 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 09:37:48.707 - WARNING - 样品 OV47_12 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 09:42:56.126 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 09:42:56.126 - WARNING - 样品 OV47_12 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 09:49:32.570 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 09:49:32.571 - WARNING - 样品 OV48_12 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 09:54:25.662 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 09:54:25.662 - WARNING - 样品 OV48_12 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 09:56:06.048 - WARNING - 用户中断操作
+Job 69115518 stderr output:
+

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/plink_gwas/main.py", line 315, in main
+    gwas = PlinkGWAS(
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/plink_gwas/main.py", line 24, in __init__
+    self.config.validate()
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/plink_gwas/config.py", line 162, in validate
+    if not (0 <= self.mind <= 1):
+TypeError: '<=' not supported between instances of 'int' and 'NoneType'
+Job 68692066 stderr output:
+

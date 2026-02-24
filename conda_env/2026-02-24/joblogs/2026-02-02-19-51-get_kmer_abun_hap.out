@@ -1,0 +1,28 @@
+2026-02-02 19:51:14.917 - INFO - ====================================================================================================
+2026-02-02 19:51:14.935 - INFO -  Kmer交集提取工具|Kmer Intersection Extraction Tool
+2026-02-02 19:51:14.935 - INFO - ====================================================================================================
+2026-02-02 19:51:14.935 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 19:51:14.935 - INFO - 目标kmer fasta|Target kmer fasta: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_kmer_51.fa
+2026-02-02 19:51:14.935 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 19:51:14.935 - INFO - 线程数|Threads: 64
+2026-02-02 19:51:14.935 - INFO - 使用反向互补查询|Use reverse complement: True
+2026-02-02 19:51:14.935 - INFO - 
+2026-02-02 19:51:14.935 - INFO - ====================================================================================================
+2026-02-02 19:51:14.935 - INFO -  加载目标kmer|Loading Target Kmers
+2026-02-02 19:51:14.935 - INFO - ====================================================================================================
+2026-02-02 19:51:14.935 - INFO - fasta文件|Fasta file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_kmer_51.fa
+
+分析被用户中断|Analysis interrupted by user
+2026-02-02 19:51:59.617 - INFO - ====================================================================================================
+2026-02-02 19:51:59.644 - INFO -  Kmer交集提取工具|Kmer Intersection Extraction Tool
+2026-02-02 19:51:59.644 - INFO - ====================================================================================================
+2026-02-02 19:51:59.644 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 19:51:59.644 - INFO - 目标kmer fasta|Target kmer fasta: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_kmer_51.fa
+2026-02-02 19:51:59.644 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 19:51:59.644 - INFO - 线程数|Threads: 64
+2026-02-02 19:51:59.645 - INFO - 使用反向互补查询|Use reverse complement: True
+2026-02-02 19:51:59.645 - INFO - 
+2026-02-02 19:51:59.645 - INFO - ====================================================================================================
+2026-02-02 19:51:59.645 - INFO -  加载目标kmer|Loading Target Kmers
+2026-02-02 19:51:59.645 - INFO - ====================================================================================================
+2026-02-02 19:51:59.645 - INFO - fasta文件|Fasta file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_kmer_51.fa

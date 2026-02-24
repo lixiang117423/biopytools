@@ -1,0 +1,669 @@
+2026-01-11 23:54:30.183 - INFO - ============================================================
+2026-01-11 23:54:30.183 - INFO - RNA-seq分析流程开始|RNA-seq analysis pipeline started
+2026-01-11 23:54:30.183 - INFO - ============================================================
+2026-01-11 23:54:30.183 - INFO - 基因组文件|Genome file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.fa
+2026-01-11 23:54:30.183 - INFO - 输入路径|Input path: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean
+2026-01-11 23:54:30.183 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量
+2026-01-11 23:54:30.183 - INFO - GTF文件|GTF file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf
+2026-01-11 23:54:30.183 - INFO - 线程数|Threads: 64
+2026-01-11 23:54:30.183 - INFO - 删除BAM文件|Remove BAM files: no
+2026-01-11 23:54:30.183 - INFO - 文件模式|File pattern: *_1.clean.fq.gz
+2026-01-11 23:54:30.183 - INFO - ============================================================
+2026-01-11 23:54:30.183 - INFO - 步骤1: 构建HISAT2索引|Step 1: Building HISAT2 index
+2026-01-11 23:54:30.183 - INFO - ============================================================
+2026-01-11 23:54:30.183 - INFO - 提取剪接位点|Extracting splice sites: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.ss
+2026-01-11 23:54:30.183 - INFO - 运行|Running: 提取剪接位点|Extract splice sites
+2026-01-11 23:54:30.184 - INFO - 命令|Command: extract_splice_sites.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.ss
+2026-01-11 23:54:33.254 - INFO - 提取剪接位点|Extract splice sites 完成|completed
+2026-01-11 23:54:33.255 - INFO - 剪接位点提取完成|Splice sites extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.ss
+2026-01-11 23:54:33.255 - INFO - 提取外显子|Extracting exons: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.exon
+2026-01-11 23:54:33.255 - INFO - 运行|Running: 提取外显子|Extract exons
+2026-01-11 23:54:33.255 - INFO - 命令|Command: extract_exons.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.exon
+2026-01-11 23:54:35.847 - INFO - 提取外显子|Extract exons 完成|completed
+2026-01-11 23:54:35.848 - INFO - 外显子提取完成|Exons extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.exon
+2026-01-11 23:54:35.848 - INFO - 使用剪接位点文件|Using splice sites file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.ss
+2026-01-11 23:54:35.848 - INFO - 使用外显子文件|Using exons file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.exon
+2026-01-11 23:54:35.848 - INFO - 构建HISAT2索引|Building HISAT2 index with command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.ss --exon /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.exon -p 64 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index
+2026-01-11 23:54:35.852 - INFO - 运行|Running: 构建HISAT2索引|Building HISAT2 index
+2026-01-11 23:54:35.852 - INFO - 命令|Command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.ss --exon /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.exon -p 64 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index
+2026-01-12 00:08:09.723 - INFO - 构建HISAT2索引|Building HISAT2 index 完成|completed
+2026-01-12 00:08:09.747 - INFO - HISAT2索引构建完成|HISAT2 index building completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index
+2026-01-12 00:08:09.747 - INFO - ============================================================
+2026-01-12 00:08:09.747 - INFO - 步骤2: 解析输入样本|Step 2: Parsing input samples
+2026-01-12 00:08:09.747 - INFO - ============================================================
+2026-01-12 00:08:09.748 - INFO - 使用指定的文件模式|Using specified file pattern: *_1.clean.fq.gz
+2026-01-12 00:08:09.748 - INFO - 检测到read标识符|Detected read indicator: _1 <-> _2
+2026-01-12 00:08:09.787 - INFO - 搜索模式|Search pattern: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/*_1.clean.fq.gz
+2026-01-12 00:08:09.787 - INFO - 找到 27 个read1文件|Found 27 read1 files
+2026-01-12 00:08:09.787 - INFO - 样本|Sample: 304
+2026-01-12 00:08:09.787 - INFO -   Read1: 304_1.clean.fq.gz
+2026-01-12 00:08:09.787 - INFO -   Read2: 304_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.796 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.796 - INFO - 样本|Sample: 307
+2026-01-12 00:08:09.796 - INFO -   Read1: 307_1.clean.fq.gz
+2026-01-12 00:08:09.796 - INFO -   Read2: 307_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.797 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.797 - INFO - 样本|Sample: 309
+2026-01-12 00:08:09.797 - INFO -   Read1: 309_1.clean.fq.gz
+2026-01-12 00:08:09.797 - INFO -   Read2: 309_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.800 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.800 - INFO - 样本|Sample: 311
+2026-01-12 00:08:09.800 - INFO -   Read1: 311_1.clean.fq.gz
+2026-01-12 00:08:09.800 - INFO -   Read2: 311_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.801 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.801 - INFO - 样本|Sample: 311叶
+2026-01-12 00:08:09.801 - INFO -   Read1: 311叶_1.clean.fq.gz
+2026-01-12 00:08:09.801 - INFO -   Read2: 311叶_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.802 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.802 - INFO - 样本|Sample: 315
+2026-01-12 00:08:09.802 - INFO -   Read1: 315_1.clean.fq.gz
+2026-01-12 00:08:09.802 - INFO -   Read2: 315_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.803 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.803 - INFO - 样本|Sample: 316
+2026-01-12 00:08:09.803 - INFO -   Read1: 316_1.clean.fq.gz
+2026-01-12 00:08:09.803 - INFO -   Read2: 316_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.803 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.803 - INFO - 样本|Sample: 317
+2026-01-12 00:08:09.803 - INFO -   Read1: 317_1.clean.fq.gz
+2026-01-12 00:08:09.803 - INFO -   Read2: 317_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.814 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.814 - INFO - 样本|Sample: 318
+2026-01-12 00:08:09.814 - INFO -   Read1: 318_1.clean.fq.gz
+2026-01-12 00:08:09.814 - INFO -   Read2: 318_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.814 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.814 - INFO - 样本|Sample: 321
+2026-01-12 00:08:09.814 - INFO -   Read1: 321_1.clean.fq.gz
+2026-01-12 00:08:09.814 - INFO -   Read2: 321_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.814 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.814 - INFO - 样本|Sample: 322
+2026-01-12 00:08:09.814 - INFO -   Read1: 322_1.clean.fq.gz
+2026-01-12 00:08:09.814 - INFO -   Read2: 322_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.814 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.814 - INFO - 样本|Sample: 323
+2026-01-12 00:08:09.814 - INFO -   Read1: 323_1.clean.fq.gz
+2026-01-12 00:08:09.814 - INFO -   Read2: 323_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.814 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.814 - INFO - 样本|Sample: 323叶
+2026-01-12 00:08:09.814 - INFO -   Read1: 323叶_1.clean.fq.gz
+2026-01-12 00:08:09.814 - INFO -   Read2: 323叶_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 324
+2026-01-12 00:08:09.815 - INFO -   Read1: 324_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 324_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 326
+2026-01-12 00:08:09.815 - INFO -   Read1: 326_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 326_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 326叶
+2026-01-12 00:08:09.815 - INFO -   Read1: 326叶_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 326叶_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 328
+2026-01-12 00:08:09.815 - INFO -   Read1: 328_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 328_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 328叶
+2026-01-12 00:08:09.815 - INFO -   Read1: 328叶_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 328叶_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 329
+2026-01-12 00:08:09.815 - INFO -   Read1: 329_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 329_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 330
+2026-01-12 00:08:09.815 - INFO -   Read1: 330_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 330_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 331
+2026-01-12 00:08:09.815 - INFO -   Read1: 331_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 331_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.815 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.815 - INFO - 样本|Sample: 331叶
+2026-01-12 00:08:09.815 - INFO -   Read1: 331叶_1.clean.fq.gz
+2026-01-12 00:08:09.815 - INFO -   Read2: 331叶_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.816 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.816 - INFO - 样本|Sample: 336
+2026-01-12 00:08:09.816 - INFO -   Read1: 336_1.clean.fq.gz
+2026-01-12 00:08:09.816 - INFO -   Read2: 336_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.816 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.816 - INFO - 样本|Sample: 336叶
+2026-01-12 00:08:09.816 - INFO -   Read1: 336叶_1.clean.fq.gz
+2026-01-12 00:08:09.816 - INFO -   Read2: 336叶_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.816 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.816 - INFO - 样本|Sample: 344
+2026-01-12 00:08:09.816 - INFO -   Read1: 344_1.clean.fq.gz
+2026-01-12 00:08:09.816 - INFO -   Read2: 344_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.816 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.816 - INFO - 样本|Sample: 349
+2026-01-12 00:08:09.816 - INFO -   Read1: 349_1.clean.fq.gz
+2026-01-12 00:08:09.816 - INFO -   Read2: 349_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.816 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.816 - INFO - 样本|Sample: 354
+2026-01-12 00:08:09.816 - INFO -   Read1: 354_1.clean.fq.gz
+2026-01-12 00:08:09.816 - INFO -   Read2: 354_2.clean.fq.gz (期望|expected)
+2026-01-12 00:08:09.816 - INFO - 配对成功|Paired successfully
+2026-01-12 00:08:09.816 - INFO - 找到 27 个样本|Found 27 samples:
+2026-01-12 00:08:09.817 - INFO -   - 304: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/304_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/304_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 307: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/307_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/307_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 309: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/309_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/309_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 311: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/311_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/311_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 311叶: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/311叶_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/311叶_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 315: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/315_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/315_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 316: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/316_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/316_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 317: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/317_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/317_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 318: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/318_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/318_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 321: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/321_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/321_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 322: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/322_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/322_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 323: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/323_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/323_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 323叶: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/323叶_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/323叶_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 324: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/324_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/324_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 326: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/326_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/326_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 326叶: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/326叶_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/326叶_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 328: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/328_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/328_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 328叶: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/328叶_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/328叶_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 329: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/329_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/329_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 330: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/330_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/330_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 331: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/331_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/331_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 331叶: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/331叶_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/331叶_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 336: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336_2.clean.fq.gz
+2026-01-12 00:08:09.817 - INFO -   - 336叶: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336叶_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336叶_2.clean.fq.gz
+2026-01-12 00:08:09.818 - INFO -   - 344: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/344_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/344_2.clean.fq.gz
+2026-01-12 00:08:09.818 - INFO -   - 349: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/349_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/349_2.clean.fq.gz
+2026-01-12 00:08:09.818 - INFO -   - 354: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/354_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/354_2.clean.fq.gz
+2026-01-12 00:08:09.818 - INFO - ============================================================
+2026-01-12 00:08:09.818 - INFO - 步骤3: 处理所有样本|Step 3: Processing all samples
+2026-01-12 00:08:09.818 - INFO - ============================================================
+2026-01-12 00:08:09.818 - INFO - ============================================================
+2026-01-12 00:08:09.818 - INFO - 处理样本|Processing sample: 304
+2026-01-12 00:08:09.818 - INFO - ============================================================
+2026-01-12 00:08:09.819 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/304.sorted.bam
+2026-01-12 00:08:09.819 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/304_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/304_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/304.sorted.bam -
+2026-01-12 00:08:09.819 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 01:29:32.578 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/304.sorted.bam 完成|completed
+2026-01-12 01:29:32.595 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/304.sorted.bam
+2026-01-12 01:29:32.595 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/304.gtf
+2026-01-12 01:29:32.595 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/304.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/304.sorted.bam
+2026-01-12 01:33:25.730 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/304.gtf 完成|completed
+2026-01-12 01:33:25.730 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/304.gtf
+2026-01-12 01:33:25.730 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/304.gtf
+2026-01-12 01:33:26.214 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/304.fpkm.txt
+2026-01-12 01:33:26.214 - INFO - 提取了|Extracted 95955个转录本|transcripts
+2026-01-12 01:33:26.214 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/304.sorted.bam
+2026-01-12 01:33:26.214 - INFO - ============================================================
+2026-01-12 01:33:26.215 - INFO - 处理样本|Processing sample: 307
+2026-01-12 01:33:26.215 - INFO - ============================================================
+2026-01-12 01:33:26.215 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/307.sorted.bam
+2026-01-12 01:33:26.215 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/307_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/307_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/307.sorted.bam -
+2026-01-12 01:33:26.215 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 03:00:33.850 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/307.sorted.bam 完成|completed
+2026-01-12 03:00:33.865 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/307.sorted.bam
+2026-01-12 03:00:33.875 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/307.gtf
+2026-01-12 03:00:33.875 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/307.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/307.sorted.bam
+2026-01-12 03:03:55.038 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/307.gtf 完成|completed
+2026-01-12 03:03:55.038 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/307.gtf
+2026-01-12 03:03:55.049 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/307.gtf
+2026-01-12 03:03:55.521 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/307.fpkm.txt
+2026-01-12 03:03:55.522 - INFO - 提取了|Extracted 95963个转录本|transcripts
+2026-01-12 03:03:55.522 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/307.sorted.bam
+2026-01-12 03:03:55.566 - INFO - ============================================================
+2026-01-12 03:03:55.566 - INFO - 处理样本|Processing sample: 309
+2026-01-12 03:03:55.566 - INFO - ============================================================
+2026-01-12 03:03:55.567 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/309.sorted.bam
+2026-01-12 03:03:55.567 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/309_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/309_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/309.sorted.bam -
+2026-01-12 03:03:55.567 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 03:54:34.299 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/309.sorted.bam 完成|completed
+2026-01-12 03:54:34.314 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/309.sorted.bam
+2026-01-12 03:54:34.342 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/309.gtf
+2026-01-12 03:54:34.342 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/309.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/309.sorted.bam
+2026-01-12 03:57:31.506 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/309.gtf 完成|completed
+2026-01-12 03:57:31.506 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/309.gtf
+2026-01-12 03:57:31.516 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/309.gtf
+2026-01-12 03:57:31.992 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/309.fpkm.txt
+2026-01-12 03:57:31.992 - INFO - 提取了|Extracted 95959个转录本|transcripts
+2026-01-12 03:57:31.993 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/309.sorted.bam
+2026-01-12 03:57:31.993 - INFO - ============================================================
+2026-01-12 03:57:31.993 - INFO - 处理样本|Processing sample: 311
+2026-01-12 03:57:31.993 - INFO - ============================================================
+2026-01-12 03:57:31.993 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311.sorted.bam
+2026-01-12 03:57:31.993 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/311_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/311_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311.sorted.bam -
+2026-01-12 03:57:32.020 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 04:19:18.203 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311.sorted.bam 完成|completed
+2026-01-12 04:19:18.216 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311.sorted.bam
+2026-01-12 04:19:18.216 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311.gtf
+2026-01-12 04:19:18.216 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311.sorted.bam
+2026-01-12 04:20:32.587 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311.gtf 完成|completed
+2026-01-12 04:20:32.588 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311.gtf
+2026-01-12 04:20:32.588 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311.gtf
+2026-01-12 04:20:33.058 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/311.fpkm.txt
+2026-01-12 04:20:33.058 - INFO - 提取了|Extracted 95958个转录本|transcripts
+2026-01-12 04:20:33.058 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311.sorted.bam
+2026-01-12 04:20:33.058 - INFO - ============================================================
+2026-01-12 04:20:33.058 - INFO - 处理样本|Processing sample: 311叶
+2026-01-12 04:20:33.058 - INFO - ============================================================
+2026-01-12 04:20:33.058 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311叶.sorted.bam
+2026-01-12 04:20:33.059 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/311叶_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/311叶_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311叶.sorted.bam -
+2026-01-12 04:20:33.059 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 05:17:59.605 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311叶.sorted.bam 完成|completed
+2026-01-12 05:17:59.616 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311叶.sorted.bam
+2026-01-12 05:17:59.627 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311叶.gtf
+2026-01-12 05:17:59.627 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311叶.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311叶.sorted.bam
+2026-01-12 05:20:54.995 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311叶.gtf 完成|completed
+2026-01-12 05:20:54.996 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311叶.gtf
+2026-01-12 05:20:55.001 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/311叶.gtf
+2026-01-12 05:20:55.487 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/311叶.fpkm.txt
+2026-01-12 05:20:55.487 - INFO - 提取了|Extracted 95958个转录本|transcripts
+2026-01-12 05:20:55.487 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/311叶.sorted.bam
+2026-01-12 05:20:55.487 - INFO - ============================================================
+2026-01-12 05:20:55.487 - INFO - 处理样本|Processing sample: 315
+2026-01-12 05:20:55.487 - INFO - ============================================================
+2026-01-12 05:20:55.487 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/315.sorted.bam
+2026-01-12 05:20:55.487 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/315_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/315_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/315.sorted.bam -
+2026-01-12 05:20:55.487 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 07:16:34.380 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/315.sorted.bam 完成|completed
+2026-01-12 07:16:34.380 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/315.sorted.bam
+2026-01-12 07:16:34.394 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/315.gtf
+2026-01-12 07:16:34.431 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/315.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/315.sorted.bam
+2026-01-12 07:17:58.914 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/315.gtf 完成|completed
+2026-01-12 07:17:58.914 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/315.gtf
+2026-01-12 07:17:58.914 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/315.gtf
+2026-01-12 07:17:59.385 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/315.fpkm.txt
+2026-01-12 07:17:59.385 - INFO - 提取了|Extracted 95966个转录本|transcripts
+2026-01-12 07:17:59.385 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/315.sorted.bam
+2026-01-12 07:17:59.385 - INFO - ============================================================
+2026-01-12 07:17:59.385 - INFO - 处理样本|Processing sample: 316
+2026-01-12 07:17:59.385 - INFO - ============================================================
+2026-01-12 07:17:59.385 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/316.sorted.bam
+2026-01-12 07:17:59.385 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/316_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/316_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/316.sorted.bam -
+2026-01-12 07:17:59.386 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 07:29:46.936 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/316.sorted.bam 完成|completed
+2026-01-12 07:29:46.950 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/316.sorted.bam
+2026-01-12 07:29:46.950 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/316.gtf
+2026-01-12 07:29:46.950 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/316.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/316.sorted.bam
+2026-01-12 07:30:47.778 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/316.gtf 完成|completed
+2026-01-12 07:30:47.803 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/316.gtf
+2026-01-12 07:30:47.803 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/316.gtf
+2026-01-12 07:30:48.270 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/316.fpkm.txt
+2026-01-12 07:30:48.270 - INFO - 提取了|Extracted 95962个转录本|transcripts
+2026-01-12 07:30:48.270 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/316.sorted.bam
+2026-01-12 07:30:48.270 - INFO - ============================================================
+2026-01-12 07:30:48.270 - INFO - 处理样本|Processing sample: 317
+2026-01-12 07:30:48.270 - INFO - ============================================================
+2026-01-12 07:30:48.270 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/317.sorted.bam
+2026-01-12 07:30:48.270 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/317_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/317_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/317.sorted.bam -
+2026-01-12 07:30:48.270 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 08:00:45.078 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/317.sorted.bam 完成|completed
+2026-01-12 08:00:45.085 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/317.sorted.bam
+2026-01-12 08:00:45.085 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/317.gtf
+2026-01-12 08:00:45.085 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/317.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/317.sorted.bam
+2026-01-12 08:02:10.092 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/317.gtf 完成|completed
+2026-01-12 08:02:10.092 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/317.gtf
+2026-01-12 08:02:10.111 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/317.gtf
+2026-01-12 08:02:10.593 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/317.fpkm.txt
+2026-01-12 08:02:10.593 - INFO - 提取了|Extracted 95965个转录本|transcripts
+2026-01-12 08:02:10.594 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/317.sorted.bam
+2026-01-12 08:02:10.594 - INFO - ============================================================
+2026-01-12 08:02:10.594 - INFO - 处理样本|Processing sample: 318
+2026-01-12 08:02:10.594 - INFO - ============================================================
+2026-01-12 08:02:10.594 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/318.sorted.bam
+2026-01-12 08:02:10.594 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/318_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/318_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/318.sorted.bam -
+2026-01-12 08:02:10.594 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 08:32:05.700 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/318.sorted.bam 完成|completed
+2026-01-12 08:32:05.738 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/318.sorted.bam
+2026-01-12 08:32:05.738 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/318.gtf
+2026-01-12 08:32:05.738 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/318.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/318.sorted.bam
+2026-01-12 08:33:25.160 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/318.gtf 完成|completed
+2026-01-12 08:33:25.160 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/318.gtf
+2026-01-12 08:33:25.160 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/318.gtf
+2026-01-12 08:33:25.624 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/318.fpkm.txt
+2026-01-12 08:33:25.624 - INFO - 提取了|Extracted 95966个转录本|transcripts
+2026-01-12 08:33:25.624 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/318.sorted.bam
+2026-01-12 08:33:25.624 - INFO - ============================================================
+2026-01-12 08:33:25.661 - INFO - 处理样本|Processing sample: 321
+2026-01-12 08:33:25.661 - INFO - ============================================================
+2026-01-12 08:33:25.662 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/321.sorted.bam
+2026-01-12 08:33:25.662 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/321_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/321_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/321.sorted.bam -
+2026-01-12 08:33:25.662 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 09:19:19.391 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/321.sorted.bam 完成|completed
+2026-01-12 09:19:19.406 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/321.sorted.bam
+2026-01-12 09:19:19.406 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/321.gtf
+2026-01-12 09:19:19.406 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/321.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/321.sorted.bam
+2026-01-12 09:21:38.529 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/321.gtf 完成|completed
+2026-01-12 09:21:38.529 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/321.gtf
+2026-01-12 09:21:38.529 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/321.gtf
+2026-01-12 09:21:39.007 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/321.fpkm.txt
+2026-01-12 09:21:39.007 - INFO - 提取了|Extracted 95953个转录本|transcripts
+2026-01-12 09:21:39.007 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/321.sorted.bam
+2026-01-12 09:21:39.007 - INFO - ============================================================
+2026-01-12 09:21:39.007 - INFO - 处理样本|Processing sample: 322
+2026-01-12 09:21:39.007 - INFO - ============================================================
+2026-01-12 09:21:39.007 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/322.sorted.bam
+2026-01-12 09:21:39.007 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/322_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/322_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/322.sorted.bam -
+2026-01-12 09:21:39.052 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 10:18:00.110 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/322.sorted.bam 完成|completed
+2026-01-12 10:18:00.124 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/322.sorted.bam
+2026-01-12 10:18:00.139 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/322.gtf
+2026-01-12 10:18:00.139 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/322.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/322.sorted.bam
+2026-01-12 10:20:33.777 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/322.gtf 完成|completed
+2026-01-12 10:20:33.777 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/322.gtf
+2026-01-12 10:20:33.786 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/322.gtf
+2026-01-12 10:20:34.263 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/322.fpkm.txt
+2026-01-12 10:20:34.263 - INFO - 提取了|Extracted 95961个转录本|transcripts
+2026-01-12 10:20:34.263 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/322.sorted.bam
+2026-01-12 10:20:34.263 - INFO - ============================================================
+2026-01-12 10:20:34.263 - INFO - 处理样本|Processing sample: 323
+2026-01-12 10:20:34.263 - INFO - ============================================================
+2026-01-12 10:20:34.263 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323.sorted.bam
+2026-01-12 10:20:34.263 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/323_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/323_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323.sorted.bam -
+2026-01-12 10:20:34.263 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 10:28:44.348 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323.sorted.bam 完成|completed
+2026-01-12 10:28:44.377 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323.sorted.bam
+2026-01-12 10:28:44.378 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323.gtf
+2026-01-12 10:28:44.378 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323.sorted.bam
+2026-01-12 10:29:28.864 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323.gtf 完成|completed
+2026-01-12 10:29:28.864 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323.gtf
+2026-01-12 10:29:28.864 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323.gtf
+2026-01-12 10:29:29.328 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/323.fpkm.txt
+2026-01-12 10:29:29.328 - INFO - 提取了|Extracted 95959个转录本|transcripts
+2026-01-12 10:29:29.328 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323.sorted.bam
+2026-01-12 10:29:29.328 - INFO - ============================================================
+2026-01-12 10:29:29.328 - INFO - 处理样本|Processing sample: 323叶
+2026-01-12 10:29:29.328 - INFO - ============================================================
+2026-01-12 10:29:29.328 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323叶.sorted.bam
+2026-01-12 10:29:29.329 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/323叶_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/323叶_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323叶.sorted.bam -
+2026-01-12 10:29:29.329 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 10:41:42.922 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323叶.sorted.bam 完成|completed
+2026-01-12 10:41:42.952 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323叶.sorted.bam
+2026-01-12 10:41:42.952 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323叶.gtf
+2026-01-12 10:41:42.967 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323叶.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323叶.sorted.bam
+2026-01-12 10:43:16.740 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323叶.gtf 完成|completed
+2026-01-12 10:43:16.741 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323叶.gtf
+2026-01-12 10:43:16.741 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/323叶.gtf
+2026-01-12 10:43:17.233 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/323叶.fpkm.txt
+2026-01-12 10:43:17.233 - INFO - 提取了|Extracted 95951个转录本|transcripts
+2026-01-12 10:43:17.233 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/323叶.sorted.bam
+2026-01-12 10:43:17.233 - INFO - ============================================================
+2026-01-12 10:43:17.233 - INFO - 处理样本|Processing sample: 324
+2026-01-12 10:43:17.233 - INFO - ============================================================
+2026-01-12 10:43:17.233 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/324.sorted.bam
+2026-01-12 10:43:17.233 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/324_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/324_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/324.sorted.bam -
+2026-01-12 10:43:17.233 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 11:48:59.833 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/324.sorted.bam 完成|completed
+2026-01-12 11:48:59.846 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/324.sorted.bam
+2026-01-12 11:48:59.846 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/324.gtf
+2026-01-12 11:48:59.846 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/324.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/324.sorted.bam
+2026-01-12 11:50:40.197 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/324.gtf 完成|completed
+2026-01-12 11:50:40.204 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/324.gtf
+2026-01-12 11:50:40.204 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/324.gtf
+2026-01-12 11:50:40.676 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/324.fpkm.txt
+2026-01-12 11:50:40.677 - INFO - 提取了|Extracted 95965个转录本|transcripts
+2026-01-12 11:50:40.677 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/324.sorted.bam
+2026-01-12 11:50:40.677 - INFO - ============================================================
+2026-01-12 11:50:40.677 - INFO - 处理样本|Processing sample: 326
+2026-01-12 11:50:40.677 - INFO - ============================================================
+2026-01-12 11:50:40.677 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326.sorted.bam
+2026-01-12 11:50:40.677 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/326_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/326_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326.sorted.bam -
+2026-01-12 11:50:40.677 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 14:10:06.070 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326.sorted.bam 完成|completed
+2026-01-12 14:10:06.084 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326.sorted.bam
+2026-01-12 14:10:06.095 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326.gtf
+2026-01-12 14:10:06.095 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326.sorted.bam
+2026-01-12 14:13:51.554 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326.gtf 完成|completed
+2026-01-12 14:13:51.554 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326.gtf
+2026-01-12 14:13:51.565 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326.gtf
+2026-01-12 14:13:52.040 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/326.fpkm.txt
+2026-01-12 14:13:52.066 - INFO - 提取了|Extracted 95954个转录本|transcripts
+2026-01-12 14:13:52.066 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326.sorted.bam
+2026-01-12 14:13:52.066 - INFO - ============================================================
+2026-01-12 14:13:52.066 - INFO - 处理样本|Processing sample: 326叶
+2026-01-12 14:13:52.066 - INFO - ============================================================
+2026-01-12 14:13:52.066 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326叶.sorted.bam
+2026-01-12 14:13:52.066 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/326叶_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/326叶_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326叶.sorted.bam -
+2026-01-12 14:13:52.066 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 14:28:45.709 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326叶.sorted.bam 完成|completed
+2026-01-12 14:28:45.717 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326叶.sorted.bam
+2026-01-12 14:28:45.717 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326叶.gtf
+2026-01-12 14:28:45.717 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326叶.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326叶.sorted.bam
+2026-01-12 14:30:31.042 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326叶.gtf 完成|completed
+2026-01-12 14:30:31.042 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326叶.gtf
+2026-01-12 14:30:31.042 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/326叶.gtf
+2026-01-12 14:30:31.531 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/326叶.fpkm.txt
+2026-01-12 14:30:31.532 - INFO - 提取了|Extracted 95947个转录本|transcripts
+2026-01-12 14:30:31.532 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/326叶.sorted.bam
+2026-01-12 14:30:31.532 - INFO - ============================================================
+2026-01-12 14:30:31.554 - INFO - 处理样本|Processing sample: 328
+2026-01-12 14:30:31.554 - INFO - ============================================================
+2026-01-12 14:30:31.554 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328.sorted.bam
+2026-01-12 14:30:31.554 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/328_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/328_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328.sorted.bam -
+2026-01-12 14:30:31.554 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 15:56:22.386 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328.sorted.bam 完成|completed
+2026-01-12 15:56:22.398 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328.sorted.bam
+2026-01-12 15:56:22.398 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328.gtf
+2026-01-12 15:56:22.398 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328.sorted.bam
+2026-01-12 15:59:15.243 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328.gtf 完成|completed
+2026-01-12 15:59:15.243 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328.gtf
+2026-01-12 15:59:15.263 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328.gtf
+2026-01-12 15:59:15.736 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/328.fpkm.txt
+2026-01-12 15:59:15.736 - INFO - 提取了|Extracted 95961个转录本|transcripts
+2026-01-12 15:59:15.736 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328.sorted.bam
+2026-01-12 15:59:15.736 - INFO - ============================================================
+2026-01-12 15:59:15.736 - INFO - 处理样本|Processing sample: 328叶
+2026-01-12 15:59:15.736 - INFO - ============================================================
+2026-01-12 15:59:15.736 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328叶.sorted.bam
+2026-01-12 15:59:15.736 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/328叶_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/328叶_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328叶.sorted.bam -
+2026-01-12 15:59:15.755 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 16:29:02.801 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328叶.sorted.bam 完成|completed
+2026-01-12 16:29:02.820 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328叶.sorted.bam
+2026-01-12 16:29:02.820 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328叶.gtf
+2026-01-12 16:29:02.820 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328叶.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328叶.sorted.bam
+2026-01-12 16:31:31.252 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328叶.gtf 完成|completed
+2026-01-12 16:31:31.252 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328叶.gtf
+2026-01-12 16:31:31.252 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/328叶.gtf
+2026-01-12 16:31:31.745 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/328叶.fpkm.txt
+2026-01-12 16:31:31.745 - INFO - 提取了|Extracted 95960个转录本|transcripts
+2026-01-12 16:31:31.745 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/328叶.sorted.bam
+2026-01-12 16:31:31.745 - INFO - ============================================================
+2026-01-12 16:31:31.745 - INFO - 处理样本|Processing sample: 329
+2026-01-12 16:31:31.745 - INFO - ============================================================
+2026-01-12 16:31:31.746 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/329.sorted.bam
+2026-01-12 16:31:31.746 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/329_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/329_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/329.sorted.bam -
+2026-01-12 16:31:31.746 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 17:16:17.771 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/329.sorted.bam 完成|completed
+2026-01-12 17:16:17.816 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/329.sorted.bam
+2026-01-12 17:16:17.816 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/329.gtf
+2026-01-12 17:16:17.817 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/329.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/329.sorted.bam
+2026-01-12 17:17:08.348 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/329.gtf 完成|completed
+2026-01-12 17:17:08.348 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/329.gtf
+2026-01-12 17:17:08.349 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/329.gtf
+2026-01-12 17:17:08.817 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/329.fpkm.txt
+2026-01-12 17:17:08.817 - INFO - 提取了|Extracted 95966个转录本|transcripts
+2026-01-12 17:17:08.817 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/329.sorted.bam
+2026-01-12 17:17:08.817 - INFO - ============================================================
+2026-01-12 17:17:08.817 - INFO - 处理样本|Processing sample: 330
+2026-01-12 17:17:08.817 - INFO - ============================================================
+2026-01-12 17:17:08.817 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/330.sorted.bam
+2026-01-12 17:17:08.817 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/330_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/330_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/330.sorted.bam -
+2026-01-12 17:17:08.817 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 18:05:14.199 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/330.sorted.bam 完成|completed
+2026-01-12 18:05:14.210 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/330.sorted.bam
+2026-01-12 18:05:14.210 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/330.gtf
+2026-01-12 18:05:14.218 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/330.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/330.sorted.bam
+2026-01-12 18:07:25.242 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/330.gtf 完成|completed
+2026-01-12 18:07:25.243 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/330.gtf
+2026-01-12 18:07:25.243 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/330.gtf
+2026-01-12 18:07:25.716 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/330.fpkm.txt
+2026-01-12 18:07:25.716 - INFO - 提取了|Extracted 95960个转录本|transcripts
+2026-01-12 18:07:25.716 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/330.sorted.bam
+2026-01-12 18:07:25.716 - INFO - ============================================================
+2026-01-12 18:07:25.716 - INFO - 处理样本|Processing sample: 331
+2026-01-12 18:07:25.716 - INFO - ============================================================
+2026-01-12 18:07:25.716 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331.sorted.bam
+2026-01-12 18:07:25.717 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/331_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/331_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331.sorted.bam -
+2026-01-12 18:07:25.717 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 18:56:42.004 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331.sorted.bam 完成|completed
+2026-01-12 18:56:42.013 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331.sorted.bam
+2026-01-12 18:56:42.025 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331.gtf
+2026-01-12 18:56:42.025 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331.sorted.bam
+2026-01-12 18:59:15.855 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331.gtf 完成|completed
+2026-01-12 18:59:15.899 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331.gtf
+2026-01-12 18:59:15.963 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331.gtf
+2026-01-12 18:59:16.439 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/331.fpkm.txt
+2026-01-12 18:59:16.439 - INFO - 提取了|Extracted 95962个转录本|transcripts
+2026-01-12 18:59:16.439 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331.sorted.bam
+2026-01-12 18:59:16.439 - INFO - ============================================================
+2026-01-12 18:59:16.439 - INFO - 处理样本|Processing sample: 331叶
+2026-01-12 18:59:16.439 - INFO - ============================================================
+2026-01-12 18:59:16.439 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331叶.sorted.bam
+2026-01-12 18:59:16.439 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/331叶_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/331叶_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331叶.sorted.bam -
+2026-01-12 18:59:16.439 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 19:25:40.114 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331叶.sorted.bam 完成|completed
+2026-01-12 19:25:40.125 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331叶.sorted.bam
+2026-01-12 19:25:40.139 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331叶.gtf
+2026-01-12 19:25:40.139 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331叶.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331叶.sorted.bam
+2026-01-12 19:26:50.379 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331叶.gtf 完成|completed
+2026-01-12 19:26:50.379 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331叶.gtf
+2026-01-12 19:26:50.379 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/331叶.gtf
+2026-01-12 19:26:51.155 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/331叶.fpkm.txt
+2026-01-12 19:26:51.155 - INFO - 提取了|Extracted 95953个转录本|transcripts
+2026-01-12 19:26:51.155 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/331叶.sorted.bam
+2026-01-12 19:26:51.155 - INFO - ============================================================
+2026-01-12 19:26:51.155 - INFO - 处理样本|Processing sample: 336
+2026-01-12 19:26:51.155 - INFO - ============================================================
+2026-01-12 19:26:51.155 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336.sorted.bam
+2026-01-12 19:26:51.155 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336.sorted.bam -
+2026-01-12 19:26:51.155 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 20:40:26.629 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336.sorted.bam 完成|completed
+2026-01-12 20:40:26.638 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336.sorted.bam
+2026-01-12 20:40:26.649 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336.gtf
+2026-01-12 20:40:26.649 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336.sorted.bam
+2026-01-12 20:43:15.317 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336.gtf 完成|completed
+2026-01-12 20:43:15.317 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336.gtf
+2026-01-12 20:43:15.333 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336.gtf
+2026-01-12 20:43:15.802 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/336.fpkm.txt
+2026-01-12 20:43:15.802 - INFO - 提取了|Extracted 95958个转录本|transcripts
+2026-01-12 20:43:15.803 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336.sorted.bam
+2026-01-12 20:43:15.803 - INFO - ============================================================
+2026-01-12 20:43:15.827 - INFO - 处理样本|Processing sample: 336叶
+2026-01-12 20:43:15.827 - INFO - ============================================================
+2026-01-12 20:43:15.827 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336叶.sorted.bam
+2026-01-12 20:43:15.827 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336叶_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/336叶_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336叶.sorted.bam -
+2026-01-12 20:43:15.827 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 22:44:12.119 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336叶.sorted.bam 完成|completed
+2026-01-12 22:44:12.156 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336叶.sorted.bam
+2026-01-12 22:44:12.167 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336叶.gtf
+2026-01-12 22:44:12.167 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336叶.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336叶.sorted.bam
+2026-01-12 22:49:17.279 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336叶.gtf 完成|completed
+2026-01-12 22:49:17.279 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336叶.gtf
+2026-01-12 22:49:17.279 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/336叶.gtf
+2026-01-12 22:49:17.766 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/336叶.fpkm.txt
+2026-01-12 22:49:17.766 - INFO - 提取了|Extracted 95942个转录本|transcripts
+2026-01-12 22:49:17.766 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/336叶.sorted.bam
+2026-01-12 22:49:17.766 - INFO - ============================================================
+2026-01-12 22:49:17.766 - INFO - 处理样本|Processing sample: 344
+2026-01-12 22:49:17.766 - INFO - ============================================================
+2026-01-12 22:49:17.766 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/344.sorted.bam
+2026-01-12 22:49:17.766 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/344_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/344_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/344.sorted.bam -
+2026-01-12 22:49:17.789 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 23:12:48.185 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/344.sorted.bam 完成|completed
+2026-01-12 23:12:48.199 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/344.sorted.bam
+2026-01-12 23:12:48.200 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/344.gtf
+2026-01-12 23:12:48.200 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/344.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/344.sorted.bam
+2026-01-12 23:14:25.950 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/344.gtf 完成|completed
+2026-01-12 23:14:25.950 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/344.gtf
+2026-01-12 23:14:25.950 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/344.gtf
+2026-01-12 23:14:26.424 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/344.fpkm.txt
+2026-01-12 23:14:26.424 - INFO - 提取了|Extracted 95960个转录本|transcripts
+2026-01-12 23:14:26.424 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/344.sorted.bam
+2026-01-12 23:14:26.424 - INFO - ============================================================
+2026-01-12 23:14:26.424 - INFO - 处理样本|Processing sample: 349
+2026-01-12 23:14:26.424 - INFO - ============================================================
+2026-01-12 23:14:26.424 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/349.sorted.bam
+2026-01-12 23:14:26.424 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/349_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/349_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/349.sorted.bam -
+2026-01-12 23:14:26.424 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-12 23:47:47.282 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/349.sorted.bam 完成|completed
+2026-01-12 23:47:47.302 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/349.sorted.bam
+2026-01-12 23:47:47.302 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/349.gtf
+2026-01-12 23:47:47.302 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/349.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/349.sorted.bam
+2026-01-12 23:49:24.761 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/349.gtf 完成|completed
+2026-01-12 23:49:24.762 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/349.gtf
+2026-01-12 23:49:24.762 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/02.stringtie/349.gtf
+2026-01-12 23:49:25.409 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/349.fpkm.txt
+2026-01-12 23:49:25.409 - INFO - 提取了|Extracted 95965个转录本|transcripts
+2026-01-12 23:49:25.409 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/349.sorted.bam
+2026-01-12 23:49:25.409 - INFO - ============================================================
+2026-01-12 23:49:25.409 - INFO - 处理样本|Processing sample: 354
+2026-01-12 23:49:25.409 - INFO - ============================================================
+2026-01-12 23:49:25.409 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/354.sorted.bam
+2026-01-12 23:49:25.409 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/354_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/354_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/354.sorted.bam -
+2026-01-12 23:49:25.409 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-01-13 05:49:25.470 - INFO - ============================================================
+2026-01-13 05:49:25.471 - INFO - 步骤4: 合并表达矩阵|Step 4: Merging expression matrix
+2026-01-13 05:49:25.471 - INFO - ============================================================
+2026-01-13 05:49:25.471 - INFO - 合并表达矩阵|Merging expression matrix
+2026-01-13 05:49:25.585 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/304.fpkm.txt
+2026-01-13 05:49:26.005 - INFO - 成功读取|Successfully read 95955行|rows of data
+2026-01-13 05:49:26.028 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/307.fpkm.txt
+2026-01-13 05:49:26.140 - INFO - 成功读取|Successfully read 95963行|rows of data
+2026-01-13 05:49:26.160 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/309.fpkm.txt
+2026-01-13 05:49:26.266 - INFO - 成功读取|Successfully read 95959行|rows of data
+2026-01-13 05:49:26.279 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/311.fpkm.txt
+2026-01-13 05:49:26.391 - INFO - 成功读取|Successfully read 95958行|rows of data
+2026-01-13 05:49:26.404 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/311叶.fpkm.txt
+2026-01-13 05:49:26.576 - INFO - 成功读取|Successfully read 95958行|rows of data
+2026-01-13 05:49:26.583 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/315.fpkm.txt
+2026-01-13 05:49:26.693 - INFO - 成功读取|Successfully read 95966行|rows of data
+2026-01-13 05:49:26.705 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/316.fpkm.txt
+2026-01-13 05:49:26.810 - INFO - 成功读取|Successfully read 95962行|rows of data
+2026-01-13 05:49:26.827 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/317.fpkm.txt
+2026-01-13 05:49:26.961 - INFO - 成功读取|Successfully read 95965行|rows of data
+2026-01-13 05:49:26.970 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/318.fpkm.txt
+2026-01-13 05:49:27.066 - INFO - 成功读取|Successfully read 95966行|rows of data
+2026-01-13 05:49:27.088 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/321.fpkm.txt
+2026-01-13 05:49:27.187 - INFO - 成功读取|Successfully read 95953行|rows of data
+2026-01-13 05:49:27.198 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/322.fpkm.txt
+2026-01-13 05:49:27.310 - INFO - 成功读取|Successfully read 95961行|rows of data
+2026-01-13 05:49:27.330 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/323.fpkm.txt
+2026-01-13 05:49:27.439 - INFO - 成功读取|Successfully read 95959行|rows of data
+2026-01-13 05:49:27.456 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/323叶.fpkm.txt
+2026-01-13 05:49:27.592 - INFO - 成功读取|Successfully read 95951行|rows of data
+2026-01-13 05:49:27.628 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/324.fpkm.txt
+2026-01-13 05:49:27.770 - INFO - 成功读取|Successfully read 95965行|rows of data
+2026-01-13 05:49:27.772 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/326.fpkm.txt
+2026-01-13 05:49:27.878 - INFO - 成功读取|Successfully read 95954行|rows of data
+2026-01-13 05:49:27.892 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/326叶.fpkm.txt
+2026-01-13 05:49:28.017 - INFO - 成功读取|Successfully read 95947行|rows of data
+2026-01-13 05:49:28.036 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/328.fpkm.txt
+2026-01-13 05:49:28.267 - INFO - 成功读取|Successfully read 95961行|rows of data
+2026-01-13 05:49:28.292 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/328叶.fpkm.txt
+2026-01-13 05:49:28.424 - INFO - 成功读取|Successfully read 95960行|rows of data
+2026-01-13 05:49:28.442 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/329.fpkm.txt
+2026-01-13 05:49:28.548 - INFO - 成功读取|Successfully read 95966行|rows of data
+2026-01-13 05:49:28.560 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/330.fpkm.txt
+2026-01-13 05:49:28.667 - INFO - 成功读取|Successfully read 95960行|rows of data
+2026-01-13 05:49:28.681 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/331.fpkm.txt
+2026-01-13 05:49:28.801 - INFO - 成功读取|Successfully read 95962行|rows of data
+2026-01-13 05:49:28.814 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/331叶.fpkm.txt
+2026-01-13 05:49:28.943 - INFO - 成功读取|Successfully read 95953行|rows of data
+2026-01-13 05:49:28.958 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/336.fpkm.txt
+2026-01-13 05:49:29.067 - INFO - 成功读取|Successfully read 95958行|rows of data
+2026-01-13 05:49:29.082 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/336叶.fpkm.txt
+2026-01-13 05:49:29.210 - INFO - 成功读取|Successfully read 95942行|rows of data
+2026-01-13 05:49:29.222 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/344.fpkm.txt
+2026-01-13 05:49:29.338 - INFO - 成功读取|Successfully read 95960行|rows of data
+2026-01-13 05:49:29.343 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/03.fpkm_tpm/349.fpkm.txt
+2026-01-13 05:49:29.456 - INFO - 成功读取|Successfully read 95965行|rows of data
+2026-01-13 05:49:29.457 - INFO - 找到|Found 26个有效数据文件|valid data files
+2026-01-13 05:49:29.618 - INFO - 合并后总计|Total 2494929行|rows after merging
+2026-01-13 05:49:29.656 - INFO - 样本名称|Sample names: 304, 307, 309, 311, 311叶, 315, 316, 317, 318, 321, 322, 323, 323叶, 324, 326, 326叶, 328, 328叶, 329, 330, 331, 331叶, 336, 336叶, 344, 349
+2026-01-13 05:49:29.656 - INFO - 生成all_fpkm_tpm.txt文件|Generating all_fpkm_tpm.txt...
+2026-01-13 05:49:34.796 - INFO - 保存完成|Save completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/all_fpkm_tpm.txt (2494929行|rows)
+2026-01-13 05:49:34.949 - INFO - 生成总结报告|Generating summary report
+2026-01-13 05:49:34.949 - INFO - 总结报告已生成|Summary report generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/rnaseq_summary.txt
+2026-01-13 05:49:34.949 - INFO - ============================================================
+2026-01-13 05:49:34.949 - INFO - 分析流程总结|Pipeline Summary
+2026-01-13 05:49:34.950 - INFO - ============================================================
+2026-01-13 05:49:34.950 - INFO - 总运行时间|Total runtime: 107704.77 秒|seconds
+2026-01-13 05:49:34.950 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量
+2026-01-13 05:49:34.950 - INFO - 分析流程成功完成|Pipeline completed successfully
+2026-01-13 05:49:34.950 - INFO - 主要输出文件|Main output file: all_fpkm_tpm.txt
+2026-01-13 05:49:34.950 - INFO - ============================================================

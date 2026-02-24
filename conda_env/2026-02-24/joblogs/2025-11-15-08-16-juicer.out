@@ -1,0 +1,19 @@
+ℹ️  INFO: 作业开始于: 2025年 11月 15日 星期六 08:16:59 CST
+🖥️  INFO: 运行于计算节点: c01n0523
+☕ INFO: 正在设置精确的 Java 环境...
+📂 INFO: --- 开始自动化文件准备 ---
+✅ INFO: 输入目录结构检查完毕。
+✅ INFO: BWA 索引已存在。
+✅ INFO: 染色体大小文件已存在。
+✅ INFO: 酶切位点文件已存在且不为空, 跳过。
+🎉 INFO: --- 所有必需的输入文件准备工作完成 ---
+🚀 INFO: --- 准备启动 Juicer ---
+🧹 INFO: 正在清理旧的 'aligned' 和 'splits' 目录...
+✅ INFO: 清理完成。
+⚡ INFO: 即将以 88 个线程运行 Juicer...
+Using /share/org/YZWL/yzwl_lixg/tmp/test_hic/restriction_sites/Est1_MboI.txt as site file
+(-: Looking for fastq files...fastq files exist
+(-: Created /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits.
+(-: Aligning files matching /share/org/YZWL/yzwl_lixg/tmp/test_hic/fastq/*_R*.fastq*
+ to genome /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta with no fragment delimited maps.
+Running command bwa mem -SP5M -t 88 -R @RG\tID:CRR564433\tSM:HiC_sample\tPL:ILM\tLB:HiC_library /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/CRR564433_R1.fastq.gz /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/CRR564433_R2.fastq.gz > /share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/CRR564433.fastq.gz.sam

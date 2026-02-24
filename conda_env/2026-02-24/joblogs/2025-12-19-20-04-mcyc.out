@@ -1,0 +1,26 @@
+========================================================
+ℹ️  [20:04:30] MCycDB分析流程启动 | MCycDB analysis pipeline started
+========================================================
+ℹ️  [20:04:30] 执行步骤 1 | Executing step 1: 检查依赖 | Checking dependencies
+⏳  [20:04:30] 正在检查依赖工具... | Checking dependencies...
+✅  [20:04:30] 依赖检查完成 | Dependency check completed
+✅  [20:04:30] 步骤 1 完成 | Step 1 completed
+ℹ️  [20:04:30] 执行步骤 2 | Executing step 2: 准备数据库 | Preparing database
+⏳  [20:04:30] 准备数据库文件... | Preparing database files...
+🛠️  [20:04:30] 建立数据库软链接... | Creating database symlinks...
+✅  [20:04:30] 数据库准备完成 | Database preparation completed
+✅  [20:04:30] 步骤 2 完成 | Step 2 completed
+ℹ️  [20:04:30] 执行步骤 3 | Executing step 3: 准备数据 | Preparing data
+⏳  [20:04:30] 正在处理Fastq文件... | Processing Fastq files...
+✅  [20:05:10] 成功准备 10 个样本 | Successfully prepared 10 samples
+✅  [20:05:10] 步骤 3 完成 | Step 3 completed
+ℹ️  [20:05:10] 执行步骤 4 | Executing step 4: 统计Reads | Counting reads
+⏳  [20:05:10] 正在统计Reads数量... | Counting reads...
+✅  [20:14:45] Reads统计完成 | Read counting completed
+✅  [20:14:45] 步骤 4 完成 | Step 4 completed
+ℹ️  [20:14:45] 执行步骤 5 | Executing step 5: Diamond比对 | Diamond alignment
+⏳  [20:14:45] 配置并运行MCycDB Perl脚本... | Configuring and running MCycDB Perl script...
+⏳  [20:14:45] 开始运行MCycDB分析 (Diamond)... | Starting MCycDB analysis (Diamond)...
+❌  [20:15:17] 命令执行失败 | Command execution failed: perl /share/org/YZWL/yzwl_lixg/tmp/mcyc/MCycDB_FunctionProfiler.PL -d /share/org/YZWL/yzwl_lixg/tmp/mcyc/mcyc_staging_fastq -m diamond -f fastq.gz -s nucl -si /share/org/YZWL/yzwl_lixg/tmp/mcyc/sample_info.txt -o /share/org/YZWL/yzwl_lixg/tmp/mcyc/MCyc_Raw_Temp.txt
+❌  [20:15:17] Diamond比对失败 | Diamond alignment failed
+❌  [20:15:17] 步骤 5 失败 | Step 5 failed

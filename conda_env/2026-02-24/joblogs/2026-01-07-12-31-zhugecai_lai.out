@@ -1,0 +1,28 @@
+2026-01-07 12:31:26.709 - INFO - ============================================================
+2026-01-07 12:31:26.709 - INFO - 开始LAI分析流程|Starting LAI analysis pipeline
+2026-01-07 12:31:26.709 - INFO - ============================================================
+2026-01-07 12:31:26.709 - INFO - 检查依赖软件|Checking dependencies
+2026-01-07 12:31:26.710 - INFO - 检查依赖软件|Checking dependencies
+2026-01-07 12:31:26.721 - INFO - 找到|Found GenomeTools (gt): /share/org/YZWL/yzwl_lixg/miniforge3/envs/ltr_harvest_parallel_v.1.2/bin/gt
+2026-01-07 12:31:26.721 - INFO - 找到|Found LTR_FINDER_parallel: /share/org/YZWL/yzwl_lixg/miniforge3/envs/ltr_finder_parallel_v.1.3/bin/LTR_FINDER_parallel
+2026-01-07 12:31:26.722 - INFO - 找到|Found LTR_retriever: /share/org/YZWL/yzwl_lixg/miniforge3/envs/ltr_retriever_v.3.0.1/bin/LTR_retriever
+2026-01-07 12:31:26.722 - INFO - 找到|Found LAI: /share/org/YZWL/yzwl_lixg/miniforge3/envs/ltr_retriever_v.3.0.1/bin/LAI
+2026-01-07 12:31:26.722 - INFO - 所有依赖软件检查通过|All dependencies check passed
+2026-01-07 12:31:26.722 - INFO - ============================================================
+2026-01-07 12:31:26.722 - INFO - 开始LTRharvest流程|Starting LTRharvest pipeline
+2026-01-07 12:31:26.722 - INFO - ============================================================
+2026-01-07 12:31:26.722 - INFO - 步骤1/2: 建立基因组索引|Step 1/2: Building genome index
+2026-01-07 12:31:26.722 - INFO - 运行命令|Running command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/ltr_harvest_parallel_v.1.2/bin/gt suffixerator -db /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/44.LAI计算/OV53_1.hifihic.chr.fa -indexname /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/44.LAI计算/OV53_1.hifihic.chr.fa -tis -suf -lcp -des -ssp -sds -dna -memlimit 3500MB
+2026-01-07 12:45:07.634 - INFO - 索引建立完成|Index building completed
+2026-01-07 12:45:07.635 - INFO - 步骤2/2: 运行LTRharvest识别LTR候选|Step 2/2: Running LTRharvest to identify LTR candidates
+2026-01-07 12:45:07.635 - INFO - 运行命令|Running command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/ltr_harvest_parallel_v.1.2/bin/gt ltrharvest -index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/44.LAI计算/OV53_1.hifihic.chr.fa -minlenltr 100 -maxlenltr 7000 -mintsd 4 -maxtsd 6 -motif TGCA -motifmis 1 -similar 85 -vic 10 -seed 20 -seqids yes > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/44.LAI计算/output/OV53_1.hifihic.chr.fa.harvest.scn
+2026-01-07 14:00:56.942 - INFO - LTRharvest完成|LTRharvest completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/44.LAI计算/output/OV53_1.hifihic.chr.fa.harvest.scn
+2026-01-07 14:00:56.952 - INFO - 找到|Found 48905 个LTR候选|LTR candidates
+2026-01-07 14:00:56.952 - INFO - ============================================================
+2026-01-07 14:00:56.952 - INFO - LTRharvest流程完成|LTRharvest pipeline completed
+2026-01-07 14:00:56.952 - INFO - ============================================================
+2026-01-07 14:00:56.952 - INFO - ============================================================
+2026-01-07 14:00:56.952 - INFO - 开始LTR_FINDER流程|Starting LTR_FINDER pipeline
+2026-01-07 14:00:56.952 - INFO - ============================================================
+2026-01-07 14:00:57.153 - ERROR - LTR候选识别失败|LTR candidate identification failed: [Errno 40] Too many levels of symbolic links: '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/44.LAI计算/output/OV53_1.hifihic.chr.fa'
+2026-01-07 14:00:57.239 - ERROR - 流程执行失败|Pipeline execution failed: LTR候选识别失败|LTR candidate identification failed

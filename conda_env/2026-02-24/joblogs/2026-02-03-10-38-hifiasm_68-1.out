@@ -1,0 +1,45 @@
+2026-02-03 10:38:56.562 - INFO - ============================================================
+2026-02-03 10:38:56.562 - INFO - Program: FASTQ Quality Control Batch Processing
+2026-02-03 10:38:56.562 - INFO - Version: 1.0.0
+2026-02-03 10:38:56.562 - INFO - ============================================================
+2026-02-03 10:38:56.562 - INFO - ============================================================
+2026-02-03 10:38:56.562 - INFO - 开始FASTQ数据质控批处理|Starting FASTQ data quality control batch processing
+2026-02-03 10:38:56.562 - INFO - ============================================================
+2026-02-03 10:38:56.562 - INFO - 输入|Input: 文件|File: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/raw/hifi/68-1_hifi.fq.gz
+2026-02-03 10:38:56.562 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/hifi
+2026-02-03 10:38:56.562 - INFO - 线程数|Threads: 12
+2026-02-03 10:38:56.562 - INFO - 质量阈值|Quality threshold: 30
+2026-02-03 10:38:56.562 - INFO - 最小长度|Minimum length: 50
+2026-02-03 10:38:56.562 - INFO - ============================================================
+2026-02-03 10:38:57.158 - INFO - Fastp可执行文件验证成功|Fastp executable validated: fastp
+2026-02-03 10:38:57.158 - INFO - 创建清洁数据输出目录|Created clean data output directory: 01.data/clean/hifi
+2026-02-03 10:38:57.158 - INFO - 创建报告文件输出目录|Created report output directory: 01.data/clean/hifi/fastp_reports
+2026-02-03 10:38:57.158 - INFO - 检测到单文件输入模式|Detected single file input mode: 68-1_hifi.fq.gz
+2026-02-03 10:38:57.158 - INFO - 找到 1 个有效样本配对|Found 1 valid sample pairs:
+2026-02-03 10:38:57.158 - INFO -   - 68-1_hifi.fq.gz
+2026-02-03 10:38:57.159 - INFO - ---
+2026-02-03 10:38:57.159 - INFO - 正在处理样本（单末端模式）|Processing sample (single-end mode): 68-1_hifi.fq.gz
+2026-02-03 10:38:57.159 - INFO -   Input (输入): 01.data/raw/hifi/68-1_hifi.fq.gz
+2026-02-03 10:38:57.159 - INFO -   Output (输出): 01.data/clean/hifi/68-1_hifi.fq.gz.clean.fq.gz
+2026-02-03 10:38:57.159 - INFO -   HTML report (报告): 01.data/clean/hifi/fastp_reports/68-1_hifi.fq.gz.html
+2026-02-03 10:38:57.159 - INFO - ---
+2026-02-03 10:38:57.159 - INFO - 执行步骤|Executing step: FASTP质控处理|FASTP quality control -> 68-1_hifi.fq.gz
+2026-02-03 10:38:57.159 - INFO - 命令|Command: fastp -i 01.data/raw/hifi/68-1_hifi.fq.gz -o 01.data/clean/hifi/68-1_hifi.fq.gz.clean.fq.gz -h 01.data/clean/hifi/fastp_reports/68-1_hifi.fq.gz.html -j 01.data/clean/hifi/fastp_reports/68-1_hifi.fq.gz.json -w 12 -q 30 -l 50 -u 40 -n 10
+2026-02-03 11:33:25.699 - INFO - 命令执行成功|Command executed successfully: FASTP质控处理|FASTP quality control -> 68-1_hifi.fq.gz
+2026-02-03 11:33:25.700 - INFO - 样本 68-1_hifi.fq.gz 处理完成|Sample 68-1_hifi.fq.gz processing completed
+2026-02-03 11:33:25.700 - INFO - 总结报告已生成|Summary report generated: 01.data/clean/hifi/fastp_processing_summary.txt
+2026-02-03 11:33:25.700 - INFO - ============================================================
+2026-02-03 11:33:25.700 - INFO - FASTQ质控批处理完成|FASTQ quality control batch processing completed!
+2026-02-03 11:33:25.700 - INFO - 总样本数|Total samples: 1
+2026-02-03 11:33:25.700 - INFO - 成功处理|Successfully processed: 1
+2026-02-03 11:33:25.700 - INFO - 失败样本|Failed samples: 0
+2026-02-03 11:33:25.700 - INFO - 成功率|Success rate: 100.0%
+2026-02-03 11:33:25.701 - INFO - 质控后的清洁数据位于|Clean data location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/hifi
+2026-02-03 11:33:25.701 - INFO - 质控报告位于|QC reports location: 01.data/clean/hifi/fastp_reports
+2026-02-03 11:33:25.703 - INFO - ============================================================
+2026-02-03 11:33:25.703 - INFO - ============================================================
+2026-02-03 11:33:25.704 - INFO - Pipeline Summary
+2026-02-03 11:33:25.704 - INFO - ============================================================
+2026-02-03 11:33:25.704 - INFO - Total runtime: 3269.17 seconds
+2026-02-03 11:33:25.704 - INFO - Output directory: 01.data/clean/hifi
+2026-02-03 11:33:25.704 - INFO - Pipeline completed successfully

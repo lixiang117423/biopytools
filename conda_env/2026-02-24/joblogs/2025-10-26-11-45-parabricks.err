@@ -1,0 +1,26 @@
+[bwa_index] Pack FASTA... 0.77 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=313125130, availableWord=34032504
+[BWTIncConstructFromPacked] 10 iterations done. 56138378 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 103711642 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 145990858 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 183564698 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 216956426 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 246631018 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 273001850 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 296436282 characters processed.
+[bwt_gen] Finished constructing BWT in 88 iterations.
+[bwa_index] 64.47 seconds elapse.
+[bwa_index] Update BWT... 0.54 sec
+[bwa_index] Pack forward-only FASTA... 0.47 sec
+[bwa_index] Construct SA from BWT and Occ... 29.20 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/02.小花糖芥抗感标记/01.data/Erysimum_cheiranthoides_chromosomes.fa
+[main] Real time: 95.921 sec; CPU: 95.463 sec
+usage: filter_snp_indel.py [-h] -i INPUT [-o OUTPUT] -c CHR [-s START] [-e END] [--convert-format] [--plink-path PLINK_PATH] [--allow-extra-chr]
+                           [--maf MAF] [--max-missing MAX_MISSING] [--quality-threshold QUALITY_THRESHOLD] [--min-depth MIN_DEPTH]
+                           [--max-depth MAX_DEPTH] [--keep-samples KEEP_SAMPLES] [--remove-samples REMOVE_SAMPLES] [--keep-ids KEEP_IDS]
+                           [--remove-ids REMOVE_IDS] [--biallelic-only] [--remove-indels] [--skip-validation] [--force-validation] [--verbose]
+filter_snp_indel.py: error: the following arguments are required: -c/--chr/--chromosome
+Job 67801904 stderr output:
+

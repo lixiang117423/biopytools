@@ -1,0 +1,480 @@
+2026-01-21 08:56:25.259 - INFO - ============================================================
+2026-01-21 08:56:25.260 - INFO - FASTQ文件统计工具|FASTQ File Statistics Tool
+2026-01-21 08:56:25.260 - INFO - ============================================================
+2026-01-21 08:56:25.342 - INFO - seqkit依赖检查通过|seqkit dependency check passed
+2026-01-21 08:56:25.342 - INFO - 正在查找样品文件|Searching for sample files in: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/raw/hifi/fastq
+2026-01-21 08:56:25.391 - INFO - 找到111个样品|Found 111 samples
+2026-01-21 08:56:25.391 - INFO -   M-11: R1=M-11.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   B4-28: R1=B4-28.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N4-1: R1=N4-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   D4-1: R1=D4-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   K2-23: R1=K2-23.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   D1-1: R1=D1-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N10-8: R1=N10-8.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N3-5: R1=N3-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N2-8: R1=N2-8.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N2-11: R1=N2-11.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N8-4: R1=N8-4.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N12-5: R1=N12-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A1-3: R1=A1-3.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   D2-12: R1=D2-12.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N10-4: R1=N10-4.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   D2-5: R1=D2-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A2-1: R1=A2-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A3-48: R1=A3-48.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A3-18: R1=A3-18.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A3-16: R1=A3-16.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N10-14: R1=N10-14.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N11-1: R1=N11-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   M-12: R1=M-12.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N3-11: R1=N3-11.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   D6-8: R1=D6-8.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   B4-22: R1=B4-22.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   D2-11: R1=D2-11.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N3-6: R1=N3-6.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N10-16: R1=N10-16.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A1-18: R1=A1-18.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A3-54: R1=A3-54.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   D6-3: R1=D6-3.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A3-2: R1=A3-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   B3-16: R1=B3-16.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N3-15: R1=N3-15.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   K2-9: R1=K2-9.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   A1-17: R1=A1-17.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.391 - INFO -   N8-6: R1=N8-6.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.393 - INFO -   A1-2: R1=A1-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.393 - INFO -   B3-2: R1=B3-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.393 - INFO -   N3-1: R1=N3-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   SG30: R1=SG30.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   M-9: R1=M-9.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D1-5: R1=D1-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N8-7: R1=N8-7.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A1-10: R1=A1-10.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A3-57: R1=A3-57.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N3-9: R1=N3-9.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N10-10: R1=N10-10.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   M-6: R1=M-6.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A3-55: R1=A3-55.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D4-5: R1=D4-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N3-2: R1=N3-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A1-8: R1=A1-8.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D2-1: R1=D2-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   6497: R1=6497.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N10-9: R1=N10-9.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A3-17: R1=A3-17.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B2-1: R1=B2-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N2-6: R1=N2-6.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D2-8: R1=D2-8.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N2-1: R1=N2-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N8-8: R1=N8-8.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N4-2: R1=N4-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D3-2: R1=D3-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N11-6: R1=N11-6.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   K2-16: R1=K2-16.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N8-5: R1=N8-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B4-50: R1=B4-50.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   7076: R1=7076.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A3-27: R1=A3-27.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D4-2: R1=D4-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B2-2: R1=B2-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A3-22: R1=A3-22.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N2-9: R1=N2-9.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N10-3: R1=N10-3.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A2-5: R1=A2-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N3-16: R1=N3-16.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   M-8: R1=M-8.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B4-36: R1=B4-36.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D4-9: R1=D4-9.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B3-5: R1=B3-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A3-52: R1=A3-52.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   K1-2: R1=K1-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A2-3: R1=A2-3.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   41: R1=41.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N11-7: R1=N11-7.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B4-5: R1=B4-5.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B3-8: R1=B3-8.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B4-10: R1=B4-10.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   M-7: R1=M-7.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B4-18: R1=B4-18.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A3-14: R1=A3-14.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N8-9: R1=N8-9.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   M-13: R1=M-13.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B4-1: R1=B4-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N6-1: R1=N6-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B3-12: R1=B3-12.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   B3-15: R1=B3-15.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   M-16: R1=M-16.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N12-2: R1=N12-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D2-16: R1=D2-16.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D2-4: R1=D2-4.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A3-4: R1=A3-4.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   M-4: R1=M-4.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N12-6: R1=N12-6.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N3-3: R1=N3-3.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   D5-2: R1=D5-2.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   A1-1: R1=A1-1.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.394 - INFO -   N8-10: R1=N8-10.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.395 - INFO -   D3-3: R1=D3-3.hifi_reads.fastq.gz (单端|single-end)
+2026-01-21 08:56:25.395 - INFO - 使用64个线程处理|Processing with 64 threads
+2026-01-21 08:56:25.395 - INFO - 正在处理111个文件|Processing 111 files
+2026-01-21 08:56:25.395 - INFO - 运行seqkit命令|Running seqkit command with 111 files
+2026-01-21 09:03:38.872 - INFO - seqkit成功处理111个文件|seqkit successfully processed 111 files
+2026-01-21 14:53:36.984 - INFO - 结果已保存到|Results saved to: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/fastq文件统计_质控前.csv
+2026-01-21 14:53:36.984 - INFO - 
+统计摘要|Statistics Summary:
+2026-01-21 14:53:36.984 - INFO - 样品名称|Sample Name     R1 reads     R2 reads     总reads|Total R1大小|R1 Size R1解压|R1 Uncomp
+2026-01-21 14:53:36.984 - INFO -                                                             (压缩|compressed) (uncompressed)
+2026-01-21 14:53:36.984 - INFO - 41                   1.73M        N/A          1.73M        9.43GB       47.31GB     
+2026-01-21 14:53:36.984 - INFO - 6497                 1.88M        N/A          1.88M        11.57GB      60.86GB     
+2026-01-21 14:53:36.984 - INFO - 7076                 2.00M        N/A          2.00M        11.08GB      62.32GB     
+2026-01-21 14:53:36.984 - INFO - A1-1                 1.78M        N/A          1.78M        11.08GB      54.41GB     
+2026-01-21 14:53:36.984 - INFO - A1-10                1.50M        N/A          1.50M        10.12GB      48.72GB     
+2026-01-21 14:53:36.984 - INFO - A1-17                1.50M        N/A          1.50M        9.47GB       46.34GB     
+2026-01-21 14:53:36.984 - INFO - A1-18                1.68M        N/A          1.68M        10.84GB      53.10GB     
+2026-01-21 14:53:36.984 - INFO - A1-2                 1.52M        N/A          1.52M        9.88GB       48.08GB     
+2026-01-21 14:53:36.984 - INFO - A1-3                 1.75M        N/A          1.75M        10.61GB      52.23GB     
+2026-01-21 14:53:36.984 - INFO - A1-8                 1.79M        N/A          1.79M        10.79GB      53.83GB     
+2026-01-21 14:53:36.984 - INFO - A2-1                 1.51M        N/A          1.51M        10.44GB      47.31GB     
+2026-01-21 14:53:36.984 - INFO - A2-3                 1.67M        N/A          1.67M        10.37GB      48.64GB     
+2026-01-21 14:53:36.985 - INFO - A2-5                 2.95M        N/A          2.95M        10.31GB      57.98GB     
+2026-01-21 14:53:36.985 - INFO - A3-14                1.71M        N/A          1.71M        10.05GB      53.05GB     
+2026-01-21 14:53:36.985 - INFO - A3-16                1.72M        N/A          1.72M        10.49GB      53.22GB     
+2026-01-21 14:53:36.985 - INFO - A3-17                1.83M        N/A          1.83M        9.89GB       51.35GB     
+2026-01-21 14:53:36.985 - INFO - A3-18                1.90M        N/A          1.90M        12.48GB      59.69GB     
+2026-01-21 14:53:36.985 - INFO - A3-2                 1.50M        N/A          1.50M        10.59GB      49.29GB     
+2026-01-21 14:53:36.985 - INFO - A3-22                1.56M        N/A          1.56M        11.43GB      52.67GB     
+2026-01-21 14:53:36.985 - INFO - A3-27                1.66M        N/A          1.66M        10.33GB      50.27GB     
+2026-01-21 14:53:36.985 - INFO - A3-4                 1.45M        N/A          1.45M        10.23GB      50.87GB     
+2026-01-21 14:53:36.985 - INFO - A3-48                1.84M        N/A          1.84M        12.83GB      60.83GB     
+2026-01-21 14:53:36.985 - INFO - A3-52                1.84M        N/A          1.84M        10.70GB      55.25GB     
+2026-01-21 14:53:36.985 - INFO - A3-54                1.90M        N/A          1.90M        12.38GB      63.15GB     
+2026-01-21 14:53:36.985 - INFO - A3-55                1.67M        N/A          1.67M        9.06GB       47.21GB     
+2026-01-21 14:53:36.985 - INFO - A3-57                2.01M        N/A          2.01M        12.21GB      62.74GB     
+2026-01-21 14:53:36.985 - INFO - B2-1                 1.90M        N/A          1.90M        10.95GB      55.62GB     
+2026-01-21 14:53:36.985 - INFO - B2-2                 1.71M        N/A          1.71M        11.40GB      54.54GB     
+2026-01-21 14:53:36.985 - INFO - B3-12                1.67M        N/A          1.67M        11.10GB      55.14GB     
+2026-01-21 14:53:36.985 - INFO - B3-15                1.70M        N/A          1.70M        10.56GB      54.11GB     
+2026-01-21 14:53:36.985 - INFO - B3-16                1.72M        N/A          1.72M        10.91GB      55.08GB     
+2026-01-21 14:53:36.985 - INFO - B3-2                 1.96M        N/A          1.96M        11.37GB      55.92GB     
+2026-01-21 14:53:36.985 - INFO - B3-5                 1.53M        N/A          1.53M        10.19GB      48.18GB     
+2026-01-21 14:53:36.985 - INFO - B3-8                 1.71M        N/A          1.71M        11.62GB      56.83GB     
+2026-01-21 14:53:36.985 - INFO - B4-1                 1.93M        N/A          1.93M        10.66GB      54.32GB     
+2026-01-21 14:53:36.985 - INFO - B4-10                1.75M        N/A          1.75M        10.34GB      51.47GB     
+2026-01-21 14:53:36.985 - INFO - B4-18                1.91M        N/A          1.91M        11.71GB      58.66GB     
+2026-01-21 14:53:36.985 - INFO - B4-22                1.97M        N/A          1.97M        12.76GB      65.13GB     
+2026-01-21 14:53:36.985 - INFO - B4-28                1.99M        N/A          1.99M        11.57GB      60.25GB     
+2026-01-21 14:53:36.985 - INFO - B4-36                1.48M        N/A          1.48M        9.63GB       48.09GB     
+2026-01-21 14:53:36.985 - INFO - B4-5                 1.87M        N/A          1.87M        11.91GB      58.21GB     
+2026-01-21 14:53:36.985 - INFO - B4-50                2.01M        N/A          2.01M        13.74GB      68.46GB     
+2026-01-21 14:53:36.985 - INFO - D1-1                 1.55M        N/A          1.55M        9.99GB       52.91GB     
+2026-01-21 14:53:36.985 - INFO - D1-5                 1.90M        N/A          1.90M        11.22GB      60.04GB     
+2026-01-21 14:53:36.985 - INFO - D2-1                 1.84M        N/A          1.84M        11.83GB      62.56GB     
+2026-01-21 14:53:36.985 - INFO - D2-11                2.12M        N/A          2.12M        10.94GB      61.32GB     
+2026-01-21 14:53:36.985 - INFO - D2-12                1.82M        N/A          1.82M        11.58GB      60.16GB     
+2026-01-21 14:53:36.985 - INFO - D2-16                1.76M        N/A          1.76M        10.92GB      55.59GB     
+2026-01-21 14:53:36.985 - INFO - D2-4                 1.91M        N/A          1.91M        11.86GB      63.24GB     
+2026-01-21 14:53:36.985 - INFO - D2-5                 1.95M        N/A          1.95M        12.42GB      64.66GB     
+2026-01-21 14:53:36.985 - INFO - D2-8                 2.06M        N/A          2.06M        11.75GB      63.74GB     
+2026-01-21 14:53:36.985 - INFO - D3-2                 1.99M        N/A          1.99M        9.37GB       54.65GB     
+2026-01-21 14:53:36.985 - INFO - D3-3                 1.71M        N/A          1.71M        9.98GB       52.30GB     
+2026-01-21 14:53:36.985 - INFO - D4-1                 1.81M        N/A          1.81M        9.72GB       51.54GB     
+2026-01-21 14:53:36.985 - INFO - D4-2                 2.11M        N/A          2.11M        11.37GB      60.80GB     
+2026-01-21 14:53:36.985 - INFO - D4-5                 1.53M        N/A          1.53M        8.40GB       44.29GB     
+2026-01-21 14:53:36.985 - INFO - D4-9                 1.83M        N/A          1.83M        10.56GB      55.30GB     
+2026-01-21 14:53:36.985 - INFO - D5-2                 1.75M        N/A          1.75M        10.57GB      54.02GB     
+2026-01-21 14:53:36.985 - INFO - D6-3                 1.97M        N/A          1.97M        11.31GB      60.37GB     
+2026-01-21 14:53:36.985 - INFO - D6-8                 2.29M        N/A          2.29M        11.31GB      66.19GB     
+2026-01-21 14:53:36.985 - INFO - K1-2                 1.75M        N/A          1.75M        9.13GB       47.35GB     
+2026-01-21 14:53:36.985 - INFO - K2-16                1.76M        N/A          1.76M        10.89GB      52.80GB     
+2026-01-21 14:53:36.985 - INFO - K2-23                1.72M        N/A          1.72M        9.58GB       47.89GB     
+2026-01-21 14:53:36.985 - INFO - K2-9                 1.46M        N/A          1.46M        7.15GB       38.55GB     
+2026-01-21 14:53:36.985 - INFO - M-11                 1.94M        N/A          1.94M        10.02GB      53.63GB     
+2026-01-21 14:53:36.985 - INFO - M-12                 1.89M        N/A          1.89M        9.42GB       52.71GB     
+2026-01-21 14:53:36.985 - INFO - M-13                 1.83M        N/A          1.83M        9.40GB       51.91GB     
+2026-01-21 14:53:36.985 - INFO - M-16                 1.67M        N/A          1.67M        9.39GB       51.18GB     
+2026-01-21 14:53:36.985 - INFO - M-4                  2.00M        N/A          2.00M        10.21GB      53.08GB     
+2026-01-21 14:53:36.985 - INFO - M-6                  1.82M        N/A          1.82M        11.11GB      55.34GB     
+2026-01-21 14:53:36.985 - INFO - M-7                  2.00M        N/A          2.00M        11.00GB      56.42GB     
+2026-01-21 14:53:36.985 - INFO - M-8                  1.78M        N/A          1.78M        9.11GB       48.26GB     
+2026-01-21 14:53:36.985 - INFO - M-9                  2.01M        N/A          2.01M        12.22GB      62.76GB     
+2026-01-21 14:53:36.985 - INFO - N10-10               1.58M        N/A          1.58M        9.85GB       51.67GB     
+2026-01-21 14:53:36.985 - INFO - N10-14               2.38M        N/A          2.38M        8.59GB       57.15GB     
+2026-01-21 14:53:36.985 - INFO - N10-16               1.72M        N/A          1.72M        9.26GB       49.83GB     
+2026-01-21 14:53:36.985 - INFO - N10-3                1.75M        N/A          1.75M        11.74GB      58.84GB     
+2026-01-21 14:53:36.985 - INFO - N10-4                1.79M        N/A          1.79M        10.76GB      57.35GB     
+2026-01-21 14:53:36.985 - INFO - N10-8                1.91M        N/A          1.91M        10.12GB      57.07GB     
+2026-01-21 14:53:36.985 - INFO - N10-9                2.01M        N/A          2.01M        12.51GB      66.03GB     
+2026-01-21 14:53:36.985 - INFO - N11-1                1.88M        N/A          1.88M        10.92GB      56.43GB     
+2026-01-21 14:53:36.986 - INFO - N11-6                1.73M        N/A          1.73M        9.50GB       52.11GB     
+2026-01-21 14:53:36.986 - INFO - N11-7                2.12M        N/A          2.12M        11.82GB      59.96GB     
+2026-01-21 14:53:36.986 - INFO - N12-2                1.74M        N/A          1.74M        11.17GB      55.55GB     
+2026-01-21 14:53:36.986 - INFO - N12-5                1.85M        N/A          1.85M        11.54GB      57.71GB     
+2026-01-21 14:53:36.986 - INFO - N12-6                1.99M        N/A          1.99M        12.97GB      63.16GB     
+2026-01-21 14:53:36.986 - INFO - N2-1                 1.94M        N/A          1.94M        11.22GB      56.86GB     
+2026-01-21 14:53:36.986 - INFO - N2-11                2.28M        N/A          2.28M        11.51GB      64.85GB     
+2026-01-21 14:53:36.986 - INFO - N2-6                 1.97M        N/A          1.97M        12.30GB      62.31GB     
+2026-01-21 14:53:36.986 - INFO - N2-8                 1.89M        N/A          1.89M        11.81GB      59.33GB     
+2026-01-21 14:53:36.986 - INFO - N2-9                 2.12M        N/A          2.12M        10.73GB      58.69GB     
+2026-01-21 14:53:36.986 - INFO - N3-1                 2.14M        N/A          2.14M        9.86GB       54.58GB     
+2026-01-21 14:53:36.986 - INFO - N3-11                1.93M        N/A          1.93M        8.75GB       48.15GB     
+2026-01-21 14:53:36.986 - INFO - N3-15                1.74M        N/A          1.74M        8.12GB       43.70GB     
+2026-01-21 14:53:36.986 - INFO - N3-16                1.66M        N/A          1.66M        7.61GB       45.84GB     
+2026-01-21 14:53:36.986 - INFO - N3-2                 2.08M        N/A          2.08M        12.71GB      63.11GB     
+2026-01-21 14:53:36.986 - INFO - N3-3                 2.01M        N/A          2.01M        11.80GB      61.44GB     
+2026-01-21 14:53:36.986 - INFO - N3-5                 2.23M        N/A          2.23M        11.00GB      61.29GB     
+2026-01-21 14:53:36.986 - INFO - N3-6                 2.30M        N/A          2.30M        12.80GB      66.43GB     
+2026-01-21 14:53:36.986 - INFO - N3-9                 1.98M        N/A          1.98M        9.72GB       53.58GB     
+2026-01-21 14:53:36.986 - INFO - N4-1                 1.79M        N/A          1.79M        10.02GB      54.12GB     
+2026-01-21 14:53:36.986 - INFO - N4-2                 2.07M        N/A          2.07M        8.81GB       55.09GB     
+2026-01-21 14:53:36.986 - INFO - N6-1                 1.75M        N/A          1.75M        8.39GB       48.82GB     
+2026-01-21 14:53:36.986 - INFO - N8-10                1.57M        N/A          1.57M        8.42GB       45.16GB     
+2026-01-21 14:53:36.986 - INFO - N8-4                 1.60M        N/A          1.60M        10.42GB      52.88GB     
+2026-01-21 14:53:36.986 - INFO - N8-5                 1.72M        N/A          1.72M        10.30GB      53.26GB     
+2026-01-21 14:53:36.986 - INFO - N8-6                 2.03M        N/A          2.03M        9.28GB       52.04GB     
+2026-01-21 14:53:36.986 - INFO - N8-7                 1.78M        N/A          1.78M        8.34GB       49.32GB     
+2026-01-21 14:53:36.986 - INFO - N8-8                 1.82M        N/A          1.82M        10.59GB      55.92GB     
+2026-01-21 14:53:36.986 - INFO - N8-9                 1.99M        N/A          1.99M        12.73GB      64.92GB     
+2026-01-21 14:53:36.986 - INFO - SG30                 2.21M        N/A          2.21M        12.15GB      66.61GB     
+2026-01-21 14:53:36.986 - INFO - ============================================================
+2026-01-21 14:53:36.986 - INFO - 完成! 共处理111个样品|Completed! Processed 111 samples
+2026-01-21 14:53:36.986 - INFO - ============================================================
+2026-01-21 14:53:39.809 - INFO - ============================================================
+2026-01-21 14:53:39.809 - INFO - FASTQ文件统计工具|FASTQ File Statistics Tool
+2026-01-21 14:53:39.809 - INFO - ============================================================
+2026-01-21 14:53:39.976 - INFO - seqkit依赖检查通过|seqkit dependency check passed
+2026-01-21 14:53:39.976 - INFO - 正在查找样品文件|Searching for sample files in: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi
+2026-01-21 14:53:40.056 - INFO - 找到111个样品|Found 111 samples
+2026-01-21 14:53:40.056 - INFO -   D2-8: R1=D2-8.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A2-3: R1=A2-3.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A1-1: R1=A1-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   B2-2: R1=B2-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A3-55: R1=A3-55.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   K2-9: R1=K2-9.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D2-4: R1=D2-4.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D4-9: R1=D4-9.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A3-48: R1=A3-48.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   B4-28: R1=B4-28.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   7076: R1=7076.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   M-13: R1=M-13.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D6-3: R1=D6-3.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N2-8: R1=N2-8.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D1-1: R1=D1-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D4-2: R1=D4-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A3-17: R1=A3-17.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N10-4: R1=N10-4.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D4-1: R1=D4-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A1-10: R1=A1-10.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A3-16: R1=A3-16.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N3-9: R1=N3-9.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A2-5: R1=A2-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N10-9: R1=N10-9.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A3-27: R1=A3-27.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D2-5: R1=D2-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A1-18: R1=A1-18.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N8-10: R1=N8-10.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   M-4: R1=M-4.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N12-5: R1=N12-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N3-16: R1=N3-16.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N11-1: R1=N11-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N10-3: R1=N10-3.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   B4-22: R1=B4-22.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N8-9: R1=N8-9.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   SG30: R1=SG30.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N3-3: R1=N3-3.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N2-6: R1=N2-6.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N2-11: R1=N2-11.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D4-5: R1=D4-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N8-8: R1=N8-8.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N3-6: R1=N3-6.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   M-11: R1=M-11.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N3-2: R1=N3-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   B4-1: R1=B4-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   B3-12: R1=B3-12.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D2-12: R1=D2-12.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N4-1: R1=N4-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   B2-1: R1=B2-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D6-8: R1=D6-8.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A3-52: R1=A3-52.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   41: R1=41.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A3-18: R1=A3-18.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   D3-3: R1=D3-3.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A3-2: R1=A3-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   B4-50: R1=B4-50.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N2-9: R1=N2-9.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   A1-8: R1=A1-8.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   B4-36: R1=B4-36.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   K1-2: R1=K1-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.056 - INFO -   N10-14: R1=N10-14.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   D2-11: R1=D2-11.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   B4-18: R1=B4-18.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A3-57: R1=A3-57.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   B3-15: R1=B3-15.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N12-2: R1=N12-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   M-6: R1=M-6.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   B3-8: R1=B3-8.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N2-1: R1=N2-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   B3-16: R1=B3-16.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A3-14: R1=A3-14.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N10-10: R1=N10-10.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A1-17: R1=A1-17.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N4-2: R1=N4-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   M-16: R1=M-16.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   6497: R1=6497.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N8-6: R1=N8-6.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N12-6: R1=N12-6.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   D1-5: R1=D1-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   D2-1: R1=D2-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A3-22: R1=A3-22.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N10-8: R1=N10-8.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N11-6: R1=N11-6.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N3-1: R1=N3-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A3-54: R1=A3-54.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   B3-5: R1=B3-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   D3-2: R1=D3-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A3-4: R1=A3-4.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N3-11: R1=N3-11.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A1-3: R1=A1-3.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   K2-23: R1=K2-23.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   K2-16: R1=K2-16.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   M-8: R1=M-8.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N3-15: R1=N3-15.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N8-4: R1=N8-4.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N11-7: R1=N11-7.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N3-5: R1=N3-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   D5-2: R1=D5-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   M-7: R1=M-7.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A2-1: R1=A2-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   B4-5: R1=B4-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   B4-10: R1=B4-10.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N10-16: R1=N10-16.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   M-12: R1=M-12.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N6-1: R1=N6-1.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   B3-2: R1=B3-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N8-7: R1=N8-7.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   M-9: R1=M-9.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   D2-16: R1=D2-16.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   N8-5: R1=N8-5.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO -   A1-2: R1=A1-2.clean.fq.gz (单端|single-end)
+2026-01-21 14:53:40.057 - INFO - 使用64个线程处理|Processing with 64 threads
+2026-01-21 14:53:40.057 - INFO - 正在处理111个文件|Processing 111 files
+2026-01-21 14:53:40.058 - INFO - 运行seqkit命令|Running seqkit command with 111 files
+2026-01-21 16:14:09.667 - INFO - seqkit成功处理111个文件|seqkit successfully processed 111 files
+2026-01-21 23:05:04.668 - INFO - 结果已保存到|Results saved to: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/fastq文件统计_质控后.csv
+2026-01-21 23:05:04.668 - INFO - 
+统计摘要|Statistics Summary:
+2026-01-21 23:05:04.668 - INFO - 样品名称|Sample Name     R1 reads     R2 reads     总reads|Total R1大小|R1 Size R1解压|R1 Uncomp
+2026-01-21 23:05:04.668 - INFO -                                                             (压缩|compressed) (uncompressed)
+2026-01-21 23:05:04.668 - INFO - 41                   1.72M        N/A          1.72M        9.06GB       46.96GB     
+2026-01-21 23:05:04.668 - INFO - 6497                 1.87M        N/A          1.87M        11.05GB      60.49GB     
+2026-01-21 23:05:04.668 - INFO - 7076                 1.99M        N/A          1.99M        10.82GB      62.01GB     
+2026-01-21 23:05:04.668 - INFO - A1-1                 1.77M        N/A          1.77M        10.58GB      54.00GB     
+2026-01-21 23:05:04.668 - INFO - A1-10                1.49M        N/A          1.49M        9.66GB       48.40GB     
+2026-01-21 23:05:04.668 - INFO - A1-17                1.50M        N/A          1.50M        9.04GB       46.03GB     
+2026-01-21 23:05:04.668 - INFO - A1-18                1.67M        N/A          1.67M        10.39GB      52.74GB     
+2026-01-21 23:05:04.668 - INFO - A1-2                 1.51M        N/A          1.51M        9.50GB       47.70GB     
+2026-01-21 23:05:04.668 - INFO - A1-3                 1.74M        N/A          1.74M        10.22GB      51.84GB     
+2026-01-21 23:05:04.668 - INFO - A1-8                 1.78M        N/A          1.78M        10.41GB      53.48GB     
+2026-01-21 23:05:04.668 - INFO - A2-1                 1.49M        N/A          1.49M        9.83GB       46.71GB     
+2026-01-21 23:05:04.668 - INFO - A2-3                 1.65M        N/A          1.65M        9.88GB       48.07GB     
+2026-01-21 23:05:04.684 - INFO - A2-5                 2.94M        N/A          2.94M        10.23GB      57.48GB     
+2026-01-21 23:05:04.684 - INFO - A3-14                1.70M        N/A          1.70M        9.77GB       52.76GB     
+2026-01-21 23:05:04.684 - INFO - A3-16                1.71M        N/A          1.71M        10.07GB      52.89GB     
+2026-01-21 23:05:04.684 - INFO - A3-17                1.82M        N/A          1.82M        9.53GB       51.05GB     
+2026-01-21 23:05:04.684 - INFO - A3-18                1.88M        N/A          1.88M        11.86GB      58.97GB     
+2026-01-21 23:05:04.684 - INFO - A3-2                 1.48M        N/A          1.48M        10.08GB      48.72GB     
+2026-01-21 23:05:04.684 - INFO - A3-22                1.54M        N/A          1.54M        10.74GB      51.99GB     
+2026-01-21 23:05:04.684 - INFO - A3-27                1.64M        N/A          1.64M        9.81GB       49.73GB     
+2026-01-21 23:05:04.684 - INFO - A3-4                 1.44M        N/A          1.44M        9.82GB       50.55GB     
+2026-01-21 23:05:04.684 - INFO - A3-48                1.82M        N/A          1.82M        12.21GB      60.10GB     
+2026-01-21 23:05:04.684 - INFO - A3-52                1.83M        N/A          1.83M        10.35GB      54.81GB     
+2026-01-21 23:05:04.684 - INFO - A3-54                1.89M        N/A          1.89M        12.05GB      62.59GB     
+2026-01-21 23:05:04.684 - INFO - A3-55                1.65M        N/A          1.65M        8.74GB       46.82GB     
+2026-01-21 23:05:04.684 - INFO - A3-57                2.00M        N/A          2.00M        11.83GB      62.21GB     
+2026-01-21 23:05:04.684 - INFO - B2-1                 1.89M        N/A          1.89M        10.61GB      55.13GB     
+2026-01-21 23:05:04.684 - INFO - B2-2                 1.70M        N/A          1.70M        10.86GB      54.05GB     
+2026-01-21 23:05:04.684 - INFO - B3-12                1.66M        N/A          1.66M        10.67GB      54.61GB     
+2026-01-21 23:05:04.684 - INFO - B3-15                1.69M        N/A          1.69M        10.24GB      53.60GB     
+2026-01-21 23:05:04.684 - INFO - B3-16                1.71M        N/A          1.71M        10.52GB      54.54GB     
+2026-01-21 23:05:04.684 - INFO - B3-2                 1.95M        N/A          1.95M        10.91GB      55.39GB     
+2026-01-21 23:05:04.684 - INFO - B3-5                 1.52M        N/A          1.52M        9.70GB       47.69GB     
+2026-01-21 23:05:04.684 - INFO - B3-8                 1.69M        N/A          1.69M        11.12GB      56.23GB     
+2026-01-21 23:05:04.684 - INFO - B4-1                 1.92M        N/A          1.92M        10.41GB      53.81GB     
+2026-01-21 23:05:04.684 - INFO - B4-10                1.73M        N/A          1.73M        9.96GB       50.98GB     
+2026-01-21 23:05:04.684 - INFO - B4-18                1.90M        N/A          1.90M        11.39GB      58.11GB     
+2026-01-21 23:05:04.684 - INFO - B4-22                1.96M        N/A          1.96M        12.30GB      64.65GB     
+2026-01-21 23:05:04.684 - INFO - B4-28                1.97M        N/A          1.97M        11.21GB      59.82GB     
+2026-01-21 23:05:04.684 - INFO - B4-36                1.47M        N/A          1.47M        9.25GB       47.70GB     
+2026-01-21 23:05:04.684 - INFO - B4-5                 1.86M        N/A          1.86M        11.42GB      57.63GB     
+2026-01-21 23:05:04.684 - INFO - B4-50                1.99M        N/A          1.99M        13.23GB      67.91GB     
+2026-01-21 23:05:04.684 - INFO - D1-1                 1.55M        N/A          1.55M        9.60GB       52.67GB     
+2026-01-21 23:05:04.684 - INFO - D1-5                 1.90M        N/A          1.90M        10.80GB      59.77GB     
+2026-01-21 23:05:04.684 - INFO - D2-1                 1.83M        N/A          1.83M        11.43GB      62.27GB     
+2026-01-21 23:05:04.684 - INFO - D2-11                2.12M        N/A          2.12M        10.78GB      61.05GB     
+2026-01-21 23:05:04.685 - INFO - D2-12                1.81M        N/A          1.81M        11.12GB      59.87GB     
+2026-01-21 23:05:04.685 - INFO - D2-16                1.75M        N/A          1.75M        10.51GB      55.27GB     
+2026-01-21 23:05:04.685 - INFO - D2-4                 1.90M        N/A          1.90M        11.48GB      62.95GB     
+2026-01-21 23:05:04.685 - INFO - D2-5                 1.94M        N/A          1.94M        12.02GB      64.35GB     
+2026-01-21 23:05:04.685 - INFO - D2-8                 2.05M        N/A          2.05M        11.47GB      63.46GB     
+2026-01-21 23:05:04.685 - INFO - D3-2                 1.98M        N/A          1.98M        9.43GB       54.39GB     
+2026-01-21 23:05:04.685 - INFO - D3-3                 1.70M        N/A          1.70M        9.66GB       52.02GB     
+2026-01-21 23:05:04.685 - INFO - D4-1                 1.80M        N/A          1.80M        9.41GB       51.27GB     
+2026-01-21 23:05:04.685 - INFO - D4-2                 2.10M        N/A          2.10M        11.02GB      60.44GB     
+2026-01-21 23:05:04.685 - INFO - D4-5                 1.52M        N/A          1.52M        8.11GB       44.04GB     
+2026-01-21 23:05:04.685 - INFO - D4-9                 1.82M        N/A          1.82M        10.17GB      54.98GB     
+2026-01-21 23:05:04.685 - INFO - D5-2                 1.74M        N/A          1.74M        10.12GB      53.71GB     
+2026-01-21 23:05:04.685 - INFO - D6-3                 1.96M        N/A          1.96M        11.00GB      60.07GB     
+2026-01-21 23:05:04.685 - INFO - D6-8                 2.28M        N/A          2.28M        11.39GB      65.90GB     
+2026-01-21 23:05:04.685 - INFO - K1-2                 1.75M        N/A          1.75M        8.79GB       47.10GB     
+2026-01-21 23:05:04.685 - INFO - K2-16                1.75M        N/A          1.75M        10.36GB      52.33GB     
+2026-01-21 23:05:04.685 - INFO - K2-23                1.70M        N/A          1.70M        9.21GB       47.53GB     
+2026-01-21 23:05:04.685 - INFO - K2-9                 1.46M        N/A          1.46M        6.92GB       38.36GB     
+2026-01-21 23:05:04.685 - INFO - M-11                 1.93M        N/A          1.93M        9.71GB       53.26GB     
+2026-01-21 23:05:04.685 - INFO - M-12                 1.88M        N/A          1.88M        9.23GB       52.51GB     
+2026-01-21 23:05:04.685 - INFO - M-13                 1.82M        N/A          1.82M        9.20GB       51.71GB     
+2026-01-21 23:05:04.685 - INFO - M-16                 1.66M        N/A          1.66M        9.19GB       50.97GB     
+2026-01-21 23:05:04.685 - INFO - M-4                  1.99M        N/A          1.99M        9.88GB       52.68GB     
+2026-01-21 23:05:04.685 - INFO - M-6                  1.81M        N/A          1.81M        10.73GB      54.89GB     
+2026-01-21 23:05:04.685 - INFO - M-7                  1.99M        N/A          1.99M        10.54GB      56.00GB     
+2026-01-21 23:05:04.685 - INFO - M-8                  1.77M        N/A          1.77M        8.77GB       47.92GB     
+2026-01-21 23:05:04.685 - INFO - M-9                  1.99M        N/A          1.99M        11.75GB      62.28GB     
+2026-01-21 23:05:04.685 - INFO - N10-10               1.57M        N/A          1.57M        9.42GB       51.39GB     
+2026-01-21 23:05:04.685 - INFO - N10-14               2.37M        N/A          2.37M        8.79GB       56.91GB     
+2026-01-21 23:05:04.685 - INFO - N10-16               1.71M        N/A          1.71M        8.93GB       49.57GB     
+2026-01-21 23:05:04.685 - INFO - N10-3                1.74M        N/A          1.74M        11.21GB      58.55GB     
+2026-01-21 23:05:04.685 - INFO - N10-4                1.78M        N/A          1.78M        10.32GB      57.05GB     
+2026-01-21 23:05:04.685 - INFO - N10-8                1.90M        N/A          1.90M        9.85GB       56.81GB     
+2026-01-21 23:05:04.685 - INFO - N10-9                2.01M        N/A          2.01M        11.99GB      65.68GB     
+2026-01-21 23:05:04.685 - INFO - N11-1                1.87M        N/A          1.87M        10.45GB      56.10GB     
+2026-01-21 23:05:04.685 - INFO - N11-6                1.72M        N/A          1.72M        9.29GB       51.84GB     
+2026-01-21 23:05:04.685 - INFO - N11-7                2.10M        N/A          2.10M        11.35GB      59.50GB     
+2026-01-21 23:05:04.685 - INFO - N12-2                1.73M        N/A          1.73M        10.73GB      55.11GB     
+2026-01-21 23:05:04.685 - INFO - N12-5                1.84M        N/A          1.84M        11.06GB      57.27GB     
+2026-01-21 23:05:04.685 - INFO - N12-6                1.98M        N/A          1.98M        12.35GB      62.66GB     
+2026-01-21 23:05:04.685 - INFO - N2-1                 1.94M        N/A          1.94M        10.72GB      56.60GB     
+2026-01-21 23:05:04.685 - INFO - N2-11                2.27M        N/A          2.27M        11.40GB      64.53GB     
+2026-01-21 23:05:04.685 - INFO - N2-6                 1.96M        N/A          1.96M        11.77GB      61.95GB     
+2026-01-21 23:05:04.685 - INFO - N2-8                 1.88M        N/A          1.88M        11.30GB      58.95GB     
+2026-01-21 23:05:04.685 - INFO - N2-9                 2.11M        N/A          2.11M        10.51GB      58.40GB     
+2026-01-21 23:05:04.685 - INFO - N3-1                 2.13M        N/A          2.13M        9.66GB       54.26GB     
+2026-01-21 23:05:04.685 - INFO - N3-11                1.92M        N/A          1.92M        8.60GB       47.87GB     
+2026-01-21 23:05:04.685 - INFO - N3-15                1.73M        N/A          1.73M        7.94GB       43.43GB     
+2026-01-21 23:05:04.685 - INFO - N3-16                1.66M        N/A          1.66M        7.51GB       45.68GB     
+2026-01-21 23:05:04.686 - INFO - N3-2                 2.07M        N/A          2.07M        12.13GB      62.66GB     
+2026-01-21 23:05:04.686 - INFO - N3-3                 1.99M        N/A          1.99M        11.41GB      61.04GB     
+2026-01-21 23:05:04.686 - INFO - N3-5                 2.22M        N/A          2.22M        10.86GB      60.92GB     
+2026-01-21 23:05:04.686 - INFO - N3-6                 2.29M        N/A          2.29M        12.40GB      66.01GB     
+2026-01-21 23:05:04.686 - INFO - N3-9                 1.97M        N/A          1.97M        9.67GB       53.28GB     
+2026-01-21 23:05:04.686 - INFO - N4-1                 1.78M        N/A          1.78M        9.58GB       53.86GB     
+2026-01-21 23:05:04.686 - INFO - N4-2                 2.06M        N/A          2.06M        8.80GB       54.90GB     
+2026-01-21 23:05:04.686 - INFO - N6-1                 1.74M        N/A          1.74M        8.18GB       48.64GB     
+2026-01-21 23:05:04.686 - INFO - N8-10                1.56M        N/A          1.56M        8.13GB       44.98GB     
+2026-01-21 23:05:04.686 - INFO - N8-4                 1.59M        N/A          1.59M        9.97GB       52.55GB     
+2026-01-21 23:05:04.686 - INFO - N8-5                 1.71M        N/A          1.71M        9.89GB       52.95GB     
+2026-01-21 23:05:04.686 - INFO - N8-6                 2.03M        N/A          2.03M        9.07GB       51.77GB     
+2026-01-21 23:05:04.686 - INFO - N8-7                 1.78M        N/A          1.78M        8.31GB       49.09GB     
+2026-01-21 23:05:04.686 - INFO - N8-8                 1.81M        N/A          1.81M        10.21GB      55.66GB     
+2026-01-21 23:05:04.686 - INFO - N8-9                 1.98M        N/A          1.98M        12.16GB      64.62GB     
+2026-01-21 23:05:04.686 - INFO - SG30                 2.20M        N/A          2.20M        11.75GB      66.26GB     
+2026-01-21 23:05:04.686 - INFO - ============================================================
+2026-01-21 23:05:04.686 - INFO - 完成! 共处理111个样品|Completed! Processed 111 samples
+2026-01-21 23:05:04.686 - INFO - ============================================================

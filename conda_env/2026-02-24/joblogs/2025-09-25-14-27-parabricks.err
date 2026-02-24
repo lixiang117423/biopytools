@@ -1,0 +1,4 @@
+/usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (zh_CN.UTF-8)
+python3: can't open file '/share/org/YZWL/yzwl_lixg/software/scripts/run_parabricks.py': [Errno 2] No such file or directory
+Job 67207183 stderr output:
+

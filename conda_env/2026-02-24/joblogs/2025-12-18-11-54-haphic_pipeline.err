@@ -1,0 +1,28 @@
+[2025-12-18 11:54:11] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-18 11:54:11] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-18 11:54:11]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa
+[2025-12-18 11:54:11]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-18 11:54:11]   hic_file_type: fastq
+[2025-12-18 11:54:11]   nchrs: 12
+[2025-12-18 11:54:11]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta
+[2025-12-18 11:54:11]   prefix: OV53_1.primary
+[2025-12-18 11:54:11]   threads: 64
+[2025-12-18 11:54:11]   processes: 64
+[2025-12-18 11:54:11]   quick_view: False
+[2025-12-18 11:54:11]   restriction_sites: ['GATC']
+[2025-12-18 11:54:11]   correct_nrounds: 2
+[2025-12-18 11:54:11]   remove_allelic_links: None
+[2025-12-18 11:54:11]   phasing_weight: 1.0
+[2025-12-18 11:54:11]   gfa_files: None
+[2025-12-18 11:54:11]   haphic_bin: haphic
+[2025-12-18 11:54:11]   bwa_bin: bwa
+[2025-12-18 11:54:11]   samtools_bin: samtools
+[2025-12-18 11:54:11] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-18 11:54:11] 🔍 系统预检查 | System pre-flight checks
+[2025-12-18 11:54:11] 🔍 验证输入文件 | Validating input files
+[2025-12-18 11:54:12] 📊 基因组序列数量 | Assembly sequence count: 1211
+[2025-12-18 11:54:12] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 60.14 GB
+[2025-12-18 11:54:12] ❌ HapHiC工具不存在 | HapHiC tool not found: haphic
+❌ HapHiC scaffolding失败!
+Job 68572335 stderr output:
+

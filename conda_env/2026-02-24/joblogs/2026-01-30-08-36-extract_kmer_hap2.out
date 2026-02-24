@@ -1,0 +1,7 @@
+2026-01-30 08:36:55.071 - INFO - 从FASTA文件提取kmer|Extracting kmers from FASTA: hap2_group9_chr12.fa
+2026-01-30 08:41:53.214 - INFO - kmer提取完成|Kmer extraction completed
+2026-01-30 08:41:53.215 - INFO - 总kmer数|Total kmers: 63692189
+2026-01-30 08:41:53.215 - INFO - 唯一kmer数|Unique kmers: 61254711
+2026-01-30 08:41:53.215 - INFO - kmer列表|Kmer list: hap2_chr12_kmer_51.txt
+2026-01-30 08:41:53.215 - INFO - kmer位置|Kmer positions: hap2_chr12_kmer_51_pos.txt
+2026-01-30 08:41:57.813 - INFO - kmer提取完成|kmer extraction completed

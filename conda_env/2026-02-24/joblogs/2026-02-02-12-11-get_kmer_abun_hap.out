@@ -1,0 +1,144 @@
+2026-02-02 12:11:20.260 - INFO - ====================================================================================================
+2026-02-02 12:11:20.271 - INFO -  Kmer交集提取工具|Kmer Intersection Extraction Tool
+2026-02-02 12:11:20.271 - INFO - ====================================================================================================
+2026-02-02 12:11:20.271 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 12:11:20.271 - INFO - 目标kmer fasta|Target kmer fasta: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_kmer_51.fa
+2026-02-02 12:11:20.271 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 12:11:20.271 - INFO - 线程数|Threads: 64
+2026-02-02 12:11:20.271 - INFO - 使用反向互补查询|Use reverse complement: True
+2026-02-02 12:11:20.272 - INFO - 
+2026-02-02 12:11:20.272 - INFO - ====================================================================================================
+2026-02-02 12:11:20.272 - INFO -  加载目标kmer|Loading Target Kmers
+2026-02-02 12:11:20.272 - INFO - ====================================================================================================
+2026-02-02 12:11:20.272 - INFO - fasta文件|Fasta file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_kmer_51.fa
+2026-02-02 12:13:20.757 - INFO - 总kmer数|Total kmers: 112.48M
+2026-02-02 12:13:20.757 - INFO - 唯一kmer数|Unique kmers: 80.45M
+2026-02-02 12:13:20.757 - WARNING - 重复kmer数|Duplicate kmers: 32.03M
+2026-02-02 12:13:22.073 - INFO - 
+2026-02-02 12:13:22.073 - INFO - ====================================================================================================
+2026-02-02 12:13:22.073 - INFO -  提取kmer丰度（多进程模式）|Extracting Kmer Abundance (Multi-Process Mode)
+2026-02-02 12:13:22.073 - INFO - ====================================================================================================
+2026-02-02 12:13:22.073 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 12:13:22.073 - INFO - 目标kmer数|Target kmers: 80.45M
+2026-02-02 12:13:22.073 - INFO - 进程数|Number of processes: 64
+2026-02-02 12:13:22.111 - INFO - 估算文件行数|Estimating file lines...
+2026-02-02 12:20:24.118 - INFO - 文件总行数|Total lines in file: 1849.41M
+2026-02-02 12:20:24.119 - WARNING - 目标kmer数过大|Large target kmer count: 80.45M
+2026-02-02 12:20:24.119 - WARNING - 为避免内存溢出，将进程数从|To avoid OOM, reducing processes from 64 到|to 8
+2026-02-02 12:20:24.119 - INFO - 分块信息|Chunking info:
+2026-02-02 12:20:24.119 - INFO -   进程数|Processes: 8
+2026-02-02 12:20:24.119 - INFO -   每进程行数|Lines per process: 231.18M
+2026-02-02 12:20:24.119 - INFO - 开始并行处理（使用共享内存）|Starting parallel processing (using shared memory)...
+2026-02-02 13:02:31.753 - INFO - 完成chunk|Completed chunk 1/8, 找到|Found: 9.58M (总|Total: 9.58M)
+2026-02-02 13:03:45.228 - INFO - 完成chunk|Completed chunk 2/8, 找到|Found: 9.61M (总|Total: 19.18M)
+2026-02-02 13:04:57.159 - INFO - 完成chunk|Completed chunk 3/8, 找到|Found: 9.57M (总|Total: 28.75M)
+2026-02-02 13:06:54.399 - INFO - 完成chunk|Completed chunk 4/8, 找到|Found: 9.54M (总|Total: 38.29M)
+2026-02-02 13:06:58.461 - INFO - 完成chunk|Completed chunk 5/8, 找到|Found: 9.66M (总|Total: 47.95M)
+2026-02-02 13:08:12.968 - INFO - 完成chunk|Completed chunk 6/8, 找到|Found: 9.58M (总|Total: 57.53M)
+2026-02-02 13:09:37.877 - INFO - 完成chunk|Completed chunk 7/8, 找到|Found: 9.55M (总|Total: 67.09M)
+2026-02-02 13:10:05.675 - INFO - 完成chunk|Completed chunk 8/8, 找到|Found: 9.51M (总|Total: 76.60M)
+2026-02-02 13:10:08.953 - INFO - 扫描完成|Scan completed
+2026-02-02 13:10:08.953 - INFO - 总扫描行数|Total lines scanned: 1849.41M
+2026-02-02 13:10:08.953 - INFO - 正向找到|Found forward: 40.13M
+2026-02-02 13:10:08.953 - INFO - 反向互补找到|Found reverse complement: 36.47M
+2026-02-02 13:10:08.953 - INFO - 未找到|Not found: 3.86M
+2026-02-02 13:10:08.953 - INFO - 总共找到|Total found: 76.60M
+2026-02-02 13:10:13.060 - INFO - 
+2026-02-02 13:10:13.060 - INFO - ====================================================================================================
+2026-02-02 13:10:13.060 - INFO -  写入结果文件|Writing Results File
+2026-02-02 13:10:13.060 - INFO - ====================================================================================================
+2026-02-02 13:10:13.060 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 13:16:07.426 - INFO - 写入完成|Write completed
+2026-02-02 13:16:07.426 - INFO - 输出行数|Output rows: 80.45M
+2026-02-02 13:16:07.426 - INFO - ====================================================================================================
+2026-02-02 13:16:07.426 - INFO -  写入窗口统计文件|Writing Window Statistics File
+2026-02-02 13:16:07.426 - INFO - ====================================================================================================
+2026-02-02 13:16:07.426 - INFO - 窗口统计文件|Window stats file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt.window_stats.txt
+2026-02-02 13:16:07.427 - INFO - 窗口大小|Window size: 100.00K
+2026-02-02 13:32:14.302 - INFO - 窗口统计文件写入完成|Window stats file written
+2026-02-02 13:32:14.303 - INFO - 总窗口数|Total windows: 805
+2026-02-02 13:32:14.303 - INFO - 总kmer数|Total kmers: 80.45M
+2026-02-02 13:32:14.303 - INFO - 样品数|Number of samples: 99
+2026-02-02 13:32:15.441 - INFO - 
+2026-02-02 13:32:15.442 - INFO - ====================================================================================================
+2026-02-02 13:32:15.442 - INFO -  分析完成|Analysis Completed Successfully
+2026-02-02 13:32:15.442 - INFO - ====================================================================================================
+2026-02-02 13:32:15.442 - INFO - 目标kmer总数|Total target kmers: 80451864
+2026-02-02 13:32:15.442 - INFO - 找到kmer数|Kmers found: 76596268
+2026-02-02 13:32:15.442 - INFO - 未找到kmer数|Kmers not found: 3855596
+2026-02-02 13:32:15.442 - INFO - 找到率|Found rate: 95.21%
+2026-02-02 13:32:15.442 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 13:32:15.442 - INFO - 日志文件|Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt.log
+2026-02-02 13:32:15.442 - INFO - ====================================================================================================
+2026-02-02 13:32:54.589 - INFO - ====================================================================================================
+2026-02-02 13:32:54.604 - INFO -  Kmer交集提取工具|Kmer Intersection Extraction Tool
+2026-02-02 13:32:54.604 - INFO - ====================================================================================================
+2026-02-02 13:32:54.604 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 13:32:54.604 - INFO - 目标kmer fasta|Target kmer fasta: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_kmer_51.fa
+2026-02-02 13:32:54.604 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 13:32:54.604 - INFO - 线程数|Threads: 64
+2026-02-02 13:32:54.604 - INFO - 使用反向互补查询|Use reverse complement: True
+2026-02-02 13:32:54.604 - INFO - 
+2026-02-02 13:32:54.604 - INFO - ====================================================================================================
+2026-02-02 13:32:54.604 - INFO -  加载目标kmer|Loading Target Kmers
+2026-02-02 13:32:54.604 - INFO - ====================================================================================================
+2026-02-02 13:32:54.604 - INFO - fasta文件|Fasta file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_kmer_51.fa
+2026-02-02 13:34:23.918 - INFO - 总kmer数|Total kmers: 86.71M
+2026-02-02 13:34:23.918 - INFO - 唯一kmer数|Unique kmers: 63.69M
+2026-02-02 13:34:23.918 - WARNING - 重复kmer数|Duplicate kmers: 23.02M
+2026-02-02 13:34:25.005 - INFO - 
+2026-02-02 13:34:25.005 - INFO - ====================================================================================================
+2026-02-02 13:34:25.005 - INFO -  提取kmer丰度（多进程模式）|Extracting Kmer Abundance (Multi-Process Mode)
+2026-02-02 13:34:25.005 - INFO - ====================================================================================================
+2026-02-02 13:34:25.005 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 13:34:25.005 - INFO - 目标kmer数|Target kmers: 63.69M
+2026-02-02 13:34:25.005 - INFO - 进程数|Number of processes: 64
+2026-02-02 13:34:25.075 - INFO - 估算文件行数|Estimating file lines...
+2026-02-02 13:41:19.077 - INFO - 文件总行数|Total lines in file: 1849.41M
+2026-02-02 13:41:19.107 - WARNING - 目标kmer数过大|Large target kmer count: 63.69M
+2026-02-02 13:41:19.107 - WARNING - 为避免内存溢出，将进程数从|To avoid OOM, reducing processes from 64 到|to 8
+2026-02-02 13:41:19.107 - INFO - 分块信息|Chunking info:
+2026-02-02 13:41:19.107 - INFO -   进程数|Processes: 8
+2026-02-02 13:41:19.107 - INFO -   每进程行数|Lines per process: 231.18M
+2026-02-02 13:41:19.107 - INFO - 开始并行处理（使用共享内存）|Starting parallel processing (using shared memory)...
+2026-02-02 14:22:47.036 - INFO - 完成chunk|Completed chunk 1/8, 找到|Found: 7.65M (总|Total: 7.65M)
+2026-02-02 14:23:45.870 - INFO - 完成chunk|Completed chunk 2/8, 找到|Found: 7.69M (总|Total: 15.33M)
+2026-02-02 14:24:41.619 - INFO - 完成chunk|Completed chunk 3/8, 找到|Found: 7.67M (总|Total: 23.01M)
+2026-02-02 14:25:28.137 - INFO - 完成chunk|Completed chunk 4/8, 找到|Found: 7.64M (总|Total: 30.65M)
+2026-02-02 14:26:18.271 - INFO - 完成chunk|Completed chunk 5/8, 找到|Found: 7.71M (总|Total: 38.36M)
+2026-02-02 14:27:14.610 - INFO - 完成chunk|Completed chunk 6/8, 找到|Found: 7.64M (总|Total: 45.99M)
+2026-02-02 14:28:21.423 - INFO - 完成chunk|Completed chunk 7/8, 找到|Found: 7.56M (总|Total: 53.56M)
+2026-02-02 14:28:42.852 - INFO - 完成chunk|Completed chunk 8/8, 找到|Found: 7.63M (总|Total: 61.18M)
+2026-02-02 14:28:45.183 - INFO - 扫描完成|Scan completed
+2026-02-02 14:28:45.184 - INFO - 总扫描行数|Total lines scanned: 1849.41M
+2026-02-02 14:28:45.184 - INFO - 正向找到|Found forward: 31.81M
+2026-02-02 14:28:45.195 - INFO - 反向互补找到|Found reverse complement: 29.37M
+2026-02-02 14:28:45.195 - INFO - 未找到|Not found: 2.51M
+2026-02-02 14:28:45.204 - INFO - 总共找到|Total found: 61.18M
+2026-02-02 14:28:48.968 - INFO - 
+2026-02-02 14:28:48.968 - INFO - ====================================================================================================
+2026-02-02 14:28:48.968 - INFO -  写入结果文件|Writing Results File
+2026-02-02 14:28:48.968 - INFO - ====================================================================================================
+2026-02-02 14:28:48.968 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 14:33:10.536 - INFO - 写入完成|Write completed
+2026-02-02 14:33:10.537 - INFO - 输出行数|Output rows: 63.69M
+2026-02-02 14:33:10.537 - INFO - ====================================================================================================
+2026-02-02 14:33:10.537 - INFO -  写入窗口统计文件|Writing Window Statistics File
+2026-02-02 14:33:10.537 - INFO - ====================================================================================================
+2026-02-02 14:33:10.537 - INFO - 窗口统计文件|Window stats file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt.window_stats.txt
+2026-02-02 14:33:10.537 - INFO - 窗口大小|Window size: 100.00K
+2026-02-02 14:46:32.158 - INFO - 窗口统计文件写入完成|Window stats file written
+2026-02-02 14:46:32.159 - INFO - 总窗口数|Total windows: 637
+2026-02-02 14:46:32.159 - INFO - 总kmer数|Total kmers: 63.69M
+2026-02-02 14:46:32.159 - INFO - 样品数|Number of samples: 99
+2026-02-02 14:46:36.180 - INFO - 
+2026-02-02 14:46:36.180 - INFO - ====================================================================================================
+2026-02-02 14:46:36.180 - INFO -  分析完成|Analysis Completed Successfully
+2026-02-02 14:46:36.180 - INFO - ====================================================================================================
+2026-02-02 14:46:36.180 - INFO - 目标kmer总数|Total target kmers: 63692189
+2026-02-02 14:46:36.180 - INFO - 找到kmer数|Kmers found: 61184596
+2026-02-02 14:46:36.180 - INFO - 未找到kmer数|Kmers not found: 2507593
+2026-02-02 14:46:36.180 - INFO - 找到率|Found rate: 96.06%
+2026-02-02 14:46:36.180 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 14:46:36.180 - INFO - 日志文件|Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt.log
+2026-02-02 14:46:36.180 - INFO - ====================================================================================================

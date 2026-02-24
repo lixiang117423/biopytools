@@ -1,0 +1,143 @@
+[2025-11-26 11:59:00] 
+[2025-11-26 11:59:00] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:00] 🚀 Starting BSA Analysis Pipeline
+[2025-11-26 11:59:00] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:00] ⏰ Start time: 2025年 11月 26日 星期三 11:59:00 CST
+[2025-11-26 11:59:00] 
+[2025-11-26 11:59:00] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:00] 📋 Configuration Summary
+[2025-11-26 11:59:00] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:00] Input/Output:
+[2025-11-26 11:59:00]   📂 Input directory : /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/clean
+[2025-11-26 11:59:00]   📄 Reference genome: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/genome/genome.fa
+[2025-11-26 11:59:00]   📁 Output directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping
+[2025-11-26 11:59:00] 
+[2025-11-26 11:59:00] Resource Allocation:
+[2025-11-26 11:59:00]   ⚡ Max threads     : 88
+[2025-11-26 11:59:00]   🧵 BWA threads     : 80
+[2025-11-26 11:59:00]   💾 Java memory     : 128g
+[2025-11-26 11:59:00]   🧮 HMM threads     : 64
+[2025-11-26 11:59:00]   🔢 Ploidy          : 2
+[2025-11-26 11:59:00] 
+[2025-11-26 11:59:00] Pipeline Steps:
+[2025-11-26 11:59:00]   ✓ Mapping (BWA MEM)
+[2025-11-26 11:59:00]   ✓ Mark Duplicates
+[2025-11-26 11:59:00]   ✓ HaplotypeCaller (GVCF)
+[2025-11-26 11:59:00]   ⏭️  SKIP Joint Genotyping
+[2025-11-26 11:59:00] 
+[2025-11-26 11:59:00] Options:
+[2025-11-26 11:59:00]   💾 Keep intermediate: false
+[2025-11-26 11:59:00]   🔍 Dry run          : false
+[2025-11-26 11:59:00]   📊 ERC mode         : GVCF
+[2025-11-26 11:59:00] 
+[2025-11-26 11:59:00] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:00] 💻 System Resources
+[2025-11-26 11:59:00] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:00] 🖥️  Available CPUs: 88
+[2025-11-26 11:59:00] ⚡ Requested threads: 88
+[2025-11-26 11:59:00] 🧵 BWA threads: 80
+[2025-11-26 11:59:00] 💾 Total memory: 1.0Ti
+[2025-11-26 11:59:00] 💾 Available memory: 373Gi
+[2025-11-26 11:59:00] 💾 GATK Java memory: 128g
+[2025-11-26 11:59:00] 💿 Available disk space: 2.5P
+[2025-11-26 11:59:00] 
+[2025-11-26 11:59:00] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:00] 🛠️  Software Versions
+[2025-11-26 11:59:00] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:00] 📦 BWA: Version: 0.7.19-r1273
+unknown
+[2025-11-26 11:59:01] 📦 Samtools: samtools 1.22
+[2025-11-26 11:59:02] 📦 GATK: The Genome Analysis Toolkit (GATK) v4.6.2.0
+[2025-11-26 11:59:02] 
+[2025-11-26 11:59:02] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:02] 📚 Preparing Reference Genome
+[2025-11-26 11:59:02] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:02] ✅ BWA index exists
+[2025-11-26 11:59:02] ✅ FASTA index exists
+[2025-11-26 11:59:02] ✅ Sequence dictionary exists
+[2025-11-26 11:59:02] 📋 Auto-detecting samples from input directory...
+[2025-11-26 11:59:02]    Found 3 samples
+[2025-11-26 11:59:02] 
+[2025-11-26 11:59:02] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:02] 🧬 Processing 3 Samples
+[2025-11-26 11:59:02] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 11:59:02] 
+[2025-11-26 11:59:02] ╔════════════════════════════════════════════════════════════════╗
+[2025-11-26 11:59:02] ║ Sample 1/3: F15_1
+[2025-11-26 11:59:02] ╚════════════════════════════════════════════════════════════════╝
+[2025-11-26 11:59:02] 🏹 [1/3] BWA MEM alignment...
+[2025-11-26 11:59:02] ▶️  Running: bwa mem -t 80 -M -R "@RG	ID:F15_1	SM:F15_1	PL:ILLUMINA	LB:F15_1_lib" /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/clean/F15_1_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/clean/F15_1_2.clean.fq.gz |                         samtools sort -@ 64 -o /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F15_1.sorted.bam -
+[2025-11-26 12:00:58] ✅ Command completed successfully
+[2025-11-26 12:00:58] ▶️  Running: samtools index /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F15_1.sorted.bam
+[2025-11-26 12:01:19] ✅ Command completed successfully
+[2025-11-26 12:01:19] ✅ Alignment completed
+[2025-11-26 12:01:19] 👯 [2/3] Marking PCR duplicates...
+[2025-11-26 12:01:19] ▶️  Running: gatk --java-options "-Xmx128g" MarkDuplicates                          -I /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F15_1.sorted.bam                          -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F15_1.dedup.bam                          -M /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F15_1.dedup.metrics                          --CREATE_INDEX true                          --VALIDATION_STRINGENCY SILENT
+[2025-11-26 12:03:50] ✅ Command completed successfully
+[2025-11-26 12:03:50] 🗑️  Removing intermediate sorted BAM
+[2025-11-26 12:03:50] ✅ Duplicate marking completed
+[2025-11-26 12:03:50]    📊 Duplication rate: 0.258682
+[2025-11-26 12:03:50] 🔎 [3/3] Running HaplotypeCaller...
+[2025-11-26 12:03:50] ▶️  Running: gatk --java-options "-Xmx128g" HaplotypeCaller                          -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/genome/genome.fa                          -I /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F15_1.dedup.bam                          -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/02.gvcf/F15_1.g.vcf.gz                          -ERC GVCF                          --sample-ploidy 2                          --native-pair-hmm-threads 64
+[2025-11-26 12:06:36] ✅ Command completed successfully
+[2025-11-26 12:06:36] ✅ GVCF generated
+[2025-11-26 12:06:36] ✅ Sample F15_1 completed
+[2025-11-26 12:06:36] 
+[2025-11-26 12:06:36] ╔════════════════════════════════════════════════════════════════╗
+[2025-11-26 12:06:36] ║ Sample 2/3: F19_1
+[2025-11-26 12:06:36] ╚════════════════════════════════════════════════════════════════╝
+[2025-11-26 12:06:36] 🏹 [1/3] BWA MEM alignment...
+[2025-11-26 12:06:36] ▶️  Running: bwa mem -t 80 -M -R "@RG	ID:F19_1	SM:F19_1	PL:ILLUMINA	LB:F19_1_lib" /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/clean/F19_1_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/clean/F19_1_2.clean.fq.gz |                         samtools sort -@ 64 -o /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F19_1.sorted.bam -
+[2025-11-26 12:09:38] ✅ Command completed successfully
+[2025-11-26 12:09:38] ▶️  Running: samtools index /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F19_1.sorted.bam
+[2025-11-26 12:09:59] ✅ Command completed successfully
+[2025-11-26 12:09:59] ✅ Alignment completed
+[2025-11-26 12:09:59] 👯 [2/3] Marking PCR duplicates...
+[2025-11-26 12:09:59] ▶️  Running: gatk --java-options "-Xmx128g" MarkDuplicates                          -I /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F19_1.sorted.bam                          -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F19_1.dedup.bam                          -M /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F19_1.dedup.metrics                          --CREATE_INDEX true                          --VALIDATION_STRINGENCY SILENT
+[2025-11-26 12:12:20] ✅ Command completed successfully
+[2025-11-26 12:12:20] 🗑️  Removing intermediate sorted BAM
+[2025-11-26 12:12:20] ✅ Duplicate marking completed
+[2025-11-26 12:12:20]    📊 Duplication rate: 0.229537
+[2025-11-26 12:12:20] 🔎 [3/3] Running HaplotypeCaller...
+[2025-11-26 12:12:20] ▶️  Running: gatk --java-options "-Xmx128g" HaplotypeCaller                          -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/genome/genome.fa                          -I /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/F19_1.dedup.bam                          -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/02.gvcf/F19_1.g.vcf.gz                          -ERC GVCF                          --sample-ploidy 2                          --native-pair-hmm-threads 64
+[2025-11-26 12:15:11] ✅ Command completed successfully
+[2025-11-26 12:15:11] ✅ GVCF generated
+[2025-11-26 12:15:11] ✅ Sample F19_1 completed
+[2025-11-26 12:15:11] 
+[2025-11-26 12:15:11] ╔════════════════════════════════════════════════════════════════╗
+[2025-11-26 12:15:11] ║ Sample 3/3: HC_3
+[2025-11-26 12:15:11] ╚════════════════════════════════════════════════════════════════╝
+[2025-11-26 12:15:11] 🏹 [1/3] BWA MEM alignment...
+[2025-11-26 12:15:11] ▶️  Running: bwa mem -t 80 -M -R "@RG	ID:HC_3	SM:HC_3	PL:ILLUMINA	LB:HC_3_lib" /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/clean/HC_3_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/clean/HC_3_2.clean.fq.gz |                         samtools sort -@ 64 -o /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/HC_3.sorted.bam -
+[2025-11-26 12:18:27] ✅ Command completed successfully
+[2025-11-26 12:18:27] ▶️  Running: samtools index /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/HC_3.sorted.bam
+[2025-11-26 12:18:51] ✅ Command completed successfully
+[2025-11-26 12:18:51] ✅ Alignment completed
+[2025-11-26 12:18:51] 👯 [2/3] Marking PCR duplicates...
+[2025-11-26 12:18:51] ▶️  Running: gatk --java-options "-Xmx128g" MarkDuplicates                          -I /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/HC_3.sorted.bam                          -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/HC_3.dedup.bam                          -M /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/HC_3.dedup.metrics                          --CREATE_INDEX true                          --VALIDATION_STRINGENCY SILENT
+[2025-11-26 12:21:26] ✅ Command completed successfully
+[2025-11-26 12:21:26] 🗑️  Removing intermediate sorted BAM
+[2025-11-26 12:21:26] ✅ Duplicate marking completed
+[2025-11-26 12:21:26]    📊 Duplication rate: 0.270642
+[2025-11-26 12:21:26] 🔎 [3/3] Running HaplotypeCaller...
+[2025-11-26 12:21:26] ▶️  Running: gatk --java-options "-Xmx128g" HaplotypeCaller                          -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/01.data/genome/genome.fa                          -I /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/01.bam/HC_3.dedup.bam                          -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/02.gvcf/HC_3.g.vcf.gz                          -ERC GVCF                          --sample-ploidy 2                          --native-pair-hmm-threads 64
+[2025-11-26 12:24:14] ✅ Command completed successfully
+[2025-11-26 12:24:14] ✅ GVCF generated
+[2025-11-26 12:24:14] ✅ Sample HC_3 completed
+[2025-11-26 12:24:14] 
+[2025-11-26 12:24:14] ⏰ End time: 2025年 11月 26日 星期三 12:24:14 CST
+[2025-11-26 12:24:14] ⏱️  Total runtime: 0h 25m 14s
+[2025-11-26 12:24:14] 
+[2025-11-26 12:24:14] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 12:24:14] 📊 Generating Final Report
+[2025-11-26 12:24:14] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 12:24:14] 📊 Report saved to: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/07.线粒体比对/02.mapping/reports/pipeline_report_20251126_115900.txt
+[2025-11-26 12:24:14] 
+[2025-11-26 12:24:14] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-11-26 12:24:14] 🎉 Pipeline Finished Successfully!
+[2025-11-26 12:24:14] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️  处理BAM文件:   0%|                                                                                          | 0/3 [00:00<?, ?it/s]⚙️  处理BAM文件: 100%|██████████████████████████████████████████████████████████████████████████████████| 3/3 [00:00<00:00, 94.74it/s]
+
+❌ 未能成功处理任何文件，程序退出。
+Job 68109293 stderr output:
+

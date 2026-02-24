@@ -1,0 +1,5 @@
+2026-01-04 21:59:57.451 - ERROR - 未找到任何 *_1.clean.fq.gz 或 *_1.fq.gz 文件 | No *_1.clean.fq.gz or *_1.fq.gz files found
+2026-01-04 21:59:57.451 - ERROR - GTX比对失败 | GTX mapping failed
+2026-01-04 21:59:57.451 - ERROR - 步骤 3 失败 | Step 3 failed: 序列比对 | Sequence Mapping
+Job 68740237 stderr output:
+

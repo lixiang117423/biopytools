@@ -1,0 +1,2445 @@
+🚀 作业开始: EGAPx_5
+⏰ 开始时间: 2025-12-11 20:19:18
+📍 执行命令: bash /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/egapx_Chr05.sh
+==========================================
+
+ N E X T F L O W   ~  version 25.04.4
+
+Launching `/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/ui/../nf/ui.nf` [gloomy_bose] DSL2 - revision: a3f03b5276
+
+workflow.container: /share/org/YZWL/yzwl_lixg/software/EGAPX_v.0.4.1-alpha/egapx/egapx_0.4.1-alpha.sif
+[-        ] ega…tup_genome:get_genome_info -
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[-        ] ega…pare_masks:gp_annot_format -
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[-        ] ega…_proteins:convert_proteins -
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+
+[-        ] ega…tup_genome:get_genome_info -
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[-        ] ega…pare_masks:gp_annot_format -
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[-        ] ega…_proteins:convert_proteins -
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+Plus 21 more processes waiting for tasks…
+
+[-        ] ega…tup_genome:get_genome_info -
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[-        ] ega…pare_masks:gp_annot_format -
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[-        ] ega…_proteins:convert_proteins -
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+Plus 53 more processes waiting for tasks…
+
+[-        ] ega…tup_genome:get_genome_info -
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[-        ] ega…pare_masks:gp_annot_format -
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[-        ] ega…_proteins:convert_proteins -
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+Plus 86 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (2)
+[-        ] ega…tup_genome:get_genome_info | 0 of 1
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 0 of 1
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[-        ] ega…_proteins:convert_proteins -
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 0 of 1
+Plus 87 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (5)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 0 of 1
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 0 of 1
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 0 of 1
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 86 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (6)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 0 of 1
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 0 of 1
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 0 of 1
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 85 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (7)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 0 of 1
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 0 of 1
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 0 of 1
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 84 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (7)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 0 of 1
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 0 of 1
+[-        ] ega…re_masks:convert_rfam_mask -
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 84 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (8)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 0 of 1
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 0 of 1
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 84 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (9)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 0 of 1
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 0 of 1
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 84 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (9)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 0 of 1
+[-        ] ega…sk_stats:run_winmask_stats -
+[-        ] ega…:winmask_wnode:gpx_qsubmit -
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 84 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (13)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 0 of 1
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 0 of 1
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 0 of 1
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 82 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (13)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 0 of 1
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 0 of 1
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 0 of 1
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 82 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (14)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 0 of 1
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 0 of 1
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 0 of 1
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (14)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 0 of 1
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 0 of 1
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (14)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 0 of 1
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 0 of 1
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (14)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 0 of 1
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[-        ] ega…ne:miniprot:split_proteins -
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (15)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 0 of 1
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[-        ] ega…sk_wnode:run_winmask_wnode -
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 0 of 1
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (16)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 0 of 1
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 0 of 1
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (16)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 0 of 1
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[-        ] ega…lane:miniprot:run_miniprot -
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (17)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 0 of 1
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 14
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (17)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 0 of 1
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 0 of 1
+Plus 81 more processes waiting for tasks…
+Note: trnascan plane is disabled in params.
+Note: cmsearch plane is disabled in params.
+
+executor >  local (17)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 0 of 1
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[-        ] ega…ext_genome:get_genome_info | 0 of 1
+[-        ] ega…_proteins:convert_proteins | 0 of 1
+Plus 79 more processes waiting for tasks…
+
+
+
+executor >  local (19)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 0 of 1
+[-        ] ega…ask_wnode:gpx_make_outputs -
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 0 of 1
+Plus 79 more processes waiting for tasks…
+
+
+
+executor >  local (19)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[-        ] ega…ask_wnode:gpx_make_outputs | 0 of 1
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 0 of 1
+Plus 79 more processes waiting for tasks…
+
+executor >  local (20)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 0 of 1
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 0 of 1
+Plus 79 more processes waiting for tasks…
+
+executor >  local (20)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 0 of 1
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+Plus 79 more processes waiting for tasks…
+
+executor >  local (20)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 0 of 1
+[-        ] ega…ask_wnode:combine_blast_db -
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[-        ] ega…ogy_plane:get_prot_ref_ids | 0 of 1
+Plus 78 more processes waiting for tasks…
+
+executor >  local (21)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[-        ] ega…ask_wnode:combine_blast_db | 0 of 1
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 0 of 1
+Plus 78 more processes waiting for tasks…
+
+executor >  local (22)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 0 of 1
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 0 of 1
+Plus 78 more processes waiting for tasks…
+
+executor >  local (22)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 0 of 1
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 0 of 1
+Plus 78 more processes waiting for tasks…
+
+executor >  local (22)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 0 of 1
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask -
+[-        ] ega…bine_blast_db_alt_softmask -
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 78 more processes waiting for tasks…
+
+executor >  local (22)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask | 0 of 1
+[-        ] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats -
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 78 more processes waiting for tasks…
+
+executor >  local (22)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[-        ] ega…:combine_blast_db_softmask | 0 of 1
+[-        ] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[-        ] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 78 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 1
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 3
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 4
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 5
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 6
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 7
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 9
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 10
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 12
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 14
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 15
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 20
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 22
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 27
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 0 of 1
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 33
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 36
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 41
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 0 of 1
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 42
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 0 of 1
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[-        ] ega…are_masks:convert_softmask -
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 42
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[-        ] ega…are_masks:convert_softmask | 0 of 1
+[-        ] ega…blastdb:run_gc_makeblastdb -
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 42
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[-        ] ega…are_masks:convert_softmask | 0 of 1
+[-        ] ega…blastdb:run_gc_makeblastdb | 0 of 1
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 43
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (25)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[-        ] ega…are_masks:convert_softmask | 0 of 1
+[-        ] ega…blastdb:run_gc_makeblastdb | 0 of 1
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 44
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (27)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 0 of 1
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 0 of 1
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (27)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 0 of 1
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 0 of 1
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 0 of 1
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (27)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 0 of 1
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 0 of 1
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 0 of 1
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (27)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 0 of 1
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 0 of 1
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[62/227d68] ega…miniprot:run_miniprot (13) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (28)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 0 of 1
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[66/8521ac] ega…:miniprot:run_miniprot (9) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (28)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[66/8521ac] ega…:miniprot:run_miniprot (9) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 0 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (28)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[66/8521ac] ega…:miniprot:run_miniprot (9) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 77 more processes waiting for tasks…
+
+executor >  local (29)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[66/8521ac] ega…:miniprot:run_miniprot (9) | 0 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (30)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[c9/5dc488] ega…miniprot:run_miniprot (16) | 1 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (30)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[c9/5dc488] ega…miniprot:run_miniprot (16) | 1 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (31)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[0a/0f6f5d] ega…miniprot:run_miniprot (10) | 2 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (31)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[0a/0f6f5d] ega…miniprot:run_miniprot (10) | 2 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (32)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[de/5ee8e3] ega…miniprot:run_miniprot (17) | 3 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (33)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[a3/952d3b] ega…:miniprot:run_miniprot (5) | 4 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (33)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[a3/952d3b] ega…:miniprot:run_miniprot (5) | 4 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (34)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[9d/c44d06] ega…:miniprot:run_miniprot (8) | 5 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+executor >  local (34)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[9d/c44d06] ega…:miniprot:run_miniprot (8) | 5 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[bf/9943ea] ega…plane:rename_fasta_ids (1) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+WARN: Killing running tasks (4)
+
+executor >  local (34)
+[2c/eaa86e] ega…tup_genome:get_genome_info | 1 of 1 ✔
+[a6/09966a] ega…sk_stats:run_winmask_stats | 1 of 1 ✔
+[f9/facd38] ega…:winmask_wnode:gpx_qsubmit | 1 of 1 ✔
+[af/d3c248] ega…node:run_winmask_wnode (1) | 1 of 1 ✔
+[fa/d46982] ega…ask_wnode:gpx_make_outputs | 1 of 1 ✔
+[3f/7d5f96] ega…ask_wnode:combine_blast_db | 1 of 1 ✔
+[2a/9af8c2] ega…pare_masks:gp_annot_format | 1 of 1 ✔
+[34/dd9fbd] ega…re_masks:convert_rfam_mask | 1 of 1 ✔
+[30/d6cd78] ega…:combine_blast_db_softmask | 1 of 1 ✔
+[95/b445be] ega…bine_blast_db_alt_softmask | 1 of 1 ✔
+[64/ef6bd1] ega…are_masks:convert_softmask | 1 of 1 ✔
+[ae/75ff24] ega…blastdb:run_gc_makeblastdb | 1 of 1 ✔
+[9f/4e3c69] ega…_stats:run_mask_assm_stats | 1 of 1 ✔
+[89/62bc04] ega…_proteins:convert_proteins | 1 of 1 ✔
+[d1/e53540] ega…ne:miniprot:split_proteins | 1 of 1 ✔
+[9d/c44d06] ega…:miniprot:run_miniprot (8) | 5 of 17
+[-        ] ega…_plane:paf2asn:run_paf2asn -
+[-        ] ega…prot:run_best_aligned_prot -
+[-        ] ega…ter_sa:run_align_filter_sa -
+[-        ] ega…ign_sort_sa:run_align_sort -
+[68/e46b2c] ega…ane:star_index:build_index | 1 of 1 ✔
+[-        ] ega…_short_plane:star:run_star | 0 of 45
+[0e/c2033b] ega…2_index:run_minimap2_index | 1 of 1 ✔
+[be/31a808] ega…plane:rename_fasta_ids (2) | 1 of 2
+[37/f68423] ega…e:minimap2:gpx_qsubmit (1) | 0 of 1
+[dd/2efe62] ega…plane:fetch_swiss_prot_asn | 1 of 1 ✔
+[4d/f5dbe4] ega…n_plane:get_swiss_prot_ids | 1 of 1 ✔
+[b2/a13b0b] ega…_plane:print_fake_lxr_data | 1 of 1 ✔
+[1e/d46ff7] ega…:fetch_ortholog_references | 1 of 1 ✔
+[5d/3c9606] ega…ext_genome:get_genome_info | 1 of 1 ✔
+[ad/c026cb] ega…_proteins:convert_proteins | 1 of 1 ✔
+[63/2face8] ega…ogy_plane:get_prot_ref_ids | 1 of 1 ✔
+Plus 76 more processes waiting for tasks…
+
+!!WARNING!!
+This is an alpha release with limited features and organism scope to collect initial feedback on execution. Outputs are not yet complete and not intended for production use.
+
+['nextflow', '-C', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/egapx_config/singularity.config,/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/ui/assets/config/default.config,/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/ui/assets/config/process_resources.config', '-log', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/output/nextflow/nextflow.log', 'run', PosixPath('/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/ui/../nf/ui.nf'), '--output', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/output', '-with-report', 'zhugecai_Chr05.report.html', '-with-timeline', 'zhugecai_Chr05.timeline.html', '-with-dag', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/output/nextflow/run.dag.dot', '-with-trace', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/output/nextflow/run.trace.txt', '-params-file', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/26.测试批量EGAPx流程/each_chr/Chr05/output/nextflow/run_params.yaml']

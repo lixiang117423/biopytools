@@ -1,0 +1,14 @@
+🔎 Checking for required software and paths...
+✅ All required software and paths are configured correctly.
+🚀 Running in BATCH mode. Project directory: data
+
+   Found prefix 'test'. Discovering all related files...
+   ✅ Core files found for test. Starting pipeline.
+
+==============================================================================
+  🌱 Processing Species: test | ⚡ Threads: 80
+==============================================================================
+
+--- 📜 STEP 0A: Preparing Transcript Evidence (Using stringtie) ---
+   Running HISAT2 + StringTie workflow...
+   Building HISAT2 index for test...

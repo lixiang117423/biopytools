@@ -1,0 +1,116 @@
+[2025-10-19 17:33:31] INFO - 🚀 开始GTX WGS批处理分析流程 (Joint Calling模式) | Starting GTX WGS batch processing analysis pipeline (Joint Calling模式)
+[2025-10-19 17:33:31] INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples
+[2025-10-19 17:33:31] INFO - 📤 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping
+[2025-10-19 17:33:31] INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/genome.fa
+[2025-10-19 17:33:31] INFO - 📁 R1文件模式 | R1 file pattern: *_1.clean.fq
+[2025-10-19 17:33:31] INFO - 📁 R2文件模式 | R2 file pattern: *_2.clean.fq
+[2025-10-19 17:33:31] INFO - 🤝 Joint calling已启用 | Joint calling enabled
+[2025-10-19 17:33:31] INFO -   📜 Joint输出文件 | Joint output file: merged_gtx.vcf.gz
+[2025-10-19 17:33:31] INFO -   🧵 Joint calling线程数 | Joint calling threads: 88
+[2025-10-19 17:33:31] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-19 17:33:31] INFO - ✅ ✓ GTX Joint Calling功能可用 | GTX Joint Calling functionality available
+[2025-10-19 17:33:31] INFO - ✅ ✓ GTX程序检查通过 | GTX program check passed
+[2025-10-19 17:33:31] INFO - ✅ 参考基因组索引完整 | Reference index complete
+[2025-10-19 17:33:31] INFO - 🔬 开始单样品WGS分析阶段 | Starting individual WGS analysis phase
+[2025-10-19 17:33:31] INFO - 🔍 搜索输入文件 | Searching input files
+[2025-10-19 17:33:31] INFO - 找到 2 个R1文件 | Found 2 R1 files
+[2025-10-19 17:33:31] INFO -   R1文件示例 | R1 file example: R_1.clean.fq
+[2025-10-19 17:33:31] INFO -   R1文件示例 | R1 file example: S_1.clean.fq
+[2025-10-19 17:33:31] INFO - ✅ 找到 2 个样品需要处理 | Found 2 samples to process
+[2025-10-19 17:33:31] INFO - 样品列表示例 | Sample list examples:
+[2025-10-19 17:33:31] INFO -   1. R
+[2025-10-19 17:33:31] INFO -      R1: R_1.clean.fq
+[2025-10-19 17:33:31] INFO -      R2: R_2.clean.fq
+[2025-10-19 17:33:31] INFO -   2. S
+[2025-10-19 17:33:31] INFO -      R1: S_1.clean.fq
+[2025-10-19 17:33:31] INFO -      R2: S_2.clean.fq
+[2025-10-19 17:33:31] INFO - ============================================================
+[2025-10-19 17:33:31] INFO - 🔬 开始批量处理样品 | Starting batch processing of samples
+[2025-10-19 17:33:31] INFO - [1/2] 🧪 处理样品 | Processing sample: R
+[2025-10-19 17:33:31] INFO - 🚀 开始处理样品 | Starting to process sample: R
+[2025-10-19 17:33:31] INFO -   📄 R1文件 | R1 file: R_1.clean.fq
+[2025-10-19 17:33:31] INFO -   📄 R2文件 | R2 file: R_2.clean.fq
+[2025-10-19 17:33:31] INFO -   📜 输出VCF | Output VCF: vcf/R.vcf.gz
+[2025-10-19 17:33:31] INFO -   💾 输出BAM | Output BAM: bam/R.sorted.bam
+[2025-10-19 17:33:31] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: R) | GTX WGS analysis (sample: R)
+[2025-10-19 17:33:31] INFO - 💻 命令 | Command: faketime '2020-10-20 00:00:00' /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:R\tSM:R\tPL:ILLUMINA\tLB:R" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/vcf/R.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/bam/R.sorted.bam -t 88 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/R_1.clean.fq /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/R_2.clean.fq
+[2025-10-19 17:33:31] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping
+[2025-10-19 17:33:31] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: R) | GTX WGS analysis (sample: R)
+[2025-10-19 17:33:31] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-19 17:33:31] ERROR - 💬 错误信息 | Error message: [2020-10-20 00:00:00.638] [gtx] [info] Version: gtx-2.2.1
+[2020-10-20 00:00:00.652] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/tmp available: 4311692GB, memory available: 964GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.652] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2020-10-20 00:00:00.665] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2020-10-20 00:00:00.665] [wgs] [info] cpu vendor:GenuineIntel
+[2020-10-20 00:00:00.665] [wgs] [info] threads: 88 max : 88
+[2020-10-20 00:00:00.665] [wgs] [info] Use bwa mem to align!
+[2020-10-20 00:00:00.666] [align] [info] Job: mapping, pid: 292029
+[2020-10-20 00:00:00.989] [align] [error] start gtx failed, #ValidLicensePathNotFound: No dongle is found and environment var 'RHWL_LICENSE_SERVER' is not set properly.
+[2020-10-20 00:00:00.989] [align] [error] mapping exited abnormally.
+[2020-10-20 00:00:00.989] [align] [error] clean temporary files, please waiting...
+[2020-10-20 00:00:00.989] [align] [error] clean up finished.
+[2020-10-20 00:00:00.989] [align] [info] 
+0.00user 0.01system 0.32elapsed 2.17%CPU (25020maxresident)k
+
+
+[2025-10-19 17:33:31] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-19 17:33:31] ERROR -   ❌ ✗ 样品 R 处理失败 | Sample R processing failed
+[2025-10-19 17:33:31] INFO - ----------------------------------------
+[2025-10-19 17:33:31] INFO - [2/2] 🧪 处理样品 | Processing sample: S
+[2025-10-19 17:33:31] INFO - 🚀 开始处理样品 | Starting to process sample: S
+[2025-10-19 17:33:31] INFO -   📄 R1文件 | R1 file: S_1.clean.fq
+[2025-10-19 17:33:31] INFO -   📄 R2文件 | R2 file: S_2.clean.fq
+[2025-10-19 17:33:31] INFO -   📜 输出VCF | Output VCF: vcf/S.vcf.gz
+[2025-10-19 17:33:31] INFO -   💾 输出BAM | Output BAM: bam/S.sorted.bam
+[2025-10-19 17:33:31] INFO - 🚀 执行步骤 | Executing step: 🧬 GTX WGS分析 (样品: S) | GTX WGS analysis (sample: S)
+[2025-10-19 17:33:31] INFO - 💻 命令 | Command: faketime '2020-10-20 00:00:00' /share/apps/gtx/GTX.CAT_2.2.1/bin/gtx wgs -g -R "@RG\tID:S\tSM:S\tPL:ILLUMINA\tLB:S" -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/vcf/S.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/bam/S.sorted.bam -t 88 --tmp-dir /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/genome.fa /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/S_1.clean.fq /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/S_2.clean.fq
+[2025-10-19 17:33:31] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping
+[2025-10-19 17:33:32] ERROR - ❌ 命令执行失败 | Command execution failed: 🧬 GTX WGS分析 (样品: S) | GTX WGS analysis (sample: S)
+[2025-10-19 17:33:32] ERROR - 🔢 错误代码 | Error code: 1
+[2025-10-19 17:33:32] ERROR - 💬 错误信息 | Error message: [2020-10-20 00:00:01.049] [gtx] [info] Version: gtx-2.2.1
+[2020-10-20 00:00:01.050] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/tmp available: 4311692GB, memory available: 964GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.050] [wgs] [info] os version:4.18.0-513.5.1.el8_9.x86_64
+[2020-10-20 00:00:01.063] [wgs] [info] brand:Intel(R) Xeon(R) Platinum 8458P
+[2020-10-20 00:00:01.063] [wgs] [info] cpu vendor:GenuineIntel
+[2020-10-20 00:00:01.063] [wgs] [info] threads: 88 max : 88
+[2020-10-20 00:00:01.063] [wgs] [info] Use bwa mem to align!
+[2020-10-20 00:00:01.063] [align] [info] Job: mapping, pid: 292038
+[2020-10-20 00:00:01.320] [align] [error] start gtx failed, #ValidLicensePathNotFound: No dongle is found and environment var 'RHWL_LICENSE_SERVER' is not set properly.
+[2020-10-20 00:00:01.320] [align] [error] mapping exited abnormally.
+[2020-10-20 00:00:01.320] [align] [error] clean temporary files, please waiting...
+[2020-10-20 00:00:01.321] [align] [error] clean up finished.
+[2020-10-20 00:00:01.321] [align] [info] 
+0.00user 0.01system 0.26elapsed 2.72%CPU (25212maxresident)k
+
+
+[2025-10-19 17:33:32] ERROR - 📜 标准输出 | Stdout: 
+[2025-10-19 17:33:32] ERROR -   ❌ ✗ 样品 S 处理失败 | Sample S processing failed
+[2025-10-19 17:33:32] INFO - ----------------------------------------
+[2025-10-19 17:33:32] INFO - ============================================================
+[2025-10-19 17:33:32] INFO - 🎉 单样品分析阶段完成 | Individual analysis phase completed
+[2025-10-19 17:33:32] INFO - ✅ 成功处理样品数 | Successfully processed samples: 0
+[2025-10-19 17:33:32] INFO - ❌ 失败样品数 | Failed samples: 2
+[2025-10-19 17:33:32] WARNING - ⚠️ 失败样品列表 | Failed samples list: R, S
+[2025-10-19 17:33:32] WARNING - ⚠️ 需要至少2个成功处理的样品才能进行Joint calling | Need at least 2 successfully processed samples for joint calling
+[2025-10-19 17:33:32] INFO - 📄 生成处理报告 | Generating processing report
+[2025-10-19 17:33:32] INFO - 📊 生成的文件统计 | Generated files statistics:
+[2025-10-19 17:33:32] INFO -   📜 单样品VCF文件 | Individual VCF files: 3 个
+[2025-10-19 17:33:32] INFO -   💾 BAM文件 | BAM files: 2 个
+[2025-10-19 17:33:32] INFO -   🤝 Joint calling文件 | Joint calling files: 0 个
+[2025-10-19 17:33:32] INFO -     ✓ Joint VCF文件: 不存在
+[2025-10-19 17:33:32] INFO -     ✓ 样品映射文件: 不存在
+[2025-10-19 17:33:32] INFO -   📏 单样品VCF目录大小 | Individual VCF directory size: 1.1 GB
+[2025-10-19 17:33:32] INFO -   📏 BAM目录大小 | BAM directory size: 94.9 GB
+[2025-10-19 17:33:32] INFO -   📏 Joint calling目录大小 | Joint calling directory size: 0 B
+[2025-10-19 17:33:32] INFO -   📏 总输出大小 | Total output size: 96.0 GB
+[2025-10-19 17:33:32] INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/gtx_analysis_summary.txt
+[2025-10-19 17:33:32] INFO - 
+[2025-10-19 17:33:32] INFO - 🌳 最终输出目录结构 | Final output directory structure:
+[2025-10-19 17:33:32] INFO -   /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/
+[2025-10-19 17:33:32] INFO -   ├── bam/     (💾 BAM文件: 2 个)
+[2025-10-19 17:33:32] INFO -   ├── vcf/     (📜 VCF文件: 3 个)
+[2025-10-19 17:33:32] INFO -   ├── joint/   (🤝 Joint calling结果: 0 个文件)
+[2025-10-19 17:33:32] INFO -   └── tmp/     (🗑️ 临时文件目录)
+[2025-10-19 17:33:32] INFO - ============================================================
+[2025-10-19 17:33:32] WARNING - ⚠️ GTX WGS批处理分析部分完成 (Joint calling失败) | GTX WGS batch processing analysis partially completed (Joint calling failed)
+[2025-10-19 17:33:32] INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping

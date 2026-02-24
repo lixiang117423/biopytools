@@ -1,0 +1,11 @@
+2026-01-22 13:25:09.656 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-22 13:25:09.656 - INFO - 使用自定义输入目录|Using custom input directory: output/kmc_databases
+2026-01-22 13:25:09.656 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-22 13:25:09.656 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-22 13:25:09.656 - INFO - 找到 10 个KMC数据库|Found 10 KMC databases
+2026-01-22 13:25:09.656 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 10 样本|samples
+2026-01-22 13:25:09.657 - INFO - 全新构建：先收集所有样本的k-mer|Fresh build: collecting k-mers from all samples first
+2026-01-22 13:25:09.657 - INFO - 收集唯一k-mer列表|Collecting unique k-mer list
+2026-01-22 13:25:09.657 - INFO - 分析样本 1/10|Analyzing sample 1/10: W681A
+2026-01-22 13:32:22.589 - INFO -   样本|Sample W681A: 841179211 个唯一k-mer|unique k-mers so far
+2026-01-22 13:32:22.592 - INFO - 分析样本 2/10|Analyzing sample 2/10: W689A

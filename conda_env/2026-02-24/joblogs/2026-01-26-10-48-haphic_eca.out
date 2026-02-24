@@ -1,0 +1,46 @@
+2026-01-26 10:48:08.787 - INFO - HapHiC处理器已初始化|HapHiC processor initialized
+2026-01-26 10:48:08.787 - INFO - 配置参数|Configuration Parameters:
+2026-01-26 10:48:08.787 - INFO -   assembly_file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/02.fasta/EcA.primary.fa
+2026-01-26 10:48:08.787 - INFO -   hic_file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.hic小试数据/01.data/clean/EcA_1.clean.fq.gz
+2026-01-26 10:48:08.787 - INFO -   hic_file_type: fastq
+2026-01-26 10:48:08.787 - INFO -   nchrs: 12
+2026-01-26 10:48:08.787 - INFO -   output_dir: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.hic小试数据
+2026-01-26 10:48:08.788 - INFO -   prefix: EcA.primary
+2026-01-26 10:48:08.788 - INFO -   threads: 64
+2026-01-26 10:48:08.788 - INFO -   processes: 8
+2026-01-26 10:48:08.788 - INFO -   quick_view: False
+2026-01-26 10:48:08.788 - INFO -   restriction_sites: ['GATC']
+2026-01-26 10:48:08.788 - INFO -   correct_nrounds: 2
+2026-01-26 10:48:08.788 - INFO -   remove_allelic_links: None
+2026-01-26 10:48:08.788 - INFO -   phasing_weight: 1.0
+2026-01-26 10:48:08.788 - INFO -   gfa_files: None
+2026-01-26 10:48:08.788 - INFO -   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+2026-01-26 10:48:08.788 - INFO -   bwa_bin: bwa
+2026-01-26 10:48:08.788 - INFO -   samtools_bin: samtools
+2026-01-26 10:48:08.788 - INFO - 开始HapHiC流程|Starting HapHiC pipeline
+2026-01-26 10:48:08.788 - INFO - 系统预检查|System pre-flight checks
+2026-01-26 10:48:08.788 - INFO - 验证输入文件|Validating input files
+2026-01-26 10:48:11.141 - INFO - 基因组序列数量|Assembly sequence count: 7535
+2026-01-26 10:48:11.141 - INFO - FASTQ文件大小|FASTQ file sizes: R1 0.16 GB, R2 0.17 GB
+2026-01-26 10:48:11.141 - INFO - 输入文件验证通过|Input files validated
+2026-01-26 10:48:11.141 - INFO - 检查系统资源|Checking system resources
+2026-01-26 10:48:12.497 - INFO - 可用内存|Available memory: 455.3 GB
+2026-01-26 10:48:12.497 - INFO - 可用磁盘空间|Available disk space: 3919490.6 GB
+2026-01-26 10:48:12.497 - INFO - CPU核心数|CPU cores: 88
+2026-01-26 10:48:15.502 - INFO - 预检查通过|Pre-flight checks passed
+2026-01-26 10:48:15.502 - INFO - 检查已存在的比对结果|Checking for existing alignment results
+2026-01-26 10:48:15.502 - INFO - 输出目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.hic小试数据
+2026-01-26 10:48:15.502 - INFO - 比对目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.hic小试数据/00.mapping
+2026-01-26 10:48:15.502 - INFO - 潜在BAM文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.hic小试数据/00.mapping/HiC.bam
+2026-01-26 10:48:15.502 - INFO - 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.hic小试数据/00.mapping/HiC.filtered.bam
+2026-01-26 10:48:15.502 - INFO - 比对目录不存在|Alignment directory does not exist
+2026-01-26 10:48:15.502 - INFO - 执行BWA比对|Executing BWA alignment
+2026-01-26 10:48:15.502 - INFO -  开始BWA比对|Starting BWA alignment (official method)
+2026-01-26 10:48:15.502 - INFO -  使用提供的FASTQ文件对|Using provided FASTQ pair: EcA_1.clean.fq.gz
+2026-01-26 10:48:15.502 - INFO -  找到 1 对FASTQ文件|Found 1 FASTQ pairs
+2026-01-26 10:48:15.502 - INFO -  创建基因组软链接|Created assembly symlink: assembly.fa
+2026-01-26 10:48:15.503 - INFO -  创建FASTQ软链接|Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+2026-01-26 10:48:15.503 - INFO -  创建BWA索引|Creating BWA index: assembly.fa
+2026-01-26 10:56:25.140 - INFO -  BWA索引创建完成|BWA index created
+2026-01-26 10:56:25.142 - INFO -  步骤1: BWA比对 + 去重 + 初步过滤 (使用 64 线程)|Step 1: BWA alignment + deduplication + initial filtering (using 64 threads)
+2026-01-26 10:56:25.145 - INFO -  执行BWA比对管道|Executing BWA alignment pipeline

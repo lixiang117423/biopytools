@@ -1,0 +1,72 @@
+2026-01-08 13:32:02.655 - INFO - ============================================================
+2026-01-08 13:32:02.655 - INFO - HiCanu基因组组装流程|HiCanu Genome Assembly Pipeline
+2026-01-08 13:32:02.655 - INFO - ============================================================
+2026-01-08 13:32:02.655 - INFO - 输入reads|Input reads: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/B3-2.clean.fq.gz
+2026-01-08 13:32:02.655 - INFO - 基因组大小|Genome size: 85m
+2026-01-08 13:32:02.656 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2
+2026-01-08 13:32:02.656 - INFO - 输出前缀|Output prefix: B3-2
+2026-01-08 13:32:02.656 - INFO - ============================================================
+2026-01-08 13:32:02.656 - INFO - ============================================================
+2026-01-08 13:32:02.656 - INFO - 开始HiCanu组装|Starting HiCanu assembly
+2026-01-08 13:32:02.656 - INFO - ============================================================
+2026-01-08 13:32:02.656 - INFO - 组装配置|Assembly configuration:
+2026-01-08 13:32:02.656 - INFO -   Reads文件|Reads file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/B3-2.clean.fq.gz
+2026-01-08 13:32:02.656 - INFO -   基因组大小|Genome size: 85m
+2026-01-08 13:32:02.656 - INFO -   工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2
+2026-01-08 13:32:02.656 - INFO -   前缀|Prefix: B3-2
+2026-01-08 13:32:02.656 - INFO -   组装阶段|Assembly stage: assemble
+2026-01-08 13:32:02.656 - INFO -   最小reads长度|Min read length: 1000
+2026-01-08 13:32:02.656 - INFO -   最小重叠长度|Min overlap length: 500
+2026-01-08 13:32:02.656 - INFO -   线程数|Threads: 12
+2026-01-08 13:32:02.656 - INFO -   内存限制|Memory limit: 80G
+2026-01-08 13:32:02.656 - INFO - 执行命令|Executing command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/canu -d /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output -p B3-2 genomeSize=85m -assemble -pacbio-hifi /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/B3-2.clean.fq.gz useGrid=false
+2026-01-08 15:11:42.821 - INFO - 命令执行成功|Command executed successfully
+2026-01-08 15:11:42.821 - INFO - 检查输出文件|Checking output files
+2026-01-08 15:11:42.821 - INFO - 输出文件已生成|Output file generated: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.contigs.fasta (98,946,592 bytes)
+2026-01-08 15:11:42.821 - INFO -   Contigs文件|Contigs file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.contigs.fasta
+2026-01-08 15:11:42.821 - INFO -   Unitigs文件不存在（对于HiFi组装这是正常的）|Unitigs file not found (normal for HiFi assembly): /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.unitigs.fasta
+2026-01-08 15:11:42.822 - INFO -   报告文件|Report file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.report
+2026-01-08 15:11:42.822 - INFO - ============================================================
+2026-01-08 15:11:42.822 - INFO - 解析组装结果|Parsing assembly results
+2026-01-08 15:11:42.822 - INFO - ============================================================
+2026-01-08 15:11:42.822 - INFO - 解析Contigs|Parsing contigs:
+2026-01-08 15:11:42.822 - INFO - 解析FASTA文件|Parsing FASTA file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.contigs.fasta
+2026-01-08 15:11:43.004 - INFO - FASTA统计信息|FASTA statistics:
+2026-01-08 15:11:43.004 - INFO -   序列数量|Number of sequences: 337
+2026-01-08 15:11:43.004 - INFO -   总长度|Total bp: 97,929,199
+2026-01-08 15:11:43.006 - INFO -   N50: 4,524,809
+2026-01-08 15:11:43.006 - INFO -   L50: 8
+2026-01-08 15:11:43.006 - INFO -   最短序列|Min length: 3,467
+2026-01-08 15:11:43.006 - INFO -   最长序列|Max length: 8,119,169
+2026-01-08 15:11:43.006 - INFO -   组装大小|Assembly size: 97.93 Mb
+2026-01-08 15:11:43.007 - INFO -   Contigs数量|Number of contigs: 337
+2026-01-08 15:11:43.007 - INFO -   N50: 4.52 Mb
+2026-01-08 15:11:43.007 - INFO -   L50: 8
+2026-01-08 15:11:43.007 - INFO - 解析Canu报告|Parsing Canu report:
+2026-01-08 15:11:43.007 - INFO -   --   contigs:      117 sequences, total length 68672915 bp (including 156 repeats of total length 3734436 bp).
+2026-01-08 15:11:43.007 - INFO -   --   bubbles:      220 sequences, total length 6205035 bp.
+2026-01-08 15:11:43.007 - INFO -   --   unassembled:  21535 sequences, total length 239761247 bp.
+2026-01-08 15:11:43.007 - INFO -   --   contigs:      117 sequences, total length 89644547 bp (including 156 repeats of total length 5133522 bp).
+2026-01-08 15:11:43.007 - INFO -   --   bubbles:      220 sequences, total length 8284652 bp.
+2026-01-08 15:11:43.007 - INFO -   --   unassembled:  21535 sequences, total length 329650724 bp.
+2026-01-08 15:11:43.007 - INFO - ============================================================
+2026-01-08 15:11:43.007 - INFO - 复制FASTA文件|Copying FASTA files
+2026-01-08 15:11:43.007 - INFO - ============================================================
+2026-01-08 15:11:43.525 - INFO -   已复制|Copied: B3-2.unassembled.fasta
+2026-01-08 15:11:43.676 - INFO -   已复制|Copied: B3-2.contigs.fasta
+2026-01-08 15:11:43.676 - INFO - 共复制 2 个文件到|Copied 2 files to: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/02.fasta
+2026-01-08 15:11:43.676 - INFO - ============================================================
+2026-01-08 15:11:43.676 - INFO - HiCanu组装完成|HiCanu assembly completed successfully
+2026-01-08 15:11:43.676 - INFO - ============================================================
+2026-01-08 15:11:43.676 - INFO - ============================================================
+2026-01-08 15:11:43.676 - INFO - 流程总结|Pipeline Summary
+2026-01-08 15:11:43.676 - INFO - ============================================================
+2026-01-08 15:11:43.676 - INFO - 总运行时间|Total runtime: 5981.02 seconds (99.68 minutes)
+2026-01-08 15:11:43.676 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2
+2026-01-08 15:11:43.676 - INFO - 主要输出文件|Main output files:
+2026-01-08 15:11:43.676 - INFO -   Contigs: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.contigs.fasta
+2026-01-08 15:11:43.676 - INFO -   Unitigs: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.unitigs.fasta
+2026-01-08 15:11:43.676 - INFO -   报告|Report: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.report
+2026-01-08 15:11:43.676 - INFO - ============================================================
+2026-01-08 15:11:43.676 - INFO - 流程成功完成|Pipeline completed successfully
+2026-01-08 15:11:43.676 - INFO - ============================================================

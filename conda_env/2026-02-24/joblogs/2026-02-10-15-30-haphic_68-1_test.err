@@ -1,0 +1,6 @@
+Usage: biopytools haphic [OPTIONS]
+Try 'biopytools haphic -h' for help.
+
+Error: Invalid value for '--hic1' / '-1': File '01.data/clean/68-1-hic_1.clean.fq.gz' does not exist.
+Job 69326181 stderr output:
+

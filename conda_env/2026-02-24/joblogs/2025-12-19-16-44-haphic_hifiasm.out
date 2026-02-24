@@ -1,0 +1,35 @@
+[2025-12-19 16:44:57] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-19 16:44:57] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-19 16:44:57]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/24.hifi_genome/hifiasm/OV53_1.primary.fasta
+[2025-12-19 16:44:57]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-19 16:44:57]   hic_file_type: fastq
+[2025-12-19 16:44:57]   nchrs: 12
+[2025-12-19 16:44:57]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/29.纯hifi数据组装的基因组进行挂载
+[2025-12-19 16:44:57]   prefix: OV53_1.primary
+[2025-12-19 16:44:57]   threads: 64
+[2025-12-19 16:44:57]   processes: 64
+[2025-12-19 16:44:57]   quick_view: False
+[2025-12-19 16:44:57]   restriction_sites: ['GATC']
+[2025-12-19 16:44:57]   correct_nrounds: 2
+[2025-12-19 16:44:57]   remove_allelic_links: None
+[2025-12-19 16:44:57]   phasing_weight: 1.0
+[2025-12-19 16:44:57]   gfa_files: None
+[2025-12-19 16:44:57]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-19 16:44:57]   bwa_bin: bwa
+[2025-12-19 16:44:57]   samtools_bin: samtools
+[2025-12-19 16:44:57] 🔄 从步骤继续运行: reassign
+[2025-12-19 16:44:57] 🔍 系统预检查 | System pre-flight checks
+[2025-12-19 16:44:57] 🔍 验证输入文件 | Validating input files
+[2025-12-19 16:45:00] 📊 基因组序列数量 | Assembly sequence count: 1455
+[2025-12-19 16:45:00] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 60.14 GB
+[2025-12-19 16:45:00] ✅ 输入文件验证通过 | Input files validated
+[2025-12-19 16:45:00] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-19 16:45:00] 💾 可用内存 | Available memory: 7.5 GB
+[2025-12-19 16:45:00] 💾 可用磁盘空间 | Available disk space: 2575703.7 GB
+[2025-12-19 16:45:00] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-19 16:45:03] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-19 16:45:03] 🔄 运行步骤: reassign
+[2025-12-19 16:45:03] 🎯 运行步骤: reassign
+[2025-12-19 16:45:03] 🔄 [步骤2] 重新分配 | [Step 2] Reassignment
+[2025-12-19 16:45:03] 💥 步骤执行失败 | Step execution failed: 'cluster'
+[2025-12-19 16:45:03] ⏱️ 流程耗时 | Pipeline time: 5.44秒

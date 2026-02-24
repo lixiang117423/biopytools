@@ -1,0 +1,200 @@
+2026-02-09 14:24:19.907 - INFO - ============================================================
+2026-02-09 14:24:19.908 - INFO - 开始K-mer丰度分析|Starting K-mer abundance analysis
+2026-02-09 14:24:19.908 - INFO - ============================================================
+2026-02-09 14:24:19.908 - INFO - 发现进度文件，将支持断点续传|Progress file found, checkpoint resumption enabled
+2026-02-09 14:24:19.908 - INFO - ============================================================
+2026-02-09 14:24:19.908 - INFO - 进度摘要|Progress Summary:
+2026-02-09 14:24:19.908 - INFO -   已完成步骤|Completed steps: 2/8
+2026-02-09 14:24:19.908 - INFO -   开始时间|Start time: 2026-02-09T14:19:53.083834
+2026-02-09 14:24:19.908 - INFO -   最后更新|Last update: 2026-02-09T14:22:43.121864
+2026-02-09 14:24:19.908 - INFO -   已完成的步骤|Completed step names:
+2026-02-09 14:24:19.908 - INFO -     ✓ 步骤1: 检查依赖软件|Step 1: Checking dependencies
+2026-02-09 14:24:19.908 - INFO -     ✓ 步骤2: 设置临时目录|Step 2: Setting up temporary directory
+2026-02-09 14:24:19.908 - INFO -   剩余步骤|Remaining steps: 6
+2026-02-09 14:24:19.908 - INFO - ============================================================
+2026-02-09 14:24:19.908 - INFO - 步骤1已完成，跳过|Step 1 completed, skipping
+2026-02-09 14:24:19.941 - INFO - 步骤2: 设置临时目录|Step 2: Setting up temporary directory
+2026-02-09 14:24:19.960 - INFO - 临时目录: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/06.已克隆的基因的存在缺失/tmp/kmer_count_1770618259_9982
+2026-02-09 14:24:19.960 - INFO - 步骤2: 设置临时目录|Step 2: Setting up temporary directory 已完成|步骤2: 设置临时目录|Step 2: Setting up temporary directory completed
+2026-02-09 14:24:19.960 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:24:19.961 - INFO - 步骤3: 查找输入文件|Step 3: Finding input files
+2026-02-09 14:24:19.961 - INFO -  查找输入文件|Finding input files
+2026-02-09 14:24:19.961 - INFO -  输入目录: ../01.data/clean
+2026-02-09 14:24:19.961 - INFO -  文件模式: *_1.clean.fq.gz
+2026-02-09 14:24:19.961 - INFO -  输入目录是否存在: True
+2026-02-09 14:24:19.961 - INFO -  目录中的文件: ['fastp_processing_summary.txt', 'BLG_SQ-1_1.clean.fq.gz', 'BLG_GDMZ_1.clean.fq.gz', 'BLG_SQ-1_2.clean.fq.gz', 'BLG_SQ-3_2.clean.fq.gz', 'fastp_processing.log', 'BLG_GDMZ_2.clean.fq.gz', 'BLG_SQ-3_1.clean.fq.gz', 'BLG_HY_1.clean.fq.gz', 'BLG_HY_2.clean.fq.gz']
+2026-02-09 14:24:19.961 - INFO -  使用FASTQ文件处理逻辑|Using FASTQ file processing logic
+2026-02-09 14:24:19.963 - INFO -  常规文件|Regular file: BLG_SQ-1_1.clean.fq.gz
+2026-02-09 14:24:19.963 - INFO -  常规文件|Regular file: BLG_GDMZ_1.clean.fq.gz
+2026-02-09 14:24:19.963 - INFO -  常规文件|Regular file: BLG_SQ-3_1.clean.fq.gz
+2026-02-09 14:24:19.963 - INFO -  常规文件|Regular file: BLG_HY_1.clean.fq.gz
+2026-02-09 14:24:19.963 - INFO -  找到4个有效R1文件
+2026-02-09 14:24:19.963 - INFO -  提取样本名: BLG_SQ-1
+2026-02-09 14:24:19.964 - INFO - 找到双端样本|Found paired-end sample: BLG_SQ-1
+2026-02-09 14:24:19.964 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/01.data/clean/BLG_SQ-1_1.clean.fq.gz
+2026-02-09 14:24:19.964 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/01.data/clean/BLG_SQ-1_2.clean.fq.gz
+2026-02-09 14:24:19.964 - INFO -  提取样本名: BLG_GDMZ
+2026-02-09 14:24:19.964 - INFO - 找到双端样本|Found paired-end sample: BLG_GDMZ
+2026-02-09 14:24:19.964 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/01.data/clean/BLG_GDMZ_1.clean.fq.gz
+2026-02-09 14:24:19.964 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/01.data/clean/BLG_GDMZ_2.clean.fq.gz
+2026-02-09 14:24:19.964 - INFO -  提取样本名: BLG_SQ-3
+2026-02-09 14:24:19.964 - INFO - 找到双端样本|Found paired-end sample: BLG_SQ-3
+2026-02-09 14:24:19.964 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/01.data/clean/BLG_SQ-3_1.clean.fq.gz
+2026-02-09 14:24:19.968 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/01.data/clean/BLG_SQ-3_2.clean.fq.gz
+2026-02-09 14:24:19.968 - INFO -  提取样本名: BLG_HY
+2026-02-09 14:24:19.968 - INFO - 找到双端样本|Found paired-end sample: BLG_HY
+2026-02-09 14:24:19.968 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/01.data/clean/BLG_HY_1.clean.fq.gz
+2026-02-09 14:24:19.968 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/30.菘蓝/01.data/clean/BLG_HY_2.clean.fq.gz
+2026-02-09 14:24:19.968 - INFO - 步骤3: 查找输入文件|Step 3: Finding input files 已完成|步骤3: 查找输入文件|Step 3: Finding input files completed
+2026-02-09 14:24:19.968 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:24:19.968 - INFO - 步骤4: 准备k-mer库|Step 4: Preparing k-mer library
+2026-02-09 14:24:19.968 - INFO - 准备k-mer库文件|Preparing k-mer library file
+2026-02-09 14:24:19.982 - INFO - 中间文件目录|Intermediate files directory: intermediate_files
+2026-02-09 14:24:55.617 - INFO - 已保存大写k-mer文件|Saved uppercase k-mer file: intermediate_files/kmers_upper.fasta
+2026-02-09 14:24:55.667 - INFO - k-mer库已扩展，保存到: intermediate_files/kmers_expanded.fasta
+2026-02-09 14:24:55.667 - INFO - 步骤4: 准备k-mer库|Step 4: Preparing k-mer library 已完成|步骤4: 准备k-mer库|Step 4: Preparing k-mer library completed
+2026-02-09 14:24:55.667 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:24:55.667 - INFO - 步骤5: 解析注释信息|Step 5: Parsing annotation information
+2026-02-09 14:24:55.667 - INFO - 检测到BED文件，跳过SQLite数据库构建|BED file detected, skipping SQLite database construction
+2026-02-09 14:24:55.667 - INFO -  解析BED文件|Parsing BED file
+2026-02-09 14:24:55.733 - INFO -  成功读取BED文件前6列|Successfully read first 6 columns of BED file
+2026-02-09 14:24:55.737 - INFO - 扩展BED文件，添加反向互补序列|Expanding BED file with reverse complement sequences
+2026-02-09 14:24:55.858 - INFO - 扩展完成：原始12658条，新增12658条反向互补序列|Expansion completed: 12658 original, 12658 reverse complement sequences added
+2026-02-09 14:24:55.859 - INFO - 已处理25316个k-mer序列|Processed 25316 k-mer sequences
+2026-02-09 14:24:55.894 - INFO - 已保存处理后的BED文件|Saved processed BED file: intermediate_files/processed_kmers.bed
+2026-02-09 14:24:55.894 - INFO -  BED文件解析完成，共25316条记录|BED file parsing completed, 25316 records total
+2026-02-09 14:24:55.895 - INFO - 步骤5: 解析注释信息|Step 5: Parsing annotation information 已完成|步骤5: 解析注释信息|Step 5: Parsing annotation information completed
+2026-02-09 14:24:55.895 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:24:55.895 - INFO - 步骤6: 处理样本|Step 6: Processing samples
+2026-02-09 14:24:55.895 - INFO - 处理样本|Processing sample: BLG_SQ-1
+2026-02-09 14:24:55.895 - INFO - 开始k-mer计数|Starting k-mer counting for sample: BLG_SQ-1
+2026-02-09 14:24:55.907 - INFO -  创建generator文件|Created generator file: jellyfish_cache/BLG_SQ-1_generator.txt
+2026-02-09 14:24:55.907 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for BLG_SQ-1
+2026-02-09 14:24:55.907 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 64 -g jellyfish_cache/BLG_SQ-1_generator.txt -o jellyfish_cache/BLG_SQ-1.jf
+2026-02-09 14:27:46.041 - INFO - 命令执行成功|Command executed successfully
+2026-02-09 14:27:46.041 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/BLG_SQ-1.jf
+2026-02-09 14:27:46.041 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: BLG_SQ-1
+2026-02-09 14:27:46.041 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for BLG_SQ-1
+2026-02-09 14:27:46.041 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/BLG_SQ-1.jf -o jellyfish_cache/BLG_SQ-1.kmers.count
+2026-02-09 14:27:57.018 - INFO - 命令执行成功|Command executed successfully
+2026-02-09 14:27:57.018 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/BLG_SQ-1.kmers.count
+2026-02-09 14:27:57.018 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for BLG_SQ-1
+2026-02-09 14:27:57.043 - INFO -  解析完成，去重后共25196个k-mer结果|Parsing completed, 25196 unique k-mer results after deduplication
+2026-02-09 14:27:57.043 - INFO - 合并样品BLG_SQ-1与BED文件
+2026-02-09 14:27:57.044 - INFO - BED记录数: 25,316, 样本k-mer数: 25,196
+2026-02-09 14:27:57.044 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-02-09 14:28:01.467 - INFO - 样品BLG_SQ-1合并完成，共31行
+2026-02-09 14:28:01.548 - INFO - 样品BLG_SQ-1结果已保存: each_sample/BLG_SQ-1_kmer_abundance.tsv
+2026-02-09 14:28:01.548 - INFO - 处理样本|Processing sample: BLG_GDMZ
+2026-02-09 14:28:01.548 - INFO - 开始k-mer计数|Starting k-mer counting for sample: BLG_GDMZ
+2026-02-09 14:28:01.549 - INFO -  创建generator文件|Created generator file: jellyfish_cache/BLG_GDMZ_generator.txt
+2026-02-09 14:28:01.549 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for BLG_GDMZ
+2026-02-09 14:28:01.549 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 64 -g jellyfish_cache/BLG_GDMZ_generator.txt -o jellyfish_cache/BLG_GDMZ.jf
+2026-02-09 14:30:45.101 - INFO - 命令执行成功|Command executed successfully
+2026-02-09 14:30:45.102 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/BLG_GDMZ.jf
+2026-02-09 14:30:45.102 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: BLG_GDMZ
+2026-02-09 14:30:45.103 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for BLG_GDMZ
+2026-02-09 14:30:45.103 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/BLG_GDMZ.jf -o jellyfish_cache/BLG_GDMZ.kmers.count
+2026-02-09 14:30:59.352 - INFO - 命令执行成功|Command executed successfully
+2026-02-09 14:30:59.353 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/BLG_GDMZ.kmers.count
+2026-02-09 14:30:59.353 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for BLG_GDMZ
+2026-02-09 14:30:59.377 - INFO -  解析完成，去重后共25196个k-mer结果|Parsing completed, 25196 unique k-mer results after deduplication
+2026-02-09 14:30:59.379 - INFO - 合并样品BLG_GDMZ与BED文件
+2026-02-09 14:30:59.379 - INFO - BED记录数: 25,316, 样本k-mer数: 25,196
+2026-02-09 14:30:59.379 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-02-09 14:31:03.820 - INFO - 样品BLG_GDMZ合并完成，共63行
+2026-02-09 14:31:03.830 - INFO - 样品BLG_GDMZ结果已保存: each_sample/BLG_GDMZ_kmer_abundance.tsv
+2026-02-09 14:31:03.831 - INFO - 处理样本|Processing sample: BLG_SQ-3
+2026-02-09 14:31:03.831 - INFO - 开始k-mer计数|Starting k-mer counting for sample: BLG_SQ-3
+2026-02-09 14:31:03.845 - INFO -  创建generator文件|Created generator file: jellyfish_cache/BLG_SQ-3_generator.txt
+2026-02-09 14:31:03.845 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for BLG_SQ-3
+2026-02-09 14:31:03.845 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 64 -g jellyfish_cache/BLG_SQ-3_generator.txt -o jellyfish_cache/BLG_SQ-3.jf
+2026-02-09 14:34:17.052 - INFO - 命令执行成功|Command executed successfully
+2026-02-09 14:34:17.052 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/BLG_SQ-3.jf
+2026-02-09 14:34:17.053 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: BLG_SQ-3
+2026-02-09 14:34:17.053 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for BLG_SQ-3
+2026-02-09 14:34:17.053 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/BLG_SQ-3.jf -o jellyfish_cache/BLG_SQ-3.kmers.count
+2026-02-09 14:34:31.801 - INFO - 命令执行成功|Command executed successfully
+2026-02-09 14:34:31.801 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/BLG_SQ-3.kmers.count
+2026-02-09 14:34:31.801 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for BLG_SQ-3
+2026-02-09 14:34:31.843 - INFO -  解析完成，去重后共25196个k-mer结果|Parsing completed, 25196 unique k-mer results after deduplication
+2026-02-09 14:34:31.844 - INFO - 合并样品BLG_SQ-3与BED文件
+2026-02-09 14:34:31.844 - INFO - BED记录数: 25,316, 样本k-mer数: 25,196
+2026-02-09 14:34:31.844 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-02-09 14:34:36.290 - INFO - 样品BLG_SQ-3合并完成，共63行
+2026-02-09 14:34:36.311 - INFO - 样品BLG_SQ-3结果已保存: each_sample/BLG_SQ-3_kmer_abundance.tsv
+2026-02-09 14:34:36.311 - INFO - 处理样本|Processing sample: BLG_HY
+2026-02-09 14:34:36.311 - INFO - 开始k-mer计数|Starting k-mer counting for sample: BLG_HY
+2026-02-09 14:34:36.312 - INFO -  创建generator文件|Created generator file: jellyfish_cache/BLG_HY_generator.txt
+2026-02-09 14:34:36.312 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for BLG_HY
+2026-02-09 14:34:36.312 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 64 -g jellyfish_cache/BLG_HY_generator.txt -o jellyfish_cache/BLG_HY.jf
+2026-02-09 14:37:48.143 - INFO - 命令执行成功|Command executed successfully
+2026-02-09 14:37:48.144 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/BLG_HY.jf
+2026-02-09 14:37:48.144 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: BLG_HY
+2026-02-09 14:37:48.145 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for BLG_HY
+2026-02-09 14:37:48.145 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/BLG_HY.jf -o jellyfish_cache/BLG_HY.kmers.count
+2026-02-09 14:38:03.899 - INFO - 命令执行成功|Command executed successfully
+2026-02-09 14:38:03.900 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/BLG_HY.kmers.count
+2026-02-09 14:38:03.900 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for BLG_HY
+2026-02-09 14:38:03.924 - INFO -  解析完成，去重后共25196个k-mer结果|Parsing completed, 25196 unique k-mer results after deduplication
+2026-02-09 14:38:03.925 - INFO - 合并样品BLG_HY与BED文件
+2026-02-09 14:38:03.925 - INFO - BED记录数: 25,316, 样本k-mer数: 25,196
+2026-02-09 14:38:03.925 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-02-09 14:38:08.371 - INFO - 样品BLG_HY合并完成，共63行
+2026-02-09 14:38:08.373 - INFO - 样品BLG_HY结果已保存: each_sample/BLG_HY_kmer_abundance.tsv
+2026-02-09 14:38:08.373 - INFO - ==================================================
+2026-02-09 14:38:08.373 - INFO - 样本处理总结|Sample Processing Summary:
+2026-02-09 14:38:08.374 - INFO -   总样本数: 4
+2026-02-09 14:38:08.374 - INFO -   成功处理: 4
+2026-02-09 14:38:08.374 - INFO -    跳过样本: 0
+2026-02-09 14:38:08.374 - INFO - ==================================================
+2026-02-09 14:38:08.374 - INFO - 步骤6: 处理样本|Step 6: Processing samples 已完成|步骤6: 处理样本|Step 6: Processing samples completed
+2026-02-09 14:38:08.374 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:38:08.374 - INFO - 步骤7: 合并所有样本结果|Step 7: Merging all sample results
+2026-02-09 14:38:08.374 - INFO - 合并所有样本结果（SQLite优化版本）
+2026-02-09 14:38:08.374 - INFO - 初始化SQLite数据库|Initializing SQLite database
+2026-02-09 14:38:08.378 - INFO - 插入BED数据到数据库|Inserting BED data into database
+2026-02-09 14:38:08.862 - INFO - 已插入 12,658 / 12,658 条BED记录
+2026-02-09 14:38:08.862 - INFO - BED数据插入完成，共 12,658 条记录
+2026-02-09 14:38:08.863 - INFO - 更新样本丰度数据|Updating sample abundance data
+2026-02-09 14:38:08.865 - INFO - [1/4] 更新样本: BLG_SQ-1 (31 条记录)
+2026-02-09 14:38:08.945 - INFO - [2/4] 更新样本: BLG_GDMZ (63 条记录)
+2026-02-09 14:38:08.959 - INFO - [3/4] 更新样本: BLG_SQ-3 (63 条记录)
+2026-02-09 14:38:08.972 - INFO - [4/4] 更新样本: BLG_HY (63 条记录)
+2026-02-09 14:38:08.985 - INFO - 导出最终矩阵为TSV文件|Exporting final matrix to TSV
+2026-02-09 14:38:08.986 - INFO - 导出 12,658 行 × 11 列
+2026-02-09 14:38:09.022 - INFO - 已导出 12,658 / 12,658 行
+2026-02-09 14:38:09.023 - INFO - 临时数据库已删除|Temporary database deleted
+2026-02-09 14:38:09.023 - INFO - 最终矩阵已保存: kmer_abundance_matrix.tsv
+2026-02-09 14:38:09.025 - INFO - 步骤7: 合并结果|Step 7: Merging results 已完成|步骤7: 合并结果|Step 7: Merging results completed
+2026-02-09 14:38:09.025 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:38:09.025 - INFO - 步骤8: 保存最终结果|Step 8: Saving final results
+2026-02-09 14:38:09.025 - INFO - 结果矩阵已在步骤7保存|Result matrix already saved in step 7
+2026-02-09 14:38:09.025 - INFO - save_results 已完成|save_results completed
+2026-02-09 14:38:09.025 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:38:09.025 - INFO - 步骤9: 滑动窗口分析|Step 9: Sliding window analysis
+2026-02-09 14:38:09.025 - INFO - 从文件加载数据用于滑动窗口分析|Loading data from file for sliding window analysis: kmer_abundance_matrix.tsv
+2026-02-09 14:38:09.044 - INFO - 开始滑动窗口分析|Starting sliding window analysis
+2026-02-09 14:38:09.045 - INFO - 窗口大小|Window size: 500000bp, 步长|Step size: 100000bp
+2026-02-09 14:38:09.048 - INFO -  处理染色体|Processing chromosome: BolC7t45647H
+2026-02-09 14:38:09.050 - INFO -  处理染色体|Processing chromosome: CRa
+2026-02-09 14:38:09.052 - INFO -  处理染色体|Processing chromosome: Crr1
+2026-02-09 14:38:09.054 - INFO -  处理染色体|Processing chromosome: LR031876.1
+2026-02-09 14:38:09.056 - INFO -  处理染色体|Processing chromosome: WTS
+2026-02-09 14:38:09.057 - INFO -  滑动窗口分析完成，共5个窗口
+2026-02-09 14:38:09.058 - INFO - 滑动窗口结果已保存|Sliding window results saved: sliding_window_analysis.tsv
+2026-02-09 14:38:09.058 - INFO - sliding_window 已完成|sliding_window completed
+2026-02-09 14:38:09.058 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:38:09.059 - INFO - 步骤10: 创建0/1矩阵|Step 10: Creating 0/1 matrix
+2026-02-09 14:38:09.059 - INFO - 创建0/1存在缺失矩阵|Creating 0/1 presence/absence matrix
+2026-02-09 14:38:09.060 - INFO -  0/1矩阵创建完成|0/1 matrix creation completed
+2026-02-09 14:38:09.090 - INFO - 0/1矩阵已保存|0/1 matrix saved: kmer_binary_matrix.tsv
+2026-02-09 14:38:09.090 - INFO - binary_matrix 已完成|binary_matrix completed
+2026-02-09 14:38:09.090 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-02-09 14:38:09.090 - INFO - 生成统计摘要报告|Generating summary statistics report
+2026-02-09 14:38:09.091 - INFO - 统计报告已保存|Summary report saved: analysis_summary.txt
+2026-02-09 14:38:09.093 - INFO - 进度文件已删除|Progress file deleted: .kmer_count_progress.json
+2026-02-09 14:38:09.093 - INFO - ============================================================
+2026-02-09 14:38:09.093 - INFO - K-mer丰度分析完成!
+2026-02-09 14:38:09.093 - INFO - ============================================================
+2026-02-09 14:38:09.094 - INFO - 临时目录已清理|Temporary directory cleaned

@@ -1,0 +1,24 @@
+Job 67891173 stderr output:
+
+[wgsim] seed = 1762335713
+[wgsim_core] calculating the total length of the reference sequence...
+[wgsim_core] 4921 sequences, total length: 228543505
+[wgsim_core] skip sequence 'NW_003303759.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303760.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303761.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303762.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303763.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303764.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303765.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303766.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303767.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303768.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303769.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303770.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303771.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303772.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303773.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303774.1' as it is shorter than 650!
+[wgsim_core] skip sequence 'NW_003303775.1' as it is shorter than 650!
+Job 67891176 stderr output:
+

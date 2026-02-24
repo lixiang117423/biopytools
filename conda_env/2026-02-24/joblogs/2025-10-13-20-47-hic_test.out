@@ -1,0 +1,96 @@
+==========================================
+Hi-C数据质控分析 - 最终修正版 v4 (解决samtools header问题)
+==========================================
+样品: ov53-1-HIC1
+限制性酶: MboI (GATC)
+线程数: 88
+工作目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/62.hic/20251011_test
+
+2025年 10月 13日 星期一 20:47:53 CST
+
+步骤1: 创建目录结构...
+  ✓ 目录创建完成
+
+步骤2: 生成限制性酶切位点BED文件...
+  ✓ BED文件已存在
+
+步骤3: 构建Bowtie2索引...
+  ✓ 索引已存在
+
+步骤4: 比对Hi-C reads并清理read名...
+  比对 Read 1...
+  ✓ R1比对完成
+  比对 Read 2...
+  ✓ R2比对完成
+
+==========================================
+步骤5: 构建Hi-C矩阵（最关键的一步）
+==========================================
+  这将需要 1-3 小时...
+
+INFO:hicexplorer.lib.buildMatrixMethods:reading mapping/ov53-1-HIC1_R1.bam and mapping/ov53-1-HIC1_R2.bam to build hic_matrix
+
+INFO:hicexplorer.lib.buildMatrixMethods:dangling sequences to check are {'GATC': {'pat_forw': 'GATC', 'pat_rev': 'GATC'}}
+
+
+  ✓ Hi-C矩阵构建成功
+  ✓ 矩阵文件大小: 0
+  ⚠ 警告：未生成QC日志文件
+
+步骤6: 生成HTML质控报告...
+
+步骤7: 矩阵质量诊断...
+INFO:hicexplorer.hicCorrectMatrix:Removing 110369 zero value bins
+INFO:hicexplorer.hicCorrectMatrix:Saving diagnostic plot reports/diagnostic_plot.png
+
+  ✓ 诊断图: reports/diagnostic_plot.png
+
+步骤8: 绘制Contact Map...
+  绘制 chr1 的contact map...
+INFO:hicexplorer.hicPlotMatrix:Cooler or no cooler: False
+WARNING:hicexplorer.hicPlotMatrix:WARNING: The following chromosome/scaffold names were not found. Please checkthe correct spelling of the chromosome names. 
+
+WARNING:hicexplorer.hicPlotMatrix:chr1
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/hicPlotMatrix", line 7, in <module>
+    main()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/hicexplorer/lib/python3.12/site-packages/hicexplorer/hicPlotMatrix.py", line 736, in main
+    ma.matrix.data.min(), ma.matrix.data.max()))
+    ^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/hicexplorer/lib/python3.12/site-packages/numpy/core/_methods.py", line 45, in _amin
+    return umr_minimum(a, axis, None, out, keepdims, initial, where)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: zero-size array to reduction operation minimum which has no identity
+  ⚠ 绘图警告
+  ✓ Contact map: reports/contact_map_chr1.png
+
+==========================================
+步骤9: 质控统计报告
+==========================================
+
+======================================================================
+                    Hi-C 质控报告
+======================================================================
+
+样品: ov53-1-HIC1
+
+⚠ 未找到QC日志文件
+
+==========================================
+🎉 分析完成！
+==========================================
+
+重要输出文件:
+  📊 HTML报告: reports/hicQC.html
+  🖼️  Contact Map: reports/contact_map_*.png
+  📈 诊断图: reports/diagnostic_plot.png
+  💾 矩阵文件: matrix/ov53-1-HIC1_10000.h5
+
+日志文件:
+  - 构建日志: matrix/build_matrix.log
+  - QC日志: qc_results/*_QC.log
+  - 比对日志: mapping/ov53-1-HIC1_*.log
+
+2025年 10月 13日 星期一 20:56:57 CST
+
+==========================================

@@ -1,0 +1,46 @@
+2025-10-06 13:49:33,308 - INFO - ============================================================
+2025-10-06 13:49:33,308 - INFO - 🌳 开始系统发育树构建流程 | Starting phylogenetic tree building pipeline
+2025-10-06 13:49:33,308 - INFO - ============================================================
+2025-10-06 13:49:33,308 - INFO - 📋 步骤 1/5: 检查依赖软件 | Step 1/5: Checking dependencies
+2025-10-06 13:49:33,308 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-06 13:49:33,473 - INFO - ✅ MAFFT 可用 | available
+2025-10-06 13:49:33,598 - INFO - ✅ FastTree 可用 | available
+2025-10-06 13:49:33,598 - INFO - 📋 步骤 2/5: 检测序列类型 | Step 2/5: Detecting sequence type
+2025-10-06 13:49:33,598 - INFO - 🔍 检测序列类型 | Detecting sequence type: /share/org/YZWL/yzwl_lixg/project/98.wrky/09.tree/14.最终的domain序列.fa
+2025-10-06 13:49:33,944 - INFO - ✅ 检测到序列类型 | Detected sequence type: protein
+2025-10-06 13:49:33,944 - DEBUG -    核酸字符比例 | Nucleotide ratio: 25.10%
+2025-10-06 13:49:33,944 - DEBUG -    蛋白质特异字符 | Protein-specific chars: True
+2025-10-06 13:49:33,944 - INFO - 📋 步骤 3/5: 清理序列和处理ID | Step 3/5: Cleaning sequences and processing IDs
+2025-10-06 13:49:33,944 - INFO - 🧹 开始清理序列 | Starting sequence cleaning
+2025-10-06 13:49:33,944 - INFO -    输入文件 | Input: /share/org/YZWL/yzwl_lixg/project/98.wrky/09.tree/14.最终的domain序列.fa
+2025-10-06 13:49:33,944 - INFO -    输出文件 | Output: fasttree/14.最终的domain序列.cleaned.fa
+2025-10-06 13:49:34,622 - INFO - ✅ ID映射文件已生成 | ID mapping file created: fasttree/14.最终的domain序列.id_mapping.txt
+2025-10-06 13:49:34,622 - INFO - 📊 映射统计 | Mapping statistics:
+2025-10-06 13:49:34,622 - INFO -    总计 | Total: 89655 IDs
+2025-10-06 13:49:34,622 - INFO -    修改 | Modified: 0 IDs
+2025-10-06 13:49:34,622 - INFO -    未修改 | Unchanged: 89655 IDs
+2025-10-06 13:49:34,623 - INFO - ✅ 序列清理完成 | Sequence cleaning completed
+2025-10-06 13:49:34,623 - INFO -    总序列数 | Total sequences: 89655
+2025-10-06 13:49:34,623 - INFO -    修改ID数 | Modified IDs: 0
+2025-10-06 13:49:34,623 - INFO -    未修改ID数 | Unchanged IDs: 89655
+2025-10-06 13:49:34,624 - INFO - 📋 步骤 4/5: MAFFT多序列比对 | Step 4/5: MAFFT multiple sequence alignment
+2025-10-06 13:49:34,624 - INFO - ============================================================
+2025-10-06 13:49:34,624 - INFO - 🧩 开始多序列比对 | Starting multiple sequence alignment
+2025-10-06 13:49:34,624 - INFO - ============================================================
+2025-10-06 13:49:34,624 - INFO - 🚀 执行步骤 | Executing step: MAFFT多序列比对 | MAFFT multiple sequence alignment
+2025-10-06 13:49:34,624 - INFO - 📝 命令 | Command: mafft --auto --thread 88 fasttree/14.最终的domain序列.cleaned.fa > fasttree/14.最终的domain序列.mafft.fa
+2025-10-06 13:49:34,625 - DEBUG - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/98.wrky/09.tree/fasttree
+2025-10-06 13:49:34,626 - ERROR - ❌ 命令执行失败 | Command execution failed: MAFFT多序列比对 | MAFFT multiple sequence alignment
+2025-10-06 13:49:34,626 - ERROR - ❌ 错误代码 | Error code: 1
+2025-10-06 13:49:34,626 - ERROR - ❌ 流程执行失败 | Pipeline execution failed: Command 'mafft --auto --thread 88 fasttree/14.最终的domain序列.cleaned.fa > fasttree/14.最终的domain序列.mafft.fa' returned non-zero exit status 1.
+2025-10-06 13:49:34,688 - DEBUG - Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/mafft_fasttree/main.py", line 65, in run_pipeline
+    if not self.aligner.run_alignment(self.config.cleaned_file, self.config.mafft_file):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/mafft_fasttree/alignment.py", line 26, in run_alignment
+    success = self.cmd_runner.run(
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/mafft_fasttree/utils.py", line 54, in run
+    result = subprocess.run(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'mafft --auto --thread 88 fasttree/14.最终的domain序列.cleaned.fa > fasttree/14.最终的domain序列.mafft.fa' returned non-zero exit status 1.
+

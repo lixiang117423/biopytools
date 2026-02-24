@@ -1,0 +1,1620 @@
+[2025-12-30 21:09:11] WARNING: 命令错误输出 | Command stderr:
+-- canu master +27 changes (r10515 2a41e933b8de6ed66723d75d36dd071b46d2c347)
+--
+-- CITATIONS
+--
+-- For assemblies of PacBio HiFi reads:
+--   Nurk S, Walenz BP, Rhiea A, Vollger MR, Logsdon GA, Grothe R, Miga KH, Eichler EE, Phillippy AM, Koren S.
+--   HiCanu: accurate assembly of segmental duplications, satellites, and allelic variants from high-fidelity long reads.
+--   biorXiv. 2020.
+--   https://doi.org/10.1101/2020.03.14.992248
+-- 
+-- Read and contig alignments during correction and consensus use:
+--   Šošic M, Šikic M.
+--   Edlib: a C/C ++ library for fast, exact sequence alignment using edit distance.
+--   Bioinformatics. 2017 May 1;33(9):1394-1395.
+--   http://doi.org/10.1093/bioinformatics/btw753
+-- 
+-- Overlaps are generated using:
+--   Berlin K, et al.
+--   Assembling large genomes with single-molecule sequencing and locality-sensitive hashing.
+--   Nat Biotechnol. 2015 Jun;33(6):623-30.
+--   http://doi.org/10.1038/nbt.3238
+-- 
+--   Myers EW, et al.
+--   A Whole-Genome Assembly of Drosophila.
+--   Science. 2000 Mar 24;287(5461):2196-204.
+--   http://doi.org/10.1126/science.287.5461.2196
+-- 
+-- Contig consensus sequences are generated using an algorithm derived from pbdagcon:
+--   Chin CS, et al.
+--   Nonhybrid, finished microbial genome assemblies from long-read SMRT sequencing data.
+--   Nat Methods. 2013 Jun;10(6):563-9
+--   http://doi.org/10.1038/nmeth.2474
+-- 
+-- CONFIGURE CANU
+--
+-- Detected Java(TM) Runtime Environment '17.0.15-internal' (from '/share/org/YZWL/yzwl_lixg/.local/bin/java') without -d64 support.
+--
+-- WARNING:
+-- WARNING:  Failed to run gnuplot using command 'gnuplot'.
+-- WARNING:  Plots will be disabled.
+-- WARNING:
+--
+-- Detected samtools version '1.22' / htslib version 'htscodecs=1.6.3' (from 'samtools').
+--
+-- Detected 88 CPUs and 503 gigabytes of memory on the local machine.
+--
+-- Detected Slurm with 'sinfo' binary in /opt/skyformai/bin/sinfo.
+--          Slurm disabled by useGrid=false
+--
+-- Detected  '' with 'pbsnodes' binary in /opt/skyformai/bin/pbsnodes.
+--           disabled by useGrid=false
+--
+-- Detected LSF with 'bsub' binary in /opt/skyformai/bin/bsub.
+--          LSF disabled by useGrid=false
+--
+-- Local machine mode enabled; grid support not detected or not allowed.
+--
+-- Found trimmed raw PacBio HiFi reads in the input files.
+--
+--                                (tag)Concurrency
+--                         (tag)Threads          |
+--                (tag)Memory         |          |
+--        (tag)             |         |          |       total usage      algorithm
+--        -------  ----------  --------   --------  --------------------  -----------------------------
+-- Local: meryl     45.000 GB    8 CPUs x  11 jobs   495.000 GB  88 CPUs  (k-mer counting)
+-- Local: cormhap   32.000 GB   11 CPUs x   8 jobs   256.000 GB  88 CPUs  (overlap detection with mhap)
+-- Local: obtovl    16.000 GB   11 CPUs x   8 jobs   128.000 GB  88 CPUs  (overlap detection)
+-- Local: utgovl    16.000 GB   11 CPUs x   8 jobs   128.000 GB  88 CPUs  (overlap detection)
+-- Local: cor        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (read correction)
+-- Local: ovb        4.000 GB    1 CPU  x  88 jobs   352.000 GB  88 CPUs  (overlap store bucketizer)
+-- Local: ovs       32.000 GB    1 CPU  x  15 jobs   480.000 GB  15 CPUs  (overlap store sorting)
+-- Local: red       32.000 GB    8 CPUs x  11 jobs   352.000 GB  88 CPUs  (read error detection)
+-- Local: oea        8.000 GB    1 CPU  x  62 jobs   496.000 GB  62 CPUs  (overlap error adjustment)
+-- Local: bat       64.000 GB   16 CPUs x   1 job     64.000 GB  16 CPUs  (contig construction with bogart)
+-- Local: cns        -.--- GB    8 CPUs x   - jobs     -.--- GB   - CPUs  (consensus)
+--
+-- Generating assembly 'test' in '/share/org/YZWL/yzwl_lixg/tmp/test_canu/output':
+--   genomeSize:
+--     1400000000
+--
+--   Overlap Generation Limits:
+--     corOvlErrorRate 0.0000 (  0.00%)
+--     obtOvlErrorRate 0.0250 (  2.50%)
+--     utgOvlErrorRate 0.0100 (  1.00%)
+--
+--   Overlap Processing Limits:
+--     corErrorRate    0.0000 (  0.00%)
+--     obtErrorRate    0.0250 (  2.50%)
+--     utgErrorRate    0.0003 (  0.03%)
+--     cnsErrorRate    0.0500 (  5.00%)
+--
+--   Stages to run:
+--     assemble HiFi reads.
+--
+--
+-- BEGIN STORE CREATION
+----------------------------------------
+-- Starting command on Tue Dec 30 15:54:30 2025 with 2465398.515 GB free disk space
+
+    cd .
+    ./test.seqStore.sh \
+    > ./test.seqStore.err 2>&1
+
+-- Finished on Tue Dec 30 15:59:26 2025 (296 seconds) with 2464762.984 GB free disk space
+----------------------------------------
+--
+-- In sequence store './test.seqStore':
+--   Found 1826985 reads.
+--   Found 29823390580 bases (21.3 times coverage).
+--    Histogram of corrected reads:
+--    
+--    G=29823390580                      sum of  ||               length     num
+--    NG         length     index       lengths  ||                range    seqs
+--    ----- ------------ --------- ------------  ||  ------------------- -------
+--    00010        23031    116301   2982351919  ||       1336-2727          416|-
+--    00020        20593    253878   5964685754  ||       2728-4119          917|-
+--    00030        18977    405005   8947021445  ||       4120-5511         1022|-
+--    00040        17709    567824  11929366887  ||       5512-6903         1323|-
+--    00050        16615    741762  14911705257  ||       6904-8295         1523|-
+--    00060        15606    927000  17894039661  ||       8296-9687         5299|--
+--    00070        14619   1124408  20876382538  ||       9688-11079       57988|-------------
+--    00080        13593   1335825  23858713444  ||      11080-12471      202461|---------------------------------------------
+--    00090        12422   1564878  26841053457  ||      12472-13863      275756|--------------------------------------------------------------
+--    00100         1336   1826985  29823390580  ||      13864-15255      284640|---------------------------------------------------------------
+--    001.000x             1826985  29823390580  ||      15256-16647      259501|----------------------------------------------------------
+--                                               ||      16648-18039      214356|------------------------------------------------
+--                                               ||      18040-19431      165213|-------------------------------------
+--                                               ||      19432-20823      119922|---------------------------
+--                                               ||      20824-22215       84246|-------------------
+--                                               ||      22216-23607       57128|-------------
+--                                               ||      23608-24999       37444|---------
+--                                               ||      25000-26391       24289|------
+--                                               ||      26392-27783       14898|----
+--                                               ||      27784-29175        8690|--
+--                                               ||      29176-30567        4891|--
+--                                               ||      30568-31959        2493|-
+--                                               ||      31960-33351        1229|-
+--                                               ||      33352-34743         607|-
+--                                               ||      34744-36135         279|-
+--                                               ||      36136-37527         171|-
+--                                               ||      37528-38919          95|-
+--                                               ||      38920-40311          73|-
+--                                               ||      40312-41703          38|-
+--                                               ||      41704-43095          25|-
+--                                               ||      43096-44487          24|-
+--                                               ||      44488-45879          13|-
+--                                               ||      45880-47271           8|-
+--                                               ||      47272-48663           3|-
+--                                               ||      48664-50055           1|-
+--                                               ||      50056-51447           1|-
+--                                               ||      51448-52839           0|
+--                                               ||      52840-54231           1|-
+--                                               ||      54232-55623           0|
+--                                               ||      55624-57015           1|-
+--    
+--
+-- In sequence store './test.seqStore':
+--   Found 1826985 reads.
+--   Found 29823390580 bases (21.3 times coverage).
+--    Histogram of corrected-trimmed reads:
+--    
+--    G=29823390580                      sum of  ||               length     num
+--    NG         length     index       lengths  ||                range    seqs
+--    ----- ------------ --------- ------------  ||  ------------------- -------
+--    00010        23031    116301   2982351919  ||       1336-2727          416|-
+--    00020        20593    253878   5964685754  ||       2728-4119          917|-
+--    00030        18977    405005   8947021445  ||       4120-5511         1022|-
+--    00040        17709    567824  11929366887  ||       5512-6903         1323|-
+--    00050        16615    741762  14911705257  ||       6904-8295         1523|-
+--    00060        15606    927000  17894039661  ||       8296-9687         5299|--
+--    00070        14619   1124408  20876382538  ||       9688-11079       57988|-------------
+--    00080        13593   1335825  23858713444  ||      11080-12471      202461|---------------------------------------------
+--    00090        12422   1564878  26841053457  ||      12472-13863      275756|--------------------------------------------------------------
+--    00100         1336   1826985  29823390580  ||      13864-15255      284640|---------------------------------------------------------------
+--    001.000x             1826985  29823390580  ||      15256-16647      259501|----------------------------------------------------------
+--                                               ||      16648-18039      214356|------------------------------------------------
+--                                               ||      18040-19431      165213|-------------------------------------
+--                                               ||      19432-20823      119922|---------------------------
+--                                               ||      20824-22215       84246|-------------------
+--                                               ||      22216-23607       57128|-------------
+--                                               ||      23608-24999       37444|---------
+--                                               ||      25000-26391       24289|------
+--                                               ||      26392-27783       14898|----
+--                                               ||      27784-29175        8690|--
+--                                               ||      29176-30567        4891|--
+--                                               ||      30568-31959        2493|-
+--                                               ||      31960-33351        1229|-
+--                                               ||      33352-34743         607|-
+--                                               ||      34744-36135         279|-
+--                                               ||      36136-37527         171|-
+--                                               ||      37528-38919          95|-
+--                                               ||      38920-40311          73|-
+--                                               ||      40312-41703          38|-
+--                                               ||      41704-43095          25|-
+--                                               ||      43096-44487          24|-
+--                                               ||      44488-45879          13|-
+--                                               ||      45880-47271           8|-
+--                                               ||      47272-48663           3|-
+--                                               ||      48664-50055           1|-
+--                                               ||      50056-51447           1|-
+--                                               ||      51448-52839           0|
+--                                               ||      52840-54231           1|-
+--                                               ||      54232-55623           0|
+--                                               ||      55624-57015           1|-
+--    
+--
+-- Correction skipped; not enabled.
+--
+-- Trimming skipped; not enabled.
+--
+-- BEGIN ASSEMBLY
+----------------------------------------
+-- Starting command on Tue Dec 30 15:59:28 2025 with 2464762.937 GB free disk space
+
+    cd unitigging/0-mercounts
+    ./meryl-configure.sh \
+    > ./meryl-configure.err 2>&1
+
+-- Finished on Tue Dec 30 15:59:29 2025 (one second) with 2464762.937 GB free disk space
+----------------------------------------
+--  segments   memory batches
+--  -------- -------- -------
+--        01 33.64 GB       3
+--        02 33.64 GB       2
+--        04 17.43 GB       2
+--        06 11.81 GB       2
+--        08  9.12 GB       2
+--        12  6.25 GB       2
+--        16  4.75 GB       2
+--        20  3.73 GB       2
+--        24  3.32 GB       2
+--        32  2.35 GB       2
+--        40  2.11 GB       2
+--        48  1.76 GB       2
+--        56  1.51 GB       2
+--        64  1.32 GB       2
+--        96  0.88 GB       2
+--
+--  For 1826985 reads with 29823390580 bases, limit to 298 batches.
+--  Will count kmers using 02 jobs, each using 35 GB and 8 threads.
+--
+-- Finished stage 'merylConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Tue Dec 30 15:59:29 2025 with 2464762.906 GB free disk space (2 processes; 11 concurrently)
+
+    cd unitigging/0-mercounts
+    ./meryl-count.sh 1 > ./meryl-count.000001.out 2>&1
+    ./meryl-count.sh 2 > ./meryl-count.000002.out 2>&1
+
+-- Finished on Tue Dec 30 16:04:24 2025 (295 seconds) with 2463609.75 GB free disk space
+----------------------------------------
+-- Found 2 Kmer counting (meryl) outputs.
+-- Finished stage 'utg-merylCountCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Tue Dec 30 16:04:24 2025 with 2463609.718 GB free disk space (1 processes; 11 concurrently)
+
+    cd unitigging/0-mercounts
+    ./meryl-process.sh 1 > ./meryl-process.000001.out 2>&1
+
+-- Finished on Tue Dec 30 16:04:44 2025 (20 seconds) with 2463612.5 GB free disk space
+----------------------------------------
+-- Meryl finished successfully.  Kmer frequency histogram:
+--
+-- WARNING: gnuplot failed.
+--
+----------------------------------------
+--
+--  22-mers                                                                                           Fraction
+--    Occurrences   NumMers                                                                         Unique Total
+--       1-     1         0                                                                        0.0000 0.0000
+--       2-     2  14013132 **********                                                             0.0292 0.0013
+--       3-     4   8680620 ******                                                                 0.0395 0.0020
+--       5-     7  18577051 **************                                                         0.0567 0.0038
+--       8-    11  52382772 ****************************************                               0.1076 0.0121
+--      12-    16  79164814 *************************************************************          0.2294 0.0415
+--      17-    22  84493142 *****************************************************************      0.3907 0.0963
+--      23-    29  89912927 ********************************************************************** 0.5662 0.1781
+--      30-    37  57182868 ********************************************                           0.7456 0.2875
+--      38-    46  25098514 *******************                                                    0.8522 0.3696
+--      47-    56  13851257 **********                                                             0.8998 0.4154
+--      57-    67   9120517 *******                                                                0.9272 0.4479
+--      68-    79   5914221 ****                                                                   0.9453 0.4737
+--      80-    92   4012061 ***                                                                    0.9572 0.4936
+--      93-   106   2882737 **                                                                     0.9653 0.5096
+--     107-   121   2157300 *                                                                      0.9711 0.5229
+--     122-   137   1674333 *                                                                      0.9755 0.5344
+--     138-   154   1305490 *                                                                      0.9789 0.5445
+--     155-   172   1029380                                                                        0.9816 0.5534
+--     173-   191    851102                                                                        0.9837 0.5613
+--     192-   211    707336                                                                        0.9855 0.5686
+--     212-   232    596116                                                                        0.9869 0.5753
+--     233-   254    510724                                                                        0.9882 0.5815
+--     255-   277    438844                                                                        0.9892 0.5874
+--     278-   301    382124                                                                        0.9901 0.5929
+--     302-   326    331384                                                                        0.9909 0.5981
+--     327-   352    291579                                                                        0.9916 0.6030
+--     353-   379    258000                                                                        0.9922 0.6077
+--     380-   407    230244                                                                        0.9928 0.6122
+--     408-   436    208609                                                                        0.9932 0.6165
+--     437-   466    188062                                                                        0.9937 0.6206
+--     467-   497    170396                                                                        0.9941 0.6246
+--     498-   529    156193                                                                        0.9944 0.6285
+--     530-   562    150754                                                                        0.9947 0.6323
+--     563-   596    144761                                                                        0.9950 0.6362
+--     597-   631    136527                                                                        0.9953 0.6402
+--     632-   667    125815                                                                        0.9956 0.6442
+--     668-   704    112267                                                                        0.9959 0.6481
+--     705-   742    101557                                                                        0.9961 0.6517
+--     743-   781     92429                                                                        0.9963 0.6552
+--     782-   821     85494                                                                        0.9965 0.6585
+--
+--           0 (max occurrences)
+-- 21076701113 (total mers, non-unique)
+--   479302589 (distinct mers, non-unique)
+--           0 (unique mers)
+-- Finished stage 'meryl-process', reset canuIteration.
+--
+-- Removing meryl database 'unitigging/0-mercounts/test.ms22'.
+--
+-- OVERLAPPER (normal) (assembly) erate=0.01
+--
+----------------------------------------
+-- Starting command on Tue Dec 30 16:04:44 2025 with 2463615.781 GB free disk space
+
+    cd unitigging/1-overlapper
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/overlapInCorePartition \
+     -S  ../../test.seqStore \
+     -hl 320000000 \
+     -rl 15000000000 \
+     -ol 500 \
+     -o  ./test.partition \
+    > ./test.partition.err 2>&1
+
+-- Finished on Tue Dec 30 16:04:45 2025 (one second) with 2463615.765 GB free disk space
+----------------------------------------
+--
+-- Configured 88 overlapInCore jobs.
+-- Finished stage 'utg-overlapConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'utgovl' concurrent execution on Tue Dec 30 16:04:45 2025 with 2463615.718 GB free disk space (88 processes; 8 concurrently)
+
+    cd unitigging/1-overlapper
+    ./overlap.sh 1 > ./overlap.000001.out 2>&1
+    ./overlap.sh 2 > ./overlap.000002.out 2>&1
+    ./overlap.sh 3 > ./overlap.000003.out 2>&1
+    ./overlap.sh 4 > ./overlap.000004.out 2>&1
+    ./overlap.sh 5 > ./overlap.000005.out 2>&1
+    ./overlap.sh 6 > ./overlap.000006.out 2>&1
+    ./overlap.sh 7 > ./overlap.000007.out 2>&1
+    ./overlap.sh 8 > ./overlap.000008.out 2>&1
+    ./overlap.sh 9 > ./overlap.000009.out 2>&1
+    ./overlap.sh 10 > ./overlap.000010.out 2>&1
+    ./overlap.sh 11 > ./overlap.000011.out 2>&1
+    ./overlap.sh 12 > ./overlap.000012.out 2>&1
+    ./overlap.sh 13 > ./overlap.000013.out 2>&1
+    ./overlap.sh 14 > ./overlap.000014.out 2>&1
+    ./overlap.sh 15 > ./overlap.000015.out 2>&1
+    ./overlap.sh 16 > ./overlap.000016.out 2>&1
+    ./overlap.sh 17 > ./overlap.000017.out 2>&1
+    ./overlap.sh 18 > ./overlap.000018.out 2>&1
+    ./overlap.sh 19 > ./overlap.000019.out 2>&1
+    ./overlap.sh 20 > ./overlap.000020.out 2>&1
+    ./overlap.sh 21 > ./overlap.000021.out 2>&1
+    ./overlap.sh 22 > ./overlap.000022.out 2>&1
+    ./overlap.sh 23 > ./overlap.000023.out 2>&1
+    ./overlap.sh 24 > ./overlap.000024.out 2>&1
+    ./overlap.sh 25 > ./overlap.000025.out 2>&1
+    ./overlap.sh 26 > ./overlap.000026.out 2>&1
+    ./overlap.sh 27 > ./overlap.000027.out 2>&1
+    ./overlap.sh 28 > ./overlap.000028.out 2>&1
+    ./overlap.sh 29 > ./overlap.000029.out 2>&1
+    ./overlap.sh 30 > ./overlap.000030.out 2>&1
+    ./overlap.sh 31 > ./overlap.000031.out 2>&1
+    ./overlap.sh 32 > ./overlap.000032.out 2>&1
+    ./overlap.sh 33 > ./overlap.000033.out 2>&1
+    ./overlap.sh 34 > ./overlap.000034.out 2>&1
+    ./overlap.sh 35 > ./overlap.000035.out 2>&1
+    ./overlap.sh 36 > ./overlap.000036.out 2>&1
+    ./overlap.sh 37 > ./overlap.000037.out 2>&1
+    ./overlap.sh 38 > ./overlap.000038.out 2>&1
+    ./overlap.sh 39 > ./overlap.000039.out 2>&1
+    ./overlap.sh 40 > ./overlap.000040.out 2>&1
+    ./overlap.sh 41 > ./overlap.000041.out 2>&1
+    ./overlap.sh 42 > ./overlap.000042.out 2>&1
+    ./overlap.sh 43 > ./overlap.000043.out 2>&1
+    ./overlap.sh 44 > ./overlap.000044.out 2>&1
+    ./overlap.sh 45 > ./overlap.000045.out 2>&1
+    ./overlap.sh 46 > ./overlap.000046.out 2>&1
+    ./overlap.sh 47 > ./overlap.000047.out 2>&1
+    ./overlap.sh 48 > ./overlap.000048.out 2>&1
+    ./overlap.sh 49 > ./overlap.000049.out 2>&1
+    ./overlap.sh 50 > ./overlap.000050.out 2>&1
+    ./overlap.sh 51 > ./overlap.000051.out 2>&1
+    ./overlap.sh 52 > ./overlap.000052.out 2>&1
+    ./overlap.sh 53 > ./overlap.000053.out 2>&1
+    ./overlap.sh 54 > ./overlap.000054.out 2>&1
+    ./overlap.sh 55 > ./overlap.000055.out 2>&1
+    ./overlap.sh 56 > ./overlap.000056.out 2>&1
+    ./overlap.sh 57 > ./overlap.000057.out 2>&1
+    ./overlap.sh 58 > ./overlap.000058.out 2>&1
+    ./overlap.sh 59 > ./overlap.000059.out 2>&1
+    ./overlap.sh 60 > ./overlap.000060.out 2>&1
+    ./overlap.sh 61 > ./overlap.000061.out 2>&1
+    ./overlap.sh 62 > ./overlap.000062.out 2>&1
+    ./overlap.sh 63 > ./overlap.000063.out 2>&1
+    ./overlap.sh 64 > ./overlap.000064.out 2>&1
+    ./overlap.sh 65 > ./overlap.000065.out 2>&1
+    ./overlap.sh 66 > ./overlap.000066.out 2>&1
+    ./overlap.sh 67 > ./overlap.000067.out 2>&1
+    ./overlap.sh 68 > ./overlap.000068.out 2>&1
+    ./overlap.sh 69 > ./overlap.000069.out 2>&1
+    ./overlap.sh 70 > ./overlap.000070.out 2>&1
+    ./overlap.sh 71 > ./overlap.000071.out 2>&1
+    ./overlap.sh 72 > ./overlap.000072.out 2>&1
+    ./overlap.sh 73 > ./overlap.000073.out 2>&1
+    ./overlap.sh 74 > ./overlap.000074.out 2>&1
+    ./overlap.sh 75 > ./overlap.000075.out 2>&1
+    ./overlap.sh 76 > ./overlap.000076.out 2>&1
+    ./overlap.sh 77 > ./overlap.000077.out 2>&1
+    ./overlap.sh 78 > ./overlap.000078.out 2>&1
+    ./overlap.sh 79 > ./overlap.000079.out 2>&1
+    ./overlap.sh 80 > ./overlap.000080.out 2>&1
+    ./overlap.sh 81 > ./overlap.000081.out 2>&1
+    ./overlap.sh 82 > ./overlap.000082.out 2>&1
+    ./overlap.sh 83 > ./overlap.000083.out 2>&1
+    ./overlap.sh 84 > ./overlap.000084.out 2>&1
+    ./overlap.sh 85 > ./overlap.000085.out 2>&1
+    ./overlap.sh 86 > ./overlap.000086.out 2>&1
+    ./overlap.sh 87 > ./overlap.000087.out 2>&1
+    ./overlap.sh 88 > ./overlap.000088.out 2>&1
+
+-- Finished on Tue Dec 30 19:27:27 2025 (12162 seconds) with 2427462.921 GB free disk space
+----------------------------------------
+-- Found 88 overlapInCore output files.
+--
+-- overlapInCore compute 'unitigging/1-overlapper':
+--   kmer hits
+--     with no overlap     117578643521  0949.10227 +- 900940088.937
+--     with an overlap         46351975  .988636364 +- 387287.468
+--
+--   overlaps                  46351975  .988636364 +- 387287.468
+--     contained                5707557  6022727273 +- 51538.876
+--     dovetail                40644418  .386363636 +- 336790.903
+--
+--   overlaps rejected
+--     multiple per pair              0           0 +- 0
+--     bad short window               0           0 +- 0
+--     bad long window                0           0 +- 0
+-- Finished stage 'utg-overlapCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Tue Dec 30 19:27:27 2025 with 2427462.906 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/ovStoreConfig \
+     -S ../test.seqStore \
+     -M 16-32 \
+     -L ./1-overlapper/ovljob.files \
+     -create ./test.ovlStore.config \
+     > ./test.ovlStore.config.txt \
+    2> ./test.ovlStore.config.err
+
+-- Finished on Tue Dec 30 19:27:27 2025 (lickety-split) with 2427462.875 GB free disk space
+----------------------------------------
+--
+-- Creating overlap store unitigging/test.ovlStore using:
+--      1 bucket
+--      1 slice
+--        using at most 3 GB memory each
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'ovS' concurrent execution on Tue Dec 30 19:27:27 2025 with 2427462.859 GB free disk space (1 processes; 15 concurrently)
+
+    cd unitigging
+    ./test.ovlStore.sh 1 > ./test.ovlStore.000001.out 2>&1
+
+-- Finished on Tue Dec 30 19:27:45 2025 (18 seconds) with 2427464.64 GB free disk space
+----------------------------------------
+-- Checking store.
+----------------------------------------
+-- Starting command on Tue Dec 30 19:27:45 2025 with 2427464.64 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/ovStoreDump \
+     -S ../test.seqStore \
+     -O  ./test.ovlStore \
+     -counts \
+     > ./test.ovlStore/counts.dat 2> ./test.ovlStore/counts.err
+
+-- Finished on Tue Dec 30 19:27:45 2025 (in the blink of an eye) with 2427464.609 GB free disk space
+----------------------------------------
+--
+-- Overlap store 'unitigging/test.ovlStore' successfully constructed.
+-- Found 92703950 overlaps for 1815431 reads; 11554 reads have no overlaps.
+--
+--
+-- Purged 1.422 GB in 264 overlap output files.
+----------------------------------------
+-- Starting command on Tue Dec 30 19:27:46 2025 with 2427465.484 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/ovStoreStats \
+     -C 21.3 \
+     -S ../test.seqStore \
+     -O  ./test.ovlStore \
+     -o  ./test.ovlStore \
+     > ./test.ovlStore.summary.err 2>&1
+
+-- Finished on Tue Dec 30 19:27:57 2025 (11 seconds) with 2427465.437 GB free disk space
+----------------------------------------
+--
+-- Overlap store 'unitigging/test.ovlStore' contains:
+--
+--   category            reads     %          read length        feature size or coverage  analysis
+--   ----------------  -------  -------  ----------------------  ------------------------  --------------------
+--   middle-missing       5251    0.29    13376.34 +- 4113.15       1487.79 +- 1636.42    (bad trimming)
+--   middle-hump           169    0.01    14813.47 +- 3000.42       4838.12 +- 2683.55    (bad trimming)
+--   no-5-prime           4376    0.24    11706.22 +- 3052.18       2920.45 +- 3392.65    (bad trimming)
+--   no-3-prime           4425    0.24    11654.92 +- 3163.64       3014.95 +- 3477.71    (bad trimming)
+--   
+--   low-coverage         9711    0.53    10365.45 +- 2337.53          4.31 +- 1.69       (easy to assemble, potential for lower quality consensus)
+--   unique            1163895   63.71    11488.63 +- 2743.46         19.53 +- 6.09       (easy to assemble, perfect, yay)
+--   repeat-cont         24273    1.33    10383.52 +- 2277.67        336.69 +- 405.87     (potential for consensus errors, no impact on assembly)
+--   repeat-dove           992    0.05    16109.24 +- 2405.33        157.86 +- 222.26     (hard to assemble, likely won't assemble correctly or even at all)
+--   
+--   span-repeat        218349   11.95    12243.04 +- 3001.37       3313.86 +- 3237.90    (read spans a large repeat, usually easy to assemble)
+--   uniq-repeat-cont   245215   13.42    10655.06 +- 2030.75                             (should be uniquely placed, low potential for consensus errors, no impact on assembly)
+--   uniq-repeat-dove   121191    6.63    13909.06 +- 2879.62                             (will end contigs, potential to misassemble)
+--   uniq-anchor         17584    0.96    11614.24 +- 2775.75       5996.37 +- 3802.45    (repeat read, with unique section, probable bad read)
+-- Finished stage 'utg-createOverlapStore', reset canuIteration.
+--
+-- Loading read lengths.
+-- Loading number of overlaps per read.
+--
+-- Configure RED for 32gb memory.
+--                   Batches of at most (unlimited) reads.
+--                                      500000000 bases.
+--                   Expecting evidence of at most 536870912 bases per iteration.
+--
+--           Total                                               Reads                 Olaps Evidence
+--    Job   Memory      Read Range         Reads        Bases   Memory        Olaps   Memory   Memory  (Memory in MB)
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--      1 32768.19         1-14083         14083    243205955 29688.67       656971     7.52  1024.00
+--      2 32769.57     14084-28294         14211    243219730 29690.36       630730     7.22  1024.00
+--      3 32768.43     28295-42731         14437    243209267 29689.09       641674     7.34  1024.00
+--      4 32769.45     42732-57204         14473    243194362 29687.27       890183    10.19  1024.00
+--      5 32768.71     57205-72248         15044    243209125 29689.09       666478     7.63  1024.00
+--      6 32768.22     72249-87716         15468    243198467 29687.80       736148     8.42  1024.00
+--      7 32769.53     87717-103451        15735    243187397 29686.46       967871    11.08  1024.00
+--      8 32769.92    103452-117565        14114    243213858 29689.64       723509     8.28  1024.00
+--      9 32769.48    117566-131811        14246    243220156 29690.41       617610     7.07  1024.00
+--     10 32768.55    131812-145995        14184    243201861 29688.17       732033     8.38  1024.00
+--     11 32769.14    145996-160380        14385    243219914 29690.38       590337     6.76  1024.00
+--     12 32768.32    160381-174616        14236    243210413 29689.22       620110     7.10  1024.00
+--     13 32768.39    174617-188945        14329    243212386 29689.46       605222     6.93  1024.00
+--     14 32768.88    188946-203269        14324    243215970 29689.90       610281     6.98  1024.00
+--     15 32768.89    203270-217642        14373    243215570 29689.85       615154     7.04  1024.00
+--     16 32768.22    217643-232063        14421    243207776 29688.90       639597     7.32  1024.00
+--     17 32768.67    232064-246488        14425    243214156 29689.68       610606     6.99  1024.00
+--     18 32769.81    246489-260897        14409    243211963 29689.41       734102     8.40  1024.00
+--     19 32769.65    260898-275335        14438    243219131 29690.29       643559     7.36  1024.00
+--     20 32769.03    275336-289876        14541    243213664 29689.63       647004     7.40  1024.00
+--     21 32768.77    289877-304486        14610    243209122 29689.07       672169     7.69  1024.00
+--     22 32771.08    304487-319061        14575    243232872 29691.97       621099     7.11  1024.00
+--     23 32768.89    319062-333721        14660    243215434 29689.85       615176     7.04  1024.00
+--     24 32770.11    333722-348526        14805    243134358 29679.95      1586344    18.15  1024.00
+--     25 32769.01    348527-363203        14677    243192595 29687.06       869676     9.95  1024.00
+--     26 32769.12    363204-377945        14742    243189599 29686.69       910622    10.42  1024.00
+--     27 32770.36    377946-392771        14826    243220189 29690.43       692816     7.93  1024.00
+--     28 32769.75    392772-407642        14871    243207923 29688.94       770511     8.82  1024.00
+--     29 32768.47    407643-422485        14843    243210758 29689.28       628181     7.19  1024.00
+--     30 32769.49    422486-437217        14732    243211280 29689.34       711837     8.15  1024.00
+--     31 32770.80    437218-452253        15036    243227380 29691.32       653742     7.48  1024.00
+--     32 32769.07    452254-467165        14912    243218100 29690.18       602062     6.89  1024.00
+--     33 32769.91    467166-482358        15193    243216001 29689.93       697267     7.98  1024.00
+--     34 32768.85    482359-497511        15153    243208044 29688.96       689579     7.89  1024.00
+--     35 32768.23    497512-512799        15288    243209001 29689.08       625212     7.15  1024.00
+--     36 32769.38    512800-528127        15328    243214515 29689.75       666270     7.62  1024.00
+--     37 32768.06    528128-543501        15374    243191030 29686.89       801436     9.17  1024.00
+--     38 32768.48    543502-559014        15513    243200617 29688.06       735046     8.41  1024.00
+--     39 32768.18    559015-574574        15560    243205577 29688.67       656228     7.51  1024.00
+--     40 32769.16    574575-590345        15771    243196188 29687.53       841525     9.63  1024.00
+--     41 32769.01    590346-606472        16127    243201122 29688.14       774743     8.87  1024.00
+--     42 32768.66    606473-622477        16005    243187481 29686.48       889833    10.18  1024.00
+--     43 32769.44    622478-638869        16392    243167475 29684.05      1170122    13.39  1024.00
+--     44 32769.21    638870-655298        16429    243117355 29677.93      1685212    19.29  1024.00
+--     45 32769.22    655299-672270        16972    243195167 29687.44       854106     9.77  1024.00
+--     46 32768.40    672271-687223        14953    243184042 29686.02       906816    10.38  1024.00
+--     47 32769.61    687224-701354        14131    243221492 29690.57       615714     7.05  1024.00
+--     48 32769.68    701355-715548        14194    243221058 29690.52       626241     7.17  1024.00
+--     49 32769.30    715549-729781        14233    243210411 29689.22       705741     8.08  1024.00
+--     50 32769.02    729782-744016        14235    243215822 29689.88       624158     7.14  1024.00
+--     51 32768.09    744017-758107        14091    243209980 29689.16       605663     6.93  1024.00
+--     52 32768.18    758108-772436        14329    243211379 29689.34       597918     6.84  1024.00
+--     53 32770.34    772437-786708        14272    243227063 29691.25       618945     7.08  1024.00
+--     54 32769.56    786709-801015        14307    243219915 29690.38       627409     7.18  1024.00
+--     55 32768.74    801016-815325        14310    243214689 29689.74       611282     7.00  1024.00
+--     56 32769.17    815326-829717        14392    243216128 29689.92       633741     7.25  1024.00
+--     57 32768.63    829718-844103        14386    243203806 29688.42       717509     8.21  1024.00
+--     58 32770.14    844104-858582        14479    243222977 29690.76       644800     7.38  1024.00
+--     59 32769.39    858583-873059        14477    243212857 29689.53       687151     7.86  1024.00
+--     60 32768.92    873060-887540        14481    243215995 29689.91       612673     7.01  1024.00
+--     61 32769.44    887541-902037        14497    243220136 29690.41       614158     7.03  1024.00
+--     62 32769.74    902038-916619        14582    243222710 29690.73       612855     7.01  1024.00
+--     63 32768.21    916620-931352        14733    243098636 29675.59      1801642    20.62  1024.00
+--     64 32769.69    931353-946005        14653    243194477 29687.29       908782    10.40  1024.00
+--     65 32769.68    946006-960672        14667    243220269 29690.44       633121     7.25  1024.00
+--     66 32769.10    960673-975389        14717    243197665 29687.68       823259     9.42  1024.00
+--     67 32769.24    975390-990061        14672    243215018 29689.79       650940     7.45  1024.00
+--     68 32768.56    990062-1004480       14419    243213173 29689.56       611843     7.00  1024.00
+--     69 32769.48   1004481-1019502       15022    243210293 29689.23       721221     8.25  1024.00
+--     70 32768.22   1019503-1034709       15207    243207949 29688.95       635487     7.27  1024.00
+--     71 32768.44   1034710-1049729       15020    243213159 29689.58       599750     6.86  1024.00
+--     72 32770.57   1049730-1064532       14803    243220613 29690.48       707098     8.09  1024.00
+--     73 32769.68   1064533-1079923       15391    243214984 29689.81       687083     7.86  1024.00
+--     74 32768.97   1079924-1095116       15193    243214876 29689.79       627468     7.18  1024.00
+--     75 32768.17   1095117-1110429       15313    243203737 29688.44       675813     7.73  1024.00
+--     76 32769.16   1110430-1125793       15364    243198831 29687.84       814014     9.32  1024.00
+--     77 32769.43   1125794-1141251       15458    243209339 29689.13       725420     8.30  1024.00
+--     78 32768.35   1141252-1156799       15548    243188281 29686.56       855260     9.79  1024.00
+--     79 32769.53   1156800-1172464       15665    243218840 29690.29       632199     7.23  1024.00
+--     80 32768.02   1172465-1188591       16127    243179831 29685.55       915681    10.48  1024.00
+--     81 32769.54   1188592-1204580       15989    243186148 29686.31       980914    11.23  1024.00
+--     82 32768.87   1204581-1220747       16167    243104718 29676.38      1790933    20.50  1024.00
+--     83 32769.27   1220748-1237592       16845    243198508 29687.85       822966     9.42  1024.00
+--     84 32769.61   1237593-1254236       16644    243189480 29686.74       949510    10.87  1024.00
+--     85 32768.72   1254237-1268310       14074    243200115 29687.96       765755     8.76  1024.00
+--     86 32768.35   1268311-1282336       14026    243211306 29689.32       614174     7.03  1024.00
+--     87 32769.49   1282337-1296475       14139    243217441 29690.07       647756     7.41  1024.00
+--     88 32768.57   1296476-1310626       14151    243207672 29688.88       671491     7.68  1024.00
+--     89 32768.80   1310627-1324778       14152    243214173 29689.68       622806     7.13  1024.00
+--     90 32768.42   1324779-1338789       14011    243213629 29689.60       595293     6.81  1024.00
+--     91 32768.94   1338790-1353003       14214    243217238 29690.05       602060     6.89  1024.00
+--     92 32768.45   1353004-1367218       14215    243212000 29689.41       615403     7.04  1024.00
+--     93 32769.13   1367219-1381504       14286    243216867 29690.01       622034     7.12  1024.00
+--     94 32769.39   1381505-1395758       14254    243219493 29690.33       616746     7.06  1024.00
+--     95 32768.54   1395759-1410063       14305    243211621 29689.37       626875     7.17  1024.00
+--     96 32769.15   1410064-1424447       14384    243203578 29688.39       765767     8.76  1024.00
+--     97 32768.47   1424448-1438861       14414    243209587 29689.12       641519     7.34  1024.00
+--     98 32769.52   1438862-1453293       14432    243216461 29689.96       660235     7.56  1024.00
+--     99 32769.42   1453294-1467705       14412    243220529 29690.46       608311     6.96  1024.00
+--    100 32768.24   1467706-1482158       14453    243211704 29689.38       599491     6.86  1024.00
+--    101 32768.41   1482159-1496641       14483    243209759 29689.15       634327     7.26  1024.00
+--    102 32768.26   1496642-1511347       14706    243099195 29675.66      1800181    20.60  1024.00
+--    103 32768.54   1511348-1525904       14557    243183097 29685.89       930133    10.64  1024.00
+--    104 32769.55   1525905-1540495       14591    243220396 29690.45       620882     7.11  1024.00
+--    105 32768.30   1540496-1555126       14631    243194178 29687.25       791239     9.06  1024.00
+--    106 32769.49   1555127-1569843       14717    243216768 29690.01       653379     7.48  1024.00
+--    107 32768.49   1569844-1584192       14349    243212324 29689.46       614945     7.04  1024.00
+--    108 32769.50   1584193-1599238       15046    243209947 29689.19       726009     8.31  1024.00
+--    109 32768.72   1599239-1614121       14883    243212889 29689.54       627331     7.18  1024.00
+--    110 32770.53   1614122-1629072       14951    243226232 29691.17       643105     7.36  1024.00
+--    111 32769.87   1629073-1644124       15052    243219123 29690.31       660508     7.56  1024.00
+--    112 32769.56   1644125-1659248       15124    243214345 29689.73       684551     7.83  1024.00
+--    113 32768.70   1659249-1674383       15135    243210348 29689.24       652294     7.46  1024.00
+--    114 32769.13   1674384-1689648       15265    243208861 29689.06       705016     8.07  1024.00
+--    115 32768.10   1689649-1704794       15146    243195798 29687.46       754314     8.63  1024.00
+--    116 32769.33   1704795-1720343       15549    243209138 29689.10       719055     8.23  1024.00
+--    117 32769.34   1720344-1735913       15570    243197692 29687.71       841519     9.63  1024.00
+--    118 32768.38   1735914-1751714       15801    243208182 29689.00       644848     7.38  1024.00
+--    119 32768.66   1751715-1767611       15897    243179375 29685.48       976803    11.18  1024.00
+--    120 32769.05   1767612-1783676       16065    243193655 29687.23       857557     9.81  1024.00
+--    121 32768.63   1783677-1799860       16184    243103222 29676.20      1785888    20.44  1024.00
+--    122 32768.91   1799861-1816814       16954    243193989 29687.30       839499     9.61  1024.00
+--    123 21700.04   1816815-1826985       10171    152539064 18620.81       631680     7.23  1024.00
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--                                                29823390580              92703950
+-- Finished stage 'readErrorDetectionConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'red' concurrent execution on Tue Dec 30 19:28:05 2025 with 2427465.375 GB free disk space (123 processes; 11 concurrently)
+
+    cd unitigging/3-overlapErrorAdjustment
+    ./red.sh 1 > ./red.000001.out 2>&1
+    ./red.sh 2 > ./red.000002.out 2>&1
+    ./red.sh 3 > ./red.000003.out 2>&1
+    ./red.sh 4 > ./red.000004.out 2>&1
+    ./red.sh 5 > ./red.000005.out 2>&1
+    ./red.sh 6 > ./red.000006.out 2>&1
+    ./red.sh 7 > ./red.000007.out 2>&1
+    ./red.sh 8 > ./red.000008.out 2>&1
+    ./red.sh 9 > ./red.000009.out 2>&1
+    ./red.sh 10 > ./red.000010.out 2>&1
+    ./red.sh 11 > ./red.000011.out 2>&1
+    ./red.sh 12 > ./red.000012.out 2>&1
+    ./red.sh 13 > ./red.000013.out 2>&1
+    ./red.sh 14 > ./red.000014.out 2>&1
+    ./red.sh 15 > ./red.000015.out 2>&1
+    ./red.sh 16 > ./red.000016.out 2>&1
+    ./red.sh 17 > ./red.000017.out 2>&1
+    ./red.sh 18 > ./red.000018.out 2>&1
+    ./red.sh 19 > ./red.000019.out 2>&1
+    ./red.sh 20 > ./red.000020.out 2>&1
+    ./red.sh 21 > ./red.000021.out 2>&1
+    ./red.sh 22 > ./red.000022.out 2>&1
+    ./red.sh 23 > ./red.000023.out 2>&1
+    ./red.sh 24 > ./red.000024.out 2>&1
+    ./red.sh 25 > ./red.000025.out 2>&1
+    ./red.sh 26 > ./red.000026.out 2>&1
+    ./red.sh 27 > ./red.000027.out 2>&1
+    ./red.sh 28 > ./red.000028.out 2>&1
+    ./red.sh 29 > ./red.000029.out 2>&1
+    ./red.sh 30 > ./red.000030.out 2>&1
+    ./red.sh 31 > ./red.000031.out 2>&1
+    ./red.sh 32 > ./red.000032.out 2>&1
+    ./red.sh 33 > ./red.000033.out 2>&1
+    ./red.sh 34 > ./red.000034.out 2>&1
+    ./red.sh 35 > ./red.000035.out 2>&1
+    ./red.sh 36 > ./red.000036.out 2>&1
+    ./red.sh 37 > ./red.000037.out 2>&1
+    ./red.sh 38 > ./red.000038.out 2>&1
+    ./red.sh 39 > ./red.000039.out 2>&1
+    ./red.sh 40 > ./red.000040.out 2>&1
+    ./red.sh 41 > ./red.000041.out 2>&1
+    ./red.sh 42 > ./red.000042.out 2>&1
+    ./red.sh 43 > ./red.000043.out 2>&1
+    ./red.sh 44 > ./red.000044.out 2>&1
+    ./red.sh 45 > ./red.000045.out 2>&1
+    ./red.sh 46 > ./red.000046.out 2>&1
+    ./red.sh 47 > ./red.000047.out 2>&1
+    ./red.sh 48 > ./red.000048.out 2>&1
+    ./red.sh 49 > ./red.000049.out 2>&1
+    ./red.sh 50 > ./red.000050.out 2>&1
+    ./red.sh 51 > ./red.000051.out 2>&1
+    ./red.sh 52 > ./red.000052.out 2>&1
+    ./red.sh 53 > ./red.000053.out 2>&1
+    ./red.sh 54 > ./red.000054.out 2>&1
+    ./red.sh 55 > ./red.000055.out 2>&1
+    ./red.sh 56 > ./red.000056.out 2>&1
+    ./red.sh 57 > ./red.000057.out 2>&1
+    ./red.sh 58 > ./red.000058.out 2>&1
+    ./red.sh 59 > ./red.000059.out 2>&1
+    ./red.sh 60 > ./red.000060.out 2>&1
+    ./red.sh 61 > ./red.000061.out 2>&1
+    ./red.sh 62 > ./red.000062.out 2>&1
+    ./red.sh 63 > ./red.000063.out 2>&1
+    ./red.sh 64 > ./red.000064.out 2>&1
+    ./red.sh 65 > ./red.000065.out 2>&1
+    ./red.sh 66 > ./red.000066.out 2>&1
+    ./red.sh 67 > ./red.000067.out 2>&1
+    ./red.sh 68 > ./red.000068.out 2>&1
+    ./red.sh 69 > ./red.000069.out 2>&1
+    ./red.sh 70 > ./red.000070.out 2>&1
+    ./red.sh 71 > ./red.000071.out 2>&1
+    ./red.sh 72 > ./red.000072.out 2>&1
+    ./red.sh 73 > ./red.000073.out 2>&1
+    ./red.sh 74 > ./red.000074.out 2>&1
+    ./red.sh 75 > ./red.000075.out 2>&1
+    ./red.sh 76 > ./red.000076.out 2>&1
+    ./red.sh 77 > ./red.000077.out 2>&1
+    ./red.sh 78 > ./red.000078.out 2>&1
+    ./red.sh 79 > ./red.000079.out 2>&1
+    ./red.sh 80 > ./red.000080.out 2>&1
+    ./red.sh 81 > ./red.000081.out 2>&1
+    ./red.sh 82 > ./red.000082.out 2>&1
+    ./red.sh 83 > ./red.000083.out 2>&1
+    ./red.sh 84 > ./red.000084.out 2>&1
+    ./red.sh 85 > ./red.000085.out 2>&1
+    ./red.sh 86 > ./red.000086.out 2>&1
+    ./red.sh 87 > ./red.000087.out 2>&1
+    ./red.sh 88 > ./red.000088.out 2>&1
+    ./red.sh 89 > ./red.000089.out 2>&1
+    ./red.sh 90 > ./red.000090.out 2>&1
+    ./red.sh 91 > ./red.000091.out 2>&1
+    ./red.sh 92 > ./red.000092.out 2>&1
+    ./red.sh 93 > ./red.000093.out 2>&1
+    ./red.sh 94 > ./red.000094.out 2>&1
+    ./red.sh 95 > ./red.000095.out 2>&1
+    ./red.sh 96 > ./red.000096.out 2>&1
+    ./red.sh 97 > ./red.000097.out 2>&1
+    ./red.sh 98 > ./red.000098.out 2>&1
+    ./red.sh 99 > ./red.000099.out 2>&1
+    ./red.sh 100 > ./red.000100.out 2>&1
+    ./red.sh 101 > ./red.000101.out 2>&1
+    ./red.sh 102 > ./red.000102.out 2>&1
+    ./red.sh 103 > ./red.000103.out 2>&1
+    ./red.sh 104 > ./red.000104.out 2>&1
+    ./red.sh 105 > ./red.000105.out 2>&1
+    ./red.sh 106 > ./red.000106.out 2>&1
+    ./red.sh 107 > ./red.000107.out 2>&1
+    ./red.sh 108 > ./red.000108.out 2>&1
+    ./red.sh 109 > ./red.000109.out 2>&1
+    ./red.sh 110 > ./red.000110.out 2>&1
+    ./red.sh 111 > ./red.000111.out 2>&1
+    ./red.sh 112 > ./red.000112.out 2>&1
+    ./red.sh 113 > ./red.000113.out 2>&1
+    ./red.sh 114 > ./red.000114.out 2>&1
+    ./red.sh 115 > ./red.000115.out 2>&1
+    ./red.sh 116 > ./red.000116.out 2>&1
+    ./red.sh 117 > ./red.000117.out 2>&1
+    ./red.sh 118 > ./red.000118.out 2>&1
+    ./red.sh 119 > ./red.000119.out 2>&1
+    ./red.sh 120 > ./red.000120.out 2>&1
+    ./red.sh 121 > ./red.000121.out 2>&1
+    ./red.sh 122 > ./red.000122.out 2>&1
+    ./red.sh 123 > ./red.000123.out 2>&1
+
+-- Finished on Tue Dec 30 19:45:24 2025 (1039 seconds) with 2423627.64 GB free disk space
+----------------------------------------
+-- Found 123 read error detection output files.
+-- Finished stage 'readErrorDetectionCheck', reset canuIteration.
+--
+-- Loading read lengths.
+-- Loading number of overlaps per read.
+--
+-- Configure OEA for 8gb memory.
+--                   Batches of at most (unlimited) reads.
+--                                      300000000 bases.
+--
+--           Total                                               Reads                 Olaps  Adjusts
+--    Job   Memory      Read Range         Reads        Bases   Memory        Olaps   Memory   Memory  (Memory in MB)
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--      1  2830.18         1-17385         17385    300015981   294.65       796304    24.30   463.23
+--      2  2830.33     17386-35007         17622    300007192   294.65       801096    24.45   463.23
+--      3  2837.34     35008-52925         17918    300009249   294.66      1030513    31.45   463.23
+--      4  2830.82     52926-71253         18328    300002008   294.66       816843    24.93   463.23
+--      5  2834.10     71254-90396         19143    300005283   294.69       923232    28.17   463.23
+--      6  2841.85     90397-109132        18736    300008772   294.68      1177574    35.94   463.23
+--      7  2829.24    109133-126602        17470    300003164   294.64       765782    23.37   463.23
+--      8  2832.08    126603-144125        17523    300013382   294.65       858452    26.20   463.23
+--      9  2828.93    144126-161815        17690    300001913   294.64       755326    23.05   463.23
+--     10  2828.89    161816-179328        17513    300017807   294.65       753835    23.01   463.23
+--     11  2828.36    179329-197077        17749    300003905   294.65       736510    22.48   463.23
+--     12  2829.37    197078-214795        17718    300014246   294.66       769362    23.48   463.23
+--     13  2829.73    214796-232580        17785    300011523   294.66       781269    23.84   463.23
+--     14  2829.17    232581-250354        17774    300003989   294.65       763020    23.29   463.23
+--     15  2833.26    250355-268170        17816    300003195   294.65       896998    27.37   463.23
+--     16  2829.76    268171-286047        17877    300002584   294.65       782281    23.87   463.23
+--     17  2831.04    286048-304046        17999    300003254   294.65       824083    25.15   463.23
+--     18  2829.08    304047-321992        17946    300016312   294.67       759637    23.18   463.23
+--     19  2829.24    321993-340108        18116    300017964   294.67       764718    23.34   463.23
+--     20  2866.34    340109-358374        18266    300016206   294.68      1980133    60.43   463.23
+--     21  2838.00    358375-376530        18156    300003161   294.66      1052175    32.11   463.23
+--     22  2835.06    376531-394828        18298    300015132   294.68       955420    29.16   463.23
+--     23  2830.78    394829-413000        18172    300001945   294.66       815591    24.89   463.23
+--     24  2829.13    413001-431063        18063    300002113   294.66       761486    23.24   463.23
+--     25  2833.12    431064-449819        18756    300005496   294.68       891475    27.21   463.23
+--     26  2828.63    449820-468292        18473    300005562   294.67       744804    22.73   463.23
+--     27  2831.41    468293-486808        18516    300016176   294.68       835541    25.50   463.23
+--     28  2831.63    486809-505749        18941    300002074   294.68       842529    25.71   463.23
+--     29  2830.71    505750-524622        18873    300003120   294.68       812624    24.80   463.23
+--     30  2834.84    524623-543603        18981    300002328   294.68       947765    28.92   463.23
+--     31  2832.71    543604-562715        19112    300005204   294.69       877746    26.79   463.23
+--     32  2837.10    562716-581989        19274    300009050   294.70      1021428    31.17   463.23
+--     33  2830.18    581990-601706        19717    300006174   294.71       794335    24.24   463.23
+--     34  2841.30    601707-621519        19813    300001375   294.71      1158514    35.36   463.23
+--     35  2871.17    621520-641541        20022    300000270   294.71      2137159    65.22   463.23
+--     36  2839.37    641542-662323        20782    300002794   294.74      1094491    33.40   463.23
+--     37  2839.42    662324-682172        19849    300014774   294.72      1096457    33.46   463.23
+--     38  2832.40    682173-699610        17438    300002327   294.64       869308    26.53   463.23
+--     39  2829.82    699611-717116        17506    300009281   294.65       784685    23.95   463.23
+--     40  2831.23    717117-734647        17531    300011035   294.65       830566    25.35   463.23
+--     41  2829.33    734648-752146        17499    300010929   294.65       768472    23.45   463.23
+--     42  2828.44    752147-769704        17558    300001460   294.64       739603    22.57   463.23
+--     43  2828.94    769705-787322        17618    300007133   294.65       755640    23.06   463.23
+--     44  2829.41    787323-804967        17645    300004622   294.65       771243    23.54   463.23
+--     45  2829.14    804968-822670        17703    300009414   294.65       761902    23.25   463.23
+--     46  2832.39    822671-840419        17749    300008692   294.65       868595    26.51   463.23
+--     47  2830.09    840420-858249        17830    300000255   294.65       793500    24.22   463.23
+--     48  2831.24    858250-876111        17862    300004036   294.65       830971    25.36   463.23
+--     49  2828.96    876112-893971        17860    300008315   294.66       756151    23.08   463.23
+--     50  2829.00    893972-911911        17940    300002920   294.65       757524    23.12   463.23
+--     51  2865.30    911912-930127        18216    300019839   294.68      1946058    59.39   463.23
+--     52  2837.96    930128-948127        18000    300005750   294.66      1051044    32.08   463.23
+--     53  2832.06    948128-966243        18116    300005759   294.66       857320    26.16   463.23
+--     54  2833.47    966244-984416        18173    300006661   294.66       903473    27.57   463.23
+--     55  2829.50    984417-1002403       17987    300002029   294.65       773695    23.61   463.23
+--     56  2832.34   1002404-1020720       18317    300009745   294.67       866149    26.43   463.23
+--     57  2829.56   1020721-1039354       18634    300018569   294.69       774498    23.64   463.23
+--     58  2831.74   1039355-1057926       18572    300014781   294.68       846051    25.82   463.23
+--     59  2831.12   1057927-1076582       18656    300013241   294.68       825937    25.21   463.23
+--     60  2829.38   1076583-1095302       18720    300008174   294.68       768887    23.46   463.23
+--     61  2833.60   1095303-1114222       18920    300015933   294.69       906860    27.68   463.23
+--     62  2835.93   1114223-1133202       18980    300009460   294.69       983222    30.01   463.23
+--     63  2830.12   1133203-1152359       19157    300017718   294.70       792559    24.19   463.23
+--     64  2835.79   1152360-1171593       19234    300008571   294.70       978329    29.86   463.23
+--     65  2839.57   1171594-1191446       19853    300001354   294.71      1102084    33.63   463.23
+--     66  2844.10   1191447-1211365       19919    300001967   294.71      1250273    38.16   463.23
+--     67  2864.90   1211366-1231573       20208    300003958   294.72      1931462    58.94   463.23
+--     68  2839.26   1231574-1252321       20748    300001714   294.74      1090943    33.29   463.23
+--     69  2835.29   1252322-1269947       17626    300008799   294.65       963641    29.41   463.23
+--     70  2828.68   1269948-1287307       17360    300020701   294.65       746932    22.79   463.23
+--     71  2832.16   1287308-1304728       17421    300004210   294.64       861477    26.29   463.23
+--     72  2828.83   1304729-1322193       17465    300003072   294.64       752337    22.96   463.23
+--     73  2828.51   1322194-1339524       17331    300001273   294.63       742054    22.65   463.23
+--     74  2828.78   1339525-1357001       17477    300012644   294.65       750235    22.90   463.23
+--     75  2828.88   1357002-1374617       17616    300002957   294.64       753924    23.01   463.23
+--     76  2829.35   1374618-1392191       17574    300002271   294.64       769230    23.48   463.23
+--     77  2829.42   1392192-1409823       17632    300011017   294.65       771327    23.54   463.23
+--     78  2833.56   1409824-1427580       17757    300005628   294.65       906960    27.68   463.23
+--     79  2829.94   1427581-1445361       17781    300012272   294.66       788091    24.05   463.23
+--     80  2830.28   1445362-1463139       17778    300004253   294.65       799339    24.39   463.23
+--     81  2828.43   1463140-1480974       17835    300007972   294.65       738770    22.55   463.23
+--     82  2829.76   1480975-1498892       17918    300015805   294.66       781964    23.86   463.23
+--     83  2865.22   1498893-1516964       18072    300009514   294.66      1944071    59.33   463.23
+--     84  2838.77   1516965-1534957       17993    300009007   294.66      1077447    32.88   463.23
+--     85  2834.30   1534958-1552969       18012    300015194   294.67       930776    28.41   463.23
+--     86  2830.27   1552970-1571118       18149    300008457   294.66       798506    24.37   463.23
+--     87  2831.02   1571119-1589124       18006    300020083   294.67       822998    25.12   463.23
+--     88  2831.06   1589125-1607553       18429    300007992   294.67       824388    25.16   463.23
+--     89  2828.56   1607554-1625942       18389    300016506   294.68       742132    22.65   463.23
+--     90  2831.64   1625943-1644448       18506    300005814   294.67       843127    25.73   463.23
+--     91  2831.13   1644449-1663075       18627    300005493   294.68       826595    25.23   463.23
+--     92  2830.34   1663076-1681789       18714    300013805   294.69       800206    24.42   463.23
+--     93  2835.11   1681790-1700577       18788    300009540   294.68       956515    29.19   463.23
+--     94  2833.09   1700578-1719636       19059    300009170   294.69       889980    27.16   463.23
+--     95  2836.08   1719637-1738860       19224    300007621   294.70       987938    30.15   463.23
+--     96  2833.96   1738861-1758465       19605    300010785   294.71       917991    28.01   463.23
+--     97  2841.13   1758466-1778074       19609    300002209   294.70      1153176    35.19   463.23
+--     98  2866.71   1778075-1798023       19949    300012559   294.72      1990658    60.75   463.23
+--     99  2838.28   1798024-1818806       20783    300013004   294.75      1058467    32.30   463.23
+--    100  2651.62   1818807-1826985        8179    122580634   125.15       499186    15.23   463.23
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--                                                29823390580              92703950
+-- Finished stage 'overlapErrorAdjustmentConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'oea' concurrent execution on Tue Dec 30 19:45:32 2025 with 2423627.5 GB free disk space (100 processes; 62 concurrently)
+
+    cd unitigging/3-overlapErrorAdjustment
+    ./oea.sh 1 > ./oea.000001.out 2>&1
+    ./oea.sh 2 > ./oea.000002.out 2>&1
+    ./oea.sh 3 > ./oea.000003.out 2>&1
+    ./oea.sh 4 > ./oea.000004.out 2>&1
+    ./oea.sh 5 > ./oea.000005.out 2>&1
+    ./oea.sh 6 > ./oea.000006.out 2>&1
+    ./oea.sh 7 > ./oea.000007.out 2>&1
+    ./oea.sh 8 > ./oea.000008.out 2>&1
+    ./oea.sh 9 > ./oea.000009.out 2>&1
+    ./oea.sh 10 > ./oea.000010.out 2>&1
+    ./oea.sh 11 > ./oea.000011.out 2>&1
+    ./oea.sh 12 > ./oea.000012.out 2>&1
+    ./oea.sh 13 > ./oea.000013.out 2>&1
+    ./oea.sh 14 > ./oea.000014.out 2>&1
+    ./oea.sh 15 > ./oea.000015.out 2>&1
+    ./oea.sh 16 > ./oea.000016.out 2>&1
+    ./oea.sh 17 > ./oea.000017.out 2>&1
+    ./oea.sh 18 > ./oea.000018.out 2>&1
+    ./oea.sh 19 > ./oea.000019.out 2>&1
+    ./oea.sh 20 > ./oea.000020.out 2>&1
+    ./oea.sh 21 > ./oea.000021.out 2>&1
+    ./oea.sh 22 > ./oea.000022.out 2>&1
+    ./oea.sh 23 > ./oea.000023.out 2>&1
+    ./oea.sh 24 > ./oea.000024.out 2>&1
+    ./oea.sh 25 > ./oea.000025.out 2>&1
+    ./oea.sh 26 > ./oea.000026.out 2>&1
+    ./oea.sh 27 > ./oea.000027.out 2>&1
+    ./oea.sh 28 > ./oea.000028.out 2>&1
+    ./oea.sh 29 > ./oea.000029.out 2>&1
+    ./oea.sh 30 > ./oea.000030.out 2>&1
+    ./oea.sh 31 > ./oea.000031.out 2>&1
+    ./oea.sh 32 > ./oea.000032.out 2>&1
+    ./oea.sh 33 > ./oea.000033.out 2>&1
+    ./oea.sh 34 > ./oea.000034.out 2>&1
+    ./oea.sh 35 > ./oea.000035.out 2>&1
+    ./oea.sh 36 > ./oea.000036.out 2>&1
+    ./oea.sh 37 > ./oea.000037.out 2>&1
+    ./oea.sh 38 > ./oea.000038.out 2>&1
+    ./oea.sh 39 > ./oea.000039.out 2>&1
+    ./oea.sh 40 > ./oea.000040.out 2>&1
+    ./oea.sh 41 > ./oea.000041.out 2>&1
+    ./oea.sh 42 > ./oea.000042.out 2>&1
+    ./oea.sh 43 > ./oea.000043.out 2>&1
+    ./oea.sh 44 > ./oea.000044.out 2>&1
+    ./oea.sh 45 > ./oea.000045.out 2>&1
+    ./oea.sh 46 > ./oea.000046.out 2>&1
+    ./oea.sh 47 > ./oea.000047.out 2>&1
+    ./oea.sh 48 > ./oea.000048.out 2>&1
+    ./oea.sh 49 > ./oea.000049.out 2>&1
+    ./oea.sh 50 > ./oea.000050.out 2>&1
+    ./oea.sh 51 > ./oea.000051.out 2>&1
+    ./oea.sh 52 > ./oea.000052.out 2>&1
+    ./oea.sh 53 > ./oea.000053.out 2>&1
+    ./oea.sh 54 > ./oea.000054.out 2>&1
+    ./oea.sh 55 > ./oea.000055.out 2>&1
+    ./oea.sh 56 > ./oea.000056.out 2>&1
+    ./oea.sh 57 > ./oea.000057.out 2>&1
+    ./oea.sh 58 > ./oea.000058.out 2>&1
+    ./oea.sh 59 > ./oea.000059.out 2>&1
+    ./oea.sh 60 > ./oea.000060.out 2>&1
+    ./oea.sh 61 > ./oea.000061.out 2>&1
+    ./oea.sh 62 > ./oea.000062.out 2>&1
+    ./oea.sh 63 > ./oea.000063.out 2>&1
+    ./oea.sh 64 > ./oea.000064.out 2>&1
+    ./oea.sh 65 > ./oea.000065.out 2>&1
+    ./oea.sh 66 > ./oea.000066.out 2>&1
+    ./oea.sh 67 > ./oea.000067.out 2>&1
+    ./oea.sh 68 > ./oea.000068.out 2>&1
+    ./oea.sh 69 > ./oea.000069.out 2>&1
+    ./oea.sh 70 > ./oea.000070.out 2>&1
+    ./oea.sh 71 > ./oea.000071.out 2>&1
+    ./oea.sh 72 > ./oea.000072.out 2>&1
+    ./oea.sh 73 > ./oea.000073.out 2>&1
+    ./oea.sh 74 > ./oea.000074.out 2>&1
+    ./oea.sh 75 > ./oea.000075.out 2>&1
+    ./oea.sh 76 > ./oea.000076.out 2>&1
+    ./oea.sh 77 > ./oea.000077.out 2>&1
+    ./oea.sh 78 > ./oea.000078.out 2>&1
+    ./oea.sh 79 > ./oea.000079.out 2>&1
+    ./oea.sh 80 > ./oea.000080.out 2>&1
+    ./oea.sh 81 > ./oea.000081.out 2>&1
+    ./oea.sh 82 > ./oea.000082.out 2>&1
+    ./oea.sh 83 > ./oea.000083.out 2>&1
+    ./oea.sh 84 > ./oea.000084.out 2>&1
+    ./oea.sh 85 > ./oea.000085.out 2>&1
+    ./oea.sh 86 > ./oea.000086.out 2>&1
+    ./oea.sh 87 > ./oea.000087.out 2>&1
+    ./oea.sh 88 > ./oea.000088.out 2>&1
+    ./oea.sh 89 > ./oea.000089.out 2>&1
+    ./oea.sh 90 > ./oea.000090.out 2>&1
+    ./oea.sh 91 > ./oea.000091.out 2>&1
+    ./oea.sh 92 > ./oea.000092.out 2>&1
+    ./oea.sh 93 > ./oea.000093.out 2>&1
+    ./oea.sh 94 > ./oea.000094.out 2>&1
+    ./oea.sh 95 > ./oea.000095.out 2>&1
+    ./oea.sh 96 > ./oea.000096.out 2>&1
+    ./oea.sh 97 > ./oea.000097.out 2>&1
+    ./oea.sh 98 > ./oea.000098.out 2>&1
+    ./oea.sh 99 > ./oea.000099.out 2>&1
+    ./oea.sh 100 > ./oea.000100.out 2>&1
+
+-- Finished on Tue Dec 30 20:00:05 2025 (873 seconds) with 2421013.468 GB free disk space
+----------------------------------------
+-- Found 100 overlap error adjustment output files.
+-- Finished stage 'overlapErrorAdjustmentCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Tue Dec 30 20:00:05 2025 with 2421013.453 GB free disk space
+
+    cd unitigging/3-overlapErrorAdjustment
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/loadErates \
+      -S ../../test.seqStore \
+      -O ../test.ovlStore \
+      -L ./oea.files \
+    > ./oea.apply.err 2>&1
+
+-- Finished on Tue Dec 30 20:00:05 2025 (like a bat out of hell) with 2421013.25 GB free disk space
+----------------------------------------
+-- No report available.
+-- Finished stage 'updateOverlapStore', reset canuIteration.
+-- Finished stage 'unitig', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'bat' concurrent execution on Tue Dec 30 20:00:05 2025 with 2421013.203 GB free disk space (1 processes; 1 concurrently)
+
+    cd unitigging/4-unitigger
+    ./unitigger.sh 1 > ./unitigger.000001.out 2>&1
+
+-- Finished on Tue Dec 30 20:00:38 2025 (33 seconds) with 2420727.89 GB free disk space
+----------------------------------------
+-- Unitigger finished successfully.
+--  
+--  ERROR RATES
+--  -----------
+--                                                   --------threshold------
+--  2308127                      fraction error      fraction        percent
+--  samples                              (1e-5)         error          error
+--                   --------------------------      --------       --------
+--  command line (-eg)                           ->     30.00        0.0300%
+--  command line (-ef)                           ->  -----.--      ---.----%
+--  command line (-eM)                           ->     30.00        0.0300%
+--  mean + std.dev       0.24 +-  12 *     2.14  ->     25.95        0.0259%
+--  median + mad         0.00 +-  12 *     0.00  ->      0.00        0.0000%
+--  90th percentile                              ->      1.00        0.0010%  (enabled)
+--  
+--  BEST EDGE FILTERING
+--  -------------------
+--  At graph threshold 0.0300%, reads:
+--    available to have edges:       543311
+--    with at least one edge:        525798
+--  
+--  At max threshold 0.0300%, reads:  (not computed)
+--    available to have edges:            0
+--    with at least one edge:             0
+--  
+--  At tight threshold 0.0010%, reads with:
+--    both edges below error threshold:    498503  (80.00% minReadsBest threshold = 420638)
+--    one  edge  above error threshold:     22123
+--    both edges above error threshold:      5172
+--    at least one edge:                   525798
+--  
+--  At loose threshold 0.0259%, reads with:
+--    both edges below error threshold:    521129  (80.00% minReadsBest threshold = 420638)
+--    one  edge  above error threshold:      4456
+--    both edges above error threshold:       213
+--    at least one edge:                   525798
+--  
+--  
+--  INITIAL EDGES
+--  -------- ----------------------------------------
+--   1257988 reads are contained
+--     66588 reads have no best edges (singleton)
+--      5868 reads have only one best edge (spur) 
+--               5603 are mutual best
+--    496541 reads have two best edges 
+--               4969 have one mutual best edge
+--             491137 have two mutual best edges
+--  
+--  
+--  FINAL EDGES
+--  -------- ----------------------------------------
+--   1257988 reads are contained
+--     67216 reads have no best edges (singleton)
+--      6056 reads have only one best edge (spur) 
+--               5833 are mutual best
+--    495725 reads have two best edges 
+--               4829 have one mutual best edge
+--             490536 have two mutual best edges
+--  
+--  
+--  EDGE FILTERING
+--  -------- ------------------------------------------
+--         0 reads are ignored
+--     49888 reads have a gap in overlap coverage
+--       255 reads have lopsided best edges
+-- Found, in version 1, after unitig construction:
+--   contigs:      3205 sequences, total length 1305028683 bp (including 701 repeats of total length 26216038 bp).
+--   bubbles:      2099 sequences, total length 93089735 bp.
+--   unassembled:  69330 sequences, total length 831453510 bp.
+--
+-- Contig sizes based on genome size 1.4gbp:
+--
+--            NG (bp)  LG (contigs)    sum (bp)
+--         ----------  ------------  ----------
+--     10     3468719            27   141491485
+--     20     2190493            77   281425775
+--     30     1454340           156   420511897
+--     40     1048436           269   560608287
+--     50      778035           426   700607397
+--     60      560794           638   840055192
+--     70      416142           927   980026803
+--     80      271394          1343  1120089144
+--     90      102702          2130  1260081550
+--
+-- Finished stage 'unitigCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Tue Dec 30 20:00:38 2025 with 2420727.875 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/utgcns \
+      -S ../test.seqStore \
+      -T  ./test.ctgStore 1 \
+      -partition 0.8 1.5 0.1 \
+    > ./test.ctgStore/partitioning.log 2>&1
+
+-- Finished on Tue Dec 30 20:01:34 2025 (56 seconds) with 2420572.968 GB free disk space
+----------------------------------------
+-- Using slow alignment for consensus (iteration '0').
+-- Configured 14 consensus jobs.
+-- Finished stage 'consensusConfigure', reset canuIteration.
+--
+-- Local: cns       22.625 GB    8 CPUs x  11 jobs   248.875 GB  88 CPUs  (consensus)
+--
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'cns' concurrent execution on Tue Dec 30 20:01:34 2025 with 2420572.937 GB free disk space (14 processes; 11 concurrently)
+
+    cd unitigging/5-consensus
+    ./consensus.sh 1 > ./consensus.000001.out 2>&1
+    ./consensus.sh 2 > ./consensus.000002.out 2>&1
+    ./consensus.sh 3 > ./consensus.000003.out 2>&1
+    ./consensus.sh 4 > ./consensus.000004.out 2>&1
+    ./consensus.sh 5 > ./consensus.000005.out 2>&1
+    ./consensus.sh 6 > ./consensus.000006.out 2>&1
+    ./consensus.sh 7 > ./consensus.000007.out 2>&1
+    ./consensus.sh 8 > ./consensus.000008.out 2>&1
+    ./consensus.sh 9 > ./consensus.000009.out 2>&1
+    ./consensus.sh 10 > ./consensus.000010.out 2>&1
+    ./consensus.sh 11 > ./consensus.000011.out 2>&1
+    ./consensus.sh 12 > ./consensus.000012.out 2>&1
+    ./consensus.sh 13 > ./consensus.000013.out 2>&1
+    ./consensus.sh 14 > ./consensus.000014.out 2>&1
+
+-- Finished on Tue Dec 30 20:48:53 2025 (2839 seconds) with 2412331.921 GB free disk space
+----------------------------------------
+-- Using slow alignment for consensus (iteration '1').
+-- Configured 14 consensus jobs.
+-- All 14 consensus jobs finished successfully.
+-- Finished stage 'consensusCheck', reset canuIteration.
+-- Using slow alignment for consensus (iteration '0').
+-- Configured 14 consensus jobs.
+----------------------------------------
+-- Starting command on Tue Dec 30 20:48:54 2025 with 2412331.875 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreLoad \
+      -S ../test.seqStore \
+      -T  ./test.ctgStore 2 \
+      -L ./5-consensus/ctgcns.files \
+    > ./5-consensus/ctgcns.files.ctgStoreLoad.err 2>&1
+
+-- Finished on Tue Dec 30 20:49:00 2025 (6 seconds) with 2412325.687 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Tue Dec 30 20:49:00 2025 with 2412325.687 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgTigDisplay \
+      -S ../test.seqStore \
+      -b \
+      -o ../test.contigs.unsorted.bam \
+      -L ./5-consensus/ctgcns.files \
+    > ./5-consensus/ctgcns.files.contigs.bam.err 2>&1
+
+-- Finished on Tue Dec 30 21:02:49 2025 (829 seconds) with 2409811.734 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Tue Dec 30 21:02:49 2025 with 2409811.734 GB free disk space
+
+    cd .
+    samtools sort \
+      --write-index \
+      --threads 2 \
+      -o ./test.contigs.bam ./test.contigs.unsorted.bam \
+    > ./ctgcns.bam.err 2>&1
+
+-- Finished on Tue Dec 30 21:08:53 2025 (364 seconds) with 2408910.64 GB free disk space
+----------------------------------------
+-- Purging consensus output after loading to ctgStore.
+-- Purged 14 .cns outputs.
+----------------------------------------
+-- Starting command on Tue Dec 30 21:08:53 2025 with 2408913.765 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreDump \
+      -S ../test.seqStore \
+      -T ./test.ctgStore 2 \
+      -sizes -s 1400000000 \
+    > ./test.ctgStore/seqDB.v002.sizes.txt
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+
+-- Finished on Tue Dec 30 21:08:55 2025 (2 seconds) with 2408923.89 GB free disk space
+----------------------------------------
+-- Found, in version 2, after consensus generation:
+--   contigs:      3205 sequences, total length 1830018289 bp (including 701 repeats of total length 36724598 bp).
+--   bubbles:      2099 sequences, total length 130516300 bp.
+--   unassembled:  69330 sequences, total length 1170077826 bp.
+--
+-- Contig sizes based on genome size 1.4gbp:
+--
+--            NG (bp)  LG (contigs)    sum (bp)
+--         ----------  ------------  ----------
+--     10     6029023            16   140623755
+--     20     4113233            46   283823221
+--     30     2891080            86   421086122
+--     40     2154676           142   560187138
+--     50     1723079           215   700147385
+--     60     1346579           308   840258874
+--     70     1090944           425   981001694
+--     80      863376           569  1120852759
+--     90      705121           749  1260114469
+--    100      551560           973  1400298421
+--    110      413147          1266  1540104647
+--    120      258425          1689  1680203439
+--    130       35109          2800  1820020285
+--
+-- Finished stage 'consensusLoad', reset canuIteration.
+----------------------------------------
+-- Starting command on Tue Dec 30 21:08:55 2025 with 2408923.875 GB free disk space
+
+    cd .
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreDump \
+      -S ./test.seqStore \
+      -T ./unitigging/test.ctgStore 2 \
+      -o ./test.contigs \
+      -layout \
+    > ./test.contigs.layout.err 2>&1
+
+-- Finished on Tue Dec 30 21:08:57 2025 (2 seconds) with 2408923.781 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Tue Dec 30 21:08:57 2025 with 2408923.781 GB free disk space
+
+    cd .
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreDump \
+      -S ./test.seqStore \
+      -T ./unitigging/test.ctgStore 2 \
+      -consensus -fasta \
+      -unassembled \
+    > ./test.unassembled.fasta
+    2> ./test.unassembled.err
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+
+-- Finished on Tue Dec 30 21:09:03 2025 (6 seconds) with 2408922.656 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Tue Dec 30 21:09:03 2025 with 2408922.656 GB free disk space
+
+    cd .
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreDump \
+      -S ./test.seqStore \
+      -T ./unitigging/test.ctgStore 2 \
+      -consensus -fasta \
+      -contigs \
+    > ./test.contigs.fasta
+    2> ./test.contigs.err
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+
+-- Finished on Tue Dec 30 21:09:11 2025 (8 seconds) with 2408920.796 GB free disk space
+----------------------------------------
+-- Finished stage 'generateOutputs', reset canuIteration.
+--
+-- Assembly 'test' finished in '/share/org/YZWL/yzwl_lixg/tmp/test_canu/output'.
+--
+-- Summary saved in 'test.report'.
+--
+-- Sequences saved:
+--   Contigs       -> 'test.contigs.fasta'
+--   Unassembled   -> 'test.unassembled.fasta'
+--
+-- Read layouts saved:
+--   Contigs       -> 'test.contigs.layout'.
+--
+-- Bye.
+
+[2025-12-30 21:09:11] ERROR: 输出文件不存在 | Output file does not exist: /share/org/YZWL/yzwl_lixg/tmp/test_canu/output/test.unitigs.fasta
+[2025-12-30 21:09:11] WARNING:   Unitigs文件不存在 | Unitigs file not found: /share/org/YZWL/yzwl_lixg/tmp/test_canu/output/test.unitigs.fasta
+Job 68726833 stderr output:
+

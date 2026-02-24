@@ -1,0 +1,196 @@
+=============================================
+开始扫描并创建GVCF索引
+目标目录: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/01.gvcf
+=============================================
+处理中: BS01.g.vcf.gz ... 已跳过 (索引已存在)
+处理中: BS02.g.vcf.gz ... 索引创建成功
+处理中: BS03.g.vcf.gz ... 索引创建成功
+处理中: BS04.g.vcf.gz ... 索引创建成功
+处理中: BS05.g.vcf.gz ... 索引创建成功
+处理中: BS06.g.vcf.gz ... 索引创建成功
+处理中: BS07.g.vcf.gz ... 索引创建成功
+处理中: BS08.g.vcf.gz ... 索引创建成功
+处理中: BS09.g.vcf.gz ... 索引创建成功
+处理中: BS10.g.vcf.gz ... 索引创建成功
+处理中: BS11.g.vcf.gz ... 索引创建成功
+处理中: BS12.g.vcf.gz ... 索引创建成功
+处理中: BS13.g.vcf.gz ... 索引创建成功
+处理中: BS14.g.vcf.gz ... 索引创建成功
+处理中: BS15.g.vcf.gz ... 索引创建成功
+处理中: BS16.g.vcf.gz ... 索引创建成功
+处理中: BS17.g.vcf.gz ... 索引创建成功
+处理中: BS18.g.vcf.gz ... 索引创建成功
+处理中: BS19.g.vcf.gz ... 索引创建成功
+处理中: BS20.g.vcf.gz ... 索引创建成功
+处理中: BS21.g.vcf.gz ... 索引创建成功
+处理中: BS22.g.vcf.gz ... 索引创建成功
+处理中: BS23.g.vcf.gz ... 索引创建成功
+处理中: BS24.g.vcf.gz ... 索引创建成功
+处理中: BS25.g.vcf.gz ... 索引创建成功
+处理中: BS26.g.vcf.gz ... 索引创建成功
+处理中: BS27.g.vcf.gz ... 索引创建成功
+处理中: BS28.g.vcf.gz ... 索引创建成功
+处理中: BS29.g.vcf.gz ... 索引创建成功
+处理中: BS30.g.vcf.gz ... 索引创建成功
+处理中: BS31.g.vcf.gz ... 索引创建成功
+处理中: BS32.g.vcf.gz ... 索引创建成功
+处理中: BS33.g.vcf.gz ... 索引创建成功
+处理中: BS34.g.vcf.gz ... 索引创建成功
+处理中: BS35.g.vcf.gz ... 索引创建成功
+处理中: BS36.g.vcf.gz ... 索引创建成功
+处理中: BS37.g.vcf.gz ... 索引创建成功
+处理中: BS38.g.vcf.gz ... 索引创建成功
+处理中: BS39.g.vcf.gz ... 索引创建成功
+处理中: BS40.g.vcf.gz ... 索引创建成功
+处理中: BS41.g.vcf.gz ... 索引创建成功
+处理中: BS42.g.vcf.gz ... 索引创建成功
+处理中: BS43.g.vcf.gz ... 索引创建成功
+处理中: BS44.g.vcf.gz ... 索引创建成功
+处理中: BS45.g.vcf.gz ... 索引创建成功
+处理中: BS46.g.vcf.gz ... 索引创建成功
+处理中: BS47.g.vcf.gz ... 索引创建成功
+处理中: BS48.g.vcf.gz ... 索引创建成功
+处理中: BS49.g.vcf.gz ... 索引创建成功
+处理中: BS50.g.vcf.gz ... 索引创建成功
+处理中: GC01.g.vcf.gz ... 索引创建成功
+处理中: GC02.g.vcf.gz ... 索引创建成功
+处理中: GC03.g.vcf.gz ... 索引创建成功
+处理中: GC04.g.vcf.gz ... 索引创建成功
+处理中: GC05.g.vcf.gz ... 索引创建成功
+处理中: GC06.g.vcf.gz ... 索引创建成功
+处理中: GC07.g.vcf.gz ... 索引创建成功
+处理中: GC08.g.vcf.gz ... 索引创建成功
+处理中: GC09.g.vcf.gz ... 索引创建成功
+处理中: GC10.g.vcf.gz ... 索引创建成功
+处理中: GC11.g.vcf.gz ... 索引创建成功
+处理中: GC12.g.vcf.gz ... 索引创建成功
+处理中: GC13.g.vcf.gz ... 索引创建成功
+处理中: GC14.g.vcf.gz ... 索引创建成功
+处理中: GC15.g.vcf.gz ... 索引创建成功
+处理中: GC16.g.vcf.gz ... 索引创建成功
+处理中: GC17.g.vcf.gz ... 索引创建成功
+处理中: GC18.g.vcf.gz ... 索引创建成功
+处理中: GC19.g.vcf.gz ... 索引创建成功
+处理中: GC20.g.vcf.gz ... 索引创建成功
+处理中: GC21.g.vcf.gz ... 索引创建成功
+处理中: GC22.g.vcf.gz ... 索引创建成功
+处理中: GC23.g.vcf.gz ... 索引创建成功
+处理中: GC24.g.vcf.gz ... 索引创建成功
+处理中: GC25.g.vcf.gz ... 索引创建成功
+处理中: GC26.g.vcf.gz ... 索引创建成功
+处理中: GC27.g.vcf.gz ... 索引创建成功
+处理中: GC28.g.vcf.gz ... 索引创建成功
+处理中: GC29.g.vcf.gz ... 索引创建成功
+处理中: GC30.g.vcf.gz ... 索引创建成功
+处理中: GC31.g.vcf.gz ... 索引创建成功
+处理中: GC32.g.vcf.gz ... 索引创建成功
+处理中: GC33.g.vcf.gz ... 索引创建成功
+处理中: GC34.g.vcf.gz ... 索引创建成功
+处理中: GC35.g.vcf.gz ... 索引创建成功
+处理中: GC36.g.vcf.gz ... 索引创建成功
+处理中: GC37.g.vcf.gz ... 索引创建成功
+处理中: GC38.g.vcf.gz ... 索引创建成功
+处理中: GC39.g.vcf.gz ... 索引创建成功
+处理中: GC40.g.vcf.gz ... 索引创建成功
+处理中: GC41.g.vcf.gz ... 索引创建成功
+处理中: GC42.g.vcf.gz ... 索引创建成功
+处理中: GC43.g.vcf.gz ... 索引创建成功
+处理中: GC44.g.vcf.gz ... 索引创建成功
+处理中: GC45.g.vcf.gz ... 索引创建成功
+处理中: GC46.g.vcf.gz ... 索引创建成功
+处理中: GC47.g.vcf.gz ... 索引创建成功
+处理中: GC48.g.vcf.gz ... 索引创建成功
+处理中: GC49.g.vcf.gz ... 索引创建成功
+处理中: GC50.g.vcf.gz ... 索引创建成功
+=============================================
+处理完成！
+总共扫描文件: 100
+成功创建索引: 99
+跳过 (已存在): 1
+失败: 0
+=============================================
+2025-10-31 10:58:23,914 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-10-31 10:58:23,914 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/01.gvcf
+2025-10-31 10:58:23,914 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.fa
+2025-10-31 10:58:23,914 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-10-31 10:58:23,914 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-31 10:58:27,172 - INFO - ✅ GATK 可用 | available
+2025-10-31 10:58:27,970 - INFO - ✅ BCFtools 可用 | available
+2025-10-31 10:58:27,970 - INFO - ================================================================================
+2025-10-31 10:58:27,970 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-10-31 10:58:27,970 - INFO - ================================================================================
+2025-10-31 10:58:27,970 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-10-31 10:58:27,971 - INFO - ✅ 检测到GVCF文件 | Detected GVCF files: 100 files
+2025-10-31 10:58:27,971 - INFO - 📊 共找到 100 个文件 | Total 100 files found
+2025-10-31 10:58:27,972 - INFO - 📝 创建样本映射文件 | Creating sample map file
+2025-10-31 10:58:27,988 - INFO - ✅ 样本映射文件已创建 | Sample map created: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/sample_map.txt
+2025-10-31 10:58:27,988 - INFO - ================================================================================
+2025-10-31 10:58:27,988 - INFO - 步骤2: GenomicsDB导入 | Step 2: GenomicsDB import
+2025-10-31 10:58:27,988 - INFO - ================================================================================
+2025-10-31 10:58:27,988 - INFO - 📦 开始GenomicsDB导入 | Starting GenomicsDB import
+2025-10-31 10:58:27,989 - WARNING - ⚠️ GenomicsDB workspace已存在，正在删除... | Workspace exists, removing...
+2025-10-31 10:58:28,009 - INFO - ✅ 已删除旧workspace | Old workspace removed
+2025-10-31 10:58:28,009 - INFO - ⚠️ 未指定区间，自动从参考基因组提取 | No intervals specified, extracting from reference
+2025-10-31 10:58:28,009 - INFO - 📍 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.fa
+2025-10-31 10:58:28,009 - INFO - 📍 字典文件路径 | Dict path: /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.dict
+2025-10-31 10:58:28,009 - INFO - 📍 索引文件路径 | Fai path: /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.fa.fai
+2025-10-31 10:58:28,009 - INFO - ✅ 使用字典文件 | Using dict file: /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.dict
+2025-10-31 10:58:28,016 - INFO - ✅ 生成区间文件 | Generated intervals: 21 chromosomes
+2025-10-31 10:58:28,016 - INFO - 📄 区间文件位置 | Intervals file: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/intervals.list
+2025-10-31 10:58:28,016 - INFO - 🚀 执行步骤 | Executing step: GenomicsDB导入 | GenomicsDB import
+2025-10-31 10:58:28,016 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx200g' GenomicsDBImport --genomicsdb-workspace-path /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/genomicsdb_workspace --sample-name-map /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/sample_map.txt --reader-threads 80 -L /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/intervals.list
+2025-10-31 10:58:28,016 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-11-01 17:58:17,419 - INFO - ✅ 命令执行成功 | Command executed successfully: GenomicsDB导入 | GenomicsDB import
+2025-11-01 17:58:17,432 - INFO - ================================================================================
+2025-11-01 17:58:17,432 - INFO - 步骤3: 联合分型 | Step 3: Joint genotyping
+2025-11-01 17:58:17,432 - INFO - ================================================================================
+2025-11-01 17:58:17,432 - INFO - 🧬 开始联合分型 | Starting joint genotyping
+2025-11-01 17:58:17,432 - INFO - 🚀 执行步骤 | Executing step: 联合分型 | Joint genotyping
+2025-11-01 17:58:17,432 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx200g' GenotypeGVCFs -R /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.fa -V gendb:///share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/genomicsdb_workspace -O /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_raw.vcf.gz -L /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/intervals.list
+2025-11-01 17:58:17,432 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-11-03 12:38:28,176 - INFO - ✅ 命令执行成功 | Command executed successfully: 联合分型 | Joint genotyping
+2025-11-03 12:38:28,191 - INFO - ✅ 原始VCF已生成 | Raw VCF generated: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_raw.vcf.gz
+2025-11-03 12:38:28,191 - INFO - ================================================================================
+2025-11-03 12:38:28,191 - INFO - 步骤4: 提取和过滤SNP | Step 4: Extract and filter SNPs
+2025-11-03 12:38:28,191 - INFO - ================================================================================
+2025-11-03 12:38:28,191 - INFO - 🔬 提取SNP变异 | Extracting SNP variants
+2025-11-03 12:38:28,191 - INFO - 🚀 执行步骤 | Executing step: 提取SNP | Extract SNPs
+2025-11-03 12:38:28,191 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx200g' SelectVariants -R /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_raw.vcf.gz -select-type SNP -O /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_snps_raw.vcf.gz
+2025-11-03 12:38:28,191 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-11-03 12:46:49,156 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取SNP | Extract SNPs
+2025-11-03 12:46:49,157 - INFO - 🧹 过滤SNP变异 | Filtering SNP variants
+2025-11-03 12:46:49,157 - INFO - 🚀 执行步骤 | Executing step: 过滤SNP | Filter SNPs
+2025-11-03 12:46:49,157 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx200g' VariantFiltration -R /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_snps_raw.vcf.gz -O /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_snps_filtered.vcf.gz --filter-expression "QD < 2.0" --filter-name "QD_filter" --filter-expression "FS > 60.0" --filter-name "FS_filter" --filter-expression "MQ < 40.0" --filter-name "MQ_filter" --filter-expression "MQRankSum < -12.5" --filter-name "MQRS_filter" --filter-expression "ReadPosRankSum < -8.0" --filter-name "RPRS_filter" --filter-expression "SOR > 3.0" --filter-name "SOR_filter"
+2025-11-03 12:46:49,165 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-11-03 12:55:28,192 - INFO - ✅ 命令执行成功 | Command executed successfully: 过滤SNP | Filter SNPs
+2025-11-03 12:55:28,194 - INFO - ================================================================================
+2025-11-03 12:55:28,194 - INFO - 步骤5: 提取和过滤INDEL | Step 5: Extract and filter INDELs
+2025-11-03 12:55:28,194 - INFO - ================================================================================
+2025-11-03 12:55:28,194 - INFO - 🔬 提取INDEL变异 | Extracting INDEL variants
+2025-11-03 12:55:28,207 - INFO - 🚀 执行步骤 | Executing step: 提取INDEL | Extract INDELs
+2025-11-03 12:55:28,207 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx200g' SelectVariants -R /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_raw.vcf.gz -select-type INDEL -O /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_indels_raw.vcf.gz
+2025-11-03 12:55:28,207 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-11-03 13:00:18,290 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取INDEL | Extract INDELs
+2025-11-03 13:00:18,290 - INFO - 🧹 过滤INDEL变异 | Filtering INDEL variants
+2025-11-03 13:00:18,290 - INFO - 🚀 执行步骤 | Executing step: 过滤INDEL | Filter INDELs
+2025-11-03 13:00:18,290 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx200g' VariantFiltration -R /share/org/YZWL/yzwl_lixg/project/96.yabian/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_indels_raw.vcf.gz -O /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_indels_filtered.vcf.gz --filter-expression "QD < 2.0" --filter-name "QD_filter" --filter-expression "FS > 200.0" --filter-name "FS_filter" --filter-expression "ReadPosRankSum < -20.0" --filter-name "RPRS_filter" --filter-expression "SOR > 10.0" --filter-name "SOR_filter"
+2025-11-03 13:00:18,290 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-11-03 13:01:40,798 - INFO - ✅ 命令执行成功 | Command executed successfully: 过滤INDEL | Filter INDELs
+2025-11-03 13:01:40,798 - INFO - ================================================================================
+2025-11-03 13:01:40,798 - INFO - 步骤6: 合并SNP和INDEL | Step 6: Merge SNPs and INDELs
+2025-11-03 13:01:40,798 - INFO - ================================================================================
+2025-11-03 13:01:40,798 - INFO - 🔗 合并SNP和INDEL | Merging SNPs and INDELs
+2025-11-03 13:01:40,798 - INFO - 🚀 执行步骤 | Executing step: 合并变异 | Merge variants
+2025-11-03 13:01:40,798 - INFO - 💻 命令 | Command: bcftools concat -a -O z -o /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_merged_filtered.vcf.gz /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_snps_filtered.vcf.gz /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_indels_filtered.vcf.gz
+2025-11-03 13:01:40,798 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-11-03 13:35:56,603 - INFO - ✅ 命令执行成功 | Command executed successfully: 合并变异 | Merge variants
+2025-11-03 13:35:56,619 - INFO - 🚀 执行步骤 | Executing step: 索引VCF | Index VCF: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_merged_filtered.vcf.gz
+2025-11-03 13:35:56,619 - INFO - 💻 命令 | Command: bcftools index -t /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_merged_filtered.vcf.gz
+2025-11-03 13:35:56,619 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk
+2025-11-03 13:38:55,203 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引VCF | Index VCF: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/joint_genotyping_merged_filtered.vcf.gz
+2025-11-03 13:38:55,203 - INFO - 📊 生成结果汇总报告 | Generating summary report
+2025-11-03 14:06:46,304 - INFO - ✅ 汇总报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk/analysis_summary.txt
+2025-11-03 14:06:46,314 - INFO - ================================================================================
+2025-11-03 14:06:46,315 - INFO - 🎉 Joint Genotyping分析完成! | Joint Genotyping analysis completed!
+2025-11-03 14:06:46,315 - INFO - ================================================================================
+2025-11-03 14:06:46,315 - INFO - 📂 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/02.gatk

@@ -1,0 +1,129 @@
+[2026-01-03 21:55:00] INFO: ============================================================
+[2026-01-03 21:55:00] INFO: RNA-seq分析流程开始|RNA-seq analysis pipeline started
+[2026-01-03 21:55:00] INFO: ============================================================
+[2026-01-03 21:55:00] INFO: 基因组文件|Genome file: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.fa
+[2026-01-03 21:55:00] INFO: 输入路径|Input path: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq
+[2026-01-03 21:55:00] INFO: 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output
+[2026-01-03 21:55:00] INFO: GTF文件|GTF file: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/complete.genomic.gtf
+[2026-01-03 21:55:00] INFO: 线程数|Threads: 64
+[2026-01-03 21:55:00] INFO: 删除BAM文件|Remove BAM files: no
+[2026-01-03 21:55:00] INFO: 文件模式|File pattern: *_1.clean.fq.gz
+[2026-01-03 21:55:00] INFO: ============================================================
+[2026-01-03 21:55:00] INFO: 步骤1: 构建HISAT2索引|Step 1: Building HISAT2 index
+[2026-01-03 21:55:00] INFO: ============================================================
+[2026-01-03 21:55:00] INFO: 提取剪接位点|Extracting splice sites: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/complete.genomic.gtf -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.ss
+[2026-01-03 21:55:00] INFO: 运行|Running: 提取剪接位点|Extract splice sites
+[2026-01-03 21:55:00] INFO: 命令|Command: extract_splice_sites.py /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/complete.genomic.gtf > /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.ss
+[2026-01-03 21:55:00] INFO: 提取剪接位点|Extract splice sites 完成|completed
+[2026-01-03 21:55:00] INFO: 剪接位点提取完成|Splice sites extraction completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.ss
+[2026-01-03 21:55:00] INFO: 提取外显子|Extracting exons: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/complete.genomic.gtf -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.exon
+[2026-01-03 21:55:00] INFO: 运行|Running: 提取外显子|Extract exons
+[2026-01-03 21:55:00] INFO: 命令|Command: extract_exons.py /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/complete.genomic.gtf > /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.exon
+[2026-01-03 21:55:00] INFO: 提取外显子|Extract exons 完成|completed
+[2026-01-03 21:55:00] INFO: 外显子提取完成|Exons extraction completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.exon
+[2026-01-03 21:55:00] INFO: 使用剪接位点文件|Using splice sites file: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.ss
+[2026-01-03 21:55:00] INFO: 使用外显子文件|Using exons file: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.exon
+[2026-01-03 21:55:00] INFO: 构建HISAT2索引|Building HISAT2 index with command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.ss --exon /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.exon -p 64 /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.fa /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.hisat2.index
+[2026-01-03 21:55:00] INFO: 运行|Running: 构建HISAT2索引|Building HISAT2 index
+[2026-01-03 21:55:00] INFO: 命令|Command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.ss --exon /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.exon -p 64 /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.fa /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.hisat2.index
+[2026-01-03 22:06:38] INFO: 构建HISAT2索引|Building HISAT2 index 完成|completed
+[2026-01-03 22:06:38] INFO: HISAT2索引构建完成|HISAT2 index building completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.hisat2.index
+[2026-01-03 22:06:38] INFO: ============================================================
+[2026-01-03 22:06:38] INFO: 步骤2: 解析输入样本|Step 2: Parsing input samples
+[2026-01-03 22:06:38] INFO: ============================================================
+[2026-01-03 22:06:38] INFO: 使用指定的文件模式|Using specified file pattern: *_1.clean.fq.gz
+[2026-01-03 22:06:38] INFO: 检测到read标识符|Detected read indicator: _1 <-> _2
+[2026-01-03 22:06:38] INFO: 搜索模式|Search pattern: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/*_1.clean.fq.gz
+[2026-01-03 22:06:38] INFO: 找到 3 个read1文件|Found 3 read1 files
+[2026-01-03 22:06:38] INFO: 样本|Sample: 304
+[2026-01-03 22:06:38] INFO:   Read1: 304_1.clean.fq.gz
+[2026-01-03 22:06:38] INFO:   Read2: 304_2.clean.fq.gz (期望|expected)
+[2026-01-03 22:06:38] INFO: 配对成功|Paired successfully
+[2026-01-03 22:06:38] INFO: 样本|Sample: 307
+[2026-01-03 22:06:38] INFO:   Read1: 307_1.clean.fq.gz
+[2026-01-03 22:06:38] INFO:   Read2: 307_2.clean.fq.gz (期望|expected)
+[2026-01-03 22:06:38] INFO: 配对成功|Paired successfully
+[2026-01-03 22:06:38] INFO: 样本|Sample: 309
+[2026-01-03 22:06:38] INFO:   Read1: 309_1.clean.fq.gz
+[2026-01-03 22:06:38] INFO:   Read2: 309_2.clean.fq.gz (期望|expected)
+[2026-01-03 22:06:38] INFO: 配对成功|Paired successfully
+[2026-01-03 22:06:38] INFO: 找到 3 个样本|Found 3 samples:
+[2026-01-03 22:06:38] INFO:   - 304: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/304_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/304_2.clean.fq.gz
+[2026-01-03 22:06:38] INFO:   - 307: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/307_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/307_2.clean.fq.gz
+[2026-01-03 22:06:38] INFO:   - 309: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/309_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/309_2.clean.fq.gz
+[2026-01-03 22:06:38] INFO: ============================================================
+[2026-01-03 22:06:38] INFO: 步骤3: 处理所有样本|Step 3: Processing all samples
+[2026-01-03 22:06:38] INFO: ============================================================
+[2026-01-03 22:06:38] INFO: ============================================================
+[2026-01-03 22:06:38] INFO: 处理样本|Processing sample: 304
+[2026-01-03 22:06:38] INFO: ============================================================
+[2026-01-03 22:06:38] INFO: 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/304.sorted.bam
+[2026-01-03 22:06:38] INFO: 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/304_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/304_2.clean.fq.gz -p 64 | samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/304.sorted.bam -
+[2026-01-03 22:06:38] INFO: 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+[2026-01-03 23:59:22] INFO: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/304.sorted.bam 完成|completed
+[2026-01-03 23:59:22] INFO: 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/304.sorted.bam
+[2026-01-03 23:59:22] INFO: 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/304.gtf
+[2026-01-03 23:59:22] INFO: 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/complete.genomic.gtf -o /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/304.gtf -e /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/304.sorted.bam
+[2026-01-04 00:00:18] INFO: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/304.gtf 完成|completed
+[2026-01-04 00:00:18] INFO: 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/304.gtf
+[2026-01-04 00:00:18] INFO: 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/304.gtf
+[2026-01-04 00:00:18] INFO: GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/fpkm_output/304.fpkm.txt
+[2026-01-04 00:00:18] INFO: 提取了|Extracted 8765个转录本|transcripts
+[2026-01-04 00:00:18] INFO: 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/304.sorted.bam
+[2026-01-04 00:00:18] INFO: ============================================================
+[2026-01-04 00:00:18] INFO: 处理样本|Processing sample: 307
+[2026-01-04 00:00:18] INFO: ============================================================
+[2026-01-04 00:00:18] INFO: 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/307.sorted.bam
+[2026-01-04 00:00:18] INFO: 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/307_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/307_2.clean.fq.gz -p 64 | samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/307.sorted.bam -
+[2026-01-04 00:00:18] INFO: 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+[2026-01-04 01:57:29] INFO: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/307.sorted.bam 完成|completed
+[2026-01-04 01:57:29] INFO: 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/307.sorted.bam
+[2026-01-04 01:57:29] INFO: 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/307.gtf
+[2026-01-04 01:57:29] INFO: 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/complete.genomic.gtf -o /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/307.gtf -e /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/307.sorted.bam
+[2026-01-04 01:58:24] INFO: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/307.gtf 完成|completed
+[2026-01-04 01:58:24] INFO: 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/307.gtf
+[2026-01-04 01:58:24] INFO: 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/307.gtf
+[2026-01-04 01:58:24] INFO: GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/fpkm_output/307.fpkm.txt
+[2026-01-04 01:58:24] INFO: 提取了|Extracted 8765个转录本|transcripts
+[2026-01-04 01:58:24] INFO: 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/307.sorted.bam
+[2026-01-04 01:58:24] INFO: ============================================================
+[2026-01-04 01:58:24] INFO: 处理样本|Processing sample: 309
+[2026-01-04 01:58:24] INFO: ============================================================
+[2026-01-04 01:58:24] INFO: 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/309.sorted.bam
+[2026-01-04 01:58:24] INFO: 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/OV53_1.hifihic.chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/309_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/fastq/309_2.clean.fq.gz -p 64 | samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/309.sorted.bam -
+[2026-01-04 01:58:24] INFO: 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+[2026-01-04 03:17:48] INFO: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/309.sorted.bam 完成|completed
+[2026-01-04 03:17:48] INFO: 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/309.sorted.bam
+[2026-01-04 03:17:48] INFO: 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/309.gtf
+[2026-01-04 03:17:48] INFO: 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/complete.genomic.gtf -o /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/309.gtf -e /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/309.sorted.bam
+[2026-01-04 03:18:30] INFO: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/309.gtf 完成|completed
+[2026-01-04 03:18:30] INFO: 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/309.gtf
+[2026-01-04 03:18:30] INFO: 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/stringtie_output/309.gtf
+[2026-01-04 03:18:30] INFO: GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/fpkm_output/309.fpkm.txt
+[2026-01-04 03:18:30] INFO: 提取了|Extracted 8765个转录本|transcripts
+[2026-01-04 03:18:30] INFO: 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/309.sorted.bam
+[2026-01-04 03:18:30] INFO: ============================================================
+[2026-01-04 03:18:30] INFO: 步骤4: 合并表达矩阵|Step 4: Merging expression matrix
+[2026-01-04 03:18:30] INFO: ============================================================
+[2026-01-04 03:18:30] INFO: 合并表达矩阵|Merging expression matrix
+[2026-01-04 03:18:30] INFO: 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/fpkm_output/304.fpkm.txt
+[2026-01-04 03:18:30] INFO: 成功读取|Successfully read 8765行|rows of data
+[2026-01-04 03:18:30] INFO: 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/fpkm_output/307.fpkm.txt
+[2026-01-04 03:18:30] INFO: 成功读取|Successfully read 8765行|rows of data
+[2026-01-04 03:18:30] INFO: 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/fpkm_output/309.fpkm.txt
+[2026-01-04 03:18:30] INFO: 成功读取|Successfully read 8765行|rows of data
+[2026-01-04 03:18:30] INFO: 找到|Found 3个有效数据文件|valid data files
+[2026-01-04 03:18:30] INFO: 合并后总计|Total 26295行|rows after merging
+[2026-01-04 03:18:30] INFO: 样本名称|Sample names: 304, 307, 309
+[2026-01-04 03:18:30] INFO: 生成all.fpkm.tpm.txt文件|Generating all.fpkm.tpm.txt...
+[2026-01-04 03:18:30] INFO: 保存完成|Save completed: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/all.fpkm.tpm.txt (26295行|rows)
+[2026-01-04 03:18:30] INFO: 生成总结报告|Generating summary report
+[2026-01-04 03:18:30] INFO: 总结报告已生成|Summary report generated: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output/rnaseq_summary.txt
+[2026-01-04 03:18:30] INFO: ============================================================
+[2026-01-04 03:18:30] INFO: 分析流程总结|Pipeline Summary
+[2026-01-04 03:18:30] INFO: ============================================================
+[2026-01-04 03:18:30] INFO: 总运行时间|Total runtime: 19410.52 秒|seconds
+[2026-01-04 03:18:30] INFO: 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/tmp/test_rnaseq/output
+[2026-01-04 03:18:30] INFO: 分析流程成功完成|Pipeline completed successfully
+[2026-01-04 03:18:30] INFO: 主要输出文件|Main output file: all.fpkm.tpm.txt
+[2026-01-04 03:18:30] INFO: ============================================================

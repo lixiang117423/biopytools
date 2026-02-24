@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/braker/main.py", line 275, in main
+    final_annotation = pipeline.run_pipeline()
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/braker/pipeline.py", line 127, in run_pipeline
+    braker_results = self._step4_braker_annotation(
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/braker/pipeline.py", line 405, in _step4_braker_annotation
+    if original_cwd and not os.path.isabs(self.config.braker_dir):
+UnboundLocalError: local variable 'os' referenced before assignment
+Job 69325620 stderr output:
+

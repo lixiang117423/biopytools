@@ -1,0 +1,12 @@
+Usage: biopytools sra2fastq [OPTIONS]
+Try 'biopytools sra2fastq -h' for help.
+
+Error: Invalid value for '--input' / '-i': ❌ 路径不存在 | Path does not exist: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/sra
+Usage: biopytools fastp [OPTIONS]
+Try 'biopytools fastp -h' for help.
+
+Error: Invalid value for '--input-dir' / '-i': ❌ 输入目录不存在 | Input directory does not exist: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/fastq
+
+分析被用户中断 | Analysis interrupted by user
+Job 68297089 stderr output:
+

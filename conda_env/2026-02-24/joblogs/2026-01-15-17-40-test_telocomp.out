@@ -1,0 +1,21 @@
+2026-01-15 17:40:47.732 - INFO - TeloComp分析器初始化完成|TeloComp analyzer initialized
+2026-01-15 17:40:47.732 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/48.telocomp鉴定端粒/output
+2026-01-15 17:40:47.732 - INFO - ============================================================
+2026-01-15 17:40:47.732 - INFO - 开始TeloComp端粒鉴定流程|Starting TeloComp telomere identification pipeline
+2026-01-15 17:40:47.732 - INFO - ============================================================
+2026-01-15 17:40:47.732 - INFO - 步骤1: 检查基因组索引|Step 1: Checking genome index
+2026-01-15 17:40:47.733 - INFO - 基因组索引已存在|Genome index exists
+2026-01-15 17:40:47.733 - INFO - 步骤2: 运行Filter_1 - 过滤含端粒的reads|Step 2: Running Filter_1
+2026-01-15 17:40:47.733 - INFO - 执行命令|Executing command: telocomp_Filter_1 --genome /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/48.telocomp鉴定端粒/OV53_Chr.fa --fai /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/48.telocomp鉴定端粒/OV53_Chr.fa.fai --threads 64 --hifi ../01.data/hifi/OV53_1-hifi.fq --Hb /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/48.telocomp鉴定端粒/output/filter1_hifi.bam --motifs CCCTAAA TTTAGGG --max_break 50 --min_clip 1
+2026-01-15 18:03:07.166 - INFO - Filter_1执行完成|Filter_1 completed
+2026-01-15 18:03:07.166 - WARNING - ============================================================
+2026-01-15 18:03:07.166 - WARNING - Filter_2需要同时提供ONT和HiFi数据|Filter_2 requires both ONT and HiFi data
+2026-01-15 18:03:07.166 - WARNING - 当前只有单一数据类型，跳过Filter_2步骤|Current has only single data type, skipping Filter_2
+2026-01-15 18:03:07.166 - WARNING - 提示|Tip: Filter_1已完成端粒reads过滤，可直接使用filter1输出文件
+2026-01-15 18:03:07.166 - WARNING - ============================================================
+2026-01-15 18:03:07.396 - INFO - 准备端粒可视化|Preparing telomere visualization
+2026-01-15 18:03:07.397 - INFO - 准备端粒鉴定结果汇总|Preparing telomere identification summary
+2026-01-15 18:03:07.397 - INFO - 结果汇总已保存|Summary saved to: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/48.telocomp鉴定端粒/output/telomere_summary.txt
+2026-01-15 18:03:07.397 - INFO - ============================================================
+2026-01-15 18:03:07.397 - INFO - TeloComp端粒鉴定流程完成|TeloComp pipeline completed
+2026-01-15 18:03:07.397 - INFO - ============================================================

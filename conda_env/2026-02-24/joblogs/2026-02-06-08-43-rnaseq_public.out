@@ -1,0 +1,572 @@
+2026-02-06 08:43:31.052 - INFO - ============================================================
+2026-02-06 08:43:31.068 - INFO - Program: FASTQ Quality Control Batch Processing
+2026-02-06 08:43:31.068 - INFO - Version: 1.0.0
+2026-02-06 08:43:31.068 - INFO - ============================================================
+2026-02-06 08:43:31.068 - INFO - ============================================================
+2026-02-06 08:43:31.068 - INFO - 开始FASTQ数据质控批处理|Starting FASTQ data quality control batch processing
+2026-02-06 08:43:31.068 - INFO - ============================================================
+2026-02-06 08:43:31.068 - INFO - 输入|Input: 目录|Directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/raw
+2026-02-06 08:43:31.068 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean
+2026-02-06 08:43:31.068 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-02-06 08:43:31.068 - INFO - 文件模式|File pattern: *_1.fastq.gz, *_2.fastq.gz
+2026-02-06 08:43:31.068 - INFO - 线程数|Threads: 12
+2026-02-06 08:43:31.068 - INFO - 质量阈值|Quality threshold: 30
+2026-02-06 08:43:31.068 - INFO - 最小长度|Minimum length: 50
+2026-02-06 08:43:31.068 - INFO - ============================================================
+2026-02-06 08:43:31.301 - INFO - Fastp可执行文件验证成功|Fastp executable validated: fastp
+2026-02-06 08:43:31.302 - INFO - 创建清洁数据输出目录|Created clean data output directory: 01.data/clean
+2026-02-06 08:43:31.302 - INFO - 创建报告文件输出目录|Created report output directory: 01.data/clean/fastp_reports
+2026-02-06 08:43:31.359 - INFO - 找到 32 个read1文件|Found 32 read1 files
+2026-02-06 08:43:31.434 - INFO - 找到 32 个有效样本配对|Found 32 valid sample pairs:
+2026-02-06 08:43:31.434 - INFO -   - SRR6655858
+2026-02-06 08:43:31.434 - INFO -   - SRR6655839
+2026-02-06 08:43:31.434 - INFO -   - SRR6655855
+2026-02-06 08:43:31.434 - INFO -   - SRR6655829
+2026-02-06 08:43:31.434 - INFO -   - SRR6655852
+2026-02-06 08:43:31.434 - INFO -   - SRR6655832
+2026-02-06 08:43:31.434 - INFO -   - SRR6655835
+2026-02-06 08:43:31.434 - INFO -   - SRR6655837
+2026-02-06 08:43:31.434 - INFO -   - SRR6655831
+2026-02-06 08:43:31.434 - INFO -   - SRR6655848
+2026-02-06 08:43:31.434 - INFO -   - SRR6655859
+2026-02-06 08:43:31.434 - INFO -   - SRR6655844
+2026-02-06 08:43:31.434 - INFO -   - SRR6655836
+2026-02-06 08:43:31.434 - INFO -   - SRR6655841
+2026-02-06 08:43:31.434 - INFO -   - SRR6655857
+2026-02-06 08:43:31.434 - INFO -   - SRR6655850
+2026-02-06 08:43:31.434 - INFO -   - SRR6655843
+2026-02-06 08:43:31.434 - INFO -   - SRR6655830
+2026-02-06 08:43:31.434 - INFO -   - SRR6655856
+2026-02-06 08:43:31.434 - INFO -   - SRR6655845
+2026-02-06 08:43:31.434 - INFO -   - SRR6655854
+2026-02-06 08:43:31.434 - INFO -   - SRR6655834
+2026-02-06 08:43:31.434 - INFO -   - SRR6655847
+2026-02-06 08:43:31.434 - INFO -   - SRR6655828
+2026-02-06 08:43:31.434 - INFO -   - SRR6655851
+2026-02-06 08:43:31.434 - INFO -   - SRR6655840
+2026-02-06 08:43:31.434 - INFO -   - SRR6655853
+2026-02-06 08:43:31.434 - INFO -   - SRR6655833
+2026-02-06 08:43:31.434 - INFO -   - SRR6655846
+2026-02-06 08:43:31.434 - INFO -   - SRR6655838
+2026-02-06 08:43:31.434 - INFO -   - SRR6655842
+2026-02-06 08:43:31.434 - INFO -   - SRR6655849
+2026-02-06 08:43:31.435 - INFO - 样本 SRR6655858 的输出文件已存在，跳过处理|Output files exist for sample SRR6655858, skipping
+2026-02-06 08:43:31.435 - INFO - 样本 SRR6655839 的输出文件已存在，跳过处理|Output files exist for sample SRR6655839, skipping
+2026-02-06 08:43:31.436 - INFO - 样本 SRR6655855 的输出文件已存在，跳过处理|Output files exist for sample SRR6655855, skipping
+2026-02-06 08:43:31.436 - INFO - 样本 SRR6655829 的输出文件已存在，跳过处理|Output files exist for sample SRR6655829, skipping
+2026-02-06 08:43:31.439 - INFO - 样本 SRR6655852 的输出文件已存在，跳过处理|Output files exist for sample SRR6655852, skipping
+2026-02-06 08:43:31.440 - INFO - 样本 SRR6655832 的输出文件已存在，跳过处理|Output files exist for sample SRR6655832, skipping
+2026-02-06 08:43:31.440 - INFO - 样本 SRR6655835 的输出文件已存在，跳过处理|Output files exist for sample SRR6655835, skipping
+2026-02-06 08:43:31.440 - INFO - 样本 SRR6655837 的输出文件已存在，跳过处理|Output files exist for sample SRR6655837, skipping
+2026-02-06 08:43:31.441 - INFO - 样本 SRR6655831 的输出文件已存在，跳过处理|Output files exist for sample SRR6655831, skipping
+2026-02-06 08:43:31.441 - INFO - 样本 SRR6655848 的输出文件已存在，跳过处理|Output files exist for sample SRR6655848, skipping
+2026-02-06 08:43:31.442 - INFO - 样本 SRR6655859 的输出文件已存在，跳过处理|Output files exist for sample SRR6655859, skipping
+2026-02-06 08:43:31.442 - INFO - 样本 SRR6655844 的输出文件已存在，跳过处理|Output files exist for sample SRR6655844, skipping
+2026-02-06 08:43:31.442 - INFO - 样本 SRR6655836 的输出文件已存在，跳过处理|Output files exist for sample SRR6655836, skipping
+2026-02-06 08:43:31.443 - INFO - 样本 SRR6655841 的输出文件已存在，跳过处理|Output files exist for sample SRR6655841, skipping
+2026-02-06 08:43:31.443 - INFO - 样本 SRR6655857 的输出文件已存在，跳过处理|Output files exist for sample SRR6655857, skipping
+2026-02-06 08:43:31.444 - INFO - 样本 SRR6655850 的输出文件已存在，跳过处理|Output files exist for sample SRR6655850, skipping
+2026-02-06 08:43:31.444 - INFO - 样本 SRR6655843 的输出文件已存在，跳过处理|Output files exist for sample SRR6655843, skipping
+2026-02-06 08:43:31.444 - INFO - 样本 SRR6655830 的输出文件已存在，跳过处理|Output files exist for sample SRR6655830, skipping
+2026-02-06 08:43:31.445 - INFO - 样本 SRR6655856 的输出文件已存在，跳过处理|Output files exist for sample SRR6655856, skipping
+2026-02-06 08:43:31.445 - INFO - 样本 SRR6655845 的输出文件已存在，跳过处理|Output files exist for sample SRR6655845, skipping
+2026-02-06 08:43:31.446 - INFO - 样本 SRR6655854 的输出文件已存在，跳过处理|Output files exist for sample SRR6655854, skipping
+2026-02-06 08:43:31.446 - INFO - 样本 SRR6655834 的输出文件已存在，跳过处理|Output files exist for sample SRR6655834, skipping
+2026-02-06 08:43:31.446 - INFO - 样本 SRR6655847 的输出文件已存在，跳过处理|Output files exist for sample SRR6655847, skipping
+2026-02-06 08:43:31.447 - INFO - 样本 SRR6655828 的输出文件已存在，跳过处理|Output files exist for sample SRR6655828, skipping
+2026-02-06 08:43:31.447 - INFO - 样本 SRR6655851 的输出文件已存在，跳过处理|Output files exist for sample SRR6655851, skipping
+2026-02-06 08:43:31.448 - INFO - 样本 SRR6655840 的输出文件已存在，跳过处理|Output files exist for sample SRR6655840, skipping
+2026-02-06 08:43:31.448 - INFO - 样本 SRR6655853 的输出文件已存在，跳过处理|Output files exist for sample SRR6655853, skipping
+2026-02-06 08:43:31.460 - INFO - 样本 SRR6655833 的输出文件已存在，跳过处理|Output files exist for sample SRR6655833, skipping
+2026-02-06 08:43:31.460 - INFO - 样本 SRR6655846 的输出文件已存在，跳过处理|Output files exist for sample SRR6655846, skipping
+2026-02-06 08:43:31.460 - INFO - 样本 SRR6655838 的输出文件已存在，跳过处理|Output files exist for sample SRR6655838, skipping
+2026-02-06 08:43:31.461 - INFO - 样本 SRR6655842 的输出文件已存在，跳过处理|Output files exist for sample SRR6655842, skipping
+2026-02-06 08:43:31.461 - INFO - 样本 SRR6655849 的输出文件已存在，跳过处理|Output files exist for sample SRR6655849, skipping
+2026-02-06 08:43:31.476 - INFO - 总结报告已生成|Summary report generated: 01.data/clean/fastp_processing_summary.txt
+2026-02-06 08:43:31.476 - INFO - ============================================================
+2026-02-06 08:43:31.476 - INFO - FASTQ质控批处理完成|FASTQ quality control batch processing completed!
+2026-02-06 08:43:31.476 - INFO - 总样本数|Total samples: 32
+2026-02-06 08:43:31.476 - INFO - 成功处理|Successfully processed: 32
+2026-02-06 08:43:31.476 - INFO - 失败样本|Failed samples: 0
+2026-02-06 08:43:31.476 - INFO - 成功率|Success rate: 100.0%
+2026-02-06 08:43:31.476 - INFO - 质控后的清洁数据位于|Clean data location: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean
+2026-02-06 08:43:31.476 - INFO - 质控报告位于|QC reports location: 01.data/clean/fastp_reports
+2026-02-06 08:43:31.476 - INFO - ============================================================
+2026-02-06 08:43:31.476 - INFO - ============================================================
+2026-02-06 08:43:31.476 - INFO - Pipeline Summary
+2026-02-06 08:43:31.476 - INFO - ============================================================
+2026-02-06 08:43:31.476 - INFO - Total runtime: 0.62 seconds
+2026-02-06 08:43:31.476 - INFO - Output directory: 01.data/clean
+2026-02-06 08:43:31.476 - INFO - Pipeline completed successfully
+2026-02-06 08:43:38.021 - INFO - ============================================================
+2026-02-06 08:43:38.021 - INFO - RNA-seq分析流程开始|RNA-seq analysis pipeline started
+2026-02-06 08:43:38.021 - INFO - ============================================================
+2026-02-06 08:43:38.021 - INFO - 基因组文件|Genome file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.fa
+2026-02-06 08:43:38.021 - INFO - 输入路径|Input path: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean
+2026-02-06 08:43:38.021 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq
+2026-02-06 08:43:38.021 - INFO - GTF文件|GTF file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.gtf
+2026-02-06 08:43:38.021 - INFO - 线程数|Threads: 64
+2026-02-06 08:43:38.021 - INFO - 删除BAM文件|Remove BAM files: no
+2026-02-06 08:43:38.021 - INFO - 文件模式|File pattern: *_1.clean.fq.gz
+2026-02-06 08:43:38.021 - INFO - ============================================================
+2026-02-06 08:43:38.021 - INFO - 步骤1: 构建HISAT2索引|Step 1: Building HISAT2 index
+2026-02-06 08:43:38.021 - INFO - ============================================================
+2026-02-06 08:43:38.021 - INFO - HISAT2索引已存在|HISAT2 index already exists: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.hisat2.index
+2026-02-06 08:43:38.021 - INFO - ============================================================
+2026-02-06 08:43:38.021 - INFO - 步骤2: 解析输入样本|Step 2: Parsing input samples
+2026-02-06 08:43:38.021 - INFO - ============================================================
+2026-02-06 08:43:38.021 - INFO - 使用指定的文件模式|Using specified file pattern: *_1.clean.fq.gz
+2026-02-06 08:43:38.021 - INFO - 检测到read标识符|Detected read indicator: _1 <-> _2
+2026-02-06 08:43:38.022 - INFO - 搜索模式|Search pattern: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/*_1.clean.fq.gz
+2026-02-06 08:43:38.022 - INFO - 找到 38 个read1文件|Found 38 read1 files
+2026-02-06 08:43:38.022 - INFO - 样本|Sample: CRR2088369
+2026-02-06 08:43:38.022 - INFO -   Read1: CRR2088369_1.clean.fq.gz
+2026-02-06 08:43:38.022 - INFO -   Read2: CRR2088369_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.040 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.040 - INFO - 样本|Sample: CRR2088370
+2026-02-06 08:43:38.040 - INFO -   Read1: CRR2088370_1.clean.fq.gz
+2026-02-06 08:43:38.040 - INFO -   Read2: CRR2088370_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.040 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.040 - INFO - 样本|Sample: CRR2088371
+2026-02-06 08:43:38.040 - INFO -   Read1: CRR2088371_1.clean.fq.gz
+2026-02-06 08:43:38.040 - INFO -   Read2: CRR2088371_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.048 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.048 - INFO - 样本|Sample: CRR2088372
+2026-02-06 08:43:38.048 - INFO -   Read1: CRR2088372_1.clean.fq.gz
+2026-02-06 08:43:38.048 - INFO -   Read2: CRR2088372_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.048 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.048 - INFO - 样本|Sample: CRR2088373
+2026-02-06 08:43:38.048 - INFO -   Read1: CRR2088373_1.clean.fq.gz
+2026-02-06 08:43:38.048 - INFO -   Read2: CRR2088373_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.048 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.049 - INFO - 样本|Sample: CRR2088374
+2026-02-06 08:43:38.049 - INFO -   Read1: CRR2088374_1.clean.fq.gz
+2026-02-06 08:43:38.051 - INFO -   Read2: CRR2088374_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.051 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.051 - INFO - 样本|Sample: SRR6655828
+2026-02-06 08:43:38.051 - INFO -   Read1: SRR6655828_1.clean.fq.gz
+2026-02-06 08:43:38.051 - INFO -   Read2: SRR6655828_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.051 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.051 - INFO - 样本|Sample: SRR6655829
+2026-02-06 08:43:38.051 - INFO -   Read1: SRR6655829_1.clean.fq.gz
+2026-02-06 08:43:38.051 - INFO -   Read2: SRR6655829_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.051 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.051 - INFO - 样本|Sample: SRR6655830
+2026-02-06 08:43:38.051 - INFO -   Read1: SRR6655830_1.clean.fq.gz
+2026-02-06 08:43:38.051 - INFO -   Read2: SRR6655830_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.051 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.051 - INFO - 样本|Sample: SRR6655831
+2026-02-06 08:43:38.051 - INFO -   Read1: SRR6655831_1.clean.fq.gz
+2026-02-06 08:43:38.051 - INFO -   Read2: SRR6655831_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.051 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.051 - INFO - 样本|Sample: SRR6655832
+2026-02-06 08:43:38.051 - INFO -   Read1: SRR6655832_1.clean.fq.gz
+2026-02-06 08:43:38.051 - INFO -   Read2: SRR6655832_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.051 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.051 - INFO - 样本|Sample: SRR6655833
+2026-02-06 08:43:38.051 - INFO -   Read1: SRR6655833_1.clean.fq.gz
+2026-02-06 08:43:38.051 - INFO -   Read2: SRR6655833_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.051 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655834
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655834_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655834_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655835
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655835_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655835_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655836
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655836_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655836_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655837
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655837_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655837_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655838
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655838_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655838_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655839
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655839_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655839_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655840
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655840_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655840_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655841
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655841_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655841_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655842
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655842_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655842_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655843
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655843_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655843_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.052 - INFO - 样本|Sample: SRR6655844
+2026-02-06 08:43:38.052 - INFO -   Read1: SRR6655844_1.clean.fq.gz
+2026-02-06 08:43:38.052 - INFO -   Read2: SRR6655844_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.052 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655845
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655845_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655845_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655846
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655846_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655846_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655847
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655847_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655847_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655848
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655848_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655848_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655849
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655849_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655849_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655850
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655850_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655850_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655851
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655851_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655851_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655852
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655852_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655852_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655853
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655853_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655853_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655854
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655854_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655854_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.053 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.053 - INFO - 样本|Sample: SRR6655855
+2026-02-06 08:43:38.053 - INFO -   Read1: SRR6655855_1.clean.fq.gz
+2026-02-06 08:43:38.053 - INFO -   Read2: SRR6655855_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.054 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.054 - INFO - 样本|Sample: SRR6655856
+2026-02-06 08:43:38.054 - INFO -   Read1: SRR6655856_1.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   Read2: SRR6655856_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.054 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.054 - INFO - 样本|Sample: SRR6655857
+2026-02-06 08:43:38.054 - INFO -   Read1: SRR6655857_1.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   Read2: SRR6655857_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.054 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.054 - INFO - 样本|Sample: SRR6655858
+2026-02-06 08:43:38.054 - INFO -   Read1: SRR6655858_1.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   Read2: SRR6655858_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.054 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.054 - INFO - 样本|Sample: SRR6655859
+2026-02-06 08:43:38.054 - INFO -   Read1: SRR6655859_1.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   Read2: SRR6655859_2.clean.fq.gz (期望|expected)
+2026-02-06 08:43:38.054 - INFO - 配对成功|Paired successfully
+2026-02-06 08:43:38.054 - INFO - 找到 38 个样本|Found 38 samples:
+2026-02-06 08:43:38.054 - INFO -   - CRR2088369: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088369_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088369_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - CRR2088370: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088370_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088370_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - CRR2088371: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088371_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088371_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - CRR2088372: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088372_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088372_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - CRR2088373: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088373_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088373_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - CRR2088374: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088374_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088374_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655828: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655828_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655828_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655829: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655829_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655829_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655830: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655830_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655830_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655831: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655831_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655831_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655832: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655832_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655832_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655833: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655833_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655833_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655834: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655834_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655834_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655835: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655835_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655835_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655836: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655836_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655836_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655837: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655837_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655837_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655838: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655838_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655838_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655839: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655839_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655839_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655840: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655840_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655840_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655841: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655841_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655841_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655842: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655842_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655842_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655843: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655843_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655843_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655844: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655844_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655844_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655845: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655845_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655845_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655846: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655846_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655846_2.clean.fq.gz
+2026-02-06 08:43:38.054 - INFO -   - SRR6655847: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655847_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655847_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655848: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655848_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655848_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655849: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655849_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655849_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655850: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655850_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655850_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655851: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655851_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655851_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655852: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655852_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655852_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655853: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655853_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655853_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655854: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655854_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655854_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655855: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655855_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655855_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655856: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655856_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655856_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655857: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655857_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655857_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655858: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655858_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655858_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO -   - SRR6655859: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655859_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655859_2.clean.fq.gz
+2026-02-06 08:43:38.055 - INFO - ============================================================
+2026-02-06 08:43:38.055 - INFO - 步骤3: 处理所有样本|Step 3: Processing all samples
+2026-02-06 08:43:38.055 - INFO - ============================================================
+2026-02-06 08:43:38.074 - INFO - ============================================================
+2026-02-06 08:43:38.074 - INFO - 处理样本|Processing sample: CRR2088369
+2026-02-06 08:43:38.074 - INFO - ============================================================
+2026-02-06 08:43:38.091 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088369.sorted.bam
+2026-02-06 08:43:38.091 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088369_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088369_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088369.sorted.bam -
+2026-02-06 08:43:38.091 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-02-06 08:50:11.315 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088369.sorted.bam 完成|completed
+2026-02-06 08:50:11.315 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088369.sorted.bam
+2026-02-06 08:50:11.316 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088369.gtf
+2026-02-06 08:50:11.316 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088369.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088369.sorted.bam
+2026-02-06 08:51:02.223 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088369.gtf 完成|completed
+2026-02-06 08:51:02.223 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088369.gtf
+2026-02-06 08:51:02.223 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088369.gtf
+2026-02-06 08:51:02.713 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088369.fpkm.txt
+2026-02-06 08:51:02.713 - INFO - 提取了|Extracted 102368个转录本|transcripts
+2026-02-06 08:51:02.713 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088369.sorted.bam
+2026-02-06 08:51:02.713 - INFO - ============================================================
+2026-02-06 08:51:02.713 - INFO - 处理样本|Processing sample: CRR2088370
+2026-02-06 08:51:02.713 - INFO - ============================================================
+2026-02-06 08:51:02.713 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088370.sorted.bam
+2026-02-06 08:51:02.713 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088370_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088370_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088370.sorted.bam -
+2026-02-06 08:51:02.713 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-02-06 08:58:22.163 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088370.sorted.bam 完成|completed
+2026-02-06 08:58:22.164 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088370.sorted.bam
+2026-02-06 08:58:22.164 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088370.gtf
+2026-02-06 08:58:22.164 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088370.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088370.sorted.bam
+2026-02-06 08:59:17.292 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088370.gtf 完成|completed
+2026-02-06 08:59:17.292 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088370.gtf
+2026-02-06 08:59:17.292 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088370.gtf
+2026-02-06 08:59:17.777 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088370.fpkm.txt
+2026-02-06 08:59:17.777 - INFO - 提取了|Extracted 102367个转录本|transcripts
+2026-02-06 08:59:17.777 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088370.sorted.bam
+2026-02-06 08:59:17.777 - INFO - ============================================================
+2026-02-06 08:59:17.777 - INFO - 处理样本|Processing sample: CRR2088371
+2026-02-06 08:59:17.777 - INFO - ============================================================
+2026-02-06 08:59:17.777 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088371.sorted.bam
+2026-02-06 08:59:17.777 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088371_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088371_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088371.sorted.bam -
+2026-02-06 08:59:17.777 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-02-06 09:05:15.660 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088371.sorted.bam 完成|completed
+2026-02-06 09:05:15.662 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088371.sorted.bam
+2026-02-06 09:05:15.662 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088371.gtf
+2026-02-06 09:05:15.662 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088371.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088371.sorted.bam
+2026-02-06 09:06:01.396 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088371.gtf 完成|completed
+2026-02-06 09:06:01.396 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088371.gtf
+2026-02-06 09:06:01.396 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088371.gtf
+2026-02-06 09:06:01.883 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088371.fpkm.txt
+2026-02-06 09:06:01.883 - INFO - 提取了|Extracted 102377个转录本|transcripts
+2026-02-06 09:06:01.883 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088371.sorted.bam
+2026-02-06 09:06:01.884 - INFO - ============================================================
+2026-02-06 09:06:01.884 - INFO - 处理样本|Processing sample: CRR2088372
+2026-02-06 09:06:01.884 - INFO - ============================================================
+2026-02-06 09:06:01.884 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088372.sorted.bam
+2026-02-06 09:06:01.884 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088372_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088372_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088372.sorted.bam -
+2026-02-06 09:06:01.884 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-02-06 09:12:29.334 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088372.sorted.bam 完成|completed
+2026-02-06 09:12:29.334 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088372.sorted.bam
+2026-02-06 09:12:29.334 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088372.gtf
+2026-02-06 09:12:29.334 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088372.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088372.sorted.bam
+2026-02-06 09:13:22.893 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088372.gtf 完成|completed
+2026-02-06 09:13:22.894 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088372.gtf
+2026-02-06 09:13:22.894 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088372.gtf
+2026-02-06 09:13:23.379 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088372.fpkm.txt
+2026-02-06 09:13:23.379 - INFO - 提取了|Extracted 102349个转录本|transcripts
+2026-02-06 09:13:23.379 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088372.sorted.bam
+2026-02-06 09:13:23.379 - INFO - ============================================================
+2026-02-06 09:13:23.379 - INFO - 处理样本|Processing sample: CRR2088373
+2026-02-06 09:13:23.379 - INFO - ============================================================
+2026-02-06 09:13:23.380 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088373.sorted.bam
+2026-02-06 09:13:23.380 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088373_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088373_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088373.sorted.bam -
+2026-02-06 09:13:23.380 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-02-06 09:19:20.901 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088373.sorted.bam 完成|completed
+2026-02-06 09:19:20.901 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088373.sorted.bam
+2026-02-06 09:19:20.901 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088373.gtf
+2026-02-06 09:19:20.901 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088373.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088373.sorted.bam
+2026-02-06 09:20:08.135 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088373.gtf 完成|completed
+2026-02-06 09:20:08.136 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088373.gtf
+2026-02-06 09:20:08.136 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088373.gtf
+2026-02-06 09:20:08.622 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088373.fpkm.txt
+2026-02-06 09:20:08.622 - INFO - 提取了|Extracted 102367个转录本|transcripts
+2026-02-06 09:20:08.622 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088373.sorted.bam
+2026-02-06 09:20:08.622 - INFO - ============================================================
+2026-02-06 09:20:08.622 - INFO - 处理样本|Processing sample: CRR2088374
+2026-02-06 09:20:08.622 - INFO - ============================================================
+2026-02-06 09:20:08.622 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088374.sorted.bam
+2026-02-06 09:20:08.622 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088374_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/CRR2088374_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088374.sorted.bam -
+2026-02-06 09:20:08.622 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-02-06 09:28:55.392 - INFO - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088374.sorted.bam 完成|completed
+2026-02-06 09:28:55.393 - INFO - 比对完成|Alignment completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088374.sorted.bam
+2026-02-06 09:28:55.393 - INFO - 运行|Running: StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088374.gtf
+2026-02-06 09:28:55.393 - INFO - 命令|Command: stringtie -p 64 -G /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.gtf -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088374.gtf -e /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088374.sorted.bam
+2026-02-06 09:29:45.592 - INFO - StringTie定量|StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088374.gtf 完成|completed
+2026-02-06 09:29:45.593 - INFO - 定量完成|Quantification completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088374.gtf
+2026-02-06 09:29:45.593 - INFO - 提取FPKM和TPM值|Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/02.stringtie/CRR2088374.gtf
+2026-02-06 09:29:46.076 - INFO - GTF值提取完成|GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088374.fpkm.txt
+2026-02-06 09:29:46.076 - INFO - 提取了|Extracted 102362个转录本|transcripts
+2026-02-06 09:29:46.076 - INFO - 保留BAM文件|BAM file retained: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/CRR2088374.sorted.bam
+2026-02-06 09:29:46.077 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655828
+2026-02-06 09:29:46.077 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655828.fpkm.txt
+2026-02-06 09:29:46.078 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655829
+2026-02-06 09:29:46.078 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655829.fpkm.txt
+2026-02-06 09:29:46.078 - INFO - ============================================================
+2026-02-06 09:29:46.078 - INFO - 处理样本|Processing sample: SRR6655830
+2026-02-06 09:29:46.078 - INFO - ============================================================
+2026-02-06 09:29:46.078 - INFO - 运行|Running: HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/SRR6655830.sorted.bam
+2026-02-06 09:29:46.078 - INFO - 命令|Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/genome/OV53_Chr.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655830_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/01.data/clean/SRR6655830_2.clean.fq.gz -p 64|samtools sort -@ 64 -O BAM -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/SRR6655830.sorted.bam -
+2026-02-06 09:29:46.078 - INFO - 超时设置|Timeout: 21600秒|seconds (6.0小时|hours)
+2026-02-06 15:29:46.309 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655831
+2026-02-06 15:29:46.310 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655831.fpkm.txt
+2026-02-06 15:29:46.311 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655832
+2026-02-06 15:29:46.311 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655832.fpkm.txt
+2026-02-06 15:29:46.311 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655833
+2026-02-06 15:29:46.311 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655833.fpkm.txt
+2026-02-06 15:29:46.312 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655834
+2026-02-06 15:29:46.312 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655834.fpkm.txt
+2026-02-06 15:29:46.313 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655835
+2026-02-06 15:29:46.313 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655835.fpkm.txt
+2026-02-06 15:29:46.314 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655836
+2026-02-06 15:29:46.314 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655836.fpkm.txt
+2026-02-06 15:29:46.314 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655837
+2026-02-06 15:29:46.315 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655837.fpkm.txt
+2026-02-06 15:29:46.315 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655838
+2026-02-06 15:29:46.315 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655838.fpkm.txt
+2026-02-06 15:29:46.316 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655839
+2026-02-06 15:29:46.316 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655839.fpkm.txt
+2026-02-06 15:29:46.316 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655840
+2026-02-06 15:29:46.317 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655840.fpkm.txt
+2026-02-06 15:29:46.317 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655841
+2026-02-06 15:29:46.317 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655841.fpkm.txt
+2026-02-06 15:29:46.318 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655842
+2026-02-06 15:29:46.318 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655842.fpkm.txt
+2026-02-06 15:29:46.319 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655843
+2026-02-06 15:29:46.319 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655843.fpkm.txt
+2026-02-06 15:29:46.320 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655844
+2026-02-06 15:29:46.320 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655844.fpkm.txt
+2026-02-06 15:29:46.321 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655845
+2026-02-06 15:29:46.321 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655845.fpkm.txt
+2026-02-06 15:29:46.321 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655846
+2026-02-06 15:29:46.321 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655846.fpkm.txt
+2026-02-06 15:29:46.321 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655847
+2026-02-06 15:29:46.321 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655847.fpkm.txt
+2026-02-06 15:29:46.322 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655848
+2026-02-06 15:29:46.322 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655848.fpkm.txt
+2026-02-06 15:29:46.322 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655849
+2026-02-06 15:29:46.322 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655849.fpkm.txt
+2026-02-06 15:29:46.323 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655850
+2026-02-06 15:29:46.323 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655850.fpkm.txt
+2026-02-06 15:29:46.323 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655851
+2026-02-06 15:29:46.323 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655851.fpkm.txt
+2026-02-06 15:29:46.324 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655852
+2026-02-06 15:29:46.324 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655852.fpkm.txt
+2026-02-06 15:29:46.324 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655853
+2026-02-06 15:29:46.324 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655853.fpkm.txt
+2026-02-06 15:29:46.324 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655854
+2026-02-06 15:29:46.324 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655854.fpkm.txt
+2026-02-06 15:29:46.325 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655855
+2026-02-06 15:29:46.325 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655855.fpkm.txt
+2026-02-06 15:29:46.325 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655856
+2026-02-06 15:29:46.325 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655856.fpkm.txt
+2026-02-06 15:29:46.325 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655857
+2026-02-06 15:29:46.325 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655857.fpkm.txt
+2026-02-06 15:29:46.326 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655858
+2026-02-06 15:29:46.326 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655858.fpkm.txt
+2026-02-06 15:29:46.326 - INFO - 样本已完成，跳过|Sample already completed, skipping: SRR6655859
+2026-02-06 15:29:46.326 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655859.fpkm.txt
+2026-02-06 15:29:46.326 - INFO - ============================================================
+2026-02-06 15:29:46.326 - INFO - 步骤4: 合并表达矩阵|Step 4: Merging expression matrix
+2026-02-06 15:29:46.326 - INFO - ============================================================
+2026-02-06 15:29:46.326 - INFO - 合并表达矩阵|Merging expression matrix
+2026-02-06 15:29:46.326 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088369.fpkm.txt
+2026-02-06 15:29:49.693 - INFO - 成功读取|Successfully read 102368行|rows of data
+2026-02-06 15:29:49.697 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088370.fpkm.txt
+2026-02-06 15:29:52.978 - INFO - 成功读取|Successfully read 102367行|rows of data
+2026-02-06 15:29:52.982 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088371.fpkm.txt
+2026-02-06 15:29:56.491 - INFO - 成功读取|Successfully read 102377行|rows of data
+2026-02-06 15:29:56.495 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088372.fpkm.txt
+2026-02-06 15:29:59.992 - INFO - 成功读取|Successfully read 102349行|rows of data
+2026-02-06 15:29:59.996 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088373.fpkm.txt
+2026-02-06 15:30:03.473 - INFO - 成功读取|Successfully read 102367行|rows of data
+2026-02-06 15:30:03.477 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/CRR2088374.fpkm.txt
+2026-02-06 15:30:06.859 - INFO - 成功读取|Successfully read 102362行|rows of data
+2026-02-06 15:30:06.863 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655828.fpkm.txt
+2026-02-06 15:30:10.272 - INFO - 成功读取|Successfully read 102368行|rows of data
+2026-02-06 15:30:10.276 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655829.fpkm.txt
+2026-02-06 15:30:13.924 - INFO - 成功读取|Successfully read 102376行|rows of data
+2026-02-06 15:30:13.928 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655831.fpkm.txt
+2026-02-06 15:30:17.283 - INFO - 成功读取|Successfully read 102344行|rows of data
+2026-02-06 15:30:17.286 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655832.fpkm.txt
+2026-02-06 15:30:20.602 - INFO - 成功读取|Successfully read 102377行|rows of data
+2026-02-06 15:30:20.606 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655833.fpkm.txt
+2026-02-06 15:30:23.982 - INFO - 成功读取|Successfully read 102368行|rows of data
+2026-02-06 15:30:23.985 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655834.fpkm.txt
+2026-02-06 15:30:27.405 - INFO - 成功读取|Successfully read 102372行|rows of data
+2026-02-06 15:30:27.409 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655835.fpkm.txt
+2026-02-06 15:30:30.797 - INFO - 成功读取|Successfully read 102360行|rows of data
+2026-02-06 15:30:30.801 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655836.fpkm.txt
+2026-02-06 15:30:34.140 - INFO - 成功读取|Successfully read 102365行|rows of data
+2026-02-06 15:30:34.144 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655837.fpkm.txt
+2026-02-06 15:30:37.783 - INFO - 成功读取|Successfully read 102364行|rows of data
+2026-02-06 15:30:37.787 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655838.fpkm.txt
+2026-02-06 15:30:41.262 - INFO - 成功读取|Successfully read 102369行|rows of data
+2026-02-06 15:30:41.266 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655839.fpkm.txt
+2026-02-06 15:30:44.658 - INFO - 成功读取|Successfully read 102368行|rows of data
+2026-02-06 15:30:44.662 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655840.fpkm.txt
+2026-02-06 15:30:48.169 - INFO - 成功读取|Successfully read 102373行|rows of data
+2026-02-06 15:30:48.173 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655841.fpkm.txt
+2026-02-06 15:30:51.574 - INFO - 成功读取|Successfully read 102363行|rows of data
+2026-02-06 15:30:51.578 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655842.fpkm.txt
+2026-02-06 15:30:55.189 - INFO - 成功读取|Successfully read 102370行|rows of data
+2026-02-06 15:30:55.193 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655843.fpkm.txt
+2026-02-06 15:30:58.669 - INFO - 成功读取|Successfully read 102376行|rows of data
+2026-02-06 15:30:58.673 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655844.fpkm.txt
+2026-02-06 15:31:02.119 - INFO - 成功读取|Successfully read 102365行|rows of data
+2026-02-06 15:31:02.123 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655845.fpkm.txt
+2026-02-06 15:31:05.800 - INFO - 成功读取|Successfully read 102371行|rows of data
+2026-02-06 15:31:05.803 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655846.fpkm.txt
+2026-02-06 15:31:07.199 - INFO - 成功读取|Successfully read 102363行|rows of data
+2026-02-06 15:31:07.203 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655847.fpkm.txt
+2026-02-06 15:31:10.711 - INFO - 成功读取|Successfully read 102368行|rows of data
+2026-02-06 15:31:10.715 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655848.fpkm.txt
+2026-02-06 15:31:14.138 - INFO - 成功读取|Successfully read 102370行|rows of data
+2026-02-06 15:31:14.142 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655849.fpkm.txt
+2026-02-06 15:31:17.587 - INFO - 成功读取|Successfully read 102371行|rows of data
+2026-02-06 15:31:17.591 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655850.fpkm.txt
+2026-02-06 15:31:21.209 - INFO - 成功读取|Successfully read 102369行|rows of data
+2026-02-06 15:31:21.213 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655851.fpkm.txt
+2026-02-06 15:31:24.385 - INFO - 成功读取|Successfully read 102358行|rows of data
+2026-02-06 15:31:24.389 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655852.fpkm.txt
+2026-02-06 15:31:27.850 - INFO - 成功读取|Successfully read 102376行|rows of data
+2026-02-06 15:31:27.854 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655853.fpkm.txt
+2026-02-06 15:31:31.333 - INFO - 成功读取|Successfully read 102369行|rows of data
+2026-02-06 15:31:31.336 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655854.fpkm.txt
+2026-02-06 15:31:33.854 - INFO - 成功读取|Successfully read 102374行|rows of data
+2026-02-06 15:31:33.854 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655855.fpkm.txt
+2026-02-06 15:31:37.362 - INFO - 成功读取|Successfully read 102372行|rows of data
+2026-02-06 15:31:37.366 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655856.fpkm.txt
+2026-02-06 15:31:40.894 - INFO - 成功读取|Successfully read 102376行|rows of data
+2026-02-06 15:31:40.898 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655857.fpkm.txt
+2026-02-06 15:31:45.007 - INFO - 成功读取|Successfully read 102371行|rows of data
+2026-02-06 15:31:45.011 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655858.fpkm.txt
+2026-02-06 15:31:48.501 - INFO - 成功读取|Successfully read 102378行|rows of data
+2026-02-06 15:31:48.505 - INFO - 读取文件|Reading file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/03.fpkm_tpm/SRR6655859.fpkm.txt
+2026-02-06 15:31:51.927 - INFO - 成功读取|Successfully read 102375行|rows of data
+2026-02-06 15:31:51.930 - INFO - 找到|Found 37个有效数据文件|valid data files
+2026-02-06 15:31:58.233 - INFO - 合并后总计|Total 3787629行|rows after merging
+2026-02-06 15:31:59.123 - INFO - 样本名称|Sample names: CRR2088369, CRR2088370, CRR2088371, CRR2088372, CRR2088373, CRR2088374, SRR6655828, SRR6655829, SRR6655831, SRR6655832, SRR6655833, SRR6655834, SRR6655835, SRR6655836, SRR6655837, SRR6655838, SRR6655839, SRR6655840, SRR6655841, SRR6655842, SRR6655843, SRR6655844, SRR6655845, SRR6655846, SRR6655847, SRR6655848, SRR6655849, SRR6655850, SRR6655851, SRR6655852, SRR6655853, SRR6655854, SRR6655855, SRR6655856, SRR6655857, SRR6655858, SRR6655859
+2026-02-06 15:31:59.126 - INFO - 生成all_fpkm_tpm.txt文件|Generating all_fpkm_tpm.txt...
+2026-02-06 15:33:19.470 - INFO - 保存完成|Save completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/all_fpkm_tpm.txt (3787629行|rows)
+2026-02-06 15:33:30.895 - INFO - 生成总结报告|Generating summary report
+2026-02-06 15:33:30.903 - INFO - 总结报告已生成|Summary report generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/rnaseq_summary.txt
+2026-02-06 15:33:30.903 - INFO - ============================================================
+2026-02-06 15:33:30.904 - INFO - 分析流程总结|Pipeline Summary
+2026-02-06 15:33:30.904 - INFO - ============================================================
+2026-02-06 15:33:30.904 - INFO - 总运行时间|Total runtime: 24592.88 秒|seconds
+2026-02-06 15:33:30.904 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq
+2026-02-06 15:33:30.904 - INFO - 分析流程成功完成|Pipeline completed successfully
+2026-02-06 15:33:30.904 - INFO - 主要输出文件|Main output file: all_fpkm_tpm.txt
+2026-02-06 15:33:30.904 - INFO - ============================================================

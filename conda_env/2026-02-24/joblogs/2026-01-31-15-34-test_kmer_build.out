@@ -1,0 +1,10 @@
+2026-01-31 15:34:25.958 - INFO - 找到kmindex|Found kmindex: kmindex v0.6.0
+2026-01-31 15:34:25.958 - INFO - ============================================================
+2026-01-31 15:34:25.958 - INFO - 开始K-mer库构建|Starting K-mer database build
+2026-01-31 15:34:25.958 - INFO - ============================================================
+2026-01-31 15:34:25.958 - INFO - [步骤1/2] 生成FOF文件|[Step 1/2] Generating FOF file
+2026-01-31 15:34:25.958 - INFO - 正在生成FOF文件|Generating FOF file: fof.txt
+2026-01-31 15:34:25.976 - INFO - FOF文件生成成功|FOF file generated successfully: fof.txt
+2026-01-31 15:34:25.976 - INFO - 共|Total 7 个样本|samples
+2026-01-31 15:34:25.976 - INFO - [步骤2/2] 运行kmindex build|[Step 2/2] Running kmindex build
+2026-01-31 15:34:25.976 - INFO - 运行命令|Running command: kmindex build -f fof.txt -d kmindex_index -i kmer_index -r kmer_index -k 51 --hard-min 2 --bloom-size 1000000000000 -t 32 --cpr

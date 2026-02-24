@@ -1,0 +1,50 @@
+[bwa_index] Pack FASTA... 4.19 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=2048793694, availableWord=156160268
+[BWTIncConstructFromPacked] 10 iterations done. 99999998 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 199999998 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 299999998 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 399999998 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 499999998 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 599999998 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 699999998 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 799999998 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 899999998 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 999999998 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 1099999998 characters processed.
+[BWTIncConstructFromPacked] 120 iterations done. 1199999998 characters processed.
+[BWTIncConstructFromPacked] 130 iterations done. 1299999998 characters processed.
+[BWTIncConstructFromPacked] 140 iterations done. 1399549486 characters processed.
+[BWTIncConstructFromPacked] 150 iterations done. 1490827998 characters processed.
+[BWTIncConstructFromPacked] 160 iterations done. 1571952590 characters processed.
+[BWTIncConstructFromPacked] 170 iterations done. 1644052334 characters processed.
+[BWTIncConstructFromPacked] 180 iterations done. 1708130718 characters processed.
+[BWTIncConstructFromPacked] 190 iterations done. 1765079790 characters processed.
+[BWTIncConstructFromPacked] 200 iterations done. 1815692222 characters processed.
+[BWTIncConstructFromPacked] 210 iterations done. 1860672670 characters processed.
+[BWTIncConstructFromPacked] 220 iterations done. 1900647390 characters processed.
+[BWTIncConstructFromPacked] 230 iterations done. 1936172958 characters processed.
+[BWTIncConstructFromPacked] 240 iterations done. 1967744190 characters processed.
+[BWTIncConstructFromPacked] 250 iterations done. 1995800718 characters processed.
+[BWTIncConstructFromPacked] 260 iterations done. 2020733406 characters processed.
+[BWTIncConstructFromPacked] 270 iterations done. 2042889614 characters processed.
+[bwt_gen] Finished constructing BWT in 273 iterations.
+[bwa_index] 541.68 seconds elapse.
+[bwa_index] Update BWT... 3.61 sec
+[bwa_index] Pack forward-only FASTA... 2.49 sec
+[bwa_index] Construct SA from BWT and Occ... 245.86 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index /share/org/YZWL/yzwl_lixg/project//21.野生大豆群体/01.data/genome/genome.fa
+[main] Real time: 799.902 sec; CPU: 797.828 sec
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar CreateSequenceDictionary -R /share/org/YZWL/yzwl_lixg/project//21.野生大豆群体/01.data/genome/genome.fa -O /share/org/YZWL/yzwl_lixg/project//21.野生大豆群体/01.data/genome/genome.dict
+12:27:06.968 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Nov 03 12:27:06 CST 2025] CreateSequenceDictionary --OUTPUT /share/org/YZWL/yzwl_lixg/project//21.野生大豆群体/01.data/genome/genome.dict --REFERENCE /share/org/YZWL/yzwl_lixg/project//21.野生大豆群体/01.data/genome/genome.fa --TRUNCATE_NAMES_AT_WHITESPACE true --NUM_SEQUENCES 2147483647 --VERBOSITY INFO --QUIET false --VALIDATION_STRINGENCY STRICT --COMPRESSION_LEVEL 2 --MAX_RECORDS_IN_RAM 500000 --CREATE_INDEX false --CREATE_MD5_FILE false --help false --version false --showHidden false --USE_JDK_DEFLATER false --USE_JDK_INFLATER false
+[Mon Nov 03 12:27:07 CST 2025] Executing as yzwl_lixg@c01n0539 on Linux 4.18.0-513.5.1.el8_9.x86_64 amd64; OpenJDK 64-Bit Server VM 17.0.15-internal+0-adhoc..src; Deflater: Intel; Inflater: Intel; Provider GCS is available; Picard version: Version:4.6.2.0
+[Mon Nov 03 12:27:09 CST 2025] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.05 minutes.
+Runtime.totalMemory()=1258291200
+
+Aborted!
+Job 67864885 stderr output:
+

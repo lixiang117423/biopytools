@@ -1,0 +1,18 @@
+2026-01-07 15:40:15.479 - INFO - ================================================================================
+2026-01-07 15:40:15.479 - INFO - 开始VCF系统发育分析|Starting VCF phylogenetic analysis
+2026-01-07 15:40:15.479 - INFO - ================================================================================
+2026-01-07 15:40:15.479 - INFO - 检查依赖软件|Checking dependencies
+2026-01-07 15:40:15.481 - INFO - VCF2Dis 可用|available
+2026-01-07 15:40:15.482 - INFO - nw_reroot 可用|available
+2026-01-07 15:40:15.482 - INFO - Python包 numpy 可用|Python package numpy available
+2026-01-07 15:40:15.636 - INFO - Python包 pandas 可用|Python package pandas available
+2026-01-07 15:40:15.638 - INFO - Python包 scipy 可用|Python package scipy available
+2026-01-07 15:40:16.034 - INFO - Python包 scikit-bio 可用|Python package scikit-bio available
+2026-01-07 15:40:16.034 - INFO - ----------------------------------------
+2026-01-07 15:40:16.034 - INFO - 步骤1: 计算距离矩阵|Step 1: Calculate distance matrix
+2026-01-07 15:40:16.034 - INFO - ----------------------------------------
+2026-01-07 15:40:16.034 - INFO - 开始计算VCF距离矩阵|Starting VCF distance matrix calculation
+2026-01-07 15:40:16.034 - WARNING - 无法获取VCF统计信息|Cannot get VCF statistics: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte
+2026-01-07 15:40:16.035 - INFO - 执行步骤|Executing step: 使用VCF2Dis计算距离矩阵|Calculate distance matrix using VCF2Dis
+2026-01-07 15:40:16.035 - INFO - 命令|Command: VCF2Dis -InPut /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree/renamed.snp.vcf.gz -OutPut /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree/.dis
+2026-01-07 15:40:16.035 - INFO - 工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree

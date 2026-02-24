@@ -1,0 +1,26 @@
+2025-11-14 08:45:32,377 - INFO - ================================================================================
+2025-11-14 08:45:32,377 - INFO - 🚀 开始SRA转FASTQ转换流程 | Starting SRA to FASTQ Conversion Pipeline
+2025-11-14 08:45:32,377 - INFO - ================================================================================
+2025-11-14 08:45:32,377 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-14 08:45:33,856 - INFO - ✅ parallel-fastq-dump 可用 (推荐) | available (recommended)
+2025-11-14 08:45:33,856 - INFO -    版本 | Version: fastq-dump : 3.2.1
+
+parallel-fastq-dump : 0.6.7
+2025-11-14 08:45:33,877 - INFO - ✅ fastq-dump 可用 (备选) | available (fallback)
+2025-11-14 08:45:33,877 - INFO - 📋 转换配置 | Conversion Configuration:
+2025-11-14 08:45:33,877 - INFO -   输入路径 | Input: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第五批/sra
+2025-11-14 08:45:33,877 - INFO -   输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第五批/fastq
+2025-11-14 08:45:33,877 - INFO -   文件数量 | Files: 2
+2025-11-14 08:45:33,877 - INFO -   转换工具 | Tool: parallel-fastq-dump ⚡ (推荐)
+2025-11-14 08:45:33,877 - INFO -   线程数 | Threads: 80
+2025-11-14 08:45:33,877 - INFO -   压缩输出 | Compress: True
+2025-11-14 08:45:33,877 - INFO - 🔄 开始批量转换 | Starting batch conversion...
+2025-11-14 08:45:33,877 - INFO - 📊 共找到 2 个SRA文件 | Found 2 SRA files
+2025-11-14 08:45:33,877 - INFO - 🔄 总进度 | Overall Progress: [1/2]
+2025-11-14 08:45:33,877 - INFO - ============================================================
+2025-11-14 08:45:33,877 - INFO - 📦 处理文件 | Processing file: ERR274382
+2025-11-14 08:45:33,877 - INFO - ============================================================
+2025-11-14 08:45:33,877 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-14 08:45:33,877 - INFO - 🧵 线程数 | Threads: 80
+2025-11-14 08:45:33,877 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR274382
+2025-11-14 08:45:33,877 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第五批/sra/ERR274382.sra --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第五批/fastq --split-files --gzip --skip-technical

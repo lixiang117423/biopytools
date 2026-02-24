@@ -1,0 +1,205 @@
+--- 开始筛选唯一比对的 reads (使用 MAPQ >= 20) ---
+输入文件夹: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each/bam
+输出文件夹: /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads
+---------------------------------------------------------
+正在处理: 100.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/100.sorted.bam 创建索引...
+完成处理: 100.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/100.sorted.bam
+---------------------------------------------------------
+正在处理: 103.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/103.sorted.bam 创建索引...
+完成处理: 103.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/103.sorted.bam
+---------------------------------------------------------
+正在处理: 105.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/105.sorted.bam 创建索引...
+完成处理: 105.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/105.sorted.bam
+---------------------------------------------------------
+正在处理: 106.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/106.sorted.bam 创建索引...
+完成处理: 106.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/106.sorted.bam
+---------------------------------------------------------
+正在处理: 10.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/10.sorted.bam 创建索引...
+完成处理: 10.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/10.sorted.bam
+---------------------------------------------------------
+正在处理: 113.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/113.sorted.bam 创建索引...
+完成处理: 113.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/113.sorted.bam
+---------------------------------------------------------
+正在处理: 117.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/117.sorted.bam 创建索引...
+完成处理: 117.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/117.sorted.bam
+---------------------------------------------------------
+正在处理: 12.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/12.sorted.bam 创建索引...
+完成处理: 12.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/12.sorted.bam
+---------------------------------------------------------
+正在处理: 140.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/140.sorted.bam 创建索引...
+完成处理: 140.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/140.sorted.bam
+---------------------------------------------------------
+正在处理: 148.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/148.sorted.bam 创建索引...
+完成处理: 148.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/148.sorted.bam
+---------------------------------------------------------
+正在处理: 150.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/150.sorted.bam 创建索引...
+完成处理: 150.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/150.sorted.bam
+---------------------------------------------------------
+正在处理: 16.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/16.sorted.bam 创建索引...
+完成处理: 16.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/16.sorted.bam
+---------------------------------------------------------
+正在处理: 23.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/23.sorted.bam 创建索引...
+完成处理: 23.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/23.sorted.bam
+---------------------------------------------------------
+正在处理: 26.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/26.sorted.bam 创建索引...
+完成处理: 26.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/26.sorted.bam
+---------------------------------------------------------
+正在处理: 28.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/28.sorted.bam 创建索引...
+完成处理: 28.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/28.sorted.bam
+---------------------------------------------------------
+正在处理: 2.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/2.sorted.bam 创建索引...
+完成处理: 2.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/2.sorted.bam
+---------------------------------------------------------
+正在处理: 40.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/40.sorted.bam 创建索引...
+完成处理: 40.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/40.sorted.bam
+---------------------------------------------------------
+正在处理: 41.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/41.sorted.bam 创建索引...
+完成处理: 41.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/41.sorted.bam
+---------------------------------------------------------
+正在处理: 42.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/42.sorted.bam 创建索引...
+完成处理: 42.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/42.sorted.bam
+---------------------------------------------------------
+正在处理: 43.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/43.sorted.bam 创建索引...
+完成处理: 43.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/43.sorted.bam
+---------------------------------------------------------
+正在处理: 44.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/44.sorted.bam 创建索引...
+完成处理: 44.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/44.sorted.bam
+---------------------------------------------------------
+正在处理: 45.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/45.sorted.bam 创建索引...
+完成处理: 45.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/45.sorted.bam
+---------------------------------------------------------
+正在处理: 46.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/46.sorted.bam 创建索引...
+完成处理: 46.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/46.sorted.bam
+---------------------------------------------------------
+正在处理: 47.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/47.sorted.bam 创建索引...
+完成处理: 47.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/47.sorted.bam
+---------------------------------------------------------
+正在处理: 48.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/48.sorted.bam 创建索引...
+完成处理: 48.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/48.sorted.bam
+---------------------------------------------------------
+正在处理: 49.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/49.sorted.bam 创建索引...
+完成处理: 49.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/49.sorted.bam
+---------------------------------------------------------
+正在处理: 50.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/50.sorted.bam 创建索引...
+完成处理: 50.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/50.sorted.bam
+---------------------------------------------------------
+正在处理: 51.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/51.sorted.bam 创建索引...
+完成处理: 51.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/51.sorted.bam
+---------------------------------------------------------
+正在处理: 52.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/52.sorted.bam 创建索引...
+完成处理: 52.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/52.sorted.bam
+---------------------------------------------------------
+正在处理: 53.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/53.sorted.bam 创建索引...
+完成处理: 53.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/53.sorted.bam
+---------------------------------------------------------
+正在处理: 54.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/54.sorted.bam 创建索引...
+完成处理: 54.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/54.sorted.bam
+---------------------------------------------------------
+正在处理: 55.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/55.sorted.bam 创建索引...
+完成处理: 55.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/55.sorted.bam
+---------------------------------------------------------
+正在处理: 56.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/56.sorted.bam 创建索引...
+完成处理: 56.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/56.sorted.bam
+---------------------------------------------------------
+正在处理: 57.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/57.sorted.bam 创建索引...
+完成处理: 57.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/57.sorted.bam
+---------------------------------------------------------
+正在处理: 58.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/58.sorted.bam 创建索引...
+完成处理: 58.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/58.sorted.bam
+---------------------------------------------------------
+正在处理: 59.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/59.sorted.bam 创建索引...
+完成处理: 59.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/59.sorted.bam
+---------------------------------------------------------
+正在处理: 60.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/60.sorted.bam 创建索引...
+完成处理: 60.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/60.sorted.bam
+---------------------------------------------------------
+正在处理: 69.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/69.sorted.bam 创建索引...
+完成处理: 69.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/69.sorted.bam
+---------------------------------------------------------
+正在处理: 74.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/74.sorted.bam 创建索引...
+完成处理: 74.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/74.sorted.bam
+---------------------------------------------------------
+正在处理: 75.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/75.sorted.bam 创建索引...
+完成处理: 75.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/75.sorted.bam
+---------------------------------------------------------
+正在处理: 77.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/77.sorted.bam 创建索引...
+完成处理: 77.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/77.sorted.bam
+---------------------------------------------------------
+正在处理: 78.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/78.sorted.bam 创建索引...
+完成处理: 78.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/78.sorted.bam
+---------------------------------------------------------
+正在处理: 79.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/79.sorted.bam 创建索引...
+完成处理: 79.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/79.sorted.bam
+---------------------------------------------------------
+正在处理: 7.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/7.sorted.bam 创建索引...
+完成处理: 7.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/7.sorted.bam
+---------------------------------------------------------
+正在处理: 85.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/85.sorted.bam 创建索引...
+完成处理: 85.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/85.sorted.bam
+---------------------------------------------------------
+正在处理: 88.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/88.sorted.bam 创建索引...
+完成处理: 88.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/88.sorted.bam
+---------------------------------------------------------
+正在处理: 89.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/89.sorted.bam 创建索引...
+完成处理: 89.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/89.sorted.bam
+---------------------------------------------------------
+正在处理: 90.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/90.sorted.bam 创建索引...
+完成处理: 90.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/90.sorted.bam
+---------------------------------------------------------
+正在处理: 94.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/94.sorted.bam 创建索引...
+完成处理: 94.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/94.sorted.bam
+---------------------------------------------------------
+正在处理: 95.sorted.bam
+正在为 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/95.sorted.bam 创建索引...
+完成处理: 95.sorted.bam -> /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/95.sorted.bam
+---------------------------------------------------------
+--- 所有文件处理完毕！ ---

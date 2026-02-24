@@ -1,0 +1,82 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║         🧬 Puzzle Hi-C 基因组组装流程 v2.0                          ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[2025-11-27 09:42:49] ℹ️  Pipeline started
+[2025-11-27 09:42:49] ℹ️  Project: OV53-1
+[2025-11-27 09:42:49] ℹ️  Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis
+[2025-11-27 09:42:49] ℹ️  Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis/pipeline_20251127_094249.log
+[2025-11-27 09:42:49] ℹ️  [Step 0] 检查环境和输入文件...
+[2025-11-27 09:42:49] ✅ 输入文件检查通过
+[2025-11-27 09:42:49] ✅ 软件目录检查通过
+[2025-11-27 09:42:49] ✅ 必要命令检查通过
+[2025-11-27 09:42:49] ✅ 目录结构创建完成
+[2025-11-27 09:42:49] ℹ️  [Step 1] 准备参考基因组索引...
+[2025-11-27 09:42:49] ✅ 参考基因组链接创建: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis/ref/OV53-1.fasta
+[2025-11-27 09:42:49] ℹ️  构建 BWA 索引...
+[bwa_index] Pack FASTA... 6.09 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=3028876484, availableWord=225122508
+[BWTIncConstructFromPacked] 10 iterations done. 99999988 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 199999988 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 299999988 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 399999988 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 499999988 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 599999988 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 699999988 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 799999988 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 899999988 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 999999988 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 1099999988 characters processed.
+[BWTIncConstructFromPacked] 120 iterations done. 1199999988 characters processed.
+[BWTIncConstructFromPacked] 130 iterations done. 1299999988 characters processed.
+[BWTIncConstructFromPacked] 140 iterations done. 1399999988 characters processed.
+[BWTIncConstructFromPacked] 150 iterations done. 1499999988 characters processed.
+[BWTIncConstructFromPacked] 160 iterations done. 1599999988 characters processed.
+[BWTIncConstructFromPacked] 170 iterations done. 1699999988 characters processed.
+[BWTIncConstructFromPacked] 180 iterations done. 1799999988 characters processed.
+[BWTIncConstructFromPacked] 190 iterations done. 1899999988 characters processed.
+[BWTIncConstructFromPacked] 200 iterations done. 1999999988 characters processed.
+[BWTIncConstructFromPacked] 210 iterations done. 2099999988 characters processed.
+[BWTIncConstructFromPacked] 220 iterations done. 2199999988 characters processed.
+[BWTIncConstructFromPacked] 230 iterations done. 2299999988 characters processed.
+[BWTIncConstructFromPacked] 240 iterations done. 2398701460 characters processed.
+[BWTIncConstructFromPacked] 250 iterations done. 2487898420 characters processed.
+[BWTIncConstructFromPacked] 260 iterations done. 2567172884 characters processed.
+[BWTIncConstructFromPacked] 270 iterations done. 2637628212 characters processed.
+[BWTIncConstructFromPacked] 280 iterations done. 2700245076 characters processed.
+[BWTIncConstructFromPacked] 290 iterations done. 2755895108 characters processed.
+[BWTIncConstructFromPacked] 300 iterations done. 2805352996 characters processed.
+[BWTIncConstructFromPacked] 310 iterations done. 2849307252 characters processed.
+[BWTIncConstructFromPacked] 320 iterations done. 2888369860 characters processed.
+[BWTIncConstructFromPacked] 330 iterations done. 2923084772 characters processed.
+[BWTIncConstructFromPacked] 340 iterations done. 2953935460 characters processed.
+[BWTIncConstructFromPacked] 350 iterations done. 2981351588 characters processed.
+[BWTIncConstructFromPacked] 360 iterations done. 3005715092 characters processed.
+[BWTIncConstructFromPacked] 370 iterations done. 3027365412 characters processed.
+[bwt_gen] Finished constructing BWT in 371 iterations.
+[bwa_index] 856.65 seconds elapse.
+[bwa_index] Update BWT... 5.73 sec
+[bwa_index] Pack forward-only FASTA... 3.58 sec
+[bwa_index] Construct SA from BWT and Occ... 370.15 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis/ref/OV53-1.fasta
+[main] Real time: 1244.778 sec; CPU: 1242.201 sec
+[2025-11-27 10:03:33] ✅ BWA 索引构建完成
+[2025-11-27 10:03:33] ℹ️  生成 chrom.sizes 文件...
+[2025-11-27 10:03:38] ℹ️  检测到 1211 个序列
+[2025-11-27 10:03:38] ✅ chrom.sizes 生成完成
+[2025-11-27 10:03:38] ℹ️  生成限制性内切酶位点文件 (MboI)...
+[2025-11-27 10:12:08] ✅ 酶切位点文件生成完成
+[2025-11-27 10:12:08] ℹ️  [Step 2] 准备 Hi-C 测序数据...
+[2025-11-27 10:12:08] ℹ️  验证 FASTQ 文件格式...
+[2025-11-27 10:12:08] ⚠️  FASTQ 文件格式验证超时或异常，继续执行（假设文件格式正确）
+[2025-11-27 10:12:08] ℹ️  如果后续步骤失败，请手动检查 FASTQ 文件
+[2025-11-27 10:12:08] ℹ️  [Step 3] 运行 Juicer 流程 (比对与过滤)...
+[2025-11-27 10:12:08] ℹ️  准备 Juicer 工作目录结构...
+[2025-11-27 10:12:08] ✅ 链接 Juicer scripts/common 目录
+[2025-11-27 10:12:08] ℹ️  使用酶切位点文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis/ref/OV53-1_MboI.txt
+[2025-11-27 10:12:08] ℹ️  执行命令: /share/org/YZWL/yzwl_lixg/software/juicer/scripts/juicer.sh -d /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis -z /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis/ref/OV53-1.fasta -p /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis/ref/OV53-1.chrom.sizes -t 64 -y /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis/ref/OV53-1_MboI.txt
+[2025-11-27 10:12:08] ⚠️  注意: Juicer 运行时间可能很长（数小时到数天），请耐心等待...
+***! Move or remove directory "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/OV53-1_analysis/aligned" before proceeding.
+***! Type "juicer.sh -h " for help

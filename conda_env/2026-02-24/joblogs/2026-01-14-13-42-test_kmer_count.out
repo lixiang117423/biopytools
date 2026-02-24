@@ -1,0 +1,132 @@
+2026-01-14 13:42:19.063 - INFO - ============================================================
+2026-01-14 13:42:19.064 - INFO - 开始K-mer丰度分析|Starting K-mer abundance analysis
+2026-01-14 13:42:19.064 - INFO - ============================================================
+2026-01-14 13:42:19.064 - INFO - ============================================================
+2026-01-14 13:42:19.064 - INFO - 进度摘要|Progress Summary:
+2026-01-14 13:42:19.064 - INFO -   已完成步骤|Completed steps: 0/8
+2026-01-14 13:42:19.064 - INFO -   开始时间|Start time: 2026-01-14T13:42:19.064584
+2026-01-14 13:42:19.064 - INFO -   最后更新|Last update: 2026-01-14T13:42:19.064593
+2026-01-14 13:42:19.064 - INFO -   剩余步骤|Remaining steps: 8
+2026-01-14 13:42:19.064 - INFO - ============================================================
+2026-01-14 13:42:19.065 - INFO - 步骤1: 检查依赖软件|Step 1: Checking dependencies
+2026-01-14 13:42:19.065 - INFO - 检查依赖软件|Checking dependencies
+2026-01-14 13:42:19.068 - INFO - Jellyfish 可用|available: jellyfish 2.2.10
+2026-01-14 13:42:19.068 - INFO - 步骤1: 检查依赖软件|Step 1: Checking dependencies 已完成|步骤1: 检查依赖软件|Step 1: Checking dependencies completed
+2026-01-14 13:42:19.068 - INFO - 进度已保存|Progress saved to: 03.kmer丰度/.kmer_count_progress.json
+2026-01-14 13:42:19.068 - INFO - 步骤2: 设置临时目录|Step 2: Setting up temporary directory
+2026-01-14 13:42:19.069 - INFO - 临时目录: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/tmp/kmer_count_1768369339_3715
+2026-01-14 13:42:19.069 - INFO - 步骤2: 设置临时目录|Step 2: Setting up temporary directory 已完成|步骤2: 设置临时目录|Step 2: Setting up temporary directory completed
+2026-01-14 13:42:19.069 - INFO - 进度已保存|Progress saved to: 03.kmer丰度/.kmer_count_progress.json
+2026-01-14 13:42:19.069 - INFO - 步骤3: 查找输入文件|Step 3: Finding input files
+2026-01-14 13:42:19.070 - INFO -  查找输入文件|Finding input files
+2026-01-14 13:42:19.070 - INFO -  输入目录: 00.fastq
+2026-01-14 13:42:19.070 - INFO -  文件模式: *_1.clean.fq.gz
+2026-01-14 13:42:19.070 - INFO -  输入目录是否存在: True
+2026-01-14 13:42:19.070 - INFO -  目录中的文件: ['OV8-105_1.clean.fq.gz', 'OV8-106_1.clean.fq.gz', 'OV8-107_1.clean.fq.gz', 'OV8-108_1.clean.fq.gz', 'OV8-105_2.clean.fq.gz', 'OV8-106_2.clean.fq.gz', 'OV8-108_2.clean.fq.gz', 'OV8-107_2.clean.fq.gz']
+2026-01-14 13:42:19.070 - INFO -  使用FASTQ文件处理逻辑|Using FASTQ file processing logic
+2026-01-14 13:42:19.073 - INFO -  常规文件|Regular file: OV8-105_1.clean.fq.gz
+2026-01-14 13:42:19.073 - INFO -  常规文件|Regular file: OV8-106_1.clean.fq.gz
+2026-01-14 13:42:19.073 - INFO -  常规文件|Regular file: OV8-107_1.clean.fq.gz
+2026-01-14 13:42:19.073 - INFO -  常规文件|Regular file: OV8-108_1.clean.fq.gz
+2026-01-14 13:42:19.073 - INFO -  找到4个有效R1文件
+2026-01-14 13:42:19.073 - INFO -  提取样本名: OV8-105
+2026-01-14 13:42:19.073 - INFO - 找到双端样本|Found paired-end sample: OV8-105
+2026-01-14 13:42:19.073 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/00.fastq/OV8-105_1.clean.fq.gz
+2026-01-14 13:42:19.073 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/00.fastq/OV8-105_2.clean.fq.gz
+2026-01-14 13:42:19.073 - INFO -  提取样本名: OV8-106
+2026-01-14 13:42:19.073 - INFO - 找到双端样本|Found paired-end sample: OV8-106
+2026-01-14 13:42:19.073 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/00.fastq/OV8-106_1.clean.fq.gz
+2026-01-14 13:42:19.073 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/00.fastq/OV8-106_2.clean.fq.gz
+2026-01-14 13:42:19.073 - INFO -  提取样本名: OV8-107
+2026-01-14 13:42:19.073 - INFO - 找到双端样本|Found paired-end sample: OV8-107
+2026-01-14 13:42:19.073 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/00.fastq/OV8-107_1.clean.fq.gz
+2026-01-14 13:42:19.077 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/00.fastq/OV8-107_2.clean.fq.gz
+2026-01-14 13:42:19.077 - INFO -  提取样本名: OV8-108
+2026-01-14 13:42:19.077 - INFO - 找到双端样本|Found paired-end sample: OV8-108
+2026-01-14 13:42:19.077 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/00.fastq/OV8-108_1.clean.fq.gz
+2026-01-14 13:42:19.078 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmer_count/00.fastq/OV8-108_2.clean.fq.gz
+2026-01-14 13:42:19.078 - INFO - 步骤3: 查找输入文件|Step 3: Finding input files 已完成|步骤3: 查找输入文件|Step 3: Finding input files completed
+2026-01-14 13:42:19.078 - INFO - 进度已保存|Progress saved to: 03.kmer丰度/.kmer_count_progress.json
+2026-01-14 13:42:19.078 - INFO - 步骤4: 准备k-mer库|Step 4: Preparing k-mer library
+2026-01-14 13:42:19.078 - INFO - 准备k-mer库文件|Preparing k-mer library file
+2026-01-14 13:42:19.078 - INFO - 中间文件目录|Intermediate files directory: 03.kmer丰度/intermediate_files
+2026-01-14 13:42:19.083 - INFO - 已保存大写k-mer文件|Saved uppercase k-mer file: 03.kmer丰度/intermediate_files/kmers_upper.fasta
+2026-01-14 13:42:19.130 - INFO - k-mer库已扩展，保存到: 03.kmer丰度/intermediate_files/kmers_expanded.fasta
+2026-01-14 13:42:19.130 - INFO - 步骤4: 准备k-mer库|Step 4: Preparing k-mer library 已完成|步骤4: 准备k-mer库|Step 4: Preparing k-mer library completed
+2026-01-14 13:42:19.130 - INFO - 进度已保存|Progress saved to: 03.kmer丰度/.kmer_count_progress.json
+2026-01-14 13:42:19.130 - INFO - 步骤5: 解析注释信息|Step 5: Parsing annotation information
+2026-01-14 13:42:19.130 - INFO - 解析k-mer库|Parsing k-mer library
+2026-01-14 13:42:19.131 - INFO - k-mer映射数据库|K-mer mapping database: 03.kmer丰度/intermediate_files/kmer_mapping.db
+2026-01-14 13:42:19.131 - INFO - 性能优化配置|Performance optimizations: batch_size=1M, journal=OFF, synchronous=OFF, 无内存字典, 延迟创建索引
+2026-01-14 13:42:19.131 - INFO - 开始读取FASTA文件|Start reading FASTA file: 03.kmer丰度/intermediate_files/kmers_expanded.fasta
+2026-01-14 13:42:19.175 - INFO - 数据导入完成，共22930个k-mer|Data import completed, 22930 k-mers total
+2026-01-14 13:42:19.175 - INFO - 创建索引以加速查询|Creating index for faster queries
+2026-01-14 13:42:19.185 - INFO - 解析完成，共22930个k-mer|Parsing completed, 22930 k-mers total
+2026-01-14 13:42:19.189 - INFO - k-mer映射已保存到数据库|K-mer mapping saved to: 03.kmer丰度/intermediate_files/kmer_mapping.db
+2026-01-14 13:42:19.189 - INFO - 数据规模较小，使用内存字典|Small dataset, using in-memory dictionary
+2026-01-14 13:42:19.190 - INFO -  解析BED文件|Parsing BED file
+2026-01-14 13:42:19.201 - INFO -  成功读取BED文件前6列|Successfully read first 6 columns of BED file
+2026-01-14 13:42:19.204 - INFO - 已处理11465个k-mer序列|Processed 11465 k-mer sequences
+2026-01-14 13:42:19.222 - INFO - 已保存处理后的BED文件|Saved processed BED file: 03.kmer丰度/intermediate_files/processed_kmers.bed
+2026-01-14 13:42:19.222 - INFO -  BED文件解析完成，共11465条记录|BED file parsing completed, 11465 records total
+2026-01-14 13:42:19.222 - INFO - 步骤5: 解析注释信息|Step 5: Parsing annotation information 已完成|步骤5: 解析注释信息|Step 5: Parsing annotation information completed
+2026-01-14 13:42:19.222 - INFO - 进度已保存|Progress saved to: 03.kmer丰度/.kmer_count_progress.json
+2026-01-14 13:42:19.222 - INFO - 步骤6: 处理样本|Step 6: Processing samples
+2026-01-14 13:42:19.222 - INFO - 处理样本|Processing sample: OV8-105
+2026-01-14 13:42:19.222 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-105
+2026-01-14 13:42:19.223 - INFO -  创建generator文件|Created generator file: 03.kmer丰度/jellyfish_cache/OV8-105_generator.txt
+2026-01-14 13:42:19.223 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV8-105
+2026-01-14 13:42:19.223 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 64 -g 03.kmer丰度/jellyfish_cache/OV8-105_generator.txt -o 03.kmer丰度/jellyfish_cache/OV8-105.jf
+2026-01-14 13:46:56.461 - INFO - 命令执行成功|Command executed successfully
+2026-01-14 13:46:56.462 - INFO -  K-mer计数完成|K-mer counting completed: 03.kmer丰度/jellyfish_cache/OV8-105.jf
+2026-01-14 13:46:56.462 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV8-105
+2026-01-14 13:46:56.462 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV8-105
+2026-01-14 13:46:56.462 - INFO - 命令|Command: jellyfish query -s 03.kmer丰度/intermediate_files/kmers_expanded.fasta 03.kmer丰度/jellyfish_cache/OV8-105.jf -o 03.kmer丰度/jellyfish_cache/OV8-105.kmers.count
+2026-01-14 13:47:31.244 - INFO - 命令执行成功|Command executed successfully
+2026-01-14 13:47:31.244 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: 03.kmer丰度/jellyfish_cache/OV8-105.kmers.count
+2026-01-14 13:47:31.245 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV8-105
+2026-01-14 13:47:31.314 - INFO -  解析完成，去重后共22912个k-mer结果|Parsing completed, 22912 unique k-mer results after deduplication
+2026-01-14 13:47:31.315 - INFO - 合并样品OV8-105与BED文件
+2026-01-14 13:47:34.585 - INFO - 样品OV8-105合并完成，共0行
+2026-01-14 13:47:34.586 - INFO - 样品OV8-105结果已保存: 03.kmer丰度/each_sample/OV8-105_kmer_abundance.tsv
+2026-01-14 13:47:34.586 - INFO - 处理样本|Processing sample: OV8-106
+2026-01-14 13:47:34.586 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-106
+2026-01-14 13:47:34.587 - INFO -  创建generator文件|Created generator file: 03.kmer丰度/jellyfish_cache/OV8-106_generator.txt
+2026-01-14 13:47:34.587 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV8-106
+2026-01-14 13:47:34.587 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 64 -g 03.kmer丰度/jellyfish_cache/OV8-106_generator.txt -o 03.kmer丰度/jellyfish_cache/OV8-106.jf
+2026-01-14 13:51:49.624 - INFO - 命令执行成功|Command executed successfully
+2026-01-14 13:51:49.624 - INFO -  K-mer计数完成|K-mer counting completed: 03.kmer丰度/jellyfish_cache/OV8-106.jf
+2026-01-14 13:51:49.624 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV8-106
+2026-01-14 13:51:49.624 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV8-106
+2026-01-14 13:51:49.624 - INFO - 命令|Command: jellyfish query -s 03.kmer丰度/intermediate_files/kmers_expanded.fasta 03.kmer丰度/jellyfish_cache/OV8-106.jf -o 03.kmer丰度/jellyfish_cache/OV8-106.kmers.count
+2026-01-14 13:52:21.135 - INFO - 命令执行成功|Command executed successfully
+2026-01-14 13:52:21.158 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: 03.kmer丰度/jellyfish_cache/OV8-106.kmers.count
+2026-01-14 13:52:21.158 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV8-106
+2026-01-14 13:52:21.180 - INFO -  解析完成，去重后共22912个k-mer结果|Parsing completed, 22912 unique k-mer results after deduplication
+2026-01-14 13:52:21.182 - INFO - 合并样品OV8-106与BED文件
+2026-01-14 13:52:24.470 - INFO - 样品OV8-106合并完成，共0行
+2026-01-14 13:52:24.472 - INFO - 样品OV8-106结果已保存: 03.kmer丰度/each_sample/OV8-106_kmer_abundance.tsv
+2026-01-14 13:52:24.472 - INFO - 处理样本|Processing sample: OV8-107
+2026-01-14 13:52:24.472 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-107
+2026-01-14 13:52:24.472 - INFO -  创建generator文件|Created generator file: 03.kmer丰度/jellyfish_cache/OV8-107_generator.txt
+2026-01-14 13:52:24.472 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV8-107
+2026-01-14 13:52:24.472 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 64 -g 03.kmer丰度/jellyfish_cache/OV8-107_generator.txt -o 03.kmer丰度/jellyfish_cache/OV8-107.jf
+2026-01-14 13:56:49.263 - INFO - 命令执行成功|Command executed successfully
+2026-01-14 13:56:49.264 - INFO -  K-mer计数完成|K-mer counting completed: 03.kmer丰度/jellyfish_cache/OV8-107.jf
+2026-01-14 13:56:49.275 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV8-107
+2026-01-14 13:56:49.275 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV8-107
+2026-01-14 13:56:49.275 - INFO - 命令|Command: jellyfish query -s 03.kmer丰度/intermediate_files/kmers_expanded.fasta 03.kmer丰度/jellyfish_cache/OV8-107.jf -o 03.kmer丰度/jellyfish_cache/OV8-107.kmers.count
+2026-01-14 13:57:21.395 - INFO - 命令执行成功|Command executed successfully
+2026-01-14 13:57:21.395 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: 03.kmer丰度/jellyfish_cache/OV8-107.kmers.count
+2026-01-14 13:57:21.395 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV8-107
+2026-01-14 13:57:21.417 - INFO -  解析完成，去重后共22912个k-mer结果|Parsing completed, 22912 unique k-mer results after deduplication
+2026-01-14 13:57:21.418 - INFO - 合并样品OV8-107与BED文件
+2026-01-14 13:57:24.695 - INFO - 样品OV8-107合并完成，共0行
+2026-01-14 13:57:24.697 - INFO - 样品OV8-107结果已保存: 03.kmer丰度/each_sample/OV8-107_kmer_abundance.tsv
+2026-01-14 13:57:24.697 - INFO - 处理样本|Processing sample: OV8-108
+2026-01-14 13:57:24.697 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-108
+2026-01-14 13:57:24.697 - INFO -  创建generator文件|Created generator file: 03.kmer丰度/jellyfish_cache/OV8-108_generator.txt
+2026-01-14 13:57:24.697 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV8-108
+2026-01-14 13:57:24.697 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 64 -g 03.kmer丰度/jellyfish_cache/OV8-108_generator.txt -o 03.kmer丰度/jellyfish_cache/OV8-108.jf
+2026-01-14 13:58:22.735 - INFO - 临时目录已清理|Temporary directory cleaned
+分析被用户中断|Analysis interrupted by user

@@ -1,0 +1,47 @@
+2026-01-21 18:56:51.951 - INFO - 开始BUSCO质量评估分析流程|Starting BUSCO quality assessment analysis pipeline
+2026-01-21 18:56:51.952 - INFO - 输入路径|Input path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/02.fasta/EcA.contigs.fasta
+2026-01-21 18:56:51.952 - INFO - 数据库|Database: /share/org/YZWL/yzwl_lixg/database/busco/brassicales_odb12
+2026-01-21 18:56:51.952 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/05.busco
+2026-01-21 18:56:51.952 - INFO - 检查依赖软件|Checking dependencies
+2026-01-21 18:57:26.102 - INFO - BUSCO 可用|BUSCO available: BUSCO 6.0.0
+2026-01-21 18:57:26.102 - INFO - ================================================================================
+2026-01-21 18:57:26.102 - INFO - 步骤1: 获取输入文件|Step 1: Get input files
+2026-01-21 18:57:26.102 - INFO - ================================================================================
+2026-01-21 18:57:26.102 - INFO - 发现单个输入文件|Found single input file: EcA.contigs.fasta
+2026-01-21 18:57:26.102 - INFO - ================================================================================
+2026-01-21 18:57:26.102 - INFO - 步骤2: 运行BUSCO分析|Step 2: Run BUSCO analyses
+2026-01-21 18:57:26.102 - INFO - ================================================================================
+2026-01-21 18:57:26.102 - INFO - 处理样本 1/1|Processing sample 1/1: EcA.contigs
+2026-01-21 18:57:26.102 - INFO - 开始BUSCO分析|Starting BUSCO analysis: EcA.contigs
+2026-01-21 18:57:26.102 - INFO - 分析模式|Analysis mode: genome
+2026-01-21 18:57:26.102 - INFO - 数据库|Database: /share/org/YZWL/yzwl_lixg/database/busco/brassicales_odb12
+2026-01-21 18:57:26.102 - INFO - 执行步骤|Executing step: BUSCO分析|BUSCO analysis: EcA.contigs
+2026-01-21 18:57:26.102 - INFO - 命令|Command: busco -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/02.fasta/EcA.contigs.fasta -l /share/org/YZWL/yzwl_lixg/database/busco/brassicales_odb12 -o EcA.contigs_busco -m genome -c 64 --offline
+2026-01-21 18:57:26.102 - INFO - 工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/05.busco
+2026-01-21 19:00:05.569 - INFO - 命令执行成功|Command executed successfully: BUSCO分析|BUSCO analysis: EcA.contigs
+2026-01-21 19:00:05.570 - INFO - BUSCO分析完成|BUSCO analysis completed: EcA.contigs
+2026-01-21 19:00:05.570 - INFO - 样本分析成功|Sample analysis successful: EcA.contigs
+2026-01-21 19:00:05.570 - INFO - ================================================================================
+2026-01-21 19:00:05.570 - INFO - 步骤3: 处理和保存结果|Step 3: Process and save results
+2026-01-21 19:00:05.570 - INFO - ================================================================================
+2026-01-21 19:00:05.570 - INFO - 编译BUSCO分析结果|Compiling BUSCO analysis results
+2026-01-21 19:00:05.573 - INFO - 成功编译 1 个样本的结果|Successfully compiled results for 1 samples
+2026-01-21 19:00:05.756 - INFO - 结果已保存|Results saved: 05.busco/busco_summary_results.txt
+2026-01-21 19:00:05.757 - INFO - ================================================================================
+2026-01-21 19:00:05.757 - INFO - BUSCO分析结果摘要|BUSCO Analysis Results Summary
+2026-01-21 19:00:05.757 - INFO - ================================================================================
+2026-01-21 19:00:05.757 - INFO - 总样本数|Total samples: 1
+2026-01-21 19:00:05.757 - INFO - 成功样本数|Successful samples: 1
+2026-01-21 19:00:05.757 - INFO - 失败样本数|Failed samples: 0
+2026-01-21 19:00:05.758 - INFO - 平均完整度|Average completeness: 99.80%
+2026-01-21 19:00:05.758 - INFO - 平均单拷贝比例|Average single-copy ratio: 96.30%
+2026-01-21 19:00:05.759 - INFO - 平均缺失比例|Average missing ratio: 0.20%
+2026-01-21 19:00:05.762 - INFO - ================================================================================
+2026-01-21 19:00:05.763 - INFO - 总结报告已生成|Summary report generated: 05.busco/busco_analysis_summary.txt
+2026-01-21 19:00:05.763 - INFO - ================================================================================
+2026-01-21 19:00:05.763 - INFO - BUSCO质量评估分析完成|BUSCO quality assessment analysis completed
+2026-01-21 19:00:05.763 - INFO - ================================================================================
+2026-01-21 19:00:05.763 - INFO - 总样本数|Total samples: 1
+2026-01-21 19:00:05.763 - INFO - 成功样本数|Successful samples: 1
+2026-01-21 19:00:05.763 - INFO - 失败样本数|Failed samples: 0
+2026-01-21 19:00:05.763 - INFO - 结果保存在|Results saved in: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/03.hicanu/EcA/05.busco

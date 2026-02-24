@@ -1,0 +1,1 @@
+biopytools kmer-count -i genome -p "*.fa" -k kmer/kmers.fasta -b kmer/kmers.bed -o kmer -s 100000 -v -t 15 -m 31

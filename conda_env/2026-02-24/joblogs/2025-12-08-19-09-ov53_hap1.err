@@ -1,0 +1,101 @@
+[bwa_index] Pack FASTA... 6.84 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=2686061188, availableWord=201000904
+[BWTIncConstructFromPacked] 10 iterations done. 99999988 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 199999988 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 299999988 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 399999988 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 499999988 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 599999988 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 699999988 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 799999988 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 899999988 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 999999988 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 1099999988 characters processed.
+[BWTIncConstructFromPacked] 120 iterations done. 1199999988 characters processed.
+[BWTIncConstructFromPacked] 130 iterations done. 1299999988 characters processed.
+[BWTIncConstructFromPacked] 140 iterations done. 1399999988 characters processed.
+[BWTIncConstructFromPacked] 150 iterations done. 1499999988 characters processed.
+[BWTIncConstructFromPacked] 160 iterations done. 1599999988 characters processed.
+[BWTIncConstructFromPacked] 170 iterations done. 1699999988 characters processed.
+[BWTIncConstructFromPacked] 180 iterations done. 1799999988 characters processed.
+[BWTIncConstructFromPacked] 190 iterations done. 1899999988 characters processed.
+[BWTIncConstructFromPacked] 200 iterations done. 1999999988 characters processed.
+[BWTIncConstructFromPacked] 210 iterations done. 2095351252 characters processed.
+[BWTIncConstructFromPacked] 220 iterations done. 2180144404 characters processed.
+[BWTIncConstructFromPacked] 230 iterations done. 2255504788 characters processed.
+[BWTIncConstructFromPacked] 240 iterations done. 2322481252 characters processed.
+[BWTIncConstructFromPacked] 250 iterations done. 2382006100 characters processed.
+[BWTIncConstructFromPacked] 260 iterations done. 2434907940 characters processed.
+[BWTIncConstructFromPacked] 270 iterations done. 2481923204 characters processed.
+[BWTIncConstructFromPacked] 280 iterations done. 2523706484 characters processed.
+[BWTIncConstructFromPacked] 290 iterations done. 2560839508 characters processed.
+[BWTIncConstructFromPacked] 300 iterations done. 2593839412 characters processed.
+[BWTIncConstructFromPacked] 310 iterations done. 2623165812 characters processed.
+[BWTIncConstructFromPacked] 320 iterations done. 2649227156 characters processed.
+[BWTIncConstructFromPacked] 330 iterations done. 2672386484 characters processed.
+[bwt_gen] Finished constructing BWT in 337 iterations.
+[bwa_index] 783.90 seconds elapse.
+[bwa_index] Update BWT... 5.67 sec
+[bwa_index] Pack forward-only FASTA... 4.38 sec
+[bwa_index] Construct SA from BWT and Occ... 320.41 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/24.单倍型1作为参考基因组检测变异做GWAS/01.data/genome/yahs_out_scaffolds_final.fa
+[main] Real time: 1123.254 sec; CPU: 1121.197 sec
+[1604482] [2025-12-09 12:40:57.422] [GLnexus] [info] glnexus_cli release v1.4.1-0-g68e25e5 Aug 13 2021
+[1604482] [2025-12-09 12:40:57.422] [GLnexus] [warning] jemalloc absent, which will impede performance with high thread counts. See https://github.com/dnanexus-rnd/GLnexus/wiki/Performance
+[1604482] [2025-12-09 12:40:57.422] [GLnexus] [info] Loading config preset gatk
+[1604482] [2025-12-09 12:40:57.426] [GLnexus] [info] config:
+unifier_config:
+  drop_filtered: false
+  min_allele_copy_number: 1
+  min_AQ1: 70
+  min_AQ2: 40
+  min_GQ: 40
+  max_alleles_per_site: 32
+  monoallelic_sites_for_lost_alleles: true
+  preference: common
+genotyper_config:
+  revise_genotypes: true
+  min_assumed_allele_frequency: 9.99999975e-05
+  snv_prior_calibration: 1
+  indel_prior_calibration: 1
+  required_dp: 1
+  allow_partial_data: false
+  allele_dp_format: AD
+  ref_dp_format: MIN_DP
+  output_residuals: false
+  more_PL: false
+  squeeze: false
+  trim_uncalled_alleles: false
+  top_two_half_calls: false
+  output_format: BCF
+  liftover_fields:
+    - {orig_names: [MIN_DP, DP], name: DP, description: "##FORMAT=<ID=DP,Number=1,Type=Integer,Description=\"Approximate read depth (reads with MQ=255 or with bad mates are filtered)\">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+    - {orig_names: [AD], name: AD, description: "##FORMAT=<ID=AD,Number=R,Type=Integer,Description=\"Allelic depths for the ref and alt alleles in the order listed\">", type: int, number: alleles, default_type: zero, count: 0, combi_method: min, ignore_non_variants: false}
+    - {orig_names: [SB], name: SB, description: "##FORMAT=<ID=SB,Number=4,Type=Integer,Description=\"Per-sample component statistics which comprise the Fishers Exact Test to detect strand bias.\">", type: int, number: basic, default_type: missing, count: 4, combi_method: missing, ignore_non_variants: false}
+    - {orig_names: [GQ], name: GQ, description: "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+    - {orig_names: [PL], name: PL, description: "##FORMAT=<ID=PL,Number=G,Type=Integer,Description=\"Phred-scaled genotype Likelihoods\">", type: int, number: genotype, default_type: missing, count: 0, combi_method: missing, ignore_non_variants: true}
+[1604482] [2025-12-09 12:40:57.428] [GLnexus] [info] config CRC32C = 1926883223
+[1604482] [2025-12-09 12:40:57.428] [GLnexus] [info] init database, exemplar_vcf=/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/24.单倍型1作为参考基因组检测变异做GWAS/02.mapping/vcf/OV8-105.g.vcf.gz
+[1604482] [2025-12-09 12:40:57.545] [GLnexus] [info] Initialized GLnexus database in GLnexus.DB
+[1604482] [2025-12-09 12:40:57.545] [GLnexus] [info] bucket size: 30000
+[1604482] [2025-12-09 12:40:57.545] [GLnexus] [info] contigs: scaffold_1 scaffold_2 scaffold_3 scaffold_4 scaffold_5 scaffold_6 scaffold_7 scaffold_8 scaffold_9 scaffold_10 scaffold_11 scaffold_12 scaffold_13 scaffold_14 scaffold_15 scaffold_16 scaffold_17 scaffold_18 scaffold_19 scaffold_20 scaffold_21 scaffold_22 scaffold_23 scaffold_24 scaffold_25 scaffold_26 scaffold_27 scaffold_28 scaffold_29 scaffold_30 scaffold_31 scaffold_32 scaffold_33 scaffold_34 scaffold_35 scaffold_36 scaffold_37 scaffold_38 scaffold_39 scaffold_40 scaffold_41 scaffold_42 scaffold_43 scaffold_44 scaffold_45 scaffold_46 scaffold_47 scaffold_48 scaffold_49 scaffold_50 scaffold_51 scaffold_52 scaffold_53 scaffold_54 scaffold_55 scaffold_56 scaffold_57 scaffold_58 scaffold_59 scaffold_60 scaffold_61 scaffold_62 scaffold_63 scaffold_64 scaffold_65 scaffold_66 scaffold_67 scaffold_68 scaffold_69 scaffold_70 scaffold_71 scaffold_72 scaffold_73 scaffold_74 scaffold_75 scaffold_76 scaffold_77 scaffold_78 scaffold_79 scaffold_80 scaffold_81 scaffold_82 scaffold_83 scaffold_84 scaffold_85 scaffold_86 scaffold_87 scaffold_88 scaffold_89 scaffold_90 scaffold_91 scaffold_92 scaffold_93 scaffold_94 scaffold_95 scaffold_96 scaffold_97 scaffold_98 scaffold_99 scaffold_100 scaffold_101 scaffold_102 scaffold_103 scaffold_104 scaffold_105 scaffold_106 scaffold_107 scaffold_108 scaffold_109 scaffold_110 scaffold_111 scaffold_112 scaffold_113 scaffold_114 scaffold_115 scaffold_116 scaffold_117 scaffold_118 scaffold_119 scaffold_120 scaffold_121 scaffold_122 scaffold_123 scaffold_124 scaffold_125 scaffold_126 scaffold_127 scaffold_128 scaffold_129 scaffold_130 scaffold_131 scaffold_132 scaffold_133 scaffold_134 scaffold_135 scaffold_136 scaffold_137 scaffold_138 scaffold_139 scaffold_140 scaffold_141 scaffold_142 scaffold_143 scaffold_144 scaffold_145 scaffold_146 scaffold_147 scaffold_148 scaffold_149 scaffold_150 scaffold_151 scaffold_152 scaffold_153 scaffold_154 scaffold_155 scaffold_156 scaffold_157 scaffold_158 scaffold_159 scaffold_160 scaffold_161 scaffold_162 scaffold_163 scaffold_164 scaffold_165 scaffold_166 scaffold_167 scaffold_168 scaffold_169 scaffold_170 scaffold_171 scaffold_172 scaffold_173 scaffold_174 scaffold_175 scaffold_176 scaffold_177 scaffold_178 scaffold_179 scaffold_180 scaffold_181 scaffold_182 scaffold_183 scaffold_184 scaffold_185 scaffold_186 scaffold_187 scaffold_188 scaffold_189 scaffold_190 scaffold_191 scaffold_192 scaffold_193 scaffold_194 scaffold_195 scaffold_196 scaffold_197 scaffold_198 scaffold_199 scaffold_200 scaffold_201 scaffold_202 scaffold_203 scaffold_204 scaffold_205 scaffold_206 scaffold_207 scaffold_208 scaffold_209 scaffold_210 scaffold_211 scaffold_212 scaffold_213 scaffold_214 scaffold_215 scaffold_216 scaffold_217 scaffold_218 scaffold_219 scaffold_220 scaffold_221 scaffold_222 scaffold_223 scaffold_224 scaffold_225 scaffold_226 scaffold_227 scaffold_228 scaffold_229 scaffold_230 scaffold_231 scaffold_232 scaffold_233 scaffold_234 scaffold_235 scaffold_236 scaffold_237 scaffold_238 scaffold_239 scaffold_240 scaffold_241 scaffold_242 scaffold_243 scaffold_244 scaffold_245 scaffold_246 scaffold_247 scaffold_248 scaffold_249 scaffold_250 scaffold_251 scaffold_252 scaffold_253 scaffold_254 scaffold_255 scaffold_256 scaffold_257 scaffold_258 scaffold_259 scaffold_260 scaffold_261 scaffold_262 scaffold_263 scaffold_264 scaffold_265 scaffold_266 scaffold_267 scaffold_268 scaffold_269 scaffold_270 scaffold_271 scaffold_272 scaffold_273 scaffold_274 scaffold_275 scaffold_276 scaffold_277 scaffold_278 scaffold_279 scaffold_280 scaffold_281 scaffold_282 scaffold_283 scaffold_284 scaffold_285 scaffold_286 scaffold_287 scaffold_288 scaffold_289 scaffold_290 scaffold_291 scaffold_292 scaffold_293 scaffold_294 scaffold_295 scaffold_296 scaffold_297 scaffold_298 scaffold_299 scaffold_300 scaffold_301 scaffold_302 scaffold_303 scaffold_304 scaffold_305 scaffold_306 scaffold_307 scaffold_308 scaffold_309 scaffold_310 scaffold_311 scaffold_312 scaffold_313 scaffold_314 scaffold_315 scaffold_316 scaffold_317 scaffold_318 scaffold_319 scaffold_320 scaffold_321 scaffold_322 scaffold_323 scaffold_324 scaffold_325 scaffold_326 scaffold_327 scaffold_328 scaffold_329 scaffold_330 scaffold_331 scaffold_332 scaffold_333 scaffold_334 scaffold_335 scaffold_336 scaffold_337 scaffold_338 scaffold_339 scaffold_340 scaffold_341 scaffold_342 scaffold_343 scaffold_344 scaffold_345 scaffold_346
+[1604482] [2025-12-09 12:40:57.553] [GLnexus] [info] db_get_contigs GLnexus.DB
+[1604482] [2025-12-09 12:40:57.577] [GLnexus] [info] Beginning bulk load with no range filter.
+[W::hts_idx_load2] The index file is older than the data file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/24.单倍型1作为参考基因组检测变异做GWAS/02.mapping/vcf/OV8-7.g.vcf.gz.tbi
+[1604482] [2025-12-09 13:05:37.063] [GLnexus] [info] Loaded 99 datasets with 99 samples; 1776571645712 bytes in 17392874233 BCF records (3828585 duplicate) in 4441358 buckets. Bucket max 1087368 bytes, 9207 records. 1939 BCF records skipped due to caller-specific exceptions
+[1604482] [2025-12-09 13:05:37.072] [GLnexus] [info] Created sample set *@99
+[1604482] [2025-12-09 13:05:37.072] [GLnexus] [info] Flushing database...
+[1604482] [2025-12-09 13:08:10.647] [GLnexus] [info] Bulk load complete!
+[1604482] [2025-12-09 13:08:15.039] [GLnexus] [info] found sample set *@99
+[1604482] [2025-12-09 13:08:15.039] [GLnexus] [info] discovering alleles in 346 range(s) on 86 threads
+[1604482] [2025-12-09 13:18:02.655] [GLnexus] [info] discovered 133841515 alleles
+[1604482] [2025-12-09 13:20:52.140] [GLnexus] [info] unified to 40452382 sites cleanly with 43188873 ALT alleles. 208044 ALT alleles were additionally included in monoallelic sites and 24781306 were filtered out on quality thresholds.
+[1604482] [2025-12-09 13:20:52.140] [GLnexus] [info] Finishing database compaction...
+[1604482] [2025-12-09 13:47:14.218] [GLnexus] [info] genotyping 40452382 sites; sample set = *@99 mem_budget = 0 threads = 88
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+run_parabricks_glnexus.sh: 行 100: 1604482 Aborted                 glnexus_cli --config ${GLNEXUS_CONFIG} --bed ${BED_FILE} ${GVCF_DIR}/*.g.vcf.gz --threads 88 > ${BCF_OUT}
+Job 68326297 stderr output:
+

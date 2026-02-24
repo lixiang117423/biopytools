@@ -1,0 +1,11 @@
+2026-01-22 19:36:38.024 - INFO - 开始k-mer统计模式|Starting k-mer counting mode
+2026-01-22 19:36:38.024 - INFO - 检测到目录输入模式|Detected directory input mode: fastq
+2026-01-22 19:36:38.025 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-22 19:36:38.025 - INFO - 文件模式|File pattern: *_1.clean.fq.gz, *_2.clean.fq.gz
+2026-01-22 19:36:38.026 - INFO - 找到 181 个read1文件|Found 181 read1 files
+2026-01-22 19:36:38.273 - INFO - 验证通过|Validation passed: 181 个样本|samples
+2026-01-22 19:36:38.273 - INFO - 开始统计 181 个样本|Starting to count 181 samples
+2026-01-22 19:36:38.273 - INFO - 处理进度|Progress: 1/181: GDW120A
+2026-01-22 19:36:38.273 - INFO - 开始统计样本|Starting to count sample: GDW120A
+2026-01-22 19:36:38.273 - INFO - 执行步骤|Executing step: 统计样本|Counting sample GDW120A
+2026-01-22 19:36:38.273 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_KMC流程/kmc_tmp/GDW120A/input_files.txt GDW120A /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_KMC流程/kmc_tmp/GDW120A

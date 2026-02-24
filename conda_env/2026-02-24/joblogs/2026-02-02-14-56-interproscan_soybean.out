@@ -1,0 +1,19 @@
+2026-02-02 14:56:28.515 - INFO - 开始InterProScan注释流程|Starting InterProScan annotation pipeline
+2026-02-02 14:56:28.628 - INFO - 输入序列数量|Input sequence count: 73.06K
+2026-02-02 14:56:28.628 - INFO - InterProScan命令|InterProScan command: /share/org/YZWL/yzwl_lixg/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/09.参考基因组蛋白注释/genome.pep.fa -f TSV -f XML -b 参考基因组蛋白注释 -cpu 64 -dp --goterms --pathways
+2026-02-02 14:56:28.628 - INFO - 执行步骤|Executing step: InterProScan蛋白质注释|InterProScan protein annotation
+2026-02-02 14:56:28.628 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/09.参考基因组蛋白注释/genome.pep.fa -f TSV -f XML -b 参考基因组蛋白注释 -cpu 64 -dp --goterms --pathways
+2026-02-02 19:18:37.702 - INFO - 命令执行成功|Command executed successfully: InterProScan蛋白质注释|InterProScan protein annotation
+2026-02-02 19:18:37.702 - INFO - InterProScan注释完成|InterProScan annotation completed
+2026-02-02 19:18:37.703 - INFO - 输出文件 (TSV)|Output file (TSV): 参考基因组蛋白注释.tsv
+2026-02-02 19:18:37.703 - INFO - 输出文件 (XML)|Output file (XML): 参考基因组蛋白注释.xml
+2026-02-02 19:18:37.703 - INFO - 开始结果解析和格式化|Starting result parsing and formatting
+2026-02-02 19:18:37.703 - INFO - 使用内置GO数据库|Using built-in GO database
+2026-02-02 19:18:37.741 - INFO - 内置GO数据库加载完成|Built-in GO database loaded: 48196 GO terms (BP: 30817, MF: 12805, CC: 4574)
+2026-02-02 19:18:37.747 - INFO - GO数据库已加载 (built-in|GO database loaded (built-in): {'total': 48196, 'biological_process': 30817, 'molecular_function': 12805, 'cellular_component': 4574, 'other': 0}
+2026-02-02 19:18:37.747 - INFO - 使用TSV格式解析|Parsing using TSV format
+2026-02-02 19:18:37.747 - INFO - 解析TSV文件|Parsing TSV file: 参考基因组蛋白注释.tsv
+2026-02-02 19:19:30.285 - INFO - TSV解析完成|TSV parsing completed: 732785 matches
+2026-02-02 19:19:47.982 - INFO - 生成Excel报告|Generating Excel report
+2026-02-02 19:41:06.385 - ERROR - 报告生成失败|Report generation failed: Row numbers must be between 1 and 1048576. Row number supplied was 1048577
+2026-02-02 19:41:37.893 - INFO - 结果解析和格式化完成|Result parsing and formatting completed

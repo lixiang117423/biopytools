@@ -1,0 +1,9 @@
+INFO:    Converting SIF file to temporary sandbox...
+[bam_sort_core] merging from 19 files and 48 in-memory blocks...
+Traceback (most recent call last):
+  File "jbat_results/tmp_singularity_2053254/bam2mnd.py", line 63, in <module>
+    main()
+
+INFO:    Cleaning up image...
+Job 68396639 stderr output:
+

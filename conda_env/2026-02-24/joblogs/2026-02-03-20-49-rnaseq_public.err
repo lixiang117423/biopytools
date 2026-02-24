@@ -1,0 +1,6 @@
+2026-02-04 04:19:03.194 - ERROR - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/57.公开数据转录组/02.rnaseq/01.bam/SRR6655830.sorted.bam 超时|timed out after 21600秒|seconds (6.0小时|hours)
+2026-02-04 04:19:03.196 - ERROR - 跳过该步骤继续处理|Skipping this step and continuing...
+2026-02-04 04:19:03.196 - WARNING - 样本比对失败或超时，跳过该样本|Sample alignment failed or timed out, skipping: SRR6655830
+2026-02-04 04:19:03.196 - ERROR - 样本处理失败|Sample processing failed: SRR6655830
+Job 69239646 stderr output:
+

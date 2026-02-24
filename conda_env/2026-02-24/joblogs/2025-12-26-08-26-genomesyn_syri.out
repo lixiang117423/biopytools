@@ -1,0 +1,101 @@
+2025-12-26 08:26:50 - INFO - ============================================================
+2025-12-26 08:26:50 - INFO - NGenomeSynteny Analysis Pipeline
+2025-12-26 08:26:50 - INFO - ============================================================
+2025-12-26 08:26:51 - INFO - 检查环境
+2025-12-26 08:26:51 - INFO - 🔍 开始环境检查 | Starting environment check
+2025-12-26 08:26:51 - INFO - ==================================================
+2025-12-26 08:26:51 - INFO - 🔍============================================================
+2025-12-26 08:26:51 - INFO - 🔍 环境检查命令 | Environment check command: 检查NGenomeSyn是否在PATH中
+2025-12-26 08:26:51 - INFO - 💻 命令内容 | Command: which NGenomeSyn
+2025-12-26 08:26:51 - INFO - 🔍============================================================
+2025-12-26 08:26:51 - INFO - ✅ NGenomeSyn 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/NGenomeSyn
+2025-12-26 08:26:51 - INFO - 🔍============================================================
+2025-12-26 08:26:51 - INFO - 🔍 环境检查命令 | Environment check command: 测试NGenomeSyn是否可执行
+2025-12-26 08:26:51 - INFO - 💻 命令内容 | Command: NGenomeSyn
+2025-12-26 08:26:51 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - ✅ NGenomeSyn 验证通过 | NGenomeSyn verification passed
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - 🔍 环境检查命令 | Environment check command: 检查 minimap2 是否安装
+2025-12-26 08:26:52 - INFO - 💻 命令内容 | Command: which minimap2
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - ✅ minimap2 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/minimap2
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - 🔍 环境检查命令 | Environment check command: 检查 nucmer 是否安装
+2025-12-26 08:26:52 - INFO - 💻 命令内容 | Command: which nucmer
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - ✅ nucmer 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/nucmer
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - 🔍 环境检查命令 | Environment check command: 检查 show-coords 是否安装
+2025-12-26 08:26:52 - INFO - 💻 命令内容 | Command: which show-coords
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - ✅ show-coords 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/show-coords
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - 🔍 环境检查命令 | Environment check command: 检查syri是否在PATH中
+2025-12-26 08:26:52 - INFO - 💻 命令内容 | Command: which syri
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - ✅ SyRI 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/syri
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - 🔍 环境检查命令 | Environment check command: 检查 convert 是否安装
+2025-12-26 08:26:52 - INFO - 💻 命令内容 | Command: which convert
+2025-12-26 08:26:52 - INFO - 🔍============================================================
+2025-12-26 08:26:52 - INFO - ✅ convert 已安装 | installed: /usr/bin/convert
+2025-12-26 08:26:52 - INFO - ==================================================
+2025-12-26 08:26:52 - INFO - ✅ 环境检查通过 | Environment check passed
+2025-12-26 08:26:52 - INFO - 📝 环境检查脚本已保存 | Environment check script saved: ./check_environment.sh
+2025-12-26 08:26:52 - INFO - 🚀 您可以使用以下命令检查环境:
+2025-12-26 08:26:52 - INFO - bash ./check_environment.sh
+2025-12-26 08:26:52 - INFO - ✅ SyRI已启用
+2025-12-26 08:26:52 - INFO - 读取样本映射文件
+2025-12-26 08:26:52 - INFO - 📊============================================================
+2025-12-26 08:26:52 - INFO - 📊 数据处理步骤 | Data processing step: read_sample_map
+2025-12-26 08:26:52 - INFO - 📝 描述 | Description: 📂 读取样本映射文件
+2025-12-26 08:26:52 - INFO - 📁 文件 | File: sample_map.txt
+2025-12-26 08:26:52 - INFO - 📊============================================================
+2025-12-26 08:26:52 - INFO - 📊============================================================
+2025-12-26 08:26:52 - INFO - 📊 数据处理步骤 | Data processing step: sample_added
+2025-12-26 08:26:52 - INFO - 📝 描述 | Description: ➕ 添加基因组: Ref
+2025-12-26 08:26:52 - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/genome.chr.fa
+2025-12-26 08:26:52 - INFO - 📊============================================================
+2025-12-26 08:26:52 - INFO - 📊============================================================
+2025-12-26 08:26:52 - INFO - 📊 数据处理步骤 | Data processing step: sample_added
+2025-12-26 08:26:52 - INFO - 📝 描述 | Description: ➕ 添加基因组: HiFi+HiC
+2025-12-26 08:26:52 - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/OV53_1.hifihic.chr.fa
+2025-12-26 08:26:52 - INFO - 📊============================================================
+2025-12-26 08:26:52 - INFO - ✅ 成功读取 2 个基因组 | Successfully read 2 genomes
+2025-12-26 08:26:52 - INFO - 📝 数据处理脚本已保存 | Data processing script saved: ./data_processing_steps.sh
+2025-12-26 08:26:52 - INFO - 成功读取 2 个基因组
+2025-12-26 08:26:52 - INFO - 
+2025-12-26 08:26:52 - INFO - 步骤1: 执行基因组比对
+2025-12-26 08:26:52 - INFO - ============================================================
+2025-12-26 08:26:52 - INFO - 🧬 SyRI处理器初始化 | SyRI processor initialized
+2025-12-26 08:26:52 - INFO - 🔧 Minimap2比对器初始化 | Minimap2 aligner initialized with 88 threads
+2025-12-26 08:26:52 - INFO - 比对: Ref vs HiFi+HiC
+2025-12-26 08:26:52 - INFO - 🧬 使用Minimap2 + SyRI流程
+2025-12-26 08:26:52 - INFO - 🚀 开始Minimap2比对 (SAM格式) | Starting Minimap2 alignment (SAM format): Ref vs HiFi+HiC
+2025-12-26 08:26:52 - INFO - 📄 输出SAM文件 | Output SAM file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/output/Ref_vs_HiFi+HiC.sam
+2025-12-26 08:26:52 - INFO - 🔗================================================================================
+2025-12-26 08:26:52 - INFO - 🔗 执行命令 | Executing command: 🧬 Minimap2比对 (SAM格式 for SyRI): Ref vs HiFi+HiC
+2025-12-26 08:26:52 - INFO - 📁 工作目录 | Working directory: output
+2025-12-26 08:26:52 - INFO - 💻 命令内容 | Command: minimap2 -ax asm5 --eqx -t 88 "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/OV53_1.hifihic.chr.fa" "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/genome.chr.fa" > "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/output/Ref_vs_HiFi+HiC.sam"
+2025-12-26 08:26:52 - INFO - 🔗================================================================================
+2025-12-26 09:25:55 - INFO - ✅ Minimap2比对完成 (SAM格式) | Minimap2 alignment completed (SAM format): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/output/Ref_vs_HiFi+HiC.sam
+2025-12-26 09:25:56 - INFO - 📝 命令脚本已保存 | Command script saved: output/minimap2_syri_commands_Ref_vs_HiFi+HiC.sh
+2025-12-26 09:25:56 - INFO - 🚀 您可以使用以下命令手动执行 | You can manually execute with:
+2025-12-26 09:25:56 - INFO - bash output/minimap2_syri_commands_Ref_vs_HiFi+HiC.sh
+2025-12-26 09:25:56 - INFO - 🧬 开始SyRI分析 | Starting SyRI analysis
+2025-12-26 09:25:56 - INFO - 📄 输入SAM文件 | Input SAM file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/output/Ref_vs_HiFi+HiC.sam
+2025-12-26 09:25:56 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/genome.chr.fa
+2025-12-26 09:25:56 - INFO - 🧬 查询基因组 | Query genome: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/OV53_1.hifihic.chr.fa
+2025-12-26 09:25:56 - INFO - 🧬================================================================================
+2025-12-26 09:25:56 - INFO - 🧬 执行命令 | Executing command: 🧬 SyRI结构变异分析: Ref vs HiFi+HiC
+2025-12-26 09:25:56 - INFO - 📁 工作目录 | Working directory: output
+2025-12-26 09:25:56 - INFO - 💻 命令内容 | Command: "/share/org/YZWL/yzwl_lixg/.local/bin/syri" -c "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/output/Ref_vs_HiFi+HiC.sam" -r "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/genome.chr.fa" -q "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/OV53_1.hifihic.chr.fa" -F B --prefix Ref_vs_HiFi+HiC
+2025-12-26 09:25:56 - INFO - 🧬================================================================================
+2025-12-26 09:26:48 - ERROR - 💥 SyRI分析失败 | SyRI analysis failed: ❌ SyRI输出文件未找到 | SyRI output file not found: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/output/Ref_vs_HiFi+HiC.syri.out
+2025-12-26 09:26:48 - ERROR - Pipeline失败: ❌ SyRI输出文件未找到 | SyRI output file not found: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/output/Ref_vs_HiFi+HiC.syri.out
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/ngenomesyn/main.py", line 248, in main
+    link_file = syri_processor.run_syri_from_minimap2(
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/ngenomesyn/aligners.py", line 634, in run_syri_from_minimap2
+    raise RuntimeError(f"❌ SyRI输出文件未找到 | SyRI output file not found: {syri_out_file}")
+RuntimeError: ❌ SyRI输出文件未找到 | SyRI output file not found: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/hic热图调整顺序后/syri共线性/output/Ref_vs_HiFi+HiC.syri.out

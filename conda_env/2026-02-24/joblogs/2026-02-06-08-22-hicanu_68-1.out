@@ -1,0 +1,97 @@
+2026-02-06 08:22:51.553 - INFO - ============================================================
+2026-02-06 08:22:51.553 - INFO - HiCanu基因组组装流程|HiCanu Genome Assembly Pipeline
+2026-02-06 08:22:51.553 - INFO - ============================================================
+2026-02-06 08:22:51.553 - INFO - 输入reads|Input reads: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/hifi/68-1_hifi.fq.gz.clean.fq.gz
+2026-02-06 08:22:51.553 - INFO - 基因组大小|Genome size: 180m
+2026-02-06 08:22:51.553 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1
+2026-02-06 08:22:51.553 - INFO - 输出前缀|Output prefix: 68_1
+2026-02-06 08:22:51.553 - INFO - ============================================================
+2026-02-06 08:22:51.553 - INFO - ============================================================
+2026-02-06 08:22:51.553 - INFO - 开始HiCanu组装|Starting HiCanu assembly
+2026-02-06 08:22:51.553 - INFO - ============================================================
+2026-02-06 08:22:51.553 - INFO - 组装配置|Assembly configuration:
+2026-02-06 08:22:51.553 - INFO -   Reads文件|Reads file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/hifi/68-1_hifi.fq.gz.clean.fq.gz
+2026-02-06 08:22:51.553 - INFO -   基因组大小|Genome size: 180m
+2026-02-06 08:22:51.553 - INFO -   工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1
+2026-02-06 08:22:51.553 - INFO -   前缀|Prefix: 68_1
+2026-02-06 08:22:51.553 - INFO -   组装阶段|Assembly stage: assemble
+2026-02-06 08:22:51.553 - INFO -   最小reads长度|Min read length: 1000
+2026-02-06 08:22:51.553 - INFO -   最小重叠长度|Min overlap length: 500
+2026-02-06 08:22:51.553 - INFO -   线程数|Threads: 64
+2026-02-06 08:22:51.553 - INFO -   内存限制|Memory limit: 500G
+2026-02-06 08:22:51.553 - INFO - ============================================================
+2026-02-06 08:22:51.553 - INFO - 断点续传模式|Resume mode: enabled
+2026-02-06 08:22:51.553 - INFO - ============================================================
+2026-02-06 08:22:51.553 - INFO - 检查已完成步骤|Checking completed steps:
+2026-02-06 08:22:51.553 - INFO -   [未完成|pending] Canu组装|Canu assembly
+2026-02-06 08:22:51.553 - INFO -   [未完成|pending] FASTA文件复制|FASTA files copied
+2026-02-06 08:22:51.554 - INFO -   [未完成|pending] Contig-reads映射生成|Contig-reads mapping generated
+2026-02-06 08:22:51.554 - INFO - ============================================================
+2026-02-06 08:22:51.554 - INFO - 执行命令|Executing command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/canu -d /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output -p 68_1 genomeSize=180m -assemble -pacbio-hifi /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/hifi/68-1_hifi.fq.gz.clean.fq.gz useGrid=false
+2026-02-06 16:52:41.488 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 16:52:41.488 - INFO - 检查输出文件|Checking output files
+2026-02-06 16:52:41.488 - INFO - 输出文件已生成|Output file generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.contigs.fasta (186,894,541 bytes)
+2026-02-06 16:52:41.488 - INFO -   Contigs文件|Contigs file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.contigs.fasta
+2026-02-06 16:52:41.488 - INFO -   报告文件|Report file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.report
+2026-02-06 16:52:41.488 - INFO - ============================================================
+2026-02-06 16:52:41.488 - INFO - 解析组装结果|Parsing assembly results
+2026-02-06 16:52:41.488 - INFO - ============================================================
+2026-02-06 16:52:41.490 - INFO - 解析Contigs|Parsing contigs:
+2026-02-06 16:52:41.490 - INFO - 解析FASTA文件|Parsing FASTA file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.contigs.fasta
+2026-02-06 16:52:41.885 - INFO - FASTA统计信息|FASTA statistics:
+2026-02-06 16:52:41.885 - INFO -   序列数量|Number of sequences: 239
+2026-02-06 16:52:41.885 - INFO -   总长度|Total bp: 185,017,447
+2026-02-06 16:52:41.886 - INFO -   N50: 20,970,625
+2026-02-06 16:52:41.886 - INFO -   L50: 4
+2026-02-06 16:52:41.886 - INFO -   最短序列|Min length: 14,209
+2026-02-06 16:52:41.886 - INFO -   最长序列|Max length: 25,801,270
+2026-02-06 16:52:41.886 - INFO -   组装大小|Assembly size: 185.02 Mb
+2026-02-06 16:52:41.886 - INFO -   Contigs数量|Number of contigs: 239
+2026-02-06 16:52:41.886 - INFO -   N50: 20.97 Mb
+2026-02-06 16:52:41.886 - INFO -   L50: 4
+2026-02-06 16:52:41.886 - INFO - 解析Canu报告|Parsing Canu report:
+2026-02-06 16:52:41.886 - INFO -   --   contigs:      97 sequences, total length 124655109 bp (including 82 repeats of total length 2047765 bp).
+2026-02-06 16:52:41.886 - INFO -   --   bubbles:      142 sequences, total length 3628458 bp.
+2026-02-06 16:52:41.886 - INFO -   --   unassembled:  59221 sequences, total length 756488213 bp.
+2026-02-06 16:52:41.886 - INFO -   --   contigs:      97 sequences, total length 179802578 bp (including 82 repeats of total length 2921097 bp).
+2026-02-06 16:52:41.886 - INFO -   --   bubbles:      142 sequences, total length 5214869 bp.
+2026-02-06 16:52:41.886 - INFO -   --   unassembled:  59221 sequences, total length 1098889056 bp.
+2026-02-06 16:52:41.886 - INFO - ============================================================
+2026-02-06 16:52:41.886 - INFO - 复制FASTA文件|Copying FASTA files
+2026-02-06 16:52:41.886 - INFO - ============================================================
+2026-02-06 16:52:42.163 - INFO -   已复制|Copied: 68_1.contigs.fasta
+2026-02-06 16:52:43.791 - INFO -   已复制|Copied: 68_1.unassembled.fasta
+2026-02-06 16:52:43.792 - INFO - 共复制 2 个文件到|Copied 2 files to: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/02.fasta
+2026-02-06 16:52:43.792 - INFO - ============================================================
+2026-02-06 16:52:43.792 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-02-06 16:52:43.792 - INFO - ============================================================
+2026-02-06 16:52:43.792 - INFO - 读取read名称映射|Reading read name mapping: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.seqStore/readNames.txt
+2026-02-06 16:52:46.955 - INFO -   共读取|Total reads loaded: 7,613,474
+2026-02-06 16:52:47.172 - INFO - 读取readToTig映射|Reading readToTig mapping: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.contigs.layout.readToTig
+2026-02-06 16:52:48.240 - INFO -   共处理|Total reads processed: 475,164
+2026-02-06 16:52:48.240 - INFO -   共发现|Total contigs found: 59,460
+2026-02-06 16:52:48.240 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/02.fasta/68_1.contig_reads.tsv
+2026-02-06 16:52:48.390 - INFO - 映射统计|Mapping statistics:
+2026-02-06 16:52:48.390 - INFO -   总contig数|Total contigs: 59,460
+2026-02-06 16:52:48.392 - INFO -   平均reads数/contig|Avg reads/contig: 8.0
+2026-02-06 16:52:48.392 - INFO -   最少reads数|Min reads: 1
+2026-02-06 16:52:48.393 - INFO -   最多reads数|Max reads: 55,600
+2026-02-06 16:52:48.393 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/02.fasta/68_1.contig_reads.tsv
+2026-02-06 16:52:48.393 - INFO - ============================================================
+2026-02-06 16:52:48.393 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-02-06 16:52:48.393 - INFO - ============================================================
+2026-02-06 16:52:48.535 - INFO - ============================================================
+2026-02-06 16:52:48.536 - INFO - HiCanu组装完成|HiCanu assembly completed successfully
+2026-02-06 16:52:48.536 - INFO - ============================================================
+2026-02-06 16:52:48.536 - INFO - ============================================================
+2026-02-06 16:52:48.536 - INFO - 流程总结|Pipeline Summary
+2026-02-06 16:52:48.536 - INFO - ============================================================
+2026-02-06 16:52:48.536 - INFO - 总运行时间|Total runtime: 30596.98 seconds (509.95 minutes)
+2026-02-06 16:52:48.536 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1
+2026-02-06 16:52:48.536 - INFO - 主要输出文件|Main output files:
+2026-02-06 16:52:48.536 - INFO -   Contigs: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.contigs.fasta
+2026-02-06 16:52:48.536 - INFO -   Unitigs: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.unitigs.fasta
+2026-02-06 16:52:48.536 - INFO -   报告|Report: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/04.hicanu/68_1/01.raw_output/68_1.report
+2026-02-06 16:52:48.536 - INFO - ============================================================
+2026-02-06 16:52:48.536 - INFO - 流程成功完成|Pipeline completed successfully
+2026-02-06 16:52:48.536 - INFO - ============================================================

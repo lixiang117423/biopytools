@@ -1,0 +1,794 @@
+cat: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/clean/metagenome/SRR31357182_1.clean.fq.gz: No such file or directory
+cat: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/clean/metagenome/SRR31357182_2.clean.fq.gz: No such file or directory
+Loading database information... done.
+140661086 sequences (21087.54 Mbp) processed in 1883.577s (4480.7 Kseq/m, 671.73 Mbp/m).
+  42114678 sequences classified (29.94%)
+  98546408 sequences unclassified (70.06%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305231.kraken2.report
+Loading database information... done.
+128540356 sequences (19269.21 Mbp) processed in 259.406s (29731.1 Kseq/m, 4456.92 Mbp/m).
+  44746379 sequences classified (34.81%)
+  83793977 sequences unclassified (65.19%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305232.kraken2.report
+Loading database information... done.
+141031588 sequences (21143.43 Mbp) processed in 283.142s (29885.7 Kseq/m, 4480.45 Mbp/m).
+  42332058 sequences classified (30.02%)
+  98699530 sequences unclassified (69.98%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305233.kraken2.report
+Loading database information... done.
+124910722 sequences (18727.67 Mbp) processed in 251.687s (29777.7 Kseq/m, 4464.52 Mbp/m).
+  28553558 sequences classified (22.86%)
+  96357164 sequences unclassified (77.14%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305234.kraken2.report
+Loading database information... done.
+125013690 sequences (18741.72 Mbp) processed in 251.446s (29830.7 Kseq/m, 4472.14 Mbp/m).
+  35582339 sequences classified (28.46%)
+  89431351 sequences unclassified (71.54%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305235.kraken2.report
+Loading database information... done.
+139695820 sequences (20944.70 Mbp) processed in 281.916s (29731.4 Kseq/m, 4457.65 Mbp/m).
+  34785964 sequences classified (24.90%)
+  104909856 sequences unclassified (75.10%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305236.kraken2.report
+Loading database information... done.
+135461984 sequences (20307.59 Mbp) processed in 273.166s (29753.8 Kseq/m, 4460.50 Mbp/m).
+  42135385 sequences classified (31.10%)
+  93326599 sequences unclassified (68.90%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305237.kraken2.report
+Loading database information... done.
+161346662 sequences (24187.37 Mbp) processed in 325.120s (29776.1 Kseq/m, 4463.71 Mbp/m).
+  50607404 sequences classified (31.37%)
+  110739258 sequences unclassified (68.63%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305238.kraken2.report
+Loading database information... done.
+134034622 sequences (20094.26 Mbp) processed in 269.967s (29789.2 Kseq/m, 4465.94 Mbp/m).
+  41540709 sequences classified (30.99%)
+  92493913 sequences unclassified (69.01%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305239.kraken2.report
+Loading database information... done.
+136269246 sequences (20430.37 Mbp) processed in 272.069s (30051.7 Kseq/m, 4505.55 Mbp/m).
+  42387975 sequences classified (31.11%)
+  93881271 sequences unclassified (68.89%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305240.kraken2.report
+Loading database information... done.
+131112500 sequences (19656.95 Mbp) processed in 262.697s (29946.1 Kseq/m, 4489.65 Mbp/m).
+  41212086 sequences classified (31.43%)
+  89900414 sequences unclassified (68.57%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305242.kraken2.report
+Loading database information... done.
+172373124 sequences (25844.79 Mbp) processed in 343.140s (30140.5 Kseq/m, 4519.11 Mbp/m).
+  48238450 sequences classified (27.98%)
+  124134674 sequences unclassified (72.02%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31305243.kraken2.report
+Loading database information... done.
+289207134 sequences (28879.95 Mbp) processed in 504.131s (34420.4 Kseq/m, 3437.19 Mbp/m).
+  41725165 sequences classified (14.43%)
+  247481969 sequences unclassified (85.57%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323235.kraken2.report
+Loading database information... done.
+316785750 sequences (31630.93 Mbp) processed in 551.157s (34485.9 Kseq/m, 3443.40 Mbp/m).
+  37262514 sequences classified (11.76%)
+  279523236 sequences unclassified (88.24%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323238.kraken2.report
+Loading database information... done.
+270196084 sequences (26990.31 Mbp) processed in 467.833s (34652.9 Kseq/m, 3461.53 Mbp/m).
+  31945695 sequences classified (11.82%)
+  238250389 sequences unclassified (88.18%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323239.kraken2.report
+Loading database information... done.
+193984492 sequences (19371.86 Mbp) processed in 338.088s (34426.2 Kseq/m, 3437.90 Mbp/m).
+  27196420 sequences classified (14.02%)
+  166788072 sequences unclassified (85.98%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323240.kraken2.report
+Loading database information... done.
+294550278 sequences (29414.36 Mbp) processed in 514.049s (34380.0 Kseq/m, 3433.26 Mbp/m).
+  34776101 sequences classified (11.81%)
+  259774177 sequences unclassified (88.19%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323241.kraken2.report
+Loading database information... done.
+255892790 sequences (25562.52 Mbp) processed in 444.989s (34503.3 Kseq/m, 3446.72 Mbp/m).
+  30037868 sequences classified (11.74%)
+  225854922 sequences unclassified (88.26%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323242.kraken2.report
+Loading database information... done.
+252283530 sequences (25195.48 Mbp) processed in 441.394s (34293.7 Kseq/m, 3424.90 Mbp/m).
+  30987866 sequences classified (12.28%)
+  221295664 sequences unclassified (87.72%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323244.kraken2.report
+Loading database information... done.
+246429970 sequences (24609.98 Mbp) processed in 430.635s (34334.9 Kseq/m, 3428.89 Mbp/m).
+  26318832 sequences classified (10.68%)
+  220111138 sequences unclassified (89.32%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323245.kraken2.report
+Loading database information... done.
+287841314 sequences (28734.85 Mbp) processed in 500.417s (34512.2 Kseq/m, 3445.31 Mbp/m).
+  42727893 sequences classified (14.84%)
+  245113421 sequences unclassified (85.16%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323246.kraken2.report
+Loading database information... done.
+320241054 sequences (31978.48 Mbp) processed in 558.215s (34421.2 Kseq/m, 3437.22 Mbp/m).
+  43221206 sequences classified (13.50%)
+  277019848 sequences unclassified (86.50%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323247.kraken2.report
+Loading database information... done.
+187362466 sequences (18706.13 Mbp) processed in 328.408s (34231.1 Kseq/m, 3417.60 Mbp/m).
+  22716596 sequences classified (12.12%)
+  164645870 sequences unclassified (87.88%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323250.kraken2.report
+Loading database information... done.
+296069942 sequences (29563.73 Mbp) processed in 517.541s (34324.2 Kseq/m, 3427.41 Mbp/m).
+  35267583 sequences classified (11.91%)
+  260802359 sequences unclassified (88.09%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323251.kraken2.report
+Loading database information... done.
+272111680 sequences (27179.65 Mbp) processed in 473.954s (34447.8 Kseq/m, 3440.79 Mbp/m).
+  30581057 sequences classified (11.24%)
+  241530623 sequences unclassified (88.76%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323252.kraken2.report
+Loading database information... done.
+238286634 sequences (23802.49 Mbp) processed in 415.729s (34390.7 Kseq/m, 3435.29 Mbp/m).
+  29584491 sequences classified (12.42%)
+  208702143 sequences unclassified (87.58%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323253.kraken2.report
+Loading database information... done.
+278841762 sequences (27847.21 Mbp) processed in 486.272s (34405.7 Kseq/m, 3436.01 Mbp/m).
+  42273322 sequences classified (15.16%)
+  236568440 sequences unclassified (84.84%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323255.kraken2.report
+Loading database information... done.
+249926430 sequences (24965.15 Mbp) processed in 439.539s (34116.6 Kseq/m, 3407.91 Mbp/m).
+  36400810 sequences classified (14.56%)
+  213525620 sequences unclassified (85.44%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323256.kraken2.report
+Loading database information... done.
+317345732 sequences (31684.41 Mbp) processed in 556.807s (34196.3 Kseq/m, 3414.22 Mbp/m).
+  38112316 sequences classified (12.01%)
+  279233416 sequences unclassified (87.99%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323257.kraken2.report
+Loading database information... done.
+206347294 sequences (20611.71 Mbp) processed in 359.355s (34452.9 Kseq/m, 3441.45 Mbp/m).
+  23247409 sequences classified (11.27%)
+  183099885 sequences unclassified (88.73%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323258.kraken2.report
+Loading database information... done.
+268817276 sequences (26845.82 Mbp) processed in 468.991s (34391.0 Kseq/m, 3434.50 Mbp/m).
+  37679440 sequences classified (14.02%)
+  231137836 sequences unclassified (85.98%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323259.kraken2.report
+Loading database information... done.
+261381156 sequences (26099.30 Mbp) processed in 458.139s (34231.7 Kseq/m, 3418.09 Mbp/m).
+  37997325 sequences classified (14.54%)
+  223383831 sequences unclassified (85.46%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323260.kraken2.report
+Loading database information... done.
+215569718 sequences (21528.33 Mbp) processed in 374.264s (34559.0 Kseq/m, 3451.31 Mbp/m).
+  28075480 sequences classified (13.02%)
+  187494238 sequences unclassified (86.98%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323261.kraken2.report
+Loading database information... done.
+173157270 sequences (17294.12 Mbp) processed in 301.988s (34403.5 Kseq/m, 3436.05 Mbp/m).
+  24390530 sequences classified (14.09%)
+  148766740 sequences unclassified (85.91%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323262.kraken2.report
+Loading database information... done.
+205358500 sequences (20504.42 Mbp) processed in 357.258s (34489.1 Kseq/m, 3443.63 Mbp/m).
+  29431236 sequences classified (14.33%)
+  175927264 sequences unclassified (85.67%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323263.kraken2.report
+Loading database information... done.
+223241416 sequences (22291.81 Mbp) processed in 387.969s (34524.6 Kseq/m, 3447.46 Mbp/m).
+  30765700 sequences classified (13.78%)
+  192475716 sequences unclassified (86.22%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323265.kraken2.report
+Loading database information... done.
+150958214 sequences (22641.98 Mbp) processed in 304.677s (29728.2 Kseq/m, 4458.88 Mbp/m).
+  1512637 sequences classified (1.00%)
+  149445577 sequences unclassified (99.00%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323266.kraken2.report
+Loading database information... done.
+241946026 sequences (24159.89 Mbp) processed in 419.303s (34621.2 Kseq/m, 3457.15 Mbp/m).
+  34844495 sequences classified (14.40%)
+  207101531 sequences unclassified (85.60%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323267.kraken2.report
+Loading database information... done.
+154012998 sequences (23100.24 Mbp) processed in 310.547s (29756.5 Kseq/m, 4463.14 Mbp/m).
+  4835153 sequences classified (3.14%)
+  149177845 sequences unclassified (96.86%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323277.kraken2.report
+Loading database information... done.
+162246314 sequences (24335.18 Mbp) processed in 327.566s (29718.6 Kseq/m, 4457.46 Mbp/m).
+  1391812 sequences classified (0.86%)
+  160854502 sequences unclassified (99.14%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323288.kraken2.report
+Loading database information... done.
+172383038 sequences (25855.87 Mbp) processed in 348.027s (29718.9 Kseq/m, 4457.56 Mbp/m).
+  1096545 sequences classified (0.64%)
+  171286493 sequences unclassified (99.36%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323289.kraken2.report
+Loading database information... done.
+163292182 sequences (24492.33 Mbp) processed in 328.981s (29781.5 Kseq/m, 4466.94 Mbp/m).
+  1091844 sequences classified (0.67%)
+  162200338 sequences unclassified (99.33%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323290.kraken2.report
+Loading database information... done.
+247677330 sequences (24737.73 Mbp) processed in 430.863s (34490.4 Kseq/m, 3444.86 Mbp/m).
+  33327618 sequences classified (13.46%)
+  214349712 sequences unclassified (86.54%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323291.kraken2.report
+Loading database information... done.
+253008036 sequences (25265.07 Mbp) processed in 443.612s (34220.2 Kseq/m, 3417.19 Mbp/m).
+  30280356 sequences classified (11.97%)
+  222727680 sequences unclassified (88.03%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323292.kraken2.report
+Loading database information... done.
+235015226 sequences (23471.31 Mbp) processed in 408.007s (34560.4 Kseq/m, 3451.60 Mbp/m).
+  26661633 sequences classified (11.34%)
+  208353593 sequences unclassified (88.66%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323293.kraken2.report
+Loading database information... done.
+210647104 sequences (21034.15 Mbp) processed in 366.173s (34516.0 Kseq/m, 3446.59 Mbp/m).
+  28869911 sequences classified (13.71%)
+  181777193 sequences unclassified (86.29%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323294.kraken2.report
+Loading database information... done.
+216009660 sequences (21573.21 Mbp) processed in 375.120s (34550.5 Kseq/m, 3450.61 Mbp/m).
+  29811142 sequences classified (13.80%)
+  186198518 sequences unclassified (86.20%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323298.kraken2.report
+Loading database information... done.
+195559196 sequences (19533.59 Mbp) processed in 342.021s (34306.5 Kseq/m, 3426.74 Mbp/m).
+  25573939 sequences classified (13.08%)
+  169985257 sequences unclassified (86.92%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323300.kraken2.report
+Loading database information... done.
+224006340 sequences (22369.16 Mbp) processed in 389.894s (34471.9 Kseq/m, 3442.34 Mbp/m).
+  31013615 sequences classified (13.84%)
+  192992725 sequences unclassified (86.16%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323301.kraken2.report
+Loading database information... done.
+234883204 sequences (23452.02 Mbp) processed in 410.757s (34309.8 Kseq/m, 3425.68 Mbp/m).
+  32670914 sequences classified (13.91%)
+  202212290 sequences unclassified (86.09%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323302.kraken2.report
+Loading database information... done.
+259930548 sequences (25956.46 Mbp) processed in 452.494s (34466.4 Kseq/m, 3441.78 Mbp/m).
+  32924160 sequences classified (12.67%)
+  227006388 sequences unclassified (87.33%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323303.kraken2.report
+Loading database information... done.
+220256074 sequences (21998.27 Mbp) processed in 384.365s (34382.3 Kseq/m, 3433.96 Mbp/m).
+  28773178 sequences classified (13.06%)
+  191482896 sequences unclassified (86.94%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323304.kraken2.report
+Loading database information... done.
+295197976 sequences (29483.81 Mbp) processed in 514.139s (34449.6 Kseq/m, 3440.76 Mbp/m).
+  36725481 sequences classified (12.44%)
+  258472495 sequences unclassified (87.56%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323305.kraken2.report
+Loading database information... done.
+199713128 sequences (19945.79 Mbp) processed in 348.507s (34383.2 Kseq/m, 3433.92 Mbp/m).
+  23784151 sequences classified (11.91%)
+  175928977 sequences unclassified (88.09%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323306.kraken2.report
+Loading database information... done.
+206242708 sequences (20602.28 Mbp) processed in 359.672s (34405.1 Kseq/m, 3436.84 Mbp/m).
+  27807566 sequences classified (13.48%)
+  178435142 sequences unclassified (86.52%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323307.kraken2.report
+Loading database information... done.
+292480248 sequences (29203.04 Mbp) processed in 508.777s (34492.2 Kseq/m, 3443.91 Mbp/m).
+  42182168 sequences classified (14.42%)
+  250298080 sequences unclassified (85.58%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323309.kraken2.report
+Loading database information... done.
+268661318 sequences (26830.23 Mbp) processed in 466.979s (34519.1 Kseq/m, 3447.29 Mbp/m).
+  39381100 sequences classified (14.66%)
+  229280218 sequences unclassified (85.34%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323310.kraken2.report
+Loading database information... done.
+319356202 sequences (31885.77 Mbp) processed in 554.332s (34566.6 Kseq/m, 3451.26 Mbp/m).
+  45921505 sequences classified (14.38%)
+  273434697 sequences unclassified (85.62%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323311.kraken2.report
+Loading database information... done.
+262174270 sequences (26182.21 Mbp) processed in 456.526s (34456.8 Kseq/m, 3441.05 Mbp/m).
+  36279893 sequences classified (13.84%)
+  225894377 sequences unclassified (86.16%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323312.kraken2.report
+Loading database information... done.
+155031096 sequences (23252.88 Mbp) processed in 311.755s (29837.1 Kseq/m, 4475.22 Mbp/m).
+  1788960 sequences classified (1.15%)
+  153242136 sequences unclassified (98.85%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323319.kraken2.report
+Loading database information... done.
+258760304 sequences (25843.53 Mbp) processed in 452.310s (34325.1 Kseq/m, 3428.20 Mbp/m).
+  32777444 sequences classified (12.67%)
+  225982860 sequences unclassified (87.33%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323320.kraken2.report
+Loading database information... done.
+360979956 sequences (36038.91 Mbp) processed in 630.695s (34341.2 Kseq/m, 3428.50 Mbp/m).
+  49724960 sequences classified (13.77%)
+  311254996 sequences unclassified (86.23%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323321.kraken2.report
+Loading database information... done.
+204750890 sequences (20446.47 Mbp) processed in 355.209s (34585.4 Kseq/m, 3453.71 Mbp/m).
+  28518281 sequences classified (13.93%)
+  176232609 sequences unclassified (86.07%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323322.kraken2.report
+Loading database information... done.
+133716348 sequences (20055.91 Mbp) processed in 269.993s (29715.5 Kseq/m, 4456.98 Mbp/m).
+  1070150 sequences classified (0.80%)
+  132646198 sequences unclassified (99.20%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323323.kraken2.report
+Loading database information... done.
+165899096 sequences (24883.31 Mbp) processed in 334.090s (29794.2 Kseq/m, 4468.85 Mbp/m).
+  1328035 sequences classified (0.80%)
+  164571061 sequences unclassified (99.20%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323324.kraken2.report
+Loading database information... done.
+163321940 sequences (24496.82 Mbp) processed in 328.796s (29803.6 Kseq/m, 4470.28 Mbp/m).
+  994240 sequences classified (0.61%)
+  162327700 sequences unclassified (99.39%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323325.kraken2.report
+Loading database information... done.
+152700258 sequences (22903.65 Mbp) processed in 310.408s (29516.1 Kseq/m, 4427.14 Mbp/m).
+  1072625 sequences classified (0.70%)
+  151627633 sequences unclassified (99.30%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323326.kraken2.report
+Loading database information... done.
+242424182 sequences (24197.62 Mbp) processed in 423.505s (34345.4 Kseq/m, 3428.19 Mbp/m).
+  34091427 sequences classified (14.06%)
+  208332755 sequences unclassified (85.94%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323331.kraken2.report
+Loading database information... done.
+241345926 sequences (24101.47 Mbp) processed in 421.037s (34393.0 Kseq/m, 3434.58 Mbp/m).
+  33059308 sequences classified (13.70%)
+  208286618 sequences unclassified (86.30%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323332.kraken2.report
+Loading database information... done.
+272462714 sequences (27209.69 Mbp) processed in 473.102s (34554.4 Kseq/m, 3450.80 Mbp/m).
+  40626214 sequences classified (14.91%)
+  231836500 sequences unclassified (85.09%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323333.kraken2.report
+Loading database information... done.
+251341890 sequences (25094.94 Mbp) processed in 438.423s (34397.1 Kseq/m, 3434.34 Mbp/m).
+  33798355 sequences classified (13.45%)
+  217543535 sequences unclassified (86.55%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323334.kraken2.report
+Loading database information... done.
+259026220 sequences (25868.43 Mbp) processed in 450.392s (34506.8 Kseq/m, 3446.12 Mbp/m).
+  34918999 sequences classified (13.48%)
+  224107221 sequences unclassified (86.52%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323335.kraken2.report
+Loading database information... done.
+235019978 sequences (23475.52 Mbp) processed in 411.060s (34304.5 Kseq/m, 3426.58 Mbp/m).
+  26589527 sequences classified (11.31%)
+  208430451 sequences unclassified (88.69%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323336.kraken2.report
+Loading database information... done.
+334910622 sequences (33449.67 Mbp) processed in 585.354s (34329.0 Kseq/m, 3428.66 Mbp/m).
+  39291375 sequences classified (11.73%)
+  295619247 sequences unclassified (88.27%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323337.kraken2.report
+Loading database information... done.
+288823348 sequences (28842.45 Mbp) processed in 500.662s (34613.0 Kseq/m, 3456.52 Mbp/m).
+  41935050 sequences classified (14.52%)
+  246888298 sequences unclassified (85.48%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323338.kraken2.report
+Loading database information... done.
+239809938 sequences (23951.70 Mbp) processed in 417.704s (34446.8 Kseq/m, 3440.48 Mbp/m).
+  35001158 sequences classified (14.60%)
+  204808780 sequences unclassified (85.40%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323339.kraken2.report
+Loading database information... done.
+192482554 sequences (19226.04 Mbp) processed in 336.321s (34339.1 Kseq/m, 3429.95 Mbp/m).
+  27318578 sequences classified (14.19%)
+  165163976 sequences unclassified (85.81%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323347.kraken2.report
+Loading database information... done.
+221433778 sequences (22117.12 Mbp) processed in 389.125s (34143.4 Kseq/m, 3410.29 Mbp/m).
+  27036138 sequences classified (12.21%)
+  194397640 sequences unclassified (87.79%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323350.kraken2.report
+Loading database information... done.
+138005650 sequences (20699.30 Mbp) processed in 279.397s (29636.4 Kseq/m, 4445.13 Mbp/m).
+  1048405 sequences classified (0.76%)
+  136957245 sequences unclassified (99.24%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323353.kraken2.report
+Loading database information... done.
+180800562 sequences (27118.26 Mbp) processed in 365.325s (29694.2 Kseq/m, 4453.83 Mbp/m).
+  1285191 sequences classified (0.71%)
+  179515371 sequences unclassified (99.29%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31323354.kraken2.report
+Loading database information... done.
+253356848 sequences (25301.17 Mbp) processed in 443.826s (34250.8 Kseq/m, 3420.42 Mbp/m).
+  34303840 sequences classified (13.54%)
+  219053008 sequences unclassified (86.46%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357152.kraken2.report
+Loading database information... done.
+311625086 sequences (31128.34 Mbp) processed in 541.719s (34515.2 Kseq/m, 3447.73 Mbp/m).
+  37351339 sequences classified (11.99%)
+  274273747 sequences unclassified (88.01%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357153.kraken2.report
+Loading database information... done.
+232819154 sequences (23251.40 Mbp) processed in 407.194s (34305.9 Kseq/m, 3426.09 Mbp/m).
+  28237873 sequences classified (12.13%)
+  204581281 sequences unclassified (87.87%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357154.kraken2.report
+Loading database information... done.
+258333834 sequences (25795.06 Mbp) processed in 453.265s (34196.4 Kseq/m, 3414.56 Mbp/m).
+  36490025 sequences classified (14.13%)
+  221843809 sequences unclassified (85.87%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357155.kraken2.report
+Loading database information... done.
+306044656 sequences (30561.95 Mbp) processed in 531.339s (34559.2 Kseq/m, 3451.12 Mbp/m).
+  38537037 sequences classified (12.59%)
+  267507619 sequences unclassified (87.41%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357156.kraken2.report
+Loading database information... done.
+225453426 sequences (22519.37 Mbp) processed in 394.160s (34319.1 Kseq/m, 3427.95 Mbp/m).
+  28760235 sequences classified (12.76%)
+  196693191 sequences unclassified (87.24%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357157.kraken2.report
+Loading database information... done.
+198269724 sequences (19805.34 Mbp) processed in 346.571s (34325.4 Kseq/m, 3428.79 Mbp/m).
+  23314850 sequences classified (11.76%)
+  174954874 sequences unclassified (88.24%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357158.kraken2.report
+Loading database information... done.
+240671186 sequences (24032.32 Mbp) processed in 422.123s (34208.7 Kseq/m, 3415.92 Mbp/m).
+  27348679 sequences classified (11.36%)
+  213322507 sequences unclassified (88.64%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357161.kraken2.report
+Loading database information... done.
+236228002 sequences (23589.42 Mbp) processed in 413.891s (34245.0 Kseq/m, 3419.66 Mbp/m).
+  28266055 sequences classified (11.97%)
+  207961947 sequences unclassified (88.03%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357162.kraken2.report
+Loading database information... done.
+201539202 sequences (20128.85 Mbp) processed in 351.621s (34390.3 Kseq/m, 3434.75 Mbp/m).
+  23010357 sequences classified (11.42%)
+  178528845 sequences unclassified (88.58%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357163.kraken2.report
+Loading database information... done.
+192415258 sequences (19215.02 Mbp) processed in 335.823s (34377.9 Kseq/m, 3433.06 Mbp/m).
+  20897774 sequences classified (10.86%)
+  171517484 sequences unclassified (89.14%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357164.kraken2.report
+Loading database information... done.
+237912982 sequences (23750.04 Mbp) processed in 417.212s (34214.7 Kseq/m, 3415.54 Mbp/m).
+  33923199 sequences classified (14.26%)
+  203989783 sequences unclassified (85.74%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357165.kraken2.report
+Loading database information... done.
+182885112 sequences (18264.53 Mbp) processed in 319.215s (34375.3 Kseq/m, 3433.02 Mbp/m).
+  21439935 sequences classified (11.72%)
+  161445177 sequences unclassified (88.28%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357174.kraken2.report
+Loading database information... done.
+210428160 sequences (21018.09 Mbp) processed in 368.436s (34268.3 Kseq/m, 3422.81 Mbp/m).
+  25233665 sequences classified (11.99%)
+  185194495 sequences unclassified (88.01%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357175.kraken2.report
+Loading database information... done.
+222424604 sequences (22211.81 Mbp) processed in 388.200s (34377.8 Kseq/m, 3433.05 Mbp/m).
+  25936235 sequences classified (11.66%)
+  196488369 sequences unclassified (88.34%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357176.kraken2.report
+Loading database information... done.
+161027756 sequences (16078.34 Mbp) processed in 282.898s (34152.5 Kseq/m, 3410.07 Mbp/m).
+  18715094 sequences classified (11.62%)
+  142312662 sequences unclassified (88.38%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357177.kraken2.report
+Loading database information... done.
+188254672 sequences (18805.23 Mbp) processed in 330.316s (34195.4 Kseq/m, 3415.87 Mbp/m).
+  22494045 sequences classified (11.95%)
+  165760627 sequences unclassified (88.05%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357178.kraken2.report
+Loading database information... done.
+212719526 sequences (21242.85 Mbp) processed in 374.363s (34093.1 Kseq/m, 3404.64 Mbp/m).
+  25807868 sequences classified (12.13%)
+  186911658 sequences unclassified (87.87%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357179.kraken2.report
+Loading database information... done.
+172239514 sequences (17201.71 Mbp) processed in 303.147s (34090.2 Kseq/m, 3404.62 Mbp/m).
+  20658870 sequences classified (11.99%)
+  151580644 sequences unclassified (88.01%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357180.kraken2.report
+Loading database information... done.
+327247828 sequences (32674.70 Mbp) processed in 568.896s (34514.0 Kseq/m, 3446.12 Mbp/m).
+  43494436 sequences classified (13.29%)
+  283753392 sequences unclassified (86.71%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357181.kraken2.report
+Loading database information... done.
+320353700 sequences (31989.89 Mbp) processed in 556.838s (34518.5 Kseq/m, 3446.95 Mbp/m).
+  44533929 sequences classified (13.90%)
+  275819771 sequences unclassified (86.10%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357183.kraken2.report
+Loading database information... done.
+287125560 sequences (28664.91 Mbp) processed in 503.563s (34211.3 Kseq/m, 3415.45 Mbp/m).
+  40948678 sequences classified (14.26%)
+  246176882 sequences unclassified (85.74%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357185.kraken2.report
+Loading database information... done.
+293180652 sequences (29280.60 Mbp) processed in 509.930s (34496.6 Kseq/m, 3445.25 Mbp/m).
+  38247715 sequences classified (13.05%)
+  254932937 sequences unclassified (86.95%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357186.kraken2.report
+Loading database information... done.
+261755854 sequences (26135.22 Mbp) processed in 460.250s (34123.5 Kseq/m, 3407.09 Mbp/m).
+  37179542 sequences classified (14.20%)
+  224576312 sequences unclassified (85.80%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357187.kraken2.report
+Loading database information... done.
+279545296 sequences (27903.58 Mbp) processed in 488.603s (34327.9 Kseq/m, 3426.54 Mbp/m).
+  36778575 sequences classified (13.16%)
+  242766721 sequences unclassified (86.84%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357190.kraken2.report
+Loading database information... done.
+273436394 sequences (27292.07 Mbp) processed in 478.579s (34281.0 Kseq/m, 3421.64 Mbp/m).
+  39067893 sequences classified (14.29%)
+  234368501 sequences unclassified (85.71%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357191.kraken2.report
+Loading database information... done.
+210555452 sequences (21034.73 Mbp) processed in 367.136s (34410.5 Kseq/m, 3437.65 Mbp/m).
+  27267304 sequences classified (12.95%)
+  183288148 sequences unclassified (87.05%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357193.kraken2.report
+Loading database information... done.
+306911878 sequences (30650.98 Mbp) processed in 531.954s (34617.1 Kseq/m, 3457.17 Mbp/m).
+  36330017 sequences classified (11.84%)
+  270581861 sequences unclassified (88.16%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357194.kraken2.report
+Loading database information... done.
+235756200 sequences (23541.52 Mbp) processed in 414.352s (34138.5 Kseq/m, 3408.91 Mbp/m).
+  31342895 sequences classified (13.29%)
+  204413305 sequences unclassified (86.71%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357195.kraken2.report
+Loading database information... done.
+296591742 sequences (29630.40 Mbp) processed in 514.631s (34579.2 Kseq/m, 3454.56 Mbp/m).
+  32754494 sequences classified (11.04%)
+  263837248 sequences unclassified (88.96%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357196.kraken2.report
+Loading database information... done.
+156106756 sequences (15592.94 Mbp) processed in 274.124s (34168.5 Kseq/m, 3412.97 Mbp/m).
+  18511264 sequences classified (11.86%)
+  137595492 sequences unclassified (88.14%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357197.kraken2.report
+Loading database information... done.
+246557882 sequences (24624.02 Mbp) processed in 432.068s (34238.7 Kseq/m, 3419.46 Mbp/m).
+  36509109 sequences classified (14.81%)
+  210048773 sequences unclassified (85.19%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357206.kraken2.report
+Loading database information... done.
+211514722 sequences (21131.01 Mbp) processed in 369.251s (34369.3 Kseq/m, 3433.61 Mbp/m).
+  28504428 sequences classified (13.48%)
+  183010294 sequences unclassified (86.52%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357207.kraken2.report
+Loading database information... done.
+176653374 sequences (17646.33 Mbp) processed in 309.725s (34221.3 Kseq/m, 3418.45 Mbp/m).
+  22495574 sequences classified (12.73%)
+  154157800 sequences unclassified (87.27%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357208.kraken2.report
+Loading database information... done.
+205538024 sequences (20527.82 Mbp) processed in 359.098s (34342.3 Kseq/m, 3429.89 Mbp/m).
+  25145387 sequences classified (12.23%)
+  180392637 sequences unclassified (87.77%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357211.kraken2.report
+Loading database information... done.
+274506296 sequences (27412.19 Mbp) processed in 480.956s (34245.1 Kseq/m, 3419.71 Mbp/m).
+  32344318 sequences classified (11.78%)
+  242161978 sequences unclassified (88.22%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357212.kraken2.report
+Loading database information... done.
+258181736 sequences (25788.86 Mbp) processed in 448.497s (34539.6 Kseq/m, 3450.04 Mbp/m).
+  29549411 sequences classified (11.45%)
+  228632325 sequences unclassified (88.55%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357213.kraken2.report
+Loading database information... done.
+56198832 sequences (5590.40 Mbp) processed in 97.599s (34548.8 Kseq/m, 3436.75 Mbp/m).
+  103030 sequences classified (0.18%)
+  56095802 sequences unclassified (99.82%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357214.kraken2.report
+Loading database information... done.
+59021572 sequences (5872.95 Mbp) processed in 102.481s (34555.8 Kseq/m, 3438.48 Mbp/m).
+  93992 sequences classified (0.16%)
+  58927580 sequences unclassified (99.84%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357215.kraken2.report
+Loading database information... done.
+63853122 sequences (6354.45 Mbp) processed in 110.778s (34584.2 Kseq/m, 3441.71 Mbp/m).
+  118860 sequences classified (0.19%)
+  63734262 sequences unclassified (99.81%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357216.kraken2.report
+Loading database information... done.
+51408848 sequences (5107.21 Mbp) processed in 89.194s (34582.1 Kseq/m, 3435.56 Mbp/m).
+  76074 sequences classified (0.15%)
+  51332774 sequences unclassified (99.85%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357218.kraken2.report
+Loading database information... done.
+60696918 sequences (6035.94 Mbp) processed in 105.627s (34478.2 Kseq/m, 3428.64 Mbp/m).
+  91064 sequences classified (0.15%)
+  60605854 sequences unclassified (99.85%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357219.kraken2.report
+Loading database information... done.
+49740132 sequences (4948.45 Mbp) processed in 86.124s (34652.5 Kseq/m, 3447.44 Mbp/m).
+  70511 sequences classified (0.14%)
+  49669621 sequences unclassified (99.86%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357220.kraken2.report
+Loading database information... done.
+56110204 sequences (5577.82 Mbp) processed in 97.377s (34572.9 Kseq/m, 3436.83 Mbp/m).
+  88208 sequences classified (0.16%)
+  56021996 sequences unclassified (99.84%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357221.kraken2.report
+Loading database information... done.
+58972486 sequences (5861.02 Mbp) processed in 102.730s (34443.1 Kseq/m, 3423.15 Mbp/m).
+  104358 sequences classified (0.18%)
+  58868128 sequences unclassified (99.82%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357222.kraken2.report
+Loading database information... done.
+63861614 sequences (6354.89 Mbp) processed in 110.196s (34771.5 Kseq/m, 3460.12 Mbp/m).
+  115449 sequences classified (0.18%)
+  63746165 sequences unclassified (99.82%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357223.kraken2.report
+Loading database information... done.
+51658752 sequences (5140.44 Mbp) processed in 89.335s (34695.7 Kseq/m, 3452.49 Mbp/m).
+  76889 sequences classified (0.15%)
+  51581863 sequences unclassified (99.85%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357224.kraken2.report
+Loading database information... done.
+60238898 sequences (5988.78 Mbp) processed in 104.940s (34442.1 Kseq/m, 3424.13 Mbp/m).
+  81197 sequences classified (0.13%)
+  60157701 sequences unclassified (99.87%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357225.kraken2.report
+Loading database information... done.
+49257558 sequences (4897.76 Mbp) processed in 85.524s (34557.1 Kseq/m, 3436.07 Mbp/m).
+  79291 sequences classified (0.16%)
+  49178267 sequences unclassified (99.84%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357226.kraken2.report
+Loading database information... done.
+218468880 sequences (21819.23 Mbp) processed in 382.685s (34253.1 Kseq/m, 3420.97 Mbp/m).
+  26793819 sequences classified (12.26%)
+  191675061 sequences unclassified (87.74%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357227.kraken2.report
+Loading database information... done.
+319229128 sequences (31882.28 Mbp) processed in 557.339s (34366.4 Kseq/m, 3432.27 Mbp/m).
+  37205737 sequences classified (11.65%)
+  282023391 sequences unclassified (88.35%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357229.kraken2.report
+Loading database information... done.
+197282352 sequences (19701.89 Mbp) processed in 343.165s (34493.4 Kseq/m, 3444.74 Mbp/m).
+  21504173 sequences classified (10.90%)
+  175778179 sequences unclassified (89.10%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357230.kraken2.report
+Loading database information... done.
+247547072 sequences (24719.67 Mbp) processed in 433.047s (34298.4 Kseq/m, 3424.98 Mbp/m).
+  29678389 sequences classified (11.99%)
+  217868683 sequences unclassified (88.01%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357233.kraken2.report
+Loading database information... done.
+270422052 sequences (27006.83 Mbp) processed in 470.888s (34456.9 Kseq/m, 3441.18 Mbp/m).
+  30170938 sequences classified (11.16%)
+  240251114 sequences unclassified (88.84%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357234.kraken2.report
+Loading database information... done.
+264124032 sequences (26372.14 Mbp) processed in 459.736s (34470.8 Kseq/m, 3441.82 Mbp/m).
+  35184694 sequences classified (13.32%)
+  228939338 sequences unclassified (86.68%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357236.kraken2.report
+Loading database information... done.
+229852910 sequences (22953.23 Mbp) processed in 403.842s (34150.0 Kseq/m, 3410.23 Mbp/m).
+  30942679 sequences classified (13.46%)
+  198910231 sequences unclassified (86.54%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357237.kraken2.report
+Loading database information... done.
+304505142 sequences (30413.32 Mbp) processed in 531.980s (34344.0 Kseq/m, 3430.20 Mbp/m).
+  43434935 sequences classified (14.26%)
+  261070207 sequences unclassified (85.74%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357238.kraken2.report
+Loading database information... done.
+155597784 sequences (15540.82 Mbp) processed in 274.781s (33975.7 Kseq/m, 3393.43 Mbp/m).
+  21178207 sequences classified (13.61%)
+  134419577 sequences unclassified (86.39%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357239.kraken2.report
+Loading database information... done.
+197694404 sequences (19747.30 Mbp) processed in 346.172s (34265.2 Kseq/m, 3422.68 Mbp/m).
+  24352218 sequences classified (12.32%)
+  173342186 sequences unclassified (87.68%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357240.kraken2.report
+Loading database information... done.
+289333602 sequences (28890.61 Mbp) processed in 503.919s (34450.0 Kseq/m, 3439.91 Mbp/m).
+  35389835 sequences classified (12.23%)
+  253943767 sequences unclassified (87.77%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357241.kraken2.report
+Loading database information... done.
+273092638 sequences (27275.67 Mbp) processed in 475.337s (34471.4 Kseq/m, 3442.90 Mbp/m).
+  33534065 sequences classified (12.28%)
+  239558573 sequences unclassified (87.72%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357242.kraken2.report
+Loading database information... done.
+279211550 sequences (27882.68 Mbp) processed in 485.974s (34472.4 Kseq/m, 3442.49 Mbp/m).
+  38112272 sequences classified (13.65%)
+  241099278 sequences unclassified (86.35%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357244.kraken2.report
+Loading database information... done.
+262341096 sequences (26190.52 Mbp) processed in 458.978s (34294.6 Kseq/m, 3423.76 Mbp/m).
+  37387985 sequences classified (14.25%)
+  224953111 sequences unclassified (85.75%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357245.kraken2.report
+Loading database information... done.
+288881420 sequences (28835.62 Mbp) processed in 502.445s (34497.1 Kseq/m, 3443.43 Mbp/m).
+  39038063 sequences classified (13.51%)
+  249843357 sequences unclassified (86.49%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357246.kraken2.report
+Loading database information... done.
+296391978 sequences (29598.65 Mbp) processed in 516.779s (34412.3 Kseq/m, 3436.52 Mbp/m).
+  39124203 sequences classified (13.20%)
+  257267775 sequences unclassified (86.80%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357247.kraken2.report
+Loading database information... done.
+230380478 sequences (23000.12 Mbp) processed in 406.081s (34039.5 Kseq/m, 3398.35 Mbp/m).
+  31298845 sequences classified (13.59%)
+  199081633 sequences unclassified (86.41%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357248.kraken2.report
+Loading database information... done.
+321346482 sequences (32095.04 Mbp) processed in 562.140s (34298.9 Kseq/m, 3425.66 Mbp/m).
+  45807410 sequences classified (14.25%)
+  275539072 sequences unclassified (85.75%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357249.kraken2.report
+Loading database information... done.
+285939396 sequences (28561.78 Mbp) processed in 502.223s (34160.8 Kseq/m, 3412.24 Mbp/m).
+  38813241 sequences classified (13.57%)
+  247126155 sequences unclassified (86.43%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357251.kraken2.report
+Loading database information... done.
+239560252 sequences (23928.41 Mbp) processed in 417.321s (34442.6 Kseq/m, 3440.29 Mbp/m).
+  32281602 sequences classified (13.48%)
+  207278650 sequences unclassified (86.52%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357252.kraken2.report
+Loading database information... done.
+248002442 sequences (24761.71 Mbp) processed in 433.664s (34312.6 Kseq/m, 3425.93 Mbp/m).
+  34582616 sequences classified (13.94%)
+  213419826 sequences unclassified (86.06%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357253.kraken2.report
+Loading database information... done.
+295803604 sequences (29543.28 Mbp) processed in 513.983s (34530.7 Kseq/m, 3448.74 Mbp/m).
+  41337542 sequences classified (13.97%)
+  254466062 sequences unclassified (86.03%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357254.kraken2.report
+Loading database information... done.
+263803590 sequences (26342.83 Mbp) processed in 460.489s (34372.6 Kseq/m, 3432.37 Mbp/m).
+  37091992 sequences classified (14.06%)
+  226711598 sequences unclassified (85.94%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357255.kraken2.report
+Loading database information... done.
+220188866 sequences (21990.37 Mbp) processed in 382.729s (34518.8 Kseq/m, 3447.41 Mbp/m).
+  26817423 sequences classified (12.18%)
+  193371443 sequences unclassified (87.82%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357256.kraken2.report
+Loading database information... done.
+336165492 sequences (33571.94 Mbp) processed in 582.587s (34621.3 Kseq/m, 3457.54 Mbp/m).
+  39412394 sequences classified (11.72%)
+  296753098 sequences unclassified (88.28%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357261.kraken2.report
+Loading database information... done.
+254486516 sequences (25417.21 Mbp) processed in 445.205s (34297.0 Kseq/m, 3425.46 Mbp/m).
+  27501102 sequences classified (10.81%)
+  226985414 sequences unclassified (89.19%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357262.kraken2.report
+Loading database information... done.
+264119262 sequences (26368.30 Mbp) processed in 462.814s (34240.8 Kseq/m, 3418.43 Mbp/m).
+  35812925 sequences classified (13.56%)
+  228306337 sequences unclassified (86.44%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357263.kraken2.report
+Loading database information... done.
+275934430 sequences (27548.89 Mbp) processed in 482.390s (34320.9 Kseq/m, 3426.55 Mbp/m).
+  37542701 sequences classified (13.61%)
+  238391729 sequences unclassified (86.39%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357264.kraken2.report
+Loading database information... done.
+265164768 sequences (26469.22 Mbp) processed in 462.866s (34372.6 Kseq/m, 3431.13 Mbp/m).
+  37043069 sequences classified (13.97%)
+  228121699 sequences unclassified (86.03%)
+>> Checking report file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/05.kraken2/SRR31357265.kraken2.report
+Job 68103749 stderr output:
+

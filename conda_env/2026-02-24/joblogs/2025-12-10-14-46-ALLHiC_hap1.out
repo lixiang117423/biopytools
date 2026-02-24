@@ -1,0 +1,372 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/logs/allhic_20251210_144649.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:46:50] Checking required tools...
+[2025-12-10 14:46:50] ✅ Environment ready
+[2025-12-10 14:46:50] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1
+[2025-12-10 14:46:50] Threads: 88
+[2025-12-10 14:46:50] Memory: 800G
+[2025-12-10 14:46:50] Chromosomes: 12
+[2025-12-10 14:46:50] Enzyme: GATC
+[2025-12-10 14:46:50] ⏱️  Step completed in 1s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v4.1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 [Step 0] Preparing input data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:46:50] ✅ Input files linked
+[2025-12-10 14:46:50] ⏱️  Step completed in 0s
+[2025-12-10 14:46:50] ⏭️  Skipping mapping step
+[2025-12-10 14:46:50] ⏭️  Skipping allele detection
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✂️  [Step 2] Pruning chimeric contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:46:50] ⚠️  No allele table found, using original BAM
+[2025-12-10 14:46:50] ✅ Pruning completed
+[2025-12-10 14:46:50] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 [Step 3] Partitioning contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:46:50] ▶️  ALLHiC_partition -b prunning.bam -r draft.asm.fasta -e GATC -k 12
+Extract function: calculate an empirical distribution of Hi-C link size based on intra-contig links
+CMD: allhic extract prunning.bam draft.asm.fasta --RE GATC
+[32m14:46:52 writeRE | NOTICE [0m RE counts in 1282 contigs (total: 6849666, avg 1 per 196 bp) written to `prunning.counts_GATC.txt`
+[32m14:46:52 extractContigLinks | NOTICE [0m Parse bamfile `prunning.bam`
+[32m14:46:53 extractContigLinks | NOTICE [0m Extracted 887 intra-contig link groups (total = 48729)
+[32m14:46:53 extractContigLinks | NOTICE [0m Extracted 132229 inter-contig groups to `prunning.clm` (total = 1182240, maxLinks = 470, minLinks = 3)
+[32m14:46:53 fitPowerLaw | NOTICE [0m Power law Y = 2.56e-07 * X ^ -0.7202
+[32m14:46:53 writeDistribution | NOTICE [0m Link size distribution written to `prunning.distribution.txt`
+[32m14:46:53 readClmLines | NOTICE [0m Parse clmfile `prunning.clm`
+[32m14:46:53 calcInterContigs | NOTICE [0m Contig pair analyses written to `prunning.pairs.txt`
+[32m14:46:53 Run | NOTICE [0m Success
+Partition contigs based on prunning bam file
+CMD: allhic partition prunning.counts_GATC.txt prunning.pairs.txt 12 --minREs 25
+[32m14:46:53 ReadCSVLines | NOTICE [0m Parse csvfile `prunning.counts_GATC.txt`
+[32m14:46:53 readRE | NOTICE [0m Loaded 1282 contig RE lengths for normalization from `prunning.counts_GATC.txt`
+[32m14:46:53 skipContigsWithFewREs | NOTICE [0m skipContigsWithFewREs with MinREs = 25 (RE = GATC)
+[32m14:46:53 skipContigsWithFewREs | NOTICE [0m Marked 0 contigs (avg 0.0 RE sites, len 0) since they contain too few REs (MinREs = 25)
+[32m14:46:53 ReadCSVLines | NOTICE [0m Parse csvfile `prunning.pairs.txt`
+[32m14:46:53 skipRepeats | NOTICE [0m skipRepeats with multiplicity = 2
+Contig #1 (h1tg000002l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #8 (h1tg000009l) has 3.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #10 (h1tg000011l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #13 (h1tg000014l) has 3.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #23 (h1tg000024l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #26 (h1tg000027l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #33 (h1tg000034l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #34 (h1tg000035l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #51 (h1tg000052l) has 2.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #52 (h1tg000053l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #53 (h1tg000054l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #54 (h1tg000055l) has 2.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #58 (h1tg000059l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #59 (h1tg000060l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #61 (h1tg000062l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #63 (h1tg000064l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #65 (h1tg000066l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #68 (h1tg000069l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #70 (h1tg000071l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #72 (h1tg000073l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #74 (h1tg000075l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #76 (h1tg000077l) has 3.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #83 (h1tg000084l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #84 (h1tg000085l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #93 (h1tg000094l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #119 (h1tg000120l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #121 (h1tg000122l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #128 (h1tg000129l) has 3.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #130 (h1tg000131l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #133 (h1tg000134l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #135 (h1tg000136l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #136 (h1tg000137l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #141 (h1tg000142l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #145 (h1tg000146l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #153 (h1tg000154l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #160 (h1tg000161l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #165 (h1tg000166l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #166 (h1tg000167l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #167 (h1tg000168l) has 3.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #175 (h1tg000176l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #179 (h1tg000180l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #180 (h1tg000181l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #183 (h1tg000184l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #185 (h1tg000186l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #186 (h1tg000187l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #188 (h1tg000189l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #199 (h1tg000200l) has 3.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #211 (h1tg000212l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #215 (h1tg000216l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #224 (h1tg000225l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #227 (h1tg000228l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #232 (h1tg000233l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #234 (h1tg000235l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #235 (h1tg000236l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #241 (h1tg000242l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #246 (h1tg000247l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #247 (h1tg000248l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #250 (h1tg000251l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #256 (h1tg000257l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #272 (h1tg000273l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #277 (h1tg000278l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #289 (h1tg000290l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #298 (h1tg000299l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #302 (h1tg000303l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #310 (h1tg000311l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #314 (h1tg000315l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #321 (h1tg000322l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #335 (h1tg000336l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #362 (h1tg000363l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #373 (h1tg000374l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #382 (h1tg000383l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #393 (h1tg000394l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #397 (h1tg000398l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #403 (h1tg000404l) has 3.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #409 (h1tg000410l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #412 (h1tg000413l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #425 (h1tg000426l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #430 (h1tg000431l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #431 (h1tg000432l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #433 (h1tg000434l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #434 (h1tg000435l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #435 (h1tg000436l) has 3.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #449 (h1tg000450l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #451 (h1tg000452l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #454 (h1tg000455l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #458 (h1tg000459l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #466 (h1tg000467l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #478 (h1tg000479l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #480 (h1tg000481l) has 2.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #512 (h1tg000513l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #515 (h1tg000516l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #536 (h1tg000537l) has 3.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #554 (h1tg000555l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #575 (h1tg000576l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #590 (h1tg000591l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #595 (h1tg000596l) has 2.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #603 (h1tg000604l) has 2.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #614 (h1tg000615l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #630 (h1tg000631l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #639 (h1tg000640l) has 2.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #646 (h1tg000647l) has 2.6x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #651 (h1tg000652l) has 2.7x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #658 (h1tg000659l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #662 (h1tg000663l) has 2.4x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #718 (h1tg000719l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #757 (h1tg000758l) has 3.3x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #774 (h1tg000775l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #780 (h1tg000781l) has 4.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #808 (h1tg000809l) has 2.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #811 (h1tg000812l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #819 (h1tg000820l) has 2.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #846 (h1tg000847l) has 6.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #857 (h1tg000858l) has 3.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #873 (h1tg000874l) has 2.0x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #879 (h1tg000880l) has 3.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #994 (h1tg000995l) has 2.1x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1017 (h1tg001018l) has 2.8x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1023 (h1tg001024l) has 85.5x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1033 (h1tg001034l) has 2.2x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1228 (h1tg001229l) has 6.9x the average number of Hi-C links -> MARKED REPETITIVE
+Contig #1261 (h1tg001262l) has 85.5x the average number of Hi-C links -> MARKED REPETITIVE
+[32m14:46:53 skipRepeats | NOTICE [0m Marked 121 contigs (avg len 3174638) as repetitive (MaxLinkDensity = 2)
+[32m14:46:53 Cluster | NOTICE [0m Clustering starts with 1282 (1161 informative) contigs with target of 12 clusters
+[32m14:46:53 Cluster | NOTICE [0m Merge #50: Clusters	497 + 976 -> 1331, Linkage = 41755
+[32m14:46:53 Cluster | NOTICE [0m Merge #100: Clusters	114 + 617 -> 1381, Linkage = 28240
+[32m14:46:53 Cluster | NOTICE [0m Merge #150: Clusters	854 + 987 -> 1431, Linkage = 20790
+[32m14:46:53 Cluster | NOTICE [0m Merge #200: Clusters	600 + 607 -> 1481, Linkage = 16028
+[32m14:46:53 Cluster | NOTICE [0m Merge #250: Clusters	544 + 604 -> 1531, Linkage = 12826
+[32m14:46:53 Cluster | NOTICE [0m Merge #300: Clusters	1546 + 1580 -> 1581, Linkage = 11808.5
+[32m14:46:53 Cluster | NOTICE [0m Merge #350: Clusters	1494 + 1630 -> 1631, Linkage = 9232.75
+[32m14:46:53 Cluster | NOTICE [0m Merge #400: Clusters	150 + 1473 -> 1681, Linkage = 7638
+[32m14:46:53 Cluster | NOTICE [0m Merge #450: Clusters	86 + 1468 -> 1731, Linkage = 6067
+[32m14:46:53 Cluster | NOTICE [0m Merge #500: Clusters	213 + 1763 -> 1781, Linkage = 4872.833333333333
+[32m14:46:53 Cluster | NOTICE [0m Merge #550: Clusters	1673 + 1706 -> 1831, Linkage = 3848.4
+[32m14:46:53 Cluster | NOTICE [0m Merge #600: Clusters	196 + 1484 -> 1881, Linkage = 3060.5
+[32m14:46:53 Cluster | NOTICE [0m Merge #650: Clusters	1371 + 1727 -> 1931, Linkage = 2401.1
+[32m14:46:53 Cluster | NOTICE [0m Merge #700: Clusters	1830 + 1870 -> 1981, Linkage = 1686.4761904761904
+[32m14:46:53 Cluster | NOTICE [0m Merge #750: Clusters	1880 + 1886 -> 2031, Linkage = 989.78125
+[32m14:46:53 Cluster | NOTICE [0m Merge #800: Clusters	2022 + 2061 -> 2081, Linkage = 386.5833333333333
+[32m14:46:53 Cluster | NOTICE [0m 834 merges made so far; this leaves 12 clusters, and so we'r done!
+[32m14:46:53 setClusters | NOTICE [0m setClusters summary (NonInformativeRatio = 3): nPassRatio = 63, nFailRatio = 54, nFailCluster=4
+[32m14:46:53 printClusters | NOTICE [0m Write 12 partitions to `prunning.clusters.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 61 contigs (total: 433181, avg 1 per 214 bp) written to `prunning.counts_GATC.12g8.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 35 contigs (total: 307085, avg 1 per 180 bp) written to `prunning.counts_GATC.12g10.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 56 contigs (total: 640898, avg 1 per 182 bp) written to `prunning.counts_GATC.12g2.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 114 contigs (total: 558067, avg 1 per 196 bp) written to `prunning.counts_GATC.12g3.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 81 contigs (total: 499440, avg 1 per 198 bp) written to `prunning.counts_GATC.12g4.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 94 contigs (total: 504795, avg 1 per 193 bp) written to `prunning.counts_GATC.12g5.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 81 contigs (total: 518013, avg 1 per 187 bp) written to `prunning.counts_GATC.12g6.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 92 contigs (total: 498643, avg 1 per 188 bp) written to `prunning.counts_GATC.12g7.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 103 contigs (total: 478322, avg 1 per 189 bp) written to `prunning.counts_GATC.12g9.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 41 contigs (total: 216560, avg 1 per 219 bp) written to `prunning.counts_GATC.12g11.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 109 contigs (total: 666910, avg 1 per 190 bp) written to `prunning.counts_GATC.12g1.txt`
+[32m14:46:53 writeRE | NOTICE [0m RE counts in 42 contigs (total: 204358, avg 1 per 196 bp) written to `prunning.counts_GATC.12g12.txt`
+[32m14:46:53 Run | NOTICE [0m Success
+[2025-12-10 14:46:53] ✅ Partition completed
+[2025-12-10 14:46:53] ⏱️  Step completed in 3s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 [Step 3.5] Extracting contact matrix
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:46:53] ✅ Found existing: sample.clean.clm
+[2025-12-10 14:46:53] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚑 [Step 4] Rescuing unplaced contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:46:53] ▶️  ALLHiC_rescue -b sample.clean.bam -r draft.asm.fasta              -c prunning.clusters.txt -i sample.clean.counts_GATC.txt
+Died at /share/org/YZWL/yzwl_lixg/software/ALLHiC/bin/ALLHiC_rescue line 29.
+Starting rescue ungrouped contigs
+Reading contig length
+[2025-12-10 14:46:53] ✅ Rescue completed
+[2025-12-10 14:46:53] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️  [Step 5] Optimizing contig order
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g10.txt -> group10.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g11.txt -> group11.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g12.txt -> group12.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g1.txt -> group1.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g2.txt -> group2.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g3.txt -> group3.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g4.txt -> group4.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g5.txt -> group5.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g6.txt -> group6.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g7.txt -> group7.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g8.txt -> group8.txt
+[2025-12-10 14:46:53]   Processing: prunning.counts_GATC.12g9.txt -> group9.txt
+[2025-12-10 14:46:53] Found 12 chromosome groups
+[2025-12-10 14:46:53] Need to optimize 12 groups: 1 2 3 4 5 6 7 8 9 10 11 12
+[2025-12-10 14:46:53] Running optimization in parallel (max 88 jobs)...
+[2025-12-10 14:46:53] Using GNU Parallel for optimization
+[14:46:54] Starting optimization for group1
+[14:46:54] Starting optimization for group8
+[14:46:54] Starting optimization for group7
+[14:46:54] Starting optimization for group5
+[14:46:54] Starting optimization for group10
+[14:46:54] Starting optimization for group3
+[14:46:54] Starting optimization for group11
+[14:46:54] Starting optimization for group4
+[14:46:54] Starting optimization for group6
+[14:46:54] Starting optimization for group2
+[14:46:54] Starting optimization for group9
+[14:46:54] Starting optimization for group12
+[14:46:56] ✅ Group 10 completed
+[14:46:56] ✅ Group 11 completed
+[14:46:57] ✅ Group 12 completed
+[14:46:57] ✅ Group 8 completed
+[14:46:57] ✅ Group 2 completed
+[14:46:57] ✅ Group 6 completed
+[14:46:58] ✅ Group 4 completed
+[14:47:00] ✅ Group 5 completed
+[14:47:00] ✅ Group 7 completed
+[14:47:00] ✅ Group 9 completed
+[14:47:00] ✅ Group 1 completed
+[14:47:01] ✅ Group 3 completed
+[2025-12-10 14:47:01] 
+[2025-12-10 14:47:01] Checking optimization results...
+[2025-12-10 14:47:01]   ✅ Group 1: success
+[2025-12-10 14:47:01]   ✅ Group 2: success
+[2025-12-10 14:47:01]   ✅ Group 3: success
+[2025-12-10 14:47:01]   ✅ Group 4: success
+[2025-12-10 14:47:01]   ✅ Group 5: success
+[2025-12-10 14:47:01]   ✅ Group 6: success
+[2025-12-10 14:47:01]   ✅ Group 7: success
+[2025-12-10 14:47:01]   ✅ Group 8: success
+[2025-12-10 14:47:01]   ✅ Group 9: success
+[2025-12-10 14:47:01]   ✅ Group 10: success
+[2025-12-10 14:47:01]   ✅ Group 11: success
+[2025-12-10 14:47:01]   ✅ Group 12: success
+[2025-12-10 14:47:01] 
+[2025-12-10 14:47:01] Optimization summary: 12/12 groups succeeded
+[2025-12-10 14:47:01] ✅ All groups optimized successfully
+[2025-12-10 14:47:01] ⏱️  Step completed in 8s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️  [Step 6] Building final assembly
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:47:01] ▶️  ALLHiC_build draft.asm.fasta
+1. tour format to agp ...
+Processing group1.tour ...
+Processing group10.tour ...
+Processing group11.tour ...
+Processing group12.tour ...
+Processing group2.tour ...
+Processing group3.tour ...
+Processing group4.tour ...
+Processing group5.tour ...
+Processing group6.tour ...
+Processing group7.tour ...
+Processing group8.tour ...
+Processing group9.tour ...
+[2025-12-10 14:47:06] ✅ Build completed
+[2025-12-10 14:47:06] ⏱️  Step completed in 5s
+[2025-12-10 14:47:06] ⏭️  Skipping plot
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 [Step 8] Generating JBAT files for manual curation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:47:06] Converting AGP to Assembly format...
+[2025-12-10 14:47:06] ▶️  python3 '/share/org/YZWL/yzwl_lixg/software/3d-dna/utils/agp2assembly.py' groups.agp 'jbat_results/out_JBAT.assembly'
+[2025-12-10 14:47:06] Mapping reads to draft contigs for HiC generation...
+[2025-12-10 14:47:06] Running BWA MEM pipeline (this may take a while)...
+[2025-12-10 14:47:52] ✅ MND file generated successfully
+[2025-12-10 14:47:52] Generating HIC file using Juicer Tools...
+[2025-12-10 14:47:52] ▶️  java -Xmx800G -jar '/share/org/YZWL/yzwl_lixg/software/juicer/CPU/common/juicer_tools.jar' pre 'jbat_results/draft.mnd.sorted.txt' 'jbat_results/draft.hic' 'jbat_results/draft.chrom.sizes'
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-10T14:47:53,598]  [Globals.java:138] [main]  Development mode is enabled
+Using 1 CPU thread(s)
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+java.io.IOException: Unexpected column count.  Check file format
+	at juicebox.tools.utils.original.AsciiPairIterator.advance(AsciiPairIterator.java:167)
+	at juicebox.tools.utils.original.AsciiPairIterator.<init>(AsciiPairIterator.java:74)
+	at juicebox.tools.utils.original.Preprocessor.computeWholeGenomeMatrix(Preprocessor.java:565)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:658)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:425)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:139)
+	at juicebox.tools.HiCTools.main(HiCTools.java:94)
+java.lang.RuntimeException: No reads in Hi-C contact matrices. This could be because the MAPQ filter is set too high (-q) or because all reads map to the same fragment.
+	at juicebox.tools.utils.original.MatrixZoomDataPP.mergeAndWriteBlocks(MatrixZoomDataPP.java:276)
+	at juicebox.tools.utils.original.Preprocessor.writeMatrix(Preprocessor.java:970)
+	at juicebox.tools.utils.original.Preprocessor.writeBody(Preprocessor.java:659)
+	at juicebox.tools.utils.original.Preprocessor.preprocess(Preprocessor.java:425)
+	at juicebox.tools.clt.old.PreProcessing.run(PreProcessing.java:139)
+	at juicebox.tools.HiCTools.main(HiCTools.java:94)
+[2025-12-10 14:47:53] ✅ HIC file generated successfully
+[2025-12-10 14:47:53] 💡 Tip: You can remove jbat_results/draft.mnd.sorted.txt (32M) to save space
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎉 JBAT Files Ready for Manual Curation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:47:53] 
+[2025-12-10 14:47:53] 📂 Location: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/jbat_results/
+[2025-12-10 14:47:53] 
+[2025-12-10 14:47:53] 📄 Files generated:
+[2025-12-10 14:47:53]   1️⃣  draft.hic           - Hi-C contact map (load this first in Juicebox)
+[2025-12-10 14:47:53]   2️⃣  out_JBAT.assembly   - Assembly structure file
+[2025-12-10 14:47:53]   3️⃣  draft.chrom.sizes   - Chromosome sizes
+[2025-12-10 14:47:53] 
+[2025-12-10 14:47:53] 🔧 Instructions for Juicebox Assembly Tools (JBAT):
+[2025-12-10 14:47:53]   1. Open Juicebox (https://aidenlab.org/juicebox/)
+[2025-12-10 14:47:53]   2. Load draft.hic file
+[2025-12-10 14:47:53]   3. Import assembly: Assembly → Import Map Assembly → out_JBAT.assembly
+[2025-12-10 14:47:53]   4. Perform manual curation
+[2025-12-10 14:47:53]   5. Export corrected assembly
+[2025-12-10 14:47:53] 
+[2025-12-10 14:47:53] ⏱️  Step completed in 0s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎉 Pipeline Completed in 1m 4s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 14:47:53] 📝 Full log: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/logs/allhic_20251210_144649.log

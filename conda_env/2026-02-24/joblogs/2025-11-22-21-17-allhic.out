@@ -1,0 +1,45 @@
+
+🚀 ================= STARTING ALLHiC PIPELINE =================
+📂 Work Dir : /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/05.allhic
+🧬 Ref Fasta: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/05.allhic/OV53_1.primary.fa
+✂️  Enzyme   : MboI (GATC)
+🔢 Target K : 12
+🧵 Threads  : 64
+=============================================================
+
+🔗 [Step 0] Linking input files...
+✅ Step 0 Done.
+
+🔍 [Step 1] Building index and mapping Hi-C reads...
+⚠️  sample.bam already exists. Skipping Step 1.
+
+🔪 [Step 2] Filtering BAM file (MAPQ >= 1)...
+⚠️  sample.filtered.bam already exists. Skipping Step 2.
+
+🧬 [Step 3] Extracting Hi-C link information...
+⚠️  sample.filtered.counts_GATC.txt and sample.filtered.pairs.txt already exist. Skipping Step 3.
+
+📦 [Step 4] Partitioning contigs into 12 groups...
+   Running allhic partition...
+✅ Step 4 Done. Check sample.filtered.counts_GATC.12g*.txt files.
+
+⚙️  [Step 5] Optimizing ordering and orientation for each group...
+   Generating optimization commands...
+⚠️  Warning: sample.filtered.counts_GATC.12g1.txt not found for group 1
+⚠️  Warning: sample.filtered.counts_GATC.12g2.txt not found for group 2
+⚠️  Warning: sample.filtered.counts_GATC.12g3.txt not found for group 3
+⚠️  Warning: sample.filtered.counts_GATC.12g4.txt not found for group 4
+⚠️  Warning: sample.filtered.counts_GATC.12g5.txt not found for group 5
+⚠️  Warning: sample.filtered.counts_GATC.12g6.txt not found for group 6
+⚠️  Warning: sample.filtered.counts_GATC.12g7.txt not found for group 7
+⚠️  Warning: sample.filtered.counts_GATC.12g8.txt not found for group 8
+⚠️  Warning: sample.filtered.counts_GATC.12g9.txt not found for group 9
+⚠️  Warning: sample.filtered.counts_GATC.12g10.txt not found for group 10
+⚠️  Warning: sample.filtered.counts_GATC.12g11.txt not found for group 11
+⚠️  Warning: sample.filtered.counts_GATC.12g12.txt not found for group 12
+   Running optimization (parallel with 64 threads)...
+✅ Step 5 Done. Check group*.tour files.
+
+🏗️  [Step 6] Building chromosome-scale scaffolds...
+   Running allhic build...
+❌ Error: No .tour files found!

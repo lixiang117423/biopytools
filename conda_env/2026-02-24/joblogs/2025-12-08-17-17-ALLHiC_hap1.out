@@ -1,0 +1,585 @@
+🔍 Validating parameters...
+✅ Parameters validated
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/logs/allhic_complete_20251208_171755.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-08 17:17:55] 📂 Work Dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1
+[2025-12-08 17:17:55] ⚡ Threads: 88 | 🔢 K: 12 | ✂️  Enzyme: GATC
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Complete Pipeline v3.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 [Step 0] Preparing input data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-08 17:17:55] ✅ Input files linked
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔍 [Step 1] Mapping Hi-C reads to reference
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-08 17:17:55] ▶️  Running: bwa index draft.asm.fasta
+[2025-12-08 17:36:14] ✅ Command completed successfully
+[2025-12-08 17:36:14] ▶️  Running: samtools faidx draft.asm.fasta
+[2025-12-08 17:36:17] ✅ Command completed successfully
+[2025-12-08 17:36:17] ▶️  Running: bwa mem -t 88 -5SP draft.asm.fasta reads_R1.fastq.gz reads_R2.fastq.gz |              samtools view -@ 88 -hF 2316 -q 30 - |              samtools sort -@ 88 -n -o sample.clean.bam -
+[2025-12-09 02:00:47] ✅ Command completed successfully
+[2025-12-09 02:00:47] ✅ Mapping done: sample.clean.bam
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 [Step 1.5] Auto-detecting Allelic Contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 02:00:47] 📊 Generating RE counts from clean BAM...
+[2025-12-09 02:00:47] ▶️  Running: allhic extract sample.clean.bam draft.asm.fasta --RE GATC
+[2025-12-09 02:20:49] ✅ Command completed successfully
+[2025-12-09 02:20:49] 🔍 Running minimap2 for self-alignment...
+[2025-12-09 02:20:49] ▶️  Running: minimap2 -DP -k19 -w19 -m200 -t 88 draft.asm.fasta draft.asm.fasta > draft.asm.paf
+[2025-12-09 02:35:24] ✅ Command completed successfully
+[2025-12-09 02:35:24] 📝 Generating alleles.table...
+[2025-12-09 02:35:24] ▶️  Running: allhic alleles draft.asm.paf sample.clean.counts_GATC.txt > alleles.table
+[2025-12-09 02:37:38] ✅ Command completed successfully
+[2025-12-09 02:37:38] ⚠️  Warning: allhic alleles produced no output.
+[2025-12-09 02:37:38] ℹ️  This may be normal for haploid genomes or low heterozygosity.
+[2025-12-09 02:37:38] ℹ️  Continuing without allele table...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✂️  [Step 2] Pruning allelic/weak signals
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 02:37:38] ⚠️  WARNING: No allele table found! Pruning will be ineffective.
+[2025-12-09 02:37:38] ℹ️  Linking clean BAM as pruned BAM.
+[2025-12-09 02:37:38] ▶️  Running: ln -sf sample.clean.bam prunning.bam
+[2025-12-09 02:37:38] ✅ Command completed successfully
+[2025-12-09 02:37:38] ✅ Pruning completed: prunning.bam
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 [Step 3] Partitioning into 12 groups
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 02:37:38] ▶️  Running: ALLHiC_partition -b prunning.bam -r draft.asm.fasta -e GATC -k 12
+[2025-12-09 02:57:50] ✅ Command completed successfully
+[2025-12-09 02:57:50] ✅ Partition completed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 [Step 3.5] Extracting CLM (for Optimize)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 02:57:50] ⚠️  CLM exists. Skipping.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚑 [Step 4] Rescuing unplaced contigs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 02:57:50] ▶️  Running: ALLHiC_rescue -b sample.clean.bam -r draft.asm.fasta -c prunning.clusters.txt -i sample.clean.counts_GATC.txt
+[2025-12-09 03:42:49] ✅ Command completed successfully
+[2025-12-09 03:42:49] ✅ Rescue completed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️  [Step 5] Optimizing ordering and orientation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 03:42:49] 🔄 Running optimization on 12 groups...
+>INIT
+h1tg001026l+ h1tg000408l+ h1tg000235l- h1tg000250l+ h1tg000330l+ h1tg000555l- h1tg000870l- h1tg000431l+ h1tg000163l- h1tg000210l+ h1tg000881l- h1tg000439l+ h1tg000429l- h1tg000222l+ h1tg000653l- h1tg000970l+ h1tg000999l+ h1tg000231l- h1tg000541l- h1tg000447l- h1tg000634l+ h1tg000791l+ h1tg000315l- h1tg001218l- h1tg000667l+ h1tg000168l- h1tg000286l+ h1tg000461l- h1tg000506l- h1tg000537l- h1tg000350l+ h1tg000526l- h1tg001021l+ h1tg001030l- h1tg001018l+ h1tg000623l+ h1tg000019l- h1tg000109l+ h1tg001211l+ h1tg001275l- h1tg000768l- h1tg001071l- h1tg000365l+ h1tg000738l+ h1tg000631l+ h1tg000873l+ h1tg000322l- h1tg001119l- h1tg001170l- h1tg000705l+ h1tg000987l+ h1tg000309l+ h1tg000335l- h1tg000279l+ h1tg000186l+ h1tg000314l+ h1tg000588l- h1tg000846l+ h1tg000748l+ h1tg001122l+ h1tg000232l- h1tg000572l+ h1tg000134l- h1tg000950l- h1tg001045l+ h1tg000061l+ h1tg000879l- h1tg001011l+ h1tg000257l+ h1tg001039l- h1tg001250l+ h1tg000811l+ h1tg001047l- h1tg000761l+ h1tg001070l- h1tg000849l+ h1tg000866l- h1tg000637l+ h1tg000855l+ h1tg000021l+ h1tg000906l+ h1tg000043l- h1tg000077l+ h1tg001094l- h1tg000004l+ h1tg000609l- h1tg000485l+ h1tg001214l+ h1tg000613l- h1tg000781l+ h1tg000495l+ h1tg000346l- h1tg000649l+ h1tg000312l- h1tg000264l- h1tg000418l- h1tg001081l+ h1tg000364l- h1tg001089l- h1tg000036l+ h1tg000311l- h1tg000835l+ h1tg001075l+ h1tg001000l+ h1tg000196l- h1tg000988l- h1tg000468l- h1tg000862l+ h1tg000017l- h1tg000584l+ h1tg000359l- h1tg000204l+ h1tg000852l- h1tg000277l- h1tg000775l+ h1tg000615l- h1tg000151l-
+Current iteration GA1-0: max_score=0.51943
+Current iteration GA1-500: max_score=1.56393
+Current iteration GA1-1000: max_score=1.84908
+Current iteration GA1-1500: max_score=1.93235
+Current iteration GA1-2000: max_score=1.95935
+Current iteration GA1-2500: max_score=1.97922
+Current iteration GA1-3000: max_score=1.98503
+>INIT
+h1tg000525l+ h1tg000096l+ h1tg000240l+ h1tg000690l+ h1tg001121l+ h1tg001114l+ h1tg000174l+ h1tg000783l+ h1tg000833l+ h1tg000515l+ h1tg000996l+ h1tg000500l+ h1tg000373l+ h1tg000848l+ h1tg000538l+ h1tg000289l+ h1tg000698l+ h1tg000157l+ h1tg000780l+ h1tg000666l+ h1tg000269l+ h1tg000591l+ h1tg000549l+ h1tg000727l+ h1tg000680l+ h1tg000579l+ h1tg000563l+ h1tg000893l+ h1tg000819l+ h1tg000742l+ h1tg000957l+ h1tg000406l+ h1tg000469l+ h1tg000253l+ h1tg001095l+ h1tg000673l+ h1tg000489l+ h1tg000539l+ h1tg001080l+ h1tg000993l+ h1tg000619l+ h1tg000534l+ h1tg000922l+ h1tg000757l+ h1tg000474l+ h1tg000621l+ h1tg000511l+ h1tg000614l+ h1tg000106l+ h1tg000088l+ h1tg000377l+ h1tg000005l+ h1tg000638l+ h1tg000112l+ h1tg000381l+ h1tg000896l+ h1tg000699l+ h1tg000616l+ h1tg001240l+ h1tg000420l+ h1tg000715l+ h1tg000417l+ h1tg000367l+ h1tg000722l+ h1tg000147l+ h1tg000788l+ h1tg000552l+ h1tg000393l+ h1tg000739l+ h1tg000712l+ h1tg000165l+ h1tg000603l+ h1tg001093l+ h1tg000391l+ h1tg000421l+ h1tg000451l+ h1tg000327l+ h1tg000714l+ h1tg000692l+ h1tg000777l+ h1tg000072l+ h1tg000160l+ h1tg000128l+ h1tg000753l+ h1tg000590l+ h1tg000694l+ h1tg000389l+ h1tg000477l+ h1tg000832l+ h1tg001086l+ h1tg000203l+ h1tg000749l+ h1tg000195l+ h1tg001006l+ h1tg000503l+ h1tg000721l+ h1tg000600l+ h1tg000159l+ h1tg001074l+ h1tg000998l+ h1tg000023l+ h1tg000304l+ h1tg000668l+ h1tg000224l+ h1tg000164l+ h1tg000628l+ h1tg000008l+ h1tg000343l+ h1tg000997l+ h1tg000766l+ h1tg000908l+ h1tg000034l+ h1tg000079l+ h1tg000557l+ h1tg000812l+ h1tg000020l+ h1tg000554l+ h1tg000587l+ h1tg000864l+ h1tg000211l+ h1tg000719l+ h1tg000316l+ h1tg001032l+ h1tg000455l+ h1tg000723l+ h1tg000463l+ h1tg000891l+ h1tg000325l+ h1tg000407l+ h1tg001115l+ h1tg000423l+ h1tg000902l+ h1tg001065l+ h1tg000724l+ h1tg000402l+ h1tg000517l+ h1tg000912l+ h1tg000510l+ h1tg000578l+ h1tg000641l+ h1tg000571l+ h1tg000597l+ h1tg000913l+ h1tg000057l+ h1tg000002l+ h1tg000519l+ h1tg001118l+ h1tg000859l+ h1tg000620l+ h1tg000688l+ h1tg000689l+ h1tg000858l+ h1tg000331l+ h1tg000300l+ h1tg000347l+
+Current iteration GA1-0: max_score=0.38810
+Current iteration GA1-3500: max_score=1.98533
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+>INIT
+h1tg000915l- h1tg001225l+ h1tg000971l+ h1tg001060l- h1tg000672l- h1tg000320l- h1tg000323l+ h1tg000854l- h1tg001001l+ h1tg000747l+ h1tg000030l- h1tg001002l+ h1tg000890l- h1tg000803l- h1tg000370l+ h1tg000218l+ h1tg000736l- h1tg000275l+ h1tg000989l+ h1tg000916l+ h1tg000285l+ h1tg000119l+ h1tg000427l- h1tg000173l- h1tg001036l+ h1tg001009l+ h1tg000644l+ h1tg000816l+ h1tg000518l+ h1tg000910l- h1tg000458l- h1tg000814l- h1tg000867l- h1tg000284l- h1tg000822l+ h1tg000430l+ h1tg000242l- h1tg000015l- h1tg000039l- h1tg000042l- h1tg000737l+ h1tg000608l+ h1tg000691l+ h1tg000169l- h1tg000438l+ h1tg000759l- h1tg000677l+ h1tg001260l+ h1tg000175l- h1tg000990l+ h1tg000058l- h1tg000143l+ h1tg000974l+ h1tg001099l- h1tg000276l+ h1tg000755l- h1tg000980l+ h1tg000844l+ h1tg000326l- h1tg000470l- h1tg001003l+ h1tg001239l+ h1tg000683l+ h1tg000318l+ h1tg000918l- h1tg001090l- h1tg000841l- h1tg001041l- h1tg000872l+ h1tg000851l+ h1tg000378l+ h1tg000410l+ h1tg000825l+ h1tg000445l- h1tg000332l+ h1tg000398l- h1tg000352l- h1tg000531l+ h1tg000746l- h1tg000266l+ h1tg000797l- h1tg000776l+ h1tg001258l+ h1tg000520l- h1tg000808l- h1tg000778l+ h1tg000564l- h1tg000069l- h1tg001017l+ h1tg000702l- h1tg000701l- h1tg000472l+ h1tg000494l- h1tg000087l- h1tg000581l- h1tg000601l+ h1tg000509l+ h1tg000449l+ h1tg000548l+ h1tg001231l- h1tg001073l+ h1tg000132l- h1tg000865l+ h1tg001098l- h1tg000551l- h1tg000598l+ h1tg001014l+ h1tg000632l- h1tg000669l+ h1tg000375l+ h1tg001120l+ h1tg000358l- h1tg000090l- h1tg000709l+ h1tg000339l- h1tg000544l+ h1tg000384l+ h1tg000992l- h1tg000067l- h1tg000148l+ h1tg000501l- h1tg000454l+ h1tg000745l- h1tg000661l+ h1tg000751l+ h1tg000041l+ h1tg001063l- h1tg001257l+ h1tg001069l- h1tg000073l- h1tg000487l- h1tg000342l- h1tg000413l- h1tg000394l- h1tg000800l+ h1tg000785l+ h1tg000636l- h1tg000834l+
+Current iteration GA1-0: max_score=0.40573
+Current iteration GA1-500: max_score=1.12527
+Current iteration GA1-4000: max_score=1.98951
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-500: max_score=1.17553
+Current iteration GA1-1000: max_score=1.45411
+Current iteration GA1-4500: max_score=1.99011
+Current iteration GA1-1000: max_score=1.86526
+>INIT
+h1tg001024l+ h1tg001013l+ h1tg001025l+ h1tg001230l+ h1tg001276l+ h1tg001216l+ h1tg001262l+ h1tg001237l+ h1tg001278l+ h1tg001212l+ h1tg001215l+ h1tg001226l+ h1tg001104l+ h1tg001261l+ h1tg001256l+ h1tg001223l+ h1tg001220l+ h1tg001227l+ h1tg001209l+ h1tg001204l+ h1tg001222l+ h1tg001085l+ h1tg001234l+ h1tg000973l+ h1tg000850l+ h1tg000287l+ h1tg001020l+ h1tg001112l+ h1tg000982l+ h1tg001280l+ h1tg001077l+ h1tg000827l+ h1tg001273l+ h1tg001228l+ h1tg001087l+ h1tg001221l+ h1tg001208l+ h1tg001088l+ h1tg001202l+
+Current iteration GA1-0: max_score=0.05805
+Current iteration GA1-1500: max_score=1.61759
+Current iteration GA1-500: max_score=0.18323
+Current iteration GA1-5000: max_score=1.99011
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.71679
+Current iteration GA1-1000: max_score=0.18326
+Current iteration GA1-5500: max_score=1.99011
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-1500: max_score=0.18330
+Current iteration GA1-2500: max_score=1.76678
+>INIT
+h1tg000243l+ h1tg000255l+ h1tg001078l+ h1tg000070l+ h1tg000944l+ h1tg001141l+ h1tg000921l+ h1tg001152l+ h1tg000012l+ h1tg001160l+ h1tg000142l+ h1tg000135l+ h1tg000207l+ h1tg000018l+ h1tg000047l+ h1tg000193l+ h1tg000940l+ h1tg000137l+ h1tg000324l+ h1tg001246l+ h1tg001190l+ h1tg000176l+ h1tg000771l+ h1tg000202l+ h1tg000925l+ h1tg000798l+ h1tg000411l+ h1tg000476l+ h1tg000271l+ h1tg001255l+ h1tg000260l+ h1tg000290l+ h1tg001183l+
+Current iteration GA1-0: max_score=0.23659
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-6000: max_score=1.99593
+Current iteration GA1-2000: max_score=0.18330
+Current iteration GA1-500: max_score=0.53963
+>INIT
+h1tg000353l+ h1tg001067l+ h1tg000670l+ h1tg000580l+ h1tg000626l+ h1tg000178l+ h1tg000475l+ h1tg001033l+ h1tg000105l+ h1tg000139l+ h1tg000491l+ h1tg000612l+ h1tg000917l+ h1tg000533l+ h1tg000460l+ h1tg000657l+ h1tg000016l+ h1tg000763l+ h1tg000414l+ h1tg000559l+ h1tg000442l+ h1tg000553l+ h1tg000801l+ h1tg000979l+ h1tg000976l+ h1tg001023l+ h1tg000048l+ h1tg000561l+ h1tg000772l+ h1tg000806l+ h1tg001116l+ h1tg000592l+ h1tg000107l+ h1tg000297l+ h1tg000182l+ h1tg000428l+ h1tg000422l+ h1tg001028l+ h1tg000627l+ h1tg000877l+ h1tg000338l+ h1tg000130l+ h1tg000622l+ h1tg000345l+ h1tg000298l+ h1tg000426l+ h1tg001117l+ h1tg000161l+ h1tg000082l+ h1tg000593l+ h1tg000522l+ h1tg000361l+ h1tg000405l+ h1tg001105l+ h1tg000158l+ h1tg000799l+ h1tg001233l+ h1tg000972l+ h1tg000191l+ h1tg000354l+ h1tg000512l+ h1tg000716l+ h1tg000259l+ h1tg000094l+ h1tg001061l+ h1tg001259l+ h1tg000696l+ h1tg000357l+ h1tg000860l+ h1tg000145l+ h1tg000535l+ h1tg000249l+ h1tg000126l+ h1tg000444l+ h1tg000558l+ h1tg000197l+ h1tg000804l+ h1tg001068l+ h1tg001027l+ h1tg001213l+ h1tg000611l+ h1tg000786l+ h1tg000471l+ h1tg001201l+ h1tg000807l+ h1tg001064l+ h1tg000826l+ h1tg001019l+ h1tg000730l+ h1tg000201l+ h1tg000104l+ h1tg000225l+ h1tg000697l+ h1tg000654l+ h1tg000482l+ h1tg000177l+ h1tg001102l+ h1tg000366l+ h1tg000624l+ h1tg000813l+ h1tg001217l+ h1tg000589l+ h1tg000216l+ h1tg000321l+ h1tg000247l+ h1tg000153l+ h1tg000926l+ h1tg000828l+ h1tg000098l+ h1tg000886l+ h1tg000594l+ h1tg000425l+ h1tg000574l+ h1tg000610l+ h1tg000756l+ h1tg000565l+ h1tg000120l+ h1tg001072l+ h1tg001107l+ h1tg000071l+ h1tg000662l+
+Current iteration GA1-0: max_score=0.36978
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3000: max_score=1.80329
+Current iteration GA1-6500: max_score=1.99593
+Current iteration GA1-2500: max_score=0.18330
+Current iteration GA1-1000: max_score=0.53963
+Current iteration GA1-500: max_score=1.21860
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-7000: max_score=1.99593
+Current iteration GA1-3000: max_score=0.18330
+Current iteration GA1-3500: max_score=1.81713
+Current iteration GA1-1500: max_score=0.53963
+Current iteration GA1-1000: max_score=1.43899
+Current iteration GA1-3500: max_score=0.18330
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-7500: max_score=1.99593
+Current iteration GA1-2000: max_score=0.53963
+Current iteration GA1-4000: max_score=1.82228
+Current iteration GA1-4000: max_score=0.18330
+Current iteration GA1-1500: max_score=1.56527
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-2500: max_score=0.53963
+Current iteration GA1-8000: max_score=1.99593
+Current iteration GA1-4500: max_score=1.82451
+Current iteration GA1-4500: max_score=0.18330
+Current iteration GA1-3000: max_score=0.53963
+Current iteration GA1-2000: max_score=1.63795
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-8500: max_score=1.99593
+Current iteration GA1-5000: max_score=0.18330
+Current iteration GA1-3500: max_score=0.53963
+Current iteration GA1-5000: max_score=1.82874
+Current iteration GA1-2500: max_score=1.66605
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-9000: max_score=1.99593
+Current iteration GA1-5500: max_score=0.18330
+Current iteration GA1-4000: max_score=0.53963
+Current iteration GA1-3000: max_score=1.66729
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-4500: max_score=0.53963
+Current iteration GA1-6000: max_score=0.18330
+Current iteration GA1-9500: max_score=1.99593
+Current iteration GA2-0: max_score=0.18330
+Current iteration GA1-5000: max_score=0.53963
+Current iteration GA1-3500: max_score=1.67317
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-10000: max_score=1.99593
+Current iteration GA2-500: max_score=0.18330
+Current iteration GA2-0: max_score=0.53963
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-4000: max_score=1.67713
+Current iteration GA1-10500: max_score=1.99593
+Current iteration GA2-1000: max_score=0.18330
+Current iteration GA2-500: max_score=0.53963
+Current iteration GA2-0: max_score=1.99593
+>INIT
+h1tg000656l+ h1tg000181l+ h1tg000424l+ h1tg001251l+ h1tg000952l+ h1tg000187l+ h1tg000453l+ h1tg001203l+ h1tg000085l+ h1tg000080l+ h1tg000968l+ h1tg001140l+ h1tg001188l+ h1tg000497l+ h1tg000868l+ h1tg001058l+ h1tg000294l+ h1tg000027l+ h1tg000446l+ h1tg000441l+ h1tg001238l+ h1tg001176l+ h1tg000530l+ h1tg000965l+ h1tg001159l+ h1tg000473l+ h1tg000924l+ h1tg000440l+ h1tg000523l+ h1tg001279l+ h1tg001162l+ h1tg001049l+ h1tg000001l+ h1tg000167l+ h1tg000382l+ h1tg000055l+ h1tg001253l+ h1tg000711l+ h1tg000380l+ h1tg000053l+ h1tg000156l+ h1tg000369l+ h1tg000733l+ h1tg000078l+ h1tg000060l+ h1tg001271l+ h1tg000131l+ h1tg000220l+ h1tg001175l+ h1tg001053l+ h1tg000682l+ h1tg000815l+ h1tg000254l+ h1tg001150l+ h1tg001270l+ h1tg001129l+ h1tg000942l+ h1tg001169l+ h1tg001266l+ h1tg001138l+ h1tg001012l+ h1tg000966l+ h1tg000038l+ h1tg000399l+ h1tg001008l+ h1tg000536l+ h1tg000272l+ h1tg000731l+ h1tg000115l+ h1tg001173l+ h1tg001186l+ h1tg001158l+ h1tg001249l+ h1tg000496l+ h1tg000022l+ h1tg000328l+ h1tg001264l+ h1tg000262l+ h1tg001054l+ h1tg000101l+ h1tg000046l+ h1tg001057l+ h1tg000648l+ h1tg001059l+ h1tg000084l+ h1tg001165l+ h1tg000838l+ h1tg000388l+ h1tg000618l+ h1tg001125l+ h1tg001146l+ h1tg001180l+ h1tg000099l+ h1tg000793l+ h1tg000390l+ h1tg000513l+ h1tg000102l+ h1tg000744l+ h1tg000665l+ h1tg000937l+ h1tg000392l+ h1tg000639l+ h1tg000372l+ h1tg000092l+ h1tg000166l+ h1tg001191l+ h1tg001224l+ h1tg000452l+ h1tg000499l+ h1tg000185l+ h1tg001184l+ h1tg000025l+ h1tg001198l+ h1tg000223l+ h1tg000122l+ h1tg001182l+ h1tg000941l+ h1tg001172l+ h1tg000049l+ h1tg001177l+ h1tg000936l+ h1tg001156l+ h1tg000527l+ h1tg001137l+ h1tg000009l+ h1tg000059l+ h1tg001161l+ h1tg000933l+ h1tg001149l+ h1tg001199l+ h1tg000958l+ h1tg000960l+ h1tg000700l+ h1tg001055l+ h1tg000129l+ h1tg000596l+ h1tg001235l+ h1tg000396l+ h1tg000162l+ h1tg001281l+ h1tg000233l+ h1tg001056l+ h1tg000529l+ h1tg000575l+ h1tg000014l+ h1tg000932l+ h1tg001171l+ h1tg000462l+ h1tg000221l+ h1tg000540l+ h1tg000149l+ h1tg000155l+ h1tg000769l+ h1tg000954l+ h1tg001097l+ h1tg001166l+ h1tg000674l+ h1tg001241l+ h1tg000308l+ h1tg000184l+ h1tg001245l+ h1tg000569l+ h1tg000930l+ h1tg000927l+ h1tg000013l+ h1tg000035l+ h1tg001185l+ h1tg000355l+ h1tg000602l+ h1tg000651l+ h1tg000986l+ h1tg001243l+ h1tg001133l+ h1tg000830l+ h1tg000695l+ h1tg001193l+ h1tg000051l+ h1tg001136l+ h1tg000010l+ h1tg001181l+ h1tg000465l+ h1tg000901l+ h1tg000362l+ h1tg000215l+ h1tg001179l+ h1tg000710l+ h1tg000234l+ h1tg000395l+ h1tg000170l+ h1tg001244l+ h1tg001195l+ h1tg000152l+ h1tg001247l+ h1tg000205l+ h1tg000103l+ h1tg001269l+ h1tg000351l+ h1tg001132l+ h1tg001154l+ h1tg000230l+ h1tg000127l+ h1tg000779l+
+Current iteration GA1-0: max_score=0.29865
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA2-1000: max_score=0.53963
+Current iteration GA1-4500: max_score=1.67717
+Current iteration GA2-1500: max_score=0.18330
+Current iteration GA2-500: max_score=1.99593
+Current iteration GA2-1500: max_score=0.53963
+Current iteration GA2-2000: max_score=0.18330
+>INIT
+h1tg000773l+ h1tg000824l+ h1tg000599l+ h1tg000091l+ h1tg000914l+ h1tg000288l+ h1tg000432l+ h1tg001139l+ h1tg000839l+ h1tg000278l+ h1tg001131l+ h1tg000296l+ h1tg000787l+ h1tg000550l+ h1tg000955l+ h1tg000586l+ h1tg000676l+ h1tg001106l+ h1tg000809l+ h1tg000984l+ h1tg000959l+ h1tg000949l+ h1tg000885l+ h1tg000843l+ h1tg001079l+ h1tg000011l+ h1tg000387l+ h1tg000704l+ h1tg000245l+ h1tg000820l+ h1tg000348l+ h1tg000146l+ h1tg000703l+ h1tg000758l+ h1tg000299l+ h1tg001103l+ h1tg000125l+ h1tg000897l+ h1tg000919l+ h1tg000903l+ h1tg000226l+ h1tg001145l+ h1tg000040l+ h1tg000725l+ h1tg000303l+ h1tg000256l+ h1tg000481l+ h1tg001034l+ h1tg000956l+ h1tg000750l+ h1tg000385l+ h1tg000845l+ h1tg000217l+ h1tg001155l+ h1tg000869l+ h1tg001143l+ h1tg000026l+ h1tg000887l+ h1tg000774l+ h1tg000206l+ h1tg000983l+ h1tg001130l+ h1tg000707l+ h1tg000236l+ h1tg000963l+ h1tg000229l+ h1tg000576l+ h1tg000789l+ h1tg000817l+ h1tg000923l+ h1tg000928l+ h1tg000947l+ h1tg000498l+ h1tg000480l+ h1tg000991l+ h1tg000595l+ h1tg000977l+ h1tg000200l+ h1tg000282l+ h1tg000244l+ h1tg000900l+ h1tg000415l+ h1tg000280l+ h1tg000687l+ h1tg001194l+ h1tg000754l+ h1tg000064l+ h1tg000189l+ h1tg000199l+ h1tg001282l+ h1tg000337l+ h1tg001037l+ h1tg000792l+ h1tg001187l+ h1tg000888l+ h1tg000443l+ h1tg000397l+ h1tg000190l+ h1tg000251l+ h1tg000194l+ h1tg000823l+ h1tg000929l+ h1tg000374l+ h1tg000951l+ h1tg000062l+ h1tg000729l+ h1tg000118l+ h1tg000836l+ h1tg000935l+ h1tg000805l+ h1tg000853l+ h1tg000585l+ h1tg000466l+ h1tg001151l+ h1tg000329l+ h1tg000081l+ h1tg001029l+ h1tg001274l+ h1tg000263l+ h1tg000964l+ h1tg000144l+ h1tg000880l+ h1tg000556l+ h1tg000436l+ h1tg001083l+ h1tg000875l+ h1tg000360l+ h1tg000054l+ h1tg000505l+ h1tg000876l+ h1tg000629l+ h1tg000532l+ h1tg000678l+ h1tg000892l+
+Current iteration GA1-0: max_score=0.46365
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-500: max_score=1.40331
+Current iteration GA1-5000: max_score=1.67717
+Current iteration GA2-2000: max_score=0.53963
+Current iteration GA2-2500: max_score=0.18330
+Current iteration GA2-1000: max_score=1.99593
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-500: max_score=1.66495
+Current iteration GA2-2500: max_score=0.53963
+Current iteration GA2-3000: max_score=0.18330
+Current iteration GA1-5500: max_score=1.67985
+Current iteration GA1-1000: max_score=1.68421
+>INIT
+h1tg001163l+ h1tg001144l+ h1tg001196l+ h1tg000735l+ h1tg001153l+ h1tg000945l+ h1tg001051l+ h1tg001157l+ h1tg001127l+ h1tg000607l+ h1tg000943l+ h1tg001142l+ h1tg001167l+ h1tg000037l+ h1tg000310l+ h1tg000007l+ h1tg001048l+ h1tg001268l+ h1tg000934l+ h1tg000100l+ h1tg001254l+ h1tg001046l+ h1tg000483l+ h1tg001164l+ h1tg000457l+ h1tg000317l+ h1tg000962l+ h1tg001197l+ h1tg001232l+ h1tg000782l+ h1tg001148l+ h1tg000295l+ h1tg000219l+ h1tg001192l+ h1tg000171l+ h1tg001174l+ h1tg000643l+ h1tg000066l+ h1tg001134l+ h1tg000068l+ h1tg000931l+ h1tg001242l+ h1tg001178l+ h1tg000033l+ h1tg001128l+ h1tg000953l+ h1tg001200l+ h1tg000083l+ h1tg001252l+ h1tg001123l+ h1tg001052l+ h1tg000044l+ h1tg000409l+ h1tg000967l+ h1tg000292l+ h1tg000560l+ h1tg000307l+ h1tg000969l+ h1tg001135l+ h1tg000111l+ h1tg000212l+ h1tg000938l+ h1tg001168l+ h1tg000117l+
+Current iteration GA1-0: max_score=0.11749
+Current iteration GA2-1500: max_score=1.99593
+Current iteration GA2-3000: max_score=0.53963
+>INIT
+h1tg000136l- h1tg001016l+ h1tg000450l+ h1tg001189l+ h1tg000882l+ h1tg000732l+ h1tg000642l+ h1tg001091l- h1tg001062l- h1tg000334l- h1tg000341l+ h1tg001111l- h1tg000521l- h1tg000239l+ h1tg001219l- h1tg000708l- h1tg000179l- h1tg000209l+ h1tg000097l+ h1tg000765l- h1tg001108l- h1tg000192l- h1tg000907l- h1tg000150l+ h1tg000029l- h1tg000961l- h1tg000270l+ h1tg000095l- h1tg000180l- h1tg001267l+ h1tg000784l+ h1tg000274l- h1tg000141l+ h1tg000227l+ h1tg001248l+ h1tg001265l+ h1tg000542l- h1tg000516l- h1tg000050l- h1tg000713l+ h1tg001010l- h1tg000948l- h1tg000344l- h1tg000404l- h1tg000238l- h1tg000056l+ h1tg000507l+ h1tg000281l- h1tg001044l+ h1tg001126l-
+Current iteration GA1-0: max_score=0.14322
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA2-3500: max_score=0.18330
+Current iteration GA1-1000: max_score=2.00824
+Current iteration GA1-6000: max_score=1.67985
+Current iteration GA1-500: max_score=0.51151
+Current iteration GA2-2000: max_score=1.99593
+Current iteration GA1-1500: max_score=1.82584
+Current iteration GA2-3500: max_score=0.53963
+Current iteration GA2-4000: max_score=0.18330
+Current iteration GA1-500: max_score=0.52937
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-1500: max_score=2.10785
+Current iteration GA1-1000: max_score=0.51218
+Current iteration GA1-6500: max_score=1.67985
+Current iteration GA2-4000: max_score=0.53963
+Current iteration GA2-2500: max_score=1.99593
+Current iteration GA2-4500: max_score=0.18330
+Current iteration GA1-2000: max_score=1.92068
+Current iteration GA1-1000: max_score=0.53218
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA2-4500: max_score=0.53963
+Current iteration GA1-1500: max_score=0.51219
+Current iteration GA2-5000: max_score=0.18330
+Current iteration GA1-7000: max_score=1.67985
+Current iteration GA1-2000: max_score=2.17298
+Current iteration GA2-3000: max_score=1.99593
+>FINAL
+h1tg001273l+ h1tg001013l+ h1tg001237l+ h1tg000850l- h1tg001278l- h1tg001222l+ h1tg000982l+ h1tg001234l- h1tg001212l- h1tg001276l- h1tg001215l- h1tg001228l+ h1tg001088l+ h1tg001020l- h1tg001024l- h1tg000973l+ h1tg001223l- h1tg001221l- h1tg001227l+ h1tg001262l- h1tg001280l+ h1tg001209l+ h1tg001216l+ h1tg001025l- h1tg001208l+ h1tg001230l+ h1tg001087l+ h1tg001085l- h1tg001077l- h1tg000287l+ h1tg001256l+ h1tg001202l- h1tg001261l+ h1tg001220l+ h1tg001112l- h1tg001104l+ h1tg001204l- h1tg000827l- h1tg001226l+
+Current iteration GA1-1500: max_score=0.53218
+Current iteration GA2-5000: max_score=0.53963
+Current iteration GA1-2500: max_score=1.98007
+>FINAL
+h1tg001255l+ h1tg000940l- h1tg001160l- h1tg000921l- h1tg000135l+ h1tg000018l- h1tg000324l+ h1tg000798l+ h1tg000137l+ h1tg000260l+ h1tg000070l- h1tg001078l+ h1tg000771l- h1tg000411l+ h1tg000012l- h1tg000047l- h1tg000193l- h1tg000243l+ h1tg000255l+ h1tg000207l+ h1tg000476l- h1tg000271l+ h1tg000142l- h1tg000290l+ h1tg000202l- h1tg000176l- h1tg000925l- h1tg001183l+ h1tg000944l+ h1tg001141l+ h1tg001190l+ h1tg001152l+ h1tg001246l+
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-2000: max_score=0.51219
+Current iteration GA2-3500: max_score=1.99593
+Current iteration GA1-7500: max_score=1.67985
+Current iteration GA1-2500: max_score=2.19490
+Current iteration GA1-2000: max_score=0.53218
+Current iteration GA1-2500: max_score=0.51219
+Current iteration GA1-3000: max_score=1.98721
+Current iteration GA2-4000: max_score=1.99593
+Current iteration GA1-2500: max_score=0.53218
+Current iteration GA1-8000: max_score=1.67985
+Current iteration GA1-3000: max_score=2.20974
+Current iteration GA1-3000: max_score=0.51219
+Current iteration GA2-4500: max_score=1.99593
+Current iteration GA1-3500: max_score=1.99022
+Current iteration GA1-8500: max_score=1.68046
+Current iteration GA1-3500: max_score=0.51219
+>INIT
+h1tg000214l+ h1tg000464l+ h1tg000856l+ h1tg000767l+ h1tg000645l+ h1tg000456l+ h1tg000267l- h1tg000861l+ h1tg000568l- h1tg000435l+ h1tg000582l- h1tg000790l- h1tg000675l+ h1tg001100l+ h1tg000268l- h1tg000660l+ h1tg000379l- h1tg000577l- h1tg000504l+ h1tg000985l+ h1tg000376l+ h1tg000975l+ h1tg001113l+ h1tg000734l+ h1tg000570l+ h1tg000920l+ h1tg000796l- h1tg000884l+ h1tg000291l+ h1tg000293l+ h1tg000261l- h1tg000237l- h1tg000486l+ h1tg000635l+ h1tg000524l+ h1tg000898l+ h1tg000400l- h1tg000110l+ h1tg001124l- h1tg000241l- h1tg000717l- h1tg000894l- h1tg000045l- h1tg000412l- h1tg000133l- h1tg000493l+ h1tg000508l+ h1tg000490l- h1tg000909l+ h1tg000671l+ h1tg001101l- h1tg000252l+ h1tg000664l+ h1tg000140l+ h1tg000154l+ h1tg000889l+ h1tg000248l- h1tg000718l- h1tg000123l- h1tg001277l+ h1tg001109l+ h1tg000840l+ h1tg000273l- h1tg000093l+ h1tg000448l- h1tg000419l+ h1tg000685l- h1tg000484l- h1tg000031l+ h1tg001005l+ h1tg000028l- h1tg000138l- h1tg000625l- h1tg001147l- h1tg000086l+ h1tg000658l- h1tg000283l+ h1tg000401l- h1tg000113l- h1tg001092l+ h1tg000899l+ h1tg000981l- h1tg000459l+ h1tg000302l- h1tg000543l+ h1tg000871l- h1tg001263l- h1tg000617l- h1tg000301l- h1tg000183l+ h1tg000319l+ h1tg000740l+ h1tg000258l- h1tg000752l+ h1tg001096l- h1tg000726l+ h1tg000208l- h1tg000089l- h1tg000583l+ h1tg001007l+ h1tg001076l- h1tg000640l+ h1tg000821l- h1tg000567l+ h1tg000681l+ h1tg000492l+ h1tg001084l+ h1tg000863l+ h1tg000706l+ h1tg000573l- h1tg000349l+ h1tg001040l+ h1tg000650l+ h1tg000562l- h1tg000514l+
+Current iteration GA1-0: max_score=0.37043
+Current iteration GA1-3500: max_score=2.21934
+Current iteration GA2-5000: max_score=1.99593
+Current iteration GA1-4000: max_score=0.51219
+Current iteration GA1-9000: max_score=1.68046
+Current iteration GA1-4000: max_score=2.00886
+Current iteration GA1-4000: max_score=2.21934
+Current iteration GA1-500: max_score=1.25917
+Current iteration GA1-4500: max_score=0.51219
+Current iteration GA1-9500: max_score=1.68046
+Current iteration GA1-4500: max_score=2.22276
+Current iteration GA1-4500: max_score=2.03750
+Current iteration GA1-5000: max_score=0.51219
+Current iteration GA1-10000: max_score=1.68046
+Current iteration GA1-1000: max_score=1.52622
+Current iteration GA1-5500: max_score=0.51219
+Current iteration GA1-5000: max_score=2.22276
+Current iteration GA1-5000: max_score=2.04019
+Current iteration GA1-10500: max_score=1.68046
+Current iteration GA1-6000: max_score=0.51219
+Current iteration GA1-5500: max_score=2.22276
+Current iteration GA1-1500: max_score=1.62862
+Current iteration GA1-5500: max_score=2.04181
+Current iteration GA1-6500: max_score=0.51219
+Current iteration GA1-11000: max_score=1.68046
+Current iteration GA1-1000: max_score=1.45718
+Current iteration GA1-6000: max_score=2.22277
+Current iteration GA1-7000: max_score=0.51219
+Current iteration GA1-11500: max_score=1.68046
+Current iteration GA1-2000: max_score=1.67971
+Current iteration GA1-6000: max_score=2.04252
+Current iteration GA1-1500: max_score=1.59406
+Current iteration GA1-6500: max_score=2.22277
+Current iteration GA1-7500: max_score=0.51219
+Current iteration GA1-12000: max_score=1.68046
+>FINAL
+h1tg001119l- h1tg001071l+ h1tg000346l+ h1tg000846l- h1tg000987l- h1tg000109l+ h1tg000572l- h1tg001211l+ h1tg000364l- h1tg000852l- h1tg001081l+ h1tg000970l+ h1tg000999l+ h1tg001170l+ h1tg000950l- h1tg000036l- h1tg001250l- h1tg001047l+ h1tg000768l- h1tg000168l+ h1tg000196l- h1tg000250l+ h1tg000873l- h1tg001021l- h1tg000468l+ h1tg001075l- h1tg000811l+ h1tg000309l- h1tg000631l- h1tg000537l+ h1tg000781l+ h1tg001018l- h1tg000322l+ h1tg000431l- h1tg000350l- h1tg000365l- h1tg000634l+ h1tg001070l+ h1tg000315l- h1tg000555l+ h1tg000637l+ h1tg000761l+ h1tg000791l+ h1tg000134l- h1tg000613l+ h1tg000359l+ h1tg000314l- h1tg000279l- h1tg000151l+ h1tg000210l- h1tg001094l+ h1tg001045l- h1tg000667l+ h1tg000311l- h1tg001026l- h1tg001000l- h1tg000881l+ h1tg000330l+ h1tg000418l- h1tg000485l- h1tg000017l+ h1tg000609l- h1tg000286l+ h1tg000988l+ h1tg000738l- h1tg000231l- h1tg000862l+ h1tg001218l- h1tg000077l+ h1tg000461l- h1tg000429l- h1tg000335l+ h1tg000019l- h1tg000186l+ h1tg001039l- h1tg000257l+ h1tg000849l- h1tg000855l- h1tg000866l- h1tg000775l+ h1tg000312l- h1tg000264l- h1tg000163l+ h1tg000649l+ h1tg000439l+ h1tg000495l+ h1tg001214l+ h1tg000870l+ h1tg001122l+ h1tg000235l+ h1tg001011l+ h1tg000705l- h1tg000506l- h1tg000061l- h1tg000879l- h1tg001089l- h1tg000615l- h1tg000748l- h1tg000584l- h1tg000043l+ h1tg000526l- h1tg000222l- h1tg000653l+ h1tg000277l+ h1tg000204l+ h1tg001275l+ h1tg000588l+ h1tg001030l- h1tg000408l+ h1tg000232l+ h1tg000004l+ h1tg000541l- h1tg000623l+ h1tg000906l+ h1tg000021l+ h1tg000835l+ h1tg000447l+
+Current iteration GA1-6500: max_score=2.04435
+Current iteration GA1-2500: max_score=1.70644
+Current iteration GA1-8000: max_score=0.51219
+Current iteration GA1-2000: max_score=1.64995
+Current iteration GA1-7000: max_score=2.22277
+Current iteration GA1-12500: max_score=1.68046
+Current iteration GA1-8500: max_score=0.51219
+Current iteration GA2-0: max_score=0.51219
+Current iteration GA1-2500: max_score=1.69987
+Current iteration GA1-7500: max_score=2.22277
+Current iteration GA1-7000: max_score=2.04437
+Current iteration GA1-3000: max_score=1.71784
+Current iteration GA1-13000: max_score=1.68046
+Current iteration GA2-0: max_score=1.68046
+Current iteration GA2-500: max_score=0.51219
+Current iteration GA1-3000: max_score=1.71694
+Current iteration GA1-8000: max_score=2.22277
+Current iteration GA1-7500: max_score=2.04461
+Current iteration GA2-500: max_score=1.68046
+Current iteration GA1-3500: max_score=1.72419
+Current iteration GA2-1000: max_score=0.51219
+Current iteration GA1-3500: max_score=1.72928
+Current iteration GA1-8500: max_score=2.22277
+Current iteration GA2-1500: max_score=0.51219
+Current iteration GA2-1000: max_score=1.68046
+Current iteration GA1-8000: max_score=2.04461
+Current iteration GA1-4000: max_score=1.72419
+Current iteration GA1-9000: max_score=2.22277
+Current iteration GA1-4000: max_score=1.74775
+Current iteration GA2-2000: max_score=0.51219
+Current iteration GA2-1500: max_score=1.68046
+Current iteration GA1-8500: max_score=2.04461
+Current iteration GA2-2500: max_score=0.51219
+Current iteration GA1-4500: max_score=1.72678
+Current iteration GA1-9500: max_score=2.22277
+Current iteration GA1-4500: max_score=1.75430
+Current iteration GA2-2000: max_score=1.68046
+Current iteration GA2-3000: max_score=0.51219
+Current iteration GA1-9000: max_score=2.04462
+Current iteration GA1-10000: max_score=2.22277
+Current iteration GA2-2500: max_score=1.68046
+Current iteration GA1-5000: max_score=1.75968
+Current iteration GA1-5000: max_score=1.72735
+Current iteration GA2-3500: max_score=0.51219
+Current iteration GA1-5500: max_score=1.83104
+Current iteration GA1-9500: max_score=2.04462
+Current iteration GA2-3000: max_score=1.68046
+Current iteration GA1-10500: max_score=2.22277
+Current iteration GA1-5500: max_score=1.76059
+Current iteration GA2-4000: max_score=0.51219
+Current iteration GA1-5500: max_score=1.72759
+Current iteration GA1-6000: max_score=1.83112
+Current iteration GA2-3500: max_score=1.68046
+Current iteration GA1-11000: max_score=2.22277
+Current iteration GA1-10000: max_score=2.04462
+Current iteration GA1-6000: max_score=1.76292
+Current iteration GA2-4500: max_score=0.51219
+Current iteration GA1-6000: max_score=1.72796
+Current iteration GA2-4000: max_score=1.68046
+Current iteration GA1-11500: max_score=2.22277
+Current iteration GA2-5000: max_score=0.51219
+Current iteration GA1-6500: max_score=1.83112
+Current iteration GA1-6500: max_score=1.76394
+Current iteration GA1-10500: max_score=2.04462
+>FINAL
+h1tg001134l+ h1tg001157l- h1tg001178l- h1tg001268l- h1tg001142l- h1tg001200l- h1tg001168l+ h1tg001167l- h1tg001048l- h1tg000962l- h1tg001192l+ h1tg001174l+ h1tg000943l- h1tg001197l- h1tg001051l- h1tg000969l- h1tg000953l- h1tg000945l+ h1tg001052l+ h1tg000934l+ h1tg001254l- h1tg001148l+ h1tg001196l- h1tg001135l- h1tg001252l+ h1tg001163l+ h1tg000967l- h1tg001164l+ h1tg001144l+ h1tg000931l- h1tg001242l- h1tg001046l- h1tg001128l- h1tg000219l- h1tg001127l+ h1tg000938l- h1tg001153l+ h1tg000643l- h1tg000037l- h1tg000044l- h1tg000607l- h1tg000066l+ h1tg000033l- h1tg000409l- h1tg000317l- h1tg000007l- h1tg000483l- h1tg000068l+ h1tg000735l- h1tg000307l- h1tg000457l- h1tg000117l- h1tg000083l- h1tg001123l+ h1tg000292l+ h1tg000171l+ h1tg000782l- h1tg000100l- h1tg000560l+ h1tg000310l+ h1tg000295l+ h1tg000111l+ h1tg000212l- h1tg001232l+
+Current iteration GA2-4500: max_score=1.68046
+Current iteration GA1-12000: max_score=2.22277
+Current iteration GA1-6500: max_score=1.72860
+Current iteration GA1-7000: max_score=1.83121
+Current iteration GA1-7000: max_score=1.76394
+Current iteration GA1-11000: max_score=2.04463
+Current iteration GA2-5000: max_score=1.68046
+Current iteration GA1-12500: max_score=2.22277
+Current iteration GA1-7500: max_score=1.76409
+Current iteration GA1-7500: max_score=1.83255
+Current iteration GA1-11500: max_score=2.04463
+Current iteration GA1-7000: max_score=1.72860
+Current iteration GA1-13000: max_score=2.22277
+Current iteration GA1-8000: max_score=1.76409
+Current iteration GA1-8000: max_score=1.83414
+Current iteration GA1-12000: max_score=2.04463
+Current iteration GA1-13500: max_score=2.22277
+Current iteration GA1-7500: max_score=1.72867
+Current iteration GA1-8500: max_score=1.76409
+Current iteration GA1-8500: max_score=1.83469
+Current iteration GA1-12500: max_score=2.04467
+Current iteration GA1-14000: max_score=2.22277
+Current iteration GA1-9000: max_score=1.76409
+Current iteration GA1-8000: max_score=1.72867
+Current iteration GA1-9000: max_score=1.83494
+Current iteration GA1-14500: max_score=2.22277
+Current iteration GA1-13000: max_score=2.04467
+Current iteration GA1-9500: max_score=1.76409
+Current iteration GA1-8500: max_score=1.72867
+Current iteration GA1-9500: max_score=1.83514
+Current iteration GA1-15000: max_score=2.22277
+Current iteration GA1-13500: max_score=2.04467
+Current iteration GA1-10000: max_score=1.76409
+Current iteration GA1-10000: max_score=1.83538
+Current iteration GA1-15500: max_score=2.22277
+Current iteration GA1-9000: max_score=1.72867
+Current iteration GA1-10500: max_score=1.76409
+Current iteration GA2-0: max_score=2.22277
+Current iteration GA1-10500: max_score=1.83538
+Current iteration GA1-11000: max_score=1.76409
+Current iteration GA2-500: max_score=2.22277
+Current iteration GA1-9500: max_score=1.72867
+Current iteration GA1-11000: max_score=1.83538
+Current iteration GA1-11500: max_score=1.76409
+Current iteration GA2-1000: max_score=2.22277
+>FINAL
+h1tg000593l+ h1tg000926l- h1tg000612l- h1tg001027l- h1tg001028l- h1tg000460l- h1tg000670l+ h1tg000696l+ h1tg000225l- h1tg000082l+ h1tg000094l+ h1tg000799l- h1tg000804l+ h1tg000475l- h1tg000405l+ h1tg000428l- h1tg000338l+ h1tg000071l- h1tg001105l- h1tg000471l+ h1tg000153l+ h1tg000626l- h1tg000610l- h1tg000558l- h1tg001072l+ h1tg000425l- h1tg000763l- h1tg000357l+ h1tg000624l- h1tg000574l+ h1tg000177l- h1tg000297l+ h1tg000158l+ h1tg000491l+ h1tg000139l- h1tg000589l+ h1tg000559l+ h1tg000697l- h1tg000107l+ h1tg000048l- h1tg001061l+ h1tg001067l- h1tg001259l+ h1tg000145l+ h1tg001116l- h1tg001023l- h1tg000826l- h1tg001213l+ h1tg000580l+ h1tg000104l+ h1tg000126l- h1tg000786l- h1tg001064l+ h1tg000016l- h1tg000354l+ h1tg001201l+ h1tg001107l+ h1tg000130l+ h1tg000345l+ h1tg000444l- h1tg000976l+ h1tg000535l- h1tg000716l- h1tg000807l+ h1tg000366l- h1tg000972l- h1tg000512l- h1tg000662l+ h1tg000877l+ h1tg001217l+ h1tg000611l+ h1tg000772l- h1tg000657l- h1tg000361l+ h1tg000561l+ h1tg000592l+ h1tg000321l+ h1tg000627l- h1tg000105l+ h1tg000886l+ h1tg000098l- h1tg000482l- h1tg001102l+ h1tg000298l+ h1tg000216l+ h1tg000182l- h1tg000860l+ h1tg000353l+ h1tg000813l+ h1tg000828l+ h1tg001033l+ h1tg000806l+ h1tg000442l- h1tg000756l- h1tg000522l- h1tg000259l- h1tg000533l+ h1tg000178l+ h1tg000979l+ h1tg000197l- h1tg000414l+ h1tg000594l+ h1tg000120l+ h1tg000426l- h1tg001019l- h1tg000654l- h1tg000161l+ h1tg000622l- h1tg000422l- h1tg000201l- h1tg000247l+ h1tg001233l+ h1tg001117l- h1tg000730l+ h1tg000801l+ h1tg000553l+ h1tg000191l+ h1tg000565l- h1tg000249l- h1tg001068l+ h1tg000917l+
+Current iteration GA1-3000: max_score=0.53218
+Current iteration GA1-11500: max_score=1.83538
+Current iteration GA1-12000: max_score=1.76409
+Current iteration GA2-1500: max_score=2.22277
+Current iteration GA1-3500: max_score=0.53218
+Current iteration GA1-12000: max_score=1.83538
+Current iteration GA2-0: max_score=1.76409
+Current iteration GA2-2000: max_score=2.22277
+Current iteration GA1-4000: max_score=0.53218
+Current iteration GA1-12500: max_score=1.83538
+Current iteration GA2-500: max_score=1.76409
+Current iteration GA2-2500: max_score=2.22277
+Current iteration GA1-4500: max_score=0.53218
+Current iteration GA1-13000: max_score=1.83596
+Current iteration GA2-1000: max_score=1.76409
+Current iteration GA2-3000: max_score=2.22277
+Current iteration GA1-5000: max_score=0.53218
+Current iteration GA1-13500: max_score=1.83596
+Current iteration GA1-5500: max_score=0.53218
+Current iteration GA2-3500: max_score=2.22277
+Current iteration GA2-1500: max_score=1.76409
+Current iteration GA2-0: max_score=0.53218
+Current iteration GA1-14000: max_score=1.83596
+Current iteration GA2-2000: max_score=1.76409
+Current iteration GA2-4000: max_score=2.22277
+Current iteration GA2-500: max_score=0.53218
+Current iteration GA1-14500: max_score=1.83596
+Current iteration GA2-2500: max_score=1.76409
+Current iteration GA2-4500: max_score=2.22277
+Current iteration GA2-1000: max_score=0.53218
+Current iteration GA1-15000: max_score=1.83596
+Current iteration GA2-3000: max_score=1.76409
+Current iteration GA2-1500: max_score=0.53218
+Current iteration GA2-5000: max_score=2.22277
+Current iteration GA1-15500: max_score=1.83596
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA2-2000: max_score=0.53218
+Current iteration GA2-3500: max_score=1.76409
+Current iteration GA1-16000: max_score=1.83596
+Current iteration GA2-2500: max_score=0.53218
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-4000: max_score=1.76409
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA1-16500: max_score=1.83596
+Current iteration GA2-3000: max_score=0.53218
+Current iteration GA2-4500: max_score=1.76409
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA1-17000: max_score=1.83596
+Current iteration GA2-3500: max_score=0.53218
+Current iteration GA2-5000: max_score=1.76409
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-4000: max_score=0.53218
+Current iteration GA1-17500: max_score=1.83596
+Current iteration GA2-4500: max_score=0.53218
+Current iteration GA2-0: max_score=1.83596
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-5000: max_score=0.53218
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-500: max_score=1.83596
+>FINAL
+h1tg001010l+ h1tg000642l+ h1tg001044l+ h1tg001189l+ h1tg001267l+ h1tg001265l+ h1tg001111l+ h1tg001248l- h1tg000948l- h1tg001016l- h1tg000334l- h1tg000274l- h1tg000732l- h1tg000270l- h1tg000907l+ h1tg000341l+ h1tg000281l+ h1tg001062l- h1tg000136l+ h1tg000097l+ h1tg000227l+ h1tg000708l+ h1tg000521l+ h1tg000882l+ h1tg000029l+ h1tg000180l+ h1tg000150l- h1tg000192l+ h1tg000713l+ h1tg000179l+ h1tg000344l+ h1tg000050l+ h1tg001091l- h1tg000141l- h1tg000507l+ h1tg000095l- h1tg000542l+ h1tg001108l+ h1tg001126l+ h1tg000056l+ h1tg000209l- h1tg000784l- h1tg000238l+ h1tg000450l+ h1tg000404l- h1tg000516l- h1tg000765l- h1tg000239l- h1tg000961l- h1tg001219l-
+>FINAL
+h1tg000773l+ h1tg000217l+ h1tg000687l+ h1tg000839l- h1tg000678l+ h1tg000707l- h1tg000229l+ h1tg000949l- h1tg000959l- h1tg001145l+ h1tg000951l- h1tg000947l- h1tg001130l+ h1tg001139l+ h1tg001131l- h1tg001151l- h1tg000299l- h1tg000385l+ h1tg000443l+ h1tg000190l- h1tg000288l- h1tg000750l+ h1tg000817l- h1tg000820l- h1tg000880l- h1tg000280l- h1tg000244l- h1tg000200l- h1tg000977l+ h1tg000498l+ h1tg000836l+ h1tg000824l- h1tg000236l+ h1tg000337l- h1tg000774l+ h1tg000436l+ h1tg000983l- h1tg000876l- h1tg000758l+ h1tg001079l- h1tg000576l- h1tg000245l+ h1tg001083l+ h1tg000703l- h1tg000303l- h1tg000900l+ h1tg000892l- h1tg000725l- h1tg000845l+ h1tg000704l- h1tg001037l+ h1tg000189l+ h1tg000481l- h1tg000888l+ h1tg000206l- h1tg000348l+ h1tg001034l- h1tg000809l- h1tg000374l+ h1tg000226l+ h1tg000550l- h1tg000885l+ h1tg000432l- h1tg000329l- h1tg000532l+ h1tg000026l- h1tg000729l- h1tg000062l+ h1tg000011l+ h1tg001282l- h1tg000629l- h1tg000789l- h1tg000897l- h1tg000064l- h1tg001029l+ h1tg000805l+ h1tg000823l- h1tg000278l- h1tg000585l+ h1tg000081l+ h1tg000263l+ h1tg000360l- h1tg000125l- h1tg000118l+ h1tg000754l+ h1tg000194l- h1tg000144l- h1tg000397l+ h1tg001103l- h1tg000466l- h1tg000991l+ h1tg000415l- h1tg000595l- h1tg000787l+ h1tg000251l- h1tg000199l- h1tg000387l- h1tg000869l- h1tg000853l- h1tg000556l+ h1tg000586l+ h1tg000091l+ h1tg000146l+ h1tg000054l- h1tg000919l+ h1tg000480l- h1tg000843l+ h1tg000903l- h1tg000296l+ h1tg000914l- h1tg000875l+ h1tg000505l- h1tg000282l+ h1tg001187l- h1tg000964l+ h1tg000963l+ h1tg000956l+ h1tg001155l- h1tg000929l+ h1tg001143l+ h1tg001194l- h1tg000955l- h1tg000040l- h1tg000935l+ h1tg000928l- h1tg000256l- h1tg000923l- h1tg001106l- h1tg000599l- h1tg000792l+ h1tg000676l+ h1tg000984l+ h1tg001274l- h1tg000887l-
+Current iteration GA2-1000: max_score=1.83596
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-1500: max_score=1.83596
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-2000: max_score=1.83596
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-2500: max_score=1.83596
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-3000: max_score=1.83596
+Current iteration GA2-5000: max_score=2.02183
+Current iteration GA2-3500: max_score=1.83596
+Current iteration GA2-4000: max_score=1.83596
+Current iteration GA2-4500: max_score=1.83596
+>FINAL
+h1tg000677l- h1tg000990l+ h1tg000701l+ h1tg001017l- h1tg000520l+ h1tg000284l- h1tg000030l- h1tg000916l- h1tg000132l+ h1tg000487l+ h1tg000747l- h1tg000841l+ h1tg000736l+ h1tg000430l+ h1tg000173l- h1tg000890l+ h1tg000472l- h1tg001231l- h1tg001001l- h1tg001260l+ h1tg001069l+ h1tg000746l+ h1tg000015l- h1tg000143l+ h1tg001225l+ h1tg000058l- h1tg000709l+ h1tg000785l- h1tg000119l+ h1tg000581l+ h1tg000800l+ h1tg001014l+ h1tg000320l+ h1tg000551l- h1tg000797l+ h1tg001036l+ h1tg000470l- h1tg000042l+ h1tg000090l- h1tg000778l+ h1tg000854l- h1tg000691l+ h1tg000737l+ h1tg000218l- h1tg000438l- h1tg000601l+ h1tg000608l+ h1tg000808l- h1tg000318l- h1tg000661l- h1tg001099l- h1tg001090l+ h1tg000358l+ h1tg000276l+ h1tg000834l- h1tg000816l- h1tg000242l+ h1tg000375l+ h1tg000069l- h1tg001098l- h1tg000867l+ h1tg000449l- h1tg000494l+ h1tg000427l- h1tg000073l+ h1tg000822l- h1tg000394l+ h1tg000410l- h1tg000851l- h1tg000803l+ h1tg000413l+ h1tg000992l+ h1tg000398l+ h1tg001002l- h1tg000814l+ h1tg000989l- h1tg000980l- h1tg000509l- h1tg000564l- h1tg000598l- h1tg000454l- h1tg000332l- h1tg001009l+ h1tg000755l- h1tg000844l- h1tg000445l+ h1tg000458l+ h1tg000544l- h1tg001120l+ h1tg000067l- h1tg000148l- h1tg000339l- h1tg000751l+ h1tg000501l- h1tg000323l+ h1tg000384l+ h1tg000175l+ h1tg000169l+ h1tg000378l- h1tg000669l+ h1tg000683l- h1tg000745l+ h1tg000910l+ h1tg000548l+ h1tg001073l+ h1tg000087l- h1tg000632l- h1tg000672l- h1tg000636l- h1tg000918l- h1tg000872l- h1tg000825l- h1tg000759l- h1tg000865l+ h1tg001239l- h1tg001060l- h1tg000266l- h1tg000702l+ h1tg001003l- h1tg000915l- h1tg000041l+ h1tg000326l- h1tg000342l+ h1tg000974l+ h1tg000518l+ h1tg000776l- h1tg000039l- h1tg000370l+ h1tg000531l+ h1tg000285l+ h1tg000352l- h1tg000275l+ h1tg000644l+ h1tg001257l+ h1tg001063l- h1tg001258l+ h1tg000971l- h1tg001041l-
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+Current iteration GA2-5000: max_score=1.83596
+Current iteration GA1-14000: max_score=2.04467
+Current iteration GA1-14500: max_score=2.04467
+Current iteration GA1-15000: max_score=2.04467
+Current iteration GA1-15500: max_score=2.04467
+Current iteration GA1-16000: max_score=2.04467
+Current iteration GA1-16500: max_score=2.04500
+Current iteration GA1-17000: max_score=2.04500
+Current iteration GA1-17500: max_score=2.04500
+Current iteration GA1-10000: max_score=1.72867
+>FINAL
+h1tg001065l+ h1tg000957l+ h1tg001093l+ h1tg000998l- h1tg000993l- h1tg000997l+ h1tg000922l- h1tg001032l+ h1tg000893l- h1tg000269l+ h1tg000833l+ h1tg000325l+ h1tg000511l+ h1tg000673l- h1tg000788l+ h1tg000304l+ h1tg000406l+ h1tg000469l+ h1tg000005l- h1tg000421l+ h1tg000680l- h1tg000587l- h1tg000420l+ h1tg000500l+ h1tg001074l- h1tg000858l+ h1tg000525l- h1tg000719l- h1tg000753l+ h1tg000519l+ h1tg000721l+ h1tg000474l+ h1tg000079l- h1tg000902l+ h1tg000712l- h1tg000780l- h1tg001121l- h1tg000331l+ h1tg000739l- h1tg000819l- h1tg000096l+ h1tg000783l- h1tg000203l+ h1tg000534l- h1tg000539l- h1tg001080l+ h1tg000757l- h1tg000549l- h1tg000766l- h1tg000020l- h1tg000848l- h1tg000327l- h1tg000690l- h1tg000381l+ h1tg000503l- h1tg000391l- h1tg000832l+ h1tg000722l+ h1tg000538l- h1tg000393l+ h1tg000128l- h1tg000147l- h1tg000668l+ h1tg000034l- h1tg000057l- h1tg000159l- h1tg000160l+ h1tg000164l+ h1tg000552l- h1tg000908l- h1tg000289l- h1tg000557l+ h1tg001086l+ h1tg001115l- h1tg000373l+ h1tg000072l+ h1tg000106l- h1tg001240l- h1tg000724l- h1tg000517l- h1tg000112l- h1tg000002l- h1tg000742l+ h1tg000377l- h1tg000666l+ h1tg000463l- h1tg000316l- h1tg000510l+ h1tg000996l- h1tg000621l+ h1tg000563l- h1tg000253l- h1tg000224l+ h1tg000347l+ h1tg000603l+ h1tg000600l+ h1tg000913l+ h1tg000777l- h1tg000620l- h1tg000616l- h1tg000157l- h1tg001006l- h1tg000638l+ h1tg000578l+ h1tg000389l- h1tg000579l- h1tg000590l- h1tg000727l- h1tg000195l- h1tg000174l- h1tg000165l+ h1tg000641l- h1tg000749l- h1tg000451l- h1tg000489l+ h1tg000597l- h1tg000343l- h1tg000688l- h1tg000211l- h1tg000407l+ h1tg000689l- h1tg000912l- h1tg000515l+ h1tg000367l+ h1tg000023l+ h1tg000698l+ h1tg000859l- h1tg000008l+ h1tg000628l+ h1tg000614l+ h1tg000554l- h1tg000714l+ h1tg000455l+ h1tg000571l- h1tg000477l+ h1tg000692l+ h1tg000402l+ h1tg000591l- h1tg001095l+ h1tg000423l- h1tg000300l+ h1tg001118l+ h1tg000699l- h1tg000417l+ h1tg000896l+ h1tg000619l- h1tg000812l- h1tg000715l- h1tg000891l- h1tg000694l- h1tg000240l+ h1tg001114l+ h1tg000088l- h1tg000723l+ h1tg000864l-
+Current iteration GA1-18000: max_score=2.04500
+Current iteration GA1-10500: max_score=1.72867
+Current iteration GA1-18500: max_score=2.04500
+Current iteration GA1-11000: max_score=1.72867
+Current iteration GA1-19000: max_score=2.04500
+Current iteration GA1-11500: max_score=1.72867
+Current iteration GA1-19500: max_score=2.04500
+Current iteration GA1-12000: max_score=1.72867
+Current iteration GA2-0: max_score=1.72867
+Current iteration GA1-20000: max_score=2.04500
+Current iteration GA2-500: max_score=1.72867
+Current iteration GA1-20500: max_score=2.04500
+Current iteration GA2-1000: max_score=1.72867
+Current iteration GA1-21000: max_score=2.04500
+Current iteration GA2-1500: max_score=1.72867
+Current iteration GA1-21500: max_score=2.04500
+Current iteration GA2-2000: max_score=1.72867
+Current iteration GA1-22000: max_score=2.04500
+Current iteration GA2-2500: max_score=1.72867
+Current iteration GA1-22500: max_score=2.04500
+Current iteration GA2-3000: max_score=1.72867
+Current iteration GA1-23000: max_score=2.04500
+Current iteration GA2-3500: max_score=1.72867
+Current iteration GA1-23500: max_score=2.04500
+Current iteration GA2-4000: max_score=1.72867
+Current iteration GA1-24000: max_score=2.04500
+Current iteration GA2-4500: max_score=1.72867
+Current iteration GA2-0: max_score=2.04500
+Current iteration GA2-5000: max_score=1.72867
+Current iteration GA2-500: max_score=2.04500
+Current iteration GA2-1000: max_score=2.04500
+Current iteration GA2-1500: max_score=2.04500
+Current iteration GA2-2000: max_score=2.04500
+>FINAL
+h1tg000717l+ h1tg000031l- h1tg000975l- h1tg000981l+ h1tg000208l+ h1tg000490l- h1tg000570l- h1tg000767l- h1tg000635l- h1tg000089l- h1tg000268l- h1tg000349l+ h1tg001124l+ h1tg000086l+ h1tg000660l+ h1tg000419l+ h1tg000412l+ h1tg000493l- h1tg000113l- h1tg000301l- h1tg000568l+ h1tg000258l+ h1tg001007l+ h1tg000863l- h1tg000484l+ h1tg000376l+ h1tg001263l+ h1tg001084l- h1tg000577l- h1tg000582l- h1tg001092l- h1tg000464l- h1tg000681l+ h1tg000821l+ h1tg000726l+ h1tg000985l- h1tg000261l+ h1tg000293l- h1tg000740l- h1tg000790l+ h1tg000379l+ h1tg000133l+ h1tg000291l- h1tg001113l+ h1tg000401l+ h1tg000645l- h1tg000110l- h1tg000214l- h1tg000504l- h1tg001076l- h1tg000524l- h1tg000675l- h1tg000884l- h1tg000856l- h1tg000028l+ h1tg000492l- h1tg000899l+ h1tg000267l+ h1tg001100l- h1tg001005l- h1tg000241l- h1tg000671l+ h1tg000752l+ h1tg000514l- h1tg000252l+ h1tg001096l- h1tg000640l- h1tg000459l- h1tg000706l- h1tg000237l- h1tg000400l+ h1tg000448l- h1tg000319l- h1tg000625l+ h1tg000898l- h1tg000664l- h1tg000909l+ h1tg000093l+ h1tg000302l- h1tg000154l+ h1tg000562l- h1tg000123l- h1tg000543l- h1tg000456l+ h1tg000840l- h1tg000567l- h1tg000920l- h1tg000685l+ h1tg000861l+ h1tg000617l+ h1tg000138l+ h1tg000045l+ h1tg000658l- h1tg000889l- h1tg000718l+ h1tg000796l+ h1tg001040l+ h1tg000486l+ h1tg000283l+ h1tg000573l+ h1tg000734l- h1tg000140l+ h1tg000650l+ h1tg000248l+ h1tg000183l- h1tg000508l- h1tg000583l- h1tg000435l- h1tg000871l+ h1tg000894l+ h1tg001101l- h1tg000273l+ h1tg001109l- h1tg001277l+ h1tg001147l-
+Current iteration GA2-2500: max_score=2.04500
+Current iteration GA2-3000: max_score=2.04500
+Current iteration GA2-3500: max_score=2.04500
+Current iteration GA2-4000: max_score=2.04500
+Current iteration GA2-4500: max_score=2.04500
+Current iteration GA2-5000: max_score=2.04500
+>FINAL
+h1tg000027l+ h1tg000830l+ h1tg000013l- h1tg000221l- h1tg000815l+ h1tg000372l+ h1tg000170l- h1tg000085l- h1tg000392l- h1tg000122l- h1tg000731l- h1tg000496l- h1tg000103l- h1tg000441l- h1tg000769l- h1tg000055l- h1tg000051l- h1tg000162l- h1tg000046l+ h1tg000390l- h1tg000166l+ h1tg000453l+ h1tg000233l+ h1tg000465l+ h1tg000513l+ h1tg000167l- h1tg000078l+ h1tg000651l+ h1tg000596l- h1tg000529l- h1tg000656l+ h1tg000793l+ h1tg000530l+ h1tg000396l- h1tg000152l+ h1tg000185l- h1tg000099l+ h1tg000569l+ h1tg000452l- h1tg001008l- h1tg000131l+ h1tg001224l- h1tg000059l- h1tg000369l- h1tg000639l- h1tg000035l+ h1tg000272l+ h1tg000010l- h1tg000328l+ h1tg000101l+ h1tg000362l+ h1tg000025l- h1tg000733l- h1tg000223l+ h1tg000523l- h1tg000308l+ h1tg000711l- h1tg000575l- h1tg000665l+ h1tg000053l+ h1tg001203l- h1tg000388l- h1tg000262l- h1tg000205l+ h1tg001012l+ h1tg000092l- h1tg000674l+ h1tg000536l- h1tg000184l- h1tg000084l+ h1tg000868l+ h1tg000220l+ h1tg000446l- h1tg000695l+ h1tg000648l- h1tg000014l- h1tg000129l+ h1tg000009l+ h1tg000424l- h1tg000049l+ h1tg000234l- h1tg000382l+ h1tg000744l- h1tg000254l- h1tg000986l+ h1tg000149l+ h1tg000399l+ h1tg000351l- h1tg000779l- h1tg000127l- h1tg000115l+ h1tg000618l- h1tg000602l+ h1tg000700l+ h1tg000215l- h1tg000540l- h1tg000102l- h1tg000355l+ h1tg000060l- h1tg000440l- h1tg000497l- h1tg000462l+ h1tg000473l+ h1tg000080l+ h1tg000710l+ h1tg000527l- h1tg000395l+ h1tg000230l+ h1tg000181l+ h1tg000155l+ h1tg000001l- h1tg000682l- h1tg000038l- h1tg000499l- h1tg000294l- h1tg001161l+ h1tg000901l- h1tg000380l+ h1tg000022l- h1tg000187l- h1tg001097l- h1tg001158l+ h1tg001146l+ h1tg000924l+ h1tg001132l+ h1tg000930l- h1tg001193l+ h1tg001138l- h1tg001264l- h1tg000156l- h1tg001137l+ h1tg001156l- h1tg001166l+ h1tg001279l+ h1tg001159l- h1tg001199l- h1tg001171l+ h1tg001188l- h1tg001054l- h1tg001281l- h1tg001058l- h1tg000958l+ h1tg001253l+ h1tg001162l+ h1tg000932l+ h1tg001186l- h1tg001251l+ h1tg001175l- h1tg000933l- h1tg001053l+ h1tg001180l+ h1tg000838l+ h1tg001195l+ h1tg001243l- h1tg000936l+ h1tg001238l+ h1tg000937l- h1tg001185l+ h1tg001165l- h1tg001245l- h1tg001125l+ h1tg001169l- h1tg001184l- h1tg001049l- h1tg000965l- h1tg001235l+ h1tg001270l- h1tg001173l- h1tg001177l- h1tg001271l- h1tg001055l- h1tg001136l- h1tg001176l- h1tg001140l+ h1tg001056l- h1tg001133l+ h1tg000941l+ h1tg001154l+ h1tg001059l+ h1tg001198l+ h1tg001241l+ h1tg000927l- h1tg001179l+ h1tg001269l- h1tg001244l- h1tg001057l- h1tg001149l- h1tg000954l- h1tg000960l- h1tg001191l+ h1tg000942l+ h1tg000952l- h1tg000966l+ h1tg001172l- h1tg001249l+ h1tg001150l+ h1tg000968l+ h1tg001129l- h1tg001182l- h1tg001266l- h1tg001247l- h1tg001181l+
+[2025-12-09 03:44:24] ✅ Optimization completed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️  [Step 6] Building Assembly
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 03:44:24] ▶️  Running: ALLHiC_build draft.asm.fasta
+[2025-12-09 03:44:30] ✅ Command completed successfully
+[2025-12-09 03:44:30] ✅ Build completed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 [Step 7] Generating Heatmap
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 03:44:30] ▶️  Running: samtools faidx groups.asm.fasta
+[2025-12-09 03:44:33] ✅ Command completed successfully
+[2025-12-09 03:44:33] 🎨 Drawing heatmap...
+[2025-12-09 03:44:33] ▶️  Running: ALLHiC_plot -b sample.clean.bam -a groups.agp -l chrn.list -m 50k -s 500k -o ./
+[2025-12-09 04:32:09] ✅ Command completed successfully
+[2025-12-09 04:32:09] ✅ Plot completed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 [Step 8] Preparing Juicebox Visualization
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-09 04:32:09] 📂 Juicebox working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/juicebox_visualization
+[2025-12-09 04:32:09] 🔗 Linking reference files...
+[2025-12-09 04:32:09] 🧬 Indexing reference for Juicebox...
+[2025-12-09 04:32:10] ▶️  Running: bwa index ref.fasta
+[2025-12-09 04:50:34] ✅ Command completed successfully
+[2025-12-09 04:50:34] ▶️  Running: samtools faidx ref.fasta
+[2025-12-09 04:50:37] ✅ Command completed successfully
+[2025-12-09 04:50:37] ⚔️  Aligning Hi-C reads to scaffolded assembly...
+[2025-12-09 04:50:37] ▶️  Running: bwa mem -SP5 -t 88 ref.fasta /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/fastq/OV53_1-hic_R1.fastq.gz /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/fastq/OV53_1-hic_R2.fastq.gz |                  samtools view -@ 10 -Shb -F 2316 - |                  samtools sort -@ 20 -n -o mapped.namesorted.bam -
+[2025-12-09 13:49:41] ✅ Command completed successfully
+[2025-12-09 13:49:41] 🔄 Converting BAM to Merged_Nodups.txt format...

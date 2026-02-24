@@ -1,0 +1,27 @@
+2026-01-08 15:36:27.545 - ERROR - 命令执行失败|Command execution failed: cd /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/05.5%SNPadmixture && admixture --cv=5 -j64 raw_data.bed 2 > log_2.out 2>&1
+   - 返回码|Return code: 255
+   - 标准输出|Stdout: 
+   - 标准错误|Stderr: 
+2026-01-08 15:36:27.546 - ERROR -  K=2分析失败|K=2 analysis failed: Command 'cd /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/05.5%SNPadmixture && admixture --cv=5 -j64 raw_data.bed 2 > log_2.out 2>&1' returned non-zero exit status 255.
+2026-01-08 15:36:27.546 - ERROR -  ADMIXTURE日志|ADMIXTURE log:
+****                   ADMIXTURE Version 1.3.0                  ****
+****                    Copyright 2008-2015                     ****
+****           David Alexander, Suyash Shringarpure,            ****
+****                John  Novembre, Ken Lange                   ****
+****                                                            ****
+****                 Please cite our paper!                     ****
+****   Information at www.genetics.ucla.edu/software/admixture  ****
+
+Cross-validation will be performed.  Folds=5.
+Parallel execution requested.  Will use 64 threads.
+Random seed: 43
+Point estimation method: Block relaxation algorithm
+Convergence acceleration algorithm: QuasiNewton, 3 secant conditions
+Point estimation will terminate when objective function delta < 0.0001
+Estimation of standard errors disabled; will compute point estimates only.
+Error: detected that all genotypes are missing for a SNP locus.
+Please apply quality-control filters to remove such loci.
+
+2026-01-08 15:36:27.546 - ERROR - 分析过程中发生严重错误|A critical error occurred during analysis: Command 'cd /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/05.5%SNPadmixture && admixture --cv=5 -j64 raw_data.bed 2 > log_2.out 2>&1' returned non-zero exit status 255.
+Job 68789334 stderr output:
+

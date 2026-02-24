@@ -1,0 +1,47 @@
+2026-01-22 13:45:58.782 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-22 13:45:58.783 - INFO - 使用自定义输入目录|Using custom input directory: output/kmc_databases
+2026-01-22 13:45:58.783 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-22 13:45:58.783 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-22 13:45:58.783 - INFO - 找到 10 个KMC数据库|Found 10 KMC databases
+2026-01-22 13:45:58.783 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 10 样本|samples
+2026-01-22 13:45:58.783 - INFO - 全新构建：使用union生成全局k-mer列表|Fresh build: using union to generate global k-mer list
+2026-01-22 13:45:58.783 - INFO - 收集唯一k-mer列表（union+流式处理）|Collecting unique k-mer list (union+streaming)
+2026-01-22 13:45:58.783 - INFO - 合并数据库生成全局k-mer列表|Union databases to generate global k-mer list
+2026-01-22 13:45:58.783 - INFO - 开始合并 10 个数据库|Starting to union 10 databases
+2026-01-22 13:45:58.783 - INFO - 执行步骤|Executing step: 合并数据库 1-2|Union databases 1-2
+2026-01-22 13:45:58.783 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple W681A W689A union .temp_union_0
+2026-01-22 13:47:58.444 - INFO - 命令执行成功|Command executed successfully: 合并数据库 1-2|Union databases 1-2
+2026-01-22 13:47:58.445 - INFO - 执行步骤|Executing step: 合并数据库 3|Union database 3
+2026-01-22 13:47:58.445 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_0 W684A union .temp_union_2
+2026-01-22 13:48:52.889 - INFO - 命令执行成功|Command executed successfully: 合并数据库 3|Union database 3
+2026-01-22 13:48:52.892 - INFO - 执行步骤|Executing step: 合并数据库 4|Union database 4
+2026-01-22 13:48:52.892 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_2 W685A union .temp_union_3
+2026-01-22 13:49:10.045 - INFO - 命令执行成功|Command executed successfully: 合并数据库 4|Union database 4
+2026-01-22 13:49:10.048 - INFO - 执行步骤|Executing step: 合并数据库 5|Union database 5
+2026-01-22 13:49:10.048 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_3 W686A union .temp_union_4
+2026-01-22 13:49:34.568 - INFO - 命令执行成功|Command executed successfully: 合并数据库 5|Union database 5
+2026-01-22 13:49:34.569 - INFO - 执行步骤|Executing step: 合并数据库 6|Union database 6
+2026-01-22 13:49:34.569 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_4 W680A union .temp_union_5
+2026-01-22 13:50:21.968 - INFO - 命令执行成功|Command executed successfully: 合并数据库 6|Union database 6
+2026-01-22 13:50:21.970 - INFO - 执行步骤|Executing step: 合并数据库 7|Union database 7
+2026-01-22 13:50:21.970 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_5 W687A union .temp_union_6
+2026-01-22 13:52:19.154 - INFO - 命令执行成功|Command executed successfully: 合并数据库 7|Union database 7
+2026-01-22 13:52:19.155 - INFO - 执行步骤|Executing step: 合并数据库 8|Union database 8
+2026-01-22 13:52:19.155 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_6 W688A union .temp_union_7
+2026-01-22 13:54:14.684 - INFO - 命令执行成功|Command executed successfully: 合并数据库 8|Union database 8
+2026-01-22 13:54:14.686 - INFO - 执行步骤|Executing step: 合并数据库 9|Union database 9
+2026-01-22 13:54:14.686 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_7 W683A union .temp_union_8
+2026-01-22 13:56:11.656 - INFO - 命令执行成功|Command executed successfully: 合并数据库 9|Union database 9
+2026-01-22 13:56:11.656 - INFO - 执行步骤|Executing step: 合并数据库 10|Union database 10
+2026-01-22 13:56:11.656 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_8 W682A union .temp_union_9
+2026-01-22 13:58:08.820 - INFO - 命令执行成功|Command executed successfully: 合并数据库 10|Union database 10
+2026-01-22 13:58:08.850 - INFO - 数据库合并完成|Database union completed: global_kmers
+2026-01-22 13:58:08.850 - INFO - 导出全局k-mer列表|Exporting global k-mer list
+2026-01-22 13:59:23.553 - INFO - 添加kmer_id列（流式处理）|Adding kmer_id column (streaming): output/global_kmers.txt
+2026-01-22 14:06:06.992 - INFO - k-mer ID列添加完成|K-mer ID column added: 1492408640 k-mers
+2026-01-22 14:06:06.996 - INFO - k-mer列表已生成并添加ID列|K-mer list generated with ID column: output/global_kmers_with_id.txt
+2026-01-22 14:06:07.011 - INFO - 共收集到 1492408640 个唯一k-mer|Collected 1492408640 unique k-mers
+2026-01-22 14:06:07.011 - INFO - 初始化矩阵文件|Initializing matrix file
+2026-01-22 14:06:07.790 - INFO - 矩阵文件初始化完成|Matrix file initialized
+2026-01-22 14:06:07.791 - INFO - 构建k-mer查找索引|Building k-mer lookup index
+2026-01-22 14:06:07.791 - WARNING - 构建内存索引（可能占用大量内存）|Building in-memory index (may use lots of memory)

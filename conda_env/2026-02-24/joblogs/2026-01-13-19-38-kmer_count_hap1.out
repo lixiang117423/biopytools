@@ -1,0 +1,1030 @@
+2026-01-13 19:38:36.615 - INFO - ============================================================
+2026-01-13 19:38:36.616 - INFO - 开始K-mer丰度分析|Starting K-mer abundance analysis
+2026-01-13 19:38:36.616 - INFO - ============================================================
+2026-01-13 19:38:36.616 - INFO - 步骤1: 检查依赖软件|Step 1: Checking dependencies
+2026-01-13 19:38:36.616 - INFO - 检查依赖软件|Checking dependencies
+2026-01-13 19:38:36.707 - INFO - Jellyfish 可用|available: jellyfish 2.2.10
+2026-01-13 19:38:36.707 - INFO - 步骤2: 设置临时目录|Step 2: Setting up temporary directory
+2026-01-13 19:38:36.725 - INFO - 临时目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/41.两个单倍型的交换图/03.hap1的kmer存在缺失/tmp/kmer_count_1768304316_9933
+2026-01-13 19:38:36.725 - INFO - 步骤3: 查找输入文件|Step 3: Finding input files
+2026-01-13 19:38:36.725 - INFO -  查找输入文件|Finding input files
+2026-01-13 19:38:36.725 - INFO -  输入目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean
+2026-01-13 19:38:36.725 - INFO -  文件模式: *_1.clean.fq.gz
+2026-01-13 19:38:36.726 - INFO -  输入目录是否存在: True
+2026-01-13 19:38:36.752 - INFO -  目录中的文件: ['OV8-71_1.clean.fq.gz', 'OV8-15_2.clean.fq.gz', 'OV8-4_1.clean.fq.gz', 'OV8-111_1.clean.fq.gz', 'OV8-80_1.clean.fq.gz', 'OV8-105_1.clean.fq.gz', 'OV8-43_2.clean.fq.gz', 'OV8-81_1.clean.fq.gz', 'OV8-68_1.clean.fq.gz', 'fastp_processing_summary.txt']
+2026-01-13 19:38:36.752 - INFO -  使用FASTQ文件处理逻辑|Using FASTQ file processing logic
+2026-01-13 19:38:36.805 - INFO -  常规文件|Regular file: OV8-71_1.clean.fq.gz
+2026-01-13 19:38:36.805 - INFO -  常规文件|Regular file: OV8-4_1.clean.fq.gz
+2026-01-13 19:38:36.805 - INFO -  常规文件|Regular file: OV8-111_1.clean.fq.gz
+2026-01-13 19:38:36.805 - INFO -  常规文件|Regular file: OV8-80_1.clean.fq.gz
+2026-01-13 19:38:36.805 - INFO -  常规文件|Regular file: OV8-105_1.clean.fq.gz
+2026-01-13 19:38:36.805 - INFO -  常规文件|Regular file: OV8-81_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-68_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-74_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-77_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-39_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-157_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-206_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-258_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-28_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-113_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-136_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-179_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-268_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-7_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-76_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-106_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-112_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-271_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-99_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-79_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-1_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-180_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-88_1.clean.fq.gz
+2026-01-13 19:38:36.806 - INFO -  常规文件|Regular file: OV8-31_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-265_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-3_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-27_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-67_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-115_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-196_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-17_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-142_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-35_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-117_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-269_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-21_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-107_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-95_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-276_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-9_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-78_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-138_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-108_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-277_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-43_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-72_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-30_1.clean.fq.gz
+2026-01-13 19:38:36.810 - INFO -  常规文件|Regular file: OV8-11_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-263_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-137_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-139_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-33_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-8_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-217_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-260_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-143_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-40_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-29_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-141_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-44_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-172_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-273_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-32_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-274_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-26_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-34_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-20_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-171_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-73_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-42_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-5_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-118_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-144_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-216_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-83_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-87_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-267_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-19_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-94_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-259_1.clean.fq.gz
+2026-01-13 19:38:36.811 - INFO -  常规文件|Regular file: OV8-275_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-272_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-98_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-158_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-6_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-70_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-264_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-15_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-89_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-114_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-45_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-2_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-75_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  常规文件|Regular file: OV8-116_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  找到99个有效R1文件
+2026-01-13 19:38:36.812 - INFO -  提取样本名: OV8-71
+2026-01-13 19:38:36.812 - INFO - 找到双端样本|Found paired-end sample: OV8-71
+2026-01-13 19:38:36.812 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-71_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-71_2.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  提取样本名: OV8-4
+2026-01-13 19:38:36.812 - INFO - 找到双端样本|Found paired-end sample: OV8-4
+2026-01-13 19:38:36.812 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-4_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-4_2.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  提取样本名: OV8-111
+2026-01-13 19:38:36.812 - INFO - 找到双端样本|Found paired-end sample: OV8-111
+2026-01-13 19:38:36.812 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-111_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-111_2.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  提取样本名: OV8-80
+2026-01-13 19:38:36.812 - INFO - 找到双端样本|Found paired-end sample: OV8-80
+2026-01-13 19:38:36.812 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-80_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-80_2.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  提取样本名: OV8-105
+2026-01-13 19:38:36.812 - INFO - 找到双端样本|Found paired-end sample: OV8-105
+2026-01-13 19:38:36.812 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-105_1.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-105_2.clean.fq.gz
+2026-01-13 19:38:36.812 - INFO -  提取样本名: OV8-81
+2026-01-13 19:38:36.812 - INFO - 找到双端样本|Found paired-end sample: OV8-81
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-81_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-81_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-68
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-68
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-68_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-68_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-74
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-74
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-74_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-74_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-77
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-77
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-77_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-77_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-39
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-39
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-39_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-39_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-157
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-157
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-157_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-157_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-206
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-206
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-206_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-206_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-258
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-258
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-258_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-258_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-28
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-28
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-28_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-28_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-113
+2026-01-13 19:38:36.813 - INFO - 找到双端样本|Found paired-end sample: OV8-113
+2026-01-13 19:38:36.813 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-113_1.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-113_2.clean.fq.gz
+2026-01-13 19:38:36.813 - INFO -  提取样本名: OV8-136
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-136
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-136_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-136_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-179
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-179
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-179_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-179_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-268
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-268
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-268_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-268_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-7
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-7
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-7_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-7_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-76
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-76
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-76_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-76_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-106
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-106
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-106_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-106_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-112
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-112
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-112_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-112_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-271
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-271
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-271_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-271_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-99
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-99
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-99_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-99_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-79
+2026-01-13 19:38:36.814 - INFO - 找到双端样本|Found paired-end sample: OV8-79
+2026-01-13 19:38:36.814 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-79_1.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-79_2.clean.fq.gz
+2026-01-13 19:38:36.814 - INFO -  提取样本名: OV8-1
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-1
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-1_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-1_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-180
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-180
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-180_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-180_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-88
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-88
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-88_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-88_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-31
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-31
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-31_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-31_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-265
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-265
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-265_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-265_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-3
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-3
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-3_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-3_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-27
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-27
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-27_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-27_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-67
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-67
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-67_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-67_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-115
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-115
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-115_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-115_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-196
+2026-01-13 19:38:36.815 - INFO - 找到双端样本|Found paired-end sample: OV8-196
+2026-01-13 19:38:36.815 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-196_1.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-196_2.clean.fq.gz
+2026-01-13 19:38:36.815 - INFO -  提取样本名: OV8-17
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-17
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-17_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-17_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-142
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-142
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-142_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-142_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-35
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-35
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-35_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-35_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-117
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-117
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-117_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-117_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-269
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-269
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-269_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-269_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-21
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-21
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-21_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-21_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-107
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-107
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-107_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-107_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-95
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-95
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-95_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-95_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-276
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-276
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-276_1.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-276_2.clean.fq.gz
+2026-01-13 19:38:36.816 - INFO -  提取样本名: OV8-9
+2026-01-13 19:38:36.816 - INFO - 找到双端样本|Found paired-end sample: OV8-9
+2026-01-13 19:38:36.816 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-9_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-9_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-78
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-78
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-78_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-78_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-138
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-138
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-138_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-138_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-108
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-108
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-108_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-108_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-277
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-277
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-277_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-277_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-43
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-43
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-43_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-43_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-72
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-72
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-72_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-72_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-30
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-30
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-30_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-30_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-11
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-11
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-11_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-11_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-263
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-263
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-263_1.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-263_2.clean.fq.gz
+2026-01-13 19:38:36.817 - INFO -  提取样本名: OV8-137
+2026-01-13 19:38:36.817 - INFO - 找到双端样本|Found paired-end sample: OV8-137
+2026-01-13 19:38:36.817 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-137_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-137_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-139
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-139
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-139_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-139_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-33
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-33
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-33_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-33_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-8
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-8
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-8_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-8_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-217
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-217
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-217_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-217_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-260
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-260
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-260_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-260_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-143
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-143
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-143_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-143_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-40
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-40
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-40_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-40_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-29
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-29
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-29_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-29_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-141
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-141
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-141_1.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-141_2.clean.fq.gz
+2026-01-13 19:38:36.818 - INFO -  提取样本名: OV8-44
+2026-01-13 19:38:36.818 - INFO - 找到双端样本|Found paired-end sample: OV8-44
+2026-01-13 19:38:36.818 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-44_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-44_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-172
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-172
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-172_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-172_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-273
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-273
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-273_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-273_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-32
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-32
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-32_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-32_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-274
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-274
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-274_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-274_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-26
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-26
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-26_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-26_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-34
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-34
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-34_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-34_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-20
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-20
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-20_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-20_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-171
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-171
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-171_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-171_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-73
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-73
+2026-01-13 19:38:36.819 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-73_1.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-73_2.clean.fq.gz
+2026-01-13 19:38:36.819 - INFO -  提取样本名: OV8-42
+2026-01-13 19:38:36.819 - INFO - 找到双端样本|Found paired-end sample: OV8-42
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-42_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-42_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-5
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-5
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-5_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-5_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-118
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-118
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-118_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-118_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-144
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-144
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-144_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-144_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-216
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-216
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-216_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-216_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-83
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-83
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-83_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-83_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-87
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-87
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-87_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-87_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-267
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-267
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-267_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-267_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-19
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-19
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-19_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-19_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-94
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-94
+2026-01-13 19:38:36.820 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-94_1.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-94_2.clean.fq.gz
+2026-01-13 19:38:36.820 - INFO -  提取样本名: OV8-259
+2026-01-13 19:38:36.820 - INFO - 找到双端样本|Found paired-end sample: OV8-259
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-259_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-259_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-275
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-275
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-275_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-275_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-272
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-272
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-272_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-272_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-98
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-98
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-98_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-98_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-158
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-158
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-158_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-158_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-6
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-6
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-6_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-6_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-70
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-70
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-70_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-70_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-264
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-264
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-264_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-264_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-15
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-15
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-15_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-15_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-89
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-89
+2026-01-13 19:38:36.821 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-89_1.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-89_2.clean.fq.gz
+2026-01-13 19:38:36.821 - INFO -  提取样本名: OV8-114
+2026-01-13 19:38:36.821 - INFO - 找到双端样本|Found paired-end sample: OV8-114
+2026-01-13 19:38:36.822 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-114_1.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-114_2.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -  提取样本名: OV8-45
+2026-01-13 19:38:36.822 - INFO - 找到双端样本|Found paired-end sample: OV8-45
+2026-01-13 19:38:36.822 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-45_1.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-45_2.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -  提取样本名: OV8-2
+2026-01-13 19:38:36.822 - INFO - 找到双端样本|Found paired-end sample: OV8-2
+2026-01-13 19:38:36.822 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-2_1.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-2_2.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -  提取样本名: OV8-75
+2026-01-13 19:38:36.822 - INFO - 找到双端样本|Found paired-end sample: OV8-75
+2026-01-13 19:38:36.822 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-75_1.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-75_2.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -  提取样本名: OV8-116
+2026-01-13 19:38:36.822 - INFO - 找到双端样本|Found paired-end sample: OV8-116
+2026-01-13 19:38:36.822 - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-116_1.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-116_2.clean.fq.gz
+2026-01-13 19:38:36.822 - INFO - 步骤4: 准备k-mer库|Step 4: Preparing k-mer library
+2026-01-13 19:38:36.822 - INFO - 准备k-mer库文件|Preparing k-mer library file
+2026-01-13 19:46:36.725 - INFO - k-mer库已扩展，保存到: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/41.两个单倍型的交换图/03.hap1的kmer存在缺失/tmp/kmer_count_1768304316_9933/kmers_expanded.fasta
+2026-01-13 19:46:36.994 - INFO - 步骤5: 解析注释信息|Step 5: Parsing annotation information
+2026-01-13 19:46:36.994 - INFO -  解析k-mer库|Parsing k-mer library
+2026-01-13 19:48:56.286 - INFO -  解析完成，共112477633个k-mer对|Parsing completed, 112477633 k-mer pairs total
+2026-01-13 19:48:57.200 - INFO -  解析BED文件|Parsing BED file
+2026-01-13 19:50:25.290 - INFO -  成功读取BED文件前6列|Successfully read first 6 columns of BED file
+2026-01-13 19:50:43.432 - INFO -  扩展BED文件，添加反向互补序列|Expanding BED file with reverse complement sequences
+2026-01-14 00:43:07.579 - INFO -  扩展完成：原始112477633条，新增112470783条反向互补序列|Expansion completed: 112477633 original, 112470783 reverse complement sequences added
+2026-01-14 00:47:24.537 - INFO - 已将112477633个k-mer序列转换为大写|Converted 112477633 k-mer sequences to uppercase
+2026-01-14 00:52:51.418 - INFO -  已保存处理后的BED文件|Saved processed BED file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/41.两个单倍型的交换图/03.hap1的kmer存在缺失/tmp/kmer_count_1768304316_9933/processed_kmers.bed
+2026-01-14 00:52:51.419 - INFO -  BED文件解析完成，共224948416条记录|BED file parsing completed, 224948416 records total
+2026-01-14 00:52:51.419 - INFO - 步骤6: 处理样本|Step 6: Processing samples
+2026-01-14 00:52:51.419 - INFO - 处理样本|Processing sample: OV8-71
+2026-01-14 00:52:51.419 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-71
+2026-01-14 00:53:51.549 - ERROR - 文件完全不可读，跳过: OV8-71_1.clean.fq.gz
+2026-01-14 00:53:51.549 - ERROR - 样本 OV8-71 处理失败: 文件完全不可读: OV8-71
+2026-01-14 00:53:51.549 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 00:53:51.549 - INFO - 处理样本|Processing sample: OV8-4
+2026-01-14 00:53:51.549 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-4
+2026-01-14 00:54:51.651 - ERROR - 文件完全不可读，跳过: OV8-4_1.clean.fq.gz
+2026-01-14 00:54:51.651 - ERROR - 样本 OV8-4 处理失败: 文件完全不可读: OV8-4
+2026-01-14 00:54:51.651 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 00:54:51.651 - INFO - 处理样本|Processing sample: OV8-111
+2026-01-14 00:54:51.651 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-111
+2026-01-14 00:55:51.757 - ERROR - 文件完全不可读，跳过: OV8-111_1.clean.fq.gz
+2026-01-14 00:55:51.758 - ERROR - 样本 OV8-111 处理失败: 文件完全不可读: OV8-111
+2026-01-14 00:55:51.758 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 00:55:51.758 - INFO - 处理样本|Processing sample: OV8-80
+2026-01-14 00:55:51.758 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-80
+2026-01-14 00:56:52.172 - ERROR - 文件完全不可读，跳过: OV8-80_1.clean.fq.gz
+2026-01-14 00:56:52.172 - ERROR - 样本 OV8-80 处理失败: 文件完全不可读: OV8-80
+2026-01-14 00:56:52.172 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 00:56:52.172 - INFO - 处理样本|Processing sample: OV8-105
+2026-01-14 00:56:52.172 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-105
+2026-01-14 00:57:52.468 - ERROR - 文件完全不可读，跳过: OV8-105_1.clean.fq.gz
+2026-01-14 00:57:52.468 - ERROR - 样本 OV8-105 处理失败: 文件完全不可读: OV8-105
+2026-01-14 00:57:52.597 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 00:57:52.597 - INFO - 处理样本|Processing sample: OV8-81
+2026-01-14 00:57:52.597 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-81
+2026-01-14 00:58:52.815 - ERROR - 文件完全不可读，跳过: OV8-81_1.clean.fq.gz
+2026-01-14 00:58:52.816 - ERROR - 样本 OV8-81 处理失败: 文件完全不可读: OV8-81
+2026-01-14 00:58:52.816 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 00:58:52.816 - INFO - 处理样本|Processing sample: OV8-68
+2026-01-14 00:58:52.816 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-68
+2026-01-14 00:59:53.046 - ERROR - 文件完全不可读，跳过: OV8-68_1.clean.fq.gz
+2026-01-14 00:59:53.046 - ERROR - 样本 OV8-68 处理失败: 文件完全不可读: OV8-68
+2026-01-14 00:59:53.046 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 00:59:53.046 - INFO - 处理样本|Processing sample: OV8-74
+2026-01-14 00:59:53.046 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-74
+2026-01-14 01:00:53.152 - ERROR - 文件完全不可读，跳过: OV8-74_1.clean.fq.gz
+2026-01-14 01:00:53.152 - ERROR - 样本 OV8-74 处理失败: 文件完全不可读: OV8-74
+2026-01-14 01:00:53.152 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:00:53.152 - INFO - 处理样本|Processing sample: OV8-77
+2026-01-14 01:00:53.152 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-77
+2026-01-14 01:01:53.258 - ERROR - 文件完全不可读，跳过: OV8-77_1.clean.fq.gz
+2026-01-14 01:01:53.258 - ERROR - 样本 OV8-77 处理失败: 文件完全不可读: OV8-77
+2026-01-14 01:01:53.258 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:01:53.258 - INFO - 处理样本|Processing sample: OV8-39
+2026-01-14 01:01:53.258 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-39
+2026-01-14 01:02:53.361 - ERROR - 文件完全不可读，跳过: OV8-39_1.clean.fq.gz
+2026-01-14 01:02:53.361 - ERROR - 样本 OV8-39 处理失败: 文件完全不可读: OV8-39
+2026-01-14 01:02:53.361 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:02:53.361 - INFO - 处理样本|Processing sample: OV8-157
+2026-01-14 01:02:53.361 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-157
+2026-01-14 01:03:53.467 - ERROR - 文件完全不可读，跳过: OV8-157_1.clean.fq.gz
+2026-01-14 01:03:53.468 - ERROR - 样本 OV8-157 处理失败: 文件完全不可读: OV8-157
+2026-01-14 01:03:53.468 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:03:53.468 - INFO - 处理样本|Processing sample: OV8-206
+2026-01-14 01:03:53.468 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-206
+2026-01-14 01:04:53.745 - ERROR - 文件完全不可读，跳过: OV8-206_1.clean.fq.gz
+2026-01-14 01:04:53.745 - ERROR - 样本 OV8-206 处理失败: 文件完全不可读: OV8-206
+2026-01-14 01:04:53.745 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:04:53.746 - INFO - 处理样本|Processing sample: OV8-258
+2026-01-14 01:04:53.746 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-258
+2026-01-14 01:05:53.972 - ERROR - 文件完全不可读，跳过: OV8-258_1.clean.fq.gz
+2026-01-14 01:05:53.972 - ERROR - 样本 OV8-258 处理失败: 文件完全不可读: OV8-258
+2026-01-14 01:05:53.972 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:05:53.973 - INFO - 处理样本|Processing sample: OV8-28
+2026-01-14 01:05:53.973 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-28
+2026-01-14 01:06:54.166 - ERROR - 文件完全不可读，跳过: OV8-28_1.clean.fq.gz
+2026-01-14 01:06:54.166 - ERROR - 样本 OV8-28 处理失败: 文件完全不可读: OV8-28
+2026-01-14 01:06:54.166 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:06:54.166 - INFO - 处理样本|Processing sample: OV8-113
+2026-01-14 01:06:54.166 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-113
+2026-01-14 01:07:54.528 - ERROR - 文件完全不可读，跳过: OV8-113_1.clean.fq.gz
+2026-01-14 01:07:54.528 - ERROR - 样本 OV8-113 处理失败: 文件完全不可读: OV8-113
+2026-01-14 01:07:54.528 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:07:54.528 - INFO - 处理样本|Processing sample: OV8-136
+2026-01-14 01:07:54.528 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-136
+2026-01-14 01:08:54.590 - ERROR - 文件完全不可读，跳过: OV8-136_1.clean.fq.gz
+2026-01-14 01:08:54.590 - ERROR - 样本 OV8-136 处理失败: 文件完全不可读: OV8-136
+2026-01-14 01:08:54.591 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:08:54.591 - INFO - 处理样本|Processing sample: OV8-179
+2026-01-14 01:08:54.591 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-179
+2026-01-14 01:09:54.687 - ERROR - 文件完全不可读，跳过: OV8-179_1.clean.fq.gz
+2026-01-14 01:09:54.687 - ERROR - 样本 OV8-179 处理失败: 文件完全不可读: OV8-179
+2026-01-14 01:09:54.687 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:09:54.687 - INFO - 处理样本|Processing sample: OV8-268
+2026-01-14 01:09:54.687 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-268
+2026-01-14 01:10:54.788 - ERROR - 文件完全不可读，跳过: OV8-268_1.clean.fq.gz
+2026-01-14 01:10:54.788 - ERROR - 样本 OV8-268 处理失败: 文件完全不可读: OV8-268
+2026-01-14 01:10:54.788 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:10:54.789 - INFO - 处理样本|Processing sample: OV8-7
+2026-01-14 01:10:54.789 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-7
+2026-01-14 01:11:54.896 - ERROR - 文件完全不可读，跳过: OV8-7_1.clean.fq.gz
+2026-01-14 01:11:54.896 - ERROR - 样本 OV8-7 处理失败: 文件完全不可读: OV8-7
+2026-01-14 01:11:54.896 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:11:54.896 - INFO - 处理样本|Processing sample: OV8-76
+2026-01-14 01:11:54.896 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-76
+2026-01-14 01:12:55.007 - ERROR - 文件完全不可读，跳过: OV8-76_1.clean.fq.gz
+2026-01-14 01:12:55.007 - ERROR - 样本 OV8-76 处理失败: 文件完全不可读: OV8-76
+2026-01-14 01:12:55.007 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:12:55.007 - INFO - 处理样本|Processing sample: OV8-106
+2026-01-14 01:12:55.007 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-106
+2026-01-14 01:13:55.197 - ERROR - 文件完全不可读，跳过: OV8-106_1.clean.fq.gz
+2026-01-14 01:13:55.197 - ERROR - 样本 OV8-106 处理失败: 文件完全不可读: OV8-106
+2026-01-14 01:13:55.197 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:13:55.197 - INFO - 处理样本|Processing sample: OV8-112
+2026-01-14 01:13:55.197 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-112
+2026-01-14 01:14:55.474 - ERROR - 文件完全不可读，跳过: OV8-112_1.clean.fq.gz
+2026-01-14 01:14:55.474 - ERROR - 样本 OV8-112 处理失败: 文件完全不可读: OV8-112
+2026-01-14 01:14:55.474 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:14:55.474 - INFO - 处理样本|Processing sample: OV8-271
+2026-01-14 01:14:55.474 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-271
+2026-01-14 01:15:55.712 - ERROR - 文件完全不可读，跳过: OV8-271_1.clean.fq.gz
+2026-01-14 01:15:55.712 - ERROR - 样本 OV8-271 处理失败: 文件完全不可读: OV8-271
+2026-01-14 01:15:55.712 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:15:55.712 - INFO - 处理样本|Processing sample: OV8-99
+2026-01-14 01:15:55.712 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-99
+2026-01-14 01:16:55.829 - ERROR - 文件完全不可读，跳过: OV8-99_1.clean.fq.gz
+2026-01-14 01:16:55.829 - ERROR - 样本 OV8-99 处理失败: 文件完全不可读: OV8-99
+2026-01-14 01:16:55.829 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:16:55.841 - INFO - 处理样本|Processing sample: OV8-79
+2026-01-14 01:16:55.841 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-79
+2026-01-14 01:17:55.957 - ERROR - 文件完全不可读，跳过: OV8-79_1.clean.fq.gz
+2026-01-14 01:17:55.958 - ERROR - 样本 OV8-79 处理失败: 文件完全不可读: OV8-79
+2026-01-14 01:17:55.958 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:17:55.958 - INFO - 处理样本|Processing sample: OV8-1
+2026-01-14 01:17:55.958 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-1
+2026-01-14 01:18:56.058 - ERROR - 文件完全不可读，跳过: OV8-1_1.clean.fq.gz
+2026-01-14 01:18:56.058 - ERROR - 样本 OV8-1 处理失败: 文件完全不可读: OV8-1
+2026-01-14 01:18:56.058 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:18:56.058 - INFO - 处理样本|Processing sample: OV8-180
+2026-01-14 01:18:56.058 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-180
+2026-01-14 01:19:56.169 - ERROR - 文件完全不可读，跳过: OV8-180_1.clean.fq.gz
+2026-01-14 01:19:56.169 - ERROR - 样本 OV8-180 处理失败: 文件完全不可读: OV8-180
+2026-01-14 01:19:56.169 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:19:56.169 - INFO - 处理样本|Processing sample: OV8-88
+2026-01-14 01:19:56.169 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-88
+2026-01-14 01:20:56.285 - ERROR - 文件完全不可读，跳过: OV8-88_1.clean.fq.gz
+2026-01-14 01:20:56.285 - ERROR - 样本 OV8-88 处理失败: 文件完全不可读: OV8-88
+2026-01-14 01:20:56.285 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:20:56.285 - INFO - 处理样本|Processing sample: OV8-31
+2026-01-14 01:20:56.285 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-31
+2026-01-14 01:21:56.440 - ERROR - 文件完全不可读，跳过: OV8-31_1.clean.fq.gz
+2026-01-14 01:21:56.440 - ERROR - 样本 OV8-31 处理失败: 文件完全不可读: OV8-31
+2026-01-14 01:21:56.440 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:21:56.440 - INFO - 处理样本|Processing sample: OV8-265
+2026-01-14 01:21:56.440 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-265
+2026-01-14 01:22:56.799 - ERROR - 文件完全不可读，跳过: OV8-265_1.clean.fq.gz
+2026-01-14 01:22:56.799 - ERROR - 样本 OV8-265 处理失败: 文件完全不可读: OV8-265
+2026-01-14 01:22:56.799 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:22:56.799 - INFO - 处理样本|Processing sample: OV8-3
+2026-01-14 01:22:56.799 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-3
+2026-01-14 01:23:57.109 - ERROR - 文件完全不可读，跳过: OV8-3_1.clean.fq.gz
+2026-01-14 01:23:57.109 - ERROR - 样本 OV8-3 处理失败: 文件完全不可读: OV8-3
+2026-01-14 01:23:57.109 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:23:57.109 - INFO - 处理样本|Processing sample: OV8-27
+2026-01-14 01:23:57.109 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-27
+2026-01-14 01:24:57.237 - ERROR - 文件完全不可读，跳过: OV8-27_1.clean.fq.gz
+2026-01-14 01:24:57.238 - ERROR - 样本 OV8-27 处理失败: 文件完全不可读: OV8-27
+2026-01-14 01:24:57.238 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:24:57.238 - INFO - 处理样本|Processing sample: OV8-67
+2026-01-14 01:24:57.238 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-67
+2026-01-14 01:25:57.295 - ERROR - 文件完全不可读，跳过: OV8-67_1.clean.fq.gz
+2026-01-14 01:25:57.295 - ERROR - 样本 OV8-67 处理失败: 文件完全不可读: OV8-67
+2026-01-14 01:25:57.295 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:25:57.295 - INFO - 处理样本|Processing sample: OV8-115
+2026-01-14 01:25:57.295 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-115
+2026-01-14 01:26:57.416 - ERROR - 文件完全不可读，跳过: OV8-115_1.clean.fq.gz
+2026-01-14 01:26:57.427 - ERROR - 样本 OV8-115 处理失败: 文件完全不可读: OV8-115
+2026-01-14 01:26:57.428 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:26:57.428 - INFO - 处理样本|Processing sample: OV8-196
+2026-01-14 01:26:57.428 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-196
+2026-01-14 01:27:57.531 - ERROR - 文件完全不可读，跳过: OV8-196_1.clean.fq.gz
+2026-01-14 01:27:57.531 - ERROR - 样本 OV8-196 处理失败: 文件完全不可读: OV8-196
+2026-01-14 01:27:57.531 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:27:57.531 - INFO - 处理样本|Processing sample: OV8-17
+2026-01-14 01:27:57.531 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-17
+2026-01-14 01:28:57.653 - ERROR - 文件完全不可读，跳过: OV8-17_1.clean.fq.gz
+2026-01-14 01:28:57.653 - ERROR - 样本 OV8-17 处理失败: 文件完全不可读: OV8-17
+2026-01-14 01:28:57.653 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:28:57.653 - INFO - 处理样本|Processing sample: OV8-142
+2026-01-14 01:28:57.653 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-142
+2026-01-14 01:29:57.795 - ERROR - 文件完全不可读，跳过: OV8-142_1.clean.fq.gz
+2026-01-14 01:29:57.796 - ERROR - 样本 OV8-142 处理失败: 文件完全不可读: OV8-142
+2026-01-14 01:29:57.796 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:29:57.796 - INFO - 处理样本|Processing sample: OV8-35
+2026-01-14 01:29:57.796 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-35
+2026-01-14 01:30:57.969 - ERROR - 文件完全不可读，跳过: OV8-35_1.clean.fq.gz
+2026-01-14 01:30:57.969 - ERROR - 样本 OV8-35 处理失败: 文件完全不可读: OV8-35
+2026-01-14 01:30:57.970 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:30:57.970 - INFO - 处理样本|Processing sample: OV8-117
+2026-01-14 01:30:57.970 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-117
+2026-01-14 01:31:58.304 - ERROR - 文件完全不可读，跳过: OV8-117_1.clean.fq.gz
+2026-01-14 01:31:58.304 - ERROR - 样本 OV8-117 处理失败: 文件完全不可读: OV8-117
+2026-01-14 01:31:58.304 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:31:58.304 - INFO - 处理样本|Processing sample: OV8-269
+2026-01-14 01:31:58.304 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-269
+2026-01-14 01:32:58.418 - ERROR - 文件完全不可读，跳过: OV8-269_1.clean.fq.gz
+2026-01-14 01:32:58.418 - ERROR - 样本 OV8-269 处理失败: 文件完全不可读: OV8-269
+2026-01-14 01:32:58.418 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:32:58.418 - INFO - 处理样本|Processing sample: OV8-21
+2026-01-14 01:32:58.418 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-21
+2026-01-14 01:33:58.475 - ERROR - 文件完全不可读，跳过: OV8-21_1.clean.fq.gz
+2026-01-14 01:33:58.475 - ERROR - 样本 OV8-21 处理失败: 文件完全不可读: OV8-21
+2026-01-14 01:33:58.475 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:33:58.475 - INFO - 处理样本|Processing sample: OV8-107
+2026-01-14 01:33:58.475 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-107
+2026-01-14 01:34:58.595 - ERROR - 文件完全不可读，跳过: OV8-107_1.clean.fq.gz
+2026-01-14 01:34:58.595 - ERROR - 样本 OV8-107 处理失败: 文件完全不可读: OV8-107
+2026-01-14 01:34:58.595 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:34:58.595 - INFO - 处理样本|Processing sample: OV8-95
+2026-01-14 01:34:58.595 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-95
+2026-01-14 01:35:58.707 - ERROR - 文件完全不可读，跳过: OV8-95_1.clean.fq.gz
+2026-01-14 01:35:58.707 - ERROR - 样本 OV8-95 处理失败: 文件完全不可读: OV8-95
+2026-01-14 01:35:58.707 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:35:58.707 - INFO - 处理样本|Processing sample: OV8-276
+2026-01-14 01:35:58.726 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-276
+2026-01-14 01:36:58.832 - ERROR - 文件完全不可读，跳过: OV8-276_1.clean.fq.gz
+2026-01-14 01:36:58.832 - ERROR - 样本 OV8-276 处理失败: 文件完全不可读: OV8-276
+2026-01-14 01:36:58.832 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:36:58.832 - INFO - 处理样本|Processing sample: OV8-9
+2026-01-14 01:36:58.832 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-9
+2026-01-14 01:37:59.052 - ERROR - 文件完全不可读，跳过: OV8-9_1.clean.fq.gz
+2026-01-14 01:37:59.052 - ERROR - 样本 OV8-9 处理失败: 文件完全不可读: OV8-9
+2026-01-14 01:37:59.052 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:37:59.052 - INFO - 处理样本|Processing sample: OV8-78
+2026-01-14 01:37:59.052 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-78
+2026-01-14 01:38:59.268 - ERROR - 文件完全不可读，跳过: OV8-78_1.clean.fq.gz
+2026-01-14 01:38:59.268 - ERROR - 样本 OV8-78 处理失败: 文件完全不可读: OV8-78
+2026-01-14 01:38:59.268 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:38:59.268 - INFO - 处理样本|Processing sample: OV8-138
+2026-01-14 01:38:59.268 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-138
+2026-01-14 01:39:59.377 - ERROR - 文件完全不可读，跳过: OV8-138_1.clean.fq.gz
+2026-01-14 01:39:59.378 - ERROR - 样本 OV8-138 处理失败: 文件完全不可读: OV8-138
+2026-01-14 01:39:59.378 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:39:59.378 - INFO - 处理样本|Processing sample: OV8-108
+2026-01-14 01:39:59.378 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-108
+2026-01-14 01:40:59.482 - ERROR - 文件完全不可读，跳过: OV8-108_1.clean.fq.gz
+2026-01-14 01:40:59.482 - ERROR - 样本 OV8-108 处理失败: 文件完全不可读: OV8-108
+2026-01-14 01:40:59.482 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:40:59.482 - INFO - 处理样本|Processing sample: OV8-277
+2026-01-14 01:40:59.482 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-277
+2026-01-14 01:41:59.607 - ERROR - 文件完全不可读，跳过: OV8-277_1.clean.fq.gz
+2026-01-14 01:41:59.607 - ERROR - 样本 OV8-277 处理失败: 文件完全不可读: OV8-277
+2026-01-14 01:41:59.607 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:41:59.607 - INFO - 处理样本|Processing sample: OV8-43
+2026-01-14 01:41:59.607 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-43
+2026-01-14 01:42:59.705 - ERROR - 文件完全不可读，跳过: OV8-43_1.clean.fq.gz
+2026-01-14 01:42:59.705 - ERROR - 样本 OV8-43 处理失败: 文件完全不可读: OV8-43
+2026-01-14 01:42:59.705 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:42:59.705 - INFO - 处理样本|Processing sample: OV8-72
+2026-01-14 01:42:59.705 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-72
+2026-01-14 01:43:59.815 - ERROR - 文件完全不可读，跳过: OV8-72_1.clean.fq.gz
+2026-01-14 01:43:59.816 - ERROR - 样本 OV8-72 处理失败: 文件完全不可读: OV8-72
+2026-01-14 01:43:59.816 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:43:59.816 - INFO - 处理样本|Processing sample: OV8-30
+2026-01-14 01:43:59.816 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-30
+2026-01-14 01:45:00.164 - ERROR - 文件完全不可读，跳过: OV8-30_1.clean.fq.gz
+2026-01-14 01:45:00.164 - ERROR - 样本 OV8-30 处理失败: 文件完全不可读: OV8-30
+2026-01-14 01:45:00.164 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:45:00.164 - INFO - 处理样本|Processing sample: OV8-11
+2026-01-14 01:45:00.164 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-11
+2026-01-14 01:46:00.328 - ERROR - 文件完全不可读，跳过: OV8-11_1.clean.fq.gz
+2026-01-14 01:46:00.328 - ERROR - 样本 OV8-11 处理失败: 文件完全不可读: OV8-11
+2026-01-14 01:46:00.355 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:46:00.355 - INFO - 处理样本|Processing sample: OV8-263
+2026-01-14 01:46:00.355 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-263
+2026-01-14 01:47:00.469 - ERROR - 文件完全不可读，跳过: OV8-263_1.clean.fq.gz
+2026-01-14 01:47:00.469 - ERROR - 样本 OV8-263 处理失败: 文件完全不可读: OV8-263
+2026-01-14 01:47:00.469 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:47:00.469 - INFO - 处理样本|Processing sample: OV8-137
+2026-01-14 01:47:00.469 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-137
+2026-01-14 01:48:00.587 - ERROR - 文件完全不可读，跳过: OV8-137_1.clean.fq.gz
+2026-01-14 01:48:00.587 - ERROR - 样本 OV8-137 处理失败: 文件完全不可读: OV8-137
+2026-01-14 01:48:00.587 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:48:00.587 - INFO - 处理样本|Processing sample: OV8-139
+2026-01-14 01:48:00.587 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-139
+2026-01-14 01:49:00.744 - ERROR - 文件完全不可读，跳过: OV8-139_1.clean.fq.gz
+2026-01-14 01:49:00.744 - ERROR - 样本 OV8-139 处理失败: 文件完全不可读: OV8-139
+2026-01-14 01:49:00.744 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:49:00.744 - INFO - 处理样本|Processing sample: OV8-33
+2026-01-14 01:49:00.744 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-33
+2026-01-14 01:50:00.856 - ERROR - 文件完全不可读，跳过: OV8-33_1.clean.fq.gz
+2026-01-14 01:50:00.857 - ERROR - 样本 OV8-33 处理失败: 文件完全不可读: OV8-33
+2026-01-14 01:50:00.857 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:50:00.857 - INFO - 处理样本|Processing sample: OV8-8
+2026-01-14 01:50:00.857 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-8
+2026-01-14 01:51:00.980 - ERROR - 文件完全不可读，跳过: OV8-8_1.clean.fq.gz
+2026-01-14 01:51:00.981 - ERROR - 样本 OV8-8 处理失败: 文件完全不可读: OV8-8
+2026-01-14 01:51:00.981 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:51:00.981 - INFO - 处理样本|Processing sample: OV8-217
+2026-01-14 01:51:00.981 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-217
+2026-01-14 01:52:01.303 - ERROR - 文件完全不可读，跳过: OV8-217_1.clean.fq.gz
+2026-01-14 01:52:01.304 - ERROR - 样本 OV8-217 处理失败: 文件完全不可读: OV8-217
+2026-01-14 01:52:01.304 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:52:01.304 - INFO - 处理样本|Processing sample: OV8-260
+2026-01-14 01:52:01.304 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-260
+2026-01-14 01:53:01.500 - ERROR - 文件完全不可读，跳过: OV8-260_1.clean.fq.gz
+2026-01-14 01:53:01.500 - ERROR - 样本 OV8-260 处理失败: 文件完全不可读: OV8-260
+2026-01-14 01:53:01.500 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:53:01.500 - INFO - 处理样本|Processing sample: OV8-143
+2026-01-14 01:53:01.500 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-143
+2026-01-14 01:54:01.645 - ERROR - 文件完全不可读，跳过: OV8-143_1.clean.fq.gz
+2026-01-14 01:54:01.645 - ERROR - 样本 OV8-143 处理失败: 文件完全不可读: OV8-143
+2026-01-14 01:54:01.645 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:54:01.645 - INFO - 处理样本|Processing sample: OV8-40
+2026-01-14 01:54:01.645 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-40
+2026-01-14 01:55:01.699 - ERROR - 文件完全不可读，跳过: OV8-40_1.clean.fq.gz
+2026-01-14 01:55:01.699 - ERROR - 样本 OV8-40 处理失败: 文件完全不可读: OV8-40
+2026-01-14 01:55:01.699 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:55:01.699 - INFO - 处理样本|Processing sample: OV8-29
+2026-01-14 01:55:01.699 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-29
+2026-01-14 01:56:01.844 - ERROR - 文件完全不可读，跳过: OV8-29_1.clean.fq.gz
+2026-01-14 01:56:01.844 - ERROR - 样本 OV8-29 处理失败: 文件完全不可读: OV8-29
+2026-01-14 01:56:01.845 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:56:01.845 - INFO - 处理样本|Processing sample: OV8-141
+2026-01-14 01:56:01.845 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-141
+2026-01-14 01:57:01.941 - ERROR - 文件完全不可读，跳过: OV8-141_1.clean.fq.gz
+2026-01-14 01:57:01.941 - ERROR - 样本 OV8-141 处理失败: 文件完全不可读: OV8-141
+2026-01-14 01:57:01.941 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:57:01.941 - INFO - 处理样本|Processing sample: OV8-44
+2026-01-14 01:57:01.941 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-44
+2026-01-14 01:58:02.049 - ERROR - 文件完全不可读，跳过: OV8-44_1.clean.fq.gz
+2026-01-14 01:58:02.050 - ERROR - 样本 OV8-44 处理失败: 文件完全不可读: OV8-44
+2026-01-14 01:58:02.050 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:58:02.050 - INFO - 处理样本|Processing sample: OV8-172
+2026-01-14 01:58:02.050 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-172
+2026-01-14 01:59:02.166 - ERROR - 文件完全不可读，跳过: OV8-172_1.clean.fq.gz
+2026-01-14 01:59:02.166 - ERROR - 样本 OV8-172 处理失败: 文件完全不可读: OV8-172
+2026-01-14 01:59:02.166 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 01:59:02.166 - INFO - 处理样本|Processing sample: OV8-273
+2026-01-14 01:59:02.167 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-273
+2026-01-14 02:00:02.372 - ERROR - 文件完全不可读，跳过: OV8-273_1.clean.fq.gz
+2026-01-14 02:00:02.373 - ERROR - 样本 OV8-273 处理失败: 文件完全不可读: OV8-273
+2026-01-14 02:00:02.373 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:00:02.373 - INFO - 处理样本|Processing sample: OV8-32
+2026-01-14 02:00:02.373 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-32
+2026-01-14 02:01:02.955 - ERROR - 文件完全不可读，跳过: OV8-32_1.clean.fq.gz
+2026-01-14 02:01:02.956 - ERROR - 样本 OV8-32 处理失败: 文件完全不可读: OV8-32
+2026-01-14 02:01:02.956 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:01:02.956 - INFO - 处理样本|Processing sample: OV8-274
+2026-01-14 02:01:02.956 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-274
+2026-01-14 02:02:03.042 - ERROR - 文件完全不可读，跳过: OV8-274_1.clean.fq.gz
+2026-01-14 02:02:03.042 - ERROR - 样本 OV8-274 处理失败: 文件完全不可读: OV8-274
+2026-01-14 02:02:03.042 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:02:03.042 - INFO - 处理样本|Processing sample: OV8-26
+2026-01-14 02:02:03.042 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-26
+2026-01-14 02:03:03.175 - ERROR - 文件完全不可读，跳过: OV8-26_1.clean.fq.gz
+2026-01-14 02:03:03.175 - ERROR - 样本 OV8-26 处理失败: 文件完全不可读: OV8-26
+2026-01-14 02:03:03.176 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:03:03.176 - INFO - 处理样本|Processing sample: OV8-34
+2026-01-14 02:03:03.176 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-34
+2026-01-14 02:04:03.236 - ERROR - 文件完全不可读，跳过: OV8-34_1.clean.fq.gz
+2026-01-14 02:04:03.237 - ERROR - 样本 OV8-34 处理失败: 文件完全不可读: OV8-34
+2026-01-14 02:04:03.237 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:04:03.237 - INFO - 处理样本|Processing sample: OV8-20
+2026-01-14 02:04:03.237 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-20
+2026-01-14 02:05:03.291 - ERROR - 文件完全不可读，跳过: OV8-20_1.clean.fq.gz
+2026-01-14 02:05:03.291 - ERROR - 样本 OV8-20 处理失败: 文件完全不可读: OV8-20
+2026-01-14 02:05:03.291 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:05:03.299 - INFO - 处理样本|Processing sample: OV8-171
+2026-01-14 02:05:03.299 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-171
+2026-01-14 02:06:03.411 - ERROR - 文件完全不可读，跳过: OV8-171_1.clean.fq.gz
+2026-01-14 02:06:03.412 - ERROR - 样本 OV8-171 处理失败: 文件完全不可读: OV8-171
+2026-01-14 02:06:03.412 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:06:03.412 - INFO - 处理样本|Processing sample: OV8-73
+2026-01-14 02:06:03.412 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-73
+2026-01-14 02:07:03.566 - ERROR - 文件完全不可读，跳过: OV8-73_1.clean.fq.gz
+2026-01-14 02:07:03.567 - ERROR - 样本 OV8-73 处理失败: 文件完全不可读: OV8-73
+2026-01-14 02:07:03.567 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:07:03.567 - INFO - 处理样本|Processing sample: OV8-42
+2026-01-14 02:07:03.567 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-42
+2026-01-14 02:08:03.911 - ERROR - 文件完全不可读，跳过: OV8-42_1.clean.fq.gz
+2026-01-14 02:08:03.911 - ERROR - 样本 OV8-42 处理失败: 文件完全不可读: OV8-42
+2026-01-14 02:08:03.911 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:08:03.911 - INFO - 处理样本|Processing sample: OV8-5
+2026-01-14 02:08:03.911 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-5
+2026-01-14 02:09:04.041 - ERROR - 文件完全不可读，跳过: OV8-5_1.clean.fq.gz
+2026-01-14 02:09:04.041 - ERROR - 样本 OV8-5 处理失败: 文件完全不可读: OV8-5
+2026-01-14 02:09:04.041 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:09:04.041 - INFO - 处理样本|Processing sample: OV8-118
+2026-01-14 02:09:04.041 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-118
+2026-01-14 02:10:04.124 - ERROR - 文件完全不可读，跳过: OV8-118_1.clean.fq.gz
+2026-01-14 02:10:04.124 - ERROR - 样本 OV8-118 处理失败: 文件完全不可读: OV8-118
+2026-01-14 02:10:04.124 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:10:04.124 - INFO - 处理样本|Processing sample: OV8-144
+2026-01-14 02:10:04.124 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-144
+2026-01-14 02:11:04.244 - ERROR - 文件完全不可读，跳过: OV8-144_1.clean.fq.gz
+2026-01-14 02:11:04.244 - ERROR - 样本 OV8-144 处理失败: 文件完全不可读: OV8-144
+2026-01-14 02:11:04.244 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:11:04.244 - INFO - 处理样本|Processing sample: OV8-216
+2026-01-14 02:11:04.244 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-216
+2026-01-14 02:12:04.347 - ERROR - 文件完全不可读，跳过: OV8-216_1.clean.fq.gz
+2026-01-14 02:12:04.347 - ERROR - 样本 OV8-216 处理失败: 文件完全不可读: OV8-216
+2026-01-14 02:12:04.347 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:12:04.347 - INFO - 处理样本|Processing sample: OV8-83
+2026-01-14 02:12:04.347 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-83
+2026-01-14 02:13:04.454 - ERROR - 文件完全不可读，跳过: OV8-83_1.clean.fq.gz
+2026-01-14 02:13:04.454 - ERROR - 样本 OV8-83 处理失败: 文件完全不可读: OV8-83
+2026-01-14 02:13:04.455 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:13:04.455 - INFO - 处理样本|Processing sample: OV8-87
+2026-01-14 02:13:04.455 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-87
+2026-01-14 02:14:04.625 - ERROR - 文件完全不可读，跳过: OV8-87_1.clean.fq.gz
+2026-01-14 02:14:04.625 - ERROR - 样本 OV8-87 处理失败: 文件完全不可读: OV8-87
+2026-01-14 02:14:04.625 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:14:04.625 - INFO - 处理样本|Processing sample: OV8-267
+2026-01-14 02:14:04.625 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-267
+2026-01-14 02:15:05.033 - ERROR - 文件完全不可读，跳过: OV8-267_1.clean.fq.gz
+2026-01-14 02:15:05.094 - ERROR - 样本 OV8-267 处理失败: 文件完全不可读: OV8-267
+2026-01-14 02:15:05.094 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:15:05.094 - INFO - 处理样本|Processing sample: OV8-19
+2026-01-14 02:15:05.094 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-19
+2026-01-14 02:16:05.320 - ERROR - 文件完全不可读，跳过: OV8-19_1.clean.fq.gz
+2026-01-14 02:16:05.320 - ERROR - 样本 OV8-19 处理失败: 文件完全不可读: OV8-19
+2026-01-14 02:16:05.320 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:16:05.320 - INFO - 处理样本|Processing sample: OV8-94
+2026-01-14 02:16:05.320 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-94
+2026-01-14 02:17:05.417 - ERROR - 文件完全不可读，跳过: OV8-94_1.clean.fq.gz
+2026-01-14 02:17:05.417 - ERROR - 样本 OV8-94 处理失败: 文件完全不可读: OV8-94
+2026-01-14 02:17:05.417 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:17:05.417 - INFO - 处理样本|Processing sample: OV8-259
+2026-01-14 02:17:05.417 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-259
+2026-01-14 02:18:05.516 - ERROR - 文件完全不可读，跳过: OV8-259_1.clean.fq.gz
+2026-01-14 02:18:05.516 - ERROR - 样本 OV8-259 处理失败: 文件完全不可读: OV8-259
+2026-01-14 02:18:05.516 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:18:05.516 - INFO - 处理样本|Processing sample: OV8-275
+2026-01-14 02:18:05.516 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-275
+2026-01-14 02:19:05.633 - ERROR - 文件完全不可读，跳过: OV8-275_1.clean.fq.gz
+2026-01-14 02:19:05.633 - ERROR - 样本 OV8-275 处理失败: 文件完全不可读: OV8-275
+2026-01-14 02:19:05.633 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:19:05.633 - INFO - 处理样本|Processing sample: OV8-272
+2026-01-14 02:19:05.633 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-272
+2026-01-14 02:20:05.748 - ERROR - 文件完全不可读，跳过: OV8-272_1.clean.fq.gz
+2026-01-14 02:20:05.748 - ERROR - 样本 OV8-272 处理失败: 文件完全不可读: OV8-272
+2026-01-14 02:20:05.749 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:20:05.749 - INFO - 处理样本|Processing sample: OV8-98
+2026-01-14 02:20:05.749 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-98
+2026-01-14 02:21:06.129 - ERROR - 文件完全不可读，跳过: OV8-98_1.clean.fq.gz
+2026-01-14 02:21:06.129 - ERROR - 样本 OV8-98 处理失败: 文件完全不可读: OV8-98
+2026-01-14 02:21:06.129 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:21:06.129 - INFO - 处理样本|Processing sample: OV8-158
+2026-01-14 02:21:06.129 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-158
+2026-01-14 02:22:06.410 - ERROR - 文件完全不可读，跳过: OV8-158_1.clean.fq.gz
+2026-01-14 02:22:06.410 - ERROR - 样本 OV8-158 处理失败: 文件完全不可读: OV8-158
+2026-01-14 02:22:06.410 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:22:06.410 - INFO - 处理样本|Processing sample: OV8-6
+2026-01-14 02:22:06.410 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-6
+2026-01-14 02:23:06.656 - ERROR - 文件完全不可读，跳过: OV8-6_1.clean.fq.gz
+2026-01-14 02:23:06.656 - ERROR - 样本 OV8-6 处理失败: 文件完全不可读: OV8-6
+2026-01-14 02:23:06.656 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:23:06.656 - INFO - 处理样本|Processing sample: OV8-70
+2026-01-14 02:23:06.656 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-70
+2026-01-14 02:24:06.767 - ERROR - 文件完全不可读，跳过: OV8-70_1.clean.fq.gz
+2026-01-14 02:24:06.767 - ERROR - 样本 OV8-70 处理失败: 文件完全不可读: OV8-70
+2026-01-14 02:24:06.767 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:24:06.767 - INFO - 处理样本|Processing sample: OV8-264
+2026-01-14 02:24:06.784 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-264
+2026-01-14 02:25:06.974 - ERROR - 文件完全不可读，跳过: OV8-264_1.clean.fq.gz
+2026-01-14 02:25:06.974 - ERROR - 样本 OV8-264 处理失败: 文件完全不可读: OV8-264
+2026-01-14 02:25:06.974 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:25:06.974 - INFO - 处理样本|Processing sample: OV8-15
+2026-01-14 02:25:06.974 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-15
+2026-01-14 02:26:07.072 - ERROR - 文件完全不可读，跳过: OV8-15_1.clean.fq.gz
+2026-01-14 02:26:07.072 - ERROR - 样本 OV8-15 处理失败: 文件完全不可读: OV8-15
+2026-01-14 02:26:07.072 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:26:07.073 - INFO - 处理样本|Processing sample: OV8-89
+2026-01-14 02:26:07.073 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-89
+2026-01-14 02:27:07.194 - ERROR - 文件完全不可读，跳过: OV8-89_1.clean.fq.gz
+2026-01-14 02:27:07.194 - ERROR - 样本 OV8-89 处理失败: 文件完全不可读: OV8-89
+2026-01-14 02:27:07.194 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:27:07.194 - INFO - 处理样本|Processing sample: OV8-114
+2026-01-14 02:27:07.194 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-114
+2026-01-14 02:28:07.372 - ERROR - 文件完全不可读，跳过: OV8-114_1.clean.fq.gz
+2026-01-14 02:28:07.372 - ERROR - 样本 OV8-114 处理失败: 文件完全不可读: OV8-114
+2026-01-14 02:28:07.372 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:28:07.372 - INFO - 处理样本|Processing sample: OV8-45
+2026-01-14 02:28:07.372 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-45
+2026-01-14 02:29:07.591 - ERROR - 文件完全不可读，跳过: OV8-45_1.clean.fq.gz
+2026-01-14 02:29:07.591 - ERROR - 样本 OV8-45 处理失败: 文件完全不可读: OV8-45
+2026-01-14 02:29:07.591 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:29:07.591 - INFO - 处理样本|Processing sample: OV8-2
+2026-01-14 02:29:07.591 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-2
+2026-01-14 02:30:07.894 - ERROR - 文件完全不可读，跳过: OV8-2_1.clean.fq.gz
+2026-01-14 02:30:07.895 - ERROR - 样本 OV8-2 处理失败: 文件完全不可读: OV8-2
+2026-01-14 02:30:07.895 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:30:07.895 - INFO - 处理样本|Processing sample: OV8-75
+2026-01-14 02:30:07.895 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-75
+2026-01-14 02:31:08.004 - ERROR - 文件完全不可读，跳过: OV8-75_1.clean.fq.gz
+2026-01-14 02:31:08.004 - ERROR - 样本 OV8-75 处理失败: 文件完全不可读: OV8-75
+2026-01-14 02:31:08.004 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:31:08.004 - INFO - 处理样本|Processing sample: OV8-116
+2026-01-14 02:31:08.004 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV8-116
+2026-01-14 02:32:08.116 - ERROR - 文件完全不可读，跳过: OV8-116_1.clean.fq.gz
+2026-01-14 02:32:08.116 - ERROR - 样本 OV8-116 处理失败: 文件完全不可读: OV8-116
+2026-01-14 02:32:08.116 - WARNING -  跳过该样本，继续处理其他样本
+2026-01-14 02:32:08.116 - INFO - ==================================================
+2026-01-14 02:32:08.116 - INFO - 样本处理总结|Sample Processing Summary:
+2026-01-14 02:32:08.116 - INFO -   总样本数: 99
+2026-01-14 02:32:08.116 - INFO -   成功处理: 0
+2026-01-14 02:32:08.116 - INFO -    跳过样本: 99
+2026-01-14 02:32:08.116 - WARNING -    跳过比例: 100.0%
+2026-01-14 02:32:08.116 - INFO - ==================================================
+2026-01-14 02:32:08.116 - ERROR - 分析过程中出现错误|Error during analysis: 没有样本成功处理，分析无法继续|No samples processed successfully, analysis cannot continue
+2026-01-14 02:32:08.117 - INFO - 临时目录已清理|Temporary directory cleaned
+错误|Error: 没有样本成功处理，分析无法继续|No samples processed successfully, analysis cannot continue

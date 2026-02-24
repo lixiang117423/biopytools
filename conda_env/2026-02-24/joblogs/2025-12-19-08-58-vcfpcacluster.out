@@ -1,0 +1,10 @@
+auto use the Threads number is 32
+#warning skip Indel site, there are total skip Indel sites number is : 1425311
+#Warning skip non bi-allelic(Singleton/ThreeMulti allelic) site, and total skip allelic sites number is :3157636
+#Warning skip high missing site, and total skip allelic sites number is :679157
+#After Filtering, total Number of 6697320 SNPs were taken for the PCA calculation 
+Start To Create Normalized_IBS/Yang/BaldingNicolsKinship ...
+Eigenvalues of 2162 individuals have been saved in [ soybean.eigenval ].
+	 EM init K by auto of K-mean, Best cluster K = 4
+EM Clustering Max its reached: Eps= 9.06592e-08
+The first 10 eigenvectors of 2162 individuals have been saved in [ soybean.eigenvec ].

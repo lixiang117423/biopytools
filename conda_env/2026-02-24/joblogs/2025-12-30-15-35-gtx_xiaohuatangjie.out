@@ -1,0 +1,842 @@
+
+==================================================
+🎯 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+🔄 开始更新所有组件的基因组路径... | Starting genome path update for all components...
+🔄 拷贝基因组文件到 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Copying genome file to /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+🔄 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/06.BSA/01.data/genome/genome.fa -> /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Force updated genome path
+✅ 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+✅ 基因组路径更新完成 | Genome path update completed
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2467586GB available
+✓ 系统内存充足 | Sufficient system memory: 503GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+🔍 准备执行索引构建步骤 | Preparing to execute index building step
+🔍 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Current genome path in config
+🔍 GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Genome path in GTX mapper
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+🚀 执行步骤 5 | Executing step 5: 🧹 变异过滤 | Variant Filtering
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+🔍 调试信息: skip_qc = False
+🔍 调试信息: read1_pattern_fastp = _1.fq.gz
+🔍 调试信息: read2_pattern_fastp = _2.fq.gz
+🔍 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge
+开始质控处理 | Starting quality control
+检测到 4 个原始 FASTQ 文件 | Found 4 raw FASTQ files
+🧹 质量控制 | Quality Control
+🔄 执行命令 | Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean --read1-suffix _1.fq.gz --read2-suffix _2.fq.gz
+标准输出 | Stdout: 2025-12-30 15:35:53,205 - INFO - ============================================================
+2025-12-30 15:35:53,205 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-12-30 15:35:53,205 - INFO - ============================================================
+2025-12-30 15:35:53,205 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge
+2025-12-30 15:35:53,205 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean
+2025-12-30 15:35:53,205 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-12-30 15:35:53,205 - INFO - ============================================================
+2025-12-30 15:35:53,726 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-12-30 15:35:53,727 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean
+2025-12-30 15:35:53,727 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports
+2025-12-30 15:35:53,727 - INFO - 📄 找到 2 个read1文件 | Found 2 read1 files
+2025-12-30 15:35:53,734 - INFO - 🧬 找到 2 个有效样本配对 | Found 2 valid sample pairs:
+2025-12-30 15:35:53,734 - INFO -   - 📋 72_3_kang
+2025-12-30 15:35:53,734 - INFO -   - 📋 72_4_gang
+2025-12-30 15:35:53,734 - INFO - ---
+2025-12-30 15:35:53,734 - INFO - ⚡ 正在处理样本 | Processing sample: 72_3_kang
+2025-12-30 15:35:53,734 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge/72_3_kang_1.fq.gz
+2025-12-30 15:35:53,734 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge/72_3_kang_2.fq.gz
+2025-12-30 15:35:53,734 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_3_kang_1.clean.fq.gz
+2025-12-30 15:35:53,734 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_3_kang_2.clean.fq.gz
+2025-12-30 15:35:53,734 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports/72_3_kang.html
+2025-12-30 15:35:53,734 - INFO - ---
+2025-12-30 15:35:53,734 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 72_3_kang
+2025-12-30 15:35:53,734 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge/72_3_kang_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge/72_3_kang_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_3_kang_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_3_kang_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports/72_3_kang.html -j /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports/72_3_kang.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-30 15:45:28,546 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 72_3_kang
+2025-12-30 15:45:28,547 - INFO - ✅ 样本 72_3_kang 处理完成 | Sample 72_3_kang processing completed
+2025-12-30 15:45:28,547 - INFO - ---
+2025-12-30 15:45:28,547 - INFO - ⚡ 正在处理样本 | Processing sample: 72_4_gang
+2025-12-30 15:45:28,547 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge/72_4_gang_1.fq.gz
+2025-12-30 15:45:28,549 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge/72_4_gang_2.fq.gz
+2025-12-30 15:45:28,549 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_4_gang_1.clean.fq.gz
+2025-12-30 15:45:28,549 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_4_gang_2.clean.fq.gz
+2025-12-30 15:45:28,549 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports/72_4_gang.html
+2025-12-30 15:45:28,549 - INFO - ---
+2025-12-30 15:45:28,549 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 72_4_gang
+2025-12-30 15:45:28,549 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge/72_4_gang_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge/72_4_gang_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_4_gang_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_4_gang_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports/72_4_gang.html -j /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports/72_4_gang.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-30 15:54:51,412 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 72_4_gang
+2025-12-30 15:54:51,412 - INFO - ✅ 样本 72_4_gang 处理完成 | Sample 72_4_gang processing completed
+2025-12-30 15:54:51,413 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_processing_summary.txt
+2025-12-30 15:54:51,413 - INFO - ============================================================
+2025-12-30 15:54:51,413 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-12-30 15:54:51,413 - INFO - 🧮 总样本数 | Total samples: 2
+2025-12-30 15:54:51,413 - INFO - ✅ 成功处理 | Successfully processed: 2
+2025-12-30 15:54:51,413 - INFO - ❌ 失败样本 | Failed samples: 0
+2025-12-30 15:54:51,413 - INFO - 📊 成功率 | Success rate: 100.0%
+2025-12-30 15:54:51,413 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean
+2025-12-30 15:54:51,413 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports
+2025-12-30 15:54:51,413 - INFO - ============================================================
+
+✅ 命令执行成功 | Command executed successfully
+✅ 质控完成: 4 个清洁文件 | QC completed: 4 clean files
+📍 创建检查点 | Create checkpoint: quality_control
+🧹 Fastp质量控制完成，立即执行GTX索引构建 | Fastp QC completed, immediately executing GTX index building
+
+==================================================
+🔧 强制构建GTX索引 | Force Build GTX Index
+==================================================
+✓ 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+🔧 强制执行GTX索引构建 | Force executing GTX index build
+🔧 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp
+🔧 基因组文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+🔧 临时目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp
+🔧 强制构建GTX索引 | Force build GTX index
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp
+标准输出 | Stdout: [2020-10-20 00:00:00.804] [index] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp available: 2465354GB, memory available: 462GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.805] [index] [info] Job: index, pid: 3101300
+[2020-10-20 00:00:00.805] [index] [info] Indexing...
+[2020-10-20 00:00:01.287] [index] [info] build optimized BWA2 FM-index
+[2020-10-20 00:00:02.156] [index] [info] Read 0 ALT contigs.
+[2020-10-20 00:00:39.786] [index] [info] build optimized BWA2 FM-index successed.
+[2020-10-20 00:00:39.789] [index] [info] index exited normally.
+
+标准错误 | Stderr: indexing finished in 38.8409 CPU sec, 38.9815 real sec.
+
+✅ 命令执行成功 | Command executed successfully
+✅ GTX索引构建成功 | GTX index building successful
+🔍 验证GTX索引文件:
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.bwt: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.sa: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.ann: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.amb: ✗ (0 B)
+✅ 步骤 1 完成 | Step 1 completed: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+
+==================================================
+📊 Step 2: 构建其他索引 | Build Other Indexes
+==================================================
+⏭️ GTX索引已在step1中构建，跳过 | GTX index already built in step1, skipping
+构建其他索引（BWA, SAMtools, GATK）| Building other indexes (BWA, SAMtools, GATK)
+构建 BWA 索引 | Building BWA index
+📊 构建BWA索引 | Build BWA index
+🔄 执行命令 | Running command: bwa index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+标准输出 | Stdout: (空输出)
+标准错误 | Stderr: [bwa_index] Pack FASTA... 0.69 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=313125130, availableWord=34032504
+[BWTIncConstructFromPacked] 10 iterations done. 56138378 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 103711642 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 145990858 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 183564698 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 216956426 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 246631018 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 273001850 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 296436282 characters processed.
+[bwt_gen] Finished constructing BWT in 88 iterations.
+[bwa_index] 62.62 seconds elapse.
+[bwa_index] Update BWT... 0.49 sec
+[bwa_index] Pack forward-only FASTA... 0.45 sec
+[bwa_index] Construct SA from BWT and Occ... 27.40 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+[main] Real time: 92.013 sec; CPU: 91.660 sec
+
+✅ 命令执行成功 | Command executed successfully
+✓ SAMtools 索引已存在 | SAMtools index already exists
+构建 GATK 字典 | Building GATK dictionary
+📊 构建GATK字典 | Build GATK dictionary
+🔄 执行命令 | Running command: gatk CreateSequenceDictionary -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.dict
+标准输出 | Stdout: Tool returned:
+0
+
+标准错误 | Stderr: 15:57:05.436 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+[Tue Dec 30 15:57:05 CST 2025] CreateSequenceDictionary --OUTPUT /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.dict --REFERENCE /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa --TRUNCATE_NAMES_AT_WHITESPACE true --NUM_SEQUENCES 2147483647 --VERBOSITY INFO --QUIET false --VALIDATION_STRINGENCY STRICT --COMPRESSION_LEVEL 2 --MAX_RECORDS_IN_RAM 500000 --CREATE_INDEX false --CREATE_MD5_FILE false --help false --version false --showHidden false --USE_JDK_DEFLATER false --USE_JDK_INFLATER false
+[Tue Dec 30 15:57:05 CST 2025] Executing as yzwl_lixg@c02n0008 on Linux 4.18.0-513.5.1.el8_9.x86_64 amd64; OpenJDK 64-Bit Server VM 17.0.15-internal+0-adhoc..src; Deflater: Intel; Inflater: Intel; Provider GCS is available; Picard version: Version:4.6.2.0
+[Tue Dec 30 15:57:06 CST 2025] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.01 minutes.
+Runtime.totalMemory()=1224736768
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar CreateSequenceDictionary -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.dict
+
+✅ 命令执行成功 | Command executed successfully
+✅ 其他索引构建完成 | Other indexes building completed
+📍 创建检查点 | Create checkpoint: other_indexes
+✅ 步骤 2 完成 | Step 2 completed: 📊 构建基因组索引 | Build Genome Index
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+
+==================================================
+🗺️ Step 3: 序列比对 | Sequence Mapping
+==================================================
+🔄 刷新配置后的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Genome path after config refresh
+使用GTX WGS进行序列比对 (CPU优化，比对+变异检测一体化) | Using GTX WGS for sequence mapping (CPU optimized, alignment+variant calling integrated)
+使用 88 线程进行比对 | Using 88 threads for mapping
+使用GTX WGS完整流程 (CPU优化，比对+变异检测一体化) | Using GTX WGS complete pipeline (CPU optimized, alignment+variant calling integrated)
+使用 88 线程处理 | Using 88 threads
+找到 2 个样品需要处理 | Found 2 samples to process
+[1/2] 处理样品: 72_4_gang | Processing sample: 72_4_gang
+🔍 GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Genome path used by GTX
+🔍 检查索引文件是否存在: | Checking if index files exist:
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx: ✗
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.bwt: ✗
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.sa: ✗
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.ann: ✗
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.amb: ✗
+🔬 GTX WGS处理 72_4_gang | GTX WGS processing 72_4_gang
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:72_4_gang\tSM:72_4_gang\tPL:ILLUMINA\tLB:72_4_gang" -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/vcf/72_4_gang.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/bam/72_4_gang.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_4_gang_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_4_gang_2.clean.fq.gz
+[2020-10-20 00:00:00.369] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp available: 2465075GB, memory available: 462GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.369] [wgs] [info] Use bwa mem2 to align!
+[2020-10-20 00:00:00.370] [align] [info] Job: mapping, pid: 3102370
+[2020-10-20 00:00:00.370] [align] [info] Mapping...
+[2020-10-20 00:00:00.860] [align] [info] Read 0 ALT contigs.
+Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+Processed 1130496 reads in 7.53 seconds. Average speed: 0.15M/s.
+Processed 2129920 reads in 11.04 seconds. Average speed: 0.19M/s.
+Processed 3145728 reads in 15.56 seconds. Average speed: 0.20M/s.
+Processed 4374528 reads in 21.07 seconds. Average speed: 0.21M/s.
+Processed 5668864 reads in 27.08 seconds. Average speed: 0.21M/s.
+Processed 6422528 reads in 31.09 seconds. Average speed: 0.21M/s.
+Processed 7340032 reads in 36.60 seconds. Average speed: 0.20M/s.
+Processed 8404992 reads in 40.11 seconds. Average speed: 0.21M/s.
+Processed 9551872 reads in 45.12 seconds. Average speed: 0.21M/s.
+Processed 10698752 reads in 50.63 seconds. Average speed: 0.21M/s.
+Processed 11747328 reads in 56.15 seconds. Average speed: 0.21M/s.
+Processed 12976128 reads in 61.66 seconds. Average speed: 0.21M/s.
+Processed 13729792 reads in 64.66 seconds. Average speed: 0.21M/s.
+Processed 14811136 reads in 70.17 seconds. Average speed: 0.21M/s.
+Processed 15761408 reads in 74.68 seconds. Average speed: 0.21M/s.
+Processed 17104896 reads in 80.70 seconds. Average speed: 0.21M/s.
+Processed 18382848 reads in 86.22 seconds. Average speed: 0.21M/s.
+Processed 19136512 reads in 89.73 seconds. Average speed: 0.21M/s.
+Processed 20103168 reads in 95.24 seconds. Average speed: 0.21M/s.
+Processed 21135360 reads in 99.75 seconds. Average speed: 0.21M/s.
+Processed 22052864 reads in 104.76 seconds. Average speed: 0.21M/s.
+Processed 23117824 reads in 108.77 seconds. Average speed: 0.21M/s.
+Processed 24182784 reads in 115.28 seconds. Average speed: 0.21M/s.
+Processed 25526272 reads in 119.79 seconds. Average speed: 0.21M/s.
+Processed 26525696 reads in 124.80 seconds. Average speed: 0.21M/s.
+Processed 27607040 reads in 129.81 seconds. Average speed: 0.21M/s.
+Processed 28950528 reads in 135.82 seconds. Average speed: 0.21M/s.
+Processed 29687808 reads in 139.33 seconds. Average speed: 0.21M/s.
+Processed 30490624 reads in 144.84 seconds. Average speed: 0.21M/s.
+Processed 31490048 reads in 149.35 seconds. Average speed: 0.21M/s.
+Processed 32555008 reads in 152.86 seconds. Average speed: 0.21M/s.
+Processed 33816576 reads in 158.87 seconds. Average speed: 0.21M/s.
+Processed 34766848 reads in 163.38 seconds. Average speed: 0.21M/s.
+Processed 36044800 reads in 168.89 seconds. Average speed: 0.21M/s.
+Processed 36880384 reads in 173.40 seconds. Average speed: 0.21M/s.
+Processed 38223872 reads in 178.41 seconds. Average speed: 0.21M/s.
+Processed 38830080 reads in 182.92 seconds. Average speed: 0.21M/s.
+Processed 40075264 reads in 187.43 seconds. Average speed: 0.21M/s.
+Processed 40960000 reads in 192.44 seconds. Average speed: 0.21M/s.
+Processed 41943040 reads in 197.96 seconds. Average speed: 0.21M/s.
+Processed 43368448 reads in 202.47 seconds. Average speed: 0.21M/s.
+Processed 44072960 reads in 206.48 seconds. Average speed: 0.21M/s.
+Processed 45088768 reads in 210.49 seconds. Average speed: 0.21M/s.
+Processed 46530560 reads in 217.52 seconds. Average speed: 0.21M/s.
+Processed 47513600 reads in 222.03 seconds. Average speed: 0.21M/s.
+Processed 48644096 reads in 227.54 seconds. Average speed: 0.21M/s.
+Processed 49479680 reads in 231.05 seconds. Average speed: 0.21M/s.
+Processed 50413568 reads in 235.56 seconds. Average speed: 0.21M/s.
+Processed 51937280 reads in 242.07 seconds. Average speed: 0.21M/s.
+Processed 52920320 reads in 246.57 seconds. Average speed: 0.21M/s.
+Processed 53755904 reads in 250.58 seconds. Average speed: 0.21M/s.
+Processed 54706176 reads in 255.09 seconds. Average speed: 0.21M/s.
+Processed 55836672 reads in 260.61 seconds. Average speed: 0.21M/s.
+Processed 57229312 reads in 266.62 seconds. Average speed: 0.21M/s.
+Processed 57933824 reads in 271.12 seconds. Average speed: 0.21M/s.
+Processed 59031552 reads in 275.63 seconds. Average speed: 0.21M/s.
+Processed 59801600 reads in 278.64 seconds. Average speed: 0.21M/s.
+Processed 61259776 reads in 285.65 seconds. Average speed: 0.21M/s.
+Processed 62341120 reads in 290.16 seconds. Average speed: 0.21M/s.
+Processed 62930944 reads in 295.17 seconds. Average speed: 0.21M/s.
+Processed 63963136 reads in 297.68 seconds. Average speed: 0.21M/s.
+Processed 65355776 reads in 304.69 seconds. Average speed: 0.21M/s.
+Processed 66338816 reads in 308.70 seconds. Average speed: 0.21M/s.
+Processed 67108864 reads in 314.21 seconds. Average speed: 0.21M/s.
+Processed 68272128 reads in 318.22 seconds. Average speed: 0.21M/s.
+Processed 69271552 reads in 322.23 seconds. Average speed: 0.21M/s.
+Processed 70549504 reads in 327.24 seconds. Average speed: 0.21M/s.
+Processed 71434240 reads in 331.75 seconds. Average speed: 0.21M/s.
+Processed 72417280 reads in 335.75 seconds. Average speed: 0.21M/s.
+Processed 73400320 reads in 341.77 seconds. Average speed: 0.21M/s.
+Processed 74530816 reads in 347.79 seconds. Average speed: 0.21M/s.
+Processed 75759616 reads in 352.31 seconds. Average speed: 0.21M/s.
+Processed 76988416 reads in 356.81 seconds. Average speed: 0.21M/s.
+Processed 77807616 reads in 360.82 seconds. Average speed: 0.21M/s.
+Processed 78675968 reads in 365.33 seconds. Average speed: 0.21M/s.
+Processed 79773696 reads in 369.84 seconds. Average speed: 0.21M/s.
+Processed 81117184 reads in 376.35 seconds. Average speed: 0.21M/s.
+Processed 82378752 reads in 381.36 seconds. Average speed: 0.22M/s.
+Processed 83099648 reads in 384.38 seconds. Average speed: 0.22M/s.
+Processed 83902464 reads in 388.89 seconds. Average speed: 0.21M/s.
+Processed 85147648 reads in 394.40 seconds. Average speed: 0.21M/s.
+Processed 86130688 reads in 398.41 seconds. Average speed: 0.22M/s.
+Processed 87261184 reads in 404.42 seconds. Average speed: 0.21M/s.
+Processed 88195072 reads in 407.93 seconds. Average speed: 0.22M/s.
+Processed 89686016 reads in 414.44 seconds. Average speed: 0.22M/s.
+Processed 90243072 reads in 418.45 seconds. Average speed: 0.21M/s.
+Processed 91242496 reads in 421.96 seconds. Average speed: 0.22M/s.
+Processed 92553216 reads in 427.97 seconds. Average speed: 0.22M/s.
+Processed 93356032 reads in 431.47 seconds. Average speed: 0.22M/s.
+Processed 94502912 reads in 436.48 seconds. Average speed: 0.22M/s.
+Processed 95453184 reads in 442.00 seconds. Average speed: 0.21M/s.
+Processed 96681984 reads in 447.01 seconds. Average speed: 0.22M/s.
+Processed 97533952 reads in 452.02 seconds. Average speed: 0.21M/s.
+Processed 98779136 reads in 457.03 seconds. Average speed: 0.22M/s.
+Processed 99876864 reads in 461.54 seconds. Average speed: 0.22M/s.
+Processed 100909056 reads in 465.55 seconds. Average speed: 0.22M/s.
+Processed 101859328 reads in 470.05 seconds. Average speed: 0.22M/s.
+Processed 102907904 reads in 475.06 seconds. Average speed: 0.22M/s.
+Processed 103841792 reads in 478.57 seconds. Average speed: 0.22M/s.
+Processed 104890368 reads in 485.08 seconds. Average speed: 0.22M/s.
+Processed 106037248 reads in 489.59 seconds. Average speed: 0.22M/s.
+Processed 107266048 reads in 494.60 seconds. Average speed: 0.22M/s.
+Processed 108265472 reads in 500.11 seconds. Average speed: 0.22M/s.
+Processed 109477888 reads in 504.62 seconds. Average speed: 0.22M/s.
+Processed 110477312 reads in 509.13 seconds. Average speed: 0.22M/s.
+Processed 111329280 reads in 513.64 seconds. Average speed: 0.22M/s.
+Processed 112836608 reads in 519.65 seconds. Average speed: 0.22M/s.
+Processed 113328128 reads in 522.66 seconds. Average speed: 0.22M/s.
+Processed 114638848 reads in 527.67 seconds. Average speed: 0.22M/s.
+Processed 115441664 reads in 532.17 seconds. Average speed: 0.22M/s.
+Processed 116555776 reads in 537.68 seconds. Average speed: 0.22M/s.
+Processed 117653504 reads in 543.20 seconds. Average speed: 0.22M/s.
+Processed 118554624 reads in 546.20 seconds. Average speed: 0.22M/s.
+Processed 120029184 reads in 552.21 seconds. Average speed: 0.22M/s.
+Processed 120881152 reads in 556.72 seconds. Average speed: 0.22M/s.
+Processed 121733120 reads in 560.73 seconds. Average speed: 0.22M/s.
+Processed 122716160 reads in 565.24 seconds. Average speed: 0.22M/s.
+Processed 123797504 reads in 569.75 seconds. Average speed: 0.22M/s.
+Processed 124780544 reads in 575.76 seconds. Average speed: 0.22M/s.
+Processed 126156800 reads in 580.77 seconds. Average speed: 0.22M/s.
+Processed 127025152 reads in 585.78 seconds. Average speed: 0.22M/s.
+Processed 127959040 reads in 588.79 seconds. Average speed: 0.22M/s.
+Processed 128974848 reads in 594.30 seconds. Average speed: 0.22M/s.
+Processed 130056192 reads in 598.81 seconds. Average speed: 0.22M/s.
+Processed 131432448 reads in 604.82 seconds. Average speed: 0.22M/s.
+Processed 132612096 reads in 609.33 seconds. Average speed: 0.22M/s.
+Processed 133251072 reads in 613.34 seconds. Average speed: 0.22M/s.
+Processed 134299648 reads in 618.85 seconds. Average speed: 0.22M/s.
+Processed 135266304 reads in 623.86 seconds. Average speed: 0.22M/s.
+Processed 136413184 reads in 627.86 seconds. Average speed: 0.22M/s.
+Processed 137461760 reads in 633.88 seconds. Average speed: 0.22M/s.
+Processed 138887168 reads in 637.88 seconds. Average speed: 0.22M/s.
+Processed 139460608 reads in 641.89 seconds. Average speed: 0.22M/s.
+Processed 140722176 reads in 647.40 seconds. Average speed: 0.22M/s.
+Processed 142000128 reads in 652.41 seconds. Average speed: 0.22M/s.
+Processed 142786560 reads in 655.91 seconds. Average speed: 0.22M/s.
+Processed 143704064 reads in 659.92 seconds. Average speed: 0.22M/s.
+Processed 144736256 reads in 665.93 seconds. Average speed: 0.22M/s.
+Processed 145915904 reads in 669.94 seconds. Average speed: 0.22M/s.
+Processed 147079168 reads in 676.45 seconds. Average speed: 0.22M/s.
+Processed 147996672 reads in 679.96 seconds. Average speed: 0.22M/s.
+Processed 148996096 reads in 683.97 seconds. Average speed: 0.22M/s.
+Processed 149995520 reads in 688.48 seconds. Average speed: 0.22M/s.
+Processed 151273472 reads in 695.99 seconds. Average speed: 0.22M/s.
+Processed 152059904 reads in 699.00 seconds. Average speed: 0.22M/s.
+Processed 153321472 reads in 704.01 seconds. Average speed: 0.22M/s.
+Processed 154484736 reads in 709.02 seconds. Average speed: 0.22M/s.
+Processed 155271168 reads in 713.54 seconds. Average speed: 0.22M/s.
+Processed 156254208 reads in 718.05 seconds. Average speed: 0.22M/s.
+Processed 157319168 reads in 722.06 seconds. Average speed: 0.22M/s.
+Processed 158973952 reads in 729.58 seconds. Average speed: 0.22M/s.
+Processed 159383552 reads in 733.58 seconds. Average speed: 0.22M/s.
+Processed 160858112 reads in 738.09 seconds. Average speed: 0.22M/s.
+Processed 161497088 reads in 743.10 seconds. Average speed: 0.22M/s.
+Processed 162594816 reads in 747.61 seconds. Average speed: 0.22M/s.
+Processed 163741696 reads in 751.62 seconds. Average speed: 0.22M/s.
+Processed 164904960 reads in 758.13 seconds. Average speed: 0.22M/s.
+Processed 165740544 reads in 761.64 seconds. Average speed: 0.22M/s.
+Processed 166838272 reads in 767.15 seconds. Average speed: 0.22M/s.
+Processed 167821312 reads in 771.16 seconds. Average speed: 0.22M/s.
+Processed 169263104 reads in 776.17 seconds. Average speed: 0.22M/s.
+Processed 170016768 reads in 780.67 seconds. Average speed: 0.22M/s.
+Processed 171147264 reads in 785.68 seconds. Average speed: 0.22M/s.
+Processed 172310528 reads in 790.19 seconds. Average speed: 0.22M/s.
+Processed 173096960 reads in 793.70 seconds. Average speed: 0.22M/s.
+Processed 174358528 reads in 799.21 seconds. Average speed: 0.22M/s.
+Processed 175144960 reads in 803.72 seconds. Average speed: 0.22M/s.
+Processed 176586752 reads in 809.73 seconds. Average speed: 0.22M/s.
+Processed 177258496 reads in 814.74 seconds. Average speed: 0.22M/s.
+Processed 178388992 reads in 819.25 seconds. Average speed: 0.22M/s.
+Processed 179306496 reads in 823.76 seconds. Average speed: 0.22M/s.
+Processed 180436992 reads in 828.27 seconds. Average speed: 0.22M/s.
+Processed 181518336 reads in 832.78 seconds. Average speed: 0.22M/s.
+Processed 182501376 reads in 837.79 seconds. Average speed: 0.22M/s.
+Processed 183664640 reads in 843.30 seconds. Average speed: 0.22M/s.
+Processed 184549376 reads in 847.30 seconds. Average speed: 0.22M/s.
+Processed 185696256 reads in 851.81 seconds. Average speed: 0.22M/s.
+Processed 186728448 reads in 857.32 seconds. Average speed: 0.22M/s.
+Processed 187891712 reads in 862.33 seconds. Average speed: 0.22M/s.
+Processed 189251584 reads in 867.34 seconds. Average speed: 0.22M/s.
+Processed 190332928 reads in 872.35 seconds. Average speed: 0.22M/s.
+Processed 190906368 reads in 875.36 seconds. Average speed: 0.22M/s.
+Processed 191889408 reads in 879.37 seconds. Average speed: 0.22M/s.
+Processed 193036288 reads in 885.88 seconds. Average speed: 0.22M/s.
+Processed 194068480 reads in 889.39 seconds. Average speed: 0.22M/s.
+Processed 195346432 reads in 895.40 seconds. Average speed: 0.22M/s.
+Processed 196313088 reads in 899.91 seconds. Average speed: 0.22M/s.
+Processed 197345280 reads in 905.42 seconds. Average speed: 0.22M/s.
+Processed 198230016 reads in 909.43 seconds. Average speed: 0.22M/s.
+Processed 199294976 reads in 914.44 seconds. Average speed: 0.22M/s.
+Processed 200310784 reads in 918.95 seconds. Average speed: 0.22M/s.
+Processed 201949184 reads in 925.46 seconds. Average speed: 0.22M/s.
+Processed 202752000 reads in 929.46 seconds. Average speed: 0.22M/s.
+Processed 203751424 reads in 933.97 seconds. Average speed: 0.22M/s.
+Processed 204472320 reads in 937.48 seconds. Average speed: 0.22M/s.
+Processed 205783040 reads in 943.99 seconds. Average speed: 0.22M/s.
+Processed 206684160 reads in 948.00 seconds. Average speed: 0.22M/s.
+Processed 207634432 reads in 951.51 seconds. Average speed: 0.22M/s.
+Processed 208945152 reads in 958.52 seconds. Average speed: 0.22M/s.
+Processed 210337792 reads in 964.03 seconds. Average speed: 0.22M/s.
+Processed 210960384 reads in 967.54 seconds. Average speed: 0.22M/s.
+Processed 212008960 reads in 971.55 seconds. Average speed: 0.22M/s.
+Processed 212910080 reads in 975.55 seconds. Average speed: 0.22M/s.
+Processed 213925888 reads in 980.56 seconds. Average speed: 0.22M/s.
+Processed 215154688 reads in 985.58 seconds. Average speed: 0.22M/s.
+Processed 216645632 reads in 992.60 seconds. Average speed: 0.22M/s.
+Processed 217071616 reads in 996.10 seconds. Average speed: 0.22M/s.
+Processed 218513408 reads in 1001.62 seconds. Average speed: 0.22M/s.
+Processed 219201536 reads in 1005.13 seconds. Average speed: 0.22M/s.
+Processed 220413952 reads in 1009.64 seconds. Average speed: 0.22M/s.
+Processed 221396992 reads in 1014.15 seconds. Average speed: 0.22M/s.
+Processed 222658560 reads in 1020.16 seconds. Average speed: 0.22M/s.
+Processed 223379456 reads in 1023.67 seconds. Average speed: 0.22M/s.
+Processed 224444416 reads in 1029.18 seconds. Average speed: 0.22M/s.
+Processed 225492992 reads in 1032.68 seconds. Average speed: 0.22M/s.
+Processed 226492416 reads in 1038.20 seconds. Average speed: 0.22M/s.
+Processed 227540992 reads in 1042.21 seconds. Average speed: 0.22M/s.
+Processed 228589568 reads in 1048.22 seconds. Average speed: 0.22M/s.
+Processed 229720064 reads in 1053.24 seconds. Average speed: 0.22M/s.
+Processed 230703104 reads in 1057.24 seconds. Average speed: 0.22M/s.
+Processed 231735296 reads in 1062.25 seconds. Average speed: 0.22M/s.
+Processed 232980480 reads in 1067.76 seconds. Average speed: 0.22M/s.
+Processed 233848832 reads in 1070.77 seconds. Average speed: 0.22M/s.
+Processed 234897408 reads in 1076.28 seconds. Average speed: 0.22M/s.
+Processed 236093440 reads in 1080.79 seconds. Average speed: 0.22M/s.
+Processed 236978176 reads in 1085.30 seconds. Average speed: 0.22M/s.
+Processed 238174208 reads in 1091.31 seconds. Average speed: 0.22M/s.
+Processed 239370240 reads in 1096.82 seconds. Average speed: 0.22M/s.
+Processed 240549888 reads in 1101.83 seconds. Average speed: 0.22M/s.
+Processed 241270784 reads in 1105.84 seconds. Average speed: 0.22M/s.
+Processed 242466816 reads in 1109.84 seconds. Average speed: 0.22M/s.
+Processed 243810304 reads in 1115.86 seconds. Average speed: 0.22M/s.
+Processed 244350976 reads in 1119.36 seconds. Average speed: 0.22M/s.
+Processed 245383168 reads in 1123.37 seconds. Average speed: 0.22M/s.
+Processed 246415360 reads in 1127.88 seconds. Average speed: 0.22M/s.
+Processed 247889920 reads in 1134.89 seconds. Average speed: 0.22M/s.
+Processed 248643584 reads in 1139.90 seconds. Average speed: 0.22M/s.
+Processed 249610240 reads in 1143.91 seconds. Average speed: 0.22M/s.
+Processed 250626048 reads in 1148.42 seconds. Average speed: 0.22M/s.
+Processed 251674624 reads in 1152.93 seconds. Average speed: 0.22M/s.
+Processed 252788736 reads in 1157.94 seconds. Average speed: 0.22M/s.
+Processed 253755392 reads in 1161.94 seconds. Average speed: 0.22M/s.
+Processed 254820352 reads in 1166.95 seconds. Average speed: 0.22M/s.
+Processed 256180224 reads in 1172.97 seconds. Average speed: 0.22M/s.
+Processed 257064960 reads in 1177.47 seconds. Average speed: 0.22M/s.
+Processed 257998848 reads in 1182.48 seconds. Average speed: 0.22M/s.
+Processed 259145728 reads in 1186.99 seconds. Average speed: 0.22M/s.
+Processed 260734976 reads in 1193.00 seconds. Average speed: 0.22M/s.
+Processed 261226496 reads in 1197.01 seconds. Average speed: 0.22M/s.
+Processed 262144000 reads in 1201.02 seconds. Average speed: 0.22M/s.
+Processed 263897088 reads in 1207.53 seconds. Average speed: 0.22M/s.
+Processed 264241152 reads in 1209.53 seconds. Average speed: 0.22M/s.
+Processed 265306112 reads in 1215.55 seconds. Average speed: 0.22M/s.
+Processed 266502144 reads in 1220.56 seconds. Average speed: 0.22M/s.
+Processed 267452416 reads in 1224.56 seconds. Average speed: 0.22M/s.
+Processed 268615680 reads in 1229.57 seconds. Average speed: 0.22M/s.
+Processed 269500416 reads in 1234.59 seconds. Average speed: 0.22M/s.
+Processed 270712832 reads in 1238.60 seconds. Average speed: 0.22M/s.
+Processed 271663104 reads in 1243.11 seconds. Average speed: 0.22M/s.
+Processed 272711680 reads in 1249.12 seconds. Average speed: 0.22M/s.
+Processed 273743872 reads in 1254.13 seconds. Average speed: 0.22M/s.
+Processed 274792448 reads in 1257.63 seconds. Average speed: 0.22M/s.
+Processed 276021248 reads in 1262.64 seconds. Average speed: 0.22M/s.
+Processed 277086208 reads in 1267.65 seconds. Average speed: 0.22M/s.
+Processed 278183936 reads in 1273.67 seconds. Average speed: 0.22M/s.
+Processed 279052288 reads in 1277.17 seconds. Average speed: 0.22M/s.
+Processed 280018944 reads in 1281.68 seconds. Average speed: 0.22M/s.
+Processed 281067520 reads in 1286.69 seconds. Average speed: 0.22M/s.
+Processed 282148864 reads in 1292.20 seconds. Average speed: 0.22M/s.
+Processed 283181056 reads in 1296.71 seconds. Average speed: 0.22M/s.
+Processed 284590080 reads in 1302.22 seconds. Average speed: 0.22M/s.
+Processed 285310976 reads in 1304.73 seconds. Average speed: 0.22M/s.
+Processed 286572544 reads in 1310.75 seconds. Average speed: 0.22M/s.
+Processed 287358976 reads in 1314.26 seconds. Average speed: 0.22M/s.
+Processed 288407552 reads in 1319.77 seconds. Average speed: 0.22M/s.
+Processed 289521664 reads in 1324.28 seconds. Average speed: 0.22M/s.
+Processed 290603008 reads in 1328.79 seconds. Average speed: 0.22M/s.
+Processed 291684352 reads in 1334.30 seconds. Average speed: 0.22M/s.
+Processed 292618240 reads in 1340.31 seconds. Average speed: 0.22M/s.
+Processed 293765120 reads in 1343.82 seconds. Average speed: 0.22M/s.
+Processed 294797312 reads in 1347.82 seconds. Average speed: 0.22M/s.
+Processed 295780352 reads in 1352.83 seconds. Average speed: 0.22M/s.
+Processed 296828928 reads in 1357.84 seconds. Average speed: 0.22M/s.
+Processed 298303488 reads in 1364.36 seconds. Average speed: 0.22M/s.
+Processed 298909696 reads in 1369.37 seconds. Average speed: 0.22M/s.
+Processed 300089344 reads in 1373.88 seconds. Average speed: 0.22M/s.
+Processed 301072384 reads in 1377.38 seconds. Average speed: 0.22M/s.
+Processed 302039040 reads in 1382.39 seconds. Average speed: 0.22M/s.
+Processed 303218688 reads in 1387.91 seconds. Average speed: 0.22M/s.
+Processed 304136192 reads in 1391.41 seconds. Average speed: 0.22M/s.
+Processed 304771420 reads in 1393.92 seconds. Average speed: 0.22M/s.
+mapping finished in 88137.35 CPU sec, 1394.45 real sec.
+[2020-10-20 00:23:15.235] [align] [info] mapping exited normally.
+[2020-10-20 00:23:15.235] [save_bam] [info] Job: bam writing, pid: 3112635
+[2020-10-20 00:23:15.236] [save_bam] [info] BAM writting...
+[2020-10-20 00:23:15.236] [save_bam] [info] Sorting and marking duplicates...
+[2020-10-20 00:24:12.444] [save_bam] [error] bam writing terminated by a signal 9.
+[2020-10-20 00:24:12.444] [save_bam] [error] clean temporary files, please waiting...
+[2020-10-20 00:24:12.497] [save_bam] [error] clean up finished.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 1
+  ✗ 样品 72_4_gang 处理失败 | Sample 72_4_gang processing failed
+[2/2] 处理样品: 72_3_kang | Processing sample: 72_3_kang
+🔍 GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Genome path used by GTX
+🔍 检查索引文件是否存在: | Checking if index files exist:
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx: ✗
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.bwt: ✗
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.sa: ✗
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.ann: ✗
+   /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.amb: ✗
+🔬 GTX WGS处理 72_3_kang | GTX WGS processing 72_3_kang
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:72_3_kang\tSM:72_3_kang\tPL:ILLUMINA\tLB:72_3_kang" -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/vcf/72_3_kang.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/bam/72_3_kang.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_3_kang_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_3_kang_2.clean.fq.gz
+[2020-10-20 00:00:00.731] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp available: 2460664GB, memory available: 462GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.731] [wgs] [info] Use bwa mem2 to align!
+[2020-10-20 00:00:00.732] [align] [info] Job: mapping, pid: 3113079
+[2020-10-20 00:00:00.732] [align] [info] Mapping...
+[2020-10-20 00:00:01.562] [align] [info] Read 0 ALT contigs.
+Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+Processed 1228800 reads in 6.02 seconds. Average speed: 0.20M/s.
+Processed 2310144 reads in 10.52 seconds. Average speed: 0.22M/s.
+Processed 3293184 reads in 15.03 seconds. Average speed: 0.22M/s.
+Processed 4440064 reads in 20.04 seconds. Average speed: 0.22M/s.
+Processed 5488640 reads in 26.05 seconds. Average speed: 0.21M/s.
+Processed 6340608 reads in 29.06 seconds. Average speed: 0.22M/s.
+Processed 7667712 reads in 35.57 seconds. Average speed: 0.21M/s.
+Processed 8552448 reads in 39.58 seconds. Average speed: 0.22M/s.
+Processed 9519104 reads in 44.59 seconds. Average speed: 0.21M/s.
+Processed 10698752 reads in 49.10 seconds. Average speed: 0.22M/s.
+Processed 11878400 reads in 53.61 seconds. Average speed: 0.22M/s.
+Processed 12812288 reads in 58.12 seconds. Average speed: 0.22M/s.
+Processed 13697024 reads in 62.13 seconds. Average speed: 0.22M/s.
+Processed 15056896 reads in 67.14 seconds. Average speed: 0.22M/s.
+Processed 15761408 reads in 71.14 seconds. Average speed: 0.22M/s.
+Processed 16777216 reads in 75.65 seconds. Average speed: 0.22M/s.
+Processed 17924096 reads in 80.66 seconds. Average speed: 0.22M/s.
+Processed 19234816 reads in 86.18 seconds. Average speed: 0.22M/s.
+Processed 20054016 reads in 89.18 seconds. Average speed: 0.22M/s.
+Processed 21102592 reads in 94.19 seconds. Average speed: 0.22M/s.
+Processed 22331392 reads in 100.21 seconds. Average speed: 0.22M/s.
+Processed 23707648 reads in 105.22 seconds. Average speed: 0.23M/s.
+Processed 24264704 reads in 109.72 seconds. Average speed: 0.22M/s.
+Processed 25182208 reads in 112.73 seconds. Average speed: 0.22M/s.
+Processed 26329088 reads in 117.24 seconds. Average speed: 0.22M/s.
+Processed 27410432 reads in 122.25 seconds. Average speed: 0.22M/s.
+Processed 28442624 reads in 125.75 seconds. Average speed: 0.23M/s.
+Processed 29655040 reads in 131.77 seconds. Average speed: 0.23M/s.
+Processed 30638080 reads in 135.27 seconds. Average speed: 0.23M/s.
+Processed 31621120 reads in 140.28 seconds. Average speed: 0.23M/s.
+Processed 32686080 reads in 144.79 seconds. Average speed: 0.23M/s.
+Processed 33603584 reads in 148.29 seconds. Average speed: 0.23M/s.
+Processed 34652160 reads in 153.31 seconds. Average speed: 0.23M/s.
+Processed 35651584 reads in 158.32 seconds. Average speed: 0.23M/s.
+Processed 36749312 reads in 162.84 seconds. Average speed: 0.23M/s.
+Processed 37928960 reads in 167.35 seconds. Average speed: 0.23M/s.
+Processed 38846464 reads in 171.85 seconds. Average speed: 0.23M/s.
+Processed 39895040 reads in 176.86 seconds. Average speed: 0.23M/s.
+Processed 40927232 reads in 182.88 seconds. Average speed: 0.22M/s.
+Processed 42057728 reads in 186.88 seconds. Average speed: 0.23M/s.
+Processed 42991616 reads in 190.39 seconds. Average speed: 0.23M/s.
+Processed 44302336 reads in 196.40 seconds. Average speed: 0.23M/s.
+Processed 45268992 reads in 199.91 seconds. Average speed: 0.23M/s.
+Processed 46137344 reads in 205.42 seconds. Average speed: 0.22M/s.
+Processed 47513600 reads in 209.93 seconds. Average speed: 0.23M/s.
+Processed 48513024 reads in 213.94 seconds. Average speed: 0.23M/s.
+Processed 49790976 reads in 219.45 seconds. Average speed: 0.23M/s.
+Processed 50724864 reads in 223.45 seconds. Average speed: 0.23M/s.
+Processed 51462144 reads in 227.96 seconds. Average speed: 0.23M/s.
+Processed 52559872 reads in 231.97 seconds. Average speed: 0.23M/s.
+Processed 53706752 reads in 236.98 seconds. Average speed: 0.23M/s.
+Processed 54722560 reads in 240.49 seconds. Average speed: 0.23M/s.
+Processed 55640064 reads in 244.99 seconds. Average speed: 0.23M/s.
+Processed 56754176 reads in 249.00 seconds. Average speed: 0.23M/s.
+Processed 57720832 reads in 254.51 seconds. Average speed: 0.23M/s.
+Processed 58851328 reads in 258.52 seconds. Average speed: 0.23M/s.
+Processed 59916288 reads in 263.53 seconds. Average speed: 0.23M/s.
+Processed 60850176 reads in 266.53 seconds. Average speed: 0.23M/s.
+Processed 61947904 reads in 271.54 seconds. Average speed: 0.23M/s.
+Processed 62996480 reads in 275.55 seconds. Average speed: 0.23M/s.
+Processed 64094208 reads in 281.06 seconds. Average speed: 0.23M/s.
+Processed 65142784 reads in 285.57 seconds. Average speed: 0.23M/s.
+Processed 66224128 reads in 290.08 seconds. Average speed: 0.23M/s.
+Processed 67403776 reads in 294.09 seconds. Average speed: 0.23M/s.
+Processed 68501504 reads in 299.10 seconds. Average speed: 0.23M/s.
+Processed 69222400 reads in 303.10 seconds. Average speed: 0.23M/s.
+Processed 70336512 reads in 307.61 seconds. Average speed: 0.23M/s.
+Processed 71319552 reads in 311.12 seconds. Average speed: 0.23M/s.
+Processed 72368128 reads in 317.13 seconds. Average speed: 0.23M/s.
+Processed 73875456 reads in 322.64 seconds. Average speed: 0.23M/s.
+Processed 74514432 reads in 325.14 seconds. Average speed: 0.23M/s.
+Processed 75546624 reads in 329.65 seconds. Average speed: 0.23M/s.
+Processed 76627968 reads in 334.66 seconds. Average speed: 0.23M/s.
+Processed 77643776 reads in 338.67 seconds. Average speed: 0.23M/s.
+Processed 79003648 reads in 344.18 seconds. Average speed: 0.23M/s.
+Processed 80314368 reads in 349.19 seconds. Average speed: 0.23M/s.
+Processed 80756736 reads in 351.70 seconds. Average speed: 0.23M/s.
+Processed 81903616 reads in 357.21 seconds. Average speed: 0.23M/s.
+Processed 82919424 reads in 362.22 seconds. Average speed: 0.23M/s.
+Processed 84426752 reads in 366.73 seconds. Average speed: 0.23M/s.
+Processed 84951040 reads in 369.73 seconds. Average speed: 0.23M/s.
+Processed 86065152 reads in 375.24 seconds. Average speed: 0.23M/s.
+Processed 87539712 reads in 380.25 seconds. Average speed: 0.23M/s.
+Processed 88309760 reads in 383.76 seconds. Average speed: 0.23M/s.
+Processed 89260032 reads in 387.77 seconds. Average speed: 0.23M/s.
+Processed 90210304 reads in 392.78 seconds. Average speed: 0.23M/s.
+Processed 91635712 reads in 397.79 seconds. Average speed: 0.23M/s.
+Processed 92307456 reads in 401.30 seconds. Average speed: 0.23M/s.
+Processed 93437952 reads in 406.32 seconds. Average speed: 0.23M/s.
+Processed 94552064 reads in 411.83 seconds. Average speed: 0.23M/s.
+Processed 95453184 reads in 414.84 seconds. Average speed: 0.23M/s.
+Processed 96501760 reads in 418.85 seconds. Average speed: 0.23M/s.
+Processed 97910784 reads in 425.37 seconds. Average speed: 0.23M/s.
+Processed 98844672 reads in 429.37 seconds. Average speed: 0.23M/s.
+Processed 99745792 reads in 433.38 seconds. Average speed: 0.23M/s.
+Processed 100925440 reads in 437.89 seconds. Average speed: 0.23M/s.
+Processed 101974016 reads in 441.90 seconds. Average speed: 0.23M/s.
+Processed 102858752 reads in 447.41 seconds. Average speed: 0.23M/s.
+Processed 104218624 reads in 451.92 seconds. Average speed: 0.23M/s.
+Processed 105054208 reads in 455.42 seconds. Average speed: 0.23M/s.
+Processed 106233856 reads in 460.43 seconds. Average speed: 0.23M/s.
+Processed 107282432 reads in 464.94 seconds. Average speed: 0.23M/s.
+Processed 108068864 reads in 468.95 seconds. Average speed: 0.23M/s.
+Processed 109150208 reads in 473.46 seconds. Average speed: 0.23M/s.
+Processed 110182400 reads in 478.97 seconds. Average speed: 0.23M/s.
+Processed 111362048 reads in 482.98 seconds. Average speed: 0.23M/s.
+Processed 112541696 reads in 487.48 seconds. Average speed: 0.23M/s.
+Processed 113295360 reads in 490.49 seconds. Average speed: 0.23M/s.
+Processed 114966528 reads in 497.50 seconds. Average speed: 0.23M/s.
+Processed 115867648 reads in 502.01 seconds. Average speed: 0.23M/s.
+Processed 116670464 reads in 505.52 seconds. Average speed: 0.23M/s.
+Processed 117489664 reads in 509.02 seconds. Average speed: 0.23M/s.
+Processed 118718464 reads in 514.53 seconds. Average speed: 0.23M/s.
+Processed 119537664 reads in 518.54 seconds. Average speed: 0.23M/s.
+Processed 120651776 reads in 523.05 seconds. Average speed: 0.23M/s.
+Processed 121667584 reads in 528.07 seconds. Average speed: 0.23M/s.
+Processed 122798080 reads in 532.08 seconds. Average speed: 0.23M/s.
+Processed 124223488 reads in 538.09 seconds. Average speed: 0.23M/s.
+Processed 124796928 reads in 541.59 seconds. Average speed: 0.23M/s.
+Processed 125894656 reads in 546.10 seconds. Average speed: 0.23M/s.
+Processed 127156224 reads in 550.11 seconds. Average speed: 0.23M/s.
+Processed 128073728 reads in 555.62 seconds. Average speed: 0.23M/s.
+Processed 129433600 reads in 561.13 seconds. Average speed: 0.23M/s.
+Processed 130039808 reads in 564.64 seconds. Average speed: 0.23M/s.
+Processed 131137536 reads in 568.15 seconds. Average speed: 0.23M/s.
+Processed 132186112 reads in 572.66 seconds. Average speed: 0.23M/s.
+Processed 133169152 reads in 576.17 seconds. Average speed: 0.23M/s.
+Processed 134316032 reads in 580.68 seconds. Average speed: 0.23M/s.
+Processed 135561216 reads in 587.19 seconds. Average speed: 0.23M/s.
+Processed 136462336 reads in 590.20 seconds. Average speed: 0.23M/s.
+Processed 137609216 reads in 594.71 seconds. Average speed: 0.23M/s.
+Processed 138510336 reads in 599.21 seconds. Average speed: 0.23M/s.
+Processed 139640832 reads in 603.22 seconds. Average speed: 0.23M/s.
+Processed 140623872 reads in 607.73 seconds. Average speed: 0.23M/s.
+Processed 141754368 reads in 614.24 seconds. Average speed: 0.23M/s.
+Processed 142606336 reads in 618.25 seconds. Average speed: 0.23M/s.
+Processed 143654912 reads in 622.26 seconds. Average speed: 0.23M/s.
+Processed 144982016 reads in 627.77 seconds. Average speed: 0.23M/s.
+Processed 145915904 reads in 631.27 seconds. Average speed: 0.23M/s.
+Processed 146898944 reads in 634.78 seconds. Average speed: 0.23M/s.
+Processed 147947520 reads in 640.29 seconds. Average speed: 0.23M/s.
+Processed 148930560 reads in 643.80 seconds. Average speed: 0.23M/s.
+Processed 149979136 reads in 648.31 seconds. Average speed: 0.23M/s.
+Processed 151011328 reads in 653.32 seconds. Average speed: 0.23M/s.
+Processed 152190976 reads in 658.33 seconds. Average speed: 0.23M/s.
+Processed 153354240 reads in 662.34 seconds. Average speed: 0.23M/s.
+Processed 154173440 reads in 666.35 seconds. Average speed: 0.23M/s.
+Processed 155418624 reads in 671.86 seconds. Average speed: 0.23M/s.
+Processed 156598272 reads in 676.87 seconds. Average speed: 0.23M/s.
+Processed 157499392 reads in 680.88 seconds. Average speed: 0.23M/s.
+Processed 158547968 reads in 685.89 seconds. Average speed: 0.23M/s.
+Processed 159678464 reads in 689.40 seconds. Average speed: 0.23M/s.
+Processed 160514048 reads in 694.41 seconds. Average speed: 0.23M/s.
+Processed 161497088 reads in 698.92 seconds. Average speed: 0.23M/s.
+Processed 162742272 reads in 702.93 seconds. Average speed: 0.23M/s.
+Processed 164200448 reads in 708.94 seconds. Average speed: 0.23M/s.
+Processed 164855808 reads in 712.45 seconds. Average speed: 0.23M/s.
+Processed 165822464 reads in 715.95 seconds. Average speed: 0.23M/s.
+Processed 167100416 reads in 721.97 seconds. Average speed: 0.23M/s.
+Processed 168067072 reads in 725.97 seconds. Average speed: 0.23M/s.
+Processed 169443328 reads in 730.98 seconds. Average speed: 0.23M/s.
+Processed 170262528 reads in 734.49 seconds. Average speed: 0.23M/s.
+Processed 170967040 reads in 739.00 seconds. Average speed: 0.23M/s.
+Processed 172359680 reads in 743.51 seconds. Average speed: 0.23M/s.
+Processed 173195264 reads in 747.52 seconds. Average speed: 0.23M/s.
+Processed 174309376 reads in 752.53 seconds. Average speed: 0.23M/s.
+Processed 175587328 reads in 757.04 seconds. Average speed: 0.23M/s.
+Processed 176357376 reads in 761.05 seconds. Average speed: 0.23M/s.
+Processed 177291264 reads in 765.06 seconds. Average speed: 0.23M/s.
+Processed 178274304 reads in 768.57 seconds. Average speed: 0.23M/s.
+Processed 179601408 reads in 774.08 seconds. Average speed: 0.23M/s.
+Processed 180355072 reads in 778.09 seconds. Average speed: 0.23M/s.
+Processed 181567488 reads in 783.60 seconds. Average speed: 0.23M/s.
+Processed 182697984 reads in 787.10 seconds. Average speed: 0.23M/s.
+Processed 183500800 reads in 791.11 seconds. Average speed: 0.23M/s.
+Processed 184598528 reads in 796.62 seconds. Average speed: 0.23M/s.
+Processed 185679872 reads in 800.63 seconds. Average speed: 0.23M/s.
+Processed 186908672 reads in 805.64 seconds. Average speed: 0.23M/s.
+Processed 188055552 reads in 810.15 seconds. Average speed: 0.23M/s.
+Processed 188792832 reads in 813.65 seconds. Average speed: 0.23M/s.
+Processed 189857792 reads in 818.16 seconds. Average speed: 0.23M/s.
+Processed 191021056 reads in 823.17 seconds. Average speed: 0.23M/s.
+Processed 192479232 reads in 829.18 seconds. Average speed: 0.23M/s.
+Processed 193363968 reads in 833.19 seconds. Average speed: 0.23M/s.
+Processed 194068480 reads in 836.70 seconds. Average speed: 0.23M/s.
+Processed 195215360 reads in 841.71 seconds. Average speed: 0.23M/s.
+Processed 196182016 reads in 846.22 seconds. Average speed: 0.23M/s.
+Processed 197492736 reads in 850.73 seconds. Average speed: 0.23M/s.
+Processed 198230016 reads in 854.74 seconds. Average speed: 0.23M/s.
+Processed 199327744 reads in 860.25 seconds. Average speed: 0.23M/s.
+Processed 200720384 reads in 864.76 seconds. Average speed: 0.23M/s.
+Processed 201588736 reads in 869.27 seconds. Average speed: 0.23M/s.
+Processed 202752000 reads in 873.28 seconds. Average speed: 0.23M/s.
+Processed 203931648 reads in 878.32 seconds. Average speed: 0.23M/s.
+Processed 204570624 reads in 881.83 seconds. Average speed: 0.23M/s.
+Processed 205553664 reads in 885.33 seconds. Average speed: 0.23M/s.
+Processed 206831616 reads in 892.35 seconds. Average speed: 0.23M/s.
+Processed 207749120 reads in 895.35 seconds. Average speed: 0.23M/s.
+Processed 208683008 reads in 898.87 seconds. Average speed: 0.23M/s.
+Processed 210223104 reads in 905.88 seconds. Average speed: 0.23M/s.
+Processed 211255296 reads in 909.90 seconds. Average speed: 0.23M/s.
+Processed 212123648 reads in 913.40 seconds. Average speed: 0.23M/s.
+Processed 213286912 reads in 918.91 seconds. Average speed: 0.23M/s.
+Processed 213991424 reads in 921.42 seconds. Average speed: 0.23M/s.
+Processed 215580672 reads in 927.93 seconds. Average speed: 0.23M/s.
+Processed 216301568 reads in 931.44 seconds. Average speed: 0.23M/s.
+Processed 217710592 reads in 936.95 seconds. Average speed: 0.23M/s.
+Processed 218562560 reads in 940.96 seconds. Average speed: 0.23M/s.
+Processed 219299840 reads in 943.96 seconds. Average speed: 0.23M/s.
+Processed 220413952 reads in 949.47 seconds. Average speed: 0.23M/s.
+Processed 221249536 reads in 953.48 seconds. Average speed: 0.23M/s.
+Processed 222347264 reads in 957.99 seconds. Average speed: 0.23M/s.
+Processed 223444992 reads in 962.00 seconds. Average speed: 0.23M/s.
+Processed 224428032 reads in 967.01 seconds. Average speed: 0.23M/s.
+Processed 225984512 reads in 972.52 seconds. Average speed: 0.23M/s.
+Processed 226508800 reads in 975.02 seconds. Average speed: 0.23M/s.
+Processed 227540992 reads in 981.04 seconds. Average speed: 0.23M/s.
+Processed 228868096 reads in 986.04 seconds. Average speed: 0.23M/s.
+Processed 229982208 reads in 990.05 seconds. Average speed: 0.23M/s.
+Processed 231161856 reads in 995.06 seconds. Average speed: 0.23M/s.
+Processed 232030208 reads in 999.57 seconds. Average speed: 0.23M/s.
+Processed 232980480 reads in 1003.58 seconds. Average speed: 0.23M/s.
+Processed 233897984 reads in 1008.59 seconds. Average speed: 0.23M/s.
+Processed 234962944 reads in 1013.10 seconds. Average speed: 0.23M/s.
+Processed 236355584 reads in 1018.11 seconds. Average speed: 0.23M/s.
+Processed 237060096 reads in 1020.62 seconds. Average speed: 0.23M/s.
+Processed 238501888 reads in 1026.63 seconds. Average speed: 0.23M/s.
+Processed 239419392 reads in 1030.64 seconds. Average speed: 0.23M/s.
+Processed 240222208 reads in 1035.65 seconds. Average speed: 0.23M/s.
+Processed 241221632 reads in 1039.16 seconds. Average speed: 0.23M/s.
+Processed 242221056 reads in 1043.67 seconds. Average speed: 0.23M/s.
+Processed 243335168 reads in 1047.17 seconds. Average speed: 0.23M/s.
+Processed 244563968 reads in 1052.69 seconds. Average speed: 0.23M/s.
+Processed 245448704 reads in 1057.20 seconds. Average speed: 0.23M/s.
+Processed 246497280 reads in 1060.71 seconds. Average speed: 0.23M/s.
+Processed 248037376 reads in 1067.22 seconds. Average speed: 0.23M/s.
+Processed 248791040 reads in 1071.73 seconds. Average speed: 0.23M/s.
+Processed 249643008 reads in 1076.24 seconds. Average speed: 0.23M/s.
+Processed 250691584 reads in 1079.75 seconds. Average speed: 0.23M/s.
+Processed 251936768 reads in 1084.26 seconds. Average speed: 0.23M/s.
+Processed 252706816 reads in 1087.76 seconds. Average speed: 0.23M/s.
+Processed 253952000 reads in 1093.28 seconds. Average speed: 0.23M/s.
+Processed 255000576 reads in 1098.29 seconds. Average speed: 0.23M/s.
+Processed 256065536 reads in 1102.30 seconds. Average speed: 0.23M/s.
+Processed 257179648 reads in 1106.31 seconds. Average speed: 0.23M/s.
+Processed 258129920 reads in 1110.82 seconds. Average speed: 0.23M/s.
+Processed 258998272 reads in 1114.82 seconds. Average speed: 0.23M/s.
+Processed 260734976 reads in 1121.35 seconds. Average speed: 0.23M/s.
+Processed 261390336 reads in 1124.85 seconds. Average speed: 0.23M/s.
+Processed 262504448 reads in 1129.36 seconds. Average speed: 0.23M/s.
+Processed 263307264 reads in 1132.87 seconds. Average speed: 0.23M/s.
+Processed 264454144 reads in 1137.38 seconds. Average speed: 0.23M/s.
+Processed 265437184 reads in 1141.88 seconds. Average speed: 0.23M/s.
+Processed 266797056 reads in 1147.39 seconds. Average speed: 0.23M/s.
+Processed 267763712 reads in 1151.40 seconds. Average speed: 0.23M/s.
+Processed 268435456 reads in 1155.41 seconds. Average speed: 0.23M/s.
+Processed 269484032 reads in 1159.42 seconds. Average speed: 0.23M/s.
+Processed 270663680 reads in 1164.93 seconds. Average speed: 0.23M/s.
+Processed 271908864 reads in 1168.94 seconds. Average speed: 0.23M/s.
+Processed 272826368 reads in 1173.95 seconds. Average speed: 0.23M/s.
+Processed 273891328 reads in 1177.95 seconds. Average speed: 0.23M/s.
+Processed 274792448 reads in 1181.96 seconds. Average speed: 0.23M/s.
+Processed 275775488 reads in 1185.97 seconds. Average speed: 0.23M/s.
+Processed 276873216 reads in 1191.99 seconds. Average speed: 0.23M/s.
+Processed 277938176 reads in 1196.00 seconds. Average speed: 0.23M/s.
+Processed 279117824 reads in 1200.52 seconds. Average speed: 0.23M/s.
+Processed 280100864 reads in 1205.55 seconds. Average speed: 0.23M/s.
+Processed 281116672 reads in 1210.57 seconds. Average speed: 0.23M/s.
+Processed 282083328 reads in 1215.58 seconds. Average speed: 0.23M/s.
+Processed 283181056 reads in 1219.09 seconds. Average speed: 0.23M/s.
+Processed 284377088 reads in 1223.60 seconds. Average speed: 0.23M/s.
+Processed 285261824 reads in 1228.61 seconds. Average speed: 0.23M/s.
+Processed 286294016 reads in 1233.12 seconds. Average speed: 0.23M/s.
+Processed 287522816 reads in 1237.63 seconds. Average speed: 0.23M/s.
+Processed 288571392 reads in 1241.14 seconds. Average speed: 0.23M/s.
+Processed 289505280 reads in 1245.65 seconds. Average speed: 0.23M/s.
+Processed 290963456 reads in 1251.16 seconds. Average speed: 0.23M/s.
+Processed 291880960 reads in 1255.17 seconds. Average speed: 0.23M/s.
+Processed 292700160 reads in 1258.67 seconds. Average speed: 0.23M/s.
+Processed 293683200 reads in 1262.68 seconds. Average speed: 0.23M/s.
+Processed 294649856 reads in 1267.19 seconds. Average speed: 0.23M/s.
+Processed 295862272 reads in 1272.20 seconds. Average speed: 0.23M/s.
+Processed 296763392 reads in 1277.21 seconds. Average speed: 0.23M/s.
+Processed 297811968 reads in 1281.72 seconds. Average speed: 0.23M/s.
+Processed 299270144 reads in 1286.23 seconds. Average speed: 0.23M/s.
+Processed 299909120 reads in 1290.23 seconds. Average speed: 0.23M/s.
+Processed 300974080 reads in 1294.24 seconds. Average speed: 0.23M/s.
+Processed 302006272 reads in 1298.75 seconds. Average speed: 0.23M/s.
+Processed 303120384 reads in 1303.26 seconds. Average speed: 0.23M/s.
+Processed 304267264 reads in 1309.27 seconds. Average speed: 0.23M/s.
+Processed 305250304 reads in 1314.29 seconds. Average speed: 0.23M/s.
+Processed 306233344 reads in 1317.29 seconds. Average speed: 0.23M/s.
+Processed 307249152 reads in 1322.31 seconds. Average speed: 0.23M/s.
+Processed 308658176 reads in 1326.82 seconds. Average speed: 0.23M/s.
+Processed 309587550 reads in 1330.82 seconds. Average speed: 0.23M/s.
+mapping finished in 84088.20 CPU sec, 1331.84 real sec.
+[2020-10-20 00:22:12.919] [align] [info] mapping exited normally.
+[2020-10-20 00:22:12.920] [save_bam] [info] Job: bam writing, pid: 3122754
+[2020-10-20 00:22:12.920] [save_bam] [info] BAM writting...
+[2020-10-20 00:22:12.920] [save_bam] [info] Sorting and marking duplicates...
+[2020-10-20 00:23:08.826] [save_bam] [error] std::bad_alloc
+[2020-10-20 00:23:08.826] [save_bam] [error] exiting ...
+[2020-10-20 00:23:11.060] [save_bam] [error] bam writing exited abnormally.
+[2020-10-20 00:23:11.060] [save_bam] [error] clean temporary files, please waiting...
+[2020-10-20 00:23:11.111] [save_bam] [error] clean up finished.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 1
+  ✗ 样品 72_3_kang 处理失败 | Sample 72_3_kang processing failed
+GTX WGS处理完成 | GTX WGS processing completed:
+  成功: 0/2 | Success: 0/2
+  失败: 2/2 | Failed: 2/2
+失败的样品 | Failed samples:
+  - 72_4_gang
+  - 72_3_kang
+❌ GTX比对失败 | GTX mapping failed
+❌ 步骤 3 失败 | Step 3 failed: 🗺️ 序列比对 | Sequence Mapping

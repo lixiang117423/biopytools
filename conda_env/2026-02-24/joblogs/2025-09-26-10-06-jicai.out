@@ -1,0 +1,690 @@
+🧬==============================================
+🧬    完整BSA分析流程开始
+🧬==============================================
+🕒 开始时间: 2025年 09月 26日 星期五 10:06:26 CST
+📂 原始数据: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw
+📂 清理数据: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+📂 单样品结果: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each
+📂 BSA结果: /share/org/YZWL/yzwl_lixg/project/16.荠菜/03.bsa
+📋 分组文件: /share/org/YZWL/yzwl_lixg/project/16.荠菜/sample_groups.txt
+
+🧹==============================================
+🧹    阶段1: 质量控制 (fastp)
+🧹==============================================
+🕒 开始时间: 2025年 09月 26日 星期五 10:06:26 CST
+🔍 检查输入文件...
+📊 找到原始数据文件: 50 个 (_1.fq.gz格式)
+🏃 运行fastp质量控制...
+⚡ 使用线程数: 16
+2025-09-26 10:06:28,844 - INFO - ============================================================
+2025-09-26 10:06:28,844 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-09-26 10:06:28,844 - INFO - ============================================================
+2025-09-26 10:06:28,844 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw
+2025-09-26 10:06:28,844 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+2025-09-26 10:06:28,844 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-09-26 10:06:28,844 - INFO - ============================================================
+2025-09-26 10:06:29,054 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-09-26 10:06:29,055 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+2025-09-26 10:06:29,055 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports
+2025-09-26 10:06:29,055 - INFO - 📄 找到 50 个read1文件 | Found 50 read1 files
+2025-09-26 10:06:29,076 - INFO - 🧬 找到 50 个有效样本配对 | Found 50 valid sample pairs:
+2025-09-26 10:06:29,076 - INFO -   - 📋 2
+2025-09-26 10:06:29,076 - INFO -   - 📋 52
+2025-09-26 10:06:29,076 - INFO -   - 📋 48
+2025-09-26 10:06:29,076 - INFO -   - 📋 95
+2025-09-26 10:06:29,076 - INFO -   - 📋 100
+2025-09-26 10:06:29,076 - INFO -   - 📋 79
+2025-09-26 10:06:29,076 - INFO -   - 📋 89
+2025-09-26 10:06:29,076 - INFO -   - 📋 74
+2025-09-26 10:06:29,076 - INFO -   - 📋 51
+2025-09-26 10:06:29,076 - INFO -   - 📋 28
+2025-09-26 10:06:29,076 - INFO -   - 📋 90
+2025-09-26 10:06:29,076 - INFO -   - 📋 41
+2025-09-26 10:06:29,077 - INFO -   - 📋 106
+2025-09-26 10:06:29,077 - INFO -   - 📋 140
+2025-09-26 10:06:29,077 - INFO -   - 📋 94
+2025-09-26 10:06:29,077 - INFO -   - 📋 113
+2025-09-26 10:06:29,077 - INFO -   - 📋 88
+2025-09-26 10:06:29,077 - INFO -   - 📋 43
+2025-09-26 10:06:29,077 - INFO -   - 📋 45
+2025-09-26 10:06:29,077 - INFO -   - 📋 55
+2025-09-26 10:06:29,077 - INFO -   - 📋 75
+2025-09-26 10:06:29,077 - INFO -   - 📋 53
+2025-09-26 10:06:29,077 - INFO -   - 📋 78
+2025-09-26 10:06:29,077 - INFO -   - 📋 16
+2025-09-26 10:06:29,077 - INFO -   - 📋 57
+2025-09-26 10:06:29,077 - INFO -   - 📋 40
+2025-09-26 10:06:29,077 - INFO -   - 📋 58
+2025-09-26 10:06:29,077 - INFO -   - 📋 7
+2025-09-26 10:06:29,077 - INFO -   - 📋 50
+2025-09-26 10:06:29,077 - INFO -   - 📋 60
+2025-09-26 10:06:29,077 - INFO -   - 📋 59
+2025-09-26 10:06:29,077 - INFO -   - 📋 148
+2025-09-26 10:06:29,077 - INFO -   - 📋 23
+2025-09-26 10:06:29,077 - INFO -   - 📋 10
+2025-09-26 10:06:29,077 - INFO -   - 📋 85
+2025-09-26 10:06:29,077 - INFO -   - 📋 150
+2025-09-26 10:06:29,077 - INFO -   - 📋 49
+2025-09-26 10:06:29,077 - INFO -   - 📋 42
+2025-09-26 10:06:29,077 - INFO -   - 📋 103
+2025-09-26 10:06:29,077 - INFO -   - 📋 46
+2025-09-26 10:06:29,077 - INFO -   - 📋 77
+2025-09-26 10:06:29,077 - INFO -   - 📋 12
+2025-09-26 10:06:29,077 - INFO -   - 📋 44
+2025-09-26 10:06:29,077 - INFO -   - 📋 26
+2025-09-26 10:06:29,077 - INFO -   - 📋 54
+2025-09-26 10:06:29,077 - INFO -   - 📋 69
+2025-09-26 10:06:29,077 - INFO -   - 📋 105
+2025-09-26 10:06:29,077 - INFO -   - 📋 117
+2025-09-26 10:06:29,077 - INFO -   - 📋 56
+2025-09-26 10:06:29,077 - INFO -   - 📋 47
+2025-09-26 10:06:29,077 - INFO - ---
+2025-09-26 10:06:29,077 - INFO - ⚡ 正在处理样本 | Processing sample: 2
+2025-09-26 10:06:29,077 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/2_1.fq.gz
+2025-09-26 10:06:29,077 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/2_2.fq.gz
+2025-09-26 10:06:29,079 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/2_1.clean.fq.gz
+2025-09-26 10:06:29,079 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/2_2.clean.fq.gz
+2025-09-26 10:06:29,079 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/2.html
+2025-09-26 10:06:29,079 - INFO - ---
+2025-09-26 10:06:29,079 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 2
+2025-09-26 10:06:29,080 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/2_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/2_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/2_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/2_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/2.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/2.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:07:57,339 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 2
+2025-09-26 10:07:57,339 - INFO - ✅ 样本 2 处理完成 | Sample 2 processing completed
+2025-09-26 10:07:57,339 - INFO - ---
+2025-09-26 10:07:57,339 - INFO - ⚡ 正在处理样本 | Processing sample: 52
+2025-09-26 10:07:57,339 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/52_1.fq.gz
+2025-09-26 10:07:57,339 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/52_2.fq.gz
+2025-09-26 10:07:57,339 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/52_1.clean.fq.gz
+2025-09-26 10:07:57,339 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/52_2.clean.fq.gz
+2025-09-26 10:07:57,339 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/52.html
+2025-09-26 10:07:57,339 - INFO - ---
+2025-09-26 10:07:57,339 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 52
+2025-09-26 10:07:57,339 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/52_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/52_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/52_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/52_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/52.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/52.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:09:34,853 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 52
+2025-09-26 10:09:34,853 - INFO - ✅ 样本 52 处理完成 | Sample 52 processing completed
+2025-09-26 10:09:34,853 - INFO - ---
+2025-09-26 10:09:34,853 - INFO - ⚡ 正在处理样本 | Processing sample: 48
+2025-09-26 10:09:34,853 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/48_1.fq.gz
+2025-09-26 10:09:34,853 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/48_2.fq.gz
+2025-09-26 10:09:34,853 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/48_1.clean.fq.gz
+2025-09-26 10:09:34,853 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/48_2.clean.fq.gz
+2025-09-26 10:09:34,854 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/48.html
+2025-09-26 10:09:34,854 - INFO - ---
+2025-09-26 10:09:34,854 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 48
+2025-09-26 10:09:34,854 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/48_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/48_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/48_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/48_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/48.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/48.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:10:55,973 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 48
+2025-09-26 10:10:55,974 - INFO - ✅ 样本 48 处理完成 | Sample 48 processing completed
+2025-09-26 10:10:55,974 - INFO - ---
+2025-09-26 10:10:55,974 - INFO - ⚡ 正在处理样本 | Processing sample: 95
+2025-09-26 10:10:55,974 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/95_1.fq.gz
+2025-09-26 10:10:55,974 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/95_2.fq.gz
+2025-09-26 10:10:55,974 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/95_1.clean.fq.gz
+2025-09-26 10:10:55,974 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/95_2.clean.fq.gz
+2025-09-26 10:10:55,974 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/95.html
+2025-09-26 10:10:55,974 - INFO - ---
+2025-09-26 10:10:55,974 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 95
+2025-09-26 10:10:55,974 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/95_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/95_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/95_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/95_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/95.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/95.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:12:44,954 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 95
+2025-09-26 10:12:44,955 - INFO - ✅ 样本 95 处理完成 | Sample 95 processing completed
+2025-09-26 10:12:44,955 - INFO - ---
+2025-09-26 10:12:44,955 - INFO - ⚡ 正在处理样本 | Processing sample: 100
+2025-09-26 10:12:44,955 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/100_1.fq.gz
+2025-09-26 10:12:44,955 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/100_2.fq.gz
+2025-09-26 10:12:44,955 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/100_1.clean.fq.gz
+2025-09-26 10:12:44,955 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/100_2.clean.fq.gz
+2025-09-26 10:12:44,955 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/100.html
+2025-09-26 10:12:44,955 - INFO - ---
+2025-09-26 10:12:44,955 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 100
+2025-09-26 10:12:44,955 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/100_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/100_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/100_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/100_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/100.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/100.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:14:11,530 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 100
+2025-09-26 10:14:11,530 - INFO - ✅ 样本 100 处理完成 | Sample 100 processing completed
+2025-09-26 10:14:11,530 - INFO - ---
+2025-09-26 10:14:11,530 - INFO - ⚡ 正在处理样本 | Processing sample: 79
+2025-09-26 10:14:11,530 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/79_1.fq.gz
+2025-09-26 10:14:11,530 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/79_2.fq.gz
+2025-09-26 10:14:11,530 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/79_1.clean.fq.gz
+2025-09-26 10:14:11,530 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/79_2.clean.fq.gz
+2025-09-26 10:14:11,531 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/79.html
+2025-09-26 10:14:11,531 - INFO - ---
+2025-09-26 10:14:11,531 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 79
+2025-09-26 10:14:11,531 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/79_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/79_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/79_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/79_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/79.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/79.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:15:58,092 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 79
+2025-09-26 10:15:58,092 - INFO - ✅ 样本 79 处理完成 | Sample 79 processing completed
+2025-09-26 10:15:58,092 - INFO - ---
+2025-09-26 10:15:58,092 - INFO - ⚡ 正在处理样本 | Processing sample: 89
+2025-09-26 10:15:58,093 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/89_1.fq.gz
+2025-09-26 10:15:58,093 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/89_2.fq.gz
+2025-09-26 10:15:58,093 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/89_1.clean.fq.gz
+2025-09-26 10:15:58,093 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/89_2.clean.fq.gz
+2025-09-26 10:15:58,093 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/89.html
+2025-09-26 10:15:58,093 - INFO - ---
+2025-09-26 10:15:58,093 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 89
+2025-09-26 10:15:58,093 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/89_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/89_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/89_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/89_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/89.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/89.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:17:42,987 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 89
+2025-09-26 10:17:42,987 - INFO - ✅ 样本 89 处理完成 | Sample 89 processing completed
+2025-09-26 10:17:42,987 - INFO - ---
+2025-09-26 10:17:42,987 - INFO - ⚡ 正在处理样本 | Processing sample: 74
+2025-09-26 10:17:42,987 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/74_1.fq.gz
+2025-09-26 10:17:42,987 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/74_2.fq.gz
+2025-09-26 10:17:42,987 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/74_1.clean.fq.gz
+2025-09-26 10:17:42,987 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/74_2.clean.fq.gz
+2025-09-26 10:17:42,987 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/74.html
+2025-09-26 10:17:42,987 - INFO - ---
+2025-09-26 10:17:42,987 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 74
+2025-09-26 10:17:42,987 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/74_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/74_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/74_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/74_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/74.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/74.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:19:29,886 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 74
+2025-09-26 10:19:29,886 - INFO - ✅ 样本 74 处理完成 | Sample 74 processing completed
+2025-09-26 10:19:29,886 - INFO - ---
+2025-09-26 10:19:29,886 - INFO - ⚡ 正在处理样本 | Processing sample: 51
+2025-09-26 10:19:29,886 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/51_1.fq.gz
+2025-09-26 10:19:29,886 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/51_2.fq.gz
+2025-09-26 10:19:29,886 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/51_1.clean.fq.gz
+2025-09-26 10:19:29,886 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/51_2.clean.fq.gz
+2025-09-26 10:19:29,887 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/51.html
+2025-09-26 10:19:29,887 - INFO - ---
+2025-09-26 10:19:29,887 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 51
+2025-09-26 10:19:29,887 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/51_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/51_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/51_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/51_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/51.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/51.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:21:32,351 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 51
+2025-09-26 10:21:32,351 - INFO - ✅ 样本 51 处理完成 | Sample 51 processing completed
+2025-09-26 10:21:32,351 - INFO - ---
+2025-09-26 10:21:32,351 - INFO - ⚡ 正在处理样本 | Processing sample: 28
+2025-09-26 10:21:32,351 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/28_1.fq.gz
+2025-09-26 10:21:32,351 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/28_2.fq.gz
+2025-09-26 10:21:32,351 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/28_1.clean.fq.gz
+2025-09-26 10:21:32,351 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/28_2.clean.fq.gz
+2025-09-26 10:21:32,351 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/28.html
+2025-09-26 10:21:32,351 - INFO - ---
+2025-09-26 10:21:32,351 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 28
+2025-09-26 10:21:32,351 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/28_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/28_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/28_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/28_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/28.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/28.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:23:14,962 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 28
+2025-09-26 10:23:14,962 - INFO - ✅ 样本 28 处理完成 | Sample 28 processing completed
+2025-09-26 10:23:14,962 - INFO - ---
+2025-09-26 10:23:14,962 - INFO - ⚡ 正在处理样本 | Processing sample: 90
+2025-09-26 10:23:14,962 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/90_1.fq.gz
+2025-09-26 10:23:14,962 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/90_2.fq.gz
+2025-09-26 10:23:14,962 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/90_1.clean.fq.gz
+2025-09-26 10:23:14,962 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/90_2.clean.fq.gz
+2025-09-26 10:23:14,962 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/90.html
+2025-09-26 10:23:14,962 - INFO - ---
+2025-09-26 10:23:14,962 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 90
+2025-09-26 10:23:14,962 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/90_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/90_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/90_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/90_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/90.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/90.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:24:45,356 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 90
+2025-09-26 10:24:45,356 - INFO - ✅ 样本 90 处理完成 | Sample 90 processing completed
+2025-09-26 10:24:45,357 - INFO - ---
+2025-09-26 10:24:45,357 - INFO - ⚡ 正在处理样本 | Processing sample: 41
+2025-09-26 10:24:45,357 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/41_1.fq.gz
+2025-09-26 10:24:45,357 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/41_2.fq.gz
+2025-09-26 10:24:45,357 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/41_1.clean.fq.gz
+2025-09-26 10:24:45,357 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/41_2.clean.fq.gz
+2025-09-26 10:24:45,357 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/41.html
+2025-09-26 10:24:45,357 - INFO - ---
+2025-09-26 10:24:45,357 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 41
+2025-09-26 10:24:45,357 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/41_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/41_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/41_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/41_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/41.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/41.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:26:20,480 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 41
+2025-09-26 10:26:20,480 - INFO - ✅ 样本 41 处理完成 | Sample 41 processing completed
+2025-09-26 10:26:20,480 - INFO - ---
+2025-09-26 10:26:20,480 - INFO - ⚡ 正在处理样本 | Processing sample: 106
+2025-09-26 10:26:20,480 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/106_1.fq.gz
+2025-09-26 10:26:20,480 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/106_2.fq.gz
+2025-09-26 10:26:20,480 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/106_1.clean.fq.gz
+2025-09-26 10:26:20,480 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/106_2.clean.fq.gz
+2025-09-26 10:26:20,480 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/106.html
+2025-09-26 10:26:20,480 - INFO - ---
+2025-09-26 10:26:20,480 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 106
+2025-09-26 10:26:20,480 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/106_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/106_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/106_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/106_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/106.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/106.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:27:55,323 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 106
+2025-09-26 10:27:55,323 - INFO - ✅ 样本 106 处理完成 | Sample 106 processing completed
+2025-09-26 10:27:55,323 - INFO - ---
+2025-09-26 10:27:55,323 - INFO - ⚡ 正在处理样本 | Processing sample: 140
+2025-09-26 10:27:55,323 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/140_1.fq.gz
+2025-09-26 10:27:55,323 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/140_2.fq.gz
+2025-09-26 10:27:55,323 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/140_1.clean.fq.gz
+2025-09-26 10:27:55,323 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/140_2.clean.fq.gz
+2025-09-26 10:27:55,323 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/140.html
+2025-09-26 10:27:55,323 - INFO - ---
+2025-09-26 10:27:55,323 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 140
+2025-09-26 10:27:55,323 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/140_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/140_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/140_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/140_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/140.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/140.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:29:24,732 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 140
+2025-09-26 10:29:24,732 - INFO - ✅ 样本 140 处理完成 | Sample 140 processing completed
+2025-09-26 10:29:24,733 - INFO - ---
+2025-09-26 10:29:24,733 - INFO - ⚡ 正在处理样本 | Processing sample: 94
+2025-09-26 10:29:24,733 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/94_1.fq.gz
+2025-09-26 10:29:24,733 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/94_2.fq.gz
+2025-09-26 10:29:24,733 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/94_1.clean.fq.gz
+2025-09-26 10:29:24,733 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/94_2.clean.fq.gz
+2025-09-26 10:29:24,733 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/94.html
+2025-09-26 10:29:24,733 - INFO - ---
+2025-09-26 10:29:24,733 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 94
+2025-09-26 10:29:24,733 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/94_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/94_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/94_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/94_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/94.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/94.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:31:02,178 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 94
+2025-09-26 10:31:02,178 - INFO - ✅ 样本 94 处理完成 | Sample 94 processing completed
+2025-09-26 10:31:02,178 - INFO - ---
+2025-09-26 10:31:02,178 - INFO - ⚡ 正在处理样本 | Processing sample: 113
+2025-09-26 10:31:02,178 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/113_1.fq.gz
+2025-09-26 10:31:02,178 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/113_2.fq.gz
+2025-09-26 10:31:02,178 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/113_1.clean.fq.gz
+2025-09-26 10:31:02,178 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/113_2.clean.fq.gz
+2025-09-26 10:31:02,178 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/113.html
+2025-09-26 10:31:02,178 - INFO - ---
+2025-09-26 10:31:02,178 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 113
+2025-09-26 10:31:02,178 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/113_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/113_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/113_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/113_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/113.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/113.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:32:14,887 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 113
+2025-09-26 10:32:14,887 - INFO - ✅ 样本 113 处理完成 | Sample 113 processing completed
+2025-09-26 10:32:14,887 - INFO - ---
+2025-09-26 10:32:14,887 - INFO - ⚡ 正在处理样本 | Processing sample: 88
+2025-09-26 10:32:14,887 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/88_1.fq.gz
+2025-09-26 10:32:14,887 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/88_2.fq.gz
+2025-09-26 10:32:14,887 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/88_1.clean.fq.gz
+2025-09-26 10:32:14,887 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/88_2.clean.fq.gz
+2025-09-26 10:32:14,887 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/88.html
+2025-09-26 10:32:14,887 - INFO - ---
+2025-09-26 10:32:14,887 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 88
+2025-09-26 10:32:14,887 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/88_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/88_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/88_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/88_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/88.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/88.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:34:00,570 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 88
+2025-09-26 10:34:00,570 - INFO - ✅ 样本 88 处理完成 | Sample 88 processing completed
+2025-09-26 10:34:00,570 - INFO - ---
+2025-09-26 10:34:00,570 - INFO - ⚡ 正在处理样本 | Processing sample: 43
+2025-09-26 10:34:00,570 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/43_1.fq.gz
+2025-09-26 10:34:00,570 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/43_2.fq.gz
+2025-09-26 10:34:00,570 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/43_1.clean.fq.gz
+2025-09-26 10:34:00,570 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/43_2.clean.fq.gz
+2025-09-26 10:34:00,570 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/43.html
+2025-09-26 10:34:00,570 - INFO - ---
+2025-09-26 10:34:00,570 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 43
+2025-09-26 10:34:00,570 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/43_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/43_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/43_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/43_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/43.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/43.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:35:34,955 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 43
+2025-09-26 10:35:34,955 - INFO - ✅ 样本 43 处理完成 | Sample 43 processing completed
+2025-09-26 10:35:34,955 - INFO - ---
+2025-09-26 10:35:34,955 - INFO - ⚡ 正在处理样本 | Processing sample: 45
+2025-09-26 10:35:34,955 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/45_1.fq.gz
+2025-09-26 10:35:34,955 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/45_2.fq.gz
+2025-09-26 10:35:34,955 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/45_1.clean.fq.gz
+2025-09-26 10:35:34,955 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/45_2.clean.fq.gz
+2025-09-26 10:35:34,955 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/45.html
+2025-09-26 10:35:34,955 - INFO - ---
+2025-09-26 10:35:34,955 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 45
+2025-09-26 10:35:34,955 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/45_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/45_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/45_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/45_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/45.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/45.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:37:17,187 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 45
+2025-09-26 10:37:17,187 - INFO - ✅ 样本 45 处理完成 | Sample 45 processing completed
+2025-09-26 10:37:17,187 - INFO - ---
+2025-09-26 10:37:17,187 - INFO - ⚡ 正在处理样本 | Processing sample: 55
+2025-09-26 10:37:17,187 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/55_1.fq.gz
+2025-09-26 10:37:17,187 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/55_2.fq.gz
+2025-09-26 10:37:17,187 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/55_1.clean.fq.gz
+2025-09-26 10:37:17,187 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/55_2.clean.fq.gz
+2025-09-26 10:37:17,187 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/55.html
+2025-09-26 10:37:17,187 - INFO - ---
+2025-09-26 10:37:17,187 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 55
+2025-09-26 10:37:17,187 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/55_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/55_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/55_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/55_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/55.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/55.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:38:44,460 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 55
+2025-09-26 10:38:44,460 - INFO - ✅ 样本 55 处理完成 | Sample 55 processing completed
+2025-09-26 10:38:44,460 - INFO - ---
+2025-09-26 10:38:44,460 - INFO - ⚡ 正在处理样本 | Processing sample: 75
+2025-09-26 10:38:44,460 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/75_1.fq.gz
+2025-09-26 10:38:44,460 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/75_2.fq.gz
+2025-09-26 10:38:44,460 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/75_1.clean.fq.gz
+2025-09-26 10:38:44,460 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/75_2.clean.fq.gz
+2025-09-26 10:38:44,460 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/75.html
+2025-09-26 10:38:44,460 - INFO - ---
+2025-09-26 10:38:44,460 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 75
+2025-09-26 10:38:44,460 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/75_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/75_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/75_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/75_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/75.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/75.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:40:26,980 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 75
+2025-09-26 10:40:26,980 - INFO - ✅ 样本 75 处理完成 | Sample 75 processing completed
+2025-09-26 10:40:26,980 - INFO - ---
+2025-09-26 10:40:26,981 - INFO - ⚡ 正在处理样本 | Processing sample: 53
+2025-09-26 10:40:26,981 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/53_1.fq.gz
+2025-09-26 10:40:26,981 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/53_2.fq.gz
+2025-09-26 10:40:26,981 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/53_1.clean.fq.gz
+2025-09-26 10:40:26,981 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/53_2.clean.fq.gz
+2025-09-26 10:40:26,981 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/53.html
+2025-09-26 10:40:26,981 - INFO - ---
+2025-09-26 10:40:26,981 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 53
+2025-09-26 10:40:26,981 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/53_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/53_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/53_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/53_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/53.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/53.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:42:14,420 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 53
+2025-09-26 10:42:14,420 - INFO - ✅ 样本 53 处理完成 | Sample 53 processing completed
+2025-09-26 10:42:14,420 - INFO - ---
+2025-09-26 10:42:14,420 - INFO - ⚡ 正在处理样本 | Processing sample: 78
+2025-09-26 10:42:14,420 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/78_1.fq.gz
+2025-09-26 10:42:14,420 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/78_2.fq.gz
+2025-09-26 10:42:14,420 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/78_1.clean.fq.gz
+2025-09-26 10:42:14,420 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/78_2.clean.fq.gz
+2025-09-26 10:42:14,420 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/78.html
+2025-09-26 10:42:14,420 - INFO - ---
+2025-09-26 10:42:14,420 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 78
+2025-09-26 10:42:14,420 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/78_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/78_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/78_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/78_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/78.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/78.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:44:51,913 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 78
+2025-09-26 10:44:51,913 - INFO - ✅ 样本 78 处理完成 | Sample 78 processing completed
+2025-09-26 10:44:51,913 - INFO - ---
+2025-09-26 10:44:51,913 - INFO - ⚡ 正在处理样本 | Processing sample: 16
+2025-09-26 10:44:51,913 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/16_1.fq.gz
+2025-09-26 10:44:51,913 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/16_2.fq.gz
+2025-09-26 10:44:51,913 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/16_1.clean.fq.gz
+2025-09-26 10:44:51,913 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/16_2.clean.fq.gz
+2025-09-26 10:44:51,913 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/16.html
+2025-09-26 10:44:51,913 - INFO - ---
+2025-09-26 10:44:51,913 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 16
+2025-09-26 10:44:51,913 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/16_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/16_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/16_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/16_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/16.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/16.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:47:02,074 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 16
+2025-09-26 10:47:02,074 - INFO - ✅ 样本 16 处理完成 | Sample 16 processing completed
+2025-09-26 10:47:02,075 - INFO - ---
+2025-09-26 10:47:02,075 - INFO - ⚡ 正在处理样本 | Processing sample: 57
+2025-09-26 10:47:02,075 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/57_1.fq.gz
+2025-09-26 10:47:02,075 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/57_2.fq.gz
+2025-09-26 10:47:02,075 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/57_1.clean.fq.gz
+2025-09-26 10:47:02,075 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/57_2.clean.fq.gz
+2025-09-26 10:47:02,075 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/57.html
+2025-09-26 10:47:02,075 - INFO - ---
+2025-09-26 10:47:02,075 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 57
+2025-09-26 10:47:02,075 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/57_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/57_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/57_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/57_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/57.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/57.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:48:39,689 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 57
+2025-09-26 10:48:39,689 - INFO - ✅ 样本 57 处理完成 | Sample 57 processing completed
+2025-09-26 10:48:39,689 - INFO - ---
+2025-09-26 10:48:39,689 - INFO - ⚡ 正在处理样本 | Processing sample: 40
+2025-09-26 10:48:39,689 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/40_1.fq.gz
+2025-09-26 10:48:39,689 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/40_2.fq.gz
+2025-09-26 10:48:39,689 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/40_1.clean.fq.gz
+2025-09-26 10:48:39,689 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/40_2.clean.fq.gz
+2025-09-26 10:48:39,689 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/40.html
+2025-09-26 10:48:39,689 - INFO - ---
+2025-09-26 10:48:39,689 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 40
+2025-09-26 10:48:39,690 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/40_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/40_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/40_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/40_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/40.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/40.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:50:26,518 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 40
+2025-09-26 10:50:26,518 - INFO - ✅ 样本 40 处理完成 | Sample 40 processing completed
+2025-09-26 10:50:26,518 - INFO - ---
+2025-09-26 10:50:26,518 - INFO - ⚡ 正在处理样本 | Processing sample: 58
+2025-09-26 10:50:26,518 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/58_1.fq.gz
+2025-09-26 10:50:26,518 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/58_2.fq.gz
+2025-09-26 10:50:26,518 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/58_1.clean.fq.gz
+2025-09-26 10:50:26,518 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/58_2.clean.fq.gz
+2025-09-26 10:50:26,518 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/58.html
+2025-09-26 10:50:26,518 - INFO - ---
+2025-09-26 10:50:26,519 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 58
+2025-09-26 10:50:26,519 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/58_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/58_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/58_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/58_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/58.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/58.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:52:00,354 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 58
+2025-09-26 10:52:00,355 - INFO - ✅ 样本 58 处理完成 | Sample 58 processing completed
+2025-09-26 10:52:00,355 - INFO - ---
+2025-09-26 10:52:00,355 - INFO - ⚡ 正在处理样本 | Processing sample: 7
+2025-09-26 10:52:00,355 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/7_1.fq.gz
+2025-09-26 10:52:00,355 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/7_2.fq.gz
+2025-09-26 10:52:00,355 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/7_1.clean.fq.gz
+2025-09-26 10:52:00,355 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/7_2.clean.fq.gz
+2025-09-26 10:52:00,355 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/7.html
+2025-09-26 10:52:00,355 - INFO - ---
+2025-09-26 10:52:00,355 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 7
+2025-09-26 10:52:00,355 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/7_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/7_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/7_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/7_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/7.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/7.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:53:34,063 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 7
+2025-09-26 10:53:34,064 - INFO - ✅ 样本 7 处理完成 | Sample 7 processing completed
+2025-09-26 10:53:34,064 - INFO - ---
+2025-09-26 10:53:34,064 - INFO - ⚡ 正在处理样本 | Processing sample: 50
+2025-09-26 10:53:34,064 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/50_1.fq.gz
+2025-09-26 10:53:34,064 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/50_2.fq.gz
+2025-09-26 10:53:34,064 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/50_1.clean.fq.gz
+2025-09-26 10:53:34,064 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/50_2.clean.fq.gz
+2025-09-26 10:53:34,064 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/50.html
+2025-09-26 10:53:34,064 - INFO - ---
+2025-09-26 10:53:34,064 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 50
+2025-09-26 10:53:34,064 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/50_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/50_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/50_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/50_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/50.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/50.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:55:14,776 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 50
+2025-09-26 10:55:14,776 - INFO - ✅ 样本 50 处理完成 | Sample 50 processing completed
+2025-09-26 10:55:14,776 - INFO - ---
+2025-09-26 10:55:14,776 - INFO - ⚡ 正在处理样本 | Processing sample: 60
+2025-09-26 10:55:14,776 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/60_1.fq.gz
+2025-09-26 10:55:14,776 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/60_2.fq.gz
+2025-09-26 10:55:14,776 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/60_1.clean.fq.gz
+2025-09-26 10:55:14,776 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/60_2.clean.fq.gz
+2025-09-26 10:55:14,776 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/60.html
+2025-09-26 10:55:14,776 - INFO - ---
+2025-09-26 10:55:14,776 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 60
+2025-09-26 10:55:14,776 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/60_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/60_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/60_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/60_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/60.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/60.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:57:04,111 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 60
+2025-09-26 10:57:04,111 - INFO - ✅ 样本 60 处理完成 | Sample 60 processing completed
+2025-09-26 10:57:04,111 - INFO - ---
+2025-09-26 10:57:04,111 - INFO - ⚡ 正在处理样本 | Processing sample: 59
+2025-09-26 10:57:04,111 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/59_1.fq.gz
+2025-09-26 10:57:04,111 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/59_2.fq.gz
+2025-09-26 10:57:04,111 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/59_1.clean.fq.gz
+2025-09-26 10:57:04,111 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/59_2.clean.fq.gz
+2025-09-26 10:57:04,111 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/59.html
+2025-09-26 10:57:04,111 - INFO - ---
+2025-09-26 10:57:04,111 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 59
+2025-09-26 10:57:04,111 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/59_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/59_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/59_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/59_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/59.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/59.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 10:59:04,915 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 59
+2025-09-26 10:59:04,915 - INFO - ✅ 样本 59 处理完成 | Sample 59 processing completed
+2025-09-26 10:59:04,915 - INFO - ---
+2025-09-26 10:59:04,915 - INFO - ⚡ 正在处理样本 | Processing sample: 148
+2025-09-26 10:59:04,915 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/148_1.fq.gz
+2025-09-26 10:59:04,915 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/148_2.fq.gz
+2025-09-26 10:59:04,915 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/148_1.clean.fq.gz
+2025-09-26 10:59:04,915 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/148_2.clean.fq.gz
+2025-09-26 10:59:04,915 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/148.html
+2025-09-26 10:59:04,915 - INFO - ---
+2025-09-26 10:59:04,915 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 148
+2025-09-26 10:59:04,915 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/148_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/148_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/148_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/148_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/148.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/148.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:00:21,472 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 148
+2025-09-26 11:00:21,472 - INFO - ✅ 样本 148 处理完成 | Sample 148 processing completed
+2025-09-26 11:00:21,472 - INFO - ---
+2025-09-26 11:00:21,472 - INFO - ⚡ 正在处理样本 | Processing sample: 23
+2025-09-26 11:00:21,472 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/23_1.fq.gz
+2025-09-26 11:00:21,472 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/23_2.fq.gz
+2025-09-26 11:00:21,472 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/23_1.clean.fq.gz
+2025-09-26 11:00:21,472 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/23_2.clean.fq.gz
+2025-09-26 11:00:21,472 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/23.html
+2025-09-26 11:00:21,472 - INFO - ---
+2025-09-26 11:00:21,472 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 23
+2025-09-26 11:00:21,472 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/23_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/23_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/23_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/23_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/23.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/23.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:01:52,362 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 23
+2025-09-26 11:01:52,363 - INFO - ✅ 样本 23 处理完成 | Sample 23 processing completed
+2025-09-26 11:01:52,363 - INFO - ---
+2025-09-26 11:01:52,363 - INFO - ⚡ 正在处理样本 | Processing sample: 10
+2025-09-26 11:01:52,363 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/10_1.fq.gz
+2025-09-26 11:01:52,363 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/10_2.fq.gz
+2025-09-26 11:01:52,363 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/10_1.clean.fq.gz
+2025-09-26 11:01:52,363 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/10_2.clean.fq.gz
+2025-09-26 11:01:52,363 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/10.html
+2025-09-26 11:01:52,363 - INFO - ---
+2025-09-26 11:01:52,363 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 10
+2025-09-26 11:01:52,363 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/10_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/10_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/10_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/10_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/10.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/10.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:03:33,325 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 10
+2025-09-26 11:03:33,325 - INFO - ✅ 样本 10 处理完成 | Sample 10 processing completed
+2025-09-26 11:03:33,325 - INFO - ---
+2025-09-26 11:03:33,325 - INFO - ⚡ 正在处理样本 | Processing sample: 85
+2025-09-26 11:03:33,325 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/85_1.fq.gz
+2025-09-26 11:03:33,325 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/85_2.fq.gz
+2025-09-26 11:03:33,325 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/85_1.clean.fq.gz
+2025-09-26 11:03:33,325 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/85_2.clean.fq.gz
+2025-09-26 11:03:33,325 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/85.html
+2025-09-26 11:03:33,325 - INFO - ---
+2025-09-26 11:03:33,325 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 85
+2025-09-26 11:03:33,325 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/85_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/85_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/85_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/85_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/85.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/85.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:05:39,499 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 85
+2025-09-26 11:05:39,499 - INFO - ✅ 样本 85 处理完成 | Sample 85 processing completed
+2025-09-26 11:05:39,500 - INFO - ---
+2025-09-26 11:05:39,500 - INFO - ⚡ 正在处理样本 | Processing sample: 150
+2025-09-26 11:05:39,500 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/150_1.fq.gz
+2025-09-26 11:05:39,500 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/150_2.fq.gz
+2025-09-26 11:05:39,500 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/150_1.clean.fq.gz
+2025-09-26 11:05:39,500 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/150_2.clean.fq.gz
+2025-09-26 11:05:39,500 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/150.html
+2025-09-26 11:05:39,500 - INFO - ---
+2025-09-26 11:05:39,500 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 150
+2025-09-26 11:05:39,500 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/150_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/150_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/150_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/150_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/150.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/150.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:07:01,273 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 150
+2025-09-26 11:07:01,273 - INFO - ✅ 样本 150 处理完成 | Sample 150 processing completed
+2025-09-26 11:07:01,273 - INFO - ---
+2025-09-26 11:07:01,273 - INFO - ⚡ 正在处理样本 | Processing sample: 49
+2025-09-26 11:07:01,273 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/49_1.fq.gz
+2025-09-26 11:07:01,273 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/49_2.fq.gz
+2025-09-26 11:07:01,273 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/49_1.clean.fq.gz
+2025-09-26 11:07:01,273 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/49_2.clean.fq.gz
+2025-09-26 11:07:01,274 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/49.html
+2025-09-26 11:07:01,274 - INFO - ---
+2025-09-26 11:07:01,274 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 49
+2025-09-26 11:07:01,274 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/49_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/49_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/49_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/49_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/49.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/49.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:08:45,119 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 49
+2025-09-26 11:08:45,120 - INFO - ✅ 样本 49 处理完成 | Sample 49 processing completed
+2025-09-26 11:08:45,120 - INFO - ---
+2025-09-26 11:08:45,120 - INFO - ⚡ 正在处理样本 | Processing sample: 42
+2025-09-26 11:08:45,120 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/42_1.fq.gz
+2025-09-26 11:08:45,120 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/42_2.fq.gz
+2025-09-26 11:08:45,120 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/42_1.clean.fq.gz
+2025-09-26 11:08:45,120 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/42_2.clean.fq.gz
+2025-09-26 11:08:45,120 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/42.html
+2025-09-26 11:08:45,120 - INFO - ---
+2025-09-26 11:08:45,120 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 42
+2025-09-26 11:08:45,120 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/42_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/42_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/42_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/42_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/42.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/42.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:10:11,046 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 42
+2025-09-26 11:10:11,046 - INFO - ✅ 样本 42 处理完成 | Sample 42 processing completed
+2025-09-26 11:10:11,046 - INFO - ---
+2025-09-26 11:10:11,046 - INFO - ⚡ 正在处理样本 | Processing sample: 103
+2025-09-26 11:10:11,046 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/103_1.fq.gz
+2025-09-26 11:10:11,046 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/103_2.fq.gz
+2025-09-26 11:10:11,046 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/103_1.clean.fq.gz
+2025-09-26 11:10:11,046 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/103_2.clean.fq.gz
+2025-09-26 11:10:11,046 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/103.html
+2025-09-26 11:10:11,046 - INFO - ---
+2025-09-26 11:10:11,046 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 103
+2025-09-26 11:10:11,046 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/103_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/103_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/103_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/103_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/103.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/103.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:11:35,650 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 103
+2025-09-26 11:11:35,651 - INFO - ✅ 样本 103 处理完成 | Sample 103 processing completed
+2025-09-26 11:11:35,651 - INFO - ---
+2025-09-26 11:11:35,651 - INFO - ⚡ 正在处理样本 | Processing sample: 46
+2025-09-26 11:11:35,651 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/46_1.fq.gz
+2025-09-26 11:11:35,651 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/46_2.fq.gz
+2025-09-26 11:11:35,651 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/46_1.clean.fq.gz
+2025-09-26 11:11:35,651 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/46_2.clean.fq.gz
+2025-09-26 11:11:35,651 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/46.html
+2025-09-26 11:11:35,651 - INFO - ---
+2025-09-26 11:11:35,651 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 46
+2025-09-26 11:11:35,651 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/46_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/46_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/46_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/46_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/46.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/46.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:13:21,644 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 46
+2025-09-26 11:13:21,644 - INFO - ✅ 样本 46 处理完成 | Sample 46 processing completed
+2025-09-26 11:13:21,644 - INFO - ---
+2025-09-26 11:13:21,644 - INFO - ⚡ 正在处理样本 | Processing sample: 77
+2025-09-26 11:13:21,644 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/77_1.fq.gz
+2025-09-26 11:13:21,644 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/77_2.fq.gz
+2025-09-26 11:13:21,644 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/77_1.clean.fq.gz
+2025-09-26 11:13:21,644 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/77_2.clean.fq.gz
+2025-09-26 11:13:21,644 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/77.html
+2025-09-26 11:13:21,644 - INFO - ---
+2025-09-26 11:13:21,644 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 77
+2025-09-26 11:13:21,644 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/77_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/77_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/77_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/77_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/77.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/77.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:14:42,430 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 77
+2025-09-26 11:14:42,430 - INFO - ✅ 样本 77 处理完成 | Sample 77 processing completed
+2025-09-26 11:14:42,430 - INFO - ---
+2025-09-26 11:14:42,430 - INFO - ⚡ 正在处理样本 | Processing sample: 12
+2025-09-26 11:14:42,430 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/12_1.fq.gz
+2025-09-26 11:14:42,430 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/12_2.fq.gz
+2025-09-26 11:14:42,430 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/12_1.clean.fq.gz
+2025-09-26 11:14:42,430 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/12_2.clean.fq.gz
+2025-09-26 11:14:42,430 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/12.html
+2025-09-26 11:14:42,430 - INFO - ---
+2025-09-26 11:14:42,430 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 12
+2025-09-26 11:14:42,430 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/12_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/12_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/12_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/12_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/12.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/12.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:16:31,390 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 12
+2025-09-26 11:16:31,390 - INFO - ✅ 样本 12 处理完成 | Sample 12 processing completed
+2025-09-26 11:16:31,390 - INFO - ---
+2025-09-26 11:16:31,391 - INFO - ⚡ 正在处理样本 | Processing sample: 44
+2025-09-26 11:16:31,391 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/44_1.fq.gz
+2025-09-26 11:16:31,391 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/44_2.fq.gz
+2025-09-26 11:16:31,391 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/44_1.clean.fq.gz
+2025-09-26 11:16:31,391 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/44_2.clean.fq.gz
+2025-09-26 11:16:31,391 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/44.html
+2025-09-26 11:16:31,391 - INFO - ---
+2025-09-26 11:16:31,391 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 44
+2025-09-26 11:16:31,391 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/44_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/44_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/44_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/44_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/44.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/44.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:18:22,262 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 44
+2025-09-26 11:18:22,262 - INFO - ✅ 样本 44 处理完成 | Sample 44 processing completed
+2025-09-26 11:18:22,262 - INFO - ---
+2025-09-26 11:18:22,262 - INFO - ⚡ 正在处理样本 | Processing sample: 26
+2025-09-26 11:18:22,262 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/26_1.fq.gz
+2025-09-26 11:18:22,262 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/26_2.fq.gz
+2025-09-26 11:18:22,263 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/26_1.clean.fq.gz
+2025-09-26 11:18:22,263 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/26_2.clean.fq.gz
+2025-09-26 11:18:22,263 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/26.html
+2025-09-26 11:18:22,263 - INFO - ---
+2025-09-26 11:18:22,263 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 26
+2025-09-26 11:18:22,263 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/26_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/26_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/26_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/26_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/26.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/26.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:19:50,857 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 26
+2025-09-26 11:19:50,857 - INFO - ✅ 样本 26 处理完成 | Sample 26 processing completed
+2025-09-26 11:19:50,857 - INFO - ---
+2025-09-26 11:19:50,857 - INFO - ⚡ 正在处理样本 | Processing sample: 54
+2025-09-26 11:19:50,857 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/54_1.fq.gz
+2025-09-26 11:19:50,857 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/54_2.fq.gz
+2025-09-26 11:19:50,858 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/54_1.clean.fq.gz
+2025-09-26 11:19:50,858 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/54_2.clean.fq.gz
+2025-09-26 11:19:50,858 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/54.html
+2025-09-26 11:19:50,858 - INFO - ---
+2025-09-26 11:19:50,858 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 54
+2025-09-26 11:19:50,858 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/54_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/54_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/54_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/54_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/54.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/54.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:21:38,680 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 54
+2025-09-26 11:21:38,680 - INFO - ✅ 样本 54 处理完成 | Sample 54 processing completed
+2025-09-26 11:21:38,681 - INFO - ---
+2025-09-26 11:21:38,681 - INFO - ⚡ 正在处理样本 | Processing sample: 69
+2025-09-26 11:21:38,681 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/69_1.fq.gz
+2025-09-26 11:21:38,681 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/69_2.fq.gz
+2025-09-26 11:21:38,681 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/69_1.clean.fq.gz
+2025-09-26 11:21:38,681 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/69_2.clean.fq.gz
+2025-09-26 11:21:38,681 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/69.html
+2025-09-26 11:21:38,681 - INFO - ---
+2025-09-26 11:21:38,681 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 69
+2025-09-26 11:21:38,681 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/69_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/69_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/69_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/69_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/69.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/69.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:23:22,229 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 69
+2025-09-26 11:23:22,229 - INFO - ✅ 样本 69 处理完成 | Sample 69 processing completed
+2025-09-26 11:23:22,229 - INFO - ---
+2025-09-26 11:23:22,229 - INFO - ⚡ 正在处理样本 | Processing sample: 105
+2025-09-26 11:23:22,229 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/105_1.fq.gz
+2025-09-26 11:23:22,229 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/105_2.fq.gz
+2025-09-26 11:23:22,229 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/105_1.clean.fq.gz
+2025-09-26 11:23:22,229 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/105_2.clean.fq.gz
+2025-09-26 11:23:22,229 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/105.html
+2025-09-26 11:23:22,229 - INFO - ---
+2025-09-26 11:23:22,229 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 105
+2025-09-26 11:23:22,229 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/105_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/105_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/105_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/105_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/105.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/105.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:24:55,469 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 105
+2025-09-26 11:24:55,469 - INFO - ✅ 样本 105 处理完成 | Sample 105 processing completed
+2025-09-26 11:24:55,469 - INFO - ---
+2025-09-26 11:24:55,469 - INFO - ⚡ 正在处理样本 | Processing sample: 117
+2025-09-26 11:24:55,469 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/117_1.fq.gz
+2025-09-26 11:24:55,469 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/117_2.fq.gz
+2025-09-26 11:24:55,469 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/117_1.clean.fq.gz
+2025-09-26 11:24:55,469 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/117_2.clean.fq.gz
+2025-09-26 11:24:55,469 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/117.html
+2025-09-26 11:24:55,469 - INFO - ---
+2025-09-26 11:24:55,469 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 117
+2025-09-26 11:24:55,469 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/117_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/117_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/117_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/117_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/117.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/117.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:26:18,724 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 117
+2025-09-26 11:26:18,725 - INFO - ✅ 样本 117 处理完成 | Sample 117 processing completed
+2025-09-26 11:26:18,725 - INFO - ---
+2025-09-26 11:26:18,725 - INFO - ⚡ 正在处理样本 | Processing sample: 56
+2025-09-26 11:26:18,725 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/56_1.fq.gz
+2025-09-26 11:26:18,725 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/56_2.fq.gz
+2025-09-26 11:26:18,725 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/56_1.clean.fq.gz
+2025-09-26 11:26:18,725 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/56_2.clean.fq.gz
+2025-09-26 11:26:18,725 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/56.html
+2025-09-26 11:26:18,725 - INFO - ---
+2025-09-26 11:26:18,725 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 56
+2025-09-26 11:26:18,725 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/56_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/56_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/56_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/56_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/56.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/56.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:27:59,764 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 56
+2025-09-26 11:27:59,764 - INFO - ✅ 样本 56 处理完成 | Sample 56 processing completed
+2025-09-26 11:27:59,764 - INFO - ---
+2025-09-26 11:27:59,764 - INFO - ⚡ 正在处理样本 | Processing sample: 47
+2025-09-26 11:27:59,764 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/47_1.fq.gz
+2025-09-26 11:27:59,764 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/47_2.fq.gz
+2025-09-26 11:27:59,764 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/47_1.clean.fq.gz
+2025-09-26 11:27:59,764 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/47_2.clean.fq.gz
+2025-09-26 11:27:59,764 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/47.html
+2025-09-26 11:27:59,764 - INFO - ---
+2025-09-26 11:27:59,764 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 47
+2025-09-26 11:27:59,764 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/47_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/raw/47_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/47_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/47_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/47.html -j /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports/47.json -w 16 -q 30 -l 50 -u 40 -n 10
+2025-09-26 11:29:27,792 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 47
+2025-09-26 11:29:27,793 - INFO - ✅ 样本 47 处理完成 | Sample 47 processing completed
+2025-09-26 11:29:27,793 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_processing_summary.txt
+2025-09-26 11:29:27,793 - INFO - ============================================================
+2025-09-26 11:29:27,793 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-09-26 11:29:27,793 - INFO - 🧮 总样本数 | Total samples: 50
+2025-09-26 11:29:27,793 - INFO - ✅ 成功处理 | Successfully processed: 50
+2025-09-26 11:29:27,793 - INFO - ❌ 失败样本 | Failed samples: 0
+2025-09-26 11:29:27,793 - INFO - 📊 成功率 | Success rate: 100.0%
+2025-09-26 11:29:27,793 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+2025-09-26 11:29:27,793 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/fastp_reports
+2025-09-26 11:29:27,793 - INFO - ============================================================

@@ -1,0 +1,1 @@
+allhic partition zhugecai.filtered.counts_GATC.txt zhugecai.filtered.pairs.txt 12

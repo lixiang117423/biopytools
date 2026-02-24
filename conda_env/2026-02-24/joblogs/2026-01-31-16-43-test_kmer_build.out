@@ -1,0 +1,45 @@
+2026-01-31 16:43:42.211 - INFO - 找到kmtricks|Found kmtricks: unknown
+2026-01-31 16:43:42.630 - INFO - 找到bgzip|Found bgzip
+2026-01-31 16:43:42.630 - INFO - ============================================================
+2026-01-31 16:43:42.630 - INFO - 开始K-mer库构建|Starting K-mer database build
+2026-01-31 16:43:42.630 - INFO - ============================================================
+2026-01-31 16:43:43.959 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
+2026-01-31 16:43:43.960 - INFO - 生成FOF文件|Generating FOF file
+2026-01-31 16:43:43.960 - INFO - 检测到双末端数据|Detected paired-end data: 7 samples
+2026-01-31 16:43:44.042 - INFO - FOF文件已生成（双末端）|FOF file generated (paired-end): input.fof
+2026-01-31 16:43:44.042 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
+2026-01-31 16:43:44.042 - INFO - 自动计算分区数|Auto-calculated partitions: 10
+2026-01-31 16:43:44.042 - INFO - 样本数|Samples: 7, 线程数|Threads: 32
+2026-01-31 16:43:44.042 - INFO - 使用分区数|Using partitions: 10
+2026-01-31 16:43:44.042 - INFO - 执行步骤|Executing step: 执行kmtricks pipeline|Executing kmtricks pipeline
+2026-01-31 16:43:44.042 - INFO - 命令|Command: kmtricks pipeline --file input.fof --run-dir kmtricks_run --kmer-size 51 --hard-min 2 --recurrence-min 1 --mode kmer:pa:bin --cpr -t 32 --nb-partitions 10
+2026-01-31 17:03:39.050 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 17:03:39.053 - WARNING - 标准错误|Stderr: [2026-01-31 16:43:44.045] [info] Run with Kmer<64> - __uint128_t implementation
+[2026-01-31 16:43:44.106] [info] Compute configuration...
+[2026-01-31 16:43:44.106] [info] 7 samples found (14 read files).
+[2026-01-31 16:43:47.402] [info] Use 10 partitions.
+[2026-01-31 16:43:47.425] [info] Compute minimizer repartition...
+[2026-01-31 17:03:39.034] [info] Done in 19m54s - Peak RSS -> 290131.07 MB.
+
+2026-01-31 17:03:39.053 - INFO - kmtricks pipeline完成|kmtricks pipeline completed
+2026-01-31 17:03:39.053 - INFO - 运行kmtricks aggregate|Running kmtricks aggregate
+2026-01-31 17:03:39.053 - INFO - 执行步骤|Executing step: 执行kmtricks aggregate|Executing kmtricks aggregate
+2026-01-31 17:03:39.053 - INFO - 命令|Command: kmtricks aggregate --run-dir kmtricks_run --pa-matrix kmer --format text --cpr-in -t 32 --output kmer_matrix.txt
+2026-01-31 17:18:13.646 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 17:18:13.656 - WARNING - 标准错误|Stderr: [2026-01-31 17:03:39.103] [info] Run with Kmer<64> - __uint128_t implementation
+
+2026-01-31 17:18:13.656 - INFO - kmtricks aggregate完成|kmtricks aggregate completed: kmer_matrix.txt
+2026-01-31 17:18:13.656 - INFO - 压缩矩阵文件|Compressing matrix file
+2026-01-31 17:18:13.656 - INFO - 执行步骤|Executing step: 压缩矩阵文件|Compressing matrix file
+2026-01-31 17:18:13.656 - INFO - 命令|Command: bgzip -k kmer_matrix.txt -@ 32
+2026-01-31 17:18:13.710 - ERROR - 命令执行失败|Command execution failed: 压缩矩阵文件|Compressing matrix file
+2026-01-31 17:18:13.710 - ERROR - 错误代码|Error code: 2
+2026-01-31 17:18:13.710 - ERROR - 错误信息|Error message: 
+2026-01-31 17:18:13.710 - INFO - 矩阵文件已压缩|Matrix file compressed: kmer_matrix.txt.gz
+2026-01-31 17:18:13.710 - INFO - 提取样本名|Extracting sample names
+2026-01-31 17:18:13.720 - INFO - 样本名已提取|Sample names extracted: header.txt
+2026-01-31 17:18:13.720 - INFO - 导入矩阵到RocksDB|Importing matrix to RocksDB
+2026-01-31 17:18:13.720 - INFO - 开始导入kmer矩阵到RocksDB|Starting kmer matrix import to RocksDB: rocksdb
+2026-01-31 17:18:13.720 - ERROR - RocksDB导入异常|RocksDB import error: 'BuildConfig' object has no attribute 'header_db_key'
+2026-01-31 17:18:13.720 - ERROR - 建库失败|Build failed: PipelineProcessor执行失败|PipelineProcessor execution failed
+2026-01-31 17:18:13.720 - ERROR - 建库失败|Build failed: PipelineProcessor执行失败|PipelineProcessor execution failed

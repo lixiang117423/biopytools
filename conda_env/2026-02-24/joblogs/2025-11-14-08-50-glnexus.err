@@ -1,0 +1,54 @@
+[4141965] [2025-11-14 08:50:11.518] [GLnexus] [info] glnexus_cli release v1.4.1-0-g68e25e5 Aug 13 2021
+[4141965] [2025-11-14 08:50:11.518] [GLnexus] [warning] jemalloc absent, which will impede performance with high thread counts. See https://github.com/dnanexus-rnd/GLnexus/wiki/Performance
+[4141965] [2025-11-14 08:50:11.518] [GLnexus] [info] Loading config preset gatk
+[4141965] [2025-11-14 08:50:11.522] [GLnexus] [info] config:
+unifier_config:
+  drop_filtered: false
+  min_allele_copy_number: 1
+  min_AQ1: 70
+  min_AQ2: 40
+  min_GQ: 40
+  max_alleles_per_site: 32
+  monoallelic_sites_for_lost_alleles: true
+  preference: common
+genotyper_config:
+  revise_genotypes: true
+  min_assumed_allele_frequency: 9.99999975e-05
+  snv_prior_calibration: 1
+  indel_prior_calibration: 1
+  required_dp: 1
+  allow_partial_data: false
+  allele_dp_format: AD
+  ref_dp_format: MIN_DP
+  output_residuals: false
+  more_PL: false
+  squeeze: false
+  trim_uncalled_alleles: false
+  top_two_half_calls: false
+  output_format: BCF
+  liftover_fields:
+    - {orig_names: [MIN_DP, DP], name: DP, description: "##FORMAT=<ID=DP,Number=1,Type=Integer,Description=\"Approximate read depth (reads with MQ=255 or with bad mates are filtered)\">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+    - {orig_names: [AD], name: AD, description: "##FORMAT=<ID=AD,Number=R,Type=Integer,Description=\"Allelic depths for the ref and alt alleles in the order listed\">", type: int, number: alleles, default_type: zero, count: 0, combi_method: min, ignore_non_variants: false}
+    - {orig_names: [SB], name: SB, description: "##FORMAT=<ID=SB,Number=4,Type=Integer,Description=\"Per-sample component statistics which comprise the Fishers Exact Test to detect strand bias.\">", type: int, number: basic, default_type: missing, count: 4, combi_method: missing, ignore_non_variants: false}
+    - {orig_names: [GQ], name: GQ, description: "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+    - {orig_names: [PL], name: PL, description: "##FORMAT=<ID=PL,Number=G,Type=Integer,Description=\"Phred-scaled genotype Likelihoods\">", type: int, number: genotype, default_type: missing, count: 0, combi_method: missing, ignore_non_variants: true}
+[4141965] [2025-11-14 08:50:11.522] [GLnexus] [info] config CRC32C = 1926883223
+[4141965] [2025-11-14 08:50:11.522] [GLnexus] [info] init database, exemplar_vcf=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping/vcf/41.g.vcf.gz
+[4141965] [2025-11-14 08:50:11.643] [GLnexus] [info] Initialized GLnexus database in GLnexus.DB
+[4141965] [2025-11-14 08:50:11.643] [GLnexus] [info] bucket size: 30000
+[4141965] [2025-11-14 08:50:11.643] [GLnexus] [info] contigs: Chr01 Chr02 Chr03 Chr04 Chr05 Chr06 Chr07 Chr08 Chr09 Chr10 Chr11 Chr12
+[4141965] [2025-11-14 08:50:11.650] [GLnexus] [info] db_get_contigs GLnexus.DB
+[4141965] [2025-11-14 08:50:11.673] [GLnexus] [info] Beginning bulk load with no range filter.
+[4142354] [2025-11-14 08:50:26.498] [GLnexus] [info] 100/420 (B3-11)...
+[W::hts_idx_load2] The index file is older than the data file: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping/vcf/D2-7.g.vcf.gz.tbi
+[4142408] [2025-11-14 08:50:37.395] [GLnexus] [info] 200/420 (D2-11)...
+[4142407] [2025-11-14 08:50:47.669] [GLnexus] [info] 300/420 (N3-18)...
+[4142362] [2025-11-14 08:51:03.463] [GLnexus] [info] 400/420 (SRR10321558)...
+[4141965] [2025-11-14 08:51:06.724] [GLnexus] [info] Loaded 419 datasets with 419 samples; 234090479496 bytes in 2360129116 BCF records (1098122 duplicate) in 1184341 buckets. Bucket max 1084576 bytes, 8907 records. 1362 BCF records skipped due to caller-specific exceptions
+[4141965] [2025-11-14 08:51:06.725] [GLnexus] [info] Created sample set *@419
+[4141965] [2025-11-14 08:51:06.725] [GLnexus] [error] /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping/vcf/A2-1.g.vcf.gz Exists: sample is currently being added; each input gVCF should have a unique sample name (header column #10) (A2-1 (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping/vcf/A2-1.g.vcf.gz))
+[4141965] [2025-11-14 08:54:42.574] [GLnexus] [error] Failed to bulk load into DB: Failure: One or more gVCF inputs failed validation or database loading; check log for details.
+Failed to read from /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.glnexus_joint/merged_output.bcf: unknown file type
+index: "/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.glnexus_joint/merged_output.vcf.gz" is in a format that cannot be usefully indexed
+Job 68027383 stderr output:
+

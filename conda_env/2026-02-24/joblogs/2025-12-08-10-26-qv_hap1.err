@@ -1,0 +1,76 @@
+
+Found 1 command tree.
+
+Counting 55 (estimated) billion canonical 21-mers from 1 input file:
+    sequence-file: OV53_1-hifi.fq
+
+
+SIMPLE MODE
+-----------
+
+  21-mers
+    -> 4398046511104 entries for counts up to 65535.
+    -> 64 Tbits memory used
+
+  59724833744 input bases
+    -> expected max count of 238899334, needing 13 extra bits.
+    -> 52 Tbits memory used
+
+  14 TB memory needed
+
+
+COMPLEX MODE
+------------
+
+prefix     # of   struct   kmers/    segs/      min     data    total
+  bits   prefix   memory   prefix   prefix   memory   memory   memory
+------  -------  -------  -------  -------  -------  -------  -------
+     1     2  P   285 MB    13 GM    17 MS  8192  B   142 GB   142 GB
+     2     4  P   278 MB  7119 MM  8901 kS    16 kB   139 GB   139 GB
+     3     8  P   271 MB  3559 MM  4339 kS    32 kB   135 GB   135 GB
+     4    16  P   264 MB  1779 MM  2114 kS    64 kB   132 GB   132 GB
+     5    32  P   257 MB   889 MM  1029 kS   128 kB   128 GB   128 GB
+     6    64  P   250 MB   444 MM   500 kS   256 kB   125 GB   125 GB
+     7   128  P   243 MB   222 MM   243 kS   512 kB   121 GB   121 GB
+     8   256  P   237 MB   111 MM   118 kS  1024 kB   118 GB   118 GB
+     9   512  P   231 MB    55 MM    57 kS  2048 kB   114 GB   115 GB
+    10  1024  P   225 MB    27 MM    27 kS  4096 kB   111 GB   111 GB
+    11  2048  P   221 MB    13 MM    13 kS  8192 kB   107 GB   107 GB
+    12  4096  P   221 MB  7119 kM  6677  S    16 MB   104 GB   104 GB
+    13  8192  P   227 MB  3559 kM  3229  S    32 MB   100 GB   101 GB
+    14    16 kP   245 MB  1779 kM  1558  S    64 MB    97 GB    97 GB
+    15    32 kP   289 MB   889 kM   752  S   128 MB    94 GB    94 GB
+    16    64 kP   383 MB   444 kM   362  S   256 MB    90 GB    90 GB
+    17   128 kP   578 MB   222 kM   174  S   512 MB    87 GB    87 GB
+    18   256 kP   976 MB   111 kM    84  S  1024 MB    84 GB    84 GB
+    19   512 kP  1776 MB    55 kM    40  S  2048 MB    80 GB    81 GB
+    20  1024 kP  3392 MB    27 kM    20  S  4096 MB    80 GB    83 GB
+    21  2048 kP  6624 MB    13 kM    10  S  8192 MB    80 GB    86 GB
+    22  4096 kP    12 GB  7120  M     5  S    16 GB    80 GB    92 GB  Best Value!
+    23  8192 kP    25 GB  3560  M     3  S    32 GB    96 GB   121 GB
+    24    16 MP    50 GB  1780  M     1  S    64 GB    64 GB   114 GB
+    25    32 MP   101 GB   890  M     1  S   128 GB   128 GB   229 GB
+    26    64 MP   202 GB   445  M     1  S   256 GB   256 GB   458 GB
+    27   128 MP   405 GB   223  M     1  S   512 GB   512 GB   917 GB
+    28   256 MP   810 GB   112  M     1  S  1024 GB  1024 GB  1834 GB
+    29   512 MP  1620 GB    56  M     1  S  2048 GB  2048 GB  3668 GB
+
+
+FINAL CONFIGURATION
+-------------------
+
+Estimated to require 156 GB memory out of 400 GB allowed.
+Estimated to require 2 batches.
+
+Configured complex mode for 156.906 GB memory per batch, and up to 2 batches.
+
+Start counting with THREADED method.
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+Failed with 'Aborted'; backtrace (libbacktrace):
+
+Failed with 'Segmentation fault'; backtrace (libbacktrace):
+/share/org/YZWL/yzwl_lixg/software/scripts/04.基因组组装基础结果统计.sh: 行 219: 60089 Segmentation fault      (核心已转储)meryl count k=$KMER output $MERYL_DB $READS_FQ threads=$THREADS memory=400g
+Job 68322997 stderr output:
+

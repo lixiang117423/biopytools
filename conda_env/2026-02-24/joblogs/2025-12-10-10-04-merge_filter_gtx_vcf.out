@@ -1,0 +1,46 @@
+🚀 检查依赖工具...
+
+🚀 开始处理...
+   📂 输入目录: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/01.gtx_joint/output
+   💾 输出文件: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/01.gtx_joint/gtx_joint_merged.vcf.gz
+   🧵 线程数: 88
+   🔍 文件模式: *.vcf.gz
+
+   ✓ 找到 61 个 VCF 文件
+   文件列表:
+      [1] Chr01_1-20000000.joint.vcf.gz
+      [2] Chr01_20000001-40000000.joint.vcf.gz
+      [3] Chr01_40000001-60000000.joint.vcf.gz
+      ...
+      [59] Chr20_1-20000000.joint.vcf.gz
+      [60] Chr20_20000001-40000000.joint.vcf.gz
+      [61] Chr20_40000001-51736684.joint.vcf.gz
+
+   ⚙️ 验证文件索引...
+
+⚙️ 使用拼接模式（快速）
+   ⚙️ 正在合并 VCF 文件...
+🚀 检查依赖工具...
+
+🚀 开始处理...
+   📂 输入目录: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/01.gtx_joint/output
+   💾 输出文件: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.第一批720个样品/01.gtx_joint/gtx_joint_merged.vcf.gz
+   🧵 线程数: 88
+   🔍 文件模式: *.vcf.gz
+
+   ✓ 找到 61 个 VCF 文件
+   文件列表:
+      [1] Chr01_1-20000000.joint.vcf.gz
+      [2] Chr01_20000001-40000000.joint.vcf.gz
+      [3] Chr01_40000001-60000000.joint.vcf.gz
+      ...
+      [59] Chr20_1-20000000.joint.vcf.gz
+      [60] Chr20_20000001-40000000.joint.vcf.gz
+      [61] Chr20_40000001-51736684.joint.vcf.gz
+
+   ⚙️ 验证文件索引...
+
+⚙️ 使用拼接模式（快速）
+   ⚙️ 正在合并 VCF 文件...
+      Checking the headers and starting positions of 61 files
+   ⚙️ 正在建立索引...

@@ -1,0 +1,44 @@
+
+🚀 ================= STARTING ALLHiC PIPELINE =================
+📂 Work Dir : /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/05.allhic
+🧬 Ref Fasta: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/05.allhic/OV53_1.primary.fa
+✂️  Enzyme   : MboI (GATC)
+🔢 Target K : 12
+🧵 Threads  : 64
+=============================================================
+
+🔗 [Step 0] Linking input files...
+✅ Step 0 Done.
+
+🔍 [Step 1] Building index and mapping Hi-C reads...
+⚠️  sample.bam already exists. Skipping Step 1.
+
+🔪 [Step 2] Filtering BAM file (MAPQ >= 1)...
+⚠️  sample.filtered.bam already exists. Skipping Step 2.
+
+🧬 [Step 3] Extracting Hi-C link information...
+⚠️  sample.filtered.counts_GATC.txt and sample.filtered.pairs.txt already exist. Skipping Step 3.
+
+📦 [Step 4] Partitioning contigs into 12 groups...
+   Running allhic partition...
+   Generated files:
+   No partition output files found!
+✅ Step 4 Done.
+   Checking partition output files...
+   ❌ No partition files found! Listing all .txt files:
+-rw-r--r-- 1 yzwl_lixg yzwl_lixg  24 11月 22 21:21 sample.filtered.clusters.txt
+-rw-r--r-- 1 yzwl_lixg yzwl_lixg 28K 11月 22 20:46 sample.filtered.counts_GATC.txt
+-rw-r--r-- 1 yzwl_lixg yzwl_lixg 11K 11月 22 21:08 sample.filtered.distribution.txt
+-rw-r--r-- 1 yzwl_lixg yzwl_lixg   0 11月 22 21:09 sample.filtered.pairs.txt
+
+⚙️  [Step 5] Optimizing ordering and orientation for each group...
+   Detecting partition output files...
+   ❌ Error: Cannot find partition output files!
+   Searched for:
+     - sample.filtered.counts_GATC.12g*.txt
+     - counts_GATC.12g*.txt
+   Available files in directory:
+-rw-r--r-- 1 yzwl_lixg yzwl_lixg  24 11月 22 21:21 sample.filtered.clusters.txt
+-rw-r--r-- 1 yzwl_lixg yzwl_lixg 28K 11月 22 20:46 sample.filtered.counts_GATC.txt
+-rw-r--r-- 1 yzwl_lixg yzwl_lixg 11K 11月 22 21:08 sample.filtered.distribution.txt
+-rw-r--r-- 1 yzwl_lixg yzwl_lixg   0 11月 22 21:09 sample.filtered.pairs.txt

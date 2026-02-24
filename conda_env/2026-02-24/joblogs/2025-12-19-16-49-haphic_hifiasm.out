@@ -1,0 +1,35 @@
+[2025-12-19 16:49:04] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-19 16:49:04] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-19 16:49:04]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/24.hifi_genome/hifiasm/OV53_1.primary.fasta
+[2025-12-19 16:49:04]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-19 16:49:04]   hic_file_type: fastq
+[2025-12-19 16:49:04]   nchrs: 12
+[2025-12-19 16:49:04]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/29.纯hifi数据组装的基因组进行挂载
+[2025-12-19 16:49:04]   prefix: OV53_1.primary
+[2025-12-19 16:49:04]   threads: 64
+[2025-12-19 16:49:04]   processes: 64
+[2025-12-19 16:49:04]   quick_view: False
+[2025-12-19 16:49:04]   restriction_sites: ['GATC']
+[2025-12-19 16:49:04]   correct_nrounds: 2
+[2025-12-19 16:49:04]   remove_allelic_links: None
+[2025-12-19 16:49:04]   phasing_weight: 1.0
+[2025-12-19 16:49:04]   gfa_files: None
+[2025-12-19 16:49:04]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-19 16:49:04]   bwa_bin: bwa
+[2025-12-19 16:49:04]   samtools_bin: samtools
+[2025-12-19 16:49:04] 🔄 从步骤继续运行: reassign
+[2025-12-19 16:49:04] 🔍 系统预检查 | System pre-flight checks
+[2025-12-19 16:49:04] 🔍 验证输入文件 | Validating input files
+[2025-12-19 16:49:07] 📊 基因组序列数量 | Assembly sequence count: 1455
+[2025-12-19 16:49:07] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 60.14 GB
+[2025-12-19 16:49:07] ✅ 输入文件验证通过 | Input files validated
+[2025-12-19 16:49:07] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-19 16:49:07] 💾 可用内存 | Available memory: 7.5 GB
+[2025-12-19 16:49:07] 💾 可用磁盘空间 | Available disk space: 2574460.7 GB
+[2025-12-19 16:49:07] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-19 16:49:07] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-19 16:49:07] 🔄 运行步骤: reassign
+[2025-12-19 16:49:07] 🎯 运行步骤: reassign
+[2025-12-19 16:49:07] 🔄 [步骤2] 重新分配 | [Step 2] Reassignment
+[2025-12-19 16:49:07] 💥 查找聚类结果时出错: 'cluster'
+[2025-12-19 16:49:07] ⏱️ 流程耗时 | Pipeline time: 2.87秒

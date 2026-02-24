@@ -1,0 +1,70 @@
+2026-01-24 14:24:58.488 - INFO - 检查JanusX依赖|Checking JanusX dependencies
+2026-01-24 14:24:58.506 - INFO - JanusX路径|JanusX path: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin
+2026-01-24 14:25:00.708 - INFO - JanusX可执行文件检查通过|JanusX executable check passed
+2026-01-24 14:25:00.708 - INFO - ============================================================
+2026-01-24 14:25:00.709 - INFO - 开始JanusX GWAS分析|Starting JanusX GWAS analysis
+2026-01-24 14:25:00.709 - INFO - ============================================================
+2026-01-24 14:25:00.709 - INFO - 基因型文件|Genotype file: /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.vcf.gz
+2026-01-24 14:25:00.709 - INFO - 表型文件|Phenotype file: /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-01-24 14:25:00.709 - INFO - GWAS模型|GWAS models: lmm
+2026-01-24 14:25:00.709 - INFO - MAF阈值|MAF threshold: 0.05
+2026-01-24 14:25:00.709 - INFO - 缺失率阈值|Missing rate threshold: 0.0
+2026-01-24 14:25:00.709 - INFO - 线程数|Threads: 64
+2026-01-24 14:25:00.709 - INFO - 输出目录|Output directory: farmcpu
+2026-01-24 14:25:00.709 - INFO - 构建命令|Command built: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.vcf.gz -p /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -lmm -maf 0.05 -geno 0.0 -t 64 -o farmcpu -prefix chr.snp.182.samples.maf005.vcf
+2026-01-24 14:25:00.709 - INFO - 运行GWAS分析|Running GWAS analysis: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.vcf.gz -p /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -lmm -maf 0.05 -geno 0.0 -t 64 -o farmcpu -prefix chr.snp.182.samples.maf005.vcf
+2026-01-24 14:32:16.636 - INFO - 输出|Output:        _                      __   __
+2026-01-24 14:32:16.637 - INFO - 输出|Output:       | |                     \ \ / /
+2026-01-24 14:32:16.637 - INFO - 输出|Output:       | | __ _ _ __  _   _ ___ \ V / 
+2026-01-24 14:32:16.637 - INFO - 输出|Output:   _   | |/ _` | '_ \| | | / __| > <  
+2026-01-24 14:32:16.637 - INFO - 输出|Output:  | |__| | (_| | | | | |_| \__ \/ . \ 
+2026-01-24 14:32:16.637 - INFO - 输出|Output:   \____/ \__,_|_| |_|\__,_|___/_/ \_\ Tools for GWAS and GS
+2026-01-24 14:32:16.637 - INFO - 输出|Output: JanusX - High Performance GWAS CLI (LMM/LM: streaming low-memory; FarmCPU: full-memory)
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Host: c02n0017
+2026-01-24 14:32:16.637 - INFO - 输出|Output: ************************************************************
+2026-01-24 14:32:16.637 - INFO - 输出|Output: GWAS CONFIGURATION
+2026-01-24 14:32:16.637 - INFO - 输出|Output: ************************************************************
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Genotype file:    /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.vcf.gz
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Phenotype file:   /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Phenotype cols:   All
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Mmap limit:       False
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Models:           LMM 
+2026-01-24 14:32:16.637 - INFO - 输出|Output: GRM option:       1
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Q option:         0
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Maf threshold:    0.05
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Miss threshold:   0.0
+2026-01-24 14:32:16.637 - INFO - 输出|Output: Chunk size:       100000
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Threads:          64 (64 available)
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Output prefix:    farmcpu/chr.snp.182.samples.maf005.vcf
+2026-01-24 14:32:16.639 - INFO - 输出|Output: ************************************************************
+2026-01-24 14:32:16.639 - INFO - 输出|Output: ============================================================
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Prepare streaming context (phenotype/genotype meta/GRM/Q/cov)
+2026-01-24 14:32:16.639 - INFO - 输出|Output: ============================================================
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Loading phenotype from /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt...
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Genotype meta: 181 samples, 6550834 SNPs.
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Cache prefix (genotype folder): /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Building GRM (streaming), method=1
+2026-01-24 14:32:16.639 - INFO - 输出|Output: GRM construction finished.
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Cached GRM written to /share/org/YZWL/yzwl_lixg/tmp/test_janusx/test_gwas/chr.snp.182.samples.maf005.k.1.npy
+2026-01-24 14:32:16.639 - INFO - 输出|Output: GRM shape: (181, 181)
+2026-01-24 14:32:16.639 - INFO - 输出|Output: PC dimension set to 0; using empty Q matrix.
+2026-01-24 14:32:16.639 - INFO - 输出|Output: Q matrix shape: (181, 0)
+2026-01-24 14:32:16.640 - INFO - 输出|Output: ============================================================
+2026-01-24 14:32:16.640 - INFO - 输出|Output: Run streaming LMM
+2026-01-24 14:32:16.640 - INFO - 输出|Output: ============================================================
+2026-01-24 14:32:16.640 - INFO - 输出|Output: Streaming LMM GWAS for trait: level
+2026-01-24 14:32:16.640 - INFO - 输出|Output: Start Eigen-Decomposition...
+2026-01-24 14:32:16.640 - INFO - 输出|Output: EVD cost 0.13 secs
+2026-01-24 14:32:16.649 - INFO - 输出|Output: Samples: 181, Total SNPs: 121388, PVE(null): 0.27
+2026-01-24 14:32:16.649 - INFO - 输出|Output: Effective SNP: 121388 | Resource usage for LMM / level: 
+2026-01-24 14:32:16.649 - INFO - 输出|Output: wall=137.89 s, avg CPU=1.5% of 88 cores, avg RSS=0.59 GB, peak RSS ~ 1.00 GB
+2026-01-24 14:32:16.649 - INFO - 输出|Output: Saved LMM results to farmcpu/chr.snp.182.samples.maf005.vcf.level.lmm.tsv
+2026-01-24 14:32:16.649 - INFO - 输出|Output: Finished. Total wall time: 433.75 seconds
+2026-01-24 14:32:16.649 - INFO - 输出|Output: 2026-1-24 14:32:16
+2026-01-24 14:32:16.649 - INFO - ============================================================
+2026-01-24 14:32:16.649 - INFO - GWAS分析完成|GWAS analysis completed
+2026-01-24 14:32:16.649 - INFO - ============================================================
+2026-01-24 14:32:16.649 - INFO - 输出文件|Output files:
+2026-01-24 14:32:16.649 - INFO -   chr.snp.182.samples.maf005.vcf.gwas.log (0.00 MB)
+2026-01-24 14:32:16.650 - INFO -   chr.snp.182.samples.maf005.vcf.level.farmcpu.tsv (5.69 MB)
+2026-01-24 14:32:16.650 - INFO -   chr.snp.182.samples.maf005.vcf.level.lmm.tsv (5.92 MB)

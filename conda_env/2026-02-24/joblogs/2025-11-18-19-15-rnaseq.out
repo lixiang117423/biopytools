@@ -1,0 +1,40 @@
+2025-11-18 19:15:22,101 - INFO - ============================================================
+2025-11-18 19:15:22,101 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-11-18 19:15:22,101 - INFO - ============================================================
+2025-11-18 19:15:22,101 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/raw
+2025-11-18 19:15:22,101 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean
+2025-11-18 19:15:22,101 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-11-18 19:15:22,101 - INFO - ============================================================
+2025-11-18 19:15:22,322 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-11-18 19:15:22,323 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean
+2025-11-18 19:15:22,323 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean/fastp_reports
+2025-11-18 19:15:22,323 - WARNING - ⚠️ 在输入目录中未找到匹配模式的文件 | No files matching pattern found in input directory: *_1.fq.gz
+2025-11-18 19:15:22,323 - ERROR - ❌ 未找到有效的样本配对文件 | No valid sample pairs found
+2025-11-18 19:15:27,156 - INFO - ============================================================
+2025-11-18 19:15:27,156 - INFO - 🚀 RNA-seq分析流程开始 | RNA-seq analysis pipeline started
+2025-11-18 19:15:27,156 - INFO - ============================================================
+2025-11-18 19:15:27,156 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.fa
+2025-11-18 19:15:27,156 - INFO - 📂 输入路径 | Input path: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/2nd_rnaseq/clean
+2025-11-18 19:15:27,156 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上
+2025-11-18 19:15:27,156 - INFO - 📋 GTF文件 | GTF file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf
+2025-11-18 19:15:27,156 - INFO - 🔧 线程数 | Threads: 88
+2025-11-18 19:15:27,156 - INFO - 🗑️  删除BAM文件 | Remove BAM files: no
+2025-11-18 19:15:27,156 - INFO - 📋 文件模式 | File pattern: *_1.clean.fq.gz
+2025-11-18 19:15:27,156 - INFO - ============================================================
+2025-11-18 19:15:27,156 - INFO - 🔨 步骤1: 构建HISAT2索引 | Step 1: Building HISAT2 index
+2025-11-18 19:15:27,156 - INFO - ============================================================
+2025-11-18 19:15:27,156 - INFO - 🧬 提取剪接位点信息 | Extracting splice sites: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss
+2025-11-18 19:15:27,157 - INFO - 🚀 运行 | Running: 🔍 提取剪接位点信息 | Extract splice sites
+2025-11-18 19:15:27,157 - INFO - 💻 命令 | Command: extract_splice_sites.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss
+2025-11-18 19:15:28,936 - INFO - ✅ 🔍 提取剪接位点信息 | Extract splice sites 完成 | completed
+2025-11-18 19:15:28,937 - INFO - ✅ 剪接位点信息提取完成 | Splice sites extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss
+2025-11-18 19:15:28,937 - INFO - 🧬 提取外显子信息 | Extracting exons: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon
+2025-11-18 19:15:28,937 - INFO - 🚀 运行 | Running: 🔍 提取外显子信息 | Extract exons
+2025-11-18 19:15:28,937 - INFO - 💻 命令 | Command: extract_exons.py /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/complete.genomic.gtf > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon
+2025-11-18 19:15:29,142 - INFO - ✅ 🔍 提取外显子信息 | Extract exons 完成 | completed
+2025-11-18 19:15:29,142 - INFO - ✅ 外显子信息提取完成 | Exons extraction completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon
+2025-11-18 19:15:29,142 - INFO - ✨ 使用剪接位点文件 | Using splice sites file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss
+2025-11-18 19:15:29,144 - INFO - ✨ 使用外显子文件 | Using exons file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon
+2025-11-18 19:15:29,144 - INFO - 🔨 构建HISAT2索引 | Building HISAT2 index with command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss --exon /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon -p 88 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.hisat2.index
+2025-11-18 19:15:29,144 - INFO - 🚀 运行 | Running: 🔨 构建HISAT2索引 | Building HISAT2 index
+2025-11-18 19:15:29,144 - INFO - 💻 命令 | Command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.ss --exon /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.exon -p 88 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/69.二代转录组比对到hifi基因组上/Orychophragmus_violaceus_OV53_1_HiFi.hisat2.index

@@ -1,0 +1,1503 @@
+2025-10-12 12:22:12,040 - INFO - ================================================================================
+2025-10-12 12:22:12,040 - INFO - 🚀 开始SRA转FASTQ转换流程 | Starting SRA to FASTQ Conversion Pipeline
+2025-10-12 12:22:12,040 - INFO - ================================================================================
+2025-10-12 12:22:12,040 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-12 12:22:13,832 - INFO - ✅ parallel-fastq-dump 可用 (推荐) | available (recommended)
+2025-10-12 12:22:13,833 - INFO -    版本 | Version: fastq-dump : 3.2.1
+
+parallel-fastq-dump : 0.6.7
+2025-10-12 12:22:13,853 - INFO - ✅ fastq-dump 可用 (备选) | available (fallback)
+2025-10-12 12:22:13,853 - INFO - 📋 转换配置 | Conversion Configuration:
+2025-10-12 12:22:13,853 - INFO -   输入路径 | Input: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra
+2025-10-12 12:22:13,853 - INFO -   输出目录 | Output: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw
+2025-10-12 12:22:13,853 - INFO -   文件数量 | Files: 56
+2025-10-12 12:22:13,853 - INFO -   转换工具 | Tool: parallel-fastq-dump ⚡ (推荐)
+2025-10-12 12:22:13,854 - INFO -   线程数 | Threads: 88
+2025-10-12 12:22:13,854 - INFO -   压缩输出 | Compress: True
+2025-10-12 12:22:13,854 - INFO - 🔄 开始批量转换 | Starting batch conversion...
+2025-10-12 12:22:13,854 - INFO - 📊 共找到 56 个SRA文件 | Found 56 SRA files
+2025-10-12 12:22:13,854 - INFO - 🔄 总进度 | Overall Progress: [1/56]
+2025-10-12 12:22:13,854 - INFO - ============================================================
+2025-10-12 12:22:13,854 - INFO - 📦 处理文件 | Processing file: SRR10321552
+2025-10-12 12:22:13,854 - INFO - ============================================================
+2025-10-12 12:22:13,854 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:22:13,854 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:22:13,854 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321552
+2025-10-12 12:22:13,854 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321552.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:22:31,319 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:22:31,320 - INFO - ✅ 完成 | Completed: SRR10321552
+2025-10-12 12:22:31,320 - INFO - 🔄 总进度 | Overall Progress: [2/56]
+2025-10-12 12:22:31,320 - INFO - ============================================================
+2025-10-12 12:22:31,320 - INFO - 📦 处理文件 | Processing file: SRR10321553
+2025-10-12 12:22:31,320 - INFO - ============================================================
+2025-10-12 12:22:31,320 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:22:31,320 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:22:31,320 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321553
+2025-10-12 12:22:31,320 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321553.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:22:47,630 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:22:47,630 - INFO - ✅ 完成 | Completed: SRR10321553
+2025-10-12 12:22:47,630 - INFO - 🔄 总进度 | Overall Progress: [3/56]
+2025-10-12 12:22:47,630 - INFO - ============================================================
+2025-10-12 12:22:47,630 - INFO - 📦 处理文件 | Processing file: SRR10321554
+2025-10-12 12:22:47,630 - INFO - ============================================================
+2025-10-12 12:22:47,634 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:22:47,634 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:22:47,634 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321554
+2025-10-12 12:22:47,634 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321554.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:23:02,561 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:23:02,561 - INFO - ✅ 完成 | Completed: SRR10321554
+2025-10-12 12:23:02,561 - INFO - 🔄 总进度 | Overall Progress: [4/56]
+2025-10-12 12:23:02,561 - INFO - ============================================================
+2025-10-12 12:23:02,561 - INFO - 📦 处理文件 | Processing file: SRR10321555
+2025-10-12 12:23:02,561 - INFO - ============================================================
+2025-10-12 12:23:02,561 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:23:02,561 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:23:02,561 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321555
+2025-10-12 12:23:02,561 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321555.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:23:17,830 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:23:17,831 - INFO - ✅ 完成 | Completed: SRR10321555
+2025-10-12 12:23:17,831 - INFO - 🔄 总进度 | Overall Progress: [5/56]
+2025-10-12 12:23:17,831 - INFO - ============================================================
+2025-10-12 12:23:17,831 - INFO - 📦 处理文件 | Processing file: SRR10321556
+2025-10-12 12:23:17,831 - INFO - ============================================================
+2025-10-12 12:23:17,831 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:23:17,831 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:23:17,831 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321556
+2025-10-12 12:23:17,831 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321556.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:23:33,762 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:23:33,763 - INFO - ✅ 完成 | Completed: SRR10321556
+2025-10-12 12:23:33,763 - INFO - 🔄 总进度 | Overall Progress: [6/56]
+2025-10-12 12:23:33,763 - INFO - ============================================================
+2025-10-12 12:23:33,763 - INFO - 📦 处理文件 | Processing file: SRR10321557
+2025-10-12 12:23:33,763 - INFO - ============================================================
+2025-10-12 12:23:33,763 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:23:33,763 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:23:33,763 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321557
+2025-10-12 12:23:33,763 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321557.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:23:49,135 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:23:49,135 - INFO - ✅ 完成 | Completed: SRR10321557
+2025-10-12 12:23:49,135 - INFO - 🔄 总进度 | Overall Progress: [7/56]
+2025-10-12 12:23:49,135 - INFO - ============================================================
+2025-10-12 12:23:49,135 - INFO - 📦 处理文件 | Processing file: SRR10321558
+2025-10-12 12:23:49,135 - INFO - ============================================================
+2025-10-12 12:23:49,135 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:23:49,135 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:23:49,135 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321558
+2025-10-12 12:23:49,135 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321558.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:24:04,344 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:24:04,345 - INFO - ✅ 完成 | Completed: SRR10321558
+2025-10-12 12:24:04,345 - INFO - 🔄 总进度 | Overall Progress: [8/56]
+2025-10-12 12:24:04,345 - INFO - ============================================================
+2025-10-12 12:24:04,345 - INFO - 📦 处理文件 | Processing file: SRR10321559
+2025-10-12 12:24:04,345 - INFO - ============================================================
+2025-10-12 12:24:04,345 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:24:04,345 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:24:04,345 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321559
+2025-10-12 12:24:04,345 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321559.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:24:19,728 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:24:19,728 - INFO - ✅ 完成 | Completed: SRR10321559
+2025-10-12 12:24:19,728 - INFO - 🔄 总进度 | Overall Progress: [9/56]
+2025-10-12 12:24:19,728 - INFO - ============================================================
+2025-10-12 12:24:19,728 - INFO - 📦 处理文件 | Processing file: SRR10321560
+2025-10-12 12:24:19,728 - INFO - ============================================================
+2025-10-12 12:24:19,728 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:24:19,728 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:24:19,728 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321560
+2025-10-12 12:24:19,728 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321560.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:24:35,159 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:24:35,159 - INFO - ✅ 完成 | Completed: SRR10321560
+2025-10-12 12:24:35,159 - INFO - 🔄 总进度 | Overall Progress: [10/56]
+2025-10-12 12:24:35,159 - INFO - ============================================================
+2025-10-12 12:24:35,159 - INFO - 📦 处理文件 | Processing file: SRR10321561
+2025-10-12 12:24:35,159 - INFO - ============================================================
+2025-10-12 12:24:35,159 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:24:35,159 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:24:35,159 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321561
+2025-10-12 12:24:35,159 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321561.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:24:51,401 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:24:51,401 - INFO - ✅ 完成 | Completed: SRR10321561
+2025-10-12 12:24:51,401 - INFO - 🔄 总进度 | Overall Progress: [11/56]
+2025-10-12 12:24:51,401 - INFO - ============================================================
+2025-10-12 12:24:51,401 - INFO - 📦 处理文件 | Processing file: SRR10321562
+2025-10-12 12:24:51,401 - INFO - ============================================================
+2025-10-12 12:24:51,401 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:24:51,401 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:24:51,401 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321562
+2025-10-12 12:24:51,401 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321562.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:25:05,739 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:25:05,739 - INFO - ✅ 完成 | Completed: SRR10321562
+2025-10-12 12:25:05,739 - INFO - 🔄 总进度 | Overall Progress: [12/56]
+2025-10-12 12:25:05,739 - INFO - ============================================================
+2025-10-12 12:25:05,739 - INFO - 📦 处理文件 | Processing file: SRR10321563
+2025-10-12 12:25:05,739 - INFO - ============================================================
+2025-10-12 12:25:05,740 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:25:05,740 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:25:05,740 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321563
+2025-10-12 12:25:05,740 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321563.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:25:23,874 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:25:23,874 - INFO - ✅ 完成 | Completed: SRR10321563
+2025-10-12 12:25:23,874 - INFO - 🔄 总进度 | Overall Progress: [13/56]
+2025-10-12 12:25:23,874 - INFO - ============================================================
+2025-10-12 12:25:23,874 - INFO - 📦 处理文件 | Processing file: SRR10321564
+2025-10-12 12:25:23,874 - INFO - ============================================================
+2025-10-12 12:25:23,874 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:25:23,875 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:25:23,875 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321564
+2025-10-12 12:25:23,875 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321564.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:25:39,565 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:25:39,566 - INFO - ✅ 完成 | Completed: SRR10321564
+2025-10-12 12:25:39,566 - INFO - 🔄 总进度 | Overall Progress: [14/56]
+2025-10-12 12:25:39,566 - INFO - ============================================================
+2025-10-12 12:25:39,566 - INFO - 📦 处理文件 | Processing file: SRR10321565
+2025-10-12 12:25:39,566 - INFO - ============================================================
+2025-10-12 12:25:39,566 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:25:39,566 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:25:39,566 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321565
+2025-10-12 12:25:39,566 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321565.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:25:53,810 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:25:53,810 - INFO - ✅ 完成 | Completed: SRR10321565
+2025-10-12 12:25:53,810 - INFO - 🔄 总进度 | Overall Progress: [15/56]
+2025-10-12 12:25:53,811 - INFO - ============================================================
+2025-10-12 12:25:53,811 - INFO - 📦 处理文件 | Processing file: SRR10321566
+2025-10-12 12:25:53,811 - INFO - ============================================================
+2025-10-12 12:25:53,811 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:25:53,811 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:25:53,811 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321566
+2025-10-12 12:25:53,811 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321566.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:26:13,348 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:26:13,348 - INFO - ✅ 完成 | Completed: SRR10321566
+2025-10-12 12:26:13,348 - INFO - 🔄 总进度 | Overall Progress: [16/56]
+2025-10-12 12:26:13,348 - INFO - ============================================================
+2025-10-12 12:26:13,348 - INFO - 📦 处理文件 | Processing file: SRR10321567
+2025-10-12 12:26:13,348 - INFO - ============================================================
+2025-10-12 12:26:13,348 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:26:13,348 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:26:13,348 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321567
+2025-10-12 12:26:13,348 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321567.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:26:27,415 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:26:27,415 - INFO - ✅ 完成 | Completed: SRR10321567
+2025-10-12 12:26:27,415 - INFO - 🔄 总进度 | Overall Progress: [17/56]
+2025-10-12 12:26:27,416 - INFO - ============================================================
+2025-10-12 12:26:27,416 - INFO - 📦 处理文件 | Processing file: SRR10321568
+2025-10-12 12:26:27,416 - INFO - ============================================================
+2025-10-12 12:26:27,416 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:26:27,416 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:26:27,416 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321568
+2025-10-12 12:26:27,416 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321568.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:26:44,279 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:26:44,280 - INFO - ✅ 完成 | Completed: SRR10321568
+2025-10-12 12:26:44,280 - INFO - 🔄 总进度 | Overall Progress: [18/56]
+2025-10-12 12:26:44,280 - INFO - ============================================================
+2025-10-12 12:26:44,280 - INFO - 📦 处理文件 | Processing file: SRR10321569
+2025-10-12 12:26:44,280 - INFO - ============================================================
+2025-10-12 12:26:44,280 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:26:44,280 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:26:44,280 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321569
+2025-10-12 12:26:44,280 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321569.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:27:00,966 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:27:00,967 - INFO - ✅ 完成 | Completed: SRR10321569
+2025-10-12 12:27:00,967 - INFO - 🔄 总进度 | Overall Progress: [19/56]
+2025-10-12 12:27:00,967 - INFO - ============================================================
+2025-10-12 12:27:00,967 - INFO - 📦 处理文件 | Processing file: SRR10321570
+2025-10-12 12:27:00,967 - INFO - ============================================================
+2025-10-12 12:27:00,967 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:27:00,967 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:27:00,967 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321570
+2025-10-12 12:27:00,967 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321570.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:27:17,799 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:27:17,799 - INFO - ✅ 完成 | Completed: SRR10321570
+2025-10-12 12:27:17,799 - INFO - 🔄 总进度 | Overall Progress: [20/56]
+2025-10-12 12:27:17,799 - INFO - ============================================================
+2025-10-12 12:27:17,799 - INFO - 📦 处理文件 | Processing file: SRR10321571
+2025-10-12 12:27:17,799 - INFO - ============================================================
+2025-10-12 12:27:17,799 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:27:17,799 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:27:17,799 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321571
+2025-10-12 12:27:17,799 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321571.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:27:32,640 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:27:32,640 - INFO - ✅ 完成 | Completed: SRR10321571
+2025-10-12 12:27:32,640 - INFO - 🔄 总进度 | Overall Progress: [21/56]
+2025-10-12 12:27:32,640 - INFO - ============================================================
+2025-10-12 12:27:32,640 - INFO - 📦 处理文件 | Processing file: SRR10321572
+2025-10-12 12:27:32,640 - INFO - ============================================================
+2025-10-12 12:27:32,640 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:27:32,641 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:27:32,641 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321572
+2025-10-12 12:27:32,641 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321572.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:27:51,818 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:27:51,818 - INFO - ✅ 完成 | Completed: SRR10321572
+2025-10-12 12:27:51,818 - INFO - 🔄 总进度 | Overall Progress: [22/56]
+2025-10-12 12:27:51,818 - INFO - ============================================================
+2025-10-12 12:27:51,818 - INFO - 📦 处理文件 | Processing file: SRR10321573
+2025-10-12 12:27:51,818 - INFO - ============================================================
+2025-10-12 12:27:51,818 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:27:51,818 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:27:51,818 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321573
+2025-10-12 12:27:51,818 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321573.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:28:07,736 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:28:07,736 - INFO - ✅ 完成 | Completed: SRR10321573
+2025-10-12 12:28:07,736 - INFO - 🔄 总进度 | Overall Progress: [23/56]
+2025-10-12 12:28:07,736 - INFO - ============================================================
+2025-10-12 12:28:07,736 - INFO - 📦 处理文件 | Processing file: SRR10321574
+2025-10-12 12:28:07,736 - INFO - ============================================================
+2025-10-12 12:28:07,737 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:28:07,737 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:28:07,737 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321574
+2025-10-12 12:28:07,737 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321574.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:28:23,301 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:28:23,302 - INFO - ✅ 完成 | Completed: SRR10321574
+2025-10-12 12:28:23,302 - INFO - 🔄 总进度 | Overall Progress: [24/56]
+2025-10-12 12:28:23,302 - INFO - ============================================================
+2025-10-12 12:28:23,302 - INFO - 📦 处理文件 | Processing file: SRR10321575
+2025-10-12 12:28:23,302 - INFO - ============================================================
+2025-10-12 12:28:23,302 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:28:23,302 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:28:23,302 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321575
+2025-10-12 12:28:23,302 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321575.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:28:39,532 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:28:39,533 - INFO - ✅ 完成 | Completed: SRR10321575
+2025-10-12 12:28:39,533 - INFO - 🔄 总进度 | Overall Progress: [25/56]
+2025-10-12 12:28:39,533 - INFO - ============================================================
+2025-10-12 12:28:39,533 - INFO - 📦 处理文件 | Processing file: SRR10321576
+2025-10-12 12:28:39,533 - INFO - ============================================================
+2025-10-12 12:28:39,533 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:28:39,533 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:28:39,533 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321576
+2025-10-12 12:28:39,533 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321576.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 12:28:56,092 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-12 12:28:56,092 - INFO - ✅ 完成 | Completed: SRR10321576
+2025-10-12 12:28:56,092 - INFO - 🔄 总进度 | Overall Progress: [26/56]
+2025-10-12 12:28:56,092 - INFO - ============================================================
+2025-10-12 12:28:56,092 - INFO - 📦 处理文件 | Processing file: SRR7532821
+2025-10-12 12:28:56,092 - INFO - ============================================================
+2025-10-12 12:28:56,092 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 12:28:56,092 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 12:28:56,092 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR7532821
+2025-10-12 12:28:56,092 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 13:35:12,939 - ERROR - ❌ 命令执行失败 | Command execution failed: 转换SRA文件 | Converting SRA file: SRR7532821
+2025-10-12 13:35:12,940 - ERROR - 错误代码 | Error code: 1
+2025-10-12 13:35:12,940 - ERROR - 错误信息 | Error message: 2025-10-12 12:28:56,125 - SRR ids: ['/share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra']
+2025-10-12 12:28:56,125 - extra args: ['--split-files', '--gzip', '--skip-technical']
+2025-10-12 12:28:56,125 - tempdir: /tmp/pfd_0vz8x58t
+2025-10-12 12:28:56,125 - CMD: sra-stat --meta --quick /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,002 - /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra spots: 11198326
+2025-10-12 12:29:58,002 - blocks: [[1, 127253], [127254, 254506], [254507, 381759], [381760, 509012], [509013, 636265], [636266, 763518], [763519, 890771], [890772, 1018024], [1018025, 1145277], [1145278, 1272530], [1272531, 1399783], [1399784, 1527036], [1527037, 1654289], [1654290, 1781542], [1781543, 1908795], [1908796, 2036048], [2036049, 2163301], [2163302, 2290554], [2290555, 2417807], [2417808, 2545060], [2545061, 2672313], [2672314, 2799566], [2799567, 2926819], [2926820, 3054072], [3054073, 3181325], [3181326, 3308578], [3308579, 3435831], [3435832, 3563084], [3563085, 3690337], [3690338, 3817590], [3817591, 3944843], [3944844, 4072096], [4072097, 4199349], [4199350, 4326602], [4326603, 4453855], [4453856, 4581108], [4581109, 4708361], [4708362, 4835614], [4835615, 4962867], [4962868, 5090120], [5090121, 5217373], [5217374, 5344626], [5344627, 5471879], [5471880, 5599132], [5599133, 5726385], [5726386, 5853638], [5853639, 5980891], [5980892, 6108144], [6108145, 6235397], [6235398, 6362650], [6362651, 6489903], [6489904, 6617156], [6617157, 6744409], [6744410, 6871662], [6871663, 6998915], [6998916, 7126168], [7126169, 7253421], [7253422, 7380674], [7380675, 7507927], [7507928, 7635180], [7635181, 7762433], [7762434, 7889686], [7889687, 8016939], [8016940, 8144192], [8144193, 8271445], [8271446, 8398698], [8398699, 8525951], [8525952, 8653204], [8653205, 8780457], [8780458, 8907710], [8907711, 9034963], [9034964, 9162216], [9162217, 9289469], [9289470, 9416722], [9416723, 9543975], [9543976, 9671228], [9671229, 9798481], [9798482, 9925734], [9925735, 10052987], [10052988, 10180240], [10180241, 10307493], [10307494, 10434746], [10434747, 10561999], [10562000, 10689252], [10689253, 10816505], [10816506, 10943758], [10943759, 11071011], [11071012, 11198326]]
+2025-10-12 12:29:58,002 - CMD: fastq-dump -N 1 -X 127253 -O /tmp/pfd_0vz8x58t/0 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,002 - CMD: fastq-dump -N 127254 -X 254506 -O /tmp/pfd_0vz8x58t/1 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,003 - CMD: fastq-dump -N 254507 -X 381759 -O /tmp/pfd_0vz8x58t/2 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,003 - CMD: fastq-dump -N 381760 -X 509012 -O /tmp/pfd_0vz8x58t/3 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,003 - CMD: fastq-dump -N 509013 -X 636265 -O /tmp/pfd_0vz8x58t/4 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,004 - CMD: fastq-dump -N 636266 -X 763518 -O /tmp/pfd_0vz8x58t/5 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,004 - CMD: fastq-dump -N 763519 -X 890771 -O /tmp/pfd_0vz8x58t/6 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,004 - CMD: fastq-dump -N 890772 -X 1018024 -O /tmp/pfd_0vz8x58t/7 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,004 - CMD: fastq-dump -N 1018025 -X 1145277 -O /tmp/pfd_0vz8x58t/8 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,005 - CMD: fastq-dump -N 1145278 -X 1272530 -O /tmp/pfd_0vz8x58t/9 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,005 - CMD: fastq-dump -N 1272531 -X 1399783 -O /tmp/pfd_0vz8x58t/10 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,006 - CMD: fastq-dump -N 1399784 -X 1527036 -O /tmp/pfd_0vz8x58t/11 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,006 - CMD: fastq-dump -N 1527037 -X 1654289 -O /tmp/pfd_0vz8x58t/12 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,006 - CMD: fastq-dump -N 1654290 -X 1781542 -O /tmp/pfd_0vz8x58t/13 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,007 - CMD: fastq-dump -N 1781543 -X 1908795 -O /tmp/pfd_0vz8x58t/14 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,007 - CMD: fastq-dump -N 1908796 -X 2036048 -O /tmp/pfd_0vz8x58t/15 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,007 - CMD: fastq-dump -N 2036049 -X 2163301 -O /tmp/pfd_0vz8x58t/16 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,008 - CMD: fastq-dump -N 2163302 -X 2290554 -O /tmp/pfd_0vz8x58t/17 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,008 - CMD: fastq-dump -N 2290555 -X 2417807 -O /tmp/pfd_0vz8x58t/18 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,008 - CMD: fastq-dump -N 2417808 -X 2545060 -O /tmp/pfd_0vz8x58t/19 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,009 - CMD: fastq-dump -N 2545061 -X 2672313 -O /tmp/pfd_0vz8x58t/20 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,009 - CMD: fastq-dump -N 2672314 -X 2799566 -O /tmp/pfd_0vz8x58t/21 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,009 - CMD: fastq-dump -N 2799567 -X 2926819 -O /tmp/pfd_0vz8x58t/22 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,010 - CMD: fastq-dump -N 2926820 -X 3054072 -O /tmp/pfd_0vz8x58t/23 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,010 - CMD: fastq-dump -N 3054073 -X 3181325 -O /tmp/pfd_0vz8x58t/24 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,010 - CMD: fastq-dump -N 3181326 -X 3308578 -O /tmp/pfd_0vz8x58t/25 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,010 - CMD: fastq-dump -N 3308579 -X 3435831 -O /tmp/pfd_0vz8x58t/26 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,011 - CMD: fastq-dump -N 3435832 -X 3563084 -O /tmp/pfd_0vz8x58t/27 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,011 - CMD: fastq-dump -N 3563085 -X 3690337 -O /tmp/pfd_0vz8x58t/28 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,011 - CMD: fastq-dump -N 3690338 -X 3817590 -O /tmp/pfd_0vz8x58t/29 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,011 - CMD: fastq-dump -N 3817591 -X 3944843 -O /tmp/pfd_0vz8x58t/30 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,012 - CMD: fastq-dump -N 3944844 -X 4072096 -O /tmp/pfd_0vz8x58t/31 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,012 - CMD: fastq-dump -N 4072097 -X 4199349 -O /tmp/pfd_0vz8x58t/32 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,012 - CMD: fastq-dump -N 4199350 -X 4326602 -O /tmp/pfd_0vz8x58t/33 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,013 - CMD: fastq-dump -N 4326603 -X 4453855 -O /tmp/pfd_0vz8x58t/34 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,013 - CMD: fastq-dump -N 4453856 -X 4581108 -O /tmp/pfd_0vz8x58t/35 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,014 - CMD: fastq-dump -N 4581109 -X 4708361 -O /tmp/pfd_0vz8x58t/36 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,014 - CMD: fastq-dump -N 4708362 -X 4835614 -O /tmp/pfd_0vz8x58t/37 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,014 - CMD: fastq-dump -N 4835615 -X 4962867 -O /tmp/pfd_0vz8x58t/38 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,014 - CMD: fastq-dump -N 4962868 -X 5090120 -O /tmp/pfd_0vz8x58t/39 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,015 - CMD: fastq-dump -N 5090121 -X 5217373 -O /tmp/pfd_0vz8x58t/40 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,015 - CMD: fastq-dump -N 5217374 -X 5344626 -O /tmp/pfd_0vz8x58t/41 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,015 - CMD: fastq-dump -N 5344627 -X 5471879 -O /tmp/pfd_0vz8x58t/42 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,016 - CMD: fastq-dump -N 5471880 -X 5599132 -O /tmp/pfd_0vz8x58t/43 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,016 - CMD: fastq-dump -N 5599133 -X 5726385 -O /tmp/pfd_0vz8x58t/44 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,016 - CMD: fastq-dump -N 5726386 -X 5853638 -O /tmp/pfd_0vz8x58t/45 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,017 - CMD: fastq-dump -N 5853639 -X 5980891 -O /tmp/pfd_0vz8x58t/46 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,017 - CMD: fastq-dump -N 5980892 -X 6108144 -O /tmp/pfd_0vz8x58t/47 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,017 - CMD: fastq-dump -N 6108145 -X 6235397 -O /tmp/pfd_0vz8x58t/48 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,018 - CMD: fastq-dump -N 6235398 -X 6362650 -O /tmp/pfd_0vz8x58t/49 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,018 - CMD: fastq-dump -N 6362651 -X 6489903 -O /tmp/pfd_0vz8x58t/50 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,018 - CMD: fastq-dump -N 6489904 -X 6617156 -O /tmp/pfd_0vz8x58t/51 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,019 - CMD: fastq-dump -N 6617157 -X 6744409 -O /tmp/pfd_0vz8x58t/52 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,019 - CMD: fastq-dump -N 6744410 -X 6871662 -O /tmp/pfd_0vz8x58t/53 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,019 - CMD: fastq-dump -N 6871663 -X 6998915 -O /tmp/pfd_0vz8x58t/54 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,019 - CMD: fastq-dump -N 6998916 -X 7126168 -O /tmp/pfd_0vz8x58t/55 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,020 - CMD: fastq-dump -N 7126169 -X 7253421 -O /tmp/pfd_0vz8x58t/56 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,020 - CMD: fastq-dump -N 7253422 -X 7380674 -O /tmp/pfd_0vz8x58t/57 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,020 - CMD: fastq-dump -N 7380675 -X 7507927 -O /tmp/pfd_0vz8x58t/58 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,021 - CMD: fastq-dump -N 7507928 -X 7635180 -O /tmp/pfd_0vz8x58t/59 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,021 - CMD: fastq-dump -N 7635181 -X 7762433 -O /tmp/pfd_0vz8x58t/60 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,021 - CMD: fastq-dump -N 7762434 -X 7889686 -O /tmp/pfd_0vz8x58t/61 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,021 - CMD: fastq-dump -N 7889687 -X 8016939 -O /tmp/pfd_0vz8x58t/62 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,022 - CMD: fastq-dump -N 8016940 -X 8144192 -O /tmp/pfd_0vz8x58t/63 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,022 - CMD: fastq-dump -N 8144193 -X 8271445 -O /tmp/pfd_0vz8x58t/64 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,022 - CMD: fastq-dump -N 8271446 -X 8398698 -O /tmp/pfd_0vz8x58t/65 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,022 - CMD: fastq-dump -N 8398699 -X 8525951 -O /tmp/pfd_0vz8x58t/66 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,023 - CMD: fastq-dump -N 8525952 -X 8653204 -O /tmp/pfd_0vz8x58t/67 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,023 - CMD: fastq-dump -N 8653205 -X 8780457 -O /tmp/pfd_0vz8x58t/68 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,023 - CMD: fastq-dump -N 8780458 -X 8907710 -O /tmp/pfd_0vz8x58t/69 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,024 - CMD: fastq-dump -N 8907711 -X 9034963 -O /tmp/pfd_0vz8x58t/70 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,024 - CMD: fastq-dump -N 9034964 -X 9162216 -O /tmp/pfd_0vz8x58t/71 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,024 - CMD: fastq-dump -N 9162217 -X 9289469 -O /tmp/pfd_0vz8x58t/72 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,025 - CMD: fastq-dump -N 9289470 -X 9416722 -O /tmp/pfd_0vz8x58t/73 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,025 - CMD: fastq-dump -N 9416723 -X 9543975 -O /tmp/pfd_0vz8x58t/74 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,025 - CMD: fastq-dump -N 9543976 -X 9671228 -O /tmp/pfd_0vz8x58t/75 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,026 - CMD: fastq-dump -N 9671229 -X 9798481 -O /tmp/pfd_0vz8x58t/76 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,026 - CMD: fastq-dump -N 9798482 -X 9925734 -O /tmp/pfd_0vz8x58t/77 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,026 - CMD: fastq-dump -N 9925735 -X 10052987 -O /tmp/pfd_0vz8x58t/78 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,027 - CMD: fastq-dump -N 10052988 -X 10180240 -O /tmp/pfd_0vz8x58t/79 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,027 - CMD: fastq-dump -N 10180241 -X 10307493 -O /tmp/pfd_0vz8x58t/80 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,027 - CMD: fastq-dump -N 10307494 -X 10434746 -O /tmp/pfd_0vz8x58t/81 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,028 - CMD: fastq-dump -N 10434747 -X 10561999 -O /tmp/pfd_0vz8x58t/82 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,028 - CMD: fastq-dump -N 10562000 -X 10689252 -O /tmp/pfd_0vz8x58t/83 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,028 - CMD: fastq-dump -N 10689253 -X 10816505 -O /tmp/pfd_0vz8x58t/84 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,029 - CMD: fastq-dump -N 10816506 -X 10943758 -O /tmp/pfd_0vz8x58t/85 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,029 - CMD: fastq-dump -N 10943759 -X 11071011 -O /tmp/pfd_0vz8x58t/86 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12 12:29:58,030 - CMD: fastq-dump -N 11071012 -X 11198326 -O /tmp/pfd_0vz8x58t/87 --split-files --gzip --skip-technical /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:03 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:35:03 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:04 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:04 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:04 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:04 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:04 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:04 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:06 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:06 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:35:06 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:06 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:09 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:10 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:10 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:10 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:10 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:11 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258127.1 as a RefSeq or as a WGS
+2025-10-12T04:35:11 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:13 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:13 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:13 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:14 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:14 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:15 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:15 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:16 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:16 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:18 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:18 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:18 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T04:35:18 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:19 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:35:19 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:19 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:19 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:20 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:20 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:22 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:35:22 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:22 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:35:22 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:22 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:22 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:23 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:23 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:23 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:23 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:23 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:35:23 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:23 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T04:35:23 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:23 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:35:23 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:35:24 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:35:24 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:24 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:35:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258129.1 as a RefSeq or as a WGS
+2025-10-12T04:35:24 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:24 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T04:35:24 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:25 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:25 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:35:25 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:35:25 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:25 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:25 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:26 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:35:26 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T04:35:26 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:26 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:27 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:35:27 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:35:27 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:27 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:27 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:27 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:28 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T04:35:28 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:28 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:28 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:28 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:35:28 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:28 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T04:35:28 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:28 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258128.1 as a RefSeq or as a WGS
+2025-10-12T04:35:28 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:29 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:29 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:29 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:35:29 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:29 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:29 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:29 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:29 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:30 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T04:35:30 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:30 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:35:30 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:30 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:30 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:31 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T04:35:31 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:31 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:35:31 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:31 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:35:31 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:33 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:33 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:33 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258126.1 as a RefSeq or as a WGS
+2025-10-12T04:35:33 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:33 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:33 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:33 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258125.1 as a RefSeq or as a WGS
+2025-10-12T04:35:33 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:34 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:34 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:35 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:35:35 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T04:35:35 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:35:35 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:35 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:35 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:37 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:37 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:38 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:35:38 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:35:38 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:38 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:39 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258127.1 as a RefSeq or as a WGS
+2025-10-12T04:35:39 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:39 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:39 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:39 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:39 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:40 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:41 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:35:41 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:41 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:41 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:41 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:42 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:42 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:42 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:35:42 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:42 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T04:35:45 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:46 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258128.1 as a RefSeq or as a WGS
+2025-10-12T04:35:46 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T04:35:46 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:46 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:46 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:46 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:47 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258126.1 as a RefSeq or as a WGS
+2025-10-12T04:35:47 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:47 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:35:47 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:48 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258125.1 as a RefSeq or as a WGS
+2025-10-12T04:35:48 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:35:49 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:35:49 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T04:38:14 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:38:20 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:38:27 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:38:44 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:38:48 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:38:56 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:39:03 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:41:15 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:41:43 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:41:44 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T04:41:45 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:41:58 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:42:06 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:42:14 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:44:31 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:44:48 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:45:01 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:45:05 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T04:45:14 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:45:19 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:45:29 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258116.1 as a RefSeq or as a WGS
+2025-10-12T04:47:43 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:48:03 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258115.1 as a RefSeq or as a WGS
+2025-10-12T04:48:15 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T04:48:27 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T04:48:34 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+2025-10-12T04:48:35 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:48:38 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12T04:50:53 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12 12:51:21,353 - fastq-dump error! exit code: 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+fastq-dump quit with error code 3
+2025-10-12T04:51:28 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12T04:51:35 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12T04:51:38 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12T04:51:44 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12T04:51:49 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258117.1 as a RefSeq or as a WGS
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12T04:51:50 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12T04:54:08 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:54:28 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258118.1 as a RefSeq or as a WGS
+2025-10-12T04:54:35 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:54:38 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:54:49 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:54:49 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:54:50 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258119.1 as a RefSeq or as a WGS
+2025-10-12T04:57:08 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T04:57:28 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:57:41 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T04:57:49 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T04:57:49 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T04:58:02 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258120.1 as a RefSeq or as a WGS
+2025-10-12T04:58:05 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T05:00:08 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T05:00:32 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T05:00:41 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T05:00:49 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T05:00:55 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T05:01:10 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T05:01:11 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258121.1 as a RefSeq or as a WGS
+2025-10-12T05:03:08 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258125.1 as a RefSeq or as a WGS
+2025-10-12T05:03:39 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258126.1 as a RefSeq or as a WGS
+2025-10-12T05:03:40 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T05:03:52 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258125.1 as a RefSeq or as a WGS
+2025-10-12T05:03:55 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258125.1 as a RefSeq or as a WGS
+2025-10-12T05:04:11 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258123.1 as a RefSeq or as a WGS
+2025-10-12T05:04:11 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T05:04:18 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T05:06:14 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258126.1 as a RefSeq or as a WGS
+2025-10-12T05:06:53 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258126.1 as a RefSeq or as a WGS
+2025-10-12T05:07:07 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258126.1 as a RefSeq or as a WGS
+2025-10-12T05:07:11 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258127.1 as a RefSeq or as a WGS
+2025-10-12T05:07:18 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258125.1 as a RefSeq or as a WGS
+2025-10-12T05:07:33 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258126.1 as a RefSeq or as a WGS
+2025-10-12T05:09:14 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258127.1 as a RefSeq or as a WGS
+2025-10-12T05:09:55 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258128.1 as a RefSeq or as a WGS
+2025-10-12T05:10:07 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258127.1 as a RefSeq or as a WGS
+2025-10-12T05:10:18 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258127.1 as a RefSeq or as a WGS
+2025-10-12T05:10:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258128.1 as a RefSeq or as a WGS
+2025-10-12T05:10:33 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258127.1 as a RefSeq or as a WGS
+2025-10-12T05:12:15 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258122.1 as a RefSeq or as a WGS
+2025-10-12T05:13:08 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258128.1 as a RefSeq or as a WGS
+2025-10-12T05:13:19 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258128.1 as a RefSeq or as a WGS
+2025-10-12T05:13:23 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258129.1 as a RefSeq or as a WGS
+2025-10-12T05:13:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258129.1 as a RefSeq or as a WGS
+2025-10-12T05:13:33 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258128.1 as a RefSeq or as a WGS
+2025-10-12T05:15:15 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258128.1 as a RefSeq or as a WGS
+2025-10-12T05:16:21 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258129.1 as a RefSeq or as a WGS
+2025-10-12T05:16:23 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T05:16:25 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258125.1 as a RefSeq or as a WGS
+2025-10-12T05:16:25 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T05:16:33 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258129.1 as a RefSeq or as a WGS
+2025-10-12T05:16:51 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258129.1 as a RefSeq or as a WGS
+2025-10-12T05:16:51 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T05:18:49 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258129.1 as a RefSeq or as a WGS
+2025-10-12T05:18:51 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+2025-10-12T05:19:22 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258124.1 as a RefSeq or as a WGS
+2025-10-12T05:19:24 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258127.1 as a RefSeq or as a WGS
+2025-10-12T05:19:25 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T05:19:26 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+2025-10-12T05:19:42 fastq-dump.3.2.1 warn: connection busy while creating file within network system module - can't open NW_009258125.1 as a RefSeq or as a WGS
+2025-10-12T05:19:42 fastq-dump.3.2.1 err: connection busy while creating file within network system module - failed /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532821.sra
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+=============================================================
+An error occurred during processing.
+A report was generated into the file '/share/org/YZWL/yzwl_lixg/ncbi_error_report.txt'.
+If the problem persists, you may consider sending the file
+to 'sra-tools@ncbi.nlm.nih.gov' for assistance.
+=============================================================
+
+fastq-dump quit with error code 3
+
+2025-10-12 13:35:12,941 - ERROR - ❌ 失败 | Failed: SRR7532821
+2025-10-12 13:35:12,941 - INFO - 🔄 总进度 | Overall Progress: [27/56]
+2025-10-12 13:35:12,941 - INFO - ============================================================
+2025-10-12 13:35:12,941 - INFO - 📦 处理文件 | Processing file: SRR7532822
+2025-10-12 13:35:12,941 - INFO - ============================================================
+2025-10-12 13:35:12,941 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-10-12 13:35:12,941 - INFO - 🧵 线程数 | Threads: 88
+2025-10-12 13:35:12,941 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR7532822
+2025-10-12 13:35:12,941 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR7532822.sra --threads 88 --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw --split-files --gzip --skip-technical
+2025-10-12 14:25:47,684 - INFO - ============================================================
+2025-10-12 14:25:47,684 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-10-12 14:25:47,684 - INFO - ============================================================
+2025-10-12 14:25:47,684 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw
+2025-10-12 14:25:47,684 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean
+2025-10-12 14:25:47,684 - INFO - 📄 文件模式 | File pattern: *_1.fastq.gz, *_2.fastq.gz
+2025-10-12 14:25:47,684 - INFO - ============================================================
+2025-10-12 14:25:47,852 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-10-12 14:25:47,872 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean
+2025-10-12 14:25:47,872 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/fastp_reports
+2025-10-12 14:25:47,873 - INFO - 📄 找到 25 个read1文件 | Found 25 read1 files
+2025-10-12 14:25:47,873 - INFO - 🧬 找到 25 个有效样本配对 | Found 25 valid sample pairs:
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321564
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321553
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321554
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321557
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321568
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321556
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321575
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321562
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321569
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321552
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321560
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321573
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321566
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321558
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321576
+2025-10-12 14:25:47,873 - INFO -   - 📋 SRR10321574
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321563
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321565
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321561
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321567
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321571
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321572
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321559
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321555
+2025-10-12 14:25:47,874 - INFO -   - 📋 SRR10321570
+2025-10-12 14:25:47,874 - INFO - ⏭️  样本 SRR10321564 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321564, skipping
+2025-10-12 14:25:47,875 - INFO - ⏭️  样本 SRR10321553 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321553, skipping
+2025-10-12 14:25:47,875 - INFO - ⏭️  样本 SRR10321554 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321554, skipping
+2025-10-12 14:25:47,876 - INFO - ⏭️  样本 SRR10321557 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321557, skipping
+2025-10-12 14:25:47,876 - INFO - ⏭️  样本 SRR10321568 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321568, skipping
+2025-10-12 14:25:47,877 - INFO - ⏭️  样本 SRR10321556 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321556, skipping
+2025-10-12 14:25:47,877 - INFO - ⏭️  样本 SRR10321575 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321575, skipping
+2025-10-12 14:25:47,878 - INFO - ⏭️  样本 SRR10321562 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321562, skipping
+2025-10-12 14:25:47,880 - INFO - ⏭️  样本 SRR10321569 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321569, skipping
+2025-10-12 14:25:47,880 - INFO - ⏭️  样本 SRR10321552 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321552, skipping
+2025-10-12 14:25:47,880 - INFO - ⏭️  样本 SRR10321560 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321560, skipping
+2025-10-12 14:25:47,881 - INFO - ⏭️  样本 SRR10321573 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321573, skipping
+2025-10-12 14:25:47,881 - INFO - ⏭️  样本 SRR10321566 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321566, skipping
+2025-10-12 14:25:47,882 - INFO - ⏭️  样本 SRR10321558 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321558, skipping
+2025-10-12 14:25:47,882 - INFO - ⏭️  样本 SRR10321576 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321576, skipping
+2025-10-12 14:25:47,883 - INFO - ⏭️  样本 SRR10321574 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321574, skipping
+2025-10-12 14:25:47,883 - INFO - ⏭️  样本 SRR10321563 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321563, skipping
+2025-10-12 14:25:47,884 - INFO - ⏭️  样本 SRR10321565 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321565, skipping
+2025-10-12 14:25:47,884 - INFO - ⏭️  样本 SRR10321561 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321561, skipping
+2025-10-12 14:25:47,885 - INFO - ⏭️  样本 SRR10321567 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321567, skipping
+2025-10-12 14:25:47,885 - INFO - ⏭️  样本 SRR10321571 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321571, skipping
+2025-10-12 14:25:47,885 - INFO - ⏭️  样本 SRR10321572 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321572, skipping
+2025-10-12 14:25:47,886 - INFO - ⏭️  样本 SRR10321559 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321559, skipping
+2025-10-12 14:25:47,886 - INFO - ⏭️  样本 SRR10321555 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321555, skipping
+2025-10-12 14:25:47,887 - INFO - ⏭️  样本 SRR10321570 的输出文件已存在，跳过处理 | Output files exist for sample SRR10321570, skipping
+2025-10-12 14:25:47,888 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/fastp_processing_summary.txt
+2025-10-12 14:25:47,888 - INFO - ============================================================
+2025-10-12 14:25:47,888 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-10-12 14:25:47,888 - INFO - 🧮 总样本数 | Total samples: 25
+2025-10-12 14:25:47,888 - INFO - ✅ 成功处理 | Successfully processed: 25
+2025-10-12 14:25:47,888 - INFO - ❌ 失败样本 | Failed samples: 0
+2025-10-12 14:25:47,888 - INFO - 📊 成功率 | Success rate: 100.0%
+2025-10-12 14:25:47,888 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean
+2025-10-12 14:25:47,888 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/fastp_reports
+2025-10-12 14:25:47,888 - INFO - ============================================================

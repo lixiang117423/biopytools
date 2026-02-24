@@ -1,0 +1,11 @@
+Building a SMALL index
+Renaming ./reference/genome.3.bt2.tmp to ./reference/genome.3.bt2
+Renaming ./reference/genome.4.bt2.tmp to ./reference/genome.4.bt2
+Renaming ./reference/genome.1.bt2.tmp to ./reference/genome.1.bt2
+Renaming ./reference/genome.2.bt2.tmp to ./reference/genome.2.bt2
+Renaming ./reference/genome.rev.1.bt2.tmp to ./reference/genome.rev.1.bt2
+Renaming ./reference/genome.rev.2.bt2.tmp to ./reference/genome.rev.2.bt2
+/share/org/YZWL/yzwl_lixg/software/HiC-Pro_3.1.0/bin/utils/digest_genome.py:152: SyntaxWarning: invalid escape sequence '\^'
+  sequences.append(re.sub('\^', '', cseq))
+Job 67973495 stderr output:
+

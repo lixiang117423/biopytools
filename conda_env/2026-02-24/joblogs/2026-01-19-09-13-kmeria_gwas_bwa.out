@@ -1,0 +1,2080 @@
+2026-01-19 09:13:47.485 - INFO - ============================================================
+2026-01-19 09:13:47.485 - INFO - 开始KMERIA完整分析流程|Starting KMERIA complete analysis pipeline
+2026-01-19 09:13:47.485 - INFO - ============================================================
+2026-01-19 09:13:47.485 - INFO - ============================================================
+2026-01-19 09:13:47.485 - INFO - 执行步骤|Executing step: COUNT
+2026-01-19 09:13:47.485 - INFO - ============================================================
+2026-01-19 09:13:47.485 - INFO - 开始k-mer计数|Starting k-mer counting
+2026-01-19 09:13:47.485 - INFO - 样本数量|Sample count: 181
+2026-01-19 09:13:48.649 - INFO - 找到|Found 181 个样本的FASTQ文件|samples with FASTQ files
+2026-01-19 09:13:48.650 - INFO - 处理批次|Processing batch 1/46: 4 个样本|samples
+2026-01-19 09:13:48.673 - INFO - 跳过样本|Skip sample: GDW012A (输出文件已存在|output file exists: output/01_kmer_counts/GDW012A_k31.bin, 14555.47M)
+2026-01-19 09:13:48.692 - INFO - 跳过样本|Skip sample: SDW020A (输出文件已存在|output file exists: output/01_kmer_counts/SDW020A_k31.bin, 11218.21M)
+2026-01-19 09:13:48.712 - INFO - 跳过样本|Skip sample: SDW115A (输出文件已存在|output file exists: output/01_kmer_counts/SDW115A_k31.bin, 8101.80M)
+2026-01-19 09:13:48.724 - INFO - 跳过样本|Skip sample: SDW144A (输出文件已存在|output file exists: output/01_kmer_counts/SDW144A_k31.bin, 8590.02M)
+2026-01-19 09:13:48.724 - INFO - 处理批次|Processing batch 2/46: 4 个样本|samples
+2026-01-19 09:13:48.724 - INFO - 跳过样本|Skip sample: SDW145A (输出文件已存在|output file exists: output/01_kmer_counts/SDW145A_k31.bin, 8234.40M)
+2026-01-19 09:13:48.725 - INFO - 跳过样本|Skip sample: SDW141A (输出文件已存在|output file exists: output/01_kmer_counts/SDW141A_k31.bin, 8435.82M)
+2026-01-19 09:13:48.737 - INFO - 跳过样本|Skip sample: SDW142-1A (输出文件已存在|output file exists: output/01_kmer_counts/SDW142-1A_k31.bin, 8861.05M)
+2026-01-19 09:13:48.754 - INFO - 跳过样本|Skip sample: SDW139A (输出文件已存在|output file exists: output/01_kmer_counts/SDW139A_k31.bin, 8045.07M)
+2026-01-19 09:13:48.754 - INFO - 处理批次|Processing batch 3/46: 4 个样本|samples
+2026-01-19 09:13:48.765 - INFO - 跳过样本|Skip sample: SDW126A (输出文件已存在|output file exists: output/01_kmer_counts/SDW126A_k31.bin, 8194.68M)
+2026-01-19 09:13:48.789 - INFO - 跳过样本|Skip sample: SDW128A (输出文件已存在|output file exists: output/01_kmer_counts/SDW128A_k31.bin, 9145.05M)
+2026-01-19 09:13:48.802 - INFO - 跳过样本|Skip sample: SDW129A (输出文件已存在|output file exists: output/01_kmer_counts/SDW129A_k31.bin, 8137.80M)
+2026-01-19 09:13:48.804 - INFO - 跳过样本|Skip sample: SDW130A (输出文件已存在|output file exists: output/01_kmer_counts/SDW130A_k31.bin, 8184.04M)
+2026-01-19 09:13:48.804 - INFO - 处理批次|Processing batch 4/46: 4 个样本|samples
+2026-01-19 09:13:48.820 - INFO - 跳过样本|Skip sample: SDW176A (输出文件已存在|output file exists: output/01_kmer_counts/SDW176A_k31.bin, 8888.28M)
+2026-01-19 09:13:48.820 - INFO - 跳过样本|Skip sample: SDW175A (输出文件已存在|output file exists: output/01_kmer_counts/SDW175A_k31.bin, 8372.27M)
+2026-01-19 09:13:48.821 - INFO - 跳过样本|Skip sample: SDW181A (输出文件已存在|output file exists: output/01_kmer_counts/SDW181A_k31.bin, 8229.43M)
+2026-01-19 09:13:48.821 - INFO - 跳过样本|Skip sample: SDW178A (输出文件已存在|output file exists: output/01_kmer_counts/SDW178A_k31.bin, 9920.72M)
+2026-01-19 09:13:48.821 - INFO - 处理批次|Processing batch 5/46: 4 个样本|samples
+2026-01-19 09:13:48.829 - INFO - 跳过样本|Skip sample: GDW120A (输出文件已存在|output file exists: output/01_kmer_counts/GDW120A_k31.bin, 17893.43M)
+2026-01-19 09:13:48.829 - INFO - 跳过样本|Skip sample: SDW082A (输出文件已存在|output file exists: output/01_kmer_counts/SDW082A_k31.bin, 9447.52M)
+2026-01-19 09:13:48.832 - INFO - 跳过样本|Skip sample: SDW072A (输出文件已存在|output file exists: output/01_kmer_counts/SDW072A_k31.bin, 15268.51M)
+2026-01-19 09:13:48.832 - INFO - 跳过样本|Skip sample: SDW057A (输出文件已存在|output file exists: output/01_kmer_counts/SDW057A_k31.bin, 16188.17M)
+2026-01-19 09:13:48.832 - INFO - 处理批次|Processing batch 6/46: 4 个样本|samples
+2026-01-19 09:13:48.841 - INFO - 跳过样本|Skip sample: SDW074A (输出文件已存在|output file exists: output/01_kmer_counts/SDW074A_k31.bin, 9533.57M)
+2026-01-19 09:13:48.841 - INFO - 跳过样本|Skip sample: SDW048A (输出文件已存在|output file exists: output/01_kmer_counts/SDW048A_k31.bin, 17116.80M)
+2026-01-19 09:13:48.844 - INFO - 跳过样本|Skip sample: SDW095A (输出文件已存在|output file exists: output/01_kmer_counts/SDW095A_k31.bin, 8475.22M)
+2026-01-19 09:13:48.844 - INFO - 跳过样本|Skip sample: SDW85A (输出文件已存在|output file exists: output/01_kmer_counts/SDW85A_k31.bin, 8761.71M)
+2026-01-19 09:13:48.844 - INFO - 处理批次|Processing batch 7/46: 4 个样本|samples
+2026-01-19 09:13:48.844 - INFO - 跳过样本|Skip sample: SDW043A (输出文件已存在|output file exists: output/01_kmer_counts/SDW043A_k31.bin, 15681.72M)
+2026-01-19 09:13:48.845 - INFO - 跳过样本|Skip sample: SDW089A (输出文件已存在|output file exists: output/01_kmer_counts/SDW089A_k31.bin, 10026.40M)
+2026-01-19 09:13:48.845 - INFO - 跳过样本|Skip sample: SDW084A (输出文件已存在|output file exists: output/01_kmer_counts/SDW084A_k31.bin, 8087.24M)
+2026-01-19 09:13:48.845 - INFO - 跳过样本|Skip sample: SDW164A (输出文件已存在|output file exists: output/01_kmer_counts/SDW164A_k31.bin, 8579.07M)
+2026-01-19 09:13:48.845 - INFO - 处理批次|Processing batch 8/46: 4 个样本|samples
+2026-01-19 09:13:48.848 - INFO - 跳过样本|Skip sample: SDW192A (输出文件已存在|output file exists: output/01_kmer_counts/SDW192A_k31.bin, 8261.73M)
+2026-01-19 09:13:48.849 - INFO - 跳过样本|Skip sample: SDW193A (输出文件已存在|output file exists: output/01_kmer_counts/SDW193A_k31.bin, 8752.79M)
+2026-01-19 09:13:48.849 - INFO - 跳过样本|Skip sample: SDW194A (输出文件已存在|output file exists: output/01_kmer_counts/SDW194A_k31.bin, 9690.31M)
+2026-01-19 09:13:48.849 - INFO - 跳过样本|Skip sample: SDW152A (输出文件已存在|output file exists: output/01_kmer_counts/SDW152A_k31.bin, 8410.73M)
+2026-01-19 09:13:48.849 - INFO - 处理批次|Processing batch 9/46: 4 个样本|samples
+2026-01-19 09:13:48.849 - INFO - 跳过样本|Skip sample: SDW188A (输出文件已存在|output file exists: output/01_kmer_counts/SDW188A_k31.bin, 8829.22M)
+2026-01-19 09:13:48.850 - INFO - 跳过样本|Skip sample: SDW179A (输出文件已存在|output file exists: output/01_kmer_counts/SDW179A_k31.bin, 10641.81M)
+2026-01-19 09:13:48.850 - INFO - 跳过样本|Skip sample: SDW162-1A (输出文件已存在|output file exists: output/01_kmer_counts/SDW162-1A_k31.bin, 8803.30M)
+2026-01-19 09:13:48.850 - INFO - 跳过样本|Skip sample: SDW023A (输出文件已存在|output file exists: output/01_kmer_counts/SDW023A_k31.bin, 16692.64M)
+2026-01-19 09:13:48.850 - INFO - 处理批次|Processing batch 10/46: 4 个样本|samples
+2026-01-19 09:13:48.850 - INFO - 跳过样本|Skip sample: SDW016A (输出文件已存在|output file exists: output/01_kmer_counts/SDW016A_k31.bin, 18411.14M)
+2026-01-19 09:13:48.851 - INFO - 跳过样本|Skip sample: SDW038A (输出文件已存在|output file exists: output/01_kmer_counts/SDW038A_k31.bin, 16580.16M)
+2026-01-19 09:13:48.851 - INFO - 跳过样本|Skip sample: GDW111A (输出文件已存在|output file exists: output/01_kmer_counts/GDW111A_k31.bin, 17547.39M)
+2026-01-19 09:13:48.851 - INFO - 跳过样本|Skip sample: SDW017A (输出文件已存在|output file exists: output/01_kmer_counts/SDW017A_k31.bin, 17899.29M)
+2026-01-19 09:13:48.851 - INFO - 处理批次|Processing batch 11/46: 4 个样本|samples
+2026-01-19 09:13:48.851 - INFO - 跳过样本|Skip sample: SDW170A (输出文件已存在|output file exists: output/01_kmer_counts/SDW170A_k31.bin, 8864.61M)
+2026-01-19 09:13:48.851 - INFO - 跳过样本|Skip sample: SDW171A (输出文件已存在|output file exists: output/01_kmer_counts/SDW171A_k31.bin, 8985.57M)
+2026-01-19 09:13:48.852 - INFO - 跳过样本|Skip sample: SDW008A (输出文件已存在|output file exists: output/01_kmer_counts/SDW008A_k31.bin, 17011.93M)
+2026-01-19 09:13:48.852 - INFO - 跳过样本|Skip sample: SDW109A (输出文件已存在|output file exists: output/01_kmer_counts/SDW109A_k31.bin, 8344.61M)
+2026-01-19 09:13:48.852 - INFO - 处理批次|Processing batch 12/46: 4 个样本|samples
+2026-01-19 09:13:48.852 - INFO - 跳过样本|Skip sample: SDW116A (输出文件已存在|output file exists: output/01_kmer_counts/SDW116A_k31.bin, 9413.33M)
+2026-01-19 09:13:48.852 - INFO - 跳过样本|Skip sample: SDW107A (输出文件已存在|output file exists: output/01_kmer_counts/SDW107A_k31.bin, 8154.27M)
+2026-01-19 09:13:48.852 - INFO - 跳过样本|Skip sample: SDW099A (输出文件已存在|output file exists: output/01_kmer_counts/SDW099A_k31.bin, 9687.90M)
+2026-01-19 09:13:48.853 - INFO - 跳过样本|Skip sample: SDW097-1A (输出文件已存在|output file exists: output/01_kmer_counts/SDW097-1A_k31.bin, 8599.65M)
+2026-01-19 09:13:48.853 - INFO - 处理批次|Processing batch 13/46: 4 个样本|samples
+2026-01-19 09:13:48.853 - INFO - 跳过样本|Skip sample: SDW097-2A (输出文件已存在|output file exists: output/01_kmer_counts/SDW097-2A_k31.bin, 8495.46M)
+2026-01-19 09:13:48.853 - INFO - 跳过样本|Skip sample: SDW022A (输出文件已存在|output file exists: output/01_kmer_counts/SDW022A_k31.bin, 15520.46M)
+2026-01-19 09:13:48.853 - INFO - 跳过样本|Skip sample: SDW114A (输出文件已存在|output file exists: output/01_kmer_counts/SDW114A_k31.bin, 9350.42M)
+2026-01-19 09:13:48.867 - INFO - 跳过样本|Skip sample: SDW110A (输出文件已存在|output file exists: output/01_kmer_counts/SDW110A_k31.bin, 8268.12M)
+2026-01-19 09:13:48.867 - INFO - 处理批次|Processing batch 14/46: 4 个样本|samples
+2026-01-19 09:13:48.867 - INFO - 跳过样本|Skip sample: SDW111A (输出文件已存在|output file exists: output/01_kmer_counts/SDW111A_k31.bin, 8931.12M)
+2026-01-19 09:13:48.874 - INFO - 跳过样本|Skip sample: SDW003A (输出文件已存在|output file exists: output/01_kmer_counts/SDW003A_k31.bin, 16173.81M)
+2026-01-19 09:13:48.874 - INFO - 跳过样本|Skip sample: SDW034A (输出文件已存在|output file exists: output/01_kmer_counts/SDW034A_k31.bin, 16596.81M)
+2026-01-19 09:13:48.874 - INFO - 跳过样本|Skip sample: SDW096A (输出文件已存在|output file exists: output/01_kmer_counts/SDW096A_k31.bin, 8484.25M)
+2026-01-19 09:13:48.874 - INFO - 处理批次|Processing batch 15/46: 4 个样本|samples
+2026-01-19 09:13:48.875 - INFO - 跳过样本|Skip sample: SDW054A (输出文件已存在|output file exists: output/01_kmer_counts/SDW054A_k31.bin, 14151.77M)
+2026-01-19 09:13:48.875 - INFO - 跳过样本|Skip sample: SDW056A (输出文件已存在|output file exists: output/01_kmer_counts/SDW056A_k31.bin, 15565.84M)
+2026-01-19 09:13:48.875 - INFO - 跳过样本|Skip sample: SDW053A (输出文件已存在|output file exists: output/01_kmer_counts/SDW053A_k31.bin, 15931.42M)
+2026-01-19 09:13:48.875 - INFO - 跳过样本|Skip sample: SDW055A (输出文件已存在|output file exists: output/01_kmer_counts/SDW055A_k31.bin, 16987.09M)
+2026-01-19 09:13:48.875 - INFO - 处理批次|Processing batch 16/46: 4 个样本|samples
+2026-01-19 09:13:48.875 - INFO - 跳过样本|Skip sample: SDW007A (输出文件已存在|output file exists: output/01_kmer_counts/SDW007A_k31.bin, 17040.31M)
+2026-01-19 09:13:48.876 - INFO - 跳过样本|Skip sample: SDW030A (输出文件已存在|output file exists: output/01_kmer_counts/SDW030A_k31.bin, 13785.66M)
+2026-01-19 09:13:48.876 - INFO - 跳过样本|Skip sample: SDW018A (输出文件已存在|output file exists: output/01_kmer_counts/SDW018A_k31.bin, 16839.86M)
+2026-01-19 09:13:48.876 - INFO - 跳过样本|Skip sample: SDW032A (输出文件已存在|output file exists: output/01_kmer_counts/SDW032A_k31.bin, 14898.67M)
+2026-01-19 09:13:48.876 - INFO - 处理批次|Processing batch 17/46: 4 个样本|samples
+2026-01-19 09:13:48.876 - INFO - 跳过样本|Skip sample: SDW031A (输出文件已存在|output file exists: output/01_kmer_counts/SDW031A_k31.bin, 15501.83M)
+2026-01-19 09:13:48.876 - INFO - 跳过样本|Skip sample: SDW25A (输出文件已存在|output file exists: output/01_kmer_counts/SDW25A_k31.bin, 15324.25M)
+2026-01-19 09:13:48.877 - INFO - 跳过样本|Skip sample: SDW019A (输出文件已存在|output file exists: output/01_kmer_counts/SDW019A_k31.bin, 16805.28M)
+2026-01-19 09:13:48.877 - INFO - 跳过样本|Skip sample: SDW26A (输出文件已存在|output file exists: output/01_kmer_counts/SDW26A_k31.bin, 14729.51M)
+2026-01-19 09:13:48.877 - INFO - 处理批次|Processing batch 18/46: 4 个样本|samples
+2026-01-19 09:13:48.877 - INFO - 跳过样本|Skip sample: GDW105A (输出文件已存在|output file exists: output/01_kmer_counts/GDW105A_k31.bin, 9236.29M)
+2026-01-19 09:13:48.890 - INFO - 跳过样本|Skip sample: SDW062A (输出文件已存在|output file exists: output/01_kmer_counts/SDW062A_k31.bin, 14575.83M)
+2026-01-19 09:13:48.890 - INFO - 跳过样本|Skip sample: WJ98A (输出文件已存在|output file exists: output/01_kmer_counts/WJ98A_k31.bin, 15572.58M)
+2026-01-19 09:13:48.890 - INFO - 跳过样本|Skip sample: GDW65A (输出文件已存在|output file exists: output/01_kmer_counts/GDW65A_k31.bin, 18413.23M)
+2026-01-19 09:13:48.890 - INFO - 处理批次|Processing batch 19/46: 4 个样本|samples
+2026-01-19 09:13:48.890 - INFO - 跳过样本|Skip sample: GDW069-1A (输出文件已存在|output file exists: output/01_kmer_counts/GDW069-1A_k31.bin, 8913.66M)
+2026-01-19 09:13:48.890 - INFO - 跳过样本|Skip sample: GDW69-2A (输出文件已存在|output file exists: output/01_kmer_counts/GDW69-2A_k31.bin, 17444.82M)
+2026-01-19 09:13:48.891 - INFO - 跳过样本|Skip sample: GDW44-2A (输出文件已存在|output file exists: output/01_kmer_counts/GDW44-2A_k31.bin, 20006.32M)
+2026-01-19 09:13:48.891 - INFO - 跳过样本|Skip sample: GDW089A (输出文件已存在|output file exists: output/01_kmer_counts/GDW089A_k31.bin, 18512.65M)
+2026-01-19 09:13:48.891 - INFO - 处理批次|Processing batch 20/46: 4 个样本|samples
+2026-01-19 09:13:48.891 - INFO - 跳过样本|Skip sample: GDW98A (输出文件已存在|output file exists: output/01_kmer_counts/GDW98A_k31.bin, 18579.38M)
+2026-01-19 09:13:48.891 - INFO - 跳过样本|Skip sample: GDW004A (输出文件已存在|output file exists: output/01_kmer_counts/GDW004A_k31.bin, 20863.69M)
+2026-01-19 09:13:48.891 - INFO - 跳过样本|Skip sample: GDW061A (输出文件已存在|output file exists: output/01_kmer_counts/GDW061A_k31.bin, 20179.28M)
+2026-01-19 09:13:48.892 - INFO - 跳过样本|Skip sample: GDW95A (输出文件已存在|output file exists: output/01_kmer_counts/GDW95A_k31.bin, 17606.09M)
+2026-01-19 09:13:48.892 - INFO - 处理批次|Processing batch 21/46: 4 个样本|samples
+2026-01-19 09:13:48.892 - INFO - 跳过样本|Skip sample: GDW018A (输出文件已存在|output file exists: output/01_kmer_counts/GDW018A_k31.bin, 21425.40M)
+2026-01-19 09:13:48.892 - INFO - 跳过样本|Skip sample: GDW47A (输出文件已存在|output file exists: output/01_kmer_counts/GDW47A_k31.bin, 17228.83M)
+2026-01-19 09:13:48.892 - INFO - 跳过样本|Skip sample: GDW68A (输出文件已存在|output file exists: output/01_kmer_counts/GDW68A_k31.bin, 18772.30M)
+2026-01-19 09:13:48.893 - INFO - 跳过样本|Skip sample: GDW007A (输出文件已存在|output file exists: output/01_kmer_counts/GDW007A_k31.bin, 18940.58M)
+2026-01-19 09:13:48.893 - INFO - 处理批次|Processing batch 22/46: 4 个样本|samples
+2026-01-19 09:13:48.893 - INFO - 跳过样本|Skip sample: GDW008A (输出文件已存在|output file exists: output/01_kmer_counts/GDW008A_k31.bin, 21328.01M)
+2026-01-19 09:13:48.893 - INFO - 跳过样本|Skip sample: GDW040A (输出文件已存在|output file exists: output/01_kmer_counts/GDW040A_k31.bin, 20347.38M)
+2026-01-19 09:13:48.893 - INFO - 跳过样本|Skip sample: GDW21A (输出文件已存在|output file exists: output/01_kmer_counts/GDW21A_k31.bin, 22092.25M)
+2026-01-19 09:13:48.893 - INFO - 跳过样本|Skip sample: GDW011A (输出文件已存在|output file exists: output/01_kmer_counts/GDW011A_k31.bin, 20782.78M)
+2026-01-19 09:13:48.893 - INFO - 处理批次|Processing batch 23/46: 4 个样本|samples
+2026-01-19 09:13:48.894 - INFO - 跳过样本|Skip sample: GDW055A (输出文件已存在|output file exists: output/01_kmer_counts/GDW055A_k31.bin, 19433.82M)
+2026-01-19 09:13:48.894 - INFO - 跳过样本|Skip sample: GDW075A (输出文件已存在|output file exists: output/01_kmer_counts/GDW075A_k31.bin, 16986.14M)
+2026-01-19 09:13:48.894 - INFO - 跳过样本|Skip sample: GDW078A (输出文件已存在|output file exists: output/01_kmer_counts/GDW078A_k31.bin, 18573.81M)
+2026-01-19 09:13:48.894 - INFO - 跳过样本|Skip sample: SDW125A (输出文件已存在|output file exists: output/01_kmer_counts/SDW125A_k31.bin, 8095.31M)
+2026-01-19 09:13:48.894 - INFO - 处理批次|Processing batch 24/46: 4 个样本|samples
+2026-01-19 09:13:48.894 - INFO - 跳过样本|Skip sample: SDW155A (输出文件已存在|output file exists: output/01_kmer_counts/SDW155A_k31.bin, 9305.09M)
+2026-01-19 09:13:48.895 - INFO - 跳过样本|Skip sample: SDW160A (输出文件已存在|output file exists: output/01_kmer_counts/SDW160A_k31.bin, 9852.30M)
+2026-01-19 09:13:48.895 - INFO - 跳过样本|Skip sample: SDW190A (输出文件已存在|output file exists: output/01_kmer_counts/SDW190A_k31.bin, 8588.57M)
+2026-01-19 09:13:48.895 - INFO - 跳过样本|Skip sample: GDW048A (输出文件已存在|output file exists: output/01_kmer_counts/GDW048A_k31.bin, 19450.13M)
+2026-01-19 09:13:48.895 - INFO - 处理批次|Processing batch 25/46: 4 个样本|samples
+2026-01-19 09:13:48.895 - INFO - 跳过样本|Skip sample: GDW022A (输出文件已存在|output file exists: output/01_kmer_counts/GDW022A_k31.bin, 19869.71M)
+2026-01-19 09:13:48.896 - INFO - 跳过样本|Skip sample: GDW052A (输出文件已存在|output file exists: output/01_kmer_counts/GDW052A_k31.bin, 18798.19M)
+2026-01-19 09:13:48.896 - INFO - 跳过样本|Skip sample: GDW049A (输出文件已存在|output file exists: output/01_kmer_counts/GDW049A_k31.bin, 19642.66M)
+2026-01-19 09:13:48.896 - INFO - 跳过样本|Skip sample: GDW41A (输出文件已存在|output file exists: output/01_kmer_counts/GDW41A_k31.bin, 20149.61M)
+2026-01-19 09:13:48.896 - INFO - 处理批次|Processing batch 26/46: 4 个样本|samples
+2026-01-19 09:13:48.896 - INFO - 跳过样本|Skip sample: GDW030A (输出文件已存在|output file exists: output/01_kmer_counts/GDW030A_k31.bin, 19458.08M)
+2026-01-19 09:13:48.896 - INFO - 跳过样本|Skip sample: GDW13A (输出文件已存在|output file exists: output/01_kmer_counts/GDW13A_k31.bin, 19628.67M)
+2026-01-19 09:13:48.897 - INFO - 跳过样本|Skip sample: SDW121A (输出文件已存在|output file exists: output/01_kmer_counts/SDW121A_k31.bin, 8080.06M)
+2026-01-19 09:13:48.897 - INFO - 跳过样本|Skip sample: SDW120A (输出文件已存在|output file exists: output/01_kmer_counts/SDW120A_k31.bin, 8140.59M)
+2026-01-19 09:13:48.897 - INFO - 处理批次|Processing batch 27/46: 4 个样本|samples
+2026-01-19 09:13:48.897 - INFO - 跳过样本|Skip sample: GDW27A (输出文件已存在|output file exists: output/01_kmer_counts/GDW27A_k31.bin, 8372.80M)
+2026-01-19 09:13:48.897 - INFO - 跳过样本|Skip sample: GDW074A (输出文件已存在|output file exists: output/01_kmer_counts/GDW074A_k31.bin, 15398.89M)
+2026-01-19 09:13:48.897 - INFO - 跳过样本|Skip sample: GDW38A (输出文件已存在|output file exists: output/01_kmer_counts/GDW38A_k31.bin, 20381.97M)
+2026-01-19 09:13:48.898 - INFO - 跳过样本|Skip sample: GDW020A (输出文件已存在|output file exists: output/01_kmer_counts/GDW020A_k31.bin, 20470.21M)
+2026-01-19 09:13:48.898 - INFO - 处理批次|Processing batch 28/46: 4 个样本|samples
+2026-01-19 09:13:48.898 - INFO - 跳过样本|Skip sample: GDW032A (输出文件已存在|output file exists: output/01_kmer_counts/GDW032A_k31.bin, 19507.37M)
+2026-01-19 09:13:48.898 - INFO - 跳过样本|Skip sample: GDW023A (输出文件已存在|output file exists: output/01_kmer_counts/GDW023A_k31.bin, 19674.42M)
+2026-01-19 09:13:48.898 - INFO - 跳过样本|Skip sample: GDW057A (输出文件已存在|output file exists: output/01_kmer_counts/GDW057A_k31.bin, 21299.86M)
+2026-01-19 09:13:48.898 - INFO - 跳过样本|Skip sample: GDW067A (输出文件已存在|output file exists: output/01_kmer_counts/GDW067A_k31.bin, 21461.34M)
+2026-01-19 09:13:48.898 - INFO - 处理批次|Processing batch 29/46: 4 个样本|samples
+2026-01-19 09:13:48.899 - INFO - 跳过样本|Skip sample: GDW31A (输出文件已存在|output file exists: output/01_kmer_counts/GDW31A_k31.bin, 18686.16M)
+2026-01-19 09:13:48.899 - INFO - 跳过样本|Skip sample: GDW91A (输出文件已存在|output file exists: output/01_kmer_counts/GDW91A_k31.bin, 15724.85M)
+2026-01-19 09:13:48.899 - INFO - 跳过样本|Skip sample: WK027A (输出文件已存在|output file exists: output/01_kmer_counts/WK027A_k31.bin, 19966.64M)
+2026-01-19 09:13:48.899 - INFO - 跳过样本|Skip sample: WJ65A (输出文件已存在|output file exists: output/01_kmer_counts/WJ65A_k31.bin, 17206.64M)
+2026-01-19 09:13:48.899 - INFO - 处理批次|Processing batch 30/46: 4 个样本|samples
+2026-01-19 09:13:48.899 - INFO - 跳过样本|Skip sample: WJ23A (输出文件已存在|output file exists: output/01_kmer_counts/WJ23A_k31.bin, 21223.04M)
+2026-01-19 09:13:48.900 - INFO - 跳过样本|Skip sample: WJ5A (输出文件已存在|output file exists: output/01_kmer_counts/WJ5A_k31.bin, 21444.66M)
+2026-01-19 09:13:48.900 - INFO - 跳过样本|Skip sample: WJ44A (输出文件已存在|output file exists: output/01_kmer_counts/WJ44A_k31.bin, 17719.91M)
+2026-01-19 09:13:48.900 - INFO - 跳过样本|Skip sample: WJ31A (输出文件已存在|output file exists: output/01_kmer_counts/WJ31A_k31.bin, 21717.85M)
+2026-01-19 09:13:48.900 - INFO - 处理批次|Processing batch 31/46: 4 个样本|samples
+2026-01-19 09:13:48.900 - INFO - 跳过样本|Skip sample: WJ28A (输出文件已存在|output file exists: output/01_kmer_counts/WJ28A_k31.bin, 21100.32M)
+2026-01-19 09:13:48.900 - INFO - 跳过样本|Skip sample: SDW064A (输出文件已存在|output file exists: output/01_kmer_counts/SDW064A_k31.bin, 17579.98M)
+2026-01-19 09:13:48.901 - INFO - 跳过样本|Skip sample: WJ9A (输出文件已存在|output file exists: output/01_kmer_counts/WJ9A_k31.bin, 21609.71M)
+2026-01-19 09:13:48.901 - INFO - 跳过样本|Skip sample: WJ110A (输出文件已存在|output file exists: output/01_kmer_counts/WJ110A_k31.bin, 19525.41M)
+2026-01-19 09:13:48.901 - INFO - 处理批次|Processing batch 32/46: 4 个样本|samples
+2026-01-19 09:13:48.901 - INFO - 跳过样本|Skip sample: WJ11-1A (输出文件已存在|output file exists: output/01_kmer_counts/WJ11-1A_k31.bin, 20447.43M)
+2026-01-19 09:13:48.901 - INFO - 跳过样本|Skip sample: WJ32A (输出文件已存在|output file exists: output/01_kmer_counts/WJ32A_k31.bin, 21908.14M)
+2026-01-19 09:13:48.902 - INFO - 跳过样本|Skip sample: WJ36A (输出文件已存在|output file exists: output/01_kmer_counts/WJ36A_k31.bin, 21407.83M)
+2026-01-19 09:13:48.902 - INFO - 跳过样本|Skip sample: WJ84A (输出文件已存在|output file exists: output/01_kmer_counts/WJ84A_k31.bin, 18575.80M)
+2026-01-19 09:13:48.902 - INFO - 处理批次|Processing batch 33/46: 4 个样本|samples
+2026-01-19 09:13:48.902 - INFO - 跳过样本|Skip sample: WJ19A (输出文件已存在|output file exists: output/01_kmer_counts/WJ19A_k31.bin, 20715.10M)
+2026-01-19 09:13:48.902 - INFO - 跳过样本|Skip sample: WJ88A (输出文件已存在|output file exists: output/01_kmer_counts/WJ88A_k31.bin, 18431.00M)
+2026-01-19 09:13:48.902 - INFO - 跳过样本|Skip sample: WJ33A (输出文件已存在|output file exists: output/01_kmer_counts/WJ33A_k31.bin, 22547.09M)
+2026-01-19 09:13:48.903 - INFO - 跳过样本|Skip sample: WJ78A (输出文件已存在|output file exists: output/01_kmer_counts/WJ78A_k31.bin, 18837.50M)
+2026-01-19 09:13:48.903 - INFO - 处理批次|Processing batch 34/46: 4 个样本|samples
+2026-01-19 09:13:48.903 - INFO - 跳过样本|Skip sample: WJ56A (输出文件已存在|output file exists: output/01_kmer_counts/WJ56A_k31.bin, 18830.74M)
+2026-01-19 09:13:48.903 - INFO - 跳过样本|Skip sample: WJ92-2A (输出文件已存在|output file exists: output/01_kmer_counts/WJ92-2A_k31.bin, 19120.26M)
+2026-01-19 09:13:48.903 - INFO - 跳过样本|Skip sample: WJ46A (输出文件已存在|output file exists: output/01_kmer_counts/WJ46A_k31.bin, 18798.26M)
+2026-01-19 09:13:48.903 - INFO - 跳过样本|Skip sample: WJ66A (输出文件已存在|output file exists: output/01_kmer_counts/WJ66A_k31.bin, 19448.82M)
+2026-01-19 09:13:48.903 - INFO - 处理批次|Processing batch 35/46: 4 个样本|samples
+2026-01-19 09:13:48.904 - INFO - 跳过样本|Skip sample: WJ100A (输出文件已存在|output file exists: output/01_kmer_counts/WJ100A_k31.bin, 18626.87M)
+2026-01-19 09:13:48.904 - INFO - 跳过样本|Skip sample: WJ52A (输出文件已存在|output file exists: output/01_kmer_counts/WJ52A_k31.bin, 19409.39M)
+2026-01-19 09:13:48.917 - INFO - 跳过样本|Skip sample: WJ49A (输出文件已存在|output file exists: output/01_kmer_counts/WJ49A_k31.bin, 19844.01M)
+2026-01-19 09:13:48.917 - INFO - 跳过样本|Skip sample: WJ58A (输出文件已存在|output file exists: output/01_kmer_counts/WJ58A_k31.bin, 9262.66M)
+2026-01-19 09:13:48.917 - INFO - 处理批次|Processing batch 36/46: 4 个样本|samples
+2026-01-19 09:13:48.924 - INFO - 跳过样本|Skip sample: WK085-1A (输出文件已存在|output file exists: output/01_kmer_counts/WK085-1A_k31.bin, 19887.18M)
+2026-01-19 09:13:48.925 - INFO - 跳过样本|Skip sample: WK018A (输出文件已存在|output file exists: output/01_kmer_counts/WK018A_k31.bin, 19322.28M)
+2026-01-19 09:13:48.929 - INFO - 跳过样本|Skip sample: WK38A (输出文件已存在|output file exists: output/01_kmer_counts/WK38A_k31.bin, 21109.14M)
+2026-01-19 09:13:48.929 - INFO - 跳过样本|Skip sample: WK002A (输出文件已存在|output file exists: output/01_kmer_counts/WK002A_k31.bin, 20461.85M)
+2026-01-19 09:13:48.929 - INFO - 处理批次|Processing batch 37/46: 4 个样本|samples
+2026-01-19 09:13:48.930 - INFO - 跳过样本|Skip sample: WK003A (输出文件已存在|output file exists: output/01_kmer_counts/WK003A_k31.bin, 20663.06M)
+2026-01-19 09:13:48.930 - INFO - 跳过样本|Skip sample: WK42A (输出文件已存在|output file exists: output/01_kmer_counts/WK42A_k31.bin, 9101.57M)
+2026-01-19 09:13:48.931 - INFO - 跳过样本|Skip sample: WJ45A (输出文件已存在|output file exists: output/01_kmer_counts/WJ45A_k31.bin, 19045.57M)
+2026-01-19 09:13:48.931 - INFO - 跳过样本|Skip sample: WK057A (输出文件已存在|output file exists: output/01_kmer_counts/WK057A_k31.bin, 19603.08M)
+2026-01-19 09:13:48.931 - INFO - 处理批次|Processing batch 38/46: 4 个样本|samples
+2026-01-19 09:13:48.931 - INFO - 跳过样本|Skip sample: WK084-2A (输出文件已存在|output file exists: output/01_kmer_counts/WK084-2A_k31.bin, 20956.66M)
+2026-01-19 09:13:48.932 - INFO - 跳过样本|Skip sample: WK084-1A (输出文件已存在|output file exists: output/01_kmer_counts/WK084-1A_k31.bin, 18180.38M)
+2026-01-19 09:13:48.932 - INFO - 跳过样本|Skip sample: SDW073-2A (输出文件已存在|output file exists: output/01_kmer_counts/SDW073-2A_k31.bin, 15582.56M)
+2026-01-19 09:13:48.932 - INFO - 跳过样本|Skip sample: GDW87A (输出文件已存在|output file exists: output/01_kmer_counts/GDW87A_k31.bin, 17721.68M)
+2026-01-19 09:13:48.932 - INFO - 处理批次|Processing batch 39/46: 4 个样本|samples
+2026-01-19 09:13:48.933 - INFO - 跳过样本|Skip sample: DB65A (输出文件已存在|output file exists: output/01_kmer_counts/DB65A_k31.bin, 20049.47M)
+2026-01-19 09:13:48.940 - INFO - 跳过样本|Skip sample: DB103A (输出文件已存在|output file exists: output/01_kmer_counts/DB103A_k31.bin, 20754.18M)
+2026-01-19 09:13:48.940 - INFO - 跳过样本|Skip sample: DB45A (输出文件已存在|output file exists: output/01_kmer_counts/DB45A_k31.bin, 18349.35M)
+2026-01-19 09:13:48.942 - INFO - 跳过样本|Skip sample: DB27A (输出文件已存在|output file exists: output/01_kmer_counts/DB27A_k31.bin, 20367.07M)
+2026-01-19 09:13:48.942 - INFO - 处理批次|Processing batch 40/46: 4 个样本|samples
+2026-01-19 09:13:48.942 - INFO - 跳过样本|Skip sample: DB61A (输出文件已存在|output file exists: output/01_kmer_counts/DB61A_k31.bin, 19418.27M)
+2026-01-19 09:13:48.942 - INFO - 跳过样本|Skip sample: DB95A (输出文件已存在|output file exists: output/01_kmer_counts/DB95A_k31.bin, 20138.68M)
+2026-01-19 09:13:48.942 - INFO - 跳过样本|Skip sample: DB97A (输出文件已存在|output file exists: output/01_kmer_counts/DB97A_k31.bin, 18373.84M)
+2026-01-19 09:13:48.956 - INFO - 跳过样本|Skip sample: DB41A (输出文件已存在|output file exists: output/01_kmer_counts/DB41A_k31.bin, 18251.10M)
+2026-01-19 09:13:48.956 - INFO - 处理批次|Processing batch 41/46: 4 个样本|samples
+2026-01-19 09:13:48.968 - INFO - 跳过样本|Skip sample: DB40A (输出文件已存在|output file exists: output/01_kmer_counts/DB40A_k31.bin, 24661.49M)
+2026-01-19 09:13:48.979 - INFO - 跳过样本|Skip sample: DB104A (输出文件已存在|output file exists: output/01_kmer_counts/DB104A_k31.bin, 15415.24M)
+2026-01-19 09:13:48.986 - INFO - 跳过样本|Skip sample: DB93A (输出文件已存在|output file exists: output/01_kmer_counts/DB93A_k31.bin, 27480.26M)
+2026-01-19 09:13:48.986 - INFO - 跳过样本|Skip sample: DB107A (输出文件已存在|output file exists: output/01_kmer_counts/DB107A_k31.bin, 19848.36M)
+2026-01-19 09:13:48.986 - INFO - 处理批次|Processing batch 42/46: 4 个样本|samples
+2026-01-19 09:13:49.001 - INFO - 跳过样本|Skip sample: DB30A (输出文件已存在|output file exists: output/01_kmer_counts/DB30A_k31.bin, 19506.42M)
+2026-01-19 09:13:49.001 - INFO - 跳过样本|Skip sample: WJ51A (输出文件已存在|output file exists: output/01_kmer_counts/WJ51A_k31.bin, 20285.73M)
+2026-01-19 09:13:49.021 - INFO - 跳过样本|Skip sample: DB57A (输出文件已存在|output file exists: output/01_kmer_counts/DB57A_k31.bin, 20933.24M)
+2026-01-19 09:13:49.029 - INFO - 跳过样本|Skip sample: DB67A (输出文件已存在|output file exists: output/01_kmer_counts/DB67A_k31.bin, 21240.66M)
+2026-01-19 09:13:49.029 - INFO - 处理批次|Processing batch 43/46: 4 个样本|samples
+2026-01-19 09:13:49.029 - INFO - 跳过样本|Skip sample: DB75A (输出文件已存在|output file exists: output/01_kmer_counts/DB75A_k31.bin, 26325.32M)
+2026-01-19 09:13:49.039 - INFO - 跳过样本|Skip sample: DB79A (输出文件已存在|output file exists: output/01_kmer_counts/DB79A_k31.bin, 19592.54M)
+2026-01-19 09:13:49.042 - INFO - 跳过样本|Skip sample: DB76A (输出文件已存在|output file exists: output/01_kmer_counts/DB76A_k31.bin, 18283.86M)
+2026-01-19 09:13:49.053 - INFO - 跳过样本|Skip sample: DB68A (输出文件已存在|output file exists: output/01_kmer_counts/DB68A_k31.bin, 20809.42M)
+2026-01-19 09:13:49.053 - INFO - 处理批次|Processing batch 44/46: 4 个样本|samples
+2026-01-19 09:13:49.059 - INFO - 跳过样本|Skip sample: DB74A (输出文件已存在|output file exists: output/01_kmer_counts/DB74A_k31.bin, 17512.36M)
+2026-01-19 09:13:49.073 - INFO - 跳过样本|Skip sample: DB72A (输出文件已存在|output file exists: output/01_kmer_counts/DB72A_k31.bin, 20703.71M)
+2026-01-19 09:13:49.074 - INFO - 跳过样本|Skip sample: DB22A (输出文件已存在|output file exists: output/01_kmer_counts/DB22A_k31.bin, 19651.40M)
+2026-01-19 09:13:49.074 - INFO - 跳过样本|Skip sample: DB53A (输出文件已存在|output file exists: output/01_kmer_counts/DB53A_k31.bin, 20005.93M)
+2026-01-19 09:13:49.074 - INFO - 处理批次|Processing batch 45/46: 4 个样本|samples
+2026-01-19 09:13:49.088 - INFO - 跳过样本|Skip sample: DB63A (输出文件已存在|output file exists: output/01_kmer_counts/DB63A_k31.bin, 16526.70M)
+2026-01-19 09:13:49.089 - INFO - 跳过样本|Skip sample: DB106A (输出文件已存在|output file exists: output/01_kmer_counts/DB106A_k31.bin, 20765.53M)
+2026-01-19 09:13:49.089 - INFO - 跳过样本|Skip sample: DB102A (输出文件已存在|output file exists: output/01_kmer_counts/DB102A_k31.bin, 20541.09M)
+2026-01-19 09:13:49.090 - INFO - 跳过样本|Skip sample: DB89A (输出文件已存在|output file exists: output/01_kmer_counts/DB89A_k31.bin, 18798.38M)
+2026-01-19 09:13:49.090 - INFO - 处理批次|Processing batch 46/46: 1 个样本|samples
+2026-01-19 09:13:49.090 - INFO - 跳过样本|Skip sample: DB8A (输出文件已存在|output file exists: output/01_kmer_counts/DB8A_k31.bin, 21334.13M)
+2026-01-19 09:13:49.090 - INFO - k-mer计数完成|K-mer counting completed
+2026-01-19 09:13:49.090 - INFO - 成功|Success: 181/181
+2026-01-19 09:13:49.090 - INFO - 步骤count完成|Step count completed
+2026-01-19 09:13:49.090 - INFO - ============================================================
+2026-01-19 09:13:49.090 - INFO - 执行步骤|Executing step: KCTM
+2026-01-19 09:13:49.090 - INFO - ============================================================
+2026-01-19 09:13:52.063 - INFO - 跳过矩阵构建|Skip matrix construction (输出文件已存在|output files exist: 7473 files, 1954867.47M)
+2026-01-19 09:13:52.064 - INFO - 步骤kctm完成|Step kctm completed
+2026-01-19 09:13:52.064 - INFO - ============================================================
+2026-01-19 09:13:52.064 - INFO - 执行步骤|Executing step: FILTER
+2026-01-19 09:13:52.064 - INFO - ============================================================
+2026-01-19 09:13:53.467 - INFO - 跳过矩阵过滤|Skip matrix filtering (输出文件已存在|output files exist: 7474 files, 30947.97M)
+2026-01-19 09:13:53.467 - INFO - 步骤filter完成|Step filter completed
+2026-01-19 09:13:53.467 - INFO - ============================================================
+2026-01-19 09:13:53.467 - INFO - 执行步骤|Executing step: M2B
+2026-01-19 09:13:53.467 - INFO - ============================================================
+2026-01-19 09:13:55.498 - INFO - 跳过格式转换|Skip format conversion (输出文件已存在|output files exist: 7473 files, 8612.29M)
+2026-01-19 09:13:55.499 - INFO - 步骤m2b完成|Step m2b completed
+2026-01-19 09:13:55.499 - INFO - ============================================================
+2026-01-19 09:13:55.499 - INFO - 执行步骤|Executing step: ASSO
+2026-01-19 09:13:55.499 - INFO - ============================================================
+2026-01-19 09:13:55.499 - INFO - 开始k-mer关联分析|Starting k-mer association analysis
+2026-01-19 09:14:00.739 - INFO - 跳过关联分析|Skip association analysis (输出文件已存在|output files exist: 14946 files, 3731.39M)
+2026-01-19 09:14:00.739 - INFO - 步骤asso完成|Step asso completed
+2026-01-19 09:14:00.740 - INFO - 
+2026-01-19 09:14:00.740 - INFO - ============================================================
+2026-01-19 09:14:00.740 - INFO - 执行质控统计|Executing QC statistics
+2026-01-19 09:14:00.740 - INFO - ============================================================
+2026-01-19 09:14:00.740 - INFO - 开始质控统计|Starting QC statistics
+2026-01-19 09:14:00.757 - INFO - k-mer文件数|K-mer file count: 181
+2026-01-19 09:14:00.757 - INFO - 总大小|Total size: 2897853.52M bytes
+2026-01-19 09:14:00.849 - INFO - QC报告已保存|QC report saved: output/06_qc_reports/qc_report.json
+2026-01-19 09:14:00.849 - INFO - 
+2026-01-19 09:14:00.849 - INFO - ============================================================
+2026-01-19 09:14:00.849 - INFO - 执行Post-GWAS分析|Executing Post-GWAS analysis
+2026-01-19 09:14:00.849 - INFO - ============================================================
+2026-01-19 09:14:00.849 - INFO - 开始Post-GWAS分析|Starting Post-GWAS analysis
+2026-01-19 09:14:00.878 - INFO - 找到|Found 7473 个关联结果文件|association result files
+2026-01-19 09:14:00.893 - INFO - 输出目录|Output directory: output/07_post_gwas_bwa
+2026-01-19 09:14:00.893 - INFO - 比对工具|Alignment tool: bwa
+2026-01-19 09:14:00.893 - INFO - 合并|Merging 7473 个关联结果文件|association result files
+2026-01-19 09:17:02.953 - INFO - 合并完成|Merge completed
+2026-01-19 09:17:10.990 - INFO - 总k-mer数|Total k-mers: 77.37M
+2026-01-19 09:17:10.990 - INFO - 阈值设置|Threshold settings:
+2026-01-19 09:17:10.990 - INFO -   严格阈值|Strict threshold: 1e-05
+2026-01-19 09:17:10.990 - INFO -   Bonferroni校正阈值|Bonferroni threshold: 6.462301633512173e-10
+2026-01-19 09:17:10.990 - INFO - 创建所有k-mer的FASTA文件|Creating FASTA file for all k-mers
+2026-01-19 09:18:55.709 - INFO - 创建了|Created 77.37M 个k-mer记录|k-mer records
+2026-01-19 09:18:55.709 - INFO - k-mer映射文件|K-mer mapping file: output/07_post_gwas_bwa/all_kmers.mapping.txt
+2026-01-19 09:18:55.709 - INFO - 使用BWA进行k-mer比对|Using BWA for k-mer alignment
+2026-01-19 09:18:55.709 - INFO - BWA参数|BWA parameters: -k 9 -T 10 -a
+2026-01-19 09:18:55.709 - INFO - 智能过滤阈值|Smart filtering threshold: AS_ratio = 0.95
+2026-01-19 09:18:55.709 - INFO - 运行BWA比对|Running BWA alignment
+2026-01-19 09:18:55.709 - INFO - 这可能需要较长时间...|This may take a while...
+2026-01-19 09:18:55.711 - INFO - BWA索引已存在，跳过创建|BWA index already exists, skipping: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.fa
+2026-01-19 09:18:55.711 - INFO - 统计查询序列数量|Counting query sequences...
+2026-01-19 09:19:08.876 - INFO - 查询序列数量|Query sequence count: 77.37M
+2026-01-19 09:19:08.877 - WARNING - 序列数量过大|Large sequence count (77.37M), 启用分批处理|enabling batch processing
+2026-01-19 09:19:08.877 - INFO - 拆分FASTA文件为批次（每批次|Splitting FASTA into batches (2000000 sequences/batch）
+2026-01-19 09:19:08.877 - INFO - 创建批次|Creating batch 1: output/07_post_gwas_bwa/batches/batch_001.fa
+2026-01-19 09:19:14.493 - INFO - 创建批次|Creating batch 10: output/07_post_gwas_bwa/batches/batch_010.fa
+2026-01-19 09:19:20.731 - INFO - 创建批次|Creating batch 20: output/07_post_gwas_bwa/batches/batch_020.fa
+2026-01-19 09:19:26.967 - INFO - 创建批次|Creating batch 30: output/07_post_gwas_bwa/batches/batch_030.fa
+2026-01-19 09:19:33.001 - INFO - FASTA拆分完成|FASTA splitting completed: 39 个批次|batches, 总计|total 77371814 条序列|sequences
+2026-01-19 09:19:33.001 - INFO - ============================================================
+2026-01-19 09:19:33.001 - INFO - 处理批次|Processing batch 1/39
+2026-01-19 09:19:33.001 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_001.fa
+2026-01-19 09:19:33.001 - INFO - ============================================================
+2026-01-19 09:19:33.002 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 09:20:50.308 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 1)
+2026-01-19 09:20:50.308 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 09:20:50.308 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 09:21:25.867 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 09:22:01.388 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 09:22:37.534 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 09:23:13.317 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 09:23:49.525 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 09:24:26.156 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 09:25:01.197 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 09:25:38.450 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 09:26:13.713 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 09:26:51.754 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 09:27:27.216 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 09:28:17.166 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 09:28:52.470 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 09:29:27.720 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 09:30:07.524 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 09:30:43.324 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 09:31:18.707 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 09:31:59.839 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 09:32:35.357 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 09:33:10.814 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 09:33:46.167 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 09:34:21.553 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 09:35:03.765 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 09:35:39.174 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 09:36:14.557 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 09:36:50.037 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 09:37:25.444 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 09:38:09.755 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 09:38:45.231 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 09:39:20.693 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 09:39:56.215 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 09:40:31.722 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 09:41:07.113 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 09:41:39.625 - INFO - SAM文件读取完成|SAM file reading completed: 339.16M 行|lines, 2000000 k-mers
+2026-01-19 09:42:23.985 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.77M filtered hits (保留率|retention: 100.0%)
+2026-01-19 09:43:04.841 - INFO - 批次1过滤完成|Batch 1 filtering completed
+2026-01-19 09:43:04.841 - INFO - ============================================================
+2026-01-19 09:43:04.841 - INFO - 处理批次|Processing batch 2/39
+2026-01-19 09:43:04.841 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_002.fa
+2026-01-19 09:43:04.841 - INFO - ============================================================
+2026-01-19 09:43:04.841 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 09:44:22.935 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 2)
+2026-01-19 09:44:22.935 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 09:44:22.935 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 09:44:58.417 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 09:45:34.255 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 09:46:10.799 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 09:46:47.000 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 09:47:23.540 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 09:48:00.484 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 09:48:37.918 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 09:49:13.192 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 09:49:51.149 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 09:50:26.567 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 09:51:05.488 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 09:51:41.024 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 09:52:16.418 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 09:52:56.173 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 09:53:31.662 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 09:54:07.168 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 09:54:42.654 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 09:55:23.389 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 09:55:58.896 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 09:56:34.427 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 09:57:09.963 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 09:57:52.150 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 09:58:27.742 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 09:59:03.318 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 09:59:38.795 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 10:00:14.280 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 10:00:57.754 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 10:01:33.294 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 10:02:08.871 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 10:02:44.395 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 10:03:19.995 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 10:03:55.504 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 10:04:41.009 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 10:05:13.755 - INFO - SAM文件读取完成|SAM file reading completed: 339.22M 行|lines, 2000000 k-mers
+2026-01-19 10:05:52.281 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.83M filtered hits (保留率|retention: 100.0%)
+2026-01-19 10:06:26.003 - INFO - 批次2过滤完成|Batch 2 filtering completed
+2026-01-19 10:06:26.004 - INFO - ============================================================
+2026-01-19 10:06:26.004 - INFO - 处理批次|Processing batch 3/39
+2026-01-19 10:06:26.004 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_003.fa
+2026-01-19 10:06:26.004 - INFO - ============================================================
+2026-01-19 10:06:26.004 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 10:07:48.554 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 3)
+2026-01-19 10:07:48.555 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 10:07:48.555 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 10:08:23.578 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 10:08:58.475 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 10:09:33.548 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 10:10:08.556 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 10:10:43.654 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 10:11:18.825 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 10:11:53.991 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 10:12:31.278 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 10:13:09.150 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 10:13:44.450 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 10:14:19.818 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 10:14:58.545 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 10:15:33.960 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 10:16:13.491 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 10:16:48.895 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 10:17:24.292 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 10:17:59.668 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 10:18:40.277 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 10:19:15.694 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 10:19:51.165 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 10:20:26.548 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 10:21:08.491 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 10:21:43.966 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 10:22:19.560 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 10:22:54.999 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 10:23:30.409 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 10:24:13.946 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 10:24:49.414 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 10:25:24.937 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 10:26:00.378 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 10:26:35.896 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 10:27:11.450 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 10:27:46.916 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 10:28:32.554 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 10:28:37.345 - INFO - SAM文件读取完成|SAM file reading completed: 341.35M 行|lines, 2000000 k-mers
+2026-01-19 10:29:15.649 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.72M filtered hits (保留率|retention: 100.0%)
+2026-01-19 10:29:49.459 - INFO - 批次3过滤完成|Batch 3 filtering completed
+2026-01-19 10:29:49.459 - INFO - ============================================================
+2026-01-19 10:29:49.459 - INFO - 处理批次|Processing batch 4/39
+2026-01-19 10:29:49.459 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_004.fa
+2026-01-19 10:29:49.459 - INFO - ============================================================
+2026-01-19 10:29:49.459 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 10:31:07.670 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 4)
+2026-01-19 10:31:07.670 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 10:31:07.670 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 10:31:42.785 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 10:32:17.756 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 10:32:52.785 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 10:33:27.777 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 10:34:02.869 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 10:34:38.056 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 10:35:13.220 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 10:35:50.660 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 10:36:25.902 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 10:37:04.035 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 10:37:39.428 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 10:38:14.799 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 10:38:53.727 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 10:39:29.169 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 10:40:04.598 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 10:40:44.609 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 10:41:20.055 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 10:41:55.481 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 10:42:36.602 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 10:43:12.105 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 10:43:47.621 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 10:44:23.164 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 10:44:58.682 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 10:45:41.365 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 10:46:16.925 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 10:46:52.441 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 10:47:27.974 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 10:48:03.504 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 10:48:39.086 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 10:49:23.542 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 10:49:59.107 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 10:50:34.686 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 10:51:10.224 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 10:51:45.838 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 10:51:48.713 - INFO - SAM文件读取完成|SAM file reading completed: 340.81M 行|lines, 2000000 k-mers
+2026-01-19 10:52:26.417 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.73M filtered hits (保留率|retention: 100.0%)
+2026-01-19 10:52:59.524 - INFO - 批次4过滤完成|Batch 4 filtering completed
+2026-01-19 10:52:59.525 - INFO - ============================================================
+2026-01-19 10:52:59.525 - INFO - 处理批次|Processing batch 5/39
+2026-01-19 10:52:59.525 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_005.fa
+2026-01-19 10:52:59.525 - INFO - ============================================================
+2026-01-19 10:52:59.525 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 10:54:13.853 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 5)
+2026-01-19 10:54:13.853 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 10:54:13.853 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 10:54:48.921 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 10:55:23.796 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 10:55:59.447 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 10:56:35.271 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 10:57:11.390 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 10:57:47.940 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 10:58:24.893 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 10:59:00.117 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 10:59:37.706 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 11:00:13.009 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 11:00:51.412 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 11:01:26.753 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 11:02:05.926 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 11:02:41.270 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 11:03:16.623 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 11:03:52.005 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 11:04:32.270 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 11:05:07.692 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 11:05:43.073 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 11:06:18.529 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 11:07:00.145 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 11:07:35.533 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 11:08:10.908 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 11:08:46.415 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 11:09:21.826 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 11:10:04.910 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 11:10:40.363 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 11:11:15.762 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 11:11:51.269 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 11:12:26.708 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 11:13:02.239 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 11:13:47.271 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 11:14:22.747 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 11:14:57.813 - INFO - SAM文件读取完成|SAM file reading completed: 339.88M 行|lines, 2000000 k-mers
+2026-01-19 11:15:35.429 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.77M filtered hits (保留率|retention: 100.0%)
+2026-01-19 11:16:08.498 - INFO - 批次5过滤完成|Batch 5 filtering completed
+2026-01-19 11:16:08.498 - INFO - ============================================================
+2026-01-19 11:16:08.498 - INFO - 处理批次|Processing batch 6/39
+2026-01-19 11:16:08.498 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_006.fa
+2026-01-19 11:16:08.498 - INFO - ============================================================
+2026-01-19 11:16:08.498 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 11:17:28.595 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 6)
+2026-01-19 11:17:28.595 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 11:17:28.595 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 11:18:03.738 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 11:18:38.741 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 11:19:13.925 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 11:19:49.059 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 11:20:24.227 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 11:21:00.819 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 11:21:37.772 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 11:22:13.102 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 11:22:50.680 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 11:23:25.961 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 11:24:04.354 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 11:24:39.734 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 11:25:18.927 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 11:25:54.218 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 11:26:29.678 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 11:27:09.832 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 11:27:45.286 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 11:28:20.693 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 11:28:56.169 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 11:29:37.614 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 11:30:13.160 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 11:30:48.727 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 11:31:24.213 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 11:31:59.760 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 11:32:42.699 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 11:33:18.153 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 11:33:53.570 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 11:34:29.105 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 11:35:04.637 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 11:35:40.138 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 11:36:24.931 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 11:37:00.397 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 11:37:35.974 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 11:38:08.763 - INFO - SAM文件读取完成|SAM file reading completed: 339.24M 行|lines, 2000000 k-mers
+2026-01-19 11:38:46.502 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.79M filtered hits (保留率|retention: 100.0%)
+2026-01-19 11:39:19.528 - INFO - 批次6过滤完成|Batch 6 filtering completed
+2026-01-19 11:39:19.528 - INFO - ============================================================
+2026-01-19 11:39:19.528 - INFO - 处理批次|Processing batch 7/39
+2026-01-19 11:39:19.528 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_007.fa
+2026-01-19 11:39:19.528 - INFO - ============================================================
+2026-01-19 11:39:19.528 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 11:40:34.679 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 7)
+2026-01-19 11:40:34.679 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 11:40:34.679 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 11:41:09.689 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 11:41:44.636 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 11:42:19.619 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 11:42:55.736 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 11:43:30.858 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 11:44:07.454 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 11:44:44.411 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 11:45:21.983 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 11:45:57.255 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 11:46:32.545 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 11:47:10.808 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 11:47:46.211 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 11:48:25.287 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 11:49:00.598 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 11:49:36.028 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 11:50:16.043 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 11:50:51.390 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 11:51:26.817 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 11:52:02.227 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 11:52:43.584 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 11:53:19.104 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 11:53:54.600 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 11:54:30.092 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 11:55:05.666 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 11:55:48.487 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 11:56:23.954 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 11:56:59.423 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 11:57:34.887 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 11:58:10.411 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 11:58:45.840 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 11:59:30.576 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 12:00:06.060 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 12:00:41.616 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 12:01:05.466 - INFO - SAM文件读取完成|SAM file reading completed: 336.71M 行|lines, 2000000 k-mers
+2026-01-19 12:01:42.867 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.77M filtered hits (保留率|retention: 100.0%)
+2026-01-19 12:02:15.680 - INFO - 批次7过滤完成|Batch 7 filtering completed
+2026-01-19 12:02:15.681 - INFO - ============================================================
+2026-01-19 12:02:15.681 - INFO - 处理批次|Processing batch 8/39
+2026-01-19 12:02:15.681 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_008.fa
+2026-01-19 12:02:15.681 - INFO - ============================================================
+2026-01-19 12:02:15.681 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 12:03:36.971 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 8)
+2026-01-19 12:03:36.971 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 12:03:36.971 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 12:04:12.189 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 12:04:47.136 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 12:05:22.258 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 12:05:58.388 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 12:06:34.891 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 12:07:10.154 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 12:07:47.123 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 12:08:24.587 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 12:08:59.853 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 12:09:38.089 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 12:10:13.479 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 12:10:48.837 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 12:11:27.865 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 12:12:03.182 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 12:12:38.561 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 12:13:18.534 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 12:13:54.068 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 12:14:29.492 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 12:15:10.734 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 12:15:46.260 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 12:16:21.732 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 12:16:57.295 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 12:17:32.741 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 12:18:15.521 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 12:18:50.977 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 12:19:26.452 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 12:20:01.931 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 12:20:37.463 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 12:21:13.058 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 12:21:57.715 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 12:22:33.206 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 12:23:08.720 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 12:23:44.231 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 12:24:19.785 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 12:24:31.308 - INFO - SAM文件读取完成|SAM file reading completed: 343.25M 行|lines, 2000000 k-mers
+2026-01-19 12:25:09.012 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.74M filtered hits (保留率|retention: 100.0%)
+2026-01-19 12:25:42.447 - INFO - 批次8过滤完成|Batch 8 filtering completed
+2026-01-19 12:25:42.447 - INFO - ============================================================
+2026-01-19 12:25:42.447 - INFO - 处理批次|Processing batch 9/39
+2026-01-19 12:25:42.447 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_009.fa
+2026-01-19 12:25:42.447 - INFO - ============================================================
+2026-01-19 12:25:42.447 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 12:27:07.620 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 9)
+2026-01-19 12:27:07.621 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 12:27:07.621 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 12:27:42.740 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 12:28:17.630 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 12:28:53.368 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 12:29:29.379 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 12:30:05.763 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 12:30:42.604 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 12:31:17.819 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 12:31:55.232 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 12:32:30.462 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 12:33:08.488 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 12:33:43.817 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 12:34:22.707 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 12:34:58.070 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 12:35:33.447 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 12:36:13.216 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 12:36:48.679 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 12:37:24.067 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 12:37:59.497 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 12:38:40.495 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 12:39:15.954 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 12:39:51.421 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 12:40:26.926 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 12:41:09.340 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 12:41:44.871 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 12:42:20.409 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 12:42:55.819 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 12:43:31.290 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 12:44:06.813 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 12:44:51.014 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 12:45:26.493 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 12:46:01.988 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 12:46:37.540 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 12:47:13.059 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 12:47:48.564 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 12:48:01.987 - INFO - SAM文件读取完成|SAM file reading completed: 343.78M 行|lines, 2000000 k-mers
+2026-01-19 12:48:39.985 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.74M filtered hits (保留率|retention: 100.0%)
+2026-01-19 12:49:13.502 - INFO - 批次9过滤完成|Batch 9 filtering completed
+2026-01-19 12:49:13.502 - INFO - ============================================================
+2026-01-19 12:49:13.502 - INFO - 处理批次|Processing batch 10/39
+2026-01-19 12:49:13.502 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_010.fa
+2026-01-19 12:49:13.502 - INFO - ============================================================
+2026-01-19 12:49:13.502 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 12:50:28.139 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 10)
+2026-01-19 12:50:28.139 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 12:50:28.139 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 12:51:03.243 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 12:51:39.274 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 12:52:15.671 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 12:52:51.678 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 12:53:28.017 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 12:54:04.718 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 12:54:39.941 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 12:55:17.140 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 12:55:54.925 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 12:56:30.226 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 12:57:08.874 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 12:57:44.261 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 12:58:19.611 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 12:58:59.144 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 12:59:34.519 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 13:00:09.913 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 13:00:45.284 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 13:01:25.852 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 13:02:01.242 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 13:02:36.686 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 13:03:12.234 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 13:03:54.253 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 13:04:29.791 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 13:05:05.301 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 13:05:40.775 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 13:06:16.227 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 13:06:59.861 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 13:07:35.353 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 13:08:10.869 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 13:08:46.421 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 13:09:21.952 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 13:09:57.514 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 13:10:33.008 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 13:11:18.660 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 13:11:33.432 - INFO - SAM文件读取完成|SAM file reading completed: 344.17M 行|lines, 2000000 k-mers
+2026-01-19 13:12:11.602 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.76M filtered hits (保留率|retention: 100.0%)
+2026-01-19 13:12:45.140 - INFO - 批次10过滤完成|Batch 10 filtering completed
+2026-01-19 13:12:45.140 - INFO - ============================================================
+2026-01-19 13:12:45.140 - INFO - 处理批次|Processing batch 11/39
+2026-01-19 13:12:45.140 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_011.fa
+2026-01-19 13:12:45.140 - INFO - ============================================================
+2026-01-19 13:12:45.141 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 13:14:03.950 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 11)
+2026-01-19 13:14:03.950 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 13:14:03.950 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 13:14:39.026 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 13:15:13.914 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 13:15:48.907 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 13:16:23.928 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 13:16:59.023 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 13:17:34.186 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 13:18:09.335 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 13:18:46.618 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 13:19:24.482 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 13:19:59.822 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 13:20:35.178 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 13:21:13.878 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 13:21:49.309 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 13:22:28.903 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 13:23:04.325 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 13:23:39.768 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 13:24:15.255 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 13:24:55.915 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 13:25:31.320 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 13:26:06.795 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 13:26:42.315 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 13:27:24.364 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 13:27:59.866 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 13:28:35.407 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 13:29:10.903 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 13:29:46.437 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 13:30:30.155 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 13:31:05.731 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 13:31:41.269 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 13:32:16.816 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 13:32:52.374 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 13:33:27.951 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 13:34:03.539 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 13:34:49.321 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 13:34:55.265 - INFO - SAM文件读取完成|SAM file reading completed: 341.67M 行|lines, 2000000 k-mers
+2026-01-19 13:35:32.939 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.74M filtered hits (保留率|retention: 100.0%)
+2026-01-19 13:36:06.259 - INFO - 批次11过滤完成|Batch 11 filtering completed
+2026-01-19 13:36:06.260 - INFO - ============================================================
+2026-01-19 13:36:06.260 - INFO - 处理批次|Processing batch 12/39
+2026-01-19 13:36:06.260 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_012.fa
+2026-01-19 13:36:06.260 - INFO - ============================================================
+2026-01-19 13:36:06.260 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 13:37:25.414 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 12)
+2026-01-19 13:37:25.414 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 13:37:25.414 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 13:38:01.008 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 13:38:36.548 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 13:39:12.123 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 13:39:47.731 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 13:40:23.368 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 13:40:59.122 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 13:41:34.886 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 13:42:12.923 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 13:42:48.747 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 13:43:27.392 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 13:44:03.361 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 13:44:42.946 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 13:45:18.839 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 13:45:54.828 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 13:46:35.397 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 13:47:11.354 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 13:47:47.304 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 13:48:23.264 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 13:49:04.972 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 13:49:40.961 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 13:50:16.996 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 13:50:53.041 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 13:51:29.048 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 13:52:12.321 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 13:52:48.353 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 13:53:24.357 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 13:54:00.384 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 13:54:36.439 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 13:55:21.333 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 13:55:57.464 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 13:56:33.513 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 13:57:09.658 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 13:57:45.724 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 13:58:12.595 - INFO - SAM文件读取完成|SAM file reading completed: 337.43M 行|lines, 2000000 k-mers
+2026-01-19 13:58:50.079 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.76M filtered hits (保留率|retention: 100.0%)
+2026-01-19 13:59:23.009 - INFO - 批次12过滤完成|Batch 12 filtering completed
+2026-01-19 13:59:23.009 - INFO - ============================================================
+2026-01-19 13:59:23.009 - INFO - 处理批次|Processing batch 13/39
+2026-01-19 13:59:23.009 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_013.fa
+2026-01-19 13:59:23.009 - INFO - ============================================================
+2026-01-19 13:59:23.009 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 14:00:46.106 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 13)
+2026-01-19 14:00:46.107 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 14:00:46.107 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 14:01:21.738 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 14:01:57.255 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 14:02:34.242 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 14:03:10.860 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 14:03:47.802 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 14:04:25.212 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 14:05:01.039 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 14:05:38.914 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 14:06:14.797 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 14:06:53.323 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 14:07:29.348 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 14:08:08.698 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 14:08:44.597 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 14:09:20.527 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 14:10:00.650 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 14:10:36.646 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 14:11:12.598 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 14:11:53.894 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 14:12:29.876 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 14:13:05.920 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 14:13:41.962 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 14:14:18.094 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 14:15:00.820 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 14:15:36.938 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 14:16:12.993 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 14:16:49.008 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 14:17:25.076 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 14:18:09.434 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 14:18:45.505 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 14:19:21.631 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 14:19:57.720 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 14:20:33.808 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 14:21:09.944 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 14:21:46.140 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 14:21:46.410 - INFO - SAM文件读取完成|SAM file reading completed: 340.08M 行|lines, 2000000 k-mers
+2026-01-19 14:22:24.620 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.72M filtered hits (保留率|retention: 100.0%)
+2026-01-19 14:22:58.498 - INFO - 批次13过滤完成|Batch 13 filtering completed
+2026-01-19 14:22:58.498 - INFO - ============================================================
+2026-01-19 14:22:58.498 - INFO - 处理批次|Processing batch 14/39
+2026-01-19 14:22:58.498 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_014.fa
+2026-01-19 14:22:58.498 - INFO - ============================================================
+2026-01-19 14:22:58.498 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 14:24:17.237 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 14)
+2026-01-19 14:24:17.237 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 14:24:17.237 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 14:24:53.030 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 14:25:29.218 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 14:26:04.901 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 14:26:41.821 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 14:27:18.280 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 14:27:53.435 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 14:28:30.326 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 14:29:07.750 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 14:29:43.056 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 14:30:21.186 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 14:30:56.492 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 14:31:31.857 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 14:32:10.829 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 14:32:46.241 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 14:33:21.579 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 14:34:01.573 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 14:34:36.950 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 14:35:12.384 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 14:35:47.819 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 14:36:29.012 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 14:37:04.465 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 14:37:39.978 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 14:38:15.465 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 14:38:58.171 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 14:39:33.654 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 14:40:09.097 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 14:40:44.521 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 14:41:20.022 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 14:41:55.541 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 14:42:39.979 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 14:43:15.497 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 14:43:50.966 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 14:44:26.506 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 14:44:53.195 - INFO - SAM文件读取完成|SAM file reading completed: 337.51M 行|lines, 2000000 k-mers
+2026-01-19 14:45:30.601 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.74M filtered hits (保留率|retention: 100.0%)
+2026-01-19 14:46:03.357 - INFO - 批次14过滤完成|Batch 14 filtering completed
+2026-01-19 14:46:03.357 - INFO - ============================================================
+2026-01-19 14:46:03.357 - INFO - 处理批次|Processing batch 15/39
+2026-01-19 14:46:03.357 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_015.fa
+2026-01-19 14:46:03.357 - INFO - ============================================================
+2026-01-19 14:46:03.357 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 14:47:24.183 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 15)
+2026-01-19 14:47:24.184 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 14:47:24.184 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 14:47:59.198 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 14:48:34.142 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 14:49:09.151 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 14:49:45.085 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 14:50:21.294 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 14:50:57.957 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 14:51:34.948 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 14:52:10.112 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 14:52:47.713 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 14:53:23.065 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 14:54:01.446 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 14:54:36.843 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 14:55:15.942 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 14:55:51.378 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 14:56:26.750 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 14:57:06.965 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 14:57:42.334 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 14:58:17.727 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 14:58:53.188 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 14:59:34.659 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 15:00:10.102 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 15:00:45.604 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 15:01:21.036 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 15:01:56.506 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 15:02:39.484 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 15:03:15.001 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 15:03:50.508 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 15:04:25.945 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 15:05:01.454 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 15:05:36.953 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 15:06:21.850 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 15:06:57.405 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 15:07:32.889 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 15:08:08.426 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 15:08:19.391 - INFO - SAM文件读取完成|SAM file reading completed: 343.08M 行|lines, 2000000 k-mers
+2026-01-19 15:08:57.252 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.78M filtered hits (保留率|retention: 100.0%)
+2026-01-19 15:09:30.721 - INFO - 批次15过滤完成|Batch 15 filtering completed
+2026-01-19 15:09:30.721 - INFO - ============================================================
+2026-01-19 15:09:30.721 - INFO - 处理批次|Processing batch 16/39
+2026-01-19 15:09:30.721 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_016.fa
+2026-01-19 15:09:30.721 - INFO - ============================================================
+2026-01-19 15:09:30.721 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 15:10:50.146 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 16)
+2026-01-19 15:10:50.146 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 15:10:50.146 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 15:11:25.151 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 15:12:00.111 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 15:12:35.100 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 15:13:11.206 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 15:13:47.744 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 15:14:22.894 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 15:14:59.830 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 15:15:37.347 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 15:16:12.679 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 15:16:50.940 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 15:17:26.284 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 15:18:01.709 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 15:18:40.799 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 15:19:16.143 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 15:19:51.552 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 15:20:31.730 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 15:21:07.171 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 15:21:42.559 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 15:22:18.003 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 15:22:59.397 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 15:23:34.880 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 15:24:10.362 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 15:24:45.838 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 15:25:21.439 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 15:26:04.268 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 15:26:39.751 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 15:27:15.264 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 15:27:50.793 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 15:28:26.315 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 15:29:01.835 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 15:29:46.649 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 15:30:22.180 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 15:30:57.748 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 15:31:33.300 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 15:31:43.936 - INFO - SAM文件读取完成|SAM file reading completed: 343.00M 行|lines, 2000000 k-mers
+2026-01-19 15:32:21.864 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.74M filtered hits (保留率|retention: 100.0%)
+2026-01-19 15:32:55.384 - INFO - 批次16过滤完成|Batch 16 filtering completed
+2026-01-19 15:32:55.384 - INFO - ============================================================
+2026-01-19 15:32:55.384 - INFO - 处理批次|Processing batch 17/39
+2026-01-19 15:32:55.384 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_017.fa
+2026-01-19 15:32:55.384 - INFO - ============================================================
+2026-01-19 15:32:55.384 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 15:34:16.727 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 17)
+2026-01-19 15:34:16.727 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 15:34:16.727 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 15:34:51.772 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 15:35:26.670 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 15:36:01.670 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 15:36:37.642 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 15:37:14.001 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 15:37:50.768 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 15:38:28.006 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 15:39:03.269 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 15:39:41.219 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 15:40:16.597 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 15:40:52.035 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 15:41:30.836 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 15:42:06.201 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 15:42:45.854 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 15:43:21.298 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 15:43:56.765 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 15:44:32.280 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 15:45:13.098 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 15:45:48.547 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 15:46:24.053 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 15:46:59.570 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 15:47:41.775 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 15:48:17.323 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 15:48:52.919 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 15:49:28.458 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 15:50:04.004 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 15:50:39.576 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 15:51:23.460 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 15:51:59.084 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 15:52:34.602 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 15:53:10.209 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 15:53:45.784 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 15:54:21.372 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 15:54:56.955 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 15:55:16.924 - INFO - SAM文件读取完成|SAM file reading completed: 342.70M 行|lines, 2000000 k-mers
+2026-01-19 15:55:54.380 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.70M filtered hits (保留率|retention: 100.0%)
+2026-01-19 15:56:27.873 - INFO - 批次17过滤完成|Batch 17 filtering completed
+2026-01-19 15:56:27.873 - INFO - ============================================================
+2026-01-19 15:56:27.873 - INFO - 处理批次|Processing batch 18/39
+2026-01-19 15:56:27.873 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_018.fa
+2026-01-19 15:56:27.873 - INFO - ============================================================
+2026-01-19 15:56:27.873 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 15:57:47.939 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 18)
+2026-01-19 15:57:47.939 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 15:57:47.939 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 15:58:23.011 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 15:58:57.961 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 15:59:32.968 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 16:00:07.958 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 16:00:43.032 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 16:01:18.188 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 16:01:53.281 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 16:02:28.524 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 16:03:06.126 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 16:03:41.398 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 16:04:19.761 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 16:04:55.162 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 16:05:34.347 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 16:06:09.700 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 16:06:45.055 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 16:07:25.334 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 16:08:00.698 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 16:08:36.154 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 16:09:11.580 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 16:09:53.036 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 16:10:28.534 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 16:11:04.041 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 16:11:39.557 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 16:12:15.137 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 16:12:58.199 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 16:13:33.756 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 16:14:09.254 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 16:14:44.795 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 16:15:20.351 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 16:15:55.925 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 16:16:31.446 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 16:17:16.493 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 16:17:52.024 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 16:18:27.574 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 16:18:38.837 - INFO - SAM文件读取完成|SAM file reading completed: 343.18M 行|lines, 2000000 k-mers
+2026-01-19 16:19:16.555 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.75M filtered hits (保留率|retention: 100.0%)
+2026-01-19 16:19:50.078 - INFO - 批次18过滤完成|Batch 18 filtering completed
+2026-01-19 16:19:50.078 - INFO - ============================================================
+2026-01-19 16:19:50.078 - INFO - 处理批次|Processing batch 19/39
+2026-01-19 16:19:50.078 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_019.fa
+2026-01-19 16:19:50.078 - INFO - ============================================================
+2026-01-19 16:19:50.078 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 16:21:10.058 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 19)
+2026-01-19 16:21:10.058 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 16:21:10.058 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 16:21:45.087 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 16:22:20.059 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 16:22:55.078 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 16:23:30.095 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 16:24:06.464 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 16:24:43.373 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 16:25:18.539 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 16:25:55.878 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 16:26:31.190 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 16:27:09.238 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 16:27:44.670 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 16:28:23.567 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 16:28:58.996 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 16:29:34.392 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 16:30:14.257 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 16:30:49.617 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 16:31:25.111 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 16:32:00.585 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 16:32:41.563 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 16:33:17.006 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 16:33:52.452 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 16:34:27.928 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 16:35:10.314 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 16:35:45.824 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 16:36:21.365 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 16:36:56.887 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 16:37:32.420 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 16:38:07.969 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 16:38:52.083 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 16:39:27.644 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 16:40:03.200 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 16:40:38.805 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 16:41:14.353 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 16:41:49.942 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 16:41:59.468 - INFO - SAM文件读取完成|SAM file reading completed: 342.68M 行|lines, 2000000 k-mers
+2026-01-19 16:42:37.057 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.72M filtered hits (保留率|retention: 100.0%)
+2026-01-19 16:43:10.521 - INFO - 批次19过滤完成|Batch 19 filtering completed
+2026-01-19 16:43:10.522 - INFO - ============================================================
+2026-01-19 16:43:10.522 - INFO - 处理批次|Processing batch 20/39
+2026-01-19 16:43:10.522 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_020.fa
+2026-01-19 16:43:10.522 - INFO - ============================================================
+2026-01-19 16:43:10.522 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 16:44:29.611 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 20)
+2026-01-19 16:44:29.611 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 16:44:29.611 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 16:45:05.602 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 16:45:41.868 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 16:46:18.764 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 16:46:55.297 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 16:47:32.196 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 16:48:09.467 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 16:48:47.172 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 16:49:22.976 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 16:50:01.361 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 16:50:37.215 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 16:51:16.345 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 16:51:52.274 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 16:52:28.143 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 16:53:08.124 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 16:53:44.134 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 16:54:20.054 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 16:55:01.145 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 16:55:37.087 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 16:56:13.161 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 16:56:49.155 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 16:57:25.274 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 16:58:07.807 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 16:58:43.878 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 16:59:19.965 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 16:59:56.022 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 17:00:32.071 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 17:01:16.129 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 17:01:52.232 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 17:02:28.342 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 17:03:04.426 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 17:03:40.552 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 17:04:16.615 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 17:05:02.767 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 17:05:36.651 - INFO - SAM文件读取完成|SAM file reading completed: 339.39M 行|lines, 2000000 k-mers
+2026-01-19 17:06:14.276 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.77M filtered hits (保留率|retention: 100.0%)
+2026-01-19 17:06:47.448 - INFO - 批次20过滤完成|Batch 20 filtering completed
+2026-01-19 17:06:47.449 - INFO - ============================================================
+2026-01-19 17:06:47.449 - INFO - 处理批次|Processing batch 21/39
+2026-01-19 17:06:47.449 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_021.fa
+2026-01-19 17:06:47.449 - INFO - ============================================================
+2026-01-19 17:06:47.449 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 17:08:06.131 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 21)
+2026-01-19 17:08:06.131 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 17:08:06.131 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 17:08:41.734 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 17:09:17.175 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 17:09:52.783 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 17:10:28.331 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 17:11:03.971 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 17:11:39.696 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 17:12:17.468 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 17:12:53.293 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 17:13:31.730 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 17:14:07.671 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 17:14:46.891 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 17:15:22.849 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 17:15:58.804 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 17:16:38.877 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 17:17:14.851 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 17:17:50.869 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 17:18:26.864 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 17:19:08.072 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 17:19:44.072 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 17:20:20.151 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 17:20:56.201 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 17:21:38.777 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 17:22:14.840 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 17:22:50.953 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 17:23:27.054 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 17:24:03.119 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 17:24:47.292 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 17:25:23.396 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 17:25:59.445 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 17:26:35.583 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 17:27:11.691 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 17:27:47.825 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 17:28:24.025 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 17:28:55.040 - INFO - SAM文件读取完成|SAM file reading completed: 335.78M 行|lines, 2000000 k-mers
+2026-01-19 17:29:32.592 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.73M filtered hits (保留率|retention: 100.0%)
+2026-01-19 17:30:05.430 - INFO - 批次21过滤完成|Batch 21 filtering completed
+2026-01-19 17:30:05.430 - INFO - ============================================================
+2026-01-19 17:30:05.430 - INFO - 处理批次|Processing batch 22/39
+2026-01-19 17:30:05.430 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_022.fa
+2026-01-19 17:30:05.430 - INFO - ============================================================
+2026-01-19 17:30:05.430 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 17:31:27.373 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 22)
+2026-01-19 17:31:27.373 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 17:31:27.373 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 17:32:02.438 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 17:32:37.412 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 17:33:12.456 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 17:33:47.575 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 17:34:22.732 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 17:34:57.876 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 17:35:33.028 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 17:36:10.475 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 17:36:45.766 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 17:37:23.961 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 17:37:59.313 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 17:38:34.709 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 17:39:13.863 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 17:39:49.302 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 17:40:24.749 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 17:41:04.836 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 17:41:40.268 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 17:42:15.717 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 17:42:51.213 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 17:43:32.557 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 17:44:08.047 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 17:44:43.530 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 17:45:19.034 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 17:45:54.528 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 17:46:37.342 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 17:47:12.843 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 17:47:48.308 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 17:48:23.864 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 17:48:59.434 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 17:49:34.999 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 17:50:19.692 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 17:50:55.229 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 17:51:30.766 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 17:52:06.320 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 17:52:10.373 - INFO - SAM文件读取完成|SAM file reading completed: 341.14M 行|lines, 2000000 k-mers
+2026-01-19 17:52:47.954 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.77M filtered hits (保留率|retention: 100.0%)
+2026-01-19 17:53:21.090 - INFO - 批次22过滤完成|Batch 22 filtering completed
+2026-01-19 17:53:21.090 - INFO - ============================================================
+2026-01-19 17:53:21.090 - INFO - 处理批次|Processing batch 23/39
+2026-01-19 17:53:21.090 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_023.fa
+2026-01-19 17:53:21.090 - INFO - ============================================================
+2026-01-19 17:53:21.090 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 17:54:39.901 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 23)
+2026-01-19 17:54:39.901 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 17:54:39.901 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 17:55:14.870 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 17:55:49.791 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 17:56:24.824 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 17:57:00.859 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 17:57:37.273 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 17:58:14.083 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 17:58:49.254 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 17:59:26.598 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 18:00:01.864 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 18:00:39.819 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 18:01:15.115 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 18:01:53.965 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 18:02:29.298 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 18:03:04.680 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 18:03:44.364 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 18:04:19.785 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 18:04:55.163 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 18:05:35.968 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 18:06:11.499 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 18:06:47.067 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 18:07:22.605 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 18:07:58.267 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 18:08:40.517 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 18:09:16.033 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 18:09:51.457 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 18:10:26.963 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 18:11:02.465 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 18:11:46.429 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 18:12:21.989 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 18:12:57.498 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 18:13:32.957 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 18:14:08.411 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 18:14:43.960 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 18:15:17.416 - INFO - SAM文件读取完成|SAM file reading completed: 339.41M 行|lines, 2000000 k-mers
+2026-01-19 18:15:54.989 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.77M filtered hits (保留率|retention: 100.0%)
+2026-01-19 18:16:27.928 - INFO - 批次23过滤完成|Batch 23 filtering completed
+2026-01-19 18:16:27.928 - INFO - ============================================================
+2026-01-19 18:16:27.928 - INFO - 处理批次|Processing batch 24/39
+2026-01-19 18:16:27.928 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_024.fa
+2026-01-19 18:16:27.928 - INFO - ============================================================
+2026-01-19 18:16:27.928 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 18:17:49.145 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 24)
+2026-01-19 18:17:49.145 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 18:17:49.146 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 18:18:24.827 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 18:19:01.463 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 18:19:38.418 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 18:20:14.946 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 18:20:51.887 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 18:21:29.250 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 18:22:05.059 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 18:22:42.931 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 18:23:18.782 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 18:23:57.218 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 18:24:33.146 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 18:25:12.397 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 18:25:48.353 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 18:26:24.221 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 18:27:04.353 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 18:27:40.294 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 18:28:16.278 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 18:28:57.541 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 18:29:33.584 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 18:30:09.592 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 18:30:45.582 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 18:31:28.254 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 18:32:04.301 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 18:32:40.348 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 18:33:16.375 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 18:33:52.414 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 18:34:28.425 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 18:35:12.660 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 18:35:48.759 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 18:36:24.821 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 18:37:00.921 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 18:37:37.012 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 18:38:13.090 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 18:38:59.399 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 18:39:05.402 - INFO - SAM文件读取完成|SAM file reading completed: 341.67M 行|lines, 2000000 k-mers
+2026-01-19 18:39:42.835 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.70M filtered hits (保留率|retention: 100.0%)
+2026-01-19 18:40:16.022 - INFO - 批次24过滤完成|Batch 24 filtering completed
+2026-01-19 18:40:16.023 - INFO - ============================================================
+2026-01-19 18:40:16.023 - INFO - 处理批次|Processing batch 25/39
+2026-01-19 18:40:16.023 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_025.fa
+2026-01-19 18:40:16.023 - INFO - ============================================================
+2026-01-19 18:40:16.023 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 18:41:35.409 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 25)
+2026-01-19 18:41:35.409 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 18:41:35.409 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 18:42:10.408 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 18:42:45.349 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 18:43:20.393 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 18:43:55.439 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 18:44:30.577 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 18:45:05.804 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 18:45:40.914 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 18:46:18.533 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 18:46:53.853 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 18:47:32.037 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 18:48:07.392 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 18:48:42.694 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 18:49:21.825 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 18:49:57.217 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 18:50:32.675 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 18:51:12.863 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 18:51:48.237 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 18:52:23.645 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 18:52:59.127 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 18:53:40.510 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 18:54:15.934 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 18:54:51.408 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 18:55:26.905 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 18:56:02.409 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 18:56:45.180 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 18:57:20.697 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 18:57:56.155 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 18:58:31.668 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 18:59:07.223 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 18:59:42.743 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 19:00:27.437 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 19:01:02.914 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 19:01:38.494 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 19:02:04.944 - INFO - SAM文件读取完成|SAM file reading completed: 337.45M 行|lines, 2000000 k-mers
+2026-01-19 19:02:42.345 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.78M filtered hits (保留率|retention: 100.0%)
+2026-01-19 19:03:15.116 - INFO - 批次25过滤完成|Batch 25 filtering completed
+2026-01-19 19:03:15.116 - INFO - ============================================================
+2026-01-19 19:03:15.116 - INFO - 处理批次|Processing batch 26/39
+2026-01-19 19:03:15.116 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_026.fa
+2026-01-19 19:03:15.116 - INFO - ============================================================
+2026-01-19 19:03:15.116 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 19:04:34.407 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 26)
+2026-01-19 19:04:34.407 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 19:04:34.407 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 19:05:09.970 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 19:05:45.398 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 19:06:20.964 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 19:06:56.540 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 19:07:33.343 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 19:08:10.553 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 19:08:48.201 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 19:09:24.074 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 19:10:02.372 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 19:10:38.284 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 19:11:17.279 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 19:11:53.216 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 19:12:33.066 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 19:13:09.032 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 19:13:44.983 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 19:14:20.953 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 19:15:01.853 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 19:15:37.910 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 19:16:13.905 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 19:16:49.945 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 19:17:32.217 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 19:18:08.291 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 19:18:44.310 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 19:19:20.447 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 19:19:56.482 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 19:20:40.236 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 19:21:16.335 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 19:21:52.440 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 19:22:28.552 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 19:23:04.646 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 19:23:40.747 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 19:24:16.803 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 19:25:02.644 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 19:25:38.756 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 19:25:49.067 - INFO - SAM文件读取完成|SAM file reading completed: 342.86M 行|lines, 2000000 k-mers
+2026-01-19 19:26:27.008 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.79M filtered hits (保留率|retention: 100.0%)
+2026-01-19 19:27:00.277 - INFO - 批次26过滤完成|Batch 26 filtering completed
+2026-01-19 19:27:00.277 - INFO - ============================================================
+2026-01-19 19:27:00.277 - INFO - 处理批次|Processing batch 27/39
+2026-01-19 19:27:00.277 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_027.fa
+2026-01-19 19:27:00.277 - INFO - ============================================================
+2026-01-19 19:27:00.277 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 19:28:15.429 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 27)
+2026-01-19 19:28:15.429 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 19:28:15.429 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 19:28:51.033 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 19:29:26.492 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 19:30:02.057 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 19:30:37.648 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 19:31:13.298 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 19:31:50.592 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 19:32:26.359 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 19:33:04.146 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 19:33:42.557 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 19:34:18.509 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 19:34:54.494 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 19:35:33.740 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 19:36:09.603 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 19:36:49.694 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 19:37:25.663 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 19:38:01.545 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 19:38:37.529 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 19:39:18.725 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 19:39:54.737 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 19:40:30.753 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 19:41:06.821 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 19:41:49.448 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 19:42:25.504 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 19:43:01.621 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 19:43:37.624 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 19:44:13.643 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 19:44:49.678 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 19:45:33.898 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 19:46:10.020 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 19:46:46.134 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 19:47:22.239 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 19:47:58.307 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 19:48:34.387 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 19:49:16.258 - INFO - SAM文件读取完成|SAM file reading completed: 338.79M 行|lines, 2000000 k-mers
+2026-01-19 19:49:53.574 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.74M filtered hits (保留率|retention: 100.0%)
+2026-01-19 19:50:26.475 - INFO - 批次27过滤完成|Batch 27 filtering completed
+2026-01-19 19:50:26.475 - INFO - ============================================================
+2026-01-19 19:50:26.475 - INFO - 处理批次|Processing batch 28/39
+2026-01-19 19:50:26.475 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_028.fa
+2026-01-19 19:50:26.475 - INFO - ============================================================
+2026-01-19 19:50:26.475 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 19:51:43.341 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 28)
+2026-01-19 19:51:43.341 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 19:51:43.341 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 19:52:18.294 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 19:52:53.211 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 19:53:28.220 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 19:54:03.308 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 19:54:38.510 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 19:55:13.919 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 19:55:49.093 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 19:56:26.702 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 19:57:01.981 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 19:57:37.255 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 19:58:15.585 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 19:58:50.980 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 19:59:30.184 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 20:00:05.568 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 20:00:40.964 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 20:01:16.405 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 20:01:56.676 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 20:02:32.069 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 20:03:07.479 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 20:03:49.007 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 20:04:24.450 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 20:04:59.903 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 20:05:35.403 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 20:06:10.947 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 20:06:54.030 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 20:07:29.490 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 20:08:05.028 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 20:08:40.497 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 20:09:16.011 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 20:09:51.474 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 20:10:27.004 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 20:11:12.008 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 20:11:47.557 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 20:12:21.245 - INFO - SAM文件读取完成|SAM file reading completed: 339.48M 行|lines, 2000000 k-mers
+2026-01-19 20:12:58.840 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.75M filtered hits (保留率|retention: 100.0%)
+2026-01-19 20:13:32.089 - INFO - 批次28过滤完成|Batch 28 filtering completed
+2026-01-19 20:13:32.090 - INFO - ============================================================
+2026-01-19 20:13:32.090 - INFO - 处理批次|Processing batch 29/39
+2026-01-19 20:13:32.090 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_029.fa
+2026-01-19 20:13:32.090 - INFO - ============================================================
+2026-01-19 20:13:32.090 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 20:14:49.313 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 29)
+2026-01-19 20:14:49.313 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 20:14:49.313 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 20:15:24.388 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 20:15:59.308 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 20:16:34.330 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 20:17:09.384 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 20:17:45.855 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 20:18:21.058 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 20:18:58.011 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 20:19:35.523 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 20:20:10.809 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 20:20:49.019 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 20:21:24.347 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 20:21:59.691 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 20:22:38.760 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 20:23:14.160 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 20:23:49.520 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 20:24:29.555 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 20:25:04.916 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 20:25:40.411 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 20:26:15.826 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 20:26:57.061 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 20:27:32.498 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 20:28:07.944 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 20:28:43.496 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 20:29:26.239 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 20:30:01.710 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 20:30:37.206 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 20:31:12.697 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 20:31:48.202 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 20:32:23.764 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 20:33:08.353 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 20:33:43.954 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 20:34:19.489 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 20:34:55.006 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 20:35:17.412 - INFO - SAM文件读取完成|SAM file reading completed: 336.31M 行|lines, 2000000 k-mers
+2026-01-19 20:35:54.855 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.79M filtered hits (保留率|retention: 100.0%)
+2026-01-19 20:36:27.801 - INFO - 批次29过滤完成|Batch 29 filtering completed
+2026-01-19 20:36:27.801 - INFO - ============================================================
+2026-01-19 20:36:27.801 - INFO - 处理批次|Processing batch 30/39
+2026-01-19 20:36:27.801 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_030.fa
+2026-01-19 20:36:27.801 - INFO - ============================================================
+2026-01-19 20:36:27.801 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 20:37:46.696 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 30)
+2026-01-19 20:37:46.696 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 20:37:46.696 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 20:38:22.226 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 20:38:57.728 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 20:39:33.326 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 20:40:09.821 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 20:40:46.672 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 20:41:23.979 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 20:42:01.644 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 20:42:37.438 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 20:43:15.794 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 20:43:51.694 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 20:44:30.825 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 20:45:06.801 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 20:45:42.676 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 20:46:22.682 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 20:46:58.597 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 20:47:34.483 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 20:48:15.505 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 20:48:51.480 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 20:49:27.485 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 20:50:03.461 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 20:50:39.486 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 20:51:21.891 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 20:51:57.884 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 20:52:33.972 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 20:53:10.033 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 20:53:46.009 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 20:54:29.969 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 20:55:06.010 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 20:55:42.094 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 20:56:18.136 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 20:56:54.246 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 20:57:30.326 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 20:58:16.322 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 20:58:52.390 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 20:58:59.774 - INFO - SAM文件读取完成|SAM file reading completed: 342.04M 行|lines, 2000000 k-mers
+2026-01-19 20:59:37.552 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.76M filtered hits (保留率|retention: 100.0%)
+2026-01-19 21:00:11.062 - INFO - 批次30过滤完成|Batch 30 filtering completed
+2026-01-19 21:00:11.062 - INFO - ============================================================
+2026-01-19 21:00:11.062 - INFO - 处理批次|Processing batch 31/39
+2026-01-19 21:00:11.062 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_031.fa
+2026-01-19 21:00:11.062 - INFO - ============================================================
+2026-01-19 21:00:11.063 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 21:01:31.946 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 31)
+2026-01-19 21:01:31.946 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 21:01:31.946 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 21:02:06.959 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 21:02:41.838 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 21:03:16.872 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 21:03:51.907 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 21:04:26.996 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 21:05:02.192 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 21:05:39.044 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 21:06:16.555 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 21:06:51.794 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 21:07:29.993 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 21:08:05.288 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 21:08:40.647 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 21:09:19.609 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 21:09:54.970 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 21:10:30.375 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 21:11:10.316 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 21:11:45.693 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 21:12:21.173 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 21:13:02.361 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 21:13:37.856 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 21:14:13.279 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 21:14:48.799 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 21:15:24.319 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 21:16:06.946 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 21:16:42.410 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 21:17:17.930 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 21:17:53.387 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 21:18:28.907 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 21:19:04.435 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 21:19:48.999 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 21:20:24.504 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 21:21:00.062 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 21:21:35.553 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 21:22:04.236 - INFO - SAM文件读取完成|SAM file reading completed: 338.08M 行|lines, 2000000 k-mers
+2026-01-19 21:22:41.793 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.80M filtered hits (保留率|retention: 100.0%)
+2026-01-19 21:23:14.900 - INFO - 批次31过滤完成|Batch 31 filtering completed
+2026-01-19 21:23:14.901 - INFO - ============================================================
+2026-01-19 21:23:14.901 - INFO - 处理批次|Processing batch 32/39
+2026-01-19 21:23:14.901 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_032.fa
+2026-01-19 21:23:14.901 - INFO - ============================================================
+2026-01-19 21:23:14.901 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 21:24:34.965 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 32)
+2026-01-19 21:24:34.965 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 21:24:34.966 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 21:25:09.999 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 21:25:44.971 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 21:26:20.026 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 21:26:57.140 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 21:27:33.692 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 21:28:08.898 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 21:28:45.826 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 21:29:23.385 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 21:29:58.677 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 21:30:36.873 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 21:31:12.204 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 21:31:47.608 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 21:32:26.737 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 21:33:02.158 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 21:33:37.605 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 21:34:17.683 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 21:34:53.153 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 21:35:28.604 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 21:36:09.862 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 21:36:45.395 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 21:37:20.877 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 21:37:56.475 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 21:38:32.004 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 21:39:14.783 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 21:39:50.280 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 21:40:25.781 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 21:41:01.339 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 21:41:36.884 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 21:42:12.434 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 21:42:57.013 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 21:43:32.551 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 21:44:08.131 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 21:44:43.845 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 21:45:19.412 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 21:45:29.291 - INFO - SAM文件读取完成|SAM file reading completed: 342.77M 行|lines, 2000000 k-mers
+2026-01-19 21:46:07.016 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.74M filtered hits (保留率|retention: 100.0%)
+2026-01-19 21:46:40.620 - INFO - 批次32过滤完成|Batch 32 filtering completed
+2026-01-19 21:46:40.620 - INFO - ============================================================
+2026-01-19 21:46:40.620 - INFO - 处理批次|Processing batch 33/39
+2026-01-19 21:46:40.620 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_033.fa
+2026-01-19 21:46:40.620 - INFO - ============================================================
+2026-01-19 21:46:40.621 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 21:47:56.824 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 33)
+2026-01-19 21:47:56.824 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 21:47:56.824 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 21:48:31.786 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 21:49:06.678 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 21:49:42.285 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 21:50:18.221 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 21:50:54.543 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 21:51:31.228 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 21:52:08.278 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 21:52:43.525 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 21:53:21.293 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 21:53:56.611 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 21:54:35.126 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 21:55:10.470 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 21:55:45.837 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 21:56:25.236 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 21:57:00.595 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 21:57:35.969 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 21:58:16.437 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 21:58:51.884 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 21:59:27.292 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 22:00:02.736 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 22:00:44.510 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 22:01:19.984 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 22:01:55.487 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 22:02:30.970 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 22:03:06.411 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 22:03:49.789 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 22:04:25.286 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 22:05:00.723 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 22:05:36.273 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 22:06:11.819 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 22:06:47.351 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 22:07:22.849 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 22:08:08.300 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 22:08:41.006 - INFO - SAM文件读取完成|SAM file reading completed: 339.22M 行|lines, 2000000 k-mers
+2026-01-19 22:09:18.869 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.86M filtered hits (保留率|retention: 100.0%)
+2026-01-19 22:09:52.075 - INFO - 批次33过滤完成|Batch 33 filtering completed
+2026-01-19 22:09:52.075 - INFO - ============================================================
+2026-01-19 22:09:52.075 - INFO - 处理批次|Processing batch 34/39
+2026-01-19 22:09:52.075 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_034.fa
+2026-01-19 22:09:52.075 - INFO - ============================================================
+2026-01-19 22:09:52.075 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 22:11:06.394 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 34)
+2026-01-19 22:11:06.394 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 22:11:06.394 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 22:11:41.418 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 22:12:16.394 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 22:12:51.405 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 22:13:26.448 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 22:14:01.600 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 22:14:36.797 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 22:15:13.848 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 22:15:49.055 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 22:16:26.741 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 22:17:02.043 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 22:17:40.436 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 22:18:15.693 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 22:18:54.935 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 22:19:30.292 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 22:20:05.651 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 22:20:41.092 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 22:21:21.452 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 22:21:56.908 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 22:22:32.382 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 22:23:07.872 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 22:23:49.527 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 22:24:25.020 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 22:25:00.653 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 22:25:36.167 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 22:26:11.650 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 22:26:54.804 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 22:27:30.259 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 22:28:05.753 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 22:28:41.285 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 22:29:16.816 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 22:29:52.338 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 22:30:37.501 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 22:31:13.088 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 22:31:48.591 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 22:31:49.330 - INFO - SAM文件读取完成|SAM file reading completed: 340.21M 行|lines, 2000000 k-mers
+2026-01-19 22:32:26.952 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.77M filtered hits (保留率|retention: 100.0%)
+2026-01-19 22:33:00.323 - INFO - 批次34过滤完成|Batch 34 filtering completed
+2026-01-19 22:33:00.323 - INFO - ============================================================
+2026-01-19 22:33:00.323 - INFO - 处理批次|Processing batch 35/39
+2026-01-19 22:33:00.323 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_035.fa
+2026-01-19 22:33:00.323 - INFO - ============================================================
+2026-01-19 22:33:00.323 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 22:34:17.334 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 35)
+2026-01-19 22:34:17.334 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 22:34:17.334 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 22:34:52.928 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 22:35:28.394 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 22:36:03.923 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 22:36:39.485 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 22:37:15.103 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 22:37:52.241 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 22:38:29.813 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 22:39:05.585 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 22:39:43.725 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 22:40:19.610 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 22:40:58.500 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 22:41:34.336 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 22:42:14.079 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 22:42:49.979 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 22:43:25.916 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 22:44:06.631 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 22:44:42.498 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 22:45:18.542 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 22:45:54.498 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 22:46:36.584 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 22:47:12.712 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 22:47:48.899 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 22:48:24.982 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 22:49:01.084 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 22:49:44.764 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 22:50:20.761 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 22:50:56.806 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 22:51:32.895 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 22:52:09.026 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 22:52:45.159 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 22:53:21.231 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 22:54:06.855 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 22:54:42.917 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 22:54:54.520 - INFO - SAM文件读取完成|SAM file reading completed: 333.22M 行|lines, 2000000 k-mers
+2026-01-19 22:55:31.730 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.77M filtered hits (保留率|retention: 100.0%)
+2026-01-19 22:56:04.437 - INFO - 批次35过滤完成|Batch 35 filtering completed
+2026-01-19 22:56:04.437 - INFO - ============================================================
+2026-01-19 22:56:04.437 - INFO - 处理批次|Processing batch 36/39
+2026-01-19 22:56:04.437 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_036.fa
+2026-01-19 22:56:04.437 - INFO - ============================================================
+2026-01-19 22:56:04.437 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 22:57:24.878 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 36)
+2026-01-19 22:57:24.878 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 22:57:24.878 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 22:57:59.980 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 22:58:34.871 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 22:59:09.938 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 22:59:45.037 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 23:00:20.176 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 23:00:56.911 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 23:01:34.085 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 23:02:09.381 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 23:02:47.278 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 23:03:22.630 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 23:04:01.258 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 23:04:36.694 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 23:05:12.110 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 23:05:51.642 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 23:06:27.135 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 23:07:02.567 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 23:07:38.075 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 23:08:18.754 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 23:08:54.241 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 23:09:29.753 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 23:10:05.287 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 23:10:47.346 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 23:11:22.915 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 23:11:58.547 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 23:12:34.087 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 23:13:09.685 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 23:13:53.354 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 23:14:28.986 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 23:15:04.501 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 23:15:40.138 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 23:16:15.752 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 23:16:51.429 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 23:17:27.057 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 23:18:12.794 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-19 23:18:22.541 - INFO - SAM文件读取完成|SAM file reading completed: 342.74M 行|lines, 2000000 k-mers
+2026-01-19 23:19:00.197 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.73M filtered hits (保留率|retention: 100.0%)
+2026-01-19 23:19:33.760 - INFO - 批次36过滤完成|Batch 36 filtering completed
+2026-01-19 23:19:33.760 - INFO - ============================================================
+2026-01-19 23:19:33.760 - INFO - 处理批次|Processing batch 37/39
+2026-01-19 23:19:33.760 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_037.fa
+2026-01-19 23:19:33.760 - INFO - ============================================================
+2026-01-19 23:19:33.760 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 23:20:54.345 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 37)
+2026-01-19 23:20:54.345 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 23:20:54.345 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 23:21:29.393 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 23:22:04.367 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 23:22:39.356 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 23:23:14.325 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 23:23:49.402 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 23:24:24.526 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 23:24:59.639 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 23:25:36.895 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 23:26:14.752 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 23:26:50.019 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 23:27:25.381 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 23:28:04.027 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 23:28:39.361 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 23:29:18.996 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 23:29:54.407 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 23:30:29.828 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 23:31:05.253 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 23:31:45.919 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 23:32:21.394 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 23:32:56.879 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 23:33:32.364 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 23:34:14.476 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 23:34:50.016 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 23:35:25.517 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 23:36:00.975 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 23:36:36.473 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-19 23:37:11.955 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-19 23:37:55.721 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-19 23:38:31.195 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-19 23:39:06.672 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-19 23:39:42.219 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-19 23:40:17.724 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-19 23:40:53.221 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-19 23:41:22.524 - INFO - SAM文件读取完成|SAM file reading completed: 338.26M 行|lines, 2000000 k-mers
+2026-01-19 23:41:59.927 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.76M filtered hits (保留率|retention: 100.0%)
+2026-01-19 23:42:33.096 - INFO - 批次37过滤完成|Batch 37 filtering completed
+2026-01-19 23:42:33.096 - INFO - ============================================================
+2026-01-19 23:42:33.096 - INFO - 处理批次|Processing batch 38/39
+2026-01-19 23:42:33.096 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_038.fa
+2026-01-19 23:42:33.096 - INFO - ============================================================
+2026-01-19 23:42:33.096 - INFO - 运行BWA mem|Running BWA mem
+2026-01-19 23:43:53.710 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 38)
+2026-01-19 23:43:53.710 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-19 23:43:53.710 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-19 23:44:29.529 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-19 23:45:05.748 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-19 23:45:41.528 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-19 23:46:18.592 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-19 23:46:55.216 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-19 23:47:30.559 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-19 23:48:07.605 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-19 23:48:45.211 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-19 23:49:20.517 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-19 23:49:58.832 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-19 23:50:34.263 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-19 23:51:09.708 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-19 23:51:48.801 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-19 23:52:24.272 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-19 23:52:59.732 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-19 23:53:39.824 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-19 23:54:15.293 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-19 23:54:50.821 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-19 23:55:26.268 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-19 23:56:07.577 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-19 23:56:43.102 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-19 23:57:18.558 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-19 23:57:54.101 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-19 23:58:36.875 - INFO - 已处理|Processed: 240.00M 行|lines
+2026-01-19 23:59:12.455 - INFO - 已处理|Processed: 250.00M 行|lines
+2026-01-19 23:59:47.911 - INFO - 已处理|Processed: 260.00M 行|lines
+2026-01-20 00:00:23.443 - INFO - 已处理|Processed: 270.00M 行|lines
+2026-01-20 00:00:58.988 - INFO - 已处理|Processed: 280.00M 行|lines
+2026-01-20 00:01:34.625 - INFO - 已处理|Processed: 290.00M 行|lines
+2026-01-20 00:02:19.236 - INFO - 已处理|Processed: 300.00M 行|lines
+2026-01-20 00:02:54.841 - INFO - 已处理|Processed: 310.00M 行|lines
+2026-01-20 00:03:30.384 - INFO - 已处理|Processed: 320.00M 行|lines
+2026-01-20 00:04:05.995 - INFO - 已处理|Processed: 330.00M 行|lines
+2026-01-20 00:04:41.502 - INFO - 已处理|Processed: 340.00M 行|lines
+2026-01-20 00:04:58.083 - INFO - SAM文件读取完成|SAM file reading completed: 344.65M 行|lines, 2000000 k-mers
+2026-01-20 00:05:35.987 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 6.75M filtered hits (保留率|retention: 100.0%)
+2026-01-20 00:06:09.474 - INFO - 批次38过滤完成|Batch 38 filtering completed
+2026-01-20 00:06:09.474 - INFO - ============================================================
+2026-01-20 00:06:09.474 - INFO - 处理批次|Processing batch 39/39
+2026-01-20 00:06:09.474 - INFO - 批次文件|Batch file: output/07_post_gwas_bwa/batches/batch_039.fa
+2026-01-20 00:06:09.474 - INFO - ============================================================
+2026-01-20 00:06:09.474 - INFO - 运行BWA mem|Running BWA mem
+2026-01-20 00:07:04.344 - INFO - BWA mem比对完成|BWA mem alignment completed (批次|batch 39)
+2026-01-20 00:07:04.344 - INFO - 应用智能过滤并转换输出格式（流式处理）|Applying smart filtering and converting output format (stream processing)
+2026-01-20 00:07:04.344 - INFO - AS阈值|AS threshold: AS_ratio = 0.95
+2026-01-20 00:07:39.351 - INFO - 已处理|Processed: 10.00M 行|lines
+2026-01-20 00:08:14.251 - INFO - 已处理|Processed: 20.00M 行|lines
+2026-01-20 00:08:49.921 - INFO - 已处理|Processed: 30.00M 行|lines
+2026-01-20 00:09:26.852 - INFO - 已处理|Processed: 40.00M 行|lines
+2026-01-20 00:10:03.318 - INFO - 已处理|Processed: 50.00M 行|lines
+2026-01-20 00:10:38.587 - INFO - 已处理|Processed: 60.00M 行|lines
+2026-01-20 00:11:15.529 - INFO - 已处理|Processed: 70.00M 行|lines
+2026-01-20 00:11:53.059 - INFO - 已处理|Processed: 80.00M 行|lines
+2026-01-20 00:12:28.435 - INFO - 已处理|Processed: 90.00M 行|lines
+2026-01-20 00:13:06.719 - INFO - 已处理|Processed: 100.00M 行|lines
+2026-01-20 00:13:42.059 - INFO - 已处理|Processed: 110.00M 行|lines
+2026-01-20 00:14:17.434 - INFO - 已处理|Processed: 120.00M 行|lines
+2026-01-20 00:14:56.531 - INFO - 已处理|Processed: 130.00M 行|lines
+2026-01-20 00:15:31.935 - INFO - 已处理|Processed: 140.00M 行|lines
+2026-01-20 00:16:07.366 - INFO - 已处理|Processed: 150.00M 行|lines
+2026-01-20 00:16:47.450 - INFO - 已处理|Processed: 160.00M 行|lines
+2026-01-20 00:17:22.859 - INFO - 已处理|Processed: 170.00M 行|lines
+2026-01-20 00:17:58.295 - INFO - 已处理|Processed: 180.00M 行|lines
+2026-01-20 00:18:33.768 - INFO - 已处理|Processed: 190.00M 行|lines
+2026-01-20 00:19:15.063 - INFO - 已处理|Processed: 200.00M 行|lines
+2026-01-20 00:19:50.561 - INFO - 已处理|Processed: 210.00M 行|lines
+2026-01-20 00:20:26.039 - INFO - 已处理|Processed: 220.00M 行|lines
+2026-01-20 00:21:01.577 - INFO - 已处理|Processed: 230.00M 行|lines
+2026-01-20 00:21:13.800 - INFO - SAM文件读取完成|SAM file reading completed: 233.46M 行|lines, 1371814 k-mers
+2026-01-20 00:21:39.516 - INFO - BWA比对及过滤完成|BWA alignment and filtering completed: 4.62M filtered hits (保留率|retention: 100.0%)
+2026-01-20 00:22:02.537 - INFO - 批次39过滤完成|Batch 39 filtering completed
+2026-01-20 00:22:02.537 - INFO - ============================================================
+2026-01-20 00:22:02.537 - INFO - 合并批次结果|Merging batch results: 39 个批次文件|batch files
+2026-01-20 00:22:02.537 - INFO - ============================================================
+2026-01-20 00:22:26.287 - INFO - 合并完成|Merge completed: output/07_post_gwas_bwa/all_kmers_alignment_result.txt
+2026-01-20 00:22:26.341 - INFO - 清理批次目录|Cleaned batch directory: output/07_post_gwas_bwa/batches
+2026-01-20 00:22:26.341 - INFO - 生成GWAS格式文件|Generating GWAS format files
+2026-01-20 00:22:26.341 - INFO - 采用智能全hit模式（保留bitscore相等的所有重复位点）|Using smart all-hits mode (keep all duplicate loci with equal bitscore)
+2026-01-20 00:22:26.341 - INFO - 显著阈值|Significance threshold: p < 1e-05
+2026-01-20 00:22:26.341 - INFO - 抽样策略：p >= 1e-05 每条染色体随机抽样10%
+2026-01-20 00:22:26.341 - INFO - 排序策略：按染色体编号 + 物理位置排序|Sorting: by chromosome number + physical position
+2026-01-20 01:47:22.125 - INFO - 文件生成完成|Files generated:
+2026-01-20 01:47:22.126 - INFO - 
+2026-01-20 01:47:22.126 - INFO - 1. 显著位点文件|Significant loci file:
+2026-01-20 01:47:22.126 - INFO -    文件|File: output/07_post_gwas_bwa/kmer_gwas_significant.txt
+2026-01-20 01:47:22.126 - INFO -    位点数|Loci count: 1
+2026-01-20 01:47:22.126 - INFO -    k-mer数|k-mer count: 1
+2026-01-20 01:47:22.126 - INFO - 
+2026-01-20 01:47:22.126 - INFO - 2. 所有位点文件（含抽样）|All loci file (with sampling):
+2026-01-20 01:47:22.126 - INFO -    文件|File: output/07_post_gwas_bwa/kmer_gwas_all_sampled.txt
+2026-01-20 01:47:22.126 - INFO -    位点数|Loci count: 26146655
+2026-01-20 01:47:28.334 - INFO -    k-mer数|k-mer count: 7739010
+2026-01-20 01:47:28.334 - INFO -      其中显著|Including significant: 1
+2026-01-20 01:47:28.334 - INFO -      抽样|Sampled from non-significant: 7739009
+2026-01-20 01:47:28.334 - INFO - 
+2026-01-20 01:47:28.334 - INFO - 3. 所有位点文件（不抽样，完整数据）|All loci file (unsampled, complete):
+2026-01-20 01:47:28.334 - INFO -    文件|File: output/07_post_gwas_bwa/kmer_gwas_all.txt
+2026-01-20 01:47:28.334 - INFO -    位点数|Loci count: 261429712
+2026-01-20 01:47:59.915 - INFO -    k-mer数|k-mer count: 77371814
+2026-01-20 01:47:59.915 - INFO -      其中显著|Including significant: 1
+2026-01-20 01:47:59.915 - INFO -      非显著（全部）|Non-significant (all): 77371813
+2026-01-20 01:53:54.209 - INFO - Post-GWAS分析完成|Post-GWAS analysis completed
+2026-01-20 01:53:54.210 - INFO - 
+2026-01-20 01:53:54.210 - INFO - ============================================================
+2026-01-20 01:53:54.210 - INFO - 开始基因注释|Starting gene annotation
+2026-01-20 01:53:54.210 - INFO - ============================================================
+2026-01-20 01:53:54.225 - INFO - 生成基因注释文件 (p < 1e-05, window=200kb)|Generating gene annotation file
+2026-01-20 01:53:54.225 - INFO - 解析GFF文件|Parsing GFF file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.gff3
+2026-01-20 01:53:54.225 - INFO - 解析GFF文件|Parsing GFF file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/19.第一批369个有表型的样品去冗余做kmer-GWAS-分级作为表型/genome.gff3
+2026-01-20 01:53:56.504 - INFO - 解析完成|Parsed: 969.90K 个基因特征|gene features on 20 条染色体|chromosomes
+2026-01-20 01:53:56.504 - INFO - 读取k-mer映射|Reading k-mer mapping
+2026-01-20 01:54:59.451 - INFO - 查找显著位点附近的基因|Finding genes near significant loci
+2026-01-20 02:00:21.334 - INFO - 基因注释完成|Gene annotation completed
+2026-01-20 02:00:21.334 - INFO -   总k-mer位点|Total k-mer loci: 261.43M
+2026-01-20 02:00:21.334 - INFO -   显著位点（p < 1e-05）|Significant loci (p < 1e-05): 1.00
+2026-01-20 02:00:21.334 - INFO -   有注释的位点|Annotated loci: 1.00
+2026-01-20 02:00:21.334 - INFO - 文件已保存|File saved: output/07_post_gwas_bwa/kmer_gene_annotation_pval_1e-05_window_200kb.txt
+2026-01-20 02:00:24.591 - INFO - 
+2026-01-20 02:00:24.591 - INFO - 基因注释文件|Gene annotation file: output/07_post_gwas_bwa/kmer_gene_annotation_pval_1e-05_window_200kb.txt
+2026-01-20 02:00:24.591 - INFO - 
+============================================================
+2026-01-20 02:00:24.591 - INFO - KMERIA完整分析流程全部完成|KMERIA complete analysis pipeline finished
+2026-01-20 02:00:24.591 - INFO - ============================================================
+
+2026-01-20 02:00:24.655 - INFO - 命令日志已保存|Commands log saved: output/commands_log.json

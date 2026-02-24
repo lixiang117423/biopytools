@@ -1,0 +1,5 @@
+run_hiccups_2.sh:行5: -k: 未找到命令
+run_hiccups_2.sh:行8: -i: 未找到命令
+run_hiccups_2.sh:行11: aligned/inter_30.hic: Permission denied
+Job 68253332 stderr output:
+

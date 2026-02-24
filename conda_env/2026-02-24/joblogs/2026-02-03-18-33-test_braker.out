@@ -1,0 +1,38 @@
+检测到三代转录组为目录，自动识别文件|Detected long-read directory, auto-detecting files...
+找到三代转录组文件|Found long-read file: 3rd_rnaseq/jingyeA.fastq.gz
+清理蛋白质序列|Cleaning protein sequences...
+  蛋白质序列清理统计|Cleaning statistics:
+    序列数|Sequences: 51840
+    移除的 '.' 字符|Removed dots: 94305
+    输出文件|Output: cleaned_ov.pep.fa
+蛋白质序列清理完成|Protein sequences cleaned: cleaned_ov.pep.fa
+2026-02-03 18:33:03.756 - INFO - 检测到已完成步骤|Detected completed step in: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/02.long_reads
+2026-02-03 18:33:03.756 - INFO - 检测到已完成步骤|Detected completed step in: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/03.short_reads
+2026-02-03 18:33:03.756 - INFO - ================================================================================
+2026-02-03 18:33:03.756 - INFO - 开始BRAKER3基因组注释流程|Starting BRAKER3 Genome Annotation Pipeline
+2026-02-03 18:33:03.756 - INFO - ================================================================================
+2026-02-03 18:33:03.756 - INFO - --------------------------------------------------------------------------------
+2026-02-03 18:33:03.756 - INFO - 步骤1: 重复序列屏蔽|Step 1: Repeat Masking
+2026-02-03 18:33:03.756 - INFO - --------------------------------------------------------------------------------
+2026-02-03 18:33:03.780 - INFO - 检测到重复序列屏蔽已完成，跳过|Repeat masking already completed, skipping
+2026-02-03 18:33:03.780 - INFO - 使用已有的屏蔽基因组|Using existing masked genome: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/01.repeat_masking/OV53_Chr12.fa.masked
+2026-02-03 18:33:03.780 - INFO - --------------------------------------------------------------------------------
+2026-02-03 18:33:03.780 - INFO - 步骤2: 三代全长转录本处理|Step 2: Long-read Transcript Processing
+2026-02-03 18:33:03.780 - INFO - --------------------------------------------------------------------------------
+2026-02-03 18:33:03.780 - INFO - 检测到三代转录本处理已完成，跳过|Long-read processing already completed, skipping
+2026-02-03 18:33:03.780 - INFO - --------------------------------------------------------------------------------
+2026-02-03 18:33:03.780 - INFO - 步骤3: 二代RNA-seq数据处理|Step 3: Short-read RNA-seq Processing
+2026-02-03 18:33:03.781 - INFO - --------------------------------------------------------------------------------
+2026-02-03 18:33:03.781 - INFO - 检测到二代RNA-seq处理已完成，跳过|Short-read processing already completed, skipping
+2026-02-03 18:33:03.781 - INFO - 使用已有的RNA-seq比对文件|Using existing RNA-seq alignment: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/03.short_reads/rnaseq.sorted.bam
+2026-02-03 18:33:03.781 - INFO - --------------------------------------------------------------------------------
+2026-02-03 18:33:03.781 - INFO - 步骤4: BRAKER3基因组注释|Step 4: BRAKER3 Genome Annotation
+2026-02-03 18:33:03.781 - INFO - --------------------------------------------------------------------------------
+2026-02-03 18:33:03.823 - INFO - 执行步骤|Executing step: 运行BRAKER3|Run BRAKER3
+2026-02-03 19:26:42.239 - ERROR - 命令执行失败|Command execution failed: 运行BRAKER3|Run BRAKER3
+2026-02-03 19:26:42.258 - ERROR - 错误代码|Error code: 1
+2026-02-03 19:26:42.258 - ERROR - 错误信息|Error message: INFO:    Converting SIF file to temporary sandbox...
+ERROR in file /opt/BRAKER/scripts/braker.pl at line 5578
+Failed to execute: /usr/bin/perl /opt/ETP/bin/gmetp.pl --cfg /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/04.braker_annotation/GeneMark-ETP/etp_config.yaml --workdir /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/04.braker_annotation/GeneMark-ETP --bam /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/04.braker_annotation/GeneMark-ETP/etp_data/ --cores 64 --softmask  1>/share/org/YZ
+2026-02-03 19:26:42.260 - ERROR - 流程执行失败|Pipeline execution failed: BRAKER3运行失败|BRAKER3 execution failed
+运行错误|Runtime error: BRAKER3运行失败|BRAKER3 execution failed

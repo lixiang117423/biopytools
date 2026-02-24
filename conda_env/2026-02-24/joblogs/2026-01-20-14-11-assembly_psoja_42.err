@@ -1,0 +1,939 @@
+2026-01-20 22:38:34.823 - WARNING - 命令错误输出|Command stderr:
+-- canu master +27 changes (r10515 2a41e933b8de6ed66723d75d36dd071b46d2c347)
+--
+-- CITATIONS
+--
+-- For assemblies of PacBio HiFi reads:
+--   Nurk S, Walenz BP, Rhiea A, Vollger MR, Logsdon GA, Grothe R, Miga KH, Eichler EE, Phillippy AM, Koren S.
+--   HiCanu: accurate assembly of segmental duplications, satellites, and allelic variants from high-fidelity long reads.
+--   biorXiv. 2020.
+--   https://doi.org/10.1101/2020.03.14.992248
+-- 
+-- Read and contig alignments during correction and consensus use:
+--   Šošic M, Šikic M.
+--   Edlib: a C/C ++ library for fast, exact sequence alignment using edit distance.
+--   Bioinformatics. 2017 May 1;33(9):1394-1395.
+--   http://doi.org/10.1093/bioinformatics/btw753
+-- 
+-- Overlaps are generated using:
+--   Berlin K, et al.
+--   Assembling large genomes with single-molecule sequencing and locality-sensitive hashing.
+--   Nat Biotechnol. 2015 Jun;33(6):623-30.
+--   http://doi.org/10.1038/nbt.3238
+-- 
+--   Myers EW, et al.
+--   A Whole-Genome Assembly of Drosophila.
+--   Science. 2000 Mar 24;287(5461):2196-204.
+--   http://doi.org/10.1126/science.287.5461.2196
+-- 
+-- Contig consensus sequences are generated using an algorithm derived from pbdagcon:
+--   Chin CS, et al.
+--   Nonhybrid, finished microbial genome assemblies from long-read SMRT sequencing data.
+--   Nat Methods. 2013 Jun;10(6):563-9
+--   http://doi.org/10.1038/nmeth.2474
+-- 
+-- CONFIGURE CANU
+--
+-- Detected Java(TM) Runtime Environment '17.0.15-internal' (from '/share/org/YZWL/yzwl_lixg/.local/bin/java') without -d64 support.
+--
+-- WARNING:
+-- WARNING:  Failed to run gnuplot using command 'gnuplot'.
+-- WARNING:  Plots will be disabled.
+-- WARNING:
+--
+-- Detected samtools version '1.22' / htslib version 'htscodecs=1.6.3' (from 'samtools').
+--
+-- Detected 88 CPUs and 503 gigabytes of memory on the local machine.
+--
+-- Detected Slurm with 'sinfo' binary in /opt/skyformai/bin/sinfo.
+--          Slurm disabled by useGrid=false
+--
+-- Detected  '' with 'pbsnodes' binary in /opt/skyformai/bin/pbsnodes.
+--           disabled by useGrid=false
+--
+-- Detected LSF with 'bsub' binary in /opt/skyformai/bin/bsub.
+--          LSF disabled by useGrid=false
+--
+-- Local machine mode enabled; grid support not detected or not allowed.
+--
+-- Found trimmed raw PacBio HiFi reads in the input files.
+--
+--                                (tag)Concurrency
+--                         (tag)Threads          |
+--                (tag)Memory         |          |
+--        (tag)             |         |          |       total usage      algorithm
+--        -------  ----------  --------   --------  --------------------  -----------------------------
+-- Local: meryl     12.000 GB    4 CPUs x  22 jobs   264.000 GB  88 CPUs  (k-mer counting)
+-- Local: cormhap   13.000 GB   11 CPUs x   8 jobs   104.000 GB  88 CPUs  (overlap detection with mhap)
+-- Local: obtovl     8.000 GB    8 CPUs x  11 jobs    88.000 GB  88 CPUs  (overlap detection)
+-- Local: utgovl     8.000 GB    8 CPUs x  11 jobs    88.000 GB  88 CPUs  (overlap detection)
+-- Local: cor        -.--- GB    4 CPUs x   - jobs     -.--- GB   - CPUs  (read correction)
+-- Local: ovb        4.000 GB    1 CPU  x  88 jobs   352.000 GB  88 CPUs  (overlap store bucketizer)
+-- Local: ovs        8.000 GB    1 CPU  x  62 jobs   496.000 GB  62 CPUs  (overlap store sorting)
+-- Local: red       16.000 GB    4 CPUs x  22 jobs   352.000 GB  88 CPUs  (read error detection)
+-- Local: oea        8.000 GB    1 CPU  x  62 jobs   496.000 GB  62 CPUs  (overlap error adjustment)
+-- Local: bat       32.000 GB    8 CPUs x   1 job     32.000 GB   8 CPUs  (contig construction with bogart)
+-- Local: cns        -.--- GB    8 CPUs x   - jobs     -.--- GB   - CPUs  (consensus)
+--
+-- Generating assembly 'B4-50' in '/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B4-50/01.raw_output':
+--   genomeSize:
+--     85000000
+--
+--   Overlap Generation Limits:
+--     corOvlErrorRate 0.0000 (  0.00%)
+--     obtOvlErrorRate 0.0250 (  2.50%)
+--     utgOvlErrorRate 0.0100 (  1.00%)
+--
+--   Overlap Processing Limits:
+--     corErrorRate    0.0000 (  0.00%)
+--     obtErrorRate    0.0250 (  2.50%)
+--     utgErrorRate    0.0003 (  0.03%)
+--     cnsErrorRate    0.0500 (  5.00%)
+--
+--   Stages to run:
+--     assemble HiFi reads.
+--
+--
+-- BEGIN STORE CREATION
+----------------------------------------
+-- Starting command on Tue Jan 20 20:27:16 2026 with 4161073.468 GB free disk space
+
+    cd .
+    ./B4-50.seqStore.sh \
+    > ./B4-50.seqStore.err 2>&1
+
+-- Finished on Tue Jan 20 20:36:28 2026 (552 seconds) with 4159587.89 GB free disk space
+----------------------------------------
+--
+-- In sequence store './B4-50.seqStore':
+--   Found 232037 reads.
+--   Found 4250000168 bases (50 times coverage).
+--    Histogram of corrected reads:
+--    
+--    G=4250000168                       sum of  ||               length     num
+--    NG         length     index       lengths  ||                range    seqs
+--    ----- ------------ --------- ------------  ||  ------------------- -------
+--    00010        27884     13857    425027465  ||       1252-2517         3512|--------
+--    00020        25031     30012    850023940  ||       2518-3783         5569|-------------
+--    00030        23088     47716   1275010400  ||       3784-5049         5604|-------------
+--    00040        21563     66783   1700021170  ||       5050-6315         4738|-----------
+--    00050        20243     87135   2125000865  ||       6316-7581         4088|----------
+--    00060        19062    108777   2550016973  ||       7582-8847         3737|---------
+--    00070        17969    131748   2975006850  ||       8848-10113        3255|--------
+--    00080        16906    156125   3400003036  ||      10114-11379        2976|-------
+--    00090        15429    182278   3825005782  ||      11380-12645        3043|-------
+--    00100         1252    232037   4250000168  ||      12646-13911        3808|---------
+--    001.000x              232037   4250000168  ||      13912-15177        6878|----------------
+--                                               ||      15178-16443       18701|------------------------------------------
+--                                               ||      16444-17709       28516|---------------------------------------------------------------
+--                                               ||      17710-18975       27154|------------------------------------------------------------
+--                                               ||      18976-20241       23300|----------------------------------------------------
+--                                               ||      20242-21507       19595|--------------------------------------------
+--                                               ||      21508-22773       16346|-------------------------------------
+--                                               ||      22774-24039       12906|-----------------------------
+--                                               ||      24040-25305       10344|-----------------------
+--                                               ||      25306-26571        7939|------------------
+--                                               ||      26572-27837        6014|--------------
+--                                               ||      27838-29103        4500|----------
+--                                               ||      29104-30369        3213|--------
+--                                               ||      30370-31635        2412|------
+--                                               ||      31636-32901        1586|----
+--                                               ||      32902-34167         999|---
+--                                               ||      34168-35433         657|--
+--                                               ||      35434-36699         327|-
+--                                               ||      36700-37965         190|-
+--                                               ||      37966-39231          74|-
+--                                               ||      39232-40497          35|-
+--                                               ||      40498-41763           9|-
+--                                               ||      41764-43029           8|-
+--                                               ||      43030-44295           2|-
+--                                               ||      44296-45561           0|
+--                                               ||      45562-46827           0|
+--                                               ||      46828-48093           0|
+--                                               ||      48094-49359           1|-
+--                                               ||      49360-50625           0|
+--                                               ||      50626-51891           1|-
+--    
+--
+-- In sequence store './B4-50.seqStore':
+--   Found 232037 reads.
+--   Found 4250000168 bases (50 times coverage).
+--    Histogram of corrected-trimmed reads:
+--    
+--    G=4250000168                       sum of  ||               length     num
+--    NG         length     index       lengths  ||                range    seqs
+--    ----- ------------ --------- ------------  ||  ------------------- -------
+--    00010        27884     13857    425027465  ||       1252-2517         3512|--------
+--    00020        25031     30012    850023940  ||       2518-3783         5569|-------------
+--    00030        23088     47716   1275010400  ||       3784-5049         5604|-------------
+--    00040        21563     66783   1700021170  ||       5050-6315         4738|-----------
+--    00050        20243     87135   2125000865  ||       6316-7581         4088|----------
+--    00060        19062    108777   2550016973  ||       7582-8847         3737|---------
+--    00070        17969    131748   2975006850  ||       8848-10113        3255|--------
+--    00080        16906    156125   3400003036  ||      10114-11379        2976|-------
+--    00090        15429    182278   3825005782  ||      11380-12645        3043|-------
+--    00100         1252    232037   4250000168  ||      12646-13911        3808|---------
+--    001.000x              232037   4250000168  ||      13912-15177        6878|----------------
+--                                               ||      15178-16443       18701|------------------------------------------
+--                                               ||      16444-17709       28516|---------------------------------------------------------------
+--                                               ||      17710-18975       27154|------------------------------------------------------------
+--                                               ||      18976-20241       23300|----------------------------------------------------
+--                                               ||      20242-21507       19595|--------------------------------------------
+--                                               ||      21508-22773       16346|-------------------------------------
+--                                               ||      22774-24039       12906|-----------------------------
+--                                               ||      24040-25305       10344|-----------------------
+--                                               ||      25306-26571        7939|------------------
+--                                               ||      26572-27837        6014|--------------
+--                                               ||      27838-29103        4500|----------
+--                                               ||      29104-30369        3213|--------
+--                                               ||      30370-31635        2412|------
+--                                               ||      31636-32901        1586|----
+--                                               ||      32902-34167         999|---
+--                                               ||      34168-35433         657|--
+--                                               ||      35434-36699         327|-
+--                                               ||      36700-37965         190|-
+--                                               ||      37966-39231          74|-
+--                                               ||      39232-40497          35|-
+--                                               ||      40498-41763           9|-
+--                                               ||      41764-43029           8|-
+--                                               ||      43030-44295           2|-
+--                                               ||      44296-45561           0|
+--                                               ||      45562-46827           0|
+--                                               ||      46828-48093           0|
+--                                               ||      48094-49359           1|-
+--                                               ||      49360-50625           0|
+--                                               ||      50626-51891           1|-
+--    
+--
+-- Correction skipped; not enabled.
+--
+-- Trimming skipped; not enabled.
+--
+-- BEGIN ASSEMBLY
+----------------------------------------
+-- Starting command on Tue Jan 20 20:36:29 2026 with 4159587.843 GB free disk space
+
+    cd unitigging/0-mercounts
+    ./meryl-configure.sh \
+    > ./meryl-configure.err 2>&1
+
+-- Finished on Tue Jan 20 20:36:29 2026 (like a bat out of hell) with 4159587.843 GB free disk space
+----------------------------------------
+--  segments   memory batches
+--  -------- -------- -------
+--        01 10.72 GB       2
+--        02  5.68 GB       2
+--        04  2.94 GB       2
+--        06  2.12 GB       2
+--        08  1.59 GB       2
+--        12  1.06 GB       2
+--        16  0.80 GB       2
+--        20  0.64 GB       2
+--        24  0.53 GB       2
+--        32  0.40 GB       2
+--        40  0.32 GB       2
+--        48  -.-- GB       -  (segment size too small)
+--        56  -.-- GB       -  (segment size too small)
+--        64  -.-- GB       -  (segment size too small)
+--        96  -.-- GB       -  (segment size too small)
+--
+--  For 232037 reads with 4250000168 bases, limit to 42 batches.
+--  Will count kmers using 01 jobs, each using 12 GB and 4 threads.
+--
+-- Finished stage 'merylConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Tue Jan 20 20:36:29 2026 with 4159587.812 GB free disk space (1 processes; 22 concurrently)
+
+    cd unitigging/0-mercounts
+    ./meryl-count.sh 1 > ./meryl-count.000001.out 2>&1
+
+-- Finished on Tue Jan 20 20:39:55 2026 (206 seconds) with 4159645.062 GB free disk space
+----------------------------------------
+-- Found 1 Kmer counting (meryl) outputs.
+-- Finished stage 'utg-merylCountCheck', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'meryl' concurrent execution on Tue Jan 20 20:39:55 2026 with 4159645.031 GB free disk space (1 processes; 22 concurrently)
+
+    cd unitigging/0-mercounts
+    ./meryl-process.sh 1 > ./meryl-process.000001.out 2>&1
+
+-- Finished on Tue Jan 20 20:39:59 2026 (4 seconds) with 4159644.656 GB free disk space
+----------------------------------------
+-- Meryl finished successfully.  Kmer frequency histogram:
+--
+-- WARNING: gnuplot failed.
+--
+----------------------------------------
+--
+--  22-mers                                                                                           Fraction
+--    Occurrences   NumMers                                                                         Unique Total
+--       1-     1         0                                                                        0.0000 0.0000
+--       2-     2    200775                                                                        0.0045 0.0001
+--       3-     4     83670                                                                        0.0057 0.0002
+--       5-     7     28172                                                                        0.0066 0.0003
+--       8-    11     10816                                                                        0.0071 0.0003
+--      12-    16     22102                                                                        0.0073 0.0003
+--      17-    22    193910                                                                        0.0080 0.0005
+--      23-    29   1658854 ******                                                                 0.0139 0.0023
+--      30-    37   8949392 ***********************************                                    0.0615 0.0210
+--      38-    46  17882172 ********************************************************************** 0.2897 0.1344
+--      47-    56   9986293 ***************************************                                0.6825 0.3720
+--      57-    67   1365356 *****                                                                  0.8752 0.5112
+--      68-    79    741593 **                                                                     0.9001 0.5328
+--      80-    92   1011464 ***                                                                    0.9173 0.5510
+--      93-   106    609133 **                                                                     0.9396 0.5783
+--     107-   121    260376 *                                                                      0.9521 0.5957
+--     122-   137    326413 *                                                                      0.9579 0.6052
+--     138-   154    182273                                                                        0.9651 0.6184
+--     155-   172    168897                                                                        0.9690 0.6265
+--     173-   191    140737                                                                        0.9727 0.6352
+--     192-   211    115401                                                                        0.9758 0.6430
+--     212-   232    105105                                                                        0.9784 0.6505
+--     233-   254     82469                                                                        0.9807 0.6576
+--     255-   277     82950                                                                        0.9825 0.6639
+--     278-   301     68220                                                                        0.9843 0.6708
+--     302-   326     61481                                                                        0.9859 0.6770
+--     327-   352     49596                                                                        0.9872 0.6830
+--     353-   379     39006                                                                        0.9883 0.6883
+--     380-   407     35572                                                                        0.9892 0.6928
+--     408-   436     33292                                                                        0.9900 0.6972
+--     437-   466     31901                                                                        0.9907 0.7015
+--     467-   497     25780                                                                        0.9914 0.7061
+--     498-   529     22777                                                                        0.9920 0.7099
+--     530-   562     20232                                                                        0.9925 0.7137
+--     563-   596     19536                                                                        0.9929 0.7171
+--     597-   631     18479                                                                        0.9933 0.7206
+--     632-   667     16732                                                                        0.9938 0.7242
+--     668-   704     15179                                                                        0.9941 0.7276
+--     705-   742     12527                                                                        0.9945 0.7309
+--     743-   781     10930                                                                        0.9947 0.7337
+--     782-   821     11957                                                                        0.9950 0.7363
+--
+--           0 (max occurrences)
+--  3181800727 (total mers, non-unique)
+--    44914927 (distinct mers, non-unique)
+--           0 (unique mers)
+-- Finished stage 'meryl-process', reset canuIteration.
+--
+-- Removing meryl database 'unitigging/0-mercounts/B4-50.ms22'.
+--
+-- OVERLAPPER (normal) (assembly) erate=0.01
+--
+----------------------------------------
+-- Starting command on Tue Jan 20 20:39:59 2026 with 4159645.687 GB free disk space
+
+    cd unitigging/1-overlapper
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/overlapInCorePartition \
+     -S  ../../B4-50.seqStore \
+     -hl 160000000 \
+     -rl 5000000000 \
+     -ol 500 \
+     -o  ./B4-50.partition \
+    > ./B4-50.partition.err 2>&1
+
+-- Finished on Tue Jan 20 20:39:59 2026 (like a bat out of hell) with 4159645.671 GB free disk space
+----------------------------------------
+--
+-- Configured 20 overlapInCore jobs.
+-- Finished stage 'utg-overlapConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'utgovl' concurrent execution on Tue Jan 20 20:39:59 2026 with 4159645.64 GB free disk space (20 processes; 11 concurrently)
+
+    cd unitigging/1-overlapper
+    ./overlap.sh 1 > ./overlap.000001.out 2>&1
+    ./overlap.sh 2 > ./overlap.000002.out 2>&1
+    ./overlap.sh 3 > ./overlap.000003.out 2>&1
+    ./overlap.sh 4 > ./overlap.000004.out 2>&1
+    ./overlap.sh 5 > ./overlap.000005.out 2>&1
+    ./overlap.sh 6 > ./overlap.000006.out 2>&1
+    ./overlap.sh 7 > ./overlap.000007.out 2>&1
+    ./overlap.sh 8 > ./overlap.000008.out 2>&1
+    ./overlap.sh 9 > ./overlap.000009.out 2>&1
+    ./overlap.sh 10 > ./overlap.000010.out 2>&1
+    ./overlap.sh 11 > ./overlap.000011.out 2>&1
+    ./overlap.sh 12 > ./overlap.000012.out 2>&1
+    ./overlap.sh 13 > ./overlap.000013.out 2>&1
+    ./overlap.sh 14 > ./overlap.000014.out 2>&1
+    ./overlap.sh 15 > ./overlap.000015.out 2>&1
+    ./overlap.sh 16 > ./overlap.000016.out 2>&1
+    ./overlap.sh 17 > ./overlap.000017.out 2>&1
+    ./overlap.sh 18 > ./overlap.000018.out 2>&1
+    ./overlap.sh 19 > ./overlap.000019.out 2>&1
+    ./overlap.sh 20 > ./overlap.000020.out 2>&1
+
+-- Finished on Tue Jan 20 21:32:25 2026 (3146 seconds) with 4153048.437 GB free disk space
+----------------------------------------
+-- Found 20 overlapInCore output files.
+--
+-- overlapInCore compute 'unitigging/1-overlapper':
+--   kmer hits
+--     with no overlap       1184958260    59247913 +- 34204886.484
+--     with an overlap         15857973   792898.65 +- 490334.904
+--
+--   overlaps                  15857973   792898.65 +- 490334.904
+--     contained                3223177   161158.85 +- 99691.305
+--     dovetail                12634796    631739.8 +- 390898.226
+--
+--   overlaps rejected
+--     multiple per pair              0           0 +- 0
+--     bad short window               0           0 +- 0
+--     bad long window                0           0 +- 0
+-- Finished stage 'utg-overlapCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Tue Jan 20 21:32:25 2026 with 4153048.421 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/ovStoreConfig \
+     -S ../B4-50.seqStore \
+     -M 4-8 \
+     -L ./1-overlapper/ovljob.files \
+     -create ./B4-50.ovlStore.config \
+     > ./B4-50.ovlStore.config.txt \
+    2> ./B4-50.ovlStore.config.err
+
+-- Finished on Tue Jan 20 21:32:25 2026 (furiously fast) with 4153048.406 GB free disk space
+----------------------------------------
+--
+-- Creating overlap store unitigging/B4-50.ovlStore using:
+--      1 bucket
+--      1 slice
+--        using at most 2 GB memory each
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'ovS' concurrent execution on Tue Jan 20 21:32:25 2026 with 4153048.39 GB free disk space (1 processes; 62 concurrently)
+
+    cd unitigging
+    ./B4-50.ovlStore.sh 1 > ./B4-50.ovlStore.000001.out 2>&1
+
+-- Finished on Tue Jan 20 21:32:32 2026 (7 seconds) with 4153047.578 GB free disk space
+----------------------------------------
+-- Checking store.
+----------------------------------------
+-- Starting command on Tue Jan 20 21:32:32 2026 with 4153047.578 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/ovStoreDump \
+     -S ../B4-50.seqStore \
+     -O  ./B4-50.ovlStore \
+     -counts \
+     > ./B4-50.ovlStore/counts.dat 2> ./B4-50.ovlStore/counts.err
+
+-- Finished on Tue Jan 20 21:32:32 2026 (furiously fast) with 4153047.546 GB free disk space
+----------------------------------------
+--
+-- Overlap store 'unitigging/B4-50.ovlStore' successfully constructed.
+-- Found 31715946 overlaps for 210283 reads; 1776898 reads have no overlaps.
+--
+--
+-- Purged 0.427 GB in 60 overlap output files.
+----------------------------------------
+-- Starting command on Tue Jan 20 21:32:33 2026 with 4153046.765 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/ovStoreStats \
+     -C 50 \
+     -S ../B4-50.seqStore \
+     -O  ./B4-50.ovlStore \
+     -o  ./B4-50.ovlStore \
+     > ./B4-50.ovlStore.summary.err 2>&1
+
+-- Finished on Tue Jan 20 21:32:38 2026 (5 seconds) with 4153046.75 GB free disk space
+----------------------------------------
+--
+-- Overlap store 'unitigging/B4-50.ovlStore' contains:
+--
+--   category            reads     %          read length        feature size or coverage  analysis
+--   ----------------  -------  -------  ----------------------  ------------------------  --------------------
+--   middle-missing        174    0.07    16312.43 +- 6482.43       1071.58 +- 1442.61    (bad trimming)
+--   middle-hump            99    0.04    14906.25 +- 3398.07       4809.54 +- 3396.95    (bad trimming)
+--   no-5-prime           1265    0.55    13797.81 +- 4670.23       3026.33 +- 3341.62    (bad trimming)
+--   no-3-prime           1415    0.61    12978.83 +- 5415.91       2787.33 +- 3331.61    (bad trimming)
+--   
+--   low-coverage         4165    1.79    11573.23 +- 4425.67          5.76 +- 3.66       (easy to assemble, potential for lower quality consensus)
+--   unique             173053   74.58    14121.85 +- 5080.29         42.37 +- 8.02       (easy to assemble, perfect, yay)
+--   repeat-cont          8306    3.58    12483.83 +- 5245.52        937.10 +- 759.29     (potential for consensus errors, no impact on assembly)
+--   repeat-dove           113    0.05    23540.92 +- 2456.96        557.02 +- 616.32     (hard to assemble, likely won't assemble correctly or even at all)
+--   
+--   span-repeat          2978    1.28    14903.00 +- 4286.32       4384.53 +- 4224.25    (read spans a large repeat, usually easy to assemble)
+--   uniq-repeat-cont    12728    5.49    13592.10 +- 4096.54                             (should be uniquely placed, low potential for consensus errors, no impact on assembly)
+--   uniq-repeat-dove     2537    1.09    19606.47 +- 3605.86                             (will end contigs, potential to misassemble)
+--   uniq-anchor          3450    1.49    14370.79 +- 4280.88       9146.02 +- 4874.25    (repeat read, with unique section, probable bad read)
+-- Finished stage 'utg-createOverlapStore', reset canuIteration.
+--
+-- Loading read lengths.
+-- Loading number of overlaps per read.
+--
+-- Configure RED for 16gb memory.
+--                   Batches of at most (unlimited) reads.
+--                                      500000000 bases.
+--                   Expecting evidence of at most 536870912 bases per iteration.
+--
+--           Total                                               Reads                 Olaps Evidence
+--    Job   Memory      Read Range         Reads        Bases   Memory        Olaps   Memory   Memory  (Memory in MB)
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--      1 16385.76         1-46410          5332    109002218 13306.10       668742     7.65  1024.00
+--      2 16384.31     46411-96234          5775    108972197 13302.45       861117     9.85  1024.00
+--      3 16385.31     96235-148445         6187    108995244 13305.28       701510     8.03  1024.00
+--      4 16385.80    148446-196543         5602    108972545 13302.49       988783    11.32  1024.00
+--      5 16385.87    196544-251063         6361    108989339 13304.56       813409     9.31  1024.00
+--      6 16385.40    251064-304863         6227    109004501 13306.41       610967     6.99  1024.00
+--      7 16385.72    304864-352754         5586    108966320 13301.73      1047429    11.99  1024.00
+--      8 16385.80    352755-413471         7030    108989990 13304.66       798703     9.14  1024.00
+--      9 16384.83    413472-459491         5409    108983822 13303.86       783460     8.97  1024.00
+--     10 16384.90    459492-507455         5649    108977860 13303.14       852533     9.76  1024.00
+--     11 16385.55    507456-567454         6997    108990862 13304.77       767740     8.79  1024.00
+--     12 16385.77    567455-613945         5430    108996780 13305.44       727898     8.33  1024.00
+--     13 16384.49    613946-662229         5752    108968150 13301.96       920281    10.53  1024.00
+--     14 16385.53    662230-719720         6724    108994589 13305.22       726340     8.31  1024.00
+--     15 16384.32    719721-766509         5474    108968325 13301.97       904436    10.35  1024.00
+--     16 16385.20    766510-818667         5939    108995722 13305.33       688070     7.87  1024.00
+--     17 16384.63    818668-874405         6496    108987497 13304.34       723931     8.28  1024.00
+--     18 16384.32    874406-920442         5517    108967072 13301.82       917800    10.50  1024.00
+--     19 16385.51    920443-973576         6236    108989221 13304.54       783358     8.96  1024.00
+--     20 16384.67    973577-1026392        6047    108996688 13305.45       630618     7.22  1024.00
+--     21 16384.48   1026393-1074011        5572    108956940 13300.58      1039806    11.90  1024.00
+--     22 16384.59   1074012-1128552        6512    108976157 13302.96       841689     9.63  1024.00
+--     23 16385.20   1128553-1175492        5537    109008150 13306.83       556123     6.36  1024.00
+--     24 16384.62   1175493-1223206        5617    108949665 13299.70      1129438    12.93  1024.00
+--     25 16384.19   1223207-1281246        6727    108983429 13303.85       728266     8.33  1024.00
+--     26 16385.23   1281247-1327099        5324    108991250 13304.76       740178     8.47  1024.00
+--     27 16384.36   1327100-1374765        5631    108963333 13301.37       960984    11.00  1024.00
+--     28 16386.37   1374766-1432213        6626    108998048 13305.63       763505     8.74  1024.00
+--     29 16386.20   1432214-1478589        5378    109000834 13305.94       722191     8.26  1024.00
+--     30 16386.06   1478590-1526633        5754    108974118 13302.69       993668    11.37  1024.00
+--     31 16384.58   1526634-1582238        6459    108987914 13304.39       715753     8.19  1024.00
+--     32 16384.32   1582239-1627917        5383    108968345 13301.97       904465    10.35  1024.00
+--     33 16384.34   1627918-1678775        5918    108985439 13304.07       722787     8.27  1024.00
+--     34 16385.11   1678776-1731495        6143    108992500 13304.94       713392     8.16  1024.00
+--     35 16384.73   1731496-1778198        5460    108959512 13300.89      1034473    11.84  1024.00
+--     36 16384.04   1778199-1831260        6123    108979016 13303.30       764289     8.75  1024.00
+--     37 16386.88   1831261-1881913        5865    109021093 13308.42       563771     6.45  1024.00
+--     38 16386.08   1881914-1929518        5563    108961034 13301.08      1135682    13.00  1024.00
+--     39 16342.04   1929519-1987181        6675    108634449 13261.25       768361     8.79  1024.00
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--                                                 4250000168              31715946
+-- Finished stage 'readErrorDetectionConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'red' concurrent execution on Tue Jan 20 21:32:45 2026 with 4153046.703 GB free disk space (39 processes; 22 concurrently)
+
+    cd unitigging/3-overlapErrorAdjustment
+    ./red.sh 1 > ./red.000001.out 2>&1
+    ./red.sh 2 > ./red.000002.out 2>&1
+    ./red.sh 3 > ./red.000003.out 2>&1
+    ./red.sh 4 > ./red.000004.out 2>&1
+    ./red.sh 5 > ./red.000005.out 2>&1
+    ./red.sh 6 > ./red.000006.out 2>&1
+    ./red.sh 7 > ./red.000007.out 2>&1
+    ./red.sh 8 > ./red.000008.out 2>&1
+    ./red.sh 9 > ./red.000009.out 2>&1
+    ./red.sh 10 > ./red.000010.out 2>&1
+    ./red.sh 11 > ./red.000011.out 2>&1
+    ./red.sh 12 > ./red.000012.out 2>&1
+    ./red.sh 13 > ./red.000013.out 2>&1
+    ./red.sh 14 > ./red.000014.out 2>&1
+    ./red.sh 15 > ./red.000015.out 2>&1
+    ./red.sh 16 > ./red.000016.out 2>&1
+    ./red.sh 17 > ./red.000017.out 2>&1
+    ./red.sh 18 > ./red.000018.out 2>&1
+    ./red.sh 19 > ./red.000019.out 2>&1
+    ./red.sh 20 > ./red.000020.out 2>&1
+    ./red.sh 21 > ./red.000021.out 2>&1
+    ./red.sh 22 > ./red.000022.out 2>&1
+    ./red.sh 23 > ./red.000023.out 2>&1
+    ./red.sh 24 > ./red.000024.out 2>&1
+    ./red.sh 25 > ./red.000025.out 2>&1
+    ./red.sh 26 > ./red.000026.out 2>&1
+    ./red.sh 27 > ./red.000027.out 2>&1
+    ./red.sh 28 > ./red.000028.out 2>&1
+    ./red.sh 29 > ./red.000029.out 2>&1
+    ./red.sh 30 > ./red.000030.out 2>&1
+    ./red.sh 31 > ./red.000031.out 2>&1
+    ./red.sh 32 > ./red.000032.out 2>&1
+    ./red.sh 33 > ./red.000033.out 2>&1
+    ./red.sh 34 > ./red.000034.out 2>&1
+    ./red.sh 35 > ./red.000035.out 2>&1
+    ./red.sh 36 > ./red.000036.out 2>&1
+    ./red.sh 37 > ./red.000037.out 2>&1
+    ./red.sh 38 > ./red.000038.out 2>&1
+    ./red.sh 39 > ./red.000039.out 2>&1
+
+-- Finished on Tue Jan 20 21:47:49 2026 (904 seconds) with 4165522.546 GB free disk space
+----------------------------------------
+-- Found 39 read error detection output files.
+-- Finished stage 'readErrorDetectionCheck', reset canuIteration.
+--
+-- Loading read lengths.
+-- Loading number of overlaps per read.
+--
+-- Configure OEA for 8gb memory.
+--                   Batches of at most (unlimited) reads.
+--                                      300000000 bases.
+--
+--           Total                                               Reads                 Olaps  Adjusts
+--    Job   Memory      Read Range         Reads        Bases   Memory        Olaps   Memory   Memory  (Memory in MB)
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--      1  2777.73         1-137293        15979    300012561   294.60      2093678    63.89   371.23
+--      2  2783.62    137294-281570        16814    300022164   294.64      2285659    69.75   371.23
+--      3  2782.52    281571-425549        16711    300010981   294.62      2249906    68.66   371.23
+--      4  2783.14    425550-568014        16711    300020890   294.63      2270087    69.28   371.23
+--      5  2782.31    568015-709395        16592    300006955   294.62      2243497    68.47   371.23
+--      6  2779.98    709396-851574        16546    300008958   294.62      2167154    66.14   371.23
+--      7  2781.67    851575-992432        16525    300014383   294.62      2222361    67.82   371.23
+--      8  2783.34    992433-1130141       16166    300005671   294.60      2277682    69.51   371.23
+--      9  2782.81   1130142-1267261       16072    300005605   294.60      2260224    68.98   371.23
+--     10  2783.88   1267262-1404799       16018    300012273   294.60      2295064    70.04   371.23
+--     11  2781.76   1404800-1543007       16240    300024696   294.62      2225286    67.91   371.23
+--     12  2780.02   1543008-1681089       16089    300005756   294.60      2168768    66.19   371.23
+--     13  2782.39   1681090-1818685       16020    300008619   294.60      2246594    68.56   371.23
+--     14  2783.84   1818686-1957479       16110    300013039   294.61      2293884    70.00   371.23
+--     15  2487.56   1957480-1987181        3444     49827617    55.62       416102    12.70   371.23
+--   ---- -------- ------------------- --------- ------------ -------- ------------ -------- --------
+--                                                 4250000168              31715946
+-- Finished stage 'overlapErrorAdjustmentConfigure', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'oea' concurrent execution on Tue Jan 20 21:47:57 2026 with 4165522.468 GB free disk space (15 processes; 62 concurrently)
+
+    cd unitigging/3-overlapErrorAdjustment
+    ./oea.sh 1 > ./oea.000001.out 2>&1
+    ./oea.sh 2 > ./oea.000002.out 2>&1
+    ./oea.sh 3 > ./oea.000003.out 2>&1
+    ./oea.sh 4 > ./oea.000004.out 2>&1
+    ./oea.sh 5 > ./oea.000005.out 2>&1
+    ./oea.sh 6 > ./oea.000006.out 2>&1
+    ./oea.sh 7 > ./oea.000007.out 2>&1
+    ./oea.sh 8 > ./oea.000008.out 2>&1
+    ./oea.sh 9 > ./oea.000009.out 2>&1
+    ./oea.sh 10 > ./oea.000010.out 2>&1
+    ./oea.sh 11 > ./oea.000011.out 2>&1
+    ./oea.sh 12 > ./oea.000012.out 2>&1
+    ./oea.sh 13 > ./oea.000013.out 2>&1
+    ./oea.sh 14 > ./oea.000014.out 2>&1
+    ./oea.sh 15 > ./oea.000015.out 2>&1
+
+-- Finished on Tue Jan 20 22:25:49 2026 (2272 seconds) with 4168755.562 GB free disk space
+----------------------------------------
+-- Found 15 overlap error adjustment output files.
+-- Finished stage 'overlapErrorAdjustmentCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Tue Jan 20 22:25:49 2026 with 4168755.546 GB free disk space
+
+    cd unitigging/3-overlapErrorAdjustment
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/loadErates \
+      -S ../../B4-50.seqStore \
+      -O ../B4-50.ovlStore \
+      -L ./oea.files \
+    > ./oea.apply.err 2>&1
+
+-- Finished on Tue Jan 20 22:25:49 2026 (furiously fast) with 4168755.468 GB free disk space
+----------------------------------------
+-- No report available.
+-- Finished stage 'updateOverlapStore', reset canuIteration.
+-- Finished stage 'unitig', reset canuIteration.
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'bat' concurrent execution on Tue Jan 20 22:25:49 2026 with 4168755.421 GB free disk space (1 processes; 1 concurrently)
+
+    cd unitigging/4-unitigger
+    ./unitigger.sh 1 > ./unitigger.000001.out 2>&1
+
+-- Finished on Tue Jan 20 22:25:58 2026 (9 seconds) with 4168758.671 GB free disk space
+----------------------------------------
+-- Unitigger finished successfully.
+--  
+--  ERROR RATES
+--  -----------
+--                                                   --------threshold------
+--  234890                       fraction error      fraction        percent
+--  samples                              (1e-5)         error          error
+--                   --------------------------      --------       --------
+--  command line (-eg)                           ->     30.00        0.0300%
+--  command line (-ef)                           ->  -----.--      ---.----%
+--  command line (-eM)                           ->     30.00        0.0300%
+--  mean + std.dev       0.53 +-  12 *     3.32  ->     40.36        0.0404%
+--  median + mad         0.00 +-  12 *     0.00  ->      0.00        0.0000%
+--  90th percentile                              ->      1.00        0.0010%  (enabled)
+--  
+--  BEST EDGE FILTERING
+--  -------------------
+--  At graph threshold 0.0300%, reads:
+--    available to have edges:        56914
+--    with at least one edge:         32113
+--  
+--  At max threshold 0.0300%, reads:
+--    available to have edges:        56914
+--    with at least one edge:         32113
+--  
+--  At tight threshold 0.0010%, reads with:
+--    both edges below error threshold:     27292  (80.00% minReadsBest threshold = 25690)
+--    one  edge  above error threshold:      3648
+--    both edges above error threshold:      1173
+--    at least one edge:                    32113
+--  
+--  At loose threshold 0.0300%, reads with:
+--    both edges below error threshold:     32113  (80.00% minReadsBest threshold = 25690)
+--    one  edge  above error threshold:         0
+--    both edges above error threshold:         0
+--    at least one edge:                    32113
+--  
+--  
+--  INITIAL EDGES
+--  -------- ----------------------------------------
+--    169973 reads are contained
+--   1790924 reads have no best edges (singleton)
+--       775 reads have only one best edge (spur) 
+--                524 are mutual best
+--     25509 reads have two best edges 
+--                708 have one mutual best edge
+--              24520 have two mutual best edges
+--  
+--  
+--  FINAL EDGES
+--  -------- ----------------------------------------
+--    169973 reads are contained
+--   1791237 reads have no best edges (singleton)
+--       675 reads have only one best edge (spur) 
+--                530 are mutual best
+--     25296 reads have two best edges 
+--                572 have one mutual best edge
+--              24514 have two mutual best edges
+--  
+--  
+--  EDGE FILTERING
+--  -------- ------------------------------------------
+--         0 reads are ignored
+--      9795 reads have a gap in overlap coverage
+--       131 reads have lopsided best edges
+-- Found, in version 1, after unitig construction:
+--   contigs:      96 sequences, total length 68717636 bp (including 37 repeats of total length 918331 bp).
+--   bubbles:      111 sequences, total length 3203620 bp.
+--   unassembled:  36757 sequences, total length 444887151 bp.
+--
+-- Contig sizes based on genome size 85mbp:
+--
+--            NG (bp)  LG (contigs)    sum (bp)
+--         ----------  ------------  ----------
+--     10     8777023             1     8777023
+--     20     6508116             3    23146731
+--     30     6453066             4    29599797
+--     40     6199692             5    35799489
+--     50     3731226             7    43385450
+--     60     2897260            10    52990848
+--     70     1988384            13    59682743
+--     80       28025            60    68007726
+--
+-- Finished stage 'unitigCheck', reset canuIteration.
+----------------------------------------
+-- Starting command on Tue Jan 20 22:25:58 2026 with 4168758.656 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/utgcns \
+      -S ../B4-50.seqStore \
+      -T  ./B4-50.ctgStore 1 \
+      -partition 0.8 1.5 0.1 \
+    > ./B4-50.ctgStore/partitioning.log 2>&1
+
+-- Finished on Tue Jan 20 22:26:07 2026 (9 seconds) with 4168757.453 GB free disk space
+----------------------------------------
+-- Using slow alignment for consensus (iteration '0').
+-- Configured 10 consensus jobs.
+-- Finished stage 'consensusConfigure', reset canuIteration.
+--
+-- Local: cns       13.000 GB    8 CPUs x  11 jobs   143.000 GB  88 CPUs  (consensus)
+--
+--
+-- Running jobs.  First attempt out of 2.
+----------------------------------------
+-- Starting 'cns' concurrent execution on Tue Jan 20 22:26:08 2026 with 4168757.421 GB free disk space (10 processes; 11 concurrently)
+
+    cd unitigging/5-consensus
+    ./consensus.sh 1 > ./consensus.000001.out 2>&1
+    ./consensus.sh 2 > ./consensus.000002.out 2>&1
+    ./consensus.sh 3 > ./consensus.000003.out 2>&1
+    ./consensus.sh 4 > ./consensus.000004.out 2>&1
+    ./consensus.sh 5 > ./consensus.000005.out 2>&1
+    ./consensus.sh 6 > ./consensus.000006.out 2>&1
+    ./consensus.sh 7 > ./consensus.000007.out 2>&1
+    ./consensus.sh 8 > ./consensus.000008.out 2>&1
+    ./consensus.sh 9 > ./consensus.000009.out 2>&1
+    ./consensus.sh 10 > ./consensus.000010.out 2>&1
+
+-- Finished on Tue Jan 20 22:34:02 2026 (474 seconds) with 4167765.734 GB free disk space
+----------------------------------------
+-- Using slow alignment for consensus (iteration '1').
+-- Configured 10 consensus jobs.
+-- All 10 consensus jobs finished successfully.
+-- Finished stage 'consensusCheck', reset canuIteration.
+-- Using slow alignment for consensus (iteration '0').
+-- Configured 10 consensus jobs.
+----------------------------------------
+-- Starting command on Tue Jan 20 22:34:02 2026 with 4167765.687 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreLoad \
+      -S ../B4-50.seqStore \
+      -T  ./B4-50.ctgStore 2 \
+      -L ./5-consensus/ctgcns.files \
+    > ./5-consensus/ctgcns.files.ctgStoreLoad.err 2>&1
+
+-- Finished on Tue Jan 20 22:34:03 2026 (one second) with 4167764.218 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Tue Jan 20 22:34:03 2026 with 4167764.218 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgTigDisplay \
+      -S ../B4-50.seqStore \
+      -b \
+      -o ../B4-50.contigs.unsorted.bam \
+      -L ./5-consensus/ctgcns.files \
+    > ./5-consensus/ctgcns.files.contigs.bam.err 2>&1
+
+-- Finished on Tue Jan 20 22:37:33 2026 (210 seconds) with 4167388.781 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Tue Jan 20 22:37:33 2026 with 4167388.781 GB free disk space
+
+    cd .
+    samtools sort \
+      --write-index \
+      --threads 2 \
+      -o ./B4-50.contigs.bam ./B4-50.contigs.unsorted.bam \
+    > ./ctgcns.bam.err 2>&1
+
+-- Finished on Tue Jan 20 22:38:29 2026 (56 seconds) with 4167262.734 GB free disk space
+----------------------------------------
+-- Purging consensus output after loading to ctgStore.
+-- Purged 10 .cns outputs.
+----------------------------------------
+-- Starting command on Tue Jan 20 22:38:29 2026 with 4167265.968 GB free disk space
+
+    cd unitigging
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreDump \
+      -S ../B4-50.seqStore \
+      -T ./B4-50.ctgStore 2 \
+      -sizes -s 85000000 \
+    > ./B4-50.ctgStore/seqDB.v002.sizes.txt
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+
+-- Finished on Tue Jan 20 22:38:30 2026 (one second) with 4167266.015 GB free disk space
+----------------------------------------
+-- Found, in version 2, after consensus generation:
+--   contigs:      96 sequences, total length 90048577 bp (including 37 repeats of total length 1298625 bp).
+--   bubbles:      111 sequences, total length 4396991 bp.
+--   unassembled:  36757 sequences, total length 657232688 bp.
+--
+-- Contig sizes based on genome size 85mbp:
+--
+--            NG (bp)  LG (contigs)    sum (bp)
+--         ----------  ------------  ----------
+--     10    11407029             1    11407029
+--     20    10249174             2    21656203
+--     30     8458134             3    30114337
+--     40     8381299             4    38495636
+--     50     8051065             5    46546701
+--     60     5034484             6    51581185
+--     70     4498780             8    60938345
+--     80     3772952            10    68977998
+--     90     2588353            13    77700997
+--    100     1211488            18    85530116
+--
+-- Finished stage 'consensusLoad', reset canuIteration.
+----------------------------------------
+-- Starting command on Tue Jan 20 22:38:30 2026 with 4167266 GB free disk space
+
+    cd .
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreDump \
+      -S ./B4-50.seqStore \
+      -T ./unitigging/B4-50.ctgStore 2 \
+      -o ./B4-50.contigs \
+      -layout \
+    > ./B4-50.contigs.layout.err 2>&1
+
+-- Finished on Tue Jan 20 22:38:30 2026 (lickety-split) with 4167265.953 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Tue Jan 20 22:38:30 2026 with 4167265.953 GB free disk space
+
+    cd .
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreDump \
+      -S ./B4-50.seqStore \
+      -T ./unitigging/B4-50.ctgStore 2 \
+      -consensus -fasta \
+      -unassembled \
+    > ./B4-50.unassembled.fasta
+    2> ./B4-50.unassembled.err
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+
+-- Finished on Tue Jan 20 22:38:33 2026 (3 seconds) with 4167265.625 GB free disk space
+----------------------------------------
+----------------------------------------
+-- Starting command on Tue Jan 20 22:38:33 2026 with 4167265.625 GB free disk space
+
+    cd .
+    /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/tgStoreDump \
+      -S ./B4-50.seqStore \
+      -T ./unitigging/B4-50.ctgStore 2 \
+      -consensus -fasta \
+      -contigs \
+    > ./B4-50.contigs.fasta
+    2> ./B4-50.contigs.err
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+ZERO length suplied to intervalList::add(), ignoring interval.
+
+-- Finished on Tue Jan 20 22:38:34 2026 (one second) with 4167265.515 GB free disk space
+----------------------------------------
+-- Finished stage 'generateOutputs', reset canuIteration.
+--
+-- Assembly 'B4-50' finished in '/share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B4-50/01.raw_output'.
+--
+-- Summary saved in 'B4-50.report'.
+--
+-- Sequences saved:
+--   Contigs       -> 'B4-50.contigs.fasta'
+--   Unassembled   -> 'B4-50.unassembled.fasta'
+--
+-- Read layouts saved:
+--   Contigs       -> 'B4-50.contigs.layout'.
+--
+-- Bye.
+
+Job 68952661 stderr output:
+

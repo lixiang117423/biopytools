@@ -1,0 +1,767 @@
+2025-11-13 13:17:54,669 - INFO - ================================================================================
+2025-11-13 13:17:54,669 - INFO - 🚀 开始SRA转FASTQ转换流程 | Starting SRA to FASTQ Conversion Pipeline
+2025-11-13 13:17:54,669 - INFO - ================================================================================
+2025-11-13 13:17:54,669 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-13 13:17:55,937 - INFO - ✅ parallel-fastq-dump 可用 (推荐) | available (recommended)
+2025-11-13 13:17:55,937 - INFO -    版本 | Version: fastq-dump : 3.2.1
+
+parallel-fastq-dump : 0.6.7
+2025-11-13 13:17:55,957 - INFO - ✅ fastq-dump 可用 (备选) | available (fallback)
+2025-11-13 13:17:55,957 - INFO - 📋 转换配置 | Conversion Configuration:
+2025-11-13 13:17:55,957 - INFO -   输入路径 | Input: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra
+2025-11-13 13:17:55,957 - INFO -   输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq
+2025-11-13 13:17:55,957 - INFO -   文件数量 | Files: 56
+2025-11-13 13:17:55,957 - INFO -   转换工具 | Tool: parallel-fastq-dump ⚡ (推荐)
+2025-11-13 13:17:55,957 - INFO -   线程数 | Threads: 80
+2025-11-13 13:17:55,957 - INFO -   压缩输出 | Compress: True
+2025-11-13 13:17:55,958 - INFO - 🔄 开始批量转换 | Starting batch conversion...
+2025-11-13 13:17:55,958 - INFO - 📊 共找到 56 个SRA文件 | Found 56 SRA files
+2025-11-13 13:17:55,958 - INFO - 🔄 总进度 | Overall Progress: [1/56]
+2025-11-13 13:17:55,958 - INFO - ============================================================
+2025-11-13 13:17:55,958 - INFO - 📦 处理文件 | Processing file: ERR3184267
+2025-11-13 13:17:55,958 - INFO - ============================================================
+2025-11-13 13:17:55,958 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:17:55,958 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:17:55,958 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184267
+2025-11-13 13:17:55,958 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184267 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:17:56,102 - ERROR - ❌ 命令执行失败 | Command execution failed: 转换SRA文件 | Converting SRA file: ERR3184267
+2025-11-13 13:17:56,102 - ERROR - 错误代码 | Error code: 1
+2025-11-13 13:17:56,102 - ERROR - 错误信息 | Error message: 2025-11-13 13:17:55,989 - SRR ids: ['/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184267']
+2025-11-13 13:17:55,989 - extra args: ['--split-files', '--gzip', '--skip-technical']
+2025-11-13 13:17:55,989 - tempdir: /tmp/pfd_yncc8asr
+2025-11-13 13:17:55,989 - CMD: sra-stat --meta --quick /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184267
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 116, in get_spot_count
+    total += int(l.split('|')[2].split(':')[0])
+                 ~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 181, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 175, in main
+    pfd(args, si, extra_args)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 49, in pfd
+    n_spots = get_spot_count(srr_id)
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 122, in get_spot_count
+    raise IndexError(msg.format('\n'.join(txt), '\n'.join(etxt)))
+IndexError: sra-stat output parsing error!
+--sra-stat STDOUT--
+
+--sra-stat STDERR--
+2025-11-13T05:17:56 sra-stat.3.2.1 int: path incorrect while opening manager within database module - '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184267'
+
+2025-11-13 13:17:56,105 - ERROR - ❌ 失败 | Failed: ERR3184267
+2025-11-13 13:17:56,105 - INFO - 🔄 总进度 | Overall Progress: [2/56]
+2025-11-13 13:17:56,105 - INFO - ============================================================
+2025-11-13 13:17:56,105 - INFO - 📦 处理文件 | Processing file: ERR3184268
+2025-11-13 13:17:56,105 - INFO - ============================================================
+2025-11-13 13:17:56,105 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:17:56,105 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:17:56,105 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184268
+2025-11-13 13:17:56,106 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184268 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:17:56,168 - ERROR - ❌ 命令执行失败 | Command execution failed: 转换SRA文件 | Converting SRA file: ERR3184268
+2025-11-13 13:17:56,168 - ERROR - 错误代码 | Error code: 1
+2025-11-13 13:17:56,168 - ERROR - 错误信息 | Error message: 2025-11-13 13:17:56,136 - SRR ids: ['/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184268']
+2025-11-13 13:17:56,137 - extra args: ['--split-files', '--gzip', '--skip-technical']
+2025-11-13 13:17:56,137 - tempdir: /tmp/pfd_ijsyvcmk
+2025-11-13 13:17:56,137 - CMD: sra-stat --meta --quick /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184268
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 116, in get_spot_count
+    total += int(l.split('|')[2].split(':')[0])
+                 ~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 181, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 175, in main
+    pfd(args, si, extra_args)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 49, in pfd
+    n_spots = get_spot_count(srr_id)
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 122, in get_spot_count
+    raise IndexError(msg.format('\n'.join(txt), '\n'.join(etxt)))
+IndexError: sra-stat output parsing error!
+--sra-stat STDOUT--
+
+--sra-stat STDERR--
+2025-11-13T05:17:56 sra-stat.3.2.1 int: path incorrect while opening manager within database module - '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184268'
+
+2025-11-13 13:17:56,168 - ERROR - ❌ 失败 | Failed: ERR3184268
+2025-11-13 13:17:56,168 - INFO - 🔄 总进度 | Overall Progress: [3/56]
+2025-11-13 13:17:56,169 - INFO - ============================================================
+2025-11-13 13:17:56,169 - INFO - 📦 处理文件 | Processing file: ERR3184269
+2025-11-13 13:17:56,169 - INFO - ============================================================
+2025-11-13 13:17:56,169 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:17:56,169 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:17:56,169 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184269
+2025-11-13 13:17:56,169 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184269 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:17:56,231 - ERROR - ❌ 命令执行失败 | Command execution failed: 转换SRA文件 | Converting SRA file: ERR3184269
+2025-11-13 13:17:56,231 - ERROR - 错误代码 | Error code: 1
+2025-11-13 13:17:56,231 - ERROR - 错误信息 | Error message: 2025-11-13 13:17:56,199 - SRR ids: ['/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184269']
+2025-11-13 13:17:56,199 - extra args: ['--split-files', '--gzip', '--skip-technical']
+2025-11-13 13:17:56,199 - tempdir: /tmp/pfd_njzhbrak
+2025-11-13 13:17:56,199 - CMD: sra-stat --meta --quick /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184269
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 116, in get_spot_count
+    total += int(l.split('|')[2].split(':')[0])
+                 ~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 181, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 175, in main
+    pfd(args, si, extra_args)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 49, in pfd
+    n_spots = get_spot_count(srr_id)
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 122, in get_spot_count
+    raise IndexError(msg.format('\n'.join(txt), '\n'.join(etxt)))
+IndexError: sra-stat output parsing error!
+--sra-stat STDOUT--
+
+--sra-stat STDERR--
+2025-11-13T05:17:56 sra-stat.3.2.1 int: path incorrect while opening manager within database module - '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184269'
+
+2025-11-13 13:17:56,231 - ERROR - ❌ 失败 | Failed: ERR3184269
+2025-11-13 13:17:56,231 - INFO - 🔄 总进度 | Overall Progress: [4/56]
+2025-11-13 13:17:56,231 - INFO - ============================================================
+2025-11-13 13:17:56,231 - INFO - 📦 处理文件 | Processing file: ERR3184300
+2025-11-13 13:17:56,231 - INFO - ============================================================
+2025-11-13 13:17:56,231 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:17:56,231 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:17:56,231 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184300
+2025-11-13 13:17:56,231 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184300 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:17:56,293 - ERROR - ❌ 命令执行失败 | Command execution failed: 转换SRA文件 | Converting SRA file: ERR3184300
+2025-11-13 13:17:56,293 - ERROR - 错误代码 | Error code: 1
+2025-11-13 13:17:56,294 - ERROR - 错误信息 | Error message: 2025-11-13 13:17:56,262 - SRR ids: ['/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184300']
+2025-11-13 13:17:56,262 - extra args: ['--split-files', '--gzip', '--skip-technical']
+2025-11-13 13:17:56,262 - tempdir: /tmp/pfd_hgq1tswx
+2025-11-13 13:17:56,262 - CMD: sra-stat --meta --quick /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184300
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 116, in get_spot_count
+    total += int(l.split('|')[2].split(':')[0])
+                 ~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 181, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 175, in main
+    pfd(args, si, extra_args)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 49, in pfd
+    n_spots = get_spot_count(srr_id)
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 122, in get_spot_count
+    raise IndexError(msg.format('\n'.join(txt), '\n'.join(etxt)))
+IndexError: sra-stat output parsing error!
+--sra-stat STDOUT--
+
+--sra-stat STDERR--
+2025-11-13T05:17:56 sra-stat.3.2.1 int: path incorrect while opening manager within database module - '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184300'
+
+2025-11-13 13:17:56,294 - ERROR - ❌ 失败 | Failed: ERR3184300
+2025-11-13 13:17:56,294 - INFO - 🔄 总进度 | Overall Progress: [5/56]
+2025-11-13 13:17:56,294 - INFO - ============================================================
+2025-11-13 13:17:56,294 - INFO - 📦 处理文件 | Processing file: ERR3184301
+2025-11-13 13:17:56,294 - INFO - ============================================================
+2025-11-13 13:17:56,294 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:17:56,294 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:17:56,294 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184301
+2025-11-13 13:17:56,294 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184301 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:17:56,356 - ERROR - ❌ 命令执行失败 | Command execution failed: 转换SRA文件 | Converting SRA file: ERR3184301
+2025-11-13 13:17:56,356 - ERROR - 错误代码 | Error code: 1
+2025-11-13 13:17:56,356 - ERROR - 错误信息 | Error message: 2025-11-13 13:17:56,324 - SRR ids: ['/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184301']
+2025-11-13 13:17:56,324 - extra args: ['--split-files', '--gzip', '--skip-technical']
+2025-11-13 13:17:56,325 - tempdir: /tmp/pfd_fsuyt0n4
+2025-11-13 13:17:56,325 - CMD: sra-stat --meta --quick /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184301
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 116, in get_spot_count
+    total += int(l.split('|')[2].split(':')[0])
+                 ~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 181, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 175, in main
+    pfd(args, si, extra_args)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 49, in pfd
+    n_spots = get_spot_count(srr_id)
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 122, in get_spot_count
+    raise IndexError(msg.format('\n'.join(txt), '\n'.join(etxt)))
+IndexError: sra-stat output parsing error!
+--sra-stat STDOUT--
+
+--sra-stat STDERR--
+2025-11-13T05:17:56 sra-stat.3.2.1 int: path incorrect while opening manager within database module - '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184301'
+
+2025-11-13 13:17:56,356 - ERROR - ❌ 失败 | Failed: ERR3184301
+2025-11-13 13:17:56,356 - INFO - 🔄 总进度 | Overall Progress: [6/56]
+2025-11-13 13:17:56,356 - INFO - ============================================================
+2025-11-13 13:17:56,356 - INFO - 📦 处理文件 | Processing file: ERR3184302
+2025-11-13 13:17:56,356 - INFO - ============================================================
+2025-11-13 13:17:56,356 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:17:56,356 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:17:56,356 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184302
+2025-11-13 13:17:56,356 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184302 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:17:56,418 - ERROR - ❌ 命令执行失败 | Command execution failed: 转换SRA文件 | Converting SRA file: ERR3184302
+2025-11-13 13:17:56,418 - ERROR - 错误代码 | Error code: 1
+2025-11-13 13:17:56,418 - ERROR - 错误信息 | Error message: 2025-11-13 13:17:56,386 - SRR ids: ['/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184302']
+2025-11-13 13:17:56,386 - extra args: ['--split-files', '--gzip', '--skip-technical']
+2025-11-13 13:17:56,387 - tempdir: /tmp/pfd_3vgz38bg
+2025-11-13 13:17:56,387 - CMD: sra-stat --meta --quick /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184302
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 116, in get_spot_count
+    total += int(l.split('|')[2].split(':')[0])
+                 ~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 181, in <module>
+    main()
+    ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 175, in main
+    pfd(args, si, extra_args)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 49, in pfd
+    n_spots = get_spot_count(srr_id)
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/parallel-fastq-dump", line 122, in get_spot_count
+    raise IndexError(msg.format('\n'.join(txt), '\n'.join(etxt)))
+IndexError: sra-stat output parsing error!
+--sra-stat STDOUT--
+
+--sra-stat STDERR--
+2025-11-13T05:17:56 sra-stat.3.2.1 int: path incorrect while opening manager within database module - '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184302'
+
+2025-11-13 13:17:56,418 - ERROR - ❌ 失败 | Failed: ERR3184302
+2025-11-13 13:17:56,418 - INFO - 🔄 总进度 | Overall Progress: [7/56]
+2025-11-13 13:17:56,418 - INFO - ============================================================
+2025-11-13 13:17:56,418 - INFO - 📦 处理文件 | Processing file: ERR3184319
+2025-11-13 13:17:56,418 - INFO - ============================================================
+2025-11-13 13:17:56,418 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:17:56,418 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:17:56,418 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184319
+2025-11-13 13:17:56,418 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184319 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:19:04,837 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:19:04,837 - INFO - ✅ 完成 | Completed: ERR3184319
+2025-11-13 13:19:04,837 - INFO - 🔄 总进度 | Overall Progress: [8/56]
+2025-11-13 13:19:04,838 - INFO - ============================================================
+2025-11-13 13:19:04,838 - INFO - 📦 处理文件 | Processing file: ERR3184320
+2025-11-13 13:19:04,838 - INFO - ============================================================
+2025-11-13 13:19:04,838 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:19:04,838 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:19:04,838 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184320
+2025-11-13 13:19:04,838 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184320 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:20:15,494 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:20:15,495 - INFO - ✅ 完成 | Completed: ERR3184320
+2025-11-13 13:20:15,495 - INFO - 🔄 总进度 | Overall Progress: [9/56]
+2025-11-13 13:20:15,495 - INFO - ============================================================
+2025-11-13 13:20:15,495 - INFO - 📦 处理文件 | Processing file: ERR3184322
+2025-11-13 13:20:15,495 - INFO - ============================================================
+2025-11-13 13:20:15,495 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:20:15,495 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:20:15,495 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184322
+2025-11-13 13:20:15,495 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184322 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:21:48,549 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:21:48,550 - INFO - ✅ 完成 | Completed: ERR3184322
+2025-11-13 13:21:48,550 - INFO - 🔄 总进度 | Overall Progress: [10/56]
+2025-11-13 13:21:48,550 - INFO - ============================================================
+2025-11-13 13:21:48,550 - INFO - 📦 处理文件 | Processing file: ERR3184324
+2025-11-13 13:21:48,550 - INFO - ============================================================
+2025-11-13 13:21:48,550 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:21:48,550 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:21:48,550 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184324
+2025-11-13 13:21:48,550 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184324 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:23:19,945 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:23:19,946 - INFO - ✅ 完成 | Completed: ERR3184324
+2025-11-13 13:23:19,946 - INFO - 🔄 总进度 | Overall Progress: [11/56]
+2025-11-13 13:23:19,946 - INFO - ============================================================
+2025-11-13 13:23:19,946 - INFO - 📦 处理文件 | Processing file: ERR3184325
+2025-11-13 13:23:19,946 - INFO - ============================================================
+2025-11-13 13:23:19,946 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:23:19,946 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:23:19,946 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184325
+2025-11-13 13:23:19,946 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184325 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:24:41,762 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:24:41,763 - INFO - ✅ 完成 | Completed: ERR3184325
+2025-11-13 13:24:41,763 - INFO - 🔄 总进度 | Overall Progress: [12/56]
+2025-11-13 13:24:41,763 - INFO - ============================================================
+2025-11-13 13:24:41,763 - INFO - 📦 处理文件 | Processing file: ERR3184326
+2025-11-13 13:24:41,763 - INFO - ============================================================
+2025-11-13 13:24:41,763 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:24:41,763 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:24:41,763 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184326
+2025-11-13 13:24:41,763 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184326 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:26:05,230 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:26:05,231 - INFO - ✅ 完成 | Completed: ERR3184326
+2025-11-13 13:26:05,231 - INFO - 🔄 总进度 | Overall Progress: [13/56]
+2025-11-13 13:26:05,231 - INFO - ============================================================
+2025-11-13 13:26:05,231 - INFO - 📦 处理文件 | Processing file: ERR3184327
+2025-11-13 13:26:05,231 - INFO - ============================================================
+2025-11-13 13:26:05,231 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:26:05,231 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:26:05,231 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184327
+2025-11-13 13:26:05,231 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184327 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:27:35,191 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:27:35,191 - INFO - ✅ 完成 | Completed: ERR3184327
+2025-11-13 13:27:35,191 - INFO - 🔄 总进度 | Overall Progress: [14/56]
+2025-11-13 13:27:35,192 - INFO - ============================================================
+2025-11-13 13:27:35,192 - INFO - 📦 处理文件 | Processing file: ERR3184329
+2025-11-13 13:27:35,192 - INFO - ============================================================
+2025-11-13 13:27:35,192 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:27:35,192 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:27:35,192 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184329
+2025-11-13 13:27:35,192 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184329 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:28:52,687 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:28:52,687 - INFO - ✅ 完成 | Completed: ERR3184329
+2025-11-13 13:28:52,687 - INFO - 🔄 总进度 | Overall Progress: [15/56]
+2025-11-13 13:28:52,687 - INFO - ============================================================
+2025-11-13 13:28:52,687 - INFO - 📦 处理文件 | Processing file: ERR3184332
+2025-11-13 13:28:52,687 - INFO - ============================================================
+2025-11-13 13:28:52,687 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:28:52,687 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:28:52,687 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184332
+2025-11-13 13:28:52,687 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184332 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:30:35,227 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:30:35,227 - INFO - ✅ 完成 | Completed: ERR3184332
+2025-11-13 13:30:35,227 - INFO - 🔄 总进度 | Overall Progress: [16/56]
+2025-11-13 13:30:35,227 - INFO - ============================================================
+2025-11-13 13:30:35,227 - INFO - 📦 处理文件 | Processing file: ERR3184333
+2025-11-13 13:30:35,227 - INFO - ============================================================
+2025-11-13 13:30:35,227 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:30:35,227 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:30:35,227 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184333
+2025-11-13 13:30:35,227 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184333 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:31:56,871 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:31:56,872 - INFO - ✅ 完成 | Completed: ERR3184333
+2025-11-13 13:31:56,872 - INFO - 🔄 总进度 | Overall Progress: [17/56]
+2025-11-13 13:31:56,872 - INFO - ============================================================
+2025-11-13 13:31:56,872 - INFO - 📦 处理文件 | Processing file: ERR3184334
+2025-11-13 13:31:56,872 - INFO - ============================================================
+2025-11-13 13:31:56,872 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:31:56,872 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:31:56,872 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184334
+2025-11-13 13:31:56,872 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184334 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:33:28,091 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:33:28,091 - INFO - ✅ 完成 | Completed: ERR3184334
+2025-11-13 13:33:28,091 - INFO - 🔄 总进度 | Overall Progress: [18/56]
+2025-11-13 13:33:28,091 - INFO - ============================================================
+2025-11-13 13:33:28,091 - INFO - 📦 处理文件 | Processing file: ERR3184335
+2025-11-13 13:33:28,091 - INFO - ============================================================
+2025-11-13 13:33:28,091 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:33:28,091 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:33:28,091 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184335
+2025-11-13 13:33:28,091 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184335 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:34:45,241 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:34:45,241 - INFO - ✅ 完成 | Completed: ERR3184335
+2025-11-13 13:34:45,241 - INFO - 🔄 总进度 | Overall Progress: [19/56]
+2025-11-13 13:34:45,241 - INFO - ============================================================
+2025-11-13 13:34:45,241 - INFO - 📦 处理文件 | Processing file: ERR3184336
+2025-11-13 13:34:45,241 - INFO - ============================================================
+2025-11-13 13:34:45,241 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:34:45,241 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:34:45,241 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184336
+2025-11-13 13:34:45,241 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184336 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:36:08,796 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:36:08,797 - INFO - ✅ 完成 | Completed: ERR3184336
+2025-11-13 13:36:08,797 - INFO - 🔄 总进度 | Overall Progress: [20/56]
+2025-11-13 13:36:08,797 - INFO - ============================================================
+2025-11-13 13:36:08,797 - INFO - 📦 处理文件 | Processing file: ERR3184337
+2025-11-13 13:36:08,797 - INFO - ============================================================
+2025-11-13 13:36:08,797 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:36:08,797 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:36:08,797 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184337
+2025-11-13 13:36:08,797 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184337 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:37:30,096 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:37:30,096 - INFO - ✅ 完成 | Completed: ERR3184337
+2025-11-13 13:37:30,096 - INFO - 🔄 总进度 | Overall Progress: [21/56]
+2025-11-13 13:37:30,096 - INFO - ============================================================
+2025-11-13 13:37:30,096 - INFO - 📦 处理文件 | Processing file: ERR3184338
+2025-11-13 13:37:30,096 - INFO - ============================================================
+2025-11-13 13:37:30,096 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:37:30,096 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:37:30,096 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184338
+2025-11-13 13:37:30,096 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184338 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:38:48,205 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:38:48,205 - INFO - ✅ 完成 | Completed: ERR3184338
+2025-11-13 13:38:48,205 - INFO - 🔄 总进度 | Overall Progress: [22/56]
+2025-11-13 13:38:48,205 - INFO - ============================================================
+2025-11-13 13:38:48,205 - INFO - 📦 处理文件 | Processing file: ERR3184339
+2025-11-13 13:38:48,205 - INFO - ============================================================
+2025-11-13 13:38:48,205 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:38:48,205 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:38:48,205 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184339
+2025-11-13 13:38:48,205 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184339 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:40:39,595 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:40:39,595 - INFO - ✅ 完成 | Completed: ERR3184339
+2025-11-13 13:40:39,595 - INFO - 🔄 总进度 | Overall Progress: [23/56]
+2025-11-13 13:40:39,595 - INFO - ============================================================
+2025-11-13 13:40:39,595 - INFO - 📦 处理文件 | Processing file: ERR3184340
+2025-11-13 13:40:39,595 - INFO - ============================================================
+2025-11-13 13:40:39,596 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:40:39,596 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:40:39,596 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184340
+2025-11-13 13:40:39,596 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184340 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:42:09,007 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:42:09,007 - INFO - ✅ 完成 | Completed: ERR3184340
+2025-11-13 13:42:09,007 - INFO - 🔄 总进度 | Overall Progress: [24/56]
+2025-11-13 13:42:09,007 - INFO - ============================================================
+2025-11-13 13:42:09,007 - INFO - 📦 处理文件 | Processing file: ERR3184342
+2025-11-13 13:42:09,007 - INFO - ============================================================
+2025-11-13 13:42:09,007 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:42:09,007 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:42:09,007 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184342
+2025-11-13 13:42:09,007 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184342 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:43:38,992 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:43:38,992 - INFO - ✅ 完成 | Completed: ERR3184342
+2025-11-13 13:43:38,992 - INFO - 🔄 总进度 | Overall Progress: [25/56]
+2025-11-13 13:43:38,992 - INFO - ============================================================
+2025-11-13 13:43:38,992 - INFO - 📦 处理文件 | Processing file: ERR3184343
+2025-11-13 13:43:38,992 - INFO - ============================================================
+2025-11-13 13:43:38,992 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:43:38,992 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:43:38,992 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184343
+2025-11-13 13:43:38,992 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184343 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:44:58,190 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:44:58,190 - INFO - ✅ 完成 | Completed: ERR3184343
+2025-11-13 13:44:58,190 - INFO - 🔄 总进度 | Overall Progress: [26/56]
+2025-11-13 13:44:58,190 - INFO - ============================================================
+2025-11-13 13:44:58,190 - INFO - 📦 处理文件 | Processing file: ERR3184345
+2025-11-13 13:44:58,190 - INFO - ============================================================
+2025-11-13 13:44:58,190 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:44:58,190 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:44:58,190 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184345
+2025-11-13 13:44:58,190 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184345 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:46:23,945 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:46:23,955 - INFO - ✅ 完成 | Completed: ERR3184345
+2025-11-13 13:46:23,955 - INFO - 🔄 总进度 | Overall Progress: [27/56]
+2025-11-13 13:46:23,955 - INFO - ============================================================
+2025-11-13 13:46:23,955 - INFO - 📦 处理文件 | Processing file: ERR3184346
+2025-11-13 13:46:23,955 - INFO - ============================================================
+2025-11-13 13:46:23,955 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:46:23,955 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:46:23,955 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184346
+2025-11-13 13:46:23,955 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184346 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:47:42,873 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:47:42,874 - INFO - ✅ 完成 | Completed: ERR3184346
+2025-11-13 13:47:42,874 - INFO - 🔄 总进度 | Overall Progress: [28/56]
+2025-11-13 13:47:42,874 - INFO - ============================================================
+2025-11-13 13:47:42,874 - INFO - 📦 处理文件 | Processing file: ERR3184348
+2025-11-13 13:47:42,874 - INFO - ============================================================
+2025-11-13 13:47:42,874 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:47:42,874 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:47:42,874 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184348
+2025-11-13 13:47:42,874 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184348 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:48:58,935 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:48:58,935 - INFO - ✅ 完成 | Completed: ERR3184348
+2025-11-13 13:48:58,935 - INFO - 🔄 总进度 | Overall Progress: [29/56]
+2025-11-13 13:48:58,935 - INFO - ============================================================
+2025-11-13 13:48:58,935 - INFO - 📦 处理文件 | Processing file: ERR3184349
+2025-11-13 13:48:58,935 - INFO - ============================================================
+2025-11-13 13:48:58,935 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:48:58,936 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:48:58,936 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184349
+2025-11-13 13:48:58,936 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184349 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:50:18,678 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:50:18,678 - INFO - ✅ 完成 | Completed: ERR3184349
+2025-11-13 13:50:18,678 - INFO - 🔄 总进度 | Overall Progress: [30/56]
+2025-11-13 13:50:18,678 - INFO - ============================================================
+2025-11-13 13:50:18,678 - INFO - 📦 处理文件 | Processing file: ERR3184350
+2025-11-13 13:50:18,678 - INFO - ============================================================
+2025-11-13 13:50:18,690 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:50:18,690 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:50:18,690 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184350
+2025-11-13 13:50:18,690 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184350 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:51:40,127 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:51:40,136 - INFO - ✅ 完成 | Completed: ERR3184350
+2025-11-13 13:51:40,136 - INFO - 🔄 总进度 | Overall Progress: [31/56]
+2025-11-13 13:51:40,136 - INFO - ============================================================
+2025-11-13 13:51:40,136 - INFO - 📦 处理文件 | Processing file: ERR3184353
+2025-11-13 13:51:40,136 - INFO - ============================================================
+2025-11-13 13:51:40,136 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:51:40,136 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:51:40,136 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184353
+2025-11-13 13:51:40,136 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184353 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:53:40,099 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:53:40,099 - INFO - ✅ 完成 | Completed: ERR3184353
+2025-11-13 13:53:40,099 - INFO - 🔄 总进度 | Overall Progress: [32/56]
+2025-11-13 13:53:40,099 - INFO - ============================================================
+2025-11-13 13:53:40,099 - INFO - 📦 处理文件 | Processing file: ERR3184354
+2025-11-13 13:53:40,099 - INFO - ============================================================
+2025-11-13 13:53:40,099 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:53:40,099 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:53:40,099 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184354
+2025-11-13 13:53:40,099 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184354 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:55:04,921 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:55:04,921 - INFO - ✅ 完成 | Completed: ERR3184354
+2025-11-13 13:55:04,921 - INFO - 🔄 总进度 | Overall Progress: [33/56]
+2025-11-13 13:55:04,921 - INFO - ============================================================
+2025-11-13 13:55:04,921 - INFO - 📦 处理文件 | Processing file: ERR3184355
+2025-11-13 13:55:04,921 - INFO - ============================================================
+2025-11-13 13:55:04,921 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:55:04,921 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:55:04,921 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184355
+2025-11-13 13:55:04,921 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184355 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:57:31,167 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:57:31,191 - INFO - ✅ 完成 | Completed: ERR3184355
+2025-11-13 13:57:31,191 - INFO - 🔄 总进度 | Overall Progress: [34/56]
+2025-11-13 13:57:31,191 - INFO - ============================================================
+2025-11-13 13:57:31,191 - INFO - 📦 处理文件 | Processing file: ERR3184360
+2025-11-13 13:57:31,191 - INFO - ============================================================
+2025-11-13 13:57:31,191 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:57:31,191 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:57:31,191 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184360
+2025-11-13 13:57:31,191 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184360 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 13:58:50,829 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 13:58:50,830 - INFO - ✅ 完成 | Completed: ERR3184360
+2025-11-13 13:58:50,830 - INFO - 🔄 总进度 | Overall Progress: [35/56]
+2025-11-13 13:58:50,830 - INFO - ============================================================
+2025-11-13 13:58:50,830 - INFO - 📦 处理文件 | Processing file: ERR3184361
+2025-11-13 13:58:50,830 - INFO - ============================================================
+2025-11-13 13:58:50,830 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 13:58:50,830 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 13:58:50,830 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184361
+2025-11-13 13:58:50,830 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184361 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:00:04,429 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:00:04,429 - INFO - ✅ 完成 | Completed: ERR3184361
+2025-11-13 14:00:04,429 - INFO - 🔄 总进度 | Overall Progress: [36/56]
+2025-11-13 14:00:04,429 - INFO - ============================================================
+2025-11-13 14:00:04,429 - INFO - 📦 处理文件 | Processing file: ERR3184363
+2025-11-13 14:00:04,429 - INFO - ============================================================
+2025-11-13 14:00:04,429 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:00:04,429 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:00:04,429 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184363
+2025-11-13 14:00:04,429 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184363 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:01:17,474 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:01:17,474 - INFO - ✅ 完成 | Completed: ERR3184363
+2025-11-13 14:01:17,474 - INFO - 🔄 总进度 | Overall Progress: [37/56]
+2025-11-13 14:01:17,474 - INFO - ============================================================
+2025-11-13 14:01:17,474 - INFO - 📦 处理文件 | Processing file: ERR3184364
+2025-11-13 14:01:17,474 - INFO - ============================================================
+2025-11-13 14:01:17,474 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:01:17,474 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:01:17,474 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184364
+2025-11-13 14:01:17,487 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184364 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:02:47,025 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:02:47,025 - INFO - ✅ 完成 | Completed: ERR3184364
+2025-11-13 14:02:47,025 - INFO - 🔄 总进度 | Overall Progress: [38/56]
+2025-11-13 14:02:47,025 - INFO - ============================================================
+2025-11-13 14:02:47,025 - INFO - 📦 处理文件 | Processing file: ERR3184365
+2025-11-13 14:02:47,025 - INFO - ============================================================
+2025-11-13 14:02:47,025 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:02:47,025 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:02:47,025 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184365
+2025-11-13 14:02:47,025 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184365 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:04:07,275 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:04:07,275 - INFO - ✅ 完成 | Completed: ERR3184365
+2025-11-13 14:04:07,275 - INFO - 🔄 总进度 | Overall Progress: [39/56]
+2025-11-13 14:04:07,275 - INFO - ============================================================
+2025-11-13 14:04:07,275 - INFO - 📦 处理文件 | Processing file: ERR3184366
+2025-11-13 14:04:07,275 - INFO - ============================================================
+2025-11-13 14:04:07,275 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:04:07,275 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:04:07,275 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: ERR3184366
+2025-11-13 14:04:07,275 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/ERR3184366 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:05:35,324 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:05:35,324 - INFO - ✅ 完成 | Completed: ERR3184366
+2025-11-13 14:05:35,324 - INFO - 🔄 总进度 | Overall Progress: [40/56]
+2025-11-13 14:05:35,324 - INFO - ============================================================
+2025-11-13 14:05:35,324 - INFO - 📦 处理文件 | Processing file: SRR1028184
+2025-11-13 14:05:35,324 - INFO - ============================================================
+2025-11-13 14:05:35,324 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:05:35,324 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:05:35,324 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028184
+2025-11-13 14:05:35,324 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028184 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:05:47,669 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:05:47,669 - INFO - ✅ 完成 | Completed: SRR1028184
+2025-11-13 14:05:47,669 - INFO - 🔄 总进度 | Overall Progress: [41/56]
+2025-11-13 14:05:47,669 - INFO - ============================================================
+2025-11-13 14:05:47,669 - INFO - 📦 处理文件 | Processing file: SRR1028185
+2025-11-13 14:05:47,670 - INFO - ============================================================
+2025-11-13 14:05:47,670 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:05:47,670 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:05:47,670 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028185
+2025-11-13 14:05:47,670 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028185 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:06:00,345 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:06:00,345 - INFO - ✅ 完成 | Completed: SRR1028185
+2025-11-13 14:06:00,345 - INFO - 🔄 总进度 | Overall Progress: [42/56]
+2025-11-13 14:06:00,345 - INFO - ============================================================
+2025-11-13 14:06:00,345 - INFO - 📦 处理文件 | Processing file: SRR1028186
+2025-11-13 14:06:00,345 - INFO - ============================================================
+2025-11-13 14:06:00,345 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:06:00,345 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:06:00,345 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028186
+2025-11-13 14:06:00,345 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028186 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:06:13,729 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:06:13,729 - INFO - ✅ 完成 | Completed: SRR1028186
+2025-11-13 14:06:13,729 - INFO - 🔄 总进度 | Overall Progress: [43/56]
+2025-11-13 14:06:13,729 - INFO - ============================================================
+2025-11-13 14:06:13,729 - INFO - 📦 处理文件 | Processing file: SRR1028187
+2025-11-13 14:06:13,729 - INFO - ============================================================
+2025-11-13 14:06:13,730 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:06:13,730 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:06:13,730 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028187
+2025-11-13 14:06:13,730 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028187 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:06:28,605 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:06:28,605 - INFO - ✅ 完成 | Completed: SRR1028187
+2025-11-13 14:06:28,605 - INFO - 🔄 总进度 | Overall Progress: [44/56]
+2025-11-13 14:06:28,605 - INFO - ============================================================
+2025-11-13 14:06:28,605 - INFO - 📦 处理文件 | Processing file: SRR1028188
+2025-11-13 14:06:28,605 - INFO - ============================================================
+2025-11-13 14:06:28,605 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:06:28,605 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:06:28,605 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028188
+2025-11-13 14:06:28,605 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028188 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:06:40,723 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:06:40,723 - INFO - ✅ 完成 | Completed: SRR1028188
+2025-11-13 14:06:40,723 - INFO - 🔄 总进度 | Overall Progress: [45/56]
+2025-11-13 14:06:40,723 - INFO - ============================================================
+2025-11-13 14:06:40,723 - INFO - 📦 处理文件 | Processing file: SRR1028189
+2025-11-13 14:06:40,723 - INFO - ============================================================
+2025-11-13 14:06:40,723 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:06:40,723 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:06:40,724 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028189
+2025-11-13 14:06:40,724 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028189 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:06:56,235 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:06:56,235 - INFO - ✅ 完成 | Completed: SRR1028189
+2025-11-13 14:06:56,235 - INFO - 🔄 总进度 | Overall Progress: [46/56]
+2025-11-13 14:06:56,235 - INFO - ============================================================
+2025-11-13 14:06:56,235 - INFO - 📦 处理文件 | Processing file: SRR1028190
+2025-11-13 14:06:56,235 - INFO - ============================================================
+2025-11-13 14:06:56,235 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:06:56,235 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:06:56,235 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028190
+2025-11-13 14:06:56,235 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028190 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:07:09,808 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:07:09,808 - INFO - ✅ 完成 | Completed: SRR1028190
+2025-11-13 14:07:09,808 - INFO - 🔄 总进度 | Overall Progress: [47/56]
+2025-11-13 14:07:09,808 - INFO - ============================================================
+2025-11-13 14:07:09,808 - INFO - 📦 处理文件 | Processing file: SRR1028191
+2025-11-13 14:07:09,808 - INFO - ============================================================
+2025-11-13 14:07:09,808 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:07:09,808 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:07:09,808 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028191
+2025-11-13 14:07:09,808 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028191 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:07:25,361 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:07:25,361 - INFO - ✅ 完成 | Completed: SRR1028191
+2025-11-13 14:07:25,361 - INFO - 🔄 总进度 | Overall Progress: [48/56]
+2025-11-13 14:07:25,361 - INFO - ============================================================
+2025-11-13 14:07:25,361 - INFO - 📦 处理文件 | Processing file: SRR1028192
+2025-11-13 14:07:25,361 - INFO - ============================================================
+2025-11-13 14:07:25,361 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:07:25,361 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:07:25,361 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1028192
+2025-11-13 14:07:25,362 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1028192 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:07:38,550 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:07:38,550 - INFO - ✅ 完成 | Completed: SRR1028192
+2025-11-13 14:07:38,550 - INFO - 🔄 总进度 | Overall Progress: [49/56]
+2025-11-13 14:07:38,550 - INFO - ============================================================
+2025-11-13 14:07:38,550 - INFO - 📦 处理文件 | Processing file: SRR1030612
+2025-11-13 14:07:38,550 - INFO - ============================================================
+2025-11-13 14:07:38,550 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:07:38,550 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:07:38,550 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1030612
+2025-11-13 14:07:38,550 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1030612 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:11:37,191 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:11:37,214 - INFO - ✅ 完成 | Completed: SRR1030612
+2025-11-13 14:11:37,214 - INFO - 🔄 总进度 | Overall Progress: [50/56]
+2025-11-13 14:11:37,214 - INFO - ============================================================
+2025-11-13 14:11:37,214 - INFO - 📦 处理文件 | Processing file: SRR1030613
+2025-11-13 14:11:37,214 - INFO - ============================================================
+2025-11-13 14:11:37,214 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:11:37,214 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:11:37,214 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR1030613
+2025-11-13 14:11:37,214 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR1030613 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:14:38,879 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:14:38,880 - INFO - ✅ 完成 | Completed: SRR1030613
+2025-11-13 14:14:38,880 - INFO - 🔄 总进度 | Overall Progress: [51/56]
+2025-11-13 14:14:38,880 - INFO - ============================================================
+2025-11-13 14:14:38,880 - INFO - 📦 处理文件 | Processing file: SRR2163336
+2025-11-13 14:14:38,880 - INFO - ============================================================
+2025-11-13 14:14:38,880 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:14:38,880 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:14:38,880 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR2163336
+2025-11-13 14:14:38,880 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR2163336 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:15:45,131 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:15:45,131 - INFO - ✅ 完成 | Completed: SRR2163336
+2025-11-13 14:15:45,131 - INFO - 🔄 总进度 | Overall Progress: [52/56]
+2025-11-13 14:15:45,131 - INFO - ============================================================
+2025-11-13 14:15:45,145 - INFO - 📦 处理文件 | Processing file: SRR2163354
+2025-11-13 14:15:45,145 - INFO - ============================================================
+2025-11-13 14:15:45,145 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:15:45,145 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:15:45,145 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR2163354
+2025-11-13 14:15:45,145 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR2163354 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:16:52,516 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:16:52,516 - INFO - ✅ 完成 | Completed: SRR2163354
+2025-11-13 14:16:52,516 - INFO - 🔄 总进度 | Overall Progress: [53/56]
+2025-11-13 14:16:52,516 - INFO - ============================================================
+2025-11-13 14:16:52,516 - INFO - 📦 处理文件 | Processing file: SRR7058589
+2025-11-13 14:16:52,516 - INFO - ============================================================
+2025-11-13 14:16:52,516 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:16:52,516 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:16:52,516 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR7058589
+2025-11-13 14:16:52,516 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR7058589 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:19:23,869 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:19:23,890 - INFO - ✅ 完成 | Completed: SRR7058589
+2025-11-13 14:19:23,890 - INFO - 🔄 总进度 | Overall Progress: [54/56]
+2025-11-13 14:19:23,890 - INFO - ============================================================
+2025-11-13 14:19:23,890 - INFO - 📦 处理文件 | Processing file: SRR7058590
+2025-11-13 14:19:23,890 - INFO - ============================================================
+2025-11-13 14:19:23,890 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:19:23,890 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:19:23,890 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR7058590
+2025-11-13 14:19:23,890 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR7058590 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:21:42,790 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:21:42,791 - INFO - ✅ 完成 | Completed: SRR7058590
+2025-11-13 14:21:42,791 - INFO - 🔄 总进度 | Overall Progress: [55/56]
+2025-11-13 14:21:42,791 - INFO - ============================================================
+2025-11-13 14:21:42,791 - INFO - 📦 处理文件 | Processing file: SRR7058591
+2025-11-13 14:21:42,791 - INFO - ============================================================
+2025-11-13 14:21:42,791 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:21:42,791 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:21:42,791 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR7058591
+2025-11-13 14:21:42,791 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR7058591 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:24:17,518 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:24:17,518 - INFO - ✅ 完成 | Completed: SRR7058591
+2025-11-13 14:24:17,518 - INFO - 🔄 总进度 | Overall Progress: [56/56]
+2025-11-13 14:24:17,518 - INFO - ============================================================
+2025-11-13 14:24:17,518 - INFO - 📦 处理文件 | Processing file: SRR7058592
+2025-11-13 14:24:17,518 - INFO - ============================================================
+2025-11-13 14:24:17,518 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-11-13 14:24:17,518 - INFO - 🧵 线程数 | Threads: 80
+2025-11-13 14:24:17,518 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR7058592
+2025-11-13 14:24:17,518 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/sra/SRR7058592 --threads 80 --outdir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq --split-files --gzip --skip-technical
+2025-11-13 14:26:19,877 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-11-13 14:26:19,883 - INFO - ✅ 完成 | Completed: SRR7058592
+2025-11-13 14:26:19,883 - INFO - 📊 生成转换报告 | Generating conversion report...
+2025-11-13 14:26:19,939 - INFO - 📊 转换摘要已生成 | Summary report generated: fastq/conversion_summary.txt
+2025-11-13 14:26:19,939 - INFO - ================================================================================
+2025-11-13 14:26:19,939 - INFO - 🎉 转换流程完成 | Conversion Pipeline Completed
+2025-11-13 14:26:19,939 - INFO - ================================================================================
+2025-11-13 14:26:19,939 - INFO - ⏱️  总耗时 | Duration: 4105.2 秒 | seconds
+2025-11-13 14:26:19,939 - INFO - ✅ 成功: 50 | Success: 50
+2025-11-13 14:26:19,939 - INFO - ❌ 失败: 6 | Failed: 6
+2025-11-13 14:26:19,939 - INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/raw/第四批/fastq

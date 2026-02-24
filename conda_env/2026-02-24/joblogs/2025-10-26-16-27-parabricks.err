@@ -1,0 +1,1455 @@
+[PB Info 2025-Oct-26 16:27:50] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:27:50] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:27:50] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:27:50] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:27:50] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:27:51] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/100.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/100.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:27:51][src/readers.cpp:1137] No PU at the read group line @RG	ID:100	SM:100	PL:ILLUMINA	LB:100
+[PB Info 2025-Oct-26 16:27:51] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:28:01] CbpA1:19262401	0.2	179370	1076220
+[PB Info 2025-Oct-26 16:28:11] CbpA3:4507201	0.3	369282	1107828
+[PB Info 2025-Oct-26 16:28:21] CbpA4:14155201	0.5	558009	1116018
+[PB Info 2025-Oct-26 16:28:31] CbpA6:3307201	0.7	736179	1104268
+[PB Info 2025-Oct-26 16:28:41] CbpA7:3753601	0.8	906660	1087989
+[PB Info 2025-Oct-26 16:28:51] CbpA8:13017601	1.0	1089442	1089442
+[PB Info 2025-Oct-26 16:29:01] CbpB1:12384001	1.2	1251404	1072632
+[PB Info 2025-Oct-26 16:29:11] CbpB3:1497601	1.3	1430725	1073043
+[PB Info 2025-Oct-26 16:29:21] CbpB4:12772801	1.5	1616631	1077754
+[PB Info 2025-Oct-26 16:29:31] CbpB5:4353601	1.7	1766192	1059715
+[PB Info 2025-Oct-26 16:29:41] CbpB6:18619201	1.8	1949427	1063323
+[PB Info 2025-Oct-26 16:29:51] CbpB7:19248001	2.0	2110075	1055037
+[PB Info 2025-Oct-26 16:30:01] Total time taken: 130.402489
+[PB Info 2025-Oct-26 16:30:01] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:30:01] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:30:01] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:30:01] ||        Start Time:                       Sun Oct 26 16:27:50 2025        ||
+[PB Info 2025-Oct-26 16:30:01] ||        End Time:                         Sun Oct 26 16:30:01 2025        ||
+[PB Info 2025-Oct-26 16:30:01] ||        Total Time:                           2 minutes 11 seconds        ||
+[PB Info 2025-Oct-26 16:30:01] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:30:03] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:30:03] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:30:03] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:30:03] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:30:03] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:30:04] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/103.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/103.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:30:04][src/readers.cpp:1137] No PU at the read group line @RG	ID:103	SM:103	PL:ILLUMINA	LB:103
+[PB Info 2025-Oct-26 16:30:04] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:30:14] CbpA1:19953601	0.2	181048	1086288
+[PB Info 2025-Oct-26 16:30:24] CbpA3:5289601	0.3	373912	1121736
+[PB Info 2025-Oct-26 16:30:34] CbpA4:15619201	0.5	566736	1133472
+[PB Info 2025-Oct-26 16:30:44] CbpA6:5016001	0.7	748673	1123009
+[PB Info 2025-Oct-26 16:30:54] CbpA7:6705601	0.8	928122	1113741
+[PB Info 2025-Oct-26 16:31:04] CbpA8:16622401	1.0	1118539	1118539
+[PB Info 2025-Oct-26 16:31:14] CbpB1:24830401	1.2	1290557	1106189
+[PB Info 2025-Oct-26 16:31:24] CbpB3:7142401	1.3	1476893	1107669
+[PB Info 2025-Oct-26 16:31:34] CbpB4:19752001	1.5	1673201	1115467
+[PB Info 2025-Oct-26 16:31:44] CbpB6:3091201	1.7	1834689	1100813
+[PB Info 2025-Oct-26 16:31:54] CbpB7:6086401	1.8	2021516	1102645
+[PB Info 2025-Oct-26 16:32:04] CbpB8:13056001	2.0	2203198	1101599
+[PB Info 2025-Oct-26 16:32:15] Total time taken: 130.416928
+[PB Info 2025-Oct-26 16:32:15] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:32:15] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:32:15] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:32:15] ||        Start Time:                       Sun Oct 26 16:30:03 2025        ||
+[PB Info 2025-Oct-26 16:32:15] ||        End Time:                         Sun Oct 26 16:32:15 2025        ||
+[PB Info 2025-Oct-26 16:32:15] ||        Total Time:                           2 minutes 12 seconds        ||
+[PB Info 2025-Oct-26 16:32:15] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:32:16] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:32:16] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:32:16] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:32:16] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:32:16] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:32:17] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/105.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/105.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:32:17][src/readers.cpp:1137] No PU at the read group line @RG	ID:105	SM:105	PL:ILLUMINA	LB:105
+[PB Info 2025-Oct-26 16:32:17] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:32:27] CbpA1:12259201	0.2	171226	1027320
+[PB Info 2025-Oct-26 16:32:37] CbpA3:3120001	0.3	355016	1065039
+[PB Info 2025-Oct-26 16:32:47] CbpA4:12931201	0.5	539391	1078782
+[PB Info 2025-Oct-26 16:32:57] CbpA5:17011201	0.7	706069	1059103
+[PB Info 2025-Oct-26 16:33:07] CbpA6:24936001	0.8	874385	1049262
+[PB Info 2025-Oct-26 16:33:17] CbpA8:6072001	1.0	1053803	1053803
+[PB Info 2025-Oct-26 16:33:27] CbpB1:8577601	1.2	1199970	1028544
+[PB Info 2025-Oct-26 16:33:37] CbpB2:12988801	1.3	1377590	1033190
+[PB Info 2025-Oct-26 16:33:47] CbpB4:153601	1.5	1552724	1035149
+[PB Info 2025-Oct-26 16:33:57] CbpB5:3480001	1.7	1725614	1035368
+[PB Info 2025-Oct-26 16:34:07] CbpB6:7233601	1.8	1858695	1013833
+[PB Info 2025-Oct-26 16:34:17] CbpB7:7819201	2.0	2028356	1014178
+[PB Info 2025-Oct-26 16:34:27] CbpB8:12662401	2.2	2193103	1012201
+[PB Info 2025-Oct-26 16:34:37] Total time taken: 140.295639
+[PB Info 2025-Oct-26 16:34:37] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:34:37] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:34:37] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:34:37] ||        Start Time:                       Sun Oct 26 16:32:16 2025        ||
+[PB Info 2025-Oct-26 16:34:37] ||        End Time:                         Sun Oct 26 16:34:37 2025        ||
+[PB Info 2025-Oct-26 16:34:37] ||        Total Time:                           2 minutes 21 seconds        ||
+[PB Info 2025-Oct-26 16:34:37] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:34:39] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:34:39] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:34:39] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:34:39] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:34:39] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:34:40] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/106.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/106.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:34:40][src/readers.cpp:1137] No PU at the read group line @RG	ID:106	SM:106	PL:ILLUMINA	LB:106
+[PB Info 2025-Oct-26 16:34:40] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:34:50] CbpA1:15571201	0.2	170941	1025646
+[PB Info 2025-Oct-26 16:35:00] CbpA3:2304001	0.3	352728	1058172
+[PB Info 2025-Oct-26 16:35:10] CbpA4:11150401	0.5	532857	1065714
+[PB Info 2025-Oct-26 16:35:20] CbpA5:14995201	0.7	690873	1036309
+[PB Info 2025-Oct-26 16:35:30] CbpA6:22603201	0.8	859420	1031304
+[PB Info 2025-Oct-26 16:35:40] CbpA8:542401	1.0	1021910	1021910
+[PB Info 2025-Oct-26 16:35:50] CbpB1:5380801	1.2	1180597	1011940
+[PB Info 2025-Oct-26 16:36:00] CbpB2:4512001	1.3	1347228	1010421
+[PB Info 2025-Oct-26 16:36:10] CbpB3:11016001	1.5	1518614	1012409
+[PB Info 2025-Oct-26 16:36:20] CbpB5:460801	1.7	1687060	1012236
+[PB Info 2025-Oct-26 16:36:30] CbpB6:1444801	1.8	1829130	997707
+[PB Info 2025-Oct-26 16:36:40] CbpB7:3355201	2.0	2000484	1000242
+[PB Info 2025-Oct-26 16:36:50] CbpB8:4944001	2.2	2167028	1000166
+[PB Info 2025-Oct-26 16:37:00] Total time taken: 140.401553
+[PB Info 2025-Oct-26 16:37:00] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:37:00] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:37:00] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:37:00] ||        Start Time:                       Sun Oct 26 16:34:39 2025        ||
+[PB Info 2025-Oct-26 16:37:00] ||        End Time:                         Sun Oct 26 16:37:00 2025        ||
+[PB Info 2025-Oct-26 16:37:00] ||        Total Time:                           2 minutes 21 seconds        ||
+[PB Info 2025-Oct-26 16:37:00] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:37:01] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:37:01] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:37:01] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:37:01] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:37:01] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:37:02] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/10.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/10.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:37:02][src/readers.cpp:1137] No PU at the read group line @RG	ID:10	SM:10	PL:ILLUMINA	LB:10
+[PB Info 2025-Oct-26 16:37:02] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:37:12] CbpA1:12259201	0.2	163361	980166
+[PB Info 2025-Oct-26 16:37:22] CbpA3:1094401	0.3	338830	1016490
+[PB Info 2025-Oct-26 16:37:32] CbpA4:3835201	0.5	512011	1024022
+[PB Info 2025-Oct-26 16:37:42] CbpA5:11150401	0.7	663828	995742
+[PB Info 2025-Oct-26 16:37:52] CbpA6:19473601	0.8	830324	996388
+[PB Info 2025-Oct-26 16:38:02] CbpA7:10699201	1.0	977218	977218
+[PB Info 2025-Oct-26 16:38:12] CbpA8:18484801	1.2	1135367	973171
+[PB Info 2025-Oct-26 16:38:22] CbpB1:24312001	1.3	1287801	965850
+[PB Info 2025-Oct-26 16:38:32] CbpB3:3744001	1.5	1450779	967186
+[PB Info 2025-Oct-26 16:38:42] CbpB4:12984001	1.7	1621953	973171
+[PB Info 2025-Oct-26 16:38:52] CbpB5:4344001	1.8	1761265	960690
+[PB Info 2025-Oct-26 16:39:02] CbpB6:11812801	2.0	1918439	959219
+[PB Info 2025-Oct-26 16:39:12] CbpB7:10060801	2.2	2077178	958697
+[PB Info 2025-Oct-26 16:39:22] CbpB8:15148801	2.3	2208106	946331
+[PB Info 2025-Oct-26 16:39:33] Total time taken: 150.290812
+[PB Info 2025-Oct-26 16:39:33] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:39:33] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:39:33] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:39:33] ||        Start Time:                       Sun Oct 26 16:37:01 2025        ||
+[PB Info 2025-Oct-26 16:39:33] ||        End Time:                         Sun Oct 26 16:39:33 2025        ||
+[PB Info 2025-Oct-26 16:39:33] ||        Total Time:                           2 minutes 32 seconds        ||
+[PB Info 2025-Oct-26 16:39:33] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:39:34] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:39:34] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:39:34] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:39:34] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:39:34] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:39:35] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/113.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/113.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:39:35][src/readers.cpp:1137] No PU at the read group line @RG	ID:113	SM:113	PL:ILLUMINA	LB:113
+[PB Info 2025-Oct-26 16:39:35] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:39:45] CbpA1:22531201	0.2	203795	1222770
+[PB Info 2025-Oct-26 16:39:55] CbpA3:15336001	0.3	440352	1321056
+[PB Info 2025-Oct-26 16:40:05] CbpA5:11352001	0.5	662827	1325652
+[PB Info 2025-Oct-26 16:40:15] CbpA6:23472001	0.7	871554	1307331
+[PB Info 2025-Oct-26 16:40:25] CbpA8:11923201	0.8	1084470	1301364
+[PB Info 2025-Oct-26 16:40:35] CbpB1:23251201	1.0	1282394	1282394
+[PB Info 2025-Oct-26 16:40:45] CbpB3:7992001	1.2	1491666	1278570
+[PB Info 2025-Oct-26 16:40:55] CbpB5:2467201	1.3	1720433	1290324
+[PB Info 2025-Oct-26 16:41:05] CbpB6:14947201	1.5	1933888	1289258
+[PB Info 2025-Oct-26 16:41:15] CbpB8:1478401	1.7	2143246	1285947
+[PB Info 2025-Oct-26 16:41:25] Total time taken: 110.382314
+[PB Info 2025-Oct-26 16:41:25] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:41:25] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:41:25] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:41:25] ||        Start Time:                       Sun Oct 26 16:39:34 2025        ||
+[PB Info 2025-Oct-26 16:41:25] ||        End Time:                         Sun Oct 26 16:41:25 2025        ||
+[PB Info 2025-Oct-26 16:41:25] ||        Total Time:                            1 minute 51 seconds        ||
+[PB Info 2025-Oct-26 16:41:25] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:41:26] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:41:26] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:41:26] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:41:26] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:41:26] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:41:28] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/117.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/117.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:41:28][src/readers.cpp:1137] No PU at the read group line @RG	ID:117	SM:117	PL:ILLUMINA	LB:117
+[PB Info 2025-Oct-26 16:41:28] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:41:38] CbpA1:21835201	0.2	196113	1176678
+[PB Info 2025-Oct-26 16:41:48] CbpA3:9206401	0.3	421813	1265439
+[PB Info 2025-Oct-26 16:41:58] CbpA5:4656001	0.5	645720	1291440
+[PB Info 2025-Oct-26 16:42:08] CbpA6:22147201	0.7	846955	1270432
+[PB Info 2025-Oct-26 16:42:18] CbpA8:3009601	0.8	1055441	1266529
+[PB Info 2025-Oct-26 16:42:28] CbpB1:11337601	1.0	1244009	1244009
+[PB Info 2025-Oct-26 16:42:38] CbpB3:4113601	1.2	1453046	1245468
+[PB Info 2025-Oct-26 16:42:48] CbpB4:18388801	1.3	1665554	1249165
+[PB Info 2025-Oct-26 16:42:58] CbpB6:7368001	1.5	1872109	1248072
+[PB Info 2025-Oct-26 16:43:08] CbpB7:12177601	1.7	2090068	1254040
+[PB Info 2025-Oct-26 16:43:18] Total time taken: 110.309548
+[PB Info 2025-Oct-26 16:43:18] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:43:18] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:43:18] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:43:18] ||        Start Time:                       Sun Oct 26 16:41:26 2025        ||
+[PB Info 2025-Oct-26 16:43:18] ||        End Time:                         Sun Oct 26 16:43:18 2025        ||
+[PB Info 2025-Oct-26 16:43:18] ||        Total Time:                            1 minute 52 seconds        ||
+[PB Info 2025-Oct-26 16:43:18] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:43:19] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:43:19] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:43:19] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:43:19] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:43:19] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:43:20] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/12.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/12.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:43:20][src/readers.cpp:1137] No PU at the read group line @RG	ID:12	SM:12	PL:ILLUMINA	LB:12
+[PB Info 2025-Oct-26 16:43:20] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:43:30] CbpA1:13987201	0.2	160761	964566
+[PB Info 2025-Oct-26 16:43:40] CbpA3:580801	0.3	337813	1013439
+[PB Info 2025-Oct-26 16:43:50] CbpA4:3480001	0.5	514617	1029234
+[PB Info 2025-Oct-26 16:44:00] CbpA5:11846401	0.7	669780	1004670
+[PB Info 2025-Oct-26 16:44:10] CbpA6:18854401	0.8	833075	999690
+[PB Info 2025-Oct-26 16:44:20] CbpA7:10876801	1.0	979842	979842
+[PB Info 2025-Oct-26 16:44:30] CbpA8:18470401	1.2	1139480	976697
+[PB Info 2025-Oct-26 16:44:40] CbpB1:23534401	1.3	1286288	964716
+[PB Info 2025-Oct-26 16:44:50] CbpB3:3057601	1.5	1448899	965932
+[PB Info 2025-Oct-26 16:45:00] CbpB4:12134401	1.7	1619407	971644
+[PB Info 2025-Oct-26 16:45:10] CbpB5:13680001	1.8	1768918	964864
+[PB Info 2025-Oct-26 16:45:20] CbpB6:17611201	2.0	1936515	968257
+[PB Info 2025-Oct-26 16:45:30] CbpB7:11592001	2.2	2090724	964949
+[PB Info 2025-Oct-26 16:45:40] CbpB8:17822401	2.3	2212971	948416
+[PB Info 2025-Oct-26 16:45:50] Total time taken: 150.606019
+[PB Info 2025-Oct-26 16:45:50] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:45:50] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:45:50] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:45:50] ||        Start Time:                       Sun Oct 26 16:43:19 2025        ||
+[PB Info 2025-Oct-26 16:45:50] ||        End Time:                         Sun Oct 26 16:45:50 2025        ||
+[PB Info 2025-Oct-26 16:45:50] ||        Total Time:                           2 minutes 31 seconds        ||
+[PB Info 2025-Oct-26 16:45:50] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:45:52] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:45:52] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:45:52] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:45:52] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:45:52] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:45:53] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/140.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/140.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:45:53][src/readers.cpp:1137] No PU at the read group line @RG	ID:140	SM:140	PL:ILLUMINA	LB:140
+[PB Info 2025-Oct-26 16:45:53] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:46:03] CbpA1:18907201	0.2	170197	1021182
+[PB Info 2025-Oct-26 16:46:13] CbpA3:2265601	0.3	351644	1054932
+[PB Info 2025-Oct-26 16:46:23] CbpA4:10872001	0.5	530120	1060240
+[PB Info 2025-Oct-26 16:46:33] CbpA5:14990401	0.7	693462	1040193
+[PB Info 2025-Oct-26 16:46:43] CbpA6:22968001	0.8	860892	1033070
+[PB Info 2025-Oct-26 16:46:53] CbpA8:379201	1.0	1026668	1026668
+[PB Info 2025-Oct-26 16:47:03] CbpB1:5313601	1.2	1183783	1014671
+[PB Info 2025-Oct-26 16:47:13] CbpB2:5433601	1.3	1354034	1015525
+[PB Info 2025-Oct-26 16:47:23] CbpB3:10358401	1.5	1519907	1013271
+[PB Info 2025-Oct-26 16:47:33] CbpB5:321601	1.7	1689397	1013638
+[PB Info 2025-Oct-26 16:47:43] CbpB6:4598401	1.8	1849359	1008741
+[PB Info 2025-Oct-26 16:47:53] CbpB7:5534401	2.0	2023537	1011768
+[PB Info 2025-Oct-26 16:48:03] CbpB8:11548801	2.2	2195981	1013529
+[PB Info 2025-Oct-26 16:48:13] Total time taken: 140.330664
+[PB Info 2025-Oct-26 16:48:13] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:48:13] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:48:13] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:48:13] ||        Start Time:                       Sun Oct 26 16:45:52 2025        ||
+[PB Info 2025-Oct-26 16:48:13] ||        End Time:                         Sun Oct 26 16:48:13 2025        ||
+[PB Info 2025-Oct-26 16:48:13] ||        Total Time:                           2 minutes 21 seconds        ||
+[PB Info 2025-Oct-26 16:48:13] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:48:14] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:48:14] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:48:14] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:48:14] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:48:14] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:48:15] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/148.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/148.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:48:15][src/readers.cpp:1137] No PU at the read group line @RG	ID:148	SM:148	PL:ILLUMINA	LB:148
+[PB Info 2025-Oct-26 16:48:15] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:48:25] CbpA1:23616001	0.2	211091	1266546
+[PB Info 2025-Oct-26 16:48:35] CbpA3:17808001	0.3	454310	1362930
+[PB Info 2025-Oct-26 16:48:45] CbpA5:13809601	0.5	681930	1363852
+[PB Info 2025-Oct-26 16:48:55] CbpA7:2616001	0.7	897284	1345926
+[PB Info 2025-Oct-26 16:49:05] CbpA8:16185601	0.8	1114847	1337816
+[PB Info 2025-Oct-26 16:49:15] CbpB2:2572801	1.0	1329129	1329129
+[PB Info 2025-Oct-26 16:49:25] CbpB3:18897601	1.2	1553734	1331772
+[PB Info 2025-Oct-26 16:49:35] CbpB5:15873601	1.3	1776131	1332098
+[PB Info 2025-Oct-26 16:49:45] CbpB7:3763201	1.5	2003456	1335637
+[PB Info 2025-Oct-26 16:49:55] CbpB8:15811201	1.7	2202437	1321462
+[PB Info 2025-Oct-26 16:50:06] Total time taken: 110.523543
+[PB Info 2025-Oct-26 16:50:06] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:50:06] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:50:06] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:50:06] ||        Start Time:                       Sun Oct 26 16:48:14 2025        ||
+[PB Info 2025-Oct-26 16:50:06] ||        End Time:                         Sun Oct 26 16:50:06 2025        ||
+[PB Info 2025-Oct-26 16:50:06] ||        Total Time:                            1 minute 52 seconds        ||
+[PB Info 2025-Oct-26 16:50:06] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:50:07] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:50:07] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:50:07] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:50:07] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:50:07] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:50:08] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/150.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/150.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:50:08][src/readers.cpp:1137] No PU at the read group line @RG	ID:150	SM:150	PL:ILLUMINA	LB:150
+[PB Info 2025-Oct-26 16:50:08] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:50:18] CbpA1:19891201	0.2	179611	1077666
+[PB Info 2025-Oct-26 16:50:28] CbpA3:5136001	0.3	370779	1112337
+[PB Info 2025-Oct-26 16:50:38] CbpA4:14347201	0.5	556509	1113018
+[PB Info 2025-Oct-26 16:50:48] CbpA6:4171201	0.7	740246	1110351
+[PB Info 2025-Oct-26 16:50:58] CbpA7:5500801	0.8	921124	1105348
+[PB Info 2025-Oct-26 16:51:08] CbpA8:14846401	1.0	1102573	1102573
+[PB Info 2025-Oct-26 16:51:18] CbpB1:23371201	1.2	1276064	1093769
+[PB Info 2025-Oct-26 16:51:28] CbpB3:5155201	1.3	1457144	1092853
+[PB Info 2025-Oct-26 16:51:38] CbpB4:16248001	1.5	1643414	1095609
+[PB Info 2025-Oct-26 16:51:48] CbpB6:1094401	1.7	1817793	1090675
+[PB Info 2025-Oct-26 16:51:58] CbpB7:4147201	1.8	2002906	1092493
+[PB Info 2025-Oct-26 16:52:08] CbpB8:11203201	2.0	2185022	1092511
+[PB Info 2025-Oct-26 16:52:18] Total time taken: 130.452661
+[PB Info 2025-Oct-26 16:52:18] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:52:18] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:52:18] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:52:18] ||        Start Time:                       Sun Oct 26 16:50:07 2025        ||
+[PB Info 2025-Oct-26 16:52:18] ||        End Time:                         Sun Oct 26 16:52:18 2025        ||
+[PB Info 2025-Oct-26 16:52:18] ||        Total Time:                           2 minutes 11 seconds        ||
+[PB Info 2025-Oct-26 16:52:18] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:52:20] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:52:20] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:52:20] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:52:20] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:52:20] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:52:21] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/16.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/16.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:52:21][src/readers.cpp:1137] No PU at the read group line @RG	ID:16	SM:16	PL:ILLUMINA	LB:16
+[PB Info 2025-Oct-26 16:52:21] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:52:31] CbpA1:10814401	0.2	136742	820422
+[PB Info 2025-Oct-26 16:52:41] CbpA2:13036801	0.3	288075	864225
+[PB Info 2025-Oct-26 16:52:51] CbpA3:8803201	0.5	420478	840956
+[PB Info 2025-Oct-26 16:53:01] CbpA4:13848001	0.7	554753	832129
+[PB Info 2025-Oct-26 16:53:11] CbpA5:14020801	0.8	683451	820141
+[PB Info 2025-Oct-26 16:53:21] CbpA6:10396801	1.0	824005	824005
+[PB Info 2025-Oct-26 16:53:31] CbpA7:7425601	1.2	936809	802979
+[PB Info 2025-Oct-26 16:53:41] CbpA8:11452801	1.3	1078483	808862
+[PB Info 2025-Oct-26 16:53:51] CbpB1:6302401	1.5	1191551	794367
+[PB Info 2025-Oct-26 16:54:01] CbpB2:1440001	1.7	1317747	790648
+[PB Info 2025-Oct-26 16:54:11] CbpB3:3571201	1.8	1450841	791367
+[PB Info 2025-Oct-26 16:54:21] CbpB4:2352001	2.0	1594594	797297
+[PB Info 2025-Oct-26 16:54:31] CbpB5:2227201	2.2	1727692	797396
+[PB Info 2025-Oct-26 16:54:41] CbpB6:216001	2.3	1822140	780917
+[PB Info 2025-Oct-26 16:54:51] CbpB6:21662401	2.5	1963384	785353
+[PB Info 2025-Oct-26 16:55:01] CbpB7:11040001	2.7	2084017	781506
+[PB Info 2025-Oct-26 16:55:11] CbpB8:13089601	2.8	2209522	779831
+[PB Info 2025-Oct-26 16:55:21] Total time taken: 180.333176
+[PB Info 2025-Oct-26 16:55:21] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:55:21] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:55:21] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:55:21] ||        Start Time:                       Sun Oct 26 16:52:20 2025        ||
+[PB Info 2025-Oct-26 16:55:21] ||        End Time:                         Sun Oct 26 16:55:21 2025        ||
+[PB Info 2025-Oct-26 16:55:21] ||        Total Time:                             3 minutes 1 second        ||
+[PB Info 2025-Oct-26 16:55:21] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:55:22] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:55:22] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:55:22] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:55:22] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:55:22] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:55:23] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/23.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/23.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:55:23][src/readers.cpp:1137] No PU at the read group line @RG	ID:23	SM:23	PL:ILLUMINA	LB:23
+[PB Info 2025-Oct-26 16:55:23] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:55:33] CbpA1:14611201	0.2	171029	1026174
+[PB Info 2025-Oct-26 16:55:43] CbpA3:2894401	0.3	352941	1058823
+[PB Info 2025-Oct-26 16:55:53] CbpA4:12043201	0.5	534741	1069482
+[PB Info 2025-Oct-26 16:56:03] CbpA5:15657601	0.7	694173	1041259
+[PB Info 2025-Oct-26 16:56:13] CbpA6:23932801	0.8	867523	1041027
+[PB Info 2025-Oct-26 16:56:23] CbpA8:2131201	1.0	1042493	1042493
+[PB Info 2025-Oct-26 16:56:33] CbpB1:7305601	1.2	1192515	1022155
+[PB Info 2025-Oct-26 16:56:43] CbpB2:11260801	1.3	1367662	1025746
+[PB Info 2025-Oct-26 16:56:53] CbpB3:17539201	1.5	1539557	1026371
+[PB Info 2025-Oct-26 16:57:03] CbpB5:1872001	1.7	1720028	1032014
+[PB Info 2025-Oct-26 16:57:13] CbpB6:4814401	1.8	1839882	1003569
+[PB Info 2025-Oct-26 16:57:23] CbpB7:5769601	2.0	2013459	1006729
+[PB Info 2025-Oct-26 16:57:33] CbpB8:11083201	2.2	2179592	1005965
+[PB Info 2025-Oct-26 16:57:44] Total time taken: 140.384560
+[PB Info 2025-Oct-26 16:57:44] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:57:44] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:57:44] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:57:44] ||        Start Time:                       Sun Oct 26 16:55:22 2025        ||
+[PB Info 2025-Oct-26 16:57:44] ||        End Time:                         Sun Oct 26 16:57:44 2025        ||
+[PB Info 2025-Oct-26 16:57:44] ||        Total Time:                           2 minutes 22 seconds        ||
+[PB Info 2025-Oct-26 16:57:44] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:57:45] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:57:45] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:57:45] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:57:45] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:57:45] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:57:46] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/26.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/26.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:57:46][src/readers.cpp:1137] No PU at the read group line @RG	ID:26	SM:26	PL:ILLUMINA	LB:26
+[PB Info 2025-Oct-26 16:57:46] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:57:56] CbpA2:13027201	0.2	281340	1688040
+[PB Info 2025-Oct-26 16:58:06] CbpA5:172801	0.3	595034	1785102
+[PB Info 2025-Oct-26 16:58:16] CbpA7:2884801	0.5	898143	1796286
+[PB Info 2025-Oct-26 16:58:26] CbpB1:5112001	0.7	1175241	1762861
+[PB Info 2025-Oct-26 16:58:36] CbpB3:6547201	0.8	1466213	1759450
+[PB Info 2025-Oct-26 16:58:46] CbpB5:16800001	1.0	1780881	1780881
+[PB Info 2025-Oct-26 16:58:56] CbpB7:17241601	1.2	2092555	1793618
+[PB Info 2025-Oct-26 16:59:06] Total time taken: 80.398769
+[PB Info 2025-Oct-26 16:59:06] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:59:06] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 16:59:06] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 16:59:06] ||        Start Time:                       Sun Oct 26 16:57:45 2025        ||
+[PB Info 2025-Oct-26 16:59:06] ||        End Time:                         Sun Oct 26 16:59:06 2025        ||
+[PB Info 2025-Oct-26 16:59:06] ||        Total Time:                            1 minute 21 seconds        ||
+[PB Info 2025-Oct-26 16:59:06] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:59:07] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:59:07] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 16:59:07] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 16:59:07] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 16:59:07] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 16:59:08] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/28.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/28.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 16:59:08][src/readers.cpp:1137] No PU at the read group line @RG	ID:28	SM:28	PL:ILLUMINA	LB:28
+[PB Info 2025-Oct-26 16:59:08] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 16:59:18] CbpA1:12254401	0.2	155903	935418
+[PB Info 2025-Oct-26 16:59:28] CbpA2:18230401	0.3	322264	966792
+[PB Info 2025-Oct-26 16:59:38] CbpA4:1281601	0.5	487553	975106
+[PB Info 2025-Oct-26 16:59:48] CbpA5:5059201	0.7	643358	965037
+[PB Info 2025-Oct-26 16:59:58] CbpA6:8904001	0.8	793945	952734
+[PB Info 2025-Oct-26 17:00:08] CbpA7:7958401	1.0	935140	935140
+[PB Info 2025-Oct-26 17:00:18] CbpA8:14539201	1.2	1098030	941168
+[PB Info 2025-Oct-26 17:00:28] CbpB1:11755201	1.3	1242501	931875
+[PB Info 2025-Oct-26 17:00:38] CbpB2:14913601	1.5	1394740	929823
+[PB Info 2025-Oct-26 17:00:48] CbpB4:235201	1.7	1557720	934632
+[PB Info 2025-Oct-26 17:00:58] CbpB5:3240001	1.8	1722660	939632
+[PB Info 2025-Oct-26 17:01:08] CbpB6:6393601	2.0	1855562	927781
+[PB Info 2025-Oct-26 17:01:18] CbpB7:6139201	2.2	2017898	931337
+[PB Info 2025-Oct-26 17:01:28] CbpB8:10603201	2.3	2179371	934016
+[PB Info 2025-Oct-26 17:01:39] Total time taken: 150.272426
+[PB Info 2025-Oct-26 17:01:39] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:01:39] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:01:39] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:01:39] ||        Start Time:                       Sun Oct 26 16:59:07 2025        ||
+[PB Info 2025-Oct-26 17:01:39] ||        End Time:                         Sun Oct 26 17:01:39 2025        ||
+[PB Info 2025-Oct-26 17:01:39] ||        Total Time:                           2 minutes 32 seconds        ||
+[PB Info 2025-Oct-26 17:01:39] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:01:40] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:01:40] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:01:40] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:01:40] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:01:40] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:01:41] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/2.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/2.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:01:41][src/readers.cpp:1137] No PU at the read group line @RG	ID:2	SM:2	PL:ILLUMINA	LB:2
+[PB Info 2025-Oct-26 17:01:41] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:01:51] CbpA1:19819201	0.2	175401	1052406
+[PB Info 2025-Oct-26 17:02:01] CbpA3:3777601	0.3	362716	1088148
+[PB Info 2025-Oct-26 17:02:11] CbpA4:12955201	0.5	545266	1090532
+[PB Info 2025-Oct-26 17:02:21] CbpA6:1449601	0.7	722112	1083151
+[PB Info 2025-Oct-26 17:02:31] CbpA7:2236801	0.8	901977	1082372
+[PB Info 2025-Oct-26 17:02:41] CbpA8:12072001	1.0	1082880	1082880
+[PB Info 2025-Oct-26 17:02:51] CbpB1:11774401	1.2	1248846	1070439
+[PB Info 2025-Oct-26 17:03:01] CbpB3:648001	1.3	1425623	1069217
+[PB Info 2025-Oct-26 17:03:11] CbpB4:11851201	1.5	1614989	1076659
+[PB Info 2025-Oct-26 17:03:21] CbpB5:13377601	1.7	1766334	1059800
+[PB Info 2025-Oct-26 17:03:31] CbpB6:20769601	1.8	1951680	1064552
+[PB Info 2025-Oct-26 17:03:41] CbpB7:19080001	2.0	2116744	1058372
+[PB Info 2025-Oct-26 17:03:51] Total time taken: 130.394378
+[PB Info 2025-Oct-26 17:03:51] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:03:51] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:03:51] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:03:51] ||        Start Time:                       Sun Oct 26 17:01:40 2025        ||
+[PB Info 2025-Oct-26 17:03:51] ||        End Time:                         Sun Oct 26 17:03:51 2025        ||
+[PB Info 2025-Oct-26 17:03:51] ||        Total Time:                           2 minutes 11 seconds        ||
+[PB Info 2025-Oct-26 17:03:51] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:03:53] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:03:53] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:03:53] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:03:53] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:03:53] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:03:54] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/40.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/40.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:03:54][src/readers.cpp:1137] No PU at the read group line @RG	ID:40	SM:40	PL:ILLUMINA	LB:40
+[PB Info 2025-Oct-26 17:03:54] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:04:04] CbpA1:21057601	0.2	191393	1148358
+[PB Info 2025-Oct-26 17:04:14] CbpA3:8150401	0.3	410736	1232208
+[PB Info 2025-Oct-26 17:04:24] CbpA5:1756801	0.5	622494	1244988
+[PB Info 2025-Oct-26 17:04:34] CbpA6:9321601	0.7	812295	1218442
+[PB Info 2025-Oct-26 17:04:44] CbpA7:18081601	0.8	1005875	1207050
+[PB Info 2025-Oct-26 17:04:54] CbpB1:6038401	1.0	1191089	1191089
+[PB Info 2025-Oct-26 17:05:04] CbpB2:13084801	1.2	1390509	1191864
+[PB Info 2025-Oct-26 17:05:14] CbpB4:2486401	1.3	1599715	1199784
+[PB Info 2025-Oct-26 17:05:24] CbpB5:16171201	1.5	1786925	1191283
+[PB Info 2025-Oct-26 17:05:34] CbpB7:1339201	1.7	1990938	1194562
+[PB Info 2025-Oct-26 17:05:44] CbpB8:10761601	1.8	2190105	1194602
+[PB Info 2025-Oct-26 17:05:54] Total time taken: 120.534941
+[PB Info 2025-Oct-26 17:05:54] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:05:54] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:05:54] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:05:54] ||        Start Time:                       Sun Oct 26 17:03:53 2025        ||
+[PB Info 2025-Oct-26 17:05:54] ||        End Time:                         Sun Oct 26 17:05:54 2025        ||
+[PB Info 2025-Oct-26 17:05:54] ||        Total Time:                             2 minutes 1 second        ||
+[PB Info 2025-Oct-26 17:05:54] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:05:55] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:05:55] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:05:55] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:05:55] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:05:55] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:05:56] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/41.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/41.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:05:56][src/readers.cpp:1137] No PU at the read group line @RG	ID:41	SM:41	PL:ILLUMINA	LB:41
+[PB Info 2025-Oct-26 17:05:56] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:06:06] CbpA1:12259201	0.2	172536	1035216
+[PB Info 2025-Oct-26 17:06:16] CbpA3:2644801	0.3	356736	1070208
+[PB Info 2025-Oct-26 17:06:26] CbpA4:11524801	0.5	535706	1071412
+[PB Info 2025-Oct-26 17:06:36] CbpA5:16195201	0.7	701910	1052865
+[PB Info 2025-Oct-26 17:06:46] CbpA6:24840001	0.8	874485	1049382
+[PB Info 2025-Oct-26 17:06:56] CbpA8:2750401	1.0	1054885	1054885
+[PB Info 2025-Oct-26 17:07:06] CbpB1:8323201	1.2	1206046	1033753
+[PB Info 2025-Oct-26 17:07:16] CbpB2:13070401	1.3	1383876	1037907
+[PB Info 2025-Oct-26 17:07:26] CbpB4:595201	1.5	1566935	1044618
+[PB Info 2025-Oct-26 17:07:36] CbpB5:3595201	1.7	1734118	1040470
+[PB Info 2025-Oct-26 17:07:46] CbpB5:16617601	1.8	1841070	1004220
+[PB Info 2025-Oct-26 17:07:56] CbpB7:5851201	2.0	2019460	1009730
+[PB Info 2025-Oct-26 17:08:06] CbpB8:10646401	2.2	2180670	1006463
+[PB Info 2025-Oct-26 17:08:17] Total time taken: 140.464208
+[PB Info 2025-Oct-26 17:08:17] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:08:17] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:08:17] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:08:17] ||        Start Time:                       Sun Oct 26 17:05:55 2025        ||
+[PB Info 2025-Oct-26 17:08:17] ||        End Time:                         Sun Oct 26 17:08:17 2025        ||
+[PB Info 2025-Oct-26 17:08:17] ||        Total Time:                           2 minutes 22 seconds        ||
+[PB Info 2025-Oct-26 17:08:17] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:08:18] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:08:18] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:08:18] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:08:18] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:08:18] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:08:19] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/42.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/42.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:08:19][src/readers.cpp:1137] No PU at the read group line @RG	ID:42	SM:42	PL:ILLUMINA	LB:42
+[PB Info 2025-Oct-26 17:08:19] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:08:29] CbpA1:19444801	0.2	175482	1052892
+[PB Info 2025-Oct-26 17:08:39] CbpA3:3489601	0.3	360832	1082496
+[PB Info 2025-Oct-26 17:08:49] CbpA4:13051201	0.5	545419	1090838
+[PB Info 2025-Oct-26 17:08:59] CbpA6:268801	0.7	716429	1074643
+[PB Info 2025-Oct-26 17:09:09] CbpA7:1060801	0.8	886715	1064058
+[PB Info 2025-Oct-26 17:09:19] CbpA8:10353601	1.0	1068821	1068821
+[PB Info 2025-Oct-26 17:09:29] CbpB1:9902401	1.2	1220687	1046303
+[PB Info 2025-Oct-26 17:09:39] CbpB2:14712001	1.3	1395923	1046937
+[PB Info 2025-Oct-26 17:09:49] CbpB4:1704001	1.5	1582801	1055200
+[PB Info 2025-Oct-26 17:09:59] CbpB5:12916801	1.7	1750837	1050502
+[PB Info 2025-Oct-26 17:10:09] CbpB6:17198401	1.8	1925729	1050397
+[PB Info 2025-Oct-26 17:10:19] CbpB7:17222401	2.0	2095820	1047910
+[PB Info 2025-Oct-26 17:10:30] Total time taken: 130.439643
+[PB Info 2025-Oct-26 17:10:30] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:10:30] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:10:30] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:10:30] ||        Start Time:                       Sun Oct 26 17:08:18 2025        ||
+[PB Info 2025-Oct-26 17:10:30] ||        End Time:                         Sun Oct 26 17:10:30 2025        ||
+[PB Info 2025-Oct-26 17:10:30] ||        Total Time:                           2 minutes 12 seconds        ||
+[PB Info 2025-Oct-26 17:10:30] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:10:31] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:10:31] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:10:31] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:10:31] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:10:31] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:10:32] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/43.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/43.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:10:32][src/readers.cpp:1137] No PU at the read group line @RG	ID:43	SM:43	PL:ILLUMINA	LB:43
+[PB Info 2025-Oct-26 17:10:32] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:10:42] CbpA1:18273601	0.2	169578	1017468
+[PB Info 2025-Oct-26 17:10:52] CbpA3:1953601	0.3	351585	1054755
+[PB Info 2025-Oct-26 17:11:02] CbpA4:10612801	0.5	529439	1058878
+[PB Info 2025-Oct-26 17:11:12] CbpA5:13579201	0.7	683479	1025218
+[PB Info 2025-Oct-26 17:11:22] CbpA6:21787201	0.8	857281	1028737
+[PB Info 2025-Oct-26 17:11:32] CbpA7:19204801	1.0	1012568	1012568
+[PB Info 2025-Oct-26 17:11:42] CbpB1:4416001	1.2	1174069	1006344
+[PB Info 2025-Oct-26 17:11:52] CbpB2:3355201	1.3	1340308	1005231
+[PB Info 2025-Oct-26 17:12:02] CbpB3:9062401	1.5	1505061	1003374
+[PB Info 2025-Oct-26 17:12:12] CbpB4:19843201	1.7	1679033	1007419
+[PB Info 2025-Oct-26 17:12:22] CbpB5:15153601	1.8	1826215	996117
+[PB Info 2025-Oct-26 17:12:32] CbpB7:2563201	2.0	1998043	999021
+[PB Info 2025-Oct-26 17:12:42] CbpB8:2611201	2.2	2157609	995819
+[PB Info 2025-Oct-26 17:12:52] Total time taken: 140.280901
+[PB Info 2025-Oct-26 17:12:52] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:12:52] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:12:52] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:12:52] ||        Start Time:                       Sun Oct 26 17:10:31 2025        ||
+[PB Info 2025-Oct-26 17:12:52] ||        End Time:                         Sun Oct 26 17:12:52 2025        ||
+[PB Info 2025-Oct-26 17:12:52] ||        Total Time:                           2 minutes 21 seconds        ||
+[PB Info 2025-Oct-26 17:12:52] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:12:54] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:12:54] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:12:54] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:12:54] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:12:54] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:12:55] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/44.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/44.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:12:55][src/readers.cpp:1137] No PU at the read group line @RG	ID:44	SM:44	PL:ILLUMINA	LB:44
+[PB Info 2025-Oct-26 17:12:55] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:13:05] CbpA1:11716801	0.2	151209	907254
+[PB Info 2025-Oct-26 17:13:15] CbpA2:17452801	0.3	318477	955431
+[PB Info 2025-Oct-26 17:13:25] CbpA4:451201	0.5	474339	948674
+[PB Info 2025-Oct-26 17:13:35] CbpA5:1915201	0.7	628241	942361
+[PB Info 2025-Oct-26 17:13:45] CbpA6:6580801	0.8	761588	913905
+[PB Info 2025-Oct-26 17:13:55] CbpA7:4881601	1.0	913694	913694
+[PB Info 2025-Oct-26 17:14:05] CbpA8:11049601	1.2	1071738	918632
+[PB Info 2025-Oct-26 17:14:15] CbpB1:8217601	1.3	1200225	900168
+[PB Info 2025-Oct-26 17:14:25] CbpB2:9273601	1.5	1357099	904732
+[PB Info 2025-Oct-26 17:14:35] CbpB3:9134401	1.7	1499684	899810
+[PB Info 2025-Oct-26 17:14:45] CbpB4:17553601	1.8	1656060	903305
+[PB Info 2025-Oct-26 17:14:55] CbpB5:17188801	2.0	1789489	894744
+[PB Info 2025-Oct-26 17:15:05] CbpB6:21076801	2.2	1948304	899217
+[PB Info 2025-Oct-26 17:15:15] CbpB7:11107201	2.3	2087510	894647
+[PB Info 2025-Oct-26 17:15:25] CbpB8:17822401	2.5	2200868	880347
+[PB Info 2025-Oct-26 17:15:35] Total time taken: 160.450947
+[PB Info 2025-Oct-26 17:15:35] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:15:35] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:15:35] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:15:35] ||        Start Time:                       Sun Oct 26 17:12:54 2025        ||
+[PB Info 2025-Oct-26 17:15:35] ||        End Time:                         Sun Oct 26 17:15:35 2025        ||
+[PB Info 2025-Oct-26 17:15:35] ||        Total Time:                           2 minutes 41 seconds        ||
+[PB Info 2025-Oct-26 17:15:35] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:15:36] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:15:36] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:15:36] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:15:36] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:15:36] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:15:37] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/45.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/45.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:15:37][src/readers.cpp:1137] No PU at the read group line @RG	ID:45	SM:45	PL:ILLUMINA	LB:45
+[PB Info 2025-Oct-26 17:15:37] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:15:47] CbpA3:1713601	0.2	331056	1986336
+[PB Info 2025-Oct-26 17:15:57] CbpA6:2256001	0.3	712771	2138313
+[PB Info 2025-Oct-26 17:16:07] CbpA8:15600001	0.5	1090096	2180192
+[PB Info 2025-Oct-26 17:16:17] CbpB3:5179201	0.7	1433450	2150175
+[PB Info 2025-Oct-26 17:16:27] CbpB6:3969601	0.8	1802618	2163141
+[PB Info 2025-Oct-26 17:16:37] CbpB8:14251201	1.0	2160681	2160681
+[PB Info 2025-Oct-26 17:16:48] Total time taken: 70.512532
+[PB Info 2025-Oct-26 17:16:48] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:16:48] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:16:48] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:16:48] ||        Start Time:                       Sun Oct 26 17:15:36 2025        ||
+[PB Info 2025-Oct-26 17:16:48] ||        End Time:                         Sun Oct 26 17:16:48 2025        ||
+[PB Info 2025-Oct-26 17:16:48] ||        Total Time:                            1 minute 12 seconds        ||
+[PB Info 2025-Oct-26 17:16:48] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:16:49] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:16:49] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:16:49] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:16:49] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:16:49] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:16:50] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/46.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/46.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:16:50][src/readers.cpp:1137] No PU at the read group line @RG	ID:46	SM:46	PL:ILLUMINA	LB:46
+[PB Info 2025-Oct-26 17:16:50] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:17:00] CbpA1:12259201	0.2	155850	935100
+[PB Info 2025-Oct-26 17:17:10] CbpA2:18456001	0.3	328384	985152
+[PB Info 2025-Oct-26 17:17:20] CbpA4:1516801	0.5	490381	980762
+[PB Info 2025-Oct-26 17:17:30] CbpA5:4108801	0.7	646296	969444
+[PB Info 2025-Oct-26 17:17:40] CbpA6:8702401	0.8	791831	950197
+[PB Info 2025-Oct-26 17:17:50] CbpA7:7526401	1.0	937055	937055
+[PB Info 2025-Oct-26 17:18:00] CbpA8:13891201	1.2	1099161	942138
+[PB Info 2025-Oct-26 17:18:10] CbpB1:11126401	1.3	1241289	930966
+[PB Info 2025-Oct-26 17:18:20] CbpB2:14107201	1.5	1394211	929474
+[PB Info 2025-Oct-26 17:18:30] CbpB3:18168001	1.7	1551060	930636
+[PB Info 2025-Oct-26 17:18:40] CbpB5:1848001	1.8	1713575	934676
+[PB Info 2025-Oct-26 17:18:50] CbpB6:4094401	2.0	1845763	922881
+[PB Info 2025-Oct-26 17:19:00] CbpB7:3009601	2.2	2002347	924160
+[PB Info 2025-Oct-26 17:19:10] CbpB8:2784001	2.3	2154622	923406
+[PB Info 2025-Oct-26 17:19:20] Total time taken: 150.421868
+[PB Info 2025-Oct-26 17:19:20] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:19:20] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:19:20] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:19:20] ||        Start Time:                       Sun Oct 26 17:16:49 2025        ||
+[PB Info 2025-Oct-26 17:19:20] ||        End Time:                         Sun Oct 26 17:19:20 2025        ||
+[PB Info 2025-Oct-26 17:19:20] ||        Total Time:                           2 minutes 31 seconds        ||
+[PB Info 2025-Oct-26 17:19:20] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:19:22] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:19:22] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:19:22] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:19:22] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:19:22] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:19:23] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/47.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/47.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:19:23][src/readers.cpp:1137] No PU at the read group line @RG	ID:47	SM:47	PL:ILLUMINA	LB:47
+[PB Info 2025-Oct-26 17:19:23] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:19:33] CbpA1:17563201	0.2	171105	1026630
+[PB Info 2025-Oct-26 17:19:43] CbpA3:2371201	0.3	353568	1060704
+[PB Info 2025-Oct-26 17:19:53] CbpA4:11553601	0.5	532325	1064650
+[PB Info 2025-Oct-26 17:20:03] CbpA5:15144001	0.7	695499	1043248
+[PB Info 2025-Oct-26 17:20:13] CbpA6:23246401	0.8	868367	1042040
+[PB Info 2025-Oct-26 17:20:23] CbpA8:1459201	1.0	1033232	1033232
+[PB Info 2025-Oct-26 17:20:33] CbpB1:6225601	1.2	1188041	1018320
+[PB Info 2025-Oct-26 17:20:43] CbpB2:10320001	1.3	1362347	1021760
+[PB Info 2025-Oct-26 17:20:53] CbpB3:15840001	1.5	1533377	1022251
+[PB Info 2025-Oct-26 17:21:03] CbpB5:1929601	1.7	1712279	1027365
+[PB Info 2025-Oct-26 17:21:13] CbpB6:4084801	1.8	1841552	1004482
+[PB Info 2025-Oct-26 17:21:23] CbpB7:5270401	2.0	2013916	1006958
+[PB Info 2025-Oct-26 17:21:33] CbpB8:11044801	2.2	2180289	1006287
+[PB Info 2025-Oct-26 17:21:43] Total time taken: 140.503814
+[PB Info 2025-Oct-26 17:21:43] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:21:43] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:21:43] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:21:43] ||        Start Time:                       Sun Oct 26 17:19:22 2025        ||
+[PB Info 2025-Oct-26 17:21:43] ||        End Time:                         Sun Oct 26 17:21:43 2025        ||
+[PB Info 2025-Oct-26 17:21:43] ||        Total Time:                           2 minutes 21 seconds        ||
+[PB Info 2025-Oct-26 17:21:43] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:21:45] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:21:45] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:21:45] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:21:45] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:21:45] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:21:46] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/48.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/48.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:21:46][src/readers.cpp:1137] No PU at the read group line @RG	ID:48	SM:48	PL:ILLUMINA	LB:48
+[PB Info 2025-Oct-26 17:21:46] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:21:56] CbpA1:20467201	0.2	182098	1092588
+[PB Info 2025-Oct-26 17:22:06] CbpA3:6777601	0.3	384563	1153689
+[PB Info 2025-Oct-26 17:22:16] CbpA4:17913601	0.5	583993	1167986
+[PB Info 2025-Oct-26 17:22:26] CbpA6:7905601	0.7	775212	1162818
+[PB Info 2025-Oct-26 17:22:36] CbpA7:10137601	0.8	969410	1163292
+[PB Info 2025-Oct-26 17:22:46] CbpB1:2856001	1.0	1156206	1156206
+[PB Info 2025-Oct-26 17:22:56] CbpB2:4968001	1.2	1346684	1154300
+[PB Info 2025-Oct-26 17:23:06] CbpB3:17731201	1.3	1543206	1157404
+[PB Info 2025-Oct-26 17:23:16] CbpB5:3720001	1.5	1736403	1157598
+[PB Info 2025-Oct-26 17:23:26] CbpB6:18172801	1.7	1927488	1156492
+[PB Info 2025-Oct-26 17:23:36] CbpB7:18043201	1.8	2107103	1149328
+[PB Info 2025-Oct-26 17:23:46] Total time taken: 120.308728
+[PB Info 2025-Oct-26 17:23:46] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:23:46] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:23:46] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:23:46] ||        Start Time:                       Sun Oct 26 17:21:45 2025        ||
+[PB Info 2025-Oct-26 17:23:46] ||        End Time:                         Sun Oct 26 17:23:46 2025        ||
+[PB Info 2025-Oct-26 17:23:46] ||        Total Time:                             2 minutes 1 second        ||
+[PB Info 2025-Oct-26 17:23:46] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:23:47] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:23:47] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:23:47] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:23:47] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:23:47] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:23:48] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/49.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/49.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:23:48][src/readers.cpp:1137] No PU at the read group line @RG	ID:49	SM:49	PL:ILLUMINA	LB:49
+[PB Info 2025-Oct-26 17:23:48] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:23:58] CbpA1:19920001	0.2	183113	1098678
+[PB Info 2025-Oct-26 17:24:08] CbpA3:5803201	0.3	381145	1143435
+[PB Info 2025-Oct-26 17:24:18] CbpA4:16070401	0.5	576242	1152484
+[PB Info 2025-Oct-26 17:24:28] CbpA6:5659201	0.7	759333	1138999
+[PB Info 2025-Oct-26 17:24:38] CbpA7:7766401	0.8	942022	1130426
+[PB Info 2025-Oct-26 17:24:48] CbpA8:17707201	1.0	1132856	1132856
+[PB Info 2025-Oct-26 17:24:58] CbpB1:25987201	1.2	1306969	1120259
+[PB Info 2025-Oct-26 17:25:08] CbpB3:8467201	1.3	1499811	1124858
+[PB Info 2025-Oct-26 17:25:18] CbpB5:504001	1.5	1694511	1129674
+[PB Info 2025-Oct-26 17:25:28] CbpB6:5683201	1.7	1864424	1118654
+[PB Info 2025-Oct-26 17:25:38] CbpB7:8308801	1.8	2051913	1119225
+[PB Info 2025-Oct-26 17:25:48] CbpB8:15998401	2.0	2214732	1107366
+[PB Info 2025-Oct-26 17:25:58] Total time taken: 130.302810
+[PB Info 2025-Oct-26 17:25:58] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:25:58] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:25:58] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:25:58] ||        Start Time:                       Sun Oct 26 17:23:47 2025        ||
+[PB Info 2025-Oct-26 17:25:58] ||        End Time:                         Sun Oct 26 17:25:58 2025        ||
+[PB Info 2025-Oct-26 17:25:58] ||        Total Time:                           2 minutes 11 seconds        ||
+[PB Info 2025-Oct-26 17:25:58] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:26:00] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:26:00] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:26:00] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:26:00] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:26:00] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:26:01] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/50.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/50.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:26:01][src/readers.cpp:1137] No PU at the read group line @RG	ID:50	SM:50	PL:ILLUMINA	LB:50
+[PB Info 2025-Oct-26 17:26:01] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:26:11] CbpA1:12259201	0.2	163391	980328
+[PB Info 2025-Oct-26 17:26:21] CbpA3:1478401	0.3	338764	1016292
+[PB Info 2025-Oct-26 17:26:31] CbpA4:9931201	0.5	518191	1036382
+[PB Info 2025-Oct-26 17:26:41] CbpA5:12235201	0.7	671944	1007913
+[PB Info 2025-Oct-26 17:26:51] CbpA6:20736001	0.8	842494	1010992
+[PB Info 2025-Oct-26 17:27:01] CbpA7:17712001	1.0	995839	995839
+[PB Info 2025-Oct-26 17:27:11] CbpB1:2601601	1.2	1152051	987472
+[PB Info 2025-Oct-26 17:27:21] CbpB2:1675201	1.3	1309913	982434
+[PB Info 2025-Oct-26 17:27:31] CbpB3:6988801	1.5	1469166	979444
+[PB Info 2025-Oct-26 17:27:41] CbpB4:16641601	1.7	1643342	986005
+[PB Info 2025-Oct-26 17:27:51] CbpB5:13680001	1.8	1783006	972548
+[PB Info 2025-Oct-26 17:28:01] CbpB6:22348801	2.0	1954370	977185
+[PB Info 2025-Oct-26 17:28:11] CbpB7:18600001	2.2	2102053	970178
+[PB Info 2025-Oct-26 17:28:21] Total time taken: 140.293468
+[PB Info 2025-Oct-26 17:28:21] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:28:21] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:28:21] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:28:21] ||        Start Time:                       Sun Oct 26 17:26:00 2025        ||
+[PB Info 2025-Oct-26 17:28:21] ||        End Time:                         Sun Oct 26 17:28:21 2025        ||
+[PB Info 2025-Oct-26 17:28:21] ||        Total Time:                           2 minutes 21 seconds        ||
+[PB Info 2025-Oct-26 17:28:21] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:28:22] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:28:22] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:28:22] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:28:22] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:28:22] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:28:23] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/51.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/51.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:28:23][src/readers.cpp:1137] No PU at the read group line @RG	ID:51	SM:51	PL:ILLUMINA	LB:51
+[PB Info 2025-Oct-26 17:28:23] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:28:33] CbpA1:11486401	0.2	148715	892290
+[PB Info 2025-Oct-26 17:28:43] CbpA2:16444801	0.3	309048	927144
+[PB Info 2025-Oct-26 17:28:53] CbpA3:18691201	0.5	457189	914378
+[PB Info 2025-Oct-26 17:29:03] CbpA5:792001	0.7	603821	905731
+[PB Info 2025-Oct-26 17:29:13] CbpA6:3532801	0.8	733093	879711
+[PB Info 2025-Oct-26 17:29:23] CbpA6:24268801	1.0	870593	870593
+[PB Info 2025-Oct-26 17:29:33] CbpA7:19785601	1.2	1013081	868355
+[PB Info 2025-Oct-26 17:29:43] CbpB1:2035201	1.3	1148510	861382
+[PB Info 2025-Oct-26 17:29:53] CbpB1:23784001	1.5	1279810	853204
+[PB Info 2025-Oct-26 17:30:03] CbpB3:1449601	1.7	1426283	855769
+[PB Info 2025-Oct-26 17:30:13] CbpB4:1622401	1.8	1580844	862278
+[PB Info 2025-Oct-26 17:30:23] CbpB5:1747201	2.0	1722574	861287
+[PB Info 2025-Oct-26 17:30:33] CbpB5:18350401	2.2	1814376	837404
+[PB Info 2025-Oct-26 17:30:43] CbpB6:22953601	2.3	1963358	841439
+[PB Info 2025-Oct-26 17:30:53] CbpB7:11505601	2.5	2091914	836765
+[PB Info 2025-Oct-26 17:31:03] CbpB8:16243201	2.7	2201285	825481
+[PB Info 2025-Oct-26 17:31:14] Total time taken: 170.550212
+[PB Info 2025-Oct-26 17:31:14] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:31:14] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:31:14] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:31:14] ||        Start Time:                       Sun Oct 26 17:28:22 2025        ||
+[PB Info 2025-Oct-26 17:31:14] ||        End Time:                         Sun Oct 26 17:31:14 2025        ||
+[PB Info 2025-Oct-26 17:31:14] ||        Total Time:                           2 minutes 52 seconds        ||
+[PB Info 2025-Oct-26 17:31:14] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:31:15] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:31:15] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:31:15] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:31:15] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:31:15] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:31:17] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/52.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/52.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:31:17][src/readers.cpp:1137] No PU at the read group line @RG	ID:52	SM:52	PL:ILLUMINA	LB:52
+[PB Info 2025-Oct-26 17:31:17] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:31:27] CbpA1:16636801	0.2	165743	994458
+[PB Info 2025-Oct-26 17:31:37] CbpA3:1636801	0.3	342700	1028100
+[PB Info 2025-Oct-26 17:31:47] CbpA4:9619201	0.5	516575	1033150
+[PB Info 2025-Oct-26 17:31:57] CbpA5:13185601	0.7	675078	1012617
+[PB Info 2025-Oct-26 17:32:07] CbpA6:21480001	0.8	846396	1015675
+[PB Info 2025-Oct-26 17:32:17] CbpA7:18576001	1.0	1003376	1003374
+[PB Info 2025-Oct-26 17:32:27] CbpB1:3096001	1.2	1159002	993430
+[PB Info 2025-Oct-26 17:32:37] CbpB2:1814401	1.3	1316740	987555
+[PB Info 2025-Oct-26 17:32:47] CbpB3:7238401	1.5	1475378	983585
+[PB Info 2025-Oct-26 17:32:57] CbpB4:16339201	1.7	1648047	988828
+[PB Info 2025-Oct-26 17:33:07] CbpB5:18864001	1.8	1803262	983597
+[PB Info 2025-Oct-26 17:33:17] CbpB6:23654401	2.0	1972870	986435
+[PB Info 2025-Oct-26 17:33:27] CbpB8:1468801	2.2	2130993	983535
+[PB Info 2025-Oct-26 17:33:37] Total time taken: 140.329975
+[PB Info 2025-Oct-26 17:33:37] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:33:37] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:33:37] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:33:37] ||        Start Time:                       Sun Oct 26 17:31:15 2025        ||
+[PB Info 2025-Oct-26 17:33:37] ||        End Time:                         Sun Oct 26 17:33:37 2025        ||
+[PB Info 2025-Oct-26 17:33:37] ||        Total Time:                           2 minutes 22 seconds        ||
+[PB Info 2025-Oct-26 17:33:37] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:33:38] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:33:38] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:33:38] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:33:38] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:33:38] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:33:39] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/53.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/53.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:33:39][src/readers.cpp:1137] No PU at the read group line @RG	ID:53	SM:53	PL:ILLUMINA	LB:53
+[PB Info 2025-Oct-26 17:33:39] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:33:49] CbpA1:12259201	0.2	157252	943512
+[PB Info 2025-Oct-26 17:33:59] CbpA2:18604801	0.3	329049	987147
+[PB Info 2025-Oct-26 17:34:09] CbpA4:1785601	0.5	500753	1001506
+[PB Info 2025-Oct-26 17:34:19] CbpA5:9211201	0.7	654311	981466
+[PB Info 2025-Oct-26 17:34:29] CbpA6:9148801	0.8	803549	964258
+[PB Info 2025-Oct-26 17:34:39] CbpA7:8304001	1.0	948541	948541
+[PB Info 2025-Oct-26 17:34:49] CbpA8:14731201	1.2	1109923	951362
+[PB Info 2025-Oct-26 17:34:59] CbpB1:12177601	1.3	1256602	942451
+[PB Info 2025-Oct-26 17:35:09] CbpB2:15580801	1.5	1411648	941098
+[PB Info 2025-Oct-26 17:35:19] CbpB4:672001	1.7	1578258	946954
+[PB Info 2025-Oct-26 17:35:29] CbpB5:3326401	1.8	1740557	949394
+[PB Info 2025-Oct-26 17:35:39] CbpB6:4353601	2.0	1855366	927683
+[PB Info 2025-Oct-26 17:35:49] CbpB7:3940801	2.2	2016644	930758
+[PB Info 2025-Oct-26 17:35:59] CbpB8:4392001	2.3	2174745	932033
+[PB Info 2025-Oct-26 17:36:09] Total time taken: 150.398972
+[PB Info 2025-Oct-26 17:36:09] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:36:09] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:36:09] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:36:09] ||        Start Time:                       Sun Oct 26 17:33:38 2025        ||
+[PB Info 2025-Oct-26 17:36:09] ||        End Time:                         Sun Oct 26 17:36:09 2025        ||
+[PB Info 2025-Oct-26 17:36:09] ||        Total Time:                           2 minutes 31 seconds        ||
+[PB Info 2025-Oct-26 17:36:09] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:36:11] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:36:11] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:36:11] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:36:11] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:36:11] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:36:12] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/54.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/54.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:36:12][src/readers.cpp:1137] No PU at the read group line @RG	ID:54	SM:54	PL:ILLUMINA	LB:54
+[PB Info 2025-Oct-26 17:36:12] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:36:22] CbpA1:19377601	0.2	171968	1031808
+[PB Info 2025-Oct-26 17:36:32] CbpA3:2913601	0.3	354810	1064430
+[PB Info 2025-Oct-26 17:36:42] CbpA4:11985601	0.5	537095	1074190
+[PB Info 2025-Oct-26 17:36:52] CbpA5:16276801	0.7	704939	1057408
+[PB Info 2025-Oct-26 17:37:02] CbpA6:24835201	0.8	874481	1049377
+[PB Info 2025-Oct-26 17:37:12] CbpA8:2520001	1.0	1053942	1053942
+[PB Info 2025-Oct-26 17:37:22] CbpB1:7742401	1.2	1202709	1030893
+[PB Info 2025-Oct-26 17:37:32] CbpB2:11697601	1.3	1379597	1034697
+[PB Info 2025-Oct-26 17:37:42] CbpB3:18268801	1.5	1554412	1036274
+[PB Info 2025-Oct-26 17:37:52] CbpB5:3408001	1.7	1735125	1041075
+[PB Info 2025-Oct-26 17:38:02] CbpB6:6739201	1.8	1869592	1019777
+[PB Info 2025-Oct-26 17:38:12] CbpB7:7713601	2.0	2043380	1021690
+[PB Info 2025-Oct-26 17:38:22] CbpB8:13300801	2.2	2212220	1021024
+[PB Info 2025-Oct-26 17:38:32] Total time taken: 140.381705
+[PB Info 2025-Oct-26 17:38:32] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:38:32] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:38:32] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:38:32] ||        Start Time:                       Sun Oct 26 17:36:11 2025        ||
+[PB Info 2025-Oct-26 17:38:32] ||        End Time:                         Sun Oct 26 17:38:32 2025        ||
+[PB Info 2025-Oct-26 17:38:32] ||        Total Time:                           2 minutes 21 seconds        ||
+[PB Info 2025-Oct-26 17:38:32] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:38:33] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:38:33] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:38:33] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:38:33] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:38:33] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:38:34] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/55.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/55.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:38:34][src/readers.cpp:1137] No PU at the read group line @RG	ID:55	SM:55	PL:ILLUMINA	LB:55
+[PB Info 2025-Oct-26 17:38:34] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:38:44] CbpA1:19718401	0.2	178878	1073268
+[PB Info 2025-Oct-26 17:38:54] CbpA3:4147201	0.3	365881	1097643
+[PB Info 2025-Oct-26 17:39:04] CbpA4:13219201	0.5	548969	1097938
+[PB Info 2025-Oct-26 17:39:14] CbpA6:1334401	0.7	720642	1080963
+[PB Info 2025-Oct-26 17:39:24] CbpA7:2553601	0.8	896940	1076328
+[PB Info 2025-Oct-26 17:39:34] CbpA8:11668801	1.0	1078012	1078012
+[PB Info 2025-Oct-26 17:39:44] CbpB1:11121601	1.2	1240328	1063138
+[PB Info 2025-Oct-26 17:39:54] CbpB3:86401	1.3	1416981	1062735
+[PB Info 2025-Oct-26 17:40:04] CbpB4:11126401	1.5	1604140	1069426
+[PB Info 2025-Oct-26 17:40:14] CbpB5:12825601	1.7	1756275	1053765
+[PB Info 2025-Oct-26 17:40:24] CbpB6:18619201	1.8	1937478	1056806
+[PB Info 2025-Oct-26 17:40:34] CbpB7:17659201	2.0	2099444	1049722
+[PB Info 2025-Oct-26 17:40:45] Total time taken: 130.349099
+[PB Info 2025-Oct-26 17:40:45] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:40:45] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:40:45] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:40:45] ||        Start Time:                       Sun Oct 26 17:38:33 2025        ||
+[PB Info 2025-Oct-26 17:40:45] ||        End Time:                         Sun Oct 26 17:40:45 2025        ||
+[PB Info 2025-Oct-26 17:40:45] ||        Total Time:                           2 minutes 12 seconds        ||
+[PB Info 2025-Oct-26 17:40:45] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:40:46] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:40:46] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:40:46] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:40:46] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:40:46] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:40:47] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/56.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/56.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:40:47][src/readers.cpp:1137] No PU at the read group line @RG	ID:56	SM:56	PL:ILLUMINA	LB:56
+[PB Info 2025-Oct-26 17:40:47] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:40:57] CbpA1:12259201	0.2	169436	1016616
+[PB Info 2025-Oct-26 17:41:07] CbpA3:2323201	0.3	353689	1061067
+[PB Info 2025-Oct-26 17:41:17] CbpA4:11481601	0.5	535722	1071444
+[PB Info 2025-Oct-26 17:41:27] CbpA5:15283201	0.7	698567	1047850
+[PB Info 2025-Oct-26 17:41:37] CbpA6:22108801	0.8	863268	1035921
+[PB Info 2025-Oct-26 17:41:47] CbpA8:1363201	1.0	1033960	1033960
+[PB Info 2025-Oct-26 17:41:57] CbpB1:6110401	1.2	1188153	1018416
+[PB Info 2025-Oct-26 17:42:07] CbpB2:3542401	1.3	1358783	1019087
+[PB Info 2025-Oct-26 17:42:17] CbpB3:15120001	1.5	1531960	1021306
+[PB Info 2025-Oct-26 17:42:27] CbpB5:772801	1.7	1693964	1016378
+[PB Info 2025-Oct-26 17:42:37] CbpB5:19243201	1.8	1825873	995930
+[PB Info 2025-Oct-26 17:42:47] CbpB7:2961601	2.0	1999738	999869
+[PB Info 2025-Oct-26 17:42:57] CbpB8:3172801	2.2	2157801	995907
+[PB Info 2025-Oct-26 17:43:08] Total time taken: 140.326570
+[PB Info 2025-Oct-26 17:43:08] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:43:08] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:43:08] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:43:08] ||        Start Time:                       Sun Oct 26 17:40:46 2025        ||
+[PB Info 2025-Oct-26 17:43:08] ||        End Time:                         Sun Oct 26 17:43:08 2025        ||
+[PB Info 2025-Oct-26 17:43:08] ||        Total Time:                           2 minutes 22 seconds        ||
+[PB Info 2025-Oct-26 17:43:08] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:43:09] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:43:09] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:43:09] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:43:09] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:43:09] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:43:10] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/57.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/57.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:43:10][src/readers.cpp:1137] No PU at the read group line @RG	ID:57	SM:57	PL:ILLUMINA	LB:57
+[PB Info 2025-Oct-26 17:43:10] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:43:20] CbpA1:12259201	0.2	169976	1019856
+[PB Info 2025-Oct-26 17:43:30] CbpA3:2966401	0.3	352702	1058106
+[PB Info 2025-Oct-26 17:43:40] CbpA4:12297601	0.5	535765	1071530
+[PB Info 2025-Oct-26 17:43:50] CbpA5:15489601	0.7	691916	1037874
+[PB Info 2025-Oct-26 17:44:00] CbpA6:23587201	0.8	863235	1035882
+[PB Info 2025-Oct-26 17:44:10] CbpA8:2040001	1.0	1042523	1042523
+[PB Info 2025-Oct-26 17:44:20] CbpB1:6912001	1.2	1189545	1019610
+[PB Info 2025-Oct-26 17:44:30] CbpB2:11952001	1.3	1367248	1025436
+[PB Info 2025-Oct-26 17:44:40] CbpB3:18211201	1.5	1543113	1028742
+[PB Info 2025-Oct-26 17:44:50] CbpB5:2332801	1.7	1717446	1030467
+[PB Info 2025-Oct-26 17:45:00] CbpB6:2059201	1.8	1824246	995043
+[PB Info 2025-Oct-26 17:45:10] CbpB7:3849601	2.0	1995842	997921
+[PB Info 2025-Oct-26 17:45:20] CbpB8:3979201	2.2	2153213	993790
+[PB Info 2025-Oct-26 17:45:31] Total time taken: 140.518672
+[PB Info 2025-Oct-26 17:45:31] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:45:31] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:45:31] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:45:31] ||        Start Time:                       Sun Oct 26 17:43:09 2025        ||
+[PB Info 2025-Oct-26 17:45:31] ||        End Time:                         Sun Oct 26 17:45:31 2025        ||
+[PB Info 2025-Oct-26 17:45:31] ||        Total Time:                           2 minutes 22 seconds        ||
+[PB Info 2025-Oct-26 17:45:31] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:45:32] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:45:32] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:45:32] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:45:32] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:45:32] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:45:33] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/58.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/58.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:45:33][src/readers.cpp:1137] No PU at the read group line @RG	ID:58	SM:58	PL:ILLUMINA	LB:58
+[PB Info 2025-Oct-26 17:45:33] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:45:43] CbpA1:12259201	0.2	179037	1074222
+[PB Info 2025-Oct-26 17:45:53] CbpA3:4838401	0.3	371227	1113681
+[PB Info 2025-Oct-26 17:46:03] CbpA4:15316801	0.5	565766	1131532
+[PB Info 2025-Oct-26 17:46:13] CbpA6:3292801	0.7	735929	1103893
+[PB Info 2025-Oct-26 17:46:23] CbpA7:4540801	0.8	912368	1094841
+[PB Info 2025-Oct-26 17:46:33] CbpA8:14193601	1.0	1096627	1096627
+[PB Info 2025-Oct-26 17:46:43] CbpB1:22867201	1.2	1270778	1089238
+[PB Info 2025-Oct-26 17:46:53] CbpB3:4262401	1.3	1452250	1089187
+[PB Info 2025-Oct-26 17:47:03] CbpB4:15528001	1.5	1641294	1094196
+[PB Info 2025-Oct-26 17:47:13] CbpB5:4339201	1.7	1776667	1066000
+[PB Info 2025-Oct-26 17:47:23] CbpB6:21225601	1.8	1957410	1067678
+[PB Info 2025-Oct-26 17:47:33] CbpB7:12105601	2.0	2108203	1054101
+[PB Info 2025-Oct-26 17:47:43] CbpB8:17822401	2.2	2198632	1014753
+[PB Info 2025-Oct-26 17:47:54] Total time taken: 140.854147
+[PB Info 2025-Oct-26 17:47:54] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:47:54] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:47:54] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:47:54] ||        Start Time:                       Sun Oct 26 17:45:32 2025        ||
+[PB Info 2025-Oct-26 17:47:54] ||        End Time:                         Sun Oct 26 17:47:54 2025        ||
+[PB Info 2025-Oct-26 17:47:54] ||        Total Time:                           2 minutes 22 seconds        ||
+[PB Info 2025-Oct-26 17:47:54] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:47:55] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:47:55] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:47:55] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:47:55] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:47:55] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:47:57] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/59.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/59.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:47:57][src/readers.cpp:1137] No PU at the read group line @RG	ID:59	SM:59	PL:ILLUMINA	LB:59
+[PB Info 2025-Oct-26 17:47:57] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:48:07] CbpA1:11601601	0.2	152887	917322
+[PB Info 2025-Oct-26 17:48:17] CbpA2:16785601	0.3	311275	933825
+[PB Info 2025-Oct-26 17:48:27] CbpA3:18681601	0.5	468654	937308
+[PB Info 2025-Oct-26 17:48:37] CbpA5:2121601	0.7	629168	943752
+[PB Info 2025-Oct-26 17:48:47] CbpA6:6883201	0.8	762584	915100
+[PB Info 2025-Oct-26 17:48:57] CbpA7:5001601	1.0	914015	914015
+[PB Info 2025-Oct-26 17:49:07] CbpA8:11788801	1.2	1076537	922746
+[PB Info 2025-Oct-26 17:49:17] CbpB1:9148801	1.3	1207259	905444
+[PB Info 2025-Oct-26 17:49:27] CbpB2:10910401	1.5	1368547	912364
+[PB Info 2025-Oct-26 17:49:37] CbpB3:13588801	1.7	1527015	916207
+[PB Info 2025-Oct-26 17:49:47] CbpB4:20313601	1.8	1677687	915102
+[PB Info 2025-Oct-26 17:49:57] CbpB5:13857601	2.0	1787957	893978
+[PB Info 2025-Oct-26 17:50:07] CbpB6:21321601	2.2	1951015	900468
+[PB Info 2025-Oct-26 17:50:17] CbpB7:11121601	2.3	2087204	894516
+[PB Info 2025-Oct-26 17:50:27] CbpB8:17760001	2.5	2202490	880996
+[PB Info 2025-Oct-26 17:50:37] Total time taken: 160.564882
+[PB Info 2025-Oct-26 17:50:37] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:50:37] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:50:37] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:50:37] ||        Start Time:                       Sun Oct 26 17:47:55 2025        ||
+[PB Info 2025-Oct-26 17:50:37] ||        End Time:                         Sun Oct 26 17:50:37 2025        ||
+[PB Info 2025-Oct-26 17:50:37] ||        Total Time:                           2 minutes 42 seconds        ||
+[PB Info 2025-Oct-26 17:50:37] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:50:38] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:50:38] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:50:38] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:50:38] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:50:38] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:50:39] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/60.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/60.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:50:39][src/readers.cpp:1137] No PU at the read group line @RG	ID:60	SM:60	PL:ILLUMINA	LB:60
+[PB Info 2025-Oct-26 17:50:39] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:50:49] CbpA1:11865601	0.2	154487	926922
+[PB Info 2025-Oct-26 17:50:59] CbpA2:18273601	0.3	324777	974331
+[PB Info 2025-Oct-26 17:51:09] CbpA4:1099201	0.5	490094	980188
+[PB Info 2025-Oct-26 17:51:19] CbpA5:2332801	0.7	637811	956716
+[PB Info 2025-Oct-26 17:51:29] CbpA6:7704001	0.8	771298	925557
+[PB Info 2025-Oct-26 17:51:39] CbpA7:5688001	1.0	920048	920048
+[PB Info 2025-Oct-26 17:51:49] CbpA8:12552001	1.2	1081816	927270
+[PB Info 2025-Oct-26 17:51:59] CbpB1:9816001	1.3	1213341	910005
+[PB Info 2025-Oct-26 17:52:09] CbpB2:11726401	1.5	1369910	913273
+[PB Info 2025-Oct-26 17:52:19] CbpB3:13713601	1.7	1525990	915594
+[PB Info 2025-Oct-26 17:52:29] CbpB4:19718401	1.8	1674670	913456
+[PB Info 2025-Oct-26 17:52:39] CbpB5:14923201	2.0	1793362	896681
+[PB Info 2025-Oct-26 17:52:49] CbpB6:21412801	2.2	1952410	901112
+[PB Info 2025-Oct-26 17:52:59] CbpB7:11040001	2.3	2091533	896371
+[PB Info 2025-Oct-26 17:53:09] CbpB8:17822401	2.5	2198797	879518
+[PB Info 2025-Oct-26 17:53:20] Total time taken: 160.383835
+[PB Info 2025-Oct-26 17:53:20] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:53:20] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:53:20] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:53:20] ||        Start Time:                       Sun Oct 26 17:50:38 2025        ||
+[PB Info 2025-Oct-26 17:53:20] ||        End Time:                         Sun Oct 26 17:53:20 2025        ||
+[PB Info 2025-Oct-26 17:53:20] ||        Total Time:                           2 minutes 42 seconds        ||
+[PB Info 2025-Oct-26 17:53:20] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:53:21] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:53:21] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:53:21] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:53:21] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:53:21] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:53:22] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/69.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/69.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:53:22][src/readers.cpp:1137] No PU at the read group line @RG	ID:69	SM:69	PL:ILLUMINA	LB:69
+[PB Info 2025-Oct-26 17:53:22] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:53:32] CbpA1:11904001	0.2	159085	954510
+[PB Info 2025-Oct-26 17:53:42] CbpA3:316801	0.3	331707	995121
+[PB Info 2025-Oct-26 17:53:52] CbpA4:3254401	0.5	505373	1010738
+[PB Info 2025-Oct-26 17:54:02] CbpA5:4108801	0.7	648417	972625
+[PB Info 2025-Oct-26 17:54:12] CbpA6:9556801	0.8	807014	968416
+[PB Info 2025-Oct-26 17:54:22] CbpA7:9225601	1.0	953714	953714
+[PB Info 2025-Oct-26 17:54:32] CbpA8:16046401	1.2	1108171	949860
+[PB Info 2025-Oct-26 17:54:42] CbpB1:21758401	1.3	1258520	943890
+[PB Info 2025-Oct-26 17:54:52] CbpB3:523201	1.5	1415214	943476
+[PB Info 2025-Oct-26 17:55:02] CbpB4:2659201	1.7	1585474	951284
+[PB Info 2025-Oct-26 17:55:12] CbpB5:3475201	1.8	1729295	943251
+[PB Info 2025-Oct-26 17:55:22] CbpB6:5337601	2.0	1844816	922408
+[PB Info 2025-Oct-26 17:55:32] CbpB7:4732801	2.2	2002762	924351
+[PB Info 2025-Oct-26 17:55:42] CbpB8:3820801	2.3	2153571	922959
+[PB Info 2025-Oct-26 17:55:53] Total time taken: 150.334253
+[PB Info 2025-Oct-26 17:55:53] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:55:53] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:55:53] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:55:53] ||        Start Time:                       Sun Oct 26 17:53:21 2025        ||
+[PB Info 2025-Oct-26 17:55:53] ||        End Time:                         Sun Oct 26 17:55:53 2025        ||
+[PB Info 2025-Oct-26 17:55:53] ||        Total Time:                           2 minutes 32 seconds        ||
+[PB Info 2025-Oct-26 17:55:53] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:55:54] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:55:54] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:55:54] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:55:54] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:55:54] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:55:55] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/74.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/74.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:55:55][src/readers.cpp:1137] No PU at the read group line @RG	ID:74	SM:74	PL:ILLUMINA	LB:74
+[PB Info 2025-Oct-26 17:55:55] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:56:05] CbpA1:12139201	0.2	161732	970392
+[PB Info 2025-Oct-26 17:56:15] CbpA3:4801	0.3	334942	1004826
+[PB Info 2025-Oct-26 17:56:25] CbpA4:2145601	0.5	501419	1002838
+[PB Info 2025-Oct-26 17:56:35] CbpA5:7977601	0.7	656702	985053
+[PB Info 2025-Oct-26 17:56:45] CbpA6:10276801	0.8	819385	983262
+[PB Info 2025-Oct-26 17:56:55] CbpA7:9585601	1.0	964052	964052
+[PB Info 2025-Oct-26 17:57:05] CbpA8:16958401	1.2	1122058	961764
+[PB Info 2025-Oct-26 17:57:15] CbpB1:22416001	1.3	1272398	954298
+[PB Info 2025-Oct-26 17:57:25] CbpB3:1550401	1.5	1431205	954136
+[PB Info 2025-Oct-26 17:57:35] CbpB4:10574401	1.7	1604917	962950
+[PB Info 2025-Oct-26 17:57:45] CbpB5:3691201	1.8	1746588	952684
+[PB Info 2025-Oct-26 17:57:55] CbpB5:13924801	2.0	1859255	929627
+[PB Info 2025-Oct-26 17:58:05] CbpB7:5731201	2.2	2023955	934133
+[PB Info 2025-Oct-26 17:58:15] CbpB8:8985601	2.3	2171850	930792
+[PB Info 2025-Oct-26 17:58:26] Total time taken: 150.328748
+[PB Info 2025-Oct-26 17:58:26] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:58:26] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 17:58:26] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 17:58:26] ||        Start Time:                       Sun Oct 26 17:55:54 2025        ||
+[PB Info 2025-Oct-26 17:58:26] ||        End Time:                         Sun Oct 26 17:58:26 2025        ||
+[PB Info 2025-Oct-26 17:58:26] ||        Total Time:                           2 minutes 32 seconds        ||
+[PB Info 2025-Oct-26 17:58:26] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:58:27] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:58:27] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 17:58:27] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 17:58:27] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 17:58:27] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 17:58:28] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/75.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/75.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 17:58:28][src/readers.cpp:1137] No PU at the read group line @RG	ID:75	SM:75	PL:ILLUMINA	LB:75
+[PB Info 2025-Oct-26 17:58:28] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 17:58:38] CbpA1:12259201	0.2	166332	997992
+[PB Info 2025-Oct-26 17:58:48] CbpA3:1728001	0.3	345733	1037199
+[PB Info 2025-Oct-26 17:58:58] CbpA4:10353601	0.5	524521	1049042
+[PB Info 2025-Oct-26 17:59:08] CbpA5:13123201	0.7	678553	1017829
+[PB Info 2025-Oct-26 17:59:18] CbpA6:20736001	0.8	848033	1017639
+[PB Info 2025-Oct-26 17:59:28] CbpA7:18028801	1.0	1000154	1000154
+[PB Info 2025-Oct-26 17:59:38] CbpB1:3268801	1.2	1159752	994073
+[PB Info 2025-Oct-26 17:59:48] CbpB2:2385601	1.3	1324151	993113
+[PB Info 2025-Oct-26 17:59:58] CbpB3:8198401	1.5	1485764	990507
+[PB Info 2025-Oct-26 18:00:08] CbpB4:17534401	1.7	1658678	995206
+[PB Info 2025-Oct-26 18:00:18] CbpB5:13017601	1.8	1781241	971586
+[PB Info 2025-Oct-26 18:00:28] CbpB6:21504001	2.0	1953822	976911
+[PB Info 2025-Oct-26 18:00:38] CbpB7:12225601	2.2	2097241	967957
+[PB Info 2025-Oct-26 18:00:48] CbpB8:17822401	2.3	2199937	942830
+[PB Info 2025-Oct-26 18:00:59] Total time taken: 150.413715
+[PB Info 2025-Oct-26 18:00:59] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:00:59] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:00:59] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:00:59] ||        Start Time:                       Sun Oct 26 17:58:27 2025        ||
+[PB Info 2025-Oct-26 18:00:59] ||        End Time:                         Sun Oct 26 18:00:59 2025        ||
+[PB Info 2025-Oct-26 18:00:59] ||        Total Time:                           2 minutes 32 seconds        ||
+[PB Info 2025-Oct-26 18:00:59] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:01:00] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:01:00] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:01:00] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:01:00] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:01:00] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:01:01] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/77.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/77.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:01:01][src/readers.cpp:1137] No PU at the read group line @RG	ID:77	SM:77	PL:ILLUMINA	LB:77
+[PB Info 2025-Oct-26 18:01:01] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:01:11] CbpA1:19646401	0.2	182193	1093158
+[PB Info 2025-Oct-26 18:01:21] CbpA3:5980801	0.3	380052	1140156
+[PB Info 2025-Oct-26 18:01:31] CbpA4:17332801	0.5	580698	1161396
+[PB Info 2025-Oct-26 18:01:41] CbpA6:6009601	0.7	756251	1134376
+[PB Info 2025-Oct-26 18:01:51] CbpA7:8068801	0.8	938833	1126599
+[PB Info 2025-Oct-26 18:02:01] CbpA8:18052801	1.0	1124093	1124093
+[PB Info 2025-Oct-26 18:02:11] CbpB2:820801	1.2	1302916	1116785
+[PB Info 2025-Oct-26 18:02:21] CbpB3:9072001	1.3	1494620	1120965
+[PB Info 2025-Oct-26 18:02:31] CbpB5:216001	1.5	1678489	1118992
+[PB Info 2025-Oct-26 18:02:41] CbpB5:19233601	1.7	1823715	1094229
+[PB Info 2025-Oct-26 18:02:51] CbpB7:5740801	1.8	2012038	1097473
+[PB Info 2025-Oct-26 18:03:01] CbpB8:12057601	2.0	2183892	1091946
+[PB Info 2025-Oct-26 18:03:11] Total time taken: 130.320351
+[PB Info 2025-Oct-26 18:03:11] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:03:11] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:03:11] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:03:11] ||        Start Time:                       Sun Oct 26 18:01:00 2025        ||
+[PB Info 2025-Oct-26 18:03:11] ||        End Time:                         Sun Oct 26 18:03:11 2025        ||
+[PB Info 2025-Oct-26 18:03:11] ||        Total Time:                           2 minutes 11 seconds        ||
+[PB Info 2025-Oct-26 18:03:11] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:03:13] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:03:13] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:03:13] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:03:13] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:03:13] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:03:14] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/78.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/78.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:03:14][src/readers.cpp:1137] No PU at the read group line @RG	ID:78	SM:78	PL:ILLUMINA	LB:78
+[PB Info 2025-Oct-26 18:03:14] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:03:24] CbpA1:10468801	0.2	127412	764472
+[PB Info 2025-Oct-26 18:03:34] CbpA2:11966401	0.3	281273	843819
+[PB Info 2025-Oct-26 18:03:44] CbpA3:7996801	0.5	405266	810532
+[PB Info 2025-Oct-26 18:03:54] CbpA4:11745601	0.7	538826	808239
+[PB Info 2025-Oct-26 18:04:04] CbpA5:4108801	0.8	658339	790006
+[PB Info 2025-Oct-26 18:04:14] CbpA6:7382401	1.0	771146	771146
+[PB Info 2025-Oct-26 18:04:24] CbpA7:2812801	1.2	902668	773715
+[PB Info 2025-Oct-26 18:04:34] CbpA8:960001	1.3	1030314	772735
+[PB Info 2025-Oct-26 18:04:44] CbpB1:1512001	1.5	1151795	767860
+[PB Info 2025-Oct-26 18:04:54] CbpB1:22190401	1.7	1273195	763917
+[PB Info 2025-Oct-26 18:05:04] CbpB2:14697601	1.8	1401797	764616
+[PB Info 2025-Oct-26 18:05:14] CbpB3:13200001	2.0	1532756	766378
+[PB Info 2025-Oct-26 18:05:24] CbpB4:16934401	2.2	1658688	765548
+[PB Info 2025-Oct-26 18:05:34] CbpB5:2889601	2.3	1760413	754462
+[PB Info 2025-Oct-26 18:05:44] CbpB6:3792001	2.5	1859063	743625
+[PB Info 2025-Oct-26 18:05:54] CbpB7:940801	2.7	1991472	746801
+[PB Info 2025-Oct-26 18:06:04] CbpB7:11217601	2.8	2099662	741057
+[PB Info 2025-Oct-26 18:06:14] CbpB8:14011201	3.0	2213533	737844
+[PB Info 2025-Oct-26 18:06:24] Total time taken: 190.370756
+[PB Info 2025-Oct-26 18:06:24] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:06:24] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:06:24] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:06:24] ||        Start Time:                       Sun Oct 26 18:03:13 2025        ||
+[PB Info 2025-Oct-26 18:06:24] ||        End Time:                         Sun Oct 26 18:06:24 2025        ||
+[PB Info 2025-Oct-26 18:06:24] ||        Total Time:                           3 minutes 11 seconds        ||
+[PB Info 2025-Oct-26 18:06:24] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:06:26] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:06:26] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:06:26] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:06:26] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:06:26] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:06:27] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/79.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/79.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:06:27][src/readers.cpp:1137] No PU at the read group line @RG	ID:79	SM:79	PL:ILLUMINA	LB:79
+[PB Info 2025-Oct-26 18:06:27] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:06:37] CbpA1:11942401	0.2	160619	963714
+[PB Info 2025-Oct-26 18:06:47] CbpA3:868801	0.3	335209	1005627
+[PB Info 2025-Oct-26 18:06:57] CbpA4:2520001	0.5	502267	1004522
+[PB Info 2025-Oct-26 18:07:07] CbpA5:11001601	0.7	656012	984018
+[PB Info 2025-Oct-26 18:07:17] CbpA6:13243201	0.8	818847	982616
+[PB Info 2025-Oct-26 18:07:27] CbpA7:10152001	1.0	966411	966411
+[PB Info 2025-Oct-26 18:07:37] CbpA8:18091201	1.2	1124953	964245
+[PB Info 2025-Oct-26 18:07:47] CbpB1:23505601	1.3	1272896	954672
+[PB Info 2025-Oct-26 18:07:57] CbpB3:2448001	1.5	1431305	954203
+[PB Info 2025-Oct-26 18:08:07] CbpB4:11760001	1.7	1602743	961645
+[PB Info 2025-Oct-26 18:08:17] CbpB5:4339201	1.8	1739886	949028
+[PB Info 2025-Oct-26 18:08:27] CbpB6:7416001	2.0	1876624	938312
+[PB Info 2025-Oct-26 18:08:37] CbpB7:8078401	2.2	2032035	937862
+[PB Info 2025-Oct-26 18:08:47] CbpB8:12110401	2.3	2185429	936612
+[PB Info 2025-Oct-26 18:08:57] Total time taken: 150.496586
+[PB Info 2025-Oct-26 18:08:57] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:08:57] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:08:57] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:08:57] ||        Start Time:                       Sun Oct 26 18:06:26 2025        ||
+[PB Info 2025-Oct-26 18:08:57] ||        End Time:                         Sun Oct 26 18:08:57 2025        ||
+[PB Info 2025-Oct-26 18:08:57] ||        Total Time:                           2 minutes 31 seconds        ||
+[PB Info 2025-Oct-26 18:08:57] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:08:59] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:08:59] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:08:59] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:08:59] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:08:59] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:09:00] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/7.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/7.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:09:00][src/readers.cpp:1137] No PU at the read group line @RG	ID:7	SM:7	PL:ILLUMINA	LB:7
+[PB Info 2025-Oct-26 18:09:00] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:09:10] CbpA1:15705601	0.2	166744	1000464
+[PB Info 2025-Oct-26 18:09:20] CbpA3:1598401	0.3	341588	1024764
+[PB Info 2025-Oct-26 18:09:30] CbpA4:9931201	0.5	518635	1037270
+[PB Info 2025-Oct-26 18:09:40] CbpA5:13012801	0.7	671170	1006755
+[PB Info 2025-Oct-26 18:09:50] CbpA6:20736001	0.8	843689	1012426
+[PB Info 2025-Oct-26 18:10:00] CbpA7:17817601	1.0	994569	994569
+[PB Info 2025-Oct-26 18:10:10] CbpB1:2692801	1.2	1150777	986380
+[PB Info 2025-Oct-26 18:10:20] CbpB2:1262401	1.3	1305843	979382
+[PB Info 2025-Oct-26 18:10:30] CbpB3:6705601	1.5	1465559	977039
+[PB Info 2025-Oct-26 18:10:40] CbpB4:16195201	1.7	1638720	983232
+[PB Info 2025-Oct-26 18:10:50] CbpB5:17400001	1.8	1780677	971278
+[PB Info 2025-Oct-26 18:11:00] CbpB6:21566401	2.0	1953339	976669
+[PB Info 2025-Oct-26 18:11:10] CbpB7:19051201	2.2	2103018	970623
+[PB Info 2025-Oct-26 18:11:20] Total time taken: 140.316373
+[PB Info 2025-Oct-26 18:11:20] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:11:20] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:11:20] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:11:20] ||        Start Time:                       Sun Oct 26 18:08:59 2025        ||
+[PB Info 2025-Oct-26 18:11:20] ||        End Time:                         Sun Oct 26 18:11:20 2025        ||
+[PB Info 2025-Oct-26 18:11:20] ||        Total Time:                           2 minutes 21 seconds        ||
+[PB Info 2025-Oct-26 18:11:20] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:11:21] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:11:21] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:11:21] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:11:21] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:11:21] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:11:22] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/85.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/85.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:11:22][src/readers.cpp:1137] No PU at the read group line @RG	ID:85	SM:85	PL:ILLUMINA	LB:85
+[PB Info 2025-Oct-26 18:11:22] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:11:32] CbpA1:11044801	0.2	146236	877416
+[PB Info 2025-Oct-26 18:11:42] CbpA2:15619201	0.3	300517	901551
+[PB Info 2025-Oct-26 18:11:52] CbpA3:16569601	0.5	444737	889474
+[PB Info 2025-Oct-26 18:12:02] CbpA4:18264001	0.7	585077	877615
+[PB Info 2025-Oct-26 18:12:12] CbpA6:1488001	0.8	718751	862501
+[PB Info 2025-Oct-26 18:12:22] CbpA6:23740801	1.0	863277	863277
+[PB Info 2025-Oct-26 18:12:32] CbpA7:18513601	1.2	1001529	858453
+[PB Info 2025-Oct-26 18:12:42] CbpB1:945601	1.3	1138120	853590
+[PB Info 2025-Oct-26 18:12:52] CbpB1:23270401	1.5	1271793	847862
+[PB Info 2025-Oct-26 18:13:02] CbpB3:864001	1.7	1418783	851269
+[PB Info 2025-Oct-26 18:13:12] CbpB4:1200001	1.8	1576053	859665
+[PB Info 2025-Oct-26 18:13:22] CbpB5:1684801	2.0	1715334	857667
+[PB Info 2025-Oct-26 18:13:32] CbpB5:14932801	2.2	1792811	827451
+[PB Info 2025-Oct-26 18:13:42] CbpB6:21244801	2.3	1948415	835035
+[PB Info 2025-Oct-26 18:13:52] CbpB7:11006401	2.5	2074723	829889
+[PB Info 2025-Oct-26 18:14:02] CbpB8:14592001	2.7	2198002	824250
+[PB Info 2025-Oct-26 18:14:13] Total time taken: 170.345863
+[PB Info 2025-Oct-26 18:14:13] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:14:13] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:14:13] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:14:13] ||        Start Time:                       Sun Oct 26 18:11:21 2025        ||
+[PB Info 2025-Oct-26 18:14:13] ||        End Time:                         Sun Oct 26 18:14:13 2025        ||
+[PB Info 2025-Oct-26 18:14:13] ||        Total Time:                           2 minutes 52 seconds        ||
+[PB Info 2025-Oct-26 18:14:13] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:14:14] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:14:14] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:14:14] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:14:14] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:14:14] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:14:15] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/88.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/88.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:14:15][src/readers.cpp:1137] No PU at the read group line @RG	ID:88	SM:88	PL:ILLUMINA	LB:88
+[PB Info 2025-Oct-26 18:14:15] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:14:25] CbpA1:11755201	0.2	151646	909876
+[PB Info 2025-Oct-26 18:14:35] CbpA2:16939201	0.3	318062	954186
+[PB Info 2025-Oct-26 18:14:45] CbpA4:312001	0.5	471278	942556
+[PB Info 2025-Oct-26 18:14:55] CbpA5:2121601	0.7	630330	945495
+[PB Info 2025-Oct-26 18:15:05] CbpA6:6556801	0.8	764251	917101
+[PB Info 2025-Oct-26 18:15:15] CbpA7:4963201	1.0	918998	918998
+[PB Info 2025-Oct-26 18:15:25] CbpA8:11016001	1.2	1076238	922489
+[PB Info 2025-Oct-26 18:15:35] CbpB1:7862401	1.3	1202972	902229
+[PB Info 2025-Oct-26 18:15:45] CbpB2:6888001	1.5	1357630	905086
+[PB Info 2025-Oct-26 18:15:55] CbpB3:8740801	1.7	1499857	899912
+[PB Info 2025-Oct-26 18:16:05] CbpB4:16713601	1.8	1652671	901456
+[PB Info 2025-Oct-26 18:16:15] CbpB5:17980801	2.0	1795046	897523
+[PB Info 2025-Oct-26 18:16:25] CbpB6:21340801	2.2	1957369	903401
+[PB Info 2025-Oct-26 18:16:35] CbpB7:14980801	2.3	2100269	900115
+[PB Info 2025-Oct-26 18:16:45] CbpB8:17822401	2.5	2208694	883477
+[PB Info 2025-Oct-26 18:16:55] Total time taken: 160.333174
+[PB Info 2025-Oct-26 18:16:55] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:16:55] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:16:55] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:16:55] ||        Start Time:                       Sun Oct 26 18:14:14 2025        ||
+[PB Info 2025-Oct-26 18:16:55] ||        End Time:                         Sun Oct 26 18:16:55 2025        ||
+[PB Info 2025-Oct-26 18:16:55] ||        Total Time:                           2 minutes 41 seconds        ||
+[PB Info 2025-Oct-26 18:16:55] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:16:57] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:16:57] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:16:57] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:16:57] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:16:57] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:16:58] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/89.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/89.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:16:58][src/readers.cpp:1137] No PU at the read group line @RG	ID:89	SM:89	PL:ILLUMINA	LB:89
+[PB Info 2025-Oct-26 18:16:58] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:17:08] CbpA1:11822401	0.2	155076	930456
+[PB Info 2025-Oct-26 18:17:18] CbpA2:18081601	0.3	321663	964989
+[PB Info 2025-Oct-26 18:17:28] CbpA4:984001	0.5	487379	974758
+[PB Info 2025-Oct-26 18:17:38] CbpA5:2424001	0.7	635192	952788
+[PB Info 2025-Oct-26 18:17:48] CbpA6:7776001	0.8	772324	926785
+[PB Info 2025-Oct-26 18:17:58] CbpA7:6465601	1.0	924824	924824
+[PB Info 2025-Oct-26 18:18:08] CbpA8:12864001	1.2	1085215	930184
+[PB Info 2025-Oct-26 18:18:18] CbpB1:10267201	1.3	1223634	917725
+[PB Info 2025-Oct-26 18:18:28] CbpB2:13104001	1.5	1381080	920720
+[PB Info 2025-Oct-26 18:18:38] CbpB3:16756801	1.7	1539515	923709
+[PB Info 2025-Oct-26 18:18:48] CbpB5:340801	1.8	1687408	920404
+[PB Info 2025-Oct-26 18:18:58] CbpB6:1041601	2.0	1819448	909722
+[PB Info 2025-Oct-26 18:19:08] CbpB7:225601	2.2	1975240	911649
+[PB Info 2025-Oct-26 18:19:18] CbpB7:18676801	2.3	2116881	907234
+[PB Info 2025-Oct-26 18:19:28] Total time taken: 150.280744
+[PB Info 2025-Oct-26 18:19:28] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:19:28] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:19:28] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:19:28] ||        Start Time:                       Sun Oct 26 18:16:57 2025        ||
+[PB Info 2025-Oct-26 18:19:28] ||        End Time:                         Sun Oct 26 18:19:28 2025        ||
+[PB Info 2025-Oct-26 18:19:28] ||        Total Time:                           2 minutes 31 seconds        ||
+[PB Info 2025-Oct-26 18:19:28] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:19:29] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:19:29] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:19:29] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:19:29] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:19:29] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:19:30] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/90.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/90.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:19:30][src/readers.cpp:1137] No PU at the read group line @RG	ID:90	SM:90	PL:ILLUMINA	LB:90
+[PB Info 2025-Oct-26 18:19:30] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:19:40] CbpA1:12259201	0.2	172901	1037406
+[PB Info 2025-Oct-26 18:19:50] CbpA3:3067201	0.3	356154	1068462
+[PB Info 2025-Oct-26 18:20:00] CbpA4:11361601	0.5	533252	1066504
+[PB Info 2025-Oct-26 18:20:10] CbpA5:16046401	0.7	700277	1050415
+[PB Info 2025-Oct-26 18:20:20] CbpA6:23040001	0.8	865158	1038189
+[PB Info 2025-Oct-26 18:20:30] CbpA8:2131201	1.0	1045251	1045251
+[PB Info 2025-Oct-26 18:20:40] CbpB1:7185601	1.2	1193041	1022606
+[PB Info 2025-Oct-26 18:20:50] CbpB2:11625601	1.3	1370147	1027610
+[PB Info 2025-Oct-26 18:21:00] CbpB3:18254401	1.5	1544249	1029499
+[PB Info 2025-Oct-26 18:21:10] CbpB5:3177601	1.7	1725394	1035236
+[PB Info 2025-Oct-26 18:21:20] CbpB6:2884801	1.8	1844316	1005990
+[PB Info 2025-Oct-26 18:21:30] CbpB7:6643201	2.0	2020481	1010240
+[PB Info 2025-Oct-26 18:21:40] CbpB8:12604801	2.2	2191765	1011582
+[PB Info 2025-Oct-26 18:21:51] Total time taken: 140.515758
+[PB Info 2025-Oct-26 18:21:51] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:21:51] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:21:51] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:21:51] ||        Start Time:                       Sun Oct 26 18:19:29 2025        ||
+[PB Info 2025-Oct-26 18:21:51] ||        End Time:                         Sun Oct 26 18:21:51 2025        ||
+[PB Info 2025-Oct-26 18:21:51] ||        Total Time:                           2 minutes 22 seconds        ||
+[PB Info 2025-Oct-26 18:21:51] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:21:52] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:21:52] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:21:52] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:21:52] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:21:52] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:21:53] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/94.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/94.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:21:53][src/readers.cpp:1137] No PU at the read group line @RG	ID:94	SM:94	PL:ILLUMINA	LB:94
+[PB Info 2025-Oct-26 18:21:53] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:22:03] CbpA1:12259201	0.2	158547	951282
+[PB Info 2025-Oct-26 18:22:13] CbpA3:4801	0.3	332486	997458
+[PB Info 2025-Oct-26 18:22:23] CbpA4:2131201	0.5	502092	1004184
+[PB Info 2025-Oct-26 18:22:33] CbpA5:10584001	0.7	658053	987079
+[PB Info 2025-Oct-26 18:22:43] CbpA6:12326401	0.8	818837	982604
+[PB Info 2025-Oct-26 18:22:53] CbpA7:9926401	1.0	967494	967494
+[PB Info 2025-Oct-26 18:23:03] CbpA8:17515201	1.2	1122978	962552
+[PB Info 2025-Oct-26 18:23:13] CbpB1:23428801	1.3	1275192	956394
+[PB Info 2025-Oct-26 18:23:23] CbpB3:2889601	1.5	1437303	958202
+[PB Info 2025-Oct-26 18:23:33] CbpB4:11947201	1.7	1608080	964848
+[PB Info 2025-Oct-26 18:23:43] CbpB5:3571201	1.8	1748295	953615
+[PB Info 2025-Oct-26 18:23:53] CbpB6:9225601	2.0	1902479	951239
+[PB Info 2025-Oct-26 18:24:03] CbpB7:9240001	2.2	2058083	949884
+[PB Info 2025-Oct-26 18:24:13] CbpB8:14328001	2.3	2197136	941629
+[PB Info 2025-Oct-26 18:24:24] Total time taken: 150.415561
+[PB Info 2025-Oct-26 18:24:24] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:24:24] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:24:24] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:24:24] ||        Start Time:                       Sun Oct 26 18:21:52 2025        ||
+[PB Info 2025-Oct-26 18:24:24] ||        End Time:                         Sun Oct 26 18:24:24 2025        ||
+[PB Info 2025-Oct-26 18:24:24] ||        Total Time:                           2 minutes 32 seconds        ||
+[PB Info 2025-Oct-26 18:24:24] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:24:25] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:24:25] ||                 Parabricks accelerated Genomics Pipeline                 ||
+[PB Info 2025-Oct-26 18:24:25] ||                              Version 4.5.1-1                             ||
+[PB Info 2025-Oct-26 18:24:25] ||                         GPU-GATK4 HaplotypeCaller                        ||
+[PB Info 2025-Oct-26 18:24:25] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:24:26] 0 /share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/bam/95.sorted.bam/share/org/YZWL/yzwl_lixg/project/16.荠菜/19.筛选唯一比对上的reads/vcf_parabricks/gvcfs/95.sorted.g.vcf.gz
+[PB Warning 2025-Oct-26 18:24:26][src/readers.cpp:1137] No PU at the read group line @RG	ID:95	SM:95	PL:ILLUMINA	LB:95
+[PB Info 2025-Oct-26 18:24:26] ProgressMeter -	Current-Locus	Elapsed-Minutes	Regions-Processed	Regions/Minute
+[PB Info 2025-Oct-26 18:24:36] CbpA1:12259201	0.2	160295	961770
+[PB Info 2025-Oct-26 18:24:46] CbpA3:412801	0.3	333119	999357
+[PB Info 2025-Oct-26 18:24:56] CbpA4:1910401	0.5	500061	1000122
+[PB Info 2025-Oct-26 18:25:06] CbpA5:4108801	0.7	654601	981901
+[PB Info 2025-Oct-26 18:25:16] CbpA6:9897601	0.8	814315	977178
+[PB Info 2025-Oct-26 18:25:26] CbpA7:9662401	1.0	963418	963418
+[PB Info 2025-Oct-26 18:25:36] CbpA8:16896001	1.2	1120669	960573
+[PB Info 2025-Oct-26 18:25:46] CbpB1:22473601	1.3	1269612	952209
+[PB Info 2025-Oct-26 18:25:56] CbpB3:1324801	1.5	1429059	952706
+[PB Info 2025-Oct-26 18:26:06] CbpB4:3720001	1.7	1601385	960831
+[PB Info 2025-Oct-26 18:26:16] CbpB5:3331201	1.8	1740134	949163
+[PB Info 2025-Oct-26 18:26:26] CbpB6:5923201	2.0	1859613	929806
+[PB Info 2025-Oct-26 18:26:36] CbpB7:5851201	2.2	2023426	933888
+[PB Info 2025-Oct-26 18:26:46] CbpB8:9355201	2.3	2179413	934034
+[PB Info 2025-Oct-26 18:26:56] Total time taken: 150.368432
+[PB Info 2025-Oct-26 18:26:56] ------------------------------------------------------------------------------
+[PB Info 2025-Oct-26 18:26:56] ||        Program:                         GPU-GATK4 HaplotypeCaller        ||
+[PB Info 2025-Oct-26 18:26:56] ||        Version:                                           4.5.1-1        ||
+[PB Info 2025-Oct-26 18:26:56] ||        Start Time:                       Sun Oct 26 18:24:25 2025        ||
+[PB Info 2025-Oct-26 18:26:56] ||        End Time:                         Sun Oct 26 18:26:56 2025        ||
+[PB Info 2025-Oct-26 18:26:56] ||        Total Time:                           2 minutes 31 seconds        ||
+[PB Info 2025-Oct-26 18:26:56] ------------------------------------------------------------------------------
+
+🛑 Joint Genotyping被用户中断 | Interrupted by user
+Job 67802049 stderr output:
+

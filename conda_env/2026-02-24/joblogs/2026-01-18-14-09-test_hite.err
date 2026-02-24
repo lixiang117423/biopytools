@@ -1,0 +1,3 @@
+错误|Error: Command '['/share/org/YZWL/yzwl_lixg/miniforge3/envs/singularity_v.3.8.7/bin/singularity', 'run', '-B', '/share/org/YZWL/yzwl_lixg/tmp/test_hite/output:/share/org/YZWL/yzwl_lixg/tmp/test_hite/output', '-B', '/share/org/YZWL/yzwl_lixg/tmp/test_hite:/share/org/YZWL/yzwl_lixg/tmp/test_hite', '-B', '/share/org/YZWL/yzwl_lixg:/share/org/YZWL/yzwl_lixg', '/share/org/YZWL/yzwl_lixg/software/singularity/hite_3.3.3.sif', 'python', '/HiTE/main.py', '--genome', '/share/org/YZWL/yzwl_lixg/tmp/test_hite/OV53_Chr.fa', '--thread', '64', '--out_dir', '/share/org/YZWL/yzwl_lixg/tmp/test_hite/output', '--plant', '1', '--annotate', '0', '--recover', '0', '--domain', '0', '--remove_nested', '1']' returned non-zero exit status 1.
+Job 68926980 stderr output:
+

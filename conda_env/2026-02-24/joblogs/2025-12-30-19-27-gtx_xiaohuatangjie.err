@@ -1,0 +1,11 @@
+[2025-12-30 19:27:04] ERROR: 命令执行失败 | Command execution failed
+[2025-12-30 19:27:04] ERROR: 返回码 | Return code: 255
+[2025-12-30 19:27:04] ERROR: 标准输出 | Stdout: [2020-10-20 00:00:00.589] [index] [error] reference index file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.bwt.2bit.64 already exist! If you want to overwite it, please specify -f option.
+
+[2025-12-30 19:27:04] ERROR: GTX索引构建失败 | GTX index building failed
+[2025-12-30 21:55:54] ERROR: 命令执行失败 | Command execution failed
+[2025-12-30 21:55:54] ERROR: 返回码 | Return code: 1
+[2025-12-30 21:55:54] ERROR: GATK联合检测失败 | GATK joint calling failed
+[2025-12-30 21:55:54] ERROR: 步骤 4 失败 | Step 4 failed: 联合变异检测 | Joint Variant Calling
+Job 68727031 stderr output:
+

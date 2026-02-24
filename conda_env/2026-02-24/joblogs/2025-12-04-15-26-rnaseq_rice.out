@@ -1,0 +1,580 @@
+2025-12-04 15:26:05,054 - INFO - ================================================================================
+2025-12-04 15:26:05,054 - INFO - 🚀 开始SRA转FASTQ转换流程 | Starting SRA to FASTQ Conversion Pipeline
+2025-12-04 15:26:05,054 - INFO - ================================================================================
+2025-12-04 15:26:05,054 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-12-04 15:26:06,603 - INFO - ✅ parallel-fastq-dump 可用 (推荐) | available (recommended)
+2025-12-04 15:26:06,603 - INFO -    版本 | Version: fastq-dump : 3.2.1
+
+parallel-fastq-dump : 0.6.7
+2025-12-04 15:26:06,624 - INFO - ✅ fastq-dump 可用 (备选) | available (fallback)
+2025-12-04 15:26:06,624 - INFO - 📋 转换配置 | Conversion Configuration:
+2025-12-04 15:26:06,624 - INFO -   输入路径 | Input: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra
+2025-12-04 15:26:06,624 - INFO -   输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq
+2025-12-04 15:26:06,624 - INFO -   文件数量 | Files: 18
+2025-12-04 15:26:06,624 - INFO -   转换工具 | Tool: parallel-fastq-dump ⚡ (推荐)
+2025-12-04 15:26:06,624 - INFO -   线程数 | Threads: 88
+2025-12-04 15:26:06,624 - INFO -   压缩输出 | Compress: True
+2025-12-04 15:26:06,624 - INFO - 🔄 开始批量转换 | Starting batch conversion...
+2025-12-04 15:26:06,624 - INFO - 📊 共找到 18 个SRA文件 | Found 18 SRA files
+2025-12-04 15:26:06,624 - INFO - 🔄 总进度 | Overall Progress: [1/18]
+2025-12-04 15:26:06,624 - INFO - ============================================================
+2025-12-04 15:26:06,624 - INFO - 📦 处理文件 | Processing file: SRR11306881
+2025-12-04 15:26:06,624 - INFO - ============================================================
+2025-12-04 15:26:06,624 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:26:06,624 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:26:06,624 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306881
+2025-12-04 15:26:06,625 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306881 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:26:34,447 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:26:34,448 - INFO - ✅ 完成 | Completed: SRR11306881
+2025-12-04 15:26:34,448 - INFO - 🔄 总进度 | Overall Progress: [2/18]
+2025-12-04 15:26:34,448 - INFO - ============================================================
+2025-12-04 15:26:34,448 - INFO - 📦 处理文件 | Processing file: SRR11306882
+2025-12-04 15:26:34,448 - INFO - ============================================================
+2025-12-04 15:26:34,448 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:26:34,448 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:26:34,448 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306882
+2025-12-04 15:26:34,448 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306882 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:27:02,222 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:27:02,222 - INFO - ✅ 完成 | Completed: SRR11306882
+2025-12-04 15:27:02,222 - INFO - 🔄 总进度 | Overall Progress: [3/18]
+2025-12-04 15:27:02,222 - INFO - ============================================================
+2025-12-04 15:27:02,222 - INFO - 📦 处理文件 | Processing file: SRR11306883
+2025-12-04 15:27:02,226 - INFO - ============================================================
+2025-12-04 15:27:02,226 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:27:02,226 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:27:02,226 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306883
+2025-12-04 15:27:02,226 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306883 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:27:30,503 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:27:30,504 - INFO - ✅ 完成 | Completed: SRR11306883
+2025-12-04 15:27:30,504 - INFO - 🔄 总进度 | Overall Progress: [4/18]
+2025-12-04 15:27:30,504 - INFO - ============================================================
+2025-12-04 15:27:30,504 - INFO - 📦 处理文件 | Processing file: SRR11306884
+2025-12-04 15:27:30,504 - INFO - ============================================================
+2025-12-04 15:27:30,504 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:27:30,504 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:27:30,504 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306884
+2025-12-04 15:27:30,504 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306884 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:28:01,944 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:28:01,944 - INFO - ✅ 完成 | Completed: SRR11306884
+2025-12-04 15:28:01,944 - INFO - 🔄 总进度 | Overall Progress: [5/18]
+2025-12-04 15:28:01,944 - INFO - ============================================================
+2025-12-04 15:28:01,944 - INFO - 📦 处理文件 | Processing file: SRR11306885
+2025-12-04 15:28:01,944 - INFO - ============================================================
+2025-12-04 15:28:01,944 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:28:01,944 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:28:01,944 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306885
+2025-12-04 15:28:01,944 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306885 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:28:29,952 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:28:29,952 - INFO - ✅ 完成 | Completed: SRR11306885
+2025-12-04 15:28:29,952 - INFO - 🔄 总进度 | Overall Progress: [6/18]
+2025-12-04 15:28:29,952 - INFO - ============================================================
+2025-12-04 15:28:29,952 - INFO - 📦 处理文件 | Processing file: SRR11306886
+2025-12-04 15:28:29,952 - INFO - ============================================================
+2025-12-04 15:28:29,952 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:28:29,952 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:28:29,952 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306886
+2025-12-04 15:28:29,952 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306886 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:28:54,030 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:28:54,030 - INFO - ✅ 完成 | Completed: SRR11306886
+2025-12-04 15:28:54,030 - INFO - 🔄 总进度 | Overall Progress: [7/18]
+2025-12-04 15:28:54,030 - INFO - ============================================================
+2025-12-04 15:28:54,030 - INFO - 📦 处理文件 | Processing file: SRR11306887
+2025-12-04 15:28:54,030 - INFO - ============================================================
+2025-12-04 15:28:54,030 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:28:54,030 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:28:54,030 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306887
+2025-12-04 15:28:54,030 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306887 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:29:19,938 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:29:19,938 - INFO - ✅ 完成 | Completed: SRR11306887
+2025-12-04 15:29:19,938 - INFO - 🔄 总进度 | Overall Progress: [8/18]
+2025-12-04 15:29:19,938 - INFO - ============================================================
+2025-12-04 15:29:19,938 - INFO - 📦 处理文件 | Processing file: SRR11306888
+2025-12-04 15:29:19,938 - INFO - ============================================================
+2025-12-04 15:29:19,938 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:29:19,938 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:29:19,938 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306888
+2025-12-04 15:29:19,938 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306888 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:29:53,734 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:29:53,734 - INFO - ✅ 完成 | Completed: SRR11306888
+2025-12-04 15:29:53,734 - INFO - 🔄 总进度 | Overall Progress: [9/18]
+2025-12-04 15:29:53,734 - INFO - ============================================================
+2025-12-04 15:29:53,734 - INFO - 📦 处理文件 | Processing file: SRR11306889
+2025-12-04 15:29:53,734 - INFO - ============================================================
+2025-12-04 15:29:53,734 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:29:53,734 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:29:53,734 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306889
+2025-12-04 15:29:53,734 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306889 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:30:22,329 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:30:22,329 - INFO - ✅ 完成 | Completed: SRR11306889
+2025-12-04 15:30:22,329 - INFO - 🔄 总进度 | Overall Progress: [10/18]
+2025-12-04 15:30:22,329 - INFO - ============================================================
+2025-12-04 15:30:22,329 - INFO - 📦 处理文件 | Processing file: SRR11306890
+2025-12-04 15:30:22,329 - INFO - ============================================================
+2025-12-04 15:30:22,329 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:30:22,329 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:30:22,329 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306890
+2025-12-04 15:30:22,329 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306890 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:30:49,433 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:30:49,433 - INFO - ✅ 完成 | Completed: SRR11306890
+2025-12-04 15:30:49,433 - INFO - 🔄 总进度 | Overall Progress: [11/18]
+2025-12-04 15:30:49,433 - INFO - ============================================================
+2025-12-04 15:30:49,433 - INFO - 📦 处理文件 | Processing file: SRR11306891
+2025-12-04 15:30:49,433 - INFO - ============================================================
+2025-12-04 15:30:49,433 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:30:49,433 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:30:49,433 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306891
+2025-12-04 15:30:49,433 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306891 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:31:29,848 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:31:29,849 - INFO - ✅ 完成 | Completed: SRR11306891
+2025-12-04 15:31:29,849 - INFO - 🔄 总进度 | Overall Progress: [12/18]
+2025-12-04 15:31:29,849 - INFO - ============================================================
+2025-12-04 15:31:29,849 - INFO - 📦 处理文件 | Processing file: SRR11306892
+2025-12-04 15:31:29,849 - INFO - ============================================================
+2025-12-04 15:31:29,849 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:31:29,850 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:31:29,850 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR11306892
+2025-12-04 15:31:29,850 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR11306892 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:31:58,060 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:31:58,060 - INFO - ✅ 完成 | Completed: SRR11306892
+2025-12-04 15:31:58,060 - INFO - 🔄 总进度 | Overall Progress: [13/18]
+2025-12-04 15:31:58,061 - INFO - ============================================================
+2025-12-04 15:31:58,061 - INFO - 📦 处理文件 | Processing file: SRR12079360
+2025-12-04 15:31:58,061 - INFO - ============================================================
+2025-12-04 15:31:58,061 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:31:58,061 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:31:58,061 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR12079360
+2025-12-04 15:31:58,061 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR12079360 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:32:25,698 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:32:25,698 - INFO - ✅ 完成 | Completed: SRR12079360
+2025-12-04 15:32:25,699 - INFO - 🔄 总进度 | Overall Progress: [14/18]
+2025-12-04 15:32:25,699 - INFO - ============================================================
+2025-12-04 15:32:25,699 - INFO - 📦 处理文件 | Processing file: SRR12079361
+2025-12-04 15:32:25,699 - INFO - ============================================================
+2025-12-04 15:32:25,699 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:32:25,699 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:32:25,699 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR12079361
+2025-12-04 15:32:25,699 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR12079361 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:32:55,691 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:32:55,691 - INFO - ✅ 完成 | Completed: SRR12079361
+2025-12-04 15:32:55,691 - INFO - 🔄 总进度 | Overall Progress: [15/18]
+2025-12-04 15:32:55,691 - INFO - ============================================================
+2025-12-04 15:32:55,691 - INFO - 📦 处理文件 | Processing file: SRR12079362
+2025-12-04 15:32:55,691 - INFO - ============================================================
+2025-12-04 15:32:55,691 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:32:55,691 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:32:55,691 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR12079362
+2025-12-04 15:32:55,691 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR12079362 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:33:21,804 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:33:21,805 - INFO - ✅ 完成 | Completed: SRR12079362
+2025-12-04 15:33:21,805 - INFO - 🔄 总进度 | Overall Progress: [16/18]
+2025-12-04 15:33:21,805 - INFO - ============================================================
+2025-12-04 15:33:21,805 - INFO - 📦 处理文件 | Processing file: SRR12079363
+2025-12-04 15:33:21,805 - INFO - ============================================================
+2025-12-04 15:33:21,805 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:33:21,805 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:33:21,805 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR12079363
+2025-12-04 15:33:21,805 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR12079363 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:33:49,705 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:33:49,706 - INFO - ✅ 完成 | Completed: SRR12079363
+2025-12-04 15:33:49,706 - INFO - 🔄 总进度 | Overall Progress: [17/18]
+2025-12-04 15:33:49,706 - INFO - ============================================================
+2025-12-04 15:33:49,706 - INFO - 📦 处理文件 | Processing file: SRR12079364
+2025-12-04 15:33:49,706 - INFO - ============================================================
+2025-12-04 15:33:49,706 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:33:49,706 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:33:49,706 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR12079364
+2025-12-04 15:33:49,706 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR12079364 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:34:18,085 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:34:18,085 - INFO - ✅ 完成 | Completed: SRR12079364
+2025-12-04 15:34:18,085 - INFO - 🔄 总进度 | Overall Progress: [18/18]
+2025-12-04 15:34:18,085 - INFO - ============================================================
+2025-12-04 15:34:18,085 - INFO - 📦 处理文件 | Processing file: SRR12079365
+2025-12-04 15:34:18,085 - INFO - ============================================================
+2025-12-04 15:34:18,085 - INFO - 🔧 使用工具 | Using tool: parallel-fastq-dump (多线程加速) | (multi-threaded)
+2025-12-04 15:34:18,085 - INFO - 🧵 线程数 | Threads: 88
+2025-12-04 15:34:18,085 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR12079365
+2025-12-04 15:34:18,085 - INFO - 📋 命令 | Command: parallel-fastq-dump --sra-id /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/sra/SRR12079365 --threads 88 --outdir /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq --split-files --gzip --skip-technical
+2025-12-04 15:34:47,340 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-12-04 15:34:47,340 - INFO - ✅ 完成 | Completed: SRR12079365
+2025-12-04 15:34:47,340 - INFO - 📊 生成转换报告 | Generating conversion report...
+2025-12-04 15:34:47,351 - INFO - 📊 转换摘要已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/conversion_summary.txt
+2025-12-04 15:34:47,351 - INFO - ================================================================================
+2025-12-04 15:34:47,351 - INFO - 🎉 转换流程完成 | Conversion Pipeline Completed
+2025-12-04 15:34:47,351 - INFO - ================================================================================
+2025-12-04 15:34:47,352 - INFO - ⏱️  总耗时 | Duration: 522.3 秒 | seconds
+2025-12-04 15:34:47,352 - INFO - ✅ 成功: 18 | Success: 18
+2025-12-04 15:34:47,352 - INFO - ❌ 失败: 0 | Failed: 0
+2025-12-04 15:34:47,352 - INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq
+2025-12-04 15:34:47,616 - INFO - ============================================================
+2025-12-04 15:34:47,616 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-12-04 15:34:47,616 - INFO - ============================================================
+2025-12-04 15:34:47,616 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq
+2025-12-04 15:34:47,616 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean
+2025-12-04 15:34:47,616 - INFO - 📄 文件模式 | File pattern: *_1.fastq.gz, *_2.fastq.gz
+2025-12-04 15:34:47,616 - INFO - ============================================================
+2025-12-04 15:34:47,886 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-12-04 15:34:47,887 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean
+2025-12-04 15:34:47,887 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports
+2025-12-04 15:34:47,887 - INFO - 📄 找到 18 个read1文件 | Found 18 read1 files
+2025-12-04 15:34:47,888 - INFO - 🧬 找到 18 个有效样本配对 | Found 18 valid sample pairs:
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306890
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306887
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306884
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306885
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306892
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR12079360
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306886
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR12079365
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR12079362
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306881
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR12079364
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR12079361
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR12079363
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306889
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306888
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306883
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306882
+2025-12-04 15:34:47,888 - INFO -   - 📋 SRR11306891
+2025-12-04 15:34:47,888 - INFO - ---
+2025-12-04 15:34:47,888 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306890
+2025-12-04 15:34:47,888 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306890_1.fastq.gz
+2025-12-04 15:34:47,888 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306890_2.fastq.gz
+2025-12-04 15:34:47,888 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_1.clean.fq.gz
+2025-12-04 15:34:47,888 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_2.clean.fq.gz
+2025-12-04 15:34:47,888 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306890.html
+2025-12-04 15:34:47,888 - INFO - ---
+2025-12-04 15:34:47,888 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306890
+2025-12-04 15:34:47,888 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306890_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306890_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306890.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306890.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:35:46,343 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306890
+2025-12-04 15:35:46,343 - INFO - ✅ 样本 SRR11306890 处理完成 | Sample SRR11306890 processing completed
+2025-12-04 15:35:46,343 - INFO - ---
+2025-12-04 15:35:46,344 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306887
+2025-12-04 15:35:46,344 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306887_1.fastq.gz
+2025-12-04 15:35:46,344 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306887_2.fastq.gz
+2025-12-04 15:35:46,344 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_1.clean.fq.gz
+2025-12-04 15:35:46,344 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_2.clean.fq.gz
+2025-12-04 15:35:46,344 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306887.html
+2025-12-04 15:35:46,344 - INFO - ---
+2025-12-04 15:35:46,344 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306887
+2025-12-04 15:35:46,344 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306887_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306887_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306887.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306887.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:36:41,859 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306887
+2025-12-04 15:36:41,859 - INFO - ✅ 样本 SRR11306887 处理完成 | Sample SRR11306887 processing completed
+2025-12-04 15:36:41,861 - INFO - ⏭️  样本 SRR11306884 的输出文件已存在，跳过处理 | Output files exist for sample SRR11306884, skipping
+2025-12-04 15:36:41,861 - INFO - ---
+2025-12-04 15:36:41,861 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306885
+2025-12-04 15:36:41,861 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306885_1.fastq.gz
+2025-12-04 15:36:41,861 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306885_2.fastq.gz
+2025-12-04 15:36:41,861 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_1.clean.fq.gz
+2025-12-04 15:36:41,861 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_2.clean.fq.gz
+2025-12-04 15:36:41,861 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306885.html
+2025-12-04 15:36:41,861 - INFO - ---
+2025-12-04 15:36:41,861 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306885
+2025-12-04 15:36:41,861 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306885_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306885_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306885.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306885.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:37:42,123 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306885
+2025-12-04 15:37:42,123 - INFO - ✅ 样本 SRR11306885 处理完成 | Sample SRR11306885 processing completed
+2025-12-04 15:37:42,123 - INFO - ---
+2025-12-04 15:37:42,123 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306892
+2025-12-04 15:37:42,123 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306892_1.fastq.gz
+2025-12-04 15:37:42,123 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306892_2.fastq.gz
+2025-12-04 15:37:42,123 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_1.clean.fq.gz
+2025-12-04 15:37:42,123 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_2.clean.fq.gz
+2025-12-04 15:37:42,123 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306892.html
+2025-12-04 15:37:42,123 - INFO - ---
+2025-12-04 15:37:42,123 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306892
+2025-12-04 15:37:42,123 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306892_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306892_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306892.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306892.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:38:43,171 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306892
+2025-12-04 15:38:43,171 - INFO - ✅ 样本 SRR11306892 处理完成 | Sample SRR11306892 processing completed
+2025-12-04 15:38:43,171 - INFO - ---
+2025-12-04 15:38:43,171 - INFO - ⚡ 正在处理样本 | Processing sample: SRR12079360
+2025-12-04 15:38:43,171 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079360_1.fastq.gz
+2025-12-04 15:38:43,171 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079360_2.fastq.gz
+2025-12-04 15:38:43,171 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_1.clean.fq.gz
+2025-12-04 15:38:43,171 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_2.clean.fq.gz
+2025-12-04 15:38:43,172 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079360.html
+2025-12-04 15:38:43,172 - INFO - ---
+2025-12-04 15:38:43,172 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079360
+2025-12-04 15:38:43,172 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079360_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079360_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079360.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079360.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:39:42,007 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079360
+2025-12-04 15:39:42,007 - INFO - ✅ 样本 SRR12079360 处理完成 | Sample SRR12079360 processing completed
+2025-12-04 15:39:42,007 - INFO - ---
+2025-12-04 15:39:42,007 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306886
+2025-12-04 15:39:42,007 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306886_1.fastq.gz
+2025-12-04 15:39:42,007 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306886_2.fastq.gz
+2025-12-04 15:39:42,007 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_1.clean.fq.gz
+2025-12-04 15:39:42,007 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_2.clean.fq.gz
+2025-12-04 15:39:42,007 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306886.html
+2025-12-04 15:39:42,007 - INFO - ---
+2025-12-04 15:39:42,007 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306886
+2025-12-04 15:39:42,007 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306886_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306886_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306886.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306886.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:40:33,377 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306886
+2025-12-04 15:40:33,377 - INFO - ✅ 样本 SRR11306886 处理完成 | Sample SRR11306886 processing completed
+2025-12-04 15:40:33,377 - INFO - ---
+2025-12-04 15:40:33,377 - INFO - ⚡ 正在处理样本 | Processing sample: SRR12079365
+2025-12-04 15:40:33,377 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079365_1.fastq.gz
+2025-12-04 15:40:33,377 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079365_2.fastq.gz
+2025-12-04 15:40:33,377 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_1.clean.fq.gz
+2025-12-04 15:40:33,377 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_2.clean.fq.gz
+2025-12-04 15:40:33,377 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079365.html
+2025-12-04 15:40:33,377 - INFO - ---
+2025-12-04 15:40:33,377 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079365
+2025-12-04 15:40:33,377 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079365_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079365_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079365.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079365.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:41:35,666 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079365
+2025-12-04 15:41:35,667 - INFO - ✅ 样本 SRR12079365 处理完成 | Sample SRR12079365 processing completed
+2025-12-04 15:41:35,667 - INFO - ---
+2025-12-04 15:41:35,667 - INFO - ⚡ 正在处理样本 | Processing sample: SRR12079362
+2025-12-04 15:41:35,667 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079362_1.fastq.gz
+2025-12-04 15:41:35,667 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079362_2.fastq.gz
+2025-12-04 15:41:35,667 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_1.clean.fq.gz
+2025-12-04 15:41:35,667 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_2.clean.fq.gz
+2025-12-04 15:41:35,667 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079362.html
+2025-12-04 15:41:35,667 - INFO - ---
+2025-12-04 15:41:35,667 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079362
+2025-12-04 15:41:35,667 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079362_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079362_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079362.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079362.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:42:30,698 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079362
+2025-12-04 15:42:30,699 - INFO - ✅ 样本 SRR12079362 处理完成 | Sample SRR12079362 processing completed
+2025-12-04 15:42:30,700 - INFO - ---
+2025-12-04 15:42:30,700 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306881
+2025-12-04 15:42:30,700 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306881_1.fastq.gz
+2025-12-04 15:42:30,700 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306881_2.fastq.gz
+2025-12-04 15:42:30,700 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_1.clean.fq.gz
+2025-12-04 15:42:30,700 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_2.clean.fq.gz
+2025-12-04 15:42:30,700 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306881.html
+2025-12-04 15:42:30,700 - INFO - ---
+2025-12-04 15:42:30,700 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306881
+2025-12-04 15:42:30,700 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306881_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306881_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306881.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306881.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:43:29,748 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306881
+2025-12-04 15:43:29,748 - INFO - ✅ 样本 SRR11306881 处理完成 | Sample SRR11306881 processing completed
+2025-12-04 15:43:29,749 - INFO - ---
+2025-12-04 15:43:29,749 - INFO - ⚡ 正在处理样本 | Processing sample: SRR12079364
+2025-12-04 15:43:29,749 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079364_1.fastq.gz
+2025-12-04 15:43:29,749 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079364_2.fastq.gz
+2025-12-04 15:43:29,749 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_1.clean.fq.gz
+2025-12-04 15:43:29,749 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_2.clean.fq.gz
+2025-12-04 15:43:29,749 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079364.html
+2025-12-04 15:43:29,749 - INFO - ---
+2025-12-04 15:43:29,749 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079364
+2025-12-04 15:43:29,749 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079364_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079364_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079364.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079364.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:44:31,006 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079364
+2025-12-04 15:44:31,006 - INFO - ✅ 样本 SRR12079364 处理完成 | Sample SRR12079364 processing completed
+2025-12-04 15:44:31,006 - INFO - ---
+2025-12-04 15:44:31,006 - INFO - ⚡ 正在处理样本 | Processing sample: SRR12079361
+2025-12-04 15:44:31,006 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079361_1.fastq.gz
+2025-12-04 15:44:31,006 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079361_2.fastq.gz
+2025-12-04 15:44:31,007 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_1.clean.fq.gz
+2025-12-04 15:44:31,007 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_2.clean.fq.gz
+2025-12-04 15:44:31,007 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079361.html
+2025-12-04 15:44:31,007 - INFO - ---
+2025-12-04 15:44:31,007 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079361
+2025-12-04 15:44:31,007 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079361_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079361_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079361.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079361.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:45:35,889 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079361
+2025-12-04 15:45:35,890 - INFO - ✅ 样本 SRR12079361 处理完成 | Sample SRR12079361 processing completed
+2025-12-04 15:45:35,890 - INFO - ---
+2025-12-04 15:45:35,890 - INFO - ⚡ 正在处理样本 | Processing sample: SRR12079363
+2025-12-04 15:45:35,890 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079363_1.fastq.gz
+2025-12-04 15:45:35,890 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079363_2.fastq.gz
+2025-12-04 15:45:35,890 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_1.clean.fq.gz
+2025-12-04 15:45:35,890 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_2.clean.fq.gz
+2025-12-04 15:45:35,890 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079363.html
+2025-12-04 15:45:35,890 - INFO - ---
+2025-12-04 15:45:35,890 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079363
+2025-12-04 15:45:35,890 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079363_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR12079363_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079363.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR12079363.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:46:36,657 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR12079363
+2025-12-04 15:46:36,658 - INFO - ✅ 样本 SRR12079363 处理完成 | Sample SRR12079363 processing completed
+2025-12-04 15:46:36,658 - INFO - ---
+2025-12-04 15:46:36,658 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306889
+2025-12-04 15:46:36,658 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306889_1.fastq.gz
+2025-12-04 15:46:36,658 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306889_2.fastq.gz
+2025-12-04 15:46:36,658 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_1.clean.fq.gz
+2025-12-04 15:46:36,658 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_2.clean.fq.gz
+2025-12-04 15:46:36,658 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306889.html
+2025-12-04 15:46:36,658 - INFO - ---
+2025-12-04 15:46:36,658 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306889
+2025-12-04 15:46:36,658 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306889_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306889_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306889.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306889.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:47:38,305 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306889
+2025-12-04 15:47:38,305 - INFO - ✅ 样本 SRR11306889 处理完成 | Sample SRR11306889 processing completed
+2025-12-04 15:47:38,305 - INFO - ---
+2025-12-04 15:47:38,305 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306888
+2025-12-04 15:47:38,305 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306888_1.fastq.gz
+2025-12-04 15:47:38,305 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306888_2.fastq.gz
+2025-12-04 15:47:38,305 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_1.clean.fq.gz
+2025-12-04 15:47:38,305 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_2.clean.fq.gz
+2025-12-04 15:47:38,305 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306888.html
+2025-12-04 15:47:38,305 - INFO - ---
+2025-12-04 15:47:38,305 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306888
+2025-12-04 15:47:38,305 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306888_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306888_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306888.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306888.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:48:51,789 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306888
+2025-12-04 15:48:51,790 - INFO - ✅ 样本 SRR11306888 处理完成 | Sample SRR11306888 processing completed
+2025-12-04 15:48:51,790 - INFO - ---
+2025-12-04 15:48:51,790 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306883
+2025-12-04 15:48:51,790 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306883_1.fastq.gz
+2025-12-04 15:48:51,790 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306883_2.fastq.gz
+2025-12-04 15:48:51,790 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_1.clean.fq.gz
+2025-12-04 15:48:51,790 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_2.clean.fq.gz
+2025-12-04 15:48:51,790 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306883.html
+2025-12-04 15:48:51,790 - INFO - ---
+2025-12-04 15:48:51,790 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306883
+2025-12-04 15:48:51,790 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306883_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306883_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306883.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306883.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:49:52,284 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306883
+2025-12-04 15:49:52,284 - INFO - ✅ 样本 SRR11306883 处理完成 | Sample SRR11306883 processing completed
+2025-12-04 15:49:52,284 - INFO - ---
+2025-12-04 15:49:52,284 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306882
+2025-12-04 15:49:52,284 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306882_1.fastq.gz
+2025-12-04 15:49:52,284 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306882_2.fastq.gz
+2025-12-04 15:49:52,284 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_1.clean.fq.gz
+2025-12-04 15:49:52,284 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_2.clean.fq.gz
+2025-12-04 15:49:52,284 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306882.html
+2025-12-04 15:49:52,284 - INFO - ---
+2025-12-04 15:49:52,284 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306882
+2025-12-04 15:49:52,285 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306882_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306882_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306882.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306882.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:50:51,925 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306882
+2025-12-04 15:50:51,925 - INFO - ✅ 样本 SRR11306882 处理完成 | Sample SRR11306882 processing completed
+2025-12-04 15:50:51,925 - INFO - ---
+2025-12-04 15:50:51,925 - INFO - ⚡ 正在处理样本 | Processing sample: SRR11306891
+2025-12-04 15:50:51,925 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306891_1.fastq.gz
+2025-12-04 15:50:51,925 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306891_2.fastq.gz
+2025-12-04 15:50:51,925 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_1.clean.fq.gz
+2025-12-04 15:50:51,925 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_2.clean.fq.gz
+2025-12-04 15:50:51,925 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306891.html
+2025-12-04 15:50:51,925 - INFO - ---
+2025-12-04 15:50:51,925 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306891
+2025-12-04 15:50:51,925 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306891_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/fastq/SRR11306891_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306891.html -j /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports/SRR11306891.json -w 88 -q 30 -l 50 -u 40 -n 10
+2025-12-04 15:52:09,462 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SRR11306891
+2025-12-04 15:52:09,462 - INFO - ✅ 样本 SRR11306891 处理完成 | Sample SRR11306891 processing completed
+2025-12-04 15:52:09,463 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_processing_summary.txt
+2025-12-04 15:52:09,463 - INFO - ============================================================
+2025-12-04 15:52:09,463 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-12-04 15:52:09,463 - INFO - 🧮 总样本数 | Total samples: 18
+2025-12-04 15:52:09,463 - INFO - ✅ 成功处理 | Successfully processed: 18
+2025-12-04 15:52:09,463 - INFO - ❌ 失败样本 | Failed samples: 0
+2025-12-04 15:52:09,463 - INFO - 📊 成功率 | Success rate: 100.0%
+2025-12-04 15:52:09,463 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean
+2025-12-04 15:52:09,463 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/fastp_reports
+2025-12-04 15:52:09,463 - INFO - ============================================================
+2025-12-04 15:52:11,287 - INFO - ============================================================
+2025-12-04 15:52:11,287 - INFO - 🚀 RNA-seq分析流程开始 | RNA-seq analysis pipeline started
+2025-12-04 15:52:11,287 - INFO - ============================================================
+2025-12-04 15:52:11,287 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/genome/MSU.fa
+2025-12-04 15:52:11,287 - INFO - 📂 输入路径 | Input path: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean
+2025-12-04 15:52:11,287 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping
+2025-12-04 15:52:11,287 - INFO - 📋 GTF文件 | GTF file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/genome/MSU.gtf
+2025-12-04 15:52:11,287 - INFO - 🔧 线程数 | Threads: 88
+2025-12-04 15:52:11,287 - INFO - 🗑️  删除BAM文件 | Remove BAM files: no
+2025-12-04 15:52:11,287 - INFO - 📋 文件模式 | File pattern: *_1.clean.fq.gz
+2025-12-04 15:52:11,287 - INFO - ============================================================
+2025-12-04 15:52:11,287 - INFO - 🔨 步骤1: 构建HISAT2索引 | Step 1: Building HISAT2 index
+2025-12-04 15:52:11,287 - INFO - ============================================================
+2025-12-04 15:52:11,296 - INFO - ⏭️  HISAT2索引已存在 | HISAT2 index already exists: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/genome/MSU.hisat2.index
+2025-12-04 15:52:11,296 - INFO - ============================================================
+2025-12-04 15:52:11,296 - INFO - 📋 步骤2: 解析输入样本 | Step 2: Parsing input samples
+2025-12-04 15:52:11,296 - INFO - ============================================================
+2025-12-04 15:52:11,296 - INFO - 📂 使用指定文件模式 | Using specified file pattern: *_1.clean.fq.gz
+2025-12-04 15:52:11,296 - INFO - 🔍 检测到读取指示符 | Detected read indicator: _1 <-> _2
+2025-12-04 15:52:11,297 - INFO - 🔎 搜索模式 | Search pattern: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/*_1.clean.fq.gz
+2025-12-04 15:52:11,297 - INFO - 📊 找到 18 个read1文件 | Found 18 read1 files
+2025-12-04 15:52:11,297 - INFO - 🔍 样本 | Sample: SRR11306881
+2025-12-04 15:52:11,297 - INFO -    📄 Read1: SRR11306881_1.clean.fq.gz
+2025-12-04 15:52:11,297 - INFO -    📄 Read2: SRR11306881_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,297 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,297 - INFO - 🔍 样本 | Sample: SRR11306882
+2025-12-04 15:52:11,297 - INFO -    📄 Read1: SRR11306882_1.clean.fq.gz
+2025-12-04 15:52:11,297 - INFO -    📄 Read2: SRR11306882_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,297 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,297 - INFO - 🔍 样本 | Sample: SRR11306883
+2025-12-04 15:52:11,297 - INFO -    📄 Read1: SRR11306883_1.clean.fq.gz
+2025-12-04 15:52:11,297 - INFO -    📄 Read2: SRR11306883_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,297 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,297 - INFO - 🔍 样本 | Sample: SRR11306884
+2025-12-04 15:52:11,297 - INFO -    📄 Read1: SRR11306884_1.clean.fq.gz
+2025-12-04 15:52:11,297 - INFO -    📄 Read2: SRR11306884_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,297 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,297 - INFO - 🔍 样本 | Sample: SRR11306885
+2025-12-04 15:52:11,297 - INFO -    📄 Read1: SRR11306885_1.clean.fq.gz
+2025-12-04 15:52:11,297 - INFO -    📄 Read2: SRR11306885_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,297 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,297 - INFO - 🔍 样本 | Sample: SRR11306886
+2025-12-04 15:52:11,297 - INFO -    📄 Read1: SRR11306886_1.clean.fq.gz
+2025-12-04 15:52:11,297 - INFO -    📄 Read2: SRR11306886_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,299 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,299 - INFO - 🔍 样本 | Sample: SRR11306887
+2025-12-04 15:52:11,299 - INFO -    📄 Read1: SRR11306887_1.clean.fq.gz
+2025-12-04 15:52:11,299 - INFO -    📄 Read2: SRR11306887_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,299 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,299 - INFO - 🔍 样本 | Sample: SRR11306888
+2025-12-04 15:52:11,299 - INFO -    📄 Read1: SRR11306888_1.clean.fq.gz
+2025-12-04 15:52:11,299 - INFO -    📄 Read2: SRR11306888_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,299 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,299 - INFO - 🔍 样本 | Sample: SRR11306889
+2025-12-04 15:52:11,299 - INFO -    📄 Read1: SRR11306889_1.clean.fq.gz
+2025-12-04 15:52:11,299 - INFO -    📄 Read2: SRR11306889_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,299 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,299 - INFO - 🔍 样本 | Sample: SRR11306890
+2025-12-04 15:52:11,299 - INFO -    📄 Read1: SRR11306890_1.clean.fq.gz
+2025-12-04 15:52:11,299 - INFO -    📄 Read2: SRR11306890_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,299 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,299 - INFO - 🔍 样本 | Sample: SRR11306891
+2025-12-04 15:52:11,300 - INFO -    📄 Read1: SRR11306891_1.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -    📄 Read2: SRR11306891_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,300 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,300 - INFO - 🔍 样本 | Sample: SRR11306892
+2025-12-04 15:52:11,300 - INFO -    📄 Read1: SRR11306892_1.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -    📄 Read2: SRR11306892_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,300 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,300 - INFO - 🔍 样本 | Sample: SRR12079360
+2025-12-04 15:52:11,300 - INFO -    📄 Read1: SRR12079360_1.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -    📄 Read2: SRR12079360_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,300 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,300 - INFO - 🔍 样本 | Sample: SRR12079361
+2025-12-04 15:52:11,300 - INFO -    📄 Read1: SRR12079361_1.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -    📄 Read2: SRR12079361_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,300 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,300 - INFO - 🔍 样本 | Sample: SRR12079362
+2025-12-04 15:52:11,300 - INFO -    📄 Read1: SRR12079362_1.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -    📄 Read2: SRR12079362_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,300 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,300 - INFO - 🔍 样本 | Sample: SRR12079363
+2025-12-04 15:52:11,300 - INFO -    📄 Read1: SRR12079363_1.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -    📄 Read2: SRR12079363_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,300 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,300 - INFO - 🔍 样本 | Sample: SRR12079364
+2025-12-04 15:52:11,300 - INFO -    📄 Read1: SRR12079364_1.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -    📄 Read2: SRR12079364_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,300 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,300 - INFO - 🔍 样本 | Sample: SRR12079365
+2025-12-04 15:52:11,300 - INFO -    📄 Read1: SRR12079365_1.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -    📄 Read2: SRR12079365_2.clean.fq.gz (期望 | expected)
+2025-12-04 15:52:11,300 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 15:52:11,300 - INFO - ✨ 找到 18 个样本 | Found 18 samples:
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306881: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306882: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306883: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306884: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306884_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306884_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306885: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306886: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306887: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306888: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306889: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_2.clean.fq.gz
+2025-12-04 15:52:11,300 - INFO -   📌 SRR11306890: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO -   📌 SRR11306891: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO -   📌 SRR11306892: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO -   📌 SRR12079360: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO -   📌 SRR12079361: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO -   📌 SRR12079362: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO -   📌 SRR12079363: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO -   📌 SRR12079364: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO -   📌 SRR12079365: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_2.clean.fq.gz
+2025-12-04 15:52:11,301 - INFO - ============================================================
+2025-12-04 15:52:11,301 - INFO - 🔄 步骤3: 处理所有样本 | Step 3: Processing all samples
+2025-12-04 15:52:11,301 - INFO - ============================================================
+2025-12-04 15:52:11,301 - INFO - ============================================================
+2025-12-04 15:52:11,301 - INFO - 🧪 处理样本 | Processing sample: SRR11306881
+2025-12-04 15:52:11,301 - INFO - ============================================================
+2025-12-04 15:52:11,301 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam
+2025-12-04 15:52:11,301 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/genome/MSU.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_2.clean.fq.gz -p 88 | samtools sort -@ 88 -O BAM -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam -
+2025-12-04 15:52:13,987 - ERROR - ❌ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam 失败 | failed
+2025-12-04 15:52:13,987 - ERROR - 💥 错误信息 | Error message: Error reading _rstarts[] array: 8092, 10776
+Error: Encountered internal HISAT2 exception (#1)
+Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/RNA_Seq/bin/hisat2-align-s --wrapper basic-0 -x /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/genome/MSU.hisat2.index -p 88 --read-lengths 50,57,55,53,59,51,56,54,52,58,62,68,67,63,60,61,66,65,64,69,73,71,70,74,75,72,76,78,79,77,80,84,82,87,81,83,88,85,86,89,91,90,93,96,92,95,97,94,100,101,99,103,98,102,105,104,109,110,112,108,111,106,115,107,114,123,117,116,113,119,122,121,120,127,118,128,126,125,132,124,141,140,137,136,135,134,133,131,130 -1 /tmp/345039.inpipe1 -2 /tmp/345039.inpipe2 
+(ERR): hisat2-align exited with value 1
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "-"
+

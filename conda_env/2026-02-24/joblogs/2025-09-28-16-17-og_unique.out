@@ -1,0 +1,26 @@
+2025-09-28 16:18:11,468 - INFO - 开始OrthoFinder泛基因组分析流程 | Starting OrthoFinder pangenome analysis pipeline
+2025-09-28 16:18:11,468 - INFO - 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/processed_fasta
+2025-09-28 16:18:11,469 - INFO - 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome
+2025-09-28 16:18:11,469 - INFO - 跳过依赖检查 | Skipping dependency check
+2025-09-28 16:18:11,469 - INFO - ============================================================
+2025-09-28 16:18:11,469 - INFO - 步骤1: 验证输入数据 | Step 1: Validate input data
+2025-09-28 16:18:11,469 - INFO - ============================================================
+2025-09-28 16:18:11,469 - INFO - 验证输入文件格式 | Validating input file format
+2025-09-28 16:18:11,472 - INFO - 找到 477 个FASTA文件 | Found 477 FASTA files
+2025-09-28 16:18:11,472 - INFO - 样本名称 | Sample names: Lepidium_ferganense_processed, Cardamine_bipinnata_processed, Heliophila_variabilis_processed, Yinshania_henryi_processed, Rorippa_dubia_processed...
+2025-09-28 16:18:11,916 - INFO - 检测到 477 个基因组 | Detected 477 genomes
+2025-09-28 16:18:11,917 - INFO - ============================================================
+2025-09-28 16:18:11,917 - INFO - 步骤2: 运行OrthoFinder同源基因群分析 | Step 2: Run OrthoFinder orthogroups analysis
+2025-09-28 16:18:11,917 - INFO - ============================================================
+2025-09-28 16:18:11,917 - INFO - 检查输入目录 | Checking 输入目录: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/processed_fasta/OrthoFinder
+2025-09-28 16:18:11,917 - INFO - 检查输出目录 | Checking 输出目录: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/Results_OrthoFinder
+2025-09-28 16:18:11,917 - INFO - 检查输出目录（备用名称） | Checking 输出目录（备用名称）: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/OrthoFinder_Results
+2025-09-28 16:18:11,917 - INFO - 未发现有效结果，需要运行OrthoFinder | No valid results found, need to run OrthoFinder
+2025-09-28 16:18:11,917 - INFO - 开始OrthoFinder分析 | Starting OrthoFinder analysis
+2025-09-28 16:18:11,917 - INFO - 参数设置 | Parameter settings:
+2025-09-28 16:18:11,917 - INFO -    线程数 | Threads: 88
+2025-09-28 16:18:11,917 - INFO -    搜索程序 | Search program: diamond
+2025-09-28 16:18:11,917 - INFO -    MCL inflation: 1.2
+2025-09-28 16:18:11,918 - INFO - 执行步骤 | Executing step: OrthoFinder同源基因群分析 | OrthoFinder orthogroup analysis
+2025-09-28 16:18:11,918 - INFO - 命令 | Command: orthofinder -f /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/processed_fasta -t 88 -S diamond -I 1.2 -n pangenome_processed_fasta -og
+2025-09-28 16:18:11,918 - INFO - 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome

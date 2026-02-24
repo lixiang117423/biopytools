@@ -1,0 +1,5 @@
+usage: hifi_hic.py [-h] --hifi HIFI --hic-r1 HIC_R1 --hic-r2 HIC_R2 [--prefix PREFIX] [--threads THREADS] [--genome-size GENOME_SIZE]
+                   [--n-hap N_HAP] [--output OUTPUT]
+hifi_hic.py: error: unrecognized arguments: --verbose
+Job 68540890 stderr output:
+

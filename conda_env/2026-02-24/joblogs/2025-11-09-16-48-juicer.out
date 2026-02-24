@@ -1,0 +1,18 @@
+INFO: 作业开始于: 2025年 11月 09日 星期日 16:48:37 CST
+INFO: 运行于计算节点: c01n0065
+INFO: --- 开始自动化文件准备 ---
+INFO: 目录结构检查完毕。
+INFO: BWA 索引未找到, 正在构建...
+INFO: BWA 索引构建完成。
+INFO: 正在生成染色体大小文件...
+INFO: 染色体大小文件已生成。
+INFO: 正在生成酶切位点文件...
+INFO: 酶切位点文件已生成。
+INFO: --- 文件准备工作完成 ---
+INFO: --- 准备启动 Juicer (单作业模式) ---
+INFO: 即将以 64 个线程运行 Juicer...
+Using /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/juicer/restriction_sites/Est1_MboI.txt as site file
+***! Move or remove directory "/share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02.小试/juicer/aligned" before proceeding.
+***! Type "juicer.sh -h " for help
+INFO: Juicer 流程执行完毕。
+INFO: 作业结束于: 2025年 11月 09日 星期日 16:50:05 CST

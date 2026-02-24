@@ -1,0 +1,26 @@
+🚀 作业开始: glnexus_13
+⏰ 开始时间: 2025-12-08 20:24:43
+📍 执行命令: ~/software/scripts/49.运行Glnexus批量合并gVCF文件.sh -r ../../01.data/genome/genome.fa -i ../vcf -o ./ -c Chr13 --keep
+==========================================
+[0;34m[INFO][0m 2025-12-08 20:24:43 - 验证输入参数...
+[0;34m[INFO][0m 2025-12-08 20:24:43 - 运行模式: 仅处理指定染色体 (Chr13)
+[0;34m[INFO][0m 2025-12-08 20:24:43 - 检查运行环境...
+[0;32m[SUCCESS][0m 2025-12-08 20:24:43 - bcftools 已找到: /share/org/YZWL/yzwl_lixg/.local/bin/bcftools
+[0;32m[SUCCESS][0m 2025-12-08 20:24:43 - glnexus_cli 已找到: /share/org/YZWL/yzwl_lixg/.local/bin/glnexus_cli
+[0;32m[SUCCESS][0m 2025-12-08 20:24:43 - samtools 已找到: /share/org/YZWL/yzwl_lixg/.local/bin/samtools
+[0;32m[SUCCESS][0m 2025-12-08 20:24:43 - 找到 2162 个 gVCF 文件
+[0;34m[INFO][0m 2025-12-08 20:24:43 - 准备工作目录...
+[0;34m[INFO][0m 2025-12-08 20:24:43 - 日志文件: .//logs/glnexus_20251208_202443.log
+[0;32m[SUCCESS][0m 2025-12-08 20:24:43 - 参考基因组索引已存在
+[0;34m[INFO][0m 2025-12-08 20:24:43 - ==========================================
+[0;34m[INFO][0m 2025-12-08 20:24:43 -  开始 GLnexus 联合变异检测
+[0;34m[INFO][0m 2025-12-08 20:24:43 - ==========================================
+[0;34m[INFO][0m 2025-12-08 20:24:43 - 将处理 1 条指定染色体
+[0;34m[INFO][0m 2025-12-08 20:24:43 - ========== 处理染色体: Chr13 (长度: 47244419 bp) ==========
+[0;34m[INFO][0m 2025-12-08 20:24:43 - 启动 GLnexus (线程: 63, 配置: gatk)...
+/share/org/YZWL/yzwl_lixg/software/scripts/49.运行Glnexus批量合并gVCF文件.sh: 行 336: 439628 Aborted                 glnexus_cli --config "${GLNEXUS_CONFIG}" --bed "${CURRENT_BED}" --dir "${CURRENT_DB}" --threads "${GLNEXUS_THREADS}" "${GVCF_DIR}"/*.g.vcf.gz > "${CURRENT_BCF}" 2> "${CHROM_LOG}"
+[0;31m[ERROR][0m 2025-12-09 01:33:25 - 染色体 Chr13 失败，详见: .//logs/Chr13.log
+[0;34m[INFO][0m 2025-12-09 01:33:25 - ==========================================
+[0;34m[INFO][0m 2025-12-09 01:33:25 -  染色体处理: 成功 0, 失败 1
+[0;34m[INFO][0m 2025-12-09 01:33:25 - ==========================================
+[0;31m[ERROR][0m 2025-12-09 01:33:25 - 有 1 条染色体处理失败

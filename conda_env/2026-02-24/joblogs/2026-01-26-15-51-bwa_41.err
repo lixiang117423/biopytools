@@ -1,0 +1,6 @@
+Usage: biopytools coverage-filter [OPTIONS]
+Try 'biopytools coverage-filter -h' for help.
+
+Error: Invalid value for '--fasta-file' / '-f': 文件不存在|File does not exist: ../01.data/genome/41_RagTag_unscaffolded.fa
+Job 69050496 stderr output:
+

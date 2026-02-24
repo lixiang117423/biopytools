@@ -1,0 +1,1 @@
+biopytools fastp -i 01.data/raw/hifi/upload/F25A040011695-01_ERYufneoD/ERYufneoD_hifi/result/QB-Ec-A-1,QB-Ec-A-2,QB-Ec-A-3,QB-Ec-A-6,QB-Ec-A-7,QB-Ec-A-8,QB-Ec-A-9,QB-Ec-A-10/01.Data_result/C01-WH_PB2512000060-1.fastq.gz -o 01.data/clean/hifi --single-end

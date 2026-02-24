@@ -1,0 +1,21 @@
+
+🔍 --- [步骤 0] 检查依赖环境 ---
+
+✓ Jellyfish 已找到。
+✓ Rscript 已找到。
+✓ GenomeScope R 脚本已找到。
+✓ 输入文件夹已找到。
+
+📂 正在 'data' 中搜索 FASTQ 文件...
+✓ 找到以下 FASTQ 文件:
+data/72_4_gang_1.clean.fq.gz
+data/72_3_kang_1.clean.fq.gz
+data/72_4_gang_2.clean.fq.gz
+data/72_3_kang_2.clean.fq.gz
+
+🧮 --- [步骤 1] 运行 Jellyfish Count ---
+🗜️  检测到压缩文件，使用 zcat 解压缩后传递给 Jellyfish...
+📌 命令: zcat data/72_4_gang_1.clean.fq.gz
+data/72_3_kang_1.clean.fq.gz
+data/72_4_gang_2.clean.fq.gz
+data/72_3_kang_2.clean.fq.gz  | jellyfish count -C -m 21 -s 400 -t 64 -o xiaohuatangjie.jf /dev/fd/0

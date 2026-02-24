@@ -1,0 +1,5 @@
+2026-01-23 17:07:55.343 - INFO - 开始InterProScan注释流程|Starting InterProScan annotation pipeline
+2026-01-23 17:07:55.344 - INFO - 输入序列数量|Input sequence count: 28
+2026-01-23 17:07:55.344 - INFO - InterProScan命令|InterProScan command: /share/org/YZWL/yzwl_lixg/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/18.第一批369个有表型的样品去冗余做GWAS-分级作为表型/05.18号染色体候选区间的基因注释结果/region_pep.fa -f TSV -f XML -b 18号染色体候选区间基因的注释结果 -cpu 12 -dp --goterms --pathways
+2026-01-23 17:07:55.344 - INFO - 执行步骤|Executing step: InterProScan蛋白质注释|InterProScan protein annotation
+2026-01-23 17:07:55.344 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/18.第一批369个有表型的样品去冗余做GWAS-分级作为表型/05.18号染色体候选区间的基因注释结果/region_pep.fa -f TSV -f XML -b 18号染色体候选区间基因的注释结果 -cpu 12 -dp --goterms --pathways

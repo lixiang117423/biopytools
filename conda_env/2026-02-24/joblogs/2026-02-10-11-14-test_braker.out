@@ -1,0 +1,66 @@
+2026-02-10 11:14:11.292 - INFO - 检测到三代转录组为目录，自动识别文件|Detected long-read directory, auto-detecting files...
+2026-02-10 11:14:11.300 - INFO - 找到三代转录组文件|Found long-read file: 01.data/3rd/genA.fastq.gz
+2026-02-10 11:14:11.300 - INFO - 找到三代转录组文件|Found long-read file: 01.data/3rd/genA.fastq.gz
+2026-02-10 11:14:11.300 - INFO - 检测到蛋白质序列为目录，自动识别并合并文件|Detected protein directory, auto-detecting and merging files...
+2026-02-10 11:14:11.301 - INFO - 找到 2 个蛋白质文件，将进行合并|Found 2 protein files, will merge
+2026-02-10 11:14:11.373 - INFO - 蛋白质文件合并完成|Protein files merged: /tmp/tmpfws__lkr_merged_proteins.fa
+2026-02-10 11:14:11.452 - WARNING - 发现 20462 个重复的蛋白质序列ID|Found 20462 duplicate protein sequence IDs
+2026-02-10 11:14:11.457 - WARNING -   重复ID|Duplicate ID: G1 (出现 2 次|occurs 2 times)
+2026-02-10 11:14:11.457 - WARNING -   重复ID|Duplicate ID: G2 (出现 2 次|occurs 2 times)
+2026-02-10 11:14:11.457 - WARNING -   重复ID|Duplicate ID: G3 (出现 2 次|occurs 2 times)
+2026-02-10 11:14:11.457 - WARNING -   重复ID|Duplicate ID: G4 (出现 2 次|occurs 2 times)
+2026-02-10 11:14:11.457 - WARNING -   重复ID|Duplicate ID: G5 (出现 2 次|occurs 2 times)
+2026-02-10 11:14:11.457 - WARNING -   ... 还有 20457 个重复ID|... and 20457 more duplicate IDs
+2026-02-10 11:14:11.801 - INFO - 蛋白质文件重复ID已修复|Duplicate protein IDs fixed: /tmp/tmpfws__lkr_merged_proteins.fa
+2026-02-10 11:14:11.803 - INFO - 共修复 20462 个重复ID|Fixed 20462 duplicate IDs in total
+2026-02-10 11:14:11.810 - INFO - 蛋白质文件准备完成|Protein files ready: /tmp/tmpfws__lkr_merged_proteins.fa
+2026-02-10 11:14:11.810 - INFO - 清理蛋白质序列|Cleaning protein sequences...
+2026-02-10 11:14:12.155 - INFO - 蛋白质序列清理统计|Cleaning statistics:
+2026-02-10 11:14:12.155 - INFO -   序列数|Sequences: 40924
+2026-02-10 11:14:12.155 - INFO -   移除的 '.' 字符|Removed dots: 48
+2026-02-10 11:14:12.155 - INFO -   输出文件|Output: /tmp/cleaned_tmpfws__lkr_merged_proteins.fa
+2026-02-10 11:14:12.155 - INFO - 蛋白质序列清理完成|Protein sequences cleaned: /tmp/cleaned_tmpfws__lkr_merged_proteins.fa
+2026-02-10 11:14:12.425 - INFO - 检测到已完成步骤|Detected completed step in: output/02.long_reads
+2026-02-10 11:14:12.431 - INFO - 检测到已完成步骤|Detected completed step in: output/03.short_reads
+2026-02-10 11:14:12.431 - INFO - ================================================================================
+2026-02-10 11:14:12.431 - INFO - 开始BRAKER3基因组注释流程|Starting BRAKER3 Genome Annotation Pipeline
+2026-02-10 11:14:12.431 - INFO - ================================================================================
+2026-02-10 11:14:12.431 - INFO - --------------------------------------------------------------------------------
+2026-02-10 11:14:12.431 - INFO - 步骤1: 重复序列屏蔽|Step 1: Repeat Masking
+2026-02-10 11:14:12.431 - INFO - --------------------------------------------------------------------------------
+2026-02-10 11:14:12.431 - INFO - 检测到重复序列屏蔽已完成，跳过|Repeat masking already completed, skipping
+2026-02-10 11:14:12.431 - INFO - 使用已有的屏蔽基因组|Using existing masked genome: output/01.repeat_masking/41_RagTag_scaffolded.fa.masked
+2026-02-10 11:14:12.431 - INFO - --------------------------------------------------------------------------------
+2026-02-10 11:14:12.431 - INFO - 步骤2: 三代全长转录本处理|Step 2: Long-read Transcript Processing
+2026-02-10 11:14:12.432 - INFO - --------------------------------------------------------------------------------
+2026-02-10 11:14:12.432 - INFO - 检测到三代转录本处理已完成，跳过|Long-read processing already completed, skipping
+2026-02-10 11:14:12.432 - INFO - --------------------------------------------------------------------------------
+2026-02-10 11:14:12.434 - INFO - 步骤3: 二代RNA-seq数据处理|Step 3: Short-read RNA-seq Processing
+2026-02-10 11:14:12.434 - INFO - --------------------------------------------------------------------------------
+2026-02-10 11:14:12.434 - INFO - 检测到二代RNA-seq处理已完成，跳过|Short-read processing already completed, skipping
+2026-02-10 11:14:12.434 - INFO - 使用已有的RNA-seq比对文件|Using existing RNA-seq alignment: output/03.short_reads/rnaseq.sorted.bam
+2026-02-10 11:14:12.434 - INFO - --------------------------------------------------------------------------------
+2026-02-10 11:14:12.434 - INFO - 步骤4: BRAKER3基因组注释|Step 4: BRAKER3 Genome Annotation
+2026-02-10 11:14:12.434 - INFO - --------------------------------------------------------------------------------
+2026-02-10 11:14:12.436 - INFO - 挂载目录到容器|Mounting directory to container: /share/org/YZWL/yzwl_lixg/tmp
+2026-02-10 11:14:12.436 - INFO - 挂载目录到容器|Mounting directory to container: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/100.组装过程探索/95.测试braker3注释流程
+2026-02-10 11:14:12.446 - INFO - 使用安全工作目录（临时目录）|Using safe working directory (temp): /share/org/YZWL/yzwl_lixg/tmp/braker_run_c301161ade46
+2026-02-10 11:14:12.446 - INFO - 运行完成后将结果复制到|Will copy results to: output/04.braker_annotation
+2026-02-10 11:14:12.446 - INFO - 执行步骤|Executing step: 运行BRAKER3|Run BRAKER3
+2026-02-10 14:28:51.297 - INFO - 命令执行成功|Command executed successfully: 运行BRAKER3|Run BRAKER3
+2026-02-10 14:28:51.327 - INFO - 复制BRAKER3结果到原始输出目录|Copying BRAKER3 results to original output directory
+2026-02-10 14:29:02.197 - ERROR - 复制结果失败|Failed to copy results: [('/share/org/YZWL/yzwl_lixg/tmp/braker_run_c301161ade46/GeneMark-ETP/proteins.fa/model/genome.fasta', 'output/04.braker_annotation/GeneMark-ETP/proteins.fa/model/genome.fasta', "[Errno 2] No such file or directory: '/share/org/YZWL/yzwl_lixg/tmp/braker_run_c301161ade46/GeneMark-ETP/proteins.fa/model/genome.fasta'")]
+2026-02-10 14:29:02.198 - WARNING - 结果保留在临时目录|Results kept in temp directory: /share/org/YZWL/yzwl_lixg/tmp/braker_run_c301161ade46
+2026-02-10 14:29:02.198 - WARNING - 使用临时目录的结果文件|Using result file from temp directory: /share/org/YZWL/yzwl_lixg/tmp/braker_run_c301161ade46/braker.gtf
+2026-02-10 14:29:02.198 - INFO - BRAKER3注释完成|BRAKER3 annotation completed: /share/org/YZWL/yzwl_lixg/tmp/braker_run_c301161ade46/braker.gtf
+2026-02-10 14:29:02.198 - INFO - --------------------------------------------------------------------------------
+2026-02-10 14:29:02.198 - INFO - 步骤5: TSEBRA结果整合|Step 5: TSEBRA Result Merging
+2026-02-10 14:29:02.198 - INFO - --------------------------------------------------------------------------------
+2026-02-10 14:29:02.198 - INFO - TSEBRA整合需要多次BRAKER运行，当前使用单次运行结果|TSEBRA merge requires multiple BRAKER runs, using single run result
+2026-02-10 14:29:02.274 - INFO - TSEBRA整合完成|TSEBRA merging completed: output/05.tsebra_merge/tsebra_combined.gtf
+2026-02-10 14:29:02.274 - INFO - ================================================================================
+2026-02-10 14:29:02.274 - INFO - BRAKER3基因组注释流程完成|BRAKER3 Genome Annotation Pipeline Completed
+2026-02-10 14:29:02.274 - INFO - 最终注释文件|Final annotation: output/05.tsebra_merge/tsebra_combined.gtf
+2026-02-10 14:29:02.274 - INFO - ================================================================================
+2026-02-10 14:29:02.274 - INFO - 注释完成|Annotation completed!
+2026-02-10 14:29:02.274 - INFO - 最终结果|Final result: output/05.tsebra_merge/tsebra_combined.gtf

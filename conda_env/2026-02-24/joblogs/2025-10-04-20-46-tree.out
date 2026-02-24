@@ -1,0 +1,3592 @@
+2025-10-04 20:47:04,079 - INFO - ============================================================
+2025-10-04 20:47:04,080 - INFO - 🌳 开始系统发育树构建流程 | Starting phylogenetic tree building pipeline
+2025-10-04 20:47:04,080 - INFO - ============================================================
+2025-10-04 20:47:04,080 - INFO - 📋 步骤 1/5: 检查依赖软件 | Step 1/5: Checking dependencies
+2025-10-04 20:47:04,080 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-04 20:47:04,269 - INFO - ✅ MAFFT 可用 | available
+2025-10-04 20:47:04,289 - INFO - ✅ FastTree 可用 | available
+2025-10-04 20:47:04,289 - INFO - 📋 步骤 2/5: 检测序列类型 | Step 2/5: Detecting sequence type
+2025-10-04 20:47:04,289 - INFO - 🔬 检测序列类型 | Detecting sequence type
+2025-10-04 20:47:04,721 - INFO - ✅ 检测到蛋白序列 | Detected protein sequences (ratio: 25.68%)
+2025-10-04 20:47:04,722 - INFO - 📋 步骤 3/5: 清理序列和处理ID | Step 3/5: Cleaning sequences and processing IDs
+2025-10-04 20:47:04,722 - INFO - 🧹 清理序列和处理ID | Cleaning sequences and processing IDs
+2025-10-04 20:47:05,094 - INFO - 📊 读取到 120701 条序列 | Read 120701 sequences
+2025-10-04 20:47:05,389 - DEBUG - 🔧 序列 IMPPAB1M00000005087_hmm_3_38: 移除了 1 个特殊字符 | Removed 1 special characters
+2025-10-04 20:47:05,568 - INFO - 🔄 处理重复ID | Processing duplicate IDs
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G13960.1_hmm_229_285 -> transcript_AT1G13960.1_hmm_229_285
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G13960.1_hmm_409_466 -> transcript_AT1G13960.1_hmm_409_466
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G03340.1_hmm_250_306 -> transcript_AT2G03340.1_hmm_250_306
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G03340.1_hmm_415_472 -> transcript_AT2G03340.1_hmm_415_472
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G38470.1_hmm_184_240 -> transcript_AT2G38470.1_hmm_184_240
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G38470.1_hmm_362_419 -> transcript_AT2G38470.1_hmm_362_419
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G04880.2_hmm_111_167 -> transcript_AT2G04880.2_hmm_111_167
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G04880.2_hmm_283_340 -> transcript_AT2G04880.2_hmm_283_340
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G37260.1_hmm_166_220 -> transcript_AT2G37260.1_hmm_166_220
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G37260.1_hmm_349_406 -> transcript_AT2G37260.1_hmm_349_406
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G07100.2_hmm_24_81 -> transcript_AT5G07100.2_hmm_24_81
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G07100.2_hmm_141_198 -> transcript_AT5G07100.2_hmm_141_198
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT3G01080.2_hmm_205_261 -> transcript_AT3G01080.2_hmm_205_261
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT3G01080.2_hmm_344_401 -> transcript_AT3G01080.2_hmm_344_401
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G56270.1_hmm_273_328 -> transcript_AT5G56270.1_hmm_273_328
+2025-10-04 20:47:05,571 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G56270.1_hmm_487_544 -> transcript_AT5G56270.1_hmm_487_544
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G26440.1_hmm_178_233 -> transcript_AT4G26440.1_hmm_178_233
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G26440.1_hmm_372_428 -> transcript_AT4G26440.1_hmm_372_428
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G26640.4_hmm_35_91 -> transcript_AT4G26640.4_hmm_35_91
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G26640.4_hmm_205_262 -> transcript_AT4G26640.4_hmm_205_262
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G30250.1_hmm_166_222 -> transcript_AT2G30250.1_hmm_166_222
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G30250.1_hmm_329_385 -> transcript_AT2G30250.1_hmm_329_385
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G30935.1_hmm_169_224 -> transcript_AT4G30935.1_hmm_169_224
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G30935.1_hmm_332_388 -> transcript_AT4G30935.1_hmm_332_388
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G12020.4_hmm_468_524 -> transcript_AT4G12020.4_hmm_468_524
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G12020.4_hmm_641_661 -> transcript_AT4G12020.4_hmm_641_661
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G49520.1_hmm_221_278 -> transcript_AT5G49520.1_hmm_221_278
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G29860.1_hmm_136_193 -> transcript_AT1G29860.1_hmm_136_193
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G18170.1_hmm_172_229 -> transcript_AT4G18170.1_hmm_172_229
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G69310.1_hmm_147_204 -> transcript_AT1G69310.1_hmm_147_204
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G29280.1_hmm_75_132 -> transcript_AT1G29280.1_hmm_75_132
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G52830.1_hmm_166_223 -> transcript_AT5G52830.1_hmm_166_223
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G64000.1_hmm_114_171 -> transcript_AT1G64000.1_hmm_114_171
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G47260.1_hmm_174_230 -> transcript_AT2G47260.1_hmm_174_230
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G46130.1_hmm_30_87 -> transcript_AT2G46130.1_hmm_30_87
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G13080.1_hmm_67_124 -> transcript_AT5G13080.1_hmm_67_124
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G26170.1_hmm_113_169 -> transcript_AT5G26170.1_hmm_113_169
+2025-10-04 20:47:05,575 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G23320.1_hmm_241_297 -> transcript_AT2G23320.1_hmm_241_297
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G23550.1_hmm_141_198 -> transcript_AT4G23550.1_hmm_141_198
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT3G04670.1_hmm_263_319 -> transcript_AT3G04670.1_hmm_263_319
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT3G01970.1_hmm_65_121 -> transcript_AT3G01970.1_hmm_65_121
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G30590.1_hmm_314_371 -> transcript_AT2G30590.1_hmm_314_371
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G30650.1_hmm_218_275 -> transcript_AT1G30650.1_hmm_218_275
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G34830.2_hmm_225_282 -> transcript_AT2G34830.2_hmm_225_282
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G01250.1_hmm_129_186 -> transcript_AT4G01250.1_hmm_129_186
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G28650.1_hmm_263_319 -> transcript_AT5G28650.1_hmm_263_319
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G31550.2_hmm_246_303 -> transcript_AT4G31550.2_hmm_246_303
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G23810.1_hmm_158_217 -> transcript_AT4G23810.1_hmm_158_217
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G41570.1_hmm_98_155 -> transcript_AT5G41570.1_hmm_98_155
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G62300.1_hmm_313_370 -> transcript_AT1G62300.1_hmm_313_370
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G68150.1_hmm_235_293 -> transcript_AT1G68150.1_hmm_235_293
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G46350.1_hmm_183_240 -> transcript_AT5G46350.1_hmm_183_240
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT3G62340.1_hmm_118_175 -> transcript_AT3G62340.1_hmm_118_175
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G39410.1_hmm_223_279 -> transcript_AT4G39410.1_hmm_223_279
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G22070.1_hmm_298_355 -> transcript_AT4G22070.1_hmm_298_355
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G40740.3_hmm_182_241 -> transcript_AT2G40740.3_hmm_182_241
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G40750.1_hmm_152_211 -> transcript_AT2G40750.1_hmm_152_211
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G24570.1_hmm_244_300 -> transcript_AT2G24570.1_hmm_244_300
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G04450.1_hmm_293_350 -> transcript_AT4G04450.1_hmm_293_350
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G01720.1_hmm_239_297 -> transcript_AT4G01720.1_hmm_239_297
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G11070.1_hmm_141_200 -> transcript_AT4G11070.1_hmm_141_200
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G44745.1_hmm_145_201 -> transcript_AT2G44745.1_hmm_145_201
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G24240.1_hmm_282_338 -> transcript_AT4G24240.1_hmm_282_338
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G15130.1_hmm_227_284 -> transcript_AT5G15130.1_hmm_227_284
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT3G56400.1_hmm_120_180 -> transcript_AT3G56400.1_hmm_120_180
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G43290.1_hmm_114_170 -> transcript_AT5G43290.1_hmm_114_170
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G24110.1_hmm_113_172 -> transcript_AT5G24110.1_hmm_113_172
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT3G58710.2_hmm_71_128 -> transcript_AT3G58710.2_hmm_71_128
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G18860.1_hmm_239_297 -> transcript_AT1G18860.1_hmm_239_297
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT4G31800.1_hmm_176_233 -> transcript_AT4G31800.1_hmm_176_233
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G55600.1_hmm_307_364 -> transcript_AT1G55600.1_hmm_307_364
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G25000.1_hmm_146_203 -> transcript_AT2G25000.1_hmm_146_203
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G80840.1_hmm_146_204 -> transcript_AT1G80840.1_hmm_146_204
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G21900.1_hmm_109_166 -> transcript_AT2G21900.1_hmm_109_166
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT2G46400.1_hmm_104_164 -> transcript_AT2G46400.1_hmm_104_164
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G45050.2_hmm_1153_1210 -> transcript_AT5G45050.2_hmm_1153_1210
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G69810.1_hmm_203_262 -> transcript_AT1G69810.1_hmm_203_262
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G64810.1_hmm_110_167 -> transcript_AT5G64810.1_hmm_110_167
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G66560.1_hmm_103_163 -> transcript_AT1G66560.1_hmm_103_163
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G01900.1_hmm_110_170 -> transcript_AT5G01900.1_hmm_110_170
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G66600.1_hmm_103_163 -> transcript_AT1G66600.1_hmm_103_163
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G66550.2_hmm_103_163 -> transcript_AT1G66550.2_hmm_103_163
+2025-10-04 20:47:05,576 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT1G80590.1_hmm_86_145 -> transcript_AT1G80590.1_hmm_86_145
+2025-10-04 20:47:05,577 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:AT5G22570.1_hmm_111_170 -> transcript_AT5G22570.1_hmm_111_170
+2025-10-04 20:47:05,589 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G198100.1_hmm_203_259 -> transcript_TraesCS2D02G198100.1_hmm_203_259
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G198100.1_hmm_377_434 -> transcript_TraesCS2D02G198100.1_hmm_377_434
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G217400.1_hmm_202_258 -> transcript_TraesCS2B02G217400.1_hmm_202_258
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G217400.1_hmm_376_433 -> transcript_TraesCS2B02G217400.1_hmm_376_433
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G298600.1_hmm_179_235 -> transcript_TraesCS1A02G298600.1_hmm_179_235
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G298600.1_hmm_344_401 -> transcript_TraesCS1A02G298600.1_hmm_344_401
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G308200.1_hmm_179_235 -> transcript_TraesCS1B02G308200.1_hmm_179_235
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G308200.1_hmm_344_401 -> transcript_TraesCS1B02G308200.1_hmm_344_401
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G292700.1_hmm_180_236 -> transcript_TraesCS1D02G292700.1_hmm_180_236
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G292700.1_hmm_345_402 -> transcript_TraesCS1D02G292700.1_hmm_345_402
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G189700.1_hmm_229_285 -> transcript_TraesCS2A02G189700.1_hmm_229_285
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G189700.1_hmm_403_460 -> transcript_TraesCS2A02G189700.1_hmm_403_460
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G072900.1_hmm_184_241 -> transcript_TraesCS1D02G072900.1_hmm_184_241
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G072900.1_hmm_338_395 -> transcript_TraesCS1D02G072900.1_hmm_338_395
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G070400.1_hmm_179_236 -> transcript_TraesCS1A02G070400.1_hmm_179_236
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G070400.1_hmm_324_381 -> transcript_TraesCS1A02G070400.1_hmm_324_381
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G088900.1_hmm_183_240 -> transcript_TraesCS1B02G088900.1_hmm_183_240
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G088900.1_hmm_331_388 -> transcript_TraesCS1B02G088900.1_hmm_331_388
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G258100.1_hmm_278_334 -> transcript_TraesCS5A02G258100.1_hmm_278_334
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G258100.1_hmm_491_548 -> transcript_TraesCS5A02G258100.1_hmm_491_548
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G266300.1_hmm_278_334 -> transcript_TraesCS5D02G266300.1_hmm_278_334
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G266300.1_hmm_491_548 -> transcript_TraesCS5D02G266300.1_hmm_491_548
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G257300.1_hmm_278_334 -> transcript_TraesCS5B02G257300.1_hmm_278_334
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G257300.1_hmm_491_548 -> transcript_TraesCS5B02G257300.1_hmm_491_548
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G104900.1_hmm_229_285 -> transcript_TraesCS5A02G104900.1_hmm_229_285
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G104900.1_hmm_386_443 -> transcript_TraesCS5A02G104900.1_hmm_386_443
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G116100.1_hmm_229_285 -> transcript_TraesCS5D02G116100.1_hmm_229_285
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G116100.1_hmm_386_443 -> transcript_TraesCS5D02G116100.1_hmm_386_443
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G108500.1_hmm_227_283 -> transcript_TraesCS5B02G108500.1_hmm_227_283
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G108500.1_hmm_384_441 -> transcript_TraesCS5B02G108500.1_hmm_384_441
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G379200.1_hmm_217_272 -> transcript_TraesCS3B02G379200.1_hmm_217_272
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G379200.1_hmm_381_438 -> transcript_TraesCS3B02G379200.1_hmm_381_438
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G341100.1_hmm_219_274 -> transcript_TraesCS3D02G341100.1_hmm_219_274
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G341100.1_hmm_380_437 -> transcript_TraesCS3D02G341100.1_hmm_380_437
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G347500.1_hmm_220_275 -> transcript_TraesCS3A02G347500.1_hmm_220_275
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G347500.1_hmm_384_441 -> transcript_TraesCS3A02G347500.1_hmm_384_441
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G240800.1_hmm_246_302 -> transcript_TraesCS7A02G240800.1_hmm_246_302
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G240800.1_hmm_441_498 -> transcript_TraesCS7A02G240800.1_hmm_441_498
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G239800.1_hmm_246_302 -> transcript_TraesCS7D02G239800.1_hmm_246_302
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G239800.1_hmm_441_498 -> transcript_TraesCS7D02G239800.1_hmm_441_498
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G332300.1_hmm_296_352 -> transcript_TraesCS2D02G332300.1_hmm_296_352
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G332300.1_hmm_525_582 -> transcript_TraesCS2D02G332300.1_hmm_525_582
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G136400.1_hmm_246_302 -> transcript_TraesCS7B02G136400.1_hmm_246_302
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G136400.1_hmm_441_498 -> transcript_TraesCS7B02G136400.1_hmm_441_498
+2025-10-04 20:47:05,590 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G351600.1_hmm_299_355 -> transcript_TraesCS2B02G351600.1_hmm_299_355
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G351600.1_hmm_528_585 -> transcript_TraesCS2B02G351600.1_hmm_528_585
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4B02G165900.1_hmm_88_144 -> transcript_TraesCS4B02G165900.1_hmm_88_144
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4B02G165900.1_hmm_245_302 -> transcript_TraesCS4B02G165900.1_hmm_245_302
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G330500.1_hmm_294_350 -> transcript_TraesCS2A02G330500.1_hmm_294_350
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G330500.1_hmm_523_580 -> transcript_TraesCS2A02G330500.1_hmm_523_580
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G151700.1_hmm_203_259 -> transcript_TraesCS4D02G151700.1_hmm_203_259
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G151700.1_hmm_370_427 -> transcript_TraesCS4D02G151700.1_hmm_370_427
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G162500.1_hmm_206_262 -> transcript_TraesCS4A02G162500.1_hmm_206_262
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G162500.1_hmm_373_430 -> transcript_TraesCS4A02G162500.1_hmm_373_430
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G287200.1_hmm_201_256 -> transcript_TraesCS7D02G287200.1_hmm_201_256
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G287200.1_hmm_369_424 -> transcript_TraesCS7D02G287200.1_hmm_369_424
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G185400.1_hmm_199_254 -> transcript_TraesCS7B02G185400.1_hmm_199_254
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G185400.1_hmm_367_422 -> transcript_TraesCS7B02G185400.1_hmm_367_422
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G209200.1_hmm_199_254 -> transcript_TraesCS2B02G209200.1_hmm_199_254
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G209200.1_hmm_363_420 -> transcript_TraesCS2B02G209200.1_hmm_363_420
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G154900.1_hmm_117_172 -> transcript_TraesCS5B02G154900.1_hmm_117_172
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G154900.1_hmm_277_329 -> transcript_TraesCS5B02G154900.1_hmm_277_329
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G162100.1_hmm_117_172 -> transcript_TraesCS5D02G162100.1_hmm_117_172
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G162100.1_hmm_278_330 -> transcript_TraesCS5D02G162100.1_hmm_278_330
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G156700.1_hmm_117_172 -> transcript_TraesCS5A02G156700.1_hmm_117_172
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G156700.1_hmm_277_329 -> transcript_TraesCS5A02G156700.1_hmm_277_329
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G190500.1_hmm_189_244 -> transcript_TraesCS2D02G190500.1_hmm_189_244
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G190500.1_hmm_353_410 -> transcript_TraesCS2D02G190500.1_hmm_353_410
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G182700.1_hmm_196_251 -> transcript_TraesCS2A02G182700.1_hmm_196_251
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G182700.1_hmm_360_417 -> transcript_TraesCS2A02G182700.1_hmm_360_417
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G406500.1_hmm_187_243 -> transcript_TraesCS5D02G406500.1_hmm_187_243
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G406500.1_hmm_314_371 -> transcript_TraesCS5D02G406500.1_hmm_314_371
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G401800.1_hmm_191_247 -> transcript_TraesCS5B02G401800.1_hmm_191_247
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G401800.1_hmm_315_372 -> transcript_TraesCS5B02G401800.1_hmm_315_372
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G396800.1_hmm_193_247 -> transcript_TraesCS5A02G396800.1_hmm_193_247
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G396800.1_hmm_318_375 -> transcript_TraesCS5A02G396800.1_hmm_318_375
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G294800.1_hmm_201_256 -> transcript_TraesCS7A02G294800.1_hmm_201_256
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G294800.1_hmm_369_419 -> transcript_TraesCS7A02G294800.1_hmm_369_419
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G349800.1_hmm_1050_1109 -> transcript_TraesCS5D02G349800.1_hmm_1050_1109
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G349800.1_hmm_1165_1216 -> transcript_TraesCS5D02G349800.1_hmm_1165_1216
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G011700.1_hmm_114_171 -> transcript_TraesCS2D02G011700.1_hmm_114_171
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G011000.1_hmm_113_170 -> transcript_TraesCS2A02G011000.1_hmm_113_170
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G010500.1_hmm_113_170 -> transcript_TraesCS2B02G010500.1_hmm_113_170
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G351600.1_hmm_57_114 -> transcript_TraesCS1D02G351600.1_hmm_57_114
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G348600.1_hmm_57_114 -> transcript_TraesCS1A02G348600.1_hmm_57_114
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G363200.1_hmm_151_208 -> transcript_TraesCS1B02G363200.1_hmm_151_208
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4B02G069500.3_hmm_273_329 -> transcript_TraesCS4B02G069500.3_hmm_273_329
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G068200.1_hmm_275_331 -> transcript_TraesCS4D02G068200.1_hmm_275_331
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G280200.1_hmm_144_201 -> transcript_TraesCS3D02G280200.1_hmm_144_201
+2025-10-04 20:47:05,591 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G280400.1_hmm_144_201 -> transcript_TraesCS3A02G280400.1_hmm_144_201
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G375100.1_hmm_234_291 -> transcript_TraesCS5B02G375100.1_hmm_234_291
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G382600.1_hmm_235_292 -> transcript_TraesCS5D02G382600.1_hmm_235_292
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G401800.1_hmm_193_250 -> transcript_TraesCS1A02G401800.1_hmm_193_250
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G373100.1_hmm_233_290 -> transcript_TraesCS5A02G373100.1_hmm_233_290
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G261900.1_hmm_127_183 -> transcript_TraesCS2A02G261900.1_hmm_127_183
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G360900.1_hmm_144_199 -> transcript_TraesCS3A02G360900.1_hmm_144_199
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G354700.1_hmm_152_207 -> transcript_TraesCS3D02G354700.1_hmm_152_207
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G404400.2_hmm_40_96 -> transcript_TraesCS5D02G404400.2_hmm_40_96
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G280300.1_hmm_127_183 -> transcript_TraesCS2B02G280300.1_hmm_127_183
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G395100.1_hmm_144_200 -> transcript_TraesCS5A02G395100.1_hmm_144_200
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G399900.1_hmm_144_200 -> transcript_TraesCS5B02G399900.1_hmm_144_200
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G393300.1_hmm_151_206 -> transcript_TraesCS3B02G393300.1_hmm_151_206
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G242500.1_hmm_168_225 -> transcript_TraesCS3A02G242500.1_hmm_168_225
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G187500.1_hmm_119_178 -> transcript_TraesCS2B02G187500.1_hmm_119_178
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G242500.1_hmm_166_223 -> transcript_TraesCS3D02G242500.1_hmm_166_223
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G270500.1_hmm_167_224 -> transcript_TraesCS3B02G270500.1_hmm_167_224
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G430000.1_hmm_155_212 -> transcript_TraesCS1D02G430000.1_hmm_155_212
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G454300.1_hmm_223_279 -> transcript_TraesCS2B02G454300.1_hmm_223_279
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6B02G294900.1_hmm_231_288 -> transcript_TraesCS6B02G294900.1_hmm_231_288
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G262100.1_hmm_127_183 -> transcript_TraesCS2D02G262100.1_hmm_127_183
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G161500.1_hmm_120_179 -> transcript_TraesCS2A02G161500.1_hmm_120_179
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G431000.1_hmm_234_290 -> transcript_TraesCS2D02G431000.1_hmm_234_290
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G433000.1_hmm_236_292 -> transcript_TraesCS2A02G433000.1_hmm_236_292
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6A02G267500.1_hmm_230_287 -> transcript_TraesCS6A02G267500.1_hmm_230_287
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6D02G247200.1_hmm_230_287 -> transcript_TraesCS6D02G247200.1_hmm_230_287
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G390800.1_hmm_327_384 -> transcript_TraesCS5D02G390800.1_hmm_327_384
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G381000.1_hmm_330_387 -> transcript_TraesCS5A02G381000.1_hmm_330_387
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G384600.1_hmm_333_390 -> transcript_TraesCS5B02G384600.1_hmm_333_390
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G270200.1_hmm_243_299 -> transcript_TraesCS2A02G270200.1_hmm_243_299
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G269200.1_hmm_243_299 -> transcript_TraesCS2D02G269200.1_hmm_243_299
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G200900.1_hmm_183_240 -> transcript_TraesCS1D02G200900.1_hmm_183_240
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G256000.1_hmm_195_252 -> transcript_TraesCS3B02G256000.1_hmm_195_252
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G212000.1_hmm_183_240 -> transcript_TraesCS1B02G212000.1_hmm_183_240
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G197400.1_hmm_184_241 -> transcript_TraesCS1A02G197400.1_hmm_184_241
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G168600.1_hmm_120_179 -> transcript_TraesCS2D02G168600.1_hmm_120_179
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G185600.1_hmm_122_181 -> transcript_TraesCS5A02G185600.1_hmm_122_181
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G190700.1_hmm_121_180 -> transcript_TraesCS5D02G190700.1_hmm_121_180
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G183700.1_hmm_122_181 -> transcript_TraesCS5B02G183700.1_hmm_122_181
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G453300.1_hmm_170_227 -> transcript_TraesCS1B02G453300.1_hmm_170_227
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G453200.1_hmm_156_213 -> transcript_TraesCS1B02G453200.1_hmm_156_213
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G059100.1_hmm_289_346 -> transcript_TraesCS5A02G059100.1_hmm_289_346
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G070700.1_hmm_290_347 -> transcript_TraesCS5D02G070700.1_hmm_290_347
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G429900.1_hmm_165_222 -> transcript_TraesCS1D02G429900.1_hmm_165_222
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G228600.1_hmm_194_251 -> transcript_TraesCS3A02G228600.1_hmm_194_251
+2025-10-04 20:47:05,592 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G226300.1_hmm_194_251 -> transcript_TraesCS3D02G226300.1_hmm_194_251
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G443800.1_hmm_247_304 -> transcript_TraesCS2A02G443800.1_hmm_247_304
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G465000.1_hmm_242_299 -> transcript_TraesCS2B02G465000.1_hmm_242_299
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G443000.1_hmm_247_304 -> transcript_TraesCS2D02G443000.1_hmm_247_304
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G421800.1_hmm_155_212 -> transcript_TraesCS1A02G421800.1_hmm_155_212
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G564500.1_hmm_175_232 -> transcript_TraesCS5D02G564500.1_hmm_175_232
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G558100.1_hmm_180_237 -> transcript_TraesCS5B02G558100.1_hmm_180_237
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G183800.1_hmm_125_184 -> transcript_TraesCS5B02G183800.1_hmm_125_184
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G066400.1_hmm_289_346 -> transcript_TraesCS5B02G066400.1_hmm_289_346
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G320800.1_hmm_178_235 -> transcript_TraesCS4A02G320800.1_hmm_178_235
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G281900.1_hmm_75_131 -> transcript_TraesCS3D02G281900.1_hmm_75_131
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G281900.1_hmm_75_131 -> transcript_TraesCS3A02G281900.1_hmm_75_131
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G315600.1_hmm_75_131 -> transcript_TraesCS3B02G315600.1_hmm_75_131
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G199000.1_hmm_307_364 -> transcript_TraesCS3B02G199000.1_hmm_307_364
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G167200.1_hmm_306_363 -> transcript_TraesCS3A02G167200.1_hmm_306_363
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6A02G326500.1_hmm_266_324 -> transcript_TraesCS6A02G326500.1_hmm_266_324
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G412500.1_hmm_333_390 -> transcript_TraesCS1D02G412500.1_hmm_333_390
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCSU02G001200.1_hmm_326_383 -> transcript_TraesCSU02G001200.1_hmm_326_383
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G434300.1_hmm_370_427 -> transcript_TraesCS1B02G434300.1_hmm_370_427
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G527300.1_hmm_148_204 -> transcript_TraesCS3A02G527300.1_hmm_148_204
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G532800.1_hmm_146_202 -> transcript_TraesCS3D02G532800.1_hmm_146_202
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6B02G357600.1_hmm_317_375 -> transcript_TraesCS6B02G357600.1_hmm_317_375
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G595800.1_hmm_177_233 -> transcript_TraesCS3B02G595800.1_hmm_177_233
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6D02G306300.1_hmm_315_373 -> transcript_TraesCS6D02G306300.1_hmm_315_373
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6D02G074200.1_hmm_211_270 -> transcript_TraesCS6D02G074200.1_hmm_211_270
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6B02G108000.1_hmm_213_272 -> transcript_TraesCS6B02G108000.1_hmm_213_272
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6A02G080500.1_hmm_211_270 -> transcript_TraesCS6A02G080500.1_hmm_211_270
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6B02G282500.1_hmm_162_219 -> transcript_TraesCS6B02G282500.1_hmm_162_219
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6D02G223900.1_hmm_162_219 -> transcript_TraesCS6D02G223900.1_hmm_162_219
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6A02G242000.1_hmm_162_219 -> transcript_TraesCS6A02G242000.1_hmm_162_219
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G410400.1_hmm_152_208 -> transcript_TraesCS2B02G410400.1_hmm_152_208
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G392100.1_hmm_152_208 -> transcript_TraesCS2A02G392100.1_hmm_152_208
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G390200.1_hmm_152_208 -> transcript_TraesCS2D02G390200.1_hmm_152_208
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G209800.1_hmm_120_176 -> transcript_TraesCS3A02G209800.1_hmm_120_176
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G358100.1_hmm_133_189 -> transcript_TraesCS1A02G358100.1_hmm_133_189
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G362900.1_hmm_133_189 -> transcript_TraesCS1D02G362900.1_hmm_133_189
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G358400.1_hmm_133_189 -> transcript_TraesCS1A02G358400.1_hmm_133_189
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G212700.1_hmm_119_175 -> transcript_TraesCS3D02G212700.1_hmm_119_175
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6B02G175100.2_hmm_196_253 -> transcript_TraesCS6B02G175100.2_hmm_196_253
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G374900.1_hmm_133_189 -> transcript_TraesCS1B02G374900.1_hmm_133_189
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G374700.1_hmm_136_192 -> transcript_TraesCS1B02G374700.1_hmm_136_192
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G363300.1_hmm_136_192 -> transcript_TraesCS1D02G363300.1_hmm_136_192
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6D02G136200.1_hmm_193_250 -> transcript_TraesCS6D02G136200.1_hmm_193_250
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G012600.1_hmm_136_195 -> transcript_TraesCS7B02G012600.1_hmm_136_195
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G118100.1_hmm_186_242 -> transcript_TraesCS3D02G118100.1_hmm_186_242
+2025-10-04 20:47:05,593 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G116200.1_hmm_186_242 -> transcript_TraesCS3A02G116200.1_hmm_186_242
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS6A02G146900.1_hmm_193_250 -> transcript_TraesCS6A02G146900.1_hmm_193_250
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G289500.1_hmm_80_137 -> transcript_TraesCS3D02G289500.1_hmm_80_137
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G110600.1_hmm_138_197 -> transcript_TraesCS7D02G110600.1_hmm_138_197
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G289700.2_hmm_80_137 -> transcript_TraesCS3A02G289700.2_hmm_80_137
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G324400.1_hmm_80_137 -> transcript_TraesCS3B02G324400.1_hmm_80_137
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G116000.1_hmm_135_194 -> transcript_TraesCS7A02G116000.1_hmm_135_194
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G410500.1_hmm_100_159 -> transcript_TraesCS1A02G410500.1_hmm_100_159
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G440600.1_hmm_98_157 -> transcript_TraesCS1B02G440600.1_hmm_98_157
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G185700.1_hmm_125_184 -> transcript_TraesCS5A02G185700.1_hmm_125_184
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G121500.1_hmm_109_165 -> transcript_TraesCS1A02G121500.1_hmm_109_165
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G060200.1_hmm_230_287 -> transcript_TraesCS5A02G060200.1_hmm_230_287
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G071800.1_hmm_231_288 -> transcript_TraesCS5D02G071800.1_hmm_231_288
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G067700.1_hmm_233_290 -> transcript_TraesCS5B02G067700.1_hmm_233_290
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G224000.1_hmm_173_231 -> transcript_TraesCS5B02G224000.1_hmm_173_231
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G440700.1_hmm_95_154 -> transcript_TraesCS1B02G440700.1_hmm_95_154
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G410700.1_hmm_98_157 -> transcript_TraesCS1A02G410700.1_hmm_98_157
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G224100.1_hmm_172_230 -> transcript_TraesCS5B02G224100.1_hmm_172_230
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G096300.1_hmm_236_294 -> transcript_TraesCS7A02G096300.1_hmm_236_294
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G225600.1_hmm_173_231 -> transcript_TraesCS5A02G225600.1_hmm_173_231
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G440300.1_hmm_91_150 -> transcript_TraesCS1B02G440300.1_hmm_91_150
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G396400.1_hmm_214_272 -> transcript_TraesCS4A02G396400.1_hmm_214_272
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G418600.1_hmm_98_157 -> transcript_TraesCS1D02G418600.1_hmm_98_157
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G396300.1_hmm_225_283 -> transcript_TraesCS4A02G396300.1_hmm_225_283
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G190800.1_hmm_125_184 -> transcript_TraesCS5D02G190800.1_hmm_125_184
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G451000.1_hmm_381_437 -> transcript_TraesCS5D02G451000.1_hmm_381_437
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G240200.1_hmm_119_175 -> transcript_TraesCS3B02G240200.1_hmm_119_175
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G130000.1_hmm_241_299 -> transcript_TraesCS3B02G130000.1_hmm_241_299
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G096500.1_hmm_236_294 -> transcript_TraesCS7A02G096500.1_hmm_236_294
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G113300.1_hmm_243_301 -> transcript_TraesCS3D02G113300.1_hmm_243_301
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G344100.1_hmm_1333_1392 -> transcript_TraesCS5A02G344100.1_hmm_1333_1392
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G122400.1_hmm_107_163 -> transcript_TraesCS1D02G122400.1_hmm_107_163
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G277300.1_hmm_116_172 -> transcript_TraesCS3B02G277300.1_hmm_116_172
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G092600.1_hmm_239_297 -> transcript_TraesCS7D02G092600.1_hmm_239_297
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G232800.1_hmm_173_231 -> transcript_TraesCS5D02G232800.1_hmm_173_231
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G248700.1_hmm_119_175 -> transcript_TraesCS3A02G248700.1_hmm_119_175
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G418500.1_hmm_96_155 -> transcript_TraesCS1D02G418500.1_hmm_96_155
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G238300.1_hmm_123_182 -> transcript_TraesCS3D02G238300.1_hmm_123_182
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G232700.1_hmm_114_171 -> transcript_TraesCS5D02G232700.1_hmm_114_171
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G508800.1_hmm_186_243 -> transcript_TraesCS7A02G508800.1_hmm_186_243
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G092500.1_hmm_210_268 -> transcript_TraesCS7D02G092500.1_hmm_210_268
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G300700.1_hmm_111_170 -> transcript_TraesCS1D02G300700.1_hmm_111_170
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G243100.1_hmm_178_237 -> transcript_TraesCS1B02G243100.1_hmm_178_237
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G225500.1_hmm_114_171 -> transcript_TraesCS5A02G225500.1_hmm_114_171
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G092400.1_hmm_239_297 -> transcript_TraesCS7D02G092400.1_hmm_239_297
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G440500.1_hmm_108_166 -> transcript_TraesCS1B02G440500.1_hmm_108_166
+2025-10-04 20:47:05,594 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G497300.1_hmm_237_294 -> transcript_TraesCS7D02G497300.1_hmm_237_294
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G418400.1_hmm_102_161 -> transcript_TraesCS1D02G418400.1_hmm_102_161
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G029100.1_hmm_904_963 -> transcript_TraesCS3D02G029100.1_hmm_904_963
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G418000.1_hmm_100_159 -> transcript_TraesCS1D02G418000.1_hmm_100_159
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G396200.1_hmm_239_297 -> transcript_TraesCS4A02G396200.1_hmm_239_297
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G418600.1_hmm_187_244 -> transcript_TraesCS7B02G418600.1_hmm_187_244
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G248500.1_hmm_121_177 -> transcript_TraesCS3D02G248500.1_hmm_121_177
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G092300.1_hmm_239_297 -> transcript_TraesCS7D02G092300.1_hmm_239_297
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G497400.1_hmm_186_243 -> transcript_TraesCS7D02G497400.1_hmm_186_243
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G497800.1_hmm_191_248 -> transcript_TraesCS7D02G497800.1_hmm_191_248
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G301100.1_hmm_111_170 -> transcript_TraesCS1A02G301100.1_hmm_111_170
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G419400.1_hmm_187_244 -> transcript_TraesCS7B02G419400.1_hmm_187_244
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G246000.3_hmm_282_335 -> transcript_TraesCS4A02G246000.3_hmm_282_335
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G418400.1_hmm_190_247 -> transcript_TraesCS7B02G418400.1_hmm_190_247
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G135300.1_hmm_188_245 -> transcript_TraesCS3B02G135300.1_hmm_188_245
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G508700.1_hmm_189_246 -> transcript_TraesCS7A02G508700.1_hmm_189_246
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G111200.1_hmm_129_185 -> transcript_TraesCS3A02G111200.1_hmm_129_185
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G509000.1_hmm_190_247 -> transcript_TraesCS7A02G509000.1_hmm_190_247
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G113200.1_hmm_130_186 -> transcript_TraesCS3D02G113200.1_hmm_130_186
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G375800.1_hmm_105_162 -> transcript_TraesCS3B02G375800.1_hmm_105_162
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G193600.1_hmm_42_103 -> transcript_TraesCS4A02G193600.1_hmm_42_103
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G119700.1_hmm_42_103 -> transcript_TraesCS4D02G119700.1_hmm_42_103
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4B02G121500.1_hmm_42_103 -> transcript_TraesCS4B02G121500.1_hmm_42_103
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G343700.1_hmm_105_162 -> transcript_TraesCS3A02G343700.1_hmm_105_162
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G129900.1_hmm_129_185 -> transcript_TraesCS3B02G129900.1_hmm_129_185
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G337600.1_hmm_105_162 -> transcript_TraesCS3D02G337600.1_hmm_105_162
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G375700.1_hmm_105_162 -> transcript_TraesCS3B02G375700.1_hmm_105_162
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G337500.1_hmm_105_162 -> transcript_TraesCS3D02G337500.1_hmm_105_162
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G497700.1_hmm_193_250 -> transcript_TraesCS7D02G497700.1_hmm_193_250
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G343900.1_hmm_105_162 -> transcript_TraesCS3A02G343900.1_hmm_105_162
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G418500.1_hmm_182_239 -> transcript_TraesCS7B02G418500.1_hmm_182_239
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G375200.1_hmm_49_109 -> transcript_TraesCS3B02G375200.1_hmm_49_109
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G337000.1_hmm_49_109 -> transcript_TraesCS3D02G337000.1_hmm_49_109
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G343000.1_hmm_53_113 -> transcript_TraesCS3A02G343000.1_hmm_53_113
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G300500.1_hmm_111_170 -> transcript_TraesCS1D02G300500.1_hmm_111_170
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G429800.1_hmm_154_214 -> transcript_TraesCS1D02G429800.1_hmm_154_214
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G343000.1_hmm_166_224 -> transcript_TraesCS7A02G343000.1_hmm_166_224
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G240000.1_hmm_164_222 -> transcript_TraesCS7B02G240000.1_hmm_164_222
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G336400.1_hmm_166_224 -> transcript_TraesCS7D02G336400.1_hmm_166_224
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G300900.1_hmm_111_170 -> transcript_TraesCS1A02G300900.1_hmm_111_170
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G455000.1_hmm_159_216 -> transcript_TraesCS1B02G455000.1_hmm_159_216
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G178400.1_hmm_33_94 -> transcript_TraesCS4D02G178400.1_hmm_33_94
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4B02G176700.1_hmm_33_94 -> transcript_TraesCS4B02G176700.1_hmm_33_94
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G128100.1_hmm_33_94 -> transcript_TraesCS4A02G128100.1_hmm_33_94
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G431600.1_hmm_157_214 -> transcript_TraesCS1D02G431600.1_hmm_157_214
+2025-10-04 20:47:05,595 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G443600.1_hmm_377_433 -> transcript_TraesCS5A02G443600.1_hmm_377_433
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G310900.1_hmm_134_194 -> transcript_TraesCS1B02G310900.1_hmm_134_194
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G495800.1_hmm_146_203 -> transcript_TraesCS5A02G495800.1_hmm_146_203
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G337100.1_hmm_68_128 -> transcript_TraesCS3D02G337100.1_hmm_68_128
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7B02G249700.1_hmm_114_173 -> transcript_TraesCS7B02G249700.1_hmm_114_173
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G300400.1_hmm_135_195 -> transcript_TraesCS1D02G300400.1_hmm_135_195
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G255400.1_hmm_163_220 -> transcript_TraesCS3B02G255400.1_hmm_163_220
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G229300.1_hmm_155_212 -> transcript_TraesCS3A02G229300.1_hmm_155_212
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G227400.1_hmm_160_217 -> transcript_TraesCS3D02G227400.1_hmm_160_217
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G301000.1_hmm_135_195 -> transcript_TraesCS1A02G301000.1_hmm_135_195
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4B02G170100.1_hmm_114_173 -> transcript_TraesCS4B02G170100.1_hmm_114_173
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G300600.1_hmm_135_195 -> transcript_TraesCS1D02G300600.1_hmm_135_195
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7A02G338500.1_hmm_167_226 -> transcript_TraesCS7A02G338500.1_hmm_167_226
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G043700.1_hmm_88_149 -> transcript_TraesCS2A02G043700.1_hmm_88_149
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G375300.1_hmm_68_128 -> transcript_TraesCS3B02G375300.1_hmm_68_128
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G343100.1_hmm_68_128 -> transcript_TraesCS3A02G343100.1_hmm_68_128
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G497400.1_hmm_124_186 -> transcript_TraesCS2A02G497400.1_hmm_124_186
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS7D02G345700.1_hmm_112_171 -> transcript_TraesCS7D02G345700.1_hmm_112_171
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G104900.1_hmm_113_173 -> transcript_TraesCS2A02G104900.1_hmm_113_173
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G104600.1_hmm_120_180 -> transcript_TraesCS2D02G104600.1_hmm_120_180
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G043600.1_hmm_104_165 -> transcript_TraesCS2A02G043600.1_hmm_104_165
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G104700.1_hmm_120_180 -> transcript_TraesCS2D02G104700.1_hmm_120_180
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G145500.1_hmm_143_208 -> transcript_TraesCS5B02G145500.1_hmm_143_208
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G104500.1_hmm_118_177 -> transcript_TraesCS2D02G104500.1_hmm_118_177
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G121800.1_hmm_117_175 -> transcript_TraesCS2B02G121800.1_hmm_117_175
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G104800.1_hmm_119_177 -> transcript_TraesCS2A02G104800.1_hmm_119_177
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G042700.1_hmm_104_165 -> transcript_TraesCS2D02G042700.1_hmm_104_165
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G320200.1_hmm_143_200 -> transcript_TraesCS4D02G320200.1_hmm_143_200
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G343500.1_hmm_117_180 -> transcript_TraesCS3A02G343500.1_hmm_117_180
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G145600.1_hmm_143_208 -> transcript_TraesCS5D02G145600.1_hmm_143_208
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G121900.1_hmm_124_184 -> transcript_TraesCS2B02G121900.1_hmm_124_184
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G172200.1_hmm_111_170 -> transcript_TraesCS4D02G172200.1_hmm_111_170
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G300300.1_hmm_111_170 -> transcript_TraesCS1D02G300300.1_hmm_111_170
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G497600.1_hmm_125_187 -> transcript_TraesCS2D02G497600.1_hmm_125_187
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G146700.1_hmm_143_208 -> transcript_TraesCS5A02G146700.1_hmm_143_208
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G145300.1_hmm_133_197 -> transcript_TraesCS5B02G145300.1_hmm_133_197
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G489500.1_hmm_108_167 -> transcript_TraesCS2A02G489500.1_hmm_108_167
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G146500.1_hmm_134_198 -> transcript_TraesCS5A02G146500.1_hmm_134_198
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G489700.1_hmm_104_163 -> transcript_TraesCS2D02G489700.1_hmm_104_163
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G497700.1_hmm_120_182 -> transcript_TraesCS2D02G497700.1_hmm_120_182
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G517400.1_hmm_106_165 -> transcript_TraesCS2B02G517400.1_hmm_106_165
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G145800.1_hmm_130_194 -> transcript_TraesCS5D02G145800.1_hmm_130_194
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G056400.1_hmm_103_164 -> transcript_TraesCS2B02G056400.1_hmm_103_164
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G232900.1_hmm_173_212 -> transcript_TraesCS5D02G232900.1_hmm_173_212
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1D02G300900.1_hmm_136_197 -> transcript_TraesCS1D02G300900.1_hmm_136_197
+2025-10-04 20:47:05,596 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G043800.1_hmm_118_180 -> transcript_TraesCS2A02G043800.1_hmm_118_180
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2B02G056300.1_hmm_104_166 -> transcript_TraesCS2B02G056300.1_hmm_104_166
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G014100.1_hmm_46_101 -> transcript_TraesCS4D02G014100.1_hmm_46_101
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1B02G311000.1_hmm_134_195 -> transcript_TraesCS1B02G311000.1_hmm_134_195
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G301200.1_hmm_136_197 -> transcript_TraesCS1A02G301200.1_hmm_136_197
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G173300.1_hmm_305_358 -> transcript_TraesCS3D02G173300.1_hmm_305_358
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4D02G320000.1_hmm_137_194 -> transcript_TraesCS4D02G320000.1_hmm_137_194
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5D02G145700.1_hmm_132_204 -> transcript_TraesCS5D02G145700.1_hmm_132_204
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5B02G145400.1_hmm_131_203 -> transcript_TraesCS5B02G145400.1_hmm_131_203
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS5A02G146600.1_hmm_136_208 -> transcript_TraesCS5A02G146600.1_hmm_136_208
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G337400.1_hmm_128_193 -> transcript_TraesCS3D02G337400.1_hmm_128_193
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3B02G375600.1_hmm_128_193 -> transcript_TraesCS3B02G375600.1_hmm_128_193
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3A02G343600.1_hmm_128_193 -> transcript_TraesCS3A02G343600.1_hmm_128_193
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G052100.1_hmm_132_197 -> transcript_TraesCS2A02G052100.1_hmm_132_197
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2D02G051000.1_hmm_125_190 -> transcript_TraesCS2D02G051000.1_hmm_125_190
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G019300.1_hmm_128_193 -> transcript_TraesCS2A02G019300.1_hmm_128_193
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G337300.1_hmm_117_136 -> transcript_TraesCS3D02G337300.1_hmm_117_136
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS3D02G337300.1_hmm_150_197 -> transcript_TraesCS3D02G337300.1_hmm_150_197
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G410600.1_hmm_97_146 -> transcript_TraesCS1A02G410600.1_hmm_97_146
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS1A02G421900.1_hmm_161_183 -> transcript_TraesCS1A02G421900.1_hmm_161_183
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS4A02G135000.1_hmm_114_163 -> transcript_TraesCS4A02G135000.1_hmm_114_163
+2025-10-04 20:47:05,597 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:TraesCS2A02G021400.1_hmm_112_134 -> transcript_TraesCS2A02G021400.1_hmm_112_134
+2025-10-04 20:47:05,601 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb325760_T002_hmm_174_230 -> transcript_Zm00001eb325760_T002_hmm_174_230
+2025-10-04 20:47:05,601 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb325760_T002_hmm_348_405 -> transcript_Zm00001eb325760_T002_hmm_348_405
+2025-10-04 20:47:05,601 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb350280_T001_hmm_200_257 -> transcript_Zm00001eb350280_T001_hmm_200_257
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb350280_T001_hmm_365_422 -> transcript_Zm00001eb350280_T001_hmm_365_422
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb107920_T001_hmm_229_284 -> transcript_Zm00001eb107920_T001_hmm_229_284
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb107920_T001_hmm_402_459 -> transcript_Zm00001eb107920_T001_hmm_402_459
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb199530_T001_hmm_277_333 -> transcript_Zm00001eb199530_T001_hmm_277_333
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb199530_T001_hmm_486_543 -> transcript_Zm00001eb199530_T001_hmm_486_543
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb264780_T001_hmm_230_286 -> transcript_Zm00001eb264780_T001_hmm_230_286
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb264780_T001_hmm_387_444 -> transcript_Zm00001eb264780_T001_hmm_387_444
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb138040_T001_hmm_228_284 -> transcript_Zm00001eb138040_T001_hmm_228_284
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb138040_T001_hmm_385_442 -> transcript_Zm00001eb138040_T001_hmm_385_442
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb424710_T001_hmm_282_338 -> transcript_Zm00001eb424710_T001_hmm_282_338
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb424710_T001_hmm_489_546 -> transcript_Zm00001eb424710_T001_hmm_489_546
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb079950_T003_hmm_134_190 -> transcript_Zm00001eb079950_T003_hmm_134_190
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb079950_T003_hmm_342_399 -> transcript_Zm00001eb079950_T003_hmm_342_399
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb368640_T001_hmm_224_279 -> transcript_Zm00001eb368640_T001_hmm_224_279
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb368640_T001_hmm_390_447 -> transcript_Zm00001eb368640_T001_hmm_390_447
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb149300_T001_hmm_217_272 -> transcript_Zm00001eb149300_T001_hmm_217_272
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb149300_T001_hmm_384_441 -> transcript_Zm00001eb149300_T001_hmm_384_441
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb441670_T001_hmm_217_272 -> transcript_Zm00001eb441670_T001_hmm_217_272
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb441670_T001_hmm_384_441 -> transcript_Zm00001eb441670_T001_hmm_384_441
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb176740_T001_hmm_251_306 -> transcript_Zm00001eb176740_T001_hmm_251_306
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb176740_T001_hmm_418_474 -> transcript_Zm00001eb176740_T001_hmm_418_474
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb057960_T001_hmm_196_252 -> transcript_Zm00001eb057960_T001_hmm_196_252
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb057960_T001_hmm_326_383 -> transcript_Zm00001eb057960_T001_hmm_326_383
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb290350_T001_hmm_225_281 -> transcript_Zm00001eb290350_T001_hmm_225_281
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb290350_T001_hmm_403_460 -> transcript_Zm00001eb290350_T001_hmm_403_460
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb393300_T002_hmm_212_268 -> transcript_Zm00001eb393300_T002_hmm_212_268
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb393300_T002_hmm_381_402 -> transcript_Zm00001eb393300_T002_hmm_381_402
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb112840_T001_hmm_129_186 -> transcript_Zm00001eb112840_T001_hmm_129_186
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb169460_T001_hmm_138_195 -> transcript_Zm00001eb169460_T001_hmm_138_195
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb359740_T001_hmm_199_256 -> transcript_Zm00001eb359740_T001_hmm_199_256
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb293420_T001_hmm_132_189 -> transcript_Zm00001eb293420_T001_hmm_132_189
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb296020_T001_hmm_187_244 -> transcript_Zm00001eb296020_T001_hmm_187_244
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb298580_T001_hmm_132_188 -> transcript_Zm00001eb298580_T001_hmm_132_188
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb353670_T001_hmm_143_200 -> transcript_Zm00001eb353670_T001_hmm_143_200
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb042020_T001_hmm_130_189 -> transcript_Zm00001eb042020_T001_hmm_130_189
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb071590_T001_hmm_213_269 -> transcript_Zm00001eb071590_T001_hmm_213_269
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb367920_T001_hmm_152_207 -> transcript_Zm00001eb367920_T001_hmm_152_207
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb056780_T002_hmm_333_390 -> transcript_Zm00001eb056780_T002_hmm_333_390
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb215190_T002_hmm_331_387 -> transcript_Zm00001eb215190_T002_hmm_331_387
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb178160_T001_hmm_242_299 -> transcript_Zm00001eb178160_T001_hmm_242_299
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb135400_T004_hmm_301_357 -> transcript_Zm00001eb135400_T004_hmm_301_357
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb051120_T001_hmm_287_343 -> transcript_Zm00001eb051120_T001_hmm_287_343
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb413920_T001_hmm_112_166 -> transcript_Zm00001eb413920_T001_hmm_112_166
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb419370_T001_hmm_34_89 -> transcript_Zm00001eb419370_T001_hmm_34_89
+2025-10-04 20:47:05,602 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb421820_T001_hmm_34_89 -> transcript_Zm00001eb421820_T001_hmm_34_89
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb188100_T002_hmm_213_270 -> transcript_Zm00001eb188100_T002_hmm_213_270
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb072020_T001_hmm_244_301 -> transcript_Zm00001eb072020_T001_hmm_244_301
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb430130_T001_hmm_238_295 -> transcript_Zm00001eb430130_T001_hmm_238_295
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb310260_T001_hmm_109_168 -> transcript_Zm00001eb310260_T001_hmm_109_168
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb159340_T001_hmm_198_255 -> transcript_Zm00001eb159340_T001_hmm_198_255
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb139800_T001_hmm_129_185 -> transcript_Zm00001eb139800_T001_hmm_129_185
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb061030_T001_hmm_348_404 -> transcript_Zm00001eb061030_T001_hmm_348_404
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb286490_T001_hmm_204_261 -> transcript_Zm00001eb286490_T001_hmm_204_261
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb316310_T001_hmm_387_444 -> transcript_Zm00001eb316310_T001_hmm_387_444
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb296130_T001_hmm_313_370 -> transcript_Zm00001eb296130_T001_hmm_313_370
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb030990_T001_hmm_307_363 -> transcript_Zm00001eb030990_T001_hmm_307_363
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb148260_T001_hmm_155_210 -> transcript_Zm00001eb148260_T001_hmm_155_210
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb237820_T001_hmm_179_235 -> transcript_Zm00001eb237820_T001_hmm_179_235
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb251530_T001_hmm_223_280 -> transcript_Zm00001eb251530_T001_hmm_223_280
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb358740_T001_hmm_207_264 -> transcript_Zm00001eb358740_T001_hmm_207_264
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb256230_T001_hmm_327_385 -> transcript_Zm00001eb256230_T001_hmm_327_385
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb064880_T001_hmm_192_249 -> transcript_Zm00001eb064880_T001_hmm_192_249
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb101700_T001_hmm_374_431 -> transcript_Zm00001eb101700_T001_hmm_374_431
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb356430_T002_hmm_105_161 -> transcript_Zm00001eb356430_T002_hmm_105_161
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb294180_T001_hmm_135_191 -> transcript_Zm00001eb294180_T001_hmm_135_191
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb377160_T001_hmm_285_342 -> transcript_Zm00001eb377160_T001_hmm_285_342
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb343960_T001_hmm_359_416 -> transcript_Zm00001eb343960_T001_hmm_359_416
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb370960_T001_hmm_82_139 -> transcript_Zm00001eb370960_T001_hmm_82_139
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb025220_T001_hmm_210_267 -> transcript_Zm00001eb025220_T001_hmm_210_267
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb098330_T001_hmm_134_193 -> transcript_Zm00001eb098330_T001_hmm_134_193
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb346880_T001_hmm_108_164 -> transcript_Zm00001eb346880_T001_hmm_108_164
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb178550_T001_hmm_116_175 -> transcript_Zm00001eb178550_T001_hmm_116_175
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb234120_T001_hmm_185_242 -> transcript_Zm00001eb234120_T001_hmm_185_242
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb154960_T001_hmm_129_185 -> transcript_Zm00001eb154960_T001_hmm_129_185
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb020400_T001_hmm_118_174 -> transcript_Zm00001eb020400_T001_hmm_118_174
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb075170_T001_hmm_205_261 -> transcript_Zm00001eb075170_T001_hmm_205_261
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb312870_T001_hmm_153_211 -> transcript_Zm00001eb312870_T001_hmm_153_211
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb337290_T001_hmm_280_337 -> transcript_Zm00001eb337290_T001_hmm_280_337
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb240750_T001_hmm_249_306 -> transcript_Zm00001eb240750_T001_hmm_249_306
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb249120_T001_hmm_156_212 -> transcript_Zm00001eb249120_T001_hmm_156_212
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb154170_T001_hmm_78_134 -> transcript_Zm00001eb154170_T001_hmm_78_134
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb376400_T001_hmm_141_201 -> transcript_Zm00001eb376400_T001_hmm_141_201
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb186280_T001_hmm_160_216 -> transcript_Zm00001eb186280_T001_hmm_160_216
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb282840_T001_hmm_144_200 -> transcript_Zm00001eb282840_T001_hmm_144_200
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb417490_T001_hmm_273_330 -> transcript_Zm00001eb417490_T001_hmm_273_330
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb275080_T001_hmm_210_267 -> transcript_Zm00001eb275080_T001_hmm_210_267
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb388620_T001_hmm_185_242 -> transcript_Zm00001eb388620_T001_hmm_185_242
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb337270_T001_hmm_121_177 -> transcript_Zm00001eb337270_T001_hmm_121_177
+2025-10-04 20:47:05,603 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb395130_T001_hmm_114_173 -> transcript_Zm00001eb395130_T001_hmm_114_173
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb203940_T001_hmm_173_229 -> transcript_Zm00001eb203940_T001_hmm_173_229
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb121600_T001_hmm_145_201 -> transcript_Zm00001eb121600_T001_hmm_145_201
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb278090_T001_hmm_65_122 -> transcript_Zm00001eb278090_T001_hmm_65_122
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb359470_T001_hmm_126_185 -> transcript_Zm00001eb359470_T001_hmm_126_185
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb271190_T001_hmm_126_186 -> transcript_Zm00001eb271190_T001_hmm_126_186
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb129690_T001_hmm_294_351 -> transcript_Zm00001eb129690_T001_hmm_294_351
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb332300_T001_hmm_263_320 -> transcript_Zm00001eb332300_T001_hmm_263_320
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb310270_T001_hmm_139_198 -> transcript_Zm00001eb310270_T001_hmm_139_198
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb206730_T001_hmm_134_190 -> transcript_Zm00001eb206730_T001_hmm_134_190
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb158000_T001_hmm_130_189 -> transcript_Zm00001eb158000_T001_hmm_130_189
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb285050_T001_hmm_188_247 -> transcript_Zm00001eb285050_T001_hmm_188_247
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb335440_T001_hmm_150_207 -> transcript_Zm00001eb335440_T001_hmm_150_207
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb149600_T001_hmm_52_112 -> transcript_Zm00001eb149600_T001_hmm_52_112
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb357350_T001_hmm_134_192 -> transcript_Zm00001eb357350_T001_hmm_134_192
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb344160_T001_hmm_96_155 -> transcript_Zm00001eb344160_T001_hmm_96_155
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb121610_T001_hmm_289_346 -> transcript_Zm00001eb121610_T001_hmm_289_346
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb093940_T001_hmm_131_194 -> transcript_Zm00001eb093940_T001_hmm_131_194
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb330710_T001_hmm_132_192 -> transcript_Zm00001eb330710_T001_hmm_132_192
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb149550_T001_hmm_109_166 -> transcript_Zm00001eb149550_T001_hmm_109_166
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb368850_T001_hmm_116_173 -> transcript_Zm00001eb368850_T001_hmm_116_173
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb159410_T001_hmm_176_233 -> transcript_Zm00001eb159410_T001_hmm_176_233
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb358680_T001_hmm_221_278 -> transcript_Zm00001eb358680_T001_hmm_221_278
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb408520_T001_hmm_112_171 -> transcript_Zm00001eb408520_T001_hmm_112_171
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb406000_T001_hmm_112_174 -> transcript_Zm00001eb406000_T001_hmm_112_174
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb312890_T001_hmm_103_143 -> transcript_Zm00001eb312890_T001_hmm_103_143
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb344810_T001_hmm_181_237 -> transcript_Zm00001eb344810_T001_hmm_181_237
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb149570_T001_hmm_122_184 -> transcript_Zm00001eb149570_T001_hmm_122_184
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb195400_T001_hmm_132_198 -> transcript_Zm00001eb195400_T001_hmm_132_198
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb163840_T001_hmm_117_181 -> transcript_Zm00001eb163840_T001_hmm_117_181
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb149580_T001_hmm_72_131 -> transcript_Zm00001eb149580_T001_hmm_72_131
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb218170_T001_hmm_52_109 -> transcript_Zm00001eb218170_T001_hmm_52_109
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb057820_T001_hmm_139_191 -> transcript_Zm00001eb057820_T001_hmm_139_191
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb052670_T001_hmm_46_103 -> transcript_Zm00001eb052670_T001_hmm_46_103
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb406030_T001_hmm_124_187 -> transcript_Zm00001eb406030_T001_hmm_124_187
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb093930_T001_hmm_162_234 -> transcript_Zm00001eb093930_T001_hmm_162_234
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb195440_T002_hmm_166_236 -> transcript_Zm00001eb195440_T002_hmm_166_236
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb118760_T001_hmm_277_316 -> transcript_Zm00001eb118760_T001_hmm_277_316
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb153330_T001_hmm_172_210 -> transcript_Zm00001eb153330_T001_hmm_172_210
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb368860_T001_hmm_82_131 -> transcript_Zm00001eb368860_T001_hmm_82_131
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb352050_T001_hmm_118_165 -> transcript_Zm00001eb352050_T001_hmm_118_165
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb163850_T001_hmm_267_317 -> transcript_Zm00001eb163850_T001_hmm_267_317
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb371340_T001_hmm_149_170 -> transcript_Zm00001eb371340_T001_hmm_149_170
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb157490_T001_hmm_201_221 -> transcript_Zm00001eb157490_T001_hmm_201_221
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb015320_T001_hmm_2_31 -> transcript_Zm00001eb015320_T001_hmm_2_31
+2025-10-04 20:47:05,604 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb322330_T001_hmm_2_31 -> transcript_Zm00001eb322330_T001_hmm_2_31
+2025-10-04 20:47:05,605 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb086280_T001_hmm_253_272 -> transcript_Zm00001eb086280_T001_hmm_253_272
+2025-10-04 20:47:05,605 - DEBUG - 🔄 ID中的冒号已替换 | Replaced colon in ID: transcript:Zm00001eb138060_T001_hmm_2_31 -> transcript_Zm00001eb138060_T001_hmm_2_31
+2025-10-04 20:47:05,624 - WARNING - ⚠️ 发现 41 个重复ID | Found 41 duplicate IDs
+2025-10-04 20:47:05,628 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.688_hmm_114_174 -> evm.model.ctg1.688_hmm_114_174_1
+2025-10-04 20:47:05,628 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.434_hmm_148_206 -> evm.model.ctg1.434_hmm_148_206_1
+2025-10-04 20:47:05,628 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg58.16_hmm_311_366 -> evm.model.ctg58.16_hmm_311_366_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg7.260_hmm_250_307 -> evm.model.ctg7.260_hmm_250_307_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg2.1062_hmm_220_275 -> evm.model.ctg2.1062_hmm_220_275_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg28.187_hmm_108_167 -> evm.model.ctg28.187_hmm_108_167_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg3.403_hmm_144_204 -> evm.model.ctg3.403_hmm_144_204_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg74.19_hmm_59_122 -> evm.model.ctg74.19_hmm_59_122_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg9.1128_hmm_176_195 -> evm.model.ctg9.1128_hmm_176_195_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.838_hmm_153_212 -> evm.model.ctg1.838_hmm_153_212_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg12.1532_hmm_33_94 -> evm.model.ctg12.1532_hmm_33_94_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg45.18_hmm_200_256 -> evm.model.ctg45.18_hmm_200_256_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg33.147_hmm_365_422 -> evm.model.ctg33.147_hmm_365_422_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.434_hmm_148_206 -> evm.model.ctg1.434_hmm_148_206_2
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1925_hmm_123_184 -> evm.model.ctg1.1925_hmm_123_184_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.687_hmm_178_235 -> evm.model.ctg1.687_hmm_178_235_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1923_hmm_71_131 -> evm.model.ctg1.1923_hmm_71_131_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1927_hmm_136_197 -> evm.model.ctg1.1927_hmm_136_197_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1928_hmm_114_174 -> evm.model.ctg1.1928_hmm_114_174_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg33.137_hmm_199_236 -> evm.model.ctg33.137_hmm_199_236_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.871_hmm_153_212 -> evm.model.ctg1.871_hmm_153_212_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1904_hmm_52_112 -> evm.model.ctg1.1904_hmm_52_112_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1908_hmm_123_184 -> evm.model.ctg1.1908_hmm_123_184_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1911_hmm_114_174 -> evm.model.ctg1.1911_hmm_114_174_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1334_hmm_95_118 -> evm.model.ctg1.1334_hmm_95_118_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1673_hmm_95_118 -> evm.model.ctg1.1673_hmm_95_118_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1923_hmm_220_275 -> evm.model.ctg1.1923_hmm_220_275_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg4.876_hmm_219_275 -> evm.model.ctg4.876_hmm_219_275_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg3.732_hmm_271_328 -> evm.model.ctg3.732_hmm_271_328_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1653_hmm_95_118 -> evm.model.ctg1.1653_hmm_95_118_1
+2025-10-04 20:47:05,629 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg2.470_hmm_49_106 -> evm.model.ctg2.470_hmm_49_106_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg16.1144_hmm_238_296 -> evm.model.ctg16.1144_hmm_238_296_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg17.74_hmm_130_189 -> evm.model.ctg17.74_hmm_130_189_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.682_hmm_178_235 -> evm.model.ctg1.682_hmm_178_235_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.1338_hmm_95_118 -> evm.model.ctg1.1338_hmm_95_118_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg3.957_hmm_219_275 -> evm.model.ctg3.957_hmm_219_275_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg3.957_hmm_395_422 -> evm.model.ctg3.957_hmm_395_422_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg3.957_hmm_446_484 -> evm.model.ctg3.957_hmm_446_484_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg1.874_hmm_153_212 -> evm.model.ctg1.874_hmm_153_212_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg4.219_hmm_192_249 -> evm.model.ctg4.219_hmm_192_249_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg4.147_hmm_230_289 -> evm.model.ctg4.147_hmm_230_289_1
+2025-10-04 20:47:05,630 - DEBUG - 🔄 重复ID已重命名 | Renamed duplicate ID: evm.model.ctg4.148_hmm_118_177 -> evm.model.ctg4.148_hmm_118_177_1
+2025-10-04 20:47:05,832 - INFO - ✅ 清理后的序列已保存 | Cleaned sequences saved: all.domain.cleaned.fa
+2025-10-04 20:47:05,849 - INFO - 📝 ID映射文件已保存 | ID mapping file saved: all.domain.id_mapping.txt
+2025-10-04 20:47:05,849 - INFO - 📊 共重命名 42 个ID | Renamed 42 IDs
+2025-10-04 20:47:05,875 - INFO - 📋 步骤 4/5: MAFFT多序列比对 | Step 4/5: MAFFT multiple sequence alignment
+2025-10-04 20:47:05,876 - INFO - ============================================================
+2025-10-04 20:47:05,876 - INFO - 🧩 开始多序列比对 | Starting multiple sequence alignment
+2025-10-04 20:47:05,876 - INFO - ============================================================
+2025-10-04 20:47:05,876 - INFO - 🚀 执行步骤 | Executing step: MAFFT多序列比对 | MAFFT multiple sequence alignment
+2025-10-04 20:47:05,876 - INFO - 📝 命令 | Command: mafft --auto --thread 88 all.domain.cleaned.fa > all.domain.mafft.fa
+2025-10-04 20:47:05,876 - DEBUG - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/98.wrky/09.tree
+2025-10-04 20:47:45,339 - DEBUG - 📋 标准错误 | Stderr:
+nthread = 88
+nthreadpair = 88
+nthreadtb = 16
+ppenalty_ex = 0
+stacksize: -1 kb
+rescale = 1
+Gap Penalty = -1.53, +0.00, +0.00
+
+very compact.
+
+
+Making a distance matrix ..
+
+There are 22 ambiguous characters.
+Compact tree, step 1
+
+    1 / 120701 (thread    0)
+  101 / 120701 (thread   34)
+  201 / 120701 (thread   21)
+  301 / 120701 (thread   44)
+  401 / 120701 (thread   27)
+  501 / 120701 (thread   66)
+  601 / 120701 (thread   10)
+  701 / 120701 (thread   48)
+  801 / 120701 (thread   18)
+  901 / 120701 (thread   40)
+ 1001 / 120701 (thread   41)
+ 1101 / 120701 (thread   17)
+ 1201 / 120701 (thread   26)
+ 1301 / 120701 (thread   34)
+ 1401 / 120701 (thread   38)
+ 1501 / 120701 (thread   73)
+ 1601 / 120701 (thread   44)
+ 1701 / 120701 (thread   48)
+ 1801 / 120701 (thread   49)
+ 1901 / 120701 (thread   17)
+ 2001 / 120701 (thread   72)
+ 2101 / 120701 (thread   52)
+ 2201 / 120701 (thread   15)
+ 2301 / 120701 (thread   43)
+ 2401 / 120701 (thread    2)
+ 2501 / 120701 (thread   25)
+ 2601 / 120701 (thread   81)
+ 2701 / 120701 (thread   47)
+ 2801 / 120701 (thread    6)
+ 2901 / 120701 (thread   13)
+ 3001 / 120701 (thread   71)
+ 3101 / 120701 (thread   61)
+ 3201 / 120701 (thread   16)
+ 3301 / 120701 (thread   25)
+ 3401 / 120701 (thread   75)
+ 3501 / 120701 (thread   50)
+ 3601 / 120701 (thread   33)
+ 3701 / 120701 (thread   18)
+ 3801 / 120701 (thread   22)
+ 3901 / 120701 (thread   31)
+ 4001 / 120701 (thread   34)
+ 4101 / 120701 (thread   21)
+ 4201 / 120701 (thread   19)
+ 4301 / 120701 (thread   78)
+ 4401 / 120701 (thread   84)
+ 4501 / 120701 (thread   55)
+ 4601 / 120701 (thread   77)
+ 4701 / 120701 (thread   29)
+ 4801 / 120701 (thread   70)
+ 4901 / 120701 (thread    5)
+ 5001 / 120701 (thread   74)
+ 5101 / 120701 (thread   41)
+ 5201 / 120701 (thread   10)
+ 5301 / 120701 (thread   65)
+ 5401 / 120701 (thread   39)
+ 5501 / 120701 (thread    3)
+ 5601 / 120701 (thread    1)
+ 5701 / 120701 (thread   75)
+ 5801 / 120701 (thread   42)
+ 5901 / 120701 (thread   45)
+ 6001 / 120701 (thread   28)
+ 6101 / 120701 (thread   69)
+ 6201 / 120701 (thread    8)
+ 6301 / 120701 (thread   47)
+ 6401 / 120701 (thread   53)
+ 6501 / 120701 (thread   75)
+ 6601 / 120701 (thread   62)
+ 6701 / 120701 (thread   13)
+ 6801 / 120701 (thread   87)
+ 6901 / 120701 (thread   63)
+ 7001 / 120701 (thread   41)
+ 7101 / 120701 (thread   73)
+ 7201 / 120701 (thread   56)
+ 7301 / 120701 (thread   45)
+ 7401 / 120701 (thread   65)
+ 7501 / 120701 (thread   71)
+ 7601 / 120701 (thread   63)
+ 7701 / 120701 (thread   72)
+ 7801 / 120701 (thread   42)
+ 7901 / 120701 (thread   29)
+ 8001 / 120701 (thread   62)
+ 8101 / 120701 (thread   60)
+ 8201 / 120701 (thread   27)
+ 8301 / 120701 (thread   43)
+ 8401 / 120701 (thread   14)
+ 8501 / 120701 (thread   39)
+ 8601 / 120701 (thread   35)
+ 8701 / 120701 (thread   79)
+ 8801 / 120701 (thread   22)
+ 8901 / 120701 (thread   63)
+ 9001 / 120701 (thread   24)
+ 9101 / 120701 (thread   55)
+ 9201 / 120701 (thread    2)
+ 9301 / 120701 (thread   73)
+ 9401 / 120701 (thread   44)
+ 9501 / 120701 (thread    3)
+ 9601 / 120701 (thread   20)
+ 9701 / 120701 (thread   68)
+ 9801 / 120701 (thread   40)
+ 9901 / 120701 (thread   80)
+ 10001 / 120701 (thread   70)
+ 10101 / 120701 (thread   24)
+ 10201 / 120701 (thread   16)
+ 10301 / 120701 (thread   20)
+ 10401 / 120701 (thread   14)
+ 10501 / 120701 (thread   77)
+ 10601 / 120701 (thread   81)
+ 10701 / 120701 (thread   12)
+ 10801 / 120701 (thread   16)
+ 10901 / 120701 (thread   61)
+ 11001 / 120701 (thread   74)
+ 11101 / 120701 (thread   87)
+ 11201 / 120701 (thread   80)
+ 11301 / 120701 (thread   53)
+ 11401 / 120701 (thread   12)
+ 11501 / 120701 (thread   65)
+ 11601 / 120701 (thread    4)
+ 11701 / 120701 (thread   56)
+ 11801 / 120701 (thread   35)
+ 11901 / 120701 (thread   41)
+ 12001 / 120701 (thread   55)
+ 12101 / 120701 (thread   87)
+ 12201 / 120701 (thread   17)
+ 12301 / 120701 (thread   56)
+ 12401 / 120701 (thread   34)
+ 12501 / 120701 (thread   46)
+ 12601 / 120701 (thread   25)
+ 12701 / 120701 (thread   85)
+ 12801 / 120701 (thread   36)
+ 12901 / 120701 (thread   26)
+ 13001 / 120701 (thread   76)
+ 13101 / 120701 (thread   64)
+ 13201 / 120701 (thread    4)
+ 13301 / 120701 (thread   52)
+ 13401 / 120701 (thread   44)
+ 13501 / 120701 (thread   12)
+ 13601 / 120701 (thread   49)
+ 13701 / 120701 (thread    6)
+ 13801 / 120701 (thread   67)
+ 13901 / 120701 (thread   79)
+ 14001 / 120701 (thread   52)
+ 14101 / 120701 (thread   44)
+ 14201 / 120701 (thread   41)
+ 14301 / 120701 (thread   76)
+ 14401 / 120701 (thread   70)
+ 14501 / 120701 (thread   48)
+ 14601 / 120701 (thread   47)
+ 14701 / 120701 (thread   50)
+ 14801 / 120701 (thread   15)
+ 14901 / 120701 (thread   38)
+ 15001 / 120701 (thread   49)
+ 15101 / 120701 (thread   61)
+ 15201 / 120701 (thread    2)
+ 15301 / 120701 (thread   37)
+ 15401 / 120701 (thread   84)
+ 15501 / 120701 (thread   64)
+ 15601 / 120701 (thread   56)
+ 15701 / 120701 (thread   20)
+ 15801 / 120701 (thread   61)
+ 15901 / 120701 (thread    3)
+ 16001 / 120701 (thread   57)
+ 16101 / 120701 (thread   73)
+ 16201 / 120701 (thread   55)
+ 16301 / 120701 (thread   78)
+ 16401 / 120701 (thread   72)
+ 16501 / 120701 (thread   44)
+ 16601 / 120701 (thread    5)
+ 16701 / 120701 (thread   70)
+ 16801 / 120701 (thread   64)
+ 16901 / 120701 (thread   74)
+ 17001 / 120701 (thread   14)
+ 17101 / 120701 (thread   29)
+ 17201 / 120701 (thread   46)
+ 17301 / 120701 (thread   21)
+ 17401 / 120701 (thread   28)
+ 17501 / 120701 (thread   39)
+ 17601 / 120701 (thread   26)
+ 17701 / 120701 (thread   37)
+ 17801 / 120701 (thread   11)
+ 17901 / 120701 (thread   61)
+ 18001 / 120701 (thread   67)
+ 18101 / 120701 (thread   18)
+ 18201 / 120701 (thread   49)
+ 18301 / 120701 (thread   47)
+ 18401 / 120701 (thread   81)
+ 18501 / 120701 (thread   32)
+ 18601 / 120701 (thread   17)
+ 18701 / 120701 (thread   63)
+ 18801 / 120701 (thread    8)
+ 18901 / 120701 (thread   41)
+ 19001 / 120701 (thread   51)
+ 19101 / 120701 (thread   45)
+ 19201 / 120701 (thread   36)
+ 19301 / 120701 (thread   63)
+ 19401 / 120701 (thread   83)
+ 19501 / 120701 (thread   76)
+ 19601 / 120701 (thread    6)
+ 19701 / 120701 (thread   70)
+ 19801 / 120701 (thread   75)
+ 19901 / 120701 (thread   36)
+ 20001 / 120701 (thread   59)
+ 20101 / 120701 (thread   57)
+ 20201 / 120701 (thread   55)
+ 20301 / 120701 (thread    8)
+ 20401 / 120701 (thread   18)
+ 20501 / 120701 (thread    5)
+ 20601 / 120701 (thread   54)
+ 20701 / 120701 (thread   83)
+ 20801 / 120701 (thread   24)
+ 20901 / 120701 (thread   35)
+ 21001 / 120701 (thread    8)
+ 21101 / 120701 (thread   31)
+ 21201 / 120701 (thread   56)
+ 21301 / 120701 (thread   78)
+ 21401 / 120701 (thread   79)
+ 21501 / 120701 (thread   58)
+ 21601 / 120701 (thread   14)
+ 21701 / 120701 (thread   52)
+ 21801 / 120701 (thread   43)
+ 21901 / 120701 (thread   63)
+ 22001 / 120701 (thread   72)
+ 22101 / 120701 (thread   47)
+ 22201 / 120701 (thread   49)
+ 22301 / 120701 (thread   71)
+ 22401 / 120701 (thread   52)
+ 22501 / 120701 (thread   32)
+ 22601 / 120701 (thread   10)
+ 22701 / 120701 (thread   12)
+ 22801 / 120701 (thread   42)
+ 22901 / 120701 (thread   47)
+ 23001 / 120701 (thread    1)
+ 23101 / 120701 (thread   38)
+ 23201 / 120701 (thread   68)
+ 23301 / 120701 (thread   14)
+ 23401 / 120701 (thread   17)
+ 23501 / 120701 (thread   35)
+ 23601 / 120701 (thread   72)
+ 23701 / 120701 (thread   73)
+ 23801 / 120701 (thread   22)
+ 23901 / 120701 (thread   25)
+ 24001 / 120701 (thread   63)
+ 24101 / 120701 (thread   23)
+ 24201 / 120701 (thread   51)
+ 24301 / 120701 (thread   26)
+ 24401 / 120701 (thread   13)
+ 24501 / 120701 (thread   22)
+ 24601 / 120701 (thread   41)
+ 24701 / 120701 (thread   11)
+ 24801 / 120701 (thread   65)
+ 24901 / 120701 (thread   20)
+ 25001 / 120701 (thread   37)
+ 25101 / 120701 (thread   33)
+ 25201 / 120701 (thread   35)
+ 25301 / 120701 (thread   73)
+ 25401 / 120701 (thread   76)
+ 25501 / 120701 (thread   54)
+ 25601 / 120701 (thread   51)
+ 25701 / 120701 (thread   37)
+ 25801 / 120701 (thread    8)
+ 25901 / 120701 (thread   53)
+ 26001 / 120701 (thread   17)
+ 26101 / 120701 (thread   84)
+ 26201 / 120701 (thread   28)
+ 26301 / 120701 (thread   23)
+ 26401 / 120701 (thread   10)
+ 26501 / 120701 (thread   52)
+ 26601 / 120701 (thread   72)
+ 26701 / 120701 (thread   25)
+ 26801 / 120701 (thread   54)
+ 26901 / 120701 (thread   21)
+ 27001 / 120701 (thread   71)
+ 27101 / 120701 (thread   14)
+ 27201 / 120701 (thread    5)
+ 27301 / 120701 (thread   80)
+ 27401 / 120701 (thread   13)
+ 27501 / 120701 (thread   82)
+ 27601 / 120701 (thread   11)
+ 27701 / 120701 (thread   59)
+ 27801 / 120701 (thread   39)
+ 27901 / 120701 (thread   27)
+ 28001 / 120701 (thread   63)
+ 28101 / 120701 (thread   36)
+ 28201 / 120701 (thread   42)
+ 28301 / 120701 (thread   57)
+ 28401 / 120701 (thread   24)
+ 28501 / 120701 (thread   49)
+ 28601 / 120701 (thread   71)
+ 28701 / 120701 (thread   66)
+ 28801 / 120701 (thread   65)
+ 28901 / 120701 (thread   83)
+ 29001 / 120701 (thread   33)
+ 29101 / 120701 (thread   50)
+ 29201 / 120701 (thread   72)
+ 29301 / 120701 (thread   76)
+ 29401 / 120701 (thread   24)
+ 29501 / 120701 (thread   20)
+ 29601 / 120701 (thread   27)
+ 29701 / 120701 (thread   55)
+ 29801 / 120701 (thread   78)
+ 29901 / 120701 (thread   70)
+ 30001 / 120701 (thread   39)
+ 30101 / 120701 (thread    3)
+ 30201 / 120701 (thread    1)
+ 30301 / 120701 (thread   29)
+ 30401 / 120701 (thread   38)
+ 30501 / 120701 (thread   56)
+ 30601 / 120701 (thread    5)
+ 30701 / 120701 (thread   42)
+ 30801 / 120701 (thread   87)
+ 30901 / 120701 (thread   10)
+ 31001 / 120701 (thread   71)
+ 31101 / 120701 (thread   54)
+ 31201 / 120701 (thread   48)
+ 31301 / 120701 (thread   76)
+ 31401 / 120701 (thread   22)
+ 31501 / 120701 (thread   19)
+ 31601 / 120701 (thread   17)
+ 31701 / 120701 (thread   38)
+ 31801 / 120701 (thread   63)
+ 31901 / 120701 (thread   13)
+ 32001 / 120701 (thread   28)
+ 32101 / 120701 (thread   37)
+ 32201 / 120701 (thread   48)
+ 32301 / 120701 (thread   49)
+ 32401 / 120701 (thread    6)
+ 32501 / 120701 (thread   64)
+ 32601 / 120701 (thread   35)
+ 32701 / 120701 (thread   27)
+ 32801 / 120701 (thread   44)
+ 32901 / 120701 (thread   24)
+ 33001 / 120701 (thread   55)
+ 33101 / 120701 (thread   36)
+ 33201 / 120701 (thread   78)
+ 33301 / 120701 (thread   58)
+ 33401 / 120701 (thread   63)
+ 33501 / 120701 (thread   28)
+ 33601 / 120701 (thread   19)
+ 33701 / 120701 (thread   12)
+ 33801 / 120701 (thread    6)
+ 33901 / 120701 (thread   76)
+ 34001 / 120701 (thread   67)
+ 34101 / 120701 (thread   25)
+ 34201 / 120701 (thread   16)
+ 34301 / 120701 (thread   15)
+ 34401 / 120701 (thread   75)
+ 34501 / 120701 (thread   37)
+ 34601 / 120701 (thread   21)
+ 34701 / 120701 (thread   87)
+ 34801 / 120701 (thread   38)
+ 34901 / 120701 (thread    2)
+ 35001 / 120701 (thread    9)
+ 35101 / 120701 (thread   24)
+ 35201 / 120701 (thread   23)
+ 35301 / 120701 (thread   85)
+ 35401 / 120701 (thread   34)
+ 35501 / 120701 (thread   64)
+ 35601 / 120701 (thread   56)
+ 35701 / 120701 (thread    8)
+ 35801 / 120701 (thread   67)
+ 35901 / 120701 (thread   50)
+ 36001 / 120701 (thread   21)
+ 36101 / 120701 (thread   34)
+ 36201 / 120701 (thread   54)
+ 36301 / 120701 (thread   64)
+ 36401 / 120701 (thread    8)
+ 36501 / 120701 (thread   40)
+ 36601 / 120701 (thread   67)
+ 36701 / 120701 (thread    5)
+ 36801 / 120701 (thread    2)
+ 36901 / 120701 (thread   36)
+ 37001 / 120701 (thread    8)
+ 37101 / 120701 (thread   39)
+ 37201 / 120701 (thread   60)
+ 37301 / 120701 (thread   24)
+ 37401 / 120701 (thread   23)
+ 37501 / 120701 (thread   18)
+ 37601 / 120701 (thread   36)
+ 37701 / 120701 (thread   22)
+ 37801 / 120701 (thread   43)
+ 37901 / 120701 (thread   60)
+ 38001 / 120701 (thread   20)
+ 38101 / 120701 (thread   23)
+ 38201 / 120701 (thread   31)
+ 38301 / 120701 (thread    8)
+ 38401 / 120701 (thread   22)
+ 38501 / 120701 (thread   75)
+ 38601 / 120701 (thread   53)
+ 38701 / 120701 (thread   41)
+ 38801 / 120701 (thread   61)
+ 38901 / 120701 (thread   19)
+ 39001 / 120701 (thread   85)
+ 39101 / 120701 (thread   55)
+ 39201 / 120701 (thread   32)
+ 39301 / 120701 (thread   24)
+ 39401 / 120701 (thread   65)
+ 39501 / 120701 (thread   19)
+ 39601 / 120701 (thread   59)
+ 39701 / 120701 (thread   43)
+ 39801 / 120701 (thread   72)
+ 39901 / 120701 (thread    0)
+ 40001 / 120701 (thread    5)
+ 40101 / 120701 (thread   35)
+ 40201 / 120701 (thread   74)
+ 40301 / 120701 (thread   53)
+ 40401 / 120701 (thread   82)
+ 40501 / 120701 (thread    1)
+ 40601 / 120701 (thread   17)
+ 40701 / 120701 (thread   27)
+ 40801 / 120701 (thread   26)
+ 40901 / 120701 (thread   73)
+ 41001 / 120701 (thread   86)
+ 41101 / 120701 (thread   79)
+ 41201 / 120701 (thread   21)
+ 41301 / 120701 (thread    3)
+ 41401 / 120701 (thread   81)
+ 41501 / 120701 (thread   77)
+ 41601 / 120701 (thread   48)
+ 41701 / 120701 (thread    8)
+ 41801 / 120701 (thread   62)
+ 41901 / 120701 (thread   54)
+ 42001 / 120701 (thread   71)
+ 42101 / 120701 (thread   81)
+ 42201 / 120701 (thread   22)
+ 42301 / 120701 (thread   28)
+ 42401 / 120701 (thread   14)
+ 42501 / 120701 (thread   35)
+ 42601 / 120701 (thread   32)
+ 42701 / 120701 (thread   66)
+ 42801 / 120701 (thread   34)
+ 42901 / 120701 (thread   22)
+ 43001 / 120701 (thread   73)
+ 43101 / 120701 (thread   62)
+ 43201 / 120701 (thread    1)
+ 43301 / 120701 (thread   19)
+ 43401 / 120701 (thread   64)
+ 43501 / 120701 (thread   68)
+ 43601 / 120701 (thread    8)
+ 43701 / 120701 (thread   40)
+ 43801 / 120701 (thread   76)
+ 43901 / 120701 (thread   63)
+ 44001 / 120701 (thread   58)
+ 44101 / 120701 (thread   77)
+ 44201 / 120701 (thread   71)
+ 44301 / 120701 (thread   81)
+ 44401 / 120701 (thread   33)
+ 44501 / 120701 (thread   73)
+ 44601 / 120701 (thread   50)
+ 44701 / 120701 (thread   63)
+ 44801 / 120701 (thread   36)
+ 44901 / 120701 (thread   62)
+ 45001 / 120701 (thread   41)
+ 45101 / 120701 (thread   20)
+ 45201 / 120701 (thread   13)
+ 45301 / 120701 (thread   51)
+ 45401 / 120701 (thread   27)
+ 45501 / 120701 (thread   47)
+ 45601 / 120701 (thread   55)
+ 45701 / 120701 (thread   25)
+ 45801 / 120701 (thread   17)
+ 45901 / 120701 (thread   71)
+ 46001 / 120701 (thread   84)
+ 46101 / 120701 (thread   57)
+ 46201 / 120701 (thread   55)
+ 46301 / 120701 (thread   31)
+ 46401 / 120701 (thread   12)
+ 46501 / 120701 (thread    0)
+ 46601 / 120701 (thread    6)
+ 46701 / 120701 (thread   35)
+ 46801 / 120701 (thread   61)
+ 46901 / 120701 (thread   33)
+ 47001 / 120701 (thread   28)
+ 47101 / 120701 (thread    6)
+ 47201 / 120701 (thread   15)
+ 47301 / 120701 (thread   22)
+ 47401 / 120701 (thread   46)
+ 47501 / 120701 (thread   42)
+ 47601 / 120701 (thread   77)
+ 47701 / 120701 (thread   66)
+ 47801 / 120701 (thread   73)
+ 47901 / 120701 (thread   25)
+ 48001 / 120701 (thread   39)
+ 48101 / 120701 (thread   54)
+ 48201 / 120701 (thread   12)
+ 48301 / 120701 (thread   63)
+ 48401 / 120701 (thread   73)
+ 48501 / 120701 (thread   80)
+ 48601 / 120701 (thread    0)
+ 48701 / 120701 (thread   61)
+ 48801 / 120701 (thread   74)
+ 48901 / 120701 (thread   33)
+ 49001 / 120701 (thread    9)
+ 49101 / 120701 (thread   45)
+ 49201 / 120701 (thread   13)
+ 49301 / 120701 (thread   24)
+ 49401 / 120701 (thread   17)
+ 49501 / 120701 (thread   85)
+ 49601 / 120701 (thread   19)
+ 49701 / 120701 (thread   46)
+ 49801 / 120701 (thread   41)
+ 49901 / 120701 (thread   35)
+ 50001 / 120701 (thread   34)
+ 50101 / 120701 (thread    7)
+ 50201 / 120701 (thread   52)
+ 50301 / 120701 (thread   87)
+ 50401 / 120701 (thread   72)
+ 50501 / 120701 (thread   20)
+ 50601 / 120701 (thread   81)
+ 50701 / 120701 (thread   67)
+ 50801 / 120701 (thread    7)
+ 50901 / 120701 (thread   37)
+ 51001 / 120701 (thread   50)
+ 51101 / 120701 (thread   26)
+ 51201 / 120701 (thread   73)
+ 51301 / 120701 (thread   79)
+ 51401 / 120701 (thread   65)
+ 51501 / 120701 (thread   15)
+ 51601 / 120701 (thread   25)
+ 51701 / 120701 (thread   17)
+ 51801 / 120701 (thread   31)
+ 51901 / 120701 (thread   53)
+ 52001 / 120701 (thread   16)
+ 52101 / 120701 (thread   54)
+ 52201 / 120701 (thread   10)
+ 52301 / 120701 (thread   86)
+ 52401 / 120701 (thread   71)
+ 52501 / 120701 (thread   31)
+ 52601 / 120701 (thread   66)
+ 52701 / 120701 (thread   19)
+ 52801 / 120701 (thread   73)
+ 52901 / 120701 (thread   51)
+ 53001 / 120701 (thread   78)
+ 53101 / 120701 (thread   81)
+ 53201 / 120701 (thread   70)
+ 53301 / 120701 (thread   54)
+ 53401 / 120701 (thread   46)
+ 53501 / 120701 (thread    8)
+ 53601 / 120701 (thread   51)
+ 53701 / 120701 (thread   74)
+ 53801 / 120701 (thread   71)
+ 53901 / 120701 (thread   75)
+ 54001 / 120701 (thread    3)
+ 54101 / 120701 (thread   57)
+ 54201 / 120701 (thread   68)
+ 54301 / 120701 (thread    0)
+ 54401 / 120701 (thread   43)
+ 54501 / 120701 (thread   54)
+ 54601 / 120701 (thread   15)
+ 54701 / 120701 (thread   27)
+ 54801 / 120701 (thread   87)
+ 54901 / 120701 (thread   73)
+ 55001 / 120701 (thread   40)
+ 55101 / 120701 (thread   47)
+ 55201 / 120701 (thread   59)
+ 55301 / 120701 (thread   66)
+ 55401 / 120701 (thread   37)
+ 55501 / 120701 (thread   45)
+ 55601 / 120701 (thread   73)
+ 55701 / 120701 (thread   40)
+ 55801 / 120701 (thread   69)
+ 55901 / 120701 (thread   26)
+ 56001 / 120701 (thread   29)
+ 56101 / 120701 (thread   64)
+ 56201 / 120701 (thread   41)
+ 56301 / 120701 (thread   56)
+ 56401 / 120701 (thread    4)
+ 56501 / 120701 (thread   79)
+ 56601 / 120701 (thread   26)
+ 56701 / 120701 (thread   81)
+ 56801 / 120701 (thread   58)
+ 56901 / 120701 (thread   67)
+ 57001 / 120701 (thread   63)
+ 57101 / 120701 (thread   50)
+ 57201 / 120701 (thread   59)
+ 57301 / 120701 (thread   86)
+ 57401 / 120701 (thread   19)
+ 57501 / 120701 (thread   71)
+ 57601 / 120701 (thread   45)
+ 57701 / 120701 (thread   83)
+ 57801 / 120701 (thread   27)
+ 57901 / 120701 (thread   26)
+ 58001 / 120701 (thread   86)
+ 58101 / 120701 (thread   75)
+ 58201 / 120701 (thread   13)
+ 58301 / 120701 (thread   10)
+ 58401 / 120701 (thread   15)
+ 58501 / 120701 (thread   45)
+ 58601 / 120701 (thread   28)
+ 58701 / 120701 (thread   51)
+ 58801 / 120701 (thread   57)
+ 58901 / 120701 (thread   16)
+ 59001 / 120701 (thread    2)
+ 59101 / 120701 (thread   34)
+ 59201 / 120701 (thread   26)
+ 59301 / 120701 (thread   61)
+ 59401 / 120701 (thread   63)
+ 59501 / 120701 (thread   73)
+ 59601 / 120701 (thread   37)
+ 59701 / 120701 (thread    1)
+ 59801 / 120701 (thread   50)
+ 59901 / 120701 (thread   66)
+ 60001 / 120701 (thread   64)
+ 60101 / 120701 (thread   18)
+ 60201 / 120701 (thread   41)
+ 60301 / 120701 (thread    2)
+ 60401 / 120701 (thread   40)
+ 60501 / 120701 (thread   46)
+ 60601 / 120701 (thread    9)
+ 60701 / 120701 (thread   78)
+ 60801 / 120701 (thread   52)
+ 60901 / 120701 (thread   59)
+ 61001 / 120701 (thread   56)
+ 61101 / 120701 (thread   12)
+ 61201 / 120701 (thread   35)
+ 61301 / 120701 (thread    0)
+ 61401 / 120701 (thread    0)
+ 61501 / 120701 (thread   77)
+ 61601 / 120701 (thread   59)
+ 61701 / 120701 (thread   13)
+ 61801 / 120701 (thread   57)
+ 61901 / 120701 (thread   22)
+ 62001 / 120701 (thread   78)
+ 62101 / 120701 (thread   23)
+ 62201 / 120701 (thread   76)
+ 62301 / 120701 (thread   54)
+ 62401 / 120701 (thread   36)
+ 62501 / 120701 (thread   57)
+ 62601 / 120701 (thread   47)
+ 62701 / 120701 (thread   35)
+ 62801 / 120701 (thread   77)
+ 62901 / 120701 (thread   73)
+ 63001 / 120701 (thread   15)
+ 63101 / 120701 (thread   59)
+ 63201 / 120701 (thread   31)
+ 63301 / 120701 (thread   24)
+ 63401 / 120701 (thread   85)
+ 63501 / 120701 (thread    1)
+ 63601 / 120701 (thread   20)
+ 63701 / 120701 (thread   32)
+ 63801 / 120701 (thread   80)
+ 63901 / 120701 (thread   31)
+ 64001 / 120701 (thread    5)
+ 64101 / 120701 (thread    4)
+ 64201 / 120701 (thread   68)
+ 64301 / 120701 (thread    3)
+ 64401 / 120701 (thread   14)
+ 64501 / 120701 (thread   34)
+ 64601 / 120701 (thread    5)
+ 64701 / 120701 (thread   64)
+ 64801 / 120701 (thread   35)
+ 64901 / 120701 (thread    9)
+ 65001 / 120701 (thread    3)
+ 65101 / 120701 (thread   12)
+ 65201 / 120701 (thread   81)
+ 65301 / 120701 (thread   85)
+ 65401 / 120701 (thread    2)
+ 65501 / 120701 (thread   17)
+ 65601 / 120701 (thread    9)
+ 65701 / 120701 (thread   73)
+ 65801 / 120701 (thread   29)
+ 65901 / 120701 (thread   59)
+ 66001 / 120701 (thread   77)
+ 66101 / 120701 (thread   54)
+ 66201 / 120701 (thread   76)
+ 66301 / 120701 (thread   60)
+ 66401 / 120701 (thread   87)
+ 66501 / 120701 (thread   85)
+ 66601 / 120701 (thread   26)
+ 66701 / 120701 (thread   15)
+ 66801 / 120701 (thread   82)
+ 66901 / 120701 (thread   37)
+ 67001 / 120701 (thread   63)
+ 67101 / 120701 (thread   46)
+ 67201 / 120701 (thread   85)
+ 67301 / 120701 (thread   52)
+ 67401 / 120701 (thread   10)
+ 67501 / 120701 (thread   82)
+ 67601 / 120701 (thread   79)
+ 67701 / 120701 (thread   35)
+ 67801 / 120701 (thread   64)
+ 67901 / 120701 (thread   41)
+ 68001 / 120701 (thread   33)
+ 68101 / 120701 (thread   71)
+ 68201 / 120701 (thread   26)
+ 68301 / 120701 (thread   68)
+ 68401 / 120701 (thread   65)
+ 68501 / 120701 (thread    5)
+ 68601 / 120701 (thread    8)
+ 68701 / 120701 (thread   53)
+ 68801 / 120701 (thread   67)
+ 68901 / 120701 (thread   77)
+ 69001 / 120701 (thread   39)
+ 69101 / 120701 (thread   10)
+ 69201 / 120701 (thread   41)
+ 69301 / 120701 (thread   58)
+ 69401 / 120701 (thread   44)
+ 69501 / 120701 (thread   37)
+ 69601 / 120701 (thread   15)
+ 69701 / 120701 (thread   24)
+ 69801 / 120701 (thread   47)
+ 69901 / 120701 (thread   35)
+ 70001 / 120701 (thread   11)
+ 70101 / 120701 (thread   50)
+ 70201 / 120701 (thread   54)
+ 70301 / 120701 (thread    7)
+ 70401 / 120701 (thread   82)
+ 70501 / 120701 (thread    8)
+ 70601 / 120701 (thread   83)
+ 70701 / 120701 (thread   38)
+ 70801 / 120701 (thread   23)
+ 70901 / 120701 (thread   53)
+ 71001 / 120701 (thread   15)
+ 71101 / 120701 (thread   13)
+ 71201 / 120701 (thread    4)
+ 71301 / 120701 (thread   54)
+ 71401 / 120701 (thread    2)
+ 71501 / 120701 (thread   72)
+ 71601 / 120701 (thread   42)
+ 71701 / 120701 (thread   15)
+ 71801 / 120701 (thread   73)
+ 71901 / 120701 (thread   47)
+ 72001 / 120701 (thread   39)
+ 72101 / 120701 (thread   34)
+ 72201 / 120701 (thread   78)
+ 72301 / 120701 (thread   28)
+ 72401 / 120701 (thread   31)
+ 72501 / 120701 (thread    5)
+ 72601 / 120701 (thread   62)
+ 72701 / 120701 (thread   59)
+ 72801 / 120701 (thread   46)
+ 72901 / 120701 (thread   71)
+ 73001 / 120701 (thread   19)
+ 73101 / 120701 (thread   31)
+ 73201 / 120701 (thread   35)
+ 73301 / 120701 (thread   64)
+ 73401 / 120701 (thread   25)
+ 73501 / 120701 (thread   63)
+ 73601 / 120701 (thread   39)
+ 73701 / 120701 (thread   24)
+ 73801 / 120701 (thread   31)
+ 73901 / 120701 (thread   34)
+ 74001 / 120701 (thread   22)
+ 74101 / 120701 (thread   42)
+ 74201 / 120701 (thread   76)
+ 74301 / 120701 (thread   10)
+ 74401 / 120701 (thread   49)
+ 74501 / 120701 (thread    5)
+ 74601 / 120701 (thread   73)
+ 74701 / 120701 (thread   15)
+ 74801 / 120701 (thread   13)
+ 74901 / 120701 (thread   87)
+ 75001 / 120701 (thread   65)
+ 75101 / 120701 (thread   43)
+ 75201 / 120701 (thread    5)
+ 75301 / 120701 (thread   34)
+ 75401 / 120701 (thread   78)
+ 75501 / 120701 (thread   15)
+ 75601 / 120701 (thread   36)
+ 75701 / 120701 (thread   56)
+ 75801 / 120701 (thread   87)
+ 75901 / 120701 (thread   29)
+ 76001 / 120701 (thread   75)
+ 76101 / 120701 (thread   64)
+ 76201 / 120701 (thread   50)
+ 76301 / 120701 (thread   81)
+ 76401 / 120701 (thread   65)
+ 76501 / 120701 (thread   23)
+ 76601 / 120701 (thread   87)
+ 76701 / 120701 (thread   57)
+ 76801 / 120701 (thread   76)
+ 76901 / 120701 (thread   56)
+ 77001 / 120701 (thread   12)
+ 77101 / 120701 (thread   11)
+ 77201 / 120701 (thread   17)
+ 77301 / 120701 (thread   82)
+ 77401 / 120701 (thread   45)
+ 77501 / 120701 (thread   86)
+ 77601 / 120701 (thread   30)
+ 77701 / 120701 (thread    8)
+ 77801 / 120701 (thread   51)
+ 77901 / 120701 (thread   32)
+ 78001 / 120701 (thread   20)
+ 78101 / 120701 (thread   24)
+ 78201 / 120701 (thread   22)
+ 78301 / 120701 (thread   86)
+ 78401 / 120701 (thread   31)
+ 78501 / 120701 (thread   66)
+ 78601 / 120701 (thread   44)
+ 78701 / 120701 (thread    9)
+ 78801 / 120701 (thread   40)
+ 78901 / 120701 (thread    2)
+ 79001 / 120701 (thread   58)
+ 79101 / 120701 (thread   35)
+ 79201 / 120701 (thread   51)
+ 79301 / 120701 (thread    8)
+ 79401 / 120701 (thread   38)
+ 79501 / 120701 (thread   75)
+ 79601 / 120701 (thread   42)
+ 79701 / 120701 (thread   26)
+ 79801 / 120701 (thread   83)
+ 79901 / 120701 (thread   59)
+ 80001 / 120701 (thread   45)
+ 80101 / 120701 (thread   11)
+ 80201 / 120701 (thread   24)
+ 80301 / 120701 (thread   76)
+ 80401 / 120701 (thread   28)
+ 80501 / 120701 (thread   85)
+ 80601 / 120701 (thread   62)
+ 80701 / 120701 (thread   33)
+ 80801 / 120701 (thread   65)
+ 80901 / 120701 (thread   40)
+ 81001 / 120701 (thread   25)
+ 81101 / 120701 (thread   63)
+ 81201 / 120701 (thread   86)
+ 81301 / 120701 (thread   72)
+ 81401 / 120701 (thread   10)
+ 81501 / 120701 (thread   82)
+ 81601 / 120701 (thread   42)
+ 81701 / 120701 (thread   76)
+ 81801 / 120701 (thread   35)
+ 81901 / 120701 (thread   15)
+ 82001 / 120701 (thread   51)
+ 82101 / 120701 (thread   71)
+ 82201 / 120701 (thread   23)
+ 82301 / 120701 (thread   29)
+ 82401 / 120701 (thread    8)
+ 82501 / 120701 (thread   68)
+ 82601 / 120701 (thread   13)
+ 82701 / 120701 (thread   56)
+ 82801 / 120701 (thread   27)
+ 82901 / 120701 (thread   78)
+ 83001 / 120701 (thread   45)
+ 83101 / 120701 (thread   57)
+ 83201 / 120701 (thread   68)
+ 83301 / 120701 (thread   72)
+ 83401 / 120701 (thread   33)
+ 83501 / 120701 (thread   37)
+ 83601 / 120701 (thread   71)
+ 83701 / 120701 (thread   42)
+ 83801 / 120701 (thread    1)
+ 83901 / 120701 (thread   53)
+ 84001 / 120701 (thread   34)
+ 84101 / 120701 (thread   18)
+ 84201 / 120701 (thread   86)
+ 84301 / 120701 (thread   73)
+ 84401 / 120701 (thread   41)
+ 84501 / 120701 (thread   57)
+ 84601 / 120701 (thread   83)
+ 84701 / 120701 (thread   14)
+ 84801 / 120701 (thread   61)
+ 84901 / 120701 (thread   51)
+ 85001 / 120701 (thread   46)
+ 85101 / 120701 (thread   79)
+ 85201 / 120701 (thread   29)
+ 85301 / 120701 (thread   74)
+ 85401 / 120701 (thread   50)
+ 85501 / 120701 (thread   78)
+ 85601 / 120701 (thread   51)
+ 85701 / 120701 (thread   52)
+ 85801 / 120701 (thread   56)
+ 85901 / 120701 (thread   59)
+ 86001 / 120701 (thread   21)
+ 86101 / 120701 (thread   82)
+ 86201 / 120701 (thread   42)
+ 86301 / 120701 (thread   66)
+ 86401 / 120701 (thread    2)
+ 86501 / 120701 (thread   83)
+ 86601 / 120701 (thread   60)
+ 86701 / 120701 (thread   82)
+ 86801 / 120701 (thread   79)
+ 86901 / 120701 (thread    9)
+ 87001 / 120701 (thread   24)
+ 87101 / 120701 (thread   20)
+ 87201 / 120701 (thread    6)
+ 87301 / 120701 (thread   59)
+ 87401 / 120701 (thread   18)
+ 87501 / 120701 (thread   69)
+ 87601 / 120701 (thread   56)
+ 87701 / 120701 (thread   72)
+ 87801 / 120701 (thread   63)
+ 87901 / 120701 (thread   82)
+ 88001 / 120701 (thread   45)
+ 88101 / 120701 (thread    5)
+ 88201 / 120701 (thread   74)
+ 88301 / 120701 (thread    7)
+ 88401 / 120701 (thread   21)
+ 88501 / 120701 (thread   81)
+ 88601 / 120701 (thread   65)
+ 88701 / 120701 (thread   46)
+ 88801 / 120701 (thread   70)
+ 88901 / 120701 (thread    5)
+ 89001 / 120701 (thread   55)
+ 89101 / 120701 (thread   39)
+ 89201 / 120701 (thread   57)
+ 89301 / 120701 (thread   59)
+ 89401 / 120701 (thread   77)
+ 89501 / 120701 (thread   14)
+ 89601 / 120701 (thread   33)
+ 89701 / 120701 (thread   58)
+ 89801 / 120701 (thread   76)
+ 89901 / 120701 (thread   34)
+ 90001 / 120701 (thread   19)
+ 90101 / 120701 (thread   20)
+ 90201 / 120701 (thread   74)
+ 90301 / 120701 (thread   29)
+ 90401 / 120701 (thread    1)
+ 90501 / 120701 (thread   85)
+ 90601 / 120701 (thread   68)
+ 90701 / 120701 (thread   71)
+ 90801 / 120701 (thread   77)
+ 90901 / 120701 (thread    6)
+ 91001 / 120701 (thread   32)
+ 91101 / 120701 (thread    0)
+ 91201 / 120701 (thread   61)
+ 91301 / 120701 (thread    2)
+ 91401 / 120701 (thread   69)
+ 91501 / 120701 (thread   24)
+ 91601 / 120701 (thread   55)
+ 91701 / 120701 (thread   31)
+ 91801 / 120701 (thread   32)
+ 91901 / 120701 (thread   77)
+ 92001 / 120701 (thread   43)
+ 92101 / 120701 (thread   48)
+ 92201 / 120701 (thread   47)
+ 92301 / 120701 (thread   39)
+ 92401 / 120701 (thread   68)
+ 92501 / 120701 (thread   18)
+ 92601 / 120701 (thread   67)
+ 92701 / 120701 (thread    5)
+ 92801 / 120701 (thread    9)
+ 92901 / 120701 (thread   83)
+ 93001 / 120701 (thread   61)
+ 93101 / 120701 (thread   67)
+ 93201 / 120701 (thread   24)
+ 93301 / 120701 (thread   50)
+ 93401 / 120701 (thread   47)
+ 93501 / 120701 (thread   39)
+ 93601 / 120701 (thread   64)
+ 93701 / 120701 (thread   81)
+ 93801 / 120701 (thread   37)
+ 93901 / 120701 (thread   55)
+ 94001 / 120701 (thread   85)
+ 94101 / 120701 (thread   43)
+ 94201 / 120701 (thread   59)
+ 94301 / 120701 (thread   39)
+ 94401 / 120701 (thread   83)
+ 94501 / 120701 (thread   62)
+ 94601 / 120701 (thread    3)
+ 94701 / 120701 (thread   27)
+ 94801 / 120701 (thread   31)
+ 94901 / 120701 (thread   11)
+ 95001 / 120701 (thread   10)
+ 95101 / 120701 (thread   59)
+ 95201 / 120701 (thread   49)
+ 95301 / 120701 (thread   86)
+ 95401 / 120701 (thread   45)
+ 95501 / 120701 (thread   31)
+ 95601 / 120701 (thread   68)
+ 95701 / 120701 (thread   32)
+ 95801 / 120701 (thread   65)
+ 95901 / 120701 (thread   50)
+ 96001 / 120701 (thread   52)
+ 96101 / 120701 (thread   61)
+ 96201 / 120701 (thread   74)
+ 96301 / 120701 (thread   29)
+ 96401 / 120701 (thread   83)
+ 96501 / 120701 (thread   19)
+ 96601 / 120701 (thread   30)
+ 96701 / 120701 (thread   84)
+ 96801 / 120701 (thread    3)
+ 96901 / 120701 (thread   41)
+ 97001 / 120701 (thread   83)
+ 97101 / 120701 (thread    6)
+ 97201 / 120701 (thread   77)
+ 97301 / 120701 (thread   32)
+ 97401 / 120701 (thread   42)
+ 97501 / 120701 (thread   48)
+ 97601 / 120701 (thread   27)
+ 97701 / 120701 (thread   76)
+ 97801 / 120701 (thread   50)
+ 97901 / 120701 (thread   16)
+ 98001 / 120701 (thread   78)
+ 98101 / 120701 (thread   58)
+ 98201 / 120701 (thread   28)
+ 98301 / 120701 (thread   34)
+ 98401 / 120701 (thread    7)
+ 98501 / 120701 (thread   25)
+ 98601 / 120701 (thread   36)
+ 98701 / 120701 (thread    3)
+ 98801 / 120701 (thread   63)
+ 98901 / 120701 (thread   39)
+ 99001 / 120701 (thread   24)
+ 99101 / 120701 (thread   42)
+ 99201 / 120701 (thread   40)
+ 99301 / 120701 (thread   26)
+ 99401 / 120701 (thread   83)
+ 99501 / 120701 (thread   53)
+ 99601 / 120701 (thread   60)
+ 99701 / 120701 (thread   39)
+ 99801 / 120701 (thread   62)
+ 99901 / 120701 (thread    8)
+ 100001 / 120701 (thread   83)
+ 100101 / 120701 (thread    4)
+ 100201 / 120701 (thread   70)
+ 100301 / 120701 (thread   66)
+ 100401 / 120701 (thread   18)
+ 100501 / 120701 (thread   31)
+ 100601 / 120701 (thread    7)
+ 100701 / 120701 (thread   12)
+ 100801 / 120701 (thread   77)
+ 100901 / 120701 (thread   68)
+ 101001 / 120701 (thread   15)
+ 101101 / 120701 (thread   84)
+ 101201 / 120701 (thread    6)
+ 101301 / 120701 (thread   35)
+ 101401 / 120701 (thread   52)
+ 101501 / 120701 (thread   64)
+ 101601 / 120701 (thread   53)
+ 101701 / 120701 (thread   59)
+ 101801 / 120701 (thread   49)
+ 101901 / 120701 (thread   36)
+ 102001 / 120701 (thread   83)
+ 102101 / 120701 (thread   39)
+ 102201 / 120701 (thread   64)
+ 102301 / 120701 (thread   75)
+ 102401 / 120701 (thread   84)
+ 102501 / 120701 (thread   47)
+ 102601 / 120701 (thread   45)
+ 102701 / 120701 (thread   63)
+ 102801 / 120701 (thread    0)
+ 102901 / 120701 (thread   11)
+ 103001 / 120701 (thread   85)
+ 103101 / 120701 (thread   60)
+ 103201 / 120701 (thread   82)
+ 103301 / 120701 (thread   44)
+ 103401 / 120701 (thread   48)
+ 103501 / 120701 (thread    9)
+ 103601 / 120701 (thread   53)
+ 103701 / 120701 (thread   67)
+ 103801 / 120701 (thread   80)
+ 103901 / 120701 (thread   78)
+ 104001 / 120701 (thread   19)
+ 104101 / 120701 (thread   58)
+ 104201 / 120701 (thread    8)
+ 104301 / 120701 (thread   62)
+ 104401 / 120701 (thread   46)
+ 104501 / 120701 (thread   70)
+ 104601 / 120701 (thread   87)
+ 104701 / 120701 (thread   19)
+ 104801 / 120701 (thread   74)
+ 104901 / 120701 (thread   64)
+ 105001 / 120701 (thread   20)
+ 105101 / 120701 (thread   28)
+ 105201 / 120701 (thread    5)
+ 105301 / 120701 (thread   77)
+ 105401 / 120701 (thread   84)
+ 105501 / 120701 (thread   74)
+ 105601 / 120701 (thread   46)
+ 105701 / 120701 (thread   62)
+ 105801 / 120701 (thread   18)
+ 105901 / 120701 (thread    5)
+ 106001 / 120701 (thread   11)
+ 106101 / 120701 (thread    6)
+ 106201 / 120701 (thread   51)
+ 106301 / 120701 (thread   45)
+ 106401 / 120701 (thread   55)
+ 106501 / 120701 (thread   75)
+ 106601 / 120701 (thread   81)
+ 106701 / 120701 (thread   84)
+ 106801 / 120701 (thread   69)
+ 106901 / 120701 (thread   29)
+ 107001 / 120701 (thread   32)
+ 107101 / 120701 (thread    0)
+ 107201 / 120701 (thread   48)
+ 107301 / 120701 (thread    5)
+ 107401 / 120701 (thread   46)
+ 107501 / 120701 (thread   52)
+ 107601 / 120701 (thread   71)
+ 107701 / 120701 (thread   40)
+ 107801 / 120701 (thread    9)
+ 107901 / 120701 (thread   15)
+ 108001 / 120701 (thread   53)
+ 108101 / 120701 (thread   57)
+ 108201 / 120701 (thread   54)
+ 108301 / 120701 (thread   12)
+ 108401 / 120701 (thread   63)
+ 108501 / 120701 (thread   21)
+ 108601 / 120701 (thread   71)
+ 108701 / 120701 (thread   68)
+ 108801 / 120701 (thread    7)
+ 108901 / 120701 (thread   47)
+ 109001 / 120701 (thread   82)
+ 109101 / 120701 (thread   45)
+ 109201 / 120701 (thread   13)
+ 109301 / 120701 (thread   29)
+ 109401 / 120701 (thread   42)
+ 109501 / 120701 (thread   24)
+ 109601 / 120701 (thread   25)
+ 109701 / 120701 (thread   51)
+ 109801 / 120701 (thread   56)
+ 109901 / 120701 (thread   66)
+ 110001 / 120701 (thread   53)
+ 110101 / 120701 (thread    2)
+ 110201 / 120701 (thread   26)
+ 110301 / 120701 (thread   16)
+ 110401 / 120701 (thread    1)
+ 110501 / 120701 (thread   35)
+ 110601 / 120701 (thread    8)
+ 110701 / 120701 (thread    6)
+ 110801 / 120701 (thread   32)
+ 110901 / 120701 (thread   54)
+ 111001 / 120701 (thread   27)
+ 111101 / 120701 (thread   15)
+ 111201 / 120701 (thread   36)
+ 111301 / 120701 (thread   66)
+ 111401 / 120701 (thread   24)
+ 111501 / 120701 (thread   81)
+ 111601 / 120701 (thread   57)
+ 111701 / 120701 (thread   71)
+ 111801 / 120701 (thread    1)
+ 111901 / 120701 (thread   19)
+ 112001 / 120701 (thread    8)
+ 112101 / 120701 (thread   61)
+ 112201 / 120701 (thread   17)
+ 112301 / 120701 (thread   68)
+ 112401 / 120701 (thread   74)
+ 112501 / 120701 (thread   51)
+ 112601 / 120701 (thread   82)
+ 112701 / 120701 (thread    8)
+ 112801 / 120701 (thread   45)
+ 112901 / 120701 (thread   12)
+ 113001 / 120701 (thread   21)
+ 113101 / 120701 (thread   28)
+ 113201 / 120701 (thread    7)
+ 113301 / 120701 (thread   23)
+ 113401 / 120701 (thread    8)
+ 113501 / 120701 (thread   81)
+ 113601 / 120701 (thread   44)
+ 113701 / 120701 (thread   28)
+ 113801 / 120701 (thread   55)
+ 113901 / 120701 (thread   27)
+ 114001 / 120701 (thread   72)
+ 114101 / 120701 (thread   41)
+ 114201 / 120701 (thread   42)
+ 114301 / 120701 (thread   44)
+ 114401 / 120701 (thread   78)
+ 114501 / 120701 (thread   36)
+ 114601 / 120701 (thread   82)
+ 114701 / 120701 (thread   49)
+ 114801 / 120701 (thread    9)
+ 114901 / 120701 (thread   10)
+ 115001 / 120701 (thread   15)
+ 115101 / 120701 (thread    7)
+ 115201 / 120701 (thread    5)
+ 115301 / 120701 (thread   39)
+ 115401 / 120701 (thread   60)
+ 115501 / 120701 (thread   28)
+ 115601 / 120701 (thread   57)
+ 115701 / 120701 (thread   76)
+ 115801 / 120701 (thread   35)
+ 115901 / 120701 (thread   13)
+ 116001 / 120701 (thread   74)
+ 116101 / 120701 (thread   64)
+ 116201 / 120701 (thread   31)
+ 116301 / 120701 (thread   73)
+ 116401 / 120701 (thread   84)
+ 116501 / 120701 (thread   43)
+ 116601 / 120701 (thread   35)
+ 116701 / 120701 (thread   34)
+ 116801 / 120701 (thread    1)
+ 116901 / 120701 (thread   17)
+ 117001 / 120701 (thread   45)
+ 117101 / 120701 (thread   45)
+ 117201 / 120701 (thread   39)
+ 117301 / 120701 (thread    0)
+ 117401 / 120701 (thread   44)
+ 117501 / 120701 (thread   37)
+ 117601 / 120701 (thread   54)
+ 117701 / 120701 (thread   61)
+ 117801 / 120701 (thread   47)
+ 117901 / 120701 (thread    9)
+ 118001 / 120701 (thread   14)
+ 118101 / 120701 (thread   23)
+ 118201 / 120701 (thread   42)
+ 118301 / 120701 (thread   38)
+ 118401 / 120701 (thread   77)
+ 118501 / 120701 (thread   59)
+ 118601 / 120701 (thread   25)
+ 118701 / 120701 (thread   43)
+ 118801 / 120701 (thread   51)
+ 118901 / 120701 (thread   67)
+ 119001 / 120701 (thread   39)
+ 119101 / 120701 (thread   46)
+ 119201 / 120701 (thread   78)
+ 119301 / 120701 (thread   86)
+ 119401 / 120701 (thread   82)
+ 119501 / 120701 (thread   34)
+ 119601 / 120701 (thread   70)
+ 119701 / 120701 (thread   59)
+ 119801 / 120701 (thread   42)
+ 119901 / 120701 (thread   48)
+ 120001 / 120701 (thread   52)
+ 120101 / 120701 (thread   15)
+ 120201 / 120701 (thread   80)
+ 120301 / 120701 (thread   63)
+ 120401 / 120701 (thread   65)
+ 120501 / 120701 (thread   47)
+ 120601 / 120701 (thread   16)
+ 120701 / 120701 (thread   58)
+done.
+Constructing a tree ... 
+done.
+
+Progressive alignment 1/1... 
+
+STEP     1 / 120700  f
+STEP     2 / 120700  f
+STEP     3 / 120700  f
+STEP     4 / 120700  f
+STEP     5 / 120700  f
+STEP     6 / 120700  f
+STEP     7 / 120700  f
+STEP     8 / 120700  f
+STEP     9 / 120700  f
+STEP    10 / 120700  f
+STEP    11 / 120700  f
+STEP    12 / 120700  f
+STEP    13 / 120700  f
+STEP    14 / 120700  f
+STEP    15 / 120700  f
+STEP    16 / 120700  f
+STEP    17 / 120700  f
+STEP    18 / 120700  f
+STEP    19 / 120700  f
+STEP    20 / 120700  f
+STEP    21 / 120700  f
+STEP    22 / 120700  f
+STEP    23 / 120700  f
+STEP    24 / 120700  f
+STEP    25 / 120700  f
+STEP    26 / 120700  f
+STEP    27 / 120700  f
+STEP    28 / 120700  f
+STEP    29 / 120700  f
+STEP    30 / 120700  f
+STEP    31 / 120700  f
+STEP    32 / 120700  f
+STEP    33 / 120700  f
+STEP    34 / 120700  f
+STEP    35 / 120700  f
+STEP    36 / 120700  f
+STEP    37 / 120700  f
+STEP    38 / 120700  f
+STEP    39 / 120700  f
+STEP    40 / 120700  f
+STEP    41 / 120700  f
+STEP    42 / 120700  f
+STEP    43 / 120700  f
+STEP    44 / 120700  f
+STEP    45 / 120700  f
+STEP    46 / 120700  f
+STEP    47 / 120700  f
+STEP    48 / 120700  f
+STEP    49 / 120700  f
+STEP    50 / 120700  f
+STEP    51 / 120700  f
+STEP    52 / 120700  f
+STEP    53 / 120700  f
+STEP    54 / 120700  f
+STEP    55 / 120700  f
+STEP    56 / 120700  d
+STEP    57 / 120700  d h
+STEP    58 / 120700  d h
+STEP    59 / 120700  d h
+STEP    60 / 120700  d h
+STEP    61 / 120700  d h
+STEP    62 / 120700  d h
+STEP    63 / 120700  d h
+STEP    64 / 120700  d h
+STEP    65 / 120700  d h
+STEP    66 / 120700  d h
+STEP    67 / 120700  d h
+STEP    68 / 120700  d h
+STEP    69 / 120700  d h
+STEP    70 / 120700  d h
+STEP    71 / 120700  d h
+STEP    72 / 120700  d h
+STEP    73 / 120700  d h
+STEP    74 / 120700  d h
+STEP    75 / 120700  d h
+STEP    76 / 120700  d h
+STEP    77 / 120700  d h
+STEP    78 / 120700  d h
+STEP    79 / 120700  d h
+STEP    80 / 120700  d h
+STEP    81 / 120700  d h
+STEP    82 / 120700  d h
+STEP    83 / 120700  d h
+STEP    84 / 120700  d h
+STEP    85 / 120700  d h
+STEP    86 / 120700  d h
+STEP    87 / 120700  d h
+STEP    88 / 120700  d h
+STEP    89 / 120700  d h
+STEP    90 / 120700  d h
+STEP    91 / 120700  d h
+STEP    92 / 120700  d h
+STEP    93 / 120700  d h
+STEP    94 / 120700  d h
+STEP    95 / 120700  d h
+STEP    96 / 120700  d h
+STEP    97 / 120700  d h
+STEP    98 / 120700  d h
+STEP    99 / 120700  d h
+STEP   100 / 120700  d h
+STEP   101 / 120700  d h
+STEP   102 / 120700  d h
+STEP   103 / 120700  d h
+STEP   104 / 120700  d h
+STEP   105 / 120700  d h
+STEP   106 / 120700  d h
+STEP   107 / 120700  d h
+STEP   108 / 120700  d h
+STEP   109 / 120700  d h
+STEP   110 / 120700  d h
+STEP   111 / 120700  d h
+STEP   112 / 120700  d h
+STEP   113 / 120700  d h
+STEP   114 / 120700  d h
+STEP   115 / 120700  d h
+STEP   116 / 120700  d h
+STEP   117 / 120700  d h
+STEP   118 / 120700  d h
+STEP   119 / 120700  d h
+STEP   120 / 120700  d h
+STEP   121 / 120700  d h
+STEP   122 / 120700  d h
+STEP   123 / 120700  d h
+STEP   124 / 120700  d h
+STEP   125 / 120700  d h
+STEP   126 / 120700  d h
+STEP   127 / 120700  d h
+STEP   128 / 120700  d h
+STEP   129 / 120700  d h
+STEP   130 / 120700  d h
+STEP   131 / 120700  d h
+STEP   132 / 120700  d h
+STEP   133 / 120700  d h
+STEP   134 / 120700  d h
+STEP   135 / 120700  d h
+STEP   136 / 120700  d h
+STEP   137 / 120700  d h
+STEP   138 / 120700  d h
+STEP   139 / 120700  d h
+STEP   140 / 120700  d h
+STEP   141 / 120700  d h
+STEP   142 / 120700  d h
+STEP   143 / 120700  d h
+STEP   144 / 120700  d h
+STEP   145 / 120700  d h
+STEP   146 / 120700  d h
+STEP   147 / 120700  d h
+STEP   148 / 120700  d h
+STEP   149 / 120700  d h
+STEP   150 / 120700  d h
+STEP   151 / 120700  d h
+STEP   152 / 120700  d h
+STEP   153 / 120700  d h
+STEP   154 / 120700  d h
+STEP   155 / 120700  d h
+STEP   156 / 120700  d h
+STEP   157 / 120700  d h
+STEP   158 / 120700  d h
+STEP   159 / 120700  d h
+STEP   160 / 120700  d h
+STEP   161 / 120700  d h
+STEP   162 / 120700  d h
+STEP   163 / 120700  d h
+STEP   164 / 120700  d h
+STEP   165 / 120700  d h
+STEP   166 / 120700  d h
+STEP   167 / 120700  d h
+STEP   168 / 120700  d h
+STEP   169 / 120700  d h
+STEP   170 / 120700  d h
+STEP   171 / 120700  d h
+STEP   172 / 120700  d h
+STEP   173 / 120700  d h
+STEP   174 / 120700  d h
+STEP   175 / 120700  d h
+STEP   176 / 120700  d h
+STEP   177 / 120700  d h
+STEP   178 / 120700  d h
+STEP   179 / 120700  d h
+STEP   180 / 120700  d h
+STEP   181 / 120700  d h
+STEP   182 / 120700  d h
+STEP   183 / 120700  d h
+STEP   184 / 120700  d h
+STEP   185 / 120700  d h
+STEP   186 / 120700  d h
+STEP   187 / 120700  d h
+STEP   188 / 120700  d h
+STEP   189 / 120700  d h
+STEP   190 / 120700  d h
+STEP   191 / 120700  d h
+STEP   192 / 120700  d h
+STEP   193 / 120700  d h
+STEP   194 / 120700  d h
+STEP   195 / 120700  d h
+STEP   196 / 120700  d h
+STEP   197 / 120700  d h
+STEP   198 / 120700  d h
+STEP   199 / 120700  d h
+STEP   200 / 120700  d h
+STEP   201 / 120700  d h
+STEP   202 / 120700  d h
+STEP   203 / 120700  d h
+STEP   204 / 120700  d h
+STEP   205 / 120700  d h
+STEP   206 / 120700  d h
+STEP   207 / 120700  d h
+STEP   208 / 120700  d h
+STEP   209 / 120700  d h
+STEP   210 / 120700  d h
+STEP   211 / 120700  d h
+STEP   212 / 120700  d h
+STEP   213 / 120700  d h
+STEP   214 / 120700  d h
+STEP   215 / 120700  d h
+STEP   216 / 120700  d h
+STEP   217 / 120700  d h
+STEP   218 / 120700  d h
+STEP   219 / 120700  d h
+STEP   220 / 120700  d h
+STEP   221 / 120700  d h
+STEP   222 / 120700  d h
+STEP   223 / 120700  d h
+STEP   224 / 120700  d h
+STEP   225 / 120700  d h
+STEP   226 / 120700  d h
+STEP   227 / 120700  d h
+STEP   228 / 120700  d h
+STEP   229 / 120700  d h
+STEP   230 / 120700  d h
+STEP   231 / 120700  d h
+STEP   232 / 120700  d h
+STEP   233 / 120700  d h
+STEP   234 / 120700  d h
+STEP   235 / 120700  d h
+STEP   236 / 120700  d h
+STEP   237 / 120700  d h
+STEP   238 / 120700  d h
+STEP   239 / 120700  d h
+STEP   240 / 120700  d h
+STEP   241 / 120700  d h
+STEP   242 / 120700  d h
+STEP   243 / 120700  d h
+STEP   244 / 120700  d h
+STEP   245 / 120700  d h
+STEP   246 / 120700  d h
+STEP   247 / 120700  d h
+STEP   248 / 120700  d h
+STEP   249 / 120700  d h
+STEP   250 / 120700  d h
+STEP   251 / 120700  d h
+STEP   252 / 120700  d h
+STEP   253 / 120700  d h
+STEP   254 / 120700  d h
+STEP   255 / 120700  d h
+STEP   256 / 120700  d h
+STEP   257 / 120700  d h
+STEP   258 / 120700  d h
+STEP   259 / 120700  d h
+STEP   260 / 120700  d h
+STEP   261 / 120700  d h
+STEP   262 / 120700  d h
+STEP   263 / 120700  d h
+STEP   264 / 120700  d h
+STEP   265 / 120700  d h
+STEP   266 / 120700  d h
+STEP   267 / 120700  d h
+STEP   268 / 120700  d h
+STEP   269 / 120700  d h
+STEP   270 / 120700  d h
+STEP   271 / 120700  d h
+STEP   272 / 120700  d h
+STEP   273 / 120700  d h
+STEP   274 / 120700  d h
+STEP   275 / 120700  d h
+STEP   276 / 120700  d h
+STEP   277 / 120700  d h
+STEP   278 / 120700  d h
+STEP   279 / 120700  d h
+STEP   280 / 120700  d h
+STEP   281 / 120700  d h
+STEP   282 / 120700  d h
+STEP   283 / 120700  d h
+STEP   284 / 120700  d h
+STEP   285 / 120700  d h
+STEP   286 / 120700  d h
+STEP   287 / 120700  d h
+STEP   288 / 120700  d h
+STEP   289 / 120700  d h
+STEP   290 / 120700  d h
+STEP   291 / 120700  d h
+STEP   292 / 120700  d h
+STEP   293 / 120700  d h
+STEP   294 / 120700  d h
+STEP   295 / 120700  d h
+STEP   296 / 120700  d h
+STEP   297 / 120700  d h
+STEP   298 / 120700  d h
+STEP   299 / 120700  d h
+STEP   300 / 120700  d h
+STEP   301 / 120700  d h
+STEP   302 / 120700  d h
+STEP   303 / 120700  d h
+STEP   304 / 120700  d h
+STEP   305 / 120700  d h
+STEP   306 / 120700  d h
+STEP   307 / 120700  d h
+STEP   308 / 120700  d h
+STEP   309 / 120700  d h
+STEP   310 / 120700  d h
+STEP   311 / 120700  d h
+STEP   312 / 120700  d h
+STEP   313 / 120700  d h
+STEP   314 / 120700  d h
+STEP   315 / 120700  d h
+STEP   316 / 120700  d h
+STEP   317 / 120700  d h
+STEP   318 / 120700  d h
+STEP   319 / 120700  d h
+STEP   320 / 120700  d h
+STEP   321 / 120700  d h
+STEP   322 / 120700  d h
+STEP   323 / 120700  d h
+STEP   324 / 120700  d h
+STEP   325 / 120700  d h
+STEP   326 / 120700  d h
+STEP   327 / 120700  d h
+STEP   328 / 120700  d h
+STEP   329 / 120700  d h
+STEP   330 / 120700  d h
+STEP   331 / 120700  d h
+STEP   332 / 120700  d h
+STEP   333 / 120700  d h
+STEP   334 / 120700  d h
+STEP   335 / 120700  d h
+STEP   336 / 120700  d h
+STEP   337 / 120700  d h
+STEP   338 / 120700  d h
+STEP   339 / 120700  d h
+STEP   340 / 120700  d h
+STEP   341 / 120700  d h
+STEP   342 / 120700  d h
+STEP   343 / 120700  d h
+STEP   344 / 120700  d h
+STEP   345 / 120700  d h
+STEP   346 / 120700  d h
+STEP   347 / 120700  d h
+STEP   348 / 120700  d h
+STEP   349 / 120700  d h
+STEP   350 / 120700  d h
+STEP   351 / 120700  d h
+STEP   352 / 120700  d h
+STEP   353 / 120700  d h
+STEP   354 / 120700  d h
+STEP   355 / 120700  d h
+STEP   356 / 120700  d h
+STEP   357 / 120700  d h
+STEP   358 / 120700  d h
+STEP   359 / 120700  d h
+STEP   360 / 120700  d h
+STEP   361 / 120700  d h
+STEP   362 / 120700  d h
+STEP   363 / 120700  d h
+STEP   364 / 120700  d h
+STEP   365 / 120700  d h
+STEP   366 / 120700  d h
+STEP   367 / 120700  d h
+STEP   368 / 120700  d h
+STEP   369 / 120700  d h
+STEP   370 / 120700  d h
+STEP   371 / 120700  d h
+STEP   372 / 120700  d h
+STEP   373 / 120700  d h
+STEP   374 / 120700  d h
+STEP   375 / 120700  d h
+STEP   376 / 120700  d h
+STEP   377 / 120700  d h
+STEP   378 / 120700  d h
+STEP   379 / 120700  d h
+STEP   380 / 120700  d h
+STEP   381 / 120700  d h
+STEP   382 / 120700  d h
+STEP   383 / 120700  d h
+STEP   384 / 120700  d h
+STEP   385 / 120700  d h
+STEP   386 / 120700  d h
+STEP   387 / 120700  d h
+STEP   388 / 120700  d h
+STEP   389 / 120700  d h
+STEP   390 / 120700  d h
+STEP   391 / 120700  d h
+STEP   392 / 120700  d h
+STEP   393 / 120700  d h
+STEP   394 / 120700  d h
+STEP   395 / 120700  d h
+STEP   396 / 120700  d h
+STEP   397 / 120700  d h
+STEP   398 / 120700  d h
+STEP   399 / 120700  d h
+STEP   400 / 120700  d h
+STEP   401 / 120700  d h
+STEP   402 / 120700  d h
+STEP   403 / 120700  d h
+STEP   404 / 120700  d h
+STEP   405 / 120700  d h
+STEP   406 / 120700  d h
+STEP   407 / 120700  d h
+STEP   408 / 120700  d h
+STEP   409 / 120700  d h
+STEP   410 / 120700  d h
+STEP   411 / 120700  d h
+STEP   412 / 120700  d h
+STEP   413 / 120700  d h
+STEP   414 / 120700  d h
+STEP   415 / 120700  d h
+STEP   416 / 120700  d h
+STEP   417 / 120700  d h
+STEP   418 / 120700  d h
+STEP   419 / 120700  d h
+STEP   420 / 120700  d h
+STEP   421 / 120700  d h
+STEP   422 / 120700  d h
+STEP   423 / 120700  d h
+STEP   424 / 120700  d h
+STEP   425 / 120700  d h
+STEP   426 / 120700  d h
+STEP   427 / 120700  d h
+STEP   428 / 120700  d h
+STEP   429 / 120700  d h
+STEP   430 / 120700  d h
+STEP   431 / 120700  d h
+STEP   432 / 120700  d h
+STEP   433 / 120700  d h
+STEP   434 / 120700  d h
+STEP   435 / 120700  d h
+STEP   436 / 120700  d h
+STEP   437 / 120700  d h
+STEP   438 / 120700  d h
+STEP   439 / 120700  d h
+STEP   440 / 120700  d h
+STEP   441 / 120700  d h
+STEP   442 / 120700  d h
+STEP   443 / 120700  d h
+STEP   444 / 120700  d h
+STEP   445 / 120700  d h
+STEP   446 / 120700  d h
+STEP   447 / 120700  d h
+STEP   448 / 120700  d h
+STEP   449 / 120700  d h
+STEP   450 / 120700  d h
+STEP   451 / 120700  d h
+STEP   452 / 120700  d h
+STEP   453 / 120700  d h
+STEP   454 / 120700  d h
+STEP   455 / 120700  d h
+STEP   456 / 120700  d h
+STEP   457 / 120700  d h
+STEP   458 / 120700  d h
+STEP   459 / 120700  d h
+STEP   460 / 120700  d h
+STEP   461 / 120700  d h
+STEP   462 / 120700  d h
+STEP   463 / 120700  d h
+STEP   464 / 120700  d h
+STEP   465 / 120700  d h
+STEP   466 / 120700  d h
+STEP   467 / 120700  d h
+STEP   468 / 120700  d h
+STEP   469 / 120700  d h
+STEP   470 / 120700  d h
+STEP   471 / 120700  d h
+STEP   472 / 120700  d h
+STEP   473 / 120700  d h
+STEP   474 / 120700  d h
+STEP   475 / 120700  d h
+STEP   476 / 120700  d h
+STEP   477 / 120700  d h
+STEP   478 / 120700  d h
+STEP   479 / 120700  d h
+STEP   480 / 120700  d h
+STEP   481 / 120700  d h
+STEP   482 / 120700  d h
+STEP   483 / 120700  d h
+STEP   484 / 120700  d h
+STEP   485 / 120700  d h
+STEP   486 / 120700  d h
+STEP   487 / 120700  d h
+STEP   488 / 120700  d h
+STEP   489 / 120700  d h
+STEP   490 / 120700  d h
+STEP   491 / 120700  d h
+STEP   492 / 120700  d h
+STEP   493 / 120700  d h
+STEP   494 / 120700  d h
+STEP   495 / 120700  d h
+STEP   496 / 120700  d h
+STEP   497 / 120700  d h
+STEP   498 / 120700  d h
+STEP   499 / 120700  d h
+STEP   500 / 120700  d h
+STEP   501 / 120700  d h
+STEP   601 / 120700  d h
+STEP   701 / 120700  d h
+STEP   801 / 120700  d h
+STEP   901 / 120700  d h
+STEP  1001 / 120700  d h
+STEP  1101 / 120700  d h
+STEP  1201 / 120700  d h
+STEP  1301 / 120700  d h
+STEP  1401 / 120700  d h
+STEP  1501 / 120700  d h
+STEP  1601 / 120700  d h
+STEP  1701 / 120700  d h
+STEP  1801 / 120700  d h
+STEP  1901 / 120700  d h
+STEP  2001 / 120700  d h
+STEP  2101 / 120700  d h
+STEP  2201 / 120700  d h
+STEP  2301 / 120700  d h
+STEP  2401 / 120700  d h
+STEP  2501 / 120700  d h
+STEP  2601 / 120700  d h
+STEP  2701 / 120700  d h
+STEP  2801 / 120700  d h
+STEP  2901 / 120700  d h
+STEP  3001 / 120700  d h
+STEP  3101 / 120700  d h
+STEP  3201 / 120700  d h
+STEP  3301 / 120700  d h
+STEP  3401 / 120700  d h
+STEP  3501 / 120700  d h
+STEP  3601 / 120700  d h
+STEP  3701 / 120700  d h
+STEP  3801 / 120700  d h
+STEP  3901 / 120700  d h
+STEP  4001 / 120700  d h
+STEP  4101 / 120700  d h
+STEP  4201 / 120700  d h
+STEP  4301 / 120700  d h
+STEP  4401 / 120700  d h
+STEP  4501 / 120700  d h
+STEP  4601 / 120700  d h
+STEP  4701 / 120700  d h
+STEP  4801 / 120700  d h
+STEP  4901 / 120700  d h
+STEP  5001 / 120700  f
+STEP  5101 / 120700  f
+STEP  5201 / 120700  d h
+STEP  5301 / 120700  d h
+STEP  5401 / 120700  f
+STEP  5501 / 120700  d h
+STEP  5601 / 120700  f
+STEP  5701 / 120700  d h
+STEP  5801 / 120700  f
+STEP  5901 / 120700  f
+STEP  6001 / 120700  f
+Reallocating..done. *alloclen = 1169
+
+STEP  6101 / 120700  f
+STEP  6201 / 120700  f
+STEP  6301 / 120700  d h
+STEP  6401 / 120700  f
+STEP  6501 / 120700  d h
+STEP  6601 / 120700  d h
+STEP  6701 / 120700  d h
+STEP  6801 / 120700  d h
+STEP  6901 / 120700  d h
+STEP  7001 / 120700  d h
+STEP  7101 / 120700  d h
+STEP  7201 / 120700  d h
+STEP  7301 / 120700  d h
+STEP  7401 / 120700  d h
+STEP  7501 / 120700  f
+STEP  7601 / 120700  d h
+STEP  7701 / 120700  f
+STEP  7801 / 120700  d h
+STEP  7901 / 120700  f
+STEP  8001 / 120700  f
+STEP  8101 / 120700  d h
+STEP  8201 / 120700  d h
+STEP  8301 / 120700  f
+STEP  8401 / 120700  d h
+STEP  8501 / 120700  d h
+STEP  8601 / 120700  f
+STEP  8701 / 120700  f
+STEP  8801 / 120700  d h
+STEP  8901 / 120700  f
+STEP  9001 / 120700  d h
+STEP  9101 / 120700  d h
+STEP  9201 / 120700  f
+STEP  9301 / 120700  f
+STEP  9401 / 120700  d h
+STEP  9501 / 120700  d h
+STEP  9601 / 120700  f
+STEP  9701 / 120700  d h
+STEP  9801 / 120700  d h
+STEP  9901 / 120700  d h
+STEP  10001 / 120700  d h
+STEP  10101 / 120700  f
+STEP  10201 / 120700  d h
+STEP  10301 / 120700  f
+STEP  10401 / 120700  d h
+STEP  10501 / 120700  f
+STEP  10601 / 120700  d h
+STEP  10701 / 120700  d h
+STEP  10801 / 120700  d h
+STEP  10901 / 120700  d h
+STEP  11001 / 120700  d h
+STEP  11101 / 120700  d h
+STEP  11201 / 120700  f
+STEP  11301 / 120700  f
+STEP  11401 / 120700  f
+STEP  11501 / 120700  f
+STEP  11601 / 120700  f
+STEP  11701 / 120700  f
+STEP  11801 / 120700  f
+STEP  11901 / 120700  d h
+STEP  12001 / 120700  d h
+STEP  12101 / 120700  d h
+STEP  12201 / 120700  d h
+STEP  12301 / 120700  d h
+STEP  12401 / 120700  f
+STEP  12501 / 120700  d h
+STEP  12601 / 120700  d h
+STEP  12701 / 120700  d h
+STEP  12801 / 120700  d h
+STEP  12901 / 120700  f
+STEP  13001 / 120700  f
+STEP  13101 / 120700  f
+STEP  13201 / 120700  d h
+STEP  13301 / 120700  d h
+STEP  13401 / 120700  f
+STEP  13501 / 120700  f
+STEP  13601 / 120700  d h
+STEP  13701 / 120700  f
+STEP  13801 / 120700  d h
+STEP  13901 / 120700  f
+STEP  14001 / 120700  d h
+STEP  14101 / 120700  d h
+STEP  14201 / 120700  d h
+STEP  14301 / 120700  d h
+STEP  14401 / 120700  f
+STEP  14501 / 120700  f
+STEP  14601 / 120700  d h
+STEP  14701 / 120700  f
+STEP  14801 / 120700  d h
+STEP  14901 / 120700  f
+STEP  15001 / 120700  d h
+STEP  15101 / 120700  f
+STEP  15201 / 120700  f
+STEP  15301 / 120700  f
+STEP  15401 / 120700  f
+STEP  15501 / 120700  f
+STEP  15601 / 120700  d h
+STEP  15701 / 120700  d h
+STEP  15801 / 120700  d h
+STEP  15901 / 120700  f
+STEP  16001 / 120700  f
+STEP  16101 / 120700  f
+STEP  16201 / 120700  f
+STEP  16301 / 120700  f
+STEP  16401 / 120700  f
+STEP  16501 / 120700  d h
+STEP  16601 / 120700  f
+STEP  16701 / 120700  d h
+STEP  16801 / 120700  f
+STEP  16901 / 120700  d h
+STEP  17001 / 120700  d h
+STEP  17101 / 120700  d h
+STEP  17201 / 120700  d h
+STEP  17301 / 120700  f
+STEP  17401 / 120700  d h
+STEP  17501 / 120700  f
+STEP  17601 / 120700  d h
+STEP  17701 / 120700  d h
+STEP  17801 / 120700  f
+STEP  17901 / 120700  f
+STEP  18001 / 120700  f
+STEP  18101 / 120700  d h
+STEP  18201 / 120700  d h
+STEP  18301 / 120700  f
+STEP  18401 / 120700  d h
+STEP  18501 / 120700  f
+STEP  18601 / 120700  d h
+STEP  18701 / 120700  d h
+STEP  18801 / 120700  f
+STEP  18901 / 120700  d h
+STEP  19001 / 120700  d h
+STEP  19101 / 120700  f
+STEP  19201 / 120700  f
+STEP  19301 / 120700  d h
+STEP  19401 / 120700  f
+STEP  19501 / 120700  f
+STEP  19601 / 120700  f
+STEP  19701 / 120700  f
+STEP  19801 / 120700  f
+STEP  19901 / 120700  f
+STEP  20001 / 120700  d h
+STEP  20101 / 120700  d h
+STEP  20201 / 120700  d h
+STEP  20301 / 120700  d h
+STEP  20401 / 120700  f
+STEP  20501 / 120700  f
+STEP  20601 / 120700  f
+STEP  20701 / 120700  f
+STEP  20801 / 120700  f
+STEP  20901 / 120700  d h
+STEP  21001 / 120700  f
+STEP  21101 / 120700  d h
+STEP  21201 / 120700  d h
+STEP  21301 / 120700  d h
+STEP  21401 / 120700  d h
+STEP  21501 / 120700  d h
+STEP  21601 / 120700  d h
+STEP  21701 / 120700  d h
+STEP  21801 / 120700  d h
+STEP  21901 / 120700  d h
+STEP  22001 / 120700  d h
+STEP  22101 / 120700  d h
+STEP  22201 / 120700  d h
+STEP  22301 / 120700  d h
+STEP  22401 / 120700  d h
+STEP  22501 / 120700  d h
+STEP  22601 / 120700  d h
+STEP  22701 / 120700  d h
+STEP  22801 / 120700  d h
+STEP  22901 / 120700  d h
+STEP  23001 / 120700  d h
+STEP  23101 / 120700  f
+STEP  23201 / 120700  f
+STEP  23301 / 120700  f
+STEP  23401 / 120700  f
+STEP  23501 / 120700  f
+STEP  23601 / 120700  d h
+STEP  23701 / 120700  f
+STEP  23801 / 120700  f
+STEP  23901 / 120700  f
+STEP  24001 / 120700  d h
+STEP  24101 / 120700  f
+STEP  24201 / 120700  d h
+STEP  24301 / 120700  d h
+STEP  24401 / 120700  f
+STEP  24501 / 120700  f
+STEP  24601 / 120700  f
+STEP  24701 / 120700  f
+STEP  24801 / 120700  f
+STEP  24901 / 120700  d h
+STEP  25001 / 120700  d h
+STEP  25101 / 120700  f
+STEP  25201 / 120700  f
+STEP  25301 / 120700  d h
+STEP  25401 / 120700  d h
+STEP  25501 / 120700  f
+STEP  25601 / 120700  f
+STEP  25701 / 120700  f
+STEP  25801 / 120700  d h
+STEP  25901 / 120700  d h
+STEP  26001 / 120700  d h
+STEP  26101 / 120700  d h
+STEP  26201 / 120700  f
+STEP  26301 / 120700  d h
+STEP  26401 / 120700  f
+STEP  26501 / 120700  d h
+STEP  26601 / 120700  d h
+STEP  26701 / 120700  f
+STEP  26801 / 120700  d h
+STEP  26901 / 120700  f
+STEP  27001 / 120700  f
+STEP  27101 / 120700  f
+STEP  27201 / 120700  f
+STEP  27301 / 120700  f
+STEP  27401 / 120700  f
+STEP  27501 / 120700  f
+STEP  27601 / 120700  d h
+STEP  27701 / 120700  d h
+STEP  27801 / 120700  f
+STEP  27901 / 120700  f
+STEP  28001 / 120700  d h
+STEP  28101 / 120700  f
+STEP  28201 / 120700  f
+STEP  28301 / 120700  f
+STEP  28401 / 120700  f
+STEP  28501 / 120700  f
+STEP  28601 / 120700  d h
+STEP  28701 / 120700  f
+STEP  28801 / 120700  f
+STEP  28901 / 120700  f
+STEP  29001 / 120700  d h
+STEP  29101 / 120700  d h
+STEP  29201 / 120700  d h
+STEP  29301 / 120700  d h
+STEP  29401 / 120700  f
+STEP  29501 / 120700  f
+STEP  29601 / 120700  d h
+STEP  29701 / 120700  f
+STEP  29801 / 120700  d h
+STEP  29901 / 120700  f
+STEP  30001 / 120700  f
+STEP  30101 / 120700  f
+STEP  30201 / 120700  f
+STEP  30301 / 120700  d h
+STEP  30401 / 120700  f
+STEP  30501 / 120700  f
+STEP  30601 / 120700  d h
+STEP  30701 / 120700  f
+STEP  30801 / 120700  d h
+STEP  30901 / 120700  f
+STEP  31001 / 120700  d h
+STEP  31101 / 120700  f
+STEP  31201 / 120700  d h
+STEP  31301 / 120700  d h
+STEP  31401 / 120700  d h
+STEP  31501 / 120700  d h
+STEP  31601 / 120700  f
+STEP  31701 / 120700  d h
+STEP  31801 / 120700  d h
+STEP  31901 / 120700  d h
+STEP  32001 / 120700  d h
+STEP  32101 / 120700  f
+STEP  32201 / 120700  f
+STEP  32301 / 120700  f
+STEP  32401 / 120700  d h
+STEP  32501 / 120700  f
+STEP  32601 / 120700  d h
+STEP  32701 / 120700  f
+STEP  32801 / 120700  d h
+STEP  32901 / 120700  f
+STEP  33001 / 120700  f
+STEP  33101 / 120700  f
+STEP  33201 / 120700  d h
+STEP  33301 / 120700  d h
+STEP  33401 / 120700  d h
+STEP  33501 / 120700  d h
+STEP  33601 / 120700  d h
+STEP  33701 / 120700  d h
+STEP  33801 / 120700  d h
+STEP  33901 / 120700  d h
+STEP  34001 / 120700  d h
+STEP  34101 / 120700  d h
+STEP  34201 / 120700  d h
+STEP  34301 / 120700  d h
+STEP  34401 / 120700  d h
+STEP  34501 / 120700  d h
+STEP  34601 / 120700  d h
+STEP  34701 / 120700  d h
+STEP  34801 / 120700  d h
+STEP  34901 / 120700  d h
+STEP  35001 / 120700  d h
+STEP  35101 / 120700  d h
+STEP  35201 / 120700  d h
+STEP  35301 / 120700  d h
+STEP  35401 / 120700  d h
+STEP  35501 / 120700  d h
+STEP  35601 / 120700  d h
+STEP  35701 / 120700  d h
+STEP  35801 / 120700  d h
+STEP  35901 / 120700  d h
+STEP  36001 / 120700  d h
+STEP  36101 / 120700  d h
+STEP  36201 / 120700  d h
+STEP  36301 / 120700  d h
+STEP  36401 / 120700  d h
+STEP  36501 / 120700  d h
+STEP  36601 / 120700  d h
+STEP  36701 / 120700  d h
+STEP  36801 / 120700  d h
+STEP  36901 / 120700  d h
+STEP  37001 / 120700  d h
+STEP  37101 / 120700  d h
+STEP  37201 / 120700  d h
+STEP  37301 / 120700  d h
+STEP  37401 / 120700  d h
+STEP  37501 / 120700  d h
+STEP  37601 / 120700  d h
+STEP  37701 / 120700  d h
+STEP  37801 / 120700  d h
+STEP  37901 / 120700  d h
+STEP  38001 / 120700  d h
+STEP  38101 / 120700  d h
+STEP  38201 / 120700  d h
+STEP  38301 / 120700  d h
+STEP  38401 / 120700  d h
+STEP  38501 / 120700  d h
+STEP  38601 / 120700  d h
+STEP  38701 / 120700  d h
+STEP  38801 / 120700  d h
+STEP  38901 / 120700  d h
+STEP  39001 / 120700  d h
+STEP  39101 / 120700  f
+STEP  39201 / 120700  f
+STEP  39301 / 120700  d h
+STEP  39401 / 120700  d h
+STEP  39501 / 120700  f
+STEP  39601 / 120700  d h
+STEP  39701 / 120700  d h
+STEP  39801 / 120700  d h
+STEP  39901 / 120700  d h
+STEP  40001 / 120700  d h
+STEP  40101 / 120700  d h
+STEP  40201 / 120700  d h
+STEP  40301 / 120700  d h
+STEP  40401 / 120700  d h
+STEP  40501 / 120700  d h
+STEP  40601 / 120700  f
+STEP  40701 / 120700  d h
+STEP  40801 / 120700  f
+STEP  40901 / 120700  d h
+STEP  41001 / 120700  f
+STEP  41101 / 120700  d h
+STEP  41201 / 120700  d h
+STEP  41301 / 120700  d h
+STEP  41401 / 120700  f
+STEP  41501 / 120700  d h
+STEP  41601 / 120700  d h
+STEP  41701 / 120700  d h
+STEP  41801 / 120700  d h
+STEP  41901 / 120700  d h
+STEP  42001 / 120700  d h
+STEP  42101 / 120700  d h
+STEP  42201 / 120700  d h
+STEP  42301 / 120700  d h
+STEP  42401 / 120700  f
+STEP  42501 / 120700  d h
+STEP  42601 / 120700  d h
+STEP  42701 / 120700  d h
+STEP  42801 / 120700  d h
+STEP  42901 / 120700  d h
+STEP  43001 / 120700  d h
+STEP  43101 / 120700  d h
+STEP  43201 / 120700  d h
+STEP  43301 / 120700  d h
+STEP  43401 / 120700  d h
+STEP  43501 / 120700  f
+STEP  43601 / 120700  f
+STEP  43701 / 120700  d h
+STEP  43801 / 120700  f
+STEP  43901 / 120700  f
+STEP  44001 / 120700  d h
+STEP  44101 / 120700  d h
+STEP  44201 / 120700  d h
+STEP  44301 / 120700  f
+STEP  44401 / 120700  d h
+STEP  44501 / 120700  d h
+STEP  44601 / 120700  d h
+STEP  44701 / 120700  d h
+STEP  44801 / 120700  d h
+STEP  44901 / 120700  d h
+STEP  45001 / 120700  d h
+STEP  45101 / 120700  d h
+STEP  45201 / 120700  d h
+STEP  45301 / 120700  d h
+STEP  45401 / 120700  d h
+STEP  45501 / 120700  d h
+STEP  45601 / 120700  d h
+STEP  45701 / 120700  d h
+STEP  45801 / 120700  d
+STEP  45901 / 120700  d h
+STEP  46001 / 120700  d h
+STEP  46101 / 120700  d h
+STEP  46201 / 120700  d h
+STEP  46301 / 120700  f
+STEP  46401 / 120700  d h
+STEP  46501 / 120700  f
+STEP  46601 / 120700  d h
+STEP  46701 / 120700  f
+STEP  46801 / 120700  f
+STEP  46901 / 120700  d h
+STEP  47001 / 120700  d h
+STEP  47101 / 120700  d h
+STEP  47201 / 120700  d h
+STEP  47301 / 120700  d h
+STEP  47401 / 120700  f
+STEP  47501 / 120700  f
+STEP  47601 / 120700  d h
+STEP  47701 / 120700  f
+STEP  47801 / 120700  d h
+STEP  47901 / 120700  d h
+STEP  48001 / 120700  d h
+STEP  48101 / 120700  d h
+STEP  48201 / 120700  d h
+STEP  48301 / 120700  d h
+STEP  48401 / 120700  d h
+STEP  48501 / 120700  d h
+STEP  48601 / 120700  d h
+STEP  48701 / 120700  d h
+STEP  48801 / 120700  d h
+STEP  48901 / 120700  d h
+STEP  49001 / 120700  d h
+STEP  49101 / 120700  d h
+STEP  49201 / 120700  d h
+STEP  49301 / 120700  d h
+STEP  49401 / 120700  f
+STEP  49501 / 120700  d h
+STEP  49601 / 120700  d h
+STEP  49701 / 120700  f
+STEP  49801 / 120700  d h
+STEP  49901 / 120700  f
+STEP  50001 / 120700  d h
+STEP  50101 / 120700  d h
+STEP  50201 / 120700  f
+STEP  50301 / 120700  f
+STEP  50401 / 120700  f
+STEP  50501 / 120700  d h
+STEP  50601 / 120700  d h
+STEP  50701 / 120700  f
+STEP  50801 / 120700  f
+STEP  50901 / 120700  d h
+STEP  51001 / 120700  d h
+STEP  51101 / 120700  d h
+STEP  51201 / 120700  d h
+STEP  51301 / 120700  d h
+STEP  51401 / 120700  d h
+STEP  51501 / 120700  d h
+STEP  51601 / 120700  d h
+STEP  51701 / 120700  d h
+STEP  51801 / 120700  d h
+STEP  51901 / 120700  f
+STEP  52001 / 120700  d h
+STEP  52101 / 120700  d h
+STEP  52201 / 120700  f
+STEP  52301 / 120700  f
+STEP  52401 / 120700  f
+STEP  52501 / 120700  d h
+STEP  52601 / 120700  d h
+STEP  52701 / 120700  d h
+STEP  52801 / 120700  d h
+STEP  52901 / 120700  d h
+STEP  53001 / 120700  d h
+STEP  53101 / 120700  d h
+STEP  53201 / 120700  f
+STEP  53301 / 120700  d h
+STEP  53401 / 120700  d h
+STEP  53501 / 120700  d h
+STEP  53601 / 120700  d h
+STEP  53701 / 120700  d h
+STEP  53801 / 120700  d h
+STEP  53901 / 120700  f
+STEP  54001 / 120700  d h
+STEP  54101 / 120700  d h
+STEP  54201 / 120700  d h
+STEP  54301 / 120700  d h
+STEP  54401 / 120700  d h
+STEP  54501 / 120700  d h
+STEP  54601 / 120700  d h
+STEP  54701 / 120700  d h
+STEP  54801 / 120700  d h
+STEP  54901 / 120700  d h
+STEP  55001 / 120700  d h
+STEP  55101 / 120700  d h
+STEP  55201 / 120700  d h
+STEP  55301 / 120700  d h
+STEP  55401 / 120700  d h
+STEP  55501 / 120700  d h
+STEP  55601 / 120700  d h
+STEP  55701 / 120700  d h
+STEP  55801 / 120700  d h
+STEP  55901 / 120700  d h
+STEP  56001 / 120700  d h
+STEP  56101 / 120700  d h
+STEP  56201 / 120700  d h
+STEP  56301 / 120700  d h
+STEP  56401 / 120700  d h
+STEP  56501 / 120700  d h
+STEP  56601 / 120700  d h
+STEP  56701 / 120700  d h
+STEP  56801 / 120700  d h
+STEP  56901 / 120700  d h
+STEP  57001 / 120700  d h
+STEP  57101 / 120700  d h
+STEP  57201 / 120700  d h
+STEP  57301 / 120700  d h
+STEP  57401 / 120700  d h
+STEP  57501 / 120700  d h
+STEP  57601 / 120700  d h
+STEP  57701 / 120700  d h
+STEP  57801 / 120700  d h
+STEP  57901 / 120700  d h
+STEP  58001 / 120700  d h
+STEP  58101 / 120700  d h
+STEP  58201 / 120700  d h
+STEP  58301 / 120700  d h
+STEP  58401 / 120700  d h
+STEP  58501 / 120700  d h
+STEP  58601 / 120700  d h
+STEP  58701 / 120700  d h
+STEP  58801 / 120700  d h
+STEP  58901 / 120700  d h
+STEP  59001 / 120700  d h
+STEP  59101 / 120700  d h
+STEP  59201 / 120700  d h
+STEP  59301 / 120700  d h
+STEP  59401 / 120700  f
+STEP  59501 / 120700  d h
+STEP  59601 / 120700  d h
+STEP  59701 / 120700  d h
+STEP  59801 / 120700  d h
+STEP  59901 / 120700  d h
+STEP  60001 / 120700  d h
+STEP  60101 / 120700  d h
+STEP  60201 / 120700  d h
+STEP  60301 / 120700  d h
+STEP  60401 / 120700  d h
+STEP  60501 / 120700  d h
+STEP  60601 / 120700  d h
+STEP  60701 / 120700  f
+STEP  60801 / 120700  d h
+STEP  60901 / 120700  f
+STEP  61001 / 120700  d h
+STEP  61101 / 120700  d h
+STEP  61201 / 120700  d h
+STEP  61301 / 120700  d h
+STEP  61401 / 120700  d h
+STEP  61501 / 120700  d h
+STEP  61601 / 120700  d h
+STEP  61701 / 120700  f
+STEP  61801 / 120700  f
+STEP  61901 / 120700  d h
+STEP  62001 / 120700  d h
+STEP  62101 / 120700  f
+STEP  62201 / 120700  d h
+STEP  62301 / 120700  f
+STEP  62401 / 120700  d h
+STEP  62501 / 120700  d h
+STEP  62601 / 120700  f
+STEP  62701 / 120700  d h
+STEP  62801 / 120700  d h
+STEP  62901 / 120700  d h
+STEP  63001 / 120700  d h
+STEP  63101 / 120700  d h
+STEP  63201 / 120700  d h
+STEP  63301 / 120700  d h
+STEP  63401 / 120700  f
+STEP  63501 / 120700  f
+STEP  63601 / 120700  f
+STEP  63701 / 120700  f
+STEP  63801 / 120700  f
+STEP  63901 / 120700  d h
+STEP  64001 / 120700  f
+STEP  64101 / 120700  f
+STEP  64201 / 120700  f
+STEP  64301 / 120700  d h
+STEP  64401 / 120700  d h
+STEP  64501 / 120700  d h
+STEP  64601 / 120700  d h
+STEP  64701 / 120700  f
+STEP  64801 / 120700  f
+STEP  64901 / 120700  d h
+STEP  65001 / 120700  d h
+STEP  65101 / 120700  d h
+STEP  65201 / 120700  d h
+STEP  65301 / 120700  d h
+STEP  65401 / 120700  d h
+STEP  65501 / 120700  d h
+STEP  65601 / 120700  d h
+STEP  65701 / 120700  d h
+STEP  65801 / 120700  d h
+STEP  65901 / 120700  d h
+STEP  66001 / 120700  d h
+STEP  66101 / 120700  d h
+STEP  66201 / 120700  d h
+STEP  66301 / 120700  d h
+STEP  66401 / 120700  d h
+STEP  66501 / 120700  d h
+STEP  66601 / 120700  d h
+STEP  66701 / 120700  f
+STEP  66801 / 120700  d h
+STEP  66901 / 120700  d h
+STEP  67001 / 120700  d h
+STEP  67101 / 120700  d h
+STEP  67201 / 120700  d h
+STEP  67301 / 120700  f
+STEP  67401 / 120700  f
+STEP  67501 / 120700  f
+STEP  67601 / 120700  f
+STEP  67701 / 120700  d h
+STEP  67801 / 120700  d h
+STEP  67901 / 120700  f
+STEP  68001 / 120700  f
+STEP  68101 / 120700  f
+STEP  68201 / 120700  f
+STEP  68301 / 120700  f
+STEP  68401 / 120700  f
+STEP  68501 / 120700  d h
+STEP  68601 / 120700  d h
+STEP  68701 / 120700  d h
+STEP  68801 / 120700  d h
+STEP  68901 / 120700  d h
+STEP  69001 / 120700  d h
+STEP  69101 / 120700  d h
+STEP  69201 / 120700  d h
+STEP  69301 / 120700  d h
+STEP  69401 / 120700  d h
+STEP  69501 / 120700  d h
+STEP  69601 / 120700  d h
+STEP  69701 / 120700  f
+STEP  69801 / 120700  f
+STEP  69901 / 120700  f
+STEP  70001 / 120700  d h
+STEP  70101 / 120700  d h
+STEP  70201 / 120700  f
+STEP  70301 / 120700  f
+STEP  70401 / 120700  f
+STEP  70501 / 120700  f
+STEP  70601 / 120700  f
+STEP  70701 / 120700  f
+STEP  70801 / 120700  d h
+STEP  70901 / 120700  d h
+STEP  71001 / 120700  d h
+STEP  71101 / 120700  d h
+STEP  71201 / 120700  d h
+STEP  71301 / 120700  d h
+STEP  71401 / 120700  f
+STEP  71501 / 120700  f
+STEP  71601 / 120700  d h
+STEP  71701 / 120700  f
+STEP  71801 / 120700  f
+STEP  71901 / 120700  f
+STEP  72001 / 120700  d h
+STEP  72101 / 120700  d h
+STEP  72201 / 120700  d h
+STEP  72301 / 120700  f
+STEP  72401 / 120700  f
+STEP  72501 / 120700  f
+STEP  72601 / 120700  d h
+STEP  72701 / 120700  f
+STEP  72801 / 120700  f
+STEP  72901 / 120700  f
+STEP  73001 / 120700  f
+STEP  73101 / 120700  f
+STEP  73201 / 120700  f
+STEP  73301 / 120700  d h
+STEP  73401 / 120700  d h
+STEP  73501 / 120700  d h
+STEP  73601 / 120700  d h
+STEP  73701 / 120700  d h
+STEP  73801 / 120700  d h
+STEP  73901 / 120700  d h
+STEP  74001 / 120700  d h
+STEP  74101 / 120700  f
+STEP  74201 / 120700  f
+STEP  74301 / 120700  d h
+STEP  74401 / 120700  d h
+STEP  74501 / 120700  f
+STEP  74601 / 120700  d h
+STEP  74701 / 120700  f
+STEP  74801 / 120700  f
+STEP  74901 / 120700  d h
+STEP  75001 / 120700  d h
+STEP  75101 / 120700  d h
+STEP  75201 / 120700  d h
+STEP  75301 / 120700  d h
+STEP  75401 / 120700  d h
+STEP  75501 / 120700  d h
+STEP  75601 / 120700  d h
+STEP  75701 / 120700  d h
+STEP  75801 / 120700  d h
+STEP  75901 / 120700  d h
+STEP  76001 / 120700  d h
+STEP  76101 / 120700  d h
+STEP  76201 / 120700  d h
+STEP  76301 / 120700  d h
+STEP  76401 / 120700  d h
+STEP  76501 / 120700  d h
+STEP  76601 / 120700  d h
+STEP  76701 / 120700  d h
+STEP  76801 / 120700  d h
+STEP  76901 / 120700  d h
+STEP  77001 / 120700  d h
+STEP  77101 / 120700  d h
+STEP  77201 / 120700  d h
+STEP  77301 / 120700  d h
+STEP  77401 / 120700  d h
+STEP  77501 / 120700  d h
+STEP  77601 / 120700  d h
+STEP  77701 / 120700  d h
+STEP  77801 / 120700  d h
+STEP  77901 / 120700  d h
+STEP  78001 / 120700  f
+STEP  78101 / 120700  d h
+STEP  78201 / 120700  d h
+STEP  78301 / 120700  d h
+STEP  78401 / 120700  d h
+STEP  78501 / 120700  d h
+STEP  78601 / 120700  d h
+STEP  78701 / 120700  d h
+STEP  78801 / 120700  d h
+STEP  78901 / 120700  d h
+STEP  79001 / 120700  d h
+STEP  79101 / 120700  d h
+STEP  79201 / 120700  d h
+STEP  79301 / 120700  d h
+STEP  79401 / 120700  d h
+STEP  79501 / 120700  d h
+STEP  79601 / 120700  f
+STEP  79701 / 120700  d h
+STEP  79801 / 120700  d h
+STEP  79901 / 120700  d h
+STEP  80001 / 120700  d h
+STEP  80101 / 120700  d h
+STEP  80201 / 120700  d h
+STEP  80301 / 120700  d h
+STEP  80401 / 120700  d h
+STEP  80501 / 120700  d h
+STEP  80601 / 120700  d h
+STEP  80701 / 120700  d h
+STEP  80801 / 120700  f
+STEP  80901 / 120700  d h
+STEP  81001 / 120700  d h
+STEP  81101 / 120700  d h
+STEP  81201 / 120700  f
+STEP  81301 / 120700  d h
+STEP  81401 / 120700  d h
+STEP  81501 / 120700  d h
+STEP  81601 / 120700  d h
+STEP  81701 / 120700  d h
+STEP  81801 / 120700  d h
+STEP  81901 / 120700  d h
+STEP  82001 / 120700  d h
+STEP  82101 / 120700  d h
+STEP  82201 / 120700  f
+STEP  82301 / 120700  d h
+STEP  82401 / 120700  f
+STEP  82501 / 120700  d h
+STEP  82601 / 120700  d h
+STEP  82701 / 120700  f
+STEP  82801 / 120700  f
+STEP  82901 / 120700  d h
+STEP  83001 / 120700  d h
+STEP  83101 / 120700  f
+STEP  83201 / 120700  d h
+STEP  83301 / 120700  d h
+STEP  83401 / 120700  d h
+STEP  83501 / 120700  d h
+STEP  83601 / 120700  d h
+STEP  83701 / 120700  d h
+STEP  83801 / 120700  d h
+STEP  83901 / 120700  d h
+STEP  84001 / 120700  f
+STEP  84101 / 120700  d h
+STEP  84201 / 120700  d h
+STEP  84301 / 120700  f
+STEP  84401 / 120700  f
+STEP  84501 / 120700  f
+STEP  84601 / 120700  d h
+STEP  84701 / 120700  d h
+STEP  84801 / 120700  d h
+STEP  84901 / 120700  d h
+STEP  85001 / 120700  f
+STEP  85101 / 120700  d h
+STEP  85201 / 120700  f
+STEP  85301 / 120700  f
+STEP  85401 / 120700  f
+STEP  85501 / 120700  d h
+STEP  85601 / 120700  f
+STEP  85701 / 120700  d h
+STEP  85801 / 120700  f
+STEP  85901 / 120700  d h
+STEP  86001 / 120700  d h
+STEP  86101 / 120700  d h
+STEP  86201 / 120700  d h
+STEP  86301 / 120700  d h
+STEP  86401 / 120700  d h
+STEP  86501 / 120700  f
+STEP  86601 / 120700  d h
+STEP  86701 / 120700  d h
+STEP  86801 / 120700  f
+STEP  86901 / 120700  d h
+STEP  87001 / 120700  d h
+STEP  87101 / 120700  d h
+STEP  87201 / 120700  f
+STEP  87301 / 120700  d h
+STEP  87401 / 120700  d h
+STEP  87501 / 120700  d h
+STEP  87601 / 120700  d h
+STEP  87701 / 120700  f
+STEP  87801 / 120700  f
+STEP  87901 / 120700  d h
+STEP  88001 / 120700  d h
+STEP  88101 / 120700  d h
+STEP  88201 / 120700  d h
+STEP  88301 / 120700  d h
+STEP  88401 / 120700  d h
+STEP  88501 / 120700  d h
+STEP  88601 / 120700  d h
+STEP  88701 / 120700  d h
+STEP  88801 / 120700  d h
+STEP  88901 / 120700  d h
+STEP  89001 / 120700  f
+STEP  89101 / 120700  d h
+STEP  89201 / 120700  d h
+STEP  89301 / 120700  f
+STEP  89401 / 120700  f
+STEP  89501 / 120700  f
+STEP  89601 / 120700  f
+STEP  89701 / 120700  d h
+STEP  89801 / 120700  f
+STEP  89901 / 120700  f
+STEP  90001 / 120700  d h
+STEP  90101 / 120700  d h
+STEP  90201 / 120700  f
+STEP  90301 / 120700  d h
+STEP  90401 / 120700  d h
+STEP  90501 / 120700  d h
+STEP  90601 / 120700  f
+STEP  90701 / 120700  d h
+STEP  90801 / 120700  f
+STEP  90901 / 120700  d h
+STEP  91001 / 120700  d h
+STEP  91101 / 120700  f
+STEP  91201 / 120700  d h
+STEP  91301 / 120700  f
+STEP  91401 / 120700  d h
+STEP  91501 / 120700  f
+STEP  91601 / 120700  d h
+STEP  91701 / 120700  f
+STEP  91801 / 120700  f
+STEP  91901 / 120700  f
+STEP  92001 / 120700  f
+STEP  92101 / 120700  f
+STEP  92201 / 120700  d h
+STEP  92301 / 120700  d h
+STEP  92401 / 120700  d h
+STEP  92501 / 120700  f
+STEP  92601 / 120700  d h
+STEP  92701 / 120700  f
+STEP  92801 / 120700  d h
+STEP  92901 / 120700  d h
+STEP  93001 / 120700  d h
+STEP  93101 / 120700  d h
+STEP  93201 / 120700  f
+STEP  93301 / 120700  f
+STEP  93401 / 120700  f
+STEP  93501 / 120700  f
+STEP  93601 / 120700  d h
+STEP  93701 / 120700  d h
+STEP  93801 / 120700  d h
+STEP  93901 / 120700  d h
+STEP  94001 / 120700  d h
+STEP  94101 / 120700  d h
+STEP  94201 / 120700  d h
+STEP  94301 / 120700  d h
+STEP  94401 / 120700  d h
+STEP  94501 / 120700  d h
+STEP  94601 / 120700  d h
+STEP  94701 / 120700  d h
+STEP  94801 / 120700  d h
+STEP  94901 / 120700  d h
+STEP  95001 / 120700  d h
+STEP  95101 / 120700  d h
+STEP  95201 / 120700  d h
+STEP  95301 / 120700  d h
+STEP  95401 / 120700  d h
+STEP  95501 / 120700  d h
+STEP  95601 / 120700  d h
+STEP  95701 / 120700  d h
+STEP  95801 / 120700  d h
+STEP  95901 / 120700  d h
+STEP  96001 / 120700  d h
+STEP  96101 / 120700  d h
+STEP  96201 / 120700  d h
+STEP  96301 / 120700  d h
+STEP  96401 / 120700  d h
+STEP  96501 / 120700  d h
+STEP  96601 / 120700  d h
+STEP  96701 / 120700  d h
+STEP  96801 / 120700  d h
+STEP  96901 / 120700  d h
+STEP  97001 / 120700  d h
+STEP  97101 / 120700  d h
+STEP  97201 / 120700  d h
+STEP  97301 / 120700  d h
+STEP  97401 / 120700  d h
+STEP  97501 / 120700  d h
+STEP  97601 / 120700  d h
+STEP  97701 / 120700  d h
+STEP  97801 / 120700  d h
+STEP  97901 / 120700  d h
+STEP  98001 / 120700  d h
+STEP  98101 / 120700  d h
+STEP  98201 / 120700  d h
+STEP  98301 / 120700  d h
+STEP  98401 / 120700  d h
+STEP  98501 / 120700  d h
+STEP  98601 / 120700  d h
+STEP  98701 / 120700  f
+STEP  98801 / 120700  d h
+STEP  98901 / 120700  f
+STEP  99001 / 120700  d h
+STEP  99101 / 120700  d h
+STEP  99201 / 120700  d h
+STEP  99301 / 120700  d h
+STEP  99401 / 120700  d h
+STEP  99501 / 120700  d h
+STEP  99601 / 120700  d h
+STEP  99701 / 120700  d h
+STEP  99801 / 120700  d h
+STEP  99901 / 120700  d h
+STEP  100001 / 120700  d h
+STEP  100101 / 120700  f
+STEP  100201 / 120700  f
+STEP  100301 / 120700  d h
+STEP  100401 / 120700  f
+STEP  100501 / 120700  d h
+STEP  100601 / 120700  d h
+STEP  100701 / 120700  f
+STEP  100801 / 120700  f
+STEP  100901 / 120700  d h
+STEP  101001 / 120700  d h
+STEP  101101 / 120700  f
+STEP  101201 / 120700  d h
+STEP  101301 / 120700  d h
+STEP  101401 / 120700  d h
+STEP  101501 / 120700  d h
+STEP  101601 / 120700  d h
+STEP  101701 / 120700  d h
+STEP  101801 / 120700  d h
+STEP  101901 / 120700  d h
+STEP  102001 / 120700  d h
+STEP  102101 / 120700  d h
+STEP  102201 / 120700  d h
+STEP  102301 / 120700  f
+STEP  102401 / 120700  f
+STEP  102501 / 120700  d h
+STEP  102601 / 120700  f
+STEP  102701 / 120700  d h
+STEP  102801 / 120700  f
+STEP  102901 / 120700  d h
+STEP  103001 / 120700  d h
+STEP  103101 / 120700  d h
+STEP  103201 / 120700  d h
+STEP  103301 / 120700  f
+STEP  103401 / 120700  d h
+STEP  103501 / 120700  d h
+STEP  103601 / 120700  d h
+STEP  103701 / 120700  d h
+STEP  103801 / 120700  d h
+STEP  103901 / 120700  f
+STEP  104001 / 120700  d h
+STEP  104101 / 120700  d h
+STEP  104201 / 120700  f
+STEP  104301 / 120700  d h
+STEP  104401 / 120700  f
+STEP  104501 / 120700  f
+STEP  104601 / 120700  d h
+STEP  104701 / 120700  d h
+STEP  104801 / 120700  d h
+STEP  104901 / 120700  d h
+STEP  105001 / 120700  d h
+STEP  105101 / 120700  d h
+STEP  105201 / 120700  d h
+STEP  105301 / 120700  d h
+STEP  105401 / 120700  d h
+STEP  105501 / 120700  d h
+STEP  105601 / 120700  d h
+STEP  105701 / 120700  d h
+STEP  105801 / 120700  d h
+STEP  105901 / 120700  d h
+STEP  106001 / 120700  d h
+STEP  106101 / 120700  d h
+STEP  106201 / 120700  d h
+STEP  106301 / 120700  d h
+STEP  106401 / 120700  d h
+STEP  106501 / 120700  d h
+STEP  106601 / 120700  d h
+STEP  106701 / 120700  f
+STEP  106801 / 120700  f
+STEP  106901 / 120700  d h
+STEP  107001 / 120700  d h
+STEP  107101 / 120700  d h
+STEP  107201 / 120700  d h
+STEP  107301 / 120700  d h
+STEP  107401 / 120700  d h
+STEP  107501 / 120700  d h
+STEP  107601 / 120700  d h
+STEP  107701 / 120700  d h
+STEP  107801 / 120700  d h
+STEP  107901 / 120700  d h
+STEP  108001 / 120700  d h
+STEP  108101 / 120700  d h
+STEP  108201 / 120700  d h
+STEP  108301 / 120700  d h
+STEP  108401 / 120700  d h
+STEP  108501 / 120700  d h
+STEP  108601 / 120700  d h
+STEP  108701 / 120700  d h
+STEP  108801 / 120700  f
+STEP  108901 / 120700  d h
+STEP  109001 / 120700  d h
+STEP  109101 / 120700  d h
+STEP  109201 / 120700  d h
+STEP  109301 / 120700  f
+STEP  109401 / 120700  f
+STEP  109501 / 120700  d h
+STEP  109601 / 120700  d h
+STEP  109701 / 120700  d h
+STEP  109801 / 120700  d h
+STEP  109901 / 120700  d h
+STEP  110001 / 120700  d h
+STEP  110101 / 120700  d h
+STEP  110201 / 120700  f
+STEP  110301 / 120700  d h
+STEP  110401 / 120700  d h
+STEP  110501 / 120700  d h
+STEP  110601 / 120700  d h
+STEP  110701 / 120700  f
+STEP  110801 / 120700  d h
+STEP  110901 / 120700  f
+STEP  111001 / 120700  f
+STEP  111101 / 120700  d h
+STEP  111201 / 120700  d h
+STEP  111301 / 120700  f
+STEP  111401 / 120700  d h
+STEP  111501 / 120700  f
+STEP  111601 / 120700  f
+STEP  111701 / 120700  d h
+STEP  111801 / 120700  f
+STEP  111901 / 120700  d h
+STEP  112001 / 120700  d h
+STEP  112101 / 120700  d h
+STEP  112201 / 120700  d h
+STEP  112301 / 120700  d h
+STEP  112401 / 120700  d h
+STEP  112501 / 120700  d h
+STEP  112601 / 120700  d h
+STEP  112701 / 120700  d h
+STEP  112801 / 120700  d h
+STEP  112901 / 120700  d h
+STEP  113001 / 120700  d h
+STEP  113101 / 120700  d h
+STEP  113201 / 120700  f
+STEP  113301 / 120700  d h
+STEP  113401 / 120700  d h
+STEP  113501 / 120700  d h
+STEP  113601 / 120700  d h
+STEP  113701 / 120700  d h
+STEP  113801 / 120700  d h
+STEP  113901 / 120700  d h
+STEP  114001 / 120700  f
+STEP  114101 / 120700  f
+STEP  114201 / 120700  d h
+STEP  114301 / 120700  f
+STEP  114401 / 120700  f
+STEP  114501 / 120700  f
+STEP  114601 / 120700  d h
+STEP  114701 / 120700  d h
+STEP  114801 / 120700  f
+STEP  114901 / 120700  d h
+STEP  115001 / 120700  f
+STEP  115101 / 120700  d h
+STEP  115201 / 120700  d h
+STEP  115301 / 120700  d h
+STEP  115401 / 120700  f
+STEP  115501 / 120700  d h
+STEP  115601 / 120700  f
+STEP  115701 / 120700  d h
+STEP  115801 / 120700  f
+STEP  115901 / 120700  f
+STEP  116001 / 120700  f
+STEP  116101 / 120700  f
+STEP  116201 / 120700  d h
+STEP  116301 / 120700  f
+STEP  116401 / 120700  d h
+STEP  116501 / 120700  f
+STEP  116601 / 120700  d h
+STEP  116701 / 120700  d h
+STEP  116801 / 120700  f
+STEP  116901 / 120700  f
+STEP  117001 / 120700  d h
+STEP  117101 / 120700  f
+STEP  117201 / 120700  f
+STEP  117301 / 120700  d h
+STEP  117401 / 120700  f
+STEP  117501 / 120700  f
+STEP  117601 / 120700  d h
+STEP  117701 / 120700  d h
+STEP  117801 / 120700  f
+STEP  117901 / 120700  f
+STEP  118001 / 120700  f
+STEP  118101 / 120700  f
+STEP  118201 / 120700  d h
+STEP  118301 / 120700  f
+STEP  118401 / 120700  d h
+STEP  118501 / 120700  f
+STEP  118601 / 120700  d h
+STEP  118701 / 120700  d h
+STEP  118801 / 120700  f
+STEP  118901 / 120700  d h
+STEP  119001 / 120700  f
+STEP  119101 / 120700  d h
+STEP  119201 / 120700  d h
+STEP  119301 / 120700  f
+STEP  119401 / 120700  f
+STEP  119501 / 120700  f
+STEP  119601 / 120700  f
+STEP  119701 / 120700  d h
+STEP  119801 / 120700  f
+STEP  119901 / 120700  d h
+STEP  120001 / 120700  d h
+STEP  120101 / 120700  f
+STEP  120201 / 120700  d h
+STEP  120301 / 120700  d h
+STEP  120401 / 120700  d h
+STEP  120501 / 120700  d h
+STEP  120601 / 120700  f
+done.
+
+disttbfast (aa) Version 7.525
+alg=A, model=BLOSUM62, 1.53, -0.00, -0.00, noshift, amax=0.0
+0 thread(s)
+
+
+Strategy:
+ FFT-large-NS-1 (Not tested.)
+ ?
+
+If unsure which option to use, try 'mafft --auto input > output'.
+For more information, see 'mafft --help', 'mafft --man' and the mafft page.
+
+The default gap scoring scheme has been changed in version 7.110 (2013 Oct).
+It tends to insert more gaps into gap-rich regions than previous versions.
+To disable this change, add the --leavegappyregion option.
+
+
+2025-10-04 20:47:45,340 - INFO - ✅ 命令执行成功 | Command executed successfully
+2025-10-04 20:47:45,340 - INFO - ✅ MAFFT比对完成 | MAFFT alignment completed: all.domain.mafft.fa
+2025-10-04 20:47:45,340 - INFO - 📋 步骤 5/5: FastTree构建系统发育树 | Step 5/5: FastTree phylogenetic tree construction
+2025-10-04 20:47:45,340 - INFO - ============================================================
+2025-10-04 20:47:45,340 - INFO - 🌳 开始构建系统发育树 | Starting phylogenetic tree construction
+2025-10-04 20:47:45,340 - INFO - ============================================================
+2025-10-04 20:47:45,340 - INFO - 🧬 使用蛋白质模型 | Using protein model
+2025-10-04 20:47:45,340 - INFO - 🚀 执行步骤 | Executing step: FastTree系统发育树构建 | FastTree phylogenetic tree construction
+2025-10-04 20:47:45,340 - INFO - 📝 命令 | Command: fasttree all.domain.mafft.fa > all.domain.fasttree.nwk
+2025-10-04 20:47:45,340 - DEBUG - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/98.wrky/09.tree

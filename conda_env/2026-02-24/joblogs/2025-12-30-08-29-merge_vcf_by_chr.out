@@ -1,0 +1,150 @@
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: VCF文件按染色体合并工具 | VCF Merge by Chromosome Tool
+[2025-12-30 08:29:15] INFO: Version: 1.0.0
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: 输入目录 | Input directory: 01.gtx_joint
+[2025-12-30 08:29:15] INFO: 输出目录 | Output directory: 02.按染色体合并VCF文件
+[2025-12-30 08:29:15] INFO: 文件模式 | File pattern: *.joint.vcf.gz
+[2025-12-30 08:29:15] INFO: 线程数 | Threads: 64
+[2025-12-30 08:29:15] INFO: 创建索引 | Create index: True
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: bcftools已安装 | bcftools is available: bcftools 1.22
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: STEP 1: 查找VCF文件 | Finding VCF files
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: 找到 61 个VCF文件 | Found 61 VCF files
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: STEP 2: 按染色体分组 | Grouping by chromosome
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: 识别出 20 个染色体 | Identified 20 chromosomes
+[2025-12-30 08:29:15] INFO:   Chr01: 4 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr02: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr03: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr04: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr05: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr06: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr07: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr08: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr09: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr10: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr11: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr12: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr13: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr14: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr15: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr16: 2 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr17: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr18: 4 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr19: 3 个文件 | files
+[2025-12-30 08:29:15] INFO:   Chr20: 3 个文件 | files
+[2025-12-30 08:29:15] INFO: 输出目录已创建 | Output directory created: 02.按染色体合并VCF文件
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: STEP 3: 合并VCF文件 | Merging VCF files
+[2025-12-30 08:29:15] INFO: ============================================================
+[2025-12-30 08:29:15] INFO: 处理染色体 Chr01 | Processing chromosome Chr01
+[2025-12-30 08:29:15] INFO: 合并 4 个文件到 Chr01.joint.merged.vcf.gz | Merging 4 files to Chr01.joint.merged.vcf.gz
+[2025-12-30 08:48:36] INFO: 成功创建 Chr01.joint.merged.vcf.gz | Successfully created Chr01.joint.merged.vcf.gz
+[2025-12-30 08:48:36] INFO: 正在创建索引 | Creating index for: Chr01.joint.merged.vcf.gz
+[2025-12-30 09:21:18] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 09:21:18] INFO: 处理染色体 Chr02 | Processing chromosome Chr02
+[2025-12-30 09:21:18] INFO: 合并 3 个文件到 Chr02.joint.merged.vcf.gz | Merging 3 files to Chr02.joint.merged.vcf.gz
+[2025-12-30 09:38:57] INFO: 成功创建 Chr02.joint.merged.vcf.gz | Successfully created Chr02.joint.merged.vcf.gz
+[2025-12-30 09:38:57] INFO: 正在创建索引 | Creating index for: Chr02.joint.merged.vcf.gz
+[2025-12-30 10:10:41] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 10:10:41] INFO: 处理染色体 Chr03 | Processing chromosome Chr03
+[2025-12-30 10:10:41] INFO: 合并 3 个文件到 Chr03.joint.merged.vcf.gz | Merging 3 files to Chr03.joint.merged.vcf.gz
+[2025-12-30 10:27:08] INFO: 成功创建 Chr03.joint.merged.vcf.gz | Successfully created Chr03.joint.merged.vcf.gz
+[2025-12-30 10:27:08] INFO: 正在创建索引 | Creating index for: Chr03.joint.merged.vcf.gz
+[2025-12-30 10:55:51] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 10:55:51] INFO: 处理染色体 Chr04 | Processing chromosome Chr04
+[2025-12-30 10:55:51] INFO: 合并 3 个文件到 Chr04.joint.merged.vcf.gz | Merging 3 files to Chr04.joint.merged.vcf.gz
+[2025-12-30 11:12:12] INFO: 成功创建 Chr04.joint.merged.vcf.gz | Successfully created Chr04.joint.merged.vcf.gz
+[2025-12-30 11:12:12] INFO: 正在创建索引 | Creating index for: Chr04.joint.merged.vcf.gz
+[2025-12-30 11:41:40] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 11:41:40] INFO: 处理染色体 Chr05 | Processing chromosome Chr05
+[2025-12-30 11:41:40] INFO: 合并 3 个文件到 Chr05.joint.merged.vcf.gz | Merging 3 files to Chr05.joint.merged.vcf.gz
+[2025-12-30 11:57:28] INFO: 成功创建 Chr05.joint.merged.vcf.gz | Successfully created Chr05.joint.merged.vcf.gz
+[2025-12-30 11:57:28] INFO: 正在创建索引 | Creating index for: Chr05.joint.merged.vcf.gz
+[2025-12-30 12:23:40] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 12:23:40] INFO: 处理染色体 Chr06 | Processing chromosome Chr06
+[2025-12-30 12:23:40] INFO: 合并 3 个文件到 Chr06.joint.merged.vcf.gz | Merging 3 files to Chr06.joint.merged.vcf.gz
+[2025-12-30 12:45:27] INFO: 成功创建 Chr06.joint.merged.vcf.gz | Successfully created Chr06.joint.merged.vcf.gz
+[2025-12-30 12:45:27] INFO: 正在创建索引 | Creating index for: Chr06.joint.merged.vcf.gz
+[2025-12-30 13:18:19] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 13:18:19] INFO: 处理染色体 Chr07 | Processing chromosome Chr07
+[2025-12-30 13:18:19] INFO: 合并 3 个文件到 Chr07.joint.merged.vcf.gz | Merging 3 files to Chr07.joint.merged.vcf.gz
+[2025-12-30 13:36:38] INFO: 成功创建 Chr07.joint.merged.vcf.gz | Successfully created Chr07.joint.merged.vcf.gz
+[2025-12-30 13:36:38] INFO: 正在创建索引 | Creating index for: Chr07.joint.merged.vcf.gz
+[2025-12-30 14:04:25] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 14:04:25] INFO: 处理染色体 Chr08 | Processing chromosome Chr08
+[2025-12-30 14:04:25] INFO: 合并 3 个文件到 Chr08.joint.merged.vcf.gz | Merging 3 files to Chr08.joint.merged.vcf.gz
+[2025-12-30 14:23:51] INFO: 成功创建 Chr08.joint.merged.vcf.gz | Successfully created Chr08.joint.merged.vcf.gz
+[2025-12-30 14:23:51] INFO: 正在创建索引 | Creating index for: Chr08.joint.merged.vcf.gz
+[2025-12-30 14:53:47] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 14:53:47] INFO: 处理染色体 Chr09 | Processing chromosome Chr09
+[2025-12-30 14:53:47] INFO: 合并 3 个文件到 Chr09.joint.merged.vcf.gz | Merging 3 files to Chr09.joint.merged.vcf.gz
+[2025-12-30 15:11:51] INFO: 成功创建 Chr09.joint.merged.vcf.gz | Successfully created Chr09.joint.merged.vcf.gz
+[2025-12-30 15:11:51] INFO: 正在创建索引 | Creating index for: Chr09.joint.merged.vcf.gz
+[2025-12-30 15:41:30] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 15:41:30] INFO: 处理染色体 Chr10 | Processing chromosome Chr10
+[2025-12-30 15:41:30] INFO: 合并 3 个文件到 Chr10.joint.merged.vcf.gz | Merging 3 files to Chr10.joint.merged.vcf.gz
+[2025-12-30 16:01:03] INFO: 成功创建 Chr10.joint.merged.vcf.gz | Successfully created Chr10.joint.merged.vcf.gz
+[2025-12-30 16:01:03] INFO: 正在创建索引 | Creating index for: Chr10.joint.merged.vcf.gz
+[2025-12-30 16:31:17] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 16:31:17] INFO: 处理染色体 Chr11 | Processing chromosome Chr11
+[2025-12-30 16:31:17] INFO: 合并 3 个文件到 Chr11.joint.merged.vcf.gz | Merging 3 files to Chr11.joint.merged.vcf.gz
+[2025-12-30 16:46:44] INFO: 成功创建 Chr11.joint.merged.vcf.gz | Successfully created Chr11.joint.merged.vcf.gz
+[2025-12-30 16:46:44] INFO: 正在创建索引 | Creating index for: Chr11.joint.merged.vcf.gz
+[2025-12-30 17:10:30] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 17:10:30] INFO: 处理染色体 Chr12 | Processing chromosome Chr12
+[2025-12-30 17:10:30] INFO: 合并 3 个文件到 Chr12.joint.merged.vcf.gz | Merging 3 files to Chr12.joint.merged.vcf.gz
+[2025-12-30 17:27:15] INFO: 成功创建 Chr12.joint.merged.vcf.gz | Successfully created Chr12.joint.merged.vcf.gz
+[2025-12-30 17:27:15] INFO: 正在创建索引 | Creating index for: Chr12.joint.merged.vcf.gz
+[2025-12-30 17:52:09] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 17:52:09] INFO: 处理染色体 Chr13 | Processing chromosome Chr13
+[2025-12-30 17:52:09] INFO: 合并 3 个文件到 Chr13.joint.merged.vcf.gz | Merging 3 files to Chr13.joint.merged.vcf.gz
+[2025-12-30 18:10:44] INFO: 成功创建 Chr13.joint.merged.vcf.gz | Successfully created Chr13.joint.merged.vcf.gz
+[2025-12-30 18:10:44] INFO: 正在创建索引 | Creating index for: Chr13.joint.merged.vcf.gz
+[2025-12-30 18:39:41] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 18:39:41] INFO: 处理染色体 Chr14 | Processing chromosome Chr14
+[2025-12-30 18:39:41] INFO: 合并 3 个文件到 Chr14.joint.merged.vcf.gz | Merging 3 files to Chr14.joint.merged.vcf.gz
+[2025-12-30 18:58:18] INFO: 成功创建 Chr14.joint.merged.vcf.gz | Successfully created Chr14.joint.merged.vcf.gz
+[2025-12-30 18:58:18] INFO: 正在创建索引 | Creating index for: Chr14.joint.merged.vcf.gz
+[2025-12-30 19:27:22] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 19:27:22] INFO: 处理染色体 Chr15 | Processing chromosome Chr15
+[2025-12-30 19:27:22] INFO: 合并 3 个文件到 Chr15.joint.merged.vcf.gz | Merging 3 files to Chr15.joint.merged.vcf.gz
+[2025-12-30 19:47:09] INFO: 成功创建 Chr15.joint.merged.vcf.gz | Successfully created Chr15.joint.merged.vcf.gz
+[2025-12-30 19:47:09] INFO: 正在创建索引 | Creating index for: Chr15.joint.merged.vcf.gz
+[2025-12-30 20:18:52] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 20:18:52] INFO: 处理染色体 Chr16 | Processing chromosome Chr16
+[2025-12-30 20:18:52] INFO: 合并 2 个文件到 Chr16.joint.merged.vcf.gz | Merging 2 files to Chr16.joint.merged.vcf.gz
+[2025-12-30 20:34:30] INFO: 成功创建 Chr16.joint.merged.vcf.gz | Successfully created Chr16.joint.merged.vcf.gz
+[2025-12-30 20:34:30] INFO: 正在创建索引 | Creating index for: Chr16.joint.merged.vcf.gz
+[2025-12-30 20:58:19] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 20:58:19] INFO: 处理染色体 Chr17 | Processing chromosome Chr17
+[2025-12-30 20:58:19] INFO: 合并 3 个文件到 Chr17.joint.merged.vcf.gz | Merging 3 files to Chr17.joint.merged.vcf.gz
+[2025-12-30 21:13:42] INFO: 成功创建 Chr17.joint.merged.vcf.gz | Successfully created Chr17.joint.merged.vcf.gz
+[2025-12-30 21:13:42] INFO: 正在创建索引 | Creating index for: Chr17.joint.merged.vcf.gz
+[2025-12-30 21:39:12] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 21:39:12] INFO: 处理染色体 Chr18 | Processing chromosome Chr18
+[2025-12-30 21:39:12] INFO: 合并 4 个文件到 Chr18.joint.merged.vcf.gz | Merging 4 files to Chr18.joint.merged.vcf.gz
+[2025-12-30 22:03:46] INFO: 成功创建 Chr18.joint.merged.vcf.gz | Successfully created Chr18.joint.merged.vcf.gz
+[2025-12-30 22:03:46] INFO: 正在创建索引 | Creating index for: Chr18.joint.merged.vcf.gz
+[2025-12-30 22:39:02] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 22:39:02] INFO: 处理染色体 Chr19 | Processing chromosome Chr19
+[2025-12-30 22:39:02] INFO: 合并 3 个文件到 Chr19.joint.merged.vcf.gz | Merging 3 files to Chr19.joint.merged.vcf.gz
+[2025-12-30 22:57:23] INFO: 成功创建 Chr19.joint.merged.vcf.gz | Successfully created Chr19.joint.merged.vcf.gz
+[2025-12-30 22:57:23] INFO: 正在创建索引 | Creating index for: Chr19.joint.merged.vcf.gz
+[2025-12-30 23:26:05] INFO: 索引创建成功 | Index created successfully
+[2025-12-30 23:26:05] INFO: 处理染色体 Chr20 | Processing chromosome Chr20
+[2025-12-30 23:26:05] INFO: 合并 3 个文件到 Chr20.joint.merged.vcf.gz | Merging 3 files to Chr20.joint.merged.vcf.gz
+[2025-12-30 23:44:23] INFO: 成功创建 Chr20.joint.merged.vcf.gz | Successfully created Chr20.joint.merged.vcf.gz
+[2025-12-30 23:44:23] INFO: 正在创建索引 | Creating index for: Chr20.joint.merged.vcf.gz
+[2025-12-31 00:14:20] INFO: 索引创建成功 | Index created successfully
+[2025-12-31 00:14:20] INFO: ============================================================
+[2025-12-31 00:14:20] INFO: 合并完成 | Merge completed
+[2025-12-31 00:14:20] INFO: ============================================================
+[2025-12-31 00:14:20] INFO: 成功合并 | Successfully merged: 20/20 个染色体
+[2025-12-31 00:14:20] INFO: 输出目录 | Output directory: 02.按染色体合并VCF文件
+[2025-12-31 00:14:20] INFO: 总耗时 | Total runtime: 56705.20 秒 | seconds
+[2025-12-31 00:14:20] INFO: 所有操作完成 | All operations completed

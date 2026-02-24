@@ -1,0 +1,80 @@
+2026-01-30 10:39:18.409 - ERROR - GenomeScope失败: Loading custom .Rprofile...
+Setting CRAN and Bioconductor mirrors...
+Mirrors set successfully.
+在启动过程中 - 警告信息:
+In sub("%bm", as.character(getOption("BioC_mirror", "https://bioconductor.org")),  :
+  变量'replacement'的长度大于一，因此只能用其第一元素
+错误于1:error_xcutoff_ind: 参数长度为零
+Calls: estimate_Genome_4peak2 -> eval_model -> score_model
+停止执行
+
+2026-01-30 10:39:18.409 - WARNING - 样品 J_CZ 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 10:41:19.931 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 10:41:19.932 - WARNING - 样品 J_CZ Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 10:54:23.112 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 10:54:23.112 - WARNING - 样品 OV44_23 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 11:00:50.913 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 11:00:50.913 - WARNING - 样品 OV44_23 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 11:13:34.182 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 11:13:34.182 - WARNING - 样品 OV47_12 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 11:20:46.195 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 11:20:46.195 - WARNING - 样品 OV47_12 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 11:33:17.739 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 11:33:17.739 - WARNING - 样品 OV48_12 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 11:39:49.549 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 11:39:49.549 - WARNING - 样品 OV48_12 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 11:49:15.157 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 11:49:15.157 - WARNING - 样品 OV50_2 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 11:54:32.119 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 11:54:32.119 - WARNING - 样品 OV50_2 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 12:06:01.818 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 12:06:01.818 - WARNING - 样品 OV51_5 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 12:13:14.974 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 12:13:14.974 - WARNING - 样品 OV51_5 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 12:28:42.502 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-30 12:28:42.502 - WARNING - 样品 OV52_4 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 12:36:41.118 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 12:36:41.118 - WARNING - 样品 OV52_4 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 12:51:20.473 - ERROR - GenomeScope失败: Loading custom .Rprofile...
+Setting CRAN and Bioconductor mirrors...
+Mirrors set successfully.
+在启动过程中 - 警告信息:
+In sub("%bm", as.character(getOption("BioC_mirror", "https://bioconductor.org")),  :
+  变量'replacement'的长度大于一，因此只能用其第一元素
+错误于1:error_xcutoff_ind: 参数长度为零
+Calls: estimate_Genome_4peak2 -> eval_model -> score_model
+停止执行
+
+2026-01-30 12:51:20.484 - WARNING - 样品 OV54_2 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 12:58:56.140 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 12:58:56.140 - WARNING - 样品 OV54_2 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 13:19:11.251 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 13:19:11.251 - WARNING - 样品 QG_ZS Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 13:55:39.431 - ERROR - GenomeScope失败: Loading custom .Rprofile...
+Setting CRAN and Bioconductor mirrors...
+Mirrors set successfully.
+在启动过程中 - 警告信息:
+In sub("%bm", as.character(getOption("BioC_mirror", "https://bioconductor.org")),  :
+  变量'replacement'的长度大于一，因此只能用其第一元素
+错误于1:error_xcutoff_ind: 参数长度为零
+Calls: estimate_Genome_4peak2 -> eval_model -> score_model
+停止执行
+
+2026-01-30 13:55:39.431 - WARNING - 样品 T108_2 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 14:01:47.074 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 14:01:47.074 - WARNING - 样品 T108_2 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+2026-01-30 14:10:31.107 - ERROR - GenomeScope失败: Loading custom .Rprofile...
+Setting CRAN and Bioconductor mirrors...
+Mirrors set successfully.
+在启动过程中 - 警告信息:
+In sub("%bm", as.character(getOption("BioC_mirror", "https://bioconductor.org")),  :
+  变量'replacement'的长度大于一，因此只能用其第一元素
+错误于1:error_xcutoff_ind: 参数长度为零
+Calls: estimate_Genome_4peak2 -> eval_model -> score_model
+停止执行
+
+2026-01-30 14:10:31.111 - WARNING - 样品 T94_2 未能获取kcov值，将尝试使用默认值继续
+2026-01-30 14:16:15.644 - ERROR - 未找到.smu文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 14:16:15.644 - WARNING - 样品 T94_2 Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）
+Job 69115890 stderr output:
+

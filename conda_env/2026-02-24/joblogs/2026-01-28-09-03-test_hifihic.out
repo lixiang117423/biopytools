@@ -1,0 +1,160 @@
+2026-01-28 09:03:45.675 - INFO - ================================================================================
+2026-01-28 09:03:45.675 - INFO - 开始基因组组装流程|Starting Genome Assembly Pipeline
+2026-01-28 09:03:45.675 - INFO - ================================================================================
+2026-01-28 09:03:45.675 - INFO - 检查依赖软件|Checking dependencies
+2026-01-28 09:03:46.100 - INFO - 组装配置|Assembly Configuration:
+2026-01-28 09:03:46.100 - INFO -   样本名称|Sample Name: 41
+2026-01-28 09:03:46.100 - INFO -   基因组大小|Genome Size: 85m
+2026-01-28 09:03:46.100 - INFO -   倍性|Ploidy: 2
+2026-01-28 09:03:46.100 - INFO -   线程数|Threads: 64
+2026-01-28 09:03:46.100 - INFO -   HiFi数据|HiFi Data: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/01.data/clean/hifi/41.clean.fq.gz
+2026-01-28 09:03:46.100 - INFO -   组装模式|Assembly Mode: HiFi only
+2026-01-28 09:03:46.100 - INFO -   NGS数据目录|NGS Data Directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/01.data/ngs/41
+2026-01-28 09:03:46.100 - INFO -   高质量覆盖度阈值|High Coverage Threshold: 95.0%
+2026-01-28 09:03:46.100 - INFO -   NGS polish|NGS Polish: 启用|Enabled
+2026-01-28 09:03:46.100 - INFO -   工作目录|Work Directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41
+2026-01-28 09:03:46.228 - INFO - ================================================================================
+2026-01-28 09:03:46.228 - INFO - 断点续传模式|Resume mode: enabled
+2026-01-28 09:03:46.228 - INFO - ================================================================================
+2026-01-28 09:03:46.228 - INFO - 检查已完成步骤|Checking completed steps:
+2026-01-28 09:03:46.228 - INFO - 初次组装步骤|Initial assembly steps:
+2026-01-28 09:03:46.229 - INFO -   [已完成|completed] Hifiasm组装|Hifiasm assembly
+2026-01-28 09:03:46.229 - INFO -   [已完成|completed] GFA转FASTA|GFA to FASTA conversion
+2026-01-28 09:03:46.229 - INFO -   [已完成|completed] Contig-reads映射生成|Contig-reads mapping generated
+2026-01-28 09:03:46.229 - INFO - NGS polish步骤|NGS polish steps:
+2026-01-28 09:03:46.229 - INFO -   [未完成|pending] BWA比对|BWA alignment
+2026-01-28 09:03:46.229 - INFO -   [未完成|pending] 覆盖度过滤|Coverage filter
+2026-01-28 09:03:46.229 - INFO -   [未完成|pending] 筛选reads|Filter reads
+2026-01-28 09:03:46.229 - INFO -   [未完成|pending] 重新组装|Reassembly
+2026-01-28 09:03:46.229 - INFO - ================================================================================
+2026-01-28 09:03:46.229 - INFO - 检测到组装已完成，跳过|Assembly already completed, skipping
+2026-01-28 09:03:46.229 - INFO - 检测到FASTA转换已完成，跳过|FASTA conversion already completed, skipping
+2026-01-28 09:03:46.229 - INFO - 转换GFA为FASTA格式|Converting GFA to FASTA format
+2026-01-28 09:03:46.241 - INFO - 转换|Converting: 41.bp.hap1.p_ctg.gfa -> 41.hap1.fa
+2026-01-28 09:03:46.241 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/01.raw_output/41.bp.hap1.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/02.fasta/41.hap1.fa
+2026-01-28 09:03:46.725 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:03:47.346 - INFO - 转换成功|Successfully converted: 41.hap1.fa
+2026-01-28 09:03:47.346 - INFO - 序列数|Sequences: 535
+2026-01-28 09:03:47.346 - INFO - 总长度|Total length: 47,982,211 bp
+2026-01-28 09:03:47.354 - INFO - 转换|Converting: 41.bp.hap2.p_ctg.gfa -> 41.hap2.fa
+2026-01-28 09:03:47.354 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/01.raw_output/41.bp.hap2.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/02.fasta/41.hap2.fa
+2026-01-28 09:03:47.788 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:03:48.516 - INFO - 转换成功|Successfully converted: 41.hap2.fa
+2026-01-28 09:03:48.517 - INFO - 序列数|Sequences: 96
+2026-01-28 09:03:48.517 - INFO - 总长度|Total length: 80,518,527 bp
+2026-01-28 09:03:48.517 - INFO - 转换|Converting: 41.bp.p_ctg.gfa -> 41.primary.fa
+2026-01-28 09:03:48.517 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/01.raw_output/41.bp.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/02.fasta/41.primary.fa
+2026-01-28 09:03:48.991 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:03:49.798 - INFO - 转换成功|Successfully converted: 41.primary.fa
+2026-01-28 09:03:49.798 - INFO - 序列数|Sequences: 482
+2026-01-28 09:03:49.798 - INFO - 总长度|Total length: 113,495,152 bp
+2026-01-28 09:03:49.798 - WARNING - 文件不存在|File not found: 41.bp.a_ctg.gfa
+2026-01-28 09:03:49.798 - INFO - 检测到contig-reads映射已生成，跳过|Contig-reads mapping already generated, skipping
+2026-01-28 09:03:49.798 - INFO - ================================================================================
+2026-01-28 09:03:49.798 - INFO - 检测到NGS数据，开始NGS polish流程|NGS data detected, starting NGS polish
+2026-01-28 09:03:49.798 - INFO - ================================================================================
+2026-01-28 09:03:49.798 - INFO - ================================================================================
+2026-01-28 09:03:49.798 - INFO - 开始NGS polish流程|Starting NGS Polish Pipeline
+2026-01-28 09:03:49.798 - INFO - ================================================================================
+2026-01-28 09:03:49.798 - INFO - [1/4] 运行BWA比对|Running BWA alignment
+2026-01-28 09:03:50.072 - INFO - ================================================================================
+2026-01-28 09:03:50.072 - INFO - 开始BWA全基因组比对分析流程|Starting BWA alignment pipeline
+2026-01-28 09:03:50.072 - INFO - ================================================================================
+2026-01-28 09:03:50.073 - INFO - 步骤1/6: 检查依赖软件|Step 1/6: Checking dependencies
+2026-01-28 09:03:50.073 - INFO - 检查依赖软件|Checking dependencies
+2026-01-28 09:03:50.143 - INFO - BWA 可用|BWA available: [main]
+2026-01-28 09:03:50.951 - INFO - SAMtools 可用|SAMtools available: samtools
+2026-01-28 09:03:50.951 - INFO - 步骤2/6: 检查基因组索引|Step 2/6: Checking genome index
+2026-01-28 09:03:50.951 - INFO - 检查基因组索引|Checking genome index
+2026-01-28 09:03:51.035 - INFO - 基因组索引已存在|Genome index already exists
+2026-01-28 09:03:51.035 - INFO - 步骤3/6: 查找FASTQ文件|Step 3/6: Finding FASTQ files
+2026-01-28 09:03:51.035 - INFO - 查找FASTQ文件|Finding FASTQ files
+2026-01-28 09:03:51.035 - INFO - 输入目录|Input directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/01.data/ngs/41
+2026-01-28 09:03:51.035 - INFO - 匹配模式|Pattern: _1.clean.fq.gz
+2026-01-28 09:03:51.036 - INFO - 找到样品|Found sample: 41
+2026-01-28 09:03:51.036 - INFO - 共找到 1 个样品对|Found 1 sample pairs
+2026-01-28 09:03:51.037 - INFO - 步骤4/6: 批量比对 (1 个样品)|Step 4/6: Batch alignment (1 samples)
+2026-01-28 09:03:51.037 - INFO - ================================================================================
+2026-01-28 09:03:51.037 - INFO - 处理样品 1/1: 41|Processing sample 1/1: 41
+2026-01-28 09:03:51.037 - INFO - ================================================================================
+2026-01-28 09:03:51.037 - INFO - 开始比对样品|Starting alignment for sample: 41
+2026-01-28 09:03:51.037 - INFO - 执行步骤|Executing step: BWA mem比对|BWA mem alignment: 41
+2026-01-28 09:03:51.037 - INFO - 命令|Command: bwa mem -t 64 -k 19 -w 100 -d 100 -r 1.5 -y 20 -c 500 -D 0.5 -W 0 -m 50 -A 1 -B 4 -O 6,6 -E 1,1 -L 5,5 -U 17 -T 30 -h 5,200 -R '@RG\tID:41\tSM:41\tPL:ILLUMINA' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/02.fasta/41.primary.fa /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/01.data/ngs/41/41_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/01.data/ngs/41/41_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.sam
+2026-01-28 09:08:47.014 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:08:47.016 - INFO - 执行步骤|Executing step: SAM转BAM|SAM to BAM conversion
+2026-01-28 09:08:47.016 - INFO - 命令|Command: samtools view -@ 64 -b -o /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.raw.bam /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.sam
+2026-01-28 09:09:01.758 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:09:01.759 - INFO - 执行步骤|Executing step: 排序BAM|Sorting BAM
+2026-01-28 09:09:01.759 - INFO - 命令|Command: samtools sort -@ 64 -o /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.sorted.bam /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.raw.bam
+2026-01-28 09:09:23.194 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:09:23.195 - INFO - 执行步骤|Executing step: 构建BAM索引|Building BAM index
+2026-01-28 09:09:23.195 - INFO - 命令|Command: samtools index -@ 64 /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.bam
+2026-01-28 09:09:25.365 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:09:25.365 - INFO - 清理中间文件|Cleaning up intermediate files
+2026-01-28 09:09:25.366 - INFO - 已删除SAM文件|Removed SAM file: 41.sam
+2026-01-28 09:09:25.366 - INFO - 已删除原始BAM|Removed raw BAM: 41.raw.bam
+2026-01-28 09:09:25.366 - INFO - 样品比对完成|Sample alignment completed: 41
+2026-01-28 09:09:25.366 - INFO - 生成比对统计|Generating alignment statistics: 41
+2026-01-28 09:09:25.366 - INFO - 执行步骤|Executing step: 生成flagstat统计|Generating flagstat: 41
+2026-01-28 09:09:25.366 - INFO - 命令|Command: samtools flagstat /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.bam > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/stats/41.flagstat.txt
+2026-01-28 09:09:38.647 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:09:38.647 - INFO - 执行步骤|Executing step: 生成详细统计|Generating detailed stats: 41
+2026-01-28 09:09:38.647 - INFO - 命令|Command: samtools stats /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.bam > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/stats/41.stats.txt
+2026-01-28 09:10:43.336 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:10:43.337 - INFO - 统计生成完成|Statistics generation completed: 41
+2026-01-28 09:10:43.337 - INFO - 开始覆盖度分析|Starting coverage analysis: 41
+2026-01-28 09:10:43.337 - INFO - 执行步骤|Executing step: 计算位点覆盖度|Calculating depth: 41
+2026-01-28 09:10:43.337 - INFO - 命令|Command: samtools depth /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/bam/41.bam > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/coverage/41.depth.txt
+2026-01-28 09:11:01.851 - INFO - 命令执行成功|Command executed successfully
+2026-01-28 09:11:01.851 - INFO - 计算滑窗覆盖度|Calculating windowed coverage
+2026-01-28 09:11:01.852 - INFO -    窗口大小|Window size: 1,000,000 bp
+2026-01-28 09:11:01.852 - INFO -    步长|Step size: 100,000 bp
+2026-01-28 09:12:36.853 - INFO - 滑窗覆盖度计算完成|Windowed coverage completed
+2026-01-28 09:12:36.854 - INFO -    输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/windows/41.window.bed
+2026-01-28 09:12:36.854 - INFO - 覆盖度分析完成|Coverage analysis completed: 41
+2026-01-28 09:12:36.854 - INFO - 步骤6/6: 生成汇总报告|Step 6/6: Generating summary report
+2026-01-28 09:12:36.854 - INFO - 生成汇总报告|Generating summary report
+2026-01-28 09:12:36.855 - INFO - 汇总报告已生成|Summary report generated: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment/alignment_summary.txt
+2026-01-28 09:12:36.856 - INFO - ================================================================================
+2026-01-28 09:12:36.856 - INFO - BWA全基因组比对分析完成|BWA alignment analysis completed
+2026-01-28 09:12:36.856 - INFO - ================================================================================
+2026-01-28 09:12:36.856 - INFO - 成功处理样品数|Successfully processed: 1/1
+2026-01-28 09:12:36.856 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment
+2026-01-28 09:12:36.856 - INFO - BWA比对完成|BWA alignment completed: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/01.bwa_alignment
+2026-01-28 09:12:36.856 - INFO - [2/4] 运行覆盖度过滤|Running coverage filter
+2026-01-28 09:12:37.064 - INFO - ============================================================
+2026-01-28 09:12:37.064 - INFO - 覆盖度过滤流程|Coverage Filter Pipeline
+2026-01-28 09:12:37.064 - INFO - ============================================================
+2026-01-28 09:12:37.102 - INFO - 所有依赖检查通过|All dependencies check passed
+2026-01-28 09:12:37.103 - INFO - [1/4] 计算覆盖度|Calculating coverage
+2026-01-28 09:12:37.103 - INFO - 开始计算覆盖度|Starting coverage calculation
+2026-01-28 09:12:37.103 - INFO - 执行步骤|Executing step: 覆盖度计算|Coverage calculation
+2026-01-28 09:13:25.292 - INFO - 覆盖度文件已生成|Coverage file generated: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/02.coverage_filter/41_coverage.txt
+2026-01-28 09:13:25.293 - INFO - [2/4] 分类序列质量|Classifying sequence quality
+2026-01-28 09:13:25.293 - INFO - 开始分类序列质量|Starting sequence quality classification
+2026-01-28 09:13:25.293 - INFO - 执行步骤|Executing step: 提取高质量序列|Extracting high quality sequences
+2026-01-28 09:13:25.298 - INFO - 高质量序列|High quality sequences: 162
+2026-01-28 09:13:25.298 - INFO - 执行步骤|Executing step: 提取中等质量序列|Extracting medium quality sequences
+2026-01-28 09:13:25.301 - INFO - 中等质量序列|Medium quality sequences: 317
+2026-01-28 09:13:25.301 - INFO - 执行步骤|Executing step: 提取低质量序列|Extracting low quality sequences
+2026-01-28 09:13:25.305 - INFO - 低质量序列|Low quality sequences: 3
+2026-01-28 09:13:25.305 - INFO - [3/4] 提取过滤后的序列|Extracting filtered sequences
+2026-01-28 09:13:25.305 - INFO - 开始提取序列|Starting sequence extraction
+2026-01-28 09:13:25.305 - INFO - 执行步骤|Executing step: 提取高质量序列|Extracting high quality sequences
+2026-01-28 09:13:25.727 - INFO - 执行步骤|Executing step: 提取中等质量序列|Extracting medium quality sequences
+2026-01-28 09:13:25.842 - INFO - 执行步骤|Executing step: 提取低质量序列|Extracting low quality sequences
+2026-01-28 09:13:25.900 - INFO - 序列提取完成|Sequence extraction completed
+2026-01-28 09:13:25.900 - INFO - [4/4] 生成统计报告|Generating statistics report
+2026-01-28 09:13:25.900 - INFO - 开始生成统计信息|Starting statistics generation
+2026-01-28 09:13:26.018 - INFO - 原始序列统计完成|Original sequence statistics completed
+2026-01-28 09:13:26.077 - INFO - 高质量序列统计完成|High quality sequence statistics completed
+2026-01-28 09:13:26.101 - INFO - 中等质量序列统计完成|Medium quality sequence statistics completed
+2026-01-28 09:13:26.119 - INFO - 低质量序列统计完成|Low quality sequence statistics completed
+2026-01-28 09:13:26.119 - INFO - 报告已保存到|Report saved to: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/02.coverage_filter/41_report.txt
+2026-01-28 09:13:26.119 - INFO - ============================================================
+2026-01-28 09:13:26.119 - INFO - 过滤流程完成|Filter pipeline completed
+2026-01-28 09:13:26.119 - INFO - ============================================================
+2026-01-28 09:13:26.119 - INFO - 覆盖度过滤完成|Coverage filter completed: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/03.ngs_polish/02.coverage_filter/41_high_quality.list
+2026-01-28 09:13:26.119 - INFO - [3/4] 提取高质量HiFi reads|Extracting high-quality HiFi reads
+2026-01-28 09:13:26.120 - ERROR - Contig-reads映射文件不存在|Contig-reads mapping file not found: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/96.测试新的组装模块/02.hifiasm/41/02.fasta/41.bp.p_ctg.contig_reads.tsv
+2026-01-28 09:13:26.120 - ERROR - NGS polish流程失败|NGS polish pipeline failed

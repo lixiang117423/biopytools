@@ -1,0 +1,15 @@
+2025-10-06 14:37:29,773 - INFO - ============================================================
+2025-10-06 14:37:29,774 - INFO - 🌳 IQ-TREE 系统发育树分析流程启动 | IQ-TREE Phylogenetic Analysis Pipeline Started
+2025-10-06 14:37:29,774 - INFO - ============================================================
+2025-10-06 14:37:29,774 - INFO - 📋 步骤 1: 检查软件依赖 | Step 1: Checking software dependencies
+2025-10-06 14:37:29,774 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-06 14:37:30,011 - INFO - ✅ IQ-TREE 可用 | IQ-TREE available: IQ-TREE version 3.0.1 for Linux x86 64-bit built Jul  9 2025
+2025-10-06 14:37:30,012 - INFO - 📋 步骤 2: 构建系统发育树 | Step 2: Building phylogenetic tree
+2025-10-06 14:37:30,012 - INFO - ============================================================
+2025-10-06 14:37:30,012 - INFO - 🌳 开始系统发育树构建 | Starting phylogenetic tree construction
+2025-10-06 14:37:30,012 - INFO - ============================================================
+2025-10-06 14:37:30,012 - INFO - 🔬 使用自动模型选择 | Using automatic model selection (MFP)
+2025-10-06 14:37:30,012 - INFO - 🔄 使用UFBoot，重复1000次 | Using UFBoot with 1000 replicates
+2025-10-06 14:37:30,012 - INFO - 🚀 执行步骤 | Executing step: 系统发育树推断 | Phylogenetic tree inference
+2025-10-06 14:37:30,012 - INFO - 💻 命令 | Command: iqtree -s /share/org/YZWL/yzwl_lixg/tmp/tree/test.mafft.fa --prefix test -m MFP -B 1000 -T 12
+2025-10-06 14:37:30,012 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/tmp/tree

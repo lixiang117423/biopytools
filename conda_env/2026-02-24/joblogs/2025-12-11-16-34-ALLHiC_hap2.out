@@ -1,0 +1,53 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap2/logs/allhic_20251211_163430.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-11 16:34:31] Checking required tools...
+[2025-12-11 16:34:31] ✅ Environment ready
+[2025-12-11 16:34:31] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap2
+[2025-12-11 16:34:31] Threads: 88
+[2025-12-11 16:34:31] Memory: 800G
+[2025-12-11 16:34:31] Chromosomes: 12
+[2025-12-11 16:34:31] Enzyme: GATC
+[2025-12-11 16:34:31] ⏱️  Step completed in 1s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v4.1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 [Step 0] Preparing input data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-11 16:34:31] ✅ Input files linked
+[2025-12-11 16:34:31] ⏱️  Step completed in 0s
+[2025-12-11 16:34:31] ⏭️  Skipping mapping step
+[2025-12-11 16:34:31] ⏭️  Skipping allele detection
+[2025-12-11 16:34:31] ⏭️  Skipping pruning
+[2025-12-11 16:34:31] ⏭️  Skipping partition
+[2025-12-11 16:34:31] ⏭️  Skipping extract
+[2025-12-11 16:34:31] ⏭️  Skipping rescue
+[2025-12-11 16:34:31] ⏭️  Skipping optimization
+[2025-12-11 16:34:31] ⏭️  Skipping build
+[2025-12-11 16:34:31] ⏭️  Skipping plot
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 [Step 8] Generating JBAT files (Documentation Compliant)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-11 16:34:31] ✅ Using existing name-sorted BAM.
+[2025-12-11 16:34:31] Generating MND file (Medium Format: 11 columns)...
+[2025-12-11 16:51:59] Sorting MND file...
+[2025-12-11 17:21:03] 🔍 MND Format Check:
+[2025-12-11 17:21:03]    Columns: 11 (Expected: 11)
+[2025-12-11 17:21:03]    Sample: E250159834L1C003R02800825232 0 h2tg000001l 1 0 1 h2tg000015l 1525831 1 60 60
+[2025-12-11 17:21:03] Running Juicer Tools Pre...
+[2025-12-11 17:21:03] ▶️  java -Xmx800G -jar '/share/org/YZWL/yzwl_lixg/software/juicer/CPU/common/juicer_tools.jar' pre 'jbat_results/draft.mnd.sorted.txt' 'jbat_results/draft.hic' 'jbat_results/draft.chrom.sizes'
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+WARN [2025-12-11T17:21:03,777]  [Globals.java:138] [main]  Development mode is enabled
+Using 1 CPU thread(s)
+Not including fragment map
+Start preprocess
+Writing header
+Writing body
+.....Error: the chromosome combination 1_1 appears in multiple blocks
+[2025-12-11 17:26:15] ❌ HIC generation failed.

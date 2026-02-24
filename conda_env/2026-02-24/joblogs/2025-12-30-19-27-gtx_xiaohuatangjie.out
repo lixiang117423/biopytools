@@ -1,0 +1,1373 @@
+[2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:03] INFO: 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+[2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:03] INFO: 系统预检查 | System pre-flight checks
+[2025-12-30 19:27:03] INFO: 开始更新所有组件的基因组路径... | Starting genome path update for all components...
+[2025-12-30 19:27:03] INFO: 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa -> /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Force updated genome path
+[2025-12-30 19:27:03] INFO: 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+[2025-12-30 19:27:03] INFO: 基因组路径更新完成 | Genome path update completed
+[2025-12-30 19:27:03] INFO: 命令存在 | Command exists: bwa
+[2025-12-30 19:27:03] INFO: 命令存在 | Command exists: samtools
+[2025-12-30 19:27:03] INFO: 命令存在 | Command exists: bcftools
+[2025-12-30 19:27:03] INFO: 命令存在 | Command exists: gatk
+[2025-12-30 19:27:03] INFO: 命令存在 | Command exists: biopytools
+[2025-12-30 19:27:03] INFO: 磁盘空间充足 | Sufficient disk space: 2427603GB available
+[2025-12-30 19:27:03] INFO: 系统内存充足 | Sufficient system memory: 503GB total
+[2025-12-30 19:27:03] INFO: 配置摘要 | Configuration Summary:
+[2025-12-30 19:27:03] INFO:   项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测
+[2025-12-30 19:27:03] INFO:   原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge
+[2025-12-30 19:27:03] INFO:   参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+[2025-12-30 19:27:03] INFO:   线程配置 | Thread config: Mapping=64, Filtering=64
+[2025-12-30 19:27:03] INFO:   断点续传 | Checkpoint: True
+[2025-12-30 19:27:03] INFO:   测试模式 | Dry run: False
+[2025-12-30 19:27:03] INFO: 预检查通过 | Pre-flight checks passed
+[2025-12-30 19:27:03] INFO: 执行步骤 1 | Executing step 1: 质量控制 | Quality Control
+[2025-12-30 19:27:03] INFO: 执行步骤 2 | Executing step 2: 构建基因组索引 | Build Genome Index
+[2025-12-30 19:27:03] INFO: 准备执行索引构建步骤 | Preparing to execute index building step
+[2025-12-30 19:27:03] INFO: 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Current genome path in config
+[2025-12-30 19:27:03] INFO: GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Genome path in GTX mapper
+[2025-12-30 19:27:03] INFO: 执行步骤 3 | Executing step 3: 序列比对 | Sequence Mapping
+[2025-12-30 19:27:03] INFO: 执行步骤 4 | Executing step 4: 联合变异检测 | Joint Variant Calling
+[2025-12-30 19:27:03] INFO: 执行步骤 5 | Executing step 5: 变异过滤 | Variant Filtering
+[2025-12-30 19:27:03] INFO: 执行步骤 1 | Executing step 1: 质量控制 | Quality Control
+[2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:03] INFO: Step 1: 质量控制 | Quality Control
+[2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:03] INFO: 调试信息: skip_qc = False
+[2025-12-30 19:27:03] INFO: 调试信息: read1_pattern_fastp = _1.fq.gz
+[2025-12-30 19:27:03] INFO: 调试信息: read2_pattern_fastp = _2.fq.gz
+[2025-12-30 19:27:03] INFO: 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge
+[2025-12-30 19:27:03] INFO: 开始质控处理 | Starting quality control
+[2025-12-30 19:27:03] INFO: 检测到 4 个原始 FASTQ 文件 | Found 4 raw FASTQ files
+[2025-12-30 19:27:03] INFO: 质量控制 | Quality Control
+[2025-12-30 19:27:03] INFO: 执行命令 | Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean --read1-suffix _1.fq.gz --read2-suffix _2.fq.gz
+[2025-12-30 19:27:04] INFO: 标准输出 | Stdout: [2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:03] INFO: Program: FASTQ Quality Control Batch Processing
+[2025-12-30 19:27:03] INFO: Version: 1.0.0
+[2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:03] INFO: 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+[2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:03] INFO: 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/raw/merge
+[2025-12-30 19:27:03] INFO: 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean
+[2025-12-30 19:27:03] INFO: 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+[2025-12-30 19:27:03] INFO: 线程数 | Threads: 12
+[2025-12-30 19:27:03] INFO: 质量阈值 | Quality threshold: 30
+[2025-12-30 19:27:03] INFO: 最小长度 | Minimum length: 50
+[2025-12-30 19:27:03] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: Fastp可执行文件验证成功 | Fastp executable validated: fastp
+[2025-12-30 19:27:04] INFO: 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean
+[2025-12-30 19:27:04] INFO: 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports
+[2025-12-30 19:27:04] INFO: 找到 2 个read1文件 | Found 2 read1 files
+[2025-12-30 19:27:04] INFO: 找到 2 个有效样本配对 | Found 2 valid sample pairs:
+[2025-12-30 19:27:04] INFO:   - 72_3_kang
+[2025-12-30 19:27:04] INFO:   - 72_4_gang
+[2025-12-30 19:27:04] INFO: 样本 72_3_kang 的输出文件已存在，跳过处理 | Output files exist for sample 72_3_kang, skipping
+[2025-12-30 19:27:04] INFO: 样本 72_4_gang 的输出文件已存在，跳过处理 | Output files exist for sample 72_4_gang, skipping
+[2025-12-30 19:27:04] INFO: 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_processing_summary.txt
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+[2025-12-30 19:27:04] INFO: 总样本数 | Total samples: 2
+[2025-12-30 19:27:04] INFO: 成功处理 | Successfully processed: 2
+[2025-12-30 19:27:04] INFO: 失败样本 | Failed samples: 0
+[2025-12-30 19:27:04] INFO: 成功率 | Success rate: 100.0%
+[2025-12-30 19:27:04] INFO: 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean
+[2025-12-30 19:27:04] INFO: 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/fastp_reports
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: Pipeline Summary
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: Total runtime: 0.30 seconds
+[2025-12-30 19:27:04] INFO: Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean
+[2025-12-30 19:27:04] INFO: Pipeline completed successfully
+
+[2025-12-30 19:27:04] INFO: 命令执行成功 | Command executed successfully
+[2025-12-30 19:27:04] INFO: 质控完成: 4 个清洁文件 | QC completed: 4 clean files
+[2025-12-30 19:27:04] INFO: 创建检查点 | Create checkpoint: quality_control
+[2025-12-30 19:27:04] INFO: Fastp质量控制完成，立即执行GTX索引构建 | Fastp QC completed, immediately executing GTX index building
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: 强制构建GTX索引 | Force Build GTX Index
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+[2025-12-30 19:27:04] INFO: 强制执行GTX索引构建 | Force executing GTX index build
+[2025-12-30 19:27:04] INFO: 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp
+[2025-12-30 19:27:04] INFO: 基因组文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+[2025-12-30 19:27:04] INFO: 临时目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp
+[2025-12-30 19:27:04] INFO: 强制构建GTX索引 | Force build GTX index
+[2025-12-30 19:27:04] INFO: 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp
+[2025-12-30 19:27:04] INFO: 步骤 1 完成 | Step 1 completed: 质量控制 | Quality Control
+[2025-12-30 19:27:04] INFO: 执行步骤 2 | Executing step 2: 构建基因组索引 | Build Genome Index
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: 构建基因组索引 | Building Genome Index
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: GTX索引已在step1中构建，跳过 | GTX index already built in step1, skipping
+[2025-12-30 19:27:04] INFO: 步骤 2 完成 | Step 2 completed: 构建基因组索引 | Build Genome Index
+[2025-12-30 19:27:04] INFO: 执行步骤 3 | Executing step 3: 序列比对 | Sequence Mapping
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: Step 3: 序列比对 | Sequence Mapping
+[2025-12-30 19:27:04] INFO: ============================================================
+[2025-12-30 19:27:04] INFO: 刷新配置后的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Genome path after config refresh
+[2025-12-30 19:27:04] INFO: 使用GTX WGS进行序列比对 (CPU优化，比对+变异检测一体化) | Using GTX WGS for sequence mapping (CPU optimized, alignment+variant calling integrated)
+[2025-12-30 19:27:04] INFO: 使用 64 线程进行比对 | Using 64 threads for mapping
+[2025-12-30 19:27:04] INFO: 使用GTX WGS完整流程 (CPU优化，比对+变异检测一体化) | Using GTX WGS complete pipeline (CPU optimized, alignment+variant calling integrated)
+[2025-12-30 19:27:04] INFO: 使用 64 线程处理 | Using 64 threads
+[2025-12-30 19:27:04] INFO: 找到 2 个样品需要处理 | Found 2 samples to process
+[2025-12-30 19:27:04] INFO: [1/2] 处理样品: 72_4_gang | Processing sample: 72_4_gang
+[2025-12-30 19:27:04] INFO: GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Genome path used by GTX
+[2025-12-30 19:27:04] INFO: 检查索引文件是否存在: | Checking if index files exist:
+[2025-12-30 19:27:04] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx: ✗
+[2025-12-30 19:27:04] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.bwt: ✗
+[2025-12-30 19:27:04] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.sa: ✗
+[2025-12-30 19:27:04] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.ann: ✗
+[2025-12-30 19:27:04] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.amb: ✗
+[2025-12-30 19:27:04] INFO: GTX WGS处理 72_4_gang | GTX WGS processing 72_4_gang
+[2025-12-30 19:27:04] INFO: 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:72_4_gang\tSM:72_4_gang\tPL:ILLUMINA\tLB:72_4_gang" -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/vcf/72_4_gang.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/bam/72_4_gang.sorted.bam -t 64 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_4_gang_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_4_gang_2.clean.fq.gz
+[2025-12-30 19:27:04] INFO: [2020-10-20 00:00:00.796] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp available: 2427603GB, memory available: 462GB, ulimit of open files: 400000
+[2025-12-30 19:27:05] INFO: [2020-10-20 00:00:00.884] [wgs] [info] Use bwa mem2 to align!
+[2025-12-30 19:27:06] INFO: [2020-10-20 00:00:00.893] [align] [info] Job: mapping, pid: 1607829
+[2025-12-30 19:27:07] INFO: [2020-10-20 00:00:00.893] [align] [info] Mapping...
+[2025-12-30 19:27:08] INFO: [2020-10-20 00:00:01.751] [align] [info] Read 0 ALT contigs.
+[2025-12-30 19:27:13] INFO: Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+[2025-12-30 19:27:16] INFO: Processed 1196032 reads in 7.51 seconds. Average speed: 0.16M/s.
+[2025-12-30 19:27:23] INFO: Processed 2211840 reads in 11.02 seconds. Average speed: 0.20M/s.
+[2025-12-30 19:27:26] INFO: Processed 3522560 reads in 17.53 seconds. Average speed: 0.20M/s.
+[2025-12-30 19:27:32] INFO: Processed 4194304 reads in 21.04 seconds. Average speed: 0.20M/s.
+[2025-12-30 19:27:37] INFO: Processed 5242880 reads in 27.05 seconds. Average speed: 0.19M/s.
+[2025-12-30 19:27:42] INFO: Processed 6324224 reads in 31.56 seconds. Average speed: 0.20M/s.
+[2025-12-30 19:27:48] INFO: Processed 7471104 reads in 36.57 seconds. Average speed: 0.20M/s.
+[2025-12-30 19:27:52] INFO: Processed 8896512 reads in 42.58 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:27:56] INFO: Processed 9519104 reads in 46.59 seconds. Average speed: 0.20M/s.
+[2025-12-30 19:28:02] INFO: Processed 10567680 reads in 50.59 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:06] INFO: Processed 11911168 reads in 56.61 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:10] INFO: Processed 12664832 reads in 61.12 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:15] INFO: Processed 13713408 reads in 65.13 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:20] INFO: Processed 14843904 reads in 70.14 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:25] INFO: Processed 15908864 reads in 75.15 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:29] INFO: Processed 16973824 reads in 80.18 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:35] INFO: Processed 17907712 reads in 84.19 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:40] INFO: Processed 19054592 reads in 90.20 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:45] INFO: Processed 20168704 reads in 94.21 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:50] INFO: Processed 21217280 reads in 99.73 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:55] INFO: Processed 22347776 reads in 104.24 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:28:59] INFO: Processed 23396352 reads in 109.25 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:05] INFO: Processed 24150016 reads in 113.26 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:09] INFO: Processed 25411584 reads in 119.28 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:13] INFO: Processed 26427392 reads in 123.79 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:17] INFO: Processed 27262976 reads in 127.80 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:23] INFO: Processed 28377088 reads in 131.81 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:27] INFO: Processed 29507584 reads in 137.32 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:33] INFO: Processed 30490624 reads in 141.83 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:37] INFO: Processed 31653888 reads in 147.34 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:43] INFO: Processed 32636928 reads in 151.85 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:47] INFO: Processed 33587200 reads in 157.36 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:52] INFO: Processed 34635776 reads in 161.37 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:29:57] INFO: Processed 35717120 reads in 166.38 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:01] INFO: Processed 36700160 reads in 171.39 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:06] INFO: Processed 37781504 reads in 175.39 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:12] INFO: Processed 38797312 reads in 180.41 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:17] INFO: Processed 40271872 reads in 186.93 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:21] INFO: Processed 40976384 reads in 191.93 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:27] INFO: Processed 41975808 reads in 195.44 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:31] INFO: Processed 43483136 reads in 201.95 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:35] INFO: Processed 44318720 reads in 205.96 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:40] INFO: Processed 45203456 reads in 209.97 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:45] INFO: Processed 46268416 reads in 214.98 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:50] INFO: Processed 47300608 reads in 219.99 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:30:54] INFO: Processed 48267264 reads in 225.00 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:00] INFO: Processed 49348608 reads in 229.01 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:05] INFO: Processed 50495488 reads in 234.51 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:10] INFO: Processed 51658752 reads in 239.52 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:14] INFO: Processed 52445184 reads in 244.53 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:18] INFO: Processed 53772288 reads in 249.04 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:23] INFO: Processed 54591488 reads in 253.05 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:29] INFO: Processed 55590912 reads in 257.56 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:33] INFO: Processed 56967168 reads in 263.57 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:31:38] INFO: Processed 57737216 reads in 267.58 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:42] INFO: Processed 59129856 reads in 273.09 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:31:47] INFO: Processed 59768832 reads in 277.10 seconds. Average speed: 0.21M/s.
+[2025-12-30 19:31:51] INFO: Processed 60915712 reads in 281.60 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:31:57] INFO: Processed 61865984 reads in 286.11 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:01] INFO: Processed 62996480 reads in 291.63 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:06] INFO: Processed 64208896 reads in 296.14 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:10] INFO: Processed 65011712 reads in 300.65 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:16] INFO: Processed 66256896 reads in 305.15 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:19] INFO: Processed 67207168 reads in 310.67 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:24] INFO: Processed 68255744 reads in 314.17 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:29] INFO: Processed 69320704 reads in 319.19 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:35] INFO: Processed 70254592 reads in 323.21 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:39] INFO: Processed 71598080 reads in 329.23 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:43] INFO: Processed 72466432 reads in 333.23 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:48] INFO: Processed 73433088 reads in 337.24 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:53] INFO: Processed 74727424 reads in 342.75 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:32:57] INFO: Processed 75579392 reads in 347.26 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:02] INFO: Processed 76546048 reads in 351.78 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:06] INFO: Processed 77807616 reads in 356.80 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:11] INFO: Processed 78659584 reads in 360.31 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:16] INFO: Processed 79691776 reads in 365.32 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:21] INFO: Processed 80773120 reads in 370.84 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:25] INFO: Processed 81788928 reads in 375.85 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:31] INFO: Processed 82935808 reads in 379.86 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:35] INFO: Processed 83918848 reads in 385.37 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:40] INFO: Processed 85032960 reads in 389.37 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:45] INFO: Processed 86016000 reads in 394.38 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:49] INFO: Processed 87080960 reads in 399.39 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:53] INFO: Processed 88244224 reads in 403.90 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:33:58] INFO: Processed 89210880 reads in 407.91 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:02] INFO: Processed 90275840 reads in 412.92 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:07] INFO: Processed 91226112 reads in 416.93 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:13] INFO: Processed 92307456 reads in 421.44 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:17] INFO: Processed 93356032 reads in 427.45 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:22] INFO: Processed 94453760 reads in 431.45 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:26] INFO: Processed 95830016 reads in 436.98 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:31] INFO: Processed 96501760 reads in 440.48 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:35] INFO: Processed 97583104 reads in 445.49 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:40] INFO: Processed 98566144 reads in 450.00 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:45] INFO: Processed 99794944 reads in 455.01 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:50] INFO: Processed 100892672 reads in 460.02 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:56] INFO: Processed 102023168 reads in 465.03 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:34:59] INFO: Processed 103235584 reads in 470.54 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:04] INFO: Processed 103940096 reads in 474.06 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:08] INFO: Processed 104857600 reads in 479.06 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:14] INFO: Processed 105938944 reads in 483.08 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:18] INFO: Processed 107249664 reads in 488.59 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:24] INFO: Processed 108216320 reads in 493.10 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:28] INFO: Processed 109428736 reads in 498.61 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:32] INFO: Processed 110280704 reads in 502.62 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:37] INFO: Processed 111263744 reads in 507.12 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:41] INFO: Processed 112197632 reads in 512.13 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:48] INFO: Processed 113246208 reads in 516.14 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:51] INFO: Processed 114786304 reads in 522.65 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:35:57] INFO: Processed 115359744 reads in 526.16 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:01] INFO: Processed 116523008 reads in 531.67 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:05] INFO: Processed 117719040 reads in 536.18 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:10] INFO: Processed 118505472 reads in 539.69 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:16] INFO: Processed 119685120 reads in 544.71 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:21] INFO: Processed 120946688 reads in 550.22 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:24] INFO: Processed 121978880 reads in 555.23 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:29] INFO: Processed 122781696 reads in 558.73 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:34] INFO: Processed 123781120 reads in 563.24 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:39] INFO: Processed 124829696 reads in 568.76 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:44] INFO: Processed 125894656 reads in 573.78 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:48] INFO: Processed 126992384 reads in 578.79 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:53] INFO: Processed 128204800 reads in 582.81 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:36:57] INFO: Processed 129056768 reads in 587.82 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:02] INFO: Processed 130056192 reads in 591.32 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:08] INFO: Processed 131252224 reads in 596.83 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:12] INFO: Processed 132448256 reads in 602.34 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:17] INFO: Processed 133201920 reads in 606.35 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:21] INFO: Processed 134234112 reads in 611.36 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:26] INFO: Processed 135446528 reads in 615.87 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:31] INFO: Processed 136314880 reads in 620.90 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:35] INFO: Processed 137412608 reads in 625.40 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:41] INFO: Processed 138657792 reads in 629.92 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:44] INFO: Processed 139722752 reads in 635.43 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:50] INFO: Processed 140673024 reads in 638.94 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:54] INFO: Processed 141606912 reads in 644.45 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:37:59] INFO: Processed 142884864 reads in 648.97 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:02] INFO: Processed 143835136 reads in 653.98 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:08] INFO: Processed 144703488 reads in 656.98 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:13] INFO: Processed 145752064 reads in 662.99 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:18] INFO: Processed 146915328 reads in 668.00 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:23] INFO: Processed 148094976 reads in 673.01 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:28] INFO: Processed 149241856 reads in 677.52 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:31] INFO: Processed 150421504 reads in 682.53 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:36] INFO: Processed 151060480 reads in 686.04 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:41] INFO: Processed 152256512 reads in 691.05 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:46] INFO: Processed 153141248 reads in 696.05 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:51] INFO: Processed 154451968 reads in 701.06 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:38:55] INFO: Processed 155254784 reads in 706.07 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:00] INFO: Processed 156254208 reads in 709.58 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:06] INFO: Processed 157483008 reads in 715.09 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:09] INFO: Processed 158580736 reads in 720.60 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:15] INFO: Processed 159449088 reads in 724.11 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:19] INFO: Processed 160530432 reads in 729.62 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:23] INFO: Processed 161644544 reads in 733.63 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:29] INFO: Processed 162529280 reads in 738.14 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:32] INFO: Processed 163659776 reads in 743.66 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:38] INFO: Processed 164659200 reads in 747.16 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:42] INFO: Processed 165789696 reads in 752.67 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:48] INFO: Processed 166805504 reads in 757.18 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:53] INFO: Processed 168017920 reads in 762.21 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:39:56] INFO: Processed 168968192 reads in 767.72 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:02] INFO: Processed 169869312 reads in 770.72 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:06] INFO: Processed 171048960 reads in 776.24 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:12] INFO: Processed 171966464 reads in 780.25 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:16] INFO: Processed 173391872 reads in 786.77 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:21] INFO: Processed 174096384 reads in 790.27 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:25] INFO: Processed 175194112 reads in 795.29 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:31] INFO: Processed 176275456 reads in 799.80 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:36] INFO: Processed 177242112 reads in 805.31 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:39] INFO: Processed 178700288 reads in 810.32 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:45] INFO: Processed 179339264 reads in 813.33 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:50] INFO: Processed 180617216 reads in 819.34 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:53] INFO: Processed 181682176 reads in 824.85 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:40:59] INFO: Processed 182517760 reads in 827.86 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:04] INFO: Processed 183566336 reads in 833.37 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:09] INFO: Processed 184598528 reads in 838.88 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:12] INFO: Processed 185810944 reads in 843.39 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:18] INFO: Processed 186712064 reads in 846.89 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:22] INFO: Processed 187695104 reads in 852.92 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:27] INFO: Processed 188907520 reads in 856.93 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:32] INFO: Processed 190038016 reads in 861.94 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:37] INFO: Processed 190889984 reads in 866.95 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:41] INFO: Processed 192135168 reads in 871.96 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:46] INFO: Processed 193052672 reads in 875.47 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:50] INFO: Processed 193986560 reads in 880.98 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:41:57] INFO: Processed 195117056 reads in 884.99 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:00] INFO: Processed 196526080 reads in 891.50 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:06] INFO: Processed 197148672 reads in 894.51 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:10] INFO: Processed 198246400 reads in 900.55 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:14] INFO: Processed 199458816 reads in 904.56 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:20] INFO: Processed 200278016 reads in 909.07 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:25] INFO: Processed 201539584 reads in 914.58 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:29] INFO: Processed 202768384 reads in 919.59 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:34] INFO: Processed 203571200 reads in 923.60 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:39] INFO: Processed 204668928 reads in 928.61 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:44] INFO: Processed 205684736 reads in 934.12 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:48] INFO: Processed 206684160 reads in 938.63 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:52] INFO: Processed 207880192 reads in 943.15 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:42:57] INFO: Processed 208846848 reads in 947.16 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:02] INFO: Processed 209928192 reads in 952.17 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:08] INFO: Processed 211009536 reads in 957.18 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:11] INFO: Processed 212287488 reads in 962.69 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:17] INFO: Processed 212860928 reads in 966.20 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:23] INFO: Processed 214138880 reads in 971.21 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:27] INFO: Processed 215367680 reads in 977.22 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:31] INFO: Processed 216023040 reads in 981.23 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:37] INFO: Processed 217137152 reads in 985.74 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:41] INFO: Processed 218464256 reads in 991.25 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:46] INFO: Processed 219480064 reads in 995.75 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:50] INFO: Processed 220413952 reads in 1000.76 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:55] INFO: Processed 221347840 reads in 1004.27 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:43:59] INFO: Processed 222527488 reads in 1009.78 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:04] INFO: Processed 223395840 reads in 1013.30 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:09] INFO: Processed 224411648 reads in 1018.81 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:13] INFO: Processed 225443840 reads in 1023.32 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:18] INFO: Processed 226639872 reads in 1027.83 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:24] INFO: Processed 227540992 reads in 1032.34 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:28] INFO: Processed 228982784 reads in 1038.35 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:32] INFO: Processed 229638144 reads in 1042.36 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:38] INFO: Processed 230768640 reads in 1046.38 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:42] INFO: Processed 231784448 reads in 1052.39 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:46] INFO: Processed 233127936 reads in 1056.89 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:52] INFO: Processed 233914368 reads in 1060.91 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:44:56] INFO: Processed 235225088 reads in 1066.42 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:01] INFO: Processed 236027904 reads in 1070.92 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:06] INFO: Processed 237289472 reads in 1075.44 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:10] INFO: Processed 238043136 reads in 1080.45 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:15] INFO: Processed 239271936 reads in 1084.96 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:20] INFO: Processed 240369664 reads in 1089.97 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:24] INFO: Processed 241238016 reads in 1094.47 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:30] INFO: Processed 242335744 reads in 1098.49 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:33] INFO: Processed 243548160 reads in 1104.51 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:39] INFO: Processed 244547584 reads in 1108.01 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:42] INFO: Processed 245481472 reads in 1113.52 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:48] INFO: Processed 246546432 reads in 1117.03 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:52] INFO: Processed 247595008 reads in 1122.54 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:45:56] INFO: Processed 248545280 reads in 1127.05 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:02] INFO: Processed 249561088 reads in 1131.06 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:06] INFO: Processed 250888192 reads in 1136.57 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:12] INFO: Processed 251691008 reads in 1140.58 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:15] INFO: Processed 252887040 reads in 1146.59 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:20] INFO: Processed 253820928 reads in 1150.09 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:24] INFO: Processed 254803968 reads in 1155.10 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:30] INFO: Processed 255901696 reads in 1159.11 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:34] INFO: Processed 257130496 reads in 1164.62 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:39] INFO: Processed 257998848 reads in 1168.63 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:44] INFO: Processed 259031040 reads in 1174.15 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:48] INFO: Processed 260358144 reads in 1179.16 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:54] INFO: Processed 261226496 reads in 1183.17 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:46:58] INFO: Processed 262471680 reads in 1189.18 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:03] INFO: Processed 263258112 reads in 1193.19 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:07] INFO: Processed 264404992 reads in 1198.20 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:13] INFO: Processed 265469952 reads in 1202.21 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:17] INFO: Processed 266354688 reads in 1207.22 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:22] INFO: Processed 267452416 reads in 1211.73 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:27] INFO: Processed 268582912 reads in 1216.24 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:31] INFO: Processed 269549568 reads in 1221.75 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:36] INFO: Processed 270581760 reads in 1225.76 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:41] INFO: Processed 271630336 reads in 1230.77 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:44] INFO: Processed 272826368 reads in 1235.79 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:49] INFO: Processed 273711104 reads in 1238.79 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:47:55] INFO: Processed 274726912 reads in 1243.81 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:00] INFO: Processed 275890176 reads in 1249.32 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:05] INFO: Processed 277217280 reads in 1254.83 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:10] INFO: Processed 278036480 reads in 1259.34 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:14] INFO: Processed 279101440 reads in 1264.35 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:18] INFO: Processed 280199168 reads in 1268.36 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:23] INFO: Processed 281264128 reads in 1272.87 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:28] INFO: Processed 282083328 reads in 1277.39 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:33] INFO: Processed 283361280 reads in 1282.40 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:37] INFO: Processed 284590080 reads in 1287.91 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:41] INFO: Processed 285556736 reads in 1291.92 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:46] INFO: Processed 286310400 reads in 1295.93 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:52] INFO: Processed 287326208 reads in 1300.94 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:48:56] INFO: Processed 288849920 reads in 1306.45 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:01] INFO: Processed 289456128 reads in 1310.45 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:05] INFO: Processed 290488320 reads in 1315.47 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:09] INFO: Processed 291618816 reads in 1319.48 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:15] INFO: Processed 292569088 reads in 1323.99 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:20] INFO: Processed 293650432 reads in 1329.50 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:24] INFO: Processed 294830080 reads in 1334.51 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:30] INFO: Processed 295845888 reads in 1339.02 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:33] INFO: Processed 297009152 reads in 1344.53 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:39] INFO: Processed 297926656 reads in 1348.03 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:43] INFO: Processed 299319296 reads in 1354.04 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:48] INFO: Processed 299991040 reads in 1357.55 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:53] INFO: Processed 301056000 reads in 1363.06 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:49:58] INFO: Processed 302268416 reads in 1367.57 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:50:02] INFO: Processed 303038464 reads in 1372.58 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:50:04] INFO: Processed 304332800 reads in 1377.09 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:50:05] INFO: Processed 304771420 reads in 1379.09 seconds. Average speed: 0.22M/s.
+[2025-12-30 19:50:06] INFO: mapping finished in 86436.09 CPU sec, 1379.99 real sec.
+[2025-12-30 19:50:07] INFO: [2020-10-20 00:23:01.273] [align] [info] mapping exited normally.
+[2025-12-30 19:50:08] INFO: [2020-10-20 00:23:01.274] [save_bam] [info] Job: bam writing, pid: 1617927
+[2025-12-30 19:50:09] INFO: [2020-10-20 00:23:01.274] [save_bam] [info] BAM writting...
+[2025-12-30 19:50:10] INFO: [2020-10-20 00:23:01.274] [save_bam] [info] Sorting and marking duplicates...
+[2025-12-30 19:53:51] INFO: bam writing finished in 2606.89 CPU sec, 226.269 real sec.
+[2025-12-30 19:53:53] INFO: [2020-10-20 00:26:49.836] [save_bam] [info] bam writing exited normally.
+[2025-12-30 19:53:54] INFO: [2020-10-20 00:26:49.838] [haplotype_caller] [info] Job: variants calling, pid: 1619699
+[2025-12-30 19:53:55] INFO: [2020-10-20 00:26:49.838] [haplotype_caller] [info] Variants calling...
+[2025-12-30 19:53:56] INFO: [                                ] 0%
+[2025-12-30 19:54:03] INFO: [                                ] 0%
+[2025-12-30 19:54:13] INFO: [                                ] 0%
+[2025-12-30 19:54:22] INFO: [                                ] 1%
+[2025-12-30 19:54:33] INFO: [                                ] 1%
+[2025-12-30 19:54:44] INFO: [                                ] 1%
+[2025-12-30 19:54:57] INFO: [                                ] 2%
+[2025-12-30 19:55:05] INFO: [                                ] 2%
+[2025-12-30 19:55:16] INFO: [#                               ] 3%
+[2025-12-30 19:55:26] INFO: [#                               ] 3%
+[2025-12-30 19:55:36] INFO: [#                               ] 3%
+[2025-12-30 19:55:47] INFO: [#                               ] 4%
+[2025-12-30 19:55:56] INFO: [#                               ] 4%
+[2025-12-30 19:56:08] INFO: [#                               ] 5%
+[2025-12-30 19:56:15] INFO: [#                               ] 5%
+[2025-12-30 19:56:26] INFO: [#                               ] 5%
+[2025-12-30 19:56:37] INFO: [##                              ] 6%
+[2025-12-30 19:56:45] INFO: [##                              ] 6%
+[2025-12-30 19:56:57] INFO: [##                              ] 7%
+[2025-12-30 19:57:18] INFO: [##                              ] 7%
+[2025-12-30 19:57:47] INFO: [##                              ] 7%
+[2025-12-30 19:58:00] INFO: [##                              ] 8%
+[2025-12-30 19:58:11] INFO: [##                              ] 8%
+[2025-12-30 19:58:27] INFO: [##                              ] 8%
+[2025-12-30 19:58:36] INFO: [###                             ] 9%
+[2025-12-30 19:58:44] INFO: [###                             ] 9%
+[2025-12-30 19:58:57] INFO: [###                             ] 10%
+[2025-12-30 19:59:07] INFO: [###                             ] 10%
+[2025-12-30 19:59:15] INFO: [###                             ] 10%
+[2025-12-30 19:59:30] INFO: [###                             ] 11%
+[2025-12-30 19:59:41] INFO: [###                             ] 11%
+[2025-12-30 19:59:50] INFO: [###                             ] 12%
+[2025-12-30 20:00:01] INFO: [####                            ] 12%
+[2025-12-30 20:00:12] INFO: [####                            ] 12%
+[2025-12-30 20:00:24] INFO: [####                            ] 13%
+[2025-12-30 20:00:38] INFO: [####                            ] 13%
+[2025-12-30 20:00:50] INFO: [####                            ] 14%
+[2025-12-30 20:01:00] INFO: [####                            ] 14%
+[2025-12-30 20:01:12] INFO: [####                            ] 14%
+[2025-12-30 20:01:23] INFO: [####                            ] 15%
+[2025-12-30 20:01:34] INFO: [#####                           ] 15%
+[2025-12-30 20:01:44] INFO: [#####                           ] 16%
+[2025-12-30 20:01:53] INFO: [#####                           ] 16%
+[2025-12-30 20:02:02] INFO: [#####                           ] 16%
+[2025-12-30 20:02:12] INFO: [#####                           ] 17%
+[2025-12-30 20:02:24] INFO: [#####                           ] 17%
+[2025-12-30 20:02:32] INFO: [#####                           ] 17%
+[2025-12-30 20:02:42] INFO: [#####                           ] 18%
+[2025-12-30 20:02:51] INFO: [######                          ] 18%
+[2025-12-30 20:02:59] INFO: [######                          ] 19%
+[2025-12-30 20:03:09] INFO: [######                          ] 19%
+[2025-12-30 20:03:21] INFO: [######                          ] 19%
+[2025-12-30 20:03:33] INFO: [######                          ] 20%
+[2025-12-30 20:03:48] INFO: [######                          ] 20%
+[2025-12-30 20:03:58] INFO: [######                          ] 21%
+[2025-12-30 20:04:09] INFO: [######                          ] 21%
+[2025-12-30 20:04:19] INFO: [#######                         ] 21%
+[2025-12-30 20:04:33] INFO: [#######                         ] 22%
+[2025-12-30 20:04:43] INFO: [#######                         ] 22%
+[2025-12-30 20:04:53] INFO: [#######                         ] 23%
+[2025-12-30 20:05:02] INFO: [#######                         ] 23%
+[2025-12-30 20:05:14] INFO: [#######                         ] 23%
+[2025-12-30 20:05:25] INFO: [#######                         ] 24%
+[2025-12-30 20:05:39] INFO: [#######                         ] 24%
+[2025-12-30 20:05:49] INFO: [########                        ] 25%
+[2025-12-30 20:06:01] INFO: [########                        ] 25%
+[2025-12-30 20:06:12] INFO: [########                        ] 25%
+[2025-12-30 20:06:25] INFO: [########                        ] 26%
+[2025-12-30 20:06:37] INFO: [########                        ] 26%
+[2025-12-30 20:06:50] INFO: [########                        ] 26%
+[2025-12-30 20:07:06] INFO: [########                        ] 27%
+[2025-12-30 20:07:17] INFO: [########                        ] 27%
+[2025-12-30 20:07:50] INFO: [#########                       ] 28%
+[2025-12-30 20:08:20] INFO: [#########                       ] 28%
+[2025-12-30 20:08:35] INFO: [#########                       ] 28%
+[2025-12-30 20:08:48] INFO: [#########                       ] 29%
+[2025-12-30 20:09:01] INFO: [#########                       ] 29%
+[2025-12-30 20:09:12] INFO: [#########                       ] 30%
+[2025-12-30 20:09:24] INFO: [#########                       ] 30%
+[2025-12-30 20:09:36] INFO: [#########                       ] 30%
+[2025-12-30 20:09:46] INFO: [##########                      ] 31%
+[2025-12-30 20:10:02] INFO: [##########                      ] 31%
+[2025-12-30 20:10:13] INFO: [##########                      ] 32%
+[2025-12-30 20:10:22] INFO: [##########                      ] 32%
+[2025-12-30 20:10:28] INFO: [##########                      ] 32%
+[2025-12-30 20:10:39] INFO: [##########                      ] 33%
+[2025-12-30 20:10:49] INFO: [##########                      ] 33%
+[2025-12-30 20:10:57] INFO: [##########                      ] 34%
+[2025-12-30 20:11:06] INFO: [###########                     ] 34%
+[2025-12-30 20:11:17] INFO: [###########                     ] 34%
+[2025-12-30 20:11:29] INFO: [###########                     ] 35%
+[2025-12-30 20:11:39] INFO: [###########                     ] 35%
+[2025-12-30 20:11:48] INFO: [###########                     ] 35%
+[2025-12-30 20:12:03] INFO: [###########                     ] 36%
+[2025-12-30 20:12:23] INFO: [###########                     ] 36%
+[2025-12-30 20:12:37] INFO: [###########                     ] 37%
+[2025-12-30 20:12:58] INFO: [############                    ] 37%
+[2025-12-30 20:13:10] INFO: [############                    ] 37%
+[2025-12-30 20:13:21] INFO: [############                    ] 38%
+[2025-12-30 20:13:37] INFO: [############                    ] 38%
+[2025-12-30 20:13:49] INFO: [############                    ] 39%
+[2025-12-30 20:13:58] INFO: [############                    ] 39%
+[2025-12-30 20:14:11] INFO: [############                    ] 39%
+[2025-12-30 20:14:28] INFO: [############                    ] 40%
+[2025-12-30 20:14:43] INFO: [#############                   ] 40%
+[2025-12-30 20:14:55] INFO: [#############                   ] 41%
+[2025-12-30 20:15:05] INFO: [#############                   ] 41%
+[2025-12-30 20:15:19] INFO: [#############                   ] 41%
+[2025-12-30 20:15:29] INFO: [#############                   ] 42%
+[2025-12-30 20:15:39] INFO: [#############                   ] 42%
+[2025-12-30 20:15:53] INFO: [#############                   ] 42%
+[2025-12-30 20:16:10] INFO: [#############                   ] 43%
+[2025-12-30 20:16:21] INFO: [##############                  ] 43%
+[2025-12-30 20:16:28] INFO: [##############                  ] 44%
+[2025-12-30 20:16:38] INFO: [##############                  ] 44%
+[2025-12-30 20:16:46] INFO: [##############                  ] 44%
+[2025-12-30 20:16:55] INFO: [##############                  ] 45%
+[2025-12-30 20:17:05] INFO: [##############                  ] 45%
+[2025-12-30 20:17:15] INFO: [##############                  ] 46%
+[2025-12-30 20:17:26] INFO: [##############                  ] 46%
+[2025-12-30 20:17:34] INFO: [###############                 ] 46%
+[2025-12-30 20:17:46] INFO: [###############                 ] 47%
+[2025-12-30 20:17:54] INFO: [###############                 ] 47%
+[2025-12-30 20:18:07] INFO: [###############                 ] 48%
+[2025-12-30 20:18:17] INFO: [###############                 ] 48%
+[2025-12-30 20:18:28] INFO: [###############                 ] 48%
+[2025-12-30 20:18:36] INFO: [###############                 ] 49%
+[2025-12-30 20:18:47] INFO: [###############                 ] 49%
+[2025-12-30 20:18:58] INFO: [################                ] 50%
+[2025-12-30 20:19:11] INFO: [################                ] 50%
+[2025-12-30 20:19:21] INFO: [################                ] 50%
+[2025-12-30 20:19:32] INFO: [################                ] 51%
+[2025-12-30 20:19:40] INFO: [################                ] 51%
+[2025-12-30 20:19:51] INFO: [################                ] 51%
+[2025-12-30 20:20:02] INFO: [################                ] 52%
+[2025-12-30 20:20:08] INFO: [################                ] 52%
+[2025-12-30 20:20:20] INFO: [#################               ] 53%
+[2025-12-30 20:20:32] INFO: [#################               ] 53%
+[2025-12-30 20:20:44] INFO: [#################               ] 53%
+[2025-12-30 20:20:56] INFO: [#################               ] 54%
+[2025-12-30 20:21:06] INFO: [#################               ] 54%
+[2025-12-30 20:21:16] INFO: [#################               ] 55%
+[2025-12-30 20:21:28] INFO: [#################               ] 55%
+[2025-12-30 20:21:42] INFO: [#################               ] 55%
+[2025-12-30 20:21:53] INFO: [##################              ] 56%
+[2025-12-30 20:22:02] INFO: [##################              ] 56%
+[2025-12-30 20:22:13] INFO: [##################              ] 57%
+[2025-12-30 20:22:26] INFO: [##################              ] 57%
+[2025-12-30 20:22:36] INFO: [##################              ] 57%
+[2025-12-30 20:22:46] INFO: [##################              ] 58%
+[2025-12-30 20:22:55] INFO: [##################              ] 58%
+[2025-12-30 20:23:03] INFO: [##################              ] 59%
+[2025-12-30 20:23:15] INFO: [###################             ] 59%
+[2025-12-30 20:23:25] INFO: [###################             ] 59%
+[2025-12-30 20:23:33] INFO: [###################             ] 60%
+[2025-12-30 20:23:44] INFO: [###################             ] 60%
+[2025-12-30 20:23:55] INFO: [###################             ] 60%
+[2025-12-30 20:24:05] INFO: [###################             ] 61%
+[2025-12-30 20:24:12] INFO: [###################             ] 61%
+[2025-12-30 20:24:19] INFO: [###################             ] 62%
+[2025-12-30 20:24:27] INFO: [####################            ] 62%
+[2025-12-30 20:24:40] INFO: [####################            ] 62%
+[2025-12-30 20:24:54] INFO: [####################            ] 63%
+[2025-12-30 20:25:04] INFO: [####################            ] 63%
+[2025-12-30 20:25:17] INFO: [####################            ] 64%
+[2025-12-30 20:25:25] INFO: [####################            ] 64%
+[2025-12-30 20:25:36] INFO: [####################            ] 64%
+[2025-12-30 20:25:49] INFO: [####################            ] 65%
+[2025-12-30 20:26:04] INFO: [#####################           ] 65%
+[2025-12-30 20:26:20] INFO: [#####################           ] 66%
+[2025-12-30 20:26:29] INFO: [#####################           ] 66%
+[2025-12-30 20:26:40] INFO: [#####################           ] 66%
+[2025-12-30 20:26:45] INFO: [#####################           ] 67%
+[2025-12-30 20:26:54] INFO: [#####################           ] 67%
+[2025-12-30 20:27:05] INFO: [#####################           ] 68%
+[2025-12-30 20:27:11] INFO: [#####################           ] 68%
+[2025-12-30 20:27:20] INFO: [######################          ] 68%
+[2025-12-30 20:27:31] INFO: [######################          ] 69%
+[2025-12-30 20:27:39] INFO: [######################          ] 69%
+[2025-12-30 20:27:49] INFO: [######################          ] 69%
+[2025-12-30 20:28:11] INFO: [######################          ] 70%
+[2025-12-30 20:28:19] INFO: [######################          ] 70%
+[2025-12-30 20:28:27] INFO: [######################          ] 71%
+[2025-12-30 20:28:38] INFO: [######################          ] 71%
+[2025-12-30 20:28:46] INFO: [#######################         ] 71%
+[2025-12-30 20:28:52] INFO: [#######################         ] 72%
+[2025-12-30 20:29:00] INFO: [#######################         ] 72%
+[2025-12-30 20:29:12] INFO: [#######################         ] 73%
+[2025-12-30 20:29:23] INFO: [#######################         ] 73%
+[2025-12-30 20:29:34] INFO: [#######################         ] 73%
+[2025-12-30 20:29:46] INFO: [#######################         ] 74%
+[2025-12-30 20:29:54] INFO: [#######################         ] 74%
+[2025-12-30 20:30:03] INFO: [########################        ] 75%
+[2025-12-30 20:30:13] INFO: [########################        ] 75%
+[2025-12-30 20:30:24] INFO: [########################        ] 75%
+[2025-12-30 20:30:35] INFO: [########################        ] 76%
+[2025-12-30 20:30:50] INFO: [########################        ] 76%
+[2025-12-30 20:31:04] INFO: [########################        ] 76%
+[2025-12-30 20:31:12] INFO: [########################        ] 77%
+[2025-12-30 20:31:21] INFO: [########################        ] 77%
+[2025-12-30 20:31:31] INFO: [#########################       ] 78%
+[2025-12-30 20:31:40] INFO: [#########################       ] 78%
+[2025-12-30 20:31:56] INFO: [#########################       ] 78%
+[2025-12-30 20:32:09] INFO: [#########################       ] 79%
+[2025-12-30 20:32:21] INFO: [#########################       ] 79%
+[2025-12-30 20:32:31] INFO: [#########################       ] 80%
+[2025-12-30 20:32:49] INFO: [#########################       ] 80%
+[2025-12-30 20:32:58] INFO: [#########################       ] 80%
+[2025-12-30 20:33:10] INFO: [##########################      ] 81%
+[2025-12-30 20:33:23] INFO: [##########################      ] 81%
+[2025-12-30 20:33:37] INFO: [##########################      ] 82%
+[2025-12-30 20:33:44] INFO: [##########################      ] 82%
+[2025-12-30 20:33:52] INFO: [##########################      ] 82%
+[2025-12-30 20:34:05] INFO: [##########################      ] 83%
+[2025-12-30 20:34:15] INFO: [##########################      ] 83%
+[2025-12-30 20:34:32] INFO: [##########################      ] 84%
+[2025-12-30 20:34:41] INFO: [###########################     ] 84%
+[2025-12-30 20:34:53] INFO: [###########################     ] 84%
+[2025-12-30 20:35:04] INFO: [###########################     ] 85%
+[2025-12-30 20:35:15] INFO: [###########################     ] 85%
+[2025-12-30 20:35:26] INFO: [###########################     ] 85%
+[2025-12-30 20:35:35] INFO: [###########################     ] 86%
+[2025-12-30 20:35:44] INFO: [###########################     ] 86%
+[2025-12-30 20:35:54] INFO: [###########################     ] 87%
+[2025-12-30 20:36:04] INFO: [############################    ] 87%
+[2025-12-30 20:36:15] INFO: [############################    ] 87%
+[2025-12-30 20:36:25] INFO: [############################    ] 88%
+[2025-12-30 20:36:37] INFO: [############################    ] 88%
+[2025-12-30 20:36:46] INFO: [############################    ] 89%
+[2025-12-30 20:36:59] INFO: [############################    ] 89%
+[2025-12-30 20:37:09] INFO: [############################    ] 89%
+[2025-12-30 20:37:21] INFO: [############################    ] 90%
+[2025-12-30 20:37:31] INFO: [#############################   ] 90%
+[2025-12-30 20:37:40] INFO: [#############################   ] 91%
+[2025-12-30 20:37:51] INFO: [#############################   ] 91%
+[2025-12-30 20:38:00] INFO: [#############################   ] 91%
+[2025-12-30 20:38:13] INFO: [#############################   ] 92%
+[2025-12-30 20:38:23] INFO: [#############################   ] 92%
+[2025-12-30 20:38:33] INFO: [#############################   ] 93%
+[2025-12-30 20:38:41] INFO: [#############################   ] 93%
+[2025-12-30 20:38:55] INFO: [##############################  ] 93%
+[2025-12-30 20:39:06] INFO: [##############################  ] 94%
+[2025-12-30 20:39:18] INFO: [##############################  ] 94%
+[2025-12-30 20:39:28] INFO: [##############################  ] 94%
+[2025-12-30 20:39:37] INFO: [##############################  ] 95%
+[2025-12-30 20:39:47] INFO: [##############################  ] 95%
+[2025-12-30 20:39:58] INFO: [##############################  ] 96%
+[2025-12-30 20:40:08] INFO: [##############################  ] 96%
+[2025-12-30 20:40:19] INFO: [############################### ] 96%
+[2025-12-30 20:40:29] INFO: [############################### ] 97%
+[2025-12-30 20:40:38] INFO: [############################### ] 97%
+[2025-12-30 20:40:47] INFO: [############################### ] 98%
+[2025-12-30 20:40:56] INFO: [############################### ] 98%
+[2025-12-30 20:41:02] INFO: [############################### ] 98%
+[2025-12-30 20:41:12] INFO: [############################### ] 99%
+[2025-12-30 20:42:11] INFO: [############################### ] 99%
+[2025-12-30 20:42:12] INFO: [################################] 100%
+[2025-12-30 20:42:13] INFO: [################################] 100%
+[2025-12-30 20:42:14] INFO: variants calling finished in 182122 CPU sec, 2897.92 real sec.
+[2025-12-30 20:42:15] INFO: [2020-10-20 01:15:09.302] [haplotype_caller] [info] variants calling exited normally.
+[2025-12-30 20:42:16] INFO: 命令执行成功 | Command executed successfully
+[2025-12-30 20:42:16] INFO:   样品 72_4_gang 完成 | Sample 72_4_gang completed
+[2025-12-30 20:42:16] INFO:     VCF: 423.2 MB | VCF: 423.2 MB
+[2025-12-30 20:42:16] INFO:     BAM: 24.0 GB | BAM: 24.0 GB
+[2025-12-30 20:42:16] INFO: [2/2] 处理样品: 72_3_kang | Processing sample: 72_3_kang
+[2025-12-30 20:42:16] INFO: GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa | Genome path used by GTX
+[2025-12-30 20:42:16] INFO: 检查索引文件是否存在: | Checking if index files exist:
+[2025-12-30 20:42:16] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx: ✗
+[2025-12-30 20:42:16] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.bwt: ✗
+[2025-12-30 20:42:16] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.sa: ✗
+[2025-12-30 20:42:16] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.ann: ✗
+[2025-12-30 20:42:16] INFO:    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.gtx.amb: ✗
+[2025-12-30 20:42:16] INFO: GTX WGS处理 72_3_kang | GTX WGS processing 72_3_kang
+[2025-12-30 20:42:16] INFO: 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:72_3_kang\tSM:72_3_kang\tPL:ILLUMINA\tLB:72_3_kang" -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/vcf/72_3_kang.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/bam/72_3_kang.sorted.bam -t 64 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_3_kang_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/clean/72_3_kang_2.clean.fq.gz
+[2025-12-30 20:42:17] INFO: [2020-10-20 00:00:01.179] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/.tmp available: 2413750GB, memory available: 462GB, ulimit of open files: 400000
+[2025-12-30 20:42:18] INFO: [2020-10-20 00:00:01.179] [wgs] [info] Use bwa mem2 to align!
+[2025-12-30 20:42:19] INFO: [2020-10-20 00:00:01.180] [align] [info] Job: mapping, pid: 1641042
+[2025-12-30 20:42:20] INFO: [2020-10-20 00:00:01.180] [align] [info] Mapping...
+[2025-12-30 20:42:21] INFO: [2020-10-20 00:00:01.893] [align] [info] Read 0 ALT contigs.
+[2025-12-30 20:42:23] INFO: Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+[2025-12-30 20:42:29] INFO: Processed 1163264 reads in 6.02 seconds. Average speed: 0.19M/s.
+[2025-12-30 20:42:33] INFO: Processed 2179072 reads in 11.53 seconds. Average speed: 0.19M/s.
+[2025-12-30 20:42:38] INFO: Processed 3309568 reads in 16.04 seconds. Average speed: 0.21M/s.
+[2025-12-30 20:42:43] INFO: Processed 4472832 reads in 21.05 seconds. Average speed: 0.21M/s.
+[2025-12-30 20:42:49] INFO: Processed 5390336 reads in 26.06 seconds. Average speed: 0.21M/s.
+[2025-12-30 20:42:52] INFO: Processed 6717440 reads in 31.07 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:42:58] INFO: Processed 7438336 reads in 34.58 seconds. Average speed: 0.21M/s.
+[2025-12-30 20:43:02] INFO: Processed 8601600 reads in 40.09 seconds. Average speed: 0.21M/s.
+[2025-12-30 20:43:06] INFO: Processed 9519104 reads in 44.61 seconds. Average speed: 0.21M/s.
+[2025-12-30 20:43:11] INFO: Processed 10485760 reads in 48.12 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:15] INFO: Processed 11599872 reads in 53.63 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:21] INFO: Processed 12599296 reads in 57.64 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:24] INFO: Processed 13860864 reads in 63.16 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:30] INFO: Processed 14729216 reads in 66.66 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:33] INFO: Processed 16154624 reads in 72.67 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:38] INFO: Processed 16777216 reads in 75.68 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:44] INFO: Processed 17907712 reads in 80.69 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:48] INFO: Processed 18939904 reads in 86.20 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:53] INFO: Processed 19972096 reads in 90.20 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:43:57] INFO: Processed 21020672 reads in 95.22 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:02] INFO: Processed 22085632 reads in 99.23 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:06] INFO: Processed 23248896 reads in 104.75 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:12] INFO: Processed 24166400 reads in 108.26 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:15] INFO: Processed 25313280 reads in 114.27 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:21] INFO: Processed 26214400 reads in 117.28 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:26] INFO: Processed 27754496 reads in 123.80 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:30] INFO: Processed 28672000 reads in 128.30 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:34] INFO: Processed 29376512 reads in 132.31 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:39] INFO: Processed 30687232 reads in 136.82 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:42] INFO: Processed 31604736 reads in 141.33 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:48] INFO: Processed 32636928 reads in 144.83 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:44:53] INFO: Processed 33603584 reads in 150.34 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:44:56] INFO: Processed 34881536 reads in 155.85 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:45:01] INFO: Processed 35700736 reads in 158.86 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:45:07] INFO: Processed 36880384 reads in 163.87 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:45:11] INFO: Processed 38010880 reads in 169.38 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:45:14] INFO: Processed 38977536 reads in 173.39 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:45:20] INFO: Processed 39862272 reads in 176.90 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:45:25] INFO: Processed 41058304 reads in 182.92 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:45:30] INFO: Processed 42385408 reads in 187.93 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:45:34] INFO: Processed 43417600 reads in 192.44 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:45:37] INFO: Processed 44285952 reads in 196.44 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:45:44] INFO: Processed 45105152 reads in 199.95 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:45:48] INFO: Processed 46301184 reads in 206.46 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:45:52] INFO: Processed 47480832 reads in 210.97 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:45:57] INFO: Processed 48300032 reads in 214.48 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:02] INFO: Processed 49381376 reads in 219.49 seconds. Average speed: 0.22M/s.
+[2025-12-30 20:46:06] INFO: Processed 50544640 reads in 224.50 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:11] INFO: Processed 51511296 reads in 228.50 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:15] INFO: Processed 52641792 reads in 233.51 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:19] INFO: Processed 53755904 reads in 238.02 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:24] INFO: Processed 54640640 reads in 241.53 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:28] INFO: Processed 55607296 reads in 246.54 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:33] INFO: Processed 56786944 reads in 250.55 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:37] INFO: Processed 57786368 reads in 256.06 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:42] INFO: Processed 58736640 reads in 260.06 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:47] INFO: Processed 60096512 reads in 264.57 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:51] INFO: Processed 61259776 reads in 269.59 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:46:55] INFO: Processed 62029824 reads in 273.10 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:00] INFO: Processed 62980096 reads in 277.61 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:04] INFO: Processed 64176128 reads in 282.12 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:09] INFO: Processed 65044480 reads in 286.13 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:14] INFO: Processed 66076672 reads in 291.64 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:18] INFO: Processed 67256320 reads in 296.15 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:24] INFO: Processed 68321280 reads in 300.66 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:27] INFO: Processed 69697536 reads in 306.17 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:32] INFO: Processed 70270976 reads in 309.67 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:36] INFO: Processed 71630848 reads in 314.68 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:42] INFO: Processed 72417280 reads in 318.19 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:46] INFO: Processed 73908224 reads in 324.70 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:51] INFO: Processed 74874880 reads in 328.71 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:54] INFO: Processed 75939840 reads in 333.22 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:47:58] INFO: Processed 76562432 reads in 336.23 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:04] INFO: Processed 77611008 reads in 340.74 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:07] INFO: Processed 78675968 reads in 346.25 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:12] INFO: Processed 79757312 reads in 349.75 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:17] INFO: Processed 80773120 reads in 354.76 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:22] INFO: Processed 81969152 reads in 359.77 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:26] INFO: Processed 83263488 reads in 364.28 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:31] INFO: Processed 83902464 reads in 368.79 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:35] INFO: Processed 85131264 reads in 373.30 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:39] INFO: Processed 86097920 reads in 377.31 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:44] INFO: Processed 87293952 reads in 381.81 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:49] INFO: Processed 88358912 reads in 386.32 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:52] INFO: Processed 89210880 reads in 391.34 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:48:57] INFO: Processed 90308608 reads in 394.84 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:02] INFO: Processed 91389952 reads in 399.36 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:06] INFO: Processed 92667904 reads in 404.87 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:11] INFO: Processed 93437952 reads in 408.38 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:14] INFO: Processed 94617600 reads in 413.39 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:19] INFO: Processed 95485952 reads in 416.90 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:23] INFO: Processed 96501760 reads in 421.91 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:28] INFO: Processed 97599488 reads in 425.92 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:33] INFO: Processed 98697216 reads in 430.93 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:37] INFO: Processed 99893248 reads in 435.43 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:42] INFO: Processed 100696064 reads in 439.45 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:45] INFO: Processed 101908480 reads in 444.96 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:51] INFO: Processed 102776832 reads in 447.97 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:49:55] INFO: Processed 104153088 reads in 453.48 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:00] INFO: Processed 104923136 reads in 457.99 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:04] INFO: Processed 106299392 reads in 463.00 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:08] INFO: Processed 107036672 reads in 466.50 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:13] INFO: Processed 108003328 reads in 471.02 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:18] INFO: Processed 109150208 reads in 475.54 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:22] INFO: Processed 110313472 reads in 480.55 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:26] INFO: Processed 111476736 reads in 485.06 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:32] INFO: Processed 112328704 reads in 488.56 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:36] INFO: Processed 113246208 reads in 494.07 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:40] INFO: Processed 114573312 reads in 498.59 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:45] INFO: Processed 115507200 reads in 502.60 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:50] INFO: Processed 116408320 reads in 507.11 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:54] INFO: Processed 117882880 reads in 512.62 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:50:58] INFO: Processed 118702080 reads in 516.13 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:03] INFO: Processed 119799808 reads in 520.64 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:08] INFO: Processed 120668160 reads in 525.15 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:12] INFO: Processed 121978880 reads in 530.16 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:16] INFO: Processed 122732544 reads in 534.17 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:21] INFO: Processed 123797504 reads in 538.68 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:25] INFO: Processed 124780544 reads in 543.18 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:30] INFO: Processed 125943808 reads in 547.69 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:35] INFO: Processed 127238144 reads in 552.71 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:38] INFO: Processed 128221184 reads in 557.22 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:43] INFO: Processed 129056768 reads in 560.72 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:47] INFO: Processed 130056192 reads in 565.73 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:52] INFO: Processed 131252224 reads in 569.74 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:51:57] INFO: Processed 132333568 reads in 574.75 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:01] INFO: Processed 133218304 reads in 579.26 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:05] INFO: Processed 134283264 reads in 583.77 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:11] INFO: Processed 135348224 reads in 587.78 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:14] INFO: Processed 136577024 reads in 593.29 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:19] INFO: Processed 137363456 reads in 596.30 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:24] INFO: Processed 138444800 reads in 601.31 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:28] INFO: Processed 139575296 reads in 606.83 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:32] INFO: Processed 140591104 reads in 610.83 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:38] INFO: Processed 141737984 reads in 614.84 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:40] INFO: Processed 143114240 reads in 620.35 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:45] INFO: Processed 143671296 reads in 622.87 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:50] INFO: Processed 144769024 reads in 627.88 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:54] INFO: Processed 145784832 reads in 632.89 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:52:59] INFO: Processed 146817024 reads in 636.90 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:04] INFO: Processed 147914752 reads in 641.41 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:09] INFO: Processed 148979712 reads in 646.41 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:13] INFO: Processed 150159360 reads in 651.42 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:17] INFO: Processed 151158784 reads in 655.43 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:21] INFO: Processed 152158208 reads in 659.44 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:26] INFO: Processed 153206784 reads in 663.95 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:31] INFO: Processed 154157056 reads in 668.96 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:34] INFO: Processed 155549696 reads in 673.47 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:39] INFO: Processed 156336128 reads in 676.97 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:45] INFO: Processed 157401088 reads in 681.48 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:48] INFO: Processed 158777344 reads in 687.49 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:52] INFO: Processed 159416320 reads in 691.00 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:53:57] INFO: Processed 160497664 reads in 695.00 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:02] INFO: Processed 161742848 reads in 700.01 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:07] INFO: Processed 162889728 reads in 705.02 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:10] INFO: Processed 163594240 reads in 709.53 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:16] INFO: Processed 164708352 reads in 713.04 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:19] INFO: Processed 165937152 reads in 718.55 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:24] INFO: Processed 166789120 reads in 722.06 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:29] INFO: Processed 167772160 reads in 726.57 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:34] INFO: Processed 169050112 reads in 731.58 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:38] INFO: Processed 170147840 reads in 736.10 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:42] INFO: Processed 170950656 reads in 740.61 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:46] INFO: Processed 172032000 reads in 744.12 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:51] INFO: Processed 173113344 reads in 748.63 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:54:56] INFO: Processed 174243840 reads in 753.64 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:01] INFO: Processed 175161344 reads in 758.65 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:05] INFO: Processed 176259072 reads in 763.16 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:09] INFO: Processed 177553408 reads in 767.67 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:14] INFO: Processed 178503680 reads in 771.68 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:18] INFO: Processed 179732480 reads in 776.69 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:23] INFO: Processed 180371456 reads in 780.70 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:27] INFO: Processed 181501952 reads in 785.20 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:31] INFO: Processed 182468608 reads in 789.21 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:36] INFO: Processed 183582720 reads in 793.72 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:41] INFO: Processed 184762368 reads in 798.74 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:45] INFO: Processed 185597952 reads in 803.25 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:49] INFO: Processed 186892288 reads in 807.26 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:53] INFO: Processed 187940864 reads in 811.77 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:55:59] INFO: Processed 188841984 reads in 815.79 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:02] INFO: Processed 190152704 reads in 821.30 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:06] INFO: Processed 190857216 reads in 824.30 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:11] INFO: Processed 192004096 reads in 828.81 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:16] INFO: Processed 193036288 reads in 833.82 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:21] INFO: Processed 194035712 reads in 838.83 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:24] INFO: Processed 195362816 reads in 843.34 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:30] INFO: Processed 196083712 reads in 846.85 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:35] INFO: Processed 197459968 reads in 852.36 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:38] INFO: Processed 198656000 reads in 857.37 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:43] INFO: Processed 199245824 reads in 860.87 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:48] INFO: Processed 200540160 reads in 865.88 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:52] INFO: Processed 201768960 reads in 870.39 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:56:56] INFO: Processed 202375168 reads in 874.40 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:01] INFO: Processed 203554816 reads in 878.41 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:06] INFO: Processed 204521472 reads in 883.42 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:09] INFO: Processed 205619200 reads in 888.43 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:13] INFO: Processed 206651392 reads in 891.93 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:18] INFO: Processed 207650816 reads in 895.94 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:23] INFO: Processed 208764928 reads in 900.95 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:28] INFO: Processed 209731584 reads in 905.96 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:31] INFO: Processed 211206144 reads in 910.97 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:36] INFO: Processed 211877888 reads in 913.98 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:41] INFO: Processed 212893696 reads in 918.99 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:45] INFO: Processed 214024192 reads in 924.00 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:50] INFO: Processed 214990848 reads in 927.51 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:55] INFO: Processed 216317952 reads in 933.01 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:57:59] INFO: Processed 217153536 reads in 937.52 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:04] INFO: Processed 218169344 reads in 941.53 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:07] INFO: Processed 219234304 reads in 946.54 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:12] INFO: Processed 220200960 reads in 950.05 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:18] INFO: Processed 221265920 reads in 954.56 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:21] INFO: Processed 222380032 reads in 960.07 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:26] INFO: Processed 223346688 reads in 963.08 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:31] INFO: Processed 224509952 reads in 968.09 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:35] INFO: Processed 225591296 reads in 973.10 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:40] INFO: Processed 226574336 reads in 977.61 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:45] INFO: Processed 227688448 reads in 982.12 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:48] INFO: Processed 229064704 reads in 987.63 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:53] INFO: Processed 229654528 reads in 990.63 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:58:57] INFO: Processed 230686720 reads in 995.14 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:02] INFO: Processed 231735296 reads in 999.16 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:07] INFO: Processed 232882176 reads in 1004.17 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:11] INFO: Processed 234078208 reads in 1009.18 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:16] INFO: Processed 234946560 reads in 1013.19 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:20] INFO: Processed 236355584 reads in 1018.71 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:24] INFO: Processed 237027328 reads in 1022.21 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:29] INFO: Processed 238174208 reads in 1026.72 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:34] INFO: Processed 239370240 reads in 1031.23 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:37] INFO: Processed 240615424 reads in 1036.75 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:42] INFO: Processed 241221632 reads in 1039.25 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:46] INFO: Processed 242565120 reads in 1044.77 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:50] INFO: Processed 243269632 reads in 1048.77 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:55] INFO: Processed 244334592 reads in 1052.78 seconds. Average speed: 0.23M/s.
+[2025-12-30 20:59:59] INFO: Processed 245563392 reads in 1057.79 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:05] INFO: Processed 246513664 reads in 1061.80 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:08] INFO: Processed 247726080 reads in 1067.82 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:14] INFO: Processed 248528896 reads in 1070.83 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:18] INFO: Processed 249724928 reads in 1076.34 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:22] INFO: Processed 250658816 reads in 1080.84 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:27] INFO: Processed 251887616 reads in 1084.85 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:31] INFO: Processed 252919808 reads in 1089.36 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:36] INFO: Processed 253771776 reads in 1093.37 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:40] INFO: Processed 254984192 reads in 1098.39 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:44] INFO: Processed 255852544 reads in 1102.90 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:49] INFO: Processed 256933888 reads in 1106.41 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:53] INFO: Processed 257998848 reads in 1111.42 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:00:58] INFO: Processed 259063808 reads in 1115.93 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:02] INFO: Processed 260210688 reads in 1120.94 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:06] INFO: Processed 261111808 reads in 1124.45 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:11] INFO: Processed 262144000 reads in 1128.96 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:16] INFO: Processed 263225344 reads in 1133.97 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:21] INFO: Processed 264421376 reads in 1138.98 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:24] INFO: Processed 265289728 reads in 1143.49 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:29] INFO: Processed 266371072 reads in 1146.50 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:33] INFO: Processed 267534336 reads in 1152.03 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:39] INFO: Processed 268484608 reads in 1156.04 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:43] INFO: Processed 269828096 reads in 1161.56 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:48] INFO: Processed 270581760 reads in 1165.08 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:52] INFO: Processed 271728640 reads in 1170.09 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:01:57] INFO: Processed 272629760 reads in 1174.11 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:01] INFO: Processed 273760256 reads in 1179.13 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:06] INFO: Processed 274923520 reads in 1183.64 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:10] INFO: Processed 275775488 reads in 1188.65 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:15] INFO: Processed 276824064 reads in 1192.17 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:19] INFO: Processed 277905408 reads in 1197.18 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:24] INFO: Processed 278921216 reads in 1201.19 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:29] INFO: Processed 280133632 reads in 1206.20 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:32] INFO: Processed 281247744 reads in 1211.21 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:37] INFO: Processed 282083328 reads in 1214.22 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:42] INFO: Processed 283246592 reads in 1219.73 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:47] INFO: Processed 284409856 reads in 1224.74 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:50] INFO: Processed 285294592 reads in 1229.26 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:02:55] INFO: Processed 286277632 reads in 1232.77 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:00] INFO: Processed 287522816 reads in 1237.80 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:05] INFO: Processed 288440320 reads in 1242.81 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:09] INFO: Processed 289751040 reads in 1247.32 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:13] INFO: Processed 290553856 reads in 1251.33 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:17] INFO: Processed 291520512 reads in 1255.33 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:22] INFO: Processed 292569088 reads in 1259.84 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:28] INFO: Processed 293650432 reads in 1264.35 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:31] INFO: Processed 295124992 reads in 1270.36 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:36] INFO: Processed 295763968 reads in 1273.37 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:40] INFO: Processed 297058304 reads in 1278.88 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:45] INFO: Processed 297795584 reads in 1282.38 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:49] INFO: Processed 299122688 reads in 1287.89 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:54] INFO: Processed 299892736 reads in 1291.40 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:03:58] INFO: Processed 301056000 reads in 1296.41 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:02] INFO: Processed 302022656 reads in 1300.42 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:07] INFO: Processed 303038464 reads in 1304.93 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:12] INFO: Processed 304316416 reads in 1309.94 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:15] INFO: Processed 305364992 reads in 1314.95 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:21] INFO: Processed 306184192 reads in 1317.95 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:25] INFO: Processed 307429376 reads in 1323.96 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:30] INFO: Processed 308330496 reads in 1327.47 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:31] INFO: Processed 309587550 reads in 1332.48 seconds. Average speed: 0.23M/s.
+[2025-12-30 21:04:32] INFO: mapping finished in 83700.56 CPU sec, 1333.23 real sec.
+[2025-12-30 21:04:33] INFO: [2020-10-20 00:22:14.695] [align] [info] mapping exited normally.
+[2025-12-30 21:04:34] INFO: [2020-10-20 00:22:14.696] [save_bam] [info] Job: bam writing, pid: 1650804
+[2025-12-30 21:04:35] INFO: [2020-10-20 00:22:14.696] [save_bam] [info] BAM writting...
+[2025-12-30 21:04:36] INFO: [2020-10-20 00:22:14.696] [save_bam] [info] Sorting and marking duplicates...
+[2025-12-30 21:08:20] INFO: bam writing finished in 2643.38 CPU sec, 230.243 real sec.
+[2025-12-30 21:08:23] INFO: [2020-10-20 00:26:07.218] [save_bam] [info] bam writing exited normally.
+[2025-12-30 21:08:24] INFO: [2020-10-20 00:26:07.219] [haplotype_caller] [info] Job: variants calling, pid: 1652594
+[2025-12-30 21:08:25] INFO: [2020-10-20 00:26:07.219] [haplotype_caller] [info] Variants calling...
+[2025-12-30 21:08:26] INFO: [                                ] 0%
+[2025-12-30 21:08:33] INFO: [                                ] 0%
+[2025-12-30 21:08:43] INFO: [                                ] 0%
+[2025-12-30 21:08:51] INFO: [                                ] 1%
+[2025-12-30 21:09:02] INFO: [                                ] 1%
+[2025-12-30 21:09:14] INFO: [                                ] 1%
+[2025-12-30 21:09:27] INFO: [                                ] 2%
+[2025-12-30 21:09:36] INFO: [                                ] 2%
+[2025-12-30 21:09:46] INFO: [#                               ] 3%
+[2025-12-30 21:09:55] INFO: [#                               ] 3%
+[2025-12-30 21:10:05] INFO: [#                               ] 3%
+[2025-12-30 21:10:13] INFO: [#                               ] 4%
+[2025-12-30 21:10:23] INFO: [#                               ] 4%
+[2025-12-30 21:10:34] INFO: [#                               ] 5%
+[2025-12-30 21:10:42] INFO: [#                               ] 5%
+[2025-12-30 21:10:51] INFO: [#                               ] 5%
+[2025-12-30 21:11:03] INFO: [##                              ] 6%
+[2025-12-30 21:11:11] INFO: [##                              ] 6%
+[2025-12-30 21:11:21] INFO: [##                              ] 7%
+[2025-12-30 21:11:43] INFO: [##                              ] 7%
+[2025-12-30 21:12:11] INFO: [##                              ] 7%
+[2025-12-30 21:12:22] INFO: [##                              ] 8%
+[2025-12-30 21:12:35] INFO: [##                              ] 8%
+[2025-12-30 21:12:48] INFO: [##                              ] 8%
+[2025-12-30 21:12:56] INFO: [###                             ] 9%
+[2025-12-30 21:13:02] INFO: [###                             ] 9%
+[2025-12-30 21:13:16] INFO: [###                             ] 10%
+[2025-12-30 21:13:25] INFO: [###                             ] 10%
+[2025-12-30 21:13:34] INFO: [###                             ] 10%
+[2025-12-30 21:13:47] INFO: [###                             ] 11%
+[2025-12-30 21:13:58] INFO: [###                             ] 11%
+[2025-12-30 21:14:08] INFO: [###                             ] 12%
+[2025-12-30 21:14:18] INFO: [####                            ] 12%
+[2025-12-30 21:14:30] INFO: [####                            ] 12%
+[2025-12-30 21:14:38] INFO: [####                            ] 13%
+[2025-12-30 21:14:51] INFO: [####                            ] 13%
+[2025-12-30 21:15:02] INFO: [####                            ] 14%
+[2025-12-30 21:15:14] INFO: [####                            ] 14%
+[2025-12-30 21:15:25] INFO: [####                            ] 14%
+[2025-12-30 21:15:35] INFO: [####                            ] 15%
+[2025-12-30 21:15:46] INFO: [#####                           ] 15%
+[2025-12-30 21:15:55] INFO: [#####                           ] 16%
+[2025-12-30 21:16:04] INFO: [#####                           ] 16%
+[2025-12-30 21:16:13] INFO: [#####                           ] 16%
+[2025-12-30 21:16:22] INFO: [#####                           ] 17%
+[2025-12-30 21:16:34] INFO: [#####                           ] 17%
+[2025-12-30 21:16:41] INFO: [#####                           ] 17%
+[2025-12-30 21:16:50] INFO: [#####                           ] 18%
+[2025-12-30 21:17:00] INFO: [######                          ] 18%
+[2025-12-30 21:17:07] INFO: [######                          ] 19%
+[2025-12-30 21:17:17] INFO: [######                          ] 19%
+[2025-12-30 21:17:28] INFO: [######                          ] 19%
+[2025-12-30 21:17:39] INFO: [######                          ] 20%
+[2025-12-30 21:17:55] INFO: [######                          ] 20%
+[2025-12-30 21:18:03] INFO: [######                          ] 21%
+[2025-12-30 21:18:15] INFO: [######                          ] 21%
+[2025-12-30 21:18:26] INFO: [#######                         ] 21%
+[2025-12-30 21:18:37] INFO: [#######                         ] 22%
+[2025-12-30 21:18:49] INFO: [#######                         ] 22%
+[2025-12-30 21:18:59] INFO: [#######                         ] 23%
+[2025-12-30 21:19:07] INFO: [#######                         ] 23%
+[2025-12-30 21:19:19] INFO: [#######                         ] 23%
+[2025-12-30 21:19:28] INFO: [#######                         ] 24%
+[2025-12-30 21:19:43] INFO: [#######                         ] 24%
+[2025-12-30 21:19:53] INFO: [########                        ] 25%
+[2025-12-30 21:20:05] INFO: [########                        ] 25%
+[2025-12-30 21:20:15] INFO: [########                        ] 25%
+[2025-12-30 21:20:29] INFO: [########                        ] 26%
+[2025-12-30 21:20:41] INFO: [########                        ] 26%
+[2025-12-30 21:20:53] INFO: [########                        ] 26%
+[2025-12-30 21:21:07] INFO: [########                        ] 27%
+[2025-12-30 21:21:20] INFO: [########                        ] 27%
+[2025-12-30 21:21:52] INFO: [#########                       ] 28%
+[2025-12-30 21:22:21] INFO: [#########                       ] 28%
+[2025-12-30 21:22:35] INFO: [#########                       ] 28%
+[2025-12-30 21:22:50] INFO: [#########                       ] 29%
+[2025-12-30 21:23:02] INFO: [#########                       ] 29%
+[2025-12-30 21:23:12] INFO: [#########                       ] 30%
+[2025-12-30 21:23:23] INFO: [#########                       ] 30%
+[2025-12-30 21:23:35] INFO: [#########                       ] 30%
+[2025-12-30 21:23:44] INFO: [##########                      ] 31%
+[2025-12-30 21:24:02] INFO: [##########                      ] 31%
+[2025-12-30 21:24:11] INFO: [##########                      ] 32%
+[2025-12-30 21:24:18] INFO: [##########                      ] 32%
+[2025-12-30 21:24:26] INFO: [##########                      ] 32%
+[2025-12-30 21:24:37] INFO: [##########                      ] 33%
+[2025-12-30 21:24:46] INFO: [##########                      ] 33%
+[2025-12-30 21:24:54] INFO: [##########                      ] 34%
+[2025-12-30 21:25:03] INFO: [###########                     ] 34%
+[2025-12-30 21:25:14] INFO: [###########                     ] 34%
+[2025-12-30 21:25:24] INFO: [###########                     ] 35%
+[2025-12-30 21:25:34] INFO: [###########                     ] 35%
+[2025-12-30 21:25:43] INFO: [###########                     ] 35%
+[2025-12-30 21:25:59] INFO: [###########                     ] 36%
+[2025-12-30 21:26:16] INFO: [###########                     ] 36%
+[2025-12-30 21:26:28] INFO: [###########                     ] 37%
+[2025-12-30 21:26:47] INFO: [############                    ] 37%
+[2025-12-30 21:27:00] INFO: [############                    ] 37%
+[2025-12-30 21:27:11] INFO: [############                    ] 38%
+[2025-12-30 21:27:26] INFO: [############                    ] 38%
+[2025-12-30 21:27:38] INFO: [############                    ] 39%
+[2025-12-30 21:27:46] INFO: [############                    ] 39%
+[2025-12-30 21:27:58] INFO: [############                    ] 39%
+[2025-12-30 21:28:23] INFO: [############                    ] 40%
+[2025-12-30 21:28:34] INFO: [#############                   ] 40%
+[2025-12-30 21:28:44] INFO: [#############                   ] 41%
+[2025-12-30 21:28:54] INFO: [#############                   ] 41%
+[2025-12-30 21:29:10] INFO: [#############                   ] 41%
+[2025-12-30 21:29:19] INFO: [#############                   ] 42%
+[2025-12-30 21:29:30] INFO: [#############                   ] 42%
+[2025-12-30 21:29:43] INFO: [#############                   ] 42%
+[2025-12-30 21:30:01] INFO: [#############                   ] 43%
+[2025-12-30 21:30:13] INFO: [##############                  ] 43%
+[2025-12-30 21:30:18] INFO: [##############                  ] 44%
+[2025-12-30 21:30:29] INFO: [##############                  ] 44%
+[2025-12-30 21:30:38] INFO: [##############                  ] 44%
+[2025-12-30 21:30:46] INFO: [##############                  ] 45%
+[2025-12-30 21:30:56] INFO: [##############                  ] 45%
+[2025-12-30 21:31:07] INFO: [##############                  ] 46%
+[2025-12-30 21:31:17] INFO: [##############                  ] 46%
+[2025-12-30 21:31:26] INFO: [###############                 ] 46%
+[2025-12-30 21:31:39] INFO: [###############                 ] 47%
+[2025-12-30 21:31:46] INFO: [###############                 ] 47%
+[2025-12-30 21:31:59] INFO: [###############                 ] 48%
+[2025-12-30 21:32:12] INFO: [###############                 ] 48%
+[2025-12-30 21:32:20] INFO: [###############                 ] 48%
+[2025-12-30 21:32:27] INFO: [###############                 ] 49%
+[2025-12-30 21:32:38] INFO: [###############                 ] 49%
+[2025-12-30 21:32:50] INFO: [################                ] 50%
+[2025-12-30 21:33:01] INFO: [################                ] 50%
+[2025-12-30 21:33:13] INFO: [################                ] 50%
+[2025-12-30 21:33:24] INFO: [################                ] 51%
+[2025-12-30 21:33:32] INFO: [################                ] 51%
+[2025-12-30 21:33:43] INFO: [################                ] 51%
+[2025-12-30 21:33:54] INFO: [################                ] 52%
+[2025-12-30 21:34:00] INFO: [################                ] 52%
+[2025-12-30 21:34:11] INFO: [#################               ] 53%
+[2025-12-30 21:34:24] INFO: [#################               ] 53%
+[2025-12-30 21:34:36] INFO: [#################               ] 53%
+[2025-12-30 21:34:46] INFO: [#################               ] 54%
+[2025-12-30 21:34:56] INFO: [#################               ] 54%
+[2025-12-30 21:35:06] INFO: [#################               ] 55%
+[2025-12-30 21:35:18] INFO: [#################               ] 55%
+[2025-12-30 21:35:32] INFO: [#################               ] 55%
+[2025-12-30 21:35:43] INFO: [##################              ] 56%
+[2025-12-30 21:35:52] INFO: [##################              ] 56%
+[2025-12-30 21:36:04] INFO: [##################              ] 57%
+[2025-12-30 21:36:17] INFO: [##################              ] 57%
+[2025-12-30 21:36:28] INFO: [##################              ] 57%
+[2025-12-30 21:36:37] INFO: [##################              ] 58%
+[2025-12-30 21:36:47] INFO: [##################              ] 58%
+[2025-12-30 21:36:53] INFO: [##################              ] 59%
+[2025-12-30 21:37:05] INFO: [###################             ] 59%
+[2025-12-30 21:37:16] INFO: [###################             ] 59%
+[2025-12-30 21:37:25] INFO: [###################             ] 60%
+[2025-12-30 21:37:37] INFO: [###################             ] 60%
+[2025-12-30 21:37:47] INFO: [###################             ] 60%
+[2025-12-30 21:37:56] INFO: [###################             ] 61%
+[2025-12-30 21:38:04] INFO: [###################             ] 61%
+[2025-12-30 21:38:10] INFO: [###################             ] 62%
+[2025-12-30 21:38:19] INFO: [####################            ] 62%
+[2025-12-30 21:38:33] INFO: [####################            ] 62%
+[2025-12-30 21:38:46] INFO: [####################            ] 63%
+[2025-12-30 21:38:55] INFO: [####################            ] 63%
+[2025-12-30 21:39:10] INFO: [####################            ] 64%
+[2025-12-30 21:39:18] INFO: [####################            ] 64%
+[2025-12-30 21:39:30] INFO: [####################            ] 64%
+[2025-12-30 21:39:44] INFO: [####################            ] 65%
+[2025-12-30 21:39:55] INFO: [#####################           ] 65%
+[2025-12-30 21:40:14] INFO: [#####################           ] 66%
+[2025-12-30 21:40:21] INFO: [#####################           ] 66%
+[2025-12-30 21:40:31] INFO: [#####################           ] 66%
+[2025-12-30 21:40:37] INFO: [#####################           ] 67%
+[2025-12-30 21:40:45] INFO: [#####################           ] 67%
+[2025-12-30 21:40:56] INFO: [#####################           ] 68%
+[2025-12-30 21:41:04] INFO: [#####################           ] 68%
+[2025-12-30 21:41:11] INFO: [######################          ] 68%
+[2025-12-30 21:41:22] INFO: [######################          ] 69%
+[2025-12-30 21:41:30] INFO: [######################          ] 69%
+[2025-12-30 21:41:42] INFO: [######################          ] 69%
+[2025-12-30 21:42:04] INFO: [######################          ] 70%
+[2025-12-30 21:42:13] INFO: [######################          ] 70%
+[2025-12-30 21:42:20] INFO: [######################          ] 71%
+[2025-12-30 21:42:29] INFO: [######################          ] 71%
+[2025-12-30 21:42:38] INFO: [#######################         ] 71%
+[2025-12-30 21:42:45] INFO: [#######################         ] 72%
+[2025-12-30 21:42:52] INFO: [#######################         ] 72%
+[2025-12-30 21:43:03] INFO: [#######################         ] 73%
+[2025-12-30 21:43:14] INFO: [#######################         ] 73%
+[2025-12-30 21:43:25] INFO: [#######################         ] 73%
+[2025-12-30 21:43:36] INFO: [#######################         ] 74%
+[2025-12-30 21:43:43] INFO: [#######################         ] 74%
+[2025-12-30 21:43:55] INFO: [########################        ] 75%
+[2025-12-30 21:44:05] INFO: [########################        ] 75%
+[2025-12-30 21:44:15] INFO: [########################        ] 75%
+[2025-12-30 21:44:28] INFO: [########################        ] 76%
+[2025-12-30 21:44:45] INFO: [########################        ] 76%
+[2025-12-30 21:44:59] INFO: [########################        ] 77%
+[2025-12-30 21:45:07] INFO: [########################        ] 77%
+[2025-12-30 21:45:15] INFO: [########################        ] 77%
+[2025-12-30 21:45:26] INFO: [#########################       ] 78%
+[2025-12-30 21:45:35] INFO: [#########################       ] 78%
+[2025-12-30 21:45:51] INFO: [#########################       ] 78%
+[2025-12-30 21:46:03] INFO: [#########################       ] 79%
+[2025-12-30 21:46:15] INFO: [#########################       ] 79%
+[2025-12-30 21:46:26] INFO: [#########################       ] 80%
+[2025-12-30 21:46:42] INFO: [#########################       ] 80%
+[2025-12-30 21:46:53] INFO: [#########################       ] 80%
+[2025-12-30 21:47:04] INFO: [##########################      ] 81%
+[2025-12-30 21:47:18] INFO: [##########################      ] 81%
+[2025-12-30 21:47:29] INFO: [##########################      ] 82%
+[2025-12-30 21:47:37] INFO: [##########################      ] 82%
+[2025-12-30 21:47:47] INFO: [##########################      ] 82%
+[2025-12-30 21:47:59] INFO: [##########################      ] 83%
+[2025-12-30 21:48:10] INFO: [##########################      ] 83%
+[2025-12-30 21:48:25] INFO: [##########################      ] 84%
+[2025-12-30 21:48:36] INFO: [###########################     ] 84%
+[2025-12-30 21:48:46] INFO: [###########################     ] 84%
+[2025-12-30 21:48:59] INFO: [###########################     ] 85%
+[2025-12-30 21:49:09] INFO: [###########################     ] 85%
+[2025-12-30 21:49:20] INFO: [###########################     ] 85%
+[2025-12-30 21:49:28] INFO: [###########################     ] 86%
+[2025-12-30 21:49:38] INFO: [###########################     ] 86%
+[2025-12-30 21:49:47] INFO: [###########################     ] 87%
+[2025-12-30 21:49:57] INFO: [############################    ] 87%
+[2025-12-30 21:50:08] INFO: [############################    ] 87%
+[2025-12-30 21:50:19] INFO: [############################    ] 88%
+[2025-12-30 21:50:28] INFO: [############################    ] 88%
+[2025-12-30 21:50:39] INFO: [############################    ] 89%
+[2025-12-30 21:50:52] INFO: [############################    ] 89%
+[2025-12-30 21:51:03] INFO: [############################    ] 89%
+[2025-12-30 21:51:15] INFO: [############################    ] 90%
+[2025-12-30 21:51:25] INFO: [#############################   ] 90%
+[2025-12-30 21:51:35] INFO: [#############################   ] 91%
+[2025-12-30 21:51:44] INFO: [#############################   ] 91%
+[2025-12-30 21:51:53] INFO: [#############################   ] 91%
+[2025-12-30 21:52:07] INFO: [#############################   ] 92%
+[2025-12-30 21:52:19] INFO: [#############################   ] 92%
+[2025-12-30 21:52:27] INFO: [#############################   ] 93%
+[2025-12-30 21:52:36] INFO: [#############################   ] 93%
+[2025-12-30 21:52:50] INFO: [##############################  ] 93%
+[2025-12-30 21:53:00] INFO: [##############################  ] 94%
+[2025-12-30 21:53:12] INFO: [##############################  ] 94%
+[2025-12-30 21:53:23] INFO: [##############################  ] 94%
+[2025-12-30 21:53:33] INFO: [##############################  ] 95%
+[2025-12-30 21:53:42] INFO: [##############################  ] 95%
+[2025-12-30 21:53:53] INFO: [##############################  ] 96%
+[2025-12-30 21:54:03] INFO: [##############################  ] 96%
+[2025-12-30 21:54:13] INFO: [############################### ] 96%
+[2025-12-30 21:54:23] INFO: [############################### ] 97%
+[2025-12-30 21:54:35] INFO: [############################### ] 97%
+[2025-12-30 21:54:42] INFO: [############################### ] 98%
+[2025-12-30 21:54:50] INFO: [############################### ] 98%
+[2025-12-30 21:54:57] INFO: [############################### ] 98%
+[2025-12-30 21:55:06] INFO: [############################### ] 99%
+[2025-12-30 21:55:41] INFO: [############################### ] 99%
+[2025-12-30 21:55:42] INFO: [################################] 100%
+[2025-12-30 21:55:43] INFO: [################################] 100%
+[2025-12-30 21:55:44] INFO: variants calling finished in 179730 CPU sec, 2838.2 real sec.
+[2025-12-30 21:55:45] INFO: [2020-10-20 01:13:26.235] [haplotype_caller] [info] variants calling exited normally.
+[2025-12-30 21:55:45] INFO: 命令执行成功 | Command executed successfully
+[2025-12-30 21:55:45] INFO:   样品 72_3_kang 完成 | Sample 72_3_kang completed
+[2025-12-30 21:55:45] INFO:     VCF: 424.5 MB | VCF: 424.5 MB
+[2025-12-30 21:55:45] INFO:     BAM: 25.2 GB | BAM: 25.2 GB
+[2025-12-30 21:55:45] INFO: GTX WGS处理完成 | GTX WGS processing completed:
+[2025-12-30 21:55:45] INFO:   成功: 2/2 | Success: 2/2
+[2025-12-30 21:55:45] INFO:   失败: 0/2 | Failed: 0/2
+[2025-12-30 21:55:45] INFO: 比对完成: 2 个 gVCF 文件, 2 个 BAM 文件 | Mapping completed: 2 gVCF files, 2 BAM files
+[2025-12-30 21:55:45] INFO: 创建检查点 | Create checkpoint: mapping
+[2025-12-30 21:55:45] INFO: 步骤 3 完成 | Step 3 completed: 序列比对 | Sequence Mapping
+[2025-12-30 21:55:45] INFO: 执行步骤 4 | Executing step 4: 联合变异检测 | Joint Variant Calling
+[2025-12-30 21:55:45] INFO: ============================================================
+[2025-12-30 21:55:45] INFO: Step 4: 联合变异检测 | Joint Variant Calling
+[2025-12-30 21:55:45] INFO: ============================================================
+[2025-12-30 21:55:45] INFO: 检测到 2 个 gVCF 样本 | Found 2 gVCF samples
+[2025-12-30 21:55:45] INFO: 样本数分析策略选择 | Sample count analysis for strategy selection:
+[2025-12-30 21:55:45] INFO:   < 4 → GATK模式
+[2025-12-30 21:55:45] INFO:   4-200 → GTX单机模式
+[2025-12-30 21:55:45] INFO:   >= 200 → GTX集群模式
+[2025-12-30 21:55:45] INFO: 使用 GATK GenotypeGVCFs 模式 | Using GATK GenotypeGVCFs mode
+[2025-12-30 21:55:45] INFO: GATK联合变异检测 | GATK Joint Variant Calling
+[2025-12-30 21:55:45] INFO: 执行命令 | Running command: biopytools gatk-joint -i /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/vcf -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling -r /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+[2025-12-30 21:55:45] INFO: 2025-12-30 21:55:45,866 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+[2025-12-30 21:55:46] INFO: 2025-12-30 21:55:45,866 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/vcf
+[2025-12-30 21:55:47] INFO: 2025-12-30 21:55:45,866 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+[2025-12-30 21:55:48] INFO: 2025-12-30 21:55:45,866 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling
+[2025-12-30 21:55:49] INFO: 2025-12-30 21:55:45,866 - INFO - 🔍 检查依赖软件 | Checking dependencies
+[2025-12-30 21:55:50] INFO: 2025-12-30 21:55:48,453 - INFO - ✅ GATK 可用 | available
+[2025-12-30 21:55:51] INFO: 2025-12-30 21:55:48,960 - INFO - ✅ BCFtools 可用 | available
+[2025-12-30 21:55:52] INFO: 2025-12-30 21:55:48,960 - INFO - ================================================================================
+[2025-12-30 21:55:53] INFO: 2025-12-30 21:55:48,960 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+[2025-12-30 21:55:54] INFO: 2025-12-30 21:55:48,960 - INFO - ================================================================================
+2025-12-30 21:55:48,961 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-12-30 21:55:48,961 - INFO - ✅ 检测到GVCF文件 | Detected GVCF files: 2 files
+2025-12-30 21:55:48,961 - INFO - 📊 共找到 2 个文件 | Total 2 files found
+2025-12-30 21:55:48,961 - INFO - 📝 创建样本映射文件 | Creating sample map file
+2025-12-30 21:55:48,962 - INFO - ✅ 样本映射文件已创建 | Sample map created: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/sample_map.txt
+2025-12-30 21:55:48,962 - INFO - ================================================================================
+2025-12-30 21:55:48,962 - INFO - 步骤2: GenomicsDB导入 | Step 2: GenomicsDB import
+2025-12-30 21:55:48,962 - INFO - ================================================================================
+2025-12-30 21:55:48,962 - INFO - 📦 开始GenomicsDB导入 | Starting GenomicsDB import
+2025-12-30 21:55:48,962 - INFO - ⚠️ 未指定区间，自动从参考基因组提取 | No intervals specified, extracting from reference
+2025-12-30 21:55:48,962 - INFO - 📍 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa
+2025-12-30 21:55:48,962 - INFO - 📍 字典文件路径 | Dict path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.dict
+2025-12-30 21:55:48,962 - INFO - 📍 索引文件路径 | Fai path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.fai
+2025-12-30 21:55:48,962 - INFO - ⚠️ 未找到字典文件，正在创建... | Dict file not found, creating...
+2025-12-30 21:55:50,888 - INFO - ✅ 字典文件创建成功 | Dict file created successfully
+2025-12-30 21:55:50,888 - INFO - ✅ 使用字典文件 | Using dict file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.dict
+2025-12-30 21:55:50,889 - INFO - ✅ 生成区间文件 | Generated intervals: 8 chromosomes
+2025-12-30 21:55:50,889 - INFO - 📄 区间文件位置 | Intervals file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/intervals.list
+2025-12-30 21:55:50,889 - INFO - 🚀 执行步骤 | Executing step: GenomicsDB导入 | GenomicsDB import
+2025-12-30 21:55:50,889 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenomicsDBImport --genomicsdb-workspace-path /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/genomicsdb_workspace --sample-name-map /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/sample_map.txt --reader-threads 88 -L /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/intervals.list
+2025-12-30 21:55:50,889 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling
+2025-12-30 21:55:54,850 - ERROR - ❌ 命令执行失败 | Command execution failed: GenomicsDB导入 | GenomicsDB import
+2025-12-30 21:55:54,851 - ERROR - 🔢 错误代码 | Error code: 2
+2025-12-30 21:55:54,851 - ERROR - 📛 错误信息 | Error message: 21:55:52.319 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+21:55:52.402 INFO  GenomicsDBImport - ------------------------------------------------------------
+21:55:52.404 INFO  GenomicsDBImport - The Genome Analysis Toolkit (GATK) v4.6.2.0
+21:55:52.405 INFO  GenomicsDBImport - For support and documentation go to https://software.broadinstitute.org/gatk/
+21:55:52.405 INFO  GenomicsDBImport - Executing as yzwl_lixg@c02n0004 on Linux v4.18.0-513.5.1.el8_9.x86_64 amd64
+21:55:52.405 INFO  GenomicsDBImport - Java runtime: OpenJDK 64-Bit Server VM v17.0.15-internal+0-adhoc..src
+21:55:52.405 INFO  GenomicsDBImport - Start Date/Time: 2025年12月30日 CST 下午9:55:52
+21:55:52.405 INFO  GenomicsDBImport - ------------------------------------------------------------
+21:55:52.405 INFO  GenomicsDBImport - ------------------------------------------------------------
+21:55:52.406 INFO  GenomicsDBImport - HTSJDK Version: 4.2.0
+21:55:52.406 INFO  GenomicsDBImport - Picard Version: 3.4.0
+21:55:52.406 INFO  GenomicsDBImport - Built for Spark Version: 3.5.0
+21:55:52.407 INFO  GenomicsDBImport - HTSJDK Defaults.COMPRESSION_LEVEL : 2
+21:55:52.407 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_READ_FOR_SAMTOOLS : false
+21:55:52.408 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_SAMTOOLS : true
+21:55:52.408 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_TRIBBLE : false
+21:55:52.408 INFO  GenomicsDBImport - Deflater: IntelDeflater
+21:55:52.408 INFO  GenomicsDBImport - Inflater: IntelInflater
+21:55:52.408 INFO  GenomicsDBImport - GCS max retries/reopens: 20
+21:55:52.408 INFO  GenomicsDBImport - Requester pays: disabled
+21:55:52.408 INFO  GenomicsDBImport - Initializing engine
+21:55:52.507 INFO  IntervalArgumentCollection - Processing 156562565 bp from intervals
+21:55:52.508 INFO  GenomicsDBImport - Done initializing engine
+21:55:52.659 INFO  GenomicsDBLibLoader - GenomicsDB native library version : 1.5.5-addd795
+21:55:52.660 INFO  GenomicsDBImport - Vid Map JSON file will be written to /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/genomicsdb_workspace/vidmap.json
+21:55:52.660 INFO  GenomicsDBImport - Callset Map JSON file will be written to /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/genomicsdb_workspace/callset.json
+21:55:52.660 INFO  GenomicsDBImport - Complete VCF Header will be written to /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/genomicsdb_workspace/vcfheader.vcf
+21:55:52.660 INFO  GenomicsDBImport - Importing to workspace - /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/genomicsdb_workspace
+21:55:52.660 WARN  GenomicsDBImport - GenomicsDBImport cannot use multiple VCF reader threads for initialization when the number of intervals is greater than 1. Falling back to serial VCF reader initialization.
+21:55:52.834 INFO  GenomicsDBImport - Importing batch 1 with 2 samples
+21:55:54.808 INFO  GenomicsDBImport - Shutting down engine
+[2025年12月30日 CST 下午9:55:54] org.broadinstitute.hellbender.tools.genomicsdb.GenomicsDBImport done. Elapsed time: 0.04 minutes.
+Runtime.totalMemory()=1241513984
+***********************************************************************
+
+A USER ERROR has occurred: Bad input: GenomicsDBImport does not support GVCFs with MNPs. MNP found at Chr1:572254 in VCF /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/02.mapping/vcf/72_3_kang.g.vcf.gz
+
+***********************************************************************
+Set the system property GATK_STACKTRACE_ON_USER_EXCEPTION (--java-options '-DGATK_STACKTRACE_ON_USER_EXCEPTION=true') to print the stack trace.
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -Xmx100g -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar GenomicsDBImport --genomicsdb-workspace-path /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/genomicsdb_workspace --sample-name-map /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/sample_map.txt --reader-threads 88 -L /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/03.joint_calling/intervals.list
+
+2025-12-30 21:55:54,851 - ERROR - ❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: ❌ GenomicsDB导入失败 | GenomicsDB import failed

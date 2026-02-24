@@ -1,0 +1,484 @@
+2026-01-29 23:04:14.753 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 922044
+	             Genomic kmers: 789825
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 132219
+	             Fraction of errors: 0.143
+User defined coverage: 28.800
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 23:04:14.753 - ERROR - 样品 J_CZ Smudgeplot步骤失败
+2026-01-29 23:08:19.550 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-29 23:08:19.550 - WARNING - 样品 OV44_23 未能获取kcov值，将尝试使用默认值继续
+2026-01-29 23:12:22.374 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 2226924
+	             Genomic kmers: 2218322
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 8602
+	             Fraction of errors: 0.004
+User defined coverage: 50.000
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 23:12:22.377 - ERROR - 样品 OV44_23 Smudgeplot步骤失败
+2026-01-29 23:16:37.965 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-29 23:16:37.965 - WARNING - 样品 OV47_12 未能获取kcov值，将尝试使用默认值继续
+2026-01-29 23:20:41.798 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 2441941
+	             Genomic kmers: 2425003
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 16938
+	             Fraction of errors: 0.007
+User defined coverage: 50.000
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 23:20:41.798 - ERROR - 样品 OV47_12 Smudgeplot步骤失败
+2026-01-29 23:24:42.113 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-29 23:24:42.113 - WARNING - 样品 OV48_12 未能获取kcov值，将尝试使用默认值继续
+2026-01-29 23:28:37.458 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 2211155
+	             Genomic kmers: 2204831
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 6324
+	             Fraction of errors: 0.003
+User defined coverage: 50.000
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 23:28:37.458 - ERROR - 样品 OV48_12 Smudgeplot步骤失败
+2026-01-29 23:31:56.687 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-29 23:31:56.687 - WARNING - 样品 OV50_2 未能获取kcov值，将尝试使用默认值继续
+2026-01-29 23:35:06.493 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 1868099
+	             Genomic kmers: 1868099
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 0
+	             Fraction of errors: 0.0
+User defined coverage: 50.000
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 23:35:06.493 - ERROR - 样品 OV50_2 Smudgeplot步骤失败
+2026-01-29 23:39:30.607 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-29 23:39:30.608 - WARNING - 样品 OV51_5 未能获取kcov值，将尝试使用默认值继续
+2026-01-29 23:43:49.036 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 2401342
+	             Genomic kmers: 2383688
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 17654
+	             Fraction of errors: 0.007
+User defined coverage: 50.000
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 23:43:49.036 - ERROR - 样品 OV51_5 Smudgeplot步骤失败
+2026-01-29 23:48:41.044 - WARNING - 未能从GenomeScope输出中提取kcov值
+2026-01-29 23:48:41.044 - WARNING - 样品 OV52_4 未能获取kcov值，将尝试使用默认值继续
+2026-01-29 23:53:31.216 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 2596110
+	             Genomic kmers: 2555954
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 40156
+	             Fraction of errors: 0.015
+User defined coverage: 50.000
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-29 23:53:31.216 - ERROR - 样品 OV52_4 Smudgeplot步骤失败
+2026-01-30 00:02:40.253 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 2590101
+	             Genomic kmers: 2541807
+	             Genomic kmers in smudges: 2176
+	             Sequencing errors: 48294
+	             Fraction of errors: 0.019
+User defined coverage: 7.438
+
+Creating smudge report
+Detected smudges / sizes:
+  ['AAAAAAAAAABBBBBBBBB']
+  [2176]
+Written smudge report to: smudgeplot_kmerpairs.smudge_report.tsv
+
+Creating smudgeplots
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 450, in main
+    smg.generate_plots(
+    ~~~~~~~~~~~~~~~~~~^
+        smudges,
+        ^^^^^^^^
+    ...<10 lines>...
+        invert_cols=args.invert_cols
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 373, in generate_plots
+    smudgeplot(smudgeplot_data, log=False, palette=palette, invert_cols=invert_cols)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 466, in smudgeplot
+    plot_expected_haplotype_structure(smudge_tab, cov, main_ax, adjust=True, xmax=0.49)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 553, in plot_expected_haplotype_structure
+    smudge_tab.loc[:, "ploidy"] = smudge_tab["structure"].str.len()
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-30 00:02:40.253 - ERROR - 样品 OV54_2 Smudgeplot步骤失败
+2026-01-30 00:11:04.940 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 2652230
+	             Genomic kmers: 2581922
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 70308
+	             Fraction of errors: 0.027
+User defined coverage: 23.190
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-30 00:11:04.940 - ERROR - 样品 QG_ZS Smudgeplot步骤失败
+2026-01-30 00:34:25.452 - ERROR - Smudgeplot all失败: Running smudgeplot v0.5.3
+Task: all
+
+Loading data
+
+Masking errors using local aggregation algorithm
+	            Total kmers: 1154434
+	             Genomic kmers: 879142
+	             Genomic kmers in smudges: 0
+	             Sequencing errors: 275292
+	             Fraction of errors: 0.238
+User defined coverage: 30.720
+
+Creating smudge report
+Detected smudges / sizes:
+  []
+  []
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/.local/bin/smudgeplot", line 11, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/cli.py", line 448, in main
+    smg.generate_smudge_report(smudges, coverages, cov, args, smudge_size_cutoff, print_header=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 675, in generate_smudge_report
+    write_smudge_report(smudges, coverages, cov, args, print_header=print_header)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 690, in write_smudge_report
+    smudges.smudge_tab.loc[:, "label"] = reduce_structure_representation(smudges.smudge_tab["structure"])
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/smudgeplot/smudgeplot.py", line 613, in reduce_structure_representation
+    structures_to_adjust = smudge_labels.str.len() > 4
+                           ^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/generic.py", line 6321, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 194, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/lib/python3.14/site-packages/pandas/core/strings/accessor.py", line 248, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2026-01-30 00:34:25.466 - ERROR - 样品 T94_2 Smudgeplot步骤失败
+Job 69107649 stderr output:
+

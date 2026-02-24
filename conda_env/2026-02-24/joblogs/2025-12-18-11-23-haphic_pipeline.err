@@ -1,0 +1,27 @@
+[2025-12-18 11:23:59] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-18 11:23:59] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-18 11:23:59]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa
+[2025-12-18 11:23:59]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-18 11:23:59]   hic_file_type: fastq
+[2025-12-18 11:23:59]   nchrs: 12
+[2025-12-18 11:23:59]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta
+[2025-12-18 11:23:59]   prefix: OV53_1.primary
+[2025-12-18 11:23:59]   threads: 64
+[2025-12-18 11:23:59]   processes: 64
+[2025-12-18 11:23:59]   quick_view: False
+[2025-12-18 11:23:59]   restriction_sites: ['GATC']
+[2025-12-18 11:23:59]   correct_nrounds: 2
+[2025-12-18 11:23:59]   remove_allelic_links: None
+[2025-12-18 11:23:59]   phasing_weight: 1.0
+[2025-12-18 11:23:59]   gfa_files: None
+[2025-12-18 11:23:59]   haphic_bin: haphic
+[2025-12-18 11:23:59]   bwa_bin: bwa
+[2025-12-18 11:23:59]   samtools_bin: samtools
+[2025-12-18 11:23:59] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-18 11:23:59] 🔍 系统预检查 | System pre-flight checks
+[2025-12-18 11:23:59] 🔍 验证输入文件 | Validating input files
+[2025-12-18 11:24:00] 📊 基因组序列数量 | Assembly sequence count: 1211
+[2025-12-18 11:24:00] ❌ BAM文件格式错误 | Invalid BAM file format: None
+❌ HapHiC scaffolding失败!
+Job 68572289 stderr output:
+

@@ -1,0 +1,115 @@
+2025-12-06 13:31:11,939 - INFO - ============================================================
+2025-12-06 13:31:11,939 - INFO - 🚀 RNA-seq分析流程开始 | RNA-seq analysis pipeline started
+2025-12-06 13:31:11,939 - INFO - ============================================================
+2025-12-06 13:31:11,939 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.fa
+2025-12-06 13:31:11,939 - INFO - 📂 输入路径 | Input path: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean
+2025-12-06 13:31:11,939 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping
+2025-12-06 13:31:11,939 - INFO - 📋 GTF文件 | GTF file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf
+2025-12-06 13:31:11,939 - INFO - 🔧 线程数 | Threads: 88
+2025-12-06 13:31:11,939 - INFO - 🗑️  删除BAM文件 | Remove BAM files: no
+2025-12-06 13:31:11,939 - INFO - 📋 文件模式 | File pattern: *_1.clean.fq.gz
+2025-12-06 13:31:11,939 - INFO - ============================================================
+2025-12-06 13:31:11,939 - INFO - 🔨 步骤1: 构建HISAT2索引 | Step 1: Building HISAT2 index
+2025-12-06 13:31:11,939 - INFO - ============================================================
+2025-12-06 13:31:11,941 - INFO - ⏭️  HISAT2索引已存在 | HISAT2 index already exists: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index
+2025-12-06 13:31:11,941 - INFO - ============================================================
+2025-12-06 13:31:11,941 - INFO - 📋 步骤2: 解析输入样本 | Step 2: Parsing input samples
+2025-12-06 13:31:11,941 - INFO - ============================================================
+2025-12-06 13:31:11,941 - INFO - 📂 使用指定文件模式 | Using specified file pattern: *_1.clean.fq.gz
+2025-12-06 13:31:11,941 - INFO - 🔍 检测到读取指示符 | Detected read indicator: _1 <-> _2
+2025-12-06 13:31:11,941 - INFO - 🔎 搜索模式 | Search pattern: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/*_1.clean.fq.gz
+2025-12-06 13:31:11,941 - INFO - 📊 找到 17 个read1文件 | Found 17 read1 files
+2025-12-06 13:31:11,941 - INFO - 🔍 样本 | Sample: SRR11306881
+2025-12-06 13:31:11,941 - INFO -    📄 Read1: SRR11306881_1.clean.fq.gz
+2025-12-06 13:31:11,941 - INFO -    📄 Read2: SRR11306881_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,952 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,952 - INFO - 🔍 样本 | Sample: SRR11306882
+2025-12-06 13:31:11,952 - INFO -    📄 Read1: SRR11306882_1.clean.fq.gz
+2025-12-06 13:31:11,952 - INFO -    📄 Read2: SRR11306882_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,952 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,952 - INFO - 🔍 样本 | Sample: SRR11306883
+2025-12-06 13:31:11,952 - INFO -    📄 Read1: SRR11306883_1.clean.fq.gz
+2025-12-06 13:31:11,952 - INFO -    📄 Read2: SRR11306883_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,953 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,953 - INFO - 🔍 样本 | Sample: SRR11306885
+2025-12-06 13:31:11,953 - INFO -    📄 Read1: SRR11306885_1.clean.fq.gz
+2025-12-06 13:31:11,953 - INFO -    📄 Read2: SRR11306885_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,953 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,953 - INFO - 🔍 样本 | Sample: SRR11306886
+2025-12-06 13:31:11,953 - INFO -    📄 Read1: SRR11306886_1.clean.fq.gz
+2025-12-06 13:31:11,953 - INFO -    📄 Read2: SRR11306886_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,953 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,953 - INFO - 🔍 样本 | Sample: SRR11306887
+2025-12-06 13:31:11,953 - INFO -    📄 Read1: SRR11306887_1.clean.fq.gz
+2025-12-06 13:31:11,957 - INFO -    📄 Read2: SRR11306887_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,958 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,958 - INFO - 🔍 样本 | Sample: SRR11306888
+2025-12-06 13:31:11,958 - INFO -    📄 Read1: SRR11306888_1.clean.fq.gz
+2025-12-06 13:31:11,958 - INFO -    📄 Read2: SRR11306888_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,958 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,958 - INFO - 🔍 样本 | Sample: SRR11306889
+2025-12-06 13:31:11,958 - INFO -    📄 Read1: SRR11306889_1.clean.fq.gz
+2025-12-06 13:31:11,958 - INFO -    📄 Read2: SRR11306889_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,958 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,958 - INFO - 🔍 样本 | Sample: SRR11306890
+2025-12-06 13:31:11,958 - INFO -    📄 Read1: SRR11306890_1.clean.fq.gz
+2025-12-06 13:31:11,958 - INFO -    📄 Read2: SRR11306890_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,959 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,959 - INFO - 🔍 样本 | Sample: SRR11306891
+2025-12-06 13:31:11,959 - INFO -    📄 Read1: SRR11306891_1.clean.fq.gz
+2025-12-06 13:31:11,959 - INFO -    📄 Read2: SRR11306891_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,959 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,959 - INFO - 🔍 样本 | Sample: SRR11306892
+2025-12-06 13:31:11,959 - INFO -    📄 Read1: SRR11306892_1.clean.fq.gz
+2025-12-06 13:31:11,959 - INFO -    📄 Read2: SRR11306892_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,959 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,959 - INFO - 🔍 样本 | Sample: SRR12079360
+2025-12-06 13:31:11,959 - INFO -    📄 Read1: SRR12079360_1.clean.fq.gz
+2025-12-06 13:31:11,959 - INFO -    📄 Read2: SRR12079360_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,960 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,960 - INFO - 🔍 样本 | Sample: SRR12079361
+2025-12-06 13:31:11,960 - INFO -    📄 Read1: SRR12079361_1.clean.fq.gz
+2025-12-06 13:31:11,960 - INFO -    📄 Read2: SRR12079361_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,960 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,960 - INFO - 🔍 样本 | Sample: SRR12079362
+2025-12-06 13:31:11,960 - INFO -    📄 Read1: SRR12079362_1.clean.fq.gz
+2025-12-06 13:31:11,960 - INFO -    📄 Read2: SRR12079362_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,960 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,960 - INFO - 🔍 样本 | Sample: SRR12079363
+2025-12-06 13:31:11,960 - INFO -    📄 Read1: SRR12079363_1.clean.fq.gz
+2025-12-06 13:31:11,960 - INFO -    📄 Read2: SRR12079363_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,961 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,961 - INFO - 🔍 样本 | Sample: SRR12079364
+2025-12-06 13:31:11,961 - INFO -    📄 Read1: SRR12079364_1.clean.fq.gz
+2025-12-06 13:31:11,961 - INFO -    📄 Read2: SRR12079364_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,961 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,961 - INFO - 🔍 样本 | Sample: SRR12079365
+2025-12-06 13:31:11,961 - INFO -    📄 Read1: SRR12079365_1.clean.fq.gz
+2025-12-06 13:31:11,961 - INFO -    📄 Read2: SRR12079365_2.clean.fq.gz (期望 | expected)
+2025-12-06 13:31:11,961 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-06 13:31:11,961 - INFO - ✨ 找到 17 个样本 | Found 17 samples:
+2025-12-06 13:31:11,961 - INFO -   📌 SRR11306881: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_2.clean.fq.gz
+2025-12-06 13:31:11,961 - INFO -   📌 SRR11306882: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_2.clean.fq.gz
+2025-12-06 13:31:11,961 - INFO -   📌 SRR11306883: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_2.clean.fq.gz
+2025-12-06 13:31:11,961 - INFO -   📌 SRR11306885: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_2.clean.fq.gz
+2025-12-06 13:31:11,961 - INFO -   📌 SRR11306886: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_2.clean.fq.gz
+2025-12-06 13:31:11,961 - INFO -   📌 SRR11306887: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR11306888: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR11306889: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR11306890: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR11306891: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR11306892: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR12079360: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR12079361: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR12079362: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR12079363: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR12079364: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO -   📌 SRR12079365: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_2.clean.fq.gz
+2025-12-06 13:31:11,962 - INFO - ============================================================
+2025-12-06 13:31:11,962 - INFO - 🔄 步骤3: 处理所有样本 | Step 3: Processing all samples
+2025-12-06 13:31:11,962 - INFO - ============================================================
+2025-12-06 13:31:11,962 - INFO - ============================================================
+2025-12-06 13:31:11,962 - INFO - 🧪 处理样本 | Processing sample: SRR11306881
+2025-12-06 13:31:11,962 - INFO - ============================================================
+2025-12-06 13:31:11,962 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam
+2025-12-06 13:31:11,962 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_2.clean.fq.gz -p 88 | samtools sort -@ 88 -O BAM -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam -

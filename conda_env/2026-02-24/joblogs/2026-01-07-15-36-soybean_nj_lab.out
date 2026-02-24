@@ -1,0 +1,37 @@
+2026-01-07 15:36:26.073 - INFO - ================================================================================
+2026-01-07 15:36:26.074 - INFO - 开始VCF系统发育分析|Starting VCF phylogenetic analysis
+2026-01-07 15:36:26.074 - INFO - ================================================================================
+2026-01-07 15:36:26.074 - INFO - 检查依赖软件|Checking dependencies
+2026-01-07 15:36:26.106 - INFO - VCF2Dis 可用|available
+2026-01-07 15:36:26.217 - INFO - nw_reroot 可用|available
+2026-01-07 15:36:26.217 - INFO - Python包 numpy 可用|Python package numpy available
+2026-01-07 15:36:27.056 - INFO - Python包 pandas 可用|Python package pandas available
+2026-01-07 15:36:27.066 - INFO - Python包 scipy 可用|Python package scipy available
+2026-01-07 15:36:40.572 - INFO - Python包 scikit-bio 可用|Python package scikit-bio available
+2026-01-07 15:36:40.576 - INFO - ----------------------------------------
+2026-01-07 15:36:40.576 - INFO - 步骤1: 计算距离矩阵|Step 1: Calculate distance matrix
+2026-01-07 15:36:40.576 - INFO - ----------------------------------------
+2026-01-07 15:36:40.576 - INFO - 开始计算VCF距离矩阵|Starting VCF distance matrix calculation
+2026-01-07 15:36:40.634 - WARNING - 无法获取VCF统计信息|Cannot get VCF statistics: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte
+2026-01-07 15:36:40.634 - INFO - 执行步骤|Executing step: 使用VCF2Dis计算距离矩阵|Calculate distance matrix using VCF2Dis
+2026-01-07 15:36:40.634 - INFO - 命令|Command: VCF2Dis -InPut /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree/renamed.snp.vcf.gz -OutPut /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree
+2026-01-07 15:36:40.634 - INFO - 工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree
+2026-01-07 15:36:44.552 - INFO - 命令执行成功|Command executed successfully: 使用VCF2Dis计算距离矩阵|Calculate distance matrix using VCF2Dis
+2026-01-07 15:36:44.556 - INFO - 距离矩阵已生成|Distance matrix generated: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree
+2026-01-07 15:36:44.556 - WARNING - 无法读取距离矩阵统计信息|Cannot read distance matrix statistics: [Errno 21] Is a directory: '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree'
+2026-01-07 15:36:44.556 - INFO - ----------------------------------------
+2026-01-07 15:36:44.556 - INFO - 步骤2: 构建系统发育树|Step 2: Build phylogenetic tree
+2026-01-07 15:36:44.556 - INFO - ----------------------------------------
+2026-01-07 15:36:44.556 - INFO - 开始构建NJ系统发育树|Starting NJ phylogenetic tree construction
+2026-01-07 15:36:44.556 - INFO - ✓ 成功导入 scikit-bio|Successfully imported scikit-bio
+2026-01-07 15:36:44.556 - INFO - 读取距离矩阵文件|Reading distance matrix file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree
+2026-01-07 15:36:44.556 - ERROR - 读取距离矩阵失败|Failed to read distance matrix: [Errno 21] Is a directory: '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree'
+2026-01-07 15:36:44.556 - ERROR - NJ树构建失败|NJ tree construction failed: [Errno 21] Is a directory: '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree'
+2026-01-07 15:36:44.563 - ERROR - 详细错误信息|Detailed error: Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/vcf_phylo/tree_builder.py", line 37, in build_nj_tree
+    distance_data, sample_names = self._read_distance_matrix()
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/vcf_phylo/tree_builder.py", line 80, in _read_distance_matrix
+    with open(self.config.distance_matrix, 'r') as f:
+IsADirectoryError: [Errno 21] Is a directory: '/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/02.nj_tree'
+
+2026-01-07 15:36:44.567 - ERROR - 分析失败|Analysis failed: NJ系统发育树构建失败|NJ phylogenetic tree construction failed

@@ -1,0 +1,123 @@
+2025-12-22 09:35:03,852 - GenomeSyn - INFO - 🎯============================================================
+2025-12-22 09:35:03,852 - GenomeSyn - INFO - 🧬 开始基因组共线性分析 | Starting genome synteny analysis
+2025-12-22 09:35:03,853 - GenomeSyn - INFO - 🎯============================================================
+2025-12-22 09:35:03,853 - GenomeSyn - INFO - 🔍 开始环境检查 | Starting environment check
+2025-12-22 09:35:03,853 - GenomeSyn - INFO - ==================================================
+2025-12-22 09:35:03,853 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:03,853 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查NGenomeSyn是否在PATH中
+2025-12-22 09:35:03,853 - GenomeSyn - INFO - 💻 命令内容 | Command: which NGenomeSyn
+2025-12-22 09:35:03,853 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:03,899 - GenomeSyn - INFO - ✅ NGenomeSyn 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/NGenomeSyn
+2025-12-22 09:35:03,899 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:03,899 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 测试NGenomeSyn是否可执行
+2025-12-22 09:35:03,899 - GenomeSyn - INFO - 💻 命令内容 | Command: NGenomeSyn
+2025-12-22 09:35:03,899 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:04,867 - GenomeSyn - INFO - ✅ NGenomeSyn 验证通过 | NGenomeSyn verification passed
+2025-12-22 09:35:04,867 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:04,867 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 minimap2 是否安装
+2025-12-22 09:35:04,867 - GenomeSyn - INFO - 💻 命令内容 | Command: which minimap2
+2025-12-22 09:35:04,867 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:04,933 - GenomeSyn - INFO - ✅ minimap2 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/minimap2
+2025-12-22 09:35:04,933 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:04,933 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 nucmer 是否安装
+2025-12-22 09:35:04,933 - GenomeSyn - INFO - 💻 命令内容 | Command: which nucmer
+2025-12-22 09:35:04,933 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:04,983 - GenomeSyn - INFO - ✅ nucmer 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/nucmer
+2025-12-22 09:35:04,983 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:04,984 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 show-coords 是否安装
+2025-12-22 09:35:04,984 - GenomeSyn - INFO - 💻 命令内容 | Command: which show-coords
+2025-12-22 09:35:04,984 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:04,984 - GenomeSyn - WARNING - ⚠️ show-coords 未安装 | not installed
+2025-12-22 09:35:04,984 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:04,984 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 syri 是否安装
+2025-12-22 09:35:04,984 - GenomeSyn - INFO - 💻 命令内容 | Command: which syri
+2025-12-22 09:35:04,984 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:05,066 - GenomeSyn - INFO - ✅ syri 已安装 | installed: /share/org/YZWL/yzwl_lixg/.local/bin/syri
+2025-12-22 09:35:05,066 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:05,066 - GenomeSyn - INFO - 🔍 环境检查命令 | Environment check command: 检查 convert 是否安装
+2025-12-22 09:35:05,068 - GenomeSyn - INFO - 💻 命令内容 | Command: which convert
+2025-12-22 09:35:05,068 - GenomeSyn - INFO - 🔍============================================================
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - ✅ convert 已安装 | installed: /usr/bin/convert
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - ==================================================
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - ✅ 环境检查通过 | Environment check passed
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - 📝 环境检查脚本已保存 | Environment check script saved: ./check_environment.sh
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - 🚀 您可以使用以下命令检查环境:
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - bash ./check_environment.sh
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - 🚀 开始完整分析流程 | Starting full analysis pipeline
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: read_sample_map
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - 📝 描述 | Description: 📂 读取样本映射文件
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - 📁 文件 | File: sample_map.txt
+2025-12-22 09:35:05,069 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:05,081 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:05,081 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: sample_added
+2025-12-22 09:35:05,081 - GenomeSyn - INFO - 📝 描述 | Description: ➕ 添加基因组: Ref
+2025-12-22 09:35:05,081 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/09.YaHS挂载结果的共线性/genome.chr.fa
+2025-12-22 09:35:05,081 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:05,082 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:05,082 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: sample_added
+2025-12-22 09:35:05,082 - GenomeSyn - INFO - 📝 描述 | Description: ➕ 添加基因组: HiFi+HiC
+2025-12-22 09:35:05,082 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/OV53_1.primary_corrected.chr.fa
+2025-12-22 09:35:05,082 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:05,082 - GenomeSyn - INFO - ✅ 成功读取 2 个基因组 | Successfully read 2 genomes
+2025-12-22 09:35:05,082 - GenomeSyn - INFO - 📝 数据处理脚本已保存 | Data processing script saved: ./data_processing_steps.sh
+2025-12-22 09:35:05,083 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: start - 开始生成默认配置文件
+2025-12-22 09:35:05,083 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: chromosome_analysis - 分析基因组染色体信息
+2025-12-22 09:35:05,083 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: chromosome_all - 📊 计算基因组 Ref 的所有染色体
+2025-12-22 09:35:05,083 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:05,083 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: calculate_chr_lengths
+2025-12-22 09:35:05,083 - GenomeSyn - INFO - 📝 描述 | Description: 📏 计算染色体长度
+2025-12-22 09:35:05,083 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/09.YaHS挂载结果的共线性/genome.chr.fa
+2025-12-22 09:35:05,083 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:10,297 - GenomeSyn - INFO - 🧬 发现 12 条染色体 | Found 12 chromosomes
+2025-12-22 09:35:10,297 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:10,297 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: chr_calculation_complete
+2025-12-22 09:35:10,297 - GenomeSyn - INFO - 📝 描述 | Description: 🧬 完成染色体长度计算，共 12 条染色体
+2025-12-22 09:35:10,297 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:10,298 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: chromosome_all - 📊 计算基因组 HiFi+HiC 的所有染色体
+2025-12-22 09:35:10,298 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:10,298 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: calculate_chr_lengths
+2025-12-22 09:35:10,298 - GenomeSyn - INFO - 📝 描述 | Description: 📏 计算染色体长度
+2025-12-22 09:35:10,298 - GenomeSyn - INFO - 📁 文件 | File: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/OV53_1.primary_corrected.chr.fa
+2025-12-22 09:35:10,298 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:15,738 - GenomeSyn - INFO - 🧬 发现 12 条染色体 | Found 12 chromosomes
+2025-12-22 09:35:15,738 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:15,738 - GenomeSyn - INFO - 📊 数据处理步骤 | Data processing step: chr_calculation_complete
+2025-12-22 09:35:15,738 - GenomeSyn - INFO - 📝 描述 | Description: 🧬 完成染色体长度计算，共 12 条染色体
+2025-12-22 09:35:15,738 - GenomeSyn - INFO - 📊============================================================
+2025-12-22 09:35:15,738 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: generate_links - 🔗 生成基因组比对链接关系
+2025-12-22 09:35:15,738 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: chain_links - 🔗 为 2 个基因组生成链式比对关系
+2025-12-22 09:35:15,738 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: yaml_config - 📝 构建YAML配置数据结构
+2025-12-22 09:35:15,739 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: threads_config - ⚡ 配置线程数: 88
+2025-12-22 09:35:15,739 - GenomeSyn - INFO - ⚡ 使用配置线程数 | Using configured threads: 88
+2025-12-22 09:35:15,739 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: save_yaml - 💾 保存YAML配置文件
+2025-12-22 09:35:15,742 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: convert_excel - 📊 转换为Excel配置文件
+2025-12-22 09:35:15,742 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: excel_conversion - 🔄 开始YAML到Excel的转换
+2025-12-22 09:35:18,020 - GenomeSyn - INFO - 📋 配置生成步骤 | Config step: excel_complete - ✅ Excel文件保存完成: ./output/genome_syn_config.xlsx
+2025-12-22 09:35:18,021 - GenomeSyn - INFO - 📝 配置生成脚本已保存 | Config generation script saved: ./output/regenerate_config.sh
+2025-12-22 09:35:18,021 - GenomeSyn - INFO - 📄 YAML配置文件已生成 | YAML config file generated: ./output/genome_syn_config.yaml
+2025-12-22 09:35:18,021 - GenomeSyn - INFO - 📊 Excel配置文件已生成 | Excel config file generated: ./output/genome_syn_config.xlsx
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔗==================================================
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔗 步骤1: 执行基因组比对 | Step 1: Performing genome alignment
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔗==================================================
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔧 创建比对器 | Creating aligner: minimap2 with 88 threads
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔧 Minimap2比对器初始化 | Minimap2 aligner initialized with 88 threads
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🚀 开始比对 | Starting alignment: Ref vs HiFi+HiC
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🚀 开始Minimap2比对 | Starting Minimap2 alignment: Ref vs HiFi+HiC
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 📄 输出PAF文件 | Output PAF file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/调整顺序前/output/Ref_vs_HiFi+HiC.paf
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔗 输出LINK文件 | Output LINK file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/调整顺序前/output/Ref_vs_HiFi+HiC.link
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔗================================================================================
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔗 执行命令 | Executing command: 🧬 Minimap2比对: Ref vs HiFi+HiC
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 📁 工作目录 | Working directory: ./output
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 💻 命令内容 | Command: minimap2 -x asm5 -t 88 "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/OV53_1.primary_corrected.chr.fa" "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/09.YaHS挂载结果的共线性/genome.chr.fa" > "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/调整顺序前/output/Ref_vs_HiFi+HiC.paf"
+2025-12-22 09:35:18,025 - GenomeSyn - INFO - 🔗================================================================================
+2025-12-22 09:35:21,668 - GenomeSyn - ERROR - ❌ Minimap2执行失败 | Minimap2 failed: /bin/sh: 行 1: 1111836 Segmentation fault      (核心已转储)minimap2 -x asm5 -t 88 "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/OV53_1.primary_corrected.chr.fa" "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/09.YaHS挂载结果的共线性/genome.chr.fa" > "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/07.corrected_contig_haphic/08.和参考基因组的共线性-原始组装结果/调整顺序前/output/Ref_vs_HiFi+HiC.paf"
+
+2025-12-22 09:35:21,669 - GenomeSyn - INFO - 📝 命令脚本已保存 | Command script saved: ./output/minimap2_commands_Ref_vs_HiFi+HiC.sh
+2025-12-22 09:35:21,669 - GenomeSyn - INFO - 🚀 您可以使用以下命令手动执行 | You can manually execute with:
+2025-12-22 09:35:21,669 - GenomeSyn - INFO - bash ./output/minimap2_commands_Ref_vs_HiFi+HiC.sh
+2025-12-22 09:35:21,669 - GenomeSyn - ERROR - 💥 Minimap2比对失败 | Minimap2 alignment failed: ❌ Minimap2执行失败 | Minimap2 failed
+2025-12-22 09:35:21,669 - GenomeSyn - INFO - 📝 命令脚本已保存 | Command script saved: ./output/alignment_commands_Ref_vs_HiFi+HiC_FAILED.sh
+2025-12-22 09:35:21,669 - GenomeSyn - INFO - 🚀 您可以使用以下命令手动执行 | You can manually execute with:
+2025-12-22 09:35:21,669 - GenomeSyn - INFO - bash ./output/alignment_commands_Ref_vs_HiFi+HiC_FAILED.sh
+2025-12-22 09:35:21,669 - GenomeSyn - ERROR - 💥 分析失败 | Analysis failed: ❌ Minimap2执行失败 | Minimap2 failed

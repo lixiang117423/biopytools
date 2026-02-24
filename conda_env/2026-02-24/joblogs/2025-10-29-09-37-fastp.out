@@ -1,0 +1,789 @@
+2025-10-29 09:37:58,310 - INFO - ============================================================
+2025-10-29 09:37:58,310 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-10-29 09:37:58,310 - INFO - ============================================================
+2025-10-29 09:37:58,310 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/raw
+2025-10-29 09:37:58,310 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean
+2025-10-29 09:37:58,310 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-10-29 09:37:58,310 - INFO - ============================================================
+2025-10-29 09:37:58,738 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-10-29 09:37:58,739 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: 01.data/clean
+2025-10-29 09:37:58,739 - INFO - 📋 创建报告文件输出目录 | Created report output directory: 01.data/clean/fastp_reports
+2025-10-29 09:37:58,750 - INFO - 📄 找到 59 个read1文件 | Found 59 read1 files
+2025-10-29 09:37:58,817 - INFO - 🧬 找到 59 个有效样本配对 | Found 59 valid sample pairs:
+2025-10-29 09:37:58,817 - INFO -   - 📋 D2-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 B3-4
+2025-10-29 09:37:58,817 - INFO -   - 📋 B4-29
+2025-10-29 09:37:58,817 - INFO -   - 📋 N8-4
+2025-10-29 09:37:58,817 - INFO -   - 📋 B1-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 N11-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 D2-3
+2025-10-29 09:37:58,817 - INFO -   - 📋 D6-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 B2-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 41
+2025-10-29 09:37:58,817 - INFO -   - 📋 D2-12
+2025-10-29 09:37:58,817 - INFO -   - 📋 N4-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 B3-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 A1-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 N2-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 N3-3
+2025-10-29 09:37:58,817 - INFO -   - 📋 N8-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 A1-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 B4-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 A3-3
+2025-10-29 09:37:58,817 - INFO -   - 📋 K2-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 D3-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 K1-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 N8-9
+2025-10-29 09:37:58,817 - INFO -   - 📋 B2-3
+2025-10-29 09:37:58,817 - INFO -   - 📋 N12-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 A2-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 B4-22
+2025-10-29 09:37:58,817 - INFO -   - 📋 D1-2
+2025-10-29 09:37:58,817 - INFO -   - 📋 N12-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 B3-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 B4-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 D5-1
+2025-10-29 09:37:58,817 - INFO -   - 📋 N2-3
+2025-10-29 09:37:58,817 - INFO -   - 📋 M-1
+2025-10-29 09:37:58,818 - INFO -   - 📋 D5-3
+2025-10-29 09:37:58,818 - INFO -   - 📋 N11-1
+2025-10-29 09:37:58,818 - INFO -   - 📋 D4-2
+2025-10-29 09:37:58,818 - INFO -   - 📋 D3-1
+2025-10-29 09:37:58,818 - INFO -   - 📋 N6-1
+2025-10-29 09:37:58,818 - INFO -   - 📋 N3-4
+2025-10-29 09:37:58,818 - INFO -   - 📋 N10-1
+2025-10-29 09:37:58,818 - INFO -   - 📋 D5-2
+2025-10-29 09:37:58,818 - INFO -   - 📋 N4-1
+2025-10-29 09:37:58,818 - INFO -   - 📋 A1-16
+2025-10-29 09:37:58,818 - INFO -   - 📋 D3-3
+2025-10-29 09:37:58,818 - INFO -   - 📋 D4-1
+2025-10-29 09:37:58,818 - INFO -   - 📋 N2-2
+2025-10-29 09:37:58,818 - INFO -   - 📋 N10-15
+2025-10-29 09:37:58,818 - INFO -   - 📋 B3-3
+2025-10-29 09:37:58,818 - INFO -   - 📋 N8-8
+2025-10-29 09:37:58,818 - INFO -   - 📋 B4-23
+2025-10-29 09:37:58,818 - INFO -   - 📋 M-2
+2025-10-29 09:37:58,818 - INFO -   - 📋 SG30
+2025-10-29 09:37:58,818 - INFO -   - 📋 D6-1
+2025-10-29 09:37:58,818 - INFO -   - 📋 D2-10
+2025-10-29 09:37:58,818 - INFO -   - 📋 K1-2
+2025-10-29 09:37:58,823 - INFO -   - 📋 D2-2
+2025-10-29 09:37:58,823 - INFO -   - 📋 N10-2
+2025-10-29 09:37:58,823 - INFO - ---
+2025-10-29 09:37:58,823 - INFO - ⚡ 正在处理样本 | Processing sample: D2-1
+2025-10-29 09:37:58,823 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D2-1_1.fq.gz
+2025-10-29 09:37:58,823 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D2-1_2.fq.gz
+2025-10-29 09:37:58,823 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D2-1_1.clean.fq.gz
+2025-10-29 09:37:58,823 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D2-1_2.clean.fq.gz
+2025-10-29 09:37:58,823 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D2-1.html
+2025-10-29 09:37:58,823 - INFO - ---
+2025-10-29 09:37:58,823 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D2-1
+2025-10-29 09:37:58,823 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D2-1_1.fq.gz -I 01.data/raw/D2-1_2.fq.gz -o 01.data/clean/D2-1_1.clean.fq.gz -O 01.data/clean/D2-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/D2-1.html -j 01.data/clean/fastp_reports/D2-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:38:53,942 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D2-1
+2025-10-29 09:38:53,943 - INFO - ✅ 样本 D2-1 处理完成 | Sample D2-1 processing completed
+2025-10-29 09:38:53,943 - INFO - ---
+2025-10-29 09:38:53,943 - INFO - ⚡ 正在处理样本 | Processing sample: B3-4
+2025-10-29 09:38:53,943 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B3-4_1.fq.gz
+2025-10-29 09:38:53,943 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B3-4_2.fq.gz
+2025-10-29 09:38:53,943 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B3-4_1.clean.fq.gz
+2025-10-29 09:38:53,943 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B3-4_2.clean.fq.gz
+2025-10-29 09:38:53,943 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B3-4.html
+2025-10-29 09:38:53,943 - INFO - ---
+2025-10-29 09:38:53,943 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B3-4
+2025-10-29 09:38:53,943 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B3-4_1.fq.gz -I 01.data/raw/B3-4_2.fq.gz -o 01.data/clean/B3-4_1.clean.fq.gz -O 01.data/clean/B3-4_2.clean.fq.gz -h 01.data/clean/fastp_reports/B3-4.html -j 01.data/clean/fastp_reports/B3-4.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:39:36,947 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B3-4
+2025-10-29 09:39:36,947 - INFO - ✅ 样本 B3-4 处理完成 | Sample B3-4 processing completed
+2025-10-29 09:39:36,947 - INFO - ---
+2025-10-29 09:39:36,947 - INFO - ⚡ 正在处理样本 | Processing sample: B4-29
+2025-10-29 09:39:36,947 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B4-29_1.fq.gz
+2025-10-29 09:39:36,947 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B4-29_2.fq.gz
+2025-10-29 09:39:36,947 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B4-29_1.clean.fq.gz
+2025-10-29 09:39:36,947 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B4-29_2.clean.fq.gz
+2025-10-29 09:39:36,947 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B4-29.html
+2025-10-29 09:39:36,947 - INFO - ---
+2025-10-29 09:39:36,947 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B4-29
+2025-10-29 09:39:36,947 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B4-29_1.fq.gz -I 01.data/raw/B4-29_2.fq.gz -o 01.data/clean/B4-29_1.clean.fq.gz -O 01.data/clean/B4-29_2.clean.fq.gz -h 01.data/clean/fastp_reports/B4-29.html -j 01.data/clean/fastp_reports/B4-29.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:40:32,436 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B4-29
+2025-10-29 09:40:32,436 - INFO - ✅ 样本 B4-29 处理完成 | Sample B4-29 processing completed
+2025-10-29 09:40:32,436 - INFO - ---
+2025-10-29 09:40:32,436 - INFO - ⚡ 正在处理样本 | Processing sample: N8-4
+2025-10-29 09:40:32,436 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N8-4_1.fq.gz
+2025-10-29 09:40:32,436 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N8-4_2.fq.gz
+2025-10-29 09:40:32,436 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N8-4_1.clean.fq.gz
+2025-10-29 09:40:32,436 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N8-4_2.clean.fq.gz
+2025-10-29 09:40:32,436 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N8-4.html
+2025-10-29 09:40:32,436 - INFO - ---
+2025-10-29 09:40:32,436 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N8-4
+2025-10-29 09:40:32,436 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N8-4_1.fq.gz -I 01.data/raw/N8-4_2.fq.gz -o 01.data/clean/N8-4_1.clean.fq.gz -O 01.data/clean/N8-4_2.clean.fq.gz -h 01.data/clean/fastp_reports/N8-4.html -j 01.data/clean/fastp_reports/N8-4.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:41:21,256 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N8-4
+2025-10-29 09:41:21,256 - INFO - ✅ 样本 N8-4 处理完成 | Sample N8-4 processing completed
+2025-10-29 09:41:21,256 - INFO - ---
+2025-10-29 09:41:21,256 - INFO - ⚡ 正在处理样本 | Processing sample: B1-1
+2025-10-29 09:41:21,256 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B1-1_1.fq.gz
+2025-10-29 09:41:21,256 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B1-1_2.fq.gz
+2025-10-29 09:41:21,256 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B1-1_1.clean.fq.gz
+2025-10-29 09:41:21,256 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B1-1_2.clean.fq.gz
+2025-10-29 09:41:21,256 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B1-1.html
+2025-10-29 09:41:21,256 - INFO - ---
+2025-10-29 09:41:21,256 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B1-1
+2025-10-29 09:41:21,256 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B1-1_1.fq.gz -I 01.data/raw/B1-1_2.fq.gz -o 01.data/clean/B1-1_1.clean.fq.gz -O 01.data/clean/B1-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/B1-1.html -j 01.data/clean/fastp_reports/B1-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:42:12,326 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B1-1
+2025-10-29 09:42:12,326 - INFO - ✅ 样本 B1-1 处理完成 | Sample B1-1 processing completed
+2025-10-29 09:42:12,326 - INFO - ---
+2025-10-29 09:42:12,326 - INFO - ⚡ 正在处理样本 | Processing sample: N11-2
+2025-10-29 09:42:12,326 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N11-2_1.fq.gz
+2025-10-29 09:42:12,327 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N11-2_2.fq.gz
+2025-10-29 09:42:12,327 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N11-2_1.clean.fq.gz
+2025-10-29 09:42:12,327 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N11-2_2.clean.fq.gz
+2025-10-29 09:42:12,327 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N11-2.html
+2025-10-29 09:42:12,327 - INFO - ---
+2025-10-29 09:42:12,327 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N11-2
+2025-10-29 09:42:12,327 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N11-2_1.fq.gz -I 01.data/raw/N11-2_2.fq.gz -o 01.data/clean/N11-2_1.clean.fq.gz -O 01.data/clean/N11-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/N11-2.html -j 01.data/clean/fastp_reports/N11-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:43:06,057 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N11-2
+2025-10-29 09:43:06,058 - INFO - ✅ 样本 N11-2 处理完成 | Sample N11-2 processing completed
+2025-10-29 09:43:06,058 - INFO - ---
+2025-10-29 09:43:06,058 - INFO - ⚡ 正在处理样本 | Processing sample: D2-3
+2025-10-29 09:43:06,058 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D2-3_1.fq.gz
+2025-10-29 09:43:06,058 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D2-3_2.fq.gz
+2025-10-29 09:43:06,058 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D2-3_1.clean.fq.gz
+2025-10-29 09:43:06,058 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D2-3_2.clean.fq.gz
+2025-10-29 09:43:06,059 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D2-3.html
+2025-10-29 09:43:06,059 - INFO - ---
+2025-10-29 09:43:06,059 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D2-3
+2025-10-29 09:43:06,059 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D2-3_1.fq.gz -I 01.data/raw/D2-3_2.fq.gz -o 01.data/clean/D2-3_1.clean.fq.gz -O 01.data/clean/D2-3_2.clean.fq.gz -h 01.data/clean/fastp_reports/D2-3.html -j 01.data/clean/fastp_reports/D2-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:43:54,788 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D2-3
+2025-10-29 09:43:54,788 - INFO - ✅ 样本 D2-3 处理完成 | Sample D2-3 processing completed
+2025-10-29 09:43:54,788 - INFO - ---
+2025-10-29 09:43:54,788 - INFO - ⚡ 正在处理样本 | Processing sample: D6-2
+2025-10-29 09:43:54,788 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D6-2_1.fq.gz
+2025-10-29 09:43:54,788 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D6-2_2.fq.gz
+2025-10-29 09:43:54,788 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D6-2_1.clean.fq.gz
+2025-10-29 09:43:54,788 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D6-2_2.clean.fq.gz
+2025-10-29 09:43:54,788 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D6-2.html
+2025-10-29 09:43:54,788 - INFO - ---
+2025-10-29 09:43:54,788 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D6-2
+2025-10-29 09:43:54,788 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D6-2_1.fq.gz -I 01.data/raw/D6-2_2.fq.gz -o 01.data/clean/D6-2_1.clean.fq.gz -O 01.data/clean/D6-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/D6-2.html -j 01.data/clean/fastp_reports/D6-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:44:56,388 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D6-2
+2025-10-29 09:44:56,388 - INFO - ✅ 样本 D6-2 处理完成 | Sample D6-2 processing completed
+2025-10-29 09:44:56,388 - INFO - ---
+2025-10-29 09:44:56,388 - INFO - ⚡ 正在处理样本 | Processing sample: B2-2
+2025-10-29 09:44:56,388 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B2-2_1.fq.gz
+2025-10-29 09:44:56,388 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B2-2_2.fq.gz
+2025-10-29 09:44:56,388 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B2-2_1.clean.fq.gz
+2025-10-29 09:44:56,388 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B2-2_2.clean.fq.gz
+2025-10-29 09:44:56,388 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B2-2.html
+2025-10-29 09:44:56,389 - INFO - ---
+2025-10-29 09:44:56,389 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B2-2
+2025-10-29 09:44:56,389 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B2-2_1.fq.gz -I 01.data/raw/B2-2_2.fq.gz -o 01.data/clean/B2-2_1.clean.fq.gz -O 01.data/clean/B2-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/B2-2.html -j 01.data/clean/fastp_reports/B2-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:45:35,959 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B2-2
+2025-10-29 09:45:35,959 - INFO - ✅ 样本 B2-2 处理完成 | Sample B2-2 processing completed
+2025-10-29 09:45:35,959 - INFO - ---
+2025-10-29 09:45:35,959 - INFO - ⚡ 正在处理样本 | Processing sample: 41
+2025-10-29 09:45:35,959 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/41_1.fq.gz
+2025-10-29 09:45:35,959 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/41_2.fq.gz
+2025-10-29 09:45:35,960 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/41_1.clean.fq.gz
+2025-10-29 09:45:35,960 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/41_2.clean.fq.gz
+2025-10-29 09:45:35,960 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/41.html
+2025-10-29 09:45:35,960 - INFO - ---
+2025-10-29 09:45:35,960 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> 41
+2025-10-29 09:45:35,960 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/41_1.fq.gz -I 01.data/raw/41_2.fq.gz -o 01.data/clean/41_1.clean.fq.gz -O 01.data/clean/41_2.clean.fq.gz -h 01.data/clean/fastp_reports/41.html -j 01.data/clean/fastp_reports/41.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:46:41,654 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> 41
+2025-10-29 09:46:41,654 - INFO - ✅ 样本 41 处理完成 | Sample 41 processing completed
+2025-10-29 09:46:41,654 - INFO - ---
+2025-10-29 09:46:41,654 - INFO - ⚡ 正在处理样本 | Processing sample: D2-12
+2025-10-29 09:46:41,654 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D2-12_1.fq.gz
+2025-10-29 09:46:41,654 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D2-12_2.fq.gz
+2025-10-29 09:46:41,654 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D2-12_1.clean.fq.gz
+2025-10-29 09:46:41,654 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D2-12_2.clean.fq.gz
+2025-10-29 09:46:41,654 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D2-12.html
+2025-10-29 09:46:41,654 - INFO - ---
+2025-10-29 09:46:41,654 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D2-12
+2025-10-29 09:46:41,654 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D2-12_1.fq.gz -I 01.data/raw/D2-12_2.fq.gz -o 01.data/clean/D2-12_1.clean.fq.gz -O 01.data/clean/D2-12_2.clean.fq.gz -h 01.data/clean/fastp_reports/D2-12.html -j 01.data/clean/fastp_reports/D2-12.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:47:38,276 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D2-12
+2025-10-29 09:47:38,276 - INFO - ✅ 样本 D2-12 处理完成 | Sample D2-12 processing completed
+2025-10-29 09:47:38,276 - INFO - ---
+2025-10-29 09:47:38,276 - INFO - ⚡ 正在处理样本 | Processing sample: N4-2
+2025-10-29 09:47:38,276 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N4-2_1.fq.gz
+2025-10-29 09:47:38,276 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N4-2_2.fq.gz
+2025-10-29 09:47:38,276 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N4-2_1.clean.fq.gz
+2025-10-29 09:47:38,276 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N4-2_2.clean.fq.gz
+2025-10-29 09:47:38,276 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N4-2.html
+2025-10-29 09:47:38,276 - INFO - ---
+2025-10-29 09:47:38,276 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N4-2
+2025-10-29 09:47:38,276 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N4-2_1.fq.gz -I 01.data/raw/N4-2_2.fq.gz -o 01.data/clean/N4-2_1.clean.fq.gz -O 01.data/clean/N4-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/N4-2.html -j 01.data/clean/fastp_reports/N4-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:48:22,789 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N4-2
+2025-10-29 09:48:22,789 - INFO - ✅ 样本 N4-2 处理完成 | Sample N4-2 processing completed
+2025-10-29 09:48:22,789 - INFO - ---
+2025-10-29 09:48:22,789 - INFO - ⚡ 正在处理样本 | Processing sample: B3-2
+2025-10-29 09:48:22,789 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B3-2_1.fq.gz
+2025-10-29 09:48:22,789 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B3-2_2.fq.gz
+2025-10-29 09:48:22,789 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B3-2_1.clean.fq.gz
+2025-10-29 09:48:22,789 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B3-2_2.clean.fq.gz
+2025-10-29 09:48:22,789 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B3-2.html
+2025-10-29 09:48:22,789 - INFO - ---
+2025-10-29 09:48:22,789 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B3-2
+2025-10-29 09:48:22,789 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B3-2_1.fq.gz -I 01.data/raw/B3-2_2.fq.gz -o 01.data/clean/B3-2_1.clean.fq.gz -O 01.data/clean/B3-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/B3-2.html -j 01.data/clean/fastp_reports/B3-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:49:31,939 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B3-2
+2025-10-29 09:49:31,939 - INFO - ✅ 样本 B3-2 处理完成 | Sample B3-2 processing completed
+2025-10-29 09:49:31,939 - INFO - ---
+2025-10-29 09:49:31,939 - INFO - ⚡ 正在处理样本 | Processing sample: A1-2
+2025-10-29 09:49:31,940 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/A1-2_1.fq.gz
+2025-10-29 09:49:31,940 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/A1-2_2.fq.gz
+2025-10-29 09:49:31,940 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/A1-2_1.clean.fq.gz
+2025-10-29 09:49:31,940 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/A1-2_2.clean.fq.gz
+2025-10-29 09:49:31,940 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/A1-2.html
+2025-10-29 09:49:31,940 - INFO - ---
+2025-10-29 09:49:31,940 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A1-2
+2025-10-29 09:49:31,940 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/A1-2_1.fq.gz -I 01.data/raw/A1-2_2.fq.gz -o 01.data/clean/A1-2_1.clean.fq.gz -O 01.data/clean/A1-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/A1-2.html -j 01.data/clean/fastp_reports/A1-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:50:28,055 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> A1-2
+2025-10-29 09:50:28,055 - INFO - ✅ 样本 A1-2 处理完成 | Sample A1-2 processing completed
+2025-10-29 09:50:28,055 - INFO - ---
+2025-10-29 09:50:28,055 - INFO - ⚡ 正在处理样本 | Processing sample: N2-1
+2025-10-29 09:50:28,055 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N2-1_1.fq.gz
+2025-10-29 09:50:28,055 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N2-1_2.fq.gz
+2025-10-29 09:50:28,055 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N2-1_1.clean.fq.gz
+2025-10-29 09:50:28,055 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N2-1_2.clean.fq.gz
+2025-10-29 09:50:28,055 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N2-1.html
+2025-10-29 09:50:28,055 - INFO - ---
+2025-10-29 09:50:28,055 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N2-1
+2025-10-29 09:50:28,055 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N2-1_1.fq.gz -I 01.data/raw/N2-1_2.fq.gz -o 01.data/clean/N2-1_1.clean.fq.gz -O 01.data/clean/N2-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/N2-1.html -j 01.data/clean/fastp_reports/N2-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:51:17,939 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N2-1
+2025-10-29 09:51:17,940 - INFO - ✅ 样本 N2-1 处理完成 | Sample N2-1 processing completed
+2025-10-29 09:51:17,940 - INFO - ---
+2025-10-29 09:51:17,940 - INFO - ⚡ 正在处理样本 | Processing sample: N3-3
+2025-10-29 09:51:17,940 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N3-3_1.fq.gz
+2025-10-29 09:51:17,941 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N3-3_2.fq.gz
+2025-10-29 09:51:17,941 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N3-3_1.clean.fq.gz
+2025-10-29 09:51:17,941 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N3-3_2.clean.fq.gz
+2025-10-29 09:51:17,941 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N3-3.html
+2025-10-29 09:51:17,941 - INFO - ---
+2025-10-29 09:51:17,941 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N3-3
+2025-10-29 09:51:17,941 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N3-3_1.fq.gz -I 01.data/raw/N3-3_2.fq.gz -o 01.data/clean/N3-3_1.clean.fq.gz -O 01.data/clean/N3-3_2.clean.fq.gz -h 01.data/clean/fastp_reports/N3-3.html -j 01.data/clean/fastp_reports/N3-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:52:12,587 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N3-3
+2025-10-29 09:52:12,587 - INFO - ✅ 样本 N3-3 处理完成 | Sample N3-3 processing completed
+2025-10-29 09:52:12,587 - INFO - ---
+2025-10-29 09:52:12,587 - INFO - ⚡ 正在处理样本 | Processing sample: N8-2
+2025-10-29 09:52:12,587 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N8-2_1.fq.gz
+2025-10-29 09:52:12,587 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N8-2_2.fq.gz
+2025-10-29 09:52:12,587 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N8-2_1.clean.fq.gz
+2025-10-29 09:52:12,587 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N8-2_2.clean.fq.gz
+2025-10-29 09:52:12,587 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N8-2.html
+2025-10-29 09:52:12,587 - INFO - ---
+2025-10-29 09:52:12,587 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N8-2
+2025-10-29 09:52:12,587 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N8-2_1.fq.gz -I 01.data/raw/N8-2_2.fq.gz -o 01.data/clean/N8-2_1.clean.fq.gz -O 01.data/clean/N8-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/N8-2.html -j 01.data/clean/fastp_reports/N8-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:52:49,972 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N8-2
+2025-10-29 09:52:49,972 - INFO - ✅ 样本 N8-2 处理完成 | Sample N8-2 processing completed
+2025-10-29 09:52:49,972 - INFO - ---
+2025-10-29 09:52:49,972 - INFO - ⚡ 正在处理样本 | Processing sample: A1-1
+2025-10-29 09:52:49,972 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/A1-1_1.fq.gz
+2025-10-29 09:52:49,973 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/A1-1_2.fq.gz
+2025-10-29 09:52:49,973 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/A1-1_1.clean.fq.gz
+2025-10-29 09:52:49,973 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/A1-1_2.clean.fq.gz
+2025-10-29 09:52:49,973 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/A1-1.html
+2025-10-29 09:52:49,973 - INFO - ---
+2025-10-29 09:52:49,973 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A1-1
+2025-10-29 09:52:49,973 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/A1-1_1.fq.gz -I 01.data/raw/A1-1_2.fq.gz -o 01.data/clean/A1-1_1.clean.fq.gz -O 01.data/clean/A1-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/A1-1.html -j 01.data/clean/fastp_reports/A1-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:53:39,823 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> A1-1
+2025-10-29 09:53:39,823 - INFO - ✅ 样本 A1-1 处理完成 | Sample A1-1 processing completed
+2025-10-29 09:53:39,823 - INFO - ---
+2025-10-29 09:53:39,823 - INFO - ⚡ 正在处理样本 | Processing sample: B4-2
+2025-10-29 09:53:39,823 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B4-2_1.fq.gz
+2025-10-29 09:53:39,823 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B4-2_2.fq.gz
+2025-10-29 09:53:39,824 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B4-2_1.clean.fq.gz
+2025-10-29 09:53:39,824 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B4-2_2.clean.fq.gz
+2025-10-29 09:53:39,824 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B4-2.html
+2025-10-29 09:53:39,824 - INFO - ---
+2025-10-29 09:53:39,824 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B4-2
+2025-10-29 09:53:39,824 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B4-2_1.fq.gz -I 01.data/raw/B4-2_2.fq.gz -o 01.data/clean/B4-2_1.clean.fq.gz -O 01.data/clean/B4-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/B4-2.html -j 01.data/clean/fastp_reports/B4-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:54:50,890 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B4-2
+2025-10-29 09:54:50,890 - INFO - ✅ 样本 B4-2 处理完成 | Sample B4-2 processing completed
+2025-10-29 09:54:50,890 - INFO - ---
+2025-10-29 09:54:50,890 - INFO - ⚡ 正在处理样本 | Processing sample: A3-3
+2025-10-29 09:54:50,890 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/A3-3_1.fq.gz
+2025-10-29 09:54:50,890 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/A3-3_2.fq.gz
+2025-10-29 09:54:50,890 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/A3-3_1.clean.fq.gz
+2025-10-29 09:54:50,890 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/A3-3_2.clean.fq.gz
+2025-10-29 09:54:50,890 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/A3-3.html
+2025-10-29 09:54:50,890 - INFO - ---
+2025-10-29 09:54:50,890 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A3-3
+2025-10-29 09:54:50,890 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/A3-3_1.fq.gz -I 01.data/raw/A3-3_2.fq.gz -o 01.data/clean/A3-3_1.clean.fq.gz -O 01.data/clean/A3-3_2.clean.fq.gz -h 01.data/clean/fastp_reports/A3-3.html -j 01.data/clean/fastp_reports/A3-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:55:47,268 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> A3-3
+2025-10-29 09:55:47,268 - INFO - ✅ 样本 A3-3 处理完成 | Sample A3-3 processing completed
+2025-10-29 09:55:47,268 - INFO - ---
+2025-10-29 09:55:47,268 - INFO - ⚡ 正在处理样本 | Processing sample: K2-1
+2025-10-29 09:55:47,268 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/K2-1_1.fq.gz
+2025-10-29 09:55:47,268 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/K2-1_2.fq.gz
+2025-10-29 09:55:47,268 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/K2-1_1.clean.fq.gz
+2025-10-29 09:55:47,268 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/K2-1_2.clean.fq.gz
+2025-10-29 09:55:47,268 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/K2-1.html
+2025-10-29 09:55:47,268 - INFO - ---
+2025-10-29 09:55:47,268 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> K2-1
+2025-10-29 09:55:47,268 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/K2-1_1.fq.gz -I 01.data/raw/K2-1_2.fq.gz -o 01.data/clean/K2-1_1.clean.fq.gz -O 01.data/clean/K2-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/K2-1.html -j 01.data/clean/fastp_reports/K2-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:56:52,972 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> K2-1
+2025-10-29 09:56:52,972 - INFO - ✅ 样本 K2-1 处理完成 | Sample K2-1 processing completed
+2025-10-29 09:56:52,973 - INFO - ---
+2025-10-29 09:56:52,973 - INFO - ⚡ 正在处理样本 | Processing sample: D3-2
+2025-10-29 09:56:52,973 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D3-2_1.fq.gz
+2025-10-29 09:56:52,973 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D3-2_2.fq.gz
+2025-10-29 09:56:52,973 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D3-2_1.clean.fq.gz
+2025-10-29 09:56:52,973 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D3-2_2.clean.fq.gz
+2025-10-29 09:56:52,973 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D3-2.html
+2025-10-29 09:56:52,973 - INFO - ---
+2025-10-29 09:56:52,973 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D3-2
+2025-10-29 09:56:52,973 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D3-2_1.fq.gz -I 01.data/raw/D3-2_2.fq.gz -o 01.data/clean/D3-2_1.clean.fq.gz -O 01.data/clean/D3-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/D3-2.html -j 01.data/clean/fastp_reports/D3-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:57:55,410 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D3-2
+2025-10-29 09:57:55,410 - INFO - ✅ 样本 D3-2 处理完成 | Sample D3-2 processing completed
+2025-10-29 09:57:55,410 - INFO - ---
+2025-10-29 09:57:55,410 - INFO - ⚡ 正在处理样本 | Processing sample: K1-1
+2025-10-29 09:57:55,410 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/K1-1_1.fq.gz
+2025-10-29 09:57:55,410 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/K1-1_2.fq.gz
+2025-10-29 09:57:55,410 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/K1-1_1.clean.fq.gz
+2025-10-29 09:57:55,410 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/K1-1_2.clean.fq.gz
+2025-10-29 09:57:55,410 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/K1-1.html
+2025-10-29 09:57:55,411 - INFO - ---
+2025-10-29 09:57:55,411 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> K1-1
+2025-10-29 09:57:55,411 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/K1-1_1.fq.gz -I 01.data/raw/K1-1_2.fq.gz -o 01.data/clean/K1-1_1.clean.fq.gz -O 01.data/clean/K1-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/K1-1.html -j 01.data/clean/fastp_reports/K1-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 09:59:07,460 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> K1-1
+2025-10-29 09:59:07,460 - INFO - ✅ 样本 K1-1 处理完成 | Sample K1-1 processing completed
+2025-10-29 09:59:07,460 - INFO - ---
+2025-10-29 09:59:07,460 - INFO - ⚡ 正在处理样本 | Processing sample: N8-9
+2025-10-29 09:59:07,460 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N8-9_1.fq.gz
+2025-10-29 09:59:07,460 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N8-9_2.fq.gz
+2025-10-29 09:59:07,460 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N8-9_1.clean.fq.gz
+2025-10-29 09:59:07,460 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N8-9_2.clean.fq.gz
+2025-10-29 09:59:07,460 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N8-9.html
+2025-10-29 09:59:07,460 - INFO - ---
+2025-10-29 09:59:07,460 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N8-9
+2025-10-29 09:59:07,460 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N8-9_1.fq.gz -I 01.data/raw/N8-9_2.fq.gz -o 01.data/clean/N8-9_1.clean.fq.gz -O 01.data/clean/N8-9_2.clean.fq.gz -h 01.data/clean/fastp_reports/N8-9.html -j 01.data/clean/fastp_reports/N8-9.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:00:00,274 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N8-9
+2025-10-29 10:00:00,274 - INFO - ✅ 样本 N8-9 处理完成 | Sample N8-9 processing completed
+2025-10-29 10:00:00,274 - INFO - ---
+2025-10-29 10:00:00,274 - INFO - ⚡ 正在处理样本 | Processing sample: B2-3
+2025-10-29 10:00:00,274 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B2-3_1.fq.gz
+2025-10-29 10:00:00,274 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B2-3_2.fq.gz
+2025-10-29 10:00:00,274 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B2-3_1.clean.fq.gz
+2025-10-29 10:00:00,274 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B2-3_2.clean.fq.gz
+2025-10-29 10:00:00,274 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B2-3.html
+2025-10-29 10:00:00,274 - INFO - ---
+2025-10-29 10:00:00,274 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B2-3
+2025-10-29 10:00:00,274 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B2-3_1.fq.gz -I 01.data/raw/B2-3_2.fq.gz -o 01.data/clean/B2-3_1.clean.fq.gz -O 01.data/clean/B2-3_2.clean.fq.gz -h 01.data/clean/fastp_reports/B2-3.html -j 01.data/clean/fastp_reports/B2-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:00:38,092 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B2-3
+2025-10-29 10:00:38,092 - INFO - ✅ 样本 B2-3 处理完成 | Sample B2-3 processing completed
+2025-10-29 10:00:38,092 - INFO - ---
+2025-10-29 10:00:38,092 - INFO - ⚡ 正在处理样本 | Processing sample: N12-2
+2025-10-29 10:00:38,092 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N12-2_1.fq.gz
+2025-10-29 10:00:38,092 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N12-2_2.fq.gz
+2025-10-29 10:00:38,092 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N12-2_1.clean.fq.gz
+2025-10-29 10:00:38,092 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N12-2_2.clean.fq.gz
+2025-10-29 10:00:38,092 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N12-2.html
+2025-10-29 10:00:38,092 - INFO - ---
+2025-10-29 10:00:38,092 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N12-2
+2025-10-29 10:00:38,092 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N12-2_1.fq.gz -I 01.data/raw/N12-2_2.fq.gz -o 01.data/clean/N12-2_1.clean.fq.gz -O 01.data/clean/N12-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/N12-2.html -j 01.data/clean/fastp_reports/N12-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:01:31,824 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N12-2
+2025-10-29 10:01:31,824 - INFO - ✅ 样本 N12-2 处理完成 | Sample N12-2 processing completed
+2025-10-29 10:01:31,824 - INFO - ---
+2025-10-29 10:01:31,824 - INFO - ⚡ 正在处理样本 | Processing sample: A2-2
+2025-10-29 10:01:31,824 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/A2-2_1.fq.gz
+2025-10-29 10:01:31,824 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/A2-2_2.fq.gz
+2025-10-29 10:01:31,824 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/A2-2_1.clean.fq.gz
+2025-10-29 10:01:31,824 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/A2-2_2.clean.fq.gz
+2025-10-29 10:01:31,824 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/A2-2.html
+2025-10-29 10:01:31,824 - INFO - ---
+2025-10-29 10:01:31,824 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A2-2
+2025-10-29 10:01:31,824 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/A2-2_1.fq.gz -I 01.data/raw/A2-2_2.fq.gz -o 01.data/clean/A2-2_1.clean.fq.gz -O 01.data/clean/A2-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/A2-2.html -j 01.data/clean/fastp_reports/A2-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:02:27,250 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> A2-2
+2025-10-29 10:02:27,250 - INFO - ✅ 样本 A2-2 处理完成 | Sample A2-2 processing completed
+2025-10-29 10:02:27,250 - INFO - ---
+2025-10-29 10:02:27,250 - INFO - ⚡ 正在处理样本 | Processing sample: B4-22
+2025-10-29 10:02:27,250 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B4-22_1.fq.gz
+2025-10-29 10:02:27,250 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B4-22_2.fq.gz
+2025-10-29 10:02:27,250 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B4-22_1.clean.fq.gz
+2025-10-29 10:02:27,251 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B4-22_2.clean.fq.gz
+2025-10-29 10:02:27,251 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B4-22.html
+2025-10-29 10:02:27,251 - INFO - ---
+2025-10-29 10:02:27,251 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B4-22
+2025-10-29 10:02:27,251 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B4-22_1.fq.gz -I 01.data/raw/B4-22_2.fq.gz -o 01.data/clean/B4-22_1.clean.fq.gz -O 01.data/clean/B4-22_2.clean.fq.gz -h 01.data/clean/fastp_reports/B4-22.html -j 01.data/clean/fastp_reports/B4-22.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:03:24,157 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B4-22
+2025-10-29 10:03:24,157 - INFO - ✅ 样本 B4-22 处理完成 | Sample B4-22 processing completed
+2025-10-29 10:03:24,157 - INFO - ---
+2025-10-29 10:03:24,157 - INFO - ⚡ 正在处理样本 | Processing sample: D1-2
+2025-10-29 10:03:24,157 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D1-2_1.fq.gz
+2025-10-29 10:03:24,157 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D1-2_2.fq.gz
+2025-10-29 10:03:24,157 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D1-2_1.clean.fq.gz
+2025-10-29 10:03:24,157 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D1-2_2.clean.fq.gz
+2025-10-29 10:03:24,157 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D1-2.html
+2025-10-29 10:03:24,157 - INFO - ---
+2025-10-29 10:03:24,157 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D1-2
+2025-10-29 10:03:24,157 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D1-2_1.fq.gz -I 01.data/raw/D1-2_2.fq.gz -o 01.data/clean/D1-2_1.clean.fq.gz -O 01.data/clean/D1-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/D1-2.html -j 01.data/clean/fastp_reports/D1-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:04:19,361 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D1-2
+2025-10-29 10:04:19,361 - INFO - ✅ 样本 D1-2 处理完成 | Sample D1-2 processing completed
+2025-10-29 10:04:19,361 - INFO - ---
+2025-10-29 10:04:19,361 - INFO - ⚡ 正在处理样本 | Processing sample: N12-1
+2025-10-29 10:04:19,361 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N12-1_1.fq.gz
+2025-10-29 10:04:19,361 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N12-1_2.fq.gz
+2025-10-29 10:04:19,361 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N12-1_1.clean.fq.gz
+2025-10-29 10:04:19,361 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N12-1_2.clean.fq.gz
+2025-10-29 10:04:19,361 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N12-1.html
+2025-10-29 10:04:19,361 - INFO - ---
+2025-10-29 10:04:19,361 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N12-1
+2025-10-29 10:04:19,361 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N12-1_1.fq.gz -I 01.data/raw/N12-1_2.fq.gz -o 01.data/clean/N12-1_1.clean.fq.gz -O 01.data/clean/N12-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/N12-1.html -j 01.data/clean/fastp_reports/N12-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:05:06,297 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N12-1
+2025-10-29 10:05:06,297 - INFO - ✅ 样本 N12-1 处理完成 | Sample N12-1 processing completed
+2025-10-29 10:05:06,297 - INFO - ---
+2025-10-29 10:05:06,297 - INFO - ⚡ 正在处理样本 | Processing sample: B3-1
+2025-10-29 10:05:06,297 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B3-1_1.fq.gz
+2025-10-29 10:05:06,297 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B3-1_2.fq.gz
+2025-10-29 10:05:06,297 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B3-1_1.clean.fq.gz
+2025-10-29 10:05:06,297 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B3-1_2.clean.fq.gz
+2025-10-29 10:05:06,297 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B3-1.html
+2025-10-29 10:05:06,297 - INFO - ---
+2025-10-29 10:05:06,297 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B3-1
+2025-10-29 10:05:06,297 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B3-1_1.fq.gz -I 01.data/raw/B3-1_2.fq.gz -o 01.data/clean/B3-1_1.clean.fq.gz -O 01.data/clean/B3-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/B3-1.html -j 01.data/clean/fastp_reports/B3-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:05:57,369 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B3-1
+2025-10-29 10:05:57,369 - INFO - ✅ 样本 B3-1 处理完成 | Sample B3-1 processing completed
+2025-10-29 10:05:57,369 - INFO - ---
+2025-10-29 10:05:57,369 - INFO - ⚡ 正在处理样本 | Processing sample: B4-1
+2025-10-29 10:05:57,369 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B4-1_1.fq.gz
+2025-10-29 10:05:57,369 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B4-1_2.fq.gz
+2025-10-29 10:05:57,369 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B4-1_1.clean.fq.gz
+2025-10-29 10:05:57,369 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B4-1_2.clean.fq.gz
+2025-10-29 10:05:57,370 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B4-1.html
+2025-10-29 10:05:57,370 - INFO - ---
+2025-10-29 10:05:57,370 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B4-1
+2025-10-29 10:05:57,370 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B4-1_1.fq.gz -I 01.data/raw/B4-1_2.fq.gz -o 01.data/clean/B4-1_1.clean.fq.gz -O 01.data/clean/B4-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/B4-1.html -j 01.data/clean/fastp_reports/B4-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:06:39,317 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B4-1
+2025-10-29 10:06:39,317 - INFO - ✅ 样本 B4-1 处理完成 | Sample B4-1 processing completed
+2025-10-29 10:06:39,317 - INFO - ---
+2025-10-29 10:06:39,317 - INFO - ⚡ 正在处理样本 | Processing sample: D5-1
+2025-10-29 10:06:39,317 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D5-1_1.fq.gz
+2025-10-29 10:06:39,317 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D5-1_2.fq.gz
+2025-10-29 10:06:39,317 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D5-1_1.clean.fq.gz
+2025-10-29 10:06:39,317 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D5-1_2.clean.fq.gz
+2025-10-29 10:06:39,317 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D5-1.html
+2025-10-29 10:06:39,317 - INFO - ---
+2025-10-29 10:06:39,317 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D5-1
+2025-10-29 10:06:39,317 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D5-1_1.fq.gz -I 01.data/raw/D5-1_2.fq.gz -o 01.data/clean/D5-1_1.clean.fq.gz -O 01.data/clean/D5-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/D5-1.html -j 01.data/clean/fastp_reports/D5-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:07:33,286 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D5-1
+2025-10-29 10:07:33,287 - INFO - ✅ 样本 D5-1 处理完成 | Sample D5-1 processing completed
+2025-10-29 10:07:33,287 - INFO - ---
+2025-10-29 10:07:33,287 - INFO - ⚡ 正在处理样本 | Processing sample: N2-3
+2025-10-29 10:07:33,287 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N2-3_1.fq.gz
+2025-10-29 10:07:33,287 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N2-3_2.fq.gz
+2025-10-29 10:07:33,287 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N2-3_1.clean.fq.gz
+2025-10-29 10:07:33,287 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N2-3_2.clean.fq.gz
+2025-10-29 10:07:33,287 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N2-3.html
+2025-10-29 10:07:33,287 - INFO - ---
+2025-10-29 10:07:33,287 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N2-3
+2025-10-29 10:07:33,287 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N2-3_1.fq.gz -I 01.data/raw/N2-3_2.fq.gz -o 01.data/clean/N2-3_1.clean.fq.gz -O 01.data/clean/N2-3_2.clean.fq.gz -h 01.data/clean/fastp_reports/N2-3.html -j 01.data/clean/fastp_reports/N2-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:08:25,880 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N2-3
+2025-10-29 10:08:25,880 - INFO - ✅ 样本 N2-3 处理完成 | Sample N2-3 processing completed
+2025-10-29 10:08:25,880 - INFO - ---
+2025-10-29 10:08:25,880 - INFO - ⚡ 正在处理样本 | Processing sample: M-1
+2025-10-29 10:08:25,880 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/M-1_1.fq.gz
+2025-10-29 10:08:25,880 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/M-1_2.fq.gz
+2025-10-29 10:08:25,880 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/M-1_1.clean.fq.gz
+2025-10-29 10:08:25,880 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/M-1_2.clean.fq.gz
+2025-10-29 10:08:25,880 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/M-1.html
+2025-10-29 10:08:25,880 - INFO - ---
+2025-10-29 10:08:25,880 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> M-1
+2025-10-29 10:08:25,880 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/M-1_1.fq.gz -I 01.data/raw/M-1_2.fq.gz -o 01.data/clean/M-1_1.clean.fq.gz -O 01.data/clean/M-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/M-1.html -j 01.data/clean/fastp_reports/M-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:09:35,543 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> M-1
+2025-10-29 10:09:35,543 - INFO - ✅ 样本 M-1 处理完成 | Sample M-1 processing completed
+2025-10-29 10:09:35,543 - INFO - ---
+2025-10-29 10:09:35,543 - INFO - ⚡ 正在处理样本 | Processing sample: D5-3
+2025-10-29 10:09:35,543 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D5-3_1.fq.gz
+2025-10-29 10:09:35,543 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D5-3_2.fq.gz
+2025-10-29 10:09:35,543 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D5-3_1.clean.fq.gz
+2025-10-29 10:09:35,543 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D5-3_2.clean.fq.gz
+2025-10-29 10:09:35,543 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D5-3.html
+2025-10-29 10:09:35,543 - INFO - ---
+2025-10-29 10:09:35,543 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D5-3
+2025-10-29 10:09:35,543 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D5-3_1.fq.gz -I 01.data/raw/D5-3_2.fq.gz -o 01.data/clean/D5-3_1.clean.fq.gz -O 01.data/clean/D5-3_2.clean.fq.gz -h 01.data/clean/fastp_reports/D5-3.html -j 01.data/clean/fastp_reports/D5-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:10:40,087 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D5-3
+2025-10-29 10:10:40,087 - INFO - ✅ 样本 D5-3 处理完成 | Sample D5-3 processing completed
+2025-10-29 10:10:40,087 - INFO - ---
+2025-10-29 10:10:40,087 - INFO - ⚡ 正在处理样本 | Processing sample: N11-1
+2025-10-29 10:10:40,087 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N11-1_1.fq.gz
+2025-10-29 10:10:40,087 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N11-1_2.fq.gz
+2025-10-29 10:10:40,087 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N11-1_1.clean.fq.gz
+2025-10-29 10:10:40,088 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N11-1_2.clean.fq.gz
+2025-10-29 10:10:40,088 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N11-1.html
+2025-10-29 10:10:40,088 - INFO - ---
+2025-10-29 10:10:40,088 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N11-1
+2025-10-29 10:10:40,088 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N11-1_1.fq.gz -I 01.data/raw/N11-1_2.fq.gz -o 01.data/clean/N11-1_1.clean.fq.gz -O 01.data/clean/N11-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/N11-1.html -j 01.data/clean/fastp_reports/N11-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:11:34,296 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N11-1
+2025-10-29 10:11:34,296 - INFO - ✅ 样本 N11-1 处理完成 | Sample N11-1 processing completed
+2025-10-29 10:11:34,296 - INFO - ---
+2025-10-29 10:11:34,296 - INFO - ⚡ 正在处理样本 | Processing sample: D4-2
+2025-10-29 10:11:34,296 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D4-2_1.fq.gz
+2025-10-29 10:11:34,296 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D4-2_2.fq.gz
+2025-10-29 10:11:34,296 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D4-2_1.clean.fq.gz
+2025-10-29 10:11:34,296 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D4-2_2.clean.fq.gz
+2025-10-29 10:11:34,296 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D4-2.html
+2025-10-29 10:11:34,297 - INFO - ---
+2025-10-29 10:11:34,297 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-2
+2025-10-29 10:11:34,297 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D4-2_1.fq.gz -I 01.data/raw/D4-2_2.fq.gz -o 01.data/clean/D4-2_1.clean.fq.gz -O 01.data/clean/D4-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/D4-2.html -j 01.data/clean/fastp_reports/D4-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:12:23,840 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-2
+2025-10-29 10:12:23,840 - INFO - ✅ 样本 D4-2 处理完成 | Sample D4-2 processing completed
+2025-10-29 10:12:23,840 - INFO - ---
+2025-10-29 10:12:23,840 - INFO - ⚡ 正在处理样本 | Processing sample: D3-1
+2025-10-29 10:12:23,840 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D3-1_1.fq.gz
+2025-10-29 10:12:23,840 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D3-1_2.fq.gz
+2025-10-29 10:12:23,840 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D3-1_1.clean.fq.gz
+2025-10-29 10:12:23,840 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D3-1_2.clean.fq.gz
+2025-10-29 10:12:23,840 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D3-1.html
+2025-10-29 10:12:23,840 - INFO - ---
+2025-10-29 10:12:23,840 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D3-1
+2025-10-29 10:12:23,840 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D3-1_1.fq.gz -I 01.data/raw/D3-1_2.fq.gz -o 01.data/clean/D3-1_1.clean.fq.gz -O 01.data/clean/D3-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/D3-1.html -j 01.data/clean/fastp_reports/D3-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:13:21,940 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D3-1
+2025-10-29 10:13:21,940 - INFO - ✅ 样本 D3-1 处理完成 | Sample D3-1 processing completed
+2025-10-29 10:13:21,940 - INFO - ---
+2025-10-29 10:13:21,940 - INFO - ⚡ 正在处理样本 | Processing sample: N6-1
+2025-10-29 10:13:21,940 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N6-1_1.fq.gz
+2025-10-29 10:13:21,940 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N6-1_2.fq.gz
+2025-10-29 10:13:21,940 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N6-1_1.clean.fq.gz
+2025-10-29 10:13:21,940 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N6-1_2.clean.fq.gz
+2025-10-29 10:13:21,940 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N6-1.html
+2025-10-29 10:13:21,940 - INFO - ---
+2025-10-29 10:13:21,940 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N6-1
+2025-10-29 10:13:21,940 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N6-1_1.fq.gz -I 01.data/raw/N6-1_2.fq.gz -o 01.data/clean/N6-1_1.clean.fq.gz -O 01.data/clean/N6-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/N6-1.html -j 01.data/clean/fastp_reports/N6-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:14:12,686 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N6-1
+2025-10-29 10:14:12,686 - INFO - ✅ 样本 N6-1 处理完成 | Sample N6-1 processing completed
+2025-10-29 10:14:12,686 - INFO - ---
+2025-10-29 10:14:12,686 - INFO - ⚡ 正在处理样本 | Processing sample: N3-4
+2025-10-29 10:14:12,686 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N3-4_1.fq.gz
+2025-10-29 10:14:12,686 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N3-4_2.fq.gz
+2025-10-29 10:14:12,686 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N3-4_1.clean.fq.gz
+2025-10-29 10:14:12,686 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N3-4_2.clean.fq.gz
+2025-10-29 10:14:12,686 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N3-4.html
+2025-10-29 10:14:12,686 - INFO - ---
+2025-10-29 10:14:12,686 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N3-4
+2025-10-29 10:14:12,686 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N3-4_1.fq.gz -I 01.data/raw/N3-4_2.fq.gz -o 01.data/clean/N3-4_1.clean.fq.gz -O 01.data/clean/N3-4_2.clean.fq.gz -h 01.data/clean/fastp_reports/N3-4.html -j 01.data/clean/fastp_reports/N3-4.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:15:02,883 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N3-4
+2025-10-29 10:15:02,883 - INFO - ✅ 样本 N3-4 处理完成 | Sample N3-4 processing completed
+2025-10-29 10:15:02,883 - INFO - ---
+2025-10-29 10:15:02,883 - INFO - ⚡ 正在处理样本 | Processing sample: N10-1
+2025-10-29 10:15:02,884 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N10-1_1.fq.gz
+2025-10-29 10:15:02,884 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N10-1_2.fq.gz
+2025-10-29 10:15:02,884 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N10-1_1.clean.fq.gz
+2025-10-29 10:15:02,884 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N10-1_2.clean.fq.gz
+2025-10-29 10:15:02,884 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N10-1.html
+2025-10-29 10:15:02,884 - INFO - ---
+2025-10-29 10:15:02,884 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N10-1
+2025-10-29 10:15:02,884 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N10-1_1.fq.gz -I 01.data/raw/N10-1_2.fq.gz -o 01.data/clean/N10-1_1.clean.fq.gz -O 01.data/clean/N10-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/N10-1.html -j 01.data/clean/fastp_reports/N10-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:15:53,698 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N10-1
+2025-10-29 10:15:53,698 - INFO - ✅ 样本 N10-1 处理完成 | Sample N10-1 processing completed
+2025-10-29 10:15:53,698 - INFO - ---
+2025-10-29 10:15:53,698 - INFO - ⚡ 正在处理样本 | Processing sample: D5-2
+2025-10-29 10:15:53,698 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D5-2_1.fq.gz
+2025-10-29 10:15:53,698 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D5-2_2.fq.gz
+2025-10-29 10:15:53,698 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D5-2_1.clean.fq.gz
+2025-10-29 10:15:53,698 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D5-2_2.clean.fq.gz
+2025-10-29 10:15:53,698 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D5-2.html
+2025-10-29 10:15:53,698 - INFO - ---
+2025-10-29 10:15:53,698 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D5-2
+2025-10-29 10:15:53,698 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D5-2_1.fq.gz -I 01.data/raw/D5-2_2.fq.gz -o 01.data/clean/D5-2_1.clean.fq.gz -O 01.data/clean/D5-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/D5-2.html -j 01.data/clean/fastp_reports/D5-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:16:46,618 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D5-2
+2025-10-29 10:16:46,618 - INFO - ✅ 样本 D5-2 处理完成 | Sample D5-2 processing completed
+2025-10-29 10:16:46,618 - INFO - ---
+2025-10-29 10:16:46,619 - INFO - ⚡ 正在处理样本 | Processing sample: N4-1
+2025-10-29 10:16:46,619 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N4-1_1.fq.gz
+2025-10-29 10:16:46,619 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N4-1_2.fq.gz
+2025-10-29 10:16:46,619 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N4-1_1.clean.fq.gz
+2025-10-29 10:16:46,619 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N4-1_2.clean.fq.gz
+2025-10-29 10:16:46,619 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N4-1.html
+2025-10-29 10:16:46,619 - INFO - ---
+2025-10-29 10:16:46,619 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N4-1
+2025-10-29 10:16:46,619 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N4-1_1.fq.gz -I 01.data/raw/N4-1_2.fq.gz -o 01.data/clean/N4-1_1.clean.fq.gz -O 01.data/clean/N4-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/N4-1.html -j 01.data/clean/fastp_reports/N4-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:17:34,701 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N4-1
+2025-10-29 10:17:34,701 - INFO - ✅ 样本 N4-1 处理完成 | Sample N4-1 processing completed
+2025-10-29 10:17:34,701 - INFO - ---
+2025-10-29 10:17:34,701 - INFO - ⚡ 正在处理样本 | Processing sample: A1-16
+2025-10-29 10:17:34,701 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/A1-16_1.fq.gz
+2025-10-29 10:17:34,701 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/A1-16_2.fq.gz
+2025-10-29 10:17:34,701 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/A1-16_1.clean.fq.gz
+2025-10-29 10:17:34,701 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/A1-16_2.clean.fq.gz
+2025-10-29 10:17:34,701 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/A1-16.html
+2025-10-29 10:17:34,701 - INFO - ---
+2025-10-29 10:17:34,701 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A1-16
+2025-10-29 10:17:34,701 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/A1-16_1.fq.gz -I 01.data/raw/A1-16_2.fq.gz -o 01.data/clean/A1-16_1.clean.fq.gz -O 01.data/clean/A1-16_2.clean.fq.gz -h 01.data/clean/fastp_reports/A1-16.html -j 01.data/clean/fastp_reports/A1-16.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:18:31,329 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> A1-16
+2025-10-29 10:18:31,329 - INFO - ✅ 样本 A1-16 处理完成 | Sample A1-16 processing completed
+2025-10-29 10:18:31,329 - INFO - ---
+2025-10-29 10:18:31,329 - INFO - ⚡ 正在处理样本 | Processing sample: D3-3
+2025-10-29 10:18:31,329 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D3-3_1.fq.gz
+2025-10-29 10:18:31,329 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D3-3_2.fq.gz
+2025-10-29 10:18:31,329 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D3-3_1.clean.fq.gz
+2025-10-29 10:18:31,330 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D3-3_2.clean.fq.gz
+2025-10-29 10:18:31,330 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D3-3.html
+2025-10-29 10:18:31,330 - INFO - ---
+2025-10-29 10:18:31,330 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D3-3
+2025-10-29 10:18:31,330 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D3-3_1.fq.gz -I 01.data/raw/D3-3_2.fq.gz -o 01.data/clean/D3-3_1.clean.fq.gz -O 01.data/clean/D3-3_2.clean.fq.gz -h 01.data/clean/fastp_reports/D3-3.html -j 01.data/clean/fastp_reports/D3-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:19:19,354 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D3-3
+2025-10-29 10:19:19,355 - INFO - ✅ 样本 D3-3 处理完成 | Sample D3-3 processing completed
+2025-10-29 10:19:19,355 - INFO - ---
+2025-10-29 10:19:19,355 - INFO - ⚡ 正在处理样本 | Processing sample: D4-1
+2025-10-29 10:19:19,355 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D4-1_1.fq.gz
+2025-10-29 10:19:19,355 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D4-1_2.fq.gz
+2025-10-29 10:19:19,355 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D4-1_1.clean.fq.gz
+2025-10-29 10:19:19,355 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D4-1_2.clean.fq.gz
+2025-10-29 10:19:19,355 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D4-1.html
+2025-10-29 10:19:19,355 - INFO - ---
+2025-10-29 10:19:19,355 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D4-1
+2025-10-29 10:19:19,355 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D4-1_1.fq.gz -I 01.data/raw/D4-1_2.fq.gz -o 01.data/clean/D4-1_1.clean.fq.gz -O 01.data/clean/D4-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/D4-1.html -j 01.data/clean/fastp_reports/D4-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:20:11,183 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D4-1
+2025-10-29 10:20:11,183 - INFO - ✅ 样本 D4-1 处理完成 | Sample D4-1 processing completed
+2025-10-29 10:20:11,184 - INFO - ---
+2025-10-29 10:20:11,184 - INFO - ⚡ 正在处理样本 | Processing sample: N2-2
+2025-10-29 10:20:11,184 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N2-2_1.fq.gz
+2025-10-29 10:20:11,184 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N2-2_2.fq.gz
+2025-10-29 10:20:11,184 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N2-2_1.clean.fq.gz
+2025-10-29 10:20:11,184 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N2-2_2.clean.fq.gz
+2025-10-29 10:20:11,184 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N2-2.html
+2025-10-29 10:20:11,184 - INFO - ---
+2025-10-29 10:20:11,184 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N2-2
+2025-10-29 10:20:11,184 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N2-2_1.fq.gz -I 01.data/raw/N2-2_2.fq.gz -o 01.data/clean/N2-2_1.clean.fq.gz -O 01.data/clean/N2-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/N2-2.html -j 01.data/clean/fastp_reports/N2-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:21:06,196 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N2-2
+2025-10-29 10:21:06,196 - INFO - ✅ 样本 N2-2 处理完成 | Sample N2-2 processing completed
+2025-10-29 10:21:06,196 - INFO - ---
+2025-10-29 10:21:06,196 - INFO - ⚡ 正在处理样本 | Processing sample: N10-15
+2025-10-29 10:21:06,197 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N10-15_1.fq.gz
+2025-10-29 10:21:06,197 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N10-15_2.fq.gz
+2025-10-29 10:21:06,197 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N10-15_1.clean.fq.gz
+2025-10-29 10:21:06,197 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N10-15_2.clean.fq.gz
+2025-10-29 10:21:06,197 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N10-15.html
+2025-10-29 10:21:06,197 - INFO - ---
+2025-10-29 10:21:06,197 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N10-15
+2025-10-29 10:21:06,197 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N10-15_1.fq.gz -I 01.data/raw/N10-15_2.fq.gz -o 01.data/clean/N10-15_1.clean.fq.gz -O 01.data/clean/N10-15_2.clean.fq.gz -h 01.data/clean/fastp_reports/N10-15.html -j 01.data/clean/fastp_reports/N10-15.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:21:52,137 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N10-15
+2025-10-29 10:21:52,137 - INFO - ✅ 样本 N10-15 处理完成 | Sample N10-15 processing completed
+2025-10-29 10:21:52,137 - INFO - ---
+2025-10-29 10:21:52,137 - INFO - ⚡ 正在处理样本 | Processing sample: B3-3
+2025-10-29 10:21:52,137 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B3-3_1.fq.gz
+2025-10-29 10:21:52,137 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B3-3_2.fq.gz
+2025-10-29 10:21:52,137 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B3-3_1.clean.fq.gz
+2025-10-29 10:21:52,137 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B3-3_2.clean.fq.gz
+2025-10-29 10:21:52,137 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B3-3.html
+2025-10-29 10:21:52,137 - INFO - ---
+2025-10-29 10:21:52,138 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B3-3
+2025-10-29 10:21:52,138 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B3-3_1.fq.gz -I 01.data/raw/B3-3_2.fq.gz -o 01.data/clean/B3-3_1.clean.fq.gz -O 01.data/clean/B3-3_2.clean.fq.gz -h 01.data/clean/fastp_reports/B3-3.html -j 01.data/clean/fastp_reports/B3-3.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:22:38,916 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B3-3
+2025-10-29 10:22:38,916 - INFO - ✅ 样本 B3-3 处理完成 | Sample B3-3 processing completed
+2025-10-29 10:22:38,916 - INFO - ---
+2025-10-29 10:22:38,916 - INFO - ⚡ 正在处理样本 | Processing sample: N8-8
+2025-10-29 10:22:38,917 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N8-8_1.fq.gz
+2025-10-29 10:22:38,917 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N8-8_2.fq.gz
+2025-10-29 10:22:38,917 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N8-8_1.clean.fq.gz
+2025-10-29 10:22:38,917 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N8-8_2.clean.fq.gz
+2025-10-29 10:22:38,917 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N8-8.html
+2025-10-29 10:22:38,917 - INFO - ---
+2025-10-29 10:22:38,917 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N8-8
+2025-10-29 10:22:38,917 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N8-8_1.fq.gz -I 01.data/raw/N8-8_2.fq.gz -o 01.data/clean/N8-8_1.clean.fq.gz -O 01.data/clean/N8-8_2.clean.fq.gz -h 01.data/clean/fastp_reports/N8-8.html -j 01.data/clean/fastp_reports/N8-8.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:23:30,164 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N8-8
+2025-10-29 10:23:30,164 - INFO - ✅ 样本 N8-8 处理完成 | Sample N8-8 processing completed
+2025-10-29 10:23:30,165 - INFO - ---
+2025-10-29 10:23:30,165 - INFO - ⚡ 正在处理样本 | Processing sample: B4-23
+2025-10-29 10:23:30,165 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/B4-23_1.fq.gz
+2025-10-29 10:23:30,165 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/B4-23_2.fq.gz
+2025-10-29 10:23:30,165 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/B4-23_1.clean.fq.gz
+2025-10-29 10:23:30,165 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/B4-23_2.clean.fq.gz
+2025-10-29 10:23:30,165 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/B4-23.html
+2025-10-29 10:23:30,165 - INFO - ---
+2025-10-29 10:23:30,165 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> B4-23
+2025-10-29 10:23:30,165 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/B4-23_1.fq.gz -I 01.data/raw/B4-23_2.fq.gz -o 01.data/clean/B4-23_1.clean.fq.gz -O 01.data/clean/B4-23_2.clean.fq.gz -h 01.data/clean/fastp_reports/B4-23.html -j 01.data/clean/fastp_reports/B4-23.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:24:15,150 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> B4-23
+2025-10-29 10:24:15,151 - INFO - ✅ 样本 B4-23 处理完成 | Sample B4-23 processing completed
+2025-10-29 10:24:15,151 - INFO - ---
+2025-10-29 10:24:15,151 - INFO - ⚡ 正在处理样本 | Processing sample: M-2
+2025-10-29 10:24:15,151 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/M-2_1.fq.gz
+2025-10-29 10:24:15,151 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/M-2_2.fq.gz
+2025-10-29 10:24:15,151 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/M-2_1.clean.fq.gz
+2025-10-29 10:24:15,151 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/M-2_2.clean.fq.gz
+2025-10-29 10:24:15,152 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/M-2.html
+2025-10-29 10:24:15,152 - INFO - ---
+2025-10-29 10:24:15,152 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> M-2
+2025-10-29 10:24:15,152 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/M-2_1.fq.gz -I 01.data/raw/M-2_2.fq.gz -o 01.data/clean/M-2_1.clean.fq.gz -O 01.data/clean/M-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/M-2.html -j 01.data/clean/fastp_reports/M-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:25:21,157 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> M-2
+2025-10-29 10:25:21,158 - INFO - ✅ 样本 M-2 处理完成 | Sample M-2 processing completed
+2025-10-29 10:25:21,158 - INFO - ---
+2025-10-29 10:25:21,158 - INFO - ⚡ 正在处理样本 | Processing sample: SG30
+2025-10-29 10:25:21,158 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/SG30_1.fq.gz
+2025-10-29 10:25:21,158 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/SG30_2.fq.gz
+2025-10-29 10:25:21,158 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/SG30_1.clean.fq.gz
+2025-10-29 10:25:21,158 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/SG30_2.clean.fq.gz
+2025-10-29 10:25:21,158 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/SG30.html
+2025-10-29 10:25:21,158 - INFO - ---
+2025-10-29 10:25:21,158 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SG30
+2025-10-29 10:25:21,158 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/SG30_1.fq.gz -I 01.data/raw/SG30_2.fq.gz -o 01.data/clean/SG30_1.clean.fq.gz -O 01.data/clean/SG30_2.clean.fq.gz -h 01.data/clean/fastp_reports/SG30.html -j 01.data/clean/fastp_reports/SG30.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:26:27,214 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> SG30
+2025-10-29 10:26:27,214 - INFO - ✅ 样本 SG30 处理完成 | Sample SG30 processing completed
+2025-10-29 10:26:27,215 - INFO - ---
+2025-10-29 10:26:27,215 - INFO - ⚡ 正在处理样本 | Processing sample: D6-1
+2025-10-29 10:26:27,215 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D6-1_1.fq.gz
+2025-10-29 10:26:27,215 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D6-1_2.fq.gz
+2025-10-29 10:26:27,215 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D6-1_1.clean.fq.gz
+2025-10-29 10:26:27,215 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D6-1_2.clean.fq.gz
+2025-10-29 10:26:27,215 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D6-1.html
+2025-10-29 10:26:27,215 - INFO - ---
+2025-10-29 10:26:27,215 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D6-1
+2025-10-29 10:26:27,215 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D6-1_1.fq.gz -I 01.data/raw/D6-1_2.fq.gz -o 01.data/clean/D6-1_1.clean.fq.gz -O 01.data/clean/D6-1_2.clean.fq.gz -h 01.data/clean/fastp_reports/D6-1.html -j 01.data/clean/fastp_reports/D6-1.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:27:15,945 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D6-1
+2025-10-29 10:27:15,946 - INFO - ✅ 样本 D6-1 处理完成 | Sample D6-1 processing completed
+2025-10-29 10:27:15,946 - INFO - ---
+2025-10-29 10:27:15,946 - INFO - ⚡ 正在处理样本 | Processing sample: D2-10
+2025-10-29 10:27:15,946 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D2-10_1.fq.gz
+2025-10-29 10:27:15,946 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D2-10_2.fq.gz
+2025-10-29 10:27:15,946 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D2-10_1.clean.fq.gz
+2025-10-29 10:27:15,946 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D2-10_2.clean.fq.gz
+2025-10-29 10:27:15,946 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D2-10.html
+2025-10-29 10:27:15,946 - INFO - ---
+2025-10-29 10:27:15,946 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D2-10
+2025-10-29 10:27:15,946 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D2-10_1.fq.gz -I 01.data/raw/D2-10_2.fq.gz -o 01.data/clean/D2-10_1.clean.fq.gz -O 01.data/clean/D2-10_2.clean.fq.gz -h 01.data/clean/fastp_reports/D2-10.html -j 01.data/clean/fastp_reports/D2-10.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:28:04,649 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D2-10
+2025-10-29 10:28:04,649 - INFO - ✅ 样本 D2-10 处理完成 | Sample D2-10 processing completed
+2025-10-29 10:28:04,649 - INFO - ---
+2025-10-29 10:28:04,649 - INFO - ⚡ 正在处理样本 | Processing sample: K1-2
+2025-10-29 10:28:04,649 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/K1-2_1.fq.gz
+2025-10-29 10:28:04,649 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/K1-2_2.fq.gz
+2025-10-29 10:28:04,649 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/K1-2_1.clean.fq.gz
+2025-10-29 10:28:04,649 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/K1-2_2.clean.fq.gz
+2025-10-29 10:28:04,649 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/K1-2.html
+2025-10-29 10:28:04,649 - INFO - ---
+2025-10-29 10:28:04,649 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> K1-2
+2025-10-29 10:28:04,649 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/K1-2_1.fq.gz -I 01.data/raw/K1-2_2.fq.gz -o 01.data/clean/K1-2_1.clean.fq.gz -O 01.data/clean/K1-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/K1-2.html -j 01.data/clean/fastp_reports/K1-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:29:15,770 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> K1-2
+2025-10-29 10:29:15,771 - INFO - ✅ 样本 K1-2 处理完成 | Sample K1-2 processing completed
+2025-10-29 10:29:15,771 - INFO - ---
+2025-10-29 10:29:15,771 - INFO - ⚡ 正在处理样本 | Processing sample: D2-2
+2025-10-29 10:29:15,771 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/D2-2_1.fq.gz
+2025-10-29 10:29:15,771 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/D2-2_2.fq.gz
+2025-10-29 10:29:15,771 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/D2-2_1.clean.fq.gz
+2025-10-29 10:29:15,771 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/D2-2_2.clean.fq.gz
+2025-10-29 10:29:15,771 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/D2-2.html
+2025-10-29 10:29:15,771 - INFO - ---
+2025-10-29 10:29:15,771 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> D2-2
+2025-10-29 10:29:15,771 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/D2-2_1.fq.gz -I 01.data/raw/D2-2_2.fq.gz -o 01.data/clean/D2-2_1.clean.fq.gz -O 01.data/clean/D2-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/D2-2.html -j 01.data/clean/fastp_reports/D2-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:30:04,711 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> D2-2
+2025-10-29 10:30:04,711 - INFO - ✅ 样本 D2-2 处理完成 | Sample D2-2 processing completed
+2025-10-29 10:30:04,711 - INFO - ---
+2025-10-29 10:30:04,711 - INFO - ⚡ 正在处理样本 | Processing sample: N10-2
+2025-10-29 10:30:04,711 - INFO -   📄 Read 1 (输入 | input): 01.data/raw/N10-2_1.fq.gz
+2025-10-29 10:30:04,711 - INFO -   📄 Read 2 (输入 | input): 01.data/raw/N10-2_2.fq.gz
+2025-10-29 10:30:04,711 - INFO -   🧬 Read 1 (输出 | output): 01.data/clean/N10-2_1.clean.fq.gz
+2025-10-29 10:30:04,711 - INFO -   🧬 Read 2 (输出 | output): 01.data/clean/N10-2_2.clean.fq.gz
+2025-10-29 10:30:04,711 - INFO -   📋 HTML 报告 | report: 01.data/clean/fastp_reports/N10-2.html
+2025-10-29 10:30:04,711 - INFO - ---
+2025-10-29 10:30:04,711 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> N10-2
+2025-10-29 10:30:04,711 - INFO - 💻 命令 | Command: fastp -i 01.data/raw/N10-2_1.fq.gz -I 01.data/raw/N10-2_2.fq.gz -o 01.data/clean/N10-2_1.clean.fq.gz -O 01.data/clean/N10-2_2.clean.fq.gz -h 01.data/clean/fastp_reports/N10-2.html -j 01.data/clean/fastp_reports/N10-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-10-29 10:30:44,458 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> N10-2
+2025-10-29 10:30:44,459 - INFO - ✅ 样本 N10-2 处理完成 | Sample N10-2 processing completed
+2025-10-29 10:30:44,460 - INFO - ✅ 总结报告已生成 | Summary report generated: 01.data/clean/fastp_processing_summary.txt
+2025-10-29 10:30:44,460 - INFO - ============================================================
+2025-10-29 10:30:44,460 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-10-29 10:30:44,460 - INFO - 🧮 总样本数 | Total samples: 59
+2025-10-29 10:30:44,460 - INFO - ✅ 成功处理 | Successfully processed: 59
+2025-10-29 10:30:44,460 - INFO - ❌ 失败样本 | Failed samples: 0
+2025-10-29 10:30:44,460 - INFO - 📊 成功率 | Success rate: 100.0%
+2025-10-29 10:30:44,460 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/clean
+2025-10-29 10:30:44,460 - INFO - 📋 质控报告位于 | QC reports location: 01.data/clean/fastp_reports
+2025-10-29 10:30:44,460 - INFO - ============================================================

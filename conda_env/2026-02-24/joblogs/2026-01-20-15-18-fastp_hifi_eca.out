@@ -1,0 +1,45 @@
+2026-01-20 15:18:57.543 - INFO - ============================================================
+2026-01-20 15:18:57.543 - INFO - Program: FASTQ Quality Control Batch Processing
+2026-01-20 15:18:57.543 - INFO - Version: 1.0.0
+2026-01-20 15:18:57.543 - INFO - ============================================================
+2026-01-20 15:18:57.543 - INFO - ============================================================
+2026-01-20 15:18:57.543 - INFO - 开始FASTQ数据质控批处理|Starting FASTQ data quality control batch processing
+2026-01-20 15:18:57.543 - INFO - ============================================================
+2026-01-20 15:18:57.543 - INFO - 输入|Input: 文件|File: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/raw/hifi/EcA.fq.gz
+2026-01-20 15:18:57.543 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/clean/hifi
+2026-01-20 15:18:57.543 - INFO - 线程数|Threads: 12
+2026-01-20 15:18:57.543 - INFO - 质量阈值|Quality threshold: 30
+2026-01-20 15:18:57.543 - INFO - 最小长度|Minimum length: 50
+2026-01-20 15:18:57.543 - INFO - ============================================================
+2026-01-20 15:18:57.781 - INFO - Fastp可执行文件验证成功|Fastp executable validated: fastp
+2026-01-20 15:18:57.782 - INFO - 创建清洁数据输出目录|Created clean data output directory: 01.data/clean/hifi
+2026-01-20 15:18:57.782 - INFO - 创建报告文件输出目录|Created report output directory: 01.data/clean/hifi/fastp_reports
+2026-01-20 15:18:57.782 - INFO - 检测到单文件输入模式|Detected single file input mode: EcA.fq.gz
+2026-01-20 15:18:57.782 - INFO - 找到 1 个有效样本配对|Found 1 valid sample pairs:
+2026-01-20 15:18:57.782 - INFO -   - EcA
+2026-01-20 15:18:57.783 - INFO - ---
+2026-01-20 15:18:57.783 - INFO - 正在处理样本（单末端模式）|Processing sample (single-end mode): EcA
+2026-01-20 15:18:57.783 - INFO -   Input (输入): 01.data/raw/hifi/EcA.fq.gz
+2026-01-20 15:18:57.783 - INFO -   Output (输出): 01.data/clean/hifi/EcA.clean.fq.gz
+2026-01-20 15:18:57.783 - INFO -   HTML report (报告): 01.data/clean/hifi/fastp_reports/EcA.html
+2026-01-20 15:18:57.783 - INFO - ---
+2026-01-20 15:18:57.783 - INFO - 执行步骤|Executing step: FASTP质控处理|FASTP quality control -> EcA
+2026-01-20 15:18:57.783 - INFO - 命令|Command: fastp -i 01.data/raw/hifi/EcA.fq.gz -o 01.data/clean/hifi/EcA.clean.fq.gz -h 01.data/clean/hifi/fastp_reports/EcA.html -j 01.data/clean/hifi/fastp_reports/EcA.json -w 12 -q 30 -l 50 -u 40 -n 10
+2026-01-20 16:03:26.234 - INFO - 命令执行成功|Command executed successfully: FASTP质控处理|FASTP quality control -> EcA
+2026-01-20 16:03:26.235 - INFO - 样本 EcA 处理完成|Sample EcA processing completed
+2026-01-20 16:03:26.235 - INFO - 总结报告已生成|Summary report generated: 01.data/clean/hifi/fastp_processing_summary.txt
+2026-01-20 16:03:26.235 - INFO - ============================================================
+2026-01-20 16:03:26.236 - INFO - FASTQ质控批处理完成|FASTQ quality control batch processing completed!
+2026-01-20 16:03:26.236 - INFO - 总样本数|Total samples: 1
+2026-01-20 16:03:26.236 - INFO - 成功处理|Successfully processed: 1
+2026-01-20 16:03:26.236 - INFO - 失败样本|Failed samples: 0
+2026-01-20 16:03:26.236 - INFO - 成功率|Success rate: 100.0%
+2026-01-20 16:03:26.236 - INFO - 质控后的清洁数据位于|Clean data location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/clean/hifi
+2026-01-20 16:03:26.236 - INFO - 质控报告位于|QC reports location: 01.data/clean/hifi/fastp_reports
+2026-01-20 16:03:26.236 - INFO - ============================================================
+2026-01-20 16:03:26.236 - INFO - ============================================================
+2026-01-20 16:03:26.237 - INFO - Pipeline Summary
+2026-01-20 16:03:26.237 - INFO - ============================================================
+2026-01-20 16:03:26.239 - INFO - Total runtime: 2668.87 seconds
+2026-01-20 16:03:26.239 - INFO - Output directory: 01.data/clean/hifi
+2026-01-20 16:03:26.239 - INFO - Pipeline completed successfully

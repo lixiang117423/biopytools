@@ -1,0 +1,44 @@
+2026-02-02 20:02:20.360 - INFO - 找到kmtricks|Found kmtricks: unknown
+2026-02-02 20:02:20.448 - INFO - 找到bgzip|Found bgzip
+2026-02-02 20:02:20.448 - INFO - ============================================================
+2026-02-02 20:02:20.448 - INFO - 开始K-mer库构建|Starting K-mer database build
+2026-02-02 20:02:20.448 - INFO - ============================================================
+2026-02-02 20:02:21.015 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
+2026-02-02 20:02:21.015 - INFO - 生成FOF文件|Generating FOF file
+2026-02-02 20:02:21.039 - INFO - 检测到双末端数据|Detected paired-end data: 1489 samples
+2026-02-02 20:02:21.346 - WARNING - 检测到异常样品名|Detected invalid sample name: GDW108_①A -> GDW108_1A
+2026-02-02 20:02:21.346 - WARNING - 检测到异常样品名|Detected invalid sample name: GDW108_②A -> GDW108_2A
+2026-02-02 20:02:21.447 - INFO - 发现 2 个异常样品，进行处理中|Found 2 invalid samples, processing...
+2026-02-02 20:03:07.991 - INFO - 样品映射文件已生成|Sample mapping file generated: sample_mapping.txt
+2026-02-02 20:03:08.024 - INFO - FOF文件已生成（双末端）|FOF file generated (paired-end): input.fof
+2026-02-02 20:03:08.025 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
+2026-02-02 20:03:08.025 - INFO - 自动计算分区数|Auto-calculated partitions: 50
+2026-02-02 20:03:08.025 - INFO - 样本数|Samples: 1489, 线程数|Threads: 32
+2026-02-02 20:03:08.025 - INFO - 使用分区数|Using partitions: 50
+2026-02-02 20:03:08.025 - INFO - 执行步骤|Executing step: 执行kmtricks pipeline|Executing kmtricks pipeline
+2026-02-02 20:03:08.025 - INFO - 命令|Command: kmtricks pipeline --file input.fof --run-dir kmtricks_run --kmer-size 51 --hard-min 2 --recurrence-min 1 --mode kmer:pa:bin --cpr -t 32 --nb-partitions 50
+2026-02-12 06:19:34.663 - INFO - 命令执行成功|Command executed successfully
+2026-02-12 06:19:34.700 - WARNING - 标准错误|Stderr: [2026-02-02 20:03:08.034] [info] Run with Kmer<64> - __uint128_t implementation
+[2026-02-02 20:03:08.051] [info] Compute configuration...
+[2026-02-02 20:03:08.051] [info] 1489 samples found (2978 read files).
+[2026-02-02 20:11:43.710] [info] Use 50 partitions.
+[2026-02-02 20:11:43.822] [info] Compute minimizer repartition...
+[2026-02-12 06:19:33.779] [info] Done in 09d10h16m25s - Peak RSS -> 101260.62 MB.
+
+2026-02-12 06:19:34.700 - INFO - kmtricks pipeline完成|kmtricks pipeline completed
+2026-02-12 06:19:34.700 - INFO - 运行kmtricks aggregate|Running kmtricks aggregate
+2026-02-12 06:19:34.700 - INFO - 执行步骤|Executing step: 执行kmtricks aggregate|Executing kmtricks aggregate
+2026-02-12 06:19:34.700 - INFO - 命令|Command: kmtricks aggregate --run-dir kmtricks_run --pa-matrix kmer --format text --cpr-in -t 32 --output kmer_matrix.txt
+2026-02-21 15:03:16.683 - INFO - 命令执行成功|Command executed successfully
+2026-02-21 15:03:16.697 - WARNING - 标准错误|Stderr: [2026-02-12 06:19:35.058] [info] Run with Kmer<64> - __uint128_t implementation
+
+2026-02-21 15:03:16.697 - INFO - kmtricks aggregate完成|kmtricks aggregate completed: kmer_matrix.txt
+2026-02-21 15:03:16.697 - INFO - 压缩矩阵文件|Compressing matrix file
+2026-02-21 15:03:16.797 - INFO - 执行步骤|Executing step: 压缩矩阵文件|Compressing matrix file
+2026-02-21 15:03:16.797 - INFO - 命令|Command: bgzip -k kmer_matrix.txt -@ 32
+2026-02-22 07:37:29.999 - INFO - 命令执行成功|Command executed successfully
+2026-02-22 07:37:29.999 - INFO - 矩阵文件已压缩|Matrix file compressed: kmer_matrix.txt.gz
+2026-02-22 07:37:29.999 - INFO - 提取样本名|Extracting sample names
+2026-02-22 07:37:30.070 - INFO - 样本名已提取|Sample names extracted: header.txt
+2026-02-22 07:37:30.070 - INFO - 导入矩阵到RocksDB|Importing matrix to RocksDB
+2026-02-22 07:37:30.071 - INFO - 开始导入kmer矩阵到RocksDB|Starting kmer matrix import to RocksDB: rocksdb

@@ -1,0 +1,6 @@
+[W::bgzf_read_block] EOF marker is absent. The input may be truncated
+2026-01-08 19:01:58.798 - ERROR - 使用pysam统计失败，回退到Python方法|pysam counting failed, falling back to Python method: no BGZF EOF marker; file may be truncated
+2026-01-08 19:04:29.101 - ERROR - 使用pysam写入失败，回退到Python方法|pysam writing failed, falling back to Python method: no BGZF EOF marker; file may be truncated
+[tabix] the compression of './lab.snp.0.1.vcf.gz' is not BGZF
+Job 68792247 stderr output:
+

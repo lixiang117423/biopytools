@@ -1,0 +1,99 @@
+Settings:
+  Output files: "/share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/output/test_analysis/00_evidence_prep/stringtie_assembly/genome_index.*.ht2"
+  Line rate: 6 (line is 64 bytes)
+  Lines per side: 1 (side is 64 bytes)
+  Offset rate: 4 (one in 16)
+  FTable chars: 10
+  Strings: unpacked
+  Local offset rate: 3 (one in 8)
+  Local fTable chars: 6
+  Local sequence length: 57344
+  Local sequence overlap between two consecutive indexes: 1024
+  Endianness: little
+  Actual local endianness: little
+  Sanity checking: disabled
+  Assertions: disabled
+  Random seed: 0
+  Sizeofs: void*:8, int:4, long:8, size_t:8
+Input files DNA, FASTA:
+  data/genomes/test.fasta
+Reading reference sizes
+  Time reading reference sizes: 00:00:05
+Calculating joined length
+Writing header
+Reserving space for joined string
+Joining reference sequences
+  Time to join reference sequences: 00:00:03
+  Time to read SNPs and splice sites: 00:00:00
+Using parameters --bmax 3137870 --dcv 1024
+  Doing ahead-of-time memory usage test
+  Passed!  Constructing with these parameters: --bmax 3137870 --dcv 1024
+Constructing suffix-array element generator
+Converting suffix-array elements to index image
+Allocating ftab, absorbFtab
+Entering GFM loop
+Exited GFM loop
+fchr[A]: 0
+fchr[C]: 407177749
+fchr[G]: 669301068
+fchr[T]: 931234692
+fchr[$]: 1338824528
+Exiting GFM::buildToDisk()
+Returning from initFromVector
+Wrote 450477677 bytes to primary GFM file: /share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/output/test_analysis/00_evidence_prep/stringtie_assembly/genome_index.1.ht2
+Wrote 334706140 bytes to secondary GFM file: /share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/output/test_analysis/00_evidence_prep/stringtie_assembly/genome_index.2.ht2
+Re-opening _in1 and _in2 as input streams
+Returning from GFM constructor
+Returning from initFromVector
+Wrote 588264853 bytes to primary GFM file: /share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/output/test_analysis/00_evidence_prep/stringtie_assembly/genome_index.5.ht2
+Wrote 340813972 bytes to secondary GFM file: /share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/output/test_analysis/00_evidence_prep/stringtie_assembly/genome_index.6.ht2
+Re-opening _in5 and _in5 as input streams
+Returning from HGFM constructor
+Headers:
+    len: 1338824528
+    gbwtLen: 1338824529
+    nodes: 1338824529
+    sz: 334706132
+    gbwtSz: 334706133
+    lineRate: 6
+    offRate: 4
+    offMask: 0xfffffff0
+    ftabChars: 10
+    eftabLen: 0
+    eftabSz: 0
+    ftabLen: 1048577
+    ftabSz: 4194308
+    offsLen: 83676534
+    offsSz: 334706136
+    lineSz: 64
+    sideSz: 64
+    sideGbwtSz: 48
+    sideGbwtLen: 192
+    numSides: 6973045
+    numLines: 6973045
+    gbwtTotLen: 446274880
+    gbwtTotSz: 446274880
+    reverse: 0
+    linearFM: Yes
+Total time for call to driver() for forward index: 00:05:25
+46732058 reads; of these:
+  46732058 (100.00%) were paired; of these:
+    15151559 (32.42%) aligned concordantly 0 times
+    29795347 (63.76%) aligned concordantly exactly 1 time
+    1785152 (3.82%) aligned concordantly >1 times
+    ----
+    15151559 pairs aligned concordantly 0 times; of these:
+      382278 (2.52%) aligned discordantly 1 time
+    ----
+    14769281 pairs aligned 0 times concordantly or discordantly; of these:
+      29538562 mates make up the pairs; of these:
+        21895514 (74.13%) aligned 0 times
+        7325947 (24.80%) aligned exactly 1 time
+        317101 (1.07%) aligned >1 times
+76.57% overall alignment rate
+[bam_sort_core] merging from 0 files and 80 in-memory blocks...
+DEBUG: Temporary directory is /share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/temp_mast1
+DEBUG: Temporary directory /share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/temp_mast1 is now being deleted.
+ERROR: The file '/share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/output/test_analysis/02_maker_run/test.maker.output/test_master_datastore_index.log' does not exist
+Job 67836591 stderr output:
+

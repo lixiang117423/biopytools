@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/longrnaseq/align.py", line 219, in _align_with_minimap2
+    result = run_command(samtools_view_cmd, self.logger, check=True)
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/longrnaseq/utils.py", line 69, in run_command
+    return subprocess.run(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['samtools', 'view', '-@', '64', '-bS', '-q', '20', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.sam', '-o', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.bam']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/longrnaseq/align.py", line 219, in _align_with_minimap2
+    result = run_command(samtools_view_cmd, self.logger, check=True)
+  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/longrnaseq/utils.py", line 69, in run_command
+    return subprocess.run(
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['samtools', 'view', '-@', '64', '-bS', '-q', '20', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.sam', '-o', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.bam']' returned non-zero exit status 1.
+Job 68765587 stderr output:
+

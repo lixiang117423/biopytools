@@ -1,0 +1,26 @@
+2026-01-14 10:46:06.936 - INFO - ================================================================================
+2026-01-14 10:46:07.023 - INFO - GWAS基因组范围多重检验校正流程|GWAS Genome-wide Error Correction Pipeline
+2026-01-14 10:46:07.023 - INFO - ================================================================================
+2026-01-14 10:46:07.023 - INFO - 开始GEC校正分析|Starting GEC correction analysis
+2026-01-14 10:46:07.023 - INFO - P值文件|P-value file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/gwas_domain_p_file.txt
+2026-01-14 10:46:07.024 - INFO - 参考VCF|Reference VCF: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/input.vcf.gz
+2026-01-14 10:46:07.024 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/gec_output
+2026-01-14 10:46:07.024 - INFO - 线程数|Thread number: 64
+2026-01-14 10:46:07.024 - INFO - 内存分配|Memory allocation: 200g
+2026-01-14 10:46:07.024 - INFO - 检测染色体编号格式|Detecting chromosome format
+2026-01-14 10:46:07.358 - INFO - 染色体编号格式检测|Chromosome format detection: Chr_prefix
+2026-01-14 10:46:07.358 - INFO - 样本染色体|Sample chromosomes: Chr01
+2026-01-14 10:46:07.358 - INFO - 检测到的染色体格式|Detected chromosome format: Chr_prefix
+2026-01-14 10:46:07.358 - INFO - 示例染色体|Example chromosomes: Chr01
+2026-01-14 10:46:07.358 - INFO - 提示|Note: P值文件使用 'Chr' 前缀格式，请确保参考VCF文件也使用相同格式|P-value file uses 'Chr' prefix format, please ensure reference VCF uses the same format
+2026-01-14 10:46:07.369 - INFO - 完整命令|Full command: java -Xmx200g -jar /share/org/YZWL/yzwl_lixg/software/kmmsee/kggsee.jar --var-gec --pfile /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/gwas_domain_p_file.txt --vcf-ref /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/input.vcf.gz --out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/gec_output/gwas_gec --nt 64 --filter-maf-le 0.05 --p-value-cutoff 0.05 --chrom-col CHR --pos-col BP --p-col P --keep-ref
+2026-01-14 10:46:07.369 - INFO - 执行步骤|Executing step: GEC算法计算|GEC algorithm calculation
+2026-01-14 10:46:07.369 - INFO - 命令|Command: java -Xmx200g -jar /share/org/YZWL/yzwl_lixg/software/kmmsee/kggsee.jar --var-gec --pfile /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/gwas_domain_p_file.txt --vcf-ref /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/input.vcf.gz --out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/gec_output/gwas_gec --nt 64 --filter-maf-le 0.05 --p-value-cutoff 0.05 --chrom-col CHR --pos-col BP --p-col P --keep-ref
+2026-01-14 10:46:16.145 - INFO - 命令执行成功|Command executed successfully: GEC算法计算|GEC algorithm calculation
+2026-01-14 10:46:16.145 - INFO - GEC算法执行成功|GEC algorithm executed successfully
+2026-01-14 10:46:16.145 - INFO - 开始计算显著性阈值|Starting significance threshold calculation
+2026-01-14 10:46:16.147 - INFO - 找到GEC输出文件|Found GEC output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/gec_output/gwas_gec.effective.size.txt.gz
+2026-01-14 10:46:16.147 - INFO - 解析有效检验数文件|Parsing effective test number file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/08.重新过滤做GWAS/阈值计算/gec_output/gwas_gec.effective.size.txt.gz
+2026-01-14 10:46:16.200 - INFO - 成功解析 0 个LD块|Successfully parsed 0 LD blocks
+2026-01-14 10:46:16.317 - INFO - 总有效检验数|Total effective test number: 0.00
+2026-01-14 10:46:16.317 - ERROR - 阈值计算失败|Threshold calculation failed: float division by zero

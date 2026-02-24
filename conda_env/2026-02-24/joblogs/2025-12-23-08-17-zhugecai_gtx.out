@@ -1,0 +1,992 @@
+
+==================================================
+🎯 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+🔄 开始更新所有组件的基因组路径... | Starting genome path update for all components...
+🔄 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/OV53_1.primary_corrected.chr.fa -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Force updated genome path
+✅ 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+✅ 基因组路径更新完成 | Genome path update completed
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2351460GB available
+✓ 系统内存充足 | Sufficient system memory: 503GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+🔍 准备执行索引构建步骤 | Preparing to execute index building step
+🔍 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Current genome path in config
+🔍 GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Genome path in GTX mapper
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+🚀 执行步骤 5 | Executing step 5: 🧹 变异过滤 | Variant Filtering
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+🔍 调试信息: skip_qc = False
+🔍 调试信息: read1_pattern_fastp = _1.clean.fq.gz
+🔍 调试信息: read2_pattern_fastp = _2.clean.fq.gz
+🔍 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean
+开始质控处理 | Starting quality control
+检测到 198 个原始 FASTQ 文件 | Found 198 raw FASTQ files
+🧹 质量控制 | Quality Control
+🔄 执行命令 | Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean --read1-suffix _1.clean.fq.gz --read2-suffix _2.clean.fq.gz
+标准输出 | Stdout: 2025-12-23 08:17:36,732 - INFO - ============================================================
+2025-12-23 08:17:36,733 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-12-23 08:17:36,733 - INFO - ============================================================
+2025-12-23 08:17:36,733 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean
+2025-12-23 08:17:36,733 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean
+2025-12-23 08:17:36,733 - INFO - 📄 文件模式 | File pattern: *_1.clean.fq.gz, *_2.clean.fq.gz
+2025-12-23 08:17:36,733 - INFO - ============================================================
+2025-12-23 08:17:37,501 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-12-23 08:17:37,502 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean
+2025-12-23 08:17:37,502 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports
+2025-12-23 08:17:37,502 - INFO - 📄 找到 99 个read1文件 | Found 99 read1 files
+2025-12-23 08:17:37,841 - INFO - 🧬 找到 99 个有效样本配对 | Found 99 valid sample pairs:
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-71
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-4
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-111
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-80
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-105
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-81
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-68
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-74
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-77
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-39
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-157
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-206
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-258
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-28
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-113
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-136
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-179
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-268
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-7
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-76
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-106
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-112
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-271
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-99
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-79
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-1
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-180
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-88
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-31
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-265
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-3
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-27
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-67
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-115
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-196
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-17
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-142
+2025-12-23 08:17:37,841 - INFO -   - 📋 OV8-35
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-117
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-269
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-21
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-107
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-95
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-276
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-9
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-78
+2025-12-23 08:17:37,842 - INFO -   - 📋 OV8-138
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-108
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-277
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-43
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-72
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-30
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-11
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-263
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-137
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-139
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-33
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-8
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-217
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-260
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-143
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-40
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-29
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-141
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-44
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-172
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-273
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-32
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-274
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-26
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-34
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-20
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-171
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-73
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-42
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-5
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-118
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-144
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-216
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-83
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-87
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-267
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-19
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-94
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-259
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-275
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-272
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-98
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-158
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-6
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-70
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-264
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-15
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-89
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-114
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-45
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-2
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-75
+2025-12-23 08:17:37,844 - INFO -   - 📋 OV8-116
+2025-12-23 08:17:37,845 - INFO - ⏭️  样本 OV8-71 的输出文件已存在，跳过处理 | Output files exist for sample OV8-71, skipping
+2025-12-23 08:17:37,845 - INFO - ⏭️  样本 OV8-4 的输出文件已存在，跳过处理 | Output files exist for sample OV8-4, skipping
+2025-12-23 08:17:37,846 - INFO - ⏭️  样本 OV8-111 的输出文件已存在，跳过处理 | Output files exist for sample OV8-111, skipping
+2025-12-23 08:17:37,846 - INFO - ⏭️  样本 OV8-80 的输出文件已存在，跳过处理 | Output files exist for sample OV8-80, skipping
+2025-12-23 08:17:37,847 - INFO - ⏭️  样本 OV8-105 的输出文件已存在，跳过处理 | Output files exist for sample OV8-105, skipping
+2025-12-23 08:17:37,847 - INFO - ⏭️  样本 OV8-81 的输出文件已存在，跳过处理 | Output files exist for sample OV8-81, skipping
+2025-12-23 08:17:37,848 - INFO - ⏭️  样本 OV8-68 的输出文件已存在，跳过处理 | Output files exist for sample OV8-68, skipping
+2025-12-23 08:17:37,848 - INFO - ⏭️  样本 OV8-74 的输出文件已存在，跳过处理 | Output files exist for sample OV8-74, skipping
+2025-12-23 08:17:37,849 - INFO - ⏭️  样本 OV8-77 的输出文件已存在，跳过处理 | Output files exist for sample OV8-77, skipping
+2025-12-23 08:17:37,849 - INFO - ⏭️  样本 OV8-39 的输出文件已存在，跳过处理 | Output files exist for sample OV8-39, skipping
+2025-12-23 08:17:37,850 - INFO - ⏭️  样本 OV8-157 的输出文件已存在，跳过处理 | Output files exist for sample OV8-157, skipping
+2025-12-23 08:17:37,850 - INFO - ⏭️  样本 OV8-206 的输出文件已存在，跳过处理 | Output files exist for sample OV8-206, skipping
+2025-12-23 08:17:37,850 - INFO - ⏭️  样本 OV8-258 的输出文件已存在，跳过处理 | Output files exist for sample OV8-258, skipping
+2025-12-23 08:17:37,851 - INFO - ⏭️  样本 OV8-28 的输出文件已存在，跳过处理 | Output files exist for sample OV8-28, skipping
+2025-12-23 08:17:37,851 - INFO - ⏭️  样本 OV8-113 的输出文件已存在，跳过处理 | Output files exist for sample OV8-113, skipping
+2025-12-23 08:17:37,852 - INFO - ⏭️  样本 OV8-136 的输出文件已存在，跳过处理 | Output files exist for sample OV8-136, skipping
+2025-12-23 08:17:37,852 - INFO - ⏭️  样本 OV8-179 的输出文件已存在，跳过处理 | Output files exist for sample OV8-179, skipping
+2025-12-23 08:17:37,853 - INFO - ⏭️  样本 OV8-268 的输出文件已存在，跳过处理 | Output files exist for sample OV8-268, skipping
+2025-12-23 08:17:37,853 - INFO - ⏭️  样本 OV8-7 的输出文件已存在，跳过处理 | Output files exist for sample OV8-7, skipping
+2025-12-23 08:17:37,854 - INFO - ⏭️  样本 OV8-76 的输出文件已存在，跳过处理 | Output files exist for sample OV8-76, skipping
+2025-12-23 08:17:37,854 - INFO - ⏭️  样本 OV8-106 的输出文件已存在，跳过处理 | Output files exist for sample OV8-106, skipping
+2025-12-23 08:17:37,854 - INFO - ⏭️  样本 OV8-112 的输出文件已存在，跳过处理 | Output files exist for sample OV8-112, skipping
+2025-12-23 08:17:37,855 - INFO - ⏭️  样本 OV8-271 的输出文件已存在，跳过处理 | Output files exist for sample OV8-271, skipping
+2025-12-23 08:17:37,855 - INFO - ⏭️  样本 OV8-99 的输出文件已存在，跳过处理 | Output files exist for sample OV8-99, skipping
+2025-12-23 08:17:37,856 - INFO - ⏭️  样本 OV8-79 的输出文件已存在，跳过处理 | Output files exist for sample OV8-79, skipping
+2025-12-23 08:17:37,856 - INFO - ⏭️  样本 OV8-1 的输出文件已存在，跳过处理 | Output files exist for sample OV8-1, skipping
+2025-12-23 08:17:37,857 - INFO - ⏭️  样本 OV8-180 的输出文件已存在，跳过处理 | Output files exist for sample OV8-180, skipping
+2025-12-23 08:17:37,857 - INFO - ⏭️  样本 OV8-88 的输出文件已存在，跳过处理 | Output files exist for sample OV8-88, skipping
+2025-12-23 08:17:37,858 - INFO - ⏭️  样本 OV8-31 的输出文件已存在，跳过处理 | Output files exist for sample OV8-31, skipping
+2025-12-23 08:17:37,858 - INFO - ⏭️  样本 OV8-265 的输出文件已存在，跳过处理 | Output files exist for sample OV8-265, skipping
+2025-12-23 08:17:37,858 - INFO - ⏭️  样本 OV8-3 的输出文件已存在，跳过处理 | Output files exist for sample OV8-3, skipping
+2025-12-23 08:17:37,859 - INFO - ⏭️  样本 OV8-27 的输出文件已存在，跳过处理 | Output files exist for sample OV8-27, skipping
+2025-12-23 08:17:37,859 - INFO - ⏭️  样本 OV8-67 的输出文件已存在，跳过处理 | Output files exist for sample OV8-67, skipping
+2025-12-23 08:17:37,860 - INFO - ⏭️  样本 OV8-115 的输出文件已存在，跳过处理 | Output files exist for sample OV8-115, skipping
+2025-12-23 08:17:37,860 - INFO - ⏭️  样本 OV8-196 的输出文件已存在，跳过处理 | Output files exist for sample OV8-196, skipping
+2025-12-23 08:17:37,860 - INFO - ⏭️  样本 OV8-17 的输出文件已存在，跳过处理 | Output files exist for sample OV8-17, skipping
+2025-12-23 08:17:37,861 - INFO - ⏭️  样本 OV8-142 的输出文件已存在，跳过处理 | Output files exist for sample OV8-142, skipping
+2025-12-23 08:17:37,861 - INFO - ---
+2025-12-23 08:17:37,861 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-35
+2025-12-23 08:17:37,861 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-35_1.clean.fq.gz
+2025-12-23 08:17:37,861 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-35_2.clean.fq.gz
+2025-12-23 08:17:37,861 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-35_1.clean.fq.gz
+2025-12-23 08:17:37,861 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-35_2.clean.fq.gz
+2025-12-23 08:17:37,861 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-35.html
+2025-12-23 08:17:37,861 - INFO - ---
+2025-12-23 08:17:37,861 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-35
+2025-12-23 08:17:37,861 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-35_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-35_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-35_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-35_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-35.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-35.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:20:38,967 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-35
+2025-12-23 08:20:38,967 - INFO - ✅ 样本 OV8-35 处理完成 | Sample OV8-35 processing completed
+2025-12-23 08:20:38,967 - INFO - ---
+2025-12-23 08:20:38,967 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-117
+2025-12-23 08:20:38,967 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-117_1.clean.fq.gz
+2025-12-23 08:20:38,967 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-117_2.clean.fq.gz
+2025-12-23 08:20:38,967 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-117_1.clean.fq.gz
+2025-12-23 08:20:38,967 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-117_2.clean.fq.gz
+2025-12-23 08:20:38,967 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-117.html
+2025-12-23 08:20:38,967 - INFO - ---
+2025-12-23 08:20:38,967 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-117
+2025-12-23 08:20:38,967 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-117_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-117_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-117_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-117_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-117.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-117.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:24:09,941 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-117
+2025-12-23 08:24:09,941 - INFO - ✅ 样本 OV8-117 处理完成 | Sample OV8-117 processing completed
+2025-12-23 08:24:09,941 - INFO - ---
+2025-12-23 08:24:09,941 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-269
+2025-12-23 08:24:09,941 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-269_1.clean.fq.gz
+2025-12-23 08:24:09,941 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-269_2.clean.fq.gz
+2025-12-23 08:24:09,941 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-269_1.clean.fq.gz
+2025-12-23 08:24:09,941 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-269_2.clean.fq.gz
+2025-12-23 08:24:09,941 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-269.html
+2025-12-23 08:24:09,941 - INFO - ---
+2025-12-23 08:24:09,941 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-269
+2025-12-23 08:24:09,941 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-269_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-269_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-269_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-269_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-269.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-269.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:27:09,508 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-269
+2025-12-23 08:27:09,509 - INFO - ✅ 样本 OV8-269 处理完成 | Sample OV8-269 processing completed
+2025-12-23 08:27:09,509 - INFO - ---
+2025-12-23 08:27:09,509 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-21
+2025-12-23 08:27:09,509 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-21_1.clean.fq.gz
+2025-12-23 08:27:09,509 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-21_2.clean.fq.gz
+2025-12-23 08:27:09,509 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-21_1.clean.fq.gz
+2025-12-23 08:27:09,509 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-21_2.clean.fq.gz
+2025-12-23 08:27:09,509 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-21.html
+2025-12-23 08:27:09,509 - INFO - ---
+2025-12-23 08:27:09,509 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-21
+2025-12-23 08:27:09,509 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-21_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-21_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-21_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-21_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-21.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-21.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:30:19,888 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-21
+2025-12-23 08:30:19,888 - INFO - ✅ 样本 OV8-21 处理完成 | Sample OV8-21 processing completed
+2025-12-23 08:30:19,888 - INFO - ---
+2025-12-23 08:30:19,888 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-107
+2025-12-23 08:30:19,888 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-107_1.clean.fq.gz
+2025-12-23 08:30:19,888 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-107_2.clean.fq.gz
+2025-12-23 08:30:19,888 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-107_1.clean.fq.gz
+2025-12-23 08:30:19,888 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-107_2.clean.fq.gz
+2025-12-23 08:30:19,888 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-107.html
+2025-12-23 08:30:19,889 - INFO - ---
+2025-12-23 08:30:19,889 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-107
+2025-12-23 08:30:19,889 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-107_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-107_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-107_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-107_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-107.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-107.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:33:31,048 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-107
+2025-12-23 08:33:31,048 - INFO - ✅ 样本 OV8-107 处理完成 | Sample OV8-107 processing completed
+2025-12-23 08:33:31,048 - INFO - ---
+2025-12-23 08:33:31,048 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-95
+2025-12-23 08:33:31,048 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-95_1.clean.fq.gz
+2025-12-23 08:33:31,048 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-95_2.clean.fq.gz
+2025-12-23 08:33:31,048 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-95_1.clean.fq.gz
+2025-12-23 08:33:31,049 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-95_2.clean.fq.gz
+2025-12-23 08:33:31,049 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-95.html
+2025-12-23 08:33:31,049 - INFO - ---
+2025-12-23 08:33:31,049 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-95
+2025-12-23 08:33:31,049 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-95_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-95_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-95_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-95_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-95.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-95.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:36:58,736 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-95
+2025-12-23 08:36:58,737 - INFO - ✅ 样本 OV8-95 处理完成 | Sample OV8-95 processing completed
+2025-12-23 08:36:58,737 - INFO - ---
+2025-12-23 08:36:58,737 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-276
+2025-12-23 08:36:58,737 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-276_1.clean.fq.gz
+2025-12-23 08:36:58,737 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-276_2.clean.fq.gz
+2025-12-23 08:36:58,737 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-276_1.clean.fq.gz
+2025-12-23 08:36:58,737 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-276_2.clean.fq.gz
+2025-12-23 08:36:58,737 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-276.html
+2025-12-23 08:36:58,737 - INFO - ---
+2025-12-23 08:36:58,737 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-276
+2025-12-23 08:36:58,737 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-276_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-276_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-276_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-276_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-276.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-276.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:40:13,807 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-276
+2025-12-23 08:40:13,807 - INFO - ✅ 样本 OV8-276 处理完成 | Sample OV8-276 processing completed
+2025-12-23 08:40:13,807 - INFO - ---
+2025-12-23 08:40:13,807 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-9
+2025-12-23 08:40:13,807 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-9_1.clean.fq.gz
+2025-12-23 08:40:13,807 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-9_2.clean.fq.gz
+2025-12-23 08:40:13,807 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-9_1.clean.fq.gz
+2025-12-23 08:40:13,807 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-9_2.clean.fq.gz
+2025-12-23 08:40:13,807 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-9.html
+2025-12-23 08:40:13,807 - INFO - ---
+2025-12-23 08:40:13,807 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-9
+2025-12-23 08:40:13,807 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-9_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-9_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-9_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-9_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-9.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-9.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:43:24,940 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-9
+2025-12-23 08:43:24,940 - INFO - ✅ 样本 OV8-9 处理完成 | Sample OV8-9 processing completed
+2025-12-23 08:43:24,941 - INFO - ---
+2025-12-23 08:43:24,941 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-78
+2025-12-23 08:43:24,941 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-78_1.clean.fq.gz
+2025-12-23 08:43:24,941 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-78_2.clean.fq.gz
+2025-12-23 08:43:24,941 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-78_1.clean.fq.gz
+2025-12-23 08:43:24,941 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-78_2.clean.fq.gz
+2025-12-23 08:43:24,941 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-78.html
+2025-12-23 08:43:24,941 - INFO - ---
+2025-12-23 08:43:24,941 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-78
+2025-12-23 08:43:24,941 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-78_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-78_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-78_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-78_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-78.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-78.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:47:56,949 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-78
+2025-12-23 08:47:56,949 - INFO - ✅ 样本 OV8-78 处理完成 | Sample OV8-78 processing completed
+2025-12-23 08:47:56,949 - INFO - ---
+2025-12-23 08:47:56,949 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-138
+2025-12-23 08:47:56,949 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-138_1.clean.fq.gz
+2025-12-23 08:47:56,949 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-138_2.clean.fq.gz
+2025-12-23 08:47:56,949 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-138_1.clean.fq.gz
+2025-12-23 08:47:56,949 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-138_2.clean.fq.gz
+2025-12-23 08:47:56,949 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-138.html
+2025-12-23 08:47:56,949 - INFO - ---
+2025-12-23 08:47:56,949 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-138
+2025-12-23 08:47:56,949 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-138_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-138_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-138_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-138_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-138.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-138.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:51:58,866 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-138
+2025-12-23 08:51:58,866 - INFO - ✅ 样本 OV8-138 处理完成 | Sample OV8-138 processing completed
+2025-12-23 08:51:58,866 - INFO - ---
+2025-12-23 08:51:58,867 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-108
+2025-12-23 08:51:58,867 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-108_1.clean.fq.gz
+2025-12-23 08:51:58,867 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-108_2.clean.fq.gz
+2025-12-23 08:51:58,867 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-108_1.clean.fq.gz
+2025-12-23 08:51:58,867 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-108_2.clean.fq.gz
+2025-12-23 08:51:58,867 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-108.html
+2025-12-23 08:51:58,867 - INFO - ---
+2025-12-23 08:51:58,867 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-108
+2025-12-23 08:51:58,867 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-108_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-108_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-108_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-108_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-108.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-108.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:55:02,594 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-108
+2025-12-23 08:55:02,594 - INFO - ✅ 样本 OV8-108 处理完成 | Sample OV8-108 processing completed
+2025-12-23 08:55:02,594 - INFO - ---
+2025-12-23 08:55:02,594 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-277
+2025-12-23 08:55:02,594 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-277_1.clean.fq.gz
+2025-12-23 08:55:02,594 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-277_2.clean.fq.gz
+2025-12-23 08:55:02,594 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-277_1.clean.fq.gz
+2025-12-23 08:55:02,594 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-277_2.clean.fq.gz
+2025-12-23 08:55:02,594 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-277.html
+2025-12-23 08:55:02,594 - INFO - ---
+2025-12-23 08:55:02,594 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-277
+2025-12-23 08:55:02,594 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-277_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-277_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-277_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-277_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-277.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-277.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 08:59:04,576 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-277
+2025-12-23 08:59:04,576 - INFO - ✅ 样本 OV8-277 处理完成 | Sample OV8-277 processing completed
+2025-12-23 08:59:04,576 - INFO - ---
+2025-12-23 08:59:04,576 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-43
+2025-12-23 08:59:04,576 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-43_1.clean.fq.gz
+2025-12-23 08:59:04,576 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-43_2.clean.fq.gz
+2025-12-23 08:59:04,576 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-43_1.clean.fq.gz
+2025-12-23 08:59:04,576 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-43_2.clean.fq.gz
+2025-12-23 08:59:04,576 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-43.html
+2025-12-23 08:59:04,576 - INFO - ---
+2025-12-23 08:59:04,576 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-43
+2025-12-23 08:59:04,576 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-43_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-43_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-43_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-43_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-43.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-43.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:01:58,416 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-43
+2025-12-23 09:01:58,416 - INFO - ✅ 样本 OV8-43 处理完成 | Sample OV8-43 processing completed
+2025-12-23 09:01:58,416 - INFO - ---
+2025-12-23 09:01:58,416 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-72
+2025-12-23 09:01:58,416 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-72_1.clean.fq.gz
+2025-12-23 09:01:58,416 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-72_2.clean.fq.gz
+2025-12-23 09:01:58,416 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-72_1.clean.fq.gz
+2025-12-23 09:01:58,416 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-72_2.clean.fq.gz
+2025-12-23 09:01:58,416 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-72.html
+2025-12-23 09:01:58,416 - INFO - ---
+2025-12-23 09:01:58,416 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-72
+2025-12-23 09:01:58,416 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-72_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-72_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-72_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-72_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-72.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-72.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:04:55,089 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-72
+2025-12-23 09:04:55,089 - INFO - ✅ 样本 OV8-72 处理完成 | Sample OV8-72 processing completed
+2025-12-23 09:04:55,089 - INFO - ---
+2025-12-23 09:04:55,089 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-30
+2025-12-23 09:04:55,089 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-30_1.clean.fq.gz
+2025-12-23 09:04:55,089 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-30_2.clean.fq.gz
+2025-12-23 09:04:55,089 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-30_1.clean.fq.gz
+2025-12-23 09:04:55,089 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-30_2.clean.fq.gz
+2025-12-23 09:04:55,089 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-30.html
+2025-12-23 09:04:55,089 - INFO - ---
+2025-12-23 09:04:55,089 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-30
+2025-12-23 09:04:55,090 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-30_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-30_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-30_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-30_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-30.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-30.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:08:06,659 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-30
+2025-12-23 09:08:06,659 - INFO - ✅ 样本 OV8-30 处理完成 | Sample OV8-30 processing completed
+2025-12-23 09:08:06,659 - INFO - ---
+2025-12-23 09:08:06,659 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-11
+2025-12-23 09:08:06,659 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-11_1.clean.fq.gz
+2025-12-23 09:08:06,659 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-11_2.clean.fq.gz
+2025-12-23 09:08:06,659 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-11_1.clean.fq.gz
+2025-12-23 09:08:06,659 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-11_2.clean.fq.gz
+2025-12-23 09:08:06,659 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-11.html
+2025-12-23 09:08:06,659 - INFO - ---
+2025-12-23 09:08:06,659 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-11
+2025-12-23 09:08:06,660 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-11_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-11_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-11_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-11_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-11.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-11.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:11:38,046 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-11
+2025-12-23 09:11:38,046 - INFO - ✅ 样本 OV8-11 处理完成 | Sample OV8-11 processing completed
+2025-12-23 09:11:38,046 - INFO - ---
+2025-12-23 09:11:38,046 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-263
+2025-12-23 09:11:38,046 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-263_1.clean.fq.gz
+2025-12-23 09:11:38,046 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-263_2.clean.fq.gz
+2025-12-23 09:11:38,046 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-263_1.clean.fq.gz
+2025-12-23 09:11:38,047 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-263_2.clean.fq.gz
+2025-12-23 09:11:38,047 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-263.html
+2025-12-23 09:11:38,047 - INFO - ---
+2025-12-23 09:11:38,047 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-263
+2025-12-23 09:11:38,047 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-263_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-263_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-263_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-263_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-263.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-263.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:14:46,501 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-263
+2025-12-23 09:14:46,501 - INFO - ✅ 样本 OV8-263 处理完成 | Sample OV8-263 processing completed
+2025-12-23 09:14:46,501 - INFO - ---
+2025-12-23 09:14:46,501 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-137
+2025-12-23 09:14:46,501 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-137_1.clean.fq.gz
+2025-12-23 09:14:46,501 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-137_2.clean.fq.gz
+2025-12-23 09:14:46,501 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-137_1.clean.fq.gz
+2025-12-23 09:14:46,501 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-137_2.clean.fq.gz
+2025-12-23 09:14:46,501 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-137.html
+2025-12-23 09:14:46,501 - INFO - ---
+2025-12-23 09:14:46,501 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-137
+2025-12-23 09:14:46,501 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-137_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-137_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-137_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-137_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-137.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-137.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:18:36,323 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-137
+2025-12-23 09:18:36,323 - INFO - ✅ 样本 OV8-137 处理完成 | Sample OV8-137 processing completed
+2025-12-23 09:18:36,324 - INFO - ---
+2025-12-23 09:18:36,324 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-139
+2025-12-23 09:18:36,324 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-139_1.clean.fq.gz
+2025-12-23 09:18:36,324 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-139_2.clean.fq.gz
+2025-12-23 09:18:36,324 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-139_1.clean.fq.gz
+2025-12-23 09:18:36,324 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-139_2.clean.fq.gz
+2025-12-23 09:18:36,324 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-139.html
+2025-12-23 09:18:36,324 - INFO - ---
+2025-12-23 09:18:36,324 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-139
+2025-12-23 09:18:36,324 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-139_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-139_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-139_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-139_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-139.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-139.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:22:34,726 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-139
+2025-12-23 09:22:34,726 - INFO - ✅ 样本 OV8-139 处理完成 | Sample OV8-139 processing completed
+2025-12-23 09:22:34,726 - INFO - ---
+2025-12-23 09:22:34,726 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-33
+2025-12-23 09:22:34,726 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-33_1.clean.fq.gz
+2025-12-23 09:22:34,726 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-33_2.clean.fq.gz
+2025-12-23 09:22:34,726 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-33_1.clean.fq.gz
+2025-12-23 09:22:34,726 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-33_2.clean.fq.gz
+2025-12-23 09:22:34,726 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-33.html
+2025-12-23 09:22:34,726 - INFO - ---
+2025-12-23 09:22:34,726 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-33
+2025-12-23 09:22:34,726 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-33_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-33_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-33_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-33_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-33.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-33.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:26:10,072 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-33
+2025-12-23 09:26:10,072 - INFO - ✅ 样本 OV8-33 处理完成 | Sample OV8-33 processing completed
+2025-12-23 09:26:10,073 - INFO - ---
+2025-12-23 09:26:10,073 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-8
+2025-12-23 09:26:10,073 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-8_1.clean.fq.gz
+2025-12-23 09:26:10,073 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-8_2.clean.fq.gz
+2025-12-23 09:26:10,073 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-8_1.clean.fq.gz
+2025-12-23 09:26:10,073 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-8_2.clean.fq.gz
+2025-12-23 09:26:10,073 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-8.html
+2025-12-23 09:26:10,073 - INFO - ---
+2025-12-23 09:26:10,073 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-8
+2025-12-23 09:26:10,073 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-8_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-8_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-8_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-8_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-8.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-8.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:29:31,824 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-8
+2025-12-23 09:29:31,824 - INFO - ✅ 样本 OV8-8 处理完成 | Sample OV8-8 processing completed
+2025-12-23 09:29:31,824 - INFO - ---
+2025-12-23 09:29:31,824 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-217
+2025-12-23 09:29:31,824 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-217_1.clean.fq.gz
+2025-12-23 09:29:31,824 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-217_2.clean.fq.gz
+2025-12-23 09:29:31,824 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-217_1.clean.fq.gz
+2025-12-23 09:29:31,824 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-217_2.clean.fq.gz
+2025-12-23 09:29:31,824 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-217.html
+2025-12-23 09:29:31,824 - INFO - ---
+2025-12-23 09:29:31,824 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-217
+2025-12-23 09:29:31,824 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-217_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-217_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-217_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-217_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-217.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-217.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:33:23,066 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-217
+2025-12-23 09:33:23,066 - INFO - ✅ 样本 OV8-217 处理完成 | Sample OV8-217 processing completed
+2025-12-23 09:33:23,066 - INFO - ---
+2025-12-23 09:33:23,066 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-260
+2025-12-23 09:33:23,066 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-260_1.clean.fq.gz
+2025-12-23 09:33:23,066 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-260_2.clean.fq.gz
+2025-12-23 09:33:23,066 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-260_1.clean.fq.gz
+2025-12-23 09:33:23,066 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-260_2.clean.fq.gz
+2025-12-23 09:33:23,067 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-260.html
+2025-12-23 09:33:23,067 - INFO - ---
+2025-12-23 09:33:23,067 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-260
+2025-12-23 09:33:23,067 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-260_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-260_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-260_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-260_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-260.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-260.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:36:24,743 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-260
+2025-12-23 09:36:24,743 - INFO - ✅ 样本 OV8-260 处理完成 | Sample OV8-260 processing completed
+2025-12-23 09:36:24,743 - INFO - ---
+2025-12-23 09:36:24,743 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-143
+2025-12-23 09:36:24,743 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-143_1.clean.fq.gz
+2025-12-23 09:36:24,743 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-143_2.clean.fq.gz
+2025-12-23 09:36:24,743 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-143_1.clean.fq.gz
+2025-12-23 09:36:24,743 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-143_2.clean.fq.gz
+2025-12-23 09:36:24,743 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-143.html
+2025-12-23 09:36:24,743 - INFO - ---
+2025-12-23 09:36:24,743 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-143
+2025-12-23 09:36:24,743 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-143_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-143_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-143_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-143_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-143.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-143.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:40:30,897 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-143
+2025-12-23 09:40:30,898 - INFO - ✅ 样本 OV8-143 处理完成 | Sample OV8-143 processing completed
+2025-12-23 09:40:30,898 - INFO - ---
+2025-12-23 09:40:30,898 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-40
+2025-12-23 09:40:30,898 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-40_1.clean.fq.gz
+2025-12-23 09:40:30,898 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-40_2.clean.fq.gz
+2025-12-23 09:40:30,898 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-40_1.clean.fq.gz
+2025-12-23 09:40:30,898 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-40_2.clean.fq.gz
+2025-12-23 09:40:30,898 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-40.html
+2025-12-23 09:40:30,898 - INFO - ---
+2025-12-23 09:40:30,898 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-40
+2025-12-23 09:40:30,898 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-40_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-40_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-40_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-40_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-40.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-40.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:43:49,432 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-40
+2025-12-23 09:43:49,432 - INFO - ✅ 样本 OV8-40 处理完成 | Sample OV8-40 processing completed
+2025-12-23 09:43:49,433 - INFO - ---
+2025-12-23 09:43:49,433 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-29
+2025-12-23 09:43:49,433 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-29_1.clean.fq.gz
+2025-12-23 09:43:49,433 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-29_2.clean.fq.gz
+2025-12-23 09:43:49,433 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-29_1.clean.fq.gz
+2025-12-23 09:43:49,433 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-29_2.clean.fq.gz
+2025-12-23 09:43:49,433 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-29.html
+2025-12-23 09:43:49,433 - INFO - ---
+2025-12-23 09:43:49,433 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-29
+2025-12-23 09:43:49,433 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-29_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-29_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-29_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-29_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-29.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-29.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:46:54,962 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-29
+2025-12-23 09:46:54,963 - INFO - ✅ 样本 OV8-29 处理完成 | Sample OV8-29 processing completed
+2025-12-23 09:46:54,963 - INFO - ---
+2025-12-23 09:46:54,963 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-141
+2025-12-23 09:46:54,963 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-141_1.clean.fq.gz
+2025-12-23 09:46:54,963 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-141_2.clean.fq.gz
+2025-12-23 09:46:54,963 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-141_1.clean.fq.gz
+2025-12-23 09:46:54,963 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-141_2.clean.fq.gz
+2025-12-23 09:46:54,963 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-141.html
+2025-12-23 09:46:54,963 - INFO - ---
+2025-12-23 09:46:54,963 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-141
+2025-12-23 09:46:54,963 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-141_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-141_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-141_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-141_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-141.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-141.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:50:50,449 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-141
+2025-12-23 09:50:50,449 - INFO - ✅ 样本 OV8-141 处理完成 | Sample OV8-141 processing completed
+2025-12-23 09:50:50,449 - INFO - ---
+2025-12-23 09:50:50,449 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-44
+2025-12-23 09:50:50,449 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-44_1.clean.fq.gz
+2025-12-23 09:50:50,449 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-44_2.clean.fq.gz
+2025-12-23 09:50:50,449 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-44_1.clean.fq.gz
+2025-12-23 09:50:50,449 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-44_2.clean.fq.gz
+2025-12-23 09:50:50,449 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-44.html
+2025-12-23 09:50:50,449 - INFO - ---
+2025-12-23 09:50:50,449 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-44
+2025-12-23 09:50:50,449 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-44_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-44_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-44_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-44_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-44.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-44.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:54:23,676 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-44
+2025-12-23 09:54:23,676 - INFO - ✅ 样本 OV8-44 处理完成 | Sample OV8-44 processing completed
+2025-12-23 09:54:23,676 - INFO - ---
+2025-12-23 09:54:23,676 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-172
+2025-12-23 09:54:23,676 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-172_1.clean.fq.gz
+2025-12-23 09:54:23,676 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-172_2.clean.fq.gz
+2025-12-23 09:54:23,676 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-172_1.clean.fq.gz
+2025-12-23 09:54:23,676 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-172_2.clean.fq.gz
+2025-12-23 09:54:23,676 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-172.html
+2025-12-23 09:54:23,676 - INFO - ---
+2025-12-23 09:54:23,676 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-172
+2025-12-23 09:54:23,676 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-172_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-172_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-172_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-172_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-172.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-172.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 09:57:32,858 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-172
+2025-12-23 09:57:32,858 - INFO - ✅ 样本 OV8-172 处理完成 | Sample OV8-172 processing completed
+2025-12-23 09:57:32,858 - INFO - ---
+2025-12-23 09:57:32,858 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-273
+2025-12-23 09:57:32,858 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-273_1.clean.fq.gz
+2025-12-23 09:57:32,858 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-273_2.clean.fq.gz
+2025-12-23 09:57:32,858 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-273_1.clean.fq.gz
+2025-12-23 09:57:32,858 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-273_2.clean.fq.gz
+2025-12-23 09:57:32,858 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-273.html
+2025-12-23 09:57:32,858 - INFO - ---
+2025-12-23 09:57:32,858 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-273
+2025-12-23 09:57:32,858 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-273_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-273_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-273_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-273_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-273.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-273.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:00:50,773 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-273
+2025-12-23 10:00:50,773 - INFO - ✅ 样本 OV8-273 处理完成 | Sample OV8-273 processing completed
+2025-12-23 10:00:50,773 - INFO - ---
+2025-12-23 10:00:50,773 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-32
+2025-12-23 10:00:50,773 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-32_1.clean.fq.gz
+2025-12-23 10:00:50,773 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-32_2.clean.fq.gz
+2025-12-23 10:00:50,773 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-32_1.clean.fq.gz
+2025-12-23 10:00:50,773 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-32_2.clean.fq.gz
+2025-12-23 10:00:50,773 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-32.html
+2025-12-23 10:00:50,773 - INFO - ---
+2025-12-23 10:00:50,773 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-32
+2025-12-23 10:00:50,773 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-32_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-32_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-32_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-32_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-32.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-32.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:04:09,353 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-32
+2025-12-23 10:04:09,353 - INFO - ✅ 样本 OV8-32 处理完成 | Sample OV8-32 processing completed
+2025-12-23 10:04:09,353 - INFO - ---
+2025-12-23 10:04:09,353 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-274
+2025-12-23 10:04:09,353 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-274_1.clean.fq.gz
+2025-12-23 10:04:09,353 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-274_2.clean.fq.gz
+2025-12-23 10:04:09,353 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-274_1.clean.fq.gz
+2025-12-23 10:04:09,353 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-274_2.clean.fq.gz
+2025-12-23 10:04:09,353 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-274.html
+2025-12-23 10:04:09,353 - INFO - ---
+2025-12-23 10:04:09,353 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-274
+2025-12-23 10:04:09,353 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-274_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-274_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-274_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-274_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-274.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-274.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:07:23,219 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-274
+2025-12-23 10:07:23,219 - INFO - ✅ 样本 OV8-274 处理完成 | Sample OV8-274 processing completed
+2025-12-23 10:07:23,219 - INFO - ---
+2025-12-23 10:07:23,219 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-26
+2025-12-23 10:07:23,219 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-26_1.clean.fq.gz
+2025-12-23 10:07:23,219 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-26_2.clean.fq.gz
+2025-12-23 10:07:23,219 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-26_1.clean.fq.gz
+2025-12-23 10:07:23,219 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-26_2.clean.fq.gz
+2025-12-23 10:07:23,219 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-26.html
+2025-12-23 10:07:23,219 - INFO - ---
+2025-12-23 10:07:23,219 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-26
+2025-12-23 10:07:23,219 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-26_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-26_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-26_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-26_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-26.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-26.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:11:37,826 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-26
+2025-12-23 10:11:37,826 - INFO - ✅ 样本 OV8-26 处理完成 | Sample OV8-26 processing completed
+2025-12-23 10:11:37,826 - INFO - ---
+2025-12-23 10:11:37,826 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-34
+2025-12-23 10:11:37,826 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-34_1.clean.fq.gz
+2025-12-23 10:11:37,826 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-34_2.clean.fq.gz
+2025-12-23 10:11:37,826 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-34_1.clean.fq.gz
+2025-12-23 10:11:37,826 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-34_2.clean.fq.gz
+2025-12-23 10:11:37,826 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-34.html
+2025-12-23 10:11:37,826 - INFO - ---
+2025-12-23 10:11:37,826 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-34
+2025-12-23 10:11:37,826 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-34_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-34_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-34_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-34_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-34.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-34.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:14:37,316 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-34
+2025-12-23 10:14:37,317 - INFO - ✅ 样本 OV8-34 处理完成 | Sample OV8-34 processing completed
+2025-12-23 10:14:37,317 - INFO - ---
+2025-12-23 10:14:37,317 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-20
+2025-12-23 10:14:37,317 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-20_1.clean.fq.gz
+2025-12-23 10:14:37,317 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-20_2.clean.fq.gz
+2025-12-23 10:14:37,317 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-20_1.clean.fq.gz
+2025-12-23 10:14:37,317 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-20_2.clean.fq.gz
+2025-12-23 10:14:37,317 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-20.html
+2025-12-23 10:14:37,317 - INFO - ---
+2025-12-23 10:14:37,317 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-20
+2025-12-23 10:14:37,317 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-20_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-20_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-20_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-20_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-20.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-20.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:17:55,448 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-20
+2025-12-23 10:17:55,448 - INFO - ✅ 样本 OV8-20 处理完成 | Sample OV8-20 processing completed
+2025-12-23 10:17:55,448 - INFO - ---
+2025-12-23 10:17:55,448 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-171
+2025-12-23 10:17:55,448 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-171_1.clean.fq.gz
+2025-12-23 10:17:55,448 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-171_2.clean.fq.gz
+2025-12-23 10:17:55,448 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-171_1.clean.fq.gz
+2025-12-23 10:17:55,448 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-171_2.clean.fq.gz
+2025-12-23 10:17:55,448 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-171.html
+2025-12-23 10:17:55,448 - INFO - ---
+2025-12-23 10:17:55,448 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-171
+2025-12-23 10:17:55,448 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-171_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-171_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-171_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-171_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-171.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-171.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:21:04,573 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-171
+2025-12-23 10:21:04,573 - INFO - ✅ 样本 OV8-171 处理完成 | Sample OV8-171 processing completed
+2025-12-23 10:21:04,573 - INFO - ---
+2025-12-23 10:21:04,573 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-73
+2025-12-23 10:21:04,573 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-73_1.clean.fq.gz
+2025-12-23 10:21:04,573 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-73_2.clean.fq.gz
+2025-12-23 10:21:04,573 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-73_1.clean.fq.gz
+2025-12-23 10:21:04,574 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-73_2.clean.fq.gz
+2025-12-23 10:21:04,574 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-73.html
+2025-12-23 10:21:04,574 - INFO - ---
+2025-12-23 10:21:04,574 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-73
+2025-12-23 10:21:04,574 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-73_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-73_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-73_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-73_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-73.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-73.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:24:02,577 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-73
+2025-12-23 10:24:02,577 - INFO - ✅ 样本 OV8-73 处理完成 | Sample OV8-73 processing completed
+2025-12-23 10:24:02,577 - INFO - ---
+2025-12-23 10:24:02,577 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-42
+2025-12-23 10:24:02,577 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-42_1.clean.fq.gz
+2025-12-23 10:24:02,577 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-42_2.clean.fq.gz
+2025-12-23 10:24:02,577 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-42_1.clean.fq.gz
+2025-12-23 10:24:02,577 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-42_2.clean.fq.gz
+2025-12-23 10:24:02,577 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-42.html
+2025-12-23 10:24:02,577 - INFO - ---
+2025-12-23 10:24:02,577 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-42
+2025-12-23 10:24:02,577 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-42_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-42_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-42_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-42_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-42.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-42.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:26:51,626 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-42
+2025-12-23 10:26:51,626 - INFO - ✅ 样本 OV8-42 处理完成 | Sample OV8-42 processing completed
+2025-12-23 10:26:51,626 - INFO - ---
+2025-12-23 10:26:51,626 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-5
+2025-12-23 10:26:51,626 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-5_1.clean.fq.gz
+2025-12-23 10:26:51,626 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-5_2.clean.fq.gz
+2025-12-23 10:26:51,626 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-5_1.clean.fq.gz
+2025-12-23 10:26:51,626 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-5_2.clean.fq.gz
+2025-12-23 10:26:51,626 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-5.html
+2025-12-23 10:26:51,626 - INFO - ---
+2025-12-23 10:26:51,626 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-5
+2025-12-23 10:26:51,626 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-5_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-5_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-5_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-5_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-5.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-5.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:30:42,949 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-5
+2025-12-23 10:30:42,950 - INFO - ✅ 样本 OV8-5 处理完成 | Sample OV8-5 processing completed
+2025-12-23 10:30:42,950 - INFO - ---
+2025-12-23 10:30:42,950 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-118
+2025-12-23 10:30:42,950 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-118_1.clean.fq.gz
+2025-12-23 10:30:42,950 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-118_2.clean.fq.gz
+2025-12-23 10:30:42,950 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-118_1.clean.fq.gz
+2025-12-23 10:30:42,950 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-118_2.clean.fq.gz
+2025-12-23 10:30:42,950 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-118.html
+2025-12-23 10:30:42,950 - INFO - ---
+2025-12-23 10:30:42,950 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-118
+2025-12-23 10:30:42,950 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-118_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-118_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-118_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-118_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-118.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-118.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:34:32,952 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-118
+2025-12-23 10:34:32,953 - INFO - ✅ 样本 OV8-118 处理完成 | Sample OV8-118 processing completed
+2025-12-23 10:34:32,953 - INFO - ---
+2025-12-23 10:34:32,953 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-144
+2025-12-23 10:34:32,953 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-144_1.clean.fq.gz
+2025-12-23 10:34:32,953 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-144_2.clean.fq.gz
+2025-12-23 10:34:32,953 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-144_1.clean.fq.gz
+2025-12-23 10:34:32,953 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-144_2.clean.fq.gz
+2025-12-23 10:34:32,953 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-144.html
+2025-12-23 10:34:32,953 - INFO - ---
+2025-12-23 10:34:32,953 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-144
+2025-12-23 10:34:32,953 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-144_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-144_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-144_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-144_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-144.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-144.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:37:50,797 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-144
+2025-12-23 10:37:50,797 - INFO - ✅ 样本 OV8-144 处理完成 | Sample OV8-144 processing completed
+2025-12-23 10:37:50,797 - INFO - ---
+2025-12-23 10:37:50,797 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-216
+2025-12-23 10:37:50,797 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-216_1.clean.fq.gz
+2025-12-23 10:37:50,797 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-216_2.clean.fq.gz
+2025-12-23 10:37:50,797 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-216_1.clean.fq.gz
+2025-12-23 10:37:50,797 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-216_2.clean.fq.gz
+2025-12-23 10:37:50,797 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-216.html
+2025-12-23 10:37:50,797 - INFO - ---
+2025-12-23 10:37:50,797 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-216
+2025-12-23 10:37:50,797 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-216_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-216_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-216_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-216_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-216.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-216.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:41:58,684 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-216
+2025-12-23 10:41:58,684 - INFO - ✅ 样本 OV8-216 处理完成 | Sample OV8-216 processing completed
+2025-12-23 10:41:58,684 - INFO - ---
+2025-12-23 10:41:58,684 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-83
+2025-12-23 10:41:58,684 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-83_1.clean.fq.gz
+2025-12-23 10:41:58,684 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-83_2.clean.fq.gz
+2025-12-23 10:41:58,684 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-83_1.clean.fq.gz
+2025-12-23 10:41:58,684 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-83_2.clean.fq.gz
+2025-12-23 10:41:58,684 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-83.html
+2025-12-23 10:41:58,684 - INFO - ---
+2025-12-23 10:41:58,684 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-83
+2025-12-23 10:41:58,684 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-83_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-83_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-83_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-83_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-83.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-83.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:45:05,653 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-83
+2025-12-23 10:45:05,653 - INFO - ✅ 样本 OV8-83 处理完成 | Sample OV8-83 processing completed
+2025-12-23 10:45:05,653 - INFO - ---
+2025-12-23 10:45:05,653 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-87
+2025-12-23 10:45:05,653 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-87_1.clean.fq.gz
+2025-12-23 10:45:05,653 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-87_2.clean.fq.gz
+2025-12-23 10:45:05,653 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-87_1.clean.fq.gz
+2025-12-23 10:45:05,653 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-87_2.clean.fq.gz
+2025-12-23 10:45:05,653 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-87.html
+2025-12-23 10:45:05,653 - INFO - ---
+2025-12-23 10:45:05,653 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-87
+2025-12-23 10:45:05,654 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-87_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-87_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-87_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-87_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-87.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-87.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:48:14,925 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-87
+2025-12-23 10:48:14,925 - INFO - ✅ 样本 OV8-87 处理完成 | Sample OV8-87 processing completed
+2025-12-23 10:48:14,925 - INFO - ---
+2025-12-23 10:48:14,925 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-267
+2025-12-23 10:48:14,925 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-267_1.clean.fq.gz
+2025-12-23 10:48:14,925 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-267_2.clean.fq.gz
+2025-12-23 10:48:14,925 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-267_1.clean.fq.gz
+2025-12-23 10:48:14,925 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-267_2.clean.fq.gz
+2025-12-23 10:48:14,925 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-267.html
+2025-12-23 10:48:14,925 - INFO - ---
+2025-12-23 10:48:14,925 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-267
+2025-12-23 10:48:14,925 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-267_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-267_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-267_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-267_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-267.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-267.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:52:07,269 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-267
+2025-12-23 10:52:07,269 - INFO - ✅ 样本 OV8-267 处理完成 | Sample OV8-267 processing completed
+2025-12-23 10:52:07,269 - INFO - ---
+2025-12-23 10:52:07,269 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-19
+2025-12-23 10:52:07,269 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-19_1.clean.fq.gz
+2025-12-23 10:52:07,269 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-19_2.clean.fq.gz
+2025-12-23 10:52:07,269 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-19_1.clean.fq.gz
+2025-12-23 10:52:07,269 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-19_2.clean.fq.gz
+2025-12-23 10:52:07,269 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-19.html
+2025-12-23 10:52:07,269 - INFO - ---
+2025-12-23 10:52:07,269 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-19
+2025-12-23 10:52:07,270 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-19_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-19_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-19_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-19_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-19.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-19.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:55:28,875 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-19
+2025-12-23 10:55:28,875 - INFO - ✅ 样本 OV8-19 处理完成 | Sample OV8-19 processing completed
+2025-12-23 10:55:28,875 - INFO - ---
+2025-12-23 10:55:28,875 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-94
+2025-12-23 10:55:28,875 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-94_1.clean.fq.gz
+2025-12-23 10:55:28,875 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-94_2.clean.fq.gz
+2025-12-23 10:55:28,875 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-94_1.clean.fq.gz
+2025-12-23 10:55:28,875 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-94_2.clean.fq.gz
+2025-12-23 10:55:28,876 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-94.html
+2025-12-23 10:55:28,876 - INFO - ---
+2025-12-23 10:55:28,876 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-94
+2025-12-23 10:55:28,876 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-94_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-94_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-94_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-94_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-94.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-94.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 10:58:35,904 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-94
+2025-12-23 10:58:35,904 - INFO - ✅ 样本 OV8-94 处理完成 | Sample OV8-94 processing completed
+2025-12-23 10:58:35,904 - INFO - ---
+2025-12-23 10:58:35,904 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-259
+2025-12-23 10:58:35,904 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-259_1.clean.fq.gz
+2025-12-23 10:58:35,904 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-259_2.clean.fq.gz
+2025-12-23 10:58:35,904 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-259_1.clean.fq.gz
+2025-12-23 10:58:35,904 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-259_2.clean.fq.gz
+2025-12-23 10:58:35,904 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-259.html
+2025-12-23 10:58:35,904 - INFO - ---
+2025-12-23 10:58:35,904 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-259
+2025-12-23 10:58:35,904 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-259_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-259_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-259_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-259_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-259.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-259.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:02:15,083 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-259
+2025-12-23 11:02:15,083 - INFO - ✅ 样本 OV8-259 处理完成 | Sample OV8-259 processing completed
+2025-12-23 11:02:15,083 - INFO - ---
+2025-12-23 11:02:15,083 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-275
+2025-12-23 11:02:15,083 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-275_1.clean.fq.gz
+2025-12-23 11:02:15,084 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-275_2.clean.fq.gz
+2025-12-23 11:02:15,084 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-275_1.clean.fq.gz
+2025-12-23 11:02:15,084 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-275_2.clean.fq.gz
+2025-12-23 11:02:15,084 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-275.html
+2025-12-23 11:02:15,084 - INFO - ---
+2025-12-23 11:02:15,084 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-275
+2025-12-23 11:02:15,084 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-275_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-275_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-275_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-275_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-275.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-275.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:05:28,975 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-275
+2025-12-23 11:05:28,976 - INFO - ✅ 样本 OV8-275 处理完成 | Sample OV8-275 processing completed
+2025-12-23 11:05:28,976 - INFO - ---
+2025-12-23 11:05:28,976 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-272
+2025-12-23 11:05:28,976 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-272_1.clean.fq.gz
+2025-12-23 11:05:28,976 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-272_2.clean.fq.gz
+2025-12-23 11:05:28,976 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-272_1.clean.fq.gz
+2025-12-23 11:05:28,976 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-272_2.clean.fq.gz
+2025-12-23 11:05:28,976 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-272.html
+2025-12-23 11:05:28,976 - INFO - ---
+2025-12-23 11:05:28,976 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-272
+2025-12-23 11:05:28,976 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-272_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-272_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-272_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-272_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-272.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-272.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:08:43,378 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-272
+2025-12-23 11:08:43,378 - INFO - ✅ 样本 OV8-272 处理完成 | Sample OV8-272 processing completed
+2025-12-23 11:08:43,378 - INFO - ---
+2025-12-23 11:08:43,378 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-98
+2025-12-23 11:08:43,378 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-98_1.clean.fq.gz
+2025-12-23 11:08:43,378 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-98_2.clean.fq.gz
+2025-12-23 11:08:43,378 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-98_1.clean.fq.gz
+2025-12-23 11:08:43,378 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-98_2.clean.fq.gz
+2025-12-23 11:08:43,378 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-98.html
+2025-12-23 11:08:43,379 - INFO - ---
+2025-12-23 11:08:43,379 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-98
+2025-12-23 11:08:43,379 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-98_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-98_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-98_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-98_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-98.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-98.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:11:45,512 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-98
+2025-12-23 11:11:45,512 - INFO - ✅ 样本 OV8-98 处理完成 | Sample OV8-98 processing completed
+2025-12-23 11:11:45,512 - INFO - ---
+2025-12-23 11:11:45,512 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-158
+2025-12-23 11:11:45,512 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-158_1.clean.fq.gz
+2025-12-23 11:11:45,512 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-158_2.clean.fq.gz
+2025-12-23 11:11:45,512 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-158_1.clean.fq.gz
+2025-12-23 11:11:45,512 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-158_2.clean.fq.gz
+2025-12-23 11:11:45,512 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-158.html
+2025-12-23 11:11:45,512 - INFO - ---
+2025-12-23 11:11:45,512 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-158
+2025-12-23 11:11:45,512 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-158_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-158_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-158_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-158_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-158.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-158.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:15:45,599 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-158
+2025-12-23 11:15:45,599 - INFO - ✅ 样本 OV8-158 处理完成 | Sample OV8-158 processing completed
+2025-12-23 11:15:45,599 - INFO - ---
+2025-12-23 11:15:45,600 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-6
+2025-12-23 11:15:45,600 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-6_1.clean.fq.gz
+2025-12-23 11:15:45,600 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-6_2.clean.fq.gz
+2025-12-23 11:15:45,600 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-6_1.clean.fq.gz
+2025-12-23 11:15:45,600 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-6_2.clean.fq.gz
+2025-12-23 11:15:45,600 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-6.html
+2025-12-23 11:15:45,600 - INFO - ---
+2025-12-23 11:15:45,600 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-6
+2025-12-23 11:15:45,600 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-6_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-6_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-6_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-6_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-6.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-6.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:18:42,789 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-6
+2025-12-23 11:18:42,790 - INFO - ✅ 样本 OV8-6 处理完成 | Sample OV8-6 processing completed
+2025-12-23 11:18:42,790 - INFO - ---
+2025-12-23 11:18:42,790 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-70
+2025-12-23 11:18:42,790 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-70_1.clean.fq.gz
+2025-12-23 11:18:42,790 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-70_2.clean.fq.gz
+2025-12-23 11:18:42,790 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-70_1.clean.fq.gz
+2025-12-23 11:18:42,790 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-70_2.clean.fq.gz
+2025-12-23 11:18:42,790 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-70.html
+2025-12-23 11:18:42,790 - INFO - ---
+2025-12-23 11:18:42,790 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-70
+2025-12-23 11:18:42,790 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-70_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-70_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-70_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-70_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-70.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-70.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:22:00,522 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-70
+2025-12-23 11:22:00,522 - INFO - ✅ 样本 OV8-70 处理完成 | Sample OV8-70 processing completed
+2025-12-23 11:22:00,522 - INFO - ---
+2025-12-23 11:22:00,522 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-264
+2025-12-23 11:22:00,522 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-264_1.clean.fq.gz
+2025-12-23 11:22:00,522 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-264_2.clean.fq.gz
+2025-12-23 11:22:00,522 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-264_1.clean.fq.gz
+2025-12-23 11:22:00,522 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-264_2.clean.fq.gz
+2025-12-23 11:22:00,522 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-264.html
+2025-12-23 11:22:00,522 - INFO - ---
+2025-12-23 11:22:00,522 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-264
+2025-12-23 11:22:00,522 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-264_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-264_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-264_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-264_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-264.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-264.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:25:06,911 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-264
+2025-12-23 11:25:06,911 - INFO - ✅ 样本 OV8-264 处理完成 | Sample OV8-264 processing completed
+2025-12-23 11:25:06,911 - INFO - ---
+2025-12-23 11:25:06,911 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-15
+2025-12-23 11:25:06,911 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-15_1.clean.fq.gz
+2025-12-23 11:25:06,911 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-15_2.clean.fq.gz
+2025-12-23 11:25:06,911 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-15_1.clean.fq.gz
+2025-12-23 11:25:06,911 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-15_2.clean.fq.gz
+2025-12-23 11:25:06,911 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-15.html
+2025-12-23 11:25:06,911 - INFO - ---
+2025-12-23 11:25:06,911 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-15
+2025-12-23 11:25:06,911 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-15_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-15_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-15_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-15_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-15.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-15.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:28:30,616 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-15
+2025-12-23 11:28:30,616 - INFO - ✅ 样本 OV8-15 处理完成 | Sample OV8-15 processing completed
+2025-12-23 11:28:30,616 - INFO - ---
+2025-12-23 11:28:30,616 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-89
+2025-12-23 11:28:30,616 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-89_1.clean.fq.gz
+2025-12-23 11:28:30,616 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-89_2.clean.fq.gz
+2025-12-23 11:28:30,616 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-89_1.clean.fq.gz
+2025-12-23 11:28:30,616 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-89_2.clean.fq.gz
+2025-12-23 11:28:30,616 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-89.html
+2025-12-23 11:28:30,616 - INFO - ---
+2025-12-23 11:28:30,616 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-89
+2025-12-23 11:28:30,617 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-89_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-89_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-89_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-89_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-89.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-89.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:32:04,613 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-89
+2025-12-23 11:32:04,613 - INFO - ✅ 样本 OV8-89 处理完成 | Sample OV8-89 processing completed
+2025-12-23 11:32:04,613 - INFO - ---
+2025-12-23 11:32:04,613 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-114
+2025-12-23 11:32:04,613 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-114_1.clean.fq.gz
+2025-12-23 11:32:04,613 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-114_2.clean.fq.gz
+2025-12-23 11:32:04,613 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-114_1.clean.fq.gz
+2025-12-23 11:32:04,613 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-114_2.clean.fq.gz
+2025-12-23 11:32:04,613 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-114.html
+2025-12-23 11:32:04,613 - INFO - ---
+2025-12-23 11:32:04,613 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-114
+2025-12-23 11:32:04,613 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-114_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-114_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-114_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-114_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-114.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-114.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:35:21,691 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-114
+2025-12-23 11:35:21,691 - INFO - ✅ 样本 OV8-114 处理完成 | Sample OV8-114 processing completed
+2025-12-23 11:35:21,691 - INFO - ---
+2025-12-23 11:35:21,691 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-45
+2025-12-23 11:35:21,691 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-45_1.clean.fq.gz
+2025-12-23 11:35:21,691 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-45_2.clean.fq.gz
+2025-12-23 11:35:21,691 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-45_1.clean.fq.gz
+2025-12-23 11:35:21,691 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-45_2.clean.fq.gz
+2025-12-23 11:35:21,691 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-45.html
+2025-12-23 11:35:21,691 - INFO - ---
+2025-12-23 11:35:21,691 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-45
+2025-12-23 11:35:21,691 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-45_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-45_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-45_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-45_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-45.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-45.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:38:33,076 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-45
+2025-12-23 11:38:33,076 - INFO - ✅ 样本 OV8-45 处理完成 | Sample OV8-45 processing completed
+2025-12-23 11:38:33,076 - INFO - ---
+2025-12-23 11:38:33,076 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-2
+2025-12-23 11:38:33,076 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-2_1.clean.fq.gz
+2025-12-23 11:38:33,076 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-2_2.clean.fq.gz
+2025-12-23 11:38:33,076 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-2_1.clean.fq.gz
+2025-12-23 11:38:33,076 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-2_2.clean.fq.gz
+2025-12-23 11:38:33,076 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-2.html
+2025-12-23 11:38:33,076 - INFO - ---
+2025-12-23 11:38:33,076 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-2
+2025-12-23 11:38:33,076 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-2_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-2_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-2_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-2_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-2.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-2.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:41:32,169 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-2
+2025-12-23 11:41:32,169 - INFO - ✅ 样本 OV8-2 处理完成 | Sample OV8-2 processing completed
+2025-12-23 11:41:32,169 - INFO - ---
+2025-12-23 11:41:32,169 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-75
+2025-12-23 11:41:32,169 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-75_1.clean.fq.gz
+2025-12-23 11:41:32,169 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-75_2.clean.fq.gz
+2025-12-23 11:41:32,169 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-75_1.clean.fq.gz
+2025-12-23 11:41:32,169 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-75_2.clean.fq.gz
+2025-12-23 11:41:32,169 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-75.html
+2025-12-23 11:41:32,169 - INFO - ---
+2025-12-23 11:41:32,169 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-75
+2025-12-23 11:41:32,169 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-75_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-75_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-75_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-75_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-75.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-75.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:45:08,741 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-75
+2025-12-23 11:45:08,741 - INFO - ✅ 样本 OV8-75 处理完成 | Sample OV8-75 processing completed
+2025-12-23 11:45:08,741 - INFO - ---
+2025-12-23 11:45:08,741 - INFO - ⚡ 正在处理样本 | Processing sample: OV8-116
+2025-12-23 11:45:08,741 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-116_1.clean.fq.gz
+2025-12-23 11:45:08,741 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-116_2.clean.fq.gz
+2025-12-23 11:45:08,741 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-116_1.clean.fq.gz
+2025-12-23 11:45:08,741 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-116_2.clean.fq.gz
+2025-12-23 11:45:08,741 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-116.html
+2025-12-23 11:45:08,742 - INFO - ---
+2025-12-23 11:45:08,742 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> OV8-116
+2025-12-23 11:45:08,742 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-116_1.clean.fq.gz -I /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean/OV8-116_2.clean.fq.gz -o /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-116_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/OV8-116_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-116.html -j /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports/OV8-116.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-23 11:48:22,206 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> OV8-116
+2025-12-23 11:48:22,207 - INFO - ✅ 样本 OV8-116 处理完成 | Sample OV8-116 processing completed
+2025-12-23 11:48:22,207 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_processing_summary.txt
+2025-12-23 11:48:22,207 - INFO - ============================================================
+2025-12-23 11:48:22,207 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-12-23 11:48:22,207 - INFO - 🧮 总样本数 | Total samples: 99
+2025-12-23 11:48:22,207 - INFO - ✅ 成功处理 | Successfully processed: 99
+2025-12-23 11:48:22,207 - INFO - ❌ 失败样本 | Failed samples: 0
+2025-12-23 11:48:22,207 - INFO - 📊 成功率 | Success rate: 100.0%
+2025-12-23 11:48:22,207 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean
+2025-12-23 11:48:22,207 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/clean/fastp_reports
+2025-12-23 11:48:22,207 - INFO - ============================================================
+
+✅ 命令执行成功 | Command executed successfully
+✅ 质控完成: 198 个清洁文件 | QC completed: 198 clean files
+📍 创建检查点 | Create checkpoint: quality_control
+🧹 Fastp质量控制完成，立即执行GTX索引构建 | Fastp QC completed, immediately executing GTX index building
+
+==================================================
+🔧 强制构建GTX索引 | Force Build GTX Index
+==================================================
+✓ 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+🔧 强制执行GTX索引构建 | Force executing GTX index build
+🔧 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/.tmp
+🔧 基因组文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+🔧 临时目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/.tmp
+🔧 强制构建GTX索引 | Force build GTX index
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/.tmp
+标准输出 | Stdout: [2020-10-20 00:00:00.655] [index] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/.tmp available: 2716771GB, memory available: 462GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.675] [index] [info] Job: index, pid: 747769
+[2020-10-20 00:00:00.675] [index] [info] Indexing...
+[2020-10-20 00:00:04.727] [index] [info] build optimized BWA2 FM-index
+[2020-10-20 00:00:12.165] [index] [info] Read 0 ALT contigs.
+[2020-10-20 00:06:23.307] [index] [info] build optimized BWA2 FM-index successed.
+[2020-10-20 00:06:23.310] [index] [info] index exited normally.
+
+标准错误 | Stderr: indexing finished in 381.46 CPU sec, 382.632 real sec.
+
+✅ 命令执行成功 | Command executed successfully
+✅ GTX索引构建成功 | GTX index building successful
+🔍 验证GTX索引文件:
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx.bwt: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx.sa: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx.ann: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx.amb: ✗ (0 B)
+✅ 步骤 1 完成 | Step 1 completed: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+
+==================================================
+📊 Step 2: 构建其他索引 | Build Other Indexes
+==================================================
+⏭️ GTX索引已在step1中构建，跳过 | GTX index already built in step1, skipping
+构建其他索引（BWA, SAMtools, GATK）| Building other indexes (BWA, SAMtools, GATK)
+构建 BWA 索引 | Building BWA index
+📊 构建BWA索引 | Build BWA index
+🔄 执行命令 | Running command: bwa index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa

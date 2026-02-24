@@ -1,0 +1,13 @@
+>>> 流程开始运行...
+>>> 项目名称(前缀): danhongji
+>>> 工作目录: /share/org/YZWL/yzwl_lixg/project/24.淡红荠
+[1/6] 创建必要的输出目录...
+[2/6] 开始 GATK 联合变异检测 (Joint Calling)...
+2025-11-26 08:59:42,886 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-11-26 08:59:42,886 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/24.淡红荠/02.mapping/02.gvcf
+2025-11-26 08:59:42,886 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/24.淡红荠/01.data/genome/genome.fa
+2025-11-26 08:59:42,886 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/24.淡红荠/03.gatk_joint
+2025-11-26 08:59:42,886 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-26 08:59:43,214 - INFO - ✅ BCFtools 可用 | available
+2025-11-26 08:59:43,214 - ERROR - ❌ 缺少依赖软件 | Missing dependencies: GATK
+2025-11-26 08:59:43,214 - ERROR - ❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: ❌ 缺少依赖软件 | Missing dependencies: GATK

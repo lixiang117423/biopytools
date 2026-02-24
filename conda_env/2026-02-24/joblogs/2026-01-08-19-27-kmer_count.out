@@ -1,0 +1,242 @@
+2026-01-08 19:27:27.865 - kmer_count - INFO - ============================================================
+2026-01-08 19:27:27.866 - kmer_count - INFO - 开始K-mer丰度分析|Starting K-mer abundance analysis
+2026-01-08 19:27:27.866 - kmer_count - INFO - ============================================================
+2026-01-08 19:27:27.866 - kmer_count - INFO - 步骤1: 检查依赖软件|Step 1: Checking dependencies
+2026-01-08 19:27:27.866 - kmer_count - INFO - 检查依赖软件|Checking dependencies
+2026-01-08 19:27:28.045 - kmer_count - INFO - Jellyfish 可用|available: jellyfish 2.2.10
+2026-01-08 19:27:28.045 - kmer_count - INFO - 步骤2: 设置临时目录|Step 2: Setting up temporary directory
+2026-01-08 19:27:28.046 - kmer_count - INFO - 临时目录: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953
+2026-01-08 19:27:28.046 - kmer_count - INFO - 步骤3: 查找输入文件|Step 3: Finding input files
+2026-01-08 19:27:28.046 - kmer_count - INFO -  查找输入文件|Finding input files
+2026-01-08 19:27:28.046 - kmer_count - INFO -  输入目录: fastq
+2026-01-08 19:27:28.046 - kmer_count - INFO -  文件模式: *_1.clean.fq.gz
+2026-01-08 19:27:28.046 - kmer_count - INFO -  输入目录是否存在: True
+2026-01-08 19:27:28.046 - kmer_count - INFO -  目录中的文件: ['F35_1_2.clean.fq.gz', 'KostanzA_2.clean.fq.gz', '716A_1.clean.fq.gz', 'Jan-70A_2.clean.fq.gz', '72-4A_2.clean.fq.gz', 'KostanzA_1.clean.fq.gz', 'Jan-70A_1.clean.fq.gz', '68-1A_1.clean.fq.gz', '68-1A_2.clean.fq.gz', '69A_1.clean.fq.gz']
+2026-01-08 19:27:28.046 - kmer_count - INFO -  使用FASTQ文件处理逻辑|Using FASTQ file processing logic
+2026-01-08 19:27:28.194 - kmer_count - INFO -  常规文件|Regular file: 716A_1.clean.fq.gz
+2026-01-08 19:27:28.194 - kmer_count - INFO -  常规文件|Regular file: KostanzA_1.clean.fq.gz
+2026-01-08 19:27:28.194 - kmer_count - INFO -  常规文件|Regular file: Jan-70A_1.clean.fq.gz
+2026-01-08 19:27:28.194 - kmer_count - INFO -  常规文件|Regular file: 68-1A_1.clean.fq.gz
+2026-01-08 19:27:28.194 - kmer_count - INFO -  常规文件|Regular file: 69A_1.clean.fq.gz
+2026-01-08 19:27:28.194 - kmer_count - INFO -  常规文件|Regular file: F35_1_1.clean.fq.gz
+2026-01-08 19:27:28.194 - kmer_count - INFO -  常规文件|Regular file: EcAA_1.clean.fq.gz
+2026-01-08 19:27:28.194 - kmer_count - INFO -  常规文件|Regular file: 72-4A_1.clean.fq.gz
+2026-01-08 19:27:28.195 - kmer_count - INFO -  常规文件|Regular file: F35_2_1.clean.fq.gz
+2026-01-08 19:27:28.195 - kmer_count - INFO -  找到9个有效R1文件
+2026-01-08 19:27:28.195 - kmer_count - INFO -  提取样本名: 716A
+2026-01-08 19:27:28.195 - kmer_count - INFO - 👥 找到双端样本: 716A
+2026-01-08 19:27:28.195 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/716A_1.clean.fq.gz
+2026-01-08 19:27:28.195 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/716A_2.clean.fq.gz
+2026-01-08 19:27:28.195 - kmer_count - INFO -  提取样本名: KostanzA
+2026-01-08 19:27:28.195 - kmer_count - INFO - 👥 找到双端样本: KostanzA
+2026-01-08 19:27:28.195 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/KostanzA_1.clean.fq.gz
+2026-01-08 19:27:28.195 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/KostanzA_2.clean.fq.gz
+2026-01-08 19:27:28.195 - kmer_count - INFO -  提取样本名: Jan-70A
+2026-01-08 19:27:28.195 - kmer_count - INFO - 👥 找到双端样本: Jan-70A
+2026-01-08 19:27:28.195 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/Jan-70A_1.clean.fq.gz
+2026-01-08 19:27:28.195 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/Jan-70A_2.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -  提取样本名: 68-1A
+2026-01-08 19:27:28.199 - kmer_count - INFO - 👥 找到双端样本: 68-1A
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/68-1A_1.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/68-1A_2.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -  提取样本名: 69A
+2026-01-08 19:27:28.199 - kmer_count - INFO - 👥 找到双端样本: 69A
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/69A_1.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/69A_2.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -  提取样本名: F35_1
+2026-01-08 19:27:28.199 - kmer_count - INFO - 👥 找到双端样本: F35_1
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/F35_1_1.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/F35_1_2.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -  提取样本名: EcAA
+2026-01-08 19:27:28.199 - kmer_count - INFO - 👥 找到双端样本: EcAA
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/EcAA_1.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/EcAA_2.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -  提取样本名: 72-4A
+2026-01-08 19:27:28.199 - kmer_count - INFO - 👥 找到双端样本: 72-4A
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/72-4A_1.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/72-4A_2.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -  提取样本名: F35_2
+2026-01-08 19:27:28.199 - kmer_count - INFO - 👥 找到双端样本: F35_2
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R1: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/F35_2_1.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO -    R2: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/fastq/F35_2_2.clean.fq.gz
+2026-01-08 19:27:28.199 - kmer_count - INFO - 步骤4: 准备k-mer库|Step 4: Preparing k-mer library
+2026-01-08 19:27:28.199 - kmer_count - INFO - 准备k-mer库文件|Preparing k-mer library file
+2026-01-08 19:27:28.202 - kmer_count - INFO - k-mer库已扩展，保存到: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/kmers_expanded.fasta
+2026-01-08 19:27:28.202 - kmer_count - INFO - 步骤5: 解析注释信息|Step 5: Parsing annotation information
+2026-01-08 19:27:28.202 - kmer_count - INFO -  解析k-mer库|Parsing k-mer library
+2026-01-08 19:27:28.203 - kmer_count - INFO -  解析完成，共417个k-mer对|Parsing completed, 417 k-mer pairs total
+2026-01-08 19:27:28.203 - kmer_count - INFO -  解析BED文件|Parsing BED file
+2026-01-08 19:27:28.227 - kmer_count - INFO -  成功读取BED文件前6列|Successfully read first 6 columns of BED file
+2026-01-08 19:27:28.228 - kmer_count - INFO -  扩展BED文件，添加反向互补序列|Expanding BED file with reverse complement sequences
+2026-01-08 19:27:28.276 - kmer_count - INFO -  扩展完成：原始417条，新增417条反向互补序列|Expansion completed: 417 original, 417 reverse complement sequences added
+2026-01-08 19:27:28.277 - kmer_count - INFO - 🔤 已将417个k-mer序列转换为大写|Converted 417 k-mer sequences to uppercase
+2026-01-08 19:27:28.280 - kmer_count - INFO -  已保存处理后的BED文件|Saved processed BED file: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/processed_kmers.bed
+2026-01-08 19:27:28.280 - kmer_count - INFO -  BED文件解析完成，共834条记录|BED file parsing completed, 834 records total
+2026-01-08 19:27:28.280 - kmer_count - INFO - 步骤6: 处理样本|Step 6: Processing samples
+2026-01-08 19:27:28.280 - kmer_count - INFO - 处理样本|Processing sample: 716A
+2026-01-08 19:27:28.280 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: 716A
+2026-01-08 19:28:26.076 - kmer_count - INFO - 文件完整: 716A_1.clean.fq.gz
+2026-01-08 19:29:22.381 - kmer_count - INFO - 文件完整: 716A_2.clean.fq.gz
+2026-01-08 19:29:22.395 - kmer_count - INFO - 使用generator方式处理: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/716A_generator.txt
+2026-01-08 19:29:22.395 - kmer_count - INFO - 执行步骤|Executing step: Generator K-mer计数|Generator K-mer counting for 716A
+2026-01-08 19:29:22.395 - kmer_count - INFO - 命令|Command: jellyfish count -m 31 -s 100000 -t 64 -g /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/716A_generator.txt -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/716A.jf
+2026-01-08 19:31:44.555 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:31:44.555 - kmer_count - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: 716A
+2026-01-08 19:31:44.555 - kmer_count - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for 716A
+2026-01-08 19:31:44.555 - kmer_count - INFO - 命令|Command: jellyfish query -s /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/kmers_expanded.fasta /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/716A.jf -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/716A.kmers.count
+2026-01-08 19:31:50.902 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:31:50.902 - kmer_count - INFO -  K-mer丰度查询完成|K-mer abundance query completed: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/716A.kmers.count
+2026-01-08 19:31:50.902 - kmer_count - INFO -  解析Jellyfish输出|Parsing Jellyfish output for 716A
+2026-01-08 19:31:50.903 - kmer_count - INFO -  解析完成，去重后共834个k-mer结果|Parsing completed, 834 unique k-mer results after deduplication
+2026-01-08 19:31:50.903 - kmer_count - INFO - 合并样品716A与BED文件
+2026-01-08 19:31:51.052 - kmer_count - INFO - 样品716A合并完成，共14行
+2026-01-08 19:31:51.053 - kmer_count - INFO - 样品716A结果已保存: each_sample/716A_kmer_abundance.tsv
+2026-01-08 19:31:51.053 - kmer_count - INFO - 处理样本|Processing sample: KostanzA
+2026-01-08 19:31:51.053 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: KostanzA
+2026-01-08 19:32:48.950 - kmer_count - INFO - 文件完整: KostanzA_1.clean.fq.gz
+2026-01-08 19:33:45.295 - kmer_count - INFO - 文件完整: KostanzA_2.clean.fq.gz
+2026-01-08 19:33:45.296 - kmer_count - INFO - 使用generator方式处理: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/KostanzA_generator.txt
+2026-01-08 19:33:45.296 - kmer_count - INFO - 执行步骤|Executing step: Generator K-mer计数|Generator K-mer counting for KostanzA
+2026-01-08 19:33:45.296 - kmer_count - INFO - 命令|Command: jellyfish count -m 31 -s 100000 -t 64 -g /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/KostanzA_generator.txt -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/KostanzA.jf
+2026-01-08 19:36:06.077 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:36:06.077 - kmer_count - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: KostanzA
+2026-01-08 19:36:06.077 - kmer_count - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for KostanzA
+2026-01-08 19:36:06.077 - kmer_count - INFO - 命令|Command: jellyfish query -s /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/kmers_expanded.fasta /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/KostanzA.jf -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/KostanzA.kmers.count
+2026-01-08 19:36:13.633 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:36:13.634 - kmer_count - INFO -  K-mer丰度查询完成|K-mer abundance query completed: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/KostanzA.kmers.count
+2026-01-08 19:36:13.634 - kmer_count - INFO -  解析Jellyfish输出|Parsing Jellyfish output for KostanzA
+2026-01-08 19:36:13.635 - kmer_count - INFO -  解析完成，去重后共834个k-mer结果|Parsing completed, 834 unique k-mer results after deduplication
+2026-01-08 19:36:13.635 - kmer_count - INFO - 合并样品KostanzA与BED文件
+2026-01-08 19:36:13.781 - kmer_count - INFO - 样品KostanzA合并完成，共14行
+2026-01-08 19:36:13.782 - kmer_count - INFO - 样品KostanzA结果已保存: each_sample/KostanzA_kmer_abundance.tsv
+2026-01-08 19:36:13.782 - kmer_count - INFO - 处理样本|Processing sample: Jan-70A
+2026-01-08 19:36:13.782 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: Jan-70A
+2026-01-08 19:37:11.974 - kmer_count - INFO - 文件完整: Jan-70A_1.clean.fq.gz
+2026-01-08 19:38:08.605 - kmer_count - INFO - 文件完整: Jan-70A_2.clean.fq.gz
+2026-01-08 19:38:08.606 - kmer_count - INFO - 使用generator方式处理: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/Jan-70A_generator.txt
+2026-01-08 19:38:08.606 - kmer_count - INFO - 执行步骤|Executing step: Generator K-mer计数|Generator K-mer counting for Jan-70A
+2026-01-08 19:38:08.606 - kmer_count - INFO - 命令|Command: jellyfish count -m 31 -s 100000 -t 64 -g /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/Jan-70A_generator.txt -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/Jan-70A.jf
+2026-01-08 19:40:31.228 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:40:31.228 - kmer_count - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: Jan-70A
+2026-01-08 19:40:31.228 - kmer_count - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for Jan-70A
+2026-01-08 19:40:31.228 - kmer_count - INFO - 命令|Command: jellyfish query -s /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/kmers_expanded.fasta /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/Jan-70A.jf -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/Jan-70A.kmers.count
+2026-01-08 19:40:38.260 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:40:38.260 - kmer_count - INFO -  K-mer丰度查询完成|K-mer abundance query completed: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/Jan-70A.kmers.count
+2026-01-08 19:40:38.260 - kmer_count - INFO -  解析Jellyfish输出|Parsing Jellyfish output for Jan-70A
+2026-01-08 19:40:38.261 - kmer_count - INFO -  解析完成，去重后共834个k-mer结果|Parsing completed, 834 unique k-mer results after deduplication
+2026-01-08 19:40:38.262 - kmer_count - INFO - 合并样品Jan-70A与BED文件
+2026-01-08 19:40:38.406 - kmer_count - INFO - 样品Jan-70A合并完成，共14行
+2026-01-08 19:40:38.407 - kmer_count - INFO - 样品Jan-70A结果已保存: each_sample/Jan-70A_kmer_abundance.tsv
+2026-01-08 19:40:38.407 - kmer_count - INFO - 处理样本|Processing sample: 68-1A
+2026-01-08 19:40:38.407 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: 68-1A
+2026-01-08 19:41:36.177 - kmer_count - INFO - 文件完整: 68-1A_1.clean.fq.gz
+2026-01-08 19:42:32.535 - kmer_count - INFO - 文件完整: 68-1A_2.clean.fq.gz
+2026-01-08 19:42:32.535 - kmer_count - INFO - 使用generator方式处理: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/68-1A_generator.txt
+2026-01-08 19:42:32.536 - kmer_count - INFO - 执行步骤|Executing step: Generator K-mer计数|Generator K-mer counting for 68-1A
+2026-01-08 19:42:32.536 - kmer_count - INFO - 命令|Command: jellyfish count -m 31 -s 100000 -t 64 -g /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/68-1A_generator.txt -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/68-1A.jf
+2026-01-08 19:44:54.020 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:44:54.020 - kmer_count - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: 68-1A
+2026-01-08 19:44:54.020 - kmer_count - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for 68-1A
+2026-01-08 19:44:54.020 - kmer_count - INFO - 命令|Command: jellyfish query -s /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/kmers_expanded.fasta /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/68-1A.jf -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/68-1A.kmers.count
+2026-01-08 19:45:01.666 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:45:01.666 - kmer_count - INFO -  K-mer丰度查询完成|K-mer abundance query completed: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/68-1A.kmers.count
+2026-01-08 19:45:01.666 - kmer_count - INFO -  解析Jellyfish输出|Parsing Jellyfish output for 68-1A
+2026-01-08 19:45:01.667 - kmer_count - INFO -  解析完成，去重后共834个k-mer结果|Parsing completed, 834 unique k-mer results after deduplication
+2026-01-08 19:45:01.667 - kmer_count - INFO - 合并样品68-1A与BED文件
+2026-01-08 19:45:01.814 - kmer_count - INFO - 样品68-1A合并完成，共14行
+2026-01-08 19:45:01.816 - kmer_count - INFO - 样品68-1A结果已保存: each_sample/68-1A_kmer_abundance.tsv
+2026-01-08 19:45:01.816 - kmer_count - INFO - 处理样本|Processing sample: 69A
+2026-01-08 19:45:01.816 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: 69A
+2026-01-08 19:45:50.702 - kmer_count - INFO - 文件完整: 69A_1.clean.fq.gz
+2026-01-08 19:46:38.427 - kmer_count - INFO - 文件完整: 69A_2.clean.fq.gz
+2026-01-08 19:46:38.427 - kmer_count - INFO - 使用generator方式处理: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/69A_generator.txt
+2026-01-08 19:46:38.427 - kmer_count - INFO - 执行步骤|Executing step: Generator K-mer计数|Generator K-mer counting for 69A
+2026-01-08 19:46:38.427 - kmer_count - INFO - 命令|Command: jellyfish count -m 31 -s 100000 -t 64 -g /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/69A_generator.txt -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/69A.jf
+2026-01-08 19:48:41.623 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:48:41.623 - kmer_count - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: 69A
+2026-01-08 19:48:41.623 - kmer_count - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for 69A
+2026-01-08 19:48:41.623 - kmer_count - INFO - 命令|Command: jellyfish query -s /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/kmers_expanded.fasta /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/69A.jf -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/69A.kmers.count
+2026-01-08 19:48:46.864 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:48:46.864 - kmer_count - INFO -  K-mer丰度查询完成|K-mer abundance query completed: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/69A.kmers.count
+2026-01-08 19:48:46.864 - kmer_count - INFO -  解析Jellyfish输出|Parsing Jellyfish output for 69A
+2026-01-08 19:48:46.866 - kmer_count - INFO -  解析完成，去重后共834个k-mer结果|Parsing completed, 834 unique k-mer results after deduplication
+2026-01-08 19:48:46.866 - kmer_count - INFO - 合并样品69A与BED文件
+2026-01-08 19:48:47.012 - kmer_count - INFO - 样品69A合并完成，共14行
+2026-01-08 19:48:47.013 - kmer_count - INFO - 样品69A结果已保存: each_sample/69A_kmer_abundance.tsv
+2026-01-08 19:48:47.013 - kmer_count - INFO - 处理样本|Processing sample: F35_1
+2026-01-08 19:48:47.013 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: F35_1
+2026-01-08 19:49:47.133 - kmer_count - ERROR - 文件完全不可读，跳过: F35_1_1.clean.fq.gz
+2026-01-08 19:49:47.134 - kmer_count - ERROR - 样本 F35_1 处理失败: 文件完全不可读: F35_1
+2026-01-08 19:49:47.134 - kmer_count - WARNING -  跳过该样本，继续处理其他样本
+2026-01-08 19:49:47.134 - kmer_count - INFO - 处理样本|Processing sample: EcAA
+2026-01-08 19:49:47.134 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: EcAA
+2026-01-08 19:50:44.527 - kmer_count - INFO - 文件完整: EcAA_1.clean.fq.gz
+2026-01-08 19:51:40.380 - kmer_count - INFO - 文件完整: EcAA_2.clean.fq.gz
+2026-01-08 19:51:40.381 - kmer_count - INFO - 使用generator方式处理: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/EcAA_generator.txt
+2026-01-08 19:51:40.381 - kmer_count - INFO - 执行步骤|Executing step: Generator K-mer计数|Generator K-mer counting for EcAA
+2026-01-08 19:51:40.381 - kmer_count - INFO - 命令|Command: jellyfish count -m 31 -s 100000 -t 64 -g /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/EcAA_generator.txt -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/EcAA.jf
+2026-01-08 19:54:02.736 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:54:02.736 - kmer_count - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: EcAA
+2026-01-08 19:54:02.736 - kmer_count - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for EcAA
+2026-01-08 19:54:02.736 - kmer_count - INFO - 命令|Command: jellyfish query -s /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/kmers_expanded.fasta /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/EcAA.jf -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/EcAA.kmers.count
+2026-01-08 19:54:11.818 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:54:11.818 - kmer_count - INFO -  K-mer丰度查询完成|K-mer abundance query completed: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/EcAA.kmers.count
+2026-01-08 19:54:11.818 - kmer_count - INFO -  解析Jellyfish输出|Parsing Jellyfish output for EcAA
+2026-01-08 19:54:11.819 - kmer_count - INFO -  解析完成，去重后共834个k-mer结果|Parsing completed, 834 unique k-mer results after deduplication
+2026-01-08 19:54:11.819 - kmer_count - INFO - 合并样品EcAA与BED文件
+2026-01-08 19:54:11.962 - kmer_count - INFO - 样品EcAA合并完成，共6行
+2026-01-08 19:54:11.963 - kmer_count - INFO - 样品EcAA结果已保存: each_sample/EcAA_kmer_abundance.tsv
+2026-01-08 19:54:11.963 - kmer_count - INFO - 处理样本|Processing sample: 72-4A
+2026-01-08 19:54:11.963 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: 72-4A
+2026-01-08 19:55:09.961 - kmer_count - INFO - 文件完整: 72-4A_1.clean.fq.gz
+2026-01-08 19:56:06.856 - kmer_count - INFO - 文件完整: 72-4A_2.clean.fq.gz
+2026-01-08 19:56:06.857 - kmer_count - INFO - 使用generator方式处理: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/72-4A_generator.txt
+2026-01-08 19:56:06.857 - kmer_count - INFO - 执行步骤|Executing step: Generator K-mer计数|Generator K-mer counting for 72-4A
+2026-01-08 19:56:06.857 - kmer_count - INFO - 命令|Command: jellyfish count -m 31 -s 100000 -t 64 -g /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/72-4A_generator.txt -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/72-4A.jf
+2026-01-08 19:58:29.468 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:58:29.468 - kmer_count - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: 72-4A
+2026-01-08 19:58:29.468 - kmer_count - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for 72-4A
+2026-01-08 19:58:29.468 - kmer_count - INFO - 命令|Command: jellyfish query -s /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/kmers_expanded.fasta /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/72-4A.jf -o /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/72-4A.kmers.count
+2026-01-08 19:58:36.604 - kmer_count - INFO - 命令执行成功|Command executed successfully
+2026-01-08 19:58:36.604 - kmer_count - INFO -  K-mer丰度查询完成|K-mer abundance query completed: /share/org/YZWL/yzwl_lixg/project/26.弯曲碎米芥/07.WTS基因在样品中的存在缺失/tmp/kmer_count_1767871648_6953/72-4A.kmers.count
+2026-01-08 19:58:36.604 - kmer_count - INFO -  解析Jellyfish输出|Parsing Jellyfish output for 72-4A
+2026-01-08 19:58:36.605 - kmer_count - INFO -  解析完成，去重后共834个k-mer结果|Parsing completed, 834 unique k-mer results after deduplication
+2026-01-08 19:58:36.605 - kmer_count - INFO - 合并样品72-4A与BED文件
+2026-01-08 19:58:36.750 - kmer_count - INFO - 样品72-4A合并完成，共14行
+2026-01-08 19:58:36.751 - kmer_count - INFO - 样品72-4A结果已保存: each_sample/72-4A_kmer_abundance.tsv
+2026-01-08 19:58:36.751 - kmer_count - INFO - 处理样本|Processing sample: F35_2
+2026-01-08 19:58:36.751 - kmer_count - INFO - 开始k-mer计数|Starting k-mer counting for sample: F35_2
+2026-01-08 19:59:36.907 - kmer_count - ERROR - 文件完全不可读，跳过: F35_2_1.clean.fq.gz
+2026-01-08 19:59:36.908 - kmer_count - ERROR - 样本 F35_2 处理失败: 文件完全不可读: F35_2
+2026-01-08 19:59:36.908 - kmer_count - WARNING -  跳过该样本，继续处理其他样本
+2026-01-08 19:59:36.908 - kmer_count - INFO - ==================================================
+2026-01-08 19:59:36.908 - kmer_count - INFO - 样本处理总结|Sample Processing Summary:
+2026-01-08 19:59:36.908 - kmer_count - INFO -   总样本数: 9
+2026-01-08 19:59:36.908 - kmer_count - INFO -   成功处理: 7
+2026-01-08 19:59:36.908 - kmer_count - INFO -    跳过样本: 2
+2026-01-08 19:59:36.908 - kmer_count - WARNING -    跳过比例: 22.2%
+2026-01-08 19:59:36.908 - kmer_count - INFO - ==================================================
+2026-01-08 19:59:36.908 - kmer_count - INFO - 步骤7: 合并所有样本结果|Step 7: Merging all sample results
+2026-01-08 19:59:36.908 - kmer_count - INFO - 合并所有样本结果
+2026-01-08 19:59:36.912 - kmer_count - INFO - 成功合并样本: 716A
+2026-01-08 19:59:36.913 - kmer_count - INFO - 成功合并样本: KostanzA
+2026-01-08 19:59:36.915 - kmer_count - INFO - 成功合并样本: Jan-70A
+2026-01-08 19:59:36.917 - kmer_count - INFO - 成功合并样本: 68-1A
+2026-01-08 19:59:36.919 - kmer_count - INFO - 成功合并样本: 69A
+2026-01-08 19:59:36.920 - kmer_count - INFO - 成功合并样本: EcAA
+2026-01-08 19:59:36.922 - kmer_count - INFO - 成功合并样本: 72-4A
+2026-01-08 19:59:36.922 - kmer_count - INFO - 最终矩阵: 417 行, 有效样本: 7
+2026-01-08 19:59:36.922 - kmer_count - INFO - 步骤8: 保存最终结果|Step 8: Saving final results
+2026-01-08 19:59:37.014 - kmer_count - INFO - 最终结果已保存|Final results saved: kmer_abundance_matrix.tsv
+2026-01-08 19:59:37.015 - kmer_count - INFO - 步骤9: 滑动窗口分析|Step 9: Sliding window analysis
+2026-01-08 19:59:37.015 - kmer_count - INFO - 🪟 开始滑动窗口分析|Starting sliding window analysis
+2026-01-08 19:59:37.015 - kmer_count - INFO - 📏 窗口大小: 500000bp, 步长: 100000bp
+2026-01-08 19:59:37.016 - kmer_count - INFO -  处理染色体|Processing chromosome: WTS
+2026-01-08 19:59:37.018 - kmer_count - INFO -  滑动窗口分析完成，共1个窗口
+2026-01-08 19:59:37.019 - kmer_count - INFO - 滑动窗口结果已保存|Sliding window results saved: sliding_window_analysis.tsv
+2026-01-08 19:59:37.019 - kmer_count - INFO - 生成统计摘要报告|Generating summary statistics report
+2026-01-08 19:59:37.022 - kmer_count - INFO - 统计报告已保存|Summary report saved: analysis_summary.txt
+2026-01-08 19:59:37.022 - kmer_count - INFO - ============================================================
+2026-01-08 19:59:37.022 - kmer_count - WARNING -  K-mer丰度分析完成，但有2个样本被跳过|K-mer abundance analysis completed, but 2 samples were skipped
+2026-01-08 19:59:37.022 - kmer_count - INFO - ============================================================
+2026-01-08 19:59:39.616 - kmer_count - INFO - 临时目录已清理|Temporary directory cleaned

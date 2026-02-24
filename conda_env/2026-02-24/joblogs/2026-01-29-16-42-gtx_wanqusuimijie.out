@@ -1,0 +1,1500 @@
+2026-01-29 16:42:20.087 - INFO - ============================================================
+2026-01-29 16:42:20.087 - INFO - 开始Fastq到VCF (GTX) 流程|Starting Fastq to VCF (GTX) Pipeline
+2026-01-29 16:42:20.087 - INFO - ============================================================
+2026-01-29 16:42:20.087 - INFO - 系统预检查|System pre-flight checks
+2026-01-29 16:42:20.087 - INFO - 开始更新所有组件的基因组路径...|Starting genome path update for all components...
+2026-01-29 16:42:20.087 - INFO - 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa -> /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa|Force updated genome path
+2026-01-29 16:42:20.088 - INFO - 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa|Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa
+2026-01-29 16:42:20.088 - INFO - 基因组路径更新完成|Genome path update completed
+2026-01-29 16:42:20.107 - INFO - 命令存在|Command exists: samtools
+2026-01-29 16:42:20.141 - INFO - 命令存在|Command exists: bcftools
+2026-01-29 16:42:20.142 - INFO - 命令存在|Command exists: biopytools
+2026-01-29 16:42:20.144 - INFO - 磁盘空间充足|Sufficient disk space: 4442807GB available
+2026-01-29 16:42:20.144 - INFO - 系统内存充足|Sufficient system memory: 503GB total
+2026-01-29 16:42:20.144 - INFO - 配置摘要|Configuration Summary:
+2026-01-29 16:42:20.144 - INFO -   项目路径|Project path: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对
+2026-01-29 16:42:20.144 - INFO -   原始数据目录|Raw data directory: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean
+2026-01-29 16:42:20.144 - INFO -   参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa
+2026-01-29 16:42:20.144 - INFO -   线程配置|Thread config: 64 threads
+2026-01-29 16:42:20.144 - INFO -   断点续传|Checkpoint: True
+2026-01-29 16:42:20.144 - INFO -   测试模式|Dry run: False
+2026-01-29 16:42:20.144 - INFO - 预检查通过|Pre-flight checks passed
+2026-01-29 16:42:20.144 - INFO - 执行步骤1|Executing step 1: 质量控制|Quality Control
+2026-01-29 16:42:20.144 - INFO - 执行步骤2|Executing step 2: 构建基因组索引|Build Genome Index
+2026-01-29 16:42:20.144 - INFO - 准备执行索引构建步骤|Preparing to execute index building step
+2026-01-29 16:42:20.144 - INFO - 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa|Current genome path in config
+2026-01-29 16:42:20.144 - INFO - GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa|Genome path in GTX mapper
+2026-01-29 16:42:20.144 - INFO - 执行步骤3|Executing step 3: 序列比对|Sequence Mapping
+2026-01-29 16:42:20.144 - INFO - 执行步骤4|Executing step 4: 联合变异检测|Joint Variant Calling
+2026-01-29 16:42:20.144 - INFO - 执行步骤5|Executing step 5: 变异过滤|Variant Filtering
+2026-01-29 16:42:20.144 - INFO - 执行步骤1|Executing step 1: 质量控制|Quality Control
+2026-01-29 16:42:20.144 - INFO - ============================================================
+2026-01-29 16:42:20.144 - INFO - Step 1: 质量控制|Quality Control
+2026-01-29 16:42:20.144 - INFO - ============================================================
+2026-01-29 16:42:20.144 - INFO - 调试信息: skip_qc = True
+2026-01-29 16:42:20.149 - INFO - 调试信息: read1_pattern_fastp = _1.fq.gz
+2026-01-29 16:42:20.149 - INFO - 调试信息: read2_pattern_fastp = _2.fq.gz
+2026-01-29 16:42:20.149 - INFO - 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean
+2026-01-29 16:42:20.149 - INFO - 用户指定跳过质控步骤|User specified to skip QC step
+2026-01-29 16:42:20.149 - INFO - ============================================================
+2026-01-29 16:42:20.149 - INFO - 强制构建GTX索引|Force Build GTX Index
+2026-01-29 16:42:20.149 - INFO - ============================================================
+2026-01-29 16:42:20.149 - INFO - 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa
+2026-01-29 16:42:20.150 - INFO - 强制执行GTX索引构建|Force executing GTX index build
+2026-01-29 16:42:20.150 - INFO - 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp
+2026-01-29 16:42:20.150 - INFO - 基因组文件: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa
+2026-01-29 16:42:20.150 - INFO - 临时目录: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp
+2026-01-29 16:42:20.150 - INFO - 强制构建GTX索引|Force build GTX index
+2026-01-29 16:42:20.150 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp
+2026-01-29 16:43:10.781 - INFO - 标准输出|Stdout: [2020-10-20 00:00:00.577] [index] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp available: 4442807GB, memory available: 461GB, ulimit of open files: 100000
+[2020-10-20 00:00:00.578] [index] [info] Job: index, pid: 4064828
+[2020-10-20 00:00:00.578] [index] [info] Indexing...
+[2020-10-20 00:00:01.215] [index] [info] build optimized BWA2 FM-index
+[2020-10-20 00:00:02.332] [index] [info] Read 0 ALT contigs.
+[2020-10-20 00:00:50.775] [index] [info] build optimized BWA2 FM-index successed.
+[2020-10-20 00:00:50.779] [index] [info] index exited normally.
+
+2026-01-29 16:43:10.782 - INFO - 标准错误|Stderr: indexing finished in 49.995 CPU sec, 50.1983 real sec.
+
+2026-01-29 16:43:10.782 - INFO - 命令执行成功|Command executed successfully
+2026-01-29 16:43:10.782 - INFO - GTX索引构建成功|GTX index building successful
+2026-01-29 16:43:10.782 - INFO - 验证GTX索引文件:
+2026-01-29 16:43:10.782 - INFO -    /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa.gtx: ✗ (0 B)
+2026-01-29 16:43:10.782 - INFO -    /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa.gtx.bwt: ✗ (0 B)
+2026-01-29 16:43:10.782 - INFO -    /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa.gtx.sa: ✗ (0 B)
+2026-01-29 16:43:10.782 - INFO -    /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa.gtx.ann: ✗ (0 B)
+2026-01-29 16:43:10.782 - INFO -    /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa.gtx.amb: ✗ (0 B)
+2026-01-29 16:43:10.782 - INFO - 步骤1 完成|Step 1 completed: 质量控制|Quality Control
+2026-01-29 16:43:10.782 - INFO - 执行步骤2|Executing step 2: 构建基因组索引|Build Genome Index
+2026-01-29 16:43:10.782 - INFO - ============================================================
+2026-01-29 16:43:10.782 - INFO - 构建基因组索引|Building Genome Index
+2026-01-29 16:43:10.782 - INFO - ============================================================
+2026-01-29 16:43:10.782 - INFO - GTX索引已在step1中构建，跳过|GTX index already built in step1, skipping
+2026-01-29 16:43:10.782 - INFO - 步骤2 完成|Step 2 completed: 构建基因组索引|Build Genome Index
+2026-01-29 16:43:10.782 - INFO - 执行步骤3|Executing step 3: 序列比对|Sequence Mapping
+2026-01-29 16:43:10.782 - INFO - ============================================================
+2026-01-29 16:43:10.782 - INFO - Step 3: 序列比对|Sequence Mapping
+2026-01-29 16:43:10.782 - INFO - ============================================================
+2026-01-29 16:43:10.782 - INFO - 刷新配置后的基因组路径: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa|Genome path after config refresh
+2026-01-29 16:43:10.783 - INFO - 使用GTX WGS进行序列比对 (CPU优化，比对+变异检测一体化)|Using GTX WGS for sequence mapping (CPU optimized, alignment+variant calling integrated)
+2026-01-29 16:43:10.783 - INFO - 使用 64 线程进行比对|Using 64 threads for mapping
+2026-01-29 16:43:10.783 - INFO - 使用GTX WGS完整流程 (CPU优化，比对+变异检测一体化)|Using GTX WGS complete pipeline (CPU optimized, alignment+variant calling integrated)
+2026-01-29 16:43:10.783 - INFO - 使用 64 线程处理|Using 64 threads
+2026-01-29 16:43:10.783 - INFO - 跳过质控模式，从原始目录查找FASTQ文件|Skip QC mode, searching for FASTQ files in raw directory: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean
+2026-01-29 16:43:10.783 - INFO - 找到 3 个样品需要处理|Found 3 samples to process
+2026-01-29 16:43:10.798 - INFO - [1/3] 处理样品: F35_1|Processing sample: F35_1
+2026-01-29 16:43:10.798 - INFO - GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa|Genome path used by GTX
+2026-01-29 16:43:10.798 - INFO - GTX WGS处理 F35_1|GTX WGS processing F35_1
+2026-01-29 16:43:10.798 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:F35_1\tSM:F35_1\tPL:ILLUMINA\tLB:F35_1" -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/vcf/F35_1.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/bam/F35_1.sorted.bam -t 64 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean/F35_1_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean/F35_1_2.clean.fq.gz
+2026-01-29 16:43:11.006 - INFO - [2020-10-20 00:00:01.006] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp available: 4442922GB, memory available: 461GB, ulimit of open files: 100000
+2026-01-29 16:43:12.008 - INFO - [2020-10-20 00:00:01.006] [wgs] [info] Use bwa mem2 to align!
+2026-01-29 16:43:13.013 - INFO - [2020-10-20 00:00:01.006] [align] [info] Job: mapping, pid: 4065221
+2026-01-29 16:43:14.015 - INFO - [2020-10-20 00:00:01.007] [align] [info] Mapping...
+2026-01-29 16:43:15.017 - INFO - [2020-10-20 00:00:01.720] [align] [info] Read 0 ALT contigs.
+2026-01-29 16:43:16.018 - INFO - Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+2026-01-29 16:43:18.279 - INFO - Processed 1097728 reads in 3.00 seconds. Average speed: 0.36M/s.
+2026-01-29 16:43:20.792 - INFO - Processed 2293760 reads in 6.51 seconds. Average speed: 0.35M/s.
+2026-01-29 16:43:23.296 - INFO - Processed 3293184 reads in 9.03 seconds. Average speed: 0.36M/s.
+2026-01-29 16:43:26.302 - INFO - Processed 4341760 reads in 11.53 seconds. Average speed: 0.38M/s.
+2026-01-29 16:43:28.315 - INFO - Processed 5455872 reads in 14.54 seconds. Average speed: 0.38M/s.
+2026-01-29 16:43:31.821 - INFO - Processed 6307840 reads in 16.55 seconds. Average speed: 0.38M/s.
+2026-01-29 16:43:33.825 - INFO - Processed 7602176 reads in 20.05 seconds. Average speed: 0.38M/s.
+2026-01-29 16:43:36.330 - INFO - Processed 8650752 reads in 22.06 seconds. Average speed: 0.39M/s.
+2026-01-29 16:43:39.336 - INFO - Processed 9437184 reads in 24.56 seconds. Average speed: 0.38M/s.
+2026-01-29 16:43:41.841 - INFO - Processed 10829824 reads in 27.57 seconds. Average speed: 0.39M/s.
+2026-01-29 16:43:44.847 - INFO - Processed 11747328 reads in 30.07 seconds. Average speed: 0.39M/s.
+2026-01-29 16:43:47.351 - INFO - Processed 12763136 reads in 33.08 seconds. Average speed: 0.39M/s.
+2026-01-29 16:43:49.355 - INFO - Processed 13942784 reads in 35.59 seconds. Average speed: 0.39M/s.
+2026-01-29 16:43:51.860 - INFO - Processed 14729216 reads in 37.59 seconds. Average speed: 0.39M/s.
+2026-01-29 16:43:55.369 - INFO - Processed 15826944 reads in 40.09 seconds. Average speed: 0.39M/s.
+2026-01-29 16:43:57.373 - INFO - Processed 17252352 reads in 43.60 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:00.387 - INFO - Processed 17989632 reads in 45.61 seconds. Average speed: 0.39M/s.
+2026-01-29 16:44:02.391 - INFO - Processed 18939904 reads in 48.62 seconds. Average speed: 0.39M/s.
+2026-01-29 16:44:05.398 - INFO - Processed 20004864 reads in 50.62 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:07.904 - INFO - Processed 21151744 reads in 53.63 seconds. Average speed: 0.39M/s.
+2026-01-29 16:44:10.411 - INFO - Processed 22233088 reads in 56.14 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:12.918 - INFO - Processed 23101440 reads in 58.64 seconds. Average speed: 0.39M/s.
+2026-01-29 16:44:15.931 - INFO - Processed 24215552 reads in 61.15 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:18.436 - INFO - Processed 25427968 reads in 64.16 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:20.940 - INFO - Processed 26312704 reads in 66.67 seconds. Average speed: 0.39M/s.
+2026-01-29 16:44:22.954 - INFO - Processed 27443200 reads in 69.17 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:25.959 - INFO - Processed 28426240 reads in 71.19 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:28.470 - INFO - Processed 29474816 reads in 74.19 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:30.975 - INFO - Processed 30621696 reads in 76.70 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:33.480 - INFO - Processed 31703040 reads in 79.21 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:36.486 - INFO - Processed 32702464 reads in 81.71 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:38.991 - INFO - Processed 33701888 reads in 84.72 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:41.495 - INFO - Processed 34947072 reads in 87.22 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:43.498 - INFO - Processed 35864576 reads in 89.73 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:46.504 - INFO - Processed 36716544 reads in 91.73 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:48.508 - INFO - Processed 37863424 reads in 94.74 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:52.022 - INFO - Processed 38797312 reads in 96.74 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:55.021 - INFO - Processed 39895040 reads in 100.25 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:56.524 - INFO - Processed 41074688 reads in 103.25 seconds. Average speed: 0.40M/s.
+2026-01-29 16:44:59.529 - INFO - Processed 41992192 reads in 104.76 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:02.036 - INFO - Processed 43106304 reads in 107.76 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:04.541 - INFO - Processed 44105728 reads in 110.27 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:07.545 - INFO - Processed 45137920 reads in 112.77 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:10.050 - INFO - Processed 46202880 reads in 115.78 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:12.562 - INFO - Processed 47202304 reads in 118.28 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:14.568 - INFO - Processed 48431104 reads in 120.80 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:17.572 - INFO - Processed 49283072 reads in 122.80 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:20.577 - INFO - Processed 50348032 reads in 125.81 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:22.581 - INFO - Processed 51609600 reads in 128.81 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:25.587 - INFO - Processed 52527104 reads in 130.81 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:27.591 - INFO - Processed 53723136 reads in 133.82 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:30.597 - INFO - Processed 54558720 reads in 135.82 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:33.102 - INFO - Processed 55574528 reads in 138.83 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:36.114 - INFO - Processed 56655872 reads in 141.34 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:39.120 - INFO - Processed 58015744 reads in 144.35 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:41.124 - INFO - Processed 59211776 reads in 147.35 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:44.129 - INFO - Processed 59916288 reads in 149.36 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:46.132 - INFO - Processed 61210624 reads in 152.36 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:48.636 - INFO - Processed 61997056 reads in 154.37 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:51.141 - INFO - Processed 63160320 reads in 156.87 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:54.145 - INFO - Processed 63963136 reads in 159.37 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:56.148 - INFO - Processed 65290240 reads in 162.38 seconds. Average speed: 0.40M/s.
+2026-01-29 16:45:59.655 - INFO - Processed 66076672 reads in 164.38 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:01.659 - INFO - Processed 67600384 reads in 167.89 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:04.164 - INFO - Processed 68337664 reads in 169.89 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:06.177 - INFO - Processed 69435392 reads in 172.40 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:09.182 - INFO - Processed 70287360 reads in 174.41 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:12.193 - INFO - Processed 71401472 reads in 177.41 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:14.197 - INFO - Processed 72433664 reads in 180.43 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:16.712 - INFO - Processed 73465856 reads in 182.43 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:19.718 - INFO - Processed 74465280 reads in 184.94 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:22.239 - INFO - Processed 75546624 reads in 187.95 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:25.253 - INFO - Processed 76726272 reads in 190.47 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:27.758 - INFO - Processed 77643776 reads in 193.49 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:29.761 - INFO - Processed 78675968 reads in 195.99 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:32.765 - INFO - Processed 79773696 reads in 197.99 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:34.770 - INFO - Processed 80920576 reads in 201.00 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:37.784 - INFO - Processed 81805312 reads in 203.00 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:40.289 - INFO - Processed 82919424 reads in 206.02 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:43.299 - INFO - Processed 84115456 reads in 208.52 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:45.810 - INFO - Processed 85180416 reads in 211.53 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:47.814 - INFO - Processed 86081536 reads in 214.04 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:50.319 - INFO - Processed 87080960 reads in 216.05 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:53.826 - INFO - Processed 88145920 reads in 218.55 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:55.831 - INFO - Processed 89571328 reads in 222.06 seconds. Average speed: 0.40M/s.
+2026-01-29 16:46:58.837 - INFO - Processed 90324992 reads in 224.06 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:01.342 - INFO - Processed 91439104 reads in 227.07 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:03.345 - INFO - Processed 92389376 reads in 229.57 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:06.351 - INFO - Processed 93487104 reads in 231.58 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:09.356 - INFO - Processed 94683136 reads in 234.58 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:11.364 - INFO - Processed 95698944 reads in 237.59 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:14.368 - INFO - Processed 96649216 reads in 239.60 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:16.873 - INFO - Processed 97796096 reads in 242.60 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:19.384 - INFO - Processed 98926592 reads in 245.11 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:21.393 - INFO - Processed 99794944 reads in 247.62 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:24.399 - INFO - Processed 100696064 reads in 249.63 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:26.413 - INFO - Processed 101826560 reads in 252.63 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:29.419 - INFO - Processed 102760448 reads in 254.65 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:31.930 - INFO - Processed 103841792 reads in 257.65 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:34.443 - INFO - Processed 105086976 reads in 260.16 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:36.951 - INFO - Processed 105971712 reads in 262.68 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:39.960 - INFO - Processed 107069440 reads in 265.18 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:41.965 - INFO - Processed 108101632 reads in 268.19 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:44.971 - INFO - Processed 109101056 reads in 270.20 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:46.975 - INFO - Processed 110297088 reads in 273.20 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:49.981 - INFO - Processed 111198208 reads in 275.21 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:52.486 - INFO - Processed 112525312 reads in 278.21 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:54.991 - INFO - Processed 113278976 reads in 280.72 seconds. Average speed: 0.40M/s.
+2026-01-29 16:47:57.496 - INFO - Processed 114409472 reads in 283.22 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:00.501 - INFO - Processed 115539968 reads in 285.73 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:03.006 - INFO - Processed 116523008 reads in 288.73 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:05.510 - INFO - Processed 117555200 reads in 291.24 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:08.015 - INFO - Processed 118685696 reads in 293.74 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:10.519 - INFO - Processed 119668736 reads in 296.25 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:13.525 - INFO - Processed 120799232 reads in 298.75 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:15.529 - INFO - Processed 121847808 reads in 301.76 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:18.535 - INFO - Processed 122929152 reads in 303.76 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:21.039 - INFO - Processed 123879424 reads in 306.77 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:23.043 - INFO - Processed 124780544 reads in 309.27 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:26.547 - INFO - Processed 125911040 reads in 311.28 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:27.548 - INFO - Processed 127287296 reads in 314.78 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:28.549 - INFO - Processed 127422178 reads in 315.28 seconds. Average speed: 0.40M/s.
+2026-01-29 16:48:29.551 - INFO - mapping finished in 19840.99 CPU sec, 316.04 real sec.
+2026-01-29 16:48:30.552 - INFO - [2020-10-20 00:05:17.241] [align] [info] mapping exited normally.
+2026-01-29 16:48:31.553 - INFO - [2020-10-20 00:05:17.242] [save_bam] [info] Job: bam writing, pid: 4067670
+2026-01-29 16:48:32.554 - INFO - [2020-10-20 00:05:17.242] [save_bam] [info] BAM writting...
+2026-01-29 16:48:33.555 - INFO - [2020-10-20 00:05:17.242] [save_bam] [info] Sorting and marking duplicates...
+2026-01-29 16:49:38.294 - INFO - bam writing finished in 1085.5 CPU sec, 71.0526 real sec.
+2026-01-29 16:49:39.296 - INFO - [2020-10-20 00:06:29.123] [save_bam] [info] bam writing exited normally.
+2026-01-29 16:49:40.305 - INFO - [2020-10-20 00:06:29.124] [haplotype_caller] [info] Job: variants calling, pid: 4068304
+2026-01-29 16:49:41.306 - INFO - [2020-10-20 00:06:29.124] [haplotype_caller] [info] Variants calling...
+2026-01-29 16:49:51.381 - INFO - [                                ] 0%
+2026-01-29 16:50:16.280 - INFO - [                                ] 0%
+2026-01-29 16:50:42.410 - INFO - [                                ] 0%
+2026-01-29 16:51:05.621 - INFO - [                                ] 1%
+2026-01-29 16:51:26.713 - INFO - [                                ] 1%
+2026-01-29 16:51:53.526 - INFO - [                                ] 1%
+2026-01-29 16:52:19.643 - INFO - [                                ] 2%
+2026-01-29 16:52:41.383 - INFO - [                                ] 2%
+2026-01-29 16:53:05.282 - INFO - [#                               ] 3%
+2026-01-29 16:53:29.652 - INFO - [#                               ] 3%
+2026-01-29 16:53:53.201 - INFO - [#                               ] 3%
+2026-01-29 16:54:18.785 - INFO - [#                               ] 4%
+2026-01-29 16:54:39.068 - INFO - [#                               ] 4%
+2026-01-29 16:55:02.250 - INFO - [#                               ] 5%
+2026-01-29 16:55:26.513 - INFO - [#                               ] 5%
+2026-01-29 16:55:50.195 - INFO - [#                               ] 5%
+2026-01-29 16:56:10.290 - INFO - [##                              ] 6%
+2026-01-29 16:56:31.962 - INFO - [##                              ] 6%
+2026-01-29 16:56:55.270 - INFO - [##                              ] 7%
+2026-01-29 16:57:16.126 - INFO - [##                              ] 7%
+2026-01-29 16:57:38.709 - INFO - [##                              ] 7%
+2026-01-29 16:58:02.205 - INFO - [##                              ] 8%
+2026-01-29 16:58:24.842 - INFO - [##                              ] 8%
+2026-01-29 16:58:44.244 - INFO - [##                              ] 9%
+2026-01-29 16:59:06.175 - INFO - [###                             ] 9%
+2026-01-29 16:59:28.052 - INFO - [###                             ] 9%
+2026-01-29 16:59:51.533 - INFO - [###                             ] 10%
+2026-01-29 17:00:13.331 - INFO - [###                             ] 10%
+2026-01-29 17:00:32.900 - INFO - [###                             ] 10%
+2026-01-29 17:00:52.638 - INFO - [###                             ] 11%
+2026-01-29 17:01:16.751 - INFO - [###                             ] 11%
+2026-01-29 17:01:38.748 - INFO - [###                             ] 12%
+2026-01-29 17:02:00.333 - INFO - [####                            ] 12%
+2026-01-29 17:02:17.667 - INFO - [####                            ] 12%
+2026-01-29 17:02:41.964 - INFO - [####                            ] 13%
+2026-01-29 17:03:03.725 - INFO - [####                            ] 13%
+2026-01-29 17:03:26.636 - INFO - [####                            ] 14%
+2026-01-29 17:03:47.394 - INFO - [####                            ] 14%
+2026-01-29 17:04:07.329 - INFO - [####                            ] 14%
+2026-01-29 17:04:29.268 - INFO - [####                            ] 15%
+2026-01-29 17:04:52.937 - INFO - [#####                           ] 15%
+2026-01-29 17:05:11.056 - INFO - [#####                           ] 16%
+2026-01-29 17:05:32.739 - INFO - [#####                           ] 16%
+2026-01-29 17:05:53.104 - INFO - [#####                           ] 16%
+2026-01-29 17:06:13.827 - INFO - [#####                           ] 17%
+2026-01-29 17:06:32.448 - INFO - [#####                           ] 17%
+2026-01-29 17:06:53.990 - INFO - [#####                           ] 18%
+2026-01-29 17:07:11.858 - INFO - [#####                           ] 18%
+2026-01-29 17:07:32.049 - INFO - [######                          ] 18%
+2026-01-29 17:07:51.182 - INFO - [######                          ] 19%
+2026-01-29 17:08:09.950 - INFO - [######                          ] 19%
+2026-01-29 17:08:28.999 - INFO - [######                          ] 20%
+2026-01-29 17:08:47.081 - INFO - [######                          ] 20%
+2026-01-29 17:09:06.960 - INFO - [######                          ] 20%
+2026-01-29 17:09:27.520 - INFO - [######                          ] 21%
+2026-01-29 17:09:46.178 - INFO - [######                          ] 21%
+2026-01-29 17:10:09.101 - INFO - [#######                         ] 21%
+2026-01-29 17:10:30.817 - INFO - [#######                         ] 22%
+2026-01-29 17:10:46.942 - INFO - [#######                         ] 22%
+2026-01-29 17:11:06.466 - INFO - [#######                         ] 23%
+2026-01-29 17:11:28.287 - INFO - [#######                         ] 23%
+2026-01-29 17:11:48.114 - INFO - [#######                         ] 23%
+2026-01-29 17:12:05.855 - INFO - [#######                         ] 24%
+2026-01-29 17:12:22.031 - INFO - [#######                         ] 24%
+2026-01-29 17:12:41.959 - INFO - [########                        ] 25%
+2026-01-29 17:12:58.177 - INFO - [########                        ] 25%
+2026-01-29 17:13:18.979 - INFO - [########                        ] 25%
+2026-01-29 17:13:34.615 - INFO - [########                        ] 26%
+2026-01-29 17:13:52.699 - INFO - [########                        ] 26%
+2026-01-29 17:14:07.338 - INFO - [########                        ] 27%
+2026-01-29 17:14:22.885 - INFO - [########                        ] 27%
+2026-01-29 17:14:40.175 - INFO - [########                        ] 27%
+2026-01-29 17:14:54.674 - INFO - [#########                       ] 28%
+2026-01-29 17:15:11.146 - INFO - [#########                       ] 28%
+2026-01-29 17:15:26.526 - INFO - [#########                       ] 29%
+2026-01-29 17:15:41.469 - INFO - [#########                       ] 29%
+2026-01-29 17:15:59.993 - INFO - [#########                       ] 29%
+2026-01-29 17:16:14.202 - INFO - [#########                       ] 30%
+2026-01-29 17:16:32.745 - INFO - [#########                       ] 30%
+2026-01-29 17:16:47.974 - INFO - [#########                       ] 30%
+2026-01-29 17:16:59.707 - INFO - [##########                      ] 31%
+2026-01-29 17:17:11.384 - INFO - [##########                      ] 31%
+2026-01-29 17:17:26.810 - INFO - [##########                      ] 32%
+2026-01-29 17:17:40.899 - INFO - [##########                      ] 32%
+2026-01-29 17:17:55.111 - INFO - [##########                      ] 32%
+2026-01-29 17:18:10.100 - INFO - [##########                      ] 33%
+2026-01-29 17:18:20.865 - INFO - [##########                      ] 33%
+2026-01-29 17:18:34.790 - INFO - [##########                      ] 34%
+2026-01-29 17:18:49.120 - INFO - [###########                     ] 34%
+2026-01-29 17:19:01.394 - INFO - [###########                     ] 34%
+2026-01-29 17:19:11.723 - INFO - [###########                     ] 35%
+2026-01-29 17:19:24.336 - INFO - [###########                     ] 35%
+2026-01-29 17:19:35.952 - INFO - [###########                     ] 36%
+2026-01-29 17:19:49.732 - INFO - [###########                     ] 36%
+2026-01-29 17:19:58.826 - INFO - [###########                     ] 36%
+2026-01-29 17:20:10.326 - INFO - [###########                     ] 37%
+2026-01-29 17:20:20.271 - INFO - [############                    ] 37%
+2026-01-29 17:20:29.131 - INFO - [############                    ] 38%
+2026-01-29 17:20:40.078 - INFO - [############                    ] 38%
+2026-01-29 17:20:52.679 - INFO - [############                    ] 38%
+2026-01-29 17:21:03.106 - INFO - [############                    ] 39%
+2026-01-29 17:21:10.223 - INFO - [############                    ] 39%
+2026-01-29 17:21:18.745 - INFO - [############                    ] 39%
+2026-01-29 17:21:27.848 - INFO - [############                    ] 40%
+2026-01-29 17:21:35.068 - INFO - [#############                   ] 40%
+2026-01-29 17:21:42.747 - INFO - [#############                   ] 41%
+2026-01-29 17:21:48.954 - INFO - [#############                   ] 41%
+2026-01-29 17:21:57.092 - INFO - [#############                   ] 41%
+2026-01-29 17:22:05.371 - INFO - [#############                   ] 42%
+2026-01-29 17:22:13.058 - INFO - [#############                   ] 42%
+2026-01-29 17:22:21.173 - INFO - [#############                   ] 43%
+2026-01-29 17:22:29.292 - INFO - [#############                   ] 43%
+2026-01-29 17:22:37.341 - INFO - [##############                  ] 43%
+2026-01-29 17:22:43.496 - INFO - [##############                  ] 44%
+2026-01-29 17:22:50.142 - INFO - [##############                  ] 44%
+2026-01-29 17:22:55.974 - INFO - [##############                  ] 45%
+2026-01-29 17:23:03.992 - INFO - [##############                  ] 45%
+2026-01-29 17:23:08.706 - INFO - [##############                  ] 45%
+2026-01-29 17:23:16.899 - INFO - [##############                  ] 46%
+2026-01-29 17:23:20.452 - INFO - [##############                  ] 46%
+2026-01-29 17:23:24.963 - INFO - [###############                 ] 47%
+2026-01-29 17:23:29.968 - INFO - [###############                 ] 47%
+2026-01-29 17:23:33.147 - INFO - [###############                 ] 47%
+2026-01-29 17:23:37.834 - INFO - [###############                 ] 48%
+2026-01-29 17:23:42.660 - INFO - [###############                 ] 48%
+2026-01-29 17:23:48.173 - INFO - [###############                 ] 48%
+2026-01-29 17:23:55.281 - INFO - [###############                 ] 49%
+2026-01-29 17:24:01.277 - INFO - [###############                 ] 49%
+2026-01-29 17:24:06.220 - INFO - [################                ] 50%
+2026-01-29 17:24:09.565 - INFO - [################                ] 50%
+2026-01-29 17:24:14.719 - INFO - [################                ] 50%
+2026-01-29 17:24:18.552 - INFO - [################                ] 51%
+2026-01-29 17:24:22.386 - INFO - [################                ] 51%
+2026-01-29 17:24:26.275 - INFO - [################                ] 52%
+2026-01-29 17:24:29.582 - INFO - [################                ] 52%
+2026-01-29 17:24:32.951 - INFO - [################                ] 52%
+2026-01-29 17:24:37.592 - INFO - [#################               ] 53%
+2026-01-29 17:24:44.577 - INFO - [#################               ] 53%
+2026-01-29 17:24:50.045 - INFO - [#################               ] 54%
+2026-01-29 17:24:54.664 - INFO - [#################               ] 54%
+2026-01-29 17:25:00.401 - INFO - [#################               ] 54%
+2026-01-29 17:25:04.209 - INFO - [#################               ] 55%
+2026-01-29 17:25:08.396 - INFO - [#################               ] 55%
+2026-01-29 17:25:12.696 - INFO - [#################               ] 55%
+2026-01-29 17:25:17.944 - INFO - [##################              ] 56%
+2026-01-29 17:25:21.988 - INFO - [##################              ] 56%
+2026-01-29 17:25:25.657 - INFO - [##################              ] 57%
+2026-01-29 17:25:30.781 - INFO - [##################              ] 57%
+2026-01-29 17:25:35.174 - INFO - [##################              ] 57%
+2026-01-29 17:25:40.085 - INFO - [##################              ] 58%
+2026-01-29 17:26:03.892 - INFO - [##################              ] 58%
+2026-01-29 17:26:14.472 - INFO - [##################              ] 59%
+2026-01-29 17:26:48.127 - INFO - [###################             ] 59%
+2026-01-29 17:26:58.347 - INFO - [###################             ] 59%
+2026-01-29 17:27:03.358 - INFO - [###################             ] 60%
+2026-01-29 17:27:07.346 - INFO - [###################             ] 60%
+2026-01-29 17:27:11.437 - INFO - [###################             ] 61%
+2026-01-29 17:27:13.997 - INFO - [###################             ] 61%
+2026-01-29 17:27:17.693 - INFO - [###################             ] 61%
+2026-01-29 17:27:21.055 - INFO - [###################             ] 62%
+2026-01-29 17:27:25.263 - INFO - [####################            ] 62%
+2026-01-29 17:27:28.868 - INFO - [####################            ] 63%
+2026-01-29 17:27:33.784 - INFO - [####################            ] 63%
+2026-01-29 17:27:38.086 - INFO - [####################            ] 63%
+2026-01-29 17:27:41.844 - INFO - [####################            ] 64%
+2026-01-29 17:27:44.947 - INFO - [####################            ] 64%
+2026-01-29 17:27:47.898 - INFO - [####################            ] 64%
+2026-01-29 17:27:51.832 - INFO - [####################            ] 65%
+2026-01-29 17:27:55.441 - INFO - [#####################           ] 65%
+2026-01-29 17:27:59.533 - INFO - [#####################           ] 66%
+2026-01-29 17:28:03.202 - INFO - [#####################           ] 66%
+2026-01-29 17:28:08.468 - INFO - [#####################           ] 66%
+2026-01-29 17:28:13.797 - INFO - [#####################           ] 67%
+2026-01-29 17:28:18.083 - INFO - [#####################           ] 67%
+2026-01-29 17:28:22.510 - INFO - [#####################           ] 68%
+2026-01-29 17:28:27.698 - INFO - [#####################           ] 68%
+2026-01-29 17:28:33.571 - INFO - [######################          ] 68%
+2026-01-29 17:28:39.243 - INFO - [######################          ] 69%
+2026-01-29 17:28:44.796 - INFO - [######################          ] 69%
+2026-01-29 17:28:52.071 - INFO - [######################          ] 70%
+2026-01-29 17:28:57.812 - INFO - [######################          ] 70%
+2026-01-29 17:29:04.033 - INFO - [######################          ] 70%
+2026-01-29 17:29:10.357 - INFO - [######################          ] 71%
+2026-01-29 17:29:16.512 - INFO - [######################          ] 71%
+2026-01-29 17:29:22.304 - INFO - [#######################         ] 72%
+2026-01-29 17:29:26.998 - INFO - [#######################         ] 72%
+2026-01-29 17:29:32.637 - INFO - [#######################         ] 72%
+2026-01-29 17:29:40.125 - INFO - [#######################         ] 73%
+2026-01-29 17:29:52.543 - INFO - [#######################         ] 73%
+2026-01-29 17:30:03.765 - INFO - [#######################         ] 73%
+2026-01-29 17:30:09.302 - INFO - [#######################         ] 74%
+2026-01-29 17:30:16.257 - INFO - [#######################         ] 74%
+2026-01-29 17:30:23.605 - INFO - [########################        ] 75%
+2026-01-29 17:30:31.141 - INFO - [########################        ] 75%
+2026-01-29 17:30:39.813 - INFO - [########################        ] 75%
+2026-01-29 17:31:09.763 - INFO - [########################        ] 76%
+2026-01-29 17:31:33.392 - INFO - [########################        ] 76%
+2026-01-29 17:31:41.965 - INFO - [########################        ] 77%
+2026-01-29 17:31:49.551 - INFO - [########################        ] 77%
+2026-01-29 17:31:58.636 - INFO - [########################        ] 77%
+2026-01-29 17:32:06.223 - INFO - [#########################       ] 78%
+2026-01-29 17:32:14.845 - INFO - [#########################       ] 78%
+2026-01-29 17:32:30.068 - INFO - [#########################       ] 79%
+2026-01-29 17:32:43.845 - INFO - [#########################       ] 79%
+2026-01-29 17:32:52.530 - INFO - [#########################       ] 79%
+2026-01-29 17:33:00.678 - INFO - [#########################       ] 80%
+2026-01-29 17:33:08.992 - INFO - [#########################       ] 80%
+2026-01-29 17:33:18.179 - INFO - [#########################       ] 81%
+2026-01-29 17:33:30.034 - INFO - [##########################      ] 81%
+2026-01-29 17:33:40.303 - INFO - [##########################      ] 81%
+2026-01-29 17:33:51.538 - INFO - [##########################      ] 82%
+2026-01-29 17:34:00.092 - INFO - [##########################      ] 82%
+2026-01-29 17:34:08.580 - INFO - [##########################      ] 82%
+2026-01-29 17:34:19.059 - INFO - [##########################      ] 83%
+2026-01-29 17:34:30.082 - INFO - [##########################      ] 83%
+2026-01-29 17:34:39.204 - INFO - [##########################      ] 84%
+2026-01-29 17:34:53.585 - INFO - [###########################     ] 84%
+2026-01-29 17:35:06.206 - INFO - [###########################     ] 84%
+2026-01-29 17:35:20.840 - INFO - [###########################     ] 85%
+2026-01-29 17:35:31.156 - INFO - [###########################     ] 85%
+2026-01-29 17:35:39.627 - INFO - [###########################     ] 86%
+2026-01-29 17:35:51.593 - INFO - [###########################     ] 86%
+2026-01-29 17:36:00.192 - INFO - [###########################     ] 86%
+2026-01-29 17:36:10.038 - INFO - [###########################     ] 87%
+2026-01-29 17:36:27.986 - INFO - [############################    ] 87%
+2026-01-29 17:36:38.887 - INFO - [############################    ] 88%
+2026-01-29 17:36:50.787 - INFO - [############################    ] 88%
+2026-01-29 17:37:02.451 - INFO - [############################    ] 88%
+2026-01-29 17:37:14.107 - INFO - [############################    ] 89%
+2026-01-29 17:37:27.405 - INFO - [############################    ] 89%
+2026-01-29 17:37:39.272 - INFO - [############################    ] 89%
+2026-01-29 17:37:50.747 - INFO - [############################    ] 90%
+2026-01-29 17:37:59.043 - INFO - [#############################   ] 90%
+2026-01-29 17:38:09.784 - INFO - [#############################   ] 91%
+2026-01-29 17:38:21.663 - INFO - [#############################   ] 91%
+2026-01-29 17:38:34.391 - INFO - [#############################   ] 91%
+2026-01-29 17:38:47.738 - INFO - [#############################   ] 92%
+2026-01-29 17:38:59.838 - INFO - [#############################   ] 92%
+2026-01-29 17:39:10.773 - INFO - [#############################   ] 93%
+2026-01-29 17:39:26.239 - INFO - [#############################   ] 93%
+2026-01-29 17:39:39.202 - INFO - [##############################  ] 93%
+2026-01-29 17:39:51.300 - INFO - [##############################  ] 94%
+2026-01-29 17:40:04.235 - INFO - [##############################  ] 94%
+2026-01-29 17:40:17.593 - INFO - [##############################  ] 95%
+2026-01-29 17:40:31.794 - INFO - [##############################  ] 95%
+2026-01-29 17:40:46.945 - INFO - [##############################  ] 95%
+2026-01-29 17:41:01.544 - INFO - [##############################  ] 96%
+2026-01-29 17:41:16.550 - INFO - [##############################  ] 96%
+2026-01-29 17:41:32.000 - INFO - [############################### ] 97%
+2026-01-29 17:41:49.616 - INFO - [############################### ] 97%
+2026-01-29 17:42:04.419 - INFO - [############################### ] 97%
+2026-01-29 17:42:20.980 - INFO - [############################### ] 98%
+2026-01-29 17:42:39.357 - INFO - [############################### ] 98%
+2026-01-29 17:42:57.473 - INFO - [############################### ] 99%
+2026-01-29 17:43:14.376 - INFO - [############################### ] 99%
+2026-01-29 17:44:35.654 - INFO - [############################### ] 99%
+2026-01-29 17:44:36.656 - INFO - [################################] 100%
+2026-01-29 17:44:37.714 - INFO - [################################] 100%
+variants calling finished in 206785 CPU sec, 3296.53 real sec.
+[2020-10-20 01:01:26.362] [haplotype_caller] [info] variants calling exited normally.
+2026-01-29 17:44:37.714 - INFO - 命令执行成功|Command executed successfully
+2026-01-29 17:44:37.714 - INFO -   样品 F35_1 完成|Sample F35_1 completed
+2026-01-29 17:44:37.714 - INFO -     VCF: 998.1 MB|VCF: 998.1 MB
+2026-01-29 17:44:37.714 - INFO -     BAM: 12.2 GB|BAM: 12.2 GB
+2026-01-29 17:44:37.726 - INFO - [2/3] 处理样品: SMJ5_3|Processing sample: SMJ5_3
+2026-01-29 17:44:37.726 - INFO - GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa|Genome path used by GTX
+2026-01-29 17:44:37.726 - INFO - GTX WGS处理 SMJ5_3|GTX WGS processing SMJ5_3
+2026-01-29 17:44:37.726 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SMJ5_3\tSM:SMJ5_3\tPL:ILLUMINA\tLB:SMJ5_3" -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/vcf/SMJ5_3.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/bam/SMJ5_3.sorted.bam -t 64 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean/SMJ5_3_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean/SMJ5_3_2.clean.fq.gz
+2026-01-29 17:44:37.951 - INFO - [2020-10-20 00:00:00.951] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp available: 4445683GB, memory available: 461GB, ulimit of open files: 100000
+2026-01-29 17:44:38.952 - INFO - [2020-10-20 00:00:00.951] [wgs] [info] Use bwa mem2 to align!
+2026-01-29 17:44:39.954 - INFO - [2020-10-20 00:00:00.951] [align] [info] Job: mapping, pid: 4093540
+2026-01-29 17:44:40.956 - INFO - [2020-10-20 00:00:00.952] [align] [info] Mapping...
+2026-01-29 17:44:41.958 - INFO - [2020-10-20 00:00:02.046] [align] [info] Read 0 ALT contigs.
+2026-01-29 17:44:42.960 - INFO - Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+2026-01-29 17:44:45.617 - INFO - Processed 1114112 reads in 3.51 seconds. Average speed: 0.32M/s.
+2026-01-29 17:44:48.627 - INFO - Processed 2375680 reads in 6.52 seconds. Average speed: 0.36M/s.
+2026-01-29 17:44:50.631 - INFO - Processed 3358720 reads in 9.53 seconds. Average speed: 0.35M/s.
+2026-01-29 17:44:53.136 - INFO - Processed 4407296 reads in 11.53 seconds. Average speed: 0.38M/s.
+2026-01-29 17:44:56.641 - INFO - Processed 5292032 reads in 14.04 seconds. Average speed: 0.38M/s.
+2026-01-29 17:44:58.651 - INFO - Processed 6832128 reads in 17.54 seconds. Average speed: 0.39M/s.
+2026-01-29 17:45:01.677 - INFO - Processed 7520256 reads in 19.55 seconds. Average speed: 0.38M/s.
+2026-01-29 17:45:03.681 - INFO - Processed 8716288 reads in 22.58 seconds. Average speed: 0.39M/s.
+2026-01-29 17:45:06.689 - INFO - Processed 9437184 reads in 24.58 seconds. Average speed: 0.38M/s.
+2026-01-29 17:45:08.703 - INFO - Processed 10518528 reads in 27.59 seconds. Average speed: 0.38M/s.
+2026-01-29 17:45:11.209 - INFO - Processed 11649024 reads in 29.60 seconds. Average speed: 0.39M/s.
+2026-01-29 17:45:14.213 - INFO - Processed 12713984 reads in 32.11 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:17.219 - INFO - Processed 13893632 reads in 35.11 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:19.223 - INFO - Processed 14876672 reads in 38.12 seconds. Average speed: 0.39M/s.
+2026-01-29 17:45:22.228 - INFO - Processed 15843328 reads in 40.12 seconds. Average speed: 0.39M/s.
+2026-01-29 17:45:24.231 - INFO - Processed 17137664 reads in 43.13 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:27.237 - INFO - Processed 17940480 reads in 45.13 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:29.751 - INFO - Processed 18939904 reads in 48.14 seconds. Average speed: 0.39M/s.
+2026-01-29 17:45:32.757 - INFO - Processed 20021248 reads in 50.65 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:34.260 - INFO - Processed 21217280 reads in 53.66 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:37.266 - INFO - Processed 22085632 reads in 55.16 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:39.771 - INFO - Processed 23150592 reads in 58.17 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:42.784 - INFO - Processed 24182784 reads in 60.67 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:44.788 - INFO - Processed 25559040 reads in 63.69 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:47.794 - INFO - Processed 26312704 reads in 65.69 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:50.299 - INFO - Processed 27443200 reads in 68.70 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:52.303 - INFO - Processed 28688384 reads in 71.20 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:55.309 - INFO - Processed 29376512 reads in 73.20 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:58.324 - INFO - Processed 30474240 reads in 76.21 seconds. Average speed: 0.40M/s.
+2026-01-29 17:45:59.826 - INFO - Processed 31883264 reads in 79.23 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:02.334 - INFO - Processed 32538624 reads in 80.73 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:05.340 - INFO - Processed 33636352 reads in 83.24 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:07.846 - INFO - Processed 34783232 reads in 86.24 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:09.850 - INFO - Processed 35766272 reads in 88.75 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:13.357 - INFO - Processed 36732928 reads in 90.75 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:15.862 - INFO - Processed 37830656 reads in 94.26 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:18.868 - INFO - Processed 38961152 reads in 96.76 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:20.872 - INFO - Processed 40304640 reads in 99.77 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:23.380 - INFO - Processed 40976384 reads in 101.77 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:25.885 - INFO - Processed 42074112 reads in 104.28 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:28.898 - INFO - Processed 42991616 reads in 106.79 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:31.403 - INFO - Processed 44236800 reads in 109.80 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:33.907 - INFO - Processed 45449216 reads in 112.30 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:36.412 - INFO - Processed 46235648 reads in 114.81 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:38.416 - INFO - Processed 47398912 reads in 117.31 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:41.422 - INFO - Processed 48283648 reads in 119.32 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:44.426 - INFO - Processed 49496064 reads in 122.32 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:46.430 - INFO - Processed 50774016 reads in 125.33 seconds. Average speed: 0.41M/s.
+2026-01-29 17:46:48.935 - INFO - Processed 51412992 reads in 127.33 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:51.940 - INFO - Processed 52543488 reads in 129.84 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:53.943 - INFO - Processed 53624832 reads in 132.84 seconds. Average speed: 0.40M/s.
+2026-01-29 17:46:56.950 - INFO - Processed 54673408 reads in 134.84 seconds. Average speed: 0.41M/s.
+2026-01-29 17:46:58.954 - INFO - Processed 55738368 reads in 137.85 seconds. Average speed: 0.40M/s.
+2026-01-29 17:47:01.962 - INFO - Processed 56623104 reads in 139.85 seconds. Average speed: 0.40M/s.
+2026-01-29 17:47:03.969 - INFO - Processed 58015744 reads in 142.86 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:06.475 - INFO - Processed 58720256 reads in 144.87 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:09.481 - INFO - Processed 59817984 reads in 147.38 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:11.985 - INFO - Processed 61128704 reads in 150.38 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:14.490 - INFO - Processed 62029824 reads in 152.89 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:16.995 - INFO - Processed 63275008 reads in 155.39 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:19.500 - INFO - Processed 64176128 reads in 157.90 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:22.519 - INFO - Processed 65191936 reads in 160.40 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:24.530 - INFO - Processed 66486272 reads in 163.42 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:27.035 - INFO - Processed 67354624 reads in 165.43 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:29.540 - INFO - Processed 68255744 reads in 167.94 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:32.052 - INFO - Processed 69304320 reads in 170.44 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:34.558 - INFO - Processed 70533120 reads in 172.95 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:37.063 - INFO - Processed 71467008 reads in 175.46 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:39.568 - INFO - Processed 72368128 reads in 177.96 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:42.075 - INFO - Processed 73547776 reads in 180.47 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:45.081 - INFO - Processed 74596352 reads in 182.98 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:47.586 - INFO - Processed 75907072 reads in 185.98 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:49.590 - INFO - Processed 76595200 reads in 188.49 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:52.094 - INFO - Processed 77611008 reads in 190.49 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:55.100 - INFO - Processed 78643200 reads in 193.00 seconds. Average speed: 0.41M/s.
+2026-01-29 17:47:57.605 - INFO - Processed 79773696 reads in 196.00 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:00.109 - INFO - Processed 80904192 reads in 198.51 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:03.115 - INFO - Processed 81870848 reads in 201.01 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:05.620 - INFO - Processed 83197952 reads in 204.02 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:07.624 - INFO - Processed 83902464 reads in 206.52 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:10.629 - INFO - Processed 84983808 reads in 208.53 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:13.133 - INFO - Processed 86376448 reads in 211.53 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:15.638 - INFO - Processed 87048192 reads in 214.03 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:18.144 - INFO - Processed 88293376 reads in 216.54 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:21.149 - INFO - Processed 89194496 reads in 219.05 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:23.153 - INFO - Processed 90472448 reads in 222.05 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:25.667 - INFO - Processed 91422720 reads in 224.06 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:28.172 - INFO - Processed 92323840 reads in 226.57 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:31.177 - INFO - Processed 93437952 reads in 229.07 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:32.687 - INFO - Processed 94666752 reads in 232.08 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:36.695 - INFO - Processed 95453184 reads in 233.59 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:38.197 - INFO - Processed 96944128 reads in 237.60 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:41.704 - INFO - Processed 97566720 reads in 239.10 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:43.721 - INFO - Processed 99057664 reads in 242.60 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:46.721 - INFO - Processed 99811328 reads in 244.62 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:49.225 - INFO - Processed 100892672 reads in 247.62 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:51.739 - INFO - Processed 102023168 reads in 250.13 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:53.743 - INFO - Processed 103186432 reads in 252.64 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:56.248 - INFO - Processed 103907328 reads in 254.65 seconds. Average speed: 0.41M/s.
+2026-01-29 17:48:58.753 - INFO - Processed 104857600 reads in 257.15 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:01.258 - INFO - Processed 105938944 reads in 259.65 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:03.763 - INFO - Processed 107020288 reads in 262.16 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:06.268 - INFO - Processed 108085248 reads in 264.67 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:09.274 - INFO - Processed 109166592 reads in 267.17 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:11.779 - INFO - Processed 110100480 reads in 270.18 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:14.284 - INFO - Processed 111181824 reads in 272.68 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:16.288 - INFO - Processed 112246784 reads in 275.19 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:18.793 - INFO - Processed 113278976 reads in 277.19 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:21.799 - INFO - Processed 114343936 reads in 279.69 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:24.304 - INFO - Processed 115556352 reads in 282.70 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:27.310 - INFO - Processed 116391936 reads in 285.20 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:29.313 - INFO - Processed 117571584 reads in 288.21 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:32.319 - INFO - Processed 118521856 reads in 290.21 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:34.823 - INFO - Processed 119635968 reads in 293.22 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:37.328 - INFO - Processed 120930304 reads in 295.73 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:39.833 - INFO - Processed 121847808 reads in 298.23 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:42.839 - INFO - Processed 122716160 reads in 300.74 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:44.843 - INFO - Processed 124141568 reads in 303.74 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:47.849 - INFO - Processed 124878848 reads in 305.75 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:49.853 - INFO - Processed 125911040 reads in 308.75 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:52.357 - INFO - Processed 127057920 reads in 310.75 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:55.363 - INFO - Processed 128008192 reads in 313.26 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:58.368 - INFO - Processed 129024000 reads in 316.26 seconds. Average speed: 0.41M/s.
+2026-01-29 17:49:59.871 - INFO - Processed 130449408 reads in 319.27 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:02.877 - INFO - Processed 131121152 reads in 320.77 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:05.882 - INFO - Processed 132366336 reads in 323.78 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:07.886 - INFO - Processed 133562368 reads in 326.78 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:10.897 - INFO - Processed 134414336 reads in 328.79 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:12.901 - INFO - Processed 135725056 reads in 331.80 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:15.916 - INFO - Processed 136511488 reads in 333.80 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:17.920 - INFO - Processed 137428992 reads in 336.82 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:20.425 - INFO - Processed 138608640 reads in 338.82 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:22.930 - INFO - Processed 139624448 reads in 341.33 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:25.937 - INFO - Processed 140558336 reads in 343.83 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:27.941 - INFO - Processed 141819904 reads in 346.84 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:30.446 - INFO - Processed 142606336 reads in 348.84 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:33.952 - INFO - Processed 143654912 reads in 351.35 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:35.958 - INFO - Processed 145047552 reads in 354.85 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:38.463 - INFO - Processed 145817600 reads in 356.86 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:40.970 - INFO - Processed 146882560 reads in 359.36 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:43.476 - INFO - Processed 147914752 reads in 361.87 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:46.482 - INFO - Processed 148996096 reads in 364.38 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:48.993 - INFO - Processed 150355968 reads in 367.38 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:51.498 - INFO - Processed 151240704 reads in 369.89 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:52.499 - INFO - Processed 152223744 reads in 372.40 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:53.500 - INFO - Processed 152626562 reads in 373.40 seconds. Average speed: 0.41M/s.
+2026-01-29 17:50:54.501 - INFO - mapping finished in 23410.32 CPU sec, 374.55 real sec.
+2026-01-29 17:50:55.502 - INFO - [2020-10-20 00:06:15.684] [align] [info] mapping exited normally.
+2026-01-29 17:50:56.504 - INFO - [2020-10-20 00:06:15.684] [save_bam] [info] Job: bam writing, pid: 4096408
+2026-01-29 17:50:57.505 - INFO - [2020-10-20 00:06:15.684] [save_bam] [info] BAM writting...
+2026-01-29 17:50:58.506 - INFO - [2020-10-20 00:06:15.684] [save_bam] [info] Sorting and marking duplicates...
+2026-01-29 17:52:38.626 - INFO - bam writing finished in 993.227 CPU sec, 105.941 real sec.
+2026-01-29 17:52:39.627 - INFO - [2020-10-20 00:08:02.609] [save_bam] [info] bam writing exited normally.
+2026-01-29 17:52:40.629 - INFO - [2020-10-20 00:08:02.609] [haplotype_caller] [info] Job: variants calling, pid: 4097267
+2026-01-29 17:52:41.631 - INFO - [2020-10-20 00:08:02.609] [haplotype_caller] [info] Variants calling...
+2026-01-29 17:52:48.966 - INFO - [                                ] 0%
+2026-01-29 17:53:10.243 - INFO - [                                ] 0%
+2026-01-29 17:53:34.770 - INFO - [                                ] 0%
+2026-01-29 17:53:57.618 - INFO - [                                ] 1%
+2026-01-29 17:54:18.668 - INFO - [                                ] 1%
+2026-01-29 17:54:40.184 - INFO - [                                ] 1%
+2026-01-29 17:55:03.643 - INFO - [                                ] 2%
+2026-01-29 17:55:24.177 - INFO - [                                ] 2%
+2026-01-29 17:55:45.259 - INFO - [#                               ] 3%
+2026-01-29 17:56:08.856 - INFO - [#                               ] 3%
+2026-01-29 17:56:30.719 - INFO - [#                               ] 3%
+2026-01-29 17:56:55.153 - INFO - [#                               ] 4%
+2026-01-29 17:57:15.589 - INFO - [#                               ] 4%
+2026-01-29 17:57:36.464 - INFO - [#                               ] 5%
+2026-01-29 17:58:00.556 - INFO - [#                               ] 5%
+2026-01-29 17:58:20.728 - INFO - [#                               ] 5%
+2026-01-29 17:58:41.171 - INFO - [##                              ] 6%
+2026-01-29 17:58:59.925 - INFO - [##                              ] 6%
+2026-01-29 17:59:19.266 - INFO - [##                              ] 7%
+2026-01-29 17:59:41.446 - INFO - [##                              ] 7%
+2026-01-29 17:59:59.819 - INFO - [##                              ] 7%
+2026-01-29 18:00:20.786 - INFO - [##                              ] 8%
+2026-01-29 18:00:41.315 - INFO - [##                              ] 8%
+2026-01-29 18:01:01.131 - INFO - [##                              ] 9%
+2026-01-29 18:01:21.955 - INFO - [###                             ] 9%
+2026-01-29 18:01:43.182 - INFO - [###                             ] 9%
+2026-01-29 18:02:01.487 - INFO - [###                             ] 10%
+2026-01-29 18:02:22.150 - INFO - [###                             ] 10%
+2026-01-29 18:02:42.912 - INFO - [###                             ] 10%
+2026-01-29 18:03:04.016 - INFO - [###                             ] 11%
+2026-01-29 18:03:25.422 - INFO - [###                             ] 11%
+2026-01-29 18:03:43.417 - INFO - [###                             ] 12%
+2026-01-29 18:04:04.193 - INFO - [####                            ] 12%
+2026-01-29 18:04:25.565 - INFO - [####                            ] 12%
+2026-01-29 18:04:46.661 - INFO - [####                            ] 13%
+2026-01-29 18:05:07.060 - INFO - [####                            ] 13%
+2026-01-29 18:05:27.024 - INFO - [####                            ] 14%
+2026-01-29 18:05:49.228 - INFO - [####                            ] 14%
+2026-01-29 18:06:08.873 - INFO - [####                            ] 14%
+2026-01-29 18:06:29.355 - INFO - [####                            ] 15%
+2026-01-29 18:06:51.922 - INFO - [#####                           ] 15%
+2026-01-29 18:07:11.133 - INFO - [#####                           ] 16%
+2026-01-29 18:07:31.469 - INFO - [#####                           ] 16%
+2026-01-29 18:07:50.659 - INFO - [#####                           ] 16%
+2026-01-29 18:08:10.328 - INFO - [#####                           ] 17%
+2026-01-29 18:08:31.179 - INFO - [#####                           ] 17%
+2026-01-29 18:08:49.794 - INFO - [#####                           ] 18%
+2026-01-29 18:09:07.451 - INFO - [#####                           ] 18%
+2026-01-29 18:09:28.649 - INFO - [######                          ] 18%
+2026-01-29 18:09:46.749 - INFO - [######                          ] 19%
+2026-01-29 18:10:05.759 - INFO - [######                          ] 19%
+2026-01-29 18:10:26.332 - INFO - [######                          ] 20%
+2026-01-29 18:10:44.403 - INFO - [######                          ] 20%
+2026-01-29 18:11:02.822 - INFO - [######                          ] 20%
+2026-01-29 18:11:23.418 - INFO - [######                          ] 21%
+2026-01-29 18:11:42.443 - INFO - [######                          ] 21%
+2026-01-29 18:12:03.068 - INFO - [#######                         ] 21%
+2026-01-29 18:12:20.901 - INFO - [#######                         ] 22%
+2026-01-29 18:12:37.981 - INFO - [#######                         ] 22%
+2026-01-29 18:12:56.413 - INFO - [#######                         ] 23%
+2026-01-29 18:13:17.197 - INFO - [#######                         ] 23%
+2026-01-29 18:13:37.026 - INFO - [#######                         ] 23%
+2026-01-29 18:13:56.179 - INFO - [#######                         ] 24%
+2026-01-29 18:14:12.271 - INFO - [#######                         ] 24%
+2026-01-29 18:14:29.517 - INFO - [########                        ] 25%
+2026-01-29 18:14:46.742 - INFO - [########                        ] 25%
+2026-01-29 18:15:06.600 - INFO - [########                        ] 25%
+2026-01-29 18:15:23.723 - INFO - [########                        ] 26%
+2026-01-29 18:15:39.846 - INFO - [########                        ] 26%
+2026-01-29 18:15:56.378 - INFO - [########                        ] 27%
+2026-01-29 18:16:13.679 - INFO - [########                        ] 27%
+2026-01-29 18:16:30.772 - INFO - [########                        ] 27%
+2026-01-29 18:16:45.739 - INFO - [#########                       ] 28%
+2026-01-29 18:17:00.616 - INFO - [#########                       ] 28%
+2026-01-29 18:17:17.577 - INFO - [#########                       ] 29%
+2026-01-29 18:17:34.231 - INFO - [#########                       ] 29%
+2026-01-29 18:17:49.590 - INFO - [#########                       ] 29%
+2026-01-29 18:18:05.037 - INFO - [#########                       ] 30%
+2026-01-29 18:18:22.168 - INFO - [#########                       ] 30%
+2026-01-29 18:18:38.303 - INFO - [#########                       ] 30%
+2026-01-29 18:18:49.615 - INFO - [##########                      ] 31%
+2026-01-29 18:19:03.343 - INFO - [##########                      ] 31%
+2026-01-29 18:19:17.685 - INFO - [##########                      ] 32%
+2026-01-29 18:19:30.857 - INFO - [##########                      ] 32%
+2026-01-29 18:19:44.822 - INFO - [##########                      ] 32%
+2026-01-29 18:19:58.752 - INFO - [##########                      ] 33%
+2026-01-29 18:20:10.844 - INFO - [##########                      ] 33%
+2026-01-29 18:20:24.720 - INFO - [##########                      ] 34%
+2026-01-29 18:20:40.227 - INFO - [###########                     ] 34%
+2026-01-29 18:20:51.050 - INFO - [###########                     ] 34%
+2026-01-29 18:21:02.217 - INFO - [###########                     ] 35%
+2026-01-29 18:21:14.911 - INFO - [###########                     ] 35%
+2026-01-29 18:21:27.295 - INFO - [###########                     ] 36%
+2026-01-29 18:21:39.441 - INFO - [###########                     ] 36%
+2026-01-29 18:21:49.587 - INFO - [###########                     ] 36%
+2026-01-29 18:22:00.436 - INFO - [###########                     ] 37%
+2026-01-29 18:22:09.902 - INFO - [############                    ] 37%
+2026-01-29 18:22:18.113 - INFO - [############                    ] 38%
+2026-01-29 18:22:28.573 - INFO - [############                    ] 38%
+2026-01-29 18:22:42.288 - INFO - [############                    ] 38%
+2026-01-29 18:22:50.394 - INFO - [############                    ] 39%
+2026-01-29 18:22:58.275 - INFO - [############                    ] 39%
+2026-01-29 18:23:07.355 - INFO - [############                    ] 39%
+2026-01-29 18:23:17.655 - INFO - [############                    ] 40%
+2026-01-29 18:23:27.440 - INFO - [#############                   ] 40%
+2026-01-29 18:23:32.828 - INFO - [#############                   ] 41%
+2026-01-29 18:23:40.205 - INFO - [#############                   ] 41%
+2026-01-29 18:23:47.865 - INFO - [#############                   ] 41%
+2026-01-29 18:23:56.329 - INFO - [#############                   ] 42%
+2026-01-29 18:24:05.697 - INFO - [#############                   ] 42%
+2026-01-29 18:24:12.476 - INFO - [#############                   ] 43%
+2026-01-29 18:24:20.282 - INFO - [#############                   ] 43%
+2026-01-29 18:24:27.721 - INFO - [##############                  ] 43%
+2026-01-29 18:24:34.555 - INFO - [##############                  ] 44%
+2026-01-29 18:24:40.015 - INFO - [##############                  ] 44%
+2026-01-29 18:24:46.106 - INFO - [##############                  ] 45%
+2026-01-29 18:24:54.055 - INFO - [##############                  ] 45%
+2026-01-29 18:25:00.264 - INFO - [##############                  ] 45%
+2026-01-29 18:25:08.473 - INFO - [##############                  ] 46%
+2026-01-29 18:25:11.847 - INFO - [##############                  ] 46%
+2026-01-29 18:25:16.467 - INFO - [###############                 ] 46%
+2026-01-29 18:25:20.863 - INFO - [###############                 ] 47%
+2026-01-29 18:25:25.233 - INFO - [###############                 ] 47%
+2026-01-29 18:25:29.977 - INFO - [###############                 ] 48%
+2026-01-29 18:25:34.522 - INFO - [###############                 ] 48%
+2026-01-29 18:25:40.299 - INFO - [###############                 ] 48%
+2026-01-29 18:25:47.124 - INFO - [###############                 ] 49%
+2026-01-29 18:25:52.238 - INFO - [###############                 ] 49%
+2026-01-29 18:25:57.678 - INFO - [################                ] 50%
+2026-01-29 18:26:00.895 - INFO - [################                ] 50%
+2026-01-29 18:26:05.935 - INFO - [################                ] 50%
+2026-01-29 18:26:09.525 - INFO - [################                ] 51%
+2026-01-29 18:26:13.685 - INFO - [################                ] 51%
+2026-01-29 18:26:17.491 - INFO - [################                ] 52%
+2026-01-29 18:26:21.511 - INFO - [################                ] 52%
+2026-01-29 18:26:25.117 - INFO - [################                ] 52%
+2026-01-29 18:26:29.395 - INFO - [#################               ] 53%
+2026-01-29 18:26:35.154 - INFO - [#################               ] 53%
+2026-01-29 18:26:41.564 - INFO - [#################               ] 54%
+2026-01-29 18:26:46.468 - INFO - [#################               ] 54%
+2026-01-29 18:26:51.603 - INFO - [#################               ] 54%
+2026-01-29 18:26:56.455 - INFO - [#################               ] 55%
+2026-01-29 18:27:00.585 - INFO - [#################               ] 55%
+2026-01-29 18:27:04.676 - INFO - [#################               ] 55%
+2026-01-29 18:27:09.971 - INFO - [##################              ] 56%
+2026-01-29 18:27:13.951 - INFO - [##################              ] 56%
+2026-01-29 18:27:18.036 - INFO - [##################              ] 57%
+2026-01-29 18:27:23.879 - INFO - [##################              ] 57%
+2026-01-29 18:27:26.606 - INFO - [##################              ] 57%
+2026-01-29 18:27:34.296 - INFO - [##################              ] 58%
+2026-01-29 18:27:45.170 - INFO - [##################              ] 58%
+2026-01-29 18:28:08.564 - INFO - [##################              ] 59%
+2026-01-29 18:28:25.470 - INFO - [###################             ] 59%
+2026-01-29 18:28:47.777 - INFO - [###################             ] 59%
+2026-01-29 18:29:21.699 - INFO - [###################             ] 60%
+2026-01-29 18:29:36.193 - INFO - [###################             ] 60%
+2026-01-29 18:29:40.709 - INFO - [###################             ] 61%
+2026-01-29 18:29:45.083 - INFO - [###################             ] 61%
+2026-01-29 18:29:48.326 - INFO - [###################             ] 61%
+2026-01-29 18:29:52.456 - INFO - [###################             ] 62%
+2026-01-29 18:29:56.013 - INFO - [####################            ] 62%
+2026-01-29 18:30:00.067 - INFO - [####################            ] 63%
+2026-01-29 18:30:04.565 - INFO - [####################            ] 63%
+2026-01-29 18:30:08.495 - INFO - [####################            ] 63%
+2026-01-29 18:30:12.326 - INFO - [####################            ] 64%
+2026-01-29 18:30:15.143 - INFO - [####################            ] 64%
+2026-01-29 18:30:17.316 - INFO - [####################            ] 64%
+2026-01-29 18:30:21.141 - INFO - [####################            ] 65%
+2026-01-29 18:30:24.535 - INFO - [#####################           ] 65%
+2026-01-29 18:30:27.865 - INFO - [#####################           ] 66%
+2026-01-29 18:30:31.473 - INFO - [#####################           ] 66%
+2026-01-29 18:30:36.260 - INFO - [#####################           ] 66%
+2026-01-29 18:30:41.961 - INFO - [#####################           ] 67%
+2026-01-29 18:30:45.786 - INFO - [#####################           ] 67%
+2026-01-29 18:30:49.845 - INFO - [#####################           ] 68%
+2026-01-29 18:30:54.026 - INFO - [#####################           ] 68%
+2026-01-29 18:30:59.531 - INFO - [######################          ] 68%
+2026-01-29 18:31:05.652 - INFO - [######################          ] 69%
+2026-01-29 18:31:11.125 - INFO - [######################          ] 69%
+2026-01-29 18:31:16.958 - INFO - [######################          ] 70%
+2026-01-29 18:31:22.101 - INFO - [######################          ] 70%
+2026-01-29 18:31:26.476 - INFO - [######################          ] 70%
+2026-01-29 18:31:32.372 - INFO - [######################          ] 71%
+2026-01-29 18:31:38.160 - INFO - [######################          ] 71%
+2026-01-29 18:31:43.979 - INFO - [#######################         ] 72%
+2026-01-29 18:31:48.816 - INFO - [#######################         ] 72%
+2026-01-29 18:31:53.645 - INFO - [#######################         ] 72%
+2026-01-29 18:31:59.459 - INFO - [#######################         ] 73%
+2026-01-29 18:32:08.992 - INFO - [#######################         ] 73%
+2026-01-29 18:32:18.726 - INFO - [#######################         ] 73%
+2026-01-29 18:32:25.204 - INFO - [#######################         ] 74%
+2026-01-29 18:32:30.223 - INFO - [#######################         ] 74%
+2026-01-29 18:32:37.341 - INFO - [########################        ] 75%
+2026-01-29 18:32:43.299 - INFO - [########################        ] 75%
+2026-01-29 18:32:51.672 - INFO - [########################        ] 75%
+2026-01-29 18:33:07.803 - INFO - [########################        ] 76%
+2026-01-29 18:33:47.328 - INFO - [########################        ] 76%
+2026-01-29 18:34:03.491 - INFO - [########################        ] 77%
+2026-01-29 18:34:12.950 - INFO - [########################        ] 77%
+2026-01-29 18:34:20.649 - INFO - [########################        ] 77%
+2026-01-29 18:34:29.442 - INFO - [#########################       ] 78%
+2026-01-29 18:34:37.011 - INFO - [#########################       ] 78%
+2026-01-29 18:34:49.251 - INFO - [#########################       ] 79%
+2026-01-29 18:35:05.000 - INFO - [#########################       ] 79%
+2026-01-29 18:35:13.040 - INFO - [#########################       ] 79%
+2026-01-29 18:35:21.561 - INFO - [#########################       ] 80%
+2026-01-29 18:35:29.367 - INFO - [#########################       ] 80%
+2026-01-29 18:35:37.796 - INFO - [#########################       ] 80%
+2026-01-29 18:35:48.928 - INFO - [##########################      ] 81%
+2026-01-29 18:35:57.604 - INFO - [##########################      ] 81%
+2026-01-29 18:36:06.358 - INFO - [##########################      ] 82%
+2026-01-29 18:36:16.138 - INFO - [##########################      ] 82%
+2026-01-29 18:36:25.743 - INFO - [##########################      ] 82%
+2026-01-29 18:36:35.621 - INFO - [##########################      ] 83%
+2026-01-29 18:36:44.251 - INFO - [##########################      ] 83%
+2026-01-29 18:36:54.314 - INFO - [##########################      ] 84%
+2026-01-29 18:37:09.000 - INFO - [###########################     ] 84%
+2026-01-29 18:37:22.062 - INFO - [###########################     ] 84%
+2026-01-29 18:37:35.732 - INFO - [###########################     ] 85%
+2026-01-29 18:37:44.669 - INFO - [###########################     ] 85%
+2026-01-29 18:37:53.591 - INFO - [###########################     ] 86%
+2026-01-29 18:38:03.131 - INFO - [###########################     ] 86%
+2026-01-29 18:38:10.553 - INFO - [###########################     ] 86%
+2026-01-29 18:38:19.973 - INFO - [###########################     ] 87%
+2026-01-29 18:38:37.901 - INFO - [############################    ] 87%
+2026-01-29 18:38:51.990 - INFO - [############################    ] 88%
+2026-01-29 18:39:04.507 - INFO - [############################    ] 88%
+2026-01-29 18:39:16.428 - INFO - [############################    ] 88%
+2026-01-29 18:39:27.743 - INFO - [############################    ] 89%
+2026-01-29 18:39:41.209 - INFO - [############################    ] 89%
+2026-01-29 18:39:52.703 - INFO - [############################    ] 89%
+2026-01-29 18:40:03.781 - INFO - [############################    ] 90%
+2026-01-29 18:40:11.821 - INFO - [#############################   ] 90%
+2026-01-29 18:40:23.377 - INFO - [#############################   ] 91%
+2026-01-29 18:40:34.388 - INFO - [#############################   ] 91%
+2026-01-29 18:40:47.032 - INFO - [#############################   ] 91%
+2026-01-29 18:41:01.243 - INFO - [#############################   ] 92%
+2026-01-29 18:41:12.367 - INFO - [#############################   ] 92%
+2026-01-29 18:41:23.265 - INFO - [#############################   ] 93%
+2026-01-29 18:41:37.507 - INFO - [#############################   ] 93%
+2026-01-29 18:41:52.020 - INFO - [##############################  ] 93%
+2026-01-29 18:42:02.274 - INFO - [##############################  ] 94%
+2026-01-29 18:42:15.437 - INFO - [##############################  ] 94%
+2026-01-29 18:42:28.903 - INFO - [##############################  ] 95%
+2026-01-29 18:42:43.311 - INFO - [##############################  ] 95%
+2026-01-29 18:42:58.198 - INFO - [##############################  ] 95%
+2026-01-29 18:43:11.410 - INFO - [##############################  ] 96%
+2026-01-29 18:43:25.963 - INFO - [##############################  ] 96%
+2026-01-29 18:43:40.968 - INFO - [############################### ] 97%
+2026-01-29 18:43:58.302 - INFO - [############################### ] 97%
+2026-01-29 18:44:14.136 - INFO - [############################### ] 97%
+2026-01-29 18:44:28.088 - INFO - [############################### ] 98%
+2026-01-29 18:44:44.803 - INFO - [############################### ] 98%
+2026-01-29 18:45:02.545 - INFO - [############################### ] 98%
+2026-01-29 18:45:20.285 - INFO - [############################### ] 99%
+2026-01-29 18:46:29.677 - INFO - [############################### ] 99%
+2026-01-29 18:46:30.678 - INFO - [################################] 100%
+2026-01-29 18:46:31.679 - INFO - [################################] 100%
+variants calling finished in 203084 CPU sec, 3230.07 real sec.
+[2020-10-20 01:01:53.489] [haplotype_caller] [info] variants calling exited normally.
+2026-01-29 18:46:31.679 - INFO - 命令执行成功|Command executed successfully
+2026-01-29 18:46:31.679 - INFO -   样品 SMJ5_3 完成|Sample SMJ5_3 completed
+2026-01-29 18:46:31.680 - INFO -     VCF: 978.4 MB|VCF: 978.4 MB
+2026-01-29 18:46:31.680 - INFO -     BAM: 7.8 GB|BAM: 7.8 GB
+2026-01-29 18:46:31.838 - INFO - [3/3] 处理样品: F35_2|Processing sample: F35_2
+2026-01-29 18:46:31.838 - INFO - GTX使用的基因组路径: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa|Genome path used by GTX
+2026-01-29 18:46:31.838 - INFO - GTX WGS处理 F35_2|GTX WGS processing F35_2
+2026-01-29 18:46:31.838 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:F35_2\tSM:F35_2\tPL:ILLUMINA\tLB:F35_2" -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/vcf/F35_2.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/bam/F35_2.sorted.bam -t 64 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean/F35_2_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/clean/F35_2_2.clean.fq.gz
+2026-01-29 18:46:32.047 - INFO - [2020-10-20 00:00:01.046] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp available: 4449174GB, memory available: 461GB, ulimit of open files: 100000
+2026-01-29 18:46:33.047 - INFO - [2020-10-20 00:00:01.046] [wgs] [info] Use bwa mem2 to align!
+2026-01-29 18:46:34.049 - INFO - [2020-10-20 00:00:01.047] [align] [info] Job: mapping, pid: 4122362
+2026-01-29 18:46:35.050 - INFO - [2020-10-20 00:00:01.047] [align] [info] Mapping...
+2026-01-29 18:46:36.052 - INFO - [2020-10-20 00:00:01.903] [align] [info] Read 0 ALT contigs.
+2026-01-29 18:46:37.054 - INFO - Processed 0 reads in 0.00 seconds. Average speed: 0.00M/s.
+2026-01-29 18:46:38.965 - INFO - Processed 1163264 reads in 4.01 seconds. Average speed: 0.29M/s.
+2026-01-29 18:46:41.470 - INFO - Processed 2342912 reads in 6.02 seconds. Average speed: 0.39M/s.
+2026-01-29 18:46:44.479 - INFO - Processed 3178496 reads in 8.52 seconds. Average speed: 0.37M/s.
+2026-01-29 18:46:46.482 - INFO - Processed 4292608 reads in 11.53 seconds. Average speed: 0.37M/s.
+2026-01-29 18:46:49.496 - INFO - Processed 5324800 reads in 13.53 seconds. Average speed: 0.39M/s.
+2026-01-29 18:46:52.501 - INFO - Processed 6291456 reads in 16.55 seconds. Average speed: 0.38M/s.
+2026-01-29 18:46:54.506 - INFO - Processed 7520256 reads in 19.55 seconds. Average speed: 0.38M/s.
+2026-01-29 18:46:58.016 - INFO - Processed 8404992 reads in 21.56 seconds. Average speed: 0.39M/s.
+2026-01-29 18:47:00.024 - INFO - Processed 9928704 reads in 25.07 seconds. Average speed: 0.40M/s.
+2026-01-29 18:47:01.527 - INFO - Processed 10682368 reads in 27.07 seconds. Average speed: 0.39M/s.
+2026-01-29 18:47:05.034 - INFO - Processed 11534336 reads in 28.58 seconds. Average speed: 0.40M/s.
+2026-01-29 18:47:07.049 - INFO - Processed 12926976 reads in 32.09 seconds. Average speed: 0.40M/s.
+2026-01-29 18:47:10.055 - INFO - Processed 13664256 reads in 34.10 seconds. Average speed: 0.40M/s.
+2026-01-29 18:47:12.560 - INFO - Processed 14680064 reads in 37.11 seconds. Average speed: 0.40M/s.
+2026-01-29 18:47:14.564 - INFO - Processed 16089088 reads in 39.61 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:17.077 - INFO - Processed 16859136 reads in 41.61 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:20.083 - INFO - Processed 17940480 reads in 44.13 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:22.588 - INFO - Processed 19283968 reads in 47.13 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:24.592 - INFO - Processed 20234240 reads in 49.64 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:27.096 - INFO - Processed 21102592 reads in 51.64 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:29.603 - INFO - Processed 22036480 reads in 54.15 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:32.608 - INFO - Processed 23248896 reads in 56.65 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:34.612 - INFO - Processed 24461312 reads in 59.66 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:37.117 - INFO - Processed 25247744 reads in 61.66 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:40.627 - INFO - Processed 26411008 reads in 64.17 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:42.129 - INFO - Processed 27738112 reads in 67.68 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:45.142 - INFO - Processed 28442624 reads in 69.18 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:47.647 - INFO - Processed 29655040 reads in 72.19 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:49.651 - INFO - Processed 30769152 reads in 74.70 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:52.655 - INFO - Processed 31555584 reads in 76.70 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:54.660 - INFO - Processed 32849920 reads in 79.71 seconds. Average speed: 0.41M/s.
+2026-01-29 18:47:57.676 - INFO - Processed 33685504 reads in 81.71 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:00.180 - INFO - Processed 34619392 reads in 84.73 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:02.190 - INFO - Processed 35667968 reads in 87.23 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:05.204 - INFO - Processed 36880384 reads in 89.24 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:08.214 - INFO - Processed 38060032 reads in 92.25 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:10.218 - INFO - Processed 39239680 reads in 95.26 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:12.723 - INFO - Processed 40124416 reads in 97.27 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:15.231 - INFO - Processed 40960000 reads in 99.77 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:17.736 - INFO - Processed 42024960 reads in 102.28 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:20.742 - INFO - Processed 43171840 reads in 104.79 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:22.746 - INFO - Processed 44384256 reads in 107.79 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:25.750 - INFO - Processed 45137920 reads in 109.80 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:27.754 - INFO - Processed 46596096 reads in 112.80 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:30.760 - INFO - Processed 47185920 reads in 114.80 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:32.262 - INFO - Processed 48693248 reads in 117.81 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:34.778 - INFO - Processed 49364992 reads in 119.31 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:37.783 - INFO - Processed 50331648 reads in 121.83 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:39.787 - INFO - Processed 51494912 reads in 124.83 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:42.292 - INFO - Processed 52445184 reads in 126.84 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:45.797 - INFO - Processed 53477376 reads in 129.34 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:47.301 - INFO - Processed 54919168 reads in 132.85 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:49.815 - INFO - Processed 55640064 reads in 134.35 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:52.319 - INFO - Processed 56623104 reads in 136.87 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:55.325 - INFO - Processed 57786368 reads in 139.37 seconds. Average speed: 0.41M/s.
+2026-01-29 18:48:57.830 - INFO - Processed 58785792 reads in 142.38 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:00.335 - INFO - Processed 59768832 reads in 144.88 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:03.354 - INFO - Processed 60899328 reads in 147.39 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:05.365 - INFO - Processed 62275584 reads in 150.40 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:08.371 - INFO - Processed 63111168 reads in 152.41 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:10.876 - INFO - Processed 64307200 reads in 155.42 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:12.878 - INFO - Processed 65257472 reads in 157.93 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:15.883 - INFO - Processed 66125824 reads in 159.93 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:17.887 - INFO - Processed 67338240 reads in 162.93 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:20.898 - INFO - Processed 68206592 reads in 164.94 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:23.404 - INFO - Processed 69632000 reads in 167.95 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:25.408 - INFO - Processed 70270976 reads in 170.45 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:28.413 - INFO - Processed 71417856 reads in 172.46 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:30.416 - INFO - Processed 72744960 reads in 175.46 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:32.921 - INFO - Processed 73449472 reads in 177.47 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:35.426 - INFO - Processed 74498048 reads in 179.97 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:38.432 - INFO - Processed 75579392 reads in 182.48 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:40.436 - INFO - Processed 76627968 reads in 185.48 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:43.443 - INFO - Processed 77725696 reads in 187.49 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:44.950 - INFO - Processed 79036416 reads in 190.49 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:48.458 - INFO - Processed 79740928 reads in 192.00 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:50.462 - INFO - Processed 81018880 reads in 195.51 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:53.470 - INFO - Processed 81788928 reads in 197.51 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:55.476 - INFO - Processed 83050496 reads in 200.52 seconds. Average speed: 0.41M/s.
+2026-01-29 18:49:58.485 - INFO - Processed 83984384 reads in 202.53 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:00.991 - INFO - Processed 85295104 reads in 205.54 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:02.999 - INFO - Processed 86081536 reads in 208.04 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:05.504 - INFO - Processed 87130112 reads in 210.05 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:08.511 - INFO - Processed 88145920 reads in 212.56 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:11.517 - INFO - Processed 89407488 reads in 215.56 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:13.520 - INFO - Processed 90554368 reads in 218.57 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:16.525 - INFO - Processed 91455488 reads in 220.57 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:18.028 - INFO - Processed 92749824 reads in 223.58 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:20.533 - INFO - Processed 93323264 reads in 225.08 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:23.538 - INFO - Processed 94371840 reads in 227.58 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:26.544 - INFO - Processed 95600640 reads in 230.59 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:28.548 - INFO - Processed 96894976 reads in 233.59 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:31.554 - INFO - Processed 97714176 reads in 235.60 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:34.058 - INFO - Processed 99057664 reads in 238.60 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:36.572 - INFO - Processed 99811328 reads in 241.11 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:38.575 - INFO - Processed 101040128 reads in 243.62 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:41.080 - INFO - Processed 101908480 reads in 245.62 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:43.587 - INFO - Processed 103022592 reads in 248.13 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:45.589 - INFO - Processed 103825408 reads in 250.64 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:49.097 - INFO - Processed 104890368 reads in 252.64 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:51.101 - INFO - Processed 106332160 reads in 256.15 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:54.112 - INFO - Processed 107118592 reads in 258.15 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:56.116 - INFO - Processed 108429312 reads in 261.16 seconds. Average speed: 0.41M/s.
+2026-01-29 18:50:59.126 - INFO - Processed 109133824 reads in 263.17 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:01.130 - INFO - Processed 110559232 reads in 266.18 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:03.137 - INFO - Processed 111427584 reads in 268.18 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:05.643 - INFO - Processed 112197632 reads in 270.19 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:09.152 - INFO - Processed 113328128 reads in 272.69 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:11.157 - INFO - Processed 114720768 reads in 276.20 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:13.662 - INFO - Processed 115572736 reads in 278.21 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:16.178 - INFO - Processed 116670464 reads in 280.71 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:17.680 - INFO - Processed 117473280 reads in 283.23 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:18.681 - INFO - Processed 118345368 reads in 284.73 seconds. Average speed: 0.41M/s.
+2026-01-29 18:51:19.682 - INFO - mapping finished in 17865.28 CPU sec, 285.63 real sec.
+2026-01-29 18:51:20.683 - INFO - [2020-10-20 00:04:46.854] [align] [info] mapping exited normally.
+2026-01-29 18:51:21.684 - INFO - [2020-10-20 00:04:46.855] [save_bam] [info] Job: bam writing, pid: 4124529
+2026-01-29 18:51:22.685 - INFO - [2020-10-20 00:04:46.855] [save_bam] [info] BAM writting...
+2026-01-29 18:51:23.686 - INFO - [2020-10-20 00:04:46.855] [save_bam] [info] Sorting and marking duplicates...
+2026-01-29 18:52:25.916 - INFO - bam writing finished in 993.353 CPU sec, 68.0606 real sec.
+2026-01-29 18:52:26.917 - INFO - [2020-10-20 00:05:55.744] [save_bam] [info] bam writing exited normally.
+2026-01-29 18:52:27.918 - INFO - [2020-10-20 00:05:55.745] [haplotype_caller] [info] Job: variants calling, pid: 4125109
+2026-01-29 18:52:28.920 - INFO - [2020-10-20 00:05:55.745] [haplotype_caller] [info] Variants calling...
+2026-01-29 18:52:37.057 - INFO - [                                ] 0%
+2026-01-29 18:52:59.124 - INFO - [                                ] 0%
+2026-01-29 18:53:18.601 - INFO - [                                ] 0%
+2026-01-29 18:53:39.523 - INFO - [                                ] 1%
+2026-01-29 18:54:01.477 - INFO - [                                ] 1%
+2026-01-29 18:54:20.847 - INFO - [                                ] 1%
+2026-01-29 18:54:40.907 - INFO - [                                ] 2%
+2026-01-29 18:55:03.996 - INFO - [                                ] 2%
+2026-01-29 18:55:26.108 - INFO - [#                               ] 3%
+2026-01-29 18:55:45.609 - INFO - [#                               ] 3%
+2026-01-29 18:56:07.080 - INFO - [#                               ] 3%
+2026-01-29 18:56:29.681 - INFO - [#                               ] 4%
+2026-01-29 18:56:49.183 - INFO - [#                               ] 4%
+2026-01-29 18:57:11.023 - INFO - [#                               ] 5%
+2026-01-29 18:57:33.720 - INFO - [#                               ] 5%
+2026-01-29 18:57:52.453 - INFO - [#                               ] 5%
+2026-01-29 18:58:10.309 - INFO - [##                              ] 6%
+2026-01-29 18:58:31.620 - INFO - [##                              ] 6%
+2026-01-29 18:58:53.297 - INFO - [##                              ] 7%
+2026-01-29 18:59:11.458 - INFO - [##                              ] 7%
+2026-01-29 18:59:31.114 - INFO - [##                              ] 7%
+2026-01-29 18:59:51.447 - INFO - [##                              ] 8%
+2026-01-29 19:00:13.269 - INFO - [##                              ] 8%
+2026-01-29 19:00:30.695 - INFO - [##                              ] 9%
+2026-01-29 19:00:49.785 - INFO - [###                             ] 9%
+2026-01-29 19:01:09.063 - INFO - [###                             ] 9%
+2026-01-29 19:01:26.894 - INFO - [###                             ] 10%
+2026-01-29 19:01:46.629 - INFO - [###                             ] 10%
+2026-01-29 19:02:04.845 - INFO - [###                             ] 10%
+2026-01-29 19:02:23.909 - INFO - [###                             ] 11%
+2026-01-29 19:02:46.010 - INFO - [###                             ] 11%
+2026-01-29 19:03:02.550 - INFO - [###                             ] 12%
+2026-01-29 19:03:21.314 - INFO - [####                            ] 12%
+2026-01-29 19:03:38.570 - INFO - [####                            ] 12%
+2026-01-29 19:03:57.640 - INFO - [####                            ] 13%
+2026-01-29 19:04:17.884 - INFO - [####                            ] 13%
+2026-01-29 19:04:36.343 - INFO - [####                            ] 14%
+2026-01-29 19:04:58.824 - INFO - [####                            ] 14%
+2026-01-29 19:05:14.945 - INFO - [####                            ] 14%
+2026-01-29 19:05:36.227 - INFO - [####                            ] 15%
+2026-01-29 19:05:56.079 - INFO - [#####                           ] 15%
+2026-01-29 19:06:13.114 - INFO - [#####                           ] 16%
+2026-01-29 19:06:31.618 - INFO - [#####                           ] 16%
+2026-01-29 19:06:50.426 - INFO - [#####                           ] 16%
+2026-01-29 19:07:08.642 - INFO - [#####                           ] 17%
+2026-01-29 19:07:25.904 - INFO - [#####                           ] 17%
+2026-01-29 19:07:42.125 - INFO - [#####                           ] 18%
+2026-01-29 19:08:00.508 - INFO - [#####                           ] 18%
+2026-01-29 19:08:17.609 - INFO - [######                          ] 18%
+2026-01-29 19:08:34.359 - INFO - [######                          ] 19%
+2026-01-29 19:08:51.695 - INFO - [######                          ] 19%
+2026-01-29 19:09:08.428 - INFO - [######                          ] 19%
+2026-01-29 19:09:24.118 - INFO - [######                          ] 20%
+2026-01-29 19:09:40.799 - INFO - [######                          ] 20%
+2026-01-29 19:09:58.825 - INFO - [######                          ] 21%
+2026-01-29 19:10:17.920 - INFO - [######                          ] 21%
+2026-01-29 19:10:36.304 - INFO - [#######                         ] 21%
+2026-01-29 19:10:52.535 - INFO - [#######                         ] 22%
+2026-01-29 19:11:07.999 - INFO - [#######                         ] 22%
+2026-01-29 19:11:25.432 - INFO - [#######                         ] 23%
+2026-01-29 19:11:46.351 - INFO - [#######                         ] 23%
+2026-01-29 19:12:03.158 - INFO - [#######                         ] 23%
+2026-01-29 19:12:20.057 - INFO - [#######                         ] 24%
+2026-01-29 19:12:35.512 - INFO - [#######                         ] 24%
+2026-01-29 19:12:50.986 - INFO - [########                        ] 25%
+2026-01-29 19:13:06.873 - INFO - [########                        ] 25%
+2026-01-29 19:13:21.934 - INFO - [########                        ] 25%
+2026-01-29 19:13:36.806 - INFO - [########                        ] 26%
+2026-01-29 19:13:52.410 - INFO - [########                        ] 26%
+2026-01-29 19:14:05.976 - INFO - [########                        ] 27%
+2026-01-29 19:14:20.891 - INFO - [########                        ] 27%
+2026-01-29 19:14:36.875 - INFO - [########                        ] 27%
+2026-01-29 19:14:50.105 - INFO - [#########                       ] 28%
+2026-01-29 19:15:05.483 - INFO - [#########                       ] 28%
+2026-01-29 19:15:17.975 - INFO - [#########                       ] 28%
+2026-01-29 19:15:33.190 - INFO - [#########                       ] 29%
+2026-01-29 19:15:49.319 - INFO - [#########                       ] 29%
+2026-01-29 19:16:01.144 - INFO - [#########                       ] 30%
+2026-01-29 19:16:17.496 - INFO - [#########                       ] 30%
+2026-01-29 19:16:31.582 - INFO - [#########                       ] 30%
+2026-01-29 19:16:43.727 - INFO - [##########                      ] 31%
+2026-01-29 19:16:55.602 - INFO - [##########                      ] 31%
+2026-01-29 19:17:08.097 - INFO - [##########                      ] 32%
+2026-01-29 19:17:21.527 - INFO - [##########                      ] 32%
+2026-01-29 19:17:34.318 - INFO - [##########                      ] 32%
+2026-01-29 19:17:47.785 - INFO - [##########                      ] 33%
+2026-01-29 19:17:58.327 - INFO - [##########                      ] 33%
+2026-01-29 19:18:11.440 - INFO - [##########                      ] 34%
+2026-01-29 19:18:24.557 - INFO - [###########                     ] 34%
+2026-01-29 19:18:35.790 - INFO - [###########                     ] 34%
+2026-01-29 19:18:44.958 - INFO - [###########                     ] 35%
+2026-01-29 19:18:56.023 - INFO - [###########                     ] 35%
+2026-01-29 19:19:07.400 - INFO - [###########                     ] 36%
+2026-01-29 19:19:19.594 - INFO - [###########                     ] 36%
+2026-01-29 19:19:28.934 - INFO - [###########                     ] 36%
+2026-01-29 19:19:39.945 - INFO - [###########                     ] 37%
+2026-01-29 19:19:47.696 - INFO - [############                    ] 37%
+2026-01-29 19:19:56.724 - INFO - [############                    ] 37%
+2026-01-29 19:20:07.320 - INFO - [############                    ] 38%
+2026-01-29 19:20:19.217 - INFO - [############                    ] 38%
+2026-01-29 19:20:29.737 - INFO - [############                    ] 39%
+2026-01-29 19:20:36.549 - INFO - [############                    ] 39%
+2026-01-29 19:20:44.512 - INFO - [############                    ] 39%
+2026-01-29 19:20:52.909 - INFO - [############                    ] 40%
+2026-01-29 19:21:02.526 - INFO - [#############                   ] 40%
+2026-01-29 19:21:06.997 - INFO - [#############                   ] 41%
+2026-01-29 19:21:13.498 - INFO - [#############                   ] 41%
+2026-01-29 19:21:22.000 - INFO - [#############                   ] 41%
+2026-01-29 19:21:28.056 - INFO - [#############                   ] 42%
+2026-01-29 19:21:37.161 - INFO - [#############                   ] 42%
+2026-01-29 19:21:44.247 - INFO - [#############                   ] 43%
+2026-01-29 19:21:52.641 - INFO - [#############                   ] 43%
+2026-01-29 19:22:00.784 - INFO - [##############                  ] 43%
+2026-01-29 19:22:07.649 - INFO - [##############                  ] 44%
+2026-01-29 19:22:13.119 - INFO - [##############                  ] 44%
+2026-01-29 19:22:18.709 - INFO - [##############                  ] 45%
+2026-01-29 19:22:26.099 - INFO - [##############                  ] 45%
+2026-01-29 19:22:31.041 - INFO - [##############                  ] 45%
+2026-01-29 19:22:39.402 - INFO - [##############                  ] 46%
+2026-01-29 19:22:42.477 - INFO - [##############                  ] 46%
+2026-01-29 19:22:46.687 - INFO - [###############                 ] 46%
+2026-01-29 19:22:51.896 - INFO - [###############                 ] 47%
+2026-01-29 19:22:54.827 - INFO - [###############                 ] 47%
+2026-01-29 19:23:00.110 - INFO - [###############                 ] 48%
+2026-01-29 19:23:04.607 - INFO - [###############                 ] 48%
+2026-01-29 19:23:09.035 - INFO - [###############                 ] 48%
+2026-01-29 19:23:14.990 - INFO - [###############                 ] 49%
+2026-01-29 19:23:21.311 - INFO - [###############                 ] 49%
+2026-01-29 19:23:26.318 - INFO - [################                ] 50%
+2026-01-29 19:23:30.225 - INFO - [################                ] 50%
+2026-01-29 19:23:33.680 - INFO - [################                ] 50%
+2026-01-29 19:23:38.121 - INFO - [################                ] 51%
+2026-01-29 19:23:41.910 - INFO - [################                ] 51%
+2026-01-29 19:23:45.474 - INFO - [################                ] 52%
+2026-01-29 19:23:47.500 - INFO - [################                ] 52%
+2026-01-29 19:23:51.381 - INFO - [################                ] 52%
+2026-01-29 19:23:55.846 - INFO - [#################               ] 53%
+2026-01-29 19:24:00.443 - INFO - [#################               ] 53%
+2026-01-29 19:24:06.281 - INFO - [#################               ] 54%
+2026-01-29 19:24:10.217 - INFO - [#################               ] 54%
+2026-01-29 19:24:14.536 - INFO - [#################               ] 54%
+2026-01-29 19:24:19.258 - INFO - [#################               ] 55%
+2026-01-29 19:24:22.594 - INFO - [#################               ] 55%
+2026-01-29 19:24:26.736 - INFO - [#################               ] 55%
+2026-01-29 19:24:31.584 - INFO - [##################              ] 56%
+2026-01-29 19:24:34.983 - INFO - [##################              ] 56%
+2026-01-29 19:24:37.922 - INFO - [##################              ] 57%
+2026-01-29 19:24:43.683 - INFO - [##################              ] 57%
+2026-01-29 19:24:45.795 - INFO - [##################              ] 57%
+2026-01-29 19:24:52.016 - INFO - [##################              ] 58%
+2026-01-29 19:25:05.620 - INFO - [##################              ] 58%
+2026-01-29 19:25:21.200 - INFO - [##################              ] 59%
+2026-01-29 19:25:46.582 - INFO - [###################             ] 59%
+2026-01-29 19:26:08.349 - INFO - [###################             ] 59%
+2026-01-29 19:26:18.943 - INFO - [###################             ] 60%
+2026-01-29 19:26:21.638 - INFO - [###################             ] 60%
+2026-01-29 19:26:25.846 - INFO - [###################             ] 61%
+2026-01-29 19:26:28.397 - INFO - [###################             ] 61%
+2026-01-29 19:26:32.629 - INFO - [###################             ] 61%
+2026-01-29 19:26:35.927 - INFO - [###################             ] 62%
+2026-01-29 19:26:39.536 - INFO - [####################            ] 62%
+2026-01-29 19:26:42.520 - INFO - [####################            ] 63%
+2026-01-29 19:26:47.403 - INFO - [####################            ] 63%
+2026-01-29 19:26:50.522 - INFO - [####################            ] 63%
+2026-01-29 19:26:54.090 - INFO - [####################            ] 64%
+2026-01-29 19:26:56.851 - INFO - [####################            ] 64%
+2026-01-29 19:27:00.528 - INFO - [####################            ] 64%
+2026-01-29 19:27:03.271 - INFO - [####################            ] 65%
+2026-01-29 19:27:06.873 - INFO - [#####################           ] 65%
+2026-01-29 19:27:09.974 - INFO - [#####################           ] 66%
+2026-01-29 19:27:14.274 - INFO - [#####################           ] 66%
+2026-01-29 19:27:18.769 - INFO - [#####################           ] 66%
+2026-01-29 19:27:23.135 - INFO - [#####################           ] 67%
+2026-01-29 19:27:28.103 - INFO - [#####################           ] 67%
+2026-01-29 19:27:32.184 - INFO - [#####################           ] 68%
+2026-01-29 19:27:36.457 - INFO - [#####################           ] 68%
+2026-01-29 19:27:41.085 - INFO - [######################          ] 68%
+2026-01-29 19:27:46.799 - INFO - [######################          ] 69%
+2026-01-29 19:27:51.717 - INFO - [######################          ] 69%
+2026-01-29 19:27:58.104 - INFO - [######################          ] 70%
+2026-01-29 19:28:02.687 - INFO - [######################          ] 70%
+2026-01-29 19:28:07.804 - INFO - [######################          ] 70%
+2026-01-29 19:28:13.975 - INFO - [######################          ] 71%
+2026-01-29 19:28:19.529 - INFO - [######################          ] 71%
+2026-01-29 19:28:25.855 - INFO - [#######################         ] 71%
+2026-01-29 19:28:29.540 - INFO - [#######################         ] 72%
+2026-01-29 19:28:33.904 - INFO - [#######################         ] 72%
+2026-01-29 19:28:40.971 - INFO - [#######################         ] 73%
+2026-01-29 19:28:50.698 - INFO - [#######################         ] 73%
+2026-01-29 19:29:01.200 - INFO - [#######################         ] 73%
+2026-01-29 19:29:07.173 - INFO - [#######################         ] 74%
+2026-01-29 19:29:13.356 - INFO - [#######################         ] 74%
+2026-01-29 19:29:19.496 - INFO - [########################        ] 75%
+2026-01-29 19:29:26.090 - INFO - [########################        ] 75%
+2026-01-29 19:29:36.021 - INFO - [########################        ] 75%
+2026-01-29 19:30:01.392 - INFO - [########################        ] 76%
+2026-01-29 19:30:27.751 - INFO - [########################        ] 76%
+2026-01-29 19:30:35.964 - INFO - [########################        ] 77%
+2026-01-29 19:30:44.559 - INFO - [########################        ] 77%
+2026-01-29 19:30:53.248 - INFO - [########################        ] 77%
+2026-01-29 19:31:00.497 - INFO - [#########################       ] 78%
+2026-01-29 19:31:08.396 - INFO - [#########################       ] 78%
+2026-01-29 19:31:21.115 - INFO - [#########################       ] 79%
+2026-01-29 19:31:37.555 - INFO - [#########################       ] 79%
+2026-01-29 19:31:45.517 - INFO - [#########################       ] 79%
+2026-01-29 19:31:51.189 - INFO - [#########################       ] 80%
+2026-01-29 19:31:59.613 - INFO - [#########################       ] 80%
+2026-01-29 19:32:08.017 - INFO - [#########################       ] 80%
+2026-01-29 19:32:19.185 - INFO - [##########################      ] 81%
+2026-01-29 19:32:28.971 - INFO - [##########################      ] 81%
+2026-01-29 19:32:37.131 - INFO - [##########################      ] 82%
+2026-01-29 19:32:45.032 - INFO - [##########################      ] 82%
+2026-01-29 19:32:54.107 - INFO - [##########################      ] 82%
+2026-01-29 19:33:02.922 - INFO - [##########################      ] 83%
+2026-01-29 19:33:14.478 - INFO - [##########################      ] 83%
+2026-01-29 19:33:22.983 - INFO - [##########################      ] 84%
+2026-01-29 19:33:35.355 - INFO - [###########################     ] 84%
+2026-01-29 19:33:48.781 - INFO - [###########################     ] 84%
+2026-01-29 19:34:02.527 - INFO - [###########################     ] 85%
+2026-01-29 19:34:11.477 - INFO - [###########################     ] 85%
+2026-01-29 19:34:19.515 - INFO - [###########################     ] 86%
+2026-01-29 19:34:28.784 - INFO - [###########################     ] 86%
+2026-01-29 19:34:36.651 - INFO - [###########################     ] 86%
+2026-01-29 19:34:46.346 - INFO - [###########################     ] 87%
+2026-01-29 19:35:02.676 - INFO - [############################    ] 87%
+2026-01-29 19:35:14.475 - INFO - [############################    ] 88%
+2026-01-29 19:35:23.444 - INFO - [############################    ] 88%
+2026-01-29 19:35:33.653 - INFO - [############################    ] 88%
+2026-01-29 19:35:45.856 - INFO - [############################    ] 89%
+2026-01-29 19:35:58.077 - INFO - [############################    ] 89%
+2026-01-29 19:36:08.525 - INFO - [############################    ] 89%
+2026-01-29 19:36:19.267 - INFO - [############################    ] 90%
+2026-01-29 19:36:27.085 - INFO - [#############################   ] 90%
+2026-01-29 19:36:37.762 - INFO - [#############################   ] 91%
+2026-01-29 19:36:47.496 - INFO - [#############################   ] 91%
+2026-01-29 19:37:00.383 - INFO - [#############################   ] 91%
+2026-01-29 19:37:12.682 - INFO - [#############################   ] 92%
+2026-01-29 19:37:23.144 - INFO - [#############################   ] 92%
+2026-01-29 19:37:34.301 - INFO - [#############################   ] 93%
+2026-01-29 19:37:47.576 - INFO - [#############################   ] 93%
+2026-01-29 19:38:00.155 - INFO - [##############################  ] 93%
+2026-01-29 19:38:10.878 - INFO - [##############################  ] 94%
+2026-01-29 19:38:23.246 - INFO - [##############################  ] 94%
+2026-01-29 19:38:35.541 - INFO - [##############################  ] 95%
+2026-01-29 19:38:48.584 - INFO - [##############################  ] 95%
+2026-01-29 19:39:02.457 - INFO - [##############################  ] 95%
+2026-01-29 19:39:15.819 - INFO - [##############################  ] 96%
+2026-01-29 19:39:30.181 - INFO - [##############################  ] 96%
+2026-01-29 19:39:43.448 - INFO - [############################### ] 97%
+2026-01-29 19:39:59.815 - INFO - [############################### ] 97%
+2026-01-29 19:40:13.501 - INFO - [############################### ] 97%
+2026-01-29 19:40:28.679 - INFO - [############################### ] 98%
+2026-01-29 19:40:44.801 - INFO - [############################### ] 98%
+2026-01-29 19:41:01.771 - INFO - [############################### ] 98%
+2026-01-29 19:41:18.103 - INFO - [############################### ] 99%
+2026-01-29 19:42:35.363 - INFO - [############################### ] 99%
+2026-01-29 19:42:36.364 - INFO - [################################] 100%
+2026-01-29 19:42:37.365 - INFO - [################################] 100%
+variants calling finished in 188446 CPU sec, 3008.62 real sec.
+[2020-10-20 00:56:05.090] [haplotype_caller] [info] variants calling exited normally.
+2026-01-29 19:42:37.365 - INFO - 命令执行成功|Command executed successfully
+2026-01-29 19:42:37.365 - INFO -   样品 F35_2 完成|Sample F35_2 completed
+2026-01-29 19:42:37.365 - INFO -     VCF: 990.5 MB|VCF: 990.5 MB
+2026-01-29 19:42:37.365 - INFO -     BAM: 11.4 GB|BAM: 11.4 GB
+2026-01-29 19:42:37.365 - INFO - GTX WGS处理完成|GTX WGS processing completed:
+2026-01-29 19:42:37.365 - INFO -   成功: 3/3|Success: 3/3
+2026-01-29 19:42:37.365 - INFO -   失败: 0/3|Failed: 0/3
+2026-01-29 19:42:37.366 - INFO - 比对完成: 3 个 gVCF 文件, 3 个 BAM 文件|Mapping completed: 3 gVCF files, 3 BAM files
+2026-01-29 19:42:37.367 - INFO - 创建检查点|Create checkpoint: mapping
+2026-01-29 19:42:37.367 - INFO - 步骤3 完成|Step 3 completed: 序列比对|Sequence Mapping
+2026-01-29 19:42:37.367 - INFO - 执行步骤4|Executing step 4: 联合变异检测|Joint Variant Calling
+2026-01-29 19:42:37.367 - INFO - ============================================================
+2026-01-29 19:42:37.368 - INFO - Step 4: 联合变异检测|Joint Variant Calling
+2026-01-29 19:42:37.368 - INFO - ============================================================
+2026-01-29 19:42:37.368 - INFO - 检测到 3 个 gVCF 样本|Found 3 gVCF samples
+2026-01-29 19:42:37.368 - INFO - 样本数分析策略选择|Sample count analysis for strategy selection:
+2026-01-29 19:42:37.368 - INFO -   < 200 → GTX单机模式
+2026-01-29 19:42:37.368 - INFO -   >= 200 → GTX集群模式
+2026-01-29 19:42:37.368 - INFO - 使用 GTX 单机模式|Using GTX single machine mode
+2026-01-29 19:42:37.368 - INFO - 准备处理 3 个样本|Preparing to process 3 samples
+2026-01-29 19:42:37.368 - INFO - GTX联合变异检测|GTX Joint Variant Calling
+2026-01-29 19:42:37.368 - INFO - 执行命令|Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx joint -r /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/01.data/genome/genome.fa -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz -t 64 --tmp-dir /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp/gtx -v /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/vcf/F35_1.g.vcf.gz -v /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/vcf/SMJ5_3.g.vcf.gz -v /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/02.mapping/vcf/F35_2.g.vcf.gz
+2026-01-29 19:42:37.661 - INFO - [2020-10-20 00:00:00.661] [gtx] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp/gtx available: 4445215GB, memory available: 461GB, ulimit of open files: 100000
+2026-01-29 19:42:38.663 - INFO - [2020-10-20 00:00:00.662] [gtx] [info] Job: joint, pid: 4150548
+2026-01-29 19:42:39.665 - INFO - [2020-10-20 00:00:00.662] [gtx] [info] joint...
+2026-01-29 19:42:40.667 - INFO - [2020-10-20 00:00:00.809] [genotype_gvcfs] [info] progress_meter -    Current Locus         Elapsed Minutes  Variants Processed    Variants/Minute
+2026-01-29 19:42:41.669 - INFO - [2020-10-20 00:00:00.810] [genotype_gvcfs] [info] Vid Map JSON file will be written to /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp/gtx/.gtx_joint_1603123200661489847/gendb/vidmap.json
+2026-01-29 19:42:42.671 - INFO - [2020-10-20 00:00:00.810] [genotype_gvcfs] [info] Callset Map JSON file will be written to /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp/gtx/.gtx_joint_1603123200661489847/gendb/callset.json
+2026-01-29 19:42:43.673 - INFO - [2020-10-20 00:00:00.810] [genotype_gvcfs] [info] Complete VCF Header will be written to /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp/gtx/.gtx_joint_1603123200661489847/gendb/vcfheader.vcf
+2026-01-29 19:42:44.675 - INFO - [2020-10-20 00:00:00.810] [genotype_gvcfs] [info] Importing to array -  /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/.tmp/gtx/.gtx_joint_1603123200661489847/gendb/genomicsdb_array
+2026-01-29 19:42:45.677 - INFO - 00:00:01.336 info  NativeGenomicsDB - pid=4150548 tid=4150606 No valid combination operation found for INFO field MLEAC  - the field will NOT be part of INFO fields in the generated VCF records
+2026-01-29 19:42:46.679 - INFO - 00:00:01.336 info  NativeGenomicsDB - pid=4150548 tid=4150567 No valid combination operation found for INFO field MLEAF  - the field will NOT be part of INFO fields in the generated VCF records
+2026-01-29 19:43:52.446 - INFO - [2020-10-20 00:01:15.446] [genotype_gvcfs] [info] progress_meter -    unmapped                          1.2                     0              0.0
+2026-01-29 19:43:53.447 - INFO - [2020-10-20 00:01:15.446] [genotype_gvcfs] [info] 
+2515.55user 7.79system 1:14.64elapsed 3380.85%CPU (1845232maxresident)k
+0inputs+72outputs (39major+272587minor)pagefaults 0swaps
+[2020-10-20 00:01:15.467] [gtx] [info] joint exited normally.
+2026-01-29 19:43:53.447 - INFO - 命令执行成功|Command executed successfully
+2026-01-29 19:43:53.447 - INFO - GTX 输出: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz|GTX output: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-29 19:43:53.448 - INFO - 创建检查点|Create checkpoint: joint_calling
+2026-01-29 19:43:53.448 - INFO - 步骤4 完成|Step 4 completed: 联合变异检测|Joint Variant Calling
+2026-01-29 19:43:53.448 - INFO - 执行步骤5|Executing step 5: 变异过滤|Variant Filtering
+2026-01-29 19:43:53.448 - INFO - ============================================================
+2026-01-29 19:43:53.448 - INFO - Step 5: 变异过滤|Variant Filtering
+2026-01-29 19:43:53.448 - INFO - ============================================================
+2026-01-29 19:43:53.448 - INFO - 输入 VCF: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz|Input VCF: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-29 19:43:53.448 - INFO - 过滤参数|Filtering parameters:
+2026-01-29 19:43:53.448 - INFO -   SNP  - 最小深度: 5, 最小质量: 30
+2026-01-29 19:43:53.448 - INFO -   InDel - 最小深度: 5, 最小质量: 30
+2026-01-29 19:43:53.448 - INFO - 变异过滤|Variant Filtering
+2026-01-29 19:43:53.448 - INFO - 执行命令|Running command: biopytools filter-snp-indel -i /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/04.filtered_snp_indel -t 64 --snp-dp 5 --indel-dp 5
+2026-01-29 19:43:53.868 - INFO - 2026-01-29 19:43:53.868 - INFO - ============================================================
+2026-01-29 19:43:54.869 - INFO - 2026-01-29 19:43:53.868 - INFO - Program: VCF SNP/INDEL Filtering
+2026-01-29 19:43:55.870 - INFO - 2026-01-29 19:43:53.868 - INFO - Version: 1.0.0
+2026-01-29 19:43:56.871 - INFO - 2026-01-29 19:43:53.868 - INFO - ============================================================
+2026-01-29 19:43:57.872 - INFO - 2026-01-29 19:43:53.868 - INFO - ============================================================
+2026-01-29 19:43:58.873 - INFO - 2026-01-29 19:43:53.868 - INFO - 开始VCF SNP/INDEL过滤流程|Starting VCF SNP/INDEL Filtering Pipeline
+2026-01-29 19:43:59.874 - INFO - 2026-01-29 19:43:53.868 - INFO - ============================================================
+2026-01-29 19:44:00.875 - INFO - 2026-01-29 19:43:53.868 - INFO - 输入VCF文件|Input VCF file: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-29 19:44:01.876 - INFO - 2026-01-29 19:43:53.868 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/04.filtered_snp_indel
+2026-01-29 19:44:02.877 - INFO - 2026-01-29 19:43:53.868 - INFO - 线程数|Threads: 64
+2026-01-29 19:44:03.878 - INFO - 2026-01-29 19:43:53.868 - INFO - BCFtools路径|BCFtools path: bcftools
+2026-01-29 19:44:04.879 - INFO - 2026-01-29 19:43:53.868 - INFO - ============================================================
+2026-01-29 19:44:05.881 - INFO - 2026-01-29 19:43:53.868 - INFO - 检查依赖软件|Checking dependencies
+2026-01-29 19:44:06.882 - INFO - 2026-01-29 19:43:53.868 - INFO - 检查依赖软件|Checking dependencies
+2026-01-29 19:44:07.883 - INFO - 2026-01-29 19:43:54.272 - INFO - BCFtools可用|BCFtools available
+2026-01-29 19:44:08.884 - INFO - 2026-01-29 19:43:54.272 - INFO - ============================================================
+2026-01-29 19:44:09.885 - INFO - 2026-01-29 19:43:54.272 - INFO - 步骤1: 分离SNP和INDEL|Step 1: Separating SNPs and INDELs
+2026-01-29 19:44:10.886 - INFO - 2026-01-29 19:43:54.272 - INFO - ============================================================
+2026-01-29 19:44:11.887 - INFO - 2026-01-29 19:43:54.272 - INFO - 执行步骤|Executing step: 提取SNP变异|Extracting SNP variants
+2026-01-29 19:44:12.888 - INFO - 2026-01-29 19:43:54.272 - INFO - 命令|Command: bcftools view --types snps --threads 64 -Oz -o variation.raw.snp.vcf.gz /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-29 19:44:32.677 - INFO - 2026-01-29 19:44:32.677 - INFO - 命令执行成功|Command executed successfully: 提取SNP变异|Extracting SNP variants
+2026-01-29 19:44:33.678 - INFO - 2026-01-29 19:44:32.677 - INFO - 执行步骤|Executing step: 提取INDEL变异|Extracting INDEL variants
+2026-01-29 19:44:34.679 - INFO - 2026-01-29 19:44:32.677 - INFO - 命令|Command: bcftools view --types indels --threads 64 -Oz -o variation.raw.indel.vcf.gz /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/03.joint_calling/gtx_joint_raw.vcf.gz
+2026-01-29 19:45:04.447 - INFO - 2026-01-29 19:45:04.447 - INFO - 命令执行成功|Command executed successfully: 提取INDEL变异|Extracting INDEL variants
+2026-01-29 19:45:05.448 - INFO - 2026-01-29 19:45:04.447 - INFO - 创建VCF索引|Creating VCF index
+2026-01-29 19:45:06.449 - INFO - 2026-01-29 19:45:04.447 - INFO - 执行步骤|Executing step: 索引文件|Indexing variation.raw.snp.vcf.gz
+2026-01-29 19:45:07.450 - INFO - 2026-01-29 19:45:04.447 - INFO - 命令|Command: bcftools index -f variation.raw.snp.vcf.gz
+2026-01-29 19:45:13.689 - INFO - 2026-01-29 19:45:13.689 - INFO - 命令执行成功|Command executed successfully: 索引文件|Indexing variation.raw.snp.vcf.gz
+2026-01-29 19:45:14.690 - INFO - 2026-01-29 19:45:13.689 - INFO - 执行步骤|Executing step: 索引文件|Indexing variation.raw.indel.vcf.gz
+2026-01-29 19:45:15.691 - INFO - 2026-01-29 19:45:13.689 - INFO - 命令|Command: bcftools index -f variation.raw.indel.vcf.gz
+2026-01-29 19:45:17.932 - INFO - 2026-01-29 19:45:17.932 - INFO - 命令执行成功|Command executed successfully: 索引文件|Indexing variation.raw.indel.vcf.gz
+2026-01-29 19:45:18.933 - INFO - 2026-01-29 19:45:17.932 - INFO - SNP和INDEL分离完成|SNP and INDEL separation completed
+2026-01-29 19:45:19.934 - INFO - 2026-01-29 19:45:17.932 - INFO - ============================================================
+2026-01-29 19:45:20.935 - INFO - 2026-01-29 19:45:17.932 - INFO - 步骤2a: 过滤SNP|Step 2a: Filtering SNPs
+2026-01-29 19:45:21.936 - INFO - 2026-01-29 19:45:17.932 - INFO - ============================================================
+2026-01-29 19:45:22.937 - INFO - 2026-01-29 19:45:17.932 - INFO - SNP过滤条件|SNP filter criteria:
+2026-01-29 19:45:23.938 - INFO - 2026-01-29 19:45:17.932 - INFO -    • QUAL >= 30.0
+2026-01-29 19:45:24.939 - INFO - 2026-01-29 19:45:17.932 - INFO -    • INFO/DP >= 5
+2026-01-29 19:45:25.940 - INFO - 2026-01-29 19:45:17.932 - INFO -    • MQ >= 40.0
+2026-01-29 19:45:26.941 - INFO - 2026-01-29 19:45:17.934 - INFO -    • QD >= 2.0
+2026-01-29 19:45:27.942 - INFO - 2026-01-29 19:45:17.934 - INFO -    • FS <= 60.0
+2026-01-29 19:45:28.943 - INFO - 2026-01-29 19:45:17.934 - INFO -    • SOR <= 3.0
+2026-01-29 19:45:29.945 - INFO - 2026-01-29 19:45:17.934 - INFO -    • MQRankSum >= -12.5
+2026-01-29 19:45:30.946 - INFO - 2026-01-29 19:45:17.934 - INFO -    • ReadPosRankSum >= -8.0
+2026-01-29 19:45:31.947 - INFO - 2026-01-29 19:45:17.934 - INFO -    • MAF >= 0.05
+2026-01-29 19:45:32.948 - INFO - 2026-01-29 19:45:17.934 - INFO - 执行步骤|Executing step: 应用SNP过滤|Applying SNP filters
+2026-01-29 19:45:33.949 - INFO - 2026-01-29 19:45:17.934 - INFO - 命令|Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 5 && MQ >= 40.0 && QD >= 2.0 && FS <= 60.0 && SOR <= 3.0 && MQRankSum >= -12.5 && ReadPosRankSum >= -8.0 && MAF >= 0.05' --threads 64 -Oz -o variation.filtered.snp.vcf.gz variation.raw.snp.vcf.gz
+2026-01-29 19:45:49.320 - INFO - 2026-01-29 19:45:49.320 - INFO - 命令执行成功|Command executed successfully: 应用SNP过滤|Applying SNP filters
+2026-01-29 19:45:50.321 - INFO - 2026-01-29 19:45:49.320 - INFO - 执行步骤|Executing step: 索引过滤后的SNP文件|Indexing filtered SNP file
+2026-01-29 19:45:51.322 - INFO - 2026-01-29 19:45:49.320 - INFO - 命令|Command: bcftools index -f variation.filtered.snp.vcf.gz
+2026-01-29 19:45:54.489 - INFO - 2026-01-29 19:45:54.489 - INFO - 命令执行成功|Command executed successfully: 索引过滤后的SNP文件|Indexing filtered SNP file
+2026-01-29 19:45:55.490 - INFO - 2026-01-29 19:45:54.489 - INFO - SNP过滤完成|SNP filtering completed
+2026-01-29 19:45:56.491 - INFO - 2026-01-29 19:45:54.489 - INFO - ============================================================
+2026-01-29 19:45:57.492 - INFO - 2026-01-29 19:45:54.489 - INFO - 步骤2b: 过滤INDEL|Step 2b: Filtering INDELs
+2026-01-29 19:45:58.493 - INFO - 2026-01-29 19:45:54.489 - INFO - ============================================================
+2026-01-29 19:45:59.494 - INFO - 2026-01-29 19:45:54.489 - INFO - INDEL过滤条件|INDEL filter criteria:
+2026-01-29 19:46:00.495 - INFO - 2026-01-29 19:45:54.489 - INFO -    • QUAL >= 30.0
+2026-01-29 19:46:01.496 - INFO - 2026-01-29 19:45:54.489 - INFO -    • INFO/DP >= 5
+2026-01-29 19:46:02.497 - INFO - 2026-01-29 19:45:54.489 - INFO -    • MQ >= 40.0
+2026-01-29 19:46:03.498 - INFO - 2026-01-29 19:45:54.489 - INFO -    • QD >= 2.0
+2026-01-29 19:46:04.499 - INFO - 2026-01-29 19:45:54.489 - INFO -    • FS <= 200.0
+2026-01-29 19:46:05.500 - INFO - 2026-01-29 19:45:54.489 - INFO -    • SOR <= 10.0
+2026-01-29 19:46:06.502 - INFO - 2026-01-29 19:45:54.489 - INFO -    • ReadPosRankSum >= -20.0
+2026-01-29 19:46:07.503 - INFO - 2026-01-29 19:45:54.489 - INFO - 执行步骤|Executing step: 应用INDEL过滤|Applying INDEL filters
+2026-01-29 19:46:08.504 - INFO - 2026-01-29 19:45:54.490 - INFO - 命令|Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 5 && MQ >= 40.0 && QD >= 2.0 && FS <= 200.0 && SOR <= 10.0 && ReadPosRankSum >= -20.0' --threads 64 -Oz -o variation.filtered.indel.vcf.gz variation.raw.indel.vcf.gz
+2026-01-29 19:46:09.505 - INFO - 2026-01-29 19:46:07.181 - INFO - 命令执行成功|Command executed successfully: 应用INDEL过滤|Applying INDEL filters
+2026-01-29 19:46:10.506 - INFO - 2026-01-29 19:46:07.181 - INFO - 执行步骤|Executing step: 索引过滤后的INDEL文件|Indexing filtered INDEL file
+2026-01-29 19:46:11.507 - INFO - 2026-01-29 19:46:07.181 - INFO - 命令|Command: bcftools index -f variation.filtered.indel.vcf.gz
+2026-01-29 19:46:12.508 - INFO - 2026-01-29 19:46:09.536 - INFO - 命令执行成功|Command executed successfully: 索引过滤后的INDEL文件|Indexing filtered INDEL file
+2026-01-29 19:46:13.509 - INFO - 2026-01-29 19:46:09.536 - INFO - INDEL过滤完成|INDEL filtering completed
+2026-01-29 19:46:14.510 - INFO - 2026-01-29 19:46:09.536 - INFO - ============================================================
+2026-01-29 19:46:15.511 - INFO - 2026-01-29 19:46:09.536 - INFO - 步骤2c: 过滤双等位位点SNP|Step 2c: Filtering biallelic SNPs
+2026-01-29 19:46:16.512 - INFO - 2026-01-29 19:46:09.536 - INFO - ============================================================
+2026-01-29 19:46:17.513 - INFO - 2026-01-29 19:46:09.536 - INFO - 双等位位点过滤条件|Biallelic filter criteria:
+2026-01-29 19:46:18.514 - INFO - 2026-01-29 19:46:09.536 - INFO -    • 双等位位点|Biallelic sites only (max 2 alleles)
+2026-01-29 19:46:19.515 - INFO - 2026-01-29 19:46:09.536 - INFO -    • MAF > 0.05
+2026-01-29 19:46:20.516 - INFO - 2026-01-29 19:46:09.536 - INFO - 执行步骤|Executing step: 应用双等位位点过滤|Applying biallelic filters
+2026-01-29 19:46:21.518 - INFO - 2026-01-29 19:46:09.536 - INFO - 命令|Command: bcftools view -m2 -M2 -v snps -i 'MAF > 0.05' --threads 64 -Oz -o variation.filtered.snp.biallelic.vcf.gz variation.filtered.snp.vcf.gz
+2026-01-29 19:46:25.475 - INFO - 2026-01-29 19:46:25.475 - INFO - 命令执行成功|Command executed successfully: 应用双等位位点过滤|Applying biallelic filters
+2026-01-29 19:46:26.476 - INFO - 2026-01-29 19:46:25.475 - INFO - 执行步骤|Executing step: 索引双等位位点SNP文件|Indexing biallelic SNP file
+2026-01-29 19:46:27.477 - INFO - 2026-01-29 19:46:25.475 - INFO - 命令|Command: bcftools index -f variation.filtered.snp.biallelic.vcf.gz
+2026-01-29 19:46:30.024 - INFO - 2026-01-29 19:46:30.024 - INFO - 命令执行成功|Command executed successfully: 索引双等位位点SNP文件|Indexing biallelic SNP file
+2026-01-29 19:46:31.026 - INFO - 2026-01-29 19:46:30.024 - INFO - 双等位位点SNP过滤完成|Biallelic SNP filtering completed
+2026-01-29 19:46:32.027 - INFO - 2026-01-29 19:46:30.025 - INFO - ============================================================
+2026-01-29 19:46:33.028 - INFO - 2026-01-29 19:46:30.025 - INFO - 步骤3: 合并过滤后的变异|Step 3: Merging filtered variants
+2026-01-29 19:46:34.029 - INFO - 2026-01-29 19:46:30.025 - INFO - ============================================================
+2026-01-29 19:46:35.030 - INFO - 2026-01-29 19:46:30.025 - INFO - 使用双等位位点过滤后的SNP|Using biallelic-filtered SNPs
+2026-01-29 19:46:36.031 - INFO - 2026-01-29 19:46:30.025 - INFO - 执行步骤|Executing step: 合并SNP和INDEL|Merging SNPs and INDELs
+2026-01-29 19:46:37.032 - INFO - 2026-01-29 19:46:30.025 - INFO - 命令|Command: bcftools concat -a -D --threads 64 -Oz -o variation.filtered.merged.unsorted.vcf.gz variation.filtered.snp.biallelic.vcf.gz variation.filtered.indel.vcf.gz
+2026-01-29 19:46:54.813 - INFO - 2026-01-29 19:46:54.812 - INFO - 命令执行成功|Command executed successfully: 合并SNP和INDEL|Merging SNPs and INDELs
+2026-01-29 19:46:55.814 - INFO - 2026-01-29 19:46:54.813 - INFO - 执行步骤|Executing step: 按位置排序|Sorting by position
+2026-01-29 19:46:56.815 - INFO - 2026-01-29 19:46:54.813 - INFO - 命令|Command: bcftools sort -Oz -o variation.filtered.merged.vcf.gz variation.filtered.merged.unsorted.vcf.gz
+2026-01-29 19:48:16.770 - INFO - 2026-01-29 19:48:16.770 - INFO - 命令执行成功|Command executed successfully: 按位置排序|Sorting by position
+2026-01-29 19:48:17.772 - INFO - 2026-01-29 19:48:16.771 - INFO - 清理临时文件|Cleaning up temporary file: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/04.filtered_snp_indel/variation.filtered.merged.unsorted.vcf.gz
+2026-01-29 19:48:18.773 - INFO - 2026-01-29 19:48:16.771 - INFO - 临时文件已删除|Temporary file deleted.
+2026-01-29 19:48:19.774 - INFO - 2026-01-29 19:48:16.771 - INFO - 执行步骤|Executing step: 索引合并文件|Indexing merged file
+2026-01-29 19:48:20.775 - INFO - 2026-01-29 19:48:16.771 - INFO - 命令|Command: bcftools index -f variation.filtered.merged.vcf.gz
+2026-01-29 19:48:23.640 - INFO - 2026-01-29 19:48:23.640 - INFO - 命令执行成功|Command executed successfully: 索引合并文件|Indexing merged file
+2026-01-29 19:48:24.642 - INFO - 2026-01-29 19:48:23.640 - INFO - 变异合并完成|Variant merging completed
+2026-01-29 19:48:25.643 - INFO - 2026-01-29 19:48:23.640 - INFO - ============================================================
+2026-01-29 19:48:26.644 - INFO - 2026-01-29 19:48:23.640 - INFO - 步骤4: 生成统计报告|Step 4: Generating statistics report
+2026-01-29 19:48:27.645 - INFO - 2026-01-29 19:48:23.640 - INFO - ============================================================
+2026-01-29 19:50:20.101 - INFO - 2026-01-29 19:50:20.101 - INFO - ============================================================
+2026-01-29 19:50:21.103 - INFO - 2026-01-29 19:50:20.101 - INFO - 过滤统计|Filtering Statistics
+2026-01-29 19:50:20.101 - INFO - ============================================================
+2026-01-29 19:50:20.101 - INFO - 原始SNP|Raw SNPs: 10,407,820
+2026-01-29 19:50:20.102 - INFO - 过滤后SNP|Filtered SNPs: 5,186,880
+2026-01-29 19:50:20.102 - INFO - 原始INDEL|Raw INDELs: 4,105,851
+2026-01-29 19:50:20.102 - INFO - 过滤后INDEL|Filtered INDELs: 2,212,702
+2026-01-29 19:50:20.102 - INFO - 合并后变异|Merged variants: 6,949,280
+2026-01-29 19:50:20.102 - INFO - 双等位位点SNP|Biallelic SNPs: 4,736,578
+2026-01-29 19:50:20.102 - INFO - SNP保留率|SNP retention rate: 49.84%
+2026-01-29 19:50:20.102 - INFO - 双等位位点保留率|Biallelic retention rate: 91.32%
+2026-01-29 19:50:20.102 - INFO - INDEL保留率|INDEL retention rate: 53.89%
+2026-01-29 19:50:20.102 - INFO - 统计报告已保存|Statistics report saved: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/04.filtered_snp_indel/filtering_statistics.txt
+2026-01-29 19:50:20.102 - INFO - ============================================================
+2026-01-29 19:50:20.102 - INFO - VCF过滤流程成功完成|VCF Filtering Pipeline Completed Successfully!
+2026-01-29 19:50:20.102 - INFO - ============================================================
+2026-01-29 19:50:20.102 - INFO - 结果保存在|Results saved in: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/04.filtered_snp_indel
+2026-01-29 19:50:20.102 - INFO - ============================================================
+
+2026-01-29 19:50:20.102 - INFO - ============================================================
+2026-01-29 19:50:20.102 - INFO - Pipeline Summary
+2026-01-29 19:50:20.102 - INFO - ============================================================
+2026-01-29 19:50:20.102 - INFO - Total runtime: 386.31 seconds
+2026-01-29 19:50:20.102 - INFO - Output directory: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/04.filtered_snp_indel
+2026-01-29 19:50:20.102 - INFO - Pipeline completed successfully
+2026-01-29 19:50:21.103 - INFO - 命令执行成功|Command executed successfully
+2026-01-29 19:50:21.103 - INFO - 过滤完成|Filtering completed
+2026-01-29 19:50:36.307 - INFO -   variation.raw.indel.vcf.gz: 4105851 个变异|variants
+2026-01-29 19:50:44.715 - INFO -   variation.filtered.indel.vcf.gz: 2212702 个变异|variants
+2026-01-29 19:51:08.993 - INFO -   variation.filtered.merged.vcf.gz: 6949280 个变异|variants
+2026-01-29 19:51:24.822 - INFO -   variation.filtered.snp.biallelic.vcf.gz: 4736578 个变异|variants
+2026-01-29 19:51:42.869 - INFO -   variation.filtered.snp.vcf.gz: 5186880 个变异|variants
+2026-01-29 19:52:17.663 - INFO -   variation.raw.snp.vcf.gz: 10407820 个变异|variants
+2026-01-29 19:52:17.663 - INFO - 创建检查点|Create checkpoint: variant_filtering
+2026-01-29 19:52:17.663 - INFO - 步骤5 完成|Step 5 completed: 变异过滤|Variant Filtering
+2026-01-29 19:52:17.664 - INFO - 报告已生成|Report generated: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/03.弯曲碎米芥比对/ANALYSIS_REPORT.txt
+2026-01-29 19:52:17.664 - INFO - Fastq到VCF (GTX) 流程全部完成|Fastq to VCF (GTX) pipeline completed!

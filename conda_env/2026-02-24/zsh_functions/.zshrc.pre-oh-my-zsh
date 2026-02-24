@@ -1,0 +1,97 @@
+# 基本配置
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+
+# Oh My Zsh路径
+export ZSH="$HOME/.oh-my-zsh"
+
+# 主题设置为空（使用starship）
+ZSH_THEME=""
+
+# 插件配置（重要：zsh-syntax-highlighting必须放在最后）
+plugins=(
+    git
+    colored-man-pages
+    extract
+    z
+    zsh-autosuggestions
+    zsh-history-substring-search
+    zsh-syntax-highlighting
+)
+
+# 加载Oh My Zsh
+source $ZSH/oh-my-zsh.sh
+
+# 插件配置
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# 历史搜索键绑定
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# 环境变量
+export PATH=$HOME/.local/bin:$PATH
+
+##################################################################################################
+########################################### 快捷键 ################################################
+###################################################################################################
+grepi() {
+    grep -i "$@"
+}
+alias ll='ls -lh'
+alias git2hub='_f() { git add . && git commit -m "$1" && git push origin; }; _f'
+alias pip='pip3'
+alias np='nohup'
+alias tt='tail'
+alias np='nohup'
+alias pp='_pp(){ps -aux | grep $1};_pp'
+alias rf='rm -rf'
+alias mm='mamba'
+alias mma='mamba activate'
+alias mmd='mamba deactivate'
+alias mml='mamba env list'
+alias hg='_hg(){history | grep $1 | tail -n $2};_hg'
+alias hh='htop'
+alias mmt='mamba activate bioinftools'
+alias pp='python'
+alias hh='head'
+alias get='axel -n 30'
+alias gh='_gh(){grep ">" $1 | head};_gh'
+alias pg='_pg(){ps -aux | grep $1};_pg'
+alias ss="sed -i -e 's/ //g' -e 's/dna:.\{1,1000\}//g' *.fa"
+alias getaws="aws s3 cp  --no-sign-request"
+alias lw="ll | wc -l"
+alias mmi="mamba install --freeze-installed"
+alias mmb="mamba install --freeze-installed -c bioconda "
+alias gg="gunzip *.gz"
+alias d="axel -n 30"
+alias lk="ls -lhtr"
+alias ww='_ww(){wget $1 -O $2};_ww'
+# 在 .bashrc 或终端中定义函数
+myfilter() {
+    column="$1"   # 第1个参数：列号
+    value="$2"    # 第2个参数：匹配值
+    file="$3"     # 第3个参数：文件名
+    awk -v col="$column" -v val="$value" '$col == val {print}' "$file"
+}
+
+# tabby ftp工具默认当前位置
+precmd () { echo -n "\x1b]1337;CurrentDir=$(pwd)\x07" }
+
+eval "$(starship init zsh)"
+
+export PATH=$HOME/.local/bin:$PATH
+# module load your-required-modules
+
+
+# 添加到.zshrc
+if [ ! -z "$SLURM_JOB_ID" ]; then
+    echo "Running in SLURM job: $SLURM_JOB_ID"
+fi
+
+
+

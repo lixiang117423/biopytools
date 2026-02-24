@@ -1,0 +1,24 @@
+2026-02-01 07:50:31.823 - INFO - ====================================================================================================
+2026-02-01 07:50:31.823 - INFO -  Kmer丰度转VCF工具|Kmer Abundance to VCF Converter
+2026-02-01 07:50:31.824 - INFO - ====================================================================================================
+2026-02-01 07:50:31.824 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/01.kmer_db/kmer_matrix_with_header.txt
+2026-02-01 07:50:31.824 - INFO - 输出VCF|Output VCF: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/02.kmer2vcf/kmer.vcf.gz
+2026-02-01 07:50:31.824 - INFO - 样本数|Number of samples: 181
+2026-02-01 07:50:31.824 - INFO - 最小聚合频次|Minimum aggregated count: 3
+2026-02-01 07:50:31.824 - INFO - 
+2026-02-01 07:50:31.824 - INFO - ====================================================================================================
+2026-02-01 07:50:31.824 - INFO -  Step 1: 转换丰度矩阵为0/1格式|Step 1: Converting abundance matrix to binary format
+2026-02-01 07:50:31.824 - INFO - ====================================================================================================
+2026-02-01 07:50:31.824 - INFO - 样本数|Number of samples: 181
+2026-02-01 07:50:31.824 - INFO - 线程数|Threads: 64
+2026-02-01 07:50:31.824 - INFO - 多线程处理文件|Multithreaded processing: 64 threads
+2026-02-01 07:50:31.824 - INFO - 块大小|Chunk size: 100.00K lines
+2026-02-01 07:50:31.988 - ERROR - Worker 0 处理块 0 时出错|Error processing chunk 0: invalid literal for int() with base 10: 'DB103A'
+2026-02-01 07:50:46.579 - INFO - 已读取|Read: 1.00M lines
+2026-02-01 07:51:04.669 - INFO - 已读取|Read: 2.00M lines
+2026-02-01 07:51:22.810 - INFO - 已读取|Read: 3.00M lines
+2026-02-01 07:51:40.828 - INFO - 已读取|Read: 4.00M lines
+2026-02-01 07:51:58.891 - INFO - 已读取|Read: 5.00M lines
+2026-02-01 07:52:16.965 - INFO - 已读取|Read: 6.00M lines
+2026-02-01 07:52:35.072 - INFO - 已读取|Read: 7.00M lines
+分析被用户中断|Analysis interrupted by user

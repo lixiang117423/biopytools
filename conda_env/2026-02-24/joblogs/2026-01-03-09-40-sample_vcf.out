@@ -1,0 +1,8 @@
+使用bcftools随机抽取10%的SNP...
+完成！输出文件: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/08.10%的SNP的admixture/chr.snp.10p.random.vcf.gz
+
+统计信息：
+原始SNP数量:
+7291665
+抽取后SNP数量:
+0

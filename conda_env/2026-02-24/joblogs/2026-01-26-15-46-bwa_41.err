@@ -1,0 +1,8 @@
+
+用户中断|User interrupted
+Usage: biopytools coverage-filter [OPTIONS]
+Try 'biopytools coverage-filter -h' for help.
+
+Error: Invalid value for '--bam-file' / '-i': 文件不存在|File does not exist: bam/41.bam
+Job 69050485 stderr output:
+

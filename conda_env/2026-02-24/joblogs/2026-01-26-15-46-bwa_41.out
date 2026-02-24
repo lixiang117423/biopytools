@@ -1,0 +1,28 @@
+2026-01-26 15:46:08.841 - INFO - ================================================================================
+2026-01-26 15:46:08.841 - INFO - 开始BWA全基因组比对分析流程|Starting BWA alignment pipeline
+2026-01-26 15:46:08.841 - INFO - ================================================================================
+2026-01-26 15:46:08.841 - INFO - 步骤1/6: 检查依赖软件|Step 1/6: Checking dependencies
+2026-01-26 15:46:08.841 - INFO - 检查依赖软件|Checking dependencies
+2026-01-26 15:46:09.009 - INFO - BWA 可用|BWA available: [main]
+2026-01-26 15:46:09.449 - INFO - SAMtools 可用|SAMtools available: samtools
+2026-01-26 15:46:09.449 - INFO - 步骤2/6: 检查基因组索引|Step 2/6: Checking genome index
+2026-01-26 15:46:09.449 - INFO - 检查基因组索引|Checking genome index
+2026-01-26 15:46:09.449 - INFO - 缺少索引文件|Missing index files: .amb, .ann, .bwt, .pac, .sa
+2026-01-26 15:46:09.449 - INFO - 开始构建BWA索引|Building BWA index
+2026-01-26 15:46:09.449 - INFO - 执行步骤|Executing step: 构建BWA索引|Building BWA index
+2026-01-26 15:46:09.450 - INFO - 命令|Command: bwa index /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/genome/41.primary.fa
+2026-01-26 15:47:11.956 - INFO - 命令执行成功|Command executed successfully
+2026-01-26 15:47:11.956 - INFO - BWA索引构建成功|BWA index built successfully
+2026-01-26 15:47:11.956 - INFO - 步骤3/6: 查找FASTQ文件|Step 3/6: Finding FASTQ files
+2026-01-26 15:47:11.956 - INFO - 查找FASTQ文件|Finding FASTQ files
+2026-01-26 15:47:11.956 - INFO - 输入目录|Input directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/clean
+2026-01-26 15:47:11.956 - INFO - 匹配模式|Pattern: _1.clean.fq.gz
+2026-01-26 15:47:11.973 - INFO - 找到样品|Found sample: 41
+2026-01-26 15:47:11.973 - INFO - 共找到 1 个样品对|Found 1 sample pairs
+2026-01-26 15:47:11.974 - INFO - 步骤4/6: 批量比对 (1 个样品)|Step 4/6: Batch alignment (1 samples)
+2026-01-26 15:47:11.974 - INFO - ================================================================================
+2026-01-26 15:47:11.974 - INFO - 处理样品 1/1: 41|Processing sample 1/1: 41
+2026-01-26 15:47:11.974 - INFO - ================================================================================
+2026-01-26 15:47:11.974 - INFO - 开始比对样品|Starting alignment for sample: 41
+2026-01-26 15:47:11.974 - INFO - 执行步骤|Executing step: BWA mem比对|BWA mem alignment: 41
+2026-01-26 15:47:11.974 - INFO - 命令|Command: bwa mem -t 64 -k 19 -w 100 -d 100 -r 1.5 -y 20 -c 500 -D 0.5 -W 0 -m 50 -A 1 -B 4 -O 6,6 -E 1,1 -L 5,5 -U 17 -T 30 -h 5,200 -R '@RG\tID:41\tSM:41\tPL:ILLUMINA' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/genome/41.primary.fa /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/clean/41_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/clean/41_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/02.挂载的基因组/bam/41.sam

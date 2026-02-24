@@ -1,0 +1,47 @@
+[2025-12-19 13:11:28] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-19 13:11:28] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-19 13:11:28]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa
+[2025-12-19 13:11:28]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-19 13:11:28]   hic_file_type: fastq
+[2025-12-19 13:11:28]   nchrs: 12
+[2025-12-19 13:11:28]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary
+[2025-12-19 13:11:28]   prefix: OV53_1.primary
+[2025-12-19 13:11:28]   threads: 64
+[2025-12-19 13:11:28]   processes: 64
+[2025-12-19 13:11:28]   quick_view: False
+[2025-12-19 13:11:28]   restriction_sites: ['GATC']
+[2025-12-19 13:11:28]   correct_nrounds: 2
+[2025-12-19 13:11:28]   remove_allelic_links: None
+[2025-12-19 13:11:28]   phasing_weight: 1.0
+[2025-12-19 13:11:28]   gfa_files: None
+[2025-12-19 13:11:28]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-19 13:11:28]   bwa_bin: bwa
+[2025-12-19 13:11:28]   samtools_bin: samtools
+[2025-12-19 13:11:28] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-19 13:11:28] 🔍 系统预检查 | System pre-flight checks
+[2025-12-19 13:11:28] 🔍 验证输入文件 | Validating input files
+[2025-12-19 13:11:29] 📊 基因组序列数量 | Assembly sequence count: 1211
+[2025-12-19 13:11:29] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 58.01 GB
+[2025-12-19 13:11:29] ✅ 输入文件验证通过 | Input files validated
+[2025-12-19 13:11:29] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-19 13:11:30] 💾 可用内存 | Available memory: 7.8 GB
+[2025-12-19 13:11:30] 💾 可用磁盘空间 | Available disk space: 2609159.1 GB
+[2025-12-19 13:11:30] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-19 13:11:32] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-19 13:11:32] 🔍 检查已存在的比对结果 | Checking for existing alignment results
+[2025-12-19 13:11:32] 📂 输出目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary
+[2025-12-19 13:11:32] 📂 比对目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping
+[2025-12-19 13:11:32] 📄 潜在BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.bam
+[2025-12-19 13:11:32] 📄 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.filtered.bam
+[2025-12-19 13:11:32] ✅ 比对目录存在 | Alignment directory exists
+[2025-12-19 13:11:32] 📋 比对目录内容: []
+[2025-12-19 13:11:32] 🔗 执行BWA比对 | Executing BWA alignment
+[2025-12-19 13:11:32] 🔗 开始BWA比对 | Starting BWA alignment (official method)
+[2025-12-19 13:11:32] 📄 使用提供的FASTQ文件对 | Using provided FASTQ pair: OV53_1-hic_R1.fastq.gz
+[2025-12-19 13:11:32] 📄 找到 1 对FASTQ文件 | Found 1 FASTQ pairs
+[2025-12-19 13:11:32] 🔗 创建基因组软链接 | Created assembly symlink: assembly.fa
+[2025-12-19 13:11:32] 🔗 创建FASTQ软链接 | Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+[2025-12-19 13:11:32] 📝 创建BWA索引 | Creating BWA index: assembly.fa
+[2025-12-19 13:11:35] ❌ BWA索引创建失败 | BWA index creation failed: [bwa_index] Pack FASTA... [bns_fasta2bntseq] Failed to allocate 757219121 bytes at bntseq.c line 308: Cannot allocate memory
+
+[2025-12-19 13:11:35] 💥 HapHiC流程执行失败 | HapHiC pipeline execution failed: Command '['bwa', 'index', 'assembly.fa']' returned non-zero exit status 1.

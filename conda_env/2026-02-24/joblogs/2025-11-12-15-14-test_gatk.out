@@ -1,0 +1,95 @@
+[0;34m[2025-11-12 15:14:26][0m ℹ️  =========================================
+[0;34m[2025-11-12 15:14:26][0m ℹ️  🧬 GATK Joint Calling 开始
+[0;34m[2025-11-12 15:14:26][0m ℹ️  =========================================
+[0;34m[2025-11-12 15:14:26][0m ℹ️  输入目录: tmp
+[0;34m[2025-11-12 15:14:26][0m ℹ️  参考基因组: 01.data/genome/genome.fa
+[0;34m[2025-11-12 15:14:26][0m ℹ️  输出文件: 03.gatk_joint/hatk_merged.vcf.gz
+[0;34m[2025-11-12 15:14:26][0m ℹ️  临时目录: ./tmp_joint_calling
+[0;34m[2025-11-12 15:14:26][0m ℹ️  内存限制: 1000g
+[0;34m[2025-11-12 15:14:26][0m ℹ️  并行任务数: 19
+[0;34m[2025-11-12 15:14:26][0m ℹ️  =========================================
+[0;34m[2025-11-12 15:14:26][0m ℹ️  检查依赖项...
+[1;33m[2025-11-12 15:14:26][0m ⚠️  未找到GNU parallel，将使用串行处理
+[0;32m[2025-11-12 15:14:26][0m ✅ 所有必需依赖已安装
+[0;34m[2025-11-12 15:14:26][0m ℹ️  查找GVCF文件...
+[0;32m[2025-11-12 15:14:26][0m ✅ 找到 9 个GVCF文件
+[0;34m[2025-11-12 15:14:26][0m ℹ️  创建样本映射文件...
+[0;34m[2025-11-12 15:14:27][0m ℹ️  自动检测染色体列表...
+[0;32m[2025-11-12 15:14:27][0m ✅ 将处理 20 条染色体: Chr01 Chr02 Chr03 Chr04 Chr05 Chr06 Chr07 Chr08 Chr09 Chr10 Chr11 Chr12 Chr13 Chr14 Chr15 Chr16 Chr17 Chr18 Chr19 Chr20
+[0;34m[2025-11-12 15:14:27][0m ℹ️  开始并行处理染色体（并行任务数: 19）...
+[0;34m[2025-11-12 15:14:27][0m ℹ️  处理染色体 Chr01 - GenomicsDBImport
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -Xmx4g -XX:+UseParallelGC -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar GenomicsDBImport --sample-name-map ./tmp_joint_calling/sample_map.txt --genomicsdb-workspace-path ./tmp_joint_calling/genomicsdb/Chr01_db --intervals Chr01 --reader-threads 4 --batch-size 50 --consolidate --tmp-dir ./tmp_joint_calling
+15:14:30.738 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+15:14:30.742 WARN  NativeLibraryLoader - Unable to load libgkl_compression.so from native/libgkl_compression.so (No such file or directory)
+15:14:30.744 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+15:14:30.744 WARN  NativeLibraryLoader - Unable to load libgkl_compression.so from native/libgkl_compression.so (No such file or directory)
+15:14:30.927 INFO  GenomicsDBImport - ------------------------------------------------------------
+15:14:30.929 INFO  GenomicsDBImport - The Genome Analysis Toolkit (GATK) v4.6.2.0
+15:14:30.929 INFO  GenomicsDBImport - For support and documentation go to https://software.broadinstitute.org/gatk/
+15:14:30.929 INFO  GenomicsDBImport - Executing as yzwl_lixg@c01n0187 on Linux v4.18.0-513.5.1.el8_9.x86_64 amd64
+15:14:30.929 INFO  GenomicsDBImport - Java runtime: OpenJDK 64-Bit Server VM v17.0.15-internal+0-adhoc..src
+15:14:30.929 INFO  GenomicsDBImport - Start Date/Time: 2025年11月12日 CST 下午3:14:30
+15:14:30.929 INFO  GenomicsDBImport - ------------------------------------------------------------
+15:14:30.929 INFO  GenomicsDBImport - ------------------------------------------------------------
+15:14:30.930 INFO  GenomicsDBImport - HTSJDK Version: 4.2.0
+15:14:30.930 INFO  GenomicsDBImport - Picard Version: 3.4.0
+15:14:30.930 INFO  GenomicsDBImport - Built for Spark Version: 3.5.0
+15:14:30.931 INFO  GenomicsDBImport - HTSJDK Defaults.COMPRESSION_LEVEL : 2
+15:14:30.931 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_READ_FOR_SAMTOOLS : false
+15:14:30.932 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_SAMTOOLS : true
+15:14:30.932 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_TRIBBLE : false
+15:14:30.932 INFO  GenomicsDBImport - Deflater: JdkDeflater
+15:14:30.932 INFO  GenomicsDBImport - Inflater: JdkInflater
+15:14:30.932 INFO  GenomicsDBImport - GCS max retries/reopens: 20
+15:14:30.932 INFO  GenomicsDBImport - Requester pays: disabled
+15:14:30.932 INFO  GenomicsDBImport - Initializing engine
+15:14:30.948 WARN  IntelInflaterFactory - IntelInflater is not supported, using Java.util.zip.Inflater
+15:14:30.948 WARN  IntelInflaterFactory - IntelInflater is not supported, using Java.util.zip.Inflater
+15:14:30.962 WARN  IntelInflaterFactory - IntelInflater is not supported, using Java.util.zip.Inflater
+15:14:31.060 INFO  IntervalArgumentCollection - Processing 62807933 bp from intervals
+15:14:31.062 INFO  GenomicsDBImport - Done initializing engine
+15:14:31.138 FATAL GenomicsDBLibLoader - 
+java.io.IOException: No such file or directory
+	at java.base/java.io.UnixFileSystem.createFileExclusively(Native Method) ~[?:?]
+	at java.base/java.io.File.createTempFile(File.java:2170) ~[?:?]
+	at java.base/java.io.File.createTempFile(File.java:2216) ~[?:?]
+	at org.genomicsdb.GenomicsDBLibLoader.loadLibraryFromJar(GenomicsDBLibLoader.java:103) ~[gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.genomicsdb.GenomicsDBLibLoader.loadLibrary(GenomicsDBLibLoader.java:54) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.genomicsdb.GenomicsDBUtilsJni.<clinit>(GenomicsDBUtilsJni.java:31) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.genomicsdb.GenomicsDBUtils.createTileDBWorkspace(GenomicsDBUtils.java:47) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.tools.genomicsdb.GenomicsDBImport.overwriteCreateOrCheckWorkspace(GenomicsDBImport.java:1045) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.tools.genomicsdb.GenomicsDBImport.onTraversalStart(GenomicsDBImport.java:680) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.engine.GATKTool.doWork(GATKTool.java:1117) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.cmdline.CommandLineProgram.runTool(CommandLineProgram.java:150) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.cmdline.CommandLineProgram.instanceMainPostParseArgs(CommandLineProgram.java:203) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.cmdline.CommandLineProgram.instanceMain(CommandLineProgram.java:222) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.Main.runCommandLineProgram(Main.java:166) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.Main.mainEntry(Main.java:209) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+	at org.broadinstitute.hellbender.Main.main(Main.java:306) [gatk-package-4.6.2.0-local.jar:4.6.2.0]
+15:14:31.144 INFO  GenomicsDBImport - Shutting down engine
+[2025年11月12日 CST 下午3:14:31] org.broadinstitute.hellbender.tools.genomicsdb.GenomicsDBImport done. Elapsed time: 0.01 minutes.
+Runtime.totalMemory()=2058354688
+Exception in thread "main" java.lang.ExceptionInInitializerError
+	at org.genomicsdb.GenomicsDBUtils.createTileDBWorkspace(GenomicsDBUtils.java:47)
+	at org.broadinstitute.hellbender.tools.genomicsdb.GenomicsDBImport.overwriteCreateOrCheckWorkspace(GenomicsDBImport.java:1045)
+	at org.broadinstitute.hellbender.tools.genomicsdb.GenomicsDBImport.onTraversalStart(GenomicsDBImport.java:680)
+	at org.broadinstitute.hellbender.engine.GATKTool.doWork(GATKTool.java:1117)
+	at org.broadinstitute.hellbender.cmdline.CommandLineProgram.runTool(CommandLineProgram.java:150)
+	at org.broadinstitute.hellbender.cmdline.CommandLineProgram.instanceMainPostParseArgs(CommandLineProgram.java:203)
+	at org.broadinstitute.hellbender.cmdline.CommandLineProgram.instanceMain(CommandLineProgram.java:222)
+	at org.broadinstitute.hellbender.Main.runCommandLineProgram(Main.java:166)
+	at org.broadinstitute.hellbender.Main.mainEntry(Main.java:209)
+	at org.broadinstitute.hellbender.Main.main(Main.java:306)
+Caused by: java.lang.RuntimeException: GenomicsDB native library could not be loaded
+	at org.genomicsdb.GenomicsDBLibLoader.loadLibrary(GenomicsDBLibLoader.java:58)
+	at org.genomicsdb.GenomicsDBUtilsJni.<clinit>(GenomicsDBUtilsJni.java:31)
+	... 10 more
+Caused by: java.io.IOException: No such file or directory
+	at java.base/java.io.UnixFileSystem.createFileExclusively(Native Method)
+	at java.base/java.io.File.createTempFile(File.java:2170)
+	at java.base/java.io.File.createTempFile(File.java:2216)
+	at org.genomicsdb.GenomicsDBLibLoader.loadLibraryFromJar(GenomicsDBLibLoader.java:103)
+	at org.genomicsdb.GenomicsDBLibLoader.loadLibrary(GenomicsDBLibLoader.java:54)
+	... 11 more

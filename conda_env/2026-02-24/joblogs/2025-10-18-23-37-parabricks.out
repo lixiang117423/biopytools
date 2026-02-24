@@ -1,0 +1,69 @@
+[2025-10-18 23:37:59] INFO - 🐳 使用容器引擎 | Using container engine: apptainer
+[2025-10-18 23:37:59] INFO - 🚀 开始parabricks WGS分析 | Starting parabricks WGS analysis
+[2025-10-18 23:37:59] INFO - 📂 输入目录 | Input: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean
+[2025-10-18 23:37:59] INFO - 📤 输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks
+[2025-10-18 23:37:59] INFO - 🧬 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa
+[2025-10-18 23:37:59] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-18 23:37:59] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-18 23:37:59] INFO - ✅ ✓ parabricks程序检查通过 | parabricks program check passed
+[2025-10-18 23:37:59] INFO -   |-- 🔗 检查bcftools (用于genotypegvcf) | Checking bcftools (for genotypegvcf)
+[2025-10-18 23:37:59] INFO -   ✅ ✓ bcftools检查通过 | bcftools check passed
+[2025-10-18 23:37:59] INFO - 🔍 搜索输入文件 | Searching input files
+[2025-10-18 23:37:59] INFO - ✅ 找到 50 个样品 | Found 50 samples
+[2025-10-18 23:37:59] INFO - ============================================================
+[2025-10-18 23:37:59] INFO - 🔬 开始批量处理 (all) | Starting batch processing
+[2025-10-18 23:37:59] INFO - [1/50] 🧪 处理样品 | Processing: 100_1
+[2025-10-18 23:37:59] INFO - 🚀 开始处理样品 | Processing sample: 100_1
+[2025-10-18 23:37:59] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-18 23:37:59] INFO - 🧬 [fq2bam] 开始处理样品 | Starting fq2bam for sample: 100_1
+[2025-10-18 23:37:59] INFO -   📄 R1文件 | R1 file: 100_1.clean.fq.gz
+[2025-10-18 23:37:59] INFO -   📄 R2文件 | R2 file: 100_2.clean.fq.gz
+[2025-10-18 23:37:59] INFO -   💾 输出BAM | Output BAM: 100_1.sorted.bam
+[2025-10-18 23:37:59] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: 100_1)
+[2025-10-18 23:37:59] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean:/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome:/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks:/share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa --in-fq /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/100_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/100_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/bam/100_1.sorted.bam --read-group-sm 100_1 --read-group-pl ILLUMINA
+[2025-10-18 23:37:59] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks
+[2025-10-18 23:40:07] INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 fq2bam (样品: 100_1)
+[2025-10-18 23:40:07] INFO -   ✅ fq2bam完成 | fq2bam completed: 100_1
+[2025-10-18 23:40:07] INFO -   📏 BAM文件大小 | BAM file size: 5.1 GB
+[2025-10-18 23:40:07] INFO - 📜 [haplotypecaller] 开始处理样品 | Starting haplotypecaller for sample: 100_1
+[2025-10-18 23:40:07] INFO -   💾 输入BAM | Input BAM: 100_1.sorted.bam
+[2025-10-18 23:40:07] INFO -   📜 输出GVCF | Output GVCF: 100_1.g.vcf.gz
+[2025-10-18 23:40:07] INFO - 🚀 执行步骤 | Executing step: 📜 haplotypecaller (样品: 100_1)
+[2025-10-18 23:40:07] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome:/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks:/share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/bam:/share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/bam /share/apps/containers/parabricks.sif pbrun haplotypecaller --ref /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa --in-bam /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/bam/100_1.sorted.bam --ploidy 4 --out-variants /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/vcf/100_1.g.vcf.gz --gvcf
+[2025-10-18 23:40:07] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks
+[2025-10-18 23:40:07] ERROR - ❌ 命令执行失败 | Command execution failed: 📜 haplotypecaller (样品: 100_1)
+[2025-10-18 23:40:07] ERROR - 🔢 错误代码 | Error code: 255
+[2025-10-18 23:40:07] ERROR - 💬 错误信息 | Error message: 
+[2025-10-18 23:40:07] ERROR - 📜 标准输出 | Stdout: [Parabricks Options Error]: Currently only ploidy 1 or 2 is supported
+[Parabricks Options Error]: Run with -h to see help
+Please visit https://docs.nvidia.com/clara/#parabricks for detailed documentation
+
+
+Could not run haplotypecaller
+Exiting pbrun ...
+
+[2025-10-18 23:40:07] ERROR -   ❌ haplotypecaller失败 | haplotypecaller failed: 100_1
+[2025-10-18 23:40:07] INFO - ----------------------------------------
+[2025-10-18 23:40:07] INFO - [2/50] 🧪 处理样品 | Processing: 103_1
+[2025-10-18 23:40:07] INFO - 🚀 开始处理样品 | Processing sample: 103_1
+[2025-10-18 23:40:07] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-18 23:40:07] INFO - 🧬 [fq2bam] 开始处理样品 | Starting fq2bam for sample: 103_1
+[2025-10-18 23:40:07] INFO -   📄 R1文件 | R1 file: 103_1.clean.fq.gz
+[2025-10-18 23:40:07] INFO -   📄 R2文件 | R2 file: 103_2.clean.fq.gz
+[2025-10-18 23:40:07] INFO -   💾 输出BAM | Output BAM: 103_1.sorted.bam
+[2025-10-18 23:40:07] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: 103_1)
+[2025-10-18 23:40:07] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean:/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome:/share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks:/share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa --in-fq /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/103_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/clean/103_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/bam/103_1.sorted.bam --read-group-sm 103_1 --read-group-pl ILLUMINA
+[2025-10-18 23:40:07] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks
+2025-10-18 23:40:29,915 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-10-18 23:40:29,916 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/vcf
+2025-10-18 23:40:29,916 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa
+2025-10-18 23:40:29,916 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/gatk_filtered_snp_indel
+2025-10-18 23:40:29,916 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-18 23:40:32,078 - INFO - ✅ GATK 可用 | available
+2025-10-18 23:40:32,299 - INFO - ✅ BCFtools 可用 | available
+2025-10-18 23:40:32,299 - INFO - 
+================================================================================
+2025-10-18 23:40:32,299 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-10-18 23:40:32,299 - INFO - ================================================================================
+2025-10-18 23:40:32,299 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-10-18 23:40:32,300 - ERROR - ❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: ❌ 未找到VCF/GVCF文件 | No VCF/GVCF files found in: /share/org/YZWL/yzwl_lixg/project/16.荠菜/21.四倍体参数重新比对和检测变异_parabricks/vcf

@@ -1,0 +1,167 @@
+
+==================================================
+🎯 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+🔄 开始更新所有组件的基因组路径... | Starting genome path update for all components...
+🔄 拷贝基因组文件到 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Copying genome file to /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+🔄 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/OV53_1.primary_corrected.chr.fa -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Force updated genome path
+✅ 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+✅ 基因组路径更新完成 | Genome path update completed
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2423176GB available
+✓ 系统内存充足 | Sufficient system memory: 1007GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+🔍 准备执行索引构建步骤 | Preparing to execute index building step
+🔍 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Current genome path in config
+🔍 GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Genome path in GTX mapper
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+🚀 执行步骤 5 | Executing step 5: 🧹 变异过滤 | Variant Filtering
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+🔍 调试信息: skip_qc = False
+🔍 调试信息: read1_pattern_fastp = _1.clean.fq.gz
+🔍 调试信息: read2_pattern_fastp = _2.clean.fq.gz
+🔍 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean
+检查点已存在，跳过质控 | Checkpoint exists, skipping QC
+🧹 Fastp质量控制完成，立即执行GTX索引构建 | Fastp QC completed, immediately executing GTX index building
+
+==================================================
+🔧 强制构建GTX索引 | Force Build GTX Index
+==================================================
+✓ 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+🔧 强制执行GTX索引构建 | Force executing GTX index build
+🔧 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/.tmp
+🔧 基因组文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+🔧 临时目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/.tmp
+🔧 强制构建GTX索引 | Force build GTX index
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/.tmp
+标准输出 | Stdout: [2020-10-20 00:00:00.799] [index] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/.tmp available: 2423176GB, memory available: 964GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.799] [index] [info] Job: index, pid: 2609481
+[2020-10-20 00:00:00.799] [index] [info] Indexing...
+[2020-10-20 00:00:04.702] [index] [info] build optimized BWA2 FM-index
+[2020-10-20 00:00:12.043] [index] [info] Read 0 ALT contigs.
+[2020-10-20 00:05:25.965] [index] [info] build optimized BWA2 FM-index successed.
+[2020-10-20 00:05:25.968] [index] [info] index exited normally.
+
+标准错误 | Stderr: indexing finished in 324.188 CPU sec, 325.166 real sec.
+
+✅ 命令执行成功 | Command executed successfully
+✅ GTX索引构建成功 | GTX index building successful
+🔍 验证GTX索引文件:
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx.bwt: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx.sa: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx.ann: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa.gtx.amb: ✗ (0 B)
+✅ 步骤 1 完成 | Step 1 completed: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+
+==================================================
+📊 Step 2: 构建其他索引 | Build Other Indexes
+==================================================
+⏭️ GTX索引已在step1中构建，跳过 | GTX index already built in step1, skipping
+构建其他索引（BWA, SAMtools, GATK）| Building other indexes (BWA, SAMtools, GATK)
+构建 BWA 索引 | Building BWA index
+📊 构建BWA索引 | Build BWA index
+🔄 执行命令 | Running command: bwa index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+标准输出 | Stdout: (空输出)
+标准错误 | Stderr: [bwa_index] Pack FASTA... 6.28 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=2760389292, availableWord=206231192
+[BWTIncConstructFromPacked] 10 iterations done. 99999996 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 199999996 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 299999996 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 399999996 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 499999996 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 599999996 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 699999996 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 799999996 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 899999996 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 999999996 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 1099999996 characters processed.
+[BWTIncConstructFromPacked] 120 iterations done. 1199999996 characters processed.
+[BWTIncConstructFromPacked] 130 iterations done. 1299999996 characters processed.
+[BWTIncConstructFromPacked] 140 iterations done. 1399999996 characters processed.
+[BWTIncConstructFromPacked] 150 iterations done. 1499999996 characters processed.
+[BWTIncConstructFromPacked] 160 iterations done. 1599999996 characters processed.
+[BWTIncConstructFromPacked] 170 iterations done. 1699999996 characters processed.
+[BWTIncConstructFromPacked] 180 iterations done. 1799999996 characters processed.
+[BWTIncConstructFromPacked] 190 iterations done. 1899999996 characters processed.
+[BWTIncConstructFromPacked] 200 iterations done. 1999999996 characters processed.
+[BWTIncConstructFromPacked] 210 iterations done. 2099858940 characters processed.
+[BWTIncConstructFromPacked] 220 iterations done. 2192422396 characters processed.
+[BWTIncConstructFromPacked] 230 iterations done. 2274689036 characters processed.
+[BWTIncConstructFromPacked] 240 iterations done. 2347803836 characters processed.
+[BWTIncConstructFromPacked] 250 iterations done. 2412784428 characters processed.
+[BWTIncConstructFromPacked] 260 iterations done. 2470535340 characters processed.
+[BWTIncConstructFromPacked] 270 iterations done. 2521860476 characters processed.
+[BWTIncConstructFromPacked] 280 iterations done. 2567474396 characters processed.
+[BWTIncConstructFromPacked] 290 iterations done. 2608012140 characters processed.
+[BWTIncConstructFromPacked] 300 iterations done. 2644038172 characters processed.
+[BWTIncConstructFromPacked] 310 iterations done. 2676054140 characters processed.
+[BWTIncConstructFromPacked] 320 iterations done. 2704505948 characters processed.
+[BWTIncConstructFromPacked] 330 iterations done. 2729789996 characters processed.
+[BWTIncConstructFromPacked] 340 iterations done. 2752258492 characters processed.
+[bwt_gen] Finished constructing BWT in 344 iterations.
+[bwa_index] 787.38 seconds elapse.
+[bwa_index] Update BWT... 5.26 sec
+[bwa_index] Pack forward-only FASTA... 3.99 sec
+[bwa_index] Construct SA from BWT and Occ... 336.45 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa
+[main] Real time: 1141.903 sec; CPU: 1139.361 sec
+
+✅ 命令执行成功 | Command executed successfully
+✓ SAMtools 索引已存在 | SAMtools index already exists
+构建 GATK 字典 | Building GATK dictionary
+📊 构建GATK字典 | Build GATK dictionary
+🔄 执行命令 | Running command: gatk CreateSequenceDictionary -R /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.dict
+标准输出 | Stdout: Tool returned:
+0
+
+标准错误 | Stderr: 15:18:43.295 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+[Mon Dec 22 15:18:43 CST 2025] CreateSequenceDictionary --OUTPUT /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.dict --REFERENCE /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa --TRUNCATE_NAMES_AT_WHITESPACE true --NUM_SEQUENCES 2147483647 --VERBOSITY INFO --QUIET false --VALIDATION_STRINGENCY STRICT --COMPRESSION_LEVEL 2 --MAX_RECORDS_IN_RAM 500000 --CREATE_INDEX false --CREATE_MD5_FILE false --help false --version false --showHidden false --USE_JDK_DEFLATER false --USE_JDK_INFLATER false
+[Mon Dec 22 15:18:43 CST 2025] Executing as yzwl_lixg@c01n0286 on Linux 4.18.0-513.5.1.el8_9.x86_64 amd64; OpenJDK 64-Bit Server VM 17.0.15-internal+0-adhoc..src; Deflater: Intel; Inflater: Intel; Provider GCS is available; Picard version: Version:4.6.2.0
+[Mon Dec 22 15:18:46 CST 2025] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.05 minutes.
+Runtime.totalMemory()=654311424
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar CreateSequenceDictionary -R /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa -O /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.dict
+
+✅ 命令执行成功 | Command executed successfully
+✅ 其他索引构建完成 | Other indexes building completed
+📍 创建检查点 | Create checkpoint: other_indexes
+✅ 步骤 2 完成 | Step 2 completed: 📊 构建基因组索引 | Build Genome Index
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+
+==================================================
+🗺️ Step 3: 序列比对 | Sequence Mapping
+==================================================
+🔄 刷新配置后的基因组路径: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/01.data/genome/OV53_1.primary_corrected.chr.fa | Genome path after config refresh
+检查点已存在，跳过比对 | Checkpoint exists, skipping mapping
+✅ 步骤 3 完成 | Step 3 completed: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+
+==================================================
+🧬 Step 4: 联合变异检测 | Joint Variant Calling
+==================================================
+❌ 未找到任何 gVCF 文件 | No gVCF files found
+❌ 步骤 4 失败 | Step 4 failed: 🧬 联合变异检测 | Joint Variant Calling

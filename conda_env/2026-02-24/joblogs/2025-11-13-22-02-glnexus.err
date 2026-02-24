@@ -1,0 +1,61 @@
+[2850210] [2025-11-13 22:02:13.952] [GLnexus] [info] glnexus_cli release v1.4.1-0-g68e25e5 Aug 13 2021
+[2850210] [2025-11-13 22:02:13.952] [GLnexus] [warning] jemalloc absent, which will impede performance with high thread counts. See https://github.com/dnanexus-rnd/GLnexus/wiki/Performance
+[2850210] [2025-11-13 22:02:13.952] [GLnexus] [info] Loading config preset gatk
+[2850210] [2025-11-13 22:02:13.955] [GLnexus] [info] config:
+unifier_config:
+  drop_filtered: false
+  min_allele_copy_number: 1
+  min_AQ1: 70
+  min_AQ2: 40
+  min_GQ: 40
+  max_alleles_per_site: 32
+  monoallelic_sites_for_lost_alleles: true
+  preference: common
+genotyper_config:
+  revise_genotypes: true
+  min_assumed_allele_frequency: 9.99999975e-05
+  snv_prior_calibration: 1
+  indel_prior_calibration: 1
+  required_dp: 1
+  allow_partial_data: false
+  allele_dp_format: AD
+  ref_dp_format: MIN_DP
+  output_residuals: false
+  more_PL: false
+  squeeze: false
+  trim_uncalled_alleles: false
+  top_two_half_calls: false
+  output_format: BCF
+  liftover_fields:
+    - {orig_names: [MIN_DP, DP], name: DP, description: "##FORMAT=<ID=DP,Number=1,Type=Integer,Description=\"Approximate read depth (reads with MQ=255 or with bad mates are filtered)\">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+    - {orig_names: [AD], name: AD, description: "##FORMAT=<ID=AD,Number=R,Type=Integer,Description=\"Allelic depths for the ref and alt alleles in the order listed\">", type: int, number: alleles, default_type: zero, count: 0, combi_method: min, ignore_non_variants: false}
+    - {orig_names: [SB], name: SB, description: "##FORMAT=<ID=SB,Number=4,Type=Integer,Description=\"Per-sample component statistics which comprise the Fishers Exact Test to detect strand bias.\">", type: int, number: basic, default_type: missing, count: 4, combi_method: missing, ignore_non_variants: false}
+    - {orig_names: [GQ], name: GQ, description: "##FORMAT=<ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\">", type: int, number: basic, default_type: missing, count: 1, combi_method: min, ignore_non_variants: true}
+    - {orig_names: [PL], name: PL, description: "##FORMAT=<ID=PL,Number=G,Type=Integer,Description=\"Phred-scaled genotype Likelihoods\">", type: int, number: genotype, default_type: missing, count: 0, combi_method: missing, ignore_non_variants: true}
+[2850210] [2025-11-13 22:02:13.956] [GLnexus] [info] config CRC32C = 1926883223
+[2850210] [2025-11-13 22:02:13.956] [GLnexus] [info] init database, exemplar_vcf=/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping/vcf/41.g.vcf.gz
+[2850210] [2025-11-13 22:02:14.048] [GLnexus] [info] Initialized GLnexus database in GLnexus.DB
+[2850210] [2025-11-13 22:02:14.048] [GLnexus] [info] bucket size: 30000
+[2850210] [2025-11-13 22:02:14.048] [GLnexus] [info] contigs: Chr01 Chr02 Chr03 Chr04 Chr05 Chr06 Chr07 Chr08 Chr09 Chr10 Chr11 Chr12
+[2850210] [2025-11-13 22:02:14.055] [GLnexus] [info] db_get_contigs GLnexus.DB
+[2850210] [2025-11-13 22:02:14.077] [GLnexus] [info] Beginning bulk load with no range filter.
+[2850598] [2025-11-13 22:02:28.810] [GLnexus] [info] 100/419 (B3-11)...
+[W::hts_idx_load2] The index file is older than the data file: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping/vcf/D2-7.g.vcf.gz.tbi
+[2850645] [2025-11-13 22:02:39.449] [GLnexus] [info] 200/419 (M-1)...
+[2850658] [2025-11-13 22:02:50.493] [GLnexus] [info] 300/419 (M-15)...
+[2850602] [2025-11-13 22:03:06.539] [GLnexus] [info] 400/419 (SRR10321559)...
+[2850210] [2025-11-13 22:03:09.691] [GLnexus] [info] Loaded 419 datasets with 419 samples; 234090479496 bytes in 2360129116 BCF records (1098122 duplicate) in 1184341 buckets. Bucket max 1084576 bytes, 8907 records. 1362 BCF records skipped due to caller-specific exceptions
+[2850210] [2025-11-13 22:03:09.692] [GLnexus] [info] Created sample set *@419
+[2850210] [2025-11-13 22:03:09.692] [GLnexus] [info] Flushing database...
+[2850210] [2025-11-13 22:06:46.034] [GLnexus] [info] Bulk load complete!
+[2850210] [2025-11-13 22:06:48.319] [GLnexus] [info] found sample set *@419
+[2850210] [2025-11-13 22:06:48.319] [GLnexus] [info] discovering alleles in 12 range(s) on 86 threads
+[2850210] [2025-11-13 22:07:59.217] [GLnexus] [info] discovered 9619228 alleles
+[2850210] [2025-11-13 22:08:11.496] [GLnexus] [info] unified to 4356974 sites cleanly with 4589272 ALT alleles. 24337 ALT alleles were additionally included in monoallelic sites and 269312 were filtered out on quality thresholds.
+[2850210] [2025-11-13 22:08:11.496] [GLnexus] [info] Finishing database compaction...
+[2850210] [2025-11-13 22:08:17.831] [GLnexus] [info] genotyping 4356974 sites; sample set = *@419 mem_budget = 0 threads = 88
+[2850210] [2025-11-13 22:16:59.481] [GLnexus] [info] genotyping complete!
+[2850210] [2025-11-13 22:16:59.481] [GLnexus] [info] worker threads were cumulatively stalled for 16560090ms
+[2850210] [2025-11-13 22:16:59.481] [GLnexus] [info] Num BCF records read 11783286624  query hits 1886394074
+Job 68026307 stderr output:
+

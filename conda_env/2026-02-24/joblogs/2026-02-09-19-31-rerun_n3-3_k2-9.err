@@ -1,0 +1,6 @@
+mkdir: 无法创建目录 “01.data/ngs/N3-3”: File exists
+mkdir: 无法创建目录 “04.busco/N3-3/primary”: No such file or directory
+mkdir: 无法创建目录 “01.data/ngs/K2-9”: File exists
+mkdir: 无法创建目录 “04.busco/K2-9/primary”: No such file or directory
+Job 69311177 stderr output:
+

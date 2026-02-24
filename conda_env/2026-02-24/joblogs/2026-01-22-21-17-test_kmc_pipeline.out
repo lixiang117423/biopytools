@@ -1,0 +1,50 @@
+2026-01-22 21:17:32.921 - INFO - 开始k-mer统计模式|Starting k-mer counting mode
+2026-01-22 21:17:32.922 - INFO - 检测到目录输入模式|Detected directory input mode: fastq
+2026-01-22 21:17:32.922 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-22 21:17:32.922 - INFO - 文件模式|File pattern: *_1.clean.fq, *_2.clean.fq
+2026-01-22 21:17:32.923 - INFO - 找到 3 个read1文件|Found 3 read1 files
+2026-01-22 21:17:32.925 - INFO - 验证通过|Validation passed: 3 个样本|samples
+2026-01-22 21:17:32.925 - INFO - 开始统计 3 个样本|Starting to count 3 samples
+2026-01-22 21:17:32.925 - INFO - 处理进度|Progress: 1/3: test1
+2026-01-22 21:17:32.925 - INFO - 开始统计样本|Starting to count sample: test1
+2026-01-22 21:17:32.944 - INFO - 执行步骤|Executing step: 统计样本|Counting sample test1
+2026-01-22 21:17:32.944 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/kmc_tmp/test1/input_files.txt test1 /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/kmc_tmp/test1
+2026-01-22 21:17:34.791 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample test1
+2026-01-22 21:17:34.793 - INFO - 样本统计完成|Sample counting completed: test1
+2026-01-22 21:17:34.810 - INFO - 处理进度|Progress: 2/3: test2
+2026-01-22 21:17:34.810 - INFO - 开始统计样本|Starting to count sample: test2
+2026-01-22 21:17:34.818 - INFO - 执行步骤|Executing step: 统计样本|Counting sample test2
+2026-01-22 21:17:34.818 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/kmc_tmp/test2/input_files.txt test2 /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/kmc_tmp/test2
+2026-01-22 21:17:36.373 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample test2
+2026-01-22 21:17:36.373 - INFO - 样本统计完成|Sample counting completed: test2
+2026-01-22 21:17:36.375 - INFO - 处理进度|Progress: 3/3: test3
+2026-01-22 21:17:36.375 - INFO - 开始统计样本|Starting to count sample: test3
+2026-01-22 21:17:36.401 - INFO - 执行步骤|Executing step: 统计样本|Counting sample test3
+2026-01-22 21:17:36.401 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/kmc_tmp/test3/input_files.txt test3 /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/kmc_tmp/test3
+2026-01-22 21:17:37.965 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample test3
+2026-01-22 21:17:37.965 - INFO - 样本统计完成|Sample counting completed: test3
+2026-01-22 21:17:37.967 - INFO - 统计完成|Counting completed: 3/3 个样本成功|samples successful
+2026-01-22 21:17:37.967 - INFO - 统计完成|Counting completed: 3/3 个样本成功|samples successful
+2026-01-22 21:17:38.134 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-22 21:17:38.135 - INFO - 使用自定义输入目录|Using custom input directory: database/kmc_databases
+2026-01-22 21:17:38.135 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-22 21:17:38.135 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-22 21:17:38.135 - INFO - 找到 3 个KMC数据库|Found 3 KMC databases
+2026-01-22 21:17:38.135 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 3 样本|samples
+2026-01-22 21:17:38.135 - INFO - 全新构建：使用union生成全局k-mer列表|Fresh build: using union to generate global k-mer list
+2026-01-22 21:17:38.135 - INFO - 收集唯一k-mer列表（union+流式处理）|Collecting unique k-mer list (union+streaming)
+2026-01-22 21:17:38.135 - INFO - 合并数据库生成全局k-mer列表|Union databases to generate global k-mer list
+2026-01-22 21:17:38.137 - INFO - 开始合并 3 个数据库|Starting to union 3 databases
+2026-01-22 21:17:38.137 - INFO - 执行步骤|Executing step: 合并数据库 1-2|Union databases 1-2
+2026-01-22 21:17:38.137 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple test2 test3 union .temp_union_0
+2026-01-22 21:17:38.964 - INFO - 命令执行成功|Command executed successfully: 合并数据库 1-2|Union databases 1-2
+2026-01-22 21:17:38.964 - INFO - 执行步骤|Executing step: 合并数据库 3|Union database 3
+2026-01-22 21:17:38.964 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple .temp_union_0 test1 union .temp_union_2
+2026-01-22 21:17:39.745 - INFO - 命令执行成功|Command executed successfully: 合并数据库 3|Union database 3
+2026-01-22 21:17:39.745 - INFO - 数据库合并完成|Database union completed: global_kmers
+2026-01-22 21:17:39.745 - INFO - 导出全局k-mer列表|Exporting global k-mer list
+2026-01-22 21:17:41.622 - INFO - 添加 ID 列|Adding ID column: database/global_kmers.txt → database/global_kmers_with_id.txt
+2026-01-22 21:17:56.771 - INFO - ID 列已添加|ID column added: database/global_kmers_with_id.txt
+2026-01-22 21:17:56.773 - INFO - 保留中间文件用于断点续传|Keeping intermediate files for resuming
+2026-01-22 21:17:56.773 - INFO - k-mer列表已生成并添加ID列|K-mer list generated with ID column: database/global_kmers_with_id.txt
+2026-01-22 21:17:56.773 - ERROR - 程序执行出错|Program execution error: [Errno 2] No such file or directory: 'database/kmer_metadata.json'

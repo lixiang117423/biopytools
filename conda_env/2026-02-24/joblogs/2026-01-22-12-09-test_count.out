@@ -1,0 +1,69 @@
+2026-01-22 12:09:20.463 - INFO - 开始k-mer统计模式|Starting k-mer counting mode
+2026-01-22 12:09:20.463 - INFO - 检测到目录输入模式|Detected directory input mode: fastq
+2026-01-22 12:09:20.463 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-22 12:09:20.463 - INFO - 文件模式|File pattern: *_1.clean.fq.gz, *_2.clean.fq.gz
+2026-01-22 12:09:20.463 - INFO - 找到 10 个read1文件|Found 10 read1 files
+2026-01-22 12:09:20.464 - INFO - 验证通过|Validation passed: 10 个样本|samples
+2026-01-22 12:09:20.464 - INFO - 开始统计 10 个样本|Starting to count 10 samples
+2026-01-22 12:09:20.464 - INFO - 处理进度|Progress: 1/10: W682A
+2026-01-22 12:09:20.464 - INFO - 开始统计样本|Starting to count sample: W682A
+2026-01-22 12:09:20.489 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W682A
+2026-01-22 12:09:20.489 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W682A/input_files.txt W682A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W682A
+2026-01-22 12:10:45.280 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W682A
+2026-01-22 12:10:45.280 - INFO - 样本统计完成|Sample counting completed: W682A
+2026-01-22 12:10:45.358 - INFO - 处理进度|Progress: 2/10: W681A
+2026-01-22 12:10:45.358 - INFO - 开始统计样本|Starting to count sample: W681A
+2026-01-22 12:10:45.359 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W681A
+2026-01-22 12:10:45.359 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W681A/input_files.txt W681A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W681A
+2026-01-22 12:12:09.473 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W681A
+2026-01-22 12:12:09.474 - INFO - 样本统计完成|Sample counting completed: W681A
+2026-01-22 12:12:09.480 - INFO - 处理进度|Progress: 3/10: W684A
+2026-01-22 12:12:09.480 - INFO - 开始统计样本|Starting to count sample: W684A
+2026-01-22 12:12:09.480 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W684A
+2026-01-22 12:12:09.480 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W684A/input_files.txt W684A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W684A
+2026-01-22 12:13:33.738 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W684A
+2026-01-22 12:13:33.739 - INFO - 样本统计完成|Sample counting completed: W684A
+2026-01-22 12:13:33.740 - INFO - 处理进度|Progress: 4/10: W683A
+2026-01-22 12:13:33.740 - INFO - 开始统计样本|Starting to count sample: W683A
+2026-01-22 12:13:33.741 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W683A
+2026-01-22 12:13:33.741 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W683A/input_files.txt W683A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W683A
+2026-01-22 12:14:52.818 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W683A
+2026-01-22 12:14:52.818 - INFO - 样本统计完成|Sample counting completed: W683A
+2026-01-22 12:14:52.819 - INFO - 处理进度|Progress: 5/10: W685A
+2026-01-22 12:14:52.819 - INFO - 开始统计样本|Starting to count sample: W685A
+2026-01-22 12:14:52.820 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W685A
+2026-01-22 12:14:52.820 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W685A/input_files.txt W685A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W685A
+2026-01-22 12:16:18.048 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W685A
+2026-01-22 12:16:18.054 - INFO - 样本统计完成|Sample counting completed: W685A
+2026-01-22 12:16:18.055 - INFO - 处理进度|Progress: 6/10: W688A
+2026-01-22 12:16:18.055 - INFO - 开始统计样本|Starting to count sample: W688A
+2026-01-22 12:16:18.055 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W688A
+2026-01-22 12:16:18.055 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W688A/input_files.txt W688A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W688A
+2026-01-22 12:17:42.601 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W688A
+2026-01-22 12:17:42.601 - INFO - 样本统计完成|Sample counting completed: W688A
+2026-01-22 12:17:42.601 - INFO - 处理进度|Progress: 7/10: W680A
+2026-01-22 12:17:42.601 - INFO - 开始统计样本|Starting to count sample: W680A
+2026-01-22 12:17:42.602 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W680A
+2026-01-22 12:17:42.602 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W680A/input_files.txt W680A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W680A
+2026-01-22 12:19:04.723 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W680A
+2026-01-22 12:19:04.725 - INFO - 样本统计完成|Sample counting completed: W680A
+2026-01-22 12:19:04.726 - INFO - 处理进度|Progress: 8/10: W689A
+2026-01-22 12:19:04.726 - INFO - 开始统计样本|Starting to count sample: W689A
+2026-01-22 12:19:04.726 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W689A
+2026-01-22 12:19:04.726 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W689A/input_files.txt W689A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W689A
+2026-01-22 12:20:29.910 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W689A
+2026-01-22 12:20:29.912 - INFO - 样本统计完成|Sample counting completed: W689A
+2026-01-22 12:20:29.913 - INFO - 处理进度|Progress: 9/10: W687A
+2026-01-22 12:20:29.913 - INFO - 开始统计样本|Starting to count sample: W687A
+2026-01-22 12:20:29.913 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W687A
+2026-01-22 12:20:29.913 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W687A/input_files.txt W687A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W687A
+2026-01-22 12:21:52.441 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W687A
+2026-01-22 12:21:52.442 - INFO - 样本统计完成|Sample counting completed: W687A
+2026-01-22 12:21:52.443 - INFO - 处理进度|Progress: 10/10: W686A
+2026-01-22 12:21:52.443 - INFO - 开始统计样本|Starting to count sample: W686A
+2026-01-22 12:21:52.444 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W686A
+2026-01-22 12:21:52.444 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W686A/input_files.txt W686A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/kmc_tmp/W686A
+2026-01-22 12:23:16.940 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W686A
+2026-01-22 12:23:16.941 - INFO - 样本统计完成|Sample counting completed: W686A
+2026-01-22 12:23:16.942 - INFO - 统计完成|Counting completed: 10/10 个样本成功|samples successful
+2026-01-22 12:23:16.942 - INFO - 统计完成|Counting completed: 10/10 个样本成功|samples successful

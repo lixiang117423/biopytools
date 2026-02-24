@@ -1,0 +1,9 @@
+>>> [初始化] 正在构建绝对路径...
+>>> 项目根目录: /share/org/YZWL/yzwl_lixg/project/25.大蒜芥
+>>> 物种前缀: dasuanjie
+>>> [检查] 验证输入文件...
+
+========================================================
+[1/6] Mapping & HaplotypeCaller (BWA + GATK)...
+========================================================
+❌ 错误: Mapping 完成，但在 /share/org/YZWL/yzwl_lixg/project/25.大蒜芥/02.mapping/02.gvcf 下未检测到 GVCF 文件。

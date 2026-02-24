@@ -1,0 +1,7 @@
+2026-01-23 10:39:39.027 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-23 10:39:39.027 - INFO - 使用自定义输入目录|Using custom input directory: database/kmc_databases
+2026-01-23 10:39:39.027 - INFO - 未找到count metadata，使用默认kmer_size|Count metadata not found, using default kmer_size: 21
+2026-01-23 10:39:39.027 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-23 10:39:39.027 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-23 10:39:39.027 - ERROR - 未找到KMC数据库文件|No KMC database files found in: database/kmc_databases
+2026-01-23 10:39:39.027 - ERROR - 未找到任何数据库，请先运行count命令|No databases found, please run count command first

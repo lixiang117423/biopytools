@@ -1,0 +1,261 @@
+2026-01-31 15:43:05.391 - INFO - ============================================================
+2026-01-31 15:43:05.392 - INFO - 开始K-mer丰度分析|Starting K-mer abundance analysis
+2026-01-31 15:43:05.392 - INFO - ============================================================
+2026-01-31 15:43:05.393 - INFO - 发现进度文件，将支持断点续传|Progress file found, checkpoint resumption enabled
+2026-01-31 15:43:05.393 - INFO - ============================================================
+2026-01-31 15:43:05.393 - INFO - 进度摘要|Progress Summary:
+2026-01-31 15:43:05.393 - INFO -   已完成步骤|Completed steps: 5/8
+2026-01-31 15:43:05.393 - INFO -   开始时间|Start time: 2026-01-31T15:41:42.789259
+2026-01-31 15:43:05.393 - INFO -   最后更新|Last update: 2026-01-31T15:42:07.553453
+2026-01-31 15:43:05.393 - INFO -   已完成的步骤|Completed step names:
+2026-01-31 15:43:05.393 - INFO -     ✓ 步骤1: 检查依赖软件|Step 1: Checking dependencies
+2026-01-31 15:43:05.393 - INFO -     ✓ 步骤2: 设置临时目录|Step 2: Setting up temporary directory
+2026-01-31 15:43:05.393 - INFO -     ✓ 步骤3: 查找输入文件|Step 3: Finding input files
+2026-01-31 15:43:05.393 - INFO -     ✓ 步骤4: 准备k-mer库|Step 4: Preparing k-mer library
+2026-01-31 15:43:05.393 - INFO -     ✓ 步骤5: 解析注释信息|Step 5: Parsing annotation information
+2026-01-31 15:43:05.394 - INFO -   剩余步骤|Remaining steps: 3
+2026-01-31 15:43:05.394 - INFO - ============================================================
+2026-01-31 15:43:05.394 - INFO - 步骤1已完成，跳过|Step 1 completed, skipping
+2026-01-31 15:43:05.394 - INFO - 步骤2: 设置临时目录|Step 2: Setting up temporary directory
+2026-01-31 15:43:05.414 - INFO - 临时目录: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/tmp/kmer_count_1769845385_9104
+2026-01-31 15:43:05.414 - INFO - 步骤2: 设置临时目录|Step 2: Setting up temporary directory 已完成|步骤2: 设置临时目录|Step 2: Setting up temporary directory completed
+2026-01-31 15:43:05.414 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-01-31 15:43:05.414 - INFO - 步骤3已完成，跳过|Step 3 completed, skipping
+2026-01-31 15:43:05.414 - INFO -  查找输入文件|Finding input files
+2026-01-31 15:43:05.414 - INFO -  输入目录: fastq
+2026-01-31 15:43:05.414 - INFO -  文件模式: *_1.clean.fq.gz
+2026-01-31 15:43:05.415 - INFO -  输入目录是否存在: True
+2026-01-31 15:43:05.415 - INFO -  目录中的文件: ['OV54_2_2.clean.fq.gz', 'OV47_12_1.clean.fq.gz', 'OV48_12_2.clean.fq.gz', 'OV52_4_1.clean.fq.gz', 'OV44_23_1.clean.fq.gz', 'OV48_12_1.clean.fq.gz', 'OV50_2_2.clean.fq.gz', 'OV51_5_1.clean.fq.gz', 'OV50_2_1.clean.fq.gz', 'OV54_2_1.clean.fq.gz']
+2026-01-31 15:43:05.415 - INFO -  使用FASTQ文件处理逻辑|Using FASTQ file processing logic
+2026-01-31 15:43:05.431 - INFO -  常规文件|Regular file: OV47_12_1.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -  常规文件|Regular file: OV52_4_1.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -  常规文件|Regular file: OV44_23_1.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -  常规文件|Regular file: OV48_12_1.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -  常规文件|Regular file: OV51_5_1.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -  常规文件|Regular file: OV50_2_1.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -  常规文件|Regular file: OV54_2_1.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -  找到7个有效R1文件
+2026-01-31 15:43:05.431 - INFO -  提取样本名: OV47_12
+2026-01-31 15:43:05.431 - INFO - 找到双端样本|Found paired-end sample: OV47_12
+2026-01-31 15:43:05.431 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV47_12_1.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV47_12_2.clean.fq.gz
+2026-01-31 15:43:05.431 - INFO -  提取样本名: OV52_4
+2026-01-31 15:43:05.431 - INFO - 找到双端样本|Found paired-end sample: OV52_4
+2026-01-31 15:43:05.436 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV52_4_1.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV52_4_2.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -  提取样本名: OV44_23
+2026-01-31 15:43:05.436 - INFO - 找到双端样本|Found paired-end sample: OV44_23
+2026-01-31 15:43:05.436 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV44_23_1.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV44_23_2.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -  提取样本名: OV48_12
+2026-01-31 15:43:05.436 - INFO - 找到双端样本|Found paired-end sample: OV48_12
+2026-01-31 15:43:05.436 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV48_12_1.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV48_12_2.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -  提取样本名: OV51_5
+2026-01-31 15:43:05.436 - INFO - 找到双端样本|Found paired-end sample: OV51_5
+2026-01-31 15:43:05.436 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV51_5_1.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV51_5_2.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -  提取样本名: OV50_2
+2026-01-31 15:43:05.436 - INFO - 找到双端样本|Found paired-end sample: OV50_2
+2026-01-31 15:43:05.436 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV50_2_1.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV50_2_2.clean.fq.gz
+2026-01-31 15:43:05.436 - INFO -  提取样本名: OV54_2
+2026-01-31 15:43:05.436 - INFO - 找到双端样本|Found paired-end sample: OV54_2
+2026-01-31 15:43:05.437 - INFO -    R1: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV54_2_1.clean.fq.gz
+2026-01-31 15:43:05.437 - INFO -    R2: /share/org/YZWL/yzwl_lixg/tmp/test_kmertools/fastq/OV54_2_2.clean.fq.gz
+2026-01-31 15:43:05.437 - INFO - 找到7个样本|Found 7 samples
+2026-01-31 15:43:05.438 - INFO - 步骤4已完成，跳过|Step 4 completed, skipping
+2026-01-31 15:43:05.438 - INFO - 使用已处理的k-mer库|Using processed k-mer library: intermediate_files/kmers_expanded.fasta
+2026-01-31 15:43:05.439 - INFO - 步骤5已完成，加载已有数据|Step 5 completed, loading existing data
+2026-01-31 15:43:05.439 - INFO - 加载已有BED文件|Loading existing BED file: intermediate_files/processed_kmers.bed
+2026-01-31 15:43:05.493 - INFO - BED文件已加载，共27498条记录|BED file loaded, 27498 records
+2026-01-31 15:43:05.493 - INFO - 步骤6: 处理样本|Step 6: Processing samples
+2026-01-31 15:43:05.493 - INFO - 处理样本|Processing sample: OV47_12
+2026-01-31 15:43:05.493 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV47_12
+2026-01-31 15:43:05.512 - INFO -  创建generator文件|Created generator file: jellyfish_cache/OV47_12_generator.txt
+2026-01-31 15:43:05.512 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV47_12
+2026-01-31 15:43:05.512 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 8 -g jellyfish_cache/OV47_12_generator.txt -o jellyfish_cache/OV47_12.jf
+2026-01-31 15:56:09.413 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 15:56:09.481 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/OV47_12.jf
+2026-01-31 15:56:09.481 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV47_12
+2026-01-31 15:56:09.481 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV47_12
+2026-01-31 15:56:09.481 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/OV47_12.jf -o jellyfish_cache/OV47_12.kmers.count
+2026-01-31 15:56:50.872 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 15:56:50.892 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/OV47_12.kmers.count
+2026-01-31 15:56:50.892 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV47_12
+2026-01-31 15:56:51.015 - INFO -  解析完成，去重后共27480个k-mer结果|Parsing completed, 27480 unique k-mer results after deduplication
+2026-01-31 15:56:51.016 - INFO - 合并样品OV47_12与BED文件
+2026-01-31 15:56:51.016 - INFO - BED记录数: 27,498, 样本k-mer数: 27,480
+2026-01-31 15:56:51.016 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-01-31 15:56:57.340 - INFO - 样品OV47_12合并完成，共12218行
+2026-01-31 15:56:57.519 - INFO - 样品OV47_12结果已保存: each_sample/OV47_12_kmer_abundance.tsv
+2026-01-31 15:56:57.519 - INFO - 处理样本|Processing sample: OV52_4
+2026-01-31 15:56:57.519 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV52_4
+2026-01-31 15:56:57.545 - INFO -  创建generator文件|Created generator file: jellyfish_cache/OV52_4_generator.txt
+2026-01-31 15:56:57.545 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV52_4
+2026-01-31 15:56:57.545 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 8 -g jellyfish_cache/OV52_4_generator.txt -o jellyfish_cache/OV52_4.jf
+2026-01-31 16:10:51.742 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 16:10:51.743 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/OV52_4.jf
+2026-01-31 16:10:51.743 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV52_4
+2026-01-31 16:10:51.743 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV52_4
+2026-01-31 16:10:51.743 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/OV52_4.jf -o jellyfish_cache/OV52_4.kmers.count
+2026-01-31 16:11:28.535 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 16:11:28.535 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/OV52_4.kmers.count
+2026-01-31 16:11:28.536 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV52_4
+2026-01-31 16:11:28.560 - INFO -  解析完成，去重后共27480个k-mer结果|Parsing completed, 27480 unique k-mer results after deduplication
+2026-01-31 16:11:28.561 - INFO - 合并样品OV52_4与BED文件
+2026-01-31 16:11:28.561 - INFO - BED记录数: 27,498, 样本k-mer数: 27,480
+2026-01-31 16:11:28.561 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-01-31 16:11:34.782 - INFO - 样品OV52_4合并完成，共13672行
+2026-01-31 16:11:34.820 - INFO - 样品OV52_4结果已保存: each_sample/OV52_4_kmer_abundance.tsv
+2026-01-31 16:11:34.821 - INFO - 处理样本|Processing sample: OV44_23
+2026-01-31 16:11:34.821 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV44_23
+2026-01-31 16:11:34.821 - INFO -  创建generator文件|Created generator file: jellyfish_cache/OV44_23_generator.txt
+2026-01-31 16:11:34.821 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV44_23
+2026-01-31 16:11:34.821 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 8 -g jellyfish_cache/OV44_23_generator.txt -o jellyfish_cache/OV44_23.jf
+2026-01-31 16:23:55.083 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 16:23:55.084 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/OV44_23.jf
+2026-01-31 16:23:55.084 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV44_23
+2026-01-31 16:23:55.084 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV44_23
+2026-01-31 16:23:55.084 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/OV44_23.jf -o jellyfish_cache/OV44_23.kmers.count
+2026-01-31 16:24:29.997 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 16:24:29.998 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/OV44_23.kmers.count
+2026-01-31 16:24:29.998 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV44_23
+2026-01-31 16:24:30.023 - INFO -  解析完成，去重后共27480个k-mer结果|Parsing completed, 27480 unique k-mer results after deduplication
+2026-01-31 16:24:30.096 - INFO - 合并样品OV44_23与BED文件
+2026-01-31 16:24:30.096 - INFO - BED记录数: 27,498, 样本k-mer数: 27,480
+2026-01-31 16:24:30.096 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-01-31 16:24:34.905 - INFO - 样品OV44_23合并完成，共332行
+2026-01-31 16:24:34.909 - INFO - 样品OV44_23结果已保存: each_sample/OV44_23_kmer_abundance.tsv
+2026-01-31 16:24:34.909 - INFO - 处理样本|Processing sample: OV48_12
+2026-01-31 16:24:34.909 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV48_12
+2026-01-31 16:24:34.910 - INFO -  创建generator文件|Created generator file: jellyfish_cache/OV48_12_generator.txt
+2026-01-31 16:24:34.910 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV48_12
+2026-01-31 16:24:34.910 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 8 -g jellyfish_cache/OV48_12_generator.txt -o jellyfish_cache/OV48_12.jf
+2026-01-31 16:36:50.364 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 16:36:50.365 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/OV48_12.jf
+2026-01-31 16:36:50.365 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV48_12
+2026-01-31 16:36:50.365 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV48_12
+2026-01-31 16:36:50.365 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/OV48_12.jf -o jellyfish_cache/OV48_12.kmers.count
+2026-01-31 16:37:27.620 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 16:37:27.620 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/OV48_12.kmers.count
+2026-01-31 16:37:27.620 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV48_12
+2026-01-31 16:37:27.647 - INFO -  解析完成，去重后共27480个k-mer结果|Parsing completed, 27480 unique k-mer results after deduplication
+2026-01-31 16:37:27.648 - INFO - 合并样品OV48_12与BED文件
+2026-01-31 16:37:27.648 - INFO - BED记录数: 27,498, 样本k-mer数: 27,480
+2026-01-31 16:37:27.648 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-01-31 16:37:33.341 - INFO - 样品OV48_12合并完成，共8535行
+2026-01-31 16:37:33.359 - INFO - 样品OV48_12结果已保存: each_sample/OV48_12_kmer_abundance.tsv
+2026-01-31 16:37:33.359 - INFO - 处理样本|Processing sample: OV51_5
+2026-01-31 16:37:33.359 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV51_5
+2026-01-31 16:37:33.359 - INFO -  创建generator文件|Created generator file: jellyfish_cache/OV51_5_generator.txt
+2026-01-31 16:37:33.359 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV51_5
+2026-01-31 16:37:33.359 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 8 -g jellyfish_cache/OV51_5_generator.txt -o jellyfish_cache/OV51_5.jf
+2026-01-31 16:50:34.806 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 16:50:34.906 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/OV51_5.jf
+2026-01-31 16:50:34.906 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV51_5
+2026-01-31 16:50:34.906 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV51_5
+2026-01-31 16:50:34.906 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/OV51_5.jf -o jellyfish_cache/OV51_5.kmers.count
+2026-01-31 16:51:14.359 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 16:51:14.376 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/OV51_5.kmers.count
+2026-01-31 16:51:14.376 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV51_5
+2026-01-31 16:51:14.414 - INFO -  解析完成，去重后共27480个k-mer结果|Parsing completed, 27480 unique k-mer results after deduplication
+2026-01-31 16:51:14.415 - INFO - 合并样品OV51_5与BED文件
+2026-01-31 16:51:14.415 - INFO - BED记录数: 27,498, 样本k-mer数: 27,480
+2026-01-31 16:51:14.415 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-01-31 16:51:19.258 - INFO - 样品OV51_5合并完成，共245行
+2026-01-31 16:51:19.262 - INFO - 样品OV51_5结果已保存: each_sample/OV51_5_kmer_abundance.tsv
+2026-01-31 16:51:19.262 - INFO - 处理样本|Processing sample: OV50_2
+2026-01-31 16:51:19.262 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV50_2
+2026-01-31 16:51:19.263 - INFO -  创建generator文件|Created generator file: jellyfish_cache/OV50_2_generator.txt
+2026-01-31 16:51:19.263 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV50_2
+2026-01-31 16:51:19.263 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 8 -g jellyfish_cache/OV50_2_generator.txt -o jellyfish_cache/OV50_2.jf
+2026-01-31 17:01:52.463 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 17:01:52.486 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/OV50_2.jf
+2026-01-31 17:01:52.486 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV50_2
+2026-01-31 17:01:52.486 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV50_2
+2026-01-31 17:01:52.486 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/OV50_2.jf -o jellyfish_cache/OV50_2.kmers.count
+2026-01-31 17:02:28.118 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 17:02:28.118 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/OV50_2.kmers.count
+2026-01-31 17:02:28.119 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV50_2
+2026-01-31 17:02:28.145 - INFO -  解析完成，去重后共27480个k-mer结果|Parsing completed, 27480 unique k-mer results after deduplication
+2026-01-31 17:02:28.146 - INFO - 合并样品OV50_2与BED文件
+2026-01-31 17:02:28.146 - INFO - BED记录数: 27,498, 样本k-mer数: 27,480
+2026-01-31 17:02:28.146 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-01-31 17:02:34.070 - INFO - 样品OV50_2合并完成，共10799行
+2026-01-31 17:02:34.092 - INFO - 样品OV50_2结果已保存: each_sample/OV50_2_kmer_abundance.tsv
+2026-01-31 17:02:34.093 - INFO - 处理样本|Processing sample: OV54_2
+2026-01-31 17:02:34.093 - INFO - 开始k-mer计数|Starting k-mer counting for sample: OV54_2
+2026-01-31 17:02:34.093 - INFO -  创建generator文件|Created generator file: jellyfish_cache/OV54_2_generator.txt
+2026-01-31 17:02:34.093 - INFO - 执行步骤|Executing step:  K-mer计数|K-mer counting for OV54_2
+2026-01-31 17:02:34.093 - INFO - 命令|Command: jellyfish count -m 51 -s 1000M -t 8 -g jellyfish_cache/OV54_2_generator.txt -o jellyfish_cache/OV54_2.jf
+2026-01-31 17:17:35.588 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 17:17:35.689 - INFO -  K-mer计数完成|K-mer counting completed: jellyfish_cache/OV54_2.jf
+2026-01-31 17:17:35.689 - INFO -  查询k-mer丰度|Querying k-mer abundance for sample: OV54_2
+2026-01-31 17:17:35.689 - INFO - 执行步骤|Executing step:  查询k-mer丰度|Querying k-mer abundance for OV54_2
+2026-01-31 17:17:35.689 - INFO - 命令|Command: jellyfish query -s intermediate_files/kmers_expanded.fasta jellyfish_cache/OV54_2.jf -o jellyfish_cache/OV54_2.kmers.count
+2026-01-31 17:18:11.672 - INFO - 命令执行成功|Command executed successfully
+2026-01-31 17:18:11.685 - INFO -  K-mer丰度查询完成|K-mer abundance query completed: jellyfish_cache/OV54_2.kmers.count
+2026-01-31 17:18:11.685 - INFO -  解析Jellyfish输出|Parsing Jellyfish output for OV54_2
+2026-01-31 17:18:11.831 - INFO -  解析完成，去重后共27480个k-mer结果|Parsing completed, 27480 unique k-mer results after deduplication
+2026-01-31 17:18:11.833 - INFO - 合并样品OV54_2与BED文件
+2026-01-31 17:18:11.833 - INFO - BED记录数: 27,498, 样本k-mer数: 27,480
+2026-01-31 17:18:11.833 - INFO - 使用反向merge策略|Using reverse merge strategy
+2026-01-31 17:18:16.637 - INFO - 样品OV54_2合并完成，共99行
+2026-01-31 17:18:16.641 - INFO - 样品OV54_2结果已保存: each_sample/OV54_2_kmer_abundance.tsv
+2026-01-31 17:18:16.641 - INFO - ==================================================
+2026-01-31 17:18:16.641 - INFO - 样本处理总结|Sample Processing Summary:
+2026-01-31 17:18:16.641 - INFO -   总样本数: 7
+2026-01-31 17:18:16.641 - INFO -   成功处理: 7
+2026-01-31 17:18:16.641 - INFO -    跳过样本: 0
+2026-01-31 17:18:16.641 - INFO - ==================================================
+2026-01-31 17:18:16.642 - INFO - 步骤6: 处理样本|Step 6: Processing samples 已完成|步骤6: 处理样本|Step 6: Processing samples completed
+2026-01-31 17:18:16.642 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-01-31 17:18:16.642 - INFO - 步骤7: 合并所有样本结果|Step 7: Merging all sample results
+2026-01-31 17:18:16.642 - INFO - 合并所有样本结果（SQLite优化版本）
+2026-01-31 17:18:16.642 - INFO - 初始化SQLite数据库|Initializing SQLite database
+2026-01-31 17:18:16.694 - INFO - 插入BED数据到数据库|Inserting BED data into database
+2026-01-31 17:18:17.273 - INFO - 已插入 13,749 / 13,749 条BED记录
+2026-01-31 17:18:17.273 - INFO - BED数据插入完成，共 13,749 条记录
+2026-01-31 17:18:17.274 - INFO - 更新样本丰度数据|Updating sample abundance data
+2026-01-31 17:18:17.334 - INFO - [1/7] 更新样本: OV47_12 (12,218 条记录)
+2026-01-31 17:18:17.884 - INFO - [2/7] 更新样本: OV52_4 (13,672 条记录)
+2026-01-31 17:18:18.481 - INFO - [3/7] 更新样本: OV44_23 (332 条记录)
+2026-01-31 17:18:18.533 - INFO - [4/7] 更新样本: OV48_12 (8,535 条记录)
+2026-01-31 17:18:18.910 - INFO - [5/7] 更新样本: OV51_5 (245 条记录)
+2026-01-31 17:18:18.964 - INFO - [6/7] 更新样本: OV50_2 (10,799 条记录)
+2026-01-31 17:18:19.505 - INFO - [7/7] 更新样本: OV54_2 (99 条记录)
+2026-01-31 17:18:19.518 - INFO - 导出最终矩阵为TSV文件|Exporting final matrix to TSV
+2026-01-31 17:18:19.519 - INFO - 导出 13,749 行 × 14 列
+2026-01-31 17:18:19.564 - INFO - 已导出 13,749 / 13,749 行
+2026-01-31 17:18:19.565 - INFO - 临时数据库已删除|Temporary database deleted
+2026-01-31 17:18:19.565 - INFO - 最终矩阵已保存: kmer_abundance_matrix.tsv
+2026-01-31 17:18:19.567 - INFO - 步骤7: 合并结果|Step 7: Merging results 已完成|步骤7: 合并结果|Step 7: Merging results completed
+2026-01-31 17:18:19.567 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-01-31 17:18:19.567 - INFO - 步骤8: 保存最终结果|Step 8: Saving final results
+2026-01-31 17:18:19.567 - INFO - 结果矩阵已在步骤7保存|Result matrix already saved in step 7
+2026-01-31 17:18:19.568 - INFO - save_results 已完成|save_results completed
+2026-01-31 17:18:19.568 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-01-31 17:18:19.568 - INFO - 步骤9: 滑动窗口分析|Step 9: Sliding window analysis
+2026-01-31 17:18:19.568 - INFO - 从文件加载数据用于滑动窗口分析|Loading data from file for sliding window analysis: kmer_abundance_matrix.tsv
+2026-01-31 17:18:19.591 - INFO - 开始滑动窗口分析|Starting sliding window analysis
+2026-01-31 17:18:19.591 - INFO - 窗口大小|Window size: 500000bp, 步长|Step size: 100000bp
+2026-01-31 17:18:19.622 - INFO -  处理染色体|Processing chromosome: NLR1
+2026-01-31 17:18:19.625 - INFO -  处理染色体|Processing chromosome: NLR2
+2026-01-31 17:18:19.627 - INFO -  滑动窗口分析完成，共2个窗口
+2026-01-31 17:18:19.628 - INFO - 滑动窗口结果已保存|Sliding window results saved: sliding_window_analysis.tsv
+2026-01-31 17:18:19.628 - INFO - sliding_window 已完成|sliding_window completed
+2026-01-31 17:18:19.628 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-01-31 17:18:19.629 - INFO - 步骤10: 创建0/1矩阵|Step 10: Creating 0/1 matrix
+2026-01-31 17:18:19.629 - INFO - 创建0/1存在缺失矩阵|Creating 0/1 presence/absence matrix
+2026-01-31 17:18:19.630 - INFO -  0/1矩阵创建完成|0/1 matrix creation completed
+2026-01-31 17:18:19.666 - INFO - 0/1矩阵已保存|0/1 matrix saved: kmer_binary_matrix.tsv
+2026-01-31 17:18:19.667 - INFO - binary_matrix 已完成|binary_matrix completed
+2026-01-31 17:18:19.667 - INFO - 进度已保存|Progress saved to: .kmer_count_progress.json
+2026-01-31 17:18:19.667 - INFO - 生成统计摘要报告|Generating summary statistics report
+2026-01-31 17:18:19.668 - INFO - 统计报告已保存|Summary report saved: analysis_summary.txt
+2026-01-31 17:18:19.670 - INFO - 进度文件已删除|Progress file deleted: .kmer_count_progress.json
+2026-01-31 17:18:19.670 - INFO - ============================================================
+2026-01-31 17:18:19.670 - INFO - K-mer丰度分析完成!
+2026-01-31 17:18:19.670 - INFO - ============================================================
+2026-01-31 17:18:19.673 - INFO - 临时目录已清理|Temporary directory cleaned

@@ -1,0 +1,7 @@
+ [!] 错误: 无法加载命令 'filter-snp-indel'. 错误: module 'biopytools.cli.commands.filter_snp_indel' has no attribute 'filter_snp_indel'
+Usage: biopytools [OPTIONS] COMMAND [ARGS]...
+Try 'biopytools -h' for help.
+
+Error: No such command 'filter-snp-indel'.
+Job 67593133 stderr output:
+

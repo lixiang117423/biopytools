@@ -1,0 +1,136 @@
+🌾 开始GWAS分析 | Starting GWAS analysis
+📊 VCF文件 | VCF file: variation.filtered.snp.maf5.vcf.gz
+📋 表型文件 | Phenotype file: trait.txt
+📁 输出目录 | Output directory: .
+2025-12-19 08:05:34,010 - INFO - 检测到总列数 | Detected total columns: 3
+2025-12-19 08:05:34,010 - INFO - 表头信息 | Header info: ['<Trait>', 'feture_1', 'feture_2']
+2025-12-19 08:05:34,010 - INFO - 开始处理表型列 | Starting to process trait columns: [1, 2]
+2025-12-19 08:05:34,010 - INFO - 表型名称 | Trait names: ['feture_1', 'feture_2']
+2025-12-19 08:05:34,010 - INFO - 📝 使用串行处理 | Using serial processing
+2025-12-19 08:05:34,014 - INFO - ------------------------------------------------------
+2025-12-19 08:05:34,014 - INFO - 开始处理表型 | Starting trait processing: feture_1 (列索引 | column index: 2)
+2025-12-19 08:05:34,014 - INFO - 正在处理表型 | Processing trait: feture_1 (列索引 | column index: 2)
+2025-12-19 08:05:34,070 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 08:05:34,434 - INFO - ✅ Java 已找到 | Java found: 17.0.15-internal
+2025-12-19 08:05:36,947 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 08:05:36,947 - INFO - 🚀 开始TASSEL GWAS分析流程 | Starting TASSEL GWAS analysis pipeline
+2025-12-19 08:05:36,949 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 08:05:36,986 - INFO - ✅ Java 已找到 | Java found: 17.0.15-internal
+2025-12-19 08:05:37,414 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 08:05:37,414 - INFO - 🔍 验证输入文件 | Validating input files
+2025-12-19 08:06:00,241 - INFO - 📊 VCF文件验证通过 | VCF file validation passed: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 08:06:00,243 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 08:06:00,243 - INFO -    • 样本数 | Samples: 88
+2025-12-19 08:06:00,243 - INFO - 📊 表型文件验证通过 | Phenotype file validation passed: feture_1/feture_1.pheno.txt
+2025-12-19 08:06:00,243 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 08:06:00,243 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 08:06:22,919 - INFO - 📊 输入VCF | Input VCF: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 08:06:22,919 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 08:06:22,920 - INFO -    • 样本数 | Samples: 88
+2025-12-19 08:06:22,920 - INFO - 📊 表型文件 | Phenotype file: feture_1/feture_1.pheno.txt
+2025-12-19 08:06:22,920 - INFO -    • 样本数 | Samples: 88
+2025-12-19 08:06:22,920 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 08:06:22,920 - INFO - 📝 准备表型文件 | Preparing phenotype file: feture_1/feture_1.pheno.txt
+2025-12-19 08:06:22,921 - INFO - ✅ 表型文件准备完成 | Phenotype file prepared: feture_1/feture_1_GWAS.pheno_ready.txt
+2025-12-19 08:06:22,921 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 08:06:22,921 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 08:07:15,019 - INFO - ✅ VCF排序完成 | VCF sorting completed: feture_1/feture_1_GWAS.sorted.vcf
+2025-12-19 08:07:15,021 - INFO -    过滤后变异位点 | Variants after filter: 1057352
+2025-12-19 08:07:15,021 - INFO - 🧬 计算Kinship矩阵 | Calculating Kinship matrix (Centered_IBS)...
+2025-12-19 08:07:15,021 - INFO -    内存设置 | Memory settings: -Xms10g -Xmx400g
+2025-12-19 08:07:15,021 - INFO -    工作目录 | Working directory: feture_1
+2025-12-19 08:07:15,021 - INFO -    VCF文件 | VCF file: feture_1/feture_1_GWAS.sorted.vcf
+2025-12-19 08:07:15,021 - INFO -    Kinship输出 | Kinship output: feture_1/feture_1_GWAS.kinship.txt
+2025-12-19 08:07:15,470 - INFO -    开始执行TASSEL Kinship计算 | Starting TASSEL Kinship calculation...
+2025-12-19 08:07:15,472 - INFO -    执行命令 | Executing command: perl /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl -Xms10g -Xmx400g -importGuess /share/org/YZWL/yzwl_lixg/tmp/test_tassel/feture_1/feture_1_GWAS.sorted.vcf -KinshipPlugin -method Centered_IBS -endPlugin -export /share/org/YZWL/yzwl_lixg/tmp/test_tassel/feture_1/feture_1_GWAS.kinship.txt -exportType SqrMatrix
+2025-12-19 08:07:15,474 - INFO -    工作目录 | Working directory: feture_1
+2025-12-19 08:07:29,316 - INFO -    命令返回码 | Command return code: 0
+2025-12-19 08:07:29,317 - INFO -    标准输出 | Stdout: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/phg.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/kotlin-stdlib-1.6.10.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/jfreesvg-3.2.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/sshj-0.32.0.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/slf4j-api-1.7.10.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/jfreechart-1.0.19.jar:/share/org/YZWL/yzwl_lixg/software/ta...
+2025-12-19 08:07:29,317 - INFO -    命令返回码 | Command return code: 0
+2025-12-19 08:07:29,317 - INFO -    执行时间 | Execution time: 14s
+2025-12-19 08:07:29,317 - INFO -    检查输出文件 | Checking output file: feture_1/feture_1_GWAS.kinship.txt
+2025-12-19 08:07:29,317 - INFO -    文件存在 | File exists: True
+2025-12-19 08:07:29,317 - INFO -    文件大小 | File size: 88435 bytes
+2025-12-19 08:07:29,318 - INFO - ✅ Kinship计算完成 | Kinship calculation completed in 14s (91x91)
+2025-12-19 08:07:29,318 - INFO - 📊 运行MLM模型 | Running MLM (Mixed Linear Model)...
+2025-12-19 08:07:29,318 - INFO -    -> 仅使用Kinship (K模型) | Using Kinship only (K model)
+2025-12-19 08:07:29,318 - INFO -    执行MLM命令 | Executing MLM command: perl /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl -Xms10g -Xmx400g -fork1 -vcf feture_1_GWAS.sorted.vcf -fork2 -t feture_1_GWAS.pheno_ready.txt -fork4 -k feture_1_GWAS.kinship.txt -combine5 -input1 -input2 -intersect -combine6 -input5 -input4 -mlm -mlmVarCompEst P3D -mlmCompressionLevel None -export feture_1_GWAS_MLM
+2025-12-19 08:07:29,318 - INFO -    MLM工作目录 | MLM working directory: feture_1
+2025-12-19 08:11:00,086 - INFO -    MLM命令返回码 | MLM command return code: 0
+2025-12-19 08:11:00,088 - INFO -    MLM标准输出 | MLM stdout: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/phg.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/kotlin-stdlib-1.6.10.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/jfreesvg-3.2.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/sshj-0.32.0.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/slf4j-api-1.7.10.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/jfreechart-1.0.19.jar:/share/org/YZWL/yzwl_lixg/software/ta...
+2025-12-19 08:11:01,365 - INFO - ✅ MLM完成 | MLM completed in 210s
+2025-12-19 08:11:01,365 - INFO -    • 总SNPs | Total SNPs: 1055774
+2025-12-19 08:11:01,365 - INFO -    • 显著SNPs (P<1e-5) | Significant (P<1e-5): 0
+2025-12-19 08:11:01,365 - INFO -    • 输出文件 | Output file: feture_1/feture_1_GWAS.mlm.manht_input
+2025-12-19 08:11:01,377 - INFO - ✅ 统计报告已保存 | Statistics report saved: feture_1/feture_1_GWAS.stats.txt
+2025-12-19 08:11:01,378 - INFO - 🧹 清理临时文件 | Cleaning up temporary files...
+2025-12-19 08:11:01,379 - INFO - 🎉 分析完成！总运行时间 | Analysis completed! Total runtime: 324s
+2025-12-19 08:11:01,379 - INFO - ✅ 表型 feture_1 运行成功 | Trait feture_1 completed successfully
+2025-12-19 08:11:01,407 - INFO - ------------------------------------------------------
+2025-12-19 08:11:01,407 - INFO - 开始处理表型 | Starting trait processing: feture_2 (列索引 | column index: 3)
+2025-12-19 08:11:01,407 - INFO - 正在处理表型 | Processing trait: feture_2 (列索引 | column index: 3)
+2025-12-19 08:11:01,412 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 08:11:01,452 - INFO - ✅ Java 已找到 | Java found: 17.0.15-internal
+2025-12-19 08:11:01,885 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 08:11:01,885 - INFO - 🚀 开始TASSEL GWAS分析流程 | Starting TASSEL GWAS analysis pipeline
+2025-12-19 08:11:01,886 - INFO - ✅ Perl 已找到 | Perl found
+2025-12-19 08:11:01,923 - INFO - ✅ Java 已找到 | Java found: 17.0.15-internal
+2025-12-19 08:11:02,354 - INFO - ✅ TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl | TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2025-12-19 08:11:02,354 - INFO - 🔍 验证输入文件 | Validating input files
+2025-12-19 08:11:25,042 - INFO - 📊 VCF文件验证通过 | VCF file validation passed: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 08:11:25,042 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 08:11:25,042 - INFO -    • 样本数 | Samples: 88
+2025-12-19 08:11:25,043 - INFO - 📊 表型文件验证通过 | Phenotype file validation passed: feture_2/feture_2.pheno.txt
+2025-12-19 08:11:25,043 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 08:11:25,043 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 08:11:47,703 - INFO - 📊 输入VCF | Input VCF: variation.filtered.snp.maf5.vcf.gz
+2025-12-19 08:11:47,705 - INFO -    • 变异位点 | Variants: 1057352
+2025-12-19 08:11:47,705 - INFO -    • 样本数 | Samples: 88
+2025-12-19 08:11:47,705 - INFO - 📊 表型文件 | Phenotype file: feture_2/feture_2.pheno.txt
+2025-12-19 08:11:47,705 - INFO -    • 样本数 | Samples: 88
+2025-12-19 08:11:47,705 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 08:11:47,705 - INFO - 📝 准备表型文件 | Preparing phenotype file: feture_2/feture_2.pheno.txt
+2025-12-19 08:11:47,706 - INFO - ✅ 表型文件准备完成 | Phenotype file prepared: feture_2/feture_2_GWAS.pheno_ready.txt
+2025-12-19 08:11:47,706 - INFO -    • 数据行数 | Data rows: 88
+2025-12-19 08:11:47,706 - INFO -    • 表型数量 | Traits: 1
+2025-12-19 08:12:39,515 - INFO - ✅ VCF排序完成 | VCF sorting completed: feture_2/feture_2_GWAS.sorted.vcf
+2025-12-19 08:12:39,516 - INFO -    过滤后变异位点 | Variants after filter: 1057352
+2025-12-19 08:12:39,516 - INFO - 🧬 计算Kinship矩阵 | Calculating Kinship matrix (Centered_IBS)...
+2025-12-19 08:12:39,516 - INFO -    内存设置 | Memory settings: -Xms10g -Xmx400g
+2025-12-19 08:12:39,516 - INFO -    工作目录 | Working directory: feture_2
+2025-12-19 08:12:39,516 - INFO -    VCF文件 | VCF file: feture_2/feture_2_GWAS.sorted.vcf
+2025-12-19 08:12:39,516 - INFO -    Kinship输出 | Kinship output: feture_2/feture_2_GWAS.kinship.txt
+2025-12-19 08:12:39,964 - INFO -    开始执行TASSEL Kinship计算 | Starting TASSEL Kinship calculation...
+2025-12-19 08:12:39,964 - INFO -    执行命令 | Executing command: perl /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl -Xms10g -Xmx400g -importGuess /share/org/YZWL/yzwl_lixg/tmp/test_tassel/feture_2/feture_2_GWAS.sorted.vcf -KinshipPlugin -method Centered_IBS -endPlugin -export /share/org/YZWL/yzwl_lixg/tmp/test_tassel/feture_2/feture_2_GWAS.kinship.txt -exportType SqrMatrix
+2025-12-19 08:12:39,964 - INFO -    工作目录 | Working directory: feture_2
+2025-12-19 08:12:53,794 - INFO -    命令返回码 | Command return code: 0
+2025-12-19 08:12:53,795 - INFO -    标准输出 | Stdout: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/phg.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/kotlin-stdlib-1.6.10.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/jfreesvg-3.2.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/sshj-0.32.0.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/slf4j-api-1.7.10.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/jfreechart-1.0.19.jar:/share/org/YZWL/yzwl_lixg/software/ta...
+2025-12-19 08:12:53,795 - INFO -    命令返回码 | Command return code: 0
+2025-12-19 08:12:53,795 - INFO -    执行时间 | Execution time: 14s
+2025-12-19 08:12:53,795 - INFO -    检查输出文件 | Checking output file: feture_2/feture_2_GWAS.kinship.txt
+2025-12-19 08:12:53,795 - INFO -    文件存在 | File exists: True
+2025-12-19 08:12:53,795 - INFO -    文件大小 | File size: 88435 bytes
+2025-12-19 08:12:53,795 - INFO - ✅ Kinship计算完成 | Kinship calculation completed in 14s (91x91)
+2025-12-19 08:12:53,795 - INFO - 📊 运行MLM模型 | Running MLM (Mixed Linear Model)...
+2025-12-19 08:12:53,795 - INFO -    -> 仅使用Kinship (K模型) | Using Kinship only (K model)
+2025-12-19 08:12:53,795 - INFO -    执行MLM命令 | Executing MLM command: perl /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl -Xms10g -Xmx400g -fork1 -vcf feture_2_GWAS.sorted.vcf -fork2 -t feture_2_GWAS.pheno_ready.txt -fork4 -k feture_2_GWAS.kinship.txt -combine5 -input1 -input2 -intersect -combine6 -input5 -input4 -mlm -mlmVarCompEst P3D -mlmCompressionLevel None -export feture_2_GWAS_MLM
+2025-12-19 08:12:53,795 - INFO -    MLM工作目录 | MLM working directory: feture_2
+2025-12-19 08:16:25,122 - INFO -    MLM命令返回码 | MLM command return code: 0
+2025-12-19 08:16:25,123 - INFO -    MLM标准输出 | MLM stdout: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/phg.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/kotlin-stdlib-1.6.10.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/jfreesvg-3.2.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/sshj-0.32.0.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/slf4j-api-1.7.10.jar:/share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/lib/jfreechart-1.0.19.jar:/share/org/YZWL/yzwl_lixg/software/ta...
+2025-12-19 08:16:26,389 - INFO - ✅ MLM完成 | MLM completed in 211s
+2025-12-19 08:16:26,389 - INFO -    • 总SNPs | Total SNPs: 1055366
+2025-12-19 08:16:26,389 - INFO -    • 显著SNPs (P<1e-5) | Significant (P<1e-5): 0
+2025-12-19 08:16:26,389 - INFO -    • 输出文件 | Output file: feture_2/feture_2_GWAS.mlm.manht_input
+2025-12-19 08:16:26,401 - INFO - ✅ 统计报告已保存 | Statistics report saved: feture_2/feture_2_GWAS.stats.txt
+2025-12-19 08:16:26,401 - INFO - 🧹 清理临时文件 | Cleaning up temporary files...
+2025-12-19 08:16:26,402 - INFO - 🎉 分析完成！总运行时间 | Analysis completed! Total runtime: 324s
+2025-12-19 08:16:26,402 - INFO - ✅ 表型 feture_2 运行成功 | Trait feture_2 completed successfully
+2025-12-19 08:16:26,418 - INFO - ✅ 批量处理报告已生成 | Batch processing report generated: batch_processing_report.txt
+2025-12-19 08:16:26,418 - INFO -    • 成功处理 | Successful: 2/2 (100.0%)
+2025-12-19 08:16:26,418 - INFO -    • 处理失败 | Failed: 0/2
+
+📊 分析完成 | Analysis completed
+   总表型数 | Total traits: 2
+   成功处理 | Successful: 2
+   处理失败 | Failed: 0
+   成功率 | Success rate: 100.0%

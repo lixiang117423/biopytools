@@ -1,0 +1,1207 @@
+2026-01-25 07:49:23.067 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-25 07:49:23.068 - INFO - 使用自定义输入目录|Using custom input directory: database/kmc_databases
+2026-01-25 07:49:23.068 - INFO - 从count metadata读取k-mer大小|Read k-mer size from count metadata: 21 → 51
+2026-01-25 07:49:23.069 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-25 07:49:23.069 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-25 07:49:23.077 - INFO - 找到 99 个KMC数据库|Found 99 KMC databases
+2026-01-25 07:49:23.077 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 99 样本|samples
+2026-01-25 07:49:23.078 - INFO - 检测到已存在的k-mer文件，跳过union步骤|Found existing k-mer file, skipping union: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/database/global_kmers_with_id.txt
+2026-01-25 07:49:23.078 - INFO - 从元数据加载 3,526,900,156 个k-mer|Loaded 3,526,900,156 k-mers from metadata
+2026-01-25 07:49:23.078 - INFO - 初始化矩阵文件|Initializing matrix file
+2026-01-25 07:49:23.084 - INFO - 矩阵文件初始化完成|Matrix file initialized
+2026-01-25 07:49:23.084 - INFO - k-mer文件大小|K-mer file size: 215.07GB
+2026-01-25 07:49:23.084 - INFO - 加载或构建索引|Loading or building index
+2026-01-25 07:49:23.084 - INFO - 文件大小 215.07GB >= 阈值 1.0GB，使用数据库索引|File size 215.07GB >= threshold 1.0GB, using database index
+2026-01-25 07:49:23.093 - INFO - 检测到已存在的RocksDB索引，直接加载|Found existing RocksDB index, loading: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/database/kmer_index.rdb
+2026-01-25 07:49:27.597 - INFO - 处理样本|Processing sample 1/99: OV8-196
+2026-01-25 07:49:27.598 - INFO - 查询样本丰度|Querying sample abundances: OV8-196
+2026-01-25 07:49:27.599 - INFO - 使用已有dump文件|Using existing dump file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/database/dump_files/OV8-196_dump.txt
+2026-01-25 07:58:17.925 - INFO - 从dump文件读取|Read from dump: 949,224,346 k-mers
+2026-01-25 07:58:17.926 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 07:58:23.647 - INFO - 数据分块|Data chunks: 12, 每块约|~79,102,029 条
+2026-01-25 09:30:21.155 - INFO - 查询完成|Query completed: 949,224,346 个k-mer
+2026-01-25 09:31:04.001 - INFO - 保存样本丰度|Saving sample abundances: OV8-196
+2026-01-25 09:31:04.173 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 09:31:04.173 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 09:31:04.232 - INFO - 当前数据集大小|Current dataset size: 17458155772, 新增|new: 949224346
+2026-01-25 09:31:04.246 - INFO - 数据集已扩展|Dataset resized to: 18407380118
+2026-01-25 09:36:11.788 - INFO - 样本丰度已保存|Sample abundances saved: OV8-196
+2026-01-25 09:36:11.804 - INFO - 处理样本|Processing sample 2/99: OV8-80
+2026-01-25 09:36:11.804 - INFO - 查询样本丰度|Querying sample abundances: OV8-80
+2026-01-25 09:36:11.804 - INFO - 使用已有dump文件|Using existing dump file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/database/dump_files/OV8-80_dump.txt
+2026-01-25 09:45:26.648 - INFO - 从dump文件读取|Read from dump: 996,396,115 k-mers
+2026-01-25 09:45:26.648 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 09:45:36.702 - INFO - 数据分块|Data chunks: 12, 每块约|~83,033,010 条
+2026-01-25 11:18:22.049 - INFO - 查询完成|Query completed: 996,396,115 个k-mer
+2026-01-25 11:19:53.567 - INFO - 保存样本丰度|Saving sample abundances: OV8-80
+2026-01-25 11:19:53.744 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 11:19:53.744 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 11:19:53.744 - INFO - 当前数据集大小|Current dataset size: 18407380118, 新增|new: 996396115
+2026-01-25 11:19:53.744 - INFO - 数据集已扩展|Dataset resized to: 19403776233
+2026-01-25 11:25:25.356 - INFO - 样本丰度已保存|Sample abundances saved: OV8-80
+2026-01-25 11:25:25.370 - INFO - 处理样本|Processing sample 3/99: OV8-67
+2026-01-25 11:25:25.370 - INFO - 查询样本丰度|Querying sample abundances: OV8-67
+2026-01-25 11:34:40.306 - INFO - 从dump文件读取|Read from dump: 916,281,231 k-mers
+2026-01-25 11:34:40.306 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 11:34:47.683 - INFO - 数据分块|Data chunks: 12, 每块约|~76,356,770 条
+2026-01-25 12:59:35.456 - INFO - 查询完成|Query completed: 916,281,231 个k-mer
+2026-01-25 13:00:52.927 - INFO - 保存样本丰度|Saving sample abundances: OV8-67
+2026-01-25 13:00:52.929 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 13:00:52.929 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 13:00:52.929 - INFO - 当前数据集大小|Current dataset size: 19403776233, 新增|new: 916281231
+2026-01-25 13:00:52.930 - INFO - 数据集已扩展|Dataset resized to: 20320057464
+2026-01-25 13:06:04.011 - INFO - 样本丰度已保存|Sample abundances saved: OV8-67
+2026-01-25 13:06:04.025 - INFO - 处理样本|Processing sample 4/99: OV8-68
+2026-01-25 13:06:04.025 - INFO - 查询样本丰度|Querying sample abundances: OV8-68
+2026-01-25 13:15:17.032 - INFO - 从dump文件读取|Read from dump: 923,274,102 k-mers
+2026-01-25 13:15:17.058 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 13:15:32.046 - INFO - 数据分块|Data chunks: 12, 每块约|~76,939,509 条
+2026-01-25 14:40:02.891 - INFO - 查询完成|Query completed: 923,274,102 个k-mer
+2026-01-25 14:42:01.718 - INFO - 保存样本丰度|Saving sample abundances: OV8-68
+2026-01-25 14:42:01.722 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 14:42:01.723 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 14:42:01.723 - INFO - 当前数据集大小|Current dataset size: 20320057464, 新增|new: 923274102
+2026-01-25 14:42:01.723 - INFO - 数据集已扩展|Dataset resized to: 21243331566
+2026-01-25 14:46:50.737 - INFO - 样本丰度已保存|Sample abundances saved: OV8-68
+2026-01-25 14:46:50.751 - INFO - 处理样本|Processing sample 5/99: OV8-71
+2026-01-25 14:46:50.751 - INFO - 查询样本丰度|Querying sample abundances: OV8-71
+2026-01-25 14:56:55.342 - INFO - 从dump文件读取|Read from dump: 990,528,661 k-mers
+2026-01-25 14:56:55.342 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 14:57:04.120 - INFO - 数据分块|Data chunks: 12, 每块约|~82,544,056 条
+2026-01-25 16:30:32.482 - INFO - 查询完成|Query completed: 990,528,661 个k-mer
+2026-01-25 16:32:00.755 - INFO - 保存样本丰度|Saving sample abundances: OV8-71
+2026-01-25 16:32:00.757 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 16:32:00.757 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 16:32:00.757 - INFO - 当前数据集大小|Current dataset size: 21243331566, 新增|new: 990528661
+2026-01-25 16:32:00.757 - INFO - 数据集已扩展|Dataset resized to: 22233860227
+2026-01-25 16:37:08.572 - INFO - 样本丰度已保存|Sample abundances saved: OV8-71
+2026-01-25 16:37:08.587 - INFO - 处理样本|Processing sample 6/99: OV8-30
+2026-01-25 16:37:08.587 - INFO - 查询样本丰度|Querying sample abundances: OV8-30
+2026-01-25 16:46:31.145 - INFO - 从dump文件读取|Read from dump: 945,641,555 k-mers
+2026-01-25 16:46:31.145 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 16:46:38.720 - INFO - 数据分块|Data chunks: 12, 每块约|~78,803,463 条
+2026-01-25 18:14:31.134 - INFO - 查询完成|Query completed: 945,641,555 个k-mer
+2026-01-25 18:15:49.889 - INFO - 保存样本丰度|Saving sample abundances: OV8-30
+2026-01-25 18:15:49.890 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 18:15:49.891 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 18:15:49.891 - INFO - 当前数据集大小|Current dataset size: 22233860227, 新增|new: 945641555
+2026-01-25 18:15:49.891 - INFO - 数据集已扩展|Dataset resized to: 23179501782
+2026-01-25 18:20:38.662 - INFO - 样本丰度已保存|Sample abundances saved: OV8-30
+2026-01-25 18:20:38.676 - INFO - 处理样本|Processing sample 7/99: OV8-74
+2026-01-25 18:20:38.676 - INFO - 查询样本丰度|Querying sample abundances: OV8-74
+2026-01-25 18:31:36.312 - INFO - 从dump文件读取|Read from dump: 1,066,823,399 k-mers
+2026-01-25 18:31:36.343 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 18:31:46.417 - INFO - 数据分块|Data chunks: 12, 每块约|~88,901,950 条
+2026-01-25 20:13:43.207 - INFO - 查询完成|Query completed: 1,066,823,399 个k-mer
+2026-01-25 20:15:13.698 - INFO - 保存样本丰度|Saving sample abundances: OV8-74
+2026-01-25 20:15:13.700 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 20:15:13.700 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 20:15:13.700 - INFO - 当前数据集大小|Current dataset size: 23179501782, 新增|new: 1066823399
+2026-01-25 20:15:13.701 - INFO - 数据集已扩展|Dataset resized to: 24246325181
+2026-01-25 20:21:21.948 - INFO - 样本丰度已保存|Sample abundances saved: OV8-74
+2026-01-25 20:21:21.964 - INFO - 处理样本|Processing sample 8/99: OV8-40
+2026-01-25 20:21:21.964 - INFO - 查询样本丰度|Querying sample abundances: OV8-40
+2026-01-25 20:30:41.089 - INFO - 从dump文件读取|Read from dump: 925,552,713 k-mers
+2026-01-25 20:30:41.089 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 20:30:46.920 - INFO - 数据分块|Data chunks: 12, 每块约|~77,129,393 条
+2026-01-25 21:55:22.236 - INFO - 查询完成|Query completed: 925,552,713 个k-mer
+2026-01-25 21:56:50.936 - INFO - 保存样本丰度|Saving sample abundances: OV8-40
+2026-01-25 21:56:50.938 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 21:56:50.938 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 21:56:50.938 - INFO - 当前数据集大小|Current dataset size: 24246325181, 新增|new: 925552713
+2026-01-25 21:56:50.938 - INFO - 数据集已扩展|Dataset resized to: 25171877894
+2026-01-25 22:02:08.327 - INFO - 样本丰度已保存|Sample abundances saved: OV8-40
+2026-01-25 22:02:08.341 - INFO - 处理样本|Processing sample 9/99: OV8-29
+2026-01-25 22:02:08.341 - INFO - 查询样本丰度|Querying sample abundances: OV8-29
+2026-01-25 22:12:13.841 - INFO - 从dump文件读取|Read from dump: 993,264,469 k-mers
+2026-01-25 22:12:13.841 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-25 22:12:19.267 - INFO - 数据分块|Data chunks: 12, 每块约|~82,772,040 条
+2026-01-25 23:43:17.021 - INFO - 查询完成|Query completed: 993,264,469 个k-mer
+2026-01-25 23:44:35.953 - INFO - 保存样本丰度|Saving sample abundances: OV8-29
+2026-01-25 23:44:35.954 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 23:44:35.954 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 23:44:35.955 - INFO - 当前数据集大小|Current dataset size: 25171877894, 新增|new: 993264469
+2026-01-25 23:44:35.955 - INFO - 数据集已扩展|Dataset resized to: 26165142363
+2026-01-25 23:50:17.839 - INFO - 样本丰度已保存|Sample abundances saved: OV8-29
+2026-01-25 23:50:17.853 - INFO - 处理样本|Processing sample 10/99: OV8-106
+2026-01-25 23:50:17.853 - INFO - 查询样本丰度|Querying sample abundances: OV8-106
+2026-01-26 00:00:00.193 - INFO - 从dump文件读取|Read from dump: 956,519,488 k-mers
+2026-01-26 00:00:00.206 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 00:00:08.686 - INFO - 数据分块|Data chunks: 12, 每块约|~79,709,958 条
+2026-01-26 01:27:48.845 - INFO - 查询完成|Query completed: 956,519,488 个k-mer
+2026-01-26 01:29:17.074 - INFO - 保存样本丰度|Saving sample abundances: OV8-106
+2026-01-26 01:29:17.260 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 01:29:17.263 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 01:29:17.263 - INFO - 当前数据集大小|Current dataset size: 26165142363, 新增|new: 956519488
+2026-01-26 01:29:17.263 - INFO - 数据集已扩展|Dataset resized to: 27121661851
+2026-01-26 01:34:41.119 - INFO - 样本丰度已保存|Sample abundances saved: OV8-106
+2026-01-26 01:34:41.132 - INFO - 处理样本|Processing sample 11/99: OV8-105
+2026-01-26 01:34:41.133 - INFO - 查询样本丰度|Querying sample abundances: OV8-105
+2026-01-26 01:44:55.717 - INFO - 从dump文件读取|Read from dump: 987,417,688 k-mers
+2026-01-26 01:44:55.717 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 01:45:02.200 - INFO - 数据分块|Data chunks: 12, 每块约|~82,284,808 条
+2026-01-26 03:16:10.881 - INFO - 查询完成|Query completed: 987,417,688 个k-mer
+2026-01-26 03:17:45.525 - INFO - 保存样本丰度|Saving sample abundances: OV8-105
+2026-01-26 03:17:45.527 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 03:17:45.527 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 03:17:45.528 - INFO - 当前数据集大小|Current dataset size: 27121661851, 新增|new: 987417688
+2026-01-26 03:17:45.528 - INFO - 数据集已扩展|Dataset resized to: 28109079539
+2026-01-26 03:23:24.381 - INFO - 样本丰度已保存|Sample abundances saved: OV8-105
+2026-01-26 03:23:24.397 - INFO - 处理样本|Processing sample 12/99: OV8-2
+2026-01-26 03:23:24.397 - INFO - 查询样本丰度|Querying sample abundances: OV8-2
+2026-01-26 03:33:49.313 - INFO - 从dump文件读取|Read from dump: 997,444,066 k-mers
+2026-01-26 03:33:49.313 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 03:33:56.250 - INFO - 数据分块|Data chunks: 12, 每块约|~83,120,339 条
+2026-01-26 05:05:09.921 - INFO - 查询完成|Query completed: 997,444,066 个k-mer
+2026-01-26 05:06:43.198 - INFO - 保存样本丰度|Saving sample abundances: OV8-2
+2026-01-26 05:06:43.200 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 05:06:43.200 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 05:06:43.200 - INFO - 当前数据集大小|Current dataset size: 28109079539, 新增|new: 997444066
+2026-01-26 05:06:43.200 - INFO - 数据集已扩展|Dataset resized to: 29106523605
+2026-01-26 05:12:20.679 - INFO - 样本丰度已保存|Sample abundances saved: OV8-2
+2026-01-26 05:12:20.696 - INFO - 处理样本|Processing sample 13/99: OV8-180
+2026-01-26 05:12:20.696 - INFO - 查询样本丰度|Querying sample abundances: OV8-180
+2026-01-26 05:22:08.791 - INFO - 从dump文件读取|Read from dump: 954,817,103 k-mers
+2026-01-26 05:22:08.791 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 05:22:15.763 - INFO - 数据分块|Data chunks: 12, 每块约|~79,568,092 条
+2026-01-26 06:49:56.644 - INFO - 查询完成|Query completed: 954,817,103 个k-mer
+2026-01-26 06:51:15.992 - INFO - 保存样本丰度|Saving sample abundances: OV8-180
+2026-01-26 06:51:15.993 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 06:51:15.994 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 06:51:15.994 - INFO - 当前数据集大小|Current dataset size: 29106523605, 新增|new: 954817103
+2026-01-26 06:51:15.994 - INFO - 数据集已扩展|Dataset resized to: 30061340708
+2026-01-26 06:56:35.700 - INFO - 样本丰度已保存|Sample abundances saved: OV8-180
+2026-01-26 06:56:35.714 - INFO - 处理样本|Processing sample 14/99: OV8-20
+2026-01-26 06:56:35.714 - INFO - 查询样本丰度|Querying sample abundances: OV8-20
+2026-01-26 07:06:53.477 - INFO - 从dump文件读取|Read from dump: 990,989,960 k-mers
+2026-01-26 07:06:53.601 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 07:07:00.137 - INFO - 数据分块|Data chunks: 12, 每块约|~82,582,497 条
+2026-01-26 08:36:45.124 - INFO - 查询完成|Query completed: 990,989,960 个k-mer
+2026-01-26 08:38:12.555 - INFO - 保存样本丰度|Saving sample abundances: OV8-20
+2026-01-26 08:38:12.587 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 08:38:12.587 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 08:38:12.587 - INFO - 当前数据集大小|Current dataset size: 30061340708, 新增|new: 990989960
+2026-01-26 08:38:12.587 - INFO - 数据集已扩展|Dataset resized to: 31052330668
+2026-01-26 08:43:38.795 - INFO - 样本丰度已保存|Sample abundances saved: OV8-20
+2026-01-26 08:43:38.810 - INFO - 处理样本|Processing sample 15/99: OV8-179
+2026-01-26 08:43:38.810 - INFO - 查询样本丰度|Querying sample abundances: OV8-179
+2026-01-26 08:52:58.336 - INFO - 从dump文件读取|Read from dump: 909,761,533 k-mers
+2026-01-26 08:52:58.337 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 08:53:05.929 - INFO - 数据分块|Data chunks: 12, 每块约|~75,813,462 条
+2026-01-26 10:16:43.605 - INFO - 查询完成|Query completed: 909,761,533 个k-mer
+2026-01-26 10:17:51.007 - INFO - 保存样本丰度|Saving sample abundances: OV8-179
+2026-01-26 10:17:51.009 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 10:17:51.009 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 10:17:51.010 - INFO - 当前数据集大小|Current dataset size: 31052330668, 新增|new: 909761533
+2026-01-26 10:17:51.010 - INFO - 数据集已扩展|Dataset resized to: 31962092201
+2026-01-26 10:23:09.489 - INFO - 样本丰度已保存|Sample abundances saved: OV8-179
+2026-01-26 10:23:09.502 - INFO - 处理样本|Processing sample 16/99: OV8-272
+2026-01-26 10:23:09.502 - INFO - 查询样本丰度|Querying sample abundances: OV8-272
+2026-01-26 10:32:16.714 - INFO - 从dump文件读取|Read from dump: 893,817,555 k-mers
+2026-01-26 10:32:16.714 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 10:32:23.236 - INFO - 数据分块|Data chunks: 12, 每块约|~74,484,797 条
+2026-01-26 11:53:59.336 - INFO - 查询完成|Query completed: 893,817,555 个k-mer
+2026-01-26 11:55:11.746 - INFO - 保存样本丰度|Saving sample abundances: OV8-272
+2026-01-26 11:55:11.748 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 11:55:11.748 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 11:55:11.748 - INFO - 当前数据集大小|Current dataset size: 31962092201, 新增|new: 893817555
+2026-01-26 11:55:11.749 - INFO - 数据集已扩展|Dataset resized to: 32855909756
+2026-01-26 12:00:14.314 - INFO - 样本丰度已保存|Sample abundances saved: OV8-272
+2026-01-26 12:00:14.327 - INFO - 处理样本|Processing sample 17/99: OV8-6
+2026-01-26 12:00:14.327 - INFO - 查询样本丰度|Querying sample abundances: OV8-6
+2026-01-26 12:09:51.185 - INFO - 从dump文件读取|Read from dump: 944,516,497 k-mers
+2026-01-26 12:09:51.185 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 12:09:58.036 - INFO - 数据分块|Data chunks: 12, 每块约|~78,709,709 条
+2026-01-26 13:36:59.954 - INFO - 查询完成|Query completed: 944,516,497 个k-mer
+2026-01-26 13:38:12.065 - INFO - 保存样本丰度|Saving sample abundances: OV8-6
+2026-01-26 13:38:12.066 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 13:38:12.066 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 13:38:12.067 - INFO - 当前数据集大小|Current dataset size: 32855909756, 新增|new: 944516497
+2026-01-26 13:38:12.067 - INFO - 数据集已扩展|Dataset resized to: 33800426253
+2026-01-26 13:43:41.244 - INFO - 样本丰度已保存|Sample abundances saved: OV8-6
+2026-01-26 13:43:41.258 - INFO - 处理样本|Processing sample 18/99: OV8-88
+2026-01-26 13:43:41.305 - INFO - 查询样本丰度|Querying sample abundances: OV8-88
+2026-01-26 13:53:12.566 - INFO - 从dump文件读取|Read from dump: 929,864,873 k-mers
+2026-01-26 13:53:12.566 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 13:53:18.595 - INFO - 数据分块|Data chunks: 12, 每块约|~77,488,740 条
+2026-01-26 15:18:20.081 - INFO - 查询完成|Query completed: 929,864,873 个k-mer
+2026-01-26 15:19:33.635 - INFO - 保存样本丰度|Saving sample abundances: OV8-88
+2026-01-26 15:19:33.638 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 15:19:33.638 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 15:19:33.638 - INFO - 当前数据集大小|Current dataset size: 33800426253, 新增|new: 929864873
+2026-01-26 15:19:33.638 - INFO - 数据集已扩展|Dataset resized to: 34730291126
+2026-01-26 15:24:56.107 - INFO - 样本丰度已保存|Sample abundances saved: OV8-88
+2026-01-26 15:24:56.120 - INFO - 处理样本|Processing sample 19/99: OV8-17
+2026-01-26 15:24:56.120 - INFO - 查询样本丰度|Querying sample abundances: OV8-17
+2026-01-26 15:35:15.196 - INFO - 从dump文件读取|Read from dump: 1,019,894,997 k-mers
+2026-01-26 15:35:15.234 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 15:35:23.315 - INFO - 数据分块|Data chunks: 12, 每块约|~84,991,250 条
+2026-01-26 17:08:49.573 - INFO - 查询完成|Query completed: 1,019,894,997 个k-mer
+2026-01-26 17:10:27.604 - INFO - 保存样本丰度|Saving sample abundances: OV8-17
+2026-01-26 17:10:27.738 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 17:10:27.738 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 17:10:27.739 - INFO - 当前数据集大小|Current dataset size: 34730291126, 新增|new: 1019894997
+2026-01-26 17:10:27.739 - INFO - 数据集已扩展|Dataset resized to: 35750186123
+2026-01-26 17:16:26.846 - INFO - 样本丰度已保存|Sample abundances saved: OV8-17
+2026-01-26 17:16:26.862 - INFO - 处理样本|Processing sample 20/99: OV8-45
+2026-01-26 17:16:26.862 - INFO - 查询样本丰度|Querying sample abundances: OV8-45
+2026-01-26 17:25:58.085 - INFO - 从dump文件读取|Read from dump: 926,160,420 k-mers
+2026-01-26 17:25:58.085 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 17:26:04.685 - INFO - 数据分块|Data chunks: 12, 每块约|~77,180,036 条
+2026-01-26 18:50:00.242 - INFO - 查询完成|Query completed: 926,160,420 个k-mer
+2026-01-26 18:51:31.798 - INFO - 保存样本丰度|Saving sample abundances: OV8-45
+2026-01-26 18:51:31.799 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 18:51:31.799 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 18:51:31.799 - INFO - 当前数据集大小|Current dataset size: 35750186123, 新增|new: 926160420
+2026-01-26 18:51:31.800 - INFO - 数据集已扩展|Dataset resized to: 36676346543
+2026-01-26 18:56:43.488 - INFO - 样本丰度已保存|Sample abundances saved: OV8-45
+2026-01-26 18:56:43.502 - INFO - 处理样本|Processing sample 21/99: OV8-263
+2026-01-26 18:56:43.502 - INFO - 查询样本丰度|Querying sample abundances: OV8-263
+2026-01-26 19:06:07.866 - INFO - 从dump文件读取|Read from dump: 945,549,426 k-mers
+2026-01-26 19:06:07.866 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 19:06:16.373 - INFO - 数据分块|Data chunks: 12, 每块约|~78,795,786 条
+2026-01-26 20:32:35.689 - INFO - 查询完成|Query completed: 945,549,426 个k-mer
+2026-01-26 20:34:11.116 - INFO - 保存样本丰度|Saving sample abundances: OV8-263
+2026-01-26 20:34:11.119 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 20:34:11.119 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 20:34:11.119 - INFO - 当前数据集大小|Current dataset size: 36676346543, 新增|new: 945549426
+2026-01-26 20:34:11.119 - INFO - 数据集已扩展|Dataset resized to: 37621895969
+2026-01-26 20:39:48.473 - INFO - 样本丰度已保存|Sample abundances saved: OV8-263
+2026-01-26 20:39:48.487 - INFO - 处理样本|Processing sample 22/99: OV8-43
+2026-01-26 20:39:48.487 - INFO - 查询样本丰度|Querying sample abundances: OV8-43
+2026-01-26 20:49:37.590 - INFO - 从dump文件读取|Read from dump: 964,951,026 k-mers
+2026-01-26 20:49:37.591 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 20:49:43.273 - INFO - 数据分块|Data chunks: 12, 每块约|~80,412,586 条
+2026-01-26 22:18:11.876 - INFO - 查询完成|Query completed: 964,951,026 个k-mer
+2026-01-26 22:19:39.020 - INFO - 保存样本丰度|Saving sample abundances: OV8-43
+2026-01-26 22:19:39.022 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-26 22:19:39.022 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-26 22:19:39.022 - INFO - 当前数据集大小|Current dataset size: 37621895969, 新增|new: 964951026
+2026-01-26 22:19:39.022 - INFO - 数据集已扩展|Dataset resized to: 38586846995
+2026-01-26 22:24:57.691 - INFO - 样本丰度已保存|Sample abundances saved: OV8-43
+2026-01-26 22:24:57.704 - INFO - 处理样本|Processing sample 23/99: OV8-137
+2026-01-26 22:24:57.704 - INFO - 查询样本丰度|Querying sample abundances: OV8-137
+2026-01-26 22:34:51.670 - INFO - 从dump文件读取|Read from dump: 962,792,513 k-mers
+2026-01-26 22:34:51.671 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-26 22:34:59.436 - INFO - 数据分块|Data chunks: 12, 每块约|~80,232,710 条
+2026-01-27 00:03:33.579 - INFO - 查询完成|Query completed: 962,792,513 个k-mer
+2026-01-27 00:05:04.425 - INFO - 保存样本丰度|Saving sample abundances: OV8-137
+2026-01-27 00:05:04.427 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 00:05:04.427 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 00:05:04.427 - INFO - 当前数据集大小|Current dataset size: 38586846995, 新增|new: 962792513
+2026-01-27 00:05:04.427 - INFO - 数据集已扩展|Dataset resized to: 39549639508
+2026-01-27 00:10:53.001 - INFO - 样本丰度已保存|Sample abundances saved: OV8-137
+2026-01-27 00:10:53.016 - INFO - 处理样本|Processing sample 24/99: OV8-259
+2026-01-27 00:10:53.016 - INFO - 查询样本丰度|Querying sample abundances: OV8-259
+2026-01-27 00:21:03.129 - INFO - 从dump文件读取|Read from dump: 974,959,149 k-mers
+2026-01-27 00:21:03.129 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 00:21:08.641 - INFO - 数据分块|Data chunks: 12, 每块约|~81,246,596 条
+2026-01-27 01:50:05.467 - INFO - 查询完成|Query completed: 974,959,149 个k-mer
+2026-01-27 01:51:43.062 - INFO - 保存样本丰度|Saving sample abundances: OV8-259
+2026-01-27 01:51:43.064 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 01:51:43.064 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 01:51:43.064 - INFO - 当前数据集大小|Current dataset size: 39549639508, 新增|new: 974959149
+2026-01-27 01:51:43.065 - INFO - 数据集已扩展|Dataset resized to: 40524598657
+2026-01-27 01:57:12.894 - INFO - 样本丰度已保存|Sample abundances saved: OV8-259
+2026-01-27 01:57:12.908 - INFO - 处理样本|Processing sample 25/99: OV8-260
+2026-01-27 01:57:12.908 - INFO - 查询样本丰度|Querying sample abundances: OV8-260
+2026-01-27 02:07:08.860 - INFO - 从dump文件读取|Read from dump: 967,647,036 k-mers
+2026-01-27 02:07:08.860 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 02:07:16.637 - INFO - 数据分块|Data chunks: 12, 每块约|~80,637,254 条
+2026-01-27 03:37:05.170 - INFO - 查询完成|Query completed: 967,647,036 个k-mer
+2026-01-27 03:38:16.718 - INFO - 保存样本丰度|Saving sample abundances: OV8-260
+2026-01-27 03:38:16.720 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 03:38:16.720 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 03:38:16.720 - INFO - 当前数据集大小|Current dataset size: 40524598657, 新增|new: 967647036
+2026-01-27 03:38:16.754 - INFO - 数据集已扩展|Dataset resized to: 41492245693
+2026-01-27 03:43:49.671 - INFO - 样本丰度已保存|Sample abundances saved: OV8-260
+2026-01-27 03:43:49.685 - INFO - 处理样本|Processing sample 26/99: OV8-141
+2026-01-27 03:43:49.686 - INFO - 查询样本丰度|Querying sample abundances: OV8-141
+2026-01-27 03:53:49.287 - INFO - 从dump文件读取|Read from dump: 969,696,695 k-mers
+2026-01-27 03:53:49.287 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 03:53:57.911 - INFO - 数据分块|Data chunks: 12, 每块约|~80,808,058 条
+2026-01-27 05:23:36.891 - INFO - 查询完成|Query completed: 969,696,695 个k-mer
+2026-01-27 05:24:59.019 - INFO - 保存样本丰度|Saving sample abundances: OV8-141
+2026-01-27 05:24:59.020 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 05:24:59.020 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 05:24:59.021 - INFO - 当前数据集大小|Current dataset size: 41492245693, 新增|new: 969696695
+2026-01-27 05:24:59.021 - INFO - 数据集已扩展|Dataset resized to: 42461942388
+2026-01-27 05:30:23.950 - INFO - 样本丰度已保存|Sample abundances saved: OV8-141
+2026-01-27 05:30:23.964 - INFO - 处理样本|Processing sample 27/99: OV8-114
+2026-01-27 05:30:23.964 - INFO - 查询样本丰度|Querying sample abundances: OV8-114
+2026-01-27 05:40:29.913 - INFO - 从dump文件读取|Read from dump: 985,803,594 k-mers
+2026-01-27 05:40:29.965 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 05:40:36.963 - INFO - 数据分块|Data chunks: 12, 每块约|~82,150,300 条
+2026-01-27 07:10:53.506 - INFO - 查询完成|Query completed: 985,803,594 个k-mer
+2026-01-27 07:12:32.812 - INFO - 保存样本丰度|Saving sample abundances: OV8-114
+2026-01-27 07:12:32.873 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 07:12:32.874 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 07:12:32.874 - INFO - 当前数据集大小|Current dataset size: 42461942388, 新增|new: 985803594
+2026-01-27 07:12:32.874 - INFO - 数据集已扩展|Dataset resized to: 43447745982
+2026-01-27 07:18:19.945 - INFO - 样本丰度已保存|Sample abundances saved: OV8-114
+2026-01-27 07:18:19.960 - INFO - 处理样本|Processing sample 28/99: OV8-33
+2026-01-27 07:18:19.960 - INFO - 查询样本丰度|Querying sample abundances: OV8-33
+2026-01-27 07:28:13.616 - INFO - 从dump文件读取|Read from dump: 970,933,740 k-mers
+2026-01-27 07:28:13.616 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 07:28:21.971 - INFO - 数据分块|Data chunks: 12, 每块约|~80,911,146 条
+2026-01-27 08:58:03.055 - INFO - 查询完成|Query completed: 970,933,740 个k-mer
+2026-01-27 08:59:42.252 - INFO - 保存样本丰度|Saving sample abundances: OV8-33
+2026-01-27 08:59:42.254 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 08:59:42.254 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 08:59:42.255 - INFO - 当前数据集大小|Current dataset size: 43447745982, 新增|new: 970933740
+2026-01-27 08:59:42.255 - INFO - 数据集已扩展|Dataset resized to: 44418679722
+2026-01-27 09:05:34.091 - INFO - 样本丰度已保存|Sample abundances saved: OV8-33
+2026-01-27 09:05:34.105 - INFO - 处理样本|Processing sample 29/99: OV8-8
+2026-01-27 09:05:34.105 - INFO - 查询样本丰度|Querying sample abundances: OV8-8
+2026-01-27 09:14:50.691 - INFO - 从dump文件读取|Read from dump: 906,269,733 k-mers
+2026-01-27 09:14:50.691 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 09:14:57.018 - INFO - 数据分块|Data chunks: 12, 每块约|~75,522,478 条
+2026-01-27 10:40:30.196 - INFO - 查询完成|Query completed: 906,269,733 个k-mer
+2026-01-27 10:41:44.137 - INFO - 保存样本丰度|Saving sample abundances: OV8-8
+2026-01-27 10:41:44.139 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 10:41:44.165 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 10:41:44.165 - INFO - 当前数据集大小|Current dataset size: 44418679722, 新增|new: 906269733
+2026-01-27 10:41:44.166 - INFO - 数据集已扩展|Dataset resized to: 45324949455
+2026-01-27 10:46:50.864 - INFO - 样本丰度已保存|Sample abundances saved: OV8-8
+2026-01-27 10:46:50.877 - INFO - 处理样本|Processing sample 30/99: OV8-31
+2026-01-27 10:46:50.878 - INFO - 查询样本丰度|Querying sample abundances: OV8-31
+2026-01-27 10:56:53.391 - INFO - 从dump文件读取|Read from dump: 993,476,036 k-mers
+2026-01-27 10:56:53.391 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 10:57:02.679 - INFO - 数据分块|Data chunks: 12, 每块约|~82,789,670 条
+2026-01-27 12:27:45.921 - INFO - 查询完成|Query completed: 993,476,036 个k-mer
+2026-01-27 12:29:23.507 - INFO - 保存样本丰度|Saving sample abundances: OV8-31
+2026-01-27 12:29:23.509 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 12:29:23.509 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 12:29:23.510 - INFO - 当前数据集大小|Current dataset size: 45324949455, 新增|new: 993476036
+2026-01-27 12:29:23.510 - INFO - 数据集已扩展|Dataset resized to: 46318425491
+2026-01-27 12:35:02.001 - INFO - 样本丰度已保存|Sample abundances saved: OV8-31
+2026-01-27 12:35:02.016 - INFO - 处理样本|Processing sample 31/99: OV8-3
+2026-01-27 12:35:02.016 - INFO - 查询样本丰度|Querying sample abundances: OV8-3
+2026-01-27 12:45:06.757 - INFO - 从dump文件读取|Read from dump: 975,335,634 k-mers
+2026-01-27 12:45:06.785 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 12:45:14.106 - INFO - 数据分块|Data chunks: 12, 每块约|~81,277,970 条
+2026-01-27 14:15:54.220 - INFO - 查询完成|Query completed: 975,335,634 个k-mer
+2026-01-27 14:17:09.184 - INFO - 保存样本丰度|Saving sample abundances: OV8-3
+2026-01-27 14:17:09.467 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 14:17:09.468 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 14:17:09.468 - INFO - 当前数据集大小|Current dataset size: 46318425491, 新增|new: 975335634
+2026-01-27 14:17:09.468 - INFO - 数据集已扩展|Dataset resized to: 47293761125
+2026-01-27 14:22:45.386 - INFO - 样本丰度已保存|Sample abundances saved: OV8-3
+2026-01-27 14:22:45.400 - INFO - 处理样本|Processing sample 32/99: OV8-157
+2026-01-27 14:22:45.401 - INFO - 查询样本丰度|Querying sample abundances: OV8-157
+2026-01-27 14:32:54.142 - INFO - 从dump文件读取|Read from dump: 983,782,626 k-mers
+2026-01-27 14:32:54.142 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 14:32:59.942 - INFO - 数据分块|Data chunks: 12, 每块约|~81,981,886 条
+2026-01-27 16:03:21.984 - INFO - 查询完成|Query completed: 983,782,626 个k-mer
+2026-01-27 16:05:02.036 - INFO - 保存样本丰度|Saving sample abundances: OV8-157
+2026-01-27 16:05:02.041 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 16:05:02.041 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 16:05:02.041 - INFO - 当前数据集大小|Current dataset size: 47293761125, 新增|new: 983782626
+2026-01-27 16:05:02.042 - INFO - 数据集已扩展|Dataset resized to: 48277543751
+2026-01-27 16:10:33.948 - INFO - 样本丰度已保存|Sample abundances saved: OV8-157
+2026-01-27 16:10:33.962 - INFO - 处理样本|Processing sample 33/99: OV8-138
+2026-01-27 16:10:33.963 - INFO - 查询样本丰度|Querying sample abundances: OV8-138
+2026-01-27 16:23:31.064 - INFO - 从dump文件读取|Read from dump: 1,218,626,330 k-mers
+2026-01-27 16:23:31.064 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 16:23:42.696 - INFO - 数据分块|Data chunks: 12, 每块约|~101,552,195 条
+2026-01-27 18:17:33.047 - INFO - 查询完成|Query completed: 1,218,626,330 个k-mer
+2026-01-27 18:19:24.586 - INFO - 保存样本丰度|Saving sample abundances: OV8-138
+2026-01-27 18:19:24.619 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 18:19:24.619 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 18:19:24.619 - INFO - 当前数据集大小|Current dataset size: 48277543751, 新增|new: 1218626330
+2026-01-27 18:19:24.620 - INFO - 数据集已扩展|Dataset resized to: 49496170081
+2026-01-27 18:26:24.164 - INFO - 样本丰度已保存|Sample abundances saved: OV8-138
+2026-01-27 18:26:24.182 - INFO - 处理样本|Processing sample 34/99: OV8-39
+2026-01-27 18:26:24.182 - INFO - 查询样本丰度|Querying sample abundances: OV8-39
+2026-01-27 18:35:53.199 - INFO - 从dump文件读取|Read from dump: 945,737,726 k-mers
+2026-01-27 18:35:53.199 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 18:36:01.610 - INFO - 数据分块|Data chunks: 12, 每块约|~78,811,478 条
+2026-01-27 20:05:30.920 - INFO - 查询完成|Query completed: 945,737,726 个k-mer
+2026-01-27 20:07:09.696 - INFO - 保存样本丰度|Saving sample abundances: OV8-39
+2026-01-27 20:07:09.698 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 20:07:09.698 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 20:07:09.699 - INFO - 当前数据集大小|Current dataset size: 49496170081, 新增|new: 945737726
+2026-01-27 20:07:09.699 - INFO - 数据集已扩展|Dataset resized to: 50441907807
+2026-01-27 20:12:33.950 - INFO - 样本丰度已保存|Sample abundances saved: OV8-39
+2026-01-27 20:12:33.965 - INFO - 处理样本|Processing sample 35/99: OV8-95
+2026-01-27 20:12:33.965 - INFO - 查询样本丰度|Querying sample abundances: OV8-95
+2026-01-27 20:22:43.308 - INFO - 从dump文件读取|Read from dump: 977,524,512 k-mers
+2026-01-27 20:22:43.308 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 20:22:50.805 - INFO - 数据分块|Data chunks: 12, 每块约|~81,460,377 条
+2026-01-27 21:51:08.764 - INFO - 查询完成|Query completed: 977,524,512 个k-mer
+2026-01-27 21:52:43.962 - INFO - 保存样本丰度|Saving sample abundances: OV8-95
+2026-01-27 21:52:43.963 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 21:52:43.963 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 21:52:43.964 - INFO - 当前数据集大小|Current dataset size: 50441907807, 新增|new: 977524512
+2026-01-27 21:52:43.964 - INFO - 数据集已扩展|Dataset resized to: 51419432319
+2026-01-27 21:58:09.816 - INFO - 样本丰度已保存|Sample abundances saved: OV8-95
+2026-01-27 21:58:09.830 - INFO - 处理样本|Processing sample 36/99: OV8-158
+2026-01-27 21:58:09.830 - INFO - 查询样本丰度|Querying sample abundances: OV8-158
+2026-01-27 22:08:07.296 - INFO - 从dump文件读取|Read from dump: 976,671,172 k-mers
+2026-01-27 22:08:07.297 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 22:08:16.708 - INFO - 数据分块|Data chunks: 12, 每块约|~81,389,265 条
+2026-01-27 23:36:51.024 - INFO - 查询完成|Query completed: 976,671,172 个k-mer
+2026-01-27 23:38:26.801 - INFO - 保存样本丰度|Saving sample abundances: OV8-158
+2026-01-27 23:38:26.803 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-27 23:38:26.803 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-27 23:38:26.803 - INFO - 当前数据集大小|Current dataset size: 51419432319, 新增|new: 976671172
+2026-01-27 23:38:26.804 - INFO - 数据集已扩展|Dataset resized to: 52396103491
+2026-01-27 23:43:55.131 - INFO - 样本丰度已保存|Sample abundances saved: OV8-158
+2026-01-27 23:43:55.145 - INFO - 处理样本|Processing sample 37/99: OV8-72
+2026-01-27 23:43:55.146 - INFO - 查询样本丰度|Querying sample abundances: OV8-72
+2026-01-27 23:54:47.042 - INFO - 从dump文件读取|Read from dump: 1,055,775,707 k-mers
+2026-01-27 23:54:47.062 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-27 23:54:56.420 - INFO - 数据分块|Data chunks: 12, 每块约|~87,981,309 条
+2026-01-28 01:32:16.446 - INFO - 查询完成|Query completed: 1,055,775,707 个k-mer
+2026-01-28 01:33:53.769 - INFO - 保存样本丰度|Saving sample abundances: OV8-72
+2026-01-28 01:33:53.770 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 01:33:53.770 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 01:33:53.771 - INFO - 当前数据集大小|Current dataset size: 52396103491, 新增|new: 1055775707
+2026-01-28 01:33:53.771 - INFO - 数据集已扩展|Dataset resized to: 53451879198
+2026-01-28 01:40:19.521 - INFO - 样本丰度已保存|Sample abundances saved: OV8-72
+2026-01-28 01:40:19.537 - INFO - 处理样本|Processing sample 38/99: OV8-117
+2026-01-28 01:40:19.537 - INFO - 查询样本丰度|Querying sample abundances: OV8-117
+2026-01-28 01:51:06.016 - INFO - 从dump文件读取|Read from dump: 1,051,032,864 k-mers
+2026-01-28 01:51:06.016 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 01:51:14.377 - INFO - 数据分块|Data chunks: 12, 每块约|~87,586,073 条
+2026-01-28 03:32:06.339 - INFO - 查询完成|Query completed: 1,051,032,864 个k-mer
+2026-01-28 03:33:51.396 - INFO - 保存样本丰度|Saving sample abundances: OV8-117
+2026-01-28 03:33:51.398 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 03:33:51.398 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 03:33:51.399 - INFO - 当前数据集大小|Current dataset size: 53451879198, 新增|new: 1051032864
+2026-01-28 03:33:51.399 - INFO - 数据集已扩展|Dataset resized to: 54502912062
+2026-01-28 03:40:09.632 - INFO - 样本丰度已保存|Sample abundances saved: OV8-117
+2026-01-28 03:40:09.647 - INFO - 处理样本|Processing sample 39/99: OV8-94
+2026-01-28 03:40:09.648 - INFO - 查询样本丰度|Querying sample abundances: OV8-94
+2026-01-28 03:49:41.403 - INFO - 从dump文件读取|Read from dump: 938,227,827 k-mers
+2026-01-28 03:49:41.404 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 03:49:49.526 - INFO - 数据分块|Data chunks: 12, 每块约|~78,185,653 条
+2026-01-28 05:15:57.599 - INFO - 查询完成|Query completed: 938,227,827 个k-mer
+2026-01-28 05:17:18.342 - INFO - 保存样本丰度|Saving sample abundances: OV8-94
+2026-01-28 05:17:18.343 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 05:17:18.344 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 05:17:18.344 - INFO - 当前数据集大小|Current dataset size: 54502912062, 新增|new: 938227827
+2026-01-28 05:17:18.344 - INFO - 数据集已扩展|Dataset resized to: 55441139889
+2026-01-28 05:22:29.192 - INFO - 样本丰度已保存|Sample abundances saved: OV8-94
+2026-01-28 05:22:29.205 - INFO - 处理样本|Processing sample 40/99: OV8-142
+2026-01-28 05:22:29.205 - INFO - 查询样本丰度|Querying sample abundances: OV8-142
+2026-01-28 05:33:00.156 - INFO - 从dump文件读取|Read from dump: 1,020,897,530 k-mers
+2026-01-28 05:33:00.179 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 05:33:09.975 - INFO - 数据分块|Data chunks: 12, 每块约|~85,074,795 条
+2026-01-28 07:06:37.796 - INFO - 查询完成|Query completed: 1,020,897,530 个k-mer
+2026-01-28 07:08:19.004 - INFO - 保存样本丰度|Saving sample abundances: OV8-142
+2026-01-28 07:08:19.048 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 07:08:19.048 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 07:08:19.049 - INFO - 当前数据集大小|Current dataset size: 55441139889, 新增|new: 1020897530
+2026-01-28 07:08:19.049 - INFO - 数据集已扩展|Dataset resized to: 56462037419
+2026-01-28 07:14:15.305 - INFO - 样本丰度已保存|Sample abundances saved: OV8-142
+2026-01-28 07:14:15.321 - INFO - 处理样本|Processing sample 41/99: OV8-276
+2026-01-28 07:14:15.321 - INFO - 查询样本丰度|Querying sample abundances: OV8-276
+2026-01-28 07:24:10.994 - INFO - 从dump文件读取|Read from dump: 973,736,904 k-mers
+2026-01-28 07:24:10.994 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 07:24:17.936 - INFO - 数据分块|Data chunks: 12, 每块约|~81,144,743 条
+2026-01-28 08:54:53.780 - INFO - 查询完成|Query completed: 973,736,904 个k-mer
+2026-01-28 08:56:24.769 - INFO - 保存样本丰度|Saving sample abundances: OV8-276
+2026-01-28 08:56:24.771 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 08:56:24.771 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 08:56:24.771 - INFO - 当前数据集大小|Current dataset size: 56462037419, 新增|new: 973736904
+2026-01-28 08:56:24.771 - INFO - 数据集已扩展|Dataset resized to: 57435774323
+2026-01-28 09:01:54.692 - INFO - 样本丰度已保存|Sample abundances saved: OV8-276
+2026-01-28 09:01:54.706 - INFO - 处理样本|Processing sample 42/99: OV8-143
+2026-01-28 09:01:54.706 - INFO - 查询样本丰度|Querying sample abundances: OV8-143
+2026-01-28 09:13:05.993 - INFO - 从dump文件读取|Read from dump: 1,060,822,701 k-mers
+2026-01-28 09:13:05.993 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 09:13:14.536 - INFO - 数据分块|Data chunks: 12, 每块约|~88,401,892 条
+2026-01-28 10:52:35.293 - INFO - 查询完成|Query completed: 1,060,822,701 个k-mer
+2026-01-28 10:54:13.216 - INFO - 保存样本丰度|Saving sample abundances: OV8-143
+2026-01-28 10:54:13.219 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 10:54:13.219 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 10:54:13.219 - INFO - 当前数据集大小|Current dataset size: 57435774323, 新增|new: 1060822701
+2026-01-28 10:54:13.220 - INFO - 数据集已扩展|Dataset resized to: 58496597024
+2026-01-28 11:00:11.742 - INFO - 样本丰度已保存|Sample abundances saved: OV8-143
+2026-01-28 11:00:11.758 - INFO - 处理样本|Processing sample 43/99: OV8-87
+2026-01-28 11:00:11.758 - INFO - 查询样本丰度|Querying sample abundances: OV8-87
+2026-01-28 11:09:43.681 - INFO - 从dump文件读取|Read from dump: 922,107,950 k-mers
+2026-01-28 11:09:43.681 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 11:09:49.868 - INFO - 数据分块|Data chunks: 12, 每块约|~76,842,330 条
+2026-01-28 12:35:42.433 - INFO - 查询完成|Query completed: 922,107,950 个k-mer
+2026-01-28 12:36:56.568 - INFO - 保存样本丰度|Saving sample abundances: OV8-87
+2026-01-28 12:36:56.570 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 12:36:56.570 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 12:36:56.570 - INFO - 当前数据集大小|Current dataset size: 58496597024, 新增|new: 922107950
+2026-01-28 12:36:56.570 - INFO - 数据集已扩展|Dataset resized to: 59418704974
+2026-01-28 12:42:07.429 - INFO - 样本丰度已保存|Sample abundances saved: OV8-87
+2026-01-28 12:42:07.443 - INFO - 处理样本|Processing sample 44/99: OV8-27
+2026-01-28 12:42:07.443 - INFO - 查询样本丰度|Querying sample abundances: OV8-27
+2026-01-28 12:51:18.933 - INFO - 从dump文件读取|Read from dump: 916,985,072 k-mers
+2026-01-28 12:51:18.934 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 12:51:26.499 - INFO - 数据分块|Data chunks: 12, 每块约|~76,415,423 条
+2026-01-28 14:15:45.170 - INFO - 查询完成|Query completed: 916,985,072 个k-mer
+2026-01-28 14:16:58.898 - INFO - 保存样本丰度|Saving sample abundances: OV8-27
+2026-01-28 14:16:58.901 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 14:16:58.901 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 14:16:58.901 - INFO - 当前数据集大小|Current dataset size: 59418704974, 新增|new: 916985072
+2026-01-28 14:16:58.902 - INFO - 数据集已扩展|Dataset resized to: 60335690046
+2026-01-28 14:22:11.023 - INFO - 样本丰度已保存|Sample abundances saved: OV8-27
+2026-01-28 14:22:11.062 - INFO - 处理样本|Processing sample 45/99: OV8-19
+2026-01-28 14:22:11.062 - INFO - 查询样本丰度|Querying sample abundances: OV8-19
+2026-01-28 14:31:12.031 - INFO - 从dump文件读取|Read from dump: 897,359,005 k-mers
+2026-01-28 14:31:12.031 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 14:31:19.414 - INFO - 数据分块|Data chunks: 12, 每块约|~74,779,918 条
+2026-01-28 15:53:25.218 - INFO - 查询完成|Query completed: 897,359,005 个k-mer
+2026-01-28 15:54:39.655 - INFO - 保存样本丰度|Saving sample abundances: OV8-19
+2026-01-28 15:54:39.697 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 15:54:39.697 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 15:54:39.697 - INFO - 当前数据集大小|Current dataset size: 60335690046, 新增|new: 897359005
+2026-01-28 15:54:39.697 - INFO - 数据集已扩展|Dataset resized to: 61233049051
+2026-01-28 15:59:45.737 - INFO - 样本丰度已保存|Sample abundances saved: OV8-19
+2026-01-28 15:59:45.752 - INFO - 处理样本|Processing sample 46/99: OV8-206
+2026-01-28 15:59:45.752 - INFO - 查询样本丰度|Querying sample abundances: OV8-206
+2026-01-28 16:09:21.302 - INFO - 从dump文件读取|Read from dump: 919,180,266 k-mers
+2026-01-28 16:09:21.303 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 16:09:26.998 - INFO - 数据分块|Data chunks: 12, 每块约|~76,598,356 条
+2026-01-28 17:33:22.479 - INFO - 查询完成|Query completed: 919,180,266 个k-mer
+2026-01-28 17:34:35.943 - INFO - 保存样本丰度|Saving sample abundances: OV8-206
+2026-01-28 17:34:35.945 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 17:34:35.945 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 17:34:35.945 - INFO - 当前数据集大小|Current dataset size: 61233049051, 新增|new: 919180266
+2026-01-28 17:34:35.945 - INFO - 数据集已扩展|Dataset resized to: 62152229317
+2026-01-28 17:39:54.584 - INFO - 样本丰度已保存|Sample abundances saved: OV8-206
+2026-01-28 17:39:54.598 - INFO - 处理样本|Processing sample 47/99: OV8-118
+2026-01-28 17:39:54.598 - INFO - 查询样本丰度|Querying sample abundances: OV8-118
+2026-01-28 17:49:50.557 - INFO - 从dump文件读取|Read from dump: 958,119,167 k-mers
+2026-01-28 17:49:50.557 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 17:49:56.050 - INFO - 数据分块|Data chunks: 12, 每块约|~79,843,264 条
+2026-01-28 19:16:42.616 - INFO - 查询完成|Query completed: 958,119,167 个k-mer
+2026-01-28 19:18:16.641 - INFO - 保存样本丰度|Saving sample abundances: OV8-118
+2026-01-28 19:18:16.643 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 19:18:16.643 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 19:18:16.643 - INFO - 当前数据集大小|Current dataset size: 62152229317, 新增|new: 958119167
+2026-01-28 19:18:16.643 - INFO - 数据集已扩展|Dataset resized to: 63110348484
+2026-01-28 19:23:34.599 - INFO - 样本丰度已保存|Sample abundances saved: OV8-118
+2026-01-28 19:23:34.613 - INFO - 处理样本|Processing sample 48/99: OV8-277
+2026-01-28 19:23:34.613 - INFO - 查询样本丰度|Querying sample abundances: OV8-277
+2026-01-28 19:33:32.143 - INFO - 从dump文件读取|Read from dump: 967,690,674 k-mers
+2026-01-28 19:33:32.144 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 19:33:38.757 - INFO - 数据分块|Data chunks: 12, 每块约|~80,640,890 条
+2026-01-28 21:03:07.962 - INFO - 查询完成|Query completed: 967,690,674 个k-mer
+2026-01-28 21:04:40.907 - INFO - 保存样本丰度|Saving sample abundances: OV8-277
+2026-01-28 21:04:40.909 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 21:04:40.909 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 21:04:40.909 - INFO - 当前数据集大小|Current dataset size: 63110348484, 新增|new: 967690674
+2026-01-28 21:04:40.967 - INFO - 数据集已扩展|Dataset resized to: 64078039158
+2026-01-28 21:10:24.875 - INFO - 样本丰度已保存|Sample abundances saved: OV8-277
+2026-01-28 21:10:24.890 - INFO - 处理样本|Processing sample 49/99: OV8-268
+2026-01-28 21:10:24.891 - INFO - 查询样本丰度|Querying sample abundances: OV8-268
+2026-01-28 21:20:05.968 - INFO - 从dump文件读取|Read from dump: 951,472,515 k-mers
+2026-01-28 21:20:05.968 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 21:20:13.401 - INFO - 数据分块|Data chunks: 12, 每块约|~79,289,377 条
+2026-01-28 22:46:17.904 - INFO - 查询完成|Query completed: 951,472,515 个k-mer
+2026-01-28 22:47:52.359 - INFO - 保存样本丰度|Saving sample abundances: OV8-268
+2026-01-28 22:47:52.723 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-28 22:47:52.724 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-28 22:47:52.724 - INFO - 当前数据集大小|Current dataset size: 64078039158, 新增|new: 951472515
+2026-01-28 22:47:52.724 - INFO - 数据集已扩展|Dataset resized to: 65029511673
+2026-01-28 22:53:10.128 - INFO - 样本丰度已保存|Sample abundances saved: OV8-268
+2026-01-28 22:53:10.142 - INFO - 处理样本|Processing sample 50/99: OV8-4
+2026-01-28 22:53:10.142 - INFO - 查询样本丰度|Querying sample abundances: OV8-4
+2026-01-28 23:02:51.917 - INFO - 从dump文件读取|Read from dump: 951,854,552 k-mers
+2026-01-28 23:02:51.932 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-28 23:03:00.284 - INFO - 数据分块|Data chunks: 12, 每块约|~79,321,213 条
+2026-01-29 00:31:18.794 - INFO - 查询完成|Query completed: 951,854,552 个k-mer
+2026-01-29 00:32:35.597 - INFO - 保存样本丰度|Saving sample abundances: OV8-4
+2026-01-29 00:32:35.599 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 00:32:35.599 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 00:32:35.599 - INFO - 当前数据集大小|Current dataset size: 65029511673, 新增|new: 951854552
+2026-01-29 00:32:35.599 - INFO - 数据集已扩展|Dataset resized to: 65981366225
+2026-01-29 00:37:50.514 - INFO - 样本丰度已保存|Sample abundances saved: OV8-4
+2026-01-29 00:37:50.528 - INFO - 处理样本|Processing sample 51/99: OV8-107
+2026-01-29 00:37:50.528 - INFO - 查询样本丰度|Querying sample abundances: OV8-107
+2026-01-29 00:47:52.044 - INFO - 从dump文件读取|Read from dump: 976,275,442 k-mers
+2026-01-29 00:47:52.044 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 00:47:58.400 - INFO - 数据分块|Data chunks: 12, 每块约|~81,356,287 条
+2026-01-29 02:16:52.091 - INFO - 查询完成|Query completed: 976,275,442 个k-mer
+2026-01-29 02:18:27.649 - INFO - 保存样本丰度|Saving sample abundances: OV8-107
+2026-01-29 02:18:27.816 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 02:18:27.816 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 02:18:27.816 - INFO - 当前数据集大小|Current dataset size: 65981366225, 新增|new: 976275442
+2026-01-29 02:18:27.817 - INFO - 数据集已扩展|Dataset resized to: 66957641667
+2026-01-29 02:23:52.491 - INFO - 样本丰度已保存|Sample abundances saved: OV8-107
+2026-01-29 02:23:52.507 - INFO - 处理样本|Processing sample 52/99: OV8-275
+2026-01-29 02:23:52.507 - INFO - 查询样本丰度|Querying sample abundances: OV8-275
+2026-01-29 02:33:50.804 - INFO - 从dump文件读取|Read from dump: 973,046,060 k-mers
+2026-01-29 02:33:50.805 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 02:33:57.823 - INFO - 数据分块|Data chunks: 12, 每块约|~81,087,172 条
+2026-01-29 04:06:54.797 - INFO - 查询完成|Query completed: 973,046,060 个k-mer
+2026-01-29 04:08:13.215 - INFO - 保存样本丰度|Saving sample abundances: OV8-275
+2026-01-29 04:08:13.217 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 04:08:13.217 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 04:08:13.441 - INFO - 当前数据集大小|Current dataset size: 66957641667, 新增|new: 973046060
+2026-01-29 04:08:13.441 - INFO - 数据集已扩展|Dataset resized to: 67930687727
+2026-01-29 04:13:41.103 - INFO - 样本丰度已保存|Sample abundances saved: OV8-275
+2026-01-29 04:13:41.117 - INFO - 处理样本|Processing sample 53/99: OV8-269
+2026-01-29 04:13:41.118 - INFO - 查询样本丰度|Querying sample abundances: OV8-269
+2026-01-29 04:23:39.782 - INFO - 从dump文件读取|Read from dump: 979,164,847 k-mers
+2026-01-29 04:23:39.782 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 04:23:46.706 - INFO - 数据分块|Data chunks: 12, 每块约|~81,597,071 条
+2026-01-29 05:53:45.265 - INFO - 查询完成|Query completed: 979,164,847 个k-mer
+2026-01-29 05:55:26.650 - INFO - 保存样本丰度|Saving sample abundances: OV8-269
+2026-01-29 05:55:26.653 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 05:55:26.653 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 05:55:26.653 - INFO - 当前数据集大小|Current dataset size: 67930687727, 新增|new: 979164847
+2026-01-29 05:55:26.654 - INFO - 数据集已扩展|Dataset resized to: 68909852574
+2026-01-29 06:01:14.213 - INFO - 样本丰度已保存|Sample abundances saved: OV8-269
+2026-01-29 06:01:14.228 - INFO - 处理样本|Processing sample 54/99: OV8-273
+2026-01-29 06:01:14.228 - INFO - 查询样本丰度|Querying sample abundances: OV8-273
+2026-01-29 06:11:46.465 - INFO - 从dump文件读取|Read from dump: 1,012,825,156 k-mers
+2026-01-29 06:11:46.465 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 06:11:53.575 - INFO - 数据分块|Data chunks: 12, 每块约|~84,402,097 条
+2026-01-29 07:45:26.212 - INFO - 查询完成|Query completed: 1,012,825,156 个k-mer
+2026-01-29 07:46:59.794 - INFO - 保存样本丰度|Saving sample abundances: OV8-273
+2026-01-29 07:46:59.795 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 07:46:59.795 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 07:46:59.796 - INFO - 当前数据集大小|Current dataset size: 68909852574, 新增|new: 1012825156
+2026-01-29 07:46:59.796 - INFO - 数据集已扩展|Dataset resized to: 69922677730
+2026-01-29 07:52:50.996 - INFO - 样本丰度已保存|Sample abundances saved: OV8-273
+2026-01-29 07:52:51.013 - INFO - 处理样本|Processing sample 55/99: OV8-5
+2026-01-29 07:52:51.013 - INFO - 查询样本丰度|Querying sample abundances: OV8-5
+2026-01-29 08:02:54.976 - INFO - 从dump文件读取|Read from dump: 979,014,254 k-mers
+2026-01-29 08:02:54.976 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 08:03:02.947 - INFO - 数据分块|Data chunks: 12, 每块约|~81,584,522 条
+2026-01-29 09:32:57.922 - INFO - 查询完成|Query completed: 979,014,254 个k-mer
+2026-01-29 09:34:40.449 - INFO - 保存样本丰度|Saving sample abundances: OV8-5
+2026-01-29 09:34:40.452 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 09:34:40.452 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 09:34:40.452 - INFO - 当前数据集大小|Current dataset size: 69922677730, 新增|new: 979014254
+2026-01-29 09:34:40.452 - INFO - 数据集已扩展|Dataset resized to: 70901691984
+2026-01-29 09:40:25.250 - INFO - 样本丰度已保存|Sample abundances saved: OV8-5
+2026-01-29 09:40:25.266 - INFO - 处理样本|Processing sample 56/99: OV8-116
+2026-01-29 09:40:25.266 - INFO - 查询样本丰度|Querying sample abundances: OV8-116
+2026-01-29 09:50:58.871 - INFO - 从dump文件读取|Read from dump: 1,020,287,334 k-mers
+2026-01-29 09:50:58.898 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 09:51:05.657 - INFO - 数据分块|Data chunks: 12, 每块约|~85,023,945 条
+2026-01-29 11:23:38.972 - INFO - 查询完成|Query completed: 1,020,287,334 个k-mer
+2026-01-29 11:25:14.691 - INFO - 保存样本丰度|Saving sample abundances: OV8-116
+2026-01-29 11:25:14.751 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 11:25:14.751 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 11:25:14.751 - INFO - 当前数据集大小|Current dataset size: 70901691984, 新增|new: 1020287334
+2026-01-29 11:25:14.751 - INFO - 数据集已扩展|Dataset resized to: 71921979318
+2026-01-29 11:31:04.692 - INFO - 样本丰度已保存|Sample abundances saved: OV8-116
+2026-01-29 11:31:04.707 - INFO - 处理样本|Processing sample 57/99: OV8-70
+2026-01-29 11:31:04.707 - INFO - 查询样本丰度|Querying sample abundances: OV8-70
+2026-01-29 11:42:29.585 - INFO - 从dump文件读取|Read from dump: 1,096,110,829 k-mers
+2026-01-29 11:42:29.585 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 11:42:40.156 - INFO - 数据分块|Data chunks: 12, 每块约|~91,342,570 条
+2026-01-29 13:24:59.348 - INFO - 查询完成|Query completed: 1,096,110,829 个k-mer
+2026-01-29 13:26:48.158 - INFO - 保存样本丰度|Saving sample abundances: OV8-70
+2026-01-29 13:26:48.160 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 13:26:48.160 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 13:26:48.161 - INFO - 当前数据集大小|Current dataset size: 71921979318, 新增|new: 1096110829
+2026-01-29 13:26:48.161 - INFO - 数据集已扩展|Dataset resized to: 73018090147
+2026-01-29 13:32:58.513 - INFO - 样本丰度已保存|Sample abundances saved: OV8-70
+2026-01-29 13:32:58.530 - INFO - 处理样本|Processing sample 58/99: OV8-32
+2026-01-29 13:32:58.530 - INFO - 查询样本丰度|Querying sample abundances: OV8-32
+2026-01-29 13:43:50.583 - INFO - 从dump文件读取|Read from dump: 1,048,815,582 k-mers
+2026-01-29 13:43:50.603 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 13:43:59.539 - INFO - 数据分块|Data chunks: 12, 每块约|~87,401,299 条
+2026-01-29 15:19:48.709 - INFO - 查询完成|Query completed: 1,048,815,582 个k-mer
+2026-01-29 15:21:30.399 - INFO - 保存样本丰度|Saving sample abundances: OV8-32
+2026-01-29 15:21:30.402 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 15:21:30.402 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 15:21:30.402 - INFO - 当前数据集大小|Current dataset size: 73018090147, 新增|new: 1048815582
+2026-01-29 15:21:30.402 - INFO - 数据集已扩展|Dataset resized to: 74066905729
+2026-01-29 15:27:27.285 - INFO - 样本丰度已保存|Sample abundances saved: OV8-32
+2026-01-29 15:27:27.301 - INFO - 处理样本|Processing sample 59/99: OV8-28
+2026-01-29 15:27:27.301 - INFO - 查询样本丰度|Querying sample abundances: OV8-28
+2026-01-29 15:36:46.725 - INFO - 从dump文件读取|Read from dump: 919,617,757 k-mers
+2026-01-29 15:36:46.726 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 15:36:53.847 - INFO - 数据分块|Data chunks: 12, 每块约|~76,634,814 条
+2026-01-29 17:02:05.849 - INFO - 查询完成|Query completed: 919,617,757 个k-mer
+2026-01-29 17:03:48.350 - INFO - 保存样本丰度|Saving sample abundances: OV8-28
+2026-01-29 17:03:48.367 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 17:03:48.367 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 17:03:48.367 - INFO - 当前数据集大小|Current dataset size: 74066905729, 新增|new: 919617757
+2026-01-29 17:03:48.367 - INFO - 数据集已扩展|Dataset resized to: 74986523486
+2026-01-29 17:09:11.909 - INFO - 样本丰度已保存|Sample abundances saved: OV8-28
+2026-01-29 17:09:11.923 - INFO - 处理样本|Processing sample 60/99: OV8-98
+2026-01-29 17:09:11.923 - INFO - 查询样本丰度|Querying sample abundances: OV8-98
+2026-01-29 17:17:50.247 - INFO - 从dump文件读取|Read from dump: 860,199,467 k-mers
+2026-01-29 17:17:50.247 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 17:17:57.879 - INFO - 数据分块|Data chunks: 12, 每块约|~71,683,289 条
+2026-01-29 18:38:36.112 - INFO - 查询完成|Query completed: 860,199,467 个k-mer
+2026-01-29 18:39:59.661 - INFO - 保存样本丰度|Saving sample abundances: OV8-98
+2026-01-29 18:39:59.663 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 18:39:59.663 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 18:39:59.663 - INFO - 当前数据集大小|Current dataset size: 74986523486, 新增|new: 860199467
+2026-01-29 18:39:59.663 - INFO - 数据集已扩展|Dataset resized to: 75846722953
+2026-01-29 18:44:24.580 - INFO - 样本丰度已保存|Sample abundances saved: OV8-98
+2026-01-29 18:44:24.592 - INFO - 处理样本|Processing sample 61/99: OV8-35
+2026-01-29 18:44:24.592 - INFO - 查询样本丰度|Querying sample abundances: OV8-35
+2026-01-29 18:53:58.853 - INFO - 从dump文件读取|Read from dump: 940,019,265 k-mers
+2026-01-29 18:53:58.854 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 18:54:06.510 - INFO - 数据分块|Data chunks: 12, 每块约|~78,334,939 条
+2026-01-29 20:19:21.702 - INFO - 查询完成|Query completed: 940,019,265 个k-mer
+2026-01-29 20:20:50.667 - INFO - 保存样本丰度|Saving sample abundances: OV8-35
+2026-01-29 20:20:50.668 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 20:20:50.668 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 20:20:50.669 - INFO - 当前数据集大小|Current dataset size: 75846722953, 新增|new: 940019265
+2026-01-29 20:20:50.669 - INFO - 数据集已扩展|Dataset resized to: 76786742218
+2026-01-29 20:25:55.343 - INFO - 样本丰度已保存|Sample abundances saved: OV8-35
+2026-01-29 20:25:55.356 - INFO - 处理样本|Processing sample 62/99: OV8-81
+2026-01-29 20:25:55.356 - INFO - 查询样本丰度|Querying sample abundances: OV8-81
+2026-01-29 20:34:57.002 - INFO - 从dump文件读取|Read from dump: 889,306,285 k-mers
+2026-01-29 20:34:57.011 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 20:35:02.542 - INFO - 数据分块|Data chunks: 12, 每块约|~74,108,858 条
+2026-01-29 21:56:26.498 - INFO - 查询完成|Query completed: 889,306,285 个k-mer
+2026-01-29 21:57:44.074 - INFO - 保存样本丰度|Saving sample abundances: OV8-81
+2026-01-29 21:57:44.106 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 21:57:44.106 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 21:57:44.106 - INFO - 当前数据集大小|Current dataset size: 76786742218, 新增|new: 889306285
+2026-01-29 21:57:44.106 - INFO - 数据集已扩展|Dataset resized to: 77676048503
+2026-01-29 22:02:44.565 - INFO - 样本丰度已保存|Sample abundances saved: OV8-81
+2026-01-29 22:02:44.578 - INFO - 处理样本|Processing sample 63/99: OV8-75
+2026-01-29 22:02:44.578 - INFO - 查询样本丰度|Querying sample abundances: OV8-75
+2026-01-29 22:12:25.460 - INFO - 从dump文件读取|Read from dump: 948,350,382 k-mers
+2026-01-29 22:12:25.461 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 22:12:33.666 - INFO - 数据分块|Data chunks: 12, 每块约|~79,029,199 条
+2026-01-29 23:39:16.348 - INFO - 查询完成|Query completed: 948,350,382 个k-mer
+2026-01-29 23:40:53.840 - INFO - 保存样本丰度|Saving sample abundances: OV8-75
+2026-01-29 23:40:53.842 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-29 23:40:53.842 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-29 23:40:53.843 - INFO - 当前数据集大小|Current dataset size: 77676048503, 新增|new: 948350382
+2026-01-29 23:40:53.843 - INFO - 数据集已扩展|Dataset resized to: 78624398885
+2026-01-29 23:46:19.890 - INFO - 样本丰度已保存|Sample abundances saved: OV8-75
+2026-01-29 23:46:19.904 - INFO - 处理样本|Processing sample 64/99: OV8-216
+2026-01-29 23:46:19.904 - INFO - 查询样本丰度|Querying sample abundances: OV8-216
+2026-01-29 23:56:44.378 - INFO - 从dump文件读取|Read from dump: 1,000,162,036 k-mers
+2026-01-29 23:56:44.378 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-29 23:56:51.136 - INFO - 数据分块|Data chunks: 12, 每块约|~83,346,837 条
+2026-01-30 01:27:55.459 - INFO - 查询完成|Query completed: 1,000,162,036 个k-mer
+2026-01-30 01:29:27.475 - INFO - 保存样本丰度|Saving sample abundances: OV8-216
+2026-01-30 01:29:27.477 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 01:29:27.477 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 01:29:27.477 - INFO - 当前数据集大小|Current dataset size: 78624398885, 新增|new: 1000162036
+2026-01-30 01:29:27.477 - INFO - 数据集已扩展|Dataset resized to: 79624560921
+2026-01-30 01:35:10.851 - INFO - 样本丰度已保存|Sample abundances saved: OV8-216
+2026-01-30 01:35:10.866 - INFO - 处理样本|Processing sample 65/99: OV8-78
+2026-01-30 01:35:10.866 - INFO - 查询样本丰度|Querying sample abundances: OV8-78
+2026-01-30 01:46:13.550 - INFO - 从dump文件读取|Read from dump: 1,044,218,905 k-mers
+2026-01-30 01:46:13.550 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 01:46:20.537 - INFO - 数据分块|Data chunks: 12, 每块约|~87,018,243 条
+2026-01-30 03:24:01.465 - INFO - 查询完成|Query completed: 1,044,218,905 个k-mer
+2026-01-30 03:25:49.931 - INFO - 保存样本丰度|Saving sample abundances: OV8-78
+2026-01-30 03:25:49.934 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 03:25:49.934 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 03:25:49.934 - INFO - 当前数据集大小|Current dataset size: 79624560921, 新增|new: 1044218905
+2026-01-30 03:25:49.934 - INFO - 数据集已扩展|Dataset resized to: 80668779826
+2026-01-30 03:32:06.410 - INFO - 样本丰度已保存|Sample abundances saved: OV8-78
+2026-01-30 03:32:06.425 - INFO - 处理样本|Processing sample 66/99: OV8-217
+2026-01-30 03:32:06.426 - INFO - 查询样本丰度|Querying sample abundances: OV8-217
+2026-01-30 03:42:47.396 - INFO - 从dump文件读取|Read from dump: 1,026,362,316 k-mers
+2026-01-30 03:42:47.419 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 03:42:54.851 - INFO - 数据分块|Data chunks: 12, 每块约|~85,530,194 条
+2026-01-30 05:17:05.912 - INFO - 查询完成|Query completed: 1,026,362,316 个k-mer
+2026-01-30 05:18:53.022 - INFO - 保存样本丰度|Saving sample abundances: OV8-217
+2026-01-30 05:18:53.058 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 05:18:53.058 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 05:18:53.059 - INFO - 当前数据集大小|Current dataset size: 80668779826, 新增|new: 1026362316
+2026-01-30 05:18:53.059 - INFO - 数据集已扩展|Dataset resized to: 81695142142
+2026-01-30 05:24:29.157 - INFO - 样本丰度已保存|Sample abundances saved: OV8-217
+2026-01-30 05:24:29.172 - INFO - 处理样本|Processing sample 67/99: OV8-274
+2026-01-30 05:24:29.172 - INFO - 查询样本丰度|Querying sample abundances: OV8-274
+2026-01-30 05:34:01.231 - INFO - 从dump文件读取|Read from dump: 932,898,556 k-mers
+2026-01-30 05:34:01.232 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 05:34:07.590 - INFO - 数据分块|Data chunks: 12, 每块约|~77,741,547 条
+2026-01-30 07:00:46.504 - INFO - 查询完成|Query completed: 932,898,556 个k-mer
+2026-01-30 07:02:04.017 - INFO - 保存样本丰度|Saving sample abundances: OV8-274
+2026-01-30 07:02:04.019 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 07:02:04.019 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 07:02:04.019 - INFO - 当前数据集大小|Current dataset size: 81695142142, 新增|new: 932898556
+2026-01-30 07:02:04.020 - INFO - 数据集已扩展|Dataset resized to: 82628040698
+2026-01-30 07:07:14.787 - INFO - 样本丰度已保存|Sample abundances saved: OV8-274
+2026-01-30 07:07:14.801 - INFO - 处理样本|Processing sample 68/99: OV8-265
+2026-01-30 07:07:14.801 - INFO - 查询样本丰度|Querying sample abundances: OV8-265
+2026-01-30 07:16:54.236 - INFO - 从dump文件读取|Read from dump: 950,526,990 k-mers
+2026-01-30 07:16:54.254 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 07:17:01.482 - INFO - 数据分块|Data chunks: 12, 每块约|~79,210,583 条
+2026-01-30 08:44:05.484 - INFO - 查询完成|Query completed: 950,526,990 个k-mer
+2026-01-30 08:45:22.421 - INFO - 保存样本丰度|Saving sample abundances: OV8-265
+2026-01-30 08:45:22.455 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 08:45:22.455 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 08:45:22.455 - INFO - 当前数据集大小|Current dataset size: 82628040698, 新增|new: 950526990
+2026-01-30 08:45:22.456 - INFO - 数据集已扩展|Dataset resized to: 83578567688
+2026-01-30 08:50:56.236 - INFO - 样本丰度已保存|Sample abundances saved: OV8-265
+2026-01-30 08:50:56.250 - INFO - 处理样本|Processing sample 69/99: OV8-76
+2026-01-30 08:50:56.250 - INFO - 查询样本丰度|Querying sample abundances: OV8-76
+2026-01-30 09:01:00.782 - INFO - 从dump文件读取|Read from dump: 991,594,401 k-mers
+2026-01-30 09:01:00.791 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 09:01:08.253 - INFO - 数据分块|Data chunks: 12, 每块约|~82,632,867 条
+2026-01-30 10:31:24.281 - INFO - 查询完成|Query completed: 991,594,401 个k-mer
+2026-01-30 10:33:01.090 - INFO - 保存样本丰度|Saving sample abundances: OV8-76
+2026-01-30 10:33:01.166 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 10:33:01.166 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 10:33:01.167 - INFO - 当前数据集大小|Current dataset size: 83578567688, 新增|new: 991594401
+2026-01-30 10:33:01.167 - INFO - 数据集已扩展|Dataset resized to: 84570162089
+2026-01-30 10:38:18.940 - INFO - 样本丰度已保存|Sample abundances saved: OV8-76
+2026-01-30 10:38:18.956 - INFO - 处理样本|Processing sample 70/99: OV8-9
+2026-01-30 10:38:18.956 - INFO - 查询样本丰度|Querying sample abundances: OV8-9
+2026-01-30 10:49:18.107 - INFO - 从dump文件读取|Read from dump: 1,048,515,759 k-mers
+2026-01-30 10:49:18.108 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 10:49:25.628 - INFO - 数据分块|Data chunks: 12, 每块约|~87,376,314 条
+2026-01-30 12:26:07.130 - INFO - 查询完成|Query completed: 1,048,515,759 个k-mer
+2026-01-30 12:27:47.199 - INFO - 保存样本丰度|Saving sample abundances: OV8-9
+2026-01-30 12:27:47.202 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 12:27:47.202 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 12:27:47.202 - INFO - 当前数据集大小|Current dataset size: 84570162089, 新增|new: 1048515759
+2026-01-30 12:27:47.203 - INFO - 数据集已扩展|Dataset resized to: 85618677848
+2026-01-30 12:33:57.746 - INFO - 样本丰度已保存|Sample abundances saved: OV8-9
+2026-01-30 12:33:57.761 - INFO - 处理样本|Processing sample 71/99: OV8-99
+2026-01-30 12:33:57.762 - INFO - 查询样本丰度|Querying sample abundances: OV8-99
+2026-01-30 12:43:12.956 - INFO - 从dump文件读取|Read from dump: 911,522,754 k-mers
+2026-01-30 12:43:12.956 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 12:43:20.701 - INFO - 数据分块|Data chunks: 12, 每块约|~75,960,230 条
+2026-01-30 14:07:45.477 - INFO - 查询完成|Query completed: 911,522,754 个k-mer
+2026-01-30 14:09:05.540 - INFO - 保存样本丰度|Saving sample abundances: OV8-99
+2026-01-30 14:09:05.542 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 14:09:05.542 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 14:09:05.542 - INFO - 当前数据集大小|Current dataset size: 85618677848, 新增|new: 911522754
+2026-01-30 14:09:05.542 - INFO - 数据集已扩展|Dataset resized to: 86530200602
+2026-01-30 14:14:17.405 - INFO - 样本丰度已保存|Sample abundances saved: OV8-99
+2026-01-30 14:14:17.450 - INFO - 处理样本|Processing sample 72/99: OV8-144
+2026-01-30 14:14:17.450 - INFO - 查询样本丰度|Querying sample abundances: OV8-144
+2026-01-30 14:24:23.821 - INFO - 从dump文件读取|Read from dump: 976,286,351 k-mers
+2026-01-30 14:24:23.821 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 14:24:30.007 - INFO - 数据分块|Data chunks: 12, 每块约|~81,357,196 条
+2026-01-30 15:53:52.200 - INFO - 查询完成|Query completed: 976,286,351 个k-mer
+2026-01-30 15:55:33.125 - INFO - 保存样本丰度|Saving sample abundances: OV8-144
+2026-01-30 15:55:33.127 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 15:55:33.128 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 15:55:33.128 - INFO - 当前数据集大小|Current dataset size: 86530200602, 新增|new: 976286351
+2026-01-30 15:55:33.128 - INFO - 数据集已扩展|Dataset resized to: 87506486953
+2026-01-30 16:01:18.088 - INFO - 样本丰度已保存|Sample abundances saved: OV8-144
+2026-01-30 16:01:18.103 - INFO - 处理样本|Processing sample 73/99: OV8-44
+2026-01-30 16:01:18.103 - INFO - 查询样本丰度|Querying sample abundances: OV8-44
+2026-01-30 16:11:25.623 - INFO - 从dump文件读取|Read from dump: 982,813,991 k-mers
+2026-01-30 16:11:25.624 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 16:11:34.595 - INFO - 数据分块|Data chunks: 12, 每块约|~81,901,166 条
+2026-01-30 17:42:48.252 - INFO - 查询完成|Query completed: 982,813,991 个k-mer
+2026-01-30 17:44:34.855 - INFO - 保存样本丰度|Saving sample abundances: OV8-44
+2026-01-30 17:44:34.878 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 17:44:34.878 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 17:44:34.878 - INFO - 当前数据集大小|Current dataset size: 87506486953, 新增|new: 982813991
+2026-01-30 17:44:34.879 - INFO - 数据集已扩展|Dataset resized to: 88489300944
+2026-01-30 17:50:20.603 - INFO - 样本丰度已保存|Sample abundances saved: OV8-44
+2026-01-30 17:50:20.618 - INFO - 处理样本|Processing sample 74/99: OV8-7
+2026-01-30 17:50:20.618 - INFO - 查询样本丰度|Querying sample abundances: OV8-7
+2026-01-30 18:00:30.353 - INFO - 从dump文件读取|Read from dump: 979,669,834 k-mers
+2026-01-30 18:00:30.365 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 18:00:37.823 - INFO - 数据分块|Data chunks: 12, 每块约|~81,639,153 条
+2026-01-30 19:29:28.788 - INFO - 查询完成|Query completed: 979,669,834 个k-mer
+2026-01-30 19:31:05.791 - INFO - 保存样本丰度|Saving sample abundances: OV8-7
+2026-01-30 19:31:05.793 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 19:31:05.793 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 19:31:05.793 - INFO - 当前数据集大小|Current dataset size: 88489300944, 新增|new: 979669834
+2026-01-30 19:31:05.793 - INFO - 数据集已扩展|Dataset resized to: 89468970778
+2026-01-30 19:36:36.903 - INFO - 样本丰度已保存|Sample abundances saved: OV8-7
+2026-01-30 19:36:36.917 - INFO - 处理样本|Processing sample 75/99: OV8-111
+2026-01-30 19:36:36.917 - INFO - 查询样本丰度|Querying sample abundances: OV8-111
+2026-01-30 19:48:30.591 - INFO - 从dump文件读取|Read from dump: 1,122,662,616 k-mers
+2026-01-30 19:48:30.591 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 19:48:39.952 - INFO - 数据分块|Data chunks: 12, 每块约|~93,555,219 条
+2026-01-30 21:35:35.640 - INFO - 查询完成|Query completed: 1,122,662,616 个k-mer
+2026-01-30 21:37:06.187 - INFO - 保存样本丰度|Saving sample abundances: OV8-111
+2026-01-30 21:37:06.189 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 21:37:06.190 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 21:37:06.190 - INFO - 当前数据集大小|Current dataset size: 89468970778, 新增|new: 1122662616
+2026-01-30 21:37:06.213 - INFO - 数据集已扩展|Dataset resized to: 90591633394
+2026-01-30 21:43:24.653 - INFO - 样本丰度已保存|Sample abundances saved: OV8-111
+2026-01-30 21:43:24.669 - INFO - 处理样本|Processing sample 76/99: OV8-171
+2026-01-30 21:43:24.669 - INFO - 查询样本丰度|Querying sample abundances: OV8-171
+2026-01-30 21:52:56.066 - INFO - 从dump文件读取|Read from dump: 930,452,338 k-mers
+2026-01-30 21:52:56.067 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 21:53:02.663 - INFO - 数据分块|Data chunks: 12, 每块约|~77,537,695 条
+2026-01-30 23:18:36.635 - INFO - 查询完成|Query completed: 930,452,338 个k-mer
+2026-01-30 23:20:23.364 - INFO - 保存样本丰度|Saving sample abundances: OV8-171
+2026-01-30 23:20:23.368 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-30 23:20:23.368 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-30 23:20:23.368 - INFO - 当前数据集大小|Current dataset size: 90591633394, 新增|new: 930452338
+2026-01-30 23:20:23.368 - INFO - 数据集已扩展|Dataset resized to: 91522085732
+2026-01-30 23:26:00.229 - INFO - 样本丰度已保存|Sample abundances saved: OV8-171
+2026-01-30 23:26:00.243 - INFO - 处理样本|Processing sample 77/99: OV8-77
+2026-01-30 23:26:00.243 - INFO - 查询样本丰度|Querying sample abundances: OV8-77
+2026-01-30 23:37:14.769 - INFO - 从dump文件读取|Read from dump: 1,064,386,399 k-mers
+2026-01-30 23:37:14.769 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-30 23:37:22.677 - INFO - 数据分块|Data chunks: 12, 每块约|~88,698,867 条
+2026-01-31 01:15:33.824 - INFO - 查询完成|Query completed: 1,064,386,399 个k-mer
+2026-01-31 01:17:20.341 - INFO - 保存样本丰度|Saving sample abundances: OV8-77
+2026-01-31 01:17:20.344 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 01:17:20.344 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 01:17:20.344 - INFO - 当前数据集大小|Current dataset size: 91522085732, 新增|new: 1064386399
+2026-01-31 01:17:20.345 - INFO - 数据集已扩展|Dataset resized to: 92586472131
+2026-01-31 01:23:46.239 - INFO - 样本丰度已保存|Sample abundances saved: OV8-77
+2026-01-31 01:23:46.256 - INFO - 处理样本|Processing sample 78/99: OV8-108
+2026-01-31 01:23:46.256 - INFO - 查询样本丰度|Querying sample abundances: OV8-108
+2026-01-31 01:33:04.754 - INFO - 从dump文件读取|Read from dump: 922,544,156 k-mers
+2026-01-31 01:33:04.754 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 01:33:12.083 - INFO - 数据分块|Data chunks: 12, 每块约|~76,878,680 条
+2026-01-31 02:57:58.140 - INFO - 查询完成|Query completed: 922,544,156 个k-mer
+2026-01-31 02:59:17.444 - INFO - 保存样本丰度|Saving sample abundances: OV8-108
+2026-01-31 02:59:17.445 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 02:59:17.445 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 02:59:17.445 - INFO - 当前数据集大小|Current dataset size: 92586472131, 新增|new: 922544156
+2026-01-31 02:59:17.446 - INFO - 数据集已扩展|Dataset resized to: 93509016287
+2026-01-31 03:04:18.937 - INFO - 样本丰度已保存|Sample abundances saved: OV8-108
+2026-01-31 03:04:18.950 - INFO - 处理样本|Processing sample 79/99: OV8-172
+2026-01-31 03:04:18.950 - INFO - 查询样本丰度|Querying sample abundances: OV8-172
+2026-01-31 03:15:04.926 - INFO - 从dump文件读取|Read from dump: 1,030,182,765 k-mers
+2026-01-31 03:15:04.943 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 03:15:11.755 - INFO - 数据分块|Data chunks: 12, 每块约|~85,848,564 条
+2026-01-31 04:48:42.842 - INFO - 查询完成|Query completed: 1,030,182,765 个k-mer
+2026-01-31 04:50:28.726 - INFO - 保存样本丰度|Saving sample abundances: OV8-172
+2026-01-31 04:50:28.768 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 04:50:28.796 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 04:50:28.797 - INFO - 当前数据集大小|Current dataset size: 93509016287, 新增|new: 1030182765
+2026-01-31 04:50:28.797 - INFO - 数据集已扩展|Dataset resized to: 94539199052
+2026-01-31 04:56:17.190 - INFO - 样本丰度已保存|Sample abundances saved: OV8-172
+2026-01-31 04:56:17.204 - INFO - 处理样本|Processing sample 80/99: OV8-136
+2026-01-31 04:56:17.205 - INFO - 查询样本丰度|Querying sample abundances: OV8-136
+2026-01-31 05:06:41.818 - INFO - 从dump文件读取|Read from dump: 994,048,690 k-mers
+2026-01-31 05:06:41.819 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 05:06:48.570 - INFO - 数据分块|Data chunks: 12, 每块约|~82,837,391 条
+2026-01-31 06:38:17.156 - INFO - 查询完成|Query completed: 994,048,690 个k-mer
+2026-01-31 06:40:03.602 - INFO - 保存样本丰度|Saving sample abundances: OV8-136
+2026-01-31 06:40:03.683 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 06:40:03.683 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 06:40:03.683 - INFO - 当前数据集大小|Current dataset size: 94539199052, 新增|new: 994048690
+2026-01-31 06:40:03.684 - INFO - 数据集已扩展|Dataset resized to: 95533247742
+2026-01-31 06:46:00.395 - INFO - 样本丰度已保存|Sample abundances saved: OV8-136
+2026-01-31 06:46:00.410 - INFO - 处理样本|Processing sample 81/99: OV8-15
+2026-01-31 06:46:00.410 - INFO - 查询样本丰度|Querying sample abundances: OV8-15
+2026-01-31 06:55:24.910 - INFO - 从dump文件读取|Read from dump: 920,750,792 k-mers
+2026-01-31 06:55:24.910 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 06:55:31.483 - INFO - 数据分块|Data chunks: 12, 每块约|~76,729,233 条
+2026-01-31 08:19:22.855 - INFO - 查询完成|Query completed: 920,750,792 个k-mer
+2026-01-31 08:20:45.618 - INFO - 保存样本丰度|Saving sample abundances: OV8-15
+2026-01-31 08:20:45.620 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 08:20:45.620 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 08:20:45.620 - INFO - 当前数据集大小|Current dataset size: 95533247742, 新增|new: 920750792
+2026-01-31 08:20:45.620 - INFO - 数据集已扩展|Dataset resized to: 96453998534
+2026-01-31 08:25:58.402 - INFO - 样本丰度已保存|Sample abundances saved: OV8-15
+2026-01-31 08:25:58.416 - INFO - 处理样本|Processing sample 82/99: OV8-1
+2026-01-31 08:25:58.416 - INFO - 查询样本丰度|Querying sample abundances: OV8-1
+2026-01-31 08:35:42.592 - INFO - 从dump文件读取|Read from dump: 953,546,453 k-mers
+2026-01-31 08:35:42.607 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 08:35:50.921 - INFO - 数据分块|Data chunks: 12, 每块约|~79,462,205 条
+2026-01-31 10:03:04.099 - INFO - 查询完成|Query completed: 953,546,453 个k-mer
+2026-01-31 10:04:36.869 - INFO - 保存样本丰度|Saving sample abundances: OV8-1
+2026-01-31 10:04:36.923 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 10:04:36.923 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 10:04:36.923 - INFO - 当前数据集大小|Current dataset size: 96453998534, 新增|new: 953546453
+2026-01-31 10:04:36.923 - INFO - 数据集已扩展|Dataset resized to: 97407544987
+2026-01-31 10:10:08.420 - INFO - 样本丰度已保存|Sample abundances saved: OV8-1
+2026-01-31 10:10:08.433 - INFO - 处理样本|Processing sample 83/99: OV8-79
+2026-01-31 10:10:08.434 - INFO - 查询样本丰度|Querying sample abundances: OV8-79
+2026-01-31 10:19:34.322 - INFO - 从dump文件读取|Read from dump: 915,037,656 k-mers
+2026-01-31 10:19:34.322 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 10:19:40.200 - INFO - 数据分块|Data chunks: 12, 每块约|~76,253,139 条
+2026-01-31 11:48:32.868 - INFO - 查询完成|Query completed: 915,037,656 个k-mer
+2026-01-31 11:50:05.096 - INFO - 保存样本丰度|Saving sample abundances: OV8-79
+2026-01-31 11:50:05.097 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 11:50:05.098 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 11:50:05.098 - INFO - 当前数据集大小|Current dataset size: 97407544987, 新增|new: 915037656
+2026-01-31 11:50:05.098 - INFO - 数据集已扩展|Dataset resized to: 98322582643
+2026-01-31 11:55:00.294 - INFO - 样本丰度已保存|Sample abundances saved: OV8-79
+2026-01-31 11:55:00.307 - INFO - 处理样本|Processing sample 84/99: OV8-34
+2026-01-31 11:55:00.307 - INFO - 查询样本丰度|Querying sample abundances: OV8-34
+2026-01-31 12:04:46.222 - INFO - 从dump文件读取|Read from dump: 951,039,912 k-mers
+2026-01-31 12:04:46.223 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 12:04:52.794 - INFO - 数据分块|Data chunks: 12, 每块约|~79,253,327 条
+2026-01-31 13:31:58.293 - INFO - 查询完成|Query completed: 951,039,912 个k-mer
+2026-01-31 13:33:16.374 - INFO - 保存样本丰度|Saving sample abundances: OV8-34
+2026-01-31 13:33:16.376 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 13:33:16.376 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 13:33:16.376 - INFO - 当前数据集大小|Current dataset size: 98322582643, 新增|new: 951039912
+2026-01-31 13:33:16.376 - INFO - 数据集已扩展|Dataset resized to: 99273622555
+2026-01-31 13:38:43.653 - INFO - 样本丰度已保存|Sample abundances saved: OV8-34
+2026-01-31 13:38:43.667 - INFO - 处理样本|Processing sample 85/99: OV8-258
+2026-01-31 13:38:43.667 - INFO - 查询样本丰度|Querying sample abundances: OV8-258
+2026-01-31 13:49:01.441 - INFO - 从dump文件读取|Read from dump: 996,359,082 k-mers
+2026-01-31 13:49:01.441 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 13:49:07.222 - INFO - 数据分块|Data chunks: 12, 每块约|~83,029,924 条
+2026-01-31 15:20:41.704 - INFO - 查询完成|Query completed: 996,359,082 个k-mer
+2026-01-31 15:22:26.595 - INFO - 保存样本丰度|Saving sample abundances: OV8-258
+2026-01-31 15:22:26.598 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 15:22:26.598 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 15:22:26.599 - INFO - 当前数据集大小|Current dataset size: 99273622555, 新增|new: 996359082
+2026-01-31 15:22:26.599 - INFO - 数据集已扩展|Dataset resized to: 100269981637
+2026-01-31 15:28:32.773 - INFO - 样本丰度已保存|Sample abundances saved: OV8-258
+2026-01-31 15:28:32.787 - INFO - 处理样本|Processing sample 86/99: OV8-26
+2026-01-31 15:28:32.787 - INFO - 查询样本丰度|Querying sample abundances: OV8-26
+2026-01-31 15:38:33.342 - INFO - 从dump文件读取|Read from dump: 958,557,435 k-mers
+2026-01-31 15:38:33.343 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 15:38:40.816 - INFO - 数据分块|Data chunks: 12, 每块约|~79,879,787 条
+2026-01-31 17:06:46.713 - INFO - 查询完成|Query completed: 958,557,435 个k-mer
+2026-01-31 17:08:06.709 - INFO - 保存样本丰度|Saving sample abundances: OV8-26
+2026-01-31 17:08:06.712 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 17:08:06.712 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 17:08:06.712 - INFO - 当前数据集大小|Current dataset size: 100269981637, 新增|new: 958557435
+2026-01-31 17:08:06.713 - INFO - 数据集已扩展|Dataset resized to: 101228539072
+2026-01-31 17:13:37.699 - INFO - 样本丰度已保存|Sample abundances saved: OV8-26
+2026-01-31 17:13:37.713 - INFO - 处理样本|Processing sample 87/99: OV8-115
+2026-01-31 17:13:37.713 - INFO - 查询样本丰度|Querying sample abundances: OV8-115
+2026-01-31 17:23:06.106 - INFO - 从dump文件读取|Read from dump: 923,556,673 k-mers
+2026-01-31 17:23:06.106 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 17:23:13.539 - INFO - 数据分块|Data chunks: 12, 每块约|~76,963,057 条
+2026-01-31 18:47:54.651 - INFO - 查询完成|Query completed: 923,556,673 个k-mer
+2026-01-31 18:50:11.178 - INFO - 保存样本丰度|Saving sample abundances: OV8-115
+2026-01-31 18:50:11.181 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 18:50:11.181 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 18:50:11.181 - INFO - 当前数据集大小|Current dataset size: 101228539072, 新增|new: 923556673
+2026-01-31 18:50:11.181 - INFO - 数据集已扩展|Dataset resized to: 102152095745
+2026-01-31 18:55:17.046 - INFO - 样本丰度已保存|Sample abundances saved: OV8-115
+2026-01-31 18:55:17.059 - INFO - 处理样本|Processing sample 88/99: OV8-264
+2026-01-31 18:55:17.059 - INFO - 查询样本丰度|Querying sample abundances: OV8-264
+2026-01-31 19:04:11.824 - INFO - 从dump文件读取|Read from dump: 887,261,943 k-mers
+2026-01-31 19:04:11.825 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 19:04:19.810 - INFO - 数据分块|Data chunks: 12, 每块约|~73,938,496 条
+2026-01-31 20:29:18.477 - INFO - 查询完成|Query completed: 887,261,943 个k-mer
+2026-01-31 20:30:29.430 - INFO - 保存样本丰度|Saving sample abundances: OV8-264
+2026-01-31 20:30:29.431 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 20:30:29.431 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 20:30:29.432 - INFO - 当前数据集大小|Current dataset size: 102152095745, 新增|new: 887261943
+2026-01-31 20:30:29.432 - INFO - 数据集已扩展|Dataset resized to: 103039357688
+2026-01-31 20:35:46.650 - INFO - 样本丰度已保存|Sample abundances saved: OV8-264
+2026-01-31 20:35:46.663 - INFO - 处理样本|Processing sample 89/99: OV8-267
+2026-01-31 20:35:46.663 - INFO - 查询样本丰度|Querying sample abundances: OV8-267
+2026-01-31 20:45:50.088 - INFO - 从dump文件读取|Read from dump: 981,569,882 k-mers
+2026-01-31 20:45:50.089 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 20:45:56.507 - INFO - 数据分块|Data chunks: 12, 每块约|~81,797,491 条
+2026-01-31 22:15:43.585 - INFO - 查询完成|Query completed: 981,569,882 个k-mer
+2026-01-31 22:17:18.505 - INFO - 保存样本丰度|Saving sample abundances: OV8-267
+2026-01-31 22:17:18.508 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-31 22:17:18.508 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-31 22:17:18.509 - INFO - 当前数据集大小|Current dataset size: 103039357688, 新增|new: 981569882
+2026-01-31 22:17:18.509 - INFO - 数据集已扩展|Dataset resized to: 104020927570
+2026-01-31 22:22:34.081 - INFO - 样本丰度已保存|Sample abundances saved: OV8-267
+2026-01-31 22:22:34.094 - INFO - 处理样本|Processing sample 90/99: OV8-139
+2026-01-31 22:22:34.094 - INFO - 查询样本丰度|Querying sample abundances: OV8-139
+2026-01-31 22:33:21.787 - INFO - 从dump文件读取|Read from dump: 1,020,038,003 k-mers
+2026-01-31 22:33:21.787 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-01-31 22:33:29.394 - INFO - 数据分块|Data chunks: 12, 每块约|~85,003,167 条
+2026-02-01 00:09:18.630 - INFO - 查询完成|Query completed: 1,020,038,003 个k-mer
+2026-02-01 00:10:32.972 - INFO - 保存样本丰度|Saving sample abundances: OV8-139
+2026-02-01 00:10:32.975 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 00:10:32.975 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 00:10:32.975 - INFO - 当前数据集大小|Current dataset size: 104020927570, 新增|new: 1020038003
+2026-02-01 00:10:32.976 - INFO - 数据集已扩展|Dataset resized to: 105040965573
+2026-02-01 00:16:14.025 - INFO - 样本丰度已保存|Sample abundances saved: OV8-139
+2026-02-01 00:16:14.039 - INFO - 处理样本|Processing sample 91/99: OV8-73
+2026-02-01 00:16:14.039 - INFO - 查询样本丰度|Querying sample abundances: OV8-73
+2026-02-01 00:25:39.336 - INFO - 从dump文件读取|Read from dump: 945,032,900 k-mers
+2026-02-01 00:25:39.511 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 00:25:47.363 - INFO - 数据分块|Data chunks: 12, 每块约|~78,752,742 条
+2026-02-01 01:53:01.217 - INFO - 查询完成|Query completed: 945,032,900 个k-mer
+2026-02-01 01:54:43.026 - INFO - 保存样本丰度|Saving sample abundances: OV8-73
+2026-02-01 01:54:43.069 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 01:54:43.069 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 01:54:43.069 - INFO - 当前数据集大小|Current dataset size: 105040965573, 新增|new: 945032900
+2026-02-01 01:54:43.070 - INFO - 数据集已扩展|Dataset resized to: 105985998473
+2026-02-01 02:00:26.455 - INFO - 样本丰度已保存|Sample abundances saved: OV8-73
+2026-02-01 02:00:26.469 - INFO - 处理样本|Processing sample 92/99: OV8-271
+2026-02-01 02:00:26.469 - INFO - 查询样本丰度|Querying sample abundances: OV8-271
+2026-02-01 02:10:43.648 - INFO - 从dump文件读取|Read from dump: 1,003,859,728 k-mers
+2026-02-01 02:10:43.648 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 02:10:51.763 - INFO - 数据分块|Data chunks: 12, 每块约|~83,654,978 条
+2026-02-01 03:44:30.287 - INFO - 查询完成|Query completed: 1,003,859,728 个k-mer
+2026-02-01 03:45:47.773 - INFO - 保存样本丰度|Saving sample abundances: OV8-271
+2026-02-01 03:45:47.775 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 03:45:47.775 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 03:45:47.775 - INFO - 当前数据集大小|Current dataset size: 105985998473, 新增|new: 1003859728
+2026-02-01 03:45:47.775 - INFO - 数据集已扩展|Dataset resized to: 106989858201
+2026-02-01 03:51:40.529 - INFO - 样本丰度已保存|Sample abundances saved: OV8-271
+2026-02-01 03:51:40.544 - INFO - 处理样本|Processing sample 93/99: OV8-112
+2026-02-01 03:51:40.544 - INFO - 查询样本丰度|Querying sample abundances: OV8-112
+2026-02-01 04:03:04.232 - INFO - 从dump文件读取|Read from dump: 1,083,045,456 k-mers
+2026-02-01 04:03:04.255 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 04:03:10.959 - INFO - 数据分块|Data chunks: 12, 每块约|~90,253,789 条
+2026-02-01 05:43:06.817 - INFO - 查询完成|Query completed: 1,083,045,456 个k-mer
+2026-02-01 05:44:54.977 - INFO - 保存样本丰度|Saving sample abundances: OV8-112
+2026-02-01 05:44:55.293 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 05:44:55.294 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 05:44:55.294 - INFO - 当前数据集大小|Current dataset size: 106989858201, 新增|new: 1083045456
+2026-02-01 05:44:55.294 - INFO - 数据集已扩展|Dataset resized to: 108072903657
+2026-02-01 05:51:08.736 - INFO - 样本丰度已保存|Sample abundances saved: OV8-112
+2026-02-01 05:51:08.752 - INFO - 处理样本|Processing sample 94/99: OV8-11
+2026-02-01 05:51:08.752 - INFO - 查询样本丰度|Querying sample abundances: OV8-11
+2026-02-01 06:00:59.102 - INFO - 从dump文件读取|Read from dump: 948,962,907 k-mers
+2026-02-01 06:00:59.102 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 06:01:05.691 - INFO - 数据分块|Data chunks: 12, 每块约|~79,080,243 条
+2026-02-01 07:28:56.700 - INFO - 查询完成|Query completed: 948,962,907 个k-mer
+2026-02-01 07:30:40.110 - INFO - 保存样本丰度|Saving sample abundances: OV8-11
+2026-02-01 07:30:40.113 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 07:30:40.113 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 07:30:40.113 - INFO - 当前数据集大小|Current dataset size: 108072903657, 新增|new: 948962907
+2026-02-01 07:30:40.113 - INFO - 数据集已扩展|Dataset resized to: 109021866564
+2026-02-01 07:36:16.554 - INFO - 样本丰度已保存|Sample abundances saved: OV8-11
+2026-02-01 07:36:16.570 - INFO - 处理样本|Processing sample 95/99: OV8-113
+2026-02-01 07:36:16.603 - INFO - 查询样本丰度|Querying sample abundances: OV8-113
+2026-02-01 07:45:36.064 - INFO - 从dump文件读取|Read from dump: 910,478,947 k-mers
+2026-02-01 07:45:36.064 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 07:45:42.827 - INFO - 数据分块|Data chunks: 12, 每块约|~75,873,246 条
+2026-02-01 09:08:04.343 - INFO - 查询完成|Query completed: 910,478,947 个k-mer
+2026-02-01 09:09:31.184 - INFO - 保存样本丰度|Saving sample abundances: OV8-113
+2026-02-01 09:09:31.237 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 09:09:31.237 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 09:09:31.238 - INFO - 当前数据集大小|Current dataset size: 109021866564, 新增|new: 910478947
+2026-02-01 09:09:31.238 - INFO - 数据集已扩展|Dataset resized to: 109932345511
+2026-02-01 09:14:41.812 - INFO - 样本丰度已保存|Sample abundances saved: OV8-113
+2026-02-01 09:14:41.825 - INFO - 处理样本|Processing sample 96/99: OV8-83
+2026-02-01 09:14:41.825 - INFO - 查询样本丰度|Querying sample abundances: OV8-83
+2026-02-01 09:24:30.863 - INFO - 从dump文件读取|Read from dump: 961,819,904 k-mers
+2026-02-01 09:24:30.864 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 09:24:39.117 - INFO - 数据分块|Data chunks: 12, 每块约|~80,151,659 条
+2026-02-01 10:53:12.572 - INFO - 查询完成|Query completed: 961,819,904 个k-mer
+2026-02-01 10:54:51.500 - INFO - 保存样本丰度|Saving sample abundances: OV8-83
+2026-02-01 10:54:51.502 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 10:54:51.502 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 10:54:51.502 - INFO - 当前数据集大小|Current dataset size: 109932345511, 新增|new: 961819904
+2026-02-01 10:54:51.502 - INFO - 数据集已扩展|Dataset resized to: 110894165415
+2026-02-01 11:00:08.088 - INFO - 样本丰度已保存|Sample abundances saved: OV8-83
+2026-02-01 11:00:08.102 - INFO - 处理样本|Processing sample 97/99: OV8-89
+2026-02-01 11:00:08.102 - INFO - 查询样本丰度|Querying sample abundances: OV8-89
+2026-02-01 11:10:31.416 - INFO - 从dump文件读取|Read from dump: 1,011,376,888 k-mers
+2026-02-01 11:10:31.453 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 11:10:40.874 - INFO - 数据分块|Data chunks: 12, 每块约|~84,281,408 条
+2026-02-01 12:44:58.234 - INFO - 查询完成|Query completed: 1,011,376,888 个k-mer
+2026-02-01 12:46:31.435 - INFO - 保存样本丰度|Saving sample abundances: OV8-89
+2026-02-01 12:46:31.509 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 12:46:31.509 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 12:46:31.509 - INFO - 当前数据集大小|Current dataset size: 110894165415, 新增|new: 1011376888
+2026-02-01 12:46:31.509 - INFO - 数据集已扩展|Dataset resized to: 111905542303
+2026-02-01 12:52:03.288 - INFO - 样本丰度已保存|Sample abundances saved: OV8-89
+2026-02-01 12:52:03.303 - INFO - 处理样本|Processing sample 98/99: OV8-21
+2026-02-01 12:52:03.303 - INFO - 查询样本丰度|Querying sample abundances: OV8-21
+2026-02-01 13:02:05.984 - INFO - 从dump文件读取|Read from dump: 992,473,971 k-mers
+2026-02-01 13:02:05.984 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 13:02:15.905 - INFO - 数据分块|Data chunks: 12, 每块约|~82,706,165 条
+2026-02-01 14:34:36.258 - INFO - 查询完成|Query completed: 992,473,971 个k-mer
+2026-02-01 14:36:04.179 - INFO - 保存样本丰度|Saving sample abundances: OV8-21
+2026-02-01 14:36:04.181 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 14:36:04.181 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 14:36:04.181 - INFO - 当前数据集大小|Current dataset size: 111905542303, 新增|new: 992473971
+2026-02-01 14:36:04.182 - INFO - 数据集已扩展|Dataset resized to: 112898016274
+2026-02-01 14:41:26.494 - INFO - 样本丰度已保存|Sample abundances saved: OV8-21
+2026-02-01 14:41:26.509 - INFO - 处理样本|Processing sample 99/99: OV8-42
+2026-02-01 14:41:26.509 - INFO - 查询样本丰度|Querying sample abundances: OV8-42
+2026-02-01 14:51:05.374 - INFO - 从dump文件读取|Read from dump: 954,630,098 k-mers
+2026-02-01 14:51:05.374 - INFO - 使用 12 线程并行查询|Using 12 threads for parallel query
+2026-02-01 14:51:12.919 - INFO - 数据分块|Data chunks: 12, 每块约|~79,552,509 条
+2026-02-01 16:19:13.151 - INFO - 查询完成|Query completed: 954,630,098 个k-mer
+2026-02-01 16:20:47.044 - INFO - 保存样本丰度|Saving sample abundances: OV8-42
+2026-02-01 16:20:47.047 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-02-01 16:20:47.047 - INFO - 使用稀疏存储|Using sparse storage
+2026-02-01 16:20:47.048 - INFO - 当前数据集大小|Current dataset size: 112898016274, 新增|new: 954630098
+2026-02-01 16:20:47.048 - INFO - 数据集已扩展|Dataset resized to: 113852646372
+2026-02-01 16:26:12.786 - INFO - 样本丰度已保存|Sample abundances saved: OV8-42
+2026-02-01 16:27:04.349 - INFO - RocksDB索引已关闭|RocksDB index closed
+2026-02-01 16:27:04.349 - INFO - 从文件保存k-mer字典到HDF5|Saving k-mer dictionary from file to HDF5

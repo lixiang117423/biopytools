@@ -1,0 +1,4 @@
+2025-12-08 09:19:34 INFO:	***** Start a BUSCO v6.0.0 analysis, current time: 12/08/2025 09:19:34 *****
+2025-12-08 09:19:34 INFO:	Configuring BUSCO with local environment
+2025-12-08 09:19:34 INFO:	Running genome mode
+2025-12-08 09:19:34 INFO:	Thank you for using BUSCO! Anonymous usage data is gathered to improve the tool. You may opt out with --opt-out-run-stats.

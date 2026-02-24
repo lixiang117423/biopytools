@@ -1,0 +1,7 @@
+Usage: biopytools gtx-joint [OPTIONS]
+Try 'biopytools gtx-joint -h' for help.
+
+Error: Invalid value for '--ref' / '-r': 参考基因组索引不存在|Reference index not found: ../49.最终的基因组和gff文件/OV53_Chr.fa.fai
+请运行|Please run: samtools faidx ../49.最终的基因组和gff文件/OV53_Chr.fa
+Job 69234504 stderr output:
+

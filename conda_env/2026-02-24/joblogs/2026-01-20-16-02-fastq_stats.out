@@ -1,0 +1,20 @@
+2026-01-20 16:03:00.026 - INFO - ============================================================
+2026-01-20 16:03:00.026 - INFO - FASTQ文件统计工具|FASTQ File Statistics Tool
+2026-01-20 16:03:00.026 - INFO - ============================================================
+2026-01-20 16:03:00.173 - INFO - seqkit依赖检查通过|seqkit dependency check passed
+2026-01-20 16:03:00.173 - INFO - 正在查找样品文件|Searching for sample files in: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/raw/hifi/EcA.fq.gz
+2026-01-20 16:03:00.173 - INFO - 找到1个样品|Found 1 samples
+2026-01-20 16:03:00.173 - INFO -   EcA.fq.gz: R1=EcA.fq.gz (单端|single-end)
+2026-01-20 16:03:00.173 - INFO - 使用12个线程处理|Processing with 12 threads
+2026-01-20 16:03:00.173 - INFO - 正在处理1个文件|Processing 1 files
+2026-01-20 16:03:00.173 - INFO - 运行seqkit命令|Running seqkit command with 1 files
+2026-01-20 16:20:25.196 - INFO - seqkit成功处理1个文件|seqkit successfully processed 1 files
+2026-01-20 16:36:46.689 - INFO - 结果已保存到|Results saved to: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/质控前的fastq文件统计信息.csv
+2026-01-20 16:36:46.689 - INFO - 
+统计摘要|Statistics Summary:
+2026-01-20 16:36:46.689 - INFO - 样品名称|Sample Name     R1 reads     R2 reads     总reads|Total R1大小|R1 Size R1解压|R1 Uncomp
+2026-01-20 16:36:46.689 - INFO -                                                             (压缩|compressed) (uncompressed)
+2026-01-20 16:36:46.689 - INFO - EcA.fq.gz            5.23M        N/A          5.23M        52.31GB      202.20GB    
+2026-01-20 16:36:46.689 - INFO - ============================================================
+2026-01-20 16:36:46.689 - INFO - 完成! 共处理1个样品|Completed! Processed 1 samples
+2026-01-20 16:36:46.689 - INFO - ============================================================

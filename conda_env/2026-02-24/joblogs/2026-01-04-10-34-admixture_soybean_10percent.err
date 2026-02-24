@@ -1,0 +1,7 @@
+[2026-01-04 14:48:40] WARNING: 命令警告 | Command warnings:
+Warning: --hwe observation counts vary by more than 10%.  Consider using
+--geno, and/or applying different p-value thresholds to distinct subsets of
+your data.
+[2026-01-05 10:33:09] WARNING: Process interrupted by user | 用户中断程序执行
+Job 68734057 stderr output:
+

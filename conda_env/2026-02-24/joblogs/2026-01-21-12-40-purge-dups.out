@@ -1,0 +1,15 @@
+2026-01-21 12:40:37.343 - INFO - 开始Purge_Dups去冗余流程|Starting Purge_Dups deduplication pipeline
+2026-01-21 12:40:37.343 - INFO - 执行步骤1|Executing step 1: 计算测序深度|Calculate coverage
+2026-01-21 12:40:37.343 - INFO - 开始步骤1: 计算测序深度|Starting step 1: Calculate coverage
+2026-01-21 12:40:37.343 - INFO - 执行步骤|Executing step: 比对reads文件|Aligning reads: EcA.clean.fq
+2026-01-21 12:40:37.343 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/purge_dups_v.1.2.6/bin/minimap2 -t 64 -xmap-hifi -I 50G /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/02.fasta/EcA.primary.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/clean/hifi/EcA.clean.fq.gz | gzip -c > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/06.purge_dups/coverage/EcA.clean.fq.paf.gz
+2026-01-21 13:17:05.372 - INFO - 命令执行成功|Command executed successfully: 比对reads文件|Aligning reads: EcA.clean.fq
+2026-01-21 13:17:05.373 - INFO - 执行步骤|Executing step: 计算测序深度统计|Calculate coverage statistics
+2026-01-21 13:17:05.373 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/purge_dups_v.1.2.6/bin/pbcstat -O 06.purge_dups/coverage 06.purge_dups/coverage/EcA.clean.fq.paf.gz
+2026-01-21 13:17:05.391 - INFO - 命令执行成功|Command executed successfully: 计算测序深度统计|Calculate coverage statistics
+2026-01-21 13:17:05.391 - INFO - 步骤1完成|Step 1 completed: 06.purge_dups/coverage/EcA.primary.base.cov, 06.purge_dups/coverage/EcA.primary.stat
+2026-01-21 13:17:05.391 - INFO - 步骤1完成|Step 1 completed: 计算测序深度|Calculate coverage
+2026-01-21 13:17:05.391 - INFO - 执行步骤2|Executing step 2: 计算覆盖度阈值|Calculate cutoffs
+2026-01-21 13:17:05.391 - INFO - 开始步骤2: 计算覆盖度阈值|Starting step 2: Calculate cutoffs
+2026-01-21 13:17:05.391 - ERROR - 找不到统计文件|Statistics file not found: 06.purge_dups/coverage/EcA.primary.stat
+2026-01-21 13:17:05.391 - ERROR - 步骤2失败|Step 2 failed: 计算覆盖度阈值|Calculate cutoffs

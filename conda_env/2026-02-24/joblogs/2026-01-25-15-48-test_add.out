@@ -1,0 +1,164 @@
+2026-01-25 15:49:01.241 - INFO - 开始添加新样本模式（增量式）|Starting add new samples mode (incremental)
+2026-01-25 15:49:01.242 - INFO - 从metadata读取k-mer大小|Read k-mer size from metadata: 21 → 51
+2026-01-25 15:49:01.242 - INFO - 检测到目录输入模式|Detected directory input mode: fastq_new
+2026-01-25 15:49:01.242 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-25 15:49:01.242 - INFO - 文件模式|File pattern: *_1.clean.fq.gz, *_2.clean.fq.gz
+2026-01-25 15:49:01.242 - INFO - 检测到目录输入模式|Detected directory input mode: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/fastq_new
+2026-01-25 15:49:01.242 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-25 15:49:01.242 - INFO - 文件模式|File pattern: *_1.clean.fq.gz, *_2.clean.fq.gz
+2026-01-25 15:49:01.242 - INFO - 找到 2 个read1文件|Found 2 read1 files
+2026-01-25 15:49:01.256 - INFO - 验证通过|Validation passed: 2 个样本|samples
+2026-01-25 15:49:01.256 - INFO - 找到 2 个新样本|Found 2 new samples: ['W681A', 'W680A']
+2026-01-25 15:49:01.256 - INFO - 增量式添加 2 个新样本|Incrementally adding 2 new samples
+2026-01-25 15:49:01.256 - INFO - 统计新样本|Counting new sample: W681A
+2026-01-25 15:49:01.256 - INFO - 开始统计样本|Starting to count sample: W681A
+2026-01-25 15:49:01.276 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W681A
+2026-01-25 15:49:01.276 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 -m500G @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/kmc_tmp/W681A/input_files.txt W681A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/kmc_tmp/W681A
+2026-01-25 15:50:27.562 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W681A
+2026-01-25 15:50:27.564 - INFO - 样本统计完成|Sample counting completed: W681A
+2026-01-25 15:50:27.565 - INFO - 统计新样本|Counting new sample: W680A
+2026-01-25 15:50:27.565 - INFO - 开始统计样本|Starting to count sample: W680A
+2026-01-25 15:50:27.577 - INFO - 执行步骤|Executing step: 统计样本|Counting sample W680A
+2026-01-25 15:50:27.577 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 -m500G @/share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/kmc_tmp/W680A/input_files.txt W680A /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/kmc_tmp/W680A
+2026-01-25 15:51:51.415 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample W680A
+2026-01-25 15:51:51.415 - INFO - 样本统计完成|Sample counting completed: W680A
+2026-01-25 15:51:51.416 - INFO - 现有 k-mer 数量|Existing k-mers: 34,676,051
+2026-01-25 15:51:51.416 - INFO - 步骤1/6: 增量式 Union 全局数据库|Step 1/6: Incremental union global database
+2026-01-25 15:51:51.765 - INFO - 现有样本|Existing samples: ['test2', 'test3', 'test1']
+2026-01-25 15:51:51.765 - INFO - 新样本|New samples: ['W681A', 'W680A']
+2026-01-25 15:51:52.585 - INFO -   合并新样本|Merging new sample: W681A
+2026-01-25 15:51:52.585 - INFO - 增量式合并数据库|Incremental union: global_kmers + W681A → global_kmers_temp_0
+2026-01-25 15:51:52.585 - INFO - 执行步骤|Executing step: 增量合并数据库|Incremental union: global_kmers + W681A
+2026-01-25 15:51:52.585 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple ../global_kmers W681A union global_kmers_temp_0
+2026-01-25 15:54:41.093 - INFO - 命令执行成功|Command executed successfully: 增量合并数据库|Incremental union: global_kmers + W681A
+2026-01-25 15:54:41.096 - INFO - 增量合并完成|Incremental union completed: global_kmers_temp_0
+2026-01-25 15:54:41.096 - INFO -   合并新样本|Merging new sample: W680A
+2026-01-25 15:54:41.096 - INFO - 增量式合并数据库|Incremental union: global_kmers_temp_0 + W680A → global_kmers_temp_1
+2026-01-25 15:54:41.099 - INFO - 执行步骤|Executing step: 增量合并数据库|Incremental union: global_kmers_temp_0 + W680A
+2026-01-25 15:54:41.099 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple ../global_kmers_temp_0 W680A union global_kmers_temp_1
+2026-01-25 15:57:23.876 - INFO - 命令执行成功|Command executed successfully: 增量合并数据库|Incremental union: global_kmers_temp_0 + W680A
+2026-01-25 15:57:23.879 - INFO - 增量合并完成|Incremental union completed: global_kmers_temp_1
+2026-01-25 15:59:08.872 - INFO - 新增 k-mer 数量|New k-mers added: 923,486,318
+2026-01-25 15:59:08.872 - INFO - 更新后 k-mer 总数|Total k-mers after update: 958,162,369
+2026-01-25 15:59:08.872 - INFO - 步骤2/6: 导出新增 k-mer|Step 2/6: Export new k-mers
+2026-01-25 15:59:08.872 - INFO - 导出新增的 923486318 个 k-mer|Exporting 923486318 new k-mers
+2026-01-25 16:01:17.473 - INFO - 新 k-mer 文件已保存|New k-mer file saved: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/new_kmers.txt
+2026-01-25 16:01:17.473 - INFO - 步骤3/6: 更新 k-mer 字典|Step 3/6: Update k-mer dictionary
+2026-01-25 16:01:17.473 - INFO - 追加 k-mer 到字典|Appending k-mers to dictionary
+2026-01-25 16:01:18.742 - INFO - 现有 k-mer 数量|Existing k-mers: 34,676,051
+2026-01-25 16:20:28.686 - INFO - 已追加 923486318 个 k-mer|Appended 923486318 k-mers
+2026-01-25 16:20:41.912 - INFO - 步骤4/6: 更新 RocksDB 索引|Step 4/6: Update RocksDB index
+2026-01-25 16:20:41.913 - INFO - 追加到 RocksDB|Appending to RocksDB
+2026-01-25 16:21:57.617 - INFO -   已写入|Written: 100,000,000
+2026-01-25 16:23:13.455 - INFO -   已写入|Written: 200,000,000
+2026-01-25 16:24:29.418 - INFO -   已写入|Written: 300,000,000
+2026-01-25 16:25:45.013 - INFO -   已写入|Written: 400,000,000
+2026-01-25 16:27:00.897 - INFO -   已写入|Written: 500,000,000
+2026-01-25 16:28:16.097 - INFO -   已写入|Written: 600,000,000
+2026-01-25 16:29:31.820 - INFO -   已写入|Written: 700,000,000
+2026-01-25 16:30:47.311 - INFO -   已写入|Written: 800,000,000
+2026-01-25 16:32:03.358 - INFO -   已写入|Written: 900,000,000
+2026-01-25 16:33:14.677 - INFO - RocksDB 追加完成|RocksDB append completed: 923,486,318 entries
+2026-01-25 16:33:14.680 - INFO - 步骤5/6: 查询新样本丰度|Step 5/6: Query new sample abundances
+2026-01-25 16:33:14.680 - INFO - 文件大小 49.00GB >= 阈值 1.0GB，使用数据库索引|File size 49.00GB >= threshold 1.0GB, using database index
+2026-01-25 16:33:14.680 - INFO - 检测到已存在的RocksDB索引，直接加载|Found existing RocksDB index, loading: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/kmer_index.rdb
+2026-01-25 16:42:51.082 - INFO - 处理新样本|Processing new sample: W681A
+2026-01-25 16:42:51.082 - INFO - 查询样本丰度|Querying sample abundances: W681A
+2026-01-25 16:51:33.010 - INFO - 从dump文件读取|Read from dump: 841,179,211 k-mers
+2026-01-25 16:51:33.011 - INFO - 使用 64 线程并行查询|Using 64 threads for parallel query
+2026-01-25 16:51:39.205 - INFO - 数据分块|Data chunks: 64, 每块约|~13,143,426 条
+2026-01-25 18:12:36.230 - INFO - 查询完成|Query completed: 811,792,736 个k-mer
+2026-01-25 18:13:15.067 - INFO - 保存样本丰度|Saving sample abundances: W681A
+2026-01-25 18:13:15.791 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 18:13:15.792 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 18:13:15.792 - INFO - 当前数据集大小|Current dataset size: 109229560, 新增|new: 811792736
+2026-01-25 18:13:15.792 - INFO - 数据集已扩展|Dataset resized to: 921022296
+2026-01-25 18:17:56.787 - INFO - 样本丰度已保存|Sample abundances saved: W681A
+2026-01-25 18:17:56.787 - INFO - 处理新样本|Processing new sample: W680A
+2026-01-25 18:17:56.787 - INFO - 查询样本丰度|Querying sample abundances: W680A
+2026-01-25 18:26:14.328 - INFO - 从dump文件读取|Read from dump: 833,104,757 k-mers
+2026-01-25 18:26:14.328 - INFO - 使用 64 线程并行查询|Using 64 threads for parallel query
+2026-01-25 18:26:23.338 - INFO - 数据分块|Data chunks: 64, 每块约|~13,017,262 条
+2026-01-25 19:45:21.419 - INFO - 查询完成|Query completed: 804,004,035 个k-mer
+2026-01-25 19:46:23.249 - INFO - 保存样本丰度|Saving sample abundances: W680A
+2026-01-25 19:46:23.252 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 19:46:23.252 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 19:46:23.252 - INFO - 当前数据集大小|Current dataset size: 921022296, 新增|new: 804004035
+2026-01-25 19:46:23.252 - INFO - 数据集已扩展|Dataset resized to: 1725026331
+2026-01-25 19:50:47.404 - INFO - 样本丰度已保存|Sample abundances saved: W680A
+2026-01-25 19:50:57.301 - INFO - RocksDB索引已关闭|RocksDB index closed
+2026-01-25 19:50:57.305 - INFO - 步骤6/6: 查询旧样本中的新 k-mer|Step 6/6: Query new k-mers in old samples
+2026-01-25 19:50:57.309 - INFO - 查询 3 个旧样本中的新 k-mer|Querying new k-mers in 3 old samples
+2026-01-25 20:01:58.649 - INFO - 新 k-mer 字典大小|New k-mer dict size: 923486318
+2026-01-25 20:01:58.649 - INFO - 文件大小 47.23GB >= 阈值 1.0GB，使用数据库索引|File size 47.23GB >= threshold 1.0GB, using database index
+2026-01-25 20:01:58.649 - INFO - 检测到已存在的RocksDB索引，直接加载|Found existing RocksDB index, loading: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/kmer_index.rdb
+2026-01-25 20:02:00.496 - INFO - 查询旧样本|Querying old sample: test2
+2026-01-25 20:02:00.496 - INFO - 查询样本丰度|Querying sample abundances: test2
+2026-01-25 20:02:00.506 - INFO - 使用已有dump文件|Using existing dump file: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/dump_files/test2_dump.txt
+2026-01-25 20:02:15.275 - INFO - 从dump文件读取|Read from dump: 34,676,051 k-mers
+2026-01-25 20:02:15.276 - INFO - 使用 64 线程并行查询|Using 64 threads for parallel query
+2026-01-25 20:02:15.503 - INFO - 数据分块|Data chunks: 64, 每块约|~541,814 条
+2026-01-25 20:07:23.049 - INFO - 查询完成|Query completed: 34,676,051 个k-mer
+2026-01-25 20:07:24.047 - INFO - 保存样本丰度|Saving sample abundances: test2
+2026-01-25 20:07:24.048 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 20:07:24.048 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 20:07:24.048 - INFO - 当前数据集大小|Current dataset size: 1725026331, 新增|new: 34676051
+2026-01-25 20:07:24.048 - INFO - 数据集已扩展|Dataset resized to: 1759702382
+2026-01-25 20:07:35.895 - INFO - 样本丰度已保存|Sample abundances saved: test2
+2026-01-25 20:07:35.896 - INFO - 查询旧样本|Querying old sample: test3
+2026-01-25 20:07:35.896 - INFO - 查询样本丰度|Querying sample abundances: test3
+2026-01-25 20:07:35.914 - INFO - 使用已有dump文件|Using existing dump file: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/dump_files/test3_dump.txt
+2026-01-25 20:07:51.195 - INFO - 从dump文件读取|Read from dump: 34,676,051 k-mers
+2026-01-25 20:07:51.195 - INFO - 使用 64 线程并行查询|Using 64 threads for parallel query
+2026-01-25 20:07:51.451 - INFO - 数据分块|Data chunks: 64, 每块约|~541,814 条
+2026-01-25 20:11:26.226 - INFO - 查询完成|Query completed: 34,676,051 个k-mer
+2026-01-25 20:11:28.877 - INFO - 保存样本丰度|Saving sample abundances: test3
+2026-01-25 20:11:28.878 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 20:11:28.878 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 20:11:28.878 - INFO - 当前数据集大小|Current dataset size: 1759702382, 新增|new: 34676051
+2026-01-25 20:11:28.878 - INFO - 数据集已扩展|Dataset resized to: 1794378433
+2026-01-25 20:11:39.773 - INFO - 样本丰度已保存|Sample abundances saved: test3
+2026-01-25 20:11:39.775 - INFO - 查询旧样本|Querying old sample: test1
+2026-01-25 20:11:39.776 - INFO - 查询样本丰度|Querying sample abundances: test1
+2026-01-25 20:11:39.777 - INFO - 使用已有dump文件|Using existing dump file: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/dump_files/test1_dump.txt
+2026-01-25 20:11:55.240 - INFO - 从dump文件读取|Read from dump: 34,676,051 k-mers
+2026-01-25 20:11:55.240 - INFO - 使用 64 线程并行查询|Using 64 threads for parallel query
+2026-01-25 20:11:55.484 - INFO - 数据分块|Data chunks: 64, 每块约|~541,814 条
+2026-01-25 20:15:28.243 - INFO - 查询完成|Query completed: 34,676,051 个k-mer
+2026-01-25 20:15:30.619 - INFO - 保存样本丰度|Saving sample abundances: test1
+2026-01-25 20:15:30.620 - INFO - 存储类型|Storage type: sparse (类型|type: <class 'str'>)
+2026-01-25 20:15:30.620 - INFO - 使用稀疏存储|Using sparse storage
+2026-01-25 20:15:30.621 - INFO - 当前数据集大小|Current dataset size: 1794378433, 新增|new: 34676051
+2026-01-25 20:15:30.621 - INFO - 数据集已扩展|Dataset resized to: 1829054484
+2026-01-25 20:15:41.356 - INFO - 样本丰度已保存|Sample abundances saved: test1
+2026-01-25 20:15:49.546 - INFO - RocksDB索引已关闭|RocksDB index closed
+2026-01-25 20:16:28.935 - INFO - 更新元数据|Updating metadata
+2026-01-25 20:16:28.939 - INFO - 重新生成带 ID 的 k-mer 文件|Regenerating k-mer file with IDs
+2026-01-25 20:16:28.939 - INFO - 添加 ID 列|Adding ID column: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/global_kmers.txt → /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/global_kmers_with_id.txt
+2026-01-25 20:23:40.230 - INFO - ID 列已添加|ID column added: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/global_kmers_with_id.txt
+2026-01-25 20:23:40.371 - INFO - HDF5 文件已更新：样本数量 5|HDF5 file updated: 5 samples
+2026-01-25 20:23:40.372 - INFO - 增量式添加完成|Incremental add completed
+2026-01-25 20:24:31.522 - INFO - 更新后的矩阵统计|Updated matrix statistics:
+2026-01-25 20:24:31.531 - INFO -   k-mer数量|K-mer count: 34.68M
+2026-01-25 20:24:31.534 - INFO -   样本数量|Sample count: 5
+2026-01-25 20:24:31.538 - INFO -   k-mer长度|K-mer size: 51
+2026-01-25 20:24:31.540 - INFO -   存储类型|Storage type: sparse
+2026-01-25 20:24:31.543 - INFO -   稀疏度|Sparsity: 1051.94%
+2026-01-25 20:24:31.546 - INFO - 自动导出TSV文件|Auto exporting TSV files
+2026-01-25 20:24:31.569 - INFO - 导出丰度文件|Exporting abundance file: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/abundance_matrix.tsv
+2026-01-25 20:24:31.569 - INFO - 开始导出矩阵到TSV|Starting to export matrix to TSV: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/abundance_matrix.tsv
+2026-01-25 20:24:31.569 - INFO - 输出格式|Output format: full
+2026-01-25 20:24:31.569 - INFO - 最小丰度阈值|Minimum abundance threshold: 1
+2026-01-25 20:29:47.032 - INFO - 矩阵信息|Matrix info:
+2026-01-25 20:29:47.032 - INFO -   样本数|Samples: 5
+2026-01-25 20:29:47.032 - INFO -   k-mer数|K-mers: 958162369
+2026-01-25 20:29:47.032 - INFO -   存储类型|Storage type: sparse
+2026-01-25 20:29:47.032 - INFO - 使用完整矩阵格式导出|Exporting in full matrix format
+2026-01-25 20:29:47.033 - WARNING - 从稀疏矩阵转换为完整矩阵可能需要大量内存和时间|Converting sparse to full matrix may require lots of memory and time
+2026-01-25 20:29:47.033 - WARNING - 预估矩阵大小: 8.92GB，可能导致内存不足|Estimated matrix size: 8.92GB, may cause OOM
+2026-01-25 21:05:13.975 - INFO - 写入 958162369 个k-mer x 5 个样本|Wrote 958162369 k-mers x 5 samples
+2026-01-25 21:05:13.981 - INFO - 导出完成|Export completed: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/abundance_matrix.tsv
+2026-01-25 21:05:45.022 - INFO - 导出存在文件|Exporting presence file: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/presence_matrix.tsv
+2026-01-25 21:10:45.360 - INFO - 导出 958162369 k-mers x 5 samples 到存在矩阵|Exporting 958162369 k-mers x 5 samples to presence matrix
+2026-01-25 22:07:23.092 - INFO - 存在文件已导出|Presence file exported: /share/org/YZWL/yzwl_lixg/tmp/test_kmc/test/rocksdb/database_bak/presence_matrix.tsv
+2026-01-25 22:08:29.584 - INFO - TSV文件导出完成|TSV files exported

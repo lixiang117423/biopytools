@@ -1,0 +1,8 @@
+INFO: 作业开始于: 2025年 11月 09日 星期日 18:12:01 CST
+INFO: 正在设置精确的运行环境...
+INFO: 当前使用的 Java 版本是:
+INFO: 当前使用的 bwa 是:
+/share/org/YZWL/yzwl_lixg/miniforge3/envs/juicer_v.1.6/bin/bwa
+INFO: 当前使用的 python2 是:
+/usr/bin/python2
+INFO: --- 开始自动化文件准备 ---

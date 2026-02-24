@@ -1,0 +1,6 @@
+2025-12-08 07:38:42,949 - INFO - 🧬 开始BUSCO质量评估分析流程 | Starting BUSCO quality assessment analysis pipeline
+2025-12-08 07:38:42,949 - INFO - 📁 输入路径 | Input path: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/18.busco/hap1/yahs_out_scaffolds_final.fa
+2025-12-08 07:38:42,949 - INFO - 🗄️  数据库 | Database: /share/org/YZWL/yzwl_lixg/database/busco/brassicales_odb12
+2025-12-08 07:38:42,949 - INFO - 📂 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/18.busco/hap1
+2025-12-08 07:38:42,949 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-12-08 07:38:44,657 - ERROR - ❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: BUSCO版本检查失败 | BUSCO version check failed

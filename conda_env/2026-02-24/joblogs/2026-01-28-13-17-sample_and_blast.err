@@ -1,0 +1,5 @@
+[INFO][0m sample by proportion
+[INFO][0m 16795 sequences outputted
+blast.sh: 行 3: 2453861 Segmentation fault      (核心已转储)blastn -query sampled_reads.fa -db ~/database/nt/nt -out blast_result.txt -outfmt 6 -evalue 1e-5 -num_threads 2
+Job 69079671 stderr output:
+

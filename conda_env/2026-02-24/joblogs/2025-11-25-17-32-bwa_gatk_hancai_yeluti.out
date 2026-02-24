@@ -1,0 +1,106 @@
+🔍 Validating parameters...
+✅ All parameters validated
+📝 Log file: 02.mapping/logs/bsa_pipeline_20251125_173238.log
+📊 Report file: 02.mapping/reports/pipeline_report_20251125_173238.txt
+════════════════════════════════════════════════════════════════
+🧬 BSA Analysis Pipeline Report
+════════════════════════════════════════════════════════════════
+
+📅 Analysis Date: 2025年 11月 25日 星期二 18:25:56 CST
+📂 Output Directory: 02.mapping
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 Sample Statistics
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total BAM files: 3
+Total GVCF files: 4
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 Variant Statistics
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total variants: 506
+SNPs: 365
+InDels: 141
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 Output Files
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BAM files: 02.mapping/01.bam/
+GVCF files: 02.mapping/02.gvcf/
+Final VCF: 02.mapping/03.vcf/cohort.joint.vcf.gz
+Logs: 02.mapping/logs/
+
+════════════════════════════════════════════════════════════════
+✨ Pipeline Completed Successfully!
+════════════════════════════════════════════════════════════════
+2025-11-25 18:25:58,741 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-11-25 18:25:58,741 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.叶绿体比对/02.mapping/02.gvcf
+2025-11-25 18:25:58,741 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.叶绿体比对/01.data/genome/genome.fa
+2025-11-25 18:25:58,741 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.叶绿体比对/03.gatk_joint
+2025-11-25 18:25:58,741 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-25 18:25:59,892 - INFO - ✅ GATK 可用 | available
+2025-11-25 18:26:00,397 - INFO - ✅ BCFtools 可用 | available
+2025-11-25 18:26:00,397 - INFO - ================================================================================
+2025-11-25 18:26:00,397 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-11-25 18:26:00,397 - INFO - ================================================================================
+2025-11-25 18:26:00,397 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-11-25 18:26:00,397 - INFO - ✅ 检测到GVCF文件 | Detected GVCF files: 4 files
+2025-11-25 18:26:00,398 - INFO - 📊 共找到 4 个文件 | Total 4 files found
+2025-11-25 18:26:00,398 - INFO - 📝 创建样本映射文件 | Creating sample map file
+2025-11-25 18:26:00,399 - INFO - ✅ 样本映射文件已创建 | Sample map created: 03.gatk_joint/sample_map.txt
+2025-11-25 18:26:00,399 - INFO - ================================================================================
+2025-11-25 18:26:00,399 - INFO - 步骤2: GenomicsDB导入 | Step 2: GenomicsDB import
+2025-11-25 18:26:00,399 - INFO - ================================================================================
+2025-11-25 18:26:00,399 - INFO - 📦 开始GenomicsDB导入 | Starting GenomicsDB import
+2025-11-25 18:26:00,399 - INFO - ⚠️ 未指定区间，自动从参考基因组提取 | No intervals specified, extracting from reference
+2025-11-25 18:26:00,399 - INFO - 📍 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.叶绿体比对/01.data/genome/genome.fa
+2025-11-25 18:26:00,400 - INFO - 📍 字典文件路径 | Dict path: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.叶绿体比对/01.data/genome/genome.dict
+2025-11-25 18:26:00,400 - INFO - 📍 索引文件路径 | Fai path: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.叶绿体比对/01.data/genome/genome.fa.fai
+2025-11-25 18:26:00,400 - INFO - ✅ 使用字典文件 | Using dict file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.叶绿体比对/01.data/genome/genome.dict
+2025-11-25 18:26:00,400 - INFO - ✅ 生成区间文件 | Generated intervals: 1 chromosomes
+2025-11-25 18:26:00,400 - INFO - 📄 区间文件位置 | Intervals file: 03.gatk_joint/intervals.list
+2025-11-25 18:26:00,400 - INFO - 🚀 执行步骤 | Executing step: GenomicsDB导入 | GenomicsDB import
+2025-11-25 18:26:00,400 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenomicsDBImport --genomicsdb-workspace-path 03.gatk_joint/genomicsdb_workspace --sample-name-map 03.gatk_joint/sample_map.txt --reader-threads 88 -L 03.gatk_joint/intervals.list
+2025-11-25 18:26:00,400 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/05.叶绿体比对/03.gatk_joint
+2025-11-25 18:26:01,676 - ERROR - ❌ 命令执行失败 | Command execution failed: GenomicsDB导入 | GenomicsDB import
+2025-11-25 18:26:01,676 - ERROR - 🔢 错误代码 | Error code: 2
+2025-11-25 18:26:01,676 - ERROR - 📛 错误信息 | Error message: 18:26:01.560 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar!/com/intel/gkl/native/libgkl_compression.so
+18:26:01.641 INFO  GenomicsDBImport - ------------------------------------------------------------
+18:26:01.643 INFO  GenomicsDBImport - The Genome Analysis Toolkit (GATK) v4.6.2.0
+18:26:01.643 INFO  GenomicsDBImport - For support and documentation go to https://software.broadinstitute.org/gatk/
+18:26:01.643 INFO  GenomicsDBImport - Executing as yzwl_lixg@c01n0548 on Linux v4.18.0-513.5.1.el8_9.x86_64 amd64
+18:26:01.643 INFO  GenomicsDBImport - Java runtime: OpenJDK 64-Bit Server VM v17.0.15-internal+0-adhoc..src
+18:26:01.643 INFO  GenomicsDBImport - Start Date/Time: 2025年11月25日 CST 下午6:26:01
+18:26:01.644 INFO  GenomicsDBImport - ------------------------------------------------------------
+18:26:01.644 INFO  GenomicsDBImport - ------------------------------------------------------------
+18:26:01.644 INFO  GenomicsDBImport - HTSJDK Version: 4.2.0
+18:26:01.644 INFO  GenomicsDBImport - Picard Version: 3.4.0
+18:26:01.644 INFO  GenomicsDBImport - Built for Spark Version: 3.5.0
+18:26:01.646 INFO  GenomicsDBImport - HTSJDK Defaults.COMPRESSION_LEVEL : 2
+18:26:01.646 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_READ_FOR_SAMTOOLS : false
+18:26:01.646 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_SAMTOOLS : true
+18:26:01.646 INFO  GenomicsDBImport - HTSJDK Defaults.USE_ASYNC_IO_WRITE_FOR_TRIBBLE : false
+18:26:01.646 INFO  GenomicsDBImport - Deflater: IntelDeflater
+18:26:01.646 INFO  GenomicsDBImport - Inflater: IntelInflater
+18:26:01.646 INFO  GenomicsDBImport - GCS max retries/reopens: 20
+18:26:01.646 INFO  GenomicsDBImport - Requester pays: disabled
+18:26:01.647 INFO  GenomicsDBImport - Initializing engine
+18:26:01.647 INFO  GenomicsDBImport - Shutting down engine
+[2025年11月25日 CST 下午6:26:01] org.broadinstitute.hellbender.tools.genomicsdb.GenomicsDBImport done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=335544320
+***********************************************************************
+
+A USER ERROR has occurred: Couldn't read file file:///share/org/YZWL/yzwl_lixg/project/23.%E8%94%8A%E8%8F%9C/05.%E5%8F%B6%E7%BB%BF%E4%BD%93%E6%AF%94%E5%AF%B9/03.gatk_joint/03.gatk_joint/sample_map.txt. Error was: exception while reading sample->filename mapping file
+
+***********************************************************************
+Set the system property GATK_STACKTRACE_ON_USER_EXCEPTION (--java-options '-DGATK_STACKTRACE_ON_USER_EXCEPTION=true') to print the stack trace.
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -Xmx100g -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar GenomicsDBImport --genomicsdb-workspace-path 03.gatk_joint/genomicsdb_workspace --sample-name-map 03.gatk_joint/sample_map.txt --reader-threads 88 -L 03.gatk_joint/intervals.list
+
+2025-11-25 18:26:01,678 - ERROR - ❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: ❌ GenomicsDB导入失败 | GenomicsDB import failed
+✅ samtools 已找到，准备开始分析...
+📁 在 '02.mapping/01.bam' 中找到 3 个 BAM 文件。
+🚀 使用 88 个进程并行处理...
+
+🔄 正在汇总所有成功的结果并生成报告...

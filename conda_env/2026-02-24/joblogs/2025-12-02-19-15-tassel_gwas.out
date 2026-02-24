@@ -1,0 +1,44 @@
+🚀 [0;34m╔════════════════════════════════════════════════════════╗[0m
+🚀 [0;34m║      TASSEL GWAS Pipeline v3.0 Started                 ║[0m
+🚀 [0;34m╚════════════════════════════════════════════════════════╝[0m
+[0;32m[INFO][0m ⏱️ Start time: 2025-12-02 19:15:45
+[0;32m[INFO][0m ⚙️ Working directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/11.tassel_gwas
+[0;32m[INFO][0m ⚙️ Checking environment...
+[0;32m[INFO][0m Selected Model: [1;33mMLM[0m
+[0;32m[INFO][0m ✅ TASSEL found: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+[0;32m[INFO][0m 🧬 Input VCF: variation.filtered.snp.maf5.vcf.gz
+[0;32m[INFO][0m    • Variants: 1057352
+[0;32m[INFO][0m    • Samples: 88
+[0;32m[INFO][0m 📊 Phenotype: 16.微生物和甲烷菌用于GWAS的数据.test.txt
+[0;32m[INFO][0m    • Samples: 88
+[0;32m[INFO][0m    • Traits: 1
+[1;33m[WARN][0m No Q-matrix provided
+[0;32m[INFO][0m ⚙️ Preparing phenotype file...
+[0;32m[INFO][0m ✅ Phenotype file prepared (90 lines)
+[0;32m[INFO][0m 🧬 Sorting and filtering VCF with bcftools...
+[0;32m[INFO][0m ✅ VCF sorted. Variants after filter: 1057352
+[0;32m[INFO][0m 🧬 Calculating Kinship matrix (Centered_IBS)...
+[0;32m[INFO][0m ✅ Kinship calculated in 17s (91x91)
+
+[0;32m[INFO][0m 📊 [0;32m═══════════════════════════════════════[0m
+[0;32m[INFO][0m 📊 [0;32mRunning MLM (Mixed Linear Model)...[0m
+[0;32m[INFO][0m 📊 [0;32m═══════════════════════════════════════[0m
+[0;32m[INFO][0m    -> Using Kinship only (K model)
+[0;32m[INFO][0m ✅ MLM completed in 212s
+[0;32m[INFO][0m    • Total SNPs: 1057153
+[0;32m[INFO][0m    • Significant (P<1e-5): 9
+[0;32m[INFO][0m    • Output: GWAS_Result.mlm.manht_input
+[0;32m[INFO][0m 📊 Generating statistics report...
+[0;32m[INFO][0m ✅ Statistics saved to: GWAS_Result.stats.txt
+
+[0;32m[INFO][0m 🌾 [0;32m╔════════════════════════════════════════════════════════╗[0m
+[0;32m[INFO][0m 🌾 [0;32m║      Pipeline Completed Successfully! ✅              ║[0m
+[0;32m[INFO][0m 🌾 [0;32m╚════════════════════════════════════════════════════════╝[0m
+[0;32m[INFO][0m ⏱️ Total runtime: 299s
+[0;32m[INFO][0m 📊 Statistics: GWAS_Result.stats.txt
+[0;32m[INFO][0m ⚙️ Log file: GWAS_Result.pipeline.log
+
+[0;36mNext steps:[0m
+  1. Review results: cat GWAS_Result.stats.txt
+  2. Visualize results with Manhattan plots
+  3. Extract significant SNPs: awk '$4 < 1e-5' GWAS_Result.*.manht_input

@@ -1,0 +1,46 @@
+08/01/2026 21:46:31:164 Welcome to InterProScan-5.75-106.0
+08/01/2026 21:46:31:165 Running InterProScan v5 in STANDALONE mode... on Linux
+08/01/2026 21:46:34:200 RunID: c02n0082_20260108_214633986_dlnf
+08/01/2026 21:46:49:219 Loading file /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/04.第一批369个样品的GWAS/04.后续基因注释/01.plink/gene.pep.fa
+08/01/2026 21:46:49:220 Running the following analyses:
+[AntiFam-8.0,CDD-3.21,Coils-2.2.1,FunFam-4.3.0,Gene3D-4.3.0,Hamap-2025_01,MobiDBLite-4.0,NCBIfam-17.0,PANTHER-19.0,Pfam-37.4,PIRSF-3.10,PIRSR-2025_01,PRINTS-42.0,ProSitePatterns-2025_01,ProSiteProfiles-2025_01,SFLD-4,SMART-9.0,SUPERFAMILY-1.75]
+Available matches will be retrieved from the pre-calculated match lookup service.
+
+Matches for any sequences that are not represented in the lookup service will be calculated locally.
+2026-01-08 21:46:49,554 [Thread-6] [uk.ac.ebi.interpro.scan.business.sequence.BerkeleyPrecalculatedProteinLookup:381] ERROR - Lookup version check failed ... interproscanVersion: 5.75-106.0:vs Lookup version: 
+2026-01-08 21:46:49,579 [Thread-6] [uk.ac.ebi.interpro.scan.business.sequence.BerkeleyPrecalculatedProteinLookup:819] WARN - lookupUp service at https://www.ebi.ac.uk/interpro/match-lookup is not avaliable, ConnectException : Connection refused,  using proxy: false
+2026-01-08 21:46:49,579 [Thread-6] [uk.ac.ebi.interpro.scan.business.sequence.BerkeleyPrecalculatedProteinLookup:713] WARN - Problem with lookup service while on the step: First checking lookup client and server are in sync
+2026-01-08 21:46:49,581 [Thread-6] [uk.ac.ebi.interpro.scan.business.sequence.BerkeleyPrecalculatedProteinLookup:715] WARN - 
+
+The following problem was encountered by the pre-calculated match lookup service:
+Connect to www.ebi.ac.uk:443 [www.ebi.ac.uk/193.62.193.80] failed: Connection refused
+Pre-calculated match lookup service failed - analysis proceeding to run locally
+============================================================
+
+The pre-calculated match lookup service has been configured in the interproscan.properties file.  
+  precalculated match lookup service url : https://www.ebi.ac.uk/interpro/match-lookup
+  precalculated match lookup service proxy host :   proxy port : 3128
+
+Unfortunately the web service has failed. Check the configuration of this service
+in the interproscan.properties file and, if necessary, set the following property to look like this:
+
+precalculated.match.lookup.service.url=
+
+If the problem persists, check if this is a firewall or proxy issue. If it is a proxy issue, then setting 
+the following property in the interproscan.properties file should work:
+
+precalculated.match.lookup.service.proxy.host=
+precalculated.match.lookup.service.proxy.port=
+
+If this still does not work please inform the InterPro team of this error
+by sending an email to:
+
+interhelp@ebi.ac.uk
+
+In the meantime, the analysis will continue to run locally.
+
+
+08/01/2026 21:46:57:136 25% completed
+08/01/2026 21:47:08:401 50% completed
+08/01/2026 21:47:26:184 75% completed
+08/01/2026 21:47:42:515 90% completed

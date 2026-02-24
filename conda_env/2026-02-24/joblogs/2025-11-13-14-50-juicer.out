@@ -1,0 +1,34 @@
+INFO: 作业开始于: 2025年 11月 13日 星期四 14:50:14 CST
+INFO: 运行于计算节点: c01n0479
+INFO: 正在设置精确的 Java 环境...
+INFO: --- 开始自动化文件准备 ---
+INFO: 输入目录结构检查完毕。
+INFO: BWA 索引已存在。
+INFO: 染色体大小文件已存在。
+INFO: 酶切位点文件已存在且不为空, 跳过。
+INFO: --- 所有必需的输入文件准备工作完成 ---
+INFO: --- 准备启动 Juicer ---
+INFO: 正在清理旧的 'aligned' 和 'splits' 目录...
+INFO: 清理完成。
+INFO: 即将以 88 个线程运行 Juicer...
+Using /share/org/YZWL/yzwl_lixg/tmp/test_hic/restriction_sites/Est1_MboI.txt as site file
+(-: Aligning files matching /share/org/YZWL/yzwl_lixg/tmp/test_hic/fastq/*_R*.fastq*
+ to genome /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta with no fragment delimited maps.
+***! Some problems occurred somewhere in creating sorted align files.
+INFO: 作业开始于: 2025年 11月 13日 星期四 14:50:54 CST
+INFO: 运行于计算节点: c01n0479
+INFO: 正在设置精确的 Java 环境...
+INFO: --- 开始自动化文件准备 ---
+INFO: 输入目录结构检查完毕。
+INFO: BWA 索引已存在。
+INFO: 染色体大小文件已存在。
+INFO: 酶切位点文件已存在且不为空, 跳过。
+INFO: --- 所有必需的输入文件准备工作完成 ---
+INFO: --- 准备启动 Juicer ---
+INFO: 正在清理旧的 'aligned' 和 'splits' 目录...
+INFO: 清理完成。
+INFO: 即将以 88 个线程运行 Juicer...
+Using /share/org/YZWL/yzwl_lixg/tmp/test_hic/restriction_sites/Est1_MboI.txt as site file
+(-: Aligning files matching /share/org/YZWL/yzwl_lixg/tmp/test_hic/fastq/*_R*.fastq*
+ to genome /share/org/YZWL/yzwl_lixg/tmp/test_hic/OV53_1.primary.fasta with no fragment delimited maps.
+***! Some problems occurred somewhere in creating sorted align files.

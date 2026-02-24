@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/formats/bed.py", line 2552, in <module>
+    main()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/formats/bed.py", line 488, in main
+    p.dispatch(globals())
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/apps/base.py", line 130, in dispatch
+    globals[action](sys.argv[2:])
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/formats/bed.py", line 1489, in bins
+    sz = Sizes(fastafile)
+         ^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/formats/sizes.py", line 27, in __init__
+    assert op.exists(filename), "File `{0}` not found".format(filename)
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: File `1000000` not found
+Job 67899458 stderr output:
+

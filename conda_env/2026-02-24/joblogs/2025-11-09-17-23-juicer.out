@@ -1,0 +1,12 @@
+INFO: 作业开始于: 2025年 11月 09日 星期日 17:23:27 CST
+INFO: 运行于计算节点: c01n0493
+INFO: --- 开始自动化文件准备 ---
+INFO: 输入目录结构检查完毕。
+INFO: BWA 索引已存在, 跳过。
+INFO: 染色体大小文件已存在, 跳过。
+INFO: --- 所有必需的输入文件准备工作完成 ---
+INFO: --- 准备启动 Juicer ---
+INFO: 正在清理旧的 'aligned' 和 'splits' 目录以确保干净的启动环境...
+INFO: 清理完成。
+INFO: 即将以 64 个线程运行 Juicer...
+***! /share/org/YZWL/yzwl_lixg/software/juicer/restriction_sites/Est1_MboI.txt does not exist. It must be created before running this script.

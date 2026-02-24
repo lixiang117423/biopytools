@@ -1,0 +1,5 @@
+Exception in thread Thread-65 (producer):
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+Job 69145506 stderr output:
+

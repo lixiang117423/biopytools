@@ -1,0 +1,48 @@
+
+==================================================
+🎯 开始Fastq到VCF (Parabricks) 流程 | Starting Fastq to VCF (Parabricks) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2780215GB available
+✓ 系统内存充足 | Sufficient system memory: 503GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/98.测试全自动流程-parabricks
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/99.测试全自动流程/01.data/raw
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+⏭️ 用户指定跳过质控步骤 | User specified to skip QC step
+✅ 步骤 1 完成 | Step 1 completed: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+
+==================================================
+📊 Step 2: 构建基因组索引 | Build Genome Index
+==================================================
+检查点已存在，跳过索引构建 | Checkpoint exists, skipping index building
+✅ 步骤 2 完成 | Step 2 completed: 📊 构建基因组索引 | Build Genome Index
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+
+==================================================
+🗺️ Step 3: 序列比对 | Sequence Mapping
+==================================================
+检查点已存在，跳过比对 | Checkpoint exists, skipping mapping
+✅ 步骤 3 完成 | Step 3 completed: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+
+==================================================
+🧬 Step 4: 联合变异检测 | Joint Variant Calling
+==================================================
+❌ 未找到任何 gVCF 文件 | No gVCF files found
+❌ 步骤 4 失败 | Step 4 failed: 🧬 联合变异检测 | Joint Variant Calling

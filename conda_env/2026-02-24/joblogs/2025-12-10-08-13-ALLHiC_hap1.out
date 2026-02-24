@@ -1,0 +1,771 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1/logs/allhic_20251210_081306.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 08:13:22] Checking required tools...
+[2025-12-10 08:13:22] ✅ Environment ready
+[2025-12-10 08:13:22] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap1
+[2025-12-10 08:13:22] Threads: 88
+[2025-12-10 08:13:22] Memory: 800G
+[2025-12-10 08:13:22] Chromosomes: 12
+[2025-12-10 08:13:22] Enzyme: GATC
+[2025-12-10 08:13:22] ⏱️  Step completed in 16s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v4.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 [Step 0] Preparing input data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 08:13:22] ✅ Input files linked
+[2025-12-10 08:13:22] ⏱️  Step completed in 0s
+[2025-12-10 08:13:22] ⏭️  Skipping mapping step
+[2025-12-10 08:13:22] ⏭️  Skipping allele detection
+[2025-12-10 08:13:22] ⏭️  Skipping pruning
+[2025-12-10 08:13:22] ⏭️  Skipping partition
+[2025-12-10 08:13:22] ⏭️  Skipping extract
+[2025-12-10 08:13:22] ⏭️  Skipping rescue
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️  [Step 5] Optimizing contig order
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 08:13:22] Running 12 optimization tasks in parallel...
+[2025-12-10 08:13:22] ▶️  parallel -j 88 < optimize_cmds.sh
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:38 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:38 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:38 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:38 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:41 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:42 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:42 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:42 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:42 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:42 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:42 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:42 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:42 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:38 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:38 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:38 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:38 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:41 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:42 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:42 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:42 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:42 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:42 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:42 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:43 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:43 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:43 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:38 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:38 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:38 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:38 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:41 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:43 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:43 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:43 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:43 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:43 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:43 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:43 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:43 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:39 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:39 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:39 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:39 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:42 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:43 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:43 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:43 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:44 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:44 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:39 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:39 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:39 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:39 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:42 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:43 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:43 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:44 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:44 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:39 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:39 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:39 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:39 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:42 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:44 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:44 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:40 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:40 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:40 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:40 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:43 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:44 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:44 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:40 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:40 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:40 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:40 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:42 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:44 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:44 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:44 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:45 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:45 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:45 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:45 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:45 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:41 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:41 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:41 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:41 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:44 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:46 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:46 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:46 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:46 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:46 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:46 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:46 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:46 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:37 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:37 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:37 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:37 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:45 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:46 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:46 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:46 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:46 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:46 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:46 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:46 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:46 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:46 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:38 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:38 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:38 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:38 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:45 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:47 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:47 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:47 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:47 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:47 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:47 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:47 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:47 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:47 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:47 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:47 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:47 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:47 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:47 Run | NOTICE [0m Success
+>INIT
+h1tg000198l+ h1tg000065l+ h1tg000403l+ h1tg000213l+ h1tg000228l+ h1tg000606l+ h1tg000265l+ h1tg000121l+ h1tg000433l+ h1tg000911l+ h1tg000795l+ h1tg001206l+ h1tg000063l+ h1tg000371l+ h1tg000246l+ h1tg000545l+ h1tg000075l+ h1tg000368l+ h1tg000633l+ h1tg000655l+ h1tg000686l+ h1tg000679l+ h1tg000646l+ h1tg000831l+ h1tg000356l+ h1tg000076l+ h1tg000313l+ h1tg001043l+ h1tg000647l+ h1tg000895l+ h1tg000188l+ h1tg000547l+ h1tg000978l+ h1tg000995l+ h1tg000905l+ h1tg000939l+ h1tg000946l+ h1tg000794l+ h1tg000003l+ h1tg000802l+ h1tg000770l+ h1tg001035l+ h1tg000479l+ h1tg000032l+ h1tg000528l+ h1tg001082l+ h1tg000659l+ h1tg000116l+ h1tg000052l+ h1tg000024l+ h1tg000818l+ h1tg001004l+ h1tg001031l+ h1tg001042l+ h1tg000124l+ h1tg000336l+ h1tg001207l+ h1tg000434l+ h1tg000074l+ h1tg000837l+ h1tg000340l+ h1tg000878l+ h1tg000604l+ h1tg000416l+ h1tg000810l+ h1tg000333l+ h1tg000842l+ h1tg000108l+ h1tg001205l+ h1tg000743l+ h1tg000006l+ h1tg000874l+ h1tg001066l+ h1tg000114l+ h1tg000760l+ h1tg000630l+ h1tg000720l+ h1tg000684l+ h1tg000857l+ h1tg000764l+ h1tg000305l+ h1tg001210l+ h1tg000829l+ h1tg000994l+ h1tg000904l+ h1tg000652l+ h1tg001015l+ h1tg000693l+ h1tg000383l+ h1tg001050l+ h1tg000363l+ h1tg000883l+ h1tg000502l+ h1tg000762l+ h1tg000478l+ h1tg000172l+ h1tg000663l+ h1tg000386l+ h1tg000467l+ h1tg000546l+ h1tg000437l+ h1tg000605l+ h1tg000566l+ h1tg000728l+ h1tg001022l+ h1tg000306l+ h1tg000488l+ h1tg000741l+
+Current iteration GA1-0: max_score=0.49489
+Current iteration GA1-500: max_score=1.63027
+Current iteration GA1-1000: max_score=1.86526
+Current iteration GA1-1500: max_score=1.92708
+Current iteration GA1-2000: max_score=1.98974
+Current iteration GA1-2500: max_score=2.00882
+Current iteration GA1-3000: max_score=2.02054
+Current iteration GA1-3500: max_score=2.02183
+Current iteration GA1-4000: max_score=2.02183
+Current iteration GA1-4500: max_score=2.02183
+Current iteration GA1-5000: max_score=2.02183
+Current iteration GA1-5500: max_score=2.02183
+Current iteration GA1-6000: max_score=2.02183
+Current iteration GA1-6500: max_score=2.02183
+Current iteration GA1-7000: max_score=2.02183
+Current iteration GA1-7500: max_score=2.02183
+Current iteration GA1-8000: max_score=2.02183
+Current iteration GA1-8500: max_score=2.02183
+Current iteration GA1-9000: max_score=2.02183
+Current iteration GA1-9500: max_score=2.02183
+Current iteration GA1-10000: max_score=2.02183
+Current iteration GA1-10500: max_score=2.02183
+Current iteration GA1-11000: max_score=2.02183
+Current iteration GA1-11500: max_score=2.02183
+Current iteration GA2-0: max_score=2.02183
+Current iteration GA2-500: max_score=2.02183
+Current iteration GA2-1000: max_score=2.02183
+Current iteration GA2-1500: max_score=2.02183
+Current iteration GA2-2000: max_score=2.02183
+Current iteration GA2-2500: max_score=2.02183
+Current iteration GA2-3000: max_score=2.02183
+Current iteration GA2-3500: max_score=2.02183
+Current iteration GA2-4000: max_score=2.02183
+Current iteration GA2-4500: max_score=2.02183
+Current iteration GA2-5000: max_score=2.02183
+>FINAL
+h1tg000655l+ h1tg000764l+ h1tg000265l+ h1tg000770l- h1tg000831l- h1tg000905l- h1tg000566l+ h1tg000728l+ h1tg001207l+ h1tg000333l- h1tg000024l+ h1tg000546l+ h1tg000416l- h1tg000842l+ h1tg000829l- h1tg000904l+ h1tg000810l+ h1tg000659l+ h1tg000434l- h1tg000684l+ h1tg000679l- h1tg000305l+ h1tg000075l+ h1tg000356l+ h1tg000003l+ h1tg001043l- h1tg000547l- h1tg000743l+ h1tg000994l+ h1tg000604l+ h1tg000883l- h1tg001205l- h1tg000502l+ h1tg000978l- h1tg000306l+ h1tg000528l+ h1tg000479l+ h1tg000172l+ h1tg001210l+ h1tg000760l+ h1tg000802l- h1tg000336l+ h1tg000857l- h1tg000467l- h1tg000652l+ h1tg000795l+ h1tg000663l- h1tg000052l- h1tg000895l+ h1tg000693l+ h1tg000911l- h1tg000606l- h1tg000246l+ h1tg000403l- h1tg001031l+ h1tg000188l- h1tg001206l- h1tg000630l+ h1tg000213l+ h1tg000371l- h1tg000433l+ h1tg000032l+ h1tg000114l+ h1tg000116l+ h1tg000108l- h1tg000124l+ h1tg000488l+ h1tg000646l- h1tg000121l- h1tg001066l+ h1tg000065l+ h1tg000228l- h1tg000363l- h1tg001082l- h1tg000647l+ h1tg001042l- h1tg000741l- h1tg000386l- h1tg000837l- h1tg001004l+ h1tg000478l+ h1tg000340l+ h1tg000313l+ h1tg000063l- h1tg000383l- h1tg000878l+ h1tg000762l- h1tg000368l- h1tg000006l- h1tg000995l+ h1tg000874l+ h1tg000633l- h1tg000437l- h1tg000545l+ h1tg000720l- h1tg000074l+ h1tg000076l+ h1tg000605l+ h1tg000686l- h1tg000818l+ h1tg000946l+ h1tg000939l+ h1tg000794l- h1tg001050l+ h1tg001035l+ h1tg000198l+ h1tg001015l+ h1tg001022l-
+[32m08:13:23 readRE | NOTICE [0m Parse REfile `group12.txt`
+[32m08:13:23 readClmLines | NOTICE [0m Parse clmfile `sample.clean.clm`
+[32m08:14:40 reportActive | NOTICE [0m Active tigs: 108 (length=96892447)
+[32m08:14:40 flipLog | NOTICE [0m FLIPALL: -30095193.76380 => -30097589.27512 REJECT
+[32m08:14:40 Run | NOTICE [0m Optimization history logged to `group12.tour`
+[32m08:14:40 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:48 GARun | NOTICE [0m GA initialized (npop: 100, ngen: 5000, mu: 0.20, rng: 42, break: 10000000)
+[32m08:14:49 flipLog | NOTICE [0m FLIPWHOLE: -82128809.56950 => -82168422.61796 REJECT
+[32m08:14:49 flipLog | NOTICE [0m FLIPONE (50/108): -82066115.33528 => -82067444.13416 REJECT
+[32m08:14:49 flipLog | NOTICE [0m FLIPONE (100/108): -81924864.08612 => -81924880.89746 REJECT
+[32m08:14:49 flipOne | NOTICE [0m FLIPONE: N_accepts=46 N_rejects=62
+[32m08:14:49 flipLog | NOTICE [0m FLIPWHOLE: -81924863.91932 => -82313837.94882 REJECT
+[32m08:14:49 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:49 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:50 flipOne | NOTICE [0m FLIPONE: N_accepts=1 N_rejects=107
+[32m08:14:50 flipLog | NOTICE [0m FLIPWHOLE: -81924863.81107 => -82313837.61296 REJECT
+[32m08:14:50 flipLog | NOTICE [0m FLIPONE (50/108): -81924863.81107 => -81926277.96094 REJECT
+[32m08:14:50 flipLog | NOTICE [0m FLIPONE (100/108): -81924863.81107 => -81924880.62242 REJECT
+[32m08:14:50 flipOne | NOTICE [0m FLIPONE: N_accepts=0 N_rejects=108
+[32m08:14:50 Run | NOTICE [0m Terminating ... no more ACCEPT
+[32m08:14:50 Run | NOTICE [0m Success
+[2025-12-10 08:14:50] ✅ Optimization completed
+[2025-12-10 08:14:50] ⏱️  Step completed in 1m 28s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️  [Step 6] Building final assembly
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 08:14:50] ▶️  ALLHiC_build draft.asm.fasta
+1. tour format to agp ...
+Processing group12.tour ...
+[2025-12-10 08:14:53] ✅ Build completed
+[2025-12-10 08:14:53] ⏱️  Step completed in 3s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 [Step 7] Generating contact maps
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-10 08:14:57] ▶️  ALLHiC_plot -b sample.clean.bam -a groups.agp -l chrn.list              -m 50k -s 500k -o ./

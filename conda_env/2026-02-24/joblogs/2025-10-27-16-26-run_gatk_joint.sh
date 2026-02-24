@@ -1,0 +1,1 @@
+biopytools gatk-joint -i /share/org/YZWL/yzwl_lixg/project/16.荠菜/20.四倍体参数重新比对和检测变异/02_gvcfs  -r /share/org/YZWL/yzwl_lixg/project/16.荠菜/01.data/genome/genome.fa -o /share/org/YZWL/yzwl_lixg/project/16.荠菜/20.四倍体参数重新比对和检测变异/03_vcfs -t 88

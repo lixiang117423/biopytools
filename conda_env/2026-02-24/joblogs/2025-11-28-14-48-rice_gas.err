@@ -1,0 +1,6 @@
+Usage: biopytools parabricks [OPTIONS]
+Try 'biopytools parabricks -h' for help.
+
+Error: Invalid value for '--input-dir' / '-i': ❌ 路径不存在 | Path does not exist: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/01.data/clean/resequence 
+Job 68174911 stderr output:
+

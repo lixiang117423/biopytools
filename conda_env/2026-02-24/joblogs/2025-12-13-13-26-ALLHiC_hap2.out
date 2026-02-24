@@ -1,0 +1,88 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap2/logs/allhic_20251213_132628.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 13:26:34] Checking required tools...
+[2025-12-13 13:26:34] ✅ Environment ready
+[2025-12-13 13:26:34] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/hap2
+[2025-12-13 13:26:34] Threads: 88
+[2025-12-13 13:26:34] Memory: 500G
+[2025-12-13 13:26:34] Chromosomes: 12
+[2025-12-13 13:26:34] Enzyme: GATC
+[2025-12-13 13:26:34] MapQ Step1: 10
+[2025-12-13 13:26:34] MapQ JBAT: 1
+[2025-12-13 13:26:34] ⏱️  Step completed in 6s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v4.3 (Dual Strategy Edition)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 [Step 0] Preparing input data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 13:26:34] ✅ Input files linked
+[2025-12-13 13:26:34] ⏱️  Step completed in 0s
+[2025-12-13 13:26:34] ⏭️  Skipping mapping step
+[2025-12-13 13:26:34] ⏭️  Skipping allele detection
+[2025-12-13 13:26:34] ⏭️  Skipping pruning
+[2025-12-13 13:26:34] ⏭️  Skipping partition
+[2025-12-13 13:26:34] ⏭️  Skipping extract
+[2025-12-13 13:26:34] ⏭️  Skipping rescue
+[2025-12-13 13:26:34] ⏭️  Skipping optimization
+[2025-12-13 13:26:34] ⏭️  Skipping build
+[2025-12-13 13:26:34] ⏭️  Skipping plot
+[2025-12-13 13:26:34] ⏭️  Skipping pre-scaffolding JBAT generation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 [Step 9] Generating Post-Scaffolding JBAT Files (MapQ >= 1)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-13 13:26:34] 📌 Strategy: Using groups.asm.fasta (挂载后序列)
+[2025-12-13 13:26:34] Generating Assembly file for post-scaffolding...
+[2025-12-13 13:26:34] ✅ Generated simple assembly file (each chromosome as single block)
+[2025-12-13 13:26:34] Generating Chrom sizes from groups.asm.fasta...
+[2025-12-13 13:26:34] Building BWA index for groups.asm.fasta...
+[2025-12-13 13:26:34] ▶️  bwa index groups.asm.fasta
+[bwa_index] Pack FASTA... 5.30 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=2335598176, availableWord=176341056
+[BWTIncConstructFromPacked] 10 iterations done. 100000000 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 200000000 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 300000000 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 400000000 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 500000000 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 600000000 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 700000000 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 800000000 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 900000000 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 1000000000 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 1100000000 characters processed.
+[BWTIncConstructFromPacked] 120 iterations done. 1200000000 characters processed.
+[BWTIncConstructFromPacked] 130 iterations done. 1300000000 characters processed.
+[BWTIncConstructFromPacked] 140 iterations done. 1400000000 characters processed.
+[BWTIncConstructFromPacked] 150 iterations done. 1500000000 characters processed.
+[BWTIncConstructFromPacked] 160 iterations done. 1600000000 characters processed.
+[BWTIncConstructFromPacked] 170 iterations done. 1699026976 characters processed.
+[BWTIncConstructFromPacked] 180 iterations done. 1788907632 characters processed.
+[BWTIncConstructFromPacked] 190 iterations done. 1868789792 characters processed.
+[BWTIncConstructFromPacked] 200 iterations done. 1939785232 characters processed.
+[BWTIncConstructFromPacked] 210 iterations done. 2002882160 characters processed.
+[BWTIncConstructFromPacked] 220 iterations done. 2058958848 characters processed.
+[BWTIncConstructFromPacked] 230 iterations done. 2108795968 characters processed.
+[BWTIncConstructFromPacked] 240 iterations done. 2153087280 characters processed.
+[BWTIncConstructFromPacked] 250 iterations done. 2192449488 characters processed.
+[BWTIncConstructFromPacked] 260 iterations done. 2227430688 characters processed.
+[BWTIncConstructFromPacked] 270 iterations done. 2258518048 characters processed.
+[BWTIncConstructFromPacked] 280 iterations done. 2286144528 characters processed.
+[BWTIncConstructFromPacked] 290 iterations done. 2310694992 characters processed.
+[BWTIncConstructFromPacked] 300 iterations done. 2332511456 characters processed.
+[bwt_gen] Finished constructing BWT in 302 iterations.
+[bwa_index] 649.40 seconds elapse.
+[bwa_index] Update BWT... 4.40 sec
+[bwa_index] Pack forward-only FASTA... 3.38 sec
+[bwa_index] Construct SA from BWT and Occ... 284.58 sec
+[main] Version: 0.7.19-r1273
+[main] CMD: bwa index groups.asm.fasta
+[main] Real time: 949.153 sec; CPU: 947.063 sec
+[2025-12-13 13:42:24] 🚀 Starting Re-mapping pipeline for post-scaffolding...
+[2025-12-13 13:42:24]    Step 1: Generating filtered BAM file...

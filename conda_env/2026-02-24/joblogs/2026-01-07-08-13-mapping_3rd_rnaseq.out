@@ -1,0 +1,74 @@
+2026-01-07 08:13:55 - INFO - ============================================================
+2026-01-07 08:13:55 - INFO - 文件夹模式|Directory mode
+2026-01-07 08:13:55 - INFO - 找到|Found 2 个文件|files
+2026-01-07 08:13:55 - INFO - ============================================================
+2026-01-07 08:13:55 - INFO - 处理文件 1/2|Processing file 1/2: genA.sreads.bam
+2026-01-07 08:13:55 - INFO - ------------------------------------------------------------
+2026-01-07 08:13:55 - INFO - 检测到输入类型|Detected input type: bam
+2026-01-07 08:13:55 - INFO - 检查依赖工具|Checking dependency tools
+2026-01-07 08:13:55 - INFO - 找到工具|Found tool: minimap2 - 2.30-r1287
+2026-01-07 08:13:56 - INFO - 找到工具|Found tool: samtools - samtools 1.22
+2026-01-07 08:13:56 - INFO - ============================================================
+2026-01-07 08:13:56 - INFO - 开始三代转录组比对分析|Starting long RNA-seq alignment
+2026-01-07 08:13:56 - INFO - ============================================================
+2026-01-07 08:13:56 - INFO - 样本名称|Sample name: genA.sreads
+2026-01-07 08:13:56 - INFO - 参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/39.前后两次注释结果的蛋白序列blast/Chr12.fa
+2026-01-07 08:13:56 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/pacbio/genA.sreads.bam
+2026-01-07 08:13:56 - INFO - 输入类型|Input type: bam
+2026-01-07 08:13:56 - INFO - 线程数|Threads: 64
+2026-01-07 08:13:56 - INFO - 最大intron长度|Max intron length: 100000
+2026-01-07 08:13:56 - INFO - 最小MAPQ|Min MAPQ: 20
+2026-01-07 08:13:56 - INFO - 步骤1: 准备FASTQ文件|Step 1: Preparing FASTQ file
+2026-01-07 08:13:56 - INFO - 检测到BAM输入文件，正在转换为FASTQ|Detected BAM input file, converting to FASTQ
+2026-01-07 08:13:56 - INFO - 转换BAM到FASTQ|Converting BAM to FASTQ: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.fastq
+2026-01-07 08:16:06 - INFO - 总reads数|Total reads: 12341577
+2026-01-07 08:16:06 - INFO - 步骤2: minimap2比对|Step 2: Aligning with minimap2
+2026-01-07 08:16:06 - INFO - 比对参数|Alignment parameters: -x splice --eqx --MD --cs -Y --sam-hit-only -G 100000 -M 0.9 -p 0.1 -t 64
+2026-01-07 08:16:06 - INFO - 步骤1/3: 运行minimap2生成SAM文件|Step 1/3: Running minimap2 to generate SAM file
+2026-01-07 08:16:06 - INFO - 单端比对模式|Single-end alignment mode
+2026-01-07 08:16:06 - INFO - 运行命令|Running command: minimap2 -x splice --eqx --MD --cs -Y --sam-hit-only -G 100000 -M 0.9 -p 0.1 -t 64 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/39.前后两次注释结果的蛋白序列blast/Chr12.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.fastq > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.sam
+2026-01-07 08:36:38 - INFO - SAM文件生成完成|SAM file generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.sam
+2026-01-07 08:36:38 - INFO - 步骤2/3: 转换SAM为BAM|Step 2/3: Converting SAM to BAM
+2026-01-07 08:36:38 - INFO - 运行命令|Running command: samtools view -bS /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.sam > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.bam
+2026-01-07 08:36:39 - ERROR - 比对失败|Alignment failed: Command '['samtools', 'view', '-bS', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/genA.sreads.sam']' returned non-zero exit status 1.
+2026-01-07 08:36:39 - ERROR - 分析失败|Analysis failed
+2026-01-07 08:36:39 - INFO - 处理文件 2/2|Processing file 2/2: jingyeA.sreads.bam
+2026-01-07 08:36:39 - INFO - ------------------------------------------------------------
+2026-01-07 08:36:39 - INFO - 检测到输入类型|Detected input type: bam
+2026-01-07 08:36:39 - INFO - 检查依赖工具|Checking dependency tools
+2026-01-07 08:36:39 - INFO - 找到工具|Found tool: minimap2 - 2.30-r1287
+2026-01-07 08:36:39 - INFO - 找到工具|Found tool: samtools - samtools 1.22
+2026-01-07 08:36:39 - INFO - ============================================================
+2026-01-07 08:36:39 - INFO - 开始三代转录组比对分析|Starting long RNA-seq alignment
+2026-01-07 08:36:39 - INFO - ============================================================
+2026-01-07 08:36:39 - INFO - 样本名称|Sample name: jingyeA.sreads
+2026-01-07 08:36:39 - INFO - 参考基因组|Reference genome: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/39.前后两次注释结果的蛋白序列blast/Chr12.fa
+2026-01-07 08:36:39 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/pacbio/jingyeA.sreads.bam
+2026-01-07 08:36:39 - INFO - 输入类型|Input type: bam
+2026-01-07 08:36:39 - INFO - 线程数|Threads: 64
+2026-01-07 08:36:39 - INFO - 最大intron长度|Max intron length: 100000
+2026-01-07 08:36:39 - INFO - 最小MAPQ|Min MAPQ: 20
+2026-01-07 08:36:39 - INFO - 步骤1: 准备FASTQ文件|Step 1: Preparing FASTQ file
+2026-01-07 08:36:39 - INFO - 检测到BAM输入文件，正在转换为FASTQ|Detected BAM input file, converting to FASTQ
+2026-01-07 08:36:39 - INFO - 转换BAM到FASTQ|Converting BAM to FASTQ: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.fastq
+2026-01-07 08:44:16 - INFO - 总reads数|Total reads: 46245959
+2026-01-07 08:44:18 - INFO - 步骤2: minimap2比对|Step 2: Aligning with minimap2
+2026-01-07 08:44:18 - INFO - 比对参数|Alignment parameters: -x splice --eqx --MD --cs -Y --sam-hit-only -G 100000 -M 0.9 -p 0.1 -t 64
+2026-01-07 08:44:18 - INFO - 步骤1/3: 运行minimap2生成SAM文件|Step 1/3: Running minimap2 to generate SAM file
+2026-01-07 08:44:18 - INFO - 单端比对模式|Single-end alignment mode
+2026-01-07 08:44:18 - INFO - 运行命令|Running command: minimap2 -x splice --eqx --MD --cs -Y --sam-hit-only -G 100000 -M 0.9 -p 0.1 -t 64 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/39.前后两次注释结果的蛋白序列blast/Chr12.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.fastq > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.sam
+2026-01-07 09:43:03 - INFO - SAM文件生成完成|SAM file generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.sam
+2026-01-07 09:43:03 - INFO - 步骤2/3: 转换SAM为BAM|Step 2/3: Converting SAM to BAM
+2026-01-07 09:43:03 - INFO - 运行命令|Running command: samtools view -bS /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.sam > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.bam
+2026-01-07 09:43:03 - ERROR - 比对失败|Alignment failed: Command '['samtools', 'view', '-bS', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/20260106重新mapping/tmp/jingyeA.sreads.sam']' returned non-zero exit status 1.
+2026-01-07 09:43:03 - ERROR - 分析失败|Analysis failed
+2026-01-07 09:43:03 - INFO - 
+============================================================
+2026-01-07 09:43:03 - INFO - 批量处理完成|Batch processing completed
+2026-01-07 09:43:03 - INFO - ============================================================
+2026-01-07 09:43:03 - INFO - 成功|Success: 0/2
+2026-01-07 09:43:03 - INFO - 失败|Failed: 2/2
+2026-01-07 09:43:03 - INFO - 
+失败文件列表|Failed files:
+2026-01-07 09:43:03 - INFO -   - /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/pacbio/genA.sreads.bam
+2026-01-07 09:43:03 - INFO -   - /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/35.三代转录组比对到基因组上/pacbio/jingyeA.sreads.bam

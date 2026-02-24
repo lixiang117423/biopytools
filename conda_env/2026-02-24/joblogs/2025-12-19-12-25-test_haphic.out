@@ -1,0 +1,64 @@
+[2025-12-19 12:25:23] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-19 12:25:23] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-19 12:25:23]   assembly_file: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/genome.fa
+[2025-12-19 12:25:23]   hic_file: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/FZY4201_1.fq.gz
+[2025-12-19 12:25:23]   hic_file_type: fastq
+[2025-12-19 12:25:23]   nchrs: 8
+[2025-12-19 12:25:23]   output_dir: /share/org/YZWL/yzwl_lixg/tmp/test_haphic
+[2025-12-19 12:25:23]   prefix: genome
+[2025-12-19 12:25:23]   threads: 64
+[2025-12-19 12:25:23]   processes: 64
+[2025-12-19 12:25:23]   quick_view: False
+[2025-12-19 12:25:23]   restriction_sites: ['GATC']
+[2025-12-19 12:25:23]   correct_nrounds: 2
+[2025-12-19 12:25:23]   remove_allelic_links: None
+[2025-12-19 12:25:23]   phasing_weight: 1.0
+[2025-12-19 12:25:23]   gfa_files: None
+[2025-12-19 12:25:23]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-19 12:25:23]   bwa_bin: bwa
+[2025-12-19 12:25:23]   samtools_bin: samtools
+[2025-12-19 12:25:23] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-19 12:25:23] 🔍 系统预检查 | System pre-flight checks
+[2025-12-19 12:25:23] 🔍 验证输入文件 | Validating input files
+[2025-12-19 12:25:23] 📊 基因组序列数量 | Assembly sequence count: 8
+[2025-12-19 12:25:23] 📊 FASTQ文件大小 | FASTQ file sizes: R1 1.27 GB, R2 1.29 GB
+[2025-12-19 12:25:23] ✅ 输入文件验证通过 | Input files validated
+[2025-12-19 12:25:23] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-19 12:25:23] 💾 可用内存 | Available memory: 913.9 GB
+[2025-12-19 12:25:23] 💾 可用磁盘空间 | Available disk space: 2610476.8 GB
+[2025-12-19 12:25:23] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-19 12:25:23] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-19 12:25:23] 🔍 检查已存在的比对结果 | Checking for existing alignment results
+[2025-12-19 12:25:23] 📂 输出目录: /share/org/YZWL/yzwl_lixg/tmp/test_haphic
+[2025-12-19 12:25:23] 📂 比对目录: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/00.mapping
+[2025-12-19 12:25:23] 📄 潜在BAM文件: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/00.mapping/HiC.bam
+[2025-12-19 12:25:23] 📄 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/tmp/test_haphic/00.mapping/HiC.filtered.bam
+[2025-12-19 12:25:23] ❌ 比对目录不存在 | Alignment directory does not exist
+[2025-12-19 12:25:23] 🔗 执行BWA比对 | Executing BWA alignment
+[2025-12-19 12:25:23] 🔗 开始BWA比对 | Starting BWA alignment (official method)
+[2025-12-19 12:25:23] 📄 使用提供的FASTQ文件对 | Using provided FASTQ pair: FZY4201_1.fq.gz
+[2025-12-19 12:25:23] 📄 找到 1 对FASTQ文件 | Found 1 FASTQ pairs
+[2025-12-19 12:25:23] 🔗 创建基因组软链接 | Created assembly symlink: assembly.fa
+[2025-12-19 12:25:23] 🔗 创建FASTQ软链接 | Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+[2025-12-19 12:25:23] 📝 创建BWA索引 | Creating BWA index: assembly.fa
+[2025-12-19 12:26:30] ✅ BWA索引创建完成 | BWA index created
+[2025-12-19 12:26:30] ⚠️ 线程数过多 (64)，自动调整为 16 以避免内存不足 | Too many threads (64), automatically adjusting to 16 to avoid memory issues
+[2025-12-19 12:26:30] 🔗 步骤1: BWA比对 + 去重 + 初步过滤 (使用 16 线程) | Step 1: BWA alignment + deduplication + initial filtering (using 16 threads)
+[2025-12-19 12:26:30] 🔄 执行BWA比对管道 | Executing BWA alignment pipeline
+[2025-12-19 12:47:54] ✅ BWA比对完成，生成 HiC.bam
+[2025-12-19 12:47:54] 📊 BAM文件大小: 1475.05 MB
+[2025-12-19 12:47:54] 🔍 步骤2: HapHiC过滤 | Step 2: HapHiC filtering
+[2025-12-19 12:48:07] ✅ HapHiC过滤完成，生成 HiC.filtered.bam
+[2025-12-19 12:48:07] 📊 过滤后BAM文件大小: 31.97 MB
+[2025-12-19 12:48:07] ✅ BWA比对完成 | BWA alignment completed: HiC.filtered.bam
+[2025-12-19 12:48:07] 🚀 开始HapHiC完整流程 | Starting complete HapHiC pipeline
+[2025-12-19 12:48:07] 📁 创建目录结构 | Creating directory structure
+[2025-12-19 12:48:07] ✅ 目录结构创建完成 | Directory structure created
+[2025-12-19 12:48:07] 🔍 [步骤1] 聚类分析 | [Step 1] Clustering analysis
+[2025-12-19 12:48:07] 🚀 聚类分析
+[2025-12-19 12:48:26] ✅ 命令执行成功 | Command executed successfully (耗时: 19.50秒)
+[2025-12-19 12:48:26] 🔄 [步骤2] 重新分配 | [Step 2] Reassignment
+[2025-12-19 12:48:26] ❌ 无法找到最佳聚类结果 | Cannot find best clustering result
+[2025-12-19 12:48:26] 📊 处理统计 | Processing Statistics:
+[2025-12-19 12:48:26]   ⏱️ 总耗时 | Total time: 1383.80秒
+[2025-12-19 12:48:26]   📄 log_file: genome_haphic.log (27,194 bytes)

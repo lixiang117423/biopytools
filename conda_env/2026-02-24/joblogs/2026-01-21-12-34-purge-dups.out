@@ -1,0 +1,18 @@
+2026-01-21 12:34:17.936 - INFO - 开始Purge_Dups去冗余流程|Starting Purge_Dups deduplication pipeline
+2026-01-21 12:34:17.936 - INFO - 执行步骤1|Executing step 1: 计算测序深度|Calculate coverage
+2026-01-21 12:34:17.936 - INFO - 开始步骤1: 计算测序深度|Starting step 1: Calculate coverage
+2026-01-21 12:34:17.936 - INFO - 执行步骤|Executing step: 比对reads文件|Aligning reads: EcA.clean.fq
+2026-01-21 12:34:17.936 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/purge_dups_v.1.2.6/bin/minimap2 -t 64 -xmap-hifi -I 50G /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/02.fasta/EcA.primary.fa ../../01.data/clean/hifi/EcA.clean.fq.gz | gzip -c > 06.purge_dups/coverage/EcA.clean.fq.paf.gz
+2026-01-21 12:34:27.565 - ERROR - 命令执行失败|Command execution failed: 比对reads文件|Aligning reads: EcA.clean.fq
+2026-01-21 12:34:27.566 - ERROR - 错误代码|Error code: 1
+2026-01-21 12:34:27.566 - ERROR - 错误信息|Error message: /bin/sh: 06.purge_dups/coverage/EcA.clean.fq.paf.gz: No such file or directory
+[M::mm_idx_gen::8.020*1.24] collected minimizers
+[M::mm_idx_gen::8.591*2.33] sorted minimizers
+[M::main::8.591*2.33] loaded/built the index for 7535 target sequence(s)
+[M::mm_mapopt_update::9.077*2.26] mid_occ = 500
+[M::mm_idx_stat] kmer size: 19; skip: 19; is_hpc: 0; #seq: 7535
+[M::mm_idx_stat::9.450*2.21] distinct minimizers: 29657864 (92.13% are singletons); average occurrences: 2.305; average spacing: 9.961; total length: 681031758
+ERROR: failed to open file '../../01.data/clean/hifi/EcA.clean.fq.gz': No such file or directory
+ERROR: failed to map the query file
+
+2026-01-21 12:34:27.566 - ERROR - 步骤1失败|Step 1 failed: 计算测序深度|Calculate coverage

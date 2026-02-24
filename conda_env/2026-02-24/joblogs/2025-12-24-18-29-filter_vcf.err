@@ -1,0 +1,15 @@
+/share/org/YZWL/yzwl_lixg/miniforge3/envs/bcftools_v.1.22/libexec/bcftools/hwe.so:
+	dlopen   .. /share/org/YZWL/yzwl_lixg/miniforge3/envs/bcftools_v.1.22/libexec/bcftools/hwe.so: cannot open shared object file: No such file or directory
+hwe:
+	dlopen   .. hwe: cannot open shared object file: No such file or directory
+
+The bcftools plugin "hwe" was not found or is not functional. The environment variable BCFTOOLS_PLUGINS is not set
+and no usable plugins were found in /share/org/YZWL/yzwl_lixg/miniforge3/envs/bcftools_v.1.22/libexec/bcftools.
+
+Could not load "hwe".
+
+[E::hts_open_format] Failed to open file "tmp_hwe.vcf.gz" : No such file or directory
+Failed to read from tmp_hwe.vcf.gz: No such file or directory
+index: failed to open variation.filtered.snp.strict.vcf.gz
+Job 68669437 stderr output:
+

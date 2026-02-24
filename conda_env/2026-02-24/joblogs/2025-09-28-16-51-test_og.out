@@ -1,0 +1,150 @@
+2025-09-28 16:51:52,090 - INFO - 🚀 开始OrthoFinder泛基因组分析流程 | Starting OrthoFinder pangenome analysis pipeline
+2025-09-28 16:51:52,090 - INFO - 📁 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/pep
+2025-09-28 16:51:52,090 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test
+2025-09-28 16:51:52,091 - INFO - ⏭️ 跳过依赖检查 | Skipping dependency check
+2025-09-28 16:51:52,091 - INFO - ============================================================
+2025-09-28 16:51:52,091 - INFO - 🔍 步骤1: 验证输入数据 | Step 1: Validate input data
+2025-09-28 16:51:52,091 - INFO - ============================================================
+2025-09-28 16:51:52,091 - INFO - ✅ 验证输入文件格式 | Validating input file format
+2025-09-28 16:51:52,091 - INFO - 📄 找到 7 个FASTA文件 | Found 7 FASTA files
+2025-09-28 16:51:52,091 - INFO - 🏷️ 样本名称 | Sample names: Alyssum_desertorum_processed, Alyssum_gmelinii_processed, Alyssum_alyssoides_processed, Alyssum_dasycarpum_processed, Alyssum_simplex_processed...
+2025-09-28 16:51:52,096 - INFO - 🧬 检测到 7 个基因组 | Detected 7 genomes
+2025-09-28 16:51:52,097 - INFO - ============================================================
+2025-09-28 16:51:52,097 - INFO - 🧬 步骤2: 运行OrthoFinder同源基因群分析 | Step 2: Run OrthoFinder orthogroups analysis
+2025-09-28 16:51:52,097 - INFO - ============================================================
+2025-09-28 16:51:52,097 - INFO - 🔍 检查📁 输入目录 | Checking 📁 输入目录: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/pep/OrthoFinder
+2025-09-28 16:51:52,097 - INFO - 🔍 检查📁 输出目录 | Checking 📁 输出目录: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/Results_OrthoFinder
+2025-09-28 16:51:52,097 - INFO - 🔍 检查📁 输出目录（备用名称） | Checking 📁 输出目录（备用名称）: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/OrthoFinder_Results
+2025-09-28 16:51:52,097 - INFO - ❌ 未发现有效结果，需要运行OrthoFinder | No valid results found, need to run OrthoFinder
+2025-09-28 16:51:52,097 - INFO - 🚀 开始OrthoFinder分析 | Starting OrthoFinder analysis
+2025-09-28 16:51:52,097 - INFO - ⚙️ 参数设置 | Parameter settings:
+2025-09-28 16:51:52,097 - INFO -    🧵 线程数 | Threads: 88
+2025-09-28 16:51:52,097 - INFO -    🔍 搜索程序 | Search program: diamond
+2025-09-28 16:51:52,097 - INFO -    🔧 MCL inflation: 1.2
+2025-09-28 16:51:52,097 - INFO - 🚀 执行步骤 | Executing step: 🧬 OrthoFinder同源基因群分析 | OrthoFinder orthogroup analysis
+2025-09-28 16:51:52,097 - INFO - 💻 命令 | Command: orthofinder -f /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/pep -t 88 -S diamond -I 1.2 -n pangenome_pep -og
+2025-09-28 16:51:52,097 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test
+2025-09-28 16:52:14,237 - INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 OrthoFinder同源基因群分析 | OrthoFinder orthogroup analysis
+2025-09-28 16:52:14,239 - INFO - 📂 找到OrthoFinder结果目录 | Found OrthoFinder results directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/pep/OrthoFinder/Results_pangenome_pep
+2025-09-28 16:52:14,241 - INFO - 💾 结果已移动到 | Results moved to: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/Results_OrthoFinder
+2025-09-28 16:52:14,244 - INFO - 💾 工作目录已移动到 | Working directory moved to: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/OrthoFinder_WorkingDirectory
+2025-09-28 16:52:14,244 - INFO - ✅ OrthoFinder分析完成 | OrthoFinder analysis completed
+2025-09-28 16:52:14,244 - INFO - 📁 结果目录 | Results directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/Results_OrthoFinder
+2025-09-28 16:52:14,244 - INFO - ============================================================
+2025-09-28 16:52:14,245 - INFO - 📥 步骤3: 加载和解析OrthoFinder结果 | Step 3: Load and parse OrthoFinder results
+2025-09-28 16:52:14,245 - INFO - ============================================================
+2025-09-28 16:52:14,245 - INFO - 📥 加载OrthoFinder结果文件 | Loading OrthoFinder results files
+2025-09-28 16:52:14,277 - INFO - ✅ 成功加载基因计数文件 | Successfully loaded gene count file: 7 genomes
+2025-09-28 16:52:14,277 - INFO - 🧬 基因组名称 | Genome names: Alliaria_petiolata_processed, Alyssopsis_mollis_processed, Alyssum_alyssoides_processed, Alyssum_dasycarpum_processed, Alyssum_desertorum_processed...
+2025-09-28 16:52:14,279 - INFO - ✅ 成功加载同源基因群详细文件 | Successfully loaded orthogroups detailed file: 83 groups
+2025-09-28 16:52:14,279 - INFO - 📊 Orthogroups.tsv基因组列 | Orthogroups.tsv genome columns: ['Alliaria_petiolata_processed', 'Alyssopsis_mollis_processed', 'Alyssum_alyssoides_processed', 'Alyssum_dasycarpum_processed', 'Alyssum_desertorum_processed']...
+2025-09-28 16:52:14,279 - INFO - ============================================================
+2025-09-28 16:52:14,279 - INFO - 🎯 步骤4: 泛基因组分类分析 | Step 4: Pangenome classification analysis
+2025-09-28 16:52:14,279 - INFO - ============================================================
+2025-09-28 16:52:14,279 - INFO - 🎯 开始泛基因组分类 | Starting pangenome classification
+2025-09-28 16:52:14,279 - INFO - ⚙️ 分类参数 | Classification parameters:
+2025-09-28 16:52:14,279 - INFO -   🔢 Softcore缺失阈值 | Softcore missing threshold: <=2
+2025-09-28 16:52:14,279 - INFO -   🔢 Dispensable缺失阈值 | Dispensable missing threshold: >2
+2025-09-28 16:52:14,301 - INFO - 📊 泛基因组分类统计 | Pangenome classification statistics:
+2025-09-28 16:52:14,301 - INFO -    🔴 核心基因 | Core: 9 orthogroups (10.84%), 126 genes
+2025-09-28 16:52:14,301 - INFO -    🟠 软核心基因 | Softcore: 0 orthogroups (0.00%), 0 genes
+2025-09-28 16:52:14,301 - INFO -    🟡 非必需基因 | Dispensable: 2 orthogroups (2.41%), 4 genes
+2025-09-28 16:52:14,301 - INFO -    🟢 私有基因 | Private: 0 orthogroups (0.00%), 0 genes
+2025-09-28 16:52:14,301 - INFO -    🔵 单拷贝基因 | Single_copy: 72 orthogroups (86.75%), 504 genes
+2025-09-28 16:52:14,301 - INFO - ============================================================
+2025-09-28 16:52:14,301 - INFO - 📈 步骤5: 泛基因组稀释曲线分析 | Step 5: Pangenome rarefaction curve analysis
+2025-09-28 16:52:14,301 - INFO - ============================================================
+2025-09-28 16:52:14,301 - INFO - 💾 保存泛基因组分类结果 | Saving pangenome classification results
+2025-09-28 16:52:14,302 - INFO - ✅ 分类结果已保存 | Classification results saved: pangenome_gene_families.txt
+2025-09-28 16:52:14,302 - INFO - ✅ 分类摘要已保存 | Classification summary saved: pangenome_classification_summary.txt
+2025-09-28 16:52:14,302 - INFO - 📥 加载分类结果用于稀释分析 | Loading classification results for rarefaction analysis: pangenome_gene_families.txt
+2025-09-28 16:52:14,304 - INFO - ✅ 稀释分析数据已加载 | Rarefaction analysis data loaded: 7 genomes
+2025-09-28 16:52:14,304 - INFO - 🧬 基因组列表 | Genome list: Alliaria_petiolata_processed, Alyssopsis_mollis_processed, Alyssum_alyssoides_processed, Alyssum_dasycarpum_processed, Alyssum_desertorum_processed...
+2025-09-28 16:52:14,304 - INFO - 📈 开始稀释曲线分析 | Starting rarefaction curve analysis
+2025-09-28 16:52:14,304 - INFO - 🔢 迭代次数 | Iterations: 100
+2025-09-28 16:52:14,304 - INFO - 🔍 分析样本大小 | Analyzing sample size: 1/7
+2025-09-28 16:52:14,308 - INFO -   📊 样本大小 1: Pan均值=81.6, Core均值=81.6
+2025-09-28 16:52:14,308 - INFO - 🔍 分析样本大小 | Analyzing sample size: 2/7
+2025-09-28 16:52:14,318 - INFO -   📊 样本大小 2: Pan均值=82.0, Core均值=81.1
+2025-09-28 16:52:14,318 - INFO - 🔍 分析样本大小 | Analyzing sample size: 3/7
+2025-09-28 16:52:14,334 - INFO -   📊 样本大小 3: Pan均值=82.4, Core均值=81.0
+2025-09-28 16:52:14,334 - INFO - 🔍 分析样本大小 | Analyzing sample size: 4/7
+2025-09-28 16:52:14,351 - INFO -   📊 样本大小 4: Pan均值=82.7, Core均值=81.0
+2025-09-28 16:52:14,351 - INFO - 🔍 分析样本大小 | Analyzing sample size: 5/7
+2025-09-28 16:52:14,361 - INFO -   📊 样本大小 5: Pan均值=82.9, Core均值=81.0
+2025-09-28 16:52:14,362 - INFO - 🔍 分析样本大小 | Analyzing sample size: 6/7
+2025-09-28 16:52:14,365 - INFO -   📊 样本大小 6: Pan均值=83.0, Core均值=81.0
+2025-09-28 16:52:14,365 - INFO - 🔍 分析样本大小 | Analyzing sample size: 7/7
+2025-09-28 16:52:14,366 - INFO -   📊 样本大小 7: Pan均值=83.0, Core均值=81.0
+2025-09-28 16:52:14,366 - INFO - ✅ 稀释曲线分析完成 | Rarefaction curve analysis completed
+2025-09-28 16:52:14,366 - INFO - 💾 保存稀释曲线分析结果 | Saving rarefaction curve analysis results
+2025-09-28 16:52:14,390 - INFO - ✅ 稀释曲线详细数据已保存 | Rarefaction curve detailed data saved: rarefaction_curve_detailed.tsv
+2025-09-28 16:52:14,390 - INFO - ✅ 稀释曲线摘要数据已保存 | Rarefaction curve summary data saved: rarefaction_curve_summary.tsv
+2025-09-28 16:52:14,390 - INFO - ============================================================
+2025-09-28 16:52:14,390 - INFO - 💾 步骤6: 保存分析结果 | Step 6: Save analysis results
+2025-09-28 16:52:14,390 - INFO - ============================================================
+2025-09-28 16:52:14,390 - INFO - 📊 正在获取基因组统计信息...
+2025-09-28 16:52:14,391 - INFO - ✅ 基因组统计信息获取完成
+2025-09-28 16:52:14,391 - INFO - 📈 正在获取频率分布...
+2025-09-28 16:52:14,391 - INFO - ✅ 频率分布获取完成
+2025-09-28 16:52:14,391 - INFO - 📋 正在保存详细结果表格...
+2025-09-28 16:52:14,391 - INFO - 💾 保存基因家族详细表格 | Saving detailed gene families table
+2025-09-28 16:52:14,393 - INFO - ✅ 基因家族表格已保存 | Gene families table saved: gene_families_detailed.tsv
+2025-09-28 16:52:14,393 - INFO - 📊 保存了 634 行数据 | Saved 634 rows of data
+2025-09-28 16:52:14,393 - INFO - ✅ 详细结果表格保存完成
+2025-09-28 16:52:14,393 - INFO - ============================================================
+2025-09-28 16:52:14,393 - INFO - 🔵 步骤7: 单拷贝基因分析和序列提取 | Step 7: Single copy gene analysis and sequence extraction
+2025-09-28 16:52:14,393 - INFO - ============================================================
+2025-09-28 16:52:14,393 - INFO - 🔵 识别到 72 个单拷贝同源群 | Identified 72 single copy orthogroups
+2025-09-28 16:52:14,393 - INFO - 📥 加载基因组序列文件 | Loading genome sequence files
+2025-09-28 16:52:14,393 - INFO -   📄 加载 Alyssum_desertorum_processed 序列
+2025-09-28 16:52:14,790 - INFO -   📄 加载 Alyssum_gmelinii_processed 序列
+2025-09-28 16:52:14,790 - INFO -   📄 加载 Alyssum_alyssoides_processed 序列
+2025-09-28 16:52:14,791 - INFO -   📄 加载 Alyssum_dasycarpum_processed 序列
+2025-09-28 16:52:14,791 - INFO -   📄 加载 Alyssum_simplex_processed 序列
+2025-09-28 16:52:14,791 - INFO -   📄 加载 Alyssopsis_mollis_processed 序列
+2025-09-28 16:52:14,792 - INFO -   📄 加载 Alliaria_petiolata_processed 序列
+2025-09-28 16:52:14,792 - INFO - ✅ 序列加载完成 | Sequence loading completed: 7 genomes, 571 sequences
+2025-09-28 16:52:14,792 - INFO - 🔵 提取单拷贝基因序列 | Extracting single copy gene sequences
+2025-09-28 16:52:14,793 - INFO - 📦 按同源群提取序列 | Extracting sequences by orthogroup
+2025-09-28 16:52:14,808 - INFO - ✅ 按同源群序列提取完成 | Orthogroup-wise extraction completed: 72 files
+2025-09-28 16:52:14,808 - INFO - 🧬 按基因组提取序列 | Extracting sequences by genome
+2025-09-28 16:52:14,812 - INFO - ✅ 按基因组序列提取完成 | Genome-wise extraction completed: 7 files
+2025-09-28 16:52:14,812 - INFO - ✅ 单拷贝基因汇总文件已生成 | Single copy genes summary generated: single_copy_genes_summary.txt
+2025-09-28 16:52:14,812 - INFO - ============================================================
+2025-09-28 16:52:14,812 - INFO - 📊 步骤8: 生成可视化图表 | Step 8: Generate visualization plots
+2025-09-28 16:52:14,812 - INFO - ============================================================
+2025-09-28 16:52:18,589 - INFO - 🥧 创建分类饼图 | Creating classification pie chart
+2025-09-28 16:52:19,218 - INFO - ✅ 分类饼图已保存 | Classification pie chart saved: pangenome_classification_pie.png
+2025-09-28 16:52:19,219 - INFO - 📊 创建频率分布图 | Creating frequency distribution plot
+2025-09-28 16:52:19,968 - INFO - ✅ 频率分布图已保存 | Frequency distribution plot saved: frequency_distribution.png
+2025-09-28 16:52:19,969 - INFO - 📈 创建稀释曲线图 | Creating rarefaction curve plot
+2025-09-28 16:52:20,262 - INFO - ✅ 稀释曲线图已保存 | Rarefaction curve plot saved: pangenome_rarefaction_curve.png
+2025-09-28 16:52:20,262 - INFO - ============================================================
+2025-09-28 16:52:20,262 - INFO - 📝 步骤9: 生成分析报告 | Step 9: Generate analysis report
+2025-09-28 16:52:20,262 - INFO - ============================================================
+2025-09-28 16:52:20,262 - INFO - 📄 生成综合分析报告 | Generating comprehensive analysis report
+2025-09-28 16:52:20,265 - INFO - ✅ 综合报告已生成 | Comprehensive report generated: pangenome_analysis_report.txt
+2025-09-28 16:52:20,265 - INFO - ============================================================
+2025-09-28 16:52:20,265 - INFO - 🎉 泛基因组分析完成！| Pangenome analysis completed!
+2025-09-28 16:52:20,265 - INFO - ============================================================
+2025-09-28 16:52:20,265 - INFO - 📂 拷贝OrthoFinder原始结果到输出目录 | Copying OrthoFinder original results to output directory
+2025-09-28 16:52:20,304 - INFO - ✅ OrthoFinder结果已拷贝到 | OrthoFinder results copied to: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/OrthoFinder_Results
+2025-09-28 16:52:20,304 - INFO - 🧹 删除重复目录 | Removing duplicate directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/Results_OrthoFinder
+2025-09-28 16:52:20,317 - INFO - 🧹 删除重复目录 | Removing duplicate directory: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test/OrthoFinder_WorkingDirectory
+2025-09-28 16:52:20,318 - INFO - ✅ OrthoFinder结果整理完成 | OrthoFinder results organization completed
+2025-09-28 16:52:20,318 - INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/15.十字花科泛基因组/04.叶绿体基因组/unique_genome/test
+2025-09-28 16:52:20,318 - INFO - 📊 关键统计 | Key Statistics:
+2025-09-28 16:52:20,318 - INFO -    🧬 总基因组数 | Total genomes: 7
+2025-09-28 16:52:20,318 - INFO -    📦 同源基因群数 | Orthogroups: 83
+2025-09-28 16:52:20,318 - INFO -    🧬 总基因数 | Total genes: 634
+2025-09-28 16:52:20,318 - INFO -    🔴 核心基因群 | Core gene families: 9
+2025-09-28 16:52:20,318 - INFO -    🟠 软核心基因群 | Softcore gene families: 0
+2025-09-28 16:52:20,318 - INFO -    🟡 非必需基因群 | Dispensable gene families: 2
+2025-09-28 16:52:20,318 - INFO -    🟢 私有基因群 | Private gene families: 0
+2025-09-28 16:52:20,318 - INFO -    🔵 单拷贝基因群 | Single copy gene families: 72
+2025-09-28 16:52:20,318 - INFO - 
+📋 主要输出文件 | Main output files:
+2025-09-28 16:52:20,318 - INFO -    📄 基因家族信息 | Gene families: pangenome_gene_families.txt
+2025-09-28 16:52:20,318 - INFO -    📊 详细数据表格 | Detailed table: gene_families_detailed.tsv
+2025-09-28 16:52:20,318 - INFO -    📝 综合报告 | Comprehensive report: pangenome_analysis_report.txt

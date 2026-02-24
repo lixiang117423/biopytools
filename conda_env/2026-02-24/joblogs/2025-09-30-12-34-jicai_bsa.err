@@ -1,0 +1,14 @@
+[W::bcf_sr_add_hreader] No BGZF EOF marker; file '/share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/joint/merged_gtx.vcf.gz' may be truncated
+Error: no BGZF EOF marker; file may be truncated
+[E::hts_open_format] Failed to open file "/share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/snp.raw.vcf.gz" : No such file or directory
+Failed to read from /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/snp.raw.vcf.gz: No such file or directory
+[bgzip] No such file or directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/snp.filtered.recode.vcf
+tbx_index_build3 failed: /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/snp.filtered.recode.vcf.gz
+[E::hts_open_format] Failed to open file "/share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/snp.filtered.recode.vcf.gz" : No such file or directory
+Failed to read from /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/snp.filtered.recode.vcf.gz: No such file or directory
+[E::hts_open_format] Failed to open file "/share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/indel.raw.vcf.gz" : No such file or directory
+Failed to read from /share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/indel.raw.vcf.gz: No such file or directory
+cp: cannot stat '/share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/snp.filtered.recode.vcf.gz': No such file or directory
+cp: cannot stat '/share/org/YZWL/yzwl_lixg/project/16.荠菜/02.each.2/snp.filtered.recode.vcf.gz.tbi': No such file or directory
+Job 67222289 stderr output:
+

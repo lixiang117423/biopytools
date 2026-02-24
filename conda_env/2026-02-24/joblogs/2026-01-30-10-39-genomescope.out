@@ -1,0 +1,662 @@
+2026-01-30 10:39:16.589 - INFO - ============================================================
+2026-01-30 10:39:16.609 - INFO - Genome Analysis Pipeline
+2026-01-30 10:39:16.609 - INFO - ============================================================
+2026-01-30 10:39:16.609 - INFO - 输入路径: ../01.data/raw
+2026-01-30 10:39:16.609 - INFO - 输出目录: ./
+2026-01-30 10:39:16.609 - INFO - 读长: 150
+2026-01-30 10:39:16.609 - INFO - K-mer大小: 21
+2026-01-30 10:39:16.609 - INFO - 线程数: 12
+2026-01-30 10:39:16.609 - INFO - ============================================================
+2026-01-30 10:39:16.609 - INFO - 检查依赖环境|Checking dependencies
+2026-01-30 10:39:16.609 - INFO - ============================================================
+2026-01-30 10:39:16.617 - INFO - [OK] jellyfish 已找到|jellyfish found
+2026-01-30 10:39:16.638 - INFO - [OK] R 已找到|R found
+2026-01-30 10:39:16.721 - INFO - [OK] FastK 已找到|FastK found
+2026-01-30 10:39:16.722 - INFO - [OK] smudgeplot 已找到|smudgeplot found
+2026-01-30 10:39:16.775 - INFO - 目录输入模式，正在查找FASTQ文件|Directory input mode, searching FASTQ files: ../01.data/raw
+2026-01-30 10:39:16.851 - INFO - 找到 12 个样本|Found 12 samples:
+2026-01-30 10:39:16.852 - INFO -   - J_CZ: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - OV44_23: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - OV47_12: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - OV48_12: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - OV50_2: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - OV51_5: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - OV52_4: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - OV54_2: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - QG_ZS: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - SMJ5_3: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - T108_2: 4 个文件
+2026-01-30 10:39:16.852 - INFO -   - T94_2: 4 个文件
+2026-01-30 10:39:16.852 - INFO - 
+2026-01-30 10:39:16.852 - INFO - ============================================================
+2026-01-30 10:39:16.852 - INFO - 处理样品|Processing sample: J_CZ
+2026-01-30 10:39:16.852 - INFO - ============================================================
+2026-01-30 10:39:16.857 - INFO - 设置临时目录: ./J_CZ/tmp|Set temporary directory: ./J_CZ/tmp
+2026-01-30 10:39:16.858 - INFO - ============================================================
+2026-01-30 10:39:16.858 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 10:39:16.858 - INFO - ============================================================
+2026-01-30 10:39:16.858 - INFO - 配置参数|Configuration parameters:
+2026-01-30 10:39:16.858 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 10:39:16.858 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 10:39:16.858 - INFO -   - 线程数|Threads: 12
+2026-01-30 10:39:16.858 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 10:39:16.869 - INFO - 输出文件已存在，跳过此步骤: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/jellyfish/genome_analysis.jf
+2026-01-30 10:39:16.870 - INFO - 如需重新运行，请删除现有文件
+2026-01-30 10:39:16.870 - INFO - ============================================================
+2026-01-30 10:39:16.870 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 10:39:16.870 - INFO - ============================================================
+2026-01-30 10:39:16.870 - INFO - 输出文件已存在，跳过此步骤: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/jellyfish/genome_analysis.histo
+2026-01-30 10:39:16.870 - INFO - 如需重新运行，请删除现有文件
+2026-01-30 10:39:16.874 - INFO - ============================================================
+2026-01-30 10:39:16.874 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 10:39:16.874 - INFO - ============================================================
+2026-01-30 10:39:16.877 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/genomescope_output 1000
+2026-01-30 10:39:18.409 - INFO - 
+2026-01-30 10:39:18.409 - INFO - ============================================================
+2026-01-30 10:39:18.409 - INFO - 样品 J_CZ 运行Smudgeplot倍性分析
+2026-01-30 10:39:18.409 - INFO - ============================================================
+2026-01-30 10:39:18.410 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/fastk/fastk_table
+2026-01-30 10:39:18.410 - INFO - ============================================================
+2026-01-30 10:39:18.410 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 10:39:18.410 - INFO - ============================================================
+2026-01-30 10:39:18.410 - INFO - 配置参数:
+2026-01-30 10:39:18.410 - INFO -   - K-mer大小: 21
+2026-01-30 10:39:18.410 - INFO -   - 线程数: 12
+2026-01-30 10:39:18.410 - INFO -   - 内存: 100G
+2026-01-30 10:39:18.410 - INFO -   - 输入文件数: 4
+2026-01-30 10:39:18.462 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/fastk/J_CZ_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/fastk/J_CZ_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/fastk/J_CZ_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/fastk/J_CZ_1.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/fastk/fastk_table
+2026-01-30 10:41:05.208 - INFO - FastK步骤成功完成
+2026-01-30 10:41:05.209 - INFO - ============================================================
+2026-01-30 10:41:05.209 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 10:41:05.209 - INFO - ============================================================
+2026-01-30 10:41:05.209 - INFO - 配置参数:
+2026-01-30 10:41:05.209 - INFO -   - K-mer coverage: 50.0
+2026-01-30 10:41:05.209 - INFO -   - K-mer大小: 21
+2026-01-30 10:41:05.221 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/J_CZ/fastk/fastk_table
+2026-01-30 10:41:19.931 - INFO - Hetmers步骤成功完成
+2026-01-30 10:41:19.932 - INFO - 样品 J_CZ 处理完成
+2026-01-30 10:41:19.932 - INFO - 
+2026-01-30 10:41:19.932 - INFO - ============================================================
+2026-01-30 10:41:19.932 - INFO - 处理样品|Processing sample: OV44_23
+2026-01-30 10:41:19.932 - INFO - ============================================================
+2026-01-30 10:41:19.939 - INFO - 设置临时目录: ./OV44_23/tmp|Set temporary directory: ./OV44_23/tmp
+2026-01-30 10:41:19.955 - INFO - ============================================================
+2026-01-30 10:41:19.955 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 10:41:19.955 - INFO - ============================================================
+2026-01-30 10:41:19.956 - INFO - 配置参数|Configuration parameters:
+2026-01-30 10:41:19.956 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 10:41:19.956 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 10:41:19.956 - INFO -   - 线程数|Threads: 12
+2026-01-30 10:41:19.956 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 10:41:19.956 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 10:41:19.956 - INFO - 命令: zcat ../01.data/raw/OV44_23_2.fq.gz ../01.data/raw/OV44_23_1.fq.gz ../01.data/raw/OV44_23/OV44_23_2.fq.gz ../01.data/raw/OV44_23/OV44_23_1.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 10:53:31.579 - INFO - Jellyfish count步骤成功完成
+2026-01-30 10:53:31.579 - INFO - ============================================================
+2026-01-30 10:53:31.579 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 10:53:31.579 - INFO - ============================================================
+2026-01-30 10:53:31.579 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/jellyfish/genome_analysis.jf
+2026-01-30 10:54:02.741 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 10:54:02.742 - INFO - ============================================================
+2026-01-30 10:54:02.742 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 10:54:02.742 - INFO - ============================================================
+2026-01-30 10:54:02.742 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/genomescope_output 1000
+2026-01-30 10:54:23.112 - INFO - GenomeScope分析成功完成
+2026-01-30 10:54:23.112 - INFO - 
+2026-01-30 10:54:23.112 - INFO - ============================================================
+2026-01-30 10:54:23.112 - INFO - 样品 OV44_23 运行Smudgeplot倍性分析
+2026-01-30 10:54:23.112 - INFO - ============================================================
+2026-01-30 10:54:23.113 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/fastk/fastk_table
+2026-01-30 10:54:23.113 - INFO - ============================================================
+2026-01-30 10:54:23.113 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 10:54:23.113 - INFO - ============================================================
+2026-01-30 10:54:23.113 - INFO - 配置参数:
+2026-01-30 10:54:23.113 - INFO -   - K-mer大小: 21
+2026-01-30 10:54:23.113 - INFO -   - 线程数: 12
+2026-01-30 10:54:23.113 - INFO -   - 内存: 100G
+2026-01-30 10:54:23.113 - INFO -   - 输入文件数: 4
+2026-01-30 10:54:23.113 - INFO - 解压文件到临时目录: ../01.data/raw/OV44_23_2.fq.gz
+2026-01-30 10:56:21.708 - INFO - 解压文件到临时目录: ../01.data/raw/OV44_23_1.fq.gz
+2026-01-30 10:58:24.874 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/fastk/OV44_23_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/fastk/OV44_23_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/fastk/OV44_23_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/fastk/OV44_23_1.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/fastk/fastk_table
+2026-01-30 11:00:48.735 - INFO - FastK步骤成功完成
+2026-01-30 11:00:48.735 - INFO - ============================================================
+2026-01-30 11:00:48.735 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 11:00:48.735 - INFO - ============================================================
+2026-01-30 11:00:48.735 - INFO - 配置参数:
+2026-01-30 11:00:48.735 - INFO -   - K-mer coverage: 50.0
+2026-01-30 11:00:48.735 - INFO -   - K-mer大小: 21
+2026-01-30 11:00:48.735 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV44_23/fastk/fastk_table
+2026-01-30 11:00:50.913 - INFO - Hetmers步骤成功完成
+2026-01-30 11:00:50.913 - INFO - 样品 OV44_23 处理完成
+2026-01-30 11:00:50.913 - INFO - 
+2026-01-30 11:00:50.913 - INFO - ============================================================
+2026-01-30 11:00:50.913 - INFO - 处理样品|Processing sample: OV47_12
+2026-01-30 11:00:50.913 - INFO - ============================================================
+2026-01-30 11:00:50.913 - INFO - 设置临时目录: ./OV47_12/tmp|Set temporary directory: ./OV47_12/tmp
+2026-01-30 11:00:50.913 - INFO - ============================================================
+2026-01-30 11:00:50.913 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 11:00:50.913 - INFO - ============================================================
+2026-01-30 11:00:50.913 - INFO - 配置参数|Configuration parameters:
+2026-01-30 11:00:50.913 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 11:00:50.927 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 11:00:50.927 - INFO -   - 线程数|Threads: 12
+2026-01-30 11:00:50.927 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 11:00:50.927 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 11:00:50.927 - INFO - 命令: zcat ../01.data/raw/OV47_12_1.fq.gz ../01.data/raw/OV47_12_2.fq.gz ../01.data/raw/OV47_12/OV47_12_1.fq.gz ../01.data/raw/OV47_12/OV47_12_2.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 11:12:54.421 - INFO - Jellyfish count步骤成功完成
+2026-01-30 11:12:54.421 - INFO - ============================================================
+2026-01-30 11:12:54.421 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 11:12:54.421 - INFO - ============================================================
+2026-01-30 11:12:54.422 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/jellyfish/genome_analysis.jf
+2026-01-30 11:13:31.808 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 11:13:31.809 - INFO - ============================================================
+2026-01-30 11:13:31.809 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 11:13:31.809 - INFO - ============================================================
+2026-01-30 11:13:31.809 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/genomescope_output 1000
+2026-01-30 11:13:34.182 - INFO - GenomeScope分析成功完成
+2026-01-30 11:13:34.182 - INFO - 
+2026-01-30 11:13:34.182 - INFO - ============================================================
+2026-01-30 11:13:34.182 - INFO - 样品 OV47_12 运行Smudgeplot倍性分析
+2026-01-30 11:13:34.182 - INFO - ============================================================
+2026-01-30 11:13:34.182 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/fastk/fastk_table
+2026-01-30 11:13:34.182 - INFO - ============================================================
+2026-01-30 11:13:34.182 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 11:13:34.182 - INFO - ============================================================
+2026-01-30 11:13:34.182 - INFO - 配置参数:
+2026-01-30 11:13:34.182 - INFO -   - K-mer大小: 21
+2026-01-30 11:13:34.183 - INFO -   - 线程数: 12
+2026-01-30 11:13:34.183 - INFO -   - 内存: 100G
+2026-01-30 11:13:34.183 - INFO -   - 输入文件数: 4
+2026-01-30 11:13:34.183 - INFO - 解压文件到临时目录: ../01.data/raw/OV47_12_1.fq.gz
+2026-01-30 11:15:40.399 - INFO - 解压文件到临时目录: ../01.data/raw/OV47_12_2.fq.gz
+2026-01-30 11:17:49.736 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/fastk/OV47_12_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/fastk/OV47_12_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/fastk/OV47_12_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/fastk/OV47_12_2.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/fastk/fastk_table
+2026-01-30 11:20:44.555 - INFO - FastK步骤成功完成
+2026-01-30 11:20:44.564 - INFO - ============================================================
+2026-01-30 11:20:44.564 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 11:20:44.564 - INFO - ============================================================
+2026-01-30 11:20:44.564 - INFO - 配置参数:
+2026-01-30 11:20:44.564 - INFO -   - K-mer coverage: 50.0
+2026-01-30 11:20:44.564 - INFO -   - K-mer大小: 21
+2026-01-30 11:20:44.564 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV47_12/fastk/fastk_table
+2026-01-30 11:20:46.195 - INFO - Hetmers步骤成功完成
+2026-01-30 11:20:46.195 - INFO - 样品 OV47_12 处理完成
+2026-01-30 11:20:46.195 - INFO - 
+2026-01-30 11:20:46.195 - INFO - ============================================================
+2026-01-30 11:20:46.195 - INFO - 处理样品|Processing sample: OV48_12
+2026-01-30 11:20:46.195 - INFO - ============================================================
+2026-01-30 11:20:46.195 - INFO - 设置临时目录: ./OV48_12/tmp|Set temporary directory: ./OV48_12/tmp
+2026-01-30 11:20:46.196 - INFO - ============================================================
+2026-01-30 11:20:46.196 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 11:20:46.196 - INFO - ============================================================
+2026-01-30 11:20:46.196 - INFO - 配置参数|Configuration parameters:
+2026-01-30 11:20:46.196 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 11:20:46.196 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 11:20:46.196 - INFO -   - 线程数|Threads: 12
+2026-01-30 11:20:46.196 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 11:20:46.196 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 11:20:46.196 - INFO - 命令: zcat ../01.data/raw/OV48_12_2.fq.gz ../01.data/raw/OV48_12_1.fq.gz ../01.data/raw/OV48_12/OV48_12_2.fq.gz ../01.data/raw/OV48_12/OV48_12_1.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 11:32:45.001 - INFO - Jellyfish count步骤成功完成
+2026-01-30 11:32:45.002 - INFO - ============================================================
+2026-01-30 11:32:45.002 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 11:32:45.002 - INFO - ============================================================
+2026-01-30 11:32:45.002 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/jellyfish/genome_analysis.jf
+2026-01-30 11:33:15.732 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 11:33:15.732 - INFO - ============================================================
+2026-01-30 11:33:15.732 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 11:33:15.732 - INFO - ============================================================
+2026-01-30 11:33:15.732 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/genomescope_output 1000
+2026-01-30 11:33:17.739 - INFO - GenomeScope分析成功完成
+2026-01-30 11:33:17.816 - INFO - 
+2026-01-30 11:33:17.816 - INFO - ============================================================
+2026-01-30 11:33:17.816 - INFO - 样品 OV48_12 运行Smudgeplot倍性分析
+2026-01-30 11:33:17.816 - INFO - ============================================================
+2026-01-30 11:33:17.816 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/fastk/fastk_table
+2026-01-30 11:33:17.816 - INFO - ============================================================
+2026-01-30 11:33:17.816 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 11:33:17.816 - INFO - ============================================================
+2026-01-30 11:33:17.816 - INFO - 配置参数:
+2026-01-30 11:33:17.816 - INFO -   - K-mer大小: 21
+2026-01-30 11:33:17.817 - INFO -   - 线程数: 12
+2026-01-30 11:33:17.817 - INFO -   - 内存: 100G
+2026-01-30 11:33:17.817 - INFO -   - 输入文件数: 4
+2026-01-30 11:33:17.817 - INFO - 解压文件到临时目录: ../01.data/raw/OV48_12_2.fq.gz
+2026-01-30 11:35:16.026 - INFO - 解压文件到临时目录: ../01.data/raw/OV48_12_1.fq.gz
+2026-01-30 11:37:17.384 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/fastk/OV48_12_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/fastk/OV48_12_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/fastk/OV48_12_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/fastk/OV48_12_1.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/fastk/fastk_table
+2026-01-30 11:39:45.973 - INFO - FastK步骤成功完成
+2026-01-30 11:39:45.974 - INFO - ============================================================
+2026-01-30 11:39:45.974 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 11:39:45.974 - INFO - ============================================================
+2026-01-30 11:39:45.974 - INFO - 配置参数:
+2026-01-30 11:39:45.974 - INFO -   - K-mer coverage: 50.0
+2026-01-30 11:39:45.974 - INFO -   - K-mer大小: 21
+2026-01-30 11:39:45.974 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV48_12/fastk/fastk_table
+2026-01-30 11:39:49.549 - INFO - Hetmers步骤成功完成
+2026-01-30 11:39:49.549 - INFO - 样品 OV48_12 处理完成
+2026-01-30 11:39:49.549 - INFO - 
+2026-01-30 11:39:49.549 - INFO - ============================================================
+2026-01-30 11:39:49.549 - INFO - 处理样品|Processing sample: OV50_2
+2026-01-30 11:39:49.549 - INFO - ============================================================
+2026-01-30 11:39:49.550 - INFO - 设置临时目录: ./OV50_2/tmp|Set temporary directory: ./OV50_2/tmp
+2026-01-30 11:39:49.550 - INFO - ============================================================
+2026-01-30 11:39:49.550 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 11:39:49.550 - INFO - ============================================================
+2026-01-30 11:39:49.550 - INFO - 配置参数|Configuration parameters:
+2026-01-30 11:39:49.550 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 11:39:49.566 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 11:39:49.566 - INFO -   - 线程数|Threads: 12
+2026-01-30 11:39:49.566 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 11:39:49.566 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 11:39:49.566 - INFO - 命令: zcat ../01.data/raw/OV50_2_2.fq.gz ../01.data/raw/OV50_2_1.fq.gz ../01.data/raw/OV50_2/OV50_2_2.fq.gz ../01.data/raw/OV50_2/OV50_2_1.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 11:48:43.670 - INFO - Jellyfish count步骤成功完成
+2026-01-30 11:48:43.671 - INFO - ============================================================
+2026-01-30 11:48:43.671 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 11:48:43.671 - INFO - ============================================================
+2026-01-30 11:48:43.671 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/jellyfish/genome_analysis.jf
+2026-01-30 11:49:13.148 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 11:49:13.148 - INFO - ============================================================
+2026-01-30 11:49:13.149 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 11:49:13.149 - INFO - ============================================================
+2026-01-30 11:49:13.149 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/genomescope_output 1000
+2026-01-30 11:49:15.157 - INFO - GenomeScope分析成功完成
+2026-01-30 11:49:15.157 - INFO - 
+2026-01-30 11:49:15.157 - INFO - ============================================================
+2026-01-30 11:49:15.157 - INFO - 样品 OV50_2 运行Smudgeplot倍性分析
+2026-01-30 11:49:15.157 - INFO - ============================================================
+2026-01-30 11:49:15.158 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/fastk/fastk_table
+2026-01-30 11:49:15.158 - INFO - ============================================================
+2026-01-30 11:49:15.158 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 11:49:15.158 - INFO - ============================================================
+2026-01-30 11:49:15.158 - INFO - 配置参数:
+2026-01-30 11:49:15.158 - INFO -   - K-mer大小: 21
+2026-01-30 11:49:15.158 - INFO -   - 线程数: 12
+2026-01-30 11:49:15.158 - INFO -   - 内存: 100G
+2026-01-30 11:49:15.158 - INFO -   - 输入文件数: 4
+2026-01-30 11:49:15.158 - INFO - 解压文件到临时目录: ../01.data/raw/OV50_2_2.fq.gz
+2026-01-30 11:50:47.764 - INFO - 解压文件到临时目录: ../01.data/raw/OV50_2_1.fq.gz
+2026-01-30 11:52:24.231 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/fastk/OV50_2_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/fastk/OV50_2_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/fastk/OV50_2_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/fastk/OV50_2_1.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/fastk/fastk_table
+2026-01-30 11:54:30.147 - INFO - FastK步骤成功完成
+2026-01-30 11:54:30.147 - INFO - ============================================================
+2026-01-30 11:54:30.159 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 11:54:30.159 - INFO - ============================================================
+2026-01-30 11:54:30.159 - INFO - 配置参数:
+2026-01-30 11:54:30.159 - INFO -   - K-mer coverage: 50.0
+2026-01-30 11:54:30.159 - INFO -   - K-mer大小: 21
+2026-01-30 11:54:30.159 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV50_2/fastk/fastk_table
+2026-01-30 11:54:32.119 - INFO - Hetmers步骤成功完成
+2026-01-30 11:54:32.119 - INFO - 样品 OV50_2 处理完成
+2026-01-30 11:54:32.119 - INFO - 
+2026-01-30 11:54:32.119 - INFO - ============================================================
+2026-01-30 11:54:32.119 - INFO - 处理样品|Processing sample: OV51_5
+2026-01-30 11:54:32.119 - INFO - ============================================================
+2026-01-30 11:54:32.119 - INFO - 设置临时目录: ./OV51_5/tmp|Set temporary directory: ./OV51_5/tmp
+2026-01-30 11:54:32.119 - INFO - ============================================================
+2026-01-30 11:54:32.119 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 11:54:32.119 - INFO - ============================================================
+2026-01-30 11:54:32.119 - INFO - 配置参数|Configuration parameters:
+2026-01-30 11:54:32.119 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 11:54:32.119 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 11:54:32.119 - INFO -   - 线程数|Threads: 12
+2026-01-30 11:54:32.119 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 11:54:32.120 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 11:54:32.120 - INFO - 命令: zcat ../01.data/raw/OV51_5_1.fq.gz ../01.data/raw/OV51_5_2.fq.gz ../01.data/raw/OV51_5/OV51_5_1.fq.gz ../01.data/raw/OV51_5/OV51_5_2.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 12:05:28.088 - INFO - Jellyfish count步骤成功完成
+2026-01-30 12:05:28.089 - INFO - ============================================================
+2026-01-30 12:05:28.089 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 12:05:28.089 - INFO - ============================================================
+2026-01-30 12:05:28.089 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/jellyfish/genome_analysis.jf
+2026-01-30 12:06:00.098 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 12:06:00.099 - INFO - ============================================================
+2026-01-30 12:06:00.099 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 12:06:00.099 - INFO - ============================================================
+2026-01-30 12:06:00.099 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/genomescope_output 1000
+2026-01-30 12:06:01.818 - INFO - GenomeScope分析成功完成
+2026-01-30 12:06:01.832 - INFO - 
+2026-01-30 12:06:01.832 - INFO - ============================================================
+2026-01-30 12:06:01.832 - INFO - 样品 OV51_5 运行Smudgeplot倍性分析
+2026-01-30 12:06:01.832 - INFO - ============================================================
+2026-01-30 12:06:01.832 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/fastk/fastk_table
+2026-01-30 12:06:01.832 - INFO - ============================================================
+2026-01-30 12:06:01.832 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 12:06:01.832 - INFO - ============================================================
+2026-01-30 12:06:01.832 - INFO - 配置参数:
+2026-01-30 12:06:01.832 - INFO -   - K-mer大小: 21
+2026-01-30 12:06:01.832 - INFO -   - 线程数: 12
+2026-01-30 12:06:01.833 - INFO -   - 内存: 100G
+2026-01-30 12:06:01.833 - INFO -   - 输入文件数: 4
+2026-01-30 12:06:01.833 - INFO - 解压文件到临时目录: ../01.data/raw/OV51_5_1.fq.gz
+2026-01-30 12:08:14.145 - INFO - 解压文件到临时目录: ../01.data/raw/OV51_5_2.fq.gz
+2026-01-30 12:10:23.417 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/fastk/OV51_5_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/fastk/OV51_5_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/fastk/OV51_5_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/fastk/OV51_5_2.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/fastk/fastk_table
+2026-01-30 12:13:13.117 - INFO - FastK步骤成功完成
+2026-01-30 12:13:13.117 - INFO - ============================================================
+2026-01-30 12:13:13.117 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 12:13:13.117 - INFO - ============================================================
+2026-01-30 12:13:13.117 - INFO - 配置参数:
+2026-01-30 12:13:13.117 - INFO -   - K-mer coverage: 50.0
+2026-01-30 12:13:13.117 - INFO -   - K-mer大小: 21
+2026-01-30 12:13:13.118 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV51_5/fastk/fastk_table
+2026-01-30 12:13:14.974 - INFO - Hetmers步骤成功完成
+2026-01-30 12:13:14.974 - INFO - 样品 OV51_5 处理完成
+2026-01-30 12:13:14.974 - INFO - 
+2026-01-30 12:13:14.974 - INFO - ============================================================
+2026-01-30 12:13:14.974 - INFO - 处理样品|Processing sample: OV52_4
+2026-01-30 12:13:14.974 - INFO - ============================================================
+2026-01-30 12:13:14.975 - INFO - 设置临时目录: ./OV52_4/tmp|Set temporary directory: ./OV52_4/tmp
+2026-01-30 12:13:14.975 - INFO - ============================================================
+2026-01-30 12:13:14.975 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 12:13:14.975 - INFO - ============================================================
+2026-01-30 12:13:14.975 - INFO - 配置参数|Configuration parameters:
+2026-01-30 12:13:14.975 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 12:13:14.975 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 12:13:14.975 - INFO -   - 线程数|Threads: 12
+2026-01-30 12:13:14.985 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 12:13:14.985 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 12:13:14.985 - INFO - 命令: zcat ../01.data/raw/OV52_4_1.fq.gz ../01.data/raw/OV52_4_2.fq.gz ../01.data/raw/OV52_4/OV52_4_1.fq.gz ../01.data/raw/OV52_4/OV52_4_2.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 12:28:07.562 - INFO - Jellyfish count步骤成功完成
+2026-01-30 12:28:07.562 - INFO - ============================================================
+2026-01-30 12:28:07.562 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 12:28:07.562 - INFO - ============================================================
+2026-01-30 12:28:07.562 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/jellyfish/genome_analysis.jf
+2026-01-30 12:28:41.091 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 12:28:41.091 - INFO - ============================================================
+2026-01-30 12:28:41.091 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 12:28:41.091 - INFO - ============================================================
+2026-01-30 12:28:41.091 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/genomescope_output 1000
+2026-01-30 12:28:42.502 - INFO - GenomeScope分析成功完成
+2026-01-30 12:28:42.502 - INFO - 
+2026-01-30 12:28:42.502 - INFO - ============================================================
+2026-01-30 12:28:42.503 - INFO - 样品 OV52_4 运行Smudgeplot倍性分析
+2026-01-30 12:28:42.503 - INFO - ============================================================
+2026-01-30 12:28:42.503 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/fastk/fastk_table
+2026-01-30 12:28:42.503 - INFO - ============================================================
+2026-01-30 12:28:42.503 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 12:28:42.503 - INFO - ============================================================
+2026-01-30 12:28:42.503 - INFO - 配置参数:
+2026-01-30 12:28:42.503 - INFO -   - K-mer大小: 21
+2026-01-30 12:28:42.503 - INFO -   - 线程数: 12
+2026-01-30 12:28:42.503 - INFO -   - 内存: 100G
+2026-01-30 12:28:42.503 - INFO -   - 输入文件数: 4
+2026-01-30 12:28:42.503 - INFO - 解压文件到临时目录: ../01.data/raw/OV52_4_1.fq.gz
+2026-01-30 12:31:13.185 - INFO - 解压文件到临时目录: ../01.data/raw/OV52_4_2.fq.gz
+2026-01-30 12:33:39.110 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/fastk/OV52_4_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/fastk/OV52_4_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/fastk/OV52_4_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/fastk/OV52_4_2.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/fastk/fastk_table
+2026-01-30 12:36:38.708 - INFO - FastK步骤成功完成
+2026-01-30 12:36:38.708 - INFO - ============================================================
+2026-01-30 12:36:38.708 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 12:36:38.708 - INFO - ============================================================
+2026-01-30 12:36:38.742 - INFO - 配置参数:
+2026-01-30 12:36:38.742 - INFO -   - K-mer coverage: 50.0
+2026-01-30 12:36:38.742 - INFO -   - K-mer大小: 21
+2026-01-30 12:36:38.742 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV52_4/fastk/fastk_table
+2026-01-30 12:36:41.118 - INFO - Hetmers步骤成功完成
+2026-01-30 12:36:41.120 - INFO - 样品 OV52_4 处理完成
+2026-01-30 12:36:41.120 - INFO - 
+2026-01-30 12:36:41.120 - INFO - ============================================================
+2026-01-30 12:36:41.120 - INFO - 处理样品|Processing sample: OV54_2
+2026-01-30 12:36:41.120 - INFO - ============================================================
+2026-01-30 12:36:41.120 - INFO - 设置临时目录: ./OV54_2/tmp|Set temporary directory: ./OV54_2/tmp
+2026-01-30 12:36:41.120 - INFO - ============================================================
+2026-01-30 12:36:41.120 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 12:36:41.120 - INFO - ============================================================
+2026-01-30 12:36:41.120 - INFO - 配置参数|Configuration parameters:
+2026-01-30 12:36:41.121 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 12:36:41.121 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 12:36:41.121 - INFO -   - 线程数|Threads: 12
+2026-01-30 12:36:41.121 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 12:36:41.121 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 12:36:41.121 - INFO - 命令: zcat ../01.data/raw/OV54_2_1.fq.gz ../01.data/raw/OV54_2_2.fq.gz ../01.data/raw/OV54_2/OV54_2_1.fq.gz ../01.data/raw/OV54_2/OV54_2_2.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 12:50:46.281 - INFO - Jellyfish count步骤成功完成
+2026-01-30 12:50:46.281 - INFO - ============================================================
+2026-01-30 12:50:46.281 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 12:50:46.281 - INFO - ============================================================
+2026-01-30 12:50:46.281 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/jellyfish/genome_analysis.jf
+2026-01-30 12:51:19.767 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 12:51:19.767 - INFO - ============================================================
+2026-01-30 12:51:19.767 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 12:51:19.767 - INFO - ============================================================
+2026-01-30 12:51:19.767 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/genomescope_output 1000
+2026-01-30 12:51:20.484 - INFO - 
+2026-01-30 12:51:20.484 - INFO - ============================================================
+2026-01-30 12:51:20.484 - INFO - 样品 OV54_2 运行Smudgeplot倍性分析
+2026-01-30 12:51:20.484 - INFO - ============================================================
+2026-01-30 12:51:20.484 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/fastk/fastk_table
+2026-01-30 12:51:20.484 - INFO - ============================================================
+2026-01-30 12:51:20.484 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 12:51:20.484 - INFO - ============================================================
+2026-01-30 12:51:20.484 - INFO - 配置参数:
+2026-01-30 12:51:20.484 - INFO -   - K-mer大小: 21
+2026-01-30 12:51:20.484 - INFO -   - 线程数: 12
+2026-01-30 12:51:20.484 - INFO -   - 内存: 100G
+2026-01-30 12:51:20.484 - INFO -   - 输入文件数: 4
+2026-01-30 12:51:20.484 - INFO - 解压文件到临时目录: ../01.data/raw/OV54_2_1.fq.gz
+2026-01-30 12:53:38.778 - INFO - 解压文件到临时目录: ../01.data/raw/OV54_2_2.fq.gz
+2026-01-30 12:55:58.930 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/fastk/OV54_2_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/fastk/OV54_2_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/fastk/OV54_2_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/fastk/OV54_2_2.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/fastk/fastk_table
+2026-01-30 12:58:54.821 - INFO - FastK步骤成功完成
+2026-01-30 12:58:54.821 - INFO - ============================================================
+2026-01-30 12:58:54.821 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 12:58:54.821 - INFO - ============================================================
+2026-01-30 12:58:54.821 - INFO - 配置参数:
+2026-01-30 12:58:54.822 - INFO -   - K-mer coverage: 50.0
+2026-01-30 12:58:54.822 - INFO -   - K-mer大小: 21
+2026-01-30 12:58:54.822 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/OV54_2/fastk/fastk_table
+2026-01-30 12:58:56.140 - INFO - Hetmers步骤成功完成
+2026-01-30 12:58:56.140 - INFO - 样品 OV54_2 处理完成
+2026-01-30 12:58:56.140 - INFO - 
+2026-01-30 12:58:56.140 - INFO - ============================================================
+2026-01-30 12:58:56.140 - INFO - 处理样品|Processing sample: QG_ZS
+2026-01-30 12:58:56.140 - INFO - ============================================================
+2026-01-30 12:58:56.141 - INFO - 设置临时目录: ./QG_ZS/tmp|Set temporary directory: ./QG_ZS/tmp
+2026-01-30 12:58:56.141 - INFO - ============================================================
+2026-01-30 12:58:56.141 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 12:58:56.141 - INFO - ============================================================
+2026-01-30 12:58:56.141 - INFO - 配置参数|Configuration parameters:
+2026-01-30 12:58:56.146 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 12:58:56.146 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 12:58:56.146 - INFO -   - 线程数|Threads: 12
+2026-01-30 12:58:56.146 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 12:58:56.146 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 12:58:56.146 - INFO - 命令: zcat ../01.data/raw/QG_ZS_2.fq.gz ../01.data/raw/QG_ZS_1.fq.gz ../01.data/raw/QG_ZS/QG_ZS_2.fq.gz ../01.data/raw/QG_ZS/QG_ZS_1.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 13:11:37.329 - INFO - Jellyfish count步骤成功完成
+2026-01-30 13:11:37.329 - INFO - ============================================================
+2026-01-30 13:11:37.329 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 13:11:37.329 - INFO - ============================================================
+2026-01-30 13:11:37.329 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/jellyfish/genome_analysis.jf
+2026-01-30 13:12:08.479 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 13:12:08.479 - INFO - ============================================================
+2026-01-30 13:12:08.480 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 13:12:08.480 - INFO - ============================================================
+2026-01-30 13:12:08.480 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/genomescope_output 1000
+2026-01-30 13:12:10.225 - INFO - 从model.txt中提取k-mer coverage: 46.72
+2026-01-30 13:12:10.226 - INFO - 
+2026-01-30 13:12:10.226 - INFO - ============================================================
+2026-01-30 13:12:10.226 - INFO - 样品 QG_ZS 运行Smudgeplot倍性分析
+2026-01-30 13:12:10.226 - INFO - ============================================================
+2026-01-30 13:12:10.226 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/fastk/fastk_table
+2026-01-30 13:12:10.226 - INFO - ============================================================
+2026-01-30 13:12:10.226 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 13:12:10.226 - INFO - ============================================================
+2026-01-30 13:12:10.226 - INFO - 配置参数:
+2026-01-30 13:12:10.226 - INFO -   - K-mer大小: 21
+2026-01-30 13:12:10.226 - INFO -   - 线程数: 12
+2026-01-30 13:12:10.226 - INFO -   - 内存: 100G
+2026-01-30 13:12:10.226 - INFO -   - 输入文件数: 4
+2026-01-30 13:12:10.226 - INFO - 解压文件到临时目录: ../01.data/raw/QG_ZS_2.fq.gz
+2026-01-30 13:14:14.186 - INFO - 解压文件到临时目录: ../01.data/raw/QG_ZS_1.fq.gz
+2026-01-30 13:16:22.492 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/fastk/QG_ZS_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/fastk/QG_ZS_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/fastk/QG_ZS_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/fastk/QG_ZS_1.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/fastk/fastk_table
+2026-01-30 13:19:09.919 - INFO - FastK步骤成功完成
+2026-01-30 13:19:09.919 - INFO - ============================================================
+2026-01-30 13:19:09.919 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 13:19:09.933 - INFO - ============================================================
+2026-01-30 13:19:09.933 - INFO - 配置参数:
+2026-01-30 13:19:09.933 - INFO -   - K-mer coverage: 46.72
+2026-01-30 13:19:09.933 - INFO -   - K-mer大小: 21
+2026-01-30 13:19:09.933 - INFO - 命令: smudgeplot hetmers -L 23 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/QG_ZS/fastk/fastk_table
+2026-01-30 13:19:11.251 - INFO - Hetmers步骤成功完成
+2026-01-30 13:19:11.251 - INFO - 样品 QG_ZS 处理完成
+2026-01-30 13:19:11.251 - INFO - 
+2026-01-30 13:19:11.251 - INFO - ============================================================
+2026-01-30 13:19:11.251 - INFO - 处理样品|Processing sample: SMJ5_3
+2026-01-30 13:19:11.251 - INFO - ============================================================
+2026-01-30 13:19:11.251 - INFO - 设置临时目录: ./SMJ5_3/tmp|Set temporary directory: ./SMJ5_3/tmp
+2026-01-30 13:19:11.252 - INFO - ============================================================
+2026-01-30 13:19:11.252 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 13:19:11.252 - INFO - ============================================================
+2026-01-30 13:19:11.252 - INFO - 配置参数|Configuration parameters:
+2026-01-30 13:19:11.252 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 13:19:11.252 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 13:19:11.252 - INFO -   - 线程数|Threads: 12
+2026-01-30 13:19:11.252 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 13:19:11.252 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 13:19:11.252 - INFO - 命令: zcat ../01.data/raw/SMJ5_3_2.fq.gz ../01.data/raw/SMJ5_3_1.fq.gz ../01.data/raw/SMJ5_3/SMJ5_3_2.fq.gz ../01.data/raw/SMJ5_3/SMJ5_3_1.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 13:32:17.331 - INFO - Jellyfish count步骤成功完成
+2026-01-30 13:32:17.331 - INFO - ============================================================
+2026-01-30 13:32:17.331 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 13:32:17.331 - INFO - ============================================================
+2026-01-30 13:32:17.331 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/jellyfish/genome_analysis.jf
+2026-01-30 13:32:49.806 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 13:32:49.807 - INFO - ============================================================
+2026-01-30 13:32:49.807 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 13:32:49.807 - INFO - ============================================================
+2026-01-30 13:32:49.807 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/genomescope_output 1000
+2026-01-30 13:32:51.248 - INFO - 从model.txt中提取k-mer coverage: 22.5
+2026-01-30 13:32:51.248 - INFO - 
+2026-01-30 13:32:51.248 - INFO - ============================================================
+2026-01-30 13:32:51.248 - INFO - 样品 SMJ5_3 运行Smudgeplot倍性分析
+2026-01-30 13:32:51.248 - INFO - ============================================================
+2026-01-30 13:32:51.262 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/fastk/fastk_table
+2026-01-30 13:32:51.262 - INFO - ============================================================
+2026-01-30 13:32:51.262 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 13:32:51.262 - INFO - ============================================================
+2026-01-30 13:32:51.262 - INFO - 配置参数:
+2026-01-30 13:32:51.262 - INFO -   - K-mer大小: 21
+2026-01-30 13:32:51.262 - INFO -   - 线程数: 12
+2026-01-30 13:32:51.262 - INFO -   - 内存: 100G
+2026-01-30 13:32:51.262 - INFO -   - 输入文件数: 4
+2026-01-30 13:32:51.263 - INFO - 解压文件到临时目录: ../01.data/raw/SMJ5_3_2.fq.gz
+2026-01-30 13:35:04.385 - INFO - 解压文件到临时目录: ../01.data/raw/SMJ5_3_1.fq.gz
+2026-01-30 13:37:18.963 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/fastk/SMJ5_3_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/fastk/SMJ5_3_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/fastk/SMJ5_3_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/fastk/SMJ5_3_1.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/fastk/fastk_table
+2026-01-30 13:40:13.000 - INFO - FastK步骤成功完成
+2026-01-30 13:40:13.000 - INFO - ============================================================
+2026-01-30 13:40:13.000 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 13:40:13.000 - INFO - ============================================================
+2026-01-30 13:40:13.000 - INFO - 配置参数:
+2026-01-30 13:40:13.000 - INFO -   - K-mer coverage: 22.5
+2026-01-30 13:40:13.000 - INFO -   - K-mer大小: 21
+2026-01-30 13:40:13.000 - INFO - 命令: smudgeplot hetmers -L 11 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/fastk/fastk_table
+2026-01-30 13:43:48.840 - INFO - Hetmers步骤成功完成
+2026-01-30 13:43:48.841 - INFO - ============================================================
+2026-01-30 13:43:48.841 - INFO - 步骤5/5: 运行Smudgeplot Plot
+2026-01-30 13:43:48.841 - INFO - ============================================================
+2026-01-30 13:43:48.857 - INFO - 命令: smudgeplot all -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/smudgeplot_output/smudgeplot -cov 22.5 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/smudgeplot_output/smudgeplot_kmerpairs.smu
+2026-01-30 13:43:51.599 - INFO - Smudgeplot分析成功完成
+2026-01-30 13:43:51.599 - INFO - 样品 SMJ5_3 Smudgeplot输出: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/SMJ5_3/smudgeplot_output
+2026-01-30 13:43:51.599 - INFO - 样品 SMJ5_3 处理完成
+2026-01-30 13:43:51.599 - INFO - 
+2026-01-30 13:43:51.599 - INFO - ============================================================
+2026-01-30 13:43:51.599 - INFO - 处理样品|Processing sample: T108_2
+2026-01-30 13:43:51.599 - INFO - ============================================================
+2026-01-30 13:43:51.600 - INFO - 设置临时目录: ./T108_2/tmp|Set temporary directory: ./T108_2/tmp
+2026-01-30 13:43:51.600 - INFO - ============================================================
+2026-01-30 13:43:51.600 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 13:43:51.600 - INFO - ============================================================
+2026-01-30 13:43:51.613 - INFO - 配置参数|Configuration parameters:
+2026-01-30 13:43:51.613 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 13:43:51.613 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 13:43:51.613 - INFO -   - 线程数|Threads: 12
+2026-01-30 13:43:51.613 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 13:43:51.613 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 13:43:51.613 - INFO - 命令: zcat ../01.data/raw/T108_2_1.fq.gz ../01.data/raw/T108_2_2.fq.gz ../01.data/raw/T108_2/T108_2_1.fq.gz ../01.data/raw/T108_2/T108_2_2.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 13:55:13.212 - INFO - Jellyfish count步骤成功完成
+2026-01-30 13:55:13.213 - INFO - ============================================================
+2026-01-30 13:55:13.213 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 13:55:13.213 - INFO - ============================================================
+2026-01-30 13:55:13.213 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/jellyfish/genome_analysis.jf
+2026-01-30 13:55:39.022 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 13:55:39.022 - INFO - ============================================================
+2026-01-30 13:55:39.022 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 13:55:39.022 - INFO - ============================================================
+2026-01-30 13:55:39.022 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/genomescope_output 1000
+2026-01-30 13:55:39.431 - INFO - 
+2026-01-30 13:55:39.432 - INFO - ============================================================
+2026-01-30 13:55:39.432 - INFO - 样品 T108_2 运行Smudgeplot倍性分析
+2026-01-30 13:55:39.432 - INFO - ============================================================
+2026-01-30 13:55:39.432 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/fastk/fastk_table
+2026-01-30 13:55:39.432 - INFO - ============================================================
+2026-01-30 13:55:39.432 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 13:55:39.432 - INFO - ============================================================
+2026-01-30 13:55:39.432 - INFO - 配置参数:
+2026-01-30 13:55:39.432 - INFO -   - K-mer大小: 21
+2026-01-30 13:55:39.432 - INFO -   - 线程数: 12
+2026-01-30 13:55:39.432 - INFO -   - 内存: 100G
+2026-01-30 13:55:39.432 - INFO -   - 输入文件数: 4
+2026-01-30 13:55:39.432 - INFO - 解压文件到临时目录: ../01.data/raw/T108_2_1.fq.gz
+2026-01-30 13:57:33.923 - INFO - 解压文件到临时目录: ../01.data/raw/T108_2_2.fq.gz
+2026-01-30 13:59:26.243 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/fastk/T108_2_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/fastk/T108_2_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/fastk/T108_2_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/fastk/T108_2_2.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/fastk/fastk_table
+2026-01-30 14:01:45.786 - INFO - FastK步骤成功完成
+2026-01-30 14:01:45.786 - INFO - ============================================================
+2026-01-30 14:01:45.786 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 14:01:45.786 - INFO - ============================================================
+2026-01-30 14:01:45.787 - INFO - 配置参数:
+2026-01-30 14:01:45.787 - INFO -   - K-mer coverage: 50.0
+2026-01-30 14:01:45.787 - INFO -   - K-mer大小: 21
+2026-01-30 14:01:45.787 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T108_2/fastk/fastk_table
+2026-01-30 14:01:47.074 - INFO - Hetmers步骤成功完成
+2026-01-30 14:01:47.074 - INFO - 样品 T108_2 处理完成
+2026-01-30 14:01:47.074 - INFO - 
+2026-01-30 14:01:47.074 - INFO - ============================================================
+2026-01-30 14:01:47.074 - INFO - 处理样品|Processing sample: T94_2
+2026-01-30 14:01:47.074 - INFO - ============================================================
+2026-01-30 14:01:47.074 - INFO - 设置临时目录: ./T94_2/tmp|Set temporary directory: ./T94_2/tmp
+2026-01-30 14:01:47.075 - INFO - ============================================================
+2026-01-30 14:01:47.075 - INFO - 步骤1/3: 运行Jellyfish Count|Step 1/3: Run Jellyfish Count
+2026-01-30 14:01:47.075 - INFO - ============================================================
+2026-01-30 14:01:47.075 - INFO - 配置参数|Configuration parameters:
+2026-01-30 14:01:47.075 - INFO -   - K-mer大小|K-mer size: 21
+2026-01-30 14:01:47.075 - INFO -   - 哈希表大小|Hash size: 10G
+2026-01-30 14:01:47.075 - INFO -   - 线程数|Threads: 12
+2026-01-30 14:01:47.075 - INFO -   - 输入文件数|Input files: 4
+2026-01-30 14:01:47.075 - INFO - 检测到压缩文件，使用zcat解压缩
+2026-01-30 14:01:47.075 - INFO - 命令: zcat ../01.data/raw/T94_2_1.fq.gz ../01.data/raw/T94_2_2.fq.gz ../01.data/raw/T94_2/T94_2_1.fq.gz ../01.data/raw/T94_2/T94_2_2.fq.gz |jellyfish count -C -m 21 -s 10G -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/jellyfish/genome_analysis.jf /dev/fd/0
+2026-01-30 14:09:59.475 - INFO - Jellyfish count步骤成功完成
+2026-01-30 14:09:59.475 - INFO - ============================================================
+2026-01-30 14:09:59.475 - INFO - 步骤2/3: 运行Jellyfish Histo
+2026-01-30 14:09:59.475 - INFO - ============================================================
+2026-01-30 14:09:59.475 - INFO - 命令: jellyfish histo -t 12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/jellyfish/genome_analysis.jf
+2026-01-30 14:10:30.001 - INFO - Jellyfish histo步骤成功完成
+2026-01-30 14:10:30.001 - INFO - ============================================================
+2026-01-30 14:10:30.001 - INFO - 步骤3/3: 运行GenomeScope
+2026-01-30 14:10:30.001 - INFO - ============================================================
+2026-01-30 14:10:30.001 - INFO - 命令: Rscript /share/org/YZWL/yzwl_lixg/software/scripts/genomescope.R /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/jellyfish/genome_analysis.histo 21 150 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/genomescope_output 1000
+2026-01-30 14:10:31.111 - INFO - 
+2026-01-30 14:10:31.111 - INFO - ============================================================
+2026-01-30 14:10:31.111 - INFO - 样品 T94_2 运行Smudgeplot倍性分析
+2026-01-30 14:10:31.111 - INFO - ============================================================
+2026-01-30 14:10:31.111 - INFO - 将生成FastK表: /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/fastk/fastk_table
+2026-01-30 14:10:31.111 - INFO - ============================================================
+2026-01-30 14:10:31.111 - INFO - 步骤3.5/5: 运行FastK生成FastK表
+2026-01-30 14:10:31.111 - INFO - ============================================================
+2026-01-30 14:10:31.111 - INFO - 配置参数:
+2026-01-30 14:10:31.111 - INFO -   - K-mer大小: 21
+2026-01-30 14:10:31.111 - INFO -   - 线程数: 12
+2026-01-30 14:10:31.111 - INFO -   - 内存: 100G
+2026-01-30 14:10:31.111 - INFO -   - 输入文件数: 4
+2026-01-30 14:10:31.111 - INFO - 解压文件到临时目录: ../01.data/raw/T94_2_1.fq.gz
+2026-01-30 14:12:10.997 - INFO - 解压文件到临时目录: ../01.data/raw/T94_2_2.fq.gz
+2026-01-30 14:13:48.065 - INFO - 命令: FastK -v -t12 -k21 -M100 -T12 /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/fastk/T94_2_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/fastk/T94_2_2.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/fastk/T94_2_1.fq /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/fastk/T94_2_2.fq -N/share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/fastk/fastk_table
+2026-01-30 14:16:09.321 - INFO - FastK步骤成功完成
+2026-01-30 14:16:09.355 - INFO - ============================================================
+2026-01-30 14:16:09.355 - INFO - 步骤4/5: 运行Smudgeplot Hetmers
+2026-01-30 14:16:09.355 - INFO - ============================================================
+2026-01-30 14:16:09.355 - INFO - 配置参数:
+2026-01-30 14:16:09.355 - INFO -   - K-mer coverage: 50.0
+2026-01-30 14:16:09.355 - INFO -   - K-mer大小: 21
+2026-01-30 14:16:09.355 - INFO - 命令: smudgeplot hetmers -L 25 -t 12 -o /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/smudgeplot_output/smudgeplot_kmerpairs --verbose /share/org/YZWL/yzwl_lixg/project/29.十字花科几个物种二代测序/02.genomescope评估结果/T94_2/fastk/fastk_table
+2026-01-30 14:16:15.644 - INFO - Hetmers步骤成功完成
+2026-01-30 14:16:15.644 - INFO - 样品 T94_2 处理完成
+2026-01-30 14:16:15.644 - INFO - 
+2026-01-30 14:16:15.644 - INFO - ============================================================
+2026-01-30 14:16:15.644 - INFO - Pipeline Summary
+2026-01-30 14:16:15.644 - INFO - ============================================================
+2026-01-30 14:16:15.645 - INFO - 总运行时间: 13019.05 seconds
+2026-01-30 14:16:15.645 - INFO - 总样品数: 12
+2026-01-30 14:16:15.645 - INFO - 成功处理: 12
+2026-01-30 14:16:15.645 - INFO - 失败样品: 0
+2026-01-30 14:16:15.682 - INFO - 成功率: 100.0%
+2026-01-30 14:16:15.683 - INFO - Pipeline completed successfully

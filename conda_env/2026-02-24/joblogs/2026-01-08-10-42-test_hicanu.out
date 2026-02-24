@@ -1,0 +1,66 @@
+2026-01-08 10:42:32.730 - INFO - ============================================================
+2026-01-08 10:42:32.730 - INFO - HiCanu基因组组装流程|HiCanu Genome Assembly Pipeline
+2026-01-08 10:42:32.730 - INFO - ============================================================
+2026-01-08 10:42:32.730 - INFO - 输入reads|Input reads: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/B3-2.clean.fq.gz
+2026-01-08 10:42:32.730 - INFO - 基因组大小|Genome size: 85m
+2026-01-08 10:42:32.730 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2
+2026-01-08 10:42:32.730 - INFO - 输出前缀|Output prefix: B3-2
+2026-01-08 10:42:32.730 - INFO - ============================================================
+2026-01-08 10:42:32.730 - INFO - ============================================================
+2026-01-08 10:42:32.730 - INFO - 开始HiCanu组装|Starting HiCanu assembly
+2026-01-08 10:42:32.730 - INFO - ============================================================
+2026-01-08 10:42:32.730 - INFO - 组装配置|Assembly configuration:
+2026-01-08 10:42:32.730 - INFO -   Reads文件|Reads file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/B3-2.clean.fq.gz
+2026-01-08 10:42:32.730 - INFO -   基因组大小|Genome size: 85m
+2026-01-08 10:42:32.730 - INFO -   工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2
+2026-01-08 10:42:32.730 - INFO -   前缀|Prefix: B3-2
+2026-01-08 10:42:32.730 - INFO -   组装阶段|Assembly stage: assemble
+2026-01-08 10:42:32.730 - INFO -   最小reads长度|Min read length: 1000
+2026-01-08 10:42:32.730 - INFO -   最小重叠长度|Min overlap length: 500
+2026-01-08 10:42:32.730 - INFO -   线程数|Threads: 12
+2026-01-08 10:42:32.730 - INFO -   内存限制|Memory limit: 80G
+2026-01-08 10:42:32.730 - INFO - 执行命令|Executing command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/canu -d /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output -p B3-2 genomeSize=85m -assemble -pacbio-hifi /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/01.data/clean/hifi/B3-2.clean.fq.gz useGrid=false
+2026-01-08 12:22:33.270 - INFO - 命令执行成功|Command executed successfully
+2026-01-08 12:22:33.270 - INFO - 检查输出文件|Checking output files
+2026-01-08 12:22:33.270 - INFO - 输出文件已生成|Output file generated: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.contigs.fasta (98,502,335 bytes)
+2026-01-08 12:22:33.270 - INFO -   Contigs文件|Contigs file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.contigs.fasta
+2026-01-08 12:22:33.270 - INFO -   Unitigs文件不存在（对于HiFi组装这是正常的）|Unitigs file not found (normal for HiFi assembly): /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.unitigs.fasta
+2026-01-08 12:22:33.270 - INFO -   报告文件|Report file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.report
+2026-01-08 12:22:33.270 - INFO - ============================================================
+2026-01-08 12:22:33.270 - INFO - 解析组装结果|Parsing assembly results
+2026-01-08 12:22:33.270 - INFO - ============================================================
+2026-01-08 12:22:33.270 - INFO - 解析Contigs|Parsing contigs:
+2026-01-08 12:22:33.270 - INFO - 解析FASTA文件|Parsing FASTA file: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.contigs.fasta
+2026-01-08 12:22:33.476 - INFO - FASTA统计信息|FASTA statistics:
+2026-01-08 12:22:33.476 - INFO -   序列数量|Number of sequences: 308
+2026-01-08 12:22:33.476 - INFO -   总长度|Total bp: 97,492,569
+2026-01-08 12:22:33.478 - INFO -   N50: 5,223,601
+2026-01-08 12:22:33.478 - INFO -   L50: 7
+2026-01-08 12:22:33.478 - INFO -   最短序列|Min length: 10,047
+2026-01-08 12:22:33.478 - INFO -   最长序列|Max length: 11,549,350
+2026-01-08 12:22:33.478 - INFO -   组装大小|Assembly size: 97.49 Mb
+2026-01-08 12:22:33.478 - INFO -   Contigs数量|Number of contigs: 308
+2026-01-08 12:22:33.478 - INFO -   N50: 5.22 Mb
+2026-01-08 12:22:33.478 - INFO -   L50: 7
+2026-01-08 12:22:33.478 - INFO - 解析Canu报告|Parsing Canu report:
+2026-01-08 12:22:33.478 - INFO -   --   contigs:      87 sequences, total length 68280457 bp (including 124 repeats of total length 2888994 bp).
+2026-01-08 12:22:33.478 - INFO -   --   bubbles:      221 sequences, total length 6300349 bp.
+2026-01-08 12:22:33.478 - INFO -   --   unassembled:  21396 sequences, total length 238063829 bp.
+2026-01-08 12:22:33.478 - INFO -   --   contigs:      87 sequences, total length 89111488 bp (including 124 repeats of total length 3947150 bp).
+2026-01-08 12:22:33.478 - INFO -   --   bubbles:      221 sequences, total length 8381081 bp.
+2026-01-08 12:22:33.478 - INFO -   --   unassembled:  21396 sequences, total length 325826912 bp.
+2026-01-08 12:22:33.479 - INFO - ============================================================
+2026-01-08 12:22:33.479 - INFO - HiCanu组装完成|HiCanu assembly completed successfully
+2026-01-08 12:22:33.479 - INFO - ============================================================
+2026-01-08 12:22:33.479 - INFO - ============================================================
+2026-01-08 12:22:33.479 - INFO - 流程总结|Pipeline Summary
+2026-01-08 12:22:33.479 - INFO - ============================================================
+2026-01-08 12:22:33.479 - INFO - 总运行时间|Total runtime: 6000.75 seconds (100.01 minutes)
+2026-01-08 12:22:33.479 - INFO - 工作目录|Work directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2
+2026-01-08 12:22:33.479 - INFO - 主要输出文件|Main output files:
+2026-01-08 12:22:33.479 - INFO -   Contigs: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.contigs.fasta
+2026-01-08 12:22:33.479 - INFO -   Unitigs: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.unitigs.fasta
+2026-01-08 12:22:33.479 - INFO -   报告|Report: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/03.hicanu/B3-2/01.raw_output/B3-2.report
+2026-01-08 12:22:33.479 - INFO - ============================================================
+2026-01-08 12:22:33.479 - INFO - 流程成功完成|Pipeline completed successfully
+2026-01-08 12:22:33.479 - INFO - ============================================================

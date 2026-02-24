@@ -1,0 +1,4 @@
+08/01/2026 21:23:42:207 Welcome to InterProScan-5.75-106.0
+08/01/2026 21:23:42:208 Running InterProScan v5 in STANDALONE mode... on Linux
+For the (-i) option you specified a location which doesn't exist or is not readable:
+/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/04.第一批369个样品的GWAS/04.后续基因注释/01.plink/OV53_1_003076.pep.fa

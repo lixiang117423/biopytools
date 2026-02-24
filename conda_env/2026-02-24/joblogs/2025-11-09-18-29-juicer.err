@@ -1,0 +1,9 @@
+/share/org/YZWL/yzwl_lixg/software/juicer/misc/generate_site_positions.py:233: SyntaxWarning: invalid escape sequence '\s'
+  firststr=re.split('\s+',line[1:])
+gzip: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/02.test/juicer/splits/*_R1*.fastq.gz: No such file or directory
+gzip: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/02.test/juicer/splits/*_R2*.fastq.gz: No such file or directory
+gzip: /share/org/YZWL/yzwl_lixg/project/22.Est1_hic/02.test/juicer/splits/*_R1*.fastq.gz: No such file or directory
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[E::main_mem] fail to open file `/share/org/YZWL/yzwl_lixg/project/22.Est1_hic/02.test/juicer/splits/*_R1*.fastq.gz'.
+Job 67981963 stderr output:
+

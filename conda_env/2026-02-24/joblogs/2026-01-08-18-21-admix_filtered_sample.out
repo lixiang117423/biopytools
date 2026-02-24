@@ -1,0 +1,77 @@
+2026-01-08 18:26:38.172 - INFO - ============================================================
+2026-01-08 18:26:38.172 - INFO - VCF抽样流程|VCF Sampling Pipeline
+2026-01-08 18:26:38.172 - INFO - ============================================================
+2026-01-08 18:26:38.172 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/variation.filtered.snp.vcf.gz
+2026-01-08 18:26:38.172 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/lab.snp.0.1.vcf.gz
+2026-01-08 18:26:38.172 - INFO - 抽样比例|Sampling rate: 10.0%
+2026-01-08 18:26:38.172 - INFO - 随机种子|Random seed: 1288
+2026-01-08 18:26:38.172 - INFO - ============================================================
+2026-01-08 18:26:38.172 - INFO - 步骤1/3|Step 1/3: 统计SNP数量|Count SNPs by chromosome
+2026-01-08 18:26:38.172 - INFO - ============================================================
+2026-01-08 18:26:38.172 - INFO - 开始统计每条染色体的SNP数量|Start counting SNPs by chromosome
+2026-01-08 18:26:38.172 - INFO - 检测到VCF索引|VCF index detected
+2026-01-08 18:26:38.239 - INFO - 检测到|Detected 20 条染色体|chromosomes
+2026-01-08 18:27:56.739 - DEBUG - 染色体|Chromosome Chr01: 415,675 个SNP|SNPs
+2026-01-08 18:28:53.729 - DEBUG - 染色体|Chromosome Chr02: 303,316 个SNP|SNPs
+2026-01-08 18:30:01.437 - DEBUG - 染色体|Chromosome Chr03: 359,682 个SNP|SNPs
+2026-01-08 18:31:06.522 - DEBUG - 染色体|Chromosome Chr04: 342,382 个SNP|SNPs
+2026-01-08 18:31:57.183 - DEBUG - 染色体|Chromosome Chr05: 269,149 个SNP|SNPs
+2026-01-08 18:33:07.865 - DEBUG - 染色体|Chromosome Chr06: 375,648 个SNP|SNPs
+2026-01-08 18:34:01.206 - DEBUG - 染色体|Chromosome Chr07: 281,811 个SNP|SNPs
+2026-01-08 18:34:57.152 - DEBUG - 染色体|Chromosome Chr08: 297,877 个SNP|SNPs
+2026-01-08 18:36:01.100 - DEBUG - 染色体|Chromosome Chr09: 339,201 个SNP|SNPs
+2026-01-08 18:37:08.531 - DEBUG - 染色体|Chromosome Chr10: 358,876 个SNP|SNPs
+2026-01-08 18:37:55.297 - DEBUG - 染色体|Chromosome Chr11: 250,119 个SNP|SNPs
+2026-01-08 18:38:55.508 - DEBUG - 染色体|Chromosome Chr12: 320,993 个SNP|SNPs
+2026-01-08 18:39:50.163 - DEBUG - 染色体|Chromosome Chr13: 291,341 个SNP|SNPs
+2026-01-08 18:41:02.040 - DEBUG - 染色体|Chromosome Chr14: 380,998 个SNP|SNPs
+2026-01-08 18:42:26.339 - DEBUG - 染色体|Chromosome Chr15: 448,835 个SNP|SNPs
+2026-01-08 18:43:27.079 - DEBUG - 染色体|Chromosome Chr16: 320,735 个SNP|SNPs
+2026-01-08 18:44:20.907 - DEBUG - 染色体|Chromosome Chr17: 285,902 个SNP|SNPs
+2026-01-08 18:46:02.166 - DEBUG - 染色体|Chromosome Chr18: 537,223 个SNP|SNPs
+2026-01-08 18:47:11.243 - DEBUG - 染色体|Chromosome Chr19: 363,330 个SNP|SNPs
+2026-01-08 18:48:18.511 - DEBUG - 染色体|Chromosome Chr20: 356,809 个SNP|SNPs
+2026-01-08 18:48:18.512 - INFO - 总SNP数量|Total SNP count: 6,899,902
+2026-01-08 18:48:18.512 - INFO - 染色体数量|Chromosome count: 20
+2026-01-08 18:48:18.512 - INFO - 步骤1完成|Step 1 completed
+2026-01-08 18:48:18.512 - INFO - 
+2026-01-08 18:48:18.512 - INFO - 步骤2/3|Step 2/3: 选择SNP索引|Select SNP indices
+2026-01-08 18:48:18.512 - INFO - ============================================================
+2026-01-08 18:48:18.512 - INFO - 开始随机抽取SNP (抽样比例|sampling rate: 10.0%)
+2026-01-08 18:48:18.758 - INFO - 总共选择|Total selected: 689,981 个SNP|SNPs
+2026-01-08 18:48:18.758 - INFO - 步骤2完成|Step 2 completed
+2026-01-08 18:48:18.758 - INFO - 
+2026-01-08 18:48:18.758 - INFO - 步骤3/3|Step 3/3: 写入抽样结果|Write sampled results
+2026-01-08 18:48:18.758 - INFO - ============================================================
+2026-01-08 18:48:18.758 - INFO - 开始写入抽样的VCF文件|Start writing sampled VCF file
+2026-01-08 18:56:39.199 - INFO - 总SNP数|Total SNP count: 0
+2026-01-08 18:56:39.200 - INFO - 写入的SNP数|Written SNP count: 0
+2026-01-08 18:56:47.089 - INFO - === 软件环境检查|Software Environment Check ===
+2026-01-08 18:56:47.090 - INFO - plink 已安装|plink is installed
+2026-01-08 18:56:47.091 - INFO - admixture 已安装|admixture is installed
+2026-01-08 18:56:47.112 - INFO - bcftools 已安装|bcftools is installed
+2026-01-08 18:56:47.202 - INFO - Rscript 已安装|Rscript is installed
+2026-01-08 18:56:47.202 - INFO - ================================================================================
+2026-01-08 18:56:47.202 - INFO - Program: ADMIXTURE Population Structure Analysis
+2026-01-08 18:56:47.202 - INFO - Version: 1.0.0
+2026-01-08 18:56:47.202 - INFO - ================================================================================
+2026-01-08 18:56:47.202 - INFO - ================================================================================
+2026-01-08 18:56:47.202 - INFO - 开始ADMIXTURE群体结构分析|Starting ADMIXTURE Population Structure Analysis
+2026-01-08 18:56:47.202 - INFO - ================================================================================
+2026-01-08 18:56:47.202 - INFO - 输入VCF文件|Input VCF file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/lab.snp.0.1.vcf.gz
+2026-01-08 18:56:47.202 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture
+2026-01-08 18:56:47.202 - INFO - K值范围|K range: 2-20
+2026-01-08 18:56:47.202 - INFO - 线程数|Threads: 64
+2026-01-08 18:56:47.202 - INFO - ================================================================================
+2026-01-08 18:56:47.202 - INFO - 步骤1: VCF文件预处理|Step 1: VCF file preprocessing
+2026-01-08 18:56:47.202 - INFO - 跳过VCF预处理|Skipping VCF preprocessing
+2026-01-08 18:56:47.202 - INFO - 步骤2: 转换为PLINK格式|Step 2: Convert to PLINK format
+2026-01-08 18:56:47.202 - INFO - 开始|Starting: 检测染色体数量|Detect chromosome count
+2026-01-08 18:56:47.202 - INFO - 执行命令|Executing command: zcat /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/lab.snp.0.1.vcf.gz|grep -v '^#'|cut -f1|sort -n|uniq|wc -l
+2026-01-08 18:56:47.206 - INFO - 命令输出|Command output:
+0
+2026-01-08 18:56:47.207 - INFO - 完成|Completed: 检测染色体数量|Detect chromosome count
+2026-01-08 18:56:47.207 - INFO - 检测到 0 个染色体|Detected 0 chromosomes
+2026-01-08 18:56:47.207 - INFO - 未设置autosome-num参数|autosome-num parameter not set
+2026-01-08 18:56:47.207 - INFO - 开始|Starting: VCF转换为PLINK格式|Convert VCF to PLINK format
+2026-01-08 18:56:47.207 - INFO - 执行命令|Executing command: plink --vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/lab.snp.0.1.vcf.gz --make-bed --out /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/06.第一次根据枝长筛选的样品/03.admixture/raw_data --allow-extra-chr --double-id

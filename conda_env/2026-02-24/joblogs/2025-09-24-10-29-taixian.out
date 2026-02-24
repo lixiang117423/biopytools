@@ -1,0 +1,1614 @@
+2025-09-24 10:29:02,157 - INFO - 🧬 WRKY Analysis Pipeline Started - Fixed Version
+2025-09-24 10:29:02,182 - INFO - 📂 Working directory: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类
+2025-09-24 10:29:02,206 - INFO - 🔧 Script PID: 3011478
+2025-09-24 10:29:02,229 - INFO - 🗂️ Log file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/pipeline.log
+
+2025-09-24 10:29:02,259 - INFO - 🚀 Starting WRKY pipeline with classification in serial mode...
+2025-09-24 10:29:02,283 - INFO - 🔍 Checking dependencies...
+2025-09-24 10:29:02,329 - INFO - ✅ All dependencies found
+2025-09-24 10:29:02,353 - INFO - 🧬 Starting WRKY analysis pipeline (Serial Mode with Classification)...
+2025-09-24 10:29:02,391 - INFO - 📋 Found 123 samples to process
+2025-09-24 10:29:02,414 - INFO - 📝 Samples: scaffold_1009-Hedwigia_ciliata scaffold_1010-Timmia_megapolitana scaffold_1011-Tetraphis_pellucida scaffold_1012-Andreaea_wilsonii scaffold_1013-Pleuridium_subulatum scaffold_1015-Atrichum_angustatum scaffold_1016-Treubia_lacunosa scaffold_1017-Porella_caespitans_var._nipponica scaffold_1020-Hypopterygium_elatum scaffold_1023-Encalypta_ciliata scaffold_1024-Homaliodendron_scalpellifolium scaffold_1025-Porella_chinensis scaffold_1026-Bazzania_tridens scaffold_1030-Bartramia_ithyphylla scaffold_1032-Phaeoceros_laevis scaffold_1035-Polytrichastrum_ohioense scaffold_1036-Calliergon_cordifolium scaffold_1088-Gymnostomum_aurantiacum scaffold_1089-Polytrichum_commune scaffold_1092-Pogonatum_subfuscatum scaffold_1114-Regmatodon_serrulatus scaffold_1120-Splachnum_ampullaceum scaffold_1122-Syntrichia_ruralis scaffold_1123-Grimmia_obtusifolia scaffold_1124-Paraleucobryum_enerve scaffold_1125-Encalypta_ciliata scaffold_1126-Tayloria_subglabra scaffold_1127-Archidium_alternifolium scaffold_1151-Gigaspermum_repens scaffold_1208-Racopilum_cuspidigerum scaffold_225-Ptilidium_ciliare scaffold_231-Lunularia_cruciata scaffold_302-Haplomitrium_mnioides scaffold_322-Climacium_americanum_ scaffold_323-Leucobryum_albidum scaffold_324-Aulacomnium_palustre_ scaffold_325-Pseudobryum_cinclidioides_ scaffold_326-Ulota_hutchinsiae scaffold_328-Tetraphis_pellucida scaffold_329-Hedwigia_ciliata scaffold_334-Fontinalis_sullivantii scaffold_335-Dicranum_fulvum scaffold_336-Brachythecium_laetum scaffold_337-Bryoandersonia_illecebra_ scaffold_338-Mnium_hornum_ scaffold_340-Anomodon_attenuatus scaffold_341-Plagiomnium_ciliare scaffold_342-Bryhnia_novae-angliae scaffold_343-Odontoschisma_sphagni scaffold_344-Hygroamblystegium_varium scaffold_349-Blasia_pusilla scaffold_350-Andreaeobryum_macrosporum scaffold_359-Scapania_nepalensis scaffold_368-Metzgeria_furcata scaffold_369-Plagiochila_semidecurrens scaffold_600-Catagonium_nitens scaffold_601-Lepyrodon_lagurus scaffold_604-Gackstroemia_magellanica scaffold_606-Ptychomnion_cygnisetum scaffold_607-Polytrichum_strictum scaffold_608-Schistidium_cupulare scaffold_612-Dicranoloma_chilense scaffold_613-Bartramia_mossmaniana_ scaffold_614-Polytrichadelphus_magellanicus scaffold_615-Leptotheca_gaudichaudii scaffold_616-Chorisodontium_acidophyllum scaffold_617-Catagonium_nitens scaffold_618-Catagonium_nitens scaffold_620-Vetaforma_dusenii scaffold_621-Plagiochila_sp. scaffold_623-Mesoptychia_sp. scaffold_625-Noteroclada_confluens scaffold_626-Acrobolbus_urvilleanus scaffold_627-Rhytidiadelphus_subpinnatus scaffold_628-Kindbergia_praelongum scaffold_630-Porella_platyphylla_ scaffold_639-Folioceros_fuciformis scaffold_644-Sphagnum_palustre scaffold_646-Buxbaumia_aphylla scaffold_658-Andreaea_rupestris scaffold_664-Conocephalum_conicum scaffold_665-Philonotis_turneriana scaffold_667-Pyrrhobryum_spiniforme scaffold_668-Aerobryopsis_subdivergens scaffold_670-Ptychomitrium_wilsonii scaffold_671-Leucobryum_bowringii scaffold_795-Orthotrichum_anomalum scaffold_805-Aulacomnium_androgynum scaffold_888-Acrolejeunea_sandvicensis scaffold_889-Fossombronia_cristula scaffold_890-Blasia_pusilla scaffold_891-Pleurozia_purpurea scaffold_893-Hypopterygium_japonicum scaffold_898-Fissidens_javanicus scaffold_899-Notothylas_yunnanensis scaffold_900-Schistostega_pennata scaffold_902-Phaeoceros_laevis scaffold_904-Sphagnum_girgensohnii scaffold_905-Metzgeria_hamata scaffold_906-Herbertus_kurzii scaffold_908-Cyathodium_cavernarum scaffold_909-Ricciocarpos_natans scaffold_910-Diphyscium_fulvifolium scaffold_911-Bryoxiphium_norvegicum scaffold_912-Pallavicinia_ambigua scaffold_952-Plagiochasma_appendiculatum scaffold_953-Ectropothecium_obtusulum scaffold_954-Gollania_philippinensis scaffold_955-Jungermannia_erectum scaffold_956-Pogonatum_microstomum scaffold_957-Frullania_moniliata scaffold_958-Racomitrium_nitidulum scaffold_960A-Hygrohypnum_luridum scaffold_960B-Cratoneuron_filicinum scaffold_961-Lepidozia_reptans scaffold_962-Thamnobryum_sandei scaffold_963-Plicanthus_hirtellus scaffold_964-Calliergonella_cuspidata scaffold_965-Tetralophozia_filiformis scaffold_966-Tritomaria_exsectiformis scaffold_967-Barbula_amplexifolia scaffold_969-Distichophyllum_collenchymatosum scaffold_M158-Sphaerocarpos_donnellii
+2025-09-24 10:29:02,441 - INFO - 
+2025-09-24 10:29:02,465 - INFO - 🚀 Processing sample 1/123: scaffold_1009-Hedwigia_ciliata
+2025-09-24 10:29:02,488 - INFO - 
+2025-09-24 10:29:02,512 - INFO - 🧬 Processing sample: scaffold_1009-Hedwigia_ciliata
+2025-09-24 10:29:02,535 - INFO - ========================================
+2025-09-24 10:29:02,559 - INFO - 📊 Extracting longest transcript for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:02,623 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:02,624 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1009-Hedwigia_ciliata.fa
+2025-09-24 10:29:02,624 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1009-Hedwigia_ciliata.primary.gff3
+2025-09-24 10:29:02,624 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1009-Hedwigia_ciliata.longest.pep.fa
+2025-09-24 10:29:02,624 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:02,624 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1009-Hedwigia_ciliata.primary.gff3
+2025-09-24 10:29:02,924 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:02,926 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:02,926 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1009-Hedwigia_ciliata.gene.info.txt
+2025-09-24 10:29:02,927 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1009-Hedwigia_ciliata.gene.info.txt
+2025-09-24 10:29:02,927 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:02,927 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:02,927 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1009-Hedwigia_ciliata.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1009-Hedwigia_ciliata.fa" -y "/tmp/tmpwio3eo5u.fa"
+2025-09-24 10:29:04,665 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:04,665 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:04,665 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpct0v_gm3" "/tmp/tmpwio3eo5u.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1009-Hedwigia_ciliata.longest.pep.fa"
+2025-09-24 10:29:04,700 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:04,700 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:04,700 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1009-Hedwigia_ciliata.longest.pep.fa
+2025-09-24 10:29:04,701 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:04,740 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:04,764 - INFO - 🔍 Running HMM search for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:04,788 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1009-Hedwigia_ciliata.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1009-Hedwigia_ciliata.longest.pep.fa
+2025-09-24 10:29:04,897 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:04,921 - INFO - 🧹 Cleaning HMM results for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:04,948 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:04,972 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:05,146 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:05,170 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:05,193 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:05,217 - INFO - ✅ HMM analysis completed for scaffold_1009-Hedwigia_ciliata
+2025-09-24 10:29:05,241 - INFO - 🔍 Running CDD search for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:05,264 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:05,436 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:05,460 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1009-Hedwigia_ciliata.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1009-Hedwigia_ciliata.cdd.txt -num_threads 80
+2025-09-24 10:29:06,136 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:06,160 - INFO - 🧹 Cleaning CDD results for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:06,187 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:06,211 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:06,400 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:06,425 - INFO - ✅ CDD analysis completed for scaffold_1009-Hedwigia_ciliata
+2025-09-24 10:29:06,448 - INFO - 🔄 Integrating results for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:06,499 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:06,522 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:06,706 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:06,729 - INFO - ✅ Direct WRKY search completed for scaffold_1009-Hedwigia_ciliata
+2025-09-24 10:29:06,753 - INFO - 🔬 Generating final WRKY classification for scaffold_1009-Hedwigia_ciliata...
+2025-09-24 10:29:06,801 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:06,825 - INFO - ✅ Final classification generated for scaffold_1009-Hedwigia_ciliata
+2025-09-24 10:29:06,848 - INFO - ✅ Completed processing scaffold_1009-Hedwigia_ciliata (some steps may have failed)
+2025-09-24 10:29:06,872 - INFO - ========================================
+2025-09-24 10:29:06,895 - INFO - ✅ Successfully completed scaffold_1009-Hedwigia_ciliata
+2025-09-24 10:29:06,919 - INFO - 
+2025-09-24 10:29:06,942 - INFO - 🚀 Processing sample 2/123: scaffold_1010-Timmia_megapolitana
+2025-09-24 10:29:06,966 - INFO - 
+2025-09-24 10:29:06,989 - INFO - 🧬 Processing sample: scaffold_1010-Timmia_megapolitana
+2025-09-24 10:29:07,013 - INFO - ========================================
+2025-09-24 10:29:07,036 - INFO - 📊 Extracting longest transcript for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:07,089 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:07,089 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1010-Timmia_megapolitana.fa
+2025-09-24 10:29:07,089 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1010-Timmia_megapolitana.primary.gff3
+2025-09-24 10:29:07,089 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1010-Timmia_megapolitana.longest.pep.fa
+2025-09-24 10:29:07,089 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:07,089 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1010-Timmia_megapolitana.primary.gff3
+2025-09-24 10:29:07,378 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:07,380 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:07,380 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1010-Timmia_megapolitana.gene.info.txt
+2025-09-24 10:29:07,381 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1010-Timmia_megapolitana.gene.info.txt
+2025-09-24 10:29:07,381 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:07,381 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:07,381 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1010-Timmia_megapolitana.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1010-Timmia_megapolitana.fa" -y "/tmp/tmplzeari3a.fa"
+2025-09-24 10:29:09,247 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:09,247 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:09,247 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmplp6m9cw2" "/tmp/tmplzeari3a.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1010-Timmia_megapolitana.longest.pep.fa"
+2025-09-24 10:29:09,281 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:09,281 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:09,281 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1010-Timmia_megapolitana.longest.pep.fa
+2025-09-24 10:29:09,282 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:09,317 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:09,342 - INFO - 🔍 Running HMM search for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:09,365 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1010-Timmia_megapolitana.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1010-Timmia_megapolitana.longest.pep.fa
+2025-09-24 10:29:09,481 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:09,506 - INFO - 🧹 Cleaning HMM results for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:09,532 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:09,556 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:09,730 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:09,753 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:09,777 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:09,801 - INFO - ✅ HMM analysis completed for scaffold_1010-Timmia_megapolitana
+2025-09-24 10:29:09,824 - INFO - 🔍 Running CDD search for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:09,847 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:10,017 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:10,041 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1010-Timmia_megapolitana.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1010-Timmia_megapolitana.cdd.txt -num_threads 80
+2025-09-24 10:29:11,559 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:11,583 - INFO - 🧹 Cleaning CDD results for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:11,610 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:11,633 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:11,833 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:11,857 - INFO - ✅ CDD analysis completed for scaffold_1010-Timmia_megapolitana
+2025-09-24 10:29:11,881 - INFO - 🔄 Integrating results for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:11,930 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:11,954 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:12,126 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:12,149 - INFO - ✅ Direct WRKY search completed for scaffold_1010-Timmia_megapolitana
+2025-09-24 10:29:12,173 - INFO - 🔬 Generating final WRKY classification for scaffold_1010-Timmia_megapolitana...
+2025-09-24 10:29:12,220 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:12,243 - INFO - ✅ Final classification generated for scaffold_1010-Timmia_megapolitana
+2025-09-24 10:29:12,267 - INFO - ✅ Completed processing scaffold_1010-Timmia_megapolitana (some steps may have failed)
+2025-09-24 10:29:12,290 - INFO - ========================================
+2025-09-24 10:29:12,314 - INFO - ✅ Successfully completed scaffold_1010-Timmia_megapolitana
+2025-09-24 10:29:12,337 - INFO - 
+2025-09-24 10:29:12,360 - INFO - 🚀 Processing sample 3/123: scaffold_1011-Tetraphis_pellucida
+2025-09-24 10:29:12,384 - INFO - 
+2025-09-24 10:29:12,407 - INFO - 🧬 Processing sample: scaffold_1011-Tetraphis_pellucida
+2025-09-24 10:29:12,431 - INFO - ========================================
+2025-09-24 10:29:12,454 - INFO - 📊 Extracting longest transcript for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:12,507 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:12,507 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1011-Tetraphis_pellucida.fa
+2025-09-24 10:29:12,507 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1011-Tetraphis_pellucida.primary.gff3
+2025-09-24 10:29:12,507 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1011-Tetraphis_pellucida.longest.pep.fa
+2025-09-24 10:29:12,507 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:12,507 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1011-Tetraphis_pellucida.primary.gff3
+2025-09-24 10:29:12,772 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:12,774 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:12,774 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1011-Tetraphis_pellucida.gene.info.txt
+2025-09-24 10:29:12,775 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1011-Tetraphis_pellucida.gene.info.txt
+2025-09-24 10:29:12,775 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:12,775 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:12,775 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1011-Tetraphis_pellucida.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1011-Tetraphis_pellucida.fa" -y "/tmp/tmpgcy4adts.fa"
+2025-09-24 10:29:14,307 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:14,307 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:14,307 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpxt2bu1yx" "/tmp/tmpgcy4adts.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1011-Tetraphis_pellucida.longest.pep.fa"
+2025-09-24 10:29:14,343 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:14,343 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:14,343 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1011-Tetraphis_pellucida.longest.pep.fa
+2025-09-24 10:29:14,344 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:14,382 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:14,407 - INFO - 🔍 Running HMM search for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:14,430 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1011-Tetraphis_pellucida.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1011-Tetraphis_pellucida.longest.pep.fa
+2025-09-24 10:29:14,539 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:14,563 - INFO - 🧹 Cleaning HMM results for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:14,590 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:14,614 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:14,795 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:14,819 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:14,842 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:14,866 - INFO - ✅ HMM analysis completed for scaffold_1011-Tetraphis_pellucida
+2025-09-24 10:29:14,889 - INFO - 🔍 Running CDD search for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:14,913 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:15,084 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:15,108 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1011-Tetraphis_pellucida.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1011-Tetraphis_pellucida.cdd.txt -num_threads 80
+2025-09-24 10:29:15,716 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:15,740 - INFO - 🧹 Cleaning CDD results for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:15,767 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:15,791 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:15,966 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:15,990 - INFO - ✅ CDD analysis completed for scaffold_1011-Tetraphis_pellucida
+2025-09-24 10:29:16,014 - INFO - 🔄 Integrating results for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:16,064 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:16,088 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:16,259 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:16,282 - INFO - ✅ Direct WRKY search completed for scaffold_1011-Tetraphis_pellucida
+2025-09-24 10:29:16,306 - INFO - 🔬 Generating final WRKY classification for scaffold_1011-Tetraphis_pellucida...
+2025-09-24 10:29:16,353 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:16,377 - INFO - ✅ Final classification generated for scaffold_1011-Tetraphis_pellucida
+2025-09-24 10:29:16,400 - INFO - ✅ Completed processing scaffold_1011-Tetraphis_pellucida (some steps may have failed)
+2025-09-24 10:29:16,424 - INFO - ========================================
+2025-09-24 10:29:16,447 - INFO - ✅ Successfully completed scaffold_1011-Tetraphis_pellucida
+2025-09-24 10:29:16,471 - INFO - 
+2025-09-24 10:29:16,495 - INFO - 🚀 Processing sample 4/123: scaffold_1012-Andreaea_wilsonii
+2025-09-24 10:29:16,518 - INFO - 
+2025-09-24 10:29:16,542 - INFO - 🧬 Processing sample: scaffold_1012-Andreaea_wilsonii
+2025-09-24 10:29:16,565 - INFO - ========================================
+2025-09-24 10:29:16,589 - INFO - 📊 Extracting longest transcript for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:16,640 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:16,640 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1012-Andreaea_wilsonii.fa
+2025-09-24 10:29:16,640 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1012-Andreaea_wilsonii.primary.gff3
+2025-09-24 10:29:16,640 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1012-Andreaea_wilsonii.longest.pep.fa
+2025-09-24 10:29:16,640 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:16,640 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1012-Andreaea_wilsonii.primary.gff3
+2025-09-24 10:29:16,918 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:16,919 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:16,919 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1012-Andreaea_wilsonii.gene.info.txt
+2025-09-24 10:29:16,919 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1012-Andreaea_wilsonii.gene.info.txt
+2025-09-24 10:29:16,919 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:16,920 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:16,920 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1012-Andreaea_wilsonii.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1012-Andreaea_wilsonii.fa" -y "/tmp/tmpl8pr6uf2.fa"
+2025-09-24 10:29:18,012 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:18,012 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:18,012 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpy5wuk4fo" "/tmp/tmpl8pr6uf2.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1012-Andreaea_wilsonii.longest.pep.fa"
+2025-09-24 10:29:18,045 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:18,045 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:18,045 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1012-Andreaea_wilsonii.longest.pep.fa
+2025-09-24 10:29:18,046 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:18,082 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:18,107 - INFO - 🔍 Running HMM search for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:18,131 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1012-Andreaea_wilsonii.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1012-Andreaea_wilsonii.longest.pep.fa
+2025-09-24 10:29:18,238 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:18,262 - INFO - 🧹 Cleaning HMM results for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:18,289 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:18,313 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:18,488 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:18,511 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:18,535 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:18,559 - INFO - ✅ HMM analysis completed for scaffold_1012-Andreaea_wilsonii
+2025-09-24 10:29:18,582 - INFO - 🔍 Running CDD search for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:18,606 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:18,776 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:18,800 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1012-Andreaea_wilsonii.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1012-Andreaea_wilsonii.cdd.txt -num_threads 80
+2025-09-24 10:29:19,382 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:19,407 - INFO - 🧹 Cleaning CDD results for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:19,434 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:19,458 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:19,633 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:19,657 - INFO - ✅ CDD analysis completed for scaffold_1012-Andreaea_wilsonii
+2025-09-24 10:29:19,681 - INFO - 🔄 Integrating results for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:19,731 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:19,754 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:19,926 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:19,950 - INFO - ✅ Direct WRKY search completed for scaffold_1012-Andreaea_wilsonii
+2025-09-24 10:29:19,974 - INFO - 🔬 Generating final WRKY classification for scaffold_1012-Andreaea_wilsonii...
+2025-09-24 10:29:20,021 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:20,044 - INFO - ✅ Final classification generated for scaffold_1012-Andreaea_wilsonii
+2025-09-24 10:29:20,068 - INFO - ✅ Completed processing scaffold_1012-Andreaea_wilsonii (some steps may have failed)
+2025-09-24 10:29:20,091 - INFO - ========================================
+2025-09-24 10:29:20,115 - INFO - ✅ Successfully completed scaffold_1012-Andreaea_wilsonii
+2025-09-24 10:29:20,138 - INFO - 
+2025-09-24 10:29:20,162 - INFO - 🚀 Processing sample 5/123: scaffold_1013-Pleuridium_subulatum
+2025-09-24 10:29:20,186 - INFO - 
+2025-09-24 10:29:20,209 - INFO - 🧬 Processing sample: scaffold_1013-Pleuridium_subulatum
+2025-09-24 10:29:20,233 - INFO - ========================================
+2025-09-24 10:29:20,257 - INFO - 📊 Extracting longest transcript for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:20,309 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:20,309 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1013-Pleuridium_subulatum.fa
+2025-09-24 10:29:20,309 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1013-Pleuridium_subulatum.primary.gff3
+2025-09-24 10:29:20,309 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1013-Pleuridium_subulatum.longest.pep.fa
+2025-09-24 10:29:20,309 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:20,309 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1013-Pleuridium_subulatum.primary.gff3
+2025-09-24 10:29:20,609 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:20,611 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:20,611 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1013-Pleuridium_subulatum.gene.info.txt
+2025-09-24 10:29:20,612 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1013-Pleuridium_subulatum.gene.info.txt
+2025-09-24 10:29:20,612 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:20,612 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:20,612 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1013-Pleuridium_subulatum.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1013-Pleuridium_subulatum.fa" -y "/tmp/tmpf53_b5ip.fa"
+2025-09-24 10:29:22,487 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:22,488 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:22,488 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmp8z7665lg" "/tmp/tmpf53_b5ip.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1013-Pleuridium_subulatum.longest.pep.fa"
+2025-09-24 10:29:22,521 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:22,521 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:22,521 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1013-Pleuridium_subulatum.longest.pep.fa
+2025-09-24 10:29:22,522 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:22,557 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:22,581 - INFO - 🔍 Running HMM search for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:22,605 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1013-Pleuridium_subulatum.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1013-Pleuridium_subulatum.longest.pep.fa
+2025-09-24 10:29:22,710 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:22,735 - INFO - 🧹 Cleaning HMM results for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:22,762 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:22,786 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:22,960 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:22,984 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:23,007 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:23,031 - INFO - ✅ HMM analysis completed for scaffold_1013-Pleuridium_subulatum
+2025-09-24 10:29:23,055 - INFO - 🔍 Running CDD search for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:23,079 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:23,250 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:23,274 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1013-Pleuridium_subulatum.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1013-Pleuridium_subulatum.cdd.txt -num_threads 80
+2025-09-24 10:29:23,830 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:23,854 - INFO - 🧹 Cleaning CDD results for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:23,882 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:23,906 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:24,082 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:24,106 - INFO - ✅ CDD analysis completed for scaffold_1013-Pleuridium_subulatum
+2025-09-24 10:29:24,130 - INFO - 🔄 Integrating results for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:24,180 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:24,204 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:24,376 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:24,400 - INFO - ✅ Direct WRKY search completed for scaffold_1013-Pleuridium_subulatum
+2025-09-24 10:29:24,424 - INFO - 🔬 Generating final WRKY classification for scaffold_1013-Pleuridium_subulatum...
+2025-09-24 10:29:24,471 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:24,495 - INFO - ✅ Final classification generated for scaffold_1013-Pleuridium_subulatum
+2025-09-24 10:29:24,519 - INFO - ✅ Completed processing scaffold_1013-Pleuridium_subulatum (some steps may have failed)
+2025-09-24 10:29:24,542 - INFO - ========================================
+2025-09-24 10:29:24,566 - INFO - ✅ Successfully completed scaffold_1013-Pleuridium_subulatum
+2025-09-24 10:29:24,590 - INFO - 
+2025-09-24 10:29:24,614 - INFO - 🚀 Processing sample 6/123: scaffold_1015-Atrichum_angustatum
+2025-09-24 10:29:24,637 - INFO - 
+2025-09-24 10:29:24,661 - INFO - 🧬 Processing sample: scaffold_1015-Atrichum_angustatum
+2025-09-24 10:29:24,685 - INFO - ========================================
+2025-09-24 10:29:24,708 - INFO - 📊 Extracting longest transcript for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:24,760 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:24,761 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1015-Atrichum_angustatum.fa
+2025-09-24 10:29:24,761 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1015-Atrichum_angustatum.primary.gff3
+2025-09-24 10:29:24,761 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1015-Atrichum_angustatum.longest.pep.fa
+2025-09-24 10:29:24,761 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:24,761 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1015-Atrichum_angustatum.primary.gff3
+2025-09-24 10:29:25,028 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:25,030 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:25,030 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1015-Atrichum_angustatum.gene.info.txt
+2025-09-24 10:29:25,030 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1015-Atrichum_angustatum.gene.info.txt
+2025-09-24 10:29:25,030 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:25,031 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:25,031 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1015-Atrichum_angustatum.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1015-Atrichum_angustatum.fa" -y "/tmp/tmpxcnvgpbs.fa"
+2025-09-24 10:29:26,741 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:26,741 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:26,741 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmptgic1fl8" "/tmp/tmpxcnvgpbs.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1015-Atrichum_angustatum.longest.pep.fa"
+2025-09-24 10:29:26,778 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:26,778 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:26,778 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1015-Atrichum_angustatum.longest.pep.fa
+2025-09-24 10:29:26,779 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:26,815 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:26,839 - INFO - 🔍 Running HMM search for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:26,863 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1015-Atrichum_angustatum.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1015-Atrichum_angustatum.longest.pep.fa
+2025-09-24 10:29:26,970 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:26,994 - INFO - 🧹 Cleaning HMM results for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:27,022 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:27,046 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:27,241 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:27,265 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:27,289 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:27,313 - INFO - ✅ HMM analysis completed for scaffold_1015-Atrichum_angustatum
+2025-09-24 10:29:27,337 - INFO - 🔍 Running CDD search for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:27,361 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:27,533 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:27,557 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1015-Atrichum_angustatum.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1015-Atrichum_angustatum.cdd.txt -num_threads 80
+2025-09-24 10:29:28,589 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:28,614 - INFO - 🧹 Cleaning CDD results for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:28,642 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:28,666 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:28,842 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:28,866 - INFO - ✅ CDD analysis completed for scaffold_1015-Atrichum_angustatum
+2025-09-24 10:29:28,890 - INFO - 🔄 Integrating results for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:28,941 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:28,965 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:29,135 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:29,159 - INFO - ✅ Direct WRKY search completed for scaffold_1015-Atrichum_angustatum
+2025-09-24 10:29:29,183 - INFO - 🔬 Generating final WRKY classification for scaffold_1015-Atrichum_angustatum...
+2025-09-24 10:29:29,231 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:29,255 - INFO - ✅ Final classification generated for scaffold_1015-Atrichum_angustatum
+2025-09-24 10:29:29,279 - INFO - ✅ Completed processing scaffold_1015-Atrichum_angustatum (some steps may have failed)
+2025-09-24 10:29:29,303 - INFO - ========================================
+2025-09-24 10:29:29,327 - INFO - ✅ Successfully completed scaffold_1015-Atrichum_angustatum
+2025-09-24 10:29:29,351 - INFO - 
+2025-09-24 10:29:29,375 - INFO - 🚀 Processing sample 7/123: scaffold_1016-Treubia_lacunosa
+2025-09-24 10:29:29,398 - INFO - 
+2025-09-24 10:29:29,422 - INFO - 🧬 Processing sample: scaffold_1016-Treubia_lacunosa
+2025-09-24 10:29:29,446 - INFO - ========================================
+2025-09-24 10:29:29,469 - INFO - 📊 Extracting longest transcript for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:29,521 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:29,522 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1016-Treubia_lacunosa.fa
+2025-09-24 10:29:29,522 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1016-Treubia_lacunosa.primary.gff3
+2025-09-24 10:29:29,522 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1016-Treubia_lacunosa.longest.pep.fa
+2025-09-24 10:29:29,522 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:29,522 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1016-Treubia_lacunosa.primary.gff3
+2025-09-24 10:29:29,791 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:29,794 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:29,794 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1016-Treubia_lacunosa.gene.info.txt
+2025-09-24 10:29:29,794 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1016-Treubia_lacunosa.gene.info.txt
+2025-09-24 10:29:29,794 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:29,795 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:29,795 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1016-Treubia_lacunosa.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1016-Treubia_lacunosa.fa" -y "/tmp/tmpf9ebyln5.fa"
+2025-09-24 10:29:41,968 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:41,968 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:41,968 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpwiavbual" "/tmp/tmpf9ebyln5.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1016-Treubia_lacunosa.longest.pep.fa"
+2025-09-24 10:29:42,006 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:42,006 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:42,006 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1016-Treubia_lacunosa.longest.pep.fa
+2025-09-24 10:29:42,007 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:42,044 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:42,069 - INFO - 🔍 Running HMM search for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:42,094 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1016-Treubia_lacunosa.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1016-Treubia_lacunosa.longest.pep.fa
+2025-09-24 10:29:42,200 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:42,224 - INFO - 🧹 Cleaning HMM results for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:42,252 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:42,276 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:42,452 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:42,476 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:42,500 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:42,524 - INFO - ✅ HMM analysis completed for scaffold_1016-Treubia_lacunosa
+2025-09-24 10:29:42,548 - INFO - 🔍 Running CDD search for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:42,572 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:42,742 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:42,766 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1016-Treubia_lacunosa.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1016-Treubia_lacunosa.cdd.txt -num_threads 80
+2025-09-24 10:29:43,384 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:43,408 - INFO - 🧹 Cleaning CDD results for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:43,436 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:43,460 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:43,652 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:43,676 - INFO - ✅ CDD analysis completed for scaffold_1016-Treubia_lacunosa
+2025-09-24 10:29:43,700 - INFO - 🔄 Integrating results for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:43,751 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:43,775 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:43,947 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:43,971 - INFO - ✅ Direct WRKY search completed for scaffold_1016-Treubia_lacunosa
+2025-09-24 10:29:43,995 - INFO - 🔬 Generating final WRKY classification for scaffold_1016-Treubia_lacunosa...
+2025-09-24 10:29:44,043 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:44,067 - INFO - ✅ Final classification generated for scaffold_1016-Treubia_lacunosa
+2025-09-24 10:29:44,091 - INFO - ✅ Completed processing scaffold_1016-Treubia_lacunosa (some steps may have failed)
+2025-09-24 10:29:44,115 - INFO - ========================================
+2025-09-24 10:29:44,139 - INFO - ✅ Successfully completed scaffold_1016-Treubia_lacunosa
+2025-09-24 10:29:44,163 - INFO - 
+2025-09-24 10:29:44,186 - INFO - 🚀 Processing sample 8/123: scaffold_1017-Porella_caespitans_var._nipponica
+2025-09-24 10:29:44,210 - INFO - 
+2025-09-24 10:29:44,234 - INFO - 🧬 Processing sample: scaffold_1017-Porella_caespitans_var._nipponica
+2025-09-24 10:29:44,257 - INFO - ========================================
+2025-09-24 10:29:44,281 - INFO - 📊 Extracting longest transcript for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:44,334 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:44,334 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1017-Porella_caespitans_var._nipponica.fa
+2025-09-24 10:29:44,334 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1017-Porella_caespitans_var._nipponica.primary.gff3
+2025-09-24 10:29:44,334 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1017-Porella_caespitans_var._nipponica.longest.pep.fa
+2025-09-24 10:29:44,334 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:44,334 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1017-Porella_caespitans_var._nipponica.primary.gff3
+2025-09-24 10:29:44,560 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:44,562 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:44,562 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1017-Porella_caespitans_var.gene.info.txt
+2025-09-24 10:29:44,563 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1017-Porella_caespitans_var.gene.info.txt
+2025-09-24 10:29:44,563 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:44,563 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:44,563 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1017-Porella_caespitans_var._nipponica.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1017-Porella_caespitans_var._nipponica.fa" -y "/tmp/tmpyq2t3hqf.fa"
+2025-09-24 10:29:47,731 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:47,731 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:47,731 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpu64nzj21" "/tmp/tmpyq2t3hqf.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1017-Porella_caespitans_var._nipponica.longest.pep.fa"
+2025-09-24 10:29:47,767 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:47,767 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:47,767 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1017-Porella_caespitans_var._nipponica.longest.pep.fa
+2025-09-24 10:29:47,768 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:47,803 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:47,827 - INFO - 🔍 Running HMM search for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:47,851 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1017-Porella_caespitans_var._nipponica.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1017-Porella_caespitans_var._nipponica.longest.pep.fa
+2025-09-24 10:29:47,958 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:47,982 - INFO - 🧹 Cleaning HMM results for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:48,009 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:48,033 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:48,218 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:48,242 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:48,266 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:48,291 - INFO - ✅ HMM analysis completed for scaffold_1017-Porella_caespitans_var._nipponica
+2025-09-24 10:29:48,315 - INFO - 🔍 Running CDD search for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:48,339 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:48,511 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:48,535 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1017-Porella_caespitans_var._nipponica.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1017-Porella_caespitans_var._nipponica.cdd.txt -num_threads 80
+2025-09-24 10:29:49,099 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:49,123 - INFO - 🧹 Cleaning CDD results for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:49,150 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:49,175 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:49,352 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:49,376 - INFO - ✅ CDD analysis completed for scaffold_1017-Porella_caespitans_var._nipponica
+2025-09-24 10:29:49,400 - INFO - 🔄 Integrating results for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:49,468 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:49,492 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:49,664 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:49,688 - INFO - ✅ Direct WRKY search completed for scaffold_1017-Porella_caespitans_var._nipponica
+2025-09-24 10:29:49,712 - INFO - 🔬 Generating final WRKY classification for scaffold_1017-Porella_caespitans_var._nipponica...
+2025-09-24 10:29:49,760 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:49,784 - INFO - ✅ Final classification generated for scaffold_1017-Porella_caespitans_var._nipponica
+2025-09-24 10:29:49,808 - INFO - ✅ Completed processing scaffold_1017-Porella_caespitans_var._nipponica (some steps may have failed)
+2025-09-24 10:29:49,831 - INFO - ========================================
+2025-09-24 10:29:49,855 - INFO - ✅ Successfully completed scaffold_1017-Porella_caespitans_var._nipponica
+2025-09-24 10:29:49,879 - INFO - 
+2025-09-24 10:29:49,903 - INFO - 🚀 Processing sample 9/123: scaffold_1020-Hypopterygium_elatum
+2025-09-24 10:29:49,926 - INFO - 
+2025-09-24 10:29:49,950 - INFO - 🧬 Processing sample: scaffold_1020-Hypopterygium_elatum
+2025-09-24 10:29:49,974 - INFO - ========================================
+2025-09-24 10:29:49,997 - INFO - 📊 Extracting longest transcript for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:50,049 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:50,050 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1020-Hypopterygium_elatum.fa
+2025-09-24 10:29:50,050 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1020-Hypopterygium_elatum.primary.gff3
+2025-09-24 10:29:50,050 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1020-Hypopterygium_elatum.longest.pep.fa
+2025-09-24 10:29:50,050 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:50,050 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1020-Hypopterygium_elatum.primary.gff3
+2025-09-24 10:29:50,329 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:50,331 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:50,331 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1020-Hypopterygium_elatum.gene.info.txt
+2025-09-24 10:29:50,332 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1020-Hypopterygium_elatum.gene.info.txt
+2025-09-24 10:29:50,332 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:50,332 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:50,332 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1020-Hypopterygium_elatum.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1020-Hypopterygium_elatum.fa" -y "/tmp/tmp8iq_6x9m.fa"
+2025-09-24 10:29:52,879 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:52,880 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:52,880 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpgddync56" "/tmp/tmp8iq_6x9m.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1020-Hypopterygium_elatum.longest.pep.fa"
+2025-09-24 10:29:52,916 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:52,916 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:52,916 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1020-Hypopterygium_elatum.longest.pep.fa
+2025-09-24 10:29:52,917 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:52,958 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:52,983 - INFO - 🔍 Running HMM search for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:53,007 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1020-Hypopterygium_elatum.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1020-Hypopterygium_elatum.longest.pep.fa
+2025-09-24 10:29:53,115 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:53,139 - INFO - 🧹 Cleaning HMM results for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:53,166 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:53,190 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:53,364 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:53,388 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:53,412 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:53,436 - INFO - ✅ HMM analysis completed for scaffold_1020-Hypopterygium_elatum
+2025-09-24 10:29:53,460 - INFO - 🔍 Running CDD search for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:53,484 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:53,654 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:53,678 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1020-Hypopterygium_elatum.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1020-Hypopterygium_elatum.cdd.txt -num_threads 80
+2025-09-24 10:29:54,344 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:54,368 - INFO - 🧹 Cleaning CDD results for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:54,396 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:54,420 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:54,598 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:54,622 - INFO - ✅ CDD analysis completed for scaffold_1020-Hypopterygium_elatum
+2025-09-24 10:29:54,646 - INFO - 🔄 Integrating results for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:54,708 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:54,732 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:54,902 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:54,925 - INFO - ✅ Direct WRKY search completed for scaffold_1020-Hypopterygium_elatum
+2025-09-24 10:29:54,949 - INFO - 🔬 Generating final WRKY classification for scaffold_1020-Hypopterygium_elatum...
+2025-09-24 10:29:54,996 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:55,020 - INFO - ✅ Final classification generated for scaffold_1020-Hypopterygium_elatum
+2025-09-24 10:29:55,043 - INFO - ✅ Completed processing scaffold_1020-Hypopterygium_elatum (some steps may have failed)
+2025-09-24 10:29:55,067 - INFO - ========================================
+2025-09-24 10:29:55,090 - INFO - ✅ Successfully completed scaffold_1020-Hypopterygium_elatum
+2025-09-24 10:29:55,113 - INFO - 
+2025-09-24 10:29:55,137 - INFO - 🚀 Processing sample 10/123: scaffold_1023-Encalypta_ciliata
+2025-09-24 10:29:55,160 - INFO - 
+2025-09-24 10:29:55,184 - INFO - 🧬 Processing sample: scaffold_1023-Encalypta_ciliata
+2025-09-24 10:29:55,207 - INFO - ========================================
+2025-09-24 10:29:55,231 - INFO - 📊 Extracting longest transcript for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:55,282 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:55,282 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1023-Encalypta_ciliata.fa
+2025-09-24 10:29:55,282 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1023-Encalypta_ciliata.primary.gff3
+2025-09-24 10:29:55,282 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1023-Encalypta_ciliata.longest.pep.fa
+2025-09-24 10:29:55,282 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:55,282 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1023-Encalypta_ciliata.primary.gff3
+2025-09-24 10:29:55,548 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:29:55,550 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:29:55,550 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1023-Encalypta_ciliata.gene.info.txt
+2025-09-24 10:29:55,551 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1023-Encalypta_ciliata.gene.info.txt
+2025-09-24 10:29:55,551 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:29:55,551 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:55,551 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1023-Encalypta_ciliata.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1023-Encalypta_ciliata.fa" -y "/tmp/tmpmuaj2878.fa"
+2025-09-24 10:29:57,546 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:29:57,546 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:57,546 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpf9b0jkbb" "/tmp/tmpmuaj2878.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1023-Encalypta_ciliata.longest.pep.fa"
+2025-09-24 10:29:57,580 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:29:57,580 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:29:57,580 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1023-Encalypta_ciliata.longest.pep.fa
+2025-09-24 10:29:57,581 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:29:57,616 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:29:57,641 - INFO - 🔍 Running HMM search for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:57,665 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1023-Encalypta_ciliata.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1023-Encalypta_ciliata.longest.pep.fa
+2025-09-24 10:29:57,775 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:29:57,799 - INFO - 🧹 Cleaning HMM results for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:57,826 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:29:57,850 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:58,024 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:29:58,048 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:58,072 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:29:58,096 - INFO - ✅ HMM analysis completed for scaffold_1023-Encalypta_ciliata
+2025-09-24 10:29:58,119 - INFO - 🔍 Running CDD search for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:58,143 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:29:58,313 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:29:58,337 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1023-Encalypta_ciliata.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1023-Encalypta_ciliata.cdd.txt -num_threads 80
+2025-09-24 10:29:58,897 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:29:58,922 - INFO - 🧹 Cleaning CDD results for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:58,949 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:29:58,973 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:59,149 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:29:59,172 - INFO - ✅ CDD analysis completed for scaffold_1023-Encalypta_ciliata
+2025-09-24 10:29:59,196 - INFO - 🔄 Integrating results for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:59,246 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:29:59,270 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:59,447 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:29:59,471 - INFO - ✅ Direct WRKY search completed for scaffold_1023-Encalypta_ciliata
+2025-09-24 10:29:59,495 - INFO - 🔬 Generating final WRKY classification for scaffold_1023-Encalypta_ciliata...
+2025-09-24 10:29:59,544 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:29:59,567 - INFO - ✅ Final classification generated for scaffold_1023-Encalypta_ciliata
+2025-09-24 10:29:59,591 - INFO - ✅ Completed processing scaffold_1023-Encalypta_ciliata (some steps may have failed)
+2025-09-24 10:29:59,614 - INFO - ========================================
+2025-09-24 10:29:59,638 - INFO - ✅ Successfully completed scaffold_1023-Encalypta_ciliata
+2025-09-24 10:29:59,662 - INFO - 
+2025-09-24 10:29:59,685 - INFO - 🚀 Processing sample 11/123: scaffold_1024-Homaliodendron_scalpellifolium
+2025-09-24 10:29:59,709 - INFO - 
+2025-09-24 10:29:59,732 - INFO - 🧬 Processing sample: scaffold_1024-Homaliodendron_scalpellifolium
+2025-09-24 10:29:59,756 - INFO - ========================================
+2025-09-24 10:29:59,780 - INFO - 📊 Extracting longest transcript for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:29:59,833 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:29:59,833 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1024-Homaliodendron_scalpellifolium.fa
+2025-09-24 10:29:59,833 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1024-Homaliodendron_scalpellifolium.primary.gff3
+2025-09-24 10:29:59,833 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1024-Homaliodendron_scalpellifolium.longest.pep.fa
+2025-09-24 10:29:59,833 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:29:59,833 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1024-Homaliodendron_scalpellifolium.primary.gff3
+2025-09-24 10:30:00,258 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:00,261 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:00,261 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1024-Homaliodendron_scalpellifolium.gene.info.txt
+2025-09-24 10:30:00,261 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1024-Homaliodendron_scalpellifolium.gene.info.txt
+2025-09-24 10:30:00,261 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:00,262 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:00,262 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1024-Homaliodendron_scalpellifolium.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1024-Homaliodendron_scalpellifolium.fa" -y "/tmp/tmpqij46o8a.fa"
+2025-09-24 10:30:03,022 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:03,022 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:03,022 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmp5v4awz53" "/tmp/tmpqij46o8a.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1024-Homaliodendron_scalpellifolium.longest.pep.fa"
+2025-09-24 10:30:03,061 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:03,061 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:03,061 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1024-Homaliodendron_scalpellifolium.longest.pep.fa
+2025-09-24 10:30:03,062 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:03,103 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:03,127 - INFO - 🔍 Running HMM search for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:03,151 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1024-Homaliodendron_scalpellifolium.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1024-Homaliodendron_scalpellifolium.longest.pep.fa
+2025-09-24 10:30:03,262 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:03,286 - INFO - 🧹 Cleaning HMM results for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:03,313 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:03,337 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:03,512 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:03,536 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:03,559 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:03,583 - INFO - ✅ HMM analysis completed for scaffold_1024-Homaliodendron_scalpellifolium
+2025-09-24 10:30:03,606 - INFO - 🔍 Running CDD search for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:03,630 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:03,799 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:03,823 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1024-Homaliodendron_scalpellifolium.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1024-Homaliodendron_scalpellifolium.cdd.txt -num_threads 80
+2025-09-24 10:30:04,381 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:04,405 - INFO - 🧹 Cleaning CDD results for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:04,432 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:04,456 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:04,630 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:04,654 - INFO - ✅ CDD analysis completed for scaffold_1024-Homaliodendron_scalpellifolium
+2025-09-24 10:30:04,678 - INFO - 🔄 Integrating results for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:04,754 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:04,777 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:04,947 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:04,971 - INFO - ✅ Direct WRKY search completed for scaffold_1024-Homaliodendron_scalpellifolium
+2025-09-24 10:30:04,995 - INFO - 🔬 Generating final WRKY classification for scaffold_1024-Homaliodendron_scalpellifolium...
+2025-09-24 10:30:05,042 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:05,066 - INFO - ✅ Final classification generated for scaffold_1024-Homaliodendron_scalpellifolium
+2025-09-24 10:30:05,089 - INFO - ✅ Completed processing scaffold_1024-Homaliodendron_scalpellifolium (some steps may have failed)
+2025-09-24 10:30:05,113 - INFO - ========================================
+2025-09-24 10:30:05,136 - INFO - ✅ Successfully completed scaffold_1024-Homaliodendron_scalpellifolium
+2025-09-24 10:30:05,160 - INFO - 
+2025-09-24 10:30:05,183 - INFO - 🚀 Processing sample 12/123: scaffold_1025-Porella_chinensis
+2025-09-24 10:30:05,207 - INFO - 
+2025-09-24 10:30:05,230 - INFO - 🧬 Processing sample: scaffold_1025-Porella_chinensis
+2025-09-24 10:30:05,254 - INFO - ========================================
+2025-09-24 10:30:05,277 - INFO - 📊 Extracting longest transcript for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:05,328 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:05,328 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1025-Porella_chinensis.fa
+2025-09-24 10:30:05,328 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1025-Porella_chinensis.primary.gff3
+2025-09-24 10:30:05,328 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1025-Porella_chinensis.longest.pep.fa
+2025-09-24 10:30:05,328 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:05,329 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1025-Porella_chinensis.primary.gff3
+2025-09-24 10:30:05,643 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:05,646 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:05,646 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1025-Porella_chinensis.gene.info.txt
+2025-09-24 10:30:05,647 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1025-Porella_chinensis.gene.info.txt
+2025-09-24 10:30:05,647 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:05,647 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:05,647 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1025-Porella_chinensis.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1025-Porella_chinensis.fa" -y "/tmp/tmp_owr2stm.fa"
+2025-09-24 10:30:10,537 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:10,537 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:10,537 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmp485whw4r" "/tmp/tmp_owr2stm.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1025-Porella_chinensis.longest.pep.fa"
+2025-09-24 10:30:10,575 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:10,575 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:10,575 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1025-Porella_chinensis.longest.pep.fa
+2025-09-24 10:30:10,576 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:10,614 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:10,638 - INFO - 🔍 Running HMM search for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:10,662 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1025-Porella_chinensis.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1025-Porella_chinensis.longest.pep.fa
+2025-09-24 10:30:10,785 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:10,809 - INFO - 🧹 Cleaning HMM results for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:10,836 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:10,860 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:11,034 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:11,058 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:11,081 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:11,105 - INFO - ✅ HMM analysis completed for scaffold_1025-Porella_chinensis
+2025-09-24 10:30:11,129 - INFO - 🔍 Running CDD search for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:11,152 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:11,322 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:11,346 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1025-Porella_chinensis.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1025-Porella_chinensis.cdd.txt -num_threads 80
+2025-09-24 10:30:11,896 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:11,920 - INFO - 🧹 Cleaning CDD results for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:11,947 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:11,971 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:12,145 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:12,169 - INFO - ✅ CDD analysis completed for scaffold_1025-Porella_chinensis
+2025-09-24 10:30:12,193 - INFO - 🔄 Integrating results for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:12,243 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:12,266 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:12,438 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:12,461 - INFO - ✅ Direct WRKY search completed for scaffold_1025-Porella_chinensis
+2025-09-24 10:30:12,484 - INFO - 🔬 Generating final WRKY classification for scaffold_1025-Porella_chinensis...
+2025-09-24 10:30:12,532 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:12,555 - INFO - ✅ Final classification generated for scaffold_1025-Porella_chinensis
+2025-09-24 10:30:12,579 - INFO - ✅ Completed processing scaffold_1025-Porella_chinensis (some steps may have failed)
+2025-09-24 10:30:12,602 - INFO - ========================================
+2025-09-24 10:30:12,626 - INFO - ✅ Successfully completed scaffold_1025-Porella_chinensis
+2025-09-24 10:30:12,649 - INFO - 
+2025-09-24 10:30:12,673 - INFO - 🚀 Processing sample 13/123: scaffold_1026-Bazzania_tridens
+2025-09-24 10:30:12,696 - INFO - 
+2025-09-24 10:30:12,720 - INFO - 🧬 Processing sample: scaffold_1026-Bazzania_tridens
+2025-09-24 10:30:12,743 - INFO - ========================================
+2025-09-24 10:30:12,767 - INFO - 📊 Extracting longest transcript for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:12,818 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:12,818 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1026-Bazzania_tridens.fa
+2025-09-24 10:30:12,818 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1026-Bazzania_tridens.primary.gff3
+2025-09-24 10:30:12,818 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1026-Bazzania_tridens.longest.pep.fa
+2025-09-24 10:30:12,818 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:12,818 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1026-Bazzania_tridens.primary.gff3
+2025-09-24 10:30:13,069 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:13,071 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:13,071 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1026-Bazzania_tridens.gene.info.txt
+2025-09-24 10:30:13,072 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1026-Bazzania_tridens.gene.info.txt
+2025-09-24 10:30:13,072 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:13,072 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:13,072 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1026-Bazzania_tridens.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1026-Bazzania_tridens.fa" -y "/tmp/tmpkxrguicc.fa"
+2025-09-24 10:30:16,085 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:16,085 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:16,085 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpivrvnjhf" "/tmp/tmpkxrguicc.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1026-Bazzania_tridens.longest.pep.fa"
+2025-09-24 10:30:16,119 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:16,119 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:16,119 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1026-Bazzania_tridens.longest.pep.fa
+2025-09-24 10:30:16,120 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:16,156 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:16,180 - INFO - 🔍 Running HMM search for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:16,204 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1026-Bazzania_tridens.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1026-Bazzania_tridens.longest.pep.fa
+2025-09-24 10:30:16,311 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:16,335 - INFO - 🧹 Cleaning HMM results for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:16,363 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:16,386 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:16,560 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:16,584 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:16,607 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:16,632 - INFO - ✅ HMM analysis completed for scaffold_1026-Bazzania_tridens
+2025-09-24 10:30:16,655 - INFO - 🔍 Running CDD search for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:16,679 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:16,850 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:16,873 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1026-Bazzania_tridens.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1026-Bazzania_tridens.cdd.txt -num_threads 80
+2025-09-24 10:30:17,375 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:17,400 - INFO - 🧹 Cleaning CDD results for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:17,427 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:17,450 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:17,642 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:17,665 - INFO - ✅ CDD analysis completed for scaffold_1026-Bazzania_tridens
+2025-09-24 10:30:17,689 - INFO - 🔄 Integrating results for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:17,739 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:17,763 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:17,934 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:17,958 - INFO - ✅ Direct WRKY search completed for scaffold_1026-Bazzania_tridens
+2025-09-24 10:30:17,982 - INFO - 🔬 Generating final WRKY classification for scaffold_1026-Bazzania_tridens...
+2025-09-24 10:30:18,029 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:18,052 - INFO - ✅ Final classification generated for scaffold_1026-Bazzania_tridens
+2025-09-24 10:30:18,076 - INFO - ✅ Completed processing scaffold_1026-Bazzania_tridens (some steps may have failed)
+2025-09-24 10:30:18,099 - INFO - ========================================
+2025-09-24 10:30:18,123 - INFO - ✅ Successfully completed scaffold_1026-Bazzania_tridens
+2025-09-24 10:30:18,147 - INFO - 
+2025-09-24 10:30:18,170 - INFO - 🚀 Processing sample 14/123: scaffold_1030-Bartramia_ithyphylla
+2025-09-24 10:30:18,194 - INFO - 
+2025-09-24 10:30:18,217 - INFO - 🧬 Processing sample: scaffold_1030-Bartramia_ithyphylla
+2025-09-24 10:30:18,240 - INFO - ========================================
+2025-09-24 10:30:18,264 - INFO - 📊 Extracting longest transcript for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:18,315 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:18,315 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1030-Bartramia_ithyphylla.fa
+2025-09-24 10:30:18,315 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1030-Bartramia_ithyphylla.primary.gff3
+2025-09-24 10:30:18,315 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1030-Bartramia_ithyphylla.longest.pep.fa
+2025-09-24 10:30:18,315 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:18,315 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1030-Bartramia_ithyphylla.primary.gff3
+2025-09-24 10:30:18,601 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:18,603 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:18,603 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1030-Bartramia_ithyphylla.gene.info.txt
+2025-09-24 10:30:18,603 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1030-Bartramia_ithyphylla.gene.info.txt
+2025-09-24 10:30:18,603 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:18,604 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:18,604 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1030-Bartramia_ithyphylla.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1030-Bartramia_ithyphylla.fa" -y "/tmp/tmps45wpt59.fa"
+2025-09-24 10:30:20,693 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:20,693 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:20,693 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmp1iu8r_o0" "/tmp/tmps45wpt59.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1030-Bartramia_ithyphylla.longest.pep.fa"
+2025-09-24 10:30:20,727 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:20,727 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:20,727 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1030-Bartramia_ithyphylla.longest.pep.fa
+2025-09-24 10:30:20,728 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:20,763 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:20,788 - INFO - 🔍 Running HMM search for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:20,811 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1030-Bartramia_ithyphylla.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1030-Bartramia_ithyphylla.longest.pep.fa
+2025-09-24 10:30:20,921 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:20,945 - INFO - 🧹 Cleaning HMM results for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:20,972 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:20,996 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:21,169 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:21,193 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:21,217 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:21,241 - INFO - ✅ HMM analysis completed for scaffold_1030-Bartramia_ithyphylla
+2025-09-24 10:30:21,264 - INFO - 🔍 Running CDD search for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:21,287 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:21,456 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:21,480 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1030-Bartramia_ithyphylla.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1030-Bartramia_ithyphylla.cdd.txt -num_threads 80
+2025-09-24 10:30:22,053 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:22,077 - INFO - 🧹 Cleaning CDD results for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:22,104 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:22,128 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:22,303 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:22,326 - INFO - ✅ CDD analysis completed for scaffold_1030-Bartramia_ithyphylla
+2025-09-24 10:30:22,350 - INFO - 🔄 Integrating results for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:22,399 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:22,423 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:22,622 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:22,646 - INFO - ✅ Direct WRKY search completed for scaffold_1030-Bartramia_ithyphylla
+2025-09-24 10:30:22,669 - INFO - 🔬 Generating final WRKY classification for scaffold_1030-Bartramia_ithyphylla...
+2025-09-24 10:30:22,717 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:22,740 - INFO - ✅ Final classification generated for scaffold_1030-Bartramia_ithyphylla
+2025-09-24 10:30:22,764 - INFO - ✅ Completed processing scaffold_1030-Bartramia_ithyphylla (some steps may have failed)
+2025-09-24 10:30:22,787 - INFO - ========================================
+2025-09-24 10:30:22,811 - INFO - ✅ Successfully completed scaffold_1030-Bartramia_ithyphylla
+2025-09-24 10:30:22,835 - INFO - 
+2025-09-24 10:30:22,858 - INFO - 🚀 Processing sample 15/123: scaffold_1032-Phaeoceros_laevis
+2025-09-24 10:30:22,881 - INFO - 
+2025-09-24 10:30:22,905 - INFO - 🧬 Processing sample: scaffold_1032-Phaeoceros_laevis
+2025-09-24 10:30:22,928 - INFO - ========================================
+2025-09-24 10:30:22,952 - INFO - 📊 Extracting longest transcript for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:23,004 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:23,004 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1032-Phaeoceros_laevis.fa
+2025-09-24 10:30:23,004 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1032-Phaeoceros_laevis.primary.gff3
+2025-09-24 10:30:23,004 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1032-Phaeoceros_laevis.longest.pep.fa
+2025-09-24 10:30:23,004 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:23,004 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1032-Phaeoceros_laevis.primary.gff3
+2025-09-24 10:30:23,187 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:23,188 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:23,188 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1032-Phaeoceros_laevis.gene.info.txt
+2025-09-24 10:30:23,188 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1032-Phaeoceros_laevis.gene.info.txt
+2025-09-24 10:30:23,188 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:23,188 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:23,188 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1032-Phaeoceros_laevis.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1032-Phaeoceros_laevis.fa" -y "/tmp/tmpkx6csr6j.fa"
+2025-09-24 10:30:24,165 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:24,165 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:24,165 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpz48rgot_" "/tmp/tmpkx6csr6j.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1032-Phaeoceros_laevis.longest.pep.fa"
+2025-09-24 10:30:24,200 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:24,200 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:24,200 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1032-Phaeoceros_laevis.longest.pep.fa
+2025-09-24 10:30:24,200 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:24,233 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:24,257 - INFO - 🔍 Running HMM search for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:24,281 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1032-Phaeoceros_laevis.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1032-Phaeoceros_laevis.longest.pep.fa
+2025-09-24 10:30:24,390 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:24,414 - INFO - 🧹 Cleaning HMM results for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:24,441 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:24,465 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:24,640 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:24,664 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:24,687 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:24,711 - INFO - ✅ HMM analysis completed for scaffold_1032-Phaeoceros_laevis
+2025-09-24 10:30:24,735 - INFO - 🔍 Running CDD search for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:24,758 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:24,928 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:24,951 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1032-Phaeoceros_laevis.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1032-Phaeoceros_laevis.cdd.txt -num_threads 80
+2025-09-24 10:30:25,488 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:25,512 - INFO - 🧹 Cleaning CDD results for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:25,539 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:25,563 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:25,737 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:25,760 - INFO - ✅ CDD analysis completed for scaffold_1032-Phaeoceros_laevis
+2025-09-24 10:30:25,784 - INFO - 🔄 Integrating results for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:25,833 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:25,857 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:26,027 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:26,051 - INFO - ✅ Direct WRKY search completed for scaffold_1032-Phaeoceros_laevis
+2025-09-24 10:30:26,075 - INFO - 🔬 Generating final WRKY classification for scaffold_1032-Phaeoceros_laevis...
+2025-09-24 10:30:26,122 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:26,146 - INFO - ✅ Final classification generated for scaffold_1032-Phaeoceros_laevis
+2025-09-24 10:30:26,169 - INFO - ✅ Completed processing scaffold_1032-Phaeoceros_laevis (some steps may have failed)
+2025-09-24 10:30:26,193 - INFO - ========================================
+2025-09-24 10:30:26,216 - INFO - ✅ Successfully completed scaffold_1032-Phaeoceros_laevis
+2025-09-24 10:30:26,239 - INFO - 
+2025-09-24 10:30:26,263 - INFO - 🚀 Processing sample 16/123: scaffold_1035-Polytrichastrum_ohioense
+2025-09-24 10:30:26,287 - INFO - 
+2025-09-24 10:30:26,310 - INFO - 🧬 Processing sample: scaffold_1035-Polytrichastrum_ohioense
+2025-09-24 10:30:26,334 - INFO - ========================================
+2025-09-24 10:30:26,358 - INFO - 📊 Extracting longest transcript for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:26,409 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:26,409 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1035-Polytrichastrum_ohioense.fa
+2025-09-24 10:30:26,409 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1035-Polytrichastrum_ohioense.primary.gff3
+2025-09-24 10:30:26,409 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1035-Polytrichastrum_ohioense.longest.pep.fa
+2025-09-24 10:30:26,409 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:26,409 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1035-Polytrichastrum_ohioense.primary.gff3
+2025-09-24 10:30:26,903 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:26,905 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:26,905 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1035-Polytrichastrum_ohioense.gene.info.txt
+2025-09-24 10:30:26,906 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1035-Polytrichastrum_ohioense.gene.info.txt
+2025-09-24 10:30:26,906 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:26,906 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:26,906 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1035-Polytrichastrum_ohioense.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1035-Polytrichastrum_ohioense.fa" -y "/tmp/tmpvfisprdj.fa"
+2025-09-24 10:30:30,897 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:30,897 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:30,897 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpoc_co43t" "/tmp/tmpvfisprdj.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1035-Polytrichastrum_ohioense.longest.pep.fa"
+2025-09-24 10:30:30,936 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:30,936 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:30,936 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1035-Polytrichastrum_ohioense.longest.pep.fa
+2025-09-24 10:30:30,937 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:30,974 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:30,998 - INFO - 🔍 Running HMM search for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:31,021 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1035-Polytrichastrum_ohioense.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1035-Polytrichastrum_ohioense.longest.pep.fa
+2025-09-24 10:30:31,130 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:31,154 - INFO - 🧹 Cleaning HMM results for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:31,182 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:31,206 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:31,379 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:31,403 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:31,426 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:31,450 - INFO - ✅ HMM analysis completed for scaffold_1035-Polytrichastrum_ohioense
+2025-09-24 10:30:31,473 - INFO - 🔍 Running CDD search for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:31,497 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:31,668 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:31,692 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1035-Polytrichastrum_ohioense.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1035-Polytrichastrum_ohioense.cdd.txt -num_threads 80
+2025-09-24 10:30:32,767 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:32,791 - INFO - 🧹 Cleaning CDD results for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:32,819 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:32,842 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:33,016 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:33,040 - INFO - ✅ CDD analysis completed for scaffold_1035-Polytrichastrum_ohioense
+2025-09-24 10:30:33,063 - INFO - 🔄 Integrating results for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:33,113 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:33,136 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:33,307 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:33,331 - INFO - ✅ Direct WRKY search completed for scaffold_1035-Polytrichastrum_ohioense
+2025-09-24 10:30:33,354 - INFO - 🔬 Generating final WRKY classification for scaffold_1035-Polytrichastrum_ohioense...
+2025-09-24 10:30:33,401 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:33,425 - INFO - ✅ Final classification generated for scaffold_1035-Polytrichastrum_ohioense
+2025-09-24 10:30:33,448 - INFO - ✅ Completed processing scaffold_1035-Polytrichastrum_ohioense (some steps may have failed)
+2025-09-24 10:30:33,472 - INFO - ========================================
+2025-09-24 10:30:33,496 - INFO - ✅ Successfully completed scaffold_1035-Polytrichastrum_ohioense
+2025-09-24 10:30:33,519 - INFO - 
+2025-09-24 10:30:33,542 - INFO - 🚀 Processing sample 17/123: scaffold_1036-Calliergon_cordifolium
+2025-09-24 10:30:33,566 - INFO - 
+2025-09-24 10:30:33,589 - INFO - 🧬 Processing sample: scaffold_1036-Calliergon_cordifolium
+2025-09-24 10:30:33,613 - INFO - ========================================
+2025-09-24 10:30:33,637 - INFO - 📊 Extracting longest transcript for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:33,688 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:33,688 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1036-Calliergon_cordifolium.fa
+2025-09-24 10:30:33,688 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1036-Calliergon_cordifolium.primary.gff3
+2025-09-24 10:30:33,688 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1036-Calliergon_cordifolium.longest.pep.fa
+2025-09-24 10:30:33,688 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:33,688 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1036-Calliergon_cordifolium.primary.gff3
+2025-09-24 10:30:34,142 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:34,145 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:34,145 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1036-Calliergon_cordifolium.gene.info.txt
+2025-09-24 10:30:34,145 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1036-Calliergon_cordifolium.gene.info.txt
+2025-09-24 10:30:34,145 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:34,146 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:34,146 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1036-Calliergon_cordifolium.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1036-Calliergon_cordifolium.fa" -y "/tmp/tmp2ssla_qo.fa"
+2025-09-24 10:30:37,494 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:37,494 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:37,494 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpz7ppa4h4" "/tmp/tmp2ssla_qo.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1036-Calliergon_cordifolium.longest.pep.fa"
+2025-09-24 10:30:37,532 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:37,532 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:37,532 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1036-Calliergon_cordifolium.longest.pep.fa
+2025-09-24 10:30:37,533 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:37,569 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:37,593 - INFO - 🔍 Running HMM search for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:37,617 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1036-Calliergon_cordifolium.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1036-Calliergon_cordifolium.longest.pep.fa
+2025-09-24 10:30:37,726 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:37,750 - INFO - 🧹 Cleaning HMM results for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:37,777 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:37,801 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:37,974 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:37,998 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:38,021 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:38,045 - INFO - ✅ HMM analysis completed for scaffold_1036-Calliergon_cordifolium
+2025-09-24 10:30:38,069 - INFO - 🔍 Running CDD search for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:38,092 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:38,268 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:38,291 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1036-Calliergon_cordifolium.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1036-Calliergon_cordifolium.cdd.txt -num_threads 80
+2025-09-24 10:30:38,846 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:38,870 - INFO - 🧹 Cleaning CDD results for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:38,897 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:38,921 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:39,096 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:39,120 - INFO - ✅ CDD analysis completed for scaffold_1036-Calliergon_cordifolium
+2025-09-24 10:30:39,143 - INFO - 🔄 Integrating results for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:39,193 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:39,216 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:39,387 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:39,410 - INFO - ✅ Direct WRKY search completed for scaffold_1036-Calliergon_cordifolium
+2025-09-24 10:30:39,434 - INFO - 🔬 Generating final WRKY classification for scaffold_1036-Calliergon_cordifolium...
+2025-09-24 10:30:39,481 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:39,505 - INFO - ✅ Final classification generated for scaffold_1036-Calliergon_cordifolium
+2025-09-24 10:30:39,528 - INFO - ✅ Completed processing scaffold_1036-Calliergon_cordifolium (some steps may have failed)
+2025-09-24 10:30:39,552 - INFO - ========================================
+2025-09-24 10:30:39,575 - INFO - ✅ Successfully completed scaffold_1036-Calliergon_cordifolium
+2025-09-24 10:30:39,599 - INFO - 
+2025-09-24 10:30:39,623 - INFO - 🚀 Processing sample 18/123: scaffold_1088-Gymnostomum_aurantiacum
+2025-09-24 10:30:39,646 - INFO - 
+2025-09-24 10:30:39,669 - INFO - 🧬 Processing sample: scaffold_1088-Gymnostomum_aurantiacum
+2025-09-24 10:30:39,693 - INFO - ========================================
+2025-09-24 10:30:39,716 - INFO - 📊 Extracting longest transcript for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:39,768 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:39,768 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1088-Gymnostomum_aurantiacum.fa
+2025-09-24 10:30:39,768 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1088-Gymnostomum_aurantiacum.primary.gff3
+2025-09-24 10:30:39,768 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1088-Gymnostomum_aurantiacum.longest.pep.fa
+2025-09-24 10:30:39,768 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:39,768 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1088-Gymnostomum_aurantiacum.primary.gff3
+2025-09-24 10:30:40,031 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:40,033 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:40,034 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1088-Gymnostomum_aurantiacum.gene.info.txt
+2025-09-24 10:30:40,034 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1088-Gymnostomum_aurantiacum.gene.info.txt
+2025-09-24 10:30:40,034 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:40,034 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:40,034 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1088-Gymnostomum_aurantiacum.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1088-Gymnostomum_aurantiacum.fa" -y "/tmp/tmpacrthhl9.fa"
+2025-09-24 10:30:41,841 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:41,841 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:41,841 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmp1lar8dfz" "/tmp/tmpacrthhl9.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1088-Gymnostomum_aurantiacum.longest.pep.fa"
+2025-09-24 10:30:41,874 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:41,874 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:41,874 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1088-Gymnostomum_aurantiacum.longest.pep.fa
+2025-09-24 10:30:41,875 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:41,910 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:41,934 - INFO - 🔍 Running HMM search for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:41,958 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1088-Gymnostomum_aurantiacum.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1088-Gymnostomum_aurantiacum.longest.pep.fa
+2025-09-24 10:30:42,066 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:42,090 - INFO - 🧹 Cleaning HMM results for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:42,117 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:42,140 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:42,314 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:42,338 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:42,361 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:42,385 - INFO - ✅ HMM analysis completed for scaffold_1088-Gymnostomum_aurantiacum
+2025-09-24 10:30:42,409 - INFO - 🔍 Running CDD search for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:42,433 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:42,603 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:42,627 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1088-Gymnostomum_aurantiacum.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1088-Gymnostomum_aurantiacum.cdd.txt -num_threads 80
+2025-09-24 10:30:43,182 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:43,206 - INFO - 🧹 Cleaning CDD results for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:43,233 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:43,257 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:43,432 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:43,456 - INFO - ✅ CDD analysis completed for scaffold_1088-Gymnostomum_aurantiacum
+2025-09-24 10:30:43,480 - INFO - 🔄 Integrating results for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:43,529 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:43,552 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:43,724 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:43,747 - INFO - ✅ Direct WRKY search completed for scaffold_1088-Gymnostomum_aurantiacum
+2025-09-24 10:30:43,771 - INFO - 🔬 Generating final WRKY classification for scaffold_1088-Gymnostomum_aurantiacum...
+2025-09-24 10:30:43,818 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:43,841 - INFO - ✅ Final classification generated for scaffold_1088-Gymnostomum_aurantiacum
+2025-09-24 10:30:43,865 - INFO - ✅ Completed processing scaffold_1088-Gymnostomum_aurantiacum (some steps may have failed)
+2025-09-24 10:30:43,888 - INFO - ========================================
+2025-09-24 10:30:43,912 - INFO - ✅ Successfully completed scaffold_1088-Gymnostomum_aurantiacum
+2025-09-24 10:30:43,935 - INFO - 
+2025-09-24 10:30:43,959 - INFO - 🚀 Processing sample 19/123: scaffold_1089-Polytrichum_commune
+2025-09-24 10:30:43,982 - INFO - 
+2025-09-24 10:30:44,006 - INFO - 🧬 Processing sample: scaffold_1089-Polytrichum_commune
+2025-09-24 10:30:44,029 - INFO - ========================================
+2025-09-24 10:30:44,053 - INFO - 📊 Extracting longest transcript for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:44,104 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:44,104 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1089-Polytrichum_commune.fa
+2025-09-24 10:30:44,104 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1089-Polytrichum_commune.primary.gff3
+2025-09-24 10:30:44,104 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1089-Polytrichum_commune.longest.pep.fa
+2025-09-24 10:30:44,104 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:44,104 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1089-Polytrichum_commune.primary.gff3
+2025-09-24 10:30:44,392 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:44,395 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:44,395 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1089-Polytrichum_commune.gene.info.txt
+2025-09-24 10:30:44,395 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1089-Polytrichum_commune.gene.info.txt
+2025-09-24 10:30:44,395 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:44,395 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:44,395 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1089-Polytrichum_commune.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1089-Polytrichum_commune.fa" -y "/tmp/tmpz6e9ddm_.fa"
+2025-09-24 10:30:46,750 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:46,750 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:46,750 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpfait9vq2" "/tmp/tmpz6e9ddm_.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1089-Polytrichum_commune.longest.pep.fa"
+2025-09-24 10:30:46,787 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:46,787 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:46,787 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1089-Polytrichum_commune.longest.pep.fa
+2025-09-24 10:30:46,788 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:46,823 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:46,848 - INFO - 🔍 Running HMM search for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:46,872 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1089-Polytrichum_commune.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1089-Polytrichum_commune.longest.pep.fa
+2025-09-24 10:30:46,980 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:47,004 - INFO - 🧹 Cleaning HMM results for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:47,032 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:47,056 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:47,229 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:47,252 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:47,276 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:47,300 - INFO - ✅ HMM analysis completed for scaffold_1089-Polytrichum_commune
+2025-09-24 10:30:47,323 - INFO - 🔍 Running CDD search for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:47,347 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:47,517 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:47,541 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1089-Polytrichum_commune.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1089-Polytrichum_commune.cdd.txt -num_threads 80
+2025-09-24 10:30:48,081 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:48,105 - INFO - 🧹 Cleaning CDD results for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:48,132 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:48,156 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:48,331 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:48,355 - INFO - ✅ CDD analysis completed for scaffold_1089-Polytrichum_commune
+2025-09-24 10:30:48,378 - INFO - 🔄 Integrating results for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:48,427 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:48,451 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:48,621 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:48,645 - INFO - ✅ Direct WRKY search completed for scaffold_1089-Polytrichum_commune
+2025-09-24 10:30:48,668 - INFO - 🔬 Generating final WRKY classification for scaffold_1089-Polytrichum_commune...
+2025-09-24 10:30:48,716 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:48,739 - INFO - ✅ Final classification generated for scaffold_1089-Polytrichum_commune
+2025-09-24 10:30:48,762 - INFO - ✅ Completed processing scaffold_1089-Polytrichum_commune (some steps may have failed)
+2025-09-24 10:30:48,786 - INFO - ========================================
+2025-09-24 10:30:48,809 - INFO - ✅ Successfully completed scaffold_1089-Polytrichum_commune
+2025-09-24 10:30:48,833 - INFO - 
+2025-09-24 10:30:48,856 - INFO - 🚀 Processing sample 20/123: scaffold_1092-Pogonatum_subfuscatum
+2025-09-24 10:30:48,880 - INFO - 
+2025-09-24 10:30:48,903 - INFO - 🧬 Processing sample: scaffold_1092-Pogonatum_subfuscatum
+2025-09-24 10:30:48,927 - INFO - ========================================
+2025-09-24 10:30:48,950 - INFO - 📊 Extracting longest transcript for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:49,001 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:49,001 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1092-Pogonatum_subfuscatum.fa
+2025-09-24 10:30:49,001 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1092-Pogonatum_subfuscatum.primary.gff3
+2025-09-24 10:30:49,001 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1092-Pogonatum_subfuscatum.longest.pep.fa
+2025-09-24 10:30:49,001 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:49,001 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1092-Pogonatum_subfuscatum.primary.gff3
+2025-09-24 10:30:49,272 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:49,274 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:49,274 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1092-Pogonatum_subfuscatum.gene.info.txt
+2025-09-24 10:30:49,274 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1092-Pogonatum_subfuscatum.gene.info.txt
+2025-09-24 10:30:49,274 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:49,275 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:49,275 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1092-Pogonatum_subfuscatum.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1092-Pogonatum_subfuscatum.fa" -y "/tmp/tmpjootujb1.fa"
+2025-09-24 10:30:51,884 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:51,884 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:51,884 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmphyf2b_sl" "/tmp/tmpjootujb1.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1092-Pogonatum_subfuscatum.longest.pep.fa"
+2025-09-24 10:30:51,920 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:51,920 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:51,920 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1092-Pogonatum_subfuscatum.longest.pep.fa
+2025-09-24 10:30:51,921 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:51,956 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:51,980 - INFO - 🔍 Running HMM search for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:52,004 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1092-Pogonatum_subfuscatum.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1092-Pogonatum_subfuscatum.longest.pep.fa
+2025-09-24 10:30:52,113 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:52,137 - INFO - 🧹 Cleaning HMM results for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:52,164 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:52,187 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:52,360 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:52,384 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:52,407 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:52,431 - INFO - ✅ HMM analysis completed for scaffold_1092-Pogonatum_subfuscatum
+2025-09-24 10:30:52,455 - INFO - 🔍 Running CDD search for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:52,478 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:52,648 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:52,671 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1092-Pogonatum_subfuscatum.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1092-Pogonatum_subfuscatum.cdd.txt -num_threads 80
+2025-09-24 10:30:53,338 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:53,362 - INFO - 🧹 Cleaning CDD results for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:53,390 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:53,414 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:53,604 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:53,627 - INFO - ✅ CDD analysis completed for scaffold_1092-Pogonatum_subfuscatum
+2025-09-24 10:30:53,651 - INFO - 🔄 Integrating results for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:53,700 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:53,724 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:53,895 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:53,918 - INFO - ✅ Direct WRKY search completed for scaffold_1092-Pogonatum_subfuscatum
+2025-09-24 10:30:53,942 - INFO - 🔬 Generating final WRKY classification for scaffold_1092-Pogonatum_subfuscatum...
+2025-09-24 10:30:53,989 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:54,013 - INFO - ✅ Final classification generated for scaffold_1092-Pogonatum_subfuscatum
+2025-09-24 10:30:54,036 - INFO - ✅ Completed processing scaffold_1092-Pogonatum_subfuscatum (some steps may have failed)
+2025-09-24 10:30:54,060 - INFO - ========================================
+2025-09-24 10:30:54,083 - INFO - ✅ Successfully completed scaffold_1092-Pogonatum_subfuscatum
+2025-09-24 10:30:54,107 - INFO - 
+2025-09-24 10:30:54,130 - INFO - 🚀 Processing sample 21/123: scaffold_1114-Regmatodon_serrulatus
+2025-09-24 10:30:54,154 - INFO - 
+2025-09-24 10:30:54,177 - INFO - 🧬 Processing sample: scaffold_1114-Regmatodon_serrulatus
+2025-09-24 10:30:54,201 - INFO - ========================================
+2025-09-24 10:30:54,224 - INFO - 📊 Extracting longest transcript for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:54,276 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:54,276 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1114-Regmatodon_serrulatus.fa
+2025-09-24 10:30:54,276 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1114-Regmatodon_serrulatus.primary.gff3
+2025-09-24 10:30:54,276 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1114-Regmatodon_serrulatus.longest.pep.fa
+2025-09-24 10:30:54,276 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:54,276 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1114-Regmatodon_serrulatus.primary.gff3
+2025-09-24 10:30:54,535 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:54,537 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:54,537 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1114-Regmatodon_serrulatus.gene.info.txt
+2025-09-24 10:30:54,538 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1114-Regmatodon_serrulatus.gene.info.txt
+2025-09-24 10:30:54,538 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:54,538 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:54,538 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1114-Regmatodon_serrulatus.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1114-Regmatodon_serrulatus.fa" -y "/tmp/tmpbtnlvptl.fa"
+2025-09-24 10:30:56,478 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:56,478 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:56,478 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmp_y4mf3r7" "/tmp/tmpbtnlvptl.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1114-Regmatodon_serrulatus.longest.pep.fa"
+2025-09-24 10:30:56,512 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:30:56,512 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:30:56,512 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1114-Regmatodon_serrulatus.longest.pep.fa
+2025-09-24 10:30:56,513 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:30:56,548 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:30:56,572 - INFO - 🔍 Running HMM search for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:56,596 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1114-Regmatodon_serrulatus.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1114-Regmatodon_serrulatus.longest.pep.fa
+2025-09-24 10:30:56,705 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:30:56,729 - INFO - 🧹 Cleaning HMM results for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:56,756 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:30:56,780 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:56,954 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:30:56,978 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:57,002 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:30:57,026 - INFO - ✅ HMM analysis completed for scaffold_1114-Regmatodon_serrulatus
+2025-09-24 10:30:57,049 - INFO - 🔍 Running CDD search for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:57,073 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:30:57,242 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:30:57,266 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1114-Regmatodon_serrulatus.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1114-Regmatodon_serrulatus.cdd.txt -num_threads 80
+2025-09-24 10:30:57,835 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:30:57,860 - INFO - 🧹 Cleaning CDD results for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:57,888 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:30:57,911 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:58,086 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:30:58,109 - INFO - ✅ CDD analysis completed for scaffold_1114-Regmatodon_serrulatus
+2025-09-24 10:30:58,133 - INFO - 🔄 Integrating results for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:58,183 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:30:58,207 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:58,376 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:30:58,400 - INFO - ✅ Direct WRKY search completed for scaffold_1114-Regmatodon_serrulatus
+2025-09-24 10:30:58,424 - INFO - 🔬 Generating final WRKY classification for scaffold_1114-Regmatodon_serrulatus...
+2025-09-24 10:30:58,471 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:30:58,495 - INFO - ✅ Final classification generated for scaffold_1114-Regmatodon_serrulatus
+2025-09-24 10:30:58,518 - INFO - ✅ Completed processing scaffold_1114-Regmatodon_serrulatus (some steps may have failed)
+2025-09-24 10:30:58,542 - INFO - ========================================
+2025-09-24 10:30:58,566 - INFO - ✅ Successfully completed scaffold_1114-Regmatodon_serrulatus
+2025-09-24 10:30:58,589 - INFO - 
+2025-09-24 10:30:58,613 - INFO - 🚀 Processing sample 22/123: scaffold_1120-Splachnum_ampullaceum
+2025-09-24 10:30:58,636 - INFO - 
+2025-09-24 10:30:58,659 - INFO - 🧬 Processing sample: scaffold_1120-Splachnum_ampullaceum
+2025-09-24 10:30:58,683 - INFO - ========================================
+2025-09-24 10:30:58,706 - INFO - 📊 Extracting longest transcript for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:30:58,758 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:30:58,758 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1120-Splachnum_ampullaceum.fa
+2025-09-24 10:30:58,758 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1120-Splachnum_ampullaceum.primary.gff3
+2025-09-24 10:30:58,758 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1120-Splachnum_ampullaceum.longest.pep.fa
+2025-09-24 10:30:58,758 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:30:58,758 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1120-Splachnum_ampullaceum.primary.gff3
+2025-09-24 10:30:59,116 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:30:59,118 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:30:59,118 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1120-Splachnum_ampullaceum.gene.info.txt
+2025-09-24 10:30:59,118 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1120-Splachnum_ampullaceum.gene.info.txt
+2025-09-24 10:30:59,118 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:30:59,119 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:30:59,119 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1120-Splachnum_ampullaceum.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1120-Splachnum_ampullaceum.fa" -y "/tmp/tmpj54ymz_t.fa"
+2025-09-24 10:31:01,110 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:31:01,110 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:31:01,110 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpnxx9eagt" "/tmp/tmpj54ymz_t.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1120-Splachnum_ampullaceum.longest.pep.fa"
+2025-09-24 10:31:01,142 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:31:01,142 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:31:01,142 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1120-Splachnum_ampullaceum.longest.pep.fa
+2025-09-24 10:31:01,143 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:31:01,178 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:31:01,202 - INFO - 🔍 Running HMM search for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:01,226 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1120-Splachnum_ampullaceum.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1120-Splachnum_ampullaceum.longest.pep.fa
+2025-09-24 10:31:01,333 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:31:01,357 - INFO - 🧹 Cleaning HMM results for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:01,384 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:31:01,408 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:01,583 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:31:01,606 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:01,630 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:31:01,654 - INFO - ✅ HMM analysis completed for scaffold_1120-Splachnum_ampullaceum
+2025-09-24 10:31:01,678 - INFO - 🔍 Running CDD search for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:01,701 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:31:01,872 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:31:01,896 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1120-Splachnum_ampullaceum.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1120-Splachnum_ampullaceum.cdd.txt -num_threads 80
+2025-09-24 10:31:02,557 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:31:02,581 - INFO - 🧹 Cleaning CDD results for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:02,608 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:31:02,632 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:02,806 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:31:02,830 - INFO - ✅ CDD analysis completed for scaffold_1120-Splachnum_ampullaceum
+2025-09-24 10:31:02,853 - INFO - 🔄 Integrating results for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:02,903 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:31:02,927 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:03,099 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:31:03,122 - INFO - ✅ Direct WRKY search completed for scaffold_1120-Splachnum_ampullaceum
+2025-09-24 10:31:03,146 - INFO - 🔬 Generating final WRKY classification for scaffold_1120-Splachnum_ampullaceum...
+2025-09-24 10:31:03,194 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:31:03,217 - INFO - ✅ Final classification generated for scaffold_1120-Splachnum_ampullaceum
+2025-09-24 10:31:03,240 - INFO - ✅ Completed processing scaffold_1120-Splachnum_ampullaceum (some steps may have failed)
+2025-09-24 10:31:03,264 - INFO - ========================================
+2025-09-24 10:31:03,288 - INFO - ✅ Successfully completed scaffold_1120-Splachnum_ampullaceum
+2025-09-24 10:31:03,311 - INFO - 
+2025-09-24 10:31:03,334 - INFO - 🚀 Processing sample 23/123: scaffold_1122-Syntrichia_ruralis
+2025-09-24 10:31:03,358 - INFO - 
+2025-09-24 10:31:03,381 - INFO - 🧬 Processing sample: scaffold_1122-Syntrichia_ruralis
+2025-09-24 10:31:03,405 - INFO - ========================================
+2025-09-24 10:31:03,428 - INFO - 📊 Extracting longest transcript for scaffold_1122-Syntrichia_ruralis...
+2025-09-24 10:31:03,479 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:31:03,479 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1122-Syntrichia_ruralis.fa
+2025-09-24 10:31:03,479 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1122-Syntrichia_ruralis.primary.gff3
+2025-09-24 10:31:03,479 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1122-Syntrichia_ruralis.longest.pep.fa
+2025-09-24 10:31:03,479 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:31:03,479 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1122-Syntrichia_ruralis.primary.gff3
+2025-09-24 10:31:03,890 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:31:03,894 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:31:03,894 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1122-Syntrichia_ruralis.gene.info.txt
+2025-09-24 10:31:03,894 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1122-Syntrichia_ruralis.gene.info.txt
+2025-09-24 10:31:03,894 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:31:03,895 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:31:03,895 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1122-Syntrichia_ruralis.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1122-Syntrichia_ruralis.fa" -y "/tmp/tmpujxvaqlt.fa"
+
+⚠️ 提取流程被用户中断 | Extraction pipeline interrupted by user
+2025-09-24 10:31:04,075 - ERROR - ❌ Failed to extract longest transcript
+2025-09-24 10:31:04,099 - ERROR - ❌ Skipping scaffold_1122-Syntrichia_ruralis due to extraction error
+2025-09-24 10:31:04,123 - WARN - ⚠️ Failed to process scaffold_1122-Syntrichia_ruralis, continuing with next sample...
+2025-09-24 10:31:04,147 - INFO - 
+2025-09-24 10:31:04,170 - INFO - 🚀 Processing sample 24/123: scaffold_1123-Grimmia_obtusifolia
+2025-09-24 10:31:04,194 - INFO - 
+2025-09-24 10:31:04,218 - INFO - 🧬 Processing sample: scaffold_1123-Grimmia_obtusifolia
+2025-09-24 10:31:04,241 - INFO - ========================================
+2025-09-24 10:31:04,265 - INFO - 📊 Extracting longest transcript for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:04,317 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:31:04,318 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1123-Grimmia_obtusifolia.fa
+2025-09-24 10:31:04,318 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1123-Grimmia_obtusifolia.primary.gff3
+2025-09-24 10:31:04,318 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1123-Grimmia_obtusifolia.longest.pep.fa
+2025-09-24 10:31:04,318 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:31:04,318 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1123-Grimmia_obtusifolia.primary.gff3
+2025-09-24 10:31:04,639 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:31:04,641 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:31:04,641 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1123-Grimmia_obtusifolia.gene.info.txt
+2025-09-24 10:31:04,641 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1123-Grimmia_obtusifolia.gene.info.txt
+2025-09-24 10:31:04,641 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:31:04,642 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:31:04,642 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1123-Grimmia_obtusifolia.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1123-Grimmia_obtusifolia.fa" -y "/tmp/tmpkf9_ttbz.fa"
+2025-09-24 10:31:07,072 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:31:07,072 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:31:07,072 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmpi3atq98j" "/tmp/tmpkf9_ttbz.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1123-Grimmia_obtusifolia.longest.pep.fa"
+2025-09-24 10:31:07,108 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:31:07,108 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:31:07,109 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1123-Grimmia_obtusifolia.longest.pep.fa
+2025-09-24 10:31:07,109 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:31:07,145 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:31:07,169 - INFO - 🔍 Running HMM search for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:07,193 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1123-Grimmia_obtusifolia.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1123-Grimmia_obtusifolia.longest.pep.fa
+2025-09-24 10:31:07,302 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:31:07,326 - INFO - 🧹 Cleaning HMM results for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:07,353 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:31:07,377 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:07,550 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:31:07,573 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:07,597 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:31:07,621 - INFO - ✅ HMM analysis completed for scaffold_1123-Grimmia_obtusifolia
+2025-09-24 10:31:07,645 - INFO - 🔍 Running CDD search for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:07,669 - INFO - 🔧 Creating temporary file with periods replaced by X...
+2025-09-24 10:31:07,840 - INFO - SUCCESS: Cleaned 1 sequences, replaced 0 periods with X
+2025-09-24 10:31:07,864 - INFO - 🔧 Command: rpsblast -query /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1123-Grimmia_obtusifolia.temp.fa -outfmt 6 -evalue 1e-4 -db /share/org/YZWL/yzwl_lixg/database/ncbicdd/db/ncbicdd -out /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/03.ncbicdd/raw/scaffold_1123-Grimmia_obtusifolia.cdd.txt -num_threads 80
+2025-09-24 10:31:09,227 - INFO - ✅ CDD search completed successfully
+2025-09-24 10:31:09,253 - INFO - 🧹 Cleaning CDD results for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:09,280 - INFO - 📊 Found 0 CDD domains (CDD:460808)
+2025-09-24 10:31:09,304 - INFO - 🧬 Extracting CDD domain sequences for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:09,486 - INFO - WARNING: No CDD domain sequences found
+2025-09-24 10:31:09,509 - INFO - ✅ CDD analysis completed for scaffold_1123-Grimmia_obtusifolia
+2025-09-24 10:31:09,533 - INFO - 🔄 Integrating results for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:09,583 - INFO - SUCCESS: Combined HMM and CDD results
+2025-09-24 10:31:09,607 - INFO - 🔤 Searching WRKY directly in sequences for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:09,777 - INFO - WARNING: No sequences containing WRKY found
+2025-09-24 10:31:09,801 - INFO - ✅ Direct WRKY search completed for scaffold_1123-Grimmia_obtusifolia
+2025-09-24 10:31:09,825 - INFO - 🔬 Generating final WRKY classification for scaffold_1123-Grimmia_obtusifolia...
+2025-09-24 10:31:09,873 - INFO - SUCCESS: Final classification summary:
+  Total WRKY genes: 0
+  HMM classified: 0
+  CDD domain found: 0
+  Direct search found: 0
+  HMM + Direct: 0
+  CDD + Direct: 0
+  HMM + CDD: 0
+  All three methods: 0
+  Direct only: 0
+2025-09-24 10:31:09,896 - INFO - ✅ Final classification generated for scaffold_1123-Grimmia_obtusifolia
+2025-09-24 10:31:09,920 - INFO - ✅ Completed processing scaffold_1123-Grimmia_obtusifolia (some steps may have failed)
+2025-09-24 10:31:09,943 - INFO - ========================================
+2025-09-24 10:31:09,967 - INFO - ✅ Successfully completed scaffold_1123-Grimmia_obtusifolia
+2025-09-24 10:31:09,990 - INFO - 
+2025-09-24 10:31:10,014 - INFO - 🚀 Processing sample 25/123: scaffold_1124-Paraleucobryum_enerve
+2025-09-24 10:31:10,037 - INFO - 
+2025-09-24 10:31:10,060 - INFO - 🧬 Processing sample: scaffold_1124-Paraleucobryum_enerve
+2025-09-24 10:31:10,084 - INFO - ========================================
+2025-09-24 10:31:10,108 - INFO - 📊 Extracting longest transcript for scaffold_1124-Paraleucobryum_enerve...
+2025-09-24 10:31:10,160 - INFO - 🚀 开始最长转录本提取流程 | Starting longest mRNA extraction pipeline
+2025-09-24 10:31:10,160 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1124-Paraleucobryum_enerve.fa
+2025-09-24 10:31:10,160 - INFO - 📋 GFF3文件 | GFF3 file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1124-Paraleucobryum_enerve.primary.gff3
+2025-09-24 10:31:10,160 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1124-Paraleucobryum_enerve.longest.pep.fa
+2025-09-24 10:31:10,160 - INFO - 1️⃣  步骤1: 分析GFF3文件，计算最长转录本 | Step 1: Analyzing GFF3 file, calculating longest transcripts
+2025-09-24 10:31:10,160 - INFO - 🧮 计算CDS长度 | Calculating CDS lengths from: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1124-Paraleucobryum_enerve.primary.gff3
+2025-09-24 10:31:10,517 - INFO - 🎯 找到 1 个基因的最长转录本 | Found longest transcripts for 1 genes
+2025-09-24 10:31:10,520 - INFO - 2️⃣  步骤2: 生成基因信息文件 | Step 2: Generating gene info file
+2025-09-24 10:31:10,520 - INFO - 📊 生成基因信息文件 | Generating gene info file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1124-Paraleucobryum_enerve.gene.info.txt
+2025-09-24 10:31:10,520 - INFO - ✅ 基因信息文件生成完成 | Gene info file generated: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1124-Paraleucobryum_enerve.gene.info.txt
+2025-09-24 10:31:10,520 - INFO - 3️⃣  步骤3: 提取蛋白质序列 | Step 3: Extracting protein sequences
+2025-09-24 10:31:10,521 - INFO - 🚀 执行 | Executing: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:31:10,521 - INFO - 💻 命令 | Command: gffread "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/gff/fixed/scaffold_1124-Paraleucobryum_enerve.primary.gff3" -g "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/fasta/scaffold_1124-Paraleucobryum_enerve.fa" -y "/tmp/tmpu6vbhlgy.fa"
+2025-09-24 10:31:13,446 - INFO - ✅ 命令执行成功 | Command executed successfully: 🛠️ 使用gffread生成蛋白质序列 | Generate protein sequences using gffread
+2025-09-24 10:31:13,446 - INFO - 🚀 执行 | Executing: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:31:13,446 - INFO - 💻 命令 | Command: seqkit grep -f "/tmp/tmp9mnicbs3" "/tmp/tmpu6vbhlgy.fa" -o "/share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1124-Paraleucobryum_enerve.longest.pep.fa"
+2025-09-24 10:31:13,485 - INFO - ✅ 命令执行成功 | Command executed successfully: 🔍 使用seqkit筛选最长转录本序列 | Filter longest transcript sequences using seqkit
+2025-09-24 10:31:13,485 - INFO - ✅ 成功提取 1 个最长转录本序列 | Successfully extracted 1 longest transcript sequences
+2025-09-24 10:31:13,485 - INFO - 📄 输出文件 | Output file: /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1124-Paraleucobryum_enerve.longest.pep.fa
+2025-09-24 10:31:13,486 - INFO - 🎉 最长转录本提取流程完成 | Longest mRNA extraction pipeline completed successfully
+2025-09-24 10:31:13,523 - INFO - ✅ Successfully extracted longest transcript (1 sequences)
+2025-09-24 10:31:13,547 - INFO - 🔍 Running HMM search for scaffold_1124-Paraleucobryum_enerve...
+2025-09-24 10:31:13,571 - INFO - 🔧 Command: hmmsearch --domtblout /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/02.hmmsearch/raw/scaffold_1124-Paraleucobryum_enerve.hmm.txt --cut_tc --cpu 80 /share/org/YZWL/yzwl_lixg/project/98.pwrky/01.data/PF03106.hmm /share/org/YZWL/yzwl_lixg/project/98.pwrky/08.苔藓类/01.data/longest_pep/scaffold_1124-Paraleucobryum_enerve.longest.pep.fa
+2025-09-24 10:31:13,690 - INFO - ✅ HMM search completed successfully
+2025-09-24 10:31:13,714 - INFO - 🧹 Cleaning HMM results for scaffold_1124-Paraleucobryum_enerve...
+2025-09-24 10:31:13,740 - INFO - 📊 Found 0 HMM domains
+2025-09-24 10:31:13,764 - INFO - 🧬 Extracting HMM domain sequences for scaffold_1124-Paraleucobryum_enerve...
+2025-09-24 10:31:13,936 - INFO - WARNING: No HMM domain sequences found
+2025-09-24 10:31:13,960 - INFO - 🔬 Classifying WRKY subfamilies for scaffold_1124-Paraleucobryum_enerve...
+2025-09-24 10:31:13,983 - WARN - ⚠️ No HMM domain sequences available for classification
+2025-09-24 10:31:14,007 - INFO - ✅ HMM analysis completed for scaffold_1124-Paraleucobryum_enerve
+2025-09-24 10:31:14,031 - INFO - 🔍 Running CDD search for scaffold_1124-Paraleucobryum_enerve...

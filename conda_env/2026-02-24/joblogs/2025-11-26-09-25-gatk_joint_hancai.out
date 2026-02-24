@@ -1,0 +1,50 @@
+>>> [初始化] 正在构建绝对路径...
+>>> 项目根目录: /share/org/YZWL/yzwl_lixg/project/23.蔊菜
+>>> 物种前缀: hancai
+>>> [检查] 验证输入文件...
+
+========================================================
+[1/6] Mapping & HaplotypeCaller (BWA + GATK)...
+========================================================
+
+========================================================
+[2/6] GATK Joint Calling (联合变异检测)...
+========================================================
+   -> 清理旧的 Joint Call 输出目录...
+2025-11-26 09:25:44,732 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-11-26 09:25:44,733 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/02.mapping/02.gvcf
+2025-11-26 09:25:44,733 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa
+2025-11-26 09:25:44,733 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 09:25:44,733 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-26 09:25:47,197 - INFO - ✅ GATK 可用 | available
+2025-11-26 09:25:47,685 - INFO - ✅ BCFtools 可用 | available
+2025-11-26 09:25:47,685 - INFO - ================================================================================
+2025-11-26 09:25:47,685 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-11-26 09:25:47,685 - INFO - ================================================================================
+2025-11-26 09:25:47,685 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-11-26 09:25:47,686 - INFO - ✅ 检测到GVCF文件 | Detected GVCF files: 3 files
+2025-11-26 09:25:47,686 - INFO - 📊 共找到 3 个文件 | Total 3 files found
+2025-11-26 09:25:47,686 - INFO - 📝 创建样本映射文件 | Creating sample map file
+2025-11-26 09:25:47,689 - INFO - ✅ 样本映射文件已创建 | Sample map created: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/sample_map.txt
+2025-11-26 09:25:47,689 - INFO - ================================================================================
+2025-11-26 09:25:47,689 - INFO - 步骤2: GenomicsDB导入 | Step 2: GenomicsDB import
+2025-11-26 09:25:47,689 - INFO - ================================================================================
+2025-11-26 09:25:47,689 - INFO - 📦 开始GenomicsDB导入 | Starting GenomicsDB import
+2025-11-26 09:25:47,689 - INFO - ⚠️ 未指定区间，自动从参考基因组提取 | No intervals specified, extracting from reference
+2025-11-26 09:25:47,689 - INFO - 📍 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa
+2025-11-26 09:25:47,689 - INFO - 📍 字典文件路径 | Dict path: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.dict
+2025-11-26 09:25:47,689 - INFO - 📍 索引文件路径 | Fai path: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa.fai
+2025-11-26 09:25:47,718 - INFO - ✅ 使用字典文件 | Using dict file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.dict
+2025-11-26 09:25:47,734 - INFO - ✅ 生成区间文件 | Generated intervals: 3332 chromosomes
+2025-11-26 09:25:47,735 - INFO - 📄 区间文件位置 | Intervals file: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/intervals.list
+2025-11-26 09:25:47,735 - INFO - 🚀 执行步骤 | Executing step: GenomicsDB导入 | GenomicsDB import
+2025-11-26 09:25:47,735 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenomicsDBImport --genomicsdb-workspace-path /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/genomicsdb_workspace --sample-name-map /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/sample_map.txt --reader-threads 88 -L /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/intervals.list
+2025-11-26 09:25:47,735 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint
+2025-11-26 09:53:33,594 - INFO - ✅ 命令执行成功 | Command executed successfully: GenomicsDB导入 | GenomicsDB import
+2025-11-26 09:53:33,595 - INFO - ================================================================================
+2025-11-26 09:53:33,595 - INFO - 步骤3: 联合分型 | Step 3: Joint genotyping
+2025-11-26 09:53:33,595 - INFO - ================================================================================
+2025-11-26 09:53:33,597 - INFO - 🧬 开始联合分型 | Starting joint genotyping
+2025-11-26 09:53:33,597 - INFO - 🚀 执行步骤 | Executing step: 联合分型 | Joint genotyping
+2025-11-26 09:53:33,597 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenotypeGVCFs -R /share/org/YZWL/yzwl_lixg/project/23.蔊菜/01.data/genome/genome.fa -V gendb:///share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/genomicsdb_workspace -O /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/joint_genotyping_raw.vcf.gz -L /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint/intervals.list
+2025-11-26 09:53:33,597 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/23.蔊菜/03.gatk_joint

@@ -1,0 +1,92 @@
+[2025-12-20 09:43:45] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-20 09:43:45] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-20 09:43:45]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa
+[2025-12-20 09:43:45]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-20 09:43:45]   hic_file_type: fastq
+[2025-12-20 09:43:45]   nchrs: 12
+[2025-12-20 09:43:45]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary
+[2025-12-20 09:43:45]   prefix: OV53_1.primary
+[2025-12-20 09:43:45]   threads: 64
+[2025-12-20 09:43:45]   processes: 8
+[2025-12-20 09:43:45]   quick_view: False
+[2025-12-20 09:43:45]   restriction_sites: ['GATC']
+[2025-12-20 09:43:45]   correct_nrounds: 2
+[2025-12-20 09:43:45]   remove_allelic_links: None
+[2025-12-20 09:43:45]   phasing_weight: 1.0
+[2025-12-20 09:43:45]   gfa_files: None
+[2025-12-20 09:43:45]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-20 09:43:45]   bwa_bin: bwa
+[2025-12-20 09:43:45]   samtools_bin: samtools
+[2025-12-20 09:43:45] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-20 09:43:45] 🔍 系统预检查 | System pre-flight checks
+[2025-12-20 09:43:45] 🔍 验证输入文件 | Validating input files
+[2025-12-20 09:43:46] 📊 基因组序列数量 | Assembly sequence count: 1211
+[2025-12-20 09:43:46] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 58.01 GB
+[2025-12-20 09:43:46] ✅ 输入文件验证通过 | Input files validated
+[2025-12-20 09:43:46] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-20 09:43:46] 💾 可用内存 | Available memory: 899.6 GB
+[2025-12-20 09:43:46] 💾 可用磁盘空间 | Available disk space: 2424069.9 GB
+[2025-12-20 09:43:46] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-20 09:43:46] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-20 09:43:46] 🔍 检查已存在的比对结果 | Checking for existing alignment results
+[2025-12-20 09:43:46] 📂 输出目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary
+[2025-12-20 09:43:46] 📂 比对目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping
+[2025-12-20 09:43:46] 📄 潜在BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.bam
+[2025-12-20 09:43:46] 📄 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.filtered.bam
+[2025-12-20 09:43:46] ✅ 比对目录存在 | Alignment directory exists
+[2025-12-20 09:43:46] 📋 比对目录内容: ['assembly.fa.amb', 'assembly.fa.bwt', 'assembly.fa.ann', 'assembly.fa', 'HiC.filtered.bam', 'assembly.fa.pac', 'read1_1.fastq.gz', 'HiC.bam', 'assembly.fa.sa', 'read2_1.fastq.gz']
+[2025-12-20 09:43:46] ✅ 发现已存在的过滤BAM文件，跳过BWA比对步骤 | Found existing filtered BAM file, skipping BWA alignment: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/00.mapping/HiC.filtered.bam (67,442,747,903 bytes)
+[2025-12-20 09:43:46] ✅ 使用按read name排序的过滤BAM文件以满足HapHiC要求 | Using read name-sorted filtered BAM file to meet HapHiC requirements
+[2025-12-20 09:43:46] 🚀 开始HapHiC Pipeline流程 | Starting HapHiC Pipeline
+[2025-12-20 09:43:46] 📁 设置目录结构 | Setting up directory structure
+[2025-12-20 09:43:46] ✅ 目录结构设置完成 | Directory structure setup complete
+[2025-12-20 09:43:46] 🔍 检查HapHiC Pipeline完成状态 | Checking HapHiC Pipeline completion status
+[2025-12-20 09:43:46] ❌ Cluster步骤未完成 | Cluster step not completed
+[2025-12-20 09:43:46]    期待文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/01.cluster/corrected_asm.fa, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/01.cluster/paired_links.clm
+[2025-12-20 09:43:46] ❌ Reassign步骤未完成 | Reassign step not completed
+[2025-12-20 09:43:46]    期待文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/02.reassign/final_groups/final_clusters.txt
+[2025-12-20 09:43:46] ❌ Sort步骤未完成 | Sort step not completed
+[2025-12-20 09:43:46]    期待文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/03.sort/*.tour (0 files)
+[2025-12-20 09:43:46] ❌ Build步骤未完成 | Build step not completed
+[2025-12-20 09:43:46]    期待文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/04.build/OV53_1.primary.fa, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/04.build/OV53_1.primary.agp
+[2025-12-20 09:43:46] 🔄 运行HapHiC Pipeline | Running HapHiC Pipeline
+[2025-12-20 09:43:46] ℹ️ HapHiC将处理已存在的目录 | HapHiC will handle existing directories
+[2025-12-20 09:43:46] 🔧 自动优化分辨率: 500bp (基于覆盖率10.0)
+[2025-12-20 09:43:46] 🔧 启用组装校正，使用分辨率: 500bp (内存优化)
+[2025-12-20 09:43:46] 📂 工作目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary
+[2025-12-20 09:43:46] 🚀 HapHiC Pipeline
+[2025-12-20 10:29:50] ✅ 命令执行成功 | Command executed successfully (耗时: 2763.66秒)
+[2025-12-20 10:29:50] 🔍 验证Pipeline输出 | Verifying pipeline output
+[2025-12-20 10:29:50] ⚠️ corrected_asm不存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/OV53_1.primary_corrected.asm.fa
+[2025-12-20 10:29:50] ⚠️ scaffolds_agp不存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/OV53_1.primary_scaffolds.agp
+[2025-12-20 10:29:50] ⚠️ scaffolds_raw_agp不存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/OV53_1.primary_scaffolds.raw.agp
+[2025-12-20 10:29:50] ⚠️ scaffolds_fasta不存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/OV53_1.primary_scaffolds.fa
+[2025-12-20 10:29:50] ⚠️ juicebox_script不存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/OV53_1.primary_juicebox.sh
+[2025-12-20 10:29:50] ⚠️ contact_map不存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/OV53_1.primary_contact_map.pdf
+[2025-12-20 10:29:50] ⚠️ hic_file不存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/06.juicebox/OV53_1.primary.hic
+[2025-12-20 10:29:50] ⚠️ assembly_file不存在: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/06.juicebox/OV53_1.primary.assembly
+[2025-12-20 10:29:50] ✅ log_file: OV53_1.primary_haphic.log (72,966 bytes)
+[2025-12-20 10:29:50] 📊 生成Hi-C接触图可视化 | Generating Hi-C contact map visualization
+[2025-12-20 10:29:50] 🚀 生成可视化
+[2025-12-20 10:29:50] ❌ 命令执行失败 | Command failed (返回码: 1)
+[2025-12-20 10:29:50] 命令输出 | Command Output:
+usage: haphic plot [-h] [--bin_size BIN_SIZE] [--specified_scaffolds SPECIFIED_SCAFFOLDS] [--min_len MIN_LEN] [--data_type DATA_TYPE]
+                   [--cmap CMAP] [--normalization {KR,log10,none}] [--vmax_coef VMAX_COEF] [--manual_vmax MANUAL_VMAX]
+                   [--separate_plots] [--ncols NCOLS] [--origin {bottom_left,top_left,bottom_right,top_right}]
+                   [--border_style {grid,outline}] [--gridline_color GRIDLINE_COLOR] [--gridline_style {solid,dashed}]
+                   [--gridline_width GRIDLINE_WIDTH] [--outline_color OUTLINE_COLOR] [--outline_style {solid,dashed}]
+                   [--outline_width OUTLINE_WIDTH] [--figure_width FIGURE_WIDTH] [--figure_height FIGURE_HEIGHT]
+                   [--output_format {tiff,jpg,jpeg,svg,png,pdf}] [--tick_label_size TICK_LABEL_SIZE] [--title_size TITLE_SIZE]
+                   [--tick_label_size_separate_plots TICK_LABEL_SIZE_SEPARATE_PLOTS]
+                   [--title_size_separate_plots TITLE_SIZE_SEPARATE_PLOTS] [--prefix PREFIX] [--threads THREADS]
+                   agp alignments
+haphic plot: error: argument --min_len: invalid int value: '1.0'
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic", line 117, in <module>
+    subprocess.run(commands, check=True)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_plot.py', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/primary/04.build/OV53_1.primary.agp', '--bin_size', '500', '--min_len', '1.0']' returned non-zero exit status 2.
+[2025-12-20 10:29:50] 📊 处理统计 | Processing Statistics:
+[2025-12-20 10:29:50]   ⏱️ 总耗时 | Total time: 2765.68秒
+[2025-12-20 10:29:50]   📄 log_file: OV53_1.primary_haphic.log (75,781 bytes)

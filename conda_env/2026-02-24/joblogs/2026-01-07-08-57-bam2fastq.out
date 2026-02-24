@@ -1,0 +1,94 @@
+2026-01-07 08:57:18.171 - INFO - ==================================================
+2026-01-07 08:57:18.171 - INFO - BAM to FASTQ转换工具|BAM to FASTQ Conversion Tool
+2026-01-07 08:57:18.171 - INFO - ==================================================
+2026-01-07 08:57:18.176 - INFO - 找到bam2fastq|Found bam2fastq: bam2fastq 3.5.0 (commit v3.5.0)
+
+Using:
+  pbbam     : 2.8.0 (commit v2.8.0)
+  pbcopper  : 2.7.0 (commit v2.7.0)
+  boost     : 1.81
+  htslib    : 1.17
+  zlib      : 1.2.13
+2026-01-07 08:57:18.177 - INFO - 找到|Found 36 个BAM文件|BAM files
+2026-01-07 08:57:18.177 - INFO - 每个文件使用|Each file uses 64 个线程|threads
+2026-01-07 08:57:18.177 - INFO - 并行处理|Parallel processing 1 个文件|files
+2026-01-07 08:57:18.177 - INFO - 正在处理|Processing: A3-57.hifi_reads.bam
+2026-01-07 11:53:35.492 - INFO - 完成|Completed: A3-57.hifi_reads.bam
+2026-01-07 11:53:35.493 - INFO - 正在处理|Processing: B3-2.hifi_reads.bam
+2026-01-07 14:36:03.591 - INFO - 完成|Completed: B3-2.hifi_reads.bam
+2026-01-07 14:36:03.592 - INFO - 正在处理|Processing: B3-12.hifi_reads.bam
+2026-01-07 17:16:01.623 - INFO - 完成|Completed: B3-12.hifi_reads.bam
+2026-01-07 17:16:01.624 - INFO - 正在处理|Processing: A1-8.hifi_reads.bam
+2026-01-07 19:51:36.249 - INFO - 完成|Completed: A1-8.hifi_reads.bam
+2026-01-07 19:51:36.250 - INFO - 正在处理|Processing: B4-5.hifi_reads.bam
+2026-01-07 22:43:54.955 - INFO - 完成|Completed: B4-5.hifi_reads.bam
+2026-01-07 22:43:54.956 - INFO - 正在处理|Processing: B2-1.hifi_reads.bam
+2026-01-08 01:22:08.523 - INFO - 完成|Completed: B2-1.hifi_reads.bam
+2026-01-08 01:22:08.523 - INFO - 正在处理|Processing: A1-10.hifi_reads.bam
+2026-01-08 03:47:14.304 - INFO - 完成|Completed: A1-10.hifi_reads.bam
+2026-01-08 03:47:14.305 - INFO - 正在处理|Processing: A3-27.hifi_reads.bam
+2026-01-08 06:15:30.006 - INFO - 完成|Completed: A3-27.hifi_reads.bam
+2026-01-08 06:15:30.006 - INFO - 正在处理|Processing: B3-5.hifi_reads.bam
+2026-01-08 08:40:51.103 - INFO - 完成|Completed: B3-5.hifi_reads.bam
+2026-01-08 08:40:51.103 - INFO - 正在处理|Processing: B4-18.hifi_reads.bam
+2026-01-08 11:29:24.038 - INFO - 完成|Completed: B4-18.hifi_reads.bam
+2026-01-08 11:29:24.039 - INFO - 正在处理|Processing: A3-22.hifi_reads.bam
+2026-01-08 14:13:57.177 - INFO - 完成|Completed: A3-22.hifi_reads.bam
+2026-01-08 14:13:57.178 - INFO - 正在处理|Processing: B3-16.hifi_reads.bam
+2026-01-08 16:51:05.656 - INFO - 完成|Completed: B3-16.hifi_reads.bam
+2026-01-08 16:51:05.657 - INFO - 正在处理|Processing: A3-48.hifi_reads.bam
+2026-01-08 19:54:59.948 - INFO - 完成|Completed: A3-48.hifi_reads.bam
+2026-01-08 19:54:59.948 - INFO - 正在处理|Processing: A1-2.hifi_reads.bam
+2026-01-08 22:16:34.641 - INFO - 完成|Completed: A1-2.hifi_reads.bam
+2026-01-08 22:16:34.641 - INFO - 正在处理|Processing: A3-16.hifi_reads.bam
+2026-01-09 00:49:33.239 - INFO - 完成|Completed: A3-16.hifi_reads.bam
+2026-01-09 00:49:33.239 - INFO - 正在处理|Processing: A3-2.hifi_reads.bam
+2026-01-09 03:20:32.710 - INFO - 完成|Completed: A3-2.hifi_reads.bam
+2026-01-09 03:20:32.710 - INFO - 正在处理|Processing: 41.hifi_reads.bam
+2026-01-09 05:36:11.195 - INFO - 完成|Completed: 41.hifi_reads.bam
+2026-01-09 05:36:11.195 - INFO - 正在处理|Processing: B4-1.hifi_reads.bam
+2026-01-09 08:08:47.636 - INFO - 完成|Completed: B4-1.hifi_reads.bam
+2026-01-09 08:08:47.636 - INFO - 正在处理|Processing: A3-14.hifi_reads.bam
+2026-01-09 10:35:57.445 - INFO - 完成|Completed: A3-14.hifi_reads.bam
+2026-01-09 10:35:57.446 - INFO - 正在处理|Processing: B4-10.hifi_reads.bam
+2026-01-09 13:04:15.549 - INFO - 完成|Completed: B4-10.hifi_reads.bam
+2026-01-09 13:04:15.550 - INFO - 正在处理|Processing: A2-3.hifi_reads.bam
+2026-01-09 15:31:17.226 - INFO - 完成|Completed: A2-3.hifi_reads.bam
+2026-01-09 15:31:17.226 - INFO - 正在处理|Processing: A3-18.hifi_reads.bam
+2026-01-09 18:29:19.310 - INFO - 完成|Completed: A3-18.hifi_reads.bam
+2026-01-09 18:29:19.312 - INFO - 正在处理|Processing: A3-4.hifi_reads.bam
+2026-01-09 20:57:17.185 - INFO - 完成|Completed: A3-4.hifi_reads.bam
+2026-01-09 20:57:17.185 - INFO - 正在处理|Processing: A1-18.hifi_reads.bam
+2026-01-09 23:32:44.134 - INFO - 完成|Completed: A1-18.hifi_reads.bam
+2026-01-09 23:32:44.134 - INFO - 正在处理|Processing: B3-8.hifi_reads.bam
+2026-01-10 02:19:22.149 - INFO - 完成|Completed: B3-8.hifi_reads.bam
+2026-01-10 02:19:22.149 - INFO - 正在处理|Processing: B3-15.hifi_reads.bam
+2026-01-10 04:50:39.462 - INFO - 完成|Completed: B3-15.hifi_reads.bam
+2026-01-10 04:50:39.462 - INFO - 正在处理|Processing: A3-52.hifi_reads.bam
+2026-01-10 07:26:03.255 - INFO - 完成|Completed: A3-52.hifi_reads.bam
+2026-01-10 07:26:03.255 - INFO - 正在处理|Processing: A1-3.hifi_reads.bam
+2026-01-10 09:57:17.921 - INFO - 完成|Completed: A1-3.hifi_reads.bam
+2026-01-10 09:57:17.921 - INFO - 正在处理|Processing: A3-54.hifi_reads.bam
+2026-01-10 12:55:08.603 - INFO - 完成|Completed: A3-54.hifi_reads.bam
+2026-01-10 12:55:08.604 - INFO - 正在处理|Processing: A1-1.hifi_reads.bam
+2026-01-10 15:34:07.751 - INFO - 完成|Completed: A1-1.hifi_reads.bam
+2026-01-10 15:34:07.751 - INFO - 正在处理|Processing: B2-2.hifi_reads.bam
+2026-01-10 18:17:08.777 - INFO - 完成|Completed: B2-2.hifi_reads.bam
+2026-01-10 18:17:08.778 - INFO - 正在处理|Processing: A3-17.hifi_reads.bam
+2026-01-10 20:40:51.219 - INFO - 完成|Completed: A3-17.hifi_reads.bam
+2026-01-10 20:40:51.220 - INFO - 正在处理|Processing: A1-17.hifi_reads.bam
+2026-01-10 22:56:49.495 - INFO - 完成|Completed: A1-17.hifi_reads.bam
+2026-01-10 22:56:49.495 - INFO - 正在处理|Processing: A2-5.hifi_reads.bam
+2026-01-11 01:23:56.549 - INFO - 完成|Completed: A2-5.hifi_reads.bam
+2026-01-11 01:23:56.586 - INFO - 正在处理|Processing: A2-1.hifi_reads.bam
+2026-01-11 03:51:13.232 - INFO - 完成|Completed: A2-1.hifi_reads.bam
+2026-01-11 03:51:13.232 - INFO - 正在处理|Processing: A3-55.hifi_reads.bam
+2026-01-11 06:02:28.375 - INFO - 完成|Completed: A3-55.hifi_reads.bam
+2026-01-11 06:02:28.472 - INFO - ==================================================
+2026-01-11 06:02:28.472 - INFO - 转换完成|Conversion completed!
+2026-01-11 06:02:28.472 - INFO - 总数|Total: 36
+2026-01-11 06:02:28.472 - INFO - 成功|Success: 36
+2026-01-11 06:02:28.472 - INFO - 失败|Failed: 0
+2026-01-11 06:02:28.472 - INFO - 成功率|Success rate: 100.00%
+2026-01-11 06:02:28.472 - INFO - ==================================================
+2026-01-11 06:02:28.472 - INFO - 所有文件转换成功|All files converted successfully

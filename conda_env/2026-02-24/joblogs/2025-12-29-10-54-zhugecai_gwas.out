@@ -1,0 +1,149 @@
+2025-12-29 10:54:26,861 - INFO - 工作目录 | Working directory: output
+2025-12-29 10:54:26,861 - INFO - 开始PLINK GWAS分析流程 | Starting PLINK GWAS analysis pipeline...
+2025-12-29 10:54:26,861 - INFO - 表型类型 | Trait type: qualitative
+2025-12-29 10:54:26,861 - INFO - 遗传模型 | Genetic model: dominant
+2025-12-29 10:54:26,861 - INFO - 显著性校正方法 | Correction method: all
+2025-12-29 10:54:26,861 - INFO - ==================================================
+2025-12-29 10:54:26,861 - INFO - 步骤1: 检查输入文件 | Step 1: Checking input files
+2025-12-29 10:54:26,861 - INFO - 📂 复制输入文件到工作目录 | Copying input files to working directory...
+2025-12-29 10:54:26,861 - INFO - 📁 正在复制VCF文件 | Copying VCF file (4703.7 MB)...
+2025-12-29 10:54:30,245 - INFO - ✅ VCF文件已复制 | VCF file copied: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output/input.vcf.gz
+2025-12-29 10:54:30,245 - INFO - 📁 正在复制表型文件 | Copying phenotype file (1.0 KB)...
+2025-12-29 10:54:30,246 - INFO - ✅ 表型文件已复制 | Phenotype file copied: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output/phenotype.txt
+2025-12-29 10:54:30,246 - INFO - 步骤2: 转换表型文件 | Step 2: Converting phenotype file
+2025-12-29 10:54:30,246 - INFO - 开始转换表型文件 | Starting phenotype file conversion...
+2025-12-29 10:54:30,246 - INFO - 表型类型 | Trait type: qualitative
+2025-12-29 10:54:30,251 - INFO - 成功读取表型文件 | Successfully read phenotype file: (100, 2)
+2025-12-29 10:54:30,252 - INFO - 表型文件列名 | Phenotype file columns: ['sample', 'DI']
+2025-12-29 10:54:30,252 - INFO - 样本ID列 | Sample ID column: sample
+2025-12-29 10:54:30,252 - INFO - 表型值列 | Phenotype column: DI
+2025-12-29 10:54:30,252 - INFO - 原始表型分布 | Original phenotype distribution: {1: np.int64(50), 0: np.int64(50)}
+2025-12-29 10:54:30,252 - INFO - 处理质量性状：将0转换为1（对照），1转换为2（病例） | Processing qualitative trait: converting 0 to 1 (control), 1 to 2 (case)
+2025-12-29 10:54:30,253 - INFO - 转换后表型分布 | Converted phenotype distribution: {2: np.int64(50), 1: np.int64(50)}
+2025-12-29 10:54:30,253 - INFO - 对照数 (抗病, 原值0) | Controls (resistant, original 0): 50
+2025-12-29 10:54:30,253 - INFO - 病例数 (感病, 原值1) | Cases (susceptible, original 1): 50
+2025-12-29 10:54:30,255 - INFO - 表型文件转换完成 | Phenotype file conversion completed
+2025-12-29 10:54:30,255 - INFO - === 表型转换统计 | Phenotype Conversion Statistics ===
+2025-12-29 10:54:30,256 - INFO - 原始表型分布 | Original phenotype distribution:
+2025-12-29 10:54:30,256 - INFO -   0: 50
+2025-12-29 10:54:30,256 - INFO -   1: 50
+2025-12-29 10:54:30,256 - INFO - 转换后表型分布 | Converted phenotype distribution:
+2025-12-29 10:54:30,256 - INFO -   1: 50
+2025-12-29 10:54:30,256 - INFO -   2: 50
+2025-12-29 10:54:30,257 - INFO - 总样本数 | Total samples: 100
+2025-12-29 10:54:30,257 - INFO - 原始有效样本数 | Original valid samples: 100
+2025-12-29 10:54:30,257 - INFO - 转换后有效样本数 | Converted valid samples: 100
+2025-12-29 10:54:30,257 - INFO - 转换后统计 | Post-conversion statistics:
+2025-12-29 10:54:30,257 - INFO -   对照组(抗病) | Controls(resistant): 50
+2025-12-29 10:54:30,257 - INFO -   病例组(感病) | Cases(susceptible): 50
+2025-12-29 10:54:30,257 - INFO -   缺失值 | Missing: 0
+2025-12-29 10:54:30,257 - INFO -   病例/对照比例 | Case/control ratio: 1.000
+2025-12-29 10:54:30,257 - INFO - 样本量充足 | Sufficient sample size: 最小组有50个样本 | minimum group has 50 samples
+2025-12-29 10:54:30,258 - INFO - 转换详情已保存到 phenotype_conversion_debug.txt | Conversion details saved to phenotype_conversion_debug.txt
+2025-12-29 10:54:30,261 - INFO - 步骤3: 转换VCF文件 | Step 3: Converting VCF file
+2025-12-29 10:54:30,262 - INFO - 转换VCF文件为PLINK格式 | Converting VCF file to PLINK format...
+2025-12-29 10:54:30,262 - INFO - 🚀 执行步骤 | Executing step: VCF转换为PLINK格式 | Converting VCF to PLINK format
+2025-12-29 10:54:30,262 - INFO - ⚡ 命令 | Command: plink --vcf input.vcf.gz --make-bed --out raw_data --allow-extra-chr --set-missing-var-ids @:# --keep-allele-order --threads 16
+2025-12-29 10:54:30,262 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output
+2025-12-29 10:54:30,262 - INFO - ============================================================
+2025-12-29 10:54:30,262 - INFO - 📋 命令参数详解 | Command Parameter Explanation
+2025-12-29 10:54:30,262 - INFO - ============================================================
+2025-12-29 10:54:30,262 - INFO -   plink
+2025-12-29 10:54:30,262 - INFO -     💡 PLINK v1.9 - 全基因组关联分析工具 | PLINK v1.9 - Genome-wide association analysis tool
+2025-12-29 10:54:30,262 - INFO -   --vcf input.vcf.gz
+2025-12-29 10:54:30,262 - INFO -     💡 指定VCF格式输入文件 | Specify VCF format input file
+2025-12-29 10:54:30,262 - INFO -   --make-bed
+2025-12-29 10:54:30,262 - INFO -     💡 生成二进制PLINK文件格式(.bed/.bim/.fam) | Generate binary PLINK format files (.bed/.bim/.fam)
+2025-12-29 10:54:30,262 - INFO -   --out raw_data
+2025-12-29 10:54:30,262 - INFO -     💡 指定输出文件前缀 | Specify output file prefix
+2025-12-29 10:54:30,262 - INFO -   --allow-extra-chr
+2025-12-29 10:54:30,262 - INFO -     💡 允许非标准染色体编号 | Allow non-standard chromosome codes
+2025-12-29 10:54:30,262 - INFO -   --set-missing-var-ids @:#
+2025-12-29 10:54:30,262 - INFO -     💡 为缺失变异ID设置格式(@:#表示chr:pos) | Set format for missing variant IDs (@:# means chr:pos)
+2025-12-29 10:54:30,262 - INFO -   --keep-allele-order
+2025-12-29 10:54:30,262 - INFO -     💡 保持等位基因顺序不变 | Keep allele order unchanged
+2025-12-29 10:54:30,262 - INFO -   --threads 16
+2025-12-29 10:54:30,262 - INFO -     💡 指定使用的CPU线程数 | Specify number of CPU threads to use
+2025-12-29 10:54:30,262 - INFO -        💻 使用16个CPU线程并行计算 | Use 16 CPU threads for parallel computing
+2025-12-29 10:54:30,262 - INFO - ============================================================
+2025-12-29 10:56:02,826 - INFO - ✅ 完成 | Completed: VCF转换为PLINK格式 | Converting VCF to PLINK format
+2025-12-29 10:56:06,711 - INFO - 染色体分布 | Chromosome distribution: {8: np.int64(945662), 6: np.int64(846708), 10: np.int64(789219), 4: np.int64(765009), 1: np.int64(763895), 12: np.int64(660428), 9: np.int64(655240), 2: np.int64(652297), 11: np.int64(577216), 3: np.int64(544943)}
+2025-12-29 10:56:06,711 - INFO - 总SNP数 | Total SNPs: 8167455
+2025-12-29 10:56:06,711 - INFO - VCF转换完成 | VCF conversion completed
+2025-12-29 10:56:06,811 - INFO - 步骤4: 合并表型信息 | Step 4: Merging phenotype information
+2025-12-29 10:56:06,811 - INFO - 合并表型信息 | Merging phenotype information...
+2025-12-29 10:56:06,811 - INFO - 🚀 执行步骤 | Executing step: 合并表型信息 | Merging phenotype information
+2025-12-29 10:56:06,811 - INFO - ⚡ 命令 | Command: plink --bfile raw_data --pheno phenotype_converted.txt --make-bed --allow-extra-chr --allow-no-sex --out data_with_pheno --threads 16
+2025-12-29 10:56:06,811 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output
+2025-12-29 10:56:06,811 - INFO - ============================================================
+2025-12-29 10:56:06,811 - INFO - 📋 命令参数详解 | Command Parameter Explanation
+2025-12-29 10:56:06,811 - INFO - ============================================================
+2025-12-29 10:56:06,811 - INFO -   plink
+2025-12-29 10:56:06,811 - INFO -     💡 PLINK v1.9 - 全基因组关联分析工具 | PLINK v1.9 - Genome-wide association analysis tool
+2025-12-29 10:56:06,811 - INFO -   --bfile raw_data
+2025-12-29 10:56:06,811 - INFO -     💡 指定二进制PLINK文件集合的前缀名 | Specify binary PLINK fileset prefix
+2025-12-29 10:56:06,811 - INFO -   --pheno phenotype_converted.txt
+2025-12-29 10:56:06,811 - INFO -     💡 指定表型文件 | Specify phenotype file
+2025-12-29 10:56:06,811 - INFO -   --make-bed
+2025-12-29 10:56:06,812 - INFO -     💡 生成二进制PLINK文件格式(.bed/.bim/.fam) | Generate binary PLINK format files (.bed/.bim/.fam)
+2025-12-29 10:56:06,812 - INFO -   --allow-extra-chr
+2025-12-29 10:56:06,812 - INFO -     💡 允许非标准染色体编号 | Allow non-standard chromosome codes
+2025-12-29 10:56:06,812 - INFO -   --allow-no-sex
+2025-12-29 10:56:06,812 - INFO -     💡 允许性别信息缺失 | Allow missing sex information
+2025-12-29 10:56:06,812 - INFO -   --out data_with_pheno
+2025-12-29 10:56:06,812 - INFO -     💡 指定输出文件前缀 | Specify output file prefix
+2025-12-29 10:56:06,812 - INFO -   --threads 16
+2025-12-29 10:56:06,812 - INFO -     💡 指定使用的CPU线程数 | Specify number of CPU threads to use
+2025-12-29 10:56:06,812 - INFO -        💻 使用16个CPU线程并行计算 | Use 16 CPU threads for parallel computing
+2025-12-29 10:56:06,812 - INFO - ============================================================
+2025-12-29 10:56:09,906 - INFO - ✅ 完成 | Completed: 合并表型信息 | Merging phenotype information
+2025-12-29 10:56:09,908 - INFO - 合并后样本数 | Samples after merge: 99
+2025-12-29 10:56:09,909 - INFO - 表型分布 | Phenotype distribution: {1: np.int64(50), 2: np.int64(49)}
+2025-12-29 10:56:09,909 - INFO - 表型合并成功 | Phenotype merging successful
+2025-12-29 10:56:09,909 - INFO - 步骤5: 数据质量控制 | Step 5: Data quality control
+2025-12-29 10:56:09,909 - INFO - 开始数据质量控制 | Starting data quality control...
+2025-12-29 10:56:09,909 - INFO - 计算基本统计 | Calculating basic statistics...
+2025-12-29 10:56:09,909 - INFO - 🚀 执行步骤 | Executing step: 计算基本统计 | Calculating basic statistics
+2025-12-29 10:56:09,909 - INFO - ⚡ 命令 | Command: plink --bfile data_with_pheno --freq --missing --hardy --allow-extra-chr --allow-no-sex --out qc_stats --threads 16
+2025-12-29 10:56:09,909 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output
+2025-12-29 10:56:09,909 - INFO - ============================================================
+2025-12-29 10:56:09,909 - INFO - 📋 命令参数详解 | Command Parameter Explanation
+2025-12-29 10:56:09,909 - INFO - ============================================================
+2025-12-29 10:56:09,909 - INFO -   plink
+2025-12-29 10:56:09,909 - INFO -     💡 PLINK v1.9 - 全基因组关联分析工具 | PLINK v1.9 - Genome-wide association analysis tool
+2025-12-29 10:56:09,909 - INFO -   --bfile data_with_pheno
+2025-12-29 10:56:09,909 - INFO -     💡 指定二进制PLINK文件集合的前缀名 | Specify binary PLINK fileset prefix
+2025-12-29 10:56:09,909 - INFO -   --freq
+2025-12-29 10:56:09,909 - INFO -     💡 计算等位基因频率 | Calculate allele frequencies
+2025-12-29 10:56:09,909 - INFO -   --missing
+2025-12-29 10:56:09,909 - INFO -     💡 计算缺失率统计 | Calculate missing rate statistics
+2025-12-29 10:56:09,909 - INFO -   --hardy
+2025-12-29 10:56:09,909 - INFO -     💡 进行Hardy-Weinberg平衡检验 | Perform Hardy-Weinberg equilibrium test
+2025-12-29 10:56:09,909 - INFO -   --allow-extra-chr
+2025-12-29 10:56:09,909 - INFO -     💡 允许非标准染色体编号 | Allow non-standard chromosome codes
+2025-12-29 10:56:09,909 - INFO -   --allow-no-sex
+2025-12-29 10:56:09,909 - INFO -     💡 允许性别信息缺失 | Allow missing sex information
+2025-12-29 10:56:09,909 - INFO -   --out qc_stats
+2025-12-29 10:56:09,909 - INFO -     💡 指定输出文件前缀 | Specify output file prefix
+2025-12-29 10:56:09,909 - INFO -   --threads 16
+2025-12-29 10:56:09,909 - INFO -     💡 指定使用的CPU线程数 | Specify number of CPU threads to use
+2025-12-29 10:56:09,909 - INFO -        💻 使用16个CPU线程并行计算 | Use 16 CPU threads for parallel computing
+2025-12-29 10:56:09,909 - INFO - ============================================================
+2025-12-29 10:56:16,726 - INFO - ✅ 完成 | Completed: 计算基本统计 | Calculating basic statistics
+2025-12-29 10:56:16,727 - INFO - 应用质量控制过滤 | Applying quality control filters...
+2025-12-29 10:56:16,727 - INFO - 质控参数 | QC parameters: mind=None, geno=0.2, maf=0.05, hwe=None
+2025-12-29 10:56:16,727 - INFO - 🚀 执行步骤 | Executing step: 质量控制过滤 | Quality control filtering
+2025-12-29 10:56:16,727 - INFO - ⚡ 命令 | Command: plink --bfile data_with_pheno --mind None --geno 0.2 --maf 0.05 --hwe None --make-bed --allow-extra-chr --allow-no-sex --out data_qc1 --threads 16
+2025-12-29 10:56:16,727 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output
+2025-12-29 10:56:16,727 - INFO - ============================================================
+2025-12-29 10:56:16,727 - INFO - 📋 命令参数详解 | Command Parameter Explanation
+2025-12-29 10:56:16,727 - INFO - ============================================================
+2025-12-29 10:56:16,727 - INFO -   plink
+2025-12-29 10:56:16,727 - INFO -     💡 PLINK v1.9 - 全基因组关联分析工具 | PLINK v1.9 - Genome-wide association analysis tool
+2025-12-29 10:56:16,727 - INFO -   --bfile data_with_pheno
+2025-12-29 10:56:16,727 - INFO -     💡 指定二进制PLINK文件集合的前缀名 | Specify binary PLINK fileset prefix
+2025-12-29 10:56:16,727 - INFO -   --mind None
+2025-12-29 10:56:16,727 - INFO -     💡 移除个体缺失率超过阈值的样本 | Remove individuals with missing rate above threshold
+2025-12-29 10:56:16,727 - ERROR - 分析过程中发生错误 | Error during analysis: could not convert string to float: 'None'
+
+❌ 分析失败 | Analysis failed: could not convert string to float: 'None'

@@ -1,0 +1,28 @@
+[2020-10-20 00:00:01.187] [gtx] [info] Current sys info: ./tmp available: 1956163GB, memory available: 966GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.188] [gtx] [info] Job: joint, pid: 1488068
+[2020-10-20 00:00:01.188] [gtx] [info] joint...
+[2020-10-20 00:00:01.336] [genotype_gvcfs] [info] progress_meter -    Current Locus         Elapsed Minutes  Variants Processed    Variants/Minute
+[2020-10-20 00:00:01.337] [genotype_gvcfs] [info] Vid Map JSON file will be written to ./tmp/.gtx_joint_1603123201187442594/gendb/vidmap.json
+[2020-10-20 00:00:01.337] [genotype_gvcfs] [info] Callset Map JSON file will be written to ./tmp/.gtx_joint_1603123201187442594/gendb/callset.json
+[2020-10-20 00:00:01.337] [genotype_gvcfs] [info] Complete VCF Header will be written to ./tmp/.gtx_joint_1603123201187442594/gendb/vcfheader.vcf
+[2020-10-20 00:00:01.337] [genotype_gvcfs] [info] Importing to array -  ./tmp/.gtx_joint_1603123201187442594/gendb/genomicsdb_array
+[2020-10-20 00:07:22.448] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:12787
+[2020-10-20 00:08:49.973] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:13960
+[2020-10-20 00:08:53.597] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:13994
+[2020-10-20 00:08:54.413] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:14001
+[2020-10-20 00:09:48.136] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:14739
+[2020-10-20 00:09:54.331] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:10012312
+[2020-10-20 00:15:59.019] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:2042359
+[2020-10-20 00:23:05.544] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:4068112
+[2020-10-20 00:27:13.480] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:2096312
+[2020-10-20 00:31:52.930] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:4111732
+[2020-10-20 00:37:26.423] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:6155497
+[2020-10-20 00:38:25.660] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:2158888
+[2020-10-20 00:39:52.634] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:4160404
+[2020-10-20 00:46:12.996] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:8269623
+[2020-10-20 00:52:02.729] [genotype_gvcfs] [warning] Attempting to genotype more than 50 alleles. Site will be skipped at location Chr01:4228353
+[2020-10-20 00:58:24.344] [gtx] [error] catch a signal 2. try to kill child process. pid: 1488068
+[2020-10-20 00:58:25.363] [gtx] [error] joint terminated by a signal 2.
+[2020-10-20 00:58:25.363] [gtx] [error] clean temporary files, please waiting...
+[2020-10-20 00:58:25.365] [gtx] [error] failed to remove ./tmp/.gtx_joint_1603123201187442594/
+[2020-10-20 00:58:25.365] [gtx] [error] clean up finished.

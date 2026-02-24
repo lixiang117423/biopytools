@@ -1,0 +1,7 @@
+2026-01-21 13:36:30.395 - ERROR - 命令执行失败|Command execution failed
+2026-01-21 13:36:30.395 - ERROR - 返回码|Return code: 255
+2026-01-21 13:36:30.395 - ERROR - 标准输出|Stdout: [2020-10-20 00:00:00.393] [index] [error] reference index file: /share/org/YZWL/yzwl_lixg/tmp/花生BSA/01.data/genome/genome.fa.bwt.2bit.64 already exist! If you want to overwite it, please specify -f option.
+
+2026-01-21 13:36:30.395 - ERROR - GTX索引构建失败|GTX index building failed
+Job 68970206 stderr output:
+

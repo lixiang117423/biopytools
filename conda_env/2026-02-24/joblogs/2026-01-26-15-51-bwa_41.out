@@ -1,0 +1,63 @@
+2026-01-26 15:51:26.916 - INFO - ================================================================================
+2026-01-26 15:51:26.916 - INFO - 开始BWA全基因组比对分析流程|Starting BWA alignment pipeline
+2026-01-26 15:51:26.916 - INFO - ================================================================================
+2026-01-26 15:51:26.916 - INFO - 步骤1/6: 检查依赖软件|Step 1/6: Checking dependencies
+2026-01-26 15:51:26.916 - INFO - 检查依赖软件|Checking dependencies
+2026-01-26 15:51:26.942 - INFO - BWA 可用|BWA available: [main]
+2026-01-26 15:51:27.005 - INFO - SAMtools 可用|SAMtools available: samtools
+2026-01-26 15:51:27.005 - INFO - 步骤2/6: 检查基因组索引|Step 2/6: Checking genome index
+2026-01-26 15:51:27.005 - INFO - 检查基因组索引|Checking genome index
+2026-01-26 15:51:27.005 - INFO - 基因组索引已存在|Genome index already exists
+2026-01-26 15:51:27.005 - INFO - 步骤3/6: 查找FASTQ文件|Step 3/6: Finding FASTQ files
+2026-01-26 15:51:27.005 - INFO - 查找FASTQ文件|Finding FASTQ files
+2026-01-26 15:51:27.005 - INFO - 输入目录|Input directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/clean
+2026-01-26 15:51:27.005 - INFO - 匹配模式|Pattern: _1.clean.fq.gz
+2026-01-26 15:51:27.006 - INFO - 找到样品|Found sample: 41
+2026-01-26 15:51:27.006 - INFO - 共找到 1 个样品对|Found 1 sample pairs
+2026-01-26 15:51:27.006 - INFO - 步骤4/6: 批量比对 (1 个样品)|Step 4/6: Batch alignment (1 samples)
+2026-01-26 15:51:27.006 - INFO - ================================================================================
+2026-01-26 15:51:27.006 - INFO - 处理样品 1/1: 41|Processing sample 1/1: 41
+2026-01-26 15:51:27.006 - INFO - ================================================================================
+2026-01-26 15:51:27.006 - INFO - 开始比对样品|Starting alignment for sample: 41
+2026-01-26 15:51:27.006 - INFO - 执行步骤|Executing step: BWA mem比对|BWA mem alignment: 41
+2026-01-26 15:51:27.006 - INFO - 命令|Command: bwa mem -t 64 -k 19 -w 100 -d 100 -r 1.5 -y 20 -c 500 -D 0.5 -W 0 -m 50 -A 1 -B 4 -O 6,6 -E 1,1 -L 5,5 -U 17 -T 30 -h 5,200 -R '@RG\tID:41\tSM:41\tPL:ILLUMINA' /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/genome/41.primary.fa /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/clean/41_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/01.data/clean/41_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.sam
+2026-01-26 15:56:01.673 - INFO - 命令执行成功|Command executed successfully
+2026-01-26 15:56:01.674 - INFO - 执行步骤|Executing step: SAM转BAM|SAM to BAM conversion
+2026-01-26 15:56:01.674 - INFO - 命令|Command: samtools view -@ 64 -b -o /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.raw.bam /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.sam
+2026-01-26 15:56:38.617 - INFO - 命令执行成功|Command executed successfully
+2026-01-26 15:56:38.617 - INFO - 执行步骤|Executing step: 排序BAM|Sorting BAM
+2026-01-26 15:56:38.617 - INFO - 命令|Command: samtools sort -@ 64 -o /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.sorted.bam /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.raw.bam
+2026-01-26 15:57:15.988 - INFO - 命令执行成功|Command executed successfully
+2026-01-26 15:57:15.988 - INFO - 执行步骤|Executing step: 构建BAM索引|Building BAM index
+2026-01-26 15:57:15.989 - INFO - 命令|Command: samtools index -@ 64 /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.bam
+2026-01-26 15:57:17.728 - INFO - 命令执行成功|Command executed successfully
+2026-01-26 15:57:17.728 - INFO - 清理中间文件|Cleaning up intermediate files
+2026-01-26 15:57:17.728 - INFO - 已删除SAM文件|Removed SAM file: 41.sam
+2026-01-26 15:57:17.728 - INFO - 已删除原始BAM|Removed raw BAM: 41.raw.bam
+2026-01-26 15:57:17.729 - INFO - 样品比对完成|Sample alignment completed: 41
+2026-01-26 15:57:17.729 - INFO - 生成比对统计|Generating alignment statistics: 41
+2026-01-26 15:57:17.729 - INFO - 执行步骤|Executing step: 生成flagstat统计|Generating flagstat: 41
+2026-01-26 15:57:17.729 - INFO - 命令|Command: samtools flagstat /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.bam > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/stats/41.flagstat.txt
+2026-01-26 15:57:31.022 - INFO - 命令执行成功|Command executed successfully
+2026-01-26 15:57:31.022 - INFO - 执行步骤|Executing step: 生成详细统计|Generating detailed stats: 41
+2026-01-26 15:57:31.023 - INFO - 命令|Command: samtools stats /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.bam > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/stats/41.stats.txt
+2026-01-26 15:58:35.384 - INFO - 命令执行成功|Command executed successfully
+2026-01-26 15:58:35.384 - INFO - 统计生成完成|Statistics generation completed: 41
+2026-01-26 15:58:35.384 - INFO - 开始覆盖度分析|Starting coverage analysis: 41
+2026-01-26 15:58:35.384 - INFO - 执行步骤|Executing step: 计算位点覆盖度|Calculating depth: 41
+2026-01-26 15:58:35.384 - INFO - 命令|Command: samtools depth /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/bam/41.bam > /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据/coverage/41.depth.txt
+2026-01-26 15:58:54.774 - INFO - 命令执行成功|Command executed successfully
+2026-01-26 15:58:54.775 - INFO - 计算滑窗覆盖度|Calculating windowed coverage
+2026-01-26 15:58:54.775 - INFO -    窗口大小|Window size: 1,000,000 bp
+2026-01-26 15:58:54.775 - INFO -    步长|Step size: 100,000 bp
+2026-01-26 16:00:33.274 - INFO - 滑窗覆盖度计算完成|Windowed coverage completed
+2026-01-26 16:00:33.274 - INFO -    输出文件|Output file: windows/41.window.bed
+2026-01-26 16:00:33.274 - INFO - 覆盖度分析完成|Coverage analysis completed: 41
+2026-01-26 16:00:33.274 - INFO - 步骤6/6: 生成汇总报告|Step 6/6: Generating summary report
+2026-01-26 16:00:33.274 - INFO - 生成汇总报告|Generating summary report
+2026-01-26 16:00:33.275 - INFO - 汇总报告已生成|Summary report generated: alignment_summary.txt
+2026-01-26 16:00:33.275 - INFO - ================================================================================
+2026-01-26 16:00:33.275 - INFO - BWA全基因组比对分析完成|BWA alignment analysis completed
+2026-01-26 16:00:33.275 - INFO - ================================================================================
+2026-01-26 16:00:33.275 - INFO - 成功处理样品数|Successfully processed: 1/1
+2026-01-26 16:00:33.275 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/28.大豆疫霉菌三代基因组/05.过滤hifi数据后重新组装挂载/06.原始组装结果比对到二代数据

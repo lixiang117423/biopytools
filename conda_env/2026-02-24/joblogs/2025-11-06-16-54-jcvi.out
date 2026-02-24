@@ -1,0 +1,29 @@
+=== Step 1: Create chromosome name map ===
+File 'chr.map' created successfully.
+
+=== Step 2: Generate chromosome length file FROM VCF HEADER ===
+File 'genome.len' created successfully. Check its content:
+Chr1	27822162,assembly=genome.fa
+Chr2	20941263,assembly=genome.fa
+Chr3	21317290,assembly=genome.fa
+Chr4	25934928,assembly=genome.fa
+Chr5	26899771,assembly=genome.fa
+Chr6	24571969,assembly=genome.fa
+Chr7	31654362,assembly=genome.fa
+Chr8	23763023,assembly=genome.fa
+Chr9	24372199,assembly=genome.fa
+Chr10	27504061,assembly=genome.fa
+Chr11	20048508,assembly=genome.fa
+Chr12	24706008,assembly=genome.fa
+Chr13	29842242,assembly=genome.fa
+Chr14	30475315,assembly=genome.fa
+Chr15	23565456,assembly=genome.fa
+Chr16	27608946,assembly=genome.fa
+Chr17	19942836,assembly=genome.fa
+Chr18	36684271,assembly=genome.fa
+Chr19	27218600,assembly=genome.fa
+
+=== Step 3: Extract SNP positions from VCF and convert to BED format ===
+File 'snp_density.positions.bed' created successfully.
+
+=== Step 4: Calculate SNP density in specified windows ===

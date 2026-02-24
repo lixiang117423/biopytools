@@ -1,0 +1,55 @@
+2025-12-31 17:12:30,664 - INFO - 开始VCF PCA分析流程 | Starting VCF PCA analysis pipeline
+2025-12-31 17:12:30,664 - INFO - VCF文件 | VCF file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/03.按染色体过滤VCF文件/chr.snp.vcf.gz
+2025-12-31 17:12:30,664 - INFO - 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/04.PCA/pca_output
+2025-12-31 17:12:30,664 - INFO - 检查依赖软件 | Checking dependencies
+2025-12-31 17:12:31,146 - INFO - ✓ PLINK 可用 | available
+2025-12-31 17:12:31,300 - INFO - ✓ BCFtools 可用 | available
+2025-12-31 17:12:31,300 - INFO - ============================================================
+2025-12-31 17:12:31,300 - INFO - 步骤1: VCF转PLINK格式 | Step 1: VCF to PLINK conversion
+2025-12-31 17:12:31,300 - INFO - ============================================================
+2025-12-31 17:12:31,301 - INFO - 获取VCF文件统计信息 | Getting VCF file statistics
+2025-12-31 18:31:05,405 - INFO - VCF统计 | VCF statistics: 2932 样本 | samples, 7291665 变异 | variants
+2025-12-31 18:31:05,406 - INFO - 开始处理包含 2932 个样本和 7291665 个变异的VCF文件
+2025-12-31 18:31:05,446 - INFO - 输出目录可写 | Output directory is writable: pca_output
+2025-12-31 18:31:05,446 - INFO - 执行步骤 | Executing step: VCF转换为PLINK格式 | Convert VCF to PLINK format
+2025-12-31 18:31:05,446 - INFO - 命令 | Command: plink --vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/03.按染色体过滤VCF文件/chr.snp.vcf.gz --make-bed --out /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/04.PCA/pca_output/vcf_pca --allow-extra-chr --double-id
+2025-12-31 18:31:05,446 - INFO - 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/04.PCA/pca_output
+2025-12-31 19:00:53,952 - INFO - 命令执行成功 | Command executed successfully: VCF转换为PLINK格式 | Convert VCF to PLINK format
+2025-12-31 19:00:53,952 - INFO - PLINK文件已生成 | PLINK files generated: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/04.PCA/pca_output/vcf_pca
+2025-12-31 19:00:53,952 - INFO - ============================================================
+2025-12-31 19:00:53,952 - INFO - 步骤2: 质量控制 | Step 2: Quality control
+2025-12-31 19:00:53,952 - INFO - ============================================================
+2025-12-31 19:00:53,952 - INFO - 跳过质量控制过滤 (用户指定) | Skipping quality control filtering (user specified)
+2025-12-31 19:00:53,999 - INFO - 输入样本数 | Input samples: 2932
+2025-12-31 19:00:54,363 - INFO - 输入SNP数 | Input SNPs: 7291665
+2025-12-31 19:00:54,363 - INFO - ============================================================
+2025-12-31 19:00:54,363 - INFO - 步骤3: PCA分析 | Step 3: PCA analysis
+2025-12-31 19:00:54,363 - INFO - ============================================================
+2025-12-31 19:00:54,363 - INFO - 开始PCA分析 | Starting PCA analysis
+2025-12-31 19:00:54,363 - INFO - 主成分数量 | Number of components: 10
+2025-12-31 19:00:54,363 - INFO - 执行步骤 | Executing step: PCA分析 | PCA analysis (10 components)
+2025-12-31 19:00:54,363 - INFO - 命令 | Command: plink --bfile /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/04.PCA/pca_output/vcf_pca --pca 10 --out /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/04.PCA/pca_output/pca_results --allow-extra-chr
+2025-12-31 19:00:54,363 - INFO - 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/04.PCA/pca_output
+2025-12-31 19:04:13,944 - INFO - 命令执行成功 | Command executed successfully: PCA分析 | PCA analysis (10 components)
+2025-12-31 19:04:13,945 - INFO - 分析PCA结果 | Analyzing PCA results
+2025-12-31 19:04:13,985 - INFO - PCA分析结果 | PCA Analysis Results:
+2025-12-31 19:04:13,988 - INFO - 总方差 | Total variance: 1287.2903
+2025-12-31 19:04:13,988 - INFO - 主成分解释方差 | Principal component explained variance:
+2025-12-31 19:04:13,988 - INFO -   PC1: 特征值 | Eigenvalue = 343.3130, 解释方差比 | Explained variance ratio = 0.2667 (26.67%), 累积 | Cumulative = 0.2667 (26.67%)
+2025-12-31 19:04:13,988 - INFO -   PC2: 特征值 | Eigenvalue = 187.4230, 解释方差比 | Explained variance ratio = 0.1456 (14.56%), 累积 | Cumulative = 0.4123 (41.23%)
+2025-12-31 19:04:13,989 - INFO -   PC3: 特征值 | Eigenvalue = 153.6630, 解释方差比 | Explained variance ratio = 0.1194 (11.94%), 累积 | Cumulative = 0.5317 (53.17%)
+2025-12-31 19:04:13,989 - INFO -   PC4: 特征值 | Eigenvalue = 137.1270, 解释方差比 | Explained variance ratio = 0.1065 (10.65%), 累积 | Cumulative = 0.6382 (63.82%)
+2025-12-31 19:04:13,989 - INFO -   PC5: 特征值 | Eigenvalue = 103.1500, 解释方差比 | Explained variance ratio = 0.0801 (8.01%), 累积 | Cumulative = 0.7183 (71.83%)
+2025-12-31 19:04:13,989 - INFO -   PC6: 特征值 | Eigenvalue = 95.7422, 解释方差比 | Explained variance ratio = 0.0744 (7.44%), 累积 | Cumulative = 0.7927 (79.27%)
+2025-12-31 19:04:13,989 - INFO -   PC7: 特征值 | Eigenvalue = 83.2480, 解释方差比 | Explained variance ratio = 0.0647 (6.47%), 累积 | Cumulative = 0.8574 (85.74%)
+2025-12-31 19:04:13,989 - INFO -   PC8: 特征值 | Eigenvalue = 69.6275, 解释方差比 | Explained variance ratio = 0.0541 (5.41%), 累积 | Cumulative = 0.9114 (91.14%)
+2025-12-31 19:04:13,989 - INFO -   PC9: 特征值 | Eigenvalue = 61.6321, 解释方差比 | Explained variance ratio = 0.0479 (4.79%), 累积 | Cumulative = 0.9593 (95.93%)
+2025-12-31 19:04:13,989 - INFO -   PC10: 特征值 | Eigenvalue = 52.3645, 解释方差比 | Explained variance ratio = 0.0407 (4.07%), 累积 | Cumulative = 1.0000 (100.00%)
+2025-12-31 19:04:14,110 - INFO - 解释方差表已保存 | Explained variance table saved: pca_output/pca_explained_variance.txt
+2025-12-31 19:04:14,111 - INFO - 特征值说明文件已保存 | Eigenvalues explanation saved: pca_output/eigenvalues_explanation.txt
+2025-12-31 19:04:14,189 - INFO - 格式化特征向量已保存 | Formatted eigenvectors saved: pca_output/pca_eigenvectors_formatted.txt
+2025-12-31 19:04:14,189 - INFO - 总结报告已生成 | Summary report generated: pca_output/pca_analysis_summary.txt
+2025-12-31 19:04:14,189 - INFO - ============================================================
+2025-12-31 19:04:14,189 - INFO - PCA分析完成！| PCA analysis completed!
+2025-12-31 19:04:14,189 - INFO - ============================================================
+2025-12-31 19:04:14,189 - INFO - 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/04.PCA/pca_output

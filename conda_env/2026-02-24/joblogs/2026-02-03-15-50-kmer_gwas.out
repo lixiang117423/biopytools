@@ -1,0 +1,17 @@
+2026-02-03 15:50:47.619 - INFO - 检查JanusX依赖|Checking JanusX dependencies
+2026-02-03 15:50:47.622 - INFO - JanusX路径|JanusX path: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin
+2026-02-03 15:50:51.226 - INFO - JanusX可执行文件检查通过|JanusX executable check passed
+2026-02-03 15:50:51.226 - INFO - ============================================================
+2026-02-03 15:50:51.226 - INFO - 开始JanusX GWAS分析|Starting JanusX GWAS analysis
+2026-02-03 15:50:51.226 - INFO - ============================================================
+2026-02-03 15:50:51.226 - INFO - 基因型文件|Genotype file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf
+2026-02-03 15:50:51.226 - INFO - 表型文件|Phenotype file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt
+2026-02-03 15:50:51.226 - INFO - GWAS模型|GWAS models: farmcpu
+2026-02-03 15:50:51.226 - INFO - MAF阈值|MAF threshold: 0.05
+2026-02-03 15:50:51.226 - INFO - 缺失率阈值|Missing rate threshold: 0.0
+2026-02-03 15:50:51.226 - INFO - 线程数|Threads: 12
+2026-02-03 15:50:51.226 - INFO - 输出目录|Output directory: ./janusx_gwas_output
+2026-02-03 15:50:51.226 - INFO - 构建命令|Command built: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf -p /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -farmcpu -maf 0.05 -geno 0.0 -t 12 -o ./janusx_gwas_output -prefix kmer
+2026-02-03 15:50:51.226 - INFO - 运行GWAS分析|Running GWAS analysis: /share/org/YZWL/yzwl_lixg/software/JanusX/JanusX.bin gwas -vcf /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/kmer.vcf -p /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/23.kmerGWAS_实验室流程/04.gwas/114.第一批369个有表型的样品去冗余做GWAS-样品病害登记.txt -farmcpu -maf 0.05 -geno 0.0 -t 12 -o ./janusx_gwas_output -prefix kmer
+
+用户中断|User interrupted

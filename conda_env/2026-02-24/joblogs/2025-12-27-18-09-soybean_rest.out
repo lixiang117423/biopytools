@@ -1,0 +1,152 @@
+
+==================================================
+🎯 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+🔄 开始更新所有组件的基因组路径... | Starting genome path update for all components...
+🔄 拷贝基因组文件到 /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa | Copying genome file to /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa
+🔄 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/genome/genome.fa -> /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa | Force updated genome path
+✅ 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa | Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa
+✅ 基因组路径更新完成 | Genome path update completed
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2498662GB available
+✓ 系统内存充足 | Sufficient system memory: 503GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+🔍 准备执行索引构建步骤 | Preparing to execute index building step
+🔍 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa | Current genome path in config
+🔍 GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa | Genome path in GTX mapper
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+🚀 执行步骤 5 | Executing step 5: 🧹 变异过滤 | Variant Filtering
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+🔍 调试信息: skip_qc = False
+🔍 调试信息: read1_pattern_fastp = _1.fq.gz
+🔍 调试信息: read2_pattern_fastp = _2.fq.gz
+🔍 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced
+开始质控处理 | Starting quality control
+检测到 6 个原始 FASTQ 文件 | Found 6 raw FASTQ files
+🧹 质量控制 | Quality Control
+🔄 执行命令 | Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean --read1-suffix _1.fq.gz --read2-suffix _2.fq.gz
+标准输出 | Stdout: 2025-12-27 18:09:06,492 - INFO - ============================================================
+2025-12-27 18:09:06,492 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-12-27 18:09:06,492 - INFO - ============================================================
+2025-12-27 18:09:06,492 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced
+2025-12-27 18:09:06,492 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean
+2025-12-27 18:09:06,492 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-12-27 18:09:06,492 - INFO - ============================================================
+2025-12-27 18:09:06,736 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-12-27 18:09:06,736 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean
+2025-12-27 18:09:06,736 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports
+2025-12-27 18:09:06,736 - INFO - 📄 找到 3 个read1文件 | Found 3 read1 files
+2025-12-27 18:09:06,740 - INFO - 🧬 找到 3 个有效样本配对 | Found 3 valid sample pairs:
+2025-12-27 18:09:06,740 - INFO -   - 📋 GDW049A
+2025-12-27 18:09:06,740 - INFO -   - 📋 GDW020A
+2025-12-27 18:09:06,740 - INFO -   - 📋 DB271A
+2025-12-27 18:09:06,740 - INFO - ---
+2025-12-27 18:09:06,740 - INFO - ⚡ 正在处理样本 | Processing sample: GDW049A
+2025-12-27 18:09:06,740 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/GDW049A_1.fq.gz
+2025-12-27 18:09:06,740 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/GDW049A_2.fq.gz
+2025-12-27 18:09:06,740 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/GDW049A_1.clean.fq.gz
+2025-12-27 18:09:06,740 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/GDW049A_2.clean.fq.gz
+2025-12-27 18:09:06,740 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/GDW049A.html
+2025-12-27 18:09:06,740 - INFO - ---
+2025-12-27 18:09:06,740 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> GDW049A
+2025-12-27 18:09:06,740 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/GDW049A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/GDW049A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/GDW049A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/GDW049A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/GDW049A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/GDW049A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-27 18:14:36,304 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> GDW049A
+2025-12-27 18:14:36,319 - INFO - ✅ 样本 GDW049A 处理完成 | Sample GDW049A processing completed
+2025-12-27 18:14:36,319 - INFO - ---
+2025-12-27 18:14:36,319 - INFO - ⚡ 正在处理样本 | Processing sample: GDW020A
+2025-12-27 18:14:36,319 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/GDW020A_1.fq.gz
+2025-12-27 18:14:36,319 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/GDW020A_2.fq.gz
+2025-12-27 18:14:36,319 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/GDW020A_1.clean.fq.gz
+2025-12-27 18:14:36,319 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/GDW020A_2.clean.fq.gz
+2025-12-27 18:14:36,319 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/GDW020A.html
+2025-12-27 18:14:36,319 - INFO - ---
+2025-12-27 18:14:36,319 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> GDW020A
+2025-12-27 18:14:36,319 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/GDW020A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/GDW020A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/GDW020A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/GDW020A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/GDW020A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/GDW020A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-27 18:19:46,582 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> GDW020A
+2025-12-27 18:19:46,582 - INFO - ✅ 样本 GDW020A 处理完成 | Sample GDW020A processing completed
+2025-12-27 18:19:46,583 - INFO - ---
+2025-12-27 18:19:46,583 - INFO - ⚡ 正在处理样本 | Processing sample: DB271A
+2025-12-27 18:19:46,583 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/DB271A_1.fq.gz
+2025-12-27 18:19:46,583 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/DB271A_2.fq.gz
+2025-12-27 18:19:46,583 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/DB271A_1.clean.fq.gz
+2025-12-27 18:19:46,583 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/DB271A_2.clean.fq.gz
+2025-12-27 18:19:46,583 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/DB271A.html
+2025-12-27 18:19:46,593 - INFO - ---
+2025-12-27 18:19:46,593 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> DB271A
+2025-12-27 18:19:46,593 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/DB271A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/raw/balanced/DB271A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/DB271A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/DB271A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/DB271A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports/DB271A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-27 18:25:04,522 - INFO - ✅ 命令执行成功 | Command executed successfully: ⚡ FASTP质控处理 | FASTP quality control -> DB271A
+2025-12-27 18:25:04,533 - INFO - ✅ 样本 DB271A 处理完成 | Sample DB271A processing completed
+2025-12-27 18:25:04,575 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_processing_summary.txt
+2025-12-27 18:25:04,575 - INFO - ============================================================
+2025-12-27 18:25:04,575 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-12-27 18:25:04,576 - INFO - 🧮 总样本数 | Total samples: 3
+2025-12-27 18:25:04,576 - INFO - ✅ 成功处理 | Successfully processed: 3
+2025-12-27 18:25:04,576 - INFO - ❌ 失败样本 | Failed samples: 0
+2025-12-27 18:25:04,576 - INFO - 📊 成功率 | Success rate: 100.0%
+2025-12-27 18:25:04,576 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean
+2025-12-27 18:25:04,576 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/clean/fastp_reports
+2025-12-27 18:25:04,576 - INFO - ============================================================
+
+✅ 命令执行成功 | Command executed successfully
+✅ 质控完成: 6 个清洁文件 | QC completed: 6 clean files
+📍 创建检查点 | Create checkpoint: quality_control
+🧹 Fastp质量控制完成，立即执行GTX索引构建 | Fastp QC completed, immediately executing GTX index building
+
+==================================================
+🔧 强制构建GTX索引 | Force Build GTX Index
+==================================================
+✓ 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa
+🔧 强制执行GTX索引构建 | Force executing GTX index build
+🔧 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/.tmp
+🔧 基因组文件: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa
+🔧 临时目录: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/.tmp
+🔧 强制构建GTX索引 | Force build GTX index
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/.tmp
+标准输出 | Stdout: [2020-10-20 00:00:01.075] [index] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/.tmp available: 2497282GB, memory available: 457GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.076] [index] [info] Job: index, pid: 409319
+[2020-10-20 00:00:01.076] [index] [info] Indexing...
+[2020-10-20 00:00:04.112] [index] [info] build optimized BWA2 FM-index
+[2020-10-20 00:00:09.740] [index] [info] Read 0 ALT contigs.
+[2020-10-20 00:04:18.583] [index] [info] build optimized BWA2 FM-index successed.
+[2020-10-20 00:04:18.616] [index] [info] index exited normally.
+
+标准错误 | Stderr: indexing finished in 256.04 CPU sec, 257.507 real sec.
+
+✅ 命令执行成功 | Command executed successfully
+✅ GTX索引构建成功 | GTX index building successful
+🔍 验证GTX索引文件:
+   /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa.gtx: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa.gtx.bwt: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa.gtx.sa: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa.gtx.ann: ✗ (0 B)
+   /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa.gtx.amb: ✗ (0 B)
+✅ 步骤 1 完成 | Step 1 completed: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+
+==================================================
+📊 Step 2: 构建其他索引 | Build Other Indexes
+==================================================
+⏭️ GTX索引已在step1中构建，跳过 | GTX index already built in step1, skipping
+构建其他索引（BWA, SAMtools, GATK）| Building other indexes (BWA, SAMtools, GATK)
+构建 BWA 索引 | Building BWA index
+📊 构建BWA索引 | Build BWA index
+🔄 执行命令 | Running command: bwa index /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/运行失败的重新运行/01.data/genome/genome.fa

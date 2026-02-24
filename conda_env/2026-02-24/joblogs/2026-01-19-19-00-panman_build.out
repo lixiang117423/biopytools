@@ -1,0 +1,17 @@
+2026-01-19 19:00:29.279 - INFO - 开始构建PanMAN|Starting PanMAN build
+2026-01-19 19:00:29.279 - INFO - 输入类型|Input type: pangraph
+2026-01-19 19:00:29.279 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/tmp/test_panman/panman_output/test.json
+2026-01-19 19:00:29.279 - INFO - 系统发育树文件|Phylogenetic tree file: /share/org/YZWL/yzwl_lixg/tmp/pan_man/panman-main/test/sars_20.nwk
+2026-01-19 19:00:29.279 - INFO - 验证输入文件|Validating input files
+2026-01-19 19:00:29.353 - INFO - 输入文件验证通过|Input files validation passed
+2026-01-19 19:00:29.354 - INFO - 从PanGraph构建PanMAN|Building PanMAN from PanGraph
+2026-01-19 19:00:29.354 - INFO - 执行步骤|Executing step: 从PanGraph构建|Build from PanGraph
+2026-01-19 19:00:29.354 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/singularity_v.3.8.7/bin/singularity exec /share/org/YZWL/yzwl_lixg/software/singularity/panman_latest.sif panmanUtils -P /share/org/YZWL/yzwl_lixg/tmp/test_panman/panman_output/test.json -N /share/org/YZWL/yzwl_lixg/tmp/pan_man/panman-main/test/sars_20.nwk -o /share/org/YZWL/yzwl_lixg/tmp/test_panman/panman_output/test
+2026-01-19 19:00:51.804 - ERROR - 命令执行失败|Command execution failed: 从PanGraph构建|Build from PanGraph
+2026-01-19 19:00:51.804 - ERROR - 错误代码|Error code: 1
+2026-01-19 19:00:51.804 - ERROR - 错误信息|Error message: INFO:    Converting SIF file to temporary sandbox...
+ERROR: Incorrect JSON format found. Use JSON generated using PanGraph v0.7.3
+INFO:    Cleaning up image...
+
+2026-01-19 19:00:51.804 - ERROR - PanMAN构建失败|PanMAN build failed
+2026-01-19 19:00:51.804 - ERROR - 分析失败|Analysis failed

@@ -1,0 +1,9 @@
+2026-01-31 13:09:58.942 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
+2026-01-31 13:09:58.943 - INFO - 生成FOF文件|Generating FOF file
+2026-01-31 13:09:58.967 - INFO - 检测到双末端数据|Detected paired-end data: 1445 samples
+2026-01-31 13:09:59.392 - INFO - FOF文件已生成（双末端）|FOF file generated (paired-end): input.fof
+2026-01-31 13:09:59.393 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
+2026-01-31 13:09:59.394 - INFO - 自动计算分区数|Auto-calculated partitions: 640
+2026-01-31 13:09:59.394 - INFO - 样本数|Samples: 1445, 线程数|Threads: 32
+2026-01-31 13:09:59.394 - INFO - 使用分区数|Using partitions: 640
+2026-01-31 13:09:59.394 - INFO - 执行kmtricks pipeline|Executing kmtricks pipeline|执行kmtricks pipeline|Executing kmtricks pipeline

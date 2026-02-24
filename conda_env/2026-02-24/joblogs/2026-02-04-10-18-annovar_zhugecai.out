@@ -1,0 +1,88 @@
+2026-02-04 10:18:07.293 - INFO - 开始ANNOVAR注释流程|Starting ANNOVAR annotation pipeline
+2026-02-04 10:18:07.293 - INFO - 执行步骤1|Executing step 1: GFF3转GenPred|GFF3 to GenPred
+2026-02-04 10:18:07.293 - INFO - GFF3文件|GFF3 file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/49.最终的基因组和gff文件/OV53_Chr.gff
+2026-02-04 10:18:07.293 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output
+2026-02-04 10:18:07.293 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/Ov_refGene.txt
+2026-02-04 10:18:07.293 - INFO - 开始清理GFF3文件格式|Starting GFF3 file format cleaning
+2026-02-04 10:18:07.293 - INFO - 步骤1: 清理attributes列|Step 1: Cleaning attributes column
+2026-02-04 10:18:12.096 - INFO - 第一步清理完成|First step cleaning completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/49.最终的基因组和gff文件/OV53_Chr.clean.gff3
+2026-02-04 10:18:12.097 - INFO - 步骤2: 修复坐标问题|Step 2: Fixing coordinate issues
+2026-02-04 10:18:13.440 - INFO - 第二步修复完成|Second step fixing completed: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/49.最终的基因组和gff文件/OV53_Chr.final_fixed.gff3
+2026-02-04 10:18:13.679 - INFO - 原文件已备份|Original file backed up: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/49.最终的基因组和gff文件/OV53_Chr.gff.original_backup
+2026-02-04 10:18:13.679 - INFO - 已用修复后的文件替换原文件|Replaced original file with fixed file
+2026-02-04 10:18:13.679 - INFO - 检查并修复GFF3文件中的CDS phase问题|Checking and fixing CDS phase issues in GFF3 file
+2026-02-04 10:18:14.580 - INFO - GFF3文件中的CDS phase都正常，无需修复|All CDS phases in GFF3 file are normal, no fix needed
+2026-02-04 10:18:14.580 - INFO - 执行步骤|Executing step: GFF3转GenPred格式|GFF3 to GenPred conversion
+2026-02-04 10:18:14.580 - INFO - 命令|Command: gff3ToGenePred -warnAndContinue /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/49.最终的基因组和gff文件/OV53_Chr.gff /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/Ov_refGene.txt
+2026-02-04 10:18:16.756 - INFO - 命令执行成功|Command executed successfully: GFF3转GenPred格式|GFF3 to GenPred conversion
+2026-02-04 10:18:16.756 - INFO - GenPred文件已生成|GenPred file generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/Ov_refGene.txt
+2026-02-04 10:18:16.756 - INFO - 步骤1完成|Step 1 completed: GFF3转GenPred|GFF3 to GenPred
+2026-02-04 10:18:16.756 - INFO - 执行步骤2|Executing step 2: 提取转录本序列|Extract transcript sequences
+2026-02-04 10:18:16.756 - INFO - 基因组文件|Genome file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/49.最终的基因组和gff文件/OV53_Chr.fa
+2026-02-04 10:18:16.756 - INFO - GenPred文件|GenPred file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/Ov_refGene.txt
+2026-02-04 10:18:16.756 - INFO - 输出序列文件|Output sequence file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/Ov_refGeneMrna.fa
+2026-02-04 10:18:16.756 - INFO - 执行步骤|Executing step: 提取转录本序列|Extract transcript sequences
+2026-02-04 10:18:16.759 - INFO - 命令|Command: perl /share/org/YZWL/yzwl_lixg/software/annovar/annovar/retrieve_seq_from_fasta.pl --format refGene --seqfile /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/49.最终的基因组和gff文件/OV53_Chr.fa /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/Ov_refGene.txt -outfile /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/Ov_refGeneMrna.fa
+2026-02-04 10:18:28.550 - INFO - 命令执行成功|Command executed successfully: 提取转录本序列|Extract transcript sequences
+2026-02-04 10:18:28.551 - INFO - 转录本序列文件已生成|Transcript sequence file generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/Ov_refGeneMrna.fa
+2026-02-04 10:18:28.551 - INFO - 步骤2完成|Step 2 completed: 提取转录本序列|Extract transcript sequences
+2026-02-04 10:18:28.551 - INFO - 执行步骤3|Executing step 3: 处理并转换VCF|Process and convert VCF
+2026-02-04 10:18:28.551 - INFO - 跳过VCF过滤步骤，直接使用输入的VCF文件|Skipping VCF filtering, using input VCF file directly
+2026-02-04 10:18:28.552 - INFO - 输入VCF文件|Input VCF file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/gtx_joint_raw.vcf.gz
+2026-02-04 10:18:28.552 - INFO - ANNOVAR格式文件|ANNOVAR format file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.annovar.vcf
+2026-02-04 10:18:28.552 - INFO - 执行步骤|Executing step: 转换VCF为ANNOVAR格式|Convert VCF to ANNOVAR format
+2026-02-04 10:18:28.552 - INFO - 命令|Command: perl /share/org/YZWL/yzwl_lixg/software/annovar/annovar/convert2annovar.pl -format vcf4 -allsample -withfreq /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/gtx_joint_raw.vcf.gz > /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.annovar.vcf
+2026-02-04 15:06:58.471 - INFO - 命令执行成功|Command executed successfully: 转换VCF为ANNOVAR格式|Convert VCF to ANNOVAR format
+2026-02-04 15:06:58.550 - INFO - ANNOVAR格式文件已生成|ANNOVAR format file generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.annovar.vcf
+2026-02-04 15:06:58.550 - INFO - 步骤3完成|Step 3 completed: 处理并转换VCF|Process and convert VCF
+2026-02-04 15:06:58.550 - INFO - 执行步骤4|Executing step 4: 变异注释|Variant annotation
+2026-02-04 15:06:58.568 - INFO - 注释输出前缀|Annotation output prefix: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw
+2026-02-04 15:06:58.568 - INFO - 执行步骤|Executing step: ANNOVAR变异注释|ANNOVAR variant annotation
+2026-02-04 15:06:58.568 - INFO - 命令|Command: perl /share/org/YZWL/yzwl_lixg/software/annovar/annovar/annotate_variation.pl --geneanno -dbtype refGene --buildver Ov /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.annovar.vcf /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw
+2026-02-04 15:26:09.671 - INFO - 命令执行成功|Command executed successfully: ANNOVAR变异注释|ANNOVAR variant annotation
+2026-02-04 15:26:09.793 - INFO - 注释完成，输出文件|Annotation completed, output files:
+2026-02-04 15:26:09.793 - INFO -   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.exonic_variant_function
+2026-02-04 15:26:09.793 - INFO -   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.variant_function
+2026-02-04 15:26:09.793 - INFO -   /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.log
+2026-02-04 15:26:09.793 - INFO - 步骤4完成|Step 4 completed: 变异注释|Variant annotation
+2026-02-04 15:26:09.793 - INFO - ANNOVAR注释流程全部完成|ANNOVAR annotation pipeline completed!
+2026-02-04 15:26:09.883 - INFO - 总结报告已生成|Summary report generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/annotation_summary.txt
+2026-02-04 15:26:09.883 - INFO - 开始处理注释结果|Starting to process annotation results
+2026-02-04 15:26:09.883 - INFO -  处理外显子变异文件|Processing exonic variant file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.exonic_variant_function
+2026-02-04 15:26:11.490 - INFO -  外显子变异结果已保存|Exonic variant results saved: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw_processed_exonic.tsv
+2026-02-04 15:26:11.490 - INFO -  共处理|Total processed: 277678 个外显子变异
+2026-02-04 15:26:11.490 - INFO -  外显子注释结果处理完成|Exonic annotation results processed: 277678 variants
+2026-02-04 15:26:11.558 - INFO -  处理所有变异文件|Processing all variants file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw.variant_function
+2026-02-04 15:29:42.299 - INFO -  所有变异结果已保存|All variant results saved: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw_processed_all.tsv
+2026-02-04 15:29:42.299 - INFO -  共处理|Total processed: 70617579 个变异
+2026-02-04 15:29:42.299 - INFO -  变异统计信息|Variant Statistics:
+2026-02-04 15:29:53.457 - INFO -  区域类型分布|Region Type Distribution:
+2026-02-04 15:29:53.457 - INFO -   intergenic: 69068065
+2026-02-04 15:29:53.457 - INFO -   intronic: 535886
+2026-02-04 15:29:53.457 - INFO -   exonic: 286560
+2026-02-04 15:29:53.457 - INFO -   upstream: 233570
+2026-02-04 15:29:53.457 - INFO -   downstream: 205530
+2026-02-04 15:29:53.457 - INFO -   ncRNA_exonic: 76947
+2026-02-04 15:29:53.457 - INFO -   UTR5: 61230
+2026-02-04 15:29:53.457 - INFO -   ncRNA_intronic: 60217
+2026-02-04 15:29:53.457 - INFO -   UTR3: 57096
+2026-02-04 15:29:53.457 - INFO -   upstream;downstream: 27837
+2026-02-04 15:29:53.457 - INFO -   splicing: 3426
+2026-02-04 15:29:53.457 - INFO -   UTR5;UTR3: 678
+2026-02-04 15:29:53.457 - INFO -   ncRNA_splicing: 350
+2026-02-04 15:29:53.457 - INFO -   exonic;splicing: 178
+2026-02-04 15:29:53.457 - INFO -   ncRNA_UTR5: 6
+2026-02-04 15:29:53.457 - INFO -   ncRNA_exonic;splicing: 3
+2026-02-04 15:30:05.254 - INFO -  突变类型分布|Mutation Type Distribution:
+2026-02-04 15:30:05.254 - INFO -   SNP: 58914341
+2026-02-04 15:30:05.254 - INFO -   INSERTION: 5501205
+2026-02-04 15:30:05.254 - INFO -   DELETION: 5477409
+2026-02-04 15:30:05.254 - INFO -   COMPLEX: 714831
+2026-02-04 15:30:05.255 - INFO -   MNP: 9793
+2026-02-04 15:30:10.868 - INFO -  与基因相关的变异|Gene-related variants: 4791046
+2026-02-04 15:30:10.868 - INFO -  基因间区变异|Intergenic variants: 65826533
+2026-02-04 15:30:10.868 - INFO -  所有注释结果处理完成|All annotation results processed: 70617579 variants
+2026-02-04 15:30:23.940 - INFO -  结果处理完成|Results processing completed: 2 个文件已处理
+2026-02-04 15:30:23.940 - INFO - 注释结果处理完成|Annotation results processing completed
+2026-02-04 15:30:23.940 - INFO -   EXONIC: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw_processed_exonic.tsv
+2026-02-04 15:30:23.940 - INFO -   ALL: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/annovar_output/gtx_joint_raw_processed_all.tsv

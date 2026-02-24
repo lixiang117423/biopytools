@@ -1,0 +1,10 @@
+2026-01-19 16:47:58.564 - INFO - FASTA文件包含 20 条序列|FASTA file contains 20 sequences
+2026-01-19 16:47:58.564 - INFO - 开始构建PanGraph|Starting PanGraph build
+2026-01-19 16:47:58.564 - INFO - 输入FASTA|Input FASTA: /share/org/YZWL/yzwl_lixg/tmp/pan_man/panman-main/test/sars_20.fa
+2026-01-19 16:47:58.564 - INFO - 输出前缀|Output prefix: test
+2026-01-19 16:47:58.564 - INFO - 使用 SIF 镜像中的 PanGraph|Using PanGraph from SIF image: /share/org/YZWL/yzwl_lixg/software/singularity/panman_latest.sif
+2026-01-19 16:47:58.564 - INFO - Singularity路径|Singularity path: /share/org/YZWL/yzwl_lixg/miniforge3/envs/singularity_v.3.8.7/bin/singularity
+2026-01-19 16:47:58.564 - INFO - SIF镜像|SIF image: /share/org/YZWL/yzwl_lixg/software/singularity/panman_latest.sif
+2026-01-19 16:47:58.564 - INFO - 执行命令|Executing command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/singularity_v.3.8.7/bin/singularity exec /share/org/YZWL/yzwl_lixg/software/singularity/panman_latest.sif pangraph build /share/org/YZWL/yzwl_lixg/tmp/pan_man/panman-main/test/sars_20.fa
+2026-01-19 16:48:16.619 - ERROR - PanGraph构建失败|PanGraph build failed with return code 255
+2026-01-19 16:48:16.620 - ERROR - PanGraph生成失败|PanGraph generation failed

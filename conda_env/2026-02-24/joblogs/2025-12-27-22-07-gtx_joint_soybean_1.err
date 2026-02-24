@@ -1,0 +1,16 @@
+[W::hts_idx_load3] [W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbiThe index file is older than the data file: 02.mapping/vcf/SRR12190941.g.vcf.gz.tbi
+
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W209A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W211A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+[W::hts_idx_load3] The index file is older than the data file: 02.mapping/vcf/W398A.g.vcf.gz.tbi
+00:04:36.265 info  NativeGenomicsDB - pid=3618425 tid=3619756 No valid combination operation found for INFO field InbreedingCoeff  - the field will NOT be part of INFO fields in the generated VCF records
+00:04:36.265 info  NativeGenomicsDB - pid=3618425 tid=3619756 No valid combination operation found for INFO field MLEAC  - the field will NOT be part of INFO fields in the generated VCF records
+00:04:36.265 info  NativeGenomicsDB - pid=3618425 tid=3619756 No valid combination operation found for INFO field MLEAF  - the field will NOT be part of INFO fields in the generated VCF records
+Chromosome Chr01 position 60011816 (TileDB column 60011815) has too many alleles in the combined VCF record : 72 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr01 position 62017063 (TileDB column 62017062) has too many alleles in the combined VCF record : 53 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr01 position 62017080 (TileDB column 62017079) has too many alleles in the combined VCF record : 104 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Job 68683285 stderr output:
+

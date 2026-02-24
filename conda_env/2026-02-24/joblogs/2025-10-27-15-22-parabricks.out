@@ -1,0 +1,36 @@
+✨ 启动小花糖芥 SNP/INDEL 发现流程 ✨
+⚙️ 步骤 0: 创建输出目录...
+✅ 输出目录创建完成。
+📝 步骤 0.5: 准备参考基因组索引...
+👍 BWA 索引已存在，跳过创建。
+👍 SAMtools 索引 (.fai) 已存在，跳过创建。
+👍 GATK 序列字典 (.dict) 已存在，跳过创建。
+✅ 参考基因组索引准备完成。
+📊 步骤 1: 运行测序数据比对 (biopytools parabricks)...
+[2025-10-27 15:22:29] INFO - 🐳 使用容器引擎 | Using container engine: apptainer
+[2025-10-27 15:22:29] INFO - 🚀 开始parabricks WGS分析 | Starting parabricks WGS analysis
+[2025-10-27 15:22:29] INFO - 📂 输入目录 | Input: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/fastq
+[2025-10-27 15:22:29] INFO - 📤 输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping
+[2025-10-27 15:22:29] INFO - 🧬 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/genome/Erysimum_cheiranthoides_chromosomes.fna
+[2025-10-27 15:22:29] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-27 15:22:29] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-27 15:22:29] INFO - ✅ ✓ parabricks程序检查通过 | parabricks program check passed
+[2025-10-27 15:22:29] INFO - 🔍 搜索输入文件，模式: *_1.clean.fq.gz | Searching input files with pattern: *_1.clean.fq.gz
+[2025-10-27 15:22:29] INFO - ✅ 找到 8 个样品需要处理 | Found 8 samples to process
+[2025-10-27 15:22:29] INFO - ============================================================
+[2025-10-27 15:22:29] INFO - 🔬 开始批量处理 (all) | Starting batch processing
+[2025-10-27 15:22:29] INFO - [1/8] 🧪 处理样品 | Processing: 68-1A
+[2025-10-27 15:22:29] INFO - 🚀 开始处理样品 | Starting to process sample: 68-1A
+[2025-10-27 15:22:29] INFO -   📄 R1文件 | R1 file: 68-1A_1.clean.fq.gz
+[2025-10-27 15:22:29] INFO -   📄 R2文件 | R2 file: 68-1A_2.clean.fq.gz
+[2025-10-27 15:22:29] INFO -   📜 输出 GVCF | Output GVCF: vcf/68-1A.g.vcf.gz
+[2025-10-27 15:22:29] INFO -   💾 输出 BAM | Output BAM: bam/68-1A.sorted.bam
+[2025-10-27 15:22:29] INFO -   1️⃣  步骤1: FASTQ to BAM | Step 1: FASTQ to BAM
+[2025-10-27 15:22:29] INFO - 🚀 执行步骤 | Executing step: 🧬 fq2bam (样品: 68-1A) | fq2bam (sample: 68-1A)
+[2025-10-27 15:22:29] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/fastq:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/fastq --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/genome:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping /share/apps/containers/parabricks.sif pbrun fq2bam --ref /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/genome/Erysimum_cheiranthoides_chromosomes.fna --in-fq /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/fastq/68-1A_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/fastq/68-1A_2.clean.fq.gz --out-bam /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping/bam/68-1A.sorted.bam --read-group-sm 68-1A --read-group-pl ILLUMINA
+[2025-10-27 15:22:29] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping
+[2025-10-27 15:25:21] INFO - ✅ 命令执行成功 | Command executed successfully: 🧬 fq2bam (样品: 68-1A) | fq2bam (sample: 68-1A)
+[2025-10-27 15:25:21] INFO -   2️⃣  步骤2: BAM to VCF/GVCF | Step 2: BAM to VCF/GVCF
+[2025-10-27 15:25:21] INFO - 🚀 执行步骤 | Executing step: 📜 haplotypecaller (样品: 68-1A) | haplotypecaller (sample: 68-1A)
+[2025-10-27 15:25:21] INFO - 💻 容器命令 | Container command: apptainer exec --nv --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/genome:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/genome --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping --bind=/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping/bam:/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping/bam /share/apps/containers/parabricks.sif pbrun haplotypecaller --ref /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/01.data/genome/Erysimum_cheiranthoides_chromosomes.fna --in-bam /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping/bam/68-1A.sorted.bam --out-variants /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping/vcf/68-1A.g.vcf.gz --gvcf
+[2025-10-27 15:25:21] INFO - 📂 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/03.7个样品之间的相似性/02.mapping

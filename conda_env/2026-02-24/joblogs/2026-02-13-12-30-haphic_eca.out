@@ -1,0 +1,921 @@
+2026-02-13 12:30:27.015 - INFO - HapHiC处理器已初始化|HapHiC processor initialized
+2026-02-13 12:30:27.015 - INFO - 配置参数|Configuration Parameters:
+2026-02-13 12:30:27.015 - INFO -   assembly_file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/02.fasta/EcA.primary.fa
+2026-02-13 12:30:27.015 - INFO -   hic_file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/01.data/hic/clean/eca_hic_1.clean.fq.gz
+2026-02-13 12:30:27.016 - INFO -   hic_file_type: fastq
+2026-02-13 12:30:27.016 - INFO -   nchrs: 8
+2026-02-13 12:30:27.016 - INFO -   output_dir: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic
+2026-02-13 12:30:27.016 - INFO -   prefix: EcA
+2026-02-13 12:30:27.016 - INFO -   threads: 64
+2026-02-13 12:30:27.016 - INFO -   processes: 8
+2026-02-13 12:30:27.016 - INFO -   quick_view: False
+2026-02-13 12:30:27.016 - INFO -   restriction_sites: ['GATC']
+2026-02-13 12:30:27.016 - INFO -   correct_nrounds: 2
+2026-02-13 12:30:27.016 - INFO -   remove_allelic_links: None
+2026-02-13 12:30:27.016 - INFO -   phasing_weight: 1.0
+2026-02-13 12:30:27.016 - INFO -   gfa_files: None
+2026-02-13 12:30:27.016 - INFO -   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+2026-02-13 12:30:27.016 - INFO -   bwa_bin: bwa
+2026-02-13 12:30:27.016 - INFO -   samtools_bin: samtools
+2026-02-13 12:30:27.016 - INFO - 开始HapHiC流程|Starting HapHiC pipeline
+2026-02-13 12:30:27.016 - INFO - 系统预检查|System pre-flight checks
+2026-02-13 12:30:27.016 - INFO - 验证输入文件|Validating input files
+2026-02-13 12:30:28.184 - INFO - 基因组序列数量|Assembly sequence count: 6571
+2026-02-13 12:30:28.184 - INFO - FASTQ文件大小|FASTQ file sizes: R1 16.39 GB, R2 15.95 GB
+2026-02-13 12:30:28.184 - INFO - 输入文件验证通过|Input files validated
+2026-02-13 12:30:28.184 - INFO - 检查系统资源|Checking system resources
+2026-02-13 12:30:28.465 - INFO - 可用内存|Available memory: 454.9 GB
+2026-02-13 12:30:28.465 - INFO - 可用磁盘空间|Available disk space: 3802549.3 GB
+2026-02-13 12:30:28.465 - INFO - CPU核心数|CPU cores: 88
+2026-02-13 12:30:31.416 - INFO - 预检查通过|Pre-flight checks passed
+2026-02-13 12:30:31.416 - INFO - 检查已存在的比对结果|Checking for existing alignment results
+2026-02-13 12:30:31.416 - INFO - 输出目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic
+2026-02-13 12:30:31.416 - INFO - 比对目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping
+2026-02-13 12:30:31.416 - INFO - 潜在BAM文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping/HiC.bam
+2026-02-13 12:30:31.416 - INFO - 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping/HiC.filtered.bam
+2026-02-13 12:30:31.416 - INFO - 比对目录不存在|Alignment directory does not exist
+2026-02-13 12:30:31.416 - INFO - 执行BWA比对|Executing BWA alignment
+2026-02-13 12:30:31.416 - INFO -  开始BWA比对|Starting BWA alignment (official method)
+2026-02-13 12:30:31.417 - INFO -  使用提供的FASTQ文件对|Using provided FASTQ pair: eca_hic_1.clean.fq.gz
+2026-02-13 12:30:31.417 - INFO -  找到 1 对FASTQ文件|Found 1 FASTQ pairs
+2026-02-13 12:30:31.451 - INFO -  创建基因组软链接|Created assembly symlink: assembly.fa
+2026-02-13 12:30:31.467 - INFO -  创建FASTQ软链接|Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+2026-02-13 12:30:31.467 - INFO -  创建BWA索引|Creating BWA index: assembly.fa
+2026-02-13 12:38:04.719 - INFO -  BWA索引创建完成|BWA index created
+2026-02-13 12:38:04.720 - INFO -  步骤1: BWA比对 + 去重 + 初步过滤 (使用 64 线程)|Step 1: BWA alignment + deduplication + initial filtering (using 64 threads)
+2026-02-13 12:38:04.720 - INFO -  执行BWA比对管道|Executing BWA alignment pipeline
+2026-02-13 14:13:06.641 - INFO -  BWA比对完成，生成 HiC.bam
+2026-02-13 14:13:06.642 - INFO -  BAM文件大小: 51038.97 MB
+2026-02-13 14:13:06.642 - INFO -  步骤2: HapHiC过滤|Step 2: HapHiC filtering
+2026-02-13 14:26:14.353 - INFO -  HapHiC过滤完成，生成 HiC.filtered.bam
+2026-02-13 14:26:14.353 - INFO -  过滤后BAM文件大小: 35698.87 MB
+2026-02-13 14:26:14.353 - INFO -  BWA比对完成|BWA alignment completed: HiC.filtered.bam
+2026-02-13 14:26:14.353 - INFO -  开始HapHiC Pipeline流程|Starting HapHiC Pipeline
+2026-02-13 14:26:14.353 - INFO -  设置目录结构|Setting up directory structure
+2026-02-13 14:26:14.354 - INFO -  目录结构设置完成|Directory structure setup complete
+2026-02-13 14:26:14.354 - INFO -  检查HapHiC Pipeline完成状态|Checking HapHiC Pipeline completion status
+2026-02-13 14:26:14.354 - INFO -  Cluster步骤未完成|Cluster step not completed
+2026-02-13 14:26:14.354 - INFO -    期待文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/01.cluster/corrected_asm.fa, /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/01.cluster/paired_links.clm
+2026-02-13 14:26:14.354 - INFO -  Reassign步骤未完成|Reassign step not completed
+2026-02-13 14:26:14.354 - INFO -    期待文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/final_clusters.txt
+2026-02-13 14:26:14.354 - INFO -  Sort步骤未完成|Sort step not completed
+2026-02-13 14:26:14.354 - INFO -    期待文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/03.sort/*.tour (0 files)
+2026-02-13 14:26:14.354 - INFO -  Build步骤未完成|Build step not completed
+2026-02-13 14:26:14.354 - INFO -    期待文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/04.build/EcA.fa, /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/04.build/EcA.agp
+2026-02-13 14:26:14.354 - INFO -  运行HapHiC Pipeline|Running HapHiC Pipeline
+2026-02-13 14:26:14.354 - INFO -  HapHiC将处理已存在的目录|HapHiC will handle existing directories
+2026-02-13 14:26:14.354 - INFO -  自动优化分辨率: 500bp (基于覆盖率10.0)
+2026-02-13 14:26:14.354 - INFO -  启用组装校正，使用分辨率: 500bp (内存优化)
+2026-02-13 14:26:14.354 - INFO -  工作目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic
+2026-02-13 14:26:14.354 - INFO - HapHiC Pipeline
+2026-02-13 14:55:38.977 - INFO - 命令执行成功|Command executed successfully (耗时: 1764.62秒)
+2026-02-13 14:55:38.977 - INFO - 命令输出|Command Output:
+2026-02-13 14:26:42 <HapHiC_pipeline.py> [main] Pipeline started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 14:26:42 <HapHiC_pipeline.py> [main] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 14:26:42 <HapHiC_pipeline.py> [main] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/02.fasta/EcA.primary.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping/HiC.filtered.bam 8 --aln_format bam --outdir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic --RE GATC --steps 1,2,3,4 --threads 64 --processes 8 --correct_nrounds 2 --correct_resolution 500 --median_cov_ratio 0.2 --region_len_ratio 0.1 --min_region_cutoff 5000 --Nx 80 --RE_site_cutoff 25 --density_lower 0.2X --density_upper 1.9X --read_depth_upper 1.5X --topN 10 --min_inflation 1.0 --max_inflation 3.0 --inflation_step 0.2 --expansion 2 --max_iter 200 --pruning 0.0001 --min_group_len 0 --max_ctg_len 10000 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --min_density_ratio 4 --ambiguous_cutoff 0.6 --reassign_nrounds 5 --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --Ns 100 --max_width 60 --prefix EcA
+2026-02-13 14:26:42 <HapHiC_pipeline.py> [main] The directory /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic already exists
+2026-02-13 14:26:42 <HapHiC_pipeline.py> [haphic_cluster] Step1: Execute preprocessing and Markov clustering for contigs...
+2026-02-13 14:26:43 <HapHiC_cluster.py> [run] Program started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 14:26:43 <HapHiC_cluster.py> [run] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 14:26:43 <HapHiC_cluster.py> [run] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/02.fasta/EcA.primary.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping/HiC.filtered.bam 8 --aln_format bam --outdir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic --RE GATC --steps 1,2,3,4 --threads 64 --processes 8 --correct_nrounds 2 --correct_resolution 500 --median_cov_ratio 0.2 --region_len_ratio 0.1 --min_region_cutoff 5000 --Nx 80 --RE_site_cutoff 25 --density_lower 0.2X --density_upper 1.9X --read_depth_upper 1.5X --topN 10 --min_inflation 1.0 --max_inflation 3.0 --inflation_step 0.2 --expansion 2 --max_iter 200 --pruning 0.0001 --min_group_len 0 --max_ctg_len 10000 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --min_density_ratio 4 --ambiguous_cutoff 0.6 --reassign_nrounds 5 --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --Ns 100 --max_width 60 --prefix EcA
+2026-02-13 14:26:43 <HapHiC_cluster.py> [parse_fasta] Parsing input FASTA file...
+2026-02-13 14:26:47 <HapHiC_cluster.py> [determine_int_type] The longest and second longest contigs are 26402014 bp and 23266732 bp, respectively. The data types for contig positions and CLM distances are calculated to be int32 and int32, respectively.
+2026-02-13 14:26:47 <HapHiC_cluster.py> [parse_bam_for_correction] Parsing input BAM file for contig correction...
+2026-02-13 14:26:47 <HapHiC_cluster.py> [check_sorting_order] The sorting order of the BAM file is unsorted
+2026-02-13 14:40:18 <HapHiC_cluster.py> [correct_assembly] Performing assembly correction...
+2026-02-13 14:40:21 <HapHiC_cluster.py> [correct_assembly] Correction round 1, breakpoints are detected in 168 contig(s)
+2026-02-13 14:40:21 <HapHiC_cluster.py> [break_and_update_ctgs] Breaking contigs and updating data...
+2026-02-13 14:40:21 <HapHiC_cluster.py> [correct_assembly] Correction round 2, breakpoints are detected in 16 contig(s)
+2026-02-13 14:40:21 <HapHiC_cluster.py> [break_and_update_ctgs] Breaking contigs and updating data...
+2026-02-13 14:40:21 <HapHiC_cluster.py> [correct_assembly] Generating corrected assembly file...
+2026-02-13 14:40:21 <HapHiC_cluster.py> [correct_assembly] 168 contigs were broken into 361 contigs. Writing corrected assembly to corrected_asm.fa...
+2026-02-13 14:40:21 <HapHiC_cluster.py> [stat_fragments] Making some statistics of fragments (contigs / bins)
+2026-02-13 14:40:21 <HapHiC_cluster.py> [stat_fragments] bin_size is calculated to be 2000000 bp
+2026-02-13 14:40:21 <HapHiC_cluster.py> [parse_alignments] Parsing input alignments...
+2026-02-13 14:40:21 <HapHiC_cluster.py> [check_sorting_order] The sorting order of the BAM file is unsorted
+2026-02-13 14:53:09 <HapHiC_cluster.py> [output_pickle] Writing HT_link_dict to HT_links.pkl...
+2026-02-13 14:53:09 <HapHiC_cluster.py> [output_clm] Writing clm_dict to paired_links.clm...
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] Filtering fragments...
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] [Nx filtering] 3780 fragments kept
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] [RE sites filtering] 1 fragments removed, 3779 fragments kept
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] [link density filtering] Parameter --density_lower 0.2X is set to "multiple" mode and equivalent to 0.9756549351680339 in "fraction" mode
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] [link density filtering] Parameter --density_upper 1.9X is set to "multiple" mode and equivalent to 0.9825350621857635 in "fraction" mode
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] [link density filtering] 3753 fragments removed, 26 fragments kept
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] [rank sum filtering] Q1=205.0, median=206.0, Q3=218.75, IQR=Q3-Q1=13.75
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] [rank sum filtering] Parameter --rank_sum_upper 1.5X is set to "multiple" mode and equivalent to 0.9615384615384616 in "fraction" mode
+2026-02-13 14:54:58 <HapHiC_cluster.py> [filter_fragments] [rank sum filtering] 1 fragments removed, 25 fragments kept
+2026-02-13 14:54:58 <HapHiC_cluster.py> [output_pickle] Writing full_link_dict to full_links.pkl...
+2026-02-13 14:54:59 <HapHiC_cluster.py> [run] Hi-C linking matrix was constructed in 1695.970974445343s
+2026-02-13 14:54:59 <HapHiC_cluster.py> [run_mcl_clustering] Performing Markov clustering...
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 7 rounds of iterations (expansion: 2, inflation: 1.0, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 55 rounds of iterations (expansion: 2, inflation: 1.2, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 18 rounds of iterations (expansion: 2, inflation: 1.4, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 17 rounds of iterations (expansion: 2, inflation: 1.6, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 18 rounds of iterations (expansion: 2, inflation: 1.8, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 13 rounds of iterations (expansion: 2, inflation: 2.0, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 10 rounds of iterations (expansion: 2, inflation: 2.2, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 9 rounds of iterations (expansion: 2, inflation: 2.4, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 9 rounds of iterations (expansion: 2, inflation: 2.6, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 8 rounds of iterations (expansion: 2, inflation: 2.8, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [mcl] The matrix has converged after 8 rounds of iterations (expansion: 2, inflation: 3.0, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [recommend_inflation] You could try inflation from 2.0 (length ratio = 0.75)
+2026-02-13 14:54:59 <HapHiC_cluster.py> [run] 11 round(s) of Markov clustering finished in 0.8037636280059814s, average 0.0730694207278165s per round
+2026-02-13 14:54:59 <HapHiC_cluster.py> [output_statistics] Making some statistics for the next HapHiC reassignment step...
+2026-02-13 14:55:12 <HapHiC_cluster.py> [run] Program finished in 1709.3736999034882s
+2026-02-13 14:55:12 <HapHiC_pipeline.py> [haphic_reassign] Step2: Reassign and rescue contigs...
+2026-02-13 14:55:12 <HapHiC_reassign.py> [run] Program started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 14:55:12 <HapHiC_reassign.py> [run] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 14:55:12 <HapHiC_reassign.py> [run] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/02.fasta/EcA.primary.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping/HiC.filtered.bam 8 --aln_format bam --outdir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic --RE GATC --steps 1,2,3,4 --threads 64 --processes 8 --correct_nrounds 2 --correct_resolution 500 --median_cov_ratio 0.2 --region_len_ratio 0.1 --min_region_cutoff 5000 --Nx 80 --RE_site_cutoff 25 --density_lower 0.2X --density_upper 1.9X --read_depth_upper 1.5X --topN 10 --min_inflation 1.0 --max_inflation 3.0 --inflation_step 0.2 --expansion 2 --max_iter 200 --pruning 0.0001 --min_group_len 0 --max_ctg_len 10000 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --min_density_ratio 4 --ambiguous_cutoff 0.6 --reassign_nrounds 5 --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --Ns 100 --max_width 60 --prefix EcA
+2026-02-13 14:55:12 <HapHiC_cluster.py> [parse_fasta] Parsing input FASTA file...
+2026-02-13 14:55:14 <HapHiC_cluster.py> [determine_int_type] The longest and second longest contigs are 26402014 bp and 23266732 bp, respectively. The data types for contig positions and CLM distances are calculated to be int32 and int32, respectively.
+2026-02-13 14:55:14 <HapHiC_reassign.py> [parse_pickle] Parsing input pickle file...
+2026-02-13 14:55:14 <HapHiC_reassign.py> [parse_clusters] Parsing .clusters.txt file...
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run] File parsing and data preparation finished in 2.2453842163085938s
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run_reassignment] Performing reassignment...
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run_reassignment] [result::round1] Total: 6764, consistent: 1, rescued: 9, reassigned: 0, not rescued: 6754
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run_reassignment] Performing reassignment...
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run_reassignment] [result::round2] Total: 6764, consistent: 10, rescued: 0, reassigned: 0, not rescued: 6754
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run] [result::round2] Result has converged after 1 rounds of reassignment, break
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run_reassignment] Performing additional round of rescue...
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run_reassignment] [result::additional_rescue] Total: 6764, consistent: 18, rescued: 2, reassigned: 0, not rescued: 6744
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run] 2 round(s) of reassignment finished in 0.03956294059753418s, average 0.01978147029876709s per round
+2026-02-13 14:55:14 <HapHiC_reassign.py> [run] Parameter --nclusters (8) is equal to the number of clusters (8) after reassignment, skip Agglomerative Hierarchical Clustering
+2026-02-13 14:55:14 <HapHiC_reassign.py> [split_clm_file] Splitting clm file into subfiles by group...
+2026-02-13 14:55:32 <HapHiC_reassign.py> [run] Program finished in 20.466440439224243s
+2026-02-13 14:55:33 <HapHiC_pipeline.py> [haphic_sort] Step3: Order and orient contigs within each group...
+2026-02-13 14:55:33 <HapHiC_sort.py> [run] Program started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 14:55:33 <HapHiC_sort.py> [run] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 14:55:33 <HapHiC_sort.py> [run] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_sort.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/01.cluster/corrected_asm.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/01.cluster/HT_links.pkl /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/split_clms /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/group6_21087445bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/group5_22091591bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/group1_26402014bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/group3_23266732bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/group2_25062947bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/group4_22538560bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/group8_19883470bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/02.reassign/final_groups/group7_20955602bp.txt --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --processes 8 --flanking_region 0 --density_cal_method multiplication --confidence_cutoff 1
+2026-02-13 14:55:33 <HapHiC_sort.py> [run] Checking the path of ALLHiC...
+2026-02-13 14:55:33 <HapHiC_sort.py> [run] ALLHiC has been found in /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts
+2026-02-13 14:55:33 <HapHiC_sort.py> [parse_fasta] Parsing fasta file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [run] Loading input pickle file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [run] Parsing group files and clm files...
+2026-02-13 14:55:34 <HapHiC_sort.py> [run] Program will be executed in multiprocessing mode (processes=8)
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group6_21087445bp] Performing fast sorting...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group6_21087445bp] Checking the content of input group file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group6_21087445bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group5_22091591bp] Performing fast sorting...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group5_22091591bp] Checking the content of input group file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group5_22091591bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group1_26402014bp] Performing fast sorting...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group1_26402014bp] Checking the content of input group file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group1_26402014bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group3_23266732bp] Performing fast sorting...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group3_23266732bp] Checking the content of input group file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group3_23266732bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group2_25062947bp] Performing fast sorting...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group2_25062947bp] Checking the content of input group file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group8_19883470bp] Performing fast sorting...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group4_22538560bp] Performing fast sorting...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group8_19883470bp] Checking the content of input group file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group2_25062947bp] Starting fast sorting iterations...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group4_22538560bp] Checking the content of input group file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group8_19883470bp] Starting fast sorting iterations...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group4_22538560bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group7_20955602bp] Performing fast sorting...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group7_20955602bp] Checking the content of input group file...
+2026-02-13 14:55:34 <HapHiC_sort.py> [fast_sort] [group7_20955602bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 14:55:34 <HapHiC_sort.py> [run] Program finished in 0.8402044773101807s
+2026-02-13 14:55:34 <HapHiC_pipeline.py> [haphic_build] Step4: Build final scaffolds (pseudomolecules)...
+2026-02-13 14:55:34 <HapHiC_build.py> [run] Program started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 14:55:34 <HapHiC_build.py> [run] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 14:55:34 <HapHiC_build.py> [run] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/02.hifiasm/EcA/02.fasta/EcA.primary.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping/HiC.filtered.bam 8 --aln_format bam --outdir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic --RE GATC --steps 1,2,3,4 --threads 64 --processes 8 --correct_nrounds 2 --correct_resolution 500 --median_cov_ratio 0.2 --region_len_ratio 0.1 --min_region_cutoff 5000 --Nx 80 --RE_site_cutoff 25 --density_lower 0.2X --density_upper 1.9X --read_depth_upper 1.5X --topN 10 --min_inflation 1.0 --max_inflation 3.0 --inflation_step 0.2 --expansion 2 --max_iter 200 --pruning 0.0001 --min_group_len 0 --max_ctg_len 10000 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --min_density_ratio 4 --ambiguous_cutoff 0.6 --reassign_nrounds 5 --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --Ns 100 --max_width 60 --prefix EcA
+2026-02-13 14:55:34 <HapHiC_cluster.py> [parse_fasta] Parsing input FASTA file...
+2026-02-13 14:55:36 <HapHiC_build.py> [parse_tours] Parsing tour files...
+2026-02-13 14:55:36 <HapHiC_build.py> [build_final_scaffolds] Building final scaffolds...
+2026-02-13 14:55:38 <HapHiC_build.py> [run] Program finished in 4.094733476638794s
+2026-02-13 14:55:38 <HapHiC_pipeline.py> [main] HapHiC pipeline finished in 1736.073887348175s
+2026-02-13 14:55:38.977 - INFO -  验证Pipeline输出|Verifying pipeline output
+2026-02-13 14:55:38.977 - WARNING -  corrected_asm不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/EcA_corrected.asm.fa
+2026-02-13 14:55:38.977 - INFO -  scaffolds_agp: EcA.agp (307,632 bytes)
+2026-02-13 14:55:38.977 - INFO -  scaffolds_raw_agp: EcA.raw.agp (304,768 bytes)
+2026-02-13 14:55:38.977 - INFO -  scaffolds_fasta: EcA.fa (648,098,094 bytes)
+2026-02-13 14:55:38.978 - WARNING -  juicebox_script不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/04.build/EcA_juicebox.sh
+2026-02-13 14:55:38.978 - WARNING -  contact_map不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/EcA_contact_map.pdf
+2026-02-13 14:55:39.006 - WARNING -  hic_file不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.hic
+2026-02-13 14:55:39.006 - WARNING -  assembly_file不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.assembly
+2026-02-13 14:55:39.006 - INFO -  log_file: EcA_haphic.log (28,661 bytes)
+2026-02-13 14:55:39.006 - INFO -  可视化生成已禁用|Visualization generation disabled
+2026-02-13 14:55:39.006 - INFO -  生成Juicebox文件|Generating Juicebox files
+2026-02-13 14:55:39.007 - INFO -  步骤1: 生成.mnd文件|Step 1: Generating .mnd file
+2026-02-13 14:55:39.007 - INFO - 生成.mnd文件
+2026-02-13 15:04:57.425 - INFO - 命令执行成功|Command executed successfully (耗时: 558.42秒)
+2026-02-13 15:04:57.425 - INFO - 命令输出|Command Output:
+INFO: converting bam to juicer on /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping/HiC.filtered.bam
+INFO: detected bam filetype
+INFO: reading file "/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/00.mapping/HiC.filtered.bam"
+INFO: parsed 1000000 read pairs
+INFO: parsed 2000000 read pairs
+INFO: parsed 3000000 read pairs
+INFO: parsed 4000000 read pairs
+INFO: parsed 5000000 read pairs
+INFO: parsed 6000000 read pairs
+INFO: parsed 7000000 read pairs
+INFO: parsed 8000000 read pairs
+INFO: parsed 9000000 read pairs
+INFO: parsed 10000000 read pairs
+INFO: parsed 11000000 read pairs
+INFO: parsed 12000000 read pairs
+INFO: parsed 13000000 read pairs
+INFO: parsed 14000000 read pairs
+INFO: parsed 15000000 read pairs
+INFO: parsed 16000000 read pairs
+INFO: parsed 17000000 read pairs
+INFO: parsed 18000000 read pairs
+INFO: parsed 19000000 read pairs
+INFO: parsed 20000000 read pairs
+INFO: parsed 21000000 read pairs
+INFO: parsed 22000000 read pairs
+INFO: parsed 23000000 read pairs
+INFO: parsed 24000000 read pairs
+INFO: parsed 25000000 read pairs
+INFO: parsed 26000000 read pairs
+INFO: parsed 27000000 read pairs
+INFO: parsed 28000000 read pairs
+INFO: parsed 29000000 read pairs
+INFO: parsed 30000000 read pairs
+INFO: parsed 31000000 read pairs
+INFO: parsed 32000000 read pairs
+INFO: parsed 33000000 read pairs
+INFO: parsed 34000000 read pairs
+INFO: parsed 35000000 read pairs
+INFO: parsed 36000000 read pairs
+INFO: parsed 37000000 read pairs
+INFO: parsed 38000000 read pairs
+INFO: parsed 39000000 read pairs
+INFO: parsed 40000000 read pairs
+INFO: parsed 41000000 read pairs
+INFO: parsed 42000000 read pairs
+INFO: parsed 43000000 read pairs
+INFO: parsed 44000000 read pairs
+INFO: parsed 45000000 read pairs
+INFO: parsed 46000000 read pairs
+INFO: parsed 47000000 read pairs
+INFO: parsed 48000000 read pairs
+INFO: parsed 49000000 read pairs
+INFO: parsed 50000000 read pairs
+INFO: parsed 51000000 read pairs
+INFO: parsed 52000000 read pairs
+INFO: parsed 53000000 read pairs
+INFO: parsed 54000000 read pairs
+INFO: parsed 55000000 read pairs
+INFO: parsed 56000000 read pairs
+INFO: parsed 57000000 read pairs
+INFO: parsed 58000000 read pairs
+INFO: parsed 59000000 read pairs
+INFO: parsed 60000000 read pairs
+INFO: parsed 61000000 read pairs
+INFO: parsed 62000000 read pairs
+INFO: parsed 63000000 read pairs
+INFO: parsed 64000000 read pairs
+INFO: parsed 65000000 read pairs
+INFO: parsed 66000000 read pairs
+INFO: parsed 67000000 read pairs
+INFO: parsed 68000000 read pairs
+INFO: parsed 69000000 read pairs
+INFO: parsed 70000000 read pairs
+INFO: parsed 71000000 read pairs
+INFO: parsed 72000000 read pairs
+INFO: parsed 73000000 read pairs
+INFO: parsed 74000000 read pairs
+INFO: parsed 75000000 read pairs
+INFO: parsed 76000000 read pairs
+INFO: parsed 77000000 read pairs
+INFO: parsed 78000000 read pairs
+INFO: parsed 79000000 read pairs
+INFO: parsed 80000000 read pairs
+INFO: parsed 81000000 read pairs
+INFO: parsed 82000000 read pairs
+INFO: parsed 83000000 read pairs
+INFO: parsed 84000000 read pairs
+INFO: parsed 85000000 read pairs
+INFO: parsed 86000000 read pairs
+INFO: parsed 87000000 read pairs
+INFO: parsed 88000000 read pairs
+INFO: parsed 89000000 read pairs
+INFO: parsed 90000000 read pairs
+INFO: parsed 91000000 read pairs
+INFO: parsed 92000000 read pairs
+INFO: parsed 93000000 read pairs
+INFO: parsed 94000000 read pairs
+INFO: parsed 95000000 read pairs
+INFO: parsed 96000000 read pairs
+INFO: parsed 97000000 read pairs
+INFO: parsed 98000000 read pairs
+INFO: parsed 99000000 read pairs
+INFO: parsed 100000000 read pairs
+INFO: parsed 101000000 read pairs
+INFO: parsed 102000000 read pairs
+INFO: parsed 103000000 read pairs
+INFO: parsed 104000000 read pairs
+INFO: parsed 105000000 read pairs
+INFO: parsed 106000000 read pairs
+INFO: parsed 107000000 read pairs
+INFO: parsed 108000000 read pairs
+INFO: parsed 109000000 read pairs
+INFO: parsed 110000000 read pairs
+INFO: parsed 111000000 read pairs
+INFO: parsed 112000000 read pairs
+INFO: parsed 113000000 read pairs
+INFO: parsed 114000000 read pairs
+INFO: parsed 115000000 read pairs
+INFO: parsed 116000000 read pairs
+INFO: parsed 117000000 read pairs
+INFO: parsed 118000000 read pairs
+INFO: parsed 119000000 read pairs
+INFO: parsed 120000000 read pairs
+INFO: parsed 121000000 read pairs
+INFO: parsed 122000000 read pairs
+INFO: parsed 123000000 read pairs
+INFO: parsed 124000000 read pairs
+INFO: parsed 125000000 read pairs
+INFO: parsed 126000000 read pairs
+INFO: parsed 127000000 read pairs
+INFO: parsed 128000000 read pairs
+INFO: parsed 129000000 read pairs
+INFO: parsed 130000000 read pairs
+INFO: parsed 131000000 read pairs
+INFO: parsed 132000000 read pairs
+INFO: parsed 133000000 read pairs
+INFO: parsed 134000000 read pairs
+INFO: parsed 135000000 read pairs
+INFO: parsed 136000000 read pairs
+INFO: parsed 137000000 read pairs
+INFO: parsed 138000000 read pairs
+INFO: parsed 139000000 read pairs
+INFO: parsed 140000000 read pairs
+INFO: parsed 141000000 read pairs
+INFO: parsed 142000000 read pairs
+INFO: parsed 143000000 read pairs
+INFO: parsed 144000000 read pairs
+INFO: parsed 145000000 read pairs
+INFO: parsed 146000000 read pairs
+INFO: parsed 147000000 read pairs
+INFO: parsed 148000000 read pairs
+INFO: parsed 149000000 read pairs
+INFO: parsed 150000000 read pairs
+INFO: parsed 151000000 read pairs
+INFO: parsed 152000000 read pairs
+INFO: parsed 153000000 read pairs
+INFO: parsed 154000000 read pairs
+INFO: parsed 155000000 read pairs
+INFO: parsed 156000000 read pairs
+INFO: parsed 157000000 read pairs
+INFO: parsed 158000000 read pairs
+INFO: parsed 159000000 read pairs
+INFO: parsed 160000000 read pairs
+INFO: parsed 161000000 read pairs
+INFO: parsed 162000000 read pairs
+INFO: parsed 163000000 read pairs
+INFO: parsed 164000000 read pairs
+INFO: parsed 165000000 read pairs
+INFO: parsed 166000000 read pairs
+INFO: parsed 167000000 read pairs
+INFO: parsed 168000000 read pairs
+INFO: parsed 169000000 read pairs
+INFO: parsed 170000000 read pairs
+INFO: parsed 171000000 read pairs
+INFO: parsed 172000000 read pairs
+INFO: parsed 173000000 read pairs
+INFO: parsed 174000000 read pairs
+INFO: parsed 175000000 read pairs
+INFO: parsed 176000000 read pairs
+INFO: parsed 177000000 read pairs
+INFO: parsed 178000000 read pairs
+INFO: parsed 179000000 read pairs
+INFO: parsed 180000000 read pairs
+INFO: parsed 181000000 read pairs
+INFO: parsed 182000000 read pairs
+INFO: parsed 183000000 read pairs
+INFO: parsed 184000000 read pairs
+INFO: parsed 185000000 read pairs
+INFO: parsed 186000000 read pairs
+INFO: parsed 187000000 read pairs
+INFO: parsed 188000000 read pairs
+INFO: parsed 189000000 read pairs
+INFO: parsed 190000000 read pairs
+INFO: parsed 191000000 read pairs
+2026-02-13 15:04:57.425 - INFO -  步骤2: 排序.mnd文件|Step 2: Sorting .mnd file
+2026-02-13 15:19:25.573 - INFO -  步骤3: 生成.assembly文件|Step 3: Generating .assembly file
+2026-02-13 15:19:25.573 - INFO - 生成.assembly文件
+2026-02-13 15:19:25.796 - INFO - 命令执行成功|Command executed successfully (耗时: 0.22秒)
+2026-02-13 15:19:25.796 - INFO -  步骤4: 生成.hic文件|Step 4: Generating .hic file
+2026-02-13 15:19:25.796 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox
+2026-02-13 15:19:25.796 - INFO -  Assembly文件|Assembly file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.assembly
+2026-02-13 15:19:25.796 - INFO -  排序后的mnd文件|Sorted mnd file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/out.sorted.links.mnd
+2026-02-13 15:19:25.796 - INFO -  预期输出.hic文件|Expected .hic file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.hic
+2026-02-13 15:19:25.796 - INFO -  执行命令|Command: bash /share/org/YZWL/yzwl_lixg/software/3d-dna/visualize/run-assembly-visualizer.sh -p false /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.assembly /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/out.sorted.links.mnd
+2026-02-13 15:19:25.796 - INFO -  切换到目录|Changed to directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox
+2026-02-13 15:19:25.796 - INFO -  开始运行run-assembly-visualizer.sh脚本|Starting run-assembly-visualizer.sh script
+2026-02-13 15:31:38.995 - INFO -  脚本执行完成|Script execution completed with return code: 1
+2026-02-13 15:31:38.995 - INFO -  检查.hic文件生成状态|Checking .hic file generation status
+2026-02-13 15:31:38.995 - INFO -  当前目录内容|Current directory contents:
+2026-02-13 15:31:39.001 - INFO -    -rw-r--r-- 1 yzwl_lixg yzwl_lixg 154M 2月  13 15:31 EcA.hic
+2026-02-13 15:31:39.001 - INFO -  检查可能的.hic文件名|Checking possible .hic filenames:
+2026-02-13 15:31:39.001 - INFO -    1. 相对路径(相对名)|Relative filename: EcA.hic
+2026-02-13 15:31:39.001 - INFO -    2. 绝对路径|Absolute path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.hic
+2026-02-13 15:31:39.001 - INFO -    3. assembly.hic|assembly.hic
+2026-02-13 15:31:39.001 - INFO -    4. 最终目标|Target: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.hic
+2026-02-13 15:31:39.001 - INFO -  文件存在状态|File existence status:
+2026-02-13 15:31:39.001 - INFO -    EcA.hic: True
+2026-02-13 15:31:39.001 - INFO -    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.hic: True
+2026-02-13 15:31:39.001 - INFO -    assembly.hic: False
+2026-02-13 15:31:39.001 - INFO -    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.hic: True
+2026-02-13 15:31:39.001 - WARNING -  asm-visualizer返回码非0，但.hic文件已生成|asm-visualizer returned non-zero code, but .hic file exists
+2026-02-13 15:31:39.001 - WARNING -  返回码|Return code: 1
+2026-02-13 15:31:39.001 - INFO -  标准输出完整内容|Full Stdout:
+2026-02-13 15:31:39.001 - INFO -    :) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+2026-02-13 15:31:39.001 - INFO -    ...Remapping contact data from the original contig set to assembly
+2026-02-13 15:31:39.001 - INFO -    ...Building track files
+2026-02-13 15:31:39.001 - INFO -    ...Building the hic file
+2026-02-13 15:31:39.001 - INFO -    Not including fragment map
+2026-02-13 15:31:39.001 - INFO -    Start preprocess
+2026-02-13 15:31:39.001 - INFO -    Writing header
+2026-02-13 15:31:39.001 - INFO -    Writing body
+2026-02-13 15:31:39.001 - INFO -    ..
+2026-02-13 15:31:39.002 - INFO -    Writing footer
+2026-02-13 15:31:39.002 - INFO -    
+2026-02-13 15:31:39.002 - INFO -    Finished preprocess
+2026-02-13 15:31:39.002 - INFO -    HiC file version: 8
+2026-02-13 15:31:39.002 - INFO -    
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_2500000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_1000000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_500000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_250000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_100000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_50000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_25000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_10000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_5000
+2026-02-13 15:31:39.002 - INFO -    Calculating norms for zoom BP_1000
+2026-02-13 15:31:39.002 - INFO -    Writing expected
+2026-02-13 15:31:39.002 - INFO -    Writing norms
+2026-02-13 15:31:39.002 - INFO -    Finished writing norms
+2026-02-13 15:31:39.002 - INFO -    
+2026-02-13 15:31:39.002 - INFO -  查找生成的.hic文件|Looking for generated .hic file: EcA.hic
+2026-02-13 15:31:39.002 - INFO -  .hic文件已在正确位置|.hic file already at correct location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.hic
+2026-02-13 15:31:39.002 - INFO -  .hic文件处理成功|.hic file processing successful: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox/EcA.hic
+2026-02-13 15:31:39.002 - INFO -  验证Juicebox文件|Verifying Juicebox files
+2026-02-13 15:31:39.002 - INFO -  Juicebox文件生成成功|Juicebox files generated successfully
+2026-02-13 15:31:39.002 - INFO -   .hic文件大小: 153.46 MB
+2026-02-13 15:31:39.002 - INFO -   .assembly文件大小: 183.75 KB
+2026-02-13 15:31:39.002 - INFO -   文件位置: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/06.juicebox
+2026-02-13 15:31:39.002 - INFO -  HapHiC Pipeline完成|HapHiC Pipeline completed in 3924.65秒
+2026-02-13 15:31:39.002 - INFO - 检测到纠错后的contig，需要重新比对Hi-C数据|Detected corrected contigs, need to realign Hi-C data
+2026-02-13 15:31:39.003 - INFO - 创建纠错流程目录|Creating corrected workflow directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic
+2026-02-13 15:31:39.003 - INFO - 开始重新比对Hi-C数据到纠错后的组装|Starting Hi-C realignment to corrected assembly
+2026-02-13 15:31:39.003 - INFO -  开始BWA比对|Starting BWA alignment (official method)
+2026-02-13 15:31:39.003 - INFO -  使用纠错后重新比对目录|Using corrected realignment directory
+2026-02-13 15:31:39.004 - INFO -  使用提供的FASTQ文件对|Using provided FASTQ pair: eca_hic_1.clean.fq.gz
+2026-02-13 15:31:39.004 - INFO -  找到 1 对FASTQ文件|Found 1 FASTQ pairs
+2026-02-13 15:31:39.004 - INFO -  创建基因组软链接|Created assembly symlink: assembly.fa
+2026-02-13 15:31:39.005 - INFO -  创建FASTQ软链接|Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+2026-02-13 15:31:39.005 - INFO -  创建BWA索引|Creating BWA index: assembly.fa
+2026-02-13 15:39:20.764 - INFO -  BWA索引创建完成|BWA index created
+2026-02-13 15:39:20.764 - INFO -  步骤1: BWA比对 + 去重 + 初步过滤 (使用 64 线程)|Step 1: BWA alignment + deduplication + initial filtering (using 64 threads)
+2026-02-13 15:39:20.764 - INFO -  创建纠错后的BAM文件|Creating corrected BAM file
+2026-02-13 15:39:20.764 - INFO -  执行BWA比对管道|Executing BWA alignment pipeline
+2026-02-13 17:13:57.212 - INFO -  BWA比对完成，生成 HiC.corrected.bam
+2026-02-13 17:13:57.213 - INFO -  BAM文件大小: 51042.92 MB
+2026-02-13 17:13:57.213 - INFO -  步骤2: HapHiC过滤|Step 2: HapHiC filtering
+2026-02-13 17:13:57.213 - INFO -  创建纠错后的过滤BAM文件|Creating corrected filtered BAM file
+2026-02-13 17:26:59.489 - INFO -  HapHiC过滤完成，生成 HiC.corrected.filtered.bam
+2026-02-13 17:26:59.489 - INFO -  过滤后BAM文件大小: 35699.55 MB
+2026-02-13 17:26:59.489 - INFO -  BWA比对完成|BWA alignment completed: HiC.corrected.filtered.bam
+2026-02-13 17:26:59.489 - INFO - 开始针对纠错后contig的完整HapHiC流程|Starting complete HapHiC workflow for corrected contigs
+2026-02-13 17:26:59.489 - INFO -  开始HapHiC Pipeline流程|Starting HapHiC Pipeline
+2026-02-13 17:26:59.489 - INFO -  设置目录结构|Setting up directory structure
+2026-02-13 17:26:59.509 - INFO -  目录结构设置完成|Directory structure setup complete
+2026-02-13 17:26:59.509 - INFO -  检查HapHiC Pipeline完成状态|Checking HapHiC Pipeline completion status
+2026-02-13 17:26:59.509 - INFO -  Cluster步骤未完成|Cluster step not completed
+2026-02-13 17:26:59.509 - INFO -    期待文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/01.cluster/corrected_asm.fa, /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/01.cluster/paired_links.clm
+2026-02-13 17:26:59.509 - INFO -  Reassign步骤未完成|Reassign step not completed
+2026-02-13 17:26:59.509 - INFO -    期待文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/final_clusters.txt
+2026-02-13 17:26:59.509 - INFO -  Sort步骤未完成|Sort step not completed
+2026-02-13 17:26:59.509 - INFO -    期待文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/03.sort/*.tour (0 files)
+2026-02-13 17:26:59.509 - INFO -  Build步骤未完成|Build step not completed
+2026-02-13 17:26:59.509 - INFO -    期待文件: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/04.build/EcA_corrected.fa, /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/04.build/EcA_corrected.agp
+2026-02-13 17:26:59.509 - INFO -  运行HapHiC Pipeline|Running HapHiC Pipeline
+2026-02-13 17:26:59.509 - INFO -  HapHiC将处理已存在的目录|HapHiC will handle existing directories
+2026-02-13 17:26:59.509 - INFO -  自动优化分辨率: 500bp (基于覆盖率10.0)
+2026-02-13 17:26:59.509 - INFO -  启用组装校正，使用分辨率: 500bp (内存优化)
+2026-02-13 17:26:59.509 - INFO -  工作目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic
+2026-02-13 17:26:59.509 - INFO - HapHiC Pipeline
+2026-02-13 17:55:44.863 - INFO - 命令执行成功|Command executed successfully (耗时: 1725.35秒)
+2026-02-13 17:55:44.879 - INFO - 命令输出|Command Output:
+2026-02-13 17:27:00 <HapHiC_pipeline.py> [main] Pipeline started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 17:27:00 <HapHiC_pipeline.py> [main] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 17:27:00 <HapHiC_pipeline.py> [main] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/01.cluster/corrected_asm.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/00.mapping_corrected/HiC.corrected.filtered.bam 8 --aln_format bam --outdir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic --RE GATC --steps 1,2,3,4 --threads 64 --processes 8 --correct_nrounds 2 --correct_resolution 500 --median_cov_ratio 0.2 --region_len_ratio 0.1 --min_region_cutoff 5000 --Nx 80 --RE_site_cutoff 25 --density_lower 0.2X --density_upper 1.9X --read_depth_upper 1.5X --topN 10 --min_inflation 1.0 --max_inflation 3.0 --inflation_step 0.2 --expansion 2 --max_iter 200 --pruning 0.0001 --min_group_len 0 --max_ctg_len 10000 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --min_density_ratio 4 --ambiguous_cutoff 0.6 --reassign_nrounds 5 --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --Ns 100 --max_width 60 --prefix EcA_corrected
+2026-02-13 17:27:00 <HapHiC_pipeline.py> [main] The directory /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic already exists
+2026-02-13 17:27:00 <HapHiC_pipeline.py> [haphic_cluster] Step1: Execute preprocessing and Markov clustering for contigs...
+2026-02-13 17:27:00 <HapHiC_cluster.py> [run] Program started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 17:27:00 <HapHiC_cluster.py> [run] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 17:27:00 <HapHiC_cluster.py> [run] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/01.cluster/corrected_asm.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/00.mapping_corrected/HiC.corrected.filtered.bam 8 --aln_format bam --outdir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic --RE GATC --steps 1,2,3,4 --threads 64 --processes 8 --correct_nrounds 2 --correct_resolution 500 --median_cov_ratio 0.2 --region_len_ratio 0.1 --min_region_cutoff 5000 --Nx 80 --RE_site_cutoff 25 --density_lower 0.2X --density_upper 1.9X --read_depth_upper 1.5X --topN 10 --min_inflation 1.0 --max_inflation 3.0 --inflation_step 0.2 --expansion 2 --max_iter 200 --pruning 0.0001 --min_group_len 0 --max_ctg_len 10000 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --min_density_ratio 4 --ambiguous_cutoff 0.6 --reassign_nrounds 5 --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --Ns 100 --max_width 60 --prefix EcA_corrected
+2026-02-13 17:27:00 <HapHiC_cluster.py> [parse_fasta] Parsing input FASTA file...
+2026-02-13 17:27:02 <HapHiC_cluster.py> [determine_int_type] The longest and second longest contigs are 26402014 bp and 23266732 bp, respectively. The data types for contig positions and CLM distances are calculated to be int32 and int32, respectively.
+2026-02-13 17:27:02 <HapHiC_cluster.py> [parse_bam_for_correction] Parsing input BAM file for contig correction...
+2026-02-13 17:27:02 <HapHiC_cluster.py> [check_sorting_order] The sorting order of the BAM file is unsorted
+2026-02-13 17:40:11 <HapHiC_cluster.py> [correct_assembly] Performing assembly correction...
+2026-02-13 17:40:13 <HapHiC_cluster.py> [correct_assembly] Correction round 1, breakpoints are detected in 3 contig(s)
+2026-02-13 17:40:13 <HapHiC_cluster.py> [break_and_update_ctgs] Breaking contigs and updating data...
+2026-02-13 17:40:13 <HapHiC_cluster.py> [correct_assembly] Correction round 2, breakpoints are detected in 0 contig(s)
+2026-02-13 17:40:13 <HapHiC_cluster.py> [correct_assembly] Generating corrected assembly file...
+2026-02-13 17:40:13 <HapHiC_cluster.py> [correct_assembly] 3 contigs were broken into 6 contigs. Writing corrected assembly to corrected_asm.fa...
+2026-02-13 17:40:13 <HapHiC_cluster.py> [stat_fragments] Making some statistics of fragments (contigs / bins)
+2026-02-13 17:40:13 <HapHiC_cluster.py> [stat_fragments] bin_size is calculated to be 2000000 bp
+2026-02-13 17:40:14 <HapHiC_cluster.py> [parse_alignments] Parsing input alignments...
+2026-02-13 17:40:14 <HapHiC_cluster.py> [check_sorting_order] The sorting order of the BAM file is unsorted
+2026-02-13 17:53:22 <HapHiC_cluster.py> [output_pickle] Writing HT_link_dict to HT_links.pkl...
+2026-02-13 17:53:23 <HapHiC_cluster.py> [output_clm] Writing clm_dict to paired_links.clm...
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] Filtering fragments...
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] [Nx filtering] 3780 fragments kept
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] [RE sites filtering] 1 fragments removed, 3779 fragments kept
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] [link density filtering] Parameter --density_lower 0.2X is set to "multiple" mode and equivalent to 0.9756549351680339 in "fraction" mode
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] [link density filtering] Parameter --density_upper 1.9X is set to "multiple" mode and equivalent to 0.9825350621857635 in "fraction" mode
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] [link density filtering] 3753 fragments removed, 26 fragments kept
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] [rank sum filtering] Q1=205.0, median=206.0, Q3=218.75, IQR=Q3-Q1=13.75
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] [rank sum filtering] Parameter --rank_sum_upper 1.5X is set to "multiple" mode and equivalent to 0.9615384615384616 in "fraction" mode
+2026-02-13 17:55:10 <HapHiC_cluster.py> [filter_fragments] [rank sum filtering] 1 fragments removed, 25 fragments kept
+2026-02-13 17:55:10 <HapHiC_cluster.py> [output_pickle] Writing full_link_dict to full_links.pkl...
+2026-02-13 17:55:10 <HapHiC_cluster.py> [run] Hi-C linking matrix was constructed in 1690.5032079219818s
+2026-02-13 17:55:10 <HapHiC_cluster.py> [run_mcl_clustering] Performing Markov clustering...
+2026-02-13 17:55:10 <HapHiC_cluster.py> [mcl] The matrix has converged after 7 rounds of iterations (expansion: 2, inflation: 1.0, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:10 <HapHiC_cluster.py> [mcl] The matrix has converged after 55 rounds of iterations (expansion: 2, inflation: 1.2, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 18 rounds of iterations (expansion: 2, inflation: 1.4, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 17 rounds of iterations (expansion: 2, inflation: 1.6, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 18 rounds of iterations (expansion: 2, inflation: 1.8, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 13 rounds of iterations (expansion: 2, inflation: 2.0, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 10 rounds of iterations (expansion: 2, inflation: 2.2, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 9 rounds of iterations (expansion: 2, inflation: 2.4, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 9 rounds of iterations (expansion: 2, inflation: 2.6, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 8 rounds of iterations (expansion: 2, inflation: 2.8, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [mcl] The matrix has converged after 8 rounds of iterations (expansion: 2, inflation: 3.0, maximum iterations: 200, pruning threshold: 0.0001)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [recommend_inflation] You could try inflation from 2.0 (length ratio = 0.75)
+2026-02-13 17:55:11 <HapHiC_cluster.py> [run] 11 round(s) of Markov clustering finished in 1.0507943630218506s, average 0.09552676027471368s per round
+2026-02-13 17:55:11 <HapHiC_cluster.py> [output_statistics] Making some statistics for the next HapHiC reassignment step...
+2026-02-13 17:55:18 <HapHiC_cluster.py> [run] Program finished in 1698.0392770767212s
+2026-02-13 17:55:18 <HapHiC_pipeline.py> [haphic_reassign] Step2: Reassign and rescue contigs...
+2026-02-13 17:55:18 <HapHiC_reassign.py> [run] Program started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 17:55:18 <HapHiC_reassign.py> [run] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 17:55:18 <HapHiC_reassign.py> [run] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/01.cluster/corrected_asm.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/00.mapping_corrected/HiC.corrected.filtered.bam 8 --aln_format bam --outdir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic --RE GATC --steps 1,2,3,4 --threads 64 --processes 8 --correct_nrounds 2 --correct_resolution 500 --median_cov_ratio 0.2 --region_len_ratio 0.1 --min_region_cutoff 5000 --Nx 80 --RE_site_cutoff 25 --density_lower 0.2X --density_upper 1.9X --read_depth_upper 1.5X --topN 10 --min_inflation 1.0 --max_inflation 3.0 --inflation_step 0.2 --expansion 2 --max_iter 200 --pruning 0.0001 --min_group_len 0 --max_ctg_len 10000 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --min_density_ratio 4 --ambiguous_cutoff 0.6 --reassign_nrounds 5 --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --Ns 100 --max_width 60 --prefix EcA_corrected
+2026-02-13 17:55:18 <HapHiC_cluster.py> [parse_fasta] Parsing input FASTA file...
+2026-02-13 17:55:20 <HapHiC_cluster.py> [determine_int_type] The longest and second longest contigs are 26402014 bp and 23266732 bp, respectively. The data types for contig positions and CLM distances are calculated to be int32 and int32, respectively.
+2026-02-13 17:55:20 <HapHiC_reassign.py> [parse_pickle] Parsing input pickle file...
+2026-02-13 17:55:20 <HapHiC_reassign.py> [parse_clusters] Parsing .clusters.txt file...
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run] File parsing and data preparation finished in 2.2526378631591797s
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run_reassignment] Performing reassignment...
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run_reassignment] [result::round1] Total: 6767, consistent: 1, rescued: 9, reassigned: 0, not rescued: 6757
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run_reassignment] Performing reassignment...
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run_reassignment] [result::round2] Total: 6767, consistent: 10, rescued: 0, reassigned: 0, not rescued: 6757
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run] [result::round2] Result has converged after 1 rounds of reassignment, break
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run_reassignment] Performing additional round of rescue...
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run_reassignment] [result::additional_rescue] Total: 6767, consistent: 18, rescued: 2, reassigned: 0, not rescued: 6747
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run] 2 round(s) of reassignment finished in 0.06930065155029297s, average 0.034650325775146484s per round
+2026-02-13 17:55:20 <HapHiC_reassign.py> [run] Parameter --nclusters (8) is equal to the number of clusters (8) after reassignment, skip Agglomerative Hierarchical Clustering
+2026-02-13 17:55:20 <HapHiC_reassign.py> [split_clm_file] Splitting clm file into subfiles by group...
+2026-02-13 17:55:38 <HapHiC_reassign.py> [run] Program finished in 20.457876205444336s
+2026-02-13 17:55:38 <HapHiC_pipeline.py> [haphic_sort] Step3: Order and orient contigs within each group...
+2026-02-13 17:55:39 <HapHiC_sort.py> [run] Program started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 17:55:39 <HapHiC_sort.py> [run] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 17:55:39 <HapHiC_sort.py> [run] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_sort.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/01.cluster/corrected_asm.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/01.cluster/HT_links.pkl /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/split_clms /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/group6_21087445bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/group5_22091591bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/group1_26402014bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/group3_23266732bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/group2_25062947bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/group4_22538560bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/group8_19883470bp.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/02.reassign/final_groups/group7_20955602bp.txt --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --processes 8 --flanking_region 0 --density_cal_method multiplication --confidence_cutoff 1
+2026-02-13 17:55:39 <HapHiC_sort.py> [run] Checking the path of ALLHiC...
+2026-02-13 17:55:39 <HapHiC_sort.py> [run] ALLHiC has been found in /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts
+2026-02-13 17:55:39 <HapHiC_sort.py> [parse_fasta] Parsing fasta file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [run] Loading input pickle file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [run] Parsing group files and clm files...
+2026-02-13 17:55:40 <HapHiC_sort.py> [run] Program will be executed in multiprocessing mode (processes=8)
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group6_21087445bp] Performing fast sorting...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group6_21087445bp] Checking the content of input group file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group6_21087445bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group5_22091591bp] Performing fast sorting...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group5_22091591bp] Checking the content of input group file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group5_22091591bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group1_26402014bp] Performing fast sorting...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group1_26402014bp] Checking the content of input group file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group1_26402014bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group3_23266732bp] Performing fast sorting...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group3_23266732bp] Checking the content of input group file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group3_23266732bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group4_22538560bp] Performing fast sorting...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group2_25062947bp] Performing fast sorting...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group8_19883470bp] Performing fast sorting...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group4_22538560bp] Checking the content of input group file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group8_19883470bp] Checking the content of input group file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group4_22538560bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group2_25062947bp] Checking the content of input group file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group8_19883470bp] Starting fast sorting iterations...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group2_25062947bp] Starting fast sorting iterations...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group7_20955602bp] Performing fast sorting...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group7_20955602bp] Checking the content of input group file...
+2026-02-13 17:55:40 <HapHiC_sort.py> [fast_sort] [group7_20955602bp] Only 1 contig in the group file, neither ordering nor orientation is required
+2026-02-13 17:55:40 <HapHiC_sort.py> [run] Program finished in 0.7789990901947021s
+2026-02-13 17:55:40 <HapHiC_pipeline.py> [haphic_build] Step4: Build final scaffolds (pseudomolecules)...
+2026-02-13 17:55:40 <HapHiC_build.py> [run] Program started, HapHiC version: 1.0.7 (update: 2025.05.07)
+2026-02-13 17:55:40 <HapHiC_build.py> [run] Python version: 3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:25:55) [GCC 14.3.0]
+2026-02-13 17:55:40 <HapHiC_build.py> [run] Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/01.cluster/corrected_asm.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/00.mapping_corrected/HiC.corrected.filtered.bam 8 --aln_format bam --outdir /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic --RE GATC --steps 1,2,3,4 --threads 64 --processes 8 --correct_nrounds 2 --correct_resolution 500 --median_cov_ratio 0.2 --region_len_ratio 0.1 --min_region_cutoff 5000 --Nx 80 --RE_site_cutoff 25 --density_lower 0.2X --density_upper 1.9X --read_depth_upper 1.5X --topN 10 --min_inflation 1.0 --max_inflation 3.0 --inflation_step 0.2 --expansion 2 --max_iter 200 --pruning 0.0001 --min_group_len 0 --max_ctg_len 10000 --min_RE_sites 25 --min_links 25 --min_link_density 0.0001 --min_density_ratio 4 --ambiguous_cutoff 0.6 --reassign_nrounds 5 --skip_allhic --mutprob 0.2 --ngen 5000 --npop 100 --seed 42 --Ns 100 --max_width 60 --prefix EcA_corrected
+2026-02-13 17:55:40 <HapHiC_cluster.py> [parse_fasta] Parsing input FASTA file...
+2026-02-13 17:55:42 <HapHiC_build.py> [parse_tours] Parsing tour files...
+2026-02-13 17:55:42 <HapHiC_build.py> [build_final_scaffolds] Building final scaffolds...
+2026-02-13 17:55:44 <HapHiC_build.py> [run] Program finished in 4.102886199951172s
+2026-02-13 17:55:44 <HapHiC_pipeline.py> [main] HapHiC pipeline finished in 1724.2979760169983s
+2026-02-13 17:55:44.880 - INFO -  验证Pipeline输出|Verifying pipeline output
+2026-02-13 17:55:44.880 - WARNING -  corrected_asm不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/EcA_corrected_corrected.asm.fa
+2026-02-13 17:55:44.880 - INFO -  scaffolds_agp: EcA_corrected.agp (307,932 bytes)
+2026-02-13 17:55:44.880 - INFO -  scaffolds_raw_agp: EcA_corrected.raw.agp (307,886 bytes)
+2026-02-13 17:55:44.880 - INFO -  scaffolds_fasta: EcA_corrected.fa (648,098,217 bytes)
+2026-02-13 17:55:44.880 - WARNING -  juicebox_script不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/04.build/EcA_corrected_juicebox.sh
+2026-02-13 17:55:44.880 - WARNING -  contact_map不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/EcA_corrected_contact_map.pdf
+2026-02-13 17:55:44.880 - WARNING -  hic_file不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.hic
+2026-02-13 17:55:44.880 - WARNING -  assembly_file不存在: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.assembly
+2026-02-13 17:55:44.880 - INFO -  log_file: EcA_haphic.log (70,419 bytes)
+2026-02-13 17:55:44.880 - INFO -  可视化生成已禁用|Visualization generation disabled
+2026-02-13 17:55:44.880 - INFO -  生成Juicebox文件|Generating Juicebox files
+2026-02-13 17:55:44.880 - INFO -  步骤1: 生成.mnd文件|Step 1: Generating .mnd file
+2026-02-13 17:55:44.880 - INFO - 生成.mnd文件
+2026-02-13 18:05:00.233 - INFO - 命令执行成功|Command executed successfully (耗时: 555.35秒)
+2026-02-13 18:05:00.233 - INFO - 命令输出|Command Output:
+INFO: converting bam to juicer on /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/00.mapping_corrected/HiC.corrected.filtered.bam
+INFO: detected bam filetype
+INFO: reading file "/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/00.mapping_corrected/HiC.corrected.filtered.bam"
+INFO: parsed 1000000 read pairs
+INFO: parsed 2000000 read pairs
+INFO: parsed 3000000 read pairs
+INFO: parsed 4000000 read pairs
+INFO: parsed 5000000 read pairs
+INFO: parsed 6000000 read pairs
+INFO: parsed 7000000 read pairs
+INFO: parsed 8000000 read pairs
+INFO: parsed 9000000 read pairs
+INFO: parsed 10000000 read pairs
+INFO: parsed 11000000 read pairs
+INFO: parsed 12000000 read pairs
+INFO: parsed 13000000 read pairs
+INFO: parsed 14000000 read pairs
+INFO: parsed 15000000 read pairs
+INFO: parsed 16000000 read pairs
+INFO: parsed 17000000 read pairs
+INFO: parsed 18000000 read pairs
+INFO: parsed 19000000 read pairs
+INFO: parsed 20000000 read pairs
+INFO: parsed 21000000 read pairs
+INFO: parsed 22000000 read pairs
+INFO: parsed 23000000 read pairs
+INFO: parsed 24000000 read pairs
+INFO: parsed 25000000 read pairs
+INFO: parsed 26000000 read pairs
+INFO: parsed 27000000 read pairs
+INFO: parsed 28000000 read pairs
+INFO: parsed 29000000 read pairs
+INFO: parsed 30000000 read pairs
+INFO: parsed 31000000 read pairs
+INFO: parsed 32000000 read pairs
+INFO: parsed 33000000 read pairs
+INFO: parsed 34000000 read pairs
+INFO: parsed 35000000 read pairs
+INFO: parsed 36000000 read pairs
+INFO: parsed 37000000 read pairs
+INFO: parsed 38000000 read pairs
+INFO: parsed 39000000 read pairs
+INFO: parsed 40000000 read pairs
+INFO: parsed 41000000 read pairs
+INFO: parsed 42000000 read pairs
+INFO: parsed 43000000 read pairs
+INFO: parsed 44000000 read pairs
+INFO: parsed 45000000 read pairs
+INFO: parsed 46000000 read pairs
+INFO: parsed 47000000 read pairs
+INFO: parsed 48000000 read pairs
+INFO: parsed 49000000 read pairs
+INFO: parsed 50000000 read pairs
+INFO: parsed 51000000 read pairs
+INFO: parsed 52000000 read pairs
+INFO: parsed 53000000 read pairs
+INFO: parsed 54000000 read pairs
+INFO: parsed 55000000 read pairs
+INFO: parsed 56000000 read pairs
+INFO: parsed 57000000 read pairs
+INFO: parsed 58000000 read pairs
+INFO: parsed 59000000 read pairs
+INFO: parsed 60000000 read pairs
+INFO: parsed 61000000 read pairs
+INFO: parsed 62000000 read pairs
+INFO: parsed 63000000 read pairs
+INFO: parsed 64000000 read pairs
+INFO: parsed 65000000 read pairs
+INFO: parsed 66000000 read pairs
+INFO: parsed 67000000 read pairs
+INFO: parsed 68000000 read pairs
+INFO: parsed 69000000 read pairs
+INFO: parsed 70000000 read pairs
+INFO: parsed 71000000 read pairs
+INFO: parsed 72000000 read pairs
+INFO: parsed 73000000 read pairs
+INFO: parsed 74000000 read pairs
+INFO: parsed 75000000 read pairs
+INFO: parsed 76000000 read pairs
+INFO: parsed 77000000 read pairs
+INFO: parsed 78000000 read pairs
+INFO: parsed 79000000 read pairs
+INFO: parsed 80000000 read pairs
+INFO: parsed 81000000 read pairs
+INFO: parsed 82000000 read pairs
+INFO: parsed 83000000 read pairs
+INFO: parsed 84000000 read pairs
+INFO: parsed 85000000 read pairs
+INFO: parsed 86000000 read pairs
+INFO: parsed 87000000 read pairs
+INFO: parsed 88000000 read pairs
+INFO: parsed 89000000 read pairs
+INFO: parsed 90000000 read pairs
+INFO: parsed 91000000 read pairs
+INFO: parsed 92000000 read pairs
+INFO: parsed 93000000 read pairs
+INFO: parsed 94000000 read pairs
+INFO: parsed 95000000 read pairs
+INFO: parsed 96000000 read pairs
+INFO: parsed 97000000 read pairs
+INFO: parsed 98000000 read pairs
+INFO: parsed 99000000 read pairs
+INFO: parsed 100000000 read pairs
+INFO: parsed 101000000 read pairs
+INFO: parsed 102000000 read pairs
+INFO: parsed 103000000 read pairs
+INFO: parsed 104000000 read pairs
+INFO: parsed 105000000 read pairs
+INFO: parsed 106000000 read pairs
+INFO: parsed 107000000 read pairs
+INFO: parsed 108000000 read pairs
+INFO: parsed 109000000 read pairs
+INFO: parsed 110000000 read pairs
+INFO: parsed 111000000 read pairs
+INFO: parsed 112000000 read pairs
+INFO: parsed 113000000 read pairs
+INFO: parsed 114000000 read pairs
+INFO: parsed 115000000 read pairs
+INFO: parsed 116000000 read pairs
+INFO: parsed 117000000 read pairs
+INFO: parsed 118000000 read pairs
+INFO: parsed 119000000 read pairs
+INFO: parsed 120000000 read pairs
+INFO: parsed 121000000 read pairs
+INFO: parsed 122000000 read pairs
+INFO: parsed 123000000 read pairs
+INFO: parsed 124000000 read pairs
+INFO: parsed 125000000 read pairs
+INFO: parsed 126000000 read pairs
+INFO: parsed 127000000 read pairs
+INFO: parsed 128000000 read pairs
+INFO: parsed 129000000 read pairs
+INFO: parsed 130000000 read pairs
+INFO: parsed 131000000 read pairs
+INFO: parsed 132000000 read pairs
+INFO: parsed 133000000 read pairs
+INFO: parsed 134000000 read pairs
+INFO: parsed 135000000 read pairs
+INFO: parsed 136000000 read pairs
+INFO: parsed 137000000 read pairs
+INFO: parsed 138000000 read pairs
+INFO: parsed 139000000 read pairs
+INFO: parsed 140000000 read pairs
+INFO: parsed 141000000 read pairs
+INFO: parsed 142000000 read pairs
+INFO: parsed 143000000 read pairs
+INFO: parsed 144000000 read pairs
+INFO: parsed 145000000 read pairs
+INFO: parsed 146000000 read pairs
+INFO: parsed 147000000 read pairs
+INFO: parsed 148000000 read pairs
+INFO: parsed 149000000 read pairs
+INFO: parsed 150000000 read pairs
+INFO: parsed 151000000 read pairs
+INFO: parsed 152000000 read pairs
+INFO: parsed 153000000 read pairs
+INFO: parsed 154000000 read pairs
+INFO: parsed 155000000 read pairs
+INFO: parsed 156000000 read pairs
+INFO: parsed 157000000 read pairs
+INFO: parsed 158000000 read pairs
+INFO: parsed 159000000 read pairs
+INFO: parsed 160000000 read pairs
+INFO: parsed 161000000 read pairs
+INFO: parsed 162000000 read pairs
+INFO: parsed 163000000 read pairs
+INFO: parsed 164000000 read pairs
+INFO: parsed 165000000 read pairs
+INFO: parsed 166000000 read pairs
+INFO: parsed 167000000 read pairs
+INFO: parsed 168000000 read pairs
+INFO: parsed 169000000 read pairs
+INFO: parsed 170000000 read pairs
+INFO: parsed 171000000 read pairs
+INFO: parsed 172000000 read pairs
+INFO: parsed 173000000 read pairs
+INFO: parsed 174000000 read pairs
+INFO: parsed 175000000 read pairs
+INFO: parsed 176000000 read pairs
+INFO: parsed 177000000 read pairs
+INFO: parsed 178000000 read pairs
+INFO: parsed 179000000 read pairs
+INFO: parsed 180000000 read pairs
+INFO: parsed 181000000 read pairs
+INFO: parsed 182000000 read pairs
+INFO: parsed 183000000 read pairs
+INFO: parsed 184000000 read pairs
+INFO: parsed 185000000 read pairs
+INFO: parsed 186000000 read pairs
+INFO: parsed 187000000 read pairs
+INFO: parsed 188000000 read pairs
+INFO: parsed 189000000 read pairs
+INFO: parsed 190000000 read pairs
+INFO: parsed 191000000 read pairs
+2026-02-13 18:05:00.256 - INFO -  步骤2: 排序.mnd文件|Step 2: Sorting .mnd file
+2026-02-13 18:19:32.642 - INFO -  步骤3: 生成.assembly文件|Step 3: Generating .assembly file
+2026-02-13 18:19:32.642 - INFO - 生成.assembly文件
+2026-02-13 18:19:32.824 - INFO - 命令执行成功|Command executed successfully (耗时: 0.18秒)
+2026-02-13 18:19:32.824 - INFO -  步骤4: 生成.hic文件|Step 4: Generating .hic file
+2026-02-13 18:19:32.824 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox
+2026-02-13 18:19:32.824 - INFO -  Assembly文件|Assembly file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.assembly
+2026-02-13 18:19:32.825 - INFO -  排序后的mnd文件|Sorted mnd file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/out.sorted.links.mnd
+2026-02-13 18:19:32.825 - INFO -  预期输出.hic文件|Expected .hic file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.hic
+2026-02-13 18:19:32.825 - INFO -  执行命令|Command: bash /share/org/YZWL/yzwl_lixg/software/3d-dna/visualize/run-assembly-visualizer.sh -p false /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.assembly /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/out.sorted.links.mnd
+2026-02-13 18:19:32.825 - INFO -  切换到目录|Changed to directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox
+2026-02-13 18:19:32.825 - INFO -  开始运行run-assembly-visualizer.sh脚本|Starting run-assembly-visualizer.sh script
+2026-02-13 18:31:32.174 - INFO -  脚本执行完成|Script execution completed with return code: 1
+2026-02-13 18:31:32.174 - INFO -  检查.hic文件生成状态|Checking .hic file generation status
+2026-02-13 18:31:32.174 - INFO -  当前目录内容|Current directory contents:
+2026-02-13 18:31:32.180 - INFO -    -rw-r--r-- 1 yzwl_lixg yzwl_lixg 153M 2月  13 18:31 EcA_corrected.hic
+2026-02-13 18:31:32.180 - INFO -  检查可能的.hic文件名|Checking possible .hic filenames:
+2026-02-13 18:31:32.180 - INFO -    1. 相对路径(相对名)|Relative filename: EcA_corrected.hic
+2026-02-13 18:31:32.180 - INFO -    2. 绝对路径|Absolute path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.hic
+2026-02-13 18:31:32.180 - INFO -    3. assembly.hic|assembly.hic
+2026-02-13 18:31:32.180 - INFO -    4. 最终目标|Target: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.hic
+2026-02-13 18:31:32.180 - INFO -  文件存在状态|File existence status:
+2026-02-13 18:31:32.180 - INFO -    EcA_corrected.hic: True
+2026-02-13 18:31:32.180 - INFO -    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.hic: True
+2026-02-13 18:31:32.180 - INFO -    assembly.hic: False
+2026-02-13 18:31:32.180 - INFO -    /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.hic: True
+2026-02-13 18:31:32.180 - WARNING -  asm-visualizer返回码非0，但.hic文件已生成|asm-visualizer returned non-zero code, but .hic file exists
+2026-02-13 18:31:32.180 - WARNING -  返回码|Return code: 1
+2026-02-13 18:31:32.180 - INFO -  标准输出完整内容|Full Stdout:
+2026-02-13 18:31:32.180 - INFO -    :) -p flag was triggered. Running with GNU Parallel support parameter set to false.
+2026-02-13 18:31:32.180 - INFO -    ...Remapping contact data from the original contig set to assembly
+2026-02-13 18:31:32.180 - INFO -    ...Building track files
+2026-02-13 18:31:32.180 - INFO -    ...Building the hic file
+2026-02-13 18:31:32.180 - INFO -    Not including fragment map
+2026-02-13 18:31:32.180 - INFO -    Start preprocess
+2026-02-13 18:31:32.180 - INFO -    Writing header
+2026-02-13 18:31:32.180 - INFO -    Writing body
+2026-02-13 18:31:32.180 - INFO -    ..
+2026-02-13 18:31:32.180 - INFO -    Writing footer
+2026-02-13 18:31:32.180 - INFO -    
+2026-02-13 18:31:32.180 - INFO -    Finished preprocess
+2026-02-13 18:31:32.180 - INFO -    HiC file version: 8
+2026-02-13 18:31:32.181 - INFO -    
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_2500000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_1000000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_500000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_250000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_100000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_50000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_25000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_10000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_5000
+2026-02-13 18:31:32.181 - INFO -    Calculating norms for zoom BP_1000
+2026-02-13 18:31:32.181 - INFO -    Writing expected
+2026-02-13 18:31:32.181 - INFO -    Writing norms
+2026-02-13 18:31:32.181 - INFO -    Finished writing norms
+2026-02-13 18:31:32.181 - INFO -    
+2026-02-13 18:31:32.181 - INFO -  查找生成的.hic文件|Looking for generated .hic file: EcA_corrected.hic
+2026-02-13 18:31:32.181 - INFO -  .hic文件已在正确位置|.hic file already at correct location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.hic
+2026-02-13 18:31:32.181 - INFO -  .hic文件处理成功|.hic file processing successful: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox/EcA_corrected.hic
+2026-02-13 18:31:32.181 - INFO -  验证Juicebox文件|Verifying Juicebox files
+2026-02-13 18:31:32.181 - INFO -  Juicebox文件生成成功|Juicebox files generated successfully
+2026-02-13 18:31:32.181 - INFO -   .hic文件大小: 152.99 MB
+2026-02-13 18:31:32.181 - INFO -   .assembly文件大小: 187.39 KB
+2026-02-13 18:31:32.181 - INFO -   文件位置: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/07.corrected_contig_haphic/06.juicebox
+2026-02-13 18:31:32.181 - INFO -  HapHiC Pipeline完成|HapHiC Pipeline completed in 3872.69秒
+2026-02-13 18:31:32.181 - INFO - 纠错后contig的HapHiC流程完成|Corrected contigs HapHiC workflow completed
+2026-02-13 18:31:32.181 - INFO - 后处理和验证|Post-processing and validation
+2026-02-13 18:31:32.181 - INFO - 验证输出文件|Validating output files
+2026-02-13 18:31:32.181 - INFO - scaffolds_fa: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/04.build/EcA.fa (648,098,094 bytes)
+2026-02-13 18:31:32.181 - INFO - scaffolds_agp: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/04.build/EcA.agp (307,632 bytes)
+2026-02-13 18:31:32.182 - INFO - scaffolds_raw_agp: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/04.build/EcA.raw.agp (304,768 bytes)
+2026-02-13 18:31:33.338 - INFO - 输出统计|Output Statistics:
+2026-02-13 18:31:33.338 - INFO -   scaffold_count: 6752
+2026-02-13 18:31:33.338 - INFO -   scaffolds_agp_size: 307632
+2026-02-13 18:31:33.338 - INFO -   scaffolds_raw_agp_size: 304768
+2026-02-13 18:31:33.338 - INFO -   scaffolds_fasta_size: 648098094
+2026-02-13 18:31:33.338 - INFO -   hic_file_size: 160917248
+2026-02-13 18:31:33.339 - INFO -   assembly_file_size: 188155
+2026-02-13 18:31:33.339 - INFO -   log_file_size: 86140
+2026-02-13 18:31:33.339 - INFO - 报告已生成: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/11.EcA基因组组装/04.haphic/EcA_haphic_report.txt
+2026-02-13 18:31:33.339 - INFO - 处理统计|Processing Statistics:
+2026-02-13 18:31:33.339 - INFO -   总耗时|Total time: 21666.32秒
+2026-02-13 18:31:33.339 - INFO -   scaffolds_agp: EcA.agp (307,632 bytes)
+2026-02-13 18:31:33.339 - INFO -   scaffolds_raw_agp: EcA.raw.agp (304,768 bytes)
+2026-02-13 18:31:33.339 - INFO -   scaffolds_fasta: EcA.fa (648,098,094 bytes)
+2026-02-13 18:31:33.340 - INFO -   hic_file: EcA.hic (160,917,248 bytes)
+2026-02-13 18:31:33.340 - INFO -   assembly_file: EcA.assembly (188,155 bytes)
+2026-02-13 18:31:33.340 - INFO -   log_file: EcA_haphic.log (87,313 bytes)
+HapHiC scaffolding完成|HapHiC scaffolding completed!

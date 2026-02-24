@@ -1,0 +1,36 @@
+2026-01-24 16:49:16.186 - INFO - 开始k-mer统计模式|Starting k-mer counting mode
+2026-01-24 16:49:16.186 - INFO - 检测到目录输入模式|Detected directory input mode: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/01.data/clean
+2026-01-24 16:49:16.186 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-24 16:49:16.186 - INFO - 文件模式|File pattern: *_1.clean.fq.gz, *_2.clean.fq.gz
+2026-01-24 16:49:16.209 - INFO - 找到 99 个read1文件|Found 99 read1 files
+2026-01-24 16:49:16.259 - INFO - 验证通过|Validation passed: 99 个样本|samples
+2026-01-24 16:49:16.259 - INFO - 开始统计 99 个样本|Starting to count 99 samples
+2026-01-24 16:49:16.259 - INFO - 处理进度|Progress: 1/99: OV8-71
+2026-01-24 16:49:16.259 - INFO - 开始统计样本|Starting to count sample: OV8-71
+2026-01-24 16:49:16.260 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-71
+2026-01-24 16:49:16.260 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-71/input_files.txt OV8-71 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-71
+2026-01-24 16:50:11.301 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-71
+2026-01-24 16:50:11.302 - INFO - 样本统计完成|Sample counting completed: OV8-71
+2026-01-24 16:50:11.302 - INFO - 处理进度|Progress: 2/99: OV8-4
+2026-01-24 16:50:11.302 - INFO - 开始统计样本|Starting to count sample: OV8-4
+2026-01-24 16:50:11.304 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-4
+2026-01-24 16:50:11.304 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-4/input_files.txt OV8-4 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-4
+2026-01-24 16:51:07.215 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-4
+2026-01-24 16:51:07.215 - INFO - 样本统计完成|Sample counting completed: OV8-4
+2026-01-24 16:51:07.215 - INFO - 处理进度|Progress: 3/99: OV8-111
+2026-01-24 16:51:07.216 - INFO - 开始统计样本|Starting to count sample: OV8-111
+2026-01-24 16:51:07.217 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-111
+2026-01-24 16:51:07.217 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-111/input_files.txt OV8-111 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-111
+2026-01-24 16:51:37.541 - INFO - 开始丰度矩阵构建模式|Starting abundance matrix building mode
+2026-01-24 16:51:37.541 - INFO - 使用自定义输入目录|Using custom input directory: database/kmc_databases
+2026-01-24 16:51:37.541 - INFO - 未找到count metadata，使用默认kmer_size|Count metadata not found, using default kmer_size: 21
+2026-01-24 16:51:37.541 - INFO - 未指定样本名称，自动扫描数据库|No sample names specified, auto-scanning databases
+2026-01-24 16:51:37.541 - INFO - 扫描已存在的KMC数据库|Scanning existing KMC databases
+2026-01-24 16:51:37.541 - INFO - 找到 2 个KMC数据库|Found 2 KMC databases
+2026-01-24 16:51:37.541 - INFO - 开始构建丰度矩阵|Starting to build abundance matrix: 2 样本|samples
+2026-01-24 16:51:37.541 - INFO - 全新构建：使用union生成全局k-mer列表|Fresh build: using union to generate global k-mer list
+2026-01-24 16:51:37.543 - INFO - 收集唯一k-mer列表（union+流式处理）|Collecting unique k-mer list (union+streaming)
+2026-01-24 16:51:37.543 - INFO - 合并数据库生成全局k-mer列表|Union databases to generate global k-mer list
+2026-01-24 16:51:37.543 - INFO - 开始合并 2 个数据库|Starting to union 2 databases
+2026-01-24 16:51:37.543 - INFO - 执行步骤|Executing step: 合并数据库 1-2|Union databases 1-2
+2026-01-24 16:51:37.543 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc_tools -t64 simple OV8-71 OV8-4 union .temp_union_0

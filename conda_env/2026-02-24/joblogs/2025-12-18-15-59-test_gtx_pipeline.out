@@ -1,0 +1,22 @@
+
+==================================================
+🎯 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/99.测试全自动流程/01.data/raw
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+开始质控处理 | Starting quality control
+检测到 146 个原始 FASTQ 文件 | Found 146 raw FASTQ files
+🧹 质量控制 | Quality Control
+🔄 执行命令 | Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/99.测试全自动流程/01.data/raw -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean --read1-suffix _1.clean.fq.gz --read2-suffix _2.clean.fq.gz

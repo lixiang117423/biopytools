@@ -1,0 +1,9 @@
+2026-01-20 18:38:20.332 - INFO - 开始构建PanMAN|Starting PanMAN build
+2026-01-20 18:38:20.333 - INFO - 输入类型|Input type: pangraph
+2026-01-20 18:38:20.333 - INFO - 输入文件|Input file: /share/org/YZWL/yzwl_lixg/tmp/test_panman/panman_output/test.json
+2026-01-20 18:38:20.333 - INFO - 系统发育树文件|Phylogenetic tree file: /share/org/YZWL/yzwl_lixg/tmp/pan_man/panman-main/test/sars_20.nwk
+2026-01-20 18:38:20.333 - INFO - 验证输入文件|Validating input files
+2026-01-20 18:38:20.426 - INFO - 输入文件验证通过|Input files validation passed
+2026-01-20 18:38:20.426 - INFO - 从PanGraph构建PanMAN|Building PanMAN from PanGraph
+2026-01-20 18:38:20.426 - INFO - 执行步骤|Executing step: 从PanGraph构建|Build from PanGraph
+2026-01-20 18:38:20.426 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/singularity_v.3.8.7/bin/singularity exec /share/org/YZWL/yzwl_lixg/software/singularity/panman_latest.sif panmanUtils -P /share/org/YZWL/yzwl_lixg/tmp/test_panman/panman_output/test.json -N /share/org/YZWL/yzwl_lixg/tmp/pan_man/panman-main/test/sars_20.nwk -o /share/org/YZWL/yzwl_lixg/tmp/test_panman/panman_output/test

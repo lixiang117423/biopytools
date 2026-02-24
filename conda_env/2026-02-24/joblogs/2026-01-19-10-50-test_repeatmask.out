@@ -1,0 +1,33 @@
+2026-01-19 10:50:42.132 - INFO - 开始重复序列屏蔽流程|Starting repeat masking pipeline
+2026-01-19 10:50:42.132 - INFO - 输入基因组|Input genome: /share/org/YZWL/yzwl_lixg/tmp/test_repeatmask/41_RagTag_scaffolded.fa
+2026-01-19 10:50:42.132 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/tmp/test_repeatmask/output
+2026-01-19 10:50:42.132 - INFO - 线程数|Threads: 64
+2026-01-19 10:50:42.132 - INFO - 分析基因组统计信息|Analyzing genome statistics: /share/org/YZWL/yzwl_lixg/tmp/test_repeatmask/41_RagTag_scaffolded.fa
+2026-01-19 10:50:48.069 - INFO - 基因组统计|Genome stats: 序列数|Sequences=12, 总长度|Total length=86,962,693 bp, N50=8,133,182 bp, GC含量|GC content=54.72%
+2026-01-19 10:50:48.070 - INFO - 开始RepeatModeler流程|Starting RepeatModeler pipeline
+2026-01-19 10:50:48.070 - INFO - 构建RepeatModeler数据库|Building RepeatModeler database: output/41_RagTag_scaffolded_repeat_db|构建RepeatModeler数据库|Building RepeatModeler database: output/41_RagTag_scaffolded_repeat_db
+2026-01-19 10:50:55.361 - INFO - 构建RepeatModeler数据库|Building RepeatModeler database: output/41_RagTag_scaffolded_repeat_db完成|构建RepeatModeler数据库|Building RepeatModeler database: output/41_RagTag_scaffolded_repeat_db completed
+2026-01-19 10:50:55.362 - INFO - RepeatModeler数据库创建成功|RepeatModeler database created: output/41_RagTag_scaffolded_repeat_db
+2026-01-19 10:50:55.362 - INFO - 运行RepeatModeler识别重复序列|Running RepeatModeler to identify repeats|运行RepeatModeler识别重复序列|Running RepeatModeler to identify repeats
+2026-01-19 18:24:40.929 - INFO - 运行RepeatModeler识别重复序列|Running RepeatModeler to identify repeats完成|运行RepeatModeler识别重复序列|Running RepeatModeler to identify repeats completed
+2026-01-19 18:24:40.931 - INFO - RepeatModeler库文件生成|RepeatModeler library file generated: output/41_RagTag_scaffolded_repeat_db-families.fa
+2026-01-19 18:24:41.791 - INFO - 清理RepeatModeler临时目录|Cleaned 51 RepeatModeler temporary directories
+2026-01-19 18:24:41.791 - INFO - 从头重复库构建完成|De novo repeat library constructed: output/41_RagTag_scaffolded_repeat_db-families.fa
+2026-01-19 18:24:41.791 - INFO - 开始RepeatMasker屏蔽流程|Starting RepeatMasker masking pipeline
+2026-01-19 18:24:41.930 - INFO - 运行RepeatMasker屏蔽重复序列|Running RepeatMasker to mask repeats|运行RepeatMasker屏蔽重复序列|Running RepeatMasker to mask repeats
+2026-01-19 18:26:29.951 - INFO - 运行RepeatMasker屏蔽重复序列|Running RepeatMasker to mask repeats完成|运行RepeatMasker屏蔽重复序列|Running RepeatMasker to mask repeats completed
+2026-01-19 18:26:30.089 - INFO - 创建屏蔽文件副本|Created masked file copy: output/repeatmasker_output/41_RagTag_scaffolded.fa.masked -> output/repeatmasker_output/41_RagTag_scaffolded.masked.fa
+2026-01-19 18:26:30.090 - INFO - RepeatMasker输出文件生成|RepeatMasker output file generated: out -> output/repeatmasker_output/41_RagTag_scaffolded.fa.out
+2026-01-19 18:26:30.090 - INFO - RepeatMasker输出文件生成|RepeatMasker output file generated: gff -> output/repeatmasker_output/41_RagTag_scaffolded.fa.out.gff
+2026-01-19 18:26:30.090 - INFO - RepeatMasker输出文件生成|RepeatMasker output file generated: tbl -> output/repeatmasker_output/41_RagTag_scaffolded.fa.tbl
+2026-01-19 18:26:30.090 - INFO - RepeatMasker输出文件生成|RepeatMasker output file generated: masked -> output/repeatmasker_output/41_RagTag_scaffolded.masked.fa
+2026-01-19 18:26:30.090 - INFO - ============================================================
+2026-01-19 18:26:30.090 - INFO - 重复序列屏蔽完成|Repeat masking completed
+2026-01-19 18:26:30.090 - INFO - ============================================================
+2026-01-19 18:26:30.090 - INFO - RepeatModeler库|RepeatModeler library: output/41_RagTag_scaffolded_repeat_db-families.fa
+2026-01-19 18:26:30.093 - INFO - 屏蔽基因组|Masked genome: output/repeatmasker_output/41_RagTag_scaffolded.masked.fa
+2026-01-19 18:26:30.093 - INFO - 注释文件|Annotation file: output/repeatmasker_output/41_RagTag_scaffolded.fa.out
+2026-01-19 18:26:30.093 - INFO - GFF文件|GFF file: output/repeatmasker_output/41_RagTag_scaffolded.fa.out.gff
+2026-01-19 18:26:30.093 - INFO - ============================================================
+2026-01-19 18:26:30.093 - INFO - 重复序列屏蔽流程完成|Repeat masking pipeline completed successfully
+2026-01-19 18:26:30.093 - INFO - 结果保存在|Results saved in: /share/org/YZWL/yzwl_lixg/tmp/test_repeatmask/output

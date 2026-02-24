@@ -1,0 +1,46 @@
+2026-02-03 19:33:46.749 - INFO - 检测到三代转录组为目录，自动识别文件|Detected long-read directory, auto-detecting files...
+2026-02-03 19:33:46.750 - INFO - 找到三代转录组文件|Found long-read file: 3rd_rnaseq/jingyeA.fastq.gz
+2026-02-03 19:33:46.750 - INFO - 找到三代转录组文件|Found long-read file: 3rd_rnaseq/jingyeA.fastq.gz
+2026-02-03 19:33:46.750 - INFO - 清理蛋白质序列|Cleaning protein sequences...
+2026-02-03 19:33:47.371 - INFO - 蛋白质序列清理统计|Cleaning statistics:
+2026-02-03 19:33:47.371 - INFO -   序列数|Sequences: 51840
+2026-02-03 19:33:47.371 - INFO -   移除的 '.' 字符|Removed dots: 94305
+2026-02-03 19:33:47.371 - INFO -   输出文件|Output: cleaned_ov.pep.fa
+2026-02-03 19:33:47.371 - INFO - 蛋白质序列清理完成|Protein sequences cleaned: cleaned_ov.pep.fa
+2026-02-03 19:33:48.272 - INFO - 检测到已完成步骤|Detected completed step in: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/02.long_reads
+2026-02-03 19:33:48.272 - INFO - 检测到已完成步骤|Detected completed step in: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/03.short_reads
+2026-02-03 19:33:48.272 - INFO - ================================================================================
+2026-02-03 19:33:48.272 - INFO - 开始BRAKER3基因组注释流程|Starting BRAKER3 Genome Annotation Pipeline
+2026-02-03 19:33:48.272 - INFO - ================================================================================
+2026-02-03 19:33:48.272 - INFO - --------------------------------------------------------------------------------
+2026-02-03 19:33:48.272 - INFO - 步骤1: 重复序列屏蔽|Step 1: Repeat Masking
+2026-02-03 19:33:48.272 - INFO - --------------------------------------------------------------------------------
+2026-02-03 19:33:48.272 - INFO - 检测到重复序列屏蔽已完成，跳过|Repeat masking already completed, skipping
+2026-02-03 19:33:48.272 - INFO - 使用已有的屏蔽基因组|Using existing masked genome: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/01.repeat_masking/OV53_Chr12.fa.masked
+2026-02-03 19:33:48.273 - INFO - --------------------------------------------------------------------------------
+2026-02-03 19:33:48.273 - INFO - 步骤2: 三代全长转录本处理|Step 2: Long-read Transcript Processing
+2026-02-03 19:33:48.273 - INFO - --------------------------------------------------------------------------------
+2026-02-03 19:33:48.273 - INFO - 检测到三代转录本处理已完成，跳过|Long-read processing already completed, skipping
+2026-02-03 19:33:48.273 - INFO - --------------------------------------------------------------------------------
+2026-02-03 19:33:48.273 - INFO - 步骤3: 二代RNA-seq数据处理|Step 3: Short-read RNA-seq Processing
+2026-02-03 19:33:48.273 - INFO - --------------------------------------------------------------------------------
+2026-02-03 19:33:48.273 - INFO - 检测到二代RNA-seq处理已完成，跳过|Short-read processing already completed, skipping
+2026-02-03 19:33:48.273 - INFO - 使用已有的RNA-seq比对文件|Using existing RNA-seq alignment: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/03.short_reads/rnaseq.sorted.bam
+2026-02-03 19:33:48.273 - INFO - --------------------------------------------------------------------------------
+2026-02-03 19:33:48.273 - INFO - 步骤4: BRAKER3基因组注释|Step 4: BRAKER3 Genome Annotation
+2026-02-03 19:33:48.273 - INFO - --------------------------------------------------------------------------------
+2026-02-03 19:33:48.273 - INFO - 从容器复制 AUGUSTUS 配置|Copying AUGUSTUS config from container to /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/04.braker_annotation/augustus_config
+2026-02-03 19:34:00.973 - INFO - 执行步骤|Executing step: 运行BRAKER3|Run BRAKER3
+2026-02-04 00:47:27.724 - INFO - 命令执行成功|Command executed successfully: 运行BRAKER3|Run BRAKER3
+2026-02-04 00:47:27.738 - INFO - BRAKER3注释完成|BRAKER3 annotation completed: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/04.braker_annotation/braker.gtf
+2026-02-04 00:47:27.740 - INFO - --------------------------------------------------------------------------------
+2026-02-04 00:47:27.740 - INFO - 步骤5: TSEBRA结果整合|Step 5: TSEBRA Result Merging
+2026-02-04 00:47:27.740 - INFO - --------------------------------------------------------------------------------
+2026-02-04 00:47:27.740 - INFO - TSEBRA整合需要多次BRAKER运行，当前使用单次运行结果|TSEBRA merge requires multiple BRAKER runs, using single run result
+2026-02-04 00:47:28.412 - INFO - TSEBRA整合完成|TSEBRA merging completed: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/05.tsebra_merge/tsebra_combined.gtf
+2026-02-04 00:47:28.412 - INFO - ================================================================================
+2026-02-04 00:47:28.412 - INFO - BRAKER3基因组注释流程完成|BRAKER3 Genome Annotation Pipeline Completed
+2026-02-04 00:47:28.412 - INFO - 最终注释文件|Final annotation: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/05.tsebra_merge/tsebra_combined.gtf
+2026-02-04 00:47:28.412 - INFO - ================================================================================
+2026-02-04 00:47:28.412 - INFO - 注释完成|Annotation completed!
+2026-02-04 00:47:28.412 - INFO - 最终结果|Final result: /share/org/YZWL/yzwl_lixg/tmp/test_braker/output/05.tsebra_merge/tsebra_combined.gtf

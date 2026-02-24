@@ -1,0 +1,726 @@
+2026-02-06 08:25:22.439 - INFO - ================================================================================
+2026-02-06 08:25:22.440 - INFO - 开始基因组组装流程|Starting Genome Assembly Pipeline
+2026-02-06 08:25:22.440 - INFO - ================================================================================
+2026-02-06 08:25:22.440 - INFO - 检查依赖软件|Checking dependencies
+2026-02-06 08:25:22.691 - INFO - 组装配置|Assembly Configuration:
+2026-02-06 08:25:22.691 - INFO -   样本名称|Sample Name: 68_1
+2026-02-06 08:25:22.691 - INFO -   基因组大小|Genome Size: 175m
+2026-02-06 08:25:22.691 - INFO -   倍性|Ploidy: 2
+2026-02-06 08:25:22.691 - INFO -   线程数|Threads: 64
+2026-02-06 08:25:22.691 - INFO -   HiFi数据|HiFi Data: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/hifi/68-1_hifi.fq.gz.clean.fq.gz
+2026-02-06 08:25:22.691 - INFO -   组装模式|Assembly Mode: HiFi only
+2026-02-06 08:25:22.691 - INFO -   NGS数据目录|NGS Data Directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/ngs
+2026-02-06 08:25:22.691 - INFO -   高质量覆盖度阈值|High Coverage Threshold: 90.0%
+2026-02-06 08:25:22.691 - INFO -   NGS polish|NGS Polish: 启用|Enabled
+2026-02-06 08:25:22.691 - INFO -   工作目录|Work Directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1
+2026-02-06 08:25:22.704 - INFO - ================================================================================
+2026-02-06 08:25:22.704 - INFO - 断点续传模式|Resume mode: enabled
+2026-02-06 08:25:22.704 - INFO - ================================================================================
+2026-02-06 08:25:22.704 - INFO - 检查已完成步骤|Checking completed steps:
+2026-02-06 08:25:22.704 - INFO - 初次组装步骤|Initial assembly steps:
+2026-02-06 08:25:22.704 - INFO -   [已完成|completed] Hifiasm组装|Hifiasm assembly
+2026-02-06 08:25:22.704 - INFO -   [已完成|completed] GFA转FASTA|GFA to FASTA conversion
+2026-02-06 08:25:22.704 - INFO -   [未完成|pending] Contig-reads映射生成|Contig-reads mapping generated
+2026-02-06 08:25:22.704 - INFO - NGS polish步骤|NGS polish steps:
+2026-02-06 08:25:22.704 - INFO -   [未完成|pending] BWA比对|BWA alignment
+2026-02-06 08:25:22.704 - INFO -   [未完成|pending] 覆盖度过滤|Coverage filter
+2026-02-06 08:25:22.704 - INFO -   [未完成|pending] 筛选reads|Filter reads
+2026-02-06 08:25:22.704 - INFO -   [未完成|pending] 重新组装|Reassembly
+2026-02-06 08:25:22.704 - INFO - ================================================================================
+2026-02-06 08:25:22.704 - INFO - 检测到组装已完成，跳过|Assembly already completed, skipping
+2026-02-06 08:25:22.704 - INFO - 检测到FASTA转换已完成，跳过|FASTA conversion already completed, skipping
+2026-02-06 08:25:22.704 - INFO - 转换GFA为FASTA格式|Converting GFA to FASTA format
+2026-02-06 08:25:22.705 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.hap1.p_ctg.gfa
+2026-02-06 08:25:22.705 - INFO - 转换|Converting: 68_1.bp.hap1.p_ctg.gfa -> 68_1.hap1.fa
+2026-02-06 08:25:22.705 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/01.raw_output/68_1.bp.hap1.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.hap1.fa
+2026-02-06 08:25:23.512 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:25:26.774 - INFO - 转换成功|Successfully converted: 68_1.hap1.fa
+2026-02-06 08:25:26.774 - INFO - 序列数|Sequences: 6426
+2026-02-06 08:25:26.774 - INFO - 总长度|Total length: 504,649,231 bp
+2026-02-06 08:25:26.774 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.hap2.p_ctg.gfa
+2026-02-06 08:25:26.774 - INFO - 转换|Converting: 68_1.bp.hap2.p_ctg.gfa -> 68_1.hap2.fa
+2026-02-06 08:25:26.777 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/01.raw_output/68_1.bp.hap2.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.hap2.fa
+2026-02-06 08:25:27.134 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:25:27.977 - INFO - 转换成功|Successfully converted: 68_1.hap2.fa
+2026-02-06 08:25:27.977 - INFO - 序列数|Sequences: 587
+2026-02-06 08:25:27.977 - INFO - 总长度|Total length: 129,723,874 bp
+2026-02-06 08:25:27.977 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.p_ctg.gfa
+2026-02-06 08:25:27.977 - INFO - 转换|Converting: 68_1.bp.p_ctg.gfa -> 68_1.primary.fa
+2026-02-06 08:25:27.977 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/01.raw_output/68_1.bp.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.primary.fa
+2026-02-06 08:25:28.863 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:25:32.573 - INFO - 转换成功|Successfully converted: 68_1.primary.fa
+2026-02-06 08:25:32.573 - INFO - 序列数|Sequences: 6364
+2026-02-06 08:25:32.573 - INFO - 总长度|Total length: 575,595,395 bp
+2026-02-06 08:25:32.573 - WARNING - 文件不存在|File not found: 68_1.a_ctg.gfa
+2026-02-06 08:25:32.573 - INFO - ============================================================
+2026-02-06 08:25:32.573 - INFO - 生成Contig-Reads映射|Generating Contig-Reads mapping
+2026-02-06 08:25:32.573 - INFO - ============================================================
+2026-02-06 08:25:32.573 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.p_ctg.gfa
+2026-02-06 08:25:32.573 - INFO - 处理|Processing: 68_1.bp.p_ctg.gfa
+2026-02-06 08:25:32.573 - INFO - ============================================================
+2026-02-06 08:25:32.573 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-02-06 08:25:32.573 - INFO - ============================================================
+2026-02-06 08:25:32.573 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/01.raw_output/68_1.bp.p_ctg.gfa
+2026-02-06 08:25:35.408 - INFO -   共处理|Total alignments processed: 105,396
+2026-02-06 08:25:35.408 - INFO -   共发现|Total contigs found: 6,364
+2026-02-06 08:25:35.408 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.p_ctg.contig_reads.tsv
+2026-02-06 08:25:35.428 - INFO - 映射统计|Mapping statistics:
+2026-02-06 08:25:35.428 - INFO -   总contig数|Total contigs: 6,364
+2026-02-06 08:25:35.429 - INFO -   平均reads数/contig|Avg reads/contig: 16.6
+2026-02-06 08:25:35.429 - INFO -   最少reads数|Min reads: 2
+2026-02-06 08:25:35.429 - INFO -   最多reads数|Max reads: 9,246
+2026-02-06 08:25:35.429 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.p_ctg.contig_reads.tsv
+2026-02-06 08:25:35.429 - INFO - ============================================================
+2026-02-06 08:25:35.429 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-02-06 08:25:35.429 - INFO - ============================================================
+2026-02-06 08:25:35.430 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.hap1.p_ctg.gfa
+2026-02-06 08:25:35.430 - INFO - 处理|Processing: 68_1.bp.hap1.p_ctg.gfa
+2026-02-06 08:25:35.431 - INFO - ============================================================
+2026-02-06 08:25:35.431 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-02-06 08:25:35.431 - INFO - ============================================================
+2026-02-06 08:25:35.431 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/01.raw_output/68_1.bp.hap1.p_ctg.gfa
+2026-02-06 08:25:37.499 - INFO -   共处理|Total alignments processed: 85,337
+2026-02-06 08:25:37.499 - INFO -   共发现|Total contigs found: 6,426
+2026-02-06 08:25:37.499 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.hap1.p_ctg.contig_reads.tsv
+2026-02-06 08:25:37.513 - INFO - 映射统计|Mapping statistics:
+2026-02-06 08:25:37.514 - INFO -   总contig数|Total contigs: 6,426
+2026-02-06 08:25:37.514 - INFO -   平均reads数/contig|Avg reads/contig: 13.3
+2026-02-06 08:25:37.514 - INFO -   最少reads数|Min reads: 2
+2026-02-06 08:25:37.514 - INFO -   最多reads数|Max reads: 8,547
+2026-02-06 08:25:37.514 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.hap1.p_ctg.contig_reads.tsv
+2026-02-06 08:25:37.514 - INFO - ============================================================
+2026-02-06 08:25:37.514 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-02-06 08:25:37.514 - INFO - ============================================================
+2026-02-06 08:25:37.515 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.hap2.p_ctg.gfa
+2026-02-06 08:25:37.515 - INFO - 处理|Processing: 68_1.bp.hap2.p_ctg.gfa
+2026-02-06 08:25:37.515 - INFO - ============================================================
+2026-02-06 08:25:37.515 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-02-06 08:25:37.515 - INFO - ============================================================
+2026-02-06 08:25:37.515 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/01.raw_output/68_1.bp.hap2.p_ctg.gfa
+2026-02-06 08:25:38.316 - INFO -   共处理|Total alignments processed: 31,075
+2026-02-06 08:25:38.316 - INFO -   共发现|Total contigs found: 587
+2026-02-06 08:25:38.316 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.hap2.p_ctg.contig_reads.tsv
+2026-02-06 08:25:38.320 - INFO - 映射统计|Mapping statistics:
+2026-02-06 08:25:38.320 - INFO -   总contig数|Total contigs: 587
+2026-02-06 08:25:38.320 - INFO -   平均reads数/contig|Avg reads/contig: 52.9
+2026-02-06 08:25:38.320 - INFO -   最少reads数|Min reads: 2
+2026-02-06 08:25:38.320 - INFO -   最多reads数|Max reads: 9,246
+2026-02-06 08:25:38.320 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.hap2.p_ctg.contig_reads.tsv
+2026-02-06 08:25:38.320 - INFO - ============================================================
+2026-02-06 08:25:38.320 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-02-06 08:25:38.320 - INFO - ============================================================
+2026-02-06 08:25:38.321 - INFO - 成功处理|Successfully processed: 3/3 个文件
+2026-02-06 08:25:38.321 - INFO - ============================================================
+2026-02-06 08:25:38.321 - INFO - ================================================================================
+2026-02-06 08:25:38.321 - INFO - 检测到NGS数据，开始NGS polish流程|NGS data detected, starting NGS polish
+2026-02-06 08:25:38.321 - INFO - ================================================================================
+2026-02-06 08:25:38.321 - INFO - ================================================================================
+2026-02-06 08:25:38.321 - INFO - 开始NGS polish流程|Starting NGS Polish Pipeline
+2026-02-06 08:25:38.321 - INFO - ================================================================================
+2026-02-06 08:25:38.321 - INFO - [1/4] 运行BWA比对|Running BWA alignment
+2026-02-06 08:25:38.464 - INFO - ================================================================================
+2026-02-06 08:25:38.464 - INFO - 开始BWA全基因组比对分析流程|Starting BWA alignment pipeline
+2026-02-06 08:25:38.464 - INFO - ================================================================================
+2026-02-06 08:25:38.464 - INFO - 步骤1/6: 检查依赖软件|Step 1/6: Checking dependencies
+2026-02-06 08:25:38.464 - INFO - 检查依赖软件|Checking dependencies
+2026-02-06 08:25:38.564 - INFO - BWA 可用|BWA available: [main]
+2026-02-06 08:25:39.159 - INFO - SAMtools 可用|SAMtools available: samtools
+2026-02-06 08:25:39.159 - INFO - 步骤2/6: 检查基因组索引|Step 2/6: Checking genome index
+2026-02-06 08:25:39.159 - INFO - 检查基因组索引|Checking genome index
+2026-02-06 08:25:39.159 - INFO - 缺少索引文件|Missing index files: .amb, .ann, .bwt, .pac, .sa
+2026-02-06 08:25:39.159 - INFO - 开始构建BWA索引|Building BWA index
+2026-02-06 08:25:39.159 - INFO - 执行步骤|Executing step: 构建BWA索引|Building BWA index
+2026-02-06 08:25:39.159 - INFO - 命令|Command: bwa index /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.primary.fa
+2026-02-06 08:32:25.015 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:32:25.015 - INFO - BWA索引构建成功|BWA index built successfully
+2026-02-06 08:32:25.015 - INFO - 步骤3/6: 查找FASTQ文件|Step 3/6: Finding FASTQ files
+2026-02-06 08:32:25.015 - INFO - 查找FASTQ文件|Finding FASTQ files
+2026-02-06 08:32:25.015 - INFO - 输入目录|Input directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/ngs
+2026-02-06 08:32:25.015 - INFO - 匹配模式|Pattern: _1.clean.fq.gz
+2026-02-06 08:32:25.030 - INFO - 找到样品|Found sample: 68-1A
+2026-02-06 08:32:25.030 - INFO - 共找到 1 个样品对|Found 1 sample pairs
+2026-02-06 08:32:25.030 - INFO - 步骤4/6: 批量比对 (1 个样品)|Step 4/6: Batch alignment (1 samples)
+2026-02-06 08:32:25.030 - INFO - ================================================================================
+2026-02-06 08:32:25.030 - INFO - 处理样品 1/1: 68-1A|Processing sample 1/1: 68-1A
+2026-02-06 08:32:25.030 - INFO - ================================================================================
+2026-02-06 08:32:25.030 - INFO - 开始比对样品|Starting alignment for sample: 68-1A
+2026-02-06 08:32:25.030 - INFO - 执行步骤|Executing step: BWA mem比对|BWA mem alignment: 68-1A
+2026-02-06 08:32:25.030 - INFO - 命令|Command: bwa mem -t 64 -k 19 -w 100 -d 100 -r 1.5 -y 20 -c 500 -D 0.5 -W 0 -m 50 -A 1 -B 4 -O 6,6 -E 1,1 -L 5,5 -U 17 -T 30 -h 5,200 -R '@RG\tID:68-1A\tSM:68-1A\tPL:ILLUMINA' /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.primary.fa /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/ngs/68-1A_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/ngs/68-1A_2.clean.fq.gz > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.sam
+2026-02-06 08:56:55.512 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:56:55.512 - INFO - 执行步骤|Executing step: SAM转BAM|SAM to BAM conversion
+2026-02-06 08:56:55.512 - INFO - 命令|Command: samtools view -@ 64 -b -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.raw.bam /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.sam
+2026-02-06 08:57:16.589 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:57:16.590 - INFO - 执行步骤|Executing step: 排序BAM|Sorting BAM
+2026-02-06 08:57:16.590 - INFO - 命令|Command: samtools sort -@ 64 -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.sorted.bam /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.raw.bam
+2026-02-06 08:58:11.971 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:58:11.971 - INFO - 执行步骤|Executing step: 构建BAM索引|Building BAM index
+2026-02-06 08:58:11.971 - INFO - 命令|Command: samtools index -@ 64 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.bam
+2026-02-06 08:58:16.180 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:58:16.180 - INFO - 清理中间文件|Cleaning up intermediate files
+2026-02-06 08:58:16.180 - INFO - 已删除SAM文件|Removed SAM file: 68-1A.sam
+2026-02-06 08:58:16.180 - INFO - 已删除原始BAM|Removed raw BAM: 68-1A.raw.bam
+2026-02-06 08:58:16.180 - INFO - 样品比对完成|Sample alignment completed: 68-1A
+2026-02-06 08:58:16.180 - INFO - 生成比对统计|Generating alignment statistics: 68-1A
+2026-02-06 08:58:16.181 - INFO - 执行步骤|Executing step: 生成flagstat统计|Generating flagstat: 68-1A
+2026-02-06 08:58:16.181 - INFO - 命令|Command: samtools flagstat /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.bam > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/stats/68-1A.flagstat.txt
+2026-02-06 08:58:34.908 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 08:58:34.908 - INFO - 执行步骤|Executing step: 生成详细统计|Generating detailed stats: 68-1A
+2026-02-06 08:58:34.908 - INFO - 命令|Command: samtools stats /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.bam > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/stats/68-1A.stats.txt
+2026-02-06 09:01:16.295 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 09:01:16.295 - INFO - 统计生成完成|Statistics generation completed: 68-1A
+2026-02-06 09:01:16.295 - INFO - 开始覆盖度分析|Starting coverage analysis: 68-1A
+2026-02-06 09:01:16.295 - INFO - 执行步骤|Executing step: 计算位点覆盖度|Calculating depth: 68-1A
+2026-02-06 09:01:16.295 - INFO - 命令|Command: samtools depth /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.bam > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/coverage/68-1A.depth.txt
+2026-02-06 09:01:53.876 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 09:01:53.876 - INFO - 计算滑窗覆盖度|Calculating windowed coverage
+2026-02-06 09:01:53.876 - INFO -    窗口大小|Window size: 1,000,000 bp
+2026-02-06 09:01:53.876 - INFO -    步长|Step size: 100,000 bp
+2026-02-06 09:08:09.956 - INFO - 滑窗覆盖度计算完成|Windowed coverage completed
+2026-02-06 09:08:09.956 - INFO -    输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/windows/68-1A.window.bed
+2026-02-06 09:08:09.957 - INFO - 覆盖度分析完成|Coverage analysis completed: 68-1A
+2026-02-06 09:08:09.957 - INFO - 步骤6/6: 生成汇总报告|Step 6/6: Generating summary report
+2026-02-06 09:08:09.957 - INFO - 生成汇总报告|Generating summary report
+2026-02-06 09:08:09.973 - INFO - 汇总报告已生成|Summary report generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/alignment_summary.txt
+2026-02-06 09:08:09.973 - INFO - ================================================================================
+2026-02-06 09:08:09.973 - INFO - BWA全基因组比对分析完成|BWA alignment analysis completed
+2026-02-06 09:08:09.973 - INFO - ================================================================================
+2026-02-06 09:08:09.973 - INFO - 成功处理样品数|Successfully processed: 1/1
+2026-02-06 09:08:09.973 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment
+2026-02-06 09:08:09.973 - INFO - BWA比对完成|BWA alignment completed: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment
+2026-02-06 09:08:09.973 - INFO - [2/4] 运行覆盖度过滤|Running coverage filter
+2026-02-06 09:08:10.054 - INFO - 使用BAM文件|Using BAM file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/01.bwa_alignment/bam/68-1A.bam
+2026-02-06 09:08:10.073 - INFO - ============================================================
+2026-02-06 09:08:10.073 - INFO - 覆盖度过滤流程|Coverage Filter Pipeline
+2026-02-06 09:08:10.073 - INFO - ============================================================
+2026-02-06 09:08:10.075 - INFO - 所有依赖检查通过|All dependencies check passed
+2026-02-06 09:08:10.075 - INFO - [1/4] 计算覆盖度|Calculating coverage
+2026-02-06 09:08:10.075 - INFO - 开始计算覆盖度|Starting coverage calculation
+2026-02-06 09:08:10.075 - INFO - 执行步骤|Executing step: 覆盖度计算|Coverage calculation
+2026-02-06 09:09:47.400 - INFO - 覆盖度文件已生成|Coverage file generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/02.coverage_filter/68_1_coverage.txt
+2026-02-06 09:09:47.400 - INFO - [2/4] 分类序列质量|Classifying sequence quality
+2026-02-06 09:09:47.400 - INFO - 开始分类序列质量|Starting sequence quality classification
+2026-02-06 09:09:47.400 - INFO - 执行步骤|Executing step: 提取高质量序列|Extracting high quality sequences
+2026-02-06 09:09:47.413 - INFO - 高质量序列|High quality sequences: 1759
+2026-02-06 09:09:47.413 - INFO - 执行步骤|Executing step: 提取中等质量序列|Extracting medium quality sequences
+2026-02-06 09:09:47.421 - INFO - 中等质量序列|Medium quality sequences: 3373
+2026-02-06 09:09:47.421 - INFO - 执行步骤|Executing step: 提取低质量序列|Extracting low quality sequences
+2026-02-06 09:09:47.428 - INFO - 低质量序列|Low quality sequences: 1232
+2026-02-06 09:09:47.428 - INFO - [3/4] 提取过滤后的序列|Extracting filtered sequences
+2026-02-06 09:09:47.428 - INFO - 开始提取序列|Starting sequence extraction
+2026-02-06 09:09:47.428 - INFO - 执行步骤|Executing step: 提取高质量序列|Extracting high quality sequences
+2026-02-06 09:09:48.633 - INFO - 执行步骤|Executing step: 提取中等质量序列|Extracting medium quality sequences
+2026-02-06 09:09:49.585 - INFO - 执行步骤|Executing step: 提取低质量序列|Extracting low quality sequences
+2026-02-06 09:09:50.071 - INFO - 序列提取完成|Sequence extraction completed
+2026-02-06 09:09:50.071 - INFO - [4/4] 生成统计报告|Generating statistics report
+2026-02-06 09:09:50.071 - INFO - 开始生成统计信息|Starting statistics generation
+2026-02-06 09:09:50.388 - INFO - 原始序列统计完成|Original sequence statistics completed
+2026-02-06 09:09:50.525 - INFO - 高质量序列统计完成|High quality sequence statistics completed
+2026-02-06 09:09:50.607 - INFO - 中等质量序列统计完成|Medium quality sequence statistics completed
+2026-02-06 09:09:50.645 - INFO - 低质量序列统计完成|Low quality sequence statistics completed
+2026-02-06 09:09:50.664 - INFO - 报告已保存到|Report saved to: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/02.coverage_filter/68_1_report.txt
+2026-02-06 09:09:50.664 - INFO - ============================================================
+2026-02-06 09:09:50.664 - INFO - 过滤流程完成|Filter pipeline completed
+2026-02-06 09:09:50.664 - INFO - ============================================================
+2026-02-06 09:09:50.664 - INFO - 覆盖度过滤完成|Coverage filter completed: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/02.coverage_filter/68_1_high_quality.list
+2026-02-06 09:09:50.664 - INFO - [3/4] 提取高质量HiFi reads|Extracting high-quality HiFi reads
+2026-02-06 09:09:50.664 - INFO - 从contig-reads映射中提取read names|Extracting read names from contig-reads mapping
+2026-02-06 09:09:50.664 - INFO - 执行命令|Executing: grep -Fwf /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/02.coverage_filter/68_1_high_quality.list /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/02.fasta/68_1.p_ctg.contig_reads.tsv | cut -f2 > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/03.filtered_reads/high_quality_read_names.txt
+2026-02-06 09:09:50.681 - INFO - 找到|Found 73176 个高质量reads|high-quality reads
+2026-02-06 09:09:50.681 - INFO - 使用seqkit提取reads|Extracting reads using seqkit
+2026-02-06 09:09:50.681 - INFO - 执行命令|Executing: seqkit grep -f /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/03.filtered_reads/high_quality_read_names.txt /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/01.data/clean/hifi/68-1_hifi.fq.gz.clean.fq.gz -j 64 -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/03.filtered_reads/68_1_high_quality_reads.fq.gz
+2026-02-06 10:15:35.942 - INFO - 高质量reads提取完成|High-quality reads extracted: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/03.filtered_reads/68_1_high_quality_reads.fq.gz
+2026-02-06 10:15:35.943 - INFO - [4/4] 使用高质量reads重新组装|Reassembly with high-quality reads
+2026-02-06 10:15:35.943 - INFO - 使用筛选后的reads进行重新组装|Reassembly with filtered reads: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/03.filtered_reads/68_1_high_quality_reads.fq.gz
+2026-02-06 10:15:35.943 - INFO - 运行hifiasm组装(仅HiFi模式)|Running hifiasm assembly (HiFi only mode)
+2026-02-06 10:15:35.943 - INFO - 执行命令|Executing command: hifiasm -o 68_1 -t 64 --hg-size 175m --n-hap 2 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/03.filtered_reads/68_1_high_quality_reads.fq.gz 2>&1|tee /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/05.logs/hifiasm_assembly.log
+[M::ha_analyze_count] lowest: count[5] = 248881
+[M::ha_analyze_count] highest: count[13] = 12808016
+[M::ha_hist_line]     2: ***** 622398
+[M::ha_hist_line]     3: ** 215722
+[M::ha_hist_line]     4: * 168155
+[M::ha_hist_line]     5: ** 248881
+[M::ha_hist_line]     6: **** 555356
+[M::ha_hist_line]     7: *********** 1375854
+[M::ha_hist_line]     8: *********************** 2993230
+[M::ha_hist_line]     9: ****************************************** 5436904
+[M::ha_hist_line]    10: ***************************************************************** 8306390
+[M::ha_hist_line]    11: ************************************************************************************* 10858838
+[M::ha_hist_line]    12: ************************************************************************************************** 12547009
+[M::ha_hist_line]    13: **************************************************************************************************** 12808016
+[M::ha_hist_line]    14: ********************************************************************************************* 11867903
+[M::ha_hist_line]    15: *************************************************************************** 9636744
+[M::ha_hist_line]    16: ******************************************************* 7037314
+[M::ha_hist_line]    17: ************************************ 4608301
+[M::ha_hist_line]    18: ********************** 2787937
+[M::ha_hist_line]    19: ************ 1592539
+[M::ha_hist_line]    20: ******* 896041
+[M::ha_hist_line]    21: **** 512585
+[M::ha_hist_line]    22: ** 312262
+[M::ha_hist_line]    23: ** 244937
+[M::ha_hist_line]    24: ** 212032
+[M::ha_hist_line]    25: ** 203948
+[M::ha_hist_line]    26: ** 195225
+[M::ha_hist_line]    27: * 179213
+[M::ha_hist_line]    28: * 174468
+[M::ha_hist_line]    29: * 145580
+[M::ha_hist_line]    30: * 130296
+[M::ha_hist_line]    31: * 113012
+[M::ha_hist_line]    32: * 95255
+[M::ha_hist_line]    33: * 77364
+[M::ha_hist_line]    34: * 68449
+[M::ha_hist_line]  rest: **************** 1997122
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_ft_gen] peak_hom: 13; peak_het: -1
+[M::ha_ct_shrink::29.158*10.16] ==> counted 1092085 distinct minimizer k-mers
+[M::ha_ft_gen::29.514*10.04@17.694GB] ==> filtered out 1092085 k-mers occurring 65 or more times
+[M::ha_opt_update_cov] updated max_n_chain to 100
+[M::yak_count] collected 62676957 minimizers
+[M::ha_pt_gen::54.373*7.47] ==> counted 6082282 distinct minimizer k-mers
+[M::ha_pt_gen] count[4095] = 0 (for sanity check)
+[M::ha_analyze_count] lowest: count[5] = 15579
+[M::ha_analyze_count] highest: count[13] = 525966
+[M::ha_hist_line]     1: ****************************************************************************************************> 1807779
+[M::ha_hist_line]     2: **************** 85909
+[M::ha_hist_line]     3: ***** 25776
+[M::ha_hist_line]     4: *** 15470
+[M::ha_hist_line]     5: *** 15579
+[M::ha_hist_line]     6: ***** 27614
+[M::ha_hist_line]     7: ************ 62593
+[M::ha_hist_line]     8: ************************* 131030
+[M::ha_hist_line]     9: ******************************************** 232447
+[M::ha_hist_line]    10: ******************************************************************* 350961
+[M::ha_hist_line]    11: ************************************************************************************** 452367
+[M::ha_hist_line]    12: *************************************************************************************************** 518769
+[M::ha_hist_line]    13: **************************************************************************************************** 525966
+[M::ha_hist_line]    14: ******************************************************************************************** 483638
+[M::ha_hist_line]    15: ************************************************************************** 389755
+[M::ha_hist_line]    16: ****************************************************** 284033
+[M::ha_hist_line]    17: ************************************ 186751
+[M::ha_hist_line]    18: ********************** 114134
+[M::ha_hist_line]    19: ************* 66968
+[M::ha_hist_line]    20: ******** 39642
+[M::ha_hist_line]    21: ***** 24372
+[M::ha_hist_line]    22: *** 17270
+[M::ha_hist_line]    23: *** 14639
+[M::ha_hist_line]    24: *** 13683
+[M::ha_hist_line]    25: ** 13013
+[M::ha_hist_line]    26: ** 12732
+[M::ha_hist_line]    27: ** 11837
+[M::ha_hist_line]    28: ** 11662
+[M::ha_hist_line]    29: ** 10325
+[M::ha_hist_line]    30: ** 9196
+[M::ha_hist_line]    31: ** 8376
+[M::ha_hist_line]    32: * 7359
+[M::ha_hist_line]    33: * 6557
+[M::ha_hist_line]    34: * 6156
+[M::ha_hist_line]    35: * 5542
+[M::ha_hist_line]    36: * 5489
+[M::ha_hist_line]    37: * 5141
+[M::ha_hist_line]    38: * 4822
+[M::ha_hist_line]    39: * 4659
+[M::ha_hist_line]    40: * 4289
+[M::ha_hist_line]    41: * 4008
+[M::ha_hist_line]    42: * 3852
+[M::ha_hist_line]    43: * 3653
+[M::ha_hist_line]    44: * 3405
+[M::ha_hist_line]    45: * 3201
+[M::ha_hist_line]    46: * 3162
+[M::ha_hist_line]    47: * 3139
+[M::ha_hist_line]    48: * 2860
+[M::ha_hist_line]    49: * 2694
+[M::ha_hist_line]  rest: ******* 38008
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_pt_gen] peak_hom: 13; peak_het: -1
+[M::ha_ct_shrink::54.391*7.47] ==> counted 4274503 distinct minimizer k-mers
+[M::ha_pt_gen::] counting in normal mode
+[M::yak_count] collected 62676957 minimizers
+[M::ha_pt_gen::57.829*8.63] ==> indexed 60869178 positions, counted 4274503 distinct minimizer k-mers
+[M::pec::46.345] # bases: 2553341964; # corrected bases: 8236942
+[M::pec::0.206] # exact o: 2564874; # non-exact o: 977667
+[M::ha_assemble::104.628*33.00@17.694GB] ==> corrected reads for round 1
+[M::ha_assemble] # bases: 2553341964; # corrected bases: 8236942
+[M::yak_count] collected 62065851 minimizers
+[M::ha_pt_gen::107.436*32.93] ==> counted 4264216 distinct minimizer k-mers
+[M::ha_pt_gen] count[4095] = 0 (for sanity check)
+[M::ha_analyze_count] lowest: count[5] = 9721
+[M::ha_analyze_count] highest: count[13] = 528424
+[M::ha_hist_line]     1: ******************** 105006
+[M::ha_hist_line]     2: ** 8692
+[M::ha_hist_line]     3: * 5964
+[M::ha_hist_line]     4: * 5958
+[M::ha_hist_line]     5: ** 9721
+[M::ha_hist_line]     6: **** 19326
+[M::ha_hist_line]     7: ********* 47409
+[M::ha_hist_line]     8: ******************** 107383
+[M::ha_hist_line]     9: ************************************** 200923
+[M::ha_hist_line]    10: ************************************************************ 318599
+[M::ha_hist_line]    11: ******************************************************************************** 423969
+[M::ha_hist_line]    12: *********************************************************************************************** 503718
+[M::ha_hist_line]    13: **************************************************************************************************** 528424
+[M::ha_hist_line]    14: *********************************************************************************************** 502156
+[M::ha_hist_line]    15: ******************************************************************************** 421596
+[M::ha_hist_line]    16: *********************************************************** 312975
+[M::ha_hist_line]    17: **************************************** 212323
+[M::ha_hist_line]    18: ************************* 131583
+[M::ha_hist_line]    19: *************** 77416
+[M::ha_hist_line]    20: ********* 45765
+[M::ha_hist_line]    21: ***** 27257
+[M::ha_hist_line]    22: *** 18038
+[M::ha_hist_line]    23: *** 14361
+[M::ha_hist_line]    24: *** 13387
+[M::ha_hist_line]    25: ** 13076
+[M::ha_hist_line]    26: ** 12806
+[M::ha_hist_line]    27: ** 11683
+[M::ha_hist_line]    28: ** 12487
+[M::ha_hist_line]    29: ** 10632
+[M::ha_hist_line]    30: ** 9988
+[M::ha_hist_line]    31: ** 8625
+[M::ha_hist_line]    32: ** 8113
+[M::ha_hist_line]    33: * 6527
+[M::ha_hist_line]    34: * 6312
+[M::ha_hist_line]    35: * 5673
+[M::ha_hist_line]    36: * 5457
+[M::ha_hist_line]    37: * 4837
+[M::ha_hist_line]    38: * 4925
+[M::ha_hist_line]    39: * 4835
+[M::ha_hist_line]    40: * 4619
+[M::ha_hist_line]    41: * 4056
+[M::ha_hist_line]    42: * 4182
+[M::ha_hist_line]    43: * 3929
+[M::ha_hist_line]    44: * 3325
+[M::ha_hist_line]    45: * 3364
+[M::ha_hist_line]    46: * 2965
+[M::ha_hist_line]    47: * 3050
+[M::ha_hist_line]    48: * 2999
+[M::ha_hist_line]    49: * 2832
+[M::ha_hist_line]  rest: ******** 40970
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_pt_gen] peak_hom: 13; peak_het: -1
+[M::ha_ct_shrink::107.446*32.93] ==> counted 4159210 distinct minimizer k-mers
+[M::ha_pt_gen::] counting in normal mode
+[M::yak_count] collected 62065851 minimizers
+[M::ha_pt_gen::110.772*32.75] ==> indexed 61960845 positions, counted 4159210 distinct minimizer k-mers
+[M::pec::31.119] # bases: 2553597768; # corrected bases: 197156
+[M::pec::0.263] # exact o: 5140935; # non-exact o: 215325
+[M::ha_assemble::142.243*39.45@17.694GB] ==> corrected reads for round 2
+[M::ha_assemble] # bases: 2553597768; # corrected bases: 197156
+[M::yak_count] collected 61965140 minimizers
+[M::ha_pt_gen::145.188*39.24] ==> counted 4167553 distinct minimizer k-mers
+[M::ha_pt_gen] count[4095] = 0 (for sanity check)
+[M::ha_analyze_count] lowest: count[5] = 9343
+[M::ha_analyze_count] highest: count[13] = 528653
+[M::ha_hist_line]     1: *** 15656
+[M::ha_hist_line]     2: * 3369
+[M::ha_hist_line]     3: * 4670
+[M::ha_hist_line]     4: * 5723
+[M::ha_hist_line]     5: ** 9343
+[M::ha_hist_line]     6: **** 19026
+[M::ha_hist_line]     7: ********* 47181
+[M::ha_hist_line]     8: ******************** 107239
+[M::ha_hist_line]     9: ************************************** 200623
+[M::ha_hist_line]    10: ************************************************************ 318070
+[M::ha_hist_line]    11: ******************************************************************************** 423554
+[M::ha_hist_line]    12: *********************************************************************************************** 503693
+[M::ha_hist_line]    13: **************************************************************************************************** 528653
+[M::ha_hist_line]    14: *********************************************************************************************** 502377
+[M::ha_hist_line]    15: ******************************************************************************** 422010
+[M::ha_hist_line]    16: *********************************************************** 313075
+[M::ha_hist_line]    17: **************************************** 212704
+[M::ha_hist_line]    18: ************************* 131769
+[M::ha_hist_line]    19: *************** 77515
+[M::ha_hist_line]    20: ********* 45819
+[M::ha_hist_line]    21: ***** 27374
+[M::ha_hist_line]    22: *** 18016
+[M::ha_hist_line]    23: *** 14420
+[M::ha_hist_line]    24: *** 13372
+[M::ha_hist_line]    25: ** 13135
+[M::ha_hist_line]    26: ** 12794
+[M::ha_hist_line]    27: ** 11708
+[M::ha_hist_line]    28: ** 12535
+[M::ha_hist_line]    29: ** 10569
+[M::ha_hist_line]    30: ** 9904
+[M::ha_hist_line]    31: ** 8612
+[M::ha_hist_line]    32: ** 8110
+[M::ha_hist_line]    33: * 6525
+[M::ha_hist_line]    34: * 6310
+[M::ha_hist_line]    35: * 5699
+[M::ha_hist_line]    36: * 5451
+[M::ha_hist_line]    37: * 4860
+[M::ha_hist_line]    38: * 4926
+[M::ha_hist_line]    39: * 4792
+[M::ha_hist_line]    40: * 4675
+[M::ha_hist_line]    41: * 4038
+[M::ha_hist_line]    42: * 4166
+[M::ha_hist_line]    43: * 3940
+[M::ha_hist_line]    44: * 3343
+[M::ha_hist_line]    45: * 3382
+[M::ha_hist_line]    46: * 2984
+[M::ha_hist_line]    47: * 3062
+[M::ha_hist_line]    48: * 3000
+[M::ha_hist_line]    49: * 2814
+[M::ha_hist_line]  rest: ******** 40968
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_pt_gen] peak_hom: 13; peak_het: -1
+[M::ha_ct_shrink::145.196*39.24] ==> counted 4151897 distinct minimizer k-mers
+[M::ha_pt_gen::] counting in normal mode
+[M::yak_count] collected 61965140 minimizers
+[M::ha_pt_gen::148.480*38.98] ==> indexed 61949484 positions, counted 4151897 distinct minimizer k-mers
+[M::pec::23.567] # bases: 2553608542; # corrected bases: 17120
+[M::pec::0.273] # exact o: 5577629; # non-exact o: 67334
+[M::ha_assemble::172.336*42.32@17.694GB] ==> corrected reads for round 3
+[M::ha_assemble] # bases: 2553608542; # corrected bases: 17120
+[M::yak_count] collected 61957709 minimizers
+[M::ha_pt_gen::175.210*42.11] ==> counted 4158563 distinct minimizer k-mers
+[M::ha_pt_gen] count[4095] = 0 (for sanity check)
+[M::ha_analyze_count] lowest: count[5] = 9343
+[M::ha_analyze_count] highest: count[13] = 528650
+[M::ha_hist_line]     1: * 7367
+[M::ha_hist_line]     2: * 2805
+[M::ha_hist_line]     3: * 4574
+[M::ha_hist_line]     4: * 5690
+[M::ha_hist_line]     5: ** 9343
+[M::ha_hist_line]     6: **** 19024
+[M::ha_hist_line]     7: ********* 47150
+[M::ha_hist_line]     8: ******************** 107205
+[M::ha_hist_line]     9: ************************************** 200610
+[M::ha_hist_line]    10: ************************************************************ 318090
+[M::ha_hist_line]    11: ******************************************************************************** 423587
+[M::ha_hist_line]    12: *********************************************************************************************** 503657
+[M::ha_hist_line]    13: **************************************************************************************************** 528650
+[M::ha_hist_line]    14: *********************************************************************************************** 502417
+[M::ha_hist_line]    15: ******************************************************************************** 422035
+[M::ha_hist_line]    16: *********************************************************** 313067
+[M::ha_hist_line]    17: **************************************** 212705
+[M::ha_hist_line]    18: ************************* 131767
+[M::ha_hist_line]    19: *************** 77515
+[M::ha_hist_line]    20: ********* 45820
+[M::ha_hist_line]    21: ***** 27368
+[M::ha_hist_line]    22: *** 18006
+[M::ha_hist_line]    23: *** 14419
+[M::ha_hist_line]    24: *** 13364
+[M::ha_hist_line]    25: ** 13155
+[M::ha_hist_line]    26: ** 12793
+[M::ha_hist_line]    27: ** 11705
+[M::ha_hist_line]    28: ** 12539
+[M::ha_hist_line]    29: ** 10575
+[M::ha_hist_line]    30: ** 9904
+[M::ha_hist_line]    31: ** 8613
+[M::ha_hist_line]    32: ** 8109
+[M::ha_hist_line]    33: * 6526
+[M::ha_hist_line]    34: * 6306
+[M::ha_hist_line]    35: * 5702
+[M::ha_hist_line]    36: * 5451
+[M::ha_hist_line]    37: * 4860
+[M::ha_hist_line]    38: * 4925
+[M::ha_hist_line]    39: * 4793
+[M::ha_hist_line]    40: * 4675
+[M::ha_hist_line]    41: * 4038
+[M::ha_hist_line]    42: * 4159
+[M::ha_hist_line]    43: * 3933
+[M::ha_hist_line]    44: * 3350
+[M::ha_hist_line]    45: * 3383
+[M::ha_hist_line]    46: * 2983
+[M::ha_hist_line]    47: * 3070
+[M::ha_hist_line]    48: * 2995
+[M::ha_hist_line]    49: * 2820
+[M::ha_hist_line]  rest: ******** 40966
+[M::ha_analyze_count] left: none
+[M::ha_analyze_count] right: none
+[M::ha_pt_gen] peak_hom: 13; peak_het: -1
+[M::ha_ct_shrink::175.218*42.11] ==> counted 4151196 distinct minimizer k-mers
+[M::ha_pt_gen::] counting in normal mode
+[M::yak_count] collected 61957709 minimizers
+[M::ha_pt_gen::178.474*41.84] ==> indexed 61950342 positions, counted 4151196 distinct minimizer k-mers
+[M::ha_print_ovlp_stat_0] # overlaps: 5673991
+[M::ha_print_ovlp_stat_0] # strong overlaps: 829855
+[M::ha_print_ovlp_stat_0] # weak overlaps: 4844136
+[M::ha_print_ovlp_stat_0] # exact overlaps: 5603705
+[M::ha_print_ovlp_stat_0] # inexact overlaps: 70286
+[M::ha_print_ovlp_stat_0] # overlaps without large indels: 5622651
+[M::ha_print_ovlp_stat_0] # reverse overlaps: 96828
+[M::ha_print_ovlp_stat_0] # running time: 11.320
+[M::ha_assemble::189.925*43.10@17.694GB] ==> found overlaps for the final round
+[M::ha_opt_update_cov_min] updated max_n_chain to 100
+Writing reads to disk... 
+Reads has been written.
+Writing ma_hit_ts to disk... 
+ma_hit_ts has been written.
+Writing ma_hit_ts to disk... 
+ma_hit_ts has been written.
+bin files have been written.
+[M::purge_dups] homozygous read coverage threshold: 12
+[M::purge_dups] purge duplication coverage threshold: 16
+[M::ug_ext_gfa::] # tips::4
+Writing raw unitig GFA to disk... 
+Writing processed unitig GFA to disk... 
+[M::purge_dups] homozygous read coverage threshold: 12
+[M::purge_dups] purge duplication coverage threshold: 16
+[M::mc_solve:: # edges: 12]
+[M::mc_solve_core_adv::0.001] ==> Partition
+[M::adjust_utg_by_primary] primary contig coverage range: [10, infinity]
+Writing 68_1.bp.p_ctg.gfa to disk... 
+[M::reduce_hamming_error_adv::0.008] # inserted edges: 0, # fixed bubbles: 0
+[M::adjust_utg_by_trio] primary contig coverage range: [10, infinity]
+[M::recall_arcs] # transitive arcs::26
+[M::recall_arcs] # new arcs::4772, # old arcs::3422
+[M::clean_trio_untig_graph] # adjusted arcs::0
+[M::adjust_utg_by_trio] primary contig coverage range: [10, infinity]
+[M::recall_arcs] # transitive arcs::1092
+[M::recall_arcs] # new arcs::5046, # old arcs::3256
+[M::clean_trio_untig_graph] # adjusted arcs::0
+[M::output_trio_graph_joint] dedup_base::739211, miss_base::0
+Writing 68_1.bp.hap1.p_ctg.gfa to disk... 
+Writing 68_1.bp.hap2.p_ctg.gfa to disk... 
+Inconsistency threshold for low-quality regions in BED files: 70%
+[M::main] Version: 0.25.0-r726
+[M::main] CMD: hifiasm -o 68_1 -t 64 --hg-size 175m --n-hap 2 /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/03.filtered_reads/68_1_high_quality_reads.fq.gz
+[M::main] Real time: 214.610 sec; CPU: 8211.705 sec; Peak RSS: 17.694 GB
+2026-02-06 10:19:10.851 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 10:19:10.851 - INFO - 组装完成(HiFi only)|Assembly completed(HiFi only)
+2026-02-06 10:19:10.851 - INFO - 转换GFA为FASTA格式|Converting GFA to FASTA format
+2026-02-06 10:19:10.851 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.hap1.p_ctg.gfa
+2026-02-06 10:19:10.851 - INFO - 转换|Converting: 68_1.bp.hap1.p_ctg.gfa -> 68_1.hap1.fa
+2026-02-06 10:19:10.851 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/01.raw_output/68_1.bp.hap1.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.hap1.fa
+2026-02-06 10:19:11.261 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 10:19:12.526 - INFO - 转换成功|Successfully converted: 68_1.hap1.fa
+2026-02-06 10:19:12.526 - INFO - 序列数|Sequences: 48
+2026-02-06 10:19:12.526 - INFO - 总长度|Total length: 177,851,708 bp
+2026-02-06 10:19:12.526 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.hap2.p_ctg.gfa
+2026-02-06 10:19:12.526 - INFO - 转换|Converting: 68_1.bp.hap2.p_ctg.gfa -> 68_1.hap2.fa
+2026-02-06 10:19:12.526 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/01.raw_output/68_1.bp.hap2.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.hap2.fa
+2026-02-06 10:19:12.926 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 10:19:14.144 - INFO - 转换成功|Successfully converted: 68_1.hap2.fa
+2026-02-06 10:19:14.144 - INFO - 序列数|Sequences: 29
+2026-02-06 10:19:14.144 - INFO - 总长度|Total length: 171,288,576 bp
+2026-02-06 10:19:14.144 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.p_ctg.gfa
+2026-02-06 10:19:14.144 - INFO - 转换|Converting: 68_1.bp.p_ctg.gfa -> 68_1.primary.fa
+2026-02-06 10:19:14.144 - INFO - 执行命令|Executing command: awk '/^S/{print ">"$2; print $3}' /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/01.raw_output/68_1.bp.p_ctg.gfa | seqkit seq -w 60 - > /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.primary.fa
+2026-02-06 10:19:14.547 - INFO - 命令执行成功|Command executed successfully
+2026-02-06 10:19:15.830 - INFO - 转换成功|Successfully converted: 68_1.primary.fa
+2026-02-06 10:19:15.830 - INFO - 序列数|Sequences: 50
+2026-02-06 10:19:15.830 - INFO - 总长度|Total length: 178,257,498 bp
+2026-02-06 10:19:15.831 - WARNING - 文件不存在|File not found: 68_1.a_ctg.gfa
+2026-02-06 10:19:15.831 - INFO - ============================================================
+2026-02-06 10:19:15.831 - INFO - 生成Contig-Reads映射|Generating Contig-Reads mapping
+2026-02-06 10:19:15.831 - INFO - ============================================================
+2026-02-06 10:19:15.831 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.p_ctg.gfa
+2026-02-06 10:19:15.831 - INFO - 处理|Processing: 68_1.bp.p_ctg.gfa
+2026-02-06 10:19:15.831 - INFO - ============================================================
+2026-02-06 10:19:15.831 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-02-06 10:19:15.831 - INFO - ============================================================
+2026-02-06 10:19:15.831 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/01.raw_output/68_1.bp.p_ctg.gfa
+2026-02-06 10:19:18.159 - INFO -   共处理|Total alignments processed: 63,047
+2026-02-06 10:19:18.159 - INFO -   共发现|Total contigs found: 50
+2026-02-06 10:19:18.159 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.p_ctg.contig_reads.tsv
+2026-02-06 10:19:18.166 - INFO - 映射统计|Mapping statistics:
+2026-02-06 10:19:18.166 - INFO -   总contig数|Total contigs: 50
+2026-02-06 10:19:18.166 - INFO -   平均reads数/contig|Avg reads/contig: 1260.9
+2026-02-06 10:19:18.166 - INFO -   最少reads数|Min reads: 1
+2026-02-06 10:19:18.166 - INFO -   最多reads数|Max reads: 9,167
+2026-02-06 10:19:18.167 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.p_ctg.contig_reads.tsv
+2026-02-06 10:19:18.167 - INFO - ============================================================
+2026-02-06 10:19:18.167 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-02-06 10:19:18.167 - INFO - ============================================================
+2026-02-06 10:19:18.167 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.hap1.p_ctg.gfa
+2026-02-06 10:19:18.167 - INFO - 处理|Processing: 68_1.bp.hap1.p_ctg.gfa
+2026-02-06 10:19:18.167 - INFO - ============================================================
+2026-02-06 10:19:18.167 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-02-06 10:19:18.167 - INFO - ============================================================
+2026-02-06 10:19:18.168 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/01.raw_output/68_1.bp.hap1.p_ctg.gfa
+2026-02-06 10:19:20.502 - INFO -   共处理|Total alignments processed: 62,938
+2026-02-06 10:19:20.502 - INFO -   共发现|Total contigs found: 48
+2026-02-06 10:19:20.502 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.hap1.p_ctg.contig_reads.tsv
+2026-02-06 10:19:20.509 - INFO - 映射统计|Mapping statistics:
+2026-02-06 10:19:20.509 - INFO -   总contig数|Total contigs: 48
+2026-02-06 10:19:20.509 - INFO -   平均reads数/contig|Avg reads/contig: 1311.2
+2026-02-06 10:19:20.509 - INFO -   最少reads数|Min reads: 2
+2026-02-06 10:19:20.510 - INFO -   最多reads数|Max reads: 9,167
+2026-02-06 10:19:20.510 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.hap1.p_ctg.contig_reads.tsv
+2026-02-06 10:19:20.510 - INFO - ============================================================
+2026-02-06 10:19:20.510 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-02-06 10:19:20.510 - INFO - ============================================================
+2026-02-06 10:19:20.510 - INFO - 使用带.bp.前缀的文件|Using .bp. prefixed file: 68_1.bp.hap2.p_ctg.gfa
+2026-02-06 10:19:20.510 - INFO - 处理|Processing: 68_1.bp.hap2.p_ctg.gfa
+2026-02-06 10:19:20.510 - INFO - ============================================================
+2026-02-06 10:19:20.511 - INFO - 生成Contig-Reads映射文件|Generating Contig-Reads mapping file
+2026-02-06 10:19:20.511 - INFO - ============================================================
+2026-02-06 10:19:20.511 - INFO - 解析GFA文件|Parsing GFA file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/01.raw_output/68_1.bp.hap2.p_ctg.gfa
+2026-02-06 10:19:22.298 - INFO -   共处理|Total alignments processed: 56,669
+2026-02-06 10:19:22.298 - INFO -   共发现|Total contigs found: 29
+2026-02-06 10:19:22.298 - INFO - 写入映射文件|Writing mapping file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.hap2.p_ctg.contig_reads.tsv
+2026-02-06 10:19:22.304 - INFO - 映射统计|Mapping statistics:
+2026-02-06 10:19:22.304 - INFO -   总contig数|Total contigs: 29
+2026-02-06 10:19:22.304 - INFO -   平均reads数/contig|Avg reads/contig: 1954.1
+2026-02-06 10:19:22.304 - INFO -   最少reads数|Min reads: 4
+2026-02-06 10:19:22.304 - INFO -   最多reads数|Max reads: 8,406
+2026-02-06 10:19:22.304 - INFO -   输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta/68_1.hap2.p_ctg.contig_reads.tsv
+2026-02-06 10:19:22.305 - INFO - ============================================================
+2026-02-06 10:19:22.305 - INFO - Contig-Reads映射文件生成完成|Contig-Reads mapping file generated successfully
+2026-02-06 10:19:22.305 - INFO - ============================================================
+2026-02-06 10:19:22.305 - INFO - 成功处理|Successfully processed: 3/3 个文件
+2026-02-06 10:19:22.305 - INFO - ============================================================
+2026-02-06 10:19:22.305 - INFO - 统计最终组装结果|Summarizing final assembly results
+2026-02-06 10:19:22.305 - INFO -   ✓ 68_1.primary.fa (172.8 MB)
+2026-02-06 10:19:22.305 - INFO -   ✓ 68_1.hap1.fa (172.4 MB)
+2026-02-06 10:19:22.305 - INFO -   ✓ 68_1.hap2.fa (166.1 MB)
+2026-02-06 10:19:22.305 - INFO - 共生成|Total generated: 3/4 个FASTA文件
+2026-02-06 10:19:22.305 - INFO - 文件位置|Files location: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly/02.fasta
+2026-02-06 10:19:22.306 - INFO - 重新组装完成|Reassembly completed
+2026-02-06 10:19:22.306 - INFO - 最终结果保存在|Final results saved to: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/04.reassembly
+2026-02-06 10:19:22.306 - INFO - ================================================================================
+2026-02-06 10:19:22.306 - INFO - NGS polish流程完成|NGS Polish Pipeline Completed
+2026-02-06 10:19:22.306 - INFO - ================================================================================
+2026-02-06 10:19:25.808 - INFO -  统计报告已生成|Statistics report generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/04.statistics/68_1_assembly_statistics.txt
+2026-02-06 10:19:25.808 - INFO - ================================================================================
+2026-02-06 10:19:25.808 - INFO - 组装流程完成|Assembly Pipeline Completed
+2026-02-06 10:19:25.808 - INFO - ================================================================================
+2026-02-06 10:19:25.808 - INFO - 总耗时|Total Duration: 6839 秒
+2026-02-06 10:19:25.808 - INFO - 生成FASTA文件|Generated FASTA files: 3
+2026-02-06 10:19:25.808 - INFO - 输出文件结构|Output File Structure:
+2026-02-06 10:19:25.809 - INFO - 
+ /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/
+   │
+   ├──  01.raw_output/     (初次组装原始输出|Initial assembly raw output)
+   │   ├──  68_1.hap1.p_ctg.gfa
+   │   ├──  68_1.hap2.p_ctg.gfa
+   │   ├──  68_1.p_ctg.gfa
+   │   └──  其他中间文件|Other intermediate files
+   │
+   ├──  02.fasta/          (初次组装FASTA|Initial assembly FASTA)
+   │   ├──  68_1.hap1.fa
+   │   ├──  68_1.hap2.fa
+   │   ├──  68_1.primary.fa
+   │   ├──  68_1.alternate.fa
+   │   ├──  68_1.p_ctg.contig_reads.tsv (contig-reads映射|mapping)
+   │   ├──  68_1.hap1.p_ctg.contig_reads.tsv
+   │   └──  68_1.hap2.p_ctg.contig_reads.tsv
+   │
+   ├──  03.ngs_polish/     (NGS筛选和重新组装|NGS filtering & reassembly)
+   │   ├──  01.bwa_alignment/              (BWA比对结果|BWA alignment)
+   │   │   └──  bam/68_1.bam
+   │   ├──  02.coverage_filter/            (覆盖度过滤结果|Coverage filter)
+   │   │   └──  68_1_high_quality.list
+   │   ├──  03.filtered_reads/             (筛选的reads|Filtered reads)
+   │   │   └──  68_1_high_quality_reads.fq.gz
+   │   ├──  04.reassembly/                 (重新组装结果|Reassembly)
+   │   │   ├──  01.raw_output/
+   │   │   └──  02.fasta/
+   │   └──  68_1.polished.fa (最终polished基因组|Final polished genome)
+   │
+   ├──  04.statistics/     (统计信息|Statistics)
+   │   └──  68_1_assembly_statistics.txt
+   │
+   └──  05.logs/           (日志文件|Log files)
+       └──  assembly.log
+            
+2026-02-06 10:19:25.809 - INFO -  下一步建议|Next Steps:
+2026-02-06 10:19:25.809 - INFO -    1. 查看polished基因组|1. View polished genome
+2026-02-06 10:19:25.809 - INFO -       /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/13.68-1基因组/02.纯hifi组装/68_1/03.ngs_polish/68_1.polished.fa
+2026-02-06 10:19:25.809 - INFO -    2. 查看统计报告|2. View statistics report
+2026-02-06 10:19:25.809 - INFO -    3. 检查组装质量|3. Check assembly quality (QUAST/BUSCO)
+2026-02-06 10:19:25.809 - INFO -    4. 可视化组装|4. Visualize assembly (Bandage)
+2026-02-06 10:19:25.809 - INFO -    5. 查看contig-reads映射|5. View contig-reads mapping

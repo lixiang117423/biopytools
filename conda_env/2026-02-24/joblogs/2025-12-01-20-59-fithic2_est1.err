@@ -1,0 +1,82 @@
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/bin/fithic", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 323, in main
+    (binStats,noOfFrags, maxPossibleGenomicDist, possibleIntraInRangeCount, possibleInterAllCount, interChrProb, baselineIntraChrProb) = generate_FragPairs(observedInterAllCount, observedInterAllSum, binStats, fragsFile, resolution)
+                                                                                                                                         ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 582, in generate_FragPairs
+    for line in infile:
+                ^^^^^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/bin/fithic", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 323, in main
+    (binStats,noOfFrags, maxPossibleGenomicDist, possibleIntraInRangeCount, possibleInterAllCount, interChrProb, baselineIntraChrProb) = generate_FragPairs(observedInterAllCount, observedInterAllSum, binStats, fragsFile, resolution)
+                                                                                                                                         ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 582, in generate_FragPairs
+    for line in infile:
+                ^^^^^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/bin/fithic", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 323, in main
+    (binStats,noOfFrags, maxPossibleGenomicDist, possibleIntraInRangeCount, possibleInterAllCount, interChrProb, baselineIntraChrProb) = generate_FragPairs(observedInterAllCount, observedInterAllSum, binStats, fragsFile, resolution)
+                                                                                                                                         ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 582, in generate_FragPairs
+    for line in infile:
+                ^^^^^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/bin/fithic", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 323, in main
+    (binStats,noOfFrags, maxPossibleGenomicDist, possibleIntraInRangeCount, possibleInterAllCount, interChrProb, baselineIntraChrProb) = generate_FragPairs(observedInterAllCount, observedInterAllSum, binStats, fragsFile, resolution)
+                                                                                                                                         ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 582, in generate_FragPairs
+    for line in infile:
+                ^^^^^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Exception in thread "main" java.lang.RuntimeException: Unknown command: dump
+	at juicebox.HiCTools.main(HiCTools.java:94)
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/bin/fithic", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 323, in main
+    (binStats,noOfFrags, maxPossibleGenomicDist, possibleIntraInRangeCount, possibleInterAllCount, interChrProb, baselineIntraChrProb) = generate_FragPairs(observedInterAllCount, observedInterAllSum, binStats, fragsFile, resolution)
+                                                                                                                                         ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/fithic-v.2.0.8/lib/python3.14/site-packages/fithic/fithic.py", line 582, in generate_FragPairs
+    for line in infile:
+                ^^^^^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte
+Job 68253469 stderr output:
+

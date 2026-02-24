@@ -1,0 +1,471 @@
+2025-10-10 17:06:04,156 - INFO - 🧬 开始BLAST分析流程
+2025-10-10 17:06:04,156 - INFO - ================================================================================
+2025-10-10 17:06:04,156 - INFO - 📋 步骤0: 准备样品映射文件
+2025-10-10 17:06:04,156 - INFO - 🔄 自动生成样品映射文件
+2025-10-10 17:06:04,425 - INFO - 📝 生成样品映射文件: blast/auto_generated_sample_map.txt
+2025-10-10 17:06:04,426 - INFO - ✅ 样品映射文件生成完成，包含 273 个样品
+2025-10-10 17:06:04,426 - INFO - 💡 提示：如需修改样品名称，请编辑文件后重新运行
+2025-10-10 17:06:04,426 - INFO - 🔍 步骤1: 检查依赖软件
+2025-10-10 17:06:04,426 - INFO - 🔍 检查依赖软件
+2025-10-10 17:06:06,943 - INFO - ✅ makeblastdb 可用
+2025-10-10 17:06:07,199 - INFO - ✅ BLASTN 可用
+2025-10-10 17:06:07,199 - INFO - 🗄️  步骤2: 创建BLAST数据库
+2025-10-10 17:06:07,199 - INFO - 🗄️  创建BLAST数据库...
+2025-10-10 17:06:07,200 - INFO - 📁 数据库目录: blast/blast_db
+2025-10-10 17:06:07,200 - INFO - 🚀 执行步骤: 创建BLAST数据库
+2025-10-10 17:06:07,200 - INFO - 📋 命令: makeblastdb -in /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/nlr.dna.fa -dbtype nucl -out blast/blast_db/nlr.dna_db
+2025-10-10 17:06:07,335 - INFO - ✅ 命令执行成功: 创建BLAST数据库
+2025-10-10 17:06:07,335 - INFO - ✅ BLAST数据库创建成功: blast/blast_db/nlr.dna_db
+2025-10-10 17:06:07,335 - INFO - 🔬 步骤3: 运行BLAST比对
+2025-10-10 17:06:07,335 - INFO - 📋 从映射文件加载样本和文件路径: blast/auto_generated_sample_map.txt
+2025-10-10 17:06:07,337 - INFO - ✅ 成功加载273个样品映射
+2025-10-10 17:06:07,337 - INFO - 🚀 开始处理 273 个输入文件
+2025-10-10 17:06:07,337 - INFO - 💡 已启用序列比对可视化，将自动添加序列字段到输出
+2025-10-10 17:06:07,337 - INFO - 🧬 [1/273] 正在处理: BG1.fa (样品: BG1)
+2025-10-10 17:06:07,337 - INFO - 🔍 调试信息:
+2025-10-10 17:06:07,337 - INFO -   - alignment_output = both
+2025-10-10 17:06:07,337 - INFO -   - needs_sequences = True
+2025-10-10 17:06:07,337 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:06:07,337 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:06:07,337 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:06:07,337 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG1.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG1_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:06:14,326 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:06:14,326 - INFO -   ✅ BLAST完成，发现 89 个比对结果
+2025-10-10 17:06:14,827 - INFO - 🧬 [2/273] 正在处理: BG10.fa (样品: BG10)
+2025-10-10 17:06:14,827 - INFO - 🔍 调试信息:
+2025-10-10 17:06:14,827 - INFO -   - alignment_output = both
+2025-10-10 17:06:14,827 - INFO -   - needs_sequences = True
+2025-10-10 17:06:14,827 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:06:14,827 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:06:14,827 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:06:14,827 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG10.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG10_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:06:27,596 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:06:27,597 - INFO -   ✅ BLAST完成，发现 59 个比对结果
+2025-10-10 17:06:28,097 - INFO - 🧬 [3/273] 正在处理: BG100.fa (样品: BG100)
+2025-10-10 17:06:28,098 - INFO - 🔍 调试信息:
+2025-10-10 17:06:28,098 - INFO -   - alignment_output = both
+2025-10-10 17:06:28,098 - INFO -   - needs_sequences = True
+2025-10-10 17:06:28,098 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:06:28,098 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:06:28,098 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:06:28,098 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG100.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG100_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:06:39,614 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:06:39,614 - INFO -   ✅ BLAST完成，发现 366 个比对结果
+2025-10-10 17:06:40,115 - INFO - 🧬 [4/273] 正在处理: BG101.fa (样品: BG101)
+2025-10-10 17:06:40,115 - INFO - 🔍 调试信息:
+2025-10-10 17:06:40,115 - INFO -   - alignment_output = both
+2025-10-10 17:06:40,115 - INFO -   - needs_sequences = True
+2025-10-10 17:06:40,115 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:06:40,115 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:06:40,115 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:06:40,115 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG101.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG101_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:06:47,017 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:06:47,018 - INFO -   ✅ BLAST完成，发现 274 个比对结果
+2025-10-10 17:06:47,518 - INFO - 🧬 [5/273] 正在处理: BG102.fa (样品: BG102)
+2025-10-10 17:06:47,518 - INFO - 🔍 调试信息:
+2025-10-10 17:06:47,519 - INFO -   - alignment_output = both
+2025-10-10 17:06:47,519 - INFO -   - needs_sequences = True
+2025-10-10 17:06:47,519 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:06:47,519 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:06:47,519 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:06:47,519 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG102.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG102_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:07:02,368 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:07:02,369 - INFO -   ✅ BLAST完成，发现 241 个比对结果
+2025-10-10 17:07:02,869 - INFO - 🧬 [6/273] 正在处理: BG103.fa (样品: BG103)
+2025-10-10 17:07:02,869 - INFO - 🔍 调试信息:
+2025-10-10 17:07:02,869 - INFO -   - alignment_output = both
+2025-10-10 17:07:02,869 - INFO -   - needs_sequences = True
+2025-10-10 17:07:02,869 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:07:02,869 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:07:02,870 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:07:02,870 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG103.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG103_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:07:27,849 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:07:27,849 - INFO -   ✅ BLAST完成，发现 244 个比对结果
+2025-10-10 17:07:28,350 - INFO - 🧬 [7/273] 正在处理: BG104.fa (样品: BG104)
+2025-10-10 17:07:28,350 - INFO - 🔍 调试信息:
+2025-10-10 17:07:28,350 - INFO -   - alignment_output = both
+2025-10-10 17:07:28,350 - INFO -   - needs_sequences = True
+2025-10-10 17:07:28,350 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:07:28,350 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:07:28,350 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:07:28,350 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG104.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG104_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:07:41,928 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:07:41,929 - INFO -   ✅ BLAST完成，发现 56 个比对结果
+2025-10-10 17:07:42,429 - INFO - 🧬 [8/273] 正在处理: BG106.fa (样品: BG106)
+2025-10-10 17:07:42,430 - INFO - 🔍 调试信息:
+2025-10-10 17:07:42,430 - INFO -   - alignment_output = both
+2025-10-10 17:07:42,430 - INFO -   - needs_sequences = True
+2025-10-10 17:07:42,430 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:07:42,430 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:07:42,430 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:07:42,430 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG106.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG106_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:08:03,382 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:08:03,382 - INFO -   ✅ BLAST完成，发现 322 个比对结果
+2025-10-10 17:08:03,883 - INFO - 🧬 [9/273] 正在处理: BG107.fa (样品: BG107)
+2025-10-10 17:08:03,883 - INFO - 🔍 调试信息:
+2025-10-10 17:08:03,883 - INFO -   - alignment_output = both
+2025-10-10 17:08:03,883 - INFO -   - needs_sequences = True
+2025-10-10 17:08:03,883 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:08:03,883 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:08:03,883 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:08:03,883 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG107.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG107_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:08:14,006 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:08:14,007 - INFO -   ✅ BLAST完成，发现 205 个比对结果
+2025-10-10 17:08:14,508 - INFO - 🧬 [10/273] 正在处理: BG11.fa (样品: BG11)
+2025-10-10 17:08:14,508 - INFO - 🔍 调试信息:
+2025-10-10 17:08:14,508 - INFO -   - alignment_output = both
+2025-10-10 17:08:14,508 - INFO -   - needs_sequences = True
+2025-10-10 17:08:14,508 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:08:14,508 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:08:14,508 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:08:14,508 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG11.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG11_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:08:37,303 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:08:37,304 - INFO -   ✅ BLAST完成，发现 342 个比对结果
+2025-10-10 17:08:37,804 - INFO - 🧬 [11/273] 正在处理: BG112.fa (样品: BG112)
+2025-10-10 17:08:37,805 - INFO - 🔍 调试信息:
+2025-10-10 17:08:37,805 - INFO -   - alignment_output = both
+2025-10-10 17:08:37,805 - INFO -   - needs_sequences = True
+2025-10-10 17:08:37,805 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:08:37,805 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:08:37,805 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:08:37,805 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG112.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG112_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:08:47,849 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:08:47,850 - INFO -   ✅ BLAST完成，发现 211 个比对结果
+2025-10-10 17:08:48,350 - INFO - 🧬 [12/273] 正在处理: BG113.fa (样品: BG113)
+2025-10-10 17:08:48,350 - INFO - 🔍 调试信息:
+2025-10-10 17:08:48,351 - INFO -   - alignment_output = both
+2025-10-10 17:08:48,351 - INFO -   - needs_sequences = True
+2025-10-10 17:08:48,351 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:08:48,351 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:08:48,351 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:08:48,351 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG113.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG113_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:09:06,894 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:09:06,894 - INFO -   ✅ BLAST完成，发现 57 个比对结果
+2025-10-10 17:09:07,395 - INFO - 🧬 [13/273] 正在处理: BG114.fa (样品: BG114)
+2025-10-10 17:09:07,395 - INFO - 🔍 调试信息:
+2025-10-10 17:09:07,395 - INFO -   - alignment_output = both
+2025-10-10 17:09:07,395 - INFO -   - needs_sequences = True
+2025-10-10 17:09:07,395 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:09:07,395 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:09:07,395 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:09:07,395 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG114.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG114_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:09:28,393 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:09:28,393 - INFO -   ✅ BLAST完成，发现 297 个比对结果
+2025-10-10 17:09:28,894 - INFO - 🧬 [14/273] 正在处理: BG115.fa (样品: BG115)
+2025-10-10 17:09:28,894 - INFO - 🔍 调试信息:
+2025-10-10 17:09:28,894 - INFO -   - alignment_output = both
+2025-10-10 17:09:28,894 - INFO -   - needs_sequences = True
+2025-10-10 17:09:28,894 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:09:28,894 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:09:28,894 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:09:28,894 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG115.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG115_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:09:42,628 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:09:42,629 - INFO -   ✅ BLAST完成，发现 281 个比对结果
+2025-10-10 17:09:43,130 - INFO - 🧬 [15/273] 正在处理: BG116.fa (样品: BG116)
+2025-10-10 17:09:43,130 - INFO - 🔍 调试信息:
+2025-10-10 17:09:43,130 - INFO -   - alignment_output = both
+2025-10-10 17:09:43,130 - INFO -   - needs_sequences = True
+2025-10-10 17:09:43,130 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:09:43,130 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:09:43,130 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:09:43,130 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG116.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG116_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:10:04,773 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:10:04,774 - INFO -   ✅ BLAST完成，发现 342 个比对结果
+2025-10-10 17:10:05,274 - INFO - 🧬 [16/273] 正在处理: BG117.fa (样品: BG117)
+2025-10-10 17:10:05,274 - INFO - 🔍 调试信息:
+2025-10-10 17:10:05,274 - INFO -   - alignment_output = both
+2025-10-10 17:10:05,274 - INFO -   - needs_sequences = True
+2025-10-10 17:10:05,274 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:10:05,274 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:10:05,275 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:10:05,275 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG117.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG117_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:10:15,203 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:10:15,204 - INFO -   ✅ BLAST完成，发现 247 个比对结果
+2025-10-10 17:10:15,704 - INFO - 🧬 [17/273] 正在处理: BG118.fa (样品: BG118)
+2025-10-10 17:10:15,704 - INFO - 🔍 调试信息:
+2025-10-10 17:10:15,704 - INFO -   - alignment_output = both
+2025-10-10 17:10:15,704 - INFO -   - needs_sequences = True
+2025-10-10 17:10:15,704 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:10:15,704 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:10:15,705 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:10:15,705 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG118.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG118_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:10:21,759 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:10:21,759 - INFO -   ✅ BLAST完成，发现 64 个比对结果
+2025-10-10 17:10:22,260 - INFO - 🧬 [18/273] 正在处理: BG119.fa (样品: BG119)
+2025-10-10 17:10:22,260 - INFO - 🔍 调试信息:
+2025-10-10 17:10:22,260 - INFO -   - alignment_output = both
+2025-10-10 17:10:22,260 - INFO -   - needs_sequences = True
+2025-10-10 17:10:22,260 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:10:22,260 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:10:22,260 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:10:22,260 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG119.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG119_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:10:52,311 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:10:52,313 - INFO -   ✅ BLAST完成，发现 455 个比对结果
+2025-10-10 17:10:52,813 - INFO - 🧬 [19/273] 正在处理: BG12.fa (样品: BG12)
+2025-10-10 17:10:52,813 - INFO - 🔍 调试信息:
+2025-10-10 17:10:52,813 - INFO -   - alignment_output = both
+2025-10-10 17:10:52,813 - INFO -   - needs_sequences = True
+2025-10-10 17:10:52,813 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:10:52,813 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:10:52,813 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:10:52,813 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG12.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG12_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:10:59,576 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:10:59,577 - INFO -   ✅ BLAST完成，发现 97 个比对结果
+2025-10-10 17:11:00,077 - INFO - 🧬 [20/273] 正在处理: BG120.fa (样品: BG120)
+2025-10-10 17:11:00,077 - INFO - 🔍 调试信息:
+2025-10-10 17:11:00,077 - INFO -   - alignment_output = both
+2025-10-10 17:11:00,077 - INFO -   - needs_sequences = True
+2025-10-10 17:11:00,077 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:11:00,077 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:11:00,078 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:11:00,078 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG120.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG120_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:11:29,058 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:11:29,060 - INFO -   ✅ BLAST完成，发现 455 个比对结果
+2025-10-10 17:11:29,560 - INFO - 🧬 [21/273] 正在处理: BG122.fa (样品: BG122)
+2025-10-10 17:11:29,561 - INFO - 🔍 调试信息:
+2025-10-10 17:11:29,561 - INFO -   - alignment_output = both
+2025-10-10 17:11:29,561 - INFO -   - needs_sequences = True
+2025-10-10 17:11:29,561 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:11:29,561 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:11:29,561 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:11:29,561 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG122.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG122_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:11:51,481 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:11:51,482 - INFO -   ✅ BLAST完成，发现 264 个比对结果
+2025-10-10 17:11:51,982 - INFO - 🧬 [22/273] 正在处理: BG123.fa (样品: BG123)
+2025-10-10 17:11:51,983 - INFO - 🔍 调试信息:
+2025-10-10 17:11:51,983 - INFO -   - alignment_output = both
+2025-10-10 17:11:51,983 - INFO -   - needs_sequences = True
+2025-10-10 17:11:51,983 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:11:51,983 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:11:51,983 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:11:51,983 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG123.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG123_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:12:12,118 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:12:12,119 - INFO -   ✅ BLAST完成，发现 294 个比对结果
+2025-10-10 17:12:12,619 - INFO - 🧬 [23/273] 正在处理: BG125.fa (样品: BG125)
+2025-10-10 17:12:12,619 - INFO - 🔍 调试信息:
+2025-10-10 17:12:12,619 - INFO -   - alignment_output = both
+2025-10-10 17:12:12,619 - INFO -   - needs_sequences = True
+2025-10-10 17:12:12,619 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:12:12,619 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:12:12,619 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:12:12,619 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG125.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG125_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:12:31,650 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:12:31,651 - INFO -   ✅ BLAST完成，发现 310 个比对结果
+2025-10-10 17:12:32,152 - INFO - 🧬 [24/273] 正在处理: BG127.fa (样品: BG127)
+2025-10-10 17:12:32,152 - INFO - 🔍 调试信息:
+2025-10-10 17:12:32,152 - INFO -   - alignment_output = both
+2025-10-10 17:12:32,152 - INFO -   - needs_sequences = True
+2025-10-10 17:12:32,152 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:12:32,152 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:12:32,152 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:12:32,152 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG127.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG127_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:12:36,812 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:12:36,813 - INFO -   ✅ BLAST完成，发现 182 个比对结果
+2025-10-10 17:12:37,314 - INFO - 🧬 [25/273] 正在处理: BG129.fa (样品: BG129)
+2025-10-10 17:12:37,314 - INFO - 🔍 调试信息:
+2025-10-10 17:12:37,314 - INFO -   - alignment_output = both
+2025-10-10 17:12:37,314 - INFO -   - needs_sequences = True
+2025-10-10 17:12:37,314 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:12:37,314 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:12:37,314 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:12:37,314 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG129.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG129_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:12:42,052 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:12:42,053 - INFO -   ✅ BLAST完成，发现 209 个比对结果
+2025-10-10 17:12:42,553 - INFO - 🧬 [26/273] 正在处理: BG13.fa (样品: BG13)
+2025-10-10 17:12:42,553 - INFO - 🔍 调试信息:
+2025-10-10 17:12:42,553 - INFO -   - alignment_output = both
+2025-10-10 17:12:42,553 - INFO -   - needs_sequences = True
+2025-10-10 17:12:42,553 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:12:42,553 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:12:42,553 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:12:42,554 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG13.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG13_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:13:02,336 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:13:02,337 - INFO -   ✅ BLAST完成，发现 294 个比对结果
+2025-10-10 17:13:02,838 - INFO - 🧬 [27/273] 正在处理: BG131.fa (样品: BG131)
+2025-10-10 17:13:02,838 - INFO - 🔍 调试信息:
+2025-10-10 17:13:02,838 - INFO -   - alignment_output = both
+2025-10-10 17:13:02,838 - INFO -   - needs_sequences = True
+2025-10-10 17:13:02,838 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:13:02,838 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:13:02,838 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:13:02,838 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG131.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG131_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:13:17,441 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:13:17,442 - INFO -   ✅ BLAST完成，发现 77 个比对结果
+2025-10-10 17:13:17,942 - INFO - 🧬 [28/273] 正在处理: BG133.fa (样品: BG133)
+2025-10-10 17:13:17,942 - INFO - 🔍 调试信息:
+2025-10-10 17:13:17,942 - INFO -   - alignment_output = both
+2025-10-10 17:13:17,942 - INFO -   - needs_sequences = True
+2025-10-10 17:13:17,942 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:13:17,942 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:13:17,943 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:13:17,943 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG133.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG133_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:13:32,746 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:13:32,746 - INFO -   ✅ BLAST完成，发现 55 个比对结果
+2025-10-10 17:13:33,247 - INFO - 🧬 [29/273] 正在处理: BG134.fa (样品: BG134)
+2025-10-10 17:13:33,247 - INFO - 🔍 调试信息:
+2025-10-10 17:13:33,247 - INFO -   - alignment_output = both
+2025-10-10 17:13:33,247 - INFO -   - needs_sequences = True
+2025-10-10 17:13:33,247 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:13:33,247 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:13:33,247 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:13:33,247 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG134.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG134_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:13:47,465 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:13:47,465 - INFO -   ✅ BLAST完成，发现 64 个比对结果
+2025-10-10 17:13:47,966 - INFO - 🧬 [30/273] 正在处理: BG135.fa (样品: BG135)
+2025-10-10 17:13:47,966 - INFO - 🔍 调试信息:
+2025-10-10 17:13:47,966 - INFO -   - alignment_output = both
+2025-10-10 17:13:47,966 - INFO -   - needs_sequences = True
+2025-10-10 17:13:47,966 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:13:47,966 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:13:47,966 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:13:47,966 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG135.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG135_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:14:02,644 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:14:02,644 - INFO -   ✅ BLAST完成，发现 106 个比对结果
+2025-10-10 17:14:03,145 - INFO - 🧬 [31/273] 正在处理: BG136.fa (样品: BG136)
+2025-10-10 17:14:03,145 - INFO - 🔍 调试信息:
+2025-10-10 17:14:03,145 - INFO -   - alignment_output = both
+2025-10-10 17:14:03,145 - INFO -   - needs_sequences = True
+2025-10-10 17:14:03,145 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:14:03,145 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:14:03,145 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:14:03,145 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG136.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG136_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:14:17,114 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:14:17,114 - INFO -   ✅ BLAST完成，发现 58 个比对结果
+2025-10-10 17:14:17,615 - INFO - 🧬 [32/273] 正在处理: BG137.fa (样品: BG137)
+2025-10-10 17:14:17,615 - INFO - 🔍 调试信息:
+2025-10-10 17:14:17,615 - INFO -   - alignment_output = both
+2025-10-10 17:14:17,615 - INFO -   - needs_sequences = True
+2025-10-10 17:14:17,615 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:14:17,615 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:14:17,615 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:14:17,615 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG137.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG137_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:14:32,809 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:14:32,809 - INFO -   ✅ BLAST完成，发现 56 个比对结果
+2025-10-10 17:14:33,310 - INFO - 🧬 [33/273] 正在处理: BG139.fa (样品: BG139)
+2025-10-10 17:14:33,310 - INFO - 🔍 调试信息:
+2025-10-10 17:14:33,310 - INFO -   - alignment_output = both
+2025-10-10 17:14:33,310 - INFO -   - needs_sequences = True
+2025-10-10 17:14:33,310 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:14:33,310 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:14:33,310 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:14:33,310 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG139.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG139_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:14:47,782 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:14:47,783 - INFO -   ✅ BLAST完成，发现 62 个比对结果
+2025-10-10 17:14:48,283 - INFO - 🧬 [34/273] 正在处理: BG140.fa (样品: BG140)
+2025-10-10 17:14:48,283 - INFO - 🔍 调试信息:
+2025-10-10 17:14:48,283 - INFO -   - alignment_output = both
+2025-10-10 17:14:48,283 - INFO -   - needs_sequences = True
+2025-10-10 17:14:48,284 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:14:48,284 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:14:48,284 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:14:48,284 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG140.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG140_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:15:01,350 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:15:01,351 - INFO -   ✅ BLAST完成，发现 130 个比对结果
+2025-10-10 17:15:01,851 - INFO - 🧬 [35/273] 正在处理: BG141.fa (样品: BG141)
+2025-10-10 17:15:01,852 - INFO - 🔍 调试信息:
+2025-10-10 17:15:01,852 - INFO -   - alignment_output = both
+2025-10-10 17:15:01,852 - INFO -   - needs_sequences = True
+2025-10-10 17:15:01,852 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:15:01,852 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:15:01,852 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:15:01,852 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG141.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG141_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:15:16,120 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:15:16,120 - INFO -   ✅ BLAST完成，发现 100 个比对结果
+2025-10-10 17:15:16,621 - INFO - 🧬 [36/273] 正在处理: BG142.fa (样品: BG142)
+2025-10-10 17:15:16,621 - INFO - 🔍 调试信息:
+2025-10-10 17:15:16,621 - INFO -   - alignment_output = both
+2025-10-10 17:15:16,621 - INFO -   - needs_sequences = True
+2025-10-10 17:15:16,621 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:15:16,621 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:15:16,621 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:15:16,621 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG142.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG142_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:15:21,894 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:15:21,895 - INFO -   ✅ BLAST完成，发现 126 个比对结果
+2025-10-10 17:15:22,395 - INFO - 🧬 [37/273] 正在处理: BG143.fa (样品: BG143)
+2025-10-10 17:15:22,395 - INFO - 🔍 调试信息:
+2025-10-10 17:15:22,395 - INFO -   - alignment_output = both
+2025-10-10 17:15:22,395 - INFO -   - needs_sequences = True
+2025-10-10 17:15:22,395 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:15:22,395 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:15:22,396 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:15:22,396 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG143.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG143_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:15:36,812 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:15:36,813 - INFO -   ✅ BLAST完成，发现 123 个比对结果
+2025-10-10 17:15:37,314 - INFO - 🧬 [38/273] 正在处理: BG144.fa (样品: BG144)
+2025-10-10 17:15:37,314 - INFO - 🔍 调试信息:
+2025-10-10 17:15:37,314 - INFO -   - alignment_output = both
+2025-10-10 17:15:37,314 - INFO -   - needs_sequences = True
+2025-10-10 17:15:37,314 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:15:37,314 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:15:37,314 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:15:37,314 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG144.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG144_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:15:51,681 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:15:51,682 - INFO -   ✅ BLAST完成，发现 64 个比对结果
+2025-10-10 17:15:52,183 - INFO - 🧬 [39/273] 正在处理: BG145.fa (样品: BG145)
+2025-10-10 17:15:52,183 - INFO - 🔍 调试信息:
+2025-10-10 17:15:52,183 - INFO -   - alignment_output = both
+2025-10-10 17:15:52,183 - INFO -   - needs_sequences = True
+2025-10-10 17:15:52,183 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:15:52,183 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:15:52,183 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:15:52,183 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG145.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG145_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:15:59,901 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:15:59,902 - INFO -   ✅ BLAST完成，发现 106 个比对结果
+2025-10-10 17:16:00,402 - INFO - 🧬 [40/273] 正在处理: BG146.fa (样品: BG146)
+2025-10-10 17:16:00,402 - INFO - 🔍 调试信息:
+2025-10-10 17:16:00,402 - INFO -   - alignment_output = both
+2025-10-10 17:16:00,403 - INFO -   - needs_sequences = True
+2025-10-10 17:16:00,403 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:16:00,403 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:16:00,403 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:16:00,403 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG146.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG146_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:16:15,098 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:16:15,098 - INFO -   ✅ BLAST完成，发现 55 个比对结果
+2025-10-10 17:16:15,599 - INFO - 🧬 [41/273] 正在处理: BG147.fa (样品: BG147)
+2025-10-10 17:16:15,599 - INFO - 🔍 调试信息:
+2025-10-10 17:16:15,599 - INFO -   - alignment_output = both
+2025-10-10 17:16:15,599 - INFO -   - needs_sequences = True
+2025-10-10 17:16:15,599 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:16:15,599 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:16:15,599 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:16:15,599 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG147.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG147_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:16:30,737 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:16:30,737 - INFO -   ✅ BLAST完成，发现 110 个比对结果
+2025-10-10 17:16:31,238 - INFO - 🧬 [42/273] 正在处理: BG148.fa (样品: BG148)
+2025-10-10 17:16:31,238 - INFO - 🔍 调试信息:
+2025-10-10 17:16:31,238 - INFO -   - alignment_output = both
+2025-10-10 17:16:31,238 - INFO -   - needs_sequences = True
+2025-10-10 17:16:31,238 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:16:31,238 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:16:31,238 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:16:31,238 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG148.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG148_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:16:45,835 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:16:45,835 - INFO -   ✅ BLAST完成，发现 85 个比对结果
+2025-10-10 17:16:46,336 - INFO - 🧬 [43/273] 正在处理: BG149.fa (样品: BG149)
+2025-10-10 17:16:46,336 - INFO - 🔍 调试信息:
+2025-10-10 17:16:46,336 - INFO -   - alignment_output = both
+2025-10-10 17:16:46,336 - INFO -   - needs_sequences = True
+2025-10-10 17:16:46,336 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:16:46,336 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:16:46,336 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:16:46,336 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG149.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG149_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:16:52,035 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:16:52,035 - INFO -   ✅ BLAST完成，发现 115 个比对结果
+2025-10-10 17:16:52,536 - INFO - 🧬 [44/273] 正在处理: BG15.fa (样品: BG15)
+2025-10-10 17:16:52,536 - INFO - 🔍 调试信息:
+2025-10-10 17:16:52,536 - INFO -   - alignment_output = both
+2025-10-10 17:16:52,536 - INFO -   - needs_sequences = True
+2025-10-10 17:16:52,536 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:16:52,536 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:16:52,536 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:16:52,536 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG15.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG15_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11
+2025-10-10 17:17:12,826 - INFO - ✅ 命令执行成功: BLASTN比对
+2025-10-10 17:17:12,826 - INFO -   ✅ BLAST完成，发现 322 个比对结果
+2025-10-10 17:17:13,327 - INFO - 🧬 [45/273] 正在处理: BG150.fa (样品: BG150)
+2025-10-10 17:17:13,327 - INFO - 🔍 调试信息:
+2025-10-10 17:17:13,327 - INFO -   - alignment_output = both
+2025-10-10 17:17:13,327 - INFO -   - needs_sequences = True
+2025-10-10 17:17:13,327 - INFO -   - base outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen
+2025-10-10 17:17:13,327 - INFO -   - final outfmt = 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq
+2025-10-10 17:17:13,327 - INFO - 🚀 执行步骤: BLASTN比对
+2025-10-10 17:17:13,327 - INFO - 📋 命令: blastn -query /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/genome/BG150.fa -db blast/blast_db/nlr.dna_db -out /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/61.NLR基因在十字花科植物基因组上的存在缺失状态/blast/BG150_blastn_results.txt -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qseq sseq" -num_threads 80 -evalue 1e-05 -max_target_seqs 10 -word_size 11

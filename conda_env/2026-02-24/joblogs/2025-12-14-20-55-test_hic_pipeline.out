@@ -1,0 +1,55 @@
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/logs/allhic_20251214_205503.log
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Setting up environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 20:55:04] Checking required tools...
+[2025-12-14 20:55:04] ✅ Environment ready
+[2025-12-14 20:55:04] Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output
+[2025-12-14 20:55:04] Threads: 88
+[2025-12-14 20:55:04] ALLHiC Enzyme: GATC
+[2025-12-14 20:55:04] Juicer Enzyme: MboI
+[2025-12-14 20:55:04] ⏱️  Step completed in 1s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Starting ALLHiC Pipeline v5.3
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 [Step 0] Preparing input data (00_data)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 20:55:05] ✅ Data preparation completed
+[2025-12-14 20:55:05] ⏱️  Step completed in 1s
+[2025-12-14 20:55:05] ⏭️  Skipping mapping step
+[2025-12-14 20:55:05] ⏭️  Skipping allele detection
+[2025-12-14 20:55:05] ⏭️  Skipping pruning
+[2025-12-14 20:55:05] ⏭️  Skipping partition
+[2025-12-14 20:55:05] ⏭️  Skipping extract
+[2025-12-14 20:55:05] ⏭️  Skipping rescue
+[2025-12-14 20:55:05] ⏭️  Skipping optimization
+[2025-12-14 20:55:05] ⏭️  Skipping build
+[2025-12-14 20:55:05] ⏭️  Skipping plot
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 [Step 8] Generating Pre-Scaffolding HiC (10_jbat_pre)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 20:55:05] 📌 Strategy: Using draft.asm.fasta
+[2025-12-14 20:55:09] Generating restriction sites for MboI...
+[2025-12-14 21:03:38] Sorting and moving restriction sites file...
+[2025-12-14 21:03:38] ✅ Restriction sites file generated: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/10_jbat_pre/restriction_sites/draft_MboI.txt
+[2025-12-14 21:03:38] Cleaning old Juicer output directories...
+[2025-12-14 21:03:38] 🚀 Running Juicer pipeline on Draft...
+Using /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/10_jbat_pre/restriction_sites/draft_MboI.txt as site file
+(-: Aligning files matching /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/10_jbat_pre/fastq/*_R*.fastq*
+ to genome /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/00_data/draft.asm.fasta with no fragment delimited maps.
+[E::hts_open_format] Failed to open file "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/10_jbat_pre/splits/*.bam" : No such file or directory
+samtools merge: fail to open "/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/21.ALLHiC_hap/test_pipeline/output/10_jbat_pre/splits/*.bam": No such file or directory
+***! Some problems occurred somewhere in creating sorted align files.
+[2025-12-14 21:03:41] ✅ Pre-scaffolding HiC generation completed
+[2025-12-14 21:03:41] ⏱️  Step completed in 8m 36s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 [Step 9] Generating Post-Scaffolding HiC (11_jbat_post)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2025-12-14 21:03:41] 📌 Strategy: Using groups.asm.fasta
+[2025-12-14 21:03:41] Building BWA index for groups.asm.fasta...

@@ -1,0 +1,189 @@
+2025-12-04 16:12:02,999 - INFO - ============================================================
+2025-12-04 16:12:02,999 - INFO - 🚀 RNA-seq分析流程开始 | RNA-seq analysis pipeline started
+2025-12-04 16:12:02,999 - INFO - ============================================================
+2025-12-04 16:12:02,999 - INFO - 🧬 基因组文件 | Genome file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.fa
+2025-12-04 16:12:02,999 - INFO - 📂 输入路径 | Input path: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean
+2025-12-04 16:12:02,999 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping
+2025-12-04 16:12:02,999 - INFO - 📋 GTF文件 | GTF file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf
+2025-12-04 16:12:02,999 - INFO - 🔧 线程数 | Threads: 88
+2025-12-04 16:12:02,999 - INFO - 🗑️  删除BAM文件 | Remove BAM files: no
+2025-12-04 16:12:02,999 - INFO - 📋 文件模式 | File pattern: *_1.clean.fq.gz
+2025-12-04 16:12:02,999 - INFO - ============================================================
+2025-12-04 16:12:02,999 - INFO - 🔨 步骤1: 构建HISAT2索引 | Step 1: Building HISAT2 index
+2025-12-04 16:12:02,999 - INFO - ============================================================
+2025-12-04 16:12:02,999 - INFO - 🧬 提取剪接位点信息 | Extracting splice sites: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.ss
+2025-12-04 16:12:03,000 - INFO - 🚀 运行 | Running: 🔍 提取剪接位点信息 | Extract splice sites
+2025-12-04 16:12:03,000 - INFO - 💻 命令 | Command: extract_splice_sites.py /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf > /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.ss
+2025-12-04 16:12:05,397 - INFO - ✅ 🔍 提取剪接位点信息 | Extract splice sites 完成 | completed
+2025-12-04 16:12:05,398 - INFO - ✅ 剪接位点信息提取完成 | Splice sites extraction completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.ss
+2025-12-04 16:12:05,398 - INFO - 🧬 提取外显子信息 | Extracting exons: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.exon
+2025-12-04 16:12:05,398 - INFO - 🚀 运行 | Running: 🔍 提取外显子信息 | Extract exons
+2025-12-04 16:12:05,398 - INFO - 💻 命令 | Command: extract_exons.py /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf > /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.exon
+2025-12-04 16:12:06,808 - INFO - ✅ 🔍 提取外显子信息 | Extract exons 完成 | completed
+2025-12-04 16:12:06,808 - INFO - ✅ 外显子信息提取完成 | Exons extraction completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.exon
+2025-12-04 16:12:06,808 - INFO - ✨ 使用剪接位点文件 | Using splice sites file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.ss
+2025-12-04 16:12:06,808 - INFO - ✨ 使用外显子文件 | Using exons file: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.exon
+2025-12-04 16:12:06,808 - INFO - 🔨 构建HISAT2索引 | Building HISAT2 index with command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.ss --exon /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.exon -p 88 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.fa /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index
+2025-12-04 16:12:06,812 - INFO - 🚀 运行 | Running: 🔨 构建HISAT2索引 | Building HISAT2 index
+2025-12-04 16:12:06,812 - INFO - 💻 命令 | Command: hisat2-build --ss /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.ss --exon /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.exon -p 88 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.fa /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index
+2025-12-04 16:15:41,561 - INFO - ✅ 🔨 构建HISAT2索引 | Building HISAT2 index 完成 | completed
+2025-12-04 16:15:41,562 - INFO - ✅ HISAT2索引构建完成 | HISAT2 index building completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index
+2025-12-04 16:15:41,562 - INFO - ============================================================
+2025-12-04 16:15:41,562 - INFO - 📋 步骤2: 解析输入样本 | Step 2: Parsing input samples
+2025-12-04 16:15:41,562 - INFO - ============================================================
+2025-12-04 16:15:41,562 - INFO - 📂 使用指定文件模式 | Using specified file pattern: *_1.clean.fq.gz
+2025-12-04 16:15:41,563 - INFO - 🔍 检测到读取指示符 | Detected read indicator: _1 <-> _2
+2025-12-04 16:15:41,563 - INFO - 🔎 搜索模式 | Search pattern: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/*_1.clean.fq.gz
+2025-12-04 16:15:41,563 - INFO - 📊 找到 18 个read1文件 | Found 18 read1 files
+2025-12-04 16:15:41,563 - INFO - 🔍 样本 | Sample: SRR11306881
+2025-12-04 16:15:41,563 - INFO -    📄 Read1: SRR11306881_1.clean.fq.gz
+2025-12-04 16:15:41,563 - INFO -    📄 Read2: SRR11306881_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,573 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,573 - INFO - 🔍 样本 | Sample: SRR11306882
+2025-12-04 16:15:41,574 - INFO -    📄 Read1: SRR11306882_1.clean.fq.gz
+2025-12-04 16:15:41,574 - INFO -    📄 Read2: SRR11306882_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,574 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,574 - INFO - 🔍 样本 | Sample: SRR11306883
+2025-12-04 16:15:41,574 - INFO -    📄 Read1: SRR11306883_1.clean.fq.gz
+2025-12-04 16:15:41,574 - INFO -    📄 Read2: SRR11306883_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,575 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,575 - INFO - 🔍 样本 | Sample: SRR11306884
+2025-12-04 16:15:41,575 - INFO -    📄 Read1: SRR11306884_1.clean.fq.gz
+2025-12-04 16:15:41,575 - INFO -    📄 Read2: SRR11306884_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,589 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,589 - INFO - 🔍 样本 | Sample: SRR11306885
+2025-12-04 16:15:41,589 - INFO -    📄 Read1: SRR11306885_1.clean.fq.gz
+2025-12-04 16:15:41,589 - INFO -    📄 Read2: SRR11306885_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,590 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,590 - INFO - 🔍 样本 | Sample: SRR11306886
+2025-12-04 16:15:41,590 - INFO -    📄 Read1: SRR11306886_1.clean.fq.gz
+2025-12-04 16:15:41,590 - INFO -    📄 Read2: SRR11306886_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,590 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,590 - INFO - 🔍 样本 | Sample: SRR11306887
+2025-12-04 16:15:41,590 - INFO -    📄 Read1: SRR11306887_1.clean.fq.gz
+2025-12-04 16:15:41,590 - INFO -    📄 Read2: SRR11306887_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,591 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,591 - INFO - 🔍 样本 | Sample: SRR11306888
+2025-12-04 16:15:41,591 - INFO -    📄 Read1: SRR11306888_1.clean.fq.gz
+2025-12-04 16:15:41,591 - INFO -    📄 Read2: SRR11306888_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,591 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,591 - INFO - 🔍 样本 | Sample: SRR11306889
+2025-12-04 16:15:41,591 - INFO -    📄 Read1: SRR11306889_1.clean.fq.gz
+2025-12-04 16:15:41,591 - INFO -    📄 Read2: SRR11306889_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,591 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,591 - INFO - 🔍 样本 | Sample: SRR11306890
+2025-12-04 16:15:41,591 - INFO -    📄 Read1: SRR11306890_1.clean.fq.gz
+2025-12-04 16:15:41,591 - INFO -    📄 Read2: SRR11306890_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,592 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,592 - INFO - 🔍 样本 | Sample: SRR11306891
+2025-12-04 16:15:41,592 - INFO -    📄 Read1: SRR11306891_1.clean.fq.gz
+2025-12-04 16:15:41,592 - INFO -    📄 Read2: SRR11306891_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,592 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,592 - INFO - 🔍 样本 | Sample: SRR11306892
+2025-12-04 16:15:41,592 - INFO -    📄 Read1: SRR11306892_1.clean.fq.gz
+2025-12-04 16:15:41,592 - INFO -    📄 Read2: SRR11306892_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,592 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,592 - INFO - 🔍 样本 | Sample: SRR12079360
+2025-12-04 16:15:41,592 - INFO -    📄 Read1: SRR12079360_1.clean.fq.gz
+2025-12-04 16:15:41,592 - INFO -    📄 Read2: SRR12079360_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,593 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,593 - INFO - 🔍 样本 | Sample: SRR12079361
+2025-12-04 16:15:41,593 - INFO -    📄 Read1: SRR12079361_1.clean.fq.gz
+2025-12-04 16:15:41,593 - INFO -    📄 Read2: SRR12079361_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,593 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,593 - INFO - 🔍 样本 | Sample: SRR12079362
+2025-12-04 16:15:41,593 - INFO -    📄 Read1: SRR12079362_1.clean.fq.gz
+2025-12-04 16:15:41,593 - INFO -    📄 Read2: SRR12079362_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,594 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,594 - INFO - 🔍 样本 | Sample: SRR12079363
+2025-12-04 16:15:41,594 - INFO -    📄 Read1: SRR12079363_1.clean.fq.gz
+2025-12-04 16:15:41,594 - INFO -    📄 Read2: SRR12079363_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,594 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,594 - INFO - 🔍 样本 | Sample: SRR12079364
+2025-12-04 16:15:41,594 - INFO -    📄 Read1: SRR12079364_1.clean.fq.gz
+2025-12-04 16:15:41,594 - INFO -    📄 Read2: SRR12079364_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,594 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,594 - INFO - 🔍 样本 | Sample: SRR12079365
+2025-12-04 16:15:41,594 - INFO -    📄 Read1: SRR12079365_1.clean.fq.gz
+2025-12-04 16:15:41,594 - INFO -    📄 Read2: SRR12079365_2.clean.fq.gz (期望 | expected)
+2025-12-04 16:15:41,595 - INFO -    ✅ 配对成功 | Paired successfully
+2025-12-04 16:15:41,595 - INFO - ✨ 找到 18 个样本 | Found 18 samples:
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306881: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306882: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306883: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306884: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306884_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306884_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306885: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306885_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306886: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306886_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306887: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306887_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306888: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306888_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306889: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306889_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306890: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306890_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306891: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306891_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR11306892: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306892_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR12079360: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079360_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR12079361: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079361_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR12079362: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079362_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR12079363: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079363_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR12079364: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079364_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO -   📌 SRR12079365: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_1.clean.fq.gz, /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR12079365_2.clean.fq.gz
+2025-12-04 16:15:41,595 - INFO - ============================================================
+2025-12-04 16:15:41,595 - INFO - 🔄 步骤3: 处理所有样本 | Step 3: Processing all samples
+2025-12-04 16:15:41,595 - INFO - ============================================================
+2025-12-04 16:15:41,595 - INFO - ============================================================
+2025-12-04 16:15:41,595 - INFO - 🧪 处理样本 | Processing sample: SRR11306881
+2025-12-04 16:15:41,595 - INFO - ============================================================
+2025-12-04 16:15:41,595 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam
+2025-12-04 16:15:41,595 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306881_2.clean.fq.gz -p 88 | samtools sort -@ 88 -O BAM -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam -
+2025-12-04 16:25:35,350 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam 完成 | completed
+2025-12-04 16:25:35,351 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam
+2025-12-04 16:25:35,352 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306881.gtf
+2025-12-04 16:25:35,352 - INFO - 💻 命令 | Command: stringtie -p 88 -G /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306881.gtf -e /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam
+2025-12-04 16:26:34,373 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306881.gtf 完成 | completed
+2025-12-04 16:26:34,373 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306881.gtf
+2025-12-04 16:26:34,373 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306881.gtf
+2025-12-04 16:26:34,704 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/fpkm_output/SRR11306881.fpkm.txt
+2025-12-04 16:26:34,704 - INFO - 📊 提取了 66311 个转录本 | Extracted 66311 transcripts
+2025-12-04 16:26:34,705 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306881.sorted.bam
+2025-12-04 16:26:34,705 - INFO - ============================================================
+2025-12-04 16:26:34,705 - INFO - 🧪 处理样本 | Processing sample: SRR11306882
+2025-12-04 16:26:34,705 - INFO - ============================================================
+2025-12-04 16:26:34,705 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306882.sorted.bam
+2025-12-04 16:26:34,705 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306882_2.clean.fq.gz -p 88 | samtools sort -@ 88 -O BAM -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306882.sorted.bam -
+2025-12-04 16:38:20,557 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306882.sorted.bam 完成 | completed
+2025-12-04 16:38:20,558 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306882.sorted.bam
+2025-12-04 16:38:20,559 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306882.gtf
+2025-12-04 16:38:20,559 - INFO - 💻 命令 | Command: stringtie -p 88 -G /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306882.gtf -e /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306882.sorted.bam
+2025-12-04 16:39:18,873 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306882.gtf 完成 | completed
+2025-12-04 16:39:18,873 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306882.gtf
+2025-12-04 16:39:18,873 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306882.gtf
+2025-12-04 16:39:19,178 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/fpkm_output/SRR11306882.fpkm.txt
+2025-12-04 16:39:19,178 - INFO - 📊 提取了 66307 个转录本 | Extracted 66307 transcripts
+2025-12-04 16:39:19,178 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306882.sorted.bam
+2025-12-04 16:39:19,178 - INFO - ============================================================
+2025-12-04 16:39:19,178 - INFO - 🧪 处理样本 | Processing sample: SRR11306883
+2025-12-04 16:39:19,178 - INFO - ============================================================
+2025-12-04 16:39:19,178 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306883.sorted.bam
+2025-12-04 16:39:19,178 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306883_2.clean.fq.gz -p 88 | samtools sort -@ 88 -O BAM -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306883.sorted.bam -
+2025-12-04 17:42:38,312 - INFO - ✅ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306883.sorted.bam 完成 | completed
+2025-12-04 17:42:38,313 - INFO - ✅ 比对完成 | Alignment completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306883.sorted.bam
+2025-12-04 17:42:38,314 - INFO - 🚀 运行 | Running: 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306883.gtf
+2025-12-04 17:42:38,314 - INFO - 💻 命令 | Command: stringtie -p 88 -G /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.gtf -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306883.gtf -e /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306883.sorted.bam
+2025-12-04 17:43:41,678 - INFO - ✅ 🧮 StringTie定量 | StringTie quantification -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306883.gtf 完成 | completed
+2025-12-04 17:43:41,678 - INFO - ✅ 定量完成 | Quantification completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306883.gtf
+2025-12-04 17:43:41,678 - INFO - 📊 提取FPKM和TPM值 | Extracting FPKM and TPM values: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/stringtie_output/SRR11306883.gtf
+2025-12-04 17:43:41,983 - INFO - ✅ GTF值提取完成 | GTF value extraction completed: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/fpkm_output/SRR11306883.fpkm.txt
+2025-12-04 17:43:41,984 - INFO - 📊 提取了 66306 个转录本 | Extracted 66306 transcripts
+2025-12-04 17:43:41,984 - INFO - 💾 保留BAM文件 | BAM file retained: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306883.sorted.bam
+2025-12-04 17:43:41,984 - INFO - ============================================================
+2025-12-04 17:43:41,984 - INFO - 🧪 处理样本 | Processing sample: SRR11306884
+2025-12-04 17:43:41,984 - INFO - ============================================================
+2025-12-04 17:43:41,984 - INFO - 🚀 运行 | Running: 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306884.sorted.bam
+2025-12-04 17:43:41,984 - INFO - 💻 命令 | Command: hisat2 -x /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/MSU.hisat2.index -1 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306884_1.clean.fq.gz -2 /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306884_2.clean.fq.gz -p 88 | samtools sort -@ 88 -O BAM -o /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306884.sorted.bam -
+2025-12-04 17:44:50,985 - ERROR - ❌ 🧬 HISAT2比对和排序 | HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/02.mapping/SRR11306884.sorted.bam 失败 | failed
+2025-12-04 17:44:50,985 - ERROR - 💥 错误信息 | Error message: 
+gzip: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/clean/SRR11306884_2.clean.fq.gz: unexpected end of file
+Error, fewer reads in file specified with -2 than in file specified with -1
+terminate called after throwing an instance of 'int'
+(ERR): hisat2-align died with signal 6 (ABRT) (core dumped)
+samtools sort: truncated file. Aborting
+

@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/formats/bed.py", line 2552, in <module>
+    main()
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/formats/bed.py", line 488, in main
+    p.dispatch(globals())
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/apps/base.py", line 130, in dispatch
+    globals[action](sys.argv[2:])
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/formats/bed.py", line 1489, in bins
+    sz = Sizes(fastafile)
+         ^^^^^^^^^^^^^^^^
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/JCVI_v.1.5.6/lib/python3.12/site-packages/jcvi/formats/sizes.py", line 27, in __init__
+    assert op.exists(filename), "File `{0}` not found".format(filename)
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: File `1000000` not found
+plot_snp_density.sh:行10: 根据这个报错，: 未找到命令
+plot_snp_density.sh:行10: 的: 未找到命令
+plot_snp_density.sh: command substitution:行10: 未预期的符号 `newline' 附近有语法错误
+plot_snp_density.sh: command substitution:行10: ` 动作把第二个参数 ('
+plot_snp_density.sh: command substitution:行10: 未预期的符号 `)' 附近有语法错误
+plot_snp_density.sh: command substitution:行10: `) **误认为是一个文件名**，而不是我们想传递的“窗口大小”这个数值。'
+plot_snp_density.sh:行10: 动作，“1000000”是一个窗口大小的值。这通常需要使用一个**参数标志**，比如: 未找到命令
+plot_snp_density.sh:行10: 。: 未找到命令
+plot_snp_density.sh:行14: 我们必须把步骤: 未找到命令
+plot_snp_density.sh:行12: 修改为正确的格式：: 未找到命令
+plot_snp_density.sh:行12: 这个小小的改动，就能让: 未找到命令
+plot_snp_density.sh:行14: ---: 未找到命令
+plot_snp_density.sh:行18: 之前的反复报错都是因为旧的脚本内容没有被彻底更新。为了确保万无一失，请您**再一次**，也是最后一次，用下面的**完整内容**替换掉您的: 未找到命令
+plot_snp_density.sh:行10: 文件。: 未找到命令
+plot_snp_density.sh:行12: 我已经将步骤: 未找到命令
+plot_snp_density.sh:行10: jcvibins1000000bins--windowpython: 未找到命令
+Job 67899489 stderr output:
+

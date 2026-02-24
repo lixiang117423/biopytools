@@ -1,0 +1,22 @@
+==================================================
+Start Purge_dups Pipeline (Manual Threshold Mode)
+Assembly: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/11.去冗余后重新挂载/01.data/OV53_1.primary.fa
+Minimap2: /share/org/YZWL/yzwl_lixg/.local/bin/minimap2
+Reads:    /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hifi/OV53_1-hifi.fq
+==================================================
+[1/5] Mapping reads found (pb_aln.paf.gz). Skipping Minimap2...
+[2/5] Calculating coverage statistics (Singularity)...
+Skipping automatic calcuts...
+[3/5] Self-alignment found (self_aln.paf.gz). Skipping self-mapping...
+[4/5] Identifying duplicates with MANUAL thresholds...
+Applying settings: Low=5, Mid=70, High=100
+Note: Mid=70 意味着深度小于70的区域都被视为正常基因组，只有极高深度的才会被切除。
+[5/5] Extracting purged sequences (Singularity)...
+==================================================
+Done!
+--------------------------------------------------
+请检查新生成的文件大小 (预期 purged.fa 应在 1.4G 左右):
+--------------------------------------------------
+如果文件大小正常，请使用以下文件进行 ALLHiC:
+/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/11.去冗余后重新挂载/02.去冗余/OV53_manual.purged.fa
+==================================================

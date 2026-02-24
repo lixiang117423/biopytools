@@ -1,0 +1,330 @@
+
+[0;34m========================================[0m
+[0;34m✨ 全基因组重测序自动化分析流程 v3.0 ✨[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 项目: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 日志: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/99.logs/pipeline_20251215_161418.log[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 开始时间: 2025-12-15 16:14:18[0m
+
+[0;34m========================================[0m
+[0;34m🔍 Step 0: 系统预检查[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 创建项目目录结构...[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping/bam[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping/vcf[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/03.joint_calling[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/04.filtered_snp_indel[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/00.scripts[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/99.logs[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 目录已存在: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/.checkpoints[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - 创建目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/.tmp[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 检查必需工具...[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - ✓ GTX可执行文件: /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 检查参考基因组...[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - ✓ 参考基因组: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/genome/genome.fa[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 检查原始数据...[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - ✓ 原始数据目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw (18 个文件)[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - ✓ GTX工具: /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - ✓ GTX命令生成脚本: /share/org/YZWL/yzwl_lixg/software/scripts/51.生成GTX按染色体合并gVCF的脚本.sh[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 检查系统资源...[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - ✓ 磁盘空间充足: 2438714GB 可用[0m
+[0;36m[DEBUG] 2025-12-15 16:14:18 - ✓ 系统内存: 1007GB[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 配置摘要:[0m
+[0;32m[INFO] 2025-12-15 16:14:18 -   项目路径: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx[0m
+[0;32m[INFO] 2025-12-15 16:14:18 -   比对模式: gtx (GTX WGS完整流程)[0m
+[0;32m[INFO] 2025-12-15 16:14:18 -   线程配置: Mapping=88, GTX=88, Filter=88[0m
+[0;32m[INFO] 2025-12-15 16:14:18 -   样本阈值: GATK<4, GTX<200[0m
+[0;32m[INFO] 2025-12-15 16:14:18 -   断点续传: false[0m
+[0;32m[INFO] 2025-12-15 16:14:18 -   测试模式: false[0m
+[0;35m[SUCCESS] 2025-12-15 16:14:18 - ✅ 预检查通过[0m
+
+[0;34m========================================[0m
+[0;34m📊 Step 1: 构建基因组索引[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:14:18 - 构建 SAMtools 索引...[0m
+[0;32m[INFO] 2025-12-15 16:14:19 - 构建 GATK 字典...[0m
+OpenJDK 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000082000000, 2147483648, 0) failed; error='Not enough space' (errno=12)
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 2147483648 bytes. Error detail: committing reserved memory.
+# An error report file with more information is saved as:
+# /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/hs_err_pid761664.log
+Using GATK jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/share/gatk4-4.6.2.0-0/gatk-package-4.6.2.0-local.jar CreateSequenceDictionary -R /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/genome/genome.fa -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/genome/genome.dict
+[2020-10-20 00:00:01.103] [index] [error] failed to get disk available space
+[0;35m[SUCCESS] 2025-12-15 16:14:20 - ✅ 索引构建完成 (耗时: 00:00:02)[0m
+
+[0;34m========================================[0m
+[0;34m🧹 Step 2: 质量控制[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:14:20 - 检测到 18 个原始 FASTQ 文件[0m
+[0;32m[INFO] 2025-12-15 16:14:20 - 开始质控处理...[0m
+2025-12-15 16:14:22,067 - INFO - ============================================================
+2025-12-15 16:14:22,067 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-12-15 16:14:22,067 - INFO - ============================================================
+2025-12-15 16:14:22,067 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw
+2025-12-15 16:14:22,067 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean
+2025-12-15 16:14:22,067 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-12-15 16:14:22,067 - INFO - ============================================================
+2025-12-15 16:14:22,278 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-12-15 16:14:22,278 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean
+2025-12-15 16:14:22,278 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports
+2025-12-15 16:14:22,279 - INFO - 📄 找到 9 个read1文件 | Found 9 read1 files
+2025-12-15 16:14:22,283 - INFO - 🧬 找到 9 个有效样本配对 | Found 9 valid sample pairs:
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-50
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-51
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-54
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-57
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-58
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-59
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-52
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-53
+2025-12-15 16:14:22,283 - INFO -   - 📋 A14-56
+2025-12-15 16:14:22,283 - INFO - ---
+2025-12-15 16:14:22,283 - INFO - ⚡ 正在处理样本 | Processing sample: A14-50
+2025-12-15 16:14:22,283 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-50_1.fq.gz
+2025-12-15 16:14:22,283 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-50_2.fq.gz
+2025-12-15 16:14:22,283 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-50_1.clean.fq.gz
+2025-12-15 16:14:22,283 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-50_2.clean.fq.gz
+2025-12-15 16:14:22,283 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-50.html
+2025-12-15 16:14:22,283 - INFO - ---
+2025-12-15 16:14:22,283 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-50
+2025-12-15 16:14:22,283 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-50_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-50_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-50_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-50_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-50.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-50.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:22,528 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-50
+2025-12-15 16:14:22,528 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:22,528 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:22,528 - ERROR - ❌ 样本 A14-50 处理失败 | Sample A14-50 processing failed
+2025-12-15 16:14:22,529 - INFO - ---
+2025-12-15 16:14:22,529 - INFO - ⚡ 正在处理样本 | Processing sample: A14-51
+2025-12-15 16:14:22,529 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-51_1.fq.gz
+2025-12-15 16:14:22,529 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-51_2.fq.gz
+2025-12-15 16:14:22,529 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-51_1.clean.fq.gz
+2025-12-15 16:14:22,529 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-51_2.clean.fq.gz
+2025-12-15 16:14:22,530 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-51.html
+2025-12-15 16:14:22,530 - INFO - ---
+2025-12-15 16:14:22,530 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-51
+2025-12-15 16:14:22,530 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-51_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-51_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-51_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-51_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-51.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-51.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:22,836 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-51
+2025-12-15 16:14:22,836 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:22,836 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:22,836 - ERROR - ❌ 样本 A14-51 处理失败 | Sample A14-51 processing failed
+2025-12-15 16:14:22,836 - INFO - ---
+2025-12-15 16:14:22,836 - INFO - ⚡ 正在处理样本 | Processing sample: A14-54
+2025-12-15 16:14:22,836 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-54_1.fq.gz
+2025-12-15 16:14:22,836 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-54_2.fq.gz
+2025-12-15 16:14:22,836 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-54_1.clean.fq.gz
+2025-12-15 16:14:22,836 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-54_2.clean.fq.gz
+2025-12-15 16:14:22,836 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-54.html
+2025-12-15 16:14:22,836 - INFO - ---
+2025-12-15 16:14:22,836 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-54
+2025-12-15 16:14:22,836 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-54_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-54_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-54_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-54_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-54.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-54.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:23,252 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-54
+2025-12-15 16:14:23,252 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:23,252 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:23,252 - ERROR - ❌ 样本 A14-54 处理失败 | Sample A14-54 processing failed
+2025-12-15 16:14:23,252 - INFO - ---
+2025-12-15 16:14:23,252 - INFO - ⚡ 正在处理样本 | Processing sample: A14-57
+2025-12-15 16:14:23,252 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-57_1.fq.gz
+2025-12-15 16:14:23,252 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-57_2.fq.gz
+2025-12-15 16:14:23,252 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-57_1.clean.fq.gz
+2025-12-15 16:14:23,253 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-57_2.clean.fq.gz
+2025-12-15 16:14:23,253 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-57.html
+2025-12-15 16:14:23,253 - INFO - ---
+2025-12-15 16:14:23,253 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-57
+2025-12-15 16:14:23,253 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-57_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-57_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-57_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-57_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-57.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-57.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:23,507 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-57
+2025-12-15 16:14:23,507 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:23,507 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:23,507 - ERROR - ❌ 样本 A14-57 处理失败 | Sample A14-57 processing failed
+2025-12-15 16:14:23,508 - INFO - ---
+2025-12-15 16:14:23,508 - INFO - ⚡ 正在处理样本 | Processing sample: A14-58
+2025-12-15 16:14:23,508 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-58_1.fq.gz
+2025-12-15 16:14:23,508 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-58_2.fq.gz
+2025-12-15 16:14:23,508 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-58_1.clean.fq.gz
+2025-12-15 16:14:23,508 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-58_2.clean.fq.gz
+2025-12-15 16:14:23,508 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-58.html
+2025-12-15 16:14:23,508 - INFO - ---
+2025-12-15 16:14:23,508 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-58
+2025-12-15 16:14:23,508 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-58_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-58_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-58_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-58_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-58.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-58.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:23,725 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-58
+2025-12-15 16:14:23,725 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:23,725 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:23,725 - ERROR - ❌ 样本 A14-58 处理失败 | Sample A14-58 processing failed
+2025-12-15 16:14:23,725 - INFO - ---
+2025-12-15 16:14:23,725 - INFO - ⚡ 正在处理样本 | Processing sample: A14-59
+2025-12-15 16:14:23,725 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-59_1.fq.gz
+2025-12-15 16:14:23,725 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-59_2.fq.gz
+2025-12-15 16:14:23,725 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-59_1.clean.fq.gz
+2025-12-15 16:14:23,725 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-59_2.clean.fq.gz
+2025-12-15 16:14:23,725 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-59.html
+2025-12-15 16:14:23,725 - INFO - ---
+2025-12-15 16:14:23,725 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-59
+2025-12-15 16:14:23,725 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-59_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-59_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-59_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-59_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-59.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-59.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:23,933 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-59
+2025-12-15 16:14:23,933 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:23,933 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:23,933 - ERROR - ❌ 样本 A14-59 处理失败 | Sample A14-59 processing failed
+2025-12-15 16:14:23,933 - INFO - ---
+2025-12-15 16:14:23,934 - INFO - ⚡ 正在处理样本 | Processing sample: A14-52
+2025-12-15 16:14:23,934 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-52_1.fq.gz
+2025-12-15 16:14:23,934 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-52_2.fq.gz
+2025-12-15 16:14:23,934 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-52_1.clean.fq.gz
+2025-12-15 16:14:23,934 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-52_2.clean.fq.gz
+2025-12-15 16:14:23,934 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-52.html
+2025-12-15 16:14:23,934 - INFO - ---
+2025-12-15 16:14:23,934 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-52
+2025-12-15 16:14:23,934 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-52_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-52_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-52_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-52_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-52.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-52.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:24,156 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-52
+2025-12-15 16:14:24,156 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:24,156 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:24,156 - ERROR - ❌ 样本 A14-52 处理失败 | Sample A14-52 processing failed
+2025-12-15 16:14:24,156 - INFO - ---
+2025-12-15 16:14:24,156 - INFO - ⚡ 正在处理样本 | Processing sample: A14-53
+2025-12-15 16:14:24,156 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-53_1.fq.gz
+2025-12-15 16:14:24,156 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-53_2.fq.gz
+2025-12-15 16:14:24,156 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-53_1.clean.fq.gz
+2025-12-15 16:14:24,156 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-53_2.clean.fq.gz
+2025-12-15 16:14:24,156 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-53.html
+2025-12-15 16:14:24,156 - INFO - ---
+2025-12-15 16:14:24,156 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-53
+2025-12-15 16:14:24,156 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-53_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-53_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-53_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-53_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-53.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-53.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:24,380 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-53
+2025-12-15 16:14:24,380 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:24,380 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:24,380 - ERROR - ❌ 样本 A14-53 处理失败 | Sample A14-53 processing failed
+2025-12-15 16:14:24,380 - INFO - ---
+2025-12-15 16:14:24,380 - INFO - ⚡ 正在处理样本 | Processing sample: A14-56
+2025-12-15 16:14:24,380 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-56_1.fq.gz
+2025-12-15 16:14:24,380 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-56_2.fq.gz
+2025-12-15 16:14:24,380 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-56_1.clean.fq.gz
+2025-12-15 16:14:24,380 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-56_2.clean.fq.gz
+2025-12-15 16:14:24,380 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-56.html
+2025-12-15 16:14:24,380 - INFO - ---
+2025-12-15 16:14:24,380 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> A14-56
+2025-12-15 16:14:24,380 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-56_1.fq.gz -I /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw/A14-56_2.fq.gz -o /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-56_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/A14-56_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-56.html -j /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports/A14-56.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-15 16:14:24,614 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> A14-56
+2025-12-15 16:14:24,614 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-15 16:14:24,614 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-15 16:14:24,614 - ERROR - ❌ 样本 A14-56 处理失败 | Sample A14-56 processing failed
+2025-12-15 16:14:24,615 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_processing_summary.txt
+2025-12-15 16:14:24,615 - INFO - ============================================================
+2025-12-15 16:14:24,615 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-12-15 16:14:24,615 - INFO - 🧮 总样本数 | Total samples: 9
+2025-12-15 16:14:24,615 - INFO - ✅ 成功处理 | Successfully processed: 0
+2025-12-15 16:14:24,615 - INFO - ❌ 失败样本 | Failed samples: 9
+2025-12-15 16:14:24,615 - INFO - 📊 成功率 | Success rate: 0.0%
+2025-12-15 16:14:24,615 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean
+2025-12-15 16:14:24,615 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean/fastp_reports
+2025-12-15 16:14:24,615 - INFO - ============================================================
+[0;35m[SUCCESS] 2025-12-15 16:14:24 - ✅ 质控完成: 0 个清洁文件 (耗时: 00:00:04)[0m
+
+[0;34m========================================[0m
+[0;34m🗺️ Step 3: 序列比对[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 使用GTX WGS完整流程 (CPU优化，比对+变异检测一体化)[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 使用 88 线程处理...[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 搜索输入文件...[0m
+[0;31m[ERROR] 2025-12-15 16:14:24 - 未找到任何 *_1.clean.fq.gz 或 *_1.fq.gz 文件[0m
+
+[0;34m========================================[0m
+[0;34m🧬 Step 4: 联合变异检测[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 检测到 0 个 gVCF 样本[0m
+[0;31m[ERROR] 2025-12-15 16:14:24 - 未找到任何 gVCF 文件[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - GTX WGS模式已生成单样本VCF文件，跳过联合检测[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 如需联合检测，请设置 USE_GTX_WGS=false 重新运行[0m
+
+[0;34m========================================[0m
+[0;34m📊 生成分析报告[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 报告已生成: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/ANALYSIS_REPORT.txt[0m
+========================================================================
+             全基因组重测序分析流程 - 最终报告
+========================================================================
+分析日期: 2025-12-15 16:14:24
+项目路径: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx
+总运行时间: 00:00:06
+
+------------------------------------------------------------------------
+📁 输入数据
+------------------------------------------------------------------------
+原始FASTQ目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/raw
+参考基因组: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/genome/genome.fa
+样本数量: 0
+
+------------------------------------------------------------------------
+⚙️ 处理参数
+------------------------------------------------------------------------
+比对线程: 88
+GTX线程: 88
+过滤线程: 88
+样本阈值: GATK<4, GTX<200
+
+过滤参数:
+  - SNP最小深度: 5
+  - SNP最小质量: 30
+  - InDel最小深度: 5
+  - InDel最小质量: 30
+
+------------------------------------------------------------------------
+📂 输出目录
+------------------------------------------------------------------------
+清洁数据: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/01.data/clean
+比对结果: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping
+变异检测: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/03.joint_calling
+过滤结果: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/04.filtered_snp_indel
+日志文件: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/99.logs
+
+------------------------------------------------------------------------
+📊 结果文件
+------------------------------------------------------------------------
+
+过滤后VCF文件:
+
+------------------------------------------------------------------------
+✅ 已完成步骤
+------------------------------------------------------------------------
+  ✓ genome_index (2025-12-15 14:26:13)
+  ✓ mapping (2025-12-15 15:42:15)
+  ✓ quality_control (2025-12-15 15:41:41)
+
+------------------------------------------------------------------------
+📝 日志文件
+------------------------------------------------------------------------
+主日志: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/99.logs/pipeline_20251215_161418.log
+错误日志: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/99.logs/error_20251215_161418.log
+
+========================================================================
+              分析完成 - 感谢使用本流程
+========================================================================
+
+[0;34m========================================[0m
+[0;34m🎉 GTX WGS流程执行成功！[0m
+[0;34m========================================[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 📂 gVCF目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping/vcf[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 📂 BAM目录: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/02.mapping/bam[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 📊 分析报告: /share/org/YZWL/yzwl_lixg/tmp/liuchao_gwas/Q33_test_gtx/ANALYSIS_REPORT.txt[0m
+[0;35m[SUCCESS] 2025-12-15 16:14:24 - 总运行时间: 00:00:06[0m
+[0;36m[DEBUG] 2025-12-15 16:14:24 - 清理临时文件...[0m
+[0;32m[INFO] 2025-12-15 16:14:24 - 总运行时间: 00:00:06[0m

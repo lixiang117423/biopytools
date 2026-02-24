@@ -1,0 +1,84 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║         🧬 Puzzle Hi-C 基因组组装流程 v3.0                          ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+[2025-11-29 21:42:05] ℹ️  Pipeline started
+[2025-11-29 21:42:05] ℹ️  Project: OV53-1
+[2025-11-29 21:42:05] ℹ️  Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/puzzle_hic_output
+[2025-11-29 21:42:05] ℹ️  Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/06.puzzle-hic/puzzle_hic_output/pipeline_20251129_214205.log
+[2025-11-29 21:42:05] ℹ️  [Step 0] 检查环境和输入文件...
+[2025-11-29 21:42:05] ✅ 输入文件检查通过
+[2025-11-29 21:42:05] ✅ 软件目录检查通过
+[2025-11-29 21:42:05] ✅ 目录结构创建完成
+[2025-11-29 21:42:05] ℹ️  [Step 1] 准备参考基因组和必需文件...
+[2025-11-29 21:42:05] ⚠️  BWA 索引已存在，跳过
+[2025-11-29 21:42:05] ⚠️  chrom.sizes 已存在，跳过
+[2025-11-29 21:42:05] ⚠️  酶切位点文件已存在且非空，跳过
+[2025-11-29 21:42:05] ℹ️  [Step 2] 准备 Hi-C 测序数据...
+[2025-11-29 21:42:05] ✅ Hi-C 数据链接创建完成
+[2025-11-29 21:42:05] ⚠️  [Step 3] 跳过 Juicer (SKIP_JUICER=true)
+[2025-11-29 21:43:08] ℹ️  使用现有 merged_nodups.txt，有效 reads 对数: 564872201
+[2025-11-29 21:43:08] ℹ️  [Step 4] 运行 Puzzle Hi-C (染色体级别组装)...
+[2025-11-29 21:43:08] ℹ️  激活 Puzzle Hi-C conda 环境...
+[2025-11-29 21:43:16] ✅ Conda 环境激活成功
+[2025-11-29 21:43:16] ℹ️  运行 Puzzle Hi-C main.py...
+[2025-11-29 21:43:16] ℹ️  参数: 染色体数=12, binsize=10000, cutoff=0.35
+procesing init repeat
+procesing repeat files
+procesing repeat flags
+average_links: 1155.0
+reading raw data!
+sort raw data!
+processing repeat
+processing repeat files
+processing repeat flags
+processing links
+iteration:0
+Processing Iter 1!
+reading raw data!
+sort raw data!
+processing repeat
+processing repeat files
+processing repeat flags
+processing links
+iteration:1
+Processing Iter 2!
+reading raw data!
+sort raw data!
+processing repeat
+processing repeat files
+processing repeat flags
+processing links
+iteration:2
+Processing Iter 3!
+reading raw data!
+sort raw data!
+processing repeat
+processing repeat files
+processing repeat flags
+processing links
+iteration:3
+Processing Iter 4!
+reading raw data!
+sort raw data!
+processing repeat
+processing repeat files
+processing repeat flags
+processing links
+iteration:4
+Processing Iter 5!
+reading raw data!
+sort raw data!
+processing repeat
+processing repeat files
+processing repeat flags
+processing links
+iteration:5
+Processing Iter 6!
+reading raw data!
+sort raw data!
+processing repeat
+processing repeat files
+processing repeat flags
+processing links
+iteration:6

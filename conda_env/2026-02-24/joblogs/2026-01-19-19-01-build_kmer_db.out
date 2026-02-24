@@ -1,0 +1,18 @@
+2026-01-19 19:01:26.154 - INFO - 找到kmtricks|Found kmtricks: unknown
+2026-01-19 19:01:26.358 - INFO - 找到bgzip|Found bgzip
+2026-01-19 19:01:26.358 - INFO - ============================================================
+2026-01-19 19:01:26.358 - INFO - 开始K-mer库构建|Starting K-mer database build
+2026-01-19 19:01:26.358 - INFO - ============================================================
+2026-01-19 19:01:26.358 - INFO - [步骤1/5] 生成FOF文件|[Step 1/5] Generating FOF file
+2026-01-19 19:01:26.358 - INFO - 正在生成FOF文件|Generating FOF file: 02.kmer_db/fof.txt
+2026-01-19 19:01:26.685 - INFO - FOF文件生成成功|FOF file generated successfully: 02.kmer_db/fof.txt
+2026-01-19 19:01:26.685 - INFO - 共|Total 0 个样本|samples
+2026-01-19 19:01:26.685 - INFO - [步骤2/5] 运行kmtricks pipeline|[Step 2/5] Running kmtricks pipeline
+2026-01-19 19:01:26.685 - INFO - 运行命令|Running command: kmtricks pipeline --file 02.kmer_db/fof.txt --run-dir 02.kmer_db/kmtricks_index --kmer-size 51 --hard-min 2 --recurrence-min 1 --mode kmer:pa:bin --minimizer-size 10 -t 64 --cpr
+2026-01-19 19:01:26.691 - ERROR - kmtricks pipeline失败|kmtricks pipeline failed: [2026-01-19 19:01:26.688] [info] Run with Kmer<64> - __uint128_t implementation
+[2026-01-19 19:01:26.691] [info] Compute configuration...
+[2026-01-19 19:01:26.691] [info] 0 samples found (0 read files).
+[2026-01-19 19:01:26.691] [error] GATB ERROR: Unable to open bank '' (if it is a list of files, perhaps some of the files inside don't exist)
+
+2026-01-19 19:01:26.691 - ERROR - 建库失败|Build failed: kmtricks pipeline运行失败|kmtricks pipeline failed
+2026-01-19 19:01:26.691 - ERROR - 建库失败|Build failed: kmtricks pipeline运行失败|kmtricks pipeline failed

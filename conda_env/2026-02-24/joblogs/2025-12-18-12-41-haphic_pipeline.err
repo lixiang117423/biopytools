@@ -1,0 +1,41 @@
+[2025-12-18 12:41:18] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-18 12:41:18] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-18 12:41:18]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.primary.fa
+[2025-12-18 12:41:18]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-18 12:41:18]   hic_file_type: fastq
+[2025-12-18 12:41:18]   nchrs: 12
+[2025-12-18 12:41:18]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta
+[2025-12-18 12:41:18]   prefix: OV53_1.primary
+[2025-12-18 12:41:18]   threads: 64
+[2025-12-18 12:41:18]   processes: 64
+[2025-12-18 12:41:18]   quick_view: False
+[2025-12-18 12:41:18]   restriction_sites: ['GATC']
+[2025-12-18 12:41:18]   correct_nrounds: 2
+[2025-12-18 12:41:18]   remove_allelic_links: None
+[2025-12-18 12:41:18]   phasing_weight: 1.0
+[2025-12-18 12:41:18]   gfa_files: None
+[2025-12-18 12:41:18]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-18 12:41:18]   bwa_bin: bwa
+[2025-12-18 12:41:18]   samtools_bin: samtools
+[2025-12-18 12:41:18] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-18 12:41:18] 🔍 系统预检查 | System pre-flight checks
+[2025-12-18 12:41:18] 🔍 验证输入文件 | Validating input files
+[2025-12-18 12:41:19] 📊 基因组序列数量 | Assembly sequence count: 1211
+[2025-12-18 12:41:19] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 60.14 GB
+[2025-12-18 12:41:19] ✅ 输入文件验证通过 | Input files validated
+[2025-12-18 12:41:19] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-18 12:41:19] 💾 可用内存 | Available memory: 914.6 GB
+[2025-12-18 12:41:19] 💾 可用磁盘空间 | Available disk space: 2575541.7 GB
+[2025-12-18 12:41:19] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-18 12:41:23] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-18 12:41:23] 🔗 执行BWA比对 | Executing BWA alignment
+[2025-12-18 12:41:23] 🔗 开始BWA比对 | Starting BWA alignment (official method)
+[2025-12-18 12:41:23] 📄 使用提供的FASTQ文件对 | Using provided FASTQ pair: OV53_1-hic_R1.fastq.gz
+[2025-12-18 12:41:23] 📄 找到 1 对FASTQ文件 | Found 1 FASTQ pairs
+[2025-12-18 12:41:23] 🔗 创建基因组软链接 | Created assembly symlink: assembly.fa
+[2025-12-18 12:41:23] 🔗 创建FASTQ软链接 | Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+[2025-12-18 12:41:23] 📝 创建BWA索引 | Creating BWA index: assembly.fa
+[2025-12-18 12:41:23] 💥 HapHiC流程执行失败 | HapHiC pipeline execution failed: 'HapHiCConfig' object has no attribute 'dry_run'
+❌ HapHiC scaffolding失败!
+Job 68572363 stderr output:
+

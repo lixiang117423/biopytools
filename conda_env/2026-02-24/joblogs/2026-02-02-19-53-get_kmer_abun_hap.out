@@ -1,0 +1,595 @@
+2026-02-02 19:53:21.786 - INFO - ====================================================================================================
+2026-02-02 19:53:21.815 - INFO -  Kmer交集提取工具|Kmer Intersection Extraction Tool
+2026-02-02 19:53:21.815 - INFO - ====================================================================================================
+2026-02-02 19:53:21.815 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 19:53:21.815 - INFO - 目标kmer fasta|Target kmer fasta: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_kmer_51.fa
+2026-02-02 19:53:21.815 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 19:53:21.815 - INFO - 线程数|Threads: 64
+2026-02-02 19:53:21.815 - INFO - 使用反向互补查询|Use reverse complement: True
+2026-02-02 19:53:21.815 - INFO - 
+2026-02-02 19:53:21.815 - INFO - ====================================================================================================
+2026-02-02 19:53:21.815 - INFO -  加载目标kmer|Loading Target Kmers
+2026-02-02 19:53:21.815 - INFO - ====================================================================================================
+2026-02-02 19:53:21.815 - INFO - fasta文件|Fasta file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_kmer_51.fa
+2026-02-02 19:55:38.952 - INFO - 总kmer数|Total kmers: 112.48M
+2026-02-02 19:55:38.952 - INFO - 唯一kmer数|Unique kmers: 80.45M
+2026-02-02 19:55:38.952 - INFO - 重复kmer数|Duplicate kmers: 32.03M (已保留|preserved)
+2026-02-02 19:55:40.317 - INFO - 
+2026-02-02 19:55:40.317 - INFO - ====================================================================================================
+2026-02-02 19:55:40.317 - INFO -  提取kmer丰度（多进程模式）|Extracting Kmer Abundance (Multi-Process Mode)
+2026-02-02 19:55:40.317 - INFO - ====================================================================================================
+2026-02-02 19:55:40.317 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 19:55:40.317 - INFO - 目标kmer数|Target kmers: 80.45M
+2026-02-02 19:55:40.317 - INFO - 进程数|Number of processes: 64
+2026-02-02 19:55:40.378 - INFO - 估算文件行数|Estimating file lines...
+2026-02-02 20:02:39.757 - INFO - 文件总行数|Total lines in file: 1849.41M
+2026-02-02 20:02:39.758 - WARNING - 目标kmer数过大|Large target kmer count: 80.45M
+2026-02-02 20:02:39.758 - WARNING - 为避免内存溢出，将进程数从|To avoid OOM, reducing processes from 64 到|to 8
+2026-02-02 20:02:39.758 - INFO - 分块信息|Chunking info:
+2026-02-02 20:02:39.758 - INFO -   进程数|Processes: 8
+2026-02-02 20:02:39.758 - INFO -   每进程行数|Lines per process: 231.18M
+2026-02-02 20:02:39.758 - INFO - 开始并行处理（使用共享内存）|Starting parallel processing (using shared memory)...
+2026-02-02 20:46:14.804 - INFO - 完成chunk|Completed chunk 1/8, 找到|Found: 9.58M (总|Total: 9.58M)
+2026-02-02 20:47:28.944 - INFO - 完成chunk|Completed chunk 2/8, 找到|Found: 9.61M (总|Total: 19.18M)
+2026-02-02 20:48:38.031 - INFO - 完成chunk|Completed chunk 3/8, 找到|Found: 9.57M (总|Total: 28.75M)
+2026-02-02 20:49:31.700 - INFO - 完成chunk|Completed chunk 4/8, 找到|Found: 9.66M (总|Total: 38.41M)
+2026-02-02 20:50:31.568 - INFO - 完成chunk|Completed chunk 5/8, 找到|Found: 9.54M (总|Total: 47.95M)
+2026-02-02 20:51:37.461 - INFO - 完成chunk|Completed chunk 6/8, 找到|Found: 9.58M (总|Total: 57.53M)
+2026-02-02 20:52:59.415 - INFO - 完成chunk|Completed chunk 7/8, 找到|Found: 9.55M (总|Total: 67.09M)
+2026-02-02 20:53:25.309 - INFO - 完成chunk|Completed chunk 8/8, 找到|Found: 9.51M (总|Total: 76.60M)
+2026-02-02 20:53:28.496 - INFO - 扫描完成|Scan completed
+2026-02-02 20:53:28.496 - INFO - 总扫描行数|Total lines scanned: 1849.41M
+2026-02-02 20:53:28.496 - INFO - 正向找到|Found forward: 40.13M
+2026-02-02 20:53:28.496 - INFO - 反向互补找到|Found reverse complement: 36.47M
+2026-02-02 20:53:28.496 - INFO - 未找到|Not found: 3.86M
+2026-02-02 20:53:28.496 - INFO - 总共找到|Total found: 76.60M
+2026-02-02 20:53:39.446 - INFO - 
+2026-02-02 20:53:39.446 - INFO - ====================================================================================================
+2026-02-02 20:53:39.446 - INFO -  写入结果文件|Writing Results File
+2026-02-02 20:53:39.446 - INFO - ====================================================================================================
+2026-02-02 20:53:39.446 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 21:00:03.509 - INFO - 写入完成|Write completed
+2026-02-02 21:00:03.509 - INFO - 输出行数|Output rows: 112.48M
+2026-02-02 21:00:03.509 - INFO - ====================================================================================================
+2026-02-02 21:00:03.510 - INFO -  写入窗口统计文件|Writing Window Statistics File
+2026-02-02 21:00:03.510 - INFO - ====================================================================================================
+2026-02-02 21:00:03.510 - INFO - 窗口统计文件|Window stats file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt.window_stats.txt
+2026-02-02 21:00:03.510 - INFO - 窗口大小|Window size: 100.00K
+2026-02-02 21:15:19.101 - INFO - 窗口统计文件写入完成|Window stats file written
+2026-02-02 21:15:19.101 - INFO - 总窗口数|Total windows: 1125
+2026-02-02 21:15:19.101 - INFO - 总kmer数|Total kmers: 112.48M
+2026-02-02 21:15:19.101 - INFO - 样品数|Number of samples: 99
+2026-02-02 21:15:21.026 - INFO - 
+2026-02-02 21:15:21.027 - INFO - ====================================================================================================
+2026-02-02 21:15:21.027 - INFO -  分析完成|Analysis Completed Successfully
+2026-02-02 21:15:21.027 - INFO - ====================================================================================================
+2026-02-02 21:15:21.027 - INFO - 目标kmer总数|Total target kmers: 80451864
+2026-02-02 21:15:21.027 - INFO - 找到kmer数|Kmers found: 76596268
+2026-02-02 21:15:21.027 - INFO - 未找到kmer数|Kmers not found: 3855596
+2026-02-02 21:15:21.027 - INFO - 找到率|Found rate: 95.21%
+2026-02-02 21:15:21.027 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 21:15:21.027 - INFO - 日志文件|Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt.log
+2026-02-02 21:15:21.027 - INFO - ====================================================================================================
+2026-02-02 21:15:53.550 - INFO - ====================================================================================================
+2026-02-02 21:15:53.569 - INFO -  Kmer交集提取工具|Kmer Intersection Extraction Tool
+2026-02-02 21:15:53.569 - INFO - ====================================================================================================
+2026-02-02 21:15:53.569 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 21:15:53.570 - INFO - 目标kmer fasta|Target kmer fasta: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_kmer_51.fa
+2026-02-02 21:15:53.570 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 21:15:53.570 - INFO - 线程数|Threads: 64
+2026-02-02 21:15:53.570 - INFO - 使用反向互补查询|Use reverse complement: True
+2026-02-02 21:15:53.570 - INFO - 
+2026-02-02 21:15:53.570 - INFO - ====================================================================================================
+2026-02-02 21:15:53.570 - INFO -  加载目标kmer|Loading Target Kmers
+2026-02-02 21:15:53.570 - INFO - ====================================================================================================
+2026-02-02 21:15:53.570 - INFO - fasta文件|Fasta file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_kmer_51.fa
+2026-02-02 21:17:39.190 - INFO - 总kmer数|Total kmers: 86.71M
+2026-02-02 21:17:39.190 - INFO - 唯一kmer数|Unique kmers: 63.69M
+2026-02-02 21:17:39.190 - INFO - 重复kmer数|Duplicate kmers: 23.02M (已保留|preserved)
+2026-02-02 21:17:40.286 - INFO - 
+2026-02-02 21:17:40.286 - INFO - ====================================================================================================
+2026-02-02 21:17:40.286 - INFO -  提取kmer丰度（多进程模式）|Extracting Kmer Abundance (Multi-Process Mode)
+2026-02-02 21:17:40.286 - INFO - ====================================================================================================
+2026-02-02 21:17:40.286 - INFO - kmer矩阵文件|Kmer matrix file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/kmer_matrix_with_header.txt
+2026-02-02 21:17:40.286 - INFO - 目标kmer数|Target kmers: 63.69M
+2026-02-02 21:17:40.287 - INFO - 进程数|Number of processes: 64
+2026-02-02 21:17:40.344 - INFO - 估算文件行数|Estimating file lines...
+2026-02-02 21:24:38.958 - INFO - 文件总行数|Total lines in file: 1849.41M
+2026-02-02 21:24:38.974 - WARNING - 目标kmer数过大|Large target kmer count: 63.69M
+2026-02-02 21:24:38.974 - WARNING - 为避免内存溢出，将进程数从|To avoid OOM, reducing processes from 64 到|to 8
+2026-02-02 21:24:38.974 - INFO - 分块信息|Chunking info:
+2026-02-02 21:24:38.974 - INFO -   进程数|Processes: 8
+2026-02-02 21:24:38.974 - INFO -   每进程行数|Lines per process: 231.18M
+2026-02-02 21:24:38.974 - INFO - 开始并行处理（使用共享内存）|Starting parallel processing (using shared memory)...
+2026-02-02 22:06:46.704 - INFO - 完成chunk|Completed chunk 1/8, 找到|Found: 7.65M (总|Total: 7.65M)
+2026-02-02 22:07:43.215 - INFO - 完成chunk|Completed chunk 2/8, 找到|Found: 7.69M (总|Total: 15.33M)
+2026-02-02 22:08:38.933 - INFO - 完成chunk|Completed chunk 3/8, 找到|Found: 7.67M (总|Total: 23.01M)
+2026-02-02 22:09:19.406 - INFO - 完成chunk|Completed chunk 4/8, 找到|Found: 7.64M (总|Total: 30.65M)
+2026-02-02 22:10:07.086 - INFO - 完成chunk|Completed chunk 5/8, 找到|Found: 7.71M (总|Total: 38.36M)
+2026-02-02 22:11:02.069 - INFO - 完成chunk|Completed chunk 6/8, 找到|Found: 7.64M (总|Total: 45.99M)
+2026-02-02 22:12:00.283 - INFO - 完成chunk|Completed chunk 7/8, 找到|Found: 7.56M (总|Total: 53.56M)
+2026-02-02 22:12:19.977 - INFO - 完成chunk|Completed chunk 8/8, 找到|Found: 7.63M (总|Total: 61.18M)
+2026-02-02 22:12:22.121 - INFO - 扫描完成|Scan completed
+2026-02-02 22:12:22.121 - INFO - 总扫描行数|Total lines scanned: 1849.41M
+2026-02-02 22:12:22.121 - INFO - 正向找到|Found forward: 31.81M
+2026-02-02 22:12:22.121 - INFO - 反向互补找到|Found reverse complement: 29.37M
+2026-02-02 22:12:22.121 - INFO - 未找到|Not found: 2.51M
+2026-02-02 22:12:22.121 - INFO - 总共找到|Total found: 61.18M
+2026-02-02 22:12:27.969 - INFO - 
+2026-02-02 22:12:27.969 - INFO - ====================================================================================================
+2026-02-02 22:12:27.969 - INFO -  写入结果文件|Writing Results File
+2026-02-02 22:12:27.969 - INFO - ====================================================================================================
+2026-02-02 22:12:27.969 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 22:17:28.490 - INFO - 写入完成|Write completed
+2026-02-02 22:17:28.490 - INFO - 输出行数|Output rows: 86.71M
+2026-02-02 22:17:28.490 - INFO - ====================================================================================================
+2026-02-02 22:17:28.490 - INFO -  写入窗口统计文件|Writing Window Statistics File
+2026-02-02 22:17:28.490 - INFO - ====================================================================================================
+2026-02-02 22:17:28.490 - INFO - 窗口统计文件|Window stats file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt.window_stats.txt
+2026-02-02 22:17:28.491 - INFO - 窗口大小|Window size: 100.00K
+2026-02-02 22:29:31.726 - INFO - 窗口统计文件写入完成|Window stats file written
+2026-02-02 22:29:31.726 - INFO - 总窗口数|Total windows: 868
+2026-02-02 22:29:31.726 - INFO - 总kmer数|Total kmers: 86.71M
+2026-02-02 22:29:31.726 - INFO - 样品数|Number of samples: 99
+2026-02-02 22:29:33.253 - INFO - 
+2026-02-02 22:29:33.253 - INFO - ====================================================================================================
+2026-02-02 22:29:33.253 - INFO -  分析完成|Analysis Completed Successfully
+2026-02-02 22:29:33.253 - INFO - ====================================================================================================
+2026-02-02 22:29:33.253 - INFO - 目标kmer总数|Total target kmers: 63692189
+2026-02-02 22:29:33.253 - INFO - 找到kmer数|Kmers found: 61184596
+2026-02-02 22:29:33.253 - INFO - 未找到kmer数|Kmers not found: 2507593
+2026-02-02 22:29:33.253 - INFO - 找到率|Found rate: 96.06%
+2026-02-02 22:29:33.253 - INFO - 输出文件|Output file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 22:29:33.253 - INFO - 日志文件|Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt.log
+2026-02-02 22:29:33.253 - INFO - ====================================================================================================
+2026-02-02 22:30:00.041 - INFO - ====================================================================================================
+2026-02-02 22:30:00.042 - INFO -  Kmer矩阵比较工具|Kmer Matrix Comparison Tool
+2026-02-02 22:30:00.042 - INFO - ====================================================================================================
+2026-02-02 22:30:00.042 - INFO - 文件1|File1: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 22:30:00.042 - INFO - 文件2|File2: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 22:30:00.042 - INFO - 输出前缀|Output prefix: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/unique
+2026-02-02 22:30:00.042 - INFO - 窗口大小|Window size: 100.00K
+2026-02-02 22:30:00.042 - INFO - 
+2026-02-02 22:30:00.049 - INFO - ====================================================================================================
+2026-02-02 22:30:00.049 - INFO -  步骤 1/4: 提取kmer序列集合|Step 1/4: Extract kmer sequence sets
+2026-02-02 22:30:00.049 - INFO - ====================================================================================================
+2026-02-02 22:30:00.049 - INFO - 提取kmer序列|Extracting kmer sequences: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 22:30:01.886 - INFO -   已读取|Read: 1.00M 行|lines
+2026-02-02 22:30:03.654 - INFO -   已读取|Read: 2.00M 行|lines
+2026-02-02 22:30:05.350 - INFO -   已读取|Read: 3.00M 行|lines
+2026-02-02 22:30:07.023 - INFO -   已读取|Read: 4.00M 行|lines
+2026-02-02 22:30:08.734 - INFO -   已读取|Read: 5.00M 行|lines
+2026-02-02 22:30:10.506 - INFO -   已读取|Read: 6.00M 行|lines
+2026-02-02 22:30:12.194 - INFO -   已读取|Read: 7.00M 行|lines
+2026-02-02 22:30:13.922 - INFO -   已读取|Read: 8.00M 行|lines
+2026-02-02 22:30:15.636 - INFO -   已读取|Read: 9.00M 行|lines
+2026-02-02 22:30:17.353 - INFO -   已读取|Read: 10.00M 行|lines
+2026-02-02 22:30:19.097 - INFO -   已读取|Read: 11.00M 行|lines
+2026-02-02 22:30:20.969 - INFO -   已读取|Read: 12.00M 行|lines
+2026-02-02 22:30:22.702 - INFO -   已读取|Read: 13.00M 行|lines
+2026-02-02 22:30:24.413 - INFO -   已读取|Read: 14.00M 行|lines
+2026-02-02 22:30:26.155 - INFO -   已读取|Read: 15.00M 行|lines
+2026-02-02 22:30:27.920 - INFO -   已读取|Read: 16.00M 行|lines
+2026-02-02 22:30:29.712 - INFO -   已读取|Read: 17.00M 行|lines
+2026-02-02 22:30:31.473 - INFO -   已读取|Read: 18.00M 行|lines
+2026-02-02 22:30:33.210 - INFO -   已读取|Read: 19.00M 行|lines
+2026-02-02 22:30:34.987 - INFO -   已读取|Read: 20.00M 行|lines
+2026-02-02 22:30:36.782 - INFO -   已读取|Read: 21.00M 行|lines
+2026-02-02 22:30:38.531 - INFO -   已读取|Read: 22.00M 行|lines
+2026-02-02 22:30:40.309 - INFO -   已读取|Read: 23.00M 行|lines
+2026-02-02 22:30:42.375 - INFO -   已读取|Read: 24.00M 行|lines
+2026-02-02 22:30:44.113 - INFO -   已读取|Read: 25.00M 行|lines
+2026-02-02 22:30:45.850 - INFO -   已读取|Read: 26.00M 行|lines
+2026-02-02 22:30:47.587 - INFO -   已读取|Read: 27.00M 行|lines
+2026-02-02 22:30:49.345 - INFO -   已读取|Read: 28.00M 行|lines
+2026-02-02 22:30:51.108 - INFO -   已读取|Read: 29.00M 行|lines
+2026-02-02 22:30:52.863 - INFO -   已读取|Read: 30.00M 行|lines
+2026-02-02 22:30:54.617 - INFO -   已读取|Read: 31.00M 行|lines
+2026-02-02 22:30:56.353 - INFO -   已读取|Read: 32.00M 行|lines
+2026-02-02 22:30:58.089 - INFO -   已读取|Read: 33.00M 行|lines
+2026-02-02 22:30:59.848 - INFO -   已读取|Read: 34.00M 行|lines
+2026-02-02 22:31:01.613 - INFO -   已读取|Read: 35.00M 行|lines
+2026-02-02 22:31:03.353 - INFO -   已读取|Read: 36.00M 行|lines
+2026-02-02 22:31:05.081 - INFO -   已读取|Read: 37.00M 行|lines
+2026-02-02 22:31:06.834 - INFO -   已读取|Read: 38.00M 行|lines
+2026-02-02 22:31:08.562 - INFO -   已读取|Read: 39.00M 行|lines
+2026-02-02 22:31:10.304 - INFO -   已读取|Read: 40.00M 行|lines
+2026-02-02 22:31:12.055 - INFO -   已读取|Read: 41.00M 行|lines
+2026-02-02 22:31:13.823 - INFO -   已读取|Read: 42.00M 行|lines
+2026-02-02 22:31:15.585 - INFO -   已读取|Read: 43.00M 行|lines
+2026-02-02 22:31:17.344 - INFO -   已读取|Read: 44.00M 行|lines
+2026-02-02 22:31:19.112 - INFO -   已读取|Read: 45.00M 行|lines
+2026-02-02 22:31:20.884 - INFO -   已读取|Read: 46.00M 行|lines
+2026-02-02 22:31:22.666 - INFO -   已读取|Read: 47.00M 行|lines
+2026-02-02 22:31:24.432 - INFO -   已读取|Read: 48.00M 行|lines
+2026-02-02 22:31:26.201 - INFO -   已读取|Read: 49.00M 行|lines
+2026-02-02 22:31:27.974 - INFO -   已读取|Read: 50.00M 行|lines
+2026-02-02 22:31:30.384 - INFO -   已读取|Read: 51.00M 行|lines
+2026-02-02 22:31:32.149 - INFO -   已读取|Read: 52.00M 行|lines
+2026-02-02 22:31:33.917 - INFO -   已读取|Read: 53.00M 行|lines
+2026-02-02 22:31:35.671 - INFO -   已读取|Read: 54.00M 行|lines
+2026-02-02 22:31:37.471 - INFO -   已读取|Read: 55.00M 行|lines
+2026-02-02 22:31:39.273 - INFO -   已读取|Read: 56.00M 行|lines
+2026-02-02 22:31:41.085 - INFO -   已读取|Read: 57.00M 行|lines
+2026-02-02 22:31:42.921 - INFO -   已读取|Read: 58.00M 行|lines
+2026-02-02 22:31:44.713 - INFO -   已读取|Read: 59.00M 行|lines
+2026-02-02 22:31:46.495 - INFO -   已读取|Read: 60.00M 行|lines
+2026-02-02 22:31:48.261 - INFO -   已读取|Read: 61.00M 行|lines
+2026-02-02 22:31:50.095 - INFO -   已读取|Read: 62.00M 行|lines
+2026-02-02 22:31:51.895 - INFO -   已读取|Read: 63.00M 行|lines
+2026-02-02 22:31:53.596 - INFO -   已读取|Read: 64.00M 行|lines
+2026-02-02 22:31:55.357 - INFO -   已读取|Read: 65.00M 行|lines
+2026-02-02 22:31:57.138 - INFO -   已读取|Read: 66.00M 行|lines
+2026-02-02 22:31:58.943 - INFO -   已读取|Read: 67.00M 行|lines
+2026-02-02 22:32:00.728 - INFO -   已读取|Read: 68.00M 行|lines
+2026-02-02 22:32:02.513 - INFO -   已读取|Read: 69.00M 行|lines
+2026-02-02 22:32:04.317 - INFO -   已读取|Read: 70.00M 行|lines
+2026-02-02 22:32:06.086 - INFO -   已读取|Read: 71.00M 行|lines
+2026-02-02 22:32:07.840 - INFO -   已读取|Read: 72.00M 行|lines
+2026-02-02 22:32:09.584 - INFO -   已读取|Read: 73.00M 行|lines
+2026-02-02 22:32:11.363 - INFO -   已读取|Read: 74.00M 行|lines
+2026-02-02 22:32:13.160 - INFO -   已读取|Read: 75.00M 行|lines
+2026-02-02 22:32:14.982 - INFO -   已读取|Read: 76.00M 行|lines
+2026-02-02 22:32:16.799 - INFO -   已读取|Read: 77.00M 行|lines
+2026-02-02 22:32:18.560 - INFO -   已读取|Read: 78.00M 行|lines
+2026-02-02 22:32:20.328 - INFO -   已读取|Read: 79.00M 行|lines
+2026-02-02 22:32:22.074 - INFO -   已读取|Read: 80.00M 行|lines
+2026-02-02 22:32:23.809 - INFO -   已读取|Read: 81.00M 行|lines
+2026-02-02 22:32:25.572 - INFO -   已读取|Read: 82.00M 行|lines
+2026-02-02 22:32:27.340 - INFO -   已读取|Read: 83.00M 行|lines
+2026-02-02 22:32:29.078 - INFO -   已读取|Read: 84.00M 行|lines
+2026-02-02 22:32:30.825 - INFO -   已读取|Read: 85.00M 行|lines
+2026-02-02 22:32:32.545 - INFO -   已读取|Read: 86.00M 行|lines
+2026-02-02 22:32:34.298 - INFO -   已读取|Read: 87.00M 行|lines
+2026-02-02 22:32:36.048 - INFO -   已读取|Read: 88.00M 行|lines
+2026-02-02 22:32:37.815 - INFO -   已读取|Read: 89.00M 行|lines
+2026-02-02 22:32:39.560 - INFO -   已读取|Read: 90.00M 行|lines
+2026-02-02 22:32:41.278 - INFO -   已读取|Read: 91.00M 行|lines
+2026-02-02 22:32:43.031 - INFO -   已读取|Read: 92.00M 行|lines
+2026-02-02 22:32:44.774 - INFO -   已读取|Read: 93.00M 行|lines
+2026-02-02 22:32:46.535 - INFO -   已读取|Read: 94.00M 行|lines
+2026-02-02 22:32:48.313 - INFO -   已读取|Read: 95.00M 行|lines
+2026-02-02 22:32:50.052 - INFO -   已读取|Read: 96.00M 行|lines
+2026-02-02 22:32:51.800 - INFO -   已读取|Read: 97.00M 行|lines
+2026-02-02 22:32:53.534 - INFO -   已读取|Read: 98.00M 行|lines
+2026-02-02 22:32:55.261 - INFO -   已读取|Read: 99.00M 行|lines
+2026-02-02 22:32:56.993 - INFO -   已读取|Read: 100.00M 行|lines
+2026-02-02 22:32:58.731 - INFO -   已读取|Read: 101.00M 行|lines
+2026-02-02 22:33:00.468 - INFO -   已读取|Read: 102.00M 行|lines
+2026-02-02 22:33:02.192 - INFO -   已读取|Read: 103.00M 行|lines
+2026-02-02 22:33:03.918 - INFO -   已读取|Read: 104.00M 行|lines
+2026-02-02 22:33:05.632 - INFO -   已读取|Read: 105.00M 行|lines
+2026-02-02 22:33:07.327 - INFO -   已读取|Read: 106.00M 行|lines
+2026-02-02 22:33:09.064 - INFO -   已读取|Read: 107.00M 行|lines
+2026-02-02 22:33:10.798 - INFO -   已读取|Read: 108.00M 行|lines
+2026-02-02 22:33:12.596 - INFO -   已读取|Read: 109.00M 行|lines
+2026-02-02 22:33:14.389 - INFO -   已读取|Read: 110.00M 行|lines
+2026-02-02 22:33:16.232 - INFO -   已读取|Read: 111.00M 行|lines
+2026-02-02 22:33:18.076 - INFO -   已读取|Read: 112.00M 行|lines
+2026-02-02 22:33:18.947 - INFO -   提取完成|Extracted: 80.45M 序列|sequences
+2026-02-02 22:33:18.947 - INFO - 提取kmer序列|Extracting kmer sequences: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 22:33:20.635 - INFO -   已读取|Read: 1.00M 行|lines
+2026-02-02 22:33:22.297 - INFO -   已读取|Read: 2.00M 行|lines
+2026-02-02 22:33:24.001 - INFO -   已读取|Read: 3.00M 行|lines
+2026-02-02 22:33:25.669 - INFO -   已读取|Read: 4.00M 行|lines
+2026-02-02 22:33:27.405 - INFO -   已读取|Read: 5.00M 行|lines
+2026-02-02 22:33:29.238 - INFO -   已读取|Read: 6.00M 行|lines
+2026-02-02 22:33:31.005 - INFO -   已读取|Read: 7.00M 行|lines
+2026-02-02 22:33:32.778 - INFO -   已读取|Read: 8.00M 行|lines
+2026-02-02 22:33:34.536 - INFO -   已读取|Read: 9.00M 行|lines
+2026-02-02 22:33:36.296 - INFO -   已读取|Read: 10.00M 行|lines
+2026-02-02 22:33:38.080 - INFO -   已读取|Read: 11.00M 行|lines
+2026-02-02 22:33:40.031 - INFO -   已读取|Read: 12.00M 行|lines
+2026-02-02 22:33:41.799 - INFO -   已读取|Read: 13.00M 行|lines
+2026-02-02 22:33:43.571 - INFO -   已读取|Read: 14.00M 行|lines
+2026-02-02 22:33:45.367 - INFO -   已读取|Read: 15.00M 行|lines
+2026-02-02 22:33:47.157 - INFO -   已读取|Read: 16.00M 行|lines
+2026-02-02 22:33:48.946 - INFO -   已读取|Read: 17.00M 行|lines
+2026-02-02 22:33:50.739 - INFO -   已读取|Read: 18.00M 行|lines
+2026-02-02 22:33:52.516 - INFO -   已读取|Read: 19.00M 行|lines
+2026-02-02 22:33:54.300 - INFO -   已读取|Read: 20.00M 行|lines
+2026-02-02 22:33:56.107 - INFO -   已读取|Read: 21.00M 行|lines
+2026-02-02 22:33:57.914 - INFO -   已读取|Read: 22.00M 行|lines
+2026-02-02 22:33:59.684 - INFO -   已读取|Read: 23.00M 行|lines
+2026-02-02 22:34:01.803 - INFO -   已读取|Read: 24.00M 行|lines
+2026-02-02 22:34:03.576 - INFO -   已读取|Read: 25.00M 行|lines
+2026-02-02 22:34:05.351 - INFO -   已读取|Read: 26.00M 行|lines
+2026-02-02 22:34:07.144 - INFO -   已读取|Read: 27.00M 行|lines
+2026-02-02 22:34:08.936 - INFO -   已读取|Read: 28.00M 行|lines
+2026-02-02 22:34:10.725 - INFO -   已读取|Read: 29.00M 行|lines
+2026-02-02 22:34:12.523 - INFO -   已读取|Read: 30.00M 行|lines
+2026-02-02 22:34:14.397 - INFO -   已读取|Read: 31.00M 行|lines
+2026-02-02 22:34:16.251 - INFO -   已读取|Read: 32.00M 行|lines
+2026-02-02 22:34:18.116 - INFO -   已读取|Read: 33.00M 行|lines
+2026-02-02 22:34:19.946 - INFO -   已读取|Read: 34.00M 行|lines
+2026-02-02 22:34:21.757 - INFO -   已读取|Read: 35.00M 行|lines
+2026-02-02 22:34:23.565 - INFO -   已读取|Read: 36.00M 行|lines
+2026-02-02 22:34:25.360 - INFO -   已读取|Read: 37.00M 行|lines
+2026-02-02 22:34:27.183 - INFO -   已读取|Read: 38.00M 行|lines
+2026-02-02 22:34:28.992 - INFO -   已读取|Read: 39.00M 行|lines
+2026-02-02 22:34:30.797 - INFO -   已读取|Read: 40.00M 行|lines
+2026-02-02 22:34:32.600 - INFO -   已读取|Read: 41.00M 行|lines
+2026-02-02 22:34:34.375 - INFO -   已读取|Read: 42.00M 行|lines
+2026-02-02 22:34:36.208 - INFO -   已读取|Read: 43.00M 行|lines
+2026-02-02 22:34:38.046 - INFO -   已读取|Read: 44.00M 行|lines
+2026-02-02 22:34:39.861 - INFO -   已读取|Read: 45.00M 行|lines
+2026-02-02 22:34:41.699 - INFO -   已读取|Read: 46.00M 行|lines
+2026-02-02 22:34:43.529 - INFO -   已读取|Read: 47.00M 行|lines
+2026-02-02 22:34:45.359 - INFO -   已读取|Read: 48.00M 行|lines
+2026-02-02 22:34:47.161 - INFO -   已读取|Read: 49.00M 行|lines
+2026-02-02 22:34:48.967 - INFO -   已读取|Read: 50.00M 行|lines
+2026-02-02 22:34:50.796 - INFO -   已读取|Read: 51.00M 行|lines
+2026-02-02 22:34:52.604 - INFO -   已读取|Read: 52.00M 行|lines
+2026-02-02 22:34:54.422 - INFO -   已读取|Read: 53.00M 行|lines
+2026-02-02 22:34:56.273 - INFO -   已读取|Read: 54.00M 行|lines
+2026-02-02 22:34:58.721 - INFO -   已读取|Read: 55.00M 行|lines
+2026-02-02 22:35:00.533 - INFO -   已读取|Read: 56.00M 行|lines
+2026-02-02 22:35:02.309 - INFO -   已读取|Read: 57.00M 行|lines
+2026-02-02 22:35:04.082 - INFO -   已读取|Read: 58.00M 行|lines
+2026-02-02 22:35:05.890 - INFO -   已读取|Read: 59.00M 行|lines
+2026-02-02 22:35:07.694 - INFO -   已读取|Read: 60.00M 行|lines
+2026-02-02 22:35:09.514 - INFO -   已读取|Read: 61.00M 行|lines
+2026-02-02 22:35:11.332 - INFO -   已读取|Read: 62.00M 行|lines
+2026-02-02 22:35:13.150 - INFO -   已读取|Read: 63.00M 行|lines
+2026-02-02 22:35:14.941 - INFO -   已读取|Read: 64.00M 行|lines
+2026-02-02 22:35:16.737 - INFO -   已读取|Read: 65.00M 行|lines
+2026-02-02 22:35:18.536 - INFO -   已读取|Read: 66.00M 行|lines
+2026-02-02 22:35:20.329 - INFO -   已读取|Read: 67.00M 行|lines
+2026-02-02 22:35:22.134 - INFO -   已读取|Read: 68.00M 行|lines
+2026-02-02 22:35:23.946 - INFO -   已读取|Read: 69.00M 行|lines
+2026-02-02 22:35:25.752 - INFO -   已读取|Read: 70.00M 行|lines
+2026-02-02 22:35:27.572 - INFO -   已读取|Read: 71.00M 行|lines
+2026-02-02 22:35:29.397 - INFO -   已读取|Read: 72.00M 行|lines
+2026-02-02 22:35:31.183 - INFO -   已读取|Read: 73.00M 行|lines
+2026-02-02 22:35:32.987 - INFO -   已读取|Read: 74.00M 行|lines
+2026-02-02 22:35:34.779 - INFO -   已读取|Read: 75.00M 行|lines
+2026-02-02 22:35:36.563 - INFO -   已读取|Read: 76.00M 行|lines
+2026-02-02 22:35:38.376 - INFO -   已读取|Read: 77.00M 行|lines
+2026-02-02 22:35:40.197 - INFO -   已读取|Read: 78.00M 行|lines
+2026-02-02 22:35:42.002 - INFO -   已读取|Read: 79.00M 行|lines
+2026-02-02 22:35:43.809 - INFO -   已读取|Read: 80.00M 行|lines
+2026-02-02 22:35:45.626 - INFO -   已读取|Read: 81.00M 行|lines
+2026-02-02 22:35:47.415 - INFO -   已读取|Read: 82.00M 行|lines
+2026-02-02 22:35:49.206 - INFO -   已读取|Read: 83.00M 行|lines
+2026-02-02 22:35:50.984 - INFO -   已读取|Read: 84.00M 行|lines
+2026-02-02 22:35:52.757 - INFO -   已读取|Read: 85.00M 行|lines
+2026-02-02 22:35:54.590 - INFO -   已读取|Read: 86.00M 行|lines
+2026-02-02 22:35:55.857 - INFO -   提取完成|Extracted: 63.69M 序列|sequences
+2026-02-02 22:35:55.857 - INFO - 
+2026-02-02 22:35:55.857 - INFO - ====================================================================================================
+2026-02-02 22:35:55.857 - INFO -  步骤 2/4: 找出特有序列|Step 2/4: Find unique sequences
+2026-02-02 22:35:55.857 - INFO - ====================================================================================================
+2026-02-02 22:35:55.857 - INFO - 查找特有序列|Finding unique sequences...
+2026-02-02 22:36:11.758 - INFO - 文件1特有序列|Unique sequences in file1: 70.73M
+2026-02-02 22:36:11.758 - INFO - 文件2特有序列|Unique sequences in file2: 53.97M
+2026-02-02 22:36:11.758 - INFO - 共同序列|Common sequences: 9.72M
+2026-02-02 22:36:11.903 - INFO - 
+2026-02-02 22:36:11.903 - INFO - ====================================================================================================
+2026-02-02 22:36:11.903 - INFO -  步骤 3/4: 处理文件1并统计|Step 3/4: Process file 1 and calculate statistics
+2026-02-02 22:36:11.903 - INFO - ====================================================================================================
+2026-02-02 22:36:11.903 - INFO - 处理文件|Processing file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap1_group2_chr12_matrix.txt
+2026-02-02 22:36:11.903 - INFO - 标注unique kmer并计算窗口统计|Labeling unique kmers and calculating window stats...
+2026-02-02 22:36:23.768 - INFO -   已处理|Processed: 1.00M 行|lines
+2026-02-02 22:36:36.413 - INFO -   已处理|Processed: 2.00M 行|lines
+2026-02-02 22:36:52.035 - INFO -   已处理|Processed: 3.00M 行|lines
+2026-02-02 22:37:07.910 - INFO -   已处理|Processed: 4.00M 行|lines
+2026-02-02 22:37:21.792 - INFO -   已处理|Processed: 5.00M 行|lines
+2026-02-02 22:37:36.636 - INFO -   已处理|Processed: 6.00M 行|lines
+2026-02-02 22:37:51.225 - INFO -   已处理|Processed: 7.00M 行|lines
+2026-02-02 22:38:04.763 - INFO -   已处理|Processed: 8.00M 行|lines
+2026-02-02 22:38:19.045 - INFO -   已处理|Processed: 9.00M 行|lines
+2026-02-02 22:38:32.868 - INFO -   已处理|Processed: 10.00M 行|lines
+2026-02-02 22:38:46.329 - INFO -   已处理|Processed: 11.00M 行|lines
+2026-02-02 22:39:00.230 - INFO -   已处理|Processed: 12.00M 行|lines
+2026-02-02 22:39:12.724 - INFO -   已处理|Processed: 13.00M 行|lines
+2026-02-02 22:39:26.302 - INFO -   已处理|Processed: 14.00M 行|lines
+2026-02-02 22:39:39.520 - INFO -   已处理|Processed: 15.00M 行|lines
+2026-02-02 22:39:53.022 - INFO -   已处理|Processed: 16.00M 行|lines
+2026-02-02 22:40:05.192 - INFO -   已处理|Processed: 17.00M 行|lines
+2026-02-02 22:40:18.391 - INFO -   已处理|Processed: 18.00M 行|lines
+2026-02-02 22:40:31.305 - INFO -   已处理|Processed: 19.00M 行|lines
+2026-02-02 22:40:41.521 - INFO -   已处理|Processed: 20.00M 行|lines
+2026-02-02 22:40:54.309 - INFO -   已处理|Processed: 21.00M 行|lines
+2026-02-02 22:41:07.149 - INFO -   已处理|Processed: 22.00M 行|lines
+2026-02-02 22:41:20.271 - INFO -   已处理|Processed: 23.00M 行|lines
+2026-02-02 22:41:32.874 - INFO -   已处理|Processed: 24.00M 行|lines
+2026-02-02 22:41:45.217 - INFO -   已处理|Processed: 25.00M 行|lines
+2026-02-02 22:41:58.077 - INFO -   已处理|Processed: 26.00M 行|lines
+2026-02-02 22:42:10.530 - INFO -   已处理|Processed: 27.00M 行|lines
+2026-02-02 22:42:22.721 - INFO -   已处理|Processed: 28.00M 行|lines
+2026-02-02 22:42:34.654 - INFO -   已处理|Processed: 29.00M 行|lines
+2026-02-02 22:42:47.075 - INFO -   已处理|Processed: 30.00M 行|lines
+2026-02-02 22:42:59.095 - INFO -   已处理|Processed: 31.00M 行|lines
+2026-02-02 22:43:12.393 - INFO -   已处理|Processed: 32.00M 行|lines
+2026-02-02 22:43:24.818 - INFO -   已处理|Processed: 33.00M 行|lines
+2026-02-02 22:43:37.414 - INFO -   已处理|Processed: 34.00M 行|lines
+2026-02-02 22:43:48.158 - INFO -   已处理|Processed: 35.00M 行|lines
+2026-02-02 22:44:00.951 - INFO -   已处理|Processed: 36.00M 行|lines
+2026-02-02 22:44:13.115 - INFO -   已处理|Processed: 37.00M 行|lines
+2026-02-02 22:44:24.300 - INFO -   已处理|Processed: 38.00M 行|lines
+2026-02-02 22:44:36.392 - INFO -   已处理|Processed: 39.00M 行|lines
+2026-02-02 22:44:48.606 - INFO -   已处理|Processed: 40.00M 行|lines
+2026-02-02 22:44:57.622 - INFO -   已处理|Processed: 41.00M 行|lines
+2026-02-02 22:45:05.624 - INFO -   已处理|Processed: 42.00M 行|lines
+2026-02-02 22:45:17.891 - INFO -   已处理|Processed: 43.00M 行|lines
+2026-02-02 22:45:30.244 - INFO -   已处理|Processed: 44.00M 行|lines
+2026-02-02 22:45:42.326 - INFO -   已处理|Processed: 45.00M 行|lines
+2026-02-02 22:45:54.052 - INFO -   已处理|Processed: 46.00M 行|lines
+2026-02-02 22:46:03.479 - INFO -   已处理|Processed: 47.00M 行|lines
+2026-02-02 22:46:15.499 - INFO -   已处理|Processed: 48.00M 行|lines
+2026-02-02 22:46:27.784 - INFO -   已处理|Processed: 49.00M 行|lines
+2026-02-02 22:46:39.512 - INFO -   已处理|Processed: 50.00M 行|lines
+2026-02-02 22:46:50.332 - INFO -   已处理|Processed: 51.00M 行|lines
+2026-02-02 22:46:56.531 - INFO -   已处理|Processed: 52.00M 行|lines
+2026-02-02 22:47:03.478 - INFO -   已处理|Processed: 53.00M 行|lines
+2026-02-02 22:47:10.439 - INFO -   已处理|Processed: 54.00M 行|lines
+2026-02-02 22:47:16.964 - INFO -   已处理|Processed: 55.00M 行|lines
+2026-02-02 22:47:23.262 - INFO -   已处理|Processed: 56.00M 行|lines
+2026-02-02 22:47:34.548 - INFO -   已处理|Processed: 57.00M 行|lines
+2026-02-02 22:47:45.083 - INFO -   已处理|Processed: 58.00M 行|lines
+2026-02-02 22:47:52.817 - INFO -   已处理|Processed: 59.00M 行|lines
+2026-02-02 22:47:59.710 - INFO -   已处理|Processed: 60.00M 行|lines
+2026-02-02 22:48:17.348 - INFO -   已处理|Processed: 61.00M 行|lines
+2026-02-02 22:48:26.389 - INFO -   已处理|Processed: 62.00M 行|lines
+2026-02-02 22:48:36.520 - INFO -   已处理|Processed: 63.00M 行|lines
+2026-02-02 22:48:48.989 - INFO -   已处理|Processed: 64.00M 行|lines
+2026-02-02 22:49:00.096 - INFO -   已处理|Processed: 65.00M 行|lines
+2026-02-02 22:49:08.620 - INFO -   已处理|Processed: 66.00M 行|lines
+2026-02-02 22:49:19.310 - INFO -   已处理|Processed: 67.00M 行|lines
+2026-02-02 22:49:30.833 - INFO -   已处理|Processed: 68.00M 行|lines
+2026-02-02 22:49:42.725 - INFO -   已处理|Processed: 69.00M 行|lines
+2026-02-02 22:49:54.690 - INFO -   已处理|Processed: 70.00M 行|lines
+2026-02-02 22:50:06.471 - INFO -   已处理|Processed: 71.00M 行|lines
+2026-02-02 22:50:18.511 - INFO -   已处理|Processed: 72.00M 行|lines
+2026-02-02 22:50:30.958 - INFO -   已处理|Processed: 73.00M 行|lines
+2026-02-02 22:50:43.461 - INFO -   已处理|Processed: 74.00M 行|lines
+2026-02-02 22:50:49.949 - INFO -   已处理|Processed: 75.00M 行|lines
+2026-02-02 22:50:55.545 - INFO -   已处理|Processed: 76.00M 行|lines
+2026-02-02 22:51:02.408 - INFO -   已处理|Processed: 77.00M 行|lines
+2026-02-02 22:51:15.426 - INFO -   已处理|Processed: 78.00M 行|lines
+2026-02-02 22:51:27.831 - INFO -   已处理|Processed: 79.00M 行|lines
+2026-02-02 22:51:40.456 - INFO -   已处理|Processed: 80.00M 行|lines
+2026-02-02 22:51:53.262 - INFO -   已处理|Processed: 81.00M 行|lines
+2026-02-02 22:52:06.424 - INFO -   已处理|Processed: 82.00M 行|lines
+2026-02-02 22:52:18.984 - INFO -   已处理|Processed: 83.00M 行|lines
+2026-02-02 22:52:32.575 - INFO -   已处理|Processed: 84.00M 行|lines
+2026-02-02 22:52:45.223 - INFO -   已处理|Processed: 85.00M 行|lines
+2026-02-02 22:52:58.379 - INFO -   已处理|Processed: 86.00M 行|lines
+2026-02-02 22:53:10.608 - INFO -   已处理|Processed: 87.00M 行|lines
+2026-02-02 22:53:22.748 - INFO -   已处理|Processed: 88.00M 行|lines
+2026-02-02 22:53:34.743 - INFO -   已处理|Processed: 89.00M 行|lines
+2026-02-02 22:53:47.045 - INFO -   已处理|Processed: 90.00M 行|lines
+2026-02-02 22:54:00.617 - INFO -   已处理|Processed: 91.00M 行|lines
+2026-02-02 22:54:12.934 - INFO -   已处理|Processed: 92.00M 行|lines
+2026-02-02 22:54:24.610 - INFO -   已处理|Processed: 93.00M 行|lines
+2026-02-02 22:54:38.257 - INFO -   已处理|Processed: 94.00M 行|lines
+2026-02-02 22:54:51.306 - INFO -   已处理|Processed: 95.00M 行|lines
+2026-02-02 22:55:05.281 - INFO -   已处理|Processed: 96.00M 行|lines
+2026-02-02 22:55:18.705 - INFO -   已处理|Processed: 97.00M 行|lines
+2026-02-02 22:55:32.903 - INFO -   已处理|Processed: 98.00M 行|lines
+2026-02-02 22:55:46.452 - INFO -   已处理|Processed: 99.00M 行|lines
+2026-02-02 22:56:00.522 - INFO -   已处理|Processed: 100.00M 行|lines
+2026-02-02 22:56:14.918 - INFO -   已处理|Processed: 101.00M 行|lines
+2026-02-02 22:56:29.175 - INFO -   已处理|Processed: 102.00M 行|lines
+2026-02-02 22:56:42.956 - INFO -   已处理|Processed: 103.00M 行|lines
+2026-02-02 22:56:57.636 - INFO -   已处理|Processed: 104.00M 行|lines
+2026-02-02 22:57:12.090 - INFO -   已处理|Processed: 105.00M 行|lines
+2026-02-02 22:57:26.811 - INFO -   已处理|Processed: 106.00M 行|lines
+2026-02-02 22:57:40.002 - INFO -   已处理|Processed: 107.00M 行|lines
+2026-02-02 22:57:42.222 - INFO -   已处理|Processed: 108.00M 行|lines
+2026-02-02 22:57:52.594 - INFO -   已处理|Processed: 109.00M 行|lines
+2026-02-02 22:58:05.159 - INFO -   已处理|Processed: 110.00M 行|lines
+2026-02-02 22:58:10.660 - INFO -   已处理|Processed: 111.00M 行|lines
+2026-02-02 22:58:16.552 - INFO -   已处理|Processed: 112.00M 行|lines
+2026-02-02 22:58:18.899 - INFO -   处理完成|Processed: 112.48M 行|lines
+2026-02-02 22:58:18.899 - INFO -   窗口数|Number of windows: 1125
+2026-02-02 22:58:18.900 - INFO - 写入统计结果|Writing statistics results: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/unique_file1_stats.txt
+2026-02-02 22:58:18.926 - INFO -   写入完成|Write completed: 1125 窗口|windows
+2026-02-02 22:58:18.928 - INFO - 
+2026-02-02 22:58:18.928 - INFO - ====================================================================================================
+2026-02-02 22:58:18.928 - INFO -  步骤 4/4: 处理文件2并统计|Step 4/4: Process file 2 and calculate statistics
+2026-02-02 22:58:18.928 - INFO - ====================================================================================================
+2026-02-02 22:58:18.928 - INFO - 处理文件|Processing file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/hap2_group9_chr12_matrix.txt
+2026-02-02 22:58:18.928 - INFO - 标注unique kmer并计算窗口统计|Labeling unique kmers and calculating window stats...
+2026-02-02 22:58:26.779 - INFO -   已处理|Processed: 1.00M 行|lines
+2026-02-02 22:58:28.965 - INFO -   已处理|Processed: 2.00M 行|lines
+2026-02-02 22:58:41.230 - INFO -   已处理|Processed: 3.00M 行|lines
+2026-02-02 22:58:55.816 - INFO -   已处理|Processed: 4.00M 行|lines
+2026-02-02 22:59:10.765 - INFO -   已处理|Processed: 5.00M 行|lines
+2026-02-02 22:59:24.717 - INFO -   已处理|Processed: 6.00M 行|lines
+2026-02-02 22:59:38.679 - INFO -   已处理|Processed: 7.00M 行|lines
+2026-02-02 22:59:52.993 - INFO -   已处理|Processed: 8.00M 行|lines
+2026-02-02 23:00:07.025 - INFO -   已处理|Processed: 9.00M 行|lines
+2026-02-02 23:00:21.178 - INFO -   已处理|Processed: 10.00M 行|lines
+2026-02-02 23:00:34.876 - INFO -   已处理|Processed: 11.00M 行|lines
+2026-02-02 23:00:47.675 - INFO -   已处理|Processed: 12.00M 行|lines
+2026-02-02 23:01:01.550 - INFO -   已处理|Processed: 13.00M 行|lines
+2026-02-02 23:01:14.217 - INFO -   已处理|Processed: 14.00M 行|lines
+2026-02-02 23:01:26.888 - INFO -   已处理|Processed: 15.00M 行|lines
+2026-02-02 23:01:40.403 - INFO -   已处理|Processed: 16.00M 行|lines
+2026-02-02 23:01:53.527 - INFO -   已处理|Processed: 17.00M 行|lines
+2026-02-02 23:02:06.662 - INFO -   已处理|Processed: 18.00M 行|lines
+2026-02-02 23:02:19.912 - INFO -   已处理|Processed: 19.00M 行|lines
+2026-02-02 23:02:33.997 - INFO -   已处理|Processed: 20.00M 行|lines
+2026-02-02 23:02:46.941 - INFO -   已处理|Processed: 21.00M 行|lines
+2026-02-02 23:02:59.698 - INFO -   已处理|Processed: 22.00M 行|lines
+2026-02-02 23:03:13.903 - INFO -   已处理|Processed: 23.00M 行|lines
+2026-02-02 23:03:26.644 - INFO -   已处理|Processed: 24.00M 行|lines
+2026-02-02 23:03:39.405 - INFO -   已处理|Processed: 25.00M 行|lines
+2026-02-02 23:03:52.587 - INFO -   已处理|Processed: 26.00M 行|lines
+2026-02-02 23:04:04.554 - INFO -   已处理|Processed: 27.00M 行|lines
+2026-02-02 23:04:17.467 - INFO -   已处理|Processed: 28.00M 行|lines
+2026-02-02 23:04:30.524 - INFO -   已处理|Processed: 29.00M 行|lines
+2026-02-02 23:04:43.623 - INFO -   已处理|Processed: 30.00M 行|lines
+2026-02-02 23:04:49.991 - INFO -   已处理|Processed: 31.00M 行|lines
+2026-02-02 23:04:54.870 - INFO -   已处理|Processed: 32.00M 行|lines
+2026-02-02 23:05:00.244 - INFO -   已处理|Processed: 33.00M 行|lines
+2026-02-02 23:05:09.695 - INFO -   已处理|Processed: 34.00M 行|lines
+2026-02-02 23:05:22.481 - INFO -   已处理|Processed: 35.00M 行|lines
+2026-02-02 23:05:34.879 - INFO -   已处理|Processed: 36.00M 行|lines
+2026-02-02 23:05:46.294 - INFO -   已处理|Processed: 37.00M 行|lines
+2026-02-02 23:05:58.225 - INFO -   已处理|Processed: 38.00M 行|lines
+2026-02-02 23:06:10.645 - INFO -   已处理|Processed: 39.00M 行|lines
+2026-02-02 23:06:18.925 - INFO -   已处理|Processed: 40.00M 行|lines
+2026-02-02 23:06:26.185 - INFO -   已处理|Processed: 41.00M 行|lines
+2026-02-02 23:06:33.258 - INFO -   已处理|Processed: 42.00M 行|lines
+2026-02-02 23:06:40.123 - INFO -   已处理|Processed: 43.00M 行|lines
+2026-02-02 23:06:48.111 - INFO -   已处理|Processed: 44.00M 行|lines
+2026-02-02 23:06:55.918 - INFO -   已处理|Processed: 45.00M 行|lines
+2026-02-02 23:07:05.508 - INFO -   已处理|Processed: 46.00M 行|lines
+2026-02-02 23:07:16.213 - INFO -   已处理|Processed: 47.00M 行|lines
+2026-02-02 23:07:26.740 - INFO -   已处理|Processed: 48.00M 行|lines
+2026-02-02 23:07:35.716 - INFO -   已处理|Processed: 49.00M 行|lines
+2026-02-02 23:07:48.098 - INFO -   已处理|Processed: 50.00M 行|lines
+2026-02-02 23:07:59.787 - INFO -   已处理|Processed: 51.00M 行|lines
+2026-02-02 23:08:13.079 - INFO -   已处理|Processed: 52.00M 行|lines
+2026-02-02 23:08:24.993 - INFO -   已处理|Processed: 53.00M 行|lines
+2026-02-02 23:08:34.098 - INFO -   已处理|Processed: 54.00M 行|lines
+2026-02-02 23:08:46.583 - INFO -   已处理|Processed: 55.00M 行|lines
+2026-02-02 23:08:58.964 - INFO -   已处理|Processed: 56.00M 行|lines
+2026-02-02 23:09:11.989 - INFO -   已处理|Processed: 57.00M 行|lines
+2026-02-02 23:09:24.242 - INFO -   已处理|Processed: 58.00M 行|lines
+2026-02-02 23:09:32.487 - INFO -   已处理|Processed: 59.00M 行|lines
+2026-02-02 23:09:41.973 - INFO -   已处理|Processed: 60.00M 行|lines
+2026-02-02 23:09:52.422 - INFO -   已处理|Processed: 61.00M 行|lines
+2026-02-02 23:10:04.357 - INFO -   已处理|Processed: 62.00M 行|lines
+2026-02-02 23:10:15.897 - INFO -   已处理|Processed: 63.00M 行|lines
+2026-02-02 23:10:29.420 - INFO -   已处理|Processed: 64.00M 行|lines
+2026-02-02 23:10:41.425 - INFO -   已处理|Processed: 65.00M 行|lines
+2026-02-02 23:10:53.766 - INFO -   已处理|Processed: 66.00M 行|lines
+2026-02-02 23:11:06.824 - INFO -   已处理|Processed: 67.00M 行|lines
+2026-02-02 23:11:19.960 - INFO -   已处理|Processed: 68.00M 行|lines
+2026-02-02 23:11:33.269 - INFO -   已处理|Processed: 69.00M 行|lines
+2026-02-02 23:11:46.222 - INFO -   已处理|Processed: 70.00M 行|lines
+2026-02-02 23:11:59.003 - INFO -   已处理|Processed: 71.00M 行|lines
+2026-02-02 23:12:11.856 - INFO -   已处理|Processed: 72.00M 行|lines
+2026-02-02 23:12:25.845 - INFO -   已处理|Processed: 73.00M 行|lines
+2026-02-02 23:12:39.004 - INFO -   已处理|Processed: 74.00M 行|lines
+2026-02-02 23:12:49.175 - INFO -   已处理|Processed: 75.00M 行|lines
+2026-02-02 23:13:03.009 - INFO -   已处理|Processed: 76.00M 行|lines
+2026-02-02 23:13:16.487 - INFO -   已处理|Processed: 77.00M 行|lines
+2026-02-02 23:13:29.875 - INFO -   已处理|Processed: 78.00M 行|lines
+2026-02-02 23:13:43.588 - INFO -   已处理|Processed: 79.00M 行|lines
+2026-02-02 23:13:57.143 - INFO -   已处理|Processed: 80.00M 行|lines
+2026-02-02 23:14:10.761 - INFO -   已处理|Processed: 81.00M 行|lines
+2026-02-02 23:14:24.860 - INFO -   已处理|Processed: 82.00M 行|lines
+2026-02-02 23:14:38.798 - INFO -   已处理|Processed: 83.00M 行|lines
+2026-02-02 23:14:53.341 - INFO -   已处理|Processed: 84.00M 行|lines
+2026-02-02 23:15:07.609 - INFO -   已处理|Processed: 85.00M 行|lines
+2026-02-02 23:15:15.677 - INFO -   已处理|Processed: 86.00M 行|lines
+2026-02-02 23:15:19.002 - INFO -   处理完成|Processed: 86.71M 行|lines
+2026-02-02 23:15:19.002 - INFO -   窗口数|Number of windows: 868
+2026-02-02 23:15:19.002 - INFO - 写入统计结果|Writing statistics results: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/unique_file2_stats.txt
+2026-02-02 23:15:19.023 - INFO -   写入完成|Write completed: 868 窗口|windows
+2026-02-02 23:15:19.024 - INFO - 
+2026-02-02 23:15:19.024 - INFO - ====================================================================================================
+2026-02-02 23:15:19.024 - INFO -  分析完成|Analysis Completed Successfully
+2026-02-02 23:15:19.024 - INFO - ====================================================================================================
+2026-02-02 23:15:19.024 - INFO - 文件1特有kmer|Unique kmers in file1: 70.73M
+2026-02-02 23:15:19.024 - INFO - 文件2特有kmer|Unique kmers in file2: 53.97M
+2026-02-02 23:15:19.024 - INFO - 文件1统计结果|File1 statistics: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/unique_file1_stats.txt
+2026-02-02 23:15:19.025 - INFO - 文件2统计结果|File2 statistics: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/unique_file2_stats.txt
+2026-02-02 23:15:19.025 - INFO - 文件1样品数|File1 samples: 99
+2026-02-02 23:15:19.025 - INFO - 文件2样品数|File2 samples: 99
+2026-02-02 23:15:19.025 - INFO - 日志文件|Log file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/55.全基因组kmer查询两个单倍型的kmer/unique.log
+2026-02-02 23:15:19.025 - INFO - ====================================================================================================

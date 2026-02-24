@@ -1,0 +1,6 @@
+Usage: biopytools get-plastome [OPTIONS]
+Try 'biopytools get-plastome -h' for help.
+
+Error: No such option: --overwrite Did you mean --verbose?
+Job 69291382 stderr output:
+

@@ -1,0 +1,30 @@
+
+🔍 --- [步骤 0] 检查依赖环境 ---
+
+✓ Jellyfish 已找到。
+✓ Rscript 已找到。
+✓ GenomeScope R 脚本已找到。
+✓ 输入文件夹已找到。
+
+📂 正在 '../01.data/clean' 中搜索 FASTQ 文件...
+✓ 找到以下 FASTQ 文件:
+../01.data/clean/F15_1_2.clean.fq.gz
+../01.data/clean/F19_1_1.clean.fq.gz
+../01.data/clean/F15_1_1.clean.fq.gz
+../01.data/clean/HC_3_1.clean.fq.gz
+../01.data/clean/HC_3_2.clean.fq.gz
+../01.data/clean/F19_1_2.clean.fq.gz
+
+🧮 --- [步骤 1] 运行 Jellyfish Count ---
+⚙️  配置参数:
+   • 哈希表大小: 50G
+   • K-mer 大小: 21
+   • 线程数: 12
+
+🗜️  检测到压缩文件,使用 zcat 解压缩后传递给 Jellyfish...
+📌 命令: zcat ../01.data/clean/F15_1_2.clean.fq.gz
+../01.data/clean/F19_1_1.clean.fq.gz
+../01.data/clean/F15_1_1.clean.fq.gz
+../01.data/clean/HC_3_1.clean.fq.gz
+../01.data/clean/HC_3_2.clean.fq.gz
+../01.data/clean/F19_1_2.clean.fq.gz  | jellyfish count -C -m 21 -s 50G -t 12 -o hancai.jf /dev/fd/0

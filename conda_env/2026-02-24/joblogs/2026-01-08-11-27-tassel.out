@@ -1,0 +1,66 @@
+开始GWAS分析|Starting GWAS analysis
+VCF文件|VCF file: ../../chr.snp.lab.vcf.gz
+表型文件|Phenotype file: ../plink_显性模型/88.第一批369个样品表型-病斑长度均值.txt
+输出目录|Output directory: .
+2026-01-08 11:27:12.894 - INFO - 检测到总列数|Detected total columns: 2
+2026-01-08 11:27:12.894 - INFO - 表头信息|Header info: ['sample', 'length']
+2026-01-08 11:27:12.894 - WARNING -  第一列不是<Trait>，将尝试自动识别表型|First column is not <Trait>, will try auto-detection
+2026-01-08 11:27:12.894 - INFO - 开始处理表型列|Starting to process trait columns: [1]
+2026-01-08 11:27:12.894 - INFO - 表型名称|Trait names: ['length']
+2026-01-08 11:27:12.894 - INFO -  检测到MLM模型，预计算共享矩阵|Detected MLM model, pre-computing shared matrices
+2026-01-08 11:27:12.894 - INFO - 正在处理表型|Processing trait: length (列索引|column index: 2)
+2026-01-08 11:27:12.925 - INFO - Perl 已找到|Perl found
+2026-01-08 11:27:13.575 - INFO - Java 已找到|Java found: 17.0.15-internal
+2026-01-08 11:27:16.909 - INFO - TASSEL 可用: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl|TASSEL available: /share/org/YZWL/yzwl_lixg/software/tassel-5-standalone/run_pipeline.pl
+2026-01-08 11:27:16.910 - INFO -  计算K矩阵（Kinship）| Calculating K matrix (Kinship)...
+2026-01-08 13:21:09.563 - ERROR -  K矩阵计算失败|K matrix calculation failed: 
+2026-01-08 13:21:19.001 - INFO -  计算PCA协变量（用于MLM）| Calculating PCA covariates (for MLM)...
+2026-01-08 13:21:19.001 - INFO - 🧮 计算PCA主成分（MLM协变量）| Calculating PCA eigenvectors (for MLM covariates)...
+2026-01-08 13:21:19.002 - INFO -    使用工具|Using tool: VCF2PCACluster
+2026-01-08 13:21:19.002 - INFO -    输入VCF|Input VCF: ../../chr.snp.lab.vcf.gz
+2026-01-08 13:21:19.002 - INFO -    PCA输出|PCA output: temp_matrix_calculation_pca.eigenvec
+2026-01-08 13:21:19.087 - INFO -    执行命令|Executing command: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin/VCF2PCACluster -InVCF /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/14.实验室的样品/04.第一批369个样品的GWAS/tassel/../../chr.snp.lab.vcf.gz -OutPut temp_matrix_calculation_pca -Threads 64
+2026-01-08 13:21:19.087 - INFO -    工作目录|Working directory: .
+2026-01-08 13:49:38.049 - INFO -    命令返回码|Command return code: 0
+2026-01-08 13:49:38.049 - INFO -    标准输出|Stdout: #Warning skip non bi-allelic(Singleton/ThreeMulti allelic) site, and total skip allelic sites number is :658
+#Warning skip high missing site, and total skip allelic sites number is :601970
+#Warning skip low Minor Allele Frequency site, and total skip allelic sites number is :29
+#After Filtering, total Number of 6689008 SNPs were taken for the PCA calculation 
+Start To Create Normalized_IBS/Yang/BaldingNicolsKinship ...
+Eigenvalues of 1491 individuals have been saved in [ temp_matrix_calculation_pca.eigenval ].
+	 EM init K by auto of K-mean, Best cluster K = 4
+EM Clustering Max its reached: Eps= 1.4012e-07
+The first 10 eigenvectors of 1491 individuals have been saved in [ temp_matrix_calculation_pca.eigenvec ].
+
+2026-01-08 13:49:38.049 - WARNING -    标准错误|Stderr: sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot2Deig: Permission denied
+sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot2Deig: Permission denied
+sh: /share/org/YZWL/yzwl_lixg/software/VCF2PCACluster-1.42/bin//Plot3Deig: Permission denied
+
+2026-01-08 13:49:38.049 - INFO -  PCA计算完成|PCA calculation completed in 1698s
+2026-01-08 13:49:38.049 - INFO -    文件大小|File size: 197228 bytes
+2026-01-08 13:49:38.050 - INFO -    样本数|Samples: 1491
+2026-01-08 13:49:38.050 - INFO -    PC数量|PC components: 10 (default)
+2026-01-08 13:49:38.050 - INFO -  格式化PCA文件作为TASSEL协变量|Formatting PCA file as TASSEL covariate...
+2026-01-08 13:49:38.052 - INFO -    可用PC数量|Available PC count: 10
+2026-01-08 13:49:38.054 - INFO -    请求PC数量|Requested PC count: 5
+2026-01-08 13:49:38.055 - INFO -    实际使用PC数量|Actually using PC count: 5
+2026-01-08 13:49:38.059 - INFO -  PCA协变量格式转换完成|PCA covariate format conversion completed
+2026-01-08 13:49:38.059 - INFO -    输出文件|Output file: temp_matrix_calculation_pca.covariate.txt
+2026-01-08 13:49:38.059 - INFO -    最终PC数量|Final PC count: 5
+2026-01-08 13:49:38.059 - INFO -    样本数量|Sample count: 1491
+2026-01-08 13:49:38.060 - INFO -  PCA协变量计算完成|PCA covariate calculated: temp_matrix_calculation_pca.covariate.txt
+2026-01-08 13:49:38.060 - INFO -  矩阵预计算完成，所有表型将共享这些矩阵|Matrix pre-computation completed, all traits will share these matrices
+2026-01-08 13:49:38.060 - INFO -  使用串行处理|Using serial processing
+2026-01-08 13:49:38.132 - ERROR -  处理表型时发生异常|Exception occurred while processing trait: [Errno 2] No such file or directory: '../plink_显性模型/88.第一批369个样品表型-病斑长度均值.txt'
+2026-01-08 13:49:38.132 - INFO -  批量处理报告已生成|Batch processing report generated: batch_processing_report.txt
+2026-01-08 13:49:38.132 - INFO -    • 成功处理|Successful: 0/1 (0.0%)
+2026-01-08 13:49:38.132 - INFO -    • 处理失败|Failed: 1/1
+
+分析完成|Analysis completed
+   总表型数|Total traits: 1
+   成功处理|Successful: 0
+   处理失败|Failed: 1
+   成功率|Success rate: 0.0%
+
+失败的表型|Failed traits:
+   • Trait_2: 处理异常|Processing error: [Errno 2] No such file or directory: '../plink_显性模型/88.第一批369个样品表型-病斑长度均值.txt'

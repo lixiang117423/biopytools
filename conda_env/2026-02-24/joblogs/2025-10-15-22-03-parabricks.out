@@ -1,0 +1,28 @@
+[2025-10-15 22:03:02] INFO - 🐳 使用容器引擎 | Using container engine: apptainer
+[2025-10-15 22:03:02] INFO - 🚀 开始parabricks WGS分析 | Starting parabricks WGS analysis
+[2025-10-15 22:03:02] INFO - 📂 输入目录 | Input: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples
+[2025-10-15 22:03:02] INFO - 📤 输出目录 | Output: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping
+[2025-10-15 22:03:02] INFO - 🧬 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/genome.fa
+[2025-10-15 22:03:02] INFO - 🔀 工作流程 | Workflow: all
+[2025-10-15 22:03:02] INFO - 🧩 检查依赖软件 | Checking dependencies
+[2025-10-15 22:03:02] INFO - ✅ ✓ parabricks程序检查通过 | parabricks program check passed
+[2025-10-15 22:03:02] INFO -   |-- 🔗 检查bcftools (用于genotypegvcf) | Checking bcftools (for genotypegvcf)
+[2025-10-15 22:03:02] INFO -   ✅ ✓ bcftools检查通过 | bcftools check passed
+[2025-10-15 22:03:02] INFO - 🔍 搜索输入文件 | Searching input files
+[2025-10-15 22:03:02] WARNING - ⚠️ 找不到对应的R2文件 | Cannot find R2 file: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/R_1.clean.fq_2.clean.fq.gz
+[2025-10-15 22:03:02] WARNING - ⚠️ 找不到对应的R2文件 | Cannot find R2 file: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/S_1.clean.fq_2.clean.fq.gz
+[2025-10-15 22:03:02] INFO - ✅ 找到 0 个样品 | Found 0 samples
+[2025-10-15 22:03:02] ERROR - 💥 分析流程异常终止 | Pipeline terminated: ❌ 没有找到FASTQ文件对 | No FASTQ file pairs found
+2025-10-15 22:03:02,182 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-10-15 22:03:02,182 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/vcf
+2025-10-15 22:03:02,182 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/genome.fa
+2025-10-15 22:03:02,182 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/04.filtered_snp_indel
+2025-10-15 22:03:02,182 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-15 22:03:03,360 - INFO - ✅ GATK 可用 | available
+2025-10-15 22:03:03,374 - INFO - ✅ BCFtools 可用 | available
+2025-10-15 22:03:03,375 - INFO - 
+================================================================================
+2025-10-15 22:03:03,375 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-10-15 22:03:03,375 - INFO - ================================================================================
+2025-10-15 22:03:03,375 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-10-15 22:03:03,375 - ERROR - ❌ 分析流程在执行过程中意外终止 | Analysis pipeline terminated unexpectedly: ❌ 未找到VCF/GVCF文件 | No VCF/GVCF files found in: /share/org/YZWL/yzwl_lixg/project/16.荠菜/15.each_8_samples/mapping/vcf

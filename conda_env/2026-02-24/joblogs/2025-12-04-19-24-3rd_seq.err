@@ -1,0 +1,32 @@
+[M::mm_idx_gen::5.622*1.56] collected minimizers
+[M::mm_idx_gen::6.171*3.84] sorted minimizers
+[M::main::6.171*3.84] loaded/built the index for 12 target sequence(s)
+[M::mm_mapopt_update::6.901*3.54] mid_occ = 391
+[M::mm_idx_stat] kmer size: 14; skip: 5; is_hpc: 0; #seq: 12
+[M::mm_idx_stat::7.411*3.36] distinct minimizers: 38460410 (49.05% are singletons); average occurrences: 3.284; average spacing: 2.955; total length: 373245519
+[M::worker_pipeline::30.858*32.57] mapped 658604 sequences
+[M::worker_pipeline::44.999*42.23] mapped 667769 sequences
+[M::worker_pipeline::57.930*46.98] mapped 671541 sequences
+[M::worker_pipeline::68.746*49.63] mapped 672605 sequences
+[M::worker_pipeline::81.944*51.87] mapped 671884 sequences
+[M::worker_pipeline::93.325*53.33] mapped 671332 sequences
+[M::worker_pipeline::105.240*54.49] mapped 670166 sequences
+[M::worker_pipeline::118.151*55.03] mapped 669908 sequences
+[M::worker_pipeline::129.807*55.84] mapped 669587 sequences
+[M::worker_pipeline::142.018*56.54] mapped 669402 sequences
+[M::worker_pipeline::153.482*57.11] mapped 668407 sequences
+[M::worker_pipeline::165.457*57.60] mapped 669571 sequences
+[M::worker_pipeline::177.604*58.03] mapped 668417 sequences
+[M::worker_pipeline::189.529*58.39] mapped 667986 sequences
+[M::worker_pipeline::201.563*58.73] mapped 660559 sequences
+[M::worker_pipeline::213.693*59.03] mapped 660565 sequences
+[M::worker_pipeline::225.374*59.28] mapped 661353 sequences
+[M::worker_pipeline::236.932*59.52] mapped 657682 sequences
+[M::worker_pipeline::248.768*59.72] mapped 655148 sequences
+[M::worker_pipeline::257.569*59.37] mapped 533272 sequences
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -ax splice -uf -k 14 --secondary=no -t 64 ../01.data/genome/MSU.fa SRR25203456_1.fastq.gz
+[M::main] Real time: 257.839 sec; CPU: 15291.512 sec; Peak RSS: 28.433 GB
+[bam_sort_core] merging from 0 files and 88 in-memory blocks...
+Job 68301325 stderr output:
+

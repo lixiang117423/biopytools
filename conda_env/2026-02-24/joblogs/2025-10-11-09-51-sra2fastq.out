@@ -1,0 +1,40 @@
+2025-10-11 09:52:00,069 - INFO - ================================================================================
+2025-10-11 09:52:00,070 - INFO - 🚀 开始SRA转FASTQ转换流程 | Starting SRA to FASTQ Conversion Pipeline
+2025-10-11 09:52:00,070 - INFO - ================================================================================
+2025-10-11 09:52:00,070 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-10-11 09:52:00,310 - INFO - ✅ fastq-dump 可用 | available
+2025-10-11 09:52:00,310 - INFO - 📋 转换配置 | Conversion Configuration:
+2025-10-11 09:52:00,310 - INFO -   输入路径 | Input: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra
+2025-10-11 09:52:00,310 - INFO -   输出目录 | Output: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw
+2025-10-11 09:52:00,310 - INFO -   文件数量 | Files: 25
+2025-10-11 09:52:00,310 - INFO -   线程数 | Threads: 88
+2025-10-11 09:52:00,310 - INFO -   压缩输出 | Compress: True
+2025-10-11 09:52:00,310 - INFO - 🔄 开始批量转换 | Starting batch conversion...
+2025-10-11 09:52:00,310 - INFO - 📊 共找到 25 个SRA文件 | Found 25 SRA files
+2025-10-11 09:52:00,310 - INFO - 🔄 进度 | Progress: 1/25
+2025-10-11 09:52:00,310 - INFO - 📦 处理文件 | Processing file: SRR10321568
+2025-10-11 09:52:00,310 - INFO - 🚀 执行步骤 | Executing step: 转换SRA文件 | Converting SRA file: SRR10321568
+2025-10-11 09:52:00,310 - INFO - 📋 命令 | Command: fastq-dump --split-3 --gzip --skip-technical --outdir /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/sra/SRR10321568.sra
+2025-10-11 09:57:03,874 - INFO - ============================================================
+2025-10-11 09:57:03,874 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-10-11 09:57:03,874 - INFO - ============================================================
+2025-10-11 09:57:03,874 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw
+2025-10-11 09:57:03,874 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean
+2025-10-11 09:57:03,874 - INFO - 📄 文件模式 | File pattern: *_1.fastq.gz, *_2.fastq.gz
+2025-10-11 09:57:03,874 - INFO - ============================================================
+2025-10-11 09:57:04,263 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-10-11 09:57:04,263 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean
+2025-10-11 09:57:04,263 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/fastp_reports
+2025-10-11 09:57:04,263 - INFO - 📄 找到 1 个read1文件 | Found 1 read1 files
+2025-10-11 09:57:04,263 - INFO - 🧬 找到 1 个有效样本配对 | Found 1 valid sample pairs:
+2025-10-11 09:57:04,263 - INFO -   - 📋 SRR10321568
+2025-10-11 09:57:04,263 - INFO - ---
+2025-10-11 09:57:04,263 - INFO - ⚡ 正在处理样本 | Processing sample: SRR10321568
+2025-10-11 09:57:04,263 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw/SRR10321568_1.fastq.gz
+2025-10-11 09:57:04,263 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw/SRR10321568_2.fastq.gz
+2025-10-11 09:57:04,263 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/SRR10321568_1.clean.fq.gz
+2025-10-11 09:57:04,263 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/SRR10321568_2.clean.fq.gz
+2025-10-11 09:57:04,263 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/fastp_reports/SRR10321568.html
+2025-10-11 09:57:04,265 - INFO - ---
+2025-10-11 09:57:04,265 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> SRR10321568
+2025-10-11 09:57:04,265 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw/SRR10321568_1.fastq.gz -I /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/raw/SRR10321568_2.fastq.gz -o /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/SRR10321568_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/SRR10321568_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/fastp_reports/SRR10321568.html -j /share/org/YZWL/yzwl_lixg/database/yimeijun/resequence/clean/fastp_reports/SRR10321568.json -w 12 -q 30 -l 50 -u 40 -n 10

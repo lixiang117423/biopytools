@@ -1,0 +1,19 @@
+2026-01-12 16:11:41.222 - INFO - 开始InterProScan注释流程|Starting InterProScan annotation pipeline
+2026-01-12 16:11:41.332 - INFO - 输入序列数量|Input sequence count: 71.30K
+2026-01-12 16:11:41.332 - INFO - InterProScan命令|InterProScan command: /share/org/YZWL/yzwl_lixg/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/47.interproscan注释组装的基因组/OV53_Chr.pep.fa -f TSV -f XML -b OV53_Chr.pep.interproscan -cpu 64 -dp --goterms --pathways
+2026-01-12 16:11:41.332 - INFO - 执行步骤|Executing step: InterProScan蛋白质注释|InterProScan protein annotation
+2026-01-12 16:11:41.332 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/47.interproscan注释组装的基因组/OV53_Chr.pep.fa -f TSV -f XML -b OV53_Chr.pep.interproscan -cpu 64 -dp --goterms --pathways
+2026-01-12 19:54:33.063 - INFO - 命令执行成功|Command executed successfully: InterProScan蛋白质注释|InterProScan protein annotation
+2026-01-12 19:54:33.063 - INFO - InterProScan注释完成|InterProScan annotation completed
+2026-01-12 19:54:33.063 - INFO - 输出文件 (TSV)|Output file (TSV): OV53_Chr.pep.interproscan.tsv
+2026-01-12 19:54:33.064 - INFO - 输出文件 (XML)|Output file (XML): OV53_Chr.pep.interproscan.xml
+2026-01-12 19:54:33.064 - INFO - 开始结果解析和格式化|Starting result parsing and formatting
+2026-01-12 19:54:33.064 - INFO - 使用内置GO数据库|Using built-in GO database
+2026-01-12 19:54:33.163 - INFO - 内置GO数据库加载完成|Built-in GO database loaded: 48196 GO terms (BP: 30817, MF: 12805, CC: 4574)
+2026-01-12 19:54:33.169 - INFO - GO数据库已加载 (built-in|GO database loaded (built-in): {'total': 48196, 'biological_process': 30817, 'molecular_function': 12805, 'cellular_component': 4574, 'other': 0}
+2026-01-12 19:54:33.169 - INFO - 使用TSV格式解析|Parsing using TSV format
+2026-01-12 19:54:33.169 - INFO - 解析TSV文件|Parsing TSV file: OV53_Chr.pep.interproscan.tsv
+2026-01-12 19:55:15.822 - INFO - TSV解析完成|TSV parsing completed: 665615 matches
+2026-01-12 19:55:30.975 - INFO - 生成Excel报告|Generating Excel report
+2026-01-12 20:13:33.912 - ERROR - 报告生成失败|Report generation failed: Row numbers must be between 1 and 1048576. Row number supplied was 1048577
+2026-01-12 20:13:52.049 - INFO - 结果解析和格式化完成|Result parsing and formatting completed

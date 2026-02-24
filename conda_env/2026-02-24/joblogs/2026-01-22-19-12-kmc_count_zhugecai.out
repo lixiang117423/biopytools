@@ -1,0 +1,185 @@
+2026-01-22 19:12:26.459 - INFO - 开始k-mer统计模式|Starting k-mer counting mode
+2026-01-22 19:12:26.459 - INFO - 检测到目录输入模式|Detected directory input mode: ../../01.data/clean
+2026-01-22 19:12:26.459 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-22 19:12:26.459 - INFO - 文件模式|File pattern: *_1.clean.fq.gz, *_2.clean.fq.gz
+2026-01-22 19:12:26.460 - INFO - 找到 99 个read1文件|Found 99 read1 files
+2026-01-22 19:12:26.658 - INFO - 验证通过|Validation passed: 99 个样本|samples
+2026-01-22 19:12:26.658 - INFO - 开始统计 99 个样本|Starting to count 99 samples
+2026-01-22 19:12:26.658 - INFO - 处理进度|Progress: 1/99: OV8-71
+2026-01-22 19:12:26.658 - INFO - 开始统计样本|Starting to count sample: OV8-71
+2026-01-22 19:12:26.659 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-71
+2026-01-22 19:12:26.659 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-71/input_files.txt OV8-71 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-71
+2026-01-22 19:13:19.125 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-71
+2026-01-22 19:13:19.126 - INFO - 样本统计完成|Sample counting completed: OV8-71
+2026-01-22 19:13:19.127 - INFO - 处理进度|Progress: 2/99: OV8-4
+2026-01-22 19:13:19.127 - INFO - 开始统计样本|Starting to count sample: OV8-4
+2026-01-22 19:13:19.128 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-4
+2026-01-22 19:13:19.128 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-4/input_files.txt OV8-4 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-4
+2026-01-22 19:14:12.251 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-4
+2026-01-22 19:14:12.251 - INFO - 样本统计完成|Sample counting completed: OV8-4
+2026-01-22 19:14:12.254 - INFO - 处理进度|Progress: 3/99: OV8-111
+2026-01-22 19:14:12.254 - INFO - 开始统计样本|Starting to count sample: OV8-111
+2026-01-22 19:14:12.255 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-111
+2026-01-22 19:14:12.255 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-111/input_files.txt OV8-111 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-111
+2026-01-22 19:15:20.523 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-111
+2026-01-22 19:15:20.524 - INFO - 样本统计完成|Sample counting completed: OV8-111
+2026-01-22 19:15:20.524 - INFO - 处理进度|Progress: 4/99: OV8-80
+2026-01-22 19:15:20.524 - INFO - 开始统计样本|Starting to count sample: OV8-80
+2026-01-22 19:15:20.525 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-80
+2026-01-22 19:15:20.525 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-80/input_files.txt OV8-80 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-80
+2026-01-22 19:16:29.230 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-80
+2026-01-22 19:16:29.234 - INFO - 样本统计完成|Sample counting completed: OV8-80
+2026-01-22 19:16:29.234 - INFO - 处理进度|Progress: 5/99: OV8-105
+2026-01-22 19:16:29.235 - INFO - 开始统计样本|Starting to count sample: OV8-105
+2026-01-22 19:16:29.235 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-105
+2026-01-22 19:16:29.235 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-105/input_files.txt OV8-105 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-105
+2026-01-22 19:17:29.208 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-105
+2026-01-22 19:17:29.209 - INFO - 样本统计完成|Sample counting completed: OV8-105
+2026-01-22 19:17:29.210 - INFO - 处理进度|Progress: 6/99: OV8-81
+2026-01-22 19:17:29.210 - INFO - 开始统计样本|Starting to count sample: OV8-81
+2026-01-22 19:17:29.211 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-81
+2026-01-22 19:17:29.211 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-81/input_files.txt OV8-81 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-81
+2026-01-22 19:18:17.166 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-81
+2026-01-22 19:18:17.166 - INFO - 样本统计完成|Sample counting completed: OV8-81
+2026-01-22 19:18:17.167 - INFO - 处理进度|Progress: 7/99: OV8-68
+2026-01-22 19:18:17.167 - INFO - 开始统计样本|Starting to count sample: OV8-68
+2026-01-22 19:18:17.168 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-68
+2026-01-22 19:18:17.168 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-68/input_files.txt OV8-68 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-68
+2026-01-22 19:19:09.650 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-68
+2026-01-22 19:19:09.650 - INFO - 样本统计完成|Sample counting completed: OV8-68
+2026-01-22 19:19:09.650 - INFO - 处理进度|Progress: 8/99: OV8-74
+2026-01-22 19:19:09.650 - INFO - 开始统计样本|Starting to count sample: OV8-74
+2026-01-22 19:19:09.651 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-74
+2026-01-22 19:19:09.651 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-74/input_files.txt OV8-74 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-74
+2026-01-22 19:20:11.389 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-74
+2026-01-22 19:20:11.389 - INFO - 样本统计完成|Sample counting completed: OV8-74
+2026-01-22 19:20:11.390 - INFO - 处理进度|Progress: 9/99: OV8-77
+2026-01-22 19:20:11.390 - INFO - 开始统计样本|Starting to count sample: OV8-77
+2026-01-22 19:20:11.390 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-77
+2026-01-22 19:20:11.390 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-77/input_files.txt OV8-77 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-77
+2026-01-22 19:21:04.137 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-77
+2026-01-22 19:21:04.137 - INFO - 样本统计完成|Sample counting completed: OV8-77
+2026-01-22 19:21:04.138 - INFO - 处理进度|Progress: 10/99: OV8-39
+2026-01-22 19:21:04.138 - INFO - 开始统计样本|Starting to count sample: OV8-39
+2026-01-22 19:21:04.139 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-39
+2026-01-22 19:21:04.139 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-39/input_files.txt OV8-39 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-39
+2026-01-22 19:21:56.708 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-39
+2026-01-22 19:21:56.708 - INFO - 样本统计完成|Sample counting completed: OV8-39
+2026-01-22 19:21:56.709 - INFO - 处理进度|Progress: 11/99: OV8-157
+2026-01-22 19:21:56.709 - INFO - 开始统计样本|Starting to count sample: OV8-157
+2026-01-22 19:21:56.709 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-157
+2026-01-22 19:21:56.709 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-157/input_files.txt OV8-157 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-157
+2026-01-22 19:22:56.167 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-157
+2026-01-22 19:22:56.167 - INFO - 样本统计完成|Sample counting completed: OV8-157
+2026-01-22 19:22:56.168 - INFO - 处理进度|Progress: 12/99: OV8-206
+2026-01-22 19:22:56.168 - INFO - 开始统计样本|Starting to count sample: OV8-206
+2026-01-22 19:22:56.169 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-206
+2026-01-22 19:22:56.169 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-206/input_files.txt OV8-206 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-206
+2026-01-22 19:24:05.729 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-206
+2026-01-22 19:24:05.730 - INFO - 样本统计完成|Sample counting completed: OV8-206
+2026-01-22 19:24:05.730 - INFO - 处理进度|Progress: 13/99: OV8-258
+2026-01-22 19:24:05.730 - INFO - 开始统计样本|Starting to count sample: OV8-258
+2026-01-22 19:24:05.731 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-258
+2026-01-22 19:24:05.731 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-258/input_files.txt OV8-258 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-258
+2026-01-22 19:25:01.590 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-258
+2026-01-22 19:25:01.590 - INFO - 样本统计完成|Sample counting completed: OV8-258
+2026-01-22 19:25:01.591 - INFO - 处理进度|Progress: 14/99: OV8-28
+2026-01-22 19:25:01.591 - INFO - 开始统计样本|Starting to count sample: OV8-28
+2026-01-22 19:25:01.592 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-28
+2026-01-22 19:25:01.592 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-28/input_files.txt OV8-28 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-28
+2026-01-22 19:25:51.713 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-28
+2026-01-22 19:25:51.713 - INFO - 样本统计完成|Sample counting completed: OV8-28
+2026-01-22 19:25:51.714 - INFO - 处理进度|Progress: 15/99: OV8-113
+2026-01-22 19:25:51.714 - INFO - 开始统计样本|Starting to count sample: OV8-113
+2026-01-22 19:25:51.714 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-113
+2026-01-22 19:25:51.714 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-113/input_files.txt OV8-113 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-113
+2026-01-22 19:26:47.360 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-113
+2026-01-22 19:26:47.360 - INFO - 样本统计完成|Sample counting completed: OV8-113
+2026-01-22 19:26:47.361 - INFO - 处理进度|Progress: 16/99: OV8-136
+2026-01-22 19:26:47.361 - INFO - 开始统计样本|Starting to count sample: OV8-136
+2026-01-22 19:26:47.361 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-136
+2026-01-22 19:26:47.361 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-136/input_files.txt OV8-136 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-136
+2026-01-22 19:27:57.942 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-136
+2026-01-22 19:27:57.942 - INFO - 样本统计完成|Sample counting completed: OV8-136
+2026-01-22 19:27:57.943 - INFO - 处理进度|Progress: 17/99: OV8-179
+2026-01-22 19:27:57.943 - INFO - 开始统计样本|Starting to count sample: OV8-179
+2026-01-22 19:27:57.944 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-179
+2026-01-22 19:27:57.944 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-179/input_files.txt OV8-179 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-179
+2026-01-22 19:29:10.147 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-179
+2026-01-22 19:29:10.147 - INFO - 样本统计完成|Sample counting completed: OV8-179
+2026-01-22 19:29:10.148 - INFO - 处理进度|Progress: 18/99: OV8-268
+2026-01-22 19:29:10.148 - INFO - 开始统计样本|Starting to count sample: OV8-268
+2026-01-22 19:29:10.148 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-268
+2026-01-22 19:29:10.148 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-268/input_files.txt OV8-268 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-268
+2026-01-22 19:30:00.747 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-268
+2026-01-22 19:30:00.747 - INFO - 样本统计完成|Sample counting completed: OV8-268
+2026-01-22 19:30:00.748 - INFO - 处理进度|Progress: 19/99: OV8-7
+2026-01-22 19:30:00.748 - INFO - 开始统计样本|Starting to count sample: OV8-7
+2026-01-22 19:30:00.749 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-7
+2026-01-22 19:30:00.749 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-7/input_files.txt OV8-7 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-7
+2026-01-22 19:30:57.636 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-7
+2026-01-22 19:30:57.636 - INFO - 样本统计完成|Sample counting completed: OV8-7
+2026-01-22 19:30:57.637 - INFO - 处理进度|Progress: 20/99: OV8-76
+2026-01-22 19:30:57.637 - INFO - 开始统计样本|Starting to count sample: OV8-76
+2026-01-22 19:30:57.638 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-76
+2026-01-22 19:30:57.638 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-76/input_files.txt OV8-76 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-76
+2026-01-22 19:31:51.281 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-76
+2026-01-22 19:31:51.282 - INFO - 样本统计完成|Sample counting completed: OV8-76
+2026-01-22 19:31:51.283 - INFO - 处理进度|Progress: 21/99: OV8-106
+2026-01-22 19:31:51.283 - INFO - 开始统计样本|Starting to count sample: OV8-106
+2026-01-22 19:31:51.283 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-106
+2026-01-22 19:31:51.283 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-106/input_files.txt OV8-106 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-106
+2026-01-22 19:32:43.270 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-106
+2026-01-22 19:32:43.271 - INFO - 样本统计完成|Sample counting completed: OV8-106
+2026-01-22 19:32:43.271 - INFO - 处理进度|Progress: 22/99: OV8-112
+2026-01-22 19:32:43.271 - INFO - 开始统计样本|Starting to count sample: OV8-112
+2026-01-22 19:32:43.272 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-112
+2026-01-22 19:32:43.272 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-112/input_files.txt OV8-112 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-112
+2026-01-22 19:33:40.918 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-112
+2026-01-22 19:33:40.918 - INFO - 样本统计完成|Sample counting completed: OV8-112
+2026-01-22 19:33:40.919 - INFO - 处理进度|Progress: 23/99: OV8-271
+2026-01-22 19:33:40.919 - INFO - 开始统计样本|Starting to count sample: OV8-271
+2026-01-22 19:33:40.920 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-271
+2026-01-22 19:33:40.920 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-271/input_files.txt OV8-271 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-271
+2026-01-22 19:34:36.147 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-271
+2026-01-22 19:34:36.147 - INFO - 样本统计完成|Sample counting completed: OV8-271
+2026-01-22 19:34:36.148 - INFO - 处理进度|Progress: 24/99: OV8-99
+2026-01-22 19:34:36.148 - INFO - 开始统计样本|Starting to count sample: OV8-99
+2026-01-22 19:34:36.149 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-99
+2026-01-22 19:34:36.149 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-99/input_files.txt OV8-99 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-99
+2026-01-22 19:35:31.912 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-99
+2026-01-22 19:35:31.912 - INFO - 样本统计完成|Sample counting completed: OV8-99
+2026-01-22 19:35:31.913 - INFO - 处理进度|Progress: 25/99: OV8-79
+2026-01-22 19:35:31.913 - INFO - 开始统计样本|Starting to count sample: OV8-79
+2026-01-22 19:35:31.913 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-79
+2026-01-22 19:35:31.913 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-79/input_files.txt OV8-79 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-79
+2026-01-22 19:36:26.642 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-79
+2026-01-22 19:36:26.643 - INFO - 样本统计完成|Sample counting completed: OV8-79
+2026-01-22 19:36:26.644 - INFO - 处理进度|Progress: 26/99: OV8-1
+2026-01-22 19:36:26.644 - INFO - 开始统计样本|Starting to count sample: OV8-1
+2026-01-22 19:36:26.645 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-1
+2026-01-22 19:36:26.645 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-1/input_files.txt OV8-1 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-1
+2026-01-22 19:37:27.373 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-1
+2026-01-22 19:37:27.374 - INFO - 样本统计完成|Sample counting completed: OV8-1
+2026-01-22 19:37:27.374 - INFO - 处理进度|Progress: 27/99: OV8-180
+2026-01-22 19:37:27.374 - INFO - 开始统计样本|Starting to count sample: OV8-180
+2026-01-22 19:37:27.375 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-180
+2026-01-22 19:37:27.375 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-180/input_files.txt OV8-180 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-180
+2026-01-22 19:38:23.439 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-180
+2026-01-22 19:38:23.439 - INFO - 样本统计完成|Sample counting completed: OV8-180
+2026-01-22 19:38:23.440 - INFO - 处理进度|Progress: 28/99: OV8-88
+2026-01-22 19:38:23.440 - INFO - 开始统计样本|Starting to count sample: OV8-88
+2026-01-22 19:38:23.440 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-88
+2026-01-22 19:38:23.440 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-88/input_files.txt OV8-88 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-88
+2026-01-22 19:39:17.379 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-88
+2026-01-22 19:39:17.379 - INFO - 样本统计完成|Sample counting completed: OV8-88
+2026-01-22 19:39:17.380 - INFO - 处理进度|Progress: 29/99: OV8-31
+2026-01-22 19:39:17.380 - INFO - 开始统计样本|Starting to count sample: OV8-31
+2026-01-22 19:39:17.381 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-31
+2026-01-22 19:39:17.381 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-31/input_files.txt OV8-31 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-31
+2026-01-22 19:40:12.340 - INFO - 命令执行成功|Command executed successfully: 统计样本|Counting sample OV8-31
+2026-01-22 19:40:12.341 - INFO - 样本统计完成|Sample counting completed: OV8-31
+2026-01-22 19:40:12.342 - INFO - 处理进度|Progress: 30/99: OV8-265
+2026-01-22 19:40:12.342 - INFO - 开始统计样本|Starting to count sample: OV8-265
+2026-01-22 19:40:12.343 - INFO - 执行步骤|Executing step: 统计样本|Counting sample OV8-265
+2026-01-22 19:40:12.343 - INFO - 命令|Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin/kmc -k51 -ci2 -t64 @/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-265/input_files.txt OV8-265 /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/50.两个单倍型的交换图_KMC流程/kmc_tmp/OV8-265

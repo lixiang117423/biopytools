@@ -1,0 +1,3 @@
+Error: could not allocate 691200000 bytes of memory, try reducing --max-mem
+Job 68596252 stderr output:
+

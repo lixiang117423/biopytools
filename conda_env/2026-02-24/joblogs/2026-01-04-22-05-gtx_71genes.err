@@ -1,0 +1,10 @@
+2026-01-04 22:05:14.160 - ERROR - 命令执行失败 | Command execution failed
+2026-01-04 22:05:14.160 - ERROR - 返回码 | Return code: 255
+2026-01-04 22:05:14.160 - ERROR - 标准输出 | Stdout: [2020-10-20 00:00:01.158] [index] [error] reference index file: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/06.71个大豆基因变异情况/01.data/genome/gene.fa.bwt.2bit.64 already exist! If you want to overwite it, please specify -f option.
+
+2026-01-04 22:05:14.160 - ERROR - GTX索引构建失败 | GTX index building failed
+2026-01-04 22:05:14.171 - ERROR - 未找到任何R1文件 | No R1 files found in /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/06.71个大豆基因变异情况/fastq with patterns: ['*_1.fq.gz', '*_1.fastq.gz']
+2026-01-04 22:05:14.172 - ERROR - GTX比对失败 | GTX mapping failed
+2026-01-04 22:05:14.172 - ERROR - 步骤 3 失败 | Step 3 failed: 序列比对 | Sequence Mapping
+Job 68740321 stderr output:
+

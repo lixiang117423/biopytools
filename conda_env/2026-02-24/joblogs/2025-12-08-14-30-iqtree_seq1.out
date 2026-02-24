@@ -1,0 +1,39 @@
+2025-12-08 14:30:36,966 - INFO - ============================================================
+2025-12-08 14:30:36,967 - INFO - 🌳 IQ-TREE 系统发育树分析流程启动 | IQ-TREE Phylogenetic Analysis Pipeline Started
+2025-12-08 14:30:36,967 - INFO - ============================================================
+2025-12-08 14:30:36,967 - INFO - 📋 步骤 1: 检查软件依赖 | Step 1: Checking software dependencies
+2025-12-08 14:30:36,967 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-12-08 14:30:37,270 - INFO - ✅ IQ-TREE 可用 | IQ-TREE available: IQ-TREE version 3.0.1 for Linux x86 64-bit built Jul  9 2025
+2025-12-08 14:30:37,270 - INFO - 📋 步骤 2: 构建系统发育树 | Step 2: Building phylogenetic tree
+2025-12-08 14:30:37,270 - INFO - ============================================================
+2025-12-08 14:30:37,270 - INFO - 🌳 开始系统发育树构建 | Starting phylogenetic tree construction
+2025-12-08 14:30:37,270 - INFO - ============================================================
+2025-12-08 14:30:37,270 - INFO - 🔬 使用自动模型选择 | Using automatic model selection (MFP)
+2025-12-08 14:30:37,270 - INFO - 🔄 使用UFBoot，重复1000次 | Using UFBoot with 1000 replicates
+2025-12-08 14:30:37,270 - INFO - 🚀 执行步骤 | Executing step: 系统发育树推断 | Phylogenetic tree inference
+2025-12-08 14:30:37,270 - INFO - 💻 命令 | Command: iqtree -s /share/org/YZWL/yzwl_lixg/tmp/liuhaijiao/seq_1.mafft.fa --prefix seq_1 -m MFP -B 1000 -T 88
+2025-12-08 14:30:37,270 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/tmp/liuhaijiao
+2025-12-08 14:40:02,478 - INFO - ✅ 命令执行成功 | Command executed successfully: 系统发育树推断 | Phylogenetic tree inference
+2025-12-08 14:40:02,490 - INFO - ✅ 系统发育树构建完成 | Tree construction completed
+2025-12-08 14:40:02,490 - INFO - 📁 输出文件 | Output files:
+2025-12-08 14:40:02,490 - INFO -   ✓ 最佳树文件 | Best tree file: seq_1.treefile
+2025-12-08 14:40:02,490 - INFO -   ✓ 主要结果文件 | Main result file: seq_1.iqtree
+2025-12-08 14:40:02,490 - INFO -   ✓ 运行日志 | Run log: seq_1.log
+2025-12-08 14:40:02,490 - INFO -   ✓ 共识树 | Consensus tree: seq_1.contree
+2025-12-08 14:40:02,490 - INFO -   ✓ 模型选择结果 | Model selection results: seq_1.model.gz
+2025-12-08 14:40:02,490 - INFO - ============================================================
+2025-12-08 14:40:02,490 - INFO - 📌 推荐使用的文件 | Recommended Output Files
+2025-12-08 14:40:02,490 - INFO - ============================================================
+2025-12-08 14:40:02,490 - INFO - ⭐ 主要结果（带bootstrap支持值）| Main result (with bootstrap):
+2025-12-08 14:40:02,490 - INFO -    👉 seq_1.contree
+2025-12-08 14:40:02,490 - INFO -    💡 用途：可视化、发表、展示 | For visualization, publication
+2025-12-08 14:40:02,490 - INFO - 📊 最佳ML树（精确branch length）| Best ML tree:
+2025-12-08 14:40:02,490 - INFO -    👉 seq_1.treefile
+2025-12-08 14:40:02,490 - INFO -    💡 用途：进一步进化分析 | For further evolutionary analysis
+2025-12-08 14:40:02,490 - INFO - 📄 详细结果文件 | Detailed results:
+2025-12-08 14:40:02,490 - INFO -    👉 seq_1.iqtree
+2025-12-08 14:40:02,490 - INFO -    💡 包含模型参数、统计信息 | Contains model parameters, statistics
+2025-12-08 14:40:02,490 - INFO - ============================================================
+2025-12-08 14:40:02,490 - INFO - ✅ IQ-TREE 分析流程完成 | IQ-TREE Analysis Pipeline Completed
+2025-12-08 14:40:02,490 - INFO - ============================================================
+2025-12-08 14:40:02,490 - INFO - 📁 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/tmp/liuhaijiao

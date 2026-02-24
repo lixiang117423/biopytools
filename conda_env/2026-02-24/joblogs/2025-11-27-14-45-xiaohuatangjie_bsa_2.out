@@ -1,0 +1,361 @@
+>>> [初始化] 正在构建绝对路径...
+>>> 项目根目录: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1
+>>> 物种前缀: hancai
+>>> [检查] 验证输入文件...
+
+========================================================
+[1/6] Mapping & HaplotypeCaller (BWA + GATK)...
+========================================================
+🔍 Validating parameters...
+✅ All parameters validated
+📝 Log file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/logs/bsa_pipeline_20251127_144525.log
+📊 Report file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/reports/pipeline_report_20251127_144525.txt
+════════════════════════════════════════════════════════════════
+🧬 BSA Analysis Pipeline Report
+════════════════════════════════════════════════════════════════
+
+📅 Analysis Date: 2025年 11月 27日 星期四 22:23:47 CST
+📂 Output Directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 Sample Statistics
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total BAM files: 2
+Total GVCF files: 2
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 Output Files
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BAM files: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/01.bam/
+GVCF files: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/02.gvcf/
+Final VCF: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/03.vcf/cohort.joint.vcf.gz
+Logs: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/logs/
+
+════════════════════════════════════════════════════════════════
+✨ Pipeline Completed Successfully!
+════════════════════════════════════════════════════════════════
+
+========================================================
+[2/6] GATK Joint Calling (联合变异检测)...
+========================================================
+   -> 清理旧的 Joint Call 输出目录...
+2025-11-27 22:23:48,186 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-11-27 22:23:48,186 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/02.gvcf
+2025-11-27 22:23:48,186 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.fa
+2025-11-27 22:23:48,186 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:23:48,186 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-27 22:23:49,345 - INFO - ✅ GATK 可用 | available
+2025-11-27 22:23:49,669 - INFO - ✅ BCFtools 可用 | available
+2025-11-27 22:23:49,669 - INFO - ================================================================================
+2025-11-27 22:23:49,669 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-11-27 22:23:49,669 - INFO - ================================================================================
+2025-11-27 22:23:49,669 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-11-27 22:23:49,670 - INFO - ✅ 检测到GVCF文件 | Detected GVCF files: 2 files
+2025-11-27 22:23:49,670 - INFO - 📊 共找到 2 个文件 | Total 2 files found
+2025-11-27 22:23:49,670 - INFO - 📝 创建样本映射文件 | Creating sample map file
+2025-11-27 22:23:49,671 - INFO - ✅ 样本映射文件已创建 | Sample map created: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/sample_map.txt
+2025-11-27 22:23:49,671 - INFO - ================================================================================
+2025-11-27 22:23:49,671 - INFO - 步骤2: GenomicsDB导入 | Step 2: GenomicsDB import
+2025-11-27 22:23:49,671 - INFO - ================================================================================
+2025-11-27 22:23:49,671 - INFO - 📦 开始GenomicsDB导入 | Starting GenomicsDB import
+2025-11-27 22:23:49,671 - INFO - ⚠️ 未指定区间，自动从参考基因组提取 | No intervals specified, extracting from reference
+2025-11-27 22:23:49,671 - INFO - 📍 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.fa
+2025-11-27 22:23:49,671 - INFO - 📍 字典文件路径 | Dict path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.dict
+2025-11-27 22:23:49,671 - INFO - 📍 索引文件路径 | Fai path: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.fa.fai
+2025-11-27 22:23:49,671 - INFO - ✅ 使用字典文件 | Using dict file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.dict
+2025-11-27 22:23:49,671 - INFO - ✅ 生成区间文件 | Generated intervals: 201 chromosomes
+2025-11-27 22:23:49,671 - INFO - 📄 区间文件位置 | Intervals file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/intervals.list
+2025-11-27 22:23:49,671 - INFO - 🚀 执行步骤 | Executing step: GenomicsDB导入 | GenomicsDB import
+2025-11-27 22:23:49,671 - INFO - 💻 命令 | Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk --java-options '-Xmx100g' GenomicsDBImport --genomicsdb-workspace-path /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/genomicsdb_workspace --sample-name-map /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/sample_map.txt --reader-threads 88 -L /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/intervals.list
+2025-11-27 22:23:49,673 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:35:59,557 - INFO - ✅ 命令执行成功 | Command executed successfully: GenomicsDB导入 | GenomicsDB import
+2025-11-27 22:35:59,557 - INFO - ================================================================================
+2025-11-27 22:35:59,557 - INFO - 步骤3: 联合分型 | Step 3: Joint genotyping
+2025-11-27 22:35:59,557 - INFO - ================================================================================
+2025-11-27 22:35:59,557 - INFO - 🧬 开始联合分型 | Starting joint genotyping
+2025-11-27 22:35:59,557 - INFO - 🚀 执行步骤 | Executing step: 联合分型 | Joint genotyping
+2025-11-27 22:35:59,557 - INFO - 💻 命令 | Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk --java-options '-Xmx100g' GenotypeGVCFs -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.fa -V gendb:///share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/genomicsdb_workspace -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_raw.vcf.gz -L /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/intervals.list
+2025-11-27 22:35:59,557 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:51:39,712 - INFO - ✅ 命令执行成功 | Command executed successfully: 联合分型 | Joint genotyping
+2025-11-27 22:51:39,712 - INFO - ✅ 原始VCF已生成 | Raw VCF generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_raw.vcf.gz
+2025-11-27 22:51:39,712 - INFO - ================================================================================
+2025-11-27 22:51:39,712 - INFO - 步骤4: 提取和过滤SNP | Step 4: Extract and filter SNPs
+2025-11-27 22:51:39,712 - INFO - ================================================================================
+2025-11-27 22:51:39,712 - INFO - 🔬 提取SNP变异 | Extracting SNP variants
+2025-11-27 22:51:39,713 - INFO - 🚀 执行步骤 | Executing step: 提取SNP | Extract SNPs
+2025-11-27 22:51:39,713 - INFO - 💻 命令 | Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk --java-options '-Xmx100g' SelectVariants -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_raw.vcf.gz -select-type SNP -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_snps_raw.vcf.gz
+2025-11-27 22:51:39,713 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:52:09,548 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取SNP | Extract SNPs
+2025-11-27 22:52:09,548 - INFO - 🧹 过滤SNP变异 | Filtering SNP variants
+2025-11-27 22:52:09,548 - INFO - 🚀 执行步骤 | Executing step: 过滤SNP | Filter SNPs
+2025-11-27 22:52:09,548 - INFO - 💻 命令 | Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk --java-options '-Xmx100g' VariantFiltration -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_snps_raw.vcf.gz -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_snps_filtered.vcf.gz --filter-expression "QD < 2.0" --filter-name "QD_filter" --filter-expression "FS > 60.0" --filter-name "FS_filter" --filter-expression "MQ < 40.0" --filter-name "MQ_filter" --filter-expression "MQRankSum < -12.5" --filter-name "MQRS_filter" --filter-expression "ReadPosRankSum < -8.0" --filter-name "RPRS_filter" --filter-expression "SOR > 3.0" --filter-name "SOR_filter"
+2025-11-27 22:52:09,548 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:53:12,583 - INFO - ✅ 命令执行成功 | Command executed successfully: 过滤SNP | Filter SNPs
+2025-11-27 22:53:12,586 - INFO - ================================================================================
+2025-11-27 22:53:12,586 - INFO - 步骤5: 提取和过滤INDEL | Step 5: Extract and filter INDELs
+2025-11-27 22:53:12,586 - INFO - ================================================================================
+2025-11-27 22:53:12,586 - INFO - 🔬 提取INDEL变异 | Extracting INDEL variants
+2025-11-27 22:53:12,586 - INFO - 🚀 执行步骤 | Executing step: 提取INDEL | Extract INDELs
+2025-11-27 22:53:12,586 - INFO - 💻 命令 | Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk --java-options '-Xmx100g' SelectVariants -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_raw.vcf.gz -select-type INDEL -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_indels_raw.vcf.gz
+2025-11-27 22:53:12,586 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:53:32,029 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取INDEL | Extract INDELs
+2025-11-27 22:53:32,029 - INFO - 🧹 过滤INDEL变异 | Filtering INDEL variants
+2025-11-27 22:53:32,030 - INFO - 🚀 执行步骤 | Executing step: 过滤INDEL | Filter INDELs
+2025-11-27 22:53:32,030 - INFO - 💻 命令 | Command: /share/org/YZWL/yzwl_lixg/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk --java-options '-Xmx100g' VariantFiltration -R /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/01.data/genome/genome.fa -V /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_indels_raw.vcf.gz -O /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_indels_filtered.vcf.gz --filter-expression "QD < 2.0" --filter-name "QD_filter" --filter-expression "FS > 200.0" --filter-name "FS_filter" --filter-expression "ReadPosRankSum < -20.0" --filter-name "RPRS_filter" --filter-expression "SOR > 10.0" --filter-name "SOR_filter"
+2025-11-27 22:53:32,030 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:53:50,160 - INFO - ✅ 命令执行成功 | Command executed successfully: 过滤INDEL | Filter INDELs
+2025-11-27 22:53:50,160 - INFO - ================================================================================
+2025-11-27 22:53:50,160 - INFO - 步骤6: 合并SNP和INDEL | Step 6: Merge SNPs and INDELs
+2025-11-27 22:53:50,160 - INFO - ================================================================================
+2025-11-27 22:53:50,160 - INFO - 🔗 合并SNP和INDEL | Merging SNPs and INDELs
+2025-11-27 22:53:50,160 - INFO - 🚀 执行步骤 | Executing step: 合并变异 | Merge variants
+2025-11-27 22:53:50,160 - INFO - 💻 命令 | Command: bcftools concat -a -O z -o /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_snps_filtered.vcf.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_indels_filtered.vcf.gz
+2025-11-27 22:53:50,161 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:54:21,399 - INFO - ✅ 命令执行成功 | Command executed successfully: 合并变异 | Merge variants
+2025-11-27 22:54:21,399 - INFO - 🚀 执行步骤 | Executing step: 索引VCF | Index VCF: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-27 22:54:21,404 - INFO - 💻 命令 | Command: bcftools index -t /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-27 22:54:21,404 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+2025-11-27 22:54:24,629 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引VCF | Index VCF: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-27 22:54:24,629 - INFO - 📊 生成结果汇总报告 | Generating summary report
+2025-11-27 22:54:56,810 - INFO - ✅ 汇总报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/analysis_summary.txt
+2025-11-27 22:54:56,810 - INFO - ================================================================================
+2025-11-27 22:54:56,810 - INFO - 🎉 Joint Genotyping分析完成! | Joint Genotyping analysis completed!
+2025-11-27 22:54:56,810 - INFO - ================================================================================
+2025-11-27 22:54:56,810 - INFO - 📂 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint
+
+========================================================
+[3/6] 过滤 SNP 和 INDEL...
+========================================================
+2025-11-27 22:54:57,140 - INFO - ============================================================
+2025-11-27 22:54:57,140 - INFO - 🧬 开始VCF SNP/INDEL过滤流程 | Starting VCF SNP/INDEL Filtering Pipeline
+2025-11-27 22:54:57,140 - INFO - ============================================================
+2025-11-27 22:54:57,140 - INFO - 📦 检查依赖软件 | Checking dependencies
+2025-11-27 22:54:57,140 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-27 22:54:57,156 - INFO - ✅ BCFtools 可用 | BCFtools available
+2025-11-27 22:54:57,156 - INFO - ============================================================
+2025-11-27 22:54:57,156 - INFO - 🔬 步骤1: 分离SNP和INDEL | Step 1: Separating SNPs and INDELs
+2025-11-27 22:54:57,156 - INFO - ============================================================
+2025-11-27 22:54:57,156 - INFO - 🔧 执行步骤 | Executing step: 提取SNP变异 | Extracting SNP variants
+2025-11-27 22:54:57,156 - INFO - 📝 命令 | Command: bcftools view --types snps --threads 64 -Oz -o variation.raw.snp.vcf.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-27 22:55:07,682 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取SNP变异 | Extracting SNP variants
+2025-11-27 22:55:07,682 - INFO - 🔧 执行步骤 | Executing step: 提取INDEL变异 | Extracting INDEL variants
+2025-11-27 22:55:07,682 - INFO - 📝 命令 | Command: bcftools view --types indels --threads 64 -Oz -o variation.raw.indel.vcf.gz /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-27 22:55:16,404 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取INDEL变异 | Extracting INDEL variants
+2025-11-27 22:55:16,404 - INFO - 📇 创建VCF索引 | Creating VCF index
+2025-11-27 22:55:16,404 - INFO - 🔧 执行步骤 | Executing step: 索引文件 | Indexing variation.raw.snp.vcf.gz
+2025-11-27 22:55:16,404 - INFO - 📝 命令 | Command: bcftools index -f variation.raw.snp.vcf.gz
+2025-11-27 22:55:18,844 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引文件 | Indexing variation.raw.snp.vcf.gz
+2025-11-27 22:55:18,844 - INFO - 🔧 执行步骤 | Executing step: 索引文件 | Indexing variation.raw.indel.vcf.gz
+2025-11-27 22:55:18,844 - INFO - 📝 命令 | Command: bcftools index -f variation.raw.indel.vcf.gz
+2025-11-27 22:55:19,756 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引文件 | Indexing variation.raw.indel.vcf.gz
+2025-11-27 22:55:19,756 - INFO - ✅ SNP和INDEL分离完成 | SNP and INDEL separation completed
+2025-11-27 22:55:19,756 - INFO - ============================================================
+2025-11-27 22:55:19,756 - INFO - 🧹 步骤2a: 过滤SNP | Step 2a: Filtering SNPs
+2025-11-27 22:55:19,756 - INFO - ============================================================
+2025-11-27 22:55:19,756 - INFO - 📋 SNP过滤条件 | SNP filter criteria:
+2025-11-27 22:55:19,756 - INFO -    • QUAL >= 30.0
+2025-11-27 22:55:19,756 - INFO -    • INFO/DP >= 10
+2025-11-27 22:55:19,756 - INFO -    • MQ >= 40.0
+2025-11-27 22:55:19,756 - INFO -    • QD >= 2.0
+2025-11-27 22:55:19,756 - INFO -    • FS <= 60.0
+2025-11-27 22:55:19,756 - INFO -    • SOR <= 3.0
+2025-11-27 22:55:19,756 - INFO -    • MQRankSum >= -12.5
+2025-11-27 22:55:19,756 - INFO -    • ReadPosRankSum >= -8.0
+2025-11-27 22:55:19,756 - INFO - 🔧 执行步骤 | Executing step: 应用SNP过滤 | Applying SNP filters
+2025-11-27 22:55:19,756 - INFO - 📝 命令 | Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 10 && MQ >= 40.0 && QD >= 2.0 && FS <= 60.0 && SOR <= 3.0 && MQRankSum >= -12.5 && ReadPosRankSum >= -8.0' --threads 64 -Oz -o variation.filtered.snp.vcf.gz variation.raw.snp.vcf.gz
+2025-11-27 22:55:27,003 - INFO - ✅ 命令执行成功 | Command executed successfully: 应用SNP过滤 | Applying SNP filters
+2025-11-27 22:55:27,005 - INFO - 🔧 执行步骤 | Executing step: 索引过滤后的SNP文件 | Indexing filtered SNP file
+2025-11-27 22:55:27,005 - INFO - 📝 命令 | Command: bcftools index -f variation.filtered.snp.vcf.gz
+2025-11-27 22:55:27,326 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引过滤后的SNP文件 | Indexing filtered SNP file
+2025-11-27 22:55:27,326 - INFO - ✅ SNP过滤完成 | SNP filtering completed
+2025-11-27 22:55:27,326 - INFO - ============================================================
+2025-11-27 22:55:27,327 - INFO - 🧹 步骤2b: 过滤INDEL | Step 2b: Filtering INDELs
+2025-11-27 22:55:27,327 - INFO - ============================================================
+2025-11-27 22:55:27,327 - INFO - 📋 INDEL过滤条件 | INDEL filter criteria:
+2025-11-27 22:55:27,327 - INFO -    • QUAL >= 30.0
+2025-11-27 22:55:27,327 - INFO -    • INFO/DP >= 10
+2025-11-27 22:55:27,327 - INFO -    • MQ >= 40.0
+2025-11-27 22:55:27,327 - INFO -    • QD >= 2.0
+2025-11-27 22:55:27,327 - INFO -    • FS <= 200.0
+2025-11-27 22:55:27,327 - INFO -    • SOR <= 10.0
+2025-11-27 22:55:27,327 - INFO -    • ReadPosRankSum >= -20.0
+2025-11-27 22:55:27,327 - INFO - 🔧 执行步骤 | Executing step: 应用INDEL过滤 | Applying INDEL filters
+2025-11-27 22:55:27,327 - INFO - 📝 命令 | Command: bcftools view -i 'QUAL >= 30.0 && INFO/DP >= 10 && MQ >= 40.0 && QD >= 2.0 && FS <= 200.0 && SOR <= 10.0 && ReadPosRankSum >= -20.0' --threads 64 -Oz -o variation.filtered.indel.vcf.gz variation.raw.indel.vcf.gz
+2025-11-27 22:55:29,991 - INFO - ✅ 命令执行成功 | Command executed successfully: 应用INDEL过滤 | Applying INDEL filters
+2025-11-27 22:55:29,991 - INFO - 🔧 执行步骤 | Executing step: 索引过滤后的INDEL文件 | Indexing filtered INDEL file
+2025-11-27 22:55:29,991 - INFO - 📝 命令 | Command: bcftools index -f variation.filtered.indel.vcf.gz
+2025-11-27 22:55:30,115 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引过滤后的INDEL文件 | Indexing filtered INDEL file
+2025-11-27 22:55:30,115 - INFO - ✅ INDEL过滤完成 | INDEL filtering completed
+2025-11-27 22:55:30,115 - INFO - ============================================================
+2025-11-27 22:55:30,115 - INFO - 🔗 步骤3: 合并过滤后的变异 | Step 3: Merging filtered variants
+2025-11-27 22:55:30,115 - INFO - ============================================================
+2025-11-27 22:55:30,115 - INFO - 🔧 执行步骤 | Executing step: 合并SNP和INDEL | Merging SNPs and INDELs
+2025-11-27 22:55:30,115 - INFO - 📝 命令 | Command: bcftools concat -a -D --threads 64 -Oz -o variation.filtered.merged.unsorted.vcf.gz variation.filtered.snp.vcf.gz variation.filtered.indel.vcf.gz
+2025-11-27 22:55:31,808 - INFO - ✅ 命令执行成功 | Command executed successfully: 合并SNP和INDEL | Merging SNPs and INDELs
+2025-11-27 22:55:31,809 - INFO - 🔧 执行步骤 | Executing step: 按位置排序 | Sorting by position
+2025-11-27 22:55:31,809 - INFO - 📝 命令 | Command: bcftools sort -Oz -o variation.filtered.merged.vcf.gz variation.filtered.merged.unsorted.vcf.gz
+2025-11-27 22:55:36,582 - INFO - ✅ 命令执行成功 | Command executed successfully: 按位置排序 | Sorting by position
+2025-11-27 22:55:36,582 - INFO - 🗑️ 清理临时文件 | Cleaning up temporary file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/04.filtered_snp_indel/variation.filtered.merged.unsorted.vcf.gz
+2025-11-27 22:55:36,582 - INFO - ✅ 临时文件已删除 | Temporary file deleted.
+2025-11-27 22:55:36,582 - INFO - 🔧 执行步骤 | Executing step: 索引合并文件 | Indexing merged file
+2025-11-27 22:55:36,582 - INFO - 📝 命令 | Command: bcftools index -f variation.filtered.merged.vcf.gz
+2025-11-27 22:55:37,018 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引合并文件 | Indexing merged file
+2025-11-27 22:55:37,018 - INFO - ✅ 变异合并完成 | Variant merging completed
+2025-11-27 22:55:37,018 - INFO - ============================================================
+2025-11-27 22:55:37,018 - INFO - 📊 步骤4: 生成统计报告 | Step 4: Generating statistics report
+2025-11-27 22:55:37,018 - INFO - ============================================================
+2025-11-27 22:55:52,828 - INFO - ============================================================
+2025-11-27 22:55:52,828 - INFO - 📊 过滤统计 | Filtering Statistics
+2025-11-27 22:55:52,828 - INFO - ============================================================
+2025-11-27 22:55:52,828 - INFO - 原始SNP | Raw SNPs: 4,094,965
+2025-11-27 22:55:52,828 - INFO - 过滤后SNP | Filtered SNPs: 388,920
+2025-11-27 22:55:52,829 - INFO - 原始INDEL | Raw INDELs: 1,375,199
+2025-11-27 22:55:52,829 - INFO - 过滤后INDEL | Filtered INDELs: 121,172
+2025-11-27 22:55:52,829 - INFO - 合并后变异 | Merged variants: 510,092
+2025-11-27 22:55:52,829 - INFO - 📈 SNP保留率 | SNP retention rate: 9.50%
+2025-11-27 22:55:52,829 - INFO - 📈 INDEL保留率 | INDEL retention rate: 8.81%
+2025-11-27 22:55:52,829 - INFO - 📄 统计报告已保存 | Statistics report saved: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/04.filtered_snp_indel/filtering_statistics.txt
+2025-11-27 22:55:52,829 - INFO - ============================================================
+2025-11-27 22:55:52,829 - INFO - 🎉 VCF过滤流程成功完成 | VCF Filtering Pipeline Completed Successfully!
+2025-11-27 22:55:52,829 - INFO - ============================================================
+2025-11-27 22:55:52,829 - INFO - 📂 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/04.filtered_snp_indel
+2025-11-27 22:55:52,829 - INFO - ============================================================
+
+
+========================================================
+[4/6] 执行 MAF > 0.05 筛选...
+========================================================
+   -> 建立索引...
+
+========================================================
+[5/6] 提取基因型矩阵 (前缀: hancai)...
+========================================================
+   -> 正在处理 SNP...
+2025-11-27 22:56:01,441 - INFO - 🔍 依赖检查 | Dependency check:
+2025-11-27 22:56:01,441 - INFO -   cyvcf2: ✅ 可用 | Available
+2025-11-27 22:56:01,441 - INFO -   pandas: ✅ 可用 | Available
+2025-11-27 22:56:01,444 - INFO - 🚀 使用cyvcf2加速解析VCF文件 | Using cyvcf2 for fast VCF parsing
+2025-11-27 22:56:01,444 - INFO - 🚀 开始VCF基因型提取 | Starting VCF genotype extraction
+2025-11-27 22:56:01,444 - INFO - 📁 输入文件 | Input file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/04.filtered_snp_indel/variation.filtered.snp.maf_05.vcf.gz
+2025-11-27 22:56:01,444 - INFO - 📝 输出前缀 | Output prefix: hancai
+2025-11-27 22:56:01,444 - INFO - 📊 输出格式 | Output format: csv
+2025-11-27 22:56:01,444 - INFO - 👥 目标样本数 | Number of target samples: 2
+2025-11-27 22:56:01,564 - INFO - 📊 已处理 | Processed 10000 variants
+2025-11-27 22:56:01,682 - INFO - 📊 已处理 | Processed 20000 variants
+2025-11-27 22:56:01,800 - INFO - 📊 已处理 | Processed 30000 variants
+2025-11-27 22:56:01,918 - INFO - 📊 已处理 | Processed 40000 variants
+2025-11-27 22:56:02,037 - INFO - 📊 已处理 | Processed 50000 variants
+2025-11-27 22:56:02,156 - INFO - 📊 已处理 | Processed 60000 variants
+2025-11-27 22:56:02,275 - INFO - 📊 已处理 | Processed 70000 variants
+2025-11-27 22:56:02,394 - INFO - 📊 已处理 | Processed 80000 variants
+2025-11-27 22:56:02,512 - INFO - 📊 已处理 | Processed 90000 variants
+2025-11-27 22:56:02,630 - INFO - 📊 已处理 | Processed 100000 variants
+2025-11-27 22:56:02,749 - INFO - 📊 已处理 | Processed 110000 variants
+2025-11-27 22:56:02,867 - INFO - 📊 已处理 | Processed 120000 variants
+2025-11-27 22:56:02,985 - INFO - 📊 已处理 | Processed 130000 variants
+2025-11-27 22:56:03,104 - INFO - 📊 已处理 | Processed 140000 variants
+2025-11-27 22:56:03,223 - INFO - 📊 已处理 | Processed 150000 variants
+2025-11-27 22:56:03,341 - INFO - 📊 已处理 | Processed 160000 variants
+2025-11-27 22:56:03,459 - INFO - 📊 已处理 | Processed 170000 variants
+2025-11-27 22:56:03,577 - INFO - 📊 已处理 | Processed 180000 variants
+2025-11-27 22:56:03,695 - INFO - 📊 已处理 | Processed 190000 variants
+2025-11-27 22:56:03,813 - INFO - 📊 已处理 | Processed 200000 variants
+2025-11-27 22:56:03,931 - INFO - 📊 已处理 | Processed 210000 variants
+2025-11-27 22:56:04,050 - INFO - 📊 已处理 | Processed 220000 variants
+2025-11-27 22:56:04,167 - INFO - 📊 已处理 | Processed 230000 variants
+2025-11-27 22:56:04,285 - INFO - 📊 已处理 | Processed 240000 variants
+2025-11-27 22:56:04,404 - INFO - 📊 已处理 | Processed 250000 variants
+2025-11-27 22:56:04,524 - INFO - 📊 已处理 | Processed 260000 variants
+2025-11-27 22:56:04,643 - INFO - 📊 已处理 | Processed 270000 variants
+2025-11-27 22:56:04,761 - INFO - 📊 已处理 | Processed 280000 variants
+2025-11-27 22:56:04,880 - INFO - 📊 已处理 | Processed 290000 variants
+2025-11-27 22:56:04,998 - INFO - 📊 已处理 | Processed 300000 variants
+2025-11-27 22:56:05,116 - INFO - 📊 已处理 | Processed 310000 variants
+2025-11-27 22:56:05,234 - INFO - 📊 已处理 | Processed 320000 variants
+2025-11-27 22:56:05,353 - INFO - 📊 已处理 | Processed 330000 variants
+2025-11-27 22:56:05,471 - INFO - 📊 已处理 | Processed 340000 variants
+2025-11-27 22:56:05,589 - INFO - 📊 已处理 | Processed 350000 variants
+2025-11-27 22:56:05,684 - INFO - ✅ 处理完成，共处理 | Processing completed, total processed: 358047 variants
+2025-11-27 22:56:05,737 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000001.1.csv (24415 variants)
+2025-11-27 22:56:05,774 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000002.1.csv (17471 variants)
+2025-11-27 22:56:05,827 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000003.1.csv (24488 variants)
+2025-11-27 22:56:05,886 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000004.1.csv (27537 variants)
+2025-11-27 22:56:05,996 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000005.1.csv (52111 variants)
+2025-11-27 22:56:05,997 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000006.1.csv (15 variants)
+2025-11-27 22:56:06,057 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000007.1.csv (28654 variants)
+2025-11-27 22:56:06,071 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000008.1.csv (6452 variants)
+2025-11-27 22:56:06,117 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000009.1.csv (21881 variants)
+2025-11-27 22:56:06,135 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000010.1.csv (8274 variants)
+2025-11-27 22:56:06,161 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000011.1.csv (12152 variants)
+2025-11-27 22:56:06,206 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000012.1.csv (21348 variants)
+2025-11-27 22:56:06,253 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000013.1.csv (22712 variants)
+2025-11-27 22:56:06,288 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000014.1.csv (18194 variants)
+2025-11-27 22:56:06,296 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000015.1.csv (3734 variants)
+2025-11-27 22:56:06,385 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000016.1.csv (46196 variants)
+2025-11-27 22:56:06,388 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000018.1.csv (1481 variants)
+2025-11-27 22:56:06,428 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000020.1.csv (20765 variants)
+2025-11-27 22:56:06,429 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000027.1.csv (132 variants)
+2025-11-27 22:56:06,429 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000061.1.csv (8 variants)
+2025-11-27 22:56:06,429 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_JBEBKS010000127.1.csv (27 variants)
+2025-11-27 22:56:06,430 - INFO - ✅ 已保存汇总文件 | Saved summary file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/snp/hancai_summary.txt
+2025-11-27 22:56:06,430 - INFO - 🎉 VCF基因型提取完成 | VCF genotype extraction completed
+   -> 正在处理 INDEL...
+2025-11-27 22:56:06,816 - INFO - 🔍 依赖检查 | Dependency check:
+2025-11-27 22:56:06,816 - INFO -   cyvcf2: ✅ 可用 | Available
+2025-11-27 22:56:06,816 - INFO -   pandas: ✅ 可用 | Available
+2025-11-27 22:56:06,819 - INFO - 🚀 使用cyvcf2加速解析VCF文件 | Using cyvcf2 for fast VCF parsing
+2025-11-27 22:56:06,819 - INFO - 🚀 开始VCF基因型提取 | Starting VCF genotype extraction
+2025-11-27 22:56:06,819 - INFO - 📁 输入文件 | Input file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/04.filtered_snp_indel/variation.filtered.indel.vcf.gz
+2025-11-27 22:56:06,819 - INFO - 📝 输出前缀 | Output prefix: hancai
+2025-11-27 22:56:06,819 - INFO - 📊 输出格式 | Output format: csv
+2025-11-27 22:56:06,819 - INFO - 👥 目标样本数 | Number of target samples: 2
+2025-11-27 22:56:06,947 - INFO - 📊 已处理 | Processed 10000 variants
+2025-11-27 22:56:07,073 - INFO - 📊 已处理 | Processed 20000 variants
+2025-11-27 22:56:07,200 - INFO - 📊 已处理 | Processed 30000 variants
+2025-11-27 22:56:07,327 - INFO - 📊 已处理 | Processed 40000 variants
+2025-11-27 22:56:07,453 - INFO - 📊 已处理 | Processed 50000 variants
+2025-11-27 22:56:07,580 - INFO - 📊 已处理 | Processed 60000 variants
+2025-11-27 22:56:07,707 - INFO - 📊 已处理 | Processed 70000 variants
+2025-11-27 22:56:07,834 - INFO - 📊 已处理 | Processed 80000 variants
+2025-11-27 22:56:07,960 - INFO - 📊 已处理 | Processed 90000 variants
+2025-11-27 22:56:08,087 - INFO - 📊 已处理 | Processed 100000 variants
+2025-11-27 22:56:08,214 - INFO - 📊 已处理 | Processed 110000 variants
+2025-11-27 22:56:08,341 - INFO - 📊 已处理 | Processed 120000 variants
+2025-11-27 22:56:08,355 - INFO - ✅ 处理完成，共处理 | Processing completed, total processed: 121172 variants
+2025-11-27 22:56:08,376 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000001.1.csv (8969 variants)
+2025-11-27 22:56:08,389 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000002.1.csv (6056 variants)
+2025-11-27 22:56:08,405 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000003.1.csv (7702 variants)
+2025-11-27 22:56:08,422 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000004.1.csv (7982 variants)
+2025-11-27 22:56:08,456 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000005.1.csv (16080 variants)
+2025-11-27 22:56:08,457 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000006.1.csv (5 variants)
+2025-11-27 22:56:08,480 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000007.1.csv (10823 variants)
+2025-11-27 22:56:08,486 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000008.1.csv (2865 variants)
+2025-11-27 22:56:08,502 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000009.1.csv (7420 variants)
+2025-11-27 22:56:08,511 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000010.1.csv (3401 variants)
+2025-11-27 22:56:08,519 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000011.1.csv (3809 variants)
+2025-11-27 22:56:08,536 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000012.1.csv (8201 variants)
+2025-11-27 22:56:08,551 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000013.1.csv (6860 variants)
+2025-11-27 22:56:08,567 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000014.1.csv (7578 variants)
+2025-11-27 22:56:08,569 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000015.1.csv (858 variants)
+2025-11-27 22:56:08,607 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000016.1.csv (16133 variants)
+2025-11-27 22:56:08,608 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000018.1.csv (374 variants)
+2025-11-27 22:56:08,622 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000020.1.csv (6011 variants)
+2025-11-27 22:56:08,623 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000027.1.csv (30 variants)
+2025-11-27 22:56:08,623 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000045.1.csv (7 variants)
+2025-11-27 22:56:08,623 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000061.1.csv (3 variants)
+2025-11-27 22:56:08,623 - INFO - ✅ 已保存CSV文件 | Saved CSV file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_JBEBKS010000127.1.csv (5 variants)
+2025-11-27 22:56:08,624 - INFO - ✅ 已保存汇总文件 | Saved summary file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/05.snp_indel_genotype/indel/hancai_summary.txt
+2025-11-27 22:56:08,624 - INFO - 🎉 VCF基因型提取完成 | VCF genotype extraction completed
+
+========================================================
+[6/6] 统计 BAM 比对率...
+========================================================
+✅ samtools 已找到，准备开始分析...
+📁 在 '/share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/01.bam' 中找到 2 个 BAM 文件。
+🚀 使用 88 个进程并行处理...
+
+🔄 正在汇总所有成功的结果并生成报告...
+
+🎉 报告生成完毕！结果已保存至: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/07.BSA_王佳伟基因组_ASM4168414v1/02.mapping/04.bam_stat/bam_stat.xlsx
+
+>>> ✅ 所有任务已完成！

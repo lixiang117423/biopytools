@@ -1,0 +1,1288 @@
+
+==================================================
+🎯 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+🔄 开始更新所有组件的基因组路径... | Starting genome path update for all components...
+🔄 拷贝基因组文件到 /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa | Copying genome file to /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa
+🔄 强制更新基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/01.data/genome/genome.fa -> /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa | Force updated genome path
+✅ 已更新所有组件的基因组路径为: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa | Updated all components genome path to: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa
+✅ 基因组路径更新完成 | Genome path update completed
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2628344GB available
+✓ 系统内存充足 | Sufficient system memory: 1007GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+🔍 准备执行索引构建步骤 | Preparing to execute index building step
+🔍 当前配置中的基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa | Current genome path in config
+🔍 GTX映射器中的基因组路径: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa | Genome path in GTX mapper
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+🚀 执行步骤 4 | Executing step 4: 🧬 联合变异检测 | Joint Variant Calling
+🚀 执行步骤 5 | Executing step 5: 🧹 变异过滤 | Variant Filtering
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+🔍 调试信息: skip_qc = False
+🔍 调试信息: read1_pattern_fastp = _1.fq.gz
+🔍 调试信息: read2_pattern_fastp = _2.fq.gz
+🔍 调试信息: raw_fastq_dir = /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq
+开始质控处理 | Starting quality control
+检测到 138 个原始 FASTQ 文件 | Found 138 raw FASTQ files
+🧹 质量控制 | Quality Control
+🔄 执行命令 | Running command: biopytools fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean --read1-suffix _1.fq.gz --read2-suffix _2.fq.gz
+标准输出 | Stdout: 2025-12-24 16:36:32,721 - INFO - ============================================================
+2025-12-24 16:36:32,721 - INFO - 🚀 开始FASTQ数据质控批处理 | Starting FASTQ data quality control batch processing
+2025-12-24 16:36:32,721 - INFO - ============================================================
+2025-12-24 16:36:32,721 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq
+2025-12-24 16:36:32,721 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean
+2025-12-24 16:36:32,721 - INFO - 📄 文件模式 | File pattern: *_1.fq.gz, *_2.fq.gz
+2025-12-24 16:36:32,721 - INFO - ============================================================
+2025-12-24 16:36:32,940 - INFO - ✅ Fastp可执行文件验证成功 | Fastp executable validated: fastp
+2025-12-24 16:36:32,940 - INFO - 📂 创建清洁数据输出目录 | Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean
+2025-12-24 16:36:32,940 - INFO - 📋 创建报告文件输出目录 | Created report output directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports
+2025-12-24 16:36:32,941 - INFO - 📄 找到 69 个read1文件 | Found 69 read1 files
+2025-12-24 16:36:33,139 - INFO - 🧬 找到 69 个有效样本配对 | Found 69 valid sample pairs:
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC32-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC81-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC69-8A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC2-4A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC75-8A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC54-1A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC86-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC40-8A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC7-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC64-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC38-4A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC52-5A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC3-4A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC60-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC56-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC29-3A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC5-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC92-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC28-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC27-2A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC76-8A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC9-1A
+2025-12-24 16:36:33,139 - INFO -   - 📋 XC51-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC31-1A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC79-4A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC4-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC23-5A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC7-1A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC33-5A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC74-10A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC9-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC25-5A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC6-3A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC2-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC3-3A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC88-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC7-3A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC85-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC55-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC41-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC26-5A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC88-4A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC65-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC53-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC68-8A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC3-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC49-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC50-2A
+2025-12-24 16:36:33,140 - INFO -   - 📋 XC45-2A
+2025-12-24 16:36:33,141 - INFO -   - 📋 XC80-5A
+2025-12-24 16:36:33,141 - INFO -   - 📋 XC21-2A
+2025-12-24 16:36:33,141 - INFO -   - 📋 XC4-1A
+2025-12-24 16:36:33,141 - INFO -   - 📋 XC30-2A
+2025-12-24 16:36:33,141 - INFO -   - 📋 XC86-8A
+2025-12-24 16:36:33,141 - INFO -   - 📋 XC46-2A
+2025-12-24 16:36:33,141 - INFO -   - 📋 XC22-5A
+2025-12-24 16:36:33,141 - INFO -   - 📋 XC9-3A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC58-2A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC66-5A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC84-2A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC40-2A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC39-2A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC50-5A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC57-2A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC64-9A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC82-2A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC37-5A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC34-2A
+2025-12-24 16:36:33,142 - INFO -   - 📋 XC59-2A
+2025-12-24 16:36:33,142 - INFO - ---
+2025-12-24 16:36:33,142 - INFO - ⚡ 正在处理样本 | Processing sample: XC32-2A
+2025-12-24 16:36:33,142 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC32-2A_1.fq.gz
+2025-12-24 16:36:33,142 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC32-2A_2.fq.gz
+2025-12-24 16:36:33,142 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC32-2A_1.clean.fq.gz
+2025-12-24 16:36:33,142 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC32-2A_2.clean.fq.gz
+2025-12-24 16:36:33,142 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC32-2A.html
+2025-12-24 16:36:33,142 - INFO - ---
+2025-12-24 16:36:33,142 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC32-2A
+2025-12-24 16:36:33,142 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC32-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC32-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC32-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC32-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC32-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC32-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:33,399 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC32-2A
+2025-12-24 16:36:33,399 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:33,399 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:33,399 - ERROR - ❌ 样本 XC32-2A 处理失败 | Sample XC32-2A processing failed
+2025-12-24 16:36:33,399 - INFO - ---
+2025-12-24 16:36:33,399 - INFO - ⚡ 正在处理样本 | Processing sample: XC81-2A
+2025-12-24 16:36:33,399 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC81-2A_1.fq.gz
+2025-12-24 16:36:33,399 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC81-2A_2.fq.gz
+2025-12-24 16:36:33,399 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC81-2A_1.clean.fq.gz
+2025-12-24 16:36:33,399 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC81-2A_2.clean.fq.gz
+2025-12-24 16:36:33,399 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC81-2A.html
+2025-12-24 16:36:33,399 - INFO - ---
+2025-12-24 16:36:33,399 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC81-2A
+2025-12-24 16:36:33,399 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC81-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC81-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC81-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC81-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC81-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC81-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:33,639 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC81-2A
+2025-12-24 16:36:33,639 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:33,639 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:33,639 - ERROR - ❌ 样本 XC81-2A 处理失败 | Sample XC81-2A processing failed
+2025-12-24 16:36:33,639 - INFO - ---
+2025-12-24 16:36:33,639 - INFO - ⚡ 正在处理样本 | Processing sample: XC69-8A
+2025-12-24 16:36:33,639 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC69-8A_1.fq.gz
+2025-12-24 16:36:33,639 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC69-8A_2.fq.gz
+2025-12-24 16:36:33,639 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC69-8A_1.clean.fq.gz
+2025-12-24 16:36:33,639 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC69-8A_2.clean.fq.gz
+2025-12-24 16:36:33,639 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC69-8A.html
+2025-12-24 16:36:33,639 - INFO - ---
+2025-12-24 16:36:33,639 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC69-8A
+2025-12-24 16:36:33,639 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC69-8A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC69-8A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC69-8A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC69-8A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC69-8A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC69-8A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:33,875 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC69-8A
+2025-12-24 16:36:33,875 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:33,875 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:33,875 - ERROR - ❌ 样本 XC69-8A 处理失败 | Sample XC69-8A processing failed
+2025-12-24 16:36:33,875 - INFO - ---
+2025-12-24 16:36:33,875 - INFO - ⚡ 正在处理样本 | Processing sample: XC2-4A
+2025-12-24 16:36:33,875 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC2-4A_1.fq.gz
+2025-12-24 16:36:33,875 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC2-4A_2.fq.gz
+2025-12-24 16:36:33,875 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC2-4A_1.clean.fq.gz
+2025-12-24 16:36:33,875 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC2-4A_2.clean.fq.gz
+2025-12-24 16:36:33,875 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC2-4A.html
+2025-12-24 16:36:33,875 - INFO - ---
+2025-12-24 16:36:33,875 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC2-4A
+2025-12-24 16:36:33,875 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC2-4A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC2-4A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC2-4A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC2-4A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC2-4A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC2-4A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:34,122 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC2-4A
+2025-12-24 16:36:34,122 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:34,122 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:34,123 - ERROR - ❌ 样本 XC2-4A 处理失败 | Sample XC2-4A processing failed
+2025-12-24 16:36:34,123 - INFO - ---
+2025-12-24 16:36:34,123 - INFO - ⚡ 正在处理样本 | Processing sample: XC75-8A
+2025-12-24 16:36:34,123 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC75-8A_1.fq.gz
+2025-12-24 16:36:34,123 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC75-8A_2.fq.gz
+2025-12-24 16:36:34,123 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC75-8A_1.clean.fq.gz
+2025-12-24 16:36:34,123 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC75-8A_2.clean.fq.gz
+2025-12-24 16:36:34,123 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC75-8A.html
+2025-12-24 16:36:34,123 - INFO - ---
+2025-12-24 16:36:34,123 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC75-8A
+2025-12-24 16:36:34,123 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC75-8A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC75-8A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC75-8A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC75-8A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC75-8A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC75-8A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:34,352 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC75-8A
+2025-12-24 16:36:34,352 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:34,352 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:34,353 - ERROR - ❌ 样本 XC75-8A 处理失败 | Sample XC75-8A processing failed
+2025-12-24 16:36:34,353 - INFO - ---
+2025-12-24 16:36:34,353 - INFO - ⚡ 正在处理样本 | Processing sample: XC54-1A
+2025-12-24 16:36:34,353 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC54-1A_1.fq.gz
+2025-12-24 16:36:34,353 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC54-1A_2.fq.gz
+2025-12-24 16:36:34,353 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC54-1A_1.clean.fq.gz
+2025-12-24 16:36:34,353 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC54-1A_2.clean.fq.gz
+2025-12-24 16:36:34,353 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC54-1A.html
+2025-12-24 16:36:34,353 - INFO - ---
+2025-12-24 16:36:34,353 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC54-1A
+2025-12-24 16:36:34,353 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC54-1A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC54-1A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC54-1A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC54-1A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC54-1A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC54-1A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:34,586 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC54-1A
+2025-12-24 16:36:34,586 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:34,586 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:34,586 - ERROR - ❌ 样本 XC54-1A 处理失败 | Sample XC54-1A processing failed
+2025-12-24 16:36:34,587 - INFO - ---
+2025-12-24 16:36:34,587 - INFO - ⚡ 正在处理样本 | Processing sample: XC86-2A
+2025-12-24 16:36:34,587 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC86-2A_1.fq.gz
+2025-12-24 16:36:34,587 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC86-2A_2.fq.gz
+2025-12-24 16:36:34,587 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC86-2A_1.clean.fq.gz
+2025-12-24 16:36:34,587 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC86-2A_2.clean.fq.gz
+2025-12-24 16:36:34,587 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC86-2A.html
+2025-12-24 16:36:34,587 - INFO - ---
+2025-12-24 16:36:34,587 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC86-2A
+2025-12-24 16:36:34,587 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC86-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC86-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC86-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC86-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC86-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC86-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:34,873 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC86-2A
+2025-12-24 16:36:34,873 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:34,873 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:34,873 - ERROR - ❌ 样本 XC86-2A 处理失败 | Sample XC86-2A processing failed
+2025-12-24 16:36:34,873 - INFO - ---
+2025-12-24 16:36:34,873 - INFO - ⚡ 正在处理样本 | Processing sample: XC40-8A
+2025-12-24 16:36:34,873 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC40-8A_1.fq.gz
+2025-12-24 16:36:34,873 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC40-8A_2.fq.gz
+2025-12-24 16:36:34,873 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC40-8A_1.clean.fq.gz
+2025-12-24 16:36:34,873 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC40-8A_2.clean.fq.gz
+2025-12-24 16:36:34,873 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC40-8A.html
+2025-12-24 16:36:34,873 - INFO - ---
+2025-12-24 16:36:34,873 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC40-8A
+2025-12-24 16:36:34,873 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC40-8A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC40-8A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC40-8A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC40-8A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC40-8A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC40-8A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:35,100 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC40-8A
+2025-12-24 16:36:35,100 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:35,100 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:35,100 - ERROR - ❌ 样本 XC40-8A 处理失败 | Sample XC40-8A processing failed
+2025-12-24 16:36:35,100 - INFO - ---
+2025-12-24 16:36:35,100 - INFO - ⚡ 正在处理样本 | Processing sample: XC7-2A
+2025-12-24 16:36:35,100 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-2A_1.fq.gz
+2025-12-24 16:36:35,100 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-2A_2.fq.gz
+2025-12-24 16:36:35,100 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-2A_1.clean.fq.gz
+2025-12-24 16:36:35,100 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-2A_2.clean.fq.gz
+2025-12-24 16:36:35,100 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-2A.html
+2025-12-24 16:36:35,100 - INFO - ---
+2025-12-24 16:36:35,100 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC7-2A
+2025-12-24 16:36:35,100 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:35,353 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC7-2A
+2025-12-24 16:36:35,353 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:35,353 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:35,353 - ERROR - ❌ 样本 XC7-2A 处理失败 | Sample XC7-2A processing failed
+2025-12-24 16:36:35,353 - INFO - ---
+2025-12-24 16:36:35,353 - INFO - ⚡ 正在处理样本 | Processing sample: XC64-2A
+2025-12-24 16:36:35,353 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC64-2A_1.fq.gz
+2025-12-24 16:36:35,353 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC64-2A_2.fq.gz
+2025-12-24 16:36:35,353 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC64-2A_1.clean.fq.gz
+2025-12-24 16:36:35,353 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC64-2A_2.clean.fq.gz
+2025-12-24 16:36:35,353 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC64-2A.html
+2025-12-24 16:36:35,353 - INFO - ---
+2025-12-24 16:36:35,353 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC64-2A
+2025-12-24 16:36:35,353 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC64-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC64-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC64-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC64-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC64-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC64-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:35,617 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC64-2A
+2025-12-24 16:36:35,617 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:35,617 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:35,617 - ERROR - ❌ 样本 XC64-2A 处理失败 | Sample XC64-2A processing failed
+2025-12-24 16:36:35,618 - INFO - ---
+2025-12-24 16:36:35,618 - INFO - ⚡ 正在处理样本 | Processing sample: XC38-4A
+2025-12-24 16:36:35,618 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC38-4A_1.fq.gz
+2025-12-24 16:36:35,618 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC38-4A_2.fq.gz
+2025-12-24 16:36:35,618 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC38-4A_1.clean.fq.gz
+2025-12-24 16:36:35,618 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC38-4A_2.clean.fq.gz
+2025-12-24 16:36:35,618 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC38-4A.html
+2025-12-24 16:36:35,618 - INFO - ---
+2025-12-24 16:36:35,618 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC38-4A
+2025-12-24 16:36:35,618 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC38-4A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC38-4A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC38-4A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC38-4A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC38-4A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC38-4A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:35,850 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC38-4A
+2025-12-24 16:36:35,850 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:35,850 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:35,850 - ERROR - ❌ 样本 XC38-4A 处理失败 | Sample XC38-4A processing failed
+2025-12-24 16:36:35,850 - INFO - ---
+2025-12-24 16:36:35,850 - INFO - ⚡ 正在处理样本 | Processing sample: XC52-5A
+2025-12-24 16:36:35,850 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC52-5A_1.fq.gz
+2025-12-24 16:36:35,850 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC52-5A_2.fq.gz
+2025-12-24 16:36:35,850 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC52-5A_1.clean.fq.gz
+2025-12-24 16:36:35,850 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC52-5A_2.clean.fq.gz
+2025-12-24 16:36:35,850 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC52-5A.html
+2025-12-24 16:36:35,850 - INFO - ---
+2025-12-24 16:36:35,850 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC52-5A
+2025-12-24 16:36:35,850 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC52-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC52-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC52-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC52-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC52-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC52-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:36,089 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC52-5A
+2025-12-24 16:36:36,089 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:36,090 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:36,090 - ERROR - ❌ 样本 XC52-5A 处理失败 | Sample XC52-5A processing failed
+2025-12-24 16:36:36,090 - INFO - ---
+2025-12-24 16:36:36,090 - INFO - ⚡ 正在处理样本 | Processing sample: XC3-4A
+2025-12-24 16:36:36,090 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-4A_1.fq.gz
+2025-12-24 16:36:36,090 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-4A_2.fq.gz
+2025-12-24 16:36:36,090 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-4A_1.clean.fq.gz
+2025-12-24 16:36:36,090 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-4A_2.clean.fq.gz
+2025-12-24 16:36:36,090 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-4A.html
+2025-12-24 16:36:36,090 - INFO - ---
+2025-12-24 16:36:36,090 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC3-4A
+2025-12-24 16:36:36,090 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-4A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-4A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-4A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-4A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-4A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-4A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:36,376 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC3-4A
+2025-12-24 16:36:36,376 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:36,376 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:36,376 - ERROR - ❌ 样本 XC3-4A 处理失败 | Sample XC3-4A processing failed
+2025-12-24 16:36:36,376 - INFO - ---
+2025-12-24 16:36:36,376 - INFO - ⚡ 正在处理样本 | Processing sample: XC60-2A
+2025-12-24 16:36:36,376 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC60-2A_1.fq.gz
+2025-12-24 16:36:36,376 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC60-2A_2.fq.gz
+2025-12-24 16:36:36,376 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC60-2A_1.clean.fq.gz
+2025-12-24 16:36:36,376 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC60-2A_2.clean.fq.gz
+2025-12-24 16:36:36,376 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC60-2A.html
+2025-12-24 16:36:36,376 - INFO - ---
+2025-12-24 16:36:36,376 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC60-2A
+2025-12-24 16:36:36,376 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC60-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC60-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC60-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC60-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC60-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC60-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:36,746 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC60-2A
+2025-12-24 16:36:36,746 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:36,746 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:36,746 - ERROR - ❌ 样本 XC60-2A 处理失败 | Sample XC60-2A processing failed
+2025-12-24 16:36:36,746 - INFO - ---
+2025-12-24 16:36:36,746 - INFO - ⚡ 正在处理样本 | Processing sample: XC56-2A
+2025-12-24 16:36:36,746 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC56-2A_1.fq.gz
+2025-12-24 16:36:36,746 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC56-2A_2.fq.gz
+2025-12-24 16:36:36,746 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC56-2A_1.clean.fq.gz
+2025-12-24 16:36:36,746 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC56-2A_2.clean.fq.gz
+2025-12-24 16:36:36,746 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC56-2A.html
+2025-12-24 16:36:36,746 - INFO - ---
+2025-12-24 16:36:36,746 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC56-2A
+2025-12-24 16:36:36,746 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC56-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC56-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC56-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC56-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC56-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC56-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:37,075 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC56-2A
+2025-12-24 16:36:37,075 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:37,076 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:37,076 - ERROR - ❌ 样本 XC56-2A 处理失败 | Sample XC56-2A processing failed
+2025-12-24 16:36:37,076 - INFO - ---
+2025-12-24 16:36:37,076 - INFO - ⚡ 正在处理样本 | Processing sample: XC29-3A
+2025-12-24 16:36:37,076 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC29-3A_1.fq.gz
+2025-12-24 16:36:37,076 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC29-3A_2.fq.gz
+2025-12-24 16:36:37,076 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC29-3A_1.clean.fq.gz
+2025-12-24 16:36:37,076 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC29-3A_2.clean.fq.gz
+2025-12-24 16:36:37,076 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC29-3A.html
+2025-12-24 16:36:37,076 - INFO - ---
+2025-12-24 16:36:37,076 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC29-3A
+2025-12-24 16:36:37,076 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC29-3A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC29-3A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC29-3A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC29-3A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC29-3A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC29-3A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:37,321 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC29-3A
+2025-12-24 16:36:37,321 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:37,321 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:37,321 - ERROR - ❌ 样本 XC29-3A 处理失败 | Sample XC29-3A processing failed
+2025-12-24 16:36:37,322 - INFO - ---
+2025-12-24 16:36:37,322 - INFO - ⚡ 正在处理样本 | Processing sample: XC5-2A
+2025-12-24 16:36:37,322 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC5-2A_1.fq.gz
+2025-12-24 16:36:37,322 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC5-2A_2.fq.gz
+2025-12-24 16:36:37,322 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC5-2A_1.clean.fq.gz
+2025-12-24 16:36:37,322 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC5-2A_2.clean.fq.gz
+2025-12-24 16:36:37,322 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC5-2A.html
+2025-12-24 16:36:37,322 - INFO - ---
+2025-12-24 16:36:37,322 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC5-2A
+2025-12-24 16:36:37,322 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC5-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC5-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC5-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC5-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC5-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC5-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:37,575 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC5-2A
+2025-12-24 16:36:37,575 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:37,575 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:37,575 - ERROR - ❌ 样本 XC5-2A 处理失败 | Sample XC5-2A processing failed
+2025-12-24 16:36:37,575 - INFO - ---
+2025-12-24 16:36:37,575 - INFO - ⚡ 正在处理样本 | Processing sample: XC92-2A
+2025-12-24 16:36:37,575 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC92-2A_1.fq.gz
+2025-12-24 16:36:37,575 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC92-2A_2.fq.gz
+2025-12-24 16:36:37,575 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC92-2A_1.clean.fq.gz
+2025-12-24 16:36:37,575 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC92-2A_2.clean.fq.gz
+2025-12-24 16:36:37,575 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC92-2A.html
+2025-12-24 16:36:37,575 - INFO - ---
+2025-12-24 16:36:37,575 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC92-2A
+2025-12-24 16:36:37,575 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC92-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC92-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC92-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC92-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC92-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC92-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:37,836 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC92-2A
+2025-12-24 16:36:37,836 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:37,836 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:37,836 - ERROR - ❌ 样本 XC92-2A 处理失败 | Sample XC92-2A processing failed
+2025-12-24 16:36:37,836 - INFO - ---
+2025-12-24 16:36:37,836 - INFO - ⚡ 正在处理样本 | Processing sample: XC28-2A
+2025-12-24 16:36:37,836 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC28-2A_1.fq.gz
+2025-12-24 16:36:37,836 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC28-2A_2.fq.gz
+2025-12-24 16:36:37,836 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC28-2A_1.clean.fq.gz
+2025-12-24 16:36:37,836 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC28-2A_2.clean.fq.gz
+2025-12-24 16:36:37,836 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC28-2A.html
+2025-12-24 16:36:37,836 - INFO - ---
+2025-12-24 16:36:37,836 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC28-2A
+2025-12-24 16:36:37,836 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC28-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC28-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC28-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC28-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC28-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC28-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:38,083 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC28-2A
+2025-12-24 16:36:38,083 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:38,083 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:38,083 - ERROR - ❌ 样本 XC28-2A 处理失败 | Sample XC28-2A processing failed
+2025-12-24 16:36:38,083 - INFO - ---
+2025-12-24 16:36:38,083 - INFO - ⚡ 正在处理样本 | Processing sample: XC27-2A
+2025-12-24 16:36:38,083 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC27-2A_1.fq.gz
+2025-12-24 16:36:38,083 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC27-2A_2.fq.gz
+2025-12-24 16:36:38,083 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC27-2A_1.clean.fq.gz
+2025-12-24 16:36:38,084 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC27-2A_2.clean.fq.gz
+2025-12-24 16:36:38,084 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC27-2A.html
+2025-12-24 16:36:38,084 - INFO - ---
+2025-12-24 16:36:38,084 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC27-2A
+2025-12-24 16:36:38,084 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC27-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC27-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC27-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC27-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC27-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC27-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:38,328 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC27-2A
+2025-12-24 16:36:38,329 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:38,329 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:38,329 - ERROR - ❌ 样本 XC27-2A 处理失败 | Sample XC27-2A processing failed
+2025-12-24 16:36:38,329 - INFO - ---
+2025-12-24 16:36:38,329 - INFO - ⚡ 正在处理样本 | Processing sample: XC76-8A
+2025-12-24 16:36:38,329 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC76-8A_1.fq.gz
+2025-12-24 16:36:38,329 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC76-8A_2.fq.gz
+2025-12-24 16:36:38,329 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC76-8A_1.clean.fq.gz
+2025-12-24 16:36:38,329 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC76-8A_2.clean.fq.gz
+2025-12-24 16:36:38,329 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC76-8A.html
+2025-12-24 16:36:38,329 - INFO - ---
+2025-12-24 16:36:38,329 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC76-8A
+2025-12-24 16:36:38,329 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC76-8A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC76-8A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC76-8A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC76-8A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC76-8A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC76-8A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:38,566 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC76-8A
+2025-12-24 16:36:38,566 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:38,566 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:38,566 - ERROR - ❌ 样本 XC76-8A 处理失败 | Sample XC76-8A processing failed
+2025-12-24 16:36:38,566 - INFO - ---
+2025-12-24 16:36:38,566 - INFO - ⚡ 正在处理样本 | Processing sample: XC9-1A
+2025-12-24 16:36:38,566 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-1A_1.fq.gz
+2025-12-24 16:36:38,566 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-1A_2.fq.gz
+2025-12-24 16:36:38,566 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-1A_1.clean.fq.gz
+2025-12-24 16:36:38,566 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-1A_2.clean.fq.gz
+2025-12-24 16:36:38,566 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-1A.html
+2025-12-24 16:36:38,566 - INFO - ---
+2025-12-24 16:36:38,566 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC9-1A
+2025-12-24 16:36:38,567 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-1A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-1A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-1A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-1A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-1A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-1A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:38,843 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC9-1A
+2025-12-24 16:36:38,843 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:38,843 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:38,843 - ERROR - ❌ 样本 XC9-1A 处理失败 | Sample XC9-1A processing failed
+2025-12-24 16:36:38,843 - INFO - ---
+2025-12-24 16:36:38,843 - INFO - ⚡ 正在处理样本 | Processing sample: XC51-2A
+2025-12-24 16:36:38,843 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC51-2A_1.fq.gz
+2025-12-24 16:36:38,843 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC51-2A_2.fq.gz
+2025-12-24 16:36:38,843 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC51-2A_1.clean.fq.gz
+2025-12-24 16:36:38,843 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC51-2A_2.clean.fq.gz
+2025-12-24 16:36:38,843 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC51-2A.html
+2025-12-24 16:36:38,843 - INFO - ---
+2025-12-24 16:36:38,843 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC51-2A
+2025-12-24 16:36:38,843 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC51-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC51-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC51-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC51-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC51-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC51-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:39,151 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC51-2A
+2025-12-24 16:36:39,151 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:39,151 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:39,151 - ERROR - ❌ 样本 XC51-2A 处理失败 | Sample XC51-2A processing failed
+2025-12-24 16:36:39,151 - INFO - ---
+2025-12-24 16:36:39,151 - INFO - ⚡ 正在处理样本 | Processing sample: XC31-1A
+2025-12-24 16:36:39,151 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC31-1A_1.fq.gz
+2025-12-24 16:36:39,151 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC31-1A_2.fq.gz
+2025-12-24 16:36:39,151 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC31-1A_1.clean.fq.gz
+2025-12-24 16:36:39,151 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC31-1A_2.clean.fq.gz
+2025-12-24 16:36:39,151 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC31-1A.html
+2025-12-24 16:36:39,151 - INFO - ---
+2025-12-24 16:36:39,151 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC31-1A
+2025-12-24 16:36:39,151 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC31-1A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC31-1A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC31-1A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC31-1A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC31-1A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC31-1A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:39,397 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC31-1A
+2025-12-24 16:36:39,397 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:39,397 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:39,397 - ERROR - ❌ 样本 XC31-1A 处理失败 | Sample XC31-1A processing failed
+2025-12-24 16:36:39,397 - INFO - ---
+2025-12-24 16:36:39,397 - INFO - ⚡ 正在处理样本 | Processing sample: XC79-4A
+2025-12-24 16:36:39,397 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC79-4A_1.fq.gz
+2025-12-24 16:36:39,397 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC79-4A_2.fq.gz
+2025-12-24 16:36:39,397 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC79-4A_1.clean.fq.gz
+2025-12-24 16:36:39,397 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC79-4A_2.clean.fq.gz
+2025-12-24 16:36:39,397 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC79-4A.html
+2025-12-24 16:36:39,397 - INFO - ---
+2025-12-24 16:36:39,397 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC79-4A
+2025-12-24 16:36:39,397 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC79-4A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC79-4A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC79-4A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC79-4A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC79-4A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC79-4A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:39,633 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC79-4A
+2025-12-24 16:36:39,633 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:39,633 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:39,633 - ERROR - ❌ 样本 XC79-4A 处理失败 | Sample XC79-4A processing failed
+2025-12-24 16:36:39,633 - INFO - ---
+2025-12-24 16:36:39,633 - INFO - ⚡ 正在处理样本 | Processing sample: XC4-2A
+2025-12-24 16:36:39,633 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC4-2A_1.fq.gz
+2025-12-24 16:36:39,633 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC4-2A_2.fq.gz
+2025-12-24 16:36:39,633 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC4-2A_1.clean.fq.gz
+2025-12-24 16:36:39,633 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC4-2A_2.clean.fq.gz
+2025-12-24 16:36:39,633 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC4-2A.html
+2025-12-24 16:36:39,633 - INFO - ---
+2025-12-24 16:36:39,633 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC4-2A
+2025-12-24 16:36:39,633 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC4-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC4-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC4-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC4-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC4-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC4-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:39,896 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC4-2A
+2025-12-24 16:36:39,896 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:39,896 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:39,896 - ERROR - ❌ 样本 XC4-2A 处理失败 | Sample XC4-2A processing failed
+2025-12-24 16:36:39,896 - INFO - ---
+2025-12-24 16:36:39,896 - INFO - ⚡ 正在处理样本 | Processing sample: XC23-5A
+2025-12-24 16:36:39,896 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC23-5A_1.fq.gz
+2025-12-24 16:36:39,897 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC23-5A_2.fq.gz
+2025-12-24 16:36:39,897 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC23-5A_1.clean.fq.gz
+2025-12-24 16:36:39,897 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC23-5A_2.clean.fq.gz
+2025-12-24 16:36:39,897 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC23-5A.html
+2025-12-24 16:36:39,897 - INFO - ---
+2025-12-24 16:36:39,897 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC23-5A
+2025-12-24 16:36:39,897 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC23-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC23-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC23-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC23-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC23-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC23-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:40,171 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC23-5A
+2025-12-24 16:36:40,171 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:40,171 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:40,171 - ERROR - ❌ 样本 XC23-5A 处理失败 | Sample XC23-5A processing failed
+2025-12-24 16:36:40,171 - INFO - ---
+2025-12-24 16:36:40,171 - INFO - ⚡ 正在处理样本 | Processing sample: XC7-1A
+2025-12-24 16:36:40,171 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-1A_1.fq.gz
+2025-12-24 16:36:40,171 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-1A_2.fq.gz
+2025-12-24 16:36:40,171 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-1A_1.clean.fq.gz
+2025-12-24 16:36:40,171 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-1A_2.clean.fq.gz
+2025-12-24 16:36:40,171 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-1A.html
+2025-12-24 16:36:40,171 - INFO - ---
+2025-12-24 16:36:40,171 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC7-1A
+2025-12-24 16:36:40,171 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-1A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-1A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-1A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-1A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-1A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-1A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:40,427 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC7-1A
+2025-12-24 16:36:40,427 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:40,427 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:40,427 - ERROR - ❌ 样本 XC7-1A 处理失败 | Sample XC7-1A processing failed
+2025-12-24 16:36:40,427 - INFO - ---
+2025-12-24 16:36:40,427 - INFO - ⚡ 正在处理样本 | Processing sample: XC33-5A
+2025-12-24 16:36:40,427 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC33-5A_1.fq.gz
+2025-12-24 16:36:40,427 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC33-5A_2.fq.gz
+2025-12-24 16:36:40,427 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC33-5A_1.clean.fq.gz
+2025-12-24 16:36:40,427 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC33-5A_2.clean.fq.gz
+2025-12-24 16:36:40,427 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC33-5A.html
+2025-12-24 16:36:40,427 - INFO - ---
+2025-12-24 16:36:40,427 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC33-5A
+2025-12-24 16:36:40,427 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC33-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC33-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC33-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC33-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC33-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC33-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:40,691 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC33-5A
+2025-12-24 16:36:40,691 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:40,691 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:40,691 - ERROR - ❌ 样本 XC33-5A 处理失败 | Sample XC33-5A processing failed
+2025-12-24 16:36:40,691 - INFO - ---
+2025-12-24 16:36:40,691 - INFO - ⚡ 正在处理样本 | Processing sample: XC74-10A
+2025-12-24 16:36:40,691 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC74-10A_1.fq.gz
+2025-12-24 16:36:40,691 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC74-10A_2.fq.gz
+2025-12-24 16:36:40,691 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC74-10A_1.clean.fq.gz
+2025-12-24 16:36:40,691 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC74-10A_2.clean.fq.gz
+2025-12-24 16:36:40,691 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC74-10A.html
+2025-12-24 16:36:40,691 - INFO - ---
+2025-12-24 16:36:40,691 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC74-10A
+2025-12-24 16:36:40,691 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC74-10A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC74-10A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC74-10A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC74-10A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC74-10A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC74-10A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:41,003 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC74-10A
+2025-12-24 16:36:41,003 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:41,003 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:41,003 - ERROR - ❌ 样本 XC74-10A 处理失败 | Sample XC74-10A processing failed
+2025-12-24 16:36:41,003 - INFO - ---
+2025-12-24 16:36:41,003 - INFO - ⚡ 正在处理样本 | Processing sample: XC9-2A
+2025-12-24 16:36:41,003 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-2A_1.fq.gz
+2025-12-24 16:36:41,003 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-2A_2.fq.gz
+2025-12-24 16:36:41,003 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-2A_1.clean.fq.gz
+2025-12-24 16:36:41,003 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-2A_2.clean.fq.gz
+2025-12-24 16:36:41,003 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-2A.html
+2025-12-24 16:36:41,003 - INFO - ---
+2025-12-24 16:36:41,003 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC9-2A
+2025-12-24 16:36:41,003 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:41,387 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC9-2A
+2025-12-24 16:36:41,387 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:41,387 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:41,387 - ERROR - ❌ 样本 XC9-2A 处理失败 | Sample XC9-2A processing failed
+2025-12-24 16:36:41,387 - INFO - ---
+2025-12-24 16:36:41,387 - INFO - ⚡ 正在处理样本 | Processing sample: XC25-5A
+2025-12-24 16:36:41,387 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC25-5A_1.fq.gz
+2025-12-24 16:36:41,387 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC25-5A_2.fq.gz
+2025-12-24 16:36:41,387 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC25-5A_1.clean.fq.gz
+2025-12-24 16:36:41,387 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC25-5A_2.clean.fq.gz
+2025-12-24 16:36:41,387 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC25-5A.html
+2025-12-24 16:36:41,387 - INFO - ---
+2025-12-24 16:36:41,388 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC25-5A
+2025-12-24 16:36:41,388 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC25-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC25-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC25-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC25-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC25-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC25-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:41,628 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC25-5A
+2025-12-24 16:36:41,628 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:41,628 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:41,628 - ERROR - ❌ 样本 XC25-5A 处理失败 | Sample XC25-5A processing failed
+2025-12-24 16:36:41,628 - INFO - ---
+2025-12-24 16:36:41,628 - INFO - ⚡ 正在处理样本 | Processing sample: XC6-3A
+2025-12-24 16:36:41,628 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC6-3A_1.fq.gz
+2025-12-24 16:36:41,628 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC6-3A_2.fq.gz
+2025-12-24 16:36:41,628 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC6-3A_1.clean.fq.gz
+2025-12-24 16:36:41,628 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC6-3A_2.clean.fq.gz
+2025-12-24 16:36:41,628 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC6-3A.html
+2025-12-24 16:36:41,628 - INFO - ---
+2025-12-24 16:36:41,628 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC6-3A
+2025-12-24 16:36:41,628 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC6-3A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC6-3A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC6-3A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC6-3A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC6-3A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC6-3A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:41,898 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC6-3A
+2025-12-24 16:36:41,898 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:41,898 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:41,898 - ERROR - ❌ 样本 XC6-3A 处理失败 | Sample XC6-3A processing failed
+2025-12-24 16:36:41,899 - INFO - ---
+2025-12-24 16:36:41,899 - INFO - ⚡ 正在处理样本 | Processing sample: XC2-2A
+2025-12-24 16:36:41,899 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC2-2A_1.fq.gz
+2025-12-24 16:36:41,899 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC2-2A_2.fq.gz
+2025-12-24 16:36:41,899 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC2-2A_1.clean.fq.gz
+2025-12-24 16:36:41,899 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC2-2A_2.clean.fq.gz
+2025-12-24 16:36:41,899 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC2-2A.html
+2025-12-24 16:36:41,899 - INFO - ---
+2025-12-24 16:36:41,899 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC2-2A
+2025-12-24 16:36:41,899 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC2-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC2-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC2-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC2-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC2-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC2-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:42,162 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC2-2A
+2025-12-24 16:36:42,162 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:42,162 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:42,162 - ERROR - ❌ 样本 XC2-2A 处理失败 | Sample XC2-2A processing failed
+2025-12-24 16:36:42,162 - INFO - ---
+2025-12-24 16:36:42,162 - INFO - ⚡ 正在处理样本 | Processing sample: XC3-3A
+2025-12-24 16:36:42,162 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-3A_1.fq.gz
+2025-12-24 16:36:42,162 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-3A_2.fq.gz
+2025-12-24 16:36:42,162 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-3A_1.clean.fq.gz
+2025-12-24 16:36:42,162 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-3A_2.clean.fq.gz
+2025-12-24 16:36:42,162 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-3A.html
+2025-12-24 16:36:42,162 - INFO - ---
+2025-12-24 16:36:42,162 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC3-3A
+2025-12-24 16:36:42,162 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-3A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-3A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-3A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-3A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-3A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-3A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:42,426 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC3-3A
+2025-12-24 16:36:42,426 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:42,426 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:42,426 - ERROR - ❌ 样本 XC3-3A 处理失败 | Sample XC3-3A processing failed
+2025-12-24 16:36:42,426 - INFO - ---
+2025-12-24 16:36:42,426 - INFO - ⚡ 正在处理样本 | Processing sample: XC88-2A
+2025-12-24 16:36:42,426 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC88-2A_1.fq.gz
+2025-12-24 16:36:42,426 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC88-2A_2.fq.gz
+2025-12-24 16:36:42,426 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC88-2A_1.clean.fq.gz
+2025-12-24 16:36:42,426 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC88-2A_2.clean.fq.gz
+2025-12-24 16:36:42,426 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC88-2A.html
+2025-12-24 16:36:42,426 - INFO - ---
+2025-12-24 16:36:42,426 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC88-2A
+2025-12-24 16:36:42,426 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC88-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC88-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC88-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC88-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC88-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC88-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:42,706 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC88-2A
+2025-12-24 16:36:42,706 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:42,706 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:42,706 - ERROR - ❌ 样本 XC88-2A 处理失败 | Sample XC88-2A processing failed
+2025-12-24 16:36:42,706 - INFO - ---
+2025-12-24 16:36:42,706 - INFO - ⚡ 正在处理样本 | Processing sample: XC7-3A
+2025-12-24 16:36:42,706 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-3A_1.fq.gz
+2025-12-24 16:36:42,706 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-3A_2.fq.gz
+2025-12-24 16:36:42,706 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-3A_1.clean.fq.gz
+2025-12-24 16:36:42,706 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-3A_2.clean.fq.gz
+2025-12-24 16:36:42,706 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-3A.html
+2025-12-24 16:36:42,706 - INFO - ---
+2025-12-24 16:36:42,706 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC7-3A
+2025-12-24 16:36:42,706 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-3A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC7-3A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-3A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC7-3A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-3A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC7-3A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:42,938 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC7-3A
+2025-12-24 16:36:42,938 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:42,938 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:42,938 - ERROR - ❌ 样本 XC7-3A 处理失败 | Sample XC7-3A processing failed
+2025-12-24 16:36:42,938 - INFO - ---
+2025-12-24 16:36:42,938 - INFO - ⚡ 正在处理样本 | Processing sample: XC85-2A
+2025-12-24 16:36:42,938 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC85-2A_1.fq.gz
+2025-12-24 16:36:42,938 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC85-2A_2.fq.gz
+2025-12-24 16:36:42,938 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC85-2A_1.clean.fq.gz
+2025-12-24 16:36:42,938 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC85-2A_2.clean.fq.gz
+2025-12-24 16:36:42,938 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC85-2A.html
+2025-12-24 16:36:42,938 - INFO - ---
+2025-12-24 16:36:42,938 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC85-2A
+2025-12-24 16:36:42,938 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC85-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC85-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC85-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC85-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC85-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC85-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:43,208 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC85-2A
+2025-12-24 16:36:43,208 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:43,208 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:43,208 - ERROR - ❌ 样本 XC85-2A 处理失败 | Sample XC85-2A processing failed
+2025-12-24 16:36:43,208 - INFO - ---
+2025-12-24 16:36:43,208 - INFO - ⚡ 正在处理样本 | Processing sample: XC55-2A
+2025-12-24 16:36:43,208 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC55-2A_1.fq.gz
+2025-12-24 16:36:43,209 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC55-2A_2.fq.gz
+2025-12-24 16:36:43,209 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC55-2A_1.clean.fq.gz
+2025-12-24 16:36:43,209 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC55-2A_2.clean.fq.gz
+2025-12-24 16:36:43,209 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC55-2A.html
+2025-12-24 16:36:43,209 - INFO - ---
+2025-12-24 16:36:43,209 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC55-2A
+2025-12-24 16:36:43,209 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC55-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC55-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC55-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC55-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC55-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC55-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:43,457 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC55-2A
+2025-12-24 16:36:43,457 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:43,457 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:43,457 - ERROR - ❌ 样本 XC55-2A 处理失败 | Sample XC55-2A processing failed
+2025-12-24 16:36:43,457 - INFO - ---
+2025-12-24 16:36:43,457 - INFO - ⚡ 正在处理样本 | Processing sample: XC41-2A
+2025-12-24 16:36:43,457 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC41-2A_1.fq.gz
+2025-12-24 16:36:43,457 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC41-2A_2.fq.gz
+2025-12-24 16:36:43,457 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC41-2A_1.clean.fq.gz
+2025-12-24 16:36:43,457 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC41-2A_2.clean.fq.gz
+2025-12-24 16:36:43,457 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC41-2A.html
+2025-12-24 16:36:43,457 - INFO - ---
+2025-12-24 16:36:43,457 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC41-2A
+2025-12-24 16:36:43,457 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC41-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC41-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC41-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC41-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC41-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC41-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:43,702 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC41-2A
+2025-12-24 16:36:43,702 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:43,702 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:43,702 - ERROR - ❌ 样本 XC41-2A 处理失败 | Sample XC41-2A processing failed
+2025-12-24 16:36:43,702 - INFO - ---
+2025-12-24 16:36:43,702 - INFO - ⚡ 正在处理样本 | Processing sample: XC26-5A
+2025-12-24 16:36:43,702 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC26-5A_1.fq.gz
+2025-12-24 16:36:43,702 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC26-5A_2.fq.gz
+2025-12-24 16:36:43,702 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC26-5A_1.clean.fq.gz
+2025-12-24 16:36:43,702 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC26-5A_2.clean.fq.gz
+2025-12-24 16:36:43,702 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC26-5A.html
+2025-12-24 16:36:43,702 - INFO - ---
+2025-12-24 16:36:43,702 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC26-5A
+2025-12-24 16:36:43,702 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC26-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC26-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC26-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC26-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC26-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC26-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:43,978 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC26-5A
+2025-12-24 16:36:43,978 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:43,978 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:43,978 - ERROR - ❌ 样本 XC26-5A 处理失败 | Sample XC26-5A processing failed
+2025-12-24 16:36:43,978 - INFO - ---
+2025-12-24 16:36:43,978 - INFO - ⚡ 正在处理样本 | Processing sample: XC88-4A
+2025-12-24 16:36:43,978 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC88-4A_1.fq.gz
+2025-12-24 16:36:43,978 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC88-4A_2.fq.gz
+2025-12-24 16:36:43,978 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC88-4A_1.clean.fq.gz
+2025-12-24 16:36:43,978 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC88-4A_2.clean.fq.gz
+2025-12-24 16:36:43,978 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC88-4A.html
+2025-12-24 16:36:43,978 - INFO - ---
+2025-12-24 16:36:43,979 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC88-4A
+2025-12-24 16:36:43,979 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC88-4A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC88-4A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC88-4A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC88-4A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC88-4A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC88-4A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:44,242 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC88-4A
+2025-12-24 16:36:44,242 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:44,242 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:44,242 - ERROR - ❌ 样本 XC88-4A 处理失败 | Sample XC88-4A processing failed
+2025-12-24 16:36:44,242 - INFO - ---
+2025-12-24 16:36:44,242 - INFO - ⚡ 正在处理样本 | Processing sample: XC65-2A
+2025-12-24 16:36:44,242 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC65-2A_1.fq.gz
+2025-12-24 16:36:44,242 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC65-2A_2.fq.gz
+2025-12-24 16:36:44,242 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC65-2A_1.clean.fq.gz
+2025-12-24 16:36:44,242 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC65-2A_2.clean.fq.gz
+2025-12-24 16:36:44,242 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC65-2A.html
+2025-12-24 16:36:44,242 - INFO - ---
+2025-12-24 16:36:44,242 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC65-2A
+2025-12-24 16:36:44,242 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC65-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC65-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC65-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC65-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC65-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC65-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:44,509 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC65-2A
+2025-12-24 16:36:44,509 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:44,509 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:44,509 - ERROR - ❌ 样本 XC65-2A 处理失败 | Sample XC65-2A processing failed
+2025-12-24 16:36:44,509 - INFO - ---
+2025-12-24 16:36:44,509 - INFO - ⚡ 正在处理样本 | Processing sample: XC53-2A
+2025-12-24 16:36:44,509 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC53-2A_1.fq.gz
+2025-12-24 16:36:44,510 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC53-2A_2.fq.gz
+2025-12-24 16:36:44,510 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC53-2A_1.clean.fq.gz
+2025-12-24 16:36:44,510 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC53-2A_2.clean.fq.gz
+2025-12-24 16:36:44,510 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC53-2A.html
+2025-12-24 16:36:44,510 - INFO - ---
+2025-12-24 16:36:44,510 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC53-2A
+2025-12-24 16:36:44,510 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC53-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC53-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC53-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC53-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC53-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC53-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:44,736 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC53-2A
+2025-12-24 16:36:44,736 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:44,736 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:44,736 - ERROR - ❌ 样本 XC53-2A 处理失败 | Sample XC53-2A processing failed
+2025-12-24 16:36:44,736 - INFO - ---
+2025-12-24 16:36:44,737 - INFO - ⚡ 正在处理样本 | Processing sample: XC68-8A
+2025-12-24 16:36:44,737 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC68-8A_1.fq.gz
+2025-12-24 16:36:44,737 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC68-8A_2.fq.gz
+2025-12-24 16:36:44,737 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC68-8A_1.clean.fq.gz
+2025-12-24 16:36:44,737 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC68-8A_2.clean.fq.gz
+2025-12-24 16:36:44,737 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC68-8A.html
+2025-12-24 16:36:44,737 - INFO - ---
+2025-12-24 16:36:44,737 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC68-8A
+2025-12-24 16:36:44,737 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC68-8A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC68-8A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC68-8A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC68-8A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC68-8A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC68-8A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:44,967 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC68-8A
+2025-12-24 16:36:44,967 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:44,967 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:44,967 - ERROR - ❌ 样本 XC68-8A 处理失败 | Sample XC68-8A processing failed
+2025-12-24 16:36:44,967 - INFO - ---
+2025-12-24 16:36:44,967 - INFO - ⚡ 正在处理样本 | Processing sample: XC3-2A
+2025-12-24 16:36:44,967 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-2A_1.fq.gz
+2025-12-24 16:36:44,967 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-2A_2.fq.gz
+2025-12-24 16:36:44,967 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-2A_1.clean.fq.gz
+2025-12-24 16:36:44,967 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-2A_2.clean.fq.gz
+2025-12-24 16:36:44,967 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-2A.html
+2025-12-24 16:36:44,967 - INFO - ---
+2025-12-24 16:36:44,967 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC3-2A
+2025-12-24 16:36:44,967 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC3-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC3-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC3-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:45,518 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC3-2A
+2025-12-24 16:36:45,518 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:45,518 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:45,518 - ERROR - ❌ 样本 XC3-2A 处理失败 | Sample XC3-2A processing failed
+2025-12-24 16:36:45,518 - INFO - ---
+2025-12-24 16:36:45,518 - INFO - ⚡ 正在处理样本 | Processing sample: XC49-2A
+2025-12-24 16:36:45,518 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC49-2A_1.fq.gz
+2025-12-24 16:36:45,518 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC49-2A_2.fq.gz
+2025-12-24 16:36:45,518 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC49-2A_1.clean.fq.gz
+2025-12-24 16:36:45,518 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC49-2A_2.clean.fq.gz
+2025-12-24 16:36:45,518 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC49-2A.html
+2025-12-24 16:36:45,518 - INFO - ---
+2025-12-24 16:36:45,518 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC49-2A
+2025-12-24 16:36:45,518 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC49-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC49-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC49-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC49-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC49-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC49-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:45,851 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC49-2A
+2025-12-24 16:36:45,851 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:45,851 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:45,851 - ERROR - ❌ 样本 XC49-2A 处理失败 | Sample XC49-2A processing failed
+2025-12-24 16:36:45,852 - INFO - ---
+2025-12-24 16:36:45,852 - INFO - ⚡ 正在处理样本 | Processing sample: XC50-2A
+2025-12-24 16:36:45,852 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC50-2A_1.fq.gz
+2025-12-24 16:36:45,852 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC50-2A_2.fq.gz
+2025-12-24 16:36:45,852 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC50-2A_1.clean.fq.gz
+2025-12-24 16:36:45,852 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC50-2A_2.clean.fq.gz
+2025-12-24 16:36:45,852 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC50-2A.html
+2025-12-24 16:36:45,852 - INFO - ---
+2025-12-24 16:36:45,852 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC50-2A
+2025-12-24 16:36:45,852 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC50-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC50-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC50-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC50-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC50-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC50-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:46,106 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC50-2A
+2025-12-24 16:36:46,106 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:46,106 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:46,106 - ERROR - ❌ 样本 XC50-2A 处理失败 | Sample XC50-2A processing failed
+2025-12-24 16:36:46,106 - INFO - ---
+2025-12-24 16:36:46,106 - INFO - ⚡ 正在处理样本 | Processing sample: XC45-2A
+2025-12-24 16:36:46,106 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC45-2A_1.fq.gz
+2025-12-24 16:36:46,106 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC45-2A_2.fq.gz
+2025-12-24 16:36:46,106 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC45-2A_1.clean.fq.gz
+2025-12-24 16:36:46,106 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC45-2A_2.clean.fq.gz
+2025-12-24 16:36:46,106 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC45-2A.html
+2025-12-24 16:36:46,106 - INFO - ---
+2025-12-24 16:36:46,106 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC45-2A
+2025-12-24 16:36:46,106 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC45-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC45-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC45-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC45-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC45-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC45-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:46,363 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC45-2A
+2025-12-24 16:36:46,364 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:46,364 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:46,364 - ERROR - ❌ 样本 XC45-2A 处理失败 | Sample XC45-2A processing failed
+2025-12-24 16:36:46,364 - INFO - ---
+2025-12-24 16:36:46,364 - INFO - ⚡ 正在处理样本 | Processing sample: XC80-5A
+2025-12-24 16:36:46,364 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC80-5A_1.fq.gz
+2025-12-24 16:36:46,364 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC80-5A_2.fq.gz
+2025-12-24 16:36:46,364 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC80-5A_1.clean.fq.gz
+2025-12-24 16:36:46,364 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC80-5A_2.clean.fq.gz
+2025-12-24 16:36:46,364 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC80-5A.html
+2025-12-24 16:36:46,364 - INFO - ---
+2025-12-24 16:36:46,364 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC80-5A
+2025-12-24 16:36:46,364 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC80-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC80-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC80-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC80-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC80-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC80-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:46,603 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC80-5A
+2025-12-24 16:36:46,603 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:46,603 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:46,603 - ERROR - ❌ 样本 XC80-5A 处理失败 | Sample XC80-5A processing failed
+2025-12-24 16:36:46,604 - INFO - ---
+2025-12-24 16:36:46,604 - INFO - ⚡ 正在处理样本 | Processing sample: XC21-2A
+2025-12-24 16:36:46,604 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC21-2A_1.fq.gz
+2025-12-24 16:36:46,604 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC21-2A_2.fq.gz
+2025-12-24 16:36:46,604 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC21-2A_1.clean.fq.gz
+2025-12-24 16:36:46,604 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC21-2A_2.clean.fq.gz
+2025-12-24 16:36:46,604 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC21-2A.html
+2025-12-24 16:36:46,604 - INFO - ---
+2025-12-24 16:36:46,604 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC21-2A
+2025-12-24 16:36:46,604 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC21-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC21-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC21-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC21-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC21-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC21-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:46,852 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC21-2A
+2025-12-24 16:36:46,852 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:46,852 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:46,852 - ERROR - ❌ 样本 XC21-2A 处理失败 | Sample XC21-2A processing failed
+2025-12-24 16:36:46,852 - INFO - ---
+2025-12-24 16:36:46,852 - INFO - ⚡ 正在处理样本 | Processing sample: XC4-1A
+2025-12-24 16:36:46,852 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC4-1A_1.fq.gz
+2025-12-24 16:36:46,852 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC4-1A_2.fq.gz
+2025-12-24 16:36:46,852 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC4-1A_1.clean.fq.gz
+2025-12-24 16:36:46,852 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC4-1A_2.clean.fq.gz
+2025-12-24 16:36:46,852 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC4-1A.html
+2025-12-24 16:36:46,852 - INFO - ---
+2025-12-24 16:36:46,852 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC4-1A
+2025-12-24 16:36:46,852 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC4-1A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC4-1A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC4-1A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC4-1A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC4-1A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC4-1A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:47,093 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC4-1A
+2025-12-24 16:36:47,093 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:47,093 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:47,093 - ERROR - ❌ 样本 XC4-1A 处理失败 | Sample XC4-1A processing failed
+2025-12-24 16:36:47,093 - INFO - ---
+2025-12-24 16:36:47,093 - INFO - ⚡ 正在处理样本 | Processing sample: XC30-2A
+2025-12-24 16:36:47,093 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC30-2A_1.fq.gz
+2025-12-24 16:36:47,093 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC30-2A_2.fq.gz
+2025-12-24 16:36:47,093 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC30-2A_1.clean.fq.gz
+2025-12-24 16:36:47,093 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC30-2A_2.clean.fq.gz
+2025-12-24 16:36:47,093 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC30-2A.html
+2025-12-24 16:36:47,093 - INFO - ---
+2025-12-24 16:36:47,093 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC30-2A
+2025-12-24 16:36:47,093 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC30-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC30-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC30-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC30-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC30-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC30-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:47,406 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC30-2A
+2025-12-24 16:36:47,406 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:47,406 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:47,406 - ERROR - ❌ 样本 XC30-2A 处理失败 | Sample XC30-2A processing failed
+2025-12-24 16:36:47,406 - INFO - ---
+2025-12-24 16:36:47,406 - INFO - ⚡ 正在处理样本 | Processing sample: XC86-8A
+2025-12-24 16:36:47,406 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC86-8A_1.fq.gz
+2025-12-24 16:36:47,406 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC86-8A_2.fq.gz
+2025-12-24 16:36:47,406 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC86-8A_1.clean.fq.gz
+2025-12-24 16:36:47,406 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC86-8A_2.clean.fq.gz
+2025-12-24 16:36:47,406 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC86-8A.html
+2025-12-24 16:36:47,406 - INFO - ---
+2025-12-24 16:36:47,406 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC86-8A
+2025-12-24 16:36:47,406 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC86-8A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC86-8A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC86-8A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC86-8A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC86-8A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC86-8A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:47,643 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC86-8A
+2025-12-24 16:36:47,643 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:47,643 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:47,643 - ERROR - ❌ 样本 XC86-8A 处理失败 | Sample XC86-8A processing failed
+2025-12-24 16:36:47,643 - INFO - ---
+2025-12-24 16:36:47,643 - INFO - ⚡ 正在处理样本 | Processing sample: XC46-2A
+2025-12-24 16:36:47,643 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC46-2A_1.fq.gz
+2025-12-24 16:36:47,643 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC46-2A_2.fq.gz
+2025-12-24 16:36:47,643 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC46-2A_1.clean.fq.gz
+2025-12-24 16:36:47,643 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC46-2A_2.clean.fq.gz
+2025-12-24 16:36:47,643 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC46-2A.html
+2025-12-24 16:36:47,643 - INFO - ---
+2025-12-24 16:36:47,643 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC46-2A
+2025-12-24 16:36:47,643 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC46-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC46-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC46-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC46-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC46-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC46-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:47,877 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC46-2A
+2025-12-24 16:36:47,877 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:47,877 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:47,877 - ERROR - ❌ 样本 XC46-2A 处理失败 | Sample XC46-2A processing failed
+2025-12-24 16:36:47,877 - INFO - ---
+2025-12-24 16:36:47,877 - INFO - ⚡ 正在处理样本 | Processing sample: XC22-5A
+2025-12-24 16:36:47,877 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC22-5A_1.fq.gz
+2025-12-24 16:36:47,877 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC22-5A_2.fq.gz
+2025-12-24 16:36:47,877 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC22-5A_1.clean.fq.gz
+2025-12-24 16:36:47,877 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC22-5A_2.clean.fq.gz
+2025-12-24 16:36:47,877 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC22-5A.html
+2025-12-24 16:36:47,877 - INFO - ---
+2025-12-24 16:36:47,877 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC22-5A
+2025-12-24 16:36:47,878 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC22-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC22-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC22-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC22-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC22-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC22-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:48,153 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC22-5A
+2025-12-24 16:36:48,153 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:48,153 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:48,153 - ERROR - ❌ 样本 XC22-5A 处理失败 | Sample XC22-5A processing failed
+2025-12-24 16:36:48,153 - INFO - ---
+2025-12-24 16:36:48,153 - INFO - ⚡ 正在处理样本 | Processing sample: XC9-3A
+2025-12-24 16:36:48,153 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-3A_1.fq.gz
+2025-12-24 16:36:48,153 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-3A_2.fq.gz
+2025-12-24 16:36:48,153 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-3A_1.clean.fq.gz
+2025-12-24 16:36:48,153 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-3A_2.clean.fq.gz
+2025-12-24 16:36:48,153 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-3A.html
+2025-12-24 16:36:48,153 - INFO - ---
+2025-12-24 16:36:48,153 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC9-3A
+2025-12-24 16:36:48,153 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-3A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC9-3A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-3A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC9-3A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-3A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC9-3A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:48,407 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC9-3A
+2025-12-24 16:36:48,407 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:48,407 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:48,407 - ERROR - ❌ 样本 XC9-3A 处理失败 | Sample XC9-3A processing failed
+2025-12-24 16:36:48,407 - INFO - ---
+2025-12-24 16:36:48,407 - INFO - ⚡ 正在处理样本 | Processing sample: XC58-2A
+2025-12-24 16:36:48,407 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC58-2A_1.fq.gz
+2025-12-24 16:36:48,407 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC58-2A_2.fq.gz
+2025-12-24 16:36:48,407 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC58-2A_1.clean.fq.gz
+2025-12-24 16:36:48,407 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC58-2A_2.clean.fq.gz
+2025-12-24 16:36:48,407 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC58-2A.html
+2025-12-24 16:36:48,407 - INFO - ---
+2025-12-24 16:36:48,408 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC58-2A
+2025-12-24 16:36:48,408 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC58-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC58-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC58-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC58-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC58-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC58-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:48,667 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC58-2A
+2025-12-24 16:36:48,667 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:48,667 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:48,667 - ERROR - ❌ 样本 XC58-2A 处理失败 | Sample XC58-2A processing failed
+2025-12-24 16:36:48,667 - INFO - ---
+2025-12-24 16:36:48,667 - INFO - ⚡ 正在处理样本 | Processing sample: XC66-5A
+2025-12-24 16:36:48,667 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC66-5A_1.fq.gz
+2025-12-24 16:36:48,667 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC66-5A_2.fq.gz
+2025-12-24 16:36:48,667 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC66-5A_1.clean.fq.gz
+2025-12-24 16:36:48,667 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC66-5A_2.clean.fq.gz
+2025-12-24 16:36:48,667 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC66-5A.html
+2025-12-24 16:36:48,667 - INFO - ---
+2025-12-24 16:36:48,667 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC66-5A
+2025-12-24 16:36:48,667 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC66-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC66-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC66-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC66-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC66-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC66-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:48,915 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC66-5A
+2025-12-24 16:36:48,915 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:48,915 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:48,915 - ERROR - ❌ 样本 XC66-5A 处理失败 | Sample XC66-5A processing failed
+2025-12-24 16:36:48,915 - INFO - ---
+2025-12-24 16:36:48,915 - INFO - ⚡ 正在处理样本 | Processing sample: XC84-2A
+2025-12-24 16:36:48,915 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC84-2A_1.fq.gz
+2025-12-24 16:36:48,915 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC84-2A_2.fq.gz
+2025-12-24 16:36:48,915 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC84-2A_1.clean.fq.gz
+2025-12-24 16:36:48,915 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC84-2A_2.clean.fq.gz
+2025-12-24 16:36:48,915 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC84-2A.html
+2025-12-24 16:36:48,915 - INFO - ---
+2025-12-24 16:36:48,915 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC84-2A
+2025-12-24 16:36:48,915 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC84-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC84-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC84-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC84-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC84-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC84-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:49,175 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC84-2A
+2025-12-24 16:36:49,175 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:49,175 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:49,175 - ERROR - ❌ 样本 XC84-2A 处理失败 | Sample XC84-2A processing failed
+2025-12-24 16:36:49,175 - INFO - ---
+2025-12-24 16:36:49,175 - INFO - ⚡ 正在处理样本 | Processing sample: XC40-2A
+2025-12-24 16:36:49,175 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC40-2A_1.fq.gz
+2025-12-24 16:36:49,175 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC40-2A_2.fq.gz
+2025-12-24 16:36:49,175 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC40-2A_1.clean.fq.gz
+2025-12-24 16:36:49,175 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC40-2A_2.clean.fq.gz
+2025-12-24 16:36:49,175 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC40-2A.html
+2025-12-24 16:36:49,175 - INFO - ---
+2025-12-24 16:36:49,175 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC40-2A
+2025-12-24 16:36:49,175 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC40-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC40-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC40-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC40-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC40-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC40-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:49,442 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC40-2A
+2025-12-24 16:36:49,442 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:49,442 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:49,442 - ERROR - ❌ 样本 XC40-2A 处理失败 | Sample XC40-2A processing failed
+2025-12-24 16:36:49,442 - INFO - ---
+2025-12-24 16:36:49,442 - INFO - ⚡ 正在处理样本 | Processing sample: XC39-2A
+2025-12-24 16:36:49,442 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC39-2A_1.fq.gz
+2025-12-24 16:36:49,442 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC39-2A_2.fq.gz
+2025-12-24 16:36:49,442 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC39-2A_1.clean.fq.gz
+2025-12-24 16:36:49,442 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC39-2A_2.clean.fq.gz
+2025-12-24 16:36:49,442 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC39-2A.html
+2025-12-24 16:36:49,442 - INFO - ---
+2025-12-24 16:36:49,442 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC39-2A
+2025-12-24 16:36:49,442 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC39-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC39-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC39-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC39-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC39-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC39-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:49,814 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC39-2A
+2025-12-24 16:36:49,814 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:49,814 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:49,814 - ERROR - ❌ 样本 XC39-2A 处理失败 | Sample XC39-2A processing failed
+2025-12-24 16:36:49,814 - INFO - ---
+2025-12-24 16:36:49,814 - INFO - ⚡ 正在处理样本 | Processing sample: XC50-5A
+2025-12-24 16:36:49,814 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC50-5A_1.fq.gz
+2025-12-24 16:36:49,814 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC50-5A_2.fq.gz
+2025-12-24 16:36:49,814 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC50-5A_1.clean.fq.gz
+2025-12-24 16:36:49,814 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC50-5A_2.clean.fq.gz
+2025-12-24 16:36:49,815 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC50-5A.html
+2025-12-24 16:36:49,815 - INFO - ---
+2025-12-24 16:36:49,815 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC50-5A
+2025-12-24 16:36:49,815 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC50-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC50-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC50-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC50-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC50-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC50-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:50,092 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC50-5A
+2025-12-24 16:36:50,092 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:50,092 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:50,092 - ERROR - ❌ 样本 XC50-5A 处理失败 | Sample XC50-5A processing failed
+2025-12-24 16:36:50,092 - INFO - ---
+2025-12-24 16:36:50,092 - INFO - ⚡ 正在处理样本 | Processing sample: XC57-2A
+2025-12-24 16:36:50,092 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC57-2A_1.fq.gz
+2025-12-24 16:36:50,093 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC57-2A_2.fq.gz
+2025-12-24 16:36:50,093 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC57-2A_1.clean.fq.gz
+2025-12-24 16:36:50,093 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC57-2A_2.clean.fq.gz
+2025-12-24 16:36:50,093 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC57-2A.html
+2025-12-24 16:36:50,093 - INFO - ---
+2025-12-24 16:36:50,093 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC57-2A
+2025-12-24 16:36:50,093 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC57-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC57-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC57-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC57-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC57-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC57-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:50,367 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC57-2A
+2025-12-24 16:36:50,367 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:50,367 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:50,367 - ERROR - ❌ 样本 XC57-2A 处理失败 | Sample XC57-2A processing failed
+2025-12-24 16:36:50,367 - INFO - ---
+2025-12-24 16:36:50,367 - INFO - ⚡ 正在处理样本 | Processing sample: XC64-9A
+2025-12-24 16:36:50,367 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC64-9A_1.fq.gz
+2025-12-24 16:36:50,367 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC64-9A_2.fq.gz
+2025-12-24 16:36:50,367 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC64-9A_1.clean.fq.gz
+2025-12-24 16:36:50,367 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC64-9A_2.clean.fq.gz
+2025-12-24 16:36:50,367 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC64-9A.html
+2025-12-24 16:36:50,367 - INFO - ---
+2025-12-24 16:36:50,367 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC64-9A
+2025-12-24 16:36:50,367 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC64-9A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC64-9A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC64-9A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC64-9A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC64-9A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC64-9A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:50,624 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC64-9A
+2025-12-24 16:36:50,624 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:50,624 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:50,624 - ERROR - ❌ 样本 XC64-9A 处理失败 | Sample XC64-9A processing failed
+2025-12-24 16:36:50,624 - INFO - ---
+2025-12-24 16:36:50,624 - INFO - ⚡ 正在处理样本 | Processing sample: XC82-2A
+2025-12-24 16:36:50,624 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC82-2A_1.fq.gz
+2025-12-24 16:36:50,624 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC82-2A_2.fq.gz
+2025-12-24 16:36:50,624 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC82-2A_1.clean.fq.gz
+2025-12-24 16:36:50,624 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC82-2A_2.clean.fq.gz
+2025-12-24 16:36:50,624 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC82-2A.html
+2025-12-24 16:36:50,624 - INFO - ---
+2025-12-24 16:36:50,624 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC82-2A
+2025-12-24 16:36:50,624 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC82-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC82-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC82-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC82-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC82-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC82-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:50,871 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC82-2A
+2025-12-24 16:36:50,871 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:50,871 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:50,871 - ERROR - ❌ 样本 XC82-2A 处理失败 | Sample XC82-2A processing failed
+2025-12-24 16:36:50,871 - INFO - ---
+2025-12-24 16:36:50,871 - INFO - ⚡ 正在处理样本 | Processing sample: XC37-5A
+2025-12-24 16:36:50,871 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC37-5A_1.fq.gz
+2025-12-24 16:36:50,872 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC37-5A_2.fq.gz
+2025-12-24 16:36:50,872 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC37-5A_1.clean.fq.gz
+2025-12-24 16:36:50,872 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC37-5A_2.clean.fq.gz
+2025-12-24 16:36:50,872 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC37-5A.html
+2025-12-24 16:36:50,872 - INFO - ---
+2025-12-24 16:36:50,872 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC37-5A
+2025-12-24 16:36:50,872 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC37-5A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC37-5A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC37-5A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC37-5A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC37-5A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC37-5A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:51,119 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC37-5A
+2025-12-24 16:36:51,119 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:51,119 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:51,119 - ERROR - ❌ 样本 XC37-5A 处理失败 | Sample XC37-5A processing failed
+2025-12-24 16:36:51,119 - INFO - ---
+2025-12-24 16:36:51,120 - INFO - ⚡ 正在处理样本 | Processing sample: XC34-2A
+2025-12-24 16:36:51,120 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC34-2A_1.fq.gz
+2025-12-24 16:36:51,120 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC34-2A_2.fq.gz
+2025-12-24 16:36:51,120 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC34-2A_1.clean.fq.gz
+2025-12-24 16:36:51,120 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC34-2A_2.clean.fq.gz
+2025-12-24 16:36:51,120 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC34-2A.html
+2025-12-24 16:36:51,120 - INFO - ---
+2025-12-24 16:36:51,120 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC34-2A
+2025-12-24 16:36:51,120 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC34-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC34-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC34-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC34-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC34-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC34-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:51,366 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC34-2A
+2025-12-24 16:36:51,366 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:51,366 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:51,366 - ERROR - ❌ 样本 XC34-2A 处理失败 | Sample XC34-2A processing failed
+2025-12-24 16:36:51,367 - INFO - ---
+2025-12-24 16:36:51,367 - INFO - ⚡ 正在处理样本 | Processing sample: XC59-2A
+2025-12-24 16:36:51,367 - INFO -   📄 Read 1 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC59-2A_1.fq.gz
+2025-12-24 16:36:51,367 - INFO -   📄 Read 2 (输入 | input): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC59-2A_2.fq.gz
+2025-12-24 16:36:51,367 - INFO -   🧬 Read 1 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC59-2A_1.clean.fq.gz
+2025-12-24 16:36:51,367 - INFO -   🧬 Read 2 (输出 | output): /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC59-2A_2.clean.fq.gz
+2025-12-24 16:36:51,367 - INFO -   📋 HTML 报告 | report: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC59-2A.html
+2025-12-24 16:36:51,367 - INFO - ---
+2025-12-24 16:36:51,367 - INFO - 🚀 执行步骤 | Executing step: ⚡ FASTP质控处理 | FASTP quality control -> XC59-2A
+2025-12-24 16:36:51,367 - INFO - 💻 命令 | Command: fastp -i /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC59-2A_1.fq.gz -I /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/fastq/XC59-2A_2.fq.gz -o /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC59-2A_1.clean.fq.gz -O /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/XC59-2A_2.clean.fq.gz -h /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC59-2A.html -j /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports/XC59-2A.json -w 12 -q 30 -l 50 -u 40 -n 10
+2025-12-24 16:36:51,602 - ERROR - ❌ 命令执行失败 | Command execution failed: ⚡ FASTP质控处理 | FASTP quality control -> XC59-2A
+2025-12-24 16:36:51,602 - ERROR - 🔢 错误代码 | Error code: -6
+2025-12-24 16:36:51,602 - ERROR - 💬 错误信息 | Error message: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+2025-12-24 16:36:51,602 - ERROR - ❌ 样本 XC59-2A 处理失败 | Sample XC59-2A processing failed
+2025-12-24 16:36:51,602 - INFO - ✅ 总结报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_processing_summary.txt
+2025-12-24 16:36:51,602 - INFO - ============================================================
+2025-12-24 16:36:51,602 - INFO - 🎉 FASTQ质控批处理完成 | FASTQ quality control batch processing completed!
+2025-12-24 16:36:51,602 - INFO - 🧮 总样本数 | Total samples: 69
+2025-12-24 16:36:51,602 - INFO - ✅ 成功处理 | Successfully processed: 0
+2025-12-24 16:36:51,602 - INFO - ❌ 失败样本 | Failed samples: 69
+2025-12-24 16:36:51,603 - INFO - 📊 成功率 | Success rate: 0.0%
+2025-12-24 16:36:51,603 - INFO - 🧬 质控后的清洁数据位于 | Clean data location: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean
+2025-12-24 16:36:51,603 - INFO - 📋 质控报告位于 | QC reports location: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/clean/fastp_reports
+2025-12-24 16:36:51,603 - INFO - ============================================================
+
+✅ 命令执行成功 | Command executed successfully
+✅ 质控完成: 0 个清洁文件 | QC completed: 0 clean files
+📍 创建检查点 | Create checkpoint: quality_control
+🧹 Fastp质量控制完成，立即执行GTX索引构建 | Fastp QC completed, immediately executing GTX index building
+
+==================================================
+🔧 强制构建GTX索引 | Force Build GTX Index
+==================================================
+✓ 使用项目目录中的基因组文件: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa
+🔧 强制执行GTX索引构建 | Force executing GTX index build
+🔧 命令: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/.tmp
+🔧 基因组文件: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa
+🔧 临时目录: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/.tmp
+🔧 强制构建GTX索引 | Force build GTX index
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx index /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa --tmp-dir /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/.tmp
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 1
+标准输出 | Stdout: [2020-10-20 00:00:00.951] [index] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/.tmp available: 2628253GB, memory available: 963GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.951] [index] [info] Job: index, pid: 2092290
+[2020-10-20 00:00:00.952] [index] [info] Indexing...
+[2020-10-20 00:00:03.734] [index] [info] build optimized BWA2 FM-index
+[2020-10-20 00:00:09.099] [index] [info] Read 0 ALT contigs.
+[2020-10-20 00:00:10.183] [index] [error] index terminated by a signal 6.
+[2020-10-20 00:00:10.183] [index] [error] clean temporary files, please waiting...
+[2020-10-20 00:00:10.183] [index] [error] clean up finished.
+
+错误输出 | Stderr: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+
+❌ GTX索引构建失败 | GTX index building failed
+✅ 步骤 1 完成 | Step 1 completed: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+
+==================================================
+📊 Step 2: 构建其他索引 | Build Other Indexes
+==================================================
+⏭️ GTX索引已在step1中构建，跳过 | GTX index already built in step1, skipping
+构建其他索引（BWA, SAMtools, GATK）| Building other indexes (BWA, SAMtools, GATK)
+构建 BWA 索引 | Building BWA index
+📊 构建BWA索引 | Build BWA index
+🔄 执行命令 | Running command: bwa index /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/04.第二批769个样品/batch/batch8/01.data/genome/genome.fa
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 1
+错误输出 | Stderr: [bwa_index] Pack FASTA... [bns_fasta2bntseq] Failed to allocate 512198424 bytes at bntseq.c line 308: Cannot allocate memory
+
+❌ 步骤 2 失败 | Step 2 failed: 📊 构建基因组索引 | Build Genome Index

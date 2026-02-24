@@ -1,0 +1,70 @@
+[2025-12-29 09:49:46] INFO: 工作目录 | Working directory: output
+[2025-12-29 09:49:46] INFO: 开始PLINK GWAS分析流程 | Starting PLINK GWAS analysis pipeline...
+[2025-12-29 09:49:46] INFO: 表型类型 | Trait type: qualitative
+[2025-12-29 09:49:46] INFO: 遗传模型 | Genetic model: dominant
+[2025-12-29 09:49:46] INFO: 显著性校正方法 | Correction method: all
+[2025-12-29 09:49:46] INFO: ==================================================
+[2025-12-29 09:49:46] INFO: 步骤1: 检查输入文件 | Step 1: Checking input files
+[2025-12-29 09:49:46] INFO: 复制输入文件到工作目录 | Copying input files to working directory...
+[2025-12-29 09:49:46] INFO: 正在复制VCF文件 | Copying VCF file (4703.7 MB)...
+[2025-12-29 09:49:54] INFO: VCF文件已复制 | VCF file copied: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output/input.vcf.gz
+[2025-12-29 09:49:54] INFO: 正在复制表型文件 | Copying phenotype file (1.0 KB)...
+[2025-12-29 09:49:54] INFO: 表型文件已复制 | Phenotype file copied: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output/phenotype.txt
+[2025-12-29 09:49:54] INFO: 步骤2: 转换表型文件 | Step 2: Converting phenotype file
+[2025-12-29 09:49:54] INFO: 开始转换表型文件 | Starting phenotype file conversion...
+[2025-12-29 09:49:54] INFO: 表型类型 | Trait type: qualitative
+[2025-12-29 09:49:54] INFO: 成功读取表型文件 | Successfully read phenotype file: (100, 2)
+[2025-12-29 09:49:54] INFO: 表型文件列名 | Phenotype file columns: ['sample', 'DI']
+[2025-12-29 09:49:54] INFO: 样本ID列 | Sample ID column: sample
+[2025-12-29 09:49:54] INFO: 表型值列 | Phenotype column: DI
+[2025-12-29 09:49:54] INFO: 原始表型分布 | Original phenotype distribution: {1: np.int64(50), 0: np.int64(50)}
+[2025-12-29 09:49:54] INFO: 处理质量性状：将0转换为1（对照），1转换为2（病例） | Processing qualitative trait: converting 0 to 1 (control), 1 to 2 (case)
+[2025-12-29 09:49:54] INFO: 转换后表型分布 | Converted phenotype distribution: {2: np.int64(50), 1: np.int64(50)}
+[2025-12-29 09:49:54] INFO: 对照数 (抗病, 原值0) | Controls (resistant, original 0): 50
+[2025-12-29 09:49:54] INFO: 病例数 (感病, 原值1) | Cases (susceptible, original 1): 50
+[2025-12-29 09:49:54] INFO: 表型文件转换完成 | Phenotype file conversion completed
+[2025-12-29 09:49:54] INFO: === 表型转换统计 | Phenotype Conversion Statistics ===
+[2025-12-29 09:49:54] INFO: 原始表型分布 | Original phenotype distribution:
+[2025-12-29 09:49:54] INFO:   0: 50
+[2025-12-29 09:49:54] INFO:   1: 50
+[2025-12-29 09:49:54] INFO: 转换后表型分布 | Converted phenotype distribution:
+[2025-12-29 09:49:54] INFO:   1: 50
+[2025-12-29 09:49:54] INFO:   2: 50
+[2025-12-29 09:49:54] INFO: 总样本数 | Total samples: 100
+[2025-12-29 09:49:54] INFO: 原始有效样本数 | Original valid samples: 100
+[2025-12-29 09:49:54] INFO: 转换后有效样本数 | Converted valid samples: 100
+[2025-12-29 09:49:54] INFO: 转换后统计 | Post-conversion statistics:
+[2025-12-29 09:49:54] INFO:   对照组(抗病) | Controls(resistant): 50
+[2025-12-29 09:49:54] INFO:   病例组(感病) | Cases(susceptible): 50
+[2025-12-29 09:49:54] INFO:   缺失值 | Missing: 0
+[2025-12-29 09:49:54] INFO:   病例/对照比例 | Case/control ratio: 1.000
+[2025-12-29 09:49:54] INFO: 样本量充足 | Sufficient sample size: 最小组有50个样本 | minimum group has 50 samples
+[2025-12-29 09:49:54] INFO: 转换详情已保存到 phenotype_conversion_debug.txt | Conversion details saved to phenotype_conversion_debug.txt
+[2025-12-29 09:49:54] INFO: 步骤3: 转换VCF文件 | Step 3: Converting VCF file
+[2025-12-29 09:49:54] INFO: 转换VCF文件为PLINK格式 | Converting VCF file to PLINK format...
+[2025-12-29 09:49:54] INFO: 执行步骤 | Executing step: VCF转换为PLINK格式 | Converting VCF to PLINK format
+[2025-12-29 09:49:54] INFO: 命令 | Command: plink --vcf input.vcf.gz --make-bed --out raw_data --allow-extra-chr --set-missing-var-ids @:# --keep-allele-order --threads 16
+[2025-12-29 09:49:54] INFO: 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/31.重测序数据比对到挂载的结果上/05.GWAS/output
+[2025-12-29 09:49:54] INFO: ============================================================
+[2025-12-29 09:49:54] INFO: 命令参数详解 | Command Parameter Explanation
+[2025-12-29 09:49:54] INFO: ============================================================
+[2025-12-29 09:49:54] INFO:   plink
+[2025-12-29 09:49:54] INFO:     PLINK v1.9 - 全基因组关联分析工具 | PLINK v1.9 - Genome-wide association analysis tool
+[2025-12-29 09:49:54] INFO:   --vcf input.vcf.gz
+[2025-12-29 09:49:54] INFO:     指定VCF格式输入文件 | Specify VCF format input file
+[2025-12-29 09:49:54] INFO:   --make-bed
+[2025-12-29 09:49:54] INFO:     生成二进制PLINK文件格式(.bed/.bim/.fam) | Generate binary PLINK format files (.bed/.bim/.fam)
+[2025-12-29 09:49:54] INFO:   --out raw_data
+[2025-12-29 09:49:54] INFO:     指定输出文件前缀 | Specify output file prefix
+[2025-12-29 09:49:54] INFO:   --allow-extra-chr
+[2025-12-29 09:49:54] INFO:     允许非标准染色体编号 | Allow non-standard chromosome codes
+[2025-12-29 09:49:54] INFO:   --set-missing-var-ids @:#
+[2025-12-29 09:49:54] INFO:     为缺失变异ID设置格式(@:#表示chr:pos) | Set format for missing variant IDs (@:# means chr:pos)
+[2025-12-29 09:49:54] INFO:   --keep-allele-order
+[2025-12-29 09:49:54] INFO:     保持等位基因顺序不变 | Keep allele order unchanged
+[2025-12-29 09:49:54] INFO:   --threads 16
+[2025-12-29 09:49:54] INFO:     指定使用的CPU线程数 | Specify number of CPU threads to use
+[2025-12-29 09:49:54] INFO:        💻 使用16个CPU线程并行计算 | Use 16 CPU threads for parallel computing
+[2025-12-29 09:49:54] INFO: ============================================================
+
+用户中断分析 | Analysis interrupted by user

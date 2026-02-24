@@ -1,0 +1,28 @@
+2026-01-30 17:07:42.922 - ERROR - 命令执行失败|Command execution failed
+2026-01-30 17:07:42.923 - ERROR - 返回码|Return code: 1
+2026-01-30 17:07:42.923 - ERROR - 标准输出|Stdout: 2026-01-30 17:07:42.910 - INFO - ============================================================
+2026-01-30 17:07:42.910 - INFO - Program: FASTQ Quality Control Batch Processing
+2026-01-30 17:07:42.910 - INFO - Version: 1.0.0
+2026-01-30 17:07:42.910 - INFO - ============================================================
+2026-01-30 17:07:42.910 - INFO - ============================================================
+2026-01-30 17:07:42.910 - INFO - 开始FASTQ数据质控批处理|Starting FASTQ data quality control batch processing
+2026-01-30 17:07:42.910 - INFO - ============================================================
+2026-01-30 17:07:42.910 - INFO - 输入|Input: 目录|Directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/53.诸葛菜属数据比对/01.data/clean
+2026-01-30 17:07:42.910 - INFO - 输出目录|Output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/53.诸葛菜属数据比对/01.data/clean
+2026-01-30 17:07:42.910 - INFO - 数据模式|Data mode: 双末端|Paired-end
+2026-01-30 17:07:42.910 - INFO - 文件模式|File pattern: *_1.fq.gz, *_2.fq.gz
+2026-01-30 17:07:42.910 - INFO - 线程数|Threads: 64
+2026-01-30 17:07:42.910 - INFO - 质量阈值|Quality threshold: 30
+2026-01-30 17:07:42.910 - INFO - 最小长度|Minimum length: 50
+2026-01-30 17:07:42.910 - INFO - ============================================================
+2026-01-30 17:07:42.914 - INFO - Fastp可执行文件验证成功|Fastp executable validated: fastp
+2026-01-30 17:07:42.914 - INFO - 创建清洁数据输出目录|Created clean data output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/53.诸葛菜属数据比对/01.data/clean
+2026-01-30 17:07:42.914 - INFO - 创建报告文件输出目录|Created report output directory: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/53.诸葛菜属数据比对/01.data/clean/fastp_reports
+
+2026-01-30 17:07:42.923 - ERROR - 错误输出|Stderr: 2026-01-30 17:07:42.914 - WARNING - 在输入目录中未找到匹配模式的文件|No files matching pattern found in input directory: *_1.fq.gz
+2026-01-30 17:07:42.914 - ERROR - 未找到有效的样本文件|No valid sample files found
+
+2026-01-30 17:07:42.923 - ERROR - 质控处理失败|QC processing failed
+2026-01-30 17:07:42.923 - ERROR - 步骤1 失败|Step 1 failed: 质量控制|Quality Control
+Job 69120195 stderr output:
+

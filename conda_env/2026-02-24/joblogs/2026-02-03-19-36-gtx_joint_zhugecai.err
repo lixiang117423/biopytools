@@ -1,0 +1,12 @@
+00:00:27.215 info  NativeGenomicsDB - pid=2268992 tid=2269169 No valid combination operation found for INFO field MLEAF  - the field will NOT be part of INFO fields in the generated VCF records
+00:00:27.215 info  NativeGenomicsDB - pid=2268992 tid=2269182 No valid combination operation found for INFO field MLEAC  - the field will NOT be part of INFO fields in the generated VCF records
+Chromosome Chr02 position 26489124 (TileDB column 129829172) has too many alleles in the combined VCF record : 66 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr07 position 107973895 (TileDB column 780334763) has too many alleles in the combined VCF record : 70 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr10 position 2714579 (TileDB column 1025608974) has too many alleles in the combined VCF record : 53 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr09 position 111314234 (TileDB column 1003424112) has too many alleles in the combined VCF record : 80 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr04 position 89400920 (TileDB column 443739544) has too many alleles in the combined VCF record : 80 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr09 position 50941820 (TileDB column 943051698) has too many alleles in the combined VCF record : 55 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr05 position 20086631 (TileDB column 472910475) has too many alleles in the combined VCF record : 51 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Chromosome Chr06 position 126349452 (TileDB column 668913310) has too many alleles in the combined VCF record : 60 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
+Job 69235354 stderr output:
+

@@ -1,0 +1,147 @@
+[2025-12-21 14:55:30] 🧬 HapHiC处理器已初始化 | HapHiC processor initialized
+[2025-12-21 14:55:30] ⚙️ 配置参数 | Configuration Parameters:
+[2025-12-21 14:55:30]   assembly_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.hap1.primary.fa
+[2025-12-21 14:55:30]   hic_file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/01.data/hic/OV53_1-hic_R1.fastq.gz
+[2025-12-21 14:55:30]   hic_file_type: fastq
+[2025-12-21 14:55:30]   nchrs: 12
+[2025-12-21 14:55:30]   output_dir: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1
+[2025-12-21 14:55:30]   prefix: OV53_1.hap1.primary
+[2025-12-21 14:55:30]   threads: 64
+[2025-12-21 14:55:30]   processes: 8
+[2025-12-21 14:55:30]   quick_view: False
+[2025-12-21 14:55:30]   restriction_sites: ['GATC']
+[2025-12-21 14:55:30]   correct_nrounds: 2
+[2025-12-21 14:55:30]   remove_allelic_links: None
+[2025-12-21 14:55:30]   phasing_weight: 1.0
+[2025-12-21 14:55:30]   gfa_files: None
+[2025-12-21 14:55:30]   haphic_bin: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic
+[2025-12-21 14:55:30]   bwa_bin: bwa
+[2025-12-21 14:55:30]   samtools_bin: samtools
+[2025-12-21 14:55:30] 🚀 开始HapHiC流程 | Starting HapHiC pipeline
+[2025-12-21 14:55:30] 🔍 系统预检查 | System pre-flight checks
+[2025-12-21 14:55:30] 🔍 验证输入文件 | Validating input files
+[2025-12-21 14:55:31] 📊 基因组序列数量 | Assembly sequence count: 1282
+[2025-12-21 14:55:31] 📊 FASTQ文件大小 | FASTQ file sizes: R1 60.14 GB, R2 58.01 GB
+[2025-12-21 14:55:31] ✅ 输入文件验证通过 | Input files validated
+[2025-12-21 14:55:31] 🖥️ 检查系统资源 | Checking system resources
+[2025-12-21 14:55:31] 💾 可用内存 | Available memory: 878.5 GB
+[2025-12-21 14:55:31] 💾 可用磁盘空间 | Available disk space: 2107021.3 GB
+[2025-12-21 14:55:31] 🖥️ CPU核心数 | CPU cores: 88
+[2025-12-21 14:55:33] ✅ 预检查通过 | Pre-flight checks passed
+[2025-12-21 14:55:33] 🔍 检查已存在的比对结果 | Checking for existing alignment results
+[2025-12-21 14:55:33] 📂 输出目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1
+[2025-12-21 14:55:33] 📂 比对目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/00.mapping
+[2025-12-21 14:55:33] 📄 潜在BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/00.mapping/HiC.bam
+[2025-12-21 14:55:33] 📄 潜在过滤BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/00.mapping/HiC.filtered.bam
+[2025-12-21 14:55:33] ✅ 比对目录存在 | Alignment directory exists
+[2025-12-21 14:55:33] 📋 比对目录内容: ['assembly.fa.amb', 'assembly.fa.bwt', 'assembly.fa.ann', 'assembly.fa', 'HiC.filtered.bam', 'assembly.fa.pac', 'read1_1.fastq.gz', 'HiC.bam', 'assembly.fa.sa', 'read2_1.fastq.gz']
+[2025-12-21 14:55:33] ✅ 发现已存在的过滤BAM文件，跳过BWA比对步骤 | Found existing filtered BAM file, skipping BWA alignment: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/00.mapping/HiC.filtered.bam (69,225,553,169 bytes)
+[2025-12-21 14:55:33] ✅ 使用按read name排序的过滤BAM文件以满足HapHiC要求 | Using read name-sorted filtered BAM file to meet HapHiC requirements
+[2025-12-21 14:55:33] 🚀 开始HapHiC Pipeline流程 | Starting HapHiC Pipeline
+[2025-12-21 14:55:33] 📁 设置目录结构 | Setting up directory structure
+[2025-12-21 14:55:33] ✅ 目录结构设置完成 | Directory structure setup complete
+[2025-12-21 14:55:33] 🔍 检查HapHiC Pipeline完成状态 | Checking HapHiC Pipeline completion status
+[2025-12-21 14:55:33] ✅ Cluster步骤已完成 | Cluster step completed
+[2025-12-21 14:55:33] ✅ Reassign步骤已完成 | Reassign step completed
+[2025-12-21 14:55:33] ✅ Sort步骤已完成 | Sort step completed
+[2025-12-21 14:55:33] ✅ Build步骤已完成 | Build step completed
+[2025-12-21 14:55:33] ✅ HapHiC Pipeline已完成，跳过执行 | HapHiC Pipeline already completed, skipping execution
+[2025-12-21 14:55:33] 📊 可视化生成已禁用 | Visualization generation disabled
+[2025-12-21 14:55:33] 🥤 生成Juicebox文件 | Generating Juicebox files
+[2025-12-21 14:55:33] 📂 Juicebox目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/06.juicebox
+[2025-12-21 14:55:33] 🔧 使用YaHS-style方法生成Juicebox文件
+[2025-12-21 14:55:33] 📁 原始assembly: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.hap1.primary.fa
+[2025-12-21 14:55:33] 📁 Raw AGP文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/04.build/OV53_1.hap1.primary.raw.agp
+[2025-12-21 14:55:33] 📁 BAM文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/00.mapping/HiC.filtered.bam
+[2025-12-21 14:55:33] 🔧 步骤1: 创建软链接到06.juicebox目录 | Step 1: Create symlinks to 06.juicebox directory
+[2025-12-21 14:55:33] 🔗 创建BAM文件软链接: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/06.juicebox/HiC.filtered.bam -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/00.mapping/HiC.filtered.bam
+[2025-12-21 14:55:33] 🚀 生成FASTA索引
+[2025-12-21 14:55:37] ✅ 命令执行成功 | Command executed successfully (耗时: 3.50秒)
+[2025-12-21 14:55:37] 🔗 创建FASTA索引软链接: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/06.juicebox/OV53_1.hap1.primary.fa.fai -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/02.assembly/OV53_1/02.fasta/OV53_1.hap1.primary.fa.fai
+[2025-12-21 14:55:37] 🔗 创建Raw AGP文件软链接: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/06.juicebox/OV53_1.hap1.primary.raw.agp -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/04.build/OV53_1.hap1.primary.raw.agp
+[2025-12-21 14:55:37] 🔧 步骤2: 运行juicer pre命令 | Step 2: Run juicer pre command
+[2025-12-21 14:55:37] 🔧 执行命令: /share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/juicer pre -a -q 1 -o out_JBAT /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/06.juicebox/HiC.filtered.bam /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/06.juicebox/OV53_1.hap1.primary.raw.agp /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/06.juicebox/OV53_1.hap1.primary.fa.fai
+[2025-12-21 14:55:37] 🚀 juicer pre
+[2025-12-21 15:14:53] ✅ 命令执行完成 | Command completed successfully (1156.6s)
+[2025-12-21 15:14:53] 🔧 步骤3: 生成.hic文件 | Step 3: Generate .hic file
+[2025-12-21 15:14:53] 🔧 步骤3a: 提取染色体大小信息 | Step 3a: Extract chromosome sizes
+[2025-12-21 15:14:53] 🚀 提取染色体大小
+[2025-12-21 15:14:53] ✅ 命令执行完成 | Command completed successfully (0.0s)
+[2025-12-21 15:14:53] 🔧 步骤3b: 使用染色体大小信息生成.hic文件 | Step 3b: Generate .hic file with chromosome sizes
+[2025-12-21 15:14:53] 🚀 生成.hic文件（part）
+[2025-12-21 17:14:58] ✅ 命令执行完成 | Command completed successfully (7204.1s)
+[2025-12-21 17:14:58] 🔧 步骤3c: 重命名最终文件 | Step 3c: Rename final file
+[2025-12-21 17:14:58] 🚀 重命名.hic文件
+[2025-12-21 17:14:58] ✅ 命令执行完成 | Command completed successfully (0.0s)
+[2025-12-21 17:14:58] 🚀 清理临时文件
+[2025-12-21 17:14:58] ✅ 命令执行完成 | Command completed successfully (0.0s)
+[2025-12-21 17:14:58] ✅ .hic文件重命名成功: OV53_1.hap1.primary.hic
+[2025-12-21 17:14:58] ✅ 重命名文件: out_JBAT.txt -> OV53_1.hap1.primary_contact_matrix.txt
+[2025-12-21 17:14:58] ✅ 重命名文件: out_JBAT.log -> OV53_1.hap1.primary_juicer.log
+[2025-12-21 17:14:58] ✅ 重命名文件: out_JBAT.assembly -> OV53_1.hap1.primary.assembly
+[2025-12-21 17:14:58] ✅ 重命名文件: out_JBAT.assembly.agp -> OV53_1.hap1.primary_assembly.agp
+[2025-12-21 17:14:58] ✅ 重命名文件: out_JBAT.liftover.agp -> OV53_1.hap1.primary.liftover.agp
+[2025-12-21 17:14:58] ✅ assembly文件已存在: OV53_1.hap1.primary.assembly
+[2025-12-21 17:14:58] ✅ HapHiC Pipeline完成 | HapHiC Pipeline completed in 8364.34秒
+[2025-12-21 17:14:58] 🔄 检测到纠错后的contig，需要重新比对Hi-C数据 | Detected corrected contigs, need to realign Hi-C data
+[2025-12-21 17:14:58] 🔍 调试信息: 当前output_dir = /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1
+[2025-12-21 17:14:58] 🔍 调试信息: 计算出的corrected_output_dir = /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic
+[2025-12-21 17:14:58] 📁 创建纠错流程目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic
+[2025-12-21 17:14:58] 🔗 开始重新比对Hi-C数据到纠错后的组装 | Starting Hi-C realignment to corrected assembly
+[2025-12-21 17:14:58] 🔗 开始BWA比对 | Starting BWA alignment (official method)
+[2025-12-21 17:14:58] 📂 使用纠错后重新比对目录 | Using corrected realignment directory
+[2025-12-21 17:14:58] 📄 使用提供的FASTQ文件对 | Using provided FASTQ pair: OV53_1-hic_R1.fastq.gz
+[2025-12-21 17:14:58] 📄 找到 1 对FASTQ文件 | Found 1 FASTQ pairs
+[2025-12-21 17:14:58] 🔗 创建基因组软链接 | Created assembly symlink: assembly.fa
+[2025-12-21 17:14:58] 🔗 创建FASTQ软链接 | Created FASTQ symlinks: read1_1.fastq.gz, read2_1.fastq.gz
+[2025-12-21 17:14:58] 📝 创建BWA索引 | Creating BWA index: assembly.fa
+[2025-12-21 17:33:07] ✅ BWA索引创建完成 | BWA index created
+[2025-12-21 17:33:07] 🔗 步骤1: BWA比对 + 去重 + 初步过滤 (使用 64 线程) | Step 1: BWA alignment + deduplication + initial filtering (using 64 threads)
+[2025-12-21 17:33:07] 📝 创建纠错后的BAM文件 | Creating corrected BAM file
+[2025-12-21 17:33:07] 🔄 执行BWA比对管道 | Executing BWA alignment pipeline
+[2025-12-22 03:32:42] ✅ BWA比对完成，生成 HiC.corrected.bam
+[2025-12-22 03:32:42] 📊 BAM文件大小: 196406.10 MB
+[2025-12-22 03:32:42] 🔍 步骤2: HapHiC过滤 | Step 2: HapHiC filtering
+[2025-12-22 03:32:42] 📝 创建纠错后的过滤BAM文件 | Creating corrected filtered BAM file
+[2025-12-22 04:08:10] ✅ HapHiC过滤完成，生成 HiC.corrected.filtered.bam
+[2025-12-22 04:08:10] 📊 过滤后BAM文件大小: 66019.48 MB
+[2025-12-22 04:08:10] ✅ BWA比对完成 | BWA alignment completed: HiC.corrected.filtered.bam
+[2025-12-22 04:08:10] 🚀 开始针对纠错后contig的完整HapHiC流程 | Starting complete HapHiC workflow for corrected contigs
+[2025-12-22 04:08:10] 🚀 开始HapHiC Pipeline流程 | Starting HapHiC Pipeline
+[2025-12-22 04:08:10] 📁 设置目录结构 | Setting up directory structure
+[2025-12-22 04:08:10] ✅ 目录结构设置完成 | Directory structure setup complete
+[2025-12-22 04:08:10] 🔍 检查HapHiC Pipeline完成状态 | Checking HapHiC Pipeline completion status
+[2025-12-22 04:08:10] ❌ Cluster步骤未完成 | Cluster step not completed
+[2025-12-22 04:08:10]    期待文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic/01.cluster/corrected_asm.fa, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic/01.cluster/paired_links.clm
+[2025-12-22 04:08:10] ❌ Reassign步骤未完成 | Reassign step not completed
+[2025-12-22 04:08:10]    期待文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic/02.reassign/final_groups/final_clusters.txt
+[2025-12-22 04:08:10] ❌ Sort步骤未完成 | Sort step not completed
+[2025-12-22 04:08:10]    期待文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic/03.sort/*.tour (0 files)
+[2025-12-22 04:08:10] ❌ Build步骤未完成 | Build step not completed
+[2025-12-22 04:08:10]    期待文件: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic/04.build/OV53_1.hap1.primary_corrected.fa, /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic/04.build/OV53_1.hap1.primary_corrected.agp
+[2025-12-22 04:08:10] 🔄 运行HapHiC Pipeline | Running HapHiC Pipeline
+[2025-12-22 04:08:10] ℹ️ HapHiC将处理已存在的目录 | HapHiC will handle existing directories
+[2025-12-22 04:08:10] 🔧 自动优化分辨率: 500bp (基于覆盖率10.0)
+[2025-12-22 04:08:10] 🔧 启用组装校正，使用分辨率: 500bp (内存优化)
+[2025-12-22 04:08:10] 📂 工作目录: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic
+[2025-12-22 04:08:10] 🚀 HapHiC Pipeline
+[2025-12-22 04:08:11] ❌ 命令执行失败 | Command failed (返回码: 1)
+[2025-12-22 04:08:11] 命令输出 | Command Output:
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py", line 17, in <module>
+    import HapHiC_cluster
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_cluster.py", line 16, in <module>
+    import pysam
+ModuleNotFoundError: No module named 'pysam'
+Traceback (most recent call last):
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/haphic", line 117, in <module>
+    subprocess.run(commands, check=True)
+  File "/share/org/YZWL/yzwl_lixg/miniforge3/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/share/org/YZWL/yzwl_lixg/miniforge3/envs/haphic/bin/scripts/HapHiC_pipeline.py', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/01.cluster/corrected_asm.fa', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic/00.mapping_corrected/HiC.corrected.filtered.bam', '12', '--aln_format', 'bam', '--outdir', '/share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/28.haphic/hap1/07.corrected_contig_haphic', '--RE', 'GATC', '--steps', '1,2,3,4', '--threads', '64', '--processes', '8', '--correct_nrounds', '2', '--correct_resolution', '500', '--median_cov_ratio', '0.2', '--region_len_ratio', '0.1', '--min_region_cutoff', '5000', '--Nx', '80', '--RE_site_cutoff', '25', '--density_lower', '0.2X', '--density_upper', '1.9X', '--read_depth_upper', '1.5X', '--topN', '10', '--min_inflation', '1.0', '--max_inflation', '3.0', '--inflation_step', '0.2', '--expansion', '2', '--max_iter', '200', '--pruning', '0.0001', '--min_group_len', '0', '--max_ctg_len', '10000', '--min_RE_sites', '25', '--min_links', '25', '--min_link_density', '0.0001', '--min_density_ratio', '4', '--ambiguous_cutoff', '0.6', '--reassign_nrounds', '5', '--skip_allhic', '--mutprob', '0.2', '--ngen', '5000', '--npop', '100', '--seed', '42', '--Ns', '100', '--max_width', '60', '--prefix', 'OV53_1.hap1.primary_corrected']' returned non-zero exit status 1.
+[2025-12-22 04:08:11] ❌ 纠错后contig的HapHiC流程失败 | Corrected contigs HapHiC workflow failed
+[2025-12-22 04:08:11] 📊 处理统计 | Processing Statistics:
+[2025-12-22 04:08:11]   ⏱️ 总耗时 | Total time: 47561.58秒
+[2025-12-22 04:08:11]   📄 hic_file: OV53_1.hap1.primary.hic (982,447,444 bytes)
+[2025-12-22 04:08:11]   📄 assembly_file: OV53_1.hap1.primary.assembly (39,786 bytes)
+[2025-12-22 04:08:11]   📄 log_file: OV53_1.hap1.primary_haphic.log (81,338 bytes)

@@ -1,0 +1,959 @@
+2026-01-19 19:47:10.278 - INFO - 开始K-mer提取流程|Starting K-mer extraction pipeline
+2026-01-19 19:47:10.278 - INFO - ============================================================
+2026-01-19 19:47:10.278 - INFO - 第1步：检查依赖软件|Step 1: Checking dependencies
+2026-01-19 19:47:10.278 - INFO - 检查依赖软件|Checking dependencies
+2026-01-19 19:47:10.278 - INFO - 第2步：检测文件类型|Step 2: Detecting file types
+2026-01-19 19:47:10.278 - INFO - 检测输入文件类型|Detecting input file types
+2026-01-19 19:47:10.278 - INFO - 检测到目录输入|Detected directory input: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/21.kmer-gwas-小组流程/01.fastq
+2026-01-19 19:47:10.298 - INFO - 在目录中找到 362 个文件|Found 362 files in directory
+2026-01-19 19:47:10.298 - INFO - 总共处理 362 个输入文件|Processing 362 input files total
+2026-01-19 19:47:10.298 - INFO - 自动检测文件类型|Auto-detected file type: fastq
+2026-01-19 19:47:10.298 - INFO - 处理FASTQ文件|Processing FASTQ files
+2026-01-19 19:47:10.298 - INFO - 未指定pattern，自动检测配对模式|No pattern specified, auto-detecting paired-end mode
+2026-01-19 19:47:10.298 - INFO - 自动检测到配对模式|Auto-detected paired-end pattern: *_1.clean.fq.gz
+2026-01-19 19:47:10.298 - INFO -   R1后缀|R1 suffix: _1.clean.fq.gz, R2后缀|R2 suffix: _2.clean.fq.gz
+2026-01-19 19:47:10.298 - INFO - 检测到配对模式|Detected paired-end pattern: *_1.clean.fq.gz
+2026-01-19 19:47:10.298 - INFO - 使用模式匹配FASTQ文件|Matching FASTQ files with pattern: *_1.clean.fq.gz
+2026-01-19 19:47:10.298 - INFO -  总文件数|Total files: 362
+2026-01-19 19:47:10.298 - INFO -  解析匹配模式|Parsing pattern: *_1.clean.fq.gz
+2026-01-19 19:47:10.298 - INFO -  前缀|Prefix: '', 后缀|Suffix: '_1.clean.fq.gz'
+2026-01-19 19:47:10.298 - INFO - 检测到配对标识|Detected pair indicator: _1
+2026-01-19 19:47:10.299 - INFO - 检测到双端测序模式|Detected paired-end sequencing mode: _1
+2026-01-19 19:47:10.299 - INFO -  配对标识|Pair indicators: _1 <-> _2
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: WK003A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: DB27A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: DB97A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: GDW120A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: SDW017A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: DB76A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: SDW155A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: GDW27A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: SDW181A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: DB97A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: SDW194A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: GDW022A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: SDW074A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: SDW003A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: SDW188A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: GDW95A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: SDW178A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: SDW121A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: SDW099A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: WJ98A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: SDW064A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: WJ78A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: WJ84A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: SDW057A
+2026-01-19 19:47:10.299 - INFO -  找到R1文件|Found R1 file: SDW110A
+2026-01-19 19:47:10.299 - INFO -  找到R2文件|Found R2 file: GDW049A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: WJ46A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: DB95A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: WK084-1A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: SDW097-2A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: SDW175A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: GDW032A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: GDW38A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: SDW85A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: SDW062A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: WJ11-1A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: GDW65A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: WJ45A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: GDW030A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: SDW178A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: DB93A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: WJ88A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: SDW056A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: SDW034A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: DB104A
+2026-01-19 19:47:10.303 - INFO -  找到R1文件|Found R1 file: WK027A
+2026-01-19 19:47:10.303 - INFO -  找到R2文件|Found R2 file: GDW13A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW072A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW054A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: SDW053A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW181A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW020A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: GDW030A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: SDW082A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: GDW018A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: WJ19A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW022A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: SDW171A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: GDW061A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW095A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: DB30A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW055A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: GDW052A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: GDW007A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: DB103A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: WJ92-2A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: GDW089A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: DB107A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: GDW68A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW096A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW115A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: DB79A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: GDW65A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: WK018A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: SDW038A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: WJ98A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: GDW21A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW25A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: SDW129A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: SDW038A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: DB67A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: SDW099A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: SDW142-1A
+2026-01-19 19:47:10.304 - INFO -  找到R1文件|Found R1 file: DB41A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: DB53A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: WJ56A
+2026-01-19 19:47:10.304 - INFO -  找到R2文件|Found R2 file: GDW105A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: SDW160A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: SDW082A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: GDW075A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: GDW011A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: WJ28A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: WK42A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: SDW022A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: WJ11-1A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: GDW21A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: DB53A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: SDW142-1A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: SDW056A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: GDW074A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: WJ31A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: WK085-1A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: WJ36A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: WJ66A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: SDW109A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: WJ32A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: SDW126A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: WJ23A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: DB102A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: GDW87A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: GDW105A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: GDW91A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: SDW179A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: WK38A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: SDW129A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: DB30A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: WJ78A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: GDW057A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: SDW116A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: SDW164A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: WK084-1A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: GDW111A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: SDW130A
+2026-01-19 19:47:10.305 - INFO -  找到R1文件|Found R1 file: GDW048A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: SDW048A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: SDW055A
+2026-01-19 19:47:10.305 - INFO -  找到R2文件|Found R2 file: WJ58A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: DB40A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: GDW020A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: GDW074A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: DB103A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: SDW018A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: GDW47A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: SDW193A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: DB57A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW170A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: SDW114A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: WJ88A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: GDW040A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: SDW031A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: DB89A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: DB75A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: DB45A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: DB63A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: WK057A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: GDW067A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW125A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: SDW194A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: DB8A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: GDW032A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: DB89A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: WJ36A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: WJ65A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW176A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: DB74A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: SDW26A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW073-2A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW097-1A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW193A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: DB68A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: GDW44-2A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: GDW111A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: DB104A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW85A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW034A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: DB72A
+2026-01-19 19:47:10.306 - INFO -  找到R1文件|Found R1 file: GDW38A
+2026-01-19 19:47:10.306 - INFO -  找到R2文件|Found R2 file: SDW020A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: DB75A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: GDW011A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: GDW008A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: WJ31A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: WJ65A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: SDW145A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: SDW179A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: SDW25A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: WJ44A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: SDW152A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: DB22A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: DB8A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: GDW47A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: SDW130A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: SDW032A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: SDW064A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: SDW016A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: GDW27A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: GDW008A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: DB79A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: SDW084A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: WJ23A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: GDW089A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: GDW018A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: SDW048A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: SDW019A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: DB65A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: WJ9A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: SDW144A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: WJ9A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: SDW019A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: WJ56A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: GDW023A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: GDW120A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: WK084-2A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: WJ33A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: SDW008A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: GDW31A
+2026-01-19 19:47:10.307 - INFO -  找到R1文件|Found R1 file: DB106A
+2026-01-19 19:47:10.307 - INFO -  找到R2文件|Found R2 file: WJ5A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: GDW061A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: GDW052A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW107A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: GDW004A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: WK057A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW030A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW26A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: GDW68A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: WJ28A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: SDW053A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW162-1A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: GDW91A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW054A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW164A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: SDW008A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW190A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: SDW107A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: GDW078A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: WJ58A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW152A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: GDW067A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: DB67A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW115A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: SDW188A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: WJ92-2A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW128A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: SDW139A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW141A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW114A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: WK38A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: GDW055A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW192A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: GDW98A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: SDW089A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: GDW055A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: SDW007A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW111A
+2026-01-19 19:47:10.308 - INFO -  找到R1文件|Found R1 file: WK085-1A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: SDW017A
+2026-01-19 19:47:10.308 - INFO -  找到R2文件|Found R2 file: GDW012A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: SDW095A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: SDW126A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW120A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW109A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: DB27A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: GDW040A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: WJ84A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: DB57A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: WJ33A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: WK002A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: GDW057A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW043A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: GDW012A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW125A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: SDW110A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW111A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: GDW020A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: DB68A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: DB107A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: DB102A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: WJ100A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW003A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: GDW13A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW171A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: DB22A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: GDW31A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: GDW049A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW162-1A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: SDW116A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: WJ110A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: SDW007A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: DB95A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: SDW043A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW160A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: WJ110A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: WJ49A
+2026-01-19 19:47:10.309 - INFO -  找到R2文件|Found R2 file: WK084-2A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: GDW41A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: SDW170A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: DB40A
+2026-01-19 19:47:10.309 - INFO -  找到R1文件|Found R1 file: DB74A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW190A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW073-2A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: WK002A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: DB61A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: WJ100A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW097-1A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: DB61A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: WJ19A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: SDW031A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW192A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: WJ51A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: WJ32A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: WJ49A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW030A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: SDW072A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: SDW139A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: SDW120A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: DB106A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: GDW075A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: GDW44-2A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW084A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW097-2A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: GDW069-1A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW145A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: GDW41A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: SDW018A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: SDW175A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: DB65A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW176A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: GDW69-2A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: DB76A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: DB93A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW023A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW155A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: SDW074A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: GDW007A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: DB45A
+2026-01-19 19:47:10.310 - INFO -  找到R1文件|Found R1 file: SDW141A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: SDW023A
+2026-01-19 19:47:10.310 - INFO -  找到R2文件|Found R2 file: DB41A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: WK42A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: SDW057A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: GDW004A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: WJ46A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: SDW096A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: GDW69-2A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: SDW121A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: SDW144A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: SDW032A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: SDW062A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: WK018A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: WJ66A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: WJ51A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: GDW98A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: WK027A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: GDW95A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: GDW048A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: SDW016A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: WK003A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: DB63A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: GDW069-1A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: GDW023A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: WJ52A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: SDW089A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: WJ5A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: WJ44A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: WJ52A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: GDW022A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: GDW078A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: SDW128A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: GDW87A
+2026-01-19 19:47:10.311 - INFO -  找到R2文件|Found R2 file: WJ45A
+2026-01-19 19:47:10.311 - INFO -  找到R1文件|Found R1 file: DB72A
+2026-01-19 19:47:10.311 - INFO -  识别到的样品名称|Identified sample names: ['WJ56A', 'DB53A', 'GDW057A', 'GDW91A', 'SDW144A', 'SDW152A', 'SDW073-2A', 'SDW038A', 'WJ9A', 'SDW016A', 'SDW121A', 'SDW130A', 'GDW052A', 'GDW27A', 'WJ28A', 'WK084-1A', 'GDW075A', 'GDW47A', 'DB63A', 'SDW145A', 'WJ88A', 'SDW097-1A', 'SDW055A', 'SDW175A', 'SDW26A', 'SDW017A', 'SDW128A', 'DB8A', 'SDW057A', 'GDW87A', 'SDW164A', 'GDW13A', 'DB67A', 'WJ33A', 'GDW030A', 'SDW110A', 'GDW020A', 'DB22A', 'DB30A', 'SDW155A', 'DB93A', 'SDW003A', 'SDW129A', 'SDW120A', 'WK003A', 'GDW040A', 'GDW008A', 'WK38A', 'WJ58A', 'WJ84A', 'SDW107A', 'GDW95A', 'WJ44A', 'SDW178A', 'GDW078A', 'SDW032A', 'GDW011A', 'SDW054A', 'SDW193A', 'SDW25A', 'SDW162-1A', 'WJ92-2A', 'SDW125A', 'SDW096A', 'SDW141A', 'WJ65A', 'GDW032A', 'DB106A', 'SDW056A', 'SDW142-1A', 'SDW030A', 'DB107A', 'WJ19A', 'SDW176A', 'SDW116A', 'WJ100A', 'WJ5A', 'DB103A', 'GDW65A', 'SDW188A', 'DB41A', 'GDW105A', 'GDW120A', 'SDW062A', 'SDW007A', 'GDW067A', 'DB74A', 'GDW004A', 'DB79A', 'WJ11-1A', 'WJ52A', 'SDW111A', 'WK42A', 'DB75A', 'DB45A', 'SDW192A', 'SDW082A', 'GDW007A', 'WK085-1A', 'SDW019A', 'SDW064A', 'WJ23A', 'WJ98A', 'WJ66A', 'SDW043A', 'SDW160A', 'SDW020A', 'WJ46A', 'SDW023A', 'DB95A', 'WJ31A', 'WJ36A', 'GDW023A', 'DB76A', 'SDW139A', 'DB61A', 'WJ110A', 'WJ32A', 'GDW074A', 'SDW170A', 'GDW018A', 'SDW034A', 'DB57A', 'SDW190A', 'SDW095A', 'WK084-2A', 'SDW099A', 'DB72A', 'SDW109A', 'SDW022A', 'GDW21A', 'SDW018A', 'SDW072A', 'GDW022A', 'GDW089A', 'DB27A', 'SDW126A', 'GDW061A', 'GDW048A', 'SDW171A', 'WK057A', 'GDW44-2A', 'SDW089A', 'GDW069-1A', 'SDW084A', 'GDW38A', 'WK002A', 'DB40A', 'DB104A', 'GDW31A', 'SDW179A', 'GDW012A', 'SDW194A', 'GDW41A', 'DB102A', 'GDW049A', 'SDW115A', 'GDW68A', 'WJ51A', 'GDW69-2A', 'DB89A', 'WK018A', 'WK027A', 'WJ49A', 'DB97A', 'SDW85A', 'SDW181A', 'WJ45A', 'SDW048A', 'SDW031A', 'WJ78A', 'SDW053A', 'DB68A', 'SDW074A', 'SDW008A', 'GDW055A', 'SDW114A', 'DB65A', 'GDW111A', 'GDW98A', 'SDW097-2A']
+2026-01-19 19:47:10.311 - INFO -  找到配对文件|Found paired files for WJ56A
+2026-01-19 19:47:10.311 - INFO -  找到配对文件|Found paired files for DB53A
+2026-01-19 19:47:10.311 - INFO -  找到配对文件|Found paired files for GDW057A
+2026-01-19 19:47:10.311 - INFO -  找到配对文件|Found paired files for GDW91A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW144A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW152A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW073-2A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW038A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WJ9A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW016A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW121A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW130A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW052A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW27A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WJ28A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WK084-1A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW075A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW47A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for DB63A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW145A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WJ88A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW097-1A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW055A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW175A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW26A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW017A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW128A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for DB8A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW057A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW87A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW164A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW13A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for DB67A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WJ33A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW030A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW110A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW020A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for DB22A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for DB30A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW155A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for DB93A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW003A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW129A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW120A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WK003A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW040A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for GDW008A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WK38A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WJ58A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for WJ84A
+2026-01-19 19:47:10.312 - INFO -  找到配对文件|Found paired files for SDW107A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW95A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WJ44A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW178A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW078A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW032A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW011A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW054A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW193A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW25A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW162-1A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WJ92-2A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW125A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW096A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW141A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WJ65A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW032A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for DB106A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW056A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW142-1A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW030A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for DB107A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WJ19A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW176A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW116A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WJ100A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WJ5A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for DB103A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW65A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW188A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for DB41A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW105A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW120A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW062A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW007A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW067A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for DB74A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW004A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for DB79A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WJ11-1A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WJ52A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW111A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for WK42A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for DB75A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for DB45A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW192A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for SDW082A
+2026-01-19 19:47:10.313 - INFO -  找到配对文件|Found paired files for GDW007A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WK085-1A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW019A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW064A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WJ23A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WJ98A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WJ66A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW043A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW160A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW020A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WJ46A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW023A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for DB95A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WJ31A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WJ36A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW023A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for DB76A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW139A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for DB61A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WJ110A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WJ32A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW074A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW170A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW018A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW034A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for DB57A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW190A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW095A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WK084-2A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW099A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for DB72A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW109A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW022A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW21A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW018A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW072A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW022A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW089A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for DB27A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW126A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW061A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW048A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW171A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for WK057A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW44-2A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for SDW089A
+2026-01-19 19:47:10.314 - INFO -  找到配对文件|Found paired files for GDW069-1A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW084A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW38A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for WK002A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for DB40A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for DB104A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW31A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW179A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW012A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW194A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW41A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for DB102A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW049A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW115A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW68A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for WJ51A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW69-2A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for DB89A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for WK018A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for WK027A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for WJ49A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for DB97A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW85A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW181A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for WJ45A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW048A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW031A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for WJ78A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW053A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for DB68A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW074A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW008A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW055A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW114A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for DB65A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW111A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for GDW98A
+2026-01-19 19:47:10.315 - INFO -  找到配对文件|Found paired files for SDW097-2A
+2026-01-19 19:47:10.315 - INFO -  最终匹配结果|Final matching result: 181 个样品|samples
+2026-01-19 19:47:10.315 - INFO - 第3步：提取k-mer|Step 3: Extracting k-mers
+2026-01-19 19:47:10.315 - INFO - 使用Jellyfish处理FASTQ文件|Using Jellyfish for FASTQ files
+2026-01-19 19:47:10.315 - INFO - 开始合并FASTQ文件|Starting FASTQ file merging
+2026-01-19 19:47:10.315 - INFO -  R1文件: WJ56A -> WJ56A_1.clean.fq.gz
+2026-01-19 19:47:10.315 - INFO -  R2文件: WJ56A -> WJ56A_2.clean.fq.gz
+2026-01-19 19:47:10.315 - INFO -  R1文件: DB53A -> DB53A_1.clean.fq.gz
+2026-01-19 19:47:10.315 - INFO -  R2文件: DB53A -> DB53A_2.clean.fq.gz
+2026-01-19 19:47:10.315 - INFO -  R1文件: GDW057A -> GDW057A_1.clean.fq.gz
+2026-01-19 19:47:10.315 - INFO -  R2文件: GDW057A -> GDW057A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: GDW91A -> GDW91A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: GDW91A -> GDW91A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW144A -> SDW144A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW144A -> SDW144A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW152A -> SDW152A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW152A -> SDW152A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW073-2A -> SDW073-2A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW073-2A -> SDW073-2A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW038A -> SDW038A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW038A -> SDW038A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: WJ9A -> WJ9A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: WJ9A -> WJ9A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW016A -> SDW016A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW016A -> SDW016A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW121A -> SDW121A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW121A -> SDW121A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW130A -> SDW130A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW130A -> SDW130A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: GDW052A -> GDW052A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: GDW052A -> GDW052A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: GDW27A -> GDW27A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: GDW27A -> GDW27A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: WJ28A -> WJ28A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: WJ28A -> WJ28A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: WK084-1A -> WK084-1A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: WK084-1A -> WK084-1A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: GDW075A -> GDW075A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: GDW075A -> GDW075A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: GDW47A -> GDW47A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: GDW47A -> GDW47A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: DB63A -> DB63A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: DB63A -> DB63A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW145A -> SDW145A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW145A -> SDW145A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: WJ88A -> WJ88A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: WJ88A -> WJ88A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW097-1A -> SDW097-1A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW097-1A -> SDW097-1A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW055A -> SDW055A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW055A -> SDW055A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW175A -> SDW175A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW175A -> SDW175A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW26A -> SDW26A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW26A -> SDW26A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW017A -> SDW017A_1.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R2文件: SDW017A -> SDW017A_2.clean.fq.gz
+2026-01-19 19:47:10.316 - INFO -  R1文件: SDW128A -> SDW128A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: SDW128A -> SDW128A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: DB8A -> DB8A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: DB8A -> DB8A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: SDW057A -> SDW057A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: SDW057A -> SDW057A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: GDW87A -> GDW87A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: GDW87A -> GDW87A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: SDW164A -> SDW164A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: SDW164A -> SDW164A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: GDW13A -> GDW13A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: GDW13A -> GDW13A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: DB67A -> DB67A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: DB67A -> DB67A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: WJ33A -> WJ33A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: WJ33A -> WJ33A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: GDW030A -> GDW030A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: GDW030A -> GDW030A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: SDW110A -> SDW110A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: SDW110A -> SDW110A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: GDW020A -> GDW020A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: GDW020A -> GDW020A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: DB22A -> DB22A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: DB22A -> DB22A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: DB30A -> DB30A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: DB30A -> DB30A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: SDW155A -> SDW155A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: SDW155A -> SDW155A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: DB93A -> DB93A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: DB93A -> DB93A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: SDW003A -> SDW003A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: SDW003A -> SDW003A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: SDW129A -> SDW129A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: SDW129A -> SDW129A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: SDW120A -> SDW120A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: SDW120A -> SDW120A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: WK003A -> WK003A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: WK003A -> WK003A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: GDW040A -> GDW040A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: GDW040A -> GDW040A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: GDW008A -> GDW008A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: GDW008A -> GDW008A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: WK38A -> WK38A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: WK38A -> WK38A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: WJ58A -> WJ58A_1.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R2文件: WJ58A -> WJ58A_2.clean.fq.gz
+2026-01-19 19:47:10.317 - INFO -  R1文件: WJ84A -> WJ84A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: WJ84A -> WJ84A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW107A -> SDW107A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW107A -> SDW107A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: GDW95A -> GDW95A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: GDW95A -> GDW95A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: WJ44A -> WJ44A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: WJ44A -> WJ44A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW178A -> SDW178A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW178A -> SDW178A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: GDW078A -> GDW078A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: GDW078A -> GDW078A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW032A -> SDW032A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW032A -> SDW032A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: GDW011A -> GDW011A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: GDW011A -> GDW011A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW054A -> SDW054A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW054A -> SDW054A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW193A -> SDW193A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW193A -> SDW193A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW25A -> SDW25A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW25A -> SDW25A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW162-1A -> SDW162-1A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW162-1A -> SDW162-1A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: WJ92-2A -> WJ92-2A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: WJ92-2A -> WJ92-2A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW125A -> SDW125A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW125A -> SDW125A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW096A -> SDW096A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW096A -> SDW096A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW141A -> SDW141A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW141A -> SDW141A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: WJ65A -> WJ65A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: WJ65A -> WJ65A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: GDW032A -> GDW032A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: GDW032A -> GDW032A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: DB106A -> DB106A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: DB106A -> DB106A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW056A -> SDW056A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW056A -> SDW056A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW142-1A -> SDW142-1A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW142-1A -> SDW142-1A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: SDW030A -> SDW030A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: SDW030A -> SDW030A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: DB107A -> DB107A_1.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R2文件: DB107A -> DB107A_2.clean.fq.gz
+2026-01-19 19:47:10.318 - INFO -  R1文件: WJ19A -> WJ19A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: WJ19A -> WJ19A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: SDW176A -> SDW176A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: SDW176A -> SDW176A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: SDW116A -> SDW116A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: SDW116A -> SDW116A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: WJ100A -> WJ100A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: WJ100A -> WJ100A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: WJ5A -> WJ5A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: WJ5A -> WJ5A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: DB103A -> DB103A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: DB103A -> DB103A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: GDW65A -> GDW65A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: GDW65A -> GDW65A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: SDW188A -> SDW188A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: SDW188A -> SDW188A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: DB41A -> DB41A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: DB41A -> DB41A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: GDW105A -> GDW105A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: GDW105A -> GDW105A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: GDW120A -> GDW120A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: GDW120A -> GDW120A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: SDW062A -> SDW062A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: SDW062A -> SDW062A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: SDW007A -> SDW007A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: SDW007A -> SDW007A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: GDW067A -> GDW067A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: GDW067A -> GDW067A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: DB74A -> DB74A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: DB74A -> DB74A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: GDW004A -> GDW004A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: GDW004A -> GDW004A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: DB79A -> DB79A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: DB79A -> DB79A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: WJ11-1A -> WJ11-1A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: WJ11-1A -> WJ11-1A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: WJ52A -> WJ52A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: WJ52A -> WJ52A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: SDW111A -> SDW111A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: SDW111A -> SDW111A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: WK42A -> WK42A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: WK42A -> WK42A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: DB75A -> DB75A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: DB75A -> DB75A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: DB45A -> DB45A_1.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R2文件: DB45A -> DB45A_2.clean.fq.gz
+2026-01-19 19:47:10.319 - INFO -  R1文件: SDW192A -> SDW192A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW192A -> SDW192A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: SDW082A -> SDW082A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW082A -> SDW082A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: GDW007A -> GDW007A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: GDW007A -> GDW007A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WK085-1A -> WK085-1A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WK085-1A -> WK085-1A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: SDW019A -> SDW019A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW019A -> SDW019A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: SDW064A -> SDW064A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW064A -> SDW064A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WJ23A -> WJ23A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WJ23A -> WJ23A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WJ98A -> WJ98A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WJ98A -> WJ98A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WJ66A -> WJ66A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WJ66A -> WJ66A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: SDW043A -> SDW043A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW043A -> SDW043A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: SDW160A -> SDW160A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW160A -> SDW160A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: SDW020A -> SDW020A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW020A -> SDW020A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WJ46A -> WJ46A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WJ46A -> WJ46A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: SDW023A -> SDW023A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW023A -> SDW023A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: DB95A -> DB95A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: DB95A -> DB95A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WJ31A -> WJ31A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WJ31A -> WJ31A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WJ36A -> WJ36A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WJ36A -> WJ36A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: GDW023A -> GDW023A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: GDW023A -> GDW023A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: DB76A -> DB76A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: DB76A -> DB76A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: SDW139A -> SDW139A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: SDW139A -> SDW139A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: DB61A -> DB61A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: DB61A -> DB61A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WJ110A -> WJ110A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WJ110A -> WJ110A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: WJ32A -> WJ32A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: WJ32A -> WJ32A_2.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R1文件: GDW074A -> GDW074A_1.clean.fq.gz
+2026-01-19 19:47:10.320 - INFO -  R2文件: GDW074A -> GDW074A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW170A -> SDW170A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW170A -> SDW170A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: GDW018A -> GDW018A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: GDW018A -> GDW018A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW034A -> SDW034A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW034A -> SDW034A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: DB57A -> DB57A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: DB57A -> DB57A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW190A -> SDW190A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW190A -> SDW190A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW095A -> SDW095A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW095A -> SDW095A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: WK084-2A -> WK084-2A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: WK084-2A -> WK084-2A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW099A -> SDW099A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW099A -> SDW099A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: DB72A -> DB72A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: DB72A -> DB72A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW109A -> SDW109A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW109A -> SDW109A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW022A -> SDW022A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW022A -> SDW022A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: GDW21A -> GDW21A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: GDW21A -> GDW21A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW018A -> SDW018A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW018A -> SDW018A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW072A -> SDW072A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW072A -> SDW072A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: GDW022A -> GDW022A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: GDW022A -> GDW022A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: GDW089A -> GDW089A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: GDW089A -> GDW089A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: DB27A -> DB27A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: DB27A -> DB27A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW126A -> SDW126A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW126A -> SDW126A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: GDW061A -> GDW061A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: GDW061A -> GDW061A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: GDW048A -> GDW048A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: GDW048A -> GDW048A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: SDW171A -> SDW171A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: SDW171A -> SDW171A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: WK057A -> WK057A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: WK057A -> WK057A_2.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R1文件: GDW44-2A -> GDW44-2A_1.clean.fq.gz
+2026-01-19 19:47:10.321 - INFO -  R2文件: GDW44-2A -> GDW44-2A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: SDW089A -> SDW089A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: SDW089A -> SDW089A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: GDW069-1A -> GDW069-1A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: GDW069-1A -> GDW069-1A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: SDW084A -> SDW084A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: SDW084A -> SDW084A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: GDW38A -> GDW38A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: GDW38A -> GDW38A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: WK002A -> WK002A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: WK002A -> WK002A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: DB40A -> DB40A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: DB40A -> DB40A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: DB104A -> DB104A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: DB104A -> DB104A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: GDW31A -> GDW31A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: GDW31A -> GDW31A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: SDW179A -> SDW179A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: SDW179A -> SDW179A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: GDW012A -> GDW012A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: GDW012A -> GDW012A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: SDW194A -> SDW194A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: SDW194A -> SDW194A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: GDW41A -> GDW41A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: GDW41A -> GDW41A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: DB102A -> DB102A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: DB102A -> DB102A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: GDW049A -> GDW049A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: GDW049A -> GDW049A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: SDW115A -> SDW115A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: SDW115A -> SDW115A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: GDW68A -> GDW68A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: GDW68A -> GDW68A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: WJ51A -> WJ51A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: WJ51A -> WJ51A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: GDW69-2A -> GDW69-2A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: GDW69-2A -> GDW69-2A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: DB89A -> DB89A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: DB89A -> DB89A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: WK018A -> WK018A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: WK018A -> WK018A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: WK027A -> WK027A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: WK027A -> WK027A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: WJ49A -> WJ49A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: WJ49A -> WJ49A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: DB97A -> DB97A_1.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R2文件: DB97A -> DB97A_2.clean.fq.gz
+2026-01-19 19:47:10.322 - INFO -  R1文件: SDW85A -> SDW85A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW85A -> SDW85A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: SDW181A -> SDW181A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW181A -> SDW181A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: WJ45A -> WJ45A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: WJ45A -> WJ45A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: SDW048A -> SDW048A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW048A -> SDW048A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: SDW031A -> SDW031A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW031A -> SDW031A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: WJ78A -> WJ78A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: WJ78A -> WJ78A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: SDW053A -> SDW053A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW053A -> SDW053A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: DB68A -> DB68A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: DB68A -> DB68A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: SDW074A -> SDW074A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW074A -> SDW074A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: SDW008A -> SDW008A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW008A -> SDW008A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: GDW055A -> GDW055A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: GDW055A -> GDW055A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: SDW114A -> SDW114A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW114A -> SDW114A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: DB65A -> DB65A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: DB65A -> DB65A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: GDW111A -> GDW111A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: GDW111A -> GDW111A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: GDW98A -> GDW98A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: GDW98A -> GDW98A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R1文件: SDW097-2A -> SDW097-2A_1.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO -  R2文件: SDW097-2A -> SDW097-2A_2.clean.fq.gz
+2026-01-19 19:47:10.323 - INFO - 合并R1文件: 181个文件 -> merged_R1.fq
+2026-01-19 19:47:10.323 - INFO -  使用zcat加速合并|Using zcat for accelerated merging
+2026-01-19 19:47:10.441 - INFO - 加速命令|Accelerated command: zcat 181 files via xargs
+2026-01-19 19:47:10.441 - INFO - 执行合并命令|Executing merge command...
+2026-01-20 05:10:40.251 - INFO -  R1文件合并完成|R1 file merging completed: 02.kmer_db/merged_R1.fq
+2026-01-20 05:10:40.253 - INFO - 合并速度|Merge speed: 系统命令|System command
+2026-01-20 05:10:40.253 - INFO - 清理临时文件列表|Cleaned up temporary file list
+2026-01-20 05:10:40.253 - INFO - 合并R2文件: 181个文件 -> merged_R2.fq
+2026-01-20 05:10:40.253 - INFO -  使用zcat加速合并|Using zcat for accelerated merging
+2026-01-20 05:10:40.253 - INFO - 加速命令|Accelerated command: zcat 181 files via xargs
+2026-01-20 05:10:40.253 - INFO - 执行合并命令|Executing merge command...
+2026-01-20 14:11:06.154 - INFO -  R2文件合并完成|R2 file merging completed: 02.kmer_db/merged_R2.fq
+2026-01-20 14:11:06.154 - INFO - 合并速度|Merge speed: 系统命令|System command
+2026-01-20 14:11:06.154 - INFO - 清理临时文件列表|Cleaned up temporary file list
+2026-01-20 14:11:06.154 - INFO -  使用Jellyfish从FASTQ文件提取k-mer|Extracting k-mers from FASTQ files using Jellyfish
+2026-01-20 14:11:06.154 - INFO -  处理双端测序数据|Processing paired-end data
+2026-01-20 14:11:06.154 - INFO - 执行步骤|Executing step:  Jellyfish提取k-mer|Jellyfish k-mer extraction (k=51)
+2026-01-20 14:11:06.154 - INFO - 命令|Command: jellyfish count -m 51 -s 10000M -t 64 -o kmers.jf -C merged_R1.fq merged_R2.fq
+2026-01-20 14:11:06.154 - INFO - 工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/21.kmer-gwas-小组流程/02.kmer_db
+2026-01-21 18:52:59.764 - INFO - 命令执行成功|Command executed successfully:  Jellyfish提取k-mer|Jellyfish k-mer extraction (k=51)
+2026-01-21 18:52:59.789 - INFO - 第4步：获取统计信息|Step 4: Getting statistics
+2026-01-21 20:15:56.443 - INFO -  Jellyfish K-mer统计|Jellyfish K-mer statistics: 160446263836 distinct k-mers, 121797926891 unique k-mers
+2026-01-21 20:15:56.443 - INFO - 第5步：格式化输出|Step 5: Formatting output
+2026-01-21 20:15:56.443 - INFO -  将Jellyfish文件转换为FASTA格式|Converting Jellyfish file to FASTA format: 02.kmer_db/kmers.fasta
+2026-01-21 20:15:56.498 - ERROR -  jellyfish dump失败|jellyfish dump failed: Failed to open input file '02.kmer_db/kmers.jf'
+
+2026-01-21 20:15:56.498 - ERROR - 提取流程在执行过程中意外终止|Extraction pipeline terminated unexpectedly: FASTA文件生成失败|FASTA file generation failed

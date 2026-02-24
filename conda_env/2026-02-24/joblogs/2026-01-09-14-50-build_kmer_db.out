@@ -1,0 +1,19 @@
+2026-01-09 14:50:50.490 - INFO - 找到kmindex|Found kmindex: kmindex v0.6.0
+2026-01-09 14:50:50.490 - INFO - ============================================================
+2026-01-09 14:50:50.490 - INFO - 开始K-mer库构建|Starting K-mer database build
+2026-01-09 14:50:50.490 - INFO - ============================================================
+2026-01-09 14:50:50.490 - INFO - [步骤1/2] 生成FOF文件|[Step 1/2] Generating FOF file
+2026-01-09 14:50:50.490 - INFO - 正在生成FOF文件|Generating FOF file: 02.kmindex_db/fof.txt
+2026-01-09 14:50:52.564 - INFO - FOF文件生成成功|FOF file generated successfully: 02.kmindex_db/fof.txt
+2026-01-09 14:50:52.564 - INFO - 共|Total 805 个样本|samples
+2026-01-09 14:50:52.564 - INFO - [步骤2/2] 运行kmindex build|[Step 2/2] Running kmindex build
+2026-01-09 14:50:52.564 - INFO - 运行命令|Running command: kmindex build -f 02.kmindex_db/fof.txt -d 02.kmindex_db/kmindex_index -i 02.kmindex_db/kmer_index -r kmer_index -k 51 --hard-min 2 --bloom-size 1000000000000 -t 64 --cpr
+2026-01-09 14:50:52.624 - ERROR - kmindex build失败|kmindex build failed: [26/01/09 14:50:52][I:2958408] Found kmtricks v1.5.1.
+[26/01/09 14:50:52][I:2958408] Build index 'kmer_index'...
+[26/01/09 14:50:52][I:2958408] exec: kmtricks pipeline --file 02.kmindex_db/fof.txt --run-dir 02.kmindex_db/kmindex_index --kmer-size 51 --hard-min 2 --bloom-size 1000000000000 --minimizer-size 10 --nb-partitions 0 --threads 64 --mode hash:bf:bin --cpr 
+[2026-01-09 14:50:52.622] [info] Run with Kmer<64> - __uint128_t implementation
+[2026-01-09 14:50:52.623] [error] IOError - GDW108A -> sample identifiers must be unique.
+[26/01/09 14:50:52][E:2958408] /share/org/YZWL/yzwl_lixg/miniforge3/envs/kmindex_v.0.6.0/bin/kmtricks exit with 1.
+
+2026-01-09 14:50:52.624 - ERROR - 建库失败|Build failed: kmindex build运行失败|kmindex build failed
+2026-01-09 14:50:52.624 - ERROR - 建库失败|Build failed: kmindex build运行失败|kmindex build failed

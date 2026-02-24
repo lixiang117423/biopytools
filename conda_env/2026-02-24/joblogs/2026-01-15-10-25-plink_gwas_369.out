@@ -1,0 +1,542 @@
+2026-01-15 10:26:29.230 - INFO - 工作目录|Working directory: 01.plink
+2026-01-15 10:26:29.231 - INFO - ============================================================
+2026-01-15 10:26:29.231 - INFO - PLINK GWAS Analysis Pipeline|PLINK GWAS分析流程
+2026-01-15 10:26:29.231 - INFO - Version: 1.0.0
+2026-01-15 10:26:29.231 - INFO - ============================================================
+2026-01-15 10:26:29.231 - INFO - Input VCF|VCF输入文件: input.vcf.gz
+2026-01-15 10:26:29.231 - INFO - Input phenotype|表型输入文件: 122.第一批369个样品的病斑分级表型.txt
+2026-01-15 10:26:29.231 - INFO - Output directory|输出目录: 01.plink
+2026-01-15 10:26:29.231 - INFO - Trait type|表型类型: quantitative
+2026-01-15 10:26:29.231 - INFO - Genetic model|遗传模型: all
+2026-01-15 10:26:29.231 - INFO - Threads|线程数: 64
+2026-01-15 10:26:29.231 - INFO - Correction method|显著性校正方法: all
+2026-01-15 10:26:29.231 - INFO - ============================================================
+2026-01-15 10:26:29.231 - INFO - 开始PLINK GWAS分析流程|Starting PLINK GWAS analysis pipeline...
+2026-01-15 10:26:29.231 - INFO - ============================================================
+2026-01-15 10:26:29.231 - INFO - ============================================================
+2026-01-15 10:26:29.231 - INFO - STEP 1: 检查输入文件|Checking input files
+2026-01-15 10:26:29.231 - INFO - ============================================================
+2026-01-15 10:26:29.231 - INFO -  复制输入文件到工作目录|Copying input files to working directory...
+2026-01-15 10:26:29.231 - INFO -  正在复制VCF文件|Copying VCF file (50583.3 MB)...
+2026-01-15 10:27:59.646 - INFO -  VCF文件已复制|VCF file copied: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink/input.vcf.gz
+2026-01-15 10:27:59.646 - INFO -  正在复制表型文件|Copying phenotype file (3.4 KB)...
+2026-01-15 10:27:59.647 - INFO -  表型文件已复制|Phenotype file copied: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink/phenotype.txt
+2026-01-15 10:27:59.647 - INFO - ============================================================
+2026-01-15 10:27:59.647 - INFO - STEP 2: 转换表型文件|Converting phenotype file
+2026-01-15 10:27:59.647 - INFO - ============================================================
+2026-01-15 10:27:59.647 - INFO - 开始转换表型文件|Starting phenotype file conversion...
+2026-01-15 10:27:59.647 - INFO - 表型类型|Trait type: quantitative
+2026-01-15 10:27:59.651 - INFO - 成功读取表型文件|Successfully read phenotype file: (368, 2)
+2026-01-15 10:27:59.652 - INFO - 表型文件列名|Phenotype file columns: ['sample', 'level']
+2026-01-15 10:27:59.652 - INFO - 样本ID列|Sample ID column: sample
+2026-01-15 10:27:59.652 - INFO - 表型值列|Phenotype column: level
+2026-01-15 10:27:59.653 - INFO - 原始表型分布|Original phenotype distribution: {4: np.int64(149), 5: np.int64(87), 3: np.int64(58), 6: np.int64(29), 2: np.int64(21), 1: np.int64(21), 0: np.int64(3)}
+2026-01-15 10:27:59.653 - INFO - 处理数量性状：保持原始数值，只处理缺失值|Processing quantitative trait: keeping original values, only handling missing values
+2026-01-15 10:27:59.654 - INFO - 数量性状统计|Quantitative trait statistics:
+2026-01-15 10:27:59.654 - INFO -   有效值数量|Valid values: 368
+2026-01-15 10:27:59.654 - INFO -   均值|Mean: 3.9185
+2026-01-15 10:27:59.654 - INFO -   标准差|Standard deviation: 1.2566
+2026-01-15 10:27:59.654 - INFO -   最小值|Min: 0.0000
+2026-01-15 10:27:59.654 - INFO -   最大值|Max: 6.0000
+2026-01-15 10:27:59.654 - INFO -   缺失值数量|Missing values: 0
+2026-01-15 10:27:59.680 - INFO - 表型文件转换完成|Phenotype file conversion completed
+2026-01-15 10:27:59.680 - INFO - === 表型转换统计|Phenotype Conversion Statistics ===
+2026-01-15 10:27:59.684 - INFO - 原始表型分布|Original phenotype distribution:
+2026-01-15 10:27:59.685 - INFO -   0: 3
+2026-01-15 10:27:59.685 - INFO -   1: 21
+2026-01-15 10:27:59.685 - INFO -   2: 21
+2026-01-15 10:27:59.685 - INFO -   3: 58
+2026-01-15 10:27:59.685 - INFO -   4: 149
+2026-01-15 10:27:59.685 - INFO -   5: 87
+2026-01-15 10:27:59.685 - INFO -   6: 29
+2026-01-15 10:27:59.685 - INFO - 转换后表型分布|Converted phenotype distribution:
+2026-01-15 10:27:59.685 - INFO -   0: 3
+2026-01-15 10:27:59.685 - INFO -   1: 21
+2026-01-15 10:27:59.685 - INFO -   2: 21
+2026-01-15 10:27:59.685 - INFO -   3: 58
+2026-01-15 10:27:59.685 - INFO -   4: 149
+2026-01-15 10:27:59.685 - INFO -   5: 87
+2026-01-15 10:27:59.685 - INFO -   6: 29
+2026-01-15 10:27:59.686 - INFO - 总样本数|Total samples: 368
+2026-01-15 10:27:59.686 - INFO - 原始有效样本数|Original valid samples: 368
+2026-01-15 10:27:59.686 - INFO - 转换后有效样本数|Converted valid samples: 368
+2026-01-15 10:27:59.687 - INFO - 转换详情已保存到 phenotype_conversion_debug.txt|Conversion details saved to phenotype_conversion_debug.txt
+2026-01-15 10:27:59.687 - INFO - ============================================================
+2026-01-15 10:27:59.687 - INFO - STEP 3: 转换VCF文件|Converting VCF file
+2026-01-15 10:27:59.687 - INFO - ============================================================
+2026-01-15 10:27:59.687 - INFO - 转换VCF文件为PLINK格式|Converting VCF file to PLINK format...
+2026-01-15 10:27:59.687 - INFO -  执行步骤|Executing step: VCF转换为PLINK格式|Converting VCF to PLINK format
+2026-01-15 10:27:59.687 - INFO -  命令|Command: plink --vcf input.vcf.gz --make-bed --out raw_data --allow-extra-chr --set-missing-var-ids @:# --keep-allele-order --threads 64
+2026-01-15 10:27:59.687 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:27:59.687 - INFO - ============================================================
+2026-01-15 10:27:59.687 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:27:59.687 - INFO - ============================================================
+2026-01-15 10:27:59.687 - INFO -   plink
+2026-01-15 10:27:59.687 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:27:59.687 - INFO -   --vcf input.vcf.gz
+2026-01-15 10:27:59.687 - INFO -      指定VCF格式输入文件|Specify VCF format input file
+2026-01-15 10:27:59.687 - INFO -   --make-bed
+2026-01-15 10:27:59.687 - INFO -      生成二进制PLINK文件格式(.bed/.bim/.fam)|Generate binary PLINK format files (.bed/.bim/.fam)
+2026-01-15 10:27:59.687 - INFO -   --out raw_data
+2026-01-15 10:27:59.687 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:27:59.687 - INFO -   --allow-extra-chr
+2026-01-15 10:27:59.688 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:27:59.688 - INFO -   --set-missing-var-ids @:#
+2026-01-15 10:27:59.688 - INFO -      为缺失变异ID设置格式(@:#表示chr:pos)|Set format for missing variant IDs (@:# means chr:pos)
+2026-01-15 10:27:59.688 - INFO -   --keep-allele-order
+2026-01-15 10:27:59.688 - INFO -      保持等位基因顺序不变|Keep allele order unchanged
+2026-01-15 10:27:59.688 - INFO -   --threads 64
+2026-01-15 10:27:59.688 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:27:59.688 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:27:59.688 - INFO - ============================================================
+2026-01-15 10:45:18.626 - INFO -  完成|Completed: VCF转换为PLINK格式|Converting VCF to PLINK format
+2026-01-15 10:45:22.135 - INFO - 染色体分布|Chromosome distribution: {18: np.int64(571674), 15: np.int64(472604), 1: np.int64(438208), 14: np.int64(408008), 6: np.int64(395295), 19: np.int64(385390), 20: np.int64(383157), 3: np.int64(375821), 10: np.int64(373815), 4: np.int64(361775)}
+2026-01-15 10:45:22.135 - INFO - 总SNP数|Total SNPs: 7291665
+2026-01-15 10:45:22.135 - INFO - VCF转换完成|VCF conversion completed
+2026-01-15 10:45:22.225 - INFO - ============================================================
+2026-01-15 10:45:22.225 - INFO - STEP 4: 合并表型信息|Merging phenotype information
+2026-01-15 10:45:22.225 - INFO - ============================================================
+2026-01-15 10:45:22.225 - INFO - 合并表型信息|Merging phenotype information...
+2026-01-15 10:45:22.225 - INFO -  执行步骤|Executing step: 合并表型信息|Merging phenotype information
+2026-01-15 10:45:22.225 - INFO -  命令|Command: plink --bfile raw_data --pheno phenotype_converted.txt --make-bed --allow-extra-chr --allow-no-sex --out data_with_pheno --threads 64
+2026-01-15 10:45:22.225 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:45:22.225 - INFO - ============================================================
+2026-01-15 10:45:22.225 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:45:22.225 - INFO - ============================================================
+2026-01-15 10:45:22.225 - INFO -   plink
+2026-01-15 10:45:22.225 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:45:22.225 - INFO -   --bfile raw_data
+2026-01-15 10:45:22.225 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:45:22.225 - INFO -   --pheno phenotype_converted.txt
+2026-01-15 10:45:22.225 - INFO -      指定表型文件|Specify phenotype file
+2026-01-15 10:45:22.225 - INFO -   --make-bed
+2026-01-15 10:45:22.225 - INFO -      生成二进制PLINK文件格式(.bed/.bim/.fam)|Generate binary PLINK format files (.bed/.bim/.fam)
+2026-01-15 10:45:22.225 - INFO -   --allow-extra-chr
+2026-01-15 10:45:22.225 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:45:22.225 - INFO -   --allow-no-sex
+2026-01-15 10:45:22.225 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:45:22.225 - INFO -   --out data_with_pheno
+2026-01-15 10:45:22.225 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:45:22.225 - INFO -   --threads 64
+2026-01-15 10:45:22.225 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:45:22.225 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:45:22.226 - INFO - ============================================================
+2026-01-15 10:45:29.023 - INFO -  完成|Completed: 合并表型信息|Merging phenotype information
+2026-01-15 10:45:29.025 - INFO - 合并后样本数|Samples after merge: 1491
+2026-01-15 10:45:29.026 - INFO - 表型分布|Phenotype distribution: {-9: np.int64(1128), 4: np.int64(149), 5: np.int64(83), 3: np.int64(58), 6: np.int64(29), 2: np.int64(21), 1: np.int64(20), 0: np.int64(3)}
+2026-01-15 10:45:29.026 - INFO - 表型合并成功|Phenotype merging successful
+2026-01-15 10:45:29.026 - INFO - ============================================================
+2026-01-15 10:45:29.026 - INFO - STEP 5: 数据质量控制|Data quality control
+2026-01-15 10:45:29.026 - INFO - ============================================================
+2026-01-15 10:45:29.026 - INFO - 开始数据质量控制|Starting data quality control...
+2026-01-15 10:45:29.026 - INFO - 计算基本统计|Calculating basic statistics...
+2026-01-15 10:45:29.026 - INFO -  执行步骤|Executing step: 计算基本统计|Calculating basic statistics
+2026-01-15 10:45:29.026 - INFO -  命令|Command: plink --bfile data_with_pheno --freq --missing --hardy --allow-extra-chr --allow-no-sex --out qc_stats --threads 64
+2026-01-15 10:45:29.026 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:45:29.026 - INFO - ============================================================
+2026-01-15 10:45:29.026 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:45:29.026 - INFO - ============================================================
+2026-01-15 10:45:29.026 - INFO -   plink
+2026-01-15 10:45:29.026 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:45:29.026 - INFO -   --bfile data_with_pheno
+2026-01-15 10:45:29.026 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:45:29.026 - INFO -   --freq
+2026-01-15 10:45:29.026 - INFO -      计算等位基因频率|Calculate allele frequencies
+2026-01-15 10:45:29.026 - INFO -   --missing
+2026-01-15 10:45:29.027 - INFO -      计算缺失率统计|Calculate missing rate statistics
+2026-01-15 10:45:29.027 - INFO -   --hardy
+2026-01-15 10:45:29.027 - INFO -      进行Hardy-Weinberg平衡检验|Perform Hardy-Weinberg equilibrium test
+2026-01-15 10:45:29.027 - INFO -   --allow-extra-chr
+2026-01-15 10:45:29.027 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:45:29.027 - INFO -   --allow-no-sex
+2026-01-15 10:45:29.027 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:45:29.027 - INFO -   --out qc_stats
+2026-01-15 10:45:29.027 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:45:29.027 - INFO -   --threads 64
+2026-01-15 10:45:29.027 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:45:29.027 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:45:29.027 - INFO - ============================================================
+2026-01-15 10:45:39.876 - INFO -  完成|Completed: 计算基本统计|Calculating basic statistics
+2026-01-15 10:45:39.876 - INFO - 应用质量控制过滤|Applying quality control filters...
+2026-01-15 10:45:39.876 - INFO - 质控参数|QC parameters: mind=None, geno=0.05, maf=0.05, hwe=None
+2026-01-15 10:45:39.876 - INFO -  执行步骤|Executing step: 质量控制过滤|Quality control filtering
+2026-01-15 10:45:39.876 - INFO -  命令|Command: plink --bfile data_with_pheno --make-bed --allow-extra-chr --allow-no-sex --out data_qc1 --geno 0.05 --maf 0.05 --threads 64
+2026-01-15 10:45:39.876 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:45:39.877 - INFO - ============================================================
+2026-01-15 10:45:39.877 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:45:39.877 - INFO - ============================================================
+2026-01-15 10:45:39.877 - INFO -   plink
+2026-01-15 10:45:39.877 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:45:39.877 - INFO -   --bfile data_with_pheno
+2026-01-15 10:45:39.877 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:45:39.877 - INFO -   --make-bed
+2026-01-15 10:45:39.877 - INFO -      生成二进制PLINK文件格式(.bed/.bim/.fam)|Generate binary PLINK format files (.bed/.bim/.fam)
+2026-01-15 10:45:39.877 - INFO -   --allow-extra-chr
+2026-01-15 10:45:39.877 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:45:39.877 - INFO -   --allow-no-sex
+2026-01-15 10:45:39.877 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:45:39.877 - INFO -   --out data_qc1
+2026-01-15 10:45:39.877 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:45:39.877 - INFO -   --geno 0.05
+2026-01-15 10:45:39.877 - INFO -      移除SNP缺失率超过阈值的位点|Remove SNPs with missing rate above threshold
+2026-01-15 10:45:39.877 - INFO -         移除SNP缺失率>5.0%的位点|Remove SNPs with missing rate > 5.0%
+2026-01-15 10:45:39.877 - INFO -   --maf 0.05
+2026-01-15 10:45:39.877 - INFO -      移除次要等位基因频率低于阈值的SNP|Remove SNPs with minor allele frequency below threshold
+2026-01-15 10:45:39.877 - INFO -         移除次要等位基因频率<5.0%的SNP|Remove SNPs with MAF < 5.0%
+2026-01-15 10:45:39.877 - INFO -   --threads 64
+2026-01-15 10:45:39.877 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:45:39.877 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:45:39.877 - INFO - ============================================================
+2026-01-15 10:45:45.404 - INFO -  完成|Completed: 质量控制过滤|Quality control filtering
+2026-01-15 10:45:51.410 - INFO - 数据质量控制完成|Data quality control completed
+2026-01-15 10:45:51.410 - INFO - ============================================================
+2026-01-15 10:45:51.410 - INFO - STEP 6: 群体结构分析|Population structure analysis
+2026-01-15 10:45:51.410 - INFO - ============================================================
+2026-01-15 10:45:51.410 - INFO - 开始群体结构分析|Starting population structure analysis...
+2026-01-15 10:45:51.410 - INFO - 进行LD剪枝|Performing LD pruning...
+2026-01-15 10:45:51.411 - INFO -  执行步骤|Executing step: LD剪枝|LD pruning
+2026-01-15 10:45:51.411 - INFO -  命令|Command: plink --bfile data_qc1 --indep-pairwise 50 5 0.2 --allow-extra-chr --allow-no-sex --out pruned_snps --threads 64
+2026-01-15 10:45:51.411 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:45:51.411 - INFO - ============================================================
+2026-01-15 10:45:51.411 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:45:51.411 - INFO - ============================================================
+2026-01-15 10:45:51.411 - INFO -   plink
+2026-01-15 10:45:51.411 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:45:51.411 - INFO -   --bfile data_qc1
+2026-01-15 10:45:51.411 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:45:51.411 - INFO -   --indep-pairwise 50
+2026-01-15 10:45:51.411 - INFO -      基于成对LD进行SNP剪枝|Perform SNP pruning based on pairwise LD
+2026-01-15 10:45:51.411 - INFO -         窗口大小|Window size: 50kb
+2026-01-15 10:45:51.411 - INFO -         步长|Step size: 5 SNPs
+2026-01-15 10:45:51.411 - INFO -         r²阈值|r² threshold: 0.2
+2026-01-15 10:45:51.411 - INFO -   --allow-extra-chr
+2026-01-15 10:45:51.411 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:45:51.411 - INFO -   --allow-no-sex
+2026-01-15 10:45:51.411 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:45:51.411 - INFO -   --out pruned_snps
+2026-01-15 10:45:51.411 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:45:51.411 - INFO -   --threads 64
+2026-01-15 10:45:51.411 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:45:51.411 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:45:51.411 - INFO - ============================================================
+2026-01-15 10:45:59.743 - INFO -  完成|Completed: LD剪枝|LD pruning
+2026-01-15 10:45:59.766 - INFO - LD剪枝后SNP数|SNPs after LD pruning: 438155
+2026-01-15 10:45:59.766 - INFO - 进行主成分分析|Performing principal component analysis...
+2026-01-15 10:45:59.766 - INFO -  执行步骤|Executing step: 主成分分析|Principal component analysis
+2026-01-15 10:45:59.766 - INFO -  命令|Command: plink --bfile data_qc1 --extract pruned_snps.prune.in --pca 10 --allow-extra-chr --allow-no-sex --out pca_results --threads 64
+2026-01-15 10:45:59.766 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:45:59.766 - INFO - ============================================================
+2026-01-15 10:45:59.766 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:45:59.766 - INFO - ============================================================
+2026-01-15 10:45:59.766 - INFO -   plink
+2026-01-15 10:45:59.766 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:45:59.766 - INFO -   --bfile data_qc1
+2026-01-15 10:45:59.766 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:45:59.766 - INFO -   --extract pruned_snps.prune.in
+2026-01-15 10:45:59.766 - INFO -      仅保留指定列表中的SNP|Keep only SNPs in specified list
+2026-01-15 10:45:59.766 - INFO -   --pca 10
+2026-01-15 10:45:59.766 - INFO -      进行主成分分析，指定输出的主成分数量|Perform PCA, specify number of components to output
+2026-01-15 10:45:59.766 - INFO -         将计算前10个主成分|Will compute top 10 principal components
+2026-01-15 10:45:59.767 - INFO -   --allow-extra-chr
+2026-01-15 10:45:59.767 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:45:59.767 - INFO -   --allow-no-sex
+2026-01-15 10:45:59.767 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:45:59.767 - INFO -   --out pca_results
+2026-01-15 10:45:59.767 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:45:59.767 - INFO -   --threads 64
+2026-01-15 10:45:59.767 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:45:59.767 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:45:59.767 - INFO - ============================================================
+2026-01-15 10:46:06.676 - INFO -  完成|Completed: 主成分分析|Principal component analysis
+2026-01-15 10:46:06.676 - INFO - 为主成分文件添加header|Adding header to PCA file...
+2026-01-15 10:46:06.696 - INFO - 主成分分析完成|Principal component analysis completed
+2026-01-15 10:46:06.697 - INFO - 生成主成分数|Generated PCs: 10
+2026-01-15 10:46:06.697 - INFO - 样本数|Number of samples: 1491
+2026-01-15 10:46:06.697 - INFO - ============================================================
+2026-01-15 10:46:06.697 - INFO - STEP 7: 关联分析|Association analysis
+2026-01-15 10:46:06.697 - INFO - ============================================================
+2026-01-15 10:46:06.697 - INFO - 开始关联分析|Starting association analysis...
+2026-01-15 10:46:06.697 - INFO - 表型类型|Trait type: quantitative
+2026-01-15 10:46:06.697 - INFO - 遗传模型|Genetic model: all
+2026-01-15 10:46:06.697 - INFO - 数量性状关联分析（线性回归）|Quantitative trait association analysis (linear regression)
+2026-01-15 10:46:06.697 - INFO - 运行所有遗传模型分析|Running all genetic models analysis...
+2026-01-15 10:46:06.697 - INFO - 基本关联分析（所有模型，无协变量）|Basic association analysis (all models, no covariates)...
+2026-01-15 10:46:06.697 - INFO -   运行additive模型|Running additive model...
+2026-01-15 10:46:06.697 - INFO -  执行步骤|Executing step: 基本关联分析（additive模型）|Basic association analysis (additive model)
+2026-01-15 10:46:06.697 - INFO -  命令|Command: plink --bfile data_qc1 --linear --ci 0.95 --allow-extra-chr --allow-no-sex --out gwas_basic_additive --threads 64
+2026-01-15 10:46:06.697 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:46:06.697 - INFO - ============================================================
+2026-01-15 10:46:06.697 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:46:06.697 - INFO - ============================================================
+2026-01-15 10:46:06.697 - INFO -   plink
+2026-01-15 10:46:06.697 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:46:06.697 - INFO -   --bfile data_qc1
+2026-01-15 10:46:06.697 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:46:06.697 - INFO -   --linear
+2026-01-15 10:46:06.697 - INFO -      进行线性回归关联分析（数量性状）|Perform linear regression association analysis (quantitative traits)
+2026-01-15 10:46:06.697 - INFO -   --ci 0.95
+2026-01-15 10:46:06.697 - INFO -      计算置信区间（指定置信水平）|Calculate confidence intervals (specify confidence level)
+2026-01-15 10:46:06.697 - INFO -         计算95.0%置信区间|Calculate 95.0% confidence intervals
+2026-01-15 10:46:06.697 - INFO -   --allow-extra-chr
+2026-01-15 10:46:06.697 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:46:06.697 - INFO -   --allow-no-sex
+2026-01-15 10:46:06.697 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:46:06.697 - INFO -   --out gwas_basic_additive
+2026-01-15 10:46:06.697 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:46:06.697 - INFO -   --threads 64
+2026-01-15 10:46:06.697 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:46:06.697 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:46:06.697 - INFO - ============================================================
+2026-01-15 10:46:53.572 - INFO -  完成|Completed: 基本关联分析（additive模型）|Basic association analysis (additive model)
+2026-01-15 10:46:53.572 - INFO -   运行dominant模型|Running dominant model...
+2026-01-15 10:46:53.572 - INFO -  执行步骤|Executing step: 基本关联分析（dominant模型）|Basic association analysis (dominant model)
+2026-01-15 10:46:53.572 - INFO -  命令|Command: plink --bfile data_qc1 --linear --ci 0.95 --allow-extra-chr --allow-no-sex --out gwas_basic_dominant --dominant --threads 64
+2026-01-15 10:46:53.572 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:46:53.572 - INFO - ============================================================
+2026-01-15 10:46:53.572 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:46:53.572 - INFO - ============================================================
+2026-01-15 10:46:53.572 - INFO -   plink
+2026-01-15 10:46:53.572 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:46:53.572 - INFO -   --bfile data_qc1
+2026-01-15 10:46:53.572 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:46:53.572 - INFO -   --linear
+2026-01-15 10:46:53.572 - INFO -      进行线性回归关联分析（数量性状）|Perform linear regression association analysis (quantitative traits)
+2026-01-15 10:46:53.572 - INFO -   --ci 0.95
+2026-01-15 10:46:53.572 - INFO -      计算置信区间（指定置信水平）|Calculate confidence intervals (specify confidence level)
+2026-01-15 10:46:53.572 - INFO -         计算95.0%置信区间|Calculate 95.0% confidence intervals
+2026-01-15 10:46:53.572 - INFO -   --allow-extra-chr
+2026-01-15 10:46:53.572 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:46:53.572 - INFO -   --allow-no-sex
+2026-01-15 10:46:53.572 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:46:53.572 - INFO -   --out gwas_basic_dominant
+2026-01-15 10:46:53.572 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:46:53.572 - INFO -   --dominant
+2026-01-15 10:46:53.572 - INFO -      使用显性遗传模型|Use dominant genetic model
+2026-01-15 10:46:53.572 - INFO -   --threads 64
+2026-01-15 10:46:53.573 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:46:53.573 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:46:53.573 - INFO - ============================================================
+2026-01-15 10:47:41.798 - INFO -  完成|Completed: 基本关联分析（dominant模型）|Basic association analysis (dominant model)
+2026-01-15 10:47:41.798 - INFO -   运行recessive模型|Running recessive model...
+2026-01-15 10:47:41.798 - INFO -  执行步骤|Executing step: 基本关联分析（recessive模型）|Basic association analysis (recessive model)
+2026-01-15 10:47:41.798 - INFO -  命令|Command: plink --bfile data_qc1 --linear --ci 0.95 --allow-extra-chr --allow-no-sex --out gwas_basic_recessive --recessive --threads 64
+2026-01-15 10:47:41.798 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:47:41.798 - INFO - ============================================================
+2026-01-15 10:47:41.798 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:47:41.798 - INFO - ============================================================
+2026-01-15 10:47:41.798 - INFO -   plink
+2026-01-15 10:47:41.798 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:47:41.798 - INFO -   --bfile data_qc1
+2026-01-15 10:47:41.798 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:47:41.798 - INFO -   --linear
+2026-01-15 10:47:41.798 - INFO -      进行线性回归关联分析（数量性状）|Perform linear regression association analysis (quantitative traits)
+2026-01-15 10:47:41.798 - INFO -   --ci 0.95
+2026-01-15 10:47:41.798 - INFO -      计算置信区间（指定置信水平）|Calculate confidence intervals (specify confidence level)
+2026-01-15 10:47:41.798 - INFO -         计算95.0%置信区间|Calculate 95.0% confidence intervals
+2026-01-15 10:47:41.798 - INFO -   --allow-extra-chr
+2026-01-15 10:47:41.798 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:47:41.798 - INFO -   --allow-no-sex
+2026-01-15 10:47:41.798 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:47:41.798 - INFO -   --out gwas_basic_recessive
+2026-01-15 10:47:41.798 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:47:41.798 - INFO -   --recessive
+2026-01-15 10:47:41.799 - INFO -      使用隐性遗传模型|Use recessive genetic model
+2026-01-15 10:47:41.799 - INFO -   --threads 64
+2026-01-15 10:47:41.799 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:47:41.799 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:47:41.799 - INFO - ============================================================
+2026-01-15 10:48:27.988 - INFO -  完成|Completed: 基本关联分析（recessive模型）|Basic association analysis (recessive model)
+2026-01-15 10:48:27.988 - INFO - 主成分校正关联分析（所有模型）|PCA-adjusted association analysis (all models)...
+2026-01-15 10:48:27.988 - INFO -   运行additive模型（PCA校正）|Running additive model (PCA-adjusted)...
+2026-01-15 10:48:27.988 - INFO -  执行步骤|Executing step: 主成分校正关联分析（additive模型）|PCA-adjusted association analysis (additive model)
+2026-01-15 10:48:27.988 - INFO -  命令|Command: plink --bfile data_qc1 --linear --covar pca_with_header.txt --covar-name PC1,PC2,PC3,PC4,PC5 --ci 0.95 --allow-extra-chr --allow-no-sex --out gwas_adjusted_additive --threads 64
+2026-01-15 10:48:27.989 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:48:27.989 - INFO - ============================================================
+2026-01-15 10:48:27.989 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:48:27.989 - INFO - ============================================================
+2026-01-15 10:48:27.989 - INFO -   plink
+2026-01-15 10:48:27.989 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:48:27.989 - INFO -   --bfile data_qc1
+2026-01-15 10:48:27.989 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:48:27.989 - INFO -   --linear
+2026-01-15 10:48:27.989 - INFO -      进行线性回归关联分析（数量性状）|Perform linear regression association analysis (quantitative traits)
+2026-01-15 10:48:27.989 - INFO -   --covar pca_with_header.txt
+2026-01-15 10:48:27.989 - INFO -      指定协变量文件|Specify covariate file
+2026-01-15 10:48:27.989 - INFO -   --covar-name PC1,PC2,PC3,PC4,PC5
+2026-01-15 10:48:27.989 - INFO -      指定要使用的协变量名称|Specify covariate names to use
+2026-01-15 10:48:27.989 - INFO -   --ci 0.95
+2026-01-15 10:48:27.989 - INFO -      计算置信区间（指定置信水平）|Calculate confidence intervals (specify confidence level)
+2026-01-15 10:48:27.989 - INFO -         计算95.0%置信区间|Calculate 95.0% confidence intervals
+2026-01-15 10:48:27.989 - INFO -   --allow-extra-chr
+2026-01-15 10:48:27.989 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:48:27.989 - INFO -   --allow-no-sex
+2026-01-15 10:48:27.989 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:48:27.989 - INFO -   --out gwas_adjusted_additive
+2026-01-15 10:48:27.989 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:48:27.989 - INFO -   --threads 64
+2026-01-15 10:48:27.989 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:48:27.989 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:48:27.989 - INFO - ============================================================
+2026-01-15 10:51:02.332 - INFO -  完成|Completed: 主成分校正关联分析（additive模型）|PCA-adjusted association analysis (additive model)
+2026-01-15 10:51:02.332 - INFO -   运行dominant模型（PCA校正）|Running dominant model (PCA-adjusted)...
+2026-01-15 10:51:02.332 - INFO -  执行步骤|Executing step: 主成分校正关联分析（dominant模型）|PCA-adjusted association analysis (dominant model)
+2026-01-15 10:51:02.332 - INFO -  命令|Command: plink --bfile data_qc1 --linear --covar pca_with_header.txt --covar-name PC1,PC2,PC3,PC4,PC5 --ci 0.95 --allow-extra-chr --allow-no-sex --out gwas_adjusted_dominant --dominant --threads 64
+2026-01-15 10:51:02.332 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:51:02.332 - INFO - ============================================================
+2026-01-15 10:51:02.332 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:51:02.332 - INFO - ============================================================
+2026-01-15 10:51:02.332 - INFO -   plink
+2026-01-15 10:51:02.332 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:51:02.332 - INFO -   --bfile data_qc1
+2026-01-15 10:51:02.332 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:51:02.332 - INFO -   --linear
+2026-01-15 10:51:02.332 - INFO -      进行线性回归关联分析（数量性状）|Perform linear regression association analysis (quantitative traits)
+2026-01-15 10:51:02.332 - INFO -   --covar pca_with_header.txt
+2026-01-15 10:51:02.332 - INFO -      指定协变量文件|Specify covariate file
+2026-01-15 10:51:02.332 - INFO -   --covar-name PC1,PC2,PC3,PC4,PC5
+2026-01-15 10:51:02.332 - INFO -      指定要使用的协变量名称|Specify covariate names to use
+2026-01-15 10:51:02.332 - INFO -   --ci 0.95
+2026-01-15 10:51:02.332 - INFO -      计算置信区间（指定置信水平）|Calculate confidence intervals (specify confidence level)
+2026-01-15 10:51:02.332 - INFO -         计算95.0%置信区间|Calculate 95.0% confidence intervals
+2026-01-15 10:51:02.332 - INFO -   --allow-extra-chr
+2026-01-15 10:51:02.332 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:51:02.332 - INFO -   --allow-no-sex
+2026-01-15 10:51:02.332 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:51:02.332 - INFO -   --out gwas_adjusted_dominant
+2026-01-15 10:51:02.332 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:51:02.333 - INFO -   --dominant
+2026-01-15 10:51:02.333 - INFO -      使用显性遗传模型|Use dominant genetic model
+2026-01-15 10:51:02.333 - INFO -   --threads 64
+2026-01-15 10:51:02.333 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:51:02.333 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:51:02.333 - INFO - ============================================================
+2026-01-15 10:53:40.312 - INFO -  完成|Completed: 主成分校正关联分析（dominant模型）|PCA-adjusted association analysis (dominant model)
+2026-01-15 10:53:40.312 - INFO -   运行recessive模型（PCA校正）|Running recessive model (PCA-adjusted)...
+2026-01-15 10:53:40.312 - INFO -  执行步骤|Executing step: 主成分校正关联分析（recessive模型）|PCA-adjusted association analysis (recessive model)
+2026-01-15 10:53:40.312 - INFO -  命令|Command: plink --bfile data_qc1 --linear --covar pca_with_header.txt --covar-name PC1,PC2,PC3,PC4,PC5 --ci 0.95 --allow-extra-chr --allow-no-sex --out gwas_adjusted_recessive --recessive --threads 64
+2026-01-15 10:53:40.312 - INFO -  工作目录|Working directory: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/20.第一批369个有表型的样品GWAS-分级作为表型/01.plink
+2026-01-15 10:53:40.312 - INFO - ============================================================
+2026-01-15 10:53:40.312 - INFO -  命令参数详解|Command Parameter Explanation
+2026-01-15 10:53:40.312 - INFO - ============================================================
+2026-01-15 10:53:40.312 - INFO -   plink
+2026-01-15 10:53:40.312 - INFO -      PLINK v1.9 - 全基因组关联分析工具|PLINK v1.9 - Genome-wide association analysis tool
+2026-01-15 10:53:40.312 - INFO -   --bfile data_qc1
+2026-01-15 10:53:40.312 - INFO -      指定二进制PLINK文件集合的前缀名|Specify binary PLINK fileset prefix
+2026-01-15 10:53:40.312 - INFO -   --linear
+2026-01-15 10:53:40.312 - INFO -      进行线性回归关联分析（数量性状）|Perform linear regression association analysis (quantitative traits)
+2026-01-15 10:53:40.312 - INFO -   --covar pca_with_header.txt
+2026-01-15 10:53:40.312 - INFO -      指定协变量文件|Specify covariate file
+2026-01-15 10:53:40.312 - INFO -   --covar-name PC1,PC2,PC3,PC4,PC5
+2026-01-15 10:53:40.312 - INFO -      指定要使用的协变量名称|Specify covariate names to use
+2026-01-15 10:53:40.312 - INFO -   --ci 0.95
+2026-01-15 10:53:40.312 - INFO -      计算置信区间（指定置信水平）|Calculate confidence intervals (specify confidence level)
+2026-01-15 10:53:40.312 - INFO -         计算95.0%置信区间|Calculate 95.0% confidence intervals
+2026-01-15 10:53:40.312 - INFO -   --allow-extra-chr
+2026-01-15 10:53:40.312 - INFO -      允许非标准染色体编号|Allow non-standard chromosome codes
+2026-01-15 10:53:40.312 - INFO -   --allow-no-sex
+2026-01-15 10:53:40.312 - INFO -      允许性别信息缺失|Allow missing sex information
+2026-01-15 10:53:40.312 - INFO -   --out gwas_adjusted_recessive
+2026-01-15 10:53:40.312 - INFO -      指定输出文件前缀|Specify output file prefix
+2026-01-15 10:53:40.312 - INFO -   --recessive
+2026-01-15 10:53:40.312 - INFO -      使用隐性遗传模型|Use recessive genetic model
+2026-01-15 10:53:40.312 - INFO -   --threads 64
+2026-01-15 10:53:40.312 - INFO -      指定使用的CPU线程数|Specify number of CPU threads to use
+2026-01-15 10:53:40.312 - INFO -        使用64个CPU线程并行计算|Use 64 CPU threads for parallel computing
+2026-01-15 10:53:40.312 - INFO - ============================================================
+2026-01-15 10:56:13.703 - INFO -  完成|Completed: 主成分校正关联分析（recessive模型）|PCA-adjusted association analysis (recessive model)
+2026-01-15 10:56:13.704 - INFO - 主成分校正分析（所有模型）完成|PCA-adjusted analysis (all models) completed
+2026-01-15 10:56:13.704 - INFO - ============================================================
+2026-01-15 10:56:13.704 - INFO - STEP 8: 结果处理|Results processing
+2026-01-15 10:56:13.704 - INFO - ============================================================
+2026-01-15 10:56:13.704 - INFO -  处理分析结果|Processing analysis results...
+2026-01-15 10:56:13.704 - INFO -  主结果文件前缀|Main result file prefix: gwas_adjusted
+2026-01-15 10:56:13.704 - INFO -  处理所有遗传模型结果|Processing all genetic models results...
+2026-01-15 10:56:13.704 - INFO -  处理数量性状所有遗传模型结果|Processing all genetic models results for quantitative traits...
+2026-01-15 10:56:46.382 - INFO -  成功读取additive模型结果文件|Successfully read additive model results: (30389748, 12)
+2026-01-15 10:56:49.455 - INFO -  数据清理：移除了9025个无效记录|Data cleaning: removed 9025 invalid records
+2026-01-15 10:59:19.036 - INFO -  对additive模型应用显著性校正: all|Applying significance corrections for additive model: all
+2026-01-15 10:59:19.062 - INFO -  additive模型Bonferroni校正阈值: 1.65e-09|Bonferroni threshold: 1.65e-09
+2026-01-15 10:59:19.062 - INFO -  additive模型Bonferroni显著位点数: 1|Bonferroni significant loci: 1
+2026-01-15 10:59:19.087 - INFO -  additive模型提示性关联阈值: 1.00e-05|Suggestive threshold: 1.00e-05
+2026-01-15 10:59:19.087 - INFO -  additive模型提示性关联位点数: 677|Suggestive loci: 677
+2026-01-15 10:59:25.875 - INFO -  additive模型FDR校正q值阈值: 0.05|FDR q-value threshold: 0.05
+2026-01-15 10:59:25.875 - INFO -  additive模型FDR显著位点数: 1|FDR significant loci: 1
+2026-01-15 11:02:49.180 - INFO -  additive模型前1个FDR显著位点|Top 1 FDR significant loci:
+2026-01-15 11:02:49.181 - INFO -     Chr18:13151214: P=7.32e-10, q-value=2.22e-02, CHR=18, BP=13151214
+2026-01-15 11:02:49.357 - INFO -  Additive模型结果: 30380723 SNPs
+2026-01-15 11:03:22.035 - INFO -  成功读取dominant模型结果文件|Successfully read dominant model results: (30389748, 12)
+2026-01-15 11:03:25.100 - INFO -  数据清理：移除了10261个无效记录|Data cleaning: removed 10261 invalid records
+2026-01-15 11:05:52.541 - INFO -  对dominant模型应用显著性校正: all|Applying significance corrections for dominant model: all
+2026-01-15 11:05:52.567 - INFO -  dominant模型Bonferroni校正阈值: 1.65e-09|Bonferroni threshold: 1.65e-09
+2026-01-15 11:05:52.568 - INFO -  dominant模型Bonferroni显著位点数: 0|Bonferroni significant loci: 0
+2026-01-15 11:05:52.610 - INFO -  dominant模型提示性关联阈值: 1.00e-05|Suggestive threshold: 1.00e-05
+2026-01-15 11:05:52.610 - INFO -  dominant模型提示性关联位点数: 594|Suggestive loci: 594
+2026-01-15 11:05:59.406 - INFO -  dominant模型FDR校正q值阈值: 0.05|FDR q-value threshold: 0.05
+2026-01-15 11:05:59.407 - INFO -  dominant模型FDR显著位点数: 0|FDR significant loci: 0
+2026-01-15 11:09:22.068 - INFO -  Dominant模型结果: 30379487 SNPs
+2026-01-15 11:09:54.451 - INFO -  成功读取recessive模型结果文件|Successfully read recessive model results: (30389748, 12)
+2026-01-15 11:09:57.655 - INFO -  数据清理：移除了1874136个无效记录|Data cleaning: removed 1874136 invalid records
+2026-01-15 11:12:19.220 - INFO -  对recessive模型应用显著性校正: all|Applying significance corrections for recessive model: all
+2026-01-15 11:12:19.246 - INFO -  recessive模型Bonferroni校正阈值: 1.75e-09|Bonferroni threshold: 1.75e-09
+2026-01-15 11:12:19.246 - INFO -  recessive模型Bonferroni显著位点数: 3|Bonferroni significant loci: 3
+2026-01-15 11:12:19.271 - INFO -  recessive模型提示性关联阈值: 1.00e-05|Suggestive threshold: 1.00e-05
+2026-01-15 11:12:19.271 - INFO -  recessive模型提示性关联位点数: 853|Suggestive loci: 853
+2026-01-15 11:12:24.966 - INFO -  recessive模型FDR校正q值阈值: 0.05|FDR q-value threshold: 0.05
+2026-01-15 11:12:24.967 - INFO -  recessive模型FDR显著位点数: 4|FDR significant loci: 4
+2026-01-15 11:15:40.171 - INFO -  recessive模型前4个FDR显著位点|Top 4 FDR significant loci:
+2026-01-15 11:15:40.171 - INFO -     Chr18:13151214: P=1.57e-10, q-value=4.48e-03, CHR=18, BP=13151214
+2026-01-15 11:15:40.171 - INFO -     Chr18:13105666: P=1.27e-09, q-value=1.27e-02, CHR=18, BP=13105666
+2026-01-15 11:15:40.171 - INFO -     Chr18:13107263: P=1.42e-09, q-value=1.27e-02, CHR=18, BP=13107263
+2026-01-15 11:15:40.172 - INFO -     Chr18:13108343: P=1.79e-09, q-value=1.27e-02, CHR=18, BP=13108343
+2026-01-15 11:15:40.344 - INFO -  Recessive模型结果: 28515612 SNPs
+2026-01-15 11:15:40.344 - INFO -  生成模型比较报告|Generating model comparison report...
+2026-01-15 11:15:46.567 - INFO -  模型比较报告已保存|Model comparison report saved: model_comparison_report.txt
+2026-01-15 11:15:46.567 - INFO - ============================================================
+2026-01-15 11:15:46.567 - INFO - STEP 9: 生成报告|Generating reports
+2026-01-15 11:15:46.568 - INFO - ============================================================
+2026-01-15 11:15:48.157 - INFO -  生成总结报告|Generating summary report...
+2026-01-15 11:15:48.568 - INFO -  GWAS总结报告已保存|GWAS summary report saved: gwas_summary_report.txt
+2026-01-15 11:15:48.568 - INFO - ============================================================
+2026-01-15 11:15:48.568 - INFO - STEP 10: 生成可视化|Generating visualizations
+2026-01-15 11:15:48.568 - INFO - ============================================================
+2026-01-15 11:15:48.568 - INFO -  生成可视化图表|Generating visualization plots...
+2026-01-15 11:15:48.568 - INFO - --- 正在为 additive 模型生成图表|Generating plots for additive model ---
+2026-01-15 11:18:36.386 - INFO -  Manhattan图已保存|Manhattan plot saved: manhattan_plot_additive.png
+2026-01-15 11:23:54.814 - INFO -  QQ图已保存|QQ plot saved: qq_plot_additive.png (λ = 1.6941)
+2026-01-15 11:23:55.005 - INFO - --- 正在为 dominant 模型生成图表|Generating plots for dominant model ---
+2026-01-15 11:26:44.304 - INFO -  Manhattan图已保存|Manhattan plot saved: manhattan_plot_dominant.png
+2026-01-15 11:32:00.366 - INFO -  QQ图已保存|QQ plot saved: qq_plot_dominant.png (λ = 1.6955)
+2026-01-15 11:32:00.559 - INFO - --- 正在为 recessive 模型生成图表|Generating plots for recessive model ---
+2026-01-15 11:34:36.700 - INFO -  Manhattan图已保存|Manhattan plot saved: manhattan_plot_recessive.png
+2026-01-15 11:39:33.216 - INFO -  QQ图已保存|QQ plot saved: qq_plot_recessive.png (λ = 1.6891)
+2026-01-15 11:39:33.401 - INFO -  生成模型比较图表|Generating model comparison plots...
+2026-01-15 11:39:37.876 - INFO -  P值比较图已保存|P-value comparison plot saved: model_comparison_p_values.png
+2026-01-15 11:40:13.740 - INFO -  效应大小比较图已保存|Effect size comparison plot saved: model_comparison_effect_sizes.png
+2026-01-15 11:40:13.745 - INFO - ============================================================
+2026-01-15 11:40:13.745 - INFO - PLINK GWAS分析完成!|PLINK GWAS analysis completed!
+2026-01-15 11:40:13.745 - INFO - ============================================================
+============================================================
+PLINK GWAS 分析结果摘要|Analysis Results Summary
+============================================================
+遗传模型|Genetic model: all
+表型类型|Trait type: quantitative
+质控后样本数|Samples after QC: 1491
+质控后SNP数|SNPs after QC: 5064958
+模型结果|Model Results:
+  ADDITIVE: 最小P值|Min P-value = 7.32e-10
+            Bonferroni显著位点|Bonferroni significant: 1
+            提示性关联位点|Suggestive loci: 677
+  DOMINANT: 最小P值|Min P-value = 3.65e-09
+            Bonferroni显著位点|Bonferroni significant: 0
+            提示性关联位点|Suggestive loci: 594
+  RECESSIVE: 最小P值|Min P-value = 1.57e-10
+            Bonferroni显著位点|Bonferroni significant: 3
+            提示性关联位点|Suggestive loci: 853
+
+主要输出文件|Main output files:
+  - gwas_summary_report.txt: 总结报告|Summary report
+  - model_comparison_report.txt: 模型比较报告|Model comparison report
+  - gwas_results_*.txt: 详细关联分析结果|Detailed association results
+============================================================
+分析成功完成!|Analysis completed successfully!
+结果保存在: 01.plink|Results saved in: 01.plink

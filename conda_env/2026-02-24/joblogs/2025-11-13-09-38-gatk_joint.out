@@ -1,0 +1,83 @@
+2025-11-13 09:39:02,178 - INFO - 🚀 开始GATK Joint Genotyping流程 | Starting GATK Joint Genotyping pipeline
+2025-11-13 09:39:02,178 - INFO - 📂 输入目录 | Input directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/02.mapping/vcf
+2025-11-13 09:39:02,178 - INFO - 🧬 参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa
+2025-11-13 09:39:02,178 - INFO - 📁 输出目录 | Output directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-13 09:39:02,178 - INFO - 🔍 检查依赖软件 | Checking dependencies
+2025-11-13 09:39:04,436 - INFO - ✅ GATK 可用 | available
+2025-11-13 09:39:04,930 - INFO - ✅ BCFtools 可用 | available
+2025-11-13 09:39:04,931 - INFO - ================================================================================
+2025-11-13 09:39:04,931 - INFO - 步骤1: 检测输入文件类型 | Step 1: Detect input file type
+2025-11-13 09:39:04,931 - INFO - ================================================================================
+2025-11-13 09:39:04,931 - INFO - 🔎 检测输入文件类型 | Detecting input file type
+2025-11-13 09:39:04,946 - INFO - ✅ 检测到GVCF文件 | Detected GVCF files: 419 files
+2025-11-13 09:39:04,946 - INFO - 📊 共找到 419 个文件 | Total 419 files found
+2025-11-13 09:39:04,946 - INFO - 📝 创建样本映射文件 | Creating sample map file
+2025-11-13 09:39:04,948 - INFO - ✅ 样本映射文件已创建 | Sample map created: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/sample_map.txt
+2025-11-13 09:39:04,948 - INFO - ================================================================================
+2025-11-13 09:39:04,948 - INFO - 步骤2: GenomicsDB导入 | Step 2: GenomicsDB import
+2025-11-13 09:39:04,948 - INFO - ================================================================================
+2025-11-13 09:39:04,948 - INFO - 📦 开始GenomicsDB导入 | Starting GenomicsDB import
+2025-11-13 09:39:04,948 - INFO - ⚠️ 未指定区间，自动从参考基因组提取 | No intervals specified, extracting from reference
+2025-11-13 09:39:04,948 - INFO - 📍 参考基因组 | Reference: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa
+2025-11-13 09:39:04,949 - INFO - 📍 字典文件路径 | Dict path: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.dict
+2025-11-13 09:39:04,949 - INFO - 📍 索引文件路径 | Fai path: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa.fai
+2025-11-13 09:39:04,949 - INFO - ✅ 使用字典文件 | Using dict file: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.dict
+2025-11-13 09:39:04,949 - INFO - ✅ 生成区间文件 | Generated intervals: 12 chromosomes
+2025-11-13 09:39:04,949 - INFO - 📄 区间文件位置 | Intervals file: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/intervals.list
+2025-11-13 09:39:04,949 - INFO - 🚀 执行步骤 | Executing step: GenomicsDB导入 | GenomicsDB import
+2025-11-13 09:39:04,949 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenomicsDBImport --genomicsdb-workspace-path /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/genomicsdb_workspace --sample-name-map /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/sample_map.txt --reader-threads 88 -L /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/intervals.list
+2025-11-13 09:39:04,949 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-13 16:51:54,961 - INFO - ✅ 命令执行成功 | Command executed successfully: GenomicsDB导入 | GenomicsDB import
+2025-11-13 16:51:54,962 - INFO - ================================================================================
+2025-11-13 16:51:54,965 - INFO - 步骤3: 联合分型 | Step 3: Joint genotyping
+2025-11-13 16:51:54,965 - INFO - ================================================================================
+2025-11-13 16:51:54,965 - INFO - 🧬 开始联合分型 | Starting joint genotyping
+2025-11-13 16:51:54,965 - INFO - 🚀 执行步骤 | Executing step: 联合分型 | Joint genotyping
+2025-11-13 16:51:54,965 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' GenotypeGVCFs -R /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa -V gendb:///share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/genomicsdb_workspace -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_raw.vcf.gz -L /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/intervals.list
+2025-11-13 16:51:54,965 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-14 11:07:58,567 - INFO - ✅ 命令执行成功 | Command executed successfully: 联合分型 | Joint genotyping
+2025-11-14 11:07:58,738 - INFO - ✅ 原始VCF已生成 | Raw VCF generated: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_raw.vcf.gz
+2025-11-14 11:07:58,738 - INFO - ================================================================================
+2025-11-14 11:07:58,738 - INFO - 步骤4: 提取和过滤SNP | Step 4: Extract and filter SNPs
+2025-11-14 11:07:58,738 - INFO - ================================================================================
+2025-11-14 11:07:58,738 - INFO - 🔬 提取SNP变异 | Extracting SNP variants
+2025-11-14 11:07:58,738 - INFO - 🚀 执行步骤 | Executing step: 提取SNP | Extract SNPs
+2025-11-14 11:07:58,738 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' SelectVariants -R /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa -V /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_raw.vcf.gz -select-type SNP -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_snps_raw.vcf.gz
+2025-11-14 11:07:58,738 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-14 11:11:41,874 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取SNP | Extract SNPs
+2025-11-14 11:11:41,874 - INFO - 🧹 过滤SNP变异 | Filtering SNP variants
+2025-11-14 11:11:41,874 - INFO - 🚀 执行步骤 | Executing step: 过滤SNP | Filter SNPs
+2025-11-14 11:11:41,874 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' VariantFiltration -R /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa -V /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_snps_raw.vcf.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_snps_filtered.vcf.gz --filter-expression "QD < 2.0" --filter-name "QD_filter" --filter-expression "FS > 60.0" --filter-name "FS_filter" --filter-expression "MQ < 40.0" --filter-name "MQ_filter" --filter-expression "MQRankSum < -12.5" --filter-name "MQRS_filter" --filter-expression "ReadPosRankSum < -8.0" --filter-name "RPRS_filter" --filter-expression "SOR > 3.0" --filter-name "SOR_filter"
+2025-11-14 11:11:41,874 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-14 11:15:33,103 - INFO - ✅ 命令执行成功 | Command executed successfully: 过滤SNP | Filter SNPs
+2025-11-14 11:15:33,106 - INFO - ================================================================================
+2025-11-14 11:15:33,106 - INFO - 步骤5: 提取和过滤INDEL | Step 5: Extract and filter INDELs
+2025-11-14 11:15:33,106 - INFO - ================================================================================
+2025-11-14 11:15:33,106 - INFO - 🔬 提取INDEL变异 | Extracting INDEL variants
+2025-11-14 11:15:33,106 - INFO - 🚀 执行步骤 | Executing step: 提取INDEL | Extract INDELs
+2025-11-14 11:15:33,106 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' SelectVariants -R /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa -V /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_raw.vcf.gz -select-type INDEL -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_indels_raw.vcf.gz
+2025-11-14 11:15:33,167 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-14 11:17:58,314 - INFO - ✅ 命令执行成功 | Command executed successfully: 提取INDEL | Extract INDELs
+2025-11-14 11:17:58,315 - INFO - 🧹 过滤INDEL变异 | Filtering INDEL variants
+2025-11-14 11:17:58,315 - INFO - 🚀 执行步骤 | Executing step: 过滤INDEL | Filter INDELs
+2025-11-14 11:17:58,315 - INFO - 💻 命令 | Command: gatk --java-options '-Xmx100g' VariantFiltration -R /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2.fa -V /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_indels_raw.vcf.gz -O /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_indels_filtered.vcf.gz --filter-expression "QD < 2.0" --filter-name "QD_filter" --filter-expression "FS > 200.0" --filter-name "FS_filter" --filter-expression "ReadPosRankSum < -20.0" --filter-name "RPRS_filter" --filter-expression "SOR > 10.0" --filter-name "SOR_filter"
+2025-11-14 11:17:58,315 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-14 11:18:41,880 - INFO - ✅ 命令执行成功 | Command executed successfully: 过滤INDEL | Filter INDELs
+2025-11-14 11:18:41,881 - INFO - ================================================================================
+2025-11-14 11:18:41,881 - INFO - 步骤6: 合并SNP和INDEL | Step 6: Merge SNPs and INDELs
+2025-11-14 11:18:41,881 - INFO - ================================================================================
+2025-11-14 11:18:41,881 - INFO - 🔗 合并SNP和INDEL | Merging SNPs and INDELs
+2025-11-14 11:18:41,881 - INFO - 🚀 执行步骤 | Executing step: 合并变异 | Merge variants
+2025-11-14 11:18:41,881 - INFO - 💻 命令 | Command: bcftools concat -a -O z -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_snps_filtered.vcf.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_indels_filtered.vcf.gz
+2025-11-14 11:18:41,881 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-14 11:36:51,263 - INFO - ✅ 命令执行成功 | Command executed successfully: 合并变异 | Merge variants
+2025-11-14 11:36:51,264 - INFO - 🚀 执行步骤 | Executing step: 索引VCF | Index VCF: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-14 11:36:51,264 - INFO - 💻 命令 | Command: bcftools index -t /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-14 11:36:51,264 - INFO - 📁 工作目录 | Working directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint
+2025-11-14 11:38:25,342 - INFO - ✅ 命令执行成功 | Command executed successfully: 索引VCF | Index VCF: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
+2025-11-14 11:38:25,342 - INFO - 📊 生成结果汇总报告 | Generating summary report
+2025-11-14 11:54:42,547 - INFO - ✅ 汇总报告已生成 | Summary report generated: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint/analysis_summary.txt
+2025-11-14 11:54:42,547 - INFO - ================================================================================
+2025-11-14 11:54:42,547 - INFO - 🎉 Joint Genotyping分析完成! | Joint Genotyping analysis completed!
+2025-11-14 11:54:42,594 - INFO - ================================================================================
+2025-11-14 11:54:42,595 - INFO - 📂 结果保存在 | Results saved in: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/03.gatk_joint

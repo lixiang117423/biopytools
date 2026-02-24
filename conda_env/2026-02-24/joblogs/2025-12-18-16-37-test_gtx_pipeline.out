@@ -1,0 +1,365 @@
+
+==================================================
+🎯 开始Fastq到VCF (GTX) 流程 | Starting Fastq to VCF (GTX) Pipeline
+==================================================
+🔍 系统预检查 | System pre-flight checks
+✓ 命令存在 | Command exists: bwa
+✓ 命令存在 | Command exists: samtools
+✓ 命令存在 | Command exists: bcftools
+✓ 命令存在 | Command exists: gatk
+✓ 命令存在 | Command exists: biopytools
+✓ 磁盘空间充足 | Sufficient disk space: 2804409GB available
+✓ 系统内存充足 | Sufficient system memory: 1007GB total
+配置摘要 | Configuration Summary:
+  项目路径 | Project path: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx
+  原始数据目录 | Raw data directory: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/99.测试全自动流程/01.data/raw
+  参考基因组 | Reference genome: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta
+  线程配置 | Thread config: Mapping=88, Filtering=88
+  断点续传 | Checkpoint: True
+  测试模式 | Dry run: False
+✅ 预检查通过 | Pre-flight checks passed
+🚀 执行步骤 1 | Executing step 1: 🧹 质量控制 | Quality Control
+
+==================================================
+🧹 Step 1: 质量控制 | Quality Control
+==================================================
+用户指定跳过质控步骤 | User specified to skip QC step
+✅ 步骤 1 完成 | Step 1 completed: 🧹 质量控制 | Quality Control
+🚀 执行步骤 2 | Executing step 2: 📊 构建基因组索引 | Build Genome Index
+
+==================================================
+📊 Step 2: 构建基因组索引 | Build Genome Index
+==================================================
+检查点已存在，跳过索引构建 | Checkpoint exists, skipping index building
+✅ 步骤 2 完成 | Step 2 completed: 📊 构建基因组索引 | Build Genome Index
+🚀 执行步骤 3 | Executing step 3: 🗺️ 序列比对 | Sequence Mapping
+
+==================================================
+🗺️ Step 3: 序列比对 | Sequence Mapping
+==================================================
+使用GTX WGS进行序列比对 (CPU优化，比对+变异检测一体化) | Using GTX WGS for sequence mapping (CPU optimized, alignment+variant calling integrated)
+使用 88 线程进行比对 | Using 88 threads for mapping
+使用GTX WGS完整流程 (CPU优化，比对+变异检测一体化) | Using GTX WGS complete pipeline (CPU optimized, alignment+variant calling integrated)
+使用 88 线程处理 | Using 88 threads
+找到 35 个样品需要处理 | Found 35 samples to process
+[1/35] 处理样品: SRR22980490 | Processing sample: SRR22980490
+🔬 GTX WGS处理 SRR22980490 | GTX WGS processing SRR22980490
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR22980490\tSM:SRR22980490\tPL:ILLUMINA\tLB:SRR22980490" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR22980490.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR22980490.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980490_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980490_2.clean.fq.gz
+[2020-10-20 00:00:00.309] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.314] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR22980490 处理失败 | Sample SRR22980490 processing failed
+[2/35] 处理样品: SRR7532833 | Processing sample: SRR7532833
+🔬 GTX WGS处理 SRR7532833 | GTX WGS processing SRR7532833
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532833\tSM:SRR7532833\tPL:ILLUMINA\tLB:SRR7532833" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532833.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532833.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532833_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532833_2.clean.fq.gz
+[2020-10-20 00:00:00.518] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804408GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.518] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532833 处理失败 | Sample SRR7532833 processing failed
+[3/35] 处理样品: SRR7532821 | Processing sample: SRR7532821
+🔬 GTX WGS处理 SRR7532821 | GTX WGS processing SRR7532821
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532821\tSM:SRR7532821\tPL:ILLUMINA\tLB:SRR7532821" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532821.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532821.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532821_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532821_2.clean.fq.gz
+[2020-10-20 00:00:00.725] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.725] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532821 处理失败 | Sample SRR7532821 processing failed
+[4/35] 处理样品: SRR12021955 | Processing sample: SRR12021955
+🔬 GTX WGS处理 SRR12021955 | GTX WGS processing SRR12021955
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR12021955\tSM:SRR12021955\tPL:ILLUMINA\tLB:SRR12021955" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR12021955.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR12021955.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR12021955_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR12021955_2.clean.fq.gz
+[2020-10-20 00:00:00.932] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.932] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR12021955 处理失败 | Sample SRR12021955 processing failed
+[5/35] 处理样品: SRR12021953 | Processing sample: SRR12021953
+🔬 GTX WGS处理 SRR12021953 | GTX WGS processing SRR12021953
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR12021953\tSM:SRR12021953\tPL:ILLUMINA\tLB:SRR12021953" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR12021953.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR12021953.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR12021953_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR12021953_2.clean.fq.gz
+[2020-10-20 00:00:01.138] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.138] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR12021953 处理失败 | Sample SRR12021953 processing failed
+[6/35] 处理样品: SRR10321560 | Processing sample: SRR10321560
+🔬 GTX WGS处理 SRR10321560 | GTX WGS processing SRR10321560
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321560\tSM:SRR10321560\tPL:ILLUMINA\tLB:SRR10321560" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321560.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321560.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321560_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321560_2.clean.fq.gz
+[2020-10-20 00:00:00.345] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.345] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321560 处理失败 | Sample SRR10321560 processing failed
+[7/35] 处理样品: SRR22980484 | Processing sample: SRR22980484
+🔬 GTX WGS处理 SRR22980484 | GTX WGS processing SRR22980484
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR22980484\tSM:SRR22980484\tPL:ILLUMINA\tLB:SRR22980484" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR22980484.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR22980484.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980484_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980484_2.clean.fq.gz
+[2020-10-20 00:00:00.551] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.552] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR22980484 处理失败 | Sample SRR22980484 processing failed
+[8/35] 处理样品: SRR7532832 | Processing sample: SRR7532832
+🔬 GTX WGS处理 SRR7532832 | GTX WGS processing SRR7532832
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532832\tSM:SRR7532832\tPL:ILLUMINA\tLB:SRR7532832" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532832.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532832.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532832_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532832_2.clean.fq.gz
+[2020-10-20 00:00:00.757] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.757] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532832 处理失败 | Sample SRR7532832 processing failed
+[9/35] 处理样品: SRR10321563 | Processing sample: SRR10321563
+🔬 GTX WGS处理 SRR10321563 | GTX WGS processing SRR10321563
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321563\tSM:SRR10321563\tPL:ILLUMINA\tLB:SRR10321563" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321563.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321563.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321563_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321563_2.clean.fq.gz
+[2020-10-20 00:00:00.965] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.965] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321563 处理失败 | Sample SRR10321563 processing failed
+[10/35] 处理样品: SRR7532828 | Processing sample: SRR7532828
+🔬 GTX WGS处理 SRR7532828 | GTX WGS processing SRR7532828
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532828\tSM:SRR7532828\tPL:ILLUMINA\tLB:SRR7532828" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532828.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532828.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532828_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532828_2.clean.fq.gz
+[2020-10-20 00:00:01.171] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.171] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532828 处理失败 | Sample SRR7532828 processing failed
+[11/35] 处理样品: SRR10321576 | Processing sample: SRR10321576
+🔬 GTX WGS处理 SRR10321576 | GTX WGS processing SRR10321576
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321576\tSM:SRR10321576\tPL:ILLUMINA\tLB:SRR10321576" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321576.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321576.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321576_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321576_2.clean.fq.gz
+[2020-10-20 00:00:00.377] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.377] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321576 处理失败 | Sample SRR10321576 processing failed
+[12/35] 处理样品: SRR7532839 | Processing sample: SRR7532839
+🔬 GTX WGS处理 SRR7532839 | GTX WGS processing SRR7532839
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532839\tSM:SRR7532839\tPL:ILLUMINA\tLB:SRR7532839" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532839.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532839.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532839_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532839_2.clean.fq.gz
+[2020-10-20 00:00:00.583] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.583] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532839 处理失败 | Sample SRR7532839 processing failed
+[13/35] 处理样品: SRR10321575 | Processing sample: SRR10321575
+🔬 GTX WGS处理 SRR10321575 | GTX WGS processing SRR10321575
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321575\tSM:SRR10321575\tPL:ILLUMINA\tLB:SRR10321575" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321575.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321575.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321575_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321575_2.clean.fq.gz
+[2020-10-20 00:00:00.789] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.789] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321575 处理失败 | Sample SRR10321575 processing failed
+[14/35] 处理样品: SRR7532830 | Processing sample: SRR7532830
+🔬 GTX WGS处理 SRR7532830 | GTX WGS processing SRR7532830
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532830\tSM:SRR7532830\tPL:ILLUMINA\tLB:SRR7532830" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532830.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532830.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532830_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532830_2.clean.fq.gz
+[2020-10-20 00:00:00.996] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.996] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532830 处理失败 | Sample SRR7532830 processing failed
+[15/35] 处理样品: SRR7532838 | Processing sample: SRR7532838
+🔬 GTX WGS处理 SRR7532838 | GTX WGS processing SRR7532838
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532838\tSM:SRR7532838\tPL:ILLUMINA\tLB:SRR7532838" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532838.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532838.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532838_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532838_2.clean.fq.gz
+[2020-10-20 00:00:01.202] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.202] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532838 处理失败 | Sample SRR7532838 processing failed
+[16/35] 处理样品: SRR7532846 | Processing sample: SRR7532846
+🔬 GTX WGS处理 SRR7532846 | GTX WGS processing SRR7532846
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532846\tSM:SRR7532846\tPL:ILLUMINA\tLB:SRR7532846" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532846.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532846.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532846_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532846_2.clean.fq.gz
+[2020-10-20 00:00:00.408] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.408] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532846 处理失败 | Sample SRR7532846 processing failed
+[17/35] 处理样品: SRR7532845 | Processing sample: SRR7532845
+🔬 GTX WGS处理 SRR7532845 | GTX WGS processing SRR7532845
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532845\tSM:SRR7532845\tPL:ILLUMINA\tLB:SRR7532845" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532845.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532845.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532845_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532845_2.clean.fq.gz
+[2020-10-20 00:00:00.616] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.617] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532845 处理失败 | Sample SRR7532845 processing failed
+[18/35] 处理样品: SRR7532849 | Processing sample: SRR7532849
+🔬 GTX WGS处理 SRR7532849 | GTX WGS processing SRR7532849
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532849\tSM:SRR7532849\tPL:ILLUMINA\tLB:SRR7532849" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532849.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532849.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532849_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532849_2.clean.fq.gz
+[2020-10-20 00:00:00.822] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.822] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532849 处理失败 | Sample SRR7532849 processing failed
+[19/35] 处理样品: SRR10321569 | Processing sample: SRR10321569
+🔬 GTX WGS处理 SRR10321569 | GTX WGS processing SRR10321569
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321569\tSM:SRR10321569\tPL:ILLUMINA\tLB:SRR10321569" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321569.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321569.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321569_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321569_2.clean.fq.gz
+[2020-10-20 00:00:01.029] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.029] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321569 处理失败 | Sample SRR10321569 processing failed
+[20/35] 处理样品: SRR10321572 | Processing sample: SRR10321572
+🔬 GTX WGS处理 SRR10321572 | GTX WGS processing SRR10321572
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321572\tSM:SRR10321572\tPL:ILLUMINA\tLB:SRR10321572" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321572.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321572.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321572_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321572_2.clean.fq.gz
+[2020-10-20 00:00:00.234] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.234] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321572 处理失败 | Sample SRR10321572 processing failed
+[21/35] 处理样品: SRR10321571 | Processing sample: SRR10321571
+🔬 GTX WGS处理 SRR10321571 | GTX WGS processing SRR10321571
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321571\tSM:SRR10321571\tPL:ILLUMINA\tLB:SRR10321571" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321571.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321571.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321571_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321571_2.clean.fq.gz
+[2020-10-20 00:00:00.441] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.441] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321571 处理失败 | Sample SRR10321571 processing failed
+[22/35] 处理样品: SRR7532848 | Processing sample: SRR7532848
+🔬 GTX WGS处理 SRR7532848 | GTX WGS processing SRR7532848
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532848\tSM:SRR7532848\tPL:ILLUMINA\tLB:SRR7532848" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532848.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532848.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532848_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532848_2.clean.fq.gz
+[2020-10-20 00:00:00.647] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.647] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532848 处理失败 | Sample SRR7532848 processing failed
+[23/35] 处理样品: SRR7532827 | Processing sample: SRR7532827
+🔬 GTX WGS处理 SRR7532827 | GTX WGS processing SRR7532827
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532827\tSM:SRR7532827\tPL:ILLUMINA\tLB:SRR7532827" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532827.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532827.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532827_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532827_2.clean.fq.gz
+[2020-10-20 00:00:00.853] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.853] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532827 处理失败 | Sample SRR7532827 processing failed
+[24/35] 处理样品: SRR7532836 | Processing sample: SRR7532836
+🔬 GTX WGS处理 SRR7532836 | GTX WGS processing SRR7532836
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532836\tSM:SRR7532836\tPL:ILLUMINA\tLB:SRR7532836" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532836.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532836.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532836_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532836_2.clean.fq.gz
+[2020-10-20 00:00:01.060] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.060] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532836 处理失败 | Sample SRR7532836 processing failed
+[25/35] 处理样品: SRR12021957 | Processing sample: SRR12021957
+🔬 GTX WGS处理 SRR12021957 | GTX WGS processing SRR12021957
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR12021957\tSM:SRR12021957\tPL:ILLUMINA\tLB:SRR12021957" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR12021957.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR12021957.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR12021957_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR12021957_2.clean.fq.gz
+[2020-10-20 00:00:00.265] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.265] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR12021957 处理失败 | Sample SRR12021957 processing failed
+[26/35] 处理样品: SRR10321559 | Processing sample: SRR10321559
+🔬 GTX WGS处理 SRR10321559 | GTX WGS processing SRR10321559
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321559\tSM:SRR10321559\tPL:ILLUMINA\tLB:SRR10321559" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321559.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321559.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321559_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321559_2.clean.fq.gz
+[2020-10-20 00:00:00.472] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.472] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321559 处理失败 | Sample SRR10321559 processing failed
+[27/35] 处理样品: SRR22980489 | Processing sample: SRR22980489
+🔬 GTX WGS处理 SRR22980489 | GTX WGS processing SRR22980489
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR22980489\tSM:SRR22980489\tPL:ILLUMINA\tLB:SRR22980489" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR22980489.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR22980489.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980489_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980489_2.clean.fq.gz
+[2020-10-20 00:00:00.679] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.679] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR22980489 处理失败 | Sample SRR22980489 processing failed
+[28/35] 处理样品: SRR7532825 | Processing sample: SRR7532825
+🔬 GTX WGS处理 SRR7532825 | GTX WGS processing SRR7532825
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532825\tSM:SRR7532825\tPL:ILLUMINA\tLB:SRR7532825" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532825.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532825.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532825_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532825_2.clean.fq.gz
+[2020-10-20 00:00:00.885] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.885] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532825 处理失败 | Sample SRR7532825 processing failed
+[29/35] 处理样品: SRR22980483 | Processing sample: SRR22980483
+🔬 GTX WGS处理 SRR22980483 | GTX WGS processing SRR22980483
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR22980483\tSM:SRR22980483\tPL:ILLUMINA\tLB:SRR22980483" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR22980483.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR22980483.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980483_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980483_2.clean.fq.gz
+[2020-10-20 00:00:01.091] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.091] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR22980483 处理失败 | Sample SRR22980483 processing failed
+[30/35] 处理样品: SRR22980486 | Processing sample: SRR22980486
+🔬 GTX WGS处理 SRR22980486 | GTX WGS processing SRR22980486
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR22980486\tSM:SRR22980486\tPL:ILLUMINA\tLB:SRR22980486" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR22980486.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR22980486.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980486_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980486_2.clean.fq.gz
+[2020-10-20 00:00:00.297] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.297] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR22980486 处理失败 | Sample SRR22980486 processing failed
+[31/35] 处理样品: SRR10321570 | Processing sample: SRR10321570
+🔬 GTX WGS处理 SRR10321570 | GTX WGS processing SRR10321570
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR10321570\tSM:SRR10321570\tPL:ILLUMINA\tLB:SRR10321570" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR10321570.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR10321570.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321570_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR10321570_2.clean.fq.gz
+[2020-10-20 00:00:00.505] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.505] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR10321570 处理失败 | Sample SRR10321570 processing failed
+[32/35] 处理样品: SRR22980487 | Processing sample: SRR22980487
+🔬 GTX WGS处理 SRR22980487 | GTX WGS processing SRR22980487
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR22980487\tSM:SRR22980487\tPL:ILLUMINA\tLB:SRR22980487" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR22980487.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR22980487.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980487_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR22980487_2.clean.fq.gz
+[2020-10-20 00:00:00.711] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.711] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR22980487 处理失败 | Sample SRR22980487 processing failed
+[33/35] 处理样品: SRR7532842 | Processing sample: SRR7532842
+🔬 GTX WGS处理 SRR7532842 | GTX WGS processing SRR7532842
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532842\tSM:SRR7532842\tPL:ILLUMINA\tLB:SRR7532842" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532842.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532842.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532842_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532842_2.clean.fq.gz
+[2020-10-20 00:00:00.917] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.917] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532842 处理失败 | Sample SRR7532842 processing failed
+[34/35] 处理样品: SRR7532835 | Processing sample: SRR7532835
+🔬 GTX WGS处理 SRR7532835 | GTX WGS processing SRR7532835
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR7532835\tSM:SRR7532835\tPL:ILLUMINA\tLB:SRR7532835" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR7532835.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR7532835.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532835_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR7532835_2.clean.fq.gz
+[2020-10-20 00:00:01.124] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:01.124] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR7532835 处理失败 | Sample SRR7532835 processing failed
+[35/35] 处理样品: SRR1046800 | Processing sample: SRR1046800
+🔬 GTX WGS处理 SRR1046800 | GTX WGS processing SRR1046800
+🔄 执行命令 | Running command: faketime '2020-10-20 00:00:00' /share/org/YZWL/yzwl_lixg/software/gtx/bin/gtx wgs -R "@RG\tID:SRR1046800\tSM:SRR1046800\tPL:ILLUMINA\tLB:SRR1046800" -o /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/vcf/SRR1046800.g.vcf.gz -b /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/02.mapping/bam/SRR1046800.sorted.bam -t 88 -g --tmp-dir /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp --pcr-indel-model CONSERVATIVE --standard-min-confidence-threshold-for-calling 30 --min-base-quality-score 20 --ploidy 2 /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR1046800_1.clean.fq.gz /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/01.data/clean/SRR1046800_2.clean.fq.gz
+[2020-10-20 00:00:00.329] [wgs] [info] Current sys info: /share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/97.测试全自动流程-gtx/.tmp available: 2804409GB, memory available: 968GB, ulimit of open files: 400000
+[2020-10-20 00:00:00.329] [wgs] [error] Not found reference (/share/org/YZWL/yzwl_lixg/project/19.大豆疫霉菌/01.data/genome/Phytophthora_sojae_JS2_genome.fasta) index.
+❌ 命令执行失败 | Command execution failed
+返回码 | Return code: 255
+  ✗ 样品 SRR1046800 处理失败 | Sample SRR1046800 processing failed
+GTX WGS处理完成 | GTX WGS processing completed:
+  成功: 0/35 | Success: 0/35
+  失败: 35/35 | Failed: 35/35
+失败的样品 | Failed samples:
+  - SRR22980490
+  - SRR7532833
+  - SRR7532821
+  - SRR12021955
+  - SRR12021953
+  - SRR10321560
+  - SRR22980484
+  - SRR7532832
+  - SRR10321563
+  - SRR7532828
+  - SRR10321576
+  - SRR7532839
+  - SRR10321575
+  - SRR7532830
+  - SRR7532838
+  - SRR7532846
+  - SRR7532845
+  - SRR7532849
+  - SRR10321569
+  - SRR10321572
+  - SRR10321571
+  - SRR7532848
+  - SRR7532827
+  - SRR7532836
+  - SRR12021957
+  - SRR10321559
+  - SRR22980489
+  - SRR7532825
+  - SRR22980483
+  - SRR22980486
+  - SRR10321570
+  - SRR22980487
+  - SRR7532842
+  - SRR7532835
+  - SRR1046800
+❌ GTX比对失败 | GTX mapping failed
+❌ 步骤 3 失败 | Step 3 failed: 🗺️ 序列比对 | Sequence Mapping
