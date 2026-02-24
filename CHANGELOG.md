@@ -1,4 +1,11 @@
 
+## [0.14.0] - 2026-02-24
+
+### Changed
+- add bwa module
+- Updated files: biopytools/bwa,docs/bwa.md,biopytools/cli/commands/bwa.py,biopytools/cli/main.py
+
+
 ## [0.13.0] - 2026-02-24
 
 ### Changed
