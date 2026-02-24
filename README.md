@@ -57,6 +57,8 @@ Options:
 
 [blast](./docs/blast_v2.md) - 序列比对工具
 
+[busco](./docs/busco.md) - BUSCO
+
 [fastp](./docs/fastp.md) - fastq文件质控
 
 [rna-seq](./docs/rnaseq.md) - Hisat + StringTie2转录组流程

@@ -1,4 +1,11 @@
 
+## [0.9.0] - 2026-02-24
+
+### Changed
+- add busco module
+- Updated files: biopytools/busco,docs/busco.md,biopytools/cli/commands/busco.py,biopytools/cli/main.py,README.md,docs/busco.md
+
+
 ## [0.8.1] - 2026-02-09
 
 ### Changed
