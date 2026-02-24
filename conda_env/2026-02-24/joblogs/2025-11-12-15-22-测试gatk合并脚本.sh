@@ -1,1 +1,0 @@
-~/software/scripts/gatk_joint_calling_claude.sh -i tmp -r 01.data/genome/genome.fa -o 03.gatk_joint/hatk_merged.vcf.gz -j 19 

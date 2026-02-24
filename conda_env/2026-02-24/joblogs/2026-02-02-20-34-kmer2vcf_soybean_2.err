@@ -1,5 +1,0 @@
-usage: kmertools kmer2vcf [-h] -i INPUT_MATRIX -o OUTPUT_VCF [--fast-mode | --standard-mode] [--chr-length CHR_LENGTH] [--min-freq MIN_FREQ]
-                          [--kmer-length KMER_LENGTH] [--no-header] [-m MIN_AGG_COUNT] [-t THREADS] [-T TEMP_DIR]
-kmertools kmer2vcf: error: argument --chr-length: invalid int value: '1000m'
-Job 69194481 stderr output:
-

@@ -1,1 +1,0 @@
-biopytools busco -i chr_1_12.fa -o ./ -l /share/org/YZWL/yzwl_lixg/database/busco/brassicales_odb12 -c 88

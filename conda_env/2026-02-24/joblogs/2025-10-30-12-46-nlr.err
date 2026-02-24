@@ -1,6 +1,0 @@
-  File "/share/org/YZWL/yzwl_lixg/software/scripts/remove_nested_NLR_revise_flanking.py", line 124
-    print(k, 'NLR_Annotator\tNBSLRR', n[0], n[1], '.', n[2], '.', n[3], sep='\t')
-                                                                           ^
-SyntaxError: invalid syntax
-Job 67836199 stderr output:
-

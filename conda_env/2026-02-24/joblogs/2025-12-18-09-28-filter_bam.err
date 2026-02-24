@@ -1,9 +1,0 @@
-error: the following required arguments were not provided:
-  <MAPQ>
-
-Usage: filter_bam --nm <NM> --threads <THREADS> <BAM> <MAPQ>
-
-For more information, try '--help'.
-[main_samview] fail to read the header from "-".
-Job 68569500 stderr output:
-

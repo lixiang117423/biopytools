@@ -1,4 +1,0 @@
-2026-02-05 15:13:06.674 - INFO - 开始变异注释流程|Starting variant annotation pipeline
-2026-02-05 15:13:06.674 - INFO - 开始解析GFF文件|Starting to parse GFF file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/外显子和间区注释/OV53_Chr.gff
-2026-02-05 15:13:10.898 - INFO - GFF解析完成|GFF parsing completed: 66844个基因, 1169698个特征|genes, 1169698 features
-2026-02-05 15:13:11.000 - INFO - 开始处理VCF文件|Starting to process VCF file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/58.合并新测的VCF文件和原始样品的VCF文件/外显子和间区注释/gtx_joint_raw.vcf.gz

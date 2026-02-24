@@ -1,4 +1,0 @@
-正在为 Indel 数据生成 0/1 存在/缺失矩阵...
-输入 VCF 文件: variation.filtered.indel.vcf.gz
-处理完成！
-0/1 矩阵已保存到: indel_presence_absence_matrix.01.tsv

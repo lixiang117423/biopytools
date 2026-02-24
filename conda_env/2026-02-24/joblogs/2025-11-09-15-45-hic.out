@@ -1,8 +1,0 @@
-INFO: 作业开始于: 2025年 11月 09日 星期日 15:45:35 CST
-INFO: 运行于计算节点: c01n0493
-INFO: --- Final Environment Check ---
-  - which HiC-Pro: /share/org/YZWL/yzwl_lixg/software/HiC-Pro_v3.1.0/HiC-Pro_3.1.0/bin/HiC-Pro
-  - which bowtie2: /share/org/YZWL/yzwl_lixg/miniforge3/envs/HiC-Pro_v3.1.0/bin/bowtie2
-  - which samtools: /share/org/YZWL/yzwl_lixg/miniforge3/envs/HiC-Pro_v3.1.0/bin/samtools
-INFO: Environment check PASSED.
-INFO: Changing directory to /share/org/YZWL/yzwl_lixg/project/22.拟南芥hic/02/小试/hicpro

@@ -1,6 +1,0 @@
-[2025-12-29 09:41:14] WARNING: 标准错误 | Stderr: Warning: This run includes BLAS/LAPACK linear algebra operations which
-currently disregard the --threads limit.  If this is problematic, you may want
-to recompile against single-threaded BLAS/LAPACK.
-
-Job 68687790 stderr output:
-

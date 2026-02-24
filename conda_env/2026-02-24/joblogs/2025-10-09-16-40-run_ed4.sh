@@ -1,1 +1,0 @@
-python3 ~/software/DeepBSA/DeepBSA_linux_v1.4/bin/main.py --i filtered_merged_gtx.SNP.vcf --m ED4 --p 0

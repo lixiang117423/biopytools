@@ -1,6 +1,0 @@
-2026-01-30 18:59:20.544 - ERROR - 命令执行失败|Command execution failed
-2026-01-30 18:59:20.544 - ERROR - 返回码|Return code: 1
-2026-01-30 18:59:20.544 - ERROR - GTX未生成预期的VCF文件|GTX did not generate expected VCF file
-2026-01-30 18:59:20.544 - ERROR - 步骤4 失败|Step 4 failed: 联合变异检测|Joint Variant Calling
-Job 69120568 stderr output:
-

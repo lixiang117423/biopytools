@@ -1,9 +1,0 @@
-2026-01-30 12:24:48.965 - INFO - 从RocksDB查询kmer|Querying kmers from RocksDB
-2026-01-30 12:24:51.483 - INFO - 已打开RocksDB数据库|RocksDB database opened: ../01.kmer_db/kmer_rocksdb
-2026-01-30 12:29:47.633 - INFO - 待查询kmer数量|Kmers to query: 153414395
-2026-02-03 06:27:55.024 - INFO - 查询完成|Query completed
-2026-02-03 06:27:55.025 - INFO - 找到kmer|Found: 76596268
-2026-02-03 06:27:55.025 - INFO - 未找到kmer|Not found: 110930
-2026-02-03 06:27:55.025 - INFO - 写入查询结果|Writing query results to: hap1_chr12_kmer_query.txt
-2026-02-03 06:28:11.401 - INFO - 查询结果已写入|Query results written
-2026-02-03 06:28:27.612 - INFO - kmer查询完成|kmer query completed

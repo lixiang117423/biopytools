@@ -1,9 +1,0 @@
-2026-02-06 10:20:37.998 - ERROR - 命令执行失败|Command execution failed
-2026-02-06 10:20:37.998 - ERROR - 返回码|Return code: -2
-2026-02-06 10:20:37.998 - ERROR -   样品 KostanzA 处理失败|Sample KostanzA processing failed
-2026-02-06 10:20:37.998 - WARNING - 失败的样品|Failed samples:
-2026-02-06 10:20:37.998 - WARNING -   - KostanzA
-2026-02-06 10:20:37.998 - ERROR - GTX比对失败|GTX mapping failed
-2026-02-06 10:20:37.998 - ERROR - 步骤3 失败|Step 3 failed: 序列比对|Sequence Mapping
-Job 69283454 stderr output:
-

@@ -1,1 +1,0 @@
-python3 ~/software/scripts/28.run_myyc.py sample.txt

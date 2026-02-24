@@ -1,6 +1,0 @@
-Usage: biopytools kmer-count [OPTIONS]
-Try 'biopytools kmer-count -h' for help.
-
-Error: Invalid value for '--kmer-lib' / '-k': Path '02.kmer库/kmers.fasta' does not exist.
-Job 68863267 stderr output:
-

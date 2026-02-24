@@ -1,6 +1,0 @@
-Usage: biopytools hifi-hic [OPTIONS]
-Try 'biopytools hifi-hic -h' for help.
-
-Error: Invalid value for '--hifi' / '-i': Path '01.data/clean/hifi/68-1_hifi.clean.fq.gz' does not exist.
-Job 69218814 stderr output:
-

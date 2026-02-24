@@ -1,1 +1,0 @@
-biopytools orthofinder -i pep -o ./ -s diamond

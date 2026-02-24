@@ -1,8 +1,0 @@
-Usage: biopytools vcf-nj-tree [OPTIONS]
-Try 'biopytools vcf-nj-tree -h' for help.
-
-Error: Invalid value for '--input' / '-i': Path 'new.name.vcf.gz-o' does not exist.
-Job 68671005 stderr output:
-
-Job 68671008 stderr output:
-

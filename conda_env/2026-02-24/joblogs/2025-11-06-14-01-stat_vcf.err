@@ -1,9 +1,0 @@
-[E::idx_find_and_load] Could not retrieve index file for 'variation.filtered.snp.vcf.gz'
-Traceback (most recent call last):
-  File "/share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/09.number/statistics_vcf.py", line 88, in <module>
-    process_snp_vcf(snp_vcf_file, stats)
-  File "/share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/09.number/statistics_vcf.py", line 29, in process_snp_vcf
-    if gt != (0, 0) and gt != (None, None):
-KeyboardInterrupt
-Job 67896938 stderr output:
-

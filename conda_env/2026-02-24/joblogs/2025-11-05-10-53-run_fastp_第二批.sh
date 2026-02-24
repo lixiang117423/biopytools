@@ -1,1 +1,0 @@
-biopytools fastp -i 01.data/raw/第二批 -o 01.data/clean/第二批 --read1-suffix "_1.fastq.gz" --read2-suffix "_2.fastq.gz"

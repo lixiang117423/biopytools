@@ -1,3 +1,0 @@
-2026-02-02 20:01:30.082 - ERROR - 未找到kmtricks|kmtricks not found: [Errno 2] No such file or directory: 'kmtricks'
-2026-02-02 20:01:30.082 - ERROR - 请先安装kmtricks|Please install kmtricks first
-2026-02-02 20:01:30.082 - ERROR - 安装方法|Installation: conda install -c bioconda kmtricks

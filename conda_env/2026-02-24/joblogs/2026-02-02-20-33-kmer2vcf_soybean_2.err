@@ -1,4 +1,0 @@
-usage: kmertools [-h] {build,query,split-fasta,gen-fof,import-db,extract,count,kmer2vcf,intersect,compare} ...
-kmertools: error: unrecognized arguments: kmer2vcf_soybean_2 1000m
-Job 69194463 stderr output:
-

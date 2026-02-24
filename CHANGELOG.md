@@ -1,4 +1,11 @@
 
+## [0.12.0] - 2026-02-24
+
+### Changed
+- add conda env yml files
+- Updated files: conda_env
+
+
 ## [0.11.0] - 2026-02-24
 
 ### Changed

@@ -1,8 +1,0 @@
-步骤 0: 创建输出目录
-步骤 1: 准备参考基因组 BED 文件
-BED 文件已创建: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.glnexus_joint/genome.bed
-步骤 2: 运行 glnexus_cli
-GLnexus 运行完成，BCF 输出至: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.glnexus_joint/merged_output.bcf
-步骤 3: 后处理 - 转换为 VCF 并索引
-已成功转换为 VCF.gz 并创建索引: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.glnexus_joint/merged_output.vcf.gz
-所有步骤完成！

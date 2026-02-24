@@ -1,6 +1,0 @@
-Usage: biopytools rnaseq [OPTIONS]
-Try 'biopytools rnaseq -h' for help.
-
-Error: Invalid value for '--genome' / '-g': 文件不存在 | File does not exist: /share/org/YZWL/yzwl_lixg/project/94.rice_gas/18.根部转录组/01.data/genome/fa
-Job 68298288 stderr output:
-

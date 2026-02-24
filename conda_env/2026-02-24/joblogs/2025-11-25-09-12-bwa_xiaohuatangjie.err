@@ -1,6 +1,0 @@
-usage: bwa_gatk.py [-h] -r REFERENCE -i INPUT_PATH [-o OUTPUT_DIR] [-t THREADS] [-p PLOIDY] [-m MEM_PER_THREAD]
-                   [--intervals INTERVALS] [--snp-qd SNP_QD] [--snp-fs SNP_FS] [--indel-qd INDEL_QD] [--force-restart] [--dry-run]
-                   [-v] [--bwa-path BWA_PATH] [--samtools-path SAMTOOLS_PATH] [--gatk-path GATK_PATH]
-bwa_gatk.py: error: unrecognized arguments: --memory 400G
-Job 68095472 stderr output:
-

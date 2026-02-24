@@ -1,4 +1,0 @@
-[E::idx_find_and_load] Could not retrieve index file for '02.mapping/vcf/CRR071751.g.vcf.gz'
-Could not load .tbi/.csi index of 02.mapping/vcf/CRR071751.g.vcf.gz: No such file or directory
-Job 68683344 stderr output:
-

@@ -1,8 +1,0 @@
-[E::hts_open_format] Failed to open file "/share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/*.bam" : No such file or directory
-samtools merge: fail to open "/share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/*.bam": No such file or directory
-Job 68019377 stderr output:
-
-[E::hts_open_format] Failed to open file "/share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/*.bam" : No such file or directory
-samtools merge: fail to open "/share/org/YZWL/yzwl_lixg/tmp/test_hic/splits/*.bam": No such file or directory
-Job 68019378 stderr output:
-

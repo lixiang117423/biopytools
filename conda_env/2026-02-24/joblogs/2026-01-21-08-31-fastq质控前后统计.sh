@@ -1,2 +1,0 @@
-biopytools fq-stats -i 01.data/raw/hifi/fastq -o 01.data/fastq文件统计_质控前.csv -p "*.hifi_reads.fastq.gz" -t 64
-biopytools fq-stats -i 01.data/clean/hifi -o 01.data/fastq文件统计_质控后.csv -p "*.clean.fq.gz" -t 64

@@ -1,6 +1,0 @@
-2026-01-13 05:49:25.463 - ERROR - HISAT2比对和排序|HISAT2 alignment and sorting -> /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/46.二代转录组表达量/01.bam/354.sorted.bam 超时|timed out after 21600秒|seconds (6.0小时|hours)
-2026-01-13 05:49:25.470 - ERROR - 跳过该步骤继续处理|Skipping this step and continuing...
-2026-01-13 05:49:25.470 - WARNING - 样本比对失败或超时，跳过该样本|Sample alignment failed or timed out, skipping: 354
-2026-01-13 05:49:25.470 - ERROR - 样本处理失败|Sample processing failed: 354
-Job 68818398 stderr output:
-

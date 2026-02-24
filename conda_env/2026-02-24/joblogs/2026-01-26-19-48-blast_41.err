@@ -1,3 +1,0 @@
-blast.sh: 行 1: 1472174 Segmentation fault      (核心已转储)blastn -query 41_medium_quality.fa -db ~/database/nt/nt -out 41_medium_quality.nt.blast.txt -outfmt 6 -evalue 1e-5 -num_threads 64
-Job 69051730 stderr output:
-

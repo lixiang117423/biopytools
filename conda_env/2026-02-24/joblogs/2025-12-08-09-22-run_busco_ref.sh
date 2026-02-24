@@ -1,1 +1,0 @@
-/share/org/YZWL/yzwl_lixg/miniforge3/envs/BUSCO_v.6.0.0/bin/busco -i /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/18.busco/ref/genome.len60.fa -l /share/org/YZWL/yzwl_lixg/database/busco/brassicales_odb12 -m genome -o busco_result -c 64 --offline -f

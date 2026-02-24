@@ -1,4 +1,0 @@
-awk: 致命错误：无法以读模式打开文件“/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/15.所有样品SNP数量统计/chr*_counts.tmp”(No such file or directory)
-awk: 命令行:6: (FILENAME=/share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/05.所有样品/15.所有样品SNP数量统计/sample_snp_counts.txt FNR=1) 致命错误：试图除0
-Job 68785179 stderr output:
-

@@ -1,8 +1,0 @@
---- 开始对数据进行随机抽样 ---
-抽样比例: 0.4
-正在抽样文件: /share/org/YZWL/yzwl_lixg/tmp/megahit/data/all_1.fq
-正在抽样文件: /share/org/YZWL/yzwl_lixg/tmp/megahit/data/all_2.fq
---- 抽样完成 ---
-输出文件:
-/share/org/YZWL/yzwl_lixg/tmp/megahit/data/subsampled/all_1.sub50.fq
-/share/org/YZWL/yzwl_lixg/tmp/megahit/data/subsampled/all_2.sub50.fq

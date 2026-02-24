@@ -1,9 +1,0 @@
-[2026-01-03 20:11:50] ERROR: 分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: sequence item 0: expected str instance, numpy.int64 found
-Traceback (most recent call last):
-  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/rnaseq/main.py", line 329, in run_analysis
-    self.logger.info("步骤4: 合并表达矩阵|Step 4: Merging expression matrix")
-  File "/share/org/YZWL/yzwl_lixg/software/biopytools/biopytools/rnaseq/results.py", line 194, in merge_expression_matrix
-    self.logger.info(f"  | Sample names: {', '.join(sample_names)}")
-TypeError: sequence item 0: expected str instance, numpy.int64 found
-Job 68731401 stderr output:
-

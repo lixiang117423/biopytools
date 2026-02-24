@@ -1,6 +1,0 @@
-INFO:    Converting SIF file to temporary sandbox...
-  File "jbat_results/tmp_singularity_2807971/bam2mnd.py", line 11
-SyntaxError: Non-ASCII character '\xe8' in file jbat_results/tmp_singularity_2807971/bam2mnd.py on line 11, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details
-INFO:    Cleaning up image...
-Job 68368226 stderr output:
-

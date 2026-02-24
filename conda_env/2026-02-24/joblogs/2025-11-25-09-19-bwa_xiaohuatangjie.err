@@ -1,6 +1,0 @@
-Usage: biopytools bwa [OPTIONS]
-Try 'biopytools bwa -h' for help.
-
-Error: Missing option '--pattern' / '-p'.
-Job 68095480 stderr output:
-

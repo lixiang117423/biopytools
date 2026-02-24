@@ -1,7 +1,0 @@
-2026-01-29 09:04:52.136 - INFO - 开始KmerPAV流程|Starting KmerPAV pipeline
-2026-01-29 09:04:52.147 - INFO - 生成FOF文件|Generating FOF file
-2026-01-29 09:04:52.185 - INFO - FOF文件已生成|FOF file generated: 01.kmer_db/input.fof
-2026-01-29 09:04:52.185 - INFO - 运行kmtricks pipeline|Running kmtricks pipeline
-2026-01-29 09:04:52.196 - INFO - 执行kmtricks pipeline|Executing kmtricks pipeline|执行kmtricks pipeline|Executing kmtricks pipeline
-2026-01-29 19:07:09.008 - INFO - kmtricks pipeline完成|kmtricks pipeline completed
-2026-01-29 19:07:09.021 - INFO - 运行kmtricks aggregate|Running kmtricks aggregate

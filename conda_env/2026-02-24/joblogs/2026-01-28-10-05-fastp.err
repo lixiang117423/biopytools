@@ -1,6 +1,0 @@
-Usage: biopytools fastp [OPTIONS]
-Try 'biopytools fastp -h' for help.
-
-Error: Missing option '--input' / '-i'.
-Job 69077418 stderr output:
-

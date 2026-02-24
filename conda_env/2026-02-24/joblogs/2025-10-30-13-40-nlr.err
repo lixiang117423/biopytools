@@ -1,6 +1,0 @@
-❌ Error: In batch mode, the input directory must contain a 'genomes' subdirectory.
-Job 67836228 stderr output:
-
-sed：-e 表达式 #1，字符 25：“s”的未知选项
-Job 67836229 stderr output:
-

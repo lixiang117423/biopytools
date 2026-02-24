@@ -1,5 +1,0 @@
-DEBUG: Temporary directory is /share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/temp_mast1
-DEBUG: Temporary directory /share/org/YZWL/yzwl_lixg/tmp/test_nlr_pipeline/temp_mast1 is now being deleted.
-python: can't open file 'remove_nested_NLR_revise_flanking.py': [Errno 2] No such file or directory
-Job 67836187 stderr output:
-

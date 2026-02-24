@@ -1,10 +1,0 @@
-Usage: biopytools filter-snp-indel [OPTIONS]
-Try 'biopytools filter-snp-indel -h' for help.
-
-Error: Invalid value for '--input' / '-i': ❌ 文件不存在 | File does not exist: 03.gatk_joint/joint_genotyping_merged_filtered.vcf.gz
-[E::hts_open_format] Failed to open file "04.filtered_snp_indel/variation.filtered.snp.vcf.gz" : No such file or directory
-Failed to read from 04.filtered_snp_indel/variation.filtered.snp.vcf.gz: No such file or directory
-mkdir: 无法创建目录 “02.mapping/04.bam_stat”: File exists
-⚙️  处理BAM文件:   0%|                                                                                          | 0/3 [00:00<?, ?it/s]⚙️  处理BAM文件:  33%|███████████████████████████                                                      | 1/3 [02:14<04:28, 134.10s/it]⚙️  处理BAM文件:  67%|██████████████████████████████████████████████████████▋                           | 2/3 [02:21<00:59, 59.41s/it]⚙️  处理BAM文件: 100%|██████████████████████████████████████████████████████████████████████████████████| 3/3 [02:40<00:00, 41.29s/it]⚙️  处理BAM文件: 100%|██████████████████████████████████████████████████████████████████████████████████| 3/3 [02:40<00:00, 53.65s/it]
-Job 68105273 stderr output:
-

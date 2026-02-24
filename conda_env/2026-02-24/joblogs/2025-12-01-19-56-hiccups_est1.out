@@ -1,3 +1,0 @@
-WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
-WARN [2025-12-01T19:56:37,461]  [Globals.java:138] [main]  Development mode is enabled
-Usage:   juicer_tools hiccups [-m matrixSize] [-k normalization (NONE/VC/VC_SQRT/KR)] [-c chromosome(s)] [-r resolution(s)] [--restrict] [-f fdr] [-p peak width] [-i window] [-t thresholds] [-d centroid distances] <hicFile> <outputDirectory> [specified_loop_list]

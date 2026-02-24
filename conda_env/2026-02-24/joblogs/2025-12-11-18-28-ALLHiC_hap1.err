@@ -1,6 +1,0 @@
-/share/org/YZWL/yzwl_lixg/software/scripts/52.运行ALLHiC并生成手动校正文件.sh:行1748: run_jbat_prep: 未找到命令
-INFO:    Converting SIF file to temporary sandbox...
-FATAL:   "python3": executable file not found in $PATH
-INFO:    Cleaning up image...
-Job 68368217 stderr output:
-

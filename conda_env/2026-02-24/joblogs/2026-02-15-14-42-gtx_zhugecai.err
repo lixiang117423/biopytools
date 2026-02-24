@@ -1,7 +1,0 @@
-2026-02-15 15:07:17.732 - ERROR - 命令执行失败|Command execution failed
-2026-02-15 15:07:17.732 - ERROR - 返回码|Return code: 255
-2026-02-15 15:07:17.732 - ERROR - 标准输出|Stdout: [2020-10-20 00:00:00.730] [index] [error] reference index file: /share/org/YZWL/yzwl_lixg/project/06.longliuxing_BSA/68.三代数据组装和注释/56.加测的重组单株/01.data/genome/genome.fa.bwt.2bit.64 already exist! If you want to overwite it, please specify -f option.
-
-2026-02-15 15:07:17.732 - ERROR - GTX索引构建失败|GTX index building failed
-Job 69451835 stderr output:
-

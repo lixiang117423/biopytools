@@ -1,6 +1,0 @@
-Usage: biopytools rnaseq [OPTIONS]
-Try 'biopytools rnaseq -h' for help.
-
-Error: Missing option '--input' / '-i'.
-Job 68017218 stderr output:
-

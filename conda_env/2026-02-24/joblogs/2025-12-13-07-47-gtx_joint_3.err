@@ -1,6 +1,0 @@
-00:00:02.331 info  NativeGenomicsDB - pid=1846721 tid=1846766 No valid combination operation found for INFO field InbreedingCoeff  - the field will NOT be part of INFO fields in the generated VCF records
-00:00:02.331 info  NativeGenomicsDB - pid=1846721 tid=1846766 No valid combination operation found for INFO field MLEAC  - the field will NOT be part of INFO fields in the generated VCF records
-00:00:02.331 info  NativeGenomicsDB - pid=1846721 tid=1846766 No valid combination operation found for INFO field MLEAF  - the field will NOT be part of INFO fields in the generated VCF records
-Chromosome Chr03 position 985261 (TileDB column 24170914) has too many alleles in the combined VCF record : 155 : current limit : 50. Fields, such as  PL, with length equal to the number of genotypes will NOT be added for this location.
-Job 68400495 stderr output:
-

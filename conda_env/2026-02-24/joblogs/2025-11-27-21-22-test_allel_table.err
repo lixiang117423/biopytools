@@ -1,5 +1,0 @@
-[32m21:22:46 ParseRecords | NOTICE [0m Parse paffile `draft.asm.paf`
-[32m21:25:01 ReadCSVLines | NOTICE [0m Parse csvfile `sample.clean.counts_GATC.txt`
-[32m21:25:01 Run | NOTICE [0m Success
-Job 68129763 stderr output:
-

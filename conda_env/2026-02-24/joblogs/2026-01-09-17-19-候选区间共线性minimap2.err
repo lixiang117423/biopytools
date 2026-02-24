@@ -1,4 +1,0 @@
-cat: '01.genome/*fa': No such file or directory
-minimap2.sh:行58: 02.minimap2/all_genome.paf: No such file or directory
-Job 68799820 stderr output:
-

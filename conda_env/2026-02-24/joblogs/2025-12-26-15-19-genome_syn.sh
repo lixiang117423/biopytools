@@ -1,1 +1,0 @@
-biopytools ngenomesyn -s sample_map.txt -o output -t 88 --min-length 200000 --use-syri

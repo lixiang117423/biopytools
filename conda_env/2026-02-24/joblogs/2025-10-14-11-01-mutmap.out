@@ -1,6 +1,0 @@
-[MutMap:2025-10-14 11:01:11] Starting MutMap analysis.
-[MutMap:2025-10-14 11:01:11] Indexing the reference FASTA.
-[MutMap:2025-10-14 11:04:42] Reference FASTA indexing completed successfully.
-[MutMap:2025-10-14 11:04:42] Aligning reads for cultivar.0000 using BWA.
-[MutMap:2025-10-14 16:34:42] Alignment of cultivar.0000 completed successfully.
-[MutMap:2025-10-14 16:34:42] Aligning reads for bulk.0000 using BWA.

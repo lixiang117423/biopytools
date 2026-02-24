@@ -1,9 +1,0 @@
-=====================================================
-=== STEP 1: SUBSAMPLING PAIRED-END READS
-=====================================================
-Input Directory: /share/org/YZWL/yzwl_lixg/tmp/megahit/data
-Output Directory for subsamples: /share/org/YZWL/yzwl_lixg/tmp/megahit/data/subsampled_0.5
-Sampling Fraction: 0.5
------------------------------------------------------
-unknown shorthand flag: '1' in -1
-[ERROR] seqkit subsampling failed. Terminating script.

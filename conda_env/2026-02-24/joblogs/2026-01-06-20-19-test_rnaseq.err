@@ -1,6 +1,0 @@
-Usage: biopytools rnaseq [OPTIONS]
-Try 'biopytools rnaseq -h' for help.
-
-Error: Invalid value for '--genome' / '-g': 文件不存在|File does not exist: OV53_1.hifihic.chr.fa
-Job 68763865 stderr output:
-

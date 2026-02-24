@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/share/org/YZWL/yzwl_lixg/project/96.yabian/14.新的变异信息/09.number/statistics_vcf.py", line 1, in <module>
-    import pysam
-ModuleNotFoundError: No module named 'pysam'
-Job 67897084 stderr output:
-

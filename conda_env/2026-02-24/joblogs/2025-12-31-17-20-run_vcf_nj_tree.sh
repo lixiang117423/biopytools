@@ -1,1 +1,0 @@
-biopytools vcf-nj-tree -i chr.snp.new.name.vcf.gz -o soybean_nj

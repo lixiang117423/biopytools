@@ -1,9 +1,0 @@
-rm: 无法删除'/share/org/YZWL/yzwl_lixg/project/95.gdl_metagenome/03.binning/*checkm': No such file or directory
-[bwa_index] Pack FASTA... 12.16 sec
-[bwa_index] Construct BWT for the packed sequence...
-[BWTIncCreate] textLength=5459145150, availableWord=396125192
-[BWTIncConstructFromPacked] 10 iterations done. 99999998 characters processed.
-[BWTIncConstructFromPacked] 20 iterations done. 199999998 characters processed.
-[BWTIncConstructFromPacked] 30 iterations done. 299999998 characters processed.
-Job 67236471 stderr output:
-

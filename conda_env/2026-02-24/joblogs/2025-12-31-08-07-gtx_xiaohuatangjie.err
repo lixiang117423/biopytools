@@ -1,7 +1,0 @@
-[2025-12-31 08:07:04] ERROR: 命令执行失败 | Command execution failed
-[2025-12-31 08:07:04] ERROR: 返回码 | Return code: 255
-[2025-12-31 08:07:04] ERROR: 标准输出 | Stdout: [2020-10-20 00:00:01.267] [index] [error] reference index file: /share/org/YZWL/yzwl_lixg/project/18.小花糖芥/09.20251230加测/01.data/genome/genome.fa.bwt.2bit.64 already exist! If you want to overwite it, please specify -f option.
-
-[2025-12-31 08:07:04] ERROR: GTX索引构建失败 | GTX index building failed
-Job 68727222 stderr output:
-

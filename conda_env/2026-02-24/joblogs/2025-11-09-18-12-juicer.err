@@ -1,7 +1,0 @@
-openjdk version "23.0.2-internal" 2025-01-21
-OpenJDK Runtime Environment (build 23.0.2-internal-adhoc.conda.src)
-OpenJDK 64-Bit Server VM (build 23.0.2-internal-adhoc.conda.src, mixed mode, sharing)
-<genome> not found and [location] not defined
-Usage: /share/org/YZWL/yzwl_lixg/software/juicer/misc/generate_site_positions.py <restriction enzyme> <genome> [location]
-Job 67981955 stderr output:
-

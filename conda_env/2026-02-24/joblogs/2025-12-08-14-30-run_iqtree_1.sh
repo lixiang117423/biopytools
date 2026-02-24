@@ -1,1 +1,0 @@
-biopytools iqtree -i seq_1.mafft.fa -o ./ -p seq_1

@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/share/org/YZWL/yzwl_lixg/software/scripts/23.bam_stats_reporter.py", line 224, in <module>
-    import pandas as pd
-ModuleNotFoundError: No module named 'pandas'
-Job 68107474 stderr output:
-

@@ -1,4 +1,0 @@
-步骤 0: 创建输出目录
-步骤 1: 准备参考基因组 BED 文件
-BED 文件已创建: /share/org/YZWL/yzwl_lixg/project/21.野生大豆群体/03.glnexus_joint/genome.bed
-步骤 2: 运行 glnexus_cli
