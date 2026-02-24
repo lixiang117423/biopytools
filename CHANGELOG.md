@@ -1,4 +1,11 @@
 
+## [0.10.0] - 2026-02-24
+
+### Changed
+- add iseq module and update README
+- Updated files: biopytools/iseq,docs/iseq.md,biopytools/cli/commands/iseq.py,biopytools/cli/main.py,README.md
+
+
 ## [0.9.0] - 2026-02-24
 
 ### Changed

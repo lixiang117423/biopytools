@@ -49,21 +49,23 @@ Options:
 
 ## 模块文档 | README
 
-[admixture](./docs/admixture.md) - 群体结构分析软件Admixture
+[admixture](./docs/admixture.md) - [群体结构分析软件Admixture](https://genome.cshlp.org/content/19/9/1655)
 
-[annovar](./docs/annovar.md) - ANNOVAR变异功能注释工具
+[annovar](./docs/annovar.md) - [ANNOVAR变异功能注释工具](https://academic.oup.com/nar/article/38/16/e164/1749458)
 
 [bam-cov](./docs/bam_coverage_stats.md) - BAM文件覆盖度统计
 
-[blast](./docs/blast_v2.md) - 序列比对工具
+[blast](./docs/blast_v2.md) - [序列比对工具](https://academic.oup.com/nar/article/36/suppl_2/W5/2505810?login=true)
 
-[busco](./docs/busco.md) - BUSCO
+[busco](./docs/busco.md) - [BUSCO](https://academic.oup.com/bioinformatics/article/31/19/3210/211866)
 
-[fastp](./docs/fastp.md) - fastq文件质控
+[fastp](./docs/fastp.md) - [fastq文件质控](https://onlinelibrary.wiley.com/doi/10.1002/imt2.70078)
 
-[rna-seq](./docs/rnaseq.md) - Hisat + StringTie2转录组流程
+[iseq](./docs/iseq.md) - [iSeq下载测序数据](https://github.com/BioOmics/iSeq)
 
-[sra2fastq](docs/sra2fastq.md) - SRA文件转FSATQ文件
+[rna-seq](./docs/rnaseq.md) - [Hisat2](https://www.nature.com/articles/s41587-019-0201-4) + [StringTie2](https://link.springer.com/article/10.1186/s13059-019-1910-1)转录组流程
+
+[sra2fastq](docs/sra2fastq.md) - SRA文件转FSATQ文件-基于[parallel-fastq-dump](https://github.com/rvalieris/parallel-fastq-dump)
 
 
 ## 许可证 | License
