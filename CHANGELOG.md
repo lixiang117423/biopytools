@@ -1,4 +1,11 @@
 
+## [0.13.0] - 2026-02-24
+
+### Changed
+- add bam stat module
+- Updated files: biopytools/bam_stats,docs/bam_coverage_stats.md,biopytools/cli/commands/bam_stats.py,biopytools/cli/main.py
+
+
 ## [0.12.1] - 2026-02-24
 
 ### Changed
