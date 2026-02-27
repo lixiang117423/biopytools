@@ -3,6 +3,14 @@
 BioPyTools 统一CLI入口点|BioPyTools Unified CLI Entry Point
 """
 
+import sys
+import os
+
+# 设置环境变量禁用Python输出缓冲（更温和的方法）
+# 不重新打开stdout/stderr，以保持作业系统的重定向
+os.environ['PYTHONUNBUFFERED'] = '1'
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+
 import click
 from .._version import __version__
 
@@ -67,6 +75,8 @@ COMMAND_REGISTRY = [
     ('haphic', 'haphic', 'HapHiC基因组scaffolding工具|HapHiC genome scaffolding tool'),
     ('hicanu', 'hicanu', 'HiCanu基因组组装工具|HiCanu genome assembly tool'),
     ('hic_qc', 'hic-qc', 'Hi-C数据质量评估工具|Hi-C data quality assessment tool'),
+    ('hic_heatmap', 'hic-heatmap', 'Hi-C全基因组热图分析|Hi-C whole genome heatmap analysis'),
+    ('insert_detection', 'insert-detection', '插入序列位点检测|Insert sequence insertion site detection'),
     ('hifi_hic', 'hifi-hic', '使用HiFi和Hi-C数据进行基因组组装|Genome assembly using HiFi and Hi-C data'),
     ('hifiasm', 'hifiasm', '运行hifiasm基因组组装|Run hifiasm genome assembly'),
     ('hite', 'hite', 'HiTE转座子检测与注释|HiTE transposon detection and annotation'),
@@ -99,6 +109,7 @@ COMMAND_REGISTRY = [
     ('pandepth', 'pandepth', 'PanDepth覆盖度计算工具|PanDepth coverage calculation tool'),
     ('panhite', 'panhite', 'panHiTE群体基因组TE分析|panHiTE pan-genome TE analysis'),
     ('phylo_selector', 'phylo-selector', '系统发育树样品选择工具|Phylogenetic tree sample selection tool'),
+    ('plotsr', 'plotsr', '多基因组共线性可视化工具|Multi-genome synteny visualization tool'),
     ('purge_dups', 'purge-dups', 'Purge_Dups基因组去冗余工具|Purge_Dups genome deduplication tool'),
     ('parabricks', 'parabricks', '基于GPU的全基因组流程|GPU-based whole genome pipeline'),
     ('parse_gene_dna', 'parse-gene-dna', '基因DNA序列提取工具|Gene DNA sequence extraction tool'),
