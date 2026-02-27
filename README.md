@@ -65,6 +65,8 @@ Options:
 
 [busco](./docs/busco.md) - [BUSCO](https://academic.oup.com/bioinformatics/article/31/19/3210/211866)
 
+[bwa](docs/bam_coverage_stats.md) - [BWA比对](https://academic.oup.com/bioinformatics/article/25/14/1754/225615)
+
 [fastp](./docs/fastp.md) - [fastq文件质控](https://onlinelibrary.wiley.com/doi/10.1002/imt2.70078)
 
 [iseq](./docs/iseq.md) - [iSeq下载测序数据](https://github.com/BioOmics/iSeq)
@@ -72,6 +74,8 @@ Options:
 [rna-seq](./docs/rnaseq.md) - [Hisat2](https://www.nature.com/articles/s41587-019-0201-4) + [StringTie2](https://link.springer.com/article/10.1186/s13059-019-1910-1)转录组流程
 
 [sra2fastq](docs/sra2fastq.md) - SRA文件转FSATQ文件-基于[parallel-fastq-dump](https://github.com/rvalieris/parallel-fastq-dump)
+
+[vcf2phylip](docs/vcf2phylip.md) - VCF文件转PHYLIP格式文件
 
 
 ## 许可证 | License
