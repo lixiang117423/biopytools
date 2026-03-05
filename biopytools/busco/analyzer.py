@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple
-from .utils import CommandRunner
+from .utils import CommandRunner, build_conda_command
 
 class BUSCORunner:
     """BUSCO运行器|BUSCO Runner"""
@@ -47,86 +47,90 @@ class BUSCORunner:
     
     def build_busco_command(self, input_file: str, output_name: str) -> str:
         """构建BUSCO命令|Build BUSCO command"""
-        cmd_parts = [
-            self.config.busco_path,
-            f"-i {input_file}",
-            f"-l {self.config.lineage}",
-            f"-o {output_name}",
-            f"-m {self.config.mode}",
-            f"-c {self.config.threads}"
+        # 构建参数列表|Build argument list
+        args = [
+            "-i", input_file,
+            "-l", self.config.lineage,
+            "-o", output_name,
+            "-m", self.config.mode,
+            "-c", str(self.config.threads)
         ]
-        
+
         # 添加高级参数|Add advanced parameters
         if self.config.force:
-            cmd_parts.append("-f")
-        
+            args.append("-f")
+
         if self.config.augustus:
-            cmd_parts.append("--augustus")
-        
+            args.append("--augustus")
+
         if self.config.augustus_parameters:
-            cmd_parts.append(f'--augustus_parameters "{self.config.augustus_parameters}"')
-        
+            args.extend(["--augustus_parameters", self.config.augustus_parameters])
+
         if self.config.augustus_species:
-            cmd_parts.append(f"--augustus_species {self.config.augustus_species}")
-        
+            args.extend(["--augustus_species", self.config.augustus_species])
+
         if self.config.auto_lineage:
-            cmd_parts.append("--auto-lineage")
-        
+            args.append("--auto-lineage")
+
         if self.config.auto_lineage_euk:
-            cmd_parts.append("--auto-lineage-euk")
-        
+            args.append("--auto-lineage-euk")
+
         if self.config.auto_lineage_prok:
-            cmd_parts.append("--auto-lineage-prok")
-        
+            args.append("--auto-lineage-prok")
+
         if self.config.contig_break != 10:
-            cmd_parts.append(f"--contig_break {self.config.contig_break}")
-        
+            args.extend(["--contig_break", str(self.config.contig_break)])
+
         if self.config.datasets_version != 'odb12':
-            cmd_parts.append(f"--datasets_version {self.config.datasets_version}")
-        
+            args.extend(["--datasets_version", self.config.datasets_version])
+
         if self.config.download_path:
-            cmd_parts.append(f"--download_path {self.config.download_path}")
-        
+            args.extend(["--download_path", self.config.download_path])
+
         if self.config.evalue != 1e-3:
-            cmd_parts.append(f"-e {self.config.evalue}")
-        
+            args.extend(["-e", str(self.config.evalue)])
+
         if self.config.limit != 3:
-            cmd_parts.append(f"--limit {self.config.limit}")
-        
+            args.extend(["--limit", str(self.config.limit)])
+
         if self.config.long:
-            cmd_parts.append("--long")
-        
+            args.append("--long")
+
         if self.config.metaeuk:
-            cmd_parts.append("--metaeuk")
-        
+            args.append("--metaeuk")
+
         if self.config.metaeuk_parameters:
-            cmd_parts.append(f'--metaeuk_parameters "{self.config.metaeuk_parameters}"')
-        
+            args.extend(["--metaeuk_parameters", self.config.metaeuk_parameters])
+
         if self.config.metaeuk_rerun_parameters:
-            cmd_parts.append(f'--metaeuk_rerun_parameters "{self.config.metaeuk_rerun_parameters}"')
-        
+            args.extend(["--metaeuk_rerun_parameters", self.config.metaeuk_rerun_parameters])
+
         if self.config.miniprot:
-            cmd_parts.append("--miniprot")
-        
+            args.append("--miniprot")
+
         if self.config.skip_bbtools:
-            cmd_parts.append("--skip_bbtools")
-        
+            args.append("--skip_bbtools")
+
         if self.config.offline:
-            cmd_parts.append("--offline")
-        
+            args.append("--offline")
+
         if self.config.restart:
-            cmd_parts.append("-r")
-        
+            args.append("-r")
+
         if self.config.quiet:
-            cmd_parts.append("-q")
-        
+            args.append("-q")
+
         if self.config.scaffold_composition:
-            cmd_parts.append("--scaffold_composition")
-        
+            args.append("--scaffold_composition")
+
         if self.config.tar:
-            cmd_parts.append("--tar")
-        
-        return " ".join(cmd_parts)
+            args.append("--tar")
+
+        # 使用conda环境支持|Use conda environment support
+        cmd_list = build_conda_command(self.config.busco_path, args)
+
+        # 转换为字符串命令用于shell执行|Convert to string command for shell execution
+        return " ".join(cmd_list)
     
     def parse_busco_results(self, output_name: str, sample_name: str) -> Optional[Dict[str, Any]]:
         """解析BUSCO结果|Parse BUSCO results"""

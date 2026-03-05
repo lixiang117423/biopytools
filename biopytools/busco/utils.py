@@ -8,8 +8,73 @@ import sys
 import glob
 import os
 import re
+import shutil
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Tuple, Optional
+
+
+def get_conda_env(command: str) -> Optional[str]:
+    """
+    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
+
+    Args:
+        command: 命令名称或路径|Command name or path (e.g., 'busco' or '/path/to/busco')
+
+    Returns:
+        conda环境名称或None|conda environment name or None
+    """
+    # 首先尝试从命令路径检测|First try to detect from command path
+    cmd_path = shutil.which(command)
+    if cmd_path:
+        # 检查路径中是否包含 envs|Check if path contains 'envs'
+        # 例如: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+        match = re.search(r'/envs/([^/]+)', cmd_path)
+        if match:
+            return match.group(1)
+
+    # 如果未找到，尝试搜索conda环境|If not found, try searching conda environments
+    # 尝试找到conda基础目录|Try to find conda base directory
+    conda_base = os.environ.get('CONDA_EXE')
+    if conda_base:
+        # CONDA_EXE通常是/path/to/miniforge3/bin/conda
+        # 需要获取envs目录|Need to get envs directory
+        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
+        envs_dir = os.path.join(conda_base_dir, 'envs')
+
+        if os.path.exists(envs_dir):
+            # 搜索所有环境中的命令|Search for command in all environments
+            for env_name in os.listdir(envs_dir):
+                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
+                if os.path.exists(env_bin):
+                    # 找到了|Found it
+                    return env_name
+
+    return None
+
+
+def build_conda_command(command: str, args: List[str]) -> List[str]:
+    """
+    构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment
+
+    Args:
+        command: 命令名称|Command name
+        args: 命令参数|Command arguments
+
+    Returns:
+        完整命令列表|Complete command list
+    """
+    # 检查是否在conda环境中|Check if in conda environment
+    conda_env = get_conda_env(command)
+
+    if conda_env:
+        # 使用 conda run|Use conda run
+        # 如果command本身是完整路径，使用完整路径；如果是命令名，conda run会自动找到环境中的版本
+        full_cmd = ['conda', 'run', '-n', conda_env, command] + args
+    else:
+        # 直接调用|Direct call
+        full_cmd = [command] + args
+
+    return full_cmd
 
 class BUSCOLogger:
     """BUSCO分析日志管理器|BUSCO Analysis Logger Manager"""
@@ -143,8 +208,9 @@ def check_dependencies(config, logger):
     logger.info("检查依赖软件|Checking dependencies")
 
     try:
-        result = subprocess.run([config.busco_path, "--version"],
-                              capture_output=True, text=True, timeout=60)
+        # 使用 conda run 如果在conda环境中|Use conda run if in conda environment
+        cmd = build_conda_command(config.busco_path, ['--version'])
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
         if result.returncode == 0:
             version_info = result.stdout.strip()
             logger.info(f"BUSCO 可用|BUSCO available: {version_info}")

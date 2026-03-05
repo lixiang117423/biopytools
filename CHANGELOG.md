@@ -1,4 +1,11 @@
 
+## [0.15.2] - 2026-03-05
+
+### Changed
+- update BUSCO module
+- Updated files: biopytools/busco,biopytools/cli/commands/busco.py
+
+
 ## [0.15.1] - 2026-02-27
 
 ### Changed
