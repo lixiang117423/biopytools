@@ -82,14 +82,15 @@ def _validate_input(input_path):
               default=1000,
               show_default=True,
               help='最大k-mer覆盖度|Max k-mer coverage')
-@click.option('--genomescope-r',
-              default='~/software/scripts/genomescope.R',
-              show_default=True,
-              help='GenomeScope R脚本路径|GenomeScope R script path')
 @click.option('--skip-smudgeplot',
               is_flag=True,
               default=False,
               help='跳过Smudgeplot倍性分析|Skip Smudgeplot ploidy analysis')
+@click.option('--ploidy',
+              type=int,
+              default=2,
+              show_default=True,
+              help='基因组倍性 1-6 (默认: 2，由Smudgeplot自动推断)|Genome ploidy level 1-6 (default: 2, auto-inferred by Smudgeplot)')
 @click.option('--fastk-table',
               default='',
               help='FastK表文件路径|FastK table file path')
@@ -102,7 +103,7 @@ def _validate_input(input_path):
               show_default=True,
               help='Read1文件后缀模式|Read1 file suffix pattern')
 def genome_analysis(input, output_dir, read_length, kmer_size, threads,
-                   hash_size, max_kmer_cov, genomescope_r, skip_smudgeplot,
+                   hash_size, max_kmer_cov, skip_smudgeplot, ploidy,
                    fastk_table, fastk_memory, read1_suffix):
     """
     基因组分析工具|Genome Analysis Tool
@@ -137,11 +138,11 @@ def genome_analysis(input, output_dir, read_length, kmer_size, threads,
     if max_kmer_cov != 1000:
         args.extend(['-c', str(max_kmer_cov)])
 
-    if genomescope_r != '~/software/scripts/genomescope.R':
-        args.extend(['--genomescope-r', genomescope_r])
-
     if skip_smudgeplot:
         args.append('--skip-smudgeplot')
+
+    if ploidy != 2:
+        args.extend(['--ploidy', str(ploidy)])
 
     if fastk_table:
         args.extend(['--fastk-table', fastk_table])

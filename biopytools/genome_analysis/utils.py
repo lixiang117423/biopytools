@@ -214,31 +214,36 @@ class GenomeScopeRunner:
             return False
 
     def run_genomescope(self, histo_file: str, kmer_size: int, read_length: int,
-                       output_dir: str, max_kmer_cov: int) -> Optional[float]:
+                       output_dir: str, max_kmer_cov: int, ploidy: int) -> Optional[float]:
         """
-        运行GenomeScope (Python版本)|Run GenomeScope (Python version)
+        运行GenomeScope 2.0 (使用genomescope2命令行工具)|Run GenomeScope 2.0 (using genomescope2 CLI tool)
 
         Args:
             histo_file: Histogram文件|Histogram file
             kmer_size: K-mer大小|K-mer size
-            read_length: 读长|Read length
+            read_length: 读长|Read length (未使用，保留兼容性)|Read length (unused, kept for compatibility)
             output_dir: 输出目录|Output directory
             max_kmer_cov: 最大覆盖度|Max coverage
+            ploidy: 基因组倍性|Genome ploidy (1-6)
 
         Returns:
             k-mer coverage值或None|K-mer coverage value or None
         """
         self.logger.info("=" * 60)
-        self.logger.info("步骤3/3: 运行GenomeScope (Python)")
+        self.logger.info("步骤3/3: 运行GenomeScope 2.0")
         self.logger.info("=" * 60)
 
+        # 使用绝对路径|Use absolute paths
+        histo_file_abs = os.path.abspath(histo_file)
+        output_dir_abs = os.path.abspath(output_dir)
+
         # 检查GenomeScope是否已经运行完成|Check if GenomeScope is already completed
-        model_file = os.path.join(output_dir, 'model.txt')
+        model_file = os.path.join(output_dir_abs, 'model.txt')
         if os.path.exists(model_file):
             self.logger.info(f"GenomeScope输出已存在，跳过运行步骤: {model_file}")
             self.logger.info("如需重新运行，请删除现有输出目录")
             # 直接从已有结果中提取kcov|Extract kcov directly from existing results
-            kcov = self._extract_kcov(output_dir)
+            kcov = self._extract_kcov(output_dir_abs)
             if kcov:
                 self.logger.info(f"从已有结果中提取k-mer coverage: {kcov}")
                 return kcov
@@ -246,21 +251,32 @@ class GenomeScopeRunner:
                 self.logger.warning("已有结果中未能提取kcov值")
 
         try:
-            # 使用Python版本GenomeScope|Use Python version of GenomeScope
-            genomescope_script = os.path.expanduser('~/software/scripts/genomescope.py')
+            # 检查genomescope2命令是否可用|Check if genomescope2 command is available
+            genomescope2_cmd = self._find_genomescope2()
+            if not genomescope2_cmd:
+                self.logger.error("未找到genomescope2命令|genomescope2 command not found")
+                self.logger.error("请安装: conda create -n genomescope2_v.2.1.0 -c conda-forge genomescope2")
+                return None
 
+            self.logger.info(f"Histogram文件|Histogram file: {histo_file_abs}")
+            self.logger.info(f"输出目录|Output directory: {output_dir_abs}")
+
+            # 构建genomescope2命令|Build genomescope2 command
             cmd = [
-                'python3', genomescope_script,
-                histo_file,
-                str(kmer_size),
-                str(read_length),
-                output_dir
+                genomescope2_cmd,
+                '-i', histo_file_abs,
+                '-o', output_dir_abs,
+                '-k', str(kmer_size),
+                '-p', str(ploidy)
             ]
 
-            if max_kmer_cov:
-                cmd.append(str(max_kmer_cov))
+            # 添加可选参数|Add optional parameters
+            if max_kmer_cov > 0:
+                cmd.extend(['-m', str(max_kmer_cov)])
 
-            self.logger.info(f"命令: {' '.join(cmd)}")
+            self.logger.info(f"GenomeScope 2.0分析|GenomeScope 2.0 analyzing: {histo_file_abs}")
+            self.logger.info(f"参数|Parameters: k={kmer_size}, p={ploidy}, outdir={output_dir_abs}")
+            self.logger.debug(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -270,27 +286,55 @@ class GenomeScopeRunner:
             )
 
             if result.returncode != 0:
-                self.logger.error(f"GenomeScope失败: {result.stderr}")
-                if result.stdout:
-                    self.logger.error(f"标准输出: {result.stdout}")
+                self.logger.error(f"GenomeScope 2.0失败|GenomeScope 2.0 failed: {result.stderr}")
                 return None
 
             # 记录GenomeScope输出|Log GenomeScope output
             if result.stdout:
-                self.logger.info(result.stdout)
+                for line in result.stdout.split('\n'):
+                    if line.strip():
+                        self.logger.info(line)
 
             # 从GenomeScope输出中提取kcov|Extract kcov from GenomeScope output
-            kcov = self._extract_kcov(output_dir)
+            kcov = self._extract_kcov(output_dir_abs)
             if kcov:
-                self.logger.info(f"成功提取k-mer coverage: {kcov}")
+                self.logger.info(f"成功提取k-mer coverage|Successfully extracted k-mer coverage: {kcov}")
                 return kcov
             else:
-                self.logger.warning("未能从GenomeScope输出中提取kcov值")
+                self.logger.warning("未能从GenomeScope输出中提取kcov值|Failed to extract kcov from GenomeScope output")
                 return None
 
         except Exception as e:
-            self.logger.error(f"运行GenomeScope时出错: {str(e)}", exc_info=True)
+            self.logger.error(f"运行GenomeScope时出错|Error running GenomeScope: {str(e)}", exc_info=True)
             return None
+
+    def _find_genomescope2(self) -> Optional[str]:
+        """
+        查找genomescope2命令|Find genomescope2 command
+
+        Returns:
+            genomescope2命令路径或None|genomescope2 command path or None
+        """
+        # 方法1: 直接使用genomescope2命令|Method 1: Use genomescope2 command directly
+        try:
+            result = subprocess.run(['which', 'genomescope2'], capture_output=True, text=True, check=True)
+            if result.stdout.strip():
+                return 'genomescope2'
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            pass
+
+        # 方法2: 检查conda环境|Method 2: Check conda environment
+        conda_envs = [
+            '/share/org/YZWL/yzwl_lixg/miniforge3/envs/genomescope2_v.2.1.0',
+            os.path.expanduser('~/miniforge3/envs/genomescope2_v.2.1.0'),
+        ]
+
+        for env_path in conda_envs:
+            genomescope2_path = os.path.join(env_path, 'bin', 'genomescope2')
+            if os.path.exists(genomescope2_path):
+                return genomescope2_path
+
+        return None
 
     def _extract_kcov(self, output_dir: str) -> Optional[float]:
         """

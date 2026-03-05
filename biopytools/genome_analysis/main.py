@@ -96,6 +96,7 @@ def check_dependencies(logger, run_smudgeplot=False) -> bool:
 
     dependencies = [
         ('jellyfish', 'jellyfish'),
+        ('genomescope2', 'GenomeScope 2.0'),
     ]
 
     # 如果需要运行Smudgeplot，添加相关依赖检查|Add Smudgeplot related dependencies if needed
@@ -111,6 +112,8 @@ def check_dependencies(logger, run_smudgeplot=False) -> bool:
             logger.info(f"[OK] {name} 已找到|{name} found")
         except (subprocess.CalledProcessError, FileNotFoundError):
             logger.error(f"[ERROR] {name} 未找到|{name} not found")
+            if cmd == 'genomescope2':
+                logger.error("安装命令|Install command: conda create -n genomescope2_v.2.1.0 -c conda-forge genomescope2")
             all_ok = False
 
     return all_ok
@@ -131,7 +134,8 @@ def generate_software_versions_yml(output_dir: str, config: GenomeAnalysisConfig
     tools = {}
     tool_commands = {
         'jellyfish': ['jellyfish', '--version'],
-        'python3': ['python3', '--version'],
+        'R': ['R', '--version'],
+        'Rscript': ['Rscript', '--version'],
     }
 
     # 如果运行Smudgeplot，添加相关工具|Add Smudgeplot related tools if running
@@ -260,6 +264,8 @@ def main():
                          help='最大k-mer覆盖度|Max k-mer coverage')
     optional.add_argument('--skip-smudgeplot', action='store_true',
                          help='跳过Smudgeplot倍性分析|Skip Smudgeplot ploidy analysis')
+    optional.add_argument('--ploidy', type=int, default=2,
+                         help='基因组倍性 1-6 (默认: 2，由Smudgeplot自动推断)|Genome ploidy level 1-6 (default: 2, auto-inferred by Smudgeplot)')
     optional.add_argument('--fastk-table',
                          default='',
                          help='FastK表文件路径|FastK table file path')
@@ -321,7 +327,8 @@ def main():
             hash_size=args.hash_size,
             max_kmer_cov=args.max_kmer_cov,
             read1_suffix=args.read1_suffix,
-            skip_smudgeplot=args.skip_smudgeplot
+            skip_smudgeplot=args.skip_smudgeplot,
+            ploidy=args.ploidy
         )
 
         config.validate()
@@ -394,7 +401,7 @@ def main():
             # 步骤2: Jellyfish histo
             jf_file = f"{output_prefix}.jf"
             histo_file = f"{output_prefix}.histo"
-            if not gs_runner.run_jellyfish_histo(jf_file, histo_file, config.threads):
+            if not gs_runner.run_jellyfish_histo(jf_file, output_prefix, config.threads):
                 logger.error(f"样品 {sample_name} Jellyfish histo失败")
                 failed_count += 1
                 continue
@@ -406,7 +413,7 @@ def main():
 
             kcov = gs_runner.run_genomescope(
                 histo_file, config.kmer_size, config.read_length,
-                gs_output_dir, config.max_kmer_cov
+                gs_output_dir, config.max_kmer_cov, config.ploidy
             )
 
             if kcov is None:
@@ -569,7 +576,7 @@ class GenomeAnalysis:
             # 步骤2: Jellyfish histo
             jf_file = f"{output_prefix}.jf"
             histo_file = f"{output_prefix}.histo"
-            if not self.gs_runner.run_jellyfish_histo(jf_file, histo_file, self.config.threads):
+            if not self.gs_runner.run_jellyfish_histo(jf_file, output_prefix, self.config.threads):
                 return False
 
             # 步骤3: GenomeScope
@@ -579,7 +586,7 @@ class GenomeAnalysis:
 
             kcov = self.gs_runner.run_genomescope(
                 histo_file, self.config.kmer_size, self.config.read_length,
-                gs_output_dir, self.config.max_kmer_cov
+                gs_output_dir, self.config.max_kmer_cov, self.config.ploidy
             )
 
             if kcov is None:

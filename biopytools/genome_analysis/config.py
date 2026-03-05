@@ -19,7 +19,8 @@ class GenomeAnalysisConfig:
         hash_size: str = "10G",
         max_kmer_cov: int = 1000,
         read1_suffix: str = "*_1.clean.fq.gz",
-        skip_smudgeplot: bool = False
+        skip_smudgeplot: bool = False,
+        ploidy: int = 2
     ):
         """
         初始化配置|Initialize configuration
@@ -34,6 +35,7 @@ class GenomeAnalysisConfig:
             max_kmer_cov: GenomeScope最大覆盖度 (默认: 1000)|Max k-mer coverage (default: 1000)
             read1_suffix: Read1文件后缀模式 (默认: *_1.clean.fq.gz)|Read1 file suffix pattern (default: *_1.clean.fq.gz)
             skip_smudgeplot: 跳过Smudgeplot倍性分析 (默认: False)|Skip Smudgeplot ploidy analysis (default: False)
+            ploidy: 基因组倍性 1-6 (默认: 2)|Genome ploidy level 1-6 (default: 2)
         """
         self.input_dir = input_dir
         self.output_dir = output_dir
@@ -44,10 +46,11 @@ class GenomeAnalysisConfig:
         self.max_kmer_cov = max_kmer_cov
         self.read1_suffix = read1_suffix
         self.skip_smudgeplot = skip_smudgeplot
+        self.ploidy = ploidy  # 用户指定的倍性（1-6），如果为None则由Smudgeplot推断
 
         # 运行时变量|Runtime variables
         self.kcov = None  # GenomeScope计算得到的k-mer coverage
-        self.ploidy = None  # Smudgeplot推断的倍性
+        self.inferred_ploidy = None  # Smudgeplot推断的倍性（如果未指定）
 
     def validate(self):
         """
@@ -73,6 +76,9 @@ class GenomeAnalysisConfig:
         if self.max_kmer_cov <= 0:
             raise ValueError(f"最大覆盖度必须大于0|Max coverage must be > 0: {self.max_kmer_cov}")
 
+        if self.ploidy is not None and (self.ploidy < 1 or self.ploidy > 6):
+            raise ValueError(f"倍性必须在1-6之间|Ploidy must be between 1-6: {self.ploidy}")
+
         return True
 
     def __repr__(self):
@@ -87,6 +93,7 @@ class GenomeAnalysisConfig:
             f"  hash_size={self.hash_size!r},\n"
             f"  max_kmer_cov={self.max_kmer_cov!r},\n"
             f"  read1_suffix={self.read1_suffix!r},\n"
-            f"  skip_smudgeplot={self.skip_smudgeplot!r}\n"
+            f"  skip_smudgeplot={self.skip_smudgeplot!r},\n"
+            f"  ploidy={self.ploidy!r}\n"
             f")"
         )

@@ -1,4 +1,11 @@
 
+## [0.16.1] - 2026-03-05
+
+### Changed
+- update genomescope module using conda env
+- Updated files: biopytools/genome_analysis,biopytools/cli/commands/genome_analysis.py
+
+
 ## [0.16.0] - 2026-03-05
 
 ### Changed
