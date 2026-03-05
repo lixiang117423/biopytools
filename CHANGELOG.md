@@ -1,4 +1,11 @@
 
+## [0.16.0] - 2026-03-05
+
+### Changed
+- add genomescope module
+- Updated files: biopytools/genome_analysis,docs/genomescope.md,biopytools/cli/commands/genome_analysis.py,biopytools/cli/main.py
+
+
 ## [0.15.2] - 2026-03-05
 
 ### Changed
