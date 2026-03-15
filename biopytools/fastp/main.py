@@ -139,10 +139,10 @@ def main():
                          help="不合格碱基百分比阈值|Unqualified base percentage threshold")
     optional.add_argument("-n", "--n-base-limit", type=int, default=10,
                          help="N碱基数量限制|N base count limit")
-    optional.add_argument("--read1-suffix", default="_1.fq.gz",
-                         help="Read1文件后缀（单末端模式也使用此参数）|Read1 file suffix (also used for single-end mode)")
-    optional.add_argument("--read2-suffix", default="_2.fq.gz",
-                         help="Read2文件后缀|Read2 file suffix")
+    optional.add_argument("--read1-suffix", default=None,
+                         help="Read1文件后缀（单末端模式也使用此参数）。默认自动检测，支持_1.fq.gz和_1.fastq.gz|Read1 file suffix (also used for single-end mode). Auto-detect by default, supports _1.fq.gz and _1.fastq.gz")
+    optional.add_argument("--read2-suffix", default=None,
+                         help="Read2文件后缀。默认自动检测，支持_2.fq.gz和_2.fastq.gz|Read2 file suffix. Auto-detect by default, supports _2.fq.gz and _2.fastq.gz")
     optional.add_argument("--single-end", action="store_true",
                          help="单末端模式|Single-end mode")
 

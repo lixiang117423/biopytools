@@ -1,4 +1,11 @@
 
+## [0.16.2] - 2026-03-15
+
+### Changed
+- update fastp module for --read1-suffix and --read2-suffix
+- Updated files: biopytools/fastp,biopytools/cli/commands/fastp.py
+
+
 ## [0.16.1] - 2026-03-05
 
 ### Changed

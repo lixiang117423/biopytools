@@ -27,8 +27,10 @@ class FastpConfig:
     n_base_limit: int = 10
 
     # 文件模式|File patterns
-    read1_suffix: str = "_1.fq.gz"
-    read2_suffix: str = "_2.fq.gz"
+    # None 表示自动检测，支持自动识别 .fq.gz 和 .fastq.gz
+    # None means auto-detect, supports both .fq.gz and .fastq.gz
+    read1_suffix: Optional[str] = None
+    read2_suffix: Optional[str] = None
     single_end: bool = False  # 是否为单末端模式|Whether to use single-end mode
 
     # 日志配置|Logging configuration
@@ -48,6 +50,64 @@ class FastpConfig:
 
         # 判断是否为单文件模式|Check if single file mode
         self.is_single_file = self.input_path.is_file()
+
+        # 自动检测后缀（如果用户未指定）|Auto-detect suffixes if not specified by user
+        if self.read1_suffix is None or self.read2_suffix is None:
+            self._auto_detect_suffixes()
+
+    def _auto_detect_suffixes(self):
+        """
+        自动检测输入文件的后缀格式|Auto-detect input file suffix format
+
+        支持 .fq.gz 和 .fastq.gz 格式的自动识别
+        Supports both .fq.gz and .fastq.gz formats
+
+        优先顺序|Priority order:
+        1. _1.fq.gz / _2.fq.gz
+        2. _1.fastq.gz / _2.fastq.gz
+        """
+        # 定义可能的后缀组合|Define possible suffix combinations
+        possible_suffixes = [
+            ("_1.fq.gz", "_2.fq.gz"),
+            ("_1.fastq.gz", "_2.fastq.gz"),
+        ]
+
+        # 检测目录模式|Detect in directory mode
+        if not self.is_single_file and self.input_path.is_dir():
+            detected = False
+            for read1_suf, read2_suf in possible_suffixes:
+                # 尝试查找匹配 read1 后缀的文件|Try to find files matching read1 suffix
+                test_files = list(self.input_path.glob(f"*{read1_suf}"))
+                if test_files:
+                    self.read1_suffix = read1_suf
+                    self.read2_suffix = read2_suf
+                    detected = True
+                    break
+
+            if detected and self.read1_suffix:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.info(f"自动检测到文件后缀|Auto-detected file suffix: {self.read1_suffix}")
+                return
+
+        # 检测单文件模式|Detect in single file mode
+        if self.is_single_file:
+            filename = self.input_path.name
+            for read1_suf, read2_suf in possible_suffixes:
+                if filename.endswith(read1_suf):
+                    self.read1_suffix = read1_suf
+                    self.read2_suffix = read2_suf
+
+                    import logging
+                    logger = logging.getLogger(__name__)
+                    logger.info(f"自动检测到文件后缀|Auto-detected file suffix: {self.read1_suffix}")
+                    return
+
+        # 如果都检测不到，使用默认值|If none detected, use default
+        if self.read1_suffix is None:
+            self.read1_suffix = "_1.fq.gz"
+        if self.read2_suffix is None:
+            self.read2_suffix = "_2.fq.gz"
 
         # 标准化路径|Normalize paths
         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))

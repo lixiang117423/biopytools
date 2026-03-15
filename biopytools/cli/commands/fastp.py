@@ -86,13 +86,13 @@ def _validate_output_dir(dir_path):
               show_default=True,
               help='N碱基数量限制|N base count limit')
 @click.option('--read1-suffix',
-              default='_1.fq.gz',
-              show_default=True,
-              help='Read1文件后缀（单末端模式也使用此参数）|Read1 file suffix (also used for single-end mode)')
+              default=None,
+              show_default=False,
+              help='Read1文件后缀（单末端模式也使用此参数）。默认自动检测，支持_1.fq.gz和_1.fastq.gz|Read1 file suffix (also used for single-end mode). Auto-detect by default, supports _1.fq.gz and _1.fastq.gz')
 @click.option('--read2-suffix',
-              default='_2.fq.gz',
-              show_default=True,
-              help='Read2文件后缀|Read2 file suffix')
+              default=None,
+              show_default=False,
+              help='Read2文件后缀。默认自动检测，支持_2.fq.gz和_2.fastq.gz|Read2 file suffix. Auto-detect by default, supports _2.fq.gz and _2.fastq.gz')
 @click.option('--single-end',
               is_flag=True,
               help='单末端模式|Single-end mode')
@@ -120,12 +120,7 @@ def fastp(input, output_dir, fastp_path, threads, quality_threshold,
 
     使用fastp批量处理FASTQ文件质控|Batch quality control FASTQ files using fastp
 
-    示例|Examples:
-      # 处理整个目录|Process entire directory:
-      biopytools fastp -i raw_data/ -o clean_data/
-
-      # 处理单个文件|Process single file:
-      biopytools fastp -i sample_1.fq.gz -o clean_data/
+    示例|Examples: biopytools fastp -i raw_data/ -o clean_data/
     """
 
     # 延迟加载|Lazy load: import only when actually called
@@ -157,10 +152,10 @@ def fastp(input, output_dir, fastp_path, threads, quality_threshold,
     if n_base_limit != 10:
         args.extend(['-n', str(n_base_limit)])
 
-    if read1_suffix != '_1.fq.gz':
+    if read1_suffix is not None:
         args.extend(['--read1-suffix', read1_suffix])
 
-    if read2_suffix != '_2.fq.gz':
+    if read2_suffix is not None:
         args.extend(['--read2-suffix', read2_suffix])
 
     if single_end:
