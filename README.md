@@ -79,6 +79,8 @@ Options:
 
 [sra2fastq](docs/sra2fastq.md) - SRA文件转FSATQ文件-基于[parallel-fastq-dump](https://github.com/rvalieris/parallel-fastq-dump)
 
+[vcf2pca](docs/vcf2pca.md) - 基于[VCF2PCACluster](https://github.com/hewm2008/VCF2PCACluster)和PLINK的VCF文件做PCA
+
 [vcf2phylip](docs/vcf2phylip.md) - VCF文件转PHYLIP格式文件
 
 

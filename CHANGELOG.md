@@ -1,4 +1,11 @@
 
+## [0.18.0] - 2026-03-23
+
+### Changed
+- add vcf2pca module
+- Updated files: biopytools/vcf_pca,docs/vcf2pca.md,biopytools/cli/commands/vcf2pca.py,biopytools/cli/main.py,README.md
+
+
 ## [0.17.1] - 2026-03-23
 
 ### Changed
