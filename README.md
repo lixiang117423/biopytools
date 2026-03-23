@@ -67,7 +67,11 @@ Options:
 
 [bwa](docs/bam_coverage_stats.md) - [BWA比对](https://academic.oup.com/bioinformatics/article/25/14/1754/225615)
 
+[dual-rnaseq](docs/dual_rnaseq.md) - 双向RNA-Seq
+
 [fastp](./docs/fastp.md) - [fastq文件质控](https://onlinelibrary.wiley.com/doi/10.1002/imt2.70078)
+
+[genomescope](docs/genomescope.md) - 使用[GenomeScope 2.0](https://github.com/tbenavi1/genomescope2.0)和[Smudgeplot](https://github.com/KamilSJaron/smudgeplot)评估基因组大小和倍性
 
 [iseq](./docs/iseq.md) - [iSeq下载测序数据](https://github.com/BioOmics/iSeq)
 
