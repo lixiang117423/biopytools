@@ -1,4 +1,11 @@
 
+## [0.17.0] - 2026-03-23
+
+### Changed
+- add dual rnaseq module
+- Updated files: biopytools/dual_rnaseq,docs/dual_rnaseq.md,biopytools/cli/commands/dual_rnaseq.py,biopytools/cli/main.py
+
+
 ## [0.16.2] - 2026-03-15
 
 ### Changed

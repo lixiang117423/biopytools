@@ -18,10 +18,12 @@ from .._version import __version__
 COMMAND_REGISTRY = [
     # (模块文件名, 命令名, 描述文本)
     ('admixture', 'admixture', 'ADMIXTURE群体结构分析|ADMIXTURE Population Structure Analysis'),
+    ('agp2table', 'agp2table', 'AGP转表格工具|AGP to table converter'),
     ('annovar', 'annovar', 'ANNOVAR变异注释|ANNOVAR Variant Annotation'),
     ('allhic', 'allhic', '使用ALLHiC进行染色体挂载|Use ALLHiC for chromosome scaffolding'),
     ('assembly2agp', 'assembly2agp', 'Assembly文件转AGP格式工具|Assembly to AGP format converter'),
     ('assembly_stats', 'assembly-stats', '基因组装配统计|Genome Assembly Statistics'),
+    ('assembly_qc', 'assembly-qc', '基因组组装质量综合评估|Genome Assembly Quality Control'),
     ('assembly_qv', 'assembly-qv', '装配质量QV值计算|Assembly Quality QV Calculation'),
     ('bam_stats', 'bam-stats', 'BAM文件批量统计分析|BAM File Batch Statistics Analysis'),
     ('bam_cov', 'bam-cov', 'BAM覆盖度统计|BAM Coverage Statistics'),
@@ -35,6 +37,8 @@ COMMAND_REGISTRY = [
     ('bwa', 'bwa', '全基因组比对工具|Whole genome alignment tool'),
     ('bwa_gatk', 'bwa-gatk', '全基因组比对和变异检测|Whole genome alignment and variant detection'),
     ('busco', 'busco', 'BUSCO质量评估分析工具|BUSCO quality assessment tool'),
+    ('centier', 'centier', 'CentIER着丝粒鉴定工具|CentIER centromere identification tool'),
+    ('cphasing', 'cphasing', 'CPhasing基因组分相和挂载工具|CPhasing genome phasing and scaffolding tool'),
     ('chr_rename', 'chr-rename', '基于minimap2的染色体重命名工具|Chromosome rename tool based on minimap2'),
     ('deeploc', 'deeploc', 'DeepLoc 2.1蛋白质亚细胞定位预测工具|DeepLoc 2.1 protein subcellular localization prediction tool'),
     ('dual_rnaseq', 'dual-rnaseq', '互作转录组分析|Dual RNA-seq Analysis'),
@@ -57,6 +61,7 @@ COMMAND_REGISTRY = [
     ('gemma_gwas', 'gemma-gwas', 'GEMMA GWAS批量分析工具|GEMMA GWAS batch analysis tool'),
     ('genebank2fasta', 'genebank2fasta', 'GenBank序列提取工具|GenBank sequence extraction tool'),
     ('geneinfo', 'geneinfo', '从GFF文件提取基因信息|Extract gene information from GFF file'),
+    ('gap_stat', 'gap-stat', '基因组Gap统计工具|Genome gap statistics tool'),
     ('gff_renamer', 'gff-renamer', 'GFF文件ID规范化工具|GFF file ID standardization tool'),
     ('gtf2gff', 'gtf2gff', 'GTF到GFF文件转换工具|GTF to GFF file converter'),
     ('genome_analysis', 'genomescope', 'GenomeScope2基因组评估工具|GenomeScope2 genome evaluation tool'),
@@ -79,6 +84,7 @@ COMMAND_REGISTRY = [
     ('hmmsearch', 'hmmsearch', 'HMMsearch结果处理工具|HMMsearch result processing tool'),
     ('insert_detection', 'insert-detection', '插入序列位点检测|Insert sequence insertion site detection'),
     ('hifi_hic', 'hifi-hic', '使用HiFi和Hi-C数据进行基因组组装|Genome assembly using HiFi and Hi-C data'),
+    ('hifi_hic_workflow', 'hifi-hic-workflow', 'HiFi+Hi-C基因组组装与挂载完整流程|Complete HiFi+Hi-C Genome Assembly and Scaffolding Workflow'),
     ('hifiasm', 'hifiasm', '运行hifiasm基因组组装|Run hifiasm genome assembly'),
     ('hite', 'hite', 'HiTE转座子检测与注释|HiTE transposon detection and annotation'),
     ('indelpav', 'indelpav', 'INDEL PAV分析工具|INDEL PAV analysis tool'),
@@ -106,12 +112,16 @@ COMMAND_REGISTRY = [
     ('minimap2', 'minimap2', 'Minimap2比对与区域提取|Minimap2 alignment and region extraction'),
     ('msa', 'msa', '多序列比对分析工具|Multiple sequence alignment analysis tool'),
     ('msaviz', 'msaviz', 'MSA可视化工具（自动比对+可视化）|MSA Visualization Tool (Auto-align + Visualize)'),
+    ('minigraph', 'minigraph', 'Minigraph泛基因组图构建和分析工具|Minigraph pangenome graph construction and analysis tool'),
     ('ngenomesyn', 'ngenomesyn', 'NGenomeSyn可视化工具|NGenomeSyn visualization tool'),
     ('orthofinder', 'orthofinder', 'OrthoFinder泛基因组分析工具包|OrthoFinder pan-genome analysis toolkit'),
     ('panman', 'panman', 'Panman泛基因组构建和分析工具|Panman pan-genome construction and analysis tool'),
     ('pandepth', 'pandepth', 'PanDepth覆盖度计算工具|PanDepth coverage calculation tool'),
     ('panhite', 'panhite', 'panHiTE群体基因组TE分析|panHiTE pan-genome TE analysis'),
+    ('pep2genome', 'pep2genome', '蛋白质到基因组比对工具|Protein to genome alignment tool'),
+    ('seq2genome', 'seq2genome', '序列到基因组比对工具（支持DNA/蛋白质自动检测）|Sequence to genome alignment tool (DNA/protein with auto-detection)'),
     ('phylo_selector', 'phylo-selector', '系统发育树样品选择工具|Phylogenetic tree sample selection tool'),
+    ('primer3', 'primer3', 'Primer3引物设计工具|Primer3 Primer Design Tool'),
     ('protein_stats', 'protein-stats', 'Protein Stats理化性质分析工具|Protein Stats physicochemical properties analysis tool'),
     ('resistify_parser', 'resistify-parser', 'Resistify结果解析工具|Resistify results parser tool'),
     ('plotsr', 'plotsr', '多基因组共线性可视化工具|Multi-genome synteny visualization tool'),
@@ -128,14 +138,18 @@ COMMAND_REGISTRY = [
     ('rename_chromosomes', 'rename-chromosomes', '染色体重命名工具|Chromosome renaming tool'),
     ('repeat_analyzer', 'repeat-analyzer', '重复序列分析模块|Repeat sequence analysis module'),
     ('repeatmask', 'repeatmask', '重复序列屏蔽工具|Repeat masking tool'),
+    ('rnabloom', 'rnabloom', 'RNA-Bloom转录组从头组装工具|RNA-Bloom de novo transcriptome assembly tool'),
     ('rnaseq', 'rnaseq', 'RNA-seq表达定量流程|RNA-seq expression quantification pipeline'),
     ('signalp', 'signalp', 'SignalP 6.0信号肽预测工具|SignalP 6.0 signal peptide prediction tool'),
     ('snp_index', 'snp-index', 'SNP index计算和分析工具|SNP index calculation and analysis tool'),
     ('snp_region_gene', 'snp-region-gene', 'SNP区域基因提取工具|SNP Region Gene Extractor'),
+    ('swave', 'swave', 'Swave结构变异检测工具|Swave structural variant detection tool'),
+    ('yahs', 'yahs', 'YaHS Hi-C scaffolding流程|YaHS Hi-C scaffolding pipeline'),
     ('sra2fastq', 'sra2fastq', 'SRA转FASTQ转换工具|SRA to FASTQ conversion tool'),
     ('split_fasta_id', 'split-fasta-id', '分割FASTA文件ID|Split FASTA file ID'),
     ('subseq', 'subseq', '序列子集提取工具|Sequence subset extraction tool'),
     ('tassel_gwas', 'tassel-gwas', 'TASSEL GWAS分析工具|TASSEL GWAS analysis tool'),
+    ('gap_fill', 'gap-fill', 'TGS-GapCloser Gap填充工具|TGS-GapCloser gap filling tool'),
     ('telocomp', 'telocomp', 'TeloComp端粒鉴定工具|TeloComp telomere identification tool'),
     ('vcf2gene', 'vcf2gene', 'VCF变异基因注释工具|VCF variant gene annotation tool'),
     ('vcf2phylip', 'vcf2phylip', 'VCF转phylip格式|VCF to phylip format conversion'),
@@ -147,7 +161,8 @@ COMMAND_REGISTRY = [
     ('vcf_renamer', 'vcf-renamer', 'VCF样品名称重命名工具|VCF sample name renaming tool'),
     ('vcf_sampler', 'vcf-sampler', 'VCF文件SNP抽样工具|VCF file SNP sampling tool'),
     ('vcf_sample_hete', 'vcf-sample-hete', 'VCF样本基因型统计|VCF sample genotype statistics'),
-    ('vcf_sequence', 'vcf-sequence', '从基因组和VCF提取序列|Extract sequences from genome and VCF')
+    ('vcf_sequence', 'vcf-sequence', '从基因组和VCF提取序列|Extract sequences from genome and VCF'),
+    ('wgdi', 'wgdi', 'WGDI比较基因组学分析工具|WGDI comparative genomics analysis tool')
 ]
 
 # 将硬编码信息转换为字典，方便查询
@@ -205,10 +220,9 @@ class LazyGroup(click.Group):
 @click.pass_context
 def cli(ctx):
     """
-    BioPyTools - 生物信息学分析工具包
+    BioPyTools - 生物信息学分析工具包|BioPyTools - Bioinformatics Analysis Toolkit
 
-    
-    要查看特定命令的帮助，请运行：biopytools <命令> -h/--help, 如biopytools fastp -h
+    示例|Examples: biopytools <命令> -h/--help (如: biopytools fastp -h)
     """
     if ctx.invoked_subcommand is None:
         # 显示click生成的标准帮助信息（包含我们自定义的Commands部分）
