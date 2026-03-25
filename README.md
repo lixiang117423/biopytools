@@ -57,6 +57,8 @@ Options:
 
 [admixture](./docs/admixture.md) - [群体结构分析软件Admixture](https://genome.cshlp.org/content/19/9/1655)
 
+[agp2table](./docs/agp2table.md) - agp文件转换为table
+
 [annovar](./docs/annovar.md) - [ANNOVAR变异功能注释工具](https://academic.oup.com/nar/article/38/16/e164/1749458)
 
 [bam-cov](./docs/bam_coverage_stats.md) - BAM文件覆盖度统计

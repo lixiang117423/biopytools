@@ -1,4 +1,11 @@
 
+## [0.19.0] - 2026-03-25
+
+### Changed
+- add agp2table module
+- Updated files: biopytools/agp2table,docs/agp2table.md,biopytools/cli/commands/agp2table.py,biopytools/cli/main.py,README.md
+
+
 ## [0.18.0] - 2026-03-23
 
 ### Changed
