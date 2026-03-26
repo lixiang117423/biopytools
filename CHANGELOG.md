@@ -1,4 +1,11 @@
 
+## [0.20.0] - 2026-03-26
+
+### Changed
+- add hifi_hic module
+- Updated files: biopytools/hifi_hic,docs/hifi_hic.md,biopytools/cli/commands/hifi_hic.py,biopytools/cli/main.py,README.md
+
+
 ## [0.19.0] - 2026-03-25
 
 ### Changed
