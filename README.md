@@ -19,7 +19,7 @@ BioPyTools is a Python toolkit designed for bioinformatics research, providing a
 
 ## 环境配置 / Environment Setup
 
-Conda 环境配置文件位于 [`conda_env/`](conda_env/) 目录下。
+相关的Conda 环境配置文件位于 [`conda_env/`](conda_env/) 目录下。
 
 Conda environment files can be found in the [`conda_env/`](conda_env/) directory.
 
