@@ -1,4 +1,11 @@
 
+## [0.21.0] - 2026-03-31
+
+### Changed
+- add deepbsa module
+- Updated files: biopytools/deepbsa,docs/deepbsa.md,biopytools/cli/commands/deepbsa.py,biopytools/cli/main.py,README.md
+
+
 ## [0.20.0] - 2026-03-26
 
 ### Changed
