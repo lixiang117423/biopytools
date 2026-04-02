@@ -128,15 +128,24 @@ class DualIndexBuilder:
             exons_file = None
 
         # 检查文件是否为空|Check if files are empty
+        splice_sites_empty = False
+        exons_empty = False
+
         if splice_sites_file and os.path.exists(splice_sites_file):
             if os.path.getsize(splice_sites_file) == 0:
-                self.logger.warning(f"剪接位点文件为空（{splice_sites_file}），将不使用剪接位点|Splice sites file is empty, building index without splice sites")
-                splice_sites_file = None
+                self.logger.warning(f"剪接位点文件为空（{splice_sites_file}）|Splice sites file is empty")
+                splice_sites_empty = True
 
         if exons_file and os.path.exists(exons_file):
             if os.path.getsize(exons_file) == 0:
-                self.logger.warning(f"外显子文件为空（{exons_file}），将不使用外显子|Exons file is empty, building index without exons")
-                exons_file = None
+                self.logger.warning(f"外显子文件为空（{exons_file}）|Exons file is empty")
+                exons_empty = True
+
+        # 如果任何一个文件为空，则都不使用|If either file is empty, don't use both
+        if splice_sites_empty or exons_empty:
+            self.logger.warning("剪接位点或外显子文件为空，将只使用基因组构建索引（不使用--ss和--exon参数）|Splice sites or exons file is empty, building index with genome only (without --ss and --exon)")
+            splice_sites_file = None
+            exons_file = None
 
         # 构建HISAT2索引命令|Build HISAT2 index command
         cmd_parts = [f"hisat2-build"]

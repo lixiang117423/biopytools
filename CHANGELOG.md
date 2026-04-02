@@ -1,4 +1,11 @@
 
+## [0.22.2] - 2026-04-02
+
+### Changed
+- fix ss file bug for dual-rnaseq
+- Updated files: biopytools/dual_rnaseq
+
+
 ## [0.22.1] - 2026-04-02
 
 ### Changed
