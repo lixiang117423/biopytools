@@ -1,4 +1,11 @@
 
+## [0.22.0] - 2026-04-02
+
+### Changed
+- add smudgescope module
+- Updated files: biopytools/smudgescope,docs/smudgescope.md,biopytools/cli/commands/smudgescope.py,biopytools/cli/main.py
+
+
 ## [0.21.1] - 2026-03-31
 
 ### Changed
