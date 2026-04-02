@@ -61,6 +61,32 @@ class DualIndexBuilder:
             self.logger.error(f"外显子提取出错|Error extracting exons: {e}")
             return False
 
+    def normalize_genome_fasta(self, genome_file: str, output_file: str) -> bool:
+        """
+        标准化基因组FASTA文件（将小写字母转为大写）|Normalize genome FASTA file (convert lowercase to uppercase)
+
+        Args:
+            genome_file: 输入基因组FASTA文件|Input genome FASTA file
+            output_file: 输出标准化文件|Output normalized file
+
+        Returns:
+            是否成功|Whether successful
+        """
+        try:
+            with open(genome_file, 'r') as f_in, open(output_file, 'w') as f_out:
+                for line in f_in:
+                    if line.startswith('>'):
+                        # 保留header不变|Keep header unchanged
+                        f_out.write(line)
+                    else:
+                        # 将序列转为大写|Convert sequence to uppercase
+                        f_out.write(line.upper())
+            self.logger.info(f"基因组文件标准化完成|Genome file normalized: {output_file}")
+            return True
+        except Exception as e:
+            self.logger.error(f"基因组文件标准化失败|Failed to normalize genome file: {e}")
+            return False
+
     def build_hisat2_index(self, genome_file: str, gtf_file: str, species_name: str) -> str:
         """构建HISAT2基因组索引|Build HISAT2 genome index"""
         threads = self.config.threads
@@ -77,6 +103,16 @@ class DualIndexBuilder:
             self.logger.info(f"HISAT2索引已存在|HISAT2 index already exists: {index_prefix}")
             return index_prefix
 
+        # 标准化基因组文件（将小写转为大写）|Normalize genome file (convert lowercase to uppercase)
+        normalized_genome = os.path.join(index_dir, f"{species_name}.normalized.fa")
+        self.logger.info(f"标准化{species_name}基因组文件|Normalizing {species_name} genome file")
+        if not self.normalize_genome_fasta(genome_file, normalized_genome):
+            self.logger.error(f"{species_name}基因组文件标准化失败|{species_name} genome file normalization failed")
+            return None
+
+        # 使用标准化的基因组文件|Use normalized genome file
+        genome_file = normalized_genome
+
         # 准备剪接位点和外显子文件路径|Prepare splice sites and exons file paths
         splice_sites_file = os.path.join(index_dir, f"{species_name}.ss")
         exons_file = os.path.join(index_dir, f"{species_name}.exon")
@@ -90,6 +126,17 @@ class DualIndexBuilder:
         if not self.extract_exons(gtf_file, exons_file):
             self.logger.warning("外显子提取失败，将不使用外显子构建索引|Exons extraction failed, building index without exons")
             exons_file = None
+
+        # 检查文件是否为空|Check if files are empty
+        if splice_sites_file and os.path.exists(splice_sites_file):
+            if os.path.getsize(splice_sites_file) == 0:
+                self.logger.warning(f"剪接位点文件为空（{splice_sites_file}），将不使用剪接位点|Splice sites file is empty, building index without splice sites")
+                splice_sites_file = None
+
+        if exons_file and os.path.exists(exons_file):
+            if os.path.getsize(exons_file) == 0:
+                self.logger.warning(f"外显子文件为空（{exons_file}），将不使用外显子|Exons file is empty, building index without exons")
+                exons_file = None
 
         # 构建HISAT2索引命令|Build HISAT2 index command
         cmd_parts = [f"hisat2-build"]
