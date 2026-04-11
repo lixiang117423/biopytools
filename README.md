@@ -75,11 +75,13 @@ Options:
 
 [fastp](./docs/fastp.md) - [fastq文件质控](https://onlinelibrary.wiley.com/doi/10.1002/imt2.70078)
 
-[genomescope](docs/genomescope.md) - 使用[GenomeScope 2.0](https://github.com/tbenavi1/genomescope2.0)和[Smudgeplot](https://github.com/KamilSJaron/smudgeplot)评估基因组大小和倍性
-
 [iseq](./docs/iseq.md) - [iSeq下载测序数据](https://github.com/BioOmics/iSeq)
 
+[merge-deepbsa](./docs/merge_deepbsa.md) - 合并[DeepBSA](https://github.com/lizhao007/DeepBSA/)的输出结果
+
 [rna-seq](./docs/rnaseq.md) - [Hisat2](https://www.nature.com/articles/s41587-019-0201-4) + [StringTie2](https://link.springer.com/article/10.1186/s13059-019-1910-1)转录组流程
+
+[smudgescope](docs/smudgescope.md) - 使用[GenomeScope 2.0](https://github.com/tbenavi1/genomescope2.0)和[Smudgeplot](https://github.com/KamilSJaron/smudgeplot)评估基因组大小和倍性
 
 [sra2fastq](docs/sra2fastq.md) - SRA文件转FSATQ文件-基于[parallel-fastq-dump](https://github.com/rvalieris/parallel-fastq-dump)
 
