@@ -1,4 +1,11 @@
 
+## [0.23.0] - 2026-04-11
+
+### Changed
+- add merge_deepbsa module
+- Updated files: biopytools/merge_deepbsa,docs/merge_deepbsa.md,biopytools/cli/commands/merge_deepbsa.py,biopytools/cli/main.py
+
+
 ## [0.22.2] - 2026-04-02
 
 ### Changed
