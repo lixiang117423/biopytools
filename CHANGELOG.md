@@ -1,4 +1,11 @@
 
+## [0.23.3] - 2026-04-13
+
+### Changed
+- update fastp module: replace repair.sh with seqkit pair
+- Updated files: biopytools/fastp,biopytools/cli/commands/fastp.py
+
+
 ## [0.23.2] - 2026-04-13
 
 ### Changed

@@ -84,6 +84,20 @@ class FastpProcessor:
         for sample_name, _, _ in sample_pairs:
             self.logger.info(f"  - {sample_name}")
 
+        # 检测模拟数据|Detect simulated data
+        if self.sample_finder.detect_simulated_data(sample_pairs):
+            original_threshold = self.config.quality_threshold
+            self.config.quality_threshold = 0
+            self.logger.warning("=" * 60)
+            self.logger.warning(
+                "检测到模拟数据（质量值全为0），已自动将质量阈值设为0|"
+                "Simulated data detected (all quality scores are 0), quality threshold auto-set to 0"
+            )
+            self.logger.warning(
+                f"质量阈值|Quality threshold: {original_threshold} -> {self.config.quality_threshold}"
+            )
+            self.logger.warning("=" * 60)
+
         # 处理所有样本|Process all samples
         successful_count = 0
         failed_count = 0

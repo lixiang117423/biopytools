@@ -4,6 +4,7 @@ FASTP数据处理模块|FASTP Data Processing Module
 
 import os
 import re
+import gzip
 import fnmatch
 from pathlib import Path
 from typing import List, Tuple
@@ -161,6 +162,58 @@ class SampleFinder:
                     )
 
         return sample_pairs
+
+    def detect_simulated_data(self, sample_pairs: List[Tuple[str, Path, Path]]) -> bool:
+        """
+        检测输入数据是否为模拟数据（如wgsim输出），通过检查质量行是否全为'!'
+        Detect if input data is simulated (e.g., wgsim output) by checking if quality lines are all '!'
+
+        模拟工具（wgsim等）输出的FASTQ质量字符全部为'!'（ASCII 33, Phred 0），
+        如果用默认质量阈值过滤会导致所有reads被丢弃。
+        Simulated tools output quality chars all as '!' (Phred 0),
+        which would cause all reads to be filtered out with default quality threshold.
+
+        Args:
+            sample_pairs: 样本配对列表|List of sample pairs
+
+        Returns:
+            True表示检测到模拟数据|True if simulated data detected
+        """
+        if not sample_pairs:
+            return False
+
+        _, read1_file, _ = sample_pairs[0]
+        filepath = str(read1_file)
+        opener = gzip.open if filepath.endswith('.gz') else open
+
+        try:
+            n_checked = 0
+            max_check = 100  # 检查前100条reads|Check first 100 reads
+
+            with opener(filepath, 'rt') as f:
+                for i, line in enumerate(f):
+                    # FASTQ质量行是第4行（索引3）|Quality line is line 4 (index 3)
+                    if i % 4 == 3:
+                        if line.rstrip('\n\r'):
+                            n_checked += 1
+                            # 如果发现任何非'!'的质量字符，说明是真实测序数据
+                            # If any non-'!' quality char found, it's real sequencing data
+                            if any(c != '!' for c in line.rstrip('\n\r')):
+                                return False
+                        if n_checked >= max_check:
+                            break
+
+            # 所有检查的质量行全为'!'或空|All checked quality lines are '!' or empty
+            if n_checked > 0:
+                return True
+
+        except Exception as e:
+            self.logger.warning(
+                f"模拟数据检测失败，将使用原始参数|"
+                f"Simulated data detection failed, using original params: {e}"
+            )
+
+        return False
 
     def validate_sample_pairs(self, sample_pairs: List[Tuple[str, Path, Path]]) -> bool:
         """
