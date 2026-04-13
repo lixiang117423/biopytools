@@ -96,6 +96,34 @@ def _validate_output_dir(dir_path):
 @click.option('--single-end',
               is_flag=True,
               help='单末端模式|Single-end mode')
+@click.option('--enable-repair',
+              is_flag=True,
+              default=True,
+              help='启用BBMap repair配对修复步骤（默认启用）|Enable BBMap repair pairing fix step (enabled by default)')
+@click.option('--disable-repair',
+              is_flag=True,
+              default=False,
+              help='禁用BBMap repair配对修复步骤|Disable BBMap repair pairing fix step')
+@click.option('--skip-final-repair',
+              is_flag=True,
+              default=True,
+              help='跳过最终repair步骤（默认跳过）|Skip final repair step (skip by default)')
+@click.option('--enable-final-repair',
+              is_flag=True,
+              default=False,
+              help='启用最终repair步骤|Enable final repair step')
+@click.option('--repair-path',
+              default='repair.sh',
+              show_default=True,
+              help='repair.sh可执行文件路径|repair.sh executable path')
+@click.option('--repair-conda-env',
+              default='bbmap_v.39.81',
+              show_default=True,
+              help='repair.sh的conda环境名称|conda environment for repair.sh')
+@click.option('--repair-memory',
+              default='200g',
+              show_default=True,
+              help='repair.sh内存参数|repair.sh memory parameter (e.g., 200g)')
 @click.option('--verbose', '-v',
               count=True,
               help='详细输出模式(-v: INFO, -vv: DEBUG)|Verbose mode (-v: INFO, -vv: DEBUG)')
@@ -114,6 +142,7 @@ def _validate_output_dir(dir_path):
               help='模拟运行(不实际执行)|Dry run without execution')
 def fastp(input, output_dir, fastp_path, threads, quality_threshold,
           min_length, unqualified_percent, n_base_limit, read1_suffix, read2_suffix, single_end,
+          enable_repair, disable_repair, skip_final_repair, enable_final_repair, repair_path, repair_conda_env, repair_memory,
           verbose, quiet, log_level, log_file, force, dry_run):
     """
     FASTQ质控批处理工具|FASTQ Quality Control Batch Processing Tool
@@ -160,6 +189,32 @@ def fastp(input, output_dir, fastp_path, threads, quality_threshold,
 
     if single_end:
         args.extend(['--single-end'])
+
+    # Repair参数|Repair parameters
+    # 确定是否启用repair（默认启用，除非显式禁用）|Determine if repair is enabled (enabled by default unless explicitly disabled)
+    actual_enable_repair = enable_repair and not disable_repair
+    if actual_enable_repair:
+        # 如果是默认值（True且没有显式指定），不需要添加参数|If default value (True and not explicitly specified), no need to add parameter
+        # 只有显式指定时才添加--enable-repair|Only add --enable-repair if explicitly specified
+        pass
+    else:
+        # 如果禁用，添加--disable-repair参数|If disabled, add --disable-repair parameter
+        args.extend(['--disable-repair'])
+
+    # 确定是否跳过最终repair（默认跳过，除非显式启用）|Determine if skip final repair (skip by default unless explicitly enabled)
+    actual_skip_final_repair = skip_final_repair and not enable_final_repair
+    if not actual_skip_final_repair:
+        # 如果启用最终repair，添加--enable-final-repair参数|If enable final repair, add --enable-final-repair parameter
+        args.extend(['--enable-final-repair'])
+
+    if repair_path != 'repair.sh':
+        args.extend(['--repair-path', repair_path])
+
+    if repair_conda_env != 'bbmap_v.39.81':
+        args.extend(['--repair-conda-env', repair_conda_env])
+
+    if repair_memory != '200g':
+        args.extend(['--repair-memory', repair_memory])
 
     # 日志和执行控制参数|Logging and execution control parameters
     if verbose:

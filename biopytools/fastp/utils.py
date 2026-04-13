@@ -146,3 +146,42 @@ class CommandRunner:
             return result.returncode == 0
         except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.CalledProcessError):
             return False
+
+    def run_shell(self, cmd: str, description: str = "") -> bool:
+        """
+        执行shell命令|Execute shell command
+
+        Args:
+            cmd: shell命令字符串|Shell command string
+            description: 命令描述|Command description
+
+        Returns:
+            bool: 执行是否成功|Whether execution succeeded
+        """
+        if description:
+            self.logger.info(f"执行步骤|Executing step: {description}")
+
+        self.logger.debug(f"命令|Command: {cmd}")
+
+        try:
+            result = subprocess.run(
+                cmd,
+                shell=True,
+                check=True,
+                capture_output=True,
+                text=True
+            )
+
+            self.logger.info(f"命令执行成功|Command executed successfully: {description}")
+
+            # 如果有输出，记录到debug级别|Log output to debug level if exists
+            if result.stdout.strip():
+                self.logger.debug(f"标准输出|Stdout: {result.stdout}")
+
+            return True
+
+        except subprocess.CalledProcessError as e:
+            self.logger.error(f"命令执行失败|Command execution failed: {description}")
+            self.logger.error(f"错误代码|Error code: {e.returncode}")
+            self.logger.error(f"错误信息|Error message: {e.stderr}")
+            return False

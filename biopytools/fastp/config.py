@@ -42,6 +42,10 @@ class FastpConfig:
     force: bool = False
     dry_run: bool = False
 
+    # SeqKit配对修复配置|SeqKit pair configuration
+    enable_pair: bool = True  # 是否启用seqkit pair配对修复步骤（默认启用）|Whether to enable seqkit pair step (enabled by default)
+    seqkit_path: str = "seqkit"  # seqkit可执行文件路径|seqkit executable path
+
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         self.input_path = Path(self.input_dir)

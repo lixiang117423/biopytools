@@ -44,14 +44,20 @@ class FastpProcessor:
         """运行批处理|Run batch processing"""
 
         self.logger.info("=" * 60)
-        self.logger.info("开始FASTQ数据质控批处理|Starting FASTQ data quality control batch processing")
+        self.logger.info("开始FASTQ数据处理流程|Starting FASTQ data processing pipeline")
         self.logger.info("=" * 60)
         self.logger.info(f"输入|Input: {'文件|File' if self.config.is_single_file else '目录|Directory'}: {self.config.input_dir}")
         self.logger.info(f"输出目录|Output directory: {self.config.output_dir}")
 
+        # Fastp质控|Fastp quality control
+        self.logger.info("=" * 60)
+        self.logger.info("FASTP质量控制|FASTP Quality Control")
+        self.logger.info("=" * 60)
+        self.logger.info(f"输入|Input: {self.config.input_dir}")
+        self.logger.info(f"数据模式|Data mode: {'单末端|Single-end' if self.config.single_end else '双末端|Paired-end'}")
+
         # 只在目录模式下显示文件模式|Only show file pattern in directory mode
         if not self.config.is_single_file:
-            self.logger.info(f"数据模式|Data mode: {'单末端|Single-end' if self.config.single_end else '双末端|Paired-end'}")
             self.logger.info(f"文件模式|File pattern: *{self.config.read1_suffix}" +
                             (f", *{self.config.read2_suffix}" if not self.config.single_end else ""))
 
@@ -95,11 +101,13 @@ class FastpProcessor:
 
         # 输出最终统计|Output final statistics
         self.logger.info("=" * 60)
-        self.logger.info("FASTQ质控批处理完成|FASTQ quality control batch processing completed!")
+        self.logger.info("FASTQ数据处理流程完成|FASTQ data processing pipeline completed!")
         self.logger.info(f"总样本数|Total samples: {len(sample_pairs)}")
         self.logger.info(f"成功处理|Successfully processed: {successful_count}")
         self.logger.info(f"失败样本|Failed samples: {failed_count}")
         self.logger.info(f"成功率|Success rate: {(successful_count/len(sample_pairs))*100:.1f}%")
+
+        # 显示输出位置|Show output locations
         self.logger.info(f"质控后的清洁数据位于|Clean data location: {self.config.output_dir}")
         self.logger.info(f"质控报告位于|QC reports location: {self.config.report_path}")
         self.logger.info("=" * 60)
@@ -146,6 +154,15 @@ def main():
     optional.add_argument("--single-end", action="store_true",
                          help="单末端模式|Single-end mode")
 
+    # SeqKit配对修复选项|SeqKit pair options
+    pair_group = parser.add_argument_group('配对修复选项|Pair repair options')
+    pair_group.add_argument("--enable-pair", action="store_true", default=True,
+                          help="启用seqkit pair配对修复步骤（默认启用）|Enable seqkit pair step (enabled by default)")
+    pair_group.add_argument("--disable-pair", action="store_true", default=False,
+                          help="禁用seqkit pair配对修复步骤|Disable seqkit pair step")
+    pair_group.add_argument("--seqkit-path", default="seqkit",
+                          help="seqkit可执行文件路径|seqkit executable path")
+
     # 日志参数|Logging parameters
     log_group = parser.add_argument_group('日志选项|Logging options')
     log_group.add_argument("-v", "--verbose", action="count", default=0,
@@ -183,6 +200,9 @@ def main():
         log_level = "INFO"
 
     # 创建处理器并运行|Create processor and run
+    # 确定是否启用配对修复|Determine if pair repair is enabled
+    enable_pair = args.enable_pair and not args.disable_pair
+
     processor = FastpProcessor(
         input_dir=args.input,
         output_dir=args.output_dir,
@@ -195,6 +215,8 @@ def main():
         read1_suffix=args.read1_suffix,
         read2_suffix=args.read2_suffix,
         single_end=args.single_end,
+        enable_pair=enable_pair,
+        seqkit_path=args.seqkit_path,
         log_level=log_level,
         quiet=args.quiet,
         verbose=args.verbose,
