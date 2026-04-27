@@ -1,4 +1,11 @@
 
+## [0.24.0] - 2026-04-27
+
+### Changed
+- add cim module
+- Updated files: biopytools/cim,docs/cim.md,biopytools/cli/commands/cim.py,biopytools/cli/main.py,conda
+
+
 ## [0.23.3] - 2026-04-13
 
 ### Changed
