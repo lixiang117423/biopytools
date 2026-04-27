@@ -156,8 +156,8 @@ def parse_arguments():
                         help='MSTmap二进制路径|MSTmap binary path (default: ~/miniforge3/envs/Rqtl/bin/mstmap)')
 
     # 环境参数|Environment parameters
-    parser.add_argument('--r-env', default='Rqtl',
-                        help='R conda环境名|R conda environment name (default: Rqtl)')
+    parser.add_argument('--r-env', default='~/miniforge3/envs/Rqtl',
+                        help='R conda环境路径或名称|R conda env path or name (default: ~/miniforge3/envs/Rqtl)')
     parser.add_argument('--threads', type=int, default=1,
                         help='并行线程数|Number of parallel threads (default: 1)')
 

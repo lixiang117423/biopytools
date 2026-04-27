@@ -76,11 +76,14 @@ def _validate_path_exists(path):
 @click.option('--mstmap-distfun',
               type=click.Choice(['kosambi', 'haldane']), default='kosambi', show_default=True,
               help='MSTmap距离函数|MSTmap distance function')
-@click.option('--r-env', default='Rqtl', show_default=True,
-              help='R conda环境名|R conda environment name')
+@click.option('--r-env', default='~/miniforge3/envs/Rqtl', show_default=True,
+              help='R conda环境路径或名称|R conda env path or name')
+@click.option('--fix-geno-error-size', type=int, default=10, show_default=True,
+              help='fixGenoError短片段阈值(0=跳过)|Minimum run length for fixGenoError (0=skip)')
 def cim(input, pheno, output, cross_type, map_mode, maf, missing,
          n_marcovar, window, method, step, n_perm,
-         ld_window, ld_step, ld_r2, skip_ld, mstmap_pvalue, mstmap_distfun, r_env):
+         ld_window, ld_step, ld_r2, skip_ld, mstmap_pvalue, mstmap_distfun, r_env,
+         fix_geno_error_size):
     """R/qtl复合区间作图(CIM)分析|R/qtl Composite Interval Mapping (CIM)
 
     从VCF和表型文件自动完成CIM分析：标记过滤、LD降维、CIM扫描、置换检验、结果可视化
@@ -116,6 +119,7 @@ def cim(input, pheno, output, cross_type, map_mode, maf, missing,
     args.extend(['--mstmap-pvalue', str(mstmap_pvalue)])
     args.extend(['--mstmap-distfun', mstmap_distfun])
     args.extend(['--r-env', r_env])
+    args.extend(['--fix-geno-error-size', str(fix_geno_error_size)])
 
     original_argv = sys.argv
     sys.argv = args

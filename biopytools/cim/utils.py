@@ -119,5 +119,8 @@ class CommandRunner:
         Returns:
             tuple: (是否成功|success, 标准输出|stdout, 标准错误|stderr)
         """
-        full_cmd = f"conda run --no-capture-output -n {env_name} {cmd}"
+        if '/' in env_name or '~' in env_name:
+            full_cmd = f"conda run --no-capture-output -p {env_name} {cmd}"
+        else:
+            full_cmd = f"conda run --no-capture-output -n {env_name} {cmd}"
         return self.run(full_cmd, description, timeout)

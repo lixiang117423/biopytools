@@ -55,7 +55,7 @@ class CIMConfig:
     skip_ld: bool = True  # 跳过LD降维（默认跳过，输入数据通常已预降维）|Skip LD pruning (default: input usually pre-pruned)
 
     # 环境参数|Environment parameters
-    r_env: str = "Rqtl"  # R conda环境名|R conda environment name
+    r_env: str = "~/miniforge3/envs/Rqtl"  # R conda环境路径或名称|R conda env path or name
     threads: int = 1  # 并行线程数|Number of parallel threads
 
     # 内部路径(自动生成)|Internal paths (auto-generated)

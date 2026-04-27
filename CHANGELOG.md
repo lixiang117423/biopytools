@@ -1,4 +1,11 @@
 
+## [0.24.3] - 2026-04-27
+
+### Changed
+- update cim module
+- Updated files: biopytools/cim,biopytools/cli/commands/cim.py
+
+
 ## [0.24.2] - 2026-04-27
 
 ### Changed
