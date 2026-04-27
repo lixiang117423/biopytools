@@ -13,6 +13,7 @@ from .converter import (
     parse_vcf_genotypes,
     filter_markers,
     filter_rf_markers,
+    fix_geno_error,
     ld_prune_markers,
     save_filtered_vcf,
     build_tidy_files,
@@ -142,6 +143,10 @@ def parse_arguments():
     parser.add_argument('--skip-ld', action='store_true',
                         help='跳过LD降维步骤|Skip LD pruning')
 
+    # 基因型纠错|Genotype error correction
+    parser.add_argument('--fix-geno-error-size', type=int, default=10,
+                        help='fixGenoError短片段阈值(0=跳过)|Minimum run length for fixGenoError (0=skip, default: 10)')
+
     # MSTmap参数|MSTmap parameters
     parser.add_argument('--mstmap-pvalue', type=float, default=1e-6,
                         help='MSTmap聚类p值起始值(自动调优)|MSTmap clustering p-value start value, auto-tuned (default: 1e-6)')
@@ -184,6 +189,7 @@ def main():
             ld_step=args.ld_step,
             ld_r2=args.ld_r2,
             skip_ld=args.skip_ld,
+            fix_geno_error_size=args.fix_geno_error_size,
             r_env=args.r_env,
             threads=args.threads,
             mstmap_pvalue=args.mstmap_pvalue,
@@ -245,6 +251,16 @@ def main():
             keep = filter_stats['keep_sample_mask']
             samples = [s for s, k in zip(samples, keep) if k]
             pheno_values = pheno_values[keep]
+
+        # Step 3.5: 基因型纠错|Genotype error correction
+        if config.fix_geno_error_size > 0:
+            logger.info("-" * 60)
+            logger.info("步骤3.5: 基因型纠错|Step 3.5: Genotype error correction")
+            logger.info("-" * 60)
+            genotype_matrix, marker_info, gec_stats = fix_geno_error(
+                genotype_matrix, marker_info, config.fix_geno_error_size, logger
+            )
+            save_qc_stats(gec_stats, os.path.join(config.qc_dir, "geno_error_correction_stats.txt"))
 
         # Step 4: Pre-RF CIM分析（基线）|Pre-RF CIM analysis (baseline)
         logger.info("-" * 60)

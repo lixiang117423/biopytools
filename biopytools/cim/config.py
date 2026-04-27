@@ -45,6 +45,9 @@ class CIMConfig:
     max_het_rate: float = 0.6  # H基因型最大比例|Max heterozygous genotype rate
     max_mean_rf: float = 0.5  # 同染色体平均RF最大值|Max mean RF within chromosome
 
+    # 基因型纠错参数|Genotype error correction parameters
+    fix_geno_error_size: int = 10  # RLE短片段阈值|Minimum run length to keep in fixGenoError
+
     # LD pruning参数|LD pruning parameters
     ld_window: int = 50  # LD计算窗口(SNP数)|LD window size (SNP count)
     ld_step: int = 5  # LD计算步长(SNP数)|LD step size (SNP count)

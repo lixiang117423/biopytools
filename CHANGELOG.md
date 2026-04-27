@@ -1,4 +1,11 @@
 
+## [0.24.2] - 2026-04-27
+
+### Changed
+- add fixGenoError to CIM pipeline for genotype correction
+- Updated files: biopytools/cim
+
+
 ## [0.24.1] - 2026-04-27
 
 ### Changed

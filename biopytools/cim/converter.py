@@ -40,7 +40,7 @@ def parse_vcf_genotypes(vcf_path: str, pheno_file: str,
     logger.info("步骤1: 解析VCF和表型文件|Step 1: Parsing VCF and phenotype files")
 
     # 读取表型文件|Read phenotype file
-    pheno_df = pd.read_csv(pheno_file, sep='\t')
+    pheno_df = pd.read_csv(pheno_file, sep='\t', usecols=range(2), header=0, on_bad_lines='skip')
     if 'sample' not in pheno_df.columns or 'value' not in pheno_df.columns:
         logger.error("表型文件格式错误，需要sample和value列|Phenotype file format error, need 'sample' and 'value' columns")
         raise ValueError("表型文件必须包含sample和value列|Phenotype file must have 'sample' and 'value' columns")
@@ -463,6 +463,87 @@ def _calc_single_rf(g1: np.ndarray, g2: np.ndarray) -> Optional[float]:
     return float(recomb.sum() / n_valid)
 
 
+def fix_geno_error(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
+                   fix_size: int, logger: logging.Logger) -> Tuple[np.ndarray, pd.DataFrame, Dict]:
+    """
+    基因型纠错：基于RLE游程编码修正短片段基因型错误
+    Genotype error correction: fix short-run genotypes using RLE
+
+    对每个样本、每条染色体，用游程编码检测连续相同基因型的段，
+    长度小于fix_size的短段用前一段基因型替换（假设短片段为基因型错误）。
+    For each sample and chromosome, use RLE to find short genotype runs
+    (< fix_size) and replace them with the previous run's genotype.
+
+    Args:
+        genotype_matrix: 基因型矩阵 (n_markers x n_samples)|Genotype matrix
+        marker_info: 标记信息 (chr, pos, id)|Marker info DataFrame
+        fix_size: 短片段阈值，小于此值的run将被修正|Minimum run length to keep
+        logger: 日志器|Logger
+
+    Returns:
+        tuple: (sorted_genotype_matrix, sorted_marker_info, stats_dict)
+    """
+    logger.info(f"步骤GEC: 基因型纠错 (fix_size={fix_size})|Step GEC: Genotype error correction")
+
+    # 按染色体和物理位置排序|Sort by chromosome and physical position
+    sort_order = marker_info.sort_values(['chr', 'pos']).index
+    geno = genotype_matrix[sort_order]
+    info = marker_info.iloc[sort_order].reset_index(drop=True)
+
+    n_markers, n_samples = geno.shape
+    stats = {'markers_before_fix': n_markers, 'total_corrections': 0}
+
+    # 逐样本逐染色体处理|Process each sample and chromosome separately
+    for sample_idx in range(n_samples):
+        for chr_val in info['chr'].unique():
+            chr_mask = (info['chr'].values == chr_val)
+            chr_geno = geno[chr_mask, sample_idx]  # 该染色体该样本的基因型向量
+
+            # 跳过NaN构建RLE|Build RLE skipping NaN
+            valid = ~np.isnan(chr_geno)
+            valid_geno = chr_geno[valid]
+            if len(valid_geno) < 2:
+                continue
+
+            # 游程编码|Run Length Encoding
+            changes = np.diff(valid_geno) != 0
+            change_indices = np.where(changes)[0]
+            lengths = np.diff(np.concatenate(([-1], change_indices, [len(valid_geno) - 1])))
+            values = valid_geno[np.concatenate(([0], change_indices + 1))]
+
+            # 检测需要修正的短段|Detect short runs to fix
+            short_mask = lengths < fix_size
+            n_corrections = int((lengths[short_mask]).sum())
+
+            if n_corrections > 0:
+                # 修正短片段，与binmapr行为一致：用修正中的数组值（非原始values）
+                # Fix short runs, consistent with binmapr: use in-progress array values
+                corrected = valid_geno.copy()
+                for k in range(len(lengths)):
+                    if lengths[k] < fix_size:
+                        left = int(np.sum(lengths[:k]))
+                        right = int(np.sum(lengths[:k + 1]))
+                        if k == 0:
+                            if right < len(corrected):
+                                corrected[left:right] = corrected[right]
+                        else:
+                            corrected[left:right] = corrected[left - 1]
+
+                # 统计实际改变的位点数|Count actually changed positions
+                n_changed = int((corrected != valid_geno).sum())
+                result = chr_geno.copy()
+                result[valid] = corrected
+                geno[chr_mask, sample_idx] = result
+                stats['total_corrections'] += n_changed
+
+    stats['correction_rate'] = round(stats['total_corrections'] / (n_markers * n_samples) * 100, 4)
+
+    logger.info(f"基因型纠错完成|Genotype error correction done: "
+                f"{stats['total_corrections']} corrections ({stats['correction_rate']}%)")
+
+    return geno, info, stats
+
+
 def ld_prune_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
                      output_dir: str, ld_window: int, ld_step: int, ld_r2: float,
                      cmd_runner: CommandRunner, logger: logging.Logger) -> Tuple[np.ndarray, pd.DataFrame, Dict]:
@@ -537,7 +618,7 @@ def ld_prune_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
         # 运行PLINK LD pruning|Run PLINK LD pruning
         prune_cmd = (
             f"plink --file {plink_prefix} "
-            f"--allow-no-sex "
+            f"--allow-no-sex --allow-extra-chr "
             f"--indep-pairwise {ld_window} {ld_step} {ld_r2} "
             f"--out {plink_prefix}_prune "
             f"--silent"
