@@ -155,7 +155,7 @@ dependencies:
       - array-api-compat==1.12.0
       - biom-format==2.1.16
       - biopython==1.85
-      - biopytools==0.7.1
+      - biopytools==0.14.0
       - certifi==2025.7.14
       - charset-normalizer==3.4.2
       - click==8.2.1
@@ -195,4 +195,5 @@ dependencies:
       - tqdm==4.67.1
       - tzdata==2025.2
       - urllib3==2.5.0
+      - zstandard==0.25.0
 prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/biopytools

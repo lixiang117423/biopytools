@@ -1,5 +1,6 @@
 name: R_v.4.5.1
 channels:
+  - r
   - ursky
   - bioconda
   - conda-forge
@@ -88,7 +89,9 @@ dependencies:
   - pthread-stubs=0.4
   - python=3.13.5
   - python_abi=3.13
-  - r-base=4.5.1
+  - r-base=4.3.3
+  - r-jsonlite=1.8.7
+  - r-minpack.lm=1.2_4
   - readline=8.2
   - sed=4.9
   - sysroot_linux-64=2.28

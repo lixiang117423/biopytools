@@ -1,6 +1,5 @@
-name: smudgeplot
+name: genomescope2_v.2.1.0
 channels:
-  - r
   - ursky
   - bioconda
   - conda-forge
@@ -11,55 +10,43 @@ channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 dependencies:
-  - _libgcc_mutex=0.1
   - _openmp_mutex=4.5
   - _r-mutex=1.0.1
-  - binutils_impl_linux-64=2.45
-  - brotli=1.2.0
-  - brotli-bin=1.2.0
+  - binutils_impl_linux-64=2.45.1
   - bwidget=1.10.1
   - bzip2=1.0.8
   - c-ares=1.34.6
-  - ca-certificates=2025.11.12
+  - ca-certificates=2026.2.25
   - cairo=1.18.4
-  - contourpy=1.3.3
-  - curl=8.17.0
-  - cycler=0.12.1
-  - fastk=1.1.0
+  - curl=8.18.0
   - font-ttf-dejavu-sans-mono=2.37
   - font-ttf-inconsolata=3.000
   - font-ttf-source-code-pro=2.038
   - font-ttf-ubuntu=0.83
-  - fontconfig=2.15.0
+  - fontconfig=2.17.1
   - fonts-conda-ecosystem=1
   - fonts-conda-forge=1
-  - fonttools=4.61.1
-  - freetype=2.14.1
   - fribidi=1.0.16
   - gcc_impl_linux-64=15.2.0
+  - genomescope2=2.1.0
   - gfortran_impl_linux-64=15.2.0
   - graphite2=1.3.14
   - gsl=2.7
   - gxx_impl_linux-64=15.2.0
-  - harfbuzz=12.2.0
-  - icu=75.1
+  - harfbuzz=12.3.2
+  - icu=78.2
   - kernel-headers_linux-64=4.18.0
   - keyutils=1.6.3
-  - kiwisolver=1.4.9
-  - krb5=1.21.3
-  - lcms2=2.17
-  - ld_impl_linux-64=2.45
+  - krb5=1.22.2
+  - ld_impl_linux-64=2.45.1
   - lerc=4.0.0
   - libblas=3.11.0
-  - libbrotlicommon=1.2.0
-  - libbrotlidec=1.2.0
-  - libbrotlienc=1.2.0
   - libcblas=3.11.0
-  - libcurl=8.17.0
+  - libcurl=8.18.0
   - libdeflate=1.25
   - libedit=3.1.20250104
   - libev=4.33
-  - libexpat=2.7.3
+  - libexpat=2.7.4
   - libffi=3.5.2
   - libfreetype=2.14.1
   - libfreetype6=2.14.1
@@ -74,13 +61,13 @@ dependencies:
   - libiconv=1.18
   - libjpeg-turbo=3.1.2
   - liblapack=3.11.0
-  - liblzma=5.8.1
+  - liblzma=5.8.2
   - libmpdec=4.0.0
   - libnghttp2=1.67.0
   - libopenblas=0.3.30
-  - libpng=1.6.53
+  - libpng=1.6.55
   - libsanitizer=15.2.0
-  - libsqlite=3.52.0
+  - libsqlite=3.51.2
   - libssh2=1.11.1
   - libstdcxx=15.2.0
   - libstdcxx-devel_linux-64=15.2.0
@@ -91,41 +78,27 @@ dependencies:
   - libxcb=1.17.0
   - libzlib=1.3.1
   - make=4.4.1
-  - matplotlib-base=3.10.8
-  - munkres=1.0.7
   - ncurses=6.5
-  - numpy=2.4.0
-  - openjpeg=2.5.4
-  - openssl=3.6.0
-  - packaging=25.0
-  - pandas=2.3.3
+  - openssl=3.6.1
   - pango=1.56.4
   - pcre2=10.47
-  - pillow=12.0.0
-  - pip=25.3
+  - pip=26.0.1
   - pixman=0.46.4
   - pthread-stubs=0.4
-  - pyparsing=3.3.1
-  - python=3.14.2
-  - python-dateutil=2.9.0.post0
-  - python-tzdata=2025.3
-  - python_abi=3.14
-  - pytz=2025.2
-  - qhull=2020.2
-  - r-argparse=2.2.2
-  - r-base=4.3.3
+  - python=3.13.12
+  - python_abi=3.13
+  - r-argparse=2.3.1
+  - r-base=4.4.3
   - r-findpython=1.0.9
   - r-jsonlite=2.0.0
   - r-minpack.lm=1.2_4
   - r-r6=2.6.1
   - readline=8.3
   - sed=4.9
-  - six=1.17.0
   - sysroot_linux-64=2.28
   - tk=8.6.13
   - tktable=2.10
   - tzdata=2025c
-  - unicodedata2=17.0.0
   - xorg-libice=1.1.2
   - xorg-libsm=1.2.6
   - xorg-libx11=1.8.13
@@ -134,8 +107,5 @@ dependencies:
   - xorg-libxext=1.3.7
   - xorg-libxrender=0.9.12
   - xorg-libxt=1.3.1
-  - zlib-ng=2.3.2
   - zstd=1.5.7
-  - pip:
-      - smudgeplot==0.5.4
-prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot
+prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/genomescope2_v.2.1.0

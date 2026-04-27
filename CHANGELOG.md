@@ -1,4 +1,11 @@
 
+## [0.24.1] - 2026-04-27
+
+### Changed
+- update conda env yaml
+- Updated files: conda_env
+
+
 ## [0.24.0] - 2026-04-27
 
 ### Changed

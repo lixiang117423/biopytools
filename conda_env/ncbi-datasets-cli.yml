@@ -1,4 +1,4 @@
-name: hicexplorer
+name: ncbi-datasets-cli
 channels:
   - ursky
   - bioconda
@@ -9,4 +9,7 @@ channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/hicexplorer
+dependencies:
+  - ca-certificates=2026.2.25
+  - ncbi-datasets-cli=18.23.0
+prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/ncbi-datasets-cli
