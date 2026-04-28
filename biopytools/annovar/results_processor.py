@@ -171,8 +171,8 @@ class ExonicVariantProcessor:
     def _write_exonic_results(self, results: List[Dict[str, str]], output):
         """写入外显子变异结果|Write exonic variant results"""
         # 写入表头|Write headers
-        headers = ['Line_ID', '染色体', '变异起始', '变异终止', '突变类型', '基因',
-                   '转录本', '变异结果', 'DNA位置起', 'DNA位置止', 'DNA参考',
+        headers = ['Line_ID', '染色体', '变异起始', '变异终止', '突变类型', '转录本',
+                   '基因', '变异结果', 'DNA位置起', 'DNA位置止', 'DNA参考',
                    'DNA变异', '蛋白位置', '蛋白参考', '蛋白变异']
         output.write('\t'.join(headers) + '\n')
 
@@ -304,7 +304,7 @@ class AllVariantProcessor:
                 try:
                     if float(result['频率']) < filters['min_freq']:
                         keep = False
-                except:
+                except (ValueError, TypeError):
                     pass
 
             if keep:

@@ -1,4 +1,11 @@
 
+## [0.24.4] - 2026-04-28
+
+### Changed
+- update annovar module
+- Updated files: biopytools/annovar
+
+
 ## [0.24.3] - 2026-04-27
 
 ### Changed

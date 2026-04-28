@@ -1,0 +1,71 @@
+                            04/28/2026 at 09h43m21s                             
+
+                    ------ Parsing done in 5 seconds ------                     
+
+
+                           ------ Start checks ------                           
+---------------------------- Check1: feature types -----------------------------
+----------------------------------- ontology -----------------------------------
+Check1 - All feature types in agreement with the Ontology.
+------------------------------------- agat -------------------------------------
+Check1 - AGAT can deal with all the encountered feature types (3rd column)
+-------------------------- Check1: done in 0 seconds ---------------------------
+
+------------------------------ Check2: duplicates ------------------------------
+Check2 - Nothing to be done
+-------------------------- Check2: done in 0 seconds ---------------------------
+
+-------------------------- Check3: sequential bucket ---------------------------
+Check3 - Nothing to be done
+-------------------------- Check3: done in 0 seconds ---------------------------
+
+--------------------------- Check4: l2 linked to l3 ----------------------------
+No problem found
+-------------------------- Check4: done in 0 seconds ---------------------------
+
+--------------------------- Check5: l1 linked to l2 ----------------------------
+No problem found
+-------------------------- Check5: done in 0 seconds ---------------------------
+
+--------------------------- Check6: remove orphan l1 ---------------------------
+Check6 - We remove only those not supposed to be orphan
+None found
+-------------------------- Check6: done in 0 seconds ---------------------------
+
+------------------------- Check7: all level3 locations -------------------------
+-------------------------- Check7: done in 1 seconds ---------------------------
+
+------------------------------ Check8: check cds -------------------------------
+No problem found
+-------------------------- Check8: done in 0 seconds ---------------------------
+
+----------------------------- Check9: check exons ------------------------------
+No exons created
+No exons locations modified
+No supernumerary exons removed
+No level2 locations modified
+-------------------------- Check9: done in 1 seconds ---------------------------
+
+----------------------------- Check10: check utrs ------------------------------
+No UTRs created
+No UTRs locations modified
+No supernumerary UTRs removed
+-------------------------- Check10: done in 0 seconds --------------------------
+
+------------------------ Check11: all level2 locations -------------------------
+No problem found
+-------------------------- Check11: done in 0 seconds --------------------------
+
+------------------------ Check12: all level1 locations -------------------------
+No problem found
+-------------------------- Check12: done in 0 seconds --------------------------
+
+---------------- Check13: merge overlaping loci into same locus ----------------
+Check13 - skip check
+
+---------------------- Check14: remove identical isoforms ----------------------
+Check14 - Nothing to be done
+-------------------------- Check14: done in 1 seconds --------------------------
+                    ------ All check done in 3 seconds ------                   
+
+

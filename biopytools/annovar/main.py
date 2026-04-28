@@ -5,6 +5,7 @@ ANNOVAR注释主程序模块|ANNOVAR Annotation Main Module
 import argparse
 import sys
 import os
+from pathlib import Path
 from .config import ANNOVARConfig
 from .utils import ANNOVARLogger, CommandRunner
 from .data_processing import GFF3Processor, SequenceExtractor, VCFProcessor
@@ -37,6 +38,19 @@ class ANNOVARAnnotator:
         # 初始化结果处理器|Initialize results processor
         self.results_processor = ANNOVARResultsProcessor(self.logger, self.config.output_dir)
 
+    def _is_step_completed(self, output_file: str) -> bool:
+        """检查步骤是否已完成（通过输出文件存在性判断）|Check if step is done by output file existence"""
+        return Path(output_file).exists()
+
+    def run_step(self, step_name: str, output_file: str, step_func):
+        """带断点续传的步骤执行器|Step runner with checkpoint resume"""
+        if self._is_step_completed(output_file):
+            self.logger.info(f"跳过已完成步骤|Skipping completed step: {step_name}")
+            return True
+
+        self.logger.info(f"开始步骤|Starting step: {step_name}")
+        return step_func()
+
     def step1_gff3_to_genepred(self):
         """步骤1: GFF3转GenPred|Step 1: GFF3 to GenPred"""
         return self.gff3_processor.gff3_to_genepred()
@@ -55,21 +69,24 @@ class ANNOVARAnnotator:
 
     def run_single_step(self, step_num: int):
         """运行单个步骤|Run single step"""
-        step_functions = {
-            1: (self.step1_gff3_to_genepred, "GFF3转GenPred|GFF3 to GenPred"),
-            2: (self.step2_extract_transcript_sequences, "提取转录本序列|Extract transcript sequences"),
-            3: (self.step3_filter_and_convert_vcf, "过滤并转换VCF|Filter and convert VCF"),
-            4: (self.step4_annotate_variants, "注释变异|Annotate variants")
+        step_definitions = {
+            1: ("GFF3转GenPred|GFF3 to GenPred", self.step1_gff3_to_genepred,
+                lambda: os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGene.txt")),
+            2: ("提取转录本序列|Extract transcript sequences", self.step2_extract_transcript_sequences,
+                lambda: os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGeneMrna.fa")),
+            3: ("过滤并转换VCF|Filter and convert VCF", self.step3_filter_and_convert_vcf,
+                lambda: os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.annovar.vcf")),
+            4: ("注释变异|Annotate variants", self.step4_annotate_variants,
+                lambda: os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.exonic_variant_function")),
         }
 
-        if step_num not in step_functions:
+        if step_num not in step_definitions:
             self.logger.error(f"无效的步骤编号|Invalid step number: {step_num}")
             return False
 
-        step_func, step_name = step_functions[step_num]
-        self.logger.info(f"执行步骤{step_num}|Executing step {step_num}: {step_name}")
+        step_name, step_func, output_file_fn = step_definitions[step_num]
+        success = self.run_step(step_name, output_file_fn(), step_func)
 
-        success = step_func()
         if success:
             self.logger.info(f"步骤{step_num}完成|Step {step_num} completed: {step_name}")
         else:
@@ -82,16 +99,18 @@ class ANNOVARAnnotator:
         self.logger.info("开始ANNOVAR注释流程|Starting ANNOVAR annotation pipeline")
 
         steps = [
-            (self.step1_gff3_to_genepred, "GFF3转GenPred|GFF3 to GenPred"),
-            (self.step2_extract_transcript_sequences, "提取转录本序列|Extract transcript sequences"),
-            (self.step3_filter_and_convert_vcf, "处理并转换VCF|Process and convert VCF"),
-            (self.step4_annotate_variants, "变异注释|Variant annotation")
+            ("GFF3转GenPred|GFF3 to GenPred", self.step1_gff3_to_genepred,
+             os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGene.txt")),
+            ("提取转录本序列|Extract transcript sequences", self.step2_extract_transcript_sequences,
+             os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGeneMrna.fa")),
+            ("处理并转换VCF|Process and convert VCF", self.step3_filter_and_convert_vcf,
+             os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.annovar.vcf")),
+            ("变异注释|Variant annotation", self.step4_annotate_variants,
+             os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.exonic_variant_function")),
         ]
 
-        for i, (step_func, step_name) in enumerate(steps, 1):
-            self.logger.info(f"执行步骤{i}|Executing step {i}: {step_name}")
-
-            if not step_func():
+        for i, (step_name, step_func, output_file) in enumerate(steps, 1):
+            if not self.run_step(step_name, output_file, step_func):
                 self.logger.error(f"步骤{i}失败|Step {i} failed: {step_name}")
                 return False
 
@@ -101,9 +120,8 @@ class ANNOVARAnnotator:
         self.summary_generator.generate_summary_report()
 
         # 自动处理注释结果|Automatically process annotation results
-        if hasattr(self.config, 'vcf_basename'):
-            self.logger.info("开始处理注释结果|Starting to process annotation results")
-            self.process_annotation_results()
+        self.logger.info("开始处理注释结果|Starting to process annotation results")
+        self.process_annotation_results()
 
         return True
     
@@ -204,7 +222,7 @@ def main():
 
     # 可选参数|Optional arguments
     parser.add_argument('-a', '--annovar-path',
-                       default='/share/org/YZWL/yzwl_lixg/software/annovar/annovar',
+                       default='~/software/annovar/annovar',
                        help='ANNOVAR软件安装路径|ANNOVAR software installation path')
     parser.add_argument('-d', '--database-path',
                        default='./database',
@@ -243,13 +261,12 @@ def main():
     # 处理VCF过滤选项|Handle VCF filtering options
     skip_vcf_filter = args.skip_vcf_filter and not args.enable_vcf_filter
 
-    # 创建注释器并运行|Create annotator and run
-    annotator = ANNOVARAnnotator(
+    # 创建配置参数|Create config parameters
+    config_kwargs = dict(
         vcf_file=args.input,
         gff3_file=args.gff3,
         genome_file=args.genome,
         build_ver=args.build_ver,
-        annovar_path=args.annovar_path,
         database_path=args.database_path,
         output_dir=args.output_dir,
         qual_threshold=args.qual_threshold,
@@ -258,6 +275,10 @@ def main():
         skip_vcf_filter=skip_vcf_filter,
         step=args.step
     )
+    if args.annovar_path != '~/software/annovar/annovar':
+        config_kwargs['annovar_path'] = args.annovar_path
+
+    annotator = ANNOVARAnnotator(**config_kwargs)
 
     annotator.run_analysis()
 

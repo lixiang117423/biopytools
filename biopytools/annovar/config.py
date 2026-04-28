@@ -3,9 +3,10 @@ ANNOVAR注释配置管理模块|ANNOVAR Annotation Configuration Management Modu
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+from ..common.paths import expand_path, get_tool_path
 
 @dataclass
 class ANNOVARConfig:
@@ -18,7 +19,9 @@ class ANNOVARConfig:
     build_ver: str
     
     # 路径配置|Path configuration
-    annovar_path: str = '/share/org/YZWL/yzwl_lixg/software/annovar/annovar'
+    annovar_path: str = field(
+        default_factory=lambda: get_tool_path('annovar', '~/software/annovar/annovar', 'ANNOVAR_PATH')
+    )
     database_path: str = './database'
     output_dir: str = './annovar_output'
     
@@ -37,12 +40,17 @@ class ANNOVARConfig:
         self.output_path.mkdir(parents=True, exist_ok=True)
         
         # 标准化路径|Normalize paths
-        self.gff3_file = os.path.normpath(os.path.abspath(self.gff3_file))
-        self.genome_file = os.path.normpath(os.path.abspath(self.genome_file))
-        self.vcf_file = os.path.normpath(os.path.abspath(self.vcf_file))
-        self.annovar_path = os.path.normpath(os.path.abspath(self.annovar_path))
-        self.database_path = os.path.normpath(os.path.abspath(self.database_path))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+        self.gff3_file = os.path.normpath(os.path.abspath(expand_path(self.gff3_file)))
+        self.genome_file = os.path.normpath(os.path.abspath(expand_path(self.genome_file)))
+        self.vcf_file = os.path.normpath(os.path.abspath(expand_path(self.vcf_file)))
+        self.annovar_path = os.path.normpath(os.path.abspath(expand_path(self.annovar_path)))
+        self.database_path = os.path.normpath(os.path.abspath(expand_path(self.database_path)))
+        self.output_dir = os.path.normpath(os.path.abspath(expand_path(self.output_dir)))
+
+        # 计算VCF基础名称|Compute VCF base name
+        self.vcf_basename = os.path.splitext(os.path.basename(self.vcf_file))[0]
+        if self.vcf_basename.endswith('.vcf'):
+            self.vcf_basename = self.vcf_basename[:-4]
         
         # 清理build_ver参数|Clean build_ver parameter
         if '/' in self.build_ver or '\\' in self.build_ver:

@@ -4,7 +4,7 @@ ANNOVAR数据处理模块|ANNOVAR Data Processing Module
 
 import os
 from pathlib import Path
-from .utils import CommandRunner, GFF3Validator
+from .utils import CommandRunner, GFF3Validator, build_conda_command
 
 class GFF3Processor:
     """GFF3处理器|GFF3 Processor"""
@@ -46,7 +46,7 @@ class GFF3Processor:
         else:
             self.logger.info("跳过GFF3文件修复（用户指定）|Skipping GFF3 file fix (user specified)")
 
-        command = f"gff3ToGenePred -warnAndContinue {gff3_file} {output_file}"
+        command = ' '.join(build_conda_command('gff3ToGenePred', ['-warnAndContinue', gff3_file, output_file]))
 
         success = self.cmd_runner.run(command, "GFF3转GenPred格式|GFF3 to GenPred conversion")
         if success:
@@ -123,8 +123,10 @@ class VCFProcessor:
         else:
             # 步骤3a: 过滤VCF文件|Step 3a: Filter VCF file
             filtered_vcf = os.path.join(output_dir, f"{vcf_basename}.filtered.gz")
-            filter_command = (f"bcftools filter -i 'QUAL>={qual_threshold}' "
-                             f"{vcf_file} -O z -o {filtered_vcf}")
+            filter_command = ' '.join(build_conda_command(
+                'bcftools',
+                ['filter', '-i', f'QUAL>={qual_threshold}', vcf_file, '-O', 'z', '-o', filtered_vcf]
+            ))
 
             self.logger.info(f"过滤后VCF文件|Filtered VCF file: {filtered_vcf}")
 

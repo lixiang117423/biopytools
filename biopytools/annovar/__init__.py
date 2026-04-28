@@ -15,7 +15,7 @@ Features: Complete pipeline for VCF variant annotation, supporting GFF3 conversi
         genome_file="genome.fa",
         vcf_file="variants.vcf",
         build_ver="OV",
-        annovar_path="/path/to/annovar"
+        annovar_path="~/software/annovar/annovar"
     )
 
     # 运行注释|Run annotation
