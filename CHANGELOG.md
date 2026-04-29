@@ -1,4 +1,11 @@
 
+## [0.24.6] - 2026-04-29
+
+### Changed
+- update README
+- Updated files: README.md
+
+
 ## [0.24.5] - 2026-04-29
 
 ### Changed

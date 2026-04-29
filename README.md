@@ -69,6 +69,8 @@ Options:
 
 [bwa](docs/bam_coverage_stats.md) - [BWA比对](https://academic.oup.com/bioinformatics/article/25/14/1754/225615)
 
+[cim](docs/cim.md) - 基于[Rqtl](https://rqtl.org/)和[MSTmap](https://github.com/ucrbioinfo/MSTmap)实现复合区间作图CIM
+
 [deepbsa](./docs/deepbsa.md) - [DeepBSA](https://github.com/lizhao007/DeepBSA/)
 
 [dual-rnaseq](docs/dual_rnaseq.md) - 双向RNA-Seq
