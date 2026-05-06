@@ -81,6 +81,7 @@ COMMAND_REGISTRY = [
     ('gtx', 'gtx', '运行GTX WGS流程|Run GTX WGS pipeline'),
     ('gtx_joint', 'gtx-joint', 'GTX Joint Calling命令生成工具|GTX Joint Calling command generator'),
     ('gwas_lambda', 'gwas-lambda', 'GWAS Lambda GC计算工具|GWAS Lambda GC calculation tool'),
+    ('nlr_annotator', 'nlr-annotator', 'NLR基因预测工具|NLR gene prediction tool'),
     ('gwas_gec', 'gwas-gec', 'GWAS基因组范围多重检验校正|GWAS genome-wide error correction'),
     ('gctb', 'gctb', 'GCTB全基因组复杂性状贝叶斯分析|GCTB Genome-wide Complex Trait Bayesian Analysis'),
     # merge_deepbsa has been integrated into deepbsa merge subcommand
@@ -135,7 +136,7 @@ COMMAND_REGISTRY = [
     ('phylo_selector', 'phylo-selector', '系统发育树样品选择工具|Phylogenetic tree sample selection tool'),
     ('primer3', 'primer3', 'Primer3引物设计工具|Primer3 Primer Design Tool'),
     ('protein_stats', 'protein-stats', 'Protein Stats理化性质分析工具|Protein Stats physicochemical properties analysis tool'),
-    ('resistify_parser', 'resistify-parser', 'Resistify结果解析工具|Resistify results parser tool'),
+    ('resistify', 'resistify', 'Resistify NLR分析工具|Resistify NLR analysis tool'),
     ('pi', 'pi', '核苷酸多样性计算工具|Nucleotide diversity calculation tool'),
     ('plotsr', 'plotsr', '多基因组共线性可视化工具|Multi-genome synteny visualization tool'),
     ('promoter_extractor', 'promoter-extractor', '启动子提取工具|Promoter extraction tool'),

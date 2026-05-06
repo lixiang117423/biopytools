@@ -77,6 +77,8 @@ Options:
 
 [fastp](./docs/fastp.md) - [fastq文件质控](https://onlinelibrary.wiley.com/doi/10.1002/imt2.70078)
 
+[gff-renamer](./docs/gff_renamer.md) - 清理[BRAKER3](https://github.com/Gaius-Augustus/BRAKER)、[EGAPx](https://github.com/ncbi/egapx)和[ANNEVO](https://github.com/xjtu-omics/ANNEVO)等软件输出的gff文件
+
 [iseq](./docs/iseq.md) - [iSeq下载测序数据](https://github.com/BioOmics/iSeq)
 
 [merge-deepbsa](./docs/merge_deepbsa.md) - 合并[DeepBSA](https://github.com/lizhao007/DeepBSA/)的输出结果

@@ -1,4 +1,11 @@
 
+## [0.25.0] - 2026-05-06
+
+### Changed
+- add gff-renamer module
+- Updated files: biopytools/gff_renamer,docs/gff_renamer.md,biopytools/cli/commands/gff_renamer.py,biopytools/cli/main.py,README.md
+
+
 ## [0.24.6] - 2026-04-29
 
 ### Changed
