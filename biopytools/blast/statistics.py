@@ -1,5 +1,5 @@
 """
-BLAST Statistics Analysis Module
+BLAST统计分析模块|BLAST Statistics Analysis Module
 """
 
 import os
@@ -9,31 +9,28 @@ from typing import Dict
 
 
 class StatisticsGenerator:
-    """Generate BLAST analysis statistics reports"""
+    """BLAST统计报告生成器|BLAST Statistics Report Generator"""
 
     def __init__(self, config, logger):
         self.config = config
         self.logger = logger
 
     def generate_statistics_report(self, summary_file: str) -> str:
-        """
-        Generate statistics report
+        """生成BLAST统计报告|Generate BLAST statistics report
 
         Args:
-            summary_file: BLAST summary results file path
+            summary_file: BLAST汇总结果文件路径|BLAST summary results file path
 
         Returns:
-            Path to generated statistics file
+            生成的统计文件路径|Path to generated statistics file
         """
-        self.logger.info("Generating BLAST statistics report")
+        self.logger.info("生成BLAST统计报告|Generating BLAST statistics report")
 
         stats_file = os.path.join(self.config.output, "blast_statistics.txt")
 
         try:
-            # Load summary data
             stats = self._load_summary_stats(summary_file)
 
-            # Write statistics report
             with open(stats_file, 'w', encoding='utf-8') as f:
                 self._write_basic_info(f)
                 self._write_summary_stats(f, stats)
@@ -42,15 +39,15 @@ class StatisticsGenerator:
                 self._write_identity_distribution(f, stats)
                 self._write_coverage_distribution(f, stats)
 
-            self.logger.info(f"Statistics report generated: {stats_file}")
+            self.logger.info(f"统计报告已生成|Statistics report generated: {stats_file}")
             return stats_file
 
         except Exception as e:
-            self.logger.error(f"Failed to generate statistics report: {e}")
+            self.logger.error(f"生成统计报告失败|Failed to generate statistics report: {e}")
             return ""
 
     def _load_summary_stats(self, summary_file: str) -> Dict:
-        """Load statistics from summary file"""
+        """从汇总文件加载统计信息|Load statistics from summary file"""
         stats = {
             'total_alignments': 0,
             'samples_count': 0,
@@ -66,7 +63,6 @@ class StatisticsGenerator:
             return stats
 
         with open(summary_file, 'r', encoding='utf-8') as f:
-            # Skip header
             next(f, None)
 
             for line in f:
@@ -75,7 +71,6 @@ class StatisticsGenerator:
                     continue
 
                 parts = line.split('\t')
-                # 新格式：16列 - Sample qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen coverage qseq sseq
                 if len(parts) < 16:
                     continue
 
@@ -94,7 +89,6 @@ class StatisticsGenerator:
                     stats['evalues'].append(evalue)
                     stats['coverages'].append(coverage)
 
-                    # Per-sample statistics
                     if sample_name not in stats['sample_stats']:
                         stats['sample_stats'][sample_name] = {
                             'count': 0,
@@ -118,49 +112,49 @@ class StatisticsGenerator:
         return stats
 
     def _write_basic_info(self, f):
-        """Write basic information"""
-        f.write("BLAST Alignment Statistics Report\n")
+        """写入基本信息|Write basic information"""
+        f.write("BLAST比对统计报告|BLAST Alignment Statistics Report\n")
         f.write("=" * 80 + "\n")
-        f.write(f"Analysis Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        f.write(f"BLAST Program: {self.config.blast_type.upper()}\n")
-        f.write(f"Target Database: {self.config.reference}\n")
-        f.write(f"Threads: {self.config.threads}\n")
-        f.write(f"E-value Threshold: {self.config.evalue}\n")
-        f.write(f"Min Identity: {self.config.min_identity}%\n")
-        f.write(f"Min Coverage: {self.config.min_coverage}%\n")
+        f.write(f"分析日期|Analysis Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"BLAST程序|BLAST Program: {self.config.blast_type.upper()}\n")
+        f.write(f"目标数据库|Target Database: {self.config.reference}\n")
+        f.write(f"线程数|Threads: {self.config.threads}\n")
+        f.write(f"E-value阈值|E-value Threshold: {self.config.evalue}\n")
+        f.write(f"最小相似度|Min Identity: {self.config.min_identity}%\n")
+        f.write(f"最小覆盖度|Min Coverage: {self.config.min_coverage}%\n")
         f.write("\n")
 
     def _write_summary_stats(self, f, stats: Dict):
-        """Write summary statistics"""
-        f.write("Summary Statistics\n")
+        """写入汇总统计|Write summary statistics"""
+        f.write("汇总统计|Summary Statistics\n")
         f.write("-" * 40 + "\n")
 
         if stats['total_alignments'] == 0:
-            f.write("No alignments found\n\n")
+            f.write("未找到比对结果|No alignments found\n\n")
             return
 
-        f.write(f"Total Alignments: {stats['total_alignments']}\n")
-        f.write(f"Samples Count: {stats['samples_count']}\n")
-        f.write(f"Unique Queries: {stats['unique_queries']}\n")
-        f.write(f"Unique Subjects: {stats['unique_subjects']}\n")
+        f.write(f"总比对数|Total Alignments: {stats['total_alignments']}\n")
+        f.write(f"样品数|Samples Count: {stats['samples_count']}\n")
+        f.write(f"唯一查询序列|Unique Queries: {stats['unique_queries']}\n")
+        f.write(f"唯一目标序列|Unique Subjects: {stats['unique_subjects']}\n")
 
         if stats['identities']:
             avg_identity = sum(stats['identities']) / len(stats['identities'])
-            f.write(f"Average Identity: {avg_identity:.2f}%\n")
+            f.write(f"平均相似度|Average Identity: {avg_identity:.2f}%\n")
 
         if stats['coverages']:
             avg_coverage = sum(stats['coverages']) / len(stats['coverages'])
-            f.write(f"Average Coverage: {avg_coverage:.2f}%\n")
+            f.write(f"平均覆盖度|Average Coverage: {avg_coverage:.2f}%\n")
 
         f.write("\n")
 
     def _write_sample_stats(self, f, stats: Dict):
-        """Write per-sample statistics"""
-        f.write("Sample Statistics\n")
+        """写入各样品统计|Write per-sample statistics"""
+        f.write("样品统计|Sample Statistics\n")
         f.write("-" * 40 + "\n")
 
         if not stats['sample_stats']:
-            f.write("No sample data\n\n")
+            f.write("无样品数据|No sample data\n\n")
             return
 
         f.write("Sample\tAlignments\tAvg Identity\tAvg Coverage\n")
@@ -173,21 +167,20 @@ class StatisticsGenerator:
         f.write("\n")
 
     def _write_evalue_distribution(self, f, stats: Dict):
-        """Write E-value distribution"""
-        f.write("E-value Distribution\n")
+        """写入E-value分布|Write E-value distribution"""
+        f.write("E-value分布|E-value Distribution\n")
         f.write("-" * 40 + "\n")
 
         if not stats['evalues']:
-            f.write("No E-value data\n\n")
+            f.write("无E-value数据|No E-value data\n\n")
             return
 
         def parse_evalue(e):
-            """Parse e-value string to float"""
             try:
                 if e.startswith('e') or e.startswith('E'):
                     return float(f"1{e}")
                 return float(e)
-            except:
+            except Exception:
                 return 1.0
 
         evalue_ranges = [
@@ -209,12 +202,12 @@ class StatisticsGenerator:
         f.write("\n")
 
     def _write_identity_distribution(self, f, stats: Dict):
-        """Write identity distribution"""
-        f.write("Identity Distribution\n")
+        """写入相似度分布|Write identity distribution"""
+        f.write("相似度分布|Identity Distribution\n")
         f.write("-" * 40 + "\n")
 
         if not stats['identities']:
-            f.write("No identity data\n\n")
+            f.write("无相似度数据|No identity data\n\n")
             return
 
         identity_ranges = [
@@ -233,12 +226,12 @@ class StatisticsGenerator:
         f.write("\n")
 
     def _write_coverage_distribution(self, f, stats: Dict):
-        """Write coverage distribution"""
-        f.write("Coverage Distribution\n")
+        """写入覆盖度分布|Write coverage distribution"""
+        f.write("覆盖度分布|Coverage Distribution\n")
         f.write("-" * 40 + "\n")
 
         if not stats['coverages']:
-            f.write("No coverage data\n\n")
+            f.write("无覆盖度数据|No coverage data\n\n")
             return
 
         coverage_ranges = [

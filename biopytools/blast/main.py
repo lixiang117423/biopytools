@@ -14,6 +14,7 @@ from typing import List, Dict, Optional, Tuple
 
 from ..core.base_analyzer import BaseAnalyzer
 from .config import BLASTConfig
+from .utils import build_conda_command
 
 
 class BLASTAnalyzer(BaseAnalyzer):
@@ -205,12 +206,13 @@ class BLASTAnalyzer(BaseAnalyzer):
                 return True
 
             # 构建数据库|Build database
-            cmd = [
-                self.config.makeblastdb_path,
+            args = [
                 '-in', self.config.reference,
                 '-dbtype', self.config.target_db_type,
                 '-out', db_path
             ]
+
+            cmd = build_conda_command(self.config.makeblastdb_path, args)
 
             self.logger.info(f"执行命令|Executing command: {' '.join(cmd)}")
 
@@ -279,8 +281,7 @@ class BLASTAnalyzer(BaseAnalyzer):
             # 获取正确的BLAST程序路径|Get correct BLAST program path
             blast_program = getattr(self.config, f'{self.config.blast_type}_path', self.config.blast_type)
 
-            cmd = [
-                blast_program,
+            args = [
                 '-query', sample_file,
                 '-db', self.database_path,
                 '-out', output_file,
@@ -291,7 +292,9 @@ class BLASTAnalyzer(BaseAnalyzer):
                 '-num_threads', str(self.config.threads)
             ]
 
-            self.logger.debug(f"执行BLAST命令|Executing BLAST command: {' '.join(cmd)}")
+            cmd = build_conda_command(blast_program, args)
+
+            self.logger.info(f"执行BLAST命令|Executing BLAST command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -478,7 +481,7 @@ class BLASTAnalyzer(BaseAnalyzer):
                             evalue = float(f"1{evalue_str}")
                         else:
                             evalue = float(evalue_str)
-                    except:
+                    except Exception:
                         evalue = 1.0
 
                     return {
@@ -560,10 +563,10 @@ class BLASTAnalyzer(BaseAnalyzer):
                                 evalue_float = float(f"1{evalue}")
                             else:
                                 evalue_float = float(evalue)
-                        except:
+                        except Exception:
                             evalue_float = 1.0
 
-                        # 筛选条件：E-value、相似度和覆盖度
+                        # 筛选条件：E-value、相似度和覆盖度|Filter criteria: E-value, identity and coverage
                         if (evalue_float <= self.config.high_quality_evalue and
                             identity >= self.config.min_identity and
                             coverage >= self.config.min_coverage):
@@ -946,8 +949,8 @@ def main():
                        help='目标基因序列文件|Target gene sequence file')
 
     # 可选参数|Optional arguments
-    parser.add_argument('-o', '--output', default='./blast_output',
-                       help='输出目录路径|Output directory path')
+    parser.add_argument('-o', '--output-dir', default='./blast_output',
+                       help='输出目录|Output directory')
     parser.add_argument('-p', '--prefix', default='blast_output',
                        help='输出文件前缀|Output prefix')
     parser.add_argument('-t', '--threads', type=int, default=12,
@@ -1043,7 +1046,7 @@ def main():
     config = BLASTConfig(
         input=args.input,
         reference=args.reference,
-        output=args.output,
+        output_dir=args.output_dir,
         prefix=args.prefix,
         threads=args.threads,
         quality=args.quality,

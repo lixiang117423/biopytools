@@ -1,5 +1,5 @@
 """
-Alignment Visualization Generator
+比对可视化生成器|Alignment Visualization Generator
 """
 
 import os
@@ -9,7 +9,7 @@ from .text_alignment import TextAlignmentGenerator
 from .html_alignment import HTMLAlignmentGenerator
 
 class AlignmentVisualizer:
-    """Generate alignment visualizations in text and HTML format"""
+    """比对可视化生成器（文本和HTML格式）|Alignment visualization generator (text and HTML)"""
     
     def __init__(self, config, logger):
         self.config = config
@@ -158,7 +158,7 @@ class AlignmentVisualizer:
                     send = int(parts[9])
                     coverage = abs(send - sstart + 1) / slen * 100 if slen > 0 else 0.0
                     coverage = min(coverage, 100.0)
-                except:
+                except Exception:
                     coverage = 100.0
 
                 alignment = {
@@ -187,7 +187,7 @@ class AlignmentVisualizer:
             return None
     
     def _passes_filters(self, alignment: Dict) -> bool:
-        """Check if alignment passes the configured filters"""
+        """检查比对是否通过过滤条件|Check if alignment passes the configured filters"""
         # Check identity filter
         if self.config.alignment_min_identity > 0:
             if alignment['identity'] < self.config.alignment_min_identity:

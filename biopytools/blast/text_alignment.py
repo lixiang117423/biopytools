@@ -1,12 +1,12 @@
 """
-Text Alignment Generator
+文本比对可视化生成器|Text Alignment Generator
 """
 
 from pathlib import Path
 from typing import Dict, List
 
 class TextAlignmentGenerator:
-    """Generate text format alignment visualizations"""
+    """文本格式比对可视化生成器|Text format alignment visualization generator"""
 
     def __init__(self, config, logger):
         self.config = config
@@ -15,8 +15,8 @@ class TextAlignmentGenerator:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def generate_alignments(self, alignments_data: Dict):
-        """Generate text alignment files for all samples"""
-        self.logger.info("Generating text format alignment visualizations...")
+        """生成所有样品的文本比对文件|Generate text alignment files for all samples"""
+        self.logger.info("生成文本格式比对可视化|Generating text format alignment visualizations...")
 
         sample_files = []
         all_alignments = []
@@ -30,28 +30,28 @@ class TextAlignmentGenerator:
         # Write summary file
         summary_file = self._write_summary_file(alignments_data, all_alignments)
 
-        self.logger.info(f"Text output directory: {self.output_dir}")
+        self.logger.info(f"文本输出目录|Text output directory: {self.output_dir}")
         return sample_files, summary_file
 
     def _write_sample_file(self, sample_name: str, sample_data: Dict) -> str:
-        """Write alignment file for a single sample"""
+        """写入单个样品的比对文件|Write alignment file for a single sample"""
         output_file = self.output_dir / f"{sample_name}_alignments.txt"
         alignments = sample_data['alignments']
 
         with open(output_file, 'w', encoding='utf-8') as f:
             # Header
             f.write("=" * 80 + "\n")
-            f.write("BLAST Alignment Details\n")
+            f.write("BLAST比对详情|BLAST Alignment Details\n")
             f.write("=" * 80 + "\n")
-            f.write(f"Sample Name: {sample_name}\n")
-            f.write(f"Input File: {sample_data['file_name']}\n")
-            f.write(f"Alignment Count: {len(alignments)}\n")
+            f.write(f"样品名称|Sample Name: {sample_name}\n")
+            f.write(f"输入文件|Input File: {sample_data['file_name']}\n")
+            f.write(f"比对数量|Alignment Count: {len(alignments)}\n")
 
             if alignments:
                 avg_identity = sum(a['identity'] for a in alignments) / len(alignments)
                 avg_coverage = sum(a['coverage'] for a in alignments) / len(alignments)
-                f.write(f"Average Identity: {avg_identity:.2f}%\n")
-                f.write(f"Average Coverage: {avg_coverage:.2f}%\n")
+                f.write(f"平均相似度|Average Identity: {avg_identity:.2f}%\n")
+                f.write(f"平均覆盖度|Average Coverage: {avg_coverage:.2f}%\n")
 
             f.write("=" * 80 + "\n\n")
 
@@ -61,33 +61,32 @@ class TextAlignmentGenerator:
                 f.write(alignment_text)
                 f.write("\n")
 
-        self.logger.info(f"  Sample {sample_name}: {len(alignments)} alignments")
+        self.logger.info(f"  样品|Sample {sample_name}: {len(alignments)} alignments")
         return str(output_file)
 
     def _write_summary_file(self, alignments_data: Dict, all_alignments: List) -> str:
-        """Write summary file for all samples"""
+        """写入所有样品的汇总文件|Write summary file for all samples"""
         output_file = self.output_dir / "all_samples_alignments.txt"
 
         with open(output_file, 'w', encoding='utf-8') as f:
-            # Header
             f.write("=" * 80 + "\n")
-            f.write("BLAST Alignment Summary - All Samples\n")
+            f.write("BLAST比对汇总 - 所有样品|BLAST Alignment Summary - All Samples\n")
             f.write("=" * 80 + "\n")
-            f.write(f"Total Samples: {len(alignments_data)}\n")
-            f.write(f"Total Alignments: {len(all_alignments)}\n")
+            f.write(f"总样品数|Total Samples: {len(alignments_data)}\n")
+            f.write(f"总比对数|Total Alignments: {len(all_alignments)}\n")
 
             if all_alignments:
                 avg_identity = sum(a['identity'] for a in all_alignments) / len(all_alignments)
                 avg_coverage = sum(a['coverage'] for a in all_alignments) / len(all_alignments)
-                f.write(f"Average Identity: {avg_identity:.2f}%\n")
-                f.write(f"Average Coverage: {avg_coverage:.2f}%\n")
+                f.write(f"平均相似度|Average Identity: {avg_identity:.2f}%\n")
+                f.write(f"平均覆盖度|Average Coverage: {avg_coverage:.2f}%\n")
 
             f.write("=" * 80 + "\n\n")
 
             # Sample details
             for sample_name, sample_data in alignments_data.items():
                 f.write("\n" + "=" * 80 + "\n")
-                f.write(f"Sample: {sample_name}\n")
+                f.write(f"样品|Sample: {sample_name}\n")
                 f.write("=" * 80 + "\n\n")
 
                 for idx, alignment in enumerate(sample_data['alignments'], 1):
@@ -95,11 +94,11 @@ class TextAlignmentGenerator:
                     f.write(alignment_text)
                     f.write("\n")
 
-        self.logger.info(f"  Total samples: {len(alignments_data)}")
+        self.logger.info(f"  总样品数|Total samples: {len(alignments_data)}")
         return str(output_file)
 
     def _format_alignment(self, index: int, alignment: Dict) -> str:
-        """Format a single alignment as text"""
+        """格式化单个比对的文本输出|Format a single alignment as text"""
         lines = []
 
         # Header
@@ -122,8 +121,8 @@ class TextAlignmentGenerator:
 
         if not query_seq or not subject_seq:
             # No sequence data available
-            lines.append("  Sequence alignment not available")
-            lines.append("  Note: Re-run BLAST with qseq and sseq in output format")
+            lines.append("  序列比对数据不可用|Sequence alignment not available")
+            lines.append("  提示：重新运行BLAST时需要在outfmt中包含qseq和sseq字段|Note: Re-run BLAST with qseq and sseq in output format")
             lines.append("")
         else:
             # Generate match line
@@ -167,17 +166,17 @@ class TextAlignmentGenerator:
             gap_count = match_line.count(' ')
             total = len(match_line)
 
-            lines.append("Alignment Statistics:")
-            lines.append(f"  Matches: {match_count} / {total} ({match_count/total*100:.1f}%)")
-            lines.append(f"  Mismatches: {mismatch_count} ({mismatch_count/total*100:.1f}%)")
+            lines.append("比对统计|Alignment Statistics:")
+            lines.append(f"  匹配|Matches: {match_count} / {total} ({match_count/total*100:.1f}%)")
+            lines.append(f"  错配|Mismatches: {mismatch_count} ({mismatch_count/total*100:.1f}%)")
             if gap_count > 0:
-                lines.append(f"  Gaps: {gap_count} ({gap_count/total*100:.1f}%)")
+                lines.append(f"  Gap数|Gaps: {gap_count} ({gap_count/total*100:.1f}%)")
 
         lines.append("")
         return "\n".join(lines)
 
     def _generate_match_line(self, query_seq: str, subject_seq: str) -> str:
-        """Generate match line between query and subject sequences"""
+        """生成查询和目标序列之间的匹配行|Generate match line between query and subject sequences"""
         match_line = []
         for q, s in zip(query_seq, subject_seq):
             if q == s:

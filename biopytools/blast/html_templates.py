@@ -1,9 +1,9 @@
 """
-🎨 HTML模板和样式定义
+HTML模板和样式定义|HTML Templates and Style Definitions
 """
 
 def get_css_style(theme='modern'):
-    """获取CSS样式"""
+    """获取CSS样式|Get CSS style"""
     
     if theme == 'modern':
         return """
@@ -268,7 +268,7 @@ def get_css_style(theme='modern'):
     return ""
 
 def get_javascript():
-    """获取JavaScript代码"""
+    """获取JavaScript代码|Get JavaScript code"""
     return """
     function applyFilters() {
         const searchTerm = document.getElementById('search')?.value.toLowerCase() || '';
@@ -334,7 +334,7 @@ def get_javascript():
     """
 
 def get_index_template():
-    """获取主页模板"""
+    """获取主页模板|Get index page template"""
     return """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -350,7 +350,7 @@ def get_index_template():
         <header>
             <h1> BLAST Alignment Visualization Report</h1>
             <div class="analysis-info">
-                <span>📅 分析日期: {analysis_date}</span>
+                <span>分析日期|Date: {analysis_date}</span>
                 <span> BLAST类型: {blast_type}</span>
                 <span> 样品数: {sample_count}</span>
                 <span> 总比对数: {total_alignments}</span>
@@ -376,7 +376,7 @@ def get_index_template():
             </section>
             
             <section class="statistics">
-                <h2>📈 快速统计</h2>
+                <h2>快速统计|Quick Statistics</h2>
                 {statistics_html}
             </section>
         </main>
@@ -390,7 +390,7 @@ def get_index_template():
 """
 
 def get_sample_template():
-    """获取单样品页面模板"""
+    """获取单样品页面模板|Get single sample page template"""
     return """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>

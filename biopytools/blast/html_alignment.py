@@ -1,17 +1,17 @@
 """
-HTML Alignment Visualization Generator
+HTML比对可视化生成器|HTML Alignment Visualization Generator
 """
 
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List
 from .html_templates import (
-    get_css_style, get_javascript, 
+    get_css_style, get_javascript,
     get_index_template, get_sample_template
 )
 
 class HTMLAlignmentGenerator:
-    """HTML alignment visualization generator"""
+    """HTML比对可视化生成器|HTML alignment visualization generator"""
     
     def __init__(self, config, logger):
         self.config = config
@@ -20,29 +20,25 @@ class HTMLAlignmentGenerator:
         self.output_dir.mkdir(parents=True, exist_ok=True)
     
     def generate_alignments(self, alignments_data: Dict):
-        """Generate HTML alignment files for all samples"""
-        self.logger.info("Generating HTML format alignment visualizations...")
+        """生成所有样品的HTML比对文件|Generate HTML alignment files for all samples"""
+        self.logger.info("生成HTML格式比对可视化|Generating HTML format alignment visualizations...")
 
         sample_files = []
-        
-        # 生成每个样品的HTML页面
+
         for sample_name, sample_data in alignments_data.items():
             sample_file = self._generate_sample_page(sample_name, sample_data)
             sample_files.append(sample_file)
-        
-        # 生成主入口页面
+
         index_file = self._generate_index_page(alignments_data)
 
-        self.logger.info(f"HTML alignment files generated: {self.output_dir}")
-        self.logger.info(f"Open in browser: {index_file}")
+        self.logger.info(f"HTML比对文件已生成|HTML alignment files generated: {self.output_dir}")
+        self.logger.info(f"浏览器打开|Open in browser: {index_file}")
 
         return sample_files, index_file
     
     def _generate_index_page(self, alignments_data: Dict) -> str:
-        """生成主入口页面"""
+        """生成主入口页面|Generate index page"""
         output_file = self.output_dir / "index.html"
-        
-        # 计算统计信息
         total_alignments = sum(len(data['alignments']) for data in alignments_data.values())
         all_alignments = [a for data in alignments_data.values() for a in data['alignments']]
         avg_identity = sum(a['identity'] for a in all_alignments) / len(all_alignments) if all_alignments else 0

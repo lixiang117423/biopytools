@@ -1,12 +1,13 @@
 """
 BLAST分析配置模块|BLAST Analysis Configuration Module
-标准化BLAST配置类，遵循参数命名规范
+标准化BLAST配置类，遵循参数命名规范|Standardized BLAST configuration class following naming conventions
 """
 
 import os
 import re
 from typing import Optional
 from ..core.config import BaseConfig
+from ..common.paths import get_tool_path, expand_path
 
 
 class BLASTConfig(BaseConfig):
@@ -15,7 +16,7 @@ class BLASTConfig(BaseConfig):
     def __init__(
         self,
         input: Optional[str] = None,
-        output: Optional[str] = None,
+        output_dir: Optional[str] = None,
         reference: Optional[str] = None,
         prefix: str = "blast_output",
         threads: int = 12,
@@ -36,7 +37,7 @@ class BLASTConfig(BaseConfig):
         keep_intermediate: bool = False,
         tmp_dir: str = "/tmp",
         timeout: Optional[int] = None,
-        # BLAST特定参数
+        # BLAST特定参数|BLAST-specific parameters
         blast_type: str = "blastn",
         evalue: float = 1e-5,
         max_target_seqs: int = 10,
@@ -49,13 +50,13 @@ class BLASTConfig(BaseConfig):
         auto_detect_samples: bool = True,
         sample_name_pattern: str = r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$',
         sample_map_file: Optional[str] = None,
-        # BLAST工具路径
-        makeblastdb_path: str = "makeblastdb",
-        blastn_path: str = "blastn",
-        blastp_path: str = "blastp",
-        blastx_path: str = "blastx",
-        tblastn_path: str = "tblastn",
-        tblastx_path: str = "tblastx",
+        # BLAST工具路径|BLAST tool paths
+        makeblastdb_path: str = None,
+        blastn_path: str = None,
+        blastp_path: str = None,
+        blastx_path: str = None,
+        tblastn_path: str = None,
+        tblastx_path: str = None,
         # 比对可视化参数|Alignment visualization parameters
         alignment_output: str = "both",
         alignment_width: int = 80,
@@ -69,7 +70,7 @@ class BLASTConfig(BaseConfig):
 
         Args:
             input: 输入文件路径|Input file path
-            output: 输出目录路径|Output directory path
+            output_dir: 输出目录路径|Output directory path
             reference: 目标数据库文件路径|Target database file path
             prefix: 输出文件前缀|Output prefix
             threads: 线程数|Number of threads
@@ -119,7 +120,7 @@ class BLASTConfig(BaseConfig):
 
         # 基本参数|Basic parameters
         self.input = input
-        self.output = output
+        self.output = output_dir
         self.reference = reference
         self.prefix = prefix
         self.threads = self.validate_threads(threads)
@@ -160,12 +161,13 @@ class BLASTConfig(BaseConfig):
         self.sample_map_file = sample_map_file
 
         # 工具路径参数|Tool path parameters
-        self.makeblastdb_path = makeblastdb_path
-        self.blastn_path = blastn_path
-        self.blastp_path = blastp_path
-        self.blastx_path = blastx_path
-        self.tblastn_path = tblastn_path
-        self.tblastx_path = tblastx_path
+        blast_env = '~/miniforge3/envs/Blast_v.2.16.0/bin'
+        self.makeblastdb_path = makeblastdb_path or get_tool_path('makeblastdb', f'{blast_env}/makeblastdb', 'MAKEBLASTDB_PATH')
+        self.blastn_path = blastn_path or get_tool_path('blastn', f'{blast_env}/blastn', 'BLASTN_PATH')
+        self.blastp_path = blastp_path or get_tool_path('blastp', f'{blast_env}/blastp', 'BLASTP_PATH')
+        self.blastx_path = blastx_path or get_tool_path('blastx', f'{blast_env}/blastx', 'BLASTX_PATH')
+        self.tblastn_path = tblastn_path or get_tool_path('tblastn', f'{blast_env}/tblastn', 'TBLASTN_PATH')
+        self.tblastx_path = tblastx_path or get_tool_path('tblastx', f'{blast_env}/tblastx', 'TBLASTX_PATH')
 
         # 比对可视化参数|Alignment visualization parameters
         self.alignment_output = self._validate_alignment_output(alignment_output)

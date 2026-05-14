@@ -1,4 +1,11 @@
 
+## [0.25.3] - 2026-05-14
+
+### Changed
+- update blast module
+- Updated files: biopytools/blast
+
+
 ## [0.25.2] - 2026-05-14
 
 ### Changed
