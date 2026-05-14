@@ -47,12 +47,12 @@ class ExonicVariantProcessor:
             mutation_type = 'COMPLEX'
 
         # 解析基因信息|Parse gene information
-        # 格式|Format: nbisL1-mrna-1:G1:exon1:c.T5C:p.V2A,
+        # 格式|Format: GeneName:GeneName.mRNA1:exon1:c.T5C:p.V2A,
         gene_match = re.match(r'([^:]+):([^:]+):([^:]+):c\.([^:]+):p\.([^,]+)', gene_info)
 
         if gene_match:
-            transcript = gene_match.group(1)
-            gene = gene_match.group(2)
+            gene = gene_match.group(1)
+            transcript = gene_match.group(2)
             exon = gene_match.group(3)
             cdna_change = gene_match.group(4)  # DNA变化|DNA change
             protein_change = gene_match.group(5)  # 蛋白变化|Protein change

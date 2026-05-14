@@ -1,4 +1,11 @@
 
+## [0.25.2] - 2026-05-14
+
+### Changed
+- fix(annovar): 修复gff3ToGenePred因错误上限导致大部分染色体基因模型丢失|Fix gff3ToGenePred silent data loss from default error limit
+- Updated files: biopytools/annovar,biopytools/cli/commands/annovar.py
+
+
 ## [0.25.1] - 2026-05-12
 
 ### Changed

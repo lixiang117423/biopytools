@@ -51,7 +51,7 @@ def _validate_file_exists(file_path):
               required=True,
               help='基因组版本(例如: OV, KY131)|Genome build version identifier (e.g., OV, KY131)')
 @click.option('--annovar-path', '-a',
-              default='/share/org/YZWL/yzwl_lixg/software/annovar/annovar',
+              default='~/software/annovar/annovar',
               show_default=True,
               help='ANNOVAR软件路径|ANNOVAR software installation path')
 @click.option('--database-path', '-d',
@@ -70,7 +70,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='VCF质量阈值|VCF quality filtering threshold')
 @click.option('--step', '-s',
-              type=click.Choice(['1', '2', '3', '4']),
+              type=click.IntRange(1, 4),
               help='运行指定步骤|Run only specified step:\n'
                    '1: GFF3转换|GFF3 conversion\n'
                    '2: 提取序列|Extract sequences\n'
@@ -109,7 +109,7 @@ def annovar(input, gff3, genome, build_ver, annovar_path, database_path,
     args.extend(['-b', build_ver])
 
     # 可选参数|Optional parameters
-    if annovar_path != '/share/org/YZWL/yzwl_lixg/software/annovar/annovar':
+    if annovar_path != '~/software/annovar/annovar':
         args.extend(['-a', annovar_path])
 
     if database_path != './database':
