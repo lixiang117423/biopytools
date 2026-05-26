@@ -67,6 +67,7 @@ COMMAND_REGISTRY = [
     ('genebank2fasta', 'genebank2fasta', 'GenBank序列提取工具|GenBank sequence extraction tool'),
     ('geneinfo', 'geneinfo', '从GFF文件提取基因信息|Extract gene information from GFF file'),
     ('gap_stat', 'gap-stat', '基因组Gap统计工具|Genome gap statistics tool'),
+    ('gffcompare', 'gffcompare', 'GFF/GTF文件两两比较分析|GFF/GTF pairwise comparison analysis'),
     ('gff_renamer', 'gff-renamer', 'GFF文件ID规范化工具|GFF file ID standardization tool'),
     ('gtf2gff', 'gtf2gff', 'GTF到GFF文件转换工具|GTF to GFF file converter'),
     ('smudgescope', 'smudgescope', 'GenomeScope2+Smudgeplot基因组评估工具|GenomeScope2 and Smudgeplot genome evaluation tool'),
@@ -138,6 +139,7 @@ COMMAND_REGISTRY = [
     ('protein_stats', 'protein-stats', 'Protein Stats理化性质分析工具|Protein Stats physicochemical properties analysis tool'),
     ('resistify', 'resistify', 'Resistify NLR分析工具|Resistify NLR analysis tool'),
     ('pi', 'pi', '核苷酸多样性计算工具|Nucleotide diversity calculation tool'),
+    ('pi4gene', 'pi4gene', '基因分组核苷酸多样性计算|Calculate nucleotide diversity per gene group'),
     ('plotsr', 'plotsr', '多基因组共线性可视化工具|Multi-genome synteny visualization tool'),
     ('promoter_extractor', 'promoter-extractor', '启动子提取工具|Promoter extraction tool'),
     ('purge_dups', 'purge-dups', 'Purge_Dups基因组去冗余工具|Purge_Dups genome deduplication tool'),
@@ -153,6 +155,7 @@ COMMAND_REGISTRY = [
     ('repeat_analyzer', 'repeat-analyzer', '重复序列分析模块|Repeat sequence analysis module'),
     ('repeatmask', 'repeatmask', '重复序列屏蔽工具|Repeat masking tool'),
     ('rnabloom', 'rnabloom', 'RNA-Bloom转录组从头组装工具|RNA-Bloom de novo transcriptome assembly tool'),
+    ('gene_rnaseq_check', 'gene-rnaseq-check', '候选基因RNA-seq转录验证|Candidate gene RNA-seq transcriptional validation'),
     ('rnaseq', 'rnaseq', 'RNA-seq表达定量流程|RNA-seq expression quantification pipeline'),
     ('rnaseq_val', 'rnaseq-val', '转录组验证注释|Transcriptome validation for genome annotation'),
     ('signalp', 'signalp', 'SignalP 6.0信号肽预测工具|SignalP 6.0 signal peptide prediction tool'),
@@ -162,6 +165,7 @@ COMMAND_REGISTRY = [
     ('yahs', 'yahs', 'YaHS Hi-C scaffolding流程|YaHS Hi-C scaffolding pipeline'),
     ('sra2fastq', 'sra2fastq', 'SRA转FASTQ转换工具|SRA to FASTQ conversion tool'),
     ('split_fasta_id', 'split-fasta-id', '分割FASTA文件ID|Split FASTA file ID'),
+    ('subphaser', 'subphaser', 'SubPhaser异源多倍体亚基因组分离|SubPhaser subgenome phasing of allopolyploids'),
     ('subseq', 'subseq', '序列子集提取工具|Sequence subset extraction tool'),
     ('tassel_gwas', 'tassel-gwas', 'TASSEL GWAS分析工具|TASSEL GWAS analysis tool'),
     ('rmvp', 'rmvp', 'rMVP GWAS批量分析工具（GLM/MLM/FarmCPU）|rMVP batch GWAS analysis (GLM/MLM/FarmCPU)'),
@@ -190,8 +194,10 @@ COMMAND_REGISTRY = [
     ('vcf_sequence', 'vcf-sequence', '从基因组和VCF提取序列|Extract sequences from genome and VCF'),
     ('wgdi', 'wgdi', 'WGDI比较基因组学分析工具|WGDI comparative genomics analysis tool'),
     ('phyto_effector', 'phyto-effector', 'Phytophthora效应子鉴定(rxlr/crn)|Phytophthora effector identification (rxlr/crn)'),
+    ('atomm', 'atomm', '双物种混合效应模型关联分析|Two-organism mixed model association (ATOMM)'),
     ('cim', 'cim', 'R/qtl复合区间作图(CIM)分析|R/qtl Composite Interval Mapping (CIM) Analysis'),
     ('kraken2', 'kraken2', 'Kraken2宏基因组分类工具|Kraken2 metagenomic classification tool'),
+    ('samplot', 'samplot', 'Samplot结构变异可视化工具|Samplot SV visualization tool'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

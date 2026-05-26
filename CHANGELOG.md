@@ -1,4 +1,11 @@
 
+## [0.26.0] - 2026-05-26
+
+### Changed
+- add deeploc module
+- Updated files: biopytools/deeploc,docs/deeploc.md,biopytools/cli/commands/deeploc.py,biopytools/cli/main.py,README.md
+
+
 ## [0.25.3] - 2026-05-14
 
 ### Changed

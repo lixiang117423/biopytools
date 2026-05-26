@@ -73,6 +73,8 @@ Options:
 
 [deepbsa](./docs/deepbsa.md) - [DeepBSA](https://github.com/lizhao007/DeepBSA/)
 
+[deeploc](./docs/deeploc.md) - [DeepLoc](https://academic.oup.com/nar/article/52/W1/W215/7642068?guestAccessKey=)亚细胞定位
+
 [dual-rnaseq](docs/dual_rnaseq.md) - 双向RNA-Seq
 
 [fastp](./docs/fastp.md) - [fastq文件质控](https://onlinelibrary.wiley.com/doi/10.1002/imt2.70078)
