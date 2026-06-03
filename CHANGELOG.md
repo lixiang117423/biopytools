@@ -1,4 +1,11 @@
 
+## [0.26.1] - 2026-06-03
+
+### Changed
+- feat(annovar): add reference and mutant protein sequences to exonic variant results
+- Updated files: biopytools/annovar
+
+
 ## [0.26.0] - 2026-05-26
 
 ### Changed

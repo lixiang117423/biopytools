@@ -15,7 +15,7 @@ class VariantAnnotator:
     
     def annotate_variants(self):
         """注释变异|Annotate variants"""
-        if not hasattr(self.config, 'annovar_vcf'):
+        if not os.path.exists(getattr(self.config, 'annovar_vcf', '')):
             self.logger.error("ANNOVAR格式VCF文件不存在，请先执行步骤3|ANNOVAR format VCF file does not exist, please run step 3 first")
             return False
 

@@ -125,16 +125,15 @@ class SequenceExtractor:
 		self.cmd_runner = cmd_runner
 
 	def extract_transcript_sequences(self):
-		"""提取转录本序列|Extract transcript sequences"""
-		if not hasattr(self.config, 'genepred_file'):
-			self.logger.error("GenPred文件不存在，请先执行步骤1|GenPred file does not exist, please run step 1 first")
-			return False
-
+		"""提取转录本序列、蛋白序列和CDS序列|Extract transcript, protein and CDS sequences"""
 		genome_file = self.config.genome_file
 		genepred_file = self.config.genepred_file
+		gff3_file = self.config.gff3_file
 		output_dir = self.config.output_dir
 		build_ver = self.config.build_ver
 		output_file = os.path.join(output_dir, f"{build_ver}_refGeneMrna.fa")
+		pep_file = os.path.join(output_dir, f"{build_ver}_refGenePep.fa")
+		cds_file = os.path.join(output_dir, f"{build_ver}_refGeneCds.fa")
 		annovar_path = self.config.annovar_path
 
 		# 确保输出目录存在|Ensure output directory exists
@@ -143,7 +142,10 @@ class SequenceExtractor:
 		self.logger.info(f"基因组文件|Genome file: {genome_file}")
 		self.logger.info(f"GenPred文件|GenPred file: {genepred_file}")
 		self.logger.info(f"输出序列文件|Output sequence file: {output_file}")
+		self.logger.info(f"输出蛋白文件|Output protein file: {pep_file}")
+		self.logger.info(f"输出CDS文件|Output CDS file: {cds_file}")
 
+		# 提取mRNA序列|Extract mRNA sequences
 		command = (f"perl {annovar_path}/retrieve_seq_from_fasta.pl "
 				  f"--format refGene --seqfile {genome_file} "
 				  f"{genepred_file} -outfile {output_file}")
@@ -152,6 +154,30 @@ class SequenceExtractor:
 		if success:
 			self.config.mrna_file = output_file
 			self.logger.info(f"转录本序列文件已生成|Transcript sequence file generated: {output_file}")
+
+		if not success:
+			return False
+
+		# 提取蛋白序列|Extract protein sequences
+		gffread_path = '/share/org/YZWL/yzwl_lixg/miniforge3/envs/RNA_Seq/bin/gffread'
+		pep_command = f"{gffread_path} -g {genome_file} -y {pep_file} {gff3_file}"
+
+		success = self.cmd_runner.run(pep_command, "提取蛋白序列|Extract protein sequences")
+		if success:
+			self.config.pep_file = pep_file
+			self.logger.info(f"蛋白序列文件已生成|Protein sequence file generated: {pep_file}")
+
+		if not success:
+			return False
+
+		# 提取CDS序列|Extract CDS sequences
+		cds_command = f"{gffread_path} -g {genome_file} -x {cds_file} {gff3_file}"
+
+		success = self.cmd_runner.run(cds_command, "提取CDS序列|Extract CDS sequences")
+		if success:
+			self.config.cds_file = cds_file
+			self.logger.info(f"CDS序列文件已生成|CDS sequence file generated: {cds_file}")
+
 		return success
 
 class VCFProcessor:

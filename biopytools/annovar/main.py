@@ -36,7 +36,9 @@ class ANNOVARAnnotator:
         self.summary_generator = SummaryGenerator(self.config, self.logger)
 
         # 初始化结果处理器|Initialize results processor
-        self.results_processor = ANNOVARResultsProcessor(self.logger, self.config.output_dir)
+        pep_file = getattr(self.config, 'pep_file', None)
+        cds_file = getattr(self.config, 'cds_file', None)
+        self.results_processor = ANNOVARResultsProcessor(self.logger, self.config.output_dir, pep_file=pep_file, cds_file=cds_file)
 
     def _is_step_completed(self, output_file: str) -> bool:
         """检查步骤是否已完成（通过输出文件存在性判断）|Check if step is done by output file existence"""
@@ -73,7 +75,7 @@ class ANNOVARAnnotator:
             1: ("GFF3转GenPred|GFF3 to GenPred", self.step1_gff3_to_genepred,
                 lambda: os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGene.txt")),
             2: ("提取转录本序列|Extract transcript sequences", self.step2_extract_transcript_sequences,
-                lambda: os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGeneMrna.fa")),
+                lambda: os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGeneCds.fa")),
             3: ("过滤并转换VCF|Filter and convert VCF", self.step3_filter_and_convert_vcf,
                 lambda: os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.annovar.vcf")),
             4: ("注释变异|Annotate variants", self.step4_annotate_variants,
@@ -102,7 +104,7 @@ class ANNOVARAnnotator:
             ("GFF3转GenPred|GFF3 to GenPred", self.step1_gff3_to_genepred,
              os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGene.txt")),
             ("提取转录本序列|Extract transcript sequences", self.step2_extract_transcript_sequences,
-             os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGeneMrna.fa")),
+             os.path.join(self.config.output_dir, f"{self.config.build_ver}_refGeneCds.fa")),
             ("处理并转换VCF|Process and convert VCF", self.step3_filter_and_convert_vcf,
              os.path.join(self.config.output_dir, f"{self.config.vcf_basename}.annovar.vcf")),
             ("变异注释|Variant annotation", self.step4_annotate_variants,

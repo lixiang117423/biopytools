@@ -38,7 +38,7 @@ class ANNOVARConfig:
         """初始化后处理|Post-initialization processing"""
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
-        
+
         # 标准化路径|Normalize paths
         self.gff3_file = os.path.normpath(os.path.abspath(expand_path(self.gff3_file)))
         self.genome_file = os.path.normpath(os.path.abspath(expand_path(self.genome_file)))
@@ -51,10 +51,16 @@ class ANNOVARConfig:
         self.vcf_basename = os.path.splitext(os.path.basename(self.vcf_file))[0]
         if self.vcf_basename.endswith('.vcf'):
             self.vcf_basename = self.vcf_basename[:-4]
-        
+
         # 清理build_ver参数|Clean build_ver parameter
         if '/' in self.build_ver or '\\' in self.build_ver:
             self.build_ver = os.path.basename(self.build_ver)
+
+        # 预计算输出文件路径|Pre-compute output file paths
+        self.genepred_file = os.path.join(self.output_dir, f"{self.build_ver}_refGene.txt")
+        self.mrna_file = os.path.join(self.output_dir, f"{self.build_ver}_refGeneMrna.fa")
+        self.pep_file = os.path.join(self.output_dir, f"{self.build_ver}_refGenePep.fa")
+        self.cds_file = os.path.join(self.output_dir, f"{self.build_ver}_refGeneCds.fa")
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
