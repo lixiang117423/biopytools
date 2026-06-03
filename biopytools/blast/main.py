@@ -995,9 +995,9 @@ def main():
                        help='保留中间文件|Keep intermediate files')
 
     # BLAST特定参数|BLAST-specific parameters
-    parser.add_argument('--blast-type', default='blastn',
+    parser.add_argument('--blast-type', default=None,
                        choices=['blastn', 'blastp', 'blastx', 'tblastn', 'tblastx'],
-                       help='BLAST程序类型|BLAST program type')
+                       help='BLAST程序类型，默认根据输入文件自动检测|BLAST program type (auto-detect from input files if not specified)')
     parser.add_argument('--max-target-seqs', type=int, default=10,
                        help='最大目标序列数|Maximum target sequences')
     parser.add_argument('--min-identity', type=float, default=70.0,

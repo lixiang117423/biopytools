@@ -5,7 +5,9 @@ BLAST分析配置模块|BLAST Analysis Configuration Module
 
 import os
 import re
-from typing import Optional
+import logging
+from typing import Optional, Tuple
+from Bio import SeqIO
 from ..core.config import BaseConfig
 from ..common.paths import get_tool_path, expand_path
 
@@ -38,7 +40,7 @@ class BLASTConfig(BaseConfig):
         tmp_dir: str = "/tmp",
         timeout: Optional[int] = None,
         # BLAST特定参数|BLAST-specific parameters
-        blast_type: str = "blastn",
+        blast_type: str = None,
         evalue: float = 1e-5,
         max_target_seqs: int = 10,
         word_size: Optional[int] = None,
@@ -181,6 +183,9 @@ class BLASTConfig(BaseConfig):
         if self.output is None:
             self.output = self.prefix
 
+        # 自动检测BLAST类型（仅当用户未指定时）|Auto-detect BLAST type (only when user didn't specify)
+        self._auto_detect_blast_type()
+
         # 验证BLAST类型|Validate BLAST type
         self._validate_blast_type()
 
@@ -203,6 +208,95 @@ class BLASTConfig(BaseConfig):
     def alignment_output_dir(self):
         """比对可视化输出子目录|Alignment visualization output subdirectory"""
         return "alignments"
+
+    def _detect_sequence_type(self, fasta_file: str, check_sequences: int = 5) -> Tuple[str, float]:
+        """
+        自动检测FASTA文件的序列类型|Auto-detect sequence type in FASTA file
+
+        Args:
+            fasta_file: FASTA文件路径|FASTA file path
+            check_sequences: 检查的序列数量|Number of sequences to check
+
+        Returns:
+            Tuple[str, float]: ('dna'/'protein'/'unknown', 置信度|confidence)
+        """
+        logger = logging.getLogger(__name__)
+
+        try:
+            sequences = []
+            for record in SeqIO.parse(fasta_file, "fasta"):
+                sequences.append(str(record.seq).upper())
+                if len(sequences) >= check_sequences:
+                    break
+
+            if not sequences:
+                logger.error(f"FASTA文件中没有序列|No sequences found in FASTA file: {fasta_file}")
+                return "unknown", 0.0
+
+            total_chars = 0
+            dna_chars = 0
+            protein_chars = 0
+
+            for seq in sequences:
+                for char in seq:
+                    total_chars += 1
+                    if char in "ATCG":
+                        dna_chars += 1
+                    elif char in "N":
+                        dna_chars += 1
+                    elif char in "DEFGHIKLMNPQRSTVWY*":
+                        protein_chars += 1
+                    else:
+                        protein_chars += 1
+
+            if total_chars == 0:
+                return "unknown", 0.0
+
+            dna_ratio = dna_chars / total_chars
+            protein_ratio = protein_chars / total_chars
+
+            if dna_ratio > 0.90:
+                return "dna", dna_ratio
+            elif protein_ratio > 0.30:
+                return "protein", protein_ratio
+            else:
+                logger.warning(f"无法确定序列类型|Cannot determine sequence type (DNA: {dna_ratio:.2f}, Protein: {protein_ratio:.2f}): {fasta_file}")
+                return "unknown", 0.0
+
+        except Exception as e:
+            logger.error(f"序列类型检测失败|Sequence type detection failed: {e}")
+            return "unknown", 0.0
+
+    def _auto_detect_blast_type(self):
+        """根据输入文件序列类型自动推断BLAST类型|Auto-infer BLAST type from input file sequence types"""
+        logger = logging.getLogger(__name__)
+
+        if self.blast_type is not None:
+            return
+
+        if not self.input or not self.reference:
+            return
+
+        query_type, _ = self._detect_sequence_type(self.input)
+        ref_type, _ = self._detect_sequence_type(self.reference)
+
+        type_map = {
+            ("dna", "dna"): "blastn",
+            ("protein", "protein"): "blastp",
+            ("dna", "protein"): "blastx",
+            ("protein", "dna"): "tblastn",
+        }
+
+        detected = type_map.get((query_type, ref_type))
+
+        if detected:
+            self.blast_type = detected
+            logger.info(f"自动检测BLAST类型|Auto-detected BLAST type: {detected} "
+                        f"(查询|query: {query_type}, 参考|reference: {ref_type})")
+        else:
+            self.blast_type = "blastn"
+            logger.warning(f"无法自动检测BLAST类型，使用默认值blastn|Cannot auto-detect BLAST type, using default blastn "
+                           f"(查询|query: {query_type}, 参考|reference: {ref_type})")
 
     def _validate_blast_type(self):
         """验证BLAST类型|Validate BLAST type"""
