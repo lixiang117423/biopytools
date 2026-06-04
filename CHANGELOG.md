@@ -1,4 +1,16 @@
 
+## [0.26.3] - 2026-06-04
+
+### Changed
+- feat(blast): auto-detect blast-type from input file sequence types
+
+  Scan all input files individually to determine nucleotide/protein type
+  by majority vote, then infer blastn/blastp/blastx/tblastn accordingly.
+  Falls back to blastn on failure. Warns on mixed sequence types.
+  Also update CLI wrapper to pass None defaults for auto-detection.
+- Updated files: biopytools/blast
+
+
 ## [0.26.2] - 2026-06-03
 
 ### Changed

@@ -267,6 +267,41 @@ class BLASTConfig(BaseConfig):
             logger.error(f"序列类型检测失败|Sequence type detection failed: {e}")
             return "unknown", 0.0
 
+    def _collect_fasta_files(self, path: str) -> list:
+        """收集FASTA文件列表|Collect FASTA file list
+
+        当path是文件时返回单元素列表，目录时返回所有匹配文件
+        """
+        import glob as glob_mod
+        if os.path.isfile(path):
+            return [path]
+        if os.path.isdir(path):
+            files = []
+            for ext in ('*.fa', '*.fasta', '*.fna', '*.pep', '*.faa'):
+                files.extend(glob_mod.glob(os.path.join(path, ext)))
+            return files
+        return [path]
+
+    def _detect_type_from_files(self, files: list, label: str) -> str:
+        """对多个文件逐一检测序列类型，用多数投票决定|Detect sequence type from multiple files by majority vote"""
+        logger = logging.getLogger(__name__)
+        from collections import Counter
+        counts = Counter()
+        for f in files:
+            seq_type, _ = self._detect_sequence_type(f)
+            if seq_type != "unknown":
+                counts[seq_type] += 1
+
+        if not counts:
+            logger.warning(f"无法确定{label}序列类型|Cannot determine {label} sequence type")
+            return "unknown"
+
+        most_common_type, most_common_count = counts.most_common(1)[0]
+        if len(counts) > 1:
+            logger.warning(f"{label}文件中存在混合序列类型|Mixed sequence types in {label} files: "
+                           f"{dict(counts)}, 使用多数类型|using majority type: {most_common_type}")
+        return most_common_type
+
     def _auto_detect_blast_type(self):
         """根据输入文件序列类型自动推断BLAST类型|Auto-infer BLAST type from input file sequence types"""
         logger = logging.getLogger(__name__)
@@ -277,8 +312,10 @@ class BLASTConfig(BaseConfig):
         if not self.input or not self.reference:
             return
 
-        query_type, _ = self._detect_sequence_type(self.input)
-        ref_type, _ = self._detect_sequence_type(self.reference)
+        query_files = self._collect_fasta_files(self.input)
+        ref_files = self._collect_fasta_files(self.reference)
+        query_type = self._detect_type_from_files(query_files, "查询|query")
+        ref_type = self._detect_type_from_files(ref_files, "参考|reference")
 
         type_map = {
             ("dna", "dna"): "blastn",
