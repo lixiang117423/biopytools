@@ -198,6 +198,7 @@ COMMAND_REGISTRY = [
     ('cim', 'cim', 'R/qtl复合区间作图(CIM)分析|R/qtl Composite Interval Mapping (CIM) Analysis'),
     ('kraken2', 'kraken2', 'Kraken2宏基因组分类工具|Kraken2 metagenomic classification tool'),
     ('samplot', 'samplot', 'Samplot结构变异可视化工具|Samplot SV visualization tool'),
+    ('wgsim', 'wgsim', 'Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

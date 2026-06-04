@@ -1,4 +1,11 @@
 
+## [0.27.0] - 2026-06-04
+
+### Changed
+- add braker module
+- Updated files: biopytools/braker/,docs/braker.md,biopytools/cli/commands/braker.py,biopytools/cli/main.py
+
+
 ## [0.26.3] - 2026-06-04
 
 ### Changed
