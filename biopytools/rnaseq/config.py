@@ -92,7 +92,8 @@ class RNASeqConfig:
     threads: int = 8
     fastq_pattern: Optional[str] = None  # FASTQ文件命名模式|FASTQ naming pattern
     remove_bam: str = "no"  # 是否删除BAM文件|Whether to remove BAM files
-    sample_timeout: int = 21600  # 单个样本处理超时时间（秒），默认6小时|Sample processing timeout in seconds (default: 6 hours)
+    sample_timeout: Optional[int] = None  # 单个样本处理超时时间（秒），None表示不限制|Sample processing timeout in seconds, None means no limit
+    large_genome_threshold: int = 1_000_000_000  # 大基因组阈值（字节），超过此值拆分HISAT2+samtools管道|Large genome threshold (bytes), split pipe above this size
 
     # 日志选项|Logging options
     log_file: Optional[str] = None
@@ -102,6 +103,7 @@ class RNASeqConfig:
     verbose: bool = False
     quiet: bool = False
     dry_run: bool = False
+    force: bool = False  # 强制重新处理已完成的样本|Force re-process completed samples
 
     # 内部属性|Internal attributes
     samples: List[dict] = None  # 样本信息列表|Sample information list

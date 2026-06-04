@@ -1,4 +1,17 @@
 
+## [0.27.1] - 2026-06-04
+
+### Changed
+- fix(rnaseq): 大基因组拆分HISAT2+samtools管道并取消默认超时限制
+
+   大基因组（>1GB）的SAM输出巨大，管道缓冲区溢出导致所有样本
+   比对超时。改为运行时根据基因组文件大小自动选择策略：大于阈值
+   走两步拆分（hisat2 -S输出SAM，再samtools sort转BAM）；
+   小基因组保持原管道方式。同时将sample_timeout默认值从21600秒
+   改为None，不再强制超时限制。
+- Updated files: biopytools/rnaseq
+
+
 ## [0.27.0] - 2026-06-04
 
 ### Changed

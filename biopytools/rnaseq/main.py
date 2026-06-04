@@ -236,14 +236,24 @@ class RNASeqAnalyzer:
         fastq1 = sample_info["fastq1"]
         fastq2 = sample_info["fastq2"]
 
-        self.logger.info("=" * 60)
-        self.logger.info(f"处理样本|Processing sample: {sample_name}")
-        self.logger.info("=" * 60)
-
         # 设置文件路径|Set file paths
         bam_file = os.path.join(self.config.output_dir, "01.bam", f"{sample_name}.sorted.bam")
         stringtie_output = os.path.join(self.config.output_dir, "02.stringtie", f"{sample_name}.gtf")
         fpkm_output = os.path.join(self.config.output_dir, "03.fpkm_tpm", f"{sample_name}.fpkm.txt")
+
+        # 检查样本是否已完成处理|Check if sample processing is already completed
+        if os.path.exists(fpkm_output) and os.path.getsize(fpkm_output) > 0:
+            force_mode = getattr(self.config, 'force', False)
+            if not force_mode:
+                self.logger.info(f"样本已完成，跳过|Sample already completed, skipping: {sample_name}")
+                self.logger.info(f"输出文件|Output file: {fpkm_output}")
+                return fpkm_output
+            else:
+                self.logger.info(f"强制模式：重新处理样本|Force mode: re-processing sample: {sample_name}")
+
+        self.logger.info("=" * 60)
+        self.logger.info(f"处理样本|Processing sample: {sample_name}")
+        self.logger.info("=" * 60)
 
         # 1. HISAT2比对|HISAT2 alignment
         if not self.hisat2_aligner.run_hisat2_mapping(index_prefix, fastq1, fastq2, bam_file):
@@ -378,7 +388,7 @@ def main():
 
     # 可选参数|Optional parameters
     optional = parser.add_argument_group('可选参数|Optional parameters')
-    optional.add_argument("-p", "--pattern", default=None,
+    optional.add_argument("-p", "--pattern", default="*_1.clean.fq.gz",
                        help='Fastq文件命名模式|Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name')
     optional.add_argument("-r", "--remove", default="no", choices=["yes", "y", "no", "n"],
                        help="处理后删除BAM文件|Remove BAM files after processing")
@@ -409,6 +419,9 @@ def main():
     advanced.add_argument('--dry-run',
                          action='store_true',
                          help='试运行模式，不实际执行|Dry run mode, no actual execution')
+    advanced.add_argument('--force',
+                         action='store_true',
+                         help='强制重新处理已完成的样本|Force re-process completed samples')
 
     args = parser.parse_args()
 
@@ -427,7 +440,8 @@ def main():
             quiet=args.quiet,
             log_file=args.log_file,
             log_level=args.log_level,
-            dry_run=args.dry_run
+            dry_run=args.dry_run,
+            force=args.force
         )
 
         analyzer.run_analysis()
