@@ -165,13 +165,18 @@ class SampleFinder:
 
     def detect_simulated_data(self, sample_pairs: List[Tuple[str, Path, Path]]) -> bool:
         """
-        检测输入数据是否为模拟数据（如wgsim输出），通过检查质量行是否全为'!'
-        Detect if input data is simulated (e.g., wgsim output) by checking if quality lines are all '!'
+        检测输入数据是否为模拟数据（如wgsim输出），通过检查质量行是否全为同一低质量字符
+        Detect if input data is simulated (e.g., wgsim output) by checking if quality lines
+        are all the same low-quality character
 
-        模拟工具（wgsim等）输出的FASTQ质量字符全部为'!'（ASCII 33, Phred 0），
-        如果用默认质量阈值过滤会导致所有reads被丢弃。
-        Simulated tools output quality chars all as '!' (Phred 0),
-        which would cause all reads to be filtered out with default quality threshold.
+        模拟工具输出的FASTQ质量行通常有两种特征：
+        1. wgsim默认输出质量字符全为'!'（ASCII 33, Phred 0）
+        2. wgsim带-e参数输出质量字符全为同一字符（如'2', ASCII 50, Phred 18）
+        如果用默认质量阈值（30）过滤会导致所有reads被丢弃。
+        Simulated tools output FASTQ quality lines with uniform characters:
+        1. wgsim default: all '!' (Phred 0)
+        2. wgsim with -e: all same char like '2' (Phred 18)
+        Filtering with default quality threshold (30) would discard all reads.
 
         Args:
             sample_pairs: 样本配对列表|List of sample pairs
@@ -189,22 +194,26 @@ class SampleFinder:
         try:
             n_checked = 0
             max_check = 100  # 检查前100条reads|Check first 100 reads
+            quality_chars = set()
 
             with opener(filepath, 'rt') as f:
                 for i, line in enumerate(f):
                     # FASTQ质量行是第4行（索引3）|Quality line is line 4 (index 3)
                     if i % 4 == 3:
-                        if line.rstrip('\n\r'):
+                        qual = line.rstrip('\n\r')
+                        if qual:
                             n_checked += 1
-                            # 如果发现任何非'!'的质量字符，说明是真实测序数据
-                            # If any non-'!' quality char found, it's real sequencing data
-                            if any(c != '!' for c in line.rstrip('\n\r')):
+                            quality_chars.update(qual)
+
+                            # 真实测序数据质量行会包含多种不同字符|Real data has varied quality chars
+                            if len(quality_chars) > 3:
                                 return False
+
                         if n_checked >= max_check:
                             break
 
-            # 所有检查的质量行全为'!'或空|All checked quality lines are '!' or empty
-            if n_checked > 0:
+            # 质量行字符种类极少（<=3种）说明是模拟数据|Very few distinct quality chars means simulated
+            if n_checked > 0 and len(quality_chars) <= 3:
                 return True
 
         except Exception as e:

@@ -1,4 +1,11 @@
 
+## [0.27.2] - 2026-06-05
+
+### Changed
+- fix(fastp): sync CLI args with module interface, fix simulated data detection and wgsim quality compatibility
+- Updated files: biopytools/fastp
+
+
 ## [0.27.1] - 2026-06-04
 
 ### Changed

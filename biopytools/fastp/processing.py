@@ -103,9 +103,9 @@ class FastpCore:
         # 打印处理信息|Print processing information
         self.logger.info("---")
         self.logger.info(f"正在处理样本（单末端模式）|Processing sample (single-end mode): {sample_name}")
-        self.logger.info(f"  Input (输入): {read1_file}")
-        self.logger.info(f"  Output (输出): {final_read1}")
-        self.logger.info(f"  HTML report (报告): {html_report}")
+        self.logger.info(f"  Input (输入|input): {read1_file}")
+        self.logger.info(f"  Output (输出|output): {final_read1}")
+        self.logger.info(f"  HTML report (报告|report): {html_report}")
         self.logger.info("---")
 
         # 构建fastp命令（单末端）|Build fastp command (single-end)
@@ -223,7 +223,7 @@ class FastpCore:
         self.logger.info(f"  Read 2 (输入|input): {read2}")
         self.logger.info(f"  Read 1 (输出|output): {out1}")
         self.logger.info(f"  Read 2 (输出|output): {out2}")
-        self.logger.info(f"  HTML report (报告): {html_report}")
+        self.logger.info(f"  HTML report (报告|report): {html_report}")
         self.logger.info("---")
 
         cmd = [
@@ -371,10 +371,10 @@ class FastpCore:
         Returns:
             执行是否成功|Whether execution succeeded
         """
-        self.logger.info(f"  Input R1 (输入): {read1}")
-        self.logger.info(f"  Input R2 (输入): {read2}")
-        self.logger.info(f"  Final R1 (最终输出): {final_read1}")
-        self.logger.info(f"  Final R2 (最终输出): {final_read2}")
+        self.logger.info(f"  Input R1 (输入|input): {read1}")
+        self.logger.info(f"  Input R2 (输入|input): {read2}")
+        self.logger.info(f"  Final R1 (最终输出|final output): {final_read1}")
+        self.logger.info(f"  Final R2 (最终输出|final output): {final_read2}")
         self.logger.info("---")
 
         # 使用临时输出目录，因为seqkit pair -O会保持输入文件名不变

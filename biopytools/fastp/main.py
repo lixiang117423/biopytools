@@ -172,7 +172,7 @@ def main():
     pair_group = parser.add_argument_group('配对修复选项|Pair repair options')
     pair_group.add_argument("--enable-pair", action="store_true", default=True,
                           help="启用seqkit pair配对修复步骤（默认启用）|Enable seqkit pair step (enabled by default)")
-    pair_group.add_argument("--disable-pair", action="store_true", default=False,
+    pair_group.add_argument("--disable-pair", "--disable-repair", action="store_true", default=False,
                           help="禁用seqkit pair配对修复步骤|Disable seqkit pair step")
     pair_group.add_argument("--seqkit-path", default="seqkit",
                           help="seqkit可执行文件路径|seqkit executable path")
