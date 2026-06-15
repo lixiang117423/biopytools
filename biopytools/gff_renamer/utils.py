@@ -163,18 +163,36 @@ def parse_chromosome(seq_id: str, chr_mapping: Optional[Dict[str, str]] = None) 
     match = re.search(r'(\d+)', seq_id)
     if match:
         chr_num = match.group(1)
+
+        seq_id_lower = seq_id.lower()
+        has_chr = 'chr' in seq_id_lower
+        has_scaffold = 'scaffold' in seq_id_lower
+        has_contig = 'contig' in seq_id_lower
+
+        # 从关键字后提取编号，避免被前缀中的数字干扰
+        # Extract number after keyword to avoid interference from numbers in prefix
+        if has_chr:
+            chr_match = re.search(r'[Cc]hr\D*(\d+)', seq_id)
+            if chr_match:
+                chr_num = chr_match.group(1)
+        elif has_scaffold or has_contig:
+            sc_match = re.search(r'(?:scaffold|contig)[_.]*(\d+)', seq_id, re.IGNORECASE)
+            if sc_match:
+                chr_num = sc_match.group(1)
+
         # 格式化为两位数|Format to two digits
         chr_num_formatted = f"{int(chr_num):02d}"
 
-        # 根据原始ID格式决定标准化格式|Decide standard format based on original ID
-        if seq_id.startswith('chr') or seq_id.startswith('Chr'):
+        if has_chr:
             return f"Chr{chr_num_formatted}", chr_num_formatted
-        elif 'scaffold' in seq_id.lower() or 'contig' in seq_id.lower():
-            # scaffold/contig保留原始前缀|Keep original prefix for scaffold/contig
-            prefix_match = re.match(r'([a-zA-Z]+)', seq_id)
-            if prefix_match:
-                prefix = prefix_match.group(1)
-                return f"{prefix}{chr_num_formatted}", chr_num_formatted
+        elif has_scaffold:
+            # scaffold使用Scf前缀避免与染色体编号歧义
+            # Use Scf prefix for scaffold to avoid ambiguity with chromosome numbers
+            return f"Scf{chr_num_formatted}", f"Scf{chr_num_formatted}"
+        elif has_contig:
+            # contig使用Ctg前缀避免与染色体编号歧义
+            # Use Ctg prefix for contig to avoid ambiguity with chromosome numbers
+            return f"Ctg{chr_num_formatted}", f"Ctg{chr_num_formatted}"
         else:
             # 默认格式|Default format
             return f"Chr{chr_num_formatted}", chr_num_formatted

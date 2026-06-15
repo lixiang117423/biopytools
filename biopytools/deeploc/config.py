@@ -33,12 +33,12 @@ class DeepLocConfig:
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
 
-        # 标准化路径|Normalize paths
-        self.fasta_file = os.path.normpath(os.path.abspath(self.fasta_file))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
-        self.singularity_image = os.path.normpath(os.path.abspath(self.singularity_image))
-        self.database_dir = os.path.normpath(os.path.abspath(self.database_dir))
-        self.singularity_exec = os.path.normpath(os.path.abspath(self.singularity_exec))
+        # 标准化路径（展开~和环境变量）|Normalize paths (expand ~ and env vars)
+        self.fasta_file = expand_path(self.fasta_file)
+        self.output_dir = expand_path(self.output_dir)
+        self.singularity_image = expand_path(self.singularity_image)
+        self.database_dir = expand_path(self.database_dir)
+        self.singularity_exec = expand_path(self.singularity_exec)
 
         # 验证model参数|Validate model parameter
         valid_models = ["Accurate", "Fast"]

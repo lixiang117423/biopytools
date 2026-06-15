@@ -487,9 +487,10 @@ class GFFRenamer:
             # 按转录本编号排序|Sort by transcript number
             transcripts_sorted = sorted(transcripts, key=lambda x: x[1])
 
-            for old_mrna_id, transcript_num, feature_type in transcripts_sorted:
-                # 直接使用第三列的feature_type作为后缀|Use feature_type from column 3 as suffix
-                new_mrna_id = f"{new_gene_id}.{feature_type}{transcript_num}"
+            for idx, (old_mrna_id, _, feature_type) in enumerate(transcripts_sorted, 1):
+                # 使用组内枚举序号，避免AGAT清洗后ID格式变化导致编号丢失
+                # Use enumerate index to avoid lost transcript numbers after AGAT cleaning
+                new_mrna_id = f"{new_gene_id}.{feature_type}{idx}"
                 id_mapping[old_mrna_id] = new_mrna_id
 
         # 2.5 处理exon、CDS和UTR|Process exons, CDS and UTR
