@@ -93,7 +93,7 @@ class RNASeqConfig:
     fastq_pattern: Optional[str] = None  # FASTQ文件命名模式|FASTQ naming pattern
     remove_bam: str = "no"  # 是否删除BAM文件|Whether to remove BAM files
     sample_timeout: Optional[int] = None  # 单个样本处理超时时间（秒），None表示不限制|Sample processing timeout in seconds, None means no limit
-    large_genome_threshold: int = 1_000_000_000  # 大基因组阈值（字节），超过此值拆分HISAT2+samtools管道|Large genome threshold (bytes), split pipe above this size
+    pipe_split_threshold: int = 10_000_000_000  # 单个FASTQ文件大小阈值（字节），超过此值拆分HISAT2+samtools管道|Single FASTQ file size threshold (bytes), split pipe above this size
 
     # 日志选项|Logging options
     log_file: Optional[str] = None

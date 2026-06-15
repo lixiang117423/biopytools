@@ -394,8 +394,8 @@ def main():
                        help="处理后删除BAM文件|Remove BAM files after processing")
     optional.add_argument("-t", "--threads", type=int, default=8,
                        help="线程数|Number of threads")
-    optional.add_argument("--sample-timeout", type=int, default=21600,
-                       help="单个样本处理超时时间（秒）|Sample processing timeout in seconds")
+    optional.add_argument("--sample-timeout", type=int, default=None,
+                       help="单个样本处理超时时间（秒），默认不限制|Sample processing timeout in seconds, default no limit")
 
     # 日志选项|Logging options
     logging = parser.add_argument_group('日志选项|Logging options')

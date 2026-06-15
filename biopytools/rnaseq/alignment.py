@@ -285,18 +285,20 @@ class HISAT2Aligner:
         if self.file_validator.check_file_exists(output_bam, "BAM文件|BAM file"):
             return True
 
-        # 根据基因组大小决定管道策略|Decide pipe strategy based on genome size
-        genome_file = self.config.genome_file
-        genome_size = os.path.getsize(genome_file) if os.path.exists(genome_file) else 0
-        large_genome_threshold = getattr(self.config, 'large_genome_threshold', 1_000_000_000)
+        # 根据FASTQ文件大小决定管道策略|Decide pipe strategy based on FASTQ file size
+        max_fastq_size = max(
+            os.path.getsize(fastq1) if os.path.exists(fastq1) else 0,
+            os.path.getsize(fastq2) if os.path.exists(fastq2) else 0
+        )
+        pipe_split_threshold = getattr(self.config, 'pipe_split_threshold', 10_000_000_000)
 
-        if genome_size > large_genome_threshold:
+        if max_fastq_size > pipe_split_threshold:
             return self._run_hisat2_split_pipeline(index_prefix, fastq1, fastq2, output_bam, threads, timeout)
         else:
             return self._run_hisat2_pipe(index_prefix, fastq1, fastq2, output_bam, threads, timeout)
 
     def _run_hisat2_split_pipeline(self, index_prefix: str, fastq1: str, fastq2: str, output_bam: str, threads: int, timeout: int) -> bool:
-        """拆分两步执行，适用于大基因组，避免管道缓冲区溢出|Split into two steps for large genomes, avoid pipe buffer overflow"""
+        """逐步执行，无管道，适用于大数据量|Step-by-step execution without pipe for large data"""
         sam_file = output_bam.replace(".sorted.bam", ".sam")
 
         # 第一步：HISAT2比对输出SAM文件|Step 1: HISAT2 alignment to SAM file
@@ -315,7 +317,7 @@ class HISAT2Aligner:
 
         # 第二步：SAM转排序BAM|Step 2: Convert SAM to sorted BAM
         sort_cmd = (
-            f"samtools sort -@ {threads} -O BAM -o {output_bam} {sam_file}"
+            f"samtools sort -@ {threads} -m 2G -o {output_bam} {sam_file}"
         )
 
         success = self.cmd_runner.run(
@@ -324,12 +326,12 @@ class HISAT2Aligner:
             timeout=timeout
         )
 
-        if success:
-            self.logger.info(f"比对完成|Alignment completed: {output_bam}")
-
         # 清理中间SAM文件|Clean up intermediate SAM file
         if os.path.exists(sam_file):
             os.remove(sam_file)
+
+        if success:
+            self.logger.info(f"比对完成|Alignment completed: {output_bam}")
 
         return success
 

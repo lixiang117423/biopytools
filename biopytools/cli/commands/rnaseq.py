@@ -54,6 +54,8 @@ def _validate_file_exists(file_path):
               help='输出目录|Output directory')
 @click.option('--pattern', '-p',
               type=str,
+              default='*_1.clean.fq.gz',
+              show_default=True,
               help='FASTQ文件命名模式|Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name')
 @click.option('--remove', '-r',
               default='no',
@@ -77,6 +79,9 @@ def _validate_file_exists(file_path):
 @click.option('--dry-run',
               is_flag=True,
               help='试运行模式|Dry run mode, no actual execution')
+@click.option('--force',
+              is_flag=True,
+              help='强制重新处理已完成的样本|Force re-process completed samples')
 @click.option('--threads', '-t',
               type=int,
               default=12,
@@ -88,14 +93,13 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='单个样本处理超时时间（秒）|Sample processing timeout in seconds')
 def rnaseq(genome, gtf, input, output, pattern, remove, verbose, quiet,
-           log_file, log_level, dry_run, threads, sample_timeout):
+           log_file, log_level, dry_run, force, threads, sample_timeout):
     """
     RNA-seq分析流程：HISAT2 + StringTie|RNA-seq Analysis Pipeline: HISAT2 + StringTie
 
     完整的RNA-seq数据分析流程，包括HISAT2比对和StringTie定量，计算FPKM和TPM值|Complete RNA-seq data analysis pipeline, including HISAT2 alignment and StringTie quantification, calculating FPKM and TPM values
 
-    示例|Examples:
-    biopytools rnaseq -g genome.fa -f genes.gtf -i /data/fastq/ -o rnaseq_results
+    示例|Examples: biopytools rnaseq -g genome.fa -f genes.gtf -i /data/fastq/ -o rnaseq_results
     """
 
     # 延迟加载|Lazy load
@@ -111,7 +115,7 @@ def rnaseq(genome, gtf, input, output, pattern, remove, verbose, quiet,
     args.extend(['-o', output])
 
     # 可选参数(仅在非默认时添加)|Optional parameters (add only when non-default)
-    if pattern is not None:
+    if pattern != '*_1.clean.fq.gz':
         args.extend(['-p', pattern])
 
     if remove != 'no':
@@ -139,6 +143,9 @@ def rnaseq(genome, gtf, input, output, pattern, remove, verbose, quiet,
     # 高级选项|Advanced options
     if dry_run:
         args.append('--dry-run')
+
+    if force:
+        args.append('--force')
 
     # 保存并恢复sys.argv|Save and restore sys.argv
     original_argv = sys.argv

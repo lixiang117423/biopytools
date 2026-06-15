@@ -101,6 +101,18 @@ class DualRNASeqAnalyzer:
                     self.logger.error(f"样本分类失败|Sample classification failed: {sample_name}")
                     sys.exit(1)
 
+                # 每个样本分类完成后立即提取FASTQ|Extract FASTQ immediately after each sample classification
+                if self.config.extract_fastq:
+                    classification_dir = os.path.join(
+                        self.config.output_dir, "02.classification", sample_name
+                    )
+                    fastq_dir = os.path.join(self.config.output_dir, "06.extracted_fastq")
+                    self.logger.info(f"提取{sample_name}的FASTQ|Extracting FASTQ for {sample_name}")
+                    if not self.bam_to_fastq_extractor.extract_sample_fastqs(
+                        sample_name, classification_dir, fastq_dir
+                    ):
+                        self.logger.warning(f"{sample_name} FASTQ提取失败|{sample_name} FASTQ extraction failed")
+
             # 步骤3: 比对统计|Step 3: Alignment statistics
             self.logger.info("=" * 60)
             self.logger.info("步骤3: 计算比对统计|Step 3: Calculating alignment statistics")
@@ -163,17 +175,8 @@ class DualRNASeqAnalyzer:
             # 生成总结报告|Generate summary report
             self.summary_generator.generate_summary_report()
 
-            # 步骤6: 从BAM文件提取FASTQ（可选）|Step 6: Extract FASTQ from BAM (optional)
-            if self.config.extract_fastq:
-                self.logger.info("=" * 60)
-                self.logger.info("步骤6: 从BAM文件提取FASTQ|Step 6: Extracting FASTQ from BAM files")
-                self.logger.info("=" * 60)
-
-                sample_names = [sample["name"] for sample in samples]
-                if not self.bam_to_fastq_extractor.extract_all_samples(sample_names):
-                    self.logger.warning("FASTQ提取部分失败|FASTQ extraction partially failed")
-                else:
-                    self.logger.info("FASTQ提取完成|FASTQ extraction completed")
+            # 步骤6已移至步骤3循环中，每个样本分类后立即提取
+            # Step 6 moved into Step 3 loop, extract FASTQ immediately after each sample classification
 
             self.logger.info("=" * 60)
             self.logger.info("分析完成！|Analysis completed!")
