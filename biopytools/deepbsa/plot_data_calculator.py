@@ -24,12 +24,13 @@ class PlotDataCalculator:
         self.logger = logger or logging.getLogger(__name__)
 
     def calculate_threshold(self, data: np.ndarray) -> float:
-        """计算阈值（复现DeepBSA逻辑）|Calculate threshold (reproduce DeepBSA logic)
+        """计算阈值（精确复现DeepBSA逻辑）|Calculate threshold (exact reproduction of DeepBSA logic)
 
-        源码位置|Source location: Statistic_Methods.py:282-291
+        源码位置|Source location: Statistic_Methods.py:284-293
 
         公式|Formula: threshold = median + 3 * std
         备选|Alternative: 90th percentile (if all data < threshold)
+        舍入|Rounding: ROUND_HALF_UP to 4 decimal places
 
         Args:
             data: 平滑后的数据数组|Smoothed data array
@@ -39,18 +40,14 @@ class PlotDataCalculator:
         """
         from decimal import Decimal
 
-        # 计算标准差和中位数|Calculate std and median
         std = np.std(data)
         med = np.median(data)
         threshold = med + 3 * std
 
-        # 如果所有数据都低于阈值，使用90%分位数
-        # If all data below threshold, use 90th percentile
         if np.all(data < round(threshold, 4)):
             threshold = np.percentile(data, 90)
 
-        # 四舍五入到4位小数|Round to 4 decimal places
-        threshold = float(Decimal(str(threshold)).quantize(Decimal("0.0001")))
+        threshold = float(Decimal(str(threshold)).quantize(Decimal("0.0001"), rounding="ROUND_HALF_UP"))
 
         self.logger.debug(f"阈值计算|Threshold calculation: median={med:.4f}, std={std:.4f}, threshold={threshold:.4f}")
 
@@ -278,6 +275,189 @@ class PlotDataCalculator:
         return final_df
 
 
+def _read_chrom_positions_from_values(values_path: Path, logger=None) -> tuple:
+    """从 values.txt 读取染色体名和位置（按出现顺序分组）|Read chromosome names and positions from values.txt
+
+    values.txt 格式|Format: chr\\tpos\\tvalue，每行一个数据点，按染色体连续排列
+
+    Args:
+        values_path: values.txt 文件路径|Path to values.txt
+        logger: 日志器|Logger
+
+    Returns:
+        tuple: (chrom_names, chrom_positions) - 染色体名列表和对应的位置列表
+    """
+    chrom_names = []
+    chrom_positions = []
+    current_chrom = None
+    current_positions = []
+
+    with open(values_path, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split('\t')
+            if len(parts) != 3:
+                continue
+            chrom, pos, value = parts
+            if chrom != current_chrom:
+                if current_chrom is not None:
+                    chrom_names.append(current_chrom)
+                    chrom_positions.append(current_positions)
+                current_chrom = chrom
+                current_positions = []
+            current_positions.append(int(pos))
+
+    if current_chrom is not None:
+        chrom_names.append(current_chrom)
+        chrom_positions.append(current_positions)
+
+    return chrom_names, chrom_positions
+
+
+def extract_plot_data_from_npy(input_dir: Path, methods: List[str],
+                                logger=None) -> pd.DataFrame:
+    """从 npy 文件读取绘图数据（与原始软件完全一致）|Read plot data from npy files (exact reproduction)
+
+    从 DeepBSA 原始输出的 npy 文件读取原始值和平滑值，从 values.txt 读取染色体名和位置，
+    计算阈值后组装 DataFrame。结果与原始软件绘图数据完全一致。
+
+    文件结构|File structure:
+        input_dir/all_data_for_plot_{method}.npy       # 原始值（按染色体分组）
+        input_dir/smooth_data_for_plot_{method}.npy     # 平滑值（按染色体分组）
+        input_dir/{method} values.txt                   # 位置和染色体名
+
+    Args:
+        input_dir: 包含 npy 和 values.txt 的目录|Directory containing npy and values.txt
+        methods: 方法列表|Method list (e.g. ["DL", "ED4", "SNP"])
+        logger: 日志器|Logger
+
+    Returns:
+        pd.DataFrame: 包含绘图数据的数据表|Data table with plot data
+    """
+    if logger is None:
+        logger = logging.getLogger(__name__)
+
+    logger.info("=" * 60)
+    logger.info("从npy文件读取绘图数据|Reading plot data from npy files")
+    logger.info("=" * 60)
+
+    all_rows = []
+
+    for method in methods:
+        # SNP 方法在 npy 文件名中用 ΔSNP
+        npy_method_name = "\u0394SNP" if method == "SNP" else method
+        display_name = "\u0394SNP" if method == "SNP" else method
+
+        # 查找 npy 文件|Find npy files
+        raw_path = input_dir / f"all_data_for_plot_{npy_method_name}.npy"
+        smooth_path = input_dir / f"smooth_data_for_plot_{npy_method_name}.npy"
+
+        if not raw_path.exists() or not smooth_path.exists():
+            logger.warning(f"npy文件不存在|npy files not found for {method}: {raw_path.name}, {smooth_path.name}")
+            continue
+
+        # 查找 values.txt|Find values.txt
+        values_pattern = f"{npy_method_name} values.txt"
+        values_files = list(input_dir.glob(values_pattern))
+        if not values_files:
+            logger.warning(f"values.txt不存在|values.txt not found for {method}: {values_pattern}")
+            continue
+
+        values_path = values_files[0]
+
+        logger.info(f"处理|Processing: {method}")
+        logger.info(f"  原始值|Raw: {raw_path.name}")
+        logger.info(f"  平滑值|Smooth: {smooth_path.name}")
+        logger.info(f"  位置|Position: {values_path.name}")
+
+        try:
+            # 加载 npy|Load npy files
+            raw = np.load(raw_path, allow_pickle=True)
+            smooth = np.load(smooth_path, allow_pickle=True)
+
+            n_chroms_raw = len(raw)
+            n_chroms_smooth = len(smooth)
+
+            # 从 values.txt 读取染色体名和位置|Read chrom names and positions from values.txt
+            chrom_names, chrom_positions = _read_chrom_positions_from_values(values_path, logger)
+            n_chroms_txt = len(chrom_names)
+
+            if n_chroms_raw != n_chroms_smooth or n_chroms_raw != n_chroms_txt:
+                logger.error(f"  染色体数量不匹配|Chromosome count mismatch: "
+                             f"raw={n_chroms_raw}, smooth={n_chroms_smooth}, txt={n_chroms_txt}")
+                continue
+
+            # 验证每条染色体长度一致|Verify length consistency per chromosome
+            for i in range(n_chroms_raw):
+                len_raw = len(raw[i])
+                len_smooth = len(smooth[i])
+                len_pos = len(chrom_positions[i])
+                if len_raw != len_smooth or len_raw != len_pos:
+                    logger.error(f"  Chr{chrom_names[i]} 长度不匹配|length mismatch: "
+                                 f"raw={len_raw}, smooth={len_smooth}, pos={len_pos}")
+                    continue
+
+            # 计算阈值|Calculate threshold
+            smooth_concat = np.concatenate([np.array(smooth[i], dtype=np.float64) for i in range(n_chroms_raw)])
+            calculator = PlotDataCalculator(logger)
+            threshold = calculator.calculate_threshold(smooth_concat)
+
+            logger.info(f"  阈值|Threshold: {threshold:.4f}")
+
+            # 组装数据|Assemble data
+            above_count = 0
+            for chrom_idx in range(n_chroms_raw):
+                chrom_name = chrom_names[chrom_idx]
+                positions = chrom_positions[chrom_idx]
+                raw_vals = raw[chrom_idx]
+                smooth_vals = smooth[chrom_idx]
+
+                for pos, raw_val, smooth_val in zip(positions, raw_vals, smooth_vals):
+                    is_above = float(smooth_val) >= threshold
+                    if is_above:
+                        above_count += 1
+                    all_rows.append({
+                        'Method': display_name,
+                        'Chromosome': chrom_name,
+                        'Position': int(pos),
+                        'Position_Mb': pos / 1e6,
+                        'Raw_Value': float(raw_val),
+                        'Smooth_Value': float(smooth_val),
+                        'Threshold': threshold,
+                        'Above_Threshold': is_above
+                    })
+
+            logger.info(f"  数据点|Data points: {n_chroms_raw} 条染色体, "
+                        f"{sum(len(chrom_positions[i]) for i in range(n_chroms_raw))} 个数据点")
+            logger.info(f"  超阈值点|Points above threshold: {above_count}")
+
+        except Exception as e:
+            logger.error(f"  处理失败|Processing failed for {method}: {e}")
+
+    if not all_rows:
+        logger.error("没有从npy文件中读取到任何数据|No data read from npy files")
+        return None
+
+    result_df = pd.DataFrame(all_rows)
+
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("npy数据读取完成|npy data reading completed")
+    logger.info("=" * 60)
+    logger.info(f"总计|Total: {len(result_df)} 个数据点|data points")
+    logger.info(f"方法|Methods: {', '.join(sorted(result_df['Method'].unique()))}")
+    logger.info("")
+    logger.info("各方法阈值|Thresholds by method:")
+    for method in sorted(result_df['Method'].unique()):
+        threshold = result_df[result_df['Method'] == method]['Threshold'].iloc[0]
+        count_above = result_df[result_df['Method'] == method]['Above_Threshold'].sum()
+        logger.info(f"  {method}: 阈值|threshold={threshold:.4f}, 超阈值点|above threshold={count_above}")
+
+    return result_df
+
+
 def extract_and_calculate_plot_data(each_dir: Path, methods: List[str],
                                     logger=None,
                                     smooth_func: str = "LOWESS",
@@ -306,8 +486,8 @@ def extract_and_calculate_plot_data(each_dir: Path, methods: List[str],
                 logger.warning(f"方法目录不存在|Method directory not found: {method_dir}")
             continue
 
-        # 查找values.txt文件|Find values.txt files
-        txt_files = list(method_dir.glob("Results/variant/* values.txt"))
+        # 查找values.txt文件|Find values.txt files (递归查找，因为子目录名基于输入文件名|Recursive search, subdir name based on input filename)
+        txt_files = list(method_dir.glob("Results/**/* values.txt"))
 
         if not txt_files:
             if logger:
@@ -353,8 +533,8 @@ def extract_and_calculate_plot_data(each_dir: Path, methods: List[str],
     # 创建DataFrame|Create DataFrame
     df = pd.DataFrame(all_raw_data)
 
-    # 修改SNP方法名为δSNP|Change SNP method name to δSNP
-    df['Method'] = df['Method'].apply(lambda x: 'δSNP' if x == 'SNP' else x)
+    # 修改SNP方法名为ΔSNP|Change SNP method name to ΔSNP
+    df['Method'] = df['Method'].apply(lambda x: 'ΔSNP' if x == 'SNP' else x)
 
     # 2. 计算平滑曲线和阈值|Calculate smooth curves and thresholds
     result_df = calculator.process_all_methods(df, smooth_func=smooth_func, smooth_frac=smooth_frac)

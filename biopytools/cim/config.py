@@ -6,6 +6,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+from ..common.paths import expand_path
 
 
 @dataclass
@@ -77,12 +78,15 @@ class CIMConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
+        # 展开MSTmap路径中的~|Expand ~ in mstmap_path
+        self.mstmap_path = expand_path(self.mstmap_path)
+        # 展开R环境路径|Expand R env path
+        self.r_env = expand_path(self.r_env)
+
         # 规范化路径|Normalize paths
         self.input_file = os.path.normpath(os.path.abspath(self.input_file))
         self.pheno_file = os.path.normpath(os.path.abspath(self.pheno_file))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
-        # 展开MSTmap路径中的~|Expand ~ in mstmap_path
-        self.mstmap_path = os.path.expanduser(os.path.expandvars(self.mstmap_path))
 
         # 创建输出子目录|Create output subdirectories
         self.info_dir = os.path.join(self.output_dir, "00_pipeline_info")

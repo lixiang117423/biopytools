@@ -585,7 +585,7 @@ def ld_prune_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
         # Filter out markers with any missing genotypes for PLINK
         valid_marker_mask = ~np.isnan(geno_int).any(axis=1)
         if valid_marker_mask.sum() < geno_int.shape[0]:
-            logger.info(f"PLINK: 过滤有缺失的标记 {geno_int.shape[0]} → {valid_marker_mask.sum()}")
+            logger.info(f"PLINK: 过滤有缺失的标记|Filtering markers with missing genotypes {geno_int.shape[0]} → {valid_marker_mask.sum()}")
             geno_int = geno_int[valid_marker_mask]
             marker_info_plink = marker_info[valid_marker_mask].reset_index(drop=True)
         else:
@@ -646,7 +646,7 @@ def ld_prune_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
         stats['markers_after_prune'] = int(n_after)
         stats['pruning_method'] = 'LD-based (PLINK)'
 
-        logger.info(f"LD降维完成: {n_before} → {n_after} markers")
+        logger.info(f"LD降维完成|LD pruning done: {n_before} → {n_after} markers")
 
         pruned_genotype = genotype_matrix[keep_mask]
         pruned_marker = marker_info[keep_mask].reset_index(drop=True)
@@ -681,7 +681,7 @@ def _fallback_interval_sampling(genotype_matrix: np.ndarray, marker_info: pd.Dat
     stats['markers_after_prune'] = len(indices)
     stats['pruning_method'] = 'interval_sampling (fallback)'
 
-    logger.info(f"均匀抽样回退: {n_total} → {len(indices)} markers (step={step})")
+    logger.info(f"均匀抽样回退|Interval sampling fallback: {n_total} → {len(indices)} markers (step={step})")
 
     return genotype_matrix[indices], marker_info.iloc[indices].reset_index(drop=True), stats
 
@@ -1046,7 +1046,7 @@ def save_filtered_vcf(original_vcf: str, marker_info: pd.DataFrame, retained_sam
 
         cmd_runner.run(f"bcftools index {output_path}", "索引过滤后VCF|Index filtered VCF")
 
-        logger.info(f"过滤后VCF已保存: {output_path} ({n_markers} markers, {n_samples} samples)")
+        logger.info(f"过滤后VCF已保存|Filtered VCF saved: {output_path} ({n_markers} markers, {n_samples} samples)")
         return output_path
 
     finally:

@@ -75,16 +75,31 @@ def parse_arguments():
     # 工具路径|Tool paths
     tools = parser.add_argument_group('工具路径|Tool paths')
     tools.add_argument('--deepbsa-path',
-                      default='~/software/DeepBSA/DeepBSA_linux_v1.4/bin/main.py',
-                      help='DeepBSA主程序路径|DeepBSA main script path')
+                      default='~/software/DeepBSA/DeepBSA_multithread/bin/main.py',
+                      help='DeepBSA主程序路径（多线程版本）|DeepBSA main script path (multithread version)')
     tools.add_argument('--conda-env',
-                      default='/share/org/YZWL/yzwl_lixg/miniforge3/envs/DeepBSA',
+                      default='~/miniforge3/envs/DeepBSA',
                       help='Conda环境路径|Conda environment path')
+
+    # DeepBSA多线程参数|DeepBSA multithread parameters
+    mt = parser.add_argument_group('DeepBSA多线程参数|DeepBSA multithread parameters')
+    mt.add_argument('--threads', type=int, default=0,
+                   help='DeepBSA线程数（0=自动检测，1=单线程，>1=多线程，默认：0）|Number of threads for DeepBSA (0=auto, 1=single, >1=multi, default: 0)')
+
+    # 平滑参数|Smooth parameters
+    smooth = parser.add_argument_group('平滑参数|Smooth parameters')
+    smooth.add_argument('--smooth-func', default='Tri-kernel-smooth',
+                       choices=['Tri-kernel-smooth', 'LOWESS', 'Moving Average'],
+                       help='平滑函数（默认：Tri-kernel-smooth）|Smooth function (default: Tri-kernel-smooth)')
 
     # 其他参数|Other parameters
     other = parser.add_argument_group('其他参数|Other parameters')
     other.add_argument('-v', '--verbose', action='store_true',
                       help='详细输出|Verbose output')
+    other.add_argument('-f', '--force', action='store_true',
+                      help='强制重新运行所有步骤（不跳过已完成）|Force rerun all steps (don\'t skip completed)')
+    other.add_argument('--skip-merge', action='store_true',
+                      help='跳过合并步骤|Skip merge step')
 
     return parser.parse_args()
 
@@ -109,7 +124,11 @@ def main():
             keep_clean=args.keep_clean,
             deepbsa_path=args.deepbsa_path,
             conda_env=args.conda_env,
-            verbose=args.verbose
+            verbose=args.verbose,
+            force=args.force,
+            skip_merge=args.skip_merge,
+            threads=args.threads,
+            smooth_func=args.smooth_func
         )
 
         # 验证配置|Validate configuration

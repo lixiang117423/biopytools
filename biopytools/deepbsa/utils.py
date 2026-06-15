@@ -133,7 +133,9 @@ def clean_vcf_comments(input_file: Path, output_file: Path, logger) -> bool:
 
 
 def run_deepbsa_method(method: str, input_file: Path, deepbsa_script: Path,
-                       output_dir: Path, conda_env_name: str, logger, parallel: bool = False) -> bool:
+                       output_dir: Path, conda_env_name: str, logger,
+                       parallel: bool = False, threads: int = 0,
+                       smooth_func: str = "Tri-kernel-smooth") -> bool:
     """运行单个DeepBSA方法|Run single DeepBSA method
 
     Args:
@@ -144,6 +146,8 @@ def run_deepbsa_method(method: str, input_file: Path, deepbsa_script: Path,
         conda_env_name: Conda环境名称|Conda environment name
         logger: 日志器|Logger
         parallel: 是否并行模式|Whether parallel mode
+        threads: 线程数（0=自动，1=单线程）|Number of threads (0=auto, 1=single)
+        smooth_func: 平滑函数|Smooth function
 
     Returns:
         bool: 是否成功|Whether successful
@@ -159,7 +163,9 @@ def run_deepbsa_method(method: str, input_file: Path, deepbsa_script: Path,
         str(deepbsa_script),
         "--i", str(input_file),
         "--m", method,
-        "--p", "0"  # 禁用pretreatment，使用已过滤的数据|Disable pretreatment, use pre-filtered data
+        "--p", "0",  # 禁用pretreatment，使用已过滤的数据|Disable pretreatment, use pre-filtered data
+        "--s", smooth_func,  # 平滑函数|Smooth function
+        "--threads", str(threads)  # 添加线程数参数|Add threads parameter
     ]
 
     if not parallel:
@@ -220,11 +226,21 @@ def check_parallel_results(output_dir: Path, methods: list, logger):
     logger.info("")
     logger.info("运行结果|Run results:")
 
-    # 各方法结果存放在each/目录下|Individual method results are in 'each/' directory
-    each_dir = output_dir / "each"
+    # 检测路径结构|Detect path structure
+    # batch模式: output/{method}/ (当只有一个方法且目录名与方法名相同时)
+    # 普通模式: output/methods/{method}/
+    methods_dir = output_dir / "methods"
+    if methods_dir.exists() and any(methods_dir.iterdir()):
+        # 普通run模式: 使用methods/目录
+        # Normal run mode: use methods/ directory
+        base_dir = methods_dir
+    else:
+        # batch模式: 直接使用output目录
+        # Batch mode: use output directory directly
+        base_dir = output_dir
 
     for method in methods:
-        method_dir = each_dir / method
+        method_dir = base_dir / method
         log_file = method_dir / f"{method}.log"
 
         if log_file.exists():
