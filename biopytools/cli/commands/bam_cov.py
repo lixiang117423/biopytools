@@ -38,26 +38,22 @@ def _validate_file_exists(file_path):
               required=True,
               type=click.Path(exists=True),
               help='输入路径（BAM文件或包含BAM的目录）|Input path (BAM file or directory containing BAM files)')
+@click.option('--bed', '-b',
+              type=click.Path(exists=True),
+              help='BED文件路径(3列: chrom, start, end)|BED file path (3 columns: chrom, start, end)')
 @click.option('--chromosome', '-c',
-              required=True,
               help='染色体名称|Chromosome name (e.g., chr1, Chr12)')
 @click.option('--start', '-s',
-              required=True,
               type=int,
               help='起始位置|Start position (1-based)')
 @click.option('--end', '-e',
               type=int,
               help='终止位置|End position')
-@click.option('--output-dir', '-o',
-              default='./bam_coverage_stats_output',
+@click.option('--output', '-o',
+              default='./coverage.txt',
               show_default=True,
               type=str,
-              help='输出目录|Output directory')
-@click.option('--output-prefix', '-p',
-              default='coverage',
-              show_default=True,
-              type=str,
-              help='输出文件前缀|Output file prefix')
+              help='输出文件路径|Output file path')
 @click.option('--min-mapq',
               type=int,
               default=0,
@@ -96,16 +92,31 @@ def _validate_file_exists(file_path):
               default=12,
               show_default=True,
               help='线程数|Number of threads')
-def bam_cov(input, chromosome, start, end, output_dir, output_prefix,
+def bam_cov(input, bed, chromosome, start, end, output,
             min_mapq, min_baseq, no_merge, no_summary, verbose, quiet,
             log_file, log_level, dry_run, threads):
     """
     BAM覆盖度统计工具|BAM Coverage Statistics Tool
 
-    计算BAM文件中指定区域的reads覆盖度|Calculate per-base coverage for specified regions in BAM files
+    计算BAM文件中指定区域的reads覆盖度，支持BED文件批量查询|Calculate per-base coverage for specified regions in BAM files, support BED file batch query
 
-    示例|Examples: biopytools bam-cov -i sample.bam -c chr1 -s 1000000 -e 2000000
+    示例|Examples: biopytools bam-cov -i sample.bam -c chr1 -s 1000000 -e 2000000 -o coverage.txt
+    示例|Examples: biopytools bam-cov -i ./bam_files -b intervals.bed -o bed_coverage.txt
     """
+
+    # 验证参数互斥性|Validate parameter mutual exclusivity
+    if bed:
+        if chromosome or start is not None:
+            raise click.BadParameter(
+                "BED模式下不能指定--chromosome和--start|"
+                "--chromosome and --start cannot be specified in BED mode"
+            )
+    else:
+        if not chromosome or start is None:
+            raise click.BadParameter(
+                "必须指定--bed或同时指定--chromosome和--start|"
+                "Either --bed or both --chromosome and --start are required"
+            )
 
     # 延迟加载|Lazy loading
     bam_cov_main = _lazy_import_bam_cov_main()
@@ -113,9 +124,13 @@ def bam_cov(input, chromosome, start, end, output_dir, output_prefix,
     # 构建参数列表|Build argument list
     args = ['bam_cov.py']
 
-    # 必需参数|Required arguments
-    args.extend(['-c', chromosome])
-    args.extend(['-s', str(start)])
+    # BED参数|BED arguments
+    if bed:
+        args.extend(['--bed', bed])
+    else:
+        # 必需参数|Required arguments
+        args.extend(['-c', chromosome])
+        args.extend(['-s', str(start)])
     args.extend(['-i', input])
 
     # 位置参数|Position parameters
@@ -123,11 +138,8 @@ def bam_cov(input, chromosome, start, end, output_dir, output_prefix,
         args.extend(['-e', str(end)])
 
     # 输出配置|Output configuration
-    if output_dir != './bam_coverage_stats_output':
-        args.extend(['-o', output_dir])
-
-    if output_prefix != 'coverage':
-        args.extend(['-p', output_prefix])
+    if output != './coverage.txt':
+        args.extend(['-o', output])
 
     # 过滤参数|Filtering parameters
     if min_mapq != 0:

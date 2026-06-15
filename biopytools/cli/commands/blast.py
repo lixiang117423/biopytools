@@ -52,10 +52,9 @@ def _validate_file_exists(file_path):
               type=click.Path(),
               help='输出目录路径|Output directory')
 @click.option('--blast-type',
-              default='blastn',
-              show_default=True,
+              default=None,
               type=click.Choice(['blastn', 'blastp', 'blastx', 'tblastn', 'tblastx']),
-              help='BLAST程序类型|BLAST program type')
+              help='BLAST程序类型，默认根据输入文件自动检测|BLAST program type (auto-detect from input files if not specified)')
 @click.option('--evalue', '-e',
               default=1e-5,
               show_default=True,
@@ -67,10 +66,9 @@ def _validate_file_exists(file_path):
               type=int,
               help='最大目标序列数|Maximum target sequences')
 @click.option('--word-size',
-              default=11,
-              show_default=True,
+              default=None,
               type=int,
-              help='词大小|Word size')
+              help='词大小，默认根据blast-type自动设置|Word size (auto-set by blast-type if not specified)')
 @click.option('--threads', '-t',
               default=12,
               show_default=True,
@@ -82,10 +80,9 @@ def _validate_file_exists(file_path):
               type=str,
               help='输入文件后缀模式|Input file suffix pattern')
 @click.option('--target-db-type',
-              default='nucl',
-              show_default=True,
+              default=None,
               type=click.Choice(['nucl', 'prot']),
-              help='目标数据库类型|Target database type')
+              help='目标数据库类型，默认根据blast-type自动设置|Target database type (auto-set by blast-type if not specified)')
 @click.option('--min-identity',
               default=70.0,
               show_default=True,
@@ -234,7 +231,7 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     if output != './blast_output':
         args.extend(['-o', output])
 
-    if blast_type != 'blastn':
+    if blast_type is not None:
         args.extend(['--blast-type', blast_type])
 
     if evalue != 1e-5:
@@ -243,7 +240,7 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     if max_target_seqs != 10:
         args.extend(['--max-target-seqs', str(max_target_seqs)])
 
-    if word_size != 11:
+    if word_size is not None:
         args.extend(['--word-size', str(word_size)])
 
     if threads != 12:
@@ -252,7 +249,7 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     if input_suffix != '*.fa':
         args.extend(['--input-suffix', input_suffix])
 
-    if target_db_type != 'nucl':
+    if target_db_type is not None:
         args.extend(['--target-db-type', target_db_type])
 
     if min_identity != 70.0:

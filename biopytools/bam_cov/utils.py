@@ -6,8 +6,19 @@ import logging
 import sys
 import time
 import subprocess
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List, Dict, Tuple
+
+
+@dataclass
+class BEDInterval:
+    """BED区间数据类|BED Interval Data Class"""
+    interval_id: int  # 行号编号(1-based)|Row number (1-based)
+    chrom: str  # 染色体名称|Chromosome name
+    start: int  # BED起始位置(0-based)|BED start (0-based)
+    end: int  # BED终止位置(0-based, half-open)|BED end (0-based, half-open)
+    name: Optional[str] = None  # 可选名称列|Optional name column
 
 
 class BAMCoverageLogger:
@@ -211,6 +222,54 @@ class CoverageDataProcessor:
         return coverage_data
 
     @staticmethod
+    def merge_bed_coverage_data(coverage_files: List[str], sample_names: List[str],
+                                output_file: str, logger) -> bool:
+        """合并BED模式多个样本的覆盖度数据|Merge BED mode coverage data from multiple samples
+
+        输入文件格式: bed_start\\tbed_end\\tchrom\\tpos\\tdepth
+        输出文件格式: Chrom\\tStart\\tEnd\\tPos\\tsample1\\tsample2...
+        """
+        logger.info(f"合并{len(coverage_files)}个样本的覆盖度数据|Merging coverage data from {len(coverage_files)} samples")
+
+        try:
+            all_keys = set()
+            coverage_data_list = []
+
+            for file_path in coverage_files:
+                data = {}
+                with open(file_path, 'r') as f:
+                    for line in f:
+                        if not line.strip():
+                            continue
+                        parts = line.strip().split('\t')
+                        if len(parts) >= 5:
+                            key = (parts[2], int(parts[0]), int(parts[1]), int(parts[3]))
+                            data[key] = int(parts[4])
+                coverage_data_list.append(data)
+                all_keys.update(data.keys())
+
+            sorted_keys = sorted(all_keys, key=lambda x: (x[0], x[1], x[3]))
+            logger.info(f"共有 {len(sorted_keys)} 个唯一位置|Total {len(sorted_keys)} unique positions")
+
+            with open(output_file, 'w') as out:
+                header = ['Chrom', 'Start', 'End', 'Pos'] + sample_names
+                out.write('\t'.join(header) + '\n')
+
+                for chrom, start, end, pos in sorted_keys:
+                    row = [chrom, str(start), str(end), str(pos)]
+                    for data in coverage_data_list:
+                        depth = data.get((chrom, start, end, pos), 0)
+                        row.append(str(depth))
+                    out.write('\t'.join(row) + '\n')
+
+            logger.info(f"合并完成，输出文件|Merged, output file: {output_file}")
+            return True
+
+        except Exception as e:
+            logger.error(f"合并覆盖度数据失败|Failed to merge coverage data: {e}")
+            return False
+
+    @staticmethod
     def merge_coverage_data(coverage_files: List[str], sample_names: List[str],
                            output_file: str, logger) -> bool:
         """合并多个样本的覆盖度数据|Merge coverage data from multiple samples"""
@@ -348,4 +407,170 @@ class CoverageDataProcessor:
             logger.error(f"计算统计摘要失败|Failed to calculate summary: {e}")
             import traceback
             logger.error(traceback.format_exc())
+            return False
+
+    @staticmethod
+    def parse_bed_file(bed_path: str, logger) -> List[BEDInterval]:
+        """解析BED文件|Parse BED file
+
+        Args:
+            bed_path: BED文件路径|BED file path
+            logger: 日志记录器|Logger instance
+
+        Returns:
+            BEDInterval列表|List of BEDInterval objects
+        """
+        intervals = []
+        skipped = 0
+        interval_id = 0
+
+        with open(bed_path, 'r') as f:
+            for line_num, line in enumerate(f, 1):
+                line = line.strip()
+                if not line or line.startswith('#') or line.startswith('track') or line.startswith('browser'):
+                    continue
+
+                parts = line.split('\t')
+                if len(parts) < 3:
+                    logger.warning(f"BED文件第{line_num}行格式错误，已跳过|Invalid BED line {line_num}, skipped")
+                    skipped += 1
+                    continue
+
+                try:
+                    chrom = parts[0]
+                    start = int(parts[1])
+                    end = int(parts[2])
+                except ValueError:
+                    logger.warning(f"BED文件第{line_num}行坐标格式错误，已跳过|Invalid coordinate format at BED line {line_num}, skipped")
+                    skipped += 1
+                    continue
+
+                if start < 0 or end <= start:
+                    logger.warning(f"BED文件第{line_num}行区间无效(start={start}, end={end})，已跳过|Invalid interval at BED line {line_num} (start={start}, end={end}), skipped")
+                    skipped += 1
+                    continue
+
+                interval_id += 1
+                name = parts[3] if len(parts) >= 4 else None
+                intervals.append(BEDInterval(
+                    interval_id=interval_id,
+                    chrom=chrom,
+                    start=start,
+                    end=end,
+                    name=name
+                ))
+
+        logger.info(f"BED文件解析完成|BED file parsed: {len(intervals)} 个有效区间|valid intervals")
+        if skipped > 0:
+            logger.warning(f"跳过|Skipped: {skipped} 行|lines")
+
+        return intervals
+
+    @staticmethod
+    def calculate_interval_summary(depth_values: List[int]) -> Dict[str, float]:
+        """计算单个区间单个样本的覆盖度统计|Calculate coverage statistics for a single interval of a single sample
+
+        Args:
+            depth_values: 所有位点的覆盖度值列表|List of coverage depth values for all positions
+
+        Returns:
+            统计指标字典|Dictionary of statistics metrics
+        """
+        import statistics
+
+        if not depth_values:
+            return {
+                'mean_coverage': 0.0,
+                'median_coverage': 0.0,
+                'pct_gt0': 0.0,
+                'pct_gt10': 0.0,
+                'pct_gt30': 0.0,
+                'total_positions': 0
+            }
+
+        total = len(depth_values)
+        return {
+            'mean_coverage': round(statistics.mean(depth_values), 2),
+            'median_coverage': round(statistics.median(depth_values), 2),
+            'pct_gt0': round((sum(1 for d in depth_values if d > 0) / total) * 100, 2),
+            'pct_gt10': round((sum(1 for d in depth_values if d > 10) / total) * 100, 2),
+            'pct_gt30': round((sum(1 for d in depth_values if d > 30) / total) * 100, 2),
+            'total_positions': total
+        }
+
+    @staticmethod
+    def read_depth_values(depth_file: str) -> List[int]:
+        """从samtools depth输出文件读取覆盖度值列表|Read coverage depth values from samtools depth output file
+
+        Args:
+            depth_file: depth输出文件路径|Depth output file path
+
+        Returns:
+            覆盖度值列表|List of depth values
+        """
+        depth_values = []
+        with open(depth_file, 'r') as f:
+            for line in f:
+                parts = line.strip().split('\t')
+                if len(parts) >= 3:
+                    depth_values.append(int(parts[2]))
+        return depth_values
+
+    @staticmethod
+    def write_bed_batch_summary(
+        intervals: List[BEDInterval],
+        sample_names: List[str],
+        results: Dict[int, Dict[str, Dict[str, float]]],
+        output_file: str,
+        logger
+    ) -> bool:
+        """写入BED批量覆盖度统计摘要|Write BED batch coverage summary TSV
+
+        Args:
+            intervals: BED区间列表|List of BED intervals
+            sample_names: 样本名列表|List of sample names
+            results: 统计结果 {interval_id: {sample_name: {stat_name: value}}}|Statistics results
+            output_file: 输出文件路径|Output file path
+            logger: 日志记录器|Logger instance
+
+        Returns:
+            是否成功|Whether successful
+        """
+        try:
+            # 构建表头|Build header
+            header = ['Interval_ID', 'Chrom', 'Start', 'End', 'Length']
+            for sample_name in sample_names:
+                header.extend([
+                    f'{sample_name}_Mean',
+                    f'{sample_name}_%>0X',
+                    f'{sample_name}_%>10X',
+                    f'{sample_name}_%>30X'
+                ])
+
+            with open(output_file, 'w') as out:
+                out.write('\t'.join(header) + '\n')
+
+                for interval in intervals:
+                    row = [
+                        str(interval.interval_id),
+                        interval.chrom,
+                        str(interval.start),
+                        str(interval.end),
+                        str(interval.end - interval.start)
+                    ]
+
+                    for sample_name in sample_names:
+                        stats = results.get(interval.interval_id, {}).get(sample_name, {})
+                        row.append(str(stats.get('mean_coverage', 0.0)))
+                        row.append(str(stats.get('pct_gt0', 0.0)))
+                        row.append(str(stats.get('pct_gt10', 0.0)))
+                        row.append(str(stats.get('pct_gt30', 0.0)))
+
+                    out.write('\t'.join(row) + '\n')
+
+            logger.info(f"BED批量汇总已保存|BED batch summary saved: {output_file}")
+            return True
+
+        except Exception as e:
+            logger.error(f"写入BED批量汇总失败|Failed to write BED batch summary: {e}")
             return False

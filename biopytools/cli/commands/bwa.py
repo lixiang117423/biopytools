@@ -43,7 +43,8 @@ def _validate_path_exists(path):
               callback=lambda ctx, param, value: _validate_path_exists(value) if value else None,
               help='输入FASTQ目录|Input FASTQ directory')
 @click.option('--pattern', '-p',
-              required=True,
+              default='_1.clean.fq.gz',
+              show_default=True,
               type=str,
               help='FASTQ文件匹配模式|FASTQ file pattern')
 @click.option('--output-dir', '-o',
@@ -198,7 +199,8 @@ def bwa(genome, input, pattern, output_dir, threads,
 
     BWA-MEM全基因组比对分析|BWA-MEM whole genome alignment analysis
 
-    示例|Examples: biopytools bwa -g genome.fa -i fastq_dir -p _1.clean.fq.gz
+    示例|Examples: biopytools bwa -g genome.fa -i fastq_dir
+    biopytools bwa -g genome.fa -i fastq_dir -p _1.fq.gz
     """
 
     # 延迟加载|Lazy loading
@@ -208,7 +210,8 @@ def bwa(genome, input, pattern, output_dir, threads,
     args = ['bwa_align.py']
     args.extend(['-g', genome])
     args.extend(['-i', input])
-    args.extend(['-p', pattern])
+    if pattern != '_1.clean.fq.gz':
+        args.extend(['-p', pattern])
 
     if output_dir != './bwa_output':
         args.extend(['-o', output_dir])

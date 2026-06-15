@@ -2,7 +2,7 @@
 BAM统计模块|BAM Statistics Module
 """
 
+from .config import BAMStatsConfig
 from .core import BAMAnalyzer
-from .utils import BAMStatsLogger, check_dependencies
 
-__all__ = ['BAMAnalyzer', 'BAMStatsLogger', 'check_dependencies']
+__all__ = ['BAMAnalyzer', 'BAMStatsConfig']

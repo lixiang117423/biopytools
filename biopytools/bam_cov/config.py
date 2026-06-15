@@ -12,14 +12,16 @@ from typing import Optional, List
 class BAMCoverageConfig:
     """BAM覆盖度统计配置类|BAM Coverage Statistics Configuration Class"""
 
-    # 必需输入|Required inputs
-    chromosome: str  # 染色体名称|Chromosome name
-    start: int  # 起始位置|Start position
+    # 输入配置|Input configuration
     input: str  # 输入路径（BAM文件或包含BAM的目录）| Input path (BAM file or directory containing BAM files)
+    bed_file: Optional[str] = None  # BED文件路径，提供批量区间|BED file path for batch intervals
+
+    # 区域配置（BED模式下可选）|Region configuration (optional in BED mode)
+    chromosome: Optional[str] = None  # 染色体名称|Chromosome name
+    start: Optional[int] = None  # 起始位置（1-based）|Start position (1-based)
 
     # 路径配置|Path configuration
-    output_dir: str = './bam_coverage_stats_output'
-    output_prefix: str = 'coverage'
+    output: str = './coverage.txt'  # 输出文件路径|Output file path
 
     # 过滤参数|Filtering parameters
     min_mapq: int = 0  # 最小mapping质量|Minimum mapping quality
@@ -42,12 +44,33 @@ class BAMCoverageConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        self.output_path = Path(self.output_dir)
+        # 标准化输出路径|Normalize output path
+        self.output = os.path.normpath(os.path.abspath(self.output))
+        self.output_path = Path(self.output).parent
         self.output_path.mkdir(parents=True, exist_ok=True)
 
         # 标准化输入路径|Normalize input path
         self.input = os.path.normpath(os.path.abspath(self.input))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
+        # 标准化BED文件路径|Normalize BED file path
+        if self.bed_file:
+            self.bed_file = os.path.normpath(os.path.abspath(self.bed_file))
+
+        # 验证BED模式与手动模式的互斥性|Validate mutual exclusivity of BED mode vs manual mode
+        if self.bed_file:
+            if not os.path.isfile(self.bed_file):
+                raise ValueError(f"BED文件不存在|BED file does not exist: {self.bed_file}")
+            if self.chromosome is not None or self.start is not None:
+                raise ValueError(
+                    "BED模式下不需要指定--chromosome和--start参数|"
+                    "--chromosome and --start are not needed in BED mode"
+                )
+        else:
+            if self.chromosome is None or self.start is None:
+                raise ValueError(
+                    "非BED模式下必须指定--chromosome和--start参数|"
+                    "--chromosome and --start are required when --bed is not provided"
+                )
 
         # 自动识别输入类型|Auto-detect input type
         self._is_directory = os.path.isdir(self.input)
@@ -61,12 +84,13 @@ class BAMCoverageConfig:
         if self._is_file and not self.input.endswith('.bam'):
             raise ValueError(f"输入文件必须是BAM格式 (.bam)|Input file must be BAM format (.bam): {self.input}")
 
-        # 验证位置参数|Validate position parameters
-        if self.start < 0:
-            raise ValueError(f"起始位置必须非负|Start position must be non-negative: {self.start}")
+        # 验证位置参数（仅手动模式）|Validate position parameters (manual mode only)
+        if not self.bed_file:
+            if self.start < 0:
+                raise ValueError(f"起始位置必须非负|Start position must be non-negative: {self.start}")
 
-        if self.end is not None and self.end <= self.start:
-            raise ValueError(f"终止位置必须大于起始位置|End position must be greater than start: {self.start} - {self.end}")
+            if self.end is not None and self.end <= self.start:
+                raise ValueError(f"终止位置必须大于起始位置|End position must be greater than start: {self.start} - {self.end}")
 
         # 验证质量参数|Validate quality parameters
         if self.min_mapq < 0 or self.min_mapq > 255:
@@ -102,6 +126,10 @@ class BAMCoverageConfig:
     def is_directory(self) -> bool:
         """判断输入是否为目录|Check if input is a directory"""
         return self._is_directory
+
+    def is_bed_mode(self) -> bool:
+        """是否为BED批量模式|Whether in BED batch mode"""
+        return self.bed_file is not None
 
     def is_file(self) -> bool:
         """判断输入是否为文件|Check if input is a file"""

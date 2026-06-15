@@ -113,6 +113,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
 示例|Examples:
+  %(prog)s -g genome.fa -i fastq_dir
   %(prog)s -g genome.fa -i fastq_dir -p _1.clean.fq.gz
         '''
     )
@@ -123,8 +124,8 @@ def main():
                          help='参考基因组文件|Reference genome file')
     required.add_argument('-i', '--input', required=True,
                          help='输入FASTQ文件目录|Input FASTQ directory')
-    required.add_argument('-p', '--pattern', required=True,
-                         help='FASTQ文件匹配模式|FASTQ file pattern')
+    required.add_argument('-p', '--pattern', default='_1.clean.fq.gz',
+                         help='FASTQ文件匹配模式|FASTQ file pattern (default: _1.clean.fq.gz)')
 
     # 输出参数|Output parameters
     output = parser.add_argument_group('输出参数|Output parameters')

@@ -5,7 +5,7 @@ BAM覆盖度统计主程序模块|BAM Coverage Statistics Main Module
 import sys
 import os
 from .config import BAMCoverageConfig
-from .utils import BAMCoverageLogger, SAMToolsHelper, CoverageDataProcessor
+from .utils import BAMCoverageLogger, SAMToolsHelper, CoverageDataProcessor, BEDInterval
 
 
 class BAMCoverageAnalyzer:
@@ -28,6 +28,105 @@ class BAMCoverageAnalyzer:
         self.samtools = SAMToolsHelper(self.logger, threads=self.config.threads)
         self.processor = CoverageDataProcessor()
 
+    def run_bed_batch_analysis(self):
+        """运行BED批量覆盖度分析|Run BED batch coverage analysis"""
+        # 解析BED文件|Parse BED file
+        self.logger_manager.step("步骤1/2: 解析BED区间|Step 1/2: Parsing BED intervals")
+        intervals = CoverageDataProcessor.parse_bed_file(self.config.bed_file, self.logger)
+
+        if not intervals:
+            self.logger.error("BED文件中没有有效区间|No valid intervals in BED file")
+            sys.exit(1)
+
+        # 获取BAM文件列表|Get BAM file list
+        bam_files = self.config.get_bam_files()
+        sample_names = [os.path.basename(bf).replace('.bam', '') for bf in bam_files]
+        self.logger.info(f"BED批量模式|BED batch mode: {len(intervals)} 个区间|intervals x {len(bam_files)} 个样本|samples")
+
+        # 提取每个样本所有区间的覆盖度|Extract coverage for all intervals of each sample
+        self.logger_manager.step("步骤2/2: 提取覆盖度数据|Step 2/2: Extracting coverage data")
+
+        temp_dir = self.config.output_path / 'temp'
+        temp_dir.mkdir(exist_ok=True)
+
+        coverage_files = []
+
+        for sample_idx, bam_file in enumerate(bam_files, 1):
+            sample_name = sample_names[sample_idx - 1]
+            self.logger.info(f"[{sample_idx}/{len(bam_files)}] 处理样本|Processing sample: {sample_name}")
+
+            # 检查索引|Check index
+            if not self.samtools.check_bam_index(bam_file):
+                self.logger.info(f"  创建索引|Creating index for {sample_name}")
+                if not self.samtools.create_bam_index(bam_file):
+                    self.logger.warning(f"  索引创建失败，跳过该样本|Index creation failed, skipping {sample_name}")
+                    continue
+
+            # 拼接所有区间提取覆盖度|Extract coverage for all intervals concatenated
+            combined_file = str(temp_dir / f"{sample_name}.depth")
+            with open(combined_file, 'w') as out_f:
+                for interval_idx, interval in enumerate(intervals, 1):
+                    # BED坐标转换: 0-based half-open -> 1-based inclusive
+                    samtools_start = interval.start + 1
+                    samtools_end = interval.end
+
+                    temp_file = str(temp_dir / f"{sample_name}_interval{interval.interval_id}.depth")
+
+                    if self.samtools.extract_coverage(
+                        bam_file,
+                        interval.chrom,
+                        samtools_start,
+                        samtools_end,
+                        self.config.min_mapq,
+                        self.config.min_baseq,
+                        temp_file
+                    ):
+                        with open(temp_file, 'r') as in_f:
+                            for line in in_f:
+                                if line.strip():
+                                    out_f.write(f"{interval.start}\t{interval.end}\t{line}")
+                    else:
+                        self.logger.warning(
+                            f"  区间{interval.interval_id}覆盖度提取失败|Interval {interval.interval_id} extraction failed"
+                        )
+
+                    # 清理临时文件|Clean up temp file
+                    try:
+                        os.remove(temp_file)
+                    except OSError:
+                        pass
+
+                    if interval_idx % 100 == 0 or interval_idx == len(intervals):
+                        self.logger.info(f"  [{interval_idx}/{len(intervals)}] 区间处理完成|intervals processed")
+
+            coverage_files.append(combined_file)
+
+        if not coverage_files:
+            self.logger.error("没有成功提取任何样本的覆盖度|No samples successfully extracted")
+            sys.exit(1)
+
+        # 合并所有样本的覆盖度|Merge coverage data from all samples
+        self.logger.info("")
+        self.logger_manager.step("步骤3/3: 合并覆盖度数据|Step 3/3: Merging coverage data")
+
+        if len(coverage_files) > 1:
+            if self.processor.merge_bed_coverage_data(coverage_files, sample_names, self.config.output, self.logger):
+                self.logger.info(f"合并文件已保存|Merged file saved: {self.config.output}")
+            else:
+                self.logger.error("合并失败|Merge failed")
+                sys.exit(1)
+        else:
+            import shutil
+            shutil.copy(coverage_files[0], self.config.output)
+            self.logger.info(f"单个样本，输出文件|Single sample, output file: {self.config.output}")
+
+        # 完成|Complete
+        self.logger.info("")
+        self.logger.info("=" * 80)
+        self.logger.info("BED批量覆盖度分析完成|BED batch coverage analysis completed")
+        self.logger.info("=" * 80)
+        self.logger.info(f"输出文件|Output file: {self.config.output}")
+
     def run_analysis(self):
         """运行完整的覆盖度分析流程|Run complete coverage analysis pipeline"""
         try:
@@ -39,6 +138,11 @@ class BAMCoverageAnalyzer:
             if not self.samtools.check_samtools():
                 self.logger.error("samtools不可用，退出分析|samtools not available, exiting")
                 sys.exit(1)
+
+            # BED批量模式分支|BED batch mode branch
+            if self.config.is_bed_mode():
+                self.run_bed_batch_analysis()
+                return
 
             # 获取BAM文件列表|Get BAM file list
             bam_files = self.config.get_bam_files()
@@ -114,7 +218,7 @@ class BAMCoverageAnalyzer:
                 self.logger.info("")
                 self.logger_manager.step("步骤2/3: 合并覆盖度数据|Step 2/3: Merging coverage data")
 
-                merged_file = self.config.output_path / f"{self.config.output_prefix}_merged.txt"
+                merged_file = self.config.output
 
                 if self.processor.merge_coverage_data(coverage_files, sample_names, str(merged_file), self.logger):
                     self.logger.info(f"合并文件已保存|Merged file saved: {merged_file}")
@@ -124,7 +228,7 @@ class BAMCoverageAnalyzer:
             elif len(coverage_files) == 1:
                 # 单个样本，直接重命名|Single sample, just rename
                 import shutil
-                merged_file = self.config.output_path / f"{self.config.output_prefix}_merged.txt"
+                merged_file = self.config.output
                 shutil.copy(coverage_files[0], merged_file)
                 self.logger.info(f"单个样本，输出文件|Single sample, output file: {merged_file}")
 
@@ -133,7 +237,9 @@ class BAMCoverageAnalyzer:
                 self.logger.info("")
                 self.logger_manager.step("步骤3/3: 生成统计摘要|Step 3/3: Generating summary statistics")
 
-                summary_file = self.config.output_path / f"{self.config.output_prefix}_summary.txt"
+                output_stem = Path(self.config.output).stem
+                output_parent = Path(self.config.output).parent
+                summary_file = str(output_parent / f"{output_stem}_summary.txt")
 
                 if self.processor.calculate_summary_statistics(str(merged_file), str(summary_file), self.logger):
                     self.logger.info(f"统计摘要已保存|Summary statistics saved: {summary_file}")
@@ -152,11 +258,10 @@ class BAMCoverageAnalyzer:
             self.logger.info("=" * 80)
             self.logger.info("BAM覆盖度统计分析完成|BAM Coverage Statistics Analysis Completed")
             self.logger.info("=" * 80)
-            self.logger.info(f"输出目录|Output directory: {self.config.output_dir}")
-            self.logger.info(f"  合并覆盖度文件|Merged coverage file: {merged_file.name}")
+            self.logger.info(f"输出文件|Output file: {self.config.output}")
             if self.config.generate_summary:
-                self.logger.info(f"  统计摘要文件|Summary statistics file: {summary_file.name}")
-            self.logger.info(f"  临时文件目录|Temp files directory: {temp_dir}")
+                self.logger.info(f"统计摘要文件|Summary statistics file: {Path(summary_file).name}")
+            self.logger.info(f"临时文件目录|Temp files directory: {temp_dir}")
 
         except Exception as e:
             self.logger.error(f"分析过程中发生错误|Error during analysis: {e}")
@@ -179,28 +284,29 @@ def main():
     required.add_argument('-i', '--input',
                          required=True,
                          help='输入路径（BAM文件或包含BAM的目录）|Input path (BAM file or directory containing BAM files)')
-    required.add_argument('-c', '--chromosome',
-                         required=True,
+
+    # BED区间选项|BED interval options
+    bed_group = parser.add_argument_group('BED区间选项|BED interval options')
+    bed_group.add_argument('--bed', '-b',
+                          type=str,
+                          help='BED文件路径(3列: chrom, start, end)|BED file path (3 columns: chrom, start, end)')
+
+    # 区域参数（BED模式下可选）|Region parameters (optional in BED mode)
+    position = parser.add_argument_group('区域参数|Region parameters')
+    position.add_argument('-c', '--chromosome',
                          help='染色体名称|Chromosome name (e.g., chr1, Chr12)')
-    required.add_argument('-s', '--start',
-                         required=True,
+    position.add_argument('-s', '--start',
                          type=int,
                          help='起始位置|Start position (1-based)')
-
-    # 输出配置|Output configuration
-    output = parser.add_argument_group('输出配置|Output configuration')
-    output.add_argument('-o', '--output-dir',
-                       default='./bam_coverage_stats_output',
-                       help='输出目录|Output directory')
-    output.add_argument('-p', '--output-prefix',
-                       default='coverage',
-                       help='输出文件前缀|Output file prefix')
-
-    # 位置参数|Position parameters
-    position = parser.add_argument_group('位置参数|Position parameters')
     position.add_argument('-e', '--end',
                          type=int,
                          help='终止位置|End position')
+
+    # 输出配置|Output configuration
+    output = parser.add_argument_group('输出配置|Output configuration')
+    output.add_argument('-o', '--output',
+                       default='./coverage.txt',
+                       help='输出文件路径|Output file path')
 
     # 过滤参数|Filtering parameters
     filtering = parser.add_argument_group('过滤参数|Filtering parameters')
@@ -223,18 +329,18 @@ def main():
                             help='不生成统计摘要|Do not generate summary statistics')
 
     # 日志选项|Logging options
-    logging = parser.add_argument_group('日志选项|Logging options')
-    logging.add_argument('-v', '--verbose',
+    logging_group = parser.add_argument_group('日志选项|Logging options')
+    logging_group.add_argument('-v', '--verbose',
                         action='count',
                         default=0,
                         help='增加输出详细程度|Increase output verbosity')
-    logging.add_argument('--quiet',
+    logging_group.add_argument('--quiet',
                         action='store_true',
                         help='静默模式|Quiet mode')
-    logging.add_argument('--log-file',
+    logging_group.add_argument('--log-file',
                         type=str,
                         help='日志文件路径|Log file path')
-    logging.add_argument('--log-level',
+    logging_group.add_argument('--log-level',
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
                         default='INFO',
                         help='日志级别|Log level')
@@ -251,15 +357,33 @@ def main():
 
     args = parser.parse_args()
 
+    # 验证参数互斥性|Validate parameter mutual exclusivity
+    if args.bed:
+        if args.chromosome or args.start is not None:
+            parser.error(
+                "BED模式下不能指定--chromosome和--start|"
+                "--chromosome and --start cannot be specified in BED mode"
+            )
+        chromosome = None
+        start = None
+    else:
+        if not args.chromosome or args.start is None:
+            parser.error(
+                "必须指定--bed或同时指定--chromosome和--start|"
+                "Either --bed or both --chromosome and --start are required"
+            )
+        chromosome = args.chromosome
+        start = args.start
+
     # 创建分析器并运行|Create analyzer and run
     try:
         analyzer = BAMCoverageAnalyzer(
-            chromosome=args.chromosome,
-            start=args.start,
-            end=args.end,
             input=args.input,
-            output_dir=args.output_dir,
-            output_prefix=args.output_prefix,
+            bed_file=args.bed,
+            chromosome=chromosome,
+            start=start,
+            end=args.end,
+            output=args.output,
             min_mapq=args.min_mapq,
             min_baseq=args.min_baseq,
             merge_output=not args.no_merge,
