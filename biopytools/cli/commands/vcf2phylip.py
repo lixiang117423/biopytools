@@ -74,8 +74,7 @@ def vcf2phylip(input, output, output_prefix, min_samples_locus, outgroup,
 
     将VCF格式SNP数据转换为PHYLIP/FASTA/NEXUS格式|Convert VCF SNPs to PHYLIP/FASTA/NEXUS formats
 
-    示例|Examples:
-    biopytools vcf2phylip -i variants.vcf -o converted_results
+    示例|Examples: biopytools vcf2phylip -i variants.vcf -o converted_results
     """
 
     # 延迟加载|Lazy loading
