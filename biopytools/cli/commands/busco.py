@@ -143,8 +143,7 @@ def _validate_path_exists(path):
               is_flag=True,
               help='压缩子目录|Compress subdirectories')
 @click.option('--busco-path',
-              default='busco',
-              show_default=True,
+              default=None,
               help='BUSCO软件路径|BUSCO software path')
 def busco(input, lineage, output_dir, mode, threads, sample_suffix, output_format,
                   force, augustus, augustus_parameters, augustus_species, auto_lineage,
@@ -177,7 +176,7 @@ def busco(input, lineage, output_dir, mode, threads, sample_suffix, output_forma
     if mode != 'genome':
         args.extend(['-m', mode])
 
-    if threads != 88:
+    if threads != 12:
         args.extend(['-t', str(threads)])
 
     if sample_suffix != '*.fa':
@@ -198,7 +197,7 @@ def busco(input, lineage, output_dir, mode, threads, sample_suffix, output_forma
     if limit != 3:
         args.extend(['--limit', str(limit)])
 
-    if busco_path != 'busco':
+    if busco_path is not None:
         args.extend(['--busco-path', busco_path])
 
     # String parameters

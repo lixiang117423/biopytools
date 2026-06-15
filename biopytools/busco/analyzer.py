@@ -8,14 +8,19 @@ from pathlib import Path
 from typing import Dict, Any, Optional, Tuple
 from .utils import CommandRunner, build_conda_command
 
+
 class BUSCORunner:
     """BUSCO运行器|BUSCO Runner"""
-    
+
     def __init__(self, config, logger, cmd_runner: CommandRunner):
         self.config = config
         self.logger = logger
         self.cmd_runner = cmd_runner
-    
+
+    def _is_step_completed(self, output_file: str) -> bool:
+        """检查步骤是否已完成|Check if step is done"""
+        return Path(output_file).exists()
+
     def run_busco_analysis(self, input_file: str, sample_name: str) -> Tuple[bool, Optional[Dict[str, Any]]]:
         """运行BUSCO分析|Run BUSCO analysis"""
         output_name = f"{sample_name}_busco"
@@ -23,6 +28,12 @@ class BUSCORunner:
         self.logger.info(f"开始BUSCO分析|Starting BUSCO analysis: {sample_name}")
         self.logger.info(f"分析模式|Analysis mode: {self.config.mode}")
         self.logger.info(f"数据库|Database: {self.config.lineage}")
+
+        # 断点续传：检查结果JSON是否已存在|Checkpoint: check if result JSON already exists
+        result_data = self._find_existing_result(output_name, sample_name)
+        if result_data:
+            self.logger.info(f"跳过已完成步骤|Skipping completed step: BUSCO分析|BUSCO analysis {sample_name}")
+            return True, result_data
 
         # 构建BUSCO命令|Build BUSCO command
         cmd = self.build_busco_command(input_file, output_name)
@@ -44,8 +55,29 @@ class BUSCORunner:
         else:
             self.logger.error(f"BUSCO分析失败|BUSCO analysis failed: {sample_name}")
             return False, None
-    
-    def build_busco_command(self, input_file: str, output_name: str) -> str:
+
+    def _find_existing_result(self, output_name: str, sample_name: str) -> Optional[Dict[str, Any]]:
+        """查找已有的BUSCO结果|Find existing BUSCO result"""
+        output_dir = self.config.output_path / output_name
+
+        if not output_dir.exists():
+            return None
+
+        json_patterns = [
+            output_dir / f"short_summary.specific.*.{output_name}.json",
+            output_dir / f"short_summary.generic.*.{output_name}.json",
+            output_dir / "short_summary.*.json"
+        ]
+
+        import glob
+        for pattern in json_patterns:
+            matches = glob.glob(str(pattern))
+            if matches:
+                return self._parse_json_result(matches[0], sample_name)
+
+        return None
+
+    def build_busco_command(self, input_file: str, output_name: str) -> list:
         """构建BUSCO命令|Build BUSCO command"""
         # 构建参数列表|Build argument list
         args = [
@@ -127,23 +159,19 @@ class BUSCORunner:
             args.append("--tar")
 
         # 使用conda环境支持|Use conda environment support
-        cmd_list = build_conda_command(self.config.busco_path, args)
+        return build_conda_command(self.config.busco_path, args)
 
-        # 转换为字符串命令用于shell执行|Convert to string command for shell execution
-        return " ".join(cmd_list)
-    
     def parse_busco_results(self, output_name: str, sample_name: str) -> Optional[Dict[str, Any]]:
         """解析BUSCO结果|Parse BUSCO results"""
-        # 查找JSON结果文件|Find JSON result file
         output_dir = self.config.output_path / output_name
-        
+
         # 可能的JSON文件位置|Possible JSON file locations
         json_patterns = [
             output_dir / f"short_summary.specific.*.{output_name}.json",
             output_dir / f"short_summary.generic.*.{output_name}.json",
             output_dir / "short_summary.*.json"
         ]
-        
+
         json_file = None
         for pattern in json_patterns:
             import glob
@@ -151,19 +179,23 @@ class BUSCORunner:
             if matches:
                 json_file = matches[0]
                 break
-        
+
         if not json_file or not os.path.exists(json_file):
-            self.logger.error(f" 未找到BUSCO结果JSON文件|BUSCO result JSON file not found: {output_name}")
+            self.logger.error(f"未找到BUSCO结果JSON文件|BUSCO result JSON file not found: {output_name}")
             return None
-        
+
+        return self._parse_json_result(json_file, sample_name)
+
+    def _parse_json_result(self, json_file: str, sample_name: str) -> Optional[Dict[str, Any]]:
+        """解析JSON结果文件|Parse JSON result file"""
         try:
             with open(json_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            
+
             # 提取关键结果信息|Extract key result information
             results = data.get('results', {})
             lineage_dataset = data.get('lineage_dataset', {})
-            
+
             return {
                 'sample_name': sample_name,
                 'lineage_name': lineage_dataset.get('name', 'Unknown'),
@@ -181,7 +213,7 @@ class BUSCORunner:
                 'domain': results.get('domain', 'Unknown'),
                 'status': '成功|Success'
             }
-            
+
         except Exception as e:
-            self.logger.error(f" 解析JSON文件失败|Failed to parse JSON file: {e}")
+            self.logger.error(f"解析JSON文件失败|Failed to parse JSON file: {e}")
             return None
