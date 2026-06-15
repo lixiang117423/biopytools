@@ -6,6 +6,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List
+from ..common.paths import expand_path
 
 
 @dataclass
@@ -16,11 +17,22 @@ class AdmixtureConfig:
     vcf_file: str
     output_dir: str = "admixture_results"
 
+    # 分析方法|Analysis method
+    method: str = "admixture"  # "admixture" or "adamixture"
+
     # 分析参数|Analysis parameters
     min_k: int = 2
     max_k: int = 10
     cv_folds: int = 5
     threads: int = 64
+
+    # ADAMIXTURE 参数|ADAMIXTURE parameters
+    adamixture_path: str = "~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture"
+    adamixture_lr: float = 0.005
+    adamixture_beta1: float = 0.80
+    adamixture_beta2: float = 0.88
+    adamixture_max_iter: int = 1500
+    adamixture_seed: int = 42
 
     # 质控参数|Quality control parameters
     maf: float = 0.05
@@ -39,7 +51,6 @@ class AdmixtureConfig:
     # 执行控制|Execution control
     force: bool = False
     dry_run: bool = False
-    force: bool = False
 
     # 内部属性|Internal attributes
     base_name: str = "admixture_ready"
@@ -50,6 +61,7 @@ class AdmixtureConfig:
         self.output_path.mkdir(parents=True, exist_ok=True)
 
         # 标准化路径|Normalize paths
+        self.adamixture_path = expand_path(self.adamixture_path)
         self.vcf_file = os.path.normpath(os.path.abspath(self.vcf_file))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
 
@@ -60,6 +72,10 @@ class AdmixtureConfig:
         # 检查输入文件|Check input file
         if not os.path.exists(self.vcf_file):
             errors.append(f"VCF文件不存在|VCF file does not exist: {self.vcf_file}")
+
+        # 检查方法参数|Check method parameter
+        if self.method not in ["admixture", "adamixture"]:
+            errors.append(f"方法必须是 'admixture' 或 'adamixture'|Method must be 'admixture' or 'adamixture': {self.method}")
 
         # 检查K值范围|Check K range
         if self.min_k < 1 or self.max_k < self.min_k:

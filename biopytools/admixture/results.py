@@ -17,32 +17,50 @@ class CovariateGenerator:
     def generate_gwas_covariates(self, best_k: int):
         """ 生成GWAS协变量文件|Generate GWAS covariate file"""
         self.logger.info(f" 生成GWAS协变量文件|Generating GWAS covariate file (K={best_k})")
-        
-        #  读取ADMIXTURE结果|Read ADMIXTURE results
-        q_file = os.path.join(self.config.output_dir, f"{self.config.base_name}.{best_k}.Q")
+
+        #  根据method确定Q文件路径|Determine Q file path based on method
+        if self.config.method == "adamixture":
+            # ADAMIXTURE可能输出两种格式，尝试两种
+            # 格式1: {base_name}.{k}.Q
+            # 格式2: {base_name}.{k}.{k}.Q
+            q_file_format1 = os.path.join(self.config.output_dir, f"{self.config.base_name}.{best_k}.Q")
+            q_file_format2 = os.path.join(self.config.output_dir, f"{self.config.base_name}.{best_k}.{best_k}.Q")
+
+            # 选择存在的文件|Choose existing file
+            q_file = q_file_format1 if os.path.exists(q_file_format1) else q_file_format2
+
+            if not os.path.exists(q_file):
+                raise FileNotFoundError(f" Q文件不存在|Q file not found: tried {q_file_format1} and {q_file_format2}")
+        else:
+            # ADMIXTURE格式: {base_name}.{k}.Q
+            q_file = os.path.join(self.config.output_dir, f"{self.config.base_name}.{best_k}.Q")
+
+            if not os.path.exists(q_file):
+                raise FileNotFoundError(f" Q文件不存在|Q file not found: {q_file}")
+
         q_data = pd.read_csv(q_file, sep=r'\s+', header=None)
-        
+
         #  读取个体信息|Read individual information
         fam_file = os.path.join(self.config.output_dir, f"{self.config.base_name}.fam")
         fam_data = pd.read_csv(fam_file, sep=r'\s+', header=None)
-        
+
         #  创建协变量文件|Create covariate file
         #  使用前K-1个祖先成分作为协变量（避免共线性）| Use first K-1 ancestry components as covariates
         covariates = pd.DataFrame()
         covariates['FID'] = fam_data.iloc[:, 0]
         covariates['IID'] = fam_data.iloc[:, 1]
-        
+
         #  添加祖先成分协变量|Add ancestry component covariates
         for i in range(best_k - 1):
             covariates[f'PC{i+1}'] = q_data.iloc[:, i]
-        
+
         #  保存协变量文件|Save covariate file
         covar_file = os.path.join(self.config.output_dir, "gwas_covariates.txt")
         covariates.to_csv(covar_file, sep='\t', header=True, index=False) # Use header=True for clarity
-        
+
         self.logger.info(f"GWAS协变量文件已保存|GWAS covariate file saved: {covar_file}")
         self.logger.info("在PLINK中使用|Use in PLINK: --covar gwas_covariates.txt --covar-name PC1,PC2,...")
-        
+
         return covar_file
 
 class PlotGenerator:

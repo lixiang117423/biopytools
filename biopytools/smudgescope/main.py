@@ -5,6 +5,7 @@
 import os
 import sys
 import time
+from typing import Optional
 import subprocess
 import argparse
 import tempfile
@@ -13,8 +14,189 @@ import glob
 import shutil
 from pathlib import Path
 from datetime import datetime
+try:
+    from openpyxl import Workbook
+    HAS_OPENPYXL = True
+except ImportError:
+    HAS_OPENPYXL = False
+
 from .config import GenomeAnalysisConfig
 from .utils import GenomeAnalysisLogger, GenomeScopeRunner, SmudgeplotRunner, SampleFinder
+
+
+def _parse_genomescope_model(model_file: str) -> Optional[float]:
+    """
+    从GenomeScope model.txt中提取杂合度点估计值(r参数)|Extract heterozygosity point estimate (r param) from model.txt
+
+    Args:
+        model_file: model.txt 文件路径
+
+    Returns:
+        杂合度值(小数)或None|Heterozygosity value (decimal) or None
+    """
+    if not os.path.exists(model_file):
+        return None
+    try:
+        import re
+        with open(model_file, 'r') as f:
+            for line in f:
+                # 匹配 r 或 r1 参数行: "r1      1.742e-01  ..."
+                if re.match(r'^r\d?\s', line.strip()):
+                    match = re.search(r'^r\d?\s+([\d.eE+-]+)', line.strip())
+                    if match:
+                        return float(match.group(1))
+        return None
+    except Exception:
+        return None
+
+
+def _parse_genomescope_summary(summary_file: str) -> dict:
+    """
+    从GenomeScope summary.txt中解析关键指标|Parse key metrics from GenomeScope summary.txt
+
+    Args:
+        summary_file: summary.txt 文件路径
+
+    Returns:
+        包含各指标的字典或None|Dict of metrics or None
+    """
+    if not os.path.exists(summary_file):
+        return None
+
+    metrics = {}
+    try:
+        import re
+        with open(summary_file, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('GenomeScope') or line.startswith('input') or \
+                   line.startswith('output') or line.startswith('p =') or line.startswith('k =') or \
+                   line.startswith('max_kmercov') or line.startswith('property'):
+                    continue
+
+                # 找到最后两个以数字开头的token作为min和max值
+                # Find the last two tokens starting with a digit as min and max values
+                parts = line.split()
+                value_indices = []
+                for i, t in enumerate(parts):
+                    if re.match(r'^[\d]+', t):
+                        value_indices.append(i)
+
+                if len(value_indices) < 2:
+                    continue
+
+                min_idx = value_indices[-2]
+                max_idx = value_indices[-1]
+                prop_name = ' '.join(parts[:min_idx])
+
+                # 去除数值中的逗号和单位|Remove commas and units from values
+                min_val = re.sub(r'^([\d,.]+).*$', r'\1', parts[min_idx])
+                max_val = re.sub(r'^([\d,.]+).*$', r'\1', parts[max_idx])
+
+                key = prop_name.lower().replace(' ', '_').replace('(', '').replace(')', '')
+                metrics[f'{key}_min'] = min_val
+                metrics[f'{key}_max'] = max_val
+        return metrics if metrics else None
+    except Exception:
+        return None
+
+
+def generate_summary_table(samples, output_dir: str, sample_kcov_dict: dict, logger):
+    """
+    生成多样本汇总表|Generate multi-sample summary table
+
+    Args:
+        samples: 样本列表 [(sample_name, fastq_files), ...]
+        output_dir: 输出目录
+        sample_kcov_dict: {sample_name: kcov} 字典
+        logger: 日志对象
+    """
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("生成汇总表|Generating summary table")
+    logger.info("=" * 60)
+
+    all_dir = os.path.join(output_dir, "all")
+    os.makedirs(all_dir, exist_ok=True)
+    summary_tsv = os.path.join(all_dir, "summary.tsv")
+
+    header = [
+        "Sample",
+        "Genome_Haploid_Length(bp)",
+        "Genome_Repeat_Length(bp)",
+        "Genome_Unique_Length(bp)",
+        "Heterozygous",
+        "Read_Error_Rate",
+        "Model_Fit(%)",
+        "Kmer_Coverage",
+    ]
+
+    rows = []
+    parsed_count = 0
+    for sample_tuple in samples:
+        sample_name = sample_tuple[0]
+        summary_file = os.path.join(output_dir, sample_name, "02_genomescope", "summary.txt")
+        metrics = _parse_genomescope_summary(summary_file)
+
+        if metrics:
+            parsed_count += 1
+            kcov = sample_kcov_dict.get(sample_name, '')
+
+            # 从model.txt提取杂合度点估计值(r参数)|Extract heterozygosity point estimate (r param) from model.txt
+            model_file = os.path.join(output_dir, sample_name, "02_genomescope", "model.txt")
+            het_point = _parse_genomescope_model(model_file)
+            het_str = f"{het_point * 100:.4f}%" if het_point is not None else fmt_range('heterozygous_ab')
+
+            def fmt_range(key_base):
+                mn = metrics.get(f'{key_base}_min', '')
+                mx = metrics.get(f'{key_base}_max', '')
+                if mn == mx:
+                    return mn
+                return f"{mn}-{mx}" if mn and mx else ''
+
+            row = [
+                sample_name,
+                fmt_range('genome_haploid_length'),
+                fmt_range('genome_repeat_length'),
+                fmt_range('genome_unique_length'),
+                het_str,
+                fmt_range('read_error_rate'),
+                fmt_range('model_fit'),
+                f"{kcov:.1f}" if kcov else '',
+            ]
+        else:
+            row = [sample_name] + [''] * (len(header) - 1)
+            logger.warning(f"  未找到summary.txt或解析失败|summary.txt not found or parse failed: {sample_name}")
+        rows.append(row)
+
+    with open(summary_tsv, 'w', encoding='utf-8') as f:
+        f.write('\t'.join(header) + '\n')
+        for row in rows:
+            f.write('\t'.join(row) + '\n')
+
+    logger.info(f"汇总表已保存|Summary table saved to: {summary_tsv}")
+
+    # 同时输出xlsx|Also output xlsx
+    if HAS_OPENPYXL:
+        xlsx_file = summary_tsv.replace('.tsv', '.xlsx')
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Summary"
+        for cell in ws[1]:
+            cell.font = cell.font.copy(bold=True)
+        ws.append(header)
+        for row in rows:
+            ws.append(row)
+        # 自动调整列宽|Auto-adjust column widths
+        for col in ws.columns:
+            max_len = max(len(str(c.value or '')) for c in col)
+            ws.column_dimensions[col[0].column_letter].width = max_len + 2
+        wb.save(xlsx_file)
+        logger.info(f"汇总表已保存|Summary table saved to: {xlsx_file}")
+    else:
+        logger.warning("openpyxl未安装，跳过xlsx输出|openpyxl not installed, skipping xlsx output")
+
+    logger.info(f"成功解析: {parsed_count}/{len(samples)} 个样本|Successfully parsed: {parsed_count}/{len(samples)} samples")
 
 
 def find_fastq_files(input_path: str, logger) -> list:
@@ -187,26 +369,26 @@ def generate_software_versions_yml(output_dir: str, config: GenomeAnalysisConfig
 
             # 记录调试信息|Log debug info
             if version == 'unknown':
-                logger.debug(f"无法获取 {tool_name} 版本: stdout='{result.stdout.strip()}', stderr='{result.stderr.strip()}'")
+                logger.debug(f"无法获取 {tool_name} 版本|Failed to get {tool_name} version: stdout='{result.stdout.strip()}', stderr='{result.stderr.strip()}'")
 
         except subprocess.TimeoutExpired:
             tools[tool_name] = {
                 'version': 'timeout',
                 'path': 'not found'
             }
-            logger.warning(f"获取 {tool_name} 版本超时")
+            logger.warning(f"获取 {tool_name} 版本超时|Timeout while getting {tool_name} version")
         except FileNotFoundError:
             tools[tool_name] = {
                 'version': 'not installed',
                 'path': 'not found'
             }
-            logger.warning(f"{tool_name} 未安装")
+            logger.warning(f"{tool_name} 未安装|{tool_name} not installed")
         except Exception as e:
             tools[tool_name] = {
                 'version': 'error',
                 'path': 'not found'
             }
-            logger.warning(f"获取 {tool_name} 版本时出错: {str(e)}")
+            logger.warning(f"获取 {tool_name} 版本时出错|Error getting {tool_name} version: {str(e)}")
 
     # 构建版本信息|Build version info
     version_info = {
@@ -319,15 +501,15 @@ def main():
         logger.info("=" * 60)
         logger.info("Genome Analysis Pipeline")
         logger.info("=" * 60)
-        logger.info(f"输入路径: {args.input}")
-        logger.info(f"输出目录: {args.output_dir}")
-        logger.info(f"读长: {args.read_length}")
-        logger.info(f"K-mer大小: {args.kmer_size}")
-        logger.info(f"线程数: {args.threads}")
+        logger.info(f"输入路径: {args.input}|Input path: {args.input}")
+        logger.info(f"输出目录: {args.output_dir}|Output directory: {args.output_dir}")
+        logger.info(f"读长: {args.read_length}|Read length: {args.read_length}")
+        logger.info(f"K-mer大小: {args.kmer_size}|K-mer size: {args.kmer_size}")
+        logger.info(f"线程数: {args.threads}|Threads: {args.threads}")
 
         # 检查依赖|Check dependencies
         if not check_dependencies(logger, not args.skip_smudgeplot):
-            logger.error("依赖检查失败，请安装所需软件")
+            logger.error("依赖检查失败，请安装所需软件|Dependency check failed, please install required software")
             sys.exit(1)
 
         # 初始化配置|Initialize config
@@ -352,12 +534,13 @@ def main():
         samples = sample_finder.find_samples(args.input)
 
         if not samples:
-            logger.error("未找到任何样品")
+            logger.error("未找到任何样品|No samples found")
             sys.exit(1)
 
         # 处理每个样品|Process each sample
         successful_count = 0
         failed_count = 0
+        sample_kcov_dict = {}  # 收集每个样本的kcov|Collect kcov for each sample
 
         for sample_name, fastq_files in samples:
             # 为每个样品创建子目录|Create subdirectory for each sample
@@ -408,7 +591,7 @@ def main():
                 [str(f) for f in fastq_files], output_prefix, config.kmer_size,
                 config.hash_size, config.threads
             ):
-                logger.error(f"样品 {sample_name} Jellyfish count失败")
+                logger.error(f"样品 {sample_name} Jellyfish count失败|Sample {sample_name} Jellyfish count failed")
                 failed_count += 1
                 continue
 
@@ -416,7 +599,7 @@ def main():
             jf_file = f"{output_prefix}.jf"
             histo_file = f"{output_prefix}.histo"
             if not gs_runner.run_jellyfish_histo(jf_file, output_prefix, config.threads):
-                logger.error(f"样品 {sample_name} Jellyfish histo失败")
+                logger.error(f"样品 {sample_name} Jellyfish histo失败|Sample {sample_name} Jellyfish histo failed")
                 failed_count += 1
                 continue
 
@@ -431,10 +614,11 @@ def main():
             )
 
             if kcov is None:
-                logger.warning(f"样品 {sample_name} 未能获取kcov值，将尝试使用默认值继续")
+                logger.warning(f"样品 {sample_name} 未能获取kcov值，将尝试使用默认值继续|Sample {sample_name} failed to get kcov value, will try to continue with default value")
                 kcov = 50.0  # 默认值
 
             config.kcov = kcov
+            sample_kcov_dict[sample_name] = kcov
 
             # 步骤4-5: Smudgeplot (默认运行，可使用--skip-smudgeplot跳过)
             sm_runner = SmudgeplotRunner(logger)
@@ -442,7 +626,7 @@ def main():
             if not args.skip_smudgeplot:
                 logger.info("")
                 logger.info("=" * 60)
-                logger.info(f"样品 {sample_name} 运行Smudgeplot倍性分析")
+                logger.info(f"样品 {sample_name} 运行Smudgeplot倍性分析|Sample {sample_name} running Smudgeplot ploidy analysis")
                 logger.info("=" * 60)
 
                 # 检查Smudgeplot最终输出是否已存在|Check if Smudgeplot final output already exists
@@ -459,18 +643,18 @@ def main():
                     # 确定FastK表路径|Determine FastK table path
                     if args.fastk_table:
                         fastk_table = args.fastk_table
-                        logger.info(f"使用已存在的FastK表: {fastk_table}")
+                        logger.info(f"使用已存在的FastK表: {fastk_table}|Using existing FastK table: {fastk_table}")
                     else:
                         # 运行FastK生成FastK表
                         os.makedirs(fastk_dir, exist_ok=True)
                         fastk_table = os.path.join(fastk_dir, "fastk_table")
-                        logger.info(f"将生成FastK表: {fastk_table}")
+                        logger.info(f"将生成FastK表: {fastk_table}|Will generate FastK table: {fastk_table}")
 
                         if not sm_runner.run_fastk(
                             [str(f) for f in fastq_files], fastk_table, config.kmer_size,
                             config.threads, args.fastk_memory, sample_name
                         ):
-                            logger.error(f"样品 {sample_name} FastK步骤失败")
+                            logger.error(f"样品 {sample_name} FastK步骤失败|Sample {sample_name} FastK step failed")
                             failed_count += 1
                             continue
 
@@ -479,18 +663,18 @@ def main():
                         fastk_table, smudgeplot_output, sample_name, kcov,
                         config.kmer_size, config.threads
                     ):
-                        logger.warning(f"样品 {sample_name} Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）")
+                        logger.warning(f"样品 {sample_name} Smudgeplot步骤失败（可能是纯合二倍体，属于正常现象）|Sample {sample_name} Smudgeplot step failed (may be homozygous diploid, which is normal)")
                         # Smudgeplot失败不影响整体成功状态
                         # Smudgeplot failure doesn't affect overall success
                     else:
-                        logger.info(f"样品 {sample_name} Smudgeplot输出: {smudgeplot_output}")
+                        logger.info(f"样品 {sample_name} Smudgeplot输出: {smudgeplot_output}|Sample {sample_name} Smudgeplot output: {smudgeplot_output}")
             else:
                 logger.info("")
                 logger.info("=" * 60)
-                logger.info(f"样品 {sample_name} 跳过Smudgeplot倍性分析")
+                logger.info(f"样品 {sample_name} 跳过Smudgeplot倍性分析|Sample {sample_name} skipping Smudgeplot ploidy analysis")
                 logger.info("=" * 60)
 
-            logger.info(f"样品 {sample_name} 处理完成")
+            logger.info(f"样品 {sample_name} 处理完成|Sample {sample_name} processing completed")
             successful_count += 1
 
         # 汇总结果文件|Collect result files
@@ -502,7 +686,7 @@ def main():
         # 使用总输出目录而不是样品目录|Use total output dir instead of sample dir
         all_dir = os.path.join(args.output_dir, "all")
         os.makedirs(all_dir, exist_ok=True)
-        logger.info(f"创建汇总目录|Created汇总 directory: {all_dir}")
+        logger.info(f"创建汇总目录|Created summary directory: {all_dir}")
 
         collected_count = 0
         for sample_tuple in samples:
@@ -530,6 +714,9 @@ def main():
 
         logger.info(f"汇总完成|Collection completed: {collected_count} 个文件|files")
 
+        # 生成汇总表|Generate summary table
+        generate_summary_table(samples, args.output_dir, sample_kcov_dict, logger)
+
         # 完成统计|Completion statistics
         elapsed_time = time.time() - start_time
 
@@ -537,19 +724,19 @@ def main():
         logger.info("=" * 60)
         logger.info("Pipeline Summary")
         logger.info("=" * 60)
-        logger.info(f"总运行时间: {elapsed_time:.2f} seconds")
-        logger.info(f"总样品数: {len(samples)}")
-        logger.info(f"成功处理: {successful_count}")
-        logger.info(f"失败样品: {failed_count}")
+        logger.info(f"总运行时间: {elapsed_time:.2f} seconds|Total runtime: {elapsed_time:.2f} seconds")
+        logger.info(f"总样品数: {len(samples)}|Total samples: {len(samples)}")
+        logger.info(f"成功处理: {successful_count}|Successfully processed: {successful_count}")
+        logger.info(f"失败样品: {failed_count}|Failed samples: {failed_count}")
         if len(samples) > 0:
-            logger.info(f"成功率: {(successful_count/len(samples))*100:.1f}%")
+            logger.info(f"成功率: {(successful_count/len(samples))*100:.1f}%|Success rate: {(successful_count/len(samples))*100:.1f}%")
         logger.info("Pipeline completed successfully")
 
     except KeyboardInterrupt:
-        logger.warning("用户中断操作")
+        logger.warning("用户中断操作|User interrupted operation")
         sys.exit(130)
     except Exception as e:
-        logger.error(f"Pipeline失败: {str(e)}", exc_info=True)
+        logger.error(f"Pipeline失败|Pipeline failed: {str(e)}", exc_info=True)
         sys.exit(1)
 
 
@@ -593,17 +780,17 @@ class GenomeAnalysis:
             self.logger.info("=" * 60)
             self.logger.info("Genome Analysis Pipeline")
             self.logger.info("=" * 60)
-            self.logger.info(f"配置信息:\n{self.config}")
+            self.logger.info(f"配置信息|Configuration info:\n{self.config}")
 
             # 检查依赖|Check dependencies
             if not check_dependencies(self.logger):
-                self.logger.error("依赖检查失败")
+                self.logger.error("依赖检查失败|Dependency check failed")
                 return False
 
             # 查找FASTQ文件|Find FASTQ files
             fastq_files = find_fastq_files(self.config.input_dir, self.logger)
             if not fastq_files:
-                self.logger.error("未找到FASTQ文件")
+                self.logger.error("未找到FASTQ文件|No FASTQ files found")
                 return False
 
             # 获取绝对路径|Get absolute paths
@@ -650,7 +837,7 @@ class GenomeAnalysis:
             )
 
             if kcov is None:
-                self.logger.warning("未能获取kcov值")
+                self.logger.warning("未能获取kcov值|Failed to get kcov value")
                 return False
 
             self.config.kcov = kcov
@@ -662,15 +849,15 @@ class GenomeAnalysis:
             self.logger.info("=" * 60)
             self.logger.info("Pipeline Summary")
             self.logger.info("=" * 60)
-            self.logger.info(f"总运行时间: {elapsed_time:.2f} seconds")
+            self.logger.info(f"总运行时间: {elapsed_time:.2f} seconds|Total runtime: {elapsed_time:.2f} seconds")
             self.logger.info(f"K-mer coverage: {kcov}")
-            self.logger.info(f"GenomeScope输出: {gs_output_dir}")
+            self.logger.info(f"GenomeScope输出: {gs_output_dir}|GenomeScope output: {gs_output_dir}")
             self.logger.info("Pipeline completed successfully")
 
             return True
 
         except Exception as e:
-            self.logger.error(f"Pipeline失败: {str(e)}", exc_info=True)
+            self.logger.error(f"Pipeline失败|Pipeline failed: {str(e)}", exc_info=True)
             return False
 
 

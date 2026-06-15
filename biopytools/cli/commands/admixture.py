@@ -43,6 +43,11 @@ def _validate_file_exists(file_path):
               default='admixture_results',
               show_default=True,
               help='输出目录|Output directory')
+@click.option('--method',
+              type=click.Choice(['admixture', 'adamixture'], case_sensitive=False),
+              default='admixture',
+              show_default=True,
+              help='分析方法|Analysis method (admixture or adamixture)')
 @click.option('--min-k', '-k',
               type=int,
               default=2,
@@ -57,7 +62,7 @@ def _validate_file_exists(file_path):
               type=int,
               default=5,
               show_default=True,
-              help='交叉验证折数|Cross-validation folds')
+              help='交叉验证折数|Cross-validation folds (仅ADMIXTURE|ADMIXTURE only)')
 @click.option('--threads', '-t',
               type=int,
               default=12,
@@ -100,15 +105,47 @@ def _validate_file_exists(file_path):
 @click.option('--dry-run',
               is_flag=True,
               help='试运行模式(不实际执行)|Dry run without execution')
-def admixture(vcf, output, min_k, max_k, cv_folds, threads, maf, missing,
+# ADAMIXTURE 参数|ADAMIXTURE parameters
+@click.option('--adamixture-path',
+              default="~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture",
+              show_default=True,
+              help='ADAMIXTURE可执行文件路径|ADAMIXTURE executable path')
+@click.option('--adamixture-lr',
+              type=float,
+              default=0.005,
+              show_default=True,
+              help='ADAMIXTURE学习率|ADAMIXTURE learning rate')
+@click.option('--adamixture-beta1',
+              type=float,
+              default=0.80,
+              show_default=True,
+              help='ADAMIXTURE beta1参数|ADAMIXTURE beta1 parameter')
+@click.option('--adamixture-beta2',
+              type=float,
+              default=0.88,
+              show_default=True,
+              help='ADAMIXTURE beta2参数|ADAMIXTURE beta2 parameter')
+@click.option('--adamixture-max-iter',
+              type=int,
+              default=1500,
+              show_default=True,
+              help='ADAMIXTURE最大迭代次数|ADAMIXTURE maximum iterations')
+@click.option('--adamixture-seed',
+              type=int,
+              default=42,
+              show_default=True,
+              help='ADAMIXTURE随机种子|ADAMIXTURE random seed')
+def admixture(vcf, output, method, min_k, max_k, cv_folds, threads, maf, missing,
               hwe, skip_preprocessing, keep_intermediate,
-              verbose, quiet, log_level, log_file, force, dry_run):
+              verbose, quiet, log_level, log_file, force, dry_run,
+              adamixture_path, adamixture_lr, adamixture_beta1, adamixture_beta2,
+              adamixture_max_iter, adamixture_seed):
     """
-    ADMIXTURE群体结构分析工具|ADMIXTURE Population Structure Analysis Tool
+    ADMIXTURE/ADAMIXTURE群体结构分析工具|ADMIXTURE/ADAMIXTURE Population Structure Analysis Tool
 
-    使用ADMIXTURE进行群体结构分析，支持自动VCF预处理、质量控制、K值交叉验证|Use ADMIXTURE for population structure analysis with automatic VCF preprocessing, quality control, K-value cross-validation
+    使用ADMIXTURE或ADAMIXTURE进行群体结构分析，支持自动VCF预处理、质量控制|Use ADMIXTURE or ADAMIXTURE for population structure analysis with automatic VCF preprocessing, quality control
 
-    示例|Examples: biopytools admixture -i input.vcf -o results
+    示例|Examples: biopytools admixture -i input.vcf -o results --method adamixture
     """
 
     # 延迟加载|Lazy loading
@@ -124,6 +161,9 @@ def admixture(vcf, output, min_k, max_k, cv_folds, threads, maf, missing,
     if output != 'admixture_results':
         args.extend(['-o', output])
 
+    if method != 'admixture':
+        args.extend(['--method', method])
+
     if min_k != 2:
         args.extend(['-k', str(min_k)])
 
@@ -135,6 +175,26 @@ def admixture(vcf, output, min_k, max_k, cv_folds, threads, maf, missing,
 
     if threads != 64:
         args.extend(['-t', str(threads)])
+
+    # ADAMIXTURE 参数|ADAMIXTURE parameters
+    default_adamixture_path = "~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture"
+    if adamixture_path != default_adamixture_path:
+        args.extend(['--adamixture-path', adamixture_path])
+
+    if adamixture_lr != 0.005:
+        args.extend(['--adamixture-lr', str(adamixture_lr)])
+
+    if adamixture_beta1 != 0.80:
+        args.extend(['--adamixture-beta1', str(adamixture_beta1)])
+
+    if adamixture_beta2 != 0.88:
+        args.extend(['--adamixture-beta2', str(adamixture_beta2)])
+
+    if adamixture_max_iter != 1500:
+        args.extend(['--adamixture-max-iter', str(adamixture_max_iter)])
+
+    if adamixture_seed != 42:
+        args.extend(['--adamixture-seed', str(adamixture_seed)])
 
     # 质控参数|Quality control parameters
     if maf != 0.05:

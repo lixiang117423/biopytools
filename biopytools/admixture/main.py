@@ -142,6 +142,8 @@ def main():
     # 可选参数|Optional arguments
     parser.add_argument("-o", "--output", default="admixture_results",
                        help="输出目录|Output directory")
+    parser.add_argument("--method", default="admixture", choices=["admixture", "adamixture"],
+                       help="分析方法|Analysis method (admixture or adamixture)")
     parser.add_argument("-k", "--min-k", type=int, default=2,
                        help="最小K值|Minimum K value")
     parser.add_argument("-K", "--max-k", type=int, default=10,
@@ -150,6 +152,22 @@ def main():
                        help="交叉验证折数|Cross-validation folds")
     parser.add_argument("-t", "--threads", type=int, default=64,
                        help="线程数|Number of threads")
+
+    # ADAMIXTURE 参数|ADAMIXTURE parameters
+    adamixture_group = parser.add_argument_group('ADAMIXTURE参数|ADAMIXTURE parameters')
+    adamixture_group.add_argument("--adamixture-path",
+                                  default="~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture",
+                                  help="ADAMIXTURE可执行文件路径|ADAMIXTURE executable path")
+    adamixture_group.add_argument("--adamixture-lr", type=float, default=0.005,
+                                  help="ADAMIXTURE学习率|ADAMIXTURE learning rate")
+    adamixture_group.add_argument("--adamixture-beta1", type=float, default=0.80,
+                                  help="ADAMIXTURE beta1参数|ADAMIXTURE beta1 parameter")
+    adamixture_group.add_argument("--adamixture-beta2", type=float, default=0.88,
+                                  help="ADAMIXTURE beta2参数|ADAMIXTURE beta2 parameter")
+    adamixture_group.add_argument("--adamixture-max-iter", type=int, default=1500,
+                                  help="ADAMIXTURE最大迭代次数|ADAMIXTURE maximum iterations")
+    adamixture_group.add_argument("--adamixture-seed", type=int, default=42,
+                                  help="ADAMIXTURE随机种子|ADAMIXTURE random seed")
 
     # 质控参数|Quality control parameters
     parser.add_argument("-m", "--maf", type=float, default=0.05,
@@ -205,10 +223,17 @@ def main():
     analyzer = AdmixtureAnalyzer(
         vcf_file=args.vcf,
         output_dir=args.output,
+        method=args.method,
         min_k=args.min_k,
         max_k=args.max_k,
         cv_folds=args.cv_folds,
         threads=args.threads,
+        adamixture_path=args.adamixture_path,
+        adamixture_lr=args.adamixture_lr,
+        adamixture_beta1=args.adamixture_beta1,
+        adamixture_beta2=args.adamixture_beta2,
+        adamixture_max_iter=args.adamixture_max_iter,
+        adamixture_seed=args.adamixture_seed,
         maf=args.maf,
         missing_rate=args.missing,
         hwe_pvalue=args.hwe,

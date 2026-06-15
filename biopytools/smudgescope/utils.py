@@ -109,8 +109,8 @@ class GenomeScopeRunner:
 
         # 检查输出文件是否已存在|Check if output file already exists
         if os.path.exists(jf_output):
-            self.logger.info(f"输出文件已存在，跳过此步骤: {jf_output}")
-            self.logger.info("如需重新运行，请删除现有文件")
+            self.logger.info(f"输出文件已存在，跳过此步骤|Output file already exists, skipping step: {jf_output}")
+            self.logger.info("如需重新运行，请删除现有文件|To rerun, delete existing files")
             return True
 
         try:
@@ -119,11 +119,11 @@ class GenomeScopeRunner:
             plain_files = [f for f in fastq_files if not f.endswith('.gz')]
 
             if gzip_files:
-                self.logger.info("检测到压缩文件，使用zcat解压缩")
+                self.logger.info("检测到压缩文件，使用zcat解压缩|Compressed files detected, using zcat to decompress")
                 cmd = f"zcat {' '.join(gzip_files)} {' '.join(plain_files)}|" \
                       f"jellyfish count -C -m {kmer_size} -s {hash_size} -t {threads} " \
                       f"-o {jf_output} /dev/fd/0"
-                self.logger.info(f"命令: {cmd}")
+                self.logger.info(f"命令|Command: {cmd}")
 
                 process = subprocess.Popen(
                     cmd,
@@ -134,7 +134,7 @@ class GenomeScopeRunner:
                 stdout, stderr = process.communicate()
 
                 if process.returncode != 0:
-                    self.logger.error(f"Jellyfish count失败: {stderr.decode('utf-8')}")
+                    self.logger.error(f"Jellyfish count失败|Jellyfish count failed: {stderr.decode('utf-8')}")
                     return False
             else:
                 cmd = [
@@ -145,7 +145,7 @@ class GenomeScopeRunner:
                     '-t', str(threads),
                     '-o', jf_output
                 ] + fastq_files
-                self.logger.info(f"命令: {' '.join(cmd)}")
+                self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
                 result = subprocess.run(
                     cmd,
@@ -154,14 +154,14 @@ class GenomeScopeRunner:
                 )
 
                 if result.returncode != 0:
-                    self.logger.error(f"Jellyfish count失败: {result.stderr}")
+                    self.logger.error(f"Jellyfish count失败|Jellyfish count failed: {result.stderr}")
                     return False
 
-            self.logger.info("Jellyfish count步骤成功完成")
+            self.logger.info("Jellyfish count步骤成功完成|Jellyfish count step completed successfully")
             return True
 
         except Exception as e:
-            self.logger.error(f"运行Jellyfish count时出错: {str(e)}", exc_info=True)
+            self.logger.error(f"运行Jellyfish count时出错|Error running Jellyfish count: {str(e)}", exc_info=True)
             return False
 
     def run_jellyfish_histo(self, jf_file: str, output_prefix: str, threads: int) -> bool:
@@ -177,15 +177,15 @@ class GenomeScopeRunner:
             是否成功|Whether successful
         """
         self.logger.info("=" * 60)
-        self.logger.info("步骤2/3: 运行Jellyfish Histo")
+        self.logger.info("步骤2/3: 运行Jellyfish Histo|Step 2/3: Run Jellyfish Histo")
         self.logger.info("=" * 60)
 
         histo_file = f"{output_prefix}.histo"
 
         # 检查输出文件是否已存在|Check if output file already exists
         if os.path.exists(histo_file):
-            self.logger.info(f"输出文件已存在，跳过此步骤: {histo_file}")
-            self.logger.info("如需重新运行，请删除现有文件")
+            self.logger.info(f"输出文件已存在，跳过此步骤|Output file already exists, skipping step: {histo_file}")
+            self.logger.info("如需重新运行，请删除现有文件|To rerun, delete existing files")
             return True
 
         try:
@@ -194,7 +194,7 @@ class GenomeScopeRunner:
                 '-t', str(threads),
                 jf_file
             ]
-            self.logger.info(f"命令: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             with open(histo_file, 'w') as f:
                 result = subprocess.run(
@@ -205,14 +205,14 @@ class GenomeScopeRunner:
                 )
 
             if result.returncode != 0:
-                self.logger.error(f"Jellyfish histo失败: {result.stderr}")
+                self.logger.error(f"Jellyfish histo失败|Jellyfish histo failed: {result.stderr}")
                 return False
 
-            self.logger.info("Jellyfish histo步骤成功完成")
+            self.logger.info("Jellyfish histo步骤成功完成|Jellyfish histo step completed successfully")
             return True
 
         except Exception as e:
-            self.logger.error(f"运行Jellyfish histo时出错: {str(e)}", exc_info=True)
+            self.logger.error(f"运行Jellyfish histo时出错|Error running Jellyfish histo: {str(e)}", exc_info=True)
             return False
 
     def run_genomescope(self, histo_file: str, kmer_size: int, read_length: int,
@@ -232,7 +232,7 @@ class GenomeScopeRunner:
             k-mer coverage值或None|K-mer coverage value or None
         """
         self.logger.info("=" * 60)
-        self.logger.info("步骤3/3: 运行GenomeScope 2.0")
+        self.logger.info("步骤3/3: 运行GenomeScope 2.0|Step 3/3: Run GenomeScope 2.0")
         self.logger.info("=" * 60)
 
         # 使用绝对路径|Use absolute paths
@@ -242,15 +242,15 @@ class GenomeScopeRunner:
         # 检查GenomeScope是否已经运行完成|Check if GenomeScope is already completed
         model_file = os.path.join(output_dir_abs, 'model.txt')
         if os.path.exists(model_file):
-            self.logger.info(f"GenomeScope输出已存在，跳过运行步骤: {model_file}")
-            self.logger.info("如需重新运行，请删除现有输出目录")
+            self.logger.info(f"GenomeScope输出已存在，跳过运行步骤|GenomeScope output already exists, skipping step: {model_file}")
+            self.logger.info("如需重新运行，请删除现有输出目录|To rerun, delete existing output directory")
             # 直接从已有结果中提取kcov|Extract kcov directly from existing results
             kcov = self._extract_kcov(output_dir_abs)
             if kcov:
-                self.logger.info(f"从已有结果中提取k-mer coverage: {kcov}")
+                self.logger.info(f"从已有结果中提取k-mer coverage|Extracted k-mer coverage from existing results: {kcov}")
                 return kcov
             else:
-                self.logger.warning("已有结果中未能提取kcov值")
+                self.logger.warning("已有结果中未能提取kcov值|Failed to extract kcov from existing results")
 
         try:
             self.logger.info(f"Histogram文件|Histogram file: {histo_file_abs}")
@@ -343,7 +343,7 @@ class GenomeScopeRunner:
                             if match:
                                 try:
                                     kcov_value = float(match.group(1))
-                                    self.logger.info(f"从model.txt中提取k-mer coverage: {kcov_value}")
+                                    self.logger.info(f"从model.txt中提取k-mer coverage|Extracted k-mer coverage from model.txt: {kcov_value}")
                                     return kcov_value
                                 except (ValueError, IndexError):
                                     continue
@@ -366,7 +366,7 @@ class GenomeScopeRunner:
                             if match:
                                 try:
                                     kcov_value = float(match.group(1))
-                                    self.logger.info(f"从summary.txt中提取k-mer coverage: {kcov_value}")
+                                    self.logger.info(f"从summary.txt中提取k-mer coverage|Extracted k-mer coverage from summary.txt: {kcov_value}")
                                     return kcov_value
                                 except (ValueError, IndexError):
                                     continue
@@ -374,7 +374,7 @@ class GenomeScopeRunner:
             return None
 
         except Exception as e:
-            self.logger.error(f"读取GenomeScope输出时出错: {str(e)}")
+            self.logger.error(f"读取GenomeScope输出时出错|Error reading GenomeScope output: {str(e)}")
             return None
 
 
@@ -408,20 +408,20 @@ class SmudgeplotRunner:
             是否成功|Whether successful
         """
         self.logger.info("=" * 60)
-        self.logger.info("步骤3.5/5: 运行FastK生成FastK表")
+        self.logger.info("步骤3.5/5: 运行FastK生成FastK表|Step 3.5/5: Run FastK to generate FastK table")
         self.logger.info("=" * 60)
-        self.logger.info(f"配置参数:")
-        self.logger.info(f"  - K-mer大小: {kmer_size}")
-        self.logger.info(f"  - 线程数: {threads}")
-        self.logger.info(f"  - 内存: {memory}")
-        self.logger.info(f"  - 输入文件数: {len(fastq_files)}")
+        self.logger.info(f"配置参数|Configuration parameters:")
+        self.logger.info(f"  - K-mer大小|K-mer size: {kmer_size}")
+        self.logger.info(f"  - 线程数|Threads: {threads}")
+        self.logger.info(f"  - 内存|Memory: {memory}")
+        self.logger.info(f"  - 输入文件数|Input files: {len(fastq_files)}")
 
         # 检查FastK表是否已存在|Check if FastK table already exists
         # FastK生成.ktab和.hist文件，检查.ktab文件即可|FastK generates .ktab and .hist files, check .ktab is enough
         fastk_table_ktab = f"{fastk_table}.ktab"
         if os.path.exists(fastk_table_ktab):
-            self.logger.info(f"FastK表已存在，跳过此步骤: {fastk_table_ktab}")
-            self.logger.info("如需重新运行，请删除现有文件")
+            self.logger.info(f"FastK表已存在，跳过此步骤|FastK table already exists, skipping step: {fastk_table_ktab}")
+            self.logger.info("如需重新运行，请删除现有文件|To rerun, delete existing files")
             return True
 
         # FastK的-M参数需要纯数字，不带单位
@@ -430,14 +430,14 @@ class SmudgeplotRunner:
         try:
             memory_int = int(memory_value)
         except ValueError:
-            self.logger.warning(f"无法解析内存值 '{memory}'，使用默认值16")
+            self.logger.warning(f"无法解析内存值 '{memory}'，使用默认值16|Cannot parse memory value '{memory}', using default 16")
             memory_int = 16
 
         # 检查是否有.gz文件，如果有则先解压到系统临时目录
         # Check if there are .gz files, if so decompress to system temp directory first
         import tempfile
         temp_base_dir = tempfile.mkdtemp(prefix=f"genomescope_fastk_{sample_name}_")
-        self.logger.debug(f"创建临时目录: {temp_base_dir}")
+        self.logger.debug(f"创建临时目录|Creating temp directory: {temp_base_dir}")
         decompressed_files = []
 
         try:
@@ -445,7 +445,7 @@ class SmudgeplotRunner:
                 if fastq_file.endswith('.gz'):
                     # 解压到临时目录|Decompress to temp directory
                     decompressed_file = os.path.join(temp_base_dir, os.path.basename(fastq_file[:-3]))
-                    self.logger.info(f"解压文件到临时目录: {fastq_file} -> {decompressed_file}")
+                    self.logger.info(f"解压文件到临时目录|Decompressing file to temp directory: {fastq_file} -> {decompressed_file}")
                     with open(decompressed_file, 'wb') as f_out:
                         result = subprocess.run(
                             ['zcat', fastq_file],
@@ -453,7 +453,7 @@ class SmudgeplotRunner:
                             stderr=subprocess.PIPE
                         )
                         if result.returncode != 0:
-                            self.logger.error(f"解压失败: {result.stderr.decode()}")
+                            self.logger.error(f"解压失败|Decompression failed: {result.stderr.decode()}")
                             return False
                     decompressed_files.append(decompressed_file)
                 else:
@@ -474,7 +474,7 @@ class SmudgeplotRunner:
                 f'-T{threads}',
             ] + fastq_files_to_use + [f'-N{fastk_table}']
 
-            self.logger.info(f"命令: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -483,21 +483,21 @@ class SmudgeplotRunner:
             )
 
             if result.returncode != 0:
-                self.logger.error(f"FastK失败: {result.stderr}")
+                self.logger.error(f"FastK失败|FastK failed: {result.stderr}")
                 # 清理临时文件|Clean up temp files
                 shutil.rmtree(temp_base_dir, ignore_errors=True)
                 return False
 
-            self.logger.info("FastK步骤成功完成")
+            self.logger.info("FastK步骤成功完成|FastK step completed successfully")
 
             # 清理临时文件|Clean up temporary files
-            self.logger.info(f"清理临时目录: {temp_base_dir}")
+            self.logger.info(f"清理临时目录|Cleaning up temp directory: {temp_base_dir}")
             shutil.rmtree(temp_base_dir, ignore_errors=True)
 
             return True
 
         except Exception as e:
-            self.logger.error(f"运行FastK时出错: {str(e)}", exc_info=True)
+            self.logger.error(f"运行FastK时出错|Error running FastK: {str(e)}", exc_info=True)
             # 确保清理临时文件|Ensure cleanup temp files
             if 'temp_base_dir' in locals() and os.path.exists(temp_base_dir):
                 shutil.rmtree(temp_base_dir, ignore_errors=True)
@@ -520,16 +520,16 @@ class SmudgeplotRunner:
             是否成功|Whether successful
         """
         self.logger.info("=" * 60)
-        self.logger.info("步骤4/5: 运行Smudgeplot Hetmers")
+        self.logger.info("步骤4/5: 运行Smudgeplot Hetmers|Step 4/5: Run Smudgeplot Hetmers")
         self.logger.info("=" * 60)
-        self.logger.info(f"配置参数:")
+        self.logger.info(f"配置参数|Configuration parameters:")
 
         # 计算阈值|Calculate threshold
         threshold = int(kcov * 0.5)
         self.logger.info(f"  - K-mer coverage: {kcov}")
-        self.logger.info(f"  - K-mer大小: {kmer_size}")
-        self.logger.info(f"  - 错误k-mer阈值(-L): {threshold} (计算公式: int({kcov} * 0.5) = {threshold})")
-        self.logger.info(f"    注: 根据Smudgeplot官方文档，低端阈值设为单倍体k-mer coverage的50%")
+        self.logger.info(f"  - K-mer大小|K-mer size: {kmer_size}")
+        self.logger.info(f"  - 错误k-mer阈值(-L)|Error k-mer threshold(-L): {threshold} (计算公式|formula: int({kcov} * 0.5) = {threshold})")
+        self.logger.info(f"    注|Note: 根据Smudgeplot官方文档，低端阈值设为单倍体k-mer coverage的50%|According to Smudgeplot docs, low-end threshold is set to 50% of haploid k-mer coverage")
 
         # 检查Logex是否可用（smudgeplot的C后端）|Check if Logex is available (smudgeplot C backend)
         import shutil
@@ -543,7 +543,7 @@ class SmudgeplotRunner:
                 # 解析符号链接，获取真实路径|Resolve symbolic link to get real path
                 real_smudgeplot_path = os.path.realpath(smudgeplot_path)
                 smudgeplot_dir = os.path.dirname(real_smudgeplot_path)
-                self.logger.debug(f"找到smudgeplot目录: {smudgeplot_dir}")
+                self.logger.debug(f"找到smudgeplot目录|Found smudgeplot directory: {smudgeplot_dir}")
             else:
                 # 如果PATH中找不到，尝试直接从conda环境查找
                 # If not in PATH, try to find in conda environment directly
@@ -554,42 +554,40 @@ class SmudgeplotRunner:
                     smudgeplot_in_conda = os.path.join(conda_prefix, 'bin', 'smudgeplot')
                     if os.path.exists(smudgeplot_in_conda):
                         smudgeplot_dir = os.path.join(conda_prefix, 'bin')
-                        self.logger.debug(f"在当前conda环境中找到smudgeplot: {smudgeplot_dir}")
+                        self.logger.debug(f"在当前conda环境中找到smudgeplot|Found smudgeplot in current conda environment: {smudgeplot_dir}")
                     else:
                         # 尝试smudgeplot环境|Try smudgeplot environment
                         smudgeplot_env = os.path.join(os.path.dirname(conda_prefix), 'smudgeplot', 'bin', 'smudgeplot')
                         if os.path.exists(smudgeplot_env):
                             smudgeplot_dir = os.path.join(os.path.dirname(conda_prefix), 'smudgeplot', 'bin')
-                            self.logger.debug(f"在smudgeplot环境中找到: {smudgeplot_dir}")
+                            self.logger.debug(f"在smudgeplot环境中找到|Found in smudgeplot environment: {smudgeplot_dir}")
 
                 # 如果还是找不到，尝试常见的conda路径|If still not found, try common conda paths
                 if not smudgeplot_dir:
                     common_paths = [
-                        '/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/bin/smudgeplot',
                         os.path.expanduser('~/miniforge3/envs/smudgeplot/bin/smudgeplot'),
-                        '/miniconda3/envs/smudgeplot/bin/smudgeplot',
                     ]
                     for path in common_paths:
                         if os.path.exists(path):
                             smudgeplot_dir = os.path.dirname(path)
-                            self.logger.debug(f"在常见路径中找到smudgeplot: {smudgeplot_dir}")
+                            self.logger.debug(f"在常见路径中找到smudgeplot|Found smudgeplot in common paths: {smudgeplot_dir}")
                             break
 
         if not logex_path:
-            self.logger.warning("Logex未在PATH中找到，正在尝试定位...")
+            self.logger.warning("Logex未在PATH中找到，正在尝试定位...|Logex not found in PATH, attempting to locate...")
             # 尝试在smudgeplot安装目录中查找|Try to find in smudgeplot installation directory
             try:
                 if smudgeplot_dir:
                     logex_in_dir = os.path.join(smudgeplot_dir, 'Logex')
                     if os.path.exists(logex_in_dir):
-                        self.logger.info(f"找到Logex: {logex_in_dir}")
+                        self.logger.info(f"找到Logex|Found Logex: {logex_in_dir}")
                         logex_path = logex_in_dir
                     else:
-                        self.logger.warning(f"在 {smudgeplot_dir} 中未找到Logex")
+                        self.logger.warning(f"在 {smudgeplot_dir} 中未找到Logex|Logex not found in {smudgeplot_dir}")
                 else:
-                    self.logger.warning("smudgeplot命令也未找到，无法定位Logex")
+                    self.logger.warning("smudgeplot命令也未找到，无法定位Logex|smudgeplot command also not found, cannot locate Logex")
             except Exception as e:
-                self.logger.warning(f"检测Logex时出错: {e}")
+                self.logger.warning(f"检测Logex时出错|Error detecting Logex: {e}")
 
         if logex_path:
             self.logger.info(f"Logex可用|Logex available: {logex_path}")
@@ -611,8 +609,8 @@ class SmudgeplotRunner:
 
         # 检查.smu文件是否已存在|Check if .smu file already exists
         if os.path.exists(smu_file):
-            self.logger.info(f"Hetmers输出已存在，跳过此步骤: {smu_file}")
-            self.logger.info("如需重新运行，请删除现有文件")
+            self.logger.info(f"Hetmers输出已存在，跳过此步骤|Hetmers output already exists, skipping step: {smu_file}")
+            self.logger.info("如需重新运行，请删除现有文件|To rerun, delete existing files")
         else:
             try:
                 # 步骤1: 运行smudgeplot hetmers
@@ -624,7 +622,7 @@ class SmudgeplotRunner:
                     '--verbose',
                     fastk_table
                 ]
-                self.logger.info(f"命令: {' '.join(cmd)}")
+                self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
                 # 准备环境变量：如果smudgeplot_dir存在，临时添加到PATH
                 # Prepare environment: if smudgeplot_dir exists, temporarily add to PATH
@@ -640,7 +638,7 @@ class SmudgeplotRunner:
                 )
 
                 if result.returncode != 0:
-                    self.logger.error(f"Smudgeplot hetmers失败: {result.stderr}")
+                    self.logger.error(f"Smudgeplot hetmers失败|Smudgeplot hetmers failed: {result.stderr}")
                     return False
 
                 # 记录命令输出|Log command output
@@ -649,24 +647,24 @@ class SmudgeplotRunner:
                 if result.stderr:
                     self.logger.info(f"Smudgeplot hetmers stderr:\n{result.stderr}")
 
-                self.logger.info("Hetmers步骤成功完成")
+                self.logger.info("Hetmers步骤成功完成|Hetmers step completed successfully")
 
             except Exception as e:
-                self.logger.error(f"运行Hetmers时出错: {str(e)}", exc_info=True)
+                self.logger.error(f"运行Hetmers时出错|Error running Hetmers: {str(e)}", exc_info=True)
                 return False
 
         # 步骤2: 运行smudgeplot plot
         if not os.path.exists(smu_file):
-            self.logger.error(f"未找到.smu文件: {smu_file}")
-            self.logger.warning("可能的原因:")
-            self.logger.warning("  1. 基因组为纯合二倍体（homozygous diploid），异质性低")
-            self.logger.warning("  2. K-mer coverage 过低，无法检测到足够的异质 k-mer 对")
-            self.logger.warning("  3. 阈值设置过高（当前阈值: {}）".format(threshold))
-            self.logger.info("这是正常现象，对于纯合基因组 Smudgeplot 可能无法生成图形")
+            self.logger.error(f"未找到.smu文件|SMU file not found: {smu_file}")
+            self.logger.warning("可能的原因|Possible causes:")
+            self.logger.warning("  1. 基因组为纯合二倍体（homozygous diploid），异质性低|1. Genome is homozygous diploid with low heterozygosity")
+            self.logger.warning("  2. K-mer coverage 过低，无法检测到足够的异质 k-mer 对|2. K-mer coverage too low to detect sufficient heterozygous k-mer pairs")
+            self.logger.warning(f"  3. 阈值设置过高（当前阈值: {threshold}）|3. Threshold set too high (current threshold: {threshold})")
+            self.logger.info("这是正常现象，对于纯合基因组 Smudgeplot 可能无法生成图形|This is normal for homozygous genomes where Smudgeplot may not generate plots")
             return False
 
         self.logger.info("=" * 60)
-        self.logger.info("步骤5/5: 运行Smudgeplot Plot")
+        self.logger.info("步骤5/5: 运行Smudgeplot Plot|Step 5/5: Run Smudgeplot Plot")
         self.logger.info("=" * 60)
 
         # 检查smudgeplot输出是否已存在|Check if smudgeplot output already exists
@@ -675,10 +673,10 @@ class SmudgeplotRunner:
         import glob
         existing_plots = glob.glob(f"{plot_output_prefix}*.png") + glob.glob(f"{plot_output_prefix}*.pdf")
         if existing_plots:
-            self.logger.info(f"Smudgeplot输出已存在，跳过此步骤")
+            self.logger.info("Smudgeplot输出已存在，跳过此步骤|Smudgeplot output already exists, skipping step")
             self.logger.info(f"找到文件|Found files: {', '.join([os.path.basename(f) for f in existing_plots])}")
-            self.logger.info("如需重新运行，请删除现有输出文件")
-            self.logger.info("Smudgeplot分析成功完成")
+            self.logger.info("如需重新运行，请删除现有输出文件|To rerun, delete existing output files")
+            self.logger.info("Smudgeplot分析成功完成|Smudgeplot analysis completed successfully")
             return True
 
         try:
@@ -688,7 +686,7 @@ class SmudgeplotRunner:
                 '-cov', str(kcov),  # 使用从GenomeScope提取的kcov值
                 smu_file
             ]
-            self.logger.info(f"命令: {' '.join(cmd)}")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             # 准备环境变量：如果smudgeplot_dir存在，临时添加到PATH
             # Prepare environment: if smudgeplot_dir exists, temporarily add to PATH
@@ -704,14 +702,14 @@ class SmudgeplotRunner:
             )
 
             if result.returncode != 0:
-                self.logger.error(f"Smudgeplot all失败: {result.stderr}")
+                self.logger.error(f"Smudgeplot all失败|Smudgeplot all failed: {result.stderr}")
                 return False
 
-            self.logger.info("Smudgeplot分析成功完成")
+            self.logger.info("Smudgeplot分析成功完成|Smudgeplot analysis completed successfully")
             return True
 
         except Exception as e:
-            self.logger.error(f"运行Smudgeplot时出错: {str(e)}", exc_info=True)
+            self.logger.error(f"运行Smudgeplot时出错|Error running Smudgeplot: {str(e)}", exc_info=True)
             return False
 
 
@@ -809,7 +807,7 @@ class SampleFinder:
 
         self.logger.info(f"找到 {len(samples)} 个样本|Found {len(samples)} samples:")
         for sample_name, files in samples:
-            self.logger.info(f"  - {sample_name}: {len(files)} 个文件")
+            self.logger.info(f"  - {sample_name}: {len(files)} 个文件|files")
 
         return samples
 

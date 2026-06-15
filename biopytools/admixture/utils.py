@@ -6,8 +6,73 @@ import logging
 import subprocess
 import sys
 import shutil
+import os
+import re
 from pathlib import Path
 from typing import Optional, List
+
+
+def get_conda_env(command: str) -> Optional[str]:
+    """
+    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
+
+    Args:
+        command: 命令名称或路径|Command name or path (e.g., 'adamixture' or '/path/to/adamixture')
+
+    Returns:
+        conda环境名称或None|conda environment name or None
+    """
+    # 首先尝试从命令路径检测|First try to detect from command path
+    cmd_path = shutil.which(command)
+    if cmd_path:
+        # 检查路径中是否包含 envs|Check if path contains 'envs'
+        # 例如: /miniforge3/envs/adamixture/bin/adamixture
+        match = re.search(r'/envs/([^/]+)', cmd_path)
+        if match:
+            return match.group(1)
+
+    # 如果未找到，尝试搜索conda环境|If not found, try searching conda environments
+    # 尝试找到conda基础目录|Try to find conda base directory
+    conda_base = os.environ.get('CONDA_EXE')
+    if conda_base:
+        # CONDA_EXE通常是/path/to/miniforge3/bin/conda
+        # 需要获取envs目录|Need to get envs directory
+        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
+        envs_dir = os.path.join(conda_base_dir, 'envs')
+
+        if os.path.exists(envs_dir):
+            # 搜索所有环境中的命令|Search for command in all environments
+            for env_name in os.listdir(envs_dir):
+                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
+                if os.path.exists(env_bin):
+                    # 找到了|Found it
+                    return env_name
+
+    return None
+
+
+def build_conda_command(command: str, args: List[str]) -> List[str]:
+    """
+    构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment
+
+    Args:
+        command: 命令名称|Command name
+        args: 命令参数|Command arguments
+
+    Returns:
+        完整命令列表|Complete command list
+    """
+    # 检查是否在conda环境中|Check if in conda environment
+    conda_env = get_conda_env(command)
+
+    if conda_env:
+        # 使用 conda run|Use conda run
+        full_cmd = ['conda', 'run', '-n', conda_env, command] + args
+    else:
+        # 直接调用|Direct call
+        full_cmd = [command] + args
+
+    return full_cmd
 
 
 class AdmixtureLogger:
@@ -92,12 +157,12 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir
 
-    def run(self, cmd: str, description: str = "") -> str:
+    def run(self, cmd_list: list, description: str = "") -> str:
         """
         执行命令|Execute command
 
         Args:
-            cmd: 命令字符串|Command string
+            cmd_list: 命令列表（由build_conda_command构建）|Command list (built by build_conda_command)
             description: 步骤描述|Step description
 
         Returns:
@@ -106,13 +171,12 @@ class CommandRunner:
         if description:
             self.logger.info(f"开始|Starting: {description}")
 
-        cleaned_cmd = " ".join(cmd.strip().split())
-        self.logger.info(f"执行命令|Executing command: {cleaned_cmd}")
+        self.logger.info(f"执行命令|Executing command: {' '.join(cmd_list)}")
 
         try:
             result = subprocess.run(
-                cleaned_cmd,
-                shell=True,
+                cmd_list,
+                shell=False,  # 传入列表时必须使用shell=False|Must use shell=False with list
                 check=True,
                 capture_output=True,
                 text=True,
@@ -130,7 +194,7 @@ class CommandRunner:
 
         except subprocess.CalledProcessError as e:
             self.logger.error(
-                f"命令执行失败|Command execution failed: {cleaned_cmd}\n"
+                f"命令执行失败|Command execution failed: {' '.join(cmd_list)}\n"
                 f"   - 返回码|Return code: {e.returncode}\n"
                 f"   - 标准输出|Stdout: {e.stdout.strip()}\n"
                 f"   - 标准错误|Stderr: {e.stderr.strip()}"
