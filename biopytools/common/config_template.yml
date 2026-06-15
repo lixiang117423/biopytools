@@ -1,0 +1,57 @@
+# BioPyTools 配置文件|BioPyTools Configuration File
+#
+# 将此文件复制到~/.config/biopytools/config.yml
+# Copy this file to ~/.config/biopytools/config.yml
+#
+# 所有路径支持~展开和环境变量|All paths support ~ expansion and environment variables
+# All paths support ~ expansion and environment variables
+
+tools:
+  # Hi-C分析|Hi-C analysis
+  fanc: ~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+  bwa: ~/.local/bin/bwa
+  samtools: ~/.local/bin/samtools
+
+  # 基因组注释|Genome annotation
+  augustus: ~/miniforge3/envs/Augustus_v.3.5.0/bin
+  braker: ~/software/braker
+  interproscan: ~/software/InterProScan/interproscan.sh
+
+  # 重复序列|Repeat sequences
+  repeatmasker: ~/miniforge3/envs/repeat_identiy/bin/RepeatMasker
+  repeatmodeler: ~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler
+  edta: ~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA
+
+  # 序列比对|Sequence alignment
+  minimap2: ~/miniforge3/envs/Genome_dedup/bin/minimap2
+  hisat2: ~/miniforge3/envs/RNA_Seq/bin/hisat2
+
+  # 基因组组装|Genome assembly
+  canu: ~/miniforge3/envs/canu_v.2.3/bin/canu
+  flye: ~/miniforge3/envs/flye/bin/flye
+  hifiasm: ~/miniforge3/envs/hifiasm/bin/hifiasm
+
+  # 染色体级别组装|Chromosome-level assembly
+  allhic: ~/software/ALLHiC/bin
+  haphic: ~/miniforge3/envs/haphic/bin/haphic
+  three_dna: ~/software/3d-dna
+
+  # 群体遗传|Population genetics
+  admixture: ~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture
+  dsuite: ~/software/Dsuite/Build/Dsuite
+  gemma: ~/.local/bin/gemma
+
+  # 其他工具|Other tools
+  meme: ~/miniforge3/envs/meme_v.5.5.9/bin/meme
+  signalp: ~/miniforge3/envs/signalp6/bin/signalp6
+  tidk: ~/miniforge3/envs/tidk_v.0.2.65/bin/tidk
+
+# 数据库路径|Database paths
+databases:
+  nr: ~/database/ncbi/nr
+  nt: ~/database/ncbi/nt
+  swissprot: ~/database/uniprot/swissprot
+
+# 软件目录|Software directories
+software_root: ~/software
+conda_root: ~/miniforge3

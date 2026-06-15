@@ -127,6 +127,7 @@ COMMAND_REGISTRY = [
     ('ngenomesyn', 'ngenomesyn', 'NGenomeSyn可视化工具|NGenomeSyn visualization tool'),
     ('orthofinder', 'orthofinder', 'OrthoFinder泛基因组分析工具包|OrthoFinder pan-genome analysis toolkit'),
     ('pair_fastq', 'pair-fastq', 'FASTQ配对修复工具|FASTQ pair fixing tool'),
+    ('pan_blocks', 'pan-blocks', '泛基因组Block构建工具|Pan-genome Block Construction Tool'),
     ('panman', 'panman', 'Panman泛基因组构建和分析工具|Panman pan-genome construction and analysis tool'),
     ('pggb', 'pggb', 'PGGB泛基因组图构建工具|PGGB Pangenome Graph Builder'),
     ('pandepth', 'pandepth', 'PanDepth覆盖度计算工具|PanDepth coverage calculation tool'),
@@ -193,11 +194,13 @@ COMMAND_REGISTRY = [
     ('vcf_sample_hete', 'vcf-sample-hete', 'VCF样本基因型统计|VCF sample genotype statistics'),
     ('vcf_sequence', 'vcf-sequence', '从基因组和VCF提取序列|Extract sequences from genome and VCF'),
     ('wgdi', 'wgdi', 'WGDI比较基因组学分析工具|WGDI comparative genomics analysis tool'),
+    ('picrust2', 'picrust2', 'PICRUSt2微生物群落功能丰度预测|PICRUSt2 functional abundance prediction'),
     ('phyto_effector', 'phyto-effector', 'Phytophthora效应子鉴定(rxlr/crn)|Phytophthora effector identification (rxlr/crn)'),
     ('atomm', 'atomm', '双物种混合效应模型关联分析|Two-organism mixed model association (ATOMM)'),
     ('cim', 'cim', 'R/qtl复合区间作图(CIM)分析|R/qtl Composite Interval Mapping (CIM) Analysis'),
     ('kraken2', 'kraken2', 'Kraken2宏基因组分类工具|Kraken2 metagenomic classification tool'),
     ('samplot', 'samplot', 'Samplot结构变异可视化工具|Samplot SV visualization tool'),
+    ('tmhmm', 'tmhmm', 'TMHMM跨膜螺旋预测|TMHMM transmembrane helix prediction'),
     ('wgsim', 'wgsim', 'Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation'),
 ]
 

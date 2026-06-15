@@ -25,6 +25,8 @@ def extract_method_from_csv_filename(filename: str) -> Optional[str]:
 
     Windows版DeepBSA CSV文件名格式|Windows DeepBSA CSV filename format:
         0-{method}-Tri-kernel-smooth-0.1-{value}.csv
+        0-{method}-LOWESS-auto-{value}.csv
+        0-{method}-Moving Average-0.1-{value}.csv
         0-ΔSNP-Tri-kernel-smooth-0.1-{value}.csv  (ΔSNP特殊处理)
 
     Args:
@@ -36,8 +38,8 @@ def extract_method_from_csv_filename(filename: str) -> Optional[str]:
     # 去掉扩展名|Remove extension
     name = Path(filename).stem
 
-    # 匹配模式|Match pattern: 0-{method}-Tri-kernel-smooth-...
-    match = re.match(r'^\d+-(.+)-Tri-kernel-smooth-', name)
+    # 匹配模式|Match pattern: 0-{method}-{smooth_func}-...
+    match = re.match(r'^\d+-(.+)-(Tri-kernel-smooth|LOWESS|Moving Average)-', name)
     if match:
         method = match.group(1)
         # ΔSNP特殊处理|Special handling for ΔSNP
