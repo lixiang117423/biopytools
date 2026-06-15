@@ -37,7 +37,7 @@ def _is_help_request():
               type=click.Path(),
               help='输出目录|Output directory')
 @click.option('--iseq-path',
-              default='/share/org/YZWL/yzwl_lixg/miniforge3/envs/iseq_v.1.9.8/bin/iseq',
+              default='~/miniforge3/envs/iseq_v.1.9.8/bin/iseq',
               show_default=True,
               help='iSeq软件路径|iSeq software path')
 @click.option('-c', '--conda-env',
@@ -112,7 +112,7 @@ def iseq(accession, output_dir, iseq_path, conda_env, metadata_only, gzip, fastq
     if output_dir != './iseq_output':
         args.extend(['-o', output_dir])
 
-    if iseq_path != '/share/org/YZWL/yzwl_lixg/miniforge3/envs/iseq_v.1.9.8/bin/iseq':
+    if iseq_path != '~/miniforge3/envs/iseq_v.1.9.8/bin/iseq':
         args.extend(['--iseq-path', iseq_path])
 
     if conda_env != 'iseq_v.1.9.8':

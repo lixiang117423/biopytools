@@ -6,6 +6,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
+from ..common.paths import expand_path
 
 
 @dataclass
@@ -16,8 +17,7 @@ class ISeqConfig:
     accession: str  # 项目/样本/实验ID|Project/Sample/Experiment ID
 
     # 路径配置|Path configuration
-    iseq_path: str = '/share/org/YZWL/yzwl_lixg/miniforge3/envs/iseq_v.1.9.8/bin/iseq'  # iSeq软件路径|iSeq software path
-    conda_env: str = 'iseq_v.1.9.8'  # conda环境名|conda environment name
+    iseq_path: str = '~/miniforge3/envs/iseq_v.1.9.8/bin/iseq'  # iSeq软件路径|iSeq software path
     output_dir: str = './iseq_output'  # 输出目录|Output directory
 
     # 下载选项|Download options
@@ -46,7 +46,7 @@ class ISeqConfig:
         self.output_path.mkdir(parents=True, exist_ok=True)
 
         # 标准化路径|Normalize paths
-        self.iseq_path = os.path.normpath(os.path.abspath(self.iseq_path))
+        self.iseq_path = os.path.normpath(os.path.abspath(expand_path(self.iseq_path)))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
 
         # 验证merge参数|Validate merge parameter

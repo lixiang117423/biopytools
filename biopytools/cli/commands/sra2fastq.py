@@ -76,8 +76,7 @@ def sra2fastq(input, output, threads, tmpdir, compress, split_files, min_len, cl
 
     使用parallel-fastq-dump进行多线程高速转换，支持批量处理|High-speed SRA to FASTQ conversion using parallel-fastq-dump with multi-threading support and batch processing
 
-    示例|Examples:
-    biopytools sra2fastq -i sra_dir/ -o fastq_output
+    示例|Examples: biopytools sra2fastq -i sra_dir/ -o fastq_output
     """
 
     # 延迟加载|Lazy load

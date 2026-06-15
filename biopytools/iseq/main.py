@@ -25,7 +25,6 @@ class ISeqDownloader:
         # 初始化命令执行器|Initialize command runner
         self.cmd_runner = CondaCommandRunner(
             self.logger,
-            self.config.conda_env,
             self.config.output_path
         )
 
@@ -68,12 +67,8 @@ def main():
                        help='输出目录|Output directory')
 
     parser.add_argument('-a', '--iseq-path',
-                       default='/share/org/YZWL/yzwl_lixg/miniforge3/envs/iseq_v.1.9.8/bin/iseq',
+                       default='~/miniforge3/envs/iseq_v.1.9.8/bin/iseq',
                        help='iSeq软件路径|iSeq software path')
-
-    parser.add_argument('-c', '--conda-env',
-                       default='iseq_v.1.9.8',
-                       help='Conda环境名|Conda environment name')
 
     # 下载选项|Download options
     parser.add_argument('-m', '--metadata-only',
@@ -136,7 +131,6 @@ def main():
         accession=args.accession,
         output_dir=args.output_dir,
         iseq_path=args.iseq_path,
-        conda_env=args.conda_env,
         metadata_only=args.metadata_only,
         gzip=args.gzip,
         fastq=args.fastq,
