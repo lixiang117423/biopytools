@@ -8,29 +8,13 @@ import os
 from pathlib import Path
 from datetime import datetime
 
-# 添加当前目录到sys.path，解决相对导入问题
-current_dir = Path(__file__).parent
-if str(current_dir) not in sys.path:
-    sys.path.insert(0, str(current_dir))
-
-try:
-    from config import AssemblyConfig
-    from logger import AssemblyLogger
-    from utils import check_dependencies
-    from assembler import HifiasmAssembler
-    from report import ReportGenerator
-    from ngs_polisher import NGSPolisher
-    from purge_dups_wrapper import PurgeDupsWrapper
-except ImportError:
-    # 如果相对导入失败，尝试绝对导入
-    sys.path.append(str(current_dir.parent))
-    from biopytools.genome_assembler.config import AssemblyConfig
-    from biopytools.genome_assembler.logger import AssemblyLogger
-    from biopytools.genome_assembler.utils import check_dependencies
-    from biopytools.genome_assembler.assembler import HifiasmAssembler
-    from biopytools.genome_assembler.report import ReportGenerator
-    from biopytools.genome_assembler.ngs_polisher import NGSPolisher
-    from biopytools.genome_assembler.purge_dups_wrapper import PurgeDupsWrapper
+from .config import AssemblyConfig
+from .logger import AssemblyLogger
+from .utils import check_dependencies
+from .assembler import HifiasmAssembler
+from .report import ReportGenerator
+from .ngs_polisher import NGSPolisher
+from .purge_dups_wrapper import PurgeDupsWrapper
 
 class GenomeAssembler:
     """基因组组装主类|Main Genome Assembler Class"""

@@ -6,6 +6,7 @@ import os
 import glob
 from dataclasses import dataclass
 from pathlib import Path
+from ..common.paths import expand_path
 
 @dataclass
 class AssemblyConfig:
@@ -60,6 +61,9 @@ class AssemblyConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
+        # 展开工具路径|Expand tool paths
+        self.purge_dups_path = expand_path(self.purge_dups_path)
+
         self.base_dir = os.path.normpath(os.path.abspath(self.base_dir))
         self.work_dir = os.path.join(self.base_dir, self.prefix)
 

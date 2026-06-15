@@ -14,8 +14,9 @@ def _lazy_import_assembler_main():
         from ...hifi_hic.main import main as assembler_main
         return assembler_main
     except ImportError as e:
+        error_msg = str(e)
         def error_func():
-            click.echo(f"导入错误|Import error: {e}", err=True)
+            click.echo(f"导入错误|Import error: {error_msg}", err=True)
             sys.exit(1)
         return error_func
 

@@ -6,10 +6,7 @@ import os
 from pathlib import Path
 from datetime import datetime
 
-try:
-    from utils import get_fasta_stats, format_time
-except ImportError:
-    from biopytools.genome_assembler.utils import get_fasta_stats, format_time
+from .utils import get_fasta_stats, format_time
 
 class ReportGenerator:
     """报告生成器|Report Generator"""
@@ -51,7 +48,10 @@ class ReportGenerator:
             f.write("组装结果|Assembly Results\n")
             f.write("=" * 50 + "\n\n")
             
-            for suffix in ["hap1", "hap2", "primary", "alternate"]:
+            # 根据n_hap动态构建后缀列表|Build suffix list dynamically based on n_hap
+            suffixes = [f"hap{i}" for i in range(1, self.config.n_hap + 1)] + ["primary", "alternate"]
+
+            for suffix in suffixes:
                 fasta_name = f"{self.config.prefix}.{suffix}.fa"
                 if fasta_name in fasta_results:
                     stats = fasta_results[fasta_name]
@@ -86,141 +86,85 @@ class ReportGenerator:
         
         self.logger.info(f" 统计报告已生成|Statistics report generated: {report_file}")
     
+    def _build_file_tree(self) -> str:
+        """
+        根据配置动态构建文件树字符串|Build file tree string dynamically based on config
+
+        Returns:
+            str: 文件树字符串|File tree string
+        """
+        prefix = self.config.prefix
+        hic = ".hic" if self.config.has_hic else ""
+        n_hap = self.config.n_hap
+
+        # 构建GFA文件列表|Build GFA file list
+        gfa_lines = []
+        for i in range(1, n_hap + 1):
+            gfa_lines.append(f"│   ├──  {prefix}{hic}.hap{i}.p_ctg.gfa")
+        gfa_lines.append(f"│   ├──  {prefix}{hic}.p_ctg.gfa")
+        if not self.config.has_ngs:
+            gfa_lines.append(f"│   ├──  {prefix}{hic}.a_ctg.gfa (如果存在|if present)")
+        gfa_lines.append("│   └──  其他中间文件|Other intermediate files")
+        gfa_block = "\n".join(gfa_lines)
+
+        # 构建FASTA文件列表|Build FASTA file list
+        fasta_lines = []
+        for i in range(1, n_hap + 1):
+            fasta_lines.append(f"│   ├──  {prefix}.hap{i}.fa")
+        fasta_lines.append(f"│   ├──  {prefix}.primary.fa")
+        fasta_lines.append(f"│   ├──  {prefix}.alternate.fa")
+        fasta_lines.append(f"│   ├──  {prefix}.p_ctg.contig_reads.tsv (contig-reads映射|mapping)")
+        for i in range(1, n_hap + 1):
+            fasta_lines.append(f"│   ├──  {prefix}.hap{i}.p_ctg.contig_reads.tsv")
+        # 移除最后一个├──改为└──|Replace last ├── with └──
+        fasta_lines[-1] = fasta_lines[-1].replace("├──", "└──")
+        fasta_block = "\n".join(fasta_lines)
+
+        if self.config.has_ngs:
+            ngs_block = f"""
+   ├──  03.ngs_polish/     (NGS筛选和重新组装|NGS filtering & reassembly)
+   │   ├──  01.bwa_alignment/              (BWA比对结果|BWA alignment)
+   │   │   └──  bam/{prefix}.bam
+   │   ├──  02.coverage_filter/            (覆盖度过滤结果|Coverage filter)
+   │   │   └──  {prefix}_high_quality.list
+   │   ├──  03.filtered_reads/             (筛选的reads|Filtered reads)
+   │   │   └──  {prefix}_high_quality_reads.fq.gz
+   │   ├──  04.reassembly/                 (重新组装结果|Reassembly)
+   │   │   ├──  01.raw_output/
+   │   │   └──  02.fasta/
+   │   └──  {prefix}.polished.fa (最终polished基因组|Final polished genome)
+   │
+   ├──  04.statistics/     (统计信息|Statistics)
+   │   └──  {prefix}_assembly_statistics.txt
+   │
+   └──  05.logs/           (日志文件|Log files)
+       └──  assembly.log"""
+        else:
+            ngs_block = f"""
+   ├──  03.statistics/     (统计信息|Statistics)
+   │   └──  {prefix}_assembly_statistics.txt
+   │
+   └──  04.logs/           (日志文件|Log files)
+       └──  assembly.log"""
+
+        tree = f"""
+ {self.config.work_dir}/
+   │
+   ├──  01.raw_output/     (初次组装原始输出|Initial assembly raw output)
+{gfa_block}
+   │
+   ├──  02.fasta/          (初次组装FASTA|Initial assembly FASTA)
+{fasta_block}
+   │
+{ngs_block}
+            """
+        return tree
+
     def print_file_tree(self):
         """打印输出文件结构|Print output file structure"""
         self.logger.info("输出文件结构|Output File Structure:")
 
-        if self.config.has_ngs:
-            # 有NGS数据的目录结构|Directory structure with NGS data
-            if self.config.has_hic:
-                gfa_suffix = "hic"
-                tree = f"""
- {self.config.work_dir}/
-   │
-   ├──  01.raw_output/     (初次组装原始输出|Initial assembly raw output)
-   │   ├──  {self.config.prefix}.hic.hap1.p_ctg.gfa
-   │   ├──  {self.config.prefix}.hic.hap2.p_ctg.gfa
-   │   ├──  {self.config.prefix}.hic.p_ctg.gfa
-   │   └──  其他中间文件|Other intermediate files
-   │
-   ├──  02.fasta/          (初次组装FASTA|Initial assembly FASTA)
-   │   ├──  {self.config.prefix}.hap1.fa
-   │   ├──  {self.config.prefix}.hap2.fa
-   │   ├──  {self.config.prefix}.primary.fa
-   │   ├──  {self.config.prefix}.alternate.fa
-   │   ├──  {self.config.prefix}.p_ctg.contig_reads.tsv (contig-reads映射|mapping)
-   │   ├──  {self.config.prefix}.hap1.p_ctg.contig_reads.tsv
-   │   └──  {self.config.prefix}.hap2.p_ctg.contig_reads.tsv
-   │
-   ├──  03.ngs_polish/     (NGS筛选和重新组装|NGS filtering & reassembly)
-   │   ├──  01.bwa_alignment/              (BWA比对结果|BWA alignment)
-   │   │   └──  bam/{self.config.prefix}.bam
-   │   ├──  02.coverage_filter/            (覆盖度过滤结果|Coverage filter)
-   │   │   └──  {self.config.prefix}_high_quality.list
-   │   ├──  03.filtered_reads/             (筛选的reads|Filtered reads)
-   │   │   └──  {self.config.prefix}_high_quality_reads.fq.gz
-   │   ├──  04.reassembly/                 (重新组装结果|Reassembly)
-   │   │   ├──  01.raw_output/
-   │   │   └──  02.fasta/
-   │   └──  {self.config.prefix}.polished.fa (最终polished基因组|Final polished genome)
-   │
-   ├──  04.statistics/     (统计信息|Statistics)
-   │   └──  {self.config.prefix}_assembly_statistics.txt
-   │
-   └──  05.logs/           (日志文件|Log files)
-       └──  assembly.log
-            """
-            else:
-                tree = f"""
- {self.config.work_dir}/
-   │
-   ├──  01.raw_output/     (初次组装原始输出|Initial assembly raw output)
-   │   ├──  {self.config.prefix}.hap1.p_ctg.gfa
-   │   ├──  {self.config.prefix}.hap2.p_ctg.gfa
-   │   ├──  {self.config.prefix}.p_ctg.gfa
-   │   └──  其他中间文件|Other intermediate files
-   │
-   ├──  02.fasta/          (初次组装FASTA|Initial assembly FASTA)
-   │   ├──  {self.config.prefix}.hap1.fa
-   │   ├──  {self.config.prefix}.hap2.fa
-   │   ├──  {self.config.prefix}.primary.fa
-   │   ├──  {self.config.prefix}.alternate.fa
-   │   ├──  {self.config.prefix}.p_ctg.contig_reads.tsv (contig-reads映射|mapping)
-   │   ├──  {self.config.prefix}.hap1.p_ctg.contig_reads.tsv
-   │   └──  {self.config.prefix}.hap2.p_ctg.contig_reads.tsv
-   │
-   ├──  03.ngs_polish/     (NGS筛选和重新组装|NGS filtering & reassembly)
-   │   ├──  01.bwa_alignment/              (BWA比对结果|BWA alignment)
-   │   │   └──  bam/{self.config.prefix}.bam
-   │   ├──  02.coverage_filter/            (覆盖度过滤结果|Coverage filter)
-   │   │   └──  {self.config.prefix}_high_quality.list
-   │   ├──  03.filtered_reads/             (筛选的reads|Filtered reads)
-   │   │   └──  {self.config.prefix}_high_quality_reads.fq.gz
-   │   ├──  04.reassembly/                 (重新组装结果|Reassembly)
-   │   │   ├──  01.raw_output/
-   │   │   └──  02.fasta/
-   │   └──  {self.config.prefix}.polished.fa (最终polished基因组|Final polished genome)
-   │
-   ├──  04.statistics/     (统计信息|Statistics)
-   │   └──  {self.config.prefix}_assembly_statistics.txt
-   │
-   └──  05.logs/           (日志文件|Log files)
-       └──  assembly.log
-            """
-        else:
-            # 无NGS数据的目录结构|Directory structure without NGS data
-            if self.config.has_hic:
-                tree = f"""
- {self.config.work_dir}/
-   │
-   ├──  01.raw_output/     (原始输出文件|Raw output files)
-   │   ├──  {self.config.prefix}.hic.hap1.p_ctg.gfa
-   │   ├──  {self.config.prefix}.hic.hap2.p_ctg.gfa
-   │   ├──  {self.config.prefix}.hic.p_ctg.gfa
-   │   ├──  {self.config.prefix}.hic.a_ctg.gfa (如果存在|if present)
-   │   └──  其他中间文件|Other intermediate files
-   │
-   ├──  02.fasta/          (FASTA格式|FASTA format)
-   │   ├──  {self.config.prefix}.hap1.fa
-   │   ├──  {self.config.prefix}.hap2.fa
-   │   ├──  {self.config.prefix}.primary.fa
-   │   ├──  {self.config.prefix}.alternate.fa
-   │   ├──  {self.config.prefix}.p_ctg.contig_reads.tsv (contig-reads映射|contig-reads mapping)
-   │   ├──  {self.config.prefix}.hap1.p_ctg.contig_reads.tsv
-   │   └──  {self.config.prefix}.hap2.p_ctg.contig_reads.tsv
-   │
-   ├──  03.statistics/     (统计信息|Statistics)
-   │   └──  {self.config.prefix}_assembly_statistics.txt
-   │
-   └──  04.logs/           (日志文件|Log files)
-       └──  assembly.log
-            """
-            else:
-                tree = f"""
- {self.config.work_dir}/
-   │
-   ├──  01.raw_output/     (原始输出文件|Raw output files)
-   │   ├──  {self.config.prefix}.hap1.p_ctg.gfa
-   │   ├──  {self.config.prefix}.hap2.p_ctg.gfa
-   │   ├──  {self.config.prefix}.p_ctg.gfa
-   │   ├──  {self.config.prefix}.a_ctg.gfa (如果存在|if present)
-   │   └──  其他中间文件|Other intermediate files
-   │
-   ├──  02.fasta/          (FASTA格式|FASTA format)
-   │   ├──  {self.config.prefix}.hap1.fa
-   │   ├──  {self.config.prefix}.hap2.fa
-   │   ├──  {self.config.prefix}.primary.fa
-   │   ├──  {self.config.prefix}.alternate.fa
-   │   ├──  {self.config.prefix}.p_ctg.contig_reads.tsv (contig-reads映射|contig-reads mapping)
-   │   ├──  {self.config.prefix}.hap1.p_ctg.contig_reads.tsv
-   │   └──  {self.config.prefix}.hap2.p_ctg.contig_reads.tsv
-   │
-   ├──  03.statistics/     (统计信息|Statistics)
-   │   └──  {self.config.prefix}_assembly_statistics.txt
-   │
-   └──  04.logs/           (日志文件|Log files)
-       └──  assembly.log
-            """
+        tree = self._build_file_tree()
 
         self.logger.info(tree)
 

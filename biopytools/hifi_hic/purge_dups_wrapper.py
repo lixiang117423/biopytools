@@ -107,10 +107,11 @@ class PurgeDupsWrapper:
             # 尝试多种可能的文件名格式|Try multiple possible filename formats
             input_stem = Path(input_fa).stem
             possible_filenames = [
-                f"{input_stem}_purged.purge.fa",  # 原始格式|Original format
-                f"{Path(input_fa).name}_purged.purge.fa",  # 完整文件名|Full filename
-                f"{input_stem.replace('.primary', '')}_purged.purge.fa",  # 去掉.primary|Remove .primary
-                f"{input_stem.replace('.hap', '')}_purged.purge.fa",  # 去掉.hap|Remove .hap
+                f"{input_stem}_purged.purged.fa",  # get_seqs默认输出格式|get_seqs default output
+                f"{input_stem}_purged.purge.fa",   # 旧版本格式|Legacy format
+                f"{Path(input_fa).name}_purged.purged.fa",
+                f"{input_stem.replace('.primary', '')}_purged.purged.fa",
+                f"{input_stem.replace('.hap', '')}_purged.purged.fa",
             ]
 
             purged_fa = None
@@ -123,7 +124,9 @@ class PurgeDupsWrapper:
             # 如果还是找不到，扫描目录查找任何*_purged.purge.fa文件|If still not found, scan directory for any *_purged.purge.fa
             if not purged_fa and os.path.exists(sequences_dir):
                 import glob
-                candidates = glob.glob(os.path.join(sequences_dir, "*_purged.purge.fa"))
+                candidates = glob.glob(os.path.join(sequences_dir, "*_purged.purged.fa"))
+                if not candidates:
+                    candidates = glob.glob(os.path.join(sequences_dir, "*_purged.purge.fa"))
                 if candidates:
                     # 使用找到的第一个文件|Use the first found file
                     purged_fa = candidates[0]

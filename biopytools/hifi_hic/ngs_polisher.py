@@ -293,7 +293,7 @@ class NGSPolisher:
 
         try:
             # 导入assembler模块|Import assembler module
-            from assembler import HifiasmAssembler
+            from .assembler import HifiasmAssembler
 
             # 定义输出目录|Define output directory
             reassembly_dir = os.path.join(self.config.ngs_polish_dir, "04.reassembly")
@@ -349,12 +349,12 @@ class NGSPolisher:
         # 所有文件保留在 04.reassembly/02.fasta/ 目录中
         # All files remain in 04.reassembly/02.fasta/ directory
         reassembly_fasta_dir = os.path.join(reassembly_dir, "02.fasta")
-        fasta_files = [
-            f"{self.config.prefix}.primary.fa",
-            f"{self.config.prefix}.hap1.fa",
-            f"{self.config.prefix}.hap2.fa",
-            f"{self.config.prefix}.alternate.fa"
-        ]
+
+        # 根据n_hap动态构建FASTA文件列表|Build FASTA file list dynamically based on n_hap
+        fasta_files = [f"{self.config.prefix}.primary.fa"]
+        for i in range(1, self.config.n_hap + 1):
+            fasta_files.append(f"{self.config.prefix}.hap{i}.fa")
+        fasta_files.append(f"{self.config.prefix}.alternate.fa")
 
         existing_files = []
         for fasta_name in fasta_files:

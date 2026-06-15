@@ -6,10 +6,7 @@ import os
 import glob
 from pathlib import Path
 
-try:
-    from utils import run_command, generate_contig_reads_map_from_gfa
-except ImportError:
-    from biopytools.genome_assembler.utils import run_command, generate_contig_reads_map_from_gfa
+from .utils import run_command, generate_contig_reads_map_from_gfa
 
 class HifiasmAssembler:
     """Hifiasm组装器|Hifiasm Assembler"""
@@ -75,25 +72,40 @@ class HifiasmAssembler:
             self.logger.error(f"组装失败({mode_str})，请检查错误信息|Assembly failed({mode_str}), check error messages")
             return False
 
+    def _build_gfa_to_fasta_map(self) -> dict:
+        """
+        根据n_hap动态构建GFA到FASTA的文件映射|Build GFA to FASTA mapping dynamically based on n_hap
+
+        Returns:
+            dict: GFA文件名到FASTA文件名的映射|GFA filename to FASTA filename mapping
+        """
+        gfa_files = {}
+        prefix = self.config.prefix
+
+        # 根据是否有Hi-C数据构建前缀|Build prefix based on Hi-C data availability
+        if self.config.has_hic:
+            # 单倍型文件|Haplotype files
+            for i in range(1, self.config.n_hap + 1):
+                gfa_files[f"{prefix}.hic.hap{i}.p_ctg.gfa"] = f"{prefix}.hap{i}.fa"
+            # primary和alternate文件|Primary and alternate files
+            gfa_files[f"{prefix}.hic.p_ctg.gfa"] = f"{prefix}.primary.fa"
+            gfa_files[f"{prefix}.hic.a_ctg.gfa"] = f"{prefix}.alternate.fa"
+        else:
+            # 单倍型文件|Haplotype files
+            for i in range(1, self.config.n_hap + 1):
+                gfa_files[f"{prefix}.hap{i}.p_ctg.gfa"] = f"{prefix}.hap{i}.fa"
+            # primary和alternate文件|Primary and alternate files
+            gfa_files[f"{prefix}.p_ctg.gfa"] = f"{prefix}.primary.fa"
+            gfa_files[f"{prefix}.a_ctg.gfa"] = f"{prefix}.alternate.fa"
+
+        return gfa_files
+
     def convert_gfa_to_fasta(self) -> dict:
         """转换GFA为FASTA格式|Convert GFA to FASTA format"""
         self.logger.info("转换GFA为FASTA格式|Converting GFA to FASTA format")
 
-        # 根据是否有Hi-C数据定义需要转换的GFA文件|Define GFA files to convert based on Hi-C data availability
-        if self.config.has_hic:
-            gfa_files = {
-                f"{self.config.prefix}.hic.hap1.p_ctg.gfa": f"{self.config.prefix}.hap1.fa",
-                f"{self.config.prefix}.hic.hap2.p_ctg.gfa": f"{self.config.prefix}.hap2.fa",
-                f"{self.config.prefix}.hic.p_ctg.gfa": f"{self.config.prefix}.primary.fa",
-                f"{self.config.prefix}.hic.a_ctg.gfa": f"{self.config.prefix}.alternate.fa"
-            }
-        else:
-            gfa_files = {
-                f"{self.config.prefix}.hap1.p_ctg.gfa": f"{self.config.prefix}.hap1.fa",
-                f"{self.config.prefix}.hap2.p_ctg.gfa": f"{self.config.prefix}.hap2.fa",
-                f"{self.config.prefix}.p_ctg.gfa": f"{self.config.prefix}.primary.fa",
-                f"{self.config.prefix}.a_ctg.gfa": f"{self.config.prefix}.alternate.fa"
-            }
+        # 根据n_hap动态构建文件映射|Build file mapping dynamically based on n_hap
+        gfa_files = self._build_gfa_to_fasta_map()
 
         results = {}
 
@@ -104,15 +116,11 @@ class HifiasmAssembler:
             # 如果标准文件名不存在，尝试带有.bp.前缀的文件名
             # If standard filename doesn't exist, try filename with .bp. prefix
             if not os.path.exists(gfa_path):
-                # 对于有Hi-C的情况: {prefix}.hic.hap1.p_ctg.gfa -> {prefix}.bp.hic.hap1.p_ctg.gfa
-                # 对于无Hi-C的情况: {prefix}.hap1.p_ctg.gfa -> {prefix}.bp.hap1.p_ctg.gfa
                 # hifiasm使用purge-dups时会在prefix后添加.bp.
-                if self.config.has_hic:
-                    # 尝试在 prefix 后添加 .bp.
-                    bp_gfa_file = gfa_file.replace(f"{self.config.prefix}.hic.", f"{self.config.prefix}.bp.hic.")
-                else:
-                    # 尝试在 prefix 后添加 .bp.
-                    bp_gfa_file = gfa_file.replace(f"{self.config.prefix}.", f"{self.config.prefix}.bp.")
+                # hifiasm adds .bp. after prefix when using purge-dups
+                bp_gfa_file = gfa_file.replace(
+                    f"{self.config.prefix}.", f"{self.config.prefix}.bp.", 1
+                )
 
                 bp_gfa_path = os.path.join(self.config.raw_dir, bp_gfa_file)
                 if os.path.exists(bp_gfa_path):
@@ -170,18 +178,18 @@ class HifiasmAssembler:
         self.logger.info("生成Contig-Reads映射|Generating Contig-Reads mapping")
         self.logger.info("=" * 60)
 
-        # 根据是否有Hi-C数据定义GFA文件|Define GFA files based on Hi-C data availability
+        # 根据是否有Hi-C数据定义GFA前缀|Define GFA prefix based on Hi-C data availability
         if self.config.has_hic:
             gfa_prefix = f"{self.config.prefix}.hic"
         else:
             gfa_prefix = f"{self.config.prefix}"
 
-        # 定义需要处理的GFA文件|Define GFA files to process
+        # 根据n_hap动态构建需要处理的GFA文件列表|Build GFA file list dynamically based on n_hap
         gfa_files = [
             f"{gfa_prefix}.p_ctg.gfa",   # primary contigs
-            f"{gfa_prefix}.hap1.p_ctg.gfa",  # hap1 contigs
-            f"{gfa_prefix}.hap2.p_ctg.gfa",  # hap2 contigs
         ]
+        for i in range(1, self.config.n_hap + 1):
+            gfa_files.append(f"{gfa_prefix}.hap{i}.p_ctg.gfa")
 
         success_count = 0
 
@@ -194,10 +202,9 @@ class HifiasmAssembler:
             if not os.path.exists(gfa_path):
                 # 尝试 .bp. 前缀版本
                 # Try with .bp. prefix
-                if self.config.has_hic:
-                    bp_gfa_file = gfa_file.replace(f"{self.config.prefix}.hic.", f"{self.config.prefix}.bp.hic.")
-                else:
-                    bp_gfa_file = gfa_file.replace(f"{self.config.prefix}.", f"{self.config.prefix}.bp.")
+                bp_gfa_file = gfa_file.replace(
+                    f"{self.config.prefix}.", f"{self.config.prefix}.bp.", 1
+                )
 
                 bp_gfa_path = os.path.join(self.config.raw_dir, bp_gfa_file)
                 if os.path.exists(bp_gfa_path):
