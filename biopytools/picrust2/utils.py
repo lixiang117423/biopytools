@@ -454,69 +454,101 @@ def preprocess_biom_table(biom_path: str, fasta_path: str, output_dir: str, logg
     )
 
 
-def format_pathway_table(pathway_dir: str, logger=None) -> str:
+def annotate_function_table(table_path: str, map_type: str, logger=None) -> str:
     """
-    格式化通路丰度表：添加通路名称、取整、均值，原地整合为一个TSV文件|
-    Format pathway abundance table: add pathway names, round values, mean column.
-    Raw PICRUSt2 output is preserved as _raw.tsv.
+    给功能丰度表添加描述列、取整、均值|
+    Add description column, round values, add mean column to function table
+
+    使用PICRUSt2官方add_descriptions.py添加描述列，然后添加样本均值列、
+    数值取整、按均值降序排列。原始文件保留为_raw。
+    Uses PICRUSt2 official add_descriptions.py, then adds mean column,
+    rounds values, sorts by mean descending. Raw file preserved as _raw.
 
     Args:
-        pathway_dir: 通路输出目录|Pathway output directory
+        table_path: 功能表路径(.tsv或.tsv.gz)|Table path (.tsv or .tsv.gz)
+        map_type: 映射类型(METACYC/EC/KO)|Map type (METACYC/EC/KO)
         logger: 日志器|Logger
 
     Returns:
-        str: 格式化后的TSV文件路径|Path to formatted TSV file
+        str: 注释后的TSV文件路径|Path to annotated TSV file
     """
     import pandas as pd
-    import gzip
+    import tempfile
 
-    src = os.path.join(pathway_dir, 'path_abun_unstrat.tsv')
-    if not os.path.exists(src):
+    # 定位源文件|.tsv or .tsv.gz
+    src = None
+    for candidate in [table_path, table_path + '.gz']:
+        if os.path.exists(candidate):
+            src = candidate
+            break
+    if not src:
         if logger:
-            logger.warning(f"通路丰度表不存在|Pathway abundance table not found: {src}")
+            logger.warning(f"功能表不存在|Function table not found: {table_path}")
         return None
 
-    # 读取MetaCyc通路名称映射
-    map_path = os.path.expanduser(
-        '~/miniforge3/envs/picrust_v.2.6.3/lib/python3.12/site-packages/'
-        'picrust2/default_files/description_mapfiles/metacyc_pathways_info.txt.gz'
-    )
-    name_map = {}
-    if os.path.exists(map_path):
-        with gzip.open(map_path, 'rt') as f:
-            for line in f:
-                parts = line.rstrip('\n').split('\t', 1)
-                if len(parts) == 2:
-                    name_map[parts[0]] = parts[1]
+    base = table_path.rsplit('.tsv', 1)[0]
+    annotated_tsv = base + '.tsv'
+    # 保留原始扩展名(.tsv或.tsv.gz)，让add_descriptions.py正确识别格式
+    # Preserve original extension so add_descriptions.py detects format correctly
+    raw_path = base + '_raw' + ('.tsv.gz' if src.endswith('.gz') else '.tsv')
 
     # 保留原始文件|Preserve raw file
-    raw_path = os.path.join(pathway_dir, 'path_abun_unstrat_raw.tsv')
-    os.rename(src, raw_path)
+    if os.path.abspath(src) != os.path.abspath(raw_path):
+        if os.path.exists(raw_path):
+            os.remove(raw_path)
+        shutil.copy(src, raw_path)
 
-    # 读取通路丰度表
-    df = pd.read_csv(raw_path, sep='\t')
-    sample_cols = [c for c in df.columns if c != 'pathway']
+    # 调用add_descriptions.py添加描述列|Run add_descriptions.py
+    with tempfile.NamedTemporaryFile(suffix='.tsv', delete=False) as tmp:
+        tmp_desc_path = tmp.name
 
-    # 添加通路名称|Add pathway readable name
-    df.insert(1, 'Pathway Name',
-              df['pathway'].map(name_map).fillna(df['pathway']))
+    cmd = build_conda_command(
+        'add_descriptions.py',
+        ['-i', raw_path, '-o', tmp_desc_path, '-m', map_type]
+    )
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        if logger:
+            logger.warning(f"add_descriptions.py执行失败|add_descriptions.py failed: {result.stderr[-300:]}")
+        os.unlink(tmp_desc_path)
+        return None
 
-    # 数值取整|Round values
+    # 后处理：添加均值、取整、排序|Post-process: mean, round, sort
+    df = pd.read_csv(tmp_desc_path, sep='\t')
+    os.unlink(tmp_desc_path)
+
+    id_col = df.columns[0]  # pathway / function
+    desc_col = df.columns[1]  # description
+    sample_cols = [c for c in df.columns if c not in (id_col, desc_col)]
+
     for col in sample_cols:
         df[col] = df[col].round(2)
-
-    # 添加样本均值|Add sample mean
     df['Mean'] = df[sample_cols].mean(axis=1).round(2)
-
-    # 按均值降序排列|Sort by mean descending
     df = df.sort_values('Mean', ascending=False).reset_index(drop=True)
 
-    # 写入格式化后的TSV|Write formatted TSV
-    df.to_csv(src, sep='\t', index=False)
+    df.to_csv(annotated_tsv, sep='\t', index=False)
 
     if logger:
-        logger.info(f"通路丰度表已格式化|Pathway table formatted: {src} (原始数据保留为 {raw_path})")
-    return src
+        logger.info(f"功能表已注释|Table annotated: {annotated_tsv} (原始数据保留为 {raw_path})")
+    return annotated_tsv
+
+
+def annotate_all_function_tables(output_config: dict, logger=None) -> None:
+    """
+    注释所有功能丰度表(通路、EC、KO)|Annotate all function tables (pathway, EC, KO)
+
+    Args:
+        output_config: 目录映射|Directory mapping with keys:
+            pathway_dir, metagenome_dir
+        logger: 日志器|Logger
+    """
+    tables = [
+        (os.path.join(output_config['pathway_dir'], 'path_abun_unstrat.tsv'), 'METACYC'),
+        (os.path.join(output_config['metagenome_dir'], 'EC_pred_metagenome_unstrat.tsv'), 'EC'),
+        (os.path.join(output_config['metagenome_dir'], 'KO_pred_metagenome_unstrat.tsv'), 'KO'),
+    ]
+    for table_path, map_type in tables:
+        annotate_function_table(table_path, map_type, logger)
 
 
 def reorganize_outputs(work_dir: str, output_config: dict, logger=None) -> bool:
@@ -572,14 +604,9 @@ def reorganize_outputs(work_dir: str, output_config: dict, logger=None) -> bool:
             hsp_files.append(f)
 
     # 宏基因组预测文件|Metagenome prediction files
-    metagenome_files = []
-    metagenome_subdir = os.path.join(work_dir, 'metagenome_out')
-    if os.path.exists(metagenome_subdir):
-        for f in os.listdir(metagenome_subdir):
-            metagenome_files.append(os.path.join('metagenome_out', f))
-    for f in os.listdir(work_dir):
-        if 'pred_metagenome' in f or 'seqtab_norm' in f or 'weighted_nsti' in f:
-            metagenome_files.append(f)
+    # PICRUSt2将输出按功能分目录存放，如EC_metagenome_out/、KO_metagenome_out/
+    # PICRUSt2 stores outputs in per-function dirs like EC_metagenome_out/, KO_metagenome_out/
+    # 在下方移动阶段单独处理（加功能前缀避免覆盖）|Moved separately below with function prefix
 
     # 通路推断文件|Pathway inference files
     pathway_files = []
@@ -593,10 +620,38 @@ def reorganize_outputs(work_dir: str, output_config: dict, logger=None) -> bool:
 
     # 执行文件移动|Move files
     moved_count = 0
+
+    # metagenome文件单独处理：从{FUNC}_metagenome_out/移动时加上功能前缀，
+    # 避免EC和KO下的pred_metagenome_unstrat.tsv.gz互相覆盖
+    # Handle metagenome separately: prefix with function name when moving from
+    # {FUNC}_metagenome_out/ to avoid EC/KO pred_metagenome_unstrat.tsv.gz collision
+    metagenome_dir = output_config.get('metagenome_dir')
+    if metagenome_dir:
+        Path(metagenome_dir).mkdir(parents=True, exist_ok=True)
+        for entry in os.listdir(work_dir):
+            entry_path = os.path.join(work_dir, entry)
+            if os.path.isdir(entry_path) and entry.endswith('_metagenome_out'):
+                func_prefix = entry.replace('_metagenome_out', '')
+                for f in os.listdir(entry_path):
+                    src = os.path.join(entry_path, f)
+                    dst = os.path.join(metagenome_dir, f"{func_prefix}_{f}")
+                    if os.path.exists(dst):
+                        os.remove(dst)
+                    shutil.move(src, dst)
+                    moved_count += 1
+        # 兼容顶层散落的metagenome文件|Top-level metagenome files
+        for f in list(os.listdir(work_dir)):
+            if 'pred_metagenome' in f or 'seqtab_norm' in f or 'weighted_nsti' in f:
+                src = os.path.join(work_dir, f)
+                dst = os.path.join(metagenome_dir, f)
+                if os.path.exists(dst):
+                    os.remove(dst)
+                shutil.move(src, dst)
+                moved_count += 1
+
     all_mappings = [
         (placement_files, 'placement_dir'),
         (hsp_files, 'hsp_dir'),
-        (metagenome_files, 'metagenome_dir'),
         (pathway_files, 'pathway_dir'),
     ]
 

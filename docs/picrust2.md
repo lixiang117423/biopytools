@@ -71,6 +71,8 @@ biopytools picrust2 -s study_seqs.fna -i seqabun.biom -o picrust2_out --in-trait
 - `NSTI` / `marker_nsti.tsv`：每 ASV 的 NSTI 质控值
 - `00_pipeline_info/`、`99_logs/`：流程信息与日志
 
+**自动后处理**：流程结束后会自动调用 PICRUSt2 官方 `add_descriptions.py` 给三类功能丰度表（通路 / EC / KO）添加描述列，并附加样本均值列、按均值降序排列。原始 PICRUSt2 输出保留为 `*_raw.tsv` 便于核对。
+
 ## 依赖 | Dependencies
 
 - PICRUSt2 主程序（含 `picrust2_pipeline.py`、`epa-ng`、`hsp.py`、`minpath.py` 等）

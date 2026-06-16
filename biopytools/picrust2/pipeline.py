@@ -14,7 +14,7 @@ from .utils import (
     CommandRunner, build_conda_command,
     reorganize_outputs, generate_software_versions_yml, format_number,
     prepare_input_table, preprocess_biom_table, detect_input_format,
-    clean_fasta_headers, format_pathway_table
+    clean_fasta_headers, annotate_all_function_tables
 )
 
 
@@ -97,8 +97,14 @@ class Picrust2Pipeline:
             logger=self.logger
         )
 
-        # 格式化通路丰度表为易读Excel|Format pathway table to readable Excel
-        format_pathway_table(self.config.pathway_dir, self.logger)
+        # 格式化功能丰度表(通路、EC、KO)添加描述列|Annotate function tables
+        annotate_all_function_tables(
+            {
+                'pathway_dir': self.config.pathway_dir,
+                'metagenome_dir': self.config.metagenome_dir,
+            },
+            self.logger
+        )
 
         # 生成版本信息|Generate version info
         self._generate_versions(start_time)
