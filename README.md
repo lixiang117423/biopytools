@@ -321,6 +321,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - 感谢所有为本项目做出贡献的开发者 | Thanks to all developers who contributed to this project
 - 感谢开源社区的支持 | Thanks to the open source community for support
+- AI 辅助开发 | AI-assisted development: Claude Code (Anthropic) + GLM 5.2
 
 ## 问题反馈 | Issues
 
