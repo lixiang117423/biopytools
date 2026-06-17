@@ -1,4 +1,20 @@
 
+## [1.1.0] - 2026-06-17
+
+### Added
+- **新模块**：`minibwa` 短读长比对（标准 / Hi-C / BS-seq / 长读四种模式），封装 Minibwa 工具
+- 补提 4 个被注册命令依赖的底层模块目录（之前未入库）：
+  - `tgsgapcloser/`：`gap-fill` 命令的底层
+  - `hicpro_qc/` 和 `pairtools_qc/`：`hic-qc` 命令的底层
+  - `fasta_id_renamer/`：`rename-genome-id` 命令的底层
+
+### Changed
+- `picrust2`：将原本只注释通路表的功能扩展到通路/EC/KO 三类功能丰度表，改用 PICRUSt2 官方 `add_descriptions.py` 添加描述列
+
+### Housekeeping
+- 移除仓库中遗留的 backup 文件（`*.bak`、`*.backup`、`_kmer_count_backup/` 等）
+
+
 ## [1.0.0] - 2026-06-15
 
 ### Added
