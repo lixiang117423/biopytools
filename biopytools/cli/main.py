@@ -118,6 +118,7 @@ COMMAND_REGISTRY = [
     # ('metagraph_kmer', 'metagraph-kmer', 'K-mer库构建与查询分析工具|K-mer library construction and query tool'),
     ('meme_parser', 'meme-parser', 'MEME Motif发现和解析工具|MEME Motif discovery and parser tool'),
     ('microsynteny', 'microsynteny', '微观共线性分析工具|Microsynteny analysis tool'),
+    ('minibwa', 'minibwa', 'Minibwa短读长比对（标准/Hi-C/BS-seq/长读）|Minibwa short-read alignment (standard/Hi-C/BS-seq/long-read)'),
     ('ncbi_taxo', 'ncbi-taxo', 'NCBI分类学注释工具|NCBI Taxonomy Annotation Tool'),
     ('ocbsa', 'ocbsa', 'BSA分析工具套件|BSA Analysis Tool Suite'),
     ('minimap2', 'minimap2', 'Minimap2比对与区域提取|Minimap2 alignment and region extraction'),
