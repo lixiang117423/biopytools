@@ -147,6 +147,7 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [extract_reads](./docs/extract_reads.md) - 基于contig-reads对应关系提取fastq reads（`biopytools extract-reads`）
 - [longestmrna](./docs/longest_mrna.md) - 提取最长转录本（`biopytools longest-mrna`）
 - [mafft_fasttree](./docs/mafft_fasttree.md) - 系统发育树构建工具（`biopytools mafft-fasttree`）
+- [minibwa](./docs/minibwa.md) - Minibwa短读长比对（标准/Hi-C/BS-seq/长读）（`biopytools minibwa`）
 - [minimap2](./docs/minimap2.md) - Minimap2比对与区域提取（`biopytools minimap2`）
 - [msa](./docs/msaviz.md) - 多序列比对分析工具（`biopytools msa`）
 - [msaviz](./docs/msaviz.md) - MSA可视化工具（自动比对+可视化）（`biopytools msaviz`）
