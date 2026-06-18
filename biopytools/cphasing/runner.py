@@ -3,12 +3,18 @@ CPhasing命令执行模块|CPhasing Command Execution Module
 
 负责构建和执行CPhasing命令，支持所有子命令
 Responsible for building and executing CPhasing commands, supports all subcommands
+
+⚠️ CPhasing 用 pixi 安装，必须先 source activate_cphasing 才能用
+|⚠️ CPhasing is installed via pixi; must source activate_cphasing first
 """
 
 import os
 from typing import List, Optional
 from .config import CPhasingConfig
-from .utils import CPhasingLogger, CommandRunner, get_conda_env, get_cphasing_env
+from .utils import (
+    CPhasingLogger, CommandRunner,
+    check_cphasing_available, check_cphasing_rs_available,
+)
 
 
 class CPhasingRunner:
@@ -18,6 +24,9 @@ class CPhasingRunner:
     支持两种模式|Supports two modes:
     1. pipeline模式：完整参数封装|Full parameter wrapping
     2. 通用模式：透传子命令和参数|Pass-through subcommand and arguments
+
+    ⚠️ 用户必须先 source activate_cphasing 才能调用，本类不再用 conda run 包装
+    |⚠️ Users must `source activate_cphasing` first; this class no longer wraps with conda run
     """
 
     def __init__(self, config: CPhasingConfig):
@@ -88,6 +97,32 @@ class CPhasingRunner:
 
         return cmd
 
+    def _preflight_check(self) -> bool:
+        """
+        执行前检查 cphasing 和 cphasing-rs 是否可用
+        |Preflight check: cphasing and cphasing-rs must be available
+
+        CPhasing 用 pixi 安装，必须先 source activate_cphasing 激活
+        |CPhasing is installed via pixi; must source activate_cphasing first
+        """
+        ok, info = check_cphasing_available()
+        if not ok:
+            self.logger.error("=" * 60)
+            self.logger.error("cphasing 不可用|cphasing not available")
+            self.logger.error("-" * 60)
+            self.logger.error(info)
+            self.logger.error("=" * 60)
+            return False
+        self.logger.info(f"cphasing 路径|cphasing path: {info}")
+
+        ok, info = check_cphasing_rs_available()
+        if not ok:
+            self.logger.warning(info)
+        else:
+            self.logger.info(f"cphasing-rs 路径|cphasing-rs path: {info}")
+
+        return True
+
     def run(self) -> bool:
         """
         执行CPhasing命令|Execute CPhasing command
@@ -105,24 +140,19 @@ class CPhasingRunner:
         else:
             self._log_generic_config()
 
+        # 预检：cphasing 必须已通过 activate_cphasing 激活到 PATH
+        # |Preflight: cphasing must be in PATH (activated via activate_cphasing)
+        if not self._preflight_check():
+            return False
+
         cmd = self.build_command()
-
-        # conda环境包装|conda env wrapper
-        conda_env = get_conda_env('cphasing')
-        if conda_env:
-            self.logger.info(f"conda环境|Conda env: {conda_env}")
-            cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output'] + cmd
-        else:
-            self.logger.warning("未检测到cphasing conda环境|CPhasing conda env not detected")
-
-        extra_env = get_cphasing_env()
-
         self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
+        # 直接调用 cphasing（不使用 conda run，依赖用户已激活的环境）
+        # |Call cphasing directly (no conda run; rely on user's activated env)
         success, stdout, stderr = self.cmd_runner.run_command(
             cmd,
             description=f"CPhasing {subcommand}",
-            extra_env=extra_env,
         )
 
         if success:

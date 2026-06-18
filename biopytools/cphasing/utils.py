@@ -1,8 +1,15 @@
 """
 CPhasing工具函数模块|CPhasing Utility Functions Module
 
-提供日志管理、命令执行、conda环境包装等辅助功能
-Provides logging, command execution, conda environment wrapping and other utilities
+提供日志管理、命令执行等辅助功能
+Provides logging, command execution and other utilities
+
+⚠️ 重要|IMPORTANT:
+    CPhasing 是用 pixi 安装的，不是普通 conda env。用户必须先 source activate_cphasing
+    才能使用 biopytools cphasing。本模块不再使用 conda run 包装。
+    |CPhasing is installed via pixi, not regular conda env. Users must source
+    activate_cphasing before using biopytools cphasing. This module no longer
+    wraps with conda run.
 """
 
 import os
@@ -17,108 +24,47 @@ from typing import List, Tuple, Optional
 from ..common.paths import get_tool_path, expand_path
 
 
-# CPhasing软件目录（包含bin下的二进制工具）
-# CPhasing software directory (contains binary tools in bin/)
-CPHASING_DIR = get_tool_path(
-    'cphasing',
-    '~/software/CPhasing/CPhasing-main',
-    'CPHASING_DIR'
-)
-
-
-def get_conda_env(command: str) -> Optional[str]:
+def check_cphasing_available() -> Tuple[bool, str]:
     """
-    检测命令是否在conda环境中，返回环境名称
-    Detect if command is in conda environment, returns environment name
+    检查 cphasing 是否在当前 shell 的 PATH 中可用
+    |Check if cphasing is available in the current shell's PATH
 
-    Args:
-        command: 命令名称或完整路径|Command name or full path
+    CPhasing 必须通过 `source ~/software/CPhasing_v0.3.0/bin/activate_cphasing`
+    激活后才能使用（激活脚本通过 pixi 设置 PATH/PYTHONPATH/LD_LIBRARY_PATH）。
+    |CPhasing must be activated via `source .../activate_cphasing` before use
+    (the activation script uses pixi to set PATH/PYTHONPATH/LD_LIBRARY_PATH).
 
     Returns:
-        conda环境名称或None|Conda environment name or None
+        (available, cphasing_path or error_message)
     """
-    cmd_path = shutil.which(command)
-    if cmd_path:
-        match = re.search(r'/envs/([^/]+)', cmd_path)
-        if match:
-            return match.group(1)
-
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
-                if os.path.exists(env_bin):
-                    return env_name
-
-    return None
-
-
-def build_conda_command(command: str, args: List[str]) -> List[str]:
-    """
-    构建conda run命令来运行conda环境中的软件
-    Build conda run command to execute software in conda environment
-
-    Args:
-        command: 命令名称|Command name
-        args: 命令参数列表|Command argument list
-
-    Returns:
-        完整命令列表|Full command list
-    """
-    conda_env = get_conda_env(command)
-    if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
-    return [command] + args
-
-
-def get_cphasing_env() -> dict:
-    """
-    获取CPhasing运行所需的环境变量
-    Get environment variables needed for CPhasing execution
-
-    清理所有可能指向旧版CPhasing的环境变量和路径，
-    确保conda run加载正确的版本
-    Clean all env vars/paths pointing to old CPhasing to ensure correct version
-    """
-    env = os.environ.copy()
-
-    # 移除CPHASING_DIR环境变量，防止指向旧版CPhasing
-    # Remove CPHASING_DIR to prevent pointing to old CPhasing
-    env.pop('CPHASING_DIR', None)
-
-    # 清理PYTHONPATH中的旧CPhasing路径
-    # Clean old CPhasing paths from PYTHONPATH
-    pythonpath = env.get('PYTHONPATH', '')
-    if pythonpath:
-        cleaned = ':'.join(
-            p for p in pythonpath.split(':')
-            if p and 'cphasing' not in p.lower() and 'CPhasing' not in p
-        )
-        env['PYTHONPATH'] = cleaned if cleaned else ''
-
-    # 清理PATH中的旧CPhasing bin路径
-    # Clean old CPhasing bin paths from PATH
-    path = env.get('PATH', '')
-    cleaned_path = ':'.join(
-        p for p in path.split(':')
-        if p and not (
-            '/cphasing/CPhasing' in p or
-            '/Cphasing/CPhasing' in p
-        )
+    cphasing_path = shutil.which('cphasing')
+    if cphasing_path:
+        return True, cphasing_path
+    return False, (
+        "cphasing 不在 PATH 中|cphasing not in PATH.\n"
+        "请先激活 CPhasing 环境|Please activate CPhasing env first:\n"
+        "  source ~/software/CPhasing_v0.3.0/bin/activate_cphasing\n"
+        "（路径根据你的实际安装位置调整|Adjust path to your actual install）"
     )
-    env['PATH'] = cleaned_path
 
-    # 添加新版CPhasing的bin目录到PATH（包含cphasing-rs, allhic等二进制工具）
-    # 不使用os.path.isdir检查，NFS缓存可能导致误判
-    # Add new CPhasing bin to PATH (contains cphasing-rs, allhic, etc.)
-    # Skip os.path.isdir check due to NFS cache issues
-    cphasing_bin = os.path.join(expand_path('~/software/CPhasing/CPhasing-main'), 'bin')
-    env['PATH'] = f"{cphasing_bin}:{env['PATH']}"
 
-    return env
+def check_cphasing_rs_available() -> Tuple[bool, str]:
+    """
+    检查 cphasing-rs（Rust 二进制）是否可用
+    |Check if cphasing-rs (Rust binary) is available
+
+    CPhasing 内部 18 处调用 cphasing-rs，缺失会导致静默失败。
+    |CPhasing internally calls cphasing-rs in 18 places; missing it causes
+    silent failures.
+    """
+    path = shutil.which('cphasing-rs')
+    if path:
+        return True, path
+    return False, (
+        "cphasing-rs 不在 PATH 中|cphasing-rs not in PATH.\n"
+        "通常意味着 activate_cphasing 没正确执行。"
+        "|Usually means activate_cphasing was not sourced correctly."
+    )
 
 
 class CPhasingLogger:
