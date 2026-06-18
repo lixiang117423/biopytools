@@ -173,9 +173,34 @@ class CPhasingLogger:
 class CommandRunner:
     """命令执行器|Command Runner"""
 
+    # 即便退出码为0，stderr里出现这些模式也认为是失败
+    # |Even with exit code 0, these stderr patterns indicate failure
+    # 用于防御上游工具（如CPhasing）吞异常的bug
+    # |Defends against upstream tools (e.g. CPhasing) that swallow exceptions
+    SILENT_FAILURE_PATTERNS = (
+        'Traceback (most recent call last)',
+        'AssertionError',
+        'AttributeError',
+        'RuntimeError',
+        'ValueError: ',
+        'KeyError: ',
+        'IndexError: ',
+        'FileNotFoundError',
+        'PermissionError',
+    )
+
     def __init__(self, logger: logging.Logger, working_dir: Optional[str] = None):
         self.logger = logger
         self.working_dir = working_dir
+
+    def _detect_silent_failure(self, stderr: str) -> Optional[str]:
+        """扫描stderr检测静默失败|Scan stderr for silent failure patterns"""
+        if not stderr:
+            return None
+        for pattern in self.SILENT_FAILURE_PATTERNS:
+            if pattern in stderr:
+                return pattern
+        return None
 
     def run_command(
         self,
@@ -219,9 +244,22 @@ class CommandRunner:
             )
 
             if result.returncode != 0:
-                self.logger.error(f"命令执行失败|Command failed: {description}")
+                self.logger.error(f"命令执行失败|Command failed (rc={result.returncode}): {description}")
                 if result.stderr:
                     self.logger.error(f"错误输出|Error output: {result.stderr[:500]}")
+                return False, result.stdout, result.stderr
+
+            # 兜底：即便退出码为0，stderr里检测异常模式
+            # |Safety net: detect exception patterns in stderr even with exit code 0
+            silent_pattern = self._detect_silent_failure(result.stderr or "")
+            if silent_pattern:
+                self.logger.error(
+                    f"命令静默失败|Silent failure detected: {description} "
+                    f"(rc=0 但stderr含|but stderr contains '{silent_pattern}')"
+                )
+                # 打印完整stderr方便排查|Print full stderr for debugging
+                if result.stderr:
+                    self.logger.error(f"完整stderr|Full stderr:\n{result.stderr[-2000:]}")
                 return False, result.stdout, result.stderr
 
             if result.stdout:
