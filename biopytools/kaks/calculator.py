@@ -40,8 +40,9 @@ class KaKsCalculator:
             cmd = build_conda_command(self.kaks_path, ["-h"])
             self.logger.info(f"命令|Command: {' '.join(cmd)}")
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
-            if result.returncode != 0:
-                raise FileNotFoundError()
+            combined_output = (result.stdout + result.stderr).lower()
+            if "kaks_calculator" not in combined_output and "usage" not in combined_output:
+                raise FileNotFoundError(f"KaKs_Calculator not found or unexpected output")
             self.logger.success("KaKs_Calculator2.0 可用|KaKs_Calculator2.0 is available")
         except (FileNotFoundError, subprocess.TimeoutExpired):
             self.logger.error("未找到KaKs_Calculator2.0|KaKs_Calculator2.0 not found")
