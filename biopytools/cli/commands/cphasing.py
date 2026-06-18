@@ -85,13 +85,23 @@ def _lazy_import_cphasing_main():
 @click.option('--low-memory',
               is_flag=True,
               help='低内存模式|Low memory mode')
+@click.option('--no-haplotype-cluster',
+              is_flag=True,
+              default=False,
+              help='禁用亚基因组聚类（默认开启，仅在pipeline/scaffolding子命令生效）'
+                   '|Disable subgenome clustering (default ON; only applies to pipeline/scaffolding)')
 def cphasing(subcommand, fasta, hic1, hic2, groups, threads, mode, preset,
              output_dir, steps, skip_steps, hic_aligner, hic_mapper_k,
-             hic_mapper_w, mapping_quality, hcr, pattern, low_memory):
+             hic_mapper_w, mapping_quality, hcr, pattern, low_memory,
+             no_haplotype_cluster):
     """
     CPhasing基因组分相和挂载工具|CPhasing Genome Phasing and Scaffolding Tool
 
     支持所有CPhasing子命令|Supports all CPhasing subcommands
+
+    默认在 pipeline/scaffolding 子命令启用 --enable-haplotype-cluster（亚基因组聚类）
+    |Subgenome clustering (--enable-haplotype-cluster) is enabled by default for pipeline/scaffolding
+    使用 --no-haplotype-cluster 关闭|Use --no-haplotype-cluster to disable
 
     示例|Examples: biopytools cphasing -i genome.fa --hic1 R1.fq.gz --hic2 R2.fq.gz -t 12 -n 16:2
     """
@@ -152,8 +162,22 @@ def cphasing(subcommand, fasta, hic1, hic2, groups, threads, mode, preset,
     if low_memory:
         args.append('--low-memory')
 
+    # 默认启用亚基因组聚类（仅 pipeline/scaffolding 子命令支持该选项）
+    # |Enable subgenome clustering by default (only pipeline/scaffolding support it)
+    # 该选项属于CPhasing子命令参数，必须放入透传区（'--'之后），不能加在已知选项区
+    # |This is a CPhasing subcommand option, must go in pass-through zone (after '--')
+    if not no_haplotype_cluster and cphasing_subcommand in ('pipeline', 'scaffolding'):
+        already_set = any(arg in ('--enable-haplotype-cluster', '--enable_haplotype_cluster')
+                          for arg in subcommand_parts)
+        if not already_set:
+            subcommand_parts.append('--enable-haplotype-cluster')
+
     # 透传子命令参数|Pass-through subcommand arguments
-    args.extend(subcommand_parts)
+    # 关键：必须用 '--' 分隔符，否则 main.py 的 argparse 会把未知选项拒掉
+    # |CRITICAL: must use '--' separator, otherwise main.py argparse rejects unknown options
+    if subcommand_parts:
+        args.append('--')
+        args.extend(subcommand_parts)
 
     original_argv = sys.argv
     sys.argv = args

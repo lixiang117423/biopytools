@@ -79,8 +79,12 @@ class CPhasingRunner:
         if self.config.subcommand == "pipeline":
             cmd = self.build_pipeline_command()
         else:
-            # 通用模式：cphasing <subcommand> [extra_args]
-            cmd = ['cphasing', self.config.subcommand] + self.config.extra_args
+            # 通用模式：cphasing <subcommand>|Generic: cphasing <subcommand>
+            cmd = ['cphasing', self.config.subcommand]
+
+        # 透传参数对所有子命令都生效（包括pipeline）
+        # |Pass-through args apply to all subcommands (including pipeline)
+        cmd.extend(self.config.extra_args)
 
         return cmd
 

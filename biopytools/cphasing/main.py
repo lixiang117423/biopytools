@@ -56,12 +56,11 @@ def parse_arguments():
 
     # --- 透传参数分隔符 ---
     # Pass-through argument separator
-    parser.add_argument(
-        '--',
-        dest='extra_args_start',
-        action='store_true',
-        help=argparse.SUPPRESS,
-    )
+    # 注意：argparse 自身会把 '--' 当作"选项结束"标记并自动消费，
+    # 所以这里不注册 '--' 为参数，而是在 main() 中预处理 sys.argv
+    # |Note: argparse treats '--' as end-of-options marker and consumes it
+    # automatically. We don't register '--' here; instead we preprocess
+    # sys.argv in main() to extract pass-through args before argparse runs.
 
     # --- pipeline 专用参数 ---
     # pipeline-specific parameters
@@ -160,21 +159,28 @@ def main():
     """
     主函数|Main function
     """
-    args = parse_arguments()
+    # 预处理sys.argv：把'--'之后的部分提取出来作为透传参数
+    # |Preprocess sys.argv: extract args after '--' as pass-through
+    # 必须在argparse之前做，否则argparse会把'--'后的位置参数当成多余位置参数报错
+    # |Must be done before argparse, otherwise argparse errors on extra positionals
+    if '--' in sys.argv:
+        sep_idx = sys.argv.index('--')
+        extra_args = sys.argv[sep_idx + 1:]
+        # 临时截断sys.argv，让argparse只看到'--'之前的部分
+        # |Temporarily truncate sys.argv so argparse only sees pre-'--' part
+        original_argv = sys.argv
+        sys.argv = sys.argv[:sep_idx]
+    else:
+        extra_args = []
+        original_argv = None
 
     try:
-        # 收集透传参数|Collect pass-through arguments
-        # sys.argv中在'--'之后的所有参数都透传给CPhasing
-        # All arguments after '--' in sys.argv are passed through to CPhasing
-        extra_args = []
-        passthrough = False
-        for arg in sys.argv[1:]:
-            if arg == '--':
-                passthrough = True
-                continue
-            if passthrough:
-                extra_args.append(arg)
+        args = parse_arguments()
+    finally:
+        if original_argv is not None:
+            sys.argv = original_argv
 
+    try:
         config = CPhasingConfig(
             subcommand=args.subcommand,
             fasta=args.fasta,
