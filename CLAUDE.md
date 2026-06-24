@@ -1,12 +1,13 @@
 # BioPyTools Python代码开发规范文档
 
-## 版本: 2.13
-## 日期: 2026-04-09
+## 版本: 2.14
+## 日期: 2026-06-24
 ## 用途: 统一所有生信分析模块的代码结构、命名规范、日志格式
 
 ## 目录|Table of Contents
 
 - [重要警告|CRITICAL WARNING](#-重要警告critical-warning)
+- [禁止在超算上Git提交|No Git Commits on Supercomputer](#-禁止在超算上执行-git-提交forbidden-git-commits-on-the-supercomputer)
 - [一、模块化结构规范](#一模块化结构规范)
 - [二、日志格式规范](#二日志格式规范)
 - [三、命令行参数规范](#三命令行参数规范)
@@ -54,6 +55,40 @@ tool_path = get_tool_path('tool', '~/miniforge3/bin/tool', 'TOOL_PATH')
 - 🔴 破坏代码可移植性|Breaks code portability
 
 **参考|Reference:** 详见第十一章|See Section 11 for details
+
+---
+
+## 🚫 禁止在超算上执行 Git 提交|FORBIDDEN: Git Commits on the Supercomputer
+
+> **⚠️ AI 在超算（登录节点/计算节点）上开发时，严禁执行任何 Git 写操作**
+> **When developing on the supercomputer, AI MUST NOT perform ANY Git write operations**
+
+❌ **超算上严禁执行|STRICTLY FORBIDDEN on the supercomputer:**
+```bash
+git add ...        # ❌ 禁止|Forbidden
+git commit ...     # ❌ 禁止|Forbidden
+git push ...       # ❌ 禁止|Forbidden
+git tag ...        # ❌ 禁止|Forbidden
+```
+
+✅ **超算上允许执行|ALLOWED on the supercomputer:**
+```bash
+git status         # ✅ 可查看改动|View changes
+git diff           # ✅ 可查看差异|View diff
+# 编辑代码、运行测试、提交计算任务均可|Edit code, run tests, submit jobs are all fine
+```
+
+**原因|Reason:**
+1. 超算出网受限，`git push` 几乎总是失败|Supercomputer has restricted egress; push almost always fails
+2. 超算上的 `.git` **不会同步到本地**（`copybiopytools` 已排除 `.git/`），在超算 commit 会产生与本地/GitHub 分叉的历史，需复杂的 rebase 整理|.git on the supercomputer is never synced (copybiopytools excludes .git/); committing there creates divergent history requiring complex rebase
+3. **代码提交的唯一入口是本地 Mac**|The only entry point for commits is the local Mac
+
+**正确工作流|Correct Workflow:**
+1. **超算**：只编辑代码，**不碰 git 写操作**|Supercomputer: edit code only, no git write operations
+2. **同步**：本地执行 `copybiopytools` 把超算工作区同步到本地（仅同步代码文件，不含 `.git/`）|Sync: run copybiopytools locally to pull the supercomputer worktree (code files only, no .git/)
+3. **本地 Mac**：由 Claude 检查改动 → commit（遵循第 10.1 节 message 规范）→ push 到 GitHub|Mac: Claude reviews changes → commits (per §10.1 message spec) → pushes to GitHub
+
+> 📌 一句话：**超算只写代码，Mac 才提交。|The supercomputer writes code only; the Mac is the only place commits happen.**
 
 ---
 
@@ -844,7 +879,10 @@ class ModuleLogger:
 
 ### 10.1 版本控制规范|Version Control
 
-**增删代码或文档，必须使用 Git 进行记录。** 推荐 commit message 格式如下：
+> ⚠️ **代码提交只在本地 Mac 进行；超算上严禁任何 Git 写操作**（详见文档顶部"禁止在超算上执行 Git 提交"）。
+> Code is committed ONLY on the local Mac; Git write operations are forbidden on the supercomputer (see top-of-document warning).
+
+超算上开发完成后，用 `copybiopytools` 同步到本地，由本地 Claude 统一 commit + push。推荐 commit message 格式如下：
 
 ```
 <类型>(<模块>): <中文描述>
@@ -2072,6 +2110,7 @@ conda run -n GATK_v.4.6.2.0 samtools view -b -@ 64 -o output.bam -
 
 | 版本 | 日期 | 主要变更|Major Changes |
 |------|------|----------|
+| 2.14 | 2026-06-24 | 新增"禁止在超算上执行 Git 提交"规范（顶部醒目警告 + 修订 10.1）：明确超算只写代码不 commit，提交统一在本地 Mac 由 Claude 完成；配套 `copybiopytools` 增加 `--exclude='.git/'` |
 | 2.13 | 2026-04-09 | 文档质量改进：修正版本号不一致(2.11→2.12)；修复测试断言缺少--no-capture-output；裸except改为except Exception；修复示例代码中的硬编码绝对路径（software_versions.yml模板、管道方案A）；补全generate_software_versions_yml的end_time/runtime_seconds字段使其与模板一致；添加目录导航 |
 | 2.12 | 2026-03-17 | 完善Conda调用规范：新增13.2.0强制要求--no-capture-output参数，避免conda缓冲输出导致CondaMemoryError；更新build_conda_command示例代码 |
 | 2.11 | 2026-03-17 | 新增命令执行日志规范（2.2.1）：强制要求所有外部命令执行前记录完整命令到INFO级别；禁止只记录描述不记录命令；添加代码审查检查点（7.5）；提升工具透明度和可重复性 |
