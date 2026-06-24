@@ -5,7 +5,7 @@
 import os
 import pandas as pd
 from pathlib import Path
-from .utils import CommandRunner
+from .utils import CommandRunner, build_conda_command
 
 class VCFProcessor:
     """ VCF处理器|VCF Processor"""
@@ -226,18 +226,22 @@ class PlinkProcessor:
         #  检测染色体数量|Detect chromosome count
         chr_count = self._detect_chromosome_count(vcf_file)
         
-        cmd = (
-            f"plink --vcf {vcf_file} --make-bed --out {output_prefix} "
-            f"--allow-extra-chr --double-id"
-        )
+        # 构建参数列表（§13：list + build_conda_command + shell=False）|Build arg list (§13)
+        args = [
+            "--vcf", vcf_file,
+            "--make-bed", "--out", output_prefix,
+            "--allow-extra-chr", "--double-id",
+            "--threads", str(self.config.threads),
+        ]
         
         # 如果染色体数量确定且小于95，添加autosome-num参数
         if chr_count and chr_count < 95:
-            cmd += f" --autosome-num {chr_count}"
+            args += ["--autosome-num", str(chr_count)]
             self.logger.info(f"设置autosome-num参数为 {chr_count}|Set autosome-num parameter to {chr_count}")
         else:
             self.logger.info("未设置autosome-num参数|autosome-num parameter not set")
         
+        cmd = build_conda_command("plink", args)
         self.cmd_runner.run(cmd, "VCF转换为PLINK格式|Convert VCF to PLINK format")
         return output_prefix
     
@@ -250,25 +254,29 @@ class PlinkProcessor:
         
         #  MAF过滤|MAF filtering
         maf_prefix = f"{output_prefix}_maf"
-        cmd_maf = (
-            f"plink --bfile {input_prefix} --maf {self.config.maf} "
-            f"--make-bed --out {maf_prefix} --allow-extra-chr"
-        )
+        cmd_maf = build_conda_command("plink", [
+            "--bfile", input_prefix, "--maf", str(self.config.maf),
+            "--make-bed", "--out", maf_prefix,
+            "--allow-extra-chr", "--threads", str(self.config.threads),
+        ])
         self.cmd_runner.run(cmd_maf, "MAF过滤|MAF filtering (>=0.01)")
         
         #  HWE过滤|HWE filtering
         hwe_prefix = f"{output_prefix}_hwe"
-        cmd_hwe = (
-            f"plink --bfile {maf_prefix} --hwe {self.config.hwe_pvalue} "
-            f"--make-bed --out {hwe_prefix} --allow-extra-chr"
-        )
+        cmd_hwe = build_conda_command("plink", [
+            "--bfile", maf_prefix, "--hwe", str(self.config.hwe_pvalue),
+            "--make-bed", "--out", hwe_prefix,
+            "--allow-extra-chr", "--threads", str(self.config.threads),
+        ])
         self.cmd_runner.run(cmd_hwe, "HWE过滤|HWE filtering (p>1e-06)")
         
         #  缺失率过滤|Missing rate filtering
-        cmd_missing = (
-            f"plink --bfile {hwe_prefix} --geno {self.config.missing_rate} "
-            f"--mind {self.config.missing_rate} --make-bed --out {output_prefix} --allow-extra-chr"
-        )
+        cmd_missing = build_conda_command("plink", [
+            "--bfile", hwe_prefix,
+            "--geno", str(self.config.missing_rate), "--mind", str(self.config.missing_rate),
+            "--make-bed", "--out", output_prefix,
+            "--allow-extra-chr", "--threads", str(self.config.threads),
+        ])
         self.cmd_runner.run(cmd_missing, "缺失率过滤|Missing rate filtering (<0.1)")
         
         #  记录质控后统计信息
@@ -278,6 +286,70 @@ class PlinkProcessor:
         if not self.config.keep_intermediate:
             self._cleanup_intermediate_files([maf_prefix, hwe_prefix])
         
+        return output_prefix
+
+    def ld_prune(self, input_prefix: str) -> str:
+        """
+        LD剪枝：去除高度连锁SNP，保留代表性SNP|LD pruning: remove linked SNPs, keep representative ones
+
+        使用PLINK --indep-pairwise 去除高度连锁的SNP（参考ADMIXTURE手册§2.3）。
+        Uses PLINK --indep-pairwise to remove highly linked SNPs (ref: ADMIXTURE manual §2.3).
+
+        Args:
+            input_prefix: 输入PLINK文件前缀（已质控）|Input PLINK prefix (already QC'd)
+
+        Returns:
+            剪枝后的PLINK文件前缀；未开启时原样返回|Pruned PLINK prefix; unchanged when disabled
+        """
+        # 未开启LD剪枝时直接返回|Return directly when LD pruning is disabled
+        if not self.config.ld_prune:
+            self.logger.info("已关闭LD剪枝，跳过|LD pruning disabled, skipping")
+            return input_prefix
+
+        self.logger.info("LD剪枝：去除高度连锁SNP|LD pruning: removing linked SNPs")
+        output_prefix = f"{input_prefix}_ld"
+
+        # 记录剪枝前样本/SNP数|Log sample/SNP counts before pruning
+        self._log_qc_stats(input_prefix, "LD剪枝前|Before LD pruning")
+
+        # 步骤1：计算连锁，生成prune.in/prune.out|Step 1: compute LD, generate prune.in/prune.out
+        prune_prefix = f"{output_prefix}_prune"
+        cmd_prune = build_conda_command("plink", [
+            "--bfile", input_prefix,
+            "--keep-allele-order", "--real-ref-alleles",
+            "--allow-extra-chr", "--double-id",
+            "--threads", str(self.config.threads),
+            "--indep-pairwise",
+            self.config.ld_window, str(self.config.ld_step), str(self.config.ld_r2),
+            "--out", prune_prefix,
+        ])
+        self.cmd_runner.run(cmd_prune, "LD剪枝计算|LD pruning computation")
+
+        # 步骤2：提取非连锁SNP|Step 2: extract unlinked SNPs
+        cmd_extract = build_conda_command("plink", [
+            "--bfile", input_prefix,
+            "--extract", f"{prune_prefix}.prune.in",
+            "--keep-allele-order", "--real-ref-alleles",
+            "--allow-extra-chr", "--double-id",
+            "--threads", str(self.config.threads),
+            "--make-bed", "--out", output_prefix,
+        ])
+        self.cmd_runner.run(cmd_extract, "提取非连锁SNP|Extracting unlinked SNPs")
+
+        # 记录剪枝后样本/SNP数|Log sample/SNP counts after pruning
+        self._log_qc_stats(output_prefix, "LD剪枝后|After LD pruning")
+
+        # 清理中间文件（prune.in/prune.out 不在 _cleanup_intermediate_files 覆盖范围内）|Clean intermediates
+        if not self.config.keep_intermediate:
+            self._cleanup_intermediate_files([prune_prefix])
+            for ext in ['prune.in', 'prune.out']:
+                prune_file = f"{prune_prefix}.{ext}"
+                try:
+                    if os.path.exists(prune_file):
+                        os.remove(prune_file)
+                except OSError as e:
+                    self.logger.warning(f"清理失败|Failed to clean {prune_file}: {e}")
+
         return output_prefix
 
     # ===== 新增的两个方法 =====
@@ -359,7 +431,7 @@ class PlinkProcessor:
         for ext in ['bed', 'fam']:
             src_file = f"{plink_prefix}.{ext}"
             dst_file = f"{fixed_prefix}.{ext}"
-            cmd = f"cp {src_file} {dst_file}"
+            cmd = build_conda_command("cp", [src_file, dst_file])
             self.cmd_runner.run(cmd, f"复制{ext.upper()}文件|Copy {ext.upper()} file")
         
         #  修改bim文件中的染色体编号|Modify chromosome codes in bim file

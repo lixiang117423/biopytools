@@ -82,9 +82,13 @@ class AdmixtureAnalyzer:
                 self.logger.info("步骤3: 质量控制|Step 3: Quality control")
                 qc_prefix = self.plink_processor.quality_control(raw_prefix)
 
+            # LD剪枝：去除高度连锁SNP|LD pruning: remove linked SNPs
+            self.logger.info("步骤: LD剪枝|Step: LD pruning")
+            pruned_prefix = self.plink_processor.ld_prune(qc_prefix)
+
             # 修复染色体编号|Fix chromosome codes
             self.logger.info("步骤: 修复染色体编号|Step: Fixing chromosome codes")
-            fixed_prefix = self.plink_processor.fix_chromosome_codes(qc_prefix)
+            fixed_prefix = self.plink_processor.fix_chromosome_codes(pruned_prefix)
 
             # 更新配置中的 base_name，以匹配ADMIXTURE分析的实际输入文件名
             # 更新分析文件基础名称，以匹配ADMIXTURE分析的实际输入文件名
@@ -177,6 +181,16 @@ def main():
     parser.add_argument("-H", "--hwe", type=float, default=1e-6,
                        help="HWE p值阈值|HWE p-value threshold")
 
+    # LD剪枝参数|LD pruning parameters
+    parser.add_argument("--no-ld-prune", action="store_true",
+                       help="关闭LD剪枝(默认开启)|Disable LD pruning (on by default)")
+    parser.add_argument("--ld-window", default="3000kb",
+                       help="LD剪枝窗口(kb或SNP数)|LD pruning window (kb or SNP count)")
+    parser.add_argument("--ld-step", type=int, default=1,
+                       help="LD剪枝步长|LD pruning step size")
+    parser.add_argument("--ld-r2", type=float, default=0.2,
+                       help="LD剪枝r2阈值|LD pruning r2 threshold")
+
     # 处理选项|Processing options
     parser.add_argument("-s", "--skip-preprocessing", action="store_true",
                        help="跳过VCF预处理和质控|Skip VCF preprocessing and QC")
@@ -237,6 +251,10 @@ def main():
         maf=args.maf,
         missing_rate=args.missing,
         hwe_pvalue=args.hwe,
+        ld_prune=not args.no_ld_prune,
+        ld_window=args.ld_window,
+        ld_step=args.ld_step,
+        ld_r2=args.ld_r2,
         skip_preprocessing=args.skip_preprocessing,
         keep_intermediate=args.keep_intermediate,
         log_level=log_level,

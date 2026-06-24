@@ -39,6 +39,12 @@ class AdmixtureConfig:
     missing_rate: float = 0.1
     hwe_pvalue: float = 1e-6
 
+    # LD剪枝参数|LD pruning parameters
+    ld_prune: bool = True
+    ld_window: str = "3000kb"   # 窗口，支持kb或SNP数|window in kb or SNP count
+    ld_step: int = 1            # 步长|step size
+    ld_r2: float = 0.2          # r2阈值|r2 threshold
+
     # 处理选项|Processing options
     skip_preprocessing: bool = False
     keep_intermediate: bool = False
@@ -91,6 +97,10 @@ class AdmixtureConfig:
 
         if not 0 <= self.missing_rate <= 1:
             errors.append(f"缺失率应在0-1之间|Missing rate should be between 0-1: {self.missing_rate}")
+
+        # 检查LD剪枝参数|Check LD pruning parameters
+        if not 0 < self.ld_r2 < 1:
+            errors.append(f"LD剪枝r2阈值应在0-1之间|LD pruning r2 should be between 0 and 1: {self.ld_r2}")
 
         if errors:
             raise ValueError("配置错误|Configuration error:\n" + "\n".join(errors))
