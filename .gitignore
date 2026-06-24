@@ -267,6 +267,12 @@ secrets.yaml
 restructure_modules.py
 test_import.py
 
+# 重复的代码规范文档（规范以根目录 CLAUDE.md 为准）|Duplicate coding spec (canonical is root CLAUDE.md)
+biopytools/CLAUDE.md
+
+# Claude Code superpowers 规划/规格草稿（过程产物，不入库）|Claude Code superpowers plan/spec drafts (process artifacts)
+docs/superpowers/
+
 # ==============================================================================
 # BIOPYTOOLS MODULE EXCLUSIONS
 # ==============================================================================
