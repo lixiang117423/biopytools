@@ -138,6 +138,87 @@ class RMVPResultParser:
 
         return saved_files
 
+    def merge_results_by_significance(self, trait_names: List[str],
+                                      models: List[str],
+                                      p_threshold: float = 1e-5) -> Dict[str, pd.DataFrame]:
+        """
+        按模型合并多表型的GWAS结果|Merge multi-trait GWAS results per model
+
+        - 去掉 P-value 为 NA 的行|Drop rows with NA P-value
+        - P-value < 阈值的显著位点全部保留|Keep all significant sites (P < threshold)
+        - P-value >= 阈值的非显著位点按 SNP 去冗余（仅保留一条）|Dedup non-significant sites by SNP (keep first)
+        - 每个模型输出一个合并文件|Output one merged file per model
+
+        Args:
+            trait_names: 表型名称列表|List of trait names
+            models: 模型列表|List of models
+            p_threshold: 显著性P值阈值|Significance P-value threshold (default 1e-5)
+
+        Returns:
+            字典 {模型: 合并后的DataFrame}|Dict {model: merged DataFrame}
+        """
+        self.logger.info(f" 按显著性合并结果（阈值 P < {p_threshold}）|Merging results by significance (threshold P < {p_threshold})")
+
+        merged_results: Dict[str, pd.DataFrame] = {}
+
+        for model in models:
+            model_lower = model.lower()
+
+            # 收集该模型所有表型的pmap文件|Collect pmap files for all traits of this model
+            df_list = []
+            for trait in trait_names:
+                pmap_file = self.output_dir / f"{self.output_prefix}_{trait}.{model_lower}.pmap"
+                if not pmap_file.exists():
+                    self.logger.warning(f"   文件不存在|File does not exist: {pmap_file.name}")
+                    continue
+
+                try:
+                    df = pd.read_csv(pmap_file, sep='\t')
+                except Exception as e:
+                    self.logger.warning(f"   读取文件失败|Failed to read file {pmap_file.name}: {e}")
+                    continue
+
+                # 确定P值列（优先p_value，回退最后一列）|Determine P-value column (prefer p_value, fallback to last)
+                pvalue_col = 'p_value' if 'p_value' in df.columns else df.columns[-1]
+
+                # 去掉P值为NA的行|Drop rows with NA P-value
+                df = df[df[pvalue_col].notna()].copy()
+                df['P_value'] = df[pvalue_col]
+                if pvalue_col != 'P_value':
+                    df = df.drop(columns=[pvalue_col])
+                df['Source'] = trait  # 来源表型|Source trait
+                df_list.append(df)
+                self.logger.info(f"   {pmap_file.name}: {len(df)} 有效行|valid rows")
+
+            if not df_list:
+                self.logger.warning(f"   [{model}] 无匹配文件，跳过|[{model}] No matching files, skipping")
+                continue
+
+            self.logger.info(f"   [{model}] {len(df_list)} 个文件|[{model}] {len(df_list)} files")
+
+            # 拼接所有表型的结果|Concatenate results from all traits
+            merged = pd.concat(df_list, ignore_index=True)
+
+            # 显著位点全部保留，非显著位点按SNP去冗余|Keep all significant, dedup non-significant by SNP
+            sig = merged[merged['P_value'] < p_threshold]
+            nonsig = merged[merged['P_value'] >= p_threshold]
+            nonsig_dedup = nonsig.drop_duplicates(subset='SNP', keep='first')
+
+            merged_final = pd.concat([sig, nonsig_dedup], ignore_index=True)
+            # Source列置于首位|Put Source column first
+            merged_final = merged_final[['Source'] + [c for c in merged_final.columns if c != 'Source']]
+
+            outfile = self.output_dir / f"{self.output_prefix}_merged_{model}.csv"
+            merged_final.to_csv(outfile, index=False)
+
+            self.logger.info(f"   显著位点 (P < {p_threshold})|Significant sites: {len(sig)} 行|rows (全部保留|all kept)")
+            self.logger.info(f"   非显著位点 (P >= {p_threshold})|Non-significant sites: {len(nonsig)} -> {len(nonsig_dedup)} 行|rows (去冗余|deduped)")
+            self.logger.info(f"   最终|Final: {len(merged_final)} 行|rows -> {outfile.name}")
+
+            merged_results[model] = merged_final
+
+        return merged_results
+
     def collect_output_files(self, trait_names: List[str],
                             models: List[str]) -> Dict[str, List[Path]]:
         """

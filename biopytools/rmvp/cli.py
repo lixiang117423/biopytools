@@ -234,6 +234,13 @@ def main():
             if integrated_results:
                 result_parser.save_integrated_results(integrated_results)
 
+            # 多表型时按显著性合并结果（>1个表型自动启动）|Merge by significance when multiple traits (>1) detected
+            if len(trait_names) > 1:
+                logger.info(f"\n检测到{len(trait_names)}个表型，启动结果合并|Detected {len(trait_names)} traits, starting result merge")
+                result_parser.merge_results_by_significance(trait_names, args.models)
+            else:
+                logger.info(f"\n仅{len(trait_names)}个表型，跳过结果合并|Only {len(trait_names)} trait, skipping result merge")
+
             # 收集输出文件|Collect output files
             files = result_parser.collect_output_files(trait_names, args.models)
 
