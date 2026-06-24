@@ -66,8 +66,8 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     conda_env = get_conda_env(command)
 
     if conda_env:
-        # 使用 conda run|Use conda run
-        full_cmd = ['conda', 'run', '-n', conda_env, command] + args
+        # 使用 conda run，必须加 --no-capture-output 避免 conda 缓冲输出导致内存溢出|Use conda run, must add --no-capture-output to avoid OOM from conda buffering (§13.2.0)
+        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     else:
         # 直接调用|Direct call
         full_cmd = [command] + args
