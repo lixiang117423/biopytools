@@ -132,6 +132,28 @@ def _validate_directory_exists(dir_path):
               default=0.05,
               show_default=True,
               help='显著性阈值|Significance threshold')
+@click.option('--ld-pruning/--no-ld-pruning',
+              'ld_pruning',
+              default=True,
+              show_default=True,
+              help='LD去连锁（默认开启）：kinship/PCA在去连锁SNP上计算，GWAS用全部SNP|LD pruning (default on): K/PCA on pruned SNPs, GWAS uses all SNPs')
+@click.option('--ld-window',
+              default='3000kb',
+              show_default=True,
+              help='LD修剪窗口|LD pruning window (e.g. 3000kb or 500)')
+@click.option('--ld-step',
+              type=int,
+              default=1,
+              show_default=True,
+              help='LD修剪步长|LD pruning step size')
+@click.option('--ld-r2',
+              type=float,
+              default=0.2,
+              show_default=True,
+              help='LD r2阈值|LD r2 threshold')
+@click.option('--plink-path',
+              default=None,
+              help='PLINK可执行文件路径|PLINK executable path (default: conda env Population_genetics)')
 @click.option('--log-level',
               type=click.Choice(['DEBUG', 'INFO', 'WARN', 'ERROR']),
               default='INFO',
@@ -191,6 +213,19 @@ def rmvp(**kwargs):
     argv.extend(['--file-type', kwargs['file_type']])
     argv.extend(['--dpi', str(kwargs['dpi'])])
     argv.extend(['--threshold', str(kwargs['threshold'])])
+
+    # LD去连锁参数（仅非默认值透传）|LD pruning params (non-defaults only)
+    if not kwargs['ld_pruning']:
+        argv.append('--no-ld-pruning')
+    if kwargs['ld_window'] != '3000kb':
+        argv.extend(['--ld-window', kwargs['ld_window']])
+    if kwargs['ld_step'] != 1:
+        argv.extend(['--ld-step', str(kwargs['ld_step'])])
+    if kwargs['ld_r2'] != 0.2:
+        argv.extend(['--ld-r2', str(kwargs['ld_r2'])])
+    if kwargs['plink_path']:
+        argv.extend(['--plink-path', kwargs['plink_path']])
+
     argv.extend(['--log-level', kwargs['log_level']])
 
     if kwargs['quiet']:

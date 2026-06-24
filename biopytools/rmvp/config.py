@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
 
+from ..common.paths import expand_path, get_tool_path
+
 
 @dataclass
 class RMVPConfig:
@@ -49,6 +51,20 @@ class RMVPConfig:
     maf: Optional[float] = None  # 最小等位基因频率阈值
     miss: Optional[float] = None  # 缺失率阈值
 
+    # LD去连锁参数|LD pruning parameters（kinship/PCA在去连锁SNP上计算，GWAS用全部SNP）
+    # Kinship/PCA computed on LD-pruned SNPs, GWAS uses all SNPs
+    ld_pruning: bool = True  # 是否开启LD去连锁|Enable LD pruning (default True)
+    ld_window: str = "3000kb"  # --indep-pairwise窗口|indep-pairwise window (SNP数或带kb后缀|SNP count or with kb suffix)
+    ld_step: int = 1  # --indep-pairwise步长|indep-pairwise step size
+    ld_r2: float = 0.2  # --indep-pairwise r2阈值|indep-pairwise r2 threshold
+    plink_path: str = field(  # PLINK可执行文件路径|PLINK executable path
+        default_factory=lambda: get_tool_path(
+            'plink',
+            '~/miniforge3/envs/Population_genetics/bin/plink',
+            'PLINK_PATH'
+        )
+    )
+
     # 输出控制|Output control
     file_output: List[str] = field(default_factory=lambda: ["pmap", "pmap.signal", "plot", "log"])
     file_type: str = "jpg"  # 图片格式: "jpg", "pdf", "tiff"
@@ -76,6 +92,9 @@ class RMVPConfig:
         # 展开r_path（如果提供）|Expand r_path (if provided)
         if self.r_path:
             self.r_path = str(Path(self.r_path).expanduser())
+
+        # 展开plink路径|Expand plink path
+        self.plink_path = expand_path(self.plink_path)
 
         # 规范化模型名称|Normalize model names
         # rMVP的模型名称：GLM, MLM, FarmCPU（注意大小写）|rMVP model names: GLM, MLM, FarmCPU (case-sensitive)
@@ -120,3 +139,16 @@ class RMVPConfig:
 
         if self.method_bin not in ["static", "fast-lmm"]:
             raise ValueError("method_bin必须是|method_bin must be one of: static, fast-lmm")
+
+        # LD去连锁参数校验|LD pruning parameter validation
+        if self.ld_pruning:
+            if not Path(self.plink_path).exists():
+                raise ValueError(
+                    f"PLINK不存在|PLINK not found: {self.plink_path}\n"
+                    f"请设置 --plink-path 或环境变量 PLINK_PATH，或配置 ~/.config/biopytools/config.yml\n"
+                    f"Set --plink-path or env PLINK_PATH, or configure ~/.config/biopytools/config.yml"
+                )
+            if not 0 < self.ld_r2 <= 1:
+                raise ValueError(f"ld_r2必须在(0, 1]之间|ld_r2 must be in (0, 1]: {self.ld_r2}")
+            if self.ld_step < 1:
+                raise ValueError(f"ld_step必须 >= 1|ld_step must be >= 1: {self.ld_step}")

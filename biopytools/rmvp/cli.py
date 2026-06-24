@@ -129,6 +129,26 @@ def parse_arguments():
                         default=0.05,
                         help='显著性阈值|Significance threshold (default: 0.05)')
 
+    # LD去连锁参数|LD pruning parameters（kinship/PCA在去连锁SNP上计算，GWAS用全部SNP）
+    parser.add_argument('--ld-pruning',
+                        dest='ld_pruning', action='store_true', default=True,
+                        help='开启LD去连锁（默认）|Enable LD pruning (default): K/PCA on pruned SNPs')
+    parser.add_argument('--no-ld-pruning',
+                        dest='ld_pruning', action='store_false',
+                        help='关闭LD去连锁，K/PCA用全部SNP|Disable LD pruning, K/PCA use all SNPs')
+    parser.add_argument('--ld-window',
+                        default='3000kb',
+                        help='LD修剪窗口|LD pruning window (e.g. 3000kb 或|or 500, default: 3000kb)')
+    parser.add_argument('--ld-step',
+                        type=int, default=1,
+                        help='LD修剪步长|LD pruning step size (default: 1)')
+    parser.add_argument('--ld-r2',
+                        type=float, default=0.2,
+                        help='LD r2阈值|LD r2 threshold (default: 0.2)')
+    parser.add_argument('--plink-path',
+                        default=None,
+                        help='PLINK可执行文件路径|PLINK executable path (default: conda env Population_genetics)')
+
     # 日志选项|Logging options
     parser.add_argument('--log-level',
                         choices=['DEBUG', 'INFO', 'WARN', 'ERROR'],
@@ -191,8 +211,13 @@ def main():
             file_type=args.file_type,
             dpi=args.dpi,
             threshold=args.threshold,
+            ld_pruning=args.ld_pruning,
+            ld_window=args.ld_window,
+            ld_step=args.ld_step,
+            ld_r2=args.ld_r2,
             log_level=args.log_level,
-            verbose=not args.quiet
+            verbose=not args.quiet,
+            **({'plink_path': args.plink_path} if args.plink_path else {})
         )
 
         # 验证配置|Validate config

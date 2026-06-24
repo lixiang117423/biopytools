@@ -7,7 +7,7 @@ import subprocess
 import logging
 from pathlib import Path
 from datetime import datetime
-from typing import Tuple, Optional
+from typing import Tuple, Optional, List
 
 
 class RMVPLogger:
@@ -349,3 +349,134 @@ def validate_phenotype_file(pheno_file: Path, logger: Optional[logging.Logger] =
         if logger:
             logger.error(f"表型文件验证失败|Phenotype file validation failed: {e}")
         return False, 0
+
+
+class CommandRunner:
+    """命令执行器（列表命令，shell=False）|Command Runner (list cmd, shell=False)"""
+
+    def __init__(self, logger, working_dir):
+        """
+        初始化|Initialize
+
+        Args:
+            logger: 日志对象|Logger object
+            working_dir: 工作目录|Working directory
+        """
+        self.logger = logger
+        self.working_dir = str(working_dir)
+
+    def run(self, cmd: List[str], description: str = "") -> bool:
+        """
+        执行命令|Execute command
+
+        Args:
+            cmd: 命令列表（由build_conda_command()构建）|Command list (built by build_conda_command())
+            description: 步骤描述|Step description
+
+        Returns:
+            是否成功|Whether successful
+        """
+        if description:
+            self.logger.info(f"   {description}")
+
+        # 记录完整命令到INFO级别|Log complete command at INFO level
+        self.logger.info(f"   命令|Command: {' '.join(cmd)}")
+
+        try:
+            result = subprocess.run(
+                cmd,
+                shell=False,  # 传入列表时必须使用shell=False|Must use shell=False with list
+                capture_output=True,
+                text=True,
+                check=False,
+                cwd=self.working_dir
+            )
+
+            if result.returncode != 0:
+                self.logger.error(f"   命令执行失败|Command failed: {description}")
+                self.logger.error(f"   错误代码|Error code: {result.returncode}")
+                if result.stderr:
+                    self.logger.error(f"   错误信息|Error message: {result.stderr.strip()}")
+                return False
+
+            if result.stdout:
+                self.logger.debug(f"   标准输出|Stdout: {result.stdout.strip()}")
+
+            self.logger.info(f"   命令执行成功|Command succeeded: {description}")
+            return True
+
+        except Exception as e:
+            self.logger.error(f"   命令执行异常|Command error: {description}")
+            self.logger.error(f"   异常信息|Exception: {e}")
+            return False
+
+
+def get_conda_env(command: str) -> Optional[str]:
+    """
+    检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name
+
+    Args:
+        command: 命令名称或路径|Command name or path
+
+    Returns:
+        conda环境名称或None|Conda environment name or None
+    """
+    import shutil
+    import re
+
+    # 方法1: 从命令路径检测|Method 1: Detect from command path
+    cmd_path = shutil.which(command)
+    if cmd_path:
+        match = re.search(r'/envs/([^/]+)', cmd_path)
+        if match:
+            return match.group(1)
+    # 命令本身是绝对路径时，直接从路径解析|If command is an absolute path, parse from it
+    if '/' in command:
+        match = re.search(r'/envs/([^/]+)', command)
+        if match:
+            return match.group(1)
+
+    # 方法2: 搜索所有conda环境|Method 2: Search all conda environments
+    conda_exe = os.environ.get('CONDA_EXE')
+    if conda_exe:
+        conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
+        envs_dir = os.path.join(conda_base_dir, 'envs')
+
+        if os.path.exists(envs_dir):
+            for env_name in os.listdir(envs_dir):
+                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
+                if os.path.exists(env_bin):
+                    return env_name
+
+    return None
+
+
+def build_conda_command(command: str, args: List[str]) -> List[str]:
+    """
+    构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment
+
+    Args:
+        command: 命令名称或完整路径|Command name or full path
+        args: 命令参数列表|Command argument list
+
+    Returns:
+        完整命令列表|Complete command list
+
+    重要|IMPORTANT:
+        必须使用--no-capture-output避免conda缓冲输出导致内存问题
+        Must use --no-capture-output to avoid conda buffering output causing memory issues
+    """
+    # 从路径中提取命令名称|Extract command name from path
+    command_name = os.path.basename(command)
+
+    conda_env = get_conda_env(command)
+
+    if conda_env:
+        # 使用conda run调用，只使用命令名称|Use conda run with command name only
+        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command_name] + args
+    else:
+        # 非conda环境，使用完整路径或命令名称|Non-conda environment, use full path or command name
+        full_cmd = [command] + args
+
+    return full_cmd
+

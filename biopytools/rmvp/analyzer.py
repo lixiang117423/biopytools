@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import List, Dict, Optional
 
 from .config import RMVPConfig
-from .utils import RMVPLogger, detect_r_environment, check_r_mvp, validate_vcf_file, validate_phenotype_file, prepare_vcf_for_rmvp
+from .utils import RMVPLogger, detect_r_environment, check_r_mvp, validate_vcf_file, validate_phenotype_file, prepare_vcf_for_rmvp, CommandRunner, build_conda_command
 from .rscript_generator import RMVPRScriptGenerator
 
 
@@ -73,6 +73,15 @@ class RMVPAnalyzer:
             return False
 
         self.logger.info("  rMVP包已安装|rMVP package is installed")
+
+        # 检查PLINK（LD去连锁开启时）|Check PLINK (when LD pruning enabled)
+        if self.config.ld_pruning:
+            self.logger.info("  检查PLINK|Checking PLINK")
+            if not Path(self.config.plink_path).exists():
+                self.logger.error(f"  PLINK不存在|PLINK not found: {self.config.plink_path}")
+                self.logger.error("  请设置 --plink-path 或环境变量 PLINK_PATH|Set --plink-path or env PLINK_PATH")
+                return False
+            self.logger.info(f"  PLINK可用|PLINK available: {self.config.plink_path}")
 
         return True
 
@@ -161,6 +170,81 @@ class RMVPAnalyzer:
             self.logger.error(f" 数据转换失败|Data conversion failed: {e}")
             return False
 
+    def run_ld_pruning(self) -> bool:
+        """
+        LD去连锁：用PLINK修剪连锁SNP，产出去连锁VCF供rMVP计算K/PCA
+        LD pruning: prune linked SNPs with PLINK, produce pruned VCF for rMVP K/PCA
+
+        kinship/PCA在去连锁SNP上计算，GWAS仍用全部SNP
+        Kinship/PCA computed on pruned SNPs, GWAS still uses all SNPs
+
+        Returns:
+            是否成功|Whether successful
+        """
+        output_dir_abs = Path(self.config.output_dir).resolve()
+        prefix = self.config.output_prefix
+        plink_prefix = str(output_dir_abs / f"{prefix}_plink")
+        ld_prefix = str(output_dir_abs / f"{prefix}_ld")
+        pruned_prefix = str(output_dir_abs / f"{prefix}_pruned")
+        pruned_vcf = output_dir_abs / f"{prefix}_pruned.vcf"
+        self.pruned_vcf = str(pruned_vcf)
+
+        # 断点续传：去连锁VCF已存在则跳过|Checkpoint: skip if pruned VCF exists
+        if pruned_vcf.exists():
+            self.logger.info(f"   跳过已完成步骤|Skipping completed step: LD去连锁|LD pruning")
+            self.logger.info(f"   去连锁VCF已存在|Pruned VCF exists: {pruned_vcf}")
+            return True
+
+        self.logger.info(f"   LD去连锁参数|LD pruning params: --indep-pairwise {self.config.ld_window} {self.config.ld_step} {self.config.ld_r2}")
+        self.logger.info(f"   线程数|Threads: {self.config.ncpus}")
+
+        # 公共PLINK参数|Common PLINK args
+        common = [
+            '--keep-allele-order', '--real-ref-alleles',
+            '--allow-extra-chr', '--double-id',
+            '--no-sex', '--no-parents', '--no-fid',
+            '--threads', str(self.config.ncpus),
+        ]
+        cmd_runner = CommandRunner(self.logger, output_dir_abs)
+
+        # 第1步：VCF → PLINK bed|Step 1: VCF to PLINK bed
+        if not cmd_runner.run(
+            build_conda_command(self.config.plink_path,
+                ['--vcf', self.config.vcf_file, '--make-bed', '--out', plink_prefix] + common),
+            "LD去连锁步骤1/4：VCF转PLINK|LD pruning step 1/4: VCF to PLINK"):
+            return False
+
+        # 第2步：LD修剪|Step 2: LD pruning (indep-pairwise)
+        if not cmd_runner.run(
+            build_conda_command(self.config.plink_path,
+                ['--bfile', plink_prefix,
+                 '--indep-pairwise', self.config.ld_window, str(self.config.ld_step), str(self.config.ld_r2),
+                 '--out', ld_prefix] + common),
+            "LD去连锁步骤2/4：LD修剪|LD pruning step 2/4: indep-pairwise"):
+            return False
+
+        # 第3步：提取非连锁SNP|Step 3: extract pruned SNPs
+        if not cmd_runner.run(
+            build_conda_command(self.config.plink_path,
+                ['--bfile', plink_prefix, '--extract', f"{ld_prefix}.prune.in",
+                 '--make-bed', '--out', pruned_prefix] + common),
+            "LD去连锁步骤3/4：提取非连锁SNP|LD pruning step 3/4: extract pruned SNPs"):
+            return False
+
+        # 第4步：去连锁bed → VCF（rMVP输入）|Step 4: pruned bed to VCF (rMVP input)
+        if not cmd_runner.run(
+            build_conda_command(self.config.plink_path,
+                ['--bfile', pruned_prefix, '--recode', 'vcf-iid', '--out', pruned_prefix] + common),
+            "LD去连锁步骤4/4：去连锁bed转VCF|LD pruning step 4/4: pruned bed to VCF"):
+            return False
+
+        if not pruned_vcf.exists():
+            self.logger.error(f"   去连锁VCF未生成|Pruned VCF not generated: {pruned_vcf}")
+            return False
+
+        self.logger.info(f"   去连锁VCF已生成|Pruned VCF generated: {pruned_vcf}")
+        return True
+
     def run_batch_analysis(self, trait_names: List[str]) -> bool:
         """
         运行批量GWAS分析|Run batch GWAS analysis
@@ -240,13 +324,19 @@ class RMVPAnalyzer:
         self.logger.info("=" * 70)
 
         try:
+            # 步骤总数（LD去连锁开启时为6步，否则5步）|Total steps (6 with LD pruning, else 5)
+            total = 6 if self.config.ld_pruning else 5
+            cur = 0
+
             # 1. 检查依赖|Check dependencies
-            self.logger.info("[1/5] 检查依赖|Checking dependencies")
+            cur += 1
+            self.logger.info(f"[{cur}/{total}] 检查依赖|Checking dependencies")
             if not self.check_dependencies():
                 return False
 
             # 2. 验证输入文件|Validate input files
-            self.logger.info("[2/5] 验证输入文件|Validating input files")
+            cur += 1
+            self.logger.info(f"[{cur}/{total}] 验证输入文件|Validating input files")
             if not self.validate_input_files():
                 return False
 
@@ -254,18 +344,28 @@ class RMVPAnalyzer:
             trait_names = self._get_trait_names()
             self.logger.info(f"   检测到表型|Detected traits: {trait_names}")
 
-            # 3. 数据转换|Data conversion
-            self.logger.info("[3/5] 数据转换|Data conversion")
+            # 3. LD去连锁（开启时）|LD pruning (when enabled)
+            if self.config.ld_pruning:
+                cur += 1
+                self.logger.info(f"[{cur}/{total}] LD去连锁（PLINK）|LD pruning (PLINK)")
+                if not self.run_ld_pruning():
+                    return False
+
+            # 4. 数据转换|Data conversion
+            cur += 1
+            self.logger.info(f"[{cur}/{total}] 数据转换|Data conversion")
             if not self.run_data_conversion():
                 return False
 
-            # 4. GWAS分析|GWAS analysis
-            self.logger.info("[4/5] GWAS分析|GWAS analysis")
+            # 5. GWAS分析|GWAS analysis
+            cur += 1
+            self.logger.info(f"[{cur}/{total}] GWAS分析|GWAS analysis")
             if not self.run_batch_analysis(trait_names):
                 return False
 
-            # 5. 整合结果|Integrate results
-            self.logger.info("[5/5] 整合结果|Integrating results")
+            # 6. 整合结果|Integrate results
+            cur += 1
+            self.logger.info(f"[{cur}/{total}] 整合结果|Integrating results")
             # 这个功能在result_parser.py中实现|This will be implemented in result_parser.py
 
             # 完成|Completed

@@ -26,6 +26,8 @@ class RMVPRScriptGenerator:
         生成数据转换脚本|Generate data conversion script
 
         将VCF转换为rMVP格式|Convert VCF to rMVP format
+        - LD去连锁开启时：完整VCF仅生成基因型（全部SNP），去连锁VCF计算K/PCA
+        - LD pruning enabled: full VCF -> genotype only (all SNPs), pruned VCF -> K/PCA
 
         Returns:
             R脚本内容|R script content
@@ -34,6 +36,49 @@ class RMVPRScriptGenerator:
         vcf_abs = str(Path(self.config.vcf_file).resolve())
         phe_abs = str(Path(self.config.pheno_file).resolve())
         out_abs = str(self.output_dir.resolve())
+
+        if self.config.ld_pruning:
+            # 去连锁VCF路径（由PLINK run_ld_pruning产出）|Pruned VCF path (produced by PLINK run_ld_pruning)
+            pruned_vcf_abs = str((self.output_dir / f"{self.config.output_prefix}_pruned.vcf").resolve())
+            mvp_data_block = f"""# 完整VCF → 基因型（全部SNP，不计算K/PC）|Full VCF -> genotype (all SNPs, no K/PC)
+cat("转换完整VCF（全部SNP）|Converting full VCF (all SNPs)...\\n")
+mvp_data <- MVP.Data(
+    fileVCF = "{vcf_abs}",
+    filePhe = "{phe_abs}",
+    fileKin = FALSE,
+    filePC = FALSE,
+    out = file.path(out_path, output_prefix),
+    ncpus = {self.config.ncpus}
+)
+
+# 去连锁VCF → K + PCA（kinship/PCA在去连锁SNP上计算）|Pruned VCF -> K + PCA (on LD-pruned SNPs)
+cat("转换去连锁VCF（计算K/PCA）|Converting pruned VCF (computing K/PCA)...\\n")
+mvp_data_pruned <- MVP.Data(
+    fileVCF = "{pruned_vcf_abs}",
+    filePhe = "{phe_abs}",
+    fileKin = TRUE,
+    filePC = TRUE,
+    out = file.path(out_path, paste0(output_prefix, "_pruned")),
+    ncpus = {self.config.ncpus}
+)"""
+            output_files_cat = """cat("  -", file.path(out_path, paste0(output_prefix, ".geno.desc")), " (全部SNP|all SNPs)\\n")
+cat("  -", file.path(out_path, paste0(output_prefix, ".phe")), "\\n")
+cat("  -", file.path(out_path, paste0(output_prefix, "_pruned.kin.desc")), " (去连锁|pruned)\\n")
+cat("  -", file.path(out_path, paste0(output_prefix, "_pruned.pc.desc")), " (去连锁|pruned)\\n")"""
+        else:
+            mvp_data_block = f"""cat("正在转换VCF文件|Converting VCF file...\\n")
+mvp_data <- MVP.Data(
+    fileVCF = "{vcf_abs}",
+    filePhe = "{phe_abs}",
+    fileKin = TRUE,
+    filePC = TRUE,
+    out = file.path(out_path, output_prefix),
+    ncpus = {self.config.ncpus}
+)"""
+            output_files_cat = """cat("  -", file.path(out_path, paste0(output_prefix, ".geno.desc")), "\\n")
+cat("  -", file.path(out_path, paste0(output_prefix, ".phe")), "\\n")
+cat("  -", file.path(out_path, paste0(output_prefix, ".kin.desc")), "\\n")
+cat("  -", file.path(out_path, paste0(output_prefix, ".pc.desc")), "\\n")"""
 
         script = f"""# rMVP数据转换脚本|rMVP Data Conversion Script
 # 自动生成于|Auto-generated at: {self._get_timestamp()}
@@ -53,28 +98,65 @@ cat("\\n=== rMVP数据转换|rMVP Data Conversion ===\\n")
 cat("VCF文件|VCF file:", file_vcf, "\\n")
 cat("表型文件|Phenotype file:", file_phe, "\\n")
 cat("输出前缀|Output prefix:", output_prefix, "\\n")
-cat("输出目录|Output directory:", out_path, "\\n\\n")
+cat("输出目录|Output directory:", out_path, "\\n")
+cat("LD去连锁|LD pruning:", {"TRUE" if self.config.ld_pruning else "FALSE"}, "\\n\\n")
 
 # 转换VCF为rMVP格式|Convert VCF to rMVP format
-cat("正在转换VCF文件|Converting VCF file...\\n")
-
-mvp_data <- MVP.Data(
-    fileVCF = file_vcf,
-    filePhe = file_phe,
-    fileKin = TRUE,  # 计算Kinship矩阵|Calculate Kinship matrix
-    filePC = TRUE,   # 计算PCA|Calculate PCA
-    out = file.path(out_path, output_prefix),
-    ncpus = {self.config.ncpus}  # 设置线程数|Set number of threads
-)
+{mvp_data_block}
 
 cat("\\n数据转换完成|Data conversion completed\\n")
 cat("输出文件|Output files:\\n")
-cat("  -", file.path(out_path, paste0(output_prefix, ".geno.desc")), "\\n")
-cat("  -", file.path(out_path, paste0(output_prefix, ".phe")), "\\n")
-cat("  -", file.path(out_path, paste0(output_prefix, ".kin.desc")), "\\n")
-cat("  -", file.path(out_path, paste0(output_prefix, ".pc.desc")), "\\n")
+{output_files_cat}
 """
         return script
+
+    def _build_kinship_pca_blocks(self):
+        """
+        构建K/PCA读取与协方差参数的R代码块|Build K/PCA reading and covariate R blocks
+
+        LD去连锁开启时：K与PCA从去连锁SNP读取，PCA作为CV.*协变量传入（避免内部双重PCA）
+        LD pruning on: K and PCA read from pruned SNPs, PCA passed as CV.* covariates (no internal double PCA)
+        关闭时：保持原逻辑（K来自完整VCF，nPC.*内部PCA）
+
+        Returns:
+            (kin_pc_block, covariate_args)|R代码块元组
+        """
+        if self.config.ld_pruning:
+            kin_pc_block = f'''# 读取去连锁K和PCA（kinship/PCA来自去连锁SNP）|Read pruned K and PCA (from LD-pruned SNPs)
+cat("正在读取去连锁Kinship矩阵|Reading pruned Kinship matrix...\\n")
+K <- attach.big.matrix(file.path(out_path, paste0(output_prefix, "_pruned.kin.desc")))
+
+cat("正在读取去连锁PCA|Reading pruned PCA...\\n")
+pc <- bigmemory::as.matrix(attach.big.matrix(file.path(out_path, paste0(output_prefix, "_pruned.pc.desc"))))
+
+# 取前n个PC作为协变量|Take first n PCs as covariates
+pc_glm <- pc[, seq_len(min({self.config.n_pc_glm}, ncol(pc))), drop = FALSE]
+pc_mlm <- pc[, seq_len(min({self.config.n_pc_mlm}, ncol(pc))), drop = FALSE]
+pc_farmcpu <- pc[, seq_len(min({self.config.n_pc_farmcpu}, ncol(pc))), drop = FALSE]'''
+            covariate_args = '''    CV.GLM = pc_glm,
+    CV.MLM = pc_mlm,
+    CV.FarmCPU = pc_farmcpu,'''
+        else:
+            kin_pc_block = '''# 读取Kinship和PCA|Read Kinship and PCA
+if (file.exists(file.path(out_path, paste0(output_prefix, ".kin.desc")))) {
+    cat("正在读取Kinship矩阵|Reading Kinship matrix...\\n")
+    K <- attach.big.matrix(file.path(out_path, paste0(output_prefix, ".kin.desc")))
+} else {
+    K <- NULL
+    cat("未使用Kinship矩阵|Kinship matrix not used\\n")
+}
+
+if (file.exists(file.path(out_path, paste0(output_prefix, ".pc.desc")))) {
+    cat("正在读取PCA|Reading PCA...\\n")
+    pc <- bigmemory::as.matrix(attach.big.matrix(file.path(out_path, paste0(output_prefix, ".pc.desc"))))
+} else {
+    pc <- NULL
+    cat("未使用PCA|PCA not used\\n")
+}'''
+            covariate_args = f'''    nPC.GLM = {self.config.n_pc_glm},
+    nPC.MLM = {self.config.n_pc_mlm},
+    nPC.FarmCPU = {self.config.n_pc_farmcpu},'''
+        return kin_pc_block, covariate_args
 
     def generate_gwas_script(self, trait_name: str, trait_col: int) -> str:
         """
@@ -95,6 +177,9 @@ cat("  -", file.path(out_path, paste0(output_prefix, ".pc.desc")), "\\n")
 
         # 使用绝对路径|Use absolute paths
         out_abs = str(self.output_dir.resolve())
+
+        # K/PCA来源与协方差参数（根据LD去连锁分支）|K/PCA source and covariate args (branched on LD pruning)
+        kin_pc_block, covariate_args = self._build_kinship_pca_blocks()
 
         script = f"""# rMVP GWAS分析脚本|rMVP GWAS Analysis Script
 # 表型|Trait: {trait_name}
@@ -136,22 +221,7 @@ colnames(phenotype)[2] <- trait_name
 cat("样本数|Sample size:", nrow(phenotype), "\\n")
 cat("SNP数|SNP count:", ncol(genotype), "\\n")
 
-# 读取Kinship和PCA|Read Kinship and PCA
-if (file.exists(file.path(out_path, paste0(output_prefix, ".kin.desc")))) {{
-    cat("正在读取Kinship矩阵|Reading Kinship matrix...\\n")
-    K <- attach.big.matrix(file.path(out_path, paste0(output_prefix, ".kin.desc")))
-}} else {{
-    K <- NULL
-    cat("未使用Kinship矩阵|Kinship matrix not used\\n")
-}}
-
-if (file.exists(file.path(out_path, paste0(output_prefix, ".pc.desc")))) {{
-    cat("正在读取PCA|Reading PCA...\\n")
-    pc <- bigmemory::as.matrix(attach.big.matrix(file.path(out_path, paste0(output_prefix, ".pc.desc"))))
-}} else {{
-    pc <- NULL
-    cat("未使用PCA|PCA not used\\n")
-}}
+{kin_pc_block}
 
 # 运行GWAS|Run GWAS
 cat("\\n开始GWAS分析|Starting GWAS analysis...\\n")
@@ -163,12 +233,7 @@ imvp <- MVP(
     geno = genotype,
     map = map,
     K = K,
-    # CV.GLM = pc,  # 如果使用PCA作为协变量|If using PCA as covariate
-    # CV.MLM = pc,
-    # CV.FarmCPU = pc,
-    nPC.GLM = {self.config.n_pc_glm},
-    nPC.MLM = {self.config.n_pc_mlm},
-    nPC.FarmCPU = {self.config.n_pc_farmcpu},
+{covariate_args}
     maxLine = maxLine,
     ncpus = ncpus,
     vc.method = "{self.config.vc_method}",
@@ -212,6 +277,9 @@ cat("结果已保存|Results saved to:", result_file, "\\n")
         # 使用绝对路径|Use absolute paths
         out_abs = str(self.output_dir.resolve())
 
+        # K/PCA来源与协方差参数（根据LD去连锁分支）|K/PCA source and covariate args (branched on LD pruning)
+        kin_pc_block, covariate_args = self._build_kinship_pca_blocks()
+
         script = f"""# rMVP批量GWAS分析脚本|rMVP Batch GWAS Analysis Script
 # 分析{len(trait_names)}个表型|Analyzing {len(trait_names)} traits
 # 自动生成于|Auto-generated at: {self._get_timestamp()}
@@ -241,20 +309,7 @@ genotype <- attach.big.matrix(file.path(out_path, paste0(output_prefix, ".geno.d
 phenotype_full <- read.table(file.path(out_path, paste0(output_prefix, ".phe")), header = TRUE)
 map <- read.table(file.path(out_path, paste0(output_prefix, ".geno.map")), header = TRUE)
 
-# 读取Kinship和PCA|Read Kinship and PCA
-if (file.exists(file.path(out_path, paste0(output_prefix, ".kin.desc")))) {{
-    cat("正在读取Kinship矩阵|Reading Kinship matrix...\\n")
-    K <- attach.big.matrix(file.path(out_path, paste0(output_prefix, ".kin.desc")))
-}} else {{
-    K <- NULL
-}}
-
-if (file.exists(file.path(out_path, paste0(output_prefix, ".pc.desc")))) {{
-    cat("正在读取PCA|Reading PCA...\\n")
-    pc <- bigmemory::as.matrix(attach.big.matrix(file.path(out_path, paste0(output_prefix, ".pc.desc"))))
-}} else {{
-    pc <- NULL
-}}
+{kin_pc_block}
 
 # 批量分析所有表型|Batch analyze all traits
 trait_names <- c({', '.join([f'"{t}"' for t in trait_names])})
@@ -285,9 +340,7 @@ for (i in 1:n_traits) {{
             geno = genotype,
             map = map,
             K = K,
-            nPC.GLM = {self.config.n_pc_glm},
-            nPC.MLM = {self.config.n_pc_mlm},
-            nPC.FarmCPU = {self.config.n_pc_farmcpu},
+{covariate_args}
             maxLine = maxLine,
             ncpus = ncpus,
             vc.method = "{self.config.vc_method}",
