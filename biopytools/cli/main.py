@@ -198,6 +198,7 @@ COMMAND_REGISTRY = [
     ('vcf_sequence', 'vcf-sequence', '从基因组和VCF提取序列|Extract sequences from genome and VCF'),
     ('wgdi', 'wgdi', 'WGDI比较基因组学分析工具|WGDI comparative genomics analysis tool'),
     ('picrust2', 'picrust2', 'PICRUSt2微生物群落功能丰度预测|PICRUSt2 functional abundance prediction'),
+    ('qiime2', 'qiime2', 'QIIME2微生物组多样性分析|QIIME2 Microbiome Diversity Analysis'),
     ('phyto_effector', 'phyto-effector', 'Phytophthora效应子鉴定(rxlr/crn)|Phytophthora effector identification (rxlr/crn)'),
     ('atomm', 'atomm', '双物种混合效应模型关联分析|Two-organism mixed model association (ATOMM)'),
     ('cim', 'cim', 'R/qtl复合区间作图(CIM)分析|R/qtl Composite Interval Mapping (CIM) Analysis'),
