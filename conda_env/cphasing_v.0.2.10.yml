@@ -426,4 +426,3 @@ dependencies:
   - zstd=1.5.7
   - pip:
       - ncls==0.0.70
-prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/cphasing_v.0.2.10

@@ -1,21 +1,14 @@
 name: primer3_v.2.6.1
 channels:
-  - ursky
   - bioconda
-  - conda-forge
   - defaults
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - conda-forge
 dependencies:
-  - _openmp_mutex=4.5
-  - libgcc=15.2.0
-  - libgcc-ng=15.2.0
-  - libgomp=15.2.0
-  - libstdcxx=15.2.0
-  - libxcrypt=4.4.36
-  - perl=5.32.1
-  - primer3=2.6.1
-prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/primer3_v.2.6.1
+  - _openmp_mutex=4.5=20_gnu
+  - libgcc=15.2.0=he0feb66_18
+  - libgcc-ng=15.2.0=h69a702a_18
+  - libgomp=15.2.0=he0feb66_18
+  - libstdcxx=15.2.0=h934c35e_18
+  - libxcrypt=4.4.36=hd590300_1
+  - perl=5.32.1=7_hd590300_perl5
+  - primer3=2.6.1=pl5321h503566f_7

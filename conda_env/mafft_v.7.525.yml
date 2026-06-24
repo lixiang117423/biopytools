@@ -1,29 +1,22 @@
 name: mafft_v.7.525
 channels:
-  - ursky
   - bioconda
-  - conda-forge
   - defaults
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - conda-forge
 dependencies:
-  - _libgcc_mutex=0.1
-  - _openmp_mutex=4.5
-  - gawk=5.3.1
-  - gmp=6.3.0
-  - libasprintf=0.25.1
-  - libgcc=15.1.0
-  - libgcc-ng=15.1.0
-  - libgettextpo=0.25.1
-  - libgomp=15.1.0
-  - libiconv=1.18
-  - libstdcxx=15.1.0
-  - libstdcxx-ng=15.1.0
-  - mafft=7.525
-  - mpfr=4.2.1
-  - ncurses=6.5
-  - readline=8.2
-prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/mafft_v.7.525
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - gawk=5.3.1=hcd3d067_0
+  - gmp=6.3.0=hac33072_2
+  - libasprintf=0.25.1=h3f43e3d_1
+  - libgcc=15.1.0=h767d61c_4
+  - libgcc-ng=15.1.0=h69a702a_4
+  - libgettextpo=0.25.1=h3f43e3d_1
+  - libgomp=15.1.0=h767d61c_4
+  - libiconv=1.18=h3b78370_2
+  - libstdcxx=15.1.0=h8f9b012_4
+  - libstdcxx-ng=15.1.0=h4852527_4
+  - mafft=7.525=h031d066_1
+  - mpfr=4.2.1=h90cbb55_3
+  - ncurses=6.5=h2d0b736_3
+  - readline=8.2=h8c095d6_2

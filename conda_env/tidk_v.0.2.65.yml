@@ -1,21 +1,14 @@
 name: tidk_v.0.2.65
 channels:
-  - ursky
   - bioconda
-  - conda-forge
   - defaults
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - conda-forge
 dependencies:
-  - _libgcc_mutex=0.1
-  - _openmp_mutex=4.5
-  - ca-certificates=2025.11.12
-  - libgcc=15.2.0
-  - libgomp=15.2.0
-  - libstdcxx=15.2.0
-  - openssl=3.6.0
-  - tidk=0.2.65
-prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/tidk_v.0.2.65
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - ca-certificates=2025.11.12=hbd8a1cb_0
+  - libgcc=15.2.0=he0feb66_16
+  - libgomp=15.2.0=he0feb66_16
+  - libstdcxx=15.2.0=h934c35e_16
+  - openssl=3.6.0=h26f9b46_0
+  - tidk=0.2.65=h3dc2dae_0

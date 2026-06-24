@@ -1,55 +1,49 @@
 name: K-mer
 channels:
-  - ursky
   - bioconda
-  - conda-forge
   - defaults
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - conda-forge
 dependencies:
-  - _libgcc_mutex=0.1
-  - _openmp_mutex=4.5
-  - bzip2=1.0.8
-  - ca-certificates=2025.6.15
-  - gflags=2.2.2
-  - jellyfish=2.2.10
-  - jemalloc=4.5.0
-  - kmc=3.2.4
-  - kmtricks=1.4.0
-  - ld_impl_linux-64=2.44
-  - libexpat=2.7.0
-  - libffi=3.4.6
-  - libgcc=15.1.0
-  - libgcc-ng=15.1.0
-  - libgomp=15.1.0
-  - libjemalloc=5.3.0
-  - liblzma=5.8.1
-  - libnsl=2.0.1
-  - libsqlite=3.50.2
-  - libstdcxx=15.1.0
-  - libstdcxx-ng=15.1.0
-  - libuuid=2.38.1
-  - libxcrypt=4.4.36
-  - libzlib=1.3.1
-  - lz4-c=1.10.0
-  - ncurses=6.5
-  - openssl=3.5.1
-  - pip=25.1.1
-  - python=3.10.18
-  - python-rocksdb=0.7.0
-  - python_abi=3.10
-  - readline=8.2
-  - rocksdb=6.29.5
-  - seqkit=2.10.0
-  - setuptools=80.9.0
-  - snappy=1.2.1
-  - tk=8.6.13
-  - wheel=0.45.1
-  - zlib=1.3.1
-  - zstd=1.5.7
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - bzip2=1.0.8=h4bc722e_7
+  - ca-certificates=2025.6.15=hbd8a1cb_0
+  - gflags=2.2.2=h5888daf_1005
+  - jellyfish=2.2.10=h6bb024c_1
+  - jemalloc=4.5.0=0
+  - kmc=3.2.4=h5ca1c30_4
+  - kmtricks=1.4.0=h8b7377a_0
+  - ld_impl_linux-64=2.44=h1423503_0
+  - libexpat=2.7.0=h5888daf_0
+  - libffi=3.4.6=h2dba641_1
+  - libgcc=15.1.0=h767d61c_3
+  - libgcc-ng=15.1.0=h69a702a_3
+  - libgomp=15.1.0=h767d61c_3
+  - libjemalloc=5.3.0=h5888daf_1
+  - liblzma=5.8.1=hb9d3cd8_2
+  - libnsl=2.0.1=hb9d3cd8_1
+  - libsqlite=3.50.2=h6cd9bfd_0
+  - libstdcxx=15.1.0=h8f9b012_3
+  - libstdcxx-ng=15.1.0=h4852527_3
+  - libuuid=2.38.1=h0b41bf4_0
+  - libxcrypt=4.4.36=hd590300_1
+  - libzlib=1.3.1=hb9d3cd8_2
+  - lz4-c=1.10.0=h5888daf_1
+  - ncurses=6.5=h2d0b736_3
+  - openssl=3.5.1=h7b32b05_0
+  - pip=25.1.1=pyh8b19718_0
+  - python=3.10.18=hd6af730_0_cpython
+  - python-rocksdb=0.7.0=py310h500b559_12
+  - python_abi=3.10=7_cp310
+  - readline=8.2=h8c095d6_2
+  - rocksdb=6.29.5=h43fe23b_3
+  - seqkit=2.10.0=h9ee0642_0
+  - setuptools=80.9.0=pyhff2d567_0
+  - snappy=1.2.1=h8bd8927_1
+  - tk=8.6.13=noxft_hd72426e_102
+  - wheel=0.45.1=pyhd8ed1ab_1
+  - zlib=1.3.1=hb9d3cd8_2
+  - zstd=1.5.7=hb8e6e7a_2
   - pip:
       - contourpy==1.3.2
       - cycler==0.12.1
@@ -71,4 +65,3 @@ dependencies:
       - six==1.17.0
       - threadpoolctl==3.6.0
       - tzdata==2025.2
-prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/K-mer

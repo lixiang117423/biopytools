@@ -1,24 +1,16 @@
 name: axel_v.2.17.13
 channels:
-  - ursky
-  - bioconda
-  - conda-forge
   - defaults
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - conda-forge
 dependencies:
-  - _libgcc_mutex=0.1
-  - _openmp_mutex=4.5
-  - axel=2.17.13
-  - ca-certificates=2025.8.3
-  - libasprintf=0.25.1
-  - libgcc=15.1.0
-  - libgettextpo=0.25.1
-  - libgomp=15.1.0
-  - libiconv=1.18
-  - libstdcxx=15.1.0
-  - openssl=3.5.2
-prefix: /share/org/YZWL/yzwl_lixg/miniforge3/envs/axel_v.2.17.13
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - axel=2.17.13=h7b32b05_0
+  - ca-certificates=2025.8.3=hbd8a1cb_0
+  - libasprintf=0.25.1=h3f43e3d_1
+  - libgcc=15.1.0=h767d61c_4
+  - libgettextpo=0.25.1=h3f43e3d_1
+  - libgomp=15.1.0=h767d61c_4
+  - libiconv=1.18=h3b78370_2
+  - libstdcxx=15.1.0=h8f9b012_4
+  - openssl=3.5.2=h26f9b46_0
