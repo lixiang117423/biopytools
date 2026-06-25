@@ -313,9 +313,9 @@ class EviAnnotator:
         for output_file in output_files:
             output_path = Path(self.config.genome).parent / output_file
             if output_path.exists():
-                self.logger.info(f"  ✓ {output_file}")
+                self.logger.info(f"   {output_file}")
             else:
-                self.logger.warning(f"  ✗ {output_file} (未找到|not found)")
+                self.logger.warning(f"   {output_file} (未找到|not found)")
 
 
 def main():

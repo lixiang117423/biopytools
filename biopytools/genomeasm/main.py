@@ -39,7 +39,7 @@ class GenomeAssembler:
         self.logger.info(f" 输出目录|Output directory: {self.config.output_dir}")
         self.logger.info(f" 检测到的数据类型|Detected data types: {', '.join(self.config.detected_data_types)}")
         self.logger.info(f" 组装策略|Assembly strategy: {self.config.assembly_strategy}")
-        self.logger.info(f"🔗 Hi-C策略: {self.config.hic_strategy}")
+        self.logger.info(f" Hi-C策略: {self.config.hic_strategy}")
         
         # 初始化命令执行器
         self.cmd_runner = CommandRunner(self.logger, self.config.output_path)
@@ -153,7 +153,7 @@ class GenomeAssembler:
             self.logger.info(" Phase 4: 跳过Hi-C处理 (无Hi-C数据)|Phase 4: Skipping Hi-C processing (no Hi-C data)")
             return None
         
-        self.logger.info("🔗 Phase 4: Hi-C染色体挂载处理|Hi-C chromosome scaffolding processing")
+        self.logger.info(" Phase 4: Hi-C染色体挂载处理|Hi-C chromosome scaffolding processing")
         
         try:
             scaffold_results = self.hic_processor.process_all_assemblies(assembly_files)
@@ -214,7 +214,7 @@ class GenomeAssembler:
         total_time = end_time - self.start_time
         
         self.logger.info(" 基因组组装流程完成！| Genome assembly pipeline completed!")
-        self.logger.info(f"⏱ 总耗时|Total time: {format_time(total_time)}")
+        self.logger.info(f" 总耗时|Total time: {format_time(total_time)}")
         self.logger.info(f" 结果目录|Results directory: {self.config.output_dir}")
         
         # 输出主要结果摘要
@@ -225,20 +225,20 @@ class GenomeAssembler:
     
     def _handle_pipeline_error(self, error: Exception):
         """处理流程错误|Handle pipeline error"""
-        self.logger.error("💥 基因组组装流程意外终止！| Genome assembly pipeline terminated unexpectedly!")
+        self.logger.error(" 基因组组装流程意外终止！| Genome assembly pipeline terminated unexpectedly!")
         self.logger.error(f" 错误信息|Error message: {str(error)}")
-        self.logger.error(f"📍 错误详情|Error details: {traceback.format_exc()}")
+        self.logger.error(f" 错误详情|Error details: {traceback.format_exc()}")
         
         end_time = time.time()
         total_time = end_time - self.start_time
-        self.logger.error(f"⏱ 运行时间|Runtime before failure: {format_time(total_time)}")
+        self.logger.error(f" 运行时间|Runtime before failure: {format_time(total_time)}")
     
     def _log_system_info(self):
         """记录系统信息|Log system information"""
         import platform
         import psutil
         
-        self.logger.info("💻 系统信息|System Information:")
+        self.logger.info(" 系统信息|System Information:")
         self.logger.info(f"  操作系统|OS: {platform.system()} {platform.release()}")
         self.logger.info(f"  Python版本|Python: {platform.python_version()}")
         self.logger.info(f"  CPU核心数|CPU cores: {psutil.cpu_count()}")
@@ -354,7 +354,7 @@ class GenomeAssembler:
         
         print(f" 组装文件: {sum(len(files) for files in assemblies.values())} 个")
         if scaffolds:
-            print(f"🔗 挂载文件: {sum(len(results) for results in scaffolds.values())} 个")
+            print(f" 挂载文件: {sum(len(results) for results in scaffolds.values())} 个")
         
         # 质量摘要
         quality_summary = final_results.get('quality_summary', {})
@@ -363,7 +363,7 @@ class GenomeAssembler:
             
             key_metrics = quality_summary.get('key_metrics', {})
             if 'best_assembly_n50' in key_metrics:
-                print(f"📏 最佳N50: {key_metrics['best_assembly_n50']:,} bp")
+                print(f" 最佳N50: {key_metrics['best_assembly_n50']:,} bp")
         
         print(f" 结果目录: {self.config.output_dir}")
         print("="*70)
@@ -410,13 +410,13 @@ class GenomeAssembler:
 #   # 使用简化Hi-C流程|Use simplified Hi-C pipeline:
 #   python -m genomeasm -i data/ -o results/ --hic-strategy simplified_salsa2
 
-# 📚 支持的数据类型|Supported Data Types:
+#  支持的数据类型|Supported Data Types:
 #   - HiFi: 高准确长读长数据 (必需)|High-accuracy long reads (required)
 #   - Hi-C: 染色体构象捕获数据|Chromosome conformation capture data
 #   - ONT: Oxford Nanopore长读长数据|Oxford Nanopore long reads
 #   - NGS: Illumina短读长数据|Illumina short reads
 
-# 🔗 Hi-C处理策略|Hi-C Processing Strategies:
+#  Hi-C处理策略|Hi-C Processing Strategies:
 #   - complete_juicer: 完整Juicer + 3D-DNA流程 (最高质量)
 #   - standard_3ddna: 简化3D-DNA流程 (平衡质量与复杂度)
 #   - simplified_salsa2: SALSA2流程 (最简化)
@@ -560,10 +560,10 @@ class GenomeAssembler:
 #         sys.exit(0)
         
 #     except KeyboardInterrupt:
-#         print("\n⏹ 用户中断程序执行|User interrupted program execution")
+#         print("\n 用户中断程序执行|User interrupted program execution")
 #         sys.exit(1)
 #     except Exception as e:
-#         print(f"\n💥 程序执行失败|Program execution failed: {e}")
+#         print(f"\n 程序执行失败|Program execution failed: {e}")
 #         sys.exit(1)
 
 def main():
@@ -585,13 +585,13 @@ def main():
   # 使用简化Hi-C流程|Use simplified Hi-C pipeline:
   python -m genomeasm -i data/ -o results/ --hic-strategy simplified_salsa2
 
-📚 支持的数据类型|Supported Data Types:
+ 支持的数据类型|Supported Data Types:
   - HiFi: 高准确长读长数据 (必需)|High-accuracy long reads (required)
   - Hi-C: 染色体构象捕获数据|Chromosome conformation capture data
   - ONT: Oxford Nanopore长读长数据|Oxford Nanopore long reads
   - NGS: Illumina短读长数据|Illumina short reads
 
-🔗 Hi-C处理策略|Hi-C Processing Strategies:
+ Hi-C处理策略|Hi-C Processing Strategies:
   - complete_juicer: 完整Juicer + 3D-DNA流程 (最高质量)
   - standard_3ddna: 简化3D-DNA流程 (平衡质量与复杂度)
   - simplified_salsa2: SALSA2流程 (最简化)

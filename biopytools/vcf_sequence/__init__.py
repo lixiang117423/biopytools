@@ -140,13 +140,13 @@ if __name__ == "__main__":
         # 设置执行权限
         os.chmod(script_path, 0o755)
         
-        print(f"✓ 已创建干净的入口脚本: {script_path}")
+        print(f" 已创建干净的入口脚本: {script_path}")
         print(f"使用方法: {script_path} -h")
         
         return True
         
     except Exception as e:
-        print(f"✗ 创建入口脚本失败: {e}")
+        print(f" 创建入口脚本失败: {e}")
         return False
 
 def create_local_entry():

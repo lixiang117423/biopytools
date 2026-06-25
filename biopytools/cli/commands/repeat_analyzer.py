@@ -57,7 +57,7 @@ def _validate_output_dir(dir_path):
 @click.option('--threads', '-t',
               type=int,
               default=12,
-              help='🧵  (: 88)|Number of threads (default: 88)')
+              help='  (: 88)|Number of threads (default: 88)')
 @click.option('--skip-modeler',
               is_flag=True,
               help=' RepeatModeler|Skip RepeatModeler step')
@@ -102,7 +102,7 @@ def repeat_analyzer(input, output, threads, skip_modeler, skip_ltr,
     biopytools repeat-analyzer -i large_genome.fa -o results -t 64
     
     \b
-    # ⏩ RepeatModeler
+    #  RepeatModeler
     biopytools repeat-analyzer -i genome.fasta -o results --skip-modeler
     
     \b

@@ -39,7 +39,7 @@
 #             "--ref", str(self.config.reference),
 #             "--in-fq", str(r1_file), str(r2_file),
 #             "--out-bam", str(output_bam),
-#             "--read-group-sm", sample_name,  # 🔑 关键：设置样品名
+#             "--read-group-sm", sample_name,  #  关键：设置样品名
 #             "--read-group-pl", "ILLUMINA",   # 测序平台
 #         ]
         
@@ -52,7 +52,7 @@
 #             self.logger.info(f"   fq2bam完成|fq2bam completed: {sample_name}")
 #             if output_bam.exists():
 #                 bam_size = self.file_processor.get_file_size(str(output_bam))
-#                 self.logger.info(f"  📏 BAM文件大小|BAM file size: {bam_size}")
+#                 self.logger.info(f"   BAM文件大小|BAM file size: {bam_size}")
 #             return True
 #         else:
 #             self.logger.error(f"   fq2bam失败|fq2bam failed: {sample_name}")
@@ -60,10 +60,10 @@
     
 #     def run_haplotypecaller(self, sample_name: str) -> bool:
 #         """
-#         步骤2: BAM转VCF/GVCF (变异检测) 📜
+#         步骤2: BAM转VCF/GVCF (变异检测) 
 #         Step 2: BAM to VCF/GVCF (variant calling)
 #         """
-#         self.logger.info(f"📜 [haplotypecaller] 开始处理样品|Starting haplotypecaller for sample: {sample_name}")
+#         self.logger.info(f" [haplotypecaller] 开始处理样品|Starting haplotypecaller for sample: {sample_name}")
         
 #         input_bam = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
         
@@ -85,7 +85,7 @@
 #             return True
         
 #         self.logger.info(f"   输入BAM|Input BAM: {input_bam.name}")
-#         self.logger.info(f"  📜 输出{'GVCF' if self.config.gvcf else 'VCF'}|Output {'GVCF' if self.config.gvcf else 'VCF'}: {output_vcf.name}")
+#         self.logger.info(f"   输出{'GVCF' if self.config.gvcf else 'VCF'}|Output {'GVCF' if self.config.gvcf else 'VCF'}: {output_vcf.name}")
         
 #         # 构建haplotypecaller命令
 #         haplotypecaller_cmd = [
@@ -102,14 +102,14 @@
         
 #         success = self.cmd_runner.run_container(
 #             haplotypecaller_cmd,
-#             f"📜 haplotypecaller (样品: {sample_name})"
+#             f" haplotypecaller (样品: {sample_name})"
 #         )
         
 #         if success:
 #             self.logger.info(f"   haplotypecaller完成|haplotypecaller completed: {sample_name}")
 #             if output_vcf.exists():
 #                 vcf_size = self.file_processor.get_file_size(str(output_vcf))
-#                 self.logger.info(f"  📏 VCF文件大小|VCF file size: {vcf_size}")
+#                 self.logger.info(f"   VCF文件大小|VCF file size: {vcf_size}")
 #             return True
 #         else:
 #             self.logger.error(f"   haplotypecaller失败|haplotypecaller failed: {sample_name}")
@@ -117,7 +117,7 @@
     
 #     def run_genotypegvcf(self, sample_names: list) -> bool:
 #         """
-#         步骤3: Joint Calling - 使用genotypegvcf进行联合基因分型 🔗
+#         步骤3: Joint Calling - 使用genotypegvcf进行联合基因分型 
 #         Step 3: Joint Calling - Use genotypegvcf for joint genotyping
 #         """
 #         # 检查是否启用了GVCF
@@ -126,7 +126,7 @@
 #             return False
         
 #         self.logger.info("=" * 60)
-#         self.logger.info("🔗 [genotypegvcf] 开始Joint Calling|Starting Joint Calling")
+#         self.logger.info(" [genotypegvcf] 开始Joint Calling|Starting Joint Calling")
         
 #         # 收集所有GVCF文件
 #         gvcf_files = []
@@ -160,8 +160,8 @@
 #             return True
         
 #         self.logger.info("")
-#         self.logger.info("🔗 使用genotypegvcf进行Joint Calling|Using genotypegvcf for Joint Calling")
-#         self.logger.info(f"📜 输出VCF: {combined_output_vcf.name}")
+#         self.logger.info(" 使用genotypegvcf进行Joint Calling|Using genotypegvcf for Joint Calling")
+#         self.logger.info(f" 输出VCF: {combined_output_vcf.name}")
         
 #         # 构建genotypegvcf命令
 #         genotypegvcf_cmd = [
@@ -174,11 +174,11 @@
 #         for gvcf_file in gvcf_files:
 #             genotypegvcf_cmd.extend(["--in-gvcf", str(gvcf_file)])
         
-#         self.logger.info(f"🔗 输入 {len(gvcf_files)} 个GVCF文件|Input {len(gvcf_files)} GVCF files")
+#         self.logger.info(f" 输入 {len(gvcf_files)} 个GVCF文件|Input {len(gvcf_files)} GVCF files")
         
 #         success = self.cmd_runner.run_container(
 #             genotypegvcf_cmd,
-#             f"🔗 genotypegvcf - Joint Calling ({len(gvcf_files)} samples)"
+#             f" genotypegvcf - Joint Calling ({len(gvcf_files)} samples)"
 #         )
         
 #         if not success:
@@ -190,7 +190,7 @@
 #         # 报告文件大小和样品信息
 #         if combined_output_vcf.exists():
 #             vcf_size = self.file_processor.get_file_size(str(combined_output_vcf))
-#             self.logger.info(f"📏 输出VCF大小|Output VCF size: {vcf_size}")
+#             self.logger.info(f" 输出VCF大小|Output VCF size: {vcf_size}")
             
 #             # 创建索引
 #             self.logger.info("  |-- 建立索引|Creating index")
@@ -216,11 +216,11 @@
     
 #     def process_sample(self, sample_name: str, r1_file: str, r2_file: str) -> bool:
 #         """
-#         根据workflow配置处理单个样品 🔀
+#         根据workflow配置处理单个样品 
 #         Process single sample based on workflow configuration
 #         """
 #         self.logger.info(f" 开始处理样品|Processing sample: {sample_name}")
-#         self.logger.info(f"🔀 工作流程|Workflow: {self.config.workflow}")
+#         self.logger.info(f" 工作流程|Workflow: {self.config.workflow}")
         
 #         success = True
         
@@ -267,7 +267,7 @@ class parabricksProcessor:
         """处理单个样品 |Process single sample"""
         self.logger.info(f" 开始处理样品|Starting to process sample: {sample_name}")
         
-        # 检查输出文件是否已存在 🧐|Check if output files already exist
+        # 检查输出文件是否已存在 |Check if output files already exist
         if self.file_processor.check_output_exists(sample_name):
             self.logger.info(f" 样品 {sample_name} 已处理完成，跳过|Sample {sample_name} already processed, skipping")
             return True
@@ -285,11 +285,11 @@ class parabricksProcessor:
         
         self.logger.info(f"   R1文件|R1 file: {Path(r1_file).name}")
         self.logger.info(f"   R2文件|R2 file: {Path(r2_file).name}")
-        self.logger.info(f"  📜 输出 {vcf_type_str}|Output {vcf_type_str}: vcf/{output_vcf.name}")
+        self.logger.info(f"   输出 {vcf_type_str}|Output {vcf_type_str}: vcf/{output_vcf.name}")
         self.logger.info(f"   输出 BAM|Output BAM: bam/{output_bam.name}")
         
         # 步骤1: 运行 fq2bam |Step 1: Run fq2bam
-        self.logger.info(f"  1⃣  步骤1: FASTQ to BAM|Step 1: FASTQ to BAM")
+        self.logger.info(f"  1  步骤1: FASTQ to BAM|Step 1: FASTQ to BAM")
         fq2bam_cmd = [
             "pbrun", "fq2bam",
             "--ref", str(self.config.reference),
@@ -309,8 +309,8 @@ class parabricksProcessor:
             self.logger.error(f"   样品 {sample_name} fq2bam 步骤失败|Sample {sample_name} fq2bam step failed")
             return False
         
-        # 步骤2: 运行 haplotypecaller 📜|Step 2: Run haplotypecaller
-        self.logger.info(f"  2⃣  步骤2: BAM to VCF/GVCF|Step 2: BAM to VCF/GVCF")
+        # 步骤2: 运行 haplotypecaller |Step 2: Run haplotypecaller
+        self.logger.info(f"  2  步骤2: BAM to VCF/GVCF|Step 2: BAM to VCF/GVCF")
         haplotypecaller_cmd = [
             "pbrun", "haplotypecaller",
             "--ref", str(self.config.reference),
@@ -324,24 +324,24 @@ class parabricksProcessor:
         
         success = self.cmd_runner.run_container(
             haplotypecaller_cmd,
-            f"📜 haplotypecaller (样品: {sample_name})|haplotypecaller (sample: {sample_name})"
+            f" haplotypecaller (样品: {sample_name})|haplotypecaller (sample: {sample_name})"
         )
         
         if success:
-            self.logger.info(f"   ✓ 样品 {sample_name} 处理完成|Sample {sample_name} processing completed")
+            self.logger.info(f"    样品 {sample_name} 处理完成|Sample {sample_name} processing completed")
             
             # 检查并报告输出文件大小 |Check and report output file sizes
             if output_vcf.exists():
                 vcf_size = self.file_processor.get_file_size(str(output_vcf))
-                self.logger.info(f"  📏 {vcf_type_str} 文件大小|{vcf_type_str} file size: {vcf_size}")
+                self.logger.info(f"   {vcf_type_str} 文件大小|{vcf_type_str} file size: {vcf_size}")
             
             if output_bam.exists():
                 bam_size = self.file_processor.get_file_size(str(output_bam))
-                self.logger.info(f"  📏 BAM文件大小|BAM file size: {bam_size}")
+                self.logger.info(f"   BAM文件大小|BAM file size: {bam_size}")
             
             return True
         else:
-            self.logger.error(f"   ✗ 样品 {sample_name} haplotypecaller 步骤失败|Sample {sample_name} haplotypecaller step failed")
+            self.logger.error(f"    样品 {sample_name} haplotypecaller 步骤失败|Sample {sample_name} haplotypecaller step failed")
             return False
 
     def joint_calling(self, sample_names: list) -> bool:
@@ -352,7 +352,7 @@ class parabricksProcessor:
             return False
         
         if not self.config.joint_calling:
-            self.logger.info("ℹ Joint calling未启用，跳过|Joint calling not enabled, skipping")
+            self.logger.info(" Joint calling未启用，跳过|Joint calling not enabled, skipping")
             return True
         
         if len(sample_names) < 2:
@@ -360,7 +360,7 @@ class parabricksProcessor:
             return False
 
         self.logger.info("=" * 60)
-        self.logger.info("🔗 开始Joint Calling (使用 genotypegvcf)|Starting Joint Calling (using genotypegvcf)")
+        self.logger.info(" 开始Joint Calling (使用 genotypegvcf)|Starting Joint Calling (using genotypegvcf)")
         
         gvcf_files = []
         missing_samples = []
@@ -397,12 +397,12 @@ class parabricksProcessor:
         for gvcf_file in gvcf_files:
             genotype_cmd.extend(["--in-gvcf", str(gvcf_file)])
         
-        self.logger.info(f"📜 输出Combined VCF|Output Combined VCF: {combined_output_vcf.name}")
-        self.logger.info(f"🔗 合并并基因分型 {len(gvcf_files)} 个GVCF文件|Combining and genotyping {len(gvcf_files)} GVCF files")
+        self.logger.info(f" 输出Combined VCF|Output Combined VCF: {combined_output_vcf.name}")
+        self.logger.info(f" 合并并基因分型 {len(gvcf_files)} 个GVCF文件|Combining and genotyping {len(gvcf_files)} GVCF files")
         
         success = self.cmd_runner.run_container(
             genotype_cmd,
-            f"🔗 Joint Calling - genotypegvcf ({len(gvcf_files)} samples)"
+            f" Joint Calling - genotypegvcf ({len(gvcf_files)} samples)"
         )
         
         if success:
@@ -410,7 +410,7 @@ class parabricksProcessor:
             
             if combined_output_vcf.exists():
                 vcf_size = self.file_processor.get_file_size(str(combined_output_vcf))
-                self.logger.info(f"📏 Combined VCF文件大小|Combined VCF file size: {vcf_size}")
+                self.logger.info(f" Combined VCF文件大小|Combined VCF file size: {vcf_size}")
                 
                 self.logger.info("  |-- 建立VCF.gz索引|Indexing VCF.gz file")
                 indexing_success = self.cmd_runner.run(
@@ -418,7 +418,7 @@ class parabricksProcessor:
                     " Indexing final VCF.gz"
                 )
                 if indexing_success:
-                    self.logger.info("   ✓ VCF.gz索引创建成功|VCF.gz index created successfully")
+                    self.logger.info("    VCF.gz索引创建成功|VCF.gz index created successfully")
                 else:
                     self.logger.warning("   VCF.gz索引创建失败|Failed to create VCF.gz index")
             return True

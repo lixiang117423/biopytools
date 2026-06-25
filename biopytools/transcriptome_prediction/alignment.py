@@ -334,19 +334,19 @@ class HISAT2Aligner:
         # return layout, samples
     
     def _get_sample_name_from_dict(self, sample_files, samples_dict):
-        """🏷 从样本字典获取样本名|Get sample name from samples dictionary"""
+        """ 从样本字典获取样本名|Get sample name from samples dictionary"""
         for sample_name, files in samples_dict.items():
             if set(sample_files).issubset(set(files)):
                 return sample_name
         return "unknown_sample"
     
     # def _align_paired_end(self, sample_files, sample_name, output_dir):
-    #     """👥 配对末端比对|Paired-end alignment"""
+    #     """ 配对末端比对|Paired-end alignment"""
     #     r1_file, r2_file = sample_files
     #     sam_file = output_dir / f"{sample_name}.sam"
     #     sorted_bam = output_dir / f"{sample_name}_sorted.bam"
         
-    #     self.logger.info(f"👥 执行配对末端读段比对|Performing paired-end read alignment: {sample_name}")
+    #     self.logger.info(f" 执行配对末端读段比对|Performing paired-end read alignment: {sample_name}")
         
     #     # 构建HISAT2命令|Build HISAT2 command
     #     cmd = (
@@ -368,7 +368,7 @@ class HISAT2Aligner:
     #         novel_ss_file = output_dir / f"{sample_name}_novel_splicesites.txt"
     #         cmd += f" --novel-splicesite-outfile {novel_ss_file}"
         
-    #     if not self.cmd_runner.run(cmd, f"👥 HISAT2配对末端比对|HISAT2 paired-end alignment: {sample_name}"):
+    #     if not self.cmd_runner.run(cmd, f" HISAT2配对末端比对|HISAT2 paired-end alignment: {sample_name}"):
     #         return False
         
     #     # 转换SAM为BAM并排序|Convert SAM to BAM and sort
@@ -421,11 +421,11 @@ class HISAT2Aligner:
         return True
     
     # def _align_single_end(self, read_file, sample_name, output_dir):
-    #     """🔗 单端比对|Single-end alignment"""
+    #     """ 单端比对|Single-end alignment"""
     #     sam_file = output_dir / f"{sample_name}.sam"
     #     sorted_bam = output_dir / f"{sample_name}_sorted.bam"
         
-    #     self.logger.info(f"🔗 执行单端读段比对|Performing single-end read alignment: {sample_name}")
+    #     self.logger.info(f" 执行单端读段比对|Performing single-end read alignment: {sample_name}")
         
     #     # 构建HISAT2命令|Build HISAT2 command
     #     cmd = (
@@ -446,7 +446,7 @@ class HISAT2Aligner:
     #         novel_ss_file = output_dir / f"{sample_name}_novel_splicesites.txt"
     #         cmd += f" --novel-splicesite-outfile {novel_ss_file}"
         
-    #     if not self.cmd_runner.run(cmd, f"🔗 HISAT2单端比对|HISAT2 single-end alignment: {sample_name}"):
+    #     if not self.cmd_runner.run(cmd, f" HISAT2单端比对|HISAT2 single-end alignment: {sample_name}"):
     #         return False
         
     #     # 转换SAM为BAM并排序|Convert SAM to BAM and sort
@@ -515,7 +515,7 @@ class HISAT2Aligner:
     #     # 建立索引|Create index
     #     cmd_index = f"{self.config.samtools_path} index -@ {self.config.threads} {sorted_bam}"
         
-    #     if not self.cmd_runner.run(cmd_index, f"📇 BAM索引|BAM indexing: {sorted_bam.name}"):
+    #     if not self.cmd_runner.run(cmd_index, f" BAM索引|BAM indexing: {sorted_bam.name}"):
     #         return False
         
     #     # 删除临时文件|Remove temporary files

@@ -36,7 +36,7 @@ class LTRFinderRunner:
         return self.output_file
 
 class LTRHarvestRunner:
-    """🌾 LTRharvest运行器|LTRharvest Runner"""
+    """ LTRharvest运行器|LTRharvest Runner"""
     
     def __init__(self, config, logger, cmd_runner):
         self.config = config
@@ -52,7 +52,7 @@ class LTRHarvestRunner:
         
     #     success = self.cmd_runner.run(
     #         cmd,
-    #         "🌾 运行LTRharvest识别LTR逆转录转座子|Run LTRharvest to identify LTR retrotransposons"
+    #         " 运行LTRharvest识别LTR逆转录转座子|Run LTRharvest to identify LTR retrotransposons"
     #     )
         
     #     if success and output_file.exists():
@@ -76,7 +76,7 @@ class LTRHarvestRunner:
         
         success = self.cmd_runner.run(
             cmd,
-            "🌾 运行LTRharvest识别LTR逆转录转座子|Run LTRharvest to identify LTR retrotransposons"
+            " 运行LTRharvest识别LTR逆转录转座子|Run LTRharvest to identify LTR retrotransposons"
         )
         
         if success and output_file.exists():

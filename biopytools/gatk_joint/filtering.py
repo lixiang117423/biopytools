@@ -53,7 +53,7 @@ class VariantFilter:
     
     def filter_snps(self):
         """过滤SNP|Filter SNPs"""
-        self.logger.info("🧹 过滤SNP变异|Filtering SNP variants")
+        self.logger.info(" 过滤SNP变异|Filtering SNP variants")
         
         snp_filtered = self.config.output_path / f"{self.config.base_name}_snps_filtered.vcf.gz"
         
@@ -84,7 +84,7 @@ class VariantFilter:
     
     def filter_indels(self):
         """过滤INDEL|Filter INDELs"""
-        self.logger.info("🧹 过滤INDEL变异|Filtering INDEL variants")
+        self.logger.info(" 过滤INDEL变异|Filtering INDEL variants")
         
         indel_filtered = self.config.output_path / f"{self.config.base_name}_indels_filtered.vcf.gz"
         
@@ -113,7 +113,7 @@ class VariantFilter:
     
     def merge_variants(self):
         """合并SNP和INDEL|Merge SNPs and INDELs"""
-        self.logger.info("🔗 合并SNP和INDEL|Merging SNPs and INDELs")
+        self.logger.info(" 合并SNP和INDEL|Merging SNPs and INDELs")
         
         merged_vcf = self.config.output_path / f"{self.config.base_name}_merged_filtered.vcf.gz"
         

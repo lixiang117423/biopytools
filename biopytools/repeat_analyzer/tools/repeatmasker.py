@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 class RepeatMaskerRunner:
-    """🎭 RepeatMasker运行器|RepeatMasker Runner"""
+    """ RepeatMasker运行器|RepeatMasker Runner"""
     
     def __init__(self, config, logger, cmd_runner):
         self.config = config
@@ -41,7 +41,7 @@ class RepeatMaskerRunner:
         
         success = self.cmd_runner.run(
             cmd,
-            "🎭 运行RepeatMasker识别重复序列|Run RepeatMasker to identify repeat sequences"
+            " 运行RepeatMasker识别重复序列|Run RepeatMasker to identify repeat sequences"
         )
         
         if success:
@@ -66,7 +66,7 @@ class RepeatMaskerRunner:
         return self.output_files
     
     def get_masked_genome(self) -> Path:
-        """🎭 获取屏蔽基因组文件|Get masked genome file"""
+        """ 获取屏蔽基因组文件|Get masked genome file"""
         return self.output_files.get('masked')
     
     def get_annotation_file(self) -> Path:

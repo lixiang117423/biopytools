@@ -48,7 +48,7 @@ class CommandRunner:
         if description:
             self.logger.info(f" 执行步骤|Executing step: {description}")
         
-        self.logger.info(f"💻 命令|Command: {cmd}")
+        self.logger.info(f" 命令|Command: {cmd}")
         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
         try:
@@ -70,7 +70,7 @@ class CommandRunner:
             
         except subprocess.CalledProcessError as e:
             self.logger.error(f" 命令执行失败|Command execution failed: {description}")
-            self.logger.error(f"🔢 错误代码|Error code: {e.returncode}")
+            self.logger.error(f" 错误代码|Error code: {e.returncode}")
             self.logger.error(f" 错误信息|Error message: {e.stderr}")
             self.logger.error(f" 标准输出|Stdout: {e.stdout}")
             return False
@@ -166,8 +166,8 @@ def check_dependencies(config, logger):
     dependencies = [
         (config.hisat2_path, "HISAT2", ""),
         (config.hisat2_build_path, "HISAT2-build", ""),
-        (config.stringtie_path, "StringTie", "🧩"),
-        (config.trinity_path, "Trinity", "🔗"),
+        (config.stringtie_path, "StringTie", ""),
+        (config.trinity_path, "Trinity", ""),
         (config.samtools_path, "SAMtools", "")
     ]
     

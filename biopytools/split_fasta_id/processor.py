@@ -109,9 +109,9 @@ class FastaProcessor:
                     
                     # 进度报告|Progress report
                     if (self.processed_count + self.skipped_count) % 1000 == 0:
-                        self.logger.info(f"📈 已处理|Processed: {self.processed_count + self.skipped_count} 序列|sequences")
+                        self.logger.info(f" 已处理|Processed: {self.processed_count + self.skipped_count} 序列|sequences")
             
-            self.logger.info(f"✨ 处理完成|Processing completed!")
+            self.logger.info(f" 处理完成|Processing completed!")
             self.logger.info(f" 成功处理|Successfully processed: {self.processed_count} 序列|sequences")
             self.logger.info(f" 跳过|Skipped: {self.skipped_count} 序列|sequences")
             self.logger.info(f" 输出文件|Output file: {self.config.output_file}")

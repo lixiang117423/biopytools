@@ -38,7 +38,7 @@ class ExtractorConfig:
     
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # ⚠️ 关键：展开所有包含~的路径（规范11.3.1要求）|CRITICAL: Expand all paths with ~ (spec 11.3.1)
+        #  关键：展开所有包含~的路径（规范11.3.1要求）|CRITICAL: Expand all paths with ~ (spec 11.3.1)
         self.samtools_path = expand_path(self.samtools_path)
 
         # 标准化路径|Normalize paths

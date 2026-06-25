@@ -103,7 +103,7 @@ def cphasing(subcommand, fasta, hic1, hic2, groups, threads, mode, preset,
     |Subgenome clustering (--enable-haplotype-cluster) is enabled by default for pipeline/scaffolding
     使用 --no-haplotype-cluster 关闭|Use --no-haplotype-cluster to disable
 
-    ⚠️ 必须先激活 CPhasing 环境再调用|MUST activate CPhasing env first:
+     必须先激活 CPhasing 环境再调用|MUST activate CPhasing env first:
         source ~/software/CPhasing_v0.3.0/bin/activate_cphasing
         （路径根据你的实际安装位置调整|Adjust path to your actual install）
 

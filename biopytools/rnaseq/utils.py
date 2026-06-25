@@ -57,11 +57,11 @@
 #                 text=True
 #             )
             
-#             self.logger.info(f"✓ {description} 完成|completed")
+#             self.logger.info(f" {description} 完成|completed")
 #             return True
             
 #         except subprocess.CalledProcessError as e:
-#             self.logger.error(f"✗ {description} 失败|failed")
+#             self.logger.error(f" {description} 失败|failed")
 #             self.logger.error(f"错误信息|Error message: {e.stderr}")
 #             sys.exit(1)
 
@@ -75,7 +75,7 @@
 #         """检查文件是否存在|Check if file exists"""
 #         if os.path.exists(file_path):
 #             if description:
-#                 self.logger.info(f"✓ {description}已存在，跳过|already exists, skipping: {file_path}")
+#                 self.logger.info(f" {description}已存在，跳过|already exists, skipping: {file_path}")
 #             return True
 #         return False
 

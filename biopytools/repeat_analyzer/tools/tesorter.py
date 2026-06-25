@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 class TESorterRunner:
-    """🏷 TEsorter运行器|TEsorter Runner"""
+    """ TEsorter运行器|TEsorter Runner"""
     
     def __init__(self, config, logger, cmd_runner):
         self.config = config
@@ -35,7 +35,7 @@ class TESorterRunner:
         
         success = self.cmd_runner.run(
             cmd,
-            "🏷 运行TEsorter对转座元件进行分类|Run TEsorter to classify transposable elements"
+            " 运行TEsorter对转座元件进行分类|Run TEsorter to classify transposable elements"
         )
         
         if success:
@@ -59,7 +59,7 @@ class TESorterRunner:
         return self.output_files
     
     def get_classified_library(self) -> Path:
-        """📚 获取分类后的库文件|Get classified library file"""
+        """ 获取分类后的库文件|Get classified library file"""
         return self.output_files.get('cls') or self.output_files.get('rexdb')
     
     def get_classification_table(self) -> Path:

@@ -152,7 +152,7 @@ def create_parser():
                                 help=' 输出带分支长度的bootstrap树|Print bootstrap trees with branch lengths')
     
     # 树参数|Tree parameters
-    tree_group = parser.add_argument_group('🌲 树参数|Tree parameters')
+    tree_group = parser.add_argument_group(' 树参数|Tree parameters')
     tree_group.add_argument('-t', '--starting-tree',
                            help=' 起始树文件|Starting tree file')
     tree_group.add_argument('-g', '--constraint-tree',

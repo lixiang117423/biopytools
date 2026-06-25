@@ -44,7 +44,7 @@ class TranscriptomeAnalyzer:
         self.coding_predictor = TransDecoderPredictor(self.config, self.logger, self.cmd_runner)
         
         self.logger.info(" 转录组预测分析器初始化完成|Transcriptome prediction analyzer initialized")
-        self.logger.info(f"🧵 使用线程数|Thread count: {self.config.threads}")
+        self.logger.info(f" 使用线程数|Thread count: {self.config.threads}")
 
     def _check_step_completed(self, step_name: str) -> bool:
         """ 检查步骤是否已完成|Check if step is completed"""
@@ -165,7 +165,7 @@ class TranscriptomeAnalyzer:
         Args:
             resume (bool): 是否跳过已完成的步骤|Whether to skip completed steps
         """
-        self.logger.info("🎬 开始转录组预测分析|Starting transcriptome prediction analysis")
+        self.logger.info(" 开始转录组预测分析|Starting transcriptome prediction analysis")
         if resume:
             self.logger.info(" 启用断点续传模式|Resume mode enabled - will skip completed steps")
         
@@ -182,7 +182,7 @@ class TranscriptomeAnalyzer:
                     raise RuntimeError(" HISAT2比对失败|HISAT2 alignment failed")
             
             # Step 2: StringTie转录本重构|StringTie transcript reconstruction
-            self.logger.info("🧩 === 步骤2: StringTie转录本重构|Step 2: StringTie Transcript Reconstruction ===")
+            self.logger.info(" === 步骤2: StringTie转录本重构|Step 2: StringTie Transcript Reconstruction ===")
             if resume and self._check_step_completed("stringtie_assembly"):
                 self.logger.info(" 跳过StringTie转录本重构步骤 - 已完成|Skipping StringTie reconstruction - already completed")
             else:
@@ -191,13 +191,13 @@ class TranscriptomeAnalyzer:
             
             # Step 3: Trinity de novo组装|Trinity de novo assembly
             if self.config.skip_trinity:
-                self.logger.info("🔗 === 步骤3: Trinity de novo组装 - 跳过|Step 3: Trinity de novo Assembly - SKIPPED ===")
+                self.logger.info(" === 步骤3: Trinity de novo组装 - 跳过|Step 3: Trinity de novo Assembly - SKIPPED ===")
                 # 尝试查找已存在的Trinity组装文件
                 if not self._find_existing_trinity_assembly():
                     self.logger.warning(" 跳过了Trinity组装但未找到已存在的Trinity文件，PASA步骤可能会失败")
                     self.logger.warning(" Skipped Trinity assembly but no existing Trinity file found, PASA step may fail")
             else:
-                self.logger.info("🔗 === 步骤3: Trinity de novo组装|Step 3: Trinity de novo Assembly ===")
+                self.logger.info(" === 步骤3: Trinity de novo组装|Step 3: Trinity de novo Assembly ===")
                 if resume and self._check_step_completed("trinity_assembly"):
                     self.logger.info(" 跳过Trinity de novo组装步骤 - 已完成|Skipping Trinity assembly - already completed")
                 else:
@@ -205,7 +205,7 @@ class TranscriptomeAnalyzer:
                         raise RuntimeError(" Trinity de novo组装失败|Trinity de novo assembly failed")
             
             # Step 4: PASA基因结构注释|PASA gene structure annotation
-            self.logger.info("📍 === 步骤4: PASA基因结构注释|Step 4: PASA Gene Structure Annotation ===")
+            self.logger.info(" === 步骤4: PASA基因结构注释|Step 4: PASA Gene Structure Annotation ===")
             
             # 检查是否有Trinity组装文件用于PASA
             if not hasattr(self.config, 'trinity_assembly') or not self.config.trinity_assembly:
@@ -236,7 +236,7 @@ class TranscriptomeAnalyzer:
             self.logger.info(" 转录组预测分析完成！|Transcriptome prediction analysis completed! ")
             
         except Exception as e:
-            self.logger.error(f"💥 分析过程中发生错误|Error occurred during analysis: {str(e)}")
+            self.logger.error(f" 分析过程中发生错误|Error occurred during analysis: {str(e)}")
             sys.exit(1)
 
 
@@ -271,7 +271,7 @@ class TranscriptomeAnalyzer:
             self.logger.info(f" 步骤{step_name} 完成|Step {step_name} completed")
             
         except Exception as e:
-            self.logger.error(f"💥 步骤{step_name} 失败|Step {step_name} failed: {str(e)}")
+            self.logger.error(f" 步骤{step_name} 失败|Step {step_name} failed: {str(e)}")
             sys.exit(1)
     
     def _generate_report(self):
@@ -282,7 +282,7 @@ class TranscriptomeAnalyzer:
             f.write(" 转录组预测分析报告|Transcriptome Prediction Analysis Report\n")
             f.write("=" * 80 + "\n\n")
             
-            f.write("📍 输入文件|Input Files:\n")
+            f.write(" 输入文件|Input Files:\n")
             f.write(f"   基因组文件|Genome file: {self.config.genome_file}\n")
             f.write(f"   RNA-seq文件|RNA-seq files: {len(self.config.rna_seq_files)} 个文件|files\n")
             for i, rna_file in enumerate(self.config.rna_seq_files, 1):
@@ -293,11 +293,11 @@ class TranscriptomeAnalyzer:
             f.write("\n")
             
             f.write(" 分析参数|Analysis Parameters:\n")
-            f.write(f"  🧵 线程数|Threads: {self.config.threads}\n")
+            f.write(f"   线程数|Threads: {self.config.threads}\n")
             f.write(f"   HISAT2最小内含子长度|HISAT2 min intron length: {self.config.hisat2_min_intron}\n")
             f.write(f"   HISAT2最大内含子长度|HISAT2 max intron length: {self.config.hisat2_max_intron}\n")
-            f.write(f"  🧩 StringTie最小转录本长度|StringTie min transcript length: {self.config.stringtie_min_length}\n")
-            f.write(f"  🔗 Trinity最小contig长度|Trinity min contig length: {self.config.trinity_min_contig_length}\n")
+            f.write(f"   StringTie最小转录本长度|StringTie min transcript length: {self.config.stringtie_min_length}\n")
+            f.write(f"   Trinity最小contig长度|Trinity min contig length: {self.config.trinity_min_contig_length}\n")
             f.write(f"   TransDecoder最小蛋白质长度|TransDecoder min protein length: {self.config.transdecoder_min_protein_len}\n")
             f.write("\n")
             
@@ -308,13 +308,13 @@ class TranscriptomeAnalyzer:
                     f.write(f"    {i}. {Path(bam_file).name}\n")
             
             if hasattr(self.config, 'merged_gtf'):
-                f.write(f"  🧩 StringTie转录本|StringTie transcripts: {Path(self.config.merged_gtf).name}\n")
+                f.write(f"   StringTie转录本|StringTie transcripts: {Path(self.config.merged_gtf).name}\n")
             
             if hasattr(self.config, 'trinity_assembly'):
-                f.write(f"  🔗 Trinity组装|Trinity assembly: {Path(self.config.trinity_assembly).name}\n")
+                f.write(f"   Trinity组装|Trinity assembly: {Path(self.config.trinity_assembly).name}\n")
             
             if hasattr(self.config, 'pasa_annotation'):
-                f.write(f"  📍 PASA注释|PASA annotation: {Path(self.config.pasa_annotation).name}\n")
+                f.write(f"   PASA注释|PASA annotation: {Path(self.config.pasa_annotation).name}\n")
             
             if hasattr(self.config, 'transdecoder_outputs'):
                 f.write("   TransDecoder输出|TransDecoder outputs:\n")
@@ -407,7 +407,7 @@ def main():
     # workflow_group.add_argument('--no-resume', action='store_true',
     #                            help=' 禁用断点续传，重新运行所有步骤|Disable resume mode, rerun all steps')
     # workflow_group.add_argument('--skip-trinity', action='store_true',
-    #                            help='🔗 跳过Trinity de novo组装步骤|Skip Trinity de novo assembly step')
+    #                            help=' 跳过Trinity de novo组装步骤|Skip Trinity de novo assembly step')
     # workflow_group.add_argument('--step', choices=['alignment', 'stringtie', 'trinity', 'pasa', 'transdecoder'],
     #                            help=' 只运行特定步骤|Run only specific step')
     
@@ -422,7 +422,7 @@ def main():
     
     # 可选参数|Optional parameters
     parser.add_argument('-t', '--threads', type=int, default=88,
-                       help='🧵 线程数 (默认: 88)|Number of threads (default: 88)')
+                       help=' 线程数 (默认: 88)|Number of threads (default: 88)')
     
     # HISAT2参数|HISAT2 parameters
     parser.add_argument('--hisat2-min-intron', type=int, default=20,
@@ -436,37 +436,37 @@ def main():
     
     # StringTie参数|StringTie parameters
     parser.add_argument('--stringtie-min-length', type=int, default=200,
-                       help='🧩 StringTie最小转录本长度 (默认: 200)|StringTie minimum transcript length (default: 200)')
+                       help=' StringTie最小转录本长度 (默认: 200)|StringTie minimum transcript length (default: 200)')
     parser.add_argument('--stringtie-min-coverage', type=float, default=1.0,
-                       help='🧩 StringTie最小覆盖度 (默认: 1.0)|StringTie minimum coverage (default: 1.0)')
+                       help=' StringTie最小覆盖度 (默认: 1.0)|StringTie minimum coverage (default: 1.0)')
     parser.add_argument('--stringtie-min-fpkm', type=float, default=1.0,
-                       help='🧩 StringTie最小FPKM (默认: 1.0)|StringTie minimum FPKM (default: 1.0)')
+                       help=' StringTie最小FPKM (默认: 1.0)|StringTie minimum FPKM (default: 1.0)')
     parser.add_argument('--stringtie-min-iso', type=float, default=0.01,
-                       help='🧩 StringTie最小isoform (默认: 1.0)|StringTie isoform fraction (default: 0.01)')
+                       help=' StringTie最小isoform (默认: 1.0)|StringTie isoform fraction (default: 0.01)')
     parser.add_argument('--stringtie-conservative', action='store_true',
-                       help='🧩 StringTie保守组装模式|StringTie conservative assembly mode')
+                       help=' StringTie保守组装模式|StringTie conservative assembly mode')
     
     # Trinity参数|Trinity parameters
     parser.add_argument('--trinity-min-contig-length', type=int, default=200,
-                       help='🔗 Trinity最小contig长度 (默认: 200)|Trinity minimum contig length (default: 200)')
+                       help=' Trinity最小contig长度 (默认: 200)|Trinity minimum contig length (default: 200)')
     parser.add_argument('--trinity-max-memory', default='200G',
-                       help='🔗 Trinity最大内存使用 (默认: 200G)|Trinity maximum memory usage (default: 200G)')
+                       help=' Trinity最大内存使用 (默认: 200G)|Trinity maximum memory usage (default: 200G)')
     parser.add_argument('--trinity-cpu', type=int, default=88,
-                       help='🔗 Trinity CPU数量 (默认: 88)|Trinity CPU count (default: 88)')
+                       help=' Trinity CPU数量 (默认: 88)|Trinity CPU count (default: 88)')
     parser.add_argument('--trinity-ss-lib-type', choices=['FR', 'RF', 'F', 'R'],
-                       help='🔗 Trinity链特异性类型|Trinity strand-specific library type')
+                       help=' Trinity链特异性类型|Trinity strand-specific library type')
     
     # PASA参数|PASA parameters
     parser.add_argument('--pasa-max-intron-length', type=int, default=100000,
-                       help='📍 PASA最大内含子长度 (默认: 100000)|PASA maximum intron length (default: 100000)')
+                       help=' PASA最大内含子长度 (默认: 100000)|PASA maximum intron length (default: 100000)')
     parser.add_argument('--pasa-min-percent-aligned', type=int, default=90,
-                       help='📍 PASA最小比对百分比 (默认: 90)|PASA minimum percent aligned (default: 90)')
+                       help=' PASA最小比对百分比 (默认: 90)|PASA minimum percent aligned (default: 90)')
     parser.add_argument('--pasa-min-avg-per-id', type=int, default=95,
-                       help='📍 PASA最小平均身份百分比 (默认: 95)|PASA minimum average percent identity (default: 95)')
+                       help=' PASA最小平均身份百分比 (默认: 95)|PASA minimum average percent identity (default: 95)')
     parser.add_argument('--pasa-aligners', default='gmap,blat',
-                       help='📍 PASA比对器 (默认: gmap,blat)|PASA aligners (default: gmap,blat)')
+                       help=' PASA比对器 (默认: gmap,blat)|PASA aligners (default: gmap,blat)')
     parser.add_argument('--pasa-cpu', type=int, default=88,
-                       help='📍 PASA CPU数量 (默认: 88)|PASA CPU count (default: 88)')
+                       help=' PASA CPU数量 (默认: 88)|PASA CPU count (default: 88)')
     
     # TransDecoder参数|TransDecoder parameters
     parser.add_argument('--transdecoder-min-protein-len', type=int, default=100,

@@ -273,25 +273,25 @@ def gffconverter(input, output, species_name, species_prefix, start_num, step,
     
     Best Practices:
     
-    1⃣  :
+    1  :
        -  GFF
        -  
        -  
        -  
     
-    2⃣  :
+    2  :
        -  
        -  ID
        -  
-       - 🧵 
+       -  
     
-    3⃣  :
+    3  :
        -  --show-sample
        -  
        -  ID
        -  GFF3
     
-    4⃣  :
+    4  :
        -  
        -  
        -  
@@ -299,7 +299,7 @@ def gffconverter(input, output, species_name, species_prefix, start_num, step,
     
     Output Validation:
     
-    🤖 :
+     :
     -  GFF3
     -  ID
     -  

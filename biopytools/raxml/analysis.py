@@ -1,5 +1,5 @@
 """
-🌳 RAxML系统发育分析核心模块|RAxML Phylogenetic Analysis Core Module
+ RAxML系统发育分析核心模块|RAxML Phylogenetic Analysis Core Module
 """
 
 import os
@@ -52,14 +52,14 @@ class RAxMLAnalyzer:
         """生成随机种子|Generate random seeds"""
         if self.config.parsimony_seed is None:
             parsimony_seed = random.randint(1, 1000000)
-            self.logger.info(f"🎲 生成parsimony随机种子|Generated parsimony random seed: {parsimony_seed}")
+            self.logger.info(f" 生成parsimony随机种子|Generated parsimony random seed: {parsimony_seed}")
         else:
             parsimony_seed = self.config.parsimony_seed
             self.logger.info(f" 使用指定parsimony种子|Using specified parsimony seed: {parsimony_seed}")
         
         if self.config.bootstrap_seed is None and self.is_bootstrap_analysis():
             bootstrap_seed = random.randint(1, 1000000)
-            self.logger.info(f"🎲 生成bootstrap随机种子|Generated bootstrap random seed: {bootstrap_seed}")
+            self.logger.info(f" 生成bootstrap随机种子|Generated bootstrap random seed: {bootstrap_seed}")
         else:
             bootstrap_seed = self.config.bootstrap_seed
         
@@ -160,7 +160,7 @@ class RAxMLAnalyzer:
     
     def run_raxml_analysis(self) -> bool:
         """运行RAxML分析|Run RAxML analysis"""
-        self.logger.info("🌳 开始RAxML系统发育分析|Starting RAxML phylogenetic analysis")
+        self.logger.info(" 开始RAxML系统发育分析|Starting RAxML phylogenetic analysis")
         
         # 构建命令|Build command
         cmd = self.build_raxml_command()
@@ -182,7 +182,7 @@ class RAxMLAnalyzer:
     
     def estimate_runtime(self):
         """估算运行时间|Estimate runtime"""
-        self.logger.info("⏱ 运行时间估算|Runtime estimation:")
+        self.logger.info(" 运行时间估算|Runtime estimation:")
         
         # 简单的运行时间估算|Simple runtime estimation
         try:
@@ -205,7 +205,7 @@ class RAxMLAnalyzer:
                         else:
                             estimate = "数天到数周|Several days to weeks"
                         
-                        self.logger.info(f"⏰ 预计运行时间|Estimated runtime: {estimate}")
+                        self.logger.info(f" 预计运行时间|Estimated runtime: {estimate}")
                         
                         if self.is_bootstrap_analysis():
                             self.logger.info(" 注意：Bootstrap分析会显著增加运行时间|Note: Bootstrap analysis will significantly increase runtime")

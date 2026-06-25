@@ -108,7 +108,7 @@ class GenomeIndexer:
             if not self.cmd_runner.run(f"bwa index {self.config.ref_genome_fa}", " 构建BWA索引|Build BWA index"):
                 return False
         else:
-            self.logger.info("✓ BWA 索引已存在|BWA index already exists")
+            self.logger.info(" BWA 索引已存在|BWA index already exists")
 
         # 检查SAMtools索引|Check SAMtools index
         if not os.path.exists(f"{self.config.ref_genome_fa}.fai"):
@@ -117,7 +117,7 @@ class GenomeIndexer:
             if not self.cmd_runner.run(f"samtools faidx {self.config.ref_genome_fa}", " 构建SAMtools索引|Build SAMtools index"):
                 return False
         else:
-            self.logger.info("✓ SAMtools 索引已存在|SAMtools index already exists")
+            self.logger.info(" SAMtools 索引已存在|SAMtools index already exists")
 
         # 检查GATK字典|Check GATK dictionary
         ref_dict = f"{os.path.splitext(self.config.ref_genome_fa)[0]}.dict"
@@ -128,7 +128,7 @@ class GenomeIndexer:
             if not self.cmd_runner.run(command, " 构建GATK字典|Build GATK dictionary"):
                 return False
         else:
-            self.logger.info("✓ GATK 字典已存在|GATK dictionary already exists")
+            self.logger.info(" GATK 字典已存在|GATK dictionary already exists")
 
         if not need_index:
             self.logger.info("所有索引均已存在|All indexes already exist")

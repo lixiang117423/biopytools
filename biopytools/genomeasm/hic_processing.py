@@ -1,5 +1,5 @@
 """
-Hi-C数据处理模块|Hi-C Data Processing Module 🔗
+Hi-C数据处理模块|Hi-C Data Processing Module 
 """
 
 import os
@@ -25,7 +25,7 @@ class HiCProcessor:
     
     def process_all_assemblies(self, fasta_files: Dict[str, List[str]]) -> Dict[str, Dict[str, str]]:
         """处理所有组装结果的Hi-C挂载|Process Hi-C scaffolding for all assemblies"""
-        self.logger.info("🔗 开始Hi-C染色体挂载处理|Starting Hi-C chromosome scaffolding")
+        self.logger.info(" 开始Hi-C染色体挂载处理|Starting Hi-C chromosome scaffolding")
         
         if 'Hi-C' not in self.config.detected_data_types:
             self.logger.warning(" 未检测到Hi-C数据，跳过挂载步骤|No Hi-C data detected, skipping scaffolding")
@@ -39,7 +39,7 @@ class HiCProcessor:
             
             for fasta_file in fasta_list:
                 assembly_name = Path(fasta_file).stem
-                self.logger.info(f"🔗 处理{assembly_type}组装: {assembly_name}|Processing {assembly_type} assembly: {assembly_name}")
+                self.logger.info(f" 处理{assembly_type}组装: {assembly_name}|Processing {assembly_type} assembly: {assembly_name}")
                 
                 # 根据策略选择处理方法
                 if self.config.hic_strategy == "complete_juicer":
@@ -273,7 +273,7 @@ class HiCProcessor:
     
     def _run_3ddna_pipeline(self, work_dir: Path, assembly_name: str) -> Optional[Dict[str, str]]:
         """运行3D-DNA pipeline (使用Juicer输出)|Run 3D-DNA pipeline with Juicer output"""
-        self.logger.info(f"🧭 运行3D-DNA pipeline: {assembly_name}|Running 3D-DNA pipeline: {assembly_name}")
+        self.logger.info(f" 运行3D-DNA pipeline: {assembly_name}|Running 3D-DNA pipeline: {assembly_name}")
         
         # 查找Juicer输出文件
         merged_nodups = work_dir / "aligned" / "merged_nodups.txt"
@@ -287,7 +287,7 @@ class HiCProcessor:
     
     def _run_3ddna_with_merged_nodups(self, fasta_file: Path, merged_nodups: Path, work_dir: Path, assembly_name: str) -> Optional[Dict[str, str]]:
         """使用merged_nodups文件运行3D-DNA|Run 3D-DNA with merged_nodups file"""
-        self.logger.info(f"🧭 3D-DNA染色体挂载: {assembly_name}|3D-DNA chromosome scaffolding: {assembly_name}")
+        self.logger.info(f" 3D-DNA染色体挂载: {assembly_name}|3D-DNA chromosome scaffolding: {assembly_name}")
         
         # 构建3D-DNA命令
         cmd_parts = [self.config.pipeline_3ddna]
@@ -439,7 +439,7 @@ class HiCProcessor:
         report_file = self.hic_dir / "hic_processing_report.txt"
         
         with open(report_file, 'w', encoding='utf-8') as f:
-            f.write("🔗 Hi-C染色体挂载处理报告|Hi-C Chromosome Scaffolding Report\n")
+            f.write(" Hi-C染色体挂载处理报告|Hi-C Chromosome Scaffolding Report\n")
             f.write("=" * 70 + "\n\n")
             f.write(f"项目名称|Project: {self.config.project_name}\n")
             f.write(f"Hi-C策略|Hi-C Strategy: {self.config.hic_strategy}\n")

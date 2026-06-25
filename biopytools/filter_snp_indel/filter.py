@@ -118,7 +118,7 @@ class VCFFilter:
     # def merge_filtered_variants(self) -> bool:
     #     """合并过滤后的SNP和INDEL|Merge filtered SNPs and INDELs"""
     #     self.logger.info("=" * 60)
-    #     self.logger.info("🔗 步骤3: 合并过滤后的变异|Step 3: Merging filtered variants")
+    #     self.logger.info(" 步骤3: 合并过滤后的变异|Step 3: Merging filtered variants")
     #     self.logger.info("=" * 60)
         
     #     # 合并文件|Merge files
@@ -163,7 +163,7 @@ class VCFFilter:
     def merge_filtered_variants(self) -> bool:
         """合并过滤后的SNP和INDEL|Merge filtered SNPs and INDELs"""
         self.logger.info("=" * 60)
-        self.logger.info("🔗 步骤3: 合并过滤后的变异|Step 3: Merging filtered variants")
+        self.logger.info(" 步骤3: 合并过滤后的变异|Step 3: Merging filtered variants")
         self.logger.info("=" * 60)
         
         # 定义一个临时的、未排序的合并文件名 (这是一个相对路径名)

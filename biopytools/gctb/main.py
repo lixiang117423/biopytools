@@ -175,7 +175,7 @@ class GCTBRunner:
             self.logger.error("表型文件转换失败|Phenotype file conversion failed")
             return False
 
-        self.logger.info(f"✓ 生成了 {len(converted_pheno_files)} 个表型文件|Generated {len(converted_pheno_files)} phenotype files")
+        self.logger.info(f" 生成了 {len(converted_pheno_files)} 个表型文件|Generated {len(converted_pheno_files)} phenotype files")
         self.logger.info("")
 
         # 步骤1-3: VCF转换、质控、计算频率（只执行一次）|Steps 1-3: VCF conversion, QC, calculate frequencies (run once)
@@ -193,7 +193,7 @@ class GCTBRunner:
                 self.logger.error(f"\n步骤 {i} 失败，终止流程|Step {i} failed, terminating pipeline")
                 return False
 
-            self.logger.info(f"✓ 步骤 {i} 完成|Step {i} completed")
+            self.logger.info(f" 步骤 {i} 完成|Step {i} completed")
             self.logger.info("")
 
         # 为每个表型运行分析|Run analysis for each phenotype
@@ -223,14 +223,14 @@ class GCTBRunner:
             success = self.step_run_analysis()
 
             if success:
-                self.logger.info(f"✓ 表型 {pheno_name} 分析完成|Phenotype {pheno_name} analysis completed")
+                self.logger.info(f" 表型 {pheno_name} 分析完成|Phenotype {pheno_name} analysis completed")
                 summary_results.append({
                     'phenotype': pheno_name,
                     'status': 'success',
                     'output_dir': str(trait_result_dir)
                 })
             else:
-                self.logger.error(f"✗ 表型 {pheno_name} 分析失败|Phenotype {pheno_name} analysis failed")
+                self.logger.error(f" 表型 {pheno_name} 分析失败|Phenotype {pheno_name} analysis failed")
                 summary_results.append({
                     'phenotype': pheno_name,
                     'status': 'failed',
@@ -250,7 +250,7 @@ class GCTBRunner:
         self.logger.info("")
 
         for result in summary_results:
-            status_symbol = "✓" if result['status'] == 'success' else "✗"
+            status_symbol = "" if result['status'] == 'success' else ""
             self.logger.info(f"{status_symbol} {result['phenotype']}: {result['output_dir']}")
 
         # 步骤5: 汇总所有表型的结果|Step 5: Summarize results for all phenotypes
@@ -312,7 +312,7 @@ class GCTBRunner:
                 self.logger.error(f"\n步骤 {i} 失败，终止流程|Step {i} failed, terminating pipeline")
                 return False
 
-            self.logger.info(f"✓ 步骤 {i} 完成|Step {i} completed")
+            self.logger.info(f" 步骤 {i} 完成|Step {i} completed")
 
         self.logger.info("="*60)
         self.logger.info("GCTB分析流程全部完成|GCTB analysis pipeline completed successfully!")

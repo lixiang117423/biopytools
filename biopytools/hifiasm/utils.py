@@ -351,14 +351,14 @@ def check_dependencies(config, logger: logging.Logger) -> bool:
             
             if result.returncode == 0:
                 version_info = result.stdout.strip() or result.stderr.strip()
-                logger.info(f"✓ {name}可用|available: {version_info.split()[0] if version_info else 'unknown version'}")
+                logger.info(f" {name}可用|available: {version_info.split()[0] if version_info else 'unknown version'}")
             else:
                 missing_deps.append(name)
-                logger.error(f"✗ {name} 版本检查失败|version check failed")
+                logger.error(f" {name} 版本检查失败|version check failed")
                 
         except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.CalledProcessError):
             missing_deps.append(name)
-            logger.error(f"✗ {name}未找到或不可执行|not found or not executable: {cmd}")
+            logger.error(f" {name}未找到或不可执行|not found or not executable: {cmd}")
     
     if missing_deps:
         error_msg = f"缺少依赖软件|Missing dependencies: {', '.join(missing_deps)}"

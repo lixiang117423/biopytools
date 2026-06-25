@@ -1,10 +1,10 @@
 """
  parabricks WGS批处理分析工具包|parabricks WGS Batch Processing Analysis Toolkit 
 功能 : 全基因组测序数据的parabricks分析流程，支持批量处理和质量控制|
-Features ✨: parabricks analysis pipeline for whole genome sequencing data with batch processing and quality control
+Features : parabricks analysis pipeline for whole genome sequencing data with batch processing and quality control
 作者|Author: Xiang LI  
-版本 🏷|Version: v1.0 - 模块化版本|Modular version
-日期 📅|Date: 2025-08-08
+版本 |Version: v1.0 - 模块化版本|Modular version
+日期 |Date: 2025-08-08
 
 使用示例 |Usage Examples:
     from biopytools.parabricks import parabricksAnalyzer, parabricksConfig
@@ -17,7 +17,7 @@ Features ✨: parabricks analysis pipeline for whole genome sequencing data with
         threads=12
     )
     
-    # 运行分析 🏃‍♂|Run analysis
+    # 运行分析 |Run analysis
     analyzer.run_analysis()
 """
 

@@ -50,7 +50,7 @@ def create_test_files():
 
 def test_extraction():
     """测试序列提取|Test sequence extraction"""
-    print("🧪 开始序列提取测试|Starting sequence extraction test")
+    print(" 开始序列提取测试|Starting sequence extraction test")
 
     # 创建测试文件|Create test files
     fasta_file, id_list_file, output_file = create_test_files()

@@ -62,7 +62,7 @@ class MetadataDownloader:
         self.session = self._create_session()
     
     def _create_session(self) -> requests.Session:
-        """🌐 创建HTTP会话|Create HTTP session"""
+        """ 创建HTTP会话|Create HTTP session"""
         session = requests.Session()
         retries = Retry(
             total=self.config.max_retries,
@@ -98,8 +98,8 @@ class MetadataDownloader:
         output_file = self.config.output_path / self.config.metadata_file
         
         try:
-            # 🌐 发送API请求|Send API request
-            self.logger.info(f"📡 正在请求ENA API|Requesting ENA API: {self.config.api_url}")
+            #  发送API请求|Send API request
+            self.logger.info(f" 正在请求ENA API|Requesting ENA API: {self.config.api_url}")
             response = self.session.get(
                 self.config.api_url, 
                 params=params, 
@@ -145,7 +145,7 @@ class MetadataDownloader:
         return csv_file
     
     def _save_as_excel(self, content: str, output_file: Path) -> Path:
-        """📗 保存为Excel格式|Save as Excel format"""
+        """ 保存为Excel格式|Save as Excel format"""
         try:
             import pandas as pd
             import numpy as np
@@ -162,7 +162,7 @@ class MetadataDownloader:
             
             df = pd.DataFrame(data_rows, columns=header)
             
-            # 🧹 处理空值|Handle empty values
+            #  处理空值|Handle empty values
             df.replace('', np.nan, inplace=True)
             
             #  保存为Excel|Save as Excel
@@ -177,7 +177,7 @@ class MetadataDownloader:
             return self._save_as_tsv(content, output_file.with_suffix('.tsv'))
     
     def get_download_links(self, metadata_file: Path) -> List[str]:
-        """🔗 从元数据文件提取下载链接|Extract download links from metadata file"""
+        """ 从元数据文件提取下载链接|Extract download links from metadata file"""
         self.logger.info(f" 从元数据文件提取下载链接|Extracting download links from metadata file: {metadata_file}")
         
         try:

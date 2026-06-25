@@ -319,8 +319,8 @@ class DataProcessor:
     
     # 单个样品合并bed文件
     # def merge_single_sample_with_bed(self, sample_df: pd.DataFrame, sample_name: str) -> pd.DataFrame:
-    #     """🔗 单个样品与BED文件合并|Merge single sample with BED file"""
-    #     self.logger.info(f"🔗 样品{sample_name}与BED文件合并|Merging sample {sample_name} with BED file")
+    #     """ 单个样品与BED文件合并|Merge single sample with BED file"""
+    #     self.logger.info(f" 样品{sample_name}与BED文件合并|Merging sample {sample_name} with BED file")
         
     #     if self.bed_info is not None:
     #         # 创建unique key：chr+start+end+kmer
@@ -348,8 +348,8 @@ class DataProcessor:
     #     self.logger.info(f" 样品{sample_name}合并完成，共{len(result_df)}行")
     #     return result_df
     # def merge_single_sample_with_bed(self, sample_df: pd.DataFrame, sample_name: str) -> pd.DataFrame:
-    #     """🔗 单个样品与BED文件合并|Merge single sample with BED file"""
-    #     self.logger.info(f"🔗 样品{sample_name}与BED文件合并|Merging sample {sample_name} with BED file")
+    #     """ 单个样品与BED文件合并|Merge single sample with BED file"""
+    #     self.logger.info(f" 样品{sample_name}与BED文件合并|Merging sample {sample_name} with BED file")
         
     #     if self.bed_info is not None:
     #         #  不要在这里创建unique_key，直接用kmer合并
@@ -381,8 +381,8 @@ class DataProcessor:
     #     return result_df
     
     def merge_sample_results(self, sample_results: List[pd.DataFrame]) -> pd.DataFrame:
-        """🔗 合并所有样本结果|Merge all sample results"""
-        self.logger.info("🔗 合并样本结果|Merging sample results")
+        """ 合并所有样本结果|Merge all sample results"""
+        self.logger.info(" 合并样本结果|Merging sample results")
         
         # 从第一个样本开始|Start with first sample
         merged_df = sample_results[0].copy()
@@ -457,8 +457,8 @@ class DataProcessor:
         
     #     return abundance_map
     # def merge_single_sample_with_bed(self, sample_df: pd.DataFrame, sample_name: str) -> pd.DataFrame:
-    #     """🔗 单个样品与BED文件合并（处理反向互补序列）| Merge single sample with BED file (handle reverse complement)"""
-    #     self.logger.info(f"🔗 样品{sample_name}与BED文件合并|Merging sample {sample_name} with BED file")
+    #     """ 单个样品与BED文件合并（处理反向互补序列）| Merge single sample with BED file (handle reverse complement)"""
+    #     self.logger.info(f" 样品{sample_name}与BED文件合并|Merging sample {sample_name} with BED file")
         
     #     if self.bed_info is not None:
     #         # 首先进行反向互补序列的丰度合并

@@ -59,7 +59,7 @@ class ResultsSummary:
             f.write(f"\n")
             
             # 统计信息|Statistics
-            f.write("📈 变异统计|Variant Statistics:\n")
+            f.write(" 变异统计|Variant Statistics:\n")
             self._add_variant_stats(f)
             
             f.write(f"\n输出目录|Output directory: {self.config.output_dir}\n")

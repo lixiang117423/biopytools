@@ -166,7 +166,7 @@ class DepthProcessor:
             return False
     
     def _cleanup_temp_files(self):
-        """🧹 清理临时文件|Clean up temporary files"""
+        """ 清理临时文件|Clean up temporary files"""
         for temp_file in self.temp_files:
             try:
                 if temp_file.exists():

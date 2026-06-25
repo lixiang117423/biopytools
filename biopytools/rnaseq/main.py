@@ -67,9 +67,9 @@
 #         if self.config.remove_bam.lower() in ["yes", "y"]:
 #             if os.path.exists(bam_file):
 #                 os.remove(bam_file)
-#                 self.logger.info(f"✓ 已删除BAM文件|Removed BAM file: {bam_file}")
+#                 self.logger.info(f" 已删除BAM文件|Removed BAM file: {bam_file}")
 #         else:
-#             self.logger.info(f"✓ 保留BAM文件|BAM file retained: {bam_file}")
+#             self.logger.info(f" 保留BAM文件|BAM file retained: {bam_file}")
 
 #         return fpkm_output
     

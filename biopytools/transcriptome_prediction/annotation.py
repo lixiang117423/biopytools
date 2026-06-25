@@ -1,12 +1,12 @@
 """
-📍 基因结构注释模块|Gene Structure Annotation Module
+ 基因结构注释模块|Gene Structure Annotation Module
 """
 
 from pathlib import Path
 from .utils import CommandRunner
 
 class PASAAnnotator:
-    """📍 PASA基因结构注释器|PASA Gene Structure Annotator"""
+    """ PASA基因结构注释器|PASA Gene Structure Annotator"""
     
     def __init__(self, config, logger, cmd_runner: CommandRunner):
         self.config = config
@@ -14,7 +14,7 @@ class PASAAnnotator:
         self.cmd_runner = cmd_runner
     
     def map_transcripts_to_genome(self):
-        """🗺 将转录本映射到基因组获得完整基因结构|Map transcripts to genome to obtain complete gene structures"""
+        """ 将转录本映射到基因组获得完整基因结构|Map transcripts to genome to obtain complete gene structures"""
         if not hasattr(self.config, 'trinity_assembly'):
             self.logger.error(" 未找到Trinity组装文件，请先执行de novo组装步骤|No Trinity assembly found, please run de novo assembly step first")
             return False
@@ -22,7 +22,7 @@ class PASAAnnotator:
         output_dir = self.config.output_path / "pasa_annotation"
         output_dir.mkdir(parents=True, exist_ok=True)
         
-        self.logger.info("🗺 使用PASA将转录本映射到基因组|Using PASA to map transcripts to genome")
+        self.logger.info(" 使用PASA将转录本映射到基因组|Using PASA to map transcripts to genome")
         
         # 准备PASA配置文件|Prepare PASA configuration file
         pasa_config = self._create_pasa_config(output_dir)
@@ -39,7 +39,7 @@ class PASAAnnotator:
             f"--CPU {self.config.pasa_cpu}"
         )
         
-        if not self.cmd_runner.run(cmd, "🗺 PASA转录本映射|PASA transcript mapping"):
+        if not self.cmd_runner.run(cmd, " PASA转录本映射|PASA transcript mapping"):
             return False
         
         # 查找输出文件|Find output files

@@ -178,7 +178,7 @@ def check_dependencies(config, logger):
     return True
 
 def get_sample_name(file_path: str) -> str:
-    """🏷 从文件路径提取样品名称|Extract sample name from file path"""
+    """ 从文件路径提取样品名称|Extract sample name from file path"""
     basename = os.path.basename(file_path)
     # 移除常见的文件扩展名|Remove common file extensions
     for ext in ['.bam', '.sam', '.sorted', '.dedup']:
@@ -187,7 +187,7 @@ def get_sample_name(file_path: str) -> str:
     return basename
 
 def format_region(chromosome: str, start_pos: int = None, end_pos: int = None) -> str:
-    """📍 格式化samtools区间参数|Format samtools region parameter"""
+    """ 格式化samtools区间参数|Format samtools region parameter"""
     if start_pos is not None and end_pos is not None:
         return f"{chromosome}:{start_pos}-{end_pos}"
     elif chromosome != 'all':

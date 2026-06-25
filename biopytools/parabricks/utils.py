@@ -19,7 +19,7 @@
 # #         self.setup_logging()
     
 # #     def setup_logging(self):
-# #         """设置日志 ✏|Setup logging"""
+# #         """设置日志 |Setup logging"""
 # #         if self.log_file.exists():
 # #             # 备份现有日志文件 |Backup existing log file
 # #             backup_name = f"parabricks_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log.bak"
@@ -50,7 +50,7 @@
 # #         self.container_path = None
     
 # #     def setup_container(self, container_path: Path):
-# #         """设置容器环境 🐳|Setup container environment"""
+# #         """设置容器环境 |Setup container environment"""
 # #         # 检测使用 apptainer 还是 singularity
 # #         for cmd in ['apptainer', 'singularity']:
 # #             if subprocess.run(['which', cmd], capture_output=True).returncode == 0:
@@ -60,11 +60,11 @@
 # #         if not self.container_cmd:
 # #             raise RuntimeError(" 未找到Apptainer或Singularity|Apptainer or Singularity not found")
         
-# #         self.logger.info(f"🐳 使用容器引擎|Using container engine: {self.container_cmd}")
+# #         self.logger.info(f" 使用容器引擎|Using container engine: {self.container_cmd}")
 # #         self.container_path = container_path
     
 # #     def run_container(self, cmd: list, description: str = "") -> bool:
-# #         """执行容器命令 🐳|Execute container command"""
+# #         """执行容器命令 |Execute container command"""
 # #         if not self.container_cmd or not self.container_path:
 # #             raise RuntimeError(" 容器环境未初始化|Container not initialized")
         
@@ -91,7 +91,7 @@
 # #             str(self.container_path)
 # #         ] + [str(c) for c in cmd]
         
-# #         self.logger.info(f"💻 容器命令|Container command: {' '.join(container_cmd)}")
+# #         self.logger.info(f" 容器命令|Container command: {' '.join(container_cmd)}")
 # #         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
 # #         try:
@@ -106,23 +106,23 @@
 # #             self.logger.info(f" 命令执行成功|Command executed successfully: {description}")
             
 # #             if result.stdout:
-# #                 self.logger.debug(f"📜 标准输出|Stdout: {result.stdout}")
+# #                 self.logger.debug(f" 标准输出|Stdout: {result.stdout}")
             
 # #             return True
             
 # #         except subprocess.CalledProcessError as e:
 # #             self.logger.error(f" 命令执行失败|Command execution failed: {description}")
-# #             self.logger.error(f"🔢 错误代码|Error code: {e.returncode}")
-# #             self.logger.error(f"💬 错误信息|Error message: {e.stderr}")
-# #             self.logger.error(f"📜 标准输出|Stdout: {e.stdout}")
+# #             self.logger.error(f" 错误代码|Error code: {e.returncode}")
+# #             self.logger.error(f" 错误信息|Error message: {e.stderr}")
+# #             self.logger.error(f" 标准输出|Stdout: {e.stdout}")
 # #             return False
     
 # #     def run(self, cmd: str, description: str = "") -> bool:
-# #         """执行命令 ▶|Execute command"""
+# #         """执行命令 |Execute command"""
 # #         if description:
 # #             self.logger.info(f" 执行步骤|Executing step: {description}")
         
-# #         self.logger.info(f"💻 命令|Command: {cmd}")
+# #         self.logger.info(f" 命令|Command: {cmd}")
 # #         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
 # #         try:
@@ -138,15 +138,15 @@
 # #             self.logger.info(f" 命令执行成功|Command executed successfully: {description}")
             
 # #             if result.stdout:
-# #                 self.logger.debug(f"📜 标准输出|Stdout: {result.stdout}")
+# #                 self.logger.debug(f" 标准输出|Stdout: {result.stdout}")
             
 # #             return True
             
 # #         except subprocess.CalledProcessError as e:
 # #             self.logger.error(f" 命令执行失败|Command execution failed: {description}")
-# #             self.logger.error(f"🔢 错误代码|Error code: {e.returncode}")
-# #             self.logger.error(f"💬 错误信息|Error message: {e.stderr}")
-# #             self.logger.error(f"📜 标准输出|Stdout: {e.stdout}")
+# #             self.logger.error(f" 错误代码|Error code: {e.returncode}")
+# #             self.logger.error(f" 错误信息|Error message: {e.stderr}")
+# #             self.logger.error(f" 标准输出|Stdout: {e.stdout}")
 # #             return False
 
 # # class FileProcessor:
@@ -166,16 +166,16 @@
 # #         if not r1_files:
 # #             raise FileNotFoundError(f"在 {self.config.input_dir} 中未找到 {self.config.read1_pattern} 文件")
         
-# #         # 按文件名排序 🔠|Sort by filename
+# #         # 按文件名排序 |Sort by filename
 # #         r1_files.sort()
         
 # #         # 验证R2文件存在 |Validate R2 files exist
 # #         file_pairs = []
 # #         for r1_file in r1_files:
-# #             # 提取样品名 🏷|Extract sample name
+# #             # 提取样品名 |Extract sample name
 # #             sample_name = r1_file.name.replace("_1.clean.fq.gz", "")
             
-# #             # 构建R2文件路径 🗺|Build R2 file path
+# #             # 构建R2文件路径 |Build R2 file path
 # #             r2_file = input_path / f"{sample_name}_2.clean.fq.gz"
             
 # #             if not r2_file.exists():
@@ -190,17 +190,17 @@
 # #         return file_pairs
     
 # #     def check_output_exists(self, sample_name: str) -> bool:
-# #         """检查输出文件是否已存在 🧐|Check if output files already exist"""
+# #         """检查输出文件是否已存在 |Check if output files already exist"""
 # #         vcf_file = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
 # #         bam_file = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
         
 # #         return vcf_file.exists() and bam_file.exists()
     
 # #     def get_file_size(self, file_path: str) -> str:
-# #         """获取文件大小 📏|Get file size"""
+# #         """获取文件大小 |Get file size"""
 # #         try:
 # #             size_bytes = os.path.getsize(file_path)
-# #             # 转换为人类可读格式 🧑‍💻|Convert to human readable format
+# #             # 转换为人类可读格式 |Convert to human readable format
 # #             for unit in ['B', 'KB', 'MB', 'GB']:
 # #                 if size_bytes < 1024.0:
 # #                     return f"{size_bytes:.1f} {unit}"
@@ -210,34 +210,34 @@
 # #             return "Unknown"
 
 # # def check_dependencies(config, logger):
-# #     """检查依赖软件 🧩|Check dependencies"""
-# #     logger.info("🧩 检查依赖软件|Checking dependencies")
+# #     """检查依赖软件 |Check dependencies"""
+# #     logger.info(" 检查依赖软件|Checking dependencies")
     
-# #     # 检查parabricks程序 💻|Check parabricks program
+# #     # 检查parabricks程序 |Check parabricks program
 # #     if not os.path.exists(config.parabricks_path):
 # #         error_msg = f" parabricks程序不存在|parabricks program does not exist: {config.parabricks_path}"
 # #         logger.error(error_msg)
 # #         raise RuntimeError(error_msg)
     
-# #     # 检查parabricks程序是否可执行 🏃|Check if parabricks program is executable
+# #     # 检查parabricks程序是否可执行 |Check if parabricks program is executable
 # #     if not os.access(config.parabricks_path, os.X_OK):
 # #         error_msg = f" parabricks程序不可执行|parabricks program is not executable: {config.parabricks_path}"
 # #         logger.error(error_msg)
 # #         raise RuntimeError(error_msg)
     
-# #     logger.info(" ✓ parabricks程序检查通过|parabricks program check passed")
+# #     logger.info("  parabricks程序检查通过|parabricks program check passed")
 
 # #     # 检查bcftools（用于genotypegvcf步骤）
 # #     # 如果workflow包含genotypegvcf或all，且启用了joint_calling
 # #     if config.workflow in ["genotypegvcf", "all"] and config.joint_calling:
-# #         logger.info("  |-- 🔗 检查bcftools (用于genotypegvcf)|Checking bcftools (for genotypegvcf)")
+# #         logger.info("  |--  检查bcftools (用于genotypegvcf)|Checking bcftools (for genotypegvcf)")
 # #         if not shutil.which("bcftools"):
 # #             error_msg = (" bcftools未找到|bcftools not found.\n"
 # #                          "   它是genotypegvcf步骤创建VCF索引所必需的|It is required for VCF indexing in genotypegvcf.\n"
 # #                          "   请安装bcftools|Please install bcftools: `conda install -c bioconda bcftools`")
 # #             logger.error(error_msg)
 # #             raise RuntimeError(error_msg)
-# #         logger.info("   ✓ bcftools检查通过|bcftools check passed")
+# #         logger.info("    bcftools检查通过|bcftools check passed")
 
 # #     return True
 
@@ -265,7 +265,7 @@
 #         self.setup_logging()
     
 #     def setup_logging(self):
-#         """设置日志 ✏|Setup logging"""
+#         """设置日志 |Setup logging"""
 #         if self.log_file.exists():
 #             # 备份现有日志文件 |Backup existing log file
 #             backup_name = f"parabricks_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log.bak"
@@ -297,7 +297,7 @@
 #         self.container_path = None
     
 #     def setup_container(self, container_path: Path):
-#         """设置容器环境 🐳|Setup container environment"""
+#         """设置容器环境 |Setup container environment"""
 #         # 检测使用 apptainer 还是 singularity
 #         for cmd in ['apptainer', 'singularity']:
 #             if subprocess.run(['which', cmd], capture_output=True).returncode == 0:
@@ -307,11 +307,11 @@
 #         if not self.container_cmd:
 #             raise RuntimeError(" 未找到Apptainer或Singularity|Apptainer or Singularity not found")
         
-#         self.logger.info(f"🐳 使用容器引擎|Using container engine: {self.container_cmd}")
+#         self.logger.info(f" 使用容器引擎|Using container engine: {self.container_cmd}")
 #         self.container_path = container_path
     
 #     def run_container(self, cmd: list, description: str = "") -> bool:
-#         """执行容器命令 🐳|Execute container command"""
+#         """执行容器命令 |Execute container command"""
 #         if not self.container_cmd or not self.container_path:
 #             raise RuntimeError(" 容器环境未初始化|Container not initialized")
         
@@ -338,7 +338,7 @@
 #             str(self.container_path)
 #         ] + [str(c) for c in cmd]
         
-#         self.logger.info(f"💻 容器命令|Container command: {' '.join(container_cmd)}")
+#         self.logger.info(f" 容器命令|Container command: {' '.join(container_cmd)}")
 #         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
 #         try:
@@ -353,23 +353,23 @@
 #             self.logger.info(f" 命令执行成功|Command executed successfully: {description}")
             
 #             if result.stdout:
-#                 self.logger.debug(f"📜 标准输出|Stdout: {result.stdout}")
+#                 self.logger.debug(f" 标准输出|Stdout: {result.stdout}")
             
 #             return True
             
 #         except subprocess.CalledProcessError as e:
 #             self.logger.error(f" 命令执行失败|Command execution failed: {description}")
-#             self.logger.error(f"🔢 错误代码|Error code: {e.returncode}")
-#             self.logger.error(f"💬 错误信息|Error message: {e.stderr}")
-#             self.logger.error(f"📜 标准输出|Stdout: {e.stdout}")
+#             self.logger.error(f" 错误代码|Error code: {e.returncode}")
+#             self.logger.error(f" 错误信息|Error message: {e.stderr}")
+#             self.logger.error(f" 标准输出|Stdout: {e.stdout}")
 #             return False
     
 #     def run(self, cmd: str, description: str = "") -> bool:
-#         """执行命令 ▶|Execute command"""
+#         """执行命令 |Execute command"""
 #         if description:
 #             self.logger.info(f" 执行步骤|Executing step: {description}")
         
-#         self.logger.info(f"💻 命令|Command: {cmd}")
+#         self.logger.info(f" 命令|Command: {cmd}")
 #         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
 #         try:
@@ -385,15 +385,15 @@
 #             self.logger.info(f" 命令执行成功|Command executed successfully: {description}")
             
 #             if result.stdout:
-#                 self.logger.debug(f"📜 标准输出|Stdout: {result.stdout}")
+#                 self.logger.debug(f" 标准输出|Stdout: {result.stdout}")
             
 #             return True
             
 #         except subprocess.CalledProcessError as e:
 #             self.logger.error(f" 命令执行失败|Command execution failed: {description}")
-#             self.logger.error(f"🔢 错误代码|Error code: {e.returncode}")
-#             self.logger.error(f"💬 错误信息|Error message: {e.stderr}")
-#             self.logger.error(f"📜 标准输出|Stdout: {e.stdout}")
+#             self.logger.error(f" 错误代码|Error code: {e.returncode}")
+#             self.logger.error(f" 错误信息|Error message: {e.stderr}")
+#             self.logger.error(f" 标准输出|Stdout: {e.stdout}")
 #             return False
 
 # # ================================================================= #
@@ -502,17 +502,17 @@
 #         return file_pairs
 
 #     def check_output_exists(self, sample_name: str) -> bool:
-#         """检查输出文件是否已存在 🧐|Check if output files already exist"""
+#         """检查输出文件是否已存在 |Check if output files already exist"""
 #         vcf_file = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
 #         bam_file = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
         
 #         return vcf_file.exists() and bam_file.exists()
     
 #     def get_file_size(self, file_path: str) -> str:
-#         """获取文件大小 📏|Get file size"""
+#         """获取文件大小 |Get file size"""
 #         try:
 #             size_bytes = os.path.getsize(file_path)
-#             # 转换为人类可读格式 🧑‍💻|Convert to human readable format
+#             # 转换为人类可读格式 |Convert to human readable format
 #             for unit in ['B', 'KB', 'MB', 'GB']:
 #                 if size_bytes < 1024.0:
 #                     return f"{size_bytes:.1f} {unit}"
@@ -528,34 +528,34 @@
 
 # def check_dependencies(config, logger):
 #     # ... (此部分代码无需修改) ...
-#     """检查依赖软件 🧩|Check dependencies"""
-#     logger.info("🧩 检查依赖软件|Checking dependencies")
+#     """检查依赖软件 |Check dependencies"""
+#     logger.info(" 检查依赖软件|Checking dependencies")
     
-#     # 检查parabricks程序 💻|Check parabricks program
+#     # 检查parabricks程序 |Check parabricks program
 #     if not os.path.exists(config.parabricks_path):
 #         error_msg = f" parabricks程序不存在|parabricks program does not exist: {config.parabricks_path}"
 #         logger.error(error_msg)
 #         raise RuntimeError(error_msg)
     
-#     # 检查parabricks程序是否可执行 🏃|Check if parabricks program is executable
+#     # 检查parabricks程序是否可执行 |Check if parabricks program is executable
 #     if not os.access(config.parabricks_path, os.X_OK):
 #         error_msg = f" parabricks程序不可执行|parabricks program is not executable: {config.parabricks_path}"
 #         logger.error(error_msg)
 #         raise RuntimeError(error_msg)
     
-#     logger.info(" ✓ parabricks程序检查通过|parabricks program check passed")
+#     logger.info("  parabricks程序检查通过|parabricks program check passed")
 
 #     # 检查bcftools（用于genotypegvcf步骤）
 #     # 如果workflow包含genotypegvcf或all，且启用了joint_calling
 #     if config.workflow in ["genotypegvcf", "all"] and config.joint_calling:
-#         logger.info("  |-- 🔗 检查bcftools (用于genotypegvcf)|Checking bcftools (for genotypegvcf)")
+#         logger.info("  |--  检查bcftools (用于genotypegvcf)|Checking bcftools (for genotypegvcf)")
 #         if not shutil.which("bcftools"):
 #             error_msg = (" bcftools未找到|bcftools not found.\n"
 #                          "   它是genotypegvcf步骤创建VCF索引所必需的|It is required for VCF indexing in genotypegvcf.\n"
 #                          "   请安装bcftools|Please install bcftools: `conda install -c bioconda bcftools`")
 #             logger.error(error_msg)
 #             raise RuntimeError(error_msg)
-#         logger.info("   ✓ bcftools检查通过|bcftools check passed")
+#         logger.info("    bcftools检查通过|bcftools check passed")
 
 #     return True
 
@@ -666,7 +666,7 @@ class CommandRunner:
             return False
     
     def run(self, cmd: str, description: str = "") -> bool:
-        """执行常规命令 ▶|Execute regular command"""
+        """执行常规命令 |Execute regular command"""
         if description: self.logger.info(f" 执行步骤|Executing step: {description}")
         self.logger.info(f" 命令|Command: {cmd}")
         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
@@ -728,7 +728,7 @@ class FileProcessor:
         return file_pairs
     
     def check_output_exists(self, sample_name: str) -> bool:
-        """检查输出文件是否已存在 🧐|Check if output files already exist"""
+        """检查输出文件是否已存在 |Check if output files already exist"""
         # --- MODIFIED: 根据配置决定检查VCF还是GVCF ---
         if self.config.gvcf:
             vcf_file = self.config.vcf_output_dir / f"{sample_name}.g.vcf.gz"
@@ -740,7 +740,7 @@ class FileProcessor:
         return vcf_file.exists() and bam_file.exists()
     
     def get_file_size(self, file_path: str) -> str:
-        """获取文件大小 📏|Get file size"""
+        """获取文件大小 |Get file size"""
         try:
             size_bytes = os.path.getsize(file_path)
             for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
@@ -767,7 +767,7 @@ def check_dependencies(config, logger):
         logger.error(error_msg)
         raise RuntimeError(error_msg)
     
-    logger.info(" ✓ parabricks程序检查通过|parabricks program check passed")
+    logger.info("  parabricks程序检查通过|parabricks program check passed")
 
     if config.joint_calling:
         logger.info("  |--  Joint Calling已启用，检查bcftools|Joint Calling enabled, checking for bcftools")
@@ -777,6 +777,6 @@ def check_dependencies(config, logger):
                          "   请安装bcftools (例如 `conda install -c bioconda bcftools`)|Please install bcftools (e.g., `conda install -c bioconda bcftools`)")
             logger.error(error_msg)
             raise RuntimeError(error_msg)
-        logger.info("   ✓ bcftools检查通过|bcftools check passed")
+        logger.info("    bcftools检查通过|bcftools check passed")
 
     return True

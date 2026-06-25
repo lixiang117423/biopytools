@@ -15,7 +15,7 @@ class FileTypeDetector:
     
     # def detect_file_type(self):
     #     """检测输入文件类型|Detect input file type"""
-    #     self.logger.info("🔎 检测输入文件类型|Detecting input file type")
+    #     self.logger.info(" 检测输入文件类型|Detecting input file type")
         
     #     # 获取所有vcf相关文件|Get all vcf-related files
     #     vcf_files = []
@@ -46,9 +46,9 @@ class FileTypeDetector:
 
     def detect_file_type(self):
         """检测输入文件类型|Detect input file type"""
-        self.logger.info("🔎 检测输入文件类型|Detecting input file type")
+        self.logger.info(" 检测输入文件类型|Detecting input file type")
         
-        # 🔥 优先检测GVCF文件（包含所有位点）| Check GVCF files first (contains all sites)
+        #  优先检测GVCF文件（包含所有位点）| Check GVCF files first (contains all sites)
         gvcf_files = []
         for ext in ['*.g.vcf.gz', '*.g.vcf', '*.gvcf.gz', '*.gvcf']:
             gvcf_files.extend(glob.glob(os.path.join(self.config.input_dir, ext)))

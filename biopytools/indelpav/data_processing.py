@@ -196,7 +196,7 @@ class VCFProcessor:
                 
                 variant_count += 1
                 if variant_count % 10000 == 0:
-                    self.logger.info(f"📈 已处理 {variant_count} 个变异，发现 {indel_count} 个INDEL|Processed {variant_count} variants, found {indel_count} INDELs")
+                    self.logger.info(f" 已处理 {variant_count} 个变异，发现 {indel_count} 个INDEL|Processed {variant_count} variants, found {indel_count} INDELs")
                 
                 fields = line.strip().split('\t')
                 if len(fields) < 9 + self.sample_count:

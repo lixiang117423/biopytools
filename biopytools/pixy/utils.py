@@ -222,21 +222,21 @@ def check_vcf_has_invariant_sites(vcf_file: Path, conda_env: str, logger) -> boo
             count = int(result.stdout.strip())
             logger.info(f"  VCF包含不变位点（前100个位点中发现{count}个）|VCF contains invariant sites (found {count} in first 100 sites)")
         else:
-            logger.warning("  ⚠ VCF不包含不变位点（ALT=\".\"），将自动绕过检查|VCF does not contain invariant sites (ALT=\".\"), will bypass check automatically")
-            logger.warning("  ⚠ 注意：这会导致pi和dxy的统计结果不准确|Note: This may cause inaccurate pi and dxy results")
+            logger.warning("   VCF不包含不变位点（ALT=\".\"），将自动绕过检查|VCF does not contain invariant sites (ALT=\".\"), will bypass check automatically")
+            logger.warning("   注意：这会导致pi和dxy的统计结果不准确|Note: This may cause inaccurate pi and dxy results")
 
         return has_invariant
 
     except subprocess.TimeoutExpired:
         # 超时说明VCF很大且可能不包含不变位点，假设不包含
         # Timeout means VCF is large and likely doesn't contain invariant sites, assume no invariant sites
-        logger.warning("  ⚠ VCF不变位点检查超时，假设不包含不变位点|VCF invariant sites check timeout, assuming no invariant sites")
-        logger.warning("  ⚠ 将自动绕过检查|Will bypass check automatically")
+        logger.warning("   VCF不变位点检查超时，假设不包含不变位点|VCF invariant sites check timeout, assuming no invariant sites")
+        logger.warning("   将自动绕过检查|Will bypass check automatically")
         return False
     except Exception as e:
         # 出错时保守起见，假设不包含不变位点
         # On error, be conservative and assume no invariant sites
-        logger.warning(f"  ⚠ VCF不变位点检查失败: {e}，假设不包含不变位点|VCF invariant sites check failed: {e}, assuming no invariant sites")
+        logger.warning(f"   VCF不变位点检查失败: {e}，假设不包含不变位点|VCF invariant sites check failed: {e}, assuming no invariant sites")
         return False
 
 

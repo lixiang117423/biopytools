@@ -145,7 +145,7 @@ class ProgressManager:
             self.logger.info(f"  已完成的步骤|Completed step names:")
             for step in completed:
                 step_desc = self.STEPS.get(step, step)
-                self.logger.info(f"    ✓ {step_desc}")
+                self.logger.info(f"     {step_desc}")
 
         remaining = total - completed_count
         if remaining > 0:

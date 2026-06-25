@@ -22,7 +22,7 @@
 #     #     self.logger_manager = parabricksLogger(self.config.output_path)
 #     #     self.logger = self.logger_manager.get_logger()
         
-#     #     # 初始化命令执行器 ▶|Initialize command runner
+#     #     # 初始化命令执行器 |Initialize command runner
 #     #     self.cmd_runner = CommandRunner(self.logger, self.config.output_path)
         
 #     #     # 初始化各个处理器 |Initialize processors
@@ -41,10 +41,10 @@
 #         self.logger_manager = parabricksLogger(self.config.output_path)
 #         self.logger = self.logger_manager.get_logger()
         
-#         # 初始化命令执行器 ▶|Initialize command runner
+#         # 初始化命令执行器 |Initialize command runner
 #         self.cmd_runner = CommandRunner(self.logger, self.config.output_path)
         
-#         # 🐳 设置容器环境|Setup container environment
+#         #  设置容器环境|Setup container environment
 #         self.cmd_runner.setup_container(Path(self.config.parabricks_path))
         
 #         # 初始化各个处理器 |Initialize processors
@@ -53,7 +53,7 @@
 #         self.summary_generator = SummaryGenerator(self.config, self.logger)
     
 #     def check_dependencies(self):
-#         """检查依赖软件 🧩|Check dependencies"""
+#         """检查依赖软件 |Check dependencies"""
 #         return check_dependencies(self.config, self.logger)
     
 #     # def run_analysis(self):
@@ -64,7 +64,7 @@
 #     #         self.logger.info(f" 输出目录|Output directory: {self.config.output_dir}")
 #     #         self.logger.info(f" 参考基因组|Reference genome: {self.config.reference}")
             
-#     #         # 检查依赖 🧩|Check dependencies
+#     #         # 检查依赖 |Check dependencies
 #     #         self.check_dependencies()
             
 #     #         # 查找输入文件 |Find input files
@@ -82,7 +82,7 @@
 #     #         failed_samples = []
             
 #     #         for current, (sample_name, r1_file, r2_file) in enumerate(file_pairs, 1):
-#     #             self.logger.info(f"[{current}/{total_samples}] 🧪 处理样品|Processing sample: {sample_name}")
+#     #             self.logger.info(f"[{current}/{total_samples}]  处理样品|Processing sample: {sample_name}")
                 
 #     #             success = self.parabricks_processor.process_sample(sample_name, r1_file, r2_file)
                 
@@ -106,12 +106,12 @@
 #     #         # 生成总结报告 |Generate summary report
 #     #         self.summary_generator.generate_summary_report()
             
-#     #         # 显示最终目录结构 🌳|Display final directory structure
+#     #         # 显示最终目录结构 |Display final directory structure
 #     #         self.logger.info("")
-#     #         self.logger.info("🌳 最终输出目录结构|Final output directory structure:")
+#     #         self.logger.info(" 最终输出目录结构|Final output directory structure:")
 #     #         self.logger.info(f"  {self.config.output_dir}/")
 #     #         self.logger.info(f"  ├── bam/     ( BAM文件: {len(list(self.config.bam_output_dir.glob('*.sorted.bam')))} 个)")
-#     #         self.logger.info(f"  ├── vcf/     (📜 VCF文件: {len(list(self.config.vcf_output_dir.glob('*.vcf.gz')))} 个)")
+#     #         self.logger.info(f"  ├── vcf/     ( VCF文件: {len(list(self.config.vcf_output_dir.glob('*.vcf.gz')))} 个)")
 #     #         self.logger.info(f"  └── tmp/     ( 临时文件目录)")
             
 #     #         self.logger.info("=" * 60)
@@ -119,7 +119,7 @@
 #     #         self.logger.info(f" 结果保存在|Results saved in: {self.config.output_dir}")
             
 #     #     except Exception as e:
-#     #         self.logger.error(f"💥 分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}")
+#     #         self.logger.error(f" 分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}")
 #     #         sys.exit(1)
 
 #     def run_analysis(self):
@@ -130,7 +130,7 @@
 #             self.logger.info(f" 输出目录|Output directory: {self.config.output_dir}")
 #             self.logger.info(f" 参考基因组|Reference genome: {self.config.reference}")
             
-#             # 检查依赖 🧩|Check dependencies
+#             # 检查依赖 |Check dependencies
 #             self.check_dependencies()
             
 #             # 查找输入文件 |Find input files
@@ -149,7 +149,7 @@
 #             processed_sample_names = []  # 新增：记录成功处理的样本名
             
 #             for current, (sample_name, r1_file, r2_file) in enumerate(file_pairs, 1):
-#                 self.logger.info(f"[{current}/{total_samples}] 🧪 处理样品|Processing sample: {sample_name}")
+#                 self.logger.info(f"[{current}/{total_samples}]  处理样品|Processing sample: {sample_name}")
                 
 #                 success = self.parabricks_processor.process_sample(sample_name, r1_file, r2_file)
                 
@@ -178,9 +178,9 @@
 #             # 生成总结报告 |Generate summary report
 #             self.summary_generator.generate_summary_report()
             
-#             # 显示最终目录结构 🌳|Display final directory structure
+#             # 显示最终目录结构 |Display final directory structure
 #             self.logger.info("")
-#             self.logger.info("🌳 最终输出目录结构|Final output directory structure:")
+#             self.logger.info(" 最终输出目录结构|Final output directory structure:")
 #             self.logger.info(f"  {self.config.output_dir}/")
 #             self.logger.info(f"  ├── bam/     ( BAM文件: {len(list(self.config.bam_output_dir.glob('*.sorted.bam')))} 个)")
             
@@ -189,12 +189,12 @@
 #                 gvcf_count = len(list(self.config.vcf_output_dir.glob('*.g.vcf.gz')))
 #                 if self.config.joint_calling:
 #                     individual_gvcf = gvcf_count - (1 if (self.config.vcf_output_dir / self.config.combined_output_name).exists() else 0)
-#                     self.logger.info(f"  ├── vcf/     (📜 个体GVCF: {individual_gvcf} 个, 🔗 Combined GVCF: {1 if (self.config.vcf_output_dir / self.config.combined_output_name).exists() else 0} 个)")
+#                     self.logger.info(f"  ├── vcf/     ( 个体GVCF: {individual_gvcf} 个,  Combined GVCF: {1 if (self.config.vcf_output_dir / self.config.combined_output_name).exists() else 0} 个)")
 #                 else:
-#                     self.logger.info(f"  ├── vcf/     (📜 GVCF文件: {gvcf_count} 个)")
+#                     self.logger.info(f"  ├── vcf/     ( GVCF文件: {gvcf_count} 个)")
 #             else:
 #                 vcf_count = len(list(self.config.vcf_output_dir.glob('*.vcf.gz')))
-#                 self.logger.info(f"  ├── vcf/     (📜 VCF文件: {vcf_count} 个)")
+#                 self.logger.info(f"  ├── vcf/     ( VCF文件: {vcf_count} 个)")
             
 #             self.logger.info(f"  └── tmp/     ( 临时文件目录)")
             
@@ -203,7 +203,7 @@
 #             self.logger.info(f" 结果保存在|Results saved in: {self.config.output_dir}")
             
 #         except Exception as e:
-#             self.logger.error(f"💥 分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}")
+#             self.logger.error(f" 分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}")
 #             sys.exit(1)
 
 # def main():
@@ -231,17 +231,17 @@
 #     parser.add_argument('--no-gvcf', action='store_false', dest='gvcf',
 #                     help=' 输出VCF而非GVCF|Output VCF instead of GVCF (default: output GVCF)')
 
-#     # 修改：Joint Calling参数（默认开启）🔗|Joint Calling parameters (enabled by default)
+#     # 修改：Joint Calling参数（默认开启）|Joint Calling parameters (enabled by default)
 #     parser.add_argument('--no-joint-calling', action='store_false', dest='joint_calling', default=True,
-#                     help='🔗 禁用Joint Calling|Disable Joint Calling (default: enabled)')
+#                     help=' 禁用Joint Calling|Disable Joint Calling (default: enabled)')
 #     parser.add_argument('--combined-output', default='combined.g.vcf',
-#                     help='📜 Joint Calling输出文件名|Joint Calling output filename (default: combined.g.vcf)')
+#                     help=' Joint Calling输出文件名|Joint Calling output filename (default: combined.g.vcf)')
     
-#     # 可选参数 ✨|Optional arguments
+#     # 可选参数 |Optional arguments
 #     parser.add_argument('-t', '--threads', type=int, default=88, 
-#                        help='🧵 线程数|Number of threads')
+#                        help=' 线程数|Number of threads')
 #     parser.add_argument('--parabricks-path', default='~/software/containers/parabricks.sif', 
-#                        help='💻 parabricks程序路径|parabricks program path')
+#                        help=' parabricks程序路径|parabricks program path')
 #     parser.add_argument('--tmp-dir', 
 #                        help=' 临时目录路径 (默认使用输出目录下的tmp)|Temporary directory path (default: tmp under output directory)')
     
@@ -249,7 +249,7 @@
 #     parser.add_argument('--min-confidence', type=int, default=30, 
 #                        help=' 最小置信度阈值|Minimum confidence threshold')
 #     parser.add_argument('--min-base-quality', type=int, default=20, 
-#                        help='✨ 最小碱基质量阈值|Minimum base quality threshold')
+#                        help=' 最小碱基质量阈值|Minimum base quality threshold')
 #     parser.add_argument('--ploidy', type=int, default=2, 
 #                        help=' 倍性|Ploidy')
 #     parser.add_argument('--pcr-indel-model', default='CONSERVATIVE', 

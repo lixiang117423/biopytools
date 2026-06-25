@@ -29,10 +29,10 @@ class GFFFormatter:
 
     def format_features(self, features: List[GFFFeature], id_mapping: Dict[str, str]) -> List[GFFFeature]:
         """格式化特征列表|Format feature list"""
-        self.logger.info("🎨 开始格式化GFF特征|Starting to format GFF features")
+        self.logger.info(" 开始格式化GFF特征|Starting to format GFF features")
         
         # 1. 直接按染色体和位置排序所有特征|Sort all features by chromosome and position
-        self.logger.info("📏 按位置排序所有特征|Sorting all features by position")
+        self.logger.info(" 按位置排序所有特征|Sorting all features by position")
         
         def natural_sort_key(feature):
             chromosome = feature.seqid
@@ -57,7 +57,7 @@ class GFFFormatter:
         complete_id_mapping = self._build_complete_mapping(sorted_features, id_mapping, features_to_skip)
         
         # 4. 格式化所有特征（跳过标记的特征）| Format all features (skip marked features)
-        self.logger.info("✨ 格式化特征|Formatting features")
+        self.logger.info(" 格式化特征|Formatting features")
         formatted_features = []
         
         for feature in sorted_features:
@@ -108,7 +108,7 @@ class GFFFormatter:
                     feature_key = (ncrna.seqid, ncrna.start, ncrna.end, ncrna.type)
                     features_to_skip.add(feature_key)
                     
-                    self.logger.info(f"🔗 合并 {ncrna.type} 到基因: {gene_id}")
+                    self.logger.info(f" 合并 {ncrna.type} 到基因: {gene_id}")
         
         return gene_notes, features_to_skip
 

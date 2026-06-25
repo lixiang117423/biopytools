@@ -76,7 +76,7 @@ class AssemblyQualityAssessor:
     
     def _assess_scaffolds(self, scaffold_results: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, any]]:
         """评估Hi-C挂载质量|Assess Hi-C scaffolding quality"""
-        self.logger.info("🔗 评估Hi-C挂载质量|Assessing Hi-C scaffolding quality")
+        self.logger.info(" 评估Hi-C挂载质量|Assessing Hi-C scaffolding quality")
         
         scaffold_assessment = {}
         
@@ -531,7 +531,7 @@ class AssemblyQualityAssessor:
             
             # 挂载质量报告
             if 'scaffolds' in quality_results:
-                f.write("🔗 挂载质量评估|Scaffolding Quality Assessment\n")
+                f.write(" 挂载质量评估|Scaffolding Quality Assessment\n")
                 f.write("-" * 60 + "\n")
                 
                 for assembly_type, results in quality_results['scaffolds'].items():

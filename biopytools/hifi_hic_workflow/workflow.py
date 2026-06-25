@@ -436,7 +436,7 @@ class HifiHicWorkflow:
 
                 for step_key, step_name in steps:
                     completed = self.data_transfer.check_step_completion(step_key)
-                    status = "✓ 完成|completed" if completed else "✗ 未完成|not completed"
+                    status = " 完成|completed" if completed else " 未完成|not completed"
                     f.write(f"  [{status}] {step_name}\n")
 
                 f.write("\n")

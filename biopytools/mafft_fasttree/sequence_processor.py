@@ -55,7 +55,7 @@
     
 #     def clean_sequences(self, input_file: Path, output_file: Path) -> dict:
 #         """清理序列并处理ID|Clean sequences and process IDs"""
-#         self.logger.info("🧹 清理序列和处理ID|Cleaning sequences and processing IDs")
+#         self.logger.info(" 清理序列和处理ID|Cleaning sequences and processing IDs")
         
 #         # 读取原始序列
 #         records = list(SeqIO.parse(input_file, 'fasta'))

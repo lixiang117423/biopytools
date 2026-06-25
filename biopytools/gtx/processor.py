@@ -18,7 +18,7 @@
 #         """处理单个样品 |Process single sample"""
 #         self.logger.info(f" 开始处理样品|Starting to process sample: {sample_name}")
         
-#         # 检查输出文件是否已存在 🧐|Check if output files already exist
+#         # 检查输出文件是否已存在 |Check if output files already exist
 #         if self.file_processor.check_output_exists(sample_name):
 #             self.logger.info(f" 样品 {sample_name} 已处理完成，跳过|Sample {sample_name} already processed, skipping")
 #             return True
@@ -27,15 +27,15 @@
 #         output_vcf = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
 #         output_bam = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
         
-#         # 构建Read Group信息 🏷|Build Read Group information
+#         # 构建Read Group信息 |Build Read Group information
 #         read_group = f"@RG\\tID:{sample_name}\\tSM:{sample_name}\\tPL:ILLUMINA\\tLB:{sample_name}"
         
 #         self.logger.info(f"   R1文件|R1 file: {Path(r1_file).name}")
 #         self.logger.info(f"   R2文件|R2 file: {Path(r2_file).name}")
-#         self.logger.info(f"  📜 输出VCF|Output VCF: vcf/{output_vcf.name}")
+#         self.logger.info(f"   输出VCF|Output VCF: vcf/{output_vcf.name}")
 #         self.logger.info(f"   输出BAM|Output BAM: bam/{output_bam.name}")
         
-#         # 构建GTX WGS命令 💻|Build GTX WGS command
+#         # 构建GTX WGS命令 |Build GTX WGS command
 #         cmd = (
 #             f"{self.config.gtx_path} wgs "
 #             f"-R \"{read_group}\" "
@@ -52,24 +52,24 @@
 #             f"{r2_file}"
 #         )
         
-#         # 运行GTX命令 ▶|Run GTX command
+#         # 运行GTX命令 |Run GTX command
 #         success = self.cmd_runner.run(cmd, f" GTX WGS分析 (样品: {sample_name})|GTX WGS analysis (sample: {sample_name})")
         
 #         if success:
-#             self.logger.info(f"   ✓ 样品 {sample_name} 处理完成|Sample {sample_name} processing completed")
+#             self.logger.info(f"    样品 {sample_name} 处理完成|Sample {sample_name} processing completed")
             
 #             # 检查并报告输出文件大小 |Check and report output file sizes
 #             if output_vcf.exists():
 #                 vcf_size = self.file_processor.get_file_size(str(output_vcf))
-#                 self.logger.info(f"  📏 VCF文件大小|VCF file size: {vcf_size}")
+#                 self.logger.info(f"   VCF文件大小|VCF file size: {vcf_size}")
             
 #             if output_bam.exists():
 #                 bam_size = self.file_processor.get_file_size(str(output_bam))
-#                 self.logger.info(f"  📏 BAM文件大小|BAM file size: {bam_size}")
+#                 self.logger.info(f"   BAM文件大小|BAM file size: {bam_size}")
             
 #             return True
 #         else:
-#             self.logger.error(f"   ✗ 样品 {sample_name} 处理失败|Sample {sample_name} processing failed")
+#             self.logger.error(f"    样品 {sample_name} 处理失败|Sample {sample_name} processing failed")
 #             return False
 
 
@@ -94,7 +94,7 @@ class GTXProcessor:
         """处理单个样品 |Process single sample"""
         self.logger.info(f" 开始处理样品|Starting to process sample: {sample_name}")
         
-        # 检查输出文件是否已存在 🧐|Check if output files already exist
+        # 检查输出文件是否已存在 |Check if output files already exist
         if self.file_processor.check_output_exists(sample_name):
             self.logger.info(f" 样品 {sample_name} 已处理完成，跳过|Sample {sample_name} already processed, skipping")
             return True
@@ -103,15 +103,15 @@ class GTXProcessor:
         output_vcf = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
         output_bam = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
         
-        # 构建Read Group信息 🏷|Build Read Group information
+        # 构建Read Group信息 |Build Read Group information
         read_group = f"@RG\\tID:{sample_name}\\tSM:{sample_name}\\tPL:ILLUMINA\\tLB:{sample_name}"
         
         self.logger.info(f"   R1文件|R1 file: {Path(r1_file).name}")
         self.logger.info(f"   R2文件|R2 file: {Path(r2_file).name}")
-        self.logger.info(f"  📜 输出VCF|Output VCF: vcf/{output_vcf.name}")
+        self.logger.info(f"   输出VCF|Output VCF: vcf/{output_vcf.name}")
         self.logger.info(f"   输出BAM|Output BAM: bam/{output_bam.name}")
         
-        # 构建GTX WGS命令 💻|Build GTX WGS command
+        # 构建GTX WGS命令 |Build GTX WGS command
         cmd = (
             f"faketime '2020-10-20 00:00:00' {self.config.gtx_path} wgs -g "
             f"-R \"{read_group}\" "
@@ -128,29 +128,29 @@ class GTXProcessor:
             f"{r2_file}"
         )
         
-        # 运行GTX命令 ▶|Run GTX command
+        # 运行GTX命令 |Run GTX command
         success = self.cmd_runner.run(cmd, f" GTX WGS分析 (样品: {sample_name})|GTX WGS analysis (sample: {sample_name})")
         
         if success:
-            self.logger.info(f"   ✓ 样品 {sample_name} 处理完成|Sample {sample_name} processing completed")
+            self.logger.info(f"    样品 {sample_name} 处理完成|Sample {sample_name} processing completed")
             
             # 检查并报告输出文件大小 |Check and report output file sizes
             if output_vcf.exists():
                 vcf_size = self.file_processor.get_file_size(str(output_vcf))
-                self.logger.info(f"  📏 VCF文件大小|VCF file size: {vcf_size}")
+                self.logger.info(f"   VCF文件大小|VCF file size: {vcf_size}")
             
             if output_bam.exists():
                 bam_size = self.file_processor.get_file_size(str(output_bam))
-                self.logger.info(f"  📏 BAM文件大小|BAM file size: {bam_size}")
+                self.logger.info(f"   BAM文件大小|BAM file size: {bam_size}")
             
             return True
         else:
-            self.logger.error(f"   ✗ 样品 {sample_name} 处理失败|Sample {sample_name} processing failed")
+            self.logger.error(f"    样品 {sample_name} 处理失败|Sample {sample_name} processing failed")
             return False
 
 
 class JointProcessor:
-    """🤝 GTX Joint Calling处理器|GTX Joint Calling Processor"""
+    """ GTX Joint Calling处理器|GTX Joint Calling Processor"""
     
     def __init__(self, config, logger, cmd_runner: CommandRunner):
         self.config = config
@@ -204,7 +204,7 @@ class JointProcessor:
         vcf_files = list(self.config.vcf_output_dir.glob("*.vcf.gz"))
         vcf_count = len(vcf_files)
         
-        self.logger.info(f"  📜 可用VCF文件数|Available VCF files: {vcf_count}")
+        self.logger.info(f"   可用VCF文件数|Available VCF files: {vcf_count}")
         
         if vcf_count < 2:
             self.logger.warning(" Joint calling需要至少2个样品的VCF文件|Joint calling requires at least 2 sample VCF files")
@@ -219,8 +219,8 @@ class JointProcessor:
         return True
     
     def run_joint_calling(self) -> bool:
-        """执行joint calling 🤝|Run joint calling"""
-        self.logger.info("🤝 开始GTX Joint Calling|Starting GTX Joint Calling")
+        """执行joint calling |Run joint calling"""
+        self.logger.info(" 开始GTX Joint Calling|Starting GTX Joint Calling")
         
         # 检查先决条件
         if not self.check_joint_prerequisites():
@@ -246,11 +246,11 @@ class JointProcessor:
         if hasattr(self.config, 'joint_threads') and self.config.joint_threads != self.config.threads:
             cmd += f" -t {self.config.joint_threads}"
         
-        self.logger.info(f"  📜 输出文件|Output file: {self.config.joint_output_file}")
+        self.logger.info(f"   输出文件|Output file: {self.config.joint_output_file}")
         self.logger.info(f"   样品映射文件|Sample mapping file: {self.config.sample_map_file}")
         
         # 运行joint calling命令
-        success = self.cmd_runner.run(cmd, "🤝 GTX Joint Calling")
+        success = self.cmd_runner.run(cmd, " GTX Joint Calling")
         
         if success:
             self.logger.info(" GTX Joint Calling完成|GTX Joint Calling completed")
@@ -258,7 +258,7 @@ class JointProcessor:
             # 检查并报告输出文件大小
             if self.config.joint_output_file.exists():
                 joint_size = self.file_processor.get_file_size(str(self.config.joint_output_file))
-                self.logger.info(f"  📏 Joint VCF文件大小|Joint VCF file size: {joint_size}")
+                self.logger.info(f"   Joint VCF文件大小|Joint VCF file size: {joint_size}")
             
             return True
         else:

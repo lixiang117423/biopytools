@@ -43,11 +43,11 @@ class JointGenotyper:
 
     def run_genomicsdb_import(self, sample_map_file):
         """运行GenomicsDBImport|Run GenomicsDBImport"""
-        self.logger.info("📦 开始GenomicsDB导入|Starting GenomicsDB import")
+        self.logger.info(" 开始GenomicsDB导入|Starting GenomicsDB import")
         
         genomicsdb_workspace = self.config.output_path / "genomicsdb_workspace"
         
-        # 🔥 如果workspace已存在，删除它|Remove existing workspace if it exists
+        #  如果workspace已存在，删除它|Remove existing workspace if it exists
         if genomicsdb_workspace.exists():
             self.logger.warning(f" GenomicsDB workspace已存在，正在删除...|Workspace exists, removing...")
             import shutil
@@ -58,7 +58,7 @@ class JointGenotyper:
                 self.logger.error(f" 删除workspace失败|Failed to remove workspace: {e}")
                 raise RuntimeError(f"无法删除已存在的workspace|Cannot remove existing workspace: {e}")
         
-        # 🔥 如果用户没有指定区间，自动生成全基因组区间|Auto-generate intervals if not specified
+        #  如果用户没有指定区间，自动生成全基因组区间|Auto-generate intervals if not specified
         if not self.config.intervals:
             self.logger.info(" 未指定区间，自动从参考基因组提取|No intervals specified, extracting from reference")
             intervals_file = self._generate_intervals_from_reference()
@@ -90,7 +90,7 @@ class JointGenotyper:
         import subprocess
         import os
         
-        # 🔥 正确构建.dict和.fai文件路径|Correctly build .dict and .fai paths
+        #  正确构建.dict和.fai文件路径|Correctly build .dict and .fai paths
         ref_base = self.config.reference
         # 移除所有可能的参考基因组后缀|Remove all possible reference suffixes
         for suffix in ['.fasta', '.fa', '.fna', '.fasta.gz', '.fa.gz', '.fna.gz']:
@@ -102,9 +102,9 @@ class JointGenotyper:
         fai_file = f"{self.config.reference}.fai"
         intervals_file = self.config.output_path / "intervals.list"
         
-        self.logger.info(f"📍 参考基因组|Reference: {self.config.reference}")
-        self.logger.info(f"📍 字典文件路径|Dict path: {dict_file}")
-        self.logger.info(f"📍 索引文件路径|Fai path: {fai_file}")
+        self.logger.info(f" 参考基因组|Reference: {self.config.reference}")
+        self.logger.info(f" 字典文件路径|Dict path: {dict_file}")
+        self.logger.info(f" 索引文件路径|Fai path: {fai_file}")
         
         try:
             # 第1步：检查并创建.dict文件|Step 1: Check and create .dict file

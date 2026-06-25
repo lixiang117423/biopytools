@@ -17,7 +17,7 @@ class TranscriptomeConfig:
     output_dir: str = './transcriptome_output'
     samples_file: Optional[str] = None  # Trinity样本文件|Trinity samples file
     
-    # 🧵 分析参数|Analysis parameters
+    #  分析参数|Analysis parameters
     threads: int = 12  # 默认线程数|Default thread count
     
     #  HISAT2比对参数|HISAT2 alignment parameters
@@ -26,20 +26,20 @@ class TranscriptomeConfig:
     hisat2_novel_splicesite: bool = True
     hisat2_dta: bool = True  # 针对转录本组装器优化|Optimize for transcript assemblers
     
-    # 🧩 StringTie重构参数|StringTie reconstruction parameters
+    #  StringTie重构参数|StringTie reconstruction parameters
     stringtie_min_length: int = 50
     stringtie_min_coverage: float = 0
     stringtie_min_fpkm: float = 1
     stringtie_min_iso: float = 0.01
     stringtie_conservative: bool = False
     
-    # 🔗 Trinity组装参数|Trinity assembly parameters
+    #  Trinity组装参数|Trinity assembly parameters
     trinity_min_contig_length: int = 200
     trinity_max_memory: str = "100G"
     trinity_cpu: int = 12  # Trinity CPU数量|Trinity CPU count
     trinity_ss_lib_type: Optional[str] = None  # 链特异性|Strand specificity
     
-    # 📍 PASA参数|PASA parameters
+    #  PASA参数|PASA parameters
     pasa_max_intron_length: int = 100000
     pasa_min_percent_aligned: int = 90
     pasa_min_avg_per_id: int = 95
@@ -128,7 +128,7 @@ class TranscriptomeConfig:
     output_dir: str = './transcriptome_output'
     samples_file: Optional[str] = None  # Trinity样本文件|Trinity samples file
     
-    # 🧵 分析参数|Analysis parameters
+    #  分析参数|Analysis parameters
     threads: int = 12  # 默认线程数|Default thread count
     
     #  工作流控制参数|Workflow control parameters
@@ -141,20 +141,20 @@ class TranscriptomeConfig:
     hisat2_novel_splicesite: bool = True
     hisat2_dta: bool = True  # 针对转录本组装器优化|Optimize for transcript assemblers
     
-    # 🧩 StringTie重构参数|StringTie reconstruction parameters
+    #  StringTie重构参数|StringTie reconstruction parameters
     stringtie_min_length: int = 50
     stringtie_min_coverage: float = 0
     stringtie_min_fpkm: float = 1
     stringtie_min_iso: float = 0.01
     stringtie_conservative: bool = False
     
-    # 🔗 Trinity组装参数|Trinity assembly parameters
+    #  Trinity组装参数|Trinity assembly parameters
     trinity_min_contig_length: int = 200
     trinity_max_memory: str = "100G"
     trinity_cpu: int = 12  # Trinity CPU数量|Trinity CPU count
     trinity_ss_lib_type: Optional[str] = None  # 链特异性|Strand specificity
     
-    # 📍 PASA参数|PASA parameters
+    #  PASA参数|PASA parameters
     pasa_max_intron_length: int = 100000
     pasa_min_percent_aligned: int = 90
     pasa_min_avg_per_id: int = 95

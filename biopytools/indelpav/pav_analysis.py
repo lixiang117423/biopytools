@@ -65,10 +65,10 @@ class PAVAnalyzer:
             chroms[chrom] = chroms.get(chrom, 0) + 1
         
         self.logger.info(" INDEL统计信息|INDEL Statistics:")
-        self.logger.info(f"   🔸 插入|Insertions: {insertions} ({insertions/len(self.results)*100:.1f}%)")
-        self.logger.info(f"   🔹 删除|Deletions: {deletions} ({deletions/len(self.results)*100:.1f}%)")
-        self.logger.info(f"   📏 平均长度|Average length: {avg_length:.1f} bp")
-        self.logger.info(f"   📏 长度范围|Length range: {min_length}-{max_length} bp")
+        self.logger.info(f"    插入|Insertions: {insertions} ({insertions/len(self.results)*100:.1f}%)")
+        self.logger.info(f"    删除|Deletions: {deletions} ({deletions/len(self.results)*100:.1f}%)")
+        self.logger.info(f"    平均长度|Average length: {avg_length:.1f} bp")
+        self.logger.info(f"    长度范围|Length range: {min_length}-{max_length} bp")
         self.logger.info(f"    染色体数量|Chromosome count: {len(chroms)}")
         
         # 显示前5个染色体的INDEL数量

@@ -41,13 +41,13 @@ class DepthAnalyzer:
             self.logger.info(f" 配置信息|Configuration:")
             self.logger.info(f"   输入文件数量|Input files count: {len(self.config.input_files)}")
             self.logger.info(f"   目标染色体|Target chromosome: {self.config.chromosome}")
-            self.logger.info(f"  📍 分析区间|Analysis region: {self.config.region}")
-            self.logger.info(f"  🔢 线程数|Threads: {self.config.threads}")
+            self.logger.info(f"   分析区间|Analysis region: {self.config.region}")
+            self.logger.info(f"   线程数|Threads: {self.config.threads}")
             self.logger.info(f"   输出文件|Output file: {self.config.output_file}")
             if self.config.enable_window_analysis:
                 self.logger.info(f"   窗口分析|Window analysis: 启用|Enabled")
-                self.logger.info(f"    📏 窗口大小|Window size: {self.config.window_size}bp")
-                self.logger.info(f"    👣 步长|Step size: {self.config.window_step}bp")
+                self.logger.info(f"     窗口大小|Window size: {self.config.window_size}bp")
+                self.logger.info(f"     步长|Step size: {self.config.window_step}bp")
                 window_output = self.depth_processor._get_window_output_file()
                 self.logger.info(f"     窗口结果文件|Window results file: {window_output}")
             
@@ -102,9 +102,9 @@ def main():
     parser.add_argument('-c', '--chromosome', default='all', 
                        help=' 目标染色体名称 (默认all表示所有染色体)|Target chromosome name (default all means all chromosomes)')
     parser.add_argument('-r', '--region', default='all', 
-                       help='📍 染色体区间，格式: start:end (如 100:1235, 1-based坐标)|Chromosome region, format: start:end (e.g., 100:1235, 1-based coordinates)')
+                       help=' 染色体区间，格式: start:end (如 100:1235, 1-based坐标)|Chromosome region, format: start:end (e.g., 100:1235, 1-based coordinates)')
     parser.add_argument('-t', '--threads', type=int, default=88, 
-                       help='🔢 线程数|Number of threads')
+                       help=' 线程数|Number of threads')
     
     # samtools参数|samtools parameters
     parser.add_argument('-q', '--quality', type=int, default=0, 
@@ -120,15 +120,15 @@ def main():
     parser.add_argument('--output-format', default='txt', choices=['txt'], 
                        help=' 输出格式|Output format')
     parser.add_argument('--compress', action='store_true', 
-                       help='🗜 压缩输出文件|Compress output file')
+                       help=' 压缩输出文件|Compress output file')
     
     # 滑窗分析参数|Sliding window analysis parameters
     parser.add_argument('--enable-windows', action='store_true',
                        help=' 启用滑窗分析|Enable sliding window analysis')
     parser.add_argument('--window-size', type=int, default=1000,
-                       help='📏 窗口大小(bp)|Window size (bp)')
+                       help=' 窗口大小(bp)|Window size (bp)')
     parser.add_argument('--window-step', type=int, default=0,
-                       help='👣 窗口步长(bp)，0表示无重叠，小于窗口大小则重叠|Window step size (bp), 0 means no overlap, less than window size means overlap')
+                       help=' 窗口步长(bp)，0表示无重叠，小于窗口大小则重叠|Window step size (bp), 0 means no overlap, less than window size means overlap')
     
     args = parser.parse_args()
     

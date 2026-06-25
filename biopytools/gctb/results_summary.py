@@ -44,24 +44,24 @@ class ResultsSummarizer:
             param_df = self._summarize_parameters(trait_names, analysis_dirs, bayes_type)
             param_file = summary_dir / "all_traits_parameters.tsv"
             param_df.to_csv(param_file, sep='\t', index=False, float_format='%.6f')
-            self.logger.info(f"✓ 参数汇总表|Parameter summary: {param_file}")
+            self.logger.info(f" 参数汇总表|Parameter summary: {param_file}")
 
             # 2. 提取top SNPs|Extract top SNPs
             top_snps_df = self._extract_top_snps(trait_names, analysis_dirs, bayes_type, top_n=50)
             top_snps_file = summary_dir / "all_traits_top_snps.tsv"
             top_snps_df.to_csv(top_snps_file, sep='\t', index=False, float_format='%.6f')
-            self.logger.info(f"✓ Top SNPs表|Top SNPs table: {top_snps_file}")
+            self.logger.info(f" Top SNPs表|Top SNPs table: {top_snps_file}")
 
             # 3. 合并所有SNPs（可选，可能很大）|Merge all SNPs (optional, may be large)
             all_snps_df = self._merge_all_snps(trait_names, analysis_dirs, bayes_type)
             all_snps_file = summary_dir / "all_traits_all_snps.tsv"
             all_snps_df.to_csv(all_snps_file, sep='\t', index=False, float_format='%.6f')
-            self.logger.info(f"✓ 完整SNPs表|All SNPs table: {all_snps_file} ({len(all_snps_df)} rows)")
+            self.logger.info(f" 完整SNPs表|All SNPs table: {all_snps_file} ({len(all_snps_df)} rows)")
 
             # 4. 生成Markdown报告|Generate Markdown report
             report_file = summary_dir / "analysis_report.md"
             self._generate_markdown_report(param_df, top_snps_df, report_file, bayes_type)
-            self.logger.info(f"✓ Markdown报告|Markdown report: {report_file}")
+            self.logger.info(f" Markdown报告|Markdown report: {report_file}")
 
             self.logger.info("="*60)
             self.logger.info("结果汇总完成|Results summarization completed")

@@ -40,11 +40,11 @@
 #             #  检查软链接情况|Check symlink status
 #             symlinks = [f for f in files_in_dir if f.is_symlink()]
 #             if symlinks:
-#                 self.logger.info(f"🔗 发现{len(symlinks)}个软链接文件|Found {len(symlinks)} symlink files")
+#                 self.logger.info(f" 发现{len(symlinks)}个软链接文件|Found {len(symlinks)} symlink files")
 #                 for link in symlinks[:5]:  # 显示前5个
 #                     target = link.readlink() if link.is_symlink() else "N/A"
 #                     target_exists = link.exists()
-#                     self.logger.info(f"  🔗 {link.name} -> {target} (目标存在: {target_exists})")
+#                     self.logger.info(f"   {link.name} -> {target} (目标存在: {target_exists})")
         
 #         #  使用Path.glob替代glob.glob，更好地处理软链接|Use Path.glob instead of glob.glob for better symlink handling
 #         r1_files = list(input_dir.glob(self.config.pattern))
@@ -108,8 +108,8 @@
         
 #     #     return decompressed_files
 #     def decompress_files(self, sample_files: List[str]) -> List[str]:
-#         """📦 准备文件列表（不再解压缩）| Prepare file list (no more decompression)"""
-#         self.logger.info("📦 准备文件列表|Preparing file list")
+#         """ 准备文件列表（不再解压缩）| Prepare file list (no more decompression)"""
+#         self.logger.info(" 准备文件列表|Preparing file list")
         
 #         #  直接返回原始文件路径，让Jellyfish通过generator处理压缩文件
 #         # Return original file paths directly, let Jellyfish handle compressed files via generator
@@ -119,7 +119,7 @@
 #                 processed_files.append(None)
 #             else:
 #                 if file_path.endswith('.gz'):
-#                     self.logger.info(f"📦 压缩文件将通过generator处理|Compressed file will be processed via generator: {os.path.basename(file_path)}")
+#                     self.logger.info(f" 压缩文件将通过generator处理|Compressed file will be processed via generator: {os.path.basename(file_path)}")
 #                 else:
 #                     self.logger.info(f" 普通文件|Regular file: {os.path.basename(file_path)}")
 #                 processed_files.append(file_path)
@@ -190,7 +190,7 @@
 #             r1_valid = self.check_file_integrity(r1_file)
 #             if not r1_valid:
 #                 corrupted_files.append(os.path.basename(r1_file))
-#                 self.logger.error(f"💥 R1文件损坏，跳过样本: {sample_name} ({os.path.basename(r1_file)})")
+#                 self.logger.error(f" R1文件损坏，跳过样本: {sample_name} ({os.path.basename(r1_file)})")
 #                 continue
             
 #             # 检查R2文件（如果存在）
@@ -199,7 +199,7 @@
 #                 r2_valid = self.check_file_integrity(r2_file)
 #                 if not r2_valid:
 #                     corrupted_files.append(os.path.basename(r2_file))
-#                     self.logger.error(f"💥 R2文件损坏，跳过样本: {sample_name} ({os.path.basename(r2_file)})")
+#                     self.logger.error(f" R2文件损坏，跳过样本: {sample_name} ({os.path.basename(r2_file)})")
 #                     continue
                 
 #                 valid_samples.append((sample_name, r1_file, r2_file))
@@ -211,7 +211,7 @@
 #         if corrupted_files:
 #             self.logger.warning(f" 发现{len(corrupted_files)}个损坏的文件:")
 #             for corrupted_file in corrupted_files:
-#                 self.logger.warning(f"  💔 {corrupted_file}")
+#                 self.logger.warning(f"   {corrupted_file}")
         
 #         if valid_samples:
 #             self.logger.info(f" 完整性检查完成，{len(valid_samples)}个样本可用")
@@ -342,11 +342,11 @@ class FileProcessor:
             files_in_dir = list(input_dir.glob("*"))
             symlinks = [f for f in files_in_dir if f.is_symlink()]
             if symlinks:
-                self.logger.info(f"🔗 发现{len(symlinks)}个软链接文件|Found {len(symlinks)} symlink files")
+                self.logger.info(f" 发现{len(symlinks)}个软链接文件|Found {len(symlinks)} symlink files")
                 for link in symlinks[:5]:  # 显示前5个
                     target = link.readlink() if link.is_symlink() else "N/A"
                     target_exists = link.exists()
-                    self.logger.info(f"  🔗 {link.name} -> {target} (目标存在|Target exists: {target_exists})")
+                    self.logger.info(f"   {link.name} -> {target} (目标存在|Target exists: {target_exists})")
         
         # 使用Path.glob替代glob.glob，更好地处理软链接
         r1_files = list(input_dir.glob(self.config.pattern))
@@ -409,8 +409,8 @@ class FileProcessor:
         return samples
     
     # def decompress_files(self, sample_files: List[str]) -> List[str]:
-    #     """📦 准备文件列表（不再解压缩）| Prepare file list (no more decompression)"""
-    #     self.logger.info("📦 准备文件列表|Preparing file list")
+    #     """ 准备文件列表（不再解压缩）| Prepare file list (no more decompression)"""
+    #     self.logger.info(" 准备文件列表|Preparing file list")
         
     #     # 直接返回原始文件路径，让Jellyfish通过generator处理压缩文件
     #     processed_files = []
@@ -419,7 +419,7 @@ class FileProcessor:
     #             processed_files.append(None)
     #         else:
     #             if file_path.endswith('.gz'):
-    #                 self.logger.info(f"📦 压缩文件将通过generator处理|Compressed file will be processed via generator: {os.path.basename(file_path)}")
+    #                 self.logger.info(f" 压缩文件将通过generator处理|Compressed file will be processed via generator: {os.path.basename(file_path)}")
     #             else:
     #                 self.logger.info(f" 普通文件|Regular file: {os.path.basename(file_path)}")
     #             processed_files.append(file_path)
@@ -531,8 +531,8 @@ class FileProcessor:
     #     return standardized_files
 
     # def decompress_files(self, sample_files: List[str]) -> List[str]:
-    #     """📦 准备文件列表并标准化格式|Prepare file list and standardize format"""
-    #     self.logger.info("📦 准备文件列表|Preparing file list")
+    #     """ 准备文件列表并标准化格式|Prepare file list and standardize format"""
+    #     self.logger.info(" 准备文件列表|Preparing file list")
         
     #     # 直接返回原始文件路径，让Jellyfish通过generator处理压缩文件
     #     processed_files = []
@@ -541,7 +541,7 @@ class FileProcessor:
     #             processed_files.append(None)
     #         else:
     #             if file_path.endswith('.gz'):
-    #                 self.logger.info(f"📦 压缩文件将通过generator处理|Compressed file will be processed via generator: {os.path.basename(file_path)}")
+    #                 self.logger.info(f" 压缩文件将通过generator处理|Compressed file will be processed via generator: {os.path.basename(file_path)}")
     #             else:
     #                 self.logger.info(f" 普通文件|Regular file: {os.path.basename(file_path)}")
     #             processed_files.append(file_path)

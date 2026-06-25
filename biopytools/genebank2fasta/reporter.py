@@ -6,7 +6,7 @@ import os
 from collections import defaultdict
 
 class StatisticsReporter:
-    """统计报告生成器 📈|Statistics Reporter"""
+    """统计报告生成器 |Statistics Reporter"""
     
     def __init__(self, config, logger):
         self.config = config

@@ -179,7 +179,7 @@ class SummaryGenerator:
             f.write(f"   样本数量|Number of samples: {len(self.config.sample_names) if self.config.sample_names else 0}\n")
             f.write(f"   总变异位点数|Total variant sites: {self.config.total_snps}\n\n")
             
-            # 📈 样本统计概览|Sample statistics overview
+            #  样本统计概览|Sample statistics overview
             if stats_results:
                 f.write(" 样本统计概览|Sample Statistics Overview:\n")
                 

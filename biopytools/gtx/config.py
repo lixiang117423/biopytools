@@ -33,13 +33,13 @@
 #     #  临时目录|Temporary directory
 #     tmp_dir: Optional[str] = None
     
-#     # 🔒 内部属性|Internal attributes
+#     #  内部属性|Internal attributes
 #     bam_output_dir: Optional[Path] = None
 #     vcf_output_dir: Optional[Path] = None
     
 #     def __post_init__(self):
 #         """初始化后处理 |Post-initialization processing"""
-#         # 标准化路径 🛤|Normalize paths
+#         # 标准化路径 |Normalize paths
 #         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
 #         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
 #         self.reference = os.path.normpath(os.path.abspath(self.reference))
@@ -72,11 +72,11 @@
 #         if not os.path.exists(self.reference):
 #             errors.append(f" 参考基因组文件不存在|Reference genome file does not exist: {self.reference}")
         
-#         # 检查GTX程序 💻|Check GTX program
+#         # 检查GTX程序 |Check GTX program
 #         if not os.path.exists(self.gtx_path):
 #             errors.append(f" GTX程序不存在|GTX program does not exist: {self.gtx_path}")
         
-#         # 检查参数范围 📏|Check parameter ranges
+#         # 检查参数范围 |Check parameter ranges
 #         if self.threads <= 0:
 #             errors.append(f" 线程数必须为正整数|Thread number must be positive: {self.threads}")
         
@@ -142,7 +142,7 @@ class GTXConfig:
     read1_pattern: str = "*_1.clean.fq.gz"
     read2_pattern: str = "*_2.clean.fq.gz"
     
-    # 🤝 Joint calling参数|Joint calling parameters
+    #  Joint calling参数|Joint calling parameters
     enable_joint_calling: bool = True
     joint_output_name: str = "merged_gtx.vcf.gz"
     joint_threads: int = 88  # Joint calling使用的线程数
@@ -150,7 +150,7 @@ class GTXConfig:
     #  临时目录|Temporary directory
     tmp_dir: Optional[str] = None
     
-    # 🔒 内部属性|Internal attributes
+    #  内部属性|Internal attributes
     bam_output_dir: Optional[Path] = None
     vcf_output_dir: Optional[Path] = None
     joint_output_dir: Optional[Path] = None
@@ -202,11 +202,11 @@ class GTXConfig:
         if not os.path.exists(self.reference):
             errors.append(f" 参考基因组文件不存在|Reference genome file does not exist: {self.reference}")
         
-        # 检查GTX程序 💻|Check GTX program
+        # 检查GTX程序 |Check GTX program
         if not os.path.exists(self.gtx_path):
             errors.append(f" GTX程序不存在|GTX program does not exist: {self.gtx_path}")
         
-        # 检查参数范围 📏|Check parameter ranges
+        # 检查参数范围 |Check parameter ranges
         if self.threads <= 0:
             errors.append(f" 线程数必须为正整数|Thread number must be positive: {self.threads}")
         

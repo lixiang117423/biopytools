@@ -4,8 +4,8 @@ CPhasing命令执行模块|CPhasing Command Execution Module
 负责构建和执行CPhasing命令，支持所有子命令
 Responsible for building and executing CPhasing commands, supports all subcommands
 
-⚠️ CPhasing 用 pixi 安装，必须先 source activate_cphasing 才能用
-|⚠️ CPhasing is installed via pixi; must source activate_cphasing first
+ CPhasing 用 pixi 安装，必须先 source activate_cphasing 才能用
+| CPhasing is installed via pixi; must source activate_cphasing first
 """
 
 import os
@@ -25,8 +25,8 @@ class CPhasingRunner:
     1. pipeline模式：完整参数封装|Full parameter wrapping
     2. 通用模式：透传子命令和参数|Pass-through subcommand and arguments
 
-    ⚠️ 用户必须先 source activate_cphasing 才能调用，本类不再用 conda run 包装
-    |⚠️ Users must `source activate_cphasing` first; this class no longer wraps with conda run
+     用户必须先 source activate_cphasing 才能调用，本类不再用 conda run 包装
+    | Users must `source activate_cphasing` first; this class no longer wraps with conda run
     """
 
     def __init__(self, config: CPhasingConfig):

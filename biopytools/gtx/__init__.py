@@ -1,10 +1,10 @@
 """
  GTX WGS批处理分析工具包|GTX WGS Batch Processing Analysis Toolkit 
 功能 : 全基因组测序数据的GTX分析流程，支持批量处理和质量控制|
-Features ✨: GTX analysis pipeline for whole genome sequencing data with batch processing and quality control
+Features : GTX analysis pipeline for whole genome sequencing data with batch processing and quality control
 作者|Author: Xiang LI  
-版本 🏷|Version: v1.0 - 模块化版本|Modular version
-日期 📅|Date: 2025-08-08
+版本 |Version: v1.0 - 模块化版本|Modular version
+日期 |Date: 2025-08-08
 
 使用示例 |Usage Examples:
     from biopytools.gtx import GTXAnalyzer, GTXConfig
@@ -17,7 +17,7 @@ Features ✨: GTX analysis pipeline for whole genome sequencing data with batch 
         threads=12
     )
     
-    # 运行分析 🏃‍♂|Run analysis
+    # 运行分析 |Run analysis
     analyzer.run_analysis()
 """
 

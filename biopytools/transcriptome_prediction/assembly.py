@@ -1,12 +1,12 @@
 """
-🧩 转录本组装模块|Transcript Assembly Module
+ 转录本组装模块|Transcript Assembly Module
 """
 
 from pathlib import Path
 from .utils import CommandRunner, SequencingTypeDetector
 
 class StringTieAssembler:
-    """🧩 StringTie转录本重构器|StringTie Transcript Reconstructor"""
+    """ StringTie转录本重构器|StringTie Transcript Reconstructor"""
     
     def __init__(self, config, logger, cmd_runner: CommandRunner):
         self.config = config
@@ -29,7 +29,7 @@ class StringTieAssembler:
             sample_name = f"sample_{i+1:03d}"
             gtf_file = output_dir / f"{sample_name}.gtf"
             
-            self.logger.info(f"🧩 重构转录本|Reconstructing transcripts: {sample_name}")
+            self.logger.info(f" 重构转录本|Reconstructing transcripts: {sample_name}")
             
             # 构建StringTie命令|Build StringTie command
             cmd = (
@@ -47,7 +47,7 @@ class StringTieAssembler:
             if self.config.stringtie_conservative:
                 cmd += " --conservative"
             
-            if not self.cmd_runner.run(cmd, f"🧩 StringTie转录本重构|StringTie transcript reconstruction: {sample_name}"):
+            if not self.cmd_runner.run(cmd, f" StringTie转录本重构|StringTie transcript reconstruction: {sample_name}"):
                 return False
             
             self.config.gtf_files.append(str(gtf_file))
@@ -63,7 +63,7 @@ class StringTieAssembler:
         return True
     
     def _merge_transcripts(self, output_dir: Path) -> bool:
-        """🔀 合并多个样本的转录本|Merge transcripts from multiple samples"""
+        """ 合并多个样本的转录本|Merge transcripts from multiple samples"""
         gtf_list_file = output_dir / "gtf_list.txt"
         merged_gtf = output_dir / "merged.gtf"
         
@@ -72,7 +72,7 @@ class StringTieAssembler:
             for gtf_file in self.config.gtf_files:
                 f.write(f"{gtf_file}\n")
         
-        self.logger.info("🔀 合并转录本|Merging transcripts")
+        self.logger.info(" 合并转录本|Merging transcripts")
         
         # 构建StringTie merge命令|Build StringTie merge command
         cmd = (
@@ -84,14 +84,14 @@ class StringTieAssembler:
             f"-F {self.config.stringtie_min_fpkm}"
         )
         
-        if not self.cmd_runner.run(cmd, "🔀 StringTie转录本合并|StringTie transcript merging"):
+        if not self.cmd_runner.run(cmd, " StringTie转录本合并|StringTie transcript merging"):
             return False
         
         self.config.merged_gtf = str(merged_gtf)
         return True
 
 class TrinityAssembler:
-    """🔗 Trinity de novo组装器|Trinity de novo Assembler"""
+    """ Trinity de novo组装器|Trinity de novo Assembler"""
     
     def __init__(self, config, logger, cmd_runner: CommandRunner):
         self.config = config

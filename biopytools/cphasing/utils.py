@@ -4,7 +4,7 @@ CPhasing工具函数模块|CPhasing Utility Functions Module
 提供日志管理、命令执行等辅助功能
 Provides logging, command execution and other utilities
 
-⚠️ 重要|IMPORTANT:
+ 重要|IMPORTANT:
     CPhasing 是用 pixi 安装的，不是普通 conda env。用户必须先 source activate_cphasing
     才能使用 biopytools cphasing。本模块不再使用 conda run 包装。
     |CPhasing is installed via pixi, not regular conda env. Users must source

@@ -119,7 +119,7 @@ class RepeatAnalyzer:
         return None
     
     def combine_libraries(self, denovo_lib: Path, ltr_lib: Path) -> Path:
-        """📚 合并重复库|Combine repeat libraries"""
+        """ 合并重复库|Combine repeat libraries"""
         self.progress.start_step()
         
         available_libs = []
@@ -135,15 +135,15 @@ class RepeatAnalyzer:
         # 如果只有一个库，直接使用|If only one library, use it directly
         if len(available_libs) == 1:
             combined_lib = available_libs[0]
-            self.logger.info(f"📚 使用单个重复库|Using single repeat library: {combined_lib}")
+            self.logger.info(f" 使用单个重复库|Using single repeat library: {combined_lib}")
         else:
             # 合并多个库|Combine multiple libraries
             combined_lib = self.config.output_path / f"{self.config.base_name}_combined.fa"
             
-            self.logger.info("📚 合并重复库文件|Combining repeat library files")
+            self.logger.info(" 合并重复库文件|Combining repeat library files")
             with open(combined_lib, 'w') as outfile:
                 for i, lib_file in enumerate(available_libs):
-                    self.logger.info(f"  📖 添加库文件|Adding library file: {lib_file}")
+                    self.logger.info(f"   添加库文件|Adding library file: {lib_file}")
                     with open(lib_file, 'r') as infile:
                         for line in infile:
                             if line.startswith('>'):
@@ -158,7 +158,7 @@ class RepeatAnalyzer:
         return combined_lib
     
     def run_repeatmasker(self, library_path: Path) -> bool:
-        """🎭 运行RepeatMasker|Run RepeatMasker"""
+        """ 运行RepeatMasker|Run RepeatMasker"""
         self.progress.start_step()
         
         if self.repeatmasker.run_repeatmasker(library_path):
@@ -168,7 +168,7 @@ class RepeatAnalyzer:
         return False
     
     def run_tesorter(self, library_path: Path) -> bool:
-        """🏷 运行TEsorter|Run TEsorter"""
+        """ 运行TEsorter|Run TEsorter"""
         self.progress.start_step()
         
         if self.tesorter.run_tesorter(library_path):
@@ -194,7 +194,7 @@ class RepeatAnalyzer:
             f.write(f"  GC含量|GC content: {stats.get('gc_content', 'N/A'):.2f}%\n\n")
             
             # 重复库信息|Repeat library information
-            f.write("📚 重复库文件|Repeat Library Files:\n")
+            f.write(" 重复库文件|Repeat Library Files:\n")
             for lib_name, lib_path in self.results['repeat_libraries']:
                 f.write(f"  - {lib_name}: {lib_path}\n")
             if self.results['combined_library']:
@@ -202,13 +202,13 @@ class RepeatAnalyzer:
             f.write("\n")
             
             # RepeatMasker结果|RepeatMasker results
-            f.write("🎭 RepeatMasker输出文件|RepeatMasker Output Files:\n")
+            f.write(" RepeatMasker输出文件|RepeatMasker Output Files:\n")
             for file_type, file_path in self.results['repeatmasker_files'].items():
                 f.write(f"  - {file_type}: {file_path}\n")
             f.write("\n")
             
             # TEsorter结果|TEsorter results
-            f.write("🏷 TEsorter输出文件|TEsorter Output Files:\n")
+            f.write(" TEsorter输出文件|TEsorter Output Files:\n")
             for file_type, file_path in self.results['tesorter_files'].items():
                 f.write(f"  - {file_type}: {file_path}\n")
             f.write("\n")
@@ -223,7 +223,7 @@ class RepeatAnalyzer:
             self.logger.info(" 开始重复序列分析流程|Starting repeat sequence analysis pipeline")
             self.logger.info(f" 输入基因组|Input genome: {self.config.genome_file}")
             self.logger.info(f" 输出目录|Output directory: {self.config.output_dir}")
-            self.logger.info(f"🧵 线程数|Threads: {self.config.threads}")
+            self.logger.info(f" 线程数|Threads: {self.config.threads}")
             
             # 分析基因组统计信息|Analyze genome statistics
             self.analyze_genome()
@@ -261,7 +261,7 @@ class RepeatAnalyzer:
             self.logger.info(f" 结果保存在|Results saved in: {self.config.output_dir}")
             
         except Exception as e:
-            self.logger.error(f"💥 分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}")
+            self.logger.error(f" 分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}")
             sys.exit(1)
 
 def main():
@@ -286,7 +286,7 @@ def main():
     parser.add_argument('-o', '--output', default='./repeat_output', dest='output_dir',
                        help=' 输出目录|Output directory')
     parser.add_argument('-t', '--threads', type=int, default=88,
-                       help='🧵 线程数|Number of threads')
+                       help=' 线程数|Number of threads')
     
     # 流程控制参数|Pipeline control parameters
     parser.add_argument('--skip-modeler', action='store_true',

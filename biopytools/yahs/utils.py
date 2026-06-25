@@ -285,7 +285,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     构建conda run命令来运行conda环境中的软件
     Build conda run command to execute software in conda environment
 
-    ⚠️ 重要|IMPORTANT:
+     重要|IMPORTANT:
         - 直接使用完整路径调用，避免conda run的开销和问题
         - Call full path directly to avoid conda run overhead and issues
         - 必须传递完整路径（以便设置LD_LIBRARY_PATH）|Must pass full path (for LD_LIBRARY_PATH setup)
@@ -298,11 +298,11 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
         完整命令列表|Full command list
 
     Examples:
-        >>> # ✅ 正确：conda环境，直接调用完整路径
+        >>> #  正确：conda环境，直接调用完整路径
         >>> build_conda_command('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', ['--version'])
         ['/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', '--version']
 
-        >>> # ✅ 正确：非conda环境，使用完整路径
+        >>> #  正确：非conda环境，使用完整路径
         >>> build_conda_command('/usr/bin/tool', ['--help'])
         ['/usr/bin/tool', '--help']
     """

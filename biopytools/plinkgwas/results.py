@@ -579,7 +579,7 @@ PLINK GWAS结果处理模块|PLINK GWAS Results Processing Module
 #         # 检查数据结构|Check data structure
 #         self.logger.info(f" 结果文件列名|Result file columns: {list(results_df.columns)}")
 #         unique_tests = results_df['TEST'].unique()
-#         self.logger.info(f"🧪 包含的检验类型|Test types included: {unique_tests}")
+#         self.logger.info(f" 包含的检验类型|Test types included: {unique_tests}")
         
 #         # 分别处理各种模型的结果|Process results for different models separately
 #         model_results = {}
@@ -718,7 +718,7 @@ PLINK GWAS结果处理模块|PLINK GWAS Results Processing Module
 #         self.logger.info(f" 对{model_name}模型应用显著性校正|Applying significance correction for {model_name} model: {self.config.correction_method}")
         
 #         total_snps = len(results_df)
-#         self.logger.info(f"🔢 用于校正的SNP总数|Total SNPs for correction: {total_snps}")
+#         self.logger.info(f" 用于校正的SNP总数|Total SNPs for correction: {total_snps}")
         
 #         if total_snps == 0:
 #             self.logger.warning(f" {model_name}模型无SNP数据可用于校正|No SNP data available for correction in {model_name} model")

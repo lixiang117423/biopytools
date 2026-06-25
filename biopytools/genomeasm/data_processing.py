@@ -82,7 +82,7 @@ class DataQualityController:
     
     # def _qc_hic_data(self) -> Dict[str, any]:
     #     """Hi-C数据质量控制|Hi-C data quality control"""
-    #     self.logger.info("🔗 检查Hi-C数据质量|Checking Hi-C data quality")
+    #     self.logger.info(" 检查Hi-C数据质量|Checking Hi-C data quality")
         
     #     results = {}
         
@@ -103,7 +103,7 @@ class DataQualityController:
 
     def _qc_hic_data(self) -> Dict[str, any]:
         """Hi-C数据质量控制|Hi-C data quality control"""
-        self.logger.info("🔗 检查Hi-C数据质量|Checking Hi-C data quality")
+        self.logger.info(" 检查Hi-C数据质量|Checking Hi-C data quality")
         
         results = {}
         
@@ -181,7 +181,7 @@ class DataQualityController:
     
     def _qc_ngs_data(self) -> Dict[str, any]:
         """NGS数据质量控制|NGS data quality control"""
-        self.logger.info("🧪 检查NGS数据质量|Checking NGS data quality")
+        self.logger.info(" 检查NGS数据质量|Checking NGS data quality")
         
         results = {}
         
@@ -281,7 +281,7 @@ class DataQualityController:
             # Hi-C数据报告
             if 'hic' in qc_results:
                 hic = qc_results['hic']
-                f.write("🔗 Hi-C数据质量|Hi-C Data Quality:\n")
+                f.write(" Hi-C数据质量|Hi-C Data Quality:\n")
                 if 'coverage' in hic:
                     f.write(f"  覆盖度|Coverage: {hic['coverage']:.1f}X\n")
                     f.write(f"  质量评估|QC Pass: {' 通过' if hic['pass_qc'] else ' 不通过'}\n")

@@ -123,15 +123,15 @@ def gap_stat(input, output, min_n):
             )
 
             if success:
-                click.echo(f"\n✓ 批量处理成功|Batch processing completed successfully")
+                click.echo(f"\n 批量处理成功|Batch processing completed successfully")
                 click.echo(f"输出文件|Output file: {output}")
                 sys.exit(0)
             else:
-                click.echo(f"\n✗ 批量处理失败|Batch processing failed", err=True)
+                click.echo(f"\n 批量处理失败|Batch processing failed", err=True)
                 sys.exit(1)
 
         except Exception as e:
-            click.echo(f"✗ 错误|Error: {str(e)}", err=True)
+            click.echo(f" 错误|Error: {str(e)}", err=True)
             import traceback
             click.echo(traceback.format_exc(), err=True)
             sys.exit(1)

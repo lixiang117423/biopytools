@@ -81,12 +81,12 @@ class CommandRunner:
             
         except subprocess.CalledProcessError as e:
             self.logger.error(f" 命令执行失败|Command execution failed: {description}")
-            self.logger.error(f"💥 错误代码|Error code: {e.returncode}")
+            self.logger.error(f" 错误代码|Error code: {e.returncode}")
             self.logger.error(f" 错误信息|Error message: {e.stderr}")
             self.logger.error(f" 标准输出|Stdout: {e.stdout}")
             return False
         except subprocess.TimeoutExpired:
-            self.logger.error(f"⏰ 命令执行超时|Command execution timeout: {description}")
+            self.logger.error(f" 命令执行超时|Command execution timeout: {description}")
             return False
 
 # def check_dependencies(config, logger) -> Dict[str, bool]:

@@ -25,17 +25,17 @@ class ResultsSummary:
                 #  基本信息|Basic information
                 f.write(" 基本信息|Basic Information:\n")
                 f.write(f"  -  项目编号|Accession: {self.config.accession}\n")
-                f.write(f"  - 🌐 下载协议|Protocol: {self.config.protocol}\n")
+                f.write(f"  -  下载协议|Protocol: {self.config.protocol}\n")
                 f.write(f"  -  执行方式|Method: {self.config.method}\n")
                 f.write(f"  -  输出目录|Output Directory: {self.config.output_dir}\n")
-                f.write(f"  - 🕐 生成时间|Generated Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write(f"  -  生成时间|Generated Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 f.write("\n")
                 
                 #  元数据信息|Metadata information
                 f.write(" 元数据信息|Metadata Information:\n")
                 if metadata_file and metadata_file.exists():
                     f.write(f"  -  元数据文件|Metadata File: {metadata_file.name}\n")
-                    f.write(f"  - 📏 文件大小|File Size: {metadata_file.stat().st_size:,} bytes\n")
+                    f.write(f"  -  文件大小|File Size: {metadata_file.stat().st_size:,} bytes\n")
                     f.write(f"  -  格式|Format: {self.config.metadata_format.upper()}\n")
                 else:
                     f.write("  -  状态|Status: 元数据下载失败|Metadata download failed\n")
@@ -46,8 +46,8 @@ class ResultsSummary:
                 f.write(f"  -  发现的FASTQ文件数量|FASTQ Files Found: {download_links_count}\n")
                 
                 if script_file and script_file.exists():
-                    f.write(f"  - 📜 下载脚本|Download Script: {script_file.name}\n")
-                    f.write(f"  - 📏 脚本大小|Script Size: {script_file.stat().st_size:,} bytes\n")
+                    f.write(f"  -  下载脚本|Download Script: {script_file.name}\n")
+                    f.write(f"  -  脚本大小|Script Size: {script_file.stat().st_size:,} bytes\n")
                     
                     if self.config.method == "save":
                         f.write("\n")

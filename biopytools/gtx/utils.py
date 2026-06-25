@@ -133,7 +133,7 @@
 #         if not r1_files:
 #             raise FileNotFoundError(f"在 {self.config.input_dir} 中未找到 {self.config.read1_pattern} 文件")
         
-#         # 按文件名排序 🔠|Sort by filename
+#         # 按文件名排序 |Sort by filename
 #         r1_files.sort()
         
 #         self.logger.info(f"找到 {len(r1_files)} 个R1文件|Found {len(r1_files)} R1 files")
@@ -145,7 +145,7 @@
 #         # 验证R2文件存在 |Validate R2 files exist
 #         file_pairs = []
 #         for r1_file in r1_files:
-#             # 从R1文件名中提取样品名 🏷|Extract sample name from R1 filename
+#             # 从R1文件名中提取样品名 |Extract sample name from R1 filename
 #             sample_name = self.pattern_parser.extract_sample_name_from_pattern(
 #                 r1_file.name, self.config.read1_pattern
 #             )
@@ -181,17 +181,17 @@
 #         return file_pairs
     
 #     def check_output_exists(self, sample_name: str) -> bool:
-#         """检查输出文件是否已存在 🧐|Check if output files already exist"""
+#         """检查输出文件是否已存在 |Check if output files already exist"""
 #         vcf_file = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
 #         bam_file = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
         
 #         return vcf_file.exists() and bam_file.exists()
     
 #     def get_file_size(self, file_path: str) -> str:
-#         """获取文件大小 📏|Get file size"""
+#         """获取文件大小 |Get file size"""
 #         try:
 #             size_bytes = os.path.getsize(file_path)
-#             # 转换为人类可读格式 🧑‍|Convert to human readable format
+#             # 转换为人类可读格式 |Convert to human readable format
 #             for unit in ['B', 'KB', 'MB', 'GB']:
 #                 if size_bytes < 1024.0:
 #                     return f"{size_bytes:.1f} {unit}"
@@ -553,7 +553,7 @@ class FileProcessor:
         if not r1_files:
             raise FileNotFoundError(f"在 {self.config.input_dir} 中未找到 {self.config.read1_pattern} 文件")
         
-        # 按文件名排序 🔠|Sort by filename
+        # 按文件名排序 |Sort by filename
         r1_files.sort()
         
         self.logger.info(f"找到 {len(r1_files)} 个R1文件|Found {len(r1_files)} R1 files")
@@ -565,7 +565,7 @@ class FileProcessor:
         # 验证R2文件存在 |Validate R2 files exist
         file_pairs = []
         for r1_file in r1_files:
-            # 从R1文件名中提取样品名 🏷|Extract sample name from R1 filename
+            # 从R1文件名中提取样品名 |Extract sample name from R1 filename
             sample_name = self.pattern_parser.extract_sample_name_from_pattern(
                 r1_file.name, self.config.read1_pattern
             )
@@ -601,14 +601,14 @@ class FileProcessor:
         return file_pairs
     
     def check_output_exists(self, sample_name: str) -> bool:
-        """检查输出文件是否已存在 🧐|Check if output files already exist"""
+        """检查输出文件是否已存在 |Check if output files already exist"""
         vcf_file = self.config.vcf_output_dir / f"{sample_name}.vcf.gz"
         bam_file = self.config.bam_output_dir / f"{sample_name}.sorted.bam"
         
         return vcf_file.exists() and bam_file.exists()
     
     def get_processed_vcf_files(self) -> List[Path]:
-        """获取已处理的VCF文件列表 📜|Get list of processed VCF files"""
+        """获取已处理的VCF文件列表 |Get list of processed VCF files"""
         vcf_files = list(self.config.vcf_output_dir.glob("*.vcf.gz"))
         valid_vcf_files = []
         
@@ -639,10 +639,10 @@ class FileProcessor:
         return True, f"找到{len(vcf_files)}个有效VCF文件，满足Joint Calling条件"
     
     def get_file_size(self, file_path: str) -> str:
-        """获取文件大小 📏|Get file size"""
+        """获取文件大小 |Get file size"""
         try:
             size_bytes = os.path.getsize(file_path)
-            # 转换为人类可读格式 🧑‍|Convert to human readable format
+            # 转换为人类可读格式 |Convert to human readable format
             for unit in ['B', 'KB', 'MB', 'GB']:
                 if size_bytes < 1024.0:
                     return f"{size_bytes:.1f} {unit}"

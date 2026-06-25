@@ -171,14 +171,14 @@ class HifiasmAssembler:
             if full_path.exists() and full_path.stat().st_size > 0:
                 existing_files.append((file_type, full_path))
                 file_size = full_path.stat().st_size / (1024*1024)  # MB
-                self.logger.info(f"✓ {file_type}: {full_path.name} ({file_size:.1f} MB)")
+                self.logger.info(f" {file_type}: {full_path.name} ({file_size:.1f} MB)")
             else:
                 missing_files.append((file_type, full_path))
         
         if missing_files:
             self.logger.warning("以下预期文件未找到|Following expected files not found:")
             for file_type, file_path in missing_files:
-                self.logger.warning(f"  ✗ {file_type}: {file_path.name}")
+                self.logger.warning(f"   {file_type}: {file_path.name}")
         
         # 至少需要有primary contigs
         primary_files = [f for f in existing_files if 'primary' in f[0].lower() or 'p_ctg' in str(f[1])]
@@ -308,7 +308,7 @@ class GFAConverter:
             # 验证输出文件
             if fasta_path.exists() and fasta_path.stat().st_size > 0:
                 file_size = fasta_path.stat().st_size / (1024*1024)
-                self.logger.info(f"✓ 生成FASTA文件: {fasta_path.name} ({file_size:.1f} MB)|Generated FASTA file: {fasta_path.name} ({file_size:.1f} MB)")
+                self.logger.info(f" 生成FASTA文件: {fasta_path.name} ({file_size:.1f} MB)|Generated FASTA file: {fasta_path.name} ({file_size:.1f} MB)")
                 return fasta_path
             else:
                 self.logger.error(f"FASTA文件生成失败|FASTA file generation failed: {fasta_path}")

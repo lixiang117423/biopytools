@@ -38,13 +38,13 @@
 #     #  临时目录|Temporary directory
 #     tmp_dir: Optional[str] = None
     
-#     # 🔒 内部属性|Internal attributes
+#     #  内部属性|Internal attributes
 #     bam_output_dir: Optional[Path] = None
 #     vcf_output_dir: Optional[Path] = None
     
 #     def __post_init__(self):
 #         """初始化后处理 |Post-initialization processing"""
-#         # 标准化路径 🛤|Normalize paths
+#         # 标准化路径 |Normalize paths
 #         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
 #         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
 #         self.reference = os.path.normpath(os.path.abspath(self.reference))
@@ -77,11 +77,11 @@
 #         if not os.path.exists(self.reference):
 #             errors.append(f" 参考基因组文件不存在|Reference genome file does not exist: {self.reference}")
         
-#         # 检查parabricks程序 💻|Check parabricks program
+#         # 检查parabricks程序 |Check parabricks program
 #         if not os.path.exists(self.parabricks_path):
 #             errors.append(f" parabricks程序不存在|parabricks program does not exist: {self.parabricks_path}")
         
-#         # 检查参数范围 📏|Check parameter ranges
+#         # 检查参数范围 |Check parameter ranges
 #         if self.threads <= 0:
 #             errors.append(f" 线程数必须为正整数|Thread number must be positive: {self.threads}")
         

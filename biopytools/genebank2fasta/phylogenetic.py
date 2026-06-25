@@ -1,5 +1,5 @@
 """
-系统发育分析矩阵构建模块 🌲|Phylogenetic Analysis Matrix Construction Module
+系统发育分析矩阵构建模块 |Phylogenetic Analysis Matrix Construction Module
 """
 
 import os
@@ -14,8 +14,8 @@ class PhylogeneticMatrixBuilder:
         self.logger = logger
     
     def create_phylogenetic_matrix(self):
-        """创建系统发育分析矩阵 🌲|Create phylogenetic analysis matrix"""
-        self.logger.info("🌲 创建系统发育分析矩阵...|Creating phylogenetic analysis matrix...")
+        """创建系统发育分析矩阵 |Create phylogenetic analysis matrix"""
+        self.logger.info(" 创建系统发育分析矩阵...|Creating phylogenetic analysis matrix...")
         
         # 读取核心基因列表|Read core genes list
         core_genes_file = f"{self.config.output_dir}/core_genes_list.txt"
@@ -45,7 +45,7 @@ class PhylogeneticMatrixBuilder:
         return True
     
     def collect_sequences(self, core_genes):
-        """收集序列数据 📚|Collect sequence data"""
+        """收集序列数据 |Collect sequence data"""
         sample_sequences = defaultdict(dict)
         cds_by_gene_dir = f"{self.config.cds_dir}/by_gene"
         

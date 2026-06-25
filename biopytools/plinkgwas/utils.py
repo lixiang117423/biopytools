@@ -104,11 +104,11 @@
 #         """检查文件是否存在|Check if file exists"""
 #         if file_path.exists():
 #             if description:
-#                 self.logger.info(f"✓ {description}存在|exists: {file_path}")
+#                 self.logger.info(f" {description}存在|exists: {file_path}")
 #             return True
 #         else:
 #             if description:
-#                 self.logger.error(f"✗ {description}不存在|does not exist: {file_path}")
+#                 self.logger.error(f" {description}不存在|does not exist: {file_path}")
 #             return False
 """
 PLINK GWAS分析工具函数模块|PLINK GWAS Analysis Utility Functions Module
@@ -307,7 +307,7 @@ class CommandRunner:
                 # 未知参数|Unknown parameter
                 if param.startswith("--"):
                     self.logger.info(f"  {param}")
-                    self.logger.info(f"    ❓ 未知参数|Unknown parameter")
+                    self.logger.info(f"     未知参数|Unknown parameter")
             
             i += 1
         
@@ -348,7 +348,7 @@ class CommandRunner:
             
         except subprocess.CalledProcessError as e:
             self.logger.error(f" 命令执行失败|Command failed: {cmd_str}")
-            self.logger.error(f"💥 错误信息|Error: {e}")
+            self.logger.error(f" 错误信息|Error: {e}")
             if e.stdout:
                 self.logger.error(f"标准输出|Stdout: {e.stdout}")
             if e.stderr:

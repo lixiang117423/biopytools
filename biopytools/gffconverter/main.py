@@ -36,7 +36,7 @@ class GFFConverter:
             self.logger.info(f" 输入文件|Input file: {self.config.input_file}")
             self.logger.info(f" 输出文件|Output file: {self.config.output_file}")
             self.logger.info(f" 物种名称|Species name: {self.config.species_name}")
-            self.logger.info(f"🏷  物种缩写|Species prefix: {self.config.species_prefix}")
+            self.logger.info(f"  物种缩写|Species prefix: {self.config.species_prefix}")
             
             # 获取输入文件统计|Get input file statistics
             input_stats = get_file_stats(self.config.input_file)
@@ -81,7 +81,7 @@ class GFFConverter:
             
             # 获取输出文件统计|Get output file statistics
             output_stats = get_file_stats(self.config.output_file)
-            self.logger.info("📈 输出文件统计|Output file statistics:")
+            self.logger.info(" 输出文件统计|Output file statistics:")
             for key, value in output_stats.items():
                 self.logger.info(f"   {key}: {value}")
             
@@ -143,17 +143,17 @@ def main():
     parser.add_argument('-o', '--output', required=True,
                        help=' 输出GFF文件路径|Output GFF file path')
     parser.add_argument('-s', '--species-name', required=True,
-                       help='🦠 物种名称 (如: OV53)|Species name (e.g., OV53)')
+                       help=' 物种名称 (如: OV53)|Species name (e.g., OV53)')
     parser.add_argument('-p', '--species-prefix', required=True,
-                       help='🏷  物种缩写 (如: Ov)|Species prefix (e.g., Ov)')
+                       help='  物种缩写 (如: Ov)|Species prefix (e.g., Ov)')
     
     # 可选参数|Optional arguments
     parser.add_argument('--start-num', type=int, default=10,
-                       help='🔢 起始编号|Starting number for gene numbering')
+                       help=' 起始编号|Starting number for gene numbering')
     parser.add_argument('--step', type=int, default=10,
-                       help='📏 编号步长|Step size for gene numbering')
+                       help=' 编号步长|Step size for gene numbering')
     parser.add_argument('-t', '--threads', type=int, default=88,
-                       help='🧵 线程数|Number of threads')
+                       help=' 线程数|Number of threads')
     
     # 输出选项|Output options
     parser.add_argument('-v', '--verbose', action='store_true',

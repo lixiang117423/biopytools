@@ -1,5 +1,5 @@
 """
-🌳 RAxML分析结果处理模块|RAxML Analysis Results Processing Module
+ RAxML分析结果处理模块|RAxML Analysis Results Processing Module
 """
 
 import os
@@ -40,7 +40,7 @@ class ResultsManager:
                 size = file_path.stat().st_size
                 self.logger.info(f"   {file_type}: {filename} ({size} bytes)")
             else:
-                self.logger.debug(f"  ➖ {file_type}: {filename} (未生成|not generated)")
+                self.logger.debug(f"   {file_type}: {filename} (未生成|not generated)")
         
         return output_files
     
@@ -87,7 +87,7 @@ class ResultsManager:
         
         with open(report_file, 'w', encoding='utf-8') as f:
             f.write("=" * 80 + "\n")
-            f.write("🌳 RAxML系统发育分析总结报告|RAxML Phylogenetic Analysis Summary Report\n")
+            f.write(" RAxML系统发育分析总结报告|RAxML Phylogenetic Analysis Summary Report\n")
             f.write("=" * 80 + "\n\n")
             
             # 基本信息|Basic information

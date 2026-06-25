@@ -363,7 +363,7 @@ class NGSPolisher:
                 existing_files.append(fasta_name)
                 # 获取文件大小|Get file size
                 size_mb = os.path.getsize(fasta_path) / (1024 * 1024)
-                self.logger.info(f"  ✓ {fasta_name} ({size_mb:.1f} MB)")
+                self.logger.info(f"   {fasta_name} ({size_mb:.1f} MB)")
 
         self.logger.info(f"共生成|Total generated: {len(existing_files)}/{len(fasta_files)} 个FASTA文件")
         self.logger.info(f"文件位置|Files location: {reassembly_fasta_dir}")

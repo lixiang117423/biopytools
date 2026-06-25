@@ -73,7 +73,7 @@ class JointConfig:
         
         # 检查区间文件|Check interval file
         if self.intervals and not os.path.exists(self.intervals):
-            errors.append(f"📍 区间文件不存在|Interval file does not exist: {self.intervals}")
+            errors.append(f" 区间文件不存在|Interval file does not exist: {self.intervals}")
         
         if errors:
             raise ValueError("\n".join(errors))

@@ -166,7 +166,7 @@ class ResultsManager:
         # 创建Juicebox使用说明
         instructions_file = juicebox_dir / "JUICEBOX_INSTRUCTIONS.txt"
         with open(instructions_file, 'w', encoding='utf-8') as f:
-            f.write("🔗 Juicebox手动校正指南|Juicebox Manual Correction Guide\n")
+            f.write(" Juicebox手动校正指南|Juicebox Manual Correction Guide\n")
             f.write("=" * 60 + "\n\n")
             f.write("1. 下载并安装Juicebox Desktop版本\n")
             f.write("   Download and install Juicebox Desktop\n")
@@ -470,7 +470,7 @@ class ResultsManager:
                 f.write("挂载文件|Scaffold Files:\n")
                 for assembly_type, scaffolds in final_results['scaffolds'].items():
                     for name, files in scaffolds.items():
-                        f.write(f"  🔗 {assembly_type}_{name} 挂载结果:\n")
+                        f.write(f"   {assembly_type}_{name} 挂载结果:\n")
                         for file_type, info in files.items():
                             if file_type in ['scaffolds_final', 'final_fasta', 'scaffolds_FINAL']:
                                 f.write(f"      {Path(info['final_path']).name} ({info['file_size']})\n")
@@ -478,7 +478,7 @@ class ResultsManager:
             
             # Juicebox文件
             if final_results.get('juicebox_files'):
-                f.write("🔗 Juicebox手动校正文件|Juicebox Manual Correction Files:\n")
+                f.write(" Juicebox手动校正文件|Juicebox Manual Correction Files:\n")
                 f.write("位置|Location: for_juicebox/\n")
                 f.write("说明文件|Instructions: JUICEBOX_INSTRUCTIONS.txt\n\n")
             
@@ -496,7 +496,7 @@ class ResultsManager:
             f.write("  4. 变异检测和群体基因组学分析\n")
             f.write("  5. 表观基因组学分析 (如有Hi-C数据)\n\n")
             
-            f.write("📞 技术支持|Technical Support:\n")
+            f.write(" 技术支持|Technical Support:\n")
             f.write("  如需技术支持，请提供完整的日志文件和错误信息\n")
             f.write("  For technical support, please provide complete log files and error messages\n")
         

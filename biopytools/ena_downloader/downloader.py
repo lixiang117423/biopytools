@@ -15,7 +15,7 @@ class FastqDownloader:
         self.cmd_runner = cmd_runner
     
     def build_download_command(self, link: str) -> str:
-        """🔨 构建下载命令|Build download command"""
+        """ 构建下载命令|Build download command"""
         if self.config.protocol == 'ftp':
             return f'wget -c {link} -P {self.config.output_dir}'
         elif self.config.protocol == 'aspera':
@@ -24,12 +24,12 @@ class FastqDownloader:
             raise ValueError(f" Unsupported protocol: {self.config.protocol}")
     
     def generate_download_script(self, download_links: List[str]) -> Path:
-        """📜 生成下载脚本|Generate download script"""
+        """ 生成下载脚本|Generate download script"""
         if not download_links:
             self.logger.warning(" 没有找到下载链接|No download links found")
             return None
         
-        # 🔨 构建下载命令|Build download commands
+        #  构建下载命令|Build download commands
         commands = []
         for link in download_links:
             if link.strip():
@@ -49,14 +49,14 @@ class FastqDownloader:
         
         script_path = self.config.output_path / script_name
         
-        # ✍ 写入脚本文件|Write script file
+        #  写入脚本文件|Write script file
         try:
             with script_path.open('w', newline='\n', encoding='utf-8') as f:
                 f.write('#!/bin/bash\n')
                 f.write(f'#  ENA FASTQ下载脚本|ENA FASTQ Download Script\n')
                 f.write(f'#  项目: {self.config.accession}\n')
-                f.write(f'# 🌐 协议: {self.config.protocol}\n')
-                f.write(f'# 🕐 生成时间: $(date)\n')
+                f.write(f'#  协议: {self.config.protocol}\n')
+                f.write(f'#  生成时间: $(date)\n')
                 f.write('\n')
                 f.write('set -e  #  遇到错误时退出|Exit on error\n')
                 f.write('\n')
@@ -72,7 +72,7 @@ class FastqDownloader:
                 f.write('echo " 所有文件下载完成！"\n')
                 f.write('echo " All files downloaded successfully!"\n')
             
-            # 🔐 设置执行权限|Set executable permission
+            #  设置执行权限|Set executable permission
             script_path.chmod(0o755)
             
             self.logger.info(f" 下载脚本已生成|Download script generated: {script_path}")

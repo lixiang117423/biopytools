@@ -157,7 +157,7 @@ class StatisticsCalculator:
                 'hom_alt_count': stats.get('hom_alt', 0),
             }
             
-            # 📈 计算比率|Calculate rates
+            #  计算比率|Calculate rates
             if total_calls > 0:
                 sample_result.update({
                     'missing_rate': stats.get('missing', 0) / total_calls,

@@ -92,14 +92,14 @@ def check_dependencies():
     
     print("依赖检查|Dependency Check:")
     if installed_deps:
-        print(f"  ✓ 已安装|Installed: {', '.join(installed_deps)}")
+        print(f"   已安装|Installed: {', '.join(installed_deps)}")
     
     if missing_deps:
-        print(f"  ✗ 缺失|Missing: {', '.join(missing_deps)}")
+        print(f"   缺失|Missing: {', '.join(missing_deps)}")
         print("  请运行|Please run: pip install " + " ".join(missing_deps))
         return False
     else:
-        print("  ✓ 所有依赖都已安装|All dependencies are installed")
+        print("   所有依赖都已安装|All dependencies are installed")
         return True
 
 # 兼容性检查

@@ -129,11 +129,11 @@ class GFFParser:
             chromosome_counts[chrom] = chromosome_counts.get(chrom, 0) + 1
         
         # 输出统计信息|Output statistics
-        self.logger.info("   📈 特征类型分布|Feature type distribution:")
+        self.logger.info("    特征类型分布|Feature type distribution:")
         for ftype, count in sorted(type_counts.items()):
             self.logger.info(f"      {ftype}: {count}")
         
-        self.logger.info("   🧭 染色体分布|Chromosome distribution:")
+        self.logger.info("    染色体分布|Chromosome distribution:")
         for chrom, count in sorted(chromosome_counts.items()):
             self.logger.info(f"      {chrom}: {count}")
     

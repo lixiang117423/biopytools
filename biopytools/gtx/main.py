@@ -21,7 +21,7 @@
 #         self.logger_manager = GTXLogger(self.config.output_path)
 #         self.logger = self.logger_manager.get_logger()
         
-#         # 初始化命令执行器 ▶|Initialize command runner
+#         # 初始化命令执行器 |Initialize command runner
 #         self.cmd_runner = CommandRunner(self.logger, self.config.output_path)
         
 #         # 初始化各个处理器 |Initialize processors
@@ -30,7 +30,7 @@
 #         self.summary_generator = SummaryGenerator(self.config, self.logger)
     
 #     def check_dependencies(self):
-#         """检查依赖软件 🧩|Check dependencies"""
+#         """检查依赖软件 |Check dependencies"""
 #         return check_dependencies(self.config, self.logger)
     
 #     def run_analysis(self):
@@ -43,7 +43,7 @@
 #             self.logger.info(f"R1文件模式|R1 file pattern: {self.config.read1_pattern}")
 #             self.logger.info(f"R2文件模式|R2 file pattern: {self.config.read2_pattern}")
             
-#             # 检查依赖 🧩|Check dependencies
+#             # 检查依赖 |Check dependencies
 #             self.check_dependencies()
             
 #             # 查找输入文件 |Find input files
@@ -85,7 +85,7 @@
 #             # 生成总结报告 |Generate summary report
 #             self.summary_generator.generate_summary_report()
             
-#             # 显示最终目录结构 🌳|Display final directory structure
+#             # 显示最终目录结构 |Display final directory structure
 #             self.logger.info("")
 #             self.logger.info("最终输出目录结构|Final output directory structure:")
 #             self.logger.info(f"  {self.config.output_dir}/")
@@ -124,11 +124,11 @@
 #     parser.add_argument('-r', '--reference', required=True, 
 #                        help='参考基因组文件路径 |Reference genome file path')
     
-#     # 可选参数 ✨|Optional arguments
+#     # 可选参数 |Optional arguments
 #     parser.add_argument('-t', '--threads', type=int, default=88, 
-#                        help='线程数 🧵|Number of threads')
+#                        help='线程数 |Number of threads')
 #     parser.add_argument('--gtx-path', default='~/software/gtx/GTX.CAT_2.2.1/bin/gtx', 
-#                        help='GTX程序路径 💻|GTX program path')
+#                        help='GTX程序路径 |GTX program path')
 #     parser.add_argument('--tmp-dir', 
 #                        help='临时目录路径 (默认使用输出目录下的tmp) |Temporary directory path (default: tmp under output directory)')
     
@@ -136,7 +136,7 @@
 #     parser.add_argument('--min-confidence', type=int, default=30, 
 #                        help='最小置信度阈值 |Minimum confidence threshold')
 #     parser.add_argument('--min-base-quality', type=int, default=20, 
-#                        help='最小碱基质量阈值 ✨|Minimum base quality threshold')
+#                        help='最小碱基质量阈值 |Minimum base quality threshold')
 #     parser.add_argument('--ploidy', type=int, default=2, 
 #                        help='倍性 |Ploidy')
 #     parser.add_argument('--pcr-indel-model', default='CONSERVATIVE', 
@@ -196,7 +196,7 @@ class GTXAnalyzer:
         self.logger_manager = GTXLogger(self.config.output_path)
         self.logger = self.logger_manager.get_logger()
         
-        # 初始化命令执行器 ▶|Initialize command runner
+        # 初始化命令执行器 |Initialize command runner
         self.cmd_runner = CommandRunner(self.logger, self.config.output_path)
         
         # 初始化各个处理器 |Initialize processors
@@ -212,7 +212,7 @@ class GTXAnalyzer:
             self.joint_processor = JointProcessor(self.config, self.logger, self.cmd_runner)
     
     def check_dependencies(self):
-        """检查依赖软件 🧩|Check dependencies"""
+        """检查依赖软件 |Check dependencies"""
         return check_dependencies(self.config, self.logger)
     
     def check_and_build_reference_index(self):
@@ -264,7 +264,7 @@ class GTXAnalyzer:
         return successful_samples, failed_samples, processed_sample_names
     
     def run_joint_analysis(self, processed_sample_names) -> bool:
-        """运行联合分析 🤝|Run joint analysis"""
+        """运行联合分析 |Run joint analysis"""
         if not self.config.enable_joint_calling:
             self.logger.info("Joint calling未启用，跳过|Joint calling not enabled, skipping")
             return True
@@ -320,7 +320,7 @@ class GTXAnalyzer:
                 self.logger.info(f"  Joint输出文件|Joint output file: {self.config.joint_output_name}")
                 self.logger.info(f"  Joint calling线程数|Joint calling threads: {self.config.joint_threads}")
             
-            # 检查依赖 🧩|Check dependencies
+            # 检查依赖 |Check dependencies
             self.check_dependencies()
 
             # 检查并构建参考基因组索引
@@ -338,7 +338,7 @@ class GTXAnalyzer:
             # 生成总结报告 |Generate summary report
             self.summary_generator.generate_summary_report()
             
-            # 显示最终目录结构 🌳|Display final directory structure
+            # 显示最终目录结构 |Display final directory structure
             self._display_final_structure(successful_samples)
             
             # 最终状态汇总
@@ -355,7 +355,7 @@ class GTXAnalyzer:
             sys.exit(1)
     
     def _display_final_structure(self, successful_samples):
-        """显示最终目录结构 🌳|Display final directory structure"""
+        """显示最终目录结构 |Display final directory structure"""
         self.logger.info("")
         self.logger.info("最终输出目录结构|Final output directory structure:")
         self.logger.info(f"  {self.config.output_dir}/")

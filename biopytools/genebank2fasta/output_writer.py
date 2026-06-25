@@ -6,7 +6,7 @@ import os
 from collections import defaultdict
 
 class SequenceWriter:
-    """序列写入器 ✍|Sequence Writer"""
+    """序列写入器 |Sequence Writer"""
     
     def __init__(self, config, logger):
         self.config = config

@@ -1,5 +1,5 @@
 """
-📦 ENA下载配置管理模块|ENA Download Configuration Management Module
+ ENA下载配置管理模块|ENA Download Configuration Management Module
 """
 import os
 from dataclasses import dataclass
@@ -17,8 +17,8 @@ class DownloadConfig:
     output_dir: Optional[str] = None
     create_dir: bool = False  #  是否创建目录|Whether to create directory
     
-    # 🌐 下载协议设置|Download protocol settings
-    protocol: str = "ftp"  # 🔗 ftp 或 aspera
+    #  下载协议设置|Download protocol settings
+    protocol: str = "ftp"  #  ftp 或 aspera
     method: str = "save"   #  save 或 run
     aspera_key: Optional[str] = None
     
@@ -30,7 +30,7 @@ class DownloadConfig:
     api_url: str = "https://www.ebi.ac.uk/ena/portal/api/filereport"
     max_retries: int = 3
     
-    # 🔨 内部属性|Internal attributes
+    #  内部属性|Internal attributes
     base_name: str = ""
     metadata_file: str = ""
     
@@ -45,16 +45,16 @@ class DownloadConfig:
             self.output_path.mkdir(parents=True, exist_ok=True)
             self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
         else:
-            # 📍 当前目录模式|Current directory mode
+            #  当前目录模式|Current directory mode
             if not self.output_dir:
                 self.output_dir = "."
             self.output_path = Path(self.output_dir)
             self.output_path.mkdir(parents=True, exist_ok=True)
             self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
         
-        # 🏷 设置基础文件名|Set base filename
+        #  设置基础文件名|Set base filename
         self.base_name = self.accession
-        # 🧹 移除文件名前的点|Remove dot prefix from filename
+        #  移除文件名前的点|Remove dot prefix from filename
         self.metadata_file = f"{self.accession}.meta.{self.metadata_format}"
         
         #  验证协议设置|Validate protocol settings
@@ -64,7 +64,7 @@ class DownloadConfig:
         if self.method not in ["save", "run"]:
             raise ValueError(f" Unsupported method: {self.method}. Use 'save' or 'run'")
         
-        # 🔐 验证aspera设置|Validate aspera settings
+        #  验证aspera设置|Validate aspera settings
         if self.protocol == "aspera":
             if not self.aspera_key:
                 raise ValueError(" --aspera_key is required when using aspera protocol")
@@ -73,7 +73,7 @@ class DownloadConfig:
             if not key_file.exists():
                 raise ValueError(f" Aspera key file {key_file} does not exist")
             
-            # 🔒 检查文件权限|Check file permissions
+            #  检查文件权限|Check file permissions
             if key_file.stat().st_mode & 0o777 != 0o600:
                 raise ValueError(
                     f" Key file permissions are insecure (current: {oct(key_file.stat().st_mode & 0o777)}).\n"

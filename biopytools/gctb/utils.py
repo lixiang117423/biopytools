@@ -159,7 +159,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     Returns:
         完整命令列表|Complete command list
 
-    ⚠️ 重要|IMPORTANT:
+     重要|IMPORTANT:
         必须使用--no-capture-output避免conda缓冲输出导致内存问题
         Must use --no-capture-output to avoid conda buffering output causing memory issues
     """

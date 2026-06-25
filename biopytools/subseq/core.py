@@ -123,10 +123,10 @@ class SequenceExtractor:
         self.logger.info(f" 输出FASTA文件|Output FASTA file: {output_fasta}")
         self.logger.info(f" 匹配模式|Pattern: {pattern}")
         self.logger.info(f" 模式类型|Pattern type: {pattern_type}")
-        self.logger.info(f"🔤 区分大小写|Case sensitive: {case_sensitive}")
+        self.logger.info(f" 区分大小写|Case sensitive: {case_sensitive}")
 
         try:
-            self.logger.info("📖 正在读取FASTA文件|Reading FASTA file...")
+            self.logger.info(" 正在读取FASTA文件|Reading FASTA file...")
             matching_sequences = []
 
             # 根据模式类型进行匹配|Match based on pattern type
@@ -186,11 +186,11 @@ class SequenceExtractor:
 
         self.logger.info(f" 输入FASTA文件|Input FASTA file: {input_fasta}")
         self.logger.info(f" 输出FASTA文件|Output FASTA file: {output_fasta}")
-        self.logger.info(f"📏 最小长度|Minimum length: {min_length}")
-        self.logger.info(f"📏 最大长度|Maximum length: {max_length}")
+        self.logger.info(f" 最小长度|Minimum length: {min_length}")
+        self.logger.info(f" 最大长度|Maximum length: {max_length}")
 
         try:
-            self.logger.info("📖 正在读取FASTA文件|Reading FASTA file...")
+            self.logger.info(" 正在读取FASTA文件|Reading FASTA file...")
             matching_sequences = []
 
             for record in SeqIO.parse(input_fasta, 'fasta'):

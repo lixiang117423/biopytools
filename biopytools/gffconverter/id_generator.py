@@ -17,7 +17,7 @@ class IDGenerator:
     
     def generate_new_ids(self, features: List[GFFFeature]) -> Dict[str, str]:
         """生成新的基因ID|Generate new gene IDs"""
-        self.logger.info("🆔 开始生成新的基因ID|Starting to generate new gene IDs")
+        self.logger.info(" 开始生成新的基因ID|Starting to generate new gene IDs")
         
         # 按染色体分组基因|Group genes by chromosome
         genes_by_chr = self._group_genes_by_chromosome(features)
@@ -56,7 +56,7 @@ class IDGenerator:
         # 提取染色体编号|Extract chromosome number
         chr_num = ChromosomeExtractor.extract_chr_number(chrom)
         
-        self.logger.info(f"🔢 为染色体 {chrom} (编号: {chr_num}) 重新编号基因")
+        self.logger.info(f" 为染色体 {chrom} (编号: {chr_num}) 重新编号基因")
         
         current_num = self.config.start_number
         

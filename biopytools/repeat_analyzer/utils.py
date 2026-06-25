@@ -49,7 +49,7 @@ class CommandRunner:
         if description:
             self.logger.info(f" 执行步骤|Executing step: {description}")
         
-        self.logger.info(f"💻 命令|Command: {cmd}")
+        self.logger.info(f" 命令|Command: {cmd}")
         self.logger.info(f" 工作目录|Working directory: {self.working_dir}")
         
         start_time = time.time()
@@ -76,14 +76,14 @@ class CommandRunner:
         except subprocess.CalledProcessError as e:
             elapsed_time = time.time() - start_time
             self.logger.error(f" 命令执行失败|Command execution failed: {description} ({elapsed_time:.2f}s)")
-            self.logger.error(f"🔢 错误代码|Error code: {e.returncode}")
+            self.logger.error(f" 错误代码|Error code: {e.returncode}")
             self.logger.error(f" 错误信息|Error message: {e.stderr}")
             self.logger.error(f" 标准输出|Stdout: {e.stdout}")
             return False
         
         except subprocess.TimeoutExpired:
             elapsed_time = time.time() - start_time
-            self.logger.error(f"⏰ 命令执行超时|Command execution timeout: {description} ({elapsed_time:.2f}s)")
+            self.logger.error(f" 命令执行超时|Command execution timeout: {description} ({elapsed_time:.2f}s)")
             return False
 
 class ProgressTracker:
@@ -97,9 +97,9 @@ class ProgressTracker:
             " 依赖检查|Dependency Check",
             " 从头重复库构建|De novo Repeat Library Construction", 
             " LTR序列分析|LTR Sequence Analysis",
-            "📚 重复库合并|Repeat Library Merging",
+            " 重复库合并|Repeat Library Merging",
             " 重复序列识别|Repeat Sequence Identification",
-            "🏷 转座元件分类|Transposable Element Classification"
+            " 转座元件分类|Transposable Element Classification"
         ]
     
     def start_step(self, step_name: str = None):
@@ -109,7 +109,7 @@ class ProgressTracker:
             step_name = self.step_names[self.current_step - 1]
         
         progress = (self.current_step / self.total_steps) * 100
-        self.logger.info(f"📈 进度 {progress:.1f}% ({self.current_step}/{self.total_steps})|Progress: {step_name}")
+        self.logger.info(f" 进度 {progress:.1f}% ({self.current_step}/{self.total_steps})|Progress: {step_name}")
     
     def complete(self):
         """完成所有步骤|Complete all steps"""
@@ -250,13 +250,13 @@ def get_genome_stats(genome_file: str, logger) -> Dict[str, any]:
         
         # 格式化输出大小|Format size output
         size_mb = stats['total_length'] / 1_000_000
-        logger.info(f"📏 基因组统计|Genome statistics:")
+        logger.info(f" 基因组统计|Genome statistics:")
         logger.info(f"   序列数|Sequences: {stats['sequences']:,}")
         logger.info(f"   总长度|Total length: {stats['total_length']:,} bp ({size_mb:.2f} MB)")
         logger.info(f"   N50: {stats['n50']:,} bp")
-        logger.info(f"  ⬆ 最大序列|Max sequence: {stats['max_length']:,} bp")
-        logger.info(f"  ⬇ 最小序列|Min sequence: {stats['min_length']:,} bp")
-        logger.info(f"  🧪 GC含量|GC content: {stats['gc_content']:.2f}%")
+        logger.info(f"   最大序列|Max sequence: {stats['max_length']:,} bp")
+        logger.info(f"   最小序列|Min sequence: {stats['min_length']:,} bp")
+        logger.info(f"   GC含量|GC content: {stats['gc_content']:.2f}%")
         
     except Exception as e:
         logger.error(f" 基因组统计分析失败|Genome statistics analysis failed: {e}")

@@ -37,7 +37,7 @@ def create_test_data():
 
 def test_id_list_extraction():
     """测试ID列表提取|Test ID list extraction"""
-    print("🧪 测试ID列表提取功能|Testing ID list extraction functionality")
+    print(" 测试ID列表提取功能|Testing ID list extraction functionality")
 
     # 创建测试数据|Create test data
     fasta_file, id_list_file = create_test_data()
@@ -90,7 +90,7 @@ def test_id_list_extraction():
 
 def test_pattern_extraction():
     """测试模式匹配提取|Test pattern matching extraction"""
-    print("\n🧪 测试模式匹配提取功能|Testing pattern matching extraction functionality")
+    print("\n 测试模式匹配提取功能|Testing pattern matching extraction functionality")
 
     # 创建测试数据|Create test data
     fasta_file, _ = create_test_data()
@@ -141,7 +141,7 @@ def test_pattern_extraction():
 
 def test_length_extraction():
     """测试长度筛选提取|Test length filtering extraction"""
-    print("\n🧪 测试长度筛选提取功能|Testing length filtering extraction functionality")
+    print("\n 测试长度筛选提取功能|Testing length filtering extraction functionality")
 
     # 创建测试数据|Create test data
     fasta_file, _ = create_test_data()

@@ -49,18 +49,18 @@ class ConverterConfig:
         
         # 检查输入VCF文件|Check input VCF file
         if not os.path.exists(self.input_file):
-            errors.append(f"🚨 输入VCF文件不存在|Input VCF file does not exist: {self.input_file}")
+            errors.append(f" 输入VCF文件不存在|Input VCF file does not exist: {self.input_file}")
         
         # 检查参数范围|Check parameter ranges
         if self.min_samples_locus <= 0:
-            errors.append(f"🚨 最小样本数必须为正整数|Minimum samples must be positive: {self.min_samples_locus}")
+            errors.append(f" 最小样本数必须为正整数|Minimum samples must be positive: {self.min_samples_locus}")
         
         if self.threads <= 0:
-            errors.append(f"🚨 线程数必须为正整数|Thread count must be positive: {self.threads}")
+            errors.append(f" 线程数必须为正整数|Thread count must be positive: {self.threads}")
         
         # 检查是否至少启用一种输出格式|Check if at least one output format is enabled
         if self.phylip_disable and not self.fasta and not self.nexus and not self.nexus_binary:
-            errors.append("🚨 必须至少启用一种输出格式|At least one output format must be enabled")
+            errors.append(" 必须至少启用一种输出格式|At least one output format must be enabled")
         
         if errors:
             raise ValueError("\n".join(errors))

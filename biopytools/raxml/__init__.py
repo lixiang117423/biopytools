@@ -1,5 +1,5 @@
 """
-🌳 RAxML系统发育分析工具包|RAxML Phylogenetic Analysis Toolkit
+ RAxML系统发育分析工具包|RAxML Phylogenetic Analysis Toolkit
 功能: RAxML最大似然系统发育树构建的完整流程|
 Features: Complete pipeline for RAxML maximum likelihood phylogenetic tree construction
 作者|Author: Bioinformatics Pipeline Team  

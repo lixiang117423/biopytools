@@ -146,7 +146,7 @@ class BUSCOAssessor:
                     # 解析BUSCO结果
                     busco_result = self._parse_busco_result(output_path, assembly_type)
                     if busco_result:
-                        self.logger.info(f"✓ {assembly_type} BUSCO评估完成|BUSCO assessment completed")
+                        self.logger.info(f" {assembly_type} BUSCO评估完成|BUSCO assessment completed")
                         return busco_result
                     
             finally:

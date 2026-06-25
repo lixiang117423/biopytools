@@ -49,7 +49,7 @@ class SequenceExtractor:
         return sample_sequences
     
     def extract_cds_sequence(self, feature, record, sample_name, organism):
-        """提取CDS序列 🧪|Extract CDS sequence"""
+        """提取CDS序列 |Extract CDS sequence"""
         # 获取基因信息|Get gene information
         gene_name = feature.qualifiers.get('gene', ['unknown'])[0]
         product = feature.qualifiers.get('product', ['unknown product'])[0]

@@ -1,5 +1,5 @@
 """
-🌳 RAxML分析配置管理模块|RAxML Analysis Configuration Management Module
+ RAxML分析配置管理模块|RAxML Analysis Configuration Management Module
 """
 
 import os

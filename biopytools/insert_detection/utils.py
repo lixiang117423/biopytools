@@ -150,16 +150,16 @@ def check_dependencies(config, logger):
             )
 
             if result.returncode == 0:
-                logger.debug(f"✓ {tool_name}: 可用|available")
+                logger.debug(f" {tool_name}: 可用|available")
             else:
                 missing.append(tool_name)
-                logger.warning(f"✗ {tool_name}: 未找到|not found")
+                logger.warning(f" {tool_name}: 未找到|not found")
 
         except FileNotFoundError:
             missing.append(tool_name)
-            logger.warning(f"✗ {tool_name}: 未找到|not found at {tool_path}")
+            logger.warning(f" {tool_name}: 未找到|not found at {tool_path}")
         except Exception as e:
-            logger.warning(f"✗ {tool_name}: 检查失败|check failed: {e}")
+            logger.warning(f" {tool_name}: 检查失败|check failed: {e}")
             missing.append(tool_name)
 
     if missing:
