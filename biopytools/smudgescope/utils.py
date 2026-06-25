@@ -260,7 +260,7 @@ class GenomeScopeRunner:
             # 按照开发规范：使用conda run -n <env_name> <command>|Following dev guide: use conda run -n <env_name> <command>
             cmd = [
                 'conda', 'run', '-n', self.config.genomescope_env,
-                'genomescope2',
+                '--no-capture-output', 'genomescope2',
                 '-i', histo_file_abs,
                 '-o', output_dir_abs,
                 '-k', str(kmer_size),

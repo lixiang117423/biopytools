@@ -555,7 +555,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
     Examples:
         >>> build_conda_command('kmtricks', ['--version'])
-        ['conda', 'run', '-n', 'kmtricks_v.1.5.1', 'kmtricks', '--version']
+        ['conda', 'run', '-n', 'kmtricks_v.1.5.1', '--no-capture-output', 'kmtricks', '--version']
 
         >>> # 绝对路径且不在conda envs目录下时，直接调用
         >>> # Absolute path not under conda envs: called directly
@@ -571,7 +571,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     if conda_env:
         # 使用conda run调用
         # 如果command是命令名，conda run会自动找到环境中的版本
-        full_cmd = ['conda', 'run', '-n', conda_env, command] + args
+        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     else:
         # 非conda环境，直接调用
         full_cmd = [command] + args

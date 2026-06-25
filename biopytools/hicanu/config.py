@@ -53,7 +53,7 @@ class HiCanuConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # ⚠️ 关键：展开所有包含~的路径|CRITICAL: Expand all paths with ~
+        # 关键：展开所有包含~的路径|CRITICAL: Expand all paths with ~
         self.canu_path = expand_path(self.canu_path)
 
         # 设置基础目录|Setup base directory
@@ -156,7 +156,7 @@ class HiCanuConfig:
         else:
             args.append('useGrid=false')
 
-        # ⚠️ 关键：使用build_conda_command包装（符合开发规范第13章）|CRITICAL: Use build_conda_command wrapper (per dev guide section 13)
+        # 关键：使用build_conda_command包装（符合开发规范第13章）|CRITICAL: Use build_conda_command wrapper (per dev guide section 13)
         # 传递完整路径给build_conda_command，它会自动检测conda环境并包装|Pass full path to build_conda_command, it will auto-detect conda env and wrap
         return build_conda_command(self.canu_path, args)
 

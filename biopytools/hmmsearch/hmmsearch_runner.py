@@ -35,7 +35,7 @@ def build_conda_command_string(command: str, args: str) -> str:
     """构建conda run命令字符串（用于需要shell特性的命令）|Build conda run command string (for commands needing shell features)"""
     conda_env = get_conda_env(command)
     if conda_env:
-        return f"conda run -n {conda_env} {command} {args}"
+        return f"conda run -n {conda_env} --no-capture-output {command} {args}"
     else:
         return f"{command} {args}"
 

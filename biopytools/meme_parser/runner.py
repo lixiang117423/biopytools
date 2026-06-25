@@ -56,7 +56,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     """
     conda_env = get_conda_env(command)
     if conda_env:
-        return ['conda', 'run', '-n', conda_env, command] + args
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     else:
         return [command] + args
 

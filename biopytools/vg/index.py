@@ -144,6 +144,6 @@ class VGIndexRunner:
         """检查并报告文件|Check and report file"""
         if Path(file_path).exists():
             file_size = get_file_size_mb(file_path)
-            self.logger.info(f"  ✓ {Path(file_path).name} ({file_size:.2f} MB)")
+            self.logger.info(f"已生成|Generated: {Path(file_path).name} ({file_size:.2f} MB)")
         else:
-            self.logger.warning(f"  ✗ {Path(file_path).name} (未找到|not found)")
+            self.logger.warning(f"未找到|Not found: {Path(file_path).name}")

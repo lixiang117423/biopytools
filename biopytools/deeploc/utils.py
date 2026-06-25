@@ -61,7 +61,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
     if conda_env:
         # 使用 conda run|Use conda run
-        full_cmd = ['conda', 'run', '-n', conda_env, command] + args
+        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     else:
         # 直接调用|Direct call
         full_cmd = [command] + args
@@ -242,18 +242,18 @@ class DeepLocRunner:
         output_file = os.path.join(self.config.output_dir, expected_output)
         if os.path.exists(output_file):
             size = os.path.getsize(output_file)
-            self.logger.info(f"  ✓ {expected_output} ({size} bytes)")
+            self.logger.info(f"已生成|Generated: {expected_output} ({size} bytes)")
         else:
-            self.logger.warning(f"  ✗ {expected_output} (未生成|not generated)")
+            self.logger.warning(f"未生成|Not generated: {expected_output}")
 
         # 检查绘图文件（如果启用了-p）|Check plot file (if -p enabled)
         if self.config.plot:
             plot_file = os.path.join(self.config.output_dir, expected_plot)
             if os.path.exists(plot_file):
                 size = os.path.getsize(plot_file)
-                self.logger.info(f"  ✓ {expected_plot} ({size} bytes)")
+                self.logger.info(f"已生成|Generated: {expected_plot} ({size} bytes)")
             else:
-                self.logger.warning(f"  ✗ {expected_plot} (未生成|not generated)")
+                self.logger.warning(f"未生成|Not generated: {expected_plot}")
 
         # 检查CSV结果文件|Check CSV result file
         import glob
@@ -261,10 +261,10 @@ class DeepLocRunner:
         if csv_files:
             self.csv_result = csv_files[0]
             size = os.path.getsize(self.csv_result)
-            self.logger.info(f"  ✓ {os.path.basename(self.csv_result)} ({size} bytes)")
+            self.logger.info(f"已生成|Generated: {os.path.basename(self.csv_result)} ({size} bytes)")
         else:
             self.csv_result = None
-            self.logger.warning("  ✗ results_*.csv (未生成|not generated)")
+            self.logger.warning("results_*.csv 未生成|results_*.csv not generated")
 
     def _format_results(self):
         """格式化预测结果|Format prediction results"""

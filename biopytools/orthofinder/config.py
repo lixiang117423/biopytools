@@ -56,7 +56,7 @@ class PangenomeConfig:
 
     # 工具路径|Tool paths
     orthofinder_path: str = field(
-        default_factory=lambda: get_tool_path('orthofinder', '/share/org/YZWL/yzwl_lixg/miniforge3/envs/orthofinder_v.3.1.5/bin/orthofinder', 'ORTHOFINDER_PATH')
+        default_factory=lambda: get_tool_path('orthofinder', '~/miniforge3/envs/orthofinder_v.3.1.5/bin/orthofinder', 'ORTHOFINDER_PATH')
     )
 
     # 内部属性|Internal attributes

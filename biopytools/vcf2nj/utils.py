@@ -58,7 +58,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     """
     conda_env = get_conda_env(command)
     if conda_env:
-        return ['conda', 'run', '-n', conda_env, command] + args
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     else:
         return [command] + args
 
@@ -117,7 +117,7 @@ class CommandRunner:
 
             if conda_env:
                 # 使用conda run包装命令|Use conda run to wrap command
-                full_cmd = f"conda run -n {conda_env} {cmd}"
+                full_cmd = f"conda run -n {conda_env} --no-capture-output {cmd}"
                 self.logger.debug(f"检测到conda环境|Detected conda environment: {conda_env}")
             else:
                 # 直接执行命令|Execute command directly

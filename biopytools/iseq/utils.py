@@ -111,7 +111,7 @@ class CondaCommandRunner:
 
             if conda_env:
                 # 使用conda run在检测到的环境中执行命令|Use conda run to execute in detected environment
-                full_cmd = f"conda run -n {conda_env} --live-stream {cmd}"
+                full_cmd = f"conda run -n {conda_env} --no-capture-output {cmd}"
                 self.logger.debug(f"检测到conda环境|Detected conda environment: {conda_env}")
             else:
                 # 直接执行命令|Execute command directly

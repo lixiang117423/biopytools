@@ -58,7 +58,7 @@ def build_conda_command_string(command: str, args: str) -> str:
     """
     conda_env = get_conda_env(command)
     if conda_env:
-        return f"conda run -n {conda_env} {command} {args}"
+        return f"conda run -n {conda_env} --no-capture-output {command} {args}"
     else:
         return f"{command} {args}"
 
@@ -219,9 +219,9 @@ class SignalPRunner:
             filepath = os.path.join(self.config.output_dir, filename)
             if os.path.exists(filepath):
                 size = os.path.getsize(filepath)
-                self.logger.info(f"  ✓ {filename} ({size} bytes)")
+                self.logger.info(f"已生成|Generated: {filename} ({size} bytes)")
             else:
-                self.logger.warning(f"  ✗ {filename} (未生成|not generated)")
+                self.logger.warning(f"未生成|Not generated: {filename}")
 
     def _format_results(self):
         """格式化预测结果|Format prediction results"""

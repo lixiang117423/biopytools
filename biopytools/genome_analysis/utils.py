@@ -325,7 +325,6 @@ class GenomeScopeRunner:
 
         # 方法2: 检查conda环境|Method 2: Check conda environment
         conda_envs = [
-            '/share/org/YZWL/yzwl_lixg/miniforge3/envs/genomescope2_v.2.1.0',
             os.path.expanduser('~/miniforge3/envs/genomescope2_v.2.1.0'),
         ]
 
@@ -572,11 +571,11 @@ class SmudgeplotRunner:
                 self.logger.warning(f"检测Logex时出错: {e}")
 
         if logex_path:
-            self.logger.info(f"✓ Logex可用: {logex_path}")
+            self.logger.info(f"Logex可用|Logex available: {logex_path}")
         else:
-            self.logger.error("✗ Logex不可用！Smudgeplot的C后端未正确安装")
-            self.logger.error("解决方案: 重新安装smudgeplot或手动编译C代码")
-            self.logger.error("参考: https://github.com/KamilSJaron/smudgeplot")
+            self.logger.error("Logex不可用，Smudgeplot的C后端未正确安装|Logex unavailable, Smudgeplot C backend not installed correctly")
+            self.logger.error("解决方案|Solution: 重新安装smudgeplot或手动编译C代码| reinstall smudgeplot or compile C code manually")
+            self.logger.error("参考|Reference: https://github.com/KamilSJaron/smudgeplot")
             return False
 
         # 创建输出目录|Create output directory

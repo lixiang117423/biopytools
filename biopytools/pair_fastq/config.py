@@ -127,7 +127,7 @@ class FastqPairConfig:
         try:
             import subprocess
             result = subprocess.run(
-                ["conda", "run", "-n", self.repair_conda_env, "which", self.repair_sh],
+                ["conda", "run", "-n", self.repair_conda_env, "--no-capture-output", "which", self.repair_sh],
                 capture_output=True,
                 text=True
             )

@@ -129,7 +129,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
     Examples:
         >>> build_conda_command('busco', ['--version'])
-        ['conda', 'run', '-n', 'BUSCO_v.6.0.0', 'busco', '--version']
+        ['conda', 'run', '-n', 'BUSCO_v.6.0.0', '--no-capture-output', 'busco', '--version']
 
         >>> # 绝对路径且不在conda envs目录下时，直接调用
         >>> # Absolute path not under conda envs: called directly

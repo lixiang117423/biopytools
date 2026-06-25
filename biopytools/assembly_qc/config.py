@@ -122,7 +122,7 @@ class AssemblyQCConfig:
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         # 展开所有路径|Expand all paths
-        # ⚠️ 关键：先展开~，再转换为绝对路径|CRITICAL: Expand ~ first, then convert to absolute path
+        # 关键：先展开~，再转换为绝对路径|CRITICAL: Expand ~ first, then convert to absolute path
         # 外部工具（BUSCO等）需要绝对路径|External tools (BUSCO, etc.) need absolute paths
         self.genome = os.path.abspath(expand_path(self.genome))
         self.output_dir = os.path.abspath(expand_path(self.output_dir))

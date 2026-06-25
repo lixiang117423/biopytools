@@ -40,10 +40,10 @@ def add_method_label_to_image(img, method_name: str, label_height: int = 60) -> 
     try:
         # 尝试加载中文字体|Try to load Chinese font
         font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 32)
-    except:
+    except Exception:
         try:
             font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 32)
-        except:
+        except Exception:
             # 使用默认字体|Use default font
             font = ImageFont.load_default()
 

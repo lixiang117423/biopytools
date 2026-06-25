@@ -98,7 +98,7 @@ class PixyChecker:
         try:
             # 尝试在conda环境中运行pixy --version|Try to run pixy --version in conda environment
             result = subprocess.run(
-                f"conda run -n {env_name} pixy --version",
+                f"conda run -n {env_name} --no-capture-output pixy --version",
                 shell=True,
                 capture_output=True,
                 text=True,
@@ -137,7 +137,7 @@ class PixyChecker:
         for dep in dependencies:
             try:
                 result = subprocess.run(
-                    f"conda run -n {env_name} {dep} --version",
+                    f"conda run -n {env_name} --no-capture-output {dep} --version",
                     shell=True,
                     capture_output=True,
                     text=True,
@@ -207,7 +207,7 @@ def check_vcf_has_invariant_sites(vcf_file: Path, conda_env: str, logger) -> boo
         # 使用bcftools检查前100个位点是否有ALT="."的位点（减少检查量避免超时）
         # Use bcftools to check if there are sites with ALT="." in first 100 sites
         result = subprocess.run(
-            f"conda run -n {env_name} bcftools view -H {vcf_file} | head -n 100 | grep -c '\\t\\.\\t'",
+            f"conda run -n {env_name} --no-capture-output bcftools view -H {vcf_file} | head -n 100 | grep -c '\\t\\.\\t'",
             shell=True,
             capture_output=True,
             text=True,

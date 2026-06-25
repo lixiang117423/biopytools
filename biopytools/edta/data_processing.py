@@ -1,5 +1,5 @@
 # """
-# 🌾 EDTA数据处理模块|EDTA Data Processing Module
+# EDTA数据处理模块|EDTA Data Processing Module
 # """
 
 # import os
@@ -223,7 +223,7 @@
 #         return output_files
 
 """
-🌾 EDTA数据处理模块|EDTA Data Processing Module
+EDTA数据处理模块|EDTA Data Processing Module
 """
 
 import os

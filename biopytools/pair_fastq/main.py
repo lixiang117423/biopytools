@@ -160,7 +160,7 @@ class FastqPairFixer:
         # 输出文件名保持和输入文件名一致，方便后续流程处理
         cmd = [
             "conda", "run", "-n", self.config.repair_conda_env,
-            self.config.repair_sh,
+            "--no-capture-output", self.config.repair_sh,
             f"in={r1_file}",
             f"in2={r2_file}",
             f"out={output_r1}",

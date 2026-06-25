@@ -1,5 +1,5 @@
 """
-🌾 EDTA分析统计模块|EDTA Analysis Statistics Module
+EDTA分析统计模块|EDTA Analysis Statistics Module
 """
 
 import os

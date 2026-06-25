@@ -1,5 +1,5 @@
 """
-🌾 EDTA结果处理模块|EDTA Results Processing Module
+EDTA结果处理模块|EDTA Results Processing Module
 """
 
 import json
@@ -51,7 +51,7 @@ class ResultsGenerator:
         report_file = self.directories["reports"] / "edta_analysis_summary.txt"
         
         with open(report_file, 'w', encoding='utf-8') as f:
-            f.write("🌾 EDTA植物基因组TE注释分析摘要报告|EDTA Plant Genome TE Annotation Analysis Summary Report\n")
+            f.write("EDTA植物基因组TE注释分析摘要报告|EDTA Plant Genome TE Annotation Analysis Summary Report\n")
             f.write("=" * 80 + "\n\n")
             
             # 基本信息

@@ -129,7 +129,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
     Examples:
         >>> build_conda_command('minigraph', ['--version'])
-        ['conda', 'run', '-n', 'minigraph_env', 'minigraph', '--version']
+        ['conda', 'run', '-n', 'minigraph_env', '--no-capture-output', 'minigraph', '--version']
 
         >>> # 绝对路径且不在conda envs目录下时，直接调用
         >>> # Absolute path not under conda envs: called directly
@@ -140,7 +140,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
     if conda_env:
         # 使用conda run调用|Use conda run
-        full_cmd = ['conda', 'run', '-n', conda_env, command] + args
+        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     else:
         # 非conda环境，直接调用|Non-conda environment, call directly
         full_cmd = [command] + args

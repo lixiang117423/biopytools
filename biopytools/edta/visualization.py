@@ -1,5 +1,5 @@
 """
-🌾 EDTA可视化模块|EDTA Visualization Module
+EDTA可视化模块|EDTA Visualization Module
 """
 
 import matplotlib.pyplot as plt
@@ -32,7 +32,7 @@ class EDTAVisualizer:
             self.logger.info(" 跳过图表生成|Skipping plot generation")
             return
         
-        self.logger.info("🎨 生成可视化图表|Generating visualization plots")
+        self.logger.info("生成可视化图表|Generating visualization plots")
         
         try:
             # 为每个成功的分析生成图表
@@ -132,7 +132,7 @@ class EDTAVisualizer:
             bars = plt.bar(range(len(classifications)), counts, 
                           color=sns.color_palette("husl", len(classifications)))
             
-            plt.title(f'🏷 TE分类分布|TE Classification Distribution\n{analysis_name}', 
+            plt.title(f'TE分类分布|TE Classification Distribution\n{analysis_name}',
                      fontsize=14, fontweight='bold')
             plt.xlabel('TE分类|TE Classification', fontsize=12)
             plt.ylabel('数量|Count', fontsize=12)
@@ -201,7 +201,7 @@ class EDTAVisualizer:
             colors = ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99'][:len(strands)]
             
             plt.pie(counts, labels=strands, colors=colors, autopct='%1.1f%%', startangle=90)
-            plt.title(f'⬅➡ TE链方向分布|TE Strand Distribution\n{analysis_name}', 
+            plt.title(f'TE链方向分布|TE Strand Distribution\n{analysis_name}',
                      fontsize=14, fontweight='bold')
             plt.axis('equal')
             

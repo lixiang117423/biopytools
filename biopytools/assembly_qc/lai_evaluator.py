@@ -220,7 +220,7 @@ class LAIEvaluator:
         # 不指定-species参数，让RepeatMasker使用默认库（适用于非模式生物）|Don't specify -species to use default library (for non-model organisms)
         # 如果需要特定物种库，用户应先配置RepeatMasker库|For specific species, users should pre-configure RepeatMasker library
         cmd_str = (
-            f"conda run -n {self.edta_env_name} "
+            f"conda run -n {self.edta_env_name} --no-capture-output "
             f"RepeatMasker -pa {self.config.lai_threads} -gff -dir {self.working_dir} {genome_mod}"
         )
 
@@ -359,7 +359,7 @@ class LAIEvaluator:
         # 注意：LAI工具位于EDTA环境，不在LTR_retriever环境中
         # Note: LAI tool is in EDTA environment, not in LTR_retriever environment
         cmd_str = (
-            f"conda run -n {self.edta_env_name} "
+            f"conda run -n {self.edta_env_name} --no-capture-output "
             f"LAI -genome {genome_mod} -intact {passed_list} -all {out_file} "
             f"-t {self.config.lai_threads} {quick_mode_flag}"
         )

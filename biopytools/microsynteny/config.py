@@ -62,7 +62,7 @@ class MicrosyntenyConfig:
 
         展开所有路径并创建输出目录结构|Expand all paths and create output directory structure
         """
-        # ⚠️ 关键：展开所有包含~的路径|CRITICAL: Expand all paths with ~
+        # 关键：展开所有包含~的路径|CRITICAL: Expand all paths with ~
         self.genome_folder = expand_path(self.genome_folder)
         self.gene_list = expand_path(self.gene_list)
         self.output_dir = expand_path(self.output_dir)

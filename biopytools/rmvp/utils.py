@@ -164,7 +164,7 @@ def check_r_mvp(r_env_name_or_path: str, r_env_type: Optional[str] = None, logge
         if r_env_type == "conda":
             # 使用conda run -n <env_name>|Use conda run -n <env_name>
             # 注意：<env_name> 应该是环境名称（如 rMVP），而不是路径|Note: <env_name> should be env name (e.g., rMVP) not path
-            cmd = f"conda run -n {r_env_name_or_path} R --slave -e \"suppressPackageStartupMessages(library(rMVP))\""
+            cmd = f"conda run -n {r_env_name_or_path} --no-capture-output R --slave -e \"suppressPackageStartupMessages(library(rMVP))\""
         else:
             # 直接调用R|Direct R call
             cmd = f'{r_env_name_or_path} R --slave -e "suppressPackageStartupMessages(library(rMVP))"'

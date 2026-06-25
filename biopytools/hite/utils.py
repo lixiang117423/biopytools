@@ -36,7 +36,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     """构建conda run命令来运行conda环境中的软件|Build conda run command to run software in conda environment"""
     conda_env = get_conda_env(command)
     if conda_env:
-        return ['conda', 'run', '-n', conda_env, command] + args
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     else:
         return [command] + args
 

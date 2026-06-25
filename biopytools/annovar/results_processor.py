@@ -13,6 +13,7 @@ import subprocess
 import sys
 from typing import List, Dict, Optional, Union, Any
 from pathlib import Path
+from ..common.paths import get_tool_path
 
 
 class ProteinSeqModifier:
@@ -68,10 +69,12 @@ class ProteinSeqModifier:
 
     def _load_pep_sequences(self, pep_file: str):
         """使用seqkit fx2tab加载蛋白序列|Load protein sequences using seqkit fx2tab"""
-        seqkit_path = '/share/org/YZWL/yzwl_lixg/miniforge3/envs/BioinfTools/bin/seqkit'
+        seqkit_path = get_tool_path('seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH')
+        cmd = [seqkit_path, 'fx2tab', '-i', pep_file]
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
         try:
             result = subprocess.run(
-                [seqkit_path, 'fx2tab', '-i', pep_file],
+                cmd,
                 capture_output=True, text=True, timeout=300
             )
             if result.returncode == 0:
@@ -95,10 +98,12 @@ class ProteinSeqModifier:
 
     def _load_cds_sequences(self, cds_file: str):
         """使用seqkit fx2tab加载CDS序列，避免大文件读取截断问题|Load CDS sequences using seqkit fx2tab to avoid large file truncation"""
-        seqkit_path = '/share/org/YZWL/yzwl_lixg/miniforge3/envs/BioinfTools/bin/seqkit'
+        seqkit_path = get_tool_path('seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH')
+        cmd = [seqkit_path, 'fx2tab', '-i', cds_file]
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
         try:
             result = subprocess.run(
-                [seqkit_path, 'fx2tab', '-i', cds_file],
+                cmd,
                 capture_output=True, text=True, timeout=300
             )
             if result.returncode == 0:

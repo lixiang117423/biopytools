@@ -376,12 +376,12 @@ class RMVPResultParser:
                     integrated_file = self.output_dir / f"{self.output_prefix}_{model_lower}_integrated.txt"
                     if integrated_file.exists():
                         file_size = integrated_file.stat().st_size
-                        f.write(f"  ✓ {model}模型|{model} model: {integrated_file.name} ({file_size:,} bytes)\n")
+                        f.write(f"  {model}模型|{model} model: {integrated_file.name} ({file_size:,} bytes)\n")
 
                 all_integrated_file = self.output_dir / f"{self.output_prefix}_all_models_integrated.txt"
                 if all_integrated_file.exists():
                     file_size = all_integrated_file.stat().st_size
-                    f.write(f"  ✓ 所有模型|All models: {all_integrated_file.name} ({file_size:,} bytes)\n")
+                    f.write(f"  所有模型|All models: {all_integrated_file.name} ({file_size:,} bytes)\n")
 
             self.logger.info(f"   汇总报告已生成|Summary report generated: {report_file}")
             return report_file

@@ -45,9 +45,9 @@ def build_conda_command(env_name: str, command: str, args: List[str]) -> List[st
 
     Examples:
         >>> build_conda_command('BUSCO_v.6.0.0', 'busco', ['--version'])
-        ['conda', 'run', '-n', 'BUSCO_v.6.0.0', 'busco', '--version']
+        ['conda', 'run', '-n', 'BUSCO_v.6.0.0', '--no-capture-output', 'busco', '--version']
     """
-    full_cmd = ['conda', 'run', '-n', env_name, command] + args
+    full_cmd = ['conda', 'run', '-n', env_name, '--no-capture-output', command] + args
     return full_cmd
 
 

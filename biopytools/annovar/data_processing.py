@@ -5,6 +5,7 @@ ANNOVAR数据处理模块|ANNOVAR Data Processing Module
 import os
 from pathlib import Path
 from .utils import CommandRunner, GFF3Validator, build_conda_command
+from ..common.paths import get_tool_path
 
 class GFF3Processor:
 	"""GFF3处理器|GFF3 Processor"""
@@ -159,7 +160,7 @@ class SequenceExtractor:
 			return False
 
 		# 提取蛋白序列|Extract protein sequences
-		gffread_path = '/share/org/YZWL/yzwl_lixg/miniforge3/envs/RNA_Seq/bin/gffread'
+		gffread_path = get_tool_path('gffread', '~/miniforge3/envs/RNA_Seq/bin/gffread', 'GFFREAD_PATH')
 		pep_command = f"{gffread_path} -g {genome_file} -y {pep_file} {gff3_file}"
 
 		success = self.cmd_runner.run(pep_command, "提取蛋白序列|Extract protein sequences")

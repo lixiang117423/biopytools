@@ -109,7 +109,7 @@ def build_conda_command(command: str, args: list) -> list:
 
     if conda_env:
         # 使用conda run调用|Use conda run to invoke
-        full_cmd = ['conda', 'run', '-n', conda_env, command] + args
+        full_cmd = ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     else:
         # 非conda环境，直接调用|Non-conda environment, call directly
         full_cmd = [command] + args

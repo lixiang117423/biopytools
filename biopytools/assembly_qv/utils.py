@@ -61,9 +61,9 @@ def build_conda_command_string(command: str, args: str = "") -> str:
     if conda_env:
         # 使用 conda run|Use conda run
         if args:
-            full_cmd = f"conda run -n {conda_env} {command} {args}"
+            full_cmd = f"conda run -n {conda_env} --no-capture-output {command} {args}"
         else:
-            full_cmd = f"conda run -n {conda_env} {command}"
+            full_cmd = f"conda run -n {conda_env} --no-capture-output {command}"
     else:
         # 直接调用|Direct call
         if args:

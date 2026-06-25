@@ -164,7 +164,7 @@ class PipelineLogger:
 
         if conda_env:
             # 返回带conda run前缀的命令|Return command with conda run prefix
-            return f"conda run -n {conda_env} {cmd}"
+            return f"conda run -n {conda_env} --no-capture-output {cmd}"
         else:
             # 直接返回原命令|Return original command directly
             return cmd

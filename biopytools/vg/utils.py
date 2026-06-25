@@ -82,7 +82,7 @@ def validate_vg_environment(vg_env: str, logger: Optional[logging.Logger] = None
         logger.info(" 检查VG环境|Checking VG environment")
 
     # 构建conda run命令|Build conda run command
-    cmd = f"conda run -n {vg_env} vg --version"
+    cmd = f"conda run -n {vg_env} --no-capture-output vg --version"
 
     if logger:
         logger.info(f"   命令|Command: {cmd}")
@@ -131,7 +131,7 @@ def run_vg_command(
         (是否成功, stdout, stderr)|(success, stdout, stderr)
     """
     # 构建完整命令|Build full command
-    full_command = f"conda run -n {vg_env} {command}"
+    full_command = f"conda run -n {vg_env} --no-capture-output {command}"
 
     if logger:
         logger.info(f"   执行命令|Executing command: {full_command}")

@@ -6,11 +6,6 @@ from typing import Optional
 import os
 from ..common.paths import expand_path, get_tool_path
 
-# 导入路径管理工具|Import path management utilities
-import sys
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from common.paths import get_tool_path, expand_path
-
 
 @dataclass
 class HiCConfig:

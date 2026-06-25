@@ -139,7 +139,7 @@ class DeepBSARunner:
         values_files = list(method_dir.glob("Results/**/* values.txt"))
 
         if values_files:
-            self.logger.info(f"  ✓ {method} 已完成，跳过|Completed, skipping")
+            self.logger.info(f"已完成，跳过|Completed, skipping: {method}")
             return True
 
         return False
