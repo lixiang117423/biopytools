@@ -77,9 +77,14 @@ class RMVPConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # 展开所有路径|Expand all paths
-        self.vcf_file = str(Path(self.vcf_file).expanduser()) if self.vcf_file else ""
-        self.pheno_file = str(Path(self.pheno_file).expanduser()) if self.pheno_file else ""
+        # 展开并解析为绝对路径|Expand and resolve to absolute paths
+        # 关键：输入文件必须为绝对路径。下游工具(PLINK等)以 output_dir 为 cwd 运行，
+        # 若 vcf_file/pheno_file 是相对路径，会相对 output_dir 解析而找不到文件
+        # （当 -o 是子目录、与调用目录不同时）。|Input files MUST be absolute: downstream
+        # tools (PLINK etc.) run with cwd=output_dir, so a relative input path resolves
+        # against output_dir and is not found when -o is a subdir different from cwd.
+        self.vcf_file = str(Path(self.vcf_file).expanduser().resolve()) if self.vcf_file else ""
+        self.pheno_file = str(Path(self.pheno_file).expanduser().resolve()) if self.pheno_file else ""
         self.output_dir = Path(self.output_dir).expanduser()
 
         # 处理r_env：如果是路径，提取环境名称|Handle r_env: if it's a path, extract env name
