@@ -69,6 +69,7 @@ class PipelineConfig:
     stats_dir: Path = field(init=False)
     logs_dir: Path = field(init=False)
     temp_dir: Path = field(init=False)
+    pipeline_info_dir: Path = field(init=False)
     
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -82,17 +83,19 @@ class PipelineConfig:
         
         # 创建输出目录|Create output directories
         self.output_path = Path(self.output_dir)
-        self.clean_fastq_dir = os.path.join(self.output_dir, 'clean_fastq') if not self.skip_qc else self.input_path
-        self.bam_dir = self.output_path / 'bam'
-        self.gvcf_dir = self.output_path / 'gvcf'
-        self.vcf_dir = self.output_path / 'vcf'
-        self.stats_dir = self.output_path / 'stats'
-        self.logs_dir = self.output_path / 'logs'
+        self.clean_fastq_dir = os.path.join(self.output_dir, '01_qc') if not self.skip_qc else self.input_path
+        self.bam_dir = self.output_path / '02_alignment'
+        self.gvcf_dir = self.output_path / '03_gvcf'
+        self.vcf_dir = self.output_path / '04_filter'
+        self.stats_dir = self.output_path / '05_stats'
+        self.logs_dir = self.output_path / '99_logs'
         self.temp_dir = self.output_path / 'temp'
-        
+        self.pipeline_info_dir = self.output_path / '00_pipeline_info'
+
         # 创建所有必需目录|Create all required directories
-        for dir_path in [self.bam_dir, self.gvcf_dir, self.vcf_dir, 
-                         self.stats_dir, self.logs_dir, self.temp_dir]:
+        for dir_path in [self.bam_dir, self.gvcf_dir, self.vcf_dir,
+                         self.stats_dir, self.logs_dir, self.temp_dir,
+                         self.pipeline_info_dir]:
             dir_path.mkdir(parents=True, exist_ok=True)
         
         # 计算总内存|Calculate total memory

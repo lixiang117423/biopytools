@@ -38,7 +38,7 @@ class CommandRunner:
                     cmd, shell=True, check=True
                 )
                 self.logger.info(f"执行成功|Execution successful")
-                return None
+                return True
 
         except subprocess.CalledProcessError as e:
             self.logger.error(f"命令执行失败|Command execution failed")
