@@ -177,6 +177,7 @@ class HiCProPipeline:
                 "samtools",
                 ["faidx", self.config.genome]
             )
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
 
