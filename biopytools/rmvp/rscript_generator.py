@@ -21,6 +21,24 @@ class RMVPRScriptGenerator:
         self.config = config
         self.output_dir = Path(config.output_dir)
 
+    def _file_output_vector(self) -> str:
+        """构建 file.output 的 R 向量字符串|Build R vector string for file.output
+
+        从配置读取，避免硬编码|Read from config, avoid hardcoding
+        """
+        return ", ".join([f'"{x}"' for x in self.config.file_output])
+
+    @staticmethod
+    def _flush_line() -> str:
+        """返回 flush.console() 调用|R: flush.console() call
+
+        R 在 stdout 非 TTY(管道/文件)时块缓冲，进度会卡在缓冲区直到进程退出。
+        flush.console() 强制立即刷新，使进度实时可见于调度系统 .out 和模块日志。
+        |R block-buffers stdout when not a TTY; flush.console() forces immediate flush
+        so progress is visible in real time in the scheduler .out and module log.
+        """
+        return "flush.console()"
+
     def generate_data_conversion_script(self) -> str:
         """
         生成数据转换脚本|Generate data conversion script
@@ -100,6 +118,7 @@ cat("表型文件|Phenotype file:", file_phe, "\\n")
 cat("输出前缀|Output prefix:", output_prefix, "\\n")
 cat("输出目录|Output directory:", out_path, "\\n")
 cat("LD去连锁|LD pruning:", {"TRUE" if self.config.ld_pruning else "FALSE"}, "\\n\\n")
+flush.console()
 
 # 转换VCF为rMVP格式|Convert VCF to rMVP format
 {mvp_data_block}
@@ -107,6 +126,7 @@ cat("LD去连锁|LD pruning:", {"TRUE" if self.config.ld_pruning else "FALSE"}, 
 cat("\\n数据转换完成|Data conversion completed\\n")
 cat("输出文件|Output files:\\n")
 {output_files_cat}
+flush.console()
 """
         return script
 
@@ -175,6 +195,9 @@ if (file.exists(file.path(out_path, paste0(output_prefix, ".pc.desc")))) {
         # 生成模型列表|Generate model list
         models_str = ', '.join([f'"{m}"' for m in self.config.models])
 
+        # file.output 向量（从配置读取）|file.output vector (from config)
+        file_output_r = self._file_output_vector()
+
         # 使用绝对路径|Use absolute paths
         out_abs = str(self.output_dir.resolve())
 
@@ -206,9 +229,11 @@ cat("表型列号|Trait column:", trait_col, "\\n")
 cat("分析模型|Models:", {models_str}, "\\n")
 cat("CPU核心数|CPU cores:", ncpus, "\\n")
 cat("输出目录|Output directory:", out_path, "\\n\\n")
+flush.console()
 
 # 读取数据|Read data
 cat("正在读取数据|Reading data...\\n")
+flush.console()
 
 genotype <- attach.big.matrix(file.path(out_path, paste0(output_prefix, ".geno.desc")))
 phenotype_full <- read.table(file.path(out_path, paste0(output_prefix, ".phe")), header = TRUE)
@@ -220,11 +245,14 @@ colnames(phenotype)[2] <- trait_name
 
 cat("样本数|Sample size:", nrow(phenotype), "\\n")
 cat("SNP数|SNP count:", ncol(genotype), "\\n")
+flush.console()
 
 {kin_pc_block}
+flush.console()
 
 # 运行GWAS|Run GWAS
 cat("\\n开始GWAS分析|Starting GWAS analysis...\\n")
+flush.console()
 
 start_time <- Sys.time()
 
@@ -241,7 +269,7 @@ imvp <- MVP(
     maxLoop = {self.config.max_loop},
     threshold = {self.config.threshold},
     method = c({models_str}),
-    file.output = c("pmap", "pmap.signal", "plot", "log"),
+    file.output = c({file_output_r}),
     file.type = "{self.config.file_type}",
     dpi = {self.config.dpi},
     memo = trait_name,
@@ -254,11 +282,13 @@ duration <- difftime(end_time, start_time, units = "secs")
 
 cat("\\n分析完成|Analysis completed\\n")
 cat("运行时间|Runtime:", round(as.numeric(duration), 2), "秒|seconds\\n")
+flush.console()
 
 # 保存结果到RData文件|Save results to RData file
 result_file <- file.path(out_path, paste0(trait_prefix, ".RData"))
 save(imvp, file = result_file)
 cat("结果已保存|Results saved to:", result_file, "\\n")
+flush.console()
 """
         return script
 
@@ -273,6 +303,9 @@ cat("结果已保存|Results saved to:", result_file, "\\n")
             R脚本内容|R script content
         """
         models_str = ', '.join([f'"{m}"' for m in self.config.models])
+
+        # file.output 向量（从配置读取）|file.output vector (from config)
+        file_output_r = self._file_output_vector()
 
         # 使用绝对路径|Use absolute paths
         out_abs = str(self.output_dir.resolve())
@@ -301,15 +334,18 @@ cat("表型数量|Number of traits:", {len(trait_names)}, "\\n")
 cat("分析模型|Models:", {models_str}, "\\n")
 cat("CPU核心数|CPU cores:", ncpus, "\\n")
 cat("输出目录|Output directory:", out_path, "\\n\\n")
+flush.console()
 
 # 读取数据|Read data
 cat("正在读取数据|Reading data...\\n")
+flush.console()
 
 genotype <- attach.big.matrix(file.path(out_path, paste0(output_prefix, ".geno.desc")))
 phenotype_full <- read.table(file.path(out_path, paste0(output_prefix, ".phe")), header = TRUE)
 map <- read.table(file.path(out_path, paste0(output_prefix, ".geno.map")), header = TRUE)
 
 {kin_pc_block}
+flush.console()
 
 # 批量分析所有表型|Batch analyze all traits
 trait_names <- c({', '.join([f'"{t}"' for t in trait_names])})
@@ -322,10 +358,11 @@ for (i in 1:n_traits) {{
     trait_col <- i + 1  # 表型从第2列开始|Traits start from column 2
 
     cat("\\n")
-    cat("=" , rep("=", 60), "\\n", sep = "")
+    cat("=" , rep("=", 60), "\\n", sep="")
     cat("正在分析表型", i, "/", n_traits, ":", trait_name, "\\n")
     cat("Analyzing trait", i, "/", n_traits, ":", trait_name, "\\n")
-    cat("=" , rep("=", 60), "\\n", sep = "")
+    cat("=" , rep("=", 60), "\\n", sep="")
+    flush.console()
 
     # 提取单个表型|Extract single trait
     phenotype <- phenotype_full[, c(1, trait_col)]
@@ -348,7 +385,7 @@ for (i in 1:n_traits) {{
             maxLoop = {self.config.max_loop},
             threshold = {self.config.threshold},
             method = c({models_str}),
-            file.output = c("pmap", "pmap.signal", "plot", "log"),
+            file.output = c({file_output_r}),
             file.type = "{self.config.file_type}",
             dpi = {self.config.dpi},
             memo = trait_name,
@@ -357,6 +394,7 @@ for (i in 1:n_traits) {{
         )
     }}, error = function(e) {{
         cat("错误|Error:", e$message, "\\n")
+        flush.console()
         NULL
     }})
 
@@ -366,6 +404,7 @@ for (i in 1:n_traits) {{
     if (!is.null(imvp)) {{
         cat("\\n表型", trait_name, "分析完成|Trait", trait_name, "analysis completed\\n")
         cat("运行时间|Runtime:", round(as.numeric(duration), 2), "秒|seconds\\n")
+        flush.console()
 
         # 保存结果|Save results
         trait_prefix <- paste0(output_prefix, "_", trait_name)
@@ -375,6 +414,7 @@ for (i in 1:n_traits) {{
         all_results[[trait_name]] <- imvp
     }} else {{
         cat("\\n表型", trait_name, "分析失败|Trait", trait_name, "analysis failed\\n")
+        flush.console()
     }}
 
     # 清理内存|Clean memory
@@ -382,14 +422,16 @@ for (i in 1:n_traits) {{
 }}
 
 cat("\\n")
-cat("=" , rep("=", 60), "\\n", sep = "")
+cat("=" , rep("=", 60), "\\n", sep="")
 cat("所有表型分析完成|All traits analysis completed\\n")
-cat("=" , rep("=", 60), "\\n", sep = "")
+cat("=" , rep("=", 60), "\\n", sep="")
+flush.console()
 
 # 保存所有结果|Save all results
 all_results_file <- file.path(out_path, paste0(output_prefix, "_all_results.RData"))
 save(all_results, file = all_results_file)
 cat("\\n所有结果已保存|All results saved to:", all_results_file, "\\n")
+flush.console()
 """
         return script
 

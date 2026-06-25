@@ -121,6 +121,21 @@ class RMVPAnalyzer:
         """
         return Path(output_file).exists()
 
+    def _get_batch_completion_files(self, trait_names: List[str]) -> List[Path]:
+        """
+        返回批量GWAS的完成标志文件列表|Return batch GWAS completion marker files
+
+        rMVP 1.4.6 实际产出 {memo}.{model}.{memo}.csv（非 .pmap），且文件名不含
+        output_prefix，难以可靠判断。批量脚本每个表型分析完成后会保存
+        {prefix}_{trait}.RData，以此作为"该表型完成"的可靠标志，支持断点续传。
+        |rMVP 1.4.6 emits {memo}.{model}.{memo}.csv (not .pmap) whose names lack the
+        output_prefix, making reliable detection hard. The batch script saves
+        {prefix}_{trait}.RData after each trait completes — use it as the reliable
+        per-trait completion marker for checkpoint resume.
+        """
+        output_dir_abs = Path(self.config.output_dir).resolve()
+        return [output_dir_abs / f"{self.config.output_prefix}_{t}.RData" for t in trait_names]
+
     def run_data_conversion(self) -> bool:
         """
         运行数据转换（VCF → rMVP格式）|Run data conversion (VCF → rMVP format)
@@ -259,27 +274,18 @@ class RMVPAnalyzer:
         self.logger.info(f"   表型数量|Number of traits: {len(trait_names)}")
         self.logger.info(f"   分析模型|Models: {', '.join(self.config.models)}")
 
-        # 检查所有输出文件是否都已存在|Check if all output files exist
-        output_dir_abs = Path(self.config.output_dir).resolve()
-        all_completed = True
-        missing_files = []
+        # 检查所有表型是否都已完成|Check if all traits are completed
+        # 完成标志：{prefix}_{trait}.RData（见 _get_batch_completion_files 说明）
+        # Marker: {prefix}_{trait}.RData (see _get_batch_completion_files)
+        completion_files = self._get_batch_completion_files(trait_names)
+        missing_files = [f for f in completion_files if not self._is_step_completed(f)]
 
-        for trait_name in trait_names:
-            for model in self.config.models:
-                # 输出文件格式：{prefix}_{trait}.{model}.pmap
-                # Output file format: {prefix}_{trait}.{model}.pmap
-                output_file = output_dir_abs / f"{self.config.output_prefix}_{trait_name}.{model.lower()}.pmap"
-                if not self._is_step_completed(output_file):
-                    all_completed = False
-                    missing_files.append(str(output_file.name))
-
-        if all_completed:
+        if not missing_files:
             self.logger.info(f"   跳过已完成步骤|Skipping completed step: 批量GWAS分析|Batch GWAS analysis")
-            self.logger.info(f"   所有输出文件已存在|All output files exist")
+            self.logger.info(f"   所有表型结果已存在|All trait results exist")
             return True
 
-        if missing_files:
-            self.logger.info(f"   需要生成|Need to generate: {len(missing_files)} 个文件|files")
+        self.logger.info(f"   需要生成|Need to generate: {len(missing_files)} 个表型结果|trait results")
 
         try:
             # 生成批量分析R脚本|Generate batch analysis R script
@@ -401,9 +407,40 @@ class RMVPAnalyzer:
             self.logger.error(f" 读取表型名称失败|Failed to read trait names: {e}")
             return []
 
+    def _build_r_command(self, script_file: Path) -> List[str]:
+        """
+        构建R脚本执行命令（列表形式，配合shell=False）|Build R script command (list form, for shell=False)
+
+        conda环境：conda run -n <env> --no-capture-output Rscript <script>
+          --no-capture-output 避免 conda 缓冲输出（§13.2.0），让 R 的 flush.console()
+          输出能实时透传到本进程|R batch run via conda with --no-capture-output (§13.2.0) so
+          flush.console() output streams through in real time.
+        direct：直接调用 Rscript|direct: invoke Rscript directly
+
+        Args:
+            script_file: R脚本文件路径|R script file path
+
+        Returns:
+            命令列表（配合 subprocess shell=False）|Command list (for subprocess shell=False)
+        """
+        script_file = str(script_file)
+        if self.config.r_env_type == "conda":
+            return ['conda', 'run', '-n', self.config.r_env_name,
+                    '--no-capture-output', 'Rscript', script_file]
+        else:
+            # direct 模式：r_env_name 为 R 可执行文件路径|direct: r_env_name is the R executable path
+            return [self.config.r_env_name, 'Rscript', script_file]
+
     def _execute_r_script(self, script_file: Path, description: str) -> bool:
         """
-        执行R脚本|Execute R script
+        执行R脚本，流式转发输出到日志|Execute R script, stream output to logger
+
+        R 的 stdout 逐行读取并转发到 logger（实时可见于调度系统 .out 和模块 .log），
+        同时 tee 到 {stem}.out 保留原始 R 输出。配合生成脚本中的 flush.console()，
+        解决 R 块缓冲导致的进度黑洞。|R stdout is read line-by-line and forwarded to the
+        logger (visible in real time in the scheduler .out and module .log), and teed to
+        {stem}.out to keep raw R output. Combined with flush.console() in the generated
+        script, this fixes the progress black hole caused by R block buffering.
 
         Args:
             script_file: R脚本文件路径|R script file path
@@ -413,56 +450,76 @@ class RMVPAnalyzer:
             是否成功|Whether successful
         """
         try:
-            # 构建命令|Build command
-            if self.config.r_env_type == "conda":
-                # 使用conda环境|Use conda environment
-                # 注意：使用 Rscript 而不是 R，因为 Rscript 用于运行脚本文件|Note: use Rscript not R, because Rscript is for running script files
-                cmd = f"conda run -n {self.config.r_env_name} Rscript {script_file}"
-            else:
-                # 直接使用Rscript|Use Rscript directly
-                cmd = f"{self.config.r_env_name} Rscript {script_file}"
-
-            self.logger.info(f"   命令|Command: {cmd}")
+            cmd = self._build_r_command(script_file)
+            self.logger.info(f"   命令|Command: {' '.join(cmd)}")
 
             # 使用绝对路径作为工作目录|Use absolute path as working directory
             cwd = str(Path(self.config.output_dir).resolve())
             self.logger.info(f"   工作目录|Working directory: {cwd}")
 
-            # 输出文件|Output files
+            # 原始R输出文件（保留兼容）|Raw R output file (kept for compatibility)
             stdout_file = Path(cwd) / f"{Path(script_file).stem}.out"
-            # stderr合并到stdout，不再单独创建.err文件|stderr merged to stdout, no separate .err file
 
-            # 执行命令，重定向输出到文件|Execute command, redirect output to files
             start_time = time.time()
 
-            with open(stdout_file, 'w') as stdout_f:
-                result = subprocess.run(
-                    cmd,
-                    shell=True,
-                    cwd=cwd,
-                    stdout=stdout_f,
-                    stderr=subprocess.STDOUT,  # 合并stderr到stdout|Merge stderr to stdout
-                    text=True,
-                    timeout=86400  # 24小时超时|24 hours timeout
-                )
+            # 列表命令 + shell=False，逐行流式读取|List command + shell=False, line-streamed
+            proc = subprocess.Popen(
+                cmd,
+                shell=False,
+                cwd=cwd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,  # 合并stderr到stdout|Merge stderr to stdout
+                text=True,
+                bufsize=1,  # 行缓冲|Line buffered
+            )
+
+            # 兜底超时（仅在两次输出之间检查；主要靠调度器墙钟限制）|Backstop timeout
+            # (checked only between output lines; the scheduler enforces wall-time primarily)
+            timeout_seconds = 86400  # 24小时|24 hours
+            deadline = time.time() + timeout_seconds
+            timed_out = False
+
+            try:
+                with open(stdout_file, 'w', encoding='utf-8') as out_f:
+                    while True:
+                        line = proc.stdout.readline()
+                        if not line:
+                            break
+                        # tee：原始输出写文件|Tee: raw output to file
+                        out_f.write(line)
+                        out_f.flush()
+                        # 转发到日志：过滤 \r 进度条减少噪声|Forward to log, filtering \r progress bars
+                        clean = line.rstrip('\n')
+                        if clean and '\r' not in clean:
+                            self.logger.info(f"   {clean}")
+                        if time.time() > deadline and proc.poll() is None:
+                            timed_out = True
+                            break
+            finally:
+                if timed_out:
+                    proc.kill()
+                proc.stdout.close()
+                proc.wait()
+                returncode = proc.returncode
 
             elapsed_time = time.time() - start_time
 
+            if timed_out:
+                self.logger.error(f"   {description}超时|{description} timeout (>{timeout_seconds}s)")
+                return False
+
             # 记录返回码|Log return code
-            self.logger.info(f"   命令返回码|Command return code: {result.returncode}")
+            self.logger.info(f"   命令返回码|Command return code: {returncode}")
 
             # 检查执行结果|Check result
-            if result.returncode == 0:
+            if returncode == 0:
                 self.logger.info(f"   {description}成功|{description} successful")
                 self.logger.info(f"   执行时间|Execution time: {elapsed_time:.2f}秒|seconds")
                 return True
             else:
-                self.logger.error(f"   {description}失败|{description} failed")
+                self.logger.error(f"   {description}失败|{description} failed (return code {returncode})")
                 return False
 
-        except subprocess.TimeoutExpired:
-            self.logger.error(f"   {description}超时|{description} timeout")
-            return False
         except Exception as e:
             self.logger.error(f"   {description}异常|{description} error: {e}")
             return False
