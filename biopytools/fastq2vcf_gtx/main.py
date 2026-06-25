@@ -6,6 +6,9 @@ import argparse
 import sys
 import os
 import time
+import subprocess
+import shutil
+import yaml
 from pathlib import Path
 
 from .config import Fastq2VcfGTXConfig
@@ -22,7 +25,7 @@ class Fastq2VcfGTXProcessor:
         self.config.validate()
 
         # 创建日志目录|Create log directory
-        log_dir = os.path.join(self.config.output_dir, "99.logs")
+        log_dir = os.path.join(self.config.output_dir, "99_logs")
         Path(log_dir).mkdir(parents=True, exist_ok=True)
 
         # 初始化日志|Initialize logging
@@ -74,7 +77,7 @@ class Fastq2VcfGTXProcessor:
         self.logger_manager.step("强制构建GTX索引|Force Build GTX Index")
 
         # 确保基因组目录存在|Ensure genome directory exists
-        genome_dir = os.path.join(self.config.output_dir, "01.data", "genome")
+        genome_dir = os.path.join(self.config.output_dir, "genome")
         FileManager.ensure_directory(genome_dir)
 
         # 获取参考基因组文件名|Get reference genome filename
@@ -238,7 +241,7 @@ class Fastq2VcfGTXProcessor:
     def _update_all_genome_paths(self):
         """更新所有组件的参考基因组路径|Update reference genome paths for all components"""
         # 确保基因组文件在项目目录下|Ensure genome file is in project directory
-        genome_dir = os.path.join(self.config.output_dir, "01.data", "genome")
+        genome_dir = os.path.join(self.config.output_dir, "genome")
         target_genome_path = os.path.join(genome_dir, os.path.basename(self.config.ref_genome_fa))
 
         # 如果目标文件不存在，拷贝过去|Copy if target doesn't exist
@@ -292,6 +295,57 @@ class Fastq2VcfGTXProcessor:
         self.logger.info(f"  测试模式|Dry run: {self.config.dry_run}")
 
         self.logger.info("预检查通过|Pre-flight checks passed")
+
+        # 生成流程元数据|Generate pipeline metadata
+        self._generate_pipeline_info()
+
+    def _generate_pipeline_info(self):
+        """生成流程元数据|Generate pipeline metadata"""
+        info_dir = os.path.join(self.config.output_dir, "00_pipeline_info")
+        FileManager.ensure_directory(info_dir)
+
+        # 采集工具版本信息|Collect tool version information
+        versions = {}
+        tools_to_check = {
+            'gtx': self.config.gtx_bin,
+            'samtools': shutil.which('samtools') or 'samtools',
+            'bcftools': shutil.which('bcftools') or 'bcftools',
+        }
+        for name, path in tools_to_check.items():
+            try:
+                r = subprocess.run(
+                    [path, '--version'],
+                    capture_output=True, text=True, timeout=10
+                )
+                versions[name] = {
+                    'version': r.stdout.strip().split('\n')[0],
+                    'path': path
+                }
+            except Exception:
+                versions[name] = {'version': 'unknown', 'path': path}
+
+        from . import __version__ as module_version
+
+        info = {
+            'pipeline': {
+                'name': 'biopytools fastq2vcf_gtx',
+                'version': module_version
+            },
+            'tools': versions,
+            'parameters': {
+                'threads': self.config.threads,
+                'snp_min_dp': self.config.snp_min_dp,
+                'snp_min_qual': self.config.snp_min_qual,
+                'indel_min_dp': self.config.indel_min_dp,
+                'indel_min_qual': self.config.indel_min_qual,
+                'gtx_window_size': self.config.gtx_window_size,
+                'gtx_single_threshold': self.config.gtx_single_threshold,
+            },
+        }
+        with open(os.path.join(info_dir, 'software_versions.yml'), 'w') as f:
+            yaml.dump(info, f, default_flow_style=False)
+
+        self.logger.info(f"流程元数据已生成|Pipeline metadata generated: {info_dir}")
 
     def _generate_final_report(self, final_vcf_path: str = None):
         """生成最终报告|Generate final report"""

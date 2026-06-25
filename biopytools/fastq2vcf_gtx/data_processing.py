@@ -25,7 +25,7 @@ class QualityController:
         step_name = "quality_control"
 
         if self.config.enable_checkpoint and CheckpointManager(
-            os.path.join(self.config.output_dir, "checkpoints"),
+            os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
             self.logger
         ).exists(step_name):
             self.logger.info("检查点已存在，跳过质控|Checkpoint exists, skipping QC")
@@ -74,7 +74,7 @@ class QualityController:
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
                 checkpoint_mgr = CheckpointManager(
-                    os.path.join(self.config.output_dir, "checkpoints"),
+                    os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
                     self.logger
                 )
                 checkpoint_mgr.create(step_name)
@@ -101,7 +101,7 @@ class GenomeIndexer:
         self.logger.info(f"GTX可执行文件路径: {self.config.gtx_bin}|GTX executable path")
 
         if self.config.enable_checkpoint and CheckpointManager(
-            os.path.join(self.config.output_dir, "checkpoints"),
+            os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
             self.logger
         ).exists(step_name):
             self.logger.info("检查点已存在，跳过索引构建|Checkpoint exists, skipping index building")
@@ -182,7 +182,7 @@ class GenomeIndexer:
         # 创建检查点|Create checkpoint
         if self.config.enable_checkpoint:
             checkpoint_mgr = CheckpointManager(
-                os.path.join(self.config.output_dir, "checkpoints"),
+                os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
                 self.logger
             )
             checkpoint_mgr.create(step_name)
@@ -212,7 +212,7 @@ class GTXMapper:
         self.refresh_config()
 
         if self.config.enable_checkpoint and CheckpointManager(
-            os.path.join(self.config.output_dir, "checkpoints"),
+            os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
             self.logger
         ).exists(step_name):
             self.logger.info("检查点已存在，跳过比对|Checkpoint exists, skipping mapping")
@@ -245,7 +245,7 @@ class GTXMapper:
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
                 checkpoint_mgr = CheckpointManager(
-                    os.path.join(self.config.output_dir, "checkpoints"),
+                    os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
                     self.logger
                 )
                 checkpoint_mgr.create(step_name)
@@ -443,7 +443,7 @@ class JointCaller:
         # 恢复检查点状态|Restore checkpoint status
         if self.config.enable_checkpoint:
             checkpoint_mgr = CheckpointManager(
-                os.path.join(self.config.output_dir, "checkpoints"),
+                os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
                 self.logger
             )
             if checkpoint_mgr.exists(step_name):
@@ -482,7 +482,7 @@ class JointCaller:
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
                 checkpoint_mgr = CheckpointManager(
-                    os.path.join(self.config.output_dir, "checkpoints"),
+                    os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
                     self.logger
                 )
                 checkpoint_mgr.create(step_name)
@@ -530,7 +530,7 @@ class JointCaller:
 
         chunks_dir = os.path.join(self.config.joint_dir, "chunks")
         gtx_job_script = os.path.join(self.config.joint_dir, "01.run_gtx_jobs.sh")
-        merge_py_script = os.path.join(self.config.output_dir, "00.scripts", "02.merge_vcf.py")
+        merge_py_script = os.path.join(self.config.output_dir, "00_pipeline_info", "scripts", "02.merge_vcf.py")
         final_merged_vcf = os.path.join(self.config.joint_dir, "merged_all.vcf.gz")
 
         FileManager.ensure_directory(chunks_dir)
@@ -744,7 +744,7 @@ class VariantFilter:
         step_name = "variant_filtering"
 
         if self.config.enable_checkpoint and CheckpointManager(
-            os.path.join(self.config.output_dir, "checkpoints"),
+            os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
             self.logger
         ).exists(step_name):
             self.logger.info("检查点已存在，跳过过滤|Checkpoint exists, skipping filtering")
@@ -792,7 +792,7 @@ class VariantFilter:
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
                 checkpoint_mgr = CheckpointManager(
-                    os.path.join(self.config.output_dir, "checkpoints"),
+                    os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
                     self.logger
                 )
                 checkpoint_mgr.create(step_name)

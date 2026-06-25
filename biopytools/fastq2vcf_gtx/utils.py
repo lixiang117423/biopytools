@@ -181,7 +181,7 @@ class CommandRunner:
         fastp_log_files = []
 
         # 检查输出目录中的fastp报告目录|Check fastp reports directory in output directory
-        reports_dir = os.path.join(self.output_dir, "fastp_reports") if self.output_dir else None
+        reports_dir = os.path.join(self.output_dir, "01_fastp", "fastp_reports") if self.output_dir else None
         if reports_dir and os.path.exists(reports_dir):
             for log_file in os.listdir(reports_dir):
                 if log_file.endswith(".log"):

@@ -72,17 +72,17 @@ class Fastq2VcfGTXConfig:
 
         # 设置默认路径|Set default paths
         if self.clean_fastq_dir is None:
-            self.clean_fastq_dir = os.path.join(self.output_dir, "01.data", "clean")
+            self.clean_fastq_dir = os.path.join(self.output_dir, "01_fastp")
         if self.mapping_dir is None:
-            self.mapping_dir = os.path.join(self.output_dir, "02.mapping")
+            self.mapping_dir = os.path.join(self.output_dir, "02_mapping")
         if self.gvcf_dir is None:
             self.gvcf_dir = os.path.join(self.mapping_dir, "vcf")
         if self.bam_dir is None:
             self.bam_dir = os.path.join(self.mapping_dir, "bam")
         if self.joint_dir is None:
-            self.joint_dir = os.path.join(self.output_dir, "03.joint_calling")
+            self.joint_dir = os.path.join(self.output_dir, "03_joint_calling")
         if self.filter_dir is None:
-            self.filter_dir = os.path.join(self.output_dir, "04.filtered_snp_indel")
+            self.filter_dir = os.path.join(self.output_dir, "04_filtered_snp_indel")
 
         # 创建输出路径对象|Create output path objects
         self.output_path = Path(self.output_dir)
