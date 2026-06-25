@@ -125,16 +125,37 @@ class RMVPAnalyzer:
         """
         返回批量GWAS的完成标志文件列表|Return batch GWAS completion marker files
 
-        rMVP 1.4.6 实际产出 {memo}.{model}.{memo}.csv（非 .pmap），且文件名不含
-        output_prefix，难以可靠判断。批量脚本每个表型分析完成后会保存
-        {prefix}_{trait}.RData，以此作为"该表型完成"的可靠标志，支持断点续传。
-        |rMVP 1.4.6 emits {memo}.{model}.{memo}.csv (not .pmap) whose names lack the
-        output_prefix, making reliable detection hard. The batch script saves
-        {prefix}_{trait}.RData after each trait completes — use it as the reliable
-        per-trait completion marker for checkpoint resume.
+        rMVP 1.4.6 实际产出 {trait}.{model}.{trait}.csv（如 phe.GLM.phe.csv），
+        这是用户真正需要的结果文件。以此作为续传完成标志，而非 .RData——.RData 可能在
+        结果文件缺失时仍存在（如异常中断），会导致误跳过GWAS。
+        |rMVP 1.4.6 emits {trait}.{model}.{trait}.csv; use it as the resume marker
+        rather than .RData, which can persist when result files are absent.
         """
         output_dir_abs = Path(self.config.output_dir).resolve()
-        return [output_dir_abs / f"{self.config.output_prefix}_{t}.RData" for t in trait_names]
+        files = []
+        for t in trait_names:
+            for m in self.config.models:
+                files.append(output_dir_abs / f"{t}.{m}.{t}.csv")
+        return files
+
+    def _is_conversion_completed(self) -> bool:
+        """
+        数据转换是否完成|Is data conversion complete?
+
+        ld_pruning=True 时，转换步产出两部分：完整VCF的基因型(.geno.*) 和去连锁VCF的
+        K/PCA(_pruned.kin.*/_pruned.pc.*)。仅检查 .geno.desc 会漏掉后者，导致后续 batch
+        读取 _pruned.kin.desc 失败。|When ld_pruning=True, conversion produces both the
+        full-VCF genotype (.geno.*) and pruned-VCF K/PCA (_pruned.kin.*/_pruned.pc.*).
+        Checking only .geno.desc misses the latter, causing batch to fail reading
+        _pruned.kin.desc.
+        """
+        output_dir_abs = Path(self.config.output_dir).resolve()
+        prefix = self.config.output_prefix
+        required = [output_dir_abs / f"{prefix}.geno.desc"]
+        if self.config.ld_pruning:
+            required.append(output_dir_abs / f"{prefix}_pruned.kin.desc")
+            required.append(output_dir_abs / f"{prefix}_pruned.pc.desc")
+        return all(self._is_step_completed(f) for f in required)
 
     def run_data_conversion(self) -> bool:
         """
@@ -143,14 +164,13 @@ class RMVPAnalyzer:
         Returns:
             是否成功|Whether successful
         """
-        # 检查关键输出文件|Check key output file
+        # 检查关键输出文件|Check key output files
         output_dir_abs = Path(self.config.output_dir).resolve()
-        key_output_file = output_dir_abs / f"{self.config.output_prefix}.geno.desc"
 
-        if self._is_step_completed(key_output_file):
+        if self._is_conversion_completed():
             self.logger.info(" 开始数据转换|Starting data conversion")
             self.logger.info(f"   跳过已完成步骤|Skipping completed step: 数据转换|Data conversion")
-            self.logger.info(f"   输出文件已存在|Output file exists: {key_output_file}")
+            self.logger.info(f"   输出文件已存在|Output files exist: geno + pruned K/PCA")
             return True
 
         self.logger.info(" 开始数据转换|Starting data conversion")
@@ -274,9 +294,11 @@ class RMVPAnalyzer:
         self.logger.info(f"   表型数量|Number of traits: {len(trait_names)}")
         self.logger.info(f"   分析模型|Models: {', '.join(self.config.models)}")
 
+        output_dir_abs = Path(self.config.output_dir).resolve()
+
         # 检查所有表型是否都已完成|Check if all traits are completed
-        # 完成标志：{prefix}_{trait}.RData（见 _get_batch_completion_files 说明）
-        # Marker: {prefix}_{trait}.RData (see _get_batch_completion_files)
+        # 完成标志：{trait}.{model}.{trait}.csv（rMVP真实结果文件，见 _get_batch_completion_files）
+        # Marker: {trait}.{model}.{trait}.csv (real rMVP result; see _get_batch_completion_files)
         completion_files = self._get_batch_completion_files(trait_names)
         missing_files = [f for f in completion_files if not self._is_step_completed(f)]
 

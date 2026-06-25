@@ -25,6 +25,31 @@ class RMVPResultParser:
         self.output_prefix = output_prefix
         self.logger = logger
 
+    # ---- rMVP 1.4.6 真实输出命名|rMVP 1.4.6 real output naming ----
+    # MVP(memo=<trait>, method=c("GLM","MLM","FarmCPU")) 实际产出：
+    #   {trait}.{model}.{trait}.csv          全部位点P值(逗号分隔，末列为P值)
+    #   {trait}.{model}_signals.{trait}.csv  显著位点
+    #   {trait}.{model}.{PlotType}.{trait}.jpg  各类图
+    # 注意：model 大小写保持（GLM/MLM/FarmCPU），文件名不含 output_prefix。
+
+    @staticmethod
+    def _normalize_model(model: str) -> str:
+        """rMVP 模型名大小写|rMVP model name case (GLM/MLM/FarmCPU)"""
+        u = model.upper()
+        return "FarmCPU" if u == "FARMCPU" else u
+
+    @classmethod
+    def _result_csv(cls, output_dir, trait: str, model: str) -> Path:
+        """全位点P值结果文件|Full per-SNP P-value result: {trait}.{model}.{trait}.csv"""
+        m = cls._normalize_model(model)
+        return Path(output_dir) / f"{trait}.{m}.{trait}.csv"
+
+    @classmethod
+    def _signals_csv(cls, output_dir, trait: str, model: str) -> Path:
+        """显著位点结果文件|Significant-signal result: {trait}.{model}_signals.{trait}.csv"""
+        m = cls._normalize_model(model)
+        return Path(output_dir) / f"{trait}.{m}_signals.{trait}.csv"
+
     def parse_and_integrate_results(self, trait_names: List[str],
                                     models: List[str]) -> Dict[str, pd.DataFrame]:
         """
@@ -56,26 +81,28 @@ class RMVPResultParser:
             result_dfs = []
 
             for trait in trait_names:
-                # rMVP输出文件命名格式|rMVP output file naming format
-                # {output_prefix}_{trait}.{model}.pmap
-                pmap_file = self.output_dir / f"{self.output_prefix}_{trait}.{model_lower}.pmap"
+                # rMVP 1.4.6 实际结果文件|rMVP 1.4.6 real result file
+                result_file = self._result_csv(self.output_dir, trait, model)
 
-                if pmap_file.exists():
+                if result_file.exists():
                     try:
-                        # 读取结果文件|Read result file
-                        df = pd.read_csv(pmap_file, sep='\t')
-                        # 重命名P值列|Rename P-value column
-                        if 'p_value' in df.columns:
-                            df = df.rename(columns={'p_value': f"{trait}_{model}"})
-                            # 只保留SNP、Chromosome、Position和P值|Keep only SNP, Chr, Pos, and P-value
-                            df_result = df[['SNP', 'Chr', 'Pos', f"{trait}_{model}"]]
-                            result_dfs.append(df_result)
-                        else:
-                            self.logger.warning(f"     文件格式异常|File format abnormal: {pmap_file}")
+                        # 逗号分隔；末列为P值（列名 {trait}.{model}）|Comma-separated; last col = P-value
+                        df = pd.read_csv(result_file)
+                        pvalue_col = df.columns[-1]
+                        # 统一列名（CHROM->Chr, POS->Pos, P值-> {trait}_{model}）
+                        # Normalize column names
+                        rename = {pvalue_col: f"{trait}_{model}"}
+                        if 'CHROM' in df.columns:
+                            rename['CHROM'] = 'Chr'
+                        if 'POS' in df.columns:
+                            rename['POS'] = 'Pos'
+                        df = df.rename(columns=rename)
+                        keep = [c for c in ['SNP', 'Chr', 'Pos', f"{trait}_{model}"] if c in df.columns]
+                        result_dfs.append(df[keep])
                     except Exception as e:
-                        self.logger.warning(f"     读取文件失败|Failed to read file {pmap_file}: {e}")
+                        self.logger.warning(f"     读取文件失败|Failed to read file {result_file}: {e}")
                 else:
-                    self.logger.warning(f"     文件不存在|File does not exist: {pmap_file}")
+                    self.logger.warning(f"     文件不存在|File does not exist: {result_file}")
 
             # 合并该模型所有表型的结果|Merge all traits results for this model
             if result_dfs:
@@ -162,20 +189,19 @@ class RMVPResultParser:
         merged_results: Dict[str, pd.DataFrame] = {}
 
         for model in models:
-            model_lower = model.lower()
-
-            # 收集该模型所有表型的pmap文件|Collect pmap files for all traits of this model
+            # 收集该模型所有表型的结果文件|Collect result files for all traits of this model
             df_list = []
             for trait in trait_names:
-                pmap_file = self.output_dir / f"{self.output_prefix}_{trait}.{model_lower}.pmap"
-                if not pmap_file.exists():
-                    self.logger.warning(f"   文件不存在|File does not exist: {pmap_file.name}")
+                result_file = self._result_csv(self.output_dir, trait, model)
+                if not result_file.exists():
+                    self.logger.warning(f"   文件不存在|File does not exist: {result_file.name}")
                     continue
 
                 try:
-                    df = pd.read_csv(pmap_file, sep='\t')
+                    # 逗号分隔|Comma-separated
+                    df = pd.read_csv(result_file)
                 except Exception as e:
-                    self.logger.warning(f"   读取文件失败|Failed to read file {pmap_file.name}: {e}")
+                    self.logger.warning(f"   读取文件失败|Failed to read file {result_file.name}: {e}")
                     continue
 
                 # 确定P值列（优先p_value，回退最后一列）|Determine P-value column (prefer p_value, fallback to last)
@@ -188,7 +214,7 @@ class RMVPResultParser:
                     df = df.drop(columns=[pvalue_col])
                 df['Source'] = trait  # 来源表型|Source trait
                 df_list.append(df)
-                self.logger.info(f"   {pmap_file.name}: {len(df)} 有效行|valid rows")
+                self.logger.info(f"   {result_file.name}: {len(df)} 有效行|valid rows")
 
             if not df_list:
                 self.logger.warning(f"   [{model}] 无匹配文件，跳过|[{model}] No matching files, skipping")
@@ -244,35 +270,34 @@ class RMVPResultParser:
             "logs": []
         }
 
-        # 收集每个表型每个模型的文件|Collect files for each trait and model
+        # 收集每个表型的rMVP真实输出文件|Collect real rMVP outputs per trait
+        # rMVP命名：{trait}.{model}.{trait}.csv、{trait}.{model}_signals.{trait}.csv、
+        # {trait}.{model}.{PlotType}.{trait}.jpg 等。按 {trait}.* 前缀glob，按扩展名分类。
+        # |rMVP names files as {trait}.{model}.{trait}.csv etc; glob {trait}.* and classify by ext.
+        table_exts = {'.csv', '.tsv', '.txt'}
+        figure_exts = {'.jpg', '.jpeg', '.pdf', '.tiff', '.tif', '.png'}
+        seen = set()
+
+        def _add(bucket, path):
+            if path not in seen:
+                seen.add(path)
+                files[bucket].append(path)
+
         for trait in trait_names:
-            for model in models:
-                model_lower = model.lower()
-                trait_prefix = f"{self.output_prefix}_{trait}"
+            # rMVP结果文件前缀为表型名（非 output_prefix）|rMVP results prefixed by trait name
+            for f in self.output_dir.glob(f"{trait}.*"):
+                if f.is_dir():
+                    continue
+                ext = f.suffix.lower()
+                if ext in table_exts:
+                    _add("tables", f)
+                elif ext in figure_exts:
+                    _add("figures", f)
+            # RData结果对象|RData result object
+            rdata = self.output_dir / f"{self.output_prefix}_{trait}.RData"
+            if rdata.exists():
+                _add("tables", rdata)
 
-                # 表格文件|Table files
-                table_patterns = [
-                    f"{trait_prefix}.{model_lower}.pmap",  # 所有SNP的P值
-                    f"{trait_prefix}.{model_lower}.pmap.signal",  # 显著SNP
-                    f"{trait_prefix}.{model_lower}.eff",  # SNP效应
-                    f"{trait_prefix}.RData"  # R结果对象
-                ]
-
-                for pattern in table_patterns:
-                    matching_files = list(self.output_dir.glob(pattern))
-                    files["tables"].extend(matching_files)
-
-                # 图片文件|Figure files
-                figure_patterns = [
-                    f"{trait_prefix}.{model_lower}.Manhattan*.{self._get_file_extension()}",
-                    f"{trait_prefix}.{model_lower}.QQ*.{self._get_file_extension()}",
-                    f"{trait_prefix}.Phe_Distribution.{self._get_file_extension()}",
-                    f"{trait_prefix}.PCA*.{self._get_file_extension()}"
-                ]
-
-                for pattern in figure_patterns:
-                    matching_files = list(self.output_dir.glob(pattern))
-                    files["figures"].extend(matching_files)
 
         # 日志文件|Log files
         log_patterns = [
