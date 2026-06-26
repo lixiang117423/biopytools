@@ -41,6 +41,10 @@ class RagTagScaffolder:
             self.config.output_dir,
             f"{self.config.sample_name}_RagTag_unscaffolded.fa"
         )
+        self.combined_output = os.path.join(
+            self.config.output_dir,
+            f"{self.config.sample_name}_RagTag_combined.fa"
+        )
 
     def run(self):
         """运行scaffolding流程|Run scaffolding pipeline"""
@@ -60,6 +64,7 @@ class RagTagScaffolder:
             self.logger.info("RagTag scaffolding流程完成|RagTag scaffolding pipeline completed")
             self.logger.info(f"Scaffolded输出|Scaffolded output: {self.scaffolded_output}")
             self.logger.info(f"Unscaffolded输出|Unscaffolded output: {self.unscaffolded_output}")
+            self.logger.info(f"合并输出|Combined output: {self.combined_output}")
 
             return True
 
@@ -153,6 +158,11 @@ class RagTagScaffolder:
         self._write_fasta(self.unscaffolded_output, unscaffolded_seqs)
         self.logger.info(f"写入unscaffolded序列|Wrote unscaffolded sequences: {len(unscaffolded_seqs)}条序列|sequences")
 
+        # 合并scaffolded和unscaffolded文件|Merge scaffolded and unscaffolded files
+        self._merge_fasta_files(self.scaffolded_output, self.unscaffolded_output, self.combined_output)
+        total_seqs = len(scaffolded_seqs) + len(unscaffolded_seqs)
+        self.logger.info(f"写入合并序列文件|Wrote combined sequences file: {total_seqs}条序列|sequences")
+
         # 重命名RagTag原始输出文件|Rename RagTag original output files
         self._rename_ragtag_outputs()
 
@@ -196,6 +206,26 @@ class RagTagScaffolder:
                 # 每行写80个碱基|Write 80 bases per line
                 for i in range(0, len(sequence), 80):
                     f.write(sequence[i:i+80] + '\n')
+
+    def _merge_fasta_files(self, file1, file2, output_file):
+        """
+        合并两个FASTA文件|Merge two FASTA files
+
+        将scaffolded和unscaffolded序列合并为一个完整的FASTA文件
+        Merge scaffolded and unscaffolded sequences into one complete FASTA file
+
+        Args:
+            file1: 第一个FASTA文件路径|First FASTA file path
+            file2: 第二个FASTA文件路径|Second FASTA file path
+            output_file: 合并输出文件路径|Merged output file path
+        """
+        import shutil
+        with open(output_file, 'w') as outfile:
+            for input_file in (file1, file2):
+                if os.path.exists(input_file):
+                    with open(input_file, 'r') as infile:
+                        shutil.copyfileobj(infile, outfile)
+        self.logger.debug(f"合并FASTA文件完成|Merged FASTA files: {file1} + {file2} -> {output_file}")
 
     def _rename_ragtag_outputs(self):
         """重命名RagTag原始输出文件|Rename RagTag original output files"""
