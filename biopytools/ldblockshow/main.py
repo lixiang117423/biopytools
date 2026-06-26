@@ -55,17 +55,22 @@ class LDBlockShowAnalyzer:
             cmd.extend(["-SeleVar", str(self.config.sele_var)])
 
         # 过滤参数|Filter parameters
-        if self.config.maf != 0.05:
-            cmd.extend(["-MAF", str(self.config.maf)])
+        if self.config.no_snp_filter:
+            # 强制覆盖LDBlockShow内部默认值，确保不过滤任何SNP
+            # Override LDBlockShow internal defaults to disable all SNP filtering
+            cmd.extend(["-MAF", "0.0", "-Miss", "1.0"])
+        else:
+            if self.config.maf != 0.05:
+                cmd.extend(["-MAF", str(self.config.maf)])
 
-        if self.config.miss != 0.25:
-            cmd.extend(["-Miss", str(self.config.miss)])
+            if self.config.miss != 0.25:
+                cmd.extend(["-Miss", str(self.config.miss)])
 
-        if self.config.hwe != 0.0:
-            cmd.extend(["-HWE", str(self.config.hwe)])
+            if self.config.hwe != 0.0:
+                cmd.extend(["-HWE", str(self.config.hwe)])
 
-        if self.config.het != 1.0:
-            cmd.extend(["-Het", str(self.config.het)])
+            if self.config.het != 1.0:
+                cmd.extend(["-Het", str(self.config.het)])
 
         if self.config.enable_oth_var:
             cmd.append("-EnableOthVar")
@@ -396,6 +401,8 @@ def main():
     # 过滤参数|Filter parameters
     filter_params = parser.add_argument_group('过滤参数|Filter parameters')
 
+    filter_params.add_argument("--enable-snp-filter", action="store_true", default=False,
+                             help="启用SNP过滤（默认关闭），使用-MAF/-Miss/-HWE/-Het参数过滤SNP|Enable SNP filtering (default OFF), filter SNPs using -MAF/-Miss/-HWE/-Het parameters")
     filter_params.add_argument("--maf", type=float, default=0.05,
                              help="最小次要等位基因频率|Minimum minor allele frequency (default: 0.05)")
     filter_params.add_argument("--miss", type=float, default=0.25,
@@ -480,6 +487,7 @@ def main():
             in_genotype=args.in_genotype,
             in_plink=args.in_plink,
             sele_var=args.sele_var,
+            no_snp_filter=not args.enable_snp_filter,
             maf=args.maf,
             miss=args.miss,
             hwe=args.hwe,

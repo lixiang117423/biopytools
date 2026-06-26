@@ -85,9 +85,6 @@ class CommandRunner:
         # 记录完整命令（INFO级别）|Log complete command (INFO level)
         self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
-        if timeout:
-            self.logger.info(f"超时设置|Timeout: {timeout}秒|seconds ({timeout/3600:.1f}小时|hours)")
-
         try:
             result = subprocess.run(
                 cmd,

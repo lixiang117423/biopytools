@@ -32,7 +32,10 @@ class LDBlockShowConfig:
     # LD度量选择|LD statistic selection
     sele_var: int = 1  # 1: D', 2: R², 3/4: Both
 
-    # 过滤参数|Filter parameters
+    # SNP过滤开关|SNP filter switch
+    no_snp_filter: bool = True  # 默认不过滤SNP|Disable SNP filtering by default
+
+    # 过滤参数（仅--no-snp-filter为False时生效）|Filter parameters (only effective when --no-snp-filter is False)
     maf: float = 0.05  # 最小次要等位基因频率|Minimum minor allele frequency
     miss: float = 0.25  # 最大缺失率|Maximum missing ratio
     hwe: float = 0.0  # Hardy-Weinberg平衡P值阈值|Hardy-Weinberg equilibrium P-value threshold

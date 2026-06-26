@@ -359,3 +359,4 @@ my_analysis/
 *.tar.gz
 *.zip
 *.7z
+busco_downloads/
