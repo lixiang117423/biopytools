@@ -257,13 +257,9 @@ def main():
     parser = argparse.ArgumentParser(
         description='HiFi基因组组装工具(hifiasm)|HiFi Genome Assembly Tool (hifiasm)',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-示例|Examples:
-  %(prog)s --hifi hifi.fq -p sample1
-  %(prog)s --hifi hifi.fq --hic-r1 hic_R1.fq.gz --hic-r2 hic_R2.fq.gz -p sample1
-  %(prog)s --hifi hifi.fq --ngs ngs_data_dir -p sample1 --high-cov 90
-  %(prog)s --hifi hifi.fq --hic-r1 hic_R1.fq.gz --hic-r2 hic_R2.fq.gz -p sample1 --no-purge-dups
-        """
+        epilog='''
+示例|Examples: %(prog)s --hifi hifi.fq -p sample1
+        '''
     )
 
     # 必需参数|Required arguments

@@ -96,7 +96,7 @@ class SampleFinder:
                 if read2_file:
                     self.logger.info(f"找到配对文件|Found paired file: {read2_file.name}")
                 else:
-                    self.logger.warning(f"未找到配对文件，将以单末端模式处理|No paired file found, will process as single-end")
+                    self.logger.info(f"未找到配对文件，自动切换为单末端模式|No paired file found, auto-switching to single-end mode")
 
             sample_pairs.append((sample_name, input_file, read2_file))
             return sample_pairs

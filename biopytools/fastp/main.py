@@ -54,7 +54,13 @@ class FastpProcessor:
         self.logger.info("FASTP质量控制|FASTP Quality Control")
         self.logger.info("=" * 60)
         self.logger.info(f"输入|Input: {self.config.input_dir}")
-        self.logger.info(f"数据模式|Data mode: {'单末端|Single-end' if self.config.single_end else '双末端|Paired-end'}")
+        if self.config.single_end:
+            mode_str = "单末端|Single-end"
+        elif self.config.is_single_file:
+            mode_str = "自动检测|Auto-detect (single file input)"
+        else:
+            mode_str = "双末端|Paired-end"
+        self.logger.info(f"数据模式|Data mode: {mode_str}")
 
         # 只在目录模式下显示文件模式|Only show file pattern in directory mode
         if not self.config.is_single_file:
@@ -137,6 +143,7 @@ def main():
         epilog='''
 示例|Examples:
   %(prog)s -i raw_data/ -o clean_data/
+  %(prog)s -i raw/hifi.fq -o clean_data/
         '''
     )
 
@@ -166,7 +173,7 @@ def main():
     optional.add_argument("--read2-suffix", default=None,
                          help="Read2文件后缀。默认自动检测，支持_2.fq.gz和_2.fastq.gz|Read2 file suffix. Auto-detect by default, supports _2.fq.gz and _2.fastq.gz")
     optional.add_argument("--single-end", action="store_true",
-                         help="单末端模式|Single-end mode")
+                         help="单末端模式（单文件输入时自动检测，无需手动指定）|Single-end mode (auto-detected for single file input, no need to specify manually)")
 
     # SeqKit配对修复选项|SeqKit pair options
     pair_group = parser.add_argument_group('配对修复选项|Pair repair options')

@@ -124,7 +124,6 @@ def hifi_hic(hifi, hic_r1, hic_r2, prefix, threads, genome_size,
     Genome assembly using hifiasm with HiFi data (optional Hi-C data)
 
     示例|Examples: biopytools hifi-hic -i hifi.fq -p sample1
-    高级用法（禁用去冗余）|Advanced (disable dedup): biopytools hifi-hic -i hifi.fq -p sample1 --no-purge-dups
     """
 
     # 延迟加载|Lazy load

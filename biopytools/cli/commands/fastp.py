@@ -95,7 +95,7 @@ def _validate_output_dir(dir_path):
               help='Read2文件后缀。默认自动检测，支持_2.fq.gz和_2.fastq.gz|Read2 file suffix. Auto-detect by default, supports _2.fq.gz and _2.fastq.gz')
 @click.option('--single-end',
               is_flag=True,
-              help='单末端模式|Single-end mode')
+              help='单末端模式（单文件输入时自动检测，无需手动指定）|Single-end mode (auto-detected for single file input, no need to specify manually)')
 @click.option('--enable-pair',
               is_flag=True,
               default=True,
@@ -134,6 +134,7 @@ def fastp(input, output_dir, fastp_path, threads, quality_threshold,
     使用fastp批量处理FASTQ文件质控|Batch quality control FASTQ files using fastp
 
     示例|Examples: biopytools fastp -i raw_data/ -o clean_data/
+                 biopytools fastp -i raw/hifi.fq -o clean_data/
     """
 
     # 延迟加载|Lazy load: import only when actually called

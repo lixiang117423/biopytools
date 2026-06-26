@@ -78,8 +78,10 @@ class FastpCore:
         Returns:
             处理是否成功|Whether processing succeeded
         """
-        # 单末端模式|Single-end mode
-        if self.config.single_end:
+        # 单末端模式（显式指定或自动检测到无配对文件）|Single-end mode (explicit or auto-detected no paired file)
+        if self.config.single_end or read2_file is None:
+            if not self.config.single_end and read2_file is None:
+                self.logger.info(f"自动检测为单末端模式|Auto-detected single-end mode for: {sample_name}")
             return self._process_single_end(sample_name, read1_file)
 
         # 双末端模式|Paired-end mode
