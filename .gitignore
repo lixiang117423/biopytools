@@ -273,6 +273,12 @@ biopytools/CLAUDE.md
 # Claude Code superpowers 规划/规格草稿（过程产物，不入库）|Claude Code superpowers plan/spec drafts (process artifacts)
 docs/superpowers/
 
+# Claude Code superpowers 技能工作目录（sdd等过程产物）|Claude Code superpowers skill workdirs (sdd etc.)
+.superpowers/
+
+# 根目录测试残留 samtools faidx 索引|root-level stray samtools faidx index
+/faidx.fai
+
 # ==============================================================================
 # BIOPYTOOLS MODULE EXCLUSIONS
 # ==============================================================================
