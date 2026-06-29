@@ -14,6 +14,69 @@ from pathlib import Path
 from typing import Tuple, Optional, List
 
 
+def get_conda_env(command: str) -> Optional[str]:
+    """
+    检测命令所在的conda环境名称|Detect conda env name where the command resides
+
+    策略|Strategy:
+        1. 从 which 解析出的路径提取 /envs/<name>/|Extract /envs/<name>/ from which path
+        2. 搜索所有 conda 环境的 bin 目录|Search all conda envs' bin directories
+
+    Args:
+        command: 命令名或完整路径|Command name or full path
+
+    Returns:
+        conda环境名或None|Conda env name or None
+
+    说明|Note:
+        方法2 兜底保证：即使工具不在当前 PATH 中(如未做软链接)，
+        只要它装在某个 conda 环境里，也能自动找到|Method 2 fallback: even if the
+        tool is not in PATH, it's found as long as it's in some conda env.
+    """
+    # 方法1: 从命令路径检测|Method 1: detect from resolved command path
+    cmd_path = shutil.which(command)
+    if cmd_path:
+        match = re.search(r'/envs/([^/]+)', cmd_path)
+        if match:
+            return match.group(1)
+
+    # 方法2: 搜索所有 conda 环境|Method 2: search all conda environments
+    conda_exe = os.environ.get('CONDA_EXE')
+    if conda_exe:
+        # CONDA_EXE 形如 /.../miniforge3/bin/conda|CONDA_EXE looks like /.../miniforge3/bin/conda
+        conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
+        envs_dir = os.path.join(conda_base_dir, 'envs')
+        if os.path.isdir(envs_dir):
+            for env_name in os.listdir(envs_dir):
+                if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
+                    return env_name
+
+    return None
+
+
+def build_conda_command(command: str, args: List[str]) -> List[str]:
+    """
+    构建conda run命令调用conda环境中的软件|Build conda run command to invoke software in a conda env
+
+    Args:
+        command: 命令名或完整路径|Command name or full path
+        args: 命令参数列表|Command argument list
+
+    Returns:
+        完整命令列表(配合 subprocess.run(shell=False) 使用)|
+        Full command list (use with subprocess.run(shell=False))
+
+    注意|Note:
+        必须使用 --no-capture-output 避免 conda 缓冲输出导致内存问题(§13.2.0)|
+        Must use --no-capture-output to avoid conda buffering output (§13.2.0)
+    """
+    conda_env = get_conda_env(command)
+    if conda_env:
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
+    # 非conda环境，直接调用|Not in a conda env, call directly
+    return [command] + args
+
+
 class GenomeAnalysisLogger:
     """基因组分析日志管理器|Genome Analysis Logger Manager"""
 
@@ -120,14 +183,19 @@ class GenomeScopeRunner:
 
             if gzip_files:
                 self.logger.info("检测到压缩文件，使用zcat解压缩|Compressed files detected, using zcat to decompress")
-                cmd = f"zcat {' '.join(gzip_files)} {' '.join(plain_files)}|" \
-                      f"jellyfish count -C -m {kmer_size} -s {hash_size} -t {threads} " \
-                      f"-o {jf_output} /dev/fd/0"
+                # 管道：系统zcat | 单个conda_run_jellyfish(--no-capture-output流式，符合§13.2.1)
+                # Pipeline: system zcat | single conda_run_jellyfish (streaming, §13.2.1 compliant)
+                jf_cmd = build_conda_command(
+                    'jellyfish',
+                    ['count', '-C', '-m', str(kmer_size), '-s', str(hash_size),
+                     '-t', str(threads), '-o', jf_output, '/dev/fd/0']
+                )
+                cmd = f"zcat {' '.join(gzip_files + plain_files)} | {' '.join(jf_cmd)}"
                 self.logger.info(f"命令|Command: {cmd}")
 
+                # shell=False 传列表(§13.3.4)，bash -c 执行管道|shell=False list, bash -c runs pipeline
                 process = subprocess.Popen(
-                    cmd,
-                    shell=True,
+                    ['bash', '-c', cmd],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE
                 )
@@ -137,14 +205,11 @@ class GenomeScopeRunner:
                     self.logger.error(f"Jellyfish count失败|Jellyfish count failed: {stderr.decode('utf-8')}")
                     return False
             else:
-                cmd = [
-                    'jellyfish', 'count',
-                    '-C',
-                    '-m', str(kmer_size),
-                    '-s', hash_size,
-                    '-t', str(threads),
-                    '-o', jf_output
-                ] + fastq_files
+                cmd = build_conda_command(
+                    'jellyfish',
+                    ['count', '-C', '-m', str(kmer_size), '-s', str(hash_size),
+                     '-t', str(threads), '-o', jf_output] + fastq_files
+                )
                 self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
                 result = subprocess.run(
@@ -189,11 +254,10 @@ class GenomeScopeRunner:
             return True
 
         try:
-            cmd = [
-                'jellyfish', 'histo',
-                '-t', str(threads),
-                jf_file
-            ]
+            cmd = build_conda_command(
+                'jellyfish',
+                ['histo', '-t', str(threads), jf_file]
+            )
             self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             with open(histo_file, 'w') as f:
@@ -256,16 +320,12 @@ class GenomeScopeRunner:
             self.logger.info(f"Histogram文件|Histogram file: {histo_file_abs}")
             self.logger.info(f"输出目录|Output directory: {output_dir_abs}")
 
-            # 构建conda run命令|Build conda run command
-            # 按照开发规范：使用conda run -n <env_name> <command>|Following dev guide: use conda run -n <env_name> <command>
-            cmd = [
-                'conda', 'run', '-n', self.config.genomescope_env,
-                '--no-capture-output', 'genomescope2',
-                '-i', histo_file_abs,
-                '-o', output_dir_abs,
-                '-k', str(kmer_size),
-                '-p', str(ploidy)
-            ]
+            # 构建conda run命令(自动检测genomescope2所在环境，§13)|Build conda run cmd (auto-detect env, §13)
+            cmd = build_conda_command(
+                'genomescope2',
+                ['-i', histo_file_abs, '-o', output_dir_abs,
+                 '-k', str(kmer_size), '-p', str(ploidy)]
+            )
 
             # 添加可选参数|Add optional parameters
             if max_kmer_cov > 0:
@@ -465,14 +525,11 @@ class SmudgeplotRunner:
             # 构建FastK命令
             # FastK的参数格式：-t threads -k kmer_size -M memory -T threads
             # 参数和值需要连在一起，如 -t12 -k21 -M16 -T12
-            cmd = [
+            cmd = build_conda_command(
                 'FastK',
-                '-v',
-                f'-t{threads}',
-                f'-k{kmer_size}',
-                f'-M{memory_int}',
-                f'-T{threads}',
-            ] + fastq_files_to_use + [f'-N{fastk_table}']
+                ['-v', f'-t{threads}', f'-k{kmer_size}', f'-M{memory_int}', f'-T{threads}']
+                + fastq_files_to_use + [f'-N{fastk_table}']
+            )
 
             self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
@@ -531,71 +588,15 @@ class SmudgeplotRunner:
         self.logger.info(f"  - 错误k-mer阈值(-L)|Error k-mer threshold(-L): {threshold} (计算公式|formula: int({kcov} * 0.5) = {threshold})")
         self.logger.info(f"    注|Note: 根据Smudgeplot官方文档，低端阈值设为单倍体k-mer coverage的50%|According to Smudgeplot docs, low-end threshold is set to 50% of haploid k-mer coverage")
 
-        # 检查Logex是否可用（smudgeplot的C后端）|Check if Logex is available (smudgeplot C backend)
-        import shutil
-        logex_path = shutil.which('Logex')
-        smudgeplot_dir = None  # 保存smudgeplot目录，用于后续subprocess调用|Save smudgeplot dir for later subprocess calls
-
-        # 先尝试找到smudgeplot的安装目录|First try to find smudgeplot installation directory
-        if not smudgeplot_dir:
-            smudgeplot_path = shutil.which('smudgeplot')
-            if smudgeplot_path:
-                # 解析符号链接，获取真实路径|Resolve symbolic link to get real path
-                real_smudgeplot_path = os.path.realpath(smudgeplot_path)
-                smudgeplot_dir = os.path.dirname(real_smudgeplot_path)
-                self.logger.debug(f"找到smudgeplot目录|Found smudgeplot directory: {smudgeplot_dir}")
-            else:
-                # 如果PATH中找不到，尝试直接从conda环境查找
-                # If not in PATH, try to find in conda environment directly
-                import os
-                conda_prefix = os.environ.get('CONDA_PREFIX')
-                if conda_prefix:
-                    # 当前环境的bin目录|Current environment's bin directory
-                    smudgeplot_in_conda = os.path.join(conda_prefix, 'bin', 'smudgeplot')
-                    if os.path.exists(smudgeplot_in_conda):
-                        smudgeplot_dir = os.path.join(conda_prefix, 'bin')
-                        self.logger.debug(f"在当前conda环境中找到smudgeplot|Found smudgeplot in current conda environment: {smudgeplot_dir}")
-                    else:
-                        # 尝试smudgeplot环境|Try smudgeplot environment
-                        smudgeplot_env = os.path.join(os.path.dirname(conda_prefix), 'smudgeplot', 'bin', 'smudgeplot')
-                        if os.path.exists(smudgeplot_env):
-                            smudgeplot_dir = os.path.join(os.path.dirname(conda_prefix), 'smudgeplot', 'bin')
-                            self.logger.debug(f"在smudgeplot环境中找到|Found in smudgeplot environment: {smudgeplot_dir}")
-
-                # 如果还是找不到，尝试常见的conda路径|If still not found, try common conda paths
-                if not smudgeplot_dir:
-                    common_paths = [
-                        os.path.expanduser('~/miniforge3/envs/smudgeplot/bin/smudgeplot'),
-                    ]
-                    for path in common_paths:
-                        if os.path.exists(path):
-                            smudgeplot_dir = os.path.dirname(path)
-                            self.logger.debug(f"在常见路径中找到smudgeplot|Found smudgeplot in common paths: {smudgeplot_dir}")
-                            break
-
-        if not logex_path:
-            self.logger.warning("Logex未在PATH中找到，正在尝试定位...|Logex not found in PATH, attempting to locate...")
-            # 尝试在smudgeplot安装目录中查找|Try to find in smudgeplot installation directory
-            try:
-                if smudgeplot_dir:
-                    logex_in_dir = os.path.join(smudgeplot_dir, 'Logex')
-                    if os.path.exists(logex_in_dir):
-                        self.logger.info(f"找到Logex|Found Logex: {logex_in_dir}")
-                        logex_path = logex_in_dir
-                    else:
-                        self.logger.warning(f"在 {smudgeplot_dir} 中未找到Logex|Logex not found in {smudgeplot_dir}")
-                else:
-                    self.logger.warning("smudgeplot命令也未找到，无法定位Logex|smudgeplot command also not found, cannot locate Logex")
-            except Exception as e:
-                self.logger.warning(f"检测Logex时出错|Error detecting Logex: {e}")
-
-        if logex_path:
-            self.logger.info(f"Logex可用|Logex available: {logex_path}")
-        else:
-            self.logger.error("Logex不可用！Smudgeplot的C后端未正确安装|Logex not available! Smudgeplot C backend not properly installed")
-            self.logger.error("解决方案: 重新安装smudgeplot或手动编译C代码|Solution: Reinstall smudgeplot or compile C code manually")
-            self.logger.error("参考: https://github.com/KamilSJaron/smudgeplot|Reference: https://github.com/KamilSJaron/smudgeplot")
+        # 检查Logex(smudgeplot的C后端)是否可用|Check Logex (smudgeplot C backend) availability
+        # Logex通常与smudgeplot同环境，conda run时会自动加入PATH，无需手动定位
+        # Logex is usually in the same env as smudgeplot; conda run adds env bin to PATH automatically
+        if not get_conda_env('Logex') and not shutil.which('Logex'):
+            self.logger.error("Logex不可用(smudgeplot的C后端)|Logex not available (smudgeplot C backend)")
+            self.logger.error("解决方案: 重新安装smudgeplot或手动编译C代码|Solution: reinstall smudgeplot or compile C code")
+            self.logger.error("参考|Reference: https://github.com/KamilSJaron/smudgeplot")
             return False
+        self.logger.info("Logex可用|Logex available")
 
         # 创建输出目录|Create output directory
         os.makedirs(output_dir, exist_ok=True)
@@ -613,28 +614,19 @@ class SmudgeplotRunner:
             self.logger.info("如需重新运行，请删除现有文件|To rerun, delete existing files")
         else:
             try:
-                # 步骤1: 运行smudgeplot hetmers
-                cmd = [
-                    'smudgeplot', 'hetmers',
-                    '-L', str(threshold),  # 使用kcov的50%作为错误k-mer下限阈值
-                    '-t', str(threads),
-                    '-o', hetmers_output,
-                    '--verbose',
-                    fastk_table
-                ]
+                # 步骤1: 运行smudgeplot hetmers(conda run自动激活环境，Logex在同环境PATH中)
+                # Step 1: run smudgeplot hetmers (conda run activates env, Logex in same env PATH)
+                cmd = build_conda_command(
+                    'smudgeplot',
+                    ['hetmers', '-L', str(threshold), '-t', str(threads),
+                     '-o', hetmers_output, '--verbose', fastk_table]
+                )
                 self.logger.info(f"命令|Command: {' '.join(cmd)}")
-
-                # 准备环境变量：如果smudgeplot_dir存在，临时添加到PATH
-                # Prepare environment: if smudgeplot_dir exists, temporarily add to PATH
-                env = os.environ.copy()
-                if smudgeplot_dir:
-                    env['PATH'] = smudgeplot_dir + ':' + env.get('PATH', '')
 
                 result = subprocess.run(
                     cmd,
                     capture_output=True,
-                    text=True,
-                    env=env  # 临时设置环境变量|Temporarily set environment variables
+                    text=True
                 )
 
                 if result.returncode != 0:
@@ -680,25 +672,16 @@ class SmudgeplotRunner:
             return True
 
         try:
-            cmd = [
-                'smudgeplot', 'all',
-                '-o', plot_output_prefix,
-                '-cov', str(kcov),  # 使用从GenomeScope提取的kcov值
-                smu_file
-            ]
+            cmd = build_conda_command(
+                'smudgeplot',
+                ['all', '-o', plot_output_prefix, '-cov', str(kcov), smu_file]
+            )
             self.logger.info(f"命令|Command: {' '.join(cmd)}")
-
-            # 准备环境变量：如果smudgeplot_dir存在，临时添加到PATH
-            # Prepare environment: if smudgeplot_dir exists, temporarily add to PATH
-            env = os.environ.copy()
-            if smudgeplot_dir:
-                env['PATH'] = smudgeplot_dir + ':' + env.get('PATH', '')
 
             result = subprocess.run(
                 cmd,
                 capture_output=True,
-                text=True,
-                env=env  # 临时设置环境变量|Temporarily set environment variables
+                text=True
             )
 
             if result.returncode != 0:

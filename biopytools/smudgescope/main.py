@@ -21,7 +21,7 @@ except ImportError:
     HAS_OPENPYXL = False
 
 from .config import GenomeAnalysisConfig
-from .utils import GenomeAnalysisLogger, GenomeScopeRunner, SmudgeplotRunner, SampleFinder
+from .utils import GenomeAnalysisLogger, GenomeScopeRunner, SmudgeplotRunner, SampleFinder, get_conda_env
 
 
 def _parse_genomescope_model(model_file: str) -> Optional[float]:
@@ -290,23 +290,16 @@ def check_dependencies(logger, run_smudgeplot=False) -> bool:
 
     all_ok = True
     for cmd, name in dependencies:
-        try:
-            # 检查命令|Check command
-            if cmd == 'smudgeplot':
-                # smudgeplot可能需要通过conda run调用|smudgeplot might need conda run
-                # 先尝试which，如果失败则跳过检查（会在运行时处理）
-                # Try which first, if fails skip check (will handle at runtime)
-                result = subprocess.run(['which', cmd], capture_output=True)
-                if result.returncode != 0:
-                    logger.warning(f"smudgeplot未在PATH中找到，将在运行时通过conda环境调用|smudgeplot not in PATH, will use conda env at runtime")
-                    continue
-            else:
-                subprocess.run(['which', cmd], capture_output=True, check=True)
-            logger.info(f"[OK] {name} 已找到|{name} found")
-        except (subprocess.CalledProcessError, FileNotFoundError):
+        # 统一检测：conda环境优先，PATH兜底，与运行时调用方式(conda run/直接调用)一致
+        # Unified detection: conda env first, PATH fallback, consistent with runtime
+        env = get_conda_env(cmd)
+        if env:
+            logger.info(f"[OK] {name} 已找到 (conda环境: {env})|{name} found (conda env: {env})")
+        elif shutil.which(cmd):
+            logger.info(f"[OK] {name} 已找到 (PATH)|{name} found (in PATH)")
+        else:
             logger.error(f"[ERROR] {name} 未找到|{name} not found")
-            if cmd == 'genomescope2':
-                logger.error("安装命令|Install command: conda create -n genomescope2_v.2.1.0 -c conda-forge genomescope2")
+            logger.error(f"请安装|Please install: conda create -n <env> -c bioconda {cmd}")
             all_ok = False
 
     return all_ok
@@ -475,13 +468,18 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
 
     # 设置顶层控制台日志（样本循环内会重新设置）|Setup top-level console logging (will reset in sample loop)
-    # INFO→stdout→.out, WARNING→stderr→.err
+    # INFO→stdout→.out, WARNING→stderr→.err (§2.3 超算日志分离|§2.3 job scheduler log separation)
     import logging
     logger = logging.getLogger("GenomeAnalysis")
     logger.setLevel(logging.DEBUG)
     logger.handlers.clear()
+    logger.propagate = False  # 避免传播到root logger导致重复|Avoid propagation to root logger
 
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    # 规范格式：点号分隔毫秒(§2.1)|Standard format: dot-separated ms (§2.1)
+    formatter = logging.Formatter(
+        '%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
 
     # stdout handler - INFO级别|stdout handler - INFO level
     stdout_handler = logging.StreamHandler(sys.stdout)
