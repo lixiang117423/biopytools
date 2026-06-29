@@ -5,8 +5,8 @@
 import argparse
 import sys
 from .config import LongestMRNAConfig
-from .utils import LongestMRNALogger, CommandRunner
-from .data_processing import GFF3Parser, CDSCalculator, TranscriptProcessor
+from .utils import LongestMRNALogger, CommandRunner, TempFileManager
+from .data_processing import GFF3Parser, CDSCalculator, TranscriptProcessor, GFFGenomeAligner
 from .extraction import SequenceExtractor
 from .results import GeneInfoGenerator, StatisticsCalculator, SummaryGenerator
 
@@ -36,11 +36,22 @@ class LongestMRNAExtractor:
 
     def run_extraction(self):
         """运行提取流程|Run extraction pipeline"""
+        # 管理对齐阶段产生的过滤GFF临时文件|Manages filtered GFF temp file produced by the alignment step
+        gff_temp_manager = TempFileManager(self.logger)
         try:
             self.logger.info("开始最长转录本提取流程|Starting longest mRNA extraction pipeline")
             self.logger.info(f"基因组文件|Genome file: {self.config.genome_file}")
             self.logger.info(f"GFF3文件|GFF3 file: {self.config.gff3_file}")
             self.logger.info(f"输出文件|Output file: {self.config.output_file}")
+
+            # 步骤0: 对齐GFF与基因组序列名，跳过基因组中不存在的序列|Step 0: Align GFF seqids with genome, skip seqids absent from genome
+            self.logger.info("步骤0: 对齐GFF与基因组序列名|Step 0: Aligning GFF seqids with genome FASTA")
+            aligner = GFFGenomeAligner(self.config.genome_file, self.config.gff3_file, self.logger)
+            effective_gff = aligner.align(gff_temp_manager)
+            # 重定向后续所有步骤使用(可能的)过滤后GFF，保证最长转录本/基因信息/序列输出三者一致|
+            # Redirect all downstream steps to the (possibly filtered) GFF so that longest-transcript,
+            # gene-info and sequence outputs stay consistent with each other
+            self.config.gff3_file = effective_gff
 
             # 步骤1: 计算最长转录本|Step 1: Calculate longest transcripts
             self.logger.info("步骤1: 分析GFF3文件，计算最长转录本|Step 1: Analyzing GFF3 file, calculating longest transcripts")
@@ -72,6 +83,8 @@ class LongestMRNAExtractor:
         except Exception as e:
             self.logger.error(f"提取流程在执行过程中意外终止|Extraction pipeline terminated unexpectedly: {e}")
             sys.exit(1)
+        finally:
+            gff_temp_manager.cleanup()
 
 def main():
     """主函数|Main function"""
