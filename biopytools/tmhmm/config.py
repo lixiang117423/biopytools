@@ -3,7 +3,21 @@ TMHMM配置类|TMHMM Configuration Class
 """
 
 import os
-from common.paths import get_tool_path, expand_path
+
+# 路径管理工具|Path management utilities
+try:
+    from common.paths import get_tool_path, expand_path
+except ImportError:
+    # 如果common模块不可用，使用简化版本|Fallback if common module unavailable
+    def get_tool_path(tool_name, default_path, env_var=None):
+        """获取工具路径|Get tool path"""
+        if env_var and os.environ.get(env_var):
+            return os.path.expandvars(os.path.expanduser(os.environ[env_var]))
+        return os.path.expandvars(os.path.expanduser(default_path))
+
+    def expand_path(path):
+        """展开路径|Expand path"""
+        return os.path.expandvars(os.path.expanduser(path))
 
 
 class TmhmmConfig:
