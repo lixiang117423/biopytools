@@ -67,6 +67,7 @@ COMMAND_REGISTRY = [
     ('gatk_joint', 'gatk-joint', 'GATK Joint Genotyping工具|GATK Joint Genotyping tool'),
     ('gemma_gwas', 'gemma-gwas', 'GEMMA GWAS批量分析工具|GEMMA GWAS batch analysis tool'),
     ('genebank2fasta', 'genebank2fasta', 'GenBank序列提取工具|GenBank sequence extraction tool'),
+    ('gene_density', 'gene-density', '基因密度计算(每窗口基因数与基因/Mb)|Gene density (genes/window and genes/Mb)'),
     ('geneinfo', 'geneinfo', '从GFF文件提取基因信息|Extract gene information from GFF file'),
     ('gap_stat', 'gap-stat', '基因组Gap统计工具|Genome gap statistics tool'),
     ('gffcompare', 'gffcompare', 'GFF/GTF文件两两比较分析|GFF/GTF pairwise comparison analysis'),
