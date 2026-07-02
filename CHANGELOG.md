@@ -1,4 +1,65 @@
 
+## [1.4.0] - 2026-07-02
+
+### Added
+- **新模块**：`deeptmhmm` — DeepTMHMM 跨膜螺旋/信号肽预测，输出整理后的 summary.tsv / topologies.3line / tmr.gff3
+- **新模块**：`gene_density` — 基因密度计算
+- **新模块**：`aliner` — a-liner 共线性可视化 pipeline（FASTA → minimap2 → 图）
+- `assembly_qc`：LAI 流程新增 EDTA 序列名自动改名（兼容 EDTA/RepeatMasker 的 13 字符序列名限制，生成唯一短名副本并保留旧名→新名映射，已存在则复用）
+- `longestmrna`：新增 GFF 与基因组序列名对齐，跳过基因组中缺失的序列
+- `ldblockshow`：新增 `--no-snp-filter` 参数，默认禁用 SNP 过滤
+- `ragtag`：合并 scaffolded 与 unscaffolded 序列为单一 FASTA 输出
+- `fastp`：单文件输入自动检测单末端模式，无需手动指定 `--single-end`
+- `smudgescope`：`get_conda_env` 支持 preferred 环境锁定版本（超算固定 genomescope_v.2.0.1）
+
+### Changed
+- **输出目录命名统一为下划线 `NN_xxx`**：`common/paths` 新增 `resolve_legacy_path` / `resolve_legacy_path_chain`，优先下划线规范名、找不到时回退点号老名以支持断点续传；转换 11 个点号派模块（assembly_qc / braker / hicanu / hifi_hic_workflow / dual_rnaseq / fastq2vcf_gtx / rnaseq / hifi_hic / haphic / fastq2vcf_parabricks / wgsim），并同步更新对应 docs
+- `smudgescope`：用 conda 环境自动检测替代手动定位 smudgeplot 目录
+
+### Fixed
+- `tmhmm`：路径导入增加 fallback，兼容 common 模块不可用场景
+- `rmvp`：输入 VCF/表型路径解析为绝对路径，修复 `-o` 子目录时 PLINK 找不到文件
+- `hic_heatmap`：补 samtools faidx 命令日志（§7.5）
+
+### Housekeeping
+- 移除代码中的 emoji（§5.2），保留数学/科学符号
+- 修复多模块硬编码绝对路径、conda 缺 `--no-capture-output` 等规范违规
+
+
+## [1.3.0] - 2026-06-25
+
+### Added
+- `admixture`：新增 LD 剪枝步骤（`--indep-pairwise`）
+- `rmvp`：多表型时自动按显著性合并 GWAS 结果；kinship/PCA 改用 LD 去连锁 SNP 计算（GWAS 仍用全部 SNP）；GWAS 输出改流式转发并修复断点续传检测
+
+### Changed
+- `bwa_gatk`、`fastq2vcf_gtx`：输出目录改用 §12 规范命名；`fastq2vcf_gtx` 生成软件版本元数据
+
+### Fixed
+- `rmvp`：适配 rMVP 1.4.6 真实输出格式，改进断点续传可靠性
+- `admixture`：`build_conda_command` 补 `--no-capture-output`（§13.2.0）、修复 PlinkProcessor 命令构造
+- `bwa_gatk`：修复 CommandRunner 成功返回值
+
+### Housekeeping
+- 同步代码规范 CLAUDE.md 至 v2.14，整理 .gitignore
+- 更新 conda 环境配置文件，清理 prefix 硬编码路径
+
+
+## [1.2.0] - 2026-06-24
+
+### Added
+- **新模块**：`qiime2` — QIIME2 微生物组多样性分析
+- **新模块**：`subgenome_assign` — 基于亲本比对的亚基因组归属
+- **新模块**：`faprotaxtax` — FAPROTAX 微生物群落功能注释
+
+### Fixed
+- `kaks`：改用输出内容检测替代退出码检测 KaKs_Calculator 安装
+- `cphasing`：移除 conda run 包装改用 `activate_cphasing` 激活；加 stderr 异常扫描防御上游吞异常 bug；修复透传参数 bug 并默认开启亚基因组聚类
+
+### Housekeeping
+- README 添加 AI 辅助开发声明
+
+
 ## [1.1.0] - 2026-06-17
 
 ### Added
