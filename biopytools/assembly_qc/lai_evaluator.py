@@ -10,7 +10,7 @@ import subprocess
 import re
 import glob
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from .utils import get_conda_env_from_path, build_conda_command
 
 
@@ -27,6 +27,134 @@ class LAIEvaluator:
         self.edta_env_name = get_conda_env_from_path(self.config.conda_env_edta)
         self.ltr_harvest_env_name = get_conda_env_from_path(self.config.conda_env_ltr_harvest)
         self.ltr_retriever_env_name = get_conda_env_from_path(self.config.conda_env_ltr_retriever)
+
+        # EDTA实际消费的基因组路径(默认原基因组,需改名时替换为改名副本)
+        # Genome path EDTA actually consumes (defaults to original; replaced by renamed copy when needed)
+        self.edta_genome = self.config.genome
+
+    # EDTA对序列名有13字符硬限制|EDTA has a hard 13-char limit on seq IDs
+    # RepeatMasker/Census不支持超过13字符的序列名,EDTA内置两轮改名(截断/提数字)对HiC_scaffold_XX类名字会撞名失败
+    # RepeatMasker/Census reject >13-char seq IDs; EDTA's 2 built-in rename attempts (truncate/extract-number) collide on names like HiC_scaffold_XX
+    EDTA_SEQ_ID_MAX_LEN = 13
+
+    def _prepare_genome_for_edta(self) -> str:
+        """
+        准备EDTA兼容的基因组|Prepare an EDTA-compatible genome
+
+        EDTA要求序列名<=13字符且唯一|EDTA requires seq IDs <=13 chars and unique
+        检测到超长或重复序列名时,生成唯一短名副本(如s0001)供EDTA使用,并保留旧名→新名映射表
+        When long or duplicate IDs are detected, generates a uniquely-renamed copy (e.g. s0001) for EDTA, keeping an old->new map
+
+        Returns:
+            EDTA实际消费的基因组路径|Genome path EDTA will actually consume
+        """
+        genome = self.config.genome
+        seq_ids = self._read_seq_ids(genome)
+
+        if not seq_ids:
+            self.logger.warning(f"未读取到序列名,使用原基因组|No seq IDs read, using original genome: {genome}")
+            return genome
+
+        max_len = max(len(sid) for sid in seq_ids)
+        all_unique = len(set(seq_ids)) == len(seq_ids)
+        if max_len <= self.EDTA_SEQ_ID_MAX_LEN and all_unique:
+            self.logger.info(
+                f"序列名最长{max_len}字符且唯一,EDTA兼容,无需改名|"
+                f"Max seq ID length {max_len} <= {self.EDTA_SEQ_ID_MAX_LEN} and unique, no rename needed"
+            )
+            return genome
+
+        # 需要改名: 生成唯一短名副本|Need rename: create uniquely-renamed copy
+        genome_stem = Path(genome).stem
+        renamed_path = self.working_dir / f"{genome_stem}.edta_renamed.fa"
+        map_path = self.working_dir / f"{genome_stem}.edta_renamed.map.tsv"
+
+        # 断点续传: 已存在则直接复用|Checkpoint resume: reuse if already exists
+        if renamed_path.exists() and map_path.exists():
+            self.logger.info(
+                f"序列名最长{max_len}字符超限,复用已有改名副本|"
+                f"Seq IDs up to {max_len} chars exceed limit, reusing renamed copy: {renamed_path}"
+            )
+            return str(renamed_path)
+
+        self.logger.warning(
+            f"序列名最长{max_len}字符超过EDTA {self.EDTA_SEQ_ID_MAX_LEN}字符限制,生成改名副本|"
+            f"Seq IDs up to {max_len} chars exceed EDTA {self.EDTA_SEQ_ID_MAX_LEN}-char limit, creating renamed copy"
+        )
+        self.logger.info(f"改名映射表(旧名→新名)|Rename map (old->new): {map_path}")
+
+        new_ids = self._generate_short_ids(len(seq_ids))
+        self._write_renamed_fasta(genome, renamed_path, new_ids, map_path)
+
+        self.logger.info(
+            f"改名副本已生成|Renamed genome created: {renamed_path} "
+            f"(共{len(seq_ids)}条序列|{len(seq_ids)} sequences)"
+        )
+        return str(renamed_path)
+
+    def _read_seq_ids(self, genome_path: str) -> List[str]:
+        """
+        读取FASTA所有序列名(取>后第一个空白分隔token,与EDTA一致)|Read all seq IDs (first token after >, matching EDTA)
+
+        Args:
+            genome_path: 基因组FASTA路径|Genome FASTA path
+
+        Returns:
+            序列名列表(按文件顺序)|List of seq IDs (in file order)
+        """
+        seq_ids: List[str] = []
+        with open(genome_path, 'r') as f:
+            for line in f:
+                if line.startswith('>'):
+                    # 取>后第一个token,与EDTA的(split)[0]一致|First token after >, matching EDTA's (split)[0]
+                    header = line[1:].strip()
+                    seq_ids.append(header.split()[0] if header else '')
+        return seq_ids
+
+    def _generate_short_ids(self, count: int) -> List[str]:
+        """
+        生成唯一短序列名(如s0001),保证<=13字符|Generate unique short seq IDs (e.g. s0001), guaranteed <=13 chars
+
+        Args:
+            count: 序列数量|Number of sequences
+
+        Returns:
+            短序列名列表|List of short seq IDs
+        """
+        # 宽度按序列数决定,前缀's',总长=1+width,远小于13|Width by count, prefix 's', total = 1+width << 13
+        width = max(1, len(str(count)))
+        return [f"s{str(i + 1).zfill(width)}" for i in range(count)]
+
+    def _write_renamed_fasta(self, src: str, dst: Path, new_ids: List[str], map_path: Path) -> None:
+        """
+        写入改名后的FASTA及映射表|Write renamed FASTA and mapping table
+
+        Args:
+            src: 原基因组路径|Source genome path
+            dst: 改名副本路径|Destination renamed FASTA path
+            new_ids: 新序列名列表(顺序与原文件头一致)|New seq IDs (same order as source headers)
+            map_path: 映射表路径(旧名\\t新名)|Map path (old_id\\tnew_id per line)
+
+        Raises:
+            IndexError: 序列数与预期不符|Sequence count mismatch
+        """
+        seq_idx = 0
+        with open(src, 'r') as fin, open(dst, 'w') as fout, open(map_path, 'w') as fmap:
+            for line in fin:
+                if line.startswith('>'):
+                    old_header = line[1:].strip()
+                    old_id = old_header.split()[0] if old_header else ''
+                    if seq_idx >= len(new_ids):
+                        raise IndexError(
+                            f"序列数({seq_idx + 1})超过预期({len(new_ids)}),请检查FASTA头是否变动|"
+                            f"Sequence count ({seq_idx + 1}) exceeds expected ({len(new_ids)}), check FASTA headers"
+                        )
+                    new_id = new_ids[seq_idx]
+                    fmap.write(f"{old_id}\t{new_id}\n")
+                    fout.write(f">{new_id}\n")
+                    seq_idx += 1
+                else:
+                    fout.write(line)
 
     def evaluate(self) -> Optional[Dict[str, Any]]:
         """运行LAI评估|Run LAI evaluation"""
@@ -67,6 +195,9 @@ class LAIEvaluator:
         """
         self.logger.info("使用EDTA流程计算LAI|Calculating LAI using EDTA pipeline")
 
+        # 准备EDTA兼容的基因组(序列名<=13字符,必要时生成改名副本)|Prepare EDTA-compatible genome (seq IDs <=13 chars; rename if needed)
+        self.edta_genome = self._prepare_genome_for_edta()
+
         # 获取EDTA.pl脚本路径|Get EDTA.pl script path
         # EDTA.pl通常在conda环境的bin目录中|EDTA.pl is usually in the bin directory of conda env
         edta_pl_path = os.path.join(self.config.conda_env_edta, "bin", "EDTA.pl")
@@ -95,11 +226,11 @@ class LAIEvaluator:
         # --anno: 执行全基因组TE注释|Perform whole-genome TE annotation
         # --evaluate: 评估注释一致性|Evaluate annotation consistency
 
-        genome_basename = Path(self.config.genome).stem
+        genome_basename = Path(self.edta_genome).stem
 
         edta_args = [
             edta_pl_path,
-            "--genome", self.config.genome,
+            "--genome", self.edta_genome,
             "--species", "others",  # 非水稻/玉米物种|Non-rice/maize species
             "--step", "all",  # 运行完整流程|Run entire pipeline
             "--overwrite", "1",  # 覆盖已有结果|Overwrite previous results
@@ -209,7 +340,7 @@ class LAIEvaluator:
         self.logger.info("手动完成EDTA注释|Manually completing EDTA annotation")
         self.logger.info("=" * 60)
 
-        genome_mod = self.working_dir / f"{Path(self.config.genome).name}.mod"
+        genome_mod = self.working_dir / f"{Path(self.edta_genome).name}.mod"
         if not genome_mod.exists():
             self.logger.error(f"未找到genome.fa.mod文件|Cannot find genome.fa.mod file: {genome_mod}")
             return None
@@ -314,7 +445,7 @@ class LAIEvaluator:
             return None
 
         # 运行LAI计算|Run LAI calculation
-        genome_mod = self.working_dir / f"{Path(self.config.genome).name}.mod"
+        genome_mod = self.working_dir / f"{Path(self.edta_genome).name}.mod"
         return self._run_lai_calculation(passed_list, out_file, genome_mod)
 
     def _run_lai_calculation(self, passed_list: Path, out_file: Path, genome_mod: Path) -> Optional[Dict[str, Any]]:
@@ -640,22 +771,13 @@ class LAIEvaluator:
             找到的LAI文件路径，未找到返回None|Found LAI file path, None if not found
         """
         # 可能的LAI文件位置|Possible LAI file locations
-        # 1. working_dir根目录|working_dir root
-        # 2. anno子目录|anno subdirectory
-
-        # 使用glob查找所有.LAI文件|Use glob to find all .LAI files
-        lai_files = glob.glob(str(self.working_dir / "*.LAI"), recursive=False)
+        # 递归查找working_dir下所有.LAI文件(兼容改名前后的EDTA输出目录名)
+        # Recursive search for all .LAI files (works with EDTA output dirs before/after renaming)
+        lai_files = glob.glob(str(self.working_dir / "**" / "*.LAI"), recursive=True)
 
         if lai_files:
             # 如果找到多个，选择最新的|If multiple found, choose the latest
             lai_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
             return Path(lai_files[0])
-
-        # 尝试查找anno子目录中的LAI文件|Try finding LAI file in anno subdirectory
-        anno_dir = self.working_dir / f"{Path(self.config.genome).name}.mod.EDTA.anno"
-        if anno_dir.exists():
-            lai_in_anno = list(anno_dir.glob("*.LAI"))
-            if lai_in_anno:
-                return lai_in_anno[0]
 
         return None
