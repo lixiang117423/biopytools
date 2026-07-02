@@ -8,6 +8,8 @@ import os
 import sys
 from pathlib import Path
 
+from ..common.paths import resolve_legacy_path
+
 
 class PurgeDupsWrapper:
     """Purge_Dups去冗余封装类|Purge_Dups Deduplication Wrapper Class"""
@@ -59,7 +61,7 @@ class PurgeDupsWrapper:
             # Prefer NGS polished reads, otherwise use original HiFi reads
             if self.config.has_ngs:
                 # 检查是否有筛选后的reads|Check if there are filtered reads
-                filtered_reads = os.path.join(self.config.ngs_polish_dir, "03.filtered_reads",
+                filtered_reads = os.path.join(resolve_legacy_path(self.config.ngs_polish_dir, "03_filtered_reads"),
                                             f"{self.config.prefix}_high_quality_reads.fq.gz")
                 if os.path.exists(filtered_reads):
                     input_reads = filtered_reads

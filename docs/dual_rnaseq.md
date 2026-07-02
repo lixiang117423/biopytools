@@ -108,23 +108,23 @@ chromosome1	RefSeq	CDS	1200	1400	.	+	0	ID=cds1;Parent=transcript1
 
 ```
 dual_rnaseq_output/
-├── 01.index/                           # 索引文件
+├── 01_index/                           # 索引文件
 │   ├── host.hisat2.index.*.ht2
 │   └── pathogen.hisat2.index.*.ht2
-├── 02.classification/                  # Reads分类结果
+├── 02_classification/                  # Reads分类结果
 │   └── sample1/
 │       ├── sample1.host.bam            # 宿主特异性reads
 │       ├── sample1.pathogen.bam        # 病原体特异性reads
 │       ├── sample1.ambiguous.bam       # 无法确定的reads
 │       └── sample1.unassigned.bam      # 未比对上的reads
-├── 03.quantification/                  # 定量结果
+├── 03_quantification/                  # 定量结果
 │   ├── host/
 │   │   ├── sample1.gtf
 │   │   └── sample1.fpkm.txt
 │   └── pathogen/
 │       ├── sample1.gtf
 │       └── sample1.fpkm.txt
-├── 04.expression_matrix/               # 表达矩阵
+├── 04_expression_matrix/               # 表达矩阵
 │   ├── host_matrix.txt                 # 宿主表达矩阵
 │   └── pathogen_matrix.txt             # 病原体表达矩阵
 └── dual_rnaseq_summary.txt             # 分析总结报告

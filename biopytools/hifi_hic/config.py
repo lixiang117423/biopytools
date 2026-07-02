@@ -6,7 +6,7 @@ import os
 import glob
 from dataclasses import dataclass
 from pathlib import Path
-from ..common.paths import expand_path
+from ..common.paths import expand_path, resolve_legacy_path, resolve_legacy_path_chain
 
 @dataclass
 class AssemblyConfig:
@@ -89,12 +89,13 @@ class AssemblyConfig:
 
         # 定义子目录|Define subdirectories
         # 目录编号始终固定，避免重复|Fixed directory numbering to avoid conflicts
-        self.raw_dir = os.path.join(self.work_dir, "01.raw_output")
-        self.fasta_dir = os.path.join(self.work_dir, "02.fasta")
-        self.ngs_polish_dir = os.path.join(self.work_dir, "03.ngs_polish")  # 仅在有NGS时创建|Only created when has NGS
-        self.purge_dups_dir = os.path.join(self.work_dir, "04.purge_dups")  # 去冗余目录|Deduplication directory
-        self.stat_dir = os.path.join(self.work_dir, "05.statistics")  # 统计目录（编号后移）|Statistics directory (number shifted)
-        self.log_dir = os.path.join(self.work_dir, "06.logs")  # 日志目录（编号后移）|Logs directory (number shifted)
+        # 优先使用下划线规范名，回退点号老名以兼容历史输出|Prefer underscore name, fall back to legacy dot name
+        self.raw_dir = resolve_legacy_path(self.work_dir, "01_raw_output")
+        self.fasta_dir = resolve_legacy_path(self.work_dir, "02_fasta")
+        self.ngs_polish_dir = resolve_legacy_path(self.work_dir, "03_ngs_polish")  # 仅在有NGS时创建|Only created when has NGS
+        self.purge_dups_dir = resolve_legacy_path(self.work_dir, "04_purge_dups")  # 去冗余目录|Deduplication directory
+        self.stat_dir = resolve_legacy_path(self.work_dir, "05_statistics")  # 统计目录（编号后移）|Statistics directory (number shifted)
+        self.log_dir = resolve_legacy_path(self.work_dir, "06_logs")  # 日志目录（编号后移）|Logs directory (number shifted)
 
         # 创建目录结构|Create directory structure
         dirs_to_create = [self.work_dir, self.raw_dir, self.fasta_dir, self.stat_dir, self.log_dir]
@@ -218,18 +219,18 @@ class AssemblyConfig:
         # 如果有NGS数据，检查NGS polish各步骤|Check NGS polish steps if NGS data provided
         if self.has_ngs:
             # 检查BWA比对是否完成|Check if BWA alignment completed
-            bam_file = os.path.join(self.ngs_polish_dir, "01.bwa_alignment", "bam", f"{self.prefix}.bam")
+            bam_file = os.path.join(resolve_legacy_path_chain(self.ngs_polish_dir, "01_bwa_alignment"), "bam", f"{self.prefix}.bam")
             if os.path.exists(bam_file) and os.path.getsize(bam_file) > 0:
                 steps['bwa_alignment'] = True
 
             # 检查coverage filter是否完成|Check if coverage filter completed
-            high_quality_list = os.path.join(self.ngs_polish_dir, "02.coverage_filter",
+            high_quality_list = os.path.join(resolve_legacy_path(self.ngs_polish_dir, "02_coverage_filter"),
                                             f"{self.prefix}_high_quality.list")
             if os.path.exists(high_quality_list) and os.path.getsize(high_quality_list) > 0:
                 steps['coverage_filter'] = True
 
             # 检查筛选的reads是否已提取|Check if filtered reads extracted
-            filtered_reads = os.path.join(self.ngs_polish_dir, "03.filtered_reads",
+            filtered_reads = os.path.join(resolve_legacy_path(self.ngs_polish_dir, "03_filtered_reads"),
                                          f"{self.prefix}_high_quality_reads.fq.gz")
             if os.path.exists(filtered_reads) and os.path.getsize(filtered_reads) > 0:
                 steps['filtered_reads'] = True

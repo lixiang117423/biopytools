@@ -5,6 +5,7 @@
 import os
 import re
 from .utils import CommandRunner, FileValidator
+from ..common.paths import resolve_legacy_path
 
 
 class DualQuantifier:
@@ -95,7 +96,7 @@ class DualQuantifier:
         self.logger.info(f"开始样本定量|Starting sample quantification: {sample_name}")
 
         # 获取分类结果BAM文件|Get classified BAM files
-        classification_dir = os.path.join(self.config.output_dir, "02.classification", sample_name)
+        classification_dir = os.path.join(resolve_legacy_path(self.config.output_dir, "02_classification"), sample_name)
         species1_bam = os.path.join(classification_dir, f"{sample_name}.{self.config.species1_name}.bam")
         species2_bam = os.path.join(classification_dir, f"{sample_name}.{self.config.species2_name}.bam")
 
@@ -109,7 +110,7 @@ class DualQuantifier:
             return False
 
         # 创建定量输出目录|Create quantification output directory
-        quant_dir = os.path.join(self.config.output_dir, "04.quantification")
+        quant_dir = resolve_legacy_path(self.config.output_dir, "04_quantification")
         species1_quant_dir = os.path.join(quant_dir, self.config.species1_name)
         species2_quant_dir = os.path.join(quant_dir, self.config.species2_name)
         os.makedirs(species1_quant_dir, exist_ok=True)

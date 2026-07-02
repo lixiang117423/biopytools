@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List
-from ..common.paths import expand_path
+from ..common.paths import expand_path, resolve_legacy_path
 
 
 @dataclass
@@ -340,7 +340,7 @@ class HapHiCConfig:
     def get_output_files(self):
         """获取输出文件路径|Get output file paths"""
         base_path = os.path.join(self.output_dir, self.prefix)
-        build_dir = os.path.join(self.output_dir, "04.build")
+        build_dir = resolve_legacy_path(self.output_dir, "04_build")
 
         return {
             "corrected_asm": f"{base_path}_corrected.asm.fa",
@@ -349,8 +349,8 @@ class HapHiCConfig:
             "scaffolds_fasta": os.path.join(build_dir, f"{self.prefix}.fa"),
             "juicebox_script": os.path.join(build_dir, f"{self.prefix}_juicebox.sh"),
             "contact_map": f"{base_path}_contact_map.pdf",
-            "hic_file": os.path.join(self.output_dir, "06.juicebox", f"{self.prefix}.hic"),
-            "assembly_file": os.path.join(self.output_dir, "06.juicebox", f"{self.prefix}.assembly"),
+            "hic_file": os.path.join(resolve_legacy_path(self.output_dir, "06_juicebox"), f"{self.prefix}.hic"),
+            "assembly_file": os.path.join(resolve_legacy_path(self.output_dir, "06_juicebox"), f"{self.prefix}.assembly"),
             "log_file": self.log_file
         }
 

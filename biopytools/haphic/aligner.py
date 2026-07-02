@@ -12,6 +12,7 @@ import re
 from pathlib import Path
 from typing import List, Tuple, Optional
 from .utils import build_conda_command
+from ..common.paths import resolve_legacy_path
 
 
 class BWAAligner:
@@ -69,10 +70,10 @@ class BWAAligner:
 
         # 创建比对输出目录|Create alignment output directory
         if is_realignment:
-            alignment_dir = os.path.join(self.config.output_dir, "00.mapping_corrected")
+            alignment_dir = resolve_legacy_path(self.config.output_dir, "00_mapping_corrected")
             self.logger.info("使用纠错后重新比对目录|Using corrected realignment directory")
         else:
-            alignment_dir = os.path.join(self.config.output_dir, "00.mapping")
+            alignment_dir = resolve_legacy_path(self.config.output_dir, "00_mapping")
         os.makedirs(alignment_dir, exist_ok=True)
 
         # 获取FASTQ文件对|Get FASTQ file pairs

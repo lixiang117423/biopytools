@@ -100,16 +100,16 @@ success = processor.run_pipeline()
 ### 主要输出 | Primary Outputs
 
 ```
-04.build/
+04_build/
 ├── {prefix}.fa              # 最终scaffold序列
 ├── {prefix}.agp             # SALSA格式AGP文件
 ├── {prefix}.raw.agp         # YaHS格式AGP文件
 └── juicebox.sh              # Juicebox脚本
 
-05.plots/                    # 可视化图表目录
+05_plots/                    # 可视化图表目录
 └── *.pdf/*.png              # Hi-C接触图
 
-06.juicebox/                 # Juicebox兼容文件
+06_juicebox/                 # Juicebox兼容文件
 ├── {prefix}.hic            # Juicebox格式Hi-C文件
 ├── {prefix}.assembly       # 3D-DNA assembly文件
 ├── out.links.mnd           # MND格式文件
@@ -212,7 +212,7 @@ haphic pipeline assembly.fa HiC.filtered.bam 12 \
 
 ### 步骤3: 可视化生成（默认执行）
 ```bash
-haphic plot assembly.fa 04.build/prefix.agp \
+haphic plot assembly.fa 04_build/prefix.agp \
     --bin_size 500
 ```
 
@@ -222,7 +222,7 @@ haphic plot assembly.fa 04.build/prefix.agp \
 matlock bam2 juicer HiC.filtered.bam out.links.mnd
 
 # 生成assembly文件
-agp2assembly.py 04.build/prefix.agp prefix.assembly
+agp2assembly.py 04_build/prefix.agp prefix.assembly
 
 # 生成.hic文件
 run-assembly-visualizer.sh prefix.assembly out.sorted.links.mnd
@@ -316,10 +316,10 @@ tail -f {prefix}_haphic.log
 ```
 
 关键日志位置：
-- `01.cluster/HapHiC_cluster.log`
-- `02.reassign/HapHiC_reassign.log`
-- `03.sort/HapHiC_sort.log`
-- `04.build/HapHiC_build.log`
+- `01_cluster/HapHiC_cluster.log`
+- `02_reassign/HapHiC_reassign.log`
+- `03_sort/HapHiC_sort.log`
+- `04_build/HapHiC_build.log`
 
 ## 📈 性能基准 | Performance Benchmarks
 

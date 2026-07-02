@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path, get_tool_path
+from ..common.paths import expand_path, get_tool_path, resolve_legacy_path
 
 
 @dataclass
@@ -171,11 +171,12 @@ class AssemblyQCConfig:
         self.work_dir = self.output_dir
 
         # 定义各步骤输出目录|Define step output directories (遵循开发规范12.2)
-        self.busco_output_dir = os.path.join(self.work_dir, "01.busco_evaluation")
-        self.lai_output_dir = os.path.join(self.work_dir, "02.lai_evaluation")
-        self.qv_output_dir = os.path.join(self.work_dir, "03.qv_evaluation")
-        self.mapping_output_dir = os.path.join(self.work_dir, "04.mapping_evaluation")
-        self.long_read_mapping_output_dir = os.path.join(self.work_dir, "05.long_read_mapping_evaluation")
+        # 优先下划线规范名，回退点号老名用于断点续传|Prefer underscore, fall back to legacy dot name
+        self.busco_output_dir = resolve_legacy_path(self.work_dir, "01_busco_evaluation")
+        self.lai_output_dir = resolve_legacy_path(self.work_dir, "02_lai_evaluation")
+        self.qv_output_dir = resolve_legacy_path(self.work_dir, "03_qv_evaluation")
+        self.mapping_output_dir = resolve_legacy_path(self.work_dir, "04_mapping_evaluation")
+        self.long_read_mapping_output_dir = resolve_legacy_path(self.work_dir, "05_long_read_mapping_evaluation")
 
         # 创建各步骤目录|Create step directories
         for step_dir in [

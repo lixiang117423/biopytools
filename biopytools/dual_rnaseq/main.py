@@ -14,6 +14,7 @@ from .quantification import DualQuantifier
 from .results import DualMatrixMerger, SummaryGenerator
 from .bam_to_fastq import BamToFastqExtractor
 from .mapping_stats import MappingStatistics
+from ..common.paths import resolve_legacy_path
 
 
 class DualRNASeqAnalyzer:
@@ -104,9 +105,9 @@ class DualRNASeqAnalyzer:
                 # 每个样本分类完成后立即提取FASTQ|Extract FASTQ immediately after each sample classification
                 if self.config.extract_fastq:
                     classification_dir = os.path.join(
-                        self.config.output_dir, "02.classification", sample_name
+                        resolve_legacy_path(self.config.output_dir, "02_classification"), sample_name
                     )
-                    fastq_dir = os.path.join(self.config.output_dir, "06.extracted_fastq")
+                    fastq_dir = resolve_legacy_path(self.config.output_dir, "06_extracted_fastq")
                     self.logger.info(f"提取{sample_name}的FASTQ|Extracting FASTQ for {sample_name}")
                     if not self.bam_to_fastq_extractor.extract_sample_fastqs(
                         sample_name, classification_dir, fastq_dir
@@ -120,7 +121,7 @@ class DualRNASeqAnalyzer:
 
             # 收集所有样本的BAM文件路径|Collect BAM file paths for all samples
             bam_files = []
-            temp_dir = os.path.join(self.config.output_dir, "02.classification", ".temp")
+            temp_dir = os.path.join(resolve_legacy_path(self.config.output_dir, "02_classification"), ".temp")
 
             for sample in samples:
                 sample_name = sample["name"]
@@ -129,7 +130,7 @@ class DualRNASeqAnalyzer:
                 bam_files.append((sample_name, species1_bam, species2_bam))
 
             # 生成比对统计报告|Generate alignment statistics report
-            stats_dir = os.path.join(self.config.output_dir, "03.alignment_statistics")
+            stats_dir = resolve_legacy_path(self.config.output_dir, "03_alignment_statistics")
             os.makedirs(stats_dir, exist_ok=True)
 
             if not self.mapping_stats.process_all_samples(bam_files, stats_dir):
@@ -152,7 +153,7 @@ class DualRNASeqAnalyzer:
             self.logger.info("=" * 60)
 
             # 获取定量结果文件|Get quantification result files
-            quant_dir = os.path.join(self.config.output_dir, "04.quantification")
+            quant_dir = resolve_legacy_path(self.config.output_dir, "04_quantification")
             species1_fpkm_files = []
             species2_fpkm_files = []
 
@@ -185,7 +186,7 @@ class DualRNASeqAnalyzer:
             self.logger.info(f"  - {self.config.species1_name}_matrix.txt: {self.config.species1_name}表达矩阵|expression matrix")
             self.logger.info(f"  - {self.config.species2_name}_matrix.txt: {self.config.species2_name}表达矩阵|expression matrix")
             if self.config.extract_fastq:
-                self.logger.info(f"  - 06.extracted_fastq/: 提取的FASTQ文件|Extracted FASTQ files")
+                self.logger.info(f"  - 06_extracted_fastq/: 提取的FASTQ文件|Extracted FASTQ files")
             self.logger.info("=" * 60)
 
         except KeyboardInterrupt:

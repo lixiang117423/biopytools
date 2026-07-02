@@ -9,6 +9,8 @@ import os
 import subprocess
 from pathlib import Path
 
+from ..common.paths import resolve_legacy_path
+
 
 class NGSPolisher:
     """NGS数据polish器|NGS Data Polisher"""
@@ -50,8 +52,7 @@ class NGSPolisher:
             else:
                 self.logger.info("检测到覆盖度过滤已完成，跳过|Coverage filter already completed, skipping")
                 # 获取已生成的高质量contig列表|Get already generated high-quality contig list
-                high_quality_list = os.path.join(self.config.ngs_polish_dir,
-                                                 "02.coverage_filter",
+                high_quality_list = os.path.join(resolve_legacy_path(self.config.ngs_polish_dir, "02_coverage_filter"),
                                                  f"{self.config.prefix}_high_quality.list")
 
             # 3. 提取高质量reads|Extract high-quality reads
@@ -61,8 +62,7 @@ class NGSPolisher:
                     return False
             else:
                 self.logger.info("检测到reads筛选已完成，跳过|Reads filtering already completed, skipping")
-                filtered_reads = os.path.join(self.config.ngs_polish_dir,
-                                             "03.filtered_reads",
+                filtered_reads = os.path.join(resolve_legacy_path(self.config.ngs_polish_dir, "03_filtered_reads"),
                                              f"{self.config.prefix}_high_quality_reads.fq.gz")
 
             # 4. 重新组装|Reassembly
@@ -96,7 +96,7 @@ class NGSPolisher:
             from biopytools.bwa.main import BWAAligner
 
             # 定义输出目录|Define output directory
-            bwa_output_dir = os.path.join(self.config.ngs_polish_dir, "01.bwa_alignment")
+            bwa_output_dir = resolve_legacy_path(self.config.ngs_polish_dir, "01_bwa_alignment")
 
             # 创建BWA比对器|Create BWA aligner
             bwa_aligner = BWAAligner(
@@ -138,11 +138,11 @@ class NGSPolisher:
             from biopytools.coverage_filter.main import CoverageFilter
 
             # 定义输出路径|Define output paths
-            filter_output_dir = os.path.join(self.config.ngs_polish_dir, "02.coverage_filter")
+            filter_output_dir = resolve_legacy_path(self.config.ngs_polish_dir, "02_coverage_filter")
             Path(filter_output_dir).mkdir(parents=True, exist_ok=True)
 
             # 获取BAM文件|Get BAM file
-            bwa_output_dir = os.path.join(self.config.ngs_polish_dir, "01.bwa_alignment")
+            bwa_output_dir = resolve_legacy_path(self.config.ngs_polish_dir, "01_bwa_alignment")
             bam_dir = os.path.join(bwa_output_dir, "bam")
 
             # 查找实际生成的BAM文件（以样本名命名）|Find actual BAM files (named by sample)
@@ -230,7 +230,7 @@ class NGSPolisher:
 
         try:
             # 定义输出路径|Define output paths
-            filtered_reads_dir = os.path.join(self.config.ngs_polish_dir, "03.filtered_reads")
+            filtered_reads_dir = resolve_legacy_path(self.config.ngs_polish_dir, "03_filtered_reads")
             Path(filtered_reads_dir).mkdir(parents=True, exist_ok=True)
 
             read_names_file = os.path.join(filtered_reads_dir, "high_quality_read_names.txt")
@@ -296,7 +296,7 @@ class NGSPolisher:
             from .assembler import HifiasmAssembler
 
             # 定义输出目录|Define output directory
-            reassembly_dir = os.path.join(self.config.ngs_polish_dir, "04.reassembly")
+            reassembly_dir = resolve_legacy_path(self.config.ngs_polish_dir, "04_reassembly")
             Path(reassembly_dir).mkdir(parents=True, exist_ok=True)
 
             # 创建临时配置用于重新组装|Create temporary config for reassembly
@@ -304,8 +304,8 @@ class NGSPolisher:
             reassembly_config = copy.copy(self.config)
             # 重要：更新hifi_data为筛选后的reads|Important: update hifi_data to filtered reads
             reassembly_config.hifi_data = filtered_reads
-            reassembly_config.raw_dir = os.path.join(reassembly_dir, "01.raw_output")
-            reassembly_config.fasta_dir = os.path.join(reassembly_dir, "02.fasta")
+            reassembly_config.raw_dir = resolve_legacy_path(reassembly_dir, "01_raw_output")
+            reassembly_config.fasta_dir = resolve_legacy_path(reassembly_dir, "02_fasta")
             Path(reassembly_config.raw_dir).mkdir(parents=True, exist_ok=True)
             Path(reassembly_config.fasta_dir).mkdir(parents=True, exist_ok=True)
 
@@ -346,9 +346,9 @@ class NGSPolisher:
         """
         self.logger.info("统计最终组装结果|Summarizing final assembly results")
 
-        # 所有文件保留在 04.reassembly/02.fasta/ 目录中
-        # All files remain in 04.reassembly/02.fasta/ directory
-        reassembly_fasta_dir = os.path.join(reassembly_dir, "02.fasta")
+        # 所有文件保留在 04_reassembly/02_fasta/ 目录中
+        # All files remain in 04_reassembly/02_fasta/ directory
+        reassembly_fasta_dir = resolve_legacy_path(reassembly_dir, "02_fasta")
 
         # 根据n_hap动态构建FASTA文件列表|Build FASTA file list dynamically based on n_hap
         fasta_files = [f"{self.config.prefix}.primary.fa"]

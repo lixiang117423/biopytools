@@ -129,7 +129,7 @@ biopytools braker \
 
 # 2. 转换GTF到GFF
 biopytools gtf2gff \
-  -i output/04.braker_annotation/braker.gtf \
+  -i output/04_braker_annotation/braker.gtf \
   -o output/clean.gff \
   --remove-introns
 

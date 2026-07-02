@@ -14,6 +14,7 @@ from typing import Optional
 from .config import HapHiCConfig
 from .utils import HapHiCLogger, QualityController, ResultValidator, BWAAligner, build_conda_command
 from .pipeline import HapHiCPipeline
+from ..common.paths import resolve_legacy_path
 
 
 class HapHiCProcessor:
@@ -66,7 +67,7 @@ class HapHiCProcessor:
             # BWA比对 (如果需要)|BWA alignment (if needed)
             if self.config.hic_file_type == "fastq":
                 # 检查是否已存在比对结果
-                alignment_dir = os.path.join(self.config.output_dir, "00.mapping")
+                alignment_dir = resolve_legacy_path(self.config.output_dir, "00_mapping")
                 potential_bam = os.path.join(alignment_dir, "HiC.bam")
                 potential_filtered_bam = os.path.join(alignment_dir, "HiC.filtered.bam")
 
@@ -141,12 +142,12 @@ class HapHiCProcessor:
 
             # 检查是否有纠错后的contig，需要重新比对|Check if corrected contigs exist and need realignment
             if success and self.config.correct_nrounds > 0:
-                corrected_asm = os.path.join(self.config.output_dir, "01.cluster", "corrected_asm.fa")
+                corrected_asm = os.path.join(resolve_legacy_path(self.config.output_dir, "01_cluster"), "corrected_asm.fa")
                 if os.path.exists(corrected_asm):
                     self.logger.info("检测到纠错后的contig，需要重新比对Hi-C数据|Detected corrected contigs, need to realign Hi-C data")
 
                     # 为纠错后的流程创建新的目录结构|Create new directory structure for corrected workflow
-                    corrected_output_dir = os.path.join(self.config.output_dir, "07.corrected_contig_haphic")
+                    corrected_output_dir = resolve_legacy_path(self.config.output_dir, "07_corrected_contig_haphic")
                     os.makedirs(corrected_output_dir, exist_ok=True)
                     self.logger.info(f"创建纠错流程目录|Creating corrected workflow directory: {corrected_output_dir}")
 
@@ -160,7 +161,7 @@ class HapHiCProcessor:
                     self.logger.info("开始重新比对Hi-C数据到纠错后的组装|Starting Hi-C realignment to corrected assembly")
 
                     # 检查是否已有纠错后的BAM文件|Check if corrected BAM already exists
-                    corrected_alignment_dir = os.path.join(corrected_output_dir, "00.mapping_corrected")
+                    corrected_alignment_dir = resolve_legacy_path(corrected_output_dir, "00_mapping_corrected")
                     potential_corrected_bam = os.path.join(corrected_alignment_dir, "HiC.filtered.bam")
 
                     if os.path.exists(potential_corrected_bam):

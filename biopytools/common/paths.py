@@ -10,9 +10,13 @@
 """
 
 import os
+import re
+import logging
 import yaml
 from pathlib import Path
 from typing import Optional
+
+logger = logging.getLogger(__name__)
 
 
 # 用户配置文件路径|User config file path
@@ -55,6 +59,86 @@ def expand_path(path: str) -> str:
     if '/' not in expanded and '.' not in expanded:
         return expanded
     return os.path.abspath(expanded)
+
+
+def resolve_legacy_path(
+    parent_dir,
+    canonical_name: str,
+    log=None,
+    create: bool = False,
+):
+    """定位步骤目录/文件，优先下划线规范名，回退点号老名用于断点续传
+    |Resolve a step dir/file: prefer the canonical underscore name, fall back
+    to the legacy dot name (NN_xxx -> NN.xxx) so existing on-disk output from
+    older runs is reused instead of being recomputed.
+
+    Args:
+        parent_dir: 父目录|parent directory
+        canonical_name: 规范名(下划线)，如 "01_bam" / "01_run_gtx_jobs.sh"
+                        |canonical underscore name
+        log: 可选日志器，回退时发 WARNING|optional logger, warned on fallback
+        create: 仅用于语义标记；本函数不创建目录(创建由调用方 makedirs 完成)
+                |semantic hint only; this function never creates anything
+
+    Returns:
+        str: 实际应使用的路径。新名已存在→新名；新名不存在但老名存在→老名(回退)；
+             都不存在→新名(供调用方创建)
+             |Path to use: new if exists; else old if exists (fallback); else
+             new for creation.
+
+    Examples:
+        >>> # 续跑老任务：磁盘上是 01.bam
+        >>> resolve_legacy_path('/out', '01_bam')
+        '/out/01.bam'   # 回退老名，复用已有结果|fallback, reuse old output
+        >>> # 全新运行：两个都不存在
+        >>> resolve_legacy_path('/out', '01_bam')
+        '/out/01_bam'   # 返回新名供 makedirs|return new for creation
+    """
+    parent_dir = str(parent_dir)
+    new_path = os.path.join(parent_dir, canonical_name)
+    if os.path.exists(new_path):
+        return new_path
+
+    # 回退候选：把首个 NN_ 换成 NN. 得到老名(扩展名里的点不受影响)
+    # |Fallback candidate: replace the leading NN_ with NN. to get legacy name
+    old_name = re.sub(r'^(\d+)_', r'\1.', canonical_name)
+    if old_name != canonical_name:
+        old_path = os.path.join(parent_dir, old_name)
+        if os.path.exists(old_path):
+            if log is not None:
+                log.warning(
+                    f"检测到旧命名目录/文件，回退使用|Legacy name fallback in use: "
+                    f"{old_path} (规范名|canonical: {canonical_name})"
+                )
+            return old_path
+
+    return new_path
+
+
+def resolve_legacy_path_chain(parent_dir, *canonical_names):
+    """多层步骤目录的兼容定位|Resolve a chained multi-level step path.
+
+    逐层应用 resolve_legacy_path，每层优先下划线规范名、回退点号老名，
+    用于读取跨模块/多层嵌套的历史输出（如 hifi_hic 的 03_ngs_polish/04_reassembly/...）。
+    |Applies resolve_legacy_path at each level so deeply nested legacy output
+    (e.g. hifi_hic's 03_ngs_polish/04_reassembly/...) is reused on resume.
+
+    Args:
+        parent_dir: 顶层父目录|top-level parent directory
+        *canonical_names: 逐层规范名(下划线)，可含非编号段(如样本名，原样拼接)
+                          |canonical name per level (non-numbered segments pass through)
+
+    Returns:
+        str: 解析后的完整路径|resolved full path
+
+    Examples:
+        >>> resolve_legacy_path_chain('/out', 'sample1', '03_ngs_polish', '02_fasta')
+        '/out/sample1/03.ngs_polish/02.fasta'  # 若老名存在则逐层回退|per-level fallback
+    """
+    path = str(parent_dir)
+    for name in canonical_names:
+        path = resolve_legacy_path(path, name)
+    return path
 
 
 def get_tool_path(

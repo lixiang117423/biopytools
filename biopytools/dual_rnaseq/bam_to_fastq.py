@@ -6,6 +6,7 @@ BAM转FASTQ模块|BAM to FASTQ Conversion Module
 import os
 from typing import List
 from .utils import CommandRunner
+from ..common.paths import resolve_legacy_path
 
 
 class BamToFastqExtractor:
@@ -171,7 +172,7 @@ class BamToFastqExtractor:
             self.logger.info("开始提取FASTQ文件|Starting FASTQ extraction")
             self.logger.info("=" * 60)
 
-            fastq_dir = os.path.join(self.config.output_dir, "06.extracted_fastq")
+            fastq_dir = resolve_legacy_path(self.config.output_dir, "06_extracted_fastq")
             os.makedirs(fastq_dir, exist_ok=True)
 
             all_success = True
@@ -180,8 +181,7 @@ class BamToFastqExtractor:
                 self.logger.info(f"处理样本|Processing sample: {sample_name}")
 
                 classification_dir = os.path.join(
-                    self.config.output_dir,
-                    "02.classification",
+                    resolve_legacy_path(self.config.output_dir, "02_classification"),
                     sample_name
                 )
 

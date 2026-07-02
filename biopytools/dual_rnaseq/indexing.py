@@ -4,6 +4,7 @@
 
 import os
 from .utils import CommandRunner, FileValidator
+from ..common.paths import resolve_legacy_path
 
 
 class DualIndexBuilder:
@@ -91,8 +92,8 @@ class DualIndexBuilder:
         """构建HISAT2基因组索引|Build HISAT2 genome index"""
         threads = self.config.threads
 
-        # 使用01.index子目录|Use 01.index subdirectory
-        index_dir = os.path.join(self.config.output_dir, "01.index")
+        # 使用01_index子目录|Use 01_index subdirectory
+        index_dir = resolve_legacy_path(self.config.output_dir, "01_index")
         os.makedirs(index_dir, exist_ok=True)
 
         genome_basename = os.path.splitext(os.path.basename(genome_file))[0]

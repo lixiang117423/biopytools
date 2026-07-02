@@ -10,6 +10,7 @@ import glob
 
 from .config import Fastq2VcfParabricksConfig
 from .utils import CommandRunner, FileManager, CheckpointManager
+from ..common.paths import resolve_legacy_path, resolve_legacy_path_chain
 
 
 class QualityController:
@@ -344,8 +345,8 @@ class JointCaller:
         self.logger.warning(f" 大规模样本模式 (>= {self.config.gtx_single_threshold})|Large-scale sample mode")
 
         chunks_dir = os.path.join(self.config.joint_dir, "chunks")
-        gtx_job_script = os.path.join(self.config.joint_dir, "01.run_gtx_jobs.sh")
-        merge_py_script = os.path.join(self.config.project_base, "00.scripts", "02.merge_vcf.py")
+        gtx_job_script = resolve_legacy_path(self.config.joint_dir, "01_run_gtx_jobs.sh")
+        merge_py_script = resolve_legacy_path_chain(self.config.project_base, "00_scripts", "02_merge_vcf.py")
         final_merged_vcf = os.path.join(self.config.joint_dir, "merged_all.vcf.gz")
 
         FileManager.ensure_directory(chunks_dir)
@@ -501,11 +502,11 @@ if __name__ == "__main__":
        -i {self.config.gvcf_dir} \\
        -o {self.config.joint_dir}/chunks \\
        -w {self.config.gtx_window_size} \\
-       -s {os.path.join(self.config.joint_dir, "01.run_gtx_jobs.sh")} \\
+       -s {os.path.join(self.config.joint_dir, "01_run_gtx_jobs.sh")} \\
        -t {self.config.threads_gtx}
 
   投递GTX任务到集群|Submit GTX jobs to cluster:
-   batch_sub -i {os.path.join(self.config.joint_dir, "01.run_gtx_jobs.sh")} \\
+   batch_sub -i {os.path.join(self.config.joint_dir, "01_run_gtx_jobs.sh")} \\
              -j gtx_joint \\
              -s 5 \\
              -m 800

@@ -10,6 +10,7 @@ import glob
 import logging
 from typing import Optional, Tuple, Dict, Any
 from pathlib import Path
+from ..common.paths import resolve_legacy_path, resolve_legacy_path_chain
 
 
 class DataTransferManager:
@@ -73,12 +74,15 @@ class DataTransferManager:
         # 根据是否使用NGS polish选择不同的路径|Choose different path based on NGS polish
         if self.config.use_ngs_polish and self.config.ngs_data:
             # NGS polish后的输出路径|Output path after NGS polish
+            # 多层嵌套目录逐层兼容回退|Per-level legacy fallback for nested dirs
             polished_fa = os.path.join(
-                self.config.hifi_hic_output_dir,
-                self.config.prefix,
-                "03.ngs_polish",
-                "04.reassembly",
-                "02.fasta",
+                resolve_legacy_path_chain(
+                    self.config.hifi_hic_output_dir,
+                    self.config.prefix,
+                    "03_ngs_polish",
+                    "04_reassembly",
+                    "02_fasta",
+                ),
                 f"{self.config.prefix}.primary.fa"
             )
 
@@ -90,9 +94,11 @@ class DataTransferManager:
 
         # 标准输出路径（无NGS或NGS polish失败）|Standard output path (no NGS or NGS polish failed)
         primary_fa = os.path.join(
-            self.config.hifi_hic_output_dir,
-            self.config.prefix,
-            "02.fasta",
+            resolve_legacy_path_chain(
+                self.config.hifi_hic_output_dir,
+                self.config.prefix,
+                "02_fasta",
+            ),
             f"{self.config.prefix}.primary.fa"
         )
 
@@ -188,10 +194,9 @@ class DataTransferManager:
         """
         self.logger.info("定位haphic输出文件|Locating haphic output file")
 
-        # HapHiC的最终输出在04.build目录|HapHiC final output is in 04.build directory
+        # HapHiC的最终输出在04_build目录|HapHiC final output is in 04_build directory
         scaffold_fa = os.path.join(
-            self.config.haphic_output_dir,
-            "04.build",
+            resolve_legacy_path(self.config.haphic_output_dir, "04_build"),
             f"{self.config.prefix}.fa"
         )
 
@@ -345,7 +350,7 @@ class DataTransferManager:
             step_name: 步骤名称|Step name
             info: 步骤信息|Step information
         """
-        step_info_dir = os.path.join(self.config.work_dir, "00.pipeline_info")
+        step_info_dir = resolve_legacy_path(self.config.work_dir, "00_pipeline_info")
         Path(step_info_dir).mkdir(parents=True, exist_ok=True)
 
         info_file = os.path.join(step_info_dir, f"{step_name}_info.txt")

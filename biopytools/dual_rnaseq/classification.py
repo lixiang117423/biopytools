@@ -13,6 +13,7 @@ This is the core module for dual RNA-seq analysis, responsible for classifying r
 import os
 import pysam
 from .utils import CommandRunner, FileValidator
+from ..common.paths import resolve_legacy_path
 
 
 class ReadsClassifier:
@@ -224,7 +225,7 @@ class ReadsClassifier:
         self.logger.info(f"处理样本分类|Processing sample classification: {sample_name}")
 
         # 创建临时比对结果目录|Create temporary alignment directory
-        temp_dir = os.path.join(self.config.output_dir, "02.classification", ".temp", sample_name)
+        temp_dir = os.path.join(resolve_legacy_path(self.config.output_dir, "02_classification"), ".temp", sample_name)
         os.makedirs(temp_dir, exist_ok=True)
 
         # 临时BAM文件路径|Temporary BAM file paths
@@ -232,7 +233,7 @@ class ReadsClassifier:
         species2_raw_bam = os.path.join(temp_dir, f"{sample_name}.{self.config.species2_name}.raw.bam")
 
         # 输出分类结果目录|Output classification directory
-        classification_dir = os.path.join(self.config.output_dir, "02.classification", sample_name)
+        classification_dir = os.path.join(resolve_legacy_path(self.config.output_dir, "02_classification"), sample_name)
         os.makedirs(classification_dir, exist_ok=True)
 
         # 步骤1: 比对到两个参考基因组|Step 1: Align to both reference genomes

@@ -98,11 +98,11 @@ biopytools hifi-hic \
 
 ```
 assembly_output/
-├── 01.raw_output/          # 原始输出
-├── 02.fasta/               # 组装结果
+├── 01_raw_output/          # 原始输出
+├── 02_fasta/               # 组装结果
 │   ├── {prefix}.fa         # 主基因组
 │   └── {prefix}.hap.fa     # 单倍型基因组
-└── 04.purge_dups/          # 去冗余结果
+└── 04_purge_dups/          # 去冗余结果
     └── seqs/               # 去冗余序列
         └── {prefix}_purged.purge.fa
 ```
@@ -149,8 +149,8 @@ biopytools hifi-hic \
 ```
 
 **输出**：
-- `./EcA_assembly/02.fasta/EcA.fa`
-- `./EcA_assembly/04.purge_dups/seqs/EcA_purged.purge.fa`
+- `./EcA_assembly/02_fasta/EcA.fa`
+- `./EcA_assembly/04_purge_dups/seqs/EcA_purged.purge.fa`
 
 ### 示例2：禁用去冗余
 
@@ -164,8 +164,8 @@ biopytools hifi-hic \
 ```
 
 **输出**：
-- `./EcA_assembly/02.fasta/EcA.fa`
-- `./EcA_assembly/02.fasta/EcA.hap.fa`
+- `./EcA_assembly/02_fasta/EcA.fa`
+- `./EcA_assembly/02_fasta/EcA.hap.fa`
 
 ## 注意事项 | Notes
 
@@ -185,7 +185,7 @@ biopytools hifi-hic \
 ```
 
 **解决方案**：
-- 检查`04.purge_dups/seqs/`或`04.purge_dups/sequences/`目录
+- 检查`04_purge_dups/seqs/`或`04_purge_dups/sequences/`目录
 - 代码会自动检测多种文件名格式
 - 如果问题仍然存在，请检查Purge_Dups是否成功运行
 

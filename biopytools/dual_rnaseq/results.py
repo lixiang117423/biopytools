@@ -5,6 +5,7 @@
 import os
 import pandas as pd
 from typing import List
+from ..common.paths import resolve_legacy_path
 
 
 class DualMatrixMerger:
@@ -17,7 +18,7 @@ class DualMatrixMerger:
     def merge_expression_matrix(self, fpkm_files: List[str], species_name: str) -> bool:
         """合并表达矩阵|Merge expression matrix"""
         output_dir = self.config.output_dir
-        matrix_dir = os.path.join(output_dir, "05.expression_matrix")
+        matrix_dir = resolve_legacy_path(output_dir, "05_expression_matrix")
         os.makedirs(matrix_dir, exist_ok=True)
 
         self.logger.info(f"合并{species_name}表达矩阵|Merging {species_name} expression matrix")
@@ -129,12 +130,12 @@ class SummaryGenerator:
                         f.write(f"    * {sample['name']}\n")
 
                 f.write(f"\n输出文件|Output Files:\n")
-                f.write(f"  - 01.index/: HISAT2索引文件|HISAT2 index files\n")
-                f.write(f"  - 02.classification/: Reads物种分类结果|Reads species classification results\n")
-                f.write(f"  - 03.alignment_statistics/: 比对统计报告|Alignment statistics report\n")
+                f.write(f"  - 01_index/: HISAT2索引文件|HISAT2 index files\n")
+                f.write(f"  - 02_classification/: Reads物种分类结果|Reads species classification results\n")
+                f.write(f"  - 03_alignment_statistics/: 比对统计报告|Alignment statistics report\n")
                 f.write(f"    - mapping_statistics.tsv: 比对统计汇总表|Alignment statistics summary\n")
-                f.write(f"  - 04.quantification/: 定量结果|Quantification results\n")
-                f.write(f"  - 05.expression_matrix/: 双物种表达矩阵|Dual-species expression matrix\n")
+                f.write(f"  - 04_quantification/: 定量结果|Quantification results\n")
+                f.write(f"  - 05_expression_matrix/: 双物种表达矩阵|Dual-species expression matrix\n")
                 f.write(f"    - {self.config.species1_name}_matrix.txt: 物种1表达矩阵|Species 1 expression matrix\n")
                 f.write(f"    - {self.config.species2_name}_matrix.txt: 物种2表达矩阵|Species 2 expression matrix\n")
 

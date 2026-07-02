@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path, get_tool_path
+from ..common.paths import expand_path, get_tool_path, resolve_legacy_path
 
 
 @dataclass
@@ -175,10 +175,11 @@ class HifiHicWorkflowConfig:
         self.work_dir = self.output_dir
 
         # 定义各步骤输出目录|Define step output directories (遵循开发规范12.2)
-        self.hifi_hic_output_dir = os.path.join(self.work_dir, "01.hifi_assembly")
-        self.haphic_output_dir = os.path.join(self.work_dir, "02.hic_scaffolding")
-        self.rename_output_dir = os.path.join(self.work_dir, "03.chromosome_rename")
-        self.heatmap_output_dir = os.path.join(self.work_dir, "04.hic_heatmap")
+        # 优先下划线规范名，回退点号老名用于断点续传|Prefer underscore, fall back to legacy dot name
+        self.hifi_hic_output_dir = resolve_legacy_path(self.work_dir, "01_hifi_assembly")
+        self.haphic_output_dir = resolve_legacy_path(self.work_dir, "02_hic_scaffolding")
+        self.rename_output_dir = resolve_legacy_path(self.work_dir, "03_chromosome_rename")
+        self.heatmap_output_dir = resolve_legacy_path(self.work_dir, "04_hic_heatmap")
 
         # 创建各步骤目录|Create step directories
         for step_dir in [

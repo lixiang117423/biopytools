@@ -3,7 +3,7 @@ BRAKER3基因组注释配置管理模块|BRAKER3 Genome Annotation Configuration
 """
 
 import os
-from ..common.paths import expand_path
+from ..common.paths import expand_path, resolve_legacy_path
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -241,10 +241,11 @@ class BrakerConfig:
             self.training_genes = smart_normalize_path(self.training_genes, self.working_dir)
 
         # 定义子目录|Define subdirectories
-        self.repeat_dir = os.path.join(self.output_dir, "01.repeat_masking")
-        self.long_reads_dir = os.path.join(self.output_dir, "02.long_reads")
-        self.short_reads_dir = os.path.join(self.output_dir, "03.short_reads")
-        self.braker_dir = os.path.join(self.output_dir, "04.braker_annotation")
+        # 优先下划线规范名，回退点号老名用于断点续传|Prefer underscore, fall back to legacy dot name
+        self.repeat_dir = resolve_legacy_path(self.output_dir, "01_repeat_masking")
+        self.long_reads_dir = resolve_legacy_path(self.output_dir, "02_long_reads")
+        self.short_reads_dir = resolve_legacy_path(self.output_dir, "03_short_reads")
+        self.braker_dir = resolve_legacy_path(self.output_dir, "04_braker_annotation")
         self.log_dir = os.path.join(self.output_dir, "logs")
 
         # 创建子目录|Create subdirectories

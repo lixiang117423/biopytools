@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path
+from ..common.paths import expand_path, resolve_legacy_path
 
 @dataclass
 class Fastq2VcfParabricksConfig:
@@ -69,17 +69,17 @@ class Fastq2VcfParabricksConfig:
 
         # 设置默认路径|Set default paths
         if self.clean_fastq_dir is None:
-            self.clean_fastq_dir = os.path.join(self.project_base, "01.data", "clean")
+            self.clean_fastq_dir = os.path.join(resolve_legacy_path(self.project_base, "01_data"), "clean")
         if self.mapping_dir is None:
-            self.mapping_dir = os.path.join(self.project_base, "02.mapping")
+            self.mapping_dir = resolve_legacy_path(self.project_base, "02_mapping")
         if self.gvcf_dir is None:
             self.gvcf_dir = os.path.join(self.mapping_dir, "vcf")
         if self.bam_dir is None:
             self.bam_dir = os.path.join(self.mapping_dir, "bam")
         if self.joint_dir is None:
-            self.joint_dir = os.path.join(self.project_base, "03.joint_calling")
+            self.joint_dir = resolve_legacy_path(self.project_base, "03_joint_calling")
         if self.filter_dir is None:
-            self.filter_dir = os.path.join(self.project_base, "04.filtered_snp_indel")
+            self.filter_dir = resolve_legacy_path(self.project_base, "04_filtered_snp_indel")
         if self.output_dir is None:
             self.output_dir = self.filter_dir
 

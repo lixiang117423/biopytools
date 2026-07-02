@@ -47,9 +47,9 @@
 #         self.logger.info(f"{'=' * 60}")
 
 #         # 设置文件路径|Set file paths
-#         bam_file = os.path.join(self.config.output_dir, "01.bam", f"{sample_name}.sorted.bam")
-#         stringtie_output = os.path.join(self.config.output_dir, "02.stringtie", f"{sample_name}.gtf")
-#         fpkm_output = os.path.join(self.config.output_dir, "03.fpkm_tpm", f"{sample_name}.fpkm.txt")
+#         bam_file = os.path.join(self.config.output_dir, "01_bam", f"{sample_name}.sorted.bam")
+#         stringtie_output = os.path.join(self.config.output_dir, "02_stringtie", f"{sample_name}.gtf")
+#         fpkm_output = os.path.join(self.config.output_dir, "03_fpkm_tpm", f"{sample_name}.fpkm.txt")
 
 #         # 1. HISAT2比对|HISAT2 alignment
 #         if not self.hisat2_aligner.run_hisat2_mapping(index_prefix, fastq1, fastq2, bam_file):
@@ -195,6 +195,7 @@ RNA-seq分析主程序模块|RNA-seq Analysis Main Module
 import argparse
 import sys
 import os
+from ..common.paths import resolve_legacy_path
 from .config import RNASeqConfig
 from .utils import RNASeqLogger, CommandRunner
 from .data_processing import SampleParser
@@ -237,9 +238,9 @@ class RNASeqAnalyzer:
         fastq2 = sample_info["fastq2"]
 
         # 设置文件路径|Set file paths
-        bam_file = os.path.join(self.config.output_dir, "01.bam", f"{sample_name}.sorted.bam")
-        stringtie_output = os.path.join(self.config.output_dir, "02.stringtie", f"{sample_name}.gtf")
-        fpkm_output = os.path.join(self.config.output_dir, "03.fpkm_tpm", f"{sample_name}.fpkm.txt")
+        bam_file = os.path.join(resolve_legacy_path(self.config.output_dir, "01_bam"), f"{sample_name}.sorted.bam")
+        stringtie_output = os.path.join(resolve_legacy_path(self.config.output_dir, "02_stringtie"), f"{sample_name}.gtf")
+        fpkm_output = os.path.join(resolve_legacy_path(self.config.output_dir, "03_fpkm_tpm"), f"{sample_name}.fpkm.txt")
 
         # 检查样本是否已完成处理|Check if sample processing is already completed
         if os.path.exists(fpkm_output) and os.path.getsize(fpkm_output) > 0:

@@ -13,6 +13,7 @@ import subprocess
 
 from .config import HapHiCConfig
 from .utils import HapHiCLogger, CommandRunner, FileManager
+from ..common.paths import resolve_legacy_path
 
 
 class HapHiCPipeline:
@@ -101,12 +102,12 @@ class HapHiCPipeline:
 
         # 设置步骤目录路径（不创建，让HapHiC pipeline自己处理）
         self.step_dirs = {
-            "cluster": os.path.join(self.config.output_dir, "01.cluster"),
-            "reassign": os.path.join(self.config.output_dir, "02.reassign"),
-            "sort": os.path.join(self.config.output_dir, "03.sort"),
-            "build": os.path.join(self.config.output_dir, "04.build"),
-            "plots": os.path.join(self.config.output_dir, "05.plots"),
-            "juicebox": os.path.join(self.config.output_dir, "06.juicebox")
+            "cluster": resolve_legacy_path(self.config.output_dir, "01_cluster"),
+            "reassign": resolve_legacy_path(self.config.output_dir, "02_reassign"),
+            "sort": resolve_legacy_path(self.config.output_dir, "03_sort"),
+            "build": resolve_legacy_path(self.config.output_dir, "04_build"),
+            "plots": resolve_legacy_path(self.config.output_dir, "05_plots"),
+            "juicebox": resolve_legacy_path(self.config.output_dir, "06_juicebox")
         }
 
         # 只创建juicebox目录，plots目录会在需要时创建
@@ -123,7 +124,7 @@ class HapHiCPipeline:
         # 需要重跑时清理所有步骤目录，HapHiC上游使用os.mkdir不支持已存在目录
         # Clean all step directories when re-running, HapHiC upstream uses os.mkdir
         if not self._check_haphic_pipeline_completed():
-            step_dirs = ["01.cluster", "02.reassign", "03.sort", "04.build"]
+            step_dirs = ["01_cluster", "02_reassign", "03_sort", "04_build"]
             for step_dir in step_dirs:
                 dir_path = os.path.join(self.config.output_dir, step_dir)
                 if os.path.exists(dir_path):
@@ -206,7 +207,7 @@ class HapHiCPipeline:
 
     def _force_cleanup_all_directories(self):
         """强制清理所有步骤目录|Force clean all step directories"""
-        all_dirs = ["01.cluster", "02.reassign", "03.sort", "04.build", "05.plots", "06.juicebox"]
+        all_dirs = ["01_cluster", "02_reassign", "03_sort", "04_build", "05_plots", "06_juicebox"]
 
         for dir_name in all_dirs:
             dir_path = os.path.join(self.config.output_dir, dir_name)
@@ -223,7 +224,7 @@ class HapHiCPipeline:
     def _cleanup_existing_directories(self):
         """清理可能存在的HapHiC子目录 - 仅在需要时执行|Clean up existing HapHiC subdirectories - only execute when needed"""
         # 注意：由于实现了断点续传，默认不再清理已存在的目录
-        # 只清理非HapHiC pipeline管理的目录（如05.plots）
+        # 只清理非HapHiC pipeline管理的目录（如05_plots）
 
         # 只清理plots目录，因为它不由HapHiC pipeline管理
         plots_dir = self.step_dirs["plots"]
@@ -238,7 +239,7 @@ class HapHiCPipeline:
                 if self.logger:
                     self.logger.warning(f"无法清理plots目录|Cannot clean plots directory: {e}")
 
-        # HapHiC pipeline管理的目录（01.cluster到04.build）不再清理，支持断点续传
+        # HapHiC pipeline管理的目录（01_cluster到04_build）不再清理，支持断点续传
         if self.logger:
             self.logger.info("HapHiC pipeline目录保留以支持断点续传|HapHiC pipeline directories preserved for resume support")
 

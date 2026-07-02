@@ -11,6 +11,7 @@ from pathlib import Path
 from .config import Fastq2VcfParabricksConfig
 from .utils import Fastq2VcfLogger, CommandRunner, FileManager, SystemChecker
 from .data_processing import QualityController, GenomeIndexer, ParabricksMapper, JointCaller, VariantFilter
+from ..common.paths import resolve_legacy_path
 
 VERSION = "1.0.0"
 
@@ -27,7 +28,7 @@ class Fastq2VcfParabricksProcessor:
         self.config.validate()
 
         # 创建日志目录|Create log directory
-        log_dir = os.path.join(self.config.project_base, "99.logs")
+        log_dir = resolve_legacy_path(self.config.project_base, "99_logs")
         Path(log_dir).mkdir(parents=True, exist_ok=True)
 
         # 确定日志文件名|Determine log file name

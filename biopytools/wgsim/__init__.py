@@ -8,8 +8,8 @@ Wgsim基因组测序数据模拟模块
     from biopytools.wgsim import WgsimRunner
 
     runner = WgsimRunner(
-        input_dir="01.data/genome",
-        output_dir="01.data/raw"
+        input_dir="01_data/genome",
+        output_dir="01_data/raw"
     )
     runner.run()
 

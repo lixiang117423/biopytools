@@ -3,7 +3,7 @@ HiCanu组装配置管理模块|HiCanu Assembly Configuration Management Module
 """
 
 import os
-from ..common.paths import expand_path
+from ..common.paths import expand_path, resolve_legacy_path
 from .utils import build_conda_command
 import glob
 from dataclasses import dataclass, field
@@ -61,10 +61,11 @@ class HiCanuConfig:
         self.work_dir = os.path.join(self.base_dir, self.prefix)
 
         # 定义子目录|Define subdirectories
-        self.raw_dir = os.path.join(self.work_dir, "01.raw_output")
-        self.fasta_dir = os.path.join(self.work_dir, "02.fasta")
-        self.log_dir = os.path.join(self.work_dir, "03.logs")
-        self.stat_dir = os.path.join(self.work_dir, "04.statistics")
+        # 优先下划线规范名，回退点号老名用于断点续传|Prefer underscore, fall back to legacy dot name
+        self.raw_dir = resolve_legacy_path(self.work_dir, "01_raw_output")
+        self.fasta_dir = resolve_legacy_path(self.work_dir, "02_fasta")
+        self.log_dir = resolve_legacy_path(self.work_dir, "03_logs")
+        self.stat_dir = resolve_legacy_path(self.work_dir, "04_statistics")
 
         # canu的输出目录设置为raw_dir|Set canu output directory to raw_dir
         self.output_dir = self.raw_dir
