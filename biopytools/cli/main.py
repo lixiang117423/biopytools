@@ -208,6 +208,7 @@ COMMAND_REGISTRY = [
     ('samplot', 'samplot', 'Samplot结构变异可视化工具|Samplot SV visualization tool'),
     ('tmhmm', 'tmhmm', 'TMHMM跨膜螺旋预测|TMHMM transmembrane helix prediction'),
     ('wgsim', 'wgsim', 'Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation'),
+    ('deeptmhmm', 'deeptmhmm', 'DeepTMHMM跨膜螺旋/信号肽预测|DeepTMHMM TM helix & signal peptide prediction'),
 ]
 
 # 将硬编码信息转换为字典，方便查询
