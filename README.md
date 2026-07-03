@@ -206,6 +206,7 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [nlr_annotator](./docs/nlr_annotator.md) - NLR基因预测工具（`biopytools nlr-annotator`）
 - [signalp](./docs/signalp.md) - SignalP 6.0信号肽预测工具（`biopytools signalp`）
 - [tmhmm](./docs/tmhmm.md) - TMHMM跨膜螺旋预测（`biopytools tmhmm`）
+- [deeptmhmm](./docs/deeptmhmm.md) - DeepTMHMM跨膜螺旋/信号肽预测（`biopytools deeptmhmm`）
 - [transcript_assembly](./docs/transcript_assembly.md) - 转录本从头组装(HISAT2+StringTie)（`biopytools transcript-assembly`）
 
 ### 转座子与重复序列 | TE & Repeats
@@ -237,6 +238,7 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [orthofinder](./docs/orthofinder.md) - OrthoFinder泛基因组分析工具包（`biopytools orthofinder`）
 - [plotsr](./docs/plotsr.md) - 多基因组共线性可视化工具（`biopytools plotsr`）
 - [wgdi](./docs/wgdi.md) - WGDI比较基因组学分析工具（`biopytools wgdi`）
+- [aliner](./docs/aliner.md) - a-liner共线性可视化pipeline（FASTA→minimap2→图）（`biopytools aliner`）
 
 ### 系统发育 | Phylogenetics
 
@@ -304,6 +306,7 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 
 - [primer3](./docs/primer3.md) - Primer3引物设计工具（`biopytools primer3`）
 - [protein_stats](./docs/protein_stats.md) - Protein Stats理化性质分析工具（`biopytools protein-stats`）
+- [gene_density](./docs/gene_density.md) - 基因密度计算（每窗口基因数+基因/Mb）（`biopytools gene-density`）
 
 ## 许可证 | License
 
