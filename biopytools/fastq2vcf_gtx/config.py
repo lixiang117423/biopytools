@@ -19,6 +19,7 @@ class Fastq2VcfGTXConfig:
     # 路径配置|Path configuration
     raw_fastq_dir: Optional[str] = None
     clean_fastq_dir: Optional[str] = None
+    genome_index_dir: Optional[str] = None
     mapping_dir: Optional[str] = None
     gvcf_dir: Optional[str] = None
     bam_dir: Optional[str] = None
@@ -73,16 +74,18 @@ class Fastq2VcfGTXConfig:
         # 设置默认路径|Set default paths
         if self.clean_fastq_dir is None:
             self.clean_fastq_dir = os.path.join(self.output_dir, "01_fastp")
+        if self.genome_index_dir is None:
+            self.genome_index_dir = os.path.join(self.output_dir, "02_genome_index")
         if self.mapping_dir is None:
-            self.mapping_dir = os.path.join(self.output_dir, "02_mapping")
+            self.mapping_dir = os.path.join(self.output_dir, "03_mapping")
         if self.gvcf_dir is None:
             self.gvcf_dir = os.path.join(self.mapping_dir, "vcf")
         if self.bam_dir is None:
             self.bam_dir = os.path.join(self.mapping_dir, "bam")
         if self.joint_dir is None:
-            self.joint_dir = os.path.join(self.output_dir, "03_joint_calling")
+            self.joint_dir = os.path.join(self.output_dir, "04_joint_calling")
         if self.filter_dir is None:
-            self.filter_dir = os.path.join(self.output_dir, "04_filtered_snp_indel")
+            self.filter_dir = os.path.join(self.output_dir, "05_filtered_snp_indel")
 
         # 创建输出路径对象|Create output path objects
         self.output_path = Path(self.output_dir)
@@ -93,6 +96,7 @@ class Fastq2VcfGTXConfig:
             self.raw_fastq_dir = os.path.normpath(os.path.abspath(self.raw_fastq_dir))
         self.ref_genome_fa = os.path.normpath(os.path.abspath(self.ref_genome_fa))
         self.clean_fastq_dir = os.path.normpath(os.path.abspath(self.clean_fastq_dir))
+        self.genome_index_dir = os.path.normpath(os.path.abspath(self.genome_index_dir))
         self.mapping_dir = os.path.normpath(os.path.abspath(self.mapping_dir))
         self.gvcf_dir = os.path.normpath(os.path.abspath(self.gvcf_dir))
         self.bam_dir = os.path.normpath(os.path.abspath(self.bam_dir))
@@ -103,7 +107,7 @@ class Fastq2VcfGTXConfig:
         self.gtx_cmd_gen_script = os.path.normpath(expand_path(self.gtx_cmd_gen_script))
 
         # 创建必要的目录|Create necessary directories
-        for dir_path in [self.clean_fastq_dir, self.mapping_dir, self.gvcf_dir,
+        for dir_path in [self.clean_fastq_dir, self.genome_index_dir, self.mapping_dir, self.gvcf_dir,
                         self.bam_dir, self.joint_dir, self.filter_dir]:
             Path(dir_path).mkdir(parents=True, exist_ok=True)
 

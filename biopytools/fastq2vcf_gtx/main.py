@@ -77,7 +77,7 @@ class Fastq2VcfGTXProcessor:
         self.logger_manager.step("强制构建GTX索引|Force Build GTX Index")
 
         # 确保基因组目录存在|Ensure genome directory exists
-        genome_dir = os.path.join(self.config.output_dir, "genome")
+        genome_dir = self.config.genome_index_dir
         FileManager.ensure_directory(genome_dir)
 
         # 获取参考基因组文件名|Get reference genome filename
@@ -241,7 +241,7 @@ class Fastq2VcfGTXProcessor:
     def _update_all_genome_paths(self):
         """更新所有组件的参考基因组路径|Update reference genome paths for all components"""
         # 确保基因组文件在项目目录下|Ensure genome file is in project directory
-        genome_dir = os.path.join(self.config.output_dir, "genome")
+        genome_dir = self.config.genome_index_dir
         target_genome_path = os.path.join(genome_dir, os.path.basename(self.config.ref_genome_fa))
 
         # 如果目标文件不存在，拷贝过去|Copy if target doesn't exist
