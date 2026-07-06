@@ -356,6 +356,12 @@ def parse_arguments():
                         default=12,
                         help='线程数（自动分配给各子模块）|Threads (automatically distributed to sub-modules)')
 
+    parser.add_argument('--edta-threads',
+                        type=int,
+                        default=None,
+                        help='EDTA专用线程数（默认自动封顶24, 因EDTA内存随线程近线性增长, 88线程实测1.2TB易OOM）|'
+                             'EDTA-only threads (default auto-cap 24, since EDTA memory scales ~linearly with threads; observed 1.2TB at 88 threads)')
+
     return parser.parse_args()
 
 
@@ -372,6 +378,7 @@ def main():
             'output_dir': args.output_dir,
             'sample_name': args.sample_name,
             'threads': args.threads,
+            'edta_threads': args.edta_threads,
 
             # 核心评估|Core evaluation
             'skip_busco': args.skip_busco,

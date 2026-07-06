@@ -8,6 +8,11 @@ from pathlib import Path
 from typing import Optional
 from ..common.paths import expand_path, get_tool_path, resolve_legacy_path
 
+# EDTA默认线程封顶|EDTA default thread cap
+# EDTA内存随--threads近线性增长(并行RepeatMasker各加载一份基因组+TE库), 大基因组+高线程易OOM
+# EDTA memory scales ~linearly with --threads (parallel RepeatMasker each loads genome+TE lib); large genome + high threads easily OOMs
+EDTA_DEFAULT_THREAD_CAP = 24
+
 
 @dataclass
 class AssemblyQCConfig:
@@ -34,6 +39,10 @@ class AssemblyQCConfig:
 
     # ==================== 核心评估：LAI | Core Evaluation: LAI ====================
     lai_threads: int = 12  # LAI线程数|LAI threads
+    # EDTA专用线程数(独立于全局threads/lai_threads)|EDTA-only threads (independent of global threads/lai_threads)
+    # Why: EDTA内存随--threads近线性增长, 大基因组+高线程易OOM(实测300Mb基因组88线程峰值1.2TB); None=自动封顶到EDTA_DEFAULT_THREAD_CAP
+    # Why: EDTA memory grows ~linearly with --threads; large genome + high threads easily OOM (observed 1.2TB peak at 88 threads on 300Mb genome); None=auto-cap to EDTA_DEFAULT_THREAD_CAP
+    edta_threads: Optional[int] = None
     lai_mode: str = "edta"  # LAI运行模式: edta/full/harvest/retrieve/calculate
     lai_quick_mode: bool = True  # LAI快速模式（使用-qq参数，跳过blastn）|LAI quick mode (use -qq flag, skip blastn) [default: True]
 
@@ -218,6 +227,11 @@ class AssemblyQCConfig:
         # LAI: 使用全部线程（串行执行，不需要分配）
         if not hasattr(self, '_user_specified_lai_threads'):
             self.lai_threads = max(1, self.threads)
+
+        # EDTA: 内存随线程近线性增长, 默认封顶避免OOM(用户可用edta_threads显式覆盖)
+        # EDTA: memory scales ~linearly with threads; cap by default to avoid OOM (override via edta_threads)
+        if self.edta_threads is None:
+            self.edta_threads = min(self.lai_threads, EDTA_DEFAULT_THREAD_CAP)
 
         # QV: 使用全部线程（串行执行，不需要分配）
         if not hasattr(self, '_user_specified_qv_threads'):

@@ -228,13 +228,27 @@ class LAIEvaluator:
 
         genome_basename = Path(self.edta_genome).stem
 
+        # EDTA线程: 内存随线程近线性增长, 默认封顶避免OOM(见config.EDTA_DEFAULT_THREAD_CAP)
+        # EDTA threads: memory grows ~linearly with threads; capped by default to avoid OOM (see config.EDTA_DEFAULT_THREAD_CAP)
+        edta_threads = self.config.edta_threads
+        if self.config.lai_threads > edta_threads:
+            self.logger.warning(
+                f"EDTA线程受限|EDTA threads capped: {self.config.lai_threads} -> {edta_threads} "
+                f"(EDTA内存随线程近线性增长, 300Mb基因组88线程实测峰值1.2TB易OOM|"
+                f"EDTA memory scales ~linearly with threads, observed 1.2TB peak at 88 threads on 300Mb genome)"
+            )
+            self.logger.warning(
+                f"如需更多线程且内存充足, 用 --edta-threads N 覆盖|"
+                f"Override with --edta-threads N if memory is ample"
+            )
+
         edta_args = [
             edta_pl_path,
             "--genome", self.edta_genome,
             "--species", "others",  # 非水稻/玉米物种|Non-rice/maize species
             "--step", "all",  # 运行完整流程|Run entire pipeline
             "--overwrite", "1",  # 覆盖已有结果|Overwrite previous results
-            "--threads", str(self.config.lai_threads),
+            "--threads", str(edta_threads),
             "--anno", "1",  # 需要执行注释才能生成LAI文件|Need annotation to generate LAI file
             "--evaluate", "0",  # 跳过耗时的评估步骤|Skip time-consuming evaluation step
         ]
@@ -350,9 +364,11 @@ class LAIEvaluator:
 
         # 不指定-species参数，让RepeatMasker使用默认库（适用于非模式生物）|Don't specify -species to use default library (for non-model organisms)
         # 如果需要特定物种库，用户应先配置RepeatMasker库|For specific species, users should pre-configure RepeatMasker library
+        # -pa与EDTA --threads同理: 内存随并行度近线性增长, 用edta_threads(已封顶)而非lai_threads
+        # -pa same as EDTA --threads: memory scales ~linearly with parallelism, use edta_threads (capped) not lai_threads
         cmd_str = (
             f"conda run -n {self.edta_env_name} --no-capture-output "
-            f"RepeatMasker -pa {self.config.lai_threads} -gff -dir {self.working_dir} {genome_mod}"
+            f"RepeatMasker -pa {self.config.edta_threads} -gff -dir {self.working_dir} {genome_mod}"
         )
 
         self.logger.info(f"命令|Command: {cmd_str}")
