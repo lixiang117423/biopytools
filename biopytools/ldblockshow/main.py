@@ -3,6 +3,7 @@
 """
 
 import argparse
+import glob
 import re
 import shutil
 import sys
@@ -59,6 +60,32 @@ def _region_str_to_label(region_str: str) -> str:
     """单 region 字符串 chr:start-end → 文件名 stem chr_start_end
     |Single-region string chr:start-end → filename stem chr_start_end"""
     return _REGION_SEP.sub("_", region_str)
+
+
+def _find_rsvg_convert() -> Optional[str]:
+    """
+    定位 rsvg-convert：PATH > RSVG_CONVERT_PATH 环境变量 > ~/miniforge3/envs/*/bin
+    |Locate rsvg-convert: PATH > RSVG_CONVERT_PATH env > ~/miniforge3/envs/*/bin
+
+    ShowLDSVG 内置的 batik 对大 SVG(数百万 polygon)会渲染出空白 PNG，
+    rsvg-convert 是可靠的 PNG 渲染器。PATH 里通常没有，故额外检索已装 librsvg 的 conda 环境。
+    |ShowLDSVG's built-in batik renders blank PNGs on large SVGs (millions of polygons);
+    rsvg-convert is the reliable renderer. It's usually absent from PATH, so also search
+    conda envs that already bundle librsvg.
+    """
+    # 1. PATH
+    found = shutil.which('rsvg-convert')
+    if found:
+        return found
+    # 2. 环境变量|env var
+    env_path = os.environ.get('RSVG_CONVERT_PATH')
+    if env_path and os.path.exists(env_path):
+        return env_path
+    # 3. 已安装 librsvg 的 conda 环境(复用现有安装)|reuse existing installs in conda envs
+    matches = sorted(glob.glob(os.path.expanduser('~/miniforge3/envs/*/bin/rsvg-convert')))
+    if matches:
+        return matches[0]
+    return None
 
 
 def _parse_bed_regions(bed_path) -> List[BedRegion]:
@@ -425,44 +452,61 @@ class LDBlockShowAnalyzer:
             self._convert_svg_to_png()
 
     def _convert_svg_to_png(self):
-        """SVG转PNG兜底，当ShowLDSVG内置转换失败时使用其他工具|SVG to PNG fallback"""
+        """SVG转PNG：优先 rsvg-convert(batik 对大 SVG 渲染空白)，兜底 ImageMagick
+        |SVG to PNG: prefer rsvg-convert (batik renders large SVGs blank), fallback IM
+
+        ShowLDSVG/LDBlockShow 内置的 batik 对含数百万 polygon 的大 SVG 会渲染出**空白但非零**
+        的 PNG，不能用 getsize>0 判断好坏。故只要 rsvg-convert 可用就总是重新渲染覆盖。
+        |The built-in batik renders a **blank-but-nonzero** PNG on large SVGs (millions of
+        polygons), so getsize>0 cannot judge correctness. Always re-render with rsvg-convert
+        when available.
+        """
         svg_file = f"{self.config.output_prefix}.svg"
         png_file = f"{self.config.output_prefix}.png"
 
         if not os.path.exists(svg_file):
             return
-        if os.path.exists(png_file) and os.path.getsize(png_file) > 0:
-            return
 
-        self.logger.info("ShowLDSVG内置PNG转换可能失败，尝试兜底转换|ShowLDSVG built-in PNG conversion may have failed, trying fallback")
-
-        # 尝试rsvg-convert|Try rsvg-convert
-        rsvg = shutil.which('rsvg-convert')
+        rsvg = _find_rsvg_convert()
         if rsvg:
-            self.logger.info(f"使用rsvg-convert转换|Converting with rsvg-convert")
+            self.logger.info(
+                f"使用 rsvg-convert 渲染 PNG(避免 batik 大 SVG 空白)|"
+                f"Render PNG with rsvg-convert (avoids batik blank on large SVG): {rsvg}")
             success = self.cmd_runner.run(
                 [rsvg, '-z', '3', svg_file, '-o', png_file],
                 "SVG转PNG(rsvg-convert)|SVG to PNG (rsvg-convert)",
-                timeout=3600
+                timeout=7200
             )
             if success and os.path.exists(png_file) and os.path.getsize(png_file) > 0:
-                self.logger.info(f"PNG转换成功|PNG conversion done: {png_file}")
+                self.logger.info(
+                    f"PNG渲染完成|PNG rendered: {png_file} "
+                    f"({os.path.getsize(png_file) // 1024} KB)")
                 return
+            self.logger.warning("rsvg-convert 渲染失败，尝试兜底|rsvg-convert failed, trying fallback")
 
-        # 尝试ImageMagick convert|Try ImageMagick convert
+        # 兜底：ImageMagick convert(其 SVG 委托也依赖 rsvg-convert，缺失时可能空白)
+        # |Fallback: ImageMagick convert (its SVG delegate also needs rsvg-convert; blank if missing)
         convert = shutil.which('convert')
         if convert:
-            self.logger.info(f"使用ImageMagick convert转换|Converting with ImageMagick convert")
+            self.logger.info("兜底使用 ImageMagick convert|Fallback: ImageMagick convert")
             success = self.cmd_runner.run(
                 [convert, svg_file, png_file],
                 "SVG转PNG(ImageMagick)|SVG to PNG (ImageMagick)",
-                timeout=3600
+                timeout=7200
             )
             if success and os.path.exists(png_file) and os.path.getsize(png_file) > 0:
-                self.logger.info(f"PNG转换成功|PNG conversion done: {png_file}")
+                self.logger.info(f"PNG转换完成|PNG converted: {png_file}")
                 return
 
-        self.logger.warning(f"PNG转换失败，请手动转换: {svg_file}|PNG conversion failed, please convert manually: {svg_file}")
+        # 都失败：batik 已写的 PNG 很可能空白，明确告警并给出修复建议
+        # |All failed: batik's PNG is likely blank; warn clearly with a fix
+        self.logger.error(
+            "无法生成有效 PNG：未找到 rsvg-convert，而 batik 对大 SVG 会渲染空白。"
+            "请安装 librsvg(如 conda install -c conda-forge librsvg)或设置环境变量 "
+            "RSVG_CONVERT_PATH 指向 rsvg-convert。SVG 本身正常，可手动转换。"
+            "|Cannot produce a valid PNG: rsvg-convert not found, and batik renders large "
+            "SVGs blank. Install librsvg (e.g. conda install -c conda-forge librsvg) or set "
+            "RSVG_CONVERT_PATH to point to rsvg-convert. The SVG itself is fine; convert manually.")
 
     def _check_output_files(self):
         """检查输出文件是否存在|Check if output files exist"""
