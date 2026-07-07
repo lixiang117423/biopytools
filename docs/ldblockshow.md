@@ -24,13 +24,13 @@
 # 基本LD热图分析
 biopytools ldblockshow \
     -i variants.vcf.gz \
-    -o ld_result \
+    -o results/ \
     -r chr1:1000000-2000000
 
 # 使用R²统计量
 biopytools ldblockshow \
     -i variants.vcf.gz \
-    -o ld_result \
+    -o results/ \
     -r chr1:1000000-2000000 \
     --sele-var 2
 ```
@@ -41,7 +41,7 @@ biopytools ldblockshow \
 # 结合GWAS和基因注释的可视化
 biopytools ldblockshow \
     -i variants.vcf.gz \
-    -o ld_result \
+    -o results/ \
     -r chr1:1000000-2000000 \
     --in-gwas gwas.txt \
     --in-gff annotation.gff \
@@ -51,7 +51,7 @@ biopytools ldblockshow \
 # 亚群分析
 biopytools ldblockshow \
     -i variants.vcf.gz \
-    -o ld_result \
+    -o results/ \
     -r chr1:1000000-2000000 \
     --sub-pop subgroup_samples.txt \
     --maf 0.01 \
@@ -65,8 +65,9 @@ biopytools ldblockshow \
 | 参数 | 描述 | 示例 |
 |------|------|------|
 | `-i, --vcf-file` | VCF变异文件路径 | `-i variants.vcf.gz` |
-| `-o, --output-prefix` | 输出文件前缀（包含路径） | `-o results/ld_result` |
-| `-r, --region` | 分析区域，格式chr:start-end | `-r chr1:1000000-2000000` |
+| `-o, --output-dir` | 输出目录(自动创建)；每 region 产物落在 目录/<label>.* | `-o results/` |
+| `-r, --region` | 单个分析区域，格式chr:start-end（与 `-b` 二选一） | `-r chr1:1000000-2000000` |
+| `-b, --bed` | 基因组BED文件(每行 chrom start end [name])，等价多个 -r | `-b peaks.bed` |
 
 ### LD度量选择 | LD Statistic Selection
 
@@ -177,13 +178,13 @@ sample3
 
 ```
 results/
-├── ld_result.svg              # LD热图SVG图像
-├── ld_result.png              # LD热图PNG图像（可选）
-├── ld_result.pdf              # LD热图PDF图像（可选）
-├── ld_result.site.gz          # SNP位点文件
-├── ld_result.blocks.gz        # LD block文件
-├── ld_result.TriangleV.gz     # 配对LD值文件
-└── ldblockshow_processing_*.log  # 分析日志
+├── chr1_1000000_2000000.svg              # LD热图SVG图像
+├── chr1_1000000_2000000.png              # LD热图PNG图像（可选）
+├── chr1_1000000_2000000.pdf              # LD热图PDF图像（可选）
+├── chr1_1000000_2000000.site.gz          # SNP位点文件
+├── chr1_1000000_2000000.blocks.gz        # LD block文件
+├── chr1_1000000_2000000.TriangleV.gz     # 配对LD值文件
+└── ldblockshow_processing_*.log            # 分析日志
 ```
 
 ## 使用示例 | Usage Examples
@@ -193,7 +194,7 @@ results/
 ```bash
 biopytools ldblockshow \
     -i /data/population.vcf.gz \
-    -o /results/chr1_ld \
+    -o /results/ \
     -r chr1:1000000-2000000 \
     --out-png
 ```
@@ -203,7 +204,7 @@ biopytools ldblockshow \
 ```bash
 biopytools ldblockshow \
     -i /data/population.vcf.gz \
-    -o /results/gwas_region \
+    -o /results/ \
     -r chr5:25000000-26000000 \
     --in-gwas /data/gwas_results.txt \
     --out-png \
@@ -215,7 +216,7 @@ biopytools ldblockshow \
 ```bash
 biopytools ldblockshow \
     -i /data/population.vcf.gz \
-    -o /results/annotated_ld \
+    -o /results/ \
     -r chr3:50000000-51000000 \
     --in-gff /data/annotation.gff \
     --in-gwas /data/gwas_results.txt \
@@ -235,7 +236,7 @@ EOF
 
 biopytools ldblockshow \
     -i /data/population.vcf.gz \
-    -o /results/subgroup_ld \
+    -o /results/ \
     -r chr2:10000000-11000000 \
     --sub-pop subgroup.txt \
     --maf 0.01 \
@@ -247,7 +248,7 @@ biopytools ldblockshow \
 ```bash
 biopytools ldblockshow \
     -i /data/population.vcf.gz \
-    -o /results/custom_blocks \
+    -o /results/ \
     -r chr4:30000000-31000000 \
     --block-type 3 \
     --block-cut 0.90:0.95 \

@@ -51,6 +51,16 @@ def _sanitize_label(name: str) -> str:
     return _LABEL_SAFE.sub("_", name)
 
 
+# region 字符串(chr:start-end)中需替换为 _ 的分隔符|separators in region string → _
+_REGION_SEP = re.compile(r"[:\-]")
+
+
+def _region_str_to_label(region_str: str) -> str:
+    """单 region 字符串 chr:start-end → 文件名 stem chr_start_end
+    |Single-region string chr:start-end → filename stem chr_start_end"""
+    return _REGION_SEP.sub("_", region_str)
+
+
 def _parse_bed_regions(bed_path) -> List[BedRegion]:
     """
     解析基因组 BED 文件为 region 列表|Parse a genomic BED file into regions
@@ -100,27 +110,28 @@ def _parse_bed_regions(bed_path) -> List[BedRegion]:
     return regions
 
 
-def _per_region_prefix(base_prefix: str, region: BedRegion, seen: set) -> str:
+def _per_region_prefix(output_dir: str, region: BedRegion, seen: set) -> str:
     """
-    为单个 region 生成不冲突的输出前缀(去重)|Generate a non-colliding output prefix per region.
+    为单个 region 生成输出目录内的不冲突前缀(目录/label)|Non-colliding prefix inside the output dir (dir/label).
 
     label 重名时追加 _2, _3...|Append _2, _3... on duplicate labels.
 
     Args:
-        base_prefix: --output-prefix 给的 base|base output prefix
+        output_dir: --output-dir 给的目录|output directory
         region: 当前 region|current region
         seen: 已使用前缀集合(会被修改)|set of used prefixes (mutated)
 
     Returns:
-        该 region 的输出前缀|output prefix for this region
+        该 region 的完整输出前缀(目录/label)|full output prefix (dir/label)
     """
     label = region.label
     candidate = label
     suffix = 2
-    while f"{base_prefix}.{candidate}" in seen:
+    full = os.path.join(output_dir, candidate)
+    while full in seen:
         candidate = f"{label}_{suffix}"
         suffix += 1
-    full = f"{base_prefix}.{candidate}"
+        full = os.path.join(output_dir, candidate)
     seen.add(full)
     return full
 
@@ -506,8 +517,9 @@ def main():
     # 必需参数|Required parameters
     required = parser.add_argument_group('必需参数|Required parameters')
 
-    required.add_argument("-o", "--output-prefix", required=True,
-                         help="输出文件前缀（包含路径）|Output file prefix (including path)")
+    required.add_argument("-o", "--output-dir", required=True,
+                         help="输出目录(自动创建)；每 region 产物落在 目录/<label>.* "
+                         "|Output directory (auto-created); per-region outputs land in dir/<label>.*")
 
     # 分析区域：-r 与 -b 二选一|Region: exactly one of -r or -b
     region_params = parser.add_argument_group('分析区域（-r 与 -b 二选一）|Region (-r XOR -b)')
@@ -623,6 +635,9 @@ def main():
 
     # 创建分析器并运行|Create analyzer(s) and run
     try:
+        # 创建输出目录|create output directory
+        os.makedirs(args.output_dir, exist_ok=True)
+
         # 共享参数(region/output_prefix 随 region 变)|shared kwargs (region/output_prefix vary per region)
         shared = dict(
             vcf_file=args.vcf_file,
@@ -669,7 +684,7 @@ def main():
             succeeded = 0
             failed = 0
             for idx, region in enumerate(regions, 1):
-                per_prefix = _per_region_prefix(args.output_prefix, region, seen)
+                per_prefix = _per_region_prefix(args.output_dir, region, seen)
                 print(f"[{idx}/{len(regions)}] region={region.region_str} -> {per_prefix}",
                       file=sys.stderr)
                 analyzer = LDBlockShowAnalyzer(
@@ -688,9 +703,11 @@ def main():
                   f"{failed} 失败|failed (共|total {len(regions)})", file=sys.stderr)
             sys.exit(0 if failed == 0 else 1)
         else:
-            # 单 region|single region
+            # 单 region：stem 由 region 字符串派生(chr_start_end)|single region: stem from region string
+            stem = _region_str_to_label(args.region)
+            output_prefix = os.path.join(args.output_dir, stem)
             analyzer = LDBlockShowAnalyzer(
-                output_prefix=args.output_prefix, region=args.region, **shared)
+                output_prefix=output_prefix, region=args.region, **shared)
             analyzer.run_analysis()
 
     except ValueError as e:

@@ -39,9 +39,10 @@ def _validate_file_exists(ctx, param, value):
               required=True,
               callback=lambda ctx, param, value: _validate_file_exists(ctx, param, value),
               help='VCF变异文件路径|VCF variant file path')
-@click.option('-o', '--output-prefix',
+@click.option('-o', '--output-dir',
               required=True,
-              help='输出文件前缀（包含路径）|Output file prefix (including path)')
+              help='输出目录(自动创建)；每 region 产物落在 目录/<label>.* '
+              '|Output directory (auto-created); per-region outputs land in dir/<label>.*')
 @click.option('-r', '--region',
               help='分析区域，格式chr:start-end|Analysis region, format chr:start-end')
 @click.option('-b', '--bed',
@@ -125,7 +126,7 @@ def _validate_file_exists(ctx, param, value):
               help='图像高度，宽度按比例自动调整|Image height, width auto-adjusted')
 @click.option('--no-show-ldist', type=int,
               help='超过此距离的SNP对不显示LD|NoShow pairwise LD over this distance')
-def ldblockshow(vcf_file, output_prefix, region, bed, in_genotype, in_plink,
+def ldblockshow(vcf_file, output_dir, region, bed, in_genotype, in_plink,
                 sele_var, maf, miss, hwe, het, enable_oth_var,
                 block_type, block_cut, fix_block,
                 in_gwas, in_gff, mer_min_snp_num,
@@ -147,7 +148,7 @@ def ldblockshow(vcf_file, output_prefix, region, bed, in_genotype, in_plink,
 
     # 必需参数|Required parameters
     args.extend(['-i', vcf_file])
-    args.extend(['-o', output_prefix])
+    args.extend(['-o', output_dir])
     # region 与 bed 二选一(由 main 校验)|region XOR bed (validated by main)
     if region:
         args.extend(['-r', region])
