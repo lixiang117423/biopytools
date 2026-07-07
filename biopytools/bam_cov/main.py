@@ -306,7 +306,9 @@ def main():
     output = parser.add_argument_group('输出配置|Output configuration')
     output.add_argument('-o', '--output',
                        default='./coverage.txt',
-                       help='输出文件路径|Output file path')
+                       help='输出路径：目录(已存在或无扩展名)则合并文件/temp/摘要都写入该目录；'
+                       '有扩展名则作为输出文件|Output path: a directory (existing or no extension) → '
+                       'merged/temp/summary written inside it; with extension → output file')
 
     # 过滤参数|Filtering parameters
     filtering = parser.add_argument_group('过滤参数|Filtering parameters')

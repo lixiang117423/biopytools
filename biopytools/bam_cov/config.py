@@ -44,8 +44,21 @@ class BAMCoverageConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # 标准化输出路径|Normalize output path
-        self.output = os.path.normpath(os.path.abspath(self.output))
+        # 解析 -o：目录型(已存在目录 或 无扩展名) → 合并文件落 目录/coverage.txt；
+        # 文件型(有扩展名) → 直接作为输出文件(向后兼容)
+        # |Resolve -o: dir-like (existing dir or no extension) → merged at dir/coverage.txt;
+        # file-like (has extension) → use as output file (backward compatible).
+        # 否则直接把目录当文件写会触发 [Errno 21] Is a directory。
+        # |Otherwise writing to a dir path raises [Errno 21] Is a directory.
+        output_abs = os.path.normpath(os.path.abspath(self.output))
+        has_extension = '.' in os.path.basename(output_abs)
+        if os.path.isdir(output_abs) or not has_extension:
+            # 目录型：自动创建，合并文件/临时文件/摘要都落在目录内
+            # |dir-like: auto-create; merged/temp/summary all land inside the dir
+            os.makedirs(output_abs, exist_ok=True)
+            self.output = os.path.join(output_abs, 'coverage.txt')
+        else:
+            self.output = output_abs
         self.output_path = Path(self.output).parent
         self.output_path.mkdir(parents=True, exist_ok=True)
 
