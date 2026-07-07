@@ -3,13 +3,126 @@
 """
 
 import argparse
+import re
 import shutil
 import sys
 import os
-from typing import List
+from dataclasses import dataclass
+from typing import List, Optional
 
 from .config import LDBlockShowConfig
 from .utils import LDBlockShowLogger, CommandRunner
+
+
+@dataclass
+class BedRegion:
+    """BED 一行 region(0-based 半开)|One BED row (0-based half-open)"""
+
+    chrom: str
+    bed_start: int   # 0-based, BED 原始|raw BED start
+    bed_end: int      # 0-based 半开, BED 原始|raw BED end (exclusive)
+    name: Optional[str] = None
+
+    @property
+    def region_str(self) -> str:
+        """ldblockshow -Region 用的 1-based 闭区间 chr:start-end
+        |1-based inclusive for ldblockshow -Region (aligned to VCF POS)
+
+        BED 0-based 半开 [start,end) → 1-based 闭 [start+1, end]
+        |BED 0-based half-open [start,end) → 1-based inclusive [start+1, end]
+        """
+        return f"{self.chrom}:{self.bed_start + 1}-{self.bed_end}"
+
+    @property
+    def label(self) -> str:
+        """输出文件命名：name 优先(清洗)，否则 chr_start_end(1-based)
+        |Output label: name (sanitized) if present, else 1-based chr_start_end"""
+        if self.name:
+            return _sanitize_label(self.name)
+        return f"{self.chrom}_{self.bed_start + 1}_{self.bed_end}"
+
+
+# BED name 允许字符：字母数字 . - _，其余替换为 _ |allowed chars; others → _
+_LABEL_SAFE = re.compile(r"[^A-Za-z0-9._-]")
+
+
+def _sanitize_label(name: str) -> str:
+    """清洗 BED name 用于输出文件名(去空格/斜杠等)|Sanitize BED name for filename use"""
+    return _LABEL_SAFE.sub("_", name)
+
+
+def _parse_bed_regions(bed_path) -> List[BedRegion]:
+    """
+    解析基因组 BED 文件为 region 列表|Parse a genomic BED file into regions
+
+    - 接受 BED3+ (chrom, start, end[, name], ...)；第4列作 name(可选)
+    - 跳过空行、# 注释、track/browser 头|Skip blank/#/track/browser lines
+    - 严格校验：整数坐标、end>start，否则 ValueError(带行号) fail fast
+    - 至少需 1 个有效 region|Need >=1 valid region
+
+    Args:
+        bed_path: BED 文件路径|BED file path
+
+    Returns:
+        region 列表|list of BedRegion
+    """
+    regions: List[BedRegion] = []
+    with open(bed_path, "r") as f:
+        for lineno, raw in enumerate(f, 1):
+            line = raw.strip()
+            if not line:
+                continue
+            first = line.split()[0]
+            # 跳过 UCSC 头/注释|Skip UCSC headers/comments
+            if first in ("track", "browser") or first.startswith("#"):
+                continue
+
+            fields = line.split()
+            if len(fields) < 3:
+                raise ValueError(
+                    f"BED 第{lineno}行无效|BED line {lineno} invalid: 至少3列|need >=3 columns")
+            chrom = fields[0]
+            try:
+                start = int(fields[1])
+                end = int(fields[2])
+            except ValueError:
+                raise ValueError(
+                    f"BED 第{lineno}行无效|BED line {lineno} invalid: 坐标非整数|non-integer coords"
+                ) from None
+            if end <= start:
+                raise ValueError(
+                    f"BED 第{lineno}行无效|BED line {lineno} invalid: end({end})<=start({start})")
+            name = fields[3] if len(fields) >= 4 else None
+            regions.append(BedRegion(chrom, start, end, name))
+
+    if not regions:
+        raise ValueError("BED 无有效 region|BED has no valid regions")
+    return regions
+
+
+def _per_region_prefix(base_prefix: str, region: BedRegion, seen: set) -> str:
+    """
+    为单个 region 生成不冲突的输出前缀(去重)|Generate a non-colliding output prefix per region.
+
+    label 重名时追加 _2, _3...|Append _2, _3... on duplicate labels.
+
+    Args:
+        base_prefix: --output-prefix 给的 base|base output prefix
+        region: 当前 region|current region
+        seen: 已使用前缀集合(会被修改)|set of used prefixes (mutated)
+
+    Returns:
+        该 region 的输出前缀|output prefix for this region
+    """
+    label = region.label
+    candidate = label
+    suffix = 2
+    while f"{base_prefix}.{candidate}" in seen:
+        candidate = f"{label}_{suffix}"
+        suffix += 1
+    full = f"{base_prefix}.{candidate}"
+    seen.add(full)
+    return full
 
 
 class LDBlockShowAnalyzer:
@@ -112,7 +225,23 @@ class LDBlockShowAnalyzer:
         return cmd
 
     def run_analysis(self):
-        """运行连锁不平衡热图分析|Run LD heatmap analysis"""
+        """运行连锁不平衡热图分析(单region入口，完成后退出)|Single-region entry: run then exit"""
+        try:
+            ok = self._run_pipeline()
+        except KeyboardInterrupt:
+            self.logger.warning("操作被用户中断|Operation interrupted by user")
+            sys.exit(130)
+        sys.exit(0 if ok else 1)
+
+    def _run_pipeline(self) -> bool:
+        """
+        执行LD热图全流程，返回是否成功(不调用sys.exit)|Run full pipeline, return success (no sys.exit)
+
+        单region run_analysis 与 batch 多region 循环复用本方法。
+        |Shared by single-region run_analysis and the batch multi-region loop.
+        KeyboardInterrupt 上抛由调用方决定(单region退出 / batch停止)。
+        |KeyboardInterrupt propagates: single-region exits / batch stops.
+        """
         try:
             self.logger.info("连锁不平衡热图分析流程开始|LD heatmap analysis pipeline started")
             self.logger.info(f"分析区域|Region: {self.config.region}")
@@ -162,12 +291,14 @@ class LDBlockShowAnalyzer:
                 if file and os.path.exists(file):
                     self.logger.info(f"  - {file}")
 
+            return True
+
         except KeyboardInterrupt:
             self.logger.warning("操作被用户中断|Operation interrupted by user")
-            sys.exit(130)
+            raise  # 上抛由调用方处理(单region退出 / batch停止)|propagate
         except Exception as e:
             self.logger.error(f"分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}", exc_info=True)
-            sys.exit(1)
+            return False
 
     def _is_step_completed(self, output_file: str) -> bool:
         """检查步骤是否已完成|Check if step is done"""
@@ -377,8 +508,14 @@ def main():
 
     required.add_argument("-o", "--output-prefix", required=True,
                          help="输出文件前缀（包含路径）|Output file prefix (including path)")
-    required.add_argument("-r", "--region", required=True,
-                         help="分析区域，格式chr:start-end|Analysis region, format chr:start-end")
+
+    # 分析区域：-r 与 -b 二选一|Region: exactly one of -r or -b
+    region_params = parser.add_argument_group('分析区域（-r 与 -b 二选一）|Region (-r XOR -b)')
+    region_params.add_argument("-r", "--region",
+                              help="单个分析区域，格式chr:start-end|Single region, format chr:start-end")
+    region_params.add_argument("-b", "--bed",
+                              help="基因组BED文件(每行 chrom start end [name])，等价多个 -r 批量出图"
+                              "|Genomic BED (cols: chrom start end [name]), equivalent to multiple -r")
 
     # 输入文件（三选一）|Input files (one of three)
     input_params = parser.add_argument_group(
@@ -478,11 +615,16 @@ def main():
 
     args = parser.parse_args()
 
-    # 创建分析器并运行|Create analyzer and run
+    # -r/--region 与 -b/--bed 恰好一个|exactly one of -r/--region or -b/--bed
+    if bool(args.region) == bool(args.bed):
+        print("错误|Error: 必须且只能指定 -r/--region 或 -b/--bed 之一"
+              "|Must specify exactly one of -r/--region or -b/--bed", file=sys.stderr)
+        sys.exit(1)
+
+    # 创建分析器并运行|Create analyzer(s) and run
     try:
-        analyzer = LDBlockShowAnalyzer(
-            output_prefix=args.output_prefix,
-            region=args.region,
+        # 共享参数(region/output_prefix 随 region 变)|shared kwargs (region/output_prefix vary per region)
+        shared = dict(
             vcf_file=args.vcf_file,
             in_genotype=args.in_genotype,
             in_plink=args.in_plink,
@@ -512,10 +654,44 @@ def main():
             spe_snp_name=args.spe_snp_name,
             show_gwas_spe_snp=args.show_gwas_spe_snp,
             resize_h=args.resize_h,
-            no_show_ldist=args.no_show_ldist
+            no_show_ldist=args.no_show_ldist,
         )
 
-        analyzer.run_analysis()
+        if args.bed:
+            # BED 多 region 批处理|BED multi-region batch
+            if not os.path.exists(args.bed):
+                print(f"错误|Error: BED文件不存在|BED file not found: {args.bed}", file=sys.stderr)
+                sys.exit(1)
+            regions = _parse_bed_regions(args.bed)
+            print(f"BED 解析到|BED parsed: {len(regions)} 个 region|regions", file=sys.stderr)
+
+            seen = set()
+            succeeded = 0
+            failed = 0
+            for idx, region in enumerate(regions, 1):
+                per_prefix = _per_region_prefix(args.output_prefix, region, seen)
+                print(f"[{idx}/{len(regions)}] region={region.region_str} -> {per_prefix}",
+                      file=sys.stderr)
+                analyzer = LDBlockShowAnalyzer(
+                    output_prefix=per_prefix, region=region.region_str, **shared)
+                try:
+                    ok = analyzer._run_pipeline()
+                except KeyboardInterrupt:
+                    raise  # 停止整个 batch|stop the whole batch
+                if ok:
+                    succeeded += 1
+                else:
+                    failed += 1
+                    print(f"[{idx}/{len(regions)}] 失败，继续下一个|failed, continuing",
+                          file=sys.stderr)
+            print(f"BED 批处理完成|BED batch done: {succeeded} 成功|succeeded, "
+                  f"{failed} 失败|failed (共|total {len(regions)})", file=sys.stderr)
+            sys.exit(0 if failed == 0 else 1)
+        else:
+            # 单 region|single region
+            analyzer = LDBlockShowAnalyzer(
+                output_prefix=args.output_prefix, region=args.region, **shared)
+            analyzer.run_analysis()
 
     except ValueError as e:
         print(f"参数错误|Parameter error: {e}", file=sys.stderr)

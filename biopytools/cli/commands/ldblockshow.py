@@ -43,8 +43,11 @@ def _validate_file_exists(ctx, param, value):
               required=True,
               help='输出文件前缀（包含路径）|Output file prefix (including path)')
 @click.option('-r', '--region',
-              required=True,
               help='分析区域，格式chr:start-end|Analysis region, format chr:start-end')
+@click.option('-b', '--bed',
+              callback=lambda ctx, param, value: _validate_file_exists(ctx, param, value) if value else None,
+              help='基因组BED文件(每行 chrom start end [name])，等价多个 -r 批量出图'
+              '|Genomic BED (cols: chrom start end [name]), equivalent to multiple -r')
 # 输入文件|Input files
 @click.option('--in-genotype',
               callback=lambda ctx, param, value: _validate_file_exists(ctx, param, value) if value else None,
@@ -122,7 +125,7 @@ def _validate_file_exists(ctx, param, value):
               help='图像高度，宽度按比例自动调整|Image height, width auto-adjusted')
 @click.option('--no-show-ldist', type=int,
               help='超过此距离的SNP对不显示LD|NoShow pairwise LD over this distance')
-def ldblockshow(vcf_file, output_prefix, region, in_genotype, in_plink,
+def ldblockshow(vcf_file, output_prefix, region, bed, in_genotype, in_plink,
                 sele_var, maf, miss, hwe, het, enable_oth_var,
                 block_type, block_cut, fix_block,
                 in_gwas, in_gff, mer_min_snp_num,
@@ -145,7 +148,11 @@ def ldblockshow(vcf_file, output_prefix, region, in_genotype, in_plink,
     # 必需参数|Required parameters
     args.extend(['-i', vcf_file])
     args.extend(['-o', output_prefix])
-    args.extend(['-r', region])
+    # region 与 bed 二选一(由 main 校验)|region XOR bed (validated by main)
+    if region:
+        args.extend(['-r', region])
+    if bed:
+        args.extend(['-b', bed])
 
     # 输入文件|Input files
     if in_genotype:
