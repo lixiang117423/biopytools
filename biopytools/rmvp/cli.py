@@ -266,6 +266,10 @@ def main():
             else:
                 logger.info(f"\n仅{len(trait_names)}个表型，跳过结果合并|Only {len(trait_names)} trait, skipping result merge")
 
+            # 导出 ldblockshow -InGWAS 专用 3 列 TSV(每个 trait×model 一份)
+            # |Export ldblockshow-ready 3-col TSV (one per trait×model)
+            result_parser.export_ldblockshow_tsv(trait_names, args.models)
+
             # 收集输出文件|Collect output files
             files = result_parser.collect_output_files(trait_names, args.models)
 

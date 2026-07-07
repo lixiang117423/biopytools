@@ -165,6 +165,73 @@ class RMVPResultParser:
 
         return saved_files
 
+    def export_ldblockshow_tsv(self, trait_names: List[str],
+                               models: List[str]) -> List[Path]:
+        """
+        为每个 trait×model 导出 ldblockshow -InGWAS 专用的 3 列 TSV
+        |Export a ldblockshow -InGWAS-ready 3-column TSV per trait×model
+
+        输出格式(与 ldblockshow -InGWAS 对接)|Output format (for ldblockshow -InGWAS):
+            CHROM<TAB>POS<TAB>{trait}.{model}   (表头|header)
+            chr01<TAB>1203<TAB>0.743...         (原始 P 值，ldblockshow 自带 -log10)|raw P-value
+
+        - 末列(P值)保持 rMVP 原名 {trait}.{model}，不改名|Keep rMVP last-col (P) name as-is
+        - 丢弃 P=NA 的行|Drop rows with P=NA
+        - 结果 CSV 缺失则告警跳过(不报错)|Warn and skip on missing CSV, no crash
+        - 目标 TSV 已存在则跳过(断点续传 §10.2)|Skip if target TSV exists (resume, §10.2)
+
+        Args:
+            trait_names: 表型名称列表|Trait names
+            models: 模型列表|Models
+
+        Returns:
+            本次实际写出的 TSV 路径列表|List of TSV paths written this run
+        """
+        self.logger.info(" 导出 ldblockshow -InGWAS TSV|Exporting ldblockshow -InGWAS TSV")
+        written: List[Path] = []
+
+        for trait in trait_names:
+            for model in models:
+                csv_file = self._result_csv(self.output_dir, trait, model)
+                if not csv_file.exists():
+                    self.logger.warning(f"   结果文件缺失，跳过|Missing result, skip: {csv_file.name}")
+                    continue
+
+                # 归一化模型名(GLM/MLM/FarmCPU)用于输出文件名与列名|Normalize model name
+                model_norm = self._normalize_model(model)
+                tsv_file = self.output_dir / f"{trait}.{model_norm}.tsv"
+
+                # 断点续传：TSV 已存在则跳过|Resume: skip if TSV already exists
+                if tsv_file.exists():
+                    self.logger.info(f"   跳过已存在|Skipping existing: {tsv_file.name}")
+                    continue
+
+                try:
+                    df = pd.read_csv(csv_file)
+                    # 末列为 P 值，列名即 {trait}.{model_norm}|Last col = P-value
+                    pvalue_col = df.columns[-1]
+                    out = df[['CHROM', 'POS', pvalue_col]].copy()
+
+                    # 丢弃 P=NA 的行|Drop rows with P=NA
+                    before = len(out)
+                    out = out[out[pvalue_col].notna()]
+                    dropped = before - len(out)
+                    if dropped:
+                        self.logger.info(
+                            f"   {csv_file.name}: 丢弃|dropped {dropped} 行 P=NA|P=NA rows")
+
+                    # POS 强制整数(此时已无 NA)|Force POS to int (no NA remaining)
+                    out['POS'] = out['POS'].astype(int)
+
+                    out.to_csv(tsv_file, sep='\t', index=False)
+                    self.logger.info(f"   已生成|Generated: {tsv_file.name} ({len(out)} SNPs)")
+                    written.append(tsv_file)
+                except Exception as e:
+                    self.logger.error(f"   导出失败|Export failed {csv_file.name}: {e}")
+
+        self.logger.info(f" 共导出|Total exported: {len(written)} 个 TSV|TSV files")
+        return written
+
     def merge_results_by_significance(self, trait_names: List[str],
                                       models: List[str],
                                       p_threshold: float = 1e-5) -> Dict[str, pd.DataFrame]:
