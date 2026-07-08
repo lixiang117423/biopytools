@@ -23,15 +23,32 @@ class AlignLogger:
         if self.log_file.exists():
             self.log_file.unlink()
 
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s',
-            datefmt='%Y-%m-%d %H:%M:%S',
-            handlers=[
-                logging.FileHandler(self.log_file),
-                logging.StreamHandler(sys.stdout)
-            ]
-        )
+        log_format = '%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s'
+        date_format = '%Y-%m-%d %H:%M:%S'
+        formatter = logging.Formatter(log_format, datefmt=date_format)
+
+        # 配置根日志(规范§2.3.1: stdout INFO + stderr WARNING + file DEBUG)|Configure root logger
+        root_logger = logging.getLogger()
+        root_logger.setLevel(logging.DEBUG)
+        root_logger.handlers.clear()
+        root_logger.propagate = False
+
+        file_handler = logging.FileHandler(self.log_file, encoding='utf-8')
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(formatter)
+        root_logger.addHandler(file_handler)
+
+        stdout_handler = logging.StreamHandler(sys.stdout)
+        stdout_handler.setLevel(logging.INFO)
+        stdout_handler.setFormatter(formatter)
+        root_logger.addHandler(stdout_handler)
+
+        # stderr handler - WARNING及以上(超算 .err 捕获)|stderr handler - WARNING+
+        stderr_handler = logging.StreamHandler(sys.stderr)
+        stderr_handler.setLevel(logging.WARNING)
+        stderr_handler.setFormatter(formatter)
+        root_logger.addHandler(stderr_handler)
+
         self.logger = logging.getLogger(__name__)
     
     def get_logger(self):

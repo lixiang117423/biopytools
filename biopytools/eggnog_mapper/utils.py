@@ -50,7 +50,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
 
 class EggnogMapperLogger:
-    """eggnog-mapper 日志管理器|logger manager (stdout INFO + file DEBUG)."""
+    """eggnog-mapper 日志管理器|logger manager (stdout INFO + stderr WARNING + file DEBUG)."""
 
     def __init__(self, output_dir, log_name: str = "emapper.log"):
         self.output_dir = Path(output_dir)
@@ -74,11 +74,17 @@ class EggnogMapperLogger:
         stdout_handler.setLevel(logging.INFO)
         stdout_handler.setFormatter(formatter)
 
+        # stderr handler - WARNING及以上(规范§2.3.1, 超算 .err 捕获)|stderr handler - WARNING+
+        stderr_handler = logging.StreamHandler(sys.stderr)
+        stderr_handler.setLevel(logging.WARNING)
+        stderr_handler.setFormatter(formatter)
+
         self.logger = logging.getLogger("eggnog_mapper")
         self.logger.setLevel(logging.DEBUG)
         self.logger.handlers.clear()
         self.logger.addHandler(file_handler)
         self.logger.addHandler(stdout_handler)
+        self.logger.addHandler(stderr_handler)
         self.logger.propagate = False
 
     def get_logger(self):
