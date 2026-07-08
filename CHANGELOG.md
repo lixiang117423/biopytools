@@ -1,4 +1,15 @@
 
+## [1.5.0] - 2026-07-08
+
+### Added
+- **新模块**：`eggnog-mapper` — eggNOG 功能注释（GO/KEGG/COG/CAZy/Pfam），支持 mmseqs/diamond/hmmer 等搜索模式、断点续传、software_versions.yml，并附带注释结果重排版（中文 TSV + 双语 Excel）
+
+### Fixed
+- `ldblockshow`：GWAS P 值文件预过滤 NA/0/负值/Inf/非数值行，避免 ShowLDSVG 取 -log10(P) 时 Perl `log(0)` 崩溃；全文件无有效 P 值时自动禁用 GWAS 轨道；多 region 批处理按源文件去重，仅过滤一次
+
+### Changed
+- `ldblockshow`：BED 批处理改用标准 `LDBlockShowLogger` 替代 `print`，output_dir 创建失败时回退 print，超算 .out/.err 日志更规范
+
 ## [1.4.0] - 2026-07-02
 
 ### Added
