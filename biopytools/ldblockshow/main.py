@@ -4,11 +4,13 @@
 
 import argparse
 import glob
+import math
 import re
 import shutil
 import sys
 import os
 from dataclasses import dataclass
+from pathlib import Path
 from typing import List, Optional
 
 from .config import LDBlockShowConfig
@@ -163,6 +165,110 @@ def _per_region_prefix(output_dir: str, region: BedRegion, seen: set) -> str:
     return full
 
 
+def _fmt_m(n: int) -> str:
+    """格式化大数字(>=1M用百万单位)|Format large numbers (>=1M in millions)"""
+    if n >= 1_000_000:
+        return f"{n / 1_000_000:.2f}M"
+    return f"{n:,}"
+
+
+def _log_or_print(logger, level: str, msg: str):
+    """logger就绪则按级别输出标准格式，否则print到stderr|Emit via logger if ready, else print to stderr
+
+    main()的顶层异常处理使用：logger可能因output_dir创建失败而未就绪。
+    |Used by main()'s top-level exception handlers, where the logger may not be
+    initialized yet (e.g. output_dir creation failed).
+    """
+    if logger is not None:
+        getattr(logger, level)(msg)
+    else:
+        print(msg, file=sys.stderr)
+
+
+# GWAS P值过滤缓存：按源文件绝对路径去重，多region共享同一源文件时只过滤一次
+# Sanitize cache keyed by source abspath; shared across regions for the same GWAS file
+_GWAS_CLEAN_CACHE: dict = {}
+
+
+def _sanitize_gwas_file(in_gwas: str, output_dir: str, logger) -> Optional[str]:
+    """过滤GWAS P值文件无效行，返回干净文件路径|Sanitize GWAS P-value file, return clean path
+
+    ShowLDSVG对P值取-log10绘制，NA/0/非数值会导致Perl脚本log(0)崩溃。
+    此处过滤第3列(P值)非正数或非数值的行，干净文件写入output_dir供下游工具使用。
+    |ShowLDSVG plots -log10(P); NA/0/non-numeric crash Perl with log(0). Filter rows whose
+    col-3 (P-value) is non-positive or non-numeric; write the clean file to output_dir.
+
+    多region共享同一源文件时，进程内缓存避免重复过滤大文件。
+    |Process-level cache avoids re-filtering the same large file across regions.
+
+    Args:
+        in_gwas: 原始GWAS文件路径|raw GWAS file path
+        output_dir: 干净文件输出目录|output dir for the clean file
+        logger: 日志器|logger
+
+    Returns:
+        干净文件路径；若全文件无有效P值则返回None|clean path, or None if no valid P-value
+    """
+    src_abs = os.path.abspath(in_gwas)
+    if src_abs in _GWAS_CLEAN_CACHE:
+        return _GWAS_CLEAN_CACHE[src_abs]
+
+    clean_path = os.path.join(output_dir, f"{os.path.basename(src_abs)}.clean.tsv")
+
+    total = 0      # 数据行数|data rows
+    dropped = 0    # 无效P值行|invalid P-value rows
+    kept = 0       # 有效行|valid rows
+
+    try:
+        with open(src_abs) as fin, open(clean_path, "w") as fout:
+            for line in fin:
+                fields = line.split()
+                if len(fields) < 3:
+                    continue
+                # 第2列为POS须为整数，否则视为header跳过(不计入统计)
+                # col-2 POS must be int; otherwise treat as header (excluded from stats)
+                try:
+                    int(fields[1])
+                except ValueError:
+                    continue
+                total += 1
+                # 第3列为P值，须为正有限实数|col-3 P-value must be positive finite real
+                try:
+                    p = float(fields[2])
+                except ValueError:
+                    dropped += 1
+                    continue
+                if not (p > 0) or math.isinf(p):   # 排除0/负/NaN/Inf
+                    dropped += 1
+                    continue
+                fout.write(line if line.endswith("\n") else line + "\n")
+                kept += 1
+    except OSError as e:
+        logger.error(f"过滤GWAS文件失败|Failed to sanitize GWAS file: {e}")
+        return None
+
+    if kept == 0:
+        logger.warning(
+            f"GWAS文件无有效P值，跳过GWAS轨道|No valid P-value in GWAS file, "
+            f"skipping GWAS track: {src_abs}"
+        )
+        try:
+            os.remove(clean_path)
+        except OSError:
+            pass
+        _GWAS_CLEAN_CACHE[src_abs] = None
+        return None
+
+    logger.info(
+        f"GWAS P值过滤|GWAS P-values sanitized: "
+        f"共|total {_fmt_m(total)}, "
+        f"过滤无效|dropped {_fmt_m(dropped)}, "
+        f"保留|kept {_fmt_m(kept)} -> {clean_path}"
+    )
+    _GWAS_CLEAN_CACHE[src_abs] = clean_path
+    return clean_path
+
+
 class LDBlockShowAnalyzer:
     """连锁不平衡热图分析主类|Main LD Heatmap Analyzer Class"""
 
@@ -174,6 +280,16 @@ class LDBlockShowAnalyzer:
         # 初始化日志|Initialize logging
         self.logger_manager = LDBlockShowLogger(self.config.output_path)
         self.logger = self.logger_manager.get_logger()
+
+        # 过滤GWAS无效P值(NA/0/非数值)，避免ShowLDSVG取-log10时log(0)崩溃
+        # Sanitize GWAS P-values (NA/0/non-numeric) to prevent ShowLDSVG log(0) crash
+        if self.config.in_gwas:
+            clean = _sanitize_gwas_file(
+                self.config.in_gwas, str(self.config.output_path), self.logger
+            )
+            # clean为None(全无效)时禁用GWAS轨道，其余情况替换为干净文件
+            # None (all-invalid) disables the GWAS track; otherwise use the clean file
+            self.config.in_gwas = clean
 
         # 初始化命令执行器|Initialize command runner
         self.cmd_runner = CommandRunner(self.logger)
@@ -677,10 +793,17 @@ def main():
               "|Must specify exactly one of -r/--region or -b/--bed", file=sys.stderr)
         sys.exit(1)
 
+    # 批处理级日志(标准格式)；output_dir创建失败时仍为None，异常处理需fallback
+    # Batch-level logger (standard format); stays None if output_dir creation fails,
+    # so exception handlers must fall back to print
+    batch_logger = None
+
     # 创建分析器并运行|Create analyzer(s) and run
     try:
         # 创建输出目录|create output directory
         os.makedirs(args.output_dir, exist_ok=True)
+        # 初始化批处理日志(复用标准LDBlockShowLogger格式)|init batch logger
+        batch_logger = LDBlockShowLogger(Path(args.output_dir)).get_logger()
 
         # 共享参数(region/output_prefix 随 region 变)|shared kwargs (region/output_prefix vary per region)
         shared = dict(
@@ -719,18 +842,18 @@ def main():
         if args.bed:
             # BED 多 region 批处理|BED multi-region batch
             if not os.path.exists(args.bed):
-                print(f"错误|Error: BED文件不存在|BED file not found: {args.bed}", file=sys.stderr)
+                batch_logger.error(f"BED文件不存在|BED file not found: {args.bed}")
                 sys.exit(1)
             regions = _parse_bed_regions(args.bed)
-            print(f"BED 解析到|BED parsed: {len(regions)} 个 region|regions", file=sys.stderr)
+            batch_logger.info(f"BED 解析到|BED parsed: {len(regions)} 个 region|regions")
 
             seen = set()
             succeeded = 0
             failed = 0
             for idx, region in enumerate(regions, 1):
                 per_prefix = _per_region_prefix(args.output_dir, region, seen)
-                print(f"[{idx}/{len(regions)}] region={region.region_str} -> {per_prefix}",
-                      file=sys.stderr)
+                batch_logger.info(
+                    f"[{idx}/{len(regions)}] region={region.region_str} -> {per_prefix}")
                 analyzer = LDBlockShowAnalyzer(
                     output_prefix=per_prefix, region=region.region_str, **shared)
                 try:
@@ -741,10 +864,11 @@ def main():
                     succeeded += 1
                 else:
                     failed += 1
-                    print(f"[{idx}/{len(regions)}] 失败，继续下一个|failed, continuing",
-                          file=sys.stderr)
-            print(f"BED 批处理完成|BED batch done: {succeeded} 成功|succeeded, "
-                  f"{failed} 失败|failed (共|total {len(regions)})", file=sys.stderr)
+                    batch_logger.warning(
+                        f"[{idx}/{len(regions)}] 失败，继续下一个|failed, continuing")
+            batch_logger.info(
+                f"BED 批处理完成|BED batch done: {succeeded} 成功|succeeded, "
+                f"{failed} 失败|failed (共|total {len(regions)})")
             sys.exit(0 if failed == 0 else 1)
         else:
             # 单 region：stem 由 region 字符串派生(chr_start_end)|single region: stem from region string
@@ -755,13 +879,13 @@ def main():
             analyzer.run_analysis()
 
     except ValueError as e:
-        print(f"参数错误|Parameter error: {e}", file=sys.stderr)
+        _log_or_print(batch_logger, "error", f"参数错误|Parameter error: {e}")
         sys.exit(1)
     except KeyboardInterrupt:
-        print("操作被用户中断|Operation interrupted by user", file=sys.stderr)
+        _log_or_print(batch_logger, "warning", "操作被用户中断|Operation interrupted by user")
         sys.exit(130)
     except Exception as e:
-        print(f"错误|Error: {e}", file=sys.stderr)
+        _log_or_print(batch_logger, "error", f"流程异常|Unexpected error: {e}")
         sys.exit(1)
 
 
