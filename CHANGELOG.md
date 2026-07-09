@@ -1,4 +1,15 @@
 
+## [1.6.0] - 2026-07-09
+
+### Added
+- **新模块**：`indel-marker` — 抗病/感病INDEL共显性标记开发（VCF提取INDEL → 群体共显性判定 → 覆盖度/deletion骤降质控 → 侧翼提取 → primer3引物设计 → 候选主表/报告）
+- **新模块**：`phobius` — Phobius跨膜拓扑+信号肽预测（与deeptmhmm互补的经典算法，输出 summary.tsv / 3line / gff3）
+- `braker`：新增重复序列误伤修复——repeat库智能过滤（方案1：六框翻译 + hmmscan 扫 Pfam-A 的 TE域排除 + RxLR motif）+ 证据驱动还原（方案2：miniprot 蛋白 / samtools depth 转录组 unmask），解决多拷贝基因家族（疫霉RXLR/CRN效应子、抗病基因）被 RepeatModeler 误判为重复序列、导致 BRAKER 注释丢失的问题
+
+### Changed
+- `braker`：config 新增 repeat_refine 工具路径（hmmscan/miniprot/samtools）与过滤/还原阈值参数，samtools 走 `get_samtools_path()` 兜底，`__post_init__` 统一 `expand_path`
+- CLI 注册新命令 `indel-marker`、`phobius`
+
 ## [1.5.0] - 2026-07-08
 
 ### Added

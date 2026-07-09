@@ -210,6 +210,8 @@ COMMAND_REGISTRY = [
     ('wgsim', 'wgsim', 'Wgsim基因组测序数据模拟|Wgsim genome sequencing simulation'),
     ('deeptmhmm', 'deeptmhmm', 'DeepTMHMM跨膜螺旋/信号肽预测|DeepTMHMM TM helix & signal peptide prediction'),
     ('eggnog_mapper', 'eggnog-mapper', 'eggNOG功能注释(GO/KEGG/COG/CAZy/Pfam)|eggNOG functional annotation (GO/KEGG/COG/CAZy/Pfam)'),
+    ('indel_marker', 'indel-marker', '抗病/感病INDEL共显性标记开发|R/S INDEL codominant marker'),
+    ('phobius', 'phobius', 'Phobius跨膜拓扑+信号肽预测|Phobius TM topology & signal peptide prediction'),
 ]
 
 # 将硬编码信息转换为字典，方便查询
