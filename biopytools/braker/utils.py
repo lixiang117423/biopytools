@@ -206,11 +206,11 @@ class CommandRunner:
         conda_env = get_conda_env(command_exe)
 
         if conda_env:
-            # 传完整路径(规范推荐,与phobius/indel_marker统一)|Pass full path (recommended)
-            # command_exe 由 ^(\S+) 提取,无空格,作为 shell 单 token 安全|command_exe is whitespace-free, safe as shell token
+            # 提取纯命令名，conda run会自动在环境PATH中找到|Extract command name, conda run finds it in env PATH
+            command_name = os.path.basename(command_exe)
             # 使用--no-capture-output避免conda缓冲输出导致内存问题
             # Use --no-capture-output to avoid conda buffering output causing memory issues
-            return f"conda run -n {conda_env} --no-capture-output {command_exe}{rest_args}"
+            return f"conda run -n {conda_env} --no-capture-output {command_name}{rest_args}"
         else:
             # 直接返回原命令|Return original command directly
             return cmd

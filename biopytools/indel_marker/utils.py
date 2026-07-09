@@ -147,6 +147,9 @@ def get_conda_env(command: str) -> Optional[str]:
         conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
         envs_dir = os.path.join(conda_base_dir, 'envs')
         if os.path.exists(envs_dir):
+            # command 可能是完整路径，直接 join 会被绝对路径劫持，先取 basename
+            # command may be a full path; os.path.join would drop the prefix on an
+            # absolute path, so basename it before joining (consistent with braker/phobius)
             command_name = os.path.basename(command)
             for env_name in os.listdir(envs_dir):
                 if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command_name)):
@@ -168,10 +171,10 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     Returns:
         完整命令列表|Complete command list
     """
+    command_name = os.path.basename(command)
     conda_env = get_conda_env(command)
     if conda_env:
-        # 传完整路径(规范推荐,与phobius/braker统一)|Pass full path (recommended)
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command_name] + args
     return [command] + args
 
 
