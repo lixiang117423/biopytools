@@ -122,11 +122,24 @@ def _validate_file_exists(file_path):
               is_flag=True,
               help='使用已有参数|Use existing parameters')
 
+# repeat_refine 参数(repeat库过滤+证据还原)|repeat_refine params
+@click.option('--skip_repeat_filter',
+              is_flag=True,
+              help='跳过repeat库过滤(方案1,默认开启)|Skip repeat library filtering')
+@click.option('--skip_rescue',
+              is_flag=True,
+              help='跳过证据还原(方案2,默认开启)|Skip evidence-based rescue')
+@click.option('--pfam_db',
+              default="~/database/eggnog/pfam/Pfam-A.hmm",
+              show_default=True,
+              help='Pfam-A HMM 库路径|Pfam-A HMM DB path')
+
 def braker(genome, species, prot_seq, isoseq, rnaseq_dirs,
            output_dir, threads, fungus, singularity_image, no_singularity,
            skip_repeat, skip_long_reads, skip_short_reads,
            busco_lineage, utr, training_genes, use_existing,
-           read1_pattern, read2_pattern):
+           read1_pattern, read2_pattern,
+           skip_repeat_filter, skip_rescue, pfam_db):
     """
     BRAKER3基因组注释工具|BRAKER3 Genome Annotation Tool
 
@@ -201,6 +214,14 @@ def braker(genome, species, prot_seq, isoseq, rnaseq_dirs,
 
     if use_existing:
         args.append('--use_existing')
+
+    # repeat_refine 参数透传|repeat_refine params
+    if skip_repeat_filter:
+        args.append('--skip_repeat_filter')
+    if skip_rescue:
+        args.append('--skip_rescue')
+    if pfam_db != "~/database/eggnog/pfam/Pfam-A.hmm":
+        args.extend(['--pfam_db', pfam_db])
 
     # 执行主程序|Execute main program
     original_argv = sys.argv

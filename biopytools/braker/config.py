@@ -3,7 +3,7 @@ BRAKER3基因组注释配置管理模块|BRAKER3 Genome Annotation Configuration
 """
 
 import os
-from ..common.paths import expand_path, resolve_legacy_path
+from ..common.paths import expand_path, resolve_legacy_path, get_samtools_path
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -185,6 +185,11 @@ class BrakerConfig:
     hisat2_bin: str = "~/miniforge3/envs/RNA_Seq/bin/hisat2"
     hisat2_build_bin: str = "~/miniforge3/envs/RNA_Seq/bin/hisat2-build"
 
+    # ===== repeat_refine 工具(repeat库过滤+证据还原)|repeat_refine tools =====
+    hmmscan_bin: str = "~/miniforge3/envs/braker_v.3.0.8/bin/hmmscan"
+    miniprot_bin: str = "~/miniforge3/envs/braker_v.3.0.8/bin/miniprot"
+    samtools_bin: str = ""  # 空则用 common.paths.get_samtools_path() 兜底|Empty => fallback
+
     # ===== 输出配置|Output configuration =====
     output_dir: str = "./braker_output"  # 输出目录|Output directory
 
@@ -197,12 +202,22 @@ class BrakerConfig:
     skip_repeat: bool = False  # 跳过重复序列屏蔽|Skip repeat masking
     skip_long_reads: bool = False  # 跳过三代转录本处理|Skip long-read processing
     skip_short_reads: bool = False  # 跳过二代RNA-seq处理|Skip short-read processing
+    skip_repeat_filter: bool = False  # 跳过repeat库过滤(方案1)|Skip repeat library filtering
+    skip_rescue: bool = False  # 跳过证据还原(方案2)|Skip evidence-based rescue
 
     # ===== BRAKER3特定参数|BRAKER3 specific parameters =====
     busco_lineage: Optional[str] = None  # BUSCO谱系|BUSCO lineage
     utr: bool = False  # 预测UTR|Predict UTR
     training_genes: Optional[str] = None  # 训练基因集|Training gene set
     use_existing: bool = False  # 使用已有参数|Use existing parameters
+
+    # ===== repeat_refine 参数(repeat库过滤+证据还原)|repeat_refine params =====
+    pfam_db: str = "~/database/eggnog/pfam/Pfam-A.hmm"  # Pfam-A HMM 库|Pfam-A HMM DB
+    te_domain_evalue: float = 1e-5  # TE domain hmmscan E-value 阈值|TE domain E-value cutoff
+    filter_min_orf_len: int = 30  # 过滤用最小 ORF 长度(aa)|Min ORF length (aa) for filter
+    rescue_min_cds_len: int = 100  # rescue 蛋白证据最小覆盖长度(bp)|Min CDS overlap (bp)
+    rescue_min_identity: float = 70  # rescue 蛋白最小 identity(%)|Min protein identity (%)
+    rescue_min_depth: int = 5  # rescue RNA-seq 最小覆盖度|Min RNA-seq depth
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -219,6 +234,14 @@ class BrakerConfig:
         self.minimap2_bin = expand_path(self.minimap2_bin)
         self.hisat2_bin = expand_path(self.hisat2_bin)
         self.hisat2_build_bin = expand_path(self.hisat2_build_bin)
+        self.hmmscan_bin = expand_path(self.hmmscan_bin)
+        self.miniprot_bin = expand_path(self.miniprot_bin)
+        self.pfam_db = expand_path(self.pfam_db)
+        # samtools: 用户未指定则用 common.paths 兜底|Fallback to common.paths if unset
+        if self.samtools_bin:
+            self.samtools_bin = expand_path(self.samtools_bin)
+        else:
+            self.samtools_bin = get_samtools_path()
 
         # 智能路径标准化：检测非ASCII字符，自动决定使用相对或绝对路径
         # Smart path normalization: Detect non-ASCII characters, auto decide relative or absolute

@@ -185,6 +185,37 @@ def parse_arguments():
                        action='store_true',
                        help='使用已有参数|Use existing parameters')
 
+    # repeat_refine 参数(repeat库过滤+证据还原)|repeat_refine params
+    parser.add_argument('--skip_repeat_filter',
+                       action='store_true',
+                       help='跳过repeat库过滤(方案1,默认开启)|Skip repeat library filtering')
+    parser.add_argument('--skip_rescue',
+                       action='store_true',
+                       help='跳过证据还原(方案2,默认开启)|Skip evidence-based rescue')
+    parser.add_argument('--pfam_db',
+                       default="~/database/eggnog/pfam/Pfam-A.hmm",
+                       help='Pfam-A HMM 库路径|Pfam-A HMM DB path')
+    parser.add_argument('--te_domain_evalue',
+                       type=float,
+                       default=1e-5,
+                       help='TE domain hmmscan E-value 阈值|TE domain E-value cutoff')
+    parser.add_argument('--filter_min_orf_len',
+                       type=int,
+                       default=30,
+                       help='过滤用最小ORF长度(aa)|Min ORF length (aa) for filter')
+    parser.add_argument('--rescue_min_cds_len',
+                       type=int,
+                       default=100,
+                       help='rescue蛋白证据最小覆盖长度(bp)|Min CDS overlap (bp) for rescue')
+    parser.add_argument('--rescue_min_identity',
+                       type=float,
+                       default=70,
+                       help='rescue蛋白最小identity(%%)|Min protein identity (%%) for rescue')
+    parser.add_argument('--rescue_min_depth',
+                       type=int,
+                       default=5,
+                       help='rescue RNA-seq最小覆盖度|Min RNA-seq depth for rescue')
+
     return parser.parse_args()
 
 
@@ -257,7 +288,15 @@ def main():
             busco_lineage=args.busco_lineage,
             utr=args.utr,
             training_genes=args.training_genes,
-            use_existing=args.use_existing
+            use_existing=args.use_existing,
+            skip_repeat_filter=args.skip_repeat_filter,
+            skip_rescue=args.skip_rescue,
+            pfam_db=args.pfam_db,
+            te_domain_evalue=args.te_domain_evalue,
+            filter_min_orf_len=args.filter_min_orf_len,
+            rescue_min_cds_len=args.rescue_min_cds_len,
+            rescue_min_identity=args.rescue_min_identity,
+            rescue_min_depth=args.rescue_min_depth
         )
 
         # 验证配置|Validate configuration

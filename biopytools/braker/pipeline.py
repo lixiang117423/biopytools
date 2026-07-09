@@ -117,6 +117,19 @@ class BrakerPipeline:
             elif self.config.rnaseq_dirs:
                 self.logger.info("跳过二代RNA-seq处理步骤|Skipping short-read processing step")
 
+            # 步骤3.5: 证据驱动还原被误mask的真基因区(方案2)|Step 3.5: Rescue
+            bam_files = [b for b in [sr_bam, lr_bam] if b]
+            if not self.config.skip_rescue:
+                from .repeat_refine import rescue_masked_regions
+                refined = rescue_masked_regions(
+                    masked_genome, self.config.prot_seq, bam_files,
+                    self.config.repeat_dir, self.config, self.cmd_runner, self.logger)
+                if refined:
+                    self.logger.info(f"使用还原后的基因组|Using refined genome: {refined}")
+                    masked_genome = refined
+            else:
+                self.logger.info("跳过证据还原步骤|Skipping rescue step")
+
             # 步骤4: 运行BRAKER3|Step 4: Run BRAKER3
             braker_results = self._step4_braker_annotation(
                 masked_genome, sr_bam, lr_bam
@@ -199,11 +212,26 @@ class BrakerPipeline:
         consensi_fa = os.path.abspath(str(consensi_files[0]))
         self.logger.info(f"使用重复序列库|Using repeat library: {consensi_fa}")
 
+        # repeat 库过滤:剔除被误判的基因家族(方案1)|Filter repeat library (scheme 1)
+        lib_for_masking = consensi_fa
+        if not self.config.skip_repeat_filter:
+            from .repeat_refine import filter_repeat_library
+            filtered = filter_repeat_library(
+                consensi_fa, self.config.repeat_dir, self.config,
+                self.cmd_runner, self.logger)
+            if filtered:
+                lib_for_masking = filtered
+                self.logger.info(f"RepeatMasker 使用过滤后的库|Using filtered library: {filtered}")
+            else:
+                self.logger.warning("repeat 库过滤未产出结果,回退原库|Filter produced nothing, fallback to original library")
+        else:
+            self.logger.info("跳过 repeat 库过滤|Skipping repeat library filtering")
+
         mask_option = "-xsmall" if self.config.soft_masking else ""
 
         repeat_dir_abs = os.path.abspath(self.config.repeat_dir)
         repeatmasker_cmd = (
-            f"{self.config.repeatmasker_bin} -lib {consensi_fa} "
+            f"{self.config.repeatmasker_bin} -lib {lib_for_masking} "
             f"{mask_option} -dir {repeat_dir_abs} -pa {self.config.threads} "
             f"{genome_abs}"
         )
