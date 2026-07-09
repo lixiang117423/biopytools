@@ -147,8 +147,9 @@ def get_conda_env(command: str) -> Optional[str]:
         conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
         envs_dir = os.path.join(conda_base_dir, 'envs')
         if os.path.exists(envs_dir):
+            command_name = os.path.basename(command)
             for env_name in os.listdir(envs_dir):
-                if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
+                if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command_name)):
                     return env_name
     return None
 
@@ -167,10 +168,10 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
     Returns:
         完整命令列表|Complete command list
     """
-    command_name = os.path.basename(command)
     conda_env = get_conda_env(command)
     if conda_env:
-        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command_name] + args
+        # 传完整路径(规范推荐,与phobius/braker统一)|Pass full path (recommended)
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
     return [command] + args
 
 
