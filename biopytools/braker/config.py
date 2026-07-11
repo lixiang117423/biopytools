@@ -187,6 +187,7 @@ class BrakerConfig:
 
     # ===== repeat_refine 工具(repeat库过滤+证据还原)|repeat_refine tools =====
     hmmscan_bin: str = "~/miniforge3/envs/braker_v.3.0.8/bin/hmmscan"
+    mmseqs_bin: str = "~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/mmseqs"
     miniprot_bin: str = "~/miniforge3/envs/braker_v.3.0.8/bin/miniprot"
     samtools_bin: str = ""  # 空则用 common.paths.get_samtools_path() 兜底|Empty => fallback
 
@@ -203,7 +204,7 @@ class BrakerConfig:
     skip_long_reads: bool = False  # 跳过三代转录本处理|Skip long-read processing
     skip_short_reads: bool = False  # 跳过二代RNA-seq处理|Skip short-read processing
     skip_repeat_filter: bool = False  # 跳过repeat库过滤(方案1)|Skip repeat library filtering
-    skip_rescue: bool = False  # 跳过证据还原(方案2)|Skip evidence-based rescue
+    skip_rescue: bool = True  # 跳过证据还原(默认关闭,filter库级已处理假重复)|Skip rescue (default off)
 
     # ===== BRAKER3特定参数|BRAKER3 specific parameters =====
     busco_lineage: Optional[str] = None  # BUSCO谱系|BUSCO lineage
@@ -215,6 +216,8 @@ class BrakerConfig:
     pfam_db: str = "~/database/eggnog/pfam/Pfam-A.hmm"  # Pfam-A HMM 库|Pfam-A HMM DB
     te_domain_evalue: float = 1e-5  # TE domain hmmscan E-value 阈值|TE domain E-value cutoff
     filter_min_orf_len: int = 30  # 过滤用最小 ORF 长度(aa)|Min ORF length (aa) for filter
+    prot_homology_evalue: float = 1e-5  # prot_seq 同源 E-value 阈值|Protein homology E-value
+    prot_homology_pident: float = 50.0  # prot_seq 同源 identity 阈值(%)|Protein homology identity
     rescue_min_cds_len: int = 100  # rescue 蛋白证据最小覆盖长度(bp)|Min CDS overlap (bp)
     rescue_min_identity: float = 70  # rescue 蛋白最小 identity(%)|Min protein identity (%)
     rescue_min_depth: int = 5  # rescue RNA-seq 最小覆盖度|Min RNA-seq depth
@@ -235,6 +238,7 @@ class BrakerConfig:
         self.hisat2_bin = expand_path(self.hisat2_bin)
         self.hisat2_build_bin = expand_path(self.hisat2_build_bin)
         self.hmmscan_bin = expand_path(self.hmmscan_bin)
+        self.mmseqs_bin = expand_path(self.mmseqs_bin)
         self.miniprot_bin = expand_path(self.miniprot_bin)
         self.pfam_db = expand_path(self.pfam_db)
         # samtools: 用户未指定则用 common.paths 兜底|Fallback to common.paths if unset

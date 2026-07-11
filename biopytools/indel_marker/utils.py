@@ -147,9 +147,9 @@ def get_conda_env(command: str) -> Optional[str]:
         conda_base_dir = os.path.dirname(os.path.dirname(conda_exe))
         envs_dir = os.path.join(conda_base_dir, 'envs')
         if os.path.exists(envs_dir):
-            # command 可能是完整路径，直接 join 会被绝对路径劫持，先取 basename
-            # command may be a full path; os.path.join would drop the prefix on an
-            # absolute path, so basename it before joining (consistent with braker/phobius)
+            # command 可能是完整路径,直接 join 会被绝对路径劫持,先取 basename
+            # command may be a full path; os.path.join drops the prefix on an absolute
+            # path, so basename it first (consistent with braker/phobius)
             command_name = os.path.basename(command)
             for env_name in os.listdir(envs_dir):
                 if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command_name)):

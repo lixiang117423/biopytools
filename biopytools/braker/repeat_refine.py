@@ -128,17 +128,49 @@ def parse_hmmscan_domtblout(domtblout: str, evalue_cutoff: float) -> Dict[str, L
     return hits
 
 
+def parse_mmseqs_m8(m8_file: str, pident_cutoff: float,
+                    evalue_cutoff: float) -> Dict[str, Tuple[float, float]]:
+    """
+    解析 mmseqs m8 蛋白同源结果,返回每 ORF 的最佳命中|Parse mmseqs m8, best hit per ORF
+
+    m8 列: query(0) target(1) pident(2) alnlen(3) ... evalue(10) bits(11)
+    mmseqs 已按 evalue 排序,取每 ORF 首个命中。
+    """
+    hits: Dict[str, Tuple[float, float]] = {}
+    if not os.path.exists(m8_file):
+        return hits
+    with open(m8_file) as f:
+        for line in f:
+            cols = line.rstrip().split('\t')
+            if len(cols) < 11:
+                continue
+            orf_id = cols[0]
+            if orf_id in hits:
+                continue  # 已取最佳|Already have best hit
+            try:
+                pident = float(cols[2])
+                evalue = float(cols[10])
+            except (ValueError, IndexError):
+                continue
+            if pident >= pident_cutoff and evalue <= evalue_cutoff:
+                hits[orf_id] = (pident, evalue)
+    return hits
+
+
 # ===== RxLR/EER motif 扫描|RxLR/EER motif scan =====
 
 def scan_effector_motif(proteins: List[str]) -> bool:
     """
-    扫描蛋白列表是否含 RxLR 或 EER 效应子 motif|Scan for RxLR/EER effector motifs
+    扫描 RxLR-EER 紧邻结构(疫霉效应子标志)|Scan RxLR-EER proximity signature
 
-    RxLR/EER 是疫霉效应子特征 motif,命中强烈提示"效应子基因家族"。
+    要求 RxLR (R-x-L-R) 下游 30aa 内出现 EER —— 这是疫霉 RxLR 效应子的标志性结构,
+    比单独 RxLR 严格得多,避免长 ORF 中随机 R-x-L-R 造成的过度剔除。
     """
     for prot in proteins:
-        if RXLR_MOTIF_RE.search(prot) or EER_MOTIF_RE.search(prot):
-            return True
+        for m in RXLR_MOTIF_RE.finditer(prot):
+            downstream = prot[m.end():m.end() + 30]
+            if EER_MOTIF_RE.search(downstream):
+                return True
     return False
 
 
@@ -234,12 +266,19 @@ def parse_miniprot_paf(paf_file: str) -> List[Tuple[str, int, int, float]]:
             chrom = cols[5]
             tstart = int(cols[7])  # 0-based half-open
             tend = int(cols[8])
+            # identity: 优先 id:f: tag, 否则用 matches/alnlen*100|identity from tag or matches/alnlen
             identity = 0.0
-            # miniprot PAF tag id:f: 为 identity 百分比|identity as percentage
+            try:
+                matches = int(cols[9])
+                alnlen = int(cols[10])
+                if alnlen > 0:
+                    identity = matches / alnlen * 100.0
+            except (ValueError, IndexError):
+                pass
             for tag in cols[12:]:
                 if tag.startswith('id:f:'):
                     try:
-                        identity = float(tag[5:])  # "id:f:" 长度 5|len("id:f:")==5
+                        identity = float(tag[5:])
                     except ValueError:
                         pass
                     break
@@ -428,8 +467,29 @@ def filter_repeat_library(consensi_fa: str, output_dir: str, config, cmd_runner,
         logger.error("hmmscan 失败,跳过 repeat 库过滤|hmmscan failed, skip filtering")
         return None
 
-    # 3. 解析 domtblout,判定每 family|Parse domtblout, classify each family
+    # 3. 解析 domtblout|Parse domtblout
     orf_hits = parse_hmmscan_domtblout(domtblout, evalue_cutoff)
+
+    # 4. prot_seq 同源:consensus 翻译与近缘蛋白同源 → 假重复(核心判据)|Protein homology
+    prot_hits: Dict[str, Tuple[float, float]] = {}
+    prot_seq = getattr(config, 'prot_seq', None)
+    if prot_seq and os.path.exists(prot_seq):
+        homology_m8 = os.path.join(output_dir, "consensi_orfs_vs_prot.m8")
+        mmseqs_tmp = os.path.join(output_dir, "mmseqs_tmp")
+        os.makedirs(mmseqs_tmp, exist_ok=True)
+        cmd = (f"{config.mmseqs_bin} easy-search {orfs_fa} {prot_seq} "
+               f"{homology_m8} {mmseqs_tmp} --max-seqs 1 "
+               f"-e {config.prot_homology_evalue} --threads {config.threads}")
+        if cmd_runner.run_command(cmd, "mmseqs 蛋白同源比对|mmseqs protein homology"):
+            prot_hits = parse_mmseqs_m8(homology_m8, config.prot_homology_pident,
+                                        config.prot_homology_evalue)
+            logger.info(f"prot_seq 同源命中|Protein homology hits: {len(prot_hits)} ORFs")
+        else:
+            logger.warning("mmseqs 失败,跳过 prot_seq 同源|mmseqs failed, skip homology")
+    else:
+        logger.info("未提供 prot_seq,跳过蛋白同源判定|No prot_seq, skip homology")
+
+    # 5. 判定每 family|Classify each family
     family_decision: Dict[str, str] = {}  # family_id -> 'keep_te'|'remove_gene'|'keep'
     family_evidence: Dict[str, str] = {}
 
@@ -444,7 +504,12 @@ def filter_repeat_library(consensi_fa: str, output_dir: str, config, cmd_runner,
                     evidence_parts.append(f"TE:{pfam_name}")
                 else:
                     gene_hit = True
-                    evidence_parts.append(f"gene:{pfam_name}")
+                    evidence_parts.append(f"gene_domain:{pfam_name}")
+            # prot_seq 同源 → 假重复(核心判据)|Protein homology => false repeat
+            if orf_id in prot_hits:
+                gene_hit = True
+                pident, evalue = prot_hits[orf_id]
+                evidence_parts.append(f"prot_homology:{pident:.0f}%")
 
         # RxLR/EER motif 检查|Check RxLR/EER motif on this family's ORFs
         family_proteins = [prot for oid, prot in orf_records if oid in orf_ids]

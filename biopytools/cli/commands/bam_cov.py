@@ -100,8 +100,7 @@ def bam_cov(input, bed, chromosome, start, end, output,
 
     计算BAM文件中指定区域的reads覆盖度，支持BED文件批量查询|Calculate per-base coverage for specified regions in BAM files, support BED file batch query
 
-    示例|Examples: biopytools bam-cov -i sample.bam -c chr1 -s 1000000 -e 2000000 -o coverage.txt
-    示例|Examples: biopytools bam-cov -i ./bam_files -b intervals.bed -o bed_coverage.txt
+    示例|Examples: biopytools bam-cov -i sample.bam -c chr1 -s 1000 -e 2000
     """
 
     # 验证参数互斥性|Validate parameter mutual exclusivity

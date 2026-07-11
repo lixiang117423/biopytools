@@ -126,9 +126,9 @@ def _validate_file_exists(file_path):
 @click.option('--skip_repeat_filter',
               is_flag=True,
               help='跳过repeat库过滤(方案1,默认开启)|Skip repeat library filtering')
-@click.option('--skip_rescue',
-              is_flag=True,
-              help='跳过证据还原(方案2,默认开启)|Skip evidence-based rescue')
+@click.option('--skip_rescue/--no-skip_rescue',
+              default=True,
+              help='跳过证据还原(默认关闭,--no-skip_rescue开启)|Skip rescue (default off)')
 @click.option('--pfam_db',
               default="~/database/eggnog/pfam/Pfam-A.hmm",
               show_default=True,
@@ -220,6 +220,8 @@ def braker(genome, species, prot_seq, isoseq, rnaseq_dirs,
         args.append('--skip_repeat_filter')
     if skip_rescue:
         args.append('--skip_rescue')
+    else:
+        args.append('--no-skip_rescue')
     if pfam_db != "~/database/eggnog/pfam/Pfam-A.hmm":
         args.extend(['--pfam_db', pfam_db])
 

@@ -190,8 +190,9 @@ def parse_arguments():
                        action='store_true',
                        help='跳过repeat库过滤(方案1,默认开启)|Skip repeat library filtering')
     parser.add_argument('--skip_rescue',
-                       action='store_true',
-                       help='跳过证据还原(方案2,默认开启)|Skip evidence-based rescue')
+                       action=argparse.BooleanOptionalAction,
+                       default=True,
+                       help='跳过证据还原(默认关闭,filter库级已处理;--no-skip_rescue开启)|Skip rescue (default off)')
     parser.add_argument('--pfam_db',
                        default="~/database/eggnog/pfam/Pfam-A.hmm",
                        help='Pfam-A HMM 库路径|Pfam-A HMM DB path')
@@ -215,6 +216,14 @@ def parse_arguments():
                        type=int,
                        default=5,
                        help='rescue RNA-seq最小覆盖度|Min RNA-seq depth for rescue')
+    parser.add_argument('--prot_homology_evalue',
+                       type=float,
+                       default=1e-5,
+                       help='prot_seq 同源 E-value 阈值|Protein homology E-value')
+    parser.add_argument('--prot_homology_pident',
+                       type=float,
+                       default=50.0,
+                       help='prot_seq 同源 identity 阈值(%%)|Protein homology identity (%%)')
 
     return parser.parse_args()
 
@@ -296,7 +305,9 @@ def main():
             filter_min_orf_len=args.filter_min_orf_len,
             rescue_min_cds_len=args.rescue_min_cds_len,
             rescue_min_identity=args.rescue_min_identity,
-            rescue_min_depth=args.rescue_min_depth
+            rescue_min_depth=args.rescue_min_depth,
+            prot_homology_evalue=args.prot_homology_evalue,
+            prot_homology_pident=args.prot_homology_pident
         )
 
         # 验证配置|Validate configuration

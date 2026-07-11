@@ -68,6 +68,7 @@ COMMAND_REGISTRY = [
     ('gemma_gwas', 'gemma-gwas', 'GEMMA GWAS批量分析工具|GEMMA GWAS batch analysis tool'),
     ('genebank2fasta', 'genebank2fasta', 'GenBank序列提取工具|GenBank sequence extraction tool'),
     ('gene_density', 'gene-density', '基因密度计算(每窗口基因数与基因/Mb)|Gene density (genes/window and genes/Mb)'),
+    ('gene_table', 'gene-table', '基因信息+序列合并表(基因DNA+CDS+蛋白)|Gene info + sequence merged table (gene DNA + CDS + Protein)'),
     ('geneinfo', 'geneinfo', '从GFF文件提取基因信息|Extract gene information from GFF file'),
     ('gap_stat', 'gap-stat', '基因组Gap统计工具|Genome gap statistics tool'),
     ('gffcompare', 'gffcompare', 'GFF/GTF文件两两比较分析|GFF/GTF pairwise comparison analysis'),
@@ -212,6 +213,7 @@ COMMAND_REGISTRY = [
     ('eggnog_mapper', 'eggnog-mapper', 'eggNOG功能注释(GO/KEGG/COG/CAZy/Pfam)|eggNOG functional annotation (GO/KEGG/COG/CAZy/Pfam)'),
     ('indel_marker', 'indel-marker', '抗病/感病INDEL共显性标记开发|R/S INDEL codominant marker'),
     ('phobius', 'phobius', 'Phobius跨膜拓扑+信号肽预测|Phobius TM topology & signal peptide prediction'),
+    ('oomycete_anno', 'oomycete-anno', '疫霉菌基因组注释(T2T Augustus流程)|Oomycete genome annotation (T2T Augustus pipeline)'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

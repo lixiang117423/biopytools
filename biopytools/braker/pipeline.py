@@ -621,7 +621,13 @@ class BrakerPipeline:
             self.config.braker_safe_dir, "GeneMark-ET", "genemark.f.multi_anchored.gtf"
         )
         if os.path.exists(braker_gtf):
-            braker_cmd_parts.append("--useexisting")
+            # safe_dir 有 braker.gtf 但本步仍执行 → 04_braker_dir/braker.gtf 不存在(用户删了目标目录重跑)
+            # → 上次完成残留,genome 可能已变,清理 safe_dir 全新运行,避免 --useexisting 用旧状态
+            # safe_dir has braker.gtf but target missing => stale residue, fresh run
+            import shutil
+            shutil.rmtree(self.config.braker_safe_dir)
+            os.makedirs(self.config.braker_safe_dir, exist_ok=True)
+            self.logger.info("清理 braker_safe_dir 上次完成残留,全新运行|Cleaned stale safe_dir, fresh run")
         elif os.path.exists(anchored_gtf):
             # 上次TSEBRA阶段失败，GeneMark-ET已完成但合并失败
             # Previous run failed at TSEBRA, GeneMark-ET completed but merge failed
