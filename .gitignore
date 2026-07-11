@@ -279,6 +279,10 @@ docs/superpowers/
 # 根目录测试残留 samtools faidx 索引|root-level stray samtools faidx index
 /faidx.fai
 
+# 根目录运行时产物：GeneMark 等|root-level runtime artifacts (GeneMark etc.)
+/info/
+/run.cfg
+
 # ==============================================================================
 # BIOPYTOOLS MODULE EXCLUSIONS
 # ==============================================================================
