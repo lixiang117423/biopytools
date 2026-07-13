@@ -214,6 +214,8 @@ COMMAND_REGISTRY = [
     ('indel_marker', 'indel-marker', '抗病/感病INDEL共显性标记开发|R/S INDEL codominant marker'),
     ('phobius', 'phobius', 'Phobius跨膜拓扑+信号肽预测|Phobius TM topology & signal peptide prediction'),
     ('oomycete_anno', 'oomycete-anno', '疫霉菌基因组注释(T2T Augustus流程)|Oomycete genome annotation (T2T Augustus pipeline)'),
+    ('ps_gene_anno', 'ps-gene-anno', 'BRAKER后效应子查漏补缺(miniprot补回多拷贝)|Post-BRAKER effector gap-filling'),
+    ('braker4ps', 'braker4ps', 'braker+ps-gene-anno端到端(注释+查漏补缺)|braker + gap-filling end-to-end'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

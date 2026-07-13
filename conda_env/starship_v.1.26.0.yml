@@ -1,0 +1,8 @@
+name: starship_v.1.26.0
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - _openmp_mutex=5.1=52_gnu
+  - libgcc=15.2.0=h69a1729_8
+  - starship=1.25.1=h10efecc_0

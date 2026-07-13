@@ -100,6 +100,7 @@ dependencies:
   - pip=25.1.1=pyh8b19718_0
   - pixman=0.46.4=h54a6638_1
   - primer3=2.6.1=pl5321h503566f_7
+  - primer3-py=2.3.0=py310h6813faf_1
   - pthread-stubs=0.4=hb9d3cd8_1002
   - pymsaviz=0.5.0=pyhdfd78af_0
   - pyside6=6.9.1=py310h21765ff_0

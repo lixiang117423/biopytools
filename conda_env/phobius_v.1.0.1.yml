@@ -1,0 +1,14 @@
+name: phobius_v.1.0.1
+channels:
+  - predector
+  - defaults
+  - conda-forge
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=5.1=52_gnu
+  - gzip=1.14=hb9d3cd8_0
+  - libgcc=15.2.0=h69a1729_8
+  - libgcc-ng=15.2.0=h166f726_8
+  - patch=2.8=hb25bd0a_0
+  - perl=5.42.2=2_h47b2149_perl5
+  - phobius=1.01=5
