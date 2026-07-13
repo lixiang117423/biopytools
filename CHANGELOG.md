@@ -1,4 +1,39 @@
 
+## [1.9.0] - 2026-07-13
+
+### Added
+- **新模块**：`ps_gene_anno` — BRAKER 注释后用 miniprot 补回效应子多拷贝/漏注位点（config/evidence/gap_analysis/model_build/merge 分层）
+- **新模块**：`braker4ps` — 端到端编排器，仅 import 调用 braker + ps_gene_anno（不改源码），统一日志（阶段1 注释 + 阶段2 查漏补缺）
+- conda 环境定义：新增 `deeptmhmm_v.1.0` / `eggnog-mapper_v.2.1.15` / `phobius_v.1.0.1` / `starship_v.1.26.0` / `zsh`
+
+### Changed
+- CLI 注册新命令 `ps-gene-anno`、`braker4ps`
+- `biopytools.yml` / `primer3_v.2.6.1.yml` 补 `primer3-py` 依赖
+
+## [1.8.0] - 2026-07-13
+
+### Added
+- `oomycete_anno`：新增步骤9 效应子位点救援（Phase3，可选、失败不阻断主注释）——已知效应子全长 miniprot 比对当基因模型，替换/补回 Augustus 在效应子簇位点的错注（嵌合/截断）/漏注；全长判定靠结构完整性（Target 起=1 + stop_codon），不依赖高 identity
+- 新增 `--effectors` / `--skip-rescue` / `--rescue-min-identity` / `--rescue-conflict-overlap` 参数与 `09_effector_rescue` 输出目录
+
+### Fixed
+- `braker`：repeat_refine 的 `prot_seq` 转绝对路径再喂 mmseqs（命令在 output_dir 作 cwd 执行，相对路径会失效）
+
+## [1.7.0] - 2026-07-11
+
+### Added
+- **新模块**：`gene_table` — 基因信息+序列合并表（基因 DNA + CDS + 蛋白）
+- **新模块**：`oomycete_anno` — 疫霉菌基因组注释（T2T Augustus 流程）
+- `braker`：repeat_refine 新增 mmseqs 蛋白同源判据（consensus 翻译与近缘蛋白同源 → 假重复核心证据）；RxLR-EER 改紧邻结构扫描（下游 30aa 内含 EER），避免长 ORF 中随机 R-x-L-R 造成过度剔除；miniprot identity 增加 matches/alnlen 兜底（无 `id:f:` tag 时）
+
+### Changed
+- `braker`：`--skip_rescue` 改 `BooleanOptionalAction` 默认关闭（filter 库级已处理假重复）；safe_dir 残留时清理全新运行，避免 `--useexisting` 用旧状态
+- CLI 注册新命令 `gene-table`、`oomycete-anno`
+
+### Fixed
+- `indel_marker`：恢复 Method2 兜底分支 basename 防护，与 braker/phobius 一致（修复绝对路径被 `os.path.join` 劫持、返回错误环境名的隐患）
+- `bam-cov`：help 示例精简为单行
+
 ## [1.6.0] - 2026-07-09
 
 ### Added
