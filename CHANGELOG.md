@@ -1,4 +1,18 @@
 
+## [1.10.0] - 2026-07-13
+
+### Added
+- `transcript_assembly`：BAM 直入模式（`-b` 可多次，跳过索引/比对/排序步骤 1-3，直接组装）
+- `transcript_assembly`：长读支持（`--read-type auto` 采样读长中位数、阈值 500bp 自动判短/长，StringTie 加 `-L`）
+- `transcript_assembly`：guided 组装（`--guide-gff` 传参考注释）；主输出改 GFF3（gffread 转，无需基因组），cDNA 改为可选（`--transcripts`，需 `-g`）
+- `transcript_assembly`：单样本自动跳过 merge；新增 `00_pipeline_info/software_versions.yml`
+
+### Fixed
+- `transcript_assembly`：StringTie `--merge -G` 原误传 `genome.fa`，改为传注释 GFF（仅提供时）
+
+### Changed
+- `transcript_assembly`：所有 `build_conda_command` 改传完整工具路径（原为裸命令名，违反 §13.6.1）；工具路径走 `get_tool_path`/`get_samtools_path`，`__post_init__` 统一 `expand_path`（§11.3.1）；BAM 读长检测管道用单 conda run + 系统 head/awk（§13.2.1）
+
 ## [1.9.0] - 2026-07-13
 
 ### Added
