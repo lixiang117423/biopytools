@@ -183,7 +183,7 @@ COMMAND_REGISTRY = [
     ('fst', 'fst', 'Fst遗传分化计算工具|Fst genetic differentiation calculation tool'),
     ('pixy', 'pixy', 'Pixy群体遗传学统计工具|Pixy population genetics statistics tool'),
     ('telocomp', 'telocomp', 'TeloComp端粒鉴定工具|TeloComp telomere identification tool'),
-    ('transcript_assembly', 'transcript-assembly', '转录本从头组装(HISAT2+StringTie)|Transcript de novo assembly (HISAT2+StringTie)'),
+    ('transcript_assembly', 'transcript-assembly', '转录本组装(FASTQ/BAM→GFF3,支持长读)|Transcript assembly (FASTQ/BAM→GFF3, long-read support)'),
     ('treemix', 'treemix', 'TreeMix群体历史与基因流分析|TreeMix Population History & Gene Flow Analysis'),
     ('vcf2gwas', 'vcf2gwas', 'vcf2gwas GWAS分析工具|vcf2gwas GWAS Analysis Tool'),
     ('vcf2gene', 'vcf2gene', 'VCF变异基因注释工具|VCF variant gene annotation tool'),

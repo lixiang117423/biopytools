@@ -13,9 +13,15 @@
 import os
 import glob
 import re
+import statistics
+import subprocess
 from typing import List, Dict, Optional
 
 from .utils import CommandRunner, build_conda_command
+
+
+READ_LENGTH_THRESHOLD = 500  # 短/长读分界 bp|short/long threshold bp
+READ_SAMPLE_COUNT = 1000     # 采样 read 数|sample read count
 
 
 class HISAT2Indexer:
@@ -49,13 +55,8 @@ class HISAT2Indexer:
         os.makedirs(os.path.dirname(index_prefix), exist_ok=True)
 
         # 构建命令|Build command
-        hisat2_args = [
-            'hisat2-build',
-            '-p', str(threads),
-            genome_path,
-            index_prefix
-        ]
-        cmd_list = build_conda_command('hisat2-build', hisat2_args[1:])
+        hisat2_args = ['-p', str(threads), genome_path, index_prefix]
+        cmd_list = build_conda_command(self.config.hisat2_build_bin, hisat2_args)
         cmd = ' '.join(cmd_list)
 
         success = self.cmd_runner.run(cmd, "构建HISAT2基因组索引|Building HISAT2 genome index")
@@ -101,16 +102,9 @@ class HISAT2Aligner:
                 return True
 
         # hisat2 --dta 优化StringTie组装|hisat2 --dta optimizes StringTie assembly
-        hisat2_args = [
-            'hisat2',
-            '-x', index_prefix,
-            '-1', fastq1,
-            '-2', fastq2,
-            '-p', str(threads),
-            '--dta',
-            '-S', output_sam
-        ]
-        cmd_list = build_conda_command('hisat2', hisat2_args[1:])
+        hisat2_args = ['-x', index_prefix, '-1', fastq1, '-2', fastq2,
+                       '-p', str(threads), '--dta', '-S', output_sam]
+        cmd_list = build_conda_command(self.config.hisat2_bin, hisat2_args)
         cmd = ' '.join(cmd_list)
 
         success = self.cmd_runner.run(
@@ -153,13 +147,8 @@ class SamtoolsProcessor:
                 return True
 
         # samtools sort
-        sort_args = [
-            'samtools', 'sort',
-            '-@', str(threads),
-            '-o', output_bam,
-            input_sam
-        ]
-        sort_cmd_list = build_conda_command('samtools', sort_args[1:])
+        sort_args = ['sort', '-@', str(threads), '-o', output_bam, input_sam]
+        sort_cmd_list = build_conda_command(self.config.samtools_bin, sort_args)
         sort_cmd = ' '.join(sort_cmd_list)
 
         success = self.cmd_runner.run(
@@ -171,12 +160,8 @@ class SamtoolsProcessor:
             return False
 
         # samtools index
-        index_args = [
-            'samtools', 'index',
-            '-@', str(threads),
-            output_bam
-        ]
-        index_cmd_list = build_conda_command('samtools', index_args[1:])
+        index_args = ['index', '-@', str(threads), output_bam]
+        index_cmd_list = build_conda_command(self.config.samtools_bin, index_args)
         index_cmd = ' '.join(index_cmd_list)
 
         success = self.cmd_runner.run(
@@ -196,13 +181,16 @@ class StringTieAssembler:
         self.logger = logger
         self.cmd_runner = cmd_runner
 
-    def assemble(self, bam_file: str, output_gtf: str) -> bool:
+    def assemble(self, bam_file: str, output_gtf: str, read_type: str,
+                 guide_gff: str = None) -> bool:
         """
-        逐样本从头组装转录本|De novo transcript assembly per sample (no GTF reference)
+        逐样本组装|Per-sample assembly
 
         Args:
-            bam_file: 排序后的BAM文件|Sorted BAM file
-            output_gtf: 输出GTF文件|Output GTF file
+            bam_file: 排序后的BAM|sorted BAM
+            output_gtf: 输出GTF|output GTF
+            read_type: short|long (long → -L)
+            guide_gff: 参考注释(可选 → -G)|reference annotation (optional → -G)
 
         Returns:
             是否成功|Whether successful
@@ -215,23 +203,23 @@ class StringTieAssembler:
         # 断点续传|Checkpoint
         if os.path.exists(output_gtf) and os.path.getsize(output_gtf) > 0:
             if not self.config.force:
-                self.logger.info(f"样本GTF已存在，跳过|Sample GTF already exists, skipping: {output_gtf}")
+                self.logger.info(f"样本GTF已存在，跳过|Sample GTF exists, skipping: {output_gtf}")
                 return True
 
-        # 不使用-G参数，进行从头组装|No -G parameter, de novo assembly
-        stringtie_args = [
-            'stringtie',
-            bam_file,
-            '-p', str(threads),
-            '-o', output_gtf,
-            '-l', os.path.splitext(os.path.basename(output_gtf))[0]
-        ]
-        cmd_list = build_conda_command('stringtie', stringtie_args[1:])
+        stringtie_args = [bam_file, '-p', str(threads), '-o', output_gtf,
+                          '-l', os.path.splitext(os.path.basename(output_gtf))[0]]
+        if read_type == 'long':
+            stringtie_args.append('-L')
+        if guide_gff:
+            stringtie_args.extend(['-G', guide_gff])
+
+        cmd_list = build_conda_command(self.config.stringtie_bin, stringtie_args)
         cmd = ' '.join(cmd_list)
 
         success = self.cmd_runner.run(
             cmd,
-            f"StringTie从头组装|StringTie de novo assembly -> {output_gtf}",
+            f"StringTie组装|StringTie assembly ({read_type}"
+            f"{' guided' if guide_gff else ''}) -> {output_gtf}",
             timeout=timeout
         )
 
@@ -246,92 +234,154 @@ class StringTieMerger:
         self.logger = logger
         self.cmd_runner = cmd_runner
 
-    def merge(self, gtf_list_file: str, genome_file: str, output_merged_gtf: str) -> bool:
+    def merge(self, gtf_list_file: str, guide_gff: str,
+              output_merged_gtf: str) -> bool:
         """
-        合并所有样本的GTF|Merge all sample GTFs
+        合并GTF|Merge GTFs
 
         Args:
-            gtf_list_file: GTF列表文件（每行一个GTF路径）|GTF list file (one path per line)
-            genome_file: 基因组FASTA文件|Genome FASTA file
-            output_merged_gtf: 合并后的GTF文件|Merged GTF file
+            gtf_list_file: GTF列表(每行一个路径)|GTF list (one path per line)
+            guide_gff: 参考注释(可选 → -G)|reference annotation (optional → -G)
+            output_merged_gtf: 合并后GTF|merged GTF
 
         Returns:
             是否成功|Whether successful
         """
         threads = self.config.threads
-
         os.makedirs(os.path.dirname(output_merged_gtf), exist_ok=True)
 
         # 断点续传|Checkpoint
         if os.path.exists(output_merged_gtf) and os.path.getsize(output_merged_gtf) > 0:
             if not self.config.force:
-                self.logger.info(f"合并GTF已存在，跳过|Merged GTF already exists, skipping: {output_merged_gtf}")
+                self.logger.info(f"合并GTF已存在，跳过|Merged GTF exists, skipping: {output_merged_gtf}")
                 return True
 
-        # stringtie --merge 需要基因组序列作为参考|stringtie --merge needs genome as reference
-        stringtie_args = [
-            'stringtie',
-            '--merge',
-            '-p', str(threads),
-            '-G', genome_file,
-            '-o', output_merged_gtf,
-            gtf_list_file
-        ]
-        cmd_list = build_conda_command('stringtie', stringtie_args[1:])
+        # --merge: -G 只接注释,不接 genome.fa (修复原 bug)|-G takes annotation not genome (bugfix)
+        stringtie_args = ['--merge', '-p', str(threads), '-o', output_merged_gtf]
+        if guide_gff:
+            stringtie_args.extend(['-G', guide_gff])
+        stringtie_args.append(gtf_list_file)
+
+        cmd_list = build_conda_command(self.config.stringtie_bin, stringtie_args)
         cmd = ' '.join(cmd_list)
 
-        success = self.cmd_runner.run(
-            cmd,
-            f"StringTie合并GTF|StringTie merge GTF -> {output_merged_gtf}"
-        )
-
-        return success
+        return self.cmd_runner.run(
+            cmd, f"StringTie合并GTF|StringTie merge -> {output_merged_gtf}")
 
 
-class GFFReadExtractor:
-    """GFFRead转录本序列提取器|GFFRead Transcript Sequence Extractor"""
+class GFF3Converter:
+    """GTF → GFF3 转换器(主输出)|GTF to GFF3 converter (primary output)"""
 
     def __init__(self, config, logger, cmd_runner: CommandRunner):
         self.config = config
         self.logger = logger
         self.cmd_runner = cmd_runner
 
-    def extract_transcripts(self, merged_gtf: str, genome_file: str,
-                            output_fa: str) -> bool:
-        """
-        从merged GTF和基因组提取转录本cDNA序列|Extract transcript cDNA sequences from merged GTF and genome
+    def convert(self, gtf_file: str, output_gff3: str) -> bool:
+        """GTF转GFF3|Convert GTF to GFF3 (no genome needed)"""
+        os.makedirs(os.path.dirname(output_gff3), exist_ok=True)
 
-        Args:
-            merged_gtf: 合并后的GTF文件|Merged GTF file
-            genome_file: 基因组FASTA文件|Genome FASTA file
-            output_fa: 输出转录本FASTA文件|Output transcript FASTA file
-
-        Returns:
-            是否成功|Whether successful
-        """
-        os.makedirs(os.path.dirname(output_fa), exist_ok=True)
-
-        # 断点续传|Checkpoint
-        if os.path.exists(output_fa) and os.path.getsize(output_fa) > 0:
+        if os.path.exists(output_gff3) and os.path.getsize(output_gff3) > 0:
             if not self.config.force:
-                self.logger.info(f"转录本序列已存在，跳过|Transcript sequences already exists, skipping: {output_fa}")
+                self.logger.info(f"GFF3已存在，跳过|GFF3 exists, skipping: {output_gff3}")
                 return True
 
-        gffread_args = [
-            'gffread',
-            merged_gtf,
-            '-g', genome_file,
-            '-w', output_fa
-        ]
-        cmd_list = build_conda_command('gffread', gffread_args[1:])
+        gffread_args = [gtf_file, '-o', output_gff3, '-F']
+        cmd_list = build_conda_command(self.config.gffread_bin, gffread_args)
         cmd = ' '.join(cmd_list)
 
-        success = self.cmd_runner.run(
-            cmd,
-            f"gffread提取转录本序列|gffread extract transcript sequences -> {output_fa}"
-        )
+        return self.cmd_runner.run(
+            cmd, f"gffread转GFF3|gffread GTF→GFF3 -> {output_gff3}")
 
-        return success
+
+class TranscriptExtractor:
+    """cDNA 提取器(可选)|cDNA extractor (optional)"""
+
+    def __init__(self, config, logger, cmd_runner: CommandRunner):
+        self.config = config
+        self.logger = logger
+        self.cmd_runner = cmd_runner
+
+    def extract(self, gtf_file: str, genome_file: str, output_fa: str) -> bool:
+        """提取转录本cDNA|Extract transcript cDNA sequences"""
+        os.makedirs(os.path.dirname(output_fa), exist_ok=True)
+
+        if os.path.exists(output_fa) and os.path.getsize(output_fa) > 0:
+            if not self.config.force:
+                self.logger.info(f"转录本序列已存在，跳过|Transcripts exist, skipping: {output_fa}")
+                return True
+
+        gffread_args = [gtf_file, '-g', genome_file, '-w', output_fa]
+        cmd_list = build_conda_command(self.config.gffread_bin, gffread_args)
+        cmd = ' '.join(cmd_list)
+
+        return self.cmd_runner.run(
+            cmd, f"gffread提取cDNA|gffread extract cDNA -> {output_fa}")
+
+
+class BamInputParser:
+    """BAM 输入解析与校验器|BAM input parser and validator"""
+
+    def __init__(self, config, logger):
+        self.config = config
+        self.logger = logger
+
+    def validate_bam(self, bam_file: str) -> bool:
+        """校验 BAM 完整性 + coordinate-sorted|Validate BAM is coordinate-sorted"""
+        # samtools quickcheck
+        qc_cmd_list = build_conda_command(self.config.samtools_bin, ['quickcheck', bam_file])
+        qc = subprocess.run(' '.join(qc_cmd_list), shell=True, capture_output=True, text=True)
+        if qc.returncode != 0:
+            raise ValueError(f"BAM 损坏或不可读|BAM corrupt or unreadable: {bam_file}")
+
+        # 检查 SO:coordinate|check sort order
+        hdr_cmd_list = build_conda_command(self.config.samtools_bin, ['view', '-H', bam_file])
+        hdr = subprocess.run(' '.join(hdr_cmd_list), shell=True, capture_output=True, text=True)
+        if qc.returncode == 0 and 'SO:coordinate' not in hdr.stdout:
+            raise ValueError(
+                f"BAM 非坐标排序|BAM not coordinate-sorted (需先 samtools sort): {bam_file}")
+        return True
+
+    def ensure_index(self, bam_file: str) -> bool:
+        """无 .bai 则建索引|Index if .bai missing"""
+        if os.path.exists(f"{bam_file}.bai"):
+            return True
+        idx_args = ['index', '-@', str(self.config.threads), bam_file]
+        cmd_list = build_conda_command(self.config.samtools_bin, idx_args)
+        cmd = ' '.join(cmd_list)
+        self.logger.info(f"命令|Command: {cmd}")
+        r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        if r.returncode != 0:
+            raise RuntimeError(f"samtools index 失败|index failed: {bam_file} ({r.stderr})")
+        return True
+
+    def detect_read_type(self, bam_file: str) -> str:
+        """采样读长中位数判断短/长读|Detect short/long by median read length"""
+        view_cmd = ' '.join(build_conda_command(self.config.samtools_bin, ['view', bam_file]))
+        # 单个 conda run + 系统 head/awk,无 conda|conda(§13.2.1)|single conda run + sys head/awk
+        pipe = f"{view_cmd} | head -{READ_SAMPLE_COUNT} | awk '{{print length($10)}}'"
+        self.logger.info(f"命令|Command: {pipe}")
+        r = subprocess.run(pipe, shell=True, capture_output=True, text=True)
+        if r.returncode != 0:
+            raise RuntimeError(f"读长检测失败|read-length detection failed: {bam_file} ({r.stderr})")
+        lengths = [int(x) for x in r.stdout.split() if x.strip().isdigit()]
+        if not lengths:
+            raise ValueError(f"BAM 无 read 或为空|BAM has no reads (empty?): {bam_file}")
+        median = statistics.median(lengths)
+        rtype = 'long' if median >= READ_LENGTH_THRESHOLD else 'short'
+        self.logger.info(f"读长检测|Read-length: {bam_file} 中位数|median={median} → {rtype}")
+        return rtype
+
+    def parse_bam_samples(self, bam_files: List[str], read_type: str) -> List[Dict]:
+        """每个 BAM → {name, bam, read_type}|Build sample list from BAMs"""
+        samples = []
+        for bam in bam_files:
+            self.validate_bam(bam)
+            self.ensure_index(bam)
+            name = os.path.splitext(os.path.basename(bam))[0]
+            rtype = read_type if read_type != 'auto' else self.detect_read_type(bam)
+            samples.append({'name': name, 'bam': bam, 'read_type': rtype})
+        return samples
 
 
 class SampleParser:

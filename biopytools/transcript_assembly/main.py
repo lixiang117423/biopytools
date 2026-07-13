@@ -8,10 +8,11 @@ import sys
 import os
 import time
 from .config import TranscriptAssemblyConfig
-from .utils import TranscriptAssemblyLogger, CommandRunner
+from .utils import TranscriptAssemblyLogger, CommandRunner, build_conda_command
 from .assembly import (
     HISAT2Indexer, HISAT2Aligner, SamtoolsProcessor,
-    StringTieAssembler, StringTieMerger, GFFReadExtractor, SampleParser
+    StringTieAssembler, StringTieMerger, GFF3Converter, TranscriptExtractor,
+    SampleParser, BamInputParser
 )
 
 
@@ -36,26 +37,36 @@ class TranscriptAssembler:
 
         # 初始化各个处理器|Initialize processors
         self.sample_parser = SampleParser(self.logger)
+        self.bam_parser = BamInputParser(self.config, self.logger)
         self.hisat2_indexer = HISAT2Indexer(self.config, self.logger, self.cmd_runner)
         self.hisat2_aligner = HISAT2Aligner(self.config, self.logger, self.cmd_runner)
         self.samtools_processor = SamtoolsProcessor(self.config, self.logger, self.cmd_runner)
         self.stringtie_assembler = StringTieAssembler(self.config, self.logger, self.cmd_runner)
         self.stringtie_merger = StringTieMerger(self.config, self.logger, self.cmd_runner)
-        self.gffread_extractor = GFFReadExtractor(self.config, self.logger, self.cmd_runner)
+        self.gff3_converter = GFF3Converter(self.config, self.logger, self.cmd_runner)
+        self.transcript_extractor = TranscriptExtractor(self.config, self.logger, self.cmd_runner)
 
     def _parse_samples(self):
-        """解析输入样本|Parse input samples"""
-        samples = self.sample_parser.parse_input_samples(
-            self.config.input_dir, self.config.fastq_pattern
-        )
+        """解析输入样本|Parse input samples (FASTQ or BAM)"""
+        if self.config.bam_files:
+            # BAM 模式:校验 + 读长检测|BAM mode: validate + detect read type
+            samples = self.bam_parser.parse_bam_samples(
+                self.config.bam_files, self.config.read_type)
+        else:
+            # FASTQ 模式:现有逻辑|FASTQ mode: existing logic
+            samples = self.sample_parser.parse_input_samples(
+                self.config.input_dir, self.config.fastq_pattern)
 
         if not samples:
-            self.logger.error("未找到有效的样本文件|No valid sample files found")
+            self.logger.error("未找到有效的样本文件|No valid samples found")
             sys.exit(1)
 
         self.logger.info(f"找到 {len(samples)} 个样本|Found {len(samples)} samples:")
         for sample in samples:
-            self.logger.info(f"  - {sample['name']}: {sample['fastq1']}, {sample['fastq2']}")
+            if 'bam' in sample:
+                self.logger.info(f"  - {sample['name']}: {sample['bam']} ({sample['read_type']})")
+            else:
+                self.logger.info(f"  - {sample['name']}: {sample['fastq1']}, {sample['fastq2']}")
 
         self.config.samples = samples
         return samples
@@ -101,20 +112,25 @@ class TranscriptAssembler:
                 self.logger.warning(f"样本排序失败，跳过|Sample sorting failed, skipping: {sample_name}")
 
     def step4_assemble_per_sample(self):
-        """步骤4: StringTie逐样本从头组装|Step 4: StringTie per-sample de novo assembly"""
-        self.logger_manager.step("步骤4: StringTie逐样本组装|Step 4: StringTie per-sample de novo assembly")
+        """步骤4: StringTie逐样本组装|Step 4: StringTie per-sample assembly"""
+        self.logger_manager.step("步骤4: StringTie逐样本组装|Step 4: StringTie per-sample assembly")
 
         samples = self.config.samples
         output_dir = self.config.output_dir
 
         for sample_info in samples:
             sample_name = sample_info["name"]
-            bam_file = os.path.join(output_dir, "03_bam_sort", f"{sample_name}.sorted.bam")
+            # BAM 直入用样本自带 bam;FASTQ 模式用 03_bam_sort 产物|BAM mode uses sample bam; FASTQ uses 03_bam_sort output
+            bam_file = sample_info.get('bam') or os.path.join(
+                output_dir, "03_bam_sort", f"{sample_name}.sorted.bam")
             output_gtf = os.path.join(output_dir, "04_stringtie", f"{sample_name}.gtf")
+            # FASTQ 模式恒 short(HISAT2 短读);BAM 模式用检测结果|FASTQ always short; BAM uses detected type
+            read_type = sample_info.get('read_type', 'short')
 
-            self.logger.info(f"组装样本|Assembling sample: {sample_name}")
+            self.logger.info(f"组装样本|Assembling sample: {sample_name} ({read_type})")
 
-            if not self.stringtie_assembler.assemble(bam_file, output_gtf):
+            if not self.stringtie_assembler.assemble(
+                    bam_file, output_gtf, read_type, self.config.guide_gff):
                 self.logger.warning(f"样本组装失败，跳过|Sample assembly failed, skipping: {sample_name}")
 
     def step5_merge_gtf(self):
@@ -145,25 +161,81 @@ class TranscriptAssembler:
         output_merged_gtf = os.path.join(output_dir, "05_merge", "merged.gtf")
 
         return self.stringtie_merger.merge(
-            gtf_list_file, self.config.genome_file, output_merged_gtf
+            gtf_list_file, self.config.guide_gff, output_merged_gtf
         )
 
-    def step6_extract_transcripts(self):
-        """步骤6: gffread提取转录本序列|Step 6: gffread extract transcript sequences"""
-        self.logger_manager.step("步骤6: 提取转录本序列|Step 6: Extract transcript sequences")
+    def step6_output_gff3(self):
+        """步骤6: 输出GFF3(+可选cDNA)|Step 6: output GFF3 (+optional cDNA)"""
+        self.logger_manager.step("步骤6: 输出GFF3|Step 6: output GFF3")
 
         output_dir = self.config.output_dir
+        # 单 BAM 且无 merge 产物时,用唯一样本 GTF|single BAM w/o merge: use the only sample GTF
         merged_gtf = os.path.join(output_dir, "05_merge", "merged.gtf")
-
         if not os.path.exists(merged_gtf):
-            self.logger.error(f"合并GTF文件不存在|Merged GTF file not found: {merged_gtf}")
+            samples = self.config.samples or []
+            if len(samples) == 1:
+                merged_gtf = os.path.join(output_dir, "04_stringtie", f"{samples[0]['name']}.gtf")
+            if not os.path.exists(merged_gtf):
+                self.logger.error(f"GTF不存在|GTF not found: {merged_gtf}")
+                return False
+
+        out_gff3 = os.path.join(output_dir, "06_gff3", "merged.gff3")
+        ok = self.gff3_converter.convert(merged_gtf, out_gff3)
+        if not ok:
             return False
 
-        output_fa = os.path.join(output_dir, "06_transcripts", "transcripts.fa")
+        # 可选:输出 cDNA|optional: output cDNA
+        if self.config.output_transcripts:
+            if not self.config.genome_file:
+                self.logger.error("--transcripts 需要 -g genome|--transcripts requires -g genome")
+                return False
+            out_fa = os.path.join(output_dir, "06_transcripts", "transcripts.fa")
+            ok = self.transcript_extractor.extract(
+                merged_gtf, self.config.genome_file, out_fa)
 
-        return self.gffread_extractor.extract_transcripts(
-            merged_gtf, self.config.genome_file, output_fa
-        )
+        return ok
+
+    def _write_software_versions(self):
+        """记录软件版本到 00_pipeline_info/software_versions.yml|Write software versions"""
+        import subprocess
+        info_dir = os.path.join(self.config.output_dir, '00_pipeline_info')
+        os.makedirs(info_dir, exist_ok=True)
+        out = os.path.join(info_dir, 'software_versions.yml')
+
+        tools = [
+            ('stringtie', self.config.stringtie_bin),
+            ('gffread', self.config.gffread_bin),
+            ('hisat2', self.config.hisat2_bin),
+            ('hisat2-build', self.config.hisat2_build_bin),
+            ('samtools', self.config.samtools_bin),
+        ]
+        lines = [
+            "pipeline:",
+            "  name: biopytools transcript_assembly",
+            "parameters:",
+            f"  threads: {self.config.threads}",
+            f"  read_type: {self.config.read_type}",
+            f"  guide_gff: {self.config.guide_gff or '(none)'}",
+            f"  output_transcripts: {self.config.output_transcripts}",
+            f"  bam_mode: {bool(self.config.bam_files)}",
+            "tools:",
+        ]
+        for name, path in tools:
+            version = 'unknown'
+            try:
+                cmd = build_conda_command(path, ['--version'])
+                r = subprocess.run(' '.join(cmd), shell=True, capture_output=True,
+                                   text=True, timeout=15)
+                ver = (r.stdout or r.stderr or '').strip().split('\n')[0]
+                version = ver if ver else 'unknown'
+            except Exception as e:
+                version = f'unknown ({e})'
+            lines.append(f"  {name}:")
+            lines.append(f"    path: {path}")
+            lines.append(f"    version: {version}")
+        with open(out, 'w') as f:
+            f.write('\n'.join(lines) + '\n')
+        self.logger.info(f"软件版本已记录|Software versions written: {out}")
 
     def run_analysis(self):
         """运行完整的转录本从头组装流程|Run complete transcript de novo assembly pipeline"""
@@ -173,16 +245,23 @@ class TranscriptAssembler:
             self.logger.info("=" * 60)
             self.logger.info("转录本从头组装流程开始|Transcript de novo assembly pipeline started")
             self.logger.info("=" * 60)
-            self.logger.info(f"基因组文件|Genome file: {self.config.genome_file}")
-            self.logger.info(f"输入目录|Input directory: {self.config.input_dir}")
+            if self.config.genome_file:
+                self.logger.info(f"基因组文件|Genome file: {self.config.genome_file}")
+            if self.config.input_dir:
+                self.logger.info(f"输入目录|Input directory: {self.config.input_dir}")
+            if self.config.bam_files:
+                self.logger.info(f"BAM文件|BAM files: {len(self.config.bam_files)} 个|files")
             self.logger.info(f"输出目录|Output directory: {self.config.output_dir}")
             self.logger.info(f"线程数|Threads: {self.config.threads}")
-            if self.config.fastq_pattern:
+            if self.config.guide_gff:
+                self.logger.info(f"参考注释|Guide GFF: {self.config.guide_gff}")
+            if self.config.fastq_pattern and self.config.input_dir:
                 self.logger.info(f"文件模式|File pattern: {self.config.fastq_pattern}")
 
             # 解析样本|Parse samples
             self.logger_manager.step("解析输入样本|Parsing input samples")
             self._parse_samples()
+            self._write_software_versions()
 
             if self.config.step:
                 # 运行指定步骤|Run specified step
@@ -192,7 +271,7 @@ class TranscriptAssembler:
                     3: ("SAM转BAM|Convert SAM to BAM", self._run_step3),
                     4: ("StringTie组装|StringTie assembly", self._run_step4),
                     5: ("合并GTF|Merge GTFs", self._run_step5),
-                    6: ("提取转录本|Extract transcripts", self._run_step6),
+                    6: ("输出GFF3|Output GFF3", self._run_step6),
                 }
                 step_name, step_func = step_map[self.config.step]
                 self.logger.info(f"执行步骤{self.config.step}|Executing step {self.config.step}: {step_name}")
@@ -202,25 +281,33 @@ class TranscriptAssembler:
                     sys.exit(1)
             else:
                 # 运行完整流程|Run full pipeline
-                index_prefix = self._run_step1()
-                if index_prefix is None:
-                    sys.exit(1)
+                is_bam = bool(self.config.bam_files)
 
-                self._run_step2(index_prefix)
-                self._run_step3()
+                if not is_bam:
+                    # FASTQ 模式:建索引+比对+排序|FASTQ mode: index+align+sort
+                    index_prefix = self._run_step1()
+                    if index_prefix is None:
+                        sys.exit(1)
+                    self._run_step2(index_prefix)
+                    self._run_step3()
+
+                # ④ 逐样本组装(FASTQ/BAM 共用)|per-sample assembly (shared)
                 success = self._run_step4()
                 if not success:
                     self.logger.error("组装步骤失败，无法继续|Assembly step failed, cannot continue")
                     sys.exit(1)
 
-                success = self._run_step5()
-                if not success:
-                    self.logger.error("合并GTF步骤失败|Merge GTF step failed")
-                    sys.exit(1)
+                # ⑤ 合并(仅 >1 样本)|merge only if >1 sample
+                if len(self.config.samples) > 1:
+                    success = self._run_step5()
+                    if not success:
+                        self.logger.error("合并GTF步骤失败|Merge GTF step failed")
+                        sys.exit(1)
 
+                # ⑥ 输出 GFF3|output GFF3
                 success = self._run_step6()
                 if not success:
-                    self.logger.error("提取转录本步骤失败|Extract transcript step failed")
+                    self.logger.error("GFF3输出步骤失败|GFF3 output step failed")
                     sys.exit(1)
 
             # 输出总结信息|Output summary
@@ -281,28 +368,40 @@ class TranscriptAssembler:
 
     def _run_step6(self):
         """运行步骤6|Run step 6"""
-        return self.step6_extract_transcripts()
+        return self.step6_output_gff3()
 
 
 def main():
     """主函数|Main function"""
     parser = argparse.ArgumentParser(
-        description="转录本从头组装流程：HISAT2 + StringTie|Transcript de novo assembly pipeline: HISAT2 + StringTie",
+        description="转录本组装流程:HISAT2/StringTie,支持FASTQ或BAM直入、短/长读、GFF3输出|Transcript assembly: HISAT2/StringTie, supports FASTQ or BAM input, short/long reads, GFF3 output",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
 示例|Examples:
   %(prog)s -g genome.fasta -i ./clean_data -o ./transcript_output
+  %(prog)s -b sample.bam -o ./out
         '''
     )
 
     # 必需参数|Required parameters
     required = parser.add_argument_group('必需参数|Required parameters')
-    required.add_argument("-g", "--genome", required=True,
-                          help="基因组FASTA文件路径|Genome FASTA file path")
-    required.add_argument("-i", "--input", required=True,
-                          help="输入FASTQ文件目录|Input FASTQ file directory")
     required.add_argument("-o", "--output", required=True,
                           help="输出目录|Output directory")
+
+    # 输入(二选一)|Input (one of FASTQ dir or BAM files)
+    input_group = parser.add_argument_group('输入|Input (input_dir 与 bam 互斥|input_dir and bam mutually exclusive)')
+    input_group.add_argument("-g", "--genome",
+                             help="基因组FASTA(FASTQ模式或--transcripts时必需)|Genome FASTA (required for FASTQ mode or --transcripts)")
+    input_group.add_argument("-i", "--input",
+                             help="输入FASTQ文件目录|Input FASTQ file directory")
+    input_group.add_argument("-b", "--bam", nargs='+',
+                             help="输入BAM文件(一个或多个,与-i互斥)|Input BAM file(s), mutually exclusive with -i")
+    input_group.add_argument("--guide-gff",
+                             help="参考注释GTF/GFF3(-G guided)|Reference annotation for guided assembly")
+    input_group.add_argument("--read-type", choices=['auto', 'short', 'long'], default='auto',
+                             help="读长类型(auto=自动检测)|Read type (auto=auto-detect)")
+    input_group.add_argument("--transcripts", action='store_true',
+                             help="额外输出transcripts.fa cDNA(需-g)|Also output cDNA transcripts.fa (needs -g)")
 
     # 可选参数|Optional parameters
     optional = parser.add_argument_group('可选参数|Optional parameters')
@@ -318,7 +417,7 @@ def main():
     step_group.add_argument("-s", "--step", type=int, choices=[1, 2, 3, 4, 5, 6],
                             help='运行指定步骤|Run only specified step '
                                  '(1: 索引|index, 2: 比对|alignment, 3: 排序|sort, '
-                                 '4: 组装|assembly, 5: 合并|merge, 6: 提取|extraction)')
+                                 '4: 组装|assembly, 5: 合并|merge, 6: GFF3输出|GFF3 output)')
 
     # 日志选项|Logging options
     logging_group = parser.add_argument_group('日志选项|Logging options')
@@ -341,10 +440,14 @@ def main():
         assembler = TranscriptAssembler(
             genome_file=args.genome,
             input_dir=args.input,
+            bam_files=args.bam,
             output_dir=args.output,
             threads=args.threads,
             fastq_pattern=args.pattern,
             sample_timeout=args.sample_timeout,
+            read_type=args.read_type,
+            guide_gff=args.guide_gff,
+            output_transcripts=args.transcripts,
             step=args.step,
             verbose=(args.verbose > 0),
             quiet=args.quiet,
