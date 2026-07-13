@@ -119,6 +119,21 @@ class OomyceteAnnoRunner:
                 self.logger.error("Augustus 预测失败|Augustus prediction failed")
                 return False
 
+            # 09 效应子救援(Phase3, 可选, 失败不阻断)|effector rescue (P3, optional, non-fatal)
+            # 已知效应子全长 miniprot 比对当基因模型, 替换/补回 Augustus 在效应子簇位点
+            # 的错注(嵌合/截断)/漏注。绕开 Augustus(它在这些位点失败), 直接用蛋白结构。
+            # |Full-length miniprot alignments of known effectors used as gene models to
+            # replace/fill Augustus mis(chimeric/truncated)/missed annotations at effector
+            # clusters. Bypasses Augustus (which fails there) and uses protein structure.
+            if c.effectors and not c.skip_rescue:
+                try:
+                    gff = self._step_effector_rescue(gff, masked_genome)
+                except Exception as e:
+                    self.logger.warning(
+                        f"效应子救援失败(不影响主注释, 保留 Augustus 结果)|"
+                        f"Rescue failed (non-fatal, keeping Augustus result): {e}"
+                    )
+
             self.logger.info("=" * 70)
             self.logger.info(f"注释完成|Annotation completed: {gff}")
             self.logger.info("=" * 70)
@@ -706,6 +721,212 @@ class OomyceteAnnoRunner:
             except Exception as e:
                 self.logger.debug(f"拷回失败|copyback failed: {f}: {e}")
         self.logger.info(f"LTR 注释完成(拷回 {n} 个文件)|LTR done ({n} files back): {c.ltr_dir}")
+
+    # ----------------------------------------------------------
+    # 步骤9: 效应子位点救援(Phase3)|Effector rescue
+    # ----------------------------------------------------------
+    def _step_effector_rescue(self, augustus_gff: str, genome: str) -> str:
+        """已知效应子全长 miniprot 比对当基因模型, 替换/补回 Augustus 错注/漏注位点
+        |Use full-length miniprot alignments of known effectors as gene models,
+        replacing/filling Augustus mis(chimeric/truncated)/missed annotations.
+
+        绕开 Augustus(它在效应子簇里会因邻近旁系同源 hints 串台而合并成嵌合基因),
+        直接用 miniprot 的 protein2genome 结构——miniprot 逐条独立比对, 不受邻居影响。
+        |Bypass Augustus (which makes chimeric merges in effector clusters due to
+        neighboring paralog hints); miniprot aligns each query independently.
+        """
+        c = self.config
+        self.logger.info("-" * 70)
+        self.logger.info("步骤9: 效应子位点救援|Step 9: Effector rescue")
+        self.logger.info("-" * 70)
+
+        rescued_gff = os.path.join(c.rescue_dir, f"{c.species}.rescued.gff")
+        miniprot_gff = os.path.join(c.rescue_dir, "effectors.miniprot.gff3")
+
+        # 9.1 miniprot 效应子 vs 基因组(单独跑, 不与广同源集混合)|align effectors to genome
+        if not os.path.exists(miniprot_gff) or os.path.getsize(miniprot_gff) == 0:
+            cmd = build_conda_command(
+                c.miniprot_bin,
+                ["--gff", "-t", str(c.threads), os.path.abspath(genome), os.path.abspath(c.effectors)],
+            )
+            with open(miniprot_gff, "w") as out_fh:
+                ok = self.cmd.run(cmd, "miniprot 效应子比对|miniprot align effectors", stdout=out_fh)
+            if not ok:
+                raise RuntimeError("miniprot 效应子比对失败|miniprot effectors failed")
+        else:
+            self.logger.info(f"复用已有 miniprot GFF|Reusing: {miniprot_gff}")
+
+        # 9.2 解析 + 过滤全长模型|parse + filter full-length models
+        # 全长判定: Identity>=阈值 AND Target 起始=1(N 端从 Met 起) AND 有 stop_codon(C 端完整)
+        # 不依赖高 identity(避免漏掉真实但略有分化的成员), 靠结构完整性判全长
+        # |full-length judged by structural completeness, not high identity
+        models = self._parse_miniprot_full_length_models(miniprot_gff, c.rescue_min_identity)
+        self.logger.info(f"全长效应子模型|Full-length effector models: {len(models)}")
+        if not models:
+            self.logger.warning("无全长效应子模型, 救援跳过(复制 Augustus 结果)|No models, skip")
+            shutil.copy2(augustus_gff, rescued_gff)
+            return rescued_gff
+
+        # 9.3 按 locus 去重(同一位点多个比对只留 identity 最高的)|dedup per locus
+        models = self._dedup_models_by_locus(models)
+        self.logger.info(f"去重后独立位点|Loci after dedup: {len(models)}")
+
+        # 9.4 构建 rescued GFF|build rescued GFF
+        n_removed, n_added = self._build_rescued_gff(
+            augustus_gff, models, c.rescue_conflict_overlap, rescued_gff, c.species
+        )
+        self.logger.info(
+            f"救援完成|Rescue done: 替换 {n_removed} 个 Augustus 基因, "
+            f"加入 {n_added} 个效应子模型|replaced {n_removed} genes, added {n_added} models -> {rescued_gff}"
+        )
+        return rescued_gff
+
+    @staticmethod
+    def _parse_attrs(col9: str) -> dict:
+        """解析 GFF 第 9 列属性|parse GFF column 9 attributes."""
+        d = {}
+        for kv in col9.split(";"):
+            kv = kv.strip()
+            if "=" in kv:
+                k, v = kv.split("=", 1)
+                d[k] = v
+        return d
+
+    def _parse_miniprot_full_length_models(self, miniprot_gff: str, min_identity: float) -> list:
+        """解析 miniprot GFF -> 全长效应子模型列表|parse miniprot GFF to full-length models.
+
+        每个 model: {seq,start,end,strand,identity,query,cds:[(start,end,phase)]}
+        全长 = Identity>=min_identity AND Target 起始==1 AND 有 stop_codon AND 有 CDS。
+        """
+        mrnas = {}
+        with open(miniprot_gff) as f:
+            for line in f:
+                if line.startswith("#") or not line.strip():
+                    continue
+                cols = line.rstrip("\n").split("\t")
+                if len(cols) < 9:
+                    continue
+                seq, ftype = cols[0], cols[2]
+                start, end = int(cols[3]), int(cols[4])
+                strand = cols[6]
+                attrs = self._parse_attrs(cols[8])
+                if ftype == "mRNA":
+                    mid = attrs.get("ID", "")
+                    try:
+                        identity = float(attrs.get("Identity", "0"))
+                    except ValueError:
+                        identity = 0.0
+                    tgt = attrs.get("Target", "").split()
+                    tstart = int(tgt[1]) if len(tgt) >= 3 else 0
+                    query = tgt[0] if tgt else ""
+                    mrnas[mid] = {"seq": seq, "start": start, "end": end, "strand": strand,
+                                  "identity": identity, "tstart": tstart, "query": query,
+                                  "has_stop": False, "cds": []}
+                elif ftype == "CDS":
+                    mid = attrs.get("Parent", "")
+                    if mid in mrnas:
+                        phase = cols[7] if cols[7] in ("0", "1", "2") else "0"
+                        mrnas[mid]["cds"].append((start, end, phase))
+                        mrnas[mid]["start"] = min(mrnas[mid]["start"], start)
+                        mrnas[mid]["end"] = max(mrnas[mid]["end"], end)
+                elif ftype == "stop_codon":
+                    mid = attrs.get("Parent", "")
+                    if mid in mrnas:
+                        mrnas[mid]["has_stop"] = True
+        models = [m for m in mrnas.values()
+                  if m["identity"] >= min_identity and m["tstart"] == 1
+                  and m["has_stop"] and m["cds"]]
+        for m in models:
+            m["cds"].sort()
+        return models
+
+    def _dedup_models_by_locus(self, models: list, overlap_thr: float = 0.5) -> list:
+        """同一位点(重叠>overlap_thr 占 model 长度)只留 identity 最高的|keep best per locus."""
+        models = sorted(models, key=lambda m: -m["identity"])
+        accepted = []
+        for m in models:
+            m_len = m["end"] - m["start"] + 1
+            dup = False
+            for a in accepted:
+                if a["seq"] != m["seq"]:
+                    continue
+                ov = max(0, min(m["end"], a["end"]) - max(m["start"], a["start"]) + 1)
+                if m_len > 0 and ov / m_len > overlap_thr:
+                    dup = True
+                    break
+            if not dup:
+                accepted.append(m)
+        return accepted
+
+    def _gene_id_of(self, feature: str, attrs: dict) -> str:
+        """从 GFF 行属性推断所属 gene id|infer gene id from GFF line attrs.
+
+        gene 行用 ID; 其它行用 Parent(剥 .tN 后缀得到 gene id)。
+        """
+        if "Parent" in attrs:
+            p = attrs["Parent"].split(",")[0]
+            return p.rsplit(".", 1)[0] if "." in p else p
+        if feature == "gene" and "ID" in attrs:
+            return attrs["ID"]
+        return ""
+
+    def _build_rescued_gff(self, augustus_gff: str, models: list, conflict_overlap: float,
+                           out_gff: str, species: str):
+        """写 rescued GFF: 删除与效应子模型冲突的 Augustus 基因, 追加效应子模型
+        |write rescued GFF: drop conflicting Augustus genes, append effector models.
+
+        冲突判定: Augustus 基因与效应子模型重叠 > conflict_overlap(占模型长度) -> 删除。
+        该模型随后追加。无冲突的邻居基因保留。
+        |conflict: Augustus gene overlapping > conflict_overlap of model length -> dropped.
+        """
+        # 1. 读 Augustus 基因 span|read Augustus gene spans
+        gene_spans = {}
+        with open(augustus_gff) as f:
+            for line in f:
+                if line.startswith("#") or not line.strip():
+                    continue
+                cols = line.rstrip("\n").split("\t")
+                if len(cols) < 9 or cols[2] != "gene":
+                    continue
+                attrs = self._parse_attrs(cols[8])
+                if "ID" in attrs:
+                    gene_spans[attrs["ID"]] = (cols[0], int(cols[3]), int(cols[4]))
+
+        # 2. 决定删除集合|decide removal set
+        remove = set()
+        for m in models:
+            m_len = m["end"] - m["start"] + 1
+            for gid, (gseq, gstart, gend) in gene_spans.items():
+                if gseq != m["seq"]:
+                    continue
+                ov = max(0, min(m["end"], gend) - max(m["start"], gstart) + 1)
+                if m_len > 0 and ov / m_len > conflict_overlap:
+                    remove.add(gid)
+
+        # 3. 写 rescued: 跳过 remove 集合的行 + 追加效应子模型
+        n_added = 0
+        with open(augustus_gff) as fin, open(out_gff, "w") as out:
+            for line in fin:
+                if line.startswith("#") or not line.strip():
+                    out.write(line)
+                    continue
+                cols = line.rstrip("\n").split("\t")
+                if len(cols) >= 9:
+                    gid = self._gene_id_of(cols[2], self._parse_attrs(cols[8]))
+                    if gid and gid in remove:
+                        continue
+                out.write(line)
+            for i, m in enumerate(models, 1):
+                gid = f"{species}_effrescue_{i}"
+                tid = f"{gid}.t1"
+                out.write(f"{m['seq']}\teffrescue\tgene\t{m['start']}\t{m['end']}\t.\t{m['strand']}\t.\tID={gid}\n")
+                out.write(f"{m['seq']}\teffrescue\tmRNA\t{m['start']}\t{m['end']}\t.\t{m['strand']}\t.\t"
+                          f"ID={tid};Parent={gid};product={m['query']}\n")
+                for (cstart, cend, phase) in m["cds"]:
+                    out.write(f"{m['seq']}\teffrescue\tCDS\t{cstart}\t{cend}\t.\t{m['strand']}\t{phase}\t"
+                              f"ID={tid}.cds;Parent={tid}\n")
+                n_added += 1
+        return len(remove), n_added
 
     # ----------------------------------------------------------
     # 版本记录|Version record

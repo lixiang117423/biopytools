@@ -473,6 +473,8 @@ def filter_repeat_library(consensi_fa: str, output_dir: str, config, cmd_runner,
     # 4. prot_seq 同源:consensus 翻译与近缘蛋白同源 → 假重复(核心判据)|Protein homology
     prot_hits: Dict[str, Tuple[float, float]] = {}
     prot_seq = getattr(config, 'prot_seq', None)
+    if prot_seq:
+        prot_seq = os.path.abspath(prot_seq)  # mmseqs 在 output_dir cwd 执行,需绝对路径|abs path for mmseqs cwd
     if prot_seq and os.path.exists(prot_seq):
         homology_m8 = os.path.join(output_dir, "consensi_orfs_vs_prot.m8")
         mmseqs_tmp = os.path.join(output_dir, "mmseqs_tmp")

@@ -28,6 +28,9 @@ def parse_arguments():
                         help="同源蛋白文件(Phase2)|Homologous proteins (P2)")
     parser.add_argument("--isoseq", default=None,
                         help="三代转录本文件(Phase2)|Long-read transcripts (P2)")
+    parser.add_argument("--effectors", default=None,
+                        help="已知效应子蛋白(Phase3 救援, 直接当基因模型替换错注/漏注位点)|"
+                             "Known effectors (P3 rescue, used as gene models to fix loci)")
 
     # 文件模式/链特异性|file patterns / strandness
     parser.add_argument("--read1-pattern", default="_1.clean.fq.gz",
@@ -56,6 +59,13 @@ def parse_arguments():
     parser.add_argument("--skip-iso", action="store_true", help="跳过三代转录本(Phase2)|Skip long-read (P2)")
     parser.add_argument("--skip-protein", action="store_true", help="跳过蛋白证据(Phase2)|Skip protein hints (P2)")
     parser.add_argument("--skip-ltr", action="store_true", help="跳过 LTR 注解(Phase2)|Skip LTR annotation (P2)")
+    parser.add_argument("--skip-rescue", action="store_true", help="跳过效应子救援(Phase3)|Skip effector rescue (P3)")
+
+    # Phase3 救援参数|rescue params
+    parser.add_argument("--rescue-min-identity", type=float, default=0.85,
+                        help="效应子救援 miniprot 最低 identity(全长靠 Target起=1+stop 判)|Rescue min identity")
+    parser.add_argument("--rescue-conflict-overlap", type=float, default=0.50,
+                        help="Augustus 基因与效应子模型重叠>此比例则替换|Conflict overlap fraction")
 
     return parser.parse_args()
 
@@ -72,6 +82,7 @@ def main():
             rnaseq_dirs=args.rnaseq_dirs,
             prot_seq=args.prot_seq,
             isoseq=args.isoseq,
+            effectors=args.effectors,
             read1_pattern=args.read1_pattern,
             read2_pattern=args.read2_pattern,
             rna_strandness=args.rna_strandness,
@@ -83,6 +94,9 @@ def main():
             skip_iso=args.skip_iso,
             skip_protein=args.skip_protein,
             skip_ltr=args.skip_ltr,
+            skip_rescue=args.skip_rescue,
+            rescue_min_identity=args.rescue_min_identity,
+            rescue_conflict_overlap=args.rescue_conflict_overlap,
         )
         if args.gmes_petap_path:
             kwargs["gmes_petap_path"] = args.gmes_petap_path

@@ -29,6 +29,8 @@ def _lazy_import_main():
               help="同源蛋白文件(Phase2)|Homologous proteins (P2)")
 @click.option("--isoseq", default=None,
               help="三代转录本文件(Phase2)|Long-read transcripts (P2)")
+@click.option("--effectors", default=None,
+              help="已知效应子蛋白(Phase3 救援)|Known effectors (P3 rescue)")
 @click.option("--read1-pattern", default="_1.clean.fq.gz", show_default=True,
               help="R1 文件后缀模式|R1 suffix pattern")
 @click.option("--read2-pattern", default="_2.clean.fq.gz", show_default=True,
@@ -55,11 +57,18 @@ def _lazy_import_main():
               help="跳过蛋白证据(Phase2)|Skip protein hints (P2)")
 @click.option("--skip-ltr", is_flag=True, default=False,
               help="跳过 LTR 注解(Phase2)|Skip LTR annotation (P2)")
-def oomycete_anno(genome, species, rnaseq_dirs, prot_seq, isoseq,
+@click.option("--skip-rescue", is_flag=True, default=False,
+              help="跳过效应子救援(Phase3)|Skip effector rescue (P3)")
+@click.option("--rescue-min-identity", default=0.85, show_default=True, type=float,
+              help="效应子救援 miniprot 最低 identity|Rescue min identity")
+@click.option("--rescue-conflict-overlap", default=0.50, show_default=True, type=float,
+              help="Augustus 与效应子模型重叠>此比例则替换|Conflict overlap fraction")
+def oomycete_anno(genome, species, rnaseq_dirs, prot_seq, isoseq, effectors,
                   read1_pattern, read2_pattern, rna_strandness,
                   output_dir, threads, soft_masking,
                   gmes_petap_path, genemark_perl_env,
-                  skip_repeat, skip_rna, skip_iso, skip_protein, skip_ltr):
+                  skip_repeat, skip_rna, skip_iso, skip_protein, skip_ltr, skip_rescue,
+                  rescue_min_identity, rescue_conflict_overlap):
     """
     疫霉菌基因组注释(T2T Augustus流程)|Oomycete genome annotation (T2T Augustus pipeline).
 
@@ -81,6 +90,8 @@ def oomycete_anno(genome, species, rnaseq_dirs, prot_seq, isoseq,
         args.extend(["--prot-seq", prot_seq])
     if isoseq:
         args.extend(["--isoseq", isoseq])
+    if effectors:
+        args.extend(["--effectors", effectors])
     if soft_masking:
         args.append("--no-soft-masking")
     if gmes_petap_path:
@@ -97,6 +108,10 @@ def oomycete_anno(genome, species, rnaseq_dirs, prot_seq, isoseq,
         args.append("--skip-protein")
     if skip_ltr:
         args.append("--skip-ltr")
+    if skip_rescue:
+        args.append("--skip-rescue")
+    args.extend(["--rescue-min-identity", str(rescue_min_identity)])
+    args.extend(["--rescue-conflict-overlap", str(rescue_conflict_overlap)])
 
     original_argv = sys.argv
     sys.argv = args

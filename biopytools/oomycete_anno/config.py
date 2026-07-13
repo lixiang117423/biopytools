@@ -25,6 +25,10 @@ class OomyceteAnnoConfig:
     rnaseq_dirs: Optional[List[str]] = None  # 二代 RNA-seq 目录列表|short RNA-seq dirs
     prot_seq: Optional[str] = None  # 同源蛋白(Phase2)|homologous proteins (P2)
     isoseq: Optional[str] = None  # 三代转录本(Phase2)|long-read transcripts (P2)
+    # 已知效应子蛋白(Phase3 救援): miniprot 全长比对当基因模型直接替换 Augustus 错注/漏注位点
+    # |Known effectors (Phase3 rescue): use full-length miniprot alignments as gene models
+    # to replace Augustus mis/missed annotations at effector loci
+    effectors: Optional[str] = None
 
     # ===== 文件识别|File patterns =====
     read1_pattern: str = "_1.clean.fq.gz"  # R1 后缀|R1 suffix
@@ -200,6 +204,15 @@ class OomyceteAnnoConfig:
     skip_iso: bool = False  # Phase2
     skip_protein: bool = False  # Phase2
     skip_ltr: bool = False  # Phase2
+    skip_rescue: bool = False  # Phase3 效应子救援|effector rescue
+
+    # ===== Phase3 效应子救援参数|Effector rescue params =====
+    # miniprot 比对身份阈值(注: 全长判定靠 Target 起始=1 + stop_codon, 非高 identity)
+    # |miniprot identity cutoff (full-length judged by Target start=1 + stop_codon, not high identity)
+    rescue_min_identity: float = 0.85
+    # Augustus 基因与效应子模型重叠占效应子模型长度 > 此比例 -> 视为冲突, 替换
+    # |Augustus gene overlapping > this fraction of effector model length -> conflict, replace
+    rescue_conflict_overlap: float = 0.50
 
     def __post_init__(self):
         """初始化后处理: 展开路径 + 建子目录|Post-init: expand paths, make subdirs."""
@@ -236,10 +249,12 @@ class OomyceteAnnoConfig:
             self.prot_seq = expand_path(self.prot_seq)
         if self.isoseq:
             self.isoseq = expand_path(self.isoseq)
+        if self.effectors:
+            self.effectors = expand_path(self.effectors)
         if self.rnaseq_dirs:
             self.rnaseq_dirs = [expand_path(d) for d in self.rnaseq_dirs]
 
-        # 创建输出目录 + 9 个子目录(by-step, 规范§12)|create output + 9 subdirs
+        # 创建输出目录 + 子目录(by-step, 规范§12)|create output + subdirs
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
         self.pipeline_info_dir = self.output_path / "00_pipeline_info"
@@ -251,11 +266,13 @@ class OomyceteAnnoConfig:
         self.training_dir = self.output_path / "06_training"
         self.augustus_dir = self.output_path / "07_augustus"
         self.ltr_dir = self.output_path / "08_ltr"
+        self.rescue_dir = self.output_path / "09_effector_rescue"  # Phase3
         self.log_dir = self.output_path / "99_logs"
         for d in (
             self.pipeline_info_dir, self.repeat_dir, self.rna_align_dir,
             self.iso_align_dir, self.protein_align_dir, self.hints_dir,
-            self.training_dir, self.augustus_dir, self.ltr_dir, self.log_dir,
+            self.training_dir, self.augustus_dir, self.ltr_dir, self.rescue_dir,
+            self.log_dir,
         ):
             d.mkdir(parents=True, exist_ok=True)
 
@@ -274,6 +291,8 @@ class OomyceteAnnoConfig:
             errors.append(f"蛋白文件不存在|Protein file not found: {self.prot_seq}")
         if self.isoseq and not os.path.exists(self.isoseq):
             errors.append(f"三代转录本不存在|Iso-seq file not found: {self.isoseq}")
+        if self.effectors and not os.path.exists(self.effectors):
+            errors.append(f"效应子蛋白文件不存在|Effectors file not found: {self.effectors}")
         if self.rnaseq_dirs:
             for i, d in enumerate(self.rnaseq_dirs):
                 if not os.path.exists(d):
