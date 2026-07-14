@@ -41,7 +41,7 @@ def _validate_path_exists(path):
 @click.option('-o', '--output-dir',
               required=True,
               type=click.Path(),
-              help='输出文件夹路径|Output directory path')
+              help='输出路径(文件或目录,以.fq.gz/.fastq.gz结尾视为文件)|Output path (file if ends with .fq.gz/.fastq.gz, else directory)')
 @click.option('-t', '--threads',
               default=12,
               show_default=True,
@@ -63,7 +63,7 @@ def bam2fastq(input, output_dir, threads, jobs, bam2fastq_path):
 
     使用bam2fastq将BAM文件批量转换为FASTQ格式|Batch convert BAM files to FASTQ format using bam2fastq
 
-    示例|Examples: biopytools bam2fastq -i ./sample.bam -o ./fastq_dir
+    示例|Examples: biopytools bam2fastq -i ./sample.bam -o ./sample.fq.gz -t 32
     """
 
     # 延迟加载|Lazy loading

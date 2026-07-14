@@ -28,9 +28,10 @@ class TranscriptAssemblyConfig:
     read_type: str = "auto"  # auto|short|long
     guide_gff: Optional[str] = None  # -G 参考注释|reference annotation
     output_transcripts: bool = False  # 额外输出 transcripts.fa|also output cDNA
+    predict_cds: bool = False  # TransDecoder 预测 CDS(--predict-cds)|predict CDS via TransDecoder
 
     # 步骤控制|Step control
-    step: Optional[int] = None  # 1-6, None=全部|None=all
+    step: Optional[int] = None  # 1-7, None=全部|None=all
 
     # 日志|Logging
     log_file: Optional[str] = None
@@ -55,6 +56,14 @@ class TranscriptAssemblyConfig:
     hisat2_build_bin: str = field(default_factory=lambda: get_tool_path(
         'hisat2-build', '~/miniforge3/envs/RNA_Seq/bin/hisat2-build', 'HISAT2_BUILD_PATH'))
     samtools_bin: str = field(default_factory=get_samtools_path)
+    transdecoder_longorfs_bin: str = field(default_factory=lambda: get_tool_path(
+        'transdecoder_longorfs', '~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.LongOrfs', 'TRANSDECODER_LONGORFS_PATH'))
+    transdecoder_predict_bin: str = field(default_factory=lambda: get_tool_path(
+        'transdecoder_predict', '~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.Predict', 'TRANSDECODER_PREDICT_PATH'))
+    transdecoder_gtf2gff_bin: str = field(default_factory=lambda: get_tool_path(
+        'transdecoder_gtf2gff', '~/miniforge3/envs/transdecoder_v.5.5.0/opt/transdecoder/util/gtf_to_alignment_gff3.pl', 'TRANSDECODER_GTF2GFF_PATH'))
+    transdecoder_orf2genome_bin: str = field(default_factory=lambda: get_tool_path(
+        'transdecoder_orf2genome', '~/miniforge3/envs/transdecoder_v.5.5.0/opt/transdecoder/util/cdna_alignment_orf_to_genome_orf.pl', 'TRANSDECODER_ORF2GENOME_PATH'))
 
     def __post_init__(self):
         """初始化后处理|Post-init: expand paths, create dirs"""
@@ -63,7 +72,9 @@ class TranscriptAssemblyConfig:
 
         # 展开所有工具路径 ~ (§11.3.1)|expand ~ in tool paths
         for attr in ('stringtie_bin', 'gffread_bin', 'hisat2_bin',
-                     'hisat2_build_bin', 'samtools_bin'):
+                     'hisat2_build_bin', 'samtools_bin',
+                     'transdecoder_longorfs_bin', 'transdecoder_predict_bin',
+                     'transdecoder_gtf2gff_bin', 'transdecoder_orf2genome_bin'):
             setattr(self, attr, expand_path(getattr(self, attr)))
 
         # 展开用户路径|expand user paths
@@ -94,7 +105,7 @@ class TranscriptAssemblyConfig:
             errors.append("必须提供 input_dir 或 bam_files|must provide input_dir or bam_files")
 
         # genome 条件必需|genome conditionally required
-        need_genome = has_fastq or self.output_transcripts
+        need_genome = has_fastq or self.output_transcripts or self.predict_cds or self.step == 7
         if need_genome and (not self.genome_file or not os.path.exists(self.genome_file)):
             errors.append(f"该模式需要基因组文件|genome file required for this mode: {self.genome_file}")
         elif self.genome_file and not os.path.exists(self.genome_file):
@@ -119,11 +130,11 @@ class TranscriptAssemblyConfig:
             errors.append(f"无效 read_type|Invalid read_type: {self.read_type} (auto|short|long)")
 
         # step 范围|step range
-        if self.step is not None and self.step not in [1, 2, 3, 4, 5, 6]:
-            errors.append(f"无效步骤|Invalid step: {self.step} (1-6)")
+        if self.step is not None and self.step not in [1, 2, 3, 4, 5, 6, 7]:
+            errors.append(f"无效步骤|Invalid step: {self.step} (1-7)")
         # BAM 模式禁止 step 1-3|BAM mode forbids steps 1-3
         if has_bam and self.step is not None and self.step in [1, 2, 3]:
-            errors.append(f"BAM 模式不支持步骤|BAM mode does not support step: {self.step} (仅 4-6|only 4-6)")
+            errors.append(f"BAM 模式不支持步骤|BAM mode does not support step: {self.step} (仅 4-7|only 4-7)")
 
         # 工具存在性|tool existence (§13.6)
         for name, path in [('stringtie', self.stringtie_bin), ('gffread', self.gffread_bin),
@@ -132,6 +143,13 @@ class TranscriptAssemblyConfig:
                 errors.append(f"工具不存在|Tool not found [{name}]: {path}")
         if has_fastq:  # FASTQ 模式还需 hisat2
             for name, path in [('hisat2', self.hisat2_bin), ('hisat2-build', self.hisat2_build_bin)]:
+                if not os.path.exists(path):
+                    errors.append(f"工具不存在|Tool not found [{name}]: {path}")
+        if self.predict_cds or self.step == 7:  # TransDecoder CDS 预测
+            for name, path in [('transdecoder_longorfs', self.transdecoder_longorfs_bin),
+                               ('transdecoder_predict', self.transdecoder_predict_bin),
+                               ('transdecoder_gtf2gff', self.transdecoder_gtf2gff_bin),
+                               ('transdecoder_orf2genome', self.transdecoder_orf2genome_bin)]:
                 if not os.path.exists(path):
                     errors.append(f"工具不存在|Tool not found [{name}]: {path}")
 

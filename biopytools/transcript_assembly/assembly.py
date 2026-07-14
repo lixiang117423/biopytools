@@ -319,6 +319,68 @@ class TranscriptExtractor:
             cmd, f"gffread提取cDNA|gffread extract cDNA -> {output_fa}")
 
 
+class TransDecoderRunner:
+    """TransDecoder CDS 预测器|TransDecoder CDS predictor (transcripts→gene/mRNA/CDS)"""
+
+    def __init__(self, config, logger, cmd_runner: CommandRunner):
+        self.config = config
+        self.logger = logger
+        self.cmd_runner = cmd_runner
+
+    def predict(self, transcripts_fa: str, merged_gtf: str,
+                output_dir: str) -> bool:
+        """
+        预测 CDS 并输出基因组坐标 GFF3|Predict CDS, output genome-coord GFF3
+
+        Flow: merged.gtf→alignment.gff3 + LongOrfs + Predict + ORF→genome
+        (基础版,无 blastp/hmmscan 同源 DB|basic, no homology DBs)
+
+        Args:
+            transcripts_fa: cDNA FASTA(gffread -w 产物)|cDNA FASTA
+            merged_gtf: 合并GTF(生成 alignment.gff3)|merged GTF
+            output_dir: TransDecoder 输出目录|output dir
+        """
+        os.makedirs(output_dir, exist_ok=True)
+        base = os.path.basename(transcripts_fa)  # transcripts.fa
+        genome_gff3 = os.path.join(output_dir, f"{base}.transdecoder.genome.gff3")
+
+        # 断点续传:最终基因组坐标 GFF3 存在则跳过|Checkpoint
+        if os.path.exists(genome_gff3) and os.path.getsize(genome_gff3) > 0:
+            if not self.config.force:
+                self.logger.info(f"TransDecoder已完成，跳过|TransDecoder done, skipping: {genome_gff3}")
+                return True
+
+        timeout = self.config.sample_timeout
+
+        # 1. merged.gtf → alignment.gff3(转录本→基因组比对 GFF3)|gtf→alignment.gff3
+        align_gff3 = os.path.join(output_dir, "alignment.gff3")
+        cmd = ' '.join(build_conda_command(
+            self.config.transdecoder_gtf2gff_bin, [merged_gtf])) + f" > {align_gff3}"
+        if not self.cmd_runner.run(cmd, f"TransDecoder: GTF→alignment GFF3 -> {align_gff3}"):
+            return False
+
+        # 2. LongOrfs(找长 ORF)|find long ORFs
+        cmd = ' '.join(build_conda_command(
+            self.config.transdecoder_longorfs_bin, ['-t', transcripts_fa, '-O', output_dir]))
+        if not self.cmd_runner.run(cmd, f"TransDecoder.LongOrfs -> {output_dir}", timeout=timeout):
+            return False
+
+        # 3. Predict(基础版,无同源 DB)|Predict ORFs (basic, no homology DBs)
+        cmd = ' '.join(build_conda_command(
+            self.config.transdecoder_predict_bin, ['-t', transcripts_fa, '-O', output_dir]))
+        if not self.cmd_runner.run(cmd, f"TransDecoder.Predict -> {output_dir}", timeout=timeout):
+            return False
+
+        # 4. ORF → 基因组坐标(出 gene/mRNA/CDS/exon)|ORF→genome coords
+        td_gff3 = os.path.join(output_dir, f"{base}.transdecoder.gff3")
+        cmd = ' '.join(build_conda_command(
+            self.config.transdecoder_orf2genome_bin, [td_gff3, align_gff3, transcripts_fa])) + f" > {genome_gff3}"
+        if not self.cmd_runner.run(cmd, f"TransDecoder: ORF→基因组坐标 -> {genome_gff3}"):
+            return False
+
+        return True
+
+
 class BamInputParser:
     """BAM 输入解析与校验器|BAM input parser and validator"""
 

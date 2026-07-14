@@ -32,8 +32,8 @@ class PsGeneAnnoConfig:
     # ===== 质控阈值|QC thresholds =====
     gap_min_identity: float = 70.0      # miniprot identity %|identity cutoff
     gap_min_coverage: float = 80.0      # 命中覆盖蛋白比例 %|coverage cutoff
-    gap_min_cds_len: int = 100          # 最小 CDS 长度 bp|min CDS length
-    overlap_cutoff: float = 50.0        # 漏检判定:与braker CDS重叠<此%才算漏检|overlap cutoff for gap
+    gap_min_cds_len: int = 300          # 最小 CDS 长度 bp(过滤短蛋白片段)|min CDS length
+    overlap_cutoff: float = 0.0         # 漏检判定:与braker CDS零重叠才算漏检|zero overlap=gap
     require_complete_orf: bool = True   # partial(覆盖<99)默认丢|drop partial
     te_overlap_cutoff: float = 50.0     # 真 TE 区重叠阈值 %|TE overlap cutoff
 

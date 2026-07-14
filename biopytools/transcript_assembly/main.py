@@ -12,7 +12,7 @@ from .utils import TranscriptAssemblyLogger, CommandRunner, build_conda_command
 from .assembly import (
     HISAT2Indexer, HISAT2Aligner, SamtoolsProcessor,
     StringTieAssembler, StringTieMerger, GFF3Converter, TranscriptExtractor,
-    SampleParser, BamInputParser
+    TransDecoderRunner, SampleParser, BamInputParser
 )
 
 
@@ -45,6 +45,7 @@ class TranscriptAssembler:
         self.stringtie_merger = StringTieMerger(self.config, self.logger, self.cmd_runner)
         self.gff3_converter = GFF3Converter(self.config, self.logger, self.cmd_runner)
         self.transcript_extractor = TranscriptExtractor(self.config, self.logger, self.cmd_runner)
+        self.transdecoder_runner = TransDecoderRunner(self.config, self.logger, self.cmd_runner)
 
     def _parse_samples(self):
         """解析输入样本|Parse input samples (FASTQ or BAM)"""
@@ -195,6 +196,27 @@ class TranscriptAssembler:
 
         return ok
 
+    def step7_predict_cds(self):
+        """步骤7: TransDecoder 预测 CDS|Step 7: TransDecoder CDS prediction"""
+        self.logger_manager.step("步骤7: TransDecoder CDS预测|Step 7: TransDecoder CDS prediction")
+        output_dir = self.config.output_dir
+        # 源 GTF(同 step6:单BAM用样本GTF)|source GTF (single BAM uses sample GTF)
+        merged_gtf = os.path.join(output_dir, "05_merge", "merged.gtf")
+        if not os.path.exists(merged_gtf):
+            samples = self.config.samples or []
+            if len(samples) == 1:
+                merged_gtf = os.path.join(output_dir, "04_stringtie", f"{samples[0]['name']}.gtf")
+            if not os.path.exists(merged_gtf):
+                self.logger.error(f"GTF不存在|GTF not found: {merged_gtf}")
+                return False
+        # 提 cDNA(需 genome,validate 已强制)|extract cDNA (needs genome)
+        transcripts_fa = os.path.join(output_dir, "06_transcripts", "transcripts.fa")
+        if not self.transcript_extractor.extract(merged_gtf, self.config.genome_file, transcripts_fa):
+            return False
+        # TransDecoder → 基因组坐标 CDS GFF3 + pep + cds|genome-coord CDS GFF3
+        td_dir = os.path.join(output_dir, "07_transdecoder")
+        return self.transdecoder_runner.predict(transcripts_fa, merged_gtf, td_dir)
+
     def _write_software_versions(self):
         """记录软件版本到 00_pipeline_info/software_versions.yml|Write software versions"""
         import subprocess
@@ -272,6 +294,7 @@ class TranscriptAssembler:
                     4: ("StringTie组装|StringTie assembly", self._run_step4),
                     5: ("合并GTF|Merge GTFs", self._run_step5),
                     6: ("输出GFF3|Output GFF3", self._run_step6),
+                    7: ("TransDecoder CDS|TransDecoder CDS", self._run_step7),
                 }
                 step_name, step_func = step_map[self.config.step]
                 self.logger.info(f"执行步骤{self.config.step}|Executing step {self.config.step}: {step_name}")
@@ -310,6 +333,13 @@ class TranscriptAssembler:
                     self.logger.error("GFF3输出步骤失败|GFF3 output step failed")
                     sys.exit(1)
 
+                # ⑦ TransDecoder 预测 CDS(可选 --predict-cds)|optional CDS prediction
+                if self.config.predict_cds:
+                    success = self._run_step7()
+                    if not success:
+                        self.logger.error("TransDecoder步骤失败|TransDecoder step failed")
+                        sys.exit(1)
+
             # 输出总结信息|Output summary
             elapsed_time = time.time() - start_time
             self.logger.info("=" * 60)
@@ -319,12 +349,19 @@ class TranscriptAssembler:
             self.logger.info(f"输出目录|Output directory: {self.config.output_dir}")
 
             # 列出关键输出文件|List key output files
+            merged_gff3 = os.path.join(self.config.output_dir, "06_gff3", "merged.gff3")
             transcript_fa = os.path.join(self.config.output_dir, "06_transcripts", "transcripts.fa")
             merged_gtf = os.path.join(self.config.output_dir, "05_merge", "merged.gtf")
+            td_gff3 = os.path.join(self.config.output_dir, "07_transdecoder",
+                                   "transcripts.fa.transdecoder.genome.gff3")
+            if os.path.exists(merged_gff3):
+                self.logger.info(f"GFF3基因结构|GFF3 gene structure: {merged_gff3}")
             if os.path.exists(transcript_fa):
                 self.logger.info(f"转录本序列|Transcript sequences: {transcript_fa}")
             if os.path.exists(merged_gtf):
                 self.logger.info(f"合并GTF|Merged GTF: {merged_gtf}")
+            if os.path.exists(td_gff3):
+                self.logger.info(f"TransDecoder CDS(GFF3)|TransDecoder CDS GFF3: {td_gff3}")
 
             self.logger.info("流程成功完成|Pipeline completed successfully")
             self.logger.info("=" * 60)
@@ -370,6 +407,10 @@ class TranscriptAssembler:
         """运行步骤6|Run step 6"""
         return self.step6_output_gff3()
 
+    def _run_step7(self):
+        """运行步骤7|Run step 7"""
+        return self.step7_predict_cds()
+
 
 def main():
     """主函数|Main function"""
@@ -402,6 +443,8 @@ def main():
                              help="读长类型(auto=自动检测)|Read type (auto=auto-detect)")
     input_group.add_argument("--transcripts", action='store_true',
                              help="额外输出transcripts.fa cDNA(需-g)|Also output cDNA transcripts.fa (needs -g)")
+    input_group.add_argument("--predict-cds", action='store_true',
+                             help="TransDecoder预测CDS(需-g,输出gene/mRNA/CDS)|TransDecoder CDS prediction (needs -g)")
 
     # 可选参数|Optional parameters
     optional = parser.add_argument_group('可选参数|Optional parameters')
@@ -414,10 +457,11 @@ def main():
 
     # 步骤控制|Step control
     step_group = parser.add_argument_group('步骤控制|Step control')
-    step_group.add_argument("-s", "--step", type=int, choices=[1, 2, 3, 4, 5, 6],
+    step_group.add_argument("-s", "--step", type=int, choices=[1, 2, 3, 4, 5, 6, 7],
                             help='运行指定步骤|Run only specified step '
                                  '(1: 索引|index, 2: 比对|alignment, 3: 排序|sort, '
-                                 '4: 组装|assembly, 5: 合并|merge, 6: GFF3输出|GFF3 output)')
+                                 '4: 组装|assembly, 5: 合并|merge, 6: GFF3输出|GFF3 output, '
+                                 '7: TransDecoder CDS|TransDecoder CDS)')
 
     # 日志选项|Logging options
     logging_group = parser.add_argument_group('日志选项|Logging options')
@@ -448,6 +492,7 @@ def main():
             read_type=args.read_type,
             guide_gff=args.guide_gff,
             output_transcripts=args.transcripts,
+            predict_cds=args.predict_cds,
             step=args.step,
             verbose=(args.verbose > 0),
             quiet=args.quiet,

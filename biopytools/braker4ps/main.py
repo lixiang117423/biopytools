@@ -131,7 +131,7 @@ def main():
         logger.info('-' * 70)
         logger.info('阶段2: ps-gene-anno 查漏补缺|Phase 2: gap-filling')
         logger.info('-' * 70)
-        filling_output = os.path.join(args.output_dir, 'gap_filling')
+        filling_output = os.path.join(args.output_dir, '05_gap_filling')
         pcfg = PsGeneAnnoConfig(
             genome=args.genome,
             braker_gff3=braker_gff3,

@@ -12,7 +12,8 @@ from .config import PsGeneAnnoConfig
 from .utils import PsGeneAnnoLogger
 from .evidence import run_miniprot, parse_miniprot_gff3
 from .gap_analysis import (
-    parse_braker_gff3, detect_gaps, detect_merged_genes, parse_repeat_out)
+    parse_braker_gff3, detect_gaps, detect_merged_genes, parse_repeat_out,
+    dedupe_hits)
 from .model_build import qc_filter, build_gene_models
 from .merge import merge_gff3
 
@@ -40,7 +41,7 @@ def parse_arguments():
     parser.add_argument('--gap-min-identity', type=float, default=70)
     parser.add_argument('--gap-min-coverage', type=float, default=80)
     parser.add_argument('--gap-min-cds-len', type=int, default=100)
-    parser.add_argument('--overlap-cutoff', type=float, default=50)
+    parser.add_argument('--overlap-cutoff', type=float, default=0)
     parser.add_argument('--no-require-complete-orf', dest='require_complete_orf',
                         action='store_false', default=True)
     parser.add_argument('--te-overlap-cutoff', type=float, default=50)
@@ -90,7 +91,9 @@ class PsGeneAnnoRunner:
         hits = parse_miniprot_gff3(
             self.miniprot_gff,
             self.config.gap_min_identity, self.config.gap_min_coverage)
-        self.logger.info(f"miniprot 命中(过滤后)|miniprot hits (filtered): {len(hits)}")
+        self.logger.info(f"miniprot 命中(过滤后)|hits filtered: {len(hits)}")
+        hits = dedupe_hits(hits)   # 全 prot: 同位置多 query 合并|dedup same-locus
+        self.logger.info(f"miniprot 命中(去重后)|hits deduped: {len(hits)}")
         return hits
 
     def run(self):

@@ -16,8 +16,7 @@ def parse_arguments():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
 示例|Examples:
-  %(prog)s -i /path/to/bam_files -o /path/to/output
-  %(prog)s -i ./sample.bam -o ./fastq_dir -t 32
+  %(prog)s -i ./sample.bam -o ./sample.fq.gz -t 32
   %(prog)s -i ./bam_dir -o ./fastq_dir -j 4 -t 16
         '''
     )
@@ -28,7 +27,7 @@ def parse_arguments():
 
     parser.add_argument('-o', '--output-dir',
                        required=True,
-                       help='输出文件夹路径|Output directory path')
+                       help='输出路径(文件或目录,自动识别)|Output path (file or directory, auto-detected)')
 
     parser.add_argument('-t', '--threads',
                        type=int,

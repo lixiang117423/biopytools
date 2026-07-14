@@ -1,7 +1,10 @@
 """
-ps-gene-anno 漏检/合并判定|Gap & merged-gene detection (GFF3 流)
+ps-gene-anno 漏检/合并判定(GFF3 + 全 prot 普适)|Gap & merged-gene detection
 对比 miniprot 命中与 braker.gff3, 找漏检(证据有·基因无)和错误合并(1基因盖多拷贝)
 |Compare miniprot hits vs braker.gff3: find missing copies & merged genes
+
+全 prot 场景关键:命中去重(同位置多 query 合并) + 合并判定按 query 分组
+|Multi-query: dedupe hits at same locus + per-query merged-gene detection
 """
 
 import os
@@ -37,14 +40,11 @@ def _parse_gff3_attr(attr_str: str) -> dict:
 def parse_braker_gff3(gff3_path: str) -> Dict[str, BrakerGene]:
     """
     解析 braker.gff3 → {gene_id: BrakerGene}|Parse braker.gff3 to genes
-
     GFF3 层级: gene(ID) → mRNA(Parent=gene) → CDS(Parent=mRNA)
-    通过 mRNA→gene 映射链, 把 CDS 归到 gene, 合并同 gene 所有 mRNA 的 CDS。
-    |Chain CDS→mRNA→gene via Parent, merge CDS across mRNAs per gene.
     """
     genes: Dict[str, BrakerGene] = {}
-    mrna_to_gene: Dict[str, str] = {}   # mRNA ID → gene ID
-    cds_temp: Dict[str, List[Tuple[int, int, str, str]]] = {}  # gene_id → [(start,end,chrom,strand)]
+    mrna_to_gene: Dict[str, str] = {}
+    cds_temp: Dict[str, List[Tuple[int, int, str, str]]] = {}
 
     if not os.path.exists(gff3_path):
         return genes
@@ -70,17 +70,15 @@ def parse_braker_gff3(gff3_path: str) -> Dict[str, BrakerGene]:
                 if mid and parent:
                     mrna_to_gene[mid] = parent
             elif feat == 'CDS':
-                parent = attrs.get('Parent', '')   # mRNA ID
-                gene_id = mrna_to_gene.get(parent, parent)   # 链到 gene
+                parent = attrs.get('Parent', '')
+                gene_id = mrna_to_gene.get(parent, parent)
                 cds_temp.setdefault(gene_id, []).append(
                     (int(start), int(end), chrom, strand))
 
-    # 合并 CDS 到 gene|Attach merged CDS to genes
     for gid, intervals in cds_temp.items():
         if not gid:
             continue
         if gid not in genes:
-            # 无 gene 行, 从 CDS 推断边界|No gene line, infer bounds from CDS
             chroms = {iv[2] for iv in intervals}
             strands = {iv[3] for iv in intervals}
             genes[gid] = BrakerGene(
@@ -95,10 +93,7 @@ def parse_braker_gff3(gff3_path: str) -> Dict[str, BrakerGene]:
 
 def cds_overlap_ratio(hit_cds: List[Tuple[int, int]],
                       gene_cds: List[Tuple[int, int]]) -> float:
-    """
-    hit CDS 被 gene CDS 覆盖的比例(%)|hit CDS overlap with gene CDS (%)
-    = 交集长度 / hit CDS 总长度 × 100
-    """
+    """hit CDS 被 gene CDS 覆盖的比例(%)|hit CDS overlap (%)"""
     if not hit_cds:
         return 0.0
     hit_len = sum(e - s + 1 for s, e in hit_cds)
@@ -113,15 +108,56 @@ def cds_overlap_ratio(hit_cds: List[Tuple[int, int]],
     return overlap / hit_len * 100.0
 
 
+def _cds_total_len(hit: MiniprotHit) -> int:
+    """hit 的 CDS 总长|total CDS length"""
+    return sum(e - s + 1 for s, e, _ in hit.cds_exons)
+
+
+def _cds_overlap_len(a: MiniprotHit, b: MiniprotHit) -> int:
+    """两个 hit 的 CDS 重叠碱基数|CDS overlap length between two hits"""
+    ov = 0
+    for s1, e1, _ in a.cds_exons:
+        for s2, e2, _ in b.cds_exons:
+            ov += max(0, min(e1, e2) - max(s1, s2) + 1)
+    return ov
+
+
 def pairwise_no_cds_overlap(hits: List[MiniprotHit]) -> bool:
     """所有命中两两 CDS 不重叠 → True|True if no two hits' CDS overlap"""
     for i in range(len(hits)):
         for j in range(i + 1, len(hits)):
-            for s1, e1, _ in hits[i].cds_exons:
-                for s2, e2, _ in hits[j].cds_exons:
-                    if min(e1, e2) - max(s1, s2) + 1 > 0:
-                        return False
+            if _cds_overlap_len(hits[i], hits[j]) > 0:
+                return False
     return True
+
+
+def dedupe_hits(hits: List[MiniprotHit], overlap_ratio: float = 0.5
+                ) -> List[MiniprotHit]:
+    """
+    同位置多 query 命中去重(CDS 重叠>overlap_ratio 合并, 保留 identity/coverage 最高)
+    |Dedup multi-query hits at same locus
+
+    全 prot 场景:多个蛋白 query 命中同一基因组位置(如 avr1a 拷贝被 Avr1a +
+    Psojae_XP_* + G9540 同时命中), 不去重会导致重复补基因 + 合并判定误判重叠。
+    |Multi-query hits at same locus must be merged to one.
+    """
+    sorted_hits = sorted(hits, key=lambda h: (h.chrom, h.strand, h.start))
+    deduped: List[MiniprotHit] = []
+    for h in sorted_hits:
+        merged_into = False
+        if deduped:
+            last = deduped[-1]
+            if last.chrom == h.chrom and last.strand == h.strand:
+                ov = _cds_overlap_len(h, last)
+                min_len = min(_cds_total_len(h), _cds_total_len(last))
+                if min_len > 0 and ov / min_len >= overlap_ratio:
+                    # 同位置, 保留 identity/coverage 更高的|keep best
+                    if (h.identity, h.coverage) > (last.identity, last.coverage):
+                        deduped[-1] = h
+                    merged_into = True
+        if not merged_into:
+            deduped.append(h)
+    return deduped
 
 
 def detect_gaps(hits: List[MiniprotHit],
@@ -154,11 +190,12 @@ def detect_merged_genes(
         split_min_copy_coverage: float
         ) -> List[Tuple[BrakerGene, List[MiniprotHit]]]:
     """
-    找错误合并基因: 一个 braker 基因含 ≥split_min_hits 个互相不重叠的完整蛋白拷贝
-    |Find merged genes: a braker gene covering >= N independent full copies
+    找错误合并基因: 按 query 分组, 任一 query 在 gene 内含 ≥split_min_hits 个
+    互相不重叠的完整拷贝 → 判合并|Find merged genes (per-query detection)
 
-    保守条件: 每个命中 coverage >= split_min_copy_coverage(完整独立拷贝)
-    |Conservative: each hit must cover its protein >= cutoff (independent full copy)
+    全 prot 场景:不同 query 命中同一基因不同区, 混合 pairwise 会误判重叠。
+    改为按 query 分组: 同一 query 的多个完整独立拷贝才算多拷贝合并。
+    |Per-query: only same query's >=N independent full copies count.
     """
     merged = []
     for gene in braker_genes.values():
@@ -167,18 +204,27 @@ def detect_merged_genes(
                    and h.start >= gene.start and h.end <= gene.end]
         if len(hits_in) < split_min_hits:
             continue
-        if (all(h.coverage >= split_min_copy_coverage for h in hits_in)
-                and pairwise_no_cds_overlap(hits_in)):
-            merged.append((gene, hits_in))
+        # 按 query 分组|group by query
+        by_query: Dict[str, List[MiniprotHit]] = {}
+        for h in hits_in:
+            by_query.setdefault(h.query_id, []).append(h)
+        # 任一 query 在 gene 内 ≥N 完整独立拷贝 → 合并
+        is_merged = False
+        for _q, qhits in by_query.items():
+            full = [h for h in qhits if h.coverage >= split_min_copy_coverage]
+            if len(full) >= split_min_hits and pairwise_no_cds_overlap(full):
+                is_merged = True
+                break
+        if is_merged:
+            # 拆分用 gene 内所有完整拷贝(去重后)|all full copies for split models
+            full_all = [h for h in hits_in if h.coverage >= split_min_copy_coverage]
+            if full_all:
+                merged.append((gene, full_all))
     return merged
 
 
 def parse_repeat_out(repeat_out: str) -> Dict[str, List[Tuple[int, int]]]:
-    """
-    解析 RepeatMasker .out → {chrom: [(start,end)]}(1-based inclusive)
-    |Parse RepeatMasker .out to TE regions
-    RepeatMasker .out 列: score div del ins sequence begin end ...
-    """
+    """解析 RepeatMasker .out → {chrom: [(start,end)]}|Parse RepeatMasker .out"""
     regions: Dict[str, List[Tuple[int, int]]] = {}
     if not repeat_out or not os.path.exists(repeat_out):
         return regions

@@ -60,6 +60,9 @@ def _validate_path_exists(path):
 @click.option('--transcripts',
               is_flag=True,
               help='额外输出transcripts.fa(需-g)|Also output cDNA (needs -g)')
+@click.option('--predict-cds',
+              is_flag=True,
+              help='TransDecoder预测CDS(需-g,输出gene/mRNA/CDS)|TransDecoder CDS prediction (needs -g)')
 @click.option('--pattern', '-p',
               type=str,
               default='*_1.clean.fq.gz',
@@ -76,7 +79,7 @@ def _validate_path_exists(path):
               show_default=True,
               help='单个样本处理超时时间（秒）|Sample processing timeout in seconds')
 @click.option('--step', '-s',
-              type=click.Choice(['1', '2', '3', '4', '5', '6']),
+              type=click.Choice(['1', '2', '3', '4', '5', '6', '7']),
               help='运行指定步骤|Run only specified step')
 @click.option('--verbose', '-v',
               count=True,
@@ -87,7 +90,7 @@ def _validate_path_exists(path):
 @click.option('--force',
               is_flag=True,
               help='强制重新处理已完成的步骤|Force re-process completed steps')
-def transcript_assembly(output, genome, input, bam, guide_gff, read_type, transcripts,
+def transcript_assembly(output, genome, input, bam, guide_gff, read_type, transcripts, predict_cds,
                          pattern, threads, sample_timeout, step, verbose, quiet, force):
     """
     转录本组装流程:HISAT2/StringTie,支持FASTQ或BAM直入、短/长读、GFF3输出|Transcript assembly: HISAT2/StringTie, FASTQ or BAM input, short/long reads, GFF3 output
@@ -116,6 +119,8 @@ def transcript_assembly(output, genome, input, bam, guide_gff, read_type, transc
         args.extend(['--read-type', read_type])
     if transcripts:
         args.append('--transcripts')
+    if predict_cds:
+        args.append('--predict-cds')
 
     # 可选参数|Optional parameters
     if pattern != '*_1.clean.fq.gz':

@@ -3,12 +3,16 @@ BAM to FASTQ转换核心逻辑模块|BAM to FASTQ Conversion Core Logic
 """
 
 import os
+import re
 import subprocess
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Tuple, List
 
 from .utils import build_conda_command
+
+# 用于从输出文件路径提取前缀|Pattern to strip output extension for bam2fastq prefix
+_STRIP_OUTPUT_EXT = re.compile(r'\.(fq|fastq)(\.gz)?$', re.IGNORECASE)
 
 
 class BAMConverter:
@@ -122,7 +126,18 @@ class BAMConverter:
             Tuple[bool, str]: (是否成功|Success, 文件名|Filename)
         """
         base_name = bam_file.stem
-        output_prefix = self.config.output_path / base_name
+
+        if self.config.output_is_file:
+            # 文件输出模式: -o指定了输出文件路径|File output mode: -o specifies output file path
+            # 从目标文件名推导bam2fastq的prefix|Derive bam2fastq prefix from target filename
+            target_file = self.config.output_path
+            parent_dir = self.config.output_dir_path
+            prefix_stem = _STRIP_OUTPUT_EXT.sub('', self.config.output_filename)
+            output_prefix = parent_dir / prefix_stem
+        else:
+            # 目录输出模式: 保持原有行为|Directory output mode: keep original behavior
+            output_prefix = self.config.output_path / base_name
+            target_file = None
 
         self.logger.info(f"正在处理|Processing: {bam_file.name}")
 
@@ -148,14 +163,11 @@ class BAMConverter:
 
         try:
             # 使用bam2fastq命令转换|Use bam2fastq to convert
-            # -o: 输出文件前缀|Output file prefix
-            # -j: 线程数|Thread count
-            # -c: gzip压缩级别|Gzip compression level
             cmd_args = [
                 '-o', str(output_prefix),
                 '-j', str(self.config.threads),
                 '-c', '6',  # 压缩级别|Compression level
-                str(bam_file_to_use)  # 使用解析后的路径|Use resolved path
+                str(bam_file_to_use)
             ]
             cmd = build_conda_command(self.config.bam2fastq_path, cmd_args)
             self.logger.info(f"命令|Command: {' '.join(cmd)}")
@@ -167,6 +179,10 @@ class BAMConverter:
                 check=True
             )
 
+            # 文件输出模式：将bam2fastq生成的文件重命名为用户指定的文件名
+            if self.config.output_is_file and target_file is not None:
+                self._rename_output(prefix_stem, parent_dir, target_file)
+
             self.logger.info(f"完成|Completed: {bam_file.name}")
             return True, bam_file.name
 
@@ -177,6 +193,48 @@ class BAMConverter:
         except Exception as e:
             self.logger.error(f"处理出错|Error processing {bam_file.name}: {str(e)}")
             return False, bam_file.name
+
+    def _rename_output(self, prefix_stem: str, parent_dir: Path, target_file: Path):
+        """
+        将bam2fastq生成的文件重命名为用户指定文件名|Rename bam2fastq output to user-specified filename
+
+        bam2fastq产生的文件命名不稳定，可能为 {prefix}.fastq.gz 或 {prefix}.fq.gz
+        此函数找到生成的文件并重命名|bam2fastq output naming is inconsistent,
+        this function finds and renames the generated file.
+
+        Args:
+            prefix_stem: bam2fastq的prefix(stem)|bam2fastq prefix (stem only)
+            parent_dir: 输出目录|Output directory
+            target_file: 用户指定的目标文件路径|User-specified target file path
+        """
+        # 查找以prefix_stem开头的输出文件|Find output files starting with prefix_stem
+        generated_files = sorted(parent_dir.glob(f"{prefix_stem}*"))
+        if not generated_files:
+            self.logger.warning(
+                f"未找到bam2fastq输出文件|No bam2fastq output files found with prefix: {prefix_stem}"
+            )
+            return
+
+        if len(generated_files) == 1:
+            src = generated_files[0]
+            # 如果目标文件已存在，先删除|If target exists, remove first
+            if target_file.exists():
+                target_file.unlink()
+            src.rename(target_file)
+            self.logger.info(f"输出文件|Output file: {target_file}")
+        else:
+            # 多个输出文件(多个read group)，合并后重命名|Multiple output files (multiple read groups), concatenate
+            self.logger.info(
+                f"合并{len(generated_files)}个输出文件|Merging {len(generated_files)} output files"
+            )
+            if target_file.exists():
+                target_file.unlink()
+            with open(target_file, 'wb') as dst:
+                for src in generated_files:
+                    with open(src, 'rb') as f:
+                        dst.write(f.read())
+                    src.unlink()  # 删除临时文件|Remove temp file
+            self.logger.info(f"合并输出|Merged output: {target_file}")
 
     def convert_all_bams(self) -> dict:
         """
@@ -192,6 +250,20 @@ class BAMConverter:
         else:
             # 目录：查找所有BAM文件|Directory: find all BAM files
             bam_files = list(self.config.input_path.glob("*.bam"))
+
+            # 目录输入+文件输出模式冲突|Directory input + file output mode conflict
+            if self.config.output_is_file and len(bam_files) > 1:
+                self.logger.warning(
+                    f"检测到{len(bam_files)}个BAM文件但指定了单文件输出|"
+                    f"Found {len(bam_files)} BAM files but single output file specified: "
+                    f"{self.config.output_filename}"
+                )
+                self.logger.warning(
+                    "回退到目录输出模式|Falling back to directory output mode"
+                )
+                self.config.output_is_file = False
+                self.config.output_dir_path = self.config.output_path
+                self.config.output_dir_path.mkdir(parents=True, exist_ok=True)
 
         if not bam_files:
             self.logger.error(

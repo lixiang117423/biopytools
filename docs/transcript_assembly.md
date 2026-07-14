@@ -45,6 +45,12 @@ biopytools transcript-assembly -g genome.fasta -i ./clean_data -o ./out
 biopytools transcript-assembly -b sample.bam --guide-gff ref.gff3 -o ./out
 ```
 
+### 预测 CDS(TransDecoder)| Predict CDS
+
+```bash
+biopytools transcript-assembly -b sample.bam -g genome.fa --predict-cds -o ./out
+```
+
 ## 参数说明 | Parameters
 
 ### 输入(二选一)| Input (mutually exclusive)
@@ -57,6 +63,7 @@ biopytools transcript-assembly -b sample.bam --guide-gff ref.gff3 -o ./out
 | `--guide-gff` | 参考注释 GTF/GFF3(启用 `-G` guided 组装与合并) | `--guide-gff ref.gff3` |
 | `--read-type` | 读长类型:`auto`(默认,自动检测)/`short`/`long` | `--read-type long` |
 | `--transcripts` | 额外输出 `transcripts.fa` cDNA(需 `-g`) | `--transcripts` |
+| `--predict-cds` | TransDecoder 预测 CDS(输出 gene/mRNA/CDS,需 `-g`) | `--predict-cds` |
 
 ### 必需 | Required
 
@@ -82,8 +89,9 @@ biopytools transcript-assembly -b sample.bam --guide-gff ref.gff3 -o ./out
 | `-s 4` | StringTie 逐样本组装(长读加 `-L`,guided 加 `-G`) | 可用 |
 | `-s 5` | StringTie 合并 GTF(单 BAM 跳过) | 可用 |
 | `-s 6` | gffread 输出 GFF3(+可选 cDNA) | 可用 |
+| `-s 7` | TransDecoder 预测 CDS(需 `-g`;输出 gene/mRNA/CDS) | 可用 |
 
-> BAM 模式仅支持 step 4-6;step 1-3 仅 FASTQ 模式可用。
+> BAM 模式仅支持 step 4-7;step 1-3 仅 FASTQ 模式可用。
 
 ### 高级选项 | Advanced Options
 
@@ -120,8 +128,12 @@ out/
 │   └── merged.gtf
 ├── 06_gff3/                   # 主输出
 │   └── merged.gff3            # GFF3 基因结构
-├── 06_transcripts/            # 仅 --transcripts
+├── 06_transcripts/            # 仅 --transcripts / --predict-cds
 │   └── transcripts.fa         # cDNA 序列
+├── 07_transdecoder/           # 仅 --predict-cds
+│   ├── transcripts.fa.transdecoder.genome.gff3  # CDS(基因组坐标,gene/mRNA/CDS)
+│   ├── transcripts.fa.transdecoder.pep           # 蛋白序列
+│   └── transcripts.fa.transdecoder.cds           # CDS 核酸
 └── 99_logs/
     └── pipeline.log
 ```
@@ -131,6 +143,8 @@ out/
 | 文件 | 描述 |
 |------|------|
 | `06_gff3/merged.gff3` | **主输出**:GFF3 基因结构 |
+| `07_transdecoder/...transdecoder.genome.gff3` | TransDecoder CDS(基因组坐标,含 gene/mRNA/CDS;仅 `--predict-cds`) |
+| `07_transdecoder/...transdecoder.pep` | 蛋白序列(仅 `--predict-cds`) |
 | `05_merge/merged.gtf` | 合并后的 GTF(>1 样本时) |
 | `06_transcripts/transcripts.fa` | 可选:cDNA 序列(需 `--transcripts -g`) |
 | `00_pipeline_info/software_versions.yml` | 软件版本与运行参数 |

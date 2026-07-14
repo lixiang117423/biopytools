@@ -1,4 +1,19 @@
 
+## [1.11.0] - 2026-07-14
+
+### Added
+- **新模块**：`seq_extract` — seqkit 封装的序列提取，自动识别单 ID / ID 文件（一列）/ BED 文件（≥2 列），输出文件名自动推导（`{query}.{subject}.fa`）
+- **新模块**：`raxml_ng` — RAxML-NG 最大似然系统发育树（`all`/`search`/`support` 三模式，原生断点续传不传 `--redo` 即续跑，支持 `--bs-trees`/`--bs-metric`/`--outgroup`/`--seed`）
+- `transcript_assembly`：新增 step7 TransDecoder CDS 预测（`--predict-cds`，需 `-g`；输出基因组坐标 gene/mRNA/CDS GFF3 + pep + cds；复用既有 `cmd_runner` 记录完整命令）
+- `bam2fastq`：`-o` 支持文件输出（自动识别 `.fq`/`.fastq`/`.fq.gz`/`.fastq.gz` 后缀为文件，否则为目录；多 read group 输出自动合并；目录输入遇单文件输出自动回退目录模式）
+
+### Changed
+- `ps_gene_anno`：全 prot 场景适配——同位置多 query 命中去重（`dedupe_hits`，CDS 重叠≥50% 合并保留 identity/coverage 最优）；错误合并基因改为按 query 分组检测（同一 query 的 ≥N 完整独立拷贝才算合并，避免不同 query 混合 pairwise 误判重叠）；`gap_min_cds_len` 100→300（过滤短蛋白片段）、`overlap_cutoff` 50→0（零重叠才算漏检）
+- `braker4ps`：阶段2 输出目录 `gap_filling` → `05_gap_filling`（§12.2.2 序号前缀）
+- `raxml_ng`：`get_conda_env` 对绝对路径（静态二进制）跳过全 env 搜索，修复 `os.path.join` 塌缩导致返回错误环境名的隐患（与 `indel_marker`/`braker`/`phobius` basename 防护同源）
+- CLI 注册新命令 `seq-extract`、`raxml-ng`
+- `biopytools.yml` 补 `argcomplete`/`colorama`/`pipx`/`platformdirs`/`tomli`/`userpath` 依赖
+
 ## [1.10.0] - 2026-07-13
 
 ### Added
