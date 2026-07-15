@@ -175,7 +175,7 @@ def detect_gaps(hits: List[MiniprotHit],
             if gene.chrom != hit.chrom:
                 continue
             hit_cds = [(s, e) for s, e, _ in hit.cds_exons]
-            if cds_overlap_ratio(hit_cds, gene.cds_intervals) >= overlap_cutoff:
+            if cds_overlap_ratio(hit_cds, gene.cds_intervals) > overlap_cutoff:
                 is_covered = True
                 break
         if not is_covered:

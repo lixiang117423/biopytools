@@ -94,6 +94,11 @@ class FastpConfig:
                 logger.info(f"自动检测到文件后缀|Auto-detected file suffix: {self.read1_suffix}")
                 return
 
+            # 未发现 _1/_2 配对文件，尝试检测单末端文件（如 PacBio HiFi）|
+            # No _1/_2 paired files found, try single-end files (e.g., PacBio HiFi)
+            if self._auto_detect_single_end_suffix():
+                return
+
         # 检测单文件模式|Detect in single file mode
         if self.is_single_file:
             filename = self.input_path.name
@@ -116,6 +121,41 @@ class FastpConfig:
         # 标准化路径|Normalize paths
         self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
+    def _auto_detect_single_end_suffix(self) -> bool:
+        """
+        在无 _1/_2 配对文件时检测单末端文件并自动切换模式|Detect single-end files when no _1/_2 pairs exist
+
+        目录中若不存在 _1/_2 配对命名，则扫描普通 fastq 文件（如 NG386-8.fq.gz），
+        命中即切换为单末端模式并设置正确后缀。仅在用户未显式指定 --single-end/
+        --read1-suffix 时生效（由 _auto_detect_suffixes 调用时机保证）。
+        Scan for plain fastq files (e.g., NG386-8.fq.gz) when no _1/_2 paired
+        naming exists; on hit, switch to single-end mode with correct suffix.
+        Only fires when the user has not explicitly set --single-end/--read1-suffix.
+
+        Returns:
+            True 表示已检测到并切换为单末端模式|True if detected and switched to single-end
+        """
+        # 可能的单末端后缀（优先压缩格式）|Possible single-end suffixes (compressed first)
+        single_end_suffixes = [".fq.gz", ".fastq.gz", ".fq", ".fastq"]
+
+        for suf in single_end_suffixes:
+            se_files = list(self.input_path.glob(f"*{suf}"))
+            if se_files:
+                self.read1_suffix = suf
+                self.read2_suffix = None
+                self.single_end = True
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.info(
+                    f"未发现 _1/_2 配对文件，检测到单末端文件后缀|"
+                    f"No _1/_2 paired files found, detected single-end suffix: {suf} "
+                    f"(已自动切换为单末端模式|auto-switched to single-end mode)"
+                )
+                return True
+
+        return False
+
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

@@ -1,4 +1,12 @@
 
+## [1.11.1] - 2026-07-15
+
+### Fixed
+- `ps_gene_anno`：`detect_gaps` 命中覆盖判定 `>=` 改为 `>`，修复 `overlap_cutoff=0`（1.11.0 新默认值）下 `overlap_ratio 0.0 >= 0` 恒为真、所有 miniprot hit 被判"已覆盖"、漏检检测永远返回空的 bug（零重叠现在正确判为漏检）
+
+### Added
+- `fastp`：目录中无 `_1/_2` 配对文件时自动检测单末端文件（如 PacBio HiFi 的 `*.fq.gz`），命中即切换单末端模式（仅在用户未显式指定 `--single-end`/`--read1-suffix` 时生效）
+
 ## [1.11.0] - 2026-07-14
 
 ### Added
