@@ -166,7 +166,7 @@ class PsGeneAnnoRunner:
                                   f"{self.config.prefix}.gap_report.tsv")
         from .report import build_gap_report
         build_gap_report(passed, self.config.prefix, self.config.rnaseq_bam,
-                         self.config.repeat_out, report_tsv,
+                         self.config.repeat_out, report_tsv, self.gap_filled_gff3,
                          self.config, self.cmd_runner, self.logger)
 
         self.logger.info("=" * 70)

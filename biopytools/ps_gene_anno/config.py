@@ -45,6 +45,7 @@ class PsGeneAnnoConfig:
 
     # ===== 工具路径(~/... + __post_init__ 展开)|Tool paths =====
     miniprot_bin: str = '~/miniforge3/envs/braker_v.3.0.8/bin/miniprot'
+    stringtie_bin: str = '~/.local/bin/stringtie'
     samtools_bin: str = ''   # 空 → get_samtools_path() 兜底|empty => fallback
 
     # ===== 流程参数|Pipeline =====
@@ -79,6 +80,8 @@ class PsGeneAnnoConfig:
         # 展开工具路径|Expand tool paths
         self.miniprot_bin = get_tool_path(
             'miniprot', self.miniprot_bin, 'MINIPROT_PATH')
+        self.stringtie_bin = get_tool_path(
+            'stringtie', self.stringtie_bin, 'STRINGTIE_PATH')
         if self.samtools_bin:
             self.samtools_bin = expand_path(self.samtools_bin)
         else:

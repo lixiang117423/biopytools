@@ -1,4 +1,12 @@
 
+## [1.13.0] - 2026-07-15
+
+### Added
+- `ps_gene_anno`：gap 验证报告新增 StringTie FPKM/TPM 定量——对 `gap_filled.gff3` 跑 `stringtie -e -G` 定量每个 gap 转录本，报告新增 `fpkm`/`tpm` 两列；transcript id 按 `{prefix}_gap_{N}.t1` 与 `build_gene_models` 建模型命名对齐；新增 `stringtie_bin` 配置（`get_tool_path`+`~`展开，默认 `~/.local/bin/stringtie`，env var `STRINGTIE_PATH`）；StringTie 命令走 `cmd_runner.run_command`（自动 conda 包装 + 记录完整命令）；`_parse_stringtie_fpkm` 兼容 GTF(`key "v"`) 与 GFF3(`key=v`) 两种属性格式
+
+### Changed
+- `ps_gene_anno`：gap 报告列从 `rnaseq_mean_depth/te_overlap_pct/te_family` 调整为 `rnaseq_mean_depth/fpkm/tpm/te_overlap_pct/te_family`；FPKM/TPM 与 raw depth 在无 RNA-seq BAM 或无 gap_filled 时置 0
+
 ## [1.12.0] - 2026-07-15
 
 ### Added

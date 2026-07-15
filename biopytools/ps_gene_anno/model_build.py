@@ -11,7 +11,7 @@ from .gap_analysis import cds_overlap_ratio
 
 
 def qc_filter(hits: List[MiniprotHit], config,
-              repeat_regions: Dict[str, List[Tuple[int, int, str]]]
+              repeat_regions: Dict[str, List[Tuple[int, int]]]
               ) -> List[MiniprotHit]:
     """
     质控过滤命中|QC-filter hits
