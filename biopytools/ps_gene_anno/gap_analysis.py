@@ -223,15 +223,19 @@ def detect_merged_genes(
     return merged
 
 
-def parse_repeat_out(repeat_out: str) -> Dict[str, List[Tuple[int, int]]]:
-    """解析 RepeatMasker .out → {chrom: [(start,end)]}|Parse RepeatMasker .out"""
-    regions: Dict[str, List[Tuple[int, int]]] = {}
+def parse_repeat_out(repeat_out: str) -> Dict[str, List[Tuple[int, int, str]]]:
+    """解析 RepeatMasker .out → {chrom: [(start, end, family)]}
+    |Parse RepeatMasker .out (cols[4]=chrom, [5,6]=begin/end, [10]=class/family)"""
+    regions: Dict[str, List[Tuple[int, int, str]]] = {}
     if not repeat_out or not os.path.exists(repeat_out):
         return regions
     with open(repeat_out) as f:
         for line in f:
-            if line.startswith('SW') or not line.strip():
+            if not line.strip():
                 continue
+            stripped = line.lstrip()
+            if stripped.startswith('SW') or stripped.startswith('score'):
+                continue   # 跳过 header(2 行)|skip header
             cols = line.split()
             if len(cols) < 7:
                 continue
@@ -239,7 +243,9 @@ def parse_repeat_out(repeat_out: str) -> Dict[str, List[Tuple[int, int]]]:
                 chrom = cols[4]
                 b, e = int(cols[5]), int(cols[6])
                 begin, end = (b, e) if b <= e else (e, b)
-                regions.setdefault(chrom, []).append((begin, end))
+                # class/family 在 cols[10](标准 .out, 如 LTR/Gypsy, Simple_repeat)
+                family = cols[10] if len(cols) > 10 else ''
+                regions.setdefault(chrom, []).append((begin, end, family))
             except (ValueError, IndexError):
                 continue
     return regions

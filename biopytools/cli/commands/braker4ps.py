@@ -53,9 +53,11 @@ def _validate_file(path):
               help='保守合并判据:完整拷贝覆盖率%|Split copy coverage')
 @click.option('--no-split', is_flag=True, help='关闭合并拆分|Disable split')
 @click.option('--repeat-out', help='RepeatMasker .out(filling真TE排除)|RepeatMasker out')
+@click.option('--exclude-te-gap', is_flag=True, help='质控排除TE区gap(默认不排)|exclude TE-overlap gaps')
 def braker4ps(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
               threads, fungus, no_singularity, skip_repeat, skip_repeat_filter,
-              skip_rescue, split_min_copy_coverage, no_split, repeat_out):
+              skip_rescue, split_min_copy_coverage, no_split, repeat_out,
+              exclude_te_gap):
     """
     braker 注释 + ps-gene-anno 查漏补缺端到端|braker + gap-filling end-to-end
 
@@ -85,6 +87,8 @@ def braker4ps(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
         args.append('--no-split')
     if repeat_out:
         args.extend(['--repeat-out', repeat_out])
+    if exclude_te_gap:
+        args.append('--exclude-te-gap')
 
     original_argv = sys.argv
     sys.argv = args

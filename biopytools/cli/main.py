@@ -218,6 +218,7 @@ COMMAND_REGISTRY = [
     ('oomycete_anno', 'oomycete-anno', '疫霉菌基因组注释(T2T Augustus流程)|Oomycete genome annotation (T2T Augustus pipeline)'),
     ('ps_gene_anno', 'ps-gene-anno', 'BRAKER后效应子查漏补缺(miniprot补回多拷贝)|Post-BRAKER effector gap-filling'),
     ('braker4ps', 'braker4ps', 'braker+ps-gene-anno端到端(注释+查漏补缺)|braker + gap-filling end-to-end'),
+    ('mga', 'mga', 'MGA共识基因组组装(HiFi)|MGA consensus genome assembly (HiFi)'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

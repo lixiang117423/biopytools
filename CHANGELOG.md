@@ -1,4 +1,16 @@
 
+## [1.12.0] - 2026-07-15
+
+### Added
+- **新模块**：`mga` — MGA 共识基因组组装（HiFi，consensusLJA 封装）；二进制不在 conda env 但运行时依赖 env 内 minimap2/samtools/python，故显式 `conda run -n <env> --no-capture-output` 包装；含断点续传（`5_polishing/assembly.fasta` 存在即跳过）、read name 空格预检、dry-run、`00_pipeline_info/software_versions.yml`
+- `ps_gene_anno`：新增 gap 验证报告（`{prefix}.gap_report.tsv`）——每 gap 汇总蛋白证据 + RNA-seq mean depth（复用 braker 的 `compute_region_mean_depth`）+ TE 重叠% 与 family，report-only 不改 gap 结果
+- `ps_gene_anno`/`braker4ps`：新增 `--exclude-te-gap`（质控排除 TE 区 gap；默认不排——疫霉效应子常落在 TE 区）
+- `braker4ps`：阶段2 自动探测 braker 的 RepeatMasker `.out`（`01_repeat_masking/{genome}.out`）与 RNA-seq BAM（`03_short_reads/rnaseq.sorted.bam`）供 gap 报告使用（用户 `--repeat-out` 优先）
+
+### Changed
+- `ps_gene_anno`：`parse_repeat_out` 返回值增加 TE family 列（`(start,end)` → `(start,end,family)`，取 cols[10]）；header 跳过改为 `lstrip()` 后判 `SW`/`score`（修复原 `startswith('SW')` 因前导空格漏跳 header、靠 except 兜底的问题）；`qc_filter` 的 TE 排除默认关闭并适配 3 元组返回；`qc_filter` 类型注解同步为 `Tuple[int,int,str]`
+- CLI 注册新命令 `mga`
+
 ## [1.11.1] - 2026-07-15
 
 ### Fixed

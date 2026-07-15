@@ -44,6 +44,7 @@ def _validate_file(path):
 @click.option('--rnaseq-bam', help='RNA-seq BAM(逗号分隔)|RNA-seq BAMs')
 @click.option('--isoseq-bam', help='三代BAM|Long-read BAM')
 @click.option('--repeat-out', help='RepeatMasker .out(真TE区排除)|RepeatMasker out')
+@click.option('--exclude-te-gap', is_flag=True, help='质控排除TE区gap(默认不排)|exclude TE-overlap gaps')
 @click.option('--prefix', help='输出前缀(默认genome stem)|Output prefix')
 @click.option('-t', '--threads', type=int, default=12, show_default=True,
               help='线程数|Threads')
@@ -52,7 +53,7 @@ def _validate_file(path):
 @click.option('--no-split', is_flag=True, help='关闭合并拆分|Disable merged-gene split')
 def ps_gene_anno(genome, braker_gff3, prot_seq, output_dir,
                  rnaseq_bam, isoseq_bam, repeat_out, prefix,
-                 threads, split_min_copy_coverage, no_split):
+                 threads, split_min_copy_coverage, no_split, exclude_te_gap):
     """
     BRAKER后效应子查漏补缺|Post-BRAKER effector gap-filling
 
@@ -67,6 +68,8 @@ def ps_gene_anno(genome, braker_gff3, prot_seq, output_dir,
         args.extend(['--isoseq-bam', isoseq_bam])
     if repeat_out:
         args.extend(['--repeat-out', repeat_out])
+    if exclude_te_gap:
+        args.append('--exclude-te-gap')
     if prefix:
         args.extend(['--prefix', prefix])
     if threads != 12:

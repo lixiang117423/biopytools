@@ -50,6 +50,8 @@ def parse_arguments():
                         help='保守合并判据:完整拷贝覆盖率%|Split copy coverage (default 80)')
     parser.add_argument('--no-split', action='store_true', help='关闭合并拆分|Disable merged-gene split')
     parser.add_argument('--repeat-out', help='RepeatMasker .out(filling真TE排除)|RepeatMasker out')
+    parser.add_argument('--exclude-te-gap', action='store_true',
+                        help='质控排除TE区gap(默认不排)|exclude TE-overlap gaps')
     parser.add_argument('--gap-min-identity', type=float, default=70, help='filling identity%(default 70)')
     parser.add_argument('--gap-min-coverage', type=float, default=80, help='filling coverage%(default 80)')
     return parser.parse_args()
@@ -132,15 +134,33 @@ def main():
         logger.info('阶段2: ps-gene-anno 查漏补缺|Phase 2: gap-filling')
         logger.info('-' * 70)
         filling_output = os.path.join(args.output_dir, '05_gap_filling')
+        # braker 的 RNA-seq BAM(给 filling gap 报告做表达验证)
+        # |braker's RNA-seq BAM for filling gap report expression check
+        rnaseq_bam_path = os.path.join(args.output_dir, '03_short_reads',
+                                       'rnaseq.sorted.bam')
+        rnaseq_bam = [rnaseq_bam_path] if os.path.exists(rnaseq_bam_path) else None
+        if rnaseq_bam:
+            logger.info(f'gap 报告用 RNA-seq BAM|report BAM: {rnaseq_bam_path}')
+        # 自动找 braker 的 RepeatMasker .out(默认, 用户 --repeat-out 优先)
+        # |auto-find braker's RepeatMasker .out (user --repeat-out takes priority)
+        repeat_out = args.repeat_out
+        if not repeat_out:
+            auto_rep = os.path.join(args.output_dir, '01_repeat_masking',
+                                    os.path.basename(args.genome) + '.out')
+            if os.path.exists(auto_rep):
+                repeat_out = auto_rep
+                logger.info(f'自动找到 repeat .out|auto repeat_out: {auto_rep}')
         pcfg = PsGeneAnnoConfig(
             genome=args.genome,
             braker_gff3=braker_gff3,
             prot_seq=prot_seq_file,
             output_dir=filling_output,
+            rnaseq_bam=rnaseq_bam,
             threads=args.threads,
             split_min_copy_coverage=args.split_min_copy_coverage,
             enable_split=not args.no_split,
-            repeat_out=args.repeat_out,
+            repeat_out=repeat_out,
+            exclude_te_gap=args.exclude_te_gap,
             gap_min_identity=args.gap_min_identity,
             gap_min_coverage=args.gap_min_coverage,
         )

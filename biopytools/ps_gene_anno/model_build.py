@@ -11,7 +11,7 @@ from .gap_analysis import cds_overlap_ratio
 
 
 def qc_filter(hits: List[MiniprotHit], config,
-              repeat_regions: Dict[str, List[Tuple[int, int]]]
+              repeat_regions: Dict[str, List[Tuple[int, int, str]]]
               ) -> List[MiniprotHit]:
     """
     质控过滤命中|QC-filter hits
@@ -30,11 +30,13 @@ def qc_filter(hits: List[MiniprotHit], config,
         # 完整 ORF: coverage 接近完整(≥99)|complete ORF: near-full coverage
         if config.require_complete_orf and h.coverage < 99:
             continue
-        # 真 TE 区排除|real-TE exclusion
-        if repeat_regions:
+        # 真 TE 区排除(可选, 默认不排: 疫霉效应子常在 TE 区)
+        # |TE exclusion (optional, default off: oomycete effectors often TE-rich)
+        if getattr(config, 'exclude_te_gap', False) and repeat_regions:
             te = repeat_regions.get(h.chrom, [])
+            te_intervals = [(s, e) for s, e, *_ in te]   # 去掉 family, 只留区间
             hit_cds = [(s, e) for s, e, _ in h.cds_exons]
-            if cds_overlap_ratio(hit_cds, te) > config.te_overlap_cutoff:
+            if te_intervals and cds_overlap_ratio(hit_cds, te_intervals) > config.te_overlap_cutoff:
                 continue
         passed.append(h)
     return passed

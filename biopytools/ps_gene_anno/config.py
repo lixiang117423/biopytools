@@ -36,6 +36,7 @@ class PsGeneAnnoConfig:
     overlap_cutoff: float = 0.0         # 漏检判定:与braker CDS零重叠才算漏检|zero overlap=gap
     require_complete_orf: bool = True   # partial(覆盖<99)默认丢|drop partial
     te_overlap_cutoff: float = 50.0     # 真 TE 区重叠阈值 %|TE overlap cutoff
+    exclude_te_gap: bool = False        # 质控排除TE区gap(默认不排:疫霉效应子常在TE区)|exclude TE-overlap gaps (default off)
 
     # ===== 合并拆分判据|Merged-gene split(保守) =====
     enable_split: bool = True

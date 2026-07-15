@@ -45,6 +45,8 @@ def parse_arguments():
     parser.add_argument('--no-require-complete-orf', dest='require_complete_orf',
                         action='store_false', default=True)
     parser.add_argument('--te-overlap-cutoff', type=float, default=50)
+    parser.add_argument('--exclude-te-gap', action='store_true',
+                        help='质控排除TE区gap(默认不排,疫霉效应子常在TE区)|exclude TE-overlap gaps')
     # 合并拆分
     parser.add_argument('--no-split', dest='enable_split',
                         action='store_false', default=True)
@@ -158,6 +160,15 @@ class PsGeneAnnoRunner:
         merge_gff3(self.config.braker_gff3, gap_lines,
                    merged_gene_ids, self.merged_gff3)
         self.logger.info(f"merged 写出|merged written: {self.merged_gff3}")
+
+        # Step5 gap 验证报告(蛋白+RNA-seq+TE)|gap evidence report
+        report_tsv = os.path.join(self.config.gap_dir,
+                                  f"{self.config.prefix}.gap_report.tsv")
+        from .report import build_gap_report
+        build_gap_report(passed, self.config.prefix, self.config.rnaseq_bam,
+                         self.config.repeat_out, report_tsv,
+                         self.config, self.cmd_runner, self.logger)
+
         self.logger.info("=" * 70)
         self.logger.info("ps-gene-anno 完成|ps-gene-anno done")
         self.logger.info("=" * 70)
@@ -180,6 +191,7 @@ def main():
             overlap_cutoff=args.overlap_cutoff,
             require_complete_orf=args.require_complete_orf,
             te_overlap_cutoff=args.te_overlap_cutoff,
+            exclude_te_gap=args.exclude_te_gap,
             enable_split=args.enable_split,
             split_min_hits=args.split_min_hits,
             split_min_copy_coverage=args.split_min_copy_coverage,
