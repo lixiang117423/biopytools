@@ -7,6 +7,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
 
+from ...common.paths import expand_path, get_tool_path
+
 
 @dataclass
 class KmerCountConfig:
@@ -36,8 +38,8 @@ class KmerCountConfig:
     keep_binary: bool = False
     verbose: bool = False
 
-    # 工具路径|Tool paths
-    jellyfish_path: str = 'jellyfish'
+    # 工具路径|Tool paths (None时由__post_init__经get_tool_path按优先级解析|None -> resolved via get_tool_path in __post_init__)
+    jellyfish_path: Optional[str] = None
 
     # 内部变量|Internal variables
     temp_dir: Optional[Path] = field(default=None)
@@ -45,15 +47,16 @@ class KmerCountConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # 转换路径为Path对象|Convert paths to Path objects
-        if isinstance(self.input_dir, str):
-            self.input_dir = Path(self.input_dir)
-        if isinstance(self.kmer_lib, str):
-            self.kmer_lib = Path(self.kmer_lib)
-        if isinstance(self.bed_file, str):
-            self.bed_file = Path(self.bed_file)
-        if isinstance(self.output_dir, str):
-            self.output_dir = Path(self.output_dir)
+        # 工具路径: None时按优先级解析(环境变量>配置文件>默认),再展开~|Tool path: resolve if None (env>config>default), then expand ~
+        if not self.jellyfish_path:
+            self.jellyfish_path = get_tool_path('jellyfish', '~/miniforge3/envs/K-mer/bin/jellyfish', 'JELLYFISH_PATH')
+        self.jellyfish_path = expand_path(self.jellyfish_path)
+        # 展开并转换路径为Path对象|Expand and convert paths to Path objects
+        self.input_dir = Path(expand_path(str(self.input_dir)))
+        self.kmer_lib = Path(expand_path(str(self.kmer_lib)))
+        if self.bed_file is not None:
+            self.bed_file = Path(expand_path(str(self.bed_file)))
+        self.output_dir = Path(expand_path(str(self.output_dir)))
 
         # 创建输出目录|Create output directory
         self.output_dir.mkdir(parents=True, exist_ok=True)

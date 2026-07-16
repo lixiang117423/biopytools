@@ -72,19 +72,27 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir or os.getcwd()
     
-    def run(self, cmd: str, description: str = "", check: bool = True) -> bool:
-        """执行命令|Execute command"""
+    def run(self, cmd, description: str = "", check: bool = True) -> bool:
+        """执行命令|Execute command
+
+        注意|Note:
+            cmd 可为列表或字符串; 字符串按空白拆分后以 shell=False 执行
+            (等价于 shell 解析,但不支持管道/通配符/变量,更安全)
+            cmd can be a list or string; a string is split on whitespace and
+            executed with shell=False (safer; no pipes/globs/vars)
+        """
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
-        
-        self.logger.info(f"命令|Command: {cmd}")
-        
+
+        # 统一为列表,使用shell=False更安全|Normalize to list, use shell=False (safer)
+        cmd_list = cmd.split() if isinstance(cmd, str) else cmd
+        self.logger.info(f"命令|Command: {' '.join(cmd_list)}")
+
         try:
             result = subprocess.run(
-                cmd, 
-                shell=True, 
-                capture_output=True, 
-                text=True, 
+                cmd_list,
+                capture_output=True,
+                text=True,
                 check=check,
                 cwd=self.working_dir
             )
@@ -121,8 +129,10 @@ def setup_logger(output_dir: Path, verbose: bool = False) -> logging.Logger:
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(logging.DEBUG if verbose else logging.INFO)
     
-    # 文件处理器|File handler
-    log_file = output_dir / 'kmer_count.log'
+    # 文件处理器(§12: 日志集中到 99_logs/)|File handler (§12: logs centralized to 99_logs/)
+    log_dir = output_dir / '99_logs'
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_file = log_dir / 'kmer_count.log'
     file_handler = logging.FileHandler(log_file, mode='w', encoding='utf-8')
     file_handler.setLevel(logging.DEBUG)
     

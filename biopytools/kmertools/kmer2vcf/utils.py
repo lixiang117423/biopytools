@@ -6,7 +6,8 @@ import gzip
 import logging
 import sys
 import subprocess
-import zstandard as zstd
+# zstandard 延迟导入: 仅处理 .zst 文件时需要,避免硬依赖导致整个模块无法导入
+# zstandard is lazily imported only when handling .zst files (avoids hard dependency blocking module import)
 
 
 def open_input(filepath, logger=None):
@@ -26,6 +27,13 @@ def open_input(filepath, logger=None):
     elif filepath.endswith('.zst'):
         if logger:
             logger.info("检测到zstd压缩文件|Detected zstd compressed file")
+        try:
+            import zstandard as zstd
+        except ImportError:
+            raise ImportError(
+                "处理 .zst 文件需要 zstandard 库|zstandard library required to handle .zst files. "
+                "请安装|Please install: conda install -c conda-forge zstandard  或|or  pip install zstandard"
+            )
         dctx = zstd.ZstdDecompressor()
         with open(filepath, 'rb') as f_compressed:
             decompressed = dctx.decompress(f_compressed.read(), max_output_size=5 * 1024 * 1024 * 1024)

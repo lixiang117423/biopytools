@@ -6,11 +6,11 @@ Features: Count k-mer abundance using Jellyfish and generate presence/absence ma
 版本|Version: 1.0.0
 
 使用示例|Usage Examples:
-    from biopytools.kmer_count import KmerCountAnalyzer, KmerCountConfig
+    from biopytools.kmertools.kmer_count import KmerCountAnalyzer, KmerCountConfig
 
     # 创建配置|Create configuration
     config = KmerCountConfig(
-        input_dir="/data/fastq",
+        input_dir="~/fastq_dir",
         pattern="*_1.fq.gz",
         kmer_lib="kmers.fasta",
         output_dir="results/"

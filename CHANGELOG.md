@@ -1,4 +1,21 @@
 
+## [1.14.0] - 2026-07-16
+
+### Added
+- `kmertools`：所有子命令（build/query/split-fasta/gen-fof/import-db/extract/count）成功后生成 `00_pipeline_info/software_versions.yml`（§12.5，含工具版本探测 + 关键参数 + 运行时间）；新增 `ensure_pipeline_dirs`、`generate_software_versions_yml` 辅助函数
+
+### Changed
+- `kmertools`：工具路径（kmtricks/kmindex/bgzip/unikmer/jellyfish）全面改用 `get_tool_path` 按优先级解析（环境变量 > 配置文件 > 默认）+ `__post_init__` `expand_path` 展开 `~`（§11.3）；所有用户路径（input/output/fof/header/tmp/rocksdb/bed/fasta 等）统一 `expand_path`
+- `kmertools`：`run_command`（utils 模块级 + `CommandRunner.run`）命令日志由 DEBUG 改 INFO（§2.2.1），并改用 `shell=False`（字符串按空白拆分）；调用处删除重复的 `运行命令` 日志（命令记录已统一到 `run_command` 内部）
+- `kmertools`：`file_processor` 的 `zcat|head|wc` 管道改 Popen 链（无 shell，§13.2.1）；`extract/main.py` unikmer 调用 `shell=True` → 列表 `shell=False`
+- `kmertools`：`KmerToolsLogger` 改命名 logger + stdout(INFO)/stderr(WARNING+)/file(DEBUG+) 三 handler 分离（§2.3）；各子命令日志集中到 `99_logs/`
+- `kmertools`：`query` 矩阵转置由 awk+sed 改纯 Python（`zip(*rows)`），修复原 `awk脚本.split()` 喂 `shell=False` 导致转置失效的 bug
+
+### Fixed
+- `kmertools/kmer_count/main.py`：修复 `f"...总样本数...: \1` 未闭合字符串导致的 SyntaxError（kmer_count 模块完全无法导入/运行）
+- `kmertools/kmer_count/jellyfish_processor`：删除误引入的 `from modelscope.hub.errors import FileIntegrityError`（无关依赖，未安装时阻断导入）
+- `kmertools/kmer2vcf/utils`：`zstandard` 改延迟导入（仅处理 .zst 时需要），缺失时给清晰安装提示，避免硬依赖阻断模块导入
+
 ## [1.13.0] - 2026-07-15
 
 ### Added

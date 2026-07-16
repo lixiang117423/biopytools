@@ -181,8 +181,6 @@ class KmerBuildPipeline:
             # 使用conda命令包装器|Use conda command wrapper
             cmd = build_conda_command(self.config.kmtricks_path, args)
 
-            self.logger.info(f"运行命令|Running command: {' '.join(cmd)}")
-
             result = run_command(cmd, self.logger, check=True)
 
             self.logger.info("kmtricks pipeline完成|kmtricks pipeline completed")
@@ -225,8 +223,6 @@ class KmerBuildPipeline:
             # 使用conda命令包装器|Use conda command wrapper
             cmd = build_conda_command(self.config.kmtricks_path, args)
 
-            self.logger.info(f"运行命令|Running command: {' '.join(cmd)}")
-
             result = run_command(cmd, self.logger, check=True)
 
             self.logger.info("kmtricks aggregate完成|kmtricks aggregate completed")
@@ -265,8 +261,6 @@ class KmerBuildPipeline:
 
             # 使用conda命令包装器|Use conda command wrapper
             cmd = build_conda_command(self.config.bgzip_path, args)
-
-            self.logger.info(f"运行命令|Running command: {' '.join(cmd)}")
 
             # 运行命令并保存输出|Run command and save output
             result = run_command(cmd, self.logger, check=True)
@@ -408,8 +402,6 @@ class KmerBuildPipeline:
 
             # 使用conda命令包装器|Use conda command wrapper
             cmd = build_conda_command(self.config.kmindex_path, args)
-
-            self.logger.info(f"运行命令|Running command: {' '.join(cmd)}")
 
             result = run_command(cmd, self.logger, check=True)
 

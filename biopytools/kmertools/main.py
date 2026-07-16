@@ -5,6 +5,7 @@ K-mer工具主程序模块|K-mer Tools Main Module
 import argparse
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 
 from .config import (
@@ -13,7 +14,8 @@ from .config import (
 )
 from .utils import (
     KmerToolsLogger, KmtricksChecker, BgzipChecker, RocksDBChecker,
-    generate_fof_file, split_fasta_file, format_number
+    generate_fof_file, split_fasta_file, format_number,
+    ensure_pipeline_dirs, generate_software_versions_yml
 )
 from .extract import KmerExtractor
 from .build import KmerBuildPipeline
@@ -116,12 +118,12 @@ def parse_arguments():
     # 通用参数|Common parameters
     build_parser.add_argument('-t', '--threads', type=int, default=64,
                              help='线程数 (默认: 64)|Thread count (default: 64)')
-    build_parser.add_argument('--kmtricks-path', default='kmtricks',
-                             help='kmtricks可执行文件路径 (默认: kmtricks)|kmtricks executable path (default: kmtricks)')
-    build_parser.add_argument('--kmindex-path', default='kmindex',
-                             help='kmindex可执行文件路径 (默认: kmindex)|kmindex executable path (default: kmindex)')
-    build_parser.add_argument('--bgzip-path', default='bgzip',
-                             help='bgzip可执行文件路径 (默认: bgzip)|bgzip executable path (default: bgzip)')
+    build_parser.add_argument('--kmtricks-path', default=None,
+                             help='kmtricks路径 (默认按 KMTRICKS_PATH环境变量>配置文件>内置默认 解析)|kmtricks path (resolved via KMTRICKS_PATH env>config>built-in)')
+    build_parser.add_argument('--kmindex-path', default=None,
+                             help='kmindex路径 (默认按 KMINDEX_PATH环境变量>配置文件>内置默认 解析)|kmindex path (resolved via KMINDEX_PATH env>config>built-in)')
+    build_parser.add_argument('--bgzip-path', default=None,
+                             help='bgzip路径 (默认按 BGZIP_PATH环境变量>配置文件>内置默认 解析)|bgzip path (resolved via BGZIP_PATH env>config>built-in)')
     build_parser.add_argument('--fof-suffix-1', default='_1.clean.fq.gz',
                              help='R1文件后缀 (默认: _1.clean.fq.gz)|R1 file suffix (default: _1.clean.fq.gz)')
     build_parser.add_argument('--fof-suffix-2', default='_2.clean.fq.gz',
@@ -165,8 +167,8 @@ def parse_arguments():
     # 通用参数|Common parameters
     query_parser.add_argument('-t', '--threads', type=int, default=64,
                              help='线程数 (默认: 64)|Thread count (default: 64)')
-    query_parser.add_argument('--kmindex-path', default='kmindex',
-                             help='kmindex可执行文件路径 (默认: kmindex)|kmindex executable path (default: kmindex)')
+    query_parser.add_argument('--kmindex-path', default=None,
+                             help='kmindex路径 (默认按 KMINDEX_PATH环境变量>配置文件>内置默认 解析)|kmindex path (resolved via KMINDEX_PATH env>config>built-in)')
 
     # ========== split-fasta命令|split-fasta command ==========
     split_parser = subparsers.add_parser('split-fasta', help='分割FASTA文件|Split FASTA file')
@@ -213,8 +215,8 @@ def parse_arguments():
                                help='k-mer大小 (默认: 51)|K-mer size (default: 51)')
     extract_parser.add_argument('--method', default='unikmer', choices=['unikmer', 'pyfastx'],
                                help='提取方法 (默认: unikmer)|Extraction method (default: unikmer)')
-    extract_parser.add_argument('--unikmer-path', default='unikmer',
-                               help='unikmer可执行文件路径 (默认: unikmer)|unikmer executable path (default: unikmer)')
+    extract_parser.add_argument('--unikmer-path', default=None,
+                               help='unikmer路径 (默认按 UNIKMER_PATH环境变量>配置文件>内置默认 解析)|unikmer path (resolved via UNIKMER_PATH env>config>built-in)')
     extract_parser.add_argument('--kmer-output',
                                help='kmer FASTA文件 (默认: output_dir/basename_kmer_k.fa)|Kmer FASTA file')
     extract_parser.add_argument('--kmer-pos-output',
@@ -258,8 +260,8 @@ def parse_arguments():
                              help='保留临时文件|Keep temporary files')
     count_parser.add_argument('--keep-binary', action='store_true',
                              help='保留0/1存在缺失矩阵|Keep 0/1 matrix')
-    count_parser.add_argument('--jellyfish-path', default='jellyfish',
-                             help='Jellyfish程序路径 (默认: jellyfish)|Jellyfish path (default: jellyfish)')
+    count_parser.add_argument('--jellyfish-path', default=None,
+                             help='Jellyfish路径 (默认按 JELLYFISH_PATH环境变量>配置文件>内置默认 解析)|Jellyfish path (resolved via JELLYFISH_PATH env>config>built-in)')
     count_parser.add_argument('-v', '--verbose', action='store_true',
                              help='详细输出|Verbose output')
 
@@ -377,8 +379,12 @@ def cmd_build(args):
 
     config.validate()
 
-    # 初始化日志|Initialize logging
-    logger_manager = KmerToolsLogger(config.output_path / "kmertools.log")
+    # 记录开始时间|Record start time
+    start_time = datetime.now()
+
+    # 初始化日志(§12: 日志集中到 99_logs/)|Init logging (§12: logs centralized to 99_logs/)
+    logs_dir = ensure_pipeline_dirs(config.output_path)
+    logger_manager = KmerToolsLogger(logs_dir / "build.log")
     logger = logger_manager.get_logger()
 
     # 检查依赖|Check dependencies
@@ -401,6 +407,19 @@ def cmd_build(args):
     results = pipeline.run()
 
     if results['success']:
+        # 记录软件版本与参数(§12.5)|Record software versions and params
+        generate_software_versions_yml(
+            config.output_path, "kmertools build",
+            tools={'kmtricks': config.kmtricks_path, 'kmindex': config.kmindex_path, 'bgzip': config.bgzip_path},
+            params={
+                'use_kmtricks': config.use_kmtricks, 'kmer_size': config.kmer_size,
+                'hard_min': config.hard_min, 'recurrence_min': config.recurrence_min,
+                'mode': config.mode, 'minimizer_size': config.minimizer_size,
+                'threads': config.threads, 'input_dir': str(config.input_path),
+                'output_dir': str(config.output_path),
+            },
+            start_time=start_time,
+        )
         logger.info("建库成功|Build completed successfully")
         sys.exit(0)
     else:
@@ -430,8 +449,12 @@ def cmd_query(args):
 
     config.validate()
 
-    # 初始化日志|Initialize logging
-    logger_manager = KmerToolsLogger(config.output_path / "kmertools.log")
+    # 记录开始时间|Record start time
+    start_time = datetime.now()
+
+    # 初始化日志(§12: 日志集中到 99_logs/)|Init logging (§12: logs centralized to 99_logs/)
+    logs_dir = ensure_pipeline_dirs(config.output_path)
+    logger_manager = KmerToolsLogger(logs_dir / "query.log")
     logger = logger_manager.get_logger()
 
     # 检查依赖|Check dependencies
@@ -450,6 +473,18 @@ def cmd_query(args):
     results = pipeline.run()
 
     if results['success']:
+        generate_software_versions_yml(
+            config.output_path, "kmertools query",
+            tools={'kmindex': config.kmindex_path},
+            params={
+                'use_kmtricks': config.use_kmtricks, 'kmer_size': config.kmer_size,
+                'threshold': config.threshold, 'zvalue': config.zvalue,
+                'output_format': config.output_format, 'threads': config.threads,
+                'rocksdb_dir': str(getattr(config, 'rocksdb_path', '')),
+                'query_fasta': str(getattr(config, 'query_fasta_path', '')),
+            },
+            start_time=start_time,
+        )
         logger.info("查询成功|Query completed successfully")
         sys.exit(0)
     else:
@@ -467,15 +502,23 @@ def cmd_split_fasta(args):
 
     config.validate()
 
-    # 初始化日志|Initialize logging
-    log_file = Path(config.output_dir) / "kmertools.log"
-    logger_manager = KmerToolsLogger(log_file)
+    start_time = datetime.now()
+
+    # 初始化日志(§12: 日志集中到 99_logs/)|Init logging (§12: logs centralized to 99_logs/)
+    logs_dir = ensure_pipeline_dirs(config.output_path)
+    logger_manager = KmerToolsLogger(logs_dir / "split-fasta.log")
     logger = logger_manager.get_logger()
 
     # 执行分割|Execute split
     count = split_fasta_file(config.input_fasta_path, config.output_path, logger)
 
     if count > 0:
+        generate_software_versions_yml(
+            config.output_path, "kmertools split-fasta",
+            tools={},
+            params={'input_fasta': str(config.input_fasta_path), 'split_count': count},
+            start_time=start_time,
+        )
         logger.info(f"成功分割|Successfully split {count} 个序列|sequences")
         sys.exit(0)
     else:
@@ -495,9 +538,12 @@ def cmd_gen_fof(args):
 
     config.validate()
 
-    # 初始化日志|Initialize logging
-    log_file = Path(config.output_file).parent / "kmertools.log"
-    logger_manager = KmerToolsLogger(log_file)
+    start_time = datetime.now()
+
+    # 初始化日志(§12: 日志集中到 99_logs/)|Init logging (§12: logs centralized to 99_logs/)
+    output_base = Path(config.output_file).parent
+    logs_dir = ensure_pipeline_dirs(output_base)
+    logger_manager = KmerToolsLogger(logs_dir / "gen-fof.log")
     logger = logger_manager.get_logger()
 
     # 生成FOF文件|Generate FOF file
@@ -510,6 +556,13 @@ def cmd_gen_fof(args):
     )
 
     if success:
+        generate_software_versions_yml(
+            output_base, "kmertools gen-fof",
+            tools={},
+            params={'input_dir': str(config.input_path), 'output_file': str(config.output_file),
+                    'suffix_1': config.suffix_1, 'suffix_2': config.suffix_2},
+            start_time=start_time,
+        )
         logger.info("FOF文件生成成功|FOF file generated successfully")
         sys.exit(0)
     else:
@@ -533,9 +586,12 @@ def cmd_import_db(args):
 
     config.validate()
 
-    # 初始化日志|Initialize logging
-    log_file = Path(config.output_db).parent / "kmertools.log"
-    logger_manager = KmerToolsLogger(log_file)
+    start_time = datetime.now()
+
+    # 初始化日志(§12: 日志集中到 99_logs/)|Init logging (§12: logs centralized to 99_logs/)
+    output_base = Path(config.output_db).parent
+    logs_dir = ensure_pipeline_dirs(output_base)
+    logger_manager = KmerToolsLogger(logs_dir / "import-db.log")
     logger = logger_manager.get_logger()
 
     # 检查依赖|Check dependencies
@@ -560,6 +616,16 @@ def cmd_import_db(args):
     success = importer.import_to_rocksdb()
 
     if success:
+        generate_software_versions_yml(
+            output_base, "kmertools import-db",
+            tools={},
+            params={'input_matrix': str(config.input_matrix_path),
+                    'output_db': str(config.output_db_path),
+                    'input_delimiter': repr(config.input_delimiter),
+                    'batch_size': config.batch_size, 'bloom_bits': config.bloom_bits,
+                    'header_db_key': config.header_db_key},
+            start_time=start_time,
+        )
         logger.info("RocksDB导入成功|RocksDB import completed successfully")
         sys.exit(0)
     else:
@@ -593,9 +659,11 @@ def cmd_extract(args):
 
     config.validate()
 
-    # 初始化日志|Initialize logging
-    log_file = Path(config.output_dir) / "kmertools.log"
-    logger_manager = KmerToolsLogger(log_file)
+    start_time = datetime.now()
+
+    # 初始化日志(§12: 日志集中到 99_logs/)|Init logging (§12: logs centralized to 99_logs/)
+    logs_dir = ensure_pipeline_dirs(config.output_path)
+    logger_manager = KmerToolsLogger(logs_dir / "extract.log")
     logger = logger_manager.get_logger()
 
     # 检查依赖（如果使用unikmer）|Check dependencies (if using unikmer)
@@ -621,6 +689,13 @@ def cmd_extract(args):
     success = extractor.extract_kmers_from_fasta()
 
     if success:
+        generate_software_versions_yml(
+            config.output_path, "kmertools extract",
+            tools={'unikmer': config.unikmer_path} if config.extract_method == 'unikmer' else {},
+            params={'fasta_file': str(config.fasta_path), 'kmer_size': config.kmer_size,
+                    'extract_method': config.extract_method, 'threads': config.threads},
+            start_time=start_time,
+        )
         logger.info("K-mer提取成功|K-mer extraction completed successfully")
         sys.exit(0)
     else:
@@ -669,6 +744,16 @@ def cmd_count(args):
         # 创建分析器并运行|Create analyzer and run
         analyzer = KmerCountAnalyzer(config)
         analyzer.run_analysis()
+
+        # 记录软件版本与参数(§12.5)|Record software versions and params
+        generate_software_versions_yml(
+            config.output_dir, "kmertools count",
+            tools={'jellyfish': config.jellyfish_path},
+            params={'kmer_size': config.kmer_size, 'hash_size': config.hash_size,
+                    'threads': config.threads, 'canonical': config.canonical,
+                    'window_size': config.window_size, 'step_size': config.step_size,
+                    'pattern': config.pattern, 'input_dir': str(config.input_dir)},
+        )
 
     except KeyboardInterrupt:
         print("分析被用户中断|Analysis interrupted by user")

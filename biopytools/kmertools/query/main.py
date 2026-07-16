@@ -583,8 +583,6 @@ class KmerQueryPipeline:
                 '-t', str(self.config.threads)
             ]
 
-            self.logger.info(f"运行命令|Running command: {' '.join(cmd)}")
-
             result = run_command(cmd, self.logger, check=True, capture_output=False)
 
             self.logger.info("kmindex query完成|kmindex query completed")
@@ -609,14 +607,17 @@ class KmerQueryPipeline:
             bool: 是否成功|Success
         """
         try:
-            # 使用awk命令转置矩阵|Use awk to transpose matrix
-            cmd = f"awk '{{for(i=0;++i<=NF;)a[i]=a[i]?a[i] FS $i:$i}}END{{for(i=0;i++<NF;)print a[i]}}' {tsv_file} > {output_file}"
+            # 用Python转置矩阵(替代awk+sed,避免shell引号/管道问题,§13)|Transpose matrix in Python (replaces awk+sed, avoids shell quoting/pipe issues)
+            self.logger.info(f"转置矩阵生成热图|Transposing matrix for heatmap: {tsv_file} -> {output_file}")
+            with open(tsv_file, 'r') as f_in:
+                # 按空白分隔字段(等价awk默认FS)|split fields on whitespace (equivalent to awk default FS)
+                rows = [line.split() for line in f_in if line.strip()]
 
-            result = run_command(cmd.split(), self.logger, check=False, capture_output=False)
-
-            # 将空格替换为制表符|Replace spaces with tabs
-            sed_cmd = f"sed -i 's/ /\\t/g' {output_file}"
-            run_command(sed_cmd.split(), self.logger, check=False, capture_output=False)
+            # 转置: 行<->列; 空矩阵则生成空输出|Transpose rows<->cols; empty matrix yields empty output
+            transposed = list(zip(*rows))
+            with open(output_file, 'w') as f_out:
+                for col in transposed:
+                    f_out.write('\t'.join(col) + '\n')
 
             self.logger.info(f"热图文件生成完成|Heatmap file generated: {output_file}")
             return True

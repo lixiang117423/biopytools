@@ -134,14 +134,12 @@ class KmerExtractor:
             fasta_file
         ]
 
-        cmd = " ".join(cmd_parts)
-        self.logger.info(f"执行unikmer命令|Running unikmer command: {cmd}")
+        self.logger.info(f"执行unikmer命令|Running unikmer command: {' '.join(cmd_parts)}")
 
         try:
             # 在输出目录中执行命令|Run command in output directory
             result = subprocess.run(
-                cmd,
-                shell=True,
+                cmd_parts,
                 cwd=output_dir,
                 capture_output=True,
                 text=True
@@ -208,12 +206,11 @@ class KmerExtractor:
             "-o", temp_bed_basename
         ]
 
-        cmd = " ".join(cmd_parts)
+        self.logger.info(f"执行unikmer命令|Running unikmer command: {' '.join(cmd_parts)}")
 
         try:
             result = subprocess.run(
-                cmd,
-                shell=True,
+                cmd_parts,
                 cwd=output_dir,
                 capture_output=True,
                 text=True

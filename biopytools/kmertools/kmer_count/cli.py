@@ -51,8 +51,8 @@ def create_parser():
                         help='保留临时文件|Keep temporary files')
     optional.add_argument('--keep-binary', action='store_true',
                         help='保留0/1存在缺失矩阵|Keep 0/1 presence/absence matrix')
-    optional.add_argument('--jellyfish-path', default='jellyfish',
-                        help='Jellyfish程序路径 (默认: %(default)s)|Jellyfish program path (default: %(default)s)')
+    optional.add_argument('--jellyfish-path', default=None,
+                        help='Jellyfish路径 (默认按 JELLYFISH_PATH环境变量>配置文件>内置默认 解析)|Jellyfish path (resolved via JELLYFISH_PATH env>config>built-in)')
     optional.add_argument('-v', '--verbose', action='store_true',
                         help='详细输出|Verbose output')
 

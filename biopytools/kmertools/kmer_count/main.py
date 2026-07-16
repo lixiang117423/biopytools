@@ -428,7 +428,7 @@ class KmerCountAnalyzer:
                 # 输出处理总结
                 self.logger.info("="*50)
                 self.logger.info(f"样本处理总结|Sample Processing Summary:")
-                self.logger.info(f"  总样本数|Total samples: \1
+                self.logger.info(f"  总样本数|Total samples: {total_samples}")
                 self.logger.info(f"  成功处理|Successfully processed: {processed_samples}")
                 self.logger.info(f"   跳过样本|Skipped samples: {skipped_samples}")
                 if skipped_samples > 0:

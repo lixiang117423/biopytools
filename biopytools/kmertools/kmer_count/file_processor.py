@@ -602,14 +602,34 @@ class FileProcessor:
         
     #     return standardized_files
 
+    def _pipe_count_lines(self, gz_file: str, n_lines: int, timeout: int) -> int:
+        """通过 zcat|head|wc 管道统计可读行数(无shell,§13.2.1)|Count readable lines via zcat|head|wc pipe (no shell)"""
+        p1 = subprocess.Popen(
+            ['timeout', str(timeout), 'zcat', gz_file],
+            stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
+        )
+        p2 = subprocess.Popen(
+            ['head', '-n', str(n_lines)],
+            stdin=p1.stdout, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
+        )
+        p1.stdout.close()  # 允许p1在p2结束后收到SIGPIPE|allow p1 to receive SIGPIPE after p2 exits
+        p3 = subprocess.Popen(
+            ['wc', '-l'],
+            stdin=p2.stdout, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True
+        )
+        p2.stdout.close()
+        out, _ = p3.communicate()
+        p1.wait()
+        try:
+            return int(out.strip())
+        except ValueError:
+            return 0
+
     def quick_precheck(self, gz_file: str) -> bool:
         """快速预检：检查文件前1000行是否可读"""
         try:
-            cmd = f"timeout 10 zcat {gz_file} 2>/dev/null|head -n 1000|wc -l"
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-            actual_lines = int(result.stdout.strip())
-            return actual_lines == 1000
-        except:
+            return self._pipe_count_lines(gz_file, 1000, 10) == 1000
+        except Exception:
             return False
 
     def detect_readable_lines(self, gz_file: str) -> int:
@@ -621,10 +641,8 @@ class FileProcessor:
         
         for lines in test_lines:
             try:
-                cmd = f"timeout 30 zcat {gz_file} 2>/dev/null|head -n {lines}|wc -l"
-                result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-                actual_lines = int(result.stdout.strip())
-                
+                actual_lines = self._pipe_count_lines(gz_file, lines, 30)
+
                 if actual_lines == lines:
                     # 确保是4的倍数（FASTQ格式要求）
                     readable_lines = (lines // 4) * 4
@@ -644,9 +662,20 @@ class FileProcessor:
         self.logger.info(f"恢复部分数据|Recovering partial data: {original_name} -> {recovered_file.name}")
         
         try:
-            cmd = f"zcat {gz_file} 2>/dev/null|head -n {readable_lines} > {recovered_file}"
-            result = subprocess.run(cmd, shell=True, check=True)
-            
+            # zcat|head 写入恢复文件(无shell,§13.2.1)|zcat|head to recovered file (no shell)
+            with open(recovered_file, 'w') as f_out:
+                p1 = subprocess.Popen(
+                    ['zcat', gz_file],
+                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
+                )
+                p2 = subprocess.Popen(
+                    ['head', '-n', str(readable_lines)],
+                    stdin=p1.stdout, stdout=f_out, stderr=subprocess.DEVNULL
+                )
+                p1.stdout.close()
+                p2.communicate()
+                p1.wait()
+
             # 标准化序列为大写
             temp_file = str(recovered_file) + ".tmp"
             with open(recovered_file, 'r') as f_in:

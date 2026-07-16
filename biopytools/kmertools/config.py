@@ -3,9 +3,11 @@ K-mer工具配置管理模块|K-mer Tools Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import expand_path, get_tool_path
 
 
 @dataclass
@@ -50,10 +52,10 @@ class BuildConfig(KmerToolsConfig):
     index_name: str = ""  # 索引名称|Index name (for kmindex)
     bloom_size: int = 1000000000000  # 布隆过滤器大小|Bloom filter size (for kmindex)
 
-    # 工具路径|Tool paths
-    kmtricks_path: str = "kmtricks"
-    kmindex_path: str = "kmindex"
-    bgzip_path: str = "bgzip"
+    # 工具路径|Tool paths (None时由__post_init__经get_tool_path按优先级解析: 环境变量>配置文件>默认|None -> resolved by get_tool_path in __post_init__: env>config>default)
+    kmtricks_path: Optional[str] = None
+    kmindex_path: Optional[str] = None
+    bgzip_path: Optional[str] = None
 
     # FOF参数|FOF parameters
     fof_suffix_1: str = "_1.clean.fq.gz"  # R1后缀|R1 suffix
@@ -68,19 +70,38 @@ class BuildConfig(KmerToolsConfig):
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         super().__post_init__()
+        # 工具路径: None时按优先级解析(环境变量>配置文件>默认),再展开~|Tool paths: resolve if None (env>config>default), then expand ~
+        if not self.kmtricks_path:
+            self.kmtricks_path = get_tool_path('kmtricks', '~/miniforge3/envs/biopytools/bin/kmtricks', 'KMTRICKS_PATH')
+        if not self.kmindex_path:
+            self.kmindex_path = get_tool_path('kmindex', '~/miniforge3/envs/kmindex_v.0.6.0/bin/kmindex', 'KMINDEX_PATH')
+        if not self.bgzip_path:
+            self.bgzip_path = get_tool_path('bgzip', 'bgzip', 'BGZIP_PATH')
+        self.kmtricks_path = expand_path(self.kmtricks_path)
+        self.kmindex_path = expand_path(self.kmindex_path)
+        self.bgzip_path = expand_path(self.bgzip_path)
+        # 展开用户路径中的~和环境变量|Expand ~ and env vars in user paths
         if self.input_dir:
+            self.input_dir = expand_path(self.input_dir)
             self.input_path = Path(self.input_dir)
         if self.output_dir:
+            self.output_dir = expand_path(self.output_dir)
             self.output_path = Path(self.output_dir)
             # 创建输出目录|Create output directory
             self.output_path.mkdir(parents=True, exist_ok=True)
             self.output_dir = str(self.output_path.absolute())
             # 设置RocksDB路径|Set RocksDB path
             self.rocksdb_path = self.output_path / "rocksdb"
+        # 展开可选输入路径|Expand optional input paths
+        if self.fof_file:
+            self.fof_file = expand_path(self.fof_file)
+        if self.header_file:
+            self.header_file = expand_path(self.header_file)
         # 设置默认临时目录|Set default temporary directory
         if not self.tmp_dir and self.output_dir:
             self.tmp_dir = str(Path(self.output_dir) / "tmp")
         if self.tmp_dir:
+            self.tmp_dir = expand_path(self.tmp_dir)
             # 创建临时目录|Create temporary directory
             Path(self.tmp_dir).mkdir(parents=True, exist_ok=True)
 
@@ -164,20 +185,29 @@ class QueryConfig(KmerToolsConfig):
 
     # 工具路径|Tool paths
     bam2fastq_path: str = "bam2fastq"  # 这里实际不会用到，保留用于一致性|Not used, kept for consistency
-    kmindex_path: str = "kmindex"  # kmindex路径|kmindex path
+    kmindex_path: Optional[str] = None  # kmindex路径|kmindex path (None->get_tool_path解析|resolved via get_tool_path)
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         super().__post_init__()
+        # 工具路径: None时按优先级解析(环境变量>配置文件>默认),再展开~|Tool path: resolve if None (env>config>default), then expand ~
+        if not self.kmindex_path:
+            self.kmindex_path = get_tool_path('kmindex', '~/miniforge3/envs/kmindex_v.0.6.0/bin/kmindex', 'KMINDEX_PATH')
+        self.kmindex_path = expand_path(self.kmindex_path)
         if self.rocksdb_dir:
+            self.rocksdb_dir = expand_path(self.rocksdb_dir)
             self.rocksdb_path = Path(self.rocksdb_dir)
         if self.query_fasta:
+            self.query_fasta = expand_path(self.query_fasta)
             self.query_fasta_path = Path(self.query_fasta)
         if self.index_dir:
+            self.index_dir = expand_path(self.index_dir)
             self.index_path = Path(self.index_dir)
         if self.bed_file:
+            self.bed_file = expand_path(self.bed_file)
             self.bed_file_path = Path(self.bed_file)
         if self.output_dir:
+            self.output_dir = expand_path(self.output_dir)
             self.output_path = Path(self.output_dir)
             # 创建输出目录|Create output directory
             self.output_path.mkdir(parents=True, exist_ok=True)
@@ -236,8 +266,10 @@ class SplitFastaConfig(KmerToolsConfig):
         """初始化后处理|Post-initialization processing"""
         super().__post_init__()
         if self.input_fasta:
+            self.input_fasta = expand_path(self.input_fasta)
             self.input_fasta_path = Path(self.input_fasta)
         if self.output_dir:
+            self.output_dir = expand_path(self.output_dir)
             self.output_path = Path(self.output_dir)
             # 创建输出目录|Create output directory
             self.output_path.mkdir(parents=True, exist_ok=True)
@@ -279,7 +311,10 @@ class GenFofConfig(KmerToolsConfig):
         """初始化后处理|Post-initialization processing"""
         super().__post_init__()
         if self.input_dir:
+            self.input_dir = expand_path(self.input_dir)
             self.input_path = Path(self.input_dir)
+        if self.output_file:
+            self.output_file = expand_path(self.output_file)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
@@ -323,12 +358,16 @@ class ImportDBConfig(KmerToolsConfig):
         """初始化后处理|Post-initialization processing"""
         super().__post_init__()
         if self.input_matrix:
+            self.input_matrix = expand_path(self.input_matrix)
             self.input_matrix_path = Path(self.input_matrix)
         if self.output_db:
+            self.output_db = expand_path(self.output_db)
             self.output_db_path = Path(self.output_db)
             # 创建输出目录|Create output directory
             self.output_db_path.parent.mkdir(parents=True, exist_ok=True)
             self.output_db = str(self.output_db_path.absolute())
+        if self.header_file:
+            self.header_file = expand_path(self.header_file)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
@@ -371,7 +410,7 @@ class ExtractConfig(KmerToolsConfig):
 
     # 提取方法|Extraction method
     extract_method: str = "unikmer"  # 提取方法：unikmer或pyfastx|Extraction method: unikmer or pyfastx
-    unikmer_path: str = "unikmer"  # unikmer可执行文件路径|unikmer executable path
+    unikmer_path: Optional[str] = None  # unikmer可执行文件路径|unikmer executable path (None->get_tool_path解析|resolved via get_tool_path)
 
     # 输出文件|Output files
     kmer_output: str = ""  # kmer FASTA文件|Kmer FASTA file
@@ -381,9 +420,15 @@ class ExtractConfig(KmerToolsConfig):
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         super().__post_init__()
+        # 工具路径: None时按优先级解析(环境变量>配置文件>默认),再展开~|Tool path: resolve if None (env>config>default), then expand ~
+        if not self.unikmer_path:
+            self.unikmer_path = get_tool_path('unikmer', 'unikmer', 'UNIKMER_PATH')
+        self.unikmer_path = expand_path(self.unikmer_path)
         if self.fasta_file:
+            self.fasta_file = expand_path(self.fasta_file)
             self.fasta_path = Path(self.fasta_file)
         if self.output_dir:
+            self.output_dir = expand_path(self.output_dir)
             self.output_path = Path(self.output_dir)
             # 创建输出目录|Create output directory
             self.output_path.mkdir(parents=True, exist_ok=True)

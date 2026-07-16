@@ -22,7 +22,13 @@ class KmerToolsLogger:
         self.setup_logging()
 
     def setup_logging(self):
-        """设置日志|Setup logging"""
+        """设置日志|Setup logging
+
+        日志分离|Log separation (§2.3):
+            INFO        -> stdout -> 超算 .out 文件|.out file
+            WARNING+    -> stderr -> 超算 .err 文件|.err file
+            DEBUG+      -> 本地文件|local log file
+        """
         if self.log_file.exists():
             self.log_file.unlink()
 
@@ -32,22 +38,31 @@ class KmerToolsLogger:
             datefmt='%Y-%m-%d %H:%M:%S'
         )
 
-        # 文件handler|File handler
-        file_handler = logging.FileHandler(self.log_file, encoding='utf-8')
-        file_handler.setLevel(logging.DEBUG)
-        file_handler.setFormatter(formatter)
+        # 使用命名日志器,避免与root重复|Use named logger to avoid root duplication
+        logger = logging.getLogger("kmertools")
+        logger.setLevel(logging.DEBUG)
+        logger.handlers.clear()
+        logger.propagate = False
 
-        # stdout handler|Stdout handler
+        # stdout handler - INFO级别 -> .out|stdout handler - INFO -> .out
         stdout_handler = logging.StreamHandler(sys.stdout)
         stdout_handler.setLevel(logging.INFO)
         stdout_handler.setFormatter(formatter)
+        logger.addHandler(stdout_handler)
 
-        # 配置日志|Configure logging
-        logging.basicConfig(
-            level=logging.DEBUG,
-            handlers=[file_handler, stdout_handler]
-        )
-        self.logger = logging.getLogger(__name__)
+        # stderr handler - WARNING及以上 -> .err|stderr handler - WARNING+ -> .err
+        stderr_handler = logging.StreamHandler(sys.stderr)
+        stderr_handler.setLevel(logging.WARNING)
+        stderr_handler.setFormatter(formatter)
+        logger.addHandler(stderr_handler)
+
+        # 文件handler - 所有级别 -> 本地完整日志|file handler - all levels -> local full log
+        file_handler = logging.FileHandler(self.log_file, encoding='utf-8')
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+        self.logger = logger
 
     def get_logger(self):
         """获取日志器|Get logger"""
@@ -105,17 +120,24 @@ class CommandRunner:
             self.logger.error(f"命令未找到|Command not found: {e}")
             return False
 
-    def run(self, cmd: str, description: str = "", check: bool = True) -> bool:
-        """执行命令（字符串形式）|Execute command (string format)"""
+    def run(self, cmd, description: str = "", check: bool = True) -> bool:
+        """执行命令|Execute command
+
+        注意|Note: cmd 可为列表或字符串; 字符串按空白拆分后以 shell=False 执行
+        (等价于 shell 解析,但不支持管道/通配符/变量,更安全)
+        cmd can be a list or string; a string is split on whitespace and run
+        with shell=False (safer; no pipes/globs/vars)
+        """
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
 
-        self.logger.info(f"命令|Command: {cmd}")
+        # 统一为列表,使用shell=False更安全|Normalize to list, use shell=False (safer)
+        cmd_list = cmd.split() if isinstance(cmd, str) else cmd
+        self.logger.info(f"命令|Command: {' '.join(cmd_list)}")
 
         try:
             result = subprocess.run(
-                cmd,
-                shell=True,
+                cmd_list,
                 capture_output=True,
                 text=True,
                 check=check,
@@ -480,7 +502,7 @@ def run_command(cmd: List[str], logger: logging.Logger = None,
         subprocess.CompletedProcess: 命令执行结果|Command execution result
     """
     if logger:
-        logger.debug(f"执行命令|Running command: {' '.join(cmd)}")
+        logger.info(f"命令|Command: {' '.join(cmd)}")
 
     return subprocess.run(
         cmd,
@@ -497,6 +519,86 @@ def format_number(num: int) -> str:
     elif num >= 1_000:
         return f"{num / 1_000:.2f}K"
     return str(num)
+
+
+def ensure_pipeline_dirs(output_base) -> Path:
+    """创建 §12 标准目录并返回 99_logs 路径|Create §12 standard dirs, return 99_logs path
+
+    Args:
+        output_base: 输出根目录|Output root directory
+
+    Returns:
+        Path: 99_logs 目录路径|99_logs directory path
+    """
+    output_base = Path(output_base)
+    (output_base / "00_pipeline_info").mkdir(parents=True, exist_ok=True)
+    logs_dir = output_base / "99_logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    return logs_dir
+
+
+def _probe_tool_version(tool_path: str) -> str:
+    """尽力探测工具版本(尝试常见版本参数)|Best-effort version probe (tries common flags)"""
+    for flag in ['--version', '-version', 'version']:
+        try:
+            result = subprocess.run(
+                [tool_path, flag],
+                capture_output=True, text=True, timeout=15
+            )
+            out = (result.stdout or result.stderr).strip()
+            if out:
+                return out.splitlines()[0]
+        except Exception:
+            continue
+    return 'unknown'
+
+
+def generate_software_versions_yml(output_base, pipeline_name: str,
+                                   tools: dict, params: dict, start_time=None) -> Path:
+    """生成 software_versions.yml (§12.5)|Generate software_versions.yml
+
+    Args:
+        output_base: 输出根目录(software_versions.yml 写入其 00_pipeline_info/)|Output root (yml written to its 00_pipeline_info/)
+        pipeline_name: 流程名(如 'kmertools build')|Pipeline name
+        tools: {工具名: 路径} 字典|{tool_name: path} dict
+        params: 关键参数字典|Key parameters dict
+        start_time: 开始时间(datetime); 默认 now|Start time; defaults to now
+
+    Returns:
+        Path: 写入的 software_versions.yml 路径|Written yml path
+    """
+    from datetime import datetime
+    import yaml
+
+    if start_time is None:
+        start_time = datetime.now()
+
+    versions = {}
+    for tool_name, tool_path in tools.items():
+        versions[tool_name] = {
+            'version': _probe_tool_version(str(tool_path)),
+            'path': str(tool_path),
+        }
+
+    end_time = datetime.now()
+    info = {
+        'pipeline': {'name': pipeline_name, 'version': '1.0.0'},
+        'tools': versions,
+        'parameters': params,
+        'execution': {
+            'start_time': start_time.strftime('%Y-%m-%d %H:%M:%S'),
+            'end_time': end_time.strftime('%Y-%m-%d %H:%M:%S'),
+            'runtime_seconds': int((end_time - start_time).total_seconds()),
+        },
+    }
+
+    output_base = Path(output_base)
+    out_file = output_base / '00_pipeline_info' / 'software_versions.yml'
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_file, 'w') as f:
+        yaml.safe_dump(info, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
+
+    return out_file
 
 
 def get_conda_env(command: str) -> Optional[str]:
