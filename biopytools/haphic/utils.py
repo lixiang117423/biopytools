@@ -551,6 +551,40 @@ def format_size(bytes_size: int) -> str:
         return f"{bytes_size / (1024**3):.1f} GB"
 
 
+def generate_software_versions_yml(
+    config,
+    output_file: str,
+    logger: logging.Logger
+) -> None:
+    """
+    生成software_versions.yml文件|Generate software_versions.yml file
+
+    Args:
+        config: 配置对象(需实现get_software_info)|Configuration object (must implement get_software_info)
+        output_file: 输出文件路径|Output file path
+        logger: 日志器|Logger
+    """
+    import yaml
+    from datetime import datetime
+
+    try:
+        info = config.get_software_info()
+        info['execution'] = {
+            'timestamp': datetime.now().isoformat()
+        }
+
+        output_path = Path(output_file)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(output_path, 'w') as f:
+            yaml.dump(info, f, default_flow_style=False, sort_keys=False)
+
+        logger.info(f"版本信息已保存|Version info saved: {output_file}")
+
+    except Exception as e:
+        logger.warning(f"生成版本信息文件失败|Failed to generate version info: {e}")
+
+
 def create_step_directory(output_dir: str, step_name: str) -> str:
     """创建步骤目录|Create step directory"""
     step_dir = os.path.join(output_dir, step_name)

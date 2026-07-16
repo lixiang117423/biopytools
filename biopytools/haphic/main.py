@@ -2,7 +2,6 @@
 HapHiC主程序模块|HapHiC Main Module
 """
 
-import argparse
 import subprocess
 import sys
 import time
@@ -71,24 +70,22 @@ class HapHiCProcessor:
                 potential_bam = os.path.join(alignment_dir, "HiC.bam")
                 potential_filtered_bam = os.path.join(alignment_dir, "HiC.filtered.bam")
 
-                # 添加调试信息
                 self.logger.info(f"检查已存在的比对结果|Checking for existing alignment results")
-                self.logger.info(f"输出目录|Output directory: {self.config.output_dir}")
-                self.logger.info(f"比对目录|Alignment directory: {alignment_dir}")
-                self.logger.info(f"潜在BAM文件|Potential BAM file: {potential_bam}")
-                self.logger.info(f"潜在过滤BAM文件|Potential filtered BAM file: {potential_filtered_bam}")
+                self.logger.debug(f"输出目录|Output directory: {self.config.output_dir}")
+                self.logger.debug(f"比对目录|Alignment directory: {alignment_dir}")
+                self.logger.debug(f"潜在BAM文件|Potential BAM file: {potential_bam}")
+                self.logger.debug(f"潜在过滤BAM文件|Potential filtered BAM file: {potential_filtered_bam}")
 
                 # 检查目录是否存在
                 if os.path.exists(alignment_dir):
-                    self.logger.info(f"比对目录存在|Alignment directory exists")
-                    # 列出目录内容
+                    self.logger.debug(f"比对目录存在|Alignment directory exists")
                     try:
                         dir_contents = os.listdir(alignment_dir)
-                        self.logger.info(f"比对目录内容|Alignment directory contents: {dir_contents}")
+                        self.logger.debug(f"比对目录内容|Alignment directory contents: {dir_contents}")
                     except Exception as e:
-                        self.logger.warning(f"无法列出比对目录内容|Cannot list alignment directory contents: {e}")
+                        self.logger.debug(f"无法列出比对目录内容|Cannot list alignment directory contents: {e}")
                 else:
-                    self.logger.info(f"比对目录不存在|Alignment directory does not exist")
+                    self.logger.debug(f"比对目录不存在|Alignment directory does not exist")
 
                 # 更宽松的检查：即使没有索引文件，如果BAM文件存在且大小合理，也跳过比对
                 if os.path.exists(potential_filtered_bam):
@@ -313,7 +310,7 @@ class HapHiCProcessor:
 
     def _generate_report(self):
         """生成报告|Generate report"""
-        report_file = os.path.join(self.config.output_dir, f"{self.config.prefix}_haphic_report.txt")
+        report_file = os.path.join(self.config.output_dir, "99_logs", f"{self.config.prefix}_haphic_report.txt")
 
         try:
             with open(report_file, 'w', encoding='utf-8') as f:
@@ -344,226 +341,3 @@ class HapHiCProcessor:
             self.logger.error(f"报告生成失败|Report generation failed: {e}")
 
 
-def main():
-    """主函数|Main function"""
-    parser = argparse.ArgumentParser(
-        description="HapHiC基因组Scaffolding工具 - Pipeline模式|HapHiC Genome Scaffolding Tool - Pipeline Mode",
-        formatter_class=argparse.RawDescriptionHelpFormatter
-    )
-
-    # 必需参数|Required parameters
-    parser.add_argument('asm_file',
-                       help='基因组组装文件路径|Genome assembly file path (FASTA)')
-    parser.add_argument('bam_file',
-                       help='Hi-C BAM文件路径|Hi-C BAM file path')
-    parser.add_argument('nchrs', type=int,
-                       help='染色体数量|Number of chromosomes')
-
-    # 工具路径|Tool path
-    parser.add_argument('--haphic-bin',
-                       default="~/miniforge3/envs/haphic/bin/haphic",
-                       help='HapHiC可执行文件路径|HapHiC executable path')
-
-    # 输出配置|Output configuration
-    parser.add_argument('-o', '--output-dir',
-                       help='输出目录路径|Output directory path')
-    parser.add_argument('--prefix',
-                       help='输出文件前缀|Output file prefix')
-    parser.add_argument('--force-rerun', action='store_true',
-                       help='强制重新运行所有步骤|Force rerun all steps')
-
-    # Hi-C数据处理参数|Hi-C data processing parameters
-    parser.add_argument('--mapq-threshold', type=int, default=1,
-                       help='MAPQ阈值|MAPQ threshold')
-    parser.add_argument('--edit-distance', type=int, default=3,
-                       help='编辑距离阈值|Edit distance threshold')
-    parser.add_argument('--re-site-cutoff', type=int, default=5,
-                       help='Step1 RE位点过滤阈值|Step1 RE site filtering threshold')
-    parser.add_argument('--aln-format', default='auto',
-                       choices=['auto', 'bam', 'pairs'],
-                       help='比对文件格式|Alignment file format')
-
-    # 聚类参数|Clustering parameters
-    parser.add_argument('--min-inflation', type=float, default=1.1,
-                       help='最小膨胀参数|Min inflation')
-    parser.add_argument('--max-inflation', type=float, default=3.0,
-                       help='最大膨胀参数|Max inflation')
-    parser.add_argument('--inflation-step', type=float, default=0.1,
-                       help='膨胀参数步长|Inflation step')
-    parser.add_argument('--Nx', type=int, default=80,
-                       help='Nx参数|Nx parameter')
-    parser.add_argument('--min-group-len', type=float, default=5.0,
-                       help='最小分组长度(Mbp)|Min group length (Mbp)')
-    parser.add_argument('--flank', type=int, default=500,
-                       help='邻接矩阵侧翼区域(kbp)|Adjacency matrix flank region (kbp)')
-    parser.add_argument('--bin-size-kbp', type=int, default=-1,
-                       help='聚类分箱大小(kbp)|Clustering bin size (kbp), -1=auto')
-
-    # 过滤参数|Filtering parameters
-    parser.add_argument('--density-lower', default='0.2X',
-                       help='Hi-C链接密度下限|Hi-C link density lower limit')
-    parser.add_argument('--density-upper', default='1.9X',
-                       help='Hi-C链接密度上限|Hi-C link density upper limit')
-    parser.add_argument('--read-depth-upper', default='1.5X',
-                       help='contig读深上限|Contig read depth upper limit')
-    parser.add_argument('--rank-sum-hard-cutoff', type=int, default=0,
-                       help='rank sum硬截断|Rank sum hard cutoff')
-    parser.add_argument('--rank-sum-upper', default='1.5X',
-                       help='rank sum上限|Rank sum upper limit')
-    parser.add_argument('--remove-concentrated-links', action='store_true',
-                       help='移除高密度集中链接|Remove concentrated links')
-
-    # 排序和定向参数|Ordering and orientation parameters
-    parser.add_argument('--processes', type=int, default=8,
-                       help='并行进程数|Number of parallel processes')
-    parser.add_argument('--skip-fast-sort', action='store_true',
-                       help='跳过快速排序|Skip fast sorting')
-    parser.add_argument('--skip-allhic', action='store_true',
-                       help='跳过ALLHiC优化|Skip ALLHiC optimization')
-    parser.add_argument('--skip-ga', action='store_true',
-                       help='跳过ALLHiC遗传算法|Skip ALLHiC genetic algorithm')
-    parser.add_argument('--sort-by-input', action='store_true',
-                       help='按输入排序输出|Sort output by input order')
-    parser.add_argument('--no-additional-rescue', action='store_true',
-                       help='跳过额外救援轮|Skip additional rescue round')
-
-    # 组装校正参数|Assembly correction parameters
-    parser.add_argument('--correct-nrounds', type=int, default=2,
-                       help='组装校正轮数|Assembly correction rounds')
-    parser.add_argument('--correct-min-coverage', type=float, default=10.0,
-                       help='校正最小覆盖度|Correction min coverage')
-    parser.add_argument('--median-cov-ratio', type=float, default=0.2,
-                       help='覆盖率截断乘数|Coverage cutoff multiplier')
-    parser.add_argument('--region-len-ratio', type=float, default=0.1,
-                       help='高覆盖区域长度比|High-coverage region length ratio')
-    parser.add_argument('--min-region-cutoff', type=int, default=5000,
-                       help='高覆盖区域最小长度(bp)|Min high-coverage region length (bp)')
-
-    # 性能参数|Performance parameters
-    parser.add_argument('--normalize-by-nlinks', action='store_true',
-                       help='按链接数归一化|Normalize by number of links')
-    parser.add_argument('--dense-matrix', action='store_true',
-                       help='使用稠密矩阵|Use dense matrix')
-
-    # 单倍型分相参数|Haplotype phasing parameters
-    parser.add_argument('--remove-allelic-links', type=int,
-                       help='移除等位基因连接数|Remove allelic links count')
-    parser.add_argument('--phasing-weight', type=float, default=1.0,
-                       help='分相权重|Phasing weight')
-    parser.add_argument('--gfa-files',
-                       help='GFA文件路径|GFA files path (comma-separated)')
-
-    # 可视化参数|Visualization parameters
-    parser.add_argument('--generate-plots', action='store_true',
-                       help='生成可视化图表|Generate visualization plots')
-    parser.add_argument('--bin-size', type=int, default=500,
-                       help='接触图装箱大小|Contact map bin size')
-    parser.add_argument('--min-len', type=float, default=1.0,
-                       help='最小scaffold长度|Min scaffold length')
-    parser.add_argument('--separate-plots', action='store_true',
-                       help='生成单独图表|Generate separate plots')
-
-    # 性能参数|Performance parameters
-    parser.add_argument('--threads', type=int, default=8,
-                       help='线程数|Number of threads')
-    parser.add_argument('--memory-limit',
-                       help='内存限制|Memory limit (e.g., 64G)')
-
-    # 高级选项|Advanced options
-    parser.add_argument('--quick-view', action='store_true',
-                       help='快速查看模式|Quick view mode')
-    parser.add_argument('--RE', default="GATC",
-                       help='限制性内切酶位点|Restriction enzyme sites')
-    parser.add_argument('--skip-clustering', action='store_true',
-                       help='跳过聚类步骤|Skip clustering step')
-
-    # 输出格式选项|Output format options
-    parser.add_argument('--no-agp', action='store_true',
-                       help='不输出AGP文件|Don\'t output AGP file')
-    parser.add_argument('--no-fasta', action='store_true',
-                       help='不输出FASTA文件|Don\'t output FASTA file')
-    parser.add_argument('--no-juicebox', action='store_true',
-                       help='不生成Juicebox脚本|Don\'t generate Juicebox script')
-
-    # 日志配置|Logging configuration
-    parser.add_argument('-v', '--verbose', action='store_true',
-                       help='详细输出模式|Verbose output mode')
-    parser.add_argument('--log-file',
-                       help='日志文件路径|Log file path')
-
-    args = parser.parse_args()
-
-    try:
-        # 创建处理器|Create processor
-        processor = HapHiCProcessor(
-            asm_file=args.asm_file,
-            bam_file=args.bam_file,
-            nchrs=args.nchrs,
-            haphic_bin=args.haphic_bin,
-            output_dir=args.output_dir,
-            prefix=args.prefix,
-            force_rerun=args.force_rerun,
-            mapq_threshold=args.mapq_threshold,
-            edit_distance=args.edit_distance,
-            re_site_cutoff=args.re_site_cutoff,
-            min_re_sites=25,  # step2重分配默认值|Step2 reassignment default
-            aln_format=args.aln_format,
-            normalize_by_nlinks=args.normalize_by_nlinks,
-            dense_matrix=args.dense_matrix,
-            min_inflation=args.min_inflation,
-            max_inflation=args.max_inflation,
-            inflation_step=args.inflation_step,
-            nx=args.Nx,
-            min_group_len=args.min_group_len,
-            flank=args.flank,
-            bin_size_kbp=args.bin_size_kbp,
-            density_lower=args.density_lower,
-            density_upper=args.density_upper,
-            read_depth_upper=args.read_depth_upper,
-            rank_sum_hard_cutoff=args.rank_sum_hard_cutoff,
-            rank_sum_upper=args.rank_sum_upper,
-            remove_concentrated_links=args.remove_concentrated_links,
-            processes=args.processes,
-            fast_sorting=not args.skip_fast_sort,
-            skip_allhic=args.skip_allhic,
-            skip_ga=args.skip_ga,
-            sort_by_input=args.sort_by_input,
-            no_additional_rescue=args.no_additional_rescue,
-            correct_nrounds=args.correct_nrounds,
-            correct_min_coverage=args.correct_min_coverage,
-            median_cov_ratio=args.median_cov_ratio,
-            region_len_ratio=args.region_len_ratio,
-            min_region_cutoff=args.min_region_cutoff,
-            remove_allelic_links=args.remove_allelic_links,
-            phasing_weight=args.phasing_weight,
-            gfa_files=args.gfa_files,
-            generate_plots=args.generate_plots,
-            bin_size=args.bin_size,
-            min_len=args.min_len,
-            separate_plots=args.separate_plots,
-            threads=args.threads,
-            memory_limit=args.memory_limit,
-            quick_view=args.quick_view,
-            re_sites=args.RE,
-            skip_clustering=args.skip_clustering,
-            output_agp=not args.no_agp,
-            output_fasta=not args.no_fasta,
-            output_juicebox=not args.no_juicebox,
-            verbose=args.verbose,
-            log_file=args.log_file,
-            dry_run=False
-        )
-
-        # 运行分析|Run analysis
-        success = processor.run_pipeline()
-
-        if not success:
-            sys.exit(1)
-
-    except Exception as e:
-        print(f"程序执行失败|Program execution failed: {e}")
-        sys.exit(1)
-
-
-if __name__ == "__main__":
-    main()

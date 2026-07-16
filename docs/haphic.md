@@ -118,7 +118,7 @@ success = processor.run_pipeline()
 
 ### 日志文件 | Log Files
 
-- `{prefix}_haphic.log`: 完整的运行日志
+- `99_logs/{prefix}_haphic.log`: 完整的运行日志
 - 各步骤子目录中的详细日志
 
 ## ⚙️ 参数详解 | Parameter Details
@@ -312,7 +312,7 @@ biopytools haphic -a assembly.fa -b hic.bam -c 24 \
 
 查看详细日志：
 ```bash
-tail -f {prefix}_haphic.log
+tail -f 99_logs/{prefix}_haphic.log
 ```
 
 关键日志位置：

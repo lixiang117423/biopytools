@@ -78,7 +78,7 @@ def chr_rename(ref, query, output_dir, minimap2_path, preset, threads, min_ident
 
     通过minimap2全基因组比对，将group命名方式的染色体转换为标准Chr命名（自动迭代映射策略）|Convert chromosome names from group format to standard Chr format using minimap2 whole genome alignment (auto iterative mapping strategy)
 
-    示例|Examples: biopytools chr_rename -r ref.fa -q query.fa -o output
+    示例|Examples: biopytools chr-rename -r ref.fa -q query.fa -o output
     """
 
     # 延迟加载|Lazy loading

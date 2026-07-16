@@ -159,7 +159,7 @@ def _validate_file_exists(file_path):
 
 # BWA比对配置|BWA alignment configuration
 @click.option('--samblaster-bin',
-              default="~/miniforge3/envs/Population_genetics/bin/samblaster",
+              default="~/miniforge3/envs/haphic/bin/samblaster",
               show_default=True,
               help='Samblaster可执行文件路径|Samblaster executable path')
 @click.option('--haphic-filter-bam-bin',
@@ -175,7 +175,7 @@ def _validate_file_exists(file_path):
 @click.option('--generate-juicebox/--no-generate-juicebox', default=True,
               help='生成Juicebox兼容文件|Generate Juicebox compatible files')
 @click.option('--matlock-bin',
-              default="matlock",
+              default="~/miniforge3/envs/juicer_v.1.6/bin/matlock",
               show_default=True,
               help='Matlock可执行文件路径|Matlock executable path')
 @click.option('--three-d-dna-dir',

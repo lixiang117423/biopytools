@@ -53,6 +53,39 @@ class BWAAligner:
 
         return ' | '.join(wrapped_commands)
 
+    def _conda_lib_env(self, tool_paths: List[str]) -> dict:
+        """
+        为管道中的工具构建含LD_LIBRARY_PATH的环境(§13.2.1方案A防御性补强)
+        |Build env with LD_LIBRARY_PATH for pipelined tools (§13.2.1 plan A defensive reinforcement)
+
+        _build_pipeline_command把conda run剥成裸命令(方案B),此处补LD_LIBRARY_PATH:
+        从各工具完整路径推导其同级lib目录(dirname(tool)/../lib),拼接到LD_LIBRARY_PATH前端。
+        工具自带rpath(bwa/samtools/matlock)时重复注入无害。
+        |_build_pipeline_command strips conda run to bare commands (plan B); this adds
+        LD_LIBRARY_PATH: derive each tool's sibling lib dir (dirname(tool)/../lib) and prepend.
+        Harmless when tools already carry rpath (bwa/samtools/matlock).
+
+        Args:
+            tool_paths: 管道中各工具的完整路径|Full paths of tools in pipeline
+
+        Returns:
+            注入了LD_LIBRARY_PATH的环境副本|Env copy with LD_LIBRARY_PATH injected
+        """
+        env = os.environ.copy()
+        lib_dirs = []
+        for tool_path in tool_paths:
+            if not tool_path or '/' not in tool_path:
+                continue
+            tool_dir = os.path.dirname(tool_path)
+            lib_dir = os.path.normpath(os.path.join(tool_dir, '..', 'lib'))
+            if os.path.isdir(lib_dir) and lib_dir not in lib_dirs:
+                lib_dirs.append(lib_dir)
+        if lib_dirs:
+            existing = env.get('LD_LIBRARY_PATH', '')
+            env['LD_LIBRARY_PATH'] = ':'.join(lib_dirs) + (f':{existing}' if existing else '')
+            self.logger.debug(f"设置LD_LIBRARY_PATH|Set LD_LIBRARY_PATH: {env['LD_LIBRARY_PATH']}")
+        return env
+
     def run_alignment(self, is_realignment: bool = False) -> str:
         """
         运行BWA比对流程|Run BWA alignment pipeline using official method
@@ -238,7 +271,7 @@ class BWAAligner:
 
                     self.logger.info(f"命令|Command: {full_cmd}")
 
-                    result = subprocess.run(full_cmd, shell=True, capture_output=True, text=True)
+                    result = subprocess.run(full_cmd, shell=True, capture_output=True, text=True, env=self._conda_lib_env([self.config.bwa_bin, self.config.samblaster_bin, self.samtools_path]))
 
                     if result.returncode != 0:
                         error_msg = f"BWA比对管道失败|BWA alignment pipeline failed:\n"
@@ -265,7 +298,7 @@ class BWAAligner:
                     self.logger.info(f"执行BWA比对管道（无samblaster）|Executing BWA alignment pipeline (no samblaster)")
                     self.logger.info(f"命令|Command: {full_cmd}")
 
-                    result = subprocess.run(full_cmd, shell=True, capture_output=True, text=True)
+                    result = subprocess.run(full_cmd, shell=True, capture_output=True, text=True, env=self._conda_lib_env([self.config.bwa_bin, self.config.samblaster_bin, self.samtools_path]))
 
                     if result.returncode != 0:
                         error_msg = f"BWA比对管道失败|BWA alignment pipeline failed:\n"
@@ -300,12 +333,12 @@ class BWAAligner:
                 self.logger.info(f"[DRY RUN] ...|samtools view -b -@ {self.config.threads} -o {filtered_bam} -")
             else:
                 try:
-                    # 添加调试信息|Add debug info
-                    self.logger.info(f" 当前工作目录|Current directory: {os.getcwd()}")
-                    self.logger.info(f" 输入BAM文件|Input BAM: {raw_bam}")
-                    self.logger.info(f" BAM文件存在|BAM exists: {os.path.exists(raw_bam)}")
+                    # 调试信息|Debug info
+                    self.logger.debug(f"当前工作目录|Current directory: {os.getcwd()}")
+                    self.logger.debug(f"输入BAM文件|Input BAM: {raw_bam}")
+                    self.logger.debug(f"BAM文件存在|BAM exists: {os.path.exists(raw_bam)}")
                     if os.path.exists(raw_bam):
-                        self.logger.info(f" BAM文件大小|BAM size: {os.path.getsize(raw_bam) / (1024**3):.2f} GB")
+                        self.logger.debug(f"BAM文件大小|BAM size: {os.path.getsize(raw_bam) / (1024**3):.2f} GB")
 
                     # 构建HapHiC过滤命令（自动包装conda环境）|Build HapHiC filter command (auto-wrap conda)
                     filter_cmd_args = [
@@ -317,7 +350,7 @@ class BWAAligner:
                     # 参考版本1：直接调用完整路径，不使用conda run
                     # Reference version 1: Call full path directly, don't use conda run
                     wrapped_filter_cmd = [self.config.haphic_filter_bam_bin] + filter_cmd_args
-                    self.logger.info(f" Filter命令|Filter command: {' '.join(wrapped_filter_cmd)}")
+                    self.logger.info(f"命令|Command (filter_bam): {' '.join(wrapped_filter_cmd)}")
 
                     # 使用管道传输（像版本1一样）|Use pipeline (like version 1)
                     # samtools view命令（从stdin读取，不需要输入文件参数）
@@ -327,13 +360,14 @@ class BWAAligner:
                     ]
                     # 直接调用samtools完整路径，不使用conda run
                     wrapped_samtools_cmd = [self.config.samtools_bin] + samtools_filter_args
-                    self.logger.info(f" Samtools命令|Samtools command: {' '.join(wrapped_samtools_cmd)}")
+                    self.logger.info(f"命令|Command (samtools view): {' '.join(wrapped_samtools_cmd)}")
 
                     # 创建管道|Create pipeline
                     # 重要：不使用text=True，正确处理二进制数据
                     current_dir = os.getcwd()
-                    filter_proc = subprocess.Popen(wrapped_filter_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=current_dir)
-                    samtools_filter_proc = subprocess.Popen(wrapped_samtools_cmd, stdin=filter_proc.stdout, stderr=subprocess.PIPE, cwd=current_dir)
+                    pipe_env = self._conda_lib_env([self.config.haphic_filter_bam_bin, self.config.samtools_bin])
+                    filter_proc = subprocess.Popen(wrapped_filter_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=current_dir, env=pipe_env)
+                    samtools_filter_proc = subprocess.Popen(wrapped_samtools_cmd, stdin=filter_proc.stdout, stderr=subprocess.PIPE, cwd=current_dir, env=pipe_env)
 
                     # 关闭管道|Close pipe
                     filter_proc.stdout.close()

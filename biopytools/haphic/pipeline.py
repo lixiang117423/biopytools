@@ -12,7 +12,7 @@ import shutil
 import subprocess
 
 from .config import HapHiCConfig
-from .utils import HapHiCLogger, CommandRunner, FileManager
+from .utils import HapHiCLogger, CommandRunner, FileManager, generate_software_versions_yml
 from ..common.paths import resolve_legacy_path
 
 
@@ -34,6 +34,13 @@ class HapHiCPipeline:
 
             # 创建输出目录结构
             self._create_directory_structure()
+
+            # 生成软件版本信息(§12.5)|Generate software version info (§12.5)
+            generate_software_versions_yml(
+                self.config,
+                os.path.join(self.config.output_dir, "00_pipeline_info", "software_versions.yml"),
+                self.logger
+            )
 
             # 如果强制重新运行，清理所有目录
             if self.config.force_rerun:
@@ -112,6 +119,10 @@ class HapHiCPipeline:
 
         # 只创建juicebox目录，plots目录会在需要时创建
         os.makedirs(self.step_dirs["juicebox"], exist_ok=True)
+
+        # 创建流程元数据和日志目录(§12.2.3 P0必须)|Create pipeline_info and logs dirs (§12.2.3 mandatory)
+        os.makedirs(os.path.join(self.config.output_dir, "00_pipeline_info"), exist_ok=True)
+        os.makedirs(os.path.join(self.config.output_dir, "99_logs"), exist_ok=True)
 
         # plots目录延迟到实际生成可视化时创建
 
@@ -421,290 +432,55 @@ class HapHiCPipeline:
 
         try:
             juicebox_dir = self.step_dirs["juicebox"]
-            build_dir = self.step_dirs["build"]
 
-            # 查找必要的文件
+            # 查找AGP文件(优先raw.agp)|Find AGP file (prefer raw.agp)
             output_files = self.config.get_output_files()
             agp_file = output_files["scaffolds_raw_agp"]
-
             if not FileManager.check_file_exists(agp_file):
-                # 尝试使用另一个AGP文件
                 agp_file = output_files["scaffolds_agp"]
                 if not FileManager.check_file_exists(agp_file):
                     self.logger.error("未找到AGP文件，无法生成assembly文件|AGP file not found, cannot generate assembly file")
                     return False
 
-            # 查找filtered BAM文件 - 可能在多个位置
-            possible_bam_locations = [
-                os.path.join(self.step_dirs["cluster"], "hic.filtered.bam"),
-                self.config.bam_file  # 使用原始BAM文件作为备选
-            ]
+            # 查找filtered BAM|Find filtered BAM
+            hic_filtered_bam = self._resolve_filtered_bam()
 
-            hic_filtered_bam = None
-            for bam_file in possible_bam_locations:
-                if FileManager.check_file_exists(bam_file):
-                    hic_filtered_bam = bam_file
-                    break
-
-            if not hic_filtered_bam:
-                self.logger.warning("未找到hic.filtered.bam文件，使用原始BAM文件|hic.filtered.bam not found, using original BAM file")
-                hic_filtered_bam = self.config.bam_file
-
-            # 1. 使用matlock生成.mnd文件
+            # 步骤1: 生成.mnd文件|Step 1: Generate .mnd
             self.logger.info("步骤1: 生成.mnd文件|Step 1: Generating .mnd file")
-
-            mnd_file = os.path.join(juicebox_dir, "out.links.mnd")
-
-            # 检查mnd文件是否已存在
-            if os.path.exists(mnd_file):
-                try:
-                    size = os.path.getsize(mnd_file)
-                    if size > 1000000:  # 至少1MB
-                        self.logger.info(f"mnd文件已存在，跳过生成|mnd file already exists: {mnd_file} ({size:,} bytes)")
-                    else:
-                        self.logger.info(f"mnd文件太小，重新生成|mnd file too small, regenerating: {size:,} bytes")
-                        cmd1 = [self.config.matlock_bin, "bam2", "juicer", hic_filtered_bam, mnd_file]
-                        if not self.cmd_runner.run_command(cmd1, "生成.mnd文件"):
-                            return False
-                except Exception as e:
-                    self.logger.warning(f"无法检查mnd文件大小|Cannot check mnd file size: {e}")
-                    cmd1 = [self.config.matlock_bin, "bam2", "juicer", hic_filtered_bam, mnd_file]
-                    if not self.cmd_runner.run_command(cmd1, "生成.mnd文件"):
-                        return False
-            else:
-                cmd1 = [self.config.matlock_bin, "bam2", "juicer", hic_filtered_bam, mnd_file]
-                if not self.cmd_runner.run_command(cmd1, "生成.mnd文件"):
-                    return False
-
-            # 2. 排序.mnd文件
-            self.logger.info("步骤2: 排序.mnd文件|Step 2: Sorting .mnd file")
-
-            sorted_mnd_file = os.path.join(juicebox_dir, "out.sorted.links.mnd")
-
-            # 检查sorted_mnd文件是否已存在
-            if os.path.exists(sorted_mnd_file):
-                try:
-                    size = os.path.getsize(sorted_mnd_file)
-                    if size > 1000000:  # 至少1MB
-                        self.logger.info(f"排序后的mnd文件已存在，跳过排序|sorted mnd file already exists: {sorted_mnd_file} ({size:,} bytes)")
-                        dry_run_success = True
-                    else:
-                        self.logger.info(f"排序后的mnd文件太小，重新排序|sorted mnd file too small, resorting: {size:,} bytes")
-                        cmd2 = ["sort", "-k2,2", "-k6,6", mnd_file]
-                        try:
-                            with open(sorted_mnd_file, 'w') as outfile:
-                                result = subprocess.run(cmd2, stdout=outfile, stderr=subprocess.PIPE, text=True)
-                                if result.returncode != 0:
-                                    self.logger.error(f"排序.mnd文件失败|Sorting .mnd file failed: {result.stderr}")
-                                    return False
-                            dry_run_success = True
-                        except Exception as e:
-                            self.logger.error(f"排序.mnd文件异常|Error sorting .mnd file: {e}")
-                            return False
-                except Exception as e:
-                    self.logger.warning(f"无法检查sorted_mnd文件大小|Cannot check sorted_mnd file size: {e}")
-                    cmd2 = ["sort", "-k2,2", "-k6,6", mnd_file]
-                    try:
-                        with open(sorted_mnd_file, 'w') as outfile:
-                            result = subprocess.run(cmd2, stdout=outfile, stderr=subprocess.PIPE, text=True)
-                            if result.returncode != 0:
-                                self.logger.error(f"排序.mnd文件失败|Sorting .mnd file failed: {result.stderr}")
-                                return False
-                        dry_run_success = True
-                    except Exception as e:
-                        self.logger.error(f"排序.mnd文件异常|Error sorting .mnd file: {e}")
-                        return False
-            else:
-                cmd2 = ["sort", "-k2,2", "-k6,6", mnd_file]
-                # 使用shell重定向
-                if self.config.dry_run:
-                    self.logger.info(f"[DRY RUN] {cmd2[0]} {cmd2[1]} > {sorted_mnd_file}")
-                    dry_run_success = True
-                else:
-                    try:
-                        with open(sorted_mnd_file, 'w') as outfile:
-                            result = subprocess.run(cmd2, stdout=outfile, stderr=subprocess.PIPE, text=True)
-                            if result.returncode != 0:
-                                self.logger.error(f"排序.mnd文件失败|Sorting .mnd file failed: {result.stderr}")
-                                return False
-                        dry_run_success = True
-                    except Exception as e:
-                        self.logger.error(f"排序.mnd文件异常|Error sorting .mnd file: {e}")
-                        return False
-
-            if not dry_run_success:
+            mnd_file = self._ensure_mnd_file(juicebox_dir, hic_filtered_bam)
+            if not mnd_file:
                 return False
 
-            # 3. 生成.assembly文件
-            self.logger.info("步骤3: 生成.assembly文件|Step 3: Generating .assembly file")
+            # 步骤2: 排序.mnd文件|Step 2: Sort .mnd
+            self.logger.info("步骤2: 排序.mnd文件|Step 2: Sorting .mnd file")
+            sorted_mnd_file = os.path.join(juicebox_dir, "out.sorted.links.mnd")
+            if not self._sort_mnd_file(mnd_file, sorted_mnd_file):
+                return False
 
+            # 步骤3: 生成.assembly文件|Step 3: Generate .assembly
+            self.logger.info("步骤3: 生成.assembly文件|Step 3: Generating .assembly file")
             assembly_file = output_files["assembly_file"]
             cmd3 = ["python3", self.config.agp2assembly_script, agp_file, assembly_file]
-
             if not self.cmd_runner.run_command(cmd3, "生成.assembly文件"):
                 return False
 
-            # 4. 运行asm-visualizer生成.hic文件
+            # 步骤4: 生成.hic文件|Step 4: Generate .hic
             self.logger.info("步骤4: 生成.hic文件|Step 4: Generating .hic file")
-
             hic_file = output_files["hic_file"]
-            cmd4 = ["bash", self.config.asm_visualizer_script, "-p", "false", assembly_file, sorted_mnd_file]
-
-            # 添加调试信息：显示命令和参数
-            self.logger.info(f"工作目录|Working directory: {juicebox_dir}")
-            self.logger.info(f"Assembly文件|Assembly file: {assembly_file}")
-            self.logger.info(f"排序后的mnd文件|Sorted mnd file: {sorted_mnd_file}")
-            self.logger.info(f"预期输出.hic文件|Expected .hic file: {hic_file}")
-            self.logger.info(f"执行命令|Command: {' '.join(cmd4)}")
-
-            # 设置工作目录为juicebox目录
-            original_cwd = os.getcwd()
-            try:
-                os.chdir(juicebox_dir)
-                self.logger.info(f"切换到目录|Changed to directory: {os.getcwd()}")
-
-                if self.config.dry_run:
-                    self.logger.info(f"[DRY RUN] cd {juicebox_dir} && {' '.join(cmd4)}")
-                    success = True
-                else:
-                    # 设置环境变量，将Java临时目录指向juicebox目录（避免NFS和权限问题）
-                    # 创建一个tmp子目录用于临时文件
-                    tmp_dir = os.path.join(juicebox_dir, "tmp_java")
-                    os.makedirs(tmp_dir, exist_ok=True)
-                    env = os.environ.copy()
-                    env["TMPDIR"] = tmp_dir
-                    env["TMP"] = tmp_dir
-                    env["TEMP"] = tmp_dir
-                    env["JAVA_TMPDIR"] = tmp_dir
-                    java_opts = env.get("_JAVA_OPTIONS", "")
-                    if java_opts:
-                        env["_JAVA_OPTIONS"] = f"{java_opts} -Djava.io.tmpdir={tmp_dir}"
-                    else:
-                        env["_JAVA_OPTIONS"] = f"-Djava.io.tmpdir={tmp_dir}"
-                    self.logger.info(f"设置Java临时目录|Set Java temp directory: {tmp_dir}")
-
-                    # 运行asm-visualizer，它会在当前目录生成.hic文件
-                    self.logger.info("开始运行run-assembly-visualizer.sh脚本|Starting run-assembly-visualizer.sh script")
-                    result = subprocess.run(cmd4, capture_output=True, text=True, cwd=juicebox_dir, env=env)
-                    self.logger.info(f"脚本执行完成|Script execution completed with return code: {result.returncode}")
-
-                    # 即使返回码非0，也检查.hic文件是否生成成功
-                    # 因为脚本有时会有警告但仍然成功生成文件
-                    if result.returncode != 0:
-                        self.logger.info(f"检查.hic文件生成状态|Checking .hic file generation status")
-
-                        # 列出当前目录的所有文件，方便调试
-                        self.logger.info(f"当前目录内容|Current directory contents:")
-                        try:
-                            import subprocess as sp
-                            ls_result = sp.run(['ls', '-lh', '.'], capture_output=True, text=True)
-                            if ls_result.returncode == 0:
-                                # 只显示.hic文件
-                                for line in ls_result.stdout.split('\n'):
-                                    if '.hic' in line or line.startswith('total'):
-                                        self.logger.info(f"  {line}")
-                        except Exception:
-                            pass
-
-                        # 检查可能的.hic文件位置
-                        # asm-visualizer脚本生成的文件名是assembly文件名的basename
-                        expected_hic_basename = os.path.basename(assembly_file).replace(".assembly", ".hic")
-                        expected_hic_relative = expected_hic_basename  # 相对于juicebox_dir
-                        expected_hic_absolute = os.path.join(juicebox_dir, expected_hic_basename)
-
-                        self.logger.info(f"检查可能的.hic文件名|Checking possible .hic filenames:")
-                        self.logger.info(f"  1. 相对路径(相对名)|Relative filename: {expected_hic_relative}")
-                        self.logger.info(f"  2. 绝对路径|Absolute path: {expected_hic_absolute}")
-                        self.logger.info(f"  3. assembly.hic|assembly.hic")
-                        self.logger.info(f"  4. 最终目标|Target: {hic_file}")
-
-                        # 检查文件是否存在
-                        exists_relative = os.path.exists(expected_hic_relative)
-                        exists_absolute = os.path.exists(expected_hic_absolute)
-                        exists_assembly_hic = os.path.exists("assembly.hic")
-                        exists_target = os.path.exists(hic_file)
-
-                        self.logger.info(f"文件存在状态|File existence status:")
-                        self.logger.info(f"  {expected_hic_relative}: {exists_relative}")
-                        self.logger.info(f"  {expected_hic_absolute}: {exists_absolute}")
-                        self.logger.info(f"  assembly.hic: {exists_assembly_hic}")
-                        self.logger.info(f"  {hic_file}: {exists_target}")
-
-                        if exists_relative or exists_absolute or exists_assembly_hic or exists_target:
-                            self.logger.warning(f"asm-visualizer返回码非0，但.hic文件已生成|asm-visualizer returned non-zero code, but .hic file exists")
-                            self.logger.warning(f"返回码|Return code: {result.returncode}")
-
-                            # 输出完整的stdout和stderr，方便调试
-                            if result.stdout:
-                                self.logger.info(f"标准输出完整内容|Full Stdout:")
-                                for line in result.stdout.split('\n')[-50:]:  # 最后50行
-                                    self.logger.info(f"  {line}")
-                            if result.stderr:
-                                self.logger.info(f"标准错误完整内容|Full Stderr:")
-                                for line in result.stderr.split('\n')[-50:]:  # 最后50行
-                                    self.logger.info(f"  {line}")
-                            # 继续处理，不返回False
-                        else:
-                            self.logger.error(f"生成.hic文件失败|Generating .hic file failed")
-                            self.logger.error(f"返回码|Return code: {result.returncode}")
-                            if result.stdout:
-                                self.logger.error(f"标准输出|Stdout: {result.stdout[:2000]}")
-                            if result.stderr:
-                                self.logger.error(f"标准错误|Stderr: {result.stderr[:2000]}")
-                            return False
-
-                    # asm-visualizer会生成以assembly文件名命名的.hic文件（相对路径）
-                    expected_hic_basename = os.path.basename(assembly_file).replace(".assembly", ".hic")
-                    self.logger.info(f"查找生成的.hic文件|Looking for generated .hic file: {expected_hic_basename}")
-
-                    if os.path.exists(expected_hic_basename):
-                        # 检查是否需要重命名（如果目标文件已存在且不同）
-                        if os.path.exists(hic_file) and os.path.abspath(expected_hic_basename) != os.path.abspath(hic_file):
-                            self.logger.info(f"目标文件已存在，将覆盖|Target file exists, will overwrite: {hic_file}")
-                            os.remove(hic_file)
-                        elif os.path.abspath(expected_hic_basename) == os.path.abspath(hic_file):
-                            self.logger.info(f".hic文件已在正确位置|.hic file already at correct location: {hic_file}")
-                        else:
-                            # 重命名文件
-                            self.logger.info(f"重命名.hic文件|Renaming .hic file: {expected_hic_basename} -> {hic_file}")
-                            os.rename(expected_hic_basename, hic_file)
-                            self.logger.info(f"重命名成功|Rename successful")
-                    elif os.path.exists("assembly.hic"):
-                        # 备选文件名
-                        self.logger.info(f"使用备选文件名|Using alternate filename: assembly.hic")
-                        if os.path.exists(hic_file):
-                            os.remove(hic_file)
-                        os.rename("assembly.hic", hic_file)
-                        self.logger.info(f"重命名.hic文件（备选名称）|Renamed .hic file (alternate name): assembly.hic -> {hic_file}")
-                    else:
-                        self.logger.error("未找到生成的.hic文件|Generated .hic file not found")
-                        self.logger.error(f"预期文件名|Expected filename: {expected_hic_basename}")
-                        return False
-
-                    success = True
-                    self.logger.info(f".hic文件处理成功|.hic file processing successful: {hic_file}")
-
-            finally:
-                os.chdir(original_cwd)
-
-            if not success:
+            if not self._generate_hic_file(assembly_file, sorted_mnd_file, juicebox_dir, hic_file):
                 return False
 
-            # 5. 验证输出文件
+            # 步骤5: 验证输出文件|Step 5: Verify outputs
             self.logger.info("验证Juicebox文件|Verifying Juicebox files")
-
             if not FileManager.check_file_exists(hic_file):
                 self.logger.error(f".hic文件未生成|.hic file not generated: {hic_file}")
                 return False
-
             if not FileManager.check_file_exists(assembly_file):
                 self.logger.error(f".assembly文件未生成|.assembly file not generated: {assembly_file}")
                 return False
 
-            # 获取文件大小信息
             hic_size = FileManager.get_file_size(hic_file) / (1024**2)  # MB
             assembly_size = FileManager.get_file_size(assembly_file) / 1024  # KB
-
             self.logger.info(f"Juicebox文件生成成功|Juicebox files generated successfully")
             self.logger.info(f" .hic文件大小|.hic file size: {hic_size:.2f} MB")
             self.logger.info(f" .assembly文件大小|.assembly file size: {assembly_size:.2f} KB")
@@ -716,13 +492,171 @@ class HapHiCPipeline:
             self.logger.error(f"Juicebox文件生成失败|Juicebox file generation failed: {e}")
             return False
 
+    def _resolve_filtered_bam(self) -> str:
+        """查找hic.filtered.bam,回退到原始BAM|Find hic.filtered.bam, fallback to original BAM"""
+        possible_bam_locations = [
+            os.path.join(self.step_dirs["cluster"], "hic.filtered.bam"),
+            self.config.bam_file
+        ]
+        for bam_file in possible_bam_locations:
+            if FileManager.check_file_exists(bam_file):
+                return bam_file
+        self.logger.warning("未找到hic.filtered.bam文件，使用原始BAM文件|hic.filtered.bam not found, using original BAM file")
+        return self.config.bam_file
+
+    def _ensure_mnd_file(self, juicebox_dir: str, hic_filtered_bam: str) -> Optional[str]:
+        """
+        生成或复用out.links.mnd|Generate or reuse out.links.mnd
+
+        已存在且>1MB则跳过(断点续传)|Skip if exists and >1MB (resume support)
+
+        Returns:
+            mnd文件路径或None(失败)|mnd path or None (failed)
+        """
+        mnd_file = os.path.join(juicebox_dir, "out.links.mnd")
+
+        # 已存在且足够大则跳过|Skip if exists and large enough
+        if os.path.exists(mnd_file):
+            try:
+                size = os.path.getsize(mnd_file)
+                if size > 1000000:  # 至少1MB|At least 1MB
+                    self.logger.info(f"mnd文件已存在，跳过生成|mnd file already exists: {mnd_file} ({size:,} bytes)")
+                    return mnd_file
+                self.logger.info(f"mnd文件太小，重新生成|mnd file too small, regenerating: {size:,} bytes")
+            except Exception as e:
+                self.logger.warning(f"无法检查mnd文件大小|Cannot check mnd file size: {e}")
+
+        # 生成mnd(matlock bam2 juicer)|Generate mnd (matlock bam2 juicer)
+        cmd = [self.config.matlock_bin, "bam2", "juicer", hic_filtered_bam, mnd_file]
+        if self.cmd_runner.run_command(cmd, "生成.mnd文件"):
+            return mnd_file
+        return None
+
+    def _sort_mnd_file(self, mnd_file: str, sorted_mnd_file: str) -> bool:
+        """
+        排序mnd文件(sort -k2,2 -k6,6)|Sort mnd file (sort -k2,2 -k6,6)
+
+        已存在且>1MB则跳过(断点续传);dry_run只打日志|Skip if exists and >1MB; dry_run only logs
+
+        Returns:
+            是否成功|Success
+        """
+        cmd = ["sort", "-k2,2", "-k6,6", mnd_file]
+
+        # 已存在且足够大则跳过|Skip if exists and large enough
+        if os.path.exists(sorted_mnd_file):
+            try:
+                size = os.path.getsize(sorted_mnd_file)
+                if size > 1000000:  # 至少1MB|At least 1MB
+                    self.logger.info(f"排序后的mnd文件已存在，跳过排序|sorted mnd file already exists: {sorted_mnd_file} ({size:,} bytes)")
+                    return True
+                self.logger.info(f"排序后的mnd文件太小，重新排序|sorted mnd file too small, resorting: {size:,} bytes")
+            except Exception as e:
+                self.logger.warning(f"无法检查sorted_mnd文件大小|Cannot check sorted_mnd file size: {e}")
+
+        # dry_run只打日志|Dry run only logs
+        if self.config.dry_run:
+            self.logger.info(f"[DRY RUN] {cmd[0]} {cmd[1]} > {sorted_mnd_file}")
+            return True
+
+        # 执行排序|Execute sort
+        try:
+            with open(sorted_mnd_file, 'w') as outfile:
+                result = subprocess.run(cmd, stdout=outfile, stderr=subprocess.PIPE, text=True)
+                if result.returncode != 0:
+                    self.logger.error(f"排序.mnd文件失败|Sorting .mnd file failed: {result.stderr}")
+                    return False
+            return True
+        except Exception as e:
+            self.logger.error(f"排序.mnd文件异常|Error sorting .mnd file: {e}")
+            return False
+
+    def _generate_hic_file(self, assembly_file: str, sorted_mnd_file: str, juicebox_dir: str, target_hic: str) -> bool:
+        """
+        运行asm-visualizer生成.hic并重命名到目标|Run asm-visualizer to generate .hic and rename to target
+
+        保留Java tmpdir env注入、非零返回码但.hic已生成的容错(实战经验,勿删)
+        |Keeps Java tmpdir env injection and non-zero-return-code-but-.hic-exists tolerance (battle-tested, keep)
+
+        Returns:
+            是否成功|Success
+        """
+        cmd = ["bash", self.config.asm_visualizer_script, "-p", "false", assembly_file, sorted_mnd_file]
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(juicebox_dir)
+            self.logger.info(f"切换到目录|Changed to directory: {os.getcwd()}")
+
+            if self.config.dry_run:
+                self.logger.info(f"[DRY RUN] cd {juicebox_dir} && {' '.join(cmd)}")
+                return True
+
+            # Java临时目录指向juicebox目录(避免NFS/权限问题)|Java tmpdir into juicebox dir (avoid NFS/perm issues)
+            tmp_dir = os.path.join(juicebox_dir, "tmp_java")
+            os.makedirs(tmp_dir, exist_ok=True)
+            env = os.environ.copy()
+            env["TMPDIR"] = tmp_dir
+            env["TMP"] = tmp_dir
+            env["TEMP"] = tmp_dir
+            env["JAVA_TMPDIR"] = tmp_dir
+            java_opts = env.get("_JAVA_OPTIONS", "")
+            env["_JAVA_OPTIONS"] = f"{java_opts} -Djava.io.tmpdir={tmp_dir}" if java_opts else f"-Djava.io.tmpdir={tmp_dir}"
+            self.logger.info(f"设置Java临时目录|Set Java temp directory: {tmp_dir}")
+
+            # asm-visualizer在cwd生成.hic|asm-visualizer generates .hic in cwd
+            self.logger.info("开始运行run-assembly-visualizer.sh脚本|Starting run-assembly-visualizer.sh script")
+            result = subprocess.run(cmd, capture_output=True, text=True, cwd=juicebox_dir, env=env)
+            self.logger.info(f"脚本执行完成|Script execution completed with return code: {result.returncode}")
+
+            # asm-visualizer生成的.hic以assembly文件名命名(相对);备选assembly.hic
+            # |Generated .hic named after assembly file (relative); alternate: assembly.hic
+            expected_hic_basename = os.path.basename(assembly_file).replace(".assembly", ".hic")
+            candidates = [
+                expected_hic_basename,                              # 相对名(cwd=juicebox_dir)|relative name
+                os.path.join(juicebox_dir, expected_hic_basename),  # 绝对|absolute
+                "assembly.hic"                                      # 备选名|alternate
+            ]
+            generated = next((c for c in candidates if os.path.exists(c)), None)
+
+            # 非零返回码:无任何.hic痕迹则明确失败;有则警告继续(脚本常带警告但仍成功)
+            # |Non-zero return: definite failure if no .hic trace; warn-and-continue if .hic exists
+            if result.returncode != 0:
+                if not generated and not os.path.exists(target_hic):
+                    self.logger.error(f"生成.hic文件失败|Generating .hic file failed (返回码|return code: {result.returncode})")
+                    if result.stdout:
+                        self.logger.error(f"标准输出|Stdout: {result.stdout[:2000]}")
+                    if result.stderr:
+                        self.logger.error(f"标准错误|Stderr: {result.stderr[:2000]}")
+                    return False
+                self.logger.warning(f"asm-visualizer返回码非0，但.hic文件已生成|asm-visualizer returned non-zero code, but .hic file exists (返回码|return code: {result.returncode})")
+
+            # 重命名到目标(若不在目标位置)|Rename to target if not already there
+            if generated:
+                if os.path.abspath(generated) != os.path.abspath(target_hic):
+                    self.logger.info(f"重命名.hic文件|Renaming .hic file: {generated} -> {target_hic}")
+                    if os.path.exists(target_hic):
+                        os.remove(target_hic)
+                    os.rename(generated, target_hic)
+                else:
+                    self.logger.info(f".hic文件已在正确位置|.hic file already at correct location: {target_hic}")
+                self.logger.info(f".hic文件处理成功|.hic file processing successful: {target_hic}")
+                return True
+
+            self.logger.error("未找到生成的.hic文件|Generated .hic file not found")
+            self.logger.error(f"预期文件名|Expected filename: {expected_hic_basename}")
+            return False
+        finally:
+            os.chdir(original_cwd)
+
     def get_step_status(self) -> Dict[str, bool]:
         """获取各步骤状态|Get status of each step - 兼容性方法"""
         # Pipeline模式下检查最终输出
         output_files = self.config.get_output_files()
 
         # 简化的状态检查 - 主要看scaffolds文件是否存在
-        has_scaffolds = FileManager.check_file_exists(output_files["scaffolds_fa"])
+        has_scaffolds = FileManager.check_file_exists(output_files["scaffolds_fasta"])
 
         return {
             "cluster": has_scaffolds,

@@ -150,7 +150,7 @@ def run_deeptmhmm(logger: logging.Logger, config) -> bool:
     try:
         # 不捕获输出, 让predict.py进度直接流式写到作业的.out (长任务实时可见)
         # Do not capture; let predict.py progress stream to the job's .out (visible in real time)
-        result = subprocess.run(cmd, check=False)
+        result = subprocess.run(cmd, check=False, cwd=config.deeptmhmm_dir)
 
         if result.returncode != 0:
             logger.error(

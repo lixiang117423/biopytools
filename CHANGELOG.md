@@ -1,4 +1,15 @@
 
+## [1.14.1] - 2026-07-16
+
+### Changed
+- `haphic`：工具路径（haphic/bwa/samtools/matlock/samblaster/filter_bam/3d-dna 系列）全面改用 `get_tool_path`（env>config>默认）+ `__post_init__` `_expand_tool_path` 展开（§11.3）；日志与报告落 `99_logs/`；Juicebox 生成流程重构拆分为 `_resolve_filtered_bam`/`_ensure_mnd_file`/`_sort_mnd_file`/`_generate_hic_file` 小方法；BWA/filter_bam 管道补 `LD_LIBRARY_PATH`（§13.2.1 方案A）；新增 `software_versions.yml`（§12.5）+ `00_pipeline_info`/`99_logs` 目录（§12.2.3）；调试日志 info→debug
+- `haphic`（CLI）：samblaster 默认 env 改 `haphic`、matlock 默认改完整路径 `~/miniforge3/envs/juicer_v.1.6/bin/matlock`
+
+### Fixed
+- `haphic`：`get_step_status` 用错 key `scaffolds_fa`→`scaffolds_fasta`（原 KeyError）；删除 `main.py` 冗余 `main()`（CLI 经 `HapHiCProcessor` 类入口，不依赖）
+- `chr_rename`：CLI 示例命令名 `chr_rename`→`chr-rename`（与注册命令一致）
+- `deeptmhmm`：`predict.py` 加 `cwd=deeptmhmm_dir`（相对路径依赖）
+
 ## [1.14.0] - 2026-07-16
 
 ### Added

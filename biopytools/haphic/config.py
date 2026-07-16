@@ -3,10 +3,10 @@ HapHiC配置管理模块|HapHiC Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
-from ..common.paths import expand_path, resolve_legacy_path
+from ..common.paths import expand_path, resolve_legacy_path, get_tool_path
 
 
 @dataclass
@@ -22,9 +22,21 @@ class HapHiCConfig:
     # 工具路径|Tool paths
     # 注意：默认值使用conda环境路径，遵循开发规范第13章
     # Note: Default values use conda environment paths, following development guide Chapter 13
-    haphic_bin: str = "~/miniforge3/envs/haphic/bin/haphic"
-    bwa_bin: str = "~/miniforge3/envs/Population_genetics/bin/bwa"
-    samtools_bin: str = "~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools"
+    haphic_bin: str = field(
+        default_factory=lambda: get_tool_path(
+            'haphic', '~/miniforge3/envs/haphic/bin/haphic', 'HAPHIC_PATH'
+        )
+    )
+    bwa_bin: str = field(
+        default_factory=lambda: get_tool_path(
+            'bwa', '~/miniforge3/envs/Population_genetics/bin/bwa', 'BWA_PATH'
+        )
+    )
+    samtools_bin: str = field(
+        default_factory=lambda: get_tool_path(
+            'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'
+        )
+    )
 
     # BWA参数|BWA parameters
     read1_pattern: str = "_R1.fastq.gz"
@@ -94,14 +106,38 @@ class HapHiCConfig:
 
     # Juicebox配置|Juicebox configuration
     generate_juicebox: bool = True
-    matlock_bin: str = "matlock"
-    three_d_dna_dir: str = "~/software/3d-dna"
-    agp2assembly_script: str = "~/software/3d-dna/utils/agp2assembly.py"
-    asm_visualizer_script: str = "~/software/3d-dna/visualize/run-assembly-visualizer.sh"
+    matlock_bin: str = field(
+        default_factory=lambda: get_tool_path(
+            'matlock', '~/miniforge3/envs/juicer_v.1.6/bin/matlock', 'MATLOCK_PATH'
+        )
+    )
+    three_d_dna_dir: str = field(
+        default_factory=lambda: get_tool_path(
+            'three_d_dna', '~/software/3d-dna', 'THREE_D_DNA_DIR'
+        )
+    )
+    agp2assembly_script: str = field(
+        default_factory=lambda: get_tool_path(
+            'agp2assembly', '~/software/3d-dna/utils/agp2assembly.py', 'AGP2ASSEMBLY_PATH'
+        )
+    )
+    asm_visualizer_script: str = field(
+        default_factory=lambda: get_tool_path(
+            'asm_visualizer', '~/software/3d-dna/visualize/run-assembly-visualizer.sh', 'ASM_VISUALIZER_PATH'
+        )
+    )
 
     # BWA比对配置|BWA alignment configuration
-    samblaster_bin: str = "~/miniforge3/envs/Population_genetics/bin/samblaster"
-    haphic_filter_bam_bin: str = "~/miniforge3/envs/haphic/bin/filter_bam"
+    samblaster_bin: str = field(
+        default_factory=lambda: get_tool_path(
+            'samblaster', '~/miniforge3/envs/haphic/bin/samblaster', 'SAMBLASTER_PATH'
+        )
+    )
+    haphic_filter_bam_bin: str = field(
+        default_factory=lambda: get_tool_path(
+            'filter_bam', '~/miniforge3/envs/haphic/bin/filter_bam', 'FILTER_BAM_PATH'
+        )
+    )
     use_samblaster: bool = True
     use_haphic_filter: bool = True
 
@@ -239,9 +275,9 @@ class HapHiCConfig:
         # 创建输出目录|Create output directory
         Path(self.output_dir).mkdir(parents=True, exist_ok=True)
 
-        # 设置默认日志文件|Set default log file
+        # 设置默认日志文件(落99_logs目录)|Set default log file (in 99_logs)
         if not self.log_file:
-            self.log_file = os.path.join(self.output_dir, f"{self.prefix}_haphic.log")
+            self.log_file = os.path.join(self.output_dir, "99_logs", f"{self.prefix}_haphic.log")
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
@@ -319,6 +355,17 @@ class HapHiCConfig:
         if self.min_len <= 0:
             errors.append("最小长度必须大于0|Min length must be greater than 0")
 
+        # 检查Juicebox工具(如果启用)|Check Juicebox tools (if enabled)
+        # 仅对路径(含/)做存在性检查,命令名(无/)交给conda run处理
+        # Only check existence for paths (with /); command names handled by conda run
+        if self.generate_juicebox:
+            if '/' in self.matlock_bin and not os.path.exists(self.matlock_bin):
+                errors.append(f"matlock可执行文件不存在|matlock executable not found: {self.matlock_bin}")
+            if '/' in self.agp2assembly_script and not os.path.exists(self.agp2assembly_script):
+                errors.append(f"agp2assembly脚本不存在|agp2assembly script not found: {self.agp2assembly_script}")
+            if '/' in self.asm_visualizer_script and not os.path.exists(self.asm_visualizer_script):
+                errors.append(f"asm-visualizer脚本不存在|asm-visualizer script not found: {self.asm_visualizer_script}")
+
         # 检查输出目录可写性|Check output directory writability
         try:
             test_file = os.path.join(self.output_dir, '.haphic_test')
@@ -354,72 +401,6 @@ class HapHiCConfig:
             "log_file": self.log_file
         }
 
-    def get_command_prefix(self):
-        """获取命令前缀|Get command prefix"""
-        return f"{self.haphic_bin}"
-
-    def get_common_options(self):
-        """获取通用选项|Get common options"""
-        options = []
-
-        if self.verbose:
-            options.append("--verbose")
-
-        if self.threads != 8:
-            options.extend(["--threads", str(self.threads)])
-
-        return options
-
-    def get_pipeline_options(self):
-        """获取pipeline选项|Get pipeline options"""
-        options = self.get_common_options()
-
-        # 限制性酶位点
-        if self.re_sites != "GATC":
-            options.extend(["--RE", self.re_sites])
-
-        # 组装校正
-        if self.correct_nrounds > 0:
-            options.extend(["--correct_nrounds", str(self.correct_nrounds)])
-
-        # 等位基因处理
-        if self.remove_allelic_links:
-            options.extend(["--remove_allelic_links", str(self.remove_allelic_links)])
-
-        # 分相权重
-        if self.phasing_weight != 1.0:
-            options.extend(["--phasing_weight", str(self.phasing_weight)])
-
-        # GFA文件
-        if self.gfa_files:
-            options.extend(["--gfa", self.gfa_files])
-
-        # 快速查看模式
-        if self.quick_view:
-            options.append("--quick_view")
-
-        # 聚类参数
-        if self.min_inflation != 1.1:
-            options.extend(["--min_inflation", str(self.min_inflation)])
-
-        if self.max_inflation != 3.0:
-            options.extend(["--max_inflation", str(self.max_inflation)])
-
-        if self.inflation_step != 0.1:
-            options.extend(["--inflation_step", str(self.inflation_step)])
-
-        if self.nx != 80:
-            options.extend(["--Nx", str(self.nx)])
-
-        if self.min_group_len != 5.0:
-            options.extend(["--min_group_len", str(self.min_group_len)])
-
-        # 其他选项
-        if self.processes != 8:
-            options.extend(["--processes", str(self.processes)])
-
-        return options
-
     def get_summary(self):
         """获取配置摘要|Get configuration summary"""
         return {
@@ -441,3 +422,66 @@ class HapHiCConfig:
             "bwa_bin": self.bwa_bin if self.hic_file_type == "fastq" else "N/A",
             "samtools_bin": self.samtools_bin if self.hic_file_type == "fastq" else "N/A"
         }
+
+    def get_software_info(self) -> dict:
+        """
+        获取软件版本信息|Get software version information
+
+        直调工具完整路径探测版本(不走conda run):haphic是python脚本但--version不需重依赖;
+        执行期仍由build_conda_command包装(脚本运行需env激活)。两套各司其职。
+        |Probe versions by calling tool full path directly (no conda run): haphic is a
+        python script but --version needs no heavy deps; execution still goes through
+        build_conda_command (script run needs env activation). Two mechanisms, separate roles.
+
+        Returns:
+            软件信息字典|Software information dictionary
+        """
+        import subprocess
+
+        info = {
+            'pipeline': {
+                'name': 'biopytools haphic',
+                'version': '1.0.0'
+            },
+            'tools': {},
+            'parameters': {
+                'nchrs': self.nchrs,
+                'threads': self.threads,
+                'processes': self.processes,
+                'RE': self.re_sites,
+                'correct_nrounds': self.correct_nrounds,
+                'hic_file_type': self.hic_file_type
+            }
+        }
+
+        # 检测各工具版本|Detect tool versions
+        # haphic/samtools/samblaster 用 --version;bwa/matlock 无版本子命令(落unknown)
+        # haphic/samtools/samblaster use --version; bwa/matlock have no version subcommand (unknown)
+        tools_to_check = {
+            'haphic': self.haphic_bin,
+            'bwa': self.bwa_bin,
+            'samtools': self.samtools_bin,
+            'matlock': self.matlock_bin,
+            'samblaster': self.samblaster_bin
+        }
+
+        for tool_name, tool_path in tools_to_check.items():
+            try:
+                result = subprocess.run(
+                    [tool_path, '--version'] if tool_name in ['haphic', 'samtools', 'samblaster'] else [tool_path],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                version = result.stdout.strip() or result.stderr.strip()
+                info['tools'][tool_name] = {
+                    'version': version.split('\n')[0] if version else 'unknown',
+                    'path': tool_path
+                }
+            except Exception:
+                info['tools'][tool_name] = {
+                    'version': 'unknown',
+                    'path': tool_path
+                }
+
+        return info
