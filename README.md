@@ -10,12 +10,14 @@ BioPyTools 是一个专为生物信息学研究设计的Python工具包，提供
 
 BioPyTools is a Python toolkit designed for bioinformatics research, providing a series of commonly used biological data analysis functions.
 
+> 当前版本与更新历史见 [CHANGELOG](CHANGELOG.md) | See [CHANGELOG](CHANGELOG.md) for the current version and update history.
+
 ## 系统要求 | Requirements
 
 - Python >= 3.10
-- NumPy >= 1.19.0
-- Pandas >= 1.2.0
-- Matplotlib >= 3.3.0
+- NumPy
+- Pandas
+- Matplotlib >= 3.5.0
 - pyfastx >= 0.8.4
 - scikit-learn >= 1.0.0
 - seaborn >= 0.11.0
@@ -68,9 +70,9 @@ biopytools <命令>-h    # 例如: biopytools fastp -h
 
 ## 模块文档 | Module Documentation
 
-BioPyTools 提供175+个模块，按功能分为以下类别。
+BioPyTools 提供190+个模块（运行 `biopytools` 查看全部命令），按功能分为以下类别。
 
-BioPyTools provides 175+ modules organized by functionality into the following categories.
+BioPyTools provides 190+ modules (run `biopytools` to list all commands), organized by functionality into the following categories.
 
 ### 数据下载与质控 | Data Download & QC
 
@@ -92,6 +94,7 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [hifi_hic](./docs/hifi_hic.md) - 使用HiFi和Hi-C数据进行基因组组装（`biopytools hifi-hic`）
 - [hifi_hic_workflow](./docs/hifi_hic_workflow.md) - HiFi+Hi-C基因组组装与挂载完整流程（`biopytools hifi-hic-workflow`）
 - [hifiasm](./docs/hifiasm.md) - 运行hifiasm基因组组装（`biopytools hifiasm`）
+- [mga](./docs/mga.md) - MGA共识基因组组装(HiFi)（`biopytools mga`）
 
 ### 组装评估与QC | Assembly QC
 
@@ -115,6 +118,7 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [subphaser](./docs/subphaser.md) - SubPhaser异源多倍体亚基因组分离（`biopytools subphaser`）
 - [telocomp](./docs/telocomp.md) - TeloComp端粒鉴定工具（`biopytools telocomp`）
 - [yahs](./docs/yahs.md) - YaHS Hi-C scaffolding流程（`biopytools yahs`）
+- [subgenome_assign](./docs/subgenome_assign.md) - 亚基因组归属(异源多倍体,亲本比对判定)（`biopytools subgenome-assign`）
 
 ### 基因组后处理与工具 | Polishing & Utilities
 
@@ -132,6 +136,7 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [rename_genome_id](./docs/rename_genome_id.md) - 基因组ID重命名工具（`biopytools rename-genome-id`）
 - [split_fasta_id](./docs/split_fasta_id.md) - 分割FASTA文件ID（`biopytools split-fasta-id`）
 - [subseq](./docs/subseq.md) - 序列子集提取工具（`biopytools subseq`）
+- [seq_extract](./docs/seq_extract.md) - 序列提取(seqkit封装,自动识别ID/ID文件/BED)（`biopytools seq-extract`）
 
 ### 比对与BAM处理 | Alignment & BAM
 
@@ -208,6 +213,11 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [tmhmm](./docs/tmhmm.md) - TMHMM跨膜螺旋预测（`biopytools tmhmm`）
 - [deeptmhmm](./docs/deeptmhmm.md) - DeepTMHMM跨膜螺旋/信号肽预测（`biopytools deeptmhmm`）
 - [transcript_assembly](./docs/transcript_assembly.md) - 转录本从头组装(HISAT2+StringTie)（`biopytools transcript-assembly`）
+- [ps_gene_anno](./docs/ps_gene_anno.md) - BRAKER后效应子查漏补缺(miniprot补回多拷贝/漏注)（`biopytools ps-gene-anno`）
+- [braker4ps](./docs/braker4ps.md) - braker+ps-gene-anno端到端(注释+查漏补缺)（`biopytools braker4ps`）
+- [oomycete_anno](./docs/oomycete_anno.md) - 疫霉菌基因组注释(T2T Augustus流程)（`biopytools oomycete-anno`）
+- [eggnog_mapper](./docs/eggnog_mapper.md) - eggNOG功能注释(GO/KEGG/COG/CAZy/Pfam)（`biopytools eggnog-mapper`）
+- [phobius](./docs/phobius.md) - Phobius跨膜拓扑+信号肽预测（`biopytools phobius`）
 
 ### 转座子与重复序列 | TE & Repeats
 
@@ -247,6 +257,7 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [raxml](./docs/raxml.md) - RAxML系统发育树（`biopytools raxml`）
 - [vcf2nj](./docs/vcf2nj.md) - VCF构建NJ进化树（`biopytools vcf2nj`）
 - [vcf2phylip](./docs/vcf2phylip.md) - VCF转phylip格式（`biopytools vcf2phylip`）
+- [raxml_ng](./docs/raxml-ng.md) - RAxML-NG系统发育树(最大似然,自适应模型+bootstrap)（`biopytools raxml-ng`）
 
 ### 群体遗传 | Population Genetics
 
@@ -291,6 +302,8 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [mcyc](./docs/mcyc.md) - 甲烷循环基因丰度分析工具（`biopytools mcyc`）
 - [ncbi_taxo](./docs/ncbi_taxo.md) - NCBI分类学注释工具（`biopytools ncbi-taxo`）
 - [picrust2](./docs/picrust2.md) - PICRUSt2微生物群落功能丰度预测（`biopytools picrust2`）
+- [faprotaxtax](./docs/faprotaxtax.md) - FAPROTAX微生物群落生态功能注释（`biopytools faprotaxtax`）
+- [qiime2](./docs/qiime2.md) - QIIME2微生物组多样性分析(16S/ITS,ASV/OTU)（`biopytools qiime2`）
 
 ### 甲基化 | Methylation
 
@@ -301,12 +314,14 @@ BioPyTools provides 175+ modules organized by functionality into the following c
 - [phyto_effector](./docs/phyto_effector.md) - Phytophthora效应子鉴定(rxlr/crn)（`biopytools phyto-effector`）
 - [resistify](./docs/resistify_parser.md) - Resistify NLR分析工具（`biopytools resistify`）
 - [rxlr_scanner](./docs/rxlr_scanner.md) - RxLR效应蛋白扫描工具（`biopytools rxlr-scanner`）
+- [indel_marker](./docs/indel_marker.md) - 抗病/感病INDEL共显性标记开发（`biopytools indel-marker`）
 
 ### 其他工具 | Other Utilities
 
 - [primer3](./docs/primer3.md) - Primer3引物设计工具（`biopytools primer3`）
 - [protein_stats](./docs/protein_stats.md) - Protein Stats理化性质分析工具（`biopytools protein-stats`）
 - [gene_density](./docs/gene_density.md) - 基因密度计算（每窗口基因数+基因/Mb）（`biopytools gene-density`）
+- [gene_table](./docs/gene_table.md) - 基因信息+序列合并表(基因DNA+CDS+蛋白)（`biopytools gene-table`）
 
 ## 许可证 | License
 
