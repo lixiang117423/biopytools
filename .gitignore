@@ -283,6 +283,9 @@ docs/superpowers/
 /info/
 /run.cfg
 
+# 根目录 AGAT 运行日志(gff_renamer清洗/EGAPx等输出到cwd)|root-level AGAT logs
+agat_log_*/
+
 # ==============================================================================
 # BIOPYTOOLS MODULE EXCLUSIONS
 # ==============================================================================
