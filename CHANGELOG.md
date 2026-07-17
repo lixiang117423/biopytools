@@ -1,4 +1,12 @@
 
+## [1.15.1] - 2026-07-17
+
+### Fixed
+- `longestmrna`：过滤最长转录本无 CDS 的非编码基因——保留会导致 gene_info 与蛋白输出条目数不一致；现跳过并统计（WARNING + summary 的 `noncoding_skipped`）
+
+### Changed
+- `longestmrna`：`GFF3Parser` 合并进 `CDSCalculator.calculate_from_gff`（DRY，删除冗余类）；工具路径 gffread/seqkit 改 `get_tool_path`（§11.3，支持 `GFFREAD_PATH`/`SEQKIT_PATH`）+ `build_conda_command` 传完整路径（§13.6.1）；`__init__.py` 文档导入路径 `longest_mrna`→`longestmrna`；`TempFileManager.cleanup` 末尾清空列表避免复用重复删除
+
 ## [1.15.0] - 2026-07-17
 
 ### Added

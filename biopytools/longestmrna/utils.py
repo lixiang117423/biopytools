@@ -184,3 +184,4 @@ class TempFileManager:
                     self.logger.debug(f"清理临时文件|Cleaned up temp file: {temp_file}")
             except Exception as e:
                 self.logger.warning(f"清理临时文件失败|Failed to cleanup temp file {temp_file}: {e}")
+        self.temp_files.clear()  # 清空列表,避免复用时重复删除|Clear to avoid redundant deletes on reuse

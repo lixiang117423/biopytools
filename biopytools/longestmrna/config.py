@@ -3,11 +3,11 @@
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-from ..common.paths import expand_path
+from ..common.paths import expand_path, get_tool_path
 
 @dataclass
 class LongestMRNAConfig:
@@ -21,6 +21,10 @@ class LongestMRNAConfig:
     # 可选参数|Optional parameters
     gene_info_file: Optional[str] = None  # 如果不指定，会自动生成|Auto-generated if not specified
     cds_output_file: Optional[str] = None  # CDS序列输出文件|CDS sequence output file
+
+    # 工具路径(支持 GFFREAD_PATH/SEQKIT_PATH 环境变量覆盖)|Tool paths (overridable via env)
+    gffread_path: str = field(default_factory=lambda: get_tool_path('gffread', 'gffread', 'GFFREAD_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_tool_path('seqkit', 'seqkit', 'SEQKIT_PATH'))
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
@@ -39,6 +43,10 @@ class LongestMRNAConfig:
 
         if self.cds_output_file is not None:
             self.cds_output_file = os.path.normpath(os.path.abspath(expand_path(self.cds_output_file)))
+
+        # 工具路径展开(默认裸名,可由环境变量/配置文件覆盖)|Expand tool paths
+        self.gffread_path = expand_path(self.gffread_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

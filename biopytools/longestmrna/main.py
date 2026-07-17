@@ -6,7 +6,7 @@ import argparse
 import sys
 from .config import LongestMRNAConfig
 from .utils import LongestMRNALogger, CommandRunner, TempFileManager
-from .data_processing import GFF3Parser, CDSCalculator, TranscriptProcessor, GFFGenomeAligner
+from .data_processing import CDSCalculator, GFFGenomeAligner
 from .extraction import SequenceExtractor
 from .results import GeneInfoGenerator, StatisticsCalculator, SummaryGenerator
 
@@ -26,9 +26,7 @@ class LongestMRNAExtractor:
         self.cmd_runner = CommandRunner(self.logger)
 
         # 初始化各个处理器|Initialize processors
-        self.gff3_parser = GFF3Parser(self.config.gff3_file, self.logger)
         self.cds_calculator = CDSCalculator(self.logger)
-        self.transcript_processor = TranscriptProcessor(self.logger)
         self.sequence_extractor = SequenceExtractor(self.config, self.logger, self.cmd_runner)
         self.gene_info_generator = GeneInfoGenerator(self.config, self.logger)
         self.stats_calculator = StatisticsCalculator(self.logger)
@@ -77,6 +75,14 @@ class LongestMRNAExtractor:
                 if not self.sequence_extractor.extract_cds_sequences(longest_transcripts):
                     self.logger.error("CDS序列提取失败|CDS sequence extraction failed")
                     sys.exit(1)
+
+            # 步骤5: 汇总统计|Step 5: Summary statistics
+            self.logger.info("步骤5: 生成汇总统计|Step 5: Generating summary")
+            stats = self.stats_calculator.calculate_statistics(
+                self.cds_calculator.gene_transcripts, longest_transcripts
+            )
+            stats['noncoding_skipped'] = getattr(self.cds_calculator, 'skipped_noncoding', 0)
+            self.summary_generator.print_summary(stats)
 
             self.logger.info("最长转录本提取流程完成|Longest mRNA extraction pipeline completed successfully")
 

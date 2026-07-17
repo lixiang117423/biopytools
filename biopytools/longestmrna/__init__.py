@@ -7,7 +7,7 @@ Features: Extract longest mRNA transcript sequences from genome and GFF3 annotat
 日期|Date: 2025-07-16
 
 使用示例|Usage Examples:
-    from biopytools.longest_mrna import LongestMRNAExtractor, LongestMRNAConfig
+    from biopytools.longestmrna import LongestMRNAExtractor, LongestMRNAConfig
     
     # 创建提取器|Create extractor
     extractor = LongestMRNAExtractor(

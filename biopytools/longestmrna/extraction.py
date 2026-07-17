@@ -40,11 +40,11 @@ class SequenceExtractor:
                     '-g', self.config.genome_file,
                     gffread_flag, seq_file.name
                 ]
-                gffread_cmd = build_conda_command('gffread', gffread_args)
+                gffread_cmd = build_conda_command(self.config.gffread_path, gffread_args)
                 self.cmd_runner.run(gffread_cmd, f"使用gffread生成{seq_type}序列|Generate {seq_type} sequences using gffread")
 
             seqkit_args = ['grep', '-f', temp_id_path, seq_file.name, '-o', output_file]
-            seqkit_cmd = build_conda_command('seqkit', seqkit_args)
+            seqkit_cmd = build_conda_command(self.config.seqkit_path, seqkit_args)
             result = self.cmd_runner.run(seqkit_cmd, f"使用seqkit筛选最长转录本{seq_type}序列|Filter longest transcript {seq_type} sequences using seqkit")
 
             if result.returncode == 0:

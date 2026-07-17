@@ -88,6 +88,8 @@ class SummaryGenerator:
         self.logger.info(f"多转录本基因数|Genes with multiple transcripts: {stats['multi_isoform_genes']}")
         self.logger.info(f"平均转录本长度|Average transcript length: {stats['avg_length']:.2f}")
         self.logger.info(f"提取的最长转录本数|Longest transcripts extracted: {stats['longest_transcripts_count']}")
+        if stats.get('noncoding_skipped', 0):
+            self.logger.info(f"跳过的无CDS基因数|Non-coding genes skipped (no CDS): {stats['noncoding_skipped']}")
         self.logger.info(f"输出文件|Output files:")
         self.logger.info(f"  - 蛋白质序列文件|Protein sequences: {self.config.output_file}")
         self.logger.info(f"  - 基因信息文件|Gene info: {self.config.gene_info_file}")

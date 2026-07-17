@@ -146,67 +146,6 @@ class GFFGenomeAligner:
         return temp_path
 
 
-class GFF3Parser:
-    """GFF3文件解析器|GFF3 File Parser"""
-
-    def __init__(self, gff3_path: str, logger):
-        self.gff3_path = gff3_path
-        self.logger = logger
-        self.transcripts = defaultdict(list)
-
-    def parse_attributes(self, attr_string: str) -> Dict[str, str]:
-        """解析GFF3属性字符串|Parse GFF3 attributes string"""
-        attributes = {}
-        for item in attr_string.split(';'):
-            if '=' in item:
-                key, value = item.split('=', 1)
-                attributes[key] = value
-        return attributes
-
-    def parse(self) -> Dict[str, List[Dict[str, Any]]]:
-        """解析GFF3文件|Parse GFF3 file"""
-        self.logger.info(f"解析GFF3文件|Parsing GFF3 file: {self.gff3_path}")
-
-        with open(self.gff3_path, 'r', encoding='utf-8') as f:
-            for line_num, line in enumerate(f, 1):
-                line = line.strip()
-                if not line or line.startswith('#'):
-                    continue
-
-                fields = line.split('\t')
-                if len(fields) < 9:
-                    self.logger.warning(f"行 {line_num} 格式不正确，跳过|Line {line_num} has incorrect format, skipping")
-                    continue
-
-                feature_type = fields[2]
-                attributes = self.parse_attributes(fields[8])
-
-                if feature_type == 'mRNA':
-                    parent_gene = attributes.get('Parent', '').split(':')[-1]
-                    transcript_info = {
-                        'transcript_id': attributes.get('ID', '').split(':')[-1],
-                        'start': int(fields[3]),
-                        'end': int(fields[4]),
-                        'strand': fields[6],
-                        'chrom': fields[0],
-                        'exons': []
-                    }
-                    self.transcripts[parent_gene].append(transcript_info)
-
-                elif feature_type == 'exon':
-                    parent_transcript = attributes.get('Parent', '').split(':')[-1]
-                    exon_info = (int(fields[3]), int(fields[4]))
-
-                    # 找到对应的转录本并添加外显子信息|Find corresponding transcript and add exon info
-                    for gene_transcripts in self.transcripts.values():
-                        for transcript in gene_transcripts:
-                            if transcript['transcript_id'] == parent_transcript:
-                                transcript['exons'].append(exon_info)
-                                break
-
-        self.logger.info(f"解析完成，找到 {len(self.transcripts)} 个基因|Parsing completed, found {len(self.transcripts)} genes")
-        return dict(self.transcripts)
-
 class CDSCalculator:
     """CDS长度计算器|CDS Length Calculator"""
 
@@ -278,8 +217,32 @@ class CDSCalculator:
                 )
                 longest_transcripts[gene_id] = longest_transcript
 
-        self.logger.info(f"找到 {len(longest_transcripts)} 个基因的最长转录本|Found longest transcripts for {len(longest_transcripts)} genes")
-        return longest_transcripts
+        # 暴露全量转录本分组,供统计多转录本基因数使用|Expose full grouping for multi-isoform stats
+        self.gene_transcripts = gene_transcripts
+
+        # 过滤掉最长转录本无CDS(长度0)的基因:它们没有蛋白可提取,
+        # 保留会导致 gene_info 与蛋白输出条目数不一致
+        # Drop genes whose longest transcript has 0 CDS length (non-coding): no protein to
+        # extract; keeping them would make gene_info inconsistent with the protein output
+        coding_longest = {}
+        skipped_noncoding = 0
+        for gene_id, lt in longest_transcripts.items():
+            if self.transcript_lengths.get(lt['id'], 0) > 0:
+                coding_longest[gene_id] = lt
+            else:
+                skipped_noncoding += 1
+        self.skipped_noncoding = skipped_noncoding
+
+        if skipped_noncoding:
+            self.logger.warning(
+                f"{skipped_noncoding} 个基因的最长转录本无CDS(非编码),已跳过,不进入gene_info与蛋白输出|"
+                f"{skipped_noncoding} genes have no CDS (non-coding), skipped from gene_info and protein output"
+            )
+        self.logger.info(
+            f"找到 {len(coding_longest)} 个基因的最长转录本(另有 {skipped_noncoding} 个无CDS已跳过)|"
+            f"Found longest transcripts for {len(coding_longest)} genes ({skipped_noncoding} non-coding skipped)"
+        )
+        return coding_longest
 
 class TranscriptProcessor:
     """转录本处理器|Transcript Processor"""
