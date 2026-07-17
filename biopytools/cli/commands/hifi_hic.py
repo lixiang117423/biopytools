@@ -39,7 +39,7 @@ def _lazy_import_assembler_main():
               show_default=True,
               help='样本前缀|Sample prefix')
 @click.option('--threads', '-t',
-              default=12,
+              default=88,
               type=int,
               show_default=True,
               help='线程数|Number of threads')
@@ -106,17 +106,10 @@ def _lazy_import_assembler_main():
               is_flag=True,
               default=False,
               help='禁用断点续传（强制重新运行所有步骤）|Disable resume mode (force rerun all steps)')
-@click.option('--resume',
-              is_flag=True,
-              default=False,
-              help='启用断点续传（默认已启用）|Enable resume mode (enabled by default)')
-@click.option('--verbose', '-v',
-              is_flag=True,
-              help='详细输出模式|Verbose output mode')
 def hifi_hic(hifi, hic_r1, hic_r2, prefix, threads, genome_size,
              n_hap, purge_level, hom_cov, output, ngs, ngs_pattern, high_cov, medium_cov_min,
              no_purge_dups, purge_dups_path, purge_dups_threads, purge_dups_read_type,
-             no_resume, resume, verbose):
+             no_resume):
     """
     HiFi基因组组装流程|HiFi Genome Assembly Pipeline
 
@@ -193,12 +186,6 @@ def hifi_hic(hifi, hic_r1, hic_r2, prefix, threads, genome_size,
     # 断点续传参数|Resume parameters
     if no_resume:
         args.append('--no-resume')
-
-    if resume:
-        args.append('--resume')
-
-    if verbose:
-        args.append('--verbose')
 
     # 保存并恢复sys.argv|Save and restore sys.argv
     original_argv = sys.argv

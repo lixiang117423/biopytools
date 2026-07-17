@@ -6,7 +6,7 @@ import os
 import glob
 from pathlib import Path
 
-from .utils import run_command, generate_contig_reads_map_from_gfa
+from .utils import run_shell_command, generate_contig_reads_map_from_gfa, get_fasta_stats
 
 class HifiasmAssembler:
     """Hifiasm组装器|Hifiasm Assembler"""
@@ -26,43 +26,36 @@ class HifiasmAssembler:
             self.logger.info("运行hifiasm组装(仅HiFi模式)|Running hifiasm assembly (HiFi only mode)")
             mode_str = "HiFi only"
 
-        # 构建hifiasm命令|Build hifiasm command
-        cmd_parts = [
-            "hifiasm",
-            f"-o {self.config.prefix}",
-            f"-t {self.config.threads}",
-            f"--hg-size {self.config.genome_size}",
-            f"--n-hap {self.config.n_hap}",
+        # 构建hifiasm命令参数(list形式)|Build hifiasm command args (list)
+        cmd_args = [
+            "-o", self.config.prefix,
+            "-t", str(self.config.threads),
+            "--hg-size", self.config.genome_size,
+            "--n-hap", str(self.config.n_hap),
         ]
 
-        # 如果有Hi-C数据，添加Hi-C参数|Add Hi-C parameters if Hi-C data is available
+        # 如果有Hi-C数据，添加Hi-C参数|Add Hi-C parameters if Hi-C data available
         if self.config.has_hic:
-            cmd_parts.extend([
-                f"--h1 {self.config.hic_r1}",
-                f"--h2 {self.config.hic_r2}",
-            ])
+            cmd_args.extend(["--h1", self.config.hic_r1, "--h2", self.config.hic_r2])
 
         # 添加 purge level 参数|Add purge level parameter
         if self.config.purge_level is not None:
-            cmd_parts.append(f"-l {self.config.purge_level}")
+            cmd_args.extend(["-l", str(self.config.purge_level)])
 
         # 添加 hom_cov 参数|Add homozygous coverage parameter
         if self.config.hom_cov is not None:
-            cmd_parts.append(f"--hom-cov {self.config.hom_cov}")
+            cmd_args.extend(["--hom-cov", str(self.config.hom_cov)])
 
-        cmd_parts.append(self.config.hifi_data)
+        cmd_args.append(self.config.hifi_data)
 
-        cmd = " ".join(cmd_parts)
-
-        # 执行命令并记录日志|Execute command and log
+        # hifiasm|tee:跨env管道(hifiasm conda + tee系统),完整路径+LD_LIBRARY_PATH(§13.2.1)
+        # |hifiasm|tee: cross-env pipeline, full path + LD_LIBRARY_PATH (§13.2.1)
         log_file = os.path.join(self.config.log_dir, "hifiasm_assembly.log")
-        full_cmd = f"{cmd} 2>&1|tee {log_file}"
+        shell_cmd = f"{self.config.hifiasm_path} {' '.join(cmd_args)} 2>&1 | tee {log_file}"
 
-        success = run_command(
-            full_cmd,
-            self.logger,
-            work_dir=self.config.raw_dir,
-            capture_output=False
+        success = run_shell_command(
+            shell_cmd, [self.config.hifiasm_path],
+            self.logger, work_dir=self.config.raw_dir
         )
 
         if success:
@@ -113,6 +106,12 @@ class HifiasmAssembler:
             gfa_path = os.path.join(self.config.raw_dir, gfa_file)
             fasta_path = os.path.join(self.config.fasta_dir, fasta_name)
 
+            # 断点续传:fasta已存在则跳过转换只统计(§10.2)|Resume: skip conversion if fasta exists
+            if os.path.exists(fasta_path) and os.path.getsize(fasta_path) > 0:
+                self.logger.info(f"FASTA已存在，跳过转换|FASTA exists, skipping conversion: {fasta_name}")
+                results[fasta_name] = self._get_fasta_summary(fasta_path)
+                continue
+
             # 如果标准文件名不存在，尝试带有.bp.前缀的文件名
             # If standard filename doesn't exist, try filename with .bp. prefix
             if not os.path.exists(gfa_path):
@@ -131,10 +130,11 @@ class HifiasmAssembler:
             if os.path.exists(gfa_path):
                 self.logger.info(f"转换|Converting: {gfa_file} -> {fasta_name}")
 
-                # 使用awk转换并用seqkit格式化序列行|Convert using awk and format with seqkit
-                cmd = f"""awk '/^S/{{print ">"$2; print $3}}' {gfa_path} | seqkit seq -w 60 - > {fasta_path}"""
+                # 使用awk转换并用seqkit格式化序列行(跨env管道:awk系统+seqkit conda)
+                # |Convert using awk and format with seqkit (cross-env: awk system + seqkit conda)
+                shell_cmd = f"""awk '/^S/{{print ">"$2; print $3}}' {gfa_path} | {self.config.seqkit_path} seq -w 60 - > {fasta_path}"""
 
-                if run_command(cmd, self.logger):
+                if run_shell_command(shell_cmd, [self.config.seqkit_path], self.logger):
                     stats = self._get_fasta_summary(fasta_path)
                     results[fasta_name] = stats
                     self.logger.info(f"转换成功|Successfully converted: {fasta_name}")
@@ -148,21 +148,8 @@ class HifiasmAssembler:
         return results
     
     def _get_fasta_summary(self, fasta_file: str) -> dict:
-        """获取FASTA文件摘要|Get FASTA file summary"""
-        if not os.path.exists(fasta_file):
-            return {}
-
-        # 使用shell命令快速统计|Use shell commands for quick statistics
-        cmd = f"""grep -c "^>" {fasta_file}"""
-        num_seqs = os.popen(cmd).read().strip()
-
-        cmd = f"""awk '/^>/{{next}}{{sum+=length($0)}}END{{print sum}}' {fasta_file}"""
-        total_len = os.popen(cmd).read().strip()
-
-        return {
-            'num_seqs': int(num_seqs) if num_seqs else 0,
-            'total_len': int(total_len) if total_len else 0
-        }
+        """获取FASTA文件摘要(Python原生统计,替代os.popen)|Get FASTA summary (native Python)"""
+        return get_fasta_stats(fasta_file)
 
     def generate_contig_reads_mapping(self) -> bool:
         """

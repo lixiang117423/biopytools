@@ -6,10 +6,10 @@ Use second-generation data to filter high-quality HiFi reads and reassemble
 """
 
 import os
-import subprocess
 from pathlib import Path
 
 from ..common.paths import resolve_legacy_path
+from .utils import run_command, run_shell_command
 
 
 class NGSPolisher:
@@ -162,16 +162,17 @@ class NGSPolisher:
                 merged_bam = os.path.join(bam_dir, f"{self.config.prefix}.merged.bam")
                 self.logger.info(f"发现{len(bam_files)}个BAM文件，正在合并|Found {len(bam_files)} BAM files, merging...")
 
-                # 使用samtools merge合并|Merge using samtools merge
+                # 使用samtools merge合并(同env管道GATK,完整路径+LD_LIBRARY_PATH,§13.2.1)
+                # |Merge using samtools merge (same env GATK pipeline, full path + LD_LIBRARY_PATH)
+                samtools = self.config.samtools_path
                 bam_list = " ".join(bam_files)
-                cmd = f"samtools merge -@ {self.config.threads} - {bam_list} | samtools sort -@ {self.config.threads} -o {merged_bam}"
-                if not self._run_command(cmd):
+                shell_cmd = f"{samtools} merge -@ {self.config.threads} - {bam_list} | {samtools} sort -@ {self.config.threads} -o {merged_bam}"
+                if not run_shell_command(shell_cmd, [samtools], self.logger):
                     self.logger.error("BAM文件合并失败|Failed to merge BAM files")
                     return None
 
-                # 构建索引|Build index
-                cmd = f"samtools index -@ {self.config.threads} {merged_bam}"
-                if not self._run_command(cmd):
+                # 构建索引(单命令,conda包装)|Build index (single command, conda wrapped)
+                if not run_command([samtools, 'index', '-@', str(self.config.threads), merged_bam], self.logger):
                     self.logger.error("合并BAM索引构建失败|Failed to index merged BAM")
                     return None
 
@@ -249,22 +250,34 @@ class NGSPolisher:
                 self.logger.error(f"Contig-reads映射文件不存在|Contig-reads mapping file not found: {mapping_file}")
                 return None
 
-            # 从映射文件中提取read names|Extract read names from mapping file
+            # 从映射文件中提取read names(Python原生,替代grep|cut)|Extract read names (native Python)
             self.logger.info(f"从contig-reads映射中提取read names|Extracting read names from contig-reads mapping")
-            cmd = f"grep -Fwf {high_quality_list} {mapping_file} | cut -f2 > {read_names_file}"
-            if not self._run_command(cmd):
+            try:
+                with open(high_quality_list) as f:
+                    hq_contigs = set(line.strip() for line in f if line.strip())
+                read_names = []
+                with open(mapping_file) as f:
+                    for line in f:
+                        parts = line.rstrip('\n').split('\t')
+                        if len(parts) >= 2 and parts[0] in hq_contigs:
+                            read_names.append(parts[1])
+                with open(read_names_file, 'w') as f:
+                    f.write('\n'.join(read_names) + ('\n' if read_names else ''))
+            except Exception as e:
+                self.logger.error(f"提取read names失败|Failed to extract read names: {e}")
                 return None
 
-            # 统计read数量|Count reads
-            read_count = subprocess.check_output(f"wc -l {read_names_file}", shell=True).decode().strip().split()[0]
+            # 统计read数量(Python原生,替代wc -l)|Count reads (native Python)
+            with open(read_names_file) as f:
+                read_count = sum(1 for _ in f)
             self.logger.info(f"找到|Found {read_count} 个高质量reads|high-quality reads")
 
-            # 使用seqkit提取reads|Extract reads using seqkit
+            # 使用seqkit提取reads(conda包装)|Extract reads using seqkit (conda wrapped)
             self.logger.info(f"使用seqkit提取reads|Extracting reads using seqkit")
-            # 使用多线程加速|Use multithreading to speed up
-            # cmd = f"seqkit grep -n -f {read_names_file} {self.config.hifi_data} -j {self.config.threads} -o {filtered_reads}"
-            cmd = f"seqkit grep -f {read_names_file} {self.config.hifi_data} -j {self.config.threads} -o {filtered_reads}"
-            if not self._run_command(cmd):
+            if not run_command([
+                self.config.seqkit_path, 'grep', '-f', read_names_file,
+                self.config.hifi_data, '-j', str(self.config.threads), '-o', filtered_reads
+            ], self.logger):
                 return None
 
             # 检查输出文件|Check output file
@@ -367,31 +380,3 @@ class NGSPolisher:
 
         self.logger.info(f"共生成|Total generated: {len(existing_files)}/{len(fasta_files)} 个FASTA文件")
         self.logger.info(f"文件位置|Files location: {reassembly_fasta_dir}")
-
-    def _run_command(self, cmd):
-        """
-        执行命令|Run command
-
-        Args:
-            cmd: 命令字符串|Command string
-
-        Returns:
-            bool: 是否成功|Whether successful
-        """
-        try:
-            self.logger.info(f"执行命令|Executing: {cmd}")
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                check=True,
-                capture_output=True,
-                text=True
-            )
-            if result.stdout:
-                self.logger.info(result.stdout.strip())
-            return True
-        except subprocess.CalledProcessError as e:
-            self.logger.error(f"命令执行失败|Command failed: {e}")
-            if e.stderr:
-                self.logger.error(f"错误信息|Error: {e.stderr}")
-            return False

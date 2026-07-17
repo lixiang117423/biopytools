@@ -4,9 +4,9 @@
 
 import os
 import glob
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
-from ..common.paths import expand_path, resolve_legacy_path, resolve_legacy_path_chain
+from ..common.paths import expand_path, resolve_legacy_path, resolve_legacy_path_chain, get_tool_path
 
 @dataclass
 class AssemblyConfig:
@@ -43,9 +43,19 @@ class AssemblyConfig:
 
     # Purge_Dups去冗余参数|Purge_Dups deduplication parameters
     enable_purge_dups: bool = True  # 是否启用去冗余（默认启用）|Whether to enable deduplication (enabled by default)
-    purge_dups_path: str = '~/miniforge3/envs/purge_dups_v.1.2.6'  # Purge_Dups软件路径|Purge_Dups software path
+    purge_dups_path: str = '~/miniforge3/envs/purge_dups_v.1.2.6'  # Purge_Dups软件路径(目录)|Purge_Dups software path (directory)
     purge_dups_threads: int = None  # 去冗余线程数（默认使用assembly的threads）|Deduplication threads (default: use assembly threads)
     purge_dups_read_type: str = 'hifi'  # 去冗余reads类型|Deduplication reads type
+
+    # 组装工具路径(conda env,§11.2 get_tool_path优先级)|Assembly tool paths
+    # hifiasm env独占;seqkit/samtools各处一env(跨env管道见assembler/ngs_polisher)
+    # |hifiasm env exclusive; seqkit/samtools in separate envs (cross-env pipelines in assembler/ngs_polisher)
+    hifiasm_path: str = field(default_factory=lambda: get_tool_path(
+        'hifiasm', '~/miniforge3/envs/hifiasm_v.0.25.0/bin/hifiasm', 'HIFIASM_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_tool_path(
+        'seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH'))
+    samtools_path: str = field(default_factory=lambda: get_tool_path(
+        'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))
 
     # 内部属性|Internal attributes
     work_dir: str = None
@@ -63,6 +73,9 @@ class AssemblyConfig:
         """初始化后处理|Post-initialization processing"""
         # 展开工具路径|Expand tool paths
         self.purge_dups_path = expand_path(self.purge_dups_path)
+        self.hifiasm_path = expand_path(self.hifiasm_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
+        self.samtools_path = expand_path(self.samtools_path)
 
         self.base_dir = os.path.normpath(os.path.abspath(self.base_dir))
         self.work_dir = os.path.join(self.base_dir, self.prefix)
@@ -94,8 +107,8 @@ class AssemblyConfig:
         self.fasta_dir = resolve_legacy_path(self.work_dir, "02_fasta")
         self.ngs_polish_dir = resolve_legacy_path(self.work_dir, "03_ngs_polish")  # 仅在有NGS时创建|Only created when has NGS
         self.purge_dups_dir = resolve_legacy_path(self.work_dir, "04_purge_dups")  # 去冗余目录|Deduplication directory
-        self.stat_dir = resolve_legacy_path(self.work_dir, "05_statistics")  # 统计目录（编号后移）|Statistics directory (number shifted)
-        self.log_dir = resolve_legacy_path(self.work_dir, "06_logs")  # 日志目录（编号后移）|Logs directory (number shifted)
+        self.stat_dir = resolve_legacy_path(self.work_dir, "00_pipeline_info")  # 流程元数据(原05_statistics)|Pipeline metadata (was 05_statistics)
+        self.log_dir = resolve_legacy_path(self.work_dir, "99_logs")  # 日志目录(原06_logs,§12.2.3)|Logs directory (was 06_logs, §12.2.3)
 
         # 创建目录结构|Create directory structure
         dirs_to_create = [self.work_dir, self.raw_dir, self.fasta_dir, self.stat_dir, self.log_dir]
@@ -113,43 +126,78 @@ class AssemblyConfig:
 
         # 检查输入文件|Check input files
         if not os.path.exists(self.hifi_data):
-            errors.append(f" HiFi文件不存在|HiFi file not found: {self.hifi_data}")
+            errors.append(f"HiFi文件不存在|HiFi file not found: {self.hifi_data}")
 
         # 仅当有Hi-C数据时检查Hi-C文件|Check Hi-C files only when Hi-C data is provided
         if self.has_hic:
             if not os.path.exists(self.hic_r1):
-                errors.append(f" Hi-C R1文件不存在|Hi-C R1 file not found: {self.hic_r1}")
+                errors.append(f"Hi-C R1文件不存在|Hi-C R1 file not found: {self.hic_r1}")
 
             if not os.path.exists(self.hic_r2):
-                errors.append(f" Hi-C R2文件不存在|Hi-C R2 file not found: {self.hic_r2}")
+                errors.append(f"Hi-C R2文件不存在|Hi-C R2 file not found: {self.hic_r2}")
 
         # 检查NGS数据目录|Check NGS data directory
         if self.has_ngs:
             if not os.path.exists(self.ngs_data):
-                errors.append(f" NGS数据目录不存在|NGS data directory not found: {self.ngs_data}")
+                errors.append(f"NGS数据目录不存在|NGS data directory not found: {self.ngs_data}")
             if not os.path.isdir(self.ngs_data):
-                errors.append(f" NGS数据路径不是目录|NGS data path is not a directory: {self.ngs_data}")
+                errors.append(f"NGS数据路径不是目录|NGS data path is not a directory: {self.ngs_data}")
 
         # 检查参数范围|Check parameter ranges
         if self.threads <= 0:
-            errors.append(f" 线程数必须为正整数|Threads must be positive: {self.threads}")
+            errors.append(f"线程数必须为正整数|Threads must be positive: {self.threads}")
 
         if self.n_hap <= 0:
-            errors.append(f" 倍性必须为正整数|Ploidy must be positive: {self.n_hap}")
+            errors.append(f"倍性必须为正整数|Ploidy must be positive: {self.n_hap}")
 
         if not self.genome_size.lower().endswith(('g', 'm', 'k')):
-            errors.append(f" 基因组大小格式错误|Genome size format error: {self.genome_size}")
+            errors.append(f"基因组大小格式错误|Genome size format error: {self.genome_size}")
 
         if self.has_ngs and (self.high_cov <= 0 or self.high_cov > 100):
-            errors.append(f" 高质量覆盖度阈值必须在0-100之间|High coverage threshold must be between 0-100: {self.high_cov}")
+            errors.append(f"高质量覆盖度阈值必须在0-100之间|High coverage threshold must be between 0-100: {self.high_cov}")
 
         if self.has_ngs and (self.medium_cov_min < 0 or self.medium_cov_min >= self.high_cov):
-            errors.append(f" 中等质量覆盖度最小值必须在0-{self.high_cov}之间|Medium coverage minimum must be between 0-{self.high_cov}: {self.medium_cov_min}")
+            errors.append(f"中等质量覆盖度最小值必须在0-{self.high_cov}之间|Medium coverage minimum must be between 0-{self.high_cov}: {self.medium_cov_min}")
 
         if errors:
             raise ValueError("\n".join(errors))
 
         return True
+
+    def get_software_info(self) -> dict:
+        """
+        获取软件版本信息(直调不conda run;执行期conda包装各司其职,参考haphic)
+        |Get software version info (direct call; execution uses conda wrapping, see haphic)
+        """
+        import subprocess
+        info = {
+            'pipeline': {'name': 'biopytools hifi_hic', 'version': '1.0.0'},
+            'tools': {},
+            'parameters': {
+                'prefix': self.prefix, 'threads': self.threads,
+                'genome_size': self.genome_size, 'n_hap': self.n_hap,
+                'has_hic': self.has_hic, 'has_ngs': self.has_ngs,
+                'has_purge_dups': self.has_purge_dups,
+            }
+        }
+        tools_to_check = {
+            'hifiasm': self.hifiasm_path,
+            'seqkit': self.seqkit_path,
+            'samtools': self.samtools_path,
+        }
+        for tool_name, tool_path in tools_to_check.items():
+            # hifiasm用-V,seqkit/samtools用--version|hifiasm uses -V, others --version
+            flag = ['-V'] if tool_name == 'hifiasm' else ['--version']
+            try:
+                result = subprocess.run([tool_path] + flag, capture_output=True, text=True, timeout=5)
+                version = result.stdout.strip() or result.stderr.strip()
+                info['tools'][tool_name] = {
+                    'version': version.split('\n')[0] if version else 'unknown',
+                    'path': tool_path
+                }
+            except Exception:
+                info['tools'][tool_name] = {'version': 'unknown', 'path': tool_path}
+        return info
 
     def get_completed_steps(self) -> dict:
         """

@@ -84,7 +84,7 @@ class ReportGenerator:
             f.write(f"统计文件|Statistics: {self.config.stat_dir}\n")
             f.write("=" * 80 + "\n")
         
-        self.logger.info(f" 统计报告已生成|Statistics report generated: {report_file}")
+        self.logger.info(f"统计报告已生成|Statistics report generated: {report_file}")
     
     def _build_file_tree(self) -> str:
         """

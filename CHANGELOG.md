@@ -1,4 +1,13 @@
 
+## [1.14.2] - 2026-07-17
+
+### Changed
+- `hifi_hic`：命令执行统一走 conda 包装（§13）——单命令 `run_command`(list+shell=False)、shell 命令 `run_shell_command`(shell+LD_LIBRARY_PATH，含 tee/awk/重定向)、管道 `run_pipeline_command`(剥 conda run+LD_LIBRARY_PATH)；`assembler`/`ngs_polisher` 的 hifiasm|tee、awk|seqkit、samtools merge|sort 跨 env 管道改完整路径+LD_LIBRARY_PATH（§13.2.1）；工具路径(hifiasm/seqkit/samtools)改 `get_tool_path`+`__post_init__` expand（§11.3）；日志改命名 logger + stdout/stderr/file 三 handler 分离（§2.3）；目录 `05_statistics`→`00_pipeline_info`、`06_logs`→`99_logs`（§12）；新增 `software_versions.yml`（§12.5）；CLI threads 默认 12→88，移除冗余 `--resume`/`--verbose`
+- `hifi_hic`：`_get_fasta_summary`/read names 提取/`wc -l` 改 Python 原生（移除 `os.popen`/grep|cut/wc 管道）；`purge_dups_wrapper` 抽出 `_find_purged_output`(DRY)+异常改 `exc_info=True`
+
+### Fixed
+- `hifi_hic`：`assembler`/`purge_dups_wrapper` 新增断点续传（fasta/去冗余输出已存在则跳过，§10.2）；错误消息前导空格清理
+
 ## [1.14.1] - 2026-07-16
 
 ### Changed

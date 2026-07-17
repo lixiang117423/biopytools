@@ -10,7 +10,7 @@ from datetime import datetime
 
 from .config import AssemblyConfig
 from .logger import AssemblyLogger
-from .utils import check_dependencies
+from .utils import check_dependencies, generate_software_versions_yml
 from .assembler import HifiasmAssembler
 from .report import ReportGenerator
 from .ngs_polisher import NGSPolisher
@@ -55,7 +55,14 @@ class GenomeAssembler:
             self.logger.info("=" * 80)
 
             # 1. 检查依赖|Check dependencies
-            check_dependencies(self.logger)
+            check_dependencies(self.logger, self.config.hifiasm_path)
+
+            # 生成软件版本信息(§12.5)|Generate software version info (§12.5)
+            generate_software_versions_yml(
+                self.config,
+                os.path.join(self.config.stat_dir, "software_versions.yml"),
+                self.logger
+            )
 
             # 2. 显示配置信息|Display configuration
             self._print_config()
@@ -320,9 +327,6 @@ def main():
     parser.add_argument('--no-resume',
                        action='store_true',
                        help='禁用断点续传（强制重新运行所有步骤）|Disable resume mode (force rerun all steps)')
-    parser.add_argument('--resume',
-                       action='store_true',
-                       help='启用断点续传（默认已启用）|Enable resume mode (enabled by default)')
 
     args = parser.parse_args()
 
