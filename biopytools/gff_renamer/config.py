@@ -37,7 +37,13 @@ class GFFRenamerConfig:
     # 新增参数|New parameters
     chr_mapping_file: Optional[str] = None  # 染色体映射文件路径|Chromosome mapping file path
     naming_format: str = "standard"  # 命名格式|Naming format (standard/simple/compact)
-    include_utr: bool = False  # 是否包含UTR特征|Whether to include UTR features
+    include_utr: bool = False  # 是否包含UTR特征|Whether to include UTR features (现仅影响UTR重排序/Name清理,UTR总会被重编号|now only affects UTR reordering/Name-strip; UTRs are always renumbered)
+    # 默认开启:对含有mRNA的基因,丢弃其冗余 transcript(misc_RNA 变体)及其子特征;
+    # 仅含 transcript 的基因(无mRNA)保留。典型场景:NCBI/Gnomon EGAPx 注释。
+    # Default on: for genes that have mRNA, drop their redundant `transcript`
+    # (misc_RNA variants) and the children of those transcripts; transcript-only
+    # genes are kept. Typical use: NCBI/Gnomon EGAPx annotations.
+    prefer_mrna: bool = True
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""

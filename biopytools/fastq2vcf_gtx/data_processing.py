@@ -13,6 +13,17 @@ from .utils import CommandRunner, FileManager, CheckpointManager, Fastq2VcfGTXLo
 from ..common.paths import resolve_legacy_path
 
 
+def _checkpoint_manager(config, logger) -> CheckpointManager:
+    """
+    构造模块共用的检查点管理器|Build the shared checkpoint manager
+
+    路径固定为 output_dir/00_pipeline_info/checkpoints,集中管理避免各处重复构造
+    |Fixed path output_dir/00_pipeline_info/checkpoints, centralizes construction
+    """
+    checkpoint_dir = os.path.join(config.output_dir, "00_pipeline_info", "checkpoints")
+    return CheckpointManager(checkpoint_dir, logger)
+
+
 class QualityController:
     """质控处理器|Quality Control Processor"""
 
@@ -25,10 +36,7 @@ class QualityController:
         """运行质量控制|Run quality control"""
         step_name = "quality_control"
 
-        if self.config.enable_checkpoint and CheckpointManager(
-            os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-            self.logger
-        ).exists(step_name):
+        if self.config.enable_checkpoint and _checkpoint_manager(self.config, self.logger).exists(step_name):
             self.logger.info("检查点已存在，跳过质控|Checkpoint exists, skipping QC")
             return True
 
@@ -74,11 +82,7 @@ class QualityController:
 
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
-                checkpoint_mgr = CheckpointManager(
-                    os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-                    self.logger
-                )
-                checkpoint_mgr.create(step_name)
+                _checkpoint_manager(self.config, self.logger).create(step_name)
         else:
             self.logger.error("质控处理失败|QC processing failed")
 
@@ -94,100 +98,90 @@ class GenomeIndexer:
         self.cmd_runner = cmd_runner
 
     def build_genome_index(self) -> bool:
-        """构建基因组索引|Build genome index"""
+        """
+        构建GTX基因组索引|Build GTX genome index
+
+        合并自原 main.py 的 _force_build_gtx_index,统一为单一入口:
+        - 支持断点续传(检查点存在则跳过)
+        - 索引已存在且未 --force 时跳过(避免每次重跑都重建)
+        - 统一 GTX 索引文件清单(.gtx/.gtx.bwt/.gtx.sa/.gtx.ann/.gtx.amb)
+        Consolidated from main.py's _force_build_gtx_index into a single entry point
+        with checkpoint resume, skip-if-exists (unless --force), and a unified
+        GTX index file manifest.
+        """
         step_name = "genome_index"
 
-        self.logger.info("准备执行索引构建步骤|Preparing to execute index building step")
-        self.logger.info(f"当前配置中的基因组路径: {self.config.ref_genome_fa}|Genome path in current config")
-        self.logger.info(f"GTX可执行文件路径: {self.config.gtx_bin}|GTX executable path")
-
-        if self.config.enable_checkpoint and CheckpointManager(
-            os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-            self.logger
-        ).exists(step_name):
+        # 断点续传:已完成则跳过|Checkpoint resume: skip if already done
+        if self.config.enable_checkpoint and _checkpoint_manager(self.config, self.logger).exists(step_name):
             self.logger.info("检查点已存在，跳过索引构建|Checkpoint exists, skipping index building")
             return True
 
-        self.logger.info("构建基因组索引|Building genome index")
-        need_index = False
+        genome_dir = self.config.genome_index_dir
+        FileManager.ensure_directory(genome_dir)
 
-        # # 检查BWA索引|Check BWA index
-        # if not os.path.exists(f"{self.config.ref_genome_fa}.bwt"):
-        #     self.logger.info("构建 BWA 索引|Building BWA index")
-        #     need_index = True
-        #     if not self.cmd_runner.run(f"bwa index {self.config.ref_genome_fa}", "构建BWA索引|Build BWA index"):
-        #         return False
-        # else:
-        #     self.logger.info("BWA 索引已存在|BWA index already exists")
+        # 优先使用项目目录内的基因组副本,保证索引与比对路径一致
+        # Prefer the genome copy in the project dir so index and mapping paths agree
+        genome_filename = os.path.basename(self.config.ref_genome_fa)
+        genome_file_in_project = os.path.join(genome_dir, genome_filename)
+        if os.path.exists(genome_file_in_project):
+            self.logger.info(f"使用项目目录中的基因组文件|Using genome file in project directory: {genome_file_in_project}")
+            target_genome_file = genome_file_in_project
+        else:
+            self.logger.info(f"使用原始基因组文件|Using original genome file: {self.config.ref_genome_fa}")
+            target_genome_file = self.config.ref_genome_fa
 
-        # # 检查SAMtools索引|Check SAMtools index
-        # if not os.path.exists(f"{self.config.ref_genome_fa}.fai"):
-        #     self.logger.info("构建 SAMtools 索引|Building SAMtools index")
-        #     need_index = True
-        #     if not self.cmd_runner.run(f"samtools faidx {self.config.ref_genome_fa}", "构建SAMtools索引|Build SAMtools index"):
-        #         return False
-        # else:
-        #     self.logger.info("SAMtools 索引已存在|SAMtools index already exists")
-
-        # 检查GTX索引|Check GTX index
-        # 确认当前基因组路径|Confirm current genome path
-        self.logger.info(f"当前参考基因组路径: {self.config.ref_genome_fa}|Current reference genome path")
-        self.logger.info(f"文件是否存在: {'OK' if os.path.exists(self.config.ref_genome_fa) else 'MISSING'}|File exists")
-
+        # GTX 索引文件清单(与 gtx index 实际产物一致)|GTX index manifest (matches gtx index output)
         gtx_index_files = [
-            # f"{self.config.ref_genome_fa}.gtx",
-            # f"{self.config.ref_genome_fa}.bwt.2bit.64",
-            f"{self.config.ref_genome_fa}.amb",
-            f"{self.config.ref_genome_fa}.ann",
-            f"{self.config.ref_genome_fa}.fai",
-            f"{self.config.ref_genome_fa}.pac"
+            f"{target_genome_file}.gtx",
+            f"{target_genome_file}.gtx.bwt",
+            f"{target_genome_file}.gtx.sa",
+            f"{target_genome_file}.gtx.ann",
+            f"{target_genome_file}.gtx.amb"
         ]
 
-        gtx_index_exists = all(os.path.exists(f) for f in gtx_index_files)
-        self.logger.info(f"检查GTX索引状态: {'已存在' if gtx_index_exists else '不存在'}|GTX index status: {'exists' if gtx_index_exists else 'missing'}")
+        index_exists = all(os.path.exists(f) for f in gtx_index_files)
+        self.logger.info(f"GTX索引状态: {'已存在' if index_exists else '不存在'}|GTX index status: {'exists' if index_exists else 'missing'}")
 
-        if not gtx_index_exists:
-            self.logger.info("构建 GTX 索引|Building GTX index")
-            need_index = True
+        # 索引已存在且未强制重建则跳过|Skip if index exists and not forced to rebuild
+        if index_exists and not self.config.force:
+            self.logger.info("GTX索引已存在，跳过构建|GTX index already exists, skipping build (use --force to rebuild)")
+            if self.config.enable_checkpoint:
+                _checkpoint_manager(self.config, self.logger).create(step_name)
+            return True
 
-            # 显示构建命令|Show build command
-            gtx_index_cmd = f"faketime '2020-10-20 00:00:00' {self.config.gtx_bin} index {self.config.ref_genome_fa}"
-            self.logger.info(f"将执行索引构建命令: {gtx_index_cmd}|Will execute index build command")
+        tmp_dir = os.path.join(self.config.output_dir, ".tmp")
+        FileManager.ensure_directory(tmp_dir)
 
-            # 使用faketime构建GTX索引|Build GTX index with faketime
-            self.logger.info(f"正在执行GTX索引构建命令|Executing GTX index build command: {gtx_index_cmd}")
-            if not self.cmd_runner.run(gtx_index_cmd, "构建GTX索引|Build GTX index"):
-                self.logger.error("GTX 索引构建失败|GTX index building failed")
+        # faketime 绕过 GTX license 时间校验|faketime bypasses the GTX license time check
+        gtx_index_cmd = f"faketime '2020-10-20 00:00:00' {self.config.gtx_bin} index {target_genome_file} --tmp-dir {tmp_dir}"
+        self.logger.info(f"构建GTX索引|Building GTX index")
+        self.logger.info(f"命令|Command: {gtx_index_cmd}")
 
-                # 构建失败后检查索引文件状态|Check index file status after build failure
-                self.logger.info("检查构建后的索引文件状态:|Check index file status after build:")
-                for idx_file in gtx_index_files:
-                    exists = os.path.exists(idx_file)
-                    self.logger.info(f"   {idx_file}: {'OK' if exists else 'MISSING'}")
+        if not self.cmd_runner.run(gtx_index_cmd, "构建GTX索引|Build GTX index"):
+            self.logger.error("GTX索引构建失败|GTX index building failed")
+            self.logger.info("构建后的索引文件状态|Index file status after build:")
+            for idx_file in gtx_index_files:
+                self.logger.info(f"   {idx_file}: {'OK' if os.path.exists(idx_file) else 'MISSING'}")
+            return False
 
-                return False
-            else:
-                # 构建成功后验证索引文件|Verify index files after successful build
-                self.logger.info("验证构建后的索引文件:|Verify index files after build:")
-                for idx_file in gtx_index_files:
-                    exists = os.path.exists(idx_file)
-                    self.logger.info(f"   {idx_file}: {'OK' if exists else 'MISSING'}")
-        else:
-            self.logger.info("GTX 索引已存在|GTX index already exists")
+        # 构建成功后验证索引文件|Verify index files after successful build
+        self.logger.info("验证GTX索引文件|Verifying GTX index files:")
+        all_ok = True
+        for idx_file in gtx_index_files:
+            exists = os.path.exists(idx_file)
+            size = FileManager.get_file_size(idx_file) if exists else "0 B"
+            self.logger.info(f"   {idx_file}: {'OK' if exists else 'MISSING'} ({size})")
+            if not exists:
+                all_ok = False
 
-        if not need_index:
-            self.logger.info("所有索引均已存在|All indexes already exist")
-        else:
-            self.logger.info("索引构建完成|Index building completed")
+        if not all_ok:
+            self.logger.error("部分GTX索引文件缺失|Some GTX index files are missing")
+            return False
 
-        # 创建检查点|Create checkpoint
         if self.config.enable_checkpoint:
-            checkpoint_mgr = CheckpointManager(
-                os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-                self.logger
-            )
-            checkpoint_mgr.create(step_name)
+            _checkpoint_manager(self.config, self.logger).create(step_name)
 
+        self.logger.info("GTX索引构建成功|GTX index building successful")
         return True
 
 
@@ -212,10 +206,7 @@ class GTXMapper:
         # 刷新配置以确保使用最新路径|Refresh config to ensure latest paths
         self.refresh_config()
 
-        if self.config.enable_checkpoint and CheckpointManager(
-            os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-            self.logger
-        ).exists(step_name):
+        if self.config.enable_checkpoint and _checkpoint_manager(self.config, self.logger).exists(step_name):
             self.logger.info("检查点已存在，跳过比对|Checkpoint exists, skipping mapping")
             return True
 
@@ -245,11 +236,7 @@ class GTXMapper:
 
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
-                checkpoint_mgr = CheckpointManager(
-                    os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-                    self.logger
-                )
-                checkpoint_mgr.create(step_name)
+                _checkpoint_manager(self.config, self.logger).create(step_name)
         else:
             self.logger.error("GTX比对失败|GTX mapping failed")
 
@@ -443,10 +430,7 @@ class JointCaller:
 
         # 恢复检查点状态|Restore checkpoint status
         if self.config.enable_checkpoint:
-            checkpoint_mgr = CheckpointManager(
-                os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-                self.logger
-            )
+            checkpoint_mgr = _checkpoint_manager(self.config, self.logger)
             if checkpoint_mgr.exists(step_name):
                 self.logger.info("检查点已存在，跳过联合检测|Checkpoint exists, skipping joint calling")
 
@@ -482,11 +466,7 @@ class JointCaller:
         if success and self.final_vcf_path:
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
-                checkpoint_mgr = CheckpointManager(
-                    os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-                    self.logger
-                )
-                checkpoint_mgr.create(step_name)
+                _checkpoint_manager(self.config, self.logger).create(step_name)
 
         return success, self.final_vcf_path
 
@@ -543,8 +523,10 @@ class JointCaller:
         # 生成操作指南|Generate operation guide
         self._generate_manual_guide(sample_count, gtx_job_script, merge_py_script, final_merged_vcf)
 
-        # 返回特殊状态码，表示需要手动处理|Return special status code indicating manual processing
-        return False, ""
+        # 返回特殊状态码 CLUSTER_MODE,通知编排层这是"需手动投递"而非真正失败
+        # Return the CLUSTER_MODE sentinel so the orchestrator treats this as
+        # "manual submission required" rather than a real failure
+        return False, "CLUSTER_MODE"
 
     def _generate_merge_script(self, script_path: str):
         """生成VCF合并脚本|Generate VCF merge script"""
@@ -683,7 +665,7 @@ if __name__ == "__main__":
    Please use GTX command generation script with window size set to {self.config.gtx_window_size:,} bp
 
    参考命令|Reference command:
-   bash /path/to/GTX_CMD_GEN_SCRIPT \\
+   bash {self.config.gtx_cmd_gen_script} \\
        -g {self.config.gtx_bin} \\
        -r {self.config.ref_genome_fa} \\
        -i {self.config.gvcf_dir} \\
@@ -716,7 +698,9 @@ if __name__ == "__main__":
        -o {self.config.filter_dir} \\
        -t {self.config.threads} \\
        --snp-dp {self.config.snp_min_dp} \\
-       --indel-dp {self.config.indel_min_dp}
+       --snp-qual {self.config.snp_min_qual} \\
+       --indel-dp {self.config.indel_min_dp} \\
+       --indel-qual {self.config.indel_min_qual}
 
 ============================================================================
 提示|Tips:
@@ -744,10 +728,7 @@ class VariantFilter:
         """过滤变异|Filter variants"""
         step_name = "variant_filtering"
 
-        if self.config.enable_checkpoint and CheckpointManager(
-            os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-            self.logger
-        ).exists(step_name):
+        if self.config.enable_checkpoint and _checkpoint_manager(self.config, self.logger).exists(step_name):
             self.logger.info("检查点已存在，跳过过滤|Checkpoint exists, skipping filtering")
             return True
 
@@ -769,7 +750,9 @@ class VariantFilter:
             f"-o {self.config.filter_dir} "
             f"-t {self.config.threads} "
             f"--snp-dp {self.config.snp_min_dp} "
-            f"--indel-dp {self.config.indel_min_dp}"
+            f"--snp-qual {self.config.snp_min_qual} "
+            f"--indel-dp {self.config.indel_min_dp} "
+            f"--indel-qual {self.config.indel_min_qual}"
         )
 
         success = self.cmd_runner.run_with_progress(command, "变异过滤|Variant Filtering")
@@ -792,11 +775,7 @@ class VariantFilter:
 
             # 创建检查点|Create checkpoint
             if self.config.enable_checkpoint:
-                checkpoint_mgr = CheckpointManager(
-                    os.path.join(self.config.output_dir, "00_pipeline_info", "checkpoints"),
-                    self.logger
-                )
-                checkpoint_mgr.create(step_name)
+                _checkpoint_manager(self.config, self.logger).create(step_name)
         else:
             self.logger.error("变异过滤失败|Variant filtering failed")
 

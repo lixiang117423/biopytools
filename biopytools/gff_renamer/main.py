@@ -63,6 +63,17 @@ def parse_arguments():
                         action='store_true',
                         help='跳过AGAT清洗步骤|Skip AGAT GFF cleaning step')
 
+    parser.add_argument('--prefer-mrna',
+                        dest='prefer_mrna',
+                        action='store_true',
+                        default=True,
+                        help='默认开启:对含mRNA的基因丢弃冗余transcript(misc_RNA)变体及其子特征;仅含transcript的基因保留|'
+                             'Default on: drop redundant transcript (misc_RNA) variants and their children from genes that have mRNA; transcript-only genes are kept')
+    parser.add_argument('--no-prefer-mrna',
+                        dest='prefer_mrna',
+                        action='store_false',
+                        help='禁用prefer_mrna去冗余|Disable prefer_mrna deduplication')
+
     parser.add_argument('--version',
                         action='version',
                         version='%(prog)s 1.0.0')
@@ -87,7 +98,8 @@ def main():
             chr_mapping_file=args.chr_mapping,
             naming_format=args.naming_format,
             include_utr=args.include_utr,
-            skip_gff_clean=args.skip_clean
+            skip_gff_clean=args.skip_clean,
+            prefer_mrna=args.prefer_mrna
         )
         config.validate()
 

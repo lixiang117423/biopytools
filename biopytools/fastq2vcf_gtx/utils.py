@@ -6,9 +6,9 @@ import os
 import subprocess
 import time
 import logging
+import threading
 from pathlib import Path
 from typing import List, Optional, Dict, Any
-import signal
 
 
 class Fastq2VcfGTXLogger:
@@ -167,12 +167,8 @@ class CommandRunner:
 
     def _read_fastp_logs(self, command_str: str, command, log_level=logging.INFO):
         """查找并读取fastp日志文件|Find and read fastp log files"""
-        # 判断是否为fastp相关命令|Check if command is fastp-related
-        is_fastp = (
-            (isinstance(command, str) and "fastp" in command_str) or
-            (isinstance(command, list) and "fastp" in command_str)
-        )
-        if not is_fastp:
+        # command_str 已统一为字符串,直接判断是否含 fastp|command_str is normalized to str, check fastp directly
+        if "fastp" not in command_str:
             return
 
         if log_level >= logging.ERROR:
@@ -217,7 +213,16 @@ class CommandRunner:
     def run_with_progress(self, command: str, description: str = "",
                          timeout: int = 86400) -> bool:
         """
-        运行命令并显示进度|Run command with progress indication
+        运行命令并流式显示进度|Run command with streamed progress
+
+        使用独立 reader 线程持续排空 stdout,避免:
+        - 管道缓冲区写满导致子进程阻塞死锁
+        - readline() 阻塞在无换行的进度输出上
+        - 循环结束后再次 communicate() 的反模式
+        Uses a dedicated reader thread to drain stdout continuously, avoiding:
+        - pipe-buffer-full deadlock blocking the subprocess
+        - readline() blocking on newline-free progress output
+        - the communicate()-after-read anti-pattern
 
         Args:
             command: 要执行的命令|Command to execute
@@ -243,50 +248,70 @@ class CommandRunner:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
+                bufsize=1,  # 行缓冲,便于实时读取|Line-buffered for real-time reading
                 cwd=self.output_dir
             )
+        except Exception as e:
+            self.logger.error(f"启动命令失败|Failed to start command: {str(e)}")
+            return False
 
-            start_time = time.time()
-
-            while True:
-                # 检查进程是否结束|Check if process has finished
-                if process.poll() is not None:
-                    break
-
-                # 检查超时|Check timeout
-                if time.time() - start_time > timeout:
-                    process.terminate()
-                    process.wait()
-                    self.logger.error("命令执行超时|Command execution timed out")
-                    return False
-
-                # 读取输出|Read output
+        # reader 线程:持续排空 stdout 到日志,防止管道写满死锁
+        # Reader thread: continuously drain stdout to log, preventing buffer-full deadlock
+        def _drain_output():
+            try:
+                for line in iter(process.stdout.readline, ''):
+                    line = line.rstrip('\n')
+                    if line:
+                        # 实时输出到 INFO 级别,以便在 .out 文件中显示进度
+                        # Stream to INFO so progress appears in the .out file
+                        self.logger.info(line)
+            except Exception:
+                pass
+            finally:
                 try:
-                    output = process.stdout.readline()
-                    if output:
-                        # 实时输出到INFO级别，以便在.out文件中显示进度
-                        self.logger.info(output.strip())
+                    process.stdout.close()
                 except Exception:
                     pass
 
-                time.sleep(1)
+        reader = threading.Thread(target=_drain_output, daemon=True)
+        reader.start()
 
-            # 获取最终输出|Get final output
-            remaining_output, _ = process.communicate()
-            if remaining_output:
-                # 输出最终结果到INFO级别
-                self.logger.info(remaining_output.strip())
+        start_time = time.time()
+        timed_out = False
 
-            if process.returncode == 0:
-                self.logger.info("命令执行成功|Command executed successfully")
-                return True
-            else:
-                self.logger.error(f"命令执行失败|Command execution failed")
-                self.logger.error(f"返回码|Return code: {process.returncode}")
-                return False
+        try:
+            while True:
+                try:
+                    # 每秒唤醒一次检查超时,不阻塞读取|Wake every second to check timeout
+                    process.wait(timeout=1)
+                    break
+                except subprocess.TimeoutExpired:
+                    if time.time() - start_time > timeout:
+                        timed_out = True
+                        self.logger.error("命令执行超时|Command execution timed out")
+                        process.terminate()
+                        try:
+                            process.wait(timeout=10)
+                        except subprocess.TimeoutExpired:
+                            process.kill()
+                            process.wait()
+                        break
 
+            # 等待 reader 线程排空剩余输出|Wait for reader to flush remaining output
+            reader.join(timeout=5)
         except Exception as e:
             self.logger.error(f"命令执行异常|Command execution exception: {str(e)}")
+            return False
+
+        if timed_out:
+            return False
+
+        if process.returncode == 0:
+            self.logger.info("命令执行成功|Command executed successfully")
+            return True
+        else:
+            self.logger.error(f"命令执行失败|Command execution failed")
+            self.logger.error(f"返回码|Return code: {process.returncode}")
             return False
 
 

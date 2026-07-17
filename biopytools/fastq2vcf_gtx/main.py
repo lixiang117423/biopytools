@@ -59,7 +59,7 @@ class Fastq2VcfGTXProcessor:
         if self.config.skip_qc:
             self.logger.info("用户指定跳过质控步骤|User specified to skip QC step")
             # 即使跳过QC也要执行GTX索引构建|Even if skipping QC, execute GTX index building
-            self._force_build_gtx_index()
+            self.genome_indexer.build_genome_index()
             return True
 
         # 执行质量控制|Execute quality control
@@ -68,71 +68,21 @@ class Fastq2VcfGTXProcessor:
         # fastp完成后立即执行GTX索引构建|Immediately execute GTX index building after fastp completion
         if qc_success:
             self.logger.info("Fastp质量控制完成，立即执行GTX索引构建|Fastp QC completed, immediately executing GTX index building")
-            self._force_build_gtx_index()
+            self.genome_indexer.build_genome_index()
 
         return qc_success
 
-    def _force_build_gtx_index(self):
-        """强制构建GTX索引|Force build GTX index"""
-        self.logger_manager.step("强制构建GTX索引|Force Build GTX Index")
-
-        # 确保基因组目录存在|Ensure genome directory exists
-        genome_dir = self.config.genome_index_dir
-        FileManager.ensure_directory(genome_dir)
-
-        # 获取参考基因组文件名|Get reference genome filename
-        genome_filename = os.path.basename(self.config.ref_genome_fa)
-        genome_file_in_project = os.path.join(genome_dir, genome_filename)
-
-        # 使用项目目录中的基因组文件|Use genome file in project directory
-        if os.path.exists(genome_file_in_project):
-            self.logger.info(f"使用项目目录中的基因组文件|Using genome file in project directory: {genome_file_in_project}")
-            target_genome_file = genome_file_in_project
-        else:
-            self.logger.info(f"使用原始基因组文件|Using original genome file: {self.config.ref_genome_fa}")
-            target_genome_file = self.config.ref_genome_fa
-
-        # 构建GTX索引命令|Build GTX index command
-        tmp_dir = os.path.join(self.config.output_dir, ".tmp")
-        FileManager.ensure_directory(tmp_dir)
-
-        gtx_index_cmd = f"faketime '2020-10-20 00:00:00' {self.config.gtx_bin} index {target_genome_file} --tmp-dir {tmp_dir}"
-
-        self.logger.info(f"强制执行GTX索引构建|Force executing GTX index build")
-        self.logger.info(f"命令|Command: {gtx_index_cmd}")
-        self.logger.info(f"基因组文件|Genome file: {target_genome_file}")
-        self.logger.info(f"临时目录|Temp directory: {tmp_dir}")
-
-        # 执行索引构建|Execute index building
-        if self.cmd_runner.run(gtx_index_cmd, "强制构建GTX索引|Force build GTX index"):
-            self.logger.info("GTX索引构建成功|GTX index building successful")
-
-            # 验证索引文件|Verify index files
-            gtx_index_files = [
-                f"{target_genome_file}.gtx",
-                f"{target_genome_file}.gtx.bwt",
-                f"{target_genome_file}.gtx.sa",
-                f"{target_genome_file}.gtx.ann",
-                f"{target_genome_file}.gtx.amb"
-            ]
-
-            self.logger.info("验证GTX索引文件|Verifying GTX index files:")
-            for idx_file in gtx_index_files:
-                exists = os.path.exists(idx_file)
-                size = FileManager.get_file_size(idx_file) if exists else "0 B"
-                self.logger.info(f"   {idx_file}: {'OK' if exists else 'MISSING'} ({size})")
-        else:
-            self.logger.error("GTX索引构建失败|GTX index building failed")
-
     def step2_build_genome_index(self):
-        """步骤2: 构建基因组索引|Step 2: Build Genome Index"""
-        self.logger.info("=" * 60)
-        self.logger.info("构建基因组索引|Building Genome Index")
-        self.logger.info("=" * 60)
+        """
+        步骤2: 构建基因组索引|Step 2: Build Genome Index
 
-        # GTX索引已在step1中构建，这里跳过|GTX index already built in step1, skip here
-        self.logger.info("GTX索引已在step1中构建，跳过|GTX index already built in step1, skipping")
-        return True
+        实际索引构建已合并到 GenomeIndexer.build_genome_index,由 step1 在质控后触发;
+        保留 step2 入口供 --step 2 单独调用(幂等:索引或检查点存在则跳过)。
+        Index building is consolidated in GenomeIndexer.build_genome_index and triggered
+        by step1 after QC. This step2 entry is kept for --step 2 (idempotent).
+        """
+        self.logger_manager.step("Step 2: 构建基因组索引|Build Genome Index")
+        return self.genome_indexer.build_genome_index()
 
     def step3_sequence_mapping(self):
         """步骤3: 序列比对|Step 3: Sequence Mapping"""
@@ -183,6 +133,11 @@ class Fastq2VcfGTXProcessor:
                 self.logger.info(f"步骤{step_num} 完成|Step {step_num} completed: {step_name}")
                 if vcf_path:
                     self.logger.info(f"输出VCF: {vcf_path}|Output VCF: {vcf_path}")
+            elif vcf_path == "CLUSTER_MODE":
+                # 集群模式:已生成操作指南,需手动投递,不计为失败
+                # Cluster mode: guide generated, manual submission required, not a failure
+                self.logger.info(f"步骤{step_num} 进入集群手动模式|Step {step_num} entered cluster manual mode")
+                return True
             else:
                 self.logger.error(f"步骤{step_num} 失败|Step {step_num} failed: {step_name}")
             return success
@@ -248,7 +203,6 @@ class Fastq2VcfGTXProcessor:
         if not os.path.exists(target_genome_path):
             FileManager.ensure_directory(genome_dir)
             self.logger.info(f"拷贝基因组文件到 {target_genome_path}|Copying genome file to {target_genome_path}")
-            import shutil
             shutil.copy2(self.config.ref_genome_fa, target_genome_path)
 
         # 强制更新配置中的路径|Force update path in config
@@ -275,7 +229,9 @@ class Fastq2VcfGTXProcessor:
         self.logger.info("基因组路径更新完成|Genome path update completed")
 
         # 检查必需工具|Check required tools
-        required_tools = ['samtools', 'bcftools', 'biopytools']
+        # faketime:GTX 所有命令(index/wgs/joint)都依赖它绕过 license 时间校验
+        # faketime: every GTX command (index/wgs/joint) depends on it to bypass the license time check
+        required_tools = ['samtools', 'bcftools', 'biopytools', 'faketime']
         for tool in required_tools:
             if not SystemChecker.check_command_exists(tool, self.logger):
                 self.logger.error(f"缺少必需工具: {tool}|Missing required tool: {tool}")

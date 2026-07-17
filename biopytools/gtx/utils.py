@@ -228,6 +228,7 @@ import subprocess
 import sys
 import os
 import re
+import shutil
 from pathlib import Path
 from datetime import datetime
 from typing import List, Tuple, Optional
@@ -648,7 +649,7 @@ class FileProcessor:
                     return f"{size_bytes:.1f} {unit}"
                 size_bytes /= 1024.0
             return f"{size_bytes:.1f} TB"
-        except:
+        except Exception:
             return "Unknown"
 
 def check_dependencies(config, logger):
@@ -682,7 +683,14 @@ def check_dependencies(config, logger):
                 logger.warning(" GTX Joint Calling功能可能不可用，将在运行时检查|GTX Joint Calling may not be available, will check at runtime")
         except (subprocess.TimeoutExpired, FileNotFoundError) as e:
             logger.warning(f" 无法验证GTX Joint功能：{e}|Cannot verify GTX Joint functionality: {e}")
-    
+
+    # 检查faketime(GTX命令依赖它绕过license时间校验)|Check faketime (GTX commands depend on it to bypass the license time check)
+    if not shutil.which('faketime'):
+        error_msg = "faketime 未安装在PATH中,GTX命令依赖它|faketime not found in PATH, GTX commands depend on it"
+        logger.error(error_msg)
+        raise RuntimeError(error_msg)
+    logger.info(" faketime 可用|faketime is available")
+
     logger.info(" GTX程序检查通过|GTX program check passed")
     return True
 

@@ -1,4 +1,19 @@
 
+## [1.15.0] - 2026-07-17
+
+### Added
+- `gff_renamer`：新增 `--prefer-mrna`（默认开）——对含 mRNA 的基因丢弃冗余 transcript（misc_RNA 变体）及子特征，针对 NCBI/Gnomon EGAPx 注释；`--no-prefer-mrna` 关闭
+- `fastq2vcf_gtx`：变异过滤新增 `--snp-qual`/`--indel-qual` 质量过滤；`CLUSTER_MODE` 哨兵（集群手动投递模式不计为失败）；faketime 依赖检查（GTX 命令依赖它绕过 license 时间校验）
+
+### Changed
+- `fastq2vcf_gtx`：`GenomeIndexer.build_genome_index` 合并原 main.py 的 `_force_build_gtx_index` 为单一入口（断点续传 + 索引已存在跳过 + 统一 GTX 索引清单）；断点续传默认启用；`--input` 改可选（与 `--clean-fastq-dir` 二选一）；`_checkpoint_manager` 工厂函数统一 CheckpointManager 构造（DRY）
+- `gff_renamer`：UTR 始终收集并重编号（保证输出 ID 唯一），`include_utr` 现仅影响 UTR 重排序/Name 清理
+
+### Fixed
+- `fastq2vcf_gtx`：`run_with_progress` 管道死锁修复——改独立 reader 线程持续排空 stdout（原 readline 阻塞 + communicate 反模式可能死锁）；超时优雅降级（terminate→wait→kill）
+- `gff_renamer`：`id_mapping` 的 exon/intron/CDS/UTR/codon key 改 `(line_index, old_id)` 元组，修复 AGAT/合并共享 old_id 导致输出重复 ID（查询方双重 try 兼容 str/tuple key）
+- `gtx/utils`：裸 `except:` 改 `except Exception:`
+
 ## [1.14.2] - 2026-07-17
 
 ### Changed

@@ -213,6 +213,13 @@ class GFFRenamer:
             self.logger.error("无法读取GFF文件或文件为空|Cannot read GFF file or file is empty")
             return False
 
+        # 步骤1.5：prefer_mrna 去冗余(默认开启)|Step 1.5: prefer_mrna dedup (on by default)
+        # 对含mRNA的基因,丢弃其冗余transcript(misc_RNA)变体及这些转录本的子特征
+        # Drop redundant transcript (misc_RNA) variants and their children from mRNA genes
+        if self.config.prefer_mrna:
+            self.logger.info("步骤1.5: prefer_mrna去冗余|Step 1.5: prefer_mrna dedup")
+            lines = self._filter_redundant_transcripts(lines)
+
         # 步骤2：解析所有特征并建立映射关系|Step 2: Parse all features and build mapping
         self.logger.info("步骤2: 解析特征并建立ID映射|Step 2: Parsing features and building ID mapping")
         id_mapping, gene_name_suffixes = self._build_id_mapping(lines, chr_mapping)
@@ -244,6 +251,72 @@ class GFFRenamer:
                 line = line.rstrip('\n\r')
                 lines.append(line)
         return lines
+
+    def _filter_redundant_transcripts(self, lines: List[str]) -> List[str]:
+        """
+        丢弃冗余转录本及其子特征|Drop redundant transcripts and their children
+
+        对含有 mRNA 的基因,移除其 transcript(典型为 NCBI/Gnomon 的 misc_RNA 变体)特征,
+        以及这些被移除转录本的子特征(exon/CDS/UTR/intron/codon)。
+        仅含 transcript、不含 mRNA 的基因保留(可能是真非编码基因)。
+        For genes that have mRNA, remove their `transcript` features (typically
+        NCBI/Gnomon misc_RNA variants) and the children of those removed transcripts.
+        Genes that have only `transcript` (no mRNA) are kept.
+        """
+        # 1) 含有 mRNA 的基因 parent 集合 | set of gene parents that have mRNA
+        mrna_parents = set()
+        for line in lines:
+            fields = line.split('\t')
+            if len(fields) >= 9 and fields[2] == 'mRNA':
+                m = re.search(r'Parent=([^;]+)', fields[8])
+                if m:
+                    mrna_parents.add(m.group(1))
+        if not mrna_parents:
+            self.logger.info("prefer_mrna: 未发现mRNA特征,跳过去冗余|no mRNA features, skip dedup")
+            return lines
+
+        # 2) 冗余 transcript 的 old_id(parent基因含mRNA) | redundant transcript IDs
+        redundant = set()
+        for line in lines:
+            fields = line.split('\t')
+            if len(fields) >= 9 and fields[2] == 'transcript':
+                pm = re.search(r'Parent=([^;]+)', fields[8])
+                im = re.search(r'ID=([^;]+)', fields[8])
+                if pm and im and pm.group(1) in mrna_parents:
+                    redundant.add(im.group(1))
+        if not redundant:
+            self.logger.info("prefer_mrna: 含mRNA的基因无冗余transcript变体|no redundant transcript variants under mRNA genes")
+            return lines
+
+        # 3) 过滤:丢弃冗余transcript本身 + 其子特征(Parent∈redundant) | filter
+        kept = []
+        dropped_transcript = 0
+        dropped_child = 0
+        for line in lines:
+            fields = line.split('\t')
+            drop = False
+            if len(fields) >= 9:
+                im = re.search(r'ID=([^;]+)', fields[8])
+                pm = re.search(r'Parent=([^;]+)', fields[8])
+                old_id = im.group(1) if im else None
+                parent = pm.group(1) if pm else None
+                # 冗余transcript本身 | the redundant transcript row
+                if fields[2] == 'transcript' and old_id in redundant:
+                    drop = True
+                    dropped_transcript += 1
+                # 被丢弃transcript的子特征 | children of a dropped transcript
+                elif parent in redundant:
+                    drop = True
+                    dropped_child += 1
+            if not drop:
+                kept.append(line)
+
+        self.logger.info(
+            f"prefer_mrna去冗余完成|prefer_mrna dedup done: "
+            f"丢弃 {dropped_transcript} 个冗余transcript + {dropped_child} 个子特征 "
+            f"(涉及含mRNA基因 {len(mrna_parents)} 个)"
+        )
+        return kept
 
     def _build_id_mapping(self, lines: List[str], chr_mapping: Dict[str, str] = None) -> Dict[str, str]:
         """
@@ -392,8 +465,11 @@ class GFFRenamer:
                     end = int(fields[4])    # 结束位置|End position
                     features['cds'].append((i, old_id, old_parent, start, end))
 
-            # 收集UTR特征（如果启用）|Collect UTR features (if enabled)
-            elif self.config.include_utr and feature_type in ['five_prime_UTR', 'three_prime_UTR']:
+            # 收集UTR特征(始终收集并重编号,保证输出ID唯一;
+            # include_utr 现仅影响UTR是否作为子特征重排序/清理Name)
+            # Always collect UTRs so their IDs are renumbered uniquely; include_utr now
+            # only controls cosmetic child-reordering / Name stripping
+            elif feature_type in ['five_prime_UTR', 'three_prime_UTR']:
                 id_match = re.search(r'ID=([^;]+)', fields[8])
                 if not id_match:
                     continue
@@ -413,8 +489,8 @@ class GFFRenamer:
                         f"{len(features['exons'])} exons, "
                         f"{len(features['introns'])} introns, "
                         f"{len(features['cds'])} CDS, "
-                        f"{len(features['codons'])} codons"
-                        f"{', ' + str(len(features['utrs'])) + ' UTRs' if self.config.include_utr else ''}")
+                        f"{len(features['codons'])} codons, "
+                        f"{len(features['utrs'])} UTRs")
 
         # 步骤2：在内存中处理，建立ID映射|Step 2: Process in memory, build ID mapping
         self.logger.info("正在生成ID映射|Generating ID mapping...")
@@ -509,17 +585,16 @@ class GFFRenamer:
         for line_index, old_id, old_parent, start, end in features['cds']:
             child_features_by_parent[old_parent].append(('cds', line_index, old_id, start, end))
 
-        # 收集所有UTR（如果启用）|Collect all UTRs (if enabled)
-        if self.config.include_utr:
-            for line_index, old_id, old_parent, start, end, utr_type in features['utrs']:
-                # 转换UTR类型为简短形式|Convert UTR type to short form
-                if utr_type == 'five_prime_UTR':
-                    short_utr_type = 'five_prime_UTR'
-                elif utr_type == 'three_prime_UTR':
-                    short_utr_type = 'three_prime_UTR'
-                else:
-                    short_utr_type = utr_type
-                child_features_by_parent[old_parent].append(('utr', line_index, old_id, start, end, short_utr_type))
+        # 收集所有UTR(始终处理,保证重编号)|Always process UTRs to guarantee renumbering
+        for line_index, old_id, old_parent, start, end, utr_type in features['utrs']:
+            # 转换UTR类型为简短形式|Convert UTR type to short form
+            if utr_type == 'five_prime_UTR':
+                short_utr_type = 'five_prime_UTR'
+            elif utr_type == 'three_prime_UTR':
+                short_utr_type = 'three_prime_UTR'
+            else:
+                short_utr_type = utr_type
+            child_features_by_parent[old_parent].append(('utr', line_index, old_id, start, end, short_utr_type))
 
         # 收集所有start_codon和stop_codon|Collect all start_codon and stop_codon
         for line_index, old_id, old_parent, start, end, codon_type in features['codons']:
@@ -554,12 +629,15 @@ class GFFRenamer:
                 if feature_type == 'exon':
                     exon_counter += 1
                     new_id = f"{new_parent}.exon{exon_counter}"
-                    # exon使用ID作为key|Use ID as key for exon
-                    id_mapping[old_id] = new_id
+                    # 用(line_index, old_id)作key:AGAT/合并可能产生共享old_id的行,
+                    # 用纯old_id会被后续覆盖导致输出重复ID
+                    # Key by (line_index, old_id): AGAT/merge can emit rows sharing an
+                    # old_id; keying by old_id alone gets overwritten -> duplicate output IDs
+                    id_mapping[(line_index, old_id)] = new_id
                 elif feature_type == 'intron':
                     intron_counter += 1
                     new_id = f"{new_parent}.intron{intron_counter}"
-                    id_mapping[old_id] = new_id
+                    id_mapping[(line_index, old_id)] = new_id
                 elif feature_type == 'cds':
                     cds_counter += 1
                     new_id = f"{new_parent}.cds{cds_counter}"
@@ -575,8 +653,9 @@ class GFFRenamer:
                     else:  # three_prime_UTR
                         utr3_counter += 1
                         new_id = f"{new_parent}.three_prime_UTR{utr3_counter}"
-                    # UTR使用ID作为key|Use ID as key for UTR
-                    id_mapping[old_id] = new_id
+                    # UTR同样用(line_index, old_id)作key,避免共享old_id覆盖
+                    # UTR also keyed by (line_index, old_id) to avoid shared-old_id overwrite
+                    id_mapping[(line_index, old_id)] = new_id
                 elif feature_type == 'codon':
                     codon_type = item[5]  # start_codon or stop_codon
                     if codon_type == 'start_codon':
@@ -585,7 +664,7 @@ class GFFRenamer:
                     else:  # stop_codon
                         stop_codon_counter += 1
                         new_id = f"{new_parent}.stop{stop_codon_counter}"
-                    id_mapping[old_id] = new_id
+                    id_mapping[(line_index, old_id)] = new_id
 
         return id_mapping, gene_name_suffixes
 
@@ -727,8 +806,7 @@ class GFFRenamer:
                         child_type = child_fields[2]
 
                         # 只收集exon、intron、CDS、UTR和codon|Only collect exon, intron, CDS, UTR and codon
-                        if child_type in ['exon', 'intron', 'CDS', 'start_codon', 'stop_codon'] or \
-                           (self.config.include_utr and child_type in ['five_prime_UTR', 'three_prime_UTR']):
+                        if child_type in ['exon', 'intron', 'CDS', 'start_codon', 'stop_codon', 'five_prime_UTR', 'three_prime_UTR']:
                             start = int(child_fields[3])
                             child_features.append((start, i, child_line))
                             i += 1
@@ -754,8 +832,7 @@ class GFFRenamer:
                 else:
                     # 其他特征类型，删除Name属性（如果需要）并写入
                     # Other feature types, remove Name attribute if needed and write
-                    if feature_type in ['exon', 'intron', 'CDS', 'start_codon', 'stop_codon'] or \
-                       (self.config.include_utr and feature_type in ['five_prime_UTR', 'three_prime_UTR']):
+                    if feature_type in ['exon', 'intron', 'CDS', 'start_codon', 'stop_codon', 'five_prime_UTR', 'three_prime_UTR']:
                         attributes = fields[8]
                         attributes = re.sub(r'Name=[^;]+;?', '', attributes)
                         attributes = attributes.replace(';;', ';')

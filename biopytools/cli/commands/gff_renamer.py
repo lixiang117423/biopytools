@@ -73,8 +73,12 @@ def _validate_path_exists(path):
               is_flag=True,
               default=False,
               help='跳过AGAT清洗步骤|Skip AGAT GFF cleaning step')
+@click.option('--prefer-mrna/--no-prefer-mrna',
+              default=True,
+              show_default=True,
+              help='对含mRNA的基因丢弃冗余transcript(misc_RNA)变体及其子特征(默认开)|Drop redundant transcript (misc_RNA) variants and their children from genes that have mRNA (default on)')
 def gff_renamer(input, output, prefix, species, threads, output_mrna_mapping, mrna_mapping_file,
-                chr_mapping, naming_format, include_utr, skip_clean):
+                chr_mapping, naming_format, include_utr, skip_clean, prefer_mrna):
     """GFF文件ID规范化工具|GFF File ID Standardization Tool
 
     将GFF文件中的gene、mRNA、exon、CDS等特征的ID规范化为标准格式
@@ -112,6 +116,10 @@ def gff_renamer(input, output, prefix, species, threads, output_mrna_mapping, mr
         args.append('--include-utr')
     if skip_clean:
         args.append('--skip-clean')
+    # prefer_mrna 默认开,仅在被显式关闭时透传 --no-prefer-mrna
+    # prefer_mrna is on by default; only forward when explicitly disabled
+    if not prefer_mrna:
+        args.append('--no-prefer-mrna')
 
     # 保存并恢复sys.argv|Save and restore sys.argv
     original_argv = sys.argv

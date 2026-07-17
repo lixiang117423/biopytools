@@ -40,10 +40,9 @@ def _validate_directory_exists(dir_path):
 @click.command(short_help="FastqVCF (GTX)|Fastq to VCF (GTX) Command",
                context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120))
 @click.option('--input', '-i',
-              required=True,
               callback=lambda ctx, param, value: _validate_directory_exists(value) if value else None,
               type=click.Path(exists=True, file_okay=False, dir_okay=True, resolve_path=True),
-              help='输入目录|Raw FASTQ files directory path')
+              help='原始FASTQ目录(与 --clean-fastq-dir 二选一)|Raw FASTQ directory (mutually exclusive with --clean-fastq-dir)')
 @click.option('--genome', '-g',
               required=True,
               callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
@@ -206,7 +205,10 @@ def fastq2vcf_gtx(input, genome, output_dir,
     args = ['fastq2vcf_gtx.py']
 
     # 必需参数|Required parameters
-    args.extend(['--input', input])
+    # --input 与 --clean-fastq-dir 二选一;未提供 -i 时不透传,交由 main.py 校验
+    # --input and --clean-fastq-dir are mutually exclusive; omit -i when absent and let main.py validate
+    if input:
+        args.extend(['--input', input])
     args.extend(['-g', genome])
     args.extend(['--output-dir', output_dir])
 

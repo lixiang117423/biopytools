@@ -51,7 +51,9 @@ class Fastq2VcfGTXConfig:
     gtx_cmd_gen_script: str = "${HOME}/software/scripts/51.生成GTX按染色体合并gVCF的脚本.sh"
 
     # 高级选项|Advanced options
-    enable_checkpoint: bool = False
+    # 默认启用断点续传,与 CLI 默认 (not --no-checkpoint) 保持一致
+    # Enable checkpoint by default to match CLI default (not --no-checkpoint)
+    enable_checkpoint: bool = True
     dry_run: bool = False
     verbose: bool = False
     quiet: bool = False
