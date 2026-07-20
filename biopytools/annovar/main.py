@@ -38,7 +38,11 @@ class ANNOVARAnnotator:
         # 初始化结果处理器|Initialize results processor
         pep_file = getattr(self.config, 'pep_file', None)
         cds_file = getattr(self.config, 'cds_file', None)
-        self.results_processor = ANNOVARResultsProcessor(self.logger, self.config.output_dir, pep_file=pep_file, cds_file=cds_file)
+        seqkit_path = getattr(self.config, 'seqkit_path', 'seqkit')
+        self.results_processor = ANNOVARResultsProcessor(
+            self.logger, self.config.output_dir, pep_file=pep_file, cds_file=cds_file,
+            seqkit_path=seqkit_path
+        )
 
     def _is_step_completed(self, output_file: str) -> bool:
         """检查步骤是否已完成（通过输出文件存在性判断）|Check if step is done by output file existence"""
@@ -226,12 +230,10 @@ def main():
     parser.add_argument('-a', '--annovar-path',
                        default='~/software/annovar/annovar',
                        help='ANNOVAR软件安装路径|ANNOVAR software installation path')
-    parser.add_argument('-d', '--database-path',
-                       default='./database',
-                       help='ANNOVAR数据库路径|ANNOVAR database path')
     parser.add_argument('-o', '--output-dir',
                        default='./annovar_output',
-                       help='输出目录|Output directory')
+                       help='输出目录(同时作为ANNOVAR数据库目录,refGene在此生成)|'
+                            'Output directory (also the ANNOVAR database dir; refGene is built here)')
     parser.add_argument('-q', '--qual-threshold',
                        type=int, default=20,
                        help='VCF质量过滤阈值(仅在启用VCF过滤时生效)|'
@@ -269,7 +271,6 @@ def main():
         gff3_file=args.gff3,
         genome_file=args.genome,
         build_ver=args.build_ver,
-        database_path=args.database_path,
         output_dir=args.output_dir,
         qual_threshold=args.qual_threshold,
         skip_gff_cleaning=args.skip_gff_cleaning,

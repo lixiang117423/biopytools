@@ -1,4 +1,13 @@
 
+## [1.15.2] - 2026-07-20
+
+### Fixed
+- `annovar`：`GFF3Validator.clean_and_fix_gff3` 不再原地覆盖用户输入的 GFF3（原实现备份+替换输入文件，危险副作用）——改为读输入、写 output_dir 内的工作副本，输入保持不动；`gff3_to_genepred` 配套使用工作副本（`{build_ver}.cleaned.gff3`）并重定向后续步骤
+- `annovar`（CLI）：`--step`（int）传 sys.argv 未转 str → `str(step)`
+
+### Changed
+- `annovar`：删除 `database_path` 参数（改用 output_dir 作为 ANNOVAR 数据库目录，refGene 在此生成）；工具路径 gffread/seqkit 改 `get_tool_path`（§11.3）+ `build_conda_command` 传完整路径（§13.6.1）；`data_processing.py` 缩进 Tab→4 空格统一
+
 ## [1.15.1] - 2026-07-17
 
 ### Fixed

@@ -136,15 +136,21 @@ class GFF3Validator:
     def __init__(self, logger):
         self.logger = logger
 
-    def clean_and_fix_gff3(self, gff3_file: str):
-        """清理和修复GFF3文件的格式问题|Clean and fix GFF3 file format issues"""
+    def clean_and_fix_gff3(self, input_file: str, output_file: str):
+        """
+        清理GFF3并写出,不修改输入文件|Clean GFF3 and write out without touching the input
+
+        原实现会把清洗结果原地覆盖输入GFF3(含备份),属于意外的副作用;
+        现改为读取 input_file、写出 output_file,输入保持不动|
+        Old impl overwrote the input GFF3 in place (with backup) — an unexpected side
+        effect. Now reads input_file, writes output_file, leaving the input untouched.
+        """
         self.logger.info(
-            "开始清理GFF3文件格式|Starting GFF3 file format cleaning"
+            f"开始清理GFF3文件格式|Starting GFF3 file format cleaning: {input_file} -> {output_file}"
         )
 
-        base_name = os.path.splitext(gff3_file)[0]
-        clean_file = f"{base_name}.clean.gff3"
-        final_file = f"{base_name}.final_fixed.gff3"
+        # 中间临时文件与输出同目录|Intermediate temp beside the output
+        clean_file = output_file + '.tmp_clean'
 
         # 步骤1: 清理attributes列，只保留ID、Name、Parent|Step 1: Clean attributes column, keep only ID, Name, Parent
         self.logger.info("步骤1: 清理attributes列|Step 1: Cleaning attributes column")
@@ -163,14 +169,16 @@ class GFF3Validator:
     }}
     $9 = new_attrs;
     print $0;
-}}' "{gff3_file}" > "{clean_file}" """
+}}' "{input_file}" > "{clean_file}" """
 
         self.logger.info(f"命令|Command: {clean_cmd}")
         try:
-            result = subprocess.run(clean_cmd, shell=True, capture_output=True, text=True, check=True)
+            subprocess.run(clean_cmd, shell=True, capture_output=True, text=True, check=True)
             self.logger.info(f"第一步清理完成|First step cleaning completed: {clean_file}")
         except subprocess.CalledProcessError as e:
             self.logger.error(f"第一步清理失败|First step cleaning failed: {e.stderr}")
+            if os.path.exists(clean_file):
+                os.remove(clean_file)
             return False
 
         # 步骤2: 修复坐标问题(start > end)|Step 2: Fix coordinate issues (start > end)
@@ -183,31 +191,20 @@ class GFF3Validator:
         $5 = tmp;
     }}
     print $0;
-}}' "{clean_file}" > "{final_file}" """
+}}' "{clean_file}" > "{output_file}" """
 
         self.logger.info(f"命令|Command: {fix_cmd}")
         try:
-            result = subprocess.run(fix_cmd, shell=True, capture_output=True, text=True, check=True)
-            self.logger.info(f"第二步修复完成|Second step fixing completed: {final_file}")
-
-            # 备份原文件|Backup original file
-            backup_file = f"{gff3_file}.original_backup"
-            if not os.path.exists(backup_file):
-                os.rename(gff3_file, backup_file)
-                self.logger.info(f"原文件已备份|Original file backed up: {backup_file}")
-
-            # 用修复后的文件替换原文件|Replace original file with fixed file
-            os.rename(final_file, gff3_file)
-            self.logger.info(f"已用修复后的文件替换原文件|Replaced original file with fixed file")
-
-            # 清理临时文件|Clean up temporary file
+            subprocess.run(fix_cmd, shell=True, capture_output=True, text=True, check=True)
+            self.logger.info(f"第二步修复完成|Second step fixing completed: {output_file}")
+            # 清理中间临时文件|Clean up intermediate temp
             if os.path.exists(clean_file):
                 os.remove(clean_file)
-
             return True
-
         except subprocess.CalledProcessError as e:
             self.logger.error(f"第二步修复失败|Second step fixing failed: {e.stderr}")
+            if os.path.exists(clean_file):
+                os.remove(clean_file)
             return False
 
     def check_gff3_header(self, gff3_file: str):

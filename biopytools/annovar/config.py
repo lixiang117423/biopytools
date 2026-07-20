@@ -22,8 +22,11 @@ class ANNOVARConfig:
     annovar_path: str = field(
         default_factory=lambda: get_tool_path('annovar', '~/software/annovar/annovar', 'ANNOVAR_PATH')
     )
-    database_path: str = './database'
     output_dir: str = './annovar_output'
+
+    # 序列工具路径(支持 GFFREAD_PATH/SEQKIT_PATH 环境变量覆盖)|Seq tool paths (env-overridable)
+    gffread_path: str = field(default_factory=lambda: get_tool_path('gffread', 'gffread', 'GFFREAD_PATH'))
+    seqkit_path: str = field(default_factory=lambda: get_tool_path('seqkit', 'seqkit', 'SEQKIT_PATH'))
     
     # 处理参数|Processing parameters
     qual_threshold: int = 20
@@ -44,8 +47,11 @@ class ANNOVARConfig:
         self.genome_file = os.path.normpath(os.path.abspath(expand_path(self.genome_file)))
         self.vcf_file = os.path.normpath(os.path.abspath(expand_path(self.vcf_file)))
         self.annovar_path = os.path.normpath(os.path.abspath(expand_path(self.annovar_path)))
-        self.database_path = os.path.normpath(os.path.abspath(expand_path(self.database_path)))
         self.output_dir = os.path.normpath(os.path.abspath(expand_path(self.output_dir)))
+
+        # 序列工具路径展开(默认裸名,可由环境变量/配置文件覆盖)|Expand seq tool paths
+        self.gffread_path = expand_path(self.gffread_path)
+        self.seqkit_path = expand_path(self.seqkit_path)
 
         # 计算VCF基础名称|Compute VCF base name
         self.vcf_basename = os.path.splitext(os.path.basename(self.vcf_file))[0]
@@ -84,13 +90,8 @@ class ANNOVARConfig:
         # 检查步骤参数|Check step parameter
         if self.step is not None and self.step not in [1, 2, 3, 4]:
             errors.append(f"无效的步骤编号|Invalid step number: {self.step} (应为1-4|should be 1-4)")
-        
-        # 数据库路径警告|Database path warning
-        if not os.path.isabs(self.database_path) and not os.path.exists(self.database_path):
-            # 这只是警告，不是错误|This is just a warning, not an error
-            pass
-        
+
         if errors:
             raise ValueError("\n".join(errors))
-        
+
         return True

@@ -54,16 +54,11 @@ def _validate_file_exists(file_path):
               default='~/software/annovar/annovar',
               show_default=True,
               help='ANNOVAR软件路径|ANNOVAR software installation path')
-@click.option('--database-path', '-d',
-              default='./database',
-              show_default=True,
-              type=click.Path(),
-              help='ANNOVAR数据库路径|ANNOVAR database path')
 @click.option('--output-dir', '-o',
               default='./annovar_output',
               show_default=True,
               type=click.Path(),
-              help='输出目录|Output directory')
+              help='输出目录(同时作为ANNOVAR数据库目录)|Output directory (also the ANNOVAR database dir)')
 @click.option('--qual-threshold', '-q',
               type=int,
               default=20,
@@ -85,7 +80,7 @@ def _validate_file_exists(file_path):
 @click.option('--enable-vcf-filter',
               is_flag=True,
               help='启用VCF过滤(默认跳过)|Enable VCF filtering step (skipped by default)')
-def annovar(input, gff3, genome, build_ver, annovar_path, database_path,
+def annovar(input, gff3, genome, build_ver, annovar_path,
            output_dir, qual_threshold, step, skip_gff_cleaning,
            skip_gff_fix, enable_vcf_filter):
     """
@@ -112,18 +107,15 @@ def annovar(input, gff3, genome, build_ver, annovar_path, database_path,
     if annovar_path != '~/software/annovar/annovar':
         args.extend(['-a', annovar_path])
 
-    if database_path != './database':
-        args.extend(['-d', database_path])
-
     if output_dir != './annovar_output':
         args.extend(['-o', output_dir])
 
     if qual_threshold != 20:
         args.extend(['-q', str(qual_threshold)])
 
-    # 步骤控制|Step control
+    # 步骤控制|Step control (step为int,必须转str才能进sys.argv|step is int, cast to str for sys.argv)
     if step:
-        args.extend(['-s', step])
+        args.extend(['-s', str(step)])
 
     # 布尔选项|Boolean options
     if skip_gff_cleaning:

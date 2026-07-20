@@ -13,7 +13,7 @@ import subprocess
 import sys
 from typing import List, Dict, Optional, Union, Any
 from pathlib import Path
-from ..common.paths import get_tool_path
+from .utils import build_conda_command
 
 
 class ProteinSeqModifier:
@@ -38,8 +38,9 @@ class ProteinSeqModifier:
         'GGT': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
     }
 
-    def __init__(self, logger, pep_file: str, cds_file: str = None):
+    def __init__(self, logger, pep_file: str, cds_file: str = None, seqkit_path: str = 'seqkit'):
         self.logger = logger
+        self.seqkit_path = seqkit_path
         self.pep_sequences = {}
         self.cds_sequences = {}
         self._load_pep_sequences(pep_file)
@@ -69,8 +70,7 @@ class ProteinSeqModifier:
 
     def _load_pep_sequences(self, pep_file: str):
         """使用seqkit fx2tab加载蛋白序列|Load protein sequences using seqkit fx2tab"""
-        seqkit_path = get_tool_path('seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH')
-        cmd = [seqkit_path, 'fx2tab', '-i', pep_file]
+        cmd = build_conda_command(self.seqkit_path, ['fx2tab', '-i', pep_file])
         self.logger.info(f"命令|Command: {' '.join(cmd)}")
         try:
             result = subprocess.run(
@@ -98,8 +98,7 @@ class ProteinSeqModifier:
 
     def _load_cds_sequences(self, cds_file: str):
         """使用seqkit fx2tab加载CDS序列，避免大文件读取截断问题|Load CDS sequences using seqkit fx2tab to avoid large file truncation"""
-        seqkit_path = get_tool_path('seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH')
-        cmd = [seqkit_path, 'fx2tab', '-i', cds_file]
+        cmd = build_conda_command(self.seqkit_path, ['fx2tab', '-i', cds_file])
         self.logger.info(f"命令|Command: {' '.join(cmd)}")
         try:
             result = subprocess.run(
@@ -692,11 +691,13 @@ class AllVariantProcessor:
 class ANNOVARResultsProcessor:
     """ANNOVAR结果处理器主类|Main ANNOVAR Results Processor Class"""
 
-    def __init__(self, logger, output_dir: str, pep_file: str = None, cds_file: str = None):
+    def __init__(self, logger, output_dir: str, pep_file: str = None, cds_file: str = None,
+                 seqkit_path: str = 'seqkit'):
         self.logger = logger
         self.output_dir = output_dir
         self.pep_file = pep_file
         self.cds_file = cds_file
+        self.seqkit_path = seqkit_path
         self.exonic_processor = ExonicVariantProcessor(logger)
         self.all_processor = AllVariantProcessor(logger)
 
@@ -705,7 +706,7 @@ class ANNOVARResultsProcessor:
         if self.pep_file and not self.exonic_processor.protein_modifier:
             if os.path.exists(self.pep_file):
                 self.exonic_processor.set_protein_modifier(
-                    ProteinSeqModifier(self.logger, self.pep_file, self.cds_file)
+                    ProteinSeqModifier(self.logger, self.pep_file, self.cds_file, self.seqkit_path)
                 )
             else:
                 self.logger.warning(f" 蛋白序列文件不存在，跳过蛋白序列|Protein file does not exist, skipping protein sequences: {self.pep_file}")

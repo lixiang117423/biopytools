@@ -41,7 +41,7 @@ class SummaryGenerator:
             f.write(f"  构建版本|Build version: {self.config.build_ver}\n")
             f.write(f"  输出目录|Output directory: {self.config.output_dir}\n")
             f.write(f"  ANNOVAR路径|ANNOVAR path: {self.config.annovar_path}\n")
-            f.write(f"  数据库路径|Database path: {self.config.database_path}\n")
+            f.write(f"  ANNOVAR数据库目录|ANNOVAR database dir: {self.config.output_dir} (refGene在此生成|built here)\n")
             f.write(f"  跳过VCF过滤|Skip VCF filter: {'是|Yes' if self.config.skip_vcf_filter else '否|No'}\n")
             f.write(f"  跳过GFF修复|Skip GFF fix: {'是|Yes' if self.config.skip_gff_fix else '否|No'}\n")
 
