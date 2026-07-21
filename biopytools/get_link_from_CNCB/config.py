@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
+from ..common.paths import expand_path
+
 
 @dataclass
 class CNCBConfig:
@@ -26,7 +28,6 @@ class CNCBConfig:
     base_dirs: list = None
 
     # 搜索配置|Search configuration
-    max_threads: int = 4
     retry_attempts: int = 3
     retry_delay: float = 1.0
 
@@ -54,14 +55,16 @@ class CNCBConfig:
             base_name = os.path.splitext(os.path.basename(self.input_file))[0]
             self.failed_file = f"{base_name}_failed.txt"
 
-        # 验证输入文件路径
-        self.input_file = os.path.normpath(os.path.abspath(self.input_file))
+        # 验证输入文件路径(展开~)|Validate input file path (expand ~)
+        self.input_file = os.path.normpath(os.path.abspath(expand_path(self.input_file)))
+        self.output_file = os.path.normpath(os.path.abspath(expand_path(self.output_file)))
+        self.failed_file = os.path.normpath(os.path.abspath(expand_path(self.failed_file)))
 
         # 创建输出目录
-        output_dir = os.path.dirname(os.path.abspath(self.output_file))
+        output_dir = os.path.dirname(self.output_file)
         Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-        failed_dir = os.path.dirname(os.path.abspath(self.failed_file))
+        failed_dir = os.path.dirname(self.failed_file)
         Path(failed_dir).mkdir(parents=True, exist_ok=True)
 
     def validate(self):
@@ -98,9 +101,6 @@ class CNCBConfig:
         # 检查配置值|Check configuration values
         if self.ftp_timeout <= 0:
             errors.append("FTP超时时间必须大于0|FTP timeout must be greater than 0")
-
-        if self.max_threads < 1:
-            errors.append("最大线程数必须大于等于1|Max threads must be >= 1")
 
         if self.retry_attempts < 0:
             errors.append("重试次数不能为负数|Retry attempts cannot be negative")

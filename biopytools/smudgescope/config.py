@@ -5,6 +5,8 @@ Genome Analysis Configuration
 
 import os
 
+from ..common.paths import expand_path
+
 
 class GenomeAnalysisConfig:
     """基因组分析配置类|Genome Analysis Configuration Class"""
@@ -39,8 +41,8 @@ class GenomeAnalysisConfig:
             ploidy: 基因组倍性 1-6 (默认: 2)|Genome ploidy level 1-6 (default: 2)
             genomescope_env: GenomeScope conda环境名称 (默认: genomescope_v.2.0.1)|GenomeScope conda env name (default: genomescope_v.2.0.1)
         """
-        self.input_dir = input_dir
-        self.output_dir = output_dir
+        self.input_dir = expand_path(input_dir)
+        self.output_dir = expand_path(output_dir)
         self.read_length = read_length
         self.kmer_size = kmer_size
         self.threads = threads

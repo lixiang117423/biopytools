@@ -2,11 +2,46 @@
 FASTP质控工具函数模块|FASTP Quality Control Utility Functions Module
 """
 
+import os
+import re
+import shutil
 import logging
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
+
+
+def get_conda_env(command: str, preferred: Optional[str] = None) -> Optional[str]:
+    """检测命令所在的conda环境名称|Detect conda env name where the command resides"""
+    conda_exe = os.environ.get('CONDA_EXE')
+    envs_dir = None
+    if conda_exe:
+        envs_dir = os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
+
+    if preferred and envs_dir and os.path.exists(os.path.join(envs_dir, preferred, 'bin', command)):
+        return preferred
+
+    cmd_path = shutil.which(command)
+    if cmd_path:
+        match = re.search(r'/envs/([^/]+)', cmd_path)
+        if match:
+            return match.group(1)
+
+    if envs_dir and os.path.isdir(envs_dir):
+        for env_name in os.listdir(envs_dir):
+            if os.path.exists(os.path.join(envs_dir, env_name, 'bin', command)):
+                return env_name
+
+    return None
+
+
+def build_conda_command(command: str, args: List[str], preferred_env: Optional[str] = None) -> List[str]:
+    """构建conda run命令(单工具)|Build conda run command (single tool)"""
+    conda_env = get_conda_env(command, preferred=preferred_env)
+    if conda_env:
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
+    return [command] + args
 
 
 class FastpLogger:
@@ -98,6 +133,14 @@ class CommandRunner:
         """
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
+
+        # 自动conda包装:对cmd[0](如fastp/seqkit)检测conda环境并包装|
+        # Auto conda-wrap: detect env for cmd[0] (e.g. fastp/seqkit) and wrap
+        if cmd:
+            wrapped = build_conda_command(str(cmd[0]), [str(a) for a in cmd[1:]])
+            if wrapped != cmd:
+                self.logger.info(f"使用conda环境|Using conda env for {cmd[0]}")
+            cmd = wrapped
 
         # 将命令列表转换为字符串用于日志|Convert command list to string for logging
         cmd_str = " ".join(str(arg) for arg in cmd)

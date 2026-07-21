@@ -7,11 +7,11 @@ import sys
 import os
 
 
-def _lazy_import_genome_analysis_main():
-    """延迟加载genome_analysis主函数|Lazy load genome_analysis main function"""
+def _lazy_import_smudgescope_main():
+    """延迟加载smudgescope主函数|Lazy load smudgescope main function"""
     try:
-        from ...smudgescope.main import main as genome_analysis_main
-        return genome_analysis_main
+        from ...smudgescope.main import main as smudgescope_main
+        return smudgescope_main
     except ImportError as e:
         click.echo(f"Import Error: {e}", err=True)
         sys.exit(1)
@@ -115,10 +115,10 @@ def smudgescope(input, output_dir, read_length, kmer_size, threads,
     """
 
     # 延迟加载|Lazy loading: import only when actually called
-    genome_analysis_main = _lazy_import_genome_analysis_main()
+    smudgescope_main = _lazy_import_smudgescope_main()
 
     # 构建参数列表|Build argument list
-    args = ['genome_analysis.py']
+    args = ['smudgescope.py']
 
     # 必需参数|Required parameters
     args.extend(['-i', input])
@@ -159,7 +159,7 @@ def smudgescope(input, output_dir, read_length, kmer_size, threads,
 
     try:
         # 调用原始主函数|Call original main function
-        genome_analysis_main()
+        smudgescope_main()
     except SystemExit as e:
         # 处理正常程序退出|Handle normal program exit
         if e.code != 0:

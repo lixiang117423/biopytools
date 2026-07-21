@@ -77,6 +77,7 @@ class SRAConverter:
             self.logger.info(f"=" * 80)
             self.logger.info(f"总耗时|Duration: {duration:.1f} 秒|seconds")
             self.logger.info(f"成功: {len(results['success'])}|Success: {len(results['success'])}")
+            self.logger.info(f"跳过(已完成): {len(results.get('skipped', []))}|Skipped (already done): {len(results.get('skipped', []))}")
             self.logger.info(f"失败: {len(results['failed'])}|Failed: {len(results['failed'])}")
             self.logger.info(f"结果保存在|Results saved in: {self.config.output_dir}")
             

@@ -30,7 +30,7 @@ def parse_arguments():
   %(prog)s -i input.vcf.gz -p phenotype.txt -o output --models GLM MLM
 
   # 使用conda环境|Use conda environment
-  %(prog)s -i input.vcf.gz -p phenotype.txt -o output --r-env ~/miniforge3/envs/rMVP
+  %(prog)s -i input.vcf.gz -p phenotype.txt -o output --r-env rMVP
 
   # 并行计算|Parallel computing
   %(prog)s -i input.vcf.gz -p phenotype.txt -o output --ncpus 16 --maxLine 50000
@@ -60,10 +60,10 @@ def parse_arguments():
                         default=['GLM', 'MLM', 'FarmCPU'],
                         help='分析模型|Analysis models (default: GLM MLM FarmCPU)')
 
-    # R环境|R environment
+    # R环境|R environment (conda环境名或路径,与config默认对齐|rMVP env name or path, aligned with config default)
     parser.add_argument('--r-env',
-                        default='~/miniforge3/envs/rMVP',
-                        help='R conda环境路径|R conda environment path')
+                        default='rMVP',
+                        help='R conda环境名称或路径|R conda environment name or path (default: rMVP)')
     parser.add_argument('--r-path',
                         help='R可执行文件路径|R executable path')
 

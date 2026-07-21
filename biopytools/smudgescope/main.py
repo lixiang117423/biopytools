@@ -15,13 +15,13 @@ import shutil
 from pathlib import Path
 from datetime import datetime
 try:
-    from openpyxl import Workbook
+    from openpyxl import Workbook, Font
     HAS_OPENPYXL = True
 except ImportError:
     HAS_OPENPYXL = False
 
 from .config import GenomeAnalysisConfig
-from .utils import GenomeAnalysisLogger, GenomeScopeRunner, SmudgeplotRunner, SampleFinder, get_conda_env
+from .utils import GenomeAnalysisLogger, GenomeScopeRunner, SmudgeplotRunner, SampleFinder, get_conda_env, build_conda_command
 
 
 def _parse_genomescope_model(model_file: str) -> Optional[float]:
@@ -142,17 +142,21 @@ def generate_summary_table(samples, output_dir: str, sample_kcov_dict: dict, log
             parsed_count += 1
             kcov = sample_kcov_dict.get(sample_name, '')
 
-            # 从model.txt提取杂合度点估计值(r参数)|Extract heterozygosity point estimate (r param) from model.txt
-            model_file = os.path.join(output_dir, sample_name, "02_genomescope", "model.txt")
-            het_point = _parse_genomescope_model(model_file)
-            het_str = f"{het_point * 100:.4f}%" if het_point is not None else fmt_range('heterozygous_ab')
-
+            # 定义范围格式化:必须在 het_str 之前定义,否则 het_point 为 None 时
+            # 会引用尚未定义的 fmt_range -> UnboundLocalError(原 bug)
+            # Define range formatter BEFORE het_str: otherwise het_point=None references
+            # an undefined fmt_range -> UnboundLocalError (the original bug)
             def fmt_range(key_base):
                 mn = metrics.get(f'{key_base}_min', '')
                 mx = metrics.get(f'{key_base}_max', '')
                 if mn == mx:
                     return mn
                 return f"{mn}-{mx}" if mn and mx else ''
+
+            # 从model.txt提取杂合度点估计值(r参数)|Extract heterozygosity point estimate (r param) from model.txt
+            model_file = os.path.join(output_dir, sample_name, "02_genomescope", "model.txt")
+            het_point = _parse_genomescope_model(model_file)
+            het_str = f"{het_point * 100:.4f}%" if het_point is not None else fmt_range('heterozygous_ab')
 
             row = [
                 sample_name,
@@ -183,7 +187,8 @@ def generate_summary_table(samples, output_dir: str, sample_kcov_dict: dict, log
         ws = wb.active
         ws.title = "Summary"
         for cell in ws[1]:
-            cell.font = cell.font.copy(bold=True)
+            # openpyxl 新版 .copy() 已弃用,改用 Font 相加|newer openpyxl deprecates .copy(), use Font addition
+            cell.font = cell.font + Font(bold=True)
         ws.append(header)
         for row in rows:
             ws.append(row)
@@ -331,12 +336,14 @@ def generate_software_versions_yml(output_dir: str, config: GenomeAnalysisConfig
             'smudgeplot': ['smudgeplot', '--version'],
         })
 
-    # 获取工具版本|Get tool versions
+    # 获取工具版本(经build_conda_command,保证仅在conda环境里的工具也能取到版本)|
+    # Get versions via build_conda_command so conda-only tools are also detected
     for tool_name, cmd in tool_commands.items():
         try:
+            wrapped_cmd = build_conda_command(cmd[0], cmd[1:])
             # 同时捕获 stdout 和 stderr|Capture both stdout and stderr
             result = subprocess.run(
-                cmd,
+                wrapped_cmd,
                 capture_output=True,
                 text=True,
                 timeout=10
@@ -346,14 +353,12 @@ def generate_software_versions_yml(output_dir: str, config: GenomeAnalysisConfig
             output = result.stdout.strip() if result.stdout.strip() else result.stderr.strip()
             version = output.split('\n')[0] if output else 'unknown'
 
-            # 尝试获取路径|Try to get path
-            path_result = subprocess.run(
-                ['which', tool_name],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
-            tool_path = path_result.stdout.strip() if path_result.returncode == 0 else 'not found'
+            # 路径:优先conda env,其次PATH|Path: prefer conda env, then PATH
+            env = get_conda_env(cmd[0])
+            if env:
+                tool_path = f"conda:{env}"
+            else:
+                tool_path = shutil.which(cmd[0]) or 'not found'
 
             tools[tool_name] = {
                 'version': version,
@@ -621,7 +626,7 @@ def main():
             # 步骤4-5: Smudgeplot (默认运行，可使用--skip-smudgeplot跳过)
             sm_runner = SmudgeplotRunner(logger)
 
-            if not args.skip_smudgeplot:
+            if not config.skip_smudgeplot:
                 logger.info("")
                 logger.info("=" * 60)
                 logger.info(f"样品 {sample_name} 运行Smudgeplot倍性分析|Sample {sample_name} running Smudgeplot ploidy analysis")

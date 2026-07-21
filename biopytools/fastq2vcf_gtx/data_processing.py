@@ -104,10 +104,10 @@ class GenomeIndexer:
         合并自原 main.py 的 _force_build_gtx_index,统一为单一入口:
         - 支持断点续传(检查点存在则跳过)
         - 索引已存在且未 --force 时跳过(避免每次重跑都重建)
-        - 统一 GTX 索引文件清单(.gtx/.gtx.bwt/.gtx.sa/.gtx.ann/.gtx.amb)
+        - GTX 索引清单与 gtx index 实际产物对齐:.amb/.ann/.pac + .bwt.*(glob)
         Consolidated from main.py's _force_build_gtx_index into a single entry point
-        with checkpoint resume, skip-if-exists (unless --force), and a unified
-        GTX index file manifest.
+        with checkpoint resume, skip-if-exists (unless --force), and an index
+        manifest aligned with gtx index output (.amb/.ann/.pac + .bwt.* via glob).
         """
         step_name = "genome_index"
 
@@ -130,16 +130,25 @@ class GenomeIndexer:
             self.logger.info(f"使用原始基因组文件|Using original genome file: {self.config.ref_genome_fa}")
             target_genome_file = self.config.ref_genome_fa
 
-        # GTX 索引文件清单(与 gtx index 实际产物一致)|GTX index manifest (matches gtx index output)
+        # GTX 索引(BWA2 FM-index)实际产物清单|GTX index (BWA2 FM-index) actual outputs
+        # 必有文件 .amb/.ann/.pac;bwt 文件后缀随基因组大小变化(.bwt.2bit.64 / .bwt.8bit.32),
+        # 故用 glob 匹配而非硬编码|.amb/.ann/.pac always present; bwt suffix varies with genome
+        # size (.bwt.2bit.64 / .bwt.8bit.32), so matched via glob instead of hardcoding
         gtx_index_files = [
-            f"{target_genome_file}.gtx",
-            f"{target_genome_file}.gtx.bwt",
-            f"{target_genome_file}.gtx.sa",
-            f"{target_genome_file}.gtx.ann",
-            f"{target_genome_file}.gtx.amb"
+            f"{target_genome_file}.amb",
+            f"{target_genome_file}.ann",
+            f"{target_genome_file}.pac",
         ]
 
-        index_exists = all(os.path.exists(f) for f in gtx_index_files)
+        def _find_bwt_files():
+            """查找 bwt 索引文件|Find bwt index files (suffix varies with genome size)"""
+            return glob.glob(f"{target_genome_file}.bwt.*")
+
+        def _gtx_index_complete():
+            """GTX 索引是否完整(必有文件齐全且存在 bwt 文件)|Index complete"""
+            return all(os.path.exists(f) for f in gtx_index_files) and len(_find_bwt_files()) > 0
+
+        index_exists = _gtx_index_complete()
         self.logger.info(f"GTX索引状态: {'已存在' if index_exists else '不存在'}|GTX index status: {'exists' if index_exists else 'missing'}")
 
         # 索引已存在且未强制重建则跳过|Skip if index exists and not forced to rebuild
@@ -160,14 +169,14 @@ class GenomeIndexer:
         if not self.cmd_runner.run(gtx_index_cmd, "构建GTX索引|Build GTX index"):
             self.logger.error("GTX索引构建失败|GTX index building failed")
             self.logger.info("构建后的索引文件状态|Index file status after build:")
-            for idx_file in gtx_index_files:
+            for idx_file in gtx_index_files + _find_bwt_files():
                 self.logger.info(f"   {idx_file}: {'OK' if os.path.exists(idx_file) else 'MISSING'}")
             return False
 
         # 构建成功后验证索引文件|Verify index files after successful build
         self.logger.info("验证GTX索引文件|Verifying GTX index files:")
         all_ok = True
-        for idx_file in gtx_index_files:
+        for idx_file in gtx_index_files + _find_bwt_files():
             exists = os.path.exists(idx_file)
             size = FileManager.get_file_size(idx_file) if exists else "0 B"
             self.logger.info(f"   {idx_file}: {'OK' if exists else 'MISSING'} ({size})")

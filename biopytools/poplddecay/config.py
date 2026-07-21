@@ -77,10 +77,41 @@ class PopLDdecayConfig:
             self.input_path = Path(self.input_file)
         if self.output_prefix:
             self.output_path = Path(self.output_prefix)
+            # 若 -o 指向目录(如 ./)，从输入文件名自动推导前缀，
+            # 避免产出 .stat.gz / .png / .log 等隐藏文件
+            # If -o is a directory (e.g. ./), derive prefix from input filename
+            # to avoid hidden files like .stat.gz / .png / .log
+            if self._is_output_directory():
+                prefix = self._derive_prefix_from_input()
+                self.output_path = self.output_path / prefix
             # 创建输出目录|Create output directory
             self.output_path.parent.mkdir(parents=True, exist_ok=True)
         if self.subpop_file:
             self.subpop_path = Path(self.subpop_file)
+
+    def _is_output_directory(self) -> bool:
+        """检测 -o 是否指向目录|Detect if -o points to a directory
+
+        Returns:
+            bool: -o 以 / 结尾 或 已存在的目录
+        """
+        if self.output_prefix.endswith('/'):
+            return True
+        if self.output_path.is_dir():
+            return True
+        return False
+
+    def _derive_prefix_from_input(self) -> str:
+        """从输入文件名推导输出前缀|Derive output prefix from input filename
+
+        Returns:
+            str: 去除已知扩展名的文件名前缀
+        """
+        name = Path(self.input_file).name
+        for ext in ['.vcf.gz', '.vcf', '.genotype.gz', '.genotype', '.txt.gz', '.txt', '.gz']:
+            if name.endswith(ext):
+                return name[:-len(ext)]
+        return name
 
     def validate(self):
         """验证配置参数|Validate configuration parameters

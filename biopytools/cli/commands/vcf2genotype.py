@@ -52,7 +52,7 @@ def _lazy_import_vcf2genotype_main():
               help='按染色体拆分输出文件：yes/y或no/n|Split output files by chromosome: yes/y or no/n')
 @click.option('--output-type', '-t',
               default='txt',
-              type=click.Choice(['txt', 'csv', 'excel']),
+              type=click.Choice(['txt', 'csv']),
               show_default=True,
               help='输出文件格式|Output file format')
 @click.option('--output-dir',

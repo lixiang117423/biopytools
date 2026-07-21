@@ -220,7 +220,7 @@ class RNASeqAnalyzer:
         self.logger = self.logger_manager.get_logger()
 
         # 初始化命令执行器|Initialize command runner
-        self.cmd_runner = CommandRunner(self.logger)
+        self.cmd_runner = CommandRunner(self.logger, dry_run=self.config.dry_run)
 
         # 初始化各个处理器|Initialize processors
         self.sample_parser = SampleParser(self.logger)

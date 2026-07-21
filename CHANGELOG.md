@@ -1,4 +1,27 @@
 
+## [1.16.0] - 2026-07-21
+
+### Added
+- `sra2fastq`：断点续传（已转换的 SRA 跳过）+ `.fastq.gz`→`.fq.gz` 统一重命名 + skipped 统计
+- `vcf2genotype`：`--dry-run` 试运行模式（只扫描统计不写数据）+ 变异/染色体分布统计
+- `poplddecay`：`-o` 指向目录时自动从输入文件名推导前缀（避免产出 `.stat.gz`/`.png` 等隐藏文件）
+- conda 环境：新增 `foldseek`、`mga`
+
+### Changed
+- 多模块路径标准化加 `expand_path`（dual_rnaseq/fastp/get_link_from_CNCB/smudgescope/vcf2genotype/rnaseq）
+- `rnaseq`/`dual_rnaseq`：CommandRunner 用 `conda run -n ENV bash -c` 包装整条含管道的命令（§13.2.1，避免 conda run|conda run 双重包装）；`fastp` 单工具自动 conda 包装
+- `rnaseq`：删除 alignment/config/quantification/utils 文件顶部大段注释死代码；CommandRunner 新增 dry_run
+- `rmvp`：`--r-env` 默认改环境名 `rMVP`（与 config 对齐）
+- `smudgescope`：CLI `_lazy_import_genome_analysis_main`→`_lazy_import_smudgescope_main`（模块名修正）；software_versions 用 build_conda_command 取版本
+
+### Fixed
+- `smudgescope`：`fmt_range` 定义顺序导致 `UnboundLocalError`（het_point 为 None 时引用未定义函数）；openpyxl 新版 `.copy()` 弃用→`Font` 相加
+- `fastq2vcf_gtx`：GTX 索引清单错误（原硬编码 .gtx/.gtx.bwt/.gtx.sa，实际产物是 .amb/.ann/.pac + .bwt.* 后缀随基因组大小变化）→改 glob 匹配
+
+### Removed
+- `vcf2genotype`：excel 输出（流式难以正确生成 xlsx，且基因型表常超 Excel 行数上限），保留 txt/csv
+- `get_link_from_CNCB`：`max_threads`/`--threads`（CNCB 为生成下载链接，无并发需求）
+
 ## [1.15.2] - 2026-07-20
 
 ### Fixed

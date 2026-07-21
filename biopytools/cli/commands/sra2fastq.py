@@ -90,7 +90,7 @@ def sra2fastq(input, output, threads, tmpdir, compress, split_files, min_len, cl
     if output != './fastq_output':
         args.extend(['-o', output])
 
-    if threads != 88:
+    if threads != 12:
         args.extend(['-t', str(threads)])
 
     if tmpdir:

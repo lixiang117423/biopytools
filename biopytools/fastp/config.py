@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
+from ..common.paths import expand_path
+
 
 @dataclass
 class FastpConfig:
@@ -119,8 +121,8 @@ class FastpConfig:
             self.read2_suffix = "_2.fq.gz"
 
         # 标准化路径|Normalize paths
-        self.input_dir = os.path.normpath(os.path.abspath(self.input_dir))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+        self.input_dir = os.path.normpath(os.path.abspath(expand_path(self.input_dir)))
+        self.output_dir = os.path.normpath(os.path.abspath(expand_path(self.output_dir)))
 
     def _auto_detect_single_end_suffix(self) -> bool:
         """

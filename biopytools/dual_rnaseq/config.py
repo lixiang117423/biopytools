@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List
 
+from ..common.paths import expand_path
+
 
 @dataclass
 class DualRNASeqConfig:
@@ -44,12 +46,12 @@ class DualRNASeqConfig:
         self.output_path.mkdir(parents=True, exist_ok=True)
 
         # 标准化路径|Normalize paths
-        self.species1_genome = os.path.normpath(os.path.abspath(self.species1_genome))
-        self.species1_gtf = os.path.normpath(os.path.abspath(self.species1_gtf))
-        self.species2_genome = os.path.normpath(os.path.abspath(self.species2_genome))
-        self.species2_gtf = os.path.normpath(os.path.abspath(self.species2_gtf))
-        self.input_path = os.path.normpath(os.path.abspath(self.input_path))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+        self.species1_genome = os.path.normpath(os.path.abspath(expand_path(self.species1_genome)))
+        self.species1_gtf = os.path.normpath(os.path.abspath(expand_path(self.species1_gtf)))
+        self.species2_genome = os.path.normpath(os.path.abspath(expand_path(self.species2_genome)))
+        self.species2_gtf = os.path.normpath(os.path.abspath(expand_path(self.species2_gtf)))
+        self.input_path = os.path.normpath(os.path.abspath(expand_path(self.input_path)))
+        self.output_dir = os.path.normpath(os.path.abspath(expand_path(self.output_dir)))
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

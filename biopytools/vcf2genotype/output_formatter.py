@@ -25,8 +25,6 @@ class OutputFormatter:
         # 添加文件扩展名|Add file extension
         if self.config.output_type == "csv":
             filename += ".csv"
-        elif self.config.output_type == "excel":
-            filename += ".xlsx"
         else:  # txt
             filename += ".txt"
 
@@ -117,39 +115,12 @@ class OutputFormatter:
 
         self.logger.info(f"已保存CSV文件|Saved CSV file: {filename} ({len(data)} variants)")
 
-    def _write_excel_file(self, data: List[Dict[str, Any]], filename: str):
-        """写入Excel文件|Write Excel file"""
-        try:
-            import pandas as pd
-            if not data:
-                self.logger.warning(f"没有数据可写入|No data to write: {filename}")
-                return
-
-            df = pd.DataFrame(data)
-
-            with pd.ExcelWriter(filename, engine='openpyxl') as writer:
-                df.to_excel(writer, index=False)
-                worksheet = writer.book.active
-
-                for row in worksheet.iter_rows():
-                    for cell in row:
-                        cell.number_format = '@'
-
-            self.logger.info(f"已保存Excel文件|Saved Excel file: {filename} ({len(data)} variants)")
-
-        except ImportError:
-            self.logger.error("pandas未安装，无法导出Excel格式|pandas not installed, cannot export Excel format")
-            csv_filename = filename.replace('.xlsx', '.csv')
-            self._write_csv_file(data, csv_filename)
-
     def write_output(self, data: List[Dict[str, Any]], suffix: str = ""):
         """写入输出文件|Write output file"""
         filename = self._get_output_filename(suffix)
 
         if self.config.output_type == "csv":
             self._write_csv_file(data, filename)
-        elif self.config.output_type == "excel":
-            self._write_excel_file(data, filename)
         else:  # txt
             self._write_txt_file(data, filename)
 

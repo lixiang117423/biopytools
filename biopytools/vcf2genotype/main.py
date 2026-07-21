@@ -82,15 +82,19 @@ class VCFGenotypeExtractor:
         return fields
 
     def _collect_gt_types(self, target_samples):
-        """全扫描收集所有基因型类型|Full scan to collect all genotype types"""
+        """全扫描收集基因型类型,并统计通过过滤的变异数/染色体分布|Full scan: collect GT types + count kept variants per chrom"""
         gt_types = set()
+        total_variants = 0
+        chrom_counts = defaultdict(int)
         for row in self.parser.parse_records(target_samples):
             if not self.processor.should_keep(row):
                 continue
+            total_variants += 1
+            chrom_counts[row['CHROM']] += 1
             for key in row:
                 if key.startswith('GT_'):
                     gt_types.add(key)
-        return sorted(gt_types)
+        return sorted(gt_types), total_variants, chrom_counts
 
     def run_extraction(self):
         """运行基因型提取（两遍扫描：第一遍收集GT类型，第二遍流式写出）|Run genotype extraction (two-pass: collect GT types, then stream)"""
@@ -108,16 +112,29 @@ class VCFGenotypeExtractor:
 
             self.logger.info(f"目标样本数|Number of target samples: {len(target_samples)}")
 
-            # 第一遍：全扫描收集基因型类型|First pass: full scan to collect all genotype types
+            # 第一遍：全扫描收集基因型类型 + 统计|First pass: collect GT types + counts
             self.logger.info("扫描基因型类型|Scanning genotype types")
-            gt_columns = self._collect_gt_types(target_samples)
+            gt_columns, total_variants, chrom_counts = self._collect_gt_types(target_samples)
             self.logger.info(f"基因型类型|Genotype types: {gt_columns}")
+            self.logger.info(f"通过过滤的变异数|Variants passing filter: {total_variants}")
 
             # 构建完整的列名列表|Build complete fieldnames list
             fieldnames = self._build_fieldnames(target_samples, gt_columns)
 
-            # 判断是否按染色体拆分|Check if splitting by chromosome
-            should_split = str(self.config.split_by_chromosome).lower() in ['y', 'yes']
+            # 判断是否按染色体拆分(config已归一为bool)|Check split (config normalizes to bool)
+            should_split = bool(self.config.split_by_chromosome)
+
+            # 试运行模式:只扫描统计,不写数据文件|Dry run: scan + stats only, no data files
+            if self.config.dry_run:
+                self.logger.info("试运行(DRY RUN):仅扫描统计,不写出数据文件|Dry run: scan + stats only, no data files written")
+                stats = {
+                    'total_variants': total_variants,
+                    'chromosomes': sorted(chrom_counts.keys()),
+                    'chromosome_counts': dict(chrom_counts),
+                }
+                self.formatter.write_summary(stats)
+                self.logger.info("试运行完成(未生成数据文件)|Dry run completed (no data files generated)")
+                return True
 
             # 汇总统计：仅用计数器|Summary stats: counters only
             total_variants = 0
@@ -209,7 +226,7 @@ def main():
     output = parser.add_argument_group('输出配置|Output configuration')
     output.add_argument('-o', '--output', default='vcf_genotype',
                        help='输出文件前缀|Output file prefix')
-    output.add_argument('-t', '--output-type', choices=['txt', 'csv', 'excel'], default='txt',
+    output.add_argument('-t', '--output-type', choices=['txt', 'csv'], default='txt',
                        help='输出文件格式|Output file format')
     output.add_argument('--output-dir', default='./',
                        help='输出目录|Output directory')

@@ -313,8 +313,6 @@ def main():
     # 性能配置|Performance configuration
     parser.add_argument("--retry-attempts", type=int, default=3,
                        help="FTP连接重试次数|FTP connection retry attempts (default: 3)")
-    parser.add_argument("--threads", type=int, default=4,
-                       help="并发线程数|Concurrent threads (default: 4)")
 
     # 日志配置|Logging configuration
     parser.add_argument("-v", "--verbose", action="store_true",
@@ -340,7 +338,6 @@ def main():
             ftp_host=args.ftp_host,
             ftp_timeout=args.ftp_timeout,
             retry_attempts=args.retry_attempts,
-            max_threads=args.threads,
             verbose=args.verbose,
             log_file=args.log_file,
             generate_download_script=not args.no_download_script,

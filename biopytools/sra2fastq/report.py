@@ -19,6 +19,7 @@ class ReportGenerator:
         total = results['total']
         success_count = len(results['success'])
         failed_count = len(results['failed'])
+        skipped_count = len(results.get('skipped', []))
         duration = (end_time - start_time).total_seconds()
         
         with open(report_file, 'w', encoding='utf-8') as f:
@@ -48,6 +49,7 @@ class ReportGenerator:
             f.write(f"转换统计|Conversion Statistics:\n")
             f.write(f"  - 总文件数|Total Files: {total}\n")
             f.write(f"  - 成功|Success: {success_count}\n")
+            f.write(f"  - 跳过(已完成)|Skipped (already done): {skipped_count}\n")
             f.write(f"  - 失败|Failed: {failed_count}\n")
             f.write(f"  - 成功率|Success Rate: {success_count/total*100:.1f}%\n")
             
