@@ -5,11 +5,11 @@ HiTE 配置管理模块|HiTE Configuration Management Module
 Contains configuration dataclasses for HiTE and panHiTE
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 import os
-from ..common.paths import expand_path
+from ..common.paths import get_tool_path, expand_path
 
 
 @dataclass
@@ -17,144 +17,109 @@ class HiteConfig:
     """
     HiTE 单基因组配置类|HiTE Single-genome Configuration Class
 
-    用于 HiTE 单基因组转座子检测与注释的配置管理
-    Configuration management for HiTE single-genome transposon detection and annotation
+    singularity 直接挂载模式:singularity exec --bind host:host <sif> python /HiTE/main.py
+    Singularity direct-mount mode: HiTE writes directly to host output_dir/01_hite
     """
 
-    # ==================== 必需参数|Required parameters ====================
+    # ==================== 必需参数|Required ====================
     genome: str
     """基因组FASTA文件路径|Genome FASTA file path"""
 
-    # ==================== 路径配置|Path configuration ====================
-    singularity_cmd: str = '~/miniforge3/envs/singularity_v.3.8.7/bin/singularity'
-    """Singularity可执行文件路径|Singularity executable path"""
+    # ==================== 输出|Output ====================
+    output_dir: str = "./hite_output"
+    """输出根目录|Output root directory"""
 
-    sif_file: str = '~/software/singularity/hite_3.3.3.sif'
-    """HiTE SIF镜像文件路径|HiTE SIF image file path"""
+    # ==================== singularity 容器|Container ====================
+    singularity_path: str = field(
+        default_factory=lambda: get_tool_path(
+            "singularity",
+            "~/miniforge3/envs/singularity_v.3.8.7/bin/singularity",
+            "SINGULARITY_PATH",
+        )
+    )
+    """Singularity 可执行文件|Singularity executable"""
 
-    output_dir: str = './hite_output'
-    """输出目录路径|Output directory path"""
+    sif_file: str = field(
+        default_factory=lambda: get_tool_path(
+            "hite",
+            "~/software/singularity/hite_3.3.3.sif",
+            "HITE_SIF",
+        )
+    )
+    """HiTE SIF 镜像|HiTE SIF image"""
 
-    work_dir: str = '/tmp'
-    """临时工作目录路径|Temporary work directory path"""
-
-    # ==================== 处理参数|Processing parameters ====================
+    # ==================== 处理参数|Processing ====================
     threads: int = 12
-    """线程数|Number of threads"""
-
     plant: bool = True
-    """是否为植物基因组|Whether the genome is from plant"""
-
     annotate: bool = False
-    """是否注释基因组|Whether to annotate the genome with detected TEs"""
-
     recover: bool = False
-    """是否启用断点续跑|Whether to enable recovery mode"""
-
     domain: bool = False
-    """是否预测TE蛋白结构域|Whether to predict protein domains in TEs"""
 
-    # ==================== 高级参数|Advanced parameters ====================
+    # ==================== 高级参数|Advanced ====================
     chunk_size: int = 400
-    """基因组分块大小(MB)|Genome chunk size in MB"""
-
     miu: float = 1.3e-8
-    """中性突变率(per bp per year)|Neutral mutation rate"""
-
     min_te_len: int = 80
-    """最小TE长度(bp)|Minimum TE length in bp"""
-
-    te_type: str = 'all'
-    """检测的TE类型|TE type to detect: [ltr|tir|helitron|non-ltr|all]"""
-
+    te_type: str = "all"
     remove_nested: bool = True
-    """是否移除嵌套TE|Whether to remove nested TEs"""
-
-    # ==================== 容器配置|Container configuration ====================
-    mount_home: bool = True
-    """是否挂载用户主目录|Whether to mount user home directory"""
+    curated_lib: Optional[str] = None
+    debug: bool = False
 
     def __post_init__(self):
-        """
-        初始化后处理|Post-initialization processing
+        """展开所有 ~ 路径并创建目录|Expand all ~ paths and create dirs"""
+        # 关键:所有含 ~ 路径必须在此展开|CRITICAL: expand all ~ paths here
+        self.singularity_path = expand_path(self.singularity_path)
+        self.sif_file = expand_path(self.sif_file)
+        self.genome = expand_path(self.genome)
+        self.output_dir = expand_path(self.output_dir)
+        if self.curated_lib:
+            self.curated_lib = expand_path(self.curated_lib)
 
-        标准化所有路径并创建输出目录
-        Normalize all paths and create output directory
-        """
-        # 展开 ~ 为完整路径
-        self.singularity_cmd = os.path.expanduser(self.singularity_cmd)
-        self.sif_file = os.path.abspath(self.sif_file)
-        self.genome = os.path.abspath(self.genome)
-        self.output_dir = os.path.abspath(self.output_dir)
-        self.work_dir = os.path.abspath(self.work_dir)
+        # 派生目录|Derived directories (规范 §12 by-step 结构)
+        self.hite_out_dir = os.path.join(self.output_dir, "01_hite")
+        self.work_dir = os.path.join(self.hite_out_dir, "work")
+        self.pipeline_info_dir = os.path.join(self.output_dir, "00_pipeline_info")
+        self.logs_dir = os.path.join(self.output_dir, "99_logs")
 
-        # 创建输出目录
+        # 创建目录|Create directories
         Path(self.output_dir).mkdir(parents=True, exist_ok=True)
+        Path(self.hite_out_dir).mkdir(parents=True, exist_ok=True)
+        Path(self.pipeline_info_dir).mkdir(parents=True, exist_ok=True)
+        Path(self.logs_dir).mkdir(parents=True, exist_ok=True)
 
-    def validate(self):
-        """
-        验证配置参数|Validate configuration parameters
-
-        Returns:
-            bool: 验证成功返回True|Returns True if validation succeeds
-
-        Raises:
-            ValueError: 如果验证失败|If validation fails
-        """
+    def validate(self) -> bool:
+        """验证配置|Validate configuration"""
         errors = []
 
-        # 检查必需文件
         if not os.path.exists(self.genome):
+            errors.append(f"基因组文件不存在|Genome file not found: {self.genome}")
+        if not os.path.exists(self.singularity_cmd_path_check()):
             errors.append(
-                f"基因组文件不存在|Genome file not found: {self.genome}"
+                f"Singularity不存在|Singularity not found: {self.singularity_path}"
             )
-
-        # 检查Singularity
-        if not os.path.exists(self.singularity_cmd):
-            errors.append(
-                f"Singularity不存在|Singularity not found: {self.singularity_cmd}"
-            )
-
-        # 检查SIF文件
         if not os.path.exists(self.sif_file):
-            errors.append(
-                f"HiTE SIF文件不存在|HiTE SIF file not found: {self.sif_file}"
-            )
+            errors.append(f"HiTE SIF文件不存在|HiTE SIF file not found: {self.sif_file}")
 
-        # 验证参数范围
         if self.te_type not in ['ltr', 'tir', 'helitron', 'non-ltr', 'all']:
             errors.append(
                 f"无效的TE类型|Invalid TE type: {self.te_type} "
                 f"(应为|should be ltr|tir|helitron|non-ltr|all)"
             )
-
         if self.threads < 1:
-            errors.append(
-                f"线程数必须大于0|Threads must be greater than 0: {self.threads}"
-            )
-
+            errors.append(f"线程数必须大于0|Threads must be > 0: {self.threads}")
         if self.min_te_len < 1:
-            errors.append(
-                f"最小TE长度必须大于0|Min TE length must be greater than 0: "
-                f"{self.min_te_len}"
-            )
-
+            errors.append(f"最小TE长度必须大于0|Min TE length must be > 0: {self.min_te_len}")
         if self.chunk_size < 1:
-            errors.append(
-                f"分块大小必须大于0|Chunk size must be greater than 0: "
-                f"{self.chunk_size}"
-            )
-
+            errors.append(f"分块大小必须大于0|Chunk size must be > 0: {self.chunk_size}")
         if self.miu <= 0:
-            errors.append(
-                f"突变率必须大于0|Mutation rate must be greater than 0: "
-                f"{self.miu}"
-            )
+            errors.append(f"突变率必须大于0|Mutation rate must be > 0: {self.miu}")
 
         if errors:
             raise ValueError("\n".join(errors))
-
         return True
+
+    def singularity_cmd_path_check(self) -> str:
+        """返回 singularity 路径供存在性检查|Return singularity path for existence check"""
+        return self.singularity_path
 
 
 @dataclass

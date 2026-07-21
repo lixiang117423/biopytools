@@ -134,7 +134,7 @@ class HTMLAlignmentGenerator:
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(html_content)
 
-        self.logger.info(f"  {sample_name}: {len(alignments)} alignments")
+        self.logger.info(f"  样品|Sample {sample_name}: {len(alignments)} 比对|alignments")
         return str(output_file)
     
     def _generate_alignments_html(self, alignments: List[Dict]) -> str:

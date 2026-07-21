@@ -120,17 +120,20 @@ class BLASTAnalyzer(BaseAnalyzer):
             self.config.auto_generated_map = True
 
         elif input_path.is_dir():
-            # 目录，扫描匹配的文件|Directory, scan matching files
+            # 目录,扫描匹配的文件|Directory, scan matching files
             pattern = self.config.input_suffix
             files = glob.glob(os.path.join(str(input_path), pattern))
 
             for file_path in files:
                 file_name = os.path.basename(file_path)
-                # 使用正则表达式提取样品名称
-                match = re.search(self.config.sample_name_pattern, file_name)
-                if match:
-                    sample_name = match.group(1)
-                    self.sample_mapping[sample_name] = file_path
+                if self.config.auto_detect_samples:
+                    # 自动检测:用正则提取样品名称|Auto-detect: extract sample name via regex
+                    match = re.search(self.config.sample_name_pattern, file_name)
+                    sample_name = match.group(1) if match else Path(file_path).stem
+                else:
+                    # 关闭自动检测:直接用文件名stem|Disabled: use filename stem directly
+                    sample_name = Path(file_path).stem
+                self.sample_mapping[sample_name] = file_path
 
             self.config.auto_generated_map = True
 
@@ -150,27 +153,30 @@ class BLASTAnalyzer(BaseAnalyzer):
             bool: 分析是否成功|Whether analysis was successful
         """
         try:
-            # 步骤1: 创建输出目录|Step 1: Create output directory
+            # 准备: 创建输出目录|Prep: Create output directory
             if not self._create_output_directory():
                 return False
 
-            # 步骤2: 创建BLAST数据库|Step 2: Create BLAST database
+            # 记录软件版本信息到00_pipeline_info|Record software versions to 00_pipeline_info
+            self._generate_software_versions()
+
+            # 步骤1: 创建BLAST数据库|Step 1: Create BLAST database
             if not self._create_blast_database():
                 return False
 
-            # 步骤3: 运行BLAST比对|Step 3: Run BLAST alignment
+            # 步骤2: 运行BLAST比对|Step 2: Run BLAST alignment
             if not self._run_blast_alignment():
                 return False
 
-            # 步骤4: 处理结果|Step 4: Process results
+            # 步骤3: 处理结果|Step 3: Process results
             if not self._process_results():
                 return False
 
-            # 步骤5: 生成统计报告|Step 5: Generate statistics report
+            # 步骤4: 生成统计报告|Step 4: Generate statistics report
             if not self._generate_statistics_report():
                 return False
 
-            # 步骤6: 生成比对可视化|Step 6: Generate alignment visualization
+            # 步骤5: 生成比对可视化|Step 5: Generate alignment visualization
             if self.config.alignment_output != 'none':
                 if not self._generate_alignment_visualization():
                     return False
@@ -182,14 +188,61 @@ class BLASTAnalyzer(BaseAnalyzer):
             return False
 
     def _create_output_directory(self) -> bool:
-        """创建输出目录|Create output directory"""
+        """创建输出目录及分层子目录(§12.2)|Create output directory and layered subdirs"""
         try:
-            os.makedirs(self.config.output, exist_ok=True)
+            for subdir in (self.config.output, self.config.pipeline_info_dir,
+                           self.config.db_dir, self.config.blast_dir,
+                           self.config.alignments_dir, self.config.logs_dir):
+                os.makedirs(subdir, exist_ok=True)
             self.logger.info(f"输出目录已创建|Output directory created: {self.config.output}")
             return True
         except Exception as e:
             self.logger.error(f"创建输出目录失败|Failed to create output directory: {e}")
             return False
+
+    def _generate_software_versions(self):
+        """生成software_versions.yml到00_pipeline_info(§12.5)|Generate software_versions.yml"""
+        import yaml
+
+        blast_program = getattr(self.config, f'{self.config.blast_type}_path', self.config.blast_type)
+        tools = {
+            'makeblastdb': self.config.makeblastdb_path,
+            self.config.blast_type: blast_program,
+        }
+
+        versions = {}
+        for name, path in tools.items():
+            try:
+                cmd = build_conda_command(path, ['-version'])
+                result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+                ver = (result.stdout or result.stderr or '').strip().split('\n')[0]
+                versions[name] = {'version': ver or 'unknown', 'path': path}
+            except Exception as e:
+                self.logger.warning(f"获取{name}版本失败|Failed to get {name} version: {e}")
+                versions[name] = {'version': 'unknown', 'path': path}
+
+        info = {
+            'pipeline': {'name': 'biopytools blast', 'version': '2.1.0'},
+            'tools': versions,
+            'parameters': {
+                'blast_type': self.config.blast_type,
+                'evalue': self.config.evalue,
+                'word_size': self.config.word_size,
+                'max_target_seqs': self.config.max_target_seqs,
+                'target_db_type': self.config.target_db_type,
+                'min_identity': self.config.min_identity,
+                'min_coverage': self.config.min_coverage,
+                'threads': self.config.threads,
+            },
+        }
+
+        output_file = os.path.join(self.config.pipeline_info_dir, 'software_versions.yml')
+        try:
+            with open(output_file, 'w') as f:
+                yaml.dump(info, f, default_flow_style=False, allow_unicode=True)
+            self.logger.info(f"软件版本信息已保存|Software versions saved to: {output_file}")
+        except Exception as e:
+            self.logger.warning(f"保存软件版本信息失败|Failed to save software versions: {e}")
 
     def _create_blast_database(self) -> bool:
         """创建BLAST数据库|Create BLAST database"""
@@ -199,7 +252,12 @@ class BLASTAnalyzer(BaseAnalyzer):
             db_path = self.config.get_target_db_path()
 
             # 检查数据库是否已存在|Check if database already exists
-            if os.path.exists(db_path) and not self.config.force:
+            # makeblastdb生成.db.nhr(nucl)/.db.phr(prot),而非.db本身
+            # |makeblastdb produces .db.nhr(nucl)/.db.phr(prot), not .db itself
+            db_index_exists = (
+                os.path.exists(f"{db_path}.nhr") or os.path.exists(f"{db_path}.phr")
+            )
+            if db_index_exists and not self.config.force:
                 self.logger.info(f"数据库已存在，跳过创建|Database already exists, skipping creation: {db_path}")
                 self.database_path = db_path
                 self.log_step_end("创建BLAST数据库|Creating BLAST Database", True)
@@ -214,7 +272,8 @@ class BLASTAnalyzer(BaseAnalyzer):
 
             cmd = build_conda_command(self.config.makeblastdb_path, args)
 
-            self.logger.info(f"执行命令|Executing command: {' '.join(cmd)}")
+            self.logger.info("执行|Executing: makeblastdb建库|makeblastdb database building")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -253,7 +312,7 @@ class BLASTAnalyzer(BaseAnalyzer):
 
                 result_file = self._run_single_blast(sample_name, sample_file)
                 if result_file:
-                    all_results.append(result_file)
+                    all_results.append((sample_name, result_file))
                 else:
                     self.logger.warning(f"样品 {sample_name} 比对失败|Sample {sample_name} alignment failed")
 
@@ -276,7 +335,13 @@ class BLASTAnalyzer(BaseAnalyzer):
     def _run_single_blast(self, sample_name: str, sample_file: str) -> Optional[str]:
         """运行单个样品的BLAST比对|Run BLAST alignment for single sample"""
         try:
-            output_file = os.path.join(self.config.output, f"{sample_name}_{self.config.blast_type}_results.tsv")
+            output_file = os.path.join(self.config.blast_dir, f"{sample_name}_{self.config.blast_type}_results.tsv")
+
+            # 断点续传:输出已存在且非空则跳过(§10.2)|Checkpoint: skip if output exists and non-empty
+            if (not self.config.force and os.path.exists(output_file)
+                    and os.path.getsize(output_file) > 0):
+                self.logger.info(f"样品 {sample_name} 比对结果已存在,跳过|Sample {sample_name} result exists, skipping")
+                return output_file
 
             # 获取正确的BLAST程序路径|Get correct BLAST program path
             blast_program = getattr(self.config, f'{self.config.blast_type}_path', self.config.blast_type)
@@ -294,7 +359,8 @@ class BLASTAnalyzer(BaseAnalyzer):
 
             cmd = build_conda_command(blast_program, args)
 
-            self.logger.info(f"执行BLAST命令|Executing BLAST command: {' '.join(cmd)}")
+            self.logger.info(f"执行|Executing: {self.config.blast_type}比对|{self.config.blast_type} alignment (sample: {sample_name})")
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -320,7 +386,7 @@ class BLASTAnalyzer(BaseAnalyzer):
             self.logger.error(f"样品 {sample_name} 比对时发生错误|Error during sample {sample_name} alignment: {e}")
             return None
 
-    def _merge_results(self, result_files: List[str]) -> str:
+    def _merge_results(self, result_files: List[Tuple[str, str]]) -> str:
         """合并所有结果文件并计算覆盖度|Merge all result files and calculate coverage"""
         try:
             merged_file = self.config.get_summary_output_path()
@@ -331,13 +397,9 @@ class BLASTAnalyzer(BaseAnalyzer):
                 out_f.write("查询起始位置\t查询结束位置\t目标起始位置\t目标结束位置\tE-value\tBit_Score\t")
                 out_f.write("目标序列长度\t目标序列覆盖度(%)\t查询序列\t目标序列\n")
 
-                for result_file in result_files:
-                    # Extract sample name from result file
-                    # Format: {sample_name}_{blast_type}_results.tsv
-                    basename = os.path.basename(result_file)
-                    # Remove blast_type and suffix
-                    parts = basename.replace('_results.tsv', '').rsplit('_', 1)
-                    sample_name = parts[0] if len(parts) > 1 else basename
+                for sample_name, result_file in result_files:
+                    # 直接使用传入的真实sample_name,避免从文件名反推(含下划线的样本名会被切错)
+                    # |Use the real sample_name passed in; do not reverse-derive from filename (underscore names get split)
 
                     try:
                         with open(result_file, 'r', encoding='utf-8') as in_f:
@@ -602,7 +664,7 @@ class BLASTAnalyzer(BaseAnalyzer):
         try:
             from .statistics import StatisticsGenerator
 
-            self.log_step_start("生成统计报告|Generating Statistics Report", 5)
+            self.log_step_start("生成统计报告|Generating Statistics Report", 4)
 
             summary_file = self.config.get_summary_output_path()
 
@@ -615,7 +677,6 @@ class BLASTAnalyzer(BaseAnalyzer):
             stats_file = stats_generator.generate_statistics_report(summary_file)
 
             if stats_file:
-                self.logger.info(f"统计报告已生成|Statistics report generated: {stats_file}")
                 self.log_step_end("生成统计报告|Generating Statistics Report", True)
                 return True
             else:
@@ -633,12 +694,12 @@ class BLASTAnalyzer(BaseAnalyzer):
         try:
             from .alignment_visualizer import AlignmentVisualizer
 
-            self.log_step_start("生成比对可视化|Generating Alignment Visualization", 6)
+            self.log_step_start("生成比对可视化|Generating Alignment Visualization", 5)
 
             # 准备BLAST结果数据|Prepare BLAST result data
             blast_results = []
             for sample_name, sample_file in self.sample_mapping.items():
-                result_file = os.path.join(self.config.output, f"{sample_name}_{self.config.blast_type}_results.tsv")
+                result_file = os.path.join(self.config.blast_dir, f"{sample_name}_{self.config.blast_type}_results.tsv")
                 if os.path.exists(result_file) and os.path.getsize(result_file) > 0:
                     blast_results.append((os.path.basename(sample_file), sample_name, result_file))
 
@@ -667,250 +728,6 @@ class BLASTAnalyzer(BaseAnalyzer):
             self.logger.error(f"生成比对可视化失败|Failed to generate alignment visualization: {e}")
             self.log_step_end("生成比对可视化|Generating Alignment Visualization", False)
             return False
-
-    def _load_alignments_for_visualization(self, result_file: str) -> List[Dict]:
-        """加载用于可视化的比对结果|Load alignments for visualization"""
-        alignments = []
-
-        try:
-            with open(result_file, 'r') as f:
-                next(f)  # 跳过表头
-
-                for line in f:
-                    parts = line.strip().split('\t')
-                    if len(parts) >= 13:  # 13列: Sample + 12列BLAST输出
-                        alignment = {
-                            'sample': parts[0],
-                            'qseqid': parts[1],
-                            'sseqid': parts[2],
-                            'pident': float(parts[3]),
-                            'length': int(parts[4]),
-                            'mismatch': int(parts[5]),
-                            'gapopen': int(parts[6]),
-                            'qstart': int(parts[7]),
-                            'qend': int(parts[8]),
-                            'sstart': int(parts[9]),
-                            'send': int(parts[10]),
-                            'evalue': float(parts[11]),
-                            'bitscore': float(parts[12])
-                        }
-
-                        # 应用过滤条件|Apply filters
-                        if (alignment['pident'] >= self.config.alignment_min_identity and
-                            (alignment['length'] / alignment['qend'] * 100) >= self.config.alignment_min_coverage):
-                            alignments.append(alignment)
-
-            # 按样品分组并限制每个样品的最大比对数|Group by sample and limit max alignments per sample
-            sample_alignments = {}
-            for alignment in alignments:
-                sample = alignment['sample']
-                if sample not in sample_alignments:
-                    sample_alignments[sample] = []
-                if len(sample_alignments[sample]) < self.config.alignment_max_per_sample:
-                    sample_alignments[sample].append(alignment)
-
-            # 展平并按score排序|Flatten and sort by score
-            filtered_alignments = []
-            for sample_aligns in sample_alignments.values():
-                filtered_alignments.extend(sample_aligns)
-
-            filtered_alignments.sort(key=lambda x: x['bitscore'], reverse=True)
-            return filtered_alignments
-
-        except Exception as e:
-            self.logger.error(f"加载比对结果失败|Failed to load alignments: {e}")
-            return []
-
-    def _generate_text_visualization(self, alignments: List[Dict], output_file: str):
-        """生成文本格式可视化|Generate text format visualization"""
-        try:
-            with open(output_file, 'w', encoding='utf-8') as f:
-                f.write("=" * 80 + "\n")
-                f.write(" BLAST序列比对可视化结果|BLAST Alignment Visualization Results\n")
-                f.write("=" * 80 + "\n\n")
-
-                f.write(f"总比对数|Total alignments: {len(alignments)}\n")
-                f.write(f"最小相似度|Minimum identity: {self.config.alignment_min_identity}%\n")
-                f.write(f"最小覆盖度|Minimum coverage: {self.config.alignment_min_coverage}%\n")
-                f.write(f"每样品最大比对数|Max alignments per sample: {self.config.alignment_max_per_sample}\n\n")
-
-                # 按样品分组显示|Display by sample groups
-                current_sample = None
-                for i, alignment in enumerate(alignments, 1):
-                    if current_sample != alignment['sample']:
-                        current_sample = alignment['sample']
-                        f.write(f"\n{'-' * 60}\n")
-                        f.write(f" 样品|Sample: {current_sample}\n")
-                        f.write(f"{'-' * 60}\n")
-
-                    f.write(f"\n{i:3d}. 查询序列|Query: {alignment['qseqid']}\n")
-                    f.write(f"    目标序列|Subject: {alignment['sseqid']}\n")
-                    f.write(f"    相似度|Identity: {alignment['pident']:.1f}%\n")
-                    f.write(f"    比对长度|Alignment length: {alignment['length']}\n")
-                    f.write(f"    错配数|Mismatches: {alignment['mismatch']}\n")
-                    f.write(f"    Gap数|Gaps: {alignment['gapopen']}\n")
-                    f.write(f"    查询起止|Query range: {alignment['qstart']}-{alignment['qend']}\n")
-                    f.write(f"    目标起止|Subject range: {alignment['sstart']}-{alignment['send']}\n")
-                    f.write(f"    E-value: {alignment['evalue']:.2e}\n")
-                    f.write(f"    Bit score: {alignment['bitscore']:.1f}\n")
-
-            self.logger.info(f"文本格式比对可视化已生成|Text alignment visualization generated: {output_file}")
-
-        except Exception as e:
-            raise RuntimeError(f"生成文本可视化失败|Failed to generate text visualization: {e}")
-
-    def _generate_html_visualization(self, alignments: List[Dict], output_file: str):
-        """生成HTML格式可视化|Generate HTML format visualization"""
-        try:
-            # 按样品分组|Group by samples
-            sample_groups = {}
-            for alignment in alignments:
-                if alignment['sample'] not in sample_groups:
-                    sample_groups[alignment['sample']] = []
-                sample_groups[alignment['sample']].append(alignment)
-
-            html_content = self._create_html_template(sample_groups, len(alignments))
-
-            with open(output_file, 'w', encoding='utf-8') as f:
-                f.write(html_content)
-
-            self.logger.info(f"HTML格式比对可视化已生成|HTML alignment visualization generated: {output_file}")
-
-        except Exception as e:
-            raise RuntimeError(f"生成HTML可视化失败|Failed to generate HTML visualization: {e}")
-
-    def _create_html_template(self, sample_groups: Dict[str, List[Dict]], total_alignments: int) -> str:
-        """创建HTML模板|Create HTML template"""
-        theme_styles = {
-            'modern': {
-                'bg': '#ffffff',
-                'header': '#2c3e50',
-                'sample': '#3498db',
-                'border': '#ecf0f1'
-            },
-            'classic': {
-                'bg': '#f8f9fa',
-                'header': '#495057',
-                'sample': '#007bff',
-                'border': '#dee2e6'
-            },
-            'dark': {
-                'bg': '#2d3748',
-                'header': '#1a202c',
-                'sample': '#63b3ed',
-                'border': '#4a5568'
-            }
-        }
-
-        theme = theme_styles.get(self.config.html_theme, theme_styles['modern'])
-
-        html = f"""<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> BLAST序列比对可视化结果|BLAST Alignment Visualization Results</title>
-    <style>
-        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: {theme['bg']}; color: #333; }}
-        .header {{ background-color: {theme['header']}; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center; }}
-        .summary {{ background-color: {theme['border']}; padding: 15px; border-radius: 8px; margin-bottom: 20px; }}
-        .sample-group {{ margin-bottom: 30px; border: 1px solid {theme['border']}; border-radius: 8px; overflow: hidden; }}
-        .sample-header {{ background-color: {theme['sample']}; color: white; padding: 15px; font-weight: bold; }}
-        .alignment {{ border-bottom: 1px solid {theme['border']}; padding: 15px; }}
-        .alignment:last-child {{ border-bottom: none; }}
-        .alignment-title {{ font-weight: bold; color: #2c3e50; margin-bottom: 8px; }}
-        .alignment-details {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }}
-        .detail-item {{ display: flex; justify-content: space-between; }}
-        .detail-label {{ font-weight: 600; }}
-        .detail-value {{ font-family: monospace; }}
-        .high-quality {{ background-color: #d4edda; }}
-        .medium-quality {{ background-color: #fff3cd; }}
-        .low-quality {{ background-color: #f8d7da; }}
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1> BLAST序列比对可视化结果</h1>
-        <p>BLAST Alignment Visualization Results</p>
-    </div>
-
-    <div class="summary">
-        <h3> 分析摘要|Analysis Summary</h3>
-        <p><strong>总比对数|Total alignments:</strong> {total_alignments}</p>
-        <p><strong>样品数量|Sample count:</strong> {len(sample_groups)}</p>
-        <p><strong>最小相似度|Minimum identity:</strong> {self.config.alignment_min_identity}%</p>
-        <p><strong>最小覆盖度|Minimum coverage:</strong> {self.config.alignment_min_coverage}%</p>
-        <p><strong>每样品最大比对数|Max alignments per sample:</strong> {self.config.alignment_max_per_sample}</p>
-    </div>
-"""
-
-        for sample_name, sample_alignments in sample_groups.items():
-            html += f"""
-    <div class="sample-group">
-        <div class="sample-header">
-             样品|Sample: {sample_name} ({len(sample_alignments)} 比对|alignments)
-        </div>
-"""
-
-            for alignment in sample_alignments:
-                # 根据相似度设置质量等级|Set quality level based on identity
-                quality_class = ""
-                if alignment['pident'] >= 90:
-                    quality_class = "high-quality"
-                elif alignment['pident'] >= 70:
-                    quality_class = "medium-quality"
-                else:
-                    quality_class = "low-quality"
-
-                html += f"""
-        <div class="alignment {quality_class}">
-            <div class="alignment-title">
-                查询序列|Query: {alignment['qseqid']} → 目标序列|Subject: {alignment['sseqid']}
-            </div>
-            <div class="alignment-details">
-                <div class="detail-item">
-                    <span class="detail-label">相似度|Identity:</span>
-                    <span class="detail-value">{alignment['pident']:.1f}%</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">比对长度|Length:</span>
-                    <span class="detail-value">{alignment['length']}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">错配数|Mismatches:</span>
-                    <span class="detail-value">{alignment['mismatch']}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Gap数|Gaps:</span>
-                    <span class="detail-value">{alignment['gapopen']}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">查询范围|Query range:</span>
-                    <span class="detail-value">{alignment['qstart']}-{alignment['qend']}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">目标范围|Subject range:</span>
-                    <span class="detail-value">{alignment['sstart']}-{alignment['send']}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">E-value:</span>
-                    <span class="detail-value">{alignment['evalue']:.2e}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Bit score:</span>
-                    <span class="detail-value">{alignment['bitscore']:.1f}</span>
-                </div>
-            </div>
-        </div>
-"""
-
-            html += "\n    </div>\n"
-
-        html += """
-</body>
-</html>"""
-
-        return html
 
     def log_additional_summary(self):
         """记录额外的摘要信息|Log additional summary information"""
@@ -942,86 +759,64 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
 
-    # 必需参数|Required arguments
-    parser.add_argument('-i', '--input', required=True,
+    # 输入参数|Input arguments
+    parser.add_argument('-i', '--input', default=None,
                        help='输入文件或目录路径|Input file or directory path')
+    parser.add_argument('-s', '--sample-map-file', default=None,
+                       help='样品映射文件(与-i二选一)|Sample mapping file (alternative to -i)')
     parser.add_argument('-r', '--reference', required=True,
                        help='目标基因序列文件|Target gene sequence file')
 
-    # 可选参数|Optional arguments
+    # 输出参数|Output arguments
     parser.add_argument('-o', '--output-dir', default='./blast_output',
                        help='输出目录|Output directory')
-    parser.add_argument('-p', '--prefix', default='blast_output',
-                       help='输出文件前缀|Output prefix')
-    parser.add_argument('-t', '--threads', type=int, default=12,
-                       help='线程数|Thread count')
-    parser.add_argument('-q', '--quality', type=float, default=1e-5,
-                       help='E-value阈值|E-value threshold')
-    parser.add_argument('-m', '--memory', default='8G',
-                       help='内存限制|Memory limit')
 
-    # 样本信息参数|Sample information parameters
-    parser.add_argument('--sample-id', default=None,
-                       help='样本ID|Sample ID')
-    parser.add_argument('--sample-name', default=None,
-                       help='样本名称|Sample name')
-
-    # 质控参数|Quality control parameters
-    parser.add_argument('--min-quality', type=float, default=20,
-                       help='最小质量值|Minimum quality value')
-    parser.add_argument('--min-length', type=int, default=50,
-                       help='最小序列长度|Minimum sequence length')
-    parser.add_argument('--min-depth', type=int, default=10,
-                       help='最小测序深度|Minimum sequencing depth')
-    parser.add_argument('--max-depth', type=int, default=1000,
-                       help='最大测序深度|Maximum sequencing depth')
-    parser.add_argument('--mapping-quality', type=int, default=20,
-                       help='最小mapping质量|Minimum mapping quality')
-
-    # 日志控制参数|Logging parameters
-    parser.add_argument('-v', '--verbose', action='count', default=0,
-                       help='详细输出模式|Verbose output mode')
-    parser.add_argument('--quiet', action='store_true',
-                       help='静默模式|Quiet mode')
-    parser.add_argument('--log-file', default=None,
-                       help='日志文件路径|Log file path')
-
-    # 执行控制参数|Execution control parameters
-    parser.add_argument('-f', '--force', action='store_true',
-                       help='强制覆盖已存在文件|Force overwrite existing files')
-    parser.add_argument('--dry-run', action='store_true',
-                       help='模拟运行不执行|Dry run without execution')
-    parser.add_argument('--keep-intermediate', action='store_true',
-                       help='保留中间文件|Keep intermediate files')
-
-    # BLAST特定参数|BLAST-specific parameters
+    # BLAST参数|BLAST parameters
     parser.add_argument('--blast-type', default=None,
                        choices=['blastn', 'blastp', 'blastx', 'tblastn', 'tblastx'],
-                       help='BLAST程序类型，默认根据输入文件自动检测|BLAST program type (auto-detect from input files if not specified)')
+                       help='BLAST程序类型,默认自动检测|BLAST program type (auto-detect if not specified)')
+    parser.add_argument('-e', '--evalue', type=float, default=1e-5,
+                       help='E-value阈值|E-value threshold')
     parser.add_argument('--max-target-seqs', type=int, default=10,
                        help='最大目标序列数|Maximum target sequences')
-    parser.add_argument('--min-identity', type=float, default=70.0,
-                       help='最小序列相似度|Minimum sequence identity')
-    parser.add_argument('--min-coverage', type=float, default=50.0,
-                       help='最小覆盖度|Minimum coverage')
-    parser.add_argument('--target-db-type', default='nucl',
+    parser.add_argument('--word-size', type=int, default=None,
+                       help='词大小,默认按blast-type设置|Word size (auto-set by blast-type)')
+    parser.add_argument('-t', '--threads', type=int, default=12,
+                       help='线程数|Number of threads')
+    parser.add_argument('--input-suffix', default='*.fa',
+                       help='输入文件后缀模式|Input file suffix pattern')
+    parser.add_argument('--target-db-type', default=None,
                        choices=['nucl', 'prot'],
-                       help='目标数据库类型|Target database type')
+                       help='目标数据库类型,默认按blast-type设置|Target database type (auto-set by blast-type)')
+    parser.add_argument('--min-identity', type=float, default=70.0,
+                       help='最小序列相似度(%%)|Minimum sequence identity (%%)')
+    parser.add_argument('--min-coverage', type=float, default=50.0,
+                       help='最小覆盖度(%%)|Minimum coverage (%%)')
     parser.add_argument('--high-quality-evalue', type=float, default=1e-10,
                        help='高质量比对E-value阈值|High quality alignment E-value threshold')
 
-    # 工具路径参数|Tool path parameters
-    parser.add_argument('--makeblastdb-path', default='makeblastdb',
+    # 样品参数|Sample parameters
+    parser.add_argument('--sample-name', default=None,
+                       help='单文件输入时的样品名称|Sample name for single-file input')
+    parser.add_argument('--no-auto-detect-samples', action='store_false',
+                       dest='auto_detect_samples',
+                       help='关闭自动检测样品名称|Disable auto sample name detection')
+    parser.set_defaults(auto_detect_samples=True)
+    parser.add_argument('--sample-name-pattern', default=r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$',
+                       help='样品名提取正则表达式|Sample name extraction regex')
+
+    # 工具路径参数(默认None走get_tool_path取conda env完整路径)|Tool paths (None => get_tool_path resolves conda env)
+    parser.add_argument('--makeblastdb-path', default=None,
                        help='makeblastdb程序路径|makeblastdb program path')
-    parser.add_argument('--blastn-path', default='blastn',
+    parser.add_argument('--blastn-path', default=None,
                        help='blastn程序路径|blastn program path')
-    parser.add_argument('--blastp-path', default='blastp',
+    parser.add_argument('--blastp-path', default=None,
                        help='blastp程序路径|blastp program path')
-    parser.add_argument('--blastx-path', default='blastx',
+    parser.add_argument('--blastx-path', default=None,
                        help='blastx程序路径|blastx program path')
-    parser.add_argument('--tblastn-path', default='tblastn',
+    parser.add_argument('--tblastn-path', default=None,
                        help='tblastn程序路径|tblastn program path')
-    parser.add_argument('--tblastx-path', default='tblastx',
+    parser.add_argument('--tblastx-path', default=None,
                        help='tblastx程序路径|tblastx program path')
 
     # 比对可视化参数|Alignment visualization parameters
@@ -1040,35 +835,51 @@ def main():
                        choices=['modern', 'classic', 'dark'],
                        help='HTML主题样式|HTML theme style')
 
+    # 日志与执行控制|Logging and execution control
+    parser.add_argument('-v', '--verbose', action='count', default=0,
+                       help='详细输出(-vv更详细)|Verbose output (-vv for more)')
+    parser.add_argument('--quiet', action='store_true',
+                       help='静默模式|Quiet mode')
+    parser.add_argument('--log-level', default='INFO',
+                       choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+                       help='日志级别|Log level')
+    parser.add_argument('--log-file', default=None,
+                       help='日志文件路径|Log file path')
+    parser.add_argument('-f', '--force', action='store_true',
+                       help='强制覆盖已存在文件|Force overwrite existing files')
+    parser.add_argument('--dry-run', action='store_true',
+                       help='模拟运行不执行|Dry run without execution')
+
     args = parser.parse_args()
+
+    # 日志级别推导:显式--log-level优先,否则按-v推导|Derive log level: explicit --log-level wins, else from -v
+    if '--log-level' not in sys.argv:
+        if args.verbose >= 2:
+            args.log_level = 'DEBUG'
+        elif args.verbose == 1:
+            args.log_level = 'INFO'
+        else:
+            args.log_level = 'WARNING'
 
     # 创建配置|Create configuration
     config = BLASTConfig(
         input=args.input,
         reference=args.reference,
         output_dir=args.output_dir,
-        prefix=args.prefix,
-        threads=args.threads,
-        quality=args.quality,
-        memory=args.memory,
-        sample_id=args.sample_id,
         sample_name=args.sample_name,
-        min_quality=args.min_quality,
-        min_length=args.min_length,
-        min_depth=args.min_depth,
-        max_depth=args.max_depth,
-        mapping_quality=args.mapping_quality,
-        log_level="DEBUG" if args.verbose >= 2 else "INFO" if args.verbose == 1 else "WARNING",
-        log_file=args.log_file,
-        force=args.force,
-        dry_run=args.dry_run,
-        keep_intermediate=args.keep_intermediate,
-        blast_type=args.blast_type,
+        sample_map_file=args.sample_map_file,
+        threads=args.threads,
+        evalue=args.evalue,
         max_target_seqs=args.max_target_seqs,
+        word_size=args.word_size,
+        input_suffix=args.input_suffix,
+        target_db_type=args.target_db_type,
+        blast_type=args.blast_type,
         min_identity=args.min_identity,
         min_coverage=args.min_coverage,
-        target_db_type=args.target_db_type,
         high_quality_evalue=args.high_quality_evalue,
+        auto_detect_samples=args.auto_detect_samples,
+        sample_name_pattern=args.sample_name_pattern,
         makeblastdb_path=args.makeblastdb_path,
         blastn_path=args.blastn_path,
         blastp_path=args.blastp_path,
@@ -1080,7 +891,11 @@ def main():
         alignment_min_identity=args.alignment_min_identity,
         alignment_min_coverage=args.alignment_min_coverage,
         alignment_max_per_sample=args.alignment_max_per_sample,
-        html_theme=args.html_theme
+        html_theme=args.html_theme,
+        log_level=args.log_level,
+        log_file=args.log_file,
+        force=args.force,
+        dry_run=args.dry_run,
     )
 
     # 创建分析器并运行|Create analyzer and run

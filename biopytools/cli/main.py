@@ -219,6 +219,7 @@ COMMAND_REGISTRY = [
     ('ps_gene_anno', 'ps-gene-anno', 'BRAKER后效应子查漏补缺(miniprot补回多拷贝)|Post-BRAKER effector gap-filling'),
     ('braker4ps', 'braker4ps', 'braker+ps-gene-anno端到端(注释+查漏补缺)|braker + gap-filling end-to-end'),
     ('mga', 'mga', 'MGA共识基因组组装(HiFi)|MGA consensus genome assembly (HiFi)'),
+    ('func_anno', 'func-anno', '蛋白功能注释(IPS+eggnog→GO/KEGG标准表,衔接下游R)|Protein annotation (IPS+eggnog→GO/KEGG tables)'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

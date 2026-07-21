@@ -26,7 +26,7 @@ class StatisticsGenerator:
         """
         self.logger.info("生成BLAST统计报告|Generating BLAST statistics report")
 
-        stats_file = os.path.join(self.config.output, "blast_statistics.txt")
+        stats_file = os.path.join(self.config.blast_dir, "blast_statistics.txt")
 
         try:
             stats = self._load_summary_stats(summary_file)

@@ -11,6 +11,142 @@ import shutil
 import re
 from typing import List, Union, Optional
 
+from ..common.paths import expand_path
+
+
+def validate_singularity(singularity_path: str, logger) -> bool:
+    """
+    验证 Singularity 可用|Validate Singularity availability
+
+    Args:
+        singularity_path: Singularity 可执行文件绝对路径|Singularity executable absolute path
+        logger: 日志器|Logger
+
+    Returns:
+        是否可用|Whether available
+    """
+    from pathlib import Path
+    if not Path(singularity_path).exists():
+        logger.error(f"Singularity不存在|Singularity not found: {singularity_path}")
+        return False
+    try:
+        result = subprocess.run(
+            [singularity_path, "--version"],
+            capture_output=True, text=True, timeout=10,
+        )
+        if result.returncode == 0:
+            version = result.stdout.strip().split('\n')[0]
+            logger.info(f"Singularity可用|Singularity available: {version}")
+            return True
+        logger.error(f"Singularity执行失败|Singularity exec failed: {result.stderr}")
+        return False
+    except Exception as e:
+        logger.error(f"Singularity检查失败|Singularity check failed: {e}")
+        return False
+
+
+def validate_hite_sif(sif_file: str, logger) -> bool:
+    """
+    验证 HiTE SIF 镜像存在|Validate HiTE SIF image existence
+    """
+    from pathlib import Path
+    if not Path(sif_file).exists():
+        logger.error(f"HiTE SIF不存在|HiTE SIF not found: {sif_file}")
+        return False
+    logger.info(f"HiTE SIF找到|HiTE SIF found: {sif_file}")
+    return True
+
+
+def build_singularity_command(
+    singularity_path: str,
+    sif_file: str,
+    bind_paths: List[str],
+    internal_cmd: List[str],
+) -> List[str]:
+    """
+    构建 singularity exec 命令(直接挂载,host:host identity)|Build singularity exec command (direct mount)
+
+    Args:
+        singularity_path: singularity 可执行文件绝对路径|singularity executable absolute path
+        sif_file: SIF 镜像绝对路径|SIF image absolute path
+        bind_paths: 需挂载的主机目录列表|host directories to bind (identity mount)
+        internal_cmd: 容器内执行的命令列表|command list to run inside container
+
+    Returns:
+        完整命令列表(配合 subprocess.run(shell=False))|full command list for subprocess.run(shell=False)
+    """
+    cmd: List[str] = [singularity_path, "exec"]
+    for p in bind_paths:
+        expanded = expand_path(p)
+        cmd.extend(["--bind", f"{expanded}:{expanded}"])
+    cmd.append(sif_file)
+    cmd.extend(internal_cmd)
+    return cmd
+
+
+def run_command(cmd: List[str], logger, description: str = "") -> int:
+    """
+    执行命令并流式输出日志|Execute command with streaming log output
+
+    执行前 INFO 记录完整命令(规范 §2.2.1);实时把 stdout 落日志;非零退出码抛 CalledProcessError。
+
+    Args:
+        cmd: 命令列表(shell=False)|command list (shell=False)
+        logger: 日志器|logger
+        description: 步骤描述|step description
+
+    Returns:
+        进程返回码|process return code
+
+    Raises:
+        subprocess.CalledProcessError: 返回码非零时|when returncode != 0
+    """
+    if description:
+        logger.info(f"执行|Executing: {description}")
+    # 关键:完整命令记录到 INFO 级|CRITICAL: log full command at INFO level
+    logger.info(f"命令|Command: {' '.join(cmd)}")
+
+    process = subprocess.Popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True,
+        bufsize=1,
+    )
+    for line in process.stdout:
+        line = line.rstrip('\n')
+        if line:
+            logger.info(line)
+    process.wait()
+
+    if process.returncode != 0:
+        logger.error(f"命令失败|Command failed, returncode={process.returncode}")
+        raise subprocess.CalledProcessError(process.returncode, cmd)
+
+    logger.info(f"命令执行成功|Command executed successfully")
+    return process.returncode
+
+
+def get_singularity_version(singularity_path: str) -> str:
+    """
+    获取 singularity 版本字符串|Get singularity version string
+
+    Returns:
+        版本号(如 "3.8.7");失败返回 "unknown"|version string or "unknown"
+    """
+    try:
+        result = subprocess.run(
+            [singularity_path, "--version"],
+            capture_output=True, text=True, timeout=10,
+        )
+        if result.returncode == 0:
+            # 输出形如 "singularity version 3.8.7"
+            parts = result.stdout.strip().split()
+            return parts[-1] if parts else "unknown"
+        return "unknown"
+    except Exception:
+        return "unknown"
+
 
 def get_conda_env(command: str) -> Optional[str]:
     """检测命令是否在conda环境中，返回环境名称|Detect if command is in conda environment, return env name"""

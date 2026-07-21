@@ -107,6 +107,10 @@ def _validate_file_exists(file_path):
               show_default=True,
               type=str,
               help='样品名提取正则表达式|Sample name extraction regex')
+@click.option('--sample-name',
+              default=None,
+              type=str,
+              help='单文件输入时的样品名称|Sample name for single-file input')
 @click.option('--makeblastdb-path',
               default='makeblastdb',
               show_default=True,
@@ -193,7 +197,7 @@ def _validate_file_exists(file_path):
 def blast(version, input, sample_map_file, reference, output, blast_type, evalue,
           max_target_seqs, word_size, threads, input_suffix, target_db_type,
           min_identity, min_coverage, high_quality_evalue, auto_detect_samples,
-          sample_name_pattern, makeblastdb_path, blastn_path, blastp_path,
+          sample_name_pattern, sample_name, makeblastdb_path, blastn_path, blastp_path,
           blastx_path, tblastn_path, tblastx_path, alignment_output,
           alignment_width, alignment_min_identity, alignment_min_coverage,
           alignment_max_per_sample, html_theme, verbose, quiet,
@@ -266,6 +270,9 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
 
     if sample_name_pattern != r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$':
         args.extend(['--sample-name-pattern', sample_name_pattern])
+
+    if sample_name is not None:
+        args.extend(['--sample-name', sample_name])
 
     if makeblastdb_path != 'makeblastdb':
         args.extend(['--makeblastdb-path', makeblastdb_path])

@@ -1,6 +1,6 @@
 """
 BLAST分析配置模块|BLAST Analysis Configuration Module
-标准化BLAST配置类，遵循参数命名规范|Standardized BLAST configuration class following naming conventions
+标准化BLAST配置类,遵循参数命名规范|Standardized BLAST configuration class following naming conventions
 """
 
 import os
@@ -20,38 +20,25 @@ class BLASTConfig(BaseConfig):
         input: Optional[str] = None,
         output_dir: Optional[str] = None,
         reference: Optional[str] = None,
-        prefix: str = "blast_output",
-        threads: int = 12,
-        quality: float = 1e-5,
-        memory: str = "8G",
-        sample_id: Optional[str] = None,
         sample_name: Optional[str] = None,
-        read_group: Optional[str] = None,
-        min_quality: float = 20,
-        min_length: int = 50,
-        min_depth: int = 10,
-        max_depth: int = 1000,
-        mapping_quality: int = 20,
+        sample_map_file: Optional[str] = None,
+        threads: int = 12,
         log_level: str = "INFO",
         log_file: Optional[str] = None,
         force: bool = False,
         dry_run: bool = False,
-        keep_intermediate: bool = False,
-        tmp_dir: str = "/tmp",
-        timeout: Optional[int] = None,
         # BLAST特定参数|BLAST-specific parameters
         blast_type: str = None,
         evalue: float = 1e-5,
         max_target_seqs: int = 10,
         word_size: Optional[int] = None,
-        target_db_type: str = "nucl",
+        target_db_type: str = None,
         min_identity: float = 70.0,
         min_coverage: float = 50.0,
         high_quality_evalue: float = 1e-10,
         input_suffix: str = "*.fa",
         auto_detect_samples: bool = True,
         sample_name_pattern: str = r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$',
-        sample_map_file: Optional[str] = None,
         # BLAST工具路径|BLAST tool paths
         makeblastdb_path: str = None,
         blastn_path: str = None,
@@ -74,25 +61,13 @@ class BLASTConfig(BaseConfig):
             input: 输入文件路径|Input file path
             output_dir: 输出目录路径|Output directory path
             reference: 目标数据库文件路径|Target database file path
-            prefix: 输出文件前缀|Output prefix
+            sample_name: 单文件输入时的样品名称|Sample name for single-file input
+            sample_map_file: 样品映射文件|Sample mapping file
             threads: 线程数|Number of threads
-            quality: 质量阈值|Quality threshold
-            memory: 内存限制|Memory limit
-            sample_id: 样本ID|Sample ID
-            sample_name: 样本名称|Sample name
-            read_group: Read Group信息|Read Group information
-            min_quality: 最小质量值|Minimum quality value
-            min_length: 最小序列长度|Minimum sequence length
-            min_depth: 最小测序深度|Minimum sequencing depth
-            max_depth: 最大测序深度|Maximum sequencing depth
-            mapping_quality: 最小mapping质量|Minimum mapping quality
             log_level: 日志级别|Log level
             log_file: 日志文件路径|Log file path
             force: 强制覆盖已存在文件|Force overwrite existing files
             dry_run: 模拟运行不执行|Dry run without execution
-            keep_intermediate: 保留中间文件|Keep intermediate files
-            tmp_dir: 临时文件目录|Temporary directory
-            timeout: 超时时间(秒)|Timeout in seconds
             blast_type: BLAST程序类型|BLAST program type
             evalue: E-value阈值|E-value threshold
             max_target_seqs: 最大目标序列数|Maximum target sequences
@@ -104,7 +79,6 @@ class BLASTConfig(BaseConfig):
             input_suffix: 输入文件后缀模式|Input file suffix pattern
             auto_detect_samples: 自动检测样品名称|Auto-detect sample names
             sample_name_pattern: 样品名称提取正则表达式|Sample name extraction regex
-            sample_map_file: 样品映射文件|Sample mapping file
             makeblastdb_path: makeblastdb程序路径|makeblastdb program path
             blastn_path: blastn程序路径|blastn program path
             blastp_path: blastp程序路径|blastp program path
@@ -124,43 +98,28 @@ class BLASTConfig(BaseConfig):
         self.input = input
         self.output = output_dir
         self.reference = reference
-        self.prefix = prefix
-        self.threads = self.validate_threads(threads)
-        self.quality = self.validate_quality(quality)
-        self.memory = memory
-        self.sample_id = sample_id
         self.sample_name = sample_name
-        self.read_group = read_group
-        self.min_quality = min_quality
-        self.min_length = min_length
-        self.min_depth = min_depth
-        self.max_depth = max_depth
-        self.mapping_quality = mapping_quality
+        self.sample_map_file = sample_map_file
+        self.threads = self.validate_threads(threads)
 
         # 日志参数|Logging parameters
         self.log_level = log_level
         self.log_file = log_file
         self.force = force
         self.dry_run = dry_run
-        self.keep_intermediate = keep_intermediate
-
-        # 执行控制参数|Execution control parameters
-        self.tmp_dir = tmp_dir
-        self.timeout = timeout
 
         # BLAST特定参数|BLAST-specific parameters
         self.blast_type = blast_type
-        self.evalue = self.validate_quality(evalue, 0, 1)
+        self.evalue = self._validate_evalue(evalue)
         self.max_target_seqs = max_target_seqs
         self.word_size = word_size
         self.target_db_type = target_db_type
         self.min_identity = self.validate_quality(min_identity, 0, 100)
         self.min_coverage = self.validate_quality(min_coverage, 0, 100)
-        self.high_quality_evalue = self.validate_quality(high_quality_evalue, 0, 1)
+        self.high_quality_evalue = self._validate_evalue(high_quality_evalue)
         self.input_suffix = input_suffix
         self.auto_detect_samples = auto_detect_samples
         self.sample_name_pattern = sample_name_pattern
-        self.sample_map_file = sample_map_file
 
         # 工具路径参数|Tool path parameters
         blast_env = '~/miniforge3/envs/Blast_v.2.16.0/bin'
@@ -181,15 +140,22 @@ class BLASTConfig(BaseConfig):
 
         # 设置默认输出路径|Set default output path
         if self.output is None:
-            self.output = self.prefix
+            self.output = "./blast_output"
 
-        # 自动检测BLAST类型（仅当用户未指定时）|Auto-detect BLAST type (only when user didn't specify)
+        # 分层输出目录(§12.2)|Layered output directories
+        self.pipeline_info_dir = os.path.join(self.output, "00_pipeline_info")
+        self.db_dir = os.path.join(self.output, "01_database")
+        self.blast_dir = os.path.join(self.output, "02_blast")
+        self.alignments_dir = os.path.join(self.output, "03_alignments")
+        self.logs_dir = os.path.join(self.output, "99_logs")
+
+        # 自动检测BLAST类型(仅当用户未指定时)|Auto-detect BLAST type (only when user didn't specify)
         self._auto_detect_blast_type()
 
         # 验证BLAST类型|Validate BLAST type
         self._validate_blast_type()
 
-        # 根据BLAST类型自动设置数据库类型|Auto-set database type based on BLAST type
+        # 根据BLAST类型自动设置数据库类型(仅在用户未指定时)|Auto-set db type (only when user did not specify)
         self._auto_set_db_type()
 
         # 设置默认word_size|Set default word_size
@@ -206,8 +172,14 @@ class BLASTConfig(BaseConfig):
 
     @property
     def alignment_output_dir(self):
-        """比对可视化输出子目录|Alignment visualization output subdirectory"""
-        return "alignments"
+        """比对可视化输出子目录名(供text/html generator拼接)|Alignment output subdir name"""
+        return "03_alignments"
+
+    def _validate_evalue(self, evalue: float) -> float:
+        """验证E-value(允许0表示完美匹配,不设上限)|Validate E-value (0 allowed for exact match, no upper limit)"""
+        if evalue < 0:
+            raise ValueError(f"E-value阈值不能为负数|E-value must be non-negative: {evalue}")
+        return evalue
 
     def _detect_sequence_type(self, fasta_file: str, check_sequences: int = 5) -> Tuple[str, float]:
         """
@@ -240,13 +212,12 @@ class BLASTConfig(BaseConfig):
             for seq in sequences:
                 for char in seq:
                     total_chars += 1
-                    if char in "ATCG":
+                    if char in "ATCGN":
                         dna_chars += 1
-                    elif char in "N":
-                        dna_chars += 1
-                    elif char in "DEFGHIKLMNPQRSTVWY*":
+                    elif char in "DEFGHIKLMNPQRSVWY*":
                         protein_chars += 1
                     else:
+                        # 未知字符按蛋白处理(蛋白字母表更宽)|Treat unknown as protein (larger alphabet)
                         protein_chars += 1
 
             if total_chars == 0:
@@ -270,7 +241,7 @@ class BLASTConfig(BaseConfig):
     def _collect_fasta_files(self, path: str) -> list:
         """收集FASTA文件列表|Collect FASTA file list
 
-        当path是文件时返回单元素列表，目录时返回所有匹配文件
+        当path是文件时返回单元素列表,目录时返回所有匹配文件
         """
         import glob as glob_mod
         if os.path.isfile(path):
@@ -283,7 +254,7 @@ class BLASTConfig(BaseConfig):
         return [path]
 
     def _detect_type_from_files(self, files: list, label: str) -> str:
-        """对多个文件逐一检测序列类型，用多数投票决定|Detect sequence type from multiple files by majority vote"""
+        """对多个文件逐一检测序列类型,用多数投票决定|Detect sequence type from multiple files by majority vote"""
         logger = logging.getLogger(__name__)
         from collections import Counter
         counts = Counter()
@@ -332,7 +303,7 @@ class BLASTConfig(BaseConfig):
                         f"(查询|query: {query_type}, 参考|reference: {ref_type})")
         else:
             self.blast_type = "blastn"
-            logger.warning(f"无法自动检测BLAST类型，使用默认值blastn|Cannot auto-detect BLAST type, using default blastn "
+            logger.warning(f"无法自动检测BLAST类型,使用默认值blastn|Cannot auto-detect BLAST type, using default blastn "
                            f"(查询|query: {query_type}, 参考|reference: {ref_type})")
 
     def _validate_blast_type(self):
@@ -344,7 +315,7 @@ class BLASTConfig(BaseConfig):
     def _set_default_word_size(self):
         """设置默认word_size|Set default word_size"""
         if self.word_size is None:
-            # 根据BLAST类型设置默认word_size
+            # 根据BLAST类型设置默认word_size|Set default word_size by BLAST type
             default_word_sizes = {
                 'blastn': 11,
                 'tblastx': 11,
@@ -355,12 +326,12 @@ class BLASTConfig(BaseConfig):
             self.word_size = default_word_sizes.get(self.blast_type, 11)
 
     def _auto_set_db_type(self):
-        """根据BLAST类型自动设置数据库类型|Auto-set database type based on BLAST type"""
-        # 如果用户没有明确指定target_db_type为非默认值，则自动推断
-        # 如果用户明确指定了，则使用用户指定的值
-        # 但为了兼容性，我们根据blast_type给出建议的默认值
+        """根据BLAST类型自动设置数据库类型(仅在用户未指定时)|Auto-set db type only when user did not specify"""
+        # 用户显式指定target_db_type时尊重其选择,不再覆盖|Respect user-specified target_db_type
+        if self.target_db_type is not None:
+            return
 
-        # blast_type到数据库类型的映射
+        # blast_type到数据库类型的映射|blast_type to dbtype mapping
         # blastn: 查询nucl vs 数据库nucl
         # blastp: 查询prot vs 数据库prot
         # blastx: 查询nucl vs 数据库prot
@@ -374,8 +345,15 @@ class BLASTConfig(BaseConfig):
             'tblastx': 'nucl'
         }
 
-        # 自动设置正确的数据库类型
         self.target_db_type = blast_to_db.get(self.blast_type, 'nucl')
+
+    def get_log_level(self) -> int:
+        """获取日志级别(显式log_level优先,否则按verbose/quiet推导)|Get log level (explicit log_level wins, else from verbose/quiet)"""
+        # CLI的--log-level或main.py由-v推导的log_level优先于基类的verbose/quiet逻辑
+        # |Explicit log_level (from --log-level or -v derivation) takes precedence over base verbose/quiet
+        if self.log_level:
+            return getattr(logging, str(self.log_level).upper(), logging.INFO)
+        return super().get_log_level()
 
     def _validate_alignment_output(self, alignment_output: str) -> str:
         """验证比对可视化输出格式|Validate alignment visualization output format"""
@@ -391,18 +369,6 @@ class BLASTConfig(BaseConfig):
             raise ValueError(f"无效的HTML主题|Invalid HTML theme: {html_theme}")
         return html_theme
 
-    def get_output_path(self, filename: str) -> str:
-        """
-        获取输出文件的完整路径|Get full path of output file
-
-        Args:
-            filename: 文件名|File name
-
-        Returns:
-            str: 完整路径|Full path
-        """
-        return os.path.join(self.output, filename)
-
     def get_target_db_path(self) -> str:
         """
         获取目标数据库路径|Get target database path
@@ -411,17 +377,7 @@ class BLASTConfig(BaseConfig):
             str: 数据库路径|Database path
         """
         base_name = os.path.splitext(os.path.basename(self.reference))[0]
-        return os.path.join(self.output, f"{base_name}.db")
-
-    def get_blast_output_path(self) -> str:
-        """
-        获取BLAST输出路径|Get BLAST output path
-
-        Returns:
-            str: 输出路径|Output path
-        """
-        base_name = os.path.splitext(os.path.basename(self.reference))[0]
-        return os.path.join(self.output, f"{base_name}_{self.blast_type}_results.tsv")
+        return os.path.join(self.db_dir, f"{base_name}.db")
 
     def get_summary_output_path(self) -> str:
         """
@@ -430,7 +386,7 @@ class BLASTConfig(BaseConfig):
         Returns:
             str: 输出路径|Output path
         """
-        return os.path.join(self.output, "blast_summary_results.tsv")
+        return os.path.join(self.blast_dir, "blast_summary_results.tsv")
 
     def get_alignment_output_path(self, output_type: str = "html") -> str:
         """
@@ -443,15 +399,15 @@ class BLASTConfig(BaseConfig):
             str: 输出路径|Output path
         """
         if output_type == "html":
-            return os.path.join(self.output, "alignments", "html", "index.html")
+            return os.path.join(self.alignments_dir, "html", "index.html")
         elif output_type == "text":
-            return os.path.join(self.output, "alignments", "text", "all_samples_alignments.txt")
+            return os.path.join(self.alignments_dir, "text", "all_samples_alignments.txt")
         else:
             raise ValueError(f"不支持的输出类型|Unsupported output type: {output_type}")
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
-        # 调用父类验证
+        # 调用父类验证|Call parent validation
         super().validate()
 
         errors = []
@@ -481,11 +437,11 @@ class BLASTConfig(BaseConfig):
                 errors.append(str(e))
 
         # 验证参数范围|Validate parameter ranges
-        if self.evalue <= 0 or self.evalue > 1:
-            errors.append(f"E-value阈值必须在0-1之间|E-value must be between 0 and 1: {self.evalue}")
+        if self.evalue < 0:
+            errors.append(f"E-value阈值不能为负数|E-value must be non-negative: {self.evalue}")
 
-        if self.high_quality_evalue <= 0 or self.high_quality_evalue > 1:
-            errors.append(f"高质量E-value阈值必须在0-1之间|High quality E-value must be between 0 and 1: {self.high_quality_evalue}")
+        if self.high_quality_evalue < 0:
+            errors.append(f"高质量E-value阈值不能为负数|High quality E-value must be non-negative: {self.high_quality_evalue}")
 
         if not 0 <= self.min_identity <= 100:
             errors.append(f"最小相似度必须在0-100之间|Minimum identity must be between 0 and 100: {self.min_identity}")
@@ -532,5 +488,4 @@ class BLASTConfig(BaseConfig):
     自动检测样品|Auto Detect Samples: {self.auto_detect_samples}
     词大小|Word Size: {self.word_size}
     样品映射文件|Sample Map File: {self.sample_map_file}
-    保持中间文件|Keep Intermediate: {self.keep_intermediate}
 """

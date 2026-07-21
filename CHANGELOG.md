@@ -1,4 +1,13 @@
 
+## [1.17.0] - 2026-07-21
+
+### Added
+- **新模块**：`func_anno` — 蛋白功能注释流水线（interproscan 结构域 + eggnog-mapper GO/KEGG → 标准 GO/KEGG 表衔接下游 R）；braker4ps 模式（不改 interproscan/eggnog_mapper 源码，仅 import 调用）；支持 `--ips-result`/`--eggnog-result` 复用已跑结果、`--skip-ips`/`--skip-eggnog`、断点续传、外部 KEGG 映射补 category；by-sample 目录（01_interproscan/02_eggnog/03_tables/99_logs）
+
+### Changed
+- `blast`：`BLASTAnalyzer` 改继承 `core.BaseAnalyzer`（复用通用 run_command/依赖检查），删除 utils.py 中 8 个冗余函数（check_tool_availability/get_input_files/run_command/check_blast_dependencies 等，均 0 调用方）；main.py 重构精简
+- `hite`：新增 `hite_runner.py`/`main.py` 作为单基因组入口（`HiteRunner` 用 `singularity_path`+`build_singularity_command` 直接挂载，支持断点续传），`HiteConfig` 字段重构（singularity_path）；panHiTE 流程保留（PanHiteConfig + SingularityContainerManager）
+
 ## [1.16.0] - 2026-07-21
 
 ### Added
