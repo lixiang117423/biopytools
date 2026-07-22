@@ -1,4 +1,11 @@
 
+## [1.18.0] - 2026-07-22
+
+### Added
+- **新模块 `trimal`**：多序列比对自动修剪（trimAl）封装。支持 6 种修剪方法（automated1/gappyout/strict/strictplus/gt/cons）、8 种输出格式、`-colnumbering` 新旧列号映射、`-complementary` 互补比对、`-backtrans` AA→NT 反向翻译。trimal 作为独立编译 C++ 二进制（RPATH 解析动态库），直接以绝对路径调用、不经 `conda run` 包装（实测 0.01s）。断点续传；by-step 目录（`01_trimal`/`00_pipeline_info`/`99_logs`）+ `software_versions.yml`
+- **新模块 `phylo_trim`**：整合 mafft-fasttree + trimal，自动产出 trimal 前后两棵 FastTree 系统发育树（序列→MAFFT→FastTree→trimal→FastTree）。仅 import 复用 `mafft_fasttree`（`PhyloTreeBuilder`/`FastTreeBuilder`/`SequenceProcessor`/`CommandRunner`）与 `trimal`（`TrimalRunner`），不修改两模块源码；序列类型自动检测；`--skip-trimal` 仅出前树；三段式断点续传（前流程/trimal/后树）；by-step 目录（`01_mafft_fasttree`/`02_trimal`/`03_fasttree_trimmed`）
+- CLI：`main.py` 注册 `trimal` 与 `phylo-trim` 两个命令
+
 ## [1.17.1] - 2026-07-22
 
 ### Fixed

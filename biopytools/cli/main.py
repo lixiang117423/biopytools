@@ -220,6 +220,8 @@ COMMAND_REGISTRY = [
     ('braker4ps', 'braker4ps', 'braker+ps-gene-anno端到端(注释+查漏补缺)|braker + gap-filling end-to-end'),
     ('mga', 'mga', 'MGA共识基因组组装(HiFi)|MGA consensus genome assembly (HiFi)'),
     ('func_anno', 'func-anno', '蛋白功能注释(IPS+eggnog→GO/KEGG标准表,衔接下游R)|Protein annotation (IPS+eggnog→GO/KEGG tables)'),
+    ('trimal', 'trimal', '多序列比对自动修剪(trimAl)|MSA automated trimming with trimAl'),
+    ('phylo_trim', 'phylo-trim', '整合mafft-fasttree+trimal,出trimal前后两棵树|Integrate mafft-fasttree+trimal, before/after trees'),
 ]
 
 # 将硬编码信息转换为字典，方便查询
