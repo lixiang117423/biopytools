@@ -58,11 +58,6 @@ def _validate_file_exists(file_path):
               show_default=True,
               type=int,
               help='FTP重试次数|FTP connection retry attempts')
-@click.option('--threads',
-              default=12,
-              show_default=True,
-              type=int,
-              help='并发线程数|Concurrent threads')
 @click.option('--verbose', '-v',
               is_flag=True,
               help='详细输出模式|Verbose output mode')
@@ -76,7 +71,7 @@ def _validate_file_exists(file_path):
               is_flag=True,
               help='不设置可执行权限|Don\'t make script executable')
 def get_link_from_CNCB(input, output, failed, download_script, ftp_host,
-                       ftp_timeout, retry_attempts, threads, verbose,
+                       ftp_timeout, retry_attempts, verbose,
                        log_file, no_download_script, no_executable):
     """
     CNCB测序数据下载链接提取工具|CNCB Sequencing Data Download Links Extraction Tool
@@ -99,7 +94,6 @@ def get_link_from_CNCB(input, output, failed, download_script, ftp_host,
             ftp_host=ftp_host,
             ftp_timeout=ftp_timeout,
             retry_attempts=retry_attempts,
-            max_threads=threads,
             verbose=verbose,
             log_file=str(log_file) if log_file else None,
             generate_download_script=not no_download_script,

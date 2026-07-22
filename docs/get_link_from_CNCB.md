@@ -77,7 +77,6 @@ success = extractor.run_extraction()
 | 参数 | 默认值 | 描述 |
 |------|--------|------|
 | `--retry-attempts` | `3` | 🔄 FTP连接重试次数 |
-| `--threads` | `4` | 🧵 并发线程数 |
 
 ### 日志配置参数 | Logging Configuration
 
@@ -224,7 +223,6 @@ python -m biopytools.get_link_from_CNCB.main \
     -o comprehensive_links.txt \
     -f comprehensive_failed.txt \
     --download-script comprehensive_download.sh \
-    --threads 8 \
     --ftp-timeout 120 \
     --retry-attempts 5 \
     -v \
@@ -249,7 +247,6 @@ config = {
     'ftp_host': 'download2.cncb.ac.cn',
     'ftp_timeout': 90,
     'retry_attempts': 4,
-    'max_threads': 6,
     'verbose': True,
     'log_file': 'cncb_process.log',
     'generate_download_script': True,
@@ -299,9 +296,6 @@ python -m biopytools.get_link_from_CNCB.main projects.txt --ftp-timeout 180
 
 # 增加重试次数（不稳定网络）
 python -m biopytools.get_link_from_CNCB.main projects.txt --retry-attempts 8
-
-# 减少并发（避免过载）
-python -m biopytools.get_link_from_CNCB.main projects.txt --threads 2
 ```
 
 ### 数据预筛选
@@ -386,9 +380,6 @@ chmod 755 output_directory
 
 **处理速度慢**
 ```python
-# 减少并发线程数（避免服务器限制）
-python -m biopytools.get_link_from_CNCB.main projects.txt --threads 2
-
 # 分批处理大量数据
 split -l 500 large_list.txt batch_
 for batch in batch_*; do
@@ -399,9 +390,6 @@ wait
 
 **内存使用过高**
 ```python
-# 减少缓存大小（通过配置）
-python -m biopytools.get_link_from_CNCB.main projects.txt --threads 1
-
 # 监控内存使用
 python -c "
 import psutil

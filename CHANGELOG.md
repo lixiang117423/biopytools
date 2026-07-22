@@ -1,4 +1,12 @@
 
+## [1.17.1] - 2026-07-22
+
+### Fixed
+- `get_link_from_CNCB`（CLI 包装层）：移除遗留的 `--threads` Click 选项 / `threads` 形参 / `max_threads=threads` 传参——1.16.0 已从 `CNCBConfig` 删除 `max_threads` 死字段，但 Click 包装层漏删，导致 `CNCLinkExtractor(**kwargs)` 经 `**kwargs` 转发给 `CNCBConfig` 时抛 `TypeError: unexpected keyword argument 'max_threads'`，`biopytools get-link-from-CNCB` 启动即崩溃
+
+### Changed
+- `get_link_from_CNCB`（docs）：清理 `docs/get_link_from_CNCB.md` 中 6 处线程相关残留——参数表 `--threads` 行 1 处、示例命令 `--threads` 5 处（其中 4 处 `python -m ...main --threads` 本就与 argparse 实现不符）、Python 配置 dict 中 `'max_threads': 6` 1 处（照抄会经 `CNCLinkExtractor(**config)` 直接触发上述 TypeError）
+
 ## [1.17.0] - 2026-07-21
 
 ### Added
