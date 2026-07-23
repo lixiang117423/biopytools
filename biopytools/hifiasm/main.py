@@ -389,7 +389,7 @@ def create_argument_parser():
 
     system = parser.add_argument_group('系统参数|System parameters')
     system.add_argument('--memory', type=int, default=64, help='内存大小(GB)|Memory size (GB)')
-    system.add_argument('--tmp-dir', default='/tmp', help='临时目录|Temporary directory')
+    system.add_argument('--tmp-dir', default=None, help='临时目录(默认 output_dir/tmp)|Temporary directory (defaults to output_dir/tmp)')
     system.add_argument('--max-runtime', type=int, default=48, help='最大运行时间(小时)|Maximum runtime (hours)')
     system.add_argument('--resume', action='store_true', help='恢复中断的分析|Resume interrupted analysis')
 

@@ -506,10 +506,16 @@ class SmudgeplotRunner:
             self.logger.warning(f"无法解析内存值 '{memory}'，使用默认值16|Cannot parse memory value '{memory}', using default 16")
             memory_int = 16
 
-        # 检查是否有.gz文件，如果有则先解压到系统临时目录
-        # Check if there are .gz files, if so decompress to system temp directory first
-        import tempfile
-        temp_base_dir = tempfile.mkdtemp(prefix=f"genomescope_fastk_{sample_name}_")
+        # 检查是否有.gz文件，如果有则先解压到临时目录
+        # Check if there are .gz files, if so decompress to temp directory first
+        # 显式传 dir=os.environ.get('TMPDIR')：setup_temp_dir(main.py) 已把 TMPDIR 设为 output_dir/tmp
+        # 显式传参比依赖全局 TMPDIR 更健壮（tempfile 会缓存默认目录，隐式继承不可靠）
+        # Explicit dir= is more robust than relying on global TMPDIR (tempfile caches
+        # its default dir on first use, so implicit inheritance is unreliable)
+        temp_base_dir = tempfile.mkdtemp(
+            prefix=f"genomescope_fastk_{sample_name}_",
+            dir=os.environ.get("TMPDIR"),
+        )
         self.logger.debug(f"创建临时目录|Creating temp directory: {temp_base_dir}")
         decompressed_files = []
 

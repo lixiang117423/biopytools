@@ -119,6 +119,7 @@ class RxLRFinder:
             self.signalp_results = run_signalp3(
                 self.config.signalp3_path, self.config._combined_fasta,
                 self.logger, self.config.signalp3_sprob_threshold,
+                tmp_dir=os.path.join(self.config.output_dir, '01_signalp', 'tmp'),
             )
             save_signalp3_compatible(self.signalp_results, summary_file)
             return
@@ -159,6 +160,7 @@ class RxLRFinder:
                 sp3_results = run_signalp3(
                     self.config.signalp3_path, self.config._combined_fasta,
                     self.logger, self.config.signalp3_sprob_threshold,
+                    tmp_dir=os.path.join(self.config.output_dir, '01_signalp', 'tmp'),
                 )
             except Exception as e:
                 self.logger.warning(f"SignalP 3.0异常|SignalP 3.0 error: {e}")

@@ -568,8 +568,11 @@ def ld_prune_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
     n_before = genotype_matrix.shape[0]
     stats = {'markers_before_prune': int(n_before)}
 
-    # 创建临时工作目录|Create temp working directory
-    tmp_dir = tempfile.mkdtemp(prefix="cim_ld_prune_")
+    # 创建临时工作目录(落在output_dir/tmp下，避免占满系统/tmp)|Create temp working dir under output_dir/tmp
+    # mkdtemp生成唯一子目录，rmtree只删子目录，共享tmp根不会被误删|mkdtemp makes unique subdir; rmtree deletes only the subdir
+    tmp_root = os.path.join(output_dir, "tmp")
+    os.makedirs(tmp_root, exist_ok=True)
+    tmp_dir = tempfile.mkdtemp(prefix="cim_ld_prune_", dir=tmp_root)
     plink_prefix = os.path.join(tmp_dir, "plink_input")
 
     try:
@@ -709,8 +712,12 @@ def _run_mstmap_single_pvalue(genotype_matrix: np.ndarray, marker_info: pd.DataF
     pop_type_map = {"f2": "RIL2", "bc": "DH"}
     mstmap_pop = pop_type_map.get(config.cross_type, "RIL2")
 
+    # 临时目录落在config.output_dir/tmp下，避免占满系统/tmp|tmp under config.output_dir/tmp
+    # mkdtemp生成唯一子目录，rmtree只删子目录，共享tmp根不会被误删|mkdtemp makes unique subdir; rmtree deletes only the subdir
+    tmp_root = os.path.join(config.output_dir, "tmp")
+    os.makedirs(tmp_root, exist_ok=True)
     chrs = marker_info['chr'].unique()
-    tmp_dir = tempfile.mkdtemp(prefix="cim_mstmap_")
+    tmp_dir = tempfile.mkdtemp(prefix="cim_mstmap_", dir=tmp_root)
     all_map_rows = []
     lg_counter = 1
 

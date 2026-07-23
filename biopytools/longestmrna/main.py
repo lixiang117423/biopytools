@@ -3,6 +3,7 @@
 """
 
 import argparse
+import os
 import sys
 from .config import LongestMRNAConfig
 from .utils import LongestMRNALogger, CommandRunner, TempFileManager
@@ -34,8 +35,10 @@ class LongestMRNAExtractor:
 
     def run_extraction(self):
         """运行提取流程|Run extraction pipeline"""
+        # 临时文件重定向到 output/tmp,避免超算系统 /tmp 爆满|Redirect temp files to output/tmp to avoid filling system /tmp
+        tmp_dir = os.path.join(os.path.dirname(self.config.output_file), "tmp")
         # 管理对齐阶段产生的过滤GFF临时文件|Manages filtered GFF temp file produced by the alignment step
-        gff_temp_manager = TempFileManager(self.logger)
+        gff_temp_manager = TempFileManager(self.logger, base_dir=tmp_dir)
         try:
             self.logger.info("开始最长转录本提取流程|Starting longest mRNA extraction pipeline")
             self.logger.info(f"基因组文件|Genome file: {self.config.genome_file}")

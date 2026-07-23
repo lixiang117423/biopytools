@@ -87,7 +87,9 @@ class FastqFilter:
         self.logger.info(f"序列长度范围|Sequence length range: {self.config.min_length} - {self.config.max_length or 'unlimited'}")
 
         # 创建临时文件存放read名称列表|Create temp file for read name list
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.list', delete=False) as tmp_list:
+        tmp_root = os.path.join(os.path.dirname(self.config.output_file), 'tmp')
+        os.makedirs(tmp_root, exist_ok=True)
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.list', delete=False, dir=tmp_root) as tmp_list:
             tmp_list_path = tmp_list.name
 
         try:

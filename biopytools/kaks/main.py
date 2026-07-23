@@ -140,7 +140,11 @@ class KaKsAnalyzer:
             self._temp_dir_created = self.temp_dir
             Path(self._temp_dir_created).mkdir(parents=True, exist_ok=True)
         else:
-            self._temp_dir_created = tempfile.mkdtemp(prefix="kakscalc_")
+            # 临时目录落到 <output>/tmp 下,避免系统 /tmp 爆满|
+            # Temp dir under <output>/tmp to avoid system /tmp overflow
+            tmp_root = Path(self.output_dir) / "tmp"
+            tmp_root.mkdir(parents=True, exist_ok=True)
+            self._temp_dir_created = tempfile.mkdtemp(prefix="kakscalc_", dir=str(tmp_root))
 
         self.logger.info(f"使用临时目录|Using temporary directory: {self._temp_dir_created}")
 

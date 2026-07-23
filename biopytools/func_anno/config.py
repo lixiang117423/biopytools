@@ -12,8 +12,9 @@ from ..common.paths import expand_path
 class FuncAnnoConfig:
     """功能注释流水线配置|Functional annotation pipeline config.
 
-    输入蛋白序列 → interproscan(结构域) + eggnog-mapper(GO/KEGG) → 标准 GO/KEGG 表.
-    |Protein input → interproscan (domains) + eggnog-mapper (GO/KEGG) → standard tables.
+    目录结构自动识别|Dir layout auto-detection:
+        - 单样本(by_sample=False): output_dir/01_.../02_.../03_...  (不嵌套)
+        - 多样本(by_sample=True):  output_dir/{sample}/01_.../...   (每样本子目录)
     """
 
     # 必需|required
@@ -22,6 +23,7 @@ class FuncAnnoConfig:
     # 通用|general
     threads: int = 12
     sample_name: Optional[str] = None
+    by_sample: bool = False          # 多样本→by-sample 嵌套; 单样本→by-step 不嵌套
     # 复用已有结果(避免重跑)|reuse existing results
     ips_result: Optional[str] = None       # 已有 IPS 结果目录|existing IPS dir
     eggnog_result: Optional[str] = None    # 已有 .emapper.annotations|existing annotations
@@ -29,6 +31,8 @@ class FuncAnnoConfig:
     skip_eggnog: bool = False              # 跳过 eggnog(只整理已有)|skip eggnog
     # KEGG|KEGG
     kegg_map: Optional[str] = None         # 外部 KEGG 映射 TSV(补 category)|external KEGG map
+    kegg_exclude_keywords: Optional[str] = None   # name 黑名单(None=内置植物无关词 cancer/estrogen 等)|name blacklist
+    kegg_exclude_categories: str = ""      # 排除 BRITE 大类(如 Human Diseases; 默认空避免误伤植物同源)|exclude BRITE categories
     # eggnog 透传|eggnog passthrough
     data_dir: Optional[str] = None
     mode: str = "mmseqs"
@@ -54,9 +58,13 @@ class FuncAnnoConfig:
         if not self.sample_name:
             self.sample_name = Path(self.input_file).stem
 
-        # by-sample 目录结构(遵循 §12)|by-sample dir layout
+        # by-sample(多样本): output_dir/sample/...; by-step(单样本): output_dir/...
         self.output_path = Path(self.output_dir)
-        self.sample_dir = self.output_path / self.sample_name
+        if self.by_sample:
+            self.sample_dir = self.output_path / self.sample_name
+        else:
+            self.sample_dir = self.output_path
+
         self.ips_dir = self.sample_dir / "01_interproscan"
         self.eggnog_dir = self.sample_dir / "02_eggnog"
         self.tables_dir = self.sample_dir / "03_tables"

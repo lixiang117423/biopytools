@@ -34,7 +34,9 @@ class FastqStatsCalculator:
         Returns:
             统计信息字典|Statistics dictionary
         """
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.tsv') as tmp:
+        tmp_root = os.path.join(str(self.config.output_path), 'tmp')
+        os.makedirs(tmp_root, exist_ok=True)
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.tsv', dir=tmp_root) as tmp:
             tmp_file = tmp.name
 
         try:

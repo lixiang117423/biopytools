@@ -158,19 +158,35 @@ class CommandRunner:
 
 
 class TempFileManager:
-    """临时文件管理器|Temporary File Manager"""
+    """临时文件管理器|Temporary File Manager
 
-    def __init__(self, logger):
+    可选 base_dir 把临时文件重定向到 output/tmp(避免超算系统 /tmp 爆满)|
+    Optional base_dir redirects temp files to output/tmp (avoids filling the
+    supercomputer's system /tmp). base_dir=None 时回退 tempfile 默认目录(向后兼容)|
+    When base_dir is None, falls back to tempfile's default dir (backward compatible).
+    """
+
+    def __init__(self, logger, base_dir: Optional[str] = None):
         self.logger = logger
+        # None 时回退系统默认(向后兼容)|None -> system default (backward compatible)
+        self.base_dir = base_dir
         self.temp_files = []
+        if base_dir:
+            # 存在则 no-op,不存在则创建(支持重复 manager)|no-op if exists, create otherwise
+            os.makedirs(base_dir, exist_ok=True)
 
     def create_temp_file(self, mode='w+', delete=False, suffix='', encoding='utf-8'):
-        """创建临时文件|Create temporary file"""
+        """创建临时文件|Create temporary file
+
+        dir=self.base_dir(None 时 tempfile 用系统默认)|
+        dir=self.base_dir (None -> tempfile uses system default)
+        """
         temp_file = tempfile.NamedTemporaryFile(
             mode=mode,
             delete=delete,
             suffix=suffix,
-            encoding=encoding
+            encoding=encoding,
+            dir=self.base_dir
         )
         self.temp_files.append(temp_file.name)
         return temp_file

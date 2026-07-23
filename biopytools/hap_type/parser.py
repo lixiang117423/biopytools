@@ -470,7 +470,8 @@ class VCFParser:
         temp_vcf = tempfile.NamedTemporaryFile(
             mode='wb',
             suffix='.vcf',
-            delete=False
+            delete=False,
+            dir=os.path.dirname(str(vcf_file))
         )
         temp_vcf_path = Path(temp_vcf.name)
         temp_vcf.close()

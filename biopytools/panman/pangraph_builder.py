@@ -5,6 +5,7 @@ PanGraph构建器模块|PanGraph Builder Module
 
 import os
 import subprocess
+from pathlib import Path
 from typing import Tuple, Optional
 from ..common.paths import expand_path
 
@@ -163,7 +164,10 @@ class PanGraphBuilder:
         actual_output_dir = output_dir
 
         if use_singularity:
-            temp_dir = tempfile.mkdtemp(prefix="pangraph_")
+            # 临时目录统一到输出目录下,避免系统 /tmp 爆满|Route temp under output to avoid /tmp overflow
+            tmp_root = Path(output_dir) / "tmp"
+            tmp_root.mkdir(parents=True, exist_ok=True)
+            temp_dir = tempfile.mkdtemp(prefix="pangraph_", dir=str(tmp_root))
             actual_fasta_file = os.path.join(temp_dir, os.path.basename(fasta_file))
             actual_output_dir = temp_dir
             shutil.copy2(fasta_file, actual_fasta_file)
@@ -179,6 +183,8 @@ class PanGraphBuilder:
             cmd = [
                 self.singularity_path,
                 "exec",
+                # 显式绑定临时目录:temp_dir 已不在默认绑定的 /tmp 下,需挂载进容器|Bind temp_dir explicitly: it is no longer under the default-bound /tmp, must mount into container
+                "--bind", temp_dir,
                 self.pangraph_sif,
                 "pangraph",
                 "build",

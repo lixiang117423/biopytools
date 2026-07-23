@@ -2,6 +2,7 @@
 Primer3引物设计评估器|Primer3 Primer Design Evaluator
 """
 
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -95,7 +96,9 @@ class Primer3Evaluator:
             Primer3输出字符串|Primer3 output string
         """
         # 创建临时输入文件|Create temporary input file
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as tmp_input:
+        tmp_root = os.path.join(str(self.config.output_path), 'tmp')
+        os.makedirs(tmp_root, exist_ok=True)
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, dir=tmp_root) as tmp_input:
             tmp_input.write(primer3_input)
             tmp_input_path = tmp_input.name
 

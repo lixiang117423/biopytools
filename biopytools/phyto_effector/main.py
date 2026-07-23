@@ -94,6 +94,7 @@ def _run_signalp(config, logger):
         results = run_signalp3(
             config.signalp3_path, config._combined_fasta,
             logger, config.signalp3_sprob_threshold,
+            tmp_dir=os.path.join(config.output_dir, '01_signalp', 'tmp'),
         )
         save_signalp3_compatible(results, summary_file)
         return results
@@ -134,6 +135,7 @@ def _run_signalp_both(config, logger, step_dir, summary_file):
             sp3_results = run_signalp3(
                 config.signalp3_path, config._combined_fasta,
                 logger, config.signalp3_sprob_threshold,
+                tmp_dir=os.path.join(config.output_dir, '01_signalp', 'tmp'),
             )
         except Exception as e:
             logger.warning(f"SignalP 3.0异常|SignalP 3.0 error: {e}")

@@ -428,7 +428,7 @@ def main():
     print(f" {len(vcf_files)} 个文件验证通过|{len(vcf_files)} files validated")
 
     # 创建文件列表|Create file list
-    with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as tmp:
+    with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt', dir=os.path.dirname(os.path.abspath(vcf_files[0]))) as tmp:
         for vcf in vcf_files:
             tmp.write(f"{vcf}\\n")
         list_path = tmp.name

@@ -343,10 +343,22 @@ class RxLRMotifScanner:
         }
 
 
-def split_fasta_chunks(fasta_path: str, chunk_size: int = 300) -> List[str]:
-    """按序列数分割FASTA文件(SignalP 3.0限制4000序列)|Split FASTA into chunks by sequence count (SP3 limit 4000)"""
+def split_fasta_chunks(fasta_path: str, chunk_size: int = 300,
+                       tmp_dir: Optional[str] = None) -> List[str]:
+    """按序列数分割FASTA文件(SignalP 3.0限制4000序列)|Split FASTA into chunks by sequence count (SP3 limit 4000)
+
+    Args:
+        fasta_path: 输入FASTA路径|Input FASTA path
+        chunk_size: 每个chunk序列数|Sequences per chunk
+        tmp_dir: chunk 目录的父目录(不传则用系统 /tmp)|Parent dir for chunk dir (system /tmp if not given)
+    """
     import tempfile
-    tmp_dir = tempfile.mkdtemp(prefix='sp3_chunks_')
+    # Pattern B: 传 tmp_dir 时 chunk 目录落在指定目录下,否则回退系统 /tmp|tmp_dir controls parent, else system /tmp
+    if tmp_dir:
+        os.makedirs(tmp_dir, exist_ok=True)
+        chunk_dir = tempfile.mkdtemp(prefix='sp3_chunks_', dir=tmp_dir)
+    else:
+        chunk_dir = tempfile.mkdtemp(prefix='sp3_chunks_')
     chunks = []
     current = []
     seq_count = 0
@@ -356,7 +368,7 @@ def split_fasta_chunks(fasta_path: str, chunk_size: int = 300) -> List[str]:
         for line in f:
             if line.startswith('>') and current:
                 if seq_count >= chunk_size:
-                    out_path = os.path.join(tmp_dir, f'chunk_{chunk_num:03d}.fa')
+                    out_path = os.path.join(chunk_dir, f'chunk_{chunk_num:03d}.fa')
                     with open(out_path, 'w') as out:
                         out.writelines(current)
                     chunks.append(out_path)
@@ -367,7 +379,7 @@ def split_fasta_chunks(fasta_path: str, chunk_size: int = 300) -> List[str]:
             if line.startswith('>'):
                 seq_count += 1
         if current:
-            out_path = os.path.join(tmp_dir, f'chunk_{chunk_num:03d}.fa')
+            out_path = os.path.join(chunk_dir, f'chunk_{chunk_num:03d}.fa')
             with open(out_path, 'w') as out:
                 out.writelines(current)
             chunks.append(out_path)
@@ -460,45 +472,67 @@ def _retry_signalp3_chunk(signalp3_path: str, chunk_path: str, logger: logging.L
 
 
 def run_signalp3(signalp3_path: str, fasta_path: str, logger: logging.Logger,
-                 sprob_threshold: float = 0.9) -> Dict[str, Dict]:
-    """运行SignalP 3.0(自动分chunk+失败递归重试)|Run SignalP 3.0 with chunking and recursive retry"""
+                 sprob_threshold: float = 0.9,
+                 tmp_dir: Optional[str] = None) -> Dict[str, Dict]:
+    """运行SignalP 3.0(自动分chunk+失败递归重试)|Run SignalP 3.0 with chunking and recursive retry
+
+    Args:
+        signalp3_path: SignalP 3.0 可执行路径|SignalP 3.0 executable path
+        fasta_path: 输入FASTA|Input FASTA
+        logger: 日志器|Logger
+        sprob_threshold: HMM Sprob 阈值|HMM Sprob threshold
+        tmp_dir: 临时目录父目录(不传则用系统 /tmp)|Parent dir for temp dirs (system /tmp if not given).
+            chunk 目录与 tmp_base 都落在此目录下,运行结束自动清理|Both chunk dir and tmp_base
+            land under it, auto-cleaned after run.
+    """
     import tempfile
 
     seq_count = sum(1 for _ in parse_fasta(fasta_path))
+    chunk_dir = None  # 仅 split 后才有,用于清理|only set when split happened, for cleanup
     if seq_count <= 3800:
         chunks = [fasta_path]
         logger.info(f"SignalP 3.0: {seq_count}条序列(无需分chunk)|{seq_count} seqs, no chunking needed")
     else:
-        chunks = split_fasta_chunks(fasta_path, chunk_size=300)
+        chunks = split_fasta_chunks(fasta_path, chunk_size=300, tmp_dir=tmp_dir)
+        chunk_dir = os.path.dirname(chunks[0]) if chunks else None
         logger.info(f"SignalP 3.0: {seq_count}条序列分割为{len(chunks)}个chunk(300条/chunk)|{seq_count} seqs split into {len(chunks)} chunks")
 
     all_results = {}
     chunk_failed = 0
-    tmp_base = tempfile.mkdtemp(prefix='sp3_run_')
+    # Pattern B: 传 tmp_dir 时 tmp_base 落在指定目录下,否则回退系统 /tmp|tmp_dir controls parent, else system /tmp
+    if tmp_dir:
+        os.makedirs(tmp_dir, exist_ok=True)
+        tmp_base = tempfile.mkdtemp(prefix='sp3_run_', dir=tmp_dir)
+    else:
+        tmp_base = tempfile.mkdtemp(prefix='sp3_run_')
 
-    for i, chunk in enumerate(chunks):
-        dest = os.path.join(tmp_base, f'dest_{i:03d}')
-        os.makedirs(dest, exist_ok=True)
+    try:
+        for i, chunk in enumerate(chunks):
+            dest = os.path.join(tmp_base, f'dest_{i:03d}')
+            os.makedirs(dest, exist_ok=True)
 
-        success, stdout, stderr = _run_signalp3_single(
-            signalp3_path, chunk, dest, logger,
-            f"SignalP 3.0 chunk {i+1}/{len(chunks)}"
-        )
-
-        if success and 'error running HOW' not in (stdout + stderr):
-            all_results.update(parse_signalp3_short(stdout, sprob_threshold))
-        else:
-            chunk_failed += 1
-            logger.warning(f"SignalP 3.0 chunk {i+1}/{len(chunks)} 失败，开始递归重试|chunk failed, starting recursive retry")
-            retry_results = _retry_signalp3_chunk(
-                signalp3_path, chunk, logger, sprob_threshold,
-                f"chunk{i+1}", tmp_base, 0
+            success, stdout, stderr = _run_signalp3_single(
+                signalp3_path, chunk, dest, logger,
+                f"SignalP 3.0 chunk {i+1}/{len(chunks)}"
             )
-            recovered = len(retry_results)
-            all_results.update(retry_results)
-            logger.info(f"SignalP 3.0 chunk {i+1}/{len(chunks)} 重试完成|retry done: 恢复{recovered}条|recovered {recovered} seqs")
 
-    shutil.rmtree(tmp_base, ignore_errors=True)
+            if success and 'error running HOW' not in (stdout + stderr):
+                all_results.update(parse_signalp3_short(stdout, sprob_threshold))
+            else:
+                chunk_failed += 1
+                logger.warning(f"SignalP 3.0 chunk {i+1}/{len(chunks)} 失败，开始递归重试|chunk failed, starting recursive retry")
+                retry_results = _retry_signalp3_chunk(
+                    signalp3_path, chunk, logger, sprob_threshold,
+                    f"chunk{i+1}", tmp_base, 0
+                )
+                recovered = len(retry_results)
+                all_results.update(retry_results)
+                logger.info(f"SignalP 3.0 chunk {i+1}/{len(chunks)} 重试完成|retry done: 恢复{recovered}条|recovered {recovered} seqs")
+    finally:
+        # 运行结束清理 tmp_base + chunk 目录(异常也清)|clean tmp_base + chunk dir after run (even on error)
+        shutil.rmtree(tmp_base, ignore_errors=True)
+        if chunk_dir:
+            shutil.rmtree(chunk_dir, ignore_errors=True)
 
     if chunk_failed > 0:
         logger.info(f"SignalP 3.0: {chunk_failed}/{len(chunks)}个chunk失败后重试|chunks failed then retried")

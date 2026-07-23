@@ -442,7 +442,7 @@ def find_protein_files_in_directory(directory: str, logger=None) -> Optional[str
 
     import tempfile
     # 创建临时合并文件|Create temporary merged file
-    temp_merged = tempfile.NamedTemporaryFile(mode='w', suffix='_merged_proteins.fa', delete=False)
+    temp_merged = tempfile.NamedTemporaryFile(mode='w', suffix='_merged_proteins.fa', delete=False, dir=str(directory))
     temp_merged_path = temp_merged.name
     temp_merged.close()
 
@@ -666,7 +666,7 @@ def fix_duplicate_protein_ids(fasta_file: str, logger=None) -> str:
     # 创建修复后的文件
     # Create fixed file
     import tempfile
-    temp_fixed = tempfile.NamedTemporaryFile(mode='w', suffix='_fixed_proteins.fa', delete=False)
+    temp_fixed = tempfile.NamedTemporaryFile(mode='w', suffix='_fixed_proteins.fa', delete=False, dir=os.path.dirname(fasta_file))
     fixed_path = temp_fixed.name
 
     # 用于跟踪每个ID的重复次数

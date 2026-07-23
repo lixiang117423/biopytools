@@ -145,10 +145,9 @@ def _validate_required_file_exists(file_path):
               show_default=True,
               help='内存大小(GB)|Memory size (GB)')
 @click.option('--tmp-dir',
-              default='/tmp',
+              default=None,
               type=click.Path(),
-              show_default=True,
-              help='临时目录|Temporary directory')
+              help='临时目录(默认 output_dir/tmp)|Temporary directory (defaults to output_dir/tmp)')
 @click.option('--max-runtime',
               default=48,
               type=int,
@@ -321,7 +320,7 @@ def hifiasm(input_reads, output_dir, prefix, threads, hg_size, purge_level,
     if memory != 64:
         args.extend(['--memory', str(memory)])
 
-    if tmp_dir != '/tmp':
+    if tmp_dir is not None:
         args.extend(['--tmp-dir', tmp_dir])
 
     if max_runtime != 48:

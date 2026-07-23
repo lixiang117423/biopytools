@@ -415,7 +415,7 @@ def _extract_chroms_fasta(fasta_path: str, chrom_names: List[str]) -> str:
     import tempfile
 
     chrom_set = set(chrom_names)
-    tmp = tempfile.NamedTemporaryFile(suffix='.fa', delete=False, mode='w')
+    tmp = tempfile.NamedTemporaryFile(suffix='.fa', delete=False, mode='w', dir=os.path.dirname(fasta_path))
 
     include = False
     with open(fasta_path) as f:

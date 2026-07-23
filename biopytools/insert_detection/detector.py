@@ -202,8 +202,12 @@ class InsertDetector:
         self.logger.info(f"提取soft-clipped序列|Extracting soft-clipped sequences: {sample_id}")
 
         # 使用临时目录处理SAM文件|Use temp directory for SAM processing
+        # 临时目录落到 <output>/tmp 下,避免系统 /tmp 爆满|
+        # Temp dir under <output>/tmp to avoid system /tmp overflow
         import tempfile
-        tmp_dir = Path(tempfile.mkdtemp(prefix=f"softclip_{sample_id}_"))
+        tmp_root = self.config.output_path / "tmp"
+        tmp_root.mkdir(parents=True, exist_ok=True)
+        tmp_dir = Path(tempfile.mkdtemp(prefix=f"softclip_{sample_id}_", dir=str(tmp_root)))
 
         # 提取soft-clipped reads到SAM|Extract soft-clipped reads to SAM
         sam_file = tmp_dir / f"{sample_id}.softclip.sam"
@@ -338,8 +342,12 @@ for line in sys.stdin:
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # 使用临时目录处理SAM文件|Use temp directory for SAM processing
+        # 临时目录落到 <output>/tmp 下,避免系统 /tmp 爆满|
+        # Temp dir under <output>/tmp to avoid system /tmp overflow
         import tempfile
-        tmp_dir = Path(tempfile.mkdtemp(prefix=f"tdna_{sample_id}_"))
+        tmp_root = self.config.output_path / "tmp"
+        tmp_root.mkdir(parents=True, exist_ok=True)
+        tmp_dir = Path(tempfile.mkdtemp(prefix=f"tdna_{sample_id}_", dir=str(tmp_root)))
         output_sam = tmp_dir / f"{sample_id}.tdna.sam"
 
         # 检查是否已存在|Check if already exists

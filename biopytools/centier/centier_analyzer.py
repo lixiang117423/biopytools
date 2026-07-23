@@ -152,7 +152,9 @@ class CentIERAnalyzer:
         )
 
         # 创建临时文件|Create temporary file
-        fd, temp_path = tempfile.mkstemp(suffix='_centier.py', text=True)
+        tmp_root = os.path.join(str(self.config.output_path), 'tmp')
+        os.makedirs(tmp_root, exist_ok=True)
+        fd, temp_path = tempfile.mkstemp(suffix='_centier.py', text=True, dir=tmp_root)
         with os.fdopen(fd, 'w') as f:
             f.write(script_content)
 

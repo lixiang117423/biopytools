@@ -348,11 +348,29 @@ class FileManager:
             return 0
 
     @staticmethod
-    def create_temp_dir(prefix: str = "haphic_") -> Optional[str]:
-        """创建临时目录|Create temporary directory"""
+    def create_temp_dir(prefix: str = "haphic_", base_dir: Optional[str] = None) -> Optional[str]:
+        """
+        创建临时目录|Create temporary directory
+
+        Args:
+            prefix: 临时目录前缀|Temp dir prefix
+            base_dir: 父目录;传入则在该目录下创建(超算场景应传 output/tmp 避开系统 /tmp);
+                      为 None 时回退系统默认临时目录(向后兼容)|Parent dir; when given,
+                      creates under it (on HPC pass output/tmp to avoid filling system /tmp);
+                      None falls back to system default (backward-compatible)
+
+        Returns:
+            临时目录路径或 None|Temp dir path or None
+        """
         try:
-            temp_dir = tempfile.mkdtemp(prefix=prefix)
-            return temp_dir
+            # 先确保 base_dir 存在,否则 mkdtemp(dir=...) 在父目录缺失时会失败
+            # Ensure base_dir exists; mkdtemp(dir=...) fails if parent missing
+            if base_dir:
+                os.makedirs(base_dir, exist_ok=True)
+                return tempfile.mkdtemp(prefix=prefix, dir=base_dir)
+            # 老 caller 不传 base_dir → 回退系统默认临时目录(向后兼容)
+            # Old callers omit base_dir → fall back to system default (backward-compatible)
+            return tempfile.mkdtemp(prefix=prefix)
         except Exception as e:
             logging.error(f"无法创建临时目录|Cannot create temporary directory: {e}")
             return None

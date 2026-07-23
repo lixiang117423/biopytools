@@ -1,4 +1,18 @@
 
+## [1.19.0] - 2026-07-23
+
+### Added
+- `func_anno`：多样本支持——`-i` 传目录自动识别为多样本（by-sample，每文件一子目录），传单文件为单样本（by-step 不嵌套）；新增 `--by-sample` 强制单文件也嵌套（往同一 `-o` 多次跑不覆盖）；多样本时单样本失败不阻断其他
+- `func_anno`：KEGG 通路过滤——新增 `--kegg-exclude-keywords`（name 黑名单，`None`=内置植物无关词 cancer/estrogen 等）与 `--kegg-exclude-categories`（按 BRITE 大类排除，如 Human Diseases）
+
+### Changed
+- **临时目录统一改造（CLAUDE.md v2.15）**：35 个模块临时文件/目录从系统 `/tmp` 改为 `output_dir/tmp` 子目录，消除超算 `/tmp` 爆满风险。两种向后兼容 Pattern：直接 `dir=output/tmp`（fastq_stats/centier/insert_detection 等）；函数新增可选 `tmp_dir`/`base_dir` 参数、不传则回退系统 `/tmp`（phyto_effector `run_signalp3`/`split_fasta_chunks`、haphic `create_temp_dir` 等）。phyto_effector `run_signalp3` 顺带加 `try/finally` 异常清理
+- `func_anno`：建表阶段去除断点续传（纯解析秒级，每次重建确保过滤参数生效）
+- CLAUDE.md：v2.14 → v2.15，更新 §12.4.1/§12.6/§12.7（临时目录改 `output_dir/tmp`）
+
+### Fixed
+- `func_anno`：eggnog annotations 路径修正为 `eggnog_dir/01_emapper/{sample}.emapper.annotations`（匹配 eggnog_mapper 实际输出结构，原路径找不到文件导致断点续传误判）
+
 ## [1.18.0] - 2026-07-22
 
 ### Added

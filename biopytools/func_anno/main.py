@@ -6,12 +6,11 @@ func_anno 主程序|func_anno Main Entry.
 GO/KEGG tables for downstream R enrichment.
 
 约束|Constraint: 不改 interproscan/eggnog_mapper 源码, 仅 import 调用(braker4ps 模式).
-|import-only (braker4ps pattern).
 
-阶段|Phases:
-    1. IPS(可选): 结构域注释, 不影响 GO/KEGG 表. 支持 --ips-result 复用已跑结果.
-    2. eggnog(必需): GO/KEGG 唯一数据源. 支持 --eggnog-result 复用.
-    3. 建表: 解析 eggnog annotations → 标准 GO.tsv + KEGG.tsv.
+输入自动识别|Input auto-detection:
+    -i 单文件 → 单样本(by-step, 不嵌套): output_dir/01_.../02_.../03_...
+    -i 目录   → 多样本(by-sample, 每文件一子目录): output_dir/{sample}/01_.../...
+    --by-sample 可强制单文件也嵌套(往同一 -o 多次跑不覆盖).
 """
 
 import argparse
@@ -21,6 +20,18 @@ import sys
 from pathlib import Path
 
 from .config import FuncAnnoConfig
+
+# 蛋白序列扩展名|protein FASTA extensions
+PROTEIN_EXTS = ("*.fa", "*.faa", "*.pep", "*.fasta")
+
+
+def find_protein_files(input_dir: str) -> list:
+    """扫描目录下蛋白序列文件|Find protein FASTA files in dir."""
+    d = Path(input_dir)
+    files = []
+    for ext in PROTEIN_EXTS:
+        files.extend(d.glob(ext))
+    return sorted(set(files))
 
 
 def _setup_logger(logs_dir: str) -> logging.Logger:
@@ -58,13 +69,21 @@ def parse_arguments():
         description="func_anno: 蛋白功能注释(IPS+eggnog→GO/KEGG标准表)"
         "|Protein functional annotation (IPS+eggnog→GO/KEGG tables)",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="示例|Example: biopytools func-anno -i proteins.fa -o out/ -t 24",
+        epilog="示例|Examples:\n"
+               "  单样本|single:  biopytools func-anno -i proteins.fa -o out/ -t 24\n"
+               "  多样本|multi:   biopytools func-anno -i proteins_dir/ -o out/ -t 24",
     )
-    parser.add_argument("-i", "--input", required=True, help="蛋白序列 FASTA|Protein FASTA")
+    parser.add_argument("-i", "--input", required=True,
+                        help="蛋白序列 FASTA(单文件→by-step) 或目录(多样本→by-sample)"
+                        "|Protein FASTA (single→by-step) or dir (multi→by-sample)")
     parser.add_argument("-o", "--output-dir", required=True, help="输出目录|Output dir")
     parser.add_argument("-t", "--threads", type=int, default=12, help="线程数|Threads (default 12)")
     parser.add_argument("-s", "--sample-name", default=None,
-                        help="样本名/输出前缀(默认输入文件名)|Sample name (default: input stem)")
+                        help="样本名/输出前缀(默认输入文件名, 仅单文件模式生效)"
+                        "|Sample name (single-file mode only)")
+    parser.add_argument("--by-sample", action="store_true",
+                        help="强制 by-sample(单文件也建 sample 子目录, 往同一 -o 多次跑不覆盖)"
+                        "|Force by-sample layout")
     # 复用|reuse
     parser.add_argument("--ips-result", default=None,
                         help="复用已有 IPS 结果目录(跳过 IPS)|Reuse existing IPS dir")
@@ -78,6 +97,9 @@ def parse_arguments():
     parser.add_argument("--kegg-map", default=None,
                         help="外部 KEGG 映射 TSV(ko_id\\tname\\tcategory, 补 category)"
                         "|External KEGG map to fill category")
+    parser.add_argument("--kegg-exclude-keywords", default=None,
+                        help="KEGG 通路 name 黑名单(逗号分隔子串, None=内置植物无关词 cancer/estrogen 等)"
+                        "|KEGG name blacklist (None=built-in)")
     # eggnog 透传|eggnog passthrough
     parser.add_argument("-m", "--mode", default="mmseqs",
                         choices=["mmseqs", "diamond", "hmmer"], help="搜索模式|Search mode")
@@ -90,12 +112,10 @@ def parse_arguments():
 def _find_ips_tsv(ips_dir: str, sample: str, logger) -> str:
     """在已有 IPS 目录找 TSV(优先 {sample}.tsv, 否则任意非 cn.tsv)|Find IPS TSV."""
     d = Path(ips_dir)
-    # 优先样本名匹配|prefer sample-name match
     candidates = [d / f"{sample}.tsv", d / f"{sample}.proteins.tsv"]
     for c in candidates:
         if c.exists():
             return str(c)
-    # 任意 TSV(排除中文重排版 cn.tsv)|any TSV (exclude cn.tsv)
     tsvs = sorted(d.rglob("*.tsv"))
     tsvs = [t for t in tsvs if not t.name.endswith(".cn.tsv")]
     if tsvs:
@@ -111,7 +131,6 @@ def run_ips_phase(cfg: FuncAnnoConfig, logger: logging.Logger) -> str:
 
     ips_tsv = cfg.ips_dir / f"{cfg.sample_name}.tsv"
 
-    # 复用已有结果|reuse existing
     if cfg.ips_result:
         found = _find_ips_tsv(cfg.ips_result, cfg.sample_name, logger)
         if found:
@@ -120,7 +139,6 @@ def run_ips_phase(cfg: FuncAnnoConfig, logger: logging.Logger) -> str:
         logger.warning(f"未在 {cfg.ips_result} 找到 IPS TSV, 将重跑|"
                        f"No IPS TSV in {cfg.ips_result}, will rerun")
 
-    # 断点续传|resume
     if ips_tsv.exists():
         logger.info(f"IPS 已完成(断点续传)|IPS done (resume): {ips_tsv}")
         return str(ips_tsv)
@@ -130,7 +148,6 @@ def run_ips_phase(cfg: FuncAnnoConfig, logger: logging.Logger) -> str:
     logger.info("-" * 70)
     cfg.ips_dir.mkdir(parents=True, exist_ok=True)
 
-    # 延迟 import(避免 help 时加载重依赖)|lazy import
     from ..interproscan import InterProScanAnnotator
 
     annotator = InterProScanAnnotator(
@@ -150,16 +167,15 @@ def run_ips_phase(cfg: FuncAnnoConfig, logger: logging.Logger) -> str:
 
 def run_eggnog_phase(cfg: FuncAnnoConfig, logger: logging.Logger) -> str:
     """阶段2: eggnog-mapper(必需, GO/KEGG 源)|Phase 2 eggnog (required)."""
-    annotations = cfg.eggnog_dir / f"{cfg.sample_name}.emapper.annotations"
+    # eggnog 实际输出在 output_dir/01_emapper/ 下(见 eggnog_mapper.utils.build_emapper_args)
+    annotations = cfg.eggnog_dir / "01_emapper" / f"{cfg.sample_name}.emapper.annotations"
 
-    # 复用已有结果|reuse existing
     if cfg.eggnog_result:
         if os.path.exists(cfg.eggnog_result):
             logger.info(f"复用 eggnog 结果(跳过 eggnog)|Reuse eggnog (skip): {cfg.eggnog_result}")
             return cfg.eggnog_result
         raise RuntimeError(f"指定的 eggnog 结果不存在|eggnog result not found: {cfg.eggnog_result}")
 
-    # 断点续传|resume
     if annotations.exists():
         logger.info(f"eggnog 已完成(断点续传)|eggnog done (resume): {annotations}")
         return str(annotations)
@@ -196,14 +212,8 @@ def run_eggnog_phase(cfg: FuncAnnoConfig, logger: logging.Logger) -> str:
 
 def run_table_phase(cfg: FuncAnnoConfig, annotations: str, logger: logging.Logger):
     """阶段3: 建 GO/KEGG 标准表|Phase 3: build standard tables."""
-    go_tsv = cfg.tables_dir / f"{cfg.sample_name}.go.tsv"
-    kegg_tsv = cfg.tables_dir / f"{cfg.sample_name}.kegg.tsv"
-
-    # 断点续传|resume
-    if go_tsv.exists() and kegg_tsv.exists():
-        logger.info(f"表已完成(断点续传)|Tables done (resume): {go_tsv}, {kegg_tsv}")
-        return
-
+    # 建表是纯解析(秒级), 不做断点续传, 每次重跑重建(确保过滤参数生效).
+    # |Tables are pure-parse (seconds); always rebuild to apply latest filter params.
     logger.info("-" * 70)
     logger.info("阶段3: 建 GO/KEGG 标准表(衔接 R)|Phase 3: Build GO/KEGG tables")
     logger.info("-" * 70)
@@ -218,7 +228,9 @@ def run_table_phase(cfg: FuncAnnoConfig, annotations: str, logger: logging.Logge
     kegg_db = KEGGDatabase(kegg_map_file=cfg.kegg_map, logger=logger)
 
     stats = build_tables(annotations, str(cfg.tables_dir), cfg.sample_name,
-                         go_dict=go_dict, kegg_db=kegg_db, logger=logger)
+                         go_dict=go_dict, kegg_db=kegg_db,
+                         kegg_exclude_keywords=cfg.kegg_exclude_keywords,
+                         kegg_exclude_categories=cfg.kegg_exclude_categories, logger=logger)
     logger.info("=" * 70)
     logger.info(f"GO 表|GO table: {stats['go_rows']} 行|rows "
                 f"(term 缺失|missing: {stats['go_miss_term']})")
@@ -226,52 +238,77 @@ def run_table_phase(cfg: FuncAnnoConfig, annotations: str, logger: logging.Logge
                 f"(term 缺失|missing: {stats['kegg_miss_term']})")
 
 
-def main():
-    """主入口: IPS → eggnog → 建表|Main entry."""
-    args = parse_arguments()
+def run_one_sample(input_file: str, args, by_sample: bool, sample_name=None):
+    """跑单个样本三阶段|Run one sample through all 3 phases."""
     cfg = FuncAnnoConfig(
-        input_file=args.input,
+        input_file=input_file,
         output_dir=args.output_dir,
         threads=args.threads,
-        sample_name=args.sample_name,
+        sample_name=sample_name or args.sample_name,
+        by_sample=by_sample,
         ips_result=args.ips_result,
         eggnog_result=args.eggnog_result,
         skip_ips=args.skip_ips,
         skip_eggnog=args.skip_eggnog,
         kegg_map=args.kegg_map,
+        kegg_exclude_keywords=args.kegg_exclude_keywords,
         data_dir=args.data_dir,
         mode=args.mode,
         emapper_path=args.emapper_path,
     )
     cfg.validate()
-
     logger = _setup_logger(str(cfg.logs_dir))
 
+    logger.info("=" * 70)
+    logger.info(f"func_anno: IPS + eggnog → GO/KEGG 表|End-to-end | "
+                f"sample={cfg.sample_name} | {'by-sample' if by_sample else 'by-step'}")
+    logger.info("=" * 70)
+
+    run_ips_phase(cfg, logger)
+    annotations = run_eggnog_phase(cfg, logger)
+    run_table_phase(cfg, annotations, logger)
+
+    logger.info("=" * 70)
+    logger.info(f"样本完成|Sample done: {cfg.sample_name} → {cfg.sample_dir}")
+    logger.info("=" * 70)
+    return cfg
+
+
+def main():
+    """主入口: 自动识别单/多样本|Main entry: auto-detect single/multi-sample."""
+    args = parse_arguments()
+    input_path = os.path.expanduser(args.input)
+
     try:
-        logger.info("=" * 70)
-        logger.info(f"func_anno: IPS + eggnog → GO/KEGG 表|End-to-end | "
-                    f"sample={cfg.sample_name}")
-        logger.info("=" * 70)
-
-        # 阶段1 IPS(可选)|Phase 1 IPS (optional)
-        run_ips_phase(cfg, logger)
-
-        # 阶段2 eggnog(必需)|Phase 2 eggnog (required)
-        annotations = run_eggnog_phase(cfg, logger)
-
-        # 阶段3 建表|Phase 3 tables
-        run_table_phase(cfg, annotations, logger)
-
-        logger.info("=" * 70)
-        logger.info("func_anno 完成|func_anno done")
-        logger.info(f"输出|Output: {cfg.sample_dir}")
-        logger.info("=" * 70)
-        sys.exit(0)
+        if os.path.isdir(input_path):
+            # 多样本: 目录 → by-sample|multi-sample: dir → by-sample
+            protein_files = find_protein_files(input_path)
+            if not protein_files:
+                print(f"错误: 目录下无蛋白文件({', '.join(PROTEIN_EXTS)})|"
+                      f"No protein files in: {input_path}", file=sys.stderr)
+                sys.exit(1)
+            print(f"多样本模式|Multi-sample (by-sample): {len(protein_files)} 个文件|files")
+            failed = []
+            for pf in protein_files:
+                try:
+                    run_one_sample(str(pf), args, by_sample=True)
+                except Exception as e:
+                    # 单样本失败不阻断其他|one failure does not block others
+                    print(f"样本失败|Sample failed: {pf.name}: {e}", file=sys.stderr)
+                    failed.append(pf.name)
+            if failed:
+                print(f"完成, 但 {len(failed)} 个样本失败|Done, but {len(failed)} failed: "
+                      f"{failed}", file=sys.stderr)
+            sys.exit(0)
+        else:
+            # 单样本: 单文件 → by-step(除非 --by-sample)|single → by-step
+            run_one_sample(input_path, args, by_sample=args.by_sample)
+            sys.exit(0)
 
     except SystemExit:
         raise
     except Exception as e:
-        logger.error(f"错误|Error: {e}")
+        print(f"错误|Error: {e}", file=sys.stderr)
         import traceback
         traceback.print_exc()
         sys.exit(1)

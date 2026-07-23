@@ -89,7 +89,10 @@ class PanMANBuilder:
         # 对于Singularity后端，将输入文件复制到本地临时目录避免NFS读取卡住
         # Conda/Docker后端直接在宿主机运行，不需要复制|Conda/Docker run on host, no copy needed
         if self.config.backend == "singularity":
-            temp_dir = tempfile.mkdtemp(prefix="panman_")
+            # 临时目录统一到输出目录下,避免系统 /tmp 爆满|Route temp under output to avoid /tmp overflow
+            tmp_root = self.config.output_path / "tmp"
+            tmp_root.mkdir(parents=True, exist_ok=True)
+            temp_dir = tempfile.mkdtemp(prefix="panman_", dir=str(tmp_root))
             self.logger.info(f"创建临时目录|Created temp dir: {temp_dir}")
 
             # 复制输入文件到本地临时目录
@@ -190,7 +193,10 @@ class PanMANBuilder:
 
         # 对于Singularity后端，将输入文件复制到本地临时目录避免NFS读取卡住
         if self.config.backend == "singularity":
-            temp_dir = tempfile.mkdtemp(prefix="panman_")
+            # 临时目录统一到输出目录下,避免系统 /tmp 爆满|Route temp under output to avoid /tmp overflow
+            tmp_root = self.config.output_path / "tmp"
+            tmp_root.mkdir(parents=True, exist_ok=True)
+            temp_dir = tempfile.mkdtemp(prefix="panman_", dir=str(tmp_root))
             self.logger.info(f"创建临时目录|Created temp dir: {temp_dir}")
 
             # 复制输入文件到本地临时目录
@@ -283,7 +289,10 @@ class PanMANBuilder:
 
         # 对于Singularity后端，将输入文件复制到本地临时目录避免NFS读取卡住
         if self.config.backend == "singularity":
-            temp_dir = tempfile.mkdtemp(prefix="panman_")
+            # 临时目录统一到输出目录下,避免系统 /tmp 爆满|Route temp under output to avoid /tmp overflow
+            tmp_root = self.config.output_path / "tmp"
+            tmp_root.mkdir(parents=True, exist_ok=True)
+            temp_dir = tempfile.mkdtemp(prefix="panman_", dir=str(tmp_root))
             self.logger.info(f"创建临时目录|Created temp dir: {temp_dir}")
 
             # 复制输入文件到本地临时目录

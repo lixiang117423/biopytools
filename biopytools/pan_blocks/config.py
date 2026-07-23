@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Optional, List, Dict
 import os
 
-from common.paths import get_tool_path, expand_path
+from ..common.paths import get_tool_path, expand_path
 
 
 @dataclass

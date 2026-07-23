@@ -126,7 +126,7 @@ class PopLDdecayPlotter:
 
             # 创建临时列表文件|Create temporary list file
             import tempfile
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.list', delete=False) as f:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.list', delete=False, dir=str(self.config.output_path.parent)) as f:
                 for stat_file, pop_id in pop_list:
                     f.write(f"{stat_file}\t{pop_id}\n")
                 list_file = f.name

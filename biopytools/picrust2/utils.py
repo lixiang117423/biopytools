@@ -499,7 +499,7 @@ def annotate_function_table(table_path: str, map_type: str, logger=None) -> str:
         shutil.copy(src, raw_path)
 
     # 调用add_descriptions.py添加描述列|Run add_descriptions.py
-    with tempfile.NamedTemporaryFile(suffix='.tsv', delete=False) as tmp:
+    with tempfile.NamedTemporaryFile(suffix='.tsv', delete=False, dir=os.path.dirname(os.path.abspath(table_path))) as tmp:
         tmp_desc_path = tmp.name
 
     cmd = build_conda_command(

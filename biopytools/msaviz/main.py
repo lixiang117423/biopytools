@@ -180,7 +180,9 @@ def main():
                 alignment_file = outfile.parent / f"{outfile.stem}.aligned.fa"
             else:
                 # 使用临时文件|Use temp file
-                alignment_file = Path(tempfile.gettempdir()) / f"{infile.stem}.aligned.fa"
+                tmp_dir = outfile.parent / "tmp"
+                tmp_dir.mkdir(parents=True, exist_ok=True)
+                alignment_file = tmp_dir / f"{infile.stem}.aligned.fa"
 
             # 运行MAFFT比对|Run MAFFT alignment
             if not aligner.run_alignment(

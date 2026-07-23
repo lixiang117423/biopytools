@@ -54,7 +54,7 @@ class HifiasmConfig:
     
     # ===== 系统参数|System parameters =====
     memory: int = 100
-    tmp_dir: str = '/tmp'
+    tmp_dir: Optional[str] = None
     max_runtime: int = 48
     resume: bool = False
     
@@ -102,6 +102,13 @@ class HifiasmConfig:
         # 创建子目录
         for dir_path in [self.log_dir, self.tmp_work_dir]:
             os.makedirs(dir_path, exist_ok=True)
+
+        # tmp_dir 死字段回填:None/空 → output_dir/tmp,消除误导性的 /tmp 默认值|
+        # Back-fill dead tmp_dir field: None/empty → output_dir/tmp, removing the
+        # misleading /tmp default. Field is currently unused but kept for compat.
+        if self.tmp_dir in (None, ''):
+            self.tmp_dir = os.path.join(self.output_dir, 'tmp')
+        os.makedirs(self.tmp_dir, exist_ok=True)
     
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

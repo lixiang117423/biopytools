@@ -1,6 +1,7 @@
 """泛基因组Block构建 - 核心算法模块|Pan-Blocks Construction - Core Algorithm Module"""
 
 import os
+import shutil
 import tempfile
 import subprocess
 from pathlib import Path
@@ -24,10 +25,25 @@ class PanBlockBuilder:
         self.runner = CommandRunner(logger)
         self.coords_dir = Path(config.coords_dir)
         self.blocks_dir = Path(config.blocks_dir)
-        self.tmp_dir = tempfile.mkdtemp(prefix="pan_blocks_")
+        # 临时目录落到 <output>/tmp 下,避免系统 /tmp 爆满|
+        # Temp dir under <output>/tmp to avoid system /tmp overflow
+        tmp_root = self.config.output_path / "tmp"
+        tmp_root.mkdir(parents=True, exist_ok=True)
+        self.tmp_dir = tempfile.mkdtemp(prefix="pan_blocks_", dir=str(tmp_root))
 
     def build_all_chromosomes(self):
         """构建所有染色体的Pan-Blocks|Build pan-blocks for all chromosomes"""
+        try:
+            return self._build_all_chromosomes_impl()
+        finally:
+            # 清理临时目录,避免 <output>/tmp/pan_blocks_* 残留|
+            # Clean up temp dir to avoid leftover <output>/tmp/pan_blocks_*
+            # 只删 mkdtemp 创建的子目录,不动 tmp_root 共享目录|
+            # Only remove the mkdtemp-created subdir, never the shared tmp_root
+            shutil.rmtree(self.tmp_dir, ignore_errors=True)
+
+    def _build_all_chromosomes_impl(self):
+        """build_all_chromosomes 主体|build_all_chromosomes body"""
         chromosomes = self.config.get_target_chromosomes()
         self.logger.info(f"开始构建Pan-Blocks|Starting pan-block construction: {len(chromosomes)} 条染色体|chromosomes")
 

@@ -14,7 +14,9 @@ class SequenceExtractor:
         self.config = config
         self.logger = logger
         self.cmd_runner = cmd_runner
-        self.temp_manager = TempFileManager(logger)
+        # 临时文件重定向到 output/tmp,避免超算系统 /tmp 爆满|Redirect temp files to output/tmp to avoid filling system /tmp
+        tmp_dir = os.path.join(os.path.dirname(config.output_file), "tmp")
+        self.temp_manager = TempFileManager(logger, base_dir=tmp_dir)
 
     def _extract_sequences(self, longest_transcripts: Dict[str, Dict[str, Any]],
                            output_file: str, gffread_flag: str, seq_type: str) -> bool:

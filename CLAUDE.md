@@ -1,7 +1,7 @@
 # BioPyTools Python代码开发规范文档
 
-## 版本: 2.14
-## 日期: 2026-06-24
+## 版本: 2.15
+## 日期: 2026-07-23
 ## 用途: 统一所有生信分析模块的代码结构、命名规范、日志格式
 
 ## 目录|Table of Contents
@@ -1432,11 +1432,14 @@ R0590-6.genomescope.model.txt  # 样本名.工具名.结果类型.扩展名
 # ✅ 推荐|Recommended
 import tempfile
 
-# 使用系统临时目录
-with tempfile.TemporaryDirectory(prefix=f"module_{sample_id}_") as tmpdir:
+# 使用输出目录下的tmp子目录(超算系统/tmp易爆满,统一用output_dir/tmp)|
+# Use tmp subdir under output dir (HPC system /tmp fills up easily)
+tmp_root = os.path.join(output_dir, "tmp")
+os.makedirs(tmp_root, exist_ok=True)
+with tempfile.TemporaryDirectory(prefix=f"module_{sample_id}_", dir=tmp_root) as tmpdir:
     # 临时操作
     process_files(tmpdir)
-    # 自动清理
+    # 自动清理(退出with即清理)|Auto-cleaned on with-exit
 
 # ❌ 不推荐|Not Recommended  
 output_dir = "results/"
@@ -1615,7 +1618,7 @@ def generate_software_versions_yml(output_dir: str, tools: dict, params: dict, s
 | | | `model.txt` | `R0590-6.genomescope.model.txt` | 明确文件类型|Specify file type |
 | | | `plot.png` | `R0590-6.genomescope.linear.png` | 明确比例尺|Specify scale |
 | | | `smudgeplot_smudgeplot.png` | `R0590-6.smudgeplot.linear.png` | 去除重复|Remove duplicate |
-| **临时文件**|Temp Files | `fastk/*.fq` (68GB) | `/tmp/*/*.fq` (自动清理) | 使用系统临时目录|Use system tmp |
+| **临时文件**|Temp Files | `fastk/*.fq` (68GB) | `<output>/tmp/*.fq` (运行结束清理) | output_dir/tmp子目录|Use output/tmp |
 | **版本信息**|Version Info | ❌ 无|Missing | `software_versions.yml` | 添加版本文件|Add version file |
 | **日志管理**|Log Management | 散落各处|Scattered | `99_logs/pipeline.log` | 集中管理|Centralize |
 
@@ -1632,7 +1635,7 @@ def generate_software_versions_yml(output_dir: str, tools: dict, params: dict, s
 - [ ] ✅ 所有输出文件包含样本ID作为前缀
 - [ ] ✅ 文件名遵循 `{Sample}.{Tool}.{State}.{Ext}` 格式
 - [ ] ✅ 扩展名标准且包含压缩格式（`.fastq.gz`, `.bam`）
-- [ ] ✅ 临时文件使用系统 `/tmp` 目录并自动清理
+- [ ] ✅ 临时文件使用 `output_dir/tmp` 子目录,运行结束清理(避免超算系统 `/tmp` 爆满)
 - [ ] ✅ 生成 `00_pipeline_info/software_versions.yml`
 - [ ] ✅ 日志文件统一放置在 `99_logs/` 目录
 - [ ] ✅ 禁止在文件名中包含软件版本号
@@ -2110,6 +2113,7 @@ conda run -n GATK_v.4.6.2.0 samtools view -b -@ 64 -o output.bam -
 
 | 版本 | 日期 | 主要变更|Major Changes |
 |------|------|----------|
+| 2.15 | 2026-07-23 | 临时目录统一改造：所有模块临时文件/目录从系统 `/tmp` 改为 `output_dir/tmp` 子目录并运行结束清理，消除超算 `/tmp` 爆满风险；同步更新 12.4.1/12.6/12.7 |
 | 2.14 | 2026-06-24 | 新增"禁止在超算上执行 Git 提交"规范（顶部醒目警告 + 修订 10.1）：明确超算只写代码不 commit，提交统一在本地 Mac 由 Claude 完成；配套 `copybiopytools` 增加 `--exclude='.git/'` |
 | 2.13 | 2026-04-09 | 文档质量改进：修正版本号不一致(2.11→2.12)；修复测试断言缺少--no-capture-output；裸except改为except Exception；修复示例代码中的硬编码绝对路径（software_versions.yml模板、管道方案A）；补全generate_software_versions_yml的end_time/runtime_seconds字段使其与模板一致；添加目录导航 |
 | 2.12 | 2026-03-17 | 完善Conda调用规范：新增13.2.0强制要求--no-capture-output参数，避免conda缓冲输出导致CondaMemoryError；更新build_conda_command示例代码 |
