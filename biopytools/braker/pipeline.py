@@ -695,9 +695,20 @@ class BrakerPipeline:
                     self.logger.info(f"清理旧species目录|Cleaned stale species dir: {species_dir}")
             braker_cmd_parts.append("--useexisting")
         else:
-            # 从头运行，无需清理
-            # Run from scratch, no cleanup needed
-            pass
+            # 从头运行:清空 safe_dir,避免上次失败运行残留的中间产物污染本次运行。
+            # 实发:上次 GeneMark-ETP 失败后 arx/proteins.fa 残留,gmetp.pl 复用旧的
+            # (含重复 ID 的)proteins.fa,导致下次"全新"运行仍因重复 ID 崩溃。
+            # flock 已保证此刻独占 safe_dir,可安全清空。
+            # Fresh run: clear safe_dir to avoid stale intermediates from a previous failed
+            # run polluting this one. Observed: after a GeneMark-ETP failure, arx/proteins.fa
+            # was left behind and gmetp.pl reused the stale (duplicate-laden) proteins.fa on
+            # the next "fresh" run, re-crashing on duplicate IDs. The flock guarantees
+            # exclusive access to safe_dir here, so it is safe to clear.
+            import shutil
+            if os.path.exists(self.config.braker_safe_dir):
+                shutil.rmtree(self.config.braker_safe_dir)
+            os.makedirs(self.config.braker_safe_dir, exist_ok=True)
+            self.logger.info("清空 braker_safe_dir(全新运行)|Cleared safe_dir for fresh run")
 
         # 全新训练(非 --useexisting)前清理上次遗留的 augustus species 目录:
         # species/<name> 由上次训练生成,若不清理,braker.pl 在 line 3490 会因

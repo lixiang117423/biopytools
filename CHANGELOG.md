@@ -1,4 +1,14 @@
 
+## [1.21.0] - 2026-07-24
+
+### Added
+- **新模块 `rnaseq2vcf`**：RNA-seq 变异检测（到 VCF）。HISAT2 比对（支持已知剪接位点或 de novo 发现 junction）→ GATK 变异检测 → VCF 过滤（FS/QD/聚类过滤）。HISAT2+samtools 管道用单个 `conda run -n ENV --no-capture-output bash -c '{pipeline}'` 包裹（§13.2.1，避免 conda run|conda run）；断点续传；by-sample 输出（`{sample}/01_qc/.../04_filter/{sample}.pass.vcf.gz`）；tmp 用 `output_dir/tmp`（§12.4.1）；命令执行日志记完整命令到 INFO（§2.2.1）；支持 `--dry-run`/`--step`/`--force`/`--skip-qc`/`--clean-fastq-dir`
+- CLI：`main.py` 注册 `rnaseq2vcf` 命令
+
+### Fixed
+- `braker`：从头运行时清空 `braker_safe_dir`（flock 已保证独占），避免上次 GeneMark-ETP 失败残留的 `arx/proteins.fa` 被复用、因重复 ID 再次崩溃（实发）
+- `braker`：`find_protein_files_in_directory` 排除自身中间文件（`cleaned_*`/`*_merged_proteins.fa`/`*_fixed_proteins.fa`）+ 按真实路径去重，避免合并结果滚雪球累积、ID 碰撞致 GeneMark-ETP "duplicated protein ID" 崩溃（实发）
+
 ## [1.20.3] - 2026-07-24
 
 ### Fixed

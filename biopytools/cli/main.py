@@ -222,6 +222,7 @@ COMMAND_REGISTRY = [
     ('func_anno', 'func-anno', '蛋白功能注释(IPS+eggnog→GO/KEGG标准表,衔接下游R)|Protein annotation (IPS+eggnog→GO/KEGG tables)'),
     ('trimal', 'trimal', '多序列比对自动修剪(trimAl)|MSA automated trimming with trimAl'),
     ('phylo_trim', 'phylo-trim', '整合mafft-fasttree+trimal,出trimal前后两棵树|Integrate mafft-fasttree+trimal, before/after trees'),
+    ('rnaseq2vcf', 'rnaseq2vcf', '转录组变异检测(到VCF)|RNA-seq variant calling (to VCF)'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

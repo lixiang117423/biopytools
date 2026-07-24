@@ -418,10 +418,36 @@ def find_protein_files_in_directory(directory: str, logger=None) -> Optional[str
         "*.fa.gz", "*.faa.gz", "*.fasta.gz", "*.pep.gz"
     ]
 
+    # 排除本函数自身产生的中间文件(cleaned_*、*_merged_proteins.fa、*_fixed_proteins.fa):
+    # 它们同样匹配 *.fa,若不排除,每次运行都会把上一次的合并结果再次当作输入合并,
+    # 蛋白像滚雪球一样重复累积、ID 互相碰撞,导致 GeneMark-ETP 解析时报
+    # "duplicated protein ID" 崩溃(已实发)。
+    # Exclude this function's own intermediate files (cleaned_*, *_merged_proteins.fa,
+    # *_fixed_proteins.fa): they also match *.fa, so without exclusion every run re-ingests
+    # the previous merge output as input, snowballing duplicates and ID collisions that crash
+    # GeneMark-ETP with "duplicated protein ID".
+    def _is_self_generated(name: str) -> bool:
+        return (name.startswith("cleaned_")
+                or name.endswith("_merged_proteins.fa")
+                or name.endswith("_fixed_proteins.fa"))
+
     protein_files = []
+    seen_paths = set()
     for pattern in patterns:
-        files = list(Path(directory).glob(pattern))
-        protein_files.extend(files)
+        for f in Path(directory).glob(pattern):
+            if _is_self_generated(f.name):
+                if logger:
+                    logger.debug(f"跳过自身中间文件|Skip self-generated intermediate: {f.name}")
+                continue
+            # 同一文件可能被多个 pattern 命中(如 x.pep.fa 同时匹配 *.fa 和 *.pep.fa),
+            # 按真实路径去重,避免被合并多次而产生重复 ID。
+            # A file may match multiple patterns (e.g. x.pep.fa matches both *.fa and *.pep.fa);
+            # dedup by resolved path so it is merged only once.
+            key = str(f.resolve())
+            if key in seen_paths:
+                continue
+            seen_paths.add(key)
+            protein_files.append(f)
 
     if not protein_files:
         if logger:
