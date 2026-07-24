@@ -38,6 +38,8 @@ def _validate_exists(path):
 @click.option('-o', '--output-dir', default='.', help='输出目录|Output dir')
 @click.option('-t', '--threads', type=int, default=12, help='线程数|Threads')
 @click.option('--min-conf', type=int, default=20, help='HaplotypeCaller 最小置信度|min confidence')
+@click.option('--read1-pattern', help='R1 后缀(默认自动识别 _1.clean.fq.gz/_1.fq.gz 等)|R1 suffix (auto-detected by default)')
+@click.option('--read2-pattern', help='R2 后缀(默认自动识别)|R2 suffix (auto-detected by default)')
 @click.option('-s', '--step', type=click.IntRange(0, 4),
               help='0=仅建索引|index only;省略=全流程|omit for full pipeline')
 @click.option('--no-checkpoint', is_flag=True, help='关闭断点续传|Disable checkpoint')
@@ -47,8 +49,8 @@ def _validate_exists(path):
 @click.option('--log-file', help='日志文件|Log file')
 @click.option('--log-level', default='INFO', help='日志级别|Log level')
 def rnaseq2vcf(genome, gff3, input, clean_fastq_dir, output_dir, threads,
-               min_conf, step, no_checkpoint, force, dry_run, skip_qc,
-               log_file, log_level):
+               min_conf, read1_pattern, read2_pattern, step, no_checkpoint,
+               force, dry_run, skip_qc, log_file, log_level):
     """转录组变异检测全流程(到 VCF;ANNOVAR 注释请手动运行 biopytools annovar)|
     RNA-seq variant calling pipeline (to VCF; run `biopytools annovar` manually for annotation)
 
@@ -71,6 +73,10 @@ def rnaseq2vcf(genome, gff3, input, clean_fastq_dir, output_dir, threads,
         args.append('--dry-run')
     if skip_qc:
         args.append('--skip-qc')
+    if read1_pattern:
+        args += ['--read1-pattern', read1_pattern]
+    if read2_pattern:
+        args += ['--read2-pattern', read2_pattern]
     if log_file:
         args += ['--log-file', log_file]
 

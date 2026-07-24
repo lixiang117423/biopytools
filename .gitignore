@@ -286,6 +286,10 @@ docs/superpowers/
 # 根目录 AGAT 运行日志(gff_renamer清洗/EGAPx等输出到cwd)|root-level AGAT logs
 agat_log_*/
 
+# 根目录 blast 测试样例(正式输出在 output_dir/blast_dir/blast_results.xlsx;反复被copybiopytools从超算带回)|
+# root-level blast test sample (official output is output_dir/blast_dir/blast_results.xlsx)
+/blast_results*.xlsx
+
 # ==============================================================================
 # BIOPYTOOLS MODULE EXCLUSIONS
 # ==============================================================================

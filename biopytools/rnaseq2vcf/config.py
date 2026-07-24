@@ -46,8 +46,8 @@ class Rnaseq2vcfConfig:
     qd_threshold: float = 2.0
     cluster_window: int = 35
     cluster_size: int = 3
-    read1_pattern: str = "_1.fq.gz"
-    read2_pattern: str = "_2.fq.gz"
+    read1_pattern: Optional[str] = None   # None→自动尝试常见命名|auto-try common patterns
+    read2_pattern: Optional[str] = None
 
     # 流程控制|Control
     enable_checkpoint: bool = True

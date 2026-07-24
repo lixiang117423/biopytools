@@ -1,4 +1,12 @@
 
+## [1.21.1] - 2026-07-24
+
+### Changed
+- `rnaseq2vcf`：样本发现改为**自动识别**（对齐 `fastq2vcf_gtx`）——`discover_samples` 的 R1 按优先级取首命中后缀（`_1.clean.fq.gz` > `_1.fq.gz` > `_1.fastq.gz`）、R2 多后缀尝试、`realpath` 解析软链；`read1_pattern`/`read2_pattern` 默认改 `None`（自动），CLI 新增可选 `--read1-pattern`/`--read2-pattern`。免去用户手动指定后缀，并杜绝 S1 误匹配 S10
+
+### Chore
+- `.gitignore`：新增 `/blast_results*.xlsx`（根目录 blast 测试样例；正式输出在 `output_dir/blast_dir/blast_results.xlsx`。该文件反复被 `copybiopytools` 从超算同步带回、干扰提交，ignore 后不再出现在 git status）
+
 ## [1.21.0] - 2026-07-24
 
 ### Added

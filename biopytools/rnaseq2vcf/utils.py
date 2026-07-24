@@ -211,16 +211,45 @@ class SystemChecker:
             return True
 
 
-def discover_samples(input_dir: str, read1_pattern: str, read2_pattern: str) -> List[Tuple[str, str, str]]:
-    """发现成对样本(R1 glob + R2 确定性替换推导,避免 S1 误匹配 S10)|
-    Discover paired samples (R1 glob + deterministic R2, avoid S1 matching S10)"""
+def discover_samples(input_dir: str, read1_pattern: Optional[str] = None,
+                     read2_pattern: Optional[str] = None) -> List[Tuple[str, str, str]]:
+    """发现成对样本(对齐 fastq2vcf_gtx:R1 按优先级取首命中模式,R2 多后缀尝试,realpath 解析软链)|
+    Discover paired samples (aligned with fastq2vcf_gtx: R1 first-match by priority, R2 multi-suffix, realpath)."""
+    r1_suffixes = [read1_pattern] if read1_pattern else DEFAULT_R1_SUFFIXES
+    r2_suffixes = [read2_pattern] if read2_pattern else DEFAULT_R2_SUFFIXES
+
+    # 找 R1:按优先级取第一个命中的模式|R1: first matching pattern by priority
+    r1_files = []
+    for suf in r1_suffixes:
+        r1_files = sorted(glob.glob(os.path.join(input_dir, f'*{suf}')))
+        if r1_files:
+            break
+    if not r1_files:
+        return []
+
     samples: List[Tuple[str, str, str]] = []
-    r1_files = sorted(glob.glob(os.path.join(input_dir, f'*{read1_pattern}')))
     for r1 in r1_files:
         base = os.path.basename(r1)
-        sample = base[:-len(read1_pattern)] if base.endswith(read1_pattern) else os.path.splitext(base)[0]
-        r2 = os.path.join(input_dir, sample + read2_pattern)
-        if not os.path.exists(r2):
-            raise FileNotFoundError(f"样本|R2 not found for sample {sample}: {r2}")
-        samples.append((sample, r1, r2))
+        # 提取样本名:剥离命中的 R1 后缀|extract sample name by stripping matched R1 suffix
+        sample = base
+        for suf in r1_suffixes:
+            if sample.endswith(suf):
+                sample = sample[:-len(suf)]
+                break
+        # 找 R2:多后缀尝试,取第一个存在的(避免 glob 模糊匹配)|R2: try suffixes, first existing
+        r2 = None
+        for suf in r2_suffixes:
+            cand = os.path.join(input_dir, sample + suf)
+            if os.path.exists(cand):
+                r2 = cand
+                break
+        if not r2:
+            raise FileNotFoundError(f"样本|R2 not found for sample {sample}: {input_dir}")
+        # realpath 解析软链(对齐 fastq2vcf_gtx)|resolve symlinks (aligned with fastq2vcf_gtx)
+        samples.append((sample, os.path.realpath(r1), os.path.realpath(r2)))
     return samples
+
+
+# 默认 R1/R2 后缀(对齐 fastq2vcf_gtx,clean 优先)|default R1/R2 suffixes (aligned with fastq2vcf_gtx, clean first)
+DEFAULT_R1_SUFFIXES = ["_1.clean.fq.gz", "_1.fq.gz", "_1.fastq.gz"]
+DEFAULT_R2_SUFFIXES = ["_2.clean.fq.gz", "_2.fq.gz", "_2.fastq.gz"]

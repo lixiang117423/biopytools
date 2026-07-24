@@ -140,6 +140,8 @@ def parse_arguments(argv=None):
     p.add_argument('--qd-threshold', type=float, default=2.0)
     p.add_argument('--cluster-window', type=int, default=35)
     p.add_argument('--cluster-size', type=int, default=3)
+    p.add_argument('--read1-pattern', help='R1 后缀(默认自动识别 _1.clean.fq.gz/_1.fq.gz 等)|R1 suffix (auto)')
+    p.add_argument('--read2-pattern', help='R2 后缀(默认自动识别)|R2 suffix (auto)')
     p.add_argument('-s', '--step', type=int, choices=[0, 1, 2, 3, 4],
                    help='0=仅建索引|index only;省略=全流程|omit for full pipeline')
     p.add_argument('--no-checkpoint', action='store_true')
@@ -160,6 +162,7 @@ def main():
             threads=args.threads, min_conf=args.min_conf,
             fs_threshold=args.fs_threshold, qd_threshold=args.qd_threshold,
             cluster_window=args.cluster_window, cluster_size=args.cluster_size,
+            read1_pattern=args.read1_pattern, read2_pattern=args.read2_pattern,
             step=args.step,
             enable_checkpoint=not args.no_checkpoint, dry_run=args.dry_run,
             force=args.force, skip_qc=args.skip_qc, log_file=args.log_file, log_level=args.log_level)
