@@ -491,12 +491,22 @@ class BLASTAnalyzer(BaseAnalyzer):
         xlsx_path = os.path.join(blast_dir, 'blast_results.xlsx')
         sheets = {}
 
-        # raw_results:合并所有 {sample}_{blast_type}_results.tsv | merge all raw results files
+        # raw_results:合并所有 {sample}_{blast_type}_results.tsv(blast outfmt 6 无表头,15列)|
+        # merge all raw results (blast outfmt 6 has no header, 15 cols)
+        raw_cols = ['qseqid', 'sseqid', 'pident', 'length', 'mismatch', 'gapopen',
+                    'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore',
+                    'slen', 'qseq', 'sseq']
         pattern = os.path.join(blast_dir, f"*_{self.config.blast_type}_results.tsv")
+        suffix = f"_{self.config.blast_type}_results.tsv"
         raw_dfs = []
         for rf in sorted(glob.glob(pattern)):
             try:
-                raw_dfs.append(pd.read_csv(rf, sep='\t', dtype=str))
+                df = pd.read_csv(rf, sep='\t', header=None, names=raw_cols, dtype=str)
+                # 从文件名提取 sample,加 Sample 列区分多样本|extract sample, add Sample col
+                base = os.path.basename(rf)
+                sample = base[:-len(suffix)] if base.endswith(suffix) else base
+                df.insert(0, 'Sample', sample)
+                raw_dfs.append(df)
             except Exception as e:
                 self.logger.warning(f"读取 raw results 跳过|Skip raw results {rf}: {e}")
         if raw_dfs:
@@ -527,13 +537,45 @@ class BLASTAnalyzer(BaseAnalyzer):
             self.logger.warning("无 TSV 可导出 Excel|No TSV available to export to Excel")
             return False
 
-        # 写 Excel;单 sheet 超 Excel 行限(1048576)则跳过该 sheet 继续 | write; skip sheet exceeding row limit
+        # 样式常量(专业配色)|style constants (professional palette)
+        from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
+        tab_colors = {  # sheet 标签色|sheet tab colors
+            'raw_results': '00B050',    # 绿|green
+            'summary': '1F4E78',        # 蓝|blue
+            'sorted': 'ED7D31',         # 橙|orange
+            'high_quality': '7030A0',   # 紫|purple
+        }
+        header_fill = PatternFill(start_color='1F4E78', end_color='1F4E78', fill_type='solid')  # 表头深蓝|header dark blue
+        header_font = Font(color='FFFFFF', bold=True)  # 白字加粗|white bold
+        center = Alignment(horizontal='center', vertical='center')
+        thin = Side(style='thin', color='BFBFBF')
+        border = Border(left=thin, right=thin, top=thin, bottom=thin)
+
+        # 写 Excel + 美化;单 sheet 超行限则跳过 | write Excel + styling; skip sheet exceeding row limit
         written = 0
         try:
             with pd.ExcelWriter(xlsx_path) as writer:
                 for sheet_name, df in sheets.items():
                     try:
                         df.to_excel(writer, sheet_name=sheet_name, index=False)
+                        ws = writer.sheets[sheet_name]
+                        # sheet 标签色 + 冻结首行 | tab color + freeze first row
+                        ws.sheet_properties.tabColor = tab_colors.get(sheet_name)
+                        ws.freeze_panes = 'A2'
+                        # 列宽按内容自适应(采样前 100 行估算)|auto width (sample first 100 rows)
+                        for col_idx, col in enumerate(df.columns, 1):
+                            col_letter = ws.cell(row=1, column=col_idx).column_letter
+                            sample_vals = [str(col)] + [str(v) for v in df[col].head(100)]
+                            max_len = max((len(v) for v in sample_vals), default=8)
+                            ws.column_dimensions[col_letter].width = min(max(max_len + 2, 8), 50)
+                        # 表头样式(深蓝底白字加粗居中) + 全表细边框 | header style + thin border
+                        for row in ws.iter_rows(min_row=1, max_row=ws.max_row, max_col=ws.max_column):
+                            for cell in row:
+                                cell.border = border
+                                if cell.row == 1:
+                                    cell.fill = header_fill
+                                    cell.font = header_font
+                                    cell.alignment = center
                         written += 1
                     except Exception as e:
                         self.logger.warning(f"sheet '{sheet_name}' 写入跳过(可能超 Excel 行限)|Skip sheet '{sheet_name}' (may exceed Excel row limit): {e}")

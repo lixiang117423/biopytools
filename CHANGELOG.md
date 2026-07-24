@@ -1,4 +1,12 @@
 
+## [1.20.3] - 2026-07-24
+
+### Fixed
+- `blast`：Excel 导出的 `raw_results` sheet 修复——BLAST outfmt 6 **无表头**，原 `pd.read_csv` 会把第一行数据当作列名；改为 `header=None, names=<15 标准字段>`（与 outfmt 配置 `main.py` line 353 精确匹配）+ 从文件名提取 sample 新增 `Sample` 列以区分合并的多样本
+
+### Changed
+- `blast`：Excel 导出美化——sheet 标签色（raw_results/summary/sorted/high_quality 四色区分）、冻结首行、列宽自适应（采样前 100 行估算）、表头深蓝底白字加粗居中、全表细边框
+
 ## [1.20.2] - 2026-07-24
 
 ### Fixed
