@@ -291,9 +291,15 @@ class BrakerConfig:
             import hashlib
             import tempfile
             import shutil
-            # 哈希包含输出目录和基因组路径，确保不同基因组使用不同工作目录
-            # Hash includes output dir and genome path to ensure different genomes use different dirs
-            path_hash = hashlib.md5(f"{self.braker_dir}_{self.genome}".encode('utf-8')).hexdigest()[:12]
+            # ⚠️ 必须用绝对路径参与哈希:若用相对路径(如 "output/04_braker_annotation" + "Pb.fa"),
+            # 所有以相同 -o/-g 参数运行的不同项目(不同绝对路径)会得到同一个哈希、共用同一个
+            # 工作目录,导致跨项目结果互相覆盖(v4/v5 即因此污染)。abspath 以 cwd=working_dir 解析。
+            # MUST use absolute paths in the hash: relative paths (e.g. "output/04_braker_annotation" +
+            # "Pb.fa") make every project run with the same -o/-g args share one working dir, causing
+            # cross-project result contamination. abspath resolves against cwd=working_dir.
+            abs_braker_dir = os.path.abspath(self.braker_dir)
+            abs_genome = os.path.abspath(self.genome)
+            path_hash = hashlib.md5(f"{abs_braker_dir}_{abs_genome}".encode('utf-8')).hexdigest()[:12]
             user_home = os.path.expanduser("~")
             user_tmp = os.path.join(user_home, "tmp")
             os.makedirs(user_tmp, exist_ok=True)
