@@ -699,6 +699,21 @@ class BrakerPipeline:
             # Run from scratch, no cleanup needed
             pass
 
+        # 全新训练(非 --useexisting)前清理上次遗留的 augustus species 目录:
+        # species/<name> 由上次训练生成,若不清理,braker.pl 在 line 3490 会因
+        # "species/<name> already exists" 致命退出(每次重跑必崩)。
+        # --useexisting 分支(上文)已自行处理 species 目录,此处只管全新训练。
+        # Before a fresh training (not --useexisting), clean the stale augustus species dir:
+        # species/<name> is produced by the previous training; if left in place, braker.pl dies
+        # at line 3490 with "species/<name> already exists" on every re-run. The --useexisting
+        # branch above handles its own species dir; this only covers fresh training.
+        if "--useexisting" not in braker_cmd_parts and self.config.use_singularity:
+            species_dir = os.path.join(augustus_config_dir, "species", self.config.species)
+            if os.path.exists(species_dir):
+                import shutil
+                shutil.rmtree(species_dir)
+                self.logger.info(f"清理旧 species 参数目录(全新训练)|Cleaned stale species dir: {species_dir}")
+
         # 使用安全的工作目录路径（不含非ASCII字符）
         # Use safe working directory path (no non-ASCII characters)
         braker_cmd_parts.append(f"--workingdir={self.config.braker_safe_dir}")

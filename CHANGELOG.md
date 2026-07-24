@@ -1,4 +1,9 @@
 
+## [1.20.2] - 2026-07-24
+
+### Fixed
+- `braker`：全新训练（非 `--useexisting`）前清理上次遗留的 augustus `species/` 目录——否则 `braker.pl` 在 line 3490 因 `"species/<name> already exists"` **每次重跑必崩**。此前仅 `--useexisting` 分支（pipeline.py line 691）清理了 species 目录，而两个全新训练分支（`braker.gtf` 残留清理后重跑 / 完全从头运行）未清理。新增逻辑对称覆盖这两个分支；`use_singularity` 条件用于保护 `augustus_config_dir` 的定义作用域（该变量仅在 singularity 分支内定义）
+
 ## [1.20.1] - 2026-07-24
 
 ### Fixed
