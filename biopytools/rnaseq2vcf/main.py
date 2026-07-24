@@ -119,7 +119,7 @@ class Rnaseq2vcfProcessor:
                  f"失败样本|Failed: {failed}",
                  "", "PASS VCF:"]
         for s, _, _ in samples:
-            vcf = os.path.join(cfg.output_dir, s, "04_filter", f"{s}.pass.vcf.gz")
+            vcf = os.path.join(cfg.output_dir, "04_filter", f"{s}.pass.vcf.gz")
             lines.append(f"  {s}: {vcf} {'[OK]' if os.path.exists(vcf) else '[MISSING]'}")
         with open(report, 'w', encoding='utf-8') as f:
             f.write('\n'.join(lines) + '\n')

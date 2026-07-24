@@ -72,7 +72,7 @@ class QualityController:
 
     def run_sample(self, sample: str, r1: str, r2: str) -> Tuple[str, str]:
         cfg = self.config
-        qc_dir = os.path.join(cfg.output_dir, sample, "01_qc")
+        qc_dir = os.path.join(cfg.output_dir, "01_qc")
         os.makedirs(qc_dir, exist_ok=True)
         r1_clean = os.path.join(qc_dir, f"{sample}_1.clean.fq.gz")
         r2_clean = os.path.join(qc_dir, f"{sample}_2.clean.fq.gz")
@@ -116,7 +116,7 @@ class Aligner:
 
     def run_sample(self, sample: str, r1: str, r2: str) -> str:
         cfg = self.config
-        align_dir = os.path.join(cfg.output_dir, sample, "02_align")
+        align_dir = os.path.join(cfg.output_dir, "02_align")
         os.makedirs(align_dir, exist_ok=True)
         out_bam = os.path.join(align_dir, f"{sample}.sorted.bam")
         log_file = os.path.join(align_dir, f"{sample}.hisat2.log")
@@ -163,7 +163,7 @@ class Caller:
 
     def run_sample(self, sample: str, in_bam: str) -> str:
         cfg = self.config
-        call_dir = os.path.join(cfg.output_dir, sample, "03_calling")
+        call_dir = os.path.join(cfg.output_dir, "03_calling")
         os.makedirs(call_dir, exist_ok=True)
         rg = os.path.join(call_dir, f"{sample}.rg.bam")
         dedup = os.path.join(call_dir, f"{sample}.dedup.bam")
@@ -210,7 +210,7 @@ class VariantFilter:
 
     def run_sample(self, sample: str, raw_vcf: str) -> str:
         cfg = self.config
-        f_dir = os.path.join(cfg.output_dir, sample, "04_filter")
+        f_dir = os.path.join(cfg.output_dir, "04_filter")
         os.makedirs(f_dir, exist_ok=True)
         filtered = os.path.join(f_dir, f"{sample}.filtered.vcf.gz")
         pass_vcf = os.path.join(f_dir, f"{sample}.pass.vcf.gz")

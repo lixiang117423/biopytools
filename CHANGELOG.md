@@ -1,4 +1,9 @@
 
+## [1.21.2] - 2026-07-24
+
+### Changed
+- `rnaseq2vcf`：输出目录结构从 **by-sample**（`output_dir/{sample}/01_qc/...`）改为 **by-step**（`output_dir/01_qc/{sample}_1.clean.fq.gz`，4 个步骤目录 `01_qc`/`02_align`/`03_calling`/`04_filter` 共享、文件名带 `{sample}` 前缀区分多样本）。扁平结构便于统一查看某步骤的所有样本结果；断点续传不受影响（checkpoint 仅用于共享的 `genome_index`）。注：与 CLAUDE.md §12.2.1「多样本建议 by-sample」相反，按实际使用偏好选择 by-step
+
 ## [1.21.1] - 2026-07-24
 
 ### Changed
