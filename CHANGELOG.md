@@ -1,4 +1,10 @@
 
+## [1.20.0] - 2026-07-24
+
+### Added
+- `blast`：结果导出多 sheet Excel（`blast_results.xlsx`，含 raw_results/summary/sorted/high_quality）；pandas/openpyxl 为**软依赖**（缺失则 warning + 跳过，TSV 照常输出，优雅降级）；单 sheet 超 Excel 行限（1048576）自动跳过该 sheet
+- `braker`：项目级 `flock` 运行锁——防止同一项目并发运行在共享的 `braker_safe_dir` 内互踩（braker.pl 的 `ln -s` 等非原子操作会触发 "File Exists" 致命错误，白跑数小时后才崩）；非阻塞（`LOCK_NB`，锁被占用立即失败）；fd 绑定、进程退出（含 kill）自动释放，无死锁/残留锁；锁文件置于 safe_dir 同级（safe_dir 可能被清理重建，锁文件不随之删除）
+
 ## [1.19.0] - 2026-07-23
 
 ### Added

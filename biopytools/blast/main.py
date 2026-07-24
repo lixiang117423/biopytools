@@ -462,12 +462,85 @@ class BLASTAnalyzer(BaseAnalyzer):
             # 创建高质量结果文件|Create high quality results file
             self._create_high_quality_results(sorted_file)
 
+            # 导出多sheet Excel(默认;软依赖pandas/openpyxl,缺失则跳过,TSV照常输出)|
+            # Export multi-sheet Excel (default; soft-dep, skip if missing, TSV unaffected)
+            self._export_excel(summary_file, sorted_file)
+
             self.log_step_end("处理结果|Processing Results", True)
             return True
 
         except Exception as e:
             self.logger.error(f"处理结果失败|Failed to process results: {e}")
             self.log_step_end("处理结果|Processing Results", False)
+            return False
+
+    def _export_excel(self, summary_file: str, sorted_file: str) -> bool:
+        """导出多sheet Excel(软依赖pandas/openpyxl,缺失则跳过,不影响TSV输出)|Export multi-sheet Excel (soft-dep; skip if missing, TSV unaffected)"""
+        # 软依赖:pandas/openpyxl 缺失则 warning + 跳过,流程继续(优雅降级,§graceful-degradation)|
+        # Soft dep: warn + skip if missing, flow continues (graceful degradation)
+        try:
+            import pandas as pd
+            import openpyxl  # noqa: F401  pandas 写 xlsx 的引擎|engine for pandas xlsx
+        except ImportError:
+            self.logger.warning("pandas/openpyxl 未安装,跳过 Excel 输出(TSV 照常输出)|pandas/openpyxl not installed, skip Excel (TSV still output)")
+            return False
+
+        import glob
+
+        blast_dir = self.config.blast_dir
+        xlsx_path = os.path.join(blast_dir, 'blast_results.xlsx')
+        sheets = {}
+
+        # raw_results:合并所有 {sample}_{blast_type}_results.tsv | merge all raw results files
+        pattern = os.path.join(blast_dir, f"*_{self.config.blast_type}_results.tsv")
+        raw_dfs = []
+        for rf in sorted(glob.glob(pattern)):
+            try:
+                raw_dfs.append(pd.read_csv(rf, sep='\t', dtype=str))
+            except Exception as e:
+                self.logger.warning(f"读取 raw results 跳过|Skip raw results {rf}: {e}")
+        if raw_dfs:
+            sheets['raw_results'] = pd.concat(raw_dfs, ignore_index=True)
+
+        # summary / sorted:各对应一个 sheet | one sheet each
+        for sheet_name, path in [('summary', summary_file), ('sorted', sorted_file)]:
+            if path and os.path.exists(path):
+                try:
+                    sheets[sheet_name] = pd.read_csv(path, sep='\t', dtype=str)
+                except Exception as e:
+                    self.logger.warning(f"读取 {sheet_name} 跳过|Skip {sheet_name}: {e}")
+
+        # high_quality 路径从 sorted 推导(与 _create_high_quality_results 一致)|
+        # derive high_quality path from sorted (consistent with _create_high_quality_results)
+        if sorted_file:
+            if '_sorted.tsv' in sorted_file:
+                hq_file = sorted_file.replace('_sorted.tsv', '_sorted_high_quality.tsv')
+            else:
+                hq_file = sorted_file.replace('.tsv', '_high_quality.tsv')
+            if os.path.exists(hq_file):
+                try:
+                    sheets['high_quality'] = pd.read_csv(hq_file, sep='\t', dtype=str)
+                except Exception as e:
+                    self.logger.warning(f"读取 high_quality 跳过|Skip high_quality: {e}")
+
+        if not sheets:
+            self.logger.warning("无 TSV 可导出 Excel|No TSV available to export to Excel")
+            return False
+
+        # 写 Excel;单 sheet 超 Excel 行限(1048576)则跳过该 sheet 继续 | write; skip sheet exceeding row limit
+        written = 0
+        try:
+            with pd.ExcelWriter(xlsx_path) as writer:
+                for sheet_name, df in sheets.items():
+                    try:
+                        df.to_excel(writer, sheet_name=sheet_name, index=False)
+                        written += 1
+                    except Exception as e:
+                        self.logger.warning(f"sheet '{sheet_name}' 写入跳过(可能超 Excel 行限)|Skip sheet '{sheet_name}' (may exceed Excel row limit): {e}")
+            self.logger.info(f"Excel 已输出|Excel exported: {xlsx_path} ({written} sheets)")
+            return True
+        except Exception as e:
+            self.logger.error(f"Excel 输出失败|Excel export failed: {e}")
             return False
 
     def _generate_statistics(self, result_file: str) -> Dict:

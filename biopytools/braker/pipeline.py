@@ -4,6 +4,7 @@ BRAKER3基因组注释核心流程模块|BRAKER3 Genome Annotation Core Pipeline
 
 import os
 import subprocess
+import fcntl
 from pathlib import Path
 from .utils import BrakerLogger, CommandRunner, check_file_exists, check_step_completed, format_number, fix_duplicate_gtf_transcript_ids
 
@@ -37,6 +38,7 @@ class BrakerPipeline:
 
         # 运行状态|Run status
         self.completed_steps = {}
+        self._run_lock_fd = None  # 项目级运行锁fd,进程退出自动释放|Project run lock fd, auto-released on process exit
         self._check_completed_steps()
 
     def _check_completed_steps(self):
@@ -89,6 +91,48 @@ class BrakerPipeline:
 
         # 检查BRAKER3运行|Check BRAKER3 run
 
+    def _acquire_run_lock(self):
+        """
+        获取项目级排他锁,防止同一项目并发运行互相踩踏|Acquire project-level exclusive lock to prevent concurrent-run collision
+
+        设计原因|Design reason:
+            braker_safe_dir 的名字是 (braker_dir+genome) 的 md5 哈希,确定性且会被复用
+            (为支持断点续传 --useexisting)。同一项目若被并发执行两次,两个 braker.pl 进程会
+            落入同一个工作目录,在 braker.pl 内部 ln -s traingenes.gtf 等非原子操作上竞争,
+            触发 "File exists" 致命错误(braker.pl:6107)。本锁让第二个并发任务在流程入口立即失败,
+            而不是白跑数小时后在 BRAKER 内部互踩。flock 锁绑定到打开的文件描述符,进程退出
+            (含被 kill)时由内核自动释放,不会产生死锁或残留锁文件问题。
+
+            The braker_safe_dir name is a deterministic md5 hash and is reused across runs
+            (to support --useexisting resume). Two concurrent runs of the same project land
+            in the same working dir and race on non-atomic BRAKER-internal ops (e.g. the
+            braker.pl `ln -s traingenes.gtf`), causing fatal "File exists" errors. This lock
+            makes the second concurrent run fail fast at pipeline entry instead of colliding
+            hours later. flock is bound to the open fd and auto-released by the kernel on
+            process exit (including kill), so no deadlock or stale-lock risk.
+        """
+        # 锁文件放在 safe_dir 同级(safe_dir 可能被清理重建,锁文件不能随之删除)
+        # Lock file is a sibling of safe_dir (safe_dir may be rmtree'd and rebuilt;
+        # the lock file must survive that)
+        lock_file = self.config.braker_safe_dir + ".lock"
+        fd = open(lock_file, "w")
+        try:
+            # LOCK_NB: 非阻塞,锁被占用立即抛 BlockingIOError 而非挂起等待
+            # LOCK_NB: non-blocking; raises BlockingIOError immediately if held
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            fd.close()
+            raise RuntimeError(
+                f"该项目正在被另一个进程运行,请等待其完成后再重试|"
+                f"This project is already running in another process; wait for it to finish and retry. "
+                f"Lock: {lock_file}"
+            )
+        except OSError:
+            fd.close()
+            raise  # 其它系统级错误向上抛|Other OS-level errors propagate
+        self._run_lock_fd = fd  # 持有fd保持锁,进程退出时自动释放|Hold fd to keep lock, auto-released on exit
+        self.logger.info(f"已获取项目运行锁(防止并发冲突)|Acquired project run lock: {lock_file}")
+
     def run_pipeline(self):
         """运行完整流程|Run complete pipeline"""
         self.logger.info("=" * 80)
@@ -96,6 +140,11 @@ class BrakerPipeline:
         self.logger.info("=" * 80)
 
         try:
+            # 流程入口加项目级锁:防止同一项目并发运行导致 braker_safe_dir 内部互踩
+            # Acquire project-level lock at entry: prevent concurrent runs from colliding
+            # inside the shared braker_safe_dir
+            self._acquire_run_lock()
+
             # 步骤1: 重复序列屏蔽|Step 1: Repeat masking
             if not self.config.skip_repeat:
                 masked_genome = self._step1_repeat_masking()
