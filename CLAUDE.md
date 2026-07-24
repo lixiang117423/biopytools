@@ -1,7 +1,7 @@
 # BioPyTools Python代码开发规范文档
 
-## 版本: 2.15
-## 日期: 2026-07-23
+## 版本: 2.16
+## 日期: 2026-07-24
 ## 用途: 统一所有生信分析模块的代码结构、命名规范、日志格式
 
 ## 目录|Table of Contents
@@ -1299,38 +1299,43 @@ python scripts/migrate_paths.py --module module_name --apply   # 确认后应用
 
 #### 12.2.1 结构原则|Structure Principles
 
-**多样本分析采用 "By Sample" (按样本)** 层级结构，**单样本或共享分析采用 "By Step" (按步骤)**：
+**统一采用 "By Step" (按步骤)** 层级结构——所有样本共享带序号的步骤目录，多样本用**文件名前缀** `{sample}_xxx` 区分；仅当单样本产出大量独立文件、需完全隔离管理时才用 "By Sample" (按样本)：
 
 ```python
-# ✅ 多样本分析|Multi-sample Analysis
+# ✅ 推荐:by-step(多样本共享步骤目录,文件名带样本前缀区分)|Recommended: by-step
 output/
-├── 00_pipeline_info/          # 全局元数据（可选）
-├── sample1/
-│   ├── 00_pipeline_info/      # 样本级元数据
-│   ├── 01_qc/
-│   ├── 02_trimming/
-│   └── 99_logs/
-├── sample2/
-│   ├── 00_pipeline_info/
-│   ├── 01_qc/
-│   └── 99_logs/
-└── sample3/
-
-# ✅ 单样本或共享分析|Single Sample or Shared Analysis
-output/
-├── 00_pipeline_info/
+├── 00_pipeline_info/              # 全局元数据
 ├── 01_qc/
-├── 02_trimming/
-├── 03_alignment/
+│   ├── sample1_1.clean.fq.gz      # 文件名前缀区分样本|filename prefix per sample
+│   ├── sample1_2.clean.fq.gz
+│   └── sample2_1.clean.fq.gz
+├── 02_alignment/
+│   ├── sample1.sorted.bam
+│   └── sample2.sorted.bam
+├── 03_variant_calling/
+│   └── sample1.raw.vcf.gz
 └── 99_logs/
 
-# ❌ 不推荐|Not Recommended
+# ✅ 可选:by-sample(单样本产出大量独立文件、需按样本隔离管理时)|Optional: by-sample
+output/
+├── sample1/
+│   ├── 01_qc/
+│   ├── 02_alignment/
+│   └── 99_logs/
+└── sample2/
+    └── ...
+
+# ❌ 不推荐:无序号扁平目录(看不出步骤顺序)|Not Recommended: unnumbered flat
 output/
 ├── qc/
-├── sample1/
-├── sample2/
-└── trimming/
+├── alignment/
+└── filter/
 ```
+
+**为什么默认 by-step|Why by-step by default:**
+- 扁平结构，便于统一查看/批量操作某步骤所有样本结果（如所有样本的最终结果落在同一 `04_filter/` 目录）
+- 文件名前缀 `{sample}_xxx` 区分多样本，不冲突
+- 步骤目录带序号（`01_`/`02_`/...），流程顺序清晰
 
 #### 12.2.2 命名模式|Naming Pattern
 
@@ -1579,6 +1584,8 @@ def generate_software_versions_yml(output_dir: str, tools: dict, params: dict, s
 ### 12.6 完整示例|Complete Example
 
 #### 12.6.1 推荐的输出结构|Recommended Output Structure
+
+> 注|Note: 以下为 genomescope **既有模块**的实际结构（by-sample，样本目录套步骤）；**新模块默认按 §12.2.1 用 by-step**（步骤目录共享、文件名带样本前缀）。此处保留以展示完整的步骤目录与 `{Sample}.{Tool}.{State}.{Ext}` 文件命名规范。
 
 ```
 02.output/R0590-6/
@@ -2113,6 +2120,7 @@ conda run -n GATK_v.4.6.2.0 samtools view -b -@ 64 -o output.bam -
 
 | 版本 | 日期 | 主要变更|Major Changes |
 |------|------|----------|
+| 2.16 | 2026-07-24 | §12.2.1 目录结构默认改为 **by-step**（多样本共享步骤目录 + 文件名前缀 `{sample}_xxx` 区分），by-sample 降为可选（单样本大量独立文件、需隔离时）；§12.6.1 加注释标注既有 genomescope 结构为新模块前的示例 |
 | 2.15 | 2026-07-23 | 临时目录统一改造：所有模块临时文件/目录从系统 `/tmp` 改为 `output_dir/tmp` 子目录并运行结束清理，消除超算 `/tmp` 爆满风险；同步更新 12.4.1/12.6/12.7 |
 | 2.14 | 2026-06-24 | 新增"禁止在超算上执行 Git 提交"规范（顶部醒目警告 + 修订 10.1）：明确超算只写代码不 commit，提交统一在本地 Mac 由 Claude 完成；配套 `copybiopytools` 增加 `--exclude='.git/'` |
 | 2.13 | 2026-04-09 | 文档质量改进：修正版本号不一致(2.11→2.12)；修复测试断言缺少--no-capture-output；裸except改为except Exception；修复示例代码中的硬编码绝对路径（software_versions.yml模板、管道方案A）；补全generate_software_versions_yml的end_time/runtime_seconds字段使其与模板一致；添加目录导航 |
