@@ -1,4 +1,30 @@
 
+## [1.21.4] - 2026-07-25
+
+### Changed
+- `rnaseq2vcf`：变异检测从**单样本 VCF** 改为 **多样本联合 calling**——每样本 `HaplotypeCaller -ERC GVCF` 生成 gVCF，再 `CombineGVCFs → GenotypeGVCFs → VariantFiltration → bcftools PASS` 合并为一个多样本 VCF（GATK 最佳实践）。`VariantFilter` 类更名为 `JointCaller`，输出目录 `04_filter` → `04_joint`，最终产物 `all_samples.pass.vcf.gz`；断点续传保留
+- 预测模块（`deeploc`/`deeptmhmm`/`tmhmm`/`signalp`）日志统一改**三 handler 分离**（stdout INFO→.out / stderr WARNING+→.err / file DEBUG+，§2.3），日志文件集中到 `99_logs/`；CLI 可选参数改为**始终显式透传**（避免改 config 默认值时 CLI 层静默失效）
+
+### Added
+- `deeploc`/`deeptmhmm`/`tmhmm`/`signalp`：运行成功后生成 `00_pipeline_info/software_versions.yml`（§12.5，best-effort 检测工具版本，失败仅告警不阻断）
+- `deeploc`/`signalp`：主输出已存在时**断点续传跳过**昂贵预测步骤（§10.2）
+- `signalp`：`signalp_path` 支持 `SIGNALP6_PATH` 环境变量 / config.yml 覆盖（§11.B）
+
+### Fixed
+- `deeploc`/`signalp`：conda 包装从 `os.path.basename(工具路径)` 改为传**完整路径**（§13.6.1），否则 `get_conda_env` 丢 `/envs/` 无法注入 `-n <env>`、在错误环境运行；signalp 同时从 `shell=True` 字符串改为 `shell=False` 列表（防注入）
+- `deeploc`/`deeptmhmm`/`signalp`/`tmhmm`：`__post_init__` **先 `expand_path` 再 `mkdir`**（§11.3.1），原顺序会对字面 `~` 输出目录建出名为 `~` 的目录、`output_path` 与 `output_dir` 分家
+- `deeptmhmm`：搬运结果后误查源目录致**每次误报全部输出缺失**；改为与实际搬运目标文件名比较
+- `tmhmm`：输出改**原子写**（`.tmp` → `os.replace`，失败清理），避免断点续传解析截断文件；以 `output_dir` 为 cwd 防 plot 文件散落
+- `signalp`：结果统计 `sp_count/total_count` 加 `total_count>0` 防护，空输入不再 ZeroDivision
+- `blast`：比对可视化**反链坐标修复**——`sstart>send`（反链命中）时 subject 坐标应递减，原代码恒递增致反链比对坐标错误（html/text 两处对齐生成器同步修复）
+- `blast`：区分**零命中**（rc=0 输出为空=合法结果，优雅保留）与真正失败（无输出文件），原代码把零命中当失败
+- `blast`：`samples_count` 始终为 0——改为取 `len(sample_stats)`；无法自动检测类型时默认 `blastn`+告警（原留 None 致下游崩溃）
+- `blast` CLI：`--auto-detect-samples` 从 `is_flag+default=True` 改为 `--x/--no-x` 开关（原写法使 `--no-auto-detect-samples` 不可达）
+- `core`：`BaseAnalyzer` 透传 `config.log_file` 给 `setup_logger`，否则 `--log-file` 是死参数
+
+### Docs
+- CLAUDE.md v2.16 → **v2.17**：瘦身拆分（76.6KB→24.5KB），核心规则保留，完整模板/paths.py 实现/命名示例/conda 故障排查下沉到 `docs/dev-standards/` 五个按需参考文档（该次文档提交未单独 bump 包版本，在此补记）
+
 ## [1.21.3] - 2026-07-24
 
 ### Docs
