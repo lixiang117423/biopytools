@@ -281,6 +281,14 @@ class BLASTConfig(BaseConfig):
             return
 
         if not self.input or not self.reference:
+            # 无法自动检测(如使用 -s sample-map 且未传 -i/--blast-type):默认blastn,
+            # 避免blast_type留None被_validate_blast_type崩溃(用户可用--blast-type覆盖)
+            # |Cannot auto-detect (e.g. sample-map without -i/--blast-type): default
+            # blastn to avoid a None crash (user can override with --blast-type)
+            self.blast_type = "blastn"
+            logger.warning(
+                "无法自动检测BLAST类型(缺少input或reference),默认blastn|"
+                "Cannot auto-detect BLAST type (missing input or reference), defaulting to blastn")
             return
 
         query_files = self._collect_fasta_files(self.input)

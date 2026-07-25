@@ -236,11 +236,14 @@ class HTMLAlignmentGenerator:
         # 计算实际位置（排除gap）
         q_pos = q_start
         s_pos = s_start
-        
+        # 反链判定:sstart>send时subject坐标递减(BLAST反链命中sstart>send)
+        # |Reverse strand: sstart>send → subject coords decrement
+        s_step = -1 if alignment.get('send', s_start) < s_start else 1
+
         for i in range(0, len(query_seq), width):
             q_segment = query_seq[i:i+width]
             s_segment = subject_seq[i:i+width]
-            
+
             # 生成匹配行并添加颜色
             match_line = []
             for q, s in zip(q_segment, s_segment):
@@ -250,14 +253,14 @@ class HTMLAlignmentGenerator:
                     match_line.append('<span class="gap"> </span>')
                 else:
                     match_line.append('<span class="mismatch">.</span>')
-            
+
             # 计算这个片段中非gap字符的数量
             q_bases = sum(1 for c in q_segment if c != '-')
             s_bases = sum(1 for c in s_segment if c != '-')
-            
+
             # 计算片段的结束位置
             q_end_pos = q_pos + q_bases - 1 if q_bases > 0 else q_pos
-            s_end_pos = s_pos + s_bases - 1 if s_bases > 0 else s_pos
+            s_end_pos = s_pos + s_step * (s_bases - 1) if s_bases > 0 else s_pos
             
             # 格式化输出（使用10位宽度确保对齐）
             lines.append(f"Query  {q_pos:10d}  {q_segment}  {q_end_pos}")
@@ -265,8 +268,8 @@ class HTMLAlignmentGenerator:
             lines.append(f"Sbjct  {s_pos:10d}  {s_segment}  {s_end_pos}")
             lines.append("")
             
-            # 更新位置（只计算非gap字符）
+            # 更新位置（只计算非gap字符;反链时subject递减）|update (subject decrements on reverse)
             q_pos += q_bases
-            s_pos += s_bases
+            s_pos += s_step * s_bases
         
         return '\n'.join(lines)

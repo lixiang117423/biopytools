@@ -108,6 +108,9 @@ class StatisticsGenerator:
 
         stats['unique_queries'] = len(stats['unique_queries'])
         stats['unique_subjects'] = len(stats['unique_subjects'])
+        # samples_count 必须取自实际样品统计(否则恒为0)
+        # |samples_count must reflect actual sample stats (else always 0)
+        stats['samples_count'] = len(stats['sample_stats'])
 
         return stats
 

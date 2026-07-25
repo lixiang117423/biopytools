@@ -81,7 +81,7 @@ class BLASTAnalyzer(BaseAnalyzer):
         self.logger.info(f"加载样品映射文件|Loading sample mapping file: {self.config.sample_map_file}")
 
         try:
-            with open(self.config.sample_map_file, 'r') as f:
+            with open(self.config.sample_map_file, 'r', encoding='utf-8') as f:
                 for line_num, line in enumerate(f, 1):
                     line = line.strip()
                     if not line or line.startswith('#'):
@@ -214,6 +214,7 @@ class BLASTAnalyzer(BaseAnalyzer):
         for name, path in tools.items():
             try:
                 cmd = build_conda_command(path, ['-version'])
+                self.logger.info(f"命令|Command: {' '.join(cmd)}")
                 result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
                 ver = (result.stdout or result.stderr or '').strip().split('\n')[0]
                 versions[name] = {'version': ver or 'unknown', 'path': path}
@@ -238,7 +239,7 @@ class BLASTAnalyzer(BaseAnalyzer):
 
         output_file = os.path.join(self.config.pipeline_info_dir, 'software_versions.yml')
         try:
-            with open(output_file, 'w') as f:
+            with open(output_file, 'w', encoding='utf-8') as f:
                 yaml.dump(info, f, default_flow_style=False, allow_unicode=True)
             self.logger.info(f"软件版本信息已保存|Software versions saved to: {output_file}")
         except Exception as e:
@@ -317,7 +318,11 @@ class BLASTAnalyzer(BaseAnalyzer):
                     self.logger.warning(f"样品 {sample_name} 比对失败|Sample {sample_name} alignment failed")
 
             if not all_results:
-                raise RuntimeError("所有样品比对都失败了|All sample alignments failed")
+                # 所有样品均异常退出(零命中已在上游作为空文件优雅保留,此处为真正全部失败)
+                # |All samples errored (zero-hits are kept as empty files upstream)
+                self.logger.error("所有样品比对都失败了|All sample alignments failed")
+                self.log_step_end("运行BLAST比对|Running BLAST Alignment", False)
+                return False
 
             # 合并结果|Merge results
             merged_file = self._merge_results(all_results)
@@ -370,11 +375,16 @@ class BLASTAnalyzer(BaseAnalyzer):
             )
 
             # 检查输出文件|Check output file
-            if os.path.exists(output_file) and os.path.getsize(output_file) > 0:
-                self.logger.info(f"样品 {sample_name} 比对完成|Sample {sample_name} alignment completed")
+            if os.path.exists(output_file):
+                if os.path.getsize(output_file) > 0:
+                    self.logger.info(f"样品 {sample_name} 比对完成|Sample {sample_name} alignment completed")
+                else:
+                    # rc=0但无命中:合法结果(零命中),优雅降级,不视为失败
+                    # |rc=0 with no hits: valid result (zero hits), graceful, not a failure
+                    self.logger.info(f"样品 {sample_name} 无比对命中(输出为空)|Sample {sample_name} no hits (empty output)")
                 return output_file
             else:
-                self.logger.warning(f"样品 {sample_name} 比对输出为空|Sample {sample_name} alignment output is empty")
+                self.logger.warning(f"样品 {sample_name} 比对未生成输出|Sample {sample_name} produced no output")
                 return None
 
         except subprocess.CalledProcessError as e:
@@ -595,7 +605,7 @@ class BLASTAnalyzer(BaseAnalyzer):
                 'unique_subjects': set()
             }
 
-            with open(result_file, 'r') as f:
+            with open(result_file, 'r', encoding='utf-8') as f:
                 next(f)  # 跳过表头
 
                 for line in f:

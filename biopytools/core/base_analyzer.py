@@ -26,9 +26,10 @@ class BaseAnalyzer:
         self.start_time = time.time()
         self.interrupted = False
 
-        # 设置日志
+        # 设置日志(透传config.log_file,否则--log-file为死参数)|setup logger, forward log_file
         self.logger = setup_logger(
             self.__class__.__name__,
+            log_file=getattr(config, 'log_file', None),
             level=config.get_log_level()
         )
 

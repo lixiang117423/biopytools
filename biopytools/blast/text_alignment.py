@@ -136,6 +136,9 @@ class TextAlignmentGenerator:
             # Calculate positions (excluding gaps)
             q_pos = q_start
             s_pos = s_start
+            # 反链判定:sstart>send时subject坐标应递减(BLAST对反链命中sstart>send)
+            # |Reverse strand: when sstart>send, subject coords must decrement
+            s_step = -1 if alignment.get('send', s_start) < s_start else 1
 
             for i in range(0, len(query_seq), width):
                 q_segment = query_seq[i:i+width]
@@ -148,7 +151,7 @@ class TextAlignmentGenerator:
 
                 # Calculate end positions for this segment
                 q_end_pos = q_pos + q_bases - 1 if q_bases > 0 else q_pos
-                s_end_pos = s_pos + s_bases - 1 if s_bases > 0 else s_pos
+                s_end_pos = s_pos + s_step * (s_bases - 1) if s_bases > 0 else s_pos
 
                 # Format output (using 10-character width for alignment)
                 lines.append(f"Query  {q_pos:10d}  {q_segment}  {q_end_pos}")
@@ -158,7 +161,7 @@ class TextAlignmentGenerator:
 
                 # Update positions (only count non-gap characters)
                 q_pos += q_bases
-                s_pos += s_bases
+                s_pos += s_step * s_bases
 
             # Statistics
             match_count = match_line.count('|')

@@ -98,8 +98,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               type=float,
               help='高质量比对E-value阈值|High quality alignment E-value threshold')
-@click.option('--auto-detect-samples',
-              is_flag=True,
+@click.option('--auto-detect-samples/--no-auto-detect-samples',
               default=True,
               help='自动检测样品名称|Auto-detect sample names')
 @click.option('--sample-name-pattern',
@@ -265,7 +264,11 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     if high_quality_evalue != 1e-10:
         args.extend(['--high-quality-evalue', str(high_quality_evalue)])
 
-    if not auto_detect_samples:
+    # 显式透传开关(原is_flag+default=True导致--no-auto-detect-samples不可达)
+    # |Forward the toggle explicitly (old is_flag+default=True made --no-auto-detect unreachable)
+    if auto_detect_samples:
+        args.append('--auto-detect-samples')
+    else:
         args.append('--no-auto-detect-samples')
 
     if sample_name_pattern != r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$':
