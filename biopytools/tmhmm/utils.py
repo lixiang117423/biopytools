@@ -13,9 +13,11 @@ class TmhmmLogger:
 
     def __init__(self, output_dir: str):
         self.output_dir = output_dir
-        os.makedirs(output_dir, exist_ok=True)
+        # 日志统一放99_logs子目录(§12.2.3)|Logs live under 99_logs/
+        self.log_dir = os.path.join(output_dir, "99_logs")
+        os.makedirs(self.log_dir, exist_ok=True)
 
-        log_file = os.path.join(output_dir, "tmhmm.log")
+        log_file = os.path.join(self.log_dir, "tmhmm.log")
         self._setup_logging(log_file)
 
     def _setup_logging(self, log_file: str):
@@ -58,6 +60,12 @@ def run_tmhmm(
 ) -> bool:
     """执行TMHMM预测|Execute TMHMM prediction
 
+    tmhmm直接调用(不用conda run包装):其Perl驱动仅用核心模块Getopt::Long,
+    内部decodeanhmm为静态链接二进制,不依赖conda环境的动态库。
+    |tmhmm is called directly (no conda run): its Perl driver uses only the
+    core Getopt::Long module and the internal decodeanhmm is a statically
+    linked binary, so it does not depend on the conda env's shared libs.
+
     Args:
         logger: 日志对象|Logger object
         tmhmm_path: tmhmm可执行文件路径|tmhmm binary path
@@ -73,27 +81,82 @@ def run_tmhmm(
         cmd.append('-noplot')
     cmd.append(input_file)
 
+    # 以output_dir为cwd: tmhmm的plot文件写到cwd($opt_workdir="."),否则散落到调用方CWD
+    # |cwd=output_dir: tmhmm writes plot files to cwd, else they scatter in the caller's CWD
+    cwd = os.path.dirname(os.path.abspath(output_file))
+
     cmd_display = ' '.join(cmd) + f' > {output_file}'
     logger.info(f"命令|Command: {cmd_display}")
 
+    # 原子写: 先写.tmp,成功才replace,失败清理半成品(避免断点续传解析截断文件,§10.2)
+    # |Atomic write: write .tmp, replace on success, clean up on failure
+    tmp_file = output_file + '.tmp'
     try:
-        with open(output_file, 'w') as fh:
+        with open(tmp_file, 'w') as fh:
             result = subprocess.run(
                 cmd,
                 stdout=fh,
                 stderr=subprocess.PIPE,
                 text=True,
                 check=True,
+                cwd=cwd,
             )
         if result.stderr:
             logger.debug(f"tmhmm stderr|tmhmm stderr: {result.stderr.strip()}")
+        os.replace(tmp_file, output_file)
         return True
     except subprocess.CalledProcessError as e:
-        logger.error(f"tmhmm执行失败|tmhmm execution failed: {e.stderr.strip()}")
+        _safe_remove(tmp_file)
+        logger.error(f"tmhmm执行失败|tmhmm execution failed: {(e.stderr or '').strip()}")
         return False
     except FileNotFoundError:
+        _safe_remove(tmp_file)
         logger.error(f"tmhmm不存在|tmhmm not found: {tmhmm_path}")
         return False
+
+
+def _safe_remove(path: str):
+    """安全删除文件(忽略不存在)|Safely remove a file (ignore missing)"""
+    try:
+        os.remove(path)
+    except OSError:
+        pass
+
+
+def generate_software_version_yml(config, tool_versions=None) -> str:
+    """生成software_versions.yml到00_pipeline_info(§12.5)|Generate software_versions.yml"""
+    import yaml
+    from datetime import datetime
+
+    info_dir = os.path.join(config.output_dir, "00_pipeline_info")
+    os.makedirs(info_dir, exist_ok=True)
+    output_file = os.path.join(info_dir, "software_versions.yml")
+
+    if tool_versions is None:
+        tool_versions = {}
+        try:
+            result = subprocess.run(
+                [config.tmhmm_path], capture_output=True, text=True, timeout=30)
+            ver = (result.stdout or result.stderr or "").strip() or "unknown"
+            tool_versions["tmhmm"] = {"version": ver, "path": config.tmhmm_path}
+        except Exception:
+            tool_versions["tmhmm"] = {"version": "unknown", "path": config.tmhmm_path}
+
+    info = {
+        "pipeline": {"name": "biopytools tmhmm", "version": "1.0.0"},
+        "tools": tool_versions,
+        "parameters": {
+            "noplot": config.noplot,
+            "output_prefix": config.output_prefix,
+        },
+        "execution": {
+            "start_time": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        },
+    }
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        yaml.safe_dump(info, f, default_flow_style=False, sort_keys=False)
+    return output_file
 
 
 def parse_tmhmm_output(raw_file: str) -> list:

@@ -88,21 +88,13 @@ def deeploc(input, output_dir, model, device, singularity_image, database_dir,
     args.extend(['-i', input])
     args.extend(['-o', output_dir])
 
-    # 可选参数|Optional parameters
-    if model != 'Fast':
-        args.extend(['--model', model])
-
-    if device != 'cpu':
-        args.extend(['--device', device])
-
-    if singularity_image != '~/software/singularity/deeploc2.1_latest.sif':
-        args.extend(['--singularity-image', singularity_image])
-
-    if str(database_dir) != '~/software/deeploc/database':
-        args.extend(['--database-dir', database_dir])
-
-    if str(singularity_exec) != '~/miniforge3/envs/singularity_v.3.8.7/bin/singularity':
-        args.extend(['--singularity-exec', singularity_exec])
+    # 可选参数:始终显式透传(避免改config默认值时CLI层静默失效,§cli-wrapper-defaults)
+    # |Optional params: always forward explicitly (avoid silent default drift)
+    args.extend(['--model', model])
+    args.extend(['--device', device])
+    args.extend(['--singularity-image', singularity_image])
+    args.extend(['--database-dir', str(database_dir)])
+    args.extend(['--singularity-exec', str(singularity_exec)])
 
     if plot:
         args.append('--plot')

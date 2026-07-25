@@ -3,10 +3,10 @@ SignalP 6.0信号肽预测配置管理模块|SignalP 6.0 Signal Peptide Predicti
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
-from ..common.paths import expand_path
+from ..common.paths import expand_path, get_tool_path
 
 
 @dataclass
@@ -28,20 +28,22 @@ class SignalPConfig:
     model_dir: Optional[str] = None
     cleanup_plots: bool = True  # 自动删除plot文件|Auto-delete plot files
 
-    # SignalP程序路径|SignalP program path
-    signalp_path: str = "~/miniforge3/envs/signalp6/bin/signalp6"
+    # SignalP程序路径(支持 SIGNALP6_PATH 环境变量 / config.yml 覆盖,§11.B)
+    # |SignalP path (supports SIGNALP6_PATH env var / config.yml override)
+    signalp_path: str = field(default_factory=lambda: get_tool_path(
+        'signalp6', '~/miniforge3/envs/signalp6/bin/signalp6', 'SIGNALP6_PATH'))
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # 创建输出目录|Create output directory
+        # ⚠️ 先展开所有路径(含~),再创建目录(否则~输出目录会建出字面~目录)
+        # |Expand all paths (incl ~) BEFORE mkdir, else a literal "~" dir is created
+        self.fasta_file = expand_path(self.fasta_file)
+        self.output_dir = expand_path(self.output_dir)
+        self.signalp_path = expand_path(self.signalp_path)
+
+        # 创建输出目录(展开后)|Create output directory after expansion
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
-
-        # 标准化路径|Normalize paths
-        self.fasta_file = os.path.normpath(os.path.abspath(self.fasta_file))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
-        # 展开~符号并标准化路径|Expand ~ symbol and normalize path
-        self.signalp_path = os.path.normpath(expand_path(self.signalp_path))
 
         # 处理organism参数别名|Handle organism parameter aliases
         if self.organism.lower() in ["euk", "eukarya"]:
@@ -62,7 +64,7 @@ class SignalPConfig:
         # 处理model_dir|Handle model_dir
         if self.model_dir:
             # 展开~符号并标准化路径|Expand ~ symbol and normalize path
-            self.model_dir = os.path.normpath(expand_path(self.model_dir))
+            self.model_dir = expand_path(self.model_dir)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

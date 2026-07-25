@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 from .config import DeepLocConfig
-from .utils import DeepLocLogger, DeepLocRunner
+from .utils import DeepLocLogger, DeepLocRunner, generate_software_version_yml
 
 
 class DeepLocPredictor:
@@ -31,6 +31,11 @@ class DeepLocPredictor:
 
         if success:
             self.logger.info("预测流程成功完成|Prediction workflow completed successfully")
+            # 记录软件版本信息到00_pipeline_info(§12.5)|Record software versions
+            try:
+                generate_software_version_yml(self.config)
+            except Exception as e:
+                self.logger.warning(f"软件版本信息写入失败|Failed to write software versions: {e}")
             return True
         else:
             self.logger.error("预测流程失败|Prediction workflow failed")

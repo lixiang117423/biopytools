@@ -6,8 +6,15 @@ import os
 import sys
 import time
 import argparse
+from ..common.paths import expand_path
 from .config import TmhmmConfig
-from .utils import TmhmmLogger, run_tmhmm, parse_tmhmm_output, write_clean_tsv
+from .utils import (
+    TmhmmLogger,
+    run_tmhmm,
+    parse_tmhmm_output,
+    write_clean_tsv,
+    generate_software_version_yml,
+)
 
 
 def setup_logger(output_dir: str):
@@ -33,15 +40,17 @@ def main():
                          help='[DIR] 输出目录|Output directory')
 
     optional = parser.add_argument_group('optional arguments')
-    optional.add_argument('--noplot', action='store_true', default=True,
-                         help='[FLAG] 不生成图形，默认开启|No plot generation, default on')
     optional.add_argument('--plot', action='store_true', default=False,
-                         help='[FLAG] 生成图形|Generate plots')
+                         help='[FLAG] 生成图形(默认不生成)|Generate plots (off by default)')
     optional.add_argument('--prefix',
                          default=None,
                          help='[STR] 输出文件前缀(默认使用输入文件名)|Output file prefix')
 
     args = parser.parse_args()
+
+    # 先展开~(logger/makedirs在config.validate之前就要用output_dir,§11)|expand ~ first
+    args.input = expand_path(args.input)
+    args.output_dir = expand_path(args.output_dir)
 
     os.makedirs(args.output_dir, exist_ok=True)
     logger = setup_logger(args.output_dir)
@@ -70,6 +79,11 @@ def main():
             logger.info("=" * 60)
             logger.info(f"全部完成|All finished, 耗时|elapsed: {elapsed:.2f}s")
             logger.info("=" * 60)
+            # 记录软件版本信息到00_pipeline_info(§12.5)|Record software versions
+            try:
+                generate_software_version_yml(config)
+            except Exception as e:
+                logger.warning(f"软件版本信息写入失败|Failed to write software versions: {e}")
             return 0
         else:
             logger.error("预测失败|Prediction failed")

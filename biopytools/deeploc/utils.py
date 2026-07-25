@@ -70,41 +70,52 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
 
 class DeepLocLogger:
-    """DeepLoc亚细胞定位预测日志管理器|DeepLoc Subcellular Localization Prediction Logger Manager"""
+    """DeepLoc日志管理器|DeepLoc Logger Manager
 
-    def __init__(self, output_dir: Path, log_name: str = "deeploc_prediction.log"):
-        self.output_dir = output_dir
-        self.log_file = output_dir / log_name
+    三handler分离(§2.3): stdout(INFO)→.out, stderr(WARNING+)→.err, file(DEBUG+)→99_logs/
+    |Three-handler separation: stdout INFO→.out, stderr WARNING+→.err, file DEBUG+→99_logs/
+    """
+
+    def __init__(self, output_dir, log_name: str = "deeploc.log"):
+        self.output_dir = Path(output_dir)
+        # 日志统一放99_logs子目录(§12.2.3)|Logs live under 99_logs/
+        self.log_dir = self.output_dir / "99_logs"
+        self.log_dir.mkdir(parents=True, exist_ok=True)
+        self.log_file = self.log_dir / log_name
         self.setup_logging()
 
     def setup_logging(self):
-        """设置日志|Setup logging"""
-        # 删除旧日志文件|Delete old log file
-        if self.log_file.exists():
-            self.log_file.unlink()
-
-        # 设置日志格式|Set log format
+        """设置日志(三handler分离,命名logger,propagate=False)|Setup logging with separation"""
         formatter = logging.Formatter(
             '%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
 
-        # 文件handler|File handler
-        file_handler = logging.FileHandler(self.log_file, encoding='utf-8')
-        file_handler.setLevel(logging.DEBUG)
-        file_handler.setFormatter(formatter)
+        # 命名logger + 清空旧handler + 禁止传播(避免重复/交叉)|named logger, no propagation
+        logger = logging.getLogger("DeepLoc")
+        logger.setLevel(logging.DEBUG)
+        logger.handlers.clear()
+        logger.propagate = False
 
-        # stdout handler|Stdout handler
+        # stdout handler - INFO级别|stdout handler - INFO level
         stdout_handler = logging.StreamHandler(sys.stdout)
         stdout_handler.setLevel(logging.INFO)
         stdout_handler.setFormatter(formatter)
+        logger.addHandler(stdout_handler)
 
-        # 配置日志|Configure logging
-        logging.basicConfig(
-            level=logging.DEBUG,
-            handlers=[file_handler, stdout_handler]
-        )
-        self.logger = logging.getLogger(__name__)
+        # stderr handler - WARNING及以上|stderr handler - WARNING and above
+        stderr_handler = logging.StreamHandler(sys.stderr)
+        stderr_handler.setLevel(logging.WARNING)
+        stderr_handler.setFormatter(formatter)
+        logger.addHandler(stderr_handler)
+
+        # file handler - 所有级别(追加,保留续传历史)|file handler - all levels (append)
+        file_handler = logging.FileHandler(self.log_file, encoding='utf-8')
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+        self.logger = logger
 
     def get_logger(self):
         """获取日志器|Get logger"""
@@ -118,28 +129,6 @@ class DeepLocRunner:
         self.config = config
         self.logger = logger
         self.csv_result = None
-
-    def build_command(self):
-        """构建DeepLoc命令|Build DeepLoc command"""
-        # 构建singularity exec命令|Build singularity exec command
-        cmd_parts = [
-            self.config.singularity_exec,
-            "exec",
-            # 挂载数据库目录|Mount database directory
-            "-B", f"{self.config.database_dir}:/database",
-            self.config.singularity_image,
-            "deeploc2",
-            "-f", "/input/" + os.path.basename(self.config.fasta_file),  # 在容器内的路径
-            "-o", "/output",  # 容器内的输出目录
-            "-m", self.config.model,
-            "-d", self.config.device
-        ]
-
-        # 可选参数|Optional parameters
-        if self.config.plot:
-            cmd_parts.append("-p")
-
-        return cmd_parts
 
     def run(self):
         """运行DeepLoc预测|Run DeepLoc prediction"""
@@ -158,6 +147,18 @@ class DeepLocRunner:
         self.logger.info(f"数据库目录|Database directory: {self.config.database_dir}")
 
         self.logger.info("=" * 80)
+
+        # 断点续传:主输出已存在则跳过昂贵的singularity执行(§10.2)
+        # |Checkpoint resume: skip the expensive singularity run if primary output exists
+        input_stem = os.path.splitext(os.path.basename(self.config.fasta_file))[0]
+        primary_output = os.path.join(self.config.output_dir, f"{input_stem}_deeploc2.tsv")
+        if os.path.exists(primary_output):
+            self.logger.info(f"跳过已完成步骤|Skipping completed step: DeepLoc预测|DeepLoc prediction")
+            self.logger.info(f"  主输出已存在|Primary output already exists: {primary_output}")
+            # 基于已有CSV重新生成可读结果(廉价)|Regenerate readable outputs from existing CSV
+            self._check_output_files()
+            self._format_results()
+            return True
 
         # 构建命令|Build command
         # 注意：需要将输入文件挂载到容器中
@@ -185,10 +186,11 @@ class DeepLocRunner:
         if self.config.plot:
             cmd.append("-p")
 
-        # 使用conda wrapper包装singularity命令|Use conda wrapper to wrap singularity command
-        singularity_cmd = os.path.basename(self.config.singularity_exec)
-        cmd_args = cmd[1:]  # 跳过第一个元素（singularity路径）|Skip first element (singularity path)
-        wrapped_cmd = build_conda_command(singularity_cmd, cmd_args)
+        # 使用conda wrapper包装singularity命令(传完整路径,禁止basename,§13.6.1)
+        # |Wrap singularity with conda — pass the FULL path so get_conda_env can
+        # extract /envs/<name>/; basename would lose the env and run in the wrong env
+        cmd_args = cmd[1:]  # 跳过singularity路径,保留 exec 及其后的子命令|skip singularity path
+        wrapped_cmd = build_conda_command(self.config.singularity_exec, cmd_args)
 
         cmd_str = " ".join(wrapped_cmd)
         self.logger.info(f"执行命令|Executing command: {cmd_str}")
@@ -285,16 +287,53 @@ class DeepLocRunner:
         formatter.format_excel()
 
 
-def format_number(num: int) -> str:
-    """格式化数字|Format number
+def generate_software_version_yml(config, tool_versions=None) -> str:
+    """生成software_versions.yml到00_pipeline_info(§12.5)|Generate software_versions.yml
 
-    大于1百万的数字使用M单位|Numbers larger than 1M use M unit
+    Args:
+        config: DeepLocConfig实例|DeepLocConfig instance
+        tool_versions: 预置工具版本(测试用);为None则best-effort检测singularity版本
+                       |preset tool versions (for tests); None→best-effort detect
+
+    Returns:
+        生成的yml文件路径|path to the generated yml file
     """
-    if num >= 1_000_000:
-        return f"{num / 1_000_000:.2f}M"
-    elif num >= 1_000:
-        return f"{num / 1_000:.2f}K"
-    return str(num)
+    import yaml
+    from datetime import datetime
+
+    info_dir = os.path.join(config.output_dir, "00_pipeline_info")
+    os.makedirs(info_dir, exist_ok=True)
+    output_file = os.path.join(info_dir, "software_versions.yml")
+
+    if tool_versions is None:
+        tool_versions = {}
+        # best-effort检测singularity版本(失败记unknown)|best-effort singularity version
+        try:
+            ver_cmd = build_conda_command(config.singularity_exec, ["--version"])
+            result = subprocess.run(ver_cmd, capture_output=True, text=True, timeout=30)
+            ver = (result.stdout or result.stderr or "").strip() or "unknown"
+            tool_versions["singularity"] = {"version": ver, "path": config.singularity_exec}
+        except Exception:
+            tool_versions["singularity"] = {"version": "unknown", "path": config.singularity_exec}
+
+    info = {
+        "pipeline": {"name": "biopytools deeploc", "version": "1.0.0"},
+        "tools": tool_versions,
+        "parameters": {
+            "model": config.model,
+            "device": config.device,
+            "singularity_image": config.singularity_image,
+            "database_dir": config.database_dir,
+            "plot": config.plot,
+        },
+        "execution": {
+            "start_time": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        },
+    }
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        yaml.safe_dump(info, f, default_flow_style=False, sort_keys=False)
+    return output_file
 
 
 class DeepLocResultFormatter:

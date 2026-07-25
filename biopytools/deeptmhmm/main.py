@@ -13,6 +13,7 @@ from .utils import (
     run_deeptmhmm,
     parse_deeptmhmm_output,
     write_clean_tsv,
+    generate_software_version_yml,
 )
 
 
@@ -93,6 +94,12 @@ class DeeptmhmmPredictor:
         log.info("=" * 60)
         log.info(f"全部完成|All finished, 耗时|elapsed: {time.time() - start:.2f}s")
         log.info("=" * 60)
+
+        # 记录软件版本信息到00_pipeline_info(§12.5)|Record software versions
+        try:
+            generate_software_version_yml(cfg)
+        except Exception as e:
+            log.warning(f"软件版本信息写入失败|Failed to write software versions: {e}")
         return True
 
 

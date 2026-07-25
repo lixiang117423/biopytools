@@ -27,13 +27,14 @@ class DeeptmhmmConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # 创建输出目录|Create output directory
-        self.output_path = Path(self.output_dir)
-        self.output_path.mkdir(parents=True, exist_ok=True)
-
-        # 展开用户/环境输入路径|Expand user/env input paths
+        # ⚠️ 先展开路径(含~),再创建目录(否则~输出目录建出字面~,且output_path与output_dir分家)
+        # |Expand paths (incl ~) BEFORE mkdir
         self.input_file = expand_path(self.input_file)
         self.output_dir = expand_path(self.output_dir)
+
+        # 创建输出目录(展开后)|Create output directory after expansion
+        self.output_path = Path(self.output_dir)
+        self.output_path.mkdir(parents=True, exist_ok=True)
 
         # 工具目录支持环境变量/配置文件覆盖|Tool dir supports env var/config override
         self.deeptmhmm_dir = get_tool_path(
@@ -49,9 +50,12 @@ class DeeptmhmmConfig:
         self.predict_py = os.path.join(self.deeptmhmm_dir, 'predict.py')
         self.python_bin = expand_path(f'~/miniforge3/envs/{self.conda_env}/bin/python')
 
-        # 输出前缀默认取输入文件名|Output prefix defaults to input filename
+        # 输出前缀默认取输入文件名(先剥离.gz再取stem,处理proteins.fa.gz)|Output prefix
         if self.output_prefix is None:
-            self.output_prefix = os.path.splitext(os.path.basename(self.input_file))[0]
+            base = os.path.basename(self.input_file)
+            if base.lower().endswith('.gz'):
+                base = base[:-3]
+            self.output_prefix = os.path.splitext(base)[0]
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

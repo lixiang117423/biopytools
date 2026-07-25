@@ -24,10 +24,11 @@ def _is_help_request():
 
 
 def _validate_path_exists(path):
-    """验证路径存在|Validate path exists"""
+    """验证路径存在(先展开~再判断,§11)|Validate path exists (expand ~ first)"""
     if _is_help_request():
         return path
-    if not os.path.exists(path):
+    expanded = os.path.expanduser(path)
+    if not os.path.exists(expanded):
         raise click.BadParameter(f"路径不存在|Path does not exist: {path}")
     return path
 
@@ -65,12 +66,11 @@ def deeptmhmm(input, output_dir, prefix, conda_env, deeptmhmm_dir):
     args.extend(['-i', input])
     args.extend(['-o', output_dir])
 
+    # 始终显式透传(避免改config默认值时CLI层静默失效)|always forward explicitly
     if prefix:
         args.extend(['--prefix', prefix])
-    if conda_env != 'deeptmhmm_v.1.0':
-        args.extend(['--conda-env', conda_env])
-    if deeptmhmm_dir != '~/software/deeptmhmm/DeepTMHMM-Academic-License-v1.0':
-        args.extend(['--deeptmhmm-dir', deeptmhmm_dir])
+    args.extend(['--conda-env', conda_env])
+    args.extend(['--deeptmhmm-dir', deeptmhmm_dir])
 
     original_argv = sys.argv
     sys.argv = args

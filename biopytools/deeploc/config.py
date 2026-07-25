@@ -29,16 +29,18 @@ class DeepLocConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
-        # 创建输出目录|Create output directory
-        self.output_path = Path(self.output_dir)
-        self.output_path.mkdir(parents=True, exist_ok=True)
-
-        # 标准化路径（展开~和环境变量）|Normalize paths (expand ~ and env vars)
+        # ⚠️ 先展开所有路径(含~和环境变量),再创建目录
+        # |Expand all paths (incl ~ and env vars) BEFORE mkdir, else a literal
+        # "~" directory gets created and output_path diverges from output_dir
         self.fasta_file = expand_path(self.fasta_file)
         self.output_dir = expand_path(self.output_dir)
         self.singularity_image = expand_path(self.singularity_image)
         self.database_dir = expand_path(self.database_dir)
         self.singularity_exec = expand_path(self.singularity_exec)
+
+        # 创建输出目录(展开后)|Create output directory after expansion
+        self.output_path = Path(self.output_dir)
+        self.output_path.mkdir(parents=True, exist_ok=True)
 
         # 验证model参数|Validate model parameter
         valid_models = ["Accurate", "Fast"]

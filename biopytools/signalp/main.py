@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 from .config import SignalPConfig
-from .utils import SignalPLogger, SignalPRunner
+from .utils import SignalPLogger, SignalPRunner, generate_software_version_yml
 
 
 class SignalPPredictor:
@@ -31,6 +31,11 @@ class SignalPPredictor:
 
         if success:
             self.logger.info("预测流程成功完成|Prediction workflow completed successfully")
+            # 记录软件版本信息到00_pipeline_info(§12.5)|Record software versions
+            try:
+                generate_software_version_yml(self.config)
+            except Exception as e:
+                self.logger.warning(f"软件版本信息写入失败|Failed to write software versions: {e}")
             return True
         else:
             self.logger.error("预测流程失败|Prediction workflow failed")
@@ -120,15 +125,9 @@ def parse_arguments():
         help='跳过resolve步骤|Skip resolve step'
     )
     parser.add_argument(
-        '--cleanup-plots',
-        action='store_true',
-        default=True,
-        help='自动删除plot文件|Auto-delete plot files (default: True)'
-    )
-    parser.add_argument(
         '--keep-plots',
         action='store_true',
-        help='保留plot文件|Keep plot files (overrides --cleanup-plots)'
+        help='保留plot文件(默认自动清理plot文件)|Keep plot files (plots are auto-deleted by default)'
     )
 
     return parser.parse_args()
@@ -138,10 +137,8 @@ def main():
     """主函数|Main function"""
     args = parse_arguments()
 
-    # 处理plot文件清理参数|Handle plot cleanup parameter
-    cleanup_plots = args.cleanup_plots
-    if args.keep_plots:
-        cleanup_plots = False
+    # 默认清理plot文件,--keep-plots时保留|cleanup by default, keep when --keep-plots
+    cleanup_plots = not args.keep_plots
 
     try:
         # 创建预测器|Create predictor

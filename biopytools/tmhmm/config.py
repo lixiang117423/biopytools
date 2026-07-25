@@ -41,8 +41,10 @@ class TmhmmConfig:
             noplot: 不生成图形|No plot generation
             output_prefix: 输出文件前缀(默认使用输入文件名)|Output file prefix (default: input filename)
         """
-        self.input_file = input_file
-        self.output_dir = output_dir
+        # 构造时即展开~(确保config.output_dir在validate/logger之前已可用,§11.3.1)
+        # |Expand ~ at construction so paths are usable before validate/logger
+        self.input_file = expand_path(input_file)
+        self.output_dir = expand_path(output_dir)
         self.tmhmm_path = tmhmm_path
         self.noplot = noplot
         self.output_prefix = output_prefix
@@ -50,9 +52,6 @@ class TmhmmConfig:
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
         errors = []
-
-        self.input_file = expand_path(self.input_file)
-        self.output_dir = expand_path(self.output_dir)
 
         if not self.input_file:
             errors.append("输入文件不能为空|Input file cannot be empty")

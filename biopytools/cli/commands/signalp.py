@@ -79,16 +79,11 @@ def _validate_file_exists(file_path):
 @click.option('--skip-resolve',
               is_flag=True,
               help='跳过冲突解析|Skip conflict resolution')
-@click.option('--cleanup-plots',
-              is_flag=True,
-              default=True,
-              show_default=True,
-              help='自动删除plot文件|Auto-delete plot files')
 @click.option('--keep-plots',
               is_flag=True,
-              help='保留plot文件|Keep plot files (overrides --cleanup-plots)')
+              help='保留plot文件(默认自动清理)|Keep plot files (auto-deleted by default)')
 def signalp(input, output_dir, organism, format, mode, bsize, write_procs,
-            torch_num_threads, signalp_path, model_dir, skip_resolve, cleanup_plots, keep_plots):
+            torch_num_threads, signalp_path, model_dir, skip_resolve, keep_plots):
     """
     SignalP 6.0信号肽预测工具|SignalP 6.0 Signal Peptide Prediction Tool
 
@@ -107,27 +102,15 @@ def signalp(input, output_dir, organism, format, mode, bsize, write_procs,
     args.extend(['-i', input])
     args.extend(['-o', output_dir])
 
-    # 可选参数|Optional parameters
-    if organism != 'eukarya':
-        args.extend(['--organism', organism])
-
-    if format != 'txt':
-        args.extend(['--format', format])
-
-    if mode != 'fast':
-        args.extend(['--mode', mode])
-
-    if bsize != 12:
-        args.extend(['--bsize', str(bsize)])
-
-    if write_procs != 12:
-        args.extend(['--write-procs', str(write_procs)])
-
-    if torch_num_threads != 12:
-        args.extend(['--torch-num-threads', str(torch_num_threads)])
-
-    if signalp_path != '~/miniforge3/envs/signalp6/bin/signalp6':
-        args.extend(['--signalp-path', signalp_path])
+    # 可选参数:始终显式透传(避免改config默认值时CLI层静默失效)
+    # |Optional params: always forward explicitly (avoid silent default drift)
+    args.extend(['--organism', organism])
+    args.extend(['--format', format])
+    args.extend(['--mode', mode])
+    args.extend(['--bsize', str(bsize)])
+    args.extend(['--write-procs', str(write_procs)])
+    args.extend(['--torch-num-threads', str(torch_num_threads)])
+    args.extend(['--signalp-path', signalp_path])
 
     if model_dir:
         args.extend(['--model-dir', model_dir])
@@ -135,11 +118,9 @@ def signalp(input, output_dir, organism, format, mode, bsize, write_procs,
     if skip_resolve:
         args.append('--skip-resolve')
 
-    # 处理plot清理参数|Handle plot cleanup parameters
+    # plot清理:默认清理,--keep-plots时保留|cleanup by default, keep with --keep-plots
     if keep_plots:
         args.append('--keep-plots')
-    elif not cleanup_plots:
-        args.append('--cleanup-plots')
 
     # 执行主程序|Execute main program
     original_argv = sys.argv

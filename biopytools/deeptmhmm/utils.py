@@ -22,23 +22,18 @@ def get_conda_env(command: str) -> Optional[str]:
     Returns:
         conda环境名称或None|conda environment name or None
     """
-    # 优先从命令完整路径检测|First detect from full command path
+    # 1. 若command本身含/envs/<name>/,直接提取(最可靠,不依赖which/basename)
+    # |If command path itself contains /envs/<name>/, extract directly (most reliable)
+    match = re.search(r'/envs/([^/]+)', command)
+    if match:
+        return match.group(1)
+
+    # 2. which解析裸命令名|Resolve bare command name via which
     cmd_path = shutil.which(command)
     if cmd_path:
         match = re.search(r'/envs/([^/]+)', cmd_path)
         if match:
             return match.group(1)
-
-    # 兜底: 搜索所有conda环境|Fallback: search all conda envs
-    conda_base = os.environ.get('CONDA_EXE')
-    if conda_base:
-        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
-        envs_dir = os.path.join(conda_base_dir, 'envs')
-        if os.path.exists(envs_dir):
-            for env_name in os.listdir(envs_dir):
-                env_bin = os.path.join(envs_dir, env_name, 'bin', os.path.basename(command))
-                if os.path.exists(env_bin):
-                    return env_name
 
     return None
 
@@ -70,7 +65,10 @@ class DeeptmhmmLogger:
 
     def __init__(self, output_dir, log_name: str = "deeptmhmm.log"):
         self.output_dir = output_dir
-        self.log_file = os.path.join(str(output_dir), log_name)
+        # 日志统一放99_logs子目录(§12.2.3)|Logs live under 99_logs/
+        self.log_dir = os.path.join(str(output_dir), "99_logs")
+        os.makedirs(self.log_dir, exist_ok=True)
+        self.log_file = os.path.join(self.log_dir, log_name)
         self._setup_logging()
 
     def _setup_logging(self):
@@ -146,7 +144,6 @@ def run_deeptmhmm(logger: logging.Logger, config) -> bool:
     logger.info("执行|Executing: DeepTMHMM预测|DeepTMHMM prediction")
     logger.info(f"命令|Command: {' '.join(cmd)}")
 
-    success = False
     try:
         # 不捕获输出, 让predict.py进度直接流式写到作业的.out (长任务实时可见)
         # Do not capture; let predict.py progress stream to the job's .out (visible in real time)
@@ -159,17 +156,15 @@ def run_deeptmhmm(logger: logging.Logger, config) -> bool:
             )
             return False
 
-        success = True
-
         # 搬运结果到最终目录|Move results to final dir
         moved = _move_outputs(work_dir, config)
         for dst in moved:
             logger.info(f"已生成|Generated: {os.path.basename(dst)}")
 
-        missing = [
-            src_name for src_name in _OUTPUT_NAME_MAP
-            if not os.path.exists(os.path.join(work_dir, src_name))
-        ]
+        # 根据实际搬运到的目标文件判定缺失(不得检查已搬空的源目录,否则误报)
+        # |Determine missing by comparing against moved destinations
+        # (checking the emptied source dir would always falsely report all missing)
+        missing = _missing_outputs(moved, config.output_prefix)
         if missing:
             logger.warning(f"部分输出未生成|Some outputs not generated: {', '.join(missing)}")
 
@@ -199,6 +194,57 @@ def _move_outputs(work_dir: str, config) -> List[str]:
             shutil.move(src, dst)
             moved.append(dst)
     return moved
+
+
+def _missing_outputs(moved_dst_paths: List[str], prefix: str) -> List[str]:
+    """根据实际搬运到的目标文件判定哪些预期输出缺失|Determine missing expected outputs
+
+    修复前run_deeptmhmm在搬运后检查源目录(work_dir)→每次都报全部缺失(误报)。
+    正确做法: 与实际搬运到的目标文件名比较。
+    |Previously checked the source dir after moving → always reported all missing.
+    Correct: compare against the actually-moved destination filenames.
+    """
+    moved_names = {os.path.basename(p) for p in moved_dst_paths}
+    expected = [tpl.format(prefix=prefix) for tpl in _OUTPUT_NAME_MAP.values()]
+    return [e for e in expected if e not in moved_names]
+
+
+def generate_software_version_yml(config, tool_versions=None) -> str:
+    """生成software_versions.yml到00_pipeline_info(§12.5)|Generate software_versions.yml"""
+    import yaml
+    from datetime import datetime
+
+    info_dir = os.path.join(config.output_dir, "00_pipeline_info")
+    os.makedirs(info_dir, exist_ok=True)
+    output_file = os.path.join(info_dir, "software_versions.yml")
+
+    if tool_versions is None:
+        tool_versions = {}
+        try:
+            ver_cmd = build_conda_command(config.python_bin, [config.predict_py, "--version"])
+            result = subprocess.run(ver_cmd, capture_output=True, text=True,
+                                     timeout=30, cwd=config.deeptmhmm_dir)
+            ver = (result.stdout or result.stderr or "").strip() or "unknown"
+            tool_versions["deeptmhmm"] = {"version": ver, "path": config.predict_py}
+        except Exception:
+            tool_versions["deeptmhmm"] = {"version": "unknown", "path": config.predict_py}
+
+    info = {
+        "pipeline": {"name": "biopytools deeptmhmm", "version": "1.0.0"},
+        "tools": tool_versions,
+        "parameters": {
+            "conda_env": config.conda_env,
+            "deeptmhmm_dir": config.deeptmhmm_dir,
+            "output_prefix": config.output_prefix,
+        },
+        "execution": {
+            "start_time": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        },
+    }
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        yaml.safe_dump(info, f, default_flow_style=False, sort_keys=False)
+    return output_file
 
 
 def parse_deeptmhmm_output(
