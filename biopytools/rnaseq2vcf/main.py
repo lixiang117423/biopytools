@@ -1,7 +1,8 @@
-"""rnaseq2vcf 主入口|orchestrator + argparse entry (VCF-only, no annotation)
+"""rnaseq2vcf 主入口|orchestrator + argparse entry (per-sample gVCF → joint calling → one multi-sample VCF)
 
-流程止于生成 PASS VCF;ANNOVAR 注释由用户后续手动调用 `biopytools annovar`。|
-Pipeline stops at PASS VCF; ANNOVAR annotation is run manually via `biopytools annovar`.
+流程:HISAT2 比对 → 每样本 gVCF(HaplotypeCaller -ERC GVCF) → CombineGVCFs → GenotypeGVCFs
+→ VariantFiltration → bcftools PASS → 一个多样本 VCF。注释由用户手动跑 biopytools annovar。|
+Per-sample gVCF → joint genotyping → one multi-sample VCF. Annotate via biopytools annovar.
 """
 
 import argparse
@@ -11,11 +12,11 @@ import sys
 from .config import Rnaseq2vcfConfig
 from .utils import (Rnaseq2vcfLogger, CommandRunner, CheckpointManager,
                     SystemChecker, discover_samples)
-from .data_processing import GenomeIndexer, QualityController, Aligner, Caller, VariantFilter
+from .data_processing import GenomeIndexer, QualityController, Aligner, Caller, JointCaller
 
 
 class Rnaseq2vcfProcessor:
-    """端到端编排器(到 VCF)|End-to-end orchestrator (up to VCF)"""
+    """端到端编排器(多样本联合 calling)|End-to-end orchestrator (multi-sample joint calling)"""
 
     def __init__(self, config: Rnaseq2vcfConfig):
         self.config = config
@@ -31,7 +32,7 @@ class Rnaseq2vcfProcessor:
         self.qc_controller = QualityController(config, self.logger, self.runner)
         self.aligner = Aligner(config, self.logger, self.runner)
         self.caller = Caller(config, self.logger, self.runner)
-        self.filterer = VariantFilter(config, self.logger, self.runner)
+        self.joint_caller = JointCaller(config, self.logger, self.runner)
 
     def _run_shared_index(self) -> bool:
         if self.config.enable_checkpoint and self.checkpoints.exists("genome_index"):
@@ -54,16 +55,17 @@ class Rnaseq2vcfProcessor:
     def call(self, sample, bam):
         return self.caller.run_sample(sample, bam)
 
-    def filter(self, sample, raw_vcf):
-        return self.filterer.run_sample(sample, raw_vcf)
+    def joint(self, gvcfs):
+        return self.joint_caller.run(gvcfs)
 
     def _run_one_sample(self, sample, r1, r2):
+        """单样本走 QC→align→call(gVCF),返回 gVCF 路径|per-sample QC→align→gVCF, returns gVCF path"""
         self.logger.info(f"==== 处理样本|Processing sample: {sample} ====")
         r1c, r2c = self.qc(sample, r1, r2)
         bam = self.align(sample, r1c, r2c)
-        raw_vcf = self.call(sample, bam)
-        pass_vcf = self.filter(sample, raw_vcf)
-        self.logger.info(f"样本完成|Sample done: {sample} → PASS VCF: {pass_vcf}")
+        gvcf = self.call(sample, bam)
+        self.logger.info(f"样本 gVCF 完成|Sample gVCF done: {sample} → {gvcf}")
+        return gvcf
 
     def _pre_flight(self) -> bool:
         cfg = self.config
@@ -76,7 +78,7 @@ class Rnaseq2vcfProcessor:
 
     def run(self):
         cfg = self.config
-        self.logger.info("rnaseq2vcf 启动|Starting rnaseq2vcf pipeline (VCF-only)")
+        self.logger.info("rnaseq2vcf 启动|Starting rnaseq2vcf pipeline (joint calling)")
         if not self._pre_flight():
             self.logger.error("预检失败,退出|Pre-flight failed, exiting")
             return False
@@ -97,30 +99,43 @@ class Rnaseq2vcfProcessor:
         self.logger.info(f"发现样本|Found {len(samples)} samples: {[s[0] for s in samples]}")
 
         failed = []
+        sample_gvcfs = []
         for sample, r1, r2 in samples:
             try:
-                self._run_one_sample(sample, r1, r2)
+                gvcf = self._run_one_sample(sample, r1, r2)
+                sample_gvcfs.append(gvcf)
             except Exception as e:
                 self.logger.error(f"样本失败,继续下一个|Sample failed, continuing: {sample}: {e}")
                 failed.append(sample)
 
-        self._write_report(samples, failed)
+        # 联合 calling:所有样本 gVCF → 一个多样本 VCF|joint calling: all gVCFs → one multi-sample VCF
+        joint_vcf = None
+        if sample_gvcfs:
+            try:
+                joint_vcf = self.joint(sample_gvcfs)
+                self.logger.info(f"联合 VCF 完成|Joint VCF done: {joint_vcf}")
+            except Exception as e:
+                self.logger.error(f"联合 calling 失败|Joint calling failed: {e}")
+                failed.append("joint_calling")
+
+        self._write_report(samples, failed, joint_vcf)
         if failed:
-            self.logger.warning(f"失败样本|Failed samples: {failed}")
+            self.logger.warning(f"失败项|Failed: {failed}")
         return len(failed) == 0
 
-    def _write_report(self, samples, failed):
+    def _write_report(self, samples, failed, joint_vcf):
         cfg = self.config
         report = os.path.join(cfg.output_dir, "ANALYSIS_REPORT.txt")
-        lines = ["rnaseq2vcf 分析报告|Analysis Report (VCF-only; ANNOVAR 由用户手动运行|ANNOVAR run manually)",
+        lines = ["rnaseq2vcf 分析报告|Analysis Report (joint calling; ANNOVAR 由用户手动运行|ANNOVAR run manually)",
                  f"参考基因组|Reference genome: {cfg.ref_genome_fa}",
-                 f"GFF3(剪接位点)|GFF3 (splice sites): {cfg.gff3_file}",
+                 f"GFF3(剪接位点)|GFF3 (splice sites): {cfg.gff3_file or '(未提供|none)'}",
                  f"样本数|Sample count: {len(samples)}",
-                 f"失败样本|Failed: {failed}",
-                 "", "PASS VCF:"]
-        for s, _, _ in samples:
-            vcf = os.path.join(cfg.output_dir, "04_filter", f"{s}.pass.vcf.gz")
-            lines.append(f"  {s}: {vcf} {'[OK]' if os.path.exists(vcf) else '[MISSING]'}")
+                 f"失败项|Failed: {failed}",
+                 "", "联合 VCF(所有样本)|Joint VCF (all samples):"]
+        if joint_vcf and os.path.exists(joint_vcf):
+            lines.append(f"  {joint_vcf} [OK]")
+        else:
+            lines.append("  [MISSING]")
         with open(report, 'w', encoding='utf-8') as f:
             f.write('\n'.join(lines) + '\n')
         self.logger.info(f"报告已写|Report written: {report}")
@@ -128,7 +143,7 @@ class Rnaseq2vcfProcessor:
 
 def parse_arguments(argv=None):
     p = argparse.ArgumentParser(
-        description="转录组变异检测(到 VCF)|RNA-seq variant calling (up to VCF)")
+        description="转录组变异检测(多样本联合 calling)|RNA-seq variant calling (multi-sample joint calling)")
     p.add_argument('-g', '--genome', required=True, help='参考基因组 FASTA|Reference genome FASTA')
     p.add_argument('--gff3', help='参考 GFF3(可选,HISAT2 剪接位点)|Reference GFF3 (optional, HISAT2 splice sites)')
     p.add_argument('-i', '--input', help='原始 FASTQ 目录|Raw FASTQ dir (runs fastp)')

@@ -154,12 +154,13 @@ class Caller:
         cfg = self.config
         return self._gatk(['SplitNCigarReads', '-R', cfg.ref_genome_fa, '-I', in_bam, '-O', out_bam])
 
-    def _haplotype_command(self, sample, in_bam, out_vcf):
+    def _haplotype_command(self, sample, in_bam, out_gvcf):
         cfg = self.config
+        # -ERC GVCF:输出 gVCF,供联合 calling(CombineGVCFs + GenotypeGVCFs)|emit gVCF for joint calling
         return self._gatk(['HaplotypeCaller', '-R', cfg.ref_genome_fa, '-I', in_bam,
                            '--dont-use-soft-clipped-bases',
                            '--standard-min-confidence-threshold-for-calling', str(cfg.min_conf),
-                           '-O', out_vcf])
+                           '-ERC', 'GVCF', '-O', out_gvcf])
 
     def run_sample(self, sample: str, in_bam: str) -> str:
         cfg = self.config
@@ -168,62 +169,85 @@ class Caller:
         rg = os.path.join(call_dir, f"{sample}.rg.bam")
         dedup = os.path.join(call_dir, f"{sample}.dedup.bam")
         split = os.path.join(call_dir, f"{sample}.split.bam")
-        raw_vcf = os.path.join(call_dir, f"{sample}.raw.vcf.gz")
-        if os.path.exists(raw_vcf) and not cfg.force:
+        gvcf = os.path.join(call_dir, f"{sample}.g.vcf.gz")
+        if os.path.exists(gvcf) and not cfg.force:
             self.logger.info(f"跳过已完成 calling|Skipping calling: {sample}")
-            return raw_vcf
+            return gvcf
         steps = [
             (self._add_rg_command(sample, in_bam, rg), f"加读组|AddOrReplaceReadGroups: {sample}"),
             (self._markdup_command(rg, dedup, os.path.join(call_dir, f"{sample}.metrics")),
              f"去重|MarkDuplicates: {sample}"),
             (self._splitncigar_command(sample, dedup, split), f"拆分 N reads|SplitNCigarReads: {sample}"),
-            (self._haplotype_command(sample, split, raw_vcf), f"变异检测|HaplotypeCaller: {sample}"),
+            (self._haplotype_command(sample, split, gvcf), f"gVCF 变异检测|HaplotypeCaller (gVCF): {sample}"),
         ]
         for cmd, desc in steps:
             # shlex.join 正确引用含 shell 特殊字符(如 FS>30.0 的 >)的参数|properly quote shell-special args
             if not self.runner.run_with_progress(shlex.join(cmd), desc):
                 raise RuntimeError(f"calling 失败|calling failed: {sample} ({desc})")
-        return raw_vcf
+        return gvcf
 
 
-class VariantFilter:
-    """GATK VariantFiltration(FS/QD/cluster)+ bcftools PASS|GATK filter + PASS"""
+class JointCaller:
+    """GATK 联合 calling:CombineGVCFs → GenotypeGVCFs → VariantFiltration → bcftools PASS|
+    GATK joint genotyping on all sample gVCFs → one multi-sample VCF"""
 
     def __init__(self, config, logger, runner: CommandRunner):
         self.config = config
         self.logger = logger
         self.runner = runner
 
-    def _gatk_wrap(self, args):
+    def _gatk(self, args):
         return build_conda_command(self.config.gatk_path, args)
 
-    def _bcftools_wrap(self, args):
+    def _bcftools(self, args):
         return build_conda_command(self.config.bcftools_path, args)
 
-    def _variant_filtration_command(self, in_vcf, out_vcf):
+    def _combine_command(self, sample_gvcfs, out_combined):
         cfg = self.config
-        return self._gatk_wrap(['VariantFiltration', '-R', cfg.ref_genome_fa, '-V', in_vcf,
-                                '--window', str(cfg.cluster_window), '--cluster', str(cfg.cluster_size),
-                                '--filter-name', 'FS', '--filter-expression', f"FS > {cfg.fs_threshold}",
-                                '--filter-name', 'QD', '--filter-expression', f"QD < {cfg.qd_threshold}",
-                                '-O', out_vcf])
+        args = ['CombineGVCFs', '-R', cfg.ref_genome_fa]
+        for g in sample_gvcfs:
+            args += ['-V', g]
+        args += ['-O', out_combined]
+        return self._gatk(args)
 
-    def run_sample(self, sample: str, raw_vcf: str) -> str:
+    def _genotype_command(self, combined, out_vcf):
         cfg = self.config
-        f_dir = os.path.join(cfg.output_dir, "04_filter")
-        os.makedirs(f_dir, exist_ok=True)
-        filtered = os.path.join(f_dir, f"{sample}.filtered.vcf.gz")
-        pass_vcf = os.path.join(f_dir, f"{sample}.pass.vcf.gz")
+        return self._gatk(['GenotypeGVCFs', '-R', cfg.ref_genome_fa, '-V', combined, '-O', out_vcf])
+
+    def _filter_command(self, in_vcf, out_vcf):
+        cfg = self.config
+        return self._gatk(['VariantFiltration', '-R', cfg.ref_genome_fa, '-V', in_vcf,
+                           '--window', str(cfg.cluster_window), '--cluster', str(cfg.cluster_size),
+                           '--filter-name', 'FS', '--filter-expression', f"FS > {cfg.fs_threshold}",
+                           '--filter-name', 'QD', '--filter-expression', f"QD < {cfg.qd_threshold}",
+                           '-O', out_vcf])
+
+    def run(self, sample_gvcfs: List[str]) -> str:
+        """所有样本 gVCF → 联合基因分型 → 过滤 → 一个多样本 PASS VCF|
+        All sample gVCFs → joint genotype → filter → one multi-sample PASS VCF"""
+        cfg = self.config
+        joint_dir = os.path.join(cfg.output_dir, "04_joint")
+        os.makedirs(joint_dir, exist_ok=True)
+        combined = os.path.join(joint_dir, "combined.g.vcf.gz")
+        joint_vcf = os.path.join(joint_dir, "joint.vcf.gz")
+        filtered = os.path.join(joint_dir, "joint.filtered.vcf.gz")
+        pass_vcf = os.path.join(joint_dir, "all_samples.pass.vcf.gz")
         if os.path.exists(pass_vcf) and not cfg.force:
-            self.logger.info(f"跳过已完成过滤|Skipping filtering: {sample}")
+            self.logger.info("跳过已完成步骤|Skipping completed step: joint_calling")
             return pass_vcf
-        if not self.runner.run_with_progress(shlex.join(self._variant_filtration_command(raw_vcf, filtered)),
-                                             f"GATK 过滤|VariantFiltration: {sample}"):
-            raise RuntimeError(f"过滤失败|filter failed: {sample}")
-        # bcftools 从 VariantFiltration 产物(filtered)提取 PASS|extract PASS from filtered
-        view_cmd = self._bcftools_wrap(['view', '-f', 'PASS', '-Oz', '-o', pass_vcf, filtered])
-        if not self.runner.run(shlex.join(view_cmd), f"提取 PASS|bcftools PASS: {sample}"):
-            raise RuntimeError(f"PASS 提取失败|PASS extract failed: {sample}")
-        if not self.runner.run(shlex.join(self._bcftools_wrap(['index', pass_vcf])), f"索引|index: {pass_vcf}"):
+        if not self.runner.run_with_progress(shlex.join(self._combine_command(sample_gvcfs, combined)),
+                                             "联合合并 gVCF|CombineGVCFs"):
+            raise RuntimeError("CombineGVCFs 失败|CombineGVCFs failed")
+        if not self.runner.run_with_progress(shlex.join(self._genotype_command(combined, joint_vcf)),
+                                             "联合基因分型|GenotypeGVCFs"):
+            raise RuntimeError("GenotypeGVCFs 失败|GenotypeGVCFs failed")
+        if not self.runner.run_with_progress(shlex.join(self._filter_command(joint_vcf, filtered)),
+                                             "联合 VCF 过滤|joint VariantFiltration"):
+            raise RuntimeError("VariantFiltration 失败|VariantFiltration failed")
+        # bcftools 从过滤后产物提取 PASS|extract PASS from filtered
+        view_cmd = self._bcftools(['view', '-f', 'PASS', '-Oz', '-o', pass_vcf, filtered])
+        if not self.runner.run(shlex.join(view_cmd), "提取 PASS|bcftools PASS"):
+            raise RuntimeError("PASS 提取失败|PASS extract failed")
+        if not self.runner.run(shlex.join(self._bcftools(['index', pass_vcf])), f"索引|index: {pass_vcf}"):
             self.logger.warning(f"VCF 索引失败(可继续)|VCF index failed (continuing): {pass_vcf}")
         return pass_vcf
