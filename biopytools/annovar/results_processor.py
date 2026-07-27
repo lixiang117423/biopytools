@@ -171,6 +171,22 @@ class ProteinSeqModifier:
                 alt = m.group(3)
                 if pos <= len(cds_seq):
                     return cds_seq[:pos] + alt + cds_seq[pos:]
+        elif 'dup' in cdna_change:
+            # 重复(duplication): 在位置后插入被重复的碱基/序列|
+            # Duplication: insert duplicated bases after the position. ANNOVAR格式: c.NdupX / c.N_MdupX
+            m = re.match(r'(\d+)_(\d+)dup([A-Z]*)', cdna_change)
+            if m:
+                start = int(m.group(1))
+                end = int(m.group(2))
+                alt = m.group(3) or cds_seq[start - 1:end]  # 无显式碱基则复制原区间|copy source span if base omitted
+                if end <= len(cds_seq) and alt:
+                    return cds_seq[:end] + alt + cds_seq[end:]
+            m = re.match(r'(\d+)dup([A-Z]*)', cdna_change)
+            if m:
+                pos = int(m.group(1))
+                alt = m.group(2) or (cds_seq[pos - 1] if pos - 1 < len(cds_seq) else '')
+                if pos <= len(cds_seq) and alt:
+                    return cds_seq[:pos] + alt + cds_seq[pos:]
         else:
             m = re.match(r'([A-Z])(\d+)([A-Z])', cdna_change)
             if m:
@@ -309,6 +325,19 @@ class ExonicVariantProcessor:
                 dna_pos_to = match.group(2)
                 dna_alt = match.group(3)
                 dna_ref = '-'
+        elif 'dup' in cdna_change:
+            # 重复: 在N后插入被重复的碱基|Duplication: insert duplicated base(s) after N
+            match = re.match(r'(\d+)_(\d+)dup([A-Z]*)', cdna_change)
+            if match:
+                dna_pos_from = match.group(1)
+                dna_pos_to = match.group(2)
+                dna_alt = match.group(3) if match.group(3) else '-'
+            else:
+                match = re.match(r'(\d+)dup([A-Z]*)', cdna_change)
+                if match:
+                    dna_pos_from = dna_pos_to = match.group(1)
+                    dna_alt = match.group(2) if match.group(2) else '-'
+            dna_ref = '-'
         else:
             match = re.match(r'([A-Z])(\d+)([A-Z])', cdna_change)
             if match:

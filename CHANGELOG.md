@@ -1,4 +1,9 @@
 
+## [1.21.6] - 2026-07-27
+
+### Added
+- `annovar`：蛋白序列与 DNA 变异效果处理支持 **dup（重复）** 变异型——`ProteinSeqModifier` / `ExonicVariantProcessor` 新增 `c.N_Mdup`（区间重复）/ `c.Ndup`（单碱基重复）解析（ANNOVAR cDNA 记法），在重复区间后插入被复制的碱基（无显式碱基时复制源区间）；此前 dup 变异落入兜底分支未正确应用
+
 ## [1.21.5] - 2026-07-27
 
 ### Added
