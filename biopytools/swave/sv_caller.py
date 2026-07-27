@@ -94,20 +94,39 @@ class SwaveSVCaller:
     def _get_swave_env() -> tuple:
         """获取swave conda环境的Python路径和环境变量|Get swave conda env Python path and env vars
 
+        conda环境名可通过环境变量SWAVE_CONDA_ENV覆盖（默认swave_v.1.2）。
+        找不到环境时明确报错——绝不静默回退到系统python（会因缺pysam等依赖而崩溃，报错极不直观）。
+        The conda env name can be overridden via SWAVE_CONDA_ENV env var (default swave_v.1.2).
+        Raises a clear error when the env is missing — never silently falls back to system python
+        (which would crash on missing deps like pysam with a cryptic error).
+
         Returns:
             (python路径, 环境变量dict)|(python path, env vars dict)
+
+        Raises:
+            RuntimeError: 找不到指定的conda环境|conda environment not found
         """
+        # 允许通过环境变量覆盖conda环境名|Allow overriding conda env name via env var
+        env_name = os.environ.get('SWAVE_CONDA_ENV', 'swave_v.1.2')
+
         conda_base = os.environ.get('CONDA_EXE', '')
         if conda_base:
             env_bin = os.path.join(
-                os.path.dirname(os.path.dirname(conda_base)), 'envs', 'swave_v.1.2', 'bin')
+                os.path.dirname(os.path.dirname(conda_base)), 'envs', env_name, 'bin')
             python_path = os.path.join(env_bin, 'python')
             if os.path.exists(python_path):
                 env = os.environ.copy()
                 # 将conda env的bin目录添加到PATH首位，确保Swave内部调用minigraph/gfatools可找到
                 env['PATH'] = env_bin + ':' + env.get('PATH', '')
                 return python_path, env
-        return 'python', None
+
+        # 明确报错而非静默回退系统python|Raise clearly instead of silently falling back to system python
+        raise RuntimeError(
+            f"找不到Swave的conda环境|Swave conda environment not found: '{env_name}'. "
+            f"请确认环境已创建；若环境名不同，请设置环境变量SWAVE_CONDA_ENV（如 export SWAVE_CONDA_ENV=swave）|"
+            f"Please ensure the env exists; if its name differs, set SWAVE_CONDA_ENV "
+            f"(e.g. export SWAVE_CONDA_ENV=swave)"
+        )
 
     def _build_swave_command(self) -> List[str]:
         """
@@ -313,7 +332,7 @@ class SwaveSVCaller:
         """在call成功后自动将VCF中的图路径编号转换为实际碱基序列
 
         对swave.sample_level.vcf和swave.sample_level.split.vcf分别调用convert_seq，
-        自动处理contig名不匹配问题，输出*.with_seq.vcf文件。
+        自动处理contig名不匹配问题，输出*.converted.vcf（与手动convert_seq子命令命名一致，保持swave原生格式）。
 
         Returns:
             是否全部成功|Whether all conversions succeeded
@@ -354,6 +373,16 @@ class SwaveSVCaller:
         need_cleanup_renamed = (actual_ref != self.config.ref_fasta)
 
         for vcf_name, vcf_path in existing_vcfs:
+            # 输出文件名: {原名}.converted.vcf（与手动convert_seq子命令统一命名，保持swave原生格式）
+            # Output name: {orig}.converted.vcf (unified with manual convert_seq, swave-native)
+            converted_name = vcf_name.replace('.vcf', '.converted.vcf')
+            converted_path = os.path.join(self.config.output_dir, converted_name)
+
+            # 断点续传：该VCF的转换结果已存在则跳过|Checkpoint: skip if converted VCF exists
+            if os.path.exists(converted_path):
+                self.logger.info(f"跳过已完成步骤|Skipping completed step: {converted_name}")
+                continue
+
             self.logger.info(f"转换序列: {vcf_name}|Converting sequences: {vcf_name}")
 
             args = [python_path, swave_script, 'convert_seq',
@@ -362,23 +391,20 @@ class SwaveSVCaller:
                     '--ref_path', actual_ref,
                     '--output_path', tmp_output]
 
+            # 记录完整命令（规范2.2.1，INFO级别）|Log full command at INFO (spec 2.2.1)
+            self.logger.info(f"命令|Command: {' '.join(args)}")
+
             try:
                 result = subprocess.run(
                     args, shell=False, check=False,
                     cwd=self.config.swave_path, env=env
                 )
 
-                # swave输出文件名: {原名}.converted.vcf
-                converted_name = vcf_name.replace('.vcf', '.converted.vcf')
-                converted_path = os.path.join(tmp_output, converted_name)
-                # 目标文件名: {原名}.with_seq.vcf
-                target_name = vcf_name.replace('.vcf', '.with_seq.vcf')
-                target_path = os.path.join(self.config.output_dir, target_name)
-
-                if os.path.exists(converted_path):
-                    # 重命名为.with_seq.vcf
-                    os.rename(converted_path, target_path)
-                    self.logger.info(f"序列转换完成: {target_name}|Sequence conversion done: {target_name}")
+                # swave在tmp_output生成converted_name，搬到output_dir（保持swave原生命名，非改名）|Relocate to output_dir
+                tmp_converted = os.path.join(tmp_output, converted_name)
+                if os.path.exists(tmp_converted):
+                    os.rename(tmp_converted, converted_path)
+                    self.logger.info(f"序列转换完成: {converted_name}|Sequence conversion done: {converted_name}")
                 else:
                     self.logger.warning(f"转换输出文件未生成: {converted_name}|"
                                         f"Conversion output not found: {converted_name}")

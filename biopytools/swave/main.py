@@ -5,11 +5,39 @@ Swave主程序模块|Swave Main Module
 import argparse
 import sys
 import os
+import logging
 from .config import SwaveConfig
 from .utils import SwaveLogger, CommandRunner, check_dependencies
 from .sv_caller import SwaveSVCaller
 from .pav_extractor import PAVExtractor
 import subprocess
+
+
+def _get_passthrough_logger():
+    """获取passthrough子命令的轻量日志器|Get lightweight logger for passthrough subcommands
+
+    passthrough子命令（convert_seq/convert_Plines/extract_csv/extract_sample）无output_dir，
+    不走call流程的SwaveLogger，此处提供一个独立的named logger用于记录命令。
+    Passthrough subcommands have no output_dir and bypass the call-flow SwaveLogger;
+    this provides an independent named logger for command logging.
+    """
+    logger = logging.getLogger("swave.passthrough")
+    if not logger.handlers:
+        log_format = '%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s'
+        date_format = '%Y-%m-%d %H:%M:%S'
+        # stdout - INFO级别|stdout - INFO level
+        stdout_handler = logging.StreamHandler(sys.stdout)
+        stdout_handler.setLevel(logging.INFO)
+        stdout_handler.setFormatter(logging.Formatter(log_format, datefmt=date_format))
+        # stderr - WARNING及以上|stderr - WARNING and above
+        stderr_handler = logging.StreamHandler(sys.stderr)
+        stderr_handler.setLevel(logging.WARNING)
+        stderr_handler.setFormatter(logging.Formatter(log_format, datefmt=date_format))
+        logger.addHandler(stdout_handler)
+        logger.addHandler(stderr_handler)
+        logger.setLevel(logging.INFO)
+        logger.propagate = False
+    return logger
 
 
 class SwaveRunner:
@@ -49,47 +77,85 @@ class SwaveRunner:
         """运行SV检测|Run SV detection"""
         self.logger.info("开始Swave SV检测流程|Starting Swave SV detection pipeline")
 
-        # 复用SwaveSVCaller的参数构建，避免重复代码
-        # Reuse SwaveSVCaller.build_call_args to avoid code duplication
-        swave_script = os.path.join(self.config.swave_path, 'Swave.py')
-        swave_args = SwaveSVCaller.build_call_args(self.config)
+        # 断点续传：主输出VCF已存在则跳过call步骤|Checkpoint: skip call if main VCF exists
+        main_vcf = os.path.join(self.config.output_dir, 'swave.sample_level.vcf')
+        if os.path.exists(main_vcf):
+            self.logger.info(f"跳过已完成步骤|Skipping completed step: Swave call "
+                             f"(输出已存在|output exists: {main_vcf})")
+        else:
+            # 复用SwaveSVCaller的参数构建，避免重复代码|Reuse build_call_args to avoid duplication
+            swave_script = os.path.join(self.config.swave_path, 'Swave.py')
+            swave_args = SwaveSVCaller.build_call_args(self.config)
 
-        python_path, env = SwaveSVCaller._get_swave_env()
-        args = [python_path, swave_script] + swave_args
+            python_path, env = SwaveSVCaller._get_swave_env()
+            args = [python_path, swave_script] + swave_args
 
-        # 执行命令|Execute command
-        self.logger.info(f"执行命令|Executing: {' '.join(args)}")
+            # 记录完整命令（规范2.2.1，INFO级别）|Log full command at INFO (spec 2.2.1)
+            self.logger.info(f"命令|Command: {' '.join(args)}")
 
-        try:
-            result = subprocess.run(
-                args,
-                shell=False,
-                check=False,
-                cwd=self.config.swave_path,
-                env=env
-            )
+            try:
+                result = subprocess.run(
+                    args,
+                    shell=False,
+                    check=False,
+                    cwd=self.config.swave_path,
+                    env=env
+                )
 
-            if result.returncode == 0:
+                if result.returncode != 0:
+                    self.logger.error(f"Swave执行失败|Swave execution failed: return code {result.returncode}")
+                    return False
+
                 self.logger.info("Swave执行成功|Swave execution completed successfully")
 
-                # 自动将图路径编号转换为实际碱基序列
-                # Automatically convert graph path IDs to actual sequences
-                self.logger.info("开始自动序列转换|Starting automatic sequence conversion")
-                sv_caller = SwaveSVCaller(self.config, self.logger, self.cmd_runner)
-                if sv_caller.run_convert_seq():
-                    self.logger.info("序列转换成功|Sequence conversion completed")
-                else:
-                    self.logger.warning("序列转换失败，请手动运行 biopytools swave convert_seq|"
-                                       "Sequence conversion failed, please run convert_seq manually")
-
-                return True
-            else:
-                self.logger.error(f"Swave执行失败|Swave execution failed: return code {result.returncode}")
+                # 上游swave对部分snarl的dotplot会因numpy越界/NaN而跳过（swave内部bug，逐snarl优雅降级）
+                # 扫描swave.log统计跳过的snarl数，提示数据完整性|Scan swave.log for skipped snarls
+                self._summarize_swave_skipped_snarls()
+            except Exception as e:
+                self.logger.error(f"执行异常|Execution error: {str(e)}")
                 return False
 
+        # 自动将图路径编号转换为实际碱基序列（run_convert_seq自带断点续传）
+        # Automatically convert graph path IDs to sequences (run_convert_seq has its own checkpoint)
+        self.logger.info("开始自动序列转换|Starting automatic sequence conversion")
+        sv_caller = SwaveSVCaller(self.config, self.logger, self.cmd_runner)
+        if sv_caller.run_convert_seq():
+            self.logger.info("序列转换成功|Sequence conversion completed")
+        else:
+            self.logger.warning("序列转换失败，请手动运行 biopytools swave convert_seq|"
+                               "Sequence conversion failed, please run convert_seq manually")
+
+        return True
+
+    def _summarize_swave_skipped_snarls(self):
+        """统计swave.log中被上游跳过的snarl数（dotplot生成失败的位点）|Count snarls skipped by upstream swave
+
+        swave的dotplot对部分复杂snarl会因numpy IndexError/NaN而抛错并跳过（swave内部bug），
+        属逐snarl优雅降级——VCF基因型结果仍完整，但那些位点缺失dotplot可视化。
+        此方法扫描swave.log统计跳过数并以WARNING提示，保证数据完整性透明。
+        swave's dotplot throws numpy IndexError/NaN for some complex snarls and skips them
+        (internal swave bug) — graceful per-snarl degradation. VCF genotypes remain complete,
+        but those loci lack dotplot visualization. This scans swave.log and warns for transparency.
+        """
+        swave_log = os.path.join(self.config.output_dir, 'swave.log')
+        if not os.path.exists(swave_log):
+            return
+        try:
+            skip_count = 0
+            with open(swave_log, 'r', errors='ignore') as f:
+                for line in f:
+                    if 'Skip generating for snarl' in line:
+                        skip_count += 1
+            if skip_count > 0:
+                self.logger.warning(
+                    f"上游swave跳过了 {skip_count} 个snarl的dotplot生成（numpy越界/NaN，swave内部bug，"
+                    f"逐snarl优雅降级）|Upstream swave skipped dotplot generation for {skip_count} snarls "
+                    f"(internal numpy IndexError/NaN bug, graceful per-snarl degradation). "
+                    f"VCF基因型结果完整，但这些位点缺失dotplot可视化|"
+                    f"VCF genotype results are complete, but those loci lack dotplot visualization"
+                )
         except Exception as e:
-            self.logger.error(f"执行异常|Execution error: {str(e)}")
-            return False
+            self.logger.debug(f"读取swave.log统计跳过snarl失败|Failed to read swave.log for skip stats: {e}")
 
 
 def main():
@@ -311,6 +377,8 @@ def main():
 
         else:
             # 其他子命令直接调用Swave.py|Other subcommands call Swave.py directly
+            logger = _get_passthrough_logger()
+
             swave_path = getattr(args, 'swave_path', '~/software/swave/Swave-main')
             swave_path = os.path.expanduser(swave_path)
             swave_script = os.path.join(swave_path, 'Swave.py')
@@ -330,6 +398,9 @@ def main():
                     cmd_list.extend([f'--{arg_name}'] + arg_value)
                 else:
                     cmd_list.extend([f'--{arg_name}', str(arg_value)])
+
+            # 记录完整命令（规范2.2.1，INFO级别）|Log full command at INFO (spec 2.2.1)
+            logger.info(f"命令|Command: {' '.join(cmd_list)}")
 
             # 执行命令|Execute command
             result = subprocess.run(cmd_list, shell=False, check=False, env=env)

@@ -181,7 +181,8 @@ class CommandRunner:
             self.logger.info(f"执行|Executing: {description}")
 
         try:
-            self.logger.debug(f"命令|Command: {' '.join(cmd)}")
+            # 完整命令记录到INFO（规范2.2.1：调试/可复现必需，不能用DEBUG）|Full command at INFO (spec 2.2.1)
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
             result = subprocess.run(
                 cmd,
@@ -236,6 +237,7 @@ def check_dependencies(config, logger: logging.Logger) -> bool:
     # 检查minigraph（如果需要）|Check minigraph (if needed)
     if config.gfa_source == 'minigraph':
         minigraph_cmd = build_conda_command(config.minigraph_path, ['--version'])
+        logger.info(f"命令|Command: {' '.join(minigraph_cmd)}")
         try:
             result = subprocess.run(minigraph_cmd, capture_output=True, text=True, timeout=10)
             if result.returncode == 0:
@@ -251,6 +253,7 @@ def check_dependencies(config, logger: logging.Logger) -> bool:
     # 检查gfatools（可选）|Check gfatools (optional)
     try:
         gfatools_cmd = build_conda_command(config.gfatools_path, [])
+        logger.info(f"命令|Command: {' '.join(gfatools_cmd)}")
         result = subprocess.run(gfatools_cmd, capture_output=True, text=True, timeout=10)
         # gfatools不支持--version，无参数时输出usage（含"gfatools"）并返回非0
         # gfatools doesn't support --version, outputs usage containing "gfatools" without args
