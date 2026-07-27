@@ -1,4 +1,18 @@
 
+## [1.21.8] - 2026-07-27
+
+### Added
+- `ps_gene_anno`：查漏补缺新增多层生物学质控——① **真实完整 ORF**（翻译验证：CDS 3 倍数 + ATG + 无内部终止 + 末终止，比 miniprot 覆盖率更严）；②⑤ **表达证据**（新 `expression.py`：用唯一比对 reads `NH==1`（旧版 samtools 回退 MAPQ）过滤 BAM，算每 hit 平均深度 + 覆盖广度；多比对 reads 多落 TE/重复区会虚假抬升表达故排除）；③ gap **坐标零重叠**模式（与任一 BRAKER 基因 span 有坐标交集即不算新基因）；路径分治 `enable_gap_fill`/`enable_split`；★ **合并拆分门控**（某 merged 基因的 split copies 全未过 QC 则回退保留原 BRAKER 基因，不误删）
+- `braker4ps` CLI：新增 `--no-real-orf`/`--no-coord-zero-overlap`/`--no-unique-reads`/`--min-unique-mapq`/`--min-expression-depth`/`--min-coverage-breadth`/`--no-gap-fill`（透传 ps_gene_anno 新参数）
+- `swave`：call 步骤断点续传（主 VCF 存在则跳过）；`SWAVE_CONDA_ENV` 环境变量覆盖 conda 环境名（默认 swave_v.1.2）；上游 swave 跳过 snarl 的 dotplot 时扫描 swave.log 以 WARNING 提示（数据完整性透明）；passthrough 子命令加命令日志
+- `cactus`：默认输出新增 `odgi`；`get_genome_dirs` 解析 seqfile 挂载所有基因组文件所在目录（基因组分散多目录时容器内 cactus 才能读取）
+
+### Fixed
+- `swave`：找不到 conda 环境时改为 **明确 RuntimeError**（原静默回退系统 python 会因缺 pysam 等崩溃、报错极不直观）
+- `cactus`：`bind_paths` **缩进 bug**——seqfile/输出目录的绑定原误嵌在 `if work_dir not in bind_paths` 块内（仅新增 work_dir 时才执行），改为始终执行
+- `cactus`：参考基因组必须是 seqfile 首条（minigraph-cactus 硬性要求 `--reference` 与首条匹配），不符则明确报错
+- `braker4ps`：argparse help 中字面 `%` 转义为 `%%`（原被当作格式符）
+
 ## [1.21.7] - 2026-07-27
 
 ### Added
