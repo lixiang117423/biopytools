@@ -10,11 +10,12 @@ from typing import List
 
 from .config import PsGeneAnnoConfig
 from .utils import PsGeneAnnoLogger
-from .evidence import run_miniprot, parse_miniprot_gff3
+from .evidence import run_miniprot, parse_miniprot_gff3, load_fasta
 from .gap_analysis import (
     parse_braker_gff3, detect_gaps, detect_merged_genes, parse_repeat_out,
     dedupe_hits)
 from .model_build import qc_filter, build_gene_models
+from .expression import prepare_unique_bam, compute_hit_depth_breadth
 from .merge import merge_gff3
 
 
@@ -101,7 +102,7 @@ class PsGeneAnnoRunner:
     def run(self):
         """运行完整流程|Run full pipeline"""
         self.logger.info("=" * 70)
-        self.logger.info("ps-gene-anno: BRAKER 后效应子查漏补缺(GFF3)|Post-BRAKER gap-filling")
+        self.logger.info("ps-gene-anno: BRAKER 后通用查漏补缺(GFF3)|Post-BRAKER gap-filling")
         self.logger.info("=" * 70)
 
         # Step1 证据扫描|evidence scan
@@ -111,16 +112,24 @@ class PsGeneAnnoRunner:
             return None
         hits = self._load_hits()
 
-        # Step2 漏检/合并分析|gap/merged analysis
+        # Step2 漏检/合并分析(路径分治)|gap/merged analysis (path-separated)
         if self.config.skip_gap_analysis:
             self.logger.info("跳过分析|Skipping gap analysis")
             return None
         braker_genes = parse_braker_gff3(self.config.braker_gff3)
         self.logger.info(f"braker 基因|braker genes: {len(braker_genes)}")
 
-        gaps = detect_gaps(hits, braker_genes, self.config.overlap_cutoff)
-        self.logger.info(f"漏检候选|gap candidates: {len(gaps)}")
+        # 2a 纯漏检填补(找全新基因)|gap-fill path (new genes)
+        gaps = []
+        if self.config.enable_gap_fill:
+            gaps = detect_gaps(
+                hits, braker_genes, self.config.overlap_cutoff,
+                coord_zero_overlap=self.config.gap_coord_zero_overlap)
+            self.logger.info(
+                f"漏检候选|gap candidates: {len(gaps)} "
+                f"(坐标零重叠|coord-zero-overlap={self.config.gap_coord_zero_overlap})")
 
+        # 2b 合并拆分(拆 BRAKER 折叠基因)|merged-split path
         merged = []
         if self.config.enable_split:
             merged = detect_merged_genes(
@@ -135,16 +144,53 @@ class PsGeneAnnoRunner:
                            for c, s, e in merged_bounds)]
         merged_hits = [h for _, hs in merged for h in hs]
         all_candidate_hits = gaps + merged_hits
+        self.logger.info(
+            f"总候选|total candidates: {len(all_candidate_hits)} "
+            f"(gap={len(gaps)}, split={len(merged_hits)})")
 
-        # Step3 质控 + 建模型(GFF3)|QC + model build
+        # Step2.5 [新] 基因组(ORF检查①) + 表达证据(②④⑤)|genome + expression
+        genome = None
+        if self.config.require_real_orf:
+            genome = load_fasta(self.config.genome)
+            self.logger.info(f"基因组加载(ORF检查)|genome loaded: {len(genome)} chroms")
+        expression = None
+        unique_bam = None
+        if self.config.rnaseq_bam:
+            unique_bam = prepare_unique_bam(
+                self.config.rnaseq_bam, self.config,
+                self.cmd_runner, self.logger)
+            expression = compute_hit_depth_breadth(
+                all_candidate_hits, unique_bam, self.config,
+                self.cmd_runner, self.logger)
+            self.logger.info(f"表达证据计算|expression computed: {len(expression)} hits")
+        else:
+            self.logger.warning(
+                "无 RNA-seq BAM, 表达过滤②⑤未启用(仅靠①ORF+③坐标)"
+                "|no RNA-seq BAM, expression filter off (ORF+coord only)")
+
+        # Step3 质控|QC filter (①ORF + ②⑤表达 + identity/coverage/cds_len/TE)
         repeat_regions = parse_repeat_out(self.config.repeat_out) \
             if self.config.repeat_out else {}
         if not self.config.repeat_out:
             self.logger.warning("未提供 repeat_out, 跳过真TE区排除"
                                 "|No repeat_out, skipping real-TE exclusion")
-        passed = qc_filter(all_candidate_hits, self.config, repeat_regions)
+        passed = qc_filter(all_candidate_hits, self.config, repeat_regions,
+                           genome=genome, expression=expression)
         self.logger.info(f"质控通过|QC passed: {len(passed)}/{len(all_candidate_hits)}")
+        passed_ids = {id(h) for h in passed}
 
+        # ★ 合并拆分门控: 某 merged 基因的 split copies 全未过QC → 不删原 BRAKER 基因(回退保留)
+        # |merged-split gating: if no copy passed QC, keep original BRAKER gene
+        merged_gene_ids = set()
+        for g, copies in merged:
+            if any(id(h) in passed_ids for h in copies):
+                merged_gene_ids.add(g.gene_id)
+        reverted = len(merged) - len(merged_gene_ids)
+        if reverted:
+            self.logger.info(
+                f"合并拆分回退保留|split reverted (copies failed QC): {reverted}")
+
+        # Step3.5 建模型(GFF3)|build gene models
         gap_lines = build_gene_models(passed, self.config.prefix)
         with open(self.gap_filled_gff3, 'w') as f:
             f.write("\n".join(gap_lines))
@@ -156,18 +202,18 @@ class PsGeneAnnoRunner:
         if self.config.skip_merge:
             self.logger.info("跳过合并|Skipping merge")
             return self.gap_filled_gff3
-        merged_gene_ids = {g.gene_id for g, _ in merged}
         merge_gff3(self.config.braker_gff3, gap_lines,
                    merged_gene_ids, self.merged_gff3)
         self.logger.info(f"merged 写出|merged written: {self.merged_gff3}")
 
-        # Step5 gap 验证报告(蛋白+RNA-seq+TE)|gap evidence report
+        # Step5 gap 验证报告(复用 expression)|report (reuse expression)
         report_tsv = os.path.join(self.config.gap_dir,
                                   f"{self.config.prefix}.gap_report.tsv")
         from .report import build_gap_report
         build_gap_report(passed, self.config.prefix, self.config.rnaseq_bam,
                          self.config.repeat_out, report_tsv, self.gap_filled_gff3,
-                         self.config, self.cmd_runner, self.logger)
+                         self.config, self.cmd_runner, self.logger,
+                         expression=expression, unique_bam=unique_bam)
 
         self.logger.info("=" * 70)
         self.logger.info("ps-gene-anno 完成|ps-gene-anno done")

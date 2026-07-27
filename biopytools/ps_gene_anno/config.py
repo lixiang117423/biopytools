@@ -34,12 +34,26 @@ class PsGeneAnnoConfig:
     gap_min_coverage: float = 80.0      # 命中覆盖蛋白比例 %|coverage cutoff
     gap_min_cds_len: int = 300          # 最小 CDS 长度 bp(过滤短蛋白片段)|min CDS length
     overlap_cutoff: float = 0.0         # 漏检判定:与braker CDS零重叠才算漏检|zero overlap=gap
-    require_complete_orf: bool = True   # partial(覆盖<99)默认丢|drop partial
+    require_complete_orf: bool = True   # partial(覆盖<99)默认丢|drop partial (miniprot coverage based)
     te_overlap_cutoff: float = 50.0     # 真 TE 区重叠阈值 %|TE overlap cutoff
     exclude_te_gap: bool = False        # 质控排除TE区gap(默认不排:疫霉效应子常在TE区)|exclude TE-overlap gaps (default off)
 
-    # ===== 合并拆分判据|Merged-gene split(保守) =====
-    enable_split: bool = True
+    # ===== 通用生物学质控(普适模块)|General bio-QC =====
+    # ① 真实完整 ORF: CDS 长度3倍数 + ATG开头 + 终止密码子结尾(翻译验证, 比 miniprot 覆盖率更严)
+    # |Real complete ORF: 3×len + ATG + stop (translation check, stricter than miniprot coverage)
+    require_real_orf: bool = True
+    # ③ gap 路径坐标零重叠: 与任一BRAKER基因 span 有坐标交集即不算新基因(仅约束纯漏检填补)
+    # |Gap path coord-zero-overlap: any coord intersection with a BRAKER gene => not a new gene (gap path only)
+    gap_coord_zero_overlap: bool = True
+    # ④⑤ 表达证据(用唯一比对 reads 算)|Expression evidence (unique-mapping reads only)
+    unique_reads_only: bool = True       # 表达量只用唯一比对 reads(多比对不要, 多为TE/重复假象)|unique reads only
+    min_unique_mapq: int = 20            # MAPQ 兜底阈值(samtools 无 -e 时用 -q)|MAPQ fallback
+    min_expression_depth: float = 1.0    # 唯一 reads 平均深度下限(>0, 至少有表达)|min unique-read depth (>0)
+    min_coverage_breadth: float = 50.0   # CDS 被唯一 reads 覆盖广度 % 下限(防单条reads假象)|min coverage breadth %
+
+    # ===== 路径开关 + 合并拆分判据|Path toggles + merged-gene split =====
+    enable_gap_fill: bool = True                   # 纯漏检填补路径(找全新基因)|pure gap-fill path
+    enable_split: bool = True                      # 合并拆分路径(拆BRAKER折叠基因)|merged-gene split path
     split_min_hits: int = 2                        # ≥N 个独立命中才判合并
     split_min_copy_coverage: float = 80.0          # 每命中覆盖蛋白≥此%才算完整拷贝
 

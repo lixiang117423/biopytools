@@ -162,10 +162,14 @@ def dedupe_hits(hits: List[MiniprotHit], overlap_ratio: float = 0.5
 
 def detect_gaps(hits: List[MiniprotHit],
                 braker_genes: Dict[str, BrakerGene],
-                overlap_cutoff: float) -> List[MiniprotHit]:
+                overlap_cutoff: float,
+                coord_zero_overlap: bool = False) -> List[MiniprotHit]:
     """
-    找漏检命中: 与所有 braker 基因 CDS 重叠 < overlap_cutoff% 的命中
-    |Find missing-copy hits: CDS overlap with all braker genes < cutoff
+    找漏检命中|Find missing-copy hits
+    - coord_zero_overlap=False(默认): 与所有 braker 基因 CDS 重叠 < overlap_cutoff% 的命中
+      |CDS overlap with all braker genes < cutoff
+    - coord_zero_overlap=True: 与任一 braker 基因坐标 span 有交集即算已覆盖(更严: 真新基因
+      不应与现有基因有任何坐标重叠)|any genomic-span intersection with a braker gene => covered
     """
     gaps = []
     gene_list = list(braker_genes.values())
@@ -174,10 +178,16 @@ def detect_gaps(hits: List[MiniprotHit],
         for gene in gene_list:
             if gene.chrom != hit.chrom:
                 continue
-            hit_cds = [(s, e) for s, e, _ in hit.cds_exons]
-            if cds_overlap_ratio(hit_cds, gene.cds_intervals) > overlap_cutoff:
-                is_covered = True
-                break
+            if coord_zero_overlap:
+                # 基因坐标 span 相交即已覆盖(任意交集)|genomic span intersection
+                if gene.start <= hit.end and hit.start <= gene.end:
+                    is_covered = True
+                    break
+            else:
+                hit_cds = [(s, e) for s, e, _ in hit.cds_exons]
+                if cds_overlap_ratio(hit_cds, gene.cds_intervals) > overlap_cutoff:
+                    is_covered = True
+                    break
         if not is_covered:
             gaps.append(hit)
     return gaps

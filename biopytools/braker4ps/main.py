@@ -47,13 +47,28 @@ def parse_arguments():
                         help='跳过证据还原(默认关, --no-skip-rescue 开)|Skip rescue (default on)')
     # filling 参数|filling params
     parser.add_argument('--split-min-copy-coverage', type=float, default=80,
-                        help='保守合并判据:完整拷贝覆盖率%|Split copy coverage (default 80)')
+                        help='保守合并判据:完整拷贝覆盖率%%|Split copy coverage (default 80)')
     parser.add_argument('--no-split', action='store_true', help='关闭合并拆分|Disable merged-gene split')
     parser.add_argument('--repeat-out', help='RepeatMasker .out(filling真TE排除)|RepeatMasker out')
     parser.add_argument('--exclude-te-gap', action='store_true',
                         help='质控排除TE区gap(默认不排)|exclude TE-overlap gaps')
-    parser.add_argument('--gap-min-identity', type=float, default=70, help='filling identity%(default 70)')
-    parser.add_argument('--gap-min-coverage', type=float, default=80, help='filling coverage%(default 80)')
+    parser.add_argument('--gap-min-identity', type=float, default=70, help='filling identity%%(default 70)')
+    parser.add_argument('--gap-min-coverage', type=float, default=80, help='filling coverage%%(default 80)')
+    # 通用生物学质控(普适模块)|general bio-QC (universal module)
+    parser.add_argument('--no-real-orf', action='store_true',
+                        help='关闭真实完整ORF检查(ATG+stop+3倍数,默认开)|disable real-ORF check (default on)')
+    parser.add_argument('--no-coord-zero-overlap', action='store_true',
+                        help='关闭gap坐标零重叠(默认开:与BRAKER基因坐标相交不算新基因)|disable coord-zero-overlap (default on)')
+    parser.add_argument('--no-unique-reads', action='store_true',
+                        help='关闭唯一比对过滤(默认开:多比对reads不算表达)|disable unique-read filter (default on)')
+    parser.add_argument('--min-unique-mapq', type=int, default=20,
+                        help='唯一比对MAPQ兜底阈值(samtools无-e时)|unique MAPQ fallback (default 20)')
+    parser.add_argument('--min-expression-depth', type=float, default=1.0,
+                        help='唯一reads平均深度下限(>0)|min unique-read depth (default 1.0)')
+    parser.add_argument('--min-coverage-breadth', type=float, default=50.0,
+                        help='CDS被唯一reads覆盖广度%%下限|min coverage breadth (default 50)')
+    parser.add_argument('--no-gap-fill', action='store_true',
+                        help='关闭纯漏检填补(只保留合并拆分)|disable pure gap-fill (split only)')
     return parser.parse_args()
 
 
@@ -163,6 +178,13 @@ def main():
             exclude_te_gap=args.exclude_te_gap,
             gap_min_identity=args.gap_min_identity,
             gap_min_coverage=args.gap_min_coverage,
+            require_real_orf=not args.no_real_orf,
+            gap_coord_zero_overlap=not args.no_coord_zero_overlap,
+            unique_reads_only=not args.no_unique_reads,
+            min_unique_mapq=args.min_unique_mapq,
+            min_expression_depth=args.min_expression_depth,
+            min_coverage_breadth=args.min_coverage_breadth,
+            enable_gap_fill=not args.no_gap_fill,
         )
         result = PsGeneAnnoRunner(pcfg, logger).run()
         logger.info(f'阶段2 完成, merged.gtf|Phase 2 done: {result}')

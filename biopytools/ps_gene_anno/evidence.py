@@ -160,3 +160,76 @@ def run_miniprot(genome: str, prot_seq: str, out_gff3: str,
         return False
     logger.info(f"miniprot 输出|miniprot output: {out_gff3}")
     return True
+
+
+# ===== 完整 ORF 验证辅助|Complete-ORF verification helpers =====
+# 标准遗传密码表(终止=*)|Standard genetic code (stop=*)
+_CODON_TABLE = {}
+_Bases = 'TCAG'
+_AAs = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG'
+for _a in _Bases:
+    for _b in _Bases:
+        for _c in _Bases:
+            _CODON_TABLE[_a + _b + _c] = _AAs[len(_CODON_TABLE)]
+_COMP = str.maketrans('ACGTNacgtn', 'TGCANtgcan')
+
+
+def _revcomp(seq: str) -> str:
+    """反向互补|Reverse complement"""
+    return seq.translate(_COMP)[::-1]
+
+
+def load_fasta(path: str) -> dict:
+    """加载 FASTA → {chrom: seq}|Load FASTA to {chrom: seq} (uppercase)"""
+    seqs = {}
+    name = None
+    buf = []
+    with open(path) as f:
+        for line in f:
+            if line.startswith('>'):
+                if name is not None:
+                    seqs[name] = ''.join(buf)
+                name = line[1:].split()[0]
+                buf = []
+            else:
+                buf.append(line.strip())
+    if name is not None:
+        seqs[name] = ''.join(buf)
+    return seqs
+
+
+def has_complete_orf(hit, genome: dict) -> bool:
+    """
+    验证 hit 是否为完整 ORF|Check hit is a complete ORF
+    条件|Conditions: CDS 长度3倍数 + ATG开头 + 翻译无内部终止 + 末终止
+    (miniprot CDS 不含终止密码子, 故末位非*时查下游+3 碱基是否终止)
+    |3×len + ATG + no internal stop + terminal stop
+    (miniprot CDS excludes terminal stop; check downstream +3 if needed)
+    """
+    chrom = hit.chrom
+    if chrom not in genome:
+        return False
+    seqs = genome[chrom]
+    exons = sorted(hit.cds_exons, key=lambda x: x[0])   # 坐标升序|ascending coords
+    # 拼接 CDS(+ 链直接拼; - 链整体反向互补)|splice CDS
+    spliced = ''.join(seqs[s - 1:e] for s, e, _ in exons).upper()
+    if hit.strand == '-':
+        spliced = _revcomp(spliced)
+    if len(spliced) < 3 or len(spliced) % 3 != 0:
+        return False
+    prot = ''.join(_CODON_TABLE.get(spliced[i:i + 3], 'X')
+                   for i in range(0, len(spliced), 3))
+    if prot[0] != 'M':               # ATG 开头|start codon
+        return False
+    if '*' in prot[:-1]:             # 内部终止密码子|internal stop
+        return False
+    if prot[-1] == '*':              # 末位已是终止|terminal stop in CDS
+        return True
+    # 末位非终止: 查下游 +3 碱基(miniprot 截断了终止密码子)|check downstream +3
+    if hit.strand == '+':
+        last_e = exons[-1][1]        # 最后外显子 end(1-based)|last exon end
+        nxt = seqs[last_e:last_e + 3].upper()       # 下游3碱基|downstream 3 bases
+    else:
+        first_s = exons[0][0]        # 最低坐标外显子 start(-链编码方向末端)|first exon start
+        nxt = _revcomp(seqs[first_s - 4:first_s - 1]).upper() if first_s - 4 >= 0 else ''
+    return len(nxt) == 3 and _CODON_TABLE.get(nxt, 'X') == '*'

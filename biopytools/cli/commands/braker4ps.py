@@ -54,10 +54,25 @@ def _validate_file(path):
 @click.option('--no-split', is_flag=True, help='关闭合并拆分|Disable split')
 @click.option('--repeat-out', help='RepeatMasker .out(filling真TE排除)|RepeatMasker out')
 @click.option('--exclude-te-gap', is_flag=True, help='质控排除TE区gap(默认不排)|exclude TE-overlap gaps')
+@click.option('--no-real-orf', is_flag=True,
+              help='关闭真实完整ORF检查(默认开)|disable real-ORF check (default on)')
+@click.option('--no-coord-zero-overlap', is_flag=True,
+              help='关闭gap坐标零重叠(默认开)|disable coord-zero-overlap (default on)')
+@click.option('--no-unique-reads', is_flag=True,
+              help='关闭唯一比对过滤(默认开)|disable unique-read filter (default on)')
+@click.option('--min-unique-mapq', type=int, default=20, show_default=True,
+              help='唯一比对MAPQ兜底阈值|unique MAPQ fallback')
+@click.option('--min-expression-depth', type=float, default=1.0, show_default=True,
+              help='唯一reads平均深度下限|min unique-read depth')
+@click.option('--min-coverage-breadth', type=float, default=50.0, show_default=True,
+              help='CDS覆盖广度%下限|min coverage breadth')
+@click.option('--no-gap-fill', is_flag=True,
+              help='关闭纯漏检填补(只保留合并拆分)|disable pure gap-fill (split only)')
 def braker4ps(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
               threads, fungus, no_singularity, skip_repeat, skip_repeat_filter,
               skip_rescue, split_min_copy_coverage, no_split, repeat_out,
-              exclude_te_gap):
+              exclude_te_gap, no_real_orf, no_coord_zero_overlap, no_unique_reads,
+              min_unique_mapq, min_expression_depth, min_coverage_breadth, no_gap_fill):
     """
     braker 注释 + ps-gene-anno 查漏补缺端到端|braker + gap-filling end-to-end
 
@@ -89,6 +104,20 @@ def braker4ps(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
         args.extend(['--repeat-out', repeat_out])
     if exclude_te_gap:
         args.append('--exclude-te-gap')
+    if no_real_orf:
+        args.append('--no-real-orf')
+    if no_coord_zero_overlap:
+        args.append('--no-coord-zero-overlap')
+    if no_unique_reads:
+        args.append('--no-unique-reads')
+    if min_unique_mapq != 20:
+        args.extend(['--min-unique-mapq', str(min_unique_mapq)])
+    if min_expression_depth != 1.0:
+        args.extend(['--min-expression-depth', str(min_expression_depth)])
+    if min_coverage_breadth != 50.0:
+        args.extend(['--min-coverage-breadth', str(min_coverage_breadth)])
+    if no_gap_fill:
+        args.append('--no-gap-fill')
 
     original_argv = sys.argv
     sys.argv = args
