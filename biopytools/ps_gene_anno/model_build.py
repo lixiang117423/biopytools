@@ -53,19 +53,19 @@ def build_gene_models(hits: List[MiniprotHit], prefix: str) -> List[str]:
         tid = f"{gid}.t1"
         # gene 行|gene line
         lines.append(
-            f'{h.chrom}\tps_gene_anno\tgene\t{h.start}\t{h.end}\t.\t'
+            f'{h.chrom}\tpsfill\tgene\t{h.start}\t{h.end}\t.\t'
             f'{h.strand}\t.\tID={gid};')
         # mRNA 行|mRNA line
         lines.append(
-            f'{h.chrom}\tps_gene_anno\tmRNA\t{h.start}\t{h.end}\t.\t'
+            f'{h.chrom}\tpsfill\tmRNA\t{h.start}\t{h.end}\t.\t'
             f'{h.strand}\t.\tID={tid};Parent={gid};')
         for j, (s, e, ph) in enumerate(h.cds_exons, start=1):
             # exon 行|exon line
             lines.append(
-                f'{h.chrom}\tps_gene_anno\texon\t{s}\t{e}\t.\t'
+                f'{h.chrom}\tpsfill\texon\t{s}\t{e}\t.\t'
                 f'{h.strand}\t.\tID={tid}.exon{j};Parent={tid};')
             # CDS 行|CDS line (第8列 phase)
             lines.append(
-                f'{h.chrom}\tps_gene_anno\tCDS\t{s}\t{e}\t.\t'
+                f'{h.chrom}\tpsfill\tCDS\t{s}\t{e}\t.\t'
                 f'{h.strand}\t{ph}\tID={tid}.cds{j};Parent={tid};')
     return lines
