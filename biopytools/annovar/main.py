@@ -41,7 +41,7 @@ class ANNOVARAnnotator:
         seqkit_path = getattr(self.config, 'seqkit_path', 'seqkit')
         self.results_processor = ANNOVARResultsProcessor(
             self.logger, self.config.output_dir, pep_file=pep_file, cds_file=cds_file,
-            seqkit_path=seqkit_path
+            seqkit_path=seqkit_path, vcf_file=self.config.vcf_file
         )
 
     def _is_step_completed(self, output_file: str) -> bool:

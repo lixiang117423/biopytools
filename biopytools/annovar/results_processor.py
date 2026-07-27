@@ -7,6 +7,7 @@ Functions: Process ANNOVAR generated annotation result files, including exonic a
 日期|Date: 2025-08-26
 """
 
+import gzip
 import os
 import re
 import subprocess
@@ -262,16 +263,99 @@ class ProteinSeqModifier:
         return ref_protein
 
 
+class VcfCoordinateMapper:
+    """原始VCF坐标映射器|Original VCF coordinate mapper.
+
+    ANNOVAR的convert2annovar.pl会对indel做锚碱基归一化(VCF用前导锚碱基表示indel,
+    ANNOVAR剥掉锚碱基),导致indel的坐标在VCF和ANNOVAR输出间相差1bp,用户难以按
+    ANNOVAR坐标直接回查VCF。本类读入原始VCF,按归一化等位基因建索引,反查每条
+    ANNOVAR记录对应的原始VCF POS。
+    |convert2annovar.pl normalizes indels by stripping the VCF anchor base, so indel
+    coordinates differ by 1bp between VCF and ANNOVAR output. This class indexes the
+    original VCF by normalized allele and returns the original VCF POS for each record.
+    """
+
+    def __init__(self, logger, vcf_file: str):
+        self.logger = logger
+        # 归一化等位基因键 -> [(vcf_pos, vcf_ref, vcf_alt), ...] | key -> VCF records
+        self.allele_map: Dict[tuple, List[tuple]] = {}
+        self._load_vcf(vcf_file)
+
+    @staticmethod
+    def _normalize(ref: str, alt: str):
+        """trim REF/ALT共同前缀+后缀,返回(trimmed_ref, trimmed_alt)|trim common prefix/suffix"""
+        r = '' if ref == '-' else ref.upper()
+        a = '' if alt == '-' else alt.upper()
+        while r and a and r[-1] == a[-1]:   # 共同后缀|common suffix
+            r, a = r[:-1], a[:-1]
+        while r and a and r[0] == a[0]:     # 共同前缀|common prefix
+            r, a = r[1:], a[1:]
+        while r and a and r[-1] == a[-1]:   # 前缀修剪后可能再有共同后缀|re-check suffix
+            r, a = r[:-1], a[:-1]
+        return r, a
+
+    def _load_vcf(self, vcf_file: str):
+        """读VCF(支持.gz),按归一化等位基因建索引|Read VCF (.gz supported), index by normalized allele"""
+        if not vcf_file or not os.path.exists(vcf_file):
+            self.logger.warning(f"VCF文件不存在,VCF坐标列将为NA|VCF not found, VCF coordinate will be NA: {vcf_file}")
+            return
+        opener = gzip.open if vcf_file.endswith('.gz') else open
+        try:
+            with opener(vcf_file, 'rt') as f:
+                for line in f:
+                    if line.startswith('#'):
+                        continue
+                    fields = line.rstrip('\n').split('\t')
+                    if len(fields) < 5:
+                        continue
+                    chrom, pos, ref, alt = fields[0], fields[1], fields[3], fields[4]
+                    for alt_allele in alt.split(','):   # 多等位基因拆分|split multi-allelic
+                        if alt_allele in ('', '.'):
+                            continue
+                        key = (chrom, *self._normalize(ref, alt_allele))
+                        self.allele_map.setdefault(key, []).append((pos, ref, alt_allele))
+        except Exception as e:
+            self.logger.warning(f"读取VCF失败,VCF坐标列将为NA|Failed to read VCF, VCF coordinate will be NA: {e}")
+            self.allele_map = {}
+            return
+        self.logger.info(f"已加载VCF等位索引|Loaded VCF allele index: {len(self.allele_map)} keys from {vcf_file}")
+
+    def get_pos(self, chrom: str, start: str, ref: str, alt: str) -> str:
+        """返回该ANNOVAR记录对应的原始VCF POS;查不到返回NA|Return original VCF POS for an ANNOVAR record, else 'NA'"""
+        if not self.allele_map:
+            return 'NA'
+        try:
+            key = (chrom, *self._normalize(ref, alt))
+        except Exception:
+            return 'NA'
+        candidates = self.allele_map.get(key)
+        if not candidates:
+            return 'NA'
+        # 同一归一化等位可能出现在多个位置,取与ANNOVAR start最近的VCF POS|
+        # same normalized allele may occur at multiple loci; pick POS nearest to ANNOVAR start
+        try:
+            anno_pos = int(start)
+        except (TypeError, ValueError):
+            return candidates[0][0]
+        best = min(candidates, key=lambda c: abs(int(c[0]) - anno_pos))
+        return best[0]
+
+
 class ExonicVariantProcessor:
     """外显子变异结果处理器|Exonic Variant Result Processor"""
 
     def __init__(self, logger):
         self.logger = logger
         self.protein_modifier = None
+        self.vcf_mapper = None
 
     def set_protein_modifier(self, modifier: ProteinSeqModifier):
         """设置蛋白序列修改器|Set protein sequence modifier"""
         self.protein_modifier = modifier
+
+    def set_vcf_mapper(self, mapper: VcfCoordinateMapper):
+        """设置原始VCF坐标映射器|Set original VCF coordinate mapper"""
+        self.vcf_mapper = mapper
 
     @staticmethod
     def _extract_protein_change(gene_info: str, transcript_id: str) -> str:
@@ -427,6 +511,8 @@ class ExonicVariantProcessor:
             effect = variant_type
 
         # 解析基因信息，每个转录本生成一行|Parse gene info, one row per transcript
+        # POS为变异级(同一变异多转录本共享),每行只算一次|POS is variant-level, computed once per line
+        pos_value = self.vcf_mapper.get_pos(chrom, start, ref, alt) if self.vcf_mapper else 'NA'
         rows = []
         for entry in gene_info.split(','):
             entry = entry.strip()
@@ -448,6 +534,7 @@ class ExonicVariantProcessor:
                 '染色体': chrom,
                 '变异起始': start,
                 '变异终止': end,
+                'VCF坐标': pos_value,
                 '突变类型': mutation_type,
                 '基因': gene,
                 '转录本': transcript,
@@ -499,7 +586,7 @@ class ExonicVariantProcessor:
     def _write_exonic_results(self, results: List[Dict[str, str]], output):
         """写入外显子变异结果|Write exonic variant results"""
         # 写入表头|Write headers
-        headers = ['Line_ID', '染色体', '变异起始', '变异终止', '突变类型', '转录本',
+        headers = ['Line_ID', '染色体', '变异起始', '变异终止', 'VCF坐标', '突变类型', '转录本',
                    '基因', '变异结果', '原始注释', '参考蛋白序列', '变异蛋白序列',
                    'DNA位置起', 'DNA位置止', 'DNA参考', 'DNA变异', '蛋白位置', '蛋白参考', '蛋白变异']
         output.write('\t'.join(headers) + '\n')
@@ -514,6 +601,11 @@ class AllVariantProcessor:
 
     def __init__(self, logger):
         self.logger = logger
+        self.vcf_mapper = None
+
+    def set_vcf_mapper(self, mapper: VcfCoordinateMapper):
+        """设置原始VCF坐标映射器|Set original VCF coordinate mapper"""
+        self.vcf_mapper = mapper
 
     def parse_variant_function_line(self, line: str) -> Optional[Dict[str, Union[str, int]]]:
         """解析ANNOVAR variant_function文件的每一行|Parse each line of ANNOVAR variant_function file"""
@@ -582,10 +674,14 @@ class AllVariantProcessor:
         else:
             indel_size = 0
 
+        # 原始VCF POS(indel锚碱基归一化后与ANNOVAR坐标可能差1)|original VCF POS
+        pos_value = self.vcf_mapper.get_pos(chrom, start, ref, alt) if self.vcf_mapper else 'NA'
+
         return {
             '染色体': chrom,
             '起始位置': start,
             '终止位置': end,
+            'VCF坐标': pos_value,
             '区域类型': region_type,
             '基因': gene_str,
             '距离': distance_str,
@@ -678,7 +774,7 @@ class AllVariantProcessor:
     def _write_all_results(self, results: List[Dict], output):
         """写入所有变异结果|Write all variant results"""
         # 写入表头|Write headers
-        headers = ['染色体', '起始位置', '终止位置', '区域类型', '基因', '距离',
+        headers = ['染色体', '起始位置', '终止位置', 'VCF坐标', '区域类型', '基因', '距离',
                    '突变类型', '参考序列', '变异序列', '变异长度', 'INDEL大小',
                    '频率', '质量分数', '测序深度']
         output.write('\t'.join(headers) + '\n')
@@ -721,17 +817,34 @@ class ANNOVARResultsProcessor:
     """ANNOVAR结果处理器主类|Main ANNOVAR Results Processor Class"""
 
     def __init__(self, logger, output_dir: str, pep_file: str = None, cds_file: str = None,
-                 seqkit_path: str = 'seqkit'):
+                 seqkit_path: str = 'seqkit', vcf_file: str = None):
         self.logger = logger
         self.output_dir = output_dir
         self.pep_file = pep_file
         self.cds_file = cds_file
         self.seqkit_path = seqkit_path
+        self.vcf_file = vcf_file
+        self._vcf_mapper = None  # 懒加载,两个processor共享|lazy, shared by both processors
         self.exonic_processor = ExonicVariantProcessor(logger)
         self.all_processor = AllVariantProcessor(logger)
 
+    def _ensure_vcf_mapper(self):
+        """懒加载VCF坐标映射器并注入两个processor(失败只warning)|Lazily build VCF mapper and inject"""
+        if self._vcf_mapper is not None:
+            return
+        if self.vcf_file:
+            try:
+                mapper = VcfCoordinateMapper(self.logger, self.vcf_file)
+                if mapper.allele_map:   # 空映射(读取失败)则不注入,VCF坐标列走NA|skip inject if empty
+                    self._vcf_mapper = mapper
+                    self.exonic_processor.set_vcf_mapper(mapper)
+                    self.all_processor.set_vcf_mapper(mapper)
+            except Exception as e:
+                self.logger.warning(f" 构建VCF坐标映射器失败,VCF坐标列将为NA|Failed to build VCF mapper, VCF coordinate will be NA: {e}")
+
     def process_exonic_results(self, exonic_file: str, output_prefix: Optional[str] = None) -> Optional[str]:
         """处理外显子注释结果|Process exonic annotation results"""
+        self._ensure_vcf_mapper()
         if self.pep_file and not self.exonic_processor.protein_modifier:
             if os.path.exists(self.pep_file):
                 self.exonic_processor.set_protein_modifier(
@@ -760,6 +873,7 @@ class ANNOVARResultsProcessor:
     def process_all_results(self, variant_function_file: str, output_prefix: Optional[str] = None,
                           apply_filters: bool = False, filters: Optional[Dict] = None) -> Optional[str]:
         """处理所有注释结果|Process all annotation results"""
+        self._ensure_vcf_mapper()
         if not os.path.exists(variant_function_file):
             self.logger.warning(f" 变异功能注释文件不存在|Variant function annotation file does not exist: {variant_function_file}")
             return None

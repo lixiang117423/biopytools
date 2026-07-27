@@ -1,4 +1,13 @@
 
+## [1.21.7] - 2026-07-27
+
+### Added
+- `annovar`：外显子变异结果表与全变异结果表新增 **`VCF坐标` 列**——回填每条 ANNOVAR 记录对应的原始 VCF POS。新增 `VcfCoordinateMapper`：读原始 VCF（支持 `.gz`），按「归一化等位基因」（trim REF/ALT 共同前后缀，消除 `convert2annovar.pl` 对 indel 锚碱基归一化导致的 1bp 偏差）建索引，反查 ANNOVAR 记录的原始 VCF POS（同键多位点取最近）；懒加载、两 processor 共享、读取失败仅告警且列填 `NA`
+- `annovar`：`ANNOVARResultsProcessor` 新增 `vcf_file` 参数，由 `main.py` 透传 `config.vcf_file`
+
+### Changed
+- `ps_gene_anno`：GFF3 source 列（第 2 列）`ps_gene_anno` → `psfill`（gene/mRNA/exon/CDS 行一致）
+
 ## [1.21.6] - 2026-07-27
 
 ### Added
