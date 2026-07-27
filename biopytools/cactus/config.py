@@ -41,7 +41,7 @@ class CactusConfig:
     # 输出格式|Output formats
     # 注意：HAL是默认输出（{out_name}.full.hal），不需要在列表中指定
     # Note: HAL is default output ({out_name}.full.hal), no need to specify in list
-    output_formats: List[str] = field(default_factory=lambda: ["gfa", "gbz"])  # 输出格式列表
+    output_formats: List[str] = field(default_factory=lambda: ["gfa", "gbz", "odgi"])  # 输出格式列表
 
     # 性能参数|Performance parameters
     threads: int = 12  # CPU核心数|Number of CPU cores
@@ -104,17 +104,19 @@ class CactusConfig:
         if self.work_dir not in self.bind_paths:
             self.bind_paths.append(self.work_dir)
 
-            # 绑定输入文件目录|Bind input file directory
-            if self.seqfile:
-                seqfile_dir = str(Path(self.seqfile).parent)
-                if seqfile_dir not in self.bind_paths:
-                    self.bind_paths.append(seqfile_dir)
+        # 绑定seqfile所在目录|Bind seqfile's own directory
+        # 注意：各基因组文件所在目录由 CactusPangenomeRunner 在解析seqfile后补充绑定
+        # Note: directories of individual genome files are bound later by the runner after parsing the seqfile
+        if self.seqfile:
+            seqfile_dir = str(Path(self.seqfile).parent)
+            if seqfile_dir not in self.bind_paths:
+                self.bind_paths.append(seqfile_dir)
 
-            # 绑定输出目录|Bind output directory
-            if self.output_dir:
-                output_dir = self.output_dir
-                if output_dir not in self.bind_paths:
-                    self.bind_paths.append(output_dir)
+        # 绑定输出目录|Bind output directory
+        if self.output_dir:
+            output_dir = self.output_dir
+            if output_dir not in self.bind_paths:
+                self.bind_paths.append(output_dir)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
@@ -171,6 +173,15 @@ class CactusConfig:
             sample_name = parts[0]
             genome_path = ' '.join(parts[1:]) if len(parts) > 2 else parts[1]
 
+            # C2: 参考基因组必须是seqfile的第一条（minigraph-cactus硬性要求，--reference需与首条匹配）
+            # Reference must be the first entry in seqfile (minigraph-cactus requires --reference to match the first entry)
+            if self.reference and self.reference != sample_name:
+                raise ValueError(
+                    f"参考基因组'{self.reference}'不是seqfile的第一条样本'{sample_name}'|"
+                    f"Reference '{self.reference}' is not the first sample '{sample_name}' in seqfile. "
+                    f"minigraph-cactus要求参考必须是第一条|minigraph-cactus requires the reference to be the first entry"
+                )
+
             # 检查第一个文件是否存在|Check if first file exists
             if not Path(genome_path).exists():
                 # 尝试相对于seqfile的路径|Try path relative to seqfile
@@ -183,6 +194,9 @@ class CactusConfig:
             if len(lines) < 2:
                 raise ValueError(f"序列文件至少需要包含2个基因组（参考+查询）|Sequence file must contain at least 2 genomes (reference + query)")
 
+        except ValueError:
+            # 保留明确的校验信息（如参考基因组不匹配），不再二次包装|Preserve clear validation messages
+            raise
         except Exception as e:
             raise ValueError(f"序列文件验证失败|Sequence file validation failed: {e}")
 

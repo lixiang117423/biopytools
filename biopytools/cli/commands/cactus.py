@@ -75,8 +75,8 @@ def _validate_directory_exists(dir_path):
               help='保留jobstore不删除|Keep jobstore without deleting')
 @click.option('--formats',
               multiple=True,
-              # 注意：HAL和PSA是默认输出，不需要在列表中指定|Note: HAL and PSA are default outputs, no need to specify
-              type=click.Choice(['gfa', 'gbz', 'odgi', 'vg', 'vcf', 'xg']),
+              # 注意：HAL是默认输出（{out_name}.full.hal），不需要在列表中指定|Note: HAL is default output, no need to specify
+              type=click.Choice(['gfa', 'gbz', 'odgi', 'hal', 'vg', 'vcf', 'xg']),
               default=['gfa', 'gbz', 'odgi'],
               show_default=True,
               help='输出格式|Output formats (可多选|can select multiple)')

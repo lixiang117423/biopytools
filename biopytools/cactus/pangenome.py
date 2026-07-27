@@ -16,6 +16,7 @@ from .utils import (
     validate_cactus_sif,
     check_genome_files,
     create_absolute_path_seqfile,
+    get_genome_dirs,
     build_singularity_command,
     check_output_files,
     get_expected_output_files,
@@ -139,6 +140,13 @@ class CactusPangenomeRunner:
             self.logger
         )
 
+        # 4.1 挂载所有基因组文件所在目录（基因组分散在不同目录时必需，否则容器内cactus读不到）
+        # Bind all genome file directories (required when genomes are scattered across dirs)
+        genome_dirs = get_genome_dirs(self.absolute_seqfile, self.logger)
+        for gdir in genome_dirs:
+            if gdir not in self.config.bind_paths:
+                self.config.bind_paths.append(gdir)
+
         # 5. 检查基因组文件|Check genome files
         all_exist, genome_files = check_genome_files(self.config.seqfile, self.logger)
         if not all_exist:
@@ -229,15 +237,11 @@ class CactusPangenomeRunner:
             else:
                 self.logger.error("")
                 self.logger.error(f"Cactus分析失败，返回码|Cactus analysis failed, return code: {result.returncode}")
-
-                # 如果有stderr输出，显示最后几行|If stderr output, show last few lines
-                if result.stderr:
-                    stderr_lines = result.stderr.decode('utf-8', errors='ignore').split('\n') if isinstance(result.stderr, bytes) else result.stderr.split('\n')
-                    self.logger.error("错误信息|Error message (last 10 lines):")
-                    for line in stderr_lines[-10:]:
-                        if line.strip():
-                            self.logger.error(f"  {line}")
-
+                # 注意：subprocess.run未用capture_output（避免多小时任务的输出缓冲进内存导致OOM），
+                # 因此这里无法读取stderr——cactus自身已把stderr流式输出到作业日志
+                # Note: subprocess.run uses no capture_output (to avoid buffering multi-hour runs into RAM),
+                # so stderr is unavailable here — cactus already streamed its stderr to the job log
+                self.logger.error("请查看作业日志获取错误详情|Please check the job log for error details")
                 return False
 
         except subprocess.TimeoutExpired:

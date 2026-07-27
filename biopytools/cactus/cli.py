@@ -81,8 +81,8 @@ def parse_arguments():
     parser.add_argument('--formats',
                         nargs='+',
                         choices=['gfa', 'gbz', 'odgi', 'hal', 'vg', 'vcf', 'xg'],
-                        default=['gfa', 'gbz'],
-                        help='输出格式|Output formats (default: gfa gbz)')
+                        default=['gfa', 'gbz', 'odgi'],
+                        help='输出格式|Output formats (default: gfa gbz odgi)')
 
     # 性能参数|Performance parameters
     parser.add_argument('-t', '--threads',

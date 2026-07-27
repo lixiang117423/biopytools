@@ -263,6 +263,49 @@ def check_genome_files(seqfile: str, logger: Optional[logging.Logger] = None) ->
         return False, []
 
 
+def get_genome_dirs(seqfile: str, logger: Optional[logging.Logger] = None) -> list:
+    """
+    解析seqfile，返回所有基因组文件所在目录的唯一列表|Parse seqfile, return unique genome parent dirs
+
+    用于Singularity bind：基因组分散在不同目录时，必须逐个挂载其所在目录，
+    否则容器内cactus无法读取（仅挂seqfile父目录时，别处的基因组不可见）
+    Used for Singularity bind: when genomes are scattered across directories, each must be mounted,
+    otherwise cactus inside the container cannot read them.
+
+    Args:
+        seqfile: 序列文件路径（建议为绝对路径版本.abs）|Sequence file path (absolute-path .abs version recommended)
+        logger: 日志对象|Logger object
+
+    Returns:
+        唯一的基因组目录列表|Unique list of genome directories
+    """
+    dirs = []
+    seen = set()
+    try:
+        seqfile_path = Path(seqfile).expanduser()
+        with open(seqfile_path, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                # 两列格式：样本名 + 路径|Two-column format: sample_name + path
+                parts = line.split()
+                if len(parts) < 2:
+                    continue
+                # 路径可能含空格，拼接剩余部分（与check_genome_files一致）|Path may contain spaces, join rest
+                genome_path = ' '.join(parts[1:]) if len(parts) > 2 else parts[1]
+                genome_dir = str(Path(genome_path).expanduser().resolve().parent)
+                if genome_dir not in seen:
+                    seen.add(genome_dir)
+                    dirs.append(genome_dir)
+        if logger:
+            logger.info(f"   基因组所在目录(待挂载)|Genome directories to bind: {dirs}")
+    except Exception as e:
+        if logger:
+            logger.warning(f"   解析基因组目录失败|Failed to parse genome dirs: {e}")
+    return dirs
+
+
 def build_singularity_command(
     singularity_path: str,
     cactus_sif: str,
