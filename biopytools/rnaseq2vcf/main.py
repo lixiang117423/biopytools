@@ -7,11 +7,12 @@ Per-sample gVCF → joint genotyping → one multi-sample VCF. Annotate via biop
 
 import argparse
 import os
+import subprocess
 import sys
 
 from .config import Rnaseq2vcfConfig
 from .utils import (Rnaseq2vcfLogger, CommandRunner, CheckpointManager,
-                    SystemChecker, discover_samples)
+                    SystemChecker, build_conda_command, discover_samples)
 from .data_processing import GenomeIndexer, QualityController, Aligner, Caller, JointCaller
 
 
@@ -123,19 +124,84 @@ class Rnaseq2vcfProcessor:
             self.logger.warning(f"失败项|Failed: {failed}")
         return len(failed) == 0
 
+    def _count_records(self, vcf: str):
+        """统计 VCF 变异记录数(流式,内存安全)|count variant records (streaming, memory-safe)"""
+        cmd = build_conda_command(self.config.bcftools_path, ['view', '-H', vcf])
+        self.logger.info(f"统计变异数|Counting variants: {vcf}")
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
+        try:
+            proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+            n = sum(1 for _ in proc.stdout)
+            proc.wait()
+            return n
+        except Exception as e:
+            self.logger.warning(f"统计失败|Count failed ({vcf}): {e}")
+            return None
+
+    def _per_sample_counts(self, vcf: str, sample_names):
+        """每样本非参考基因型变异数(bcftools stats PSC)|per-sample non-ref variant count"""
+        cmd = build_conda_command(self.config.bcftools_path, ['stats', '-s', '-', vcf])
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
+        counts = {s: 0 for s in sample_names}
+        try:
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
+            for line in r.stdout.splitlines():
+                if line.startswith('PSC'):
+                    f = line.split('\t')
+                    if len(f) >= 6:
+                        # PSC: id sample nRefHom nNonRefHom nHet ...
+                        counts[f[2]] = int(f[4]) + int(f[5])
+        except Exception as e:
+            self.logger.warning(f"每样本统计失败|Per-sample stats failed ({vcf}): {e}")
+        return counts
+
     def _write_report(self, samples, failed, joint_vcf):
         cfg = self.config
         report = os.path.join(cfg.output_dir, "ANALYSIS_REPORT.txt")
-        lines = ["rnaseq2vcf 分析报告|Analysis Report (joint calling; ANNOVAR 由用户手动运行|ANNOVAR run manually)",
-                 f"参考基因组|Reference genome: {cfg.ref_genome_fa}",
-                 f"GFF3(剪接位点)|GFF3 (splice sites): {cfg.gff3_file or '(未提供|none)'}",
-                 f"样本数|Sample count: {len(samples)}",
-                 f"失败项|Failed: {failed}",
-                 "", "联合 VCF(所有样本)|Joint VCF (all samples):"]
-        if joint_vcf and os.path.exists(joint_vcf):
-            lines.append(f"  {joint_vcf} [OK]")
+        joint_dir = os.path.join(cfg.output_dir, "04_joint")
+        pre_vcf = os.path.join(joint_dir, "joint.vcf.gz")
+        filt_vcf = os.path.join(joint_dir, "joint.filtered.vcf.gz")
+        pass_vcf = joint_vcf or os.path.join(joint_dir, "all_samples.pass.vcf.gz")
+
+        n_pre = self._count_records(pre_vcf) if os.path.exists(pre_vcf) else None
+        n_pass = self._count_records(pass_vcf) if os.path.exists(pass_vcf) else None
+        per_sample = (self._per_sample_counts(pass_vcf, [s[0] for s in samples])
+                      if os.path.exists(pass_vcf) else {})
+
+        lines = []
+        lines.append("rnaseq2vcf 分析报告|Analysis Report (joint calling; ANNOVAR 由用户手动运行|run annovar manually)")
+        lines.append("=" * 64)
+        lines.append(f"参考基因组|Reference genome: {cfg.ref_genome_fa}")
+        lines.append(f"GFF3(剪接位点)|GFF3 (splice sites): {cfg.gff3_file or '(未提供|none)'}")
+        lines.append(f"样本数|Sample count: {len(samples)}")
+        lines.append(f"样本|Samples: {' '.join(s[0] for s in samples)}")
+        lines.append(f"失败项|Failed: {failed}")
+        lines.append("")
+        lines.append("变异过滤统计|Variant filtering (joint VCF; FS>30 / QD<2 / cluster 3 @ 35bp)")
+        lines.append("-" * 64)
+        if n_pre is not None and n_pass is not None:
+            out = n_pre - n_pass
+            pct = (out / n_pre * 100) if n_pre else 0.0
+            lines.append(f"过滤前变异总数|Total before filter  (joint.vcf.gz):           {n_pre}")
+            lines.append(f"过滤后保留 PASS|Retained PASS (all_samples.pass.vcf.gz):     {n_pass}")
+            lines.append(f"被过滤掉|Filtered out:                                   {out} ({pct:.1f}%)")
         else:
-            lines.append("  [MISSING]")
+            lines.append("变异统计不可用(联合 VCF 未生成)|Counts unavailable (joint VCF missing)")
+        lines.append("")
+        if per_sample:
+            lines.append("每样本 PASS 变异数(非参考基因型)|Per-sample PASS variants (non-ref GT):")
+            for s, _, _ in samples:
+                lines.append(f"  {s}: {per_sample.get(s, 0)}")
+            lines.append("")
+        lines.append("下游分析文件|Downstream analysis file")
+        lines.append("=" * 64)
+        if pass_vcf and os.path.exists(pass_vcf):
+            lines.append(f"  ★ {pass_vcf}")
+            lines.append("    (含全部样本,已过滤;送 annovar / 其他下游|all samples, filtered; for annovar/downstream)")
+            lines.append(f"    索引|index: {pass_vcf}.tbi")
+            lines.append(f"    复查被滤变异|review filtered: {filt_vcf} (FILTER 列含 FS/QD/SNPCluster)")
+        else:
+            lines.append("  [最终 VCF 缺失|final VCF missing]")
         with open(report, 'w', encoding='utf-8') as f:
             f.write('\n'.join(lines) + '\n')
         self.logger.info(f"报告已写|Report written: {report}")

@@ -1,4 +1,10 @@
 
+## [1.21.5] - 2026-07-27
+
+### Added
+- `rnaseq2vcf`：分析报告 `ANALYSIS_REPORT.txt` 增加变异过滤统计——过滤前/后变异数、被滤掉占比（FS>30 / QD<2 / cluster 3@35bp）、每样本 PASS 非参考基因型计数（解析 `bcftools stats` 的 PSC 行：nNonRefHom+nHet）；并标注下游送 annovar 的最终 VCF 及其索引/被滤变异复查路径。`bcftools view -H` 流式计数（内存安全），失败仅告警不阻断
+- `conda_env/gene-anno.yml`：新增 gene-anno 注释环境定义
+
 ## [1.21.4] - 2026-07-25
 
 ### Changed
