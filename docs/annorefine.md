@@ -4,7 +4,7 @@
 
 ## 功能概述 | Overview
 
-ps_gene_anno 模块针对 BRAKER 注释后的基因组, 用 miniprot 将近缘蛋白(如已鉴定的效应子、同源物种蛋白)比对到**未 mask 原始基因组**, 找出 BRAKER 漏注的位点与被错误合并的多拷贝基因, 并补建基因模型, 输出与 BRAKER 合并后的 GFF3。
+annorefine 模块针对 BRAKER 注释后的基因组, 用 miniprot 将近缘蛋白(如已鉴定的效应子、同源物种蛋白)比对到**未 mask 原始基因组**, 找出 BRAKER 漏注的位点与被错误合并的多拷贝基因, 并补建基因模型, 输出与 BRAKER 合并后的 GFF3。
 
 适用场景: 疫霉菌等病原中, 效应子(RxLR/CRN 等)多拷贝基因家族常落在 TE 区、被 BRAKER 漏注或错误合并, 本模块用蛋白证据补回。
 
@@ -12,10 +12,10 @@ ps_gene_anno 模块针对 BRAKER 注释后的基因组, 用 miniprot 将近缘�
 
 ```bash
 # 基础用法(基因组 + BRAKER GFF3 + 近缘蛋白)
-biopytools ps-gene-anno -g genome.fa -b braker.gff3 -p effectors.faa -o out/
+biopytools annorefine -g genome.fa -b braker.gff3 -p effectors.faa -o out/
 
 # 提供 RNA-seq BAM 与 RepeatMasker .out(用于 gap 验证报告 + TE 重叠)
-biopytools ps-gene-anno -g genome.fa -b braker.gff3 -p effectors.faa -o out/ \
+biopytools annorefine -g genome.fa -b braker.gff3 -p effectors.faa -o out/ \
   --rnaseq-bam rnaseq.bam --repeat-out rm.out
 ```
 
@@ -48,7 +48,7 @@ biopytools ps-gene-anno -g genome.fa -b braker.gff3 -p effectors.faa -o out/ \
 | `--split-min-copy-coverage` | `80` | 拷贝完整性覆盖 % |
 | `--skip-merge` | `False` | 跳过与 BRAKER 合并(只输出 gap_filled) |
 
-(运行 `biopytools ps-gene-anno -h` 查看完整参数列表)
+(运行 `biopytools annorefine -h` 查看完整参数列表)
 
 ## 输出 | Output
 

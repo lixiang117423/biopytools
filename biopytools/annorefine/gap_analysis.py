@@ -1,5 +1,5 @@
 """
-ps-gene-anno 漏检/合并判定(GFF3 + 全 prot 普适)|Gap & merged-gene detection
+annorefine 漏检/合并判定(GFF3 + 全 prot 普适)|Gap & merged-gene detection
 对比 miniprot 命中与 braker.gff3, 找漏检(证据有·基因无)和错误合并(1基因盖多拷贝)
 |Compare miniprot hits vs braker.gff3: find missing copies & merged genes
 

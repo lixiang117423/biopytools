@@ -1,4 +1,16 @@
 
+## [1.22.0] - 2026-07-28
+
+### Changed
+- **模块重命名 `ps_gene_anno` → `annorefine`**：原定位 BRAKER 后「效应子查漏补缺」(疫霉专用)，现重新定位为通用「注释精修」(同源补漏 + 合并拆分 + ORF/表达质控，适用任意物种)
+  - 类名 `PsGeneAnnoConfig/Runner/Logger` → `AnnorefineConfig/Runner/Logger`
+  - CLI 命令 `biopytools ps-gene-anno` → `biopytools annorefine`
+  - `braker4ps` 改为包装 annorefine（braker4ps 命令名不变）
+  - `docs/ps_gene_anno.md` → `docs/annorefine.md`
+  - 逻辑无变化（v1.21.8 的真实 ORF / 表达证据 / 坐标零重叠 / 合并拆分门控等完整保留）
+  - **破坏性|Breaking**：原 `ps-gene-anno` 命令不再存在，改用 `annorefine`
+  - 注：超算上若仍残留旧 `biopytools/ps_gene_anno/` 目录（`copybiopytools` 无 `--delete` 不会自动清），需手动 `rm -rf biopytools/ps_gene_anno biopytools/cli/commands/ps_gene_anno.py`，否则下次同步又会推回本地
+
 ## [1.21.8] - 2026-07-27
 
 ### Added

@@ -1,6 +1,6 @@
 """
-ps-gene-anno 配置管理|ps-gene-anno Configuration Management
-BRAKER 后效应子查漏补缺模块的配置类|Config for post-BRAKER effector gap-filling
+annorefine 配置管理|annorefine Configuration Management
+注释精修模块的配置类(同源补漏+合并拆分+质控)|Config for annotation refinement
 """
 
 import os
@@ -12,8 +12,8 @@ from ..common.paths import expand_path, get_tool_path, get_samtools_path
 
 
 @dataclass
-class PsGeneAnnoConfig:
-    """ps-gene-anno 配置类|ps-gene-anno Config Class"""
+class AnnorefineConfig:
+    """annorefine 配置类|annorefine Config Class"""
 
     # ===== 必需参数|Required =====
     genome: str                 # 未 mask 原始基因组|Unmasked raw genome
@@ -36,7 +36,7 @@ class PsGeneAnnoConfig:
     overlap_cutoff: float = 0.0         # 漏检判定:与braker CDS零重叠才算漏检|zero overlap=gap
     require_complete_orf: bool = True   # partial(覆盖<99)默认丢|drop partial (miniprot coverage based)
     te_overlap_cutoff: float = 50.0     # 真 TE 区重叠阈值 %|TE overlap cutoff
-    exclude_te_gap: bool = False        # 质控排除TE区gap(默认不排:疫霉效应子常在TE区)|exclude TE-overlap gaps (default off)
+    exclude_te_gap: bool = False        # 质控排除TE区gap(默认不排:真基因可能在TE区)|exclude TE-overlap gaps (default off)
 
     # ===== 通用生物学质控(普适模块)|General bio-QC =====
     # ① 真实完整 ORF: CDS 长度3倍数 + ATG开头 + 终止密码子结尾(翻译验证, 比 miniprot 覆盖率更严)

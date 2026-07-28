@@ -1,5 +1,5 @@
 """
-ps-gene-anno 表达证据(唯一比对 reads)|Expression evidence (unique-mapping reads)
+annorefine 表达证据(唯一比对 reads)|Expression evidence (unique-mapping reads)
 - prepare_unique_bam: BAM 过滤为唯一比对(NH==1 / MAPQ 兜底)|filter to unique reads
 - compute_hit_depth_breadth: 每 hit 的平均深度 + 覆盖广度|mean depth + coverage breadth per hit
 

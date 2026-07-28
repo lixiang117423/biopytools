@@ -1,5 +1,5 @@
 """
-ps-gene-anno 证据扫描|miniprot 蛋白→基因组(不做去冗余)+ GFF3 解析
+annorefine 证据扫描|miniprot 蛋白→基因组(不做去冗余)+ GFF3 解析
 |Evidence scan: miniprot protein-to-genome (no dedup) + GFF3 parsing
 """
 

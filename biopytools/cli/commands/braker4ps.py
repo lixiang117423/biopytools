@@ -1,5 +1,5 @@
 """
-braker4ps: braker + ps-gene-anno 端到端|braker + gap-filling end-to-end
+braker4ps: braker + annorefine 端到端|braker + gap-filling end-to-end
 """
 
 import click
@@ -28,7 +28,7 @@ def _validate_file(path):
 
 
 @click.command(
-    short_help='braker+ps-gene-anno端到端(注释+查漏补缺)|braker + gap-filling end-to-end',
+    short_help='braker+annorefine端到端(注释+查漏补缺)|braker + gap-filling end-to-end',
     context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120)
 )
 @click.option('-g', '--genome', required=True,
@@ -74,7 +74,7 @@ def braker4ps(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
               exclude_te_gap, no_real_orf, no_coord_zero_overlap, no_unique_reads,
               min_unique_mapq, min_expression_depth, min_coverage_breadth, no_gap_fill):
     """
-    braker 注释 + ps-gene-anno 查漏补缺端到端|braker + gap-filling end-to-end
+    braker 注释 + annorefine 查漏补缺端到端|braker + gap-filling end-to-end
 
     示例|Example: biopytools braker4ps -g genome.fa -s psojae -p prot.fa -o out/
     """

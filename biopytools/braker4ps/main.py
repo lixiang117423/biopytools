@@ -1,9 +1,9 @@
 """
 braker4ps 主程序|braker4ps Main Entry
-端到端: 先跑 braker 注释(BrakerPipeline), 再接 ps-gene-anno 查漏补缺(PsGeneAnnoRunner)
-|End-to-end: run BRAKER then ps-gene-anno gap-filling in one command
+端到端: 先跑 braker 注释(BrakerPipeline), 再接 annorefine 查漏补缺(AnnorefineRunner)
+|End-to-end: run BRAKER then annorefine gap-filling in one command
 
-约束|Constraint: 不改 braker/ps_gene_anno 源码, 仅 import 调用|import-only
+约束|Constraint: 不改 braker/annorefine 源码, 仅 import 调用|import-only
 """
 
 import argparse
@@ -14,7 +14,7 @@ import sys
 def parse_arguments():
     """解析命令行参数|Parse CLI arguments"""
     parser = argparse.ArgumentParser(
-        description="braker4ps: braker 注释 + ps-gene-anno 查漏补缺端到端"
+        description="braker4ps: braker 注释 + annorefine 查漏补缺端到端"
         "|braker + gap-filling end-to-end",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="示例|Example: biopytools braker4ps -g genome.fa -s psojae -p prot.fa --rnaseq-dirs r1,r2 -o out/")
@@ -82,8 +82,8 @@ def main():
     from ..braker.utils import (BrakerLogger, find_protein_files_in_directory,
                                 find_long_reads_in_directory)
     from ..braker.main import clean_protein_sequences
-    from ..ps_gene_anno.config import PsGeneAnnoConfig
-    from ..ps_gene_anno.main import PsGeneAnnoRunner
+    from ..annorefine.config import AnnorefineConfig
+    from ..annorefine.main import AnnorefineRunner
 
     # 统一日志(传给 braker+filling, 避免各自重配 root)|unified logger
     log_file = os.path.join(args.output_dir, 'logs', 'braker4ps.log')
@@ -92,7 +92,7 @@ def main():
 
     try:
         logger.info('=' * 70)
-        logger.info('braker4ps: braker + ps-gene-anno 端到端|End-to-end')
+        logger.info('braker4ps: braker + annorefine 端到端|End-to-end')
         logger.info('=' * 70)
 
         # 处理 prot_seq(目录识别+清理, braker+filling 共用)|process prot_seq
@@ -146,7 +146,7 @@ def main():
         # 关键: filling 用 args.genome(未mask原始), 不是 braker 的 masked genome
         # |filling uses raw unmasked genome, not braker's masked genome
         logger.info('-' * 70)
-        logger.info('阶段2: ps-gene-anno 查漏补缺|Phase 2: gap-filling')
+        logger.info('阶段2: annorefine 查漏补缺|Phase 2: gap-filling')
         logger.info('-' * 70)
         filling_output = os.path.join(args.output_dir, '05_gap_filling')
         # braker 的 RNA-seq BAM(给 filling gap 报告做表达验证)
@@ -165,7 +165,7 @@ def main():
             if os.path.exists(auto_rep):
                 repeat_out = auto_rep
                 logger.info(f'自动找到 repeat .out|auto repeat_out: {auto_rep}')
-        pcfg = PsGeneAnnoConfig(
+        pcfg = AnnorefineConfig(
             genome=args.genome,
             braker_gff3=braker_gff3,
             prot_seq=prot_seq_file,
@@ -186,7 +186,7 @@ def main():
             min_coverage_breadth=args.min_coverage_breadth,
             enable_gap_fill=not args.no_gap_fill,
         )
-        result = PsGeneAnnoRunner(pcfg, logger).run()
+        result = AnnorefineRunner(pcfg, logger).run()
         logger.info(f'阶段2 完成, merged.gtf|Phase 2 done: {result}')
         logger.info('=' * 70)
         logger.info('braker4ps 端到端完成|braker4ps end-to-end done')

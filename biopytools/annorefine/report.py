@@ -1,5 +1,5 @@
 """
-ps-gene-anno gap 验证报告|Gap evidence report
+annorefine gap 验证报告|Gap evidence report
 每个 gap 基因: 蛋白证据(miniprot) + RNA-seq raw depth + StringTie FPKM/TPM + TE family
 |Per-gap: protein + raw depth + FPKM/TPM + TE family → TSV
 """

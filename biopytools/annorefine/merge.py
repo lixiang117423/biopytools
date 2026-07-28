@@ -1,5 +1,5 @@
 """
-ps-gene-anno 合并输出(GFF3)|Merge output (GFF3)
+annorefine 合并输出(GFF3)|Merge output (GFF3)
 braker.gff3(移除错误合并基因+其mRNA+子) + gap GFF3 行 → merged.gff3
 |braker.gff3 (minus merged genes) + gap GFF3 lines → merged.gff3
 """

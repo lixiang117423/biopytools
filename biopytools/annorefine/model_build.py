@@ -1,5 +1,5 @@
 """
-ps-gene-anno 基因模型构建 + 质控(GFF3)|Model construction + QC (GFF3)
+annorefine 基因模型构建 + 质控(GFF3)|Model construction + QC (GFF3)
 miniprot 命中 → GFF3 基因模型(方案A, CDS级) + 质控过滤
 |miniprot hits → GFF3 gene models (scheme A, CDS-level) + QC filter
 """
@@ -49,8 +49,8 @@ def qc_filter(hits: List[MiniprotHit], config,
             depth, breadth = expression.get(id(h), (0.0, 0.0))
             if depth < config.min_expression_depth or breadth < config.min_coverage_breadth:
                 continue
-        # 真 TE 区排除(可选, 默认不排: 疫霉效应子常在 TE 区)
-        # |TE exclusion (optional, default off: oomycete effectors often TE-rich)
+        # 真 TE 区排除(可选, 默认不排: 真基因可能在 TE 区)
+        # |TE exclusion (optional, default off: real genes may reside in TE regions)
         if getattr(config, 'exclude_te_gap', False) and repeat_regions:
             te = repeat_regions.get(h.chrom, [])
             te_intervals = [(s, e) for s, e, *_ in te]   # 去掉 family, 只留区间

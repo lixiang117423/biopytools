@@ -1,6 +1,6 @@
 """
-ps-gene-anno 命令行入口 + 流程编排(GFF3)|CLI entry + pipeline (GFF3)
-BRAKER 后效应子查漏补缺|Post-BRAKER effector gap-filling
+annorefine 命令行入口 + 流程编排(GFF3)|CLI entry + pipeline (GFF3)
+注释精修: 同源补漏 + 合并拆分 + ORF/表达质控|Annotation refinement
 """
 
 import argparse
@@ -8,8 +8,8 @@ import os
 import sys
 from typing import List
 
-from .config import PsGeneAnnoConfig
-from .utils import PsGeneAnnoLogger
+from .config import AnnorefineConfig
+from .utils import AnnorefineLogger
 from .evidence import run_miniprot, parse_miniprot_gff3, load_fasta
 from .gap_analysis import (
     parse_braker_gff3, detect_gaps, detect_merged_genes, parse_repeat_out,
@@ -22,8 +22,8 @@ from .merge import merge_gff3
 def parse_arguments():
     """解析命令行参数|Parse CLI arguments"""
     parser = argparse.ArgumentParser(
-        description="ps-gene-anno: BRAKER 后效应子查漏补缺(GFF3)"
-        "|Post-BRAKER effector gap-filling (GFF3)")
+        description="annorefine: 注释精修(同源补漏+合并拆分+质控)(GFF3)"
+        "|Annotation refinement (homology gap-fill + split + QC) (GFF3)")
     parser.add_argument('-g', '--genome', required=True,
                         help='未mask原始基因组|Unmasked raw genome')
     parser.add_argument('-b', '--braker-gff3', required=True,
@@ -47,7 +47,7 @@ def parse_arguments():
                         action='store_false', default=True)
     parser.add_argument('--te-overlap-cutoff', type=float, default=50)
     parser.add_argument('--exclude-te-gap', action='store_true',
-                        help='质控排除TE区gap(默认不排,疫霉效应子常在TE区)|exclude TE-overlap gaps')
+                        help='质控排除TE区gap(默认不排,真基因可能在TE区)|exclude TE-overlap gaps')
     # 合并拆分
     parser.add_argument('--no-split', dest='enable_split',
                         action='store_false', default=True)
@@ -60,14 +60,14 @@ def parse_arguments():
     return parser.parse_args()
 
 
-class PsGeneAnnoRunner:
-    """ps-gene-anno 流程编排|Pipeline orchestrator"""
+class AnnorefineRunner:
+    """annorefine 流程编排|Pipeline orchestrator"""
 
-    def __init__(self, config: PsGeneAnnoConfig, logger=None):
+    def __init__(self, config: AnnorefineConfig, logger=None):
         self.config = config
         if logger is None:
-            log_file = os.path.join(config.log_dir, 'ps_gene_anno.log')
-            self.logger = PsGeneAnnoLogger(log_file).get_logger()
+            log_file = os.path.join(config.log_dir, 'annorefine.log')
+            self.logger = AnnorefineLogger(log_file).get_logger()
         else:
             self.logger = logger
         from .utils import CommandRunner
@@ -102,7 +102,7 @@ class PsGeneAnnoRunner:
     def run(self):
         """运行完整流程|Run full pipeline"""
         self.logger.info("=" * 70)
-        self.logger.info("ps-gene-anno: BRAKER 后通用查漏补缺(GFF3)|Post-BRAKER gap-filling")
+        self.logger.info("annorefine: BRAKER 后通用查漏补缺(GFF3)|Post-BRAKER gap-filling")
         self.logger.info("=" * 70)
 
         # Step1 证据扫描|evidence scan
@@ -216,7 +216,7 @@ class PsGeneAnnoRunner:
                          expression=expression, unique_bam=unique_bam)
 
         self.logger.info("=" * 70)
-        self.logger.info("ps-gene-anno 完成|ps-gene-anno done")
+        self.logger.info("annorefine 完成|annorefine done")
         self.logger.info("=" * 70)
         return self.merged_gff3
 
@@ -226,7 +226,7 @@ def main():
     args = parse_arguments()
     rnaseq = args.rnaseq_bam.split(',') if args.rnaseq_bam else None
     try:
-        config = PsGeneAnnoConfig(
+        config = AnnorefineConfig(
             genome=args.genome, braker_gff3=args.braker_gff3,
             prot_seq=args.prot_seq, output_dir=args.output_dir,
             rnaseq_bam=rnaseq, isoseq_bam=args.isoseq_bam,
@@ -247,7 +247,7 @@ def main():
             skip_merge=args.skip_merge,
         )
         config.validate()
-        runner = PsGeneAnnoRunner(config)
+        runner = AnnorefineRunner(config)
         result = runner.run()
         if result:
             sys.exit(0)

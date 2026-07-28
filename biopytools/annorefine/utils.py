@@ -1,5 +1,5 @@
 """
-ps-gene-anno 工具函数|ps-gene-anno Utility Functions
+annorefine 工具函数|annorefine Utility Functions
 日志管理器自写; 命令执行器/conda 检测复用 braker(已验证的通用实现, DRY)
 |Logger is self-written; CommandRunner/conda detection reused from braker (DRY)
 """
@@ -14,13 +14,13 @@ from ..braker.utils import (
 )
 
 __all__ = [
-    'PsGeneAnnoLogger', 'CommandRunner', 'get_conda_env',
+    'AnnorefineLogger', 'CommandRunner', 'get_conda_env',
     'format_number', 'check_step_completed',
 ]
 
 
-class PsGeneAnnoLogger:
-    """ps-gene-anno 日志管理器|Logger manager"""
+class AnnorefineLogger:
+    """annorefine 日志管理器|Logger manager"""
 
     def __init__(self, log_file_path: str, log_level: str = "INFO"):
         self.log_file = Path(log_file_path)
@@ -43,7 +43,7 @@ class PsGeneAnnoLogger:
         stdout_handler.setLevel(level)
         stdout_handler.setFormatter(formatter)
 
-        logger = logging.getLogger('ps_gene_anno')
+        logger = logging.getLogger('annorefine')
         logger.setLevel(logging.DEBUG)
         logger.handlers.clear()
         logger.propagate = False

@@ -1,5 +1,5 @@
 """
-ps-gene-anno: BRAKER 后效应子查漏补缺|Post-BRAKER effector gap-filling
+annorefine: 注释精修(同源补漏+合并拆分+质控)|Annotation refinement
 """
 
 import click
@@ -10,8 +10,8 @@ import os
 def _lazy_import_main():
     """延迟加载主函数|Lazy load main"""
     try:
-        from ...ps_gene_anno import main as psga_module
-        return psga_module.main
+        from ...annorefine import main as anno_module
+        return anno_module.main
     except ImportError as e:
         click.echo(f"导入错误|Import Error: {e}", err=True)
         sys.exit(1)
@@ -28,7 +28,7 @@ def _validate_file(path):
 
 
 @click.command(
-    short_help='BRAKER后效应子查漏补缺(miniprot证据补回多拷贝)|Post-BRAKER effector gap-filling',
+    short_help='注释精修(同源补漏+合并拆分+ORF/表达质控)|Annotation refinement',
     context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120)
 )
 @click.option('-g', '--genome', required=True,
@@ -51,16 +51,16 @@ def _validate_file(path):
 @click.option('--split-min-copy-coverage', type=float, default=80, show_default=True,
               help='保守合并判据:完整拷贝覆盖率%|Conservative split copy coverage')
 @click.option('--no-split', is_flag=True, help='关闭合并拆分|Disable merged-gene split')
-def ps_gene_anno(genome, braker_gff3, prot_seq, output_dir,
+def annorefine(genome, braker_gff3, prot_seq, output_dir,
                  rnaseq_bam, isoseq_bam, repeat_out, prefix,
                  threads, split_min_copy_coverage, no_split, exclude_te_gap):
     """
-    BRAKER后效应子查漏补缺|Post-BRAKER effector gap-filling
+    注释精修(同源补漏+合并拆分+质控)|Annotation refinement
 
-    示例|Example: biopytools ps-gene-anno -g genome.fa -b braker.gff3 -p prot.fa -o out/
+    示例|Example: biopytools annorefine -g genome.fa -b braker.gff3 -p prot.fa -o out/
     """
-    psga_main = _lazy_import_main()
-    args = ['ps_gene_anno.py', '-g', genome, '-b', braker_gff3,
+    anno_main = _lazy_import_main()
+    args = ['annorefine.py', '-g', genome, '-b', braker_gff3,
             '-p', prot_seq, '-o', output_dir]
     if rnaseq_bam:
         args.extend(['--rnaseq-bam', rnaseq_bam])
@@ -82,7 +82,7 @@ def ps_gene_anno(genome, braker_gff3, prot_seq, output_dir,
     original_argv = sys.argv
     sys.argv = args
     try:
-        psga_main()
+        anno_main()
     except SystemExit as e:
         sys.exit(e.code)
     finally:
