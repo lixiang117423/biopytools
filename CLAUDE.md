@@ -1,7 +1,7 @@
 # BioPyTools Python代码开发规范文档
 
-## 版本: 2.17
-## 日期: 2026-07-25
+## 版本: 2.18
+## 日期: 2026-07-28
 ## 用途: 统一所有生信分析模块的代码结构、命名规范、日志格式
 
 > 📐 **文档结构说明|Doc Structure:** 本文件只保留**核心规则与检查清单**(每次会话全量加载)。
@@ -346,6 +346,31 @@ def run_step(self, step_name, output_file, run_func, *args, **kwargs):
 > 大 CPU/内存任务必须通过作业调度系统（如 `sub`）提交到计算节点。
 > 自动化测试只能测：参数解析、路径验证、小型 mock 单元测试；**大型计算测试手动在计算节点运行**。
 
+### 10.4 临时测试/调试输出位置|Ad-hoc Test & Debug Output Location
+
+> **原则|Principle:** 探索性/临时测试（跑个函数看输出、临时脚本验证、肉眼检查结果）**严禁在仓库当前目录生成文件**，所有产物写入 `~/tmp/`。
+
+❌ **禁止|FORBIDDEN:** 在项目根、模块目录、或任何仓库目录下直接写测试输出
+```bash
+python -c "..." > out.txt        # ❌ 污染仓库 cwd
+python my_scratch.py             # ❌ 若脚本把结果写到 cwd
+```
+
+✅ **必须|MUST:** 所有 ad-hoc 测试产物写到 `~/tmp/<描述性子目录>/`
+```bash
+mkdir -p ~/tmp/test_<module>_<purpose>
+python my_scratch.py -o ~/tmp/test_<module>_<purpose>/   # ✅ 绝对路径指定输出
+# 或直接在 ~/tmp 下运行脚本
+cd ~/tmp/test_<module>_<purpose> && python /abs/path/to/module/main.py ...
+```
+
+**与现有规则区分|Distinguish from:**
+- §11.A 正式 pytest 单测 → 仍在 `biopytools/tests/test_<module>/`（已 gitignore，本条不适用）
+- §12.4 模块运行时临时文件 → 仍用 `output_dir/tmp`（真实流程产物，本条不适用）
+- 本条仅约束**人/AI 手动跑的探索性测试**的产物位置
+
+**Why:** 避免污染仓库目录、避免误提交、避免 `.gitignore` 漏网；`~/tmp` 是临时区，无需保留的可定期清理。
+
 ---
 
 ## 十一、测试规范与路径管理规范
@@ -535,6 +560,7 @@ result = subprocess.run(cmd, shell=False, ...)
 
 | 版本 | 日期 | 主要变更|Major Changes |
 |------|------|----------|
+| 2.18 | 2026-07-28 | 新增 §10.4「临时测试/调试输出位置」：探索性/ad-hoc 测试产物严禁写入仓库 cwd，统一放 `~/tmp/<描述性子目录>/`；与 §11.A 正式单测(tests/)、§12.4 流程临时文件(output_dir/tmp)明确区分 |
 | 2.17 | 2026-07-25 | **CLAUDE.md 瘦身拆分**：核心规则+检查清单保留(76KB→约23KB)，完整代码模板/paths.py实现/命名示例/conda故障排查下沉到 `docs/dev-standards/` 五个按需参考文档(01_module_template/02_logging_detail/11_path_management/12_output_naming/13_conda_invocation)，文末加「📚详细参考文档」触发式索引；规则零丢失，仅外移重内容 |
 | 2.16 | 2026-07-24 | §12.2.1 目录结构默认改为 **by-step**（多样本共享步骤目录 + 文件名前缀 `{sample}_xxx` 区分），by-sample 降为可选；§12.6.1 加注释标注既有 genomescope 结构为新模块前的示例 |
 | 2.15 | 2026-07-23 | 临时目录统一改造：所有模块临时文件/目录从系统 `/tmp` 改为 `output_dir/tmp` 子目录并运行结束清理，消除超算 `/tmp` 爆满风险 |
