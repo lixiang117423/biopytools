@@ -12,6 +12,8 @@ import os
 from collections import defaultdict
 from typing import Dict, List, Optional, Tuple
 
+from .evidence import hit_key
+
 
 def prepare_unique_bam(rnaseq_bam: Optional[List[str]], config,
                        cmd_runner, logger) -> Optional[str]:
@@ -62,29 +64,28 @@ def prepare_unique_bam(rnaseq_bam: Optional[List[str]], config,
 
 def compute_hit_depth_breadth(hits, bam: Optional[str], config,
                               cmd_runner, logger
-                              ) -> Dict[int, Tuple[float, float]]:
+                              ) -> Dict[tuple, Tuple[float, float]]:
     """
     算每 hit 的 (mean_depth, breadth%)|Compute mean depth + coverage breadth per hit
     - mean_depth = CDS 各位置深度之和 / CDS 总长
     - breadth    = depth≥1 的位置数 / CDS 总长 × 100
-    用 samtools depth -a -b(逐碱基含0); 按 id(hit) 键返回
-    |samtools depth -a -b (per-position incl 0); keyed by id(hit)
+    用 samtools depth -a -b(逐碱基含0); 按 hit_key(hit) 键返回
+    |samtools depth -a -b (per-position incl 0); keyed by hit_key(hit)
     """
-    if not hits or not bam:
+    if not hits:
         return {}
+    if not bam:
+        return None     # 有候选但无 BAM → 无法算表达, 返回 None 让 qc_filter 跳过表达过滤|no BAM => skip expr filter
 
-    # 1. 收集每 hit 的 CDS exon + 建 position→hit 查找|collect CDS exons + position->hit map
-    exon_by_chrom = defaultdict(list)   # chrom -> [(start, end, hit_key)]
-    hit_stats = {}                      # hit_key -> [sum_depth, covered_bases, total_bases]
+    # 1. 收集每 hit 的 CDS 总长 + BED 行|collect per-hit CDS length + BED rows
+    hit_total = {}                       # hit_key -> total CDS length
     bed_rows = []
     for h in hits:
-        key = id(h)
-        total = 0
+        key = hit_key(h)
+        total = sum(e - s + 1 for s, e, _ in h.cds_exons)
+        hit_total[key] = total
         for s, e, _ in h.cds_exons:
-            exon_by_chrom[h.chrom].append((s, e, key))
             bed_rows.append((h.chrom, s, e))
-            total += e - s + 1
-        hit_stats[key] = [0.0, 0, total]
     if not bed_rows:
         return {}
 
@@ -99,54 +100,53 @@ def compute_hit_depth_breadth(hits, bam: Optional[str], config,
     # 3. samtools depth -a -b|run depth
     cmd = f"{config.samtools_bin} depth -a -b {bed} {bam} > {depth_tsv}"
     if not cmd_runner.run_command(cmd, "表达深度计算|expression depth"):
-        logger.warning("depth 计算失败|depth computation failed")
+        logger.warning("depth 计算失败, 表达过滤将不生效|depth failed, expression filter disabled")
         for p in (bed, depth_tsv):
             if os.path.exists(p):
                 os.remove(p)
-        return {}
+        return None     # None(非{})→qc_filter 跳过表达过滤, 避免"全判无表达"静默丢光|None => skip
 
-    # 排序 exon 便于 bisect 查找|sort exons per chrom for bisect
-    sorted_exons = {}
-    for chrom, lst in exon_by_chrom.items():
-        lst.sort()
-        sorted_exons[chrom] = (lst, [x[0] for x in lst])
-
-    # 4. 解析 depth, 累加到 hit|parse depth, accumulate per hit
+    # 4. 解析 depth → 每染色体的有序 (pos, depth)|parse to per-chrom sorted positions+depths
+    #    samtools depth -a -b 输出 BED 区并集的逐位置(含0), 已按 chrom,pos 排序
+    pos_by_chrom = defaultdict(list)
+    depth_by_chrom = defaultdict(list)
     with open(depth_tsv) as f:
         for line in f:
             c = line.rstrip('\n').split('\t')
             if len(c) < 3:
                 continue
             try:
-                pos = int(c[1])
-                d = float(c[2])
+                pos_by_chrom[c[0]].append(int(c[1]))
+                depth_by_chrom[c[0]].append(float(c[2]))
             except ValueError:
                 continue
-            info = sorted_exons.get(c[0])
-            if not info:
-                continue
-            lst, starts = info
-            idx = bisect.bisect_right(starts, pos) - 1   # start≤pos 的最后一个|last exon start<=pos
-            if idx < 0:
-                continue
-            s, e, key = lst[idx]
-            if s <= pos <= e:
-                st = hit_stats[key]
-                st[0] += d
-                if d >= 1:
-                    st[1] += 1
 
     # 清理临时|cleanup tmp
     for p in (bed, depth_tsv):
         if os.path.exists(p):
             os.remove(p)
 
-    # 5. 汇总|summarize
+    # 5. 每 hit 在【自己的 CDS 区间】独立求和|per-hit sum over its OWN CDS exons
+    #    关键: 重叠 CDS 的位置对每个覆盖它的 hit 都算(不归属单一 hit),
+    #    消除排序依赖/不确定性|overlapping positions count for each covering hit (deterministic)
     result = {}
     for h in hits:
-        s_depth, covered, total = hit_stats[id(h)]
-        if total > 0:
-            result[id(h)] = (s_depth / total, covered / total * 100.0)
-        else:
-            result[id(h)] = (0.0, 0.0)
+        key = hit_key(h)
+        total = hit_total[key]
+        if total <= 0:
+            result[key] = (0.0, 0.0)
+            continue
+        positions = pos_by_chrom.get(h.chrom)
+        depths = depth_by_chrom.get(h.chrom)
+        sum_d = 0.0
+        covered = 0
+        if positions:
+            for s, e, _ in h.cds_exons:
+                lo = bisect.bisect_left(positions, s)
+                hi = bisect.bisect_right(positions, e)
+                for i in range(lo, hi):
+                    sum_d += depths[i]
+                    if depths[i] >= 1:
+                        covered += 1
+        result[key] = (sum_d / total, covered / total * 100.0)
     return result

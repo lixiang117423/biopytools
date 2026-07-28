@@ -22,6 +22,21 @@ class MiniprotHit:
     coverage: float = 0.0                   # %
 
 
+def hit_key(hit: MiniprotHit) -> tuple:
+    """
+    hit 的稳定内容键(不依赖对象 id)|stable content-based key (not object id)
+    用于表达量等 dict 索引: 即使 hit 被复制, 同一命中仍能查到(避免假阴性)
+    |for expression dict indexing: survives object copy (no false negatives)
+
+    ⚠ 必须含 cds_exons: miniprot 常对同一 (span, query) 输出多种 CDS 结构(主/次比对),
+    只用 start/end 会碰撞 → 表达量互相覆盖 → 假阴性。含 cds_exons 才完全唯一。
+    |must include cds_exons: miniprot emits multiple CDS structures per (span, query);
+    start/end alone collides → expression overwrite → false negatives.
+    """
+    return (hit.chrom, hit.start, hit.end, hit.strand, hit.query_id,
+            tuple(hit.cds_exons))
+
+
 def _parse_attr(attr_str: str) -> dict:
     """解析 GFF3 第9列 attributes(ID=...;Parent=...)|Parse GFF3 column 9"""
     attrs = {}

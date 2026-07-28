@@ -58,12 +58,17 @@ def parse_braker_gff3(gff3_path: str) -> Dict[str, BrakerGene]:
                 continue
             chrom, src, feat, start, end, score, strand, phase, attr = cols[:9]
             attrs = _parse_gff3_attr(attr)
+            # 坐标解析(畸形行跳过, 不崩)|parse coords, skip malformed
+            try:
+                s_i, e_i = int(start), int(end)
+            except ValueError:
+                continue
             if feat == 'gene':
                 gid = attrs.get('ID', '')
                 if gid:
                     genes[gid] = BrakerGene(
                         gene_id=gid, chrom=chrom,
-                        start=int(start), end=int(end), strand=strand)
+                        start=s_i, end=e_i, strand=strand)
             elif feat in ('mRNA', 'transcript'):
                 mid = attrs.get('ID', '')
                 parent = attrs.get('Parent', '')
@@ -73,7 +78,7 @@ def parse_braker_gff3(gff3_path: str) -> Dict[str, BrakerGene]:
                 parent = attrs.get('Parent', '')
                 gene_id = mrna_to_gene.get(parent, parent)
                 cds_temp.setdefault(gene_id, []).append(
-                    (int(start), int(end), chrom, strand))
+                    (s_i, e_i, chrom, strand))
 
     for gid, intervals in cds_temp.items():
         if not gid:

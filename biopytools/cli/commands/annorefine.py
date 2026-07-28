@@ -1,5 +1,5 @@
 """
-annorefine: 注释精修(同源补漏+合并拆分+质控)|Annotation refinement
+annorefine: BRAKER + 查漏补缺 端到端 → 整合 GFF3|braker + gap-filling end-to-end
 """
 
 import click
@@ -28,56 +28,96 @@ def _validate_file(path):
 
 
 @click.command(
-    short_help='注释精修(同源补漏+合并拆分+ORF/表达质控)|Annotation refinement',
+    short_help='BRAKER+查漏补缺端到端→整合GFF3|braker + gap-filling end-to-end',
     context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120)
 )
 @click.option('-g', '--genome', required=True,
               callback=lambda c, p, v: _validate_file(v) if v else None,
-              help='未mask原始基因组|Unmasked raw genome')
-@click.option('-b', '--braker-gff3', required=True,
-              callback=lambda c, p, v: _validate_file(v) if v else None,
-              help='BRAKER输出GFF3|BRAKER output GFF3')
+              help='未mask原始基因组|Unmasked genome')
+@click.option('-s', '--species', required=True, help='物种名|Species name')
 @click.option('-p', '--prot-seq', required=True,
               callback=lambda c, p, v: _validate_file(v) if v else None,
-              help='近缘蛋白|Protein evidence')
-@click.option('-o', '--output-dir', required=True, help='输出目录|Output directory')
-@click.option('--rnaseq-bam', help='RNA-seq BAM(逗号分隔)|RNA-seq BAMs')
-@click.option('--isoseq-bam', help='三代BAM|Long-read BAM')
-@click.option('--repeat-out', help='RepeatMasker .out(真TE区排除)|RepeatMasker out')
-@click.option('--exclude-te-gap', is_flag=True, help='质控排除TE区gap(默认不排)|exclude TE-overlap gaps')
-@click.option('--prefix', help='输出前缀(默认genome stem)|Output prefix')
-@click.option('-t', '--threads', type=int, default=12, show_default=True,
-              help='线程数|Threads')
+              help='近缘蛋白(文件或目录)|Protein file/dir')
+@click.option('-o', '--output-dir', required=True, help='输出目录|Output dir')
+@click.option('--rnaseq-dirs', help='二代RNA-seq目录(逗号分隔)|RNA-seq dirs')
+@click.option('--isoseq', help='三代转录本(文件或目录)|Iso-seq file/dir')
+@click.option('-t', '--threads', type=int, default=12, show_default=True, help='线程数|Threads')
+@click.option('--fungus/--no-fungus', default=True, show_default=True,
+              help='真菌模式(疫霉适用)|Fungus mode')
+@click.option('--no-singularity', is_flag=True, help='不用Singularity|No singularity')
+@click.option('--skip-repeat', is_flag=True, help='跳过repeat屏蔽|Skip repeat masking')
+@click.option('--skip-repeat-filter', is_flag=True, help='跳过repeat库过滤|Skip repeat filter')
+@click.option('--skip-rescue/--no-skip-rescue', default=True, show_default=True,
+              help='证据还原(默认关)|Rescue (default off)')
 @click.option('--split-min-copy-coverage', type=float, default=80, show_default=True,
-              help='保守合并判据:完整拷贝覆盖率%|Conservative split copy coverage')
-@click.option('--no-split', is_flag=True, help='关闭合并拆分|Disable merged-gene split')
-def annorefine(genome, braker_gff3, prot_seq, output_dir,
-                 rnaseq_bam, isoseq_bam, repeat_out, prefix,
-                 threads, split_min_copy_coverage, no_split, exclude_te_gap):
+              help='保守合并判据:完整拷贝覆盖率%|Split copy coverage')
+@click.option('--no-split', is_flag=True, help='关闭合并拆分|Disable split')
+@click.option('--repeat-out', help='RepeatMasker .out(filling真TE排除)|RepeatMasker out')
+@click.option('--exclude-te-gap', is_flag=True, help='质控排除TE区gap(默认不排)|exclude TE-overlap gaps')
+@click.option('--no-real-orf', is_flag=True,
+              help='关闭真实完整ORF检查(默认开)|disable real-ORF check (default on)')
+@click.option('--no-coord-zero-overlap', is_flag=True,
+              help='关闭gap坐标零重叠(默认开)|disable coord-zero-overlap (default on)')
+@click.option('--no-unique-reads', is_flag=True,
+              help='关闭唯一比对过滤(默认开)|disable unique-read filter (default on)')
+@click.option('--min-unique-mapq', type=int, default=20, show_default=True,
+              help='唯一比对MAPQ兜底阈值|unique MAPQ fallback')
+@click.option('--min-expression-depth', type=float, default=1.0, show_default=True,
+              help='唯一reads平均深度下限|min unique-read depth')
+@click.option('--min-coverage-breadth', type=float, default=50.0, show_default=True,
+              help='CDS覆盖广度%下限|min coverage breadth')
+@click.option('--no-gap-fill', is_flag=True,
+              help='关闭纯漏检填补(只保留合并拆分)|disable pure gap-fill (split only)')
+def annorefine(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
+              threads, fungus, no_singularity, skip_repeat, skip_repeat_filter,
+              skip_rescue, split_min_copy_coverage, no_split, repeat_out,
+              exclude_te_gap, no_real_orf, no_coord_zero_overlap, no_unique_reads,
+              min_unique_mapq, min_expression_depth, min_coverage_breadth, no_gap_fill):
     """
-    注释精修(同源补漏+合并拆分+质控)|Annotation refinement
+    BRAKER 注释 + 查漏补缺 端到端 → 整合 GFF3|braker + gap-filling end-to-end
 
-    示例|Example: biopytools annorefine -g genome.fa -b braker.gff3 -p prot.fa -o out/
+    示例|Example: biopytools annorefine -g genome.fa -s psojae -p prot.fa -o out/
     """
     anno_main = _lazy_import_main()
-    args = ['annorefine.py', '-g', genome, '-b', braker_gff3,
-            '-p', prot_seq, '-o', output_dir]
-    if rnaseq_bam:
-        args.extend(['--rnaseq-bam', rnaseq_bam])
-    if isoseq_bam:
-        args.extend(['--isoseq-bam', isoseq_bam])
-    if repeat_out:
-        args.extend(['--repeat-out', repeat_out])
-    if exclude_te_gap:
-        args.append('--exclude-te-gap')
-    if prefix:
-        args.extend(['--prefix', prefix])
+    args = ['annorefine.py', '-g', genome, '-s', species, '-p', prot_seq, '-o', output_dir]
+    if rnaseq_dirs:
+        args.extend(['--rnaseq-dirs', rnaseq_dirs])
+    if isoseq:
+        args.extend(['--isoseq', isoseq])
     if threads != 12:
         args.extend(['-t', str(threads)])
+    if not fungus:
+        args.append('--no-fungus')
+    if no_singularity:
+        args.append('--no-singularity')
+    if skip_repeat:
+        args.append('--skip-repeat')
+    if skip_repeat_filter:
+        args.append('--skip-repeat-filter')
+    if not skip_rescue:
+        args.append('--no-skip-rescue')
     if split_min_copy_coverage != 80:
         args.extend(['--split-min-copy-coverage', str(split_min_copy_coverage)])
     if no_split:
         args.append('--no-split')
+    if repeat_out:
+        args.extend(['--repeat-out', repeat_out])
+    if exclude_te_gap:
+        args.append('--exclude-te-gap')
+    if no_real_orf:
+        args.append('--no-real-orf')
+    if no_coord_zero_overlap:
+        args.append('--no-coord-zero-overlap')
+    if no_unique_reads:
+        args.append('--no-unique-reads')
+    if min_unique_mapq != 20:
+        args.extend(['--min-unique-mapq', str(min_unique_mapq)])
+    if min_expression_depth != 1.0:
+        args.extend(['--min-expression-depth', str(min_expression_depth)])
+    if min_coverage_breadth != 50.0:
+        args.extend(['--min-coverage-breadth', str(min_coverage_breadth)])
+    if no_gap_fill:
+        args.append('--no-gap-fill')
 
     original_argv = sys.argv
     sys.argv = args

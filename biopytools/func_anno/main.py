@@ -5,7 +5,7 @@ func_anno 主程序|func_anno Main Entry.
 |End-to-end: interproscan (domains) + eggnog-mapper (GO/KEGG source) → standard
 GO/KEGG tables for downstream R enrichment.
 
-约束|Constraint: 不改 interproscan/eggnog_mapper 源码, 仅 import 调用(braker4ps 模式).
+约束|Constraint: 不改 interproscan/eggnog_mapper 源码, 仅 import 调用(annorefine 模式).
 
 输入自动识别|Input auto-detection:
     -i 单文件 → 单样本(by-step, 不嵌套): output_dir/01_.../02_.../03_...

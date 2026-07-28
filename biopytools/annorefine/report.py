@@ -8,7 +8,7 @@ import os
 import re
 from typing import List, Optional, Dict, Tuple
 
-from .evidence import MiniprotHit
+from .evidence import MiniprotHit, hit_key
 from .gap_analysis import parse_repeat_out, cds_overlap_ratio
 
 
@@ -58,7 +58,7 @@ def build_gap_report(gap_hits: List[MiniprotHit], prefix: str,
     |Per gap: coords + protein + depth + breadth + FPKM/TPM + TE family
 
     Args:
-        expression: {id(hit): (mean_depth, breadth%)} 预计算表达证据, 给定则复用
+        expression: {hit_key(hit): (mean_depth, breadth%)} 预计算表达证据, 给定则复用
                     |precomputed expression; if given, reused (no recompute)
         unique_bam: 唯一比对 BAM 路径, StringTie 定量用(优先于 rnaseq_bam)
                     |unique BAM for StringTie quant (priority over rnaseq_bam)
@@ -69,7 +69,7 @@ def build_gap_report(gap_hits: List[MiniprotHit], prefix: str,
 
     # 1. 表达证据(depth+breadth): 优先复用预计算 expression, 否则现算 depth(breadth 置0)
     # |expression: prefer precomputed; else compute depth (breadth=0)
-    gap_depth_breadth: Dict[int, Tuple[float, float]] = {}
+    gap_depth_breadth: Dict[tuple, Tuple[float, float]] = {}
     if expression is not None:
         gap_depth_breadth = expression
         logger.info(f"复用预计算表达证据|reuse precomputed expression: "
@@ -82,7 +82,7 @@ def build_gap_report(gap_hits: List[MiniprotHit], prefix: str,
             for h in gap_hits:
                 for s, e, _ in h.cds_exons:
                     regions.append((h.chrom, s, e))
-                    seg_map.append(id(h))
+                    seg_map.append(hit_key(h))
             regions_bed = out_tsv + '.regions.bed'
             with open(regions_bed, 'w') as f:
                 for chrom, s, e in regions:
@@ -90,7 +90,7 @@ def build_gap_report(gap_hits: List[MiniprotHit], prefix: str,
             depth = compute_region_mean_depth(
                 rnaseq_bam, regions, regions_bed,
                 config.samtools_bin, cmd_runner, logger)
-            depth_by_hit: Dict[int, list] = {}
+            depth_by_hit: Dict[tuple, list] = {}
             for idx, d in depth.items():
                 if idx < len(seg_map):
                     depth_by_hit.setdefault(seg_map[idx], []).append(d)
@@ -145,7 +145,7 @@ def build_gap_report(gap_hits: List[MiniprotHit], prefix: str,
                 if ov_len > best_ov_len:
                     best_ov_len = ov_len
                     best_family = fam
-            depth, breadth = gap_depth_breadth.get(id(h), (0.0, 0.0))
+            depth, breadth = gap_depth_breadth.get(hit_key(h), (0.0, 0.0))
             fpkm, tpm = fpkm_tpm.get(tid, (0.0, 0.0))
             f.write(
                 f"{gid}\t{h.chrom}\t{h.start}\t{h.end}\t{h.strand}\t"

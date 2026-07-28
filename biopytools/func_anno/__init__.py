@@ -5,8 +5,8 @@ func_anno: 蛋白功能注释流水线|Protein functional annotation pipeline.
 |End-to-end: interproscan (domains) + eggnog-mapper (GO/KEGG source) → standard
 GO/KEGG tables for downstream R enrichment.
 
-约束|Constraint: 不改 interproscan/eggnog_mapper 源码, 仅 import 调用(braker4ps 模式).
-|import-only (braker4ps pattern).
+约束|Constraint: 不改 interproscan/eggnog_mapper 源码, 仅 import 调用(annorefine 模式).
+|import-only (annorefine pattern).
 """
 
 from .table_builder import build_tables, load_go_dict

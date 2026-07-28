@@ -1,4 +1,16 @@
 
+## [1.23.0] - 2026-07-28
+
+### Added
+- **新模块 `psvcp`**：PSVCP 线性泛基因组构建（MUMmer + Assemblytics 检测 PAV 并逐轮并入参考）。Python 重做原始 PSVCP 脚本的逐轮循环（步骤序列与命名 1:1 对齐原始），外部工具走 `build_conda_command` + 命令日志，vendored R/Python helper 原样调用；整体 + 逐轮断点续传；assemblytics numpy 预检（env python 被 GraalPy 顶掉时明确报错而非黑箱失败）；写 `software_versions.yml`。CLI：`biopytools psvcp -i genome_gff_dir/ -l genome_list.txt -o out/`
+
+### Changed
+- `annorefine` 升级为**端到端**：原仅做 BRAKER 后查漏补缺，现一条命令跑完 BRAKER 注释 + 同源查漏补缺 → 整合 GFF3（吸收原 braker4ps 的角色）；CLI 参数相应扩展（`-s species` / `--rnaseq-dirs` / `--fungus` / `--skip-*` 等）
+- **弃用 `braker4ps`**：功能已完全并入 annorefine（两者均为 `BrakerPipeline + AnnorefineRunner` 端到端，100% 重复），从 CLI 注册表移除并删除模块 + CLI + 文档。**破坏性|Breaking**：原 `biopytools braker4ps` 命令不再存在，改用 `biopytools annorefine`
+
+### Fixed
+- `annorefine`：表达深度计算失败时返回 `None` → `qc_filter` 跳过表达过滤（原返回 `{}` 会让所有基因被判无表达而**静默全丢**）；hit 索引从 `id(hit)` 改为内容键 `hit_key`（含 `cds_exons`，防 miniprot 同 span 多 CDS 结构碰撞，survives 对象复制）；每 hit 在自身 CDS 区间独立求深度（消除重叠 CDS 的归属不确定性）；解析 `braker.gff3` 跳过畸形坐标行不崩
+
 ## [1.22.0] - 2026-07-28
 
 ### Changed

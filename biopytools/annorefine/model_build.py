@@ -6,7 +6,7 @@ miniprot 命中 → GFF3 基因模型(方案A, CDS级) + 质控过滤
 
 from typing import List, Dict, Tuple, Optional
 
-from .evidence import MiniprotHit
+from .evidence import MiniprotHit, hit_key
 from .gap_analysis import cds_overlap_ratio
 
 
@@ -22,11 +22,11 @@ def qc_filter(hits: List[MiniprotHit], config,
 
     Args:
         genome: {chrom: seq}, 给定则做真实 ORF 检查①|if given, do real-ORF check
-        expression: {id(hit): (mean_depth, breadth%)}, 给定则做表达过滤②⑤|if given, do expression filter
+        expression: {hit_key(hit): (mean_depth, breadth%)}, 给定则做表达过滤②⑤|if given, do expression filter
     """
     from .evidence import has_complete_orf
     require_orf = getattr(config, 'require_real_orf', True) and genome is not None
-    use_expr = expression is not None
+    use_expr = bool(expression)   # None(失败/无BAM)或空dict 都跳过表达过滤, 不静默丢|None/{} => skip
     passed = []
     for h in hits:
         if h.identity < config.gap_min_identity:
@@ -46,7 +46,7 @@ def qc_filter(hits: List[MiniprotHit], config,
         # ②⑤ 表达证据: 唯一 reads 平均深度 + 覆盖广度
         # |expression: unique-read mean depth + coverage breadth
         if use_expr:
-            depth, breadth = expression.get(id(h), (0.0, 0.0))
+            depth, breadth = expression.get(hit_key(h), (0.0, 0.0))
             if depth < config.min_expression_depth or breadth < config.min_coverage_breadth:
                 continue
         # 真 TE 区排除(可选, 默认不排: 真基因可能在 TE 区)

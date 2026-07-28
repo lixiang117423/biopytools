@@ -1,12 +1,15 @@
 """
-annorefine 命令行入口 + 流程编排(GFF3)|CLI entry + pipeline (GFF3)
-注释精修: 同源补漏 + 合并拆分 + ORF/表达质控|Annotation refinement
+annorefine 主程序|annorefine Main Entry
+端到端基因组注释: BRAKER 注释 + 同源查缺补漏 → 整合 GFF3
+|End-to-end genome annotation: BRAKER + homology gap-filling → integrated GFF3
+
+输入: 未mask基因组 + 转录组(RNA-seq 目录) + 同源蛋白 → 一条命令跑完
+|Input: unmasked genome + transcriptome (RNA-seq dirs) + homolog proteins → one command
 """
 
 import argparse
 import os
 import sys
-from typing import List
 
 from .config import AnnorefineConfig
 from .utils import AnnorefineLogger
@@ -19,49 +22,9 @@ from .expression import prepare_unique_bam, compute_hit_depth_breadth
 from .merge import merge_gff3
 
 
-def parse_arguments():
-    """解析命令行参数|Parse CLI arguments"""
-    parser = argparse.ArgumentParser(
-        description="annorefine: 注释精修(同源补漏+合并拆分+质控)(GFF3)"
-        "|Annotation refinement (homology gap-fill + split + QC) (GFF3)")
-    parser.add_argument('-g', '--genome', required=True,
-                        help='未mask原始基因组|Unmasked raw genome')
-    parser.add_argument('-b', '--braker-gff3', required=True,
-                        help='BRAKER输出GFF3|BRAKER output GFF3')
-    parser.add_argument('-p', '--prot-seq', required=True,
-                        help='近缘蛋白|Protein evidence')
-    parser.add_argument('-o', '--output-dir', required=True,
-                        help='输出目录|Output directory')
-    parser.add_argument('--rnaseq-bam', help='RNA-seq BAM(逗号分隔)|RNA-seq BAMs')
-    parser.add_argument('--isoseq-bam', help='三代BAM|Long-read BAM')
-    parser.add_argument('--repeat-out', help='RepeatMasker .out|RepeatMasker out')
-    parser.add_argument('--prefix', help='输出前缀(默认genome stem)|Output prefix')
-    parser.add_argument('-t', '--threads', type=int, default=12,
-                        help='线程数|Threads')
-    # 质控
-    parser.add_argument('--gap-min-identity', type=float, default=70)
-    parser.add_argument('--gap-min-coverage', type=float, default=80)
-    parser.add_argument('--gap-min-cds-len', type=int, default=100)
-    parser.add_argument('--overlap-cutoff', type=float, default=0)
-    parser.add_argument('--no-require-complete-orf', dest='require_complete_orf',
-                        action='store_false', default=True)
-    parser.add_argument('--te-overlap-cutoff', type=float, default=50)
-    parser.add_argument('--exclude-te-gap', action='store_true',
-                        help='质控排除TE区gap(默认不排,真基因可能在TE区)|exclude TE-overlap gaps')
-    # 合并拆分
-    parser.add_argument('--no-split', dest='enable_split',
-                        action='store_false', default=True)
-    parser.add_argument('--split-min-hits', type=int, default=2)
-    parser.add_argument('--split-min-copy-coverage', type=float, default=80)
-    # 步骤控制
-    parser.add_argument('--skip-evidence-scan', action='store_true')
-    parser.add_argument('--skip-gap-analysis', action='store_true')
-    parser.add_argument('--skip-merge', action='store_true')
-    return parser.parse_args()
-
-
 class AnnorefineRunner:
-    """annorefine 流程编排|Pipeline orchestrator"""
+    """查漏补缺引擎(同源补漏 + 合并拆分 + ORF/表达质控)
+    |Gap-filling engine: homology gap-fill + merged-gene split + ORF/expression QC"""
 
     def __init__(self, config: AnnorefineConfig, logger=None):
         self.config = config
@@ -100,9 +63,10 @@ class AnnorefineRunner:
         return hits
 
     def run(self):
-        """运行完整流程|Run full pipeline"""
+        """运行查漏补缺流程|Run gap-filling pipeline"""
         self.logger.info("=" * 70)
-        self.logger.info("annorefine: BRAKER 后通用查漏补缺(GFF3)|Post-BRAKER gap-filling")
+        self.logger.info("annorefine 查漏补缺: 同源补漏 + 合并拆分 + 质控"
+                         "|gap-filling: homology fill + split + QC")
         self.logger.info("=" * 70)
 
         # Step1 证据扫描|evidence scan
@@ -148,7 +112,7 @@ class AnnorefineRunner:
             f"总候选|total candidates: {len(all_candidate_hits)} "
             f"(gap={len(gaps)}, split={len(merged_hits)})")
 
-        # Step2.5 [新] 基因组(ORF检查①) + 表达证据(②④⑤)|genome + expression
+        # Step2.5 基因组(ORF检查①) + 表达证据(②④⑤)|genome + expression
         genome = None
         if self.config.require_real_orf:
             genome = load_fasta(self.config.genome)
@@ -162,7 +126,16 @@ class AnnorefineRunner:
             expression = compute_hit_depth_breadth(
                 all_candidate_hits, unique_bam, self.config,
                 self.cmd_runner, self.logger)
-            self.logger.info(f"表达证据计算|expression computed: {len(expression)} hits")
+            if expression is None:
+                # depth 计算失败: 醒目告警, 表达过滤将不生效(避免静默丢光所有基因)
+                # |depth failed: loud warning, expression filter disabled
+                self.logger.error(
+                    "表达证据计算失败, 表达过滤②⑤将不生效(仅靠①ORF+③坐标)! "
+                    "请检查 BAM/samtools|expression computation FAILED, "
+                    "expression filter disabled")
+            else:
+                self.logger.info(
+                    f"表达证据计算|expression computed: {len(expression)} hits")
         else:
             self.logger.warning(
                 "无 RNA-seq BAM, 表达过滤②⑤未启用(仅靠①ORF+③坐标)"
@@ -215,45 +188,208 @@ class AnnorefineRunner:
                          self.config, self.cmd_runner, self.logger,
                          expression=expression, unique_bam=unique_bam)
 
+        # 清理 unique BAM 临时文件(v2.15: tmp 运行结束清理)|cleanup unique BAM
+        if unique_bam:
+            for suffix in ('', '.bai', '.csi'):
+                p = unique_bam + suffix
+                if os.path.exists(p):
+                    try:
+                        os.remove(p)
+                    except OSError:
+                        pass
+
         self.logger.info("=" * 70)
-        self.logger.info("annorefine 完成|annorefine done")
+        self.logger.info("annorefine 查漏补缺完成|gap-filling done")
         self.logger.info("=" * 70)
         return self.merged_gff3
 
 
+def parse_arguments():
+    """解析命令行参数(端到端)|Parse CLI arguments (end-to-end)"""
+    parser = argparse.ArgumentParser(
+        description="annorefine: BRAKER 注释 + 同源查缺补漏 端到端 → 整合 GFF3"
+        "|End-to-end: BRAKER + homology gap-filling → integrated GFF3",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="示例|Example: biopytools annorefine -g genome.fa -s psojae -p prot.fa --rnaseq-dirs r1,r2 -o out/")
+    # 必填|Required
+    parser.add_argument('-g', '--genome', required=True,
+                        help='未mask原始基因组(braker 内部 mask, filling 用未mask)|Unmasked genome')
+    parser.add_argument('-s', '--species', required=True,
+                        help='物种名(braker 输出命名)|Species name')
+    parser.add_argument('-p', '--prot-seq', required=True,
+                        help='近缘蛋白(文件或目录, braker+filling 共用)|Protein file/dir')
+    parser.add_argument('-o', '--output-dir', required=True,
+                        help='输出目录|Output dir')
+    # BRAKER 证据|BRAKER evidence
+    parser.add_argument('--rnaseq-dirs', help='二代RNA-seq目录(逗号分隔)|RNA-seq dirs')
+    parser.add_argument('--isoseq', help='三代转录本(文件或目录)|Iso-seq file/dir')
+    # BRAKER 通用|BRAKER general
+    parser.add_argument('-t', '--threads', type=int, default=12, help='线程数|Threads (default 12)')
+    parser.add_argument('--fungus', action=argparse.BooleanOptionalAction, default=True,
+                        help='真菌模式(默认开, --no-fungus 关)|Fungus mode (default on)')
+    parser.add_argument('--singularity-image',
+                        default='~/software/singularity/braker3_devel.sif',
+                        help='Singularity镜像|Singularity image')
+    parser.add_argument('--no-singularity', action='store_true',
+                        help='不用Singularity|No singularity')
+    # BRAKER 步骤|BRAKER steps
+    parser.add_argument('--skip-repeat', action='store_true', help='跳过repeat屏蔽|Skip repeat masking')
+    parser.add_argument('--skip-repeat-filter', action='store_true',
+                        help='跳过repeat库过滤(默认开)|Skip repeat filter')
+    parser.add_argument('--skip-rescue', action=argparse.BooleanOptionalAction, default=True,
+                        help='跳过证据还原(默认关, --no-skip-rescue 开)|Skip rescue (default on)')
+    # 查漏补漏参数|gap-filling params
+    parser.add_argument('--split-min-copy-coverage', type=float, default=80,
+                        help='保守合并判据:完整拷贝覆盖率%%|Split copy coverage (default 80)')
+    parser.add_argument('--no-split', action='store_true', help='关闭合并拆分|Disable merged-gene split')
+    parser.add_argument('--repeat-out', help='RepeatMasker .out(默认自动找braker产物)|RepeatMasker out')
+    parser.add_argument('--exclude-te-gap', action='store_true',
+                        help='质控排除TE区gap(默认不排)|exclude TE-overlap gaps')
+    parser.add_argument('--gap-min-identity', type=float, default=70, help='filling identity%%(default 70)')
+    parser.add_argument('--gap-min-coverage', type=float, default=80, help='filling coverage%%(default 80)')
+    # 通用生物学质控|general bio-QC
+    parser.add_argument('--no-real-orf', action='store_true',
+                        help='关闭真实完整ORF检查(ATG+stop+3倍数,默认开)|disable real-ORF check (default on)')
+    parser.add_argument('--no-coord-zero-overlap', action='store_true',
+                        help='关闭gap坐标零重叠(默认开:与BRAKER基因坐标相交不算新基因)|disable coord-zero-overlap (default on)')
+    parser.add_argument('--no-unique-reads', action='store_true',
+                        help='关闭唯一比对过滤(默认开:多比对reads不算表达)|disable unique-read filter (default on)')
+    parser.add_argument('--min-unique-mapq', type=int, default=20,
+                        help='唯一比对MAPQ兜底阈值(samtools无-e时)|unique MAPQ fallback (default 20)')
+    parser.add_argument('--min-expression-depth', type=float, default=1.0,
+                        help='唯一reads平均深度下限(>0)|min unique-read depth (default 1.0)')
+    parser.add_argument('--min-coverage-breadth', type=float, default=50.0,
+                        help='CDS被唯一reads覆盖广度%%下限|min coverage breadth (default 50)')
+    parser.add_argument('--no-gap-fill', action='store_true',
+                        help='关闭纯漏检填补(只保留合并拆分)|disable pure gap-fill (split only)')
+    return parser.parse_args()
+
+
 def main():
-    """主入口|Main entry"""
+    """主入口|Main entry: BRAKER → 查漏补缺 端到端|BRAKER then gap-filling, end-to-end"""
     args = parse_arguments()
-    rnaseq = args.rnaseq_bam.split(',') if args.rnaseq_bam else None
+
+    # 延迟 import(避免 CLI help 时不必要加载)|lazy import
+    from ..braker.config import BrakerConfig
+    from ..braker.pipeline import BrakerPipeline
+    from ..braker.utils import (BrakerLogger, find_protein_files_in_directory,
+                                find_long_reads_in_directory)
+    from ..braker.main import clean_protein_sequences
+    # AnnorefineConfig/Runner 本模块内|local to this module
+
+    # 统一日志(传给 braker+filling, 避免各自重配 root)|unified logger
+    log_file = os.path.join(args.output_dir, 'logs', 'annorefine.log')
+    os.makedirs(os.path.dirname(log_file), exist_ok=True)
+    logger = BrakerLogger(log_file).get_logger()
+
     try:
-        config = AnnorefineConfig(
-            genome=args.genome, braker_gff3=args.braker_gff3,
-            prot_seq=args.prot_seq, output_dir=args.output_dir,
-            rnaseq_bam=rnaseq, isoseq_bam=args.isoseq_bam,
-            repeat_out=args.repeat_out, prefix=args.prefix,
+        logger.info('=' * 70)
+        logger.info('annorefine: BRAKER + 查漏补缺 端到端|End-to-end')
+        logger.info('=' * 70)
+
+        # 处理 prot_seq(目录识别+清理, braker+filling 共用)|process prot_seq
+        prot_seq_file = args.prot_seq
+        if prot_seq_file and os.path.isdir(prot_seq_file):
+            logger.info('prot_seq 为目录, 自动识别合并|prot_seq is dir, auto-merge')
+            prot_seq_file = find_protein_files_in_directory(prot_seq_file, logger=logger)
+        if prot_seq_file:
+            logger.info('清理蛋白质序列(移除非标准字符)|Cleaning proteins')
+            prot_seq_file = clean_protein_sequences(prot_seq_file, logger=logger)
+
+        # 处理 isoseq(目录识别)|process isoseq
+        isoseq_file = args.isoseq
+        if isoseq_file and os.path.isdir(isoseq_file):
+            isoseq_file = find_long_reads_in_directory(isoseq_file, logger=logger)
+
+        # rnaseq_dirs(逗号分隔)|rnaseq_dirs
+        rnaseq_dirs = [d.strip() for d in args.rnaseq_dirs.split(',')] if args.rnaseq_dirs else None
+
+        # ===== 阶段1: BRAKER(断点续传, braker.gtf 存在则跳过)|Phase 1: BRAKER =====
+        logger.info('-' * 70)
+        logger.info('阶段1: BRAKER 注释|Phase 1: BRAKER annotation')
+        logger.info('-' * 70)
+        bcfg = BrakerConfig(
+            genome=args.genome,
+            species=args.species,
+            prot_seq=prot_seq_file,
+            isoseq=isoseq_file,
+            rnaseq_dirs=rnaseq_dirs,
+            use_singularity=not args.no_singularity,
+            singularity_image=args.singularity_image,
+            output_dir=args.output_dir,
+            threads=args.threads,
+            use_fungus=args.fungus,
+            skip_repeat=args.skip_repeat,
+            skip_repeat_filter=args.skip_repeat_filter,
+            skip_rescue=args.skip_rescue,
+        )
+        bcfg.validate()
+        braker_gtf = BrakerPipeline(bcfg, logger).run_pipeline()
+        logger.info(f'阶段1 完成, braker.gtf|Phase 1 done: {braker_gtf}')
+        # braker 同时输出 braker.gff3(同目录, --gff3), 查漏补缺用 GFF3
+        # |braker also outputs braker.gff3 in same dir; gap-filling uses GFF3
+        braker_gff3 = braker_gtf.rsplit('.gtf', 1)[0] + '.gff3'
+        if not os.path.exists(braker_gff3):
+            logger.error(f'braker.gff3 不存在|braker.gff3 not found: {braker_gff3}')
+            sys.exit(1)
+        logger.info(f'查漏补缺输入 braker.gff3|gap-filling input: {braker_gff3}')
+
+        # ===== 阶段2: 查漏补缺(未mask genome + braker.gff3 + prot)|Phase 2 =====
+        # 关键: 用 args.genome(未mask原始), 不是 braker 的 masked genome
+        # |uses raw unmasked genome, not braker's masked genome
+        logger.info('-' * 70)
+        logger.info('阶段2: 查漏补缺|Phase 2: gap-filling')
+        logger.info('-' * 70)
+        filling_output = os.path.join(args.output_dir, '05_gap_filling')
+        # braker 的 RNA-seq BAM(给查漏补缺做表达验证)|braker's RNA-seq BAM for expression
+        rnaseq_bam_path = os.path.join(args.output_dir, '03_short_reads',
+                                       'rnaseq.sorted.bam')
+        rnaseq_bam = [rnaseq_bam_path] if os.path.exists(rnaseq_bam_path) else None
+        if rnaseq_bam:
+            logger.info(f'表达验证用 RNA-seq BAM|expression BAM: {rnaseq_bam_path}')
+        # 自动找 braker 的 RepeatMasker .out(用户 --repeat-out 优先)
+        # |auto-find braker's RepeatMasker .out (user --repeat-out takes priority)
+        repeat_out = args.repeat_out
+        if not repeat_out:
+            auto_rep = os.path.join(args.output_dir, '01_repeat_masking',
+                                    os.path.basename(args.genome) + '.out')
+            if os.path.exists(auto_rep):
+                repeat_out = auto_rep
+                logger.info(f'自动找到 repeat .out|auto repeat_out: {auto_rep}')
+        pcfg = AnnorefineConfig(
+            genome=args.genome,
+            braker_gff3=braker_gff3,
+            prot_seq=prot_seq_file,
+            output_dir=filling_output,
+            rnaseq_bam=rnaseq_bam,
+            threads=args.threads,
+            split_min_copy_coverage=args.split_min_copy_coverage,
+            enable_split=not args.no_split,
+            repeat_out=repeat_out,
+            exclude_te_gap=args.exclude_te_gap,
             gap_min_identity=args.gap_min_identity,
             gap_min_coverage=args.gap_min_coverage,
-            gap_min_cds_len=args.gap_min_cds_len,
-            overlap_cutoff=args.overlap_cutoff,
-            require_complete_orf=args.require_complete_orf,
-            te_overlap_cutoff=args.te_overlap_cutoff,
-            exclude_te_gap=args.exclude_te_gap,
-            enable_split=args.enable_split,
-            split_min_hits=args.split_min_hits,
-            split_min_copy_coverage=args.split_min_copy_coverage,
-            threads=args.threads,
-            skip_evidence_scan=args.skip_evidence_scan,
-            skip_gap_analysis=args.skip_gap_analysis,
-            skip_merge=args.skip_merge,
+            require_real_orf=not args.no_real_orf,
+            gap_coord_zero_overlap=not args.no_coord_zero_overlap,
+            unique_reads_only=not args.no_unique_reads,
+            min_unique_mapq=args.min_unique_mapq,
+            min_expression_depth=args.min_expression_depth,
+            min_coverage_breadth=args.min_coverage_breadth,
+            enable_gap_fill=not args.no_gap_fill,
         )
-        config.validate()
-        runner = AnnorefineRunner(config)
-        result = runner.run()
-        if result:
-            sys.exit(0)
-        sys.exit(1)
+        result = AnnorefineRunner(pcfg, logger).run()
+        logger.info(f'阶段2 完成, 整合 GFF|Phase 2 done: {result}')
+        logger.info('=' * 70)
+        logger.info('annorefine 端到端完成|annorefine end-to-end done')
+        logger.info('=' * 70)
+        sys.exit(0)
+
+    except SystemExit:
+        raise
     except Exception as e:
-        print(f"错误|Error: {e}", file=sys.stderr)
+        logger.error(f'错误|Error: {e}')
+        import traceback
+        traceback.print_exc()
         sys.exit(1)
 
 
