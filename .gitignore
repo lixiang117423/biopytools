@@ -341,7 +341,9 @@ modules/
 /biopytools.egg-info/
 
 # Scripts and examples (if not needed in repo)
-scripts/
+# 注:锚定根目录(/scripts/),避免吞掉模块内嵌的 scripts/(如 biopytools/psvcp/scripts/)
+# |Anchor to root so nested module scripts/ (e.g. biopytools/psvcp/scripts/) are tracked
+/scripts/
 examples/
 /examples/
 

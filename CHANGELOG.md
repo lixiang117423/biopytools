@@ -1,4 +1,9 @@
 
+## [1.23.1] - 2026-07-28
+
+### Fixed
+- `psvcp`：补提交 1.23.0 漏掉的 `psvcp/scripts/construct_pan/` 下 **13 个 vendored R/Python helper**（`pipeline.py` 逐轮调用它们，缺失则模块在 fresh checkout 上不可用）。根因：`.gitignore` 的 `scripts/` 规则过宽（匹配任意深度），已改为锚定根目录 `/scripts/`（根 `scripts/` 仍忽略，模块内嵌 `scripts/` 可跟踪）
+
 ## [1.23.0] - 2026-07-28
 
 ### Added
