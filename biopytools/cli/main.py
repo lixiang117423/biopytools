@@ -223,6 +223,7 @@ COMMAND_REGISTRY = [
     ('trimal', 'trimal', '多序列比对自动修剪(trimAl)|MSA automated trimming with trimAl'),
     ('phylo_trim', 'phylo-trim', '整合mafft-fasttree+trimal,出trimal前后两棵树|Integrate mafft-fasttree+trimal, before/after trees'),
     ('rnaseq2vcf', 'rnaseq2vcf', '转录组变异检测(到VCF)|RNA-seq variant calling (to VCF)'),
+    ('predgpi', 'predgpi', 'PredGPI GPI锚定蛋白预测|PredGPI GPI-anchor prediction'),
 ]
 
 # 将硬编码信息转换为字典，方便查询

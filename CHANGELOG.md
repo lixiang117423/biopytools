@@ -1,4 +1,9 @@
 
+## [1.24.0] - 2026-07-29
+
+### Added
+- **新模块 `predgpi`**：PredGPI GPI 锚定蛋白预测。Python-import 方式调用 PredGPI（`sys.path` + `PREDGPI_HOME`，无需 conda 包装），延迟加载 HMM/SVM 模型；逐序列预测含非标准氨基酸替换 + 短序列(≤40aa)防护 + **逐序列异常兜底**（predgpi 内部 numpy/HMM 报错时标记为非 GPI，不中断整批）+ numpy 标量强转（`float()`/`int()` 避免 truth-value 歧义）；FPR 四级分类（Highly/Probable/Weakly/Improbable）；断点续传；3-handler 日志分离；`software_versions.yml`（PredGPI 无 `--version`，以发表文献标注版本）。CLI：`biopytools predgpi -i proteins.fa -o out/ [--conservative] [--predgpi-home ~/software/predgpi]`
+
 ## [1.23.3] - 2026-07-29
 
 ### Added
