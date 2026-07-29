@@ -74,9 +74,10 @@ def parse_arguments():
                         action='store_false',
                         help='禁用prefer_mrna去冗余|Disable prefer_mrna deduplication')
 
-    parser.add_argument('--version',
-                        action='version',
-                        version='%(prog)s 1.0.0')
+    parser.add_argument('-v', '--version',
+                        default=None,
+                        help='版本号前缀|Version tag (e.g., 1, 1.2); 指定后在所有ID最前面加 v{version}- (如 -v 1 → v1-CDRT_Ov12g000010)|'
+                             'when set, prepends v{version}- to every ID (e.g., -v 1 → v1-CDRT_Ov12g000010)')
 
     return parser.parse_args()
 
@@ -99,7 +100,8 @@ def main():
             naming_format=args.naming_format,
             include_utr=args.include_utr,
             skip_gff_clean=args.skip_clean,
-            prefer_mrna=args.prefer_mrna
+            prefer_mrna=args.prefer_mrna,
+            version=args.version
         )
         config.validate()
 

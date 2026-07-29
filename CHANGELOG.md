@@ -1,4 +1,12 @@
 
+## [1.23.3] - 2026-07-29
+
+### Added
+- `gff_renamer`：新增 `-v/--version <tag>` 选项——非空时在所有生成的基因 ID 最前面加 `v{tag}-` 前缀（如 `-v 1` → `v1-CDRT_Ov12g000010`），下游 mRNA/exon/CDS 派生 ID 自动继承。`config.validate()` 校验版本号不含空白字符（避免破坏 GFF 属性 ID）
+
+### Changed
+- `gff_renamer`：`--version` 语义变更——原为 argparse 内置 `action='version'`（打印程序版本号 `1.0.0`），现改为接收版本标签参数用于 ID 前缀；依赖 `--version` 查程序版本的用法不再生效
+
 ## [1.23.2] - 2026-07-28
 
 ### Docs

@@ -172,6 +172,7 @@ class GFFRenamer:
         self.logger.info(f"前缀|Prefix: {self.config.prefix}")
         self.logger.info(f"物种缩写|Species abbreviation: {self.config.species}")
         self.logger.info(f"命名格式|Naming format: {self.config.naming_format}")
+        self.logger.info(f"版本号前缀|Version tag: {self.config.version or '无|none'}")
         self.logger.info(f"包含UTR特征|Include UTR features: {self.config.include_utr}")
 
         # 步骤0：AGAT清洗GFF文件（默认启用）|Step 0: AGAT clean GFF file (enabled by default)
@@ -520,7 +521,8 @@ class GFFRenamer:
                 self.config.species,
                 chr_num,
                 gene_index,
-                self.config.naming_format
+                self.config.naming_format,
+                self.config.version
             )
 
             # 映射gene ID（带前缀和不带前缀）|Map gene ID (with and without prefix)

@@ -229,7 +229,8 @@ def load_chr_mapping(mapping_file: str) -> Dict[str, str]:
 
 
 def generate_gene_id(prefix: str, species: str, chr_num: str, gene_index: int,
-                     naming_format: str = "standard") -> str:
+                     naming_format: str = "standard",
+                     version: Optional[str] = None) -> str:
     """
     生成标准化的基因ID|Generate standardized gene ID
 
@@ -239,12 +240,15 @@ def generate_gene_id(prefix: str, species: str, chr_num: str, gene_index: int,
         chr_num: 染色体编号|Chromosome number (e.g., 12, 01)
         gene_index: 基因索引|Gene index (1-based)
         naming_format: 命名格式|Naming format (standard/simple/compact)
+        version: 版本号|Version tag (e.g., 1, 1.2); 非空时在ID最前面加 v{version}- 前缀
+            |when set, prepends v{version}- to the ID (e.g. v1-CDRT_Ov12g000010)
 
     Returns:
         str: 基因ID|Gene ID
             - standard: CDRT_Ov12g000010
             - simple: CDRT12G000010
             - compact: CDRT12g000010
+            - 带版本号时在最前面加 v{version}-|With version: prepends v{version}-
     """
     # 基因编号格式：000010, 000020, ... (递增10)|Gene number format: increments by 10
     gene_number = gene_index * 10
@@ -261,5 +265,10 @@ def generate_gene_id(prefix: str, species: str, chr_num: str, gene_index: int,
     else:
         # 默认使用标准格式|Default to standard format
         gene_id = f"{prefix}_{species}{chr_num}g{gene_number:06d}"
+
+    # 版本前缀:在基因ID最前面加 v{version}-,下游mRNA/exon/CDS等派生ID自动继承
+    # Version prefix: prepend v{version}- to the gene ID; derived IDs inherit it
+    if version:
+        gene_id = f"v{version}-{gene_id}"
 
     return gene_id

@@ -3,6 +3,7 @@ GFF重命名配置管理模块|GFF Renamer Configuration Management Module
 """
 
 import os
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -37,6 +38,9 @@ class GFFRenamerConfig:
     # 新增参数|New parameters
     chr_mapping_file: Optional[str] = None  # 染色体映射文件路径|Chromosome mapping file path
     naming_format: str = "standard"  # 命名格式|Naming format (standard/simple/compact)
+    # 版本号前缀|Version tag prefix: 非空时在所有ID最前面加 v{version}- (如 -v 1 → v1-CDRT...)
+    # |when set, prepends v{version}- to every ID (e.g. -v 1 → v1-CDRT...)
+    version: Optional[str] = None
     include_utr: bool = False  # 是否包含UTR特征|Whether to include UTR features (现仅影响UTR重排序/Name清理,UTR总会被重编号|now only affects UTR reordering/Name-strip; UTRs are always renumbered)
     # 默认开启:对含有mRNA的基因,丢弃其冗余 transcript(misc_RNA 变体)及其子特征;
     # 仅含 transcript 的基因(无mRNA)保留。典型场景:NCBI/Gnomon EGAPx 注释。
@@ -100,6 +104,11 @@ class GFFRenamerConfig:
         valid_formats = ['standard', 'simple', 'compact']
         if self.naming_format not in valid_formats:
             errors.append(f"命名格式无效|Invalid naming format: {self.naming_format}. 支持格式|Supported formats: {', '.join(valid_formats)}")
+
+        # 检查版本号前缀|Check version tag: 禁止空白字符(会破坏GFF属性ID)
+        # |no whitespace allowed (would break GFF attribute IDs)
+        if self.version and re.search(r'\s', self.version):
+            errors.append(f"版本号不能包含空白字符|Version tag must not contain whitespace: {self.version!r}")
 
         if errors:
             raise ValueError("\n".join(errors))
