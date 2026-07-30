@@ -1,4 +1,21 @@
 
+## [1.24.2] - 2026-07-30
+
+### Added
+- `annorefine`：新增**小蛋白回收通道**（`--recover-small-proteins`，默认关）——`gap_min_cds_len` 硬悬崖会把小蛋白整类丢掉，本通道放宽长度（CDS < `gap_min_cds_len` 且 ≤ 450bp/150aa），用 完整ORF① + 同源 + 表达②⑤ + 强制 TE 排除 四重门控找回；无表达数据时退化为 ORF + 严同源(70/80)。输出独立 ID 前缀 `{prefix}_small_gap_{N}`
+- `tgsgapcloser` / `gap-fill` CLI：新增 `-f/--force`（忽略断点续传）、`--dry-run`（只打印命令）、`-mgl/--min-gap-length`（第2轮最小 gap 长度，原硬编码 100）；工具路径走路径管理系统（§11）
+
+### Changed
+- `annorefine`：`detect_gaps` / `detect_merged_genes` 性能优化——按染色体建基因 span / 命中 start 的 bisect 索引，把 O(hits×genes) 暴力扫描降为对数级；结果与原实现完全一致（CDS⊆span 假设下，span 相交预过滤 + 精确 CDS 判定），命中输出顺序还原保证确定性
+- `annorefine`：写 `00_pipeline_info/software_versions.yml`（miniprot/samtools/stringtie 版本 + 关键参数，§12.5）
+
+### Fixed
+- `tgsgapcloser`：logger 改 named logger + `propagate=False`（原 `logging.basicConfig` 配置 root logger，biopytools 作为库被 import 时会与其他模块串扰/重复输出，§2.3.3）
+- `tgsgapcloser`：第1轮 TGS-GapCloser2 改流式执行（`run_with_progress`，Popen+读线程），原 `capture_output` 把大基因组输出全缓冲进内存致 OOM（§13.2.0）
+- `tgsgapcloser`：`minimap2` 改 `build_conda_command` + `shell=False`（原 `subprocess.run(shell=True)`），记完整命令（§2.2.1）；`unitig_dict` 索引加 None 防护（原直接索引会 KeyError）
+- `tgsgapcloser`：`__post_init__` 展开所有工具路径（原漏了 unitig/ngs/racon/pilon/samtools/java 的 `~` 展开，§11.3.1）；`read_fasta` 改逐行解析省内存 + 兼容 `\r\n`
+- `gap-fill` CLI：`tgsgapcloser_path` 改为始终透传（修 env/config.yml 探测的默认值到不了 main 的 bug）
+
 ## [1.24.1] - 2026-07-30
 
 ### Fixed
