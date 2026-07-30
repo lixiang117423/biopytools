@@ -26,7 +26,7 @@ class TGSGapCloser:
         self.logger = self.logger_manager.get_logger()
 
         # 初始化命令执行器|Initialize command runner
-        self.cmd_runner = CommandRunner(self.logger, output_dir)
+        self.cmd_runner = CommandRunner(self.logger, output_dir, dry_run=self.config.dry_run)
 
         # 输出文件路径|Output file paths
         self.output_gapclosed = f"{self.config.output_prefix}.gapcloser.fa"
@@ -66,8 +66,10 @@ class TGSGapCloser:
             round1_backup = f"{self.output_gapclosed}.round1"
             round2_tmp_file = f"{self.config.output_prefix}.round2.filled.fasta"
 
-            # 如果最终输出已存在且有round1备份，说明流程已完成
-            if os.path.exists(self.output_gapclosed) and os.path.exists(round1_backup):
+            # 如果最终输出已存在且有round1备份(且未强制重跑),说明流程已完成
+            # Completed if final output + round1 backup exist (and not forced)
+            if (os.path.exists(self.output_gapclosed) and os.path.exists(round1_backup)
+                    and not self.config.force):
                 self.logger.info("="*80)
                 self.logger.info("检测到已完成的流程，跳过|Pipeline already completed, skipping")
                 self.logger.info("="*80)
@@ -79,10 +81,15 @@ class TGSGapCloser:
             self.logger.info("开始TGS-GapCloser Gap填充流程|Starting TGS-GapCloser gap filling pipeline")
             self.logger.info("="*80)
 
-            # 如果第1轮输出不存在，运行第1轮
-            if not os.path.exists(self.output_gapclosed):
+            # 如果第1轮输出不存在(或强制重跑),运行第1轮
+            # Run round 1 if output missing (or forced)
+            if not os.path.exists(self.output_gapclosed) or self.config.force:
                 self.logger.info("第1轮：TGS-GapCloser2 Gap填充|Round 1: TGS-GapCloser2 Gap Filling")
                 self._run_tgsgapcloser()
+                if self.config.dry_run:
+                    self.logger.info("dry-run 模式,仅预览命令,跳过输出检查与第2轮|"
+                                     "dry-run, preview only; skip output check & round 2")
+                    return True
                 self._check_output()
             else:
                 self.logger.info("检测到第1轮已完成，跳过|Round 1 already completed, skipping")
@@ -100,8 +107,8 @@ class TGSGapCloser:
 
             # 第2轮：如果还有gap且提供了unitig文件，运行quarTeT gapfiller
             if has_gaps and self.config.unitig_file:
-                # 如果最终输出已存在且没有round1备份，说明第2轮已完成
-                if os.path.exists(round1_backup):
+                # 第2轮已完成(且未强制重跑)则跳过|skip round 2 if done (and not forced)
+                if os.path.exists(round1_backup) and not self.config.force:
                     self.logger.info("检测到第2轮已完成，跳过|Round 2 already completed, skipping")
                 else:
                     self.logger.info("="*80)
@@ -123,7 +130,9 @@ class TGSGapCloser:
                         max_filling_len=self.config.max_filling_len,
                         threads=self.config.threads,
                         minimap_option='-x asm20' if self.config.tgstype == 'hifi' else '-x asm5',
-                        overwrite=False
+                        overwrite=self.config.force,
+                        min_gap_length=self.config.min_gap_length,
+                        minimap2_path=self.config.minimap2_path
                     )
 
                     # 将第2轮结果重命名为最终输出
@@ -205,11 +214,14 @@ class TGSGapCloser:
                 cmd[i + 1] = output_basename
                 break
 
-        # 在输出目录中执行，隔离done文件|Execute in output dir to isolate done files
-        result = self.cmd_runner.run_command(cmd, check=True, cwd=output_dir)
+        # 在输出目录中执行,隔离done文件;流式输出避免 capture 缓冲 OOM(§13.2.0)|
+        # Execute in output dir (isolate done files); stream to avoid capture-buffer OOM
+        ok = self.cmd_runner.run_with_progress(
+            cmd, cwd=output_dir,
+            description="TGS-GapCloser2 Gap填充|TGS-GapCloser2 gap filling")
 
-        if result.returncode != 0:
-            raise RuntimeError(f"TGS-GapCloser执行失败|TGS-GapCloser execution failed with return code: {result.returncode}")
+        if not ok:
+            raise RuntimeError(f"TGS-GapCloser执行失败|TGS-GapCloser execution failed")
 
         self.logger.info("TGS-GapCloser执行完成|TGS-GapCloser execution completed")
 
@@ -320,6 +332,14 @@ def main():
                        help='最小比对同一性（%%）|Min alignment identity %% (default: 40)')
     parser.add_argument('-max_filling_len', type=int, default=1000000,
                        help='最大填充长度（bp）|Max filling length (default: 1000000)')
+    parser.add_argument('-min_gap_length', type=int, default=100,
+                       help='第2轮识别/填充的最小gap长度(bp)|Min gap length (bp) for round-2 (default: 100)')
+
+    # 流程控制|Pipeline control
+    parser.add_argument('-f', '--force', action='store_true',
+                       help='忽略断点续传强制重跑|Force rerun, ignore checkpoint')
+    parser.add_argument('--dry-run', action='store_true',
+                       help='只打印命令不执行|Dry run, print commands only')
 
     args = parser.parse_args()
 

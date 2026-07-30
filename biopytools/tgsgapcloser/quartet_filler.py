@@ -15,6 +15,8 @@ from collections import defaultdict
 import tempfile
 import shutil
 
+from .utils import build_conda_command
+
 
 class QuartetGapFiller:
     """quarTeT风格的Gap填充工具|quarTeT-style Gap Filling Tool"""
@@ -25,20 +27,23 @@ class QuartetGapFiller:
 
     @staticmethod
     def read_fasta(fasta_file: str) -> Dict[str, str]:
-        """读取FASTA文件|Read FASTA file as dictionary"""
+        """读取FASTA文件(逐行解析,兼容\\r\\n,省内存)|Read FASTA (line-by-line, \\r\\n-safe)"""
         fasta_dict = {}
+        sid = None
+        chunks: List[str] = []
         with open(fasta_file, 'r') as f:
-            all_lines = f.read()
-        for id_seq in all_lines.split('>'):
-            if not id_seq:
-                continue
-            try:
-                sid_raw, seq_raw = id_seq.split('\n', 1)
-                sid = sid_raw.split()[0].strip()
-                seq = seq_raw.replace('\n', '').upper()
-                fasta_dict[sid] = seq
-            except ValueError:
-                continue
+            for line in f:
+                line = line.rstrip('\r\n')
+                if line.startswith('>'):
+                    if sid is not None:
+                        fasta_dict[sid] = ''.join(chunks).upper()
+                    parts = line[1:].split()
+                    sid = parts[0] if parts else ''
+                    chunks = []
+                elif line:
+                    chunks.append(line)
+            if sid is not None:
+                fasta_dict[sid] = ''.join(chunks).upper()
         return fasta_dict
 
     @staticmethod
@@ -129,21 +134,32 @@ class QuartetGapFiller:
 
     def run_minimap(self, query_fa: str, ref_fa: str, output_prefix: str,
                     minimap_option: str = '-x asm5', threads: int = 1,
-                    overwrite: bool = False) -> str:
-        """运行minimap2比对|Run minimap2 alignment"""
+                    overwrite: bool = False, minimap2_path: str = 'minimap2') -> str:
+        """运行minimap2比对(记录完整命令+conda包装+无 shell=True,§2.2.1/§13)|
+        Run minimap2 (full-cmd log + conda wrap + no shell=True)."""
         paf_file = f'{output_prefix}.paf'
 
-        # 检查是否已存在
+        # 检查是否已存在|Check existing
         if not overwrite and os.path.exists(paf_file) and os.path.getsize(paf_file) > 0:
             self.logger.info(f"使用现有PAF文件|Using existing PAF file: {paf_file}")
             return paf_file
 
-        self.logger.info(f"运行minimap2...|Running minimap2...")
-        cmd = f'minimap2 {minimap_option} -t {threads} {ref_fa} {query_fa} > {paf_file}'
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        # minimap_option 如 '-x asm5' 拆成多个参数|split option into args
+        args = minimap_option.split() + ['-t', str(threads), ref_fa, query_fa]
+        cmd = build_conda_command(minimap2_path, args)
+        # §2.2.1:记录完整命令(含重定向目标)|log full command with redirect target
+        self.logger.info(f"执行|Executing: minimap2 比对|minimap2 alignment")
+        self.logger.info(f"命令|Command: {' '.join(cmd)} > {paf_file}")
+        # stdout 重定向到 paf_file(避免 shell=True,路径无需引号化)|redirect stdout (no shell=True)
+        with open(paf_file, 'w') as out_f:
+            result = subprocess.run(cmd, stdout=out_f, stderr=subprocess.PIPE, text=True)
+
+        if result.stderr:
+            for line in result.stderr.splitlines():
+                self.logger.debug(f"minimap2 stderr| {line}")
 
         if result.returncode != 0:
-            raise RuntimeError(f"minimap2运行失败|minimap2 execution failed: {result.stderr}")
+            raise RuntimeError(f"minimap2运行失败|minimap2 failed (rc={result.returncode}): {result.stderr}")
 
         return paf_file
 
@@ -239,7 +255,8 @@ class QuartetGapFiller:
                   output_prefix: str, flanking_len: int = 5000,
                   min_align_len: int = 1000, min_identity: float = 0.4,
                   max_filling_len: int = 1000000, threads: int = 1,
-                  minimap_option: str = '-x asm5', overwrite: bool = False) -> str:
+                  minimap_option: str = '-x asm5', overwrite: bool = False,
+                  min_gap_length: int = 100, minimap2_path: str = 'minimap2') -> str:
         """
         执行gap填充|Perform gap filling
 
@@ -257,7 +274,7 @@ class QuartetGapFiller:
         try:
             # 步骤1: 提取flanking序列
             self.logger.info(f"步骤1: 提取gap flanking序列|Step 1: Extracting gap flanking sequences")
-            flanking_dict, gap_dict = self.extract_flanking_seqs(draft_genome, flanking_len)
+            flanking_dict, gap_dict = self.extract_flanking_seqs(draft_genome, flanking_len, min_gap_length)
 
             if not flanking_dict:
                 self.logger.warning("未找到有效的gap|No valid gaps found")
@@ -290,7 +307,7 @@ class QuartetGapFiller:
 
             paf_file = self.run_minimap(unitig_for_align, flanking_fa,
                                        f'{tmp_dir}/align',
-                                       minimap_option, threads, overwrite)
+                                       minimap_option, threads, overwrite, minimap2_path)
 
             # 步骤3: 解析比对结果|Step 3: Parsing alignments
             self.logger.info(f"步骤3: 解析比对结果|Step 3: Parsing alignments")
@@ -344,7 +361,11 @@ class QuartetGapFiller:
                             if gapid not in gapcloser_dict or score > gapcloser_dict[gapid]['score']:
                                 fill_start = l_aln['refend'] + l_aln['qrylen'] - l_aln['qryend'] + 1
                                 fill_end = r_aln['refstart'] - r_aln['qrystart']
-                                fill_seq = unitig_dict[l_aln['refid']][fill_start-1:fill_end]
+                                unitig_seq = unitig_dict.get(l_aln['refid'])
+                                if unitig_seq is None:
+                                    self.logger.warning(f"Unitig序列未找到|Unitig seq not found: {l_aln['refid']}")
+                                    continue
+                                fill_seq = unitig_seq[fill_start-1:fill_end]
 
                                 if len(fill_seq) > max_filling_len or not fill_seq:
                                     continue
@@ -377,7 +398,7 @@ class QuartetGapFiller:
                         w.write(f'>{sid}\n{seq}\n')
                     else:
                         # 有被填充的gap，需要替换
-                        matches = list(re.finditer(r'N{100,}', seq))
+                        matches = list(re.finditer(r'N{' + str(min_gap_length) + ',}', seq))
                         seq_list = []
                         start = 0
 
@@ -408,7 +429,7 @@ class QuartetGapFiller:
             self.logger.info(f"输出文件|Output file: {output_fa}")
 
             # 统计
-            final_gap_count, _ = self.count_gaps(output_fa)
+            final_gap_count, _ = self.count_gaps(output_fa, min_gap_length)
             original_gap_count = len(gap_dict)
             filled_count = original_gap_count - final_gap_count
 

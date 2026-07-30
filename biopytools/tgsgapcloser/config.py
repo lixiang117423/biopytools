@@ -3,9 +3,12 @@ TGS-GapCloser配置管理模块|TGS-GapCloser Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+import shutil
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import expand_path, get_tool_path
 
 
 @dataclass
@@ -17,8 +20,12 @@ class TGSGapCloserConfig:
     reads_file: str  # 输入TGS reads文件
     output_prefix: str  # 输出前缀
 
-    # 工具路径|Tool paths
-    tgsgapcloser_path: str = '~/software/TGS-GapCloser2/TGS-GapCloser2-master/tgsgapcloser2'
+    # 工具路径(走路径管理系统:env > config.yml > 默认,§11)|Tool paths via path manager
+    tgsgapcloser_path: str = field(
+        default_factory=lambda: get_tool_path(
+            'tgsgapcloser', '~/software/TGS-GapCloser2/TGS-GapCloser2-master/tgsgapcloser2', 'TGSGAPCLOSER_PATH'))
+    minimap2_path: str = field(
+        default_factory=lambda: get_tool_path('minimap2', 'minimap2', 'MINIMAP2_PATH'))
 
     # 纠错模式|Error correction mode
     mode: str = 'none'  # 'none', 'racon', 'pilon'
@@ -60,13 +67,24 @@ class TGSGapCloserConfig:
     min_align_len: int = 1000  # 最小比对长度
     min_identity: int = 40  # 最小比对同一性（百分比）
     max_filling_len: int = 1000000  # 最大填充长度
+    min_gap_length: int = 100  # 第2轮识别/填充的最小gap长度(bp)|min gap length (bp) for round-2 detect/fill
+
+    # 流程控制|Pipeline control
+    force: bool = False  # 忽略断点续传强制重跑|force rerun, ignore checkpoint
+    dry_run: bool = False  # 只打印命令不执行|dry run, print commands only
 
     def __post_init__(self):
-        """初始化后处理|Post-initialization processing"""
-        # 标准化路径|Normalize paths
-        self.scaff_file = os.path.normpath(os.path.abspath(self.scaff_file))
-        self.reads_file = os.path.normpath(os.path.abspath(self.reads_file))
-        self.tgsgapcloser_path = os.path.normpath(os.path.abspath(os.path.expanduser(self.tgsgapcloser_path)))
+        """初始化后处理(展开所有~路径)|Post-init: expand all ~ paths"""
+        # output_prefix 只展开 ~ / $VAR,不强绝对化(保留相对路径行为)|expand ~ / $VAR only, keep relative
+        self.output_prefix = expand_path(self.output_prefix)
+
+        # 展开所有文件/工具路径(§11:统一 expand_path,原代码漏 expand unitig/ngs/racon/pilon/samtools/java)|
+        # expand all file/tool paths (fix: previously missed unitig/ngs/racon/pilon/samtools/java)
+        for attr in ('scaff_file', 'reads_file', 'tgsgapcloser_path', 'unitig_file',
+                     'ngs_file', 'racon_path', 'pilon_path', 'samtools_path', 'java_path'):
+            v = getattr(self, attr)
+            if v:
+                setattr(self, attr, os.path.normpath(os.path.abspath(expand_path(v))))
 
         # 确保输出目录存在|Ensure output directory exists
         output_dir = os.path.dirname(self.output_prefix)
@@ -133,6 +151,11 @@ class TGSGapCloserConfig:
         # 检查quarTeT相关参数|Check quarTeT related parameters
         if self.unitig_file and not os.path.exists(self.unitig_file):
             errors.append(f"Unitig文件不存在|Unitig file does not exist: {self.unitig_file}")
+
+        # 第2轮填充需要minimap2,预检避免跑到中途才失败|round 2 needs minimap2; pre-check to fail early
+        if self.unitig_file:
+            if not (shutil.which(self.minimap2_path) or os.path.exists(self.minimap2_path)):
+                errors.append(f"第2轮填充需要minimap2但未找到|minimap2 required for round 2 but not found: {self.minimap2_path}")
 
         if errors:
             raise ValueError("\n".join(errors))

@@ -155,12 +155,23 @@ def _validate_file_exists(file_path):
               type=int,
               default=1000000,
               help='最大填充长度（bp）|Max filling length (bp) (default: 1000000)')
+@click.option('-mgl', '--min-gap-length',
+              type=int,
+              default=100,
+              help='第2轮识别/填充的最小gap长度(bp)|Min gap length (bp) for round-2 (default: 100)')
+@click.option('-f', '--force',
+              is_flag=True,
+              help='忽略断点续传强制重跑|Force rerun, ignore checkpoint')
+@click.option('--dry-run',
+              is_flag=True,
+              help='只打印命令不执行|Dry run, print commands only')
 def gap_fill(scaff_file, tgstype, reads_file, output_prefix, mode,
                  tgsgapcloser_path, min_idy, min_match, threads, chunk,
                  g_check, min_nread, max_nread, max_candidate,
                  racon_path, racon_round, pilon_path, ngs_file,
                  java_path, samtools_path, pilon_mem, pilon_round, minmap_arg,
-                 unitig_file, flanking_len, min_align_len, min_identity, max_filling_len):
+                 unitig_file, flanking_len, min_align_len, min_identity, max_filling_len,
+                 min_gap_length, force, dry_run):
     """
     TGS-GapCloser Gap填充工具|TGS-GapCloser Gap Filling Tool
 
@@ -185,8 +196,9 @@ def gap_fill(scaff_file, tgstype, reads_file, output_prefix, mode,
     if mode != 'none':
         args.extend(['-m', mode])
 
-    if tgsgapcloser_path != DEFAULT_TGSGAPCLOSER_PATH:
-        args.extend(['--tgsgapcloser_path', tgsgapcloser_path])
+    # 总是透传 tgsgapcloser_path:确保 env/config.yml 探测的默认值传给 main(修 env 失效 bug)|
+    # Always pass tgsgapcloser_path so env/config.yml-detected default reaches main (fixes env bug)
+    args.extend(['--tgsgapcloser_path', tgsgapcloser_path])
 
     if min_idy is not None:
         args.extend(['-idy', str(min_idy)])
@@ -253,6 +265,13 @@ def gap_fill(scaff_file, tgstype, reads_file, output_prefix, mode,
 
     if max_filling_len != 1000000:
         args.extend(['-max_filling_len', str(max_filling_len)])
+
+    if min_gap_length != 100:
+        args.extend(['-min_gap_length', str(min_gap_length)])
+    if force:
+        args.append('-f')
+    if dry_run:
+        args.append('--dry-run')
 
     # 执行主程序|Execute main program
     original_argv = sys.argv
