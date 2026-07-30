@@ -1,4 +1,9 @@
 
+## [1.24.3] - 2026-07-30
+
+### Added
+- `tgsgapcloser`：新增 gap 填充前后对比报告——对比处理前(`scaff_file`)与处理后(`gapclosed`)的 gap 数量/总长/长度分布/top10/填充率，产出 `{prefix}.gap_report.txt`（人类可读报告）与 `{prefix}.gap_table.tsv`（per-gap 明细：处理前长度 + 填充状态 Filled/Remaining/Unknown + 处理后残留长度）；`dry_run` 或无最终输出时自动跳过。`quartet_filler` 新增 `analyze_gaps`/`track_gaps` 支撑方法（基于 flanking 锚点定位，重复区非唯一锚点极少数 gap 可能误判）
+
 ## [1.24.2] - 2026-07-30
 
 ### Added
