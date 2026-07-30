@@ -85,6 +85,100 @@ class QuartetGapFiller:
 
         return total_gaps, gap_dict
 
+    def analyze_gaps(self, fasta_file: str, min_gap_length: int = 100) -> Dict:
+        """详细分析 gap 统计(供报告:总数/总长/分布/top10)|Detailed gap stats for report"""
+        fasta_dict = self.read_fasta(fasta_file)
+        records = []  # [(length, sid, start_1based, end_1based), ...]
+        seq_with_gaps = set()
+        for sid, seq in fasta_dict.items():
+            for m in re.finditer(r'N{' + str(min_gap_length) + ',}', seq):
+                length = m.end() - m.start()
+                records.append((length, sid, m.start() + 1, m.end()))
+                seq_with_gaps.add(sid)
+        lengths = [r[0] for r in records]
+        bins = self._gap_bins(min_gap_length)
+        by_bin: Dict[str, int] = {}
+        for L in lengths:
+            for lo, hi, label in bins:
+                if lo <= L < hi:
+                    by_bin[label] = by_bin.get(label, 0) + 1
+                    break
+        return {
+            'total': len(lengths),
+            'total_length': sum(lengths),
+            'seq_count': len(seq_with_gaps),
+            'avg': round(sum(lengths) / len(lengths), 1) if lengths else 0,
+            'max': max(lengths) if lengths else 0,
+            'bins': bins,
+            'by_bin': by_bin,
+            'top': sorted(records, reverse=True)[:10],
+        }
+
+    @staticmethod
+    def _gap_bins(min_gap_length: int) -> List[Tuple[int, float, str]]:
+        """构造长度分布区间(下界 ≥ min_gap_length)|length bins (edges ≥ min_gap_length)"""
+        raw = [min_gap_length, 500, 1000, 5000, 10000, 50000]
+        edges = sorted(set(e for e in raw if e >= min_gap_length))
+        edges.append(float('inf'))
+        bins = []
+        for i in range(len(edges) - 1):
+            lo, hi = edges[i], edges[i + 1]
+            label = f'>= {int(lo)}' if hi == float('inf') else f'{int(lo)}-{int(hi)}'
+            bins.append((lo, hi, label))
+        return bins
+
+    def track_gaps(self, before_file: str, after_file: str,
+                   min_gap_length: int = 100, anchor_len: int = 100) -> List[Dict]:
+        """追踪处理前每个 gap 在处理后的状态(Filled/Remaining/Unknown),基于 flanking 锚点定位|
+        Track per-gap status after filling via flanking anchors.
+
+        重复序列区的 flanking 可能非唯一,极少数 gap 可能误判|
+        Repetitive flanking may be non-unique; rare gaps may be misjudged.
+        """
+        before_dict = self.read_fasta(before_file)
+        after_dict = self.read_fasta(after_file)
+        rows = []
+        for sid, seq in before_dict.items():
+            after_seq = after_dict.get(sid, '')
+            gap_idx = 0
+            for m in re.finditer(r'N{' + str(min_gap_length) + ',}', seq):
+                gap_idx += 1
+                length = m.end() - m.start()
+                left_anchor = seq[max(m.start() - anchor_len, 0):m.start()]
+                right_anchor = seq[m.end():min(m.end() + anchor_len, len(seq))]
+                status, after_len = self._gap_status_after(
+                    after_seq, left_anchor, right_anchor, min_gap_length)
+                rows.append({
+                    'seq': sid, 'gap_idx': gap_idx,
+                    'before_start': m.start() + 1, 'before_end': m.end(),
+                    'before_length': length,
+                    'status': status, 'after_length': after_len,
+                })
+        return rows
+
+    @staticmethod
+    def _gap_status_after(after_seq: str, left_anchor: str, right_anchor: str,
+                          min_gap_length: int) -> Tuple[str, int]:
+        """在处理后序列里定位 [左锚]...[右锚],判断中间 gap 是否被填充|
+        Locate [left]...[right] in after_seq; decide if gap was filled."""
+        if not after_seq or not left_anchor or not right_anchor:
+            return 'Unknown', 0
+        search_start = 0
+        while True:
+            idx = after_seq.find(left_anchor, search_start)
+            if idx == -1:
+                return 'Unknown', 0
+            seg_start = idx + len(left_anchor)
+            ridx = after_seq.find(right_anchor, seg_start)
+            if ridx != -1:
+                segment = after_seq[seg_start:ridx]
+                big = re.search(r'N{' + str(min_gap_length) + ',}', segment)
+                if big:
+                    return 'Remaining', big.end() - big.start()
+                small = re.search(r'N+', segment)
+                return 'Filled', (small.end() - small.start()) if small else 0
+            search_start = idx + 1
+
     def has_gaps(self, fasta_file: str, min_gap_length: int = 100) -> bool:
         """检查是否还有gap|Check if file still has gaps"""
         total_gaps, _ = self.count_gaps(fasta_file, min_gap_length)

@@ -62,6 +62,8 @@ class TGSGapCloser:
     def run(self):
         """运行Gap填充流程|Run gap filling pipeline"""
         try:
+            # 提前创建 filler,供 gap 统计与前后对比报告复用|create filler early (reused for stats & report)
+            filler = QuartetGapFiller(self.logger)
             # 检查断点续传|Check for resume capability
             round1_backup = f"{self.output_gapclosed}.round1"
             round2_tmp_file = f"{self.config.output_prefix}.round2.filled.fasta"
@@ -74,6 +76,7 @@ class TGSGapCloser:
                 self.logger.info("检测到已完成的流程，跳过|Pipeline already completed, skipping")
                 self.logger.info("="*80)
                 self.logger.info(f"输出文件已存在|Output file exists: {self.output_gapclosed}")
+                self._maybe_write_gap_report(filler)
                 return True
 
             # 第1轮：运行TGS-GapCloser|Round 1: Run TGS-GapCloser
@@ -95,10 +98,7 @@ class TGSGapCloser:
                 self.logger.info("检测到第1轮已完成，跳过|Round 1 already completed, skipping")
                 self.logger.info(f"第1轮输出文件|Round 1 output: {self.output_gapclosed}")
 
-            # 检查是否还有剩余gap
-            from .quartet_filler import QuartetGapFiller
-            filler = QuartetGapFiller(self.logger)
-
+            # 检查是否还有剩余gap(复用开头创建的 filler)|check remaining gaps (reuse filler)
             has_gaps = filler.has_gaps(self.output_gapclosed)
             gap_count, _ = filler.count_gaps(self.output_gapclosed)
 
@@ -172,6 +172,8 @@ class TGSGapCloser:
                     except Exception as e:
                         self.logger.warning(f"  删除失败|Failed to delete {done_file}: {e}")
 
+            # 生成 gap 处理前后对比报告|generate before/after gap report
+            self._maybe_write_gap_report(filler)
             return True
 
         except Exception as e:
@@ -253,6 +255,85 @@ class TGSGapCloser:
             raise ValueError(f"输出文件为空|Output file is empty: {actual_output}")
 
         self.logger.info(f"输出文件检查通过|Output file check passed: {actual_output} ({file_size} bytes)")
+
+    def _maybe_write_gap_report(self, filler):
+        """非 dry_run 且最终输出存在时,生成 gap 前后对比报告|
+        Write before/after gap report when not dry-run and output exists."""
+        if self.config.dry_run:
+            return
+        if not os.path.exists(self.output_gapclosed):
+            return
+        try:
+            self._write_gap_report(self.config.scaff_file, self.output_gapclosed,
+                                   self.config.min_gap_length, filler)
+            self._write_gap_table(self.config.scaff_file, self.output_gapclosed,
+                                  self.config.min_gap_length, filler)
+        except Exception as e:
+            self.logger.warning(f"生成Gap报告失败|Failed to write gap report: {e}")
+
+    def _write_gap_report(self, before_file: str, after_file: str,
+                          min_gap_length: int, filler) -> str:
+        """生成 gap 处理前后对比报告(数量/长度分布/top/填充效果)|
+        Write before/after gap comparison (counts / length dist / top / fill effect)."""
+        report_file = f"{self.config.output_prefix}.gap_report.txt"
+        before = filler.analyze_gaps(before_file, min_gap_length)
+        after = filler.analyze_gaps(after_file, min_gap_length)
+
+        lines = []
+        lines.append("Gap填充报告|Gap Filling Report")
+        lines.append("=" * 60)
+        lines.append(f"处理前文件|Before (input): {before_file}")
+        lines.append(f"处理后文件|After (output): {after_file}")
+        lines.append(f"最小gap长度阈值|Min gap length threshold: {min_gap_length} bp")
+        lines.append("")
+        for title, stats in (("处理前|BEFORE", before), ("处理后|AFTER", after)):
+            lines.append(f"--- {title} ---")
+            lines.append(f"  总gap数量|Total gaps: {stats['total']}")
+            lines.append(f"  总gap长度|Total gap length: {stats['total_length']} bp")
+            lines.append(f"  含gap序列数|Sequences with gaps: {stats['seq_count']}")
+            lines.append(f"  平均gap长度|Avg gap length: {stats['avg']} bp")
+            lines.append(f"  最大gap长度|Max gap length: {stats['max']} bp")
+            lines.append(f"  长度分布(bp)|Length distribution:")
+            for _, _, label in stats['bins']:
+                lines.append(f"    {label}: {stats['by_bin'].get(label, 0)}")
+            lines.append(f"  最大10个gap|Top 10 largest gaps:")
+            if stats['top']:
+                for length, sid, start, end in stats['top']:
+                    lines.append(f"    {sid}:{start}-{end} ({length} bp)")
+            else:
+                lines.append("    (无|none)")
+            lines.append("")
+        lines.append("--- 填充效果|FILLING EFFECT ---")
+        filled_n = before['total'] - after['total']
+        filled_bp = before['total_length'] - after['total_length']
+        rate = (filled_n / before['total'] * 100) if before['total'] else 0.0
+        lines.append(f"  填充gap数量|Gaps filled: {filled_n}")
+        lines.append(f"  填充碱基数|Bases filled: {filled_bp} bp")
+        lines.append(f"  填充率(按数量)|Fill rate (by count): {rate:.1f}%")
+        lines.append(f"  剩余gap|Remaining gaps: {after['total']}")
+
+        with open(report_file, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(lines) + '\n')
+        self.logger.info(f"Gap报告已写|Gap report written: {report_file}")
+        return report_file
+
+    def _write_gap_table(self, before_file: str, after_file: str,
+                         min_gap_length: int, filler) -> str:
+        """生成 per-gap 明细 TSV(每个 gap: 处理前长度 + 填充状态 + 处理后残留长度)|
+        Per-gap detail TSV (length + fill status + residual length)."""
+        table_file = f"{self.config.output_prefix}.gap_table.tsv"
+        rows = filler.track_gaps(before_file, after_file, min_gap_length)
+        with open(table_file, 'w', encoding='utf-8') as f:
+            f.write("seq\tgap_idx\tbefore_start\tbefore_end\tbefore_length\tstatus\tafter_length\n")
+            for r in rows:
+                f.write(f"{r['seq']}\t{r['gap_idx']}\t{r['before_start']}\t{r['before_end']}\t"
+                        f"{r['before_length']}\t{r['status']}\t{r['after_length']}\n")
+        filled = sum(1 for r in rows if r['status'] == 'Filled')
+        remaining = sum(1 for r in rows if r['status'] == 'Remaining')
+        unknown = sum(1 for r in rows if r['status'] == 'Unknown')
+        self.logger.info(f"Gap明细表已写|Gap table written: {table_file} "
+                         f"(填充|filled {filled}, 残留|remaining {remaining}, 未知|unknown {unknown})")
+        return table_file
 
 
 def main():
