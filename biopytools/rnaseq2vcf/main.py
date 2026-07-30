@@ -36,7 +36,10 @@ class Rnaseq2vcfProcessor:
         self.joint_caller = JointCaller(config, self.logger, self.runner)
 
     def _run_shared_index(self) -> bool:
-        if self.config.enable_checkpoint and self.checkpoints.exists("genome_index"):
+        # force=True 时绕过 checkpoint,强制重建索引(否则 -f 对共享索引无效)|
+        # force bypasses the checkpoint so -f actually rebuilds the shared index
+        if (self.config.enable_checkpoint and not self.config.force
+                and self.checkpoints.exists("genome_index")):
             self.logger.info("跳过已完成步骤|Skipping completed step: genome_index")
             return True
         ok = self.indexer.run()
@@ -133,6 +136,10 @@ class Rnaseq2vcfProcessor:
             proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
             n = sum(1 for _ in proc.stdout)
             proc.wait()
+            if proc.returncode != 0:
+                # bcftools 失败(VCF 损坏等)时 n 可能是部分计数,不可信|partial count on failure is unreliable
+                self.logger.warning(f"统计命令失败|Count command failed (rc={proc.returncode}): {vcf}")
+                return None
             return n
         except Exception as e:
             self.logger.warning(f"统计失败|Count failed ({vcf}): {e}")

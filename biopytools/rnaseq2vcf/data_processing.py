@@ -53,7 +53,8 @@ class GenomeIndexer:
             if not self.runner.run(cmds[i], f"索引|index: {descs[i]}"):
                 return False
         if has_ss:
-            ss_cmd = ' '.join(self._splice_sites_command()) + f" > '{ss_file}'"
+            # shlex.join 引号化每个参数(含 gff3 路径),输出重定向也引号化|quote every arg + redirect target
+            ss_cmd = shlex.join(self._splice_sites_command()) + f" > {shlex.quote(ss_file)}"
             if not self.runner.run(ss_cmd, "提取剪接位点|extract splice sites"):
                 return False
         else:
@@ -95,11 +96,16 @@ class Aligner:
         self.runner = runner
 
     def _align_command_str(self, sample: str, r1: str, r2: str, out_bam: str, log_file: str) -> str:
-        """构建比对命令(单 conda run bash -c 包裹管道)|
-        Build align command (single conda run bash -c wrapping the pipe).
+        """构建比对命令(单 conda run bash -c 包裹管道,带 pipefail)|
+        Build align command (single conda run bash -c wrapping the pipe, with pipefail).
 
-        hisat2 与 samtools 同在 RNA_Seq env,用单个 conda run 包裹管道(避免 conda run|conda run,§13.2.1)。
-        hisat2 stderr 重定向到日志文件;samtools 写到 -o 文件(stdout 为空,无二进制污染)。
+        - set -o pipefail:hisat2 失败时管道整体失败(否则 samtools 读到空输入仍返回 0,静默产出残缺 BAM)|
+          without pipefail a hisat2 crash leaves samtools returning 0 → silently truncated BAM.
+        - 路径用 shlex.quote 引号化,避免空格/特殊字符破坏 bash -c 包裹与 word splitting|
+          shlex.quote every path so spaces/special chars don't break the bash -c wrapper.
+        - hisat2 与 samtools 同在 RNA_Seq env,用单个 conda run 包裹管道(避免 conda run|conda run,§13.2.1)|
+          hisat2 & samtools share the RNA_Seq env; a single conda run wraps the pipe.
+        - hisat2 stderr 重定向到日志文件;samtools 写到 -o 文件(stdout 为空,无二进制污染)。
         """
         cfg = self.config
         ht2_prefix = os.path.join(cfg.genome_index_dir, cfg.genome_name)
@@ -108,11 +114,16 @@ class Aligner:
         ss_opt = ""
         if cfg.gff3_file:
             ss_file = os.path.join(cfg.genome_index_dir, f"{cfg.genome_name}.ss")
-            ss_opt = f"--known-splicesite-infile {ss_file} "
+            ss_opt = f"--known-splicesite-infile {shlex.quote(ss_file)} "
         # env 内 hisat2/samtools 在 PATH,用裸名调用|bare names resolve inside conda env
-        pipeline = (f"hisat2 -x {ht2_prefix} {ss_opt}-p {t} --dta -1 {r1} -2 {r2} 2> {log_file} | "
-                    f"samtools sort -@ {t} -o {out_bam} -")
-        return f"conda run -n {env} --no-capture-output bash -c '{pipeline}'"
+        pipeline = (f"set -o pipefail; hisat2 -x {shlex.quote(ht2_prefix)} {ss_opt}-p {t} --dta "
+                    f"-1 {shlex.quote(r1)} -2 {shlex.quote(r2)} 2> {shlex.quote(log_file)} | "
+                    f"samtools sort -@ {t} -o {shlex.quote(out_bam)} -")
+        if env:
+            # conda env:env 内 hisat2/samtools 在 PATH,裸名即可|in-env tools resolve via PATH
+            return f"conda run -n {env} --no-capture-output bash -c {shlex.quote(pipeline)}"
+        # env=None:hisat2 不在 conda env,回退直调(须已在 PATH)|fallback direct call (tools must be in PATH)
+        return f"bash -c {shlex.quote(pipeline)}"
 
     def run_sample(self, sample: str, r1: str, r2: str) -> str:
         cfg = self.config
@@ -139,7 +150,10 @@ class Caller:
         self.runner = runner
 
     def _gatk(self, args: List[str]) -> List[str]:
-        return build_conda_command(self.config.gatk_path, args)
+        # --java-options -Djava.io.tmpdir:GATK 临时文件落 output_dir/tmp(§12.4.1,避免超算 /tmp 爆满)|
+        # GATK temp files → output_dir/tmp (§12.4.1, avoids HPC /tmp overflow)
+        cfg = self.config
+        return build_conda_command(cfg.gatk_path, ['--java-options', f'-Djava.io.tmpdir={cfg.tmp_dir}'] + args)
 
     def _add_rg_command(self, sample, in_bam, out_bam):
         return self._gatk(['AddOrReplaceReadGroups', '-I', in_bam, '-O', out_bam,
@@ -170,7 +184,9 @@ class Caller:
         dedup = os.path.join(call_dir, f"{sample}.dedup.bam")
         split = os.path.join(call_dir, f"{sample}.split.bam")
         gvcf = os.path.join(call_dir, f"{sample}.g.vcf.gz")
-        if os.path.exists(gvcf) and not cfg.force:
+        # 续传须同时存在 gVCF 与其 .tbi(HaplotypeCaller 正常退出必生成两者);仅 .g.vcf.gz 而缺 .tbi 是中断残缺产物|
+        # Resume only when BOTH gVCF and .tbi exist (HaplotypeCaller always emits both); lone .g.vcf.gz = truncated
+        if os.path.exists(gvcf) and os.path.exists(gvcf + '.tbi') and not cfg.force:
             self.logger.info(f"跳过已完成 calling|Skipping calling: {sample}")
             return gvcf
         steps = [
@@ -197,7 +213,9 @@ class JointCaller:
         self.runner = runner
 
     def _gatk(self, args):
-        return build_conda_command(self.config.gatk_path, args)
+        # --java-options -Djava.io.tmpdir:GATK 临时文件落 output_dir/tmp(§12.4.1,避免超算 /tmp 爆满)|
+        cfg = self.config
+        return build_conda_command(cfg.gatk_path, ['--java-options', f'-Djava.io.tmpdir={cfg.tmp_dir}'] + args)
 
     def _bcftools(self, args):
         return build_conda_command(self.config.bcftools_path, args)

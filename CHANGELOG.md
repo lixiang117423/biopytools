@@ -1,4 +1,17 @@
 
+## [1.24.1] - 2026-07-30
+
+### Fixed
+- `rnaseq2vcf`：`__post_init__` 先 `expand_path(output_dir)` 再 `mkdir`（§11.3.1，原顺序对 `-o ~/x` 会建出字面 `~` 目录）
+- `rnaseq2vcf`：hisat2|samtools 管道加 `set -o pipefail`——原写法 hisat2 崩溃时 samtools 仍返回 0，静默产出残缺 BAM；所有路径 `shlex.quote` 化（空格/特殊字符安全）；支持 `env=None` 回退直调（非 conda 安装的 hisat2）
+- `rnaseq2vcf`：calling 断点续传须同时存在 gVCF + `.tbi`（HaplotypeCaller 正常退出必产两者；仅 `.g.vcf.gz` 缺 `.tbi` 是中断残缺产物，不再误判已完成）
+- `rnaseq2vcf`：`--force` 现绕过共享 `genome_index` 的 checkpoint（原对共享索引无效）
+- `rnaseq2vcf`：变异计数（`bcftools view -H`）检查返回码，失败返回 None 让报告显示「不可用」，而非不可信的部分计数
+- `rnaseq2vcf`：GATK 临时文件落 `output_dir/tmp`（`--java-options -Djava.io.tmpdir`，§12.4.1，避免超算 `/tmp` 爆满）
+
+### Changed
+- `rnaseq2vcf` CLI：暴露 GATK VariantFiltration 阈值 `--fs-threshold`(30)/`--qd-threshold`(2)/`--cluster-window`(35)/`--cluster-size`(3)（原硬编码）；`--gff3` 改可选（HISAT2 可不带已知剪接位点 de novo 运行）；`--step` 简化为仅 `0`(仅建索引)/省略(全流程)
+
 ## [1.24.0] - 2026-07-29
 
 ### Added

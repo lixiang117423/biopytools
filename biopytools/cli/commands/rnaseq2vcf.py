@@ -38,9 +38,13 @@ def _validate_exists(path):
 @click.option('-o', '--output-dir', default='.', help='输出目录|Output dir')
 @click.option('-t', '--threads', type=int, default=12, help='线程数|Threads')
 @click.option('--min-conf', type=int, default=20, help='HaplotypeCaller 最小置信度|min confidence')
+@click.option('--fs-threshold', type=float, default=30.0, help='FS 过滤阈值(标记大于此值)|FS filter threshold (mark if greater)')
+@click.option('--qd-threshold', type=float, default=2.0, help='QD 过滤阈值(标记小于此值)|QD filter threshold (mark if lower)')
+@click.option('--cluster-window', type=int, default=35, help='SNP cluster 过滤窗口(bp)|SNP cluster filter window (bp)')
+@click.option('--cluster-size', type=int, default=3, help='SNP cluster 过滤数量|SNP cluster filter count')
 @click.option('--read1-pattern', help='R1 后缀(默认自动识别 _1.clean.fq.gz/_1.fq.gz 等)|R1 suffix (auto-detected by default)')
 @click.option('--read2-pattern', help='R2 后缀(默认自动识别)|R2 suffix (auto-detected by default)')
-@click.option('-s', '--step', type=click.IntRange(0, 4),
+@click.option('-s', '--step', type=click.IntRange(0, 0),
               help='0=仅建索引|index only;省略=全流程|omit for full pipeline')
 @click.option('--no-checkpoint', is_flag=True, help='关闭断点续传|Disable checkpoint')
 @click.option('-f', '--force', is_flag=True, help='忽略断点重跑|Force rerun')
@@ -49,7 +53,8 @@ def _validate_exists(path):
 @click.option('--log-file', help='日志文件|Log file')
 @click.option('--log-level', default='INFO', help='日志级别|Log level')
 def rnaseq2vcf(genome, gff3, input, clean_fastq_dir, output_dir, threads,
-               min_conf, read1_pattern, read2_pattern, step, no_checkpoint,
+               min_conf, fs_threshold, qd_threshold, cluster_window, cluster_size,
+               read1_pattern, read2_pattern, step, no_checkpoint,
                force, dry_run, skip_qc, log_file, log_level):
     """转录组变异检测全流程(到 VCF;ANNOVAR 注释请手动运行 biopytools annovar)|
     RNA-seq variant calling pipeline (to VCF; run `biopytools annovar` manually for annotation)
@@ -57,8 +62,13 @@ def rnaseq2vcf(genome, gff3, input, clean_fastq_dir, output_dir, threads,
     示例|Examples: biopytools rnaseq2vcf -g genome.fa --gff3 anno.gff3 -i reads/ -o out/
     """
     main = _lazy_import_main()
-    args = ['rnaseq2vcf.py', '-g', genome, '--gff3', gff3, '-o', output_dir,
-            '-t', str(threads), '--min-conf', str(min_conf), '--log-level', log_level]
+    args = ['rnaseq2vcf.py', '-g', genome, '-o', output_dir,
+            '-t', str(threads), '--min-conf', str(min_conf),
+            '--fs-threshold', str(fs_threshold), '--qd-threshold', str(qd_threshold),
+            '--cluster-window', str(cluster_window), '--cluster-size', str(cluster_size),
+            '--log-level', log_level]
+    if gff3:
+        args += ['--gff3', gff3]
     if input:
         args += ['-i', input]
     if clean_fastq_dir:

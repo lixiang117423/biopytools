@@ -2,7 +2,6 @@
 
 import os
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Optional
 from ..common.paths import expand_path, get_tool_path
 
@@ -54,17 +53,18 @@ class Rnaseq2vcfConfig:
     dry_run: bool = False
     force: bool = False
     skip_qc: bool = False
-    step: Optional[int] = None  # 0=仅建索引|index only; None/1-4=全流程(断点续传)|full pipeline
+    step: Optional[int] = None  # 0=仅建索引|index only; None=全流程(断点续传)|full pipeline
     log_file: Optional[str] = None
     log_level: str = "INFO"
 
     def __post_init__(self):
         """展开~、规范化路径、预计算共享目录与索引名|Expand ~, normalize, precompute shared dirs + index name"""
-        self.output_path = Path(self.output_dir)
-        self.output_path.mkdir(parents=True, exist_ok=True)
+        # 先展开 output_dir 再建目录(os.path/pathlib 不自动展开 ~,否则 -o ~/x 会在 cwd 建字面 ~ 目录)|
+        # Expand output_dir BEFORE mkdir (os.path/pathlib do NOT auto-expand ~)
+        self.output_dir = os.path.normpath(os.path.abspath(expand_path(self.output_dir)))
+        os.makedirs(self.output_dir, exist_ok=True)
 
         self.ref_genome_fa = os.path.normpath(os.path.abspath(expand_path(self.ref_genome_fa)))
-        self.output_dir = os.path.normpath(os.path.abspath(expand_path(self.output_dir)))
         if self.gff3_file:
             self.gff3_file = os.path.normpath(os.path.abspath(expand_path(self.gff3_file)))
 
@@ -99,8 +99,9 @@ class Rnaseq2vcfConfig:
                           "Must provide -i/--input (raw) or --clean-fastq-dir")
         if self.threads <= 0:
             errors.append("线程数必须为正|Thread count must be positive")
-        if self.step is not None and self.step not in (0, 1, 2, 3, 4):
-            errors.append(f"无效步骤|Invalid step: {self.step} (应为 0-4|should be 0-4)")
+        if self.step is not None and self.step != 0:
+            errors.append(f"无效步骤|Invalid step: {self.step} (仅支持 0=仅建索引;省略=全流程|"
+                          "only 0=index-only; omit=full pipeline)")
         if errors:
             raise ValueError("\n".join(errors))
         return True
