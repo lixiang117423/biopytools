@@ -68,11 +68,20 @@ def _validate_file(path):
               help='CDS覆盖广度%下限|min coverage breadth')
 @click.option('--no-gap-fill', is_flag=True,
               help='关闭纯漏检填补(只保留合并拆分)|disable pure gap-fill (split only)')
+@click.option('--recover-small-proteins', is_flag=True,
+              help='开启小蛋白回收通道(默认关, 通用)|enable small-protein lane (default off)')
+@click.option('--small-max-cds-len', type=int, default=450, show_default=True,
+              help='小蛋白CDS上限bp|small max CDS len')
+@click.option('--small-min-identity', type=float, default=50.0, show_default=True,
+              help='小蛋白放宽identity%(有表达时)|small min identity')
+@click.option('--small-min-coverage', type=float, default=50.0, show_default=True,
+              help='小蛋白放宽coverage%(有表达时)|small min coverage')
 def annorefine(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
               threads, fungus, no_singularity, skip_repeat, skip_repeat_filter,
               skip_rescue, split_min_copy_coverage, no_split, repeat_out,
               exclude_te_gap, no_real_orf, no_coord_zero_overlap, no_unique_reads,
-              min_unique_mapq, min_expression_depth, min_coverage_breadth, no_gap_fill):
+              min_unique_mapq, min_expression_depth, min_coverage_breadth, no_gap_fill,
+              recover_small_proteins, small_max_cds_len, small_min_identity, small_min_coverage):
     """
     BRAKER 注释 + 查漏补缺 端到端 → 整合 GFF3|braker + gap-filling end-to-end
 
@@ -118,6 +127,14 @@ def annorefine(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
         args.extend(['--min-coverage-breadth', str(min_coverage_breadth)])
     if no_gap_fill:
         args.append('--no-gap-fill')
+    if recover_small_proteins:
+        args.append('--recover-small-proteins')
+    if small_max_cds_len != 450:
+        args.extend(['--small-max-cds-len', str(small_max_cds_len)])
+    if small_min_identity != 50.0:
+        args.extend(['--small-min-identity', str(small_min_identity)])
+    if small_min_coverage != 50.0:
+        args.extend(['--small-min-coverage', str(small_min_coverage)])
 
     original_argv = sys.argv
     sys.argv = args

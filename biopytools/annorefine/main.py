@@ -9,6 +9,7 @@ annorefine 主程序|annorefine Main Entry
 
 import argparse
 import os
+import subprocess
 import sys
 
 from .config import AnnorefineConfig
@@ -17,7 +18,7 @@ from .evidence import run_miniprot, parse_miniprot_gff3, load_fasta
 from .gap_analysis import (
     parse_braker_gff3, detect_gaps, detect_merged_genes, parse_repeat_out,
     dedupe_hits)
-from .model_build import qc_filter, build_gene_models
+from .model_build import qc_filter, qc_filter_small, build_gene_models
 from .expression import prepare_unique_bam, compute_hit_depth_breadth
 from .merge import merge_gff3
 
@@ -43,6 +44,73 @@ class AnnorefineRunner:
         self.merged_gff3 = os.path.join(
             config.merged_dir, f"{config.prefix}.merged.gff3")
 
+    def _probe_version(self, tool_path: str) -> str:
+        """获取工具版本(conda 包装, §13)|probe tool version (conda-wrapped)"""
+        if not tool_path:
+            return 'not_configured'
+        from .utils import get_conda_env
+        env = get_conda_env(tool_path)
+        if env:
+            cmd = ['conda', 'run', '-n', env, '--no-capture-output',
+                   tool_path, '--version']
+        else:
+            cmd = [tool_path, '--version']
+        try:
+            self.logger.info(f"命令|Command: {' '.join(cmd)}")
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+            ver = (r.stdout or r.stderr or '').strip().split('\n')[0]
+            return ver or 'unknown'
+        except Exception as e:
+            self.logger.warning(
+                f"获取版本失败|version probe failed ({tool_path}): {e}")
+            return 'unknown'
+
+    def _generate_software_versions(self):
+        """生成 software_versions.yml 到 00_pipeline_info(§12.5)|write versions yml"""
+        import yaml
+        try:
+            from . import __version__ as mod_ver
+        except Exception:
+            mod_ver = 'unknown'
+        # 查漏补缺阶段用到的工具(miniprot/samtools/stringtie)
+        # |tools used in gap-filling phase
+        tools = {
+            'miniprot': self.config.miniprot_bin,
+            'samtools': self.config.samtools_bin,
+            'stringtie': self.config.stringtie_bin,
+        }
+        versions = {name: {'version': self._probe_version(path),
+                           'path': path or ''}
+                    for name, path in tools.items()}
+        info = {
+            'pipeline': {
+                'name': 'biopytools annorefine (gap-filling)', 'version': mod_ver},
+            'phase': 'Phase2 同源查漏补缺|Phase2 homology gap-filling '
+                     '(Phase1 BRAKER 由 braker 模块运行|Phase1 BRAKER via braker)',
+            'tools': versions,
+            'parameters': {
+                'gap_min_identity': self.config.gap_min_identity,
+                'gap_min_coverage': self.config.gap_min_coverage,
+                'gap_min_cds_len': self.config.gap_min_cds_len,
+                'require_real_orf': self.config.require_real_orf,
+                'gap_coord_zero_overlap': self.config.gap_coord_zero_overlap,
+                'unique_reads_only': self.config.unique_reads_only,
+                'min_expression_depth': self.config.min_expression_depth,
+                'min_coverage_breadth': self.config.min_coverage_breadth,
+                'enable_gap_fill': self.config.enable_gap_fill,
+                'enable_split': self.config.enable_split,
+                'split_min_copy_coverage': self.config.split_min_copy_coverage,
+                'threads': self.config.threads,
+            },
+        }
+        out = os.path.join(self.config.pipeline_info_dir, 'software_versions.yml')
+        try:
+            with open(out, 'w', encoding='utf-8') as f:
+                yaml.dump(info, f, default_flow_style=False, allow_unicode=True)
+            self.logger.info(f"软件版本信息已保存|Software versions saved: {out}")
+        except Exception as e:
+            self.logger.warning(f"保存软件版本信息失败|Failed to save versions: {e}")
+
     def _step_evidence_scan(self):
         """Step1: miniprot 证据扫描(断点续传)|miniprot scan (checkpoint)"""
         if self.config.skip_evidence_scan or os.path.exists(self.miniprot_gff):
@@ -54,9 +122,17 @@ class AnnorefineRunner:
 
     def _load_hits(self):
         """加载并预过滤 miniprot 命中|Load + pre-filter hits"""
-        hits = parse_miniprot_gff3(
-            self.miniprot_gff,
-            self.config.gap_min_identity, self.config.gap_min_coverage)
+        # enable_small_protein 时 parse 用两通道阈值的较小值, 否则弱命中(id/cov 50/50)在
+        # parse 阶段就被 70/80 丢掉, 小蛋白通道拿不到候选; 常规 qc_filter 内部仍按 70/80 严滤
+        # |use min(normal,small) at parse so the small lane's weak hits survive; normal
+        # qc_filter still applies 70/80 internally, so weak hits can only pass via small lane
+        if self.config.enable_small_protein:
+            pid = min(self.config.gap_min_identity, self.config.small_min_identity)
+            pcov = min(self.config.gap_min_coverage, self.config.small_min_coverage)
+        else:
+            pid = self.config.gap_min_identity
+            pcov = self.config.gap_min_coverage
+        hits = parse_miniprot_gff3(self.miniprot_gff, pid, pcov)
         self.logger.info(f"miniprot 命中(过滤后)|hits filtered: {len(hits)}")
         hits = dedupe_hits(hits)   # 全 prot: 同位置多 query 合并|dedup same-locus
         self.logger.info(f"miniprot 命中(去重后)|hits deduped: {len(hits)}")
@@ -147,10 +223,40 @@ class AnnorefineRunner:
         if not self.config.repeat_out:
             self.logger.warning("未提供 repeat_out, 跳过真TE区排除"
                                 "|No repeat_out, skipping real-TE exclusion")
-        passed = qc_filter(all_candidate_hits, self.config, repeat_regions,
+
+        def _cds_len(h):
+            return sum(e - s + 1 for s, e, _ in h.cds_exons)
+
+        # 两候选列表: 常规(>=gap_min_cds_len) + 小蛋白(短且 enable_small_protein)
+        # |two candidate lists: normal (>=gap_min_cds_len) + small (short, enable_small_protein)
+        normal_candidates = [h for h in all_candidate_hits
+                             if _cds_len(h) >= self.config.gap_min_cds_len]
+        small_candidates = []
+        if self.config.enable_small_protein:
+            small_candidates = [h for h in all_candidate_hits
+                                if _cds_len(h) < self.config.gap_min_cds_len
+                                and _cds_len(h) <= self.config.small_max_cds_len]
+            if expression is None:
+                self.logger.warning(
+                    "小蛋白通道无表达证据 → 退化为 ORF+严同源(70/80)模式|small-protein "
+                    "lane has no expression data: degrades to ORF+strict-homology (70/80)")
+            self.logger.info(
+                f"小蛋白候选|small candidates: {len(small_candidates)} "
+                f"(cds_len<{self.config.gap_min_cds_len}bp 且 "
+                f"<={self.config.small_max_cds_len}bp)")
+
+        passed = qc_filter(normal_candidates, self.config, repeat_regions,
                            genome=genome, expression=expression)
-        self.logger.info(f"质控通过|QC passed: {len(passed)}/{len(all_candidate_hits)}")
+        self.logger.info(
+            f"常规质控通过|normal QC passed: {len(passed)}/{len(normal_candidates)}")
+        small_passed = []
+        if self.config.enable_small_protein and small_candidates:
+            small_passed = qc_filter_small(small_candidates, self.config, repeat_regions,
+                                           genome=genome, expression=expression)
+            self.logger.info(
+                f"小蛋白质控通过|small QC passed: {len(small_passed)}/{len(small_candidates)}")
         passed_ids = {id(h) for h in passed}
+        passed_ids.update(id(h) for h in small_passed)
 
         # ★ 合并拆分门控: 某 merged 基因的 split copies 全未过QC → 不删原 BRAKER 基因(回退保留)
         # |merged-split gating: if no copy passed QC, keep original BRAKER gene
@@ -163,8 +269,13 @@ class AnnorefineRunner:
             self.logger.info(
                 f"合并拆分回退保留|split reverted (copies failed QC): {reverted}")
 
-        # Step3.5 建模型(GFF3)|build gene models
+        # Step3.5 建模型(GFF3): 常规 {prefix}_gap_{N} + 小蛋白 {prefix}_small_gap_{N}
+        # |build gene models: normal {prefix}_gap_{N} + small {prefix}_small_gap_{N}
         gap_lines = build_gene_models(passed, self.config.prefix)
+        if small_passed:
+            small_lines = build_gene_models(small_passed, f"{self.config.prefix}_small")
+            gap_lines.extend(small_lines[1:])   # 跳过重复 ##gff-version 头|skip dup header
+            self.logger.info(f"小蛋白补基因|small-protein genes added: {len(small_passed)}")
         with open(self.gap_filled_gff3, 'w') as f:
             f.write("\n".join(gap_lines))
             if gap_lines:
@@ -197,6 +308,9 @@ class AnnorefineRunner:
                         os.remove(p)
                     except OSError:
                         pass
+
+        # 工程收尾: 记录软件版本 + 关键参数(§12.5)|record versions + params
+        self._generate_software_versions()
 
         self.logger.info("=" * 70)
         self.logger.info("annorefine 查漏补缺完成|gap-filling done")
@@ -262,6 +376,15 @@ def parse_arguments():
                         help='CDS被唯一reads覆盖广度%%下限|min coverage breadth (default 50)')
     parser.add_argument('--no-gap-fill', action='store_true',
                         help='关闭纯漏检填补(只保留合并拆分)|disable pure gap-fill (split only)')
+    # 小蛋白回收通道(通用)|small-protein recovery lane (general)
+    parser.add_argument('--recover-small-proteins', action='store_true',
+                        help='开启小蛋白回收通道(默认关, 放宽长度找回短蛋白)|enable small-protein lane (default off)')
+    parser.add_argument('--small-max-cds-len', type=int, default=450,
+                        help='小蛋白CDS上限bp(默认450=150aa)|small max CDS len (default 450)')
+    parser.add_argument('--small-min-identity', type=float, default=50.0,
+                        help='小蛋白放宽identity%%(默认50, 有表达时)|small min identity (default 50, with expr)')
+    parser.add_argument('--small-min-coverage', type=float, default=50.0,
+                        help='小蛋白放宽coverage%%(默认50, 有表达时)|small min coverage (default 50, with expr)')
     return parser.parse_args()
 
 
@@ -376,6 +499,10 @@ def main():
             min_expression_depth=args.min_expression_depth,
             min_coverage_breadth=args.min_coverage_breadth,
             enable_gap_fill=not args.no_gap_fill,
+            enable_small_protein=args.recover_small_proteins,
+            small_max_cds_len=args.small_max_cds_len,
+            small_min_identity=args.small_min_identity,
+            small_min_coverage=args.small_min_coverage,
         )
         result = AnnorefineRunner(pcfg, logger).run()
         logger.info(f'阶段2 完成, 整合 GFF|Phase 2 done: {result}')

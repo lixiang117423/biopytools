@@ -57,6 +57,20 @@ class AnnorefineConfig:
     split_min_hits: int = 2                        # ≥N 个独立命中才判合并
     split_min_copy_coverage: float = 80.0          # 每命中覆盖蛋白≥此%才算完整拷贝
 
+    # ===== 小蛋白回收通道(默认关, 通用)|small-protein lane (default off, general) =====
+    # gap_min_cds_len 硬悬崖会把小蛋白整类丢掉; 本通道放宽长度, 用 完整ORF+同源+表达
+    # 通用证据找回(无物种/功能假设, 详见 09.二次调试/small_protein_design.md)
+    # |Recovers small proteins dropped by gap_min_cds_len, gated by general evidence only
+    enable_small_protein: bool = False             # 默认关, 不改现有行为|default off
+    small_max_cds_len: int = 450                   # 小蛋白 CDS 上限 bp(150aa)|max CDS (150aa)
+    small_min_identity: float = 50.0               # 有表达时放宽 identity|relaxed identity (with expr)
+    small_min_coverage: float = 50.0               # 有表达时放宽 coverage|relaxed coverage (with expr)
+    small_min_expression_depth: float = 1.0        # 小蛋白表达深度下限|small-protein min depth
+    small_min_coverage_breadth: float = 60.0       # 略严于常规 50|stricter breadth
+    small_exclude_te: bool = True                  # 强制排 TE|force TE exclusion
+    # 退化模式(无表达数据)同源阈值复用 gap_min_identity/gap_min_coverage(70/80, 更严)
+    # |degraded mode (no expression) reuses gap_min_identity/coverage (70/80, stricter)
+
     # ===== 工具路径(~/... + __post_init__ 展开)|Tool paths =====
     miniprot_bin: str = '~/miniforge3/envs/braker_v.3.0.8/bin/miniprot'
     stringtie_bin: str = '~/.local/bin/stringtie'
@@ -103,12 +117,13 @@ class AnnorefineConfig:
 
         # 创建输出目录 + by-step 子目录|Create output + by-step subdirs
         Path(self.output_dir).mkdir(parents=True, exist_ok=True)
+        self.pipeline_info_dir = os.path.join(self.output_dir, '00_pipeline_info')
         self.evidence_dir = os.path.join(self.output_dir, '01_evidence_scan')
         self.gap_dir = os.path.join(self.output_dir, '02_gap_analysis')
         self.gap_filled_dir = os.path.join(self.output_dir, '03_gap_filled')
         self.merged_dir = os.path.join(self.output_dir, '04_merged')
         self.log_dir = os.path.join(self.output_dir, '99_logs')
-        for d in [self.evidence_dir, self.gap_dir,
+        for d in [self.pipeline_info_dir, self.evidence_dir, self.gap_dir,
                   self.gap_filled_dir, self.merged_dir, self.log_dir]:
             Path(d).mkdir(parents=True, exist_ok=True)
 

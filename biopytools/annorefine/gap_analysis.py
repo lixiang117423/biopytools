@@ -7,10 +7,11 @@ annorefine 漏检/合并判定(GFF3 + 全 prot 普适)|Gap & merged-gene detecti
 |Multi-query: dedupe hits at same locus + per-query merged-gene detection
 """
 
+import bisect
 import os
 import re
 from dataclasses import dataclass, field
-from typing import List, Tuple, Dict
+from typing import Dict, Iterator, List, Tuple
 
 from .evidence import MiniprotHit
 
@@ -165,6 +166,40 @@ def dedupe_hits(hits: List[MiniprotHit], overlap_ratio: float = 0.5
     return deduped
 
 
+def _build_gene_span_index(
+        braker_genes: Dict[str, BrakerGene]
+        ) -> Dict[str, Tuple[List[int], List[BrakerGene]]]:
+    """按 chrom 建基因 span 索引(按 start 升序)|per-chrom gene index, sorted by start
+    用于 detect_gaps 的 span 相交查询, 把 O(hits×genes) 暴力扫描降到按染色体+前缀 bisect。
+    |Turns detect_gaps' O(hits×genes) scan into per-chrom bisect prefix scan.
+    假设 CDS ⊆ gene span(有效 GFF3 成立; BRAKER 输出满足)|assumes CDS ⊆ gene span.
+    """
+    by_chrom: Dict[str, List[BrakerGene]] = {}
+    for g in braker_genes.values():
+        by_chrom.setdefault(g.chrom, []).append(g)
+    idx: Dict[str, Tuple[List[int], List[BrakerGene]]] = {}
+    for chrom, gs in by_chrom.items():
+        gs_sorted = sorted(gs, key=lambda g: g.start)
+        idx[chrom] = ([g.start for g in gs_sorted], gs_sorted)
+    return idx
+
+
+def _genes_intersecting_span(idx, chrom: str, qstart: int, qend: int
+                             ) -> Iterator[BrakerGene]:
+    """yield span 与 [qstart,qend] 相交的基因(按 start 升序)
+    |yield genes whose span intersects [qstart,qend] (inclusive, start-sorted)
+    相交条件: gene.start <= qend 且 gene.end >= qstart
+    |intersect iff gene.start <= qend and gene.end >= qstart
+    """
+    if chrom not in idx:
+        return
+    starts, gs = idx[chrom]
+    hi = bisect.bisect_right(starts, qend)   # start<=qend 的前缀|prefix with start<=qend
+    for i in range(hi):
+        if gs[i].end >= qstart:
+            yield gs[i]
+
+
 def detect_gaps(hits: List[MiniprotHit],
                 braker_genes: Dict[str, BrakerGene],
                 overlap_cutoff: float,
@@ -175,19 +210,21 @@ def detect_gaps(hits: List[MiniprotHit],
       |CDS overlap with all braker genes < cutoff
     - coord_zero_overlap=True: 与任一 braker 基因坐标 span 有交集即算已覆盖(更严: 真新基因
       不应与现有基因有任何坐标重叠)|any genomic-span intersection with a braker gene => covered
+
+    实现用 per-chrom 基因 span 索引(span 相交预过滤), cds 模式下再对候选做精确 CDS 重叠判定,
+    结果与原 O(hits×genes) 扫描完全一致(假设 CDS ⊆ gene span)。
+    |Uses a per-chrom span index for fast intersect prefilter; cds mode then does
+    exact CDS-overlap on candidates. Identical to the old brute-force (CDS ⊆ span).
     """
+    idx = _build_gene_span_index(braker_genes)
     gaps = []
-    gene_list = list(braker_genes.values())
     for hit in hits:
         is_covered = False
-        for gene in gene_list:
-            if gene.chrom != hit.chrom:
-                continue
+        for gene in _genes_intersecting_span(idx, hit.chrom, hit.start, hit.end):
             if coord_zero_overlap:
-                # 基因坐标 span 相交即已覆盖(任意交集)|genomic span intersection
-                if gene.start <= hit.end and hit.start <= gene.end:
-                    is_covered = True
-                    break
+                # span 相交即已覆盖(任意交集)|genomic span intersection => covered
+                is_covered = True
+                break
             else:
                 hit_cds = [(s, e) for s, e, _ in hit.cds_exons]
                 if cds_overlap_ratio(hit_cds, gene.cds_intervals) > overlap_cutoff:
@@ -196,6 +233,36 @@ def detect_gaps(hits: List[MiniprotHit],
         if not is_covered:
             gaps.append(hit)
     return gaps
+
+
+def _build_hit_start_index(
+        hits: List[MiniprotHit]
+        ) -> Dict[str, Tuple[List[int], List[MiniprotHit]]]:
+    """按 chrom 建命中索引(按 start 升序)|per-chrom hit index, sorted by start
+    用于 detect_merged_genes 的包含查询, 避免每基因扫描全量 hits。
+    |Avoids scanning all hits per gene in detect_merged_genes.
+    """
+    by_chrom: Dict[str, List[MiniprotHit]] = {}
+    for h in hits:
+        by_chrom.setdefault(h.chrom, []).append(h)
+    idx: Dict[str, Tuple[List[int], List[MiniprotHit]]] = {}
+    for chrom, hs in by_chrom.items():
+        hs_sorted = sorted(hs, key=lambda h: h.start)
+        idx[chrom] = ([h.start for h in hs_sorted], hs_sorted)
+    return idx
+
+
+def _hits_with_start_in_range(idx, chrom: str, lo_pos: int, hi_pos: int
+                              ) -> Iterator[MiniprotHit]:
+    """yield chrom 上 start ∈ [lo_pos,hi_pos] 的命中(按 start 升序)
+    |yield hits with start in [lo_pos,hi_pos] (start-sorted)"""
+    if chrom not in idx:
+        return
+    starts, hs = idx[chrom]
+    lo = bisect.bisect_left(starts, lo_pos)
+    hi = bisect.bisect_right(starts, hi_pos)
+    for i in range(lo, hi):
+        yield hs[i]
 
 
 def detect_merged_genes(
@@ -211,17 +278,28 @@ def detect_merged_genes(
     全 prot 场景:不同 query 命中同一基因不同区, 混合 pairwise 会误判重叠。
     改为按 query 分组: 同一 query 的多个完整独立拷贝才算多拷贝合并。
     |Per-query: only same query's >=N independent full copies count.
+
+    实现用 per-chrom 命中 start 索引取 gene 内候选(start ∈ [gene.start,gene.end]),
+    再过滤 end<=gene.end; 结果集与原实现一致, 并按输入顺序还原(保证确定性输出)。
+    |Uses a per-chrom hit start-index to fetch in-gene candidates, then filters
+    end<=gene.end. Same result set as brute-force; input order restored for determinism.
     """
+    hit_idx = _build_hit_start_index(hits)
+    hit_order = {id(h): i for i, h in enumerate(hits)}   # 还原输入顺序|restore input order
     merged = []
     for gene in braker_genes.values():
-        hits_in = [h for h in hits
-                   if h.chrom == gene.chrom
-                   and h.start >= gene.start and h.end <= gene.end]
-        if len(hits_in) < split_min_hits:
+        # 包含在 gene 内: start ∈ [gene.start, gene.end] 且 end <= gene.end
+        # (start<=gene.end 由 end<=gene.end 隐含; range 限定保证与原实现同集)
+        # |contained iff start in [gene.start,gene.end] and end<=gene.end
+        contained = [h for h in _hits_with_start_in_range(
+                        hit_idx, gene.chrom, gene.start, gene.end)
+                     if h.end <= gene.end]
+        if len(contained) < split_min_hits:
             continue
+        contained.sort(key=lambda h: hit_order[id(h)])   # 与原扫描顺序一致|match original order
         # 按 query 分组|group by query
         by_query: Dict[str, List[MiniprotHit]] = {}
-        for h in hits_in:
+        for h in contained:
             by_query.setdefault(h.query_id, []).append(h)
         # 任一 query 在 gene 内 ≥N 完整独立拷贝 → 合并
         is_merged = False
@@ -232,7 +310,7 @@ def detect_merged_genes(
                 break
         if is_merged:
             # 拆分用 gene 内所有完整拷贝(去重后)|all full copies for split models
-            full_all = [h for h in hits_in if h.coverage >= split_min_copy_coverage]
+            full_all = [h for h in contained if h.coverage >= split_min_copy_coverage]
             if full_all:
                 merged.append((gene, full_all))
     return merged
