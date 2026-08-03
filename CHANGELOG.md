@@ -1,4 +1,23 @@
 
+## [1.25.0] - 2026-08-03
+
+### Added
+- **新模块 `needle_identity`**：EMBOSS needle 序列两两 identity 计算（`biopytools needle-identity`）——输入 FASTA 内所有序列对并行比对，输出 `{prefix}.needle_identity.tsv`（identity/similarity/gaps/score），`--gapopen`/`--gapextend`/`--threads` 可调；conda 自动包装、`99_logs/`+`software_versions.yml`、临时文件落 `output_dir/tmp` 并清理
+- `gene_table`：新增 `--upstream`(默认3000)/`--downstream`(默认1000) 侧翼长度参数，输出表新增 `Region` 列 + `{prefix}.region.fa`（链定向 上游+基因+下游 区间，越界夹紧并警告）
+- `annorefine`：小蛋白通道新增**强同源直通**——identity ≥ `--small-strong-homology-identity`(默认95%) 的命中视为铁证（近乎自比对），绕过 TE 排除与表达过滤（效应子常在 TE 区且低表达，不该被辅助证据拦）；新增 `--small-min-expression-depth`/`--small-min-coverage-breadth`/`--no-small-exclude-te` CLI 参数
+- `phyto_effector`：Protease HMM 从 paper 版扩为 203 个 Pfam peptidase 家族（`protease_pfam.hmm`），命中面变广后加 score≥20 + 必须有信号肽双重控误报；CLI 改为单命令 + 目录输入自动逐样本鉴定并合并结果（原独立 `merge` 子命令移除）
+- `msaviz`：MAFFT 默认参数加 `--preservecase`；颜色方案默认自动选择（DNA→Nucleotide，蛋白→Zappo），配色查询与 DNA/蛋白判定大小写不敏感
+- `nlr_annotator`：支持 DNA/CDS 输入，目录模式默认匹配后缀 `*.cds.fa` → `*.fa`
+- 新增 `conda_env/psvcp_v.1.0.1.yml`（PSVCP v1.0.1 完整环境锁定文件）
+
+### Changed
+- `phyto_effector`：SignalP 3/6/both 逻辑统一收口到 `run_signalp_pipeline`（原 main/rxlr/crn 三处重复实现，存在版本分支覆盖、`both` 模式尾部残留死代码等问题）
+
+### Fixed
+- `phyto_effector`：`parse_domtblout_details` 域 E-value/score 列序修正——HMMER3 domtblout 第 13/14 列才是 i-Evalue/domain score（原误取 12/13 列的 c-Evalue/i-Evalue）
+- `phyto_effector`：TMHMM 改 `build_conda_command` 包装 + stdin 传文件句柄（原裸路径 + 整文件读内存）；`makeblastdb` 直接由 blastp 同 bin 目录推导；blastp/tmhmm 结果解析不再按 `/` 截断序列 ID
+- `blast` CLI：修复 `--no-auto-detect-samples` 不可达问题（现在仅在关闭时透传该开关）
+
 ## [1.24.3] - 2026-07-30
 
 ### Added
@@ -1087,5 +1106,4 @@
 ### Changed
 - add blast module
 - Updated files: biopytools/blast,biopytools/cli/commands/blast.py,biopytools/cli/main.py,docs/blast_v2.md,README.md
-
 
