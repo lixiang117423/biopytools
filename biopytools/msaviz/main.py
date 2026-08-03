@@ -39,8 +39,8 @@ def parse_arguments():
                        default='mafft',
                        help=' MAFFT可执行文件路径|MAFFT executable path (default: mafft)')
     parser.add_argument('--mafft-params',
-                       default='--auto',
-                       help=' MAFFT参数|MAFFT parameters (default: --auto)')
+                       default='--auto --preservecase',
+                       help=' MAFFT参数|MAFFT parameters (default: --auto --preservecase)')
     parser.add_argument('--threads',
                        type=int,
                        default=4,
@@ -61,8 +61,8 @@ def parse_arguments():
 
     # 颜色方案|Color scheme
     parser.add_argument('--color-scheme',
-                       default='Zappo',
-                       help=' 颜色方案|Color scheme (default: Zappo)')
+                       default=None,
+                       help=' 颜色方案|Color scheme (default: auto: DNA->Nucleotide / 蛋白|protein->Zappo)')
 
     # 区域参数|Region parameters
     parser.add_argument('--start',

@@ -97,16 +97,16 @@ def _run_single(config: NLRAnnotatorConfig, input_file: str, sample_name: str,
 def main():
     """主函数|Main function"""
     parser = argparse.ArgumentParser(
-        description='NLR-Annotator: 从CDS序列预测NLR基因|Predict NLR genes from CDS sequences',
+        description='NLR-Annotator: 从DNA/CDS序列预测NLR基因|Predict NLR genes from DNA/CDS sequences',
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument('-i', '--input', required=True,
-                        help='输入CDS FASTA文件或目录|Input CDS FASTA file or directory')
+                        help='输入DNA/CDS FASTA文件或目录|Input DNA/CDS FASTA file or directory')
     parser.add_argument('-o', '--output-dir', default='./output',
                         help='输出目录|Output directory (default: ./output)')
-    parser.add_argument('--sample-suffix', default='*.cds.fa',
-                        help='目录模式下文件匹配后缀|File match suffix for directory mode (default: *.cds.fa)')
+    parser.add_argument('--sample-suffix', default='*.fa',
+                        help='目录模式下文件匹配后缀|File match suffix for directory mode (default: *.fa)')
 
     parser.add_argument('--jar-path', default='',
                         help='NLR-Annotator JAR文件路径|NLR-Annotator JAR file path')

@@ -31,13 +31,13 @@ def _validate_path_exists(path):
 
 
 @click.command(
-    short_help='NLR基因预测工具|NLR gene prediction tool',
+    short_help='NLR基因预测工具(支持DNA/CDS)|NLR gene prediction tool (DNA/CDS)',
     context_settings=dict(help_option_names=['-h', '--help'], max_content_width=120)
 )
 @click.option('-i', '--input',
               required=True,
               callback=lambda ctx, param, value: _validate_path_exists(value) if value else None,
-              help='输入CDS FASTA文件或目录|Input CDS FASTA file or directory')
+              help='输入DNA/CDS FASTA文件或目录|Input DNA/CDS FASTA file or directory')
 @click.option('-o', '--output-dir',
               default='./output',
               help='输出目录|Output directory')
@@ -45,7 +45,7 @@ def _validate_path_exists(path):
               type=int, default=12, show_default=True,
               help='线程数|Number of threads')
 @click.option('--sample-suffix',
-              default='*.cds.fa', show_default=True,
+              default='*.fa', show_default=True,
               help='目录模式下文件匹配后缀|File match suffix for directory mode')
 @click.option('--output-gff',
               is_flag=True,
@@ -61,7 +61,7 @@ def _validate_path_exists(path):
               help='输出motif比对FASTA|Output motif alignment FASTA')
 def nlr_annotator(input, output_dir, threads, sample_suffix, output_gff,
                    output_bed, output_motifs, output_alignment):
-    """从CDS序列预测NLR基因|Predict NLR genes from CDS sequences
+    """从DNA/CDS序列预测NLR基因|Predict NLR genes from DNA/CDS sequences
 
     示例|Example: biopytools nlr-annotator -i genome.cds.fa -o output_dir/
     """

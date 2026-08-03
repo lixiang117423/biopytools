@@ -76,12 +76,22 @@ def _validate_file(path):
               help='小蛋白放宽identity%(有表达时)|small min identity')
 @click.option('--small-min-coverage', type=float, default=50.0, show_default=True,
               help='小蛋白放宽coverage%(有表达时)|small min coverage')
+@click.option('--small-min-expression-depth', type=float, default=1.0, show_default=True,
+              help='小蛋白表达深度下限(effector低表达可调低如0.1)|small min expression depth')
+@click.option('--small-min-coverage-breadth', type=float, default=60.0, show_default=True,
+              help='小蛋白CDS覆盖广度%下限|small min coverage breadth')
+@click.option('--no-small-exclude-te', is_flag=True,
+              help='关闭小蛋白TE区排除(effector常在TE区可关)|disable small-protein TE exclusion')
+@click.option('--small-strong-homology-identity', type=float, default=95.0, show_default=True,
+              help='强同源直通identity%阈值(≥此值绕过TE/表达过滤)|strong-homology bypass identity')
 def annorefine(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
               threads, fungus, no_singularity, skip_repeat, skip_repeat_filter,
               skip_rescue, split_min_copy_coverage, no_split, repeat_out,
               exclude_te_gap, no_real_orf, no_coord_zero_overlap, no_unique_reads,
               min_unique_mapq, min_expression_depth, min_coverage_breadth, no_gap_fill,
-              recover_small_proteins, small_max_cds_len, small_min_identity, small_min_coverage):
+              recover_small_proteins, small_max_cds_len, small_min_identity, small_min_coverage,
+              small_min_expression_depth, small_min_coverage_breadth, no_small_exclude_te,
+              small_strong_homology_identity):
     """
     BRAKER 注释 + 查漏补缺 端到端 → 整合 GFF3|braker + gap-filling end-to-end
 
@@ -135,6 +145,14 @@ def annorefine(genome, species, prot_seq, output_dir, rnaseq_dirs, isoseq,
         args.extend(['--small-min-identity', str(small_min_identity)])
     if small_min_coverage != 50.0:
         args.extend(['--small-min-coverage', str(small_min_coverage)])
+    if small_min_expression_depth != 1.0:
+        args.extend(['--small-min-expression-depth', str(small_min_expression_depth)])
+    if small_min_coverage_breadth != 60.0:
+        args.extend(['--small-min-coverage-breadth', str(small_min_coverage_breadth)])
+    if no_small_exclude_te:
+        args.append('--no-small-exclude-te')
+    if small_strong_homology_identity != 95.0:
+        args.extend(['--small-strong-homology-identity', str(small_strong_homology_identity)])
 
     original_argv = sys.argv
     sys.argv = args

@@ -29,6 +29,10 @@ def parse_arguments(argv=None):
     parser.add_argument('--gene-type', default='gene', help='基因 feature 类型|Gene feature type')
     parser.add_argument('--min-length', type=int, default=0,
                         help='基因 DNA 最小长度过滤(0=不过滤)|Min gene-DNA length filter')
+    parser.add_argument('--upstream', type=int, default=3000,
+                        help='上游侧翼长度(默认3000)|Upstream flank length')
+    parser.add_argument('--downstream', type=int, default=1000,
+                        help='下游侧翼长度(默认1000)|Downstream flank length')
     parser.add_argument('--gffread', default=None,
                         help='gffread 路径(默认自动检测)|gffread path (auto-detected by default)')
     parser.add_argument('--log-file', default=None, help='日志文件|Log file')
@@ -47,7 +51,8 @@ def main():
             genome_file=args.genome, gff_file=args.gff, output=args.output,
             prefix=args.prefix, longest_only=args.longest_only,
             transcript_types=tuple(args.transcript_types), gene_type=args.gene_type,
-            min_length=args.min_length, log_file=args.log_file, log_level=args.log_level,
+            min_length=args.min_length, upstream=args.upstream, downstream=args.downstream,
+            log_file=args.log_file, log_level=args.log_level,
             verbose=args.verbose)
         if args.gffread:
             # 用户显式指定优先,且需要展开 ~|explicit user override, expand ~

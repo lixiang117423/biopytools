@@ -385,6 +385,14 @@ def parse_arguments():
                         help='小蛋白放宽identity%%(默认50, 有表达时)|small min identity (default 50, with expr)')
     parser.add_argument('--small-min-coverage', type=float, default=50.0,
                         help='小蛋白放宽coverage%%(默认50, 有表达时)|small min coverage (default 50, with expr)')
+    parser.add_argument('--small-min-expression-depth', type=float, default=1.0,
+                        help='小蛋白表达深度下限(默认1.0; effector低表达可调低如0.1)|small min expression depth (default 1.0)')
+    parser.add_argument('--small-min-coverage-breadth', type=float, default=60.0,
+                        help='小蛋白CDS覆盖广度%%下限(默认60)|small min coverage breadth (default 60)')
+    parser.add_argument('--no-small-exclude-te', action='store_true',
+                        help='关闭小蛋白TE区排除(默认排; effector常在TE区可关)|disable small-protein TE exclusion (default on)')
+    parser.add_argument('--small-strong-homology-identity', type=float, default=95.0,
+                        help='强同源直通identity%%阈值(默认95, ≥此值绕过TE/表达过滤)|strong-homology bypass identity (default 95)')
     return parser.parse_args()
 
 
@@ -503,6 +511,10 @@ def main():
             small_max_cds_len=args.small_max_cds_len,
             small_min_identity=args.small_min_identity,
             small_min_coverage=args.small_min_coverage,
+            small_min_expression_depth=args.small_min_expression_depth,
+            small_min_coverage_breadth=args.small_min_coverage_breadth,
+            small_exclude_te=not args.no_small_exclude_te,
+            small_strong_homology_identity=args.small_strong_homology_identity,
         )
         result = AnnorefineRunner(pcfg, logger).run()
         logger.info(f'阶段2 完成, 整合 GFF|Phase 2 done: {result}')

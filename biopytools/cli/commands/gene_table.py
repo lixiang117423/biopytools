@@ -45,6 +45,10 @@ def _validate_file_exists(file_path):
               help='每基因仅保留最长转录本(默认全部)|Keep only longest transcript per gene')
 @click.option('--min-length', type=int, default=0, show_default=True,
               help='基因 DNA 最小长度过滤|Min gene-DNA length filter')
+@click.option('--upstream', type=int, default=3000, show_default=True,
+              help='上游侧翼长度|Upstream flank length')
+@click.option('--downstream', type=int, default=1000, show_default=True,
+              help='下游侧翼长度|Downstream flank length')
 @click.option('--gffread', default=None,
               help='gffread 路径(默认自动检测)|gffread path (auto-detected)')
 @click.option('--log-file', default=None, help='日志文件|Log file')
@@ -53,7 +57,7 @@ def _validate_file_exists(file_path):
               default='INFO', show_default=True, help='日志级别|Log level')
 @click.option('--verbose', '-v', is_flag=True, help='详细日志|Verbose')
 def gene_table(genome, gff, output, prefix, longest_only, min_length,
-               gffread, log_file, log_level, verbose):
+               upstream, downstream, gffread, log_file, log_level, verbose):
     """
     基因信息+序列合并表|Gene info + sequence merged table
 
@@ -72,6 +76,8 @@ def gene_table(genome, gff, output, prefix, longest_only, min_length,
         args.append('--longest-only')
     if min_length != 0:
         args.extend(['--min-length', str(min_length)])
+    args.extend(['--upstream', str(upstream)])
+    args.extend(['--downstream', str(downstream)])
     if gffread:
         args.extend(['--gffread', gffread])
     if log_file:

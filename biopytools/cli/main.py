@@ -128,6 +128,7 @@ COMMAND_REGISTRY = [
     ('minimap2', 'minimap2', 'Minimap2比对与区域提取|Minimap2 alignment and region extraction'),
     ('msa', 'msa', '多序列比对分析工具|Multiple sequence alignment analysis tool'),
     ('msaviz', 'msaviz', 'MSA可视化工具（自动比对+可视化）|MSA Visualization Tool (Auto-align + Visualize)'),
+    ('needle_identity', 'needle-identity', '序列两两identity计算(EMBOSS needle)|Pairwise sequence identity (EMBOSS needle)'),
     ('minigraph', 'minigraph', 'Minigraph泛基因组图构建和分析工具|Minigraph pangenome graph construction and analysis tool'),
     ('ngenomesyn', 'ngenomesyn', 'NGenomeSyn可视化工具|NGenomeSyn visualization tool'),
     ('orthofinder', 'orthofinder', 'OrthoFinder泛基因组分析工具包|OrthoFinder pan-genome analysis toolkit'),

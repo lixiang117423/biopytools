@@ -8,12 +8,12 @@ from typing import Dict, List, Optional, Set, Tuple
 
 from .config import PhytoEffectorConfig
 from .utils import (
-    PhytoEffectorLogger, RxLRMotifScanner, build_conda_command,
-    extract_sequences_by_id, format_number, generate_software_versions,
+    RxLRMotifScanner, build_conda_command,
+    extract_sequences_by_id, generate_software_versions,
     has_tm_outside_sp, is_step_completed, merge_fasta_files,
-    parse_blastp_tabular, parse_domtblout_details, parse_domtblout_hits,
-    parse_fasta_to_dict, parse_signalp_output, parse_tmhmm_output,
-    run_command, run_signalp3, save_signalp3_compatible, merge_signalp_results,
+    parse_blastp_tabular, parse_domtblout_hits,
+    parse_fasta_to_dict, parse_tmhmm_output,
+    run_command, run_signalp_pipeline,
 )
 
 
@@ -101,102 +101,9 @@ class RxLRFinder:
         """运行SignalP预测|Run SignalP prediction"""
         step_dir = os.path.join(self.config.output_dir, '01_signalp')
         summary_file = os.path.join(step_dir, 'prediction_results.txt')
-
-        if is_step_completed(summary_file):
-            self.logger.info("跳过已完成步骤|Skipping completed step: SignalP预测|SignalP prediction")
-            self.signalp_results = parse_signalp_output(step_dir, 'combined_input')
-            self.logger.info(f"加载SignalP结果|Loaded SignalP results: {len(self.signalp_results)}条记录|records")
-            return
-
-        os.makedirs(step_dir, exist_ok=True)
-
-        if self.config.signalp_version == 'both':
-            self._run_signalp_both(step_dir, summary_file)
-            return
-
-        if self.config.signalp_version == '3':
-            self.logger.info("步骤1: 运行SignalP 3.0信号肽预测|Step 1: Running SignalP 3.0 prediction")
-            self.signalp_results = run_signalp3(
-                self.config.signalp3_path, self.config._combined_fasta,
-                self.logger, self.config.signalp3_sprob_threshold,
-                tmp_dir=os.path.join(self.config.output_dir, '01_signalp', 'tmp'),
-            )
-            save_signalp3_compatible(self.signalp_results, summary_file)
-            return
-
-        self.logger.info("步骤1: 运行SignalP 6.0信号肽预测|Step 1: Running SignalP 6.0 prediction")
-
-    def _run_signalp_both(self, step_dir, summary_file):
-        """同时运行SignalP 3.0和6.0，取并集|Run both SP3 and SP6, take union"""
-        sp6_results = {}
-        sp3_results = {}
-
-        # 运行SignalP 6.0
-        self.logger.info("步骤1: 同时运行SignalP 3.0+6.0|Step 1: Running SignalP 3.0 + 6.0")
-        try:
-            sp6_cmd = build_conda_command(self.config.signalp_path, [
-                '--fastafile', self.config._combined_fasta,
-                '--output_dir', step_dir,
-                '--format', 'txt',
-                '--organism', self.config.organism,
-                '--mode', 'fast',
-                '--bsize', str(self.config.threads),
-                '--write_procs', str(self.config.threads),
-                '--torch_num_threads', str(self.config.threads),
-            ])
-            success, stdout, stderr = run_command(sp6_cmd, self.logger, "SignalP 6.0信号肽预测|SignalP 6.0 prediction")
-            if success:
-                sp6_results = parse_signalp_output(step_dir, 'combined_input')
-                sp6_sp = sum(1 for v in sp6_results.values() if v['has_signal_peptide'])
-                self.logger.info(f"SignalP 6.0: {len(sp6_results)}条预测|predictions, {sp6_sp}条SP+|with SP")
-            else:
-                self.logger.warning("SignalP 6.0运行失败|SignalP 6.0 failed")
-        except Exception as e:
-            self.logger.warning(f"SignalP 6.0异常|SignalP 6.0 error: {e}")
-
-        # 运行SignalP 3.0
-        if os.path.exists(self.config.signalp3_path):
-            try:
-                sp3_results = run_signalp3(
-                    self.config.signalp3_path, self.config._combined_fasta,
-                    self.logger, self.config.signalp3_sprob_threshold,
-                    tmp_dir=os.path.join(self.config.output_dir, '01_signalp', 'tmp'),
-                )
-            except Exception as e:
-                self.logger.warning(f"SignalP 3.0异常|SignalP 3.0 error: {e}")
-        else:
-            self.logger.warning(f"SignalP 3.0未找到，跳过|SignalP 3.0 not found, skipping: {self.config.signalp3_path}")
-
-        # 合并(并集)
-        self.signalp_results = merge_signalp_results(sp6_results, sp3_results)
-        sp_count = sum(1 for v in self.signalp_results.values() if v['has_signal_peptide'])
-        self.logger.info(
-            f"SignalP合并结果|Merged results: {len(self.signalp_results)}条预测|predictions, "
-            f"{sp_count}条SP+|with SP (SP6={len(sp6_results)}, SP3={len(sp3_results)})"
+        self.signalp_results = run_signalp_pipeline(
+            self.config, self.logger, step_dir, summary_file
         )
-
-        # 保存合并结果用于断点续传
-        save_signalp3_compatible(self.signalp_results, summary_file)
-
-        cmd = build_conda_command(self.config.signalp_path, [
-            '--fastafile', self.config._combined_fasta,
-            '--output_dir', step_dir,
-            '--format', 'txt',
-            '--organism', self.config.organism,
-            '--mode', 'fast',
-            '--bsize', str(self.config.threads),
-            '--write_procs', str(self.config.threads),
-            '--torch_num_threads', str(self.config.threads),
-        ])
-
-        success, stdout, stderr = run_command(cmd, self.logger, "SignalP信号肽预测|SignalP signal peptide prediction")
-        if not success:
-            self.logger.warning("SignalP运行失败，继续但SignalP列将为空|SignalP failed, continuing but SP columns will be empty")
-            return
-
-        self.signalp_results = parse_signalp_output(step_dir, 'combined_input')
-        sp_count = sum(1 for v in self.signalp_results.values() if v['has_signal_peptide'])
-        self.logger.info(f"SignalP完成|SignalP completed: {len(self.signalp_results)}条预测|predictions, {sp_count}条含信号肽|with signal peptide")
 
     def _run_hmmsearch(self) -> Set[str]:
         """运行hmmsearch|Run hmmsearch"""
@@ -250,13 +157,8 @@ class RxLRFinder:
         self.logger.info("步骤3: BLASTP搜索(RxLR同源补充)|Step 3: BLASTP search (RxLR homology)")
         os.makedirs(step_dir, exist_ok=True)
 
-        # 构建BLAST数据库|Build BLAST database
-        import shutil
-        makeblastdb = self.config.blastp_path.replace('blastp', 'makeblastdb')
-        if not os.path.exists(makeblastdb):
-            makeblastdb_bin = os.path.join(os.path.dirname(self.config.blastp_path), 'makeblastdb')
-            if os.path.exists(makeblastdb_bin):
-                makeblastdb = makeblastdb_bin
+        # 构建BLAST数据库(makeblastdb 与 blastp 同 bin 目录)|Build BLAST database
+        makeblastdb = os.path.join(os.path.dirname(self.config.blastp_path), 'makeblastdb')
 
         db_files = [f"{db_prefix}.phr", f"{db_prefix}.pin", f"{db_prefix}.psq"]
         if not all(os.path.exists(f) for f in db_files):
@@ -368,7 +270,7 @@ class RxLRFinder:
         if is_step_completed(filtered_file):
             self.logger.info("跳过已完成步骤|Skipping completed step: TMHMM过滤|TMHMM filtering")
             with open(filtered_file, 'r') as f:
-                filtered_ids = set(line.strip().split('/')[0] for line in f if line.strip())
+                filtered_ids = set(line.strip() for line in f if line.strip())
             self.logger.info(f"加载TMHMM过滤结果|Loaded TMHMM filter results: {len(filtered_ids)}通过|passed")
             return filtered_ids
 
@@ -378,24 +280,23 @@ class RxLRFinder:
         candidates_fasta = os.path.join(step_dir, 'rxlr_candidates_all.faa')
         extract_sequences_by_id(self.config._combined_fasta, all_hits, candidates_fasta)
 
-        # 运行TMHMM|Run TMHMM
-        cmd = build_conda_command(self.config.tmhmm_path, [
-            '<', candidates_fasta,
-        ])
-        # TMHMM reads from stdin
+        # 运行TMHMM(从stdin读入,经conda包装)|Run TMHMM (reads stdin, conda-wrapped)
         import subprocess
+        cmd = build_conda_command(self.config.tmhmm_path, [])
         self.logger.info(f"执行|Executing: TMHMM跨膜域预测|TMHMM transmembrane prediction")
-        self.logger.info(f"命令|Command: {self.config.tmhmm_path} < {candidates_fasta}")
+        self.logger.info(f"命令|Command: {' '.join(cmd)} < {candidates_fasta}")
 
         try:
-            result = subprocess.run(
-                self.config.tmhmm_path, shell=False, capture_output=True, text=True,
-                check=True, timeout=86400,
-                input=open(candidates_fasta, 'r').read()
-            )
+            with open(candidates_fasta, 'r') as fa:
+                result = subprocess.run(
+                    cmd, shell=False, capture_output=True, text=True,
+                    check=True, timeout=86400, stdin=fa,
+                )
             with open(tmhmm_out, 'w') as f:
                 f.write(result.stdout)
-            success = True
+        except subprocess.CalledProcessError as e:
+            self.logger.error(f"TMHMM运行失败|TMHMM failed: {e.stderr[:500] if e.stderr else ''}")
+            return all_hits
         except Exception as e:
             self.logger.error(f"TMHMM运行失败|TMHMM failed: {e}")
             return all_hits

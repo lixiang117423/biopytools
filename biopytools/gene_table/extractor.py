@@ -10,7 +10,7 @@ from .utils import (_open_text, build_conda_command, extract_sequence_region,
 # 输出表列顺序(固定)|Fixed output column order
 COLUMNS = ['Sample', 'Gene_ID', 'Transcript_ID', 'Chromosome', 'Strand',
            'Gene_Start', 'Gene_End', 'Transcript_Start', 'Transcript_End',
-           'Gene_DNA', 'CDS', 'Protein']
+           'Gene_DNA', 'Region', 'CDS', 'Protein']
 
 
 def _parse_attrs(attr_field: str) -> Dict[str, str]:
@@ -108,12 +108,8 @@ class GeneTableExtractor:
         return genes, transcripts, cds_len
 
     # ---- 基因 DNA 切片|gene-DNA slice ----
-    def slice_gene_dna(self, genes: Dict[str, Dict]) -> Dict[str, str]:
-        """加载基因组,切每个基因全长 DNA(含内含子/UTR)|Load genome, slice full-length gene DNA"""
-        self.logger.info(f"加载基因组|Loading genome: {self.config.genome_file}")
-        genome = _load_genome(self.config.genome_file)
-        self.logger.info(f"基因组载入|Genome loaded: {format_number(len(genome))} 条序列|sequences")
-
+    def slice_gene_dna(self, genes: Dict[str, Dict], genome: Dict[str, str]) -> Dict[str, str]:
+        """切每个基因全长 DNA(含内含子/UTR);基因组由调用方加载|Slice full-length gene DNA; genome loaded by caller"""
         dna: Dict[str, str] = {}
         skipped = 0
         for gid, g in genes.items():
@@ -134,6 +130,48 @@ class GeneTableExtractor:
                 f"跳过|Skipped {skipped} 个基因(染色体缺失/长度不足)|genes (missing chrom / too short)")
         self.logger.info(f"切出基因 DNA|Sliced gene DNA: {format_number(len(dna))}")
         return dna
+
+    # ---- 上下游区间切片|upstream+gene+downstream region slice ----
+    def slice_flank_regions(self, genes: Dict[str, Dict], genome: Dict[str, str]) -> Dict[str, str]:
+        """切 上游+基因+下游 区间(链定向,越界夹紧)|Slice flank region, strand-oriented, clamped
+
+        +链 [gs,ge]: chrom[gs-up .. ge+down] 正向
+        -链 [gs,ge]: chrom[gs-down .. ge+up] 整体反向互补 → 5'→3' 即 上游|基因|下游
+        """
+        up = self.config.upstream
+        down = self.config.downstream
+        regions: Dict[str, str] = {}
+        skipped = 0
+        truncated = 0
+        for gid, g in genes.items():
+            chrom = genome.get(g['chr'])
+            if chrom is None:
+                skipped += 1
+                self.logger.warning(
+                    f"基因|gene {gid} 染色体|chrom {g['chr']} 不在基因组|not in genome")
+                continue
+            chrom_len = len(chrom)
+            gs, ge = g['start'], g['end']
+            if g['strand'] == '-':
+                ideal_lo, ideal_hi = gs - down, ge + up
+            else:
+                ideal_lo, ideal_hi = gs - up, ge + down
+            lo = max(1, ideal_lo)
+            hi = min(chrom_len, ideal_hi)
+            if ideal_lo < 1 or ideal_hi > chrom_len:
+                truncated += 1
+            regions[gid] = extract_sequence_region(chrom, lo, hi, g['strand'])
+        if skipped:
+            self.logger.warning(
+                f"跳过|Skipped {skipped} 个基因(染色体缺失)|genes (missing chrom)")
+        if truncated:
+            self.logger.warning(
+                f"区间越界截断|Flank truncated: {truncated} 个基因(靠染色体首尾)|"
+                f"genes (near chrom ends)")
+        self.logger.info(
+            f"切出区间|Sliced regions: {format_number(len(regions))} "
+            f"(上游|up={up} 下游|down={down})")
+        return regions
 
     # ---- 最长转录本选择|longest-transcript selection ----
     def _select_longest(self, transcripts: List[Dict], cds_len: Dict[str, int]) -> List[Dict]:
@@ -174,20 +212,24 @@ class GeneTableExtractor:
         return seqs
 
     # ---- 合并写表|merge + write ----
-    def merge_and_write(self, genes, transcripts, gene_dna, cds, pep):
-        """按转录本合并并写 TSV + gene.fa|Merge by transcript, write TSV + gene.fa"""
+    def merge_and_write(self, genes, transcripts, gene_dna, gene_region, cds, pep):
+        """按转录本合并并写 TSV + gene.fa + region.fa|Merge by transcript, write TSV + gene.fa + region.fa"""
         sample = self.config.prefix
-        na_cds = na_pep = na_dna = 0
+        na_cds = na_pep = na_dna = na_region = 0
         rows = []
         for t in transcripts:
             gid, tid = t['gene_id'], t['transcript_id']
             g = genes.get(gid, {})
             dna_seq = gene_dna.get(gid)
+            region_seq = gene_region.get(gid)
             cds_seq = cds.get(tid)
             pep_seq = pep.get(tid)
             if dna_seq is None:
                 na_dna += 1
                 dna_seq = 'NA'
+            if region_seq is None:
+                na_region += 1
+                region_seq = 'NA'
             if cds_seq is None:
                 na_cds += 1
                 cds_seq = 'NA'
@@ -199,7 +241,7 @@ class GeneTableExtractor:
                 'Chromosome': t['chr'], 'Strand': t['strand'],
                 'Gene_Start': g.get('start', 'NA'), 'Gene_End': g.get('end', 'NA'),
                 'Transcript_Start': t['t_start'], 'Transcript_End': t['t_end'],
-                'Gene_DNA': dna_seq, 'CDS': cds_seq, 'Protein': pep_seq})
+                'Gene_DNA': dna_seq, 'Region': region_seq, 'CDS': cds_seq, 'Protein': pep_seq})
 
         # lineterminator='\n' 强制 LF(csv 默认 \r\n 会使末列带 \r)|force LF; csv default \r\n leaves CR on last column
         with open(self.config.tsv_path, 'w', newline='') as f:
@@ -208,14 +250,15 @@ class GeneTableExtractor:
             writer.writeheader()
             writer.writerows(rows)
 
-        # gene.fa 由我们写出(基因全长DNA);cds/pep 已由 gffread 写出
-        # |gene.fa written by us; cds/pep already produced by gffread
+        # gene.fa / region.fa 由我们写出(基因级);cds/pep 已由 gffread 写出
+        # |gene.fa / region.fa written by us (gene-level); cds/pep already produced by gffread
         write_fasta(sorted(gene_dna.items()), self.config.gene_fa)
+        write_fasta(sorted(gene_region.items()), self.config.region_fa)
 
         self.logger.info(
             f"写出合并表|Wrote merged table: {format_number(len(rows))} 行|rows → {self.config.tsv_path}")
         self.logger.info(
-            f"缺失统计|Missing: Gene_DNA={na_dna} CDS={na_cds} Protein={na_pep}")
+            f"缺失统计|Missing: Gene_DNA={na_dna} Region={na_region} CDS={na_cds} Protein={na_pep}")
         return self.config.tsv_path
 
     # ---- 主流程|main pipeline ----
@@ -225,9 +268,13 @@ class GeneTableExtractor:
         genes, transcripts, cds_len = self.parse_gff()
         if self.config.longest_only:
             transcripts = self._select_longest(transcripts, cds_len)
-        gene_dna = self.slice_gene_dna(genes)
+        genome = _load_genome(self.config.genome_file)
+        self.logger.info(
+            f"基因组载入|Genome loaded: {format_number(len(genome))} 条序列|sequences")
+        gene_dna = self.slice_gene_dna(genes, genome)
+        gene_region = self.slice_flank_regions(genes, genome)
         cds = self.run_gffread('cds')
         pep = self.run_gffread('pep')
-        out = self.merge_and_write(genes, transcripts, gene_dna, cds, pep)
+        out = self.merge_and_write(genes, transcripts, gene_dna, gene_region, cds, pep)
         self.logger.info("=== gene-table 完成|done ===")
         return out

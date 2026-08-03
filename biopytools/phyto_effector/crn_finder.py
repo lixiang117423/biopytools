@@ -9,10 +9,10 @@ from typing import Dict, List, Optional, Set
 
 from .config import PhytoEffectorConfig
 from .utils import (
-    PhytoEffectorLogger, build_conda_command,
-    format_number, generate_software_versions, is_step_completed,
-    merge_fasta_files, parse_domtblout_details, parse_domtblout_hits,
-    parse_fasta_to_dict, parse_signalp_output, run_command,
+    build_conda_command,
+    generate_software_versions, is_step_completed,
+    merge_fasta_files, parse_domtblout_details,
+    parse_fasta_to_dict, run_command, run_signalp_pipeline,
 )
 
 
@@ -86,35 +86,9 @@ class CRNFinder:
         """运行SignalP预测|Run SignalP prediction"""
         step_dir = os.path.join(self.config.output_dir, '01_signalp')
         summary_file = os.path.join(step_dir, 'prediction_results.txt')
-
-        if is_step_completed(summary_file):
-            self.logger.info("跳过已完成步骤|Skipping completed step: SignalP预测|SignalP prediction")
-            self.signalp_results = parse_signalp_output(step_dir, 'combined_input')
-            self.logger.info(f"加载SignalP结果|Loaded SignalP results: {len(self.signalp_results)}条记录|records")
-            return
-
-        self.logger.info("步骤1: 运行SignalP信号肽预测|Step 1: Running SignalP prediction")
-        os.makedirs(step_dir, exist_ok=True)
-
-        cmd = build_conda_command(self.config.signalp_path, [
-            '--fastafile', self.config._combined_fasta,
-            '--output_dir', step_dir,
-            '--format', 'txt',
-            '--organism', self.config.organism,
-            '--mode', 'fast',
-            '--bsize', str(self.config.threads),
-            '--write_procs', str(self.config.threads),
-            '--torch_num_threads', str(self.config.threads),
-        ])
-
-        success, stdout, stderr = run_command(cmd, self.logger, "SignalP信号肽预测|SignalP signal peptide prediction")
-        if not success:
-            self.logger.warning("SignalP运行失败，继续但SignalP列将为空|SignalP failed, continuing but SP columns will be empty")
-            return
-
-        self.signalp_results = parse_signalp_output(step_dir, 'combined_input')
-        sp_count = sum(1 for v in self.signalp_results.values() if v['has_signal_peptide'])
-        self.logger.info(f"SignalP完成|SignalP completed: {len(self.signalp_results)}条预测|predictions, {sp_count}条含信号肽|with signal peptide")
+        self.signalp_results = run_signalp_pipeline(
+            self.config, self.logger, step_dir, summary_file
+        )
 
     def _run_hmmsearch(self) -> List[Dict]:
         """运行hmmsearch|Run hmmsearch"""

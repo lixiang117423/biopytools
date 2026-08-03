@@ -68,6 +68,12 @@ class AnnorefineConfig:
     small_min_expression_depth: float = 1.0        # 小蛋白表达深度下限|small-protein min depth
     small_min_coverage_breadth: float = 60.0       # 略严于常规 50|stricter breadth
     small_exclude_te: bool = True                  # 强制排 TE|force TE exclusion
+    # 强同源直通: identity≥此值的命中(近乎自比对/高度保守)绕过 TE/表达过滤
+    # |strong-homology bypass: identity>=this skips TE/expression filters
+    # 效应子常在 TE 区且低表达, 强同源(如已知 effector 蛋白自比对)不该被辅助证据拦
+    # |effectors often reside in TE regions & low-expression; strong homology
+    # (e.g. known effector self-alignment) shouldn't be blocked by auxiliary evidence
+    small_strong_homology_identity: float = 95.0   # 默认95(自比对≈100)|default 95 (self-align ~100)
     # 退化模式(无表达数据)同源阈值复用 gap_min_identity/gap_min_coverage(70/80, 更严)
     # |degraded mode (no expression) reuses gap_min_identity/coverage (70/80, stricter)
 

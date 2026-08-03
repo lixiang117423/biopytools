@@ -18,7 +18,7 @@ class NLRAnnotatorConfig:
     output_dir: str = "./output"
 
     # 目录批处理参数|Directory batch parameters
-    sample_suffix: str = "*.cds.fa"
+    sample_suffix: str = "*.fa"
 
     # 工具路径（通过get_tool_path按优先级获取）|Tool paths (obtained via get_tool_path by priority)
     jar_path: str = ""

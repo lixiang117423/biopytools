@@ -41,6 +41,8 @@ class GeneTableConfig:
     transcript_types: Tuple[str, ...] = ('mRNA', 'transcript')
     gene_type: str = 'gene'
     min_length: int = 0
+    upstream: int = 3000
+    downstream: int = 1000
     gffread_path: str = field(
         default_factory=lambda: get_tool_path('gffread', '~/.local/bin/gffread', 'GFFREAD_PATH'))
     log_file: Optional[str] = None
@@ -86,6 +88,7 @@ class GeneTableConfig:
         self.gene_fa = os.path.join(self.output_dir, f"{self.prefix}.gene.fa")
         self.cds_fa = os.path.join(self.output_dir, f"{self.prefix}.cds.fa")
         self.pep_fa = os.path.join(self.output_dir, f"{self.prefix}.pep.fa")
+        self.region_fa = os.path.join(self.output_dir, f"{self.prefix}.region.fa")
 
     def validate(self):
         """校验输入文件存在|Validate that input files exist"""
@@ -97,5 +100,9 @@ class GeneTableConfig:
                 errors.append(f"{label} 不存在|not found: {path}")
         if self.min_length < 0:
             errors.append("min_length 不能为负|must be >= 0")
+        if self.upstream < 0:
+            errors.append("upstream 不能为负|must be >= 0")
+        if self.downstream < 0:
+            errors.append("downstream 不能为负|must be >= 0")
         if errors:
             raise ValueError("\n".join(errors))

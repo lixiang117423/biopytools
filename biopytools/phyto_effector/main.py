@@ -8,9 +8,8 @@ from pathlib import Path
 
 from .config import PhytoEffectorConfig
 from .utils import (
-    PhytoEffectorLogger, build_conda_command, generate_software_versions,
-    is_step_completed, merge_candidate_files, parse_signalp_output,
-    run_command, run_signalp3, save_signalp3_compatible, merge_signalp_results,
+    PhytoEffectorLogger, generate_software_versions,
+    merge_candidate_files, run_signalp_pipeline,
 )
 from .rxlr_finder import RxLRFinder
 from .crn_finder import CRNFinder
@@ -79,99 +78,7 @@ def _run_signalp(config, logger):
     """运行SignalP预测(共享步骤)|Run SignalP prediction (shared step)"""
     step_dir = os.path.join(config.output_dir, '01_signalp')
     summary_file = os.path.join(step_dir, 'prediction_results.txt')
-
-    if is_step_completed(summary_file):
-        logger.info("跳过已完成步骤|Skipping completed step: SignalP预测|SignalP prediction")
-        return parse_signalp_output(step_dir)
-
-    os.makedirs(step_dir, exist_ok=True)
-
-    if config.signalp_version == 'both':
-        return _run_signalp_both(config, logger, step_dir, summary_file)
-
-    if config.signalp_version == '3':
-        logger.info("步骤1: 运行SignalP 3.0信号肽预测|Step 1: Running SignalP 3.0 prediction")
-        results = run_signalp3(
-            config.signalp3_path, config._combined_fasta,
-            logger, config.signalp3_sprob_threshold,
-            tmp_dir=os.path.join(config.output_dir, '01_signalp', 'tmp'),
-        )
-        save_signalp3_compatible(results, summary_file)
-        return results
-
-    logger.info("步骤1: 运行SignalP 6.0信号肽预测|Step 1: Running SignalP 6.0 prediction")
-
-
-def _run_signalp_both(config, logger, step_dir, summary_file):
-    """同时运行SignalP 3.0和6.0，取并集|Run both SP3 and SP6, take union"""
-    sp6_results = {}
-    sp3_results = {}
-
-    # SignalP 6.0
-    try:
-        sp6_cmd = build_conda_command(config.signalp_path, [
-            '--fastafile', config._combined_fasta,
-            '--output_dir', step_dir,
-            '--format', 'txt',
-            '--organism', config.organism,
-            '--mode', config.signalp_mode,
-            '--bsize', str(config.threads),
-            '--write_procs', str(config.threads),
-            '--torch_num_threads', str(config.threads),
-        ])
-        success, stdout, stderr = run_command(sp6_cmd, logger, "SignalP 6.0信号肽预测|SignalP 6.0 prediction")
-        if success:
-            sp6_results = parse_signalp_output(step_dir)
-            sp6_sp = sum(1 for v in sp6_results.values() if v['has_signal_peptide'])
-            logger.info(f"SignalP 6.0: {len(sp6_results)}条预测|predictions, {sp6_sp}条SP+|with SP")
-        else:
-            logger.warning("SignalP 6.0运行失败|SignalP 6.0 failed")
-    except Exception as e:
-        logger.warning(f"SignalP 6.0异常|SignalP 6.0 error: {e}")
-
-    # SignalP 3.0
-    if os.path.exists(config.signalp3_path):
-        try:
-            sp3_results = run_signalp3(
-                config.signalp3_path, config._combined_fasta,
-                logger, config.signalp3_sprob_threshold,
-                tmp_dir=os.path.join(config.output_dir, '01_signalp', 'tmp'),
-            )
-        except Exception as e:
-            logger.warning(f"SignalP 3.0异常|SignalP 3.0 error: {e}")
-    else:
-        logger.warning(f"SignalP 3.0未找到，跳过|SignalP 3.0 not found, skipping: {config.signalp3_path}")
-
-    # 合并(并集)
-    merged = merge_signalp_results(sp6_results, sp3_results)
-    sp_count = sum(1 for v in merged.values() if v['has_signal_peptide'])
-    logger.info(
-        f"SignalP合并结果|Merged results: {len(merged)}条预测|predictions, "
-        f"{sp_count}条SP+|with SP (SP6={len(sp6_results)}, SP3={len(sp3_results)})"
-    )
-    save_signalp3_compatible(merged, summary_file)
-    return merged
-
-    cmd = build_conda_command(config.signalp_path, [
-        '--fastafile', config._combined_fasta,
-        '--output_dir', step_dir,
-        '--format', 'txt',
-        '--organism', config.organism,
-        '--mode', config.signalp_mode,
-        '--bsize', str(config.threads),
-        '--write_procs', str(config.threads),
-        '--torch_num_threads', str(config.threads),
-    ])
-
-    success, stdout, stderr = run_command(cmd, logger, "SignalP信号肽预测|SignalP signal peptide prediction")
-    if not success:
-        logger.warning("SignalP运行失败，继续但SignalP列将为空|SignalP failed, continuing but SP columns will be empty")
-        return {}
-
-    signalp_results = parse_signalp_output(step_dir)
-    sp_count = sum(1 for v in signalp_results.values() if v['has_signal_peptide'])
-    logger.info(f"SignalP完成|SignalP completed: {len(signalp_results)}条预测|predictions, {sp_count}条含信号肽|with signal peptide")
-    return signalp_results
+    return run_signalp_pipeline(config, logger, step_dir, summary_file)
 
 
 def _make_rxlr_config(sample_fasta, sample_output_dir, args):

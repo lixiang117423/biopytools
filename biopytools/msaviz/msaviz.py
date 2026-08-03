@@ -548,7 +548,8 @@ class MsaViz:
                 )
                 highlight_positions = self._highlight_positions
                 if highlight_positions is None or x_left in highlight_positions:
-                    color = self.color_scheme.get(seq_char, "#FFFFFF")
+                    # 大小写不敏感配色查询|Case-insensitive color lookup
+                    color = self.color_scheme.get(seq_char.upper(), "#FFFFFF")
                     if self._color_scheme_name == "Identity":
                         color = self._get_identity_color(seq_char, x_left)
                     if self._custom_color_func is not None:
@@ -778,7 +779,7 @@ class MsaViz:
                 if seq_char == "-":
                     continue
                 all_count += 1
-                if seq_char in "ATGCUN":
+                if seq_char.upper() in "ATGCUN":
                     nt_count += 1
         return nt_count / all_count < 0.9
 

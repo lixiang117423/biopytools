@@ -50,8 +50,8 @@ def _validate_file_exists(file_path):
               default='mafft',
               help='MAFFT可执行文件路径|MAFFT executable path (default: mafft)')
 @click.option('--mafft-params',
-              default='--auto',
-              help='MAFFT参数|MAFFT parameters (default: --auto)')
+              default='--auto --preservecase',
+              help='MAFFT参数|MAFFT parameters (default: --auto --preservecase)')
 @click.option('--threads',
               type=int,
               default=12,
@@ -64,8 +64,8 @@ def _validate_file_exists(file_path):
               default='fasta',
               help='MSA文件格式|MSA file format (default: fasta)')
 @click.option('--color-scheme',
-              default='Zappo',
-              help='颜色方案|Color scheme (default: Zappo)')
+              default=None,
+              help='颜色方案|Color scheme (default: auto: DNA->Nucleotide / 蛋白|protein->Zappo)')
 # 区域参数|Region parameters
 @click.option('--start',
               type=int,
@@ -142,7 +142,7 @@ def msaviz(infile, outfile, skip_align, mafft_path, mafft_params, threads, keep_
     if mafft_path != 'mafft':
         args.extend(['--mafft-path', mafft_path])
 
-    if mafft_params != '--auto':
+    if mafft_params != '--auto --preservecase':
         args.extend(['--mafft-params', mafft_params])
 
     if threads != 4:
@@ -155,7 +155,7 @@ def msaviz(infile, outfile, skip_align, mafft_path, mafft_params, threads, keep_
     if format != 'fasta':
         args.extend(['--format', format])
 
-    if color_scheme != 'Zappo':
+    if color_scheme is not None:
         args.extend(['--color-scheme', color_scheme])
 
     # 区域参数|Region parameters

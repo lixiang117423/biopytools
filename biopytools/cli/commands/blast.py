@@ -264,11 +264,9 @@ def blast(version, input, sample_map_file, reference, output, blast_type, evalue
     if high_quality_evalue != 1e-10:
         args.extend(['--high-quality-evalue', str(high_quality_evalue)])
 
-    # 显式透传开关(原is_flag+default=True导致--no-auto-detect-samples不可达)
-    # |Forward the toggle explicitly (old is_flag+default=True made --no-auto-detect unreachable)
-    if auto_detect_samples:
-        args.append('--auto-detect-samples')
-    else:
+    # auto_detect_samples默认为True(argparse也是True),只在关闭时才传--no-auto-detect-samples
+    # |auto_detect_samples defaults to True (same as argparse), only forward --no-auto-detect-samples when off
+    if not auto_detect_samples:
         args.append('--no-auto-detect-samples')
 
     if sample_name_pattern != r'([^/]+?)(?:\.fa|\.fasta|\.fna)?$':

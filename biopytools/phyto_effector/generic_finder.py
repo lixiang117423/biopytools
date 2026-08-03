@@ -9,10 +9,9 @@ from typing import Dict, List, Optional, Pattern, Set
 
 from .config import PhytoEffectorConfig
 from .utils import (
-    PhytoEffectorLogger, build_conda_command,
-    format_number, generate_software_versions, is_step_completed,
-    merge_fasta_files, parse_domtblout_details, parse_domtblout_hits,
-    parse_fasta_to_dict, parse_signalp_output, run_command,
+    build_conda_command, generate_software_versions, is_step_completed,
+    merge_fasta_files, parse_domtblout_details,
+    parse_fasta_to_dict, run_command,
 )
 
 
@@ -32,13 +31,16 @@ EFFECTOR_TYPE_CONFIG = {
     'protease': {
         'label': 'Protease',
         'hmm_attr': 'protease_hmm',
-        'default_hmm': 'paper_protease.hmm',
+        'default_hmm': 'protease_pfam.hmm',
         'motif': None,
         'motif_regex': None,
         'motif_label': None,
         'output_dir': '05_protease',
         'candidates_file': 'protease_candidates.tsv',
-        'score_threshold': None,
+        'score_threshold': 20.0,
+        # 扩充为 203 Pfam peptidase 家族后命中面变广,要求信号肽控误报(效应子应分泌)|
+        # require signal peptide to control false positives after extending to 203 Pfam families
+        'require_sp': True,
     },
     'scp': {
         'label': 'SCP',
@@ -196,6 +198,8 @@ class GenericEffectorFinder:
 
         seq_dict = parse_fasta_to_dict(self.config._combined_fasta)
         rows = []
+        require_sp = tc.get('require_sp', False)
+        sp_filtered = 0
 
         for seq_id in sorted(best_hits.keys()):
             sequence = seq_dict.get(seq_id, '')
@@ -208,6 +212,12 @@ class GenericEffectorFinder:
             sp_info = self.signalp_results.get(seq_id, {})
             has_sp = sp_info.get('has_signal_peptide', None)
             sp_pos = sp_info.get('cs_position', 'N/A')
+
+            # require_sp 类型(如 Protease):跳过无信号肽候选(效应子应分泌)|
+            # require_sp types skip non-SP candidates (effectors are secreted)
+            if require_sp and not has_sp:
+                sp_filtered += 1
+                continue
 
             row = {
                 'Effector_Type': label,
@@ -248,6 +258,8 @@ class GenericEffectorFinder:
         sp_yes = len(df[df['SignalP'] == 'Yes'])
         self.logger.info(f"总候选数|Total candidates: {total}")
         self.logger.info(f"含信号肽|With signal peptide: {sp_yes}")
+        if require_sp:
+            self.logger.info(f"SP过滤移除|Removed by SP filter (no signal peptide): {sp_filtered}")
 
         if has_motif:
             m_label = tc['motif_label']

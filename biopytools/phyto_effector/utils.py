@@ -207,8 +207,9 @@ def parse_domtblout_details(domtblout_file: str) -> List[Dict]:
                         'full_evalue': float(fields[6]),
                         'full_score': float(fields[7]),
                         'full_bias': float(fields[8]),
-                        'domain_evalue': float(fields[11]),
-                        'domain_score': float(fields[12]),
+                        # HMMER3 domtblout 列序|[12]=i-Evalue, [13]=domain score, [14]=domain bias
+                        'domain_evalue': float(fields[12]),
+                        'domain_score': float(fields[13]),
                         'hmm_from': int(fields[15]),
                         'hmm_to': int(fields[16]),
                         'ali_from': int(fields[17]),
@@ -571,6 +572,103 @@ def merge_signalp_results(*result_dicts) -> Dict[str, Dict]:
     return merged
 
 
+def _run_signalp6(config, logger, step_dir, summary_file, mode: str = None) -> Dict[str, Dict]:
+    """运行 SignalP 6.0 并保存结果|Run SignalP 6.0 and save results
+
+    Args:
+        mode: 指定运行模式(默认用 config.signalp_mode)|Run mode (default: config.signalp_mode)
+    """
+    sp_mode = mode if mode is not None else config.signalp_mode
+    cmd = build_conda_command(config.signalp_path, [
+        '--fastafile', config._combined_fasta,
+        '--output_dir', step_dir,
+        '--format', 'txt',
+        '--organism', config.organism,
+        '--mode', sp_mode,
+        '--bsize', str(config.threads),
+        '--write_procs', str(config.threads),
+        '--torch_num_threads', str(config.threads),
+    ])
+    success, _, _ = run_command(cmd, logger, "SignalP 6.0信号肽预测|SignalP 6.0 prediction")
+    if not success:
+        logger.warning("SignalP 6.0运行失败|SignalP 6.0 failed")
+        return {}
+    results = parse_signalp_output(step_dir)
+    sp_sp = sum(1 for v in results.values() if v['has_signal_peptide'])
+    logger.info(f"SignalP 6.0: {len(results)}条预测|predictions, {sp_sp}条SP+|with SP")
+    save_signalp3_compatible(results, summary_file)
+    return results
+
+
+def _run_signalp_both(config, logger, step_dir, summary_file) -> Dict[str, Dict]:
+    """同时运行 SignalP 3.0 和 6.0，取并集|Run both SP3 and SP6, take union"""
+    logger.info("步骤1: 同时运行SignalP 3.0+6.0|Step 1: Running SignalP 3.0 + 6.0")
+    sp6_results: Dict[str, Dict] = {}
+    sp3_results: Dict[str, Dict] = {}
+
+    # SignalP 6.0
+    try:
+        sp6_results = _run_signalp6(config, logger, step_dir, summary_file)
+    except Exception as e:
+        logger.warning(f"SignalP 6.0异常|SignalP 6.0 error: {e}")
+
+    # SignalP 3.0
+    if os.path.exists(config.signalp3_path):
+        try:
+            sp3_results = run_signalp3(
+                config.signalp3_path, config._combined_fasta,
+                logger, config.signalp3_sprob_threshold,
+                tmp_dir=os.path.join(step_dir, 'tmp'),
+            )
+        except Exception as e:
+            logger.warning(f"SignalP 3.0异常|SignalP 3.0 error: {e}")
+    else:
+        logger.warning(f"SignalP 3.0未找到，跳过|SignalP 3.0 not found, skipping: {config.signalp3_path}")
+
+    # 合并(并集)，覆盖 summary_file 为最终合并结果|Merged union overwrites summary_file
+    merged = merge_signalp_results(sp6_results, sp3_results)
+    sp_count = sum(1 for v in merged.values() if v['has_signal_peptide'])
+    logger.info(
+        f"SignalP合并结果|Merged results: {len(merged)}条预测|predictions, "
+        f"{sp_count}条SP+|with SP (SP6={len(sp6_results)}, SP3={len(sp3_results)})"
+    )
+    save_signalp3_compatible(merged, summary_file)
+    return merged
+
+
+def run_signalp_pipeline(config, logger, step_dir: str, summary_file: str) -> Dict[str, Dict]:
+    """统一 SignalP 预测入口(支持 3/6/both + 断点续传)|Unified SignalP entry (3/6/both + resume)
+
+    各 finder 与 main.py 均调用此函数，避免重复实现导致的覆盖/未实现 bug。
+    All finders and main.py call this to avoid duplicated signalp logic.
+    """
+    if is_step_completed(summary_file):
+        logger.info("跳过已完成步骤|Skipping completed step: SignalP预测|SignalP prediction")
+        results = parse_signalp_output(step_dir)
+        logger.info(f"加载SignalP结果|Loaded SignalP results: {len(results)}条记录|records")
+        return results
+
+    os.makedirs(step_dir, exist_ok=True)
+
+    version = config.signalp_version
+    if version == '3':
+        logger.info("步骤1: 运行SignalP 3.0信号肽预测|Step 1: Running SignalP 3.0 prediction")
+        results = run_signalp3(
+            config.signalp3_path, config._combined_fasta,
+            logger, config.signalp3_sprob_threshold,
+            tmp_dir=os.path.join(step_dir, 'tmp'),
+        )
+        save_signalp3_compatible(results, summary_file)
+        return results
+
+    if version == '6':
+        logger.info("步骤1: 运行SignalP 6.0信号肽预测|Step 1: Running SignalP 6.0 prediction")
+        return _run_signalp6(config, logger, step_dir, summary_file)
+
+    # 默认 both|default: both
+    return _run_signalp_both(config, logger, step_dir, summary_file)
+
+
 def is_step_completed(output_file: str) -> bool:
     """检查步骤是否已完成|Check if step is completed"""
     return os.path.exists(output_file)
@@ -587,7 +685,7 @@ def parse_blastp_tabular(tabular_file: str) -> Set[str]:
                     continue
                 fields = line.split('\t')
                 if len(fields) >= 2:
-                    hits.add(fields[1].split('/')[0])
+                    hits.add(fields[1])
     except Exception as e:
         raise IOError(f"解析BLASTP结果失败|Failed to parse BLASTP results: {e}")
     return hits
@@ -603,7 +701,7 @@ def parse_tmhmm_output(tmhmm_file: str) -> Dict[str, List[Tuple[int, int]]]:
                     continue
                 fields = line.strip().split('\t')
                 if len(fields) >= 4 and fields[2] == 'TMhelix':
-                    protein_id = fields[0].split('/')[0]
+                    protein_id = fields[0]
                     pos_fields = fields[3].split()
                     start = int(pos_fields[0])
                     end = int(pos_fields[1])

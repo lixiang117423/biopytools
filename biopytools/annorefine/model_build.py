@@ -86,6 +86,9 @@ def qc_filter_small(hits: List[MiniprotHit], config,
     # |with expression: relaxed (50/50); degraded: normal-grade (70/80)
     min_id = config.small_min_identity if has_expr else config.gap_min_identity
     min_cov = config.small_min_coverage if has_expr else config.gap_min_coverage
+    # 强同源直通阈值: identity≥此值视为铁证(近乎自比对), 绕过 TE/表达过滤
+    # |strong-homology bypass: identity>=this is decisive (near self-align), skips TE/expression
+    strong_id = getattr(config, 'small_strong_homology_identity', 95.0)
     passed = []
     for h in hits:
         if h.identity < min_id:
@@ -100,14 +103,18 @@ def qc_filter_small(hits: List[MiniprotHit], config,
         # ① 真实完整 ORF(不可放宽, 核心 completeness 门)|real complete ORF (not relaxed)
         if require_orf and not has_complete_orf(h, genome):
             continue
-        # ②⑤ 表达(有数据时必需)|expression (required when data available)
-        if has_expr:
+        # 强同源直通: identity≥阈值视为铁证, 绕过 TE/表达辅助过滤
+        # |strong-homology bypass: identity>=threshold is decisive, skips TE/expression
+        # (效应子常在 TE 区且低表达, 强同源如已知 effector 自比对不该被辅助证据拦)
+        is_strong = h.identity >= strong_id
+        # ②⑤ 表达(强同源绕过)|expression (strong-homology bypasses)
+        if has_expr and not is_strong:
             depth, breadth = expression.get(hit_key(h), (0.0, 0.0))
             if depth < config.small_min_expression_depth \
                     or breadth < config.small_min_coverage_breadth:
                 continue
-        # 强制排 TE(默认 small_exclude_te=True)|force TE exclusion (default on)
-        if getattr(config, 'small_exclude_te', True) and repeat_regions:
+        # 排 TE(强同源绕过)|TE exclusion (strong-homology bypasses)
+        if getattr(config, 'small_exclude_te', True) and not is_strong and repeat_regions:
             te = repeat_regions.get(h.chrom, [])
             te_intervals = [(s, e) for s, e, *_ in te]
             hit_cds = [(s, e) for s, e, _ in h.cds_exons]
