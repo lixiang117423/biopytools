@@ -1,4 +1,10 @@
 
+## [1.25.1] - 2026-08-04
+
+### Fixed
+- `kmertools` extract：unikmer 路径统一交由 `ExtractConfig.__post_init__` 解析（环境变量 > 配置文件 > 默认，再展开 `~`），移除 `cmd_extract` 里 `shutil.which` 的重复/不可靠查找（未在 PATH 时会返回 None 导致回退行为不一致）
+- `vcf2pca` V2P 后端：`-InVCF`/`-OutPut` 改用绝对路径（原相对路径在 `subprocess.run(cwd=output_dir)` 下会被错误解析）；未请求聚类时显式传 `-ClusterMethod None`（工具默认 EM 聚类 ClusterMethod=3，数据含 NaN 时会在 EM 阶段崩溃）
+
 ## [1.25.0] - 2026-08-03
 
 ### Added
@@ -1106,4 +1112,3 @@
 ### Changed
 - add blast module
 - Updated files: biopytools/blast,biopytools/cli/commands/blast.py,biopytools/cli/main.py,docs/blast_v2.md,README.md
-
