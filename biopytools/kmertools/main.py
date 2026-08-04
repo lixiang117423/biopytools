@@ -635,22 +635,13 @@ def cmd_import_db(args):
 
 def cmd_extract(args):
     """执行extract命令|Execute extract command"""
-    import shutil
-
-    # 查找unikmer的完整路径|Find full path of unikmer
-    unikmer_path = args.unikmer_path
-    if args.method == "unikmer":
-        full_path = shutil.which(args.unikmer_path)
-        if full_path:
-            unikmer_path = full_path
-
-    # 创建配置|Create configuration
+    # unikmer路径由ExtractConfig.__post_init__解析(None->环境变量>配置文件>默认),此处直接透传|unikmer path resolved by ExtractConfig.__post_init__ (None->env>config>default); pass through directly
     config = ExtractConfig(
         fasta_file=args.input,
         output_dir=args.output,
         kmer_size=args.kmer_size,
         extract_method=args.method,
-        unikmer_path=unikmer_path,
+        unikmer_path=args.unikmer_path,
         kmer_output=args.kmer_output if args.kmer_output else "",
         kmer_pos_output=args.kmer_pos_output if args.kmer_pos_output else "",
         extract_output_bed=not args.no_bed,

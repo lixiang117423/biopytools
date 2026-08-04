@@ -86,21 +86,28 @@ class V2PAnalyzer:
         Returns:
             list: 命令列表
         """
+        # 使用绝对路径，避免与subprocess cwd切换冲突|Use absolute paths to avoid conflicts
+        # with subprocess cwd switching (cwd=output_dir)
         cmd = [
             self.config.vcf2pca_path,
-            '-InVCF', self.config.vcf_file,
-            '-OutPut', os.path.join(self.config.output_dir, 'vcf2pca'),
+            '-InVCF', os.path.abspath(self.config.vcf_file),
+            '-OutPut', os.path.abspath(os.path.join(self.config.output_dir, 'vcf2pca')),
             '-Threads', str(self.config.threads),
             '-PCnum', str(self.config.components)
         ]
 
         # 聚类参数|Clustering parameters
+        # 工具默认启用EM聚类(ClusterMethod=3)，即使数据含NaN也会在EM阶段崩溃;
+        # 用户未要求聚类时必须显式传None禁用|Tool defaults to EM clustering (ClusterMethod=3),
+        # which crashes on NaN data; explicitly disable when user didn't request clustering
         if self.config.cluster:
             cmd.extend(['-ClusterMethod', self._get_cluster_method()])
 
             if self.config.cluster_method == 'kmeans':
                 if self.config.cluster_k:
                     cmd.extend(['-BestKManually', str(self.config.cluster_k)])
+        else:
+            cmd.extend(['-ClusterMethod', 'None'])
 
         return cmd
 
