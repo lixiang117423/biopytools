@@ -143,6 +143,7 @@ COMMAND_REGISTRY = [
     ('pep2genome', 'pep2genome', '蛋白质到基因组比对工具|Protein to genome alignment tool'),
     ('seq2genome', 'seq2genome', '序列到基因组比对工具（支持DNA/蛋白质自动检测）|Sequence to genome alignment tool (DNA/protein with auto-detection)'),
     ('seq_extract', 'seq-extract', '序列提取(seqkit封装,自动识别ID/ID文件/BED)|Sequence extraction (seqkit wrapper, auto-detect ID/ID file/BED)'),
+    ('seq_len', 'seq-len', 'FASTA序列长度统计(文件/文件夹,合并+汇总)|FASTA sequence length statistics (file/folder, merged + summary)'),
     ('phylo_selector', 'phylo-selector', '系统发育树样品选择工具|Phylogenetic tree sample selection tool'),
     ('primer3', 'primer3', 'Primer3引物设计工具|Primer3 Primer Design Tool'),
     ('protein_stats', 'protein-stats', 'Protein Stats理化性质分析工具|Protein Stats physicochemical properties analysis tool'),
