@@ -105,7 +105,7 @@ def main():
         formatter_class=argparse.RawTextHelpFormatter
     )
     parser.add_argument('-i', '--genome-dir', required=True,
-                        help='genome 目录(含 {name}.fa + {name}.gff)|genome dir with {name}.fa + {name}.gff')
+                        help='genome 目录(含 {name}.fa + {name}.gff/.gff3)|genome dir with {name}.fa + {name}.gff/.gff3')
     parser.add_argument('-l', '--genome-list', required=True,
                         help='genome_list 文本(行1=ref,其余=query)|genome_list (line1=ref, rest=queries)')
     parser.add_argument('-o', '--output-dir', default='~/psvcp_out',

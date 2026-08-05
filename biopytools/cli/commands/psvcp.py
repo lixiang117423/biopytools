@@ -36,7 +36,7 @@ def _validate_path_exists(path):
               required=True,
               callback=lambda ctx, param, value: _validate_path_exists(value),
               type=click.Path(),
-              help='genome 目录(含 {name}.fa + {name}.gff)|genome dir with {name}.fa + {name}.gff')
+              help='genome 目录(含 {name}.fa + {name}.gff/.gff3)|genome dir with {name}.fa + {name}.gff/.gff3')
 @click.option('-l', '--genome-list',
               required=True,
               callback=lambda ctx, param, value: _validate_path_exists(value),

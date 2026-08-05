@@ -35,11 +35,6 @@ class PangenomeConstructor:
         """基因组名去 .fa 后缀|strip .fa suffix"""
         return name[:-3] if name.endswith('.fa') else name
 
-    @staticmethod
-    def _gff_name(name: str) -> str:
-        """基因组名 → 对应 .gff 名(原始 re.sub('.fa','.gff'))|name→.gff name"""
-        return name[:-3] + '.gff' if name.endswith('.fa') else name + '.gff'
-
     def _link(self, target: str, linkname: str):
         """强制符号链接(覆盖已存在)|force symlink (overwrite)"""
         link_dir = os.path.dirname(linkname)
@@ -133,7 +128,7 @@ class PangenomeConstructor:
             ref0_fa = os.path.join(cfg.pan_dir, 'ref0.fa')
             ref0_gff = os.path.join(cfg.pan_dir, 'ref0.gff')
             self._link(os.path.join(cfg.genome_dir, ref_name), ref0_fa)
-            self._link(os.path.join(cfg.genome_dir, self._gff_name(ref_name)), ref0_gff)
+            self._link(cfg.find_genome_gff(cfg.genome_dir, ref_name), ref0_gff)
 
             ref_fa = ref0_fa
             prev_gff = ref0_gff
@@ -180,7 +175,7 @@ class PangenomeConstructor:
         os.makedirs(work, exist_ok=True)
         os.makedirs(os.path.join(work, 'temp'), exist_ok=True)
         query_fa = os.path.join(cfg.genome_dir, q_name)
-        query_gff = os.path.join(cfg.genome_dir, self._gff_name(q_name))
+        query_gff = cfg.find_genome_gff(cfg.genome_dir, q_name)
         self.logger.info(
             f"===== 第 {n}/{self._total_rounds} 轮|Round {n}: "
             f"{ref_stem} + {q_stem} ====="

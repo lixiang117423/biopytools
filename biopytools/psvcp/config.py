@@ -18,7 +18,7 @@ class PSVCPConfig:
     """PSVCP 泛基因组构建配置|PSVCP pangenome construction configuration"""
 
     # ===== 必需输入|Required input =====
-    genome_dir: str           # 含 {name}.fa + {name}.gff 的目录|dir with {name}.fa + {name}.gff
+    genome_dir: str           # 含 {name}.fa + {name}.gff/.gff3 的目录|dir with {name}.fa + {name}.gff/.gff3
     genome_list: str          # 文本,行1=ref,其余=query(顺序即并入顺序)|line1=ref, rest=queries
 
     # ===== biopytools 新增(替代原始 CWD)|biopytools additions (replace original CWD) =====
@@ -85,6 +85,18 @@ class PSVCPConfig:
         with open(self.genome_list, 'r', encoding='utf-8') as f:
             return [line.strip() for line in f if line.strip()]
 
+    @staticmethod
+    def find_genome_gff(genome_dir: str, name: str):
+        """在 genome_dir 下按 .gff > .gff3 查找基因组注释,返回首个命中路径,均无则 None
+        |Find genome annotation under genome_dir (.gff preferred over .gff3);
+        return first existing path, or None if neither present"""
+        stem = name[:-3] if name.endswith('.fa') else name
+        for ext in ('.gff', '.gff3'):
+            candidate = os.path.join(genome_dir, stem + ext)
+            if os.path.isfile(candidate):
+                return candidate
+        return None
+
     def validate(self):
         """验证配置|Validate configuration (§六: 一次性收集错误)"""
         errors = []
@@ -103,14 +115,18 @@ class PSVCPConfig:
                     f"genome_list 至少需要 2 个基因组(1 ref + ≥1 query)|"
                     f"genome_list needs >=2 genomes (1 ref + >=1 query), 当前|got: {len(names)}"
                 )
-            # 逐行查 .fa + .gff|check each name has .fa + .gff
+            # 逐行查 .fa + .gff/.gff3|check each name has .fa + .gff/.gff3
             for name in names:
                 fa = os.path.join(self.genome_dir, name)
                 if not os.path.isfile(fa):
                     errors.append(f"基因组 fasta 不存在|genome fasta not found: {fa}")
-                gff = os.path.join(self.genome_dir, name[:-3] + '.gff' if name.endswith('.fa') else name + '.gff')
-                if not os.path.isfile(gff):
-                    errors.append(f"基因组 gff 不存在|genome gff not found: {gff}")
+                gff = self.find_genome_gff(self.genome_dir, name)
+                if gff is None:
+                    stem = name[:-3] if name.endswith('.fa') else name
+                    errors.append(
+                        f"基因组 gff 不存在|genome gff not found: "
+                        f"{os.path.join(self.genome_dir, stem)}.gff/.gff3"
+                    )
 
         # threads|threads
         if self.threads <= 0:
