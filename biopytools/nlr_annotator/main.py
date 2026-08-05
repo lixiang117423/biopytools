@@ -10,7 +10,13 @@ import sys
 from pathlib import Path
 
 from .config import NLRAnnotatorConfig
-from .utils import NLRLogger, clean_output, collect_input_files, generate_summary
+from .utils import (
+    NLRLogger,
+    clean_output,
+    collect_input_files,
+    collect_result_files,
+    generate_summary,
+)
 
 
 def build_command(config: NLRAnnotatorConfig, input_file: str, output_file: str) -> list:
@@ -94,6 +100,26 @@ def _run_single(config: NLRAnnotatorConfig, input_file: str, sample_name: str,
     return output_file
 
 
+def run_merge_only(input_path: str, output_path, logger: logging.Logger):
+    """
+    纯合并模式:合并已有各基因组NLR结果为总表(不执行NLR-Annotator)
+    |Merge-only: merge existing per-genome NLR results into a summary (skip java)
+
+    用于已有批处理结果但未生成汇总文件的情况(如运行中途被杀)。
+    |Used when batch results exist but no summary was produced (e.g. job killed mid-run).
+
+    Args:
+        input_path: 结果文件/目录(支持by-sample子目录或平铺)|Result file/dir
+        output_path: 输出目录(写 nlr_annotator_summary.tsv)|Output directory
+        logger: 日志器|Logger
+    """
+    output_path = Path(output_path)
+    output_path.mkdir(parents=True, exist_ok=True)
+    sample_results = collect_result_files(input_path, logger)
+    logger.info(f"开始合并|Start merging: {len(sample_results)} 个基因组|genome(s)")
+    generate_summary(sample_results, output_path, logger)
+
+
 def main():
     """主函数|Main function"""
     parser = argparse.ArgumentParser(
@@ -107,6 +133,10 @@ def main():
                         help='输出目录|Output directory (default: ./output)')
     parser.add_argument('--sample-suffix', default='*.fa',
                         help='目录模式下文件匹配后缀|File match suffix for directory mode (default: *.fa)')
+
+    parser.add_argument('--merge-only', action='store_true',
+                        help='只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator'
+                             '|Merge existing result TSVs only, skip NLR-Annotator')
 
     parser.add_argument('--jar-path', default='',
                         help='NLR-Annotator JAR文件路径|NLR-Annotator JAR file path')
@@ -143,6 +173,14 @@ def main():
     Path(output_dir).mkdir(parents=True, exist_ok=True)
     log_manager = NLRLogger(output_dir)
     logger = log_manager.get_logger()
+
+    # 纯合并模式:跳过NLR-Annotator执行,直接合并已有结果(不校验JAR)
+    # |Merge-only: skip NLR-Annotator, merge existing results directly (no JAR check)
+    if args.merge_only:
+        logger.info("纯合并模式|Merge-only mode: 跳过NLR-Annotator执行|skip NLR-Annotator execution")
+        run_merge_only(args.input, output_dir, logger)
+        logger.info("合并完成|Merge done")
+        return
 
     config = NLRAnnotatorConfig(
         input_path=args.input,

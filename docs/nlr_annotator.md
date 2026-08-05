@@ -17,6 +17,9 @@ biopytools nlr-annotator -i cds_dir/ -o output_dir/ -t 16
 
 # 同时输出GFF和BED
 biopytools nlr-annotator -i genome.cds.fa -o output_dir/ --output-gff --output-bed
+
+# 纯合并:把已有各基因组结果合并为总表(不重跑NLR-Annotator)
+biopytools nlr-annotator -i output_dir/ -o output_dir/ --merge-only
 ```
 
 ## 参数说明 | Parameters
@@ -33,7 +36,8 @@ biopytools nlr-annotator -i genome.cds.fa -o output_dir/ --output-gff --output-b
 | 参数 | 默认值 | 描述 |
 |------|--------|------|
 | `-t, --threads` | `12` | 线程数 |
-| `--sample-suffix` | `*.cds.fa` | 目录模式下文件匹配模式 |
+| `--sample-suffix` | `*.fa` | 目录模式下文件匹配模式（`*.fa` 同时匹配 `.cds.fa`） |
+| `--merge-only` | `False` | 只合并已有结果TSV，不运行NLR-Annotator（见下文「纯合并模式」） |
 | `--output-gff` | `False` | 输出GFF注释文件 |
 | `--output-bed` | `False` | 输出BED文件 |
 | `--output-motifs` | `False` | 输出motifs BED文件 |
@@ -69,6 +73,22 @@ output_dir/
 ```
 
 TSV文件列：`gene_id  nlr_id  type  start  end  strand  motifs`（motif已去重排序，去除`motif_`前缀）。
+
+汇总表 `nlr_annotator_summary.tsv` 列：`gene_id  nlr_id  sample  type  start  end  strand  motifs`（在各基因组明细行基础上插入 `sample` 列标识来源）。
+
+## 纯合并模式 | Merge-only Mode
+
+当批处理运行中途被杀（超时/OOM）未生成汇总文件，或已有一堆各基因组结果需要合并时，用 `--merge-only` 直接合并已有结果，**不调用 Java、不重跑 NLR-Annotator**：
+
+```bash
+biopytools nlr-annotator -i output_dir/ -o output_dir/ --merge-only
+```
+
+输入目录自动识别两种形态：
+- **by-sample（批处理输出）**：`output_dir/{sample}/{sample}.nlr_annotator.tsv`
+- **平铺**：`output_dir/{sample}.nlr_annotator.tsv`
+
+样本名从 `{sample}.nlr_annotator.tsv` 前缀提取；无结果 TSV 的样本（如未跑完的最后一个）自动跳过，不影响其余合并。产物为输出目录下的 `nlr_annotator_summary.tsv`。
 
 ## 依赖 | Dependencies
 

@@ -47,6 +47,10 @@ def _validate_path_exists(path):
 @click.option('--sample-suffix',
               default='*.fa', show_default=True,
               help='目录模式下文件匹配后缀|File match suffix for directory mode')
+@click.option('--merge-only',
+              is_flag=True,
+              help='只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator'
+                   '|Merge existing result TSVs only, skip NLR-Annotator')
 @click.option('--output-gff',
               is_flag=True,
               help='输出GFF文件|Output GFF file')
@@ -59,7 +63,7 @@ def _validate_path_exists(path):
 @click.option('--output-alignment',
               is_flag=True,
               help='输出motif比对FASTA|Output motif alignment FASTA')
-def nlr_annotator(input, output_dir, threads, sample_suffix, output_gff,
+def nlr_annotator(input, output_dir, threads, sample_suffix, merge_only, output_gff,
                    output_bed, output_motifs, output_alignment):
     """从DNA/CDS序列预测NLR基因|Predict NLR genes from DNA/CDS sequences
 
@@ -72,6 +76,8 @@ def nlr_annotator(input, output_dir, threads, sample_suffix, output_gff,
     argv.extend(['-o', output_dir])
     argv.extend(['-t', str(threads)])
     argv.extend(['--sample-suffix', sample_suffix])
+    if merge_only:
+        argv.append('--merge-only')
     if output_gff:
         argv.append('--output-gff')
     if output_bed:

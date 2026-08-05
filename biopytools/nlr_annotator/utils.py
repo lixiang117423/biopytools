@@ -202,6 +202,69 @@ def collect_input_files(input_path: str, sample_suffix: str, logger: logging.Log
     raise ValueError(f"输入路径无效|Invalid input path: {input_path}")
 
 
+# 结果文件后缀(merge-only 模式按此收集已有结果)|Result file suffix for merge-only collection
+RESULT_SUFFIX = '.nlr_annotator.tsv'
+
+
+def _sample_from_result_name(filename: str) -> str:
+    """
+    从 {sample}.nlr_annotator.tsv 提取样本名|Extract sample name from result filename
+
+    Args:
+        filename: 结果文件名(如 S01.nlr_annotator.tsv)|Result filename
+    """
+    if filename.endswith(RESULT_SUFFIX):
+        return filename[:-len(RESULT_SUFFIX)]
+    return Path(filename).stem
+
+
+def collect_result_files(input_path: str, logger: logging.Logger) -> List[Tuple[str, str]]:
+    """
+    收集已有NLR结果TSV(merge-only用)|Collect existing NLR result TSVs for merge-only
+
+    自动识别两种目录形态|Auto-detects two directory shapes:
+      - by-sample(批处理输出): dir/{sample}/{sample}.nlr_annotator.tsv
+      - 平铺|flat: dir/{sample}.nlr_annotator.tsv
+
+    Args:
+        input_path: 结果文件或目录|Result file or directory
+        logger: 日志器|Logger
+
+    Returns:
+        [(sample_name, tsv_path), ...] 按样本名排序|sorted by sample name
+
+    Raises:
+        ValueError: 目录中无任何结果文件|No result files in directory
+    """
+    path = Path(input_path)
+
+    if path.is_file():
+        sample = _sample_from_result_name(path.name)
+        logger.info(f"发现单个结果文件|Found single result file: {path.name}")
+        return [(sample, str(path))]
+
+    if path.is_dir():
+        # 同时收集平铺与子目录形态,按绝对路径去重|collect flat + subdir shapes, dedup by abspath
+        candidates = set()
+        for pattern in ('*.nlr_annotator.tsv', '*/*.nlr_annotator.tsv'):
+            for f in glob.glob(str(path / pattern)):
+                candidates.add(os.path.abspath(f))
+
+        if not candidates:
+            raise ValueError(
+                f"目录中未找到结果文件 '*.nlr_annotator.tsv'|"
+                f"No '*.nlr_annotator.tsv' result files found in: {input_path}"
+            )
+
+        results = [(_sample_from_result_name(os.path.basename(f)), f) for f in candidates]
+        results.sort(key=lambda x: x[0])  # 按样本名稳定排序|stable sort by sample name
+
+        logger.info(f"发现结果文件|Found result files: {len(results)} 个文件|files")
+        return results
+
+    raise ValueError(f"输入路径无效|Invalid input path: {input_path}")
+
+
 def generate_summary(sample_results: List[Tuple[str, str]], output_path: Path, logger: logging.Logger):
     """
     生成多样本汇总文件|Generate multi-sample summary file
