@@ -1,4 +1,11 @@
 
+## [1.26.0] - 2026-08-05
+
+### Added
+- `seq_len`（新模块，CLI `seq-len`）：FASTA 序列长度统计——输入单个文件或文件夹，流式计算每条序列长度（不载入整条序列，支持 `.gz`），输出主表 TSV；文件夹模式合并所有文件并加 `source_file` 列，同时输出含 N50/总长/最短/最长/平均 的汇总表（每文件一行 + ALL 全局行）。智能 `-o`（目录→`{prefix}.seq_len.tsv` / 文件→直接当主表）、`--min-length` 过滤、`--sort` 降序
+- `nlr_annotator`：新增 `--merge-only`——批处理中途被杀（超时/OOM）未生成汇总时，直接合并已有 `*.nlr_annotator.tsv` 为 `nlr_annotator_summary.tsv`，不调用 Java、不重跑 NLR-Annotator；`collect_result_files` 自动识别 by-sample 子目录与平铺两种形态（按 abspath 去重、按样本名排序）
+- `psvcp`：基因组注释支持 `.gff3`——新增 `PSVCPConfig.find_genome_gff`（`.gff` > `.gff3` 顺序查找），`validate()` 与 pipeline 统一改用（原 `_gff_name` 只认 `.gff`）
+
 ## [1.25.1] - 2026-08-04
 
 ### Fixed
