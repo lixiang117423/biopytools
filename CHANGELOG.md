@@ -1,4 +1,23 @@
 
+## [1.27.0] - 2026-08-06
+
+### Added
+- `fof`（新模块，CLI `fof`）：FOF 文件生成——扫描文件/目录生成 `sample<TAB>绝对路径` 映射清单，支持 `-s` 后缀过滤、`-r` 递归、单文件输入
+- `genome2sv`（新模块，CLI `genome2sv`）：assembly-to-assembly SV calling——minimap2 → samtools 排序索引 → svim-asm → SURVIVOR 合并多样本 VCF → bcftools stats + SVTYPE 统计；支持断点续传、by-step 输出目录、`software_versions.yml`
+- `vcf2pav`（新模块，CLI `vcf2pav`）：将 SURVIVOR 合并后的多样本 VCF 转 PAV（Presence/Absence）矩阵 TSV（行=SV，列=样本，值=0/1/NaN）+ 每样本统计摘要；纯 Python 解析
+- `psvcp`：新增 `pav_table.py`——从 `pan.pav.gff` 第 9 列解析来源样本，生成 `pan.pav.info.tsv` + `pan.pav.matrix.tsv`（`_finalize` 惰性导入，失败降级非致命）；R 步骤 8/9/10 的 Python 向量化端口（`8gff_update.py`/`9gff_split.py`/`10gene_in_pv.py`，`np.searchsorted`），pipeline 改 `_run_py` 调用，R 版保留作参考
+
+### Changed
+- `vcf2pca`：PLINK 扶正为默认后端（`v2p`→`plink`，支持 SNP/INDEL）；`--skip-qc`（默认过滤）→ `--apply-qc`（默认不过滤）；默认不过滤时自动剔除 `F_MISS==1.0` 零基因型样本（避免 PLINK `--pca` 崩溃）；新增 `config.base_name` 输出前缀、`-g/--group-column` 分组着色（贯通 visualization）、合并 Excel `pca_results.xlsx`
+- `assembly_qc`：`--lai-repeatmasker-species`（默认 `Viridiplantae`），EDTA 回退路径给 RepeatMasker 显式 `-species`；`ngs_reads`/`long_reads` 放宽单文件输入
+
+### Fixed
+- `psvcp`：R 脚本 9/10/12 `read.table` 加 `sep='\t', quote=''`，修 gff3 属性含空格被默认空白切分导致列错位；R9 补空 chr 守卫（query-only chr 触发 `seq(0)` 索引 0 行 → NA → 中断）
+
+### ⚠️ BREAKING
+- `assembly_qc`：`skip_lai` 默认 `False`→`True`（CLI 改 `--enable-lai` opt-in，因 EDTA 耗时长）。**旧脚本不带任何 LAI flag 时，原会跑 LAI，现会跳过**——依赖默认跑 LAI 的自动化脚本需显式加 `--enable-lai`
+- `cli`：`vcf-pca` + `vcf2pca` 合并为单条 `vcf2pca`（独立 `vcf-pca` 入口移除）
+
 ## [1.26.0] - 2026-08-05
 
 ### Added
