@@ -156,22 +156,9 @@ class QualityController:
         if success:
             self.config.plink_prefix_qc = str(output_prefix_abs)
             self.log_qc_stats()
-        
+
         return success
-        cmd_missing = (
-            f"{self.config.plink_path} --bfile {hwe_prefix} "
-            f"--geno {self.config.missing_rate} --mind {self.config.missing_rate} "
-            f"--make-bed --out {output_prefix} --allow-extra-chr"
-        )
-        
-        success = self.cmd_runner.run(cmd_missing, f"缺失率过滤|Missing rate filtering (<{self.config.missing_rate})")
-        
-        if success:
-            self.config.plink_prefix_qc = str(output_prefix)
-            self.log_qc_stats()
-        
-        return success
-    
+
     def _drop_zero_genotype_samples(self, input_prefix: str) -> str:
         """
         剔除零基因型样本(F_MISS==1.0)以避免PLINK --pca崩溃|Remove zero-genotype samples
@@ -239,7 +226,9 @@ class QualityController:
             return input_prefix
 
         # 有零数据样本:--remove剔除|Remove zero-genotype samples
-        remove_file = self.config.output_path / f"{self.config.base_name}_zero_samples.txt"
+        # PLINK 以 cwd=resolve(outdir) 执行,须给绝对路径,否则相对路径找不到→降级跳过剔除
+        # |PLINK runs with cwd=resolve(outdir); must pass absolute path or it won't be found
+        remove_file = (self.config.output_path / f"{self.config.base_name}_zero_samples.txt").resolve()
         try:
             with open(remove_file, 'w') as f:
                 for fid, iid in zero_samples:
