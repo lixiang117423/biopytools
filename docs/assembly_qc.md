@@ -83,7 +83,7 @@ biopytools assembly-qc \
 | 参数 | 说明 |
 |------|------|
 | `--skip-busco` | 跳过BUSCO评估 |
-| `--skip-lai` | 跳过LAI评估 |
+| `--enable-lai` | 启用LAI评估（默认禁用，EDTA耗时长）|
 
 #### QV评估参数
 

@@ -107,16 +107,28 @@ class MappingEvaluator:
         samples = []
         processed_reads = set()
 
-        # 如果是文件，尝试取父目录（NGS通常传目录，文件输入自动回退到父目录）|If file, try parent dir (NGS typically uses directory; auto-fallback)
         reads_path = Path(reads_dir)
-        if reads_path.is_file():
-            parent_dir = str(reads_path.parent)
-            self.logger.warning(
-                f"检测到文件而非目录|Detected file instead of directory: {reads_dir}, "
-                f"使用父目录|using parent directory: {parent_dir}"
-            )
-            reads_dir = parent_dir
 
+        # 文件输入:仅处理该文件及其推断的 read2,不再回退父目录 glob 全目录(避免误收无关样本)
+        # |File input: process only this file + inferred read2; do NOT fall back to globbing
+        # the whole parent directory (avoids silently picking up unrelated samples)
+        if reads_path.is_file():
+            read1 = str(reads_path)
+            read2 = read1.replace("_1.", "_2.").replace("_1.clean", "_2.clean")
+            if not os.path.exists(read2):
+                self.logger.warning(
+                    f"输入为单个文件且未找到对应read2|Single file input, read2 not found: {read1} "
+                    f"(期望|expected: {read2}); 请传入含成对FASTQ的目录|pass a directory of paired FASTQs"
+                )
+                return []
+            sample_name = os.path.basename(read1).split("_1")[0]
+            samples.append((sample_name, read1, read2))
+            self.logger.info(
+                f"单文件输入,仅处理一个样本|Single file input, processing one sample: {sample_name}"
+            )
+            return samples
+
+        # 目录模式|Directory mode
         # 查找read1文件|Find read1 files
         pattern = self.config.mapping_pattern.replace("_1.", "*_1.")
         read1_files = glob.glob(os.path.join(reads_dir, pattern))
