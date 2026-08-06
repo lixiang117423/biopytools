@@ -4,7 +4,9 @@
 
 ## 功能概述 | Overview
 
-VCF2PCA是一个功能强大的VCF文件主成分分析工具，支持两种分析后端：**VCF2PCACluster**（默认）和**PLINK**。它能够从VCF格式的基因型数据中提取主成分，帮助研究者识别样本群体结构、亲缘关系和种群分层，广泛应用于群体遗传学、进化生物学和生物医学研究。
+VCF2PCA是一个功能强大的VCF文件主成分分析工具，支持两种分析后端：**PLINK**（默认，支持SNP/INDEL等所有变异类型）和**VCF2PCACluster**（仅SNP，带kinship/聚类）。它能够从VCF格式的基因型数据中提取主成分，帮助研究者识别样本群体结构、亲缘关系和种群分层，广泛应用于群体遗传学、进化生物学和生物医学研究。
+
+> ⚠️ **默认行为**：默认使用 PLINK 后端且**不过滤 VCF**（不跑 MAF/缺失率/HWE）。需要质控时加 `--apply-qc`；需要 VCF2PCACluster 的 kinship/聚类时加 `-b v2p`（注意 v2p 仅支持 SNP，会跳过 Indel）。
 
 ## 主要特性 | Key Features
 
@@ -24,41 +26,34 @@ VCF2PCA是一个功能强大的VCF文件主成分分析工具，支持两种分�
 
 ## 快速开始 | Quick Start
 
-### 使用VCF2PCACluster后端（推荐）| Using VCF2PCACluster Backend (Recommended)
+### 默认用法（PLINK后端，不过滤，支持SNP/INDEL）| Default (PLINK backend, no filtering, SNP/INDEL)
 
 ```bash
-# 基本PCA分析
-biopytools vcf2pca \
-    -i variants.vcf \
-    -o pca_results
+# 基本PCA分析(默认不过滤,自动剔除零基因型样本避免崩溃)
+biopytools vcf2pca -i variants.vcf -o pca_results
 
-# 启用聚类分析
-biopytools vcf2pca \
-    -i variants.vcf \
-    -o pca_results \
-    --cluster \
-    --cluster-method kmeans \
-    --cluster-k 3
+# INDEL数据同样适用
+biopytools vcf2pca -i indels.vcf.gz -o pca_indel
+
+# 分组着色绘图(配合样本信息文件)
+biopytools vcf2pca -i variants.vcf -o pca_results -s sample_info.txt -g population -P
 ```
 
-### 使用PLINK后端 | Using PLINK Backend
+### 启用质控过滤 | Enable QC Filtering
 
 ```bash
-# 带质控的PCA分析
-biopytools vcf2pca \
-    -i variants.vcf \
-    -o pca_results \
-    --backend plink \
-    --maf 0.05 \
-    --missing 0.1 \
-    --plot
+# 加 --apply-qc 才跑 MAF/缺失率/HWE 过滤(默认不过滤)
+biopytools vcf2pca -i variants.vcf -o pca_results --apply-qc --maf 0.05 --missing 0.1
+```
 
-# 跳过质控
-biopytools vcf2pca \
-    -i variants.vcf \
-    -o pca_results \
-    --backend plink \
-    --skip-qc
+### 使用VCF2PCACluster后端（仅SNP，带kinship/聚类）| Using VCF2PCACluster Backend (SNP-only)
+
+```bash
+# 切换v2p后端(注意:仅支持SNP,会跳过Indel)
+biopytools vcf2pca -i snp_variants.vcf -o pca_results -b v2p
+
+# 启用聚类分析
+biopytools vcf2pca -i snp_variants.vcf -o pca_results -b v2p --cluster --cluster-method kmeans --cluster-k 3
 ```
 
 ## 参数说明 | Parameters
@@ -74,7 +69,7 @@ biopytools vcf2pca \
 
 | 参数 | 默认值 | 描述 |
 |------|--------|------|
-| `-b, --backend` | `v2p` | 分析后端：`v2p` (VCF2PCACluster) 或 `plink` |
+| `-b, --backend` | `plink` | 分析后端：`plink` (默认,支持SNP/INDEL) 或 `v2p` (VCF2PCACluster,仅SNP) |
 
 ### PCA参数 | PCA Parameters
 
@@ -85,12 +80,14 @@ biopytools vcf2pca \
 
 ### 质控参数（仅PLINK后端）| Quality Control (PLINK Backend Only)
 
+> 默认不过滤；加 `--apply-qc` 启用过滤后才使用以下阈值。| No filtering by default; thresholds below apply only when `--apply-qc` is set.
+
 | 参数 | 默认值 | 描述 |
 |------|--------|------|
+| `--apply-qc` | `false` | 启用质控过滤（默认不过滤）|Enable QC filtering (default: no filtering) |
 | `--maf` | `0.05` | 最小等位基因频率阈值 |
 | `--missing` | `0.1` | 最大缺失率阈值 |
 | `--hwe` | `1e-6` | Hardy-Weinberg平衡p值阈值 |
-| `--skip-qc` | `false` | 跳过质量控制过滤 |
 
 ### 聚类参数（仅V2P后端）| Clustering (V2P Backend Only)
 
@@ -105,6 +102,7 @@ biopytools vcf2pca \
 | 参数 | 默认值 | 描述 |
 |------|--------|------|
 | `-P, --plot` | `false` | 生成PCA可视化图表（PLINK后端） |
+| `-g, --group-column` | `None` | 分组列名（配合`-s`样本信息文件，按分组着色）|
 
 ### 工具路径 | Tool Paths
 
@@ -234,7 +232,7 @@ biopytools vcf2pca \
 biopytools vcf2pca \
     -i population.vcf.gz \
     -o pca_plink \
-    --backend plink \
+    --apply-qc \
     --maf 0.01 \
     --missing 0.05 \
     --hwe 1e-10 \
@@ -242,7 +240,7 @@ biopytools vcf2pca \
     --components 15
 ```
 
-**适用场景：** 需要严格质控和可视化
+**适用场景：** 需要严格质控和可视化（默认后端即 PLINK，加 `--apply-qc` 启用过滤）
 
 ### 示例4：使用自定义工具路径 | Example 4: Custom Tool Paths
 
@@ -260,10 +258,10 @@ biopytools vcf2pca \
 
 ### Q1: 如何选择合适的后端？
 **A:**
-- 数据量大（>50万SNP）：推荐V2P后端
-- 需要聚类分析：推荐V2P后端
-- 需要严格质控：推荐PLINK后端
-- 不确定时：先尝试V2P后端（默认）
+- **默认用 PLINK 后端**：支持 SNP/INDEL 等所有变异类型，默认不过滤
+- INDEL 数据：必须用 PLINK 后端（v2p 会跳过 Indel）
+- 需要 kinship 矩阵/聚类分析：用 V2P 后端（`-b v2p`，仅 SNP）
+- 数据量极大（>50万 SNP）且只要 SNP：V2P 后端更快
 
 ### Q2: 聚类方法如何选择？
 **A:**
@@ -295,6 +293,13 @@ doi: https://doi.org/10.1186/s12859-024-05770-1
 ```
 
 ## 更新日志 | Changelog
+
+### v3.0.0 (2026-08-05)
+- **合并 vcf_pca 模块**：独立 `biopytools vcf-pca` 已删除，功能并入 `vcf2pca`（核心逻辑本就相同）
+- **默认后端改为 PLINK**（原 v2p）：支持 SNP/INDEL 等所有变异类型；v2p 降为可选（`-b v2p`）
+- **默认不过滤 VCF**：`--skip-qc` 改为 `--apply-qc`（过滤从默认变为 opt-in）
+- **自动剔除零基因型样本**：默认不过滤时，自动剔除 100% 缺失样本以避免 PLINK 崩溃
+- 新增 `-g/--group-column` 分组着色参数（原 vcf_pca 功能）
 
 ### v2.0.0 (2026-03-23)
 - 重命名模块：vcf_pca → vcf2pca

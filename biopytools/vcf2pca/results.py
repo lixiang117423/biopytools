@@ -46,6 +46,7 @@ class SummaryGenerator:
             f.write(f"  - pca_explained_variance.txt: 解释方差详细表|Detailed explained variance table\n")
             f.write(f"  - eigenvalues_explanation.txt: 特征值与解释方差说明|Eigenvalues and explained variance explanation\n")
             f.write(f"  - pca_eigenvectors_formatted.txt: 格式化的特征向量|Formatted eigenvectors\n")
+            f.write(f"  - pca_results.xlsx: 特征向量+解释方差合并Excel(两个sheet)|Combined Excel (eigenvectors + explained variance, 2 sheets)\n")
             
             if self.config.sample_info_file:
                 f.write(f"  - pca_with_sample_info.txt: PCA结果与样本信息合并|PCA results merged with sample info\n")

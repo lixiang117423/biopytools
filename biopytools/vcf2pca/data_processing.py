@@ -103,8 +103,10 @@ class QualityController:
         """应用质量过滤|Apply quality filters"""
         # 检查是否跳过质控|Check if skipping QC
         if self.config.skip_qc:
-            self.logger.info("跳过质量控制过滤 (用户指定)|Skipping quality control filtering (user specified)")
-            self.config.plink_prefix_qc = self.config.plink_prefix
+            self.logger.info("跳过质量控制过滤 (默认不过滤)|Skipping quality control filtering (no filtering by default)")
+            # 默认不过滤,但剔除零基因型样本(100%缺失)避免PLINK --pca崩溃
+            # No filtering by default, but remove zero-genotype samples to avoid PLINK crash
+            self.config.plink_prefix_qc = self._drop_zero_genotype_samples(self.config.plink_prefix)
             self.log_qc_stats()
             return True
         
@@ -170,6 +172,104 @@ class QualityController:
         
         return success
     
+    def _drop_zero_genotype_samples(self, input_prefix: str) -> str:
+        """
+        剔除零基因型样本(F_MISS==1.0)以避免PLINK --pca崩溃|Remove zero-genotype samples
+
+        默认不过滤时调用:只剔除100%缺失的样本(结构性无用),不剔除任何变异或部分缺失样本。
+        Called under no-filter default: only removes 100%-missing samples, no variants or partial-missing samples.
+
+        Args:
+            input_prefix: PLINK文件前缀|PLINK file prefix
+
+        Returns:
+            处理后的PLINK前缀(若无零数据样本则原样返回)|
+            Processed PLINK prefix (unchanged if no zero-genotype samples)
+        """
+        misscan_prefix = self.config.output_path / f"{self.config.base_name}_misscan"
+        misscan_prefix.parent.mkdir(parents=True, exist_ok=True)
+        misscan_prefix_abs = misscan_prefix.resolve()
+
+        # 仅扫描缺失率,不修改数据|Scan missing rates only, no data modification
+        cmd_scan = (
+            f"{self.config.plink_path} --bfile {input_prefix} "
+            f"--missing --out {misscan_prefix_abs} --allow-extra-chr"
+        )
+        if not self.cmd_runner.run(cmd_scan, "扫描样本缺失率|Scan sample missing rates"):
+            # 扫描失败则原样返回,交给后续PCA步骤处理|On scan failure return as-is
+            self.logger.warning("缺失率扫描失败,保持原数据|Missing-rate scan failed, keeping original data")
+            return input_prefix
+
+        imiss_file = Path(f"{misscan_prefix_abs}.imiss")
+        if not imiss_file.exists():
+            self.logger.warning("缺失率文件未生成,保持原数据|.imiss not generated, keeping original data")
+            return input_prefix
+
+        # 解析.imiss收集F_MISS==1.0的样本(零基因型)|Parse .imiss for F_MISS==1.0 (zero-genotype)
+        zero_samples = []
+        try:
+            with open(imiss_file) as f:
+                f.readline()  # 跳过表头|Skip header
+                for line in f:
+                    parts = line.split()
+                    if len(parts) < 6:
+                        continue
+                    try:
+                        f_miss = float(parts[5])
+                    except ValueError:
+                        continue
+                    if f_miss >= 1.0:
+                        zero_samples.append((parts[0], parts[1]))  # (FID, IID)
+        except Exception as e:
+            self.logger.warning(f"解析缺失率文件失败|Failed to parse .imiss: {e}")
+            return input_prefix
+
+        # 清理扫描产物(诊断文件)|Clean up diagnostic scan files
+        for suffix in ('.imiss', '.lmiss', '.log'):
+            p = Path(f"{misscan_prefix_abs}{suffix}")
+            if p.exists():
+                try:
+                    p.unlink()
+                except OSError:
+                    pass
+
+        # 无零数据样本:真正零过滤|No zero-genotype samples: truly zero filtering
+        if not zero_samples:
+            self.logger.info("无零基因型样本,数据原样通过|No zero-genotype samples, data passed through")
+            return input_prefix
+
+        # 有零数据样本:--remove剔除|Remove zero-genotype samples
+        remove_file = self.config.output_path / f"{self.config.base_name}_zero_samples.txt"
+        try:
+            with open(remove_file, 'w') as f:
+                for fid, iid in zero_samples:
+                    f.write(f"{fid}\t{iid}\n")
+        except Exception as e:
+            self.logger.error(f"写入剔除清单失败|Failed to write remove list: {e}")
+            return input_prefix
+
+        safe_prefix = self.config.output_path / f"{self.config.base_name}_safe"
+        safe_prefix.parent.mkdir(parents=True, exist_ok=True)
+        safe_prefix_abs = safe_prefix.resolve()
+        cmd_remove = (
+            f"{self.config.plink_path} --bfile {input_prefix} "
+            f"--remove {remove_file} --make-bed --out {safe_prefix_abs} --allow-extra-chr"
+        )
+        if not self.cmd_runner.run(
+            cmd_remove,
+            f"剔除零基因型样本|Remove zero-genotype samples ({len(zero_samples)} samples)"
+        ):
+            self.logger.warning(
+                "剔除零基因型样本失败,保持原数据|Failed to remove zero samples, keeping original data"
+            )
+            return input_prefix
+
+        self.logger.info(
+            f"检测到 {len(zero_samples)} 个零基因型样本(100%缺失),已自动剔除以避免PLINK崩溃|"
+            f"Detected {len(zero_samples)} zero-genotype (100% missing) samples, auto-removed to avoid PLINK crash"
+        )
+        return str(safe_prefix_abs)
+
     def log_qc_stats(self):
         """记录质控统计|Log QC statistics"""
         try:

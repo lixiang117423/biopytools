@@ -36,10 +36,10 @@ def _is_help_request():
               show_default=True,
               help='输出目录|Output directory')
 @click.option('--backend', '-b',
-              default='v2p',
+              default='plink',
               type=click.Choice(['v2p', 'plink']),
               show_default=True,
-              help='分析后端|Analysis backend: v2p (VCF2PCACluster) or plink')
+              help='分析后端|Analysis backend: plink (default, supports SNP/INDEL) or v2p (VCF2PCACluster, SNP-only)')
 @click.option('--sample-info', '-s',
               type=click.Path(exists=True),
               help='样本信息文件|Sample information file')
@@ -63,9 +63,10 @@ def _is_help_request():
               type=float,
               show_default=True,
               help='Hardy-Weinberg平衡p值阈值|Hardy-Weinberg equilibrium p-value (PLINK backend only)')
-@click.option('--skip-qc',
+@click.option('--apply-qc',
               is_flag=True,
-              help='跳过质量控制过滤|Skip quality control filtering (PLINK backend only)')
+              help='启用质控过滤(MAF/缺失率/HWE,默认不过滤)|'
+                   'Enable QC filtering (default: no filtering) (PLINK backend only)')
 @click.option('--cluster',
               is_flag=True,
               help='启用聚类分析|Enable clustering analysis (V2P backend only)')
@@ -82,6 +83,9 @@ def _is_help_request():
 @click.option('--plot', '-P',
               is_flag=True,
               help='生成PCA可视化图表|Generate PCA visualization plots')
+@click.option('--group-column', '-g',
+              type=str,
+              help='分组列名(配合-s样本信息文件,按分组着色)|Column name for grouping (with sample info file)')
 @click.option('--threads', '-t',
               default=12,
               type=int,
@@ -100,10 +104,10 @@ def _is_help_request():
               type=str,
               show_default=True,
               help='BCFtools软件路径|BCFtools software path')
-def vcf2pca(input, output, backend, sample_info, components, maf, missing, hwe, skip_qc,
-            cluster, cluster_method, cluster_k, plot, threads, vcf2pca_path, plink_path, bcftools_path):
+def vcf2pca(input, output, backend, sample_info, components, maf, missing, hwe, apply_qc,
+            cluster, cluster_method, cluster_k, plot, group_column, threads, vcf2pca_path, plink_path, bcftools_path):
     """
-    VCF2PCA主成分分析工具（支持VCF2PCACluster和PLINK后端）|VCF2PCA Principal Component Analysis Tool (VCF2PCACluster & PLINK backends)
+    VCF2PCA主成分分析工具（默认PLINK后端,支持SNP/INDEL,默认不过滤）|VCF2PCA PCA Tool (default PLINK backend, SNP/INDEL, no filtering by default)
 
     示例|Examples: biopytools vcf2pca -i variants.vcf -o pca_results
     """
@@ -118,7 +122,7 @@ def vcf2pca(input, output, backend, sample_info, components, maf, missing, hwe, 
     if output != './pca_output':
         args.extend(['--output', output])
 
-    if backend != 'v2p':
+    if backend != 'plink':
         args.extend(['--backend', backend])
 
     if sample_info:
@@ -157,9 +161,14 @@ def vcf2pca(input, output, backend, sample_info, components, maf, missing, hwe, 
     if bcftools_path != 'bcftools':
         args.extend(['--bcftools-path', bcftools_path])
 
+    # 分组列名(配合样本信息文件)|Group column (with sample info file)
+    if group_column:
+        args.extend(['-g', group_column])
+
     # 标志参数|Flag parameters
-    if skip_qc:
-        args.append('--skip-qc')
+    # apply_qc opt-in: 默认不过滤,加--apply-qc才过滤|apply_qc opt-in: no filtering by default
+    if apply_qc:
+        args.append('--apply-qc')
 
     if plot:
         args.append('--plot')

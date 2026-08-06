@@ -138,6 +138,38 @@ class PCAAnalyzer:
         # 如果有样本信息，进行合并|Merge with sample info if available
         if self.config.sample_info_file:
             self.merge_sample_info(eigenvec_df)
+
+        # 合并特征向量与解释方差到单个Excel(两个sheet)|
+        # Combine eigenvectors and explained variance into one Excel (two sheets)
+        self.save_combined_excel(variance_df, eigenvec_df)
+
+    def save_combined_excel(self, variance_df, eigenvec_df):
+        """
+        将特征向量与解释方差合并输出到单个Excel(两个sheet)|
+        Save eigenvectors and explained variance into one Excel (two sheets)
+
+        Sheet1 Eigenvectors: 对应 pca_eigenvectors_formatted.txt (FID/IID/PC1..PCn)
+        Sheet2 Explained_Variance: 对应 pca_explained_variance.txt (PC/特征值/方差比...)
+        """
+        excel_file = self.config.output_path / "pca_results.xlsx"
+        try:
+            with pd.ExcelWriter(excel_file, engine='openpyxl') as writer:
+                eigenvec_df.to_excel(
+                    writer, sheet_name='Eigenvectors', index=False, float_format='%.6f'
+                )
+                variance_df.to_excel(
+                    writer, sheet_name='Explained_Variance', index=False, float_format='%.6f'
+                )
+            self.logger.info(
+                f"PCA结果Excel已保存(两个sheet)|PCA results Excel saved (2 sheets): {excel_file}"
+            )
+        except ImportError:
+            self.logger.warning(
+                "未安装openpyxl,跳过Excel输出(两txt仍已生成)|"
+                "openpyxl not installed, skipping Excel output (txt files still generated)"
+            )
+        except Exception as e:
+            self.logger.warning(f"保存Excel失败|Failed to save Excel: {e}")
     
     def merge_sample_info(self, eigenvec_df):
         """合并样本信息|Merge sample information"""

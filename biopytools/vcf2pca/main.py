@@ -145,14 +145,17 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例|Examples:
-  # 使用VCF2PCACluster后端（默认）|Use VCF2PCACluster backend (default)
+  # 默认PLINK后端(支持SNP/INDEL,不过滤)|Default PLINK backend (SNP/INDEL, no filtering)
   %(prog)s -i variants.vcf -o pca_results
 
-  # 使用PLINK后端|Use PLINK backend
-  %(prog)s -i variants.vcf -o pca_results --backend plink
+  # 启用质控过滤(MAF/缺失率/HWE)|Enable QC filtering
+  %(prog)s -i variants.vcf -o pca_results --apply-qc --maf 0.05
 
-  # 启用聚类分析|Enable clustering
-  %(prog)s -i variants.vcf -o pca_results --cluster --cluster-method kmeans --cluster-k 3
+  # 分组着色绘图|Group-colored plots
+  %(prog)s -i variants.vcf -o pca_results -s sample_info.txt -g population -P
+
+  # 使用VCF2PCACluster后端(仅SNP,带kinship/聚类)|Use VCF2PCACluster backend (SNP-only)
+  %(prog)s -i variants.vcf -o pca_results --backend v2p
         """
     )
 
@@ -176,8 +179,8 @@ def main():
 
     # Backend选择|Backend selection
     parser.add_argument(
-        '-b', '--backend', dest='backend', choices=['v2p', 'plink'], default='v2p',
-        help='分析后端|Analysis backend: v2p (VCF2PCACluster, default) or plink'
+        '-b', '--backend', dest='backend', choices=['v2p', 'plink'], default='plink',
+        help='分析后端|Analysis backend: plink (default, supports SNP/INDEL) or v2p (VCF2PCACluster, SNP-only)'
     )
 
     # PCA参数|PCA parameters
@@ -200,8 +203,9 @@ def main():
         help='Hardy-Weinberg平衡p值阈值|Hardy-Weinberg equilibrium p-value (PLINK backend only)'
     )
     parser.add_argument(
-        '--skip-qc', dest='skip_qc', action='store_true',
-        help='跳过质量控制过滤|Skip quality control filtering (PLINK backend only)'
+        '--apply-qc', dest='apply_qc', action='store_true',
+        help='启用质控过滤(MAF/缺失率/HWE,默认不过滤)|'
+             'Enable QC filtering (default: no filtering) (PLINK backend only)'
     )
 
     # 聚类参数（仅V2P后端|V2P backend only）
@@ -223,6 +227,10 @@ def main():
     parser.add_argument(
         '-P', '--plot', dest='plot', action='store_true',
         help='生成PCA可视化图表|Generate PCA visualization plots'
+    )
+    parser.add_argument(
+        '-g', '--group-column', dest='group_column', default=None,
+        help='分组列名(配合-s样本信息文件,按分组着色)|Column name for grouping (with sample info file)'
     )
 
     # 线程数|Threads
@@ -256,11 +264,13 @@ def main():
         'maf': args.maf,
         'missing_rate': args.missing_rate,
         'hwe_pvalue': args.hwe_pvalue,
-        'skip_qc': args.skip_qc,
+        # apply_qc opt-in: 默认不过滤(skip_qc=True)|apply_qc opt-in: default no filtering
+        'skip_qc': not args.apply_qc,
         'cluster': args.cluster,
         'cluster_method': args.cluster_method,
         'cluster_k': args.cluster_k,
         'plot': args.plot,
+        'group_column': args.group_column,
         'threads': args.threads,
         'sample_info_file': args.sample_info_file
     }

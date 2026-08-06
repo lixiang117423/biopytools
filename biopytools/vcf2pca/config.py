@@ -32,16 +32,20 @@ class VCF2PCAConfig:
     output_dir: str
 
     # 后端选择|Backend selection
-    backend: str = 'v2p'  # 'v2p' (VCF2PCACluster) 或 'plink'
+    # 默认plink:支持SNP/INDEL等所有变异类型;v2p(VCF2PCACluster)仅支持SNP会跳过Indel
+    # Default plink: handles all variant types; v2p (VCF2PCACluster) is SNP-only
+    backend: str = 'plink'  # 'plink' (默认) 或 'v2p' (VCF2PCACluster)
 
     # PCA参数|PCA parameters
     components: int = 10
 
     # 质控参数|Quality control parameters (仅PLINK后端|PLINK backend only)
+    # 默认不过滤(skip_qc=True);需过滤时CLI传--apply-qc
+    # Default no filtering; pass --apply-qc to enable filtering
     maf: float = 0.05
     missing_rate: float = 0.1
     hwe_pvalue: float = 1e-6
-    skip_qc: bool = False
+    skip_qc: bool = True
 
     # 聚类参数|Clustering parameters (仅V2P后端|V2P backend only)
     cluster: bool = False
@@ -52,6 +56,8 @@ class VCF2PCAConfig:
     plot: bool = False
     plot_2d: bool = True  # 2D图|2D plot
     plot_3d: bool = False  # 3D图|3D plot
+    # 分组列名(配合样本信息文件,按分组着色)|Group column for colored plots
+    group_column: Optional[str] = None
 
     # 工具路径|Tool paths
     vcf2pca_path: str = get_tool_path(
@@ -81,6 +87,17 @@ class VCF2PCAConfig:
         self.output_dir = expand_path(self.output_dir)
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
+
+        # 从VCF文件名生成输出前缀(去.vcf.gz/.vcf/.gz/.bcf后缀)|
+        # Output prefix derived from VCF filename (strip extension)
+        # 注: data_processing.py等plink后端组件依赖此属性|
+        # Note: plink backend components (data_processing.py etc.) depend on this
+        name = Path(self.vcf_file).name
+        for ext in ('.vcf.gz', '.vcf', '.bcf', '.gz'):
+            if name.lower().endswith(ext):
+                name = name[:-len(ext)]
+                break
+        self.base_name = name
 
         # 展开工具路径|Expand tool paths
         self.vcf2pca_path = expand_path(self.vcf2pca_path)
@@ -120,14 +137,16 @@ class VCF2PCAConfig:
                 f"{self.components}"
             )
 
-        if not 0 < self.maf < 0.5:
-            errors.append(f"MAF阈值必须在0-0.5之间|MAF threshold must be between 0-0.5: {self.maf}")
+        # maf/缺失率阈值仅在启用过滤时校验|Validate maf/missing only when filtering enabled
+        if not self.skip_qc:
+            if not 0 < self.maf < 0.5:
+                errors.append(f"MAF阈值必须在0-0.5之间|MAF threshold must be between 0-0.5: {self.maf}")
 
-        if not 0 < self.missing_rate < 1:
-            errors.append(
-                f"缺失率阈值必须在0-1之间|Missing rate threshold must be between 0-1: "
-                f"{self.missing_rate}"
-            )
+            if not 0 < self.missing_rate < 1:
+                errors.append(
+                    f"缺失率阈值必须在0-1之间|Missing rate threshold must be between 0-1: "
+                    f"{self.missing_rate}"
+                )
 
         # 检查工具路径|Check tool paths
         if self.backend == 'v2p':
