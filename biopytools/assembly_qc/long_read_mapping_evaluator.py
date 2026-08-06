@@ -76,17 +76,25 @@ class LongReadMappingEvaluator:
         发现三代数据样品|Discover long-read samples
 
         Args:
-            reads_dir: reads目录|Reads directory
+            reads_dir: reads文件或目录|Reads file or directory
 
         Returns:
             样品名字典|Sample name dictionary: {sample_name: [fastq_files]}
         """
-        self.logger.info(f"扫描三代数据reads目录|Scanning long-read reads directory: {reads_dir}")
-
         reads_path = Path(reads_dir)
         if not reads_path.exists():
-            self.logger.error(f"reads目录不存在|Reads directory not found: {reads_dir}")
+            self.logger.error(f"reads路径不存在|Reads path not found: {reads_dir}")
             return {}
+
+        # 如果是文件，直接提取样品名|If it's a file, extract sample name directly
+        if reads_path.is_file():
+            sample_name = self._extract_sample_name(reads_path)
+            self.logger.info(f"检测到单个FASTQ文件|Detected single FASTQ file: {reads_path}")
+            self.logger.info(f"样品名|Sample name: {sample_name}")
+            return {sample_name: [str(reads_path)]}
+
+        # 目录：扫描目录|Directory: scan directory
+        self.logger.info(f"扫描三代数据reads目录|Scanning long-read reads directory: {reads_dir}")
 
         # 查找FASTQ文件|Find FASTQ files
         pattern = self.config.long_read_mapping_pattern

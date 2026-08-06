@@ -51,6 +51,7 @@ class AssemblyQCConfig:
     conda_env_ltr_harvest: str = "~/miniforge3/envs/ltr_harvest_parallel_v.1.2"
     conda_env_ltr_finder: str = "~/miniforge3/envs/ltr_finder_parallel_v.1.3"
     conda_env_ltr_retriever: str = "~/miniforge3/envs/LTR_retriever_v.3.0.4"
+    lai_repeatmasker_species: str = "Viridiplantae"  # RepeatMasker回退物种参数|RepeatMasker fallback species parameter
 
     # ==================== 可选评估：QV | Optional Evaluation: QV ====================
     enable_qv: bool = True  # 启用QV评估|Enable QV evaluation [default: True]
@@ -112,7 +113,7 @@ class AssemblyQCConfig:
 
     # ==================== 步骤控制 | Step Control ====================
     skip_busco: bool = False  # 跳过BUSCO评估|Skip BUSCO evaluation
-    skip_lai: bool = False  # 跳过LAI评估|Skip LAI evaluation
+    skip_lai: bool = True  # 跳过LAI评估（EDTA耗时长，默认禁用）|Skip LAI evaluation (EDTA is time-consuming, disabled by default)
     skip_qv: bool = False  # 跳过QV评估|Skip QV evaluation
     skip_mapping: bool = False  # 跳过Mapping评估|Skip mapping evaluation
     resume: bool = True  # 断点续传|Resume from previous run

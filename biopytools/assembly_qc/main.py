@@ -294,13 +294,17 @@ def parse_arguments():
                         action='store_true',
                         help='跳过BUSCO评估|Skip BUSCO evaluation')
 
-    parser.add_argument('--skip-lai',
+    parser.add_argument('--enable-lai',
                         action='store_true',
-                        help='跳过LAI评估|Skip LAI evaluation')
+                        help='启用LAI评估（默认禁用，EDTA流程耗时长）|Enable LAI evaluation (disabled by default, EDTA is time-consuming)')
 
     parser.add_argument('--lai-full-mode',
                         action='store_true',
                         help='LAI完整模式（不使用-qq，运行blastn计算，用于种间比较）|LAI full mode (no -qq, run blastn for interspecies comparison)')
+
+    parser.add_argument('--lai-repeatmasker-species',
+                        default='Viridiplantae',
+                        help='RepeatMasker物种参数（EDTA失败回退时使用）|RepeatMasker species for EDTA fallback (default: Viridiplantae)')
 
     # QV评估参数|QV evaluation parameters
     parser.add_argument('--enable-qv',
@@ -326,10 +330,10 @@ def parse_arguments():
 
     # Reads数据|Reads data
     parser.add_argument('--ngs-reads',
-                        help='NGS reads目录（用于QV和mapping）|NGS reads directory (for QV and mapping)')
+                        help='NGS reads文件或目录（用于QV和mapping）|NGS reads file or directory (for QV and mapping)')
 
     parser.add_argument('--long-reads',
-                        help='Long-reads目录（用于QV和mapping）|Long-reads directory (for QV and mapping)')
+                        help='Long-reads文件或目录（用于QV和mapping）|Long-reads file or directory (for QV and mapping)')
 
     parser.add_argument('--long-read-type',
                         choices=['ont', 'pacbio', 'hifi'],
@@ -382,8 +386,9 @@ def main():
 
             # 核心评估|Core evaluation
             'skip_busco': args.skip_busco,
-            'skip_lai': args.skip_lai,
+            'skip_lai': not args.enable_lai,  # --enable-lai为True时skip_lai=False
             'lai_quick_mode': not args.lai_full_mode,  # 默认True使用快速模式，--lai-full-mode设为False
+            'lai_repeatmasker_species': args.lai_repeatmasker_species,
 
             # QV评估|QV evaluation
             'enable_qv': args.enable_qv,

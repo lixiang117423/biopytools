@@ -301,6 +301,14 @@ class QVEvaluator:
 
     def _discover_fastq_files(self, reads_dir: str) -> List[str]:
         """发现FASTQ文件|Discover FASTQ files"""
+        reads_path = Path(reads_dir)
+
+        # 如果是文件，直接返回|If it's a file, return directly
+        if reads_path.is_file():
+            self.logger.info(f"检测到单个FASTQ文件|Detected single FASTQ file: {reads_path}")
+            return [str(reads_path)]
+
+        # 目录：按模式glob|Directory: glob by patterns
         patterns = [
             "*.fq", "*.fq.gz",
             "*.fastq", "*.fastq.gz",

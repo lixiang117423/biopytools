@@ -57,12 +57,16 @@ def _validate_file_exists(file_path):
 @click.option('--skip-busco',
               is_flag=True,
               help='跳过BUSCO评估|Skip BUSCO evaluation')
-@click.option('--skip-lai',
+@click.option('--enable-lai',
               is_flag=True,
-              help='跳过LAI评估|Skip LAI evaluation')
+              help='启用LAI评估（默认禁用，EDTA流程耗时长）|Enable LAI evaluation (disabled by default, EDTA is time-consuming)')
 @click.option('--lai-full-mode',
               is_flag=True,
               help='LAI完整模式（不使用-qq，运行blastn计算，用于种间比较）|LAI full mode (no -qq, run blastn for interspecies comparison)')
+@click.option('--lai-repeatmasker-species',
+              default='Viridiplantae',
+              show_default=True,
+              help='RepeatMasker物种参数（EDTA失败回退时使用）|RepeatMasker species for EDTA fallback')
 @click.option('--enable-qv',
               is_flag=True,
               help='启用QV评估（默认启用）|Enable QV evaluation (default: enabled)')
@@ -81,10 +85,10 @@ def _validate_file_exists(file_path):
               help='FASTQ文件匹配模式|FASTQ file pattern')
 @click.option('--ngs-reads',
               type=click.Path(exists=True),
-              help='NGS reads目录（用于QV和mapping）|NGS reads directory (for QV and mapping)')
+              help='NGS reads文件或目录（用于QV和mapping）|NGS reads file or directory (for QV and mapping)')
 @click.option('--long-reads',
               type=click.Path(exists=True),
-              help='Long-reads目录（用于QV和mapping）|Long-reads directory (for QV and mapping)')
+              help='Long-reads文件或目录（用于QV和mapping）|Long-reads file or directory (for QV and mapping)')
 @click.option('--long-read-type',
               type=click.Choice(['ont', 'pacbio', 'hifi']),
               default='hifi',
@@ -107,7 +111,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='线程数（自动分配给各子模块）|Threads (automatically distributed to sub-modules)')
 def assembly_qc(genome, lineage, output_dir, sample_name,
-                skip_busco, skip_lai, lai_full_mode,
+                skip_busco, enable_lai, lai_full_mode, lai_repeatmasker_species,
                 enable_qv, qv_kmer_size,
                 enable_mapping, enable_long_read_mapping, mapping_pattern,
                 ngs_reads, long_reads, long_read_type,
@@ -136,10 +140,12 @@ def assembly_qc(genome, lineage, output_dir, sample_name,
     # 核心评估|Core evaluation
     if skip_busco:
         args.append('--skip-busco')
-    if skip_lai:
-        args.append('--skip-lai')
+    if enable_lai:
+        args.append('--enable-lai')
     if lai_full_mode:
         args.append('--lai-full-mode')
+    if lai_repeatmasker_species != 'Viridiplantae':
+        args.extend(['--lai-repeatmasker-species', lai_repeatmasker_species])
 
     # QV评估|QV evaluation
     if enable_qv:

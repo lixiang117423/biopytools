@@ -362,13 +362,13 @@ class LAIEvaluator:
         # 运行RepeatMasker生成.out文件|Run RepeatMasker to generate .out file
         self.logger.info("运行RepeatMasker生成注释文件|Running RepeatMasker to generate annotation file")
 
-        # 不指定-species参数，让RepeatMasker使用默认库（适用于非模式生物）|Don't specify -species to use default library (for non-model organisms)
-        # 如果需要特定物种库，用户应先配置RepeatMasker库|For specific species, users should pre-configure RepeatMasker library
+        # 使用默认植物物种参数(可用--lai-repeatmasker-species覆盖)|Use default plant species (override with --lai-repeatmasker-species)
         # -pa与EDTA --threads同理: 内存随并行度近线性增长, 用edta_threads(已封顶)而非lai_threads
         # -pa same as EDTA --threads: memory scales ~linearly with parallelism, use edta_threads (capped) not lai_threads
         cmd_str = (
             f"conda run -n {self.edta_env_name} --no-capture-output "
-            f"RepeatMasker -pa {self.config.edta_threads} -gff -dir {self.working_dir} {genome_mod}"
+            f"RepeatMasker -pa {self.config.edta_threads} -species {self.config.lai_repeatmasker_species} "
+            f"-gff -dir {self.working_dir} {genome_mod}"
         )
 
         self.logger.info(f"命令|Command: {cmd_str}")

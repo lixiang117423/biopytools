@@ -107,6 +107,16 @@ class MappingEvaluator:
         samples = []
         processed_reads = set()
 
+        # 如果是文件，尝试取父目录（NGS通常传目录，文件输入自动回退到父目录）|If file, try parent dir (NGS typically uses directory; auto-fallback)
+        reads_path = Path(reads_dir)
+        if reads_path.is_file():
+            parent_dir = str(reads_path.parent)
+            self.logger.warning(
+                f"检测到文件而非目录|Detected file instead of directory: {reads_dir}, "
+                f"使用父目录|using parent directory: {parent_dir}"
+            )
+            reads_dir = parent_dir
+
         # 查找read1文件|Find read1 files
         pattern = self.config.mapping_pattern.replace("_1.", "*_1.")
         read1_files = glob.glob(os.path.join(reads_dir, pattern))
