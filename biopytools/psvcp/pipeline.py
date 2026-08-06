@@ -283,23 +283,23 @@ class PangenomeConstructor:
             self._link(bed3_pav_gff, chain_pav)
         else:
             update1_pav = os.path.join(work, 'update1.pav.gff')
-            self._run_r('8.2pav_gff_update_by_bed2info_parLapply.R',
+            self._run_py('8gff_update.py',
                         [prev_pav, bed2, update1_pav], f"8.2pav_gff_update {chain}")
             self._cat([update1_pav, bed3_pav_gff], chain_pav)
 
         # 8. gff_update_by_bed2info → update1.gff|update1.gff
         update1_gff = os.path.join(work, 'update1.gff')
-        self._run_r('8gff_update_by_bed2info_parLapply.R',
+        self._run_py('8gff_update.py',
                     [prev_gff, bed2, update1_gff], f"8gff_update {chain}")
         # 9. gff_split_by_bed3 → update2.gff|update2.gff
         update2_gff = os.path.join(work, 'update2.gff')
-        self._run_r('9gff_split_by_bed3_6.R',
+        self._run_py('9gff_split.py',
                     [update1_gff, bed3, update2_gff], f"9gff_split {chain}")
         # 10. gene_in_pv_from_gff → {q_stem}.gff.in_pv|genes in PAV
         # 注:R 脚本仅当有基因与 PAV 重叠(nrow>0)时才写文件,否则不产出 .in_pv
         # |R script writes .in_pv only if genes overlap PAVs; otherwise no file
         in_pv = os.path.join(work, f'{q_stem}.gff.in_pv')
-        self._run_r('10gene_in_pv_from_gff_parLapply2.R',
+        self._run_py('10gene_in_pv.py',
                     [query_gff, bed3, in_pv], f"10gene_in_pv {chain}")
 
         # 原始三级条件(Refgenome_update_by_quest.sh):无重叠 / 无完全落 PAV 基因 → link update2.gff
@@ -350,8 +350,22 @@ class PangenomeConstructor:
             f"sort -k1.4,1n -k4,4n {pan_pav} > {pan_pav_sorted}",
             "sort pan.pav.gff"
         )
+        # PAV 信息表 + 0/1 矩阵(纯 Python; 非致命: 失败不影响主产物)
+        # |PAV info table + 0/1 matrix (pure Python; non-fatal on failure)
+        info_tsv = os.path.join(cfg.output_dir, 'pan.pav.info.tsv')
+        matrix_tsv = os.path.join(cfg.output_dir, 'pan.pav.matrix.tsv')
+        try:
+            from .pav_table import generate_pav_info, generate_pav_matrix
+            n_info = generate_pav_info(pan_pav_sorted, info_tsv)
+            n_mat = generate_pav_matrix(pan_pav_sorted, cfg.genome_list, matrix_tsv)
+        except Exception as e:
+            self.logger.warning(
+                f"PAV 表生成失败,不影响主产物|PAV table generation failed (non-fatal): {e}")
+            n_info = n_mat = 0
         self.logger.info(f"泛基因组构建完成|Pangenome construction completed")
         self.logger.info(f"  pan.fa         : {pan_fa}")
         self.logger.info(f"  pan.gff        : {pan_gff}")
         self.logger.info(f"  pan.pav.gff    : {pan_pav}")
         self.logger.info(f"  pan.pav.sorted : {pan_pav_sorted}")
+        self.logger.info(f"  pan.pav.info   : {info_tsv} ({n_info} PAV)")
+        self.logger.info(f"  pan.pav.matrix : {matrix_tsv} ({n_mat} PAV × 样本|samples)")

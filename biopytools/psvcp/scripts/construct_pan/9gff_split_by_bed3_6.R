@@ -1,6 +1,6 @@
 #Usage: Rscript $0 a1.gff a3.bed3
 Args <- commandArgs()
-a1_gff <- read.table(file=Args[6],header=F)
+a1_gff <- read.table(file=Args[6],header=F,sep='\t',quote='')  # fix sep='\t'+quote='' for gff3 attr with spaces (2026-08-05)
 bed3 <- read.table(file=Args[7],header=F)
 
 library(parallel)
@@ -9,6 +9,9 @@ library(parallel)
 split_gff_gene_by_bed3_each_chr <- function(chr){
     one_chr_bed3  <- bed3[bed3[,1]==chr,]
     one_chr_gff <- a1_gff[a1_gff[,1]==chr,]
+    if (nrow(one_chr_bed3) == 0 || nrow(one_chr_gff) == 0){
+        return(one_chr_gff)   # fix: chr absent in gff or bed3 -> return as-is; else seq(0)=c(1,0) indexes a 0-row df -> NA -> if(NA) aborts (e.g. query-only chr like Contig01, 2026-08-06)
+    }
     pv_split=data.frame()
     for (j in seq(nrow(one_chr_bed3))){
         for (i in seq(nrow(one_chr_gff))){

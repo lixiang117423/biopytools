@@ -1,7 +1,7 @@
 #Usage: Rscript $0 L032_RAGOO.all.gene.gff IRGSP_L032_bed3
 # fix 2024.9.14    add:   (nrow(one_chr_bed3) > 0 & nrow(one_chr_gff) > 0)
 Args <- commandArgs()
-RAGOO_gff <- read.table(file=Args[6],header=F) #gff
+RAGOO_gff <- read.table(file=Args[6],header=F,sep='\t',quote='') #gff; fix sep='\t'+quote='' for gff3 attr with spaces (2026-08-05)
 bed3 <- read.table(file=Args[7],header=F) #bed3
 
 library(parallel)

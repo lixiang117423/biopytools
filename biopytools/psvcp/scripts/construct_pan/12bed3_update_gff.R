@@ -1,7 +1,7 @@
 #Usage: Rscript $0 bed3.file a4.file
 Args <- commandArgs()
 bed3 <- read.table(file=Args[6],header=F)
-gene_in_pv <- read.table(file=Args[7],header=F)
+gene_in_pv <- read.table(file=Args[7],header=F,sep='\t',quote='')  # fix sep='\t'+quote='' : keep 18-col (gff9+bed3 9) structure so [,16][,17] align (2026-08-05)
 
 PVgene_in_update_genome = data.frame()
 PVgene_in_update_genome_more_info  = data.frame()
