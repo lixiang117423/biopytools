@@ -77,7 +77,7 @@ class FofGenerator:
         """
         entries = []
         for filepath in files:
-            sample_name = extract_sample_name(filepath)
+            sample_name = extract_sample_name(filepath, self.config.suffixes)
             abs_path = str(filepath.resolve())
             entries.append((sample_name, abs_path))
             self.logger.debug(f"样品|Sample: {sample_name} -> {abs_path}")

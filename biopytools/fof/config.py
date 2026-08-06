@@ -7,13 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional
 
-# 路径展开工具|Path expansion utilities
-try:
-    from common.paths import expand_path
-except ImportError:
-    def expand_path(path: str) -> str:
-        """展开路径中的~和环境变量|Expand ~ and environment variables in path"""
-        return os.path.expandvars(os.path.expanduser(path))
+from ..common.paths import expand_path
 
 
 @dataclass
