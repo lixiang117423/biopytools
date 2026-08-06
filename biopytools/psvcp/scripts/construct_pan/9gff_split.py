@@ -29,7 +29,16 @@ def _add_id_suffix(attr: str, suffix: str) -> str:
 
 
 def gff_split_by_bed3(gff_path: str, bed3_path: str, out_path: str):
-    gff = pd.read_csv(gff_path, sep='\t', header=None, dtype=str, comment='#')
+    # 空 gff 守卫:注释/空文件会触发 EmptyDataError,写空文件返回(对齐 R 原版空输出)
+    # |Empty-gff guard: comment-only/empty file raises EmptyDataError; write empty & return
+    try:
+        gff = pd.read_csv(gff_path, sep='\t', header=None, dtype=str, comment='#')
+    except pd.errors.EmptyDataError:
+        open(out_path, 'w').close()
+        return
+    if gff.empty:
+        open(out_path, 'w').close()
+        return
     bed3 = pd.read_csv(bed3_path, sep='\t', header=None, dtype=str, comment='#')
     g_chr = gff[0].values
     b_chr = bed3[0].values
@@ -75,6 +84,12 @@ def gff_split_by_bed3(gff_path: str, bed3_path: str, out_path: str):
     # chr_no_in_bed3 的 gff 行(R setdiff(chr_in_gff, chr_in_bed3), 原样保留)
     for c in [c for c in pd.unique(g_chr) if c not in bset]:
         out_dfs.append(gff.iloc[np.where(g_chr == c)[0]])
+
+    # 空 gff 守卫:无任何输出行时写空文件,避免 pd.concat([]) 报错(对齐 R 原版空输出)
+    # |Empty-gff guard: write empty file when nothing to emit, avoid pd.concat([]) error
+    if not out_dfs:
+        open(out_path, 'w').close()
+        return
 
     pd.concat(out_dfs, ignore_index=True).to_csv(
         out_path, sep='\t', header=False, index=False)
