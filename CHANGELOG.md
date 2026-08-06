@@ -1,4 +1,14 @@
 
+## [1.27.1] - 2026-08-06
+
+### Fixed
+- `cli`（全仓 35 个命令）：`_validate_path_exists` 加 `os.path.expanduser`，用户传 `~/...` 输入路径不再在 Click 校验阶段被提前拒（`bam2fastq`/`fof` 用 `lexists` 支持软链接）
+- `fof`：`extract_sample_name` 双扩展剥层修复（`.fq.gz`→`sample1_R1`，原只剥 `.gz` 留 `.fq`）；`expand_path` 导入改 `from ..common.paths`（原顶层导入靠 fallback 兜底）；`FofLogger` 改标准 3-way（named logger + `propagate=False` + stdout/stderr/file）
+- `genome2sv`：`parse_fof` 展开 fof 内路径的 `~`/环境变量（原 validate 存在性检查误报）；`check_dependencies` 对 SURVIVOR（子命令式 CLI 无 `--version`）按"能执行"判定而非 `rc==0`，避免误报缺失终止流程
+- `vcf2pca`：`_drop_zero_genotype_samples` 的 `--remove` 改绝对路径（`.resolve()`，原相对路径在 PLINK `cwd` 下找不到→降级跳过剔除→`--pca` 仍崩）；删除一段不可达死代码
+- `assembly_qc`：NGS 单文件输入不再回退父目录 glob 全目录（避免误收无关样本），改为只取推断的 read2，找不到则警告返回；`docs/assembly_qc.md` 同步 `--skip-lai`→`--enable-lai`
+- `psvcp`：`9gff_split.py` 加空 gff 守卫（`EmptyDataError`/`gff.empty`/`not out_dfs` 三重，对齐 R 原版空输出）
+
 ## [1.27.0] - 2026-08-06
 
 ### Added
