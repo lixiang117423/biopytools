@@ -27,7 +27,7 @@ def _validate_path_exists(path):
     """验证路径存在(仅在非帮助模式)|Validate path exists (only in non-help mode)"""
     if _is_help_request():
         return path
-    if path and not os.path.exists(path):
+    if path and not os.path.exists(os.path.expanduser(path)):
         raise click.BadParameter(f"路径不存在|Path does not exist: {path}")
     return path
 
