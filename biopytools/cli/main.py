@@ -64,6 +64,7 @@ COMMAND_REGISTRY = [
     # ('filter_annovar', 'filter-annovar', '基因区域变异提取工具|Gene region variant extraction tool'),
     ('filter_snp_indel', 'filter-snp-indel', 'SNP和INDEL过滤工具|SNP and INDEL filtering tool'),
     ('find_telomere', 'find-telomere', '端粒识别分析工具|Telomere identification analysis tool'),
+    ('fof', 'fof', 'FOF文件生成工具(样品名→路径映射表)|FOF file generator (sample→path mapping table)'),
     ('gatk_joint', 'gatk-joint', 'GATK Joint Genotyping工具|GATK Joint Genotyping tool'),
     ('gemma_gwas', 'gemma-gwas', 'GEMMA GWAS批量分析工具|GEMMA GWAS batch analysis tool'),
     ('genebank2fasta', 'genebank2fasta', 'GenBank序列提取工具|GenBank sequence extraction tool'),
@@ -198,8 +199,7 @@ COMMAND_REGISTRY = [
     ('vcf_filter', 'vcf-filter', 'VCF文件筛选|VCF file filtering'),
     ('vcf_merger', 'vcf-merger', 'VCF按染色体合并工具|VCF chromosome merge tool'),
     ('vcf2nj', 'vcf2nj', 'VCF构建NJ进化树|VCF NJ phylogenetic tree construction'),
-    ('vcf_pca', 'vcf-pca', 'VCF主成分分析 (PCA)|VCF Principal Component Analysis (PCA)'),
-    ('vcf2pca', 'vcf2pca', 'VCF主成分分析 (PCA)|VCF Principal Component Analysis (PCA)'),
+    ('vcf2pca', 'vcf2pca', 'VCF主成分分析 (PCA, 默认PLINK后端支持SNP/INDEL)|VCF PCA (default PLINK backend, SNP/INDEL)'),
     ('vcf_renamer', 'vcf-renamer', 'VCF样品名称重命名工具|VCF sample name renaming tool'),
     ('vcf_sampler', 'vcf-sampler', 'VCF文件SNP抽样工具|VCF file SNP sampling tool'),
     ('vcf_sample_hete', 'vcf-sample-hete', 'VCF样本基因型统计|VCF sample genotype statistics'),
@@ -226,6 +226,8 @@ COMMAND_REGISTRY = [
     ('phylo_trim', 'phylo-trim', '整合mafft-fasttree+trimal,出trimal前后两棵树|Integrate mafft-fasttree+trimal, before/after trees'),
     ('rnaseq2vcf', 'rnaseq2vcf', '转录组变异检测(到VCF)|RNA-seq variant calling (to VCF)'),
     ('predgpi', 'predgpi', 'PredGPI GPI锚定蛋白预测|PredGPI GPI-anchor prediction'),
+    ('genome2sv', 'genome2sv', 'assembly-to-assembly SV calling (minimap2+svim-asm+SURVIVOR)|组装间结构变异检测'),
+    ('vcf2pav', 'vcf2pav', 'VCF转PAV(Presence/Absence)矩阵|VCF to PAV (Presence/Absence) matrix'),
 ]
 
 # 将硬编码信息转换为字典，方便查询
