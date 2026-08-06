@@ -80,21 +80,32 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
 
 def check_dependencies(config, logger: logging.Logger) -> bool:
-    """检查关键工具可用性(仅版本探测)|Check key tools via version probe."""
+    """检查关键工具可用性(版本/可执行性探测)|Check key tools via version/exec probe.
+
+    SURVIVOR 为子命令式 CLI 且无 --version:空参必非0退出(打印用法),故按"能执行"判定
+    而非 rc==0,避免误报缺失终止流程。|SURVIVOR is a subcommand CLI with no --version;
+    no-args exits non-zero (prints usage), so judge by "runs" not rc==0 to avoid
+    false-missing aborts.
+    """
     logger.info("检查依赖工具|Checking dependencies")
+    # (path, args, expect_rc0): True=需 rc==0(有 --version);False=能执行即可(子命令式)|
+    # (path, args, expect_rc0): True=need rc==0 (has --version); False=runs is enough
     tools = {
-        "minimap2": (config.minimap2_path, ["--version"]),
-        "samtools": (config.samtools_path, ["--version"]),
-        "svim-asm": (config.svim_asm_path, ["--version"]),
-        "survivor": (config.survivor_path, []),
+        "minimap2": (config.minimap2_path, ["--version"], True),
+        "samtools": (config.samtools_path, ["--version"], True),
+        "svim-asm": (config.svim_asm_path, ["--version"], True),
+        "survivor": (config.survivor_path, [], False),
     }
     missing = []
-    for name, (path, args) in tools.items():
+    for name, (path, args, expect_rc0) in tools.items():
         try:
             cmd = build_conda_command(path, args)
             r = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-            if r.returncode == 0:
-                logger.info(f"{name} 可用|available: {(r.stdout or r.stderr).strip()[:60]}")
+            available = (r.returncode == 0) if expect_rc0 else True
+            if available:
+                detail = (r.stdout or r.stderr).strip().splitlines()
+                ver = detail[0][:60] if detail else "(子命令式CLI|subcommand CLI)"
+                logger.info(f"{name} 可用|available: {ver}")
             else:
                 missing.append(name)
         except (FileNotFoundError, subprocess.TimeoutExpired):

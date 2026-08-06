@@ -28,7 +28,9 @@ def parse_fof(fof_path: str) -> List[Tuple[str, str]]:
                     f"fof 第 {lineno} 行格式错误(需 name<TAB>path)|"
                     f"malformed fof line {lineno} (need name<TAB>path): {line!r}")
             parts = line.split("\t")
-            name, path = parts[0].strip(), parts[1].strip()
+            # 展开 fof 内路径的 ~ 与环境变量,否则 validate() 的存在性检查会误报
+            # |Expand ~ and env vars in fof paths or validate() existence check misfires
+            name, path = parts[0].strip(), expand_path(parts[1].strip())
             if name and path:
                 entries.append((name, path))
     return entries
