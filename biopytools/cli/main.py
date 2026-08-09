@@ -194,6 +194,7 @@ COMMAND_REGISTRY = [
     ('vcf2gwas', 'vcf2gwas', 'vcf2gwas GWAS分析工具|vcf2gwas GWAS Analysis Tool'),
     ('vcf2gene', 'vcf2gene', 'VCF变异基因注释工具|VCF variant gene annotation tool'),
     ('vcf2phylip', 'vcf2phylip', 'VCF转phylip格式|VCF to phylip format conversion'),
+    ('vcf2tree', 'vcf2tree', 'VCF转系统发育树|VCF to phylogenetic tree'),
     ('vg', 'vg', 'VG变异图分析工具（construct/index/giraffe/deconstruct）|VG variation graph analysis tool'),
     ('vcf2genotype', 'vcf2genotype', 'VCF基因型提取|VCF genotype extraction'),
     ('vcf_filter', 'vcf-filter', 'VCF文件筛选|VCF file filtering'),
