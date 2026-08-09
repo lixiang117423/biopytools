@@ -90,6 +90,8 @@ class FilterLogger:
         self.logger = logging.getLogger(__name__)
         self.logger.handlers.clear()
         self.logger.setLevel(logging.DEBUG)
+        # §2.3.3: 禁止向root传播, 避免日志重复输出|disable propagation to root to avoid duplicates
+        self.logger.propagate = False
 
         # 设置日志格式|Set log format
         formatter = logging.Formatter(
