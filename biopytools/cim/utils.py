@@ -3,10 +3,12 @@ CIM分析工具函数模块|CIM Analysis Utility Functions Module
 """
 
 import logging
+import re
+import shutil
 import subprocess
 import sys
 import os
-from typing import Tuple, Optional
+from typing import List, Optional, Tuple
 
 
 class CIMLogger:
@@ -124,3 +126,51 @@ class CommandRunner:
         else:
             full_cmd = f"conda run --no-capture-output -n {env_name} {cmd}"
         return self.run(full_cmd, description, timeout)
+
+
+def get_conda_env(command: str) -> Optional[str]:
+    """检测命令是否在conda环境中,返回环境名称|Detect if command is in a conda environment
+
+    Args:
+        command: 命令名称或完整路径|Command name or full path
+
+    Returns:
+        conda环境名称或None|Conda environment name or None
+    """
+    cmd_path = shutil.which(command)
+    if cmd_path:
+        match = re.search(r'/envs/([^/]+)', cmd_path)
+        if match:
+            return match.group(1)
+
+    conda_base = os.environ.get('CONDA_EXE')
+    if conda_base:
+        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
+        envs_dir = os.path.join(conda_base_dir, 'envs')
+        if os.path.exists(envs_dir):
+            for env_name in os.listdir(envs_dir):
+                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
+                if os.path.exists(env_bin):
+                    return env_name
+
+    return None
+
+
+def build_conda_command(command: str, args: List[str]) -> List[str]:
+    """构建conda run命令来运行conda环境中的软件|Build conda run command for conda env software
+
+    Args:
+        command: 命令名称或完整路径(建议传完整路径以正确检测env)|Command name or full path
+        args: 命令参数列表|Command argument list
+
+    Returns:
+        完整命令列表|Complete command list
+
+    Note:
+        必须使用--no-capture-output避免conda缓冲输出导致大数据内存溢出
+        |Must use --no-capture-output to avoid conda buffering causing OOM on large data
+    """
+    conda_env = get_conda_env(command)
+    if conda_env:
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
+    return [command] + args

@@ -8,16 +8,17 @@ Handles VCF parsing, marker filtering, LD pruning, tidy file generation and R sc
 import gzip
 import logging
 import os
+import shlex
 import shutil
 import tempfile
-from collections import OrderedDict
+from collections import Counter, OrderedDict
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
 
 from .config import CIMConfig
-from .utils import CommandRunner
+from .utils import CommandRunner, build_conda_command
 
 
 def parse_vcf_genotypes(vcf_path: str, pheno_file: str,
@@ -326,59 +327,63 @@ def filter_rf_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
 
 def _calc_pairwise_rf_matrix(geno: np.ndarray) -> np.ndarray:
     """
-    计算两两重组频率矩阵的均值|Calculate pairwise RF matrix and return per-marker mean RF
+    计算两两重组频率矩阵的均值(向量化)|Vectorized pairwise RF → per-marker mean RF
 
     RF计算规则|RF calculation rules:
     - A-A(1-1) 或 B-B(3-3): 不重组(0)|No recombination (0)
     - A-B(1-3) 或 B-A(3-1): 重组(1)|Recombination (1)
     - 含H(2): 不确定(0.5)|Uncertain (0.5)
-    - 含NaN: 跳过|Skip
+    - 含NaN: 跳过(分子分母均不计)|Skip (excluded from numerator and denominator)
+
+    向量化: 把每对标记的RF分解为基因型指示矩阵的乘积, 避免O(n²)的Python双循环。
+    每样本的重组分 = 0.5*(h_i|h_j) + 1*((a_i&b_j)|(b_i&a_j)); 对有效样本求均值即RF。
+    |Vectorized: decompose per-pair RF into products of genotype-indicator matrices,
+    avoiding the O(n²) Python double loop. Per-sample score =
+    0.5*(h_i|h_j) + 1*((a_i&b_j)|(b_i&a_j)); RF is its mean over valid samples.
 
     Args:
         geno: 基因型矩阵 (n_markers x n_samples)|Genotype matrix
 
     Returns:
-        ndarray: 每个标记的平均RF|Mean RF per marker
+        ndarray: 每个标记的平均RF(对有效配对取均值, 分母为实际有效配对数)|Mean RF per
+        marker (mean over valid partners; denominator is the actual valid-pair count)
     """
     n_markers = geno.shape[0]
-    mean_rf = np.zeros(n_markers)
+    if n_markers < 2:
+        return np.zeros(n_markers)
 
-    for i in range(n_markers):
-        g_i = geno[i]  # (n_samples,)
+    # 每标记每样本的基因型指示(NaN处置0, 自动排除)|per-marker/sample indicators
+    a = (geno == 1).astype(np.float64)  # AA
+    b = (geno == 3).astype(np.float64)  # BB
+    h = (geno == 2).astype(np.float64)  # 杂合|het
+    v = a + b + h                       # 有效(非NaN)|valid mask
 
-        # 与所有j > i的标记计算RF|Calculate RF with all j > i markers
-        for j in range(i + 1, n_markers):
-            g_j = geno[j]
+    # 两两共现计数 (n×n)|pairwise co-occurrence counts via matrix products
+    vv = v @ v.T                        # 有效配对样本数|n_valid per pair
+    hh = h @ h.T                        # 双方均杂合的样本数|both-het count
+    ab = a @ b.T                        # i=AA & j=BB 的样本数
+    ba = b @ a.T                        # i=BB & j=AA 的样本数
+    hv = h @ v.T                        # i杂合 & j有效 的样本数
 
-            # 有效比较（两个标记都不是NaN）|Valid comparisons (neither is NaN)
-            valid = ~(np.isnan(g_i) | np.isnan(g_j))
-            n_valid = valid.sum()
-            if n_valid == 0:
-                continue
+    # 含杂合的有效样本数 Σ_k(h_ik|h_jk), 须限制在双方均有效上|
+    # het-or count over BOTH-valid samples: Σ(h_i|h_j)*v_i*v_j = h@v.T + v@h.T - h@h.T
+    # 必须遮蔽: h_i|h_j 在一方为NaN时仍非0(与a/b不同), 不遮蔽会让 het-vs-NaN 虚增分子|
+    # masking required: h_i|h_j is nonzero even when the partner is NaN (unlike a/b)
+    s_het = hv + hv.T - hh
+    # 重组的有效样本数 Σ_k[(a_i&b_j)|(b_i&a_j)] = AB + BA (a,b每样本互斥, NaN处为0, 天然受限)|
+    # recombination count (a,b mutually exclusive; 0 at NaN so naturally both-valid-restricted)
+    s_rec = ab + ba
 
-            gi_v = g_i[valid]
-            gj_v = g_j[valid]
+    # rf = (0.5*含杂合数 + 重组数) / 有效样本数|RF per pair; nan where vv==0
+    with np.errstate(divide='ignore', invalid='ignore'):
+        rf = (0.5 * s_het + s_rec) / vv
+    np.fill_diagonal(rf, np.nan)        # 排除自身|exclude self-pairing
 
-            # 计算重组信号|Calculate recombination signals
-            recomb = np.zeros(n_valid)
-
-            # 不重组: A-A, B-B|No recombination: A-A, B-B
-            no_recomb = ((gi_v == 1) & (gj_v == 1)) | ((gi_v == 3) & (gj_v == 3))
-            # 重组: A-B, B-A|Recombination: A-B, B-A
-            recomb = ((gi_v == 1) & (gj_v == 3)) | ((gi_v == 3) & (gj_v == 1))
-            # 含H: 0.5|Contains H: 0.5
-            has_h = (gi_v == 2) | (gj_v == 2)
-            recomb = np.where(has_h, 0.5, recomb.astype(float))
-            # 不重组|No recombination
-            recomb = np.where(no_recomb, 0.0, recomb)
-
-            rf_val = recomb.sum() / n_valid
-            mean_rf[i] += rf_val
-            mean_rf[j] += rf_val
-
-    # 对角线为自身，计算均值时除以(n_markers - 1)|Diagonal is self, divide by (n-1)
-    mean_rf /= max(n_markers - 1, 1)
-    return mean_rf
+    # 对有效配对取均值: 跳过全NaN配对, 分母用实际有效配对数(修正旧版固定除n-1的偏差)|
+    # mean over valid partners: skip all-NaN pairs, divide by actual valid-pair count
+    # (fixes the old bug of always dividing by n-1 regardless of skipped pairs)
+    valid_pairs = np.maximum(np.sum(~np.isnan(rf), axis=1), 1)
+    return np.nansum(rf, axis=1) / valid_pairs
 
 
 def _detect_singletons(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
@@ -619,13 +624,16 @@ def ld_prune_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
                 f.write(f"{sample_id}\t{sample_id}\t0\t0\t0\t-9\t{geno_str}\n")
 
         # 运行PLINK LD pruning|Run PLINK LD pruning
-        prune_cmd = (
-            f"plink --file {plink_prefix} "
-            f"--allow-no-sex --allow-extra-chr "
-            f"--indep-pairwise {ld_window} {ld_step} {ld_r2} "
-            f"--out {plink_prefix}_prune "
-            f"--silent"
-        )
+        # 经build_conda_command包装: 若plink在conda env则conda run, 否则直调(向后兼容)|
+        # wrapped via build_conda_command: conda run if plink is in an env, else direct call
+        plink_args = [
+            '--file', plink_prefix,
+            '--allow-no-sex', '--allow-extra-chr',
+            '--indep-pairwise', str(ld_window), str(ld_step), str(ld_r2),
+            '--out', f'{plink_prefix}_prune',
+            '--silent',
+        ]
+        prune_cmd = ' '.join(shlex.quote(str(x)) for x in build_conda_command('plink', plink_args))
         success, stdout, stderr = cmd_runner.run(prune_cmd, "PLINK LD pruning")
         if not success:
             logger.error("PLINK LD pruning失败，回退到均匀抽样|PLINK LD pruning failed, falling back to interval sampling")
@@ -881,6 +889,11 @@ def build_mstmap_linkage_map(genotype_matrix: np.ndarray, marker_info: pd.DataFr
 
     n_chromosomes = len(marker_info['chr'].unique())
     max_lg_target = n_chromosomes * 3
+    # 核心LG阈值: 标记数 > MSTmap no_map_size(_run_mstmap_single_pvalue中=2)才算真正的连锁群。
+    # 孤立单标记LG是MSTmap踢出的坏标记, 不应计入"是否找回染色体"的判据。
+    # Core LG threshold: only LGs with >MSTmap no_map_size(=2) markers are real linkage groups.
+    # Singleton LGs are bad markers MSTmap isolated; they must NOT count against chromosome recovery.
+    core_lg_min = 3
 
     # p.value尝试序列: 用户值, 1e-5, 1e-4, 1e-3, 1e-2
     pvalue_sequence = [config.mstmap_pvalue, 1e-5, 1e-4, 1e-3, 1e-2]
@@ -889,12 +902,19 @@ def build_mstmap_linkage_map(genotype_matrix: np.ndarray, marker_info: pd.DataFr
 
     logger.info(f"MSTmap自动调优|Auto-tuning MSTmap: "
                 f"{n_chromosomes}条染色体|chromosomes, "
-                f"目标LG数|target LG <= {max_lg_target}")
+                f"目标核心LG数|target core LG <= {max_lg_target}")
     logger.info(f"  p.value尝试序列|p.value sequence: "
-                f"{', '.join(f'{p:.0e}' for p in pvalue_sequence)}")
+                f"{', '.join(f'{p:.0e}' for p in pvalue_sequence)} "
+                f"(核心LG阈值|core LG min markers={core_lg_min})")
 
     accepted_rows = None
     accepted_pvalue = None
+    # 兜底最优: 选核心LG数最少(聚类最好)的迭代, 而非盲目取最后一个p.value。
+    # Fallback best: pick the iteration with fewest core LGs (best clustering),
+    # not blindly the last/loosest p.value.
+    best_rows = None
+    best_pvalue = None
+    best_core_lgs = None
 
     for p_val in pvalue_sequence:
         lg_label = f"mstmap_pvalue_{p_val:.0e}"
@@ -912,35 +932,48 @@ def build_mstmap_linkage_map(genotype_matrix: np.ndarray, marker_info: pd.DataFr
             logger.warning(f"MSTmap自动调优|Auto-tuning: p_value={p_val:.0e} -> 0个标记|0 markers, 跳过")
             continue
 
-        # 统计LG数|Count LGs
-        lg_names = set(row[1] for row in map_rows)
-        n_lgs = len(lg_names)
+        # 统计LG数: 区分核心LG(可作图)与孤立单标记LG(坏标记)|
+        # Count LGs: split core LGs (mappable) from isolated singletons (bad markers)
+        lg_sizes = Counter(row[1] for row in map_rows)
+        n_lgs = len(lg_sizes)
+        n_core_lgs = sum(1 for s in lg_sizes.values() if s >= core_lg_min)
         n_markers = len(map_rows)
 
         logger.info(f"MSTmap自动调优|Auto-tuning: p_value={p_val:.0e} -> "
-                    f"{n_lgs}个LG|LGs, {n_markers}个标记|markers")
+                    f"{n_core_lgs}个核心LG|core LGs "
+                    f"(共|total {n_lgs}个LG|LGs), {n_markers}个标记|markers")
 
         # 保存本次迭代结果|Save this iteration's results
         _save_map_outputs(map_rows, genotype_matrix, marker_info,
                           samples, pheno_values, iter_dir)
 
-        if n_lgs <= max_lg_target:
+        # 更新兜底最优: 核心LG最少优先, 平手取标记多|update fallback best
+        if (best_core_lgs is None or n_core_lgs < best_core_lgs
+                or (n_core_lgs == best_core_lgs and n_markers > len(best_rows))):
+            best_rows = map_rows
+            best_pvalue = p_val
+            best_core_lgs = n_core_lgs
+
+        if n_core_lgs <= max_lg_target:
             logger.info(f"MSTmap自动调优|Auto-tuning: p_value={p_val:.0e} -> "
-                        f"{n_lgs}个LG(<= {max_lg_target}), 接受|accepted")
+                        f"{n_core_lgs}个核心LG(<= {max_lg_target}), 接受|accepted")
             accepted_rows = map_rows
             accepted_pvalue = p_val
             break
         else:
             logger.info(f"MSTmap自动调优|Auto-tuning: p_value={p_val:.0e} -> "
-                        f"{n_lgs}个LG(> {max_lg_target}), "
+                        f"{n_core_lgs}个核心LG(> {max_lg_target}), "
                         f"放宽至下一个p.value重试|relaxing to next p.value")
 
     if accepted_rows is None:
-        # 所有p.value都不满足条件，使用最宽松的结果|None accepted, use the loosest result
-        logger.warning(f"MSTmap自动调优: 所有p.value均未达到目标LG数<= {max_lg_target}|"
-                       f"All p.values exceeded target LG count, using loosest result")
-        accepted_rows = map_rows
-        accepted_pvalue = pvalue_sequence[-1]
+        # 所有p.value的核心LG都超目标, 用聚类最好(核心LG最少)的结果, 而非最宽松p.value。
+        # No p.value met the target core LG count; use the best-clustering result.
+        logger.warning(f"MSTmap自动调优: 所有p.value核心LG数均超过{max_lg_target}|"
+                       f"All p.values exceeded target core LG count; "
+                       f"使用聚类最好结果|using best-clustering result "
+                       f"(p_value={best_pvalue:.0e}, {best_core_lgs}个核心LG|core LGs)")
+        accepted_rows = best_rows
+        accepted_pvalue = best_pvalue
 
     # 将最终结果复制到output_dir根目录|Copy final result to output_dir root
     for fname in ['mstmap_map.csv', 'linkage_map.csv', 'marker_map_index.tsv',
@@ -950,10 +983,12 @@ def build_mstmap_linkage_map(genotype_matrix: np.ndarray, marker_info: pd.DataFr
         if os.path.exists(src):
             shutil.copy2(src, dst)
 
-    n_lg_final = len(set(row[1] for row in accepted_rows))
+    lg_sizes_final = Counter(row[1] for row in accepted_rows)
+    n_core_final = sum(1 for s in lg_sizes_final.values() if s >= core_lg_min)
     logger.info(f"MSTmap自动调优完成|Auto-tuning complete: "
                 f"实际使用p_value={accepted_pvalue:.0e}, "
-                f"{n_lg_final}个LG|LGs, {len(accepted_rows)}个标记|markers")
+                f"{n_core_final}个核心LG|core LGs "
+                f"(共|total {len(lg_sizes_final)}个LG|LGs), {len(accepted_rows)}个标记|markers")
 
     return {
         'mstmap_map': mstmap_map_file,
@@ -1043,15 +1078,19 @@ def save_filtered_vcf(original_vcf: str, marker_info: pd.DataFrame, retained_sam
             f.write(f"{s}\n")
 
     try:
-        cmd = (f"bcftools view -T {targets_file} -S {samples_file} --force-samples "
-               f"-Oz -o {output_path} {original_vcf}")
+        # 经build_conda_command包装bcftools(向后兼容: 不在conda env则直调)|
+        # bcftools wrapped via build_conda_command (backward compatible: direct call if not in env)
+        view_args = ['view', '-T', targets_file, '-S', samples_file, '--force-samples',
+                     '-Oz', '-o', output_path, original_vcf]
+        cmd = ' '.join(shlex.quote(str(x)) for x in build_conda_command('bcftools', view_args))
         success, stdout, stderr = cmd_runner.run(cmd, "提取过滤后VCF|Extract filtered VCF")
 
         if not success:
             logger.warning("bcftools提取失败，跳过VCF输出|bcftools extraction failed, skipping filtered VCF output")
             return ""
 
-        cmd_runner.run(f"bcftools index {output_path}", "索引过滤后VCF|Index filtered VCF")
+        index_cmd = ' '.join(shlex.quote(str(x)) for x in build_conda_command('bcftools', ['index', output_path]))
+        cmd_runner.run(index_cmd, "索引过滤后VCF|Index filtered VCF")
 
         logger.info(f"过滤后VCF已保存|Filtered VCF saved: {output_path} ({n_markers} markers, {n_samples} samples)")
         return output_path
@@ -1255,9 +1294,13 @@ def _build_cim_block(config: CIMConfig, label: str, output_dir: str) -> List[str
         'cat("全基因组LOD曲线图已保存|Genome-wide LOD plot saved\\n")',
         '',
         '# 逐染色体LOD曲线图|Per-chromosome LOD plots',
+        '# 跳过孤立单标记LG(<3 markers), 不生成无意义的单标记PDF|',
+        '# skip isolated singleton LGs (<3 markers); avoid junk single-marker PDFs',
         'chrs <- unique(out[, 1])',
+        'nmar_vec <- nmar(cross)',
         'for (chr_i in chrs) {',
         '    chr_label <- as.character(chr_i)',
+        '    if (is.na(nmar_vec[chr_label]) || nmar_vec[chr_label] < 3) next',
         '    pdf_file <- paste0("' + chr_pdf_prefix + '", chr_label, ".pdf")',
         '    pdf(pdf_file, width=8, height=5)',
         '    plot(out, chr=chr_i, main=paste("CIM -", chr_label),',
@@ -1425,8 +1468,13 @@ def generate_r_cim_script(config: CIMConfig, tidy_files: Dict[str, str],
     elif config.map_mode == "estimate":
         lines.extend([
             '# 估算遗传图谱|Estimate genetic map',
+            '# est.map()返回map(list),不是cross对象;必须replace.map()写回cross,',
+            '# Est.map() returns a map (list), NOT a cross; replace.map() writes it back',
+            '# 否则后续calc.genoprob/cim会因cross被覆盖成list而崩溃|',
+            '# else calc.genoprob/cim crash because cross got overwritten by a list',
             'cat("正在估算遗传图谱...\\n")',
-            'cross <- est.map(cross, error.prob=0.0001)',
+            'newmap <- est.map(cross, error.prob=0.0001)',
+            'cross <- replace.map(cross, newmap)',
             'cat("遗传图谱估算完成\\n")',
             '',
         ])

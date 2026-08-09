@@ -239,18 +239,20 @@ def main():
             )
         save_qc_stats(prune_stats, os.path.join(config.qc_dir, "ld_prune_stats.txt"))
 
+        # 对齐样本数|Align sample counts (filter_markers may remove all-NaN sample columns)
+        # 必须在保存过滤VCF之前应用, 否则存出的VCF会多带被丢弃的全缺失样本|Must apply
+        # before saving filtered VCF, else saved VCF keeps the dropped all-missing samples
+        if 'keep_sample_mask' in filter_stats:
+            keep = filter_stats['keep_sample_mask']
+            samples = [s for s, k in zip(samples, keep) if k]
+            pheno_values = pheno_values[keep]
+
         # 保存LD降维后的VCF|Save VCF after LD pruning
         filtered_vcf_path = os.path.join(config.qc_dir, "filtered_markers.vcf.gz")
         if os.path.exists(filtered_vcf_path):
             logger.info("跳过已完成步骤|Skipping completed step: 过滤后VCF保存|filtered VCF save")
         else:
             save_filtered_vcf(config.input_file, marker_info, samples, filtered_vcf_path, cmd_runner, logger)
-
-        # 对齐样本数|Align sample counts (filter_markers may remove all-NaN sample columns)
-        if 'keep_sample_mask' in filter_stats:
-            keep = filter_stats['keep_sample_mask']
-            samples = [s for s, k in zip(samples, keep) if k]
-            pheno_values = pheno_values[keep]
 
         # Step 3.5: 基因型纠错|Genotype error correction
         if config.fix_geno_error_size > 0:
