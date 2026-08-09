@@ -10,6 +10,7 @@ import logging
 import os
 import shlex
 import shutil
+import sys
 import tempfile
 from collections import Counter, OrderedDict
 from typing import Dict, List, Optional, Tuple
@@ -966,6 +967,21 @@ def build_mstmap_linkage_map(genotype_matrix: np.ndarray, marker_info: pd.DataFr
                         f"放宽至下一个p.value重试|relaxing to next p.value")
 
     if accepted_rows is None:
+        if best_rows is None:
+            # 所有p.value均聚类出0标记: MSTmap完全无法把任何标记归入连锁群。
+            # 旧版在此处 f"{best_pvalue:.0e}" 对 None 格式化 → TypeError 崩溃(回归),
+            # 这里改为清晰失败退出, 与 main.py 中"RF过滤后无标记"的处理保持一致。
+            # |Every p.value placed 0 markers: MSTmap could not assign any marker to a
+            # linkage group. The old code crashed here with TypeError on f"{None:.0e}";
+            # fail cleanly instead, consistent with main.py's no-markers handling.
+            logger.error(
+                f"MSTmap自动调优失败: 尝试的所有p.value"
+                f"({', '.join(f'{p:.0e}' for p in pvalue_sequence)}) "
+                f"均未聚类出任何标记|MSTmap auto-tuning failed: every p.value placed 0 "
+                f"markers. 请检查输入标记质量, 或改用 physical/estimate 模式|"
+                f"Check input marker quality or switch to physical/estimate map_mode"
+            )
+            sys.exit(1)
         # 所有p.value的核心LG都超目标, 用聚类最好(核心LG最少)的结果, 而非最宽松p.value。
         # No p.value met the target core LG count; use the best-clustering result.
         logger.warning(f"MSTmap自动调优: 所有p.value核心LG数均超过{max_lg_target}|"
