@@ -1,4 +1,19 @@
 
+## [1.28.0] - 2026-08-09
+
+### Added
+- `vcf2tree`（新模块，CLI `vcf2tree`）：VCF→系统发育树——SNP 转 IUPAC FASTA 对齐矩阵，再用 FastTree 或 IQ-TREE2 建树（默认 IQ-TREE2，ModelFinder + UFBoot 1000）；两步流程 + 断点续传。**注**：FastTree 后端尚未走 conda 包装（默认 IQ-TREE2 可用）
+- `cim`：`build_mstmap_linkage_map` 新增"核心 LG"判定（≥3 markers，排除孤立单标记）+ "最少核心 LG 优先"兜底
+
+### Changed
+- `cim`：`_calc_pairwise_rf_matrix` 由 O(n²) 循环重构为矩阵向量化；RF 均值分母从固定 `n-1` 改为"实际有效配对数"（修 bug，仅当存在无共同样本的标记对时结果不同）；plink/bcftools 改 `build_conda_command` 包装
+- `filter_snp_indel`：所有 bcftools 调用 `shell=True`→`shell=False`+conda 包装；删死码（注释旧方法 + 零调用方方法，过滤逻辑逐字保留）；`bcftools_path` 走 `get_tool_path`；默认线程 64→12
+
+### Fixed
+- `cim`：R/qtl `est.map` bug——`est.map()` 返回 list，旧代码 `cross <- est.map(...)` 覆盖 cross 对象致后续 `calc.genoprob/cim` 崩溃，改 `replace.map(cross, newmap)`（`map_mode=estimate` 此前基本跑不通）
+- `cim`：`keep_sample_mask` 应用时机从 `save_filtered_vcf` 之后移到之前（旧顺序保存的过滤 VCF 带已丢弃的全缺失样本）
+- `filter_snp_indel`：`--no-snp-biallelic` 帮助文案中英文自相矛盾（"不禁用" vs "Do not"）→ 改为"禁用|Disable"；删从未接通到 config 的死参数 `--log-file`
+
 ## [1.27.1] - 2026-08-06
 
 ### Fixed
