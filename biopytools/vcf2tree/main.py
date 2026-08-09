@@ -7,7 +7,10 @@ import sys
 from pathlib import Path
 
 from .config import Vcf2TreeConfig
-from .utils import Vcf2TreeLogger, CommandRunner, check_dependencies
+from .utils import (
+    Vcf2TreeLogger, CommandRunner, check_dependencies,
+    generate_software_versions_yml,
+)
 from .vcf_converter import VcfToFastaConverter
 from .fasttree_builder import FastTreeBuilder
 from .iqtree_builder import IqtreeBuilder
@@ -88,6 +91,9 @@ class Vcf2TreeRunner:
                         f"建树失败|Tree building failed ({self.config.method})"
                     )
 
+            # 记录软件版本信息(§12.5)|Record software versions (§12.5)
+            generate_software_versions_yml(self.config, self.logger)
+
             # 完成|Complete
             self.logger.info("=" * 60)
             self.logger.info(
@@ -153,7 +159,7 @@ def main():
 
     # FastTree参数|FastTree parameters
     fasttree_group = parser.add_argument_group('FastTree参数|FastTree parameters')
-    fasttree_group.add_argument('--fasttree-path', default='fasttree',
+    fasttree_group.add_argument('--fasttree-path', default='~/.local/bin/FastTree',
                                help='FastTree软件路径|FastTree software path')
     fasttree_group.add_argument('--fasttree-params', default='',
                                help='FastTree额外参数|Additional FastTree parameters')
@@ -166,6 +172,8 @@ def main():
                              help='IQ-TREE UFBoot重复次数|IQ-TREE UFBoot replicates')
     iqtree_group.add_argument('--iqtree-model', default=None,
                              help='IQ-TREE进化模型(默认ModelFinder自动)|IQ-TREE model (default: ModelFinder)')
+    iqtree_group.add_argument('--no-asc', action='store_true',
+                             help='关闭SNP数据的ASC校正(默认开启)|Disable ASC correction for SNP data (on by default)')
 
     args = parser.parse_args()
 
@@ -183,10 +191,11 @@ def main():
     )
 
     if args.iqtree_path:
-        from .config import _expand_path
-        kwargs['iqtree_path'] = _expand_path(args.iqtree_path)
+        from ..common.paths import expand_path
+        kwargs['iqtree_path'] = expand_path(args.iqtree_path)
     if args.iqtree_model:
         kwargs['iqtree_model'] = args.iqtree_model
+    kwargs['iqtree_asc'] = not args.no_asc
 
     runner = Vcf2TreeRunner(**kwargs)
     runner.run_pipeline()

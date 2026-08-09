@@ -45,15 +45,27 @@ class IqtreeBuilder:
         args.append('--quiet')
 
         # 模型选择|Model selection
+        # SNP对齐仅含可变位点(无恒定位点), 需ASC校正(Lewis 2001)避免分支长度低估。
+        # 默认iqtree_asc=True时, 若模型名未含ASC则追加+ASC; 用户显式指定模型时同样适用。
+        # |SNP alignments have only variable sites (no invariant sites); ASC correction
+        # (Lewis 2001) is needed to avoid underestimated branch lengths. When
+        # iqtree_asc=True (default), append +ASC unless the model already specifies ASC.
         if self.config.iqtree_model:
-            args.extend(['-m', self.config.iqtree_model])
+            model = self.config.iqtree_model
+        else:
+            model = 'MFP'
+
+        if self.config.iqtree_asc and 'ASC' not in model.upper():
+            model = model + '+ASC'
+
+        args.extend(['-m', model])
+        if self.config.iqtree_model:
             self.logger.info(
-                f"使用指定模型|Using specified model: {self.config.iqtree_model}"
+                f"使用指定模型|Using specified model: {model}"
             )
         else:
-            args.extend(['-m', 'MFP'])
             self.logger.info(
-                "使用自动模型选择|Using automatic model selection (ModelFinder)"
+                f"使用自动模型选择(+ASC校正)|Automatic model selection with ASC: {model}"
             )
 
         # UFBoot|UFBoot

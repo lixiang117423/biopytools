@@ -7,6 +7,7 @@ VCF转FASTA转换器|VCF to FASTA Converter
 
 import gzip
 import os
+from array import array
 
 
 # IUPAC核酸模糊代码字典|IUPAC nucleotide ambiguity code dictionary
@@ -32,6 +33,12 @@ def get_iupac_code(ref: str, alt: str, genotype: str) -> str:
     Returns:
         单字符IUPAC编码|Single IUPAC character
     """
+    # 入口统一大写: IUPAC_CODES仅含大写键, 小写ref/alt会被误判为N(缺失)。
+    # |Normalize to uppercase at entry: IUPAC_CODES has only uppercase keys; lowercase
+    # ref/alt would otherwise be misclassified as N (missing).
+    ref = ref.upper()
+    alt = alt.upper()
+
     if genotype in ("./.", ".|."):
         return "N"
 
@@ -121,8 +128,12 @@ class VcfToFastaConverter:
                 f"最小样本数已调整为|Min samples adjusted to: {num_samples}"
             )
 
-        # 初始化序列字典|Initialize sequence dictionary
-        sequences = {name: [] for name in sample_names}
+        # 初始化序列字典: 用array('u')存单字符, 避免list存单字符的指针开销。
+        # 50样本×1M SNP时, list≈指针8B×N(且无紧凑布局), array('u')为紧凑4B/字符。
+        # |Init sequence dict with array('u') for single chars, avoiding the per-element
+        # pointer overhead of a list. At 50 samples x 1M SNPs a list holds ~8B/elem pointers
+        # with no compact layout; array('u') stores 4B/char compactly.
+        sequences = {name: array('u') for name in sample_names}
 
         # 统计|Counters
         total_snps = 0
@@ -187,7 +198,7 @@ class VcfToFastaConverter:
         # 写入FASTA文件|Write FASTA file
         with open(self.config.snps_fa, 'w') as f:
             for name in sample_names:
-                seq = ''.join(sequences[name])
+                seq = sequences[name].tounicode()
                 if len(seq) > 0:
                     f.write(f">{name}\n")
                     # 每行最多80字符|Max 80 chars per line

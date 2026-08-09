@@ -2,8 +2,9 @@
 FastTree建树模块|FastTree Tree Building Module
 """
 
-import shutil
 import subprocess
+
+from .utils import build_conda_command
 
 
 class FastTreeBuilder:
@@ -30,17 +31,18 @@ class FastTreeBuilder:
         )
         self.logger.info("=" * 60)
 
-        fasttree_bin = shutil.which(self.config.fasttree_path)
-        if not fasttree_bin:
-            fasttree_bin = self.config.fasttree_path
-
-        # 构建命令：fasttree -nt alignment.fa > tree.nwk
-        # FastTree 输出到stdout|FastTree outputs to stdout
-        cmd = [fasttree_bin, '-nt', str(self.config.snps_fa)]
+        # 构建参数: fasttree -nt alignment.fa > tree.nwk
+        # FastTree 始终把树写到stdout(从不写stderr)
+        # |FastTree always writes the tree to stdout (never to stderr)
+        args = ['-nt', str(self.config.snps_fa)]
 
         # 添加额外参数|Add extra params
         if self.config.fasttree_params:
-            cmd.extend(self.config.fasttree_params.split())
+            args.extend(self.config.fasttree_params.split())
+
+        # 经build_conda_command包装(与IQ-TREE一致): 在conda env则conda run, 否则直调
+        # |Wrap via build_conda_command (same as IQ-TREE): conda run if in an env, else direct
+        cmd = build_conda_command(self.config.fasttree_path, args)
 
         # 记录命令|Log command
         self.logger.info(f"执行|Executing: FastTree建树|FastTree tree building")
@@ -59,18 +61,19 @@ class FastTreeBuilder:
                 cwd=self.config.step2_dir
             )
 
-            # FastTree 将树输出到stdout|FastTree outputs tree to stdout
+            # FastTree 始终把Newick树写到stdout; stderr只有进度文本, 绝不是树。
+            # 旧版在stdout为空时误把stderr当树, 会把进度文本误判为有效Newick, 此处移除该fallback。
+            # |FastTree always writes the Newick tree to stdout; stderr holds only progress
+            # text, never a tree. The old code mistook stderr for a tree when stdout was empty
+            # (misreading progress text as valid Newick); that fallback is removed here.
             tree_output = result.stdout.strip()
-            if not tree_output:
-                # 某些版本输出到stderr|Some versions output to stderr
-                tree_output = result.stderr.strip()
 
             if not tree_output or not tree_output.endswith(';'):
                 self.logger.error(
-                    "FastTree输出不是有效的Newick格式|"
-                    "FastTree output is not valid Newick format"
+                    "FastTree未输出有效的Newick树(stdout为空)|"
+                    "FastTree produced no valid Newick tree (empty stdout)"
                 )
-                self.logger.debug(f"输出内容|Output content: {repr(tree_output)}")
+                self.logger.debug(f"stdout: {repr(result.stdout)}")
                 return False
 
             with open(self.config.tree_nwk, 'w') as f:
@@ -80,7 +83,7 @@ class FastTreeBuilder:
                 f"系统发育树已保存|Phylogenetic tree saved: {self.config.tree_nwk}"
             )
 
-            # 报告关键统计|Report key stats from stderr
+            # 报告关键统计(从stderr读取进度信息)|Report key stats from stderr
             if result.stderr:
                 for line in result.stderr.strip().split('\n'):
                     if any(kw in line for kw in ['Score', 'Rates', 'ML', 'Length']):
@@ -94,5 +97,7 @@ class FastTreeBuilder:
                 self.logger.error(f"错误信息|Error message: {e.stderr}")
             return False
         except FileNotFoundError:
-            self.logger.error(f"FastTree未找到|FastTree not found: {fasttree_bin}")
+            self.logger.error(
+                f"FastTree未找到|FastTree not found: {self.config.fasttree_path}"
+            )
             return False

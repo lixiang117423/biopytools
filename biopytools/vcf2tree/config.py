@@ -7,17 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
-
-def _expand_path(path: str) -> str:
-    """展开路径中的~和环境变量|Expand ~ and environment variables in path
-
-    本地实现避免导入common.paths（其中import yaml可能挂起）
-    |Local implementation to avoid importing common.paths (yaml import may hang)
-    """
-    expanded = os.path.expandvars(os.path.expanduser(path))
-    if '/' not in expanded and '.' not in expanded:
-        return expanded
-    return os.path.abspath(expanded)
+from ..common.paths import expand_path
 
 
 @dataclass
@@ -41,7 +31,11 @@ class Vcf2TreeConfig:
     outgroup: str = ""
 
     # FastTree参数|FastTree parameters
-    fasttree_path: str = 'fasttree'
+    # 默认指向~/.local/bin/FastTree(静态二进制, 不在conda env则直调)。
+    # 严禁裸名'fasttree'靠PATH: conda env未激活时FileNotFoundError。
+    # |Default to ~/.local/bin/FastTree (static binary; direct call if not in a conda env).
+    # Never rely on a bare 'fasttree' via PATH: FileNotFoundError when no env is active.
+    fasttree_path: str = '~/.local/bin/FastTree'
     fasttree_params: str = ''
 
     # IQ-TREE参数|IQ-TREE parameters
@@ -50,6 +44,10 @@ class Vcf2TreeConfig:
     iqtree_path: str = '~/miniforge3/envs/iqtree_v.3.0.1/bin/iqtree'
     iqtree_bootstrap: int = 1000
     iqtree_model: Optional[str] = None  # None = ModelFinder auto
+    # ASC校正: SNP数据仅含可变位点(无恒定位点), 默认开启+ASC校正避免分支长度低估。
+    # |ASC correction: SNP data has only variable sites (no invariant sites); +ASC is on
+    # by default to avoid underestimated branch lengths.
+    iqtree_asc: bool = True
 
     # 内部属性|Internal attributes
     base_name: str = 'variants'
@@ -57,8 +55,8 @@ class Vcf2TreeConfig:
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
         # 展开工具路径|Expand tool paths
-        self.fasttree_path = _expand_path(self.fasttree_path)
-        self.iqtree_path = _expand_path(self.iqtree_path)
+        self.fasttree_path = expand_path(self.fasttree_path)
+        self.iqtree_path = expand_path(self.iqtree_path)
 
         # 创建输出目录|Create output directories
         self.output_path = Path(self.output_dir)

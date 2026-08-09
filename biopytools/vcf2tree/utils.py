@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
 
@@ -147,15 +148,91 @@ class CommandRunner:
             return False
 
 
+def _probe_version(cmd: list, timeout: int = 15) -> str:
+    """尽力探测工具版本(失败返回'unknown'), 绝不抛异常。
+    |Best-effort version probe (returns 'unknown' on failure); never raises."""
+    try:
+        result = subprocess.run(
+            cmd, capture_output=True, text=True, timeout=timeout,
+            stderr=subprocess.STDOUT,
+        )
+        combined = (result.stdout or '') + (result.stderr or '')
+        # 取首个非空行作为版本信息|first non-empty line as version info
+        for line in combined.splitlines():
+            line = line.strip()
+            if line:
+                return line
+        return 'unknown'
+    except Exception:
+        return 'unknown'
+
+
+def generate_software_versions_yml(config, logger) -> None:
+    """生成00_pipeline_info/software_versions.yml(纯文本, 不依赖yaml包)。
+    |Generate 00_pipeline_info/software_versions.yml as plain text (no yaml dependency).
+
+    §12.5合规: 文件名不含版本号, 版本信息集中记录到yml。
+    |§12.5 compliance: no version in filenames; record versions centrally in yml.
+    """
+    try:
+        # 探测建树工具版本|probe tree-tool version
+        if config.method == 'fasttree':
+            tool_name = 'fasttree'
+            tool_path = config.fasttree_path
+            probe_cmd = build_conda_command(tool_path, [])
+        else:
+            tool_name = 'iqtree'
+            tool_path = config.iqtree_path
+            probe_cmd = build_conda_command(tool_path, ['--version'])
+        version = _probe_version(probe_cmd)
+
+        params = [
+            ('method', config.method),
+            ('threads', config.threads),
+            ('min_samples_locus', config.min_samples_locus),
+            ('outgroup', config.outgroup or '(none)'),
+        ]
+        if config.method == 'fasttree':
+            params.append(('fasttree_params', config.fasttree_params or '(none)'))
+        else:
+            params.append(('iqtree_model', config.iqtree_model or 'MFP(auto)'))
+            params.append(('iqtree_bootstrap', config.iqtree_bootstrap))
+            params.append(('iqtree_asc', config.iqtree_asc))
+
+        lines = [
+            '# 00_pipeline_info/software_versions.yml',
+            'pipeline:',
+            '  name: "biopytools vcf2tree"',
+            '  version: "1.0.0"',
+            f'  generated: "{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}"',
+            'tools:',
+            f'  {tool_name}:',
+            f'    version: "{version}"',
+            f'    path: "{tool_path}"',
+            'parameters:',
+        ]
+        for k, v in params:
+            lines.append(f'  {k}: {v}')
+
+        out_file = Path(config.info_dir) / 'software_versions.yml'
+        out_file.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+        logger.info(f"版本信息已保存|Software versions saved: {out_file}")
+    except Exception as e:
+        # 版本记录为辅助信息, 失败不影响主流程|version record is auxiliary; never break the run
+        logger.warning(f"生成software_versions.yml失败|Failed to write software_versions.yml: {e}")
+
+
 def check_dependencies(config, logger) -> bool:
     """检查依赖软件|Check dependencies"""
     logger.info("检查依赖软件|Checking dependencies")
 
     if config.method == 'fasttree':
-        # FastTree: 直接调用检查|FastTree: direct call check
+        # FastTree: 经build_conda_command包装检查(与IQ-TREE一致)
+        # |FastTree: check via build_conda_command (same as IQ-TREE)
         try:
+            cmd = build_conda_command(config.fasttree_path, [])
             result = subprocess.run(
-                [config.fasttree_path],
+                cmd,
                 capture_output=True, text=True, timeout=10
             )
             combined = (result.stdout or '') + (result.stderr or '')

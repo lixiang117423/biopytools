@@ -69,7 +69,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='位点最少样本数|Minimum samples per locus')
 @click.option('--fasttree-path',
-              default='fasttree',
+              default='~/.local/bin/FastTree',
               show_default=True,
               help='FastTree软件路径|FastTree software path')
 @click.option('--fasttree-params',
@@ -87,9 +87,13 @@ def _validate_file_exists(file_path):
 @click.option('--iqtree-model',
               default=None,
               help='IQ-TREE模型(默认ModelFinder)|IQ-TREE model (default: ModelFinder)')
+@click.option('--no-asc',
+              is_flag=True,
+              default=False,
+              help='关闭SNP数据的ASC校正(默认开启)|Disable ASC correction for SNP data (on by default)')
 def vcf2tree(input, method, output_dir, threads, outgroup, min_samples_locus,
              fasttree_path, fasttree_params, iqtree_path,
-             iqtree_bootstrap, iqtree_model):
+             iqtree_bootstrap, iqtree_model, no_asc):
     """
     VCF转系统发育树工具|VCF to Phylogenetic Tree Tool
 
@@ -114,7 +118,7 @@ def vcf2tree(input, method, output_dir, threads, outgroup, min_samples_locus,
         args.extend(['-g', outgroup])
     if min_samples_locus != 4:
         args.extend(['--min-samples-locus', str(min_samples_locus)])
-    if fasttree_path != 'fasttree':
+    if fasttree_path != '~/.local/bin/FastTree':
         args.extend(['--fasttree-path', fasttree_path])
     if fasttree_params:
         args.extend(['--fasttree-params', fasttree_params])
@@ -124,6 +128,8 @@ def vcf2tree(input, method, output_dir, threads, outgroup, min_samples_locus,
         args.extend(['--iqtree-bootstrap', str(iqtree_bootstrap)])
     if iqtree_model:
         args.extend(['--iqtree-model', iqtree_model])
+    if no_asc:
+        args.extend(['--no-asc'])
 
     original_argv = sys.argv
     sys.argv = args
