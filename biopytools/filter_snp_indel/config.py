@@ -3,9 +3,11 @@ VCF过滤配置管理模块|VCF Filtering Configuration Management Module
 """
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+from ..common.paths import get_tool_path, expand_path
 
 
 @dataclass
@@ -17,8 +19,10 @@ class FilterConfig:
     output_dir: str = './filtered_vcf'
 
     # 通用参数|General parameters
-    threads: int = 64
-    bcftools_path: str = 'bcftools'
+    threads: int = 12
+    bcftools_path: str = field(
+        default_factory=lambda: get_tool_path('bcftools', 'bcftools', 'BCFTOOLS_PATH')
+    )
     variant_type: str = 'both'  # 变异类型|Variant type: 'both', 'snp_only', 'indel_only'
 
     # SNP过滤参数 (根据文献常用值设置)|SNP filtering parameters (based on literature)
@@ -57,10 +61,16 @@ class FilterConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
+        # 展开路径中的~和环境变量(关键:Python不会自动展开~;abspath也不展开)|
+        # Expand ~ and env vars (critical: Python/abspath do NOT auto-expand ~)
+        self.vcf_file = expand_path(self.vcf_file)
+        self.output_dir = expand_path(self.output_dir)
+        self.bcftools_path = expand_path(self.bcftools_path)
+
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
 
-        # 标准化路径|Normalize paths
+        # 标准化为绝对路径(便于日志记录与可重复性)|Normalize to absolute paths
         self.vcf_file = os.path.normpath(os.path.abspath(self.vcf_file))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
 

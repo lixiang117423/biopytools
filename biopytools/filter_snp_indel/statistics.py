@@ -5,6 +5,8 @@ VCF统计模块|VCF Statistics Module
 import subprocess
 from pathlib import Path
 
+from .utils import build_conda_command
+
 
 class VCFStatistics:
     """VCF文件统计器|VCF File Statistics"""
@@ -34,24 +36,32 @@ class VCFStatistics:
             # 构建文件的完整路径|Construct the full path to the file
             full_vcf_path = self.config.output_path / vcf_file_name
 
-            # 在执行命令前，先检查文件是否存在，增加健壮性
+            # 在执行命令前,先检查文件是否存在,增加健壮性
             # Check file existence before executing command for robustness
             if not full_vcf_path.exists():
                 self.logger.warning(f"统计时文件未找到|File not found during statistics: {full_vcf_path}")
                 return 0
 
-            # 使用文件的完整路径执行命令|Execute command with full file path
-            cmd = f"{self.config.bcftools_path} view -H {full_vcf_path}|wc -l"
-
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                capture_output=True,
-                text=True,
-                check=True
+            # 流式计数: bcftools view -H | wc -l
+            # 用Popen管道避免shell=True与内存堆积; bcftools经conda包装, wc为系统命令(非conda run|conda run)
+            # Stream count via Popen pipe (no shell=True, no in-memory buffering)
+            view_cmd = build_conda_command(
+                self.config.bcftools_path, ["view", "-H", str(full_vcf_path)]
             )
-            count = int(result.stdout.strip())
-            return count
+            wc_cmd = ["wc", "-l"]
+            self.logger.info(f"命令|Command: {' '.join(view_cmd)} | {' '.join(wc_cmd)}")
+
+            p1 = subprocess.Popen(view_cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+            p2 = subprocess.Popen(wc_cmd, stdin=p1.stdout, stdout=subprocess.PIPE, text=True)
+            p1.stdout.close()  # 让p1在p2提前退出时收到SIGPIPE|Allow SIGPIPE if p2 exits early
+            out, _ = p2.communicate()
+            p1_returncode = p1.wait()
+
+            if p1_returncode != 0:
+                self.logger.error(f"统计命令失败|Count command failed for {vcf_file_name}")
+                return 0
+
+            return int(out.strip())
         except Exception as e:
             self.logger.error(f"统计失败|Count failed for file {vcf_file_name}: {e}")
             return 0

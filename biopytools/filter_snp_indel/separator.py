@@ -4,6 +4,9 @@ VCF分离器模块|VCF Separator Module
 
 from pathlib import Path
 
+from .utils import build_conda_command
+
+
 class VCFSeparator:
     """VCF文件分离器 - 分离SNP和INDEL|VCF File Separator - Separate SNPs and INDELs"""
     
@@ -30,13 +33,14 @@ class VCFSeparator:
 
         # 提取SNP|Extract SNPs
         if self.config.variant_type in ['both', 'snp_only']:
-            snp_cmd = (
-                f"{self.config.bcftools_path} view "
-                f"--types snps "
-                f"--threads {self.config.threads} "
-                f"-Oz -o {self.raw_snp_file} "
-                f"{self.config.vcf_file}"
-            )
+            snp_args = [
+                "view",
+                "--types", "snps",
+                "--threads", str(self.config.threads),
+                "-Oz", "-o", str(self.raw_snp_file),
+                str(self.config.vcf_file),
+            ]
+            snp_cmd = build_conda_command(self.config.bcftools_path, snp_args)
 
             if not self.cmd_runner.run(snp_cmd, "提取SNP变异|Extracting SNP variants"):
                 return False
@@ -46,13 +50,14 @@ class VCFSeparator:
 
         # 提取INDEL|Extract INDELs
         if self.config.variant_type in ['both', 'indel_only']:
-            indel_cmd = (
-                f"{self.config.bcftools_path} view "
-                f"--types indels "
-                f"--threads {self.config.threads} "
-                f"-Oz -o {self.raw_indel_file} "
-                f"{self.config.vcf_file}"
-            )
+            indel_args = [
+                "view",
+                "--types", "indels",
+                "--threads", str(self.config.threads),
+                "-Oz", "-o", str(self.raw_indel_file),
+                str(self.config.vcf_file),
+            ]
+            indel_cmd = build_conda_command(self.config.bcftools_path, indel_args)
 
             if not self.cmd_runner.run(indel_cmd, "提取INDEL变异|Extracting INDEL variants"):
                 return False
@@ -64,7 +69,8 @@ class VCFSeparator:
         if files_to_index:
             self.logger.info("创建VCF索引|Creating VCF index")
             for vcf_file in files_to_index:
-                index_cmd = f"{self.config.bcftools_path} index -f {vcf_file}"
+                index_args = ["index", "-f", str(vcf_file)]
+                index_cmd = build_conda_command(self.config.bcftools_path, index_args)
                 if not self.cmd_runner.run(index_cmd, f"索引文件|Indexing {vcf_file.name}"):
                     return False
 

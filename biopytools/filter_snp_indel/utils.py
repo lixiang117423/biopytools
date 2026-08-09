@@ -3,9 +3,62 @@ VCF过滤工具函数模块|VCF Filtering Utility Functions Module
 """
 
 import logging
+import os
+import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
+from typing import List, Optional
+
+
+def get_conda_env(command: str) -> Optional[str]:
+    """检测命令是否在conda环境中,返回环境名称|Detect conda env of a command
+
+    Args:
+        command: 命令名称或路径|Command name or path
+
+    Returns:
+        conda环境名称或None|Conda environment name or None
+    """
+    cmd_path = shutil.which(command)
+    if cmd_path:
+        match = re.search(r'/envs/([^/]+)', cmd_path)
+        if match:
+            return match.group(1)
+
+    conda_base = os.environ.get('CONDA_EXE')
+    if conda_base:
+        conda_base_dir = os.path.dirname(os.path.dirname(conda_base))
+        envs_dir = os.path.join(conda_base_dir, 'envs')
+        if os.path.exists(envs_dir):
+            for env_name in os.listdir(envs_dir):
+                env_bin = os.path.join(envs_dir, env_name, 'bin', command)
+                if os.path.exists(env_bin):
+                    return env_name
+
+    return None
+
+
+def build_conda_command(command: str, args: List[str]) -> List[str]:
+    """构建conda run命令来运行conda环境中的软件|Build conda run command for conda env software
+
+    Args:
+        command: 命令名称或完整路径(建议传完整路径以正确检测env)|Command name or full path (full path recommended)
+        args: 命令参数列表|Command argument list
+
+    Returns:
+        完整命令列表(配合subprocess.run(shell=False))|Complete command list (use with subprocess.run(shell=False))
+
+    Note:
+        必须使用--no-capture-output避免conda缓冲输出导致大数据内存溢出
+        |Must use --no-capture-output to avoid conda buffering output causing OOM
+    """
+    conda_env = get_conda_env(command)
+    if conda_env:
+        return ['conda', 'run', '-n', conda_env, '--no-capture-output', command] + args
+    else:
+        return [command] + args
 
 
 class FilterLogger:
@@ -88,12 +141,12 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir.resolve()
 
-    def run(self, cmd: str, description: str = "") -> bool:
+    def run(self, cmd: List[str], description: str = "") -> bool:
         """
         执行命令|Execute command
 
         Args:
-            cmd: 命令字符串|Command string
+            cmd: 命令列表(由build_conda_command()构建,配合shell=False)|Command list (built by build_conda_command(), used with shell=False)
             description: 步骤描述|Step description
 
         Returns:
@@ -102,12 +155,13 @@ class CommandRunner:
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
 
-        self.logger.info(f"命令|Command: {cmd}")
+        # 记录完整命令到INFO级(可重复性/论文Methods)|Log full command at INFO (reproducibility)
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
         try:
             result = subprocess.run(
                 cmd,
-                shell=True,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True,
@@ -142,8 +196,9 @@ def check_dependencies(config, logger):
     logger.info("检查依赖软件|Checking dependencies")
 
     try:
-        result = subprocess.run([config.bcftools_path, "--version"],
-                              capture_output=True, text=True, timeout=10)
+        cmd = build_conda_command(config.bcftools_path, ["--version"])
+        logger.info(f"命令|Command: {' '.join(cmd)}")
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
         if result.returncode == 0:
             logger.info(f"BCFtools可用|BCFtools available")
             return True

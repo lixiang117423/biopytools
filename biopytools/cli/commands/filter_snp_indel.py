@@ -155,8 +155,6 @@ def _validate_file_exists(file_path):
               help='静默模式(仅输出ERROR)|Quiet mode (ERROR only)')
 @click.option('--log-level',
               help='日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)|Log level')
-@click.option('--log-file',
-              help='日志文件路径|Log file path')
 @click.option('--force', '-f',
               is_flag=True,
               help='强制覆盖已存在文件|Force overwrite existing files')
@@ -172,7 +170,7 @@ def filter_snp_indel(input, output_dir, threads,
                      indel_qual, indel_dp, indel_mq, indel_qd, indel_fs, indel_sor, indel_rprs,
                      variant_type,
                      bcftools_path,
-                     verbose, quiet, log_level, log_file,
+                     verbose, quiet, log_level,
                      force, dry_run, repair_vcf):
     """
     VCF SNP/INDEL过滤工具|VCF SNP/INDEL Filtering Tool
@@ -192,8 +190,7 @@ def filter_snp_indel(input, output_dir, threads,
     # 输出控制|Output control
     if output_dir != './filtered_vcf':
         args.extend(['-o', output_dir])
-    if threads != 64:
-        args.extend(['-t', str(threads)])
+    args.extend(['-t', str(threads)])
 
     # SNP过滤参数|SNP filtering parameters
     if snp_qual != 30.0:
@@ -252,9 +249,6 @@ def filter_snp_indel(input, output_dir, threads,
 
     if log_level:
         args.extend(['--log-level', log_level])
-
-    if log_file:
-        args.extend(['--log-file', log_file])
 
     if force:
         args.extend(['--force'])

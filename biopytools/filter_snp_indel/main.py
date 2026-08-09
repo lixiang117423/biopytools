@@ -127,7 +127,7 @@ class VCFFilterAnalyzer:
 
         except Exception as e:
             self.logger.error(f"分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}")
-            sys.exit(1)
+            raise
 
 
 def main():
@@ -150,8 +150,8 @@ def main():
     # 可选参数|Optional arguments
     parser.add_argument('-o', '--output-dir', default='./filtered_vcf', dest='output_dir',
                        help='输出目录|Output directory (default: ./filtered_vcf)')
-    parser.add_argument('-t', '--threads', type=int, default=64,
-                       help='线程数|Number of threads (default: 64)')
+    parser.add_argument('-t', '--threads', type=int, default=12,
+                       help='线程数|Number of threads (default: 12)')
 
     # 变异类型参数|Variant type parameter
     parser.add_argument('--variant-type', dest='variant_type',
@@ -182,7 +182,7 @@ def main():
     snp_group.add_argument('--snp-biallelic', action='store_true', default=True,
                           help='只保留双等位位点SNP|Keep only biallelic SNPs (default: True)')
     snp_group.add_argument('--no-snp-biallelic', action='store_false', dest='snp_biallelic',
-                          help='不禁用双等位点过滤|Do not filter for biallelic sites')
+                          help='禁用双等位位点过滤|Disable biallelic filtering')
 
     # INDEL过滤参数|INDEL filtering parameters
     indel_group = parser.add_argument_group('INDEL过滤参数|INDEL Filtering Parameters')
@@ -213,8 +213,6 @@ def main():
                           help="静默模式(只输出ERROR)|Quiet mode (ERROR only)")
     log_group.add_argument("--log-level",
                           help="日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)|Log level (default: INFO)")
-    log_group.add_argument("--log-file",
-                          help="日志文件路径|Log file path")
 
     # 执行控制|Execution control
     exec_group = parser.add_argument_group('执行选项|Execution options')
