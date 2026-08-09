@@ -1,4 +1,13 @@
 
+## [1.28.1] - 2026-08-09
+
+### Fixed
+- `vcf2tree`：FastTree 后端改走 `build_conda_command`（默认 `~/.local/bin/FastTree`，原裸 `'fasttree'` 靠 PATH，conda env 未激活则 `FileNotFoundError`）；移除 stdout 空时误读 stderr 当 Newick 的 fallback（FastTree 从不把树写到 stderr）
+- `vcf2tree`：`get_iupac_code` 入口统一 `ref/alt.upper()`（原仅大写键，小写 ref/alt 被误判为缺失 N）；序列存储 `list`→`array('u')`（50 样本×1M SNP 内存从 ~2.5GB 降到 ~200MB）
+- `vcf2tree`：IQ-TREE 默认开启 SNP 数据 ASC 校正（`-m MFP+ASC`，Lewis 2001，避免分支长度低估），加 `--no-asc` 开关；补 `00_pipeline_info/software_versions.yml`；`expand_path` 改用 `common.paths`（删本地实现）
+- `cim`：MSTmap 自动调优全部 p.value 无标记时 `best_pvalue=None` → `f"{None:.0e}"` TypeError 崩溃（v1.28.0 引入的回归），改为清晰 `sys.exit(1)` 报错
+- `filter_snp_indel`：`FilterLogger` 补 `propagate=False`（避免向 root 重复输出，既有问题）
+
 ## [1.28.0] - 2026-08-09
 
 ### Added
