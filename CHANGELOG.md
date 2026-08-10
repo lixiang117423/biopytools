@@ -1,4 +1,9 @@
 
+## [1.28.2] - 2026-08-10
+
+### Removed
+- `cim`：移除 `fixGenoError` 基因型纠错步骤——删除 `fix_geno_error` 函数、`config.fix_geno_error_size` 字段、`--fix-geno-error-size` CLI/argparse 选项、`Step 3.5` 调用块。该步骤原默认开启（fix_size=10），移除后 CIM 流程不再做 RLE 短片段基因型纠错，标记基因型与下游 CIM 结果可能略有差异
+
 ## [1.28.1] - 2026-08-09
 
 ### Fixed
