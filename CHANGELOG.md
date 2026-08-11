@@ -1,4 +1,16 @@
 
+## [1.29.0] - 2026-08-11
+
+### Added
+- `selective_sweep`（新模块，CLI `selective-sweep`）：选择性扫荡检测——VCF 过滤（双等位 SNP + MAF + 缺失率）→ 群体拆分 → 每群体 π / Tajima's D / RAiSD μ / SweeD CLR + 两两 Weir-Cockerham Fst → composite_score（各分量经验百分位均值）→ top 分位数候选窗口合并输出。支持断点续传、低样本群体默认排除 MU/CLR 分量（`--include-mu-low-n`/`--include-sweed-low-n` 可强制加入）、`.gz` 输入、`00_pipeline_info/software_versions.yml`、`tmp/` 中间文件清理
+
+### Changed
+- `cim`：`CommandRunner` 由 `subprocess.run` 改为 `Popen` + `start_new_session=True`，并注册 SIGTERM 处理；用户中断（Ctrl-C）/ 超时 / 作业调度取消（SIGTERM）时整组杀掉子进程（含 sh/conda/Rscript 全部后代），消除超算孤儿进程
+
+### Fixed
+- `deepbsa`：`vcf2csv` 支持 `.gz` 输入（`gzip.open(..., 'rt')`）；修复 `VCF` 迭代器首条记录丢失——`__init__` 已预读首条 `record`，原 `__next__` 首次调用直接读下一行致首条遗漏，加 `_first_yielded` 标志先返回已读记录
+- `vcf2tree`：`config.__post_init__` 路径标准化（`abspath`）提前到 `mkdir` 之前——原顺序下相对路径 `-o` 产生的 `snps_fa` 仍为相对路径，FastTree 以 `step2_dir` 为 cwd 时找不到文件
+
 ## [1.28.2] - 2026-08-10
 
 ### Removed
