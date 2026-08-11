@@ -8,6 +8,7 @@ CSV输出格式（无header）|CSV output format (no header):
     CHROM, POS, REF, ALT, AD_ref_s1, AD_alt_s1, AD_ref_s2, AD_alt_s2, ...
 """
 
+import gzip
 import os
 import sys
 import logging
@@ -45,7 +46,10 @@ class VCF:
 
     def __init__(self, vcf_path: str):
         self.header = []
-        self.reader = open(vcf_path, 'r')
+        if vcf_path.endswith('.gz'):
+            self.reader = gzip.open(vcf_path, 'rt')
+        else:
+            self.reader = open(vcf_path, 'r')
         self.line = self.reader.readline().strip()
         while self.line.startswith('#'):
             self.header.append(self.line)
@@ -54,11 +58,19 @@ class VCF:
             self.record = Record(self.line)
         else:
             self.record = None
+        self._first_yielded = False
 
     def __iter__(self):
         return self
 
     def __next__(self):
+        if not self._first_yielded:
+            self._first_yielded = True
+            if self.record is not None:
+                return self.record
+            else:
+                self.reader.close()
+                raise StopIteration()
         self.line = self.reader.readline().strip()
         if self.line:
             self.record = Record(self.line)
