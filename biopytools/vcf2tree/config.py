@@ -58,13 +58,15 @@ class Vcf2TreeConfig:
         self.fasttree_path = expand_path(self.fasttree_path)
         self.iqtree_path = expand_path(self.iqtree_path)
 
+        # 标准化路径|Normalize paths (must be BEFORE Path() to ensure absolute paths
+        # for all derived directories; otherwise relative -o produces relative snps_fa
+        # that FastTree can't find when cwd=step2_dir)
+        self.input_file = os.path.normpath(os.path.abspath(self.input_file))
+        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
         # 创建输出目录|Create output directories
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
-
-        # 标准化路径|Normalize paths
-        self.input_file = os.path.normpath(os.path.abspath(self.input_file))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
 
         # 提取基础名称|Extract base name from input
         input_basename = os.path.basename(self.input_file)
