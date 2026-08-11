@@ -229,6 +229,7 @@ COMMAND_REGISTRY = [
     ('predgpi', 'predgpi', 'PredGPI GPI锚定蛋白预测|PredGPI GPI-anchor prediction'),
     ('genome2sv', 'genome2sv', 'assembly-to-assembly SV calling (minimap2+svim-asm+SURVIVOR)|组装间结构变异检测'),
     ('vcf2pav', 'vcf2pav', 'VCF转PAV(Presence/Absence)矩阵|VCF to PAV (Presence/Absence) matrix'),
+    ('selective_sweep', 'selective-sweep', '选择性扫荡检测|Selective sweep detection'),
 ]
 
 # 将硬编码信息转换为字典，方便查询
