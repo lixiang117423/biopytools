@@ -1148,7 +1148,29 @@ def _build_cim_block(config: CIMConfig, label: str, output_dir: str) -> List[str
         '} else {',
         '    cat("  无孤立LG,无需过滤|No singleton LGs to remove\\n")',
         '}',
-        '',
+    ])
+
+    # 物理block专属: build_tidy_files写入的是Mb占位位置(注释"est.map will override"),
+    # 但mstmap模式原本没调est.map,导致Mb被当cM喂给cim(),window=10被当成10Mb,
+    # 协因子剔除窗口占整条染色体24%→协因子饥饿→LOD整体压低。
+    # 这里补est.map(),用真实重组率重估cM,使window/step与mstmap block同为真实cM尺度。
+    # Physical-block only: build_tidy_files writes Mb placeholders that mstmap mode never
+    # overrode with est.map, so Mb was fed to cim() as cM and window=10 read as 10Mb,
+    # starving cofactors and depressing LOD. Re-estimate real cM here so the physical
+    # block's window/step are on the same real-cM scale as the mstmap block.
+    if label == "physical":
+        lines.extend([
+            '# 物理位置重估为真实cM|Re-estimate physical positions into real cM',
+            '# (Mb占位值须由est.map覆盖,否则window=10被当成10Mb)|',
+            '# (Mb placeholders MUST be overridden by est.map, else window=10 reads as 10Mb)',
+            'cat("物理图谱重估遗传距离(est.map)...\\n")',
+            'newmap <- est.map(cross, error.prob=0.0001)',
+            'cross <- replace.map(cross, newmap)',
+            'cat("物理图谱重估完成|Physical map re-estimated to real cM\\n")',
+            '',
+        ])
+
+    lines.extend([
         '# 计算基因型概率|Calculate genotype probabilities',
         'cat("计算基因型概率...\\n")',
         'cross <- calc.genoprob(cross, step=' + str(step) + ', error.prob=0.0001)',
