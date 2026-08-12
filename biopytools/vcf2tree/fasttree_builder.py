@@ -31,6 +31,17 @@ class FastTreeBuilder:
         )
         self.logger.info("=" * 60)
 
+        # FastTree 不支持 ASC 校正: SNP 数据仅含可变位点(无恒定位点), 分支长度会
+        # 系统性低估。若需 ASC 校正, 请改用 IQ-TREE 后端(默认即开启 +ASC)。
+        # |FastTree has no ASC correction: SNP data holds only variable sites (no invariant
+        # sites), so branch lengths are systematically underestimated. Use the IQ-TREE
+        # backend (which enables +ASC by default) if ASC correction is required.
+        self.logger.warning(
+            "FastTree不支持ASC校正, SNP分支长度可能低估; 需ASC请用IQ-TREE后端|"
+            "FastTree lacks ASC correction; SNP branch lengths may be underestimated. "
+            "Use IQ-TREE backend if ASC is required"
+        )
+
         # 构建参数: fasttree -nt alignment.fa > tree.nwk
         # FastTree 始终把树写到stdout(从不写stderr)
         # |FastTree always writes the tree to stdout (never to stderr)

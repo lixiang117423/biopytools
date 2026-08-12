@@ -64,6 +64,16 @@ class Vcf2TreeRunner:
             )
             self.logger.info("=" * 60)
 
+            # 前提说明: 本工具不做 LD 剪枝和位点 QC, 假设输入 VCF 已完成质控。
+            # 紧密连锁的 SNP 非独立, 会影响基于"位点独立"假设的建树结果。
+            # |Prerequisite: this tool does NOT do LD pruning or site QC; the input VCF
+            # is assumed pre-filtered. Tightly linked SNPs are non-independent and affect
+            # tree inference that assumes independent sites.
+            self.logger.info(
+                "提示: 不做LD剪枝/位点QC, 假设输入VCF已质控|"
+                "Note: no LD pruning / site QC; input VCF assumed pre-filtered"
+            )
+
             # 检查依赖|Check dependencies
             check_dependencies(self.config, self.logger)
 
@@ -114,11 +124,15 @@ class Vcf2TreeRunner:
                 f"输出目录|Output directory: {self.config.output_dir}"
             )
 
-        except Exception as e:
-            self.logger.error(f"流程执行失败|Pipeline execution failed: {e}")
-            import traceback
-            self.logger.debug(traceback.format_exc())
-            sys.exit(1)
+        except Exception:
+            # 记录失败详情(含 traceback)后重新抛出, 由 CLI 层(main)决定退出码;
+            # 作为库调用时调用方可 try/except 捕获, 不会被 sys.exit 杀掉进程。
+            # |Log failure details (with traceback) then re-raise; the CLI layer (main)
+            # sets the exit code. Library callers can try/except without process kill.
+            self.logger.error(
+                "流程执行失败|Pipeline execution failed", exc_info=True
+            )
+            raise
 
 
 def main():
@@ -197,8 +211,16 @@ def main():
         kwargs['iqtree_model'] = args.iqtree_model
     kwargs['iqtree_asc'] = not args.no_asc
 
-    runner = Vcf2TreeRunner(**kwargs)
-    runner.run_pipeline()
+    # CLI 层捕获 run_pipeline 重新抛出的异常并转为非零退出码。
+    # run_pipeline 自身只记日志 + re-raise, 不再 sys.exit, 以保持库可用性。
+    # |CLI layer catches exceptions re-raised by run_pipeline and converts to a
+    # non-zero exit code. run_pipeline itself only logs + re-raises (no sys.exit),
+    # preserving library usability.
+    try:
+        runner = Vcf2TreeRunner(**kwargs)
+        runner.run_pipeline()
+    except Exception:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

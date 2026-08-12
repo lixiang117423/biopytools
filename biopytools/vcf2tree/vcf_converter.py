@@ -140,6 +140,7 @@ class VcfToFastaConverter:
         accepted_snps = 0
         skipped_multiallelic = 0
         skipped_missing = 0
+        skipped_indel = 0
 
         # 处理每个变异位点|Process each variant site
         with self._open_vcf() as f:
@@ -164,6 +165,7 @@ class VcfToFastaConverter:
 
                 # 仅处理单碱基SNP|Only single-base SNPs
                 if len(ref) != 1 or len(alt) != 1:
+                    skipped_indel += 1
                     continue
 
                 # 获取基因型字段|Get genotype fields
@@ -210,6 +212,9 @@ class VcfToFastaConverter:
         self.logger.info(f"通过筛选的SNP|Accepted SNPs: {accepted_snps}")
         self.logger.info(
             f"跳过多等位位点|Skipped multi-allelic: {skipped_multiallelic}"
+        )
+        self.logger.info(
+            f"跳过InDel/非单碱基|Skipped indel / non-single-base: {skipped_indel}"
         )
         self.logger.info(
             f"跳过样本不足位点|Skipped insufficient samples: {skipped_missing}"
