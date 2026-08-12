@@ -221,6 +221,7 @@ class HiCProConfig:
     # 流程控制参数|Process control parameters
     skip_existing: bool = True
     force_hicpro: bool = False
+    require_plothic: bool = True  # 仅在画热图时需要 plothic|Only required when plotting
 
     # 工具路径|Tool paths
     hicpro_path: str = field(
@@ -350,8 +351,8 @@ class HiCProConfig:
         if self.use_singularity and not os.path.exists(self.hicpro_sif):
             errors.append(f"HiCPro镜像不存在|HiCPro image not found: {self.hicpro_sif}")
 
-        # 检查plothic|Check plothic
-        if not os.path.exists(self.plothic_path):
+        # 检查plothic(仅 require_plothic=True 时)|Check plothic only when required
+        if self.require_plothic and not os.path.exists(self.plothic_path):
             errors.append(f"plothic不存在|plothic not found: {self.plothic_path}")
 
         if errors:

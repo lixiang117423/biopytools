@@ -23,34 +23,41 @@ class HiCProPipeline:
         self.config = config
         self.logger = logger or logging.getLogger(__name__)
 
-    def run(self):
-        """运行完整流程|Run complete pipeline
+    def run_hicpro_only(self):
+        """仅运行 HiC-Pro(准备配置 + 跑 HiC-Pro),不画热图|Run HiC-Pro only (no plotting)
+
+        供其他模块(如 centier)复用,无需 plothic。|Reusable by other modules without plothic.
 
         Returns:
             bool: 是否成功|Whether successful
         """
         try:
             self.logger.info("=" * 60)
-            self.logger.info("开始Hi-C热图分析流程 (HiCPro + PlotHiC)|Starting Hi-C heatmap analysis pipeline (HiCPro + PlotHiC)")
+            self.logger.info("开始 HiC-Pro 流程|Starting HiC-Pro pipeline")
             self.logger.info("=" * 60)
-
-            # 步骤1：准备HiCPro配置|Step 1: Prepare HiCPro config
             if not self._prepare_hicpro_config():
                 return False
-
-            # 步骤2：运行HiCPro|Step 2: Run HiCPro
             if not self._run_hicpro():
                 return False
+            self.logger.info("HiC-Pro 流程完成|HiC-Pro pipeline completed")
+            return True
+        except Exception as e:
+            self.logger.error(f"HiC-Pro 流程异常|HiC-Pro pipeline error: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
 
-            # 步骤3：绘制热图|Step 3: Plot heatmap
+    def run(self):
+        """运行完整流程(HiC-Pro + PlotHiC)|Run complete pipeline (HiC-Pro + PlotHiC)"""
+        try:
+            if not self.run_hicpro_only():
+                return False
             if not self._plot_heatmap():
                 return False
-
             self.logger.info("=" * 60)
             self.logger.info("流程完成|Pipeline completed successfully")
             self.logger.info("=" * 60)
             return True
-
         except Exception as e:
             self.logger.error(f"流程异常|Pipeline error: {e}")
             import traceback
