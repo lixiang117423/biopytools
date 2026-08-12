@@ -1,4 +1,13 @@
 
+## [1.31.1] - 2026-08-12
+
+### Fixed
+- `cim`：修复 physical block 下 CIM 的 LOD 整体压低问题。`build_tidy_files` 写入的 Mb 占位位置原注释"est.map will override"，但 mstmap 模式从未调用 `est.map`，导致 Mb 被当成 cM 喂给 `cim()`——`window=10` 被读成 10Mb，协因子剔除窗口占整条染色体约 24%，引发协因子饥饿、LOD 被整体压低。现对 physical block 补 `est.map()` + `replace.map()`，用真实重组率重估 cM，使 window/step 与 mstmap block 处于同一真实 cM 尺度
+- `vcf_sample_hete`：`config.__post_init__` 改用 `expand_path` 展开 `~`/`$VAR`（原 `os.path.abspath` 不展开 `~`，`~/input.vcf` 在后续 `os.path.exists` 校验时失败）；`__init__.py` 文档示例导入路径误写 `biopytools.vcf_stats` → 更正为 `biopytools.vcf_sample_hete`
+
+### Changed
+- `vcf_sample_hete`：删除从未生效的死参数 `--dry-run`/`force`（CLI/config/main 全链路移除，原参数从未被处理逻辑读取）；日志输出落 `99_logs/` 子目录（§12）；`VCFStatsLogger` 支持显式 `--log-file`/`--log-level`，级别优先级 log_level > quiet > verbose > INFO，并加 `propagate=False`；大数字用 `format_number`（>1M 显示为 M 单位，§5.3）；生成 `00_pipeline_info/software_versions.yml`（纯文本手写、无 yaml 依赖）；DEBUG 级补输出过滤诊断（qual/depth 丢弃数）与逐样本统计
+
 ## [1.31.0] - 2026-08-12
 
 ### Added
