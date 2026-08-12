@@ -122,6 +122,30 @@ def _validate_file_exists(file_path):
               is_flag=True,
               default=False,
               help='使用未折叠SFS(需祖先状态,默认折叠)|Unfolded SFS (requires ancestral state; folded by default)')
+@click.option('--xpclr-maxsnps',
+              type=int,
+              default=200,
+              show_default=True,
+              help='XP-CLR窗口最大SNP数|XP-CLR max SNPs per window')
+@click.option('--xpclr-minsnps',
+              type=int,
+              default=10,
+              show_default=True,
+              help='XP-CLR窗口最小SNP数|XP-CLR min SNPs per window')
+@click.option('--xpclr-ld',
+              type=float,
+              default=0.95,
+              show_default=True,
+              help='XP-CLR LD加权截断|XP-CLR LD cutoff')
+@click.option('--xpclr-min-samples',
+              type=int,
+              default=15,
+              show_default=True,
+              help='低样本量阈值(任一群体低于此值XP-CLR分量默认排除)|Low sample threshold (XP-CLR excluded if either pop below)')
+@click.option('--include-xpclr-low-n',
+              is_flag=True,
+              default=False,
+              help='低样本群体对也加入XP-CLR分量|Include XP-CLR component for low-n pairs')
 @click.option('--log-level',
               default='INFO',
               show_default=True,
@@ -130,7 +154,8 @@ def selective_sweep(input, pop_info, output_dir, threads, win, step,
                     top_quantile, merge_gap, min_maf, max_missing,
                     raisd_window, raisd_min_samples, include_mu_low_n,
                     sweed_grid, sweed_min_samples, include_sweed_low_n,
-                    sweed_unfolded, log_level):
+                    sweed_unfolded, xpclr_maxsnps, xpclr_minsnps, xpclr_ld,
+                    xpclr_min_samples, include_xpclr_low_n, log_level):
     """
     选择性扫荡检测工具|Selective Sweep Detection Tool
 
@@ -176,6 +201,16 @@ def selective_sweep(input, pop_info, output_dir, threads, win, step,
         args.extend(['--include-sweed-low-n'])
     if sweed_unfolded:
         args.extend(['--sweed-unfolded'])
+    if xpclr_maxsnps != 200:
+        args.extend(['--xpclr-maxsnps', str(xpclr_maxsnps)])
+    if xpclr_minsnps != 10:
+        args.extend(['--xpclr-minsnps', str(xpclr_minsnps)])
+    if xpclr_ld != 0.95:
+        args.extend(['--xpclr-ld', str(xpclr_ld)])
+    if xpclr_min_samples != 15:
+        args.extend(['--xpclr-min-samples', str(xpclr_min_samples)])
+    if include_xpclr_low_n:
+        args.extend(['--include-xpclr-low-n'])
     if log_level != 'INFO':
         args.extend(['--log-level', log_level])
 

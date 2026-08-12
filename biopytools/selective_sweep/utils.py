@@ -202,6 +202,28 @@ def _probe_version(cmd: list, timeout: int = 15) -> str:
         return 'unknown'
 
 
+def _probe_xpclr_version(xpclr_path: str, timeout: int = 20) -> str:
+    """xpclr无--version参数,用python import探版本|Probe xpclr version via import
+
+    xpclr入口脚本通过 xpclr.__version__ 记录版本(无--version CLI参数),
+    故在其conda环境中 python -c import 探测。
+    |xpclr exposes xpclr.__version__ (no --version CLI), so probe via import.
+    """
+    env = get_conda_env(xpclr_path)
+    if env:
+        cmd = ['conda', 'run', '-n', env, '--no-capture-output', 'python', '-c',
+               'import xpclr; print(xpclr.__version__)']
+    else:
+        cmd = ['python', '-c', 'import xpclr; print(xpclr.__version__)']
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip().splitlines()[-1]
+    except Exception:
+        pass
+    return 'unknown'
+
+
 def generate_software_versions_yml(config, logger) -> None:
     """生成00_pipeline_info/software_versions.yml(纯文本,不依赖yaml包)。
     |Generate 00_pipeline_info/software_versions.yml as plain text (no yaml dependency)."""
@@ -215,6 +237,8 @@ def generate_software_versions_yml(config, logger) -> None:
         ]:
             probe_cmd = build_conda_command(tool_path, ver_args)
             versions[tool_name] = _probe_version(probe_cmd)
+        # xpclr无--version,用python import探|xpclr has no --version; probe via import
+        versions['xpclr'] = _probe_xpclr_version(config.xpclr_path)
 
         params = [
             ('win', config.win),
@@ -230,6 +254,11 @@ def generate_software_versions_yml(config, logger) -> None:
             ('sweed_min_samples', config.sweed_min_samples),
             ('include_sweed_low_n', config.include_sweed_low_n),
             ('sweed_folded', config.sweed_folded),
+            ('xpclr_maxsnps', config.xpclr_maxsnps),
+            ('xpclr_minsnps', config.xpclr_minsnps),
+            ('xpclr_ld', config.xpclr_ld),
+            ('xpclr_min_samples', config.xpclr_min_samples),
+            ('include_xpclr_low_n', config.include_xpclr_low_n),
             ('threads', config.threads),
         ]
 
@@ -266,6 +295,7 @@ def check_dependencies(config, logger) -> bool:
         ('vcftools', config.vcftools_path, ['--version']),
         ('RAiSD', config.raisd_path, ['-v']),
         ('SweeD-P', config.sweed_path, ['-v']),
+        ('XP-CLR', config.xpclr_path, ['--help']),
     ]:
         try:
             cmd = build_conda_command(tool_path, ver_args)

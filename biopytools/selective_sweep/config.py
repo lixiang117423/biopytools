@@ -45,11 +45,19 @@ class SweepMergeConfig:
     include_sweed_low_n: bool = False  # 低样本群体是否仍加入CLR分量|Include CLR for low-n pops
     sweed_folded: bool = True   # 折叠SFS(无祖先状态时正确)|Folded SFS (correct without ancestral state)
 
+    # XP-CLR参数(跨群体,像Fst两两组合)|XP-CLR params (cross-pop, pairwise like Fst)
+    xpclr_maxsnps: int = 200    # 窗口最大SNP数|Max SNPs per window
+    xpclr_minsnps: int = 10     # 窗口最小SNP数|Min SNPs per window
+    xpclr_ld: float = 0.95      # LD加权截断|LD cutoff for weighting
+    xpclr_min_samples: int = 15  # 低样本量阈值(<此值XP-CLR分量默认排除,任一群体)|Low sample threshold (XP-CLR excluded if either pop below)
+    include_xpclr_low_n: bool = False  # 低样本群体对是否仍加入XP-CLR分量|Include XP-CLR for low-n pairs
+
     # 工具路径|Tool paths (conda env selective_sweep)
     bcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/bcftools'
     vcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/vcftools'
     raisd_path: str = '~/miniforge3/envs/selective_sweep/bin/RAiSD'
     sweed_path: str = '~/software/sweed/SweeD-P'
+    xpclr_path: str = '~/miniforge3/envs/selective_sweep/bin/xpclr'
 
     # 日志|Logging
     log_level: str = 'INFO'
@@ -69,6 +77,7 @@ class SweepMergeConfig:
         self.vcftools_path = expand_path(self.vcftools_path)
         self.raisd_path = expand_path(self.raisd_path)
         self.sweed_path = expand_path(self.sweed_path)
+        self.xpclr_path = expand_path(self.xpclr_path)
 
         # 标准化输入输出路径(展开~并转绝对路径)|Normalize input/output paths
         # 注意|Note: expand_path 对裸名(无/无.)原样返回相对路径,必须无条件 abspath,
@@ -113,6 +122,14 @@ class SweepMergeConfig:
             errors.append(f"SweeD网格点数必须为正数|SweeD grid must be positive: {self.sweed_grid}")
         if self.sweed_min_samples <= 0:
             errors.append(f"SweeD低样本阈值必须为正数|SweeD min samples must be positive: {self.sweed_min_samples}")
+        if self.xpclr_maxsnps < 2:
+            errors.append(f"XP-CLR窗口最大SNP数必须>=2|XP-CLR maxsnps must be >= 2: {self.xpclr_maxsnps}")
+        if self.xpclr_minsnps < 2:
+            errors.append(f"XP-CLR窗口最小SNP数必须>=2|XP-CLR minsnps must be >= 2: {self.xpclr_minsnps}")
+        if not 0 < self.xpclr_ld <= 1:
+            errors.append(f"XP-CLR LD截断必须在(0,1]之间|XP-CLR LD cutoff must be in (0,1]: {self.xpclr_ld}")
+        if self.xpclr_min_samples <= 0:
+            errors.append(f"XP-CLR低样本阈值必须为正数|XP-CLR min samples must be positive: {self.xpclr_min_samples}")
         if self.log_level not in {'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'}:
             errors.append(f"日志级别无效|Invalid log level: {self.log_level}")
         if errors:

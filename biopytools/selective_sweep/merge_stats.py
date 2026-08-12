@@ -187,6 +187,43 @@ def load_sweed(files, pop, win) -> pd.DataFrame:
     return df
 
 
+def load_xpclr(files, label, win) -> pd.DataFrame:
+    """加载XP-CLR报告文件(跨群体,像Fst)|Load XP-CLR report files (cross-pop, like Fst)
+
+    - 每文件一条染色体(TSV,列含 chrom/pos_start/pos_stop/xpclr)
+    - 表头行(首列非数字)跳过;空/NaN的xpclr行丢弃
+    - 异常格式抛错(由调用方捕获降级)|malformed files raise (caller downgrades)
+
+    Args:
+        files: 每染色体TSV路径列表(同一群体对)|per-chrom TSV paths (same pop pair)
+        label: 群体对标签(如 a_b)|population-pair label (e.g. a_b)
+        win: 窗口大小|Window size
+
+    Returns:
+        DataFrame[CHR, WIN, XPCLR_{label}],每窗口取xpclr最大值|xpclr max per window
+    """
+    frames = []
+    for f in files:
+        d = pd.read_csv(f, sep='\t')
+        if 'chrom' not in d.columns or 'xpclr' not in d.columns:
+            raise ValueError(
+                f"XP-CLR 报告缺关键列(chrom/xpclr)|XP-CLR report missing required "
+                f"columns (chrom/xpclr): {f}")
+        d = d.rename(columns={'chrom': 'CHR', 'pos_start': 'POS', 'xpclr': 'XPCLR'})
+        # xpclr为2*(modelL-nullL);NaN(无有效SNP窗口)丢弃
+        # |xpclr = 2*(modelL-nullL); drop NaN rows (windows with no valid SNPs)
+        d = d[['CHR', 'POS', 'XPCLR']].dropna(subset=['XPCLR'])
+        if not d.empty:
+            frames.append(d)
+    if not frames:
+        return pd.DataFrame(columns=['CHR', 'WIN', f'XPCLR_{label}'])
+    df = pd.concat(frames, ignore_index=True)
+    df['WIN'] = bin_pos(df['POS'], win)
+    df = df.groupby(['CHR', 'WIN'], as_index=False)[['XPCLR']].max()
+    df = df.rename(columns={'XPCLR': f'XPCLR_{label}'})
+    return df
+
+
 class SweepMerger:
     """选择性扫荡统计合并器|Selective Sweep Statistics Merger"""
 
@@ -205,7 +242,7 @@ class SweepMerger:
              'fst': [(label, path)]}
         """
         stats_dir = Path(self.config.stats_dir)
-        result = {'pi': [], 'tajd': [], 'raisd': [], 'sweed': [], 'fst': []}
+        result = {'pi': [], 'tajd': [], 'raisd': [], 'sweed': [], 'xpclr': [], 'fst': []}
 
         for f in sorted(stats_dir.glob('*.windowed.pi')):
             result['pi'].append((f.name[: -len('.windowed.pi')], f))
@@ -226,9 +263,18 @@ class SweepMerger:
             pop = f.name[len('SweeD_Report.'):].rsplit('.', 1)[0]
             sweed_grouped.setdefault(pop, []).append(f)
         result['sweed'] = [(pop, files) for pop, files in sorted(sweed_grouped.items())]
+        # XPCLR_<a>_<b>.<chr>.tsv:跨群体对,前缀后、最后点后缀之前为群体对标签
+        # |XPCLR_<a>_<b>.<chr>.tsv: cross-pop pair label between prefix and last dot
+        xpclr_grouped = {}
+        for f in sorted(stats_dir.glob('XPCLR_*.tsv')):
+            stem = f.name[: -len('.tsv')]  # XPCLR_<a>_<b>.<chr>
+            label = stem[len('XPCLR_'):].rsplit('.', 1)[0]  # <a>_<b>
+            xpclr_grouped.setdefault(label, []).append(f)
+        result['xpclr'] = [(label, files) for label, files in sorted(xpclr_grouped.items())]
 
         for kind, label in [('pi', 'π'), ('tajd', "Tajima's D"),
-                            ('raisd', 'RAiSD'), ('sweed', 'SweeD'), ('fst', 'Fst')]:
+                            ('raisd', 'RAiSD'), ('sweed', 'SweeD'),
+                            ('xpclr', 'XP-CLR'), ('fst', 'Fst')]:
             if not result[kind]:
                 self.logger.warning(f"未发现{label}输入文件|No {label} input files found in {stats_dir}")
         return result
@@ -302,6 +348,28 @@ class SweepMerger:
             score_components.append(rank_pct(merged[c], ascending=True))
         if clr_cols:
             self.logger.info(f"SweeD CLR分量|SweeD CLR components: {len(clr_cols)} 个|count")
+
+        # XP-CLR:跨群体CLR,越高排名越高;任一群体低样本默认排除
+        # |XP-CLR: cross-pop CLR, higher ranks higher; excluded if either pop low-n
+        xpclr_cols = [c for c in merged.columns if c.startswith('XPCLR_')]
+        for c in xpclr_cols:
+            label = c[len('XPCLR_'):]
+            # 跨群体标签 a_b:两群体样本量任一低于阈值则排除
+            # |cross-pop label a_b: exclude if either pop's n is below threshold
+            pops = label.split('_')
+            n_vals = [pop_summary.get(p) for p in pops]
+            low = any(n is not None and n < self.config.xpclr_min_samples for n in n_vals)
+            if low and not self.config.include_xpclr_low_n:
+                self.logger.warning(
+                    f"群体对{label}含低样本群体({pops}={[n for n in n_vals if n is not None]}),"
+                    f"XP-CLR分量已从composite_score排除(--include-xpclr-low-n可强制加入)"
+                    f"|Pair {label} includes a low-n pop ({pops}); "
+                    f"XP-CLR component excluded from composite score "
+                    f"(--include-xpclr-low-n to force)")
+                continue
+            score_components.append(rank_pct(merged[c], ascending=True))
+        if xpclr_cols:
+            self.logger.info(f"XP-CLR分量|XP-CLR components: {len(xpclr_cols)} 个|count")
 
         # Fst:越高排名越高|higher Fst ranks higher
         fst_cols = [c for c in merged.columns if c.startswith('Fst_')]
@@ -385,6 +453,12 @@ class SweepMerger:
             except Exception as e:
                 self.logger.warning(
                     f"SweeD报告解析失败,跳过|Failed to parse SweeD report, skipped: {pop}: {e}")
+        for label, files in inputs['xpclr']:
+            try:
+                tables.append(load_xpclr(files, label, self.win))
+            except Exception as e:
+                self.logger.warning(
+                    f"XP-CLR报告解析失败,跳过|Failed to parse XP-CLR report, skipped: {label}: {e}")
         for label, path in inputs['fst']:
             try:
                 tables.append(load_fst(path, label, self.win))

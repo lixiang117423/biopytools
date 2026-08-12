@@ -58,6 +58,17 @@ def parse_arguments():
     parser.add_argument('--sweed-unfolded', action='store_true',
                         help='使用未折叠SFS(需祖先状态,默认折叠)|Unfolded SFS '
                              '(requires ancestral state; folded by default)')
+    parser.add_argument('--xpclr-maxsnps', type=int, default=200,
+                        help='XP-CLR窗口最大SNP数(默认200)|XP-CLR max SNPs per window (default 200)')
+    parser.add_argument('--xpclr-minsnps', type=int, default=10,
+                        help='XP-CLR窗口最小SNP数(默认10)|XP-CLR min SNPs per window (default 10)')
+    parser.add_argument('--xpclr-ld', type=float, default=0.95,
+                        help='XP-CLR LD加权截断(默认0.95)|XP-CLR LD cutoff (default 0.95)')
+    parser.add_argument('--xpclr-min-samples', type=int, default=15,
+                        help='低样本量阈值,任一群体低于此值XP-CLR分量默认排除(默认15)'
+                             '|Low sample threshold; XP-CLR excluded if either pop below (default 15)')
+    parser.add_argument('--include-xpclr-low-n', action='store_true',
+                        help='低样本群体对也加入XP-CLR分量|Include XP-CLR component for low-n pairs')
     parser.add_argument('--log-level', default='INFO',
                         help='日志级别(默认INFO)|Log level (default INFO)')
     return parser.parse_args()
@@ -86,6 +97,11 @@ def main():
             sweed_min_samples=args.sweed_min_samples,
             include_sweed_low_n=args.include_sweed_low_n,
             sweed_folded=not args.sweed_unfolded,
+            xpclr_maxsnps=args.xpclr_maxsnps,
+            xpclr_minsnps=args.xpclr_minsnps,
+            xpclr_ld=args.xpclr_ld,
+            xpclr_min_samples=args.xpclr_min_samples,
+            include_xpclr_low_n=args.include_xpclr_low_n,
             log_level=args.log_level,
         )
         config.validate()

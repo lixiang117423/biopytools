@@ -177,6 +177,32 @@ class SweepPipeline:
             self.logger.warning(f"获取VCF样本列表失败,跳过样本校验|Failed to get VCF samples; skip validation: {e}")
             return None
 
+    def _vcf_chroms(self, vcf: Path) -> List[str]:
+        """获取VCF中所有染色体(XP-CLR --chr 单值,需逐条跑)|List contigs in VCF
+
+        XP-CLR的--chr只接受单条染色体,故需枚举全部染色体逐条计算。
+        |XP-CLR --chr accepts a single contig, so enumerate all and run per-chrom.
+
+        Returns:
+            染色体名列表(保持顺序)|contig names in order; 失败返回None
+        """
+        if not vcf.exists():
+            self.logger.warning(f"染色体枚举输入缺失,放行|Contig-list input missing; pass through: {vcf}")
+            return None
+        cmd = build_conda_command(self.config.bcftools_path, ['index', '-s', str(vcf)])
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
+        try:
+            result = subprocess.run(cmd, shell=False, capture_output=True,
+                                    text=True, check=True)
+            # bcftools index -s 输出:每行"contig\tlen\tn_variants"
+            # |bcftools index -s lines: "contig\tlen\tn_variants"
+            chroms = [line.split('\t')[0] for line in result.stdout.splitlines()
+                      if line.strip()]
+            return chroms
+        except Exception as e:
+            self.logger.warning(f"获取VCF染色体列表失败|Failed to get contig list: {e}")
+            return None
+
     def split_pops(self, filtered_vcf: Path) -> Dict[str, List[str]]:
         """按群体拆分样本列表与子VCF|Split per-pop sample lists and sub-VCFs"""
         entries = parse_pop_info(self.config.pop_info)
@@ -338,6 +364,79 @@ class SweepPipeline:
             if not self.runner.run(fst_cmd, f'vcftools窗口Fst|vcftools windowed Fst: {a} vs {b}'):
                 raise RuntimeError(f"vcftools Fst失败|vcftools Fst failed: {label}")
 
+    # ---- 4b. XP-CLR两群体×每染色体|pairwise XP-CLR per chromosome ----
+    def run_xpclr(self, filtered_vcf: Path) -> None:
+        """每两群体×每染色体计算XP-CLR(跨群体CLR)|Pairwise XP-CLR per chromosome
+
+        XP-CLR是跨群体方法(像Fst),--chr只接受单条染色体,故遍历全部染色体。
+        输入用含全样本的filtered.vcf.gz + 两群体各自的samples.txt;
+        allel.read_vcf的tabix需.tbi(filtered默认建.csi),故先补建.tbi。
+        |XP-CLR is cross-pop (like Fst); --chr is single-valued, so iterate all
+        contigs. Input is the full filtered.vcf.gz + each pop's samples.txt;
+        allel.read_vcf tabix needs .tbi (filtered ships .csi), so build .tbi first.
+        """
+        if len(self.pops) < 2:
+            self.logger.info("群体数<2,跳过XP-CLR|Fewer than 2 pops; skipping XP-CLR")
+            return
+
+        # allel.read_vcf(tabix=)需.tbi;filtered默认建.csi,补建.tbi(幂等)
+        # |allel.read_vcf(tabix=) needs .tbi; filtered ships .csi, add .tbi (idempotent)
+        tbi = Path(str(filtered_vcf) + '.tbi')
+        if not tbi.exists():
+            tbi_cmd = build_conda_command(self.config.bcftools_path,
+                                          ['index', '-t', str(filtered_vcf)])
+            if not self.runner.run(tbi_cmd, 'XP-CLR输入建.tbi索引|Build .tbi for XP-CLR'):
+                raise RuntimeError("建.tbi索引失败|Failed to build .tbi index")
+
+        chroms = self._vcf_chroms(filtered_vcf)
+        if not chroms:
+            raise RuntimeError("无法获取VCF染色体列表,XP-CLR无法运行"
+                               "|Could not enumerate contigs; XP-CLR cannot run")
+
+        for a, b in pairwise_combinations(self.pops):
+            label = f'{a}_{b}'
+            pop_a_file = Path(self.config.filter_dir) / f'{a}.samples.txt'
+            pop_b_file = Path(self.config.filter_dir) / f'{b}.samples.txt'
+            n_a, n_b = len(self.pop_samples[a]), len(self.pop_samples[b])
+            if (min(n_a, n_b) < self.config.xpclr_min_samples
+                    and not self.config.include_xpclr_low_n):
+                self.logger.warning(
+                    f"群体对{label}样本量({a}={n_a},{b}={n_b})<{self.config.xpclr_min_samples},"
+                    f"XP-CLR计算噪音大且默认排除其分量(--include-xpclr-low-n可强制)"
+                    f"|Pair {label} has few samples ({a}={n_a},{b}={n_b}<"
+                    f"{self.config.xpclr_min_samples}); XP-CLR noisy and its component "
+                    f"is excluded by default (--include-xpclr-low-n to force)")
+
+            for chrom in chroms:
+                # XP-CLR的--out必须是绝对路径(os.path.dirname空串会assert失败)
+                # |XP-CLR --out must be absolute (empty dirname fails its assert)
+                out_tsv = (Path(self.config.stats_dir) /
+                           f'XPCLR_{label}.{chrom}.tsv').resolve()
+                if self._is_step_completed(out_tsv):
+                    self.logger.info(
+                        f"跳过已完成步骤|Skipping completed step: XP-CLR {label} {chrom}")
+                    continue
+                xpclr_args = [
+                    '--format', 'vcf', '--input', str(filtered_vcf),
+                    '--chr', chrom,
+                    '--samplesA', str(pop_a_file), '--samplesB', str(pop_b_file),
+                    '--out', str(out_tsv),
+                    '--size', str(self.config.win), '--step', str(self.config.step),
+                    '--maxsnps', str(self.config.xpclr_maxsnps),
+                    '--minsnps', str(self.config.xpclr_minsnps),
+                    '--ld', str(self.config.xpclr_ld),
+                ]
+                xpclr_cmd = build_conda_command(self.config.xpclr_path, xpclr_args)
+                # 某染色体XP-CLR失败(如某群体在该染色体全单态触发越界)不阻塞整体,
+                # 优雅降级跳过该染色体(真实数据罕见)|a single contig failing XP-CLR
+                # (e.g. one pop monomorphic on it, triggering IndexError) does not
+                # abort; degrade gracefully (rare on real data)
+                if not self.runner.run(
+                        xpclr_cmd, f'XP-CLR跨群体统计|XP-CLR statistic: {label} {chrom}'):
+                    self.logger.warning(
+                        f"XP-CLR失败已跳过该染色体,不影响其他染色体|XP-CLR failed, "
+                        f"skipped this contig (others unaffected): {label} {chrom}")
+
     # ---- 5. 元数据|metadata ----
     def write_pop_summary(self) -> None:
         """写群体样本量摘要(供merger低样本MU排除)|Write pop sample summary"""
@@ -359,6 +458,7 @@ class SweepPipeline:
         self.split_pops(filtered_vcf)
         self.run_pop_stats(filtered_vcf)
         self.run_fst(filtered_vcf)
+        self.run_xpclr(filtered_vcf)
         self.write_pop_summary()
         generate_software_versions_yml(self.config, self.logger)
         self.logger.info("流水线完成|Pipeline completed")
