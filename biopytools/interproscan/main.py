@@ -36,8 +36,8 @@ class InterProScanAnnotator:
 
         self.cmd_runner = CommandRunner(self.logger, working_dir=output_dir, env_vars=env_vars)
 
-    def build_command(self) -> str:
-        """构建InterProScan命令|Build InterProScan command"""
+    def build_command(self) -> list:
+        """构建InterProScan命令(返回list,配合shell=False)|Build InterProScan command (returns list for shell=False)"""
         cmd_parts = [self.config.interproscan_path]
 
         # 输入文件|Input file
@@ -74,7 +74,7 @@ class InterProScanAnnotator:
         if self.config.temp_dir:
             cmd_parts.extend(['-T', self.config.temp_dir])
 
-        return ' '.join(cmd_parts)
+        return cmd_parts
 
     def run_analysis(self):
         """运行InterProScan分析|Run InterProScan analysis"""
@@ -86,7 +86,7 @@ class InterProScanAnnotator:
 
         # 构建命令|Build command
         cmd = self.build_command()
-        self.logger.info(f"InterProScan命令|InterProScan command: {cmd}")
+        self.logger.info(f"InterProScan命令|InterProScan command: {' '.join(cmd)}")
 
         # 执行命令|Execute command
         success = self.cmd_runner.run(
@@ -196,12 +196,8 @@ def main():
                             'Enable precalc lookup service (requires network connection)')
     parser.add_argument('--goterms', action='store_true',
                        help='获取GO术语(默认不获取)|Get GO terms (disabled by default)')
-    parser.add_argument('--no-goterms', action='store_true', default=True,
-                       help='不获取GO术语(默认)|Do not get GO terms (default)')
     parser.add_argument('--pathways', action='store_true',
                        help='获取Pathway信息(默认不获取)|Get pathway information (disabled by default)')
-    parser.add_argument('--no-pathways', action='store_true', default=True,
-                       help='不获取Pathway信息(默认)|Do not get pathway information (default)')
 
     # 应用选项|Application options
     parser.add_argument('-appl', '--applications',
@@ -232,10 +228,10 @@ def main():
 
     args = parser.parse_args()
 
-    # 处理互斥选项|Handle mutually exclusive options
+    # 处理选项|Handle options
     disable_precalc = args.enable_precalc is False  # 如果启用precalc，则不禁用
-    goterms = args.no_goterms is False  # 如果不获取goterms，则不获取
-    pathways = args.no_pathways is False  # 如果不获取pathways，则不获取
+    goterms = args.goterms  # 读正向开关(原读 no_goterms 反向开关恒False的bug)|Read forward flag (fix: reverse flag was always True)
+    pathways = args.pathways  # 同上|Same fix as goterms
     generate_report = not args.no_report  # 如果不生成报告，则不生成
     include_summary = not args.no_summary  # 如果不包含汇总，则不包含
 

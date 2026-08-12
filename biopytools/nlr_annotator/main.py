@@ -12,6 +12,7 @@ from pathlib import Path
 from .config import NLRAnnotatorConfig
 from .utils import (
     NLRLogger,
+    build_conda_command,
     clean_output,
     collect_input_files,
     collect_result_files,
@@ -21,32 +22,33 @@ from .utils import (
 
 def build_command(config: NLRAnnotatorConfig, input_file: str, output_file: str) -> list:
     """构建java命令|Build java command list"""
-    cmd = ['java', '-jar', config.jar_path]
-    cmd += ['-i', input_file]
-    cmd += ['-x', config.mot_file]
-    cmd += ['-y', config.store_file]
-    cmd += ['-t', str(config.threads)]
-    cmd += ['-n', str(config.num_seqs_per_thread)]
-    cmd += ['-o', output_file]
+    # 用build_conda_command包装java(支持conda env的java,激活原死代码)|Wrap java via build_conda_command
+    args = ['-jar', config.jar_path]
+    args += ['-i', input_file]
+    args += ['-x', config.mot_file]
+    args += ['-y', config.store_file]
+    args += ['-t', str(config.threads)]
+    args += ['-n', str(config.num_seqs_per_thread)]
+    args += ['-o', output_file]
 
     if config.output_gff:
         gff_path = output_file.rsplit('.', 1)[0] + '.gff'
-        cmd += ['-g', gff_path]
+        args += ['-g', gff_path]
     if config.output_bed:
         bed_path = output_file.rsplit('.', 1)[0] + '.bed'
-        cmd += ['-b', bed_path]
+        args += ['-b', bed_path]
     if config.output_motifs:
         motifs_path = output_file.rsplit('.', 1)[0] + '_motifs.bed'
-        cmd += ['-m', motifs_path]
+        args += ['-m', motifs_path]
     if config.output_alignment:
         align_path = output_file.rsplit('.', 1)[0] + '_alignment.fa'
-        cmd += ['-a', align_path]
+        args += ['-a', align_path]
 
-    cmd += ['-distanceWithinMotifCombination', str(config.distance_within_motif_combination)]
-    cmd += ['-distanceForElongating', str(config.distance_for_elongating)]
-    cmd += ['-distanceBetweenMotifCombinations', str(config.distance_between_motif_combinations)]
+    args += ['-distanceWithinMotifCombination', str(config.distance_within_motif_combination)]
+    args += ['-distanceForElongating', str(config.distance_for_elongating)]
+    args += ['-distanceBetweenMotifCombinations', str(config.distance_between_motif_combinations)]
 
-    return cmd
+    return build_conda_command(config.java_path, args)
 
 
 def _is_step_completed(output_file: str) -> bool:
@@ -144,6 +146,8 @@ def main():
                         help='mot.txt配置文件路径|mot.txt config file path')
     parser.add_argument('--store-file', default='',
                         help='store.txt配置文件路径|store.txt config file path')
+    parser.add_argument('--java-path', default='java',
+                        help='Java解释器路径(默认系统java;conda env用~/miniforge3/envs/xxx/bin/java)|Java interpreter path')
 
     parser.add_argument('-t', '--threads', type=int, default=12,
                         help='线程数|Number of threads (default: 12)')
@@ -178,7 +182,11 @@ def main():
     # |Merge-only: skip NLR-Annotator, merge existing results directly (no JAR check)
     if args.merge_only:
         logger.info("纯合并模式|Merge-only mode: 跳过NLR-Annotator执行|skip NLR-Annotator execution")
-        run_merge_only(args.input, output_dir, logger)
+        try:
+            run_merge_only(args.input, output_dir, logger)
+        except ValueError as e:
+            logger.error(f"合并失败|Merge failed: {e}")
+            sys.exit(1)
         logger.info("合并完成|Merge done")
         return
 
@@ -189,6 +197,7 @@ def main():
         jar_path=args.jar_path,
         mot_file=args.mot_file,
         store_file=args.store_file,
+        java_path=args.java_path,
         threads=args.threads,
         num_seqs_per_thread=args.num_seqs_per_thread,
         output_gff="1" if args.output_gff else "",
@@ -207,7 +216,11 @@ def main():
         sys.exit(1)
 
     # 收集输入文件|Collect input files
-    input_files = collect_input_files(config.input_path, config.sample_suffix, logger)
+    try:
+        input_files = collect_input_files(config.input_path, config.sample_suffix, logger)
+    except ValueError as e:
+        logger.error(f"收集输入文件失败|Failed to collect input files: {e}")
+        sys.exit(1)
     is_batch = len(input_files) > 1
 
     logger.info(f"共{len(input_files)}个样本待处理|Total {len(input_files)} sample(s) to process")

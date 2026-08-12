@@ -56,27 +56,6 @@ class ResistifyParser:
         self.logger.info(f"解析完成，共{len(df)}条domain记录|Parsing completed, {len(df)} domain records")
         return df
 
-    def parse_annotations(self, input_dir: str = None) -> pd.DataFrame:
-        """
-        解析annotations.tsv文件|Parse annotations.tsv file
-
-        Args:
-            input_dir: Resistify输出目录|Resistify output directory
-
-        Returns:
-            pd.DataFrame: 注释信息|Annotation information
-        """
-        self.logger.info("解析annotations.tsv|Parsing annotations.tsv")
-
-        if input_dir is None:
-            input_dir = self.config.resistify_output_dir
-
-        annotations_file = Path(input_dir) / 'annotations.tsv'
-        df = pd.read_csv(annotations_file, sep='\t')
-
-        self.logger.info(f"解析完成，共{len(df)}条注释记录|Parsing completed, {len(df)} annotation records")
-        return df
-
     def merge_data(self, results_df: pd.DataFrame, domains_df: pd.DataFrame = None) -> pd.DataFrame:
         """
         合并results和domains数据|Merge results and domains data

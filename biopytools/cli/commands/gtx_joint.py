@@ -45,11 +45,6 @@ def _validate_reference_file(file_path):
         raise click.BadParameter("参考基因组文件路径不能为空|Reference file path cannot be empty")
     if not os.path.exists(file_path):
         raise click.BadParameter(f"参考基因组文件不存在|Reference file not found: {file_path}")
-    if not os.path.exists(f"{file_path}.fai"):
-        raise click.BadParameter(
-            f"参考基因组索引不存在|Reference index not found: {file_path}.fai\n"
-            f"请运行|Please run: samtools faidx {file_path}"
-        )
     return file_path
 
 

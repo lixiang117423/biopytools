@@ -67,6 +67,7 @@ class NLRLogger:
         self.output_dir = Path(output_dir)
         self.log_file = self.output_dir / "99_logs" / log_name
         self.log_file.parent.mkdir(parents=True, exist_ok=True)
+        self.log_name = log_name  # 用于独立logger命名,避免批量模式劫持共享logger|Unique logger name avoids batch hijack
         self.setup_logging()
 
     def setup_logging(self):
@@ -74,7 +75,7 @@ class NLRLogger:
         if self.log_file.exists():
             self.log_file.unlink()
 
-        logger = logging.getLogger("nlr_annotator")
+        logger = logging.getLogger(self.log_name)  # 每样本独立logger,避免批量模式劫持顶层logger|Per-sample logger, avoids hijacking shared logger
         logger.setLevel(logging.DEBUG)
         logger.handlers.clear()
         logger.propagate = False

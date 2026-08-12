@@ -46,10 +46,9 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='InterProScan软件路径|InterProScan software installation path')
 @click.option('--format', '-f',
-              default='TSV',
-              type=click.Choice(['TSV', 'GFF3', 'XML', 'HTML', 'JSON', 'TXT']),
+              default='TSV,XML',
               show_default=True,
-              help='输出格式|Output format')
+              help='输出格式,支持逗号分隔多格式(如 TSV,XML)|Output format, supports comma-separated multi-format (e.g. TSV,XML)')
 @click.option('--threads', '-t',
               type=int,
               default=12,
@@ -65,17 +64,9 @@ def _validate_file_exists(file_path):
 @click.option('--goterms',
               is_flag=True,
               help='获取GO术语(默认不获取)|Get GO terms (disabled by default)')
-@click.option('--no-goterms',
-              is_flag=True,
-              default=True,
-              help='不获取GO术语(默认)|Do not get GO terms (default)')
 @click.option('--pathways',
               is_flag=True,
               help='获取Pathway信息(默认不获取)|Get pathway information (disabled by default)')
-@click.option('--no-pathways',
-              is_flag=True,
-              default=True,
-              help='不获取Pathway信息(默认)|Do not get pathway information (default)')
 @click.option('--applications', '-appl',
               help='指定运行的应用，逗号分隔|Specify applications to run, comma-separated')
 @click.option('--temp-dir',
@@ -85,8 +76,8 @@ def _validate_file_exists(file_path):
               type=click.Path(),
               help='Python解释器路径（兼容Python 3.8-3.11）|Python interpreter path (compatible with Python 3.8-3.11)')
 def interproscan(input, output_prefix, interproscan_path, format, threads,
-                disable_precalc, enable_precalc, goterms, no_goterms,
-                pathways, no_pathways, applications, temp_dir, python_path):
+                disable_precalc, enable_precalc, goterms,
+                pathways, applications, temp_dir, python_path):
     """
     InterProScan蛋白质功能注释工具|InterProScan Protein Function Annotation Tool
 
@@ -109,7 +100,7 @@ def interproscan(input, output_prefix, interproscan_path, format, threads,
     if interproscan_path != '~/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh':
         args.extend(['--interproscan-path', interproscan_path])
 
-    if format != 'TSV':
+    if format != 'TSV,XML':
         args.extend(['--format', format])
 
     if threads != 24:

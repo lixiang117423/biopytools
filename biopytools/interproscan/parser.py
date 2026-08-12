@@ -263,15 +263,21 @@ class InterProScanParser:
                         continue
 
                     # TSV格式：0:ProteinID 1:MD5 2:Length 3:DB 4:SignatureID 5:Desc 6:Start 7:End 8:Score 9:Status 10:Date 11:InterProID 12:InterProDesc 13:GO 14:Pathway
-                    protein_id = parts[0]
-                    md5 = parts[1]
-                    length = int(parts[2])
-                    database = parts[3]
-                    signature_id = parts[4]
-                    signature_description = parts[5]
-                    start = int(parts[6])
-                    end = int(parts[7])
-                    score = self._parse_score(parts[8])
+                    # 行级容错:单行int/score解析失败只跳过该行,不丢整份结果
+                    # Per-line tolerance: skip malformed row instead of discarding all results
+                    try:
+                        protein_id = parts[0]
+                        md5 = parts[1]
+                        length = int(parts[2])
+                        database = parts[3]
+                        signature_id = parts[4]
+                        signature_description = parts[5]
+                        start = int(parts[6])
+                        end = int(parts[7])
+                        score = self._parse_score(parts[8])
+                    except (ValueError, IndexError) as e:
+                        self.logger.warning(f"跳过畸形TSV行|Skipped malformed TSV line {line_num}: {e}")
+                        continue
                     interpro_id = parts[11] if len(parts) > 11 else ""
                     interpro_description = parts[12] if len(parts) > 12 else ""
 
@@ -492,12 +498,12 @@ class InterProScanParser:
         stats = defaultdict(int)
         for match in self.matches:
             for go in match.go_terms:
-                # 提取GO类别|Extract GO category
-                if '|BP|' in go:
+                # 提取GO类别(匹配全称:TSV填充后格式为 GO:ID|Name|Ontology(Source))|Extract GO category (match full name)
+                if '|Biological Process' in go:
                     stats['Biological Process'] += 1
-                elif '|CC|' in go:
+                elif '|Cellular Component' in go:
                     stats['Cellular Component'] += 1
-                elif '|MF|' in go:
+                elif '|Molecular Function' in go:
                     stats['Molecular Function'] += 1
         return dict(stats)
 

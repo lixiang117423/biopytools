@@ -24,6 +24,7 @@ class NLRAnnotatorConfig:
     jar_path: str = ""
     mot_file: str = ""
     store_file: str = ""
+    java_path: str = "java"  # Java解释器(默认系统java;conda env用~/miniforge3/envs/xxx/bin/java)|Java interpreter
 
     # 运行参数|Runtime parameters
     threads: int = 12
@@ -54,11 +55,13 @@ class NLRAnnotatorConfig:
             self.store_file = get_tool_path('nlr_annotator_store',
                                             '~/software/NLR-Annotator/store.txt')
 
-        # 展开所有路径|Expand all paths
+        # 展开所有路径(含~/$VAR,os.path.abspath不展开~)|Expand all paths (abspath does NOT expand ~)
         self.jar_path = expand_path(self.jar_path)
         self.mot_file = expand_path(self.mot_file)
         self.store_file = expand_path(self.store_file)
-        self.input_path = os.path.abspath(self.input_path)
+        self.java_path = expand_path(self.java_path)
+        self.input_path = os.path.normpath(expand_path(self.input_path))
+        self.output_dir = os.path.normpath(expand_path(self.output_dir))
 
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
@@ -76,6 +79,8 @@ class NLRAnnotatorConfig:
             errors.append(f"mot.txt不存在|mot.txt not found: {self.mot_file}")
         if not self.store_file or not os.path.exists(self.store_file):
             errors.append(f"store.txt不存在|store.txt not found: {self.store_file}")
+        if self.java_path != 'java' and not os.path.exists(self.java_path):
+            errors.append(f"Java路径不存在|Java path not found: {self.java_path}")
         if self.threads <= 0:
             errors.append(f"线程数必须为正数|Thread count must be positive")
         if errors:

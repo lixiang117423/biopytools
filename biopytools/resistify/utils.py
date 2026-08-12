@@ -55,17 +55,17 @@ class CommandRunner:
         self.logger = logger
         self.working_dir = working_dir
 
-    def run(self, cmd: str, description: str = "") -> bool:
-        """执行命令|Execute command"""
+    def run(self, cmd: list, description: str = "") -> bool:
+        """执行命令(列表+shell=False,更安全)|Execute command (list + shell=False, safer)"""
         if description:
             self.logger.info(f"执行|Executing: {description}")
 
-        self.logger.info(f"命令|Command: {cmd}")
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
         try:
             result = subprocess.run(
                 cmd,
-                shell=True,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True,

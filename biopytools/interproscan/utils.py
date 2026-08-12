@@ -58,21 +58,20 @@ class CommandRunner:
         self.working_dir = working_dir or Path.cwd()
         self.env_vars = env_vars or {}
 
-    def run(self, cmd: str, description: str = "", env_vars: dict = None) -> bool:
+    def run(self, cmd: list, description: str = "", env_vars: dict = None) -> bool:
         """执行命令|Execute command
 
         Args:
-            cmd: 命令字符串|Command string
+            cmd: 命令列表(配合shell=False,更安全)|Command list (with shell=False, safer)
             description: 步骤描述|Step description
             env_vars: 环境变量字典|Environment variables dict (will be merged with init env_vars)
         """
         if description:
             self.logger.info(f"执行步骤|Executing step: {description}")
 
-        self.logger.info(f"命令|Command: {cmd}")
+        self.logger.info(f"命令|Command: {' '.join(cmd)}")
 
         # 合并环境变量|Merge environment variables
-        import os
         env = os.environ.copy()
         if self.env_vars:
             env.update(self.env_vars)
@@ -82,7 +81,7 @@ class CommandRunner:
         try:
             result = subprocess.run(
                 cmd,
-                shell=True,
+                shell=False,
                 capture_output=True,
                 text=True,
                 check=True,

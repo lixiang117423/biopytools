@@ -45,7 +45,7 @@ class ResistifyConfig:
     output_csv: bool = True
     output_excel: bool = True
 
-    # 是否包含motifs详情|Whether to include motifs details
+    # 是否包含motifs详情(预留:当前未实现motifs.tsv解析,no-op)|Include motifs details (reserved: motifs.tsv parsing not implemented, no-op)
     include_motifs: bool = False
 
     def __post_init__(self):
@@ -140,9 +140,10 @@ class ResistifyConfig:
                     if not os.path.exists(file_path):
                         errors.append(f"必需文件不存在|Required file not found: {fname}")
 
-        # 单文件模式下检查序列提取文件|Check sequence extraction files in single-file mode
-        if not self.is_directory:
-            resistify_dir = self.output_dir if not self.skip_resistify else self.input_file
+        # 序列提取文件仅在 skip 模式(解析已有结果)下预检;non-skip 模式文件由 resistify 运行后生成
+        # |Pre-check extraction files only in skip mode; otherwise produced after resistify runs
+        if not self.is_directory and self.skip_resistify:
+            resistify_dir = self.input_file
             if self.extract_nlr_sequences:
                 nlr_fasta = os.path.join(resistify_dir, 'nlr.fasta')
                 if not os.path.exists(nlr_fasta):

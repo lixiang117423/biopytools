@@ -63,8 +63,27 @@ def _validate_path_exists(path):
 @click.option('--output-alignment',
               is_flag=True,
               help='输出motif比对FASTA|Output motif alignment FASTA')
+@click.option('--jar-path', default='',
+              help='NLR-Annotator JAR文件路径|NLR-Annotator JAR file path')
+@click.option('--mot-file', default='',
+              help='mot.txt配置文件路径|mot.txt config file path')
+@click.option('--store-file', default='',
+              help='store.txt配置文件路径|store.txt config file path')
+@click.option('--java-path', default='java', show_default=True,
+              help='Java解释器路径(conda env用~/miniforge3/envs/xxx/bin/java)|Java interpreter path')
+@click.option('--num-seqs-per-thread', type=int, default=1000, show_default=True,
+              help='每线程处理序列数|Sequences per thread')
+@click.option('--distance-within-motif-combination', type=int, default=500, show_default=True,
+              help='motif组合内距离|Distance within motif combination')
+@click.option('--distance-for-elongating', type=int, default=2500, show_default=True,
+              help='延伸距离|Distance for elongating')
+@click.option('--distance-between-motif-combinations', type=int, default=50000, show_default=True,
+              help='motif组合间距离|Distance between motif combinations')
 def nlr_annotator(input, output_dir, threads, sample_suffix, merge_only, output_gff,
-                   output_bed, output_motifs, output_alignment):
+                   output_bed, output_motifs, output_alignment, jar_path, mot_file,
+                   store_file, java_path, num_seqs_per_thread,
+                   distance_within_motif_combination, distance_for_elongating,
+                   distance_between_motif_combinations):
     """从DNA/CDS序列预测NLR基因|Predict NLR genes from DNA/CDS sequences
 
     示例|Example: biopytools nlr-annotator -i genome.cds.fa -o output_dir/
@@ -86,6 +105,23 @@ def nlr_annotator(input, output_dir, threads, sample_suffix, merge_only, output_
         argv.append('--output-motifs')
     if output_alignment:
         argv.append('--output-alignment')
+    # 工具路径与高级参数透传(默认值不透传,main 用自身 default)|Forward tool paths & advanced params
+    if jar_path:
+        argv.extend(['--jar-path', jar_path])
+    if mot_file:
+        argv.extend(['--mot-file', mot_file])
+    if store_file:
+        argv.extend(['--store-file', store_file])
+    if java_path != 'java':
+        argv.extend(['--java-path', java_path])
+    if num_seqs_per_thread != 1000:
+        argv.extend(['--num-seqs-per-thread', str(num_seqs_per_thread)])
+    if distance_within_motif_combination != 500:
+        argv.extend(['--distance-within-motif-combination', str(distance_within_motif_combination)])
+    if distance_for_elongating != 2500:
+        argv.extend(['--distance-for-elongating', str(distance_for_elongating)])
+    if distance_between_motif_combinations != 50000:
+        argv.extend(['--distance-between-motif-combinations', str(distance_between_motif_combinations)])
 
     original_argv = sys.argv
     sys.argv = argv

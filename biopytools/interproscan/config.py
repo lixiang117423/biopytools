@@ -50,13 +50,12 @@ class InterProScanConfig:
         """初始化后处理|Post-initialization processing"""
         import sys
 
-        # 标准化路径|Normalize paths
-        self.input_file = os.path.normpath(os.path.abspath(self.input_file))
-        # 使用expand_path展开~符号|Use expand_path to expand ~ symbol
+        # 标准化路径(展开~/$VAR,os.path.abspath不展开~)|Normalize paths (expand ~/$VAR; abspath does NOT expand ~)
+        self.input_file = os.path.normpath(expand_path(self.input_file))
         self.interproscan_path = os.path.normpath(expand_path(self.interproscan_path))
 
         # 设置输出目录|Setup output directory
-        output_dir = os.path.dirname(os.path.abspath(self.output_prefix))
+        output_dir = os.path.dirname(expand_path(self.output_prefix))
         Path(output_dir).mkdir(parents=True, exist_ok=True)
 
         # 设置临时目录|Setup temp directory

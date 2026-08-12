@@ -3,11 +3,13 @@ Resistify主程序模块|Resistify Main Module
 """
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
 import pandas as pd
 
+from ..common.paths import expand_path
 from .config import ResistifyConfig
 from .parser import ResistifyParser
 from .sequence_extractor import SequenceExtractor
@@ -144,13 +146,18 @@ class ResistifyPipeline:
         """运行Resistify工具|Run Resistify tool"""
         self.logger.info("运行Resistify|Running Resistify")
 
+        # 预创建输出目录(批量模式下样本子目录需先建,避免resistify写文件失败)
+        # |Pre-create output dir (batch sample subdir must exist before resistify writes)
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
+
+        # resistify 支持 --threads(经 add_common_args 传给 nlrexpress),接线 config.threads
+        # |resistify supports --threads (passed to nlrexpress via add_common_args)
         cmd_list = build_conda_command(
             self.config.resistify_path,
-            ['nlr', input_file, '-o', output_dir]
+            ['nlr', input_file, '-o', output_dir, '--threads', str(self.config.threads)]
         )
-        cmd_str = ' '.join(cmd_list)
 
-        return self.cmd_runner.run(cmd_str, "Resistify NLR分析|Resistify NLR analysis")
+        return self.cmd_runner.run(cmd_list, "Resistify NLR分析|Resistify NLR analysis")
 
     def _save_results(self, df):
         """
@@ -252,8 +259,11 @@ def main():
 
     args = parser.parse_args()
 
-    # 初始化日志|Initialize logging
-    logger_manager = ResistifyLogger()
+    # 初始化日志(持久化到 {output_dir}/99_logs/resistify.log)|Initialize logging (persist to 99_logs/)
+    output_dir_for_log = os.path.normpath(expand_path(args.output_dir))
+    log_dir = Path(output_dir_for_log) / '99_logs'
+    log_dir.mkdir(parents=True, exist_ok=True)
+    logger_manager = ResistifyLogger(log_file=str(log_dir / 'resistify.log'))
     logger = logger_manager.get_logger()
 
     # 创建配置|Create configuration
