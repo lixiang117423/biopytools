@@ -83,6 +83,24 @@ def _validate_file_exists(file_path):
               default=1e-6,
               show_default=True,
               help='HWE p值阈值|HWE p-value threshold')
+@click.option('--ld-prune/--no-ld-prune',
+              default=True,
+              show_default=True,
+              help='LD剪枝(默认开启,ADMIXTURE假设位点独立)|LD pruning (on by default; ADMIXTURE assumes unlinked sites)')
+@click.option('--ld-window',
+              default='3000kb',
+              show_default=True,
+              help='LD剪枝窗口(kb或SNP数)|LD pruning window (kb or SNP count)')
+@click.option('--ld-step',
+              type=int,
+              default=1,
+              show_default=True,
+              help='LD剪枝步长|LD pruning step size')
+@click.option('--ld-r2',
+              type=float,
+              default=0.2,
+              show_default=True,
+              help='LD剪枝r2阈值|LD pruning r2 threshold')
 @click.option('--skip-preprocessing', '-s',
               is_flag=True,
               help='跳过VCF预处理|Skip VCF preprocessing')
@@ -136,7 +154,8 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='ADAMIXTURE随机种子|ADAMIXTURE random seed')
 def admixture(vcf, output, method, min_k, max_k, cv_folds, threads, maf, missing,
-              hwe, skip_preprocessing, keep_intermediate,
+              hwe, ld_prune, ld_window, ld_step, ld_r2,
+              skip_preprocessing, keep_intermediate,
               verbose, quiet, log_level, log_file, force, dry_run,
               adamixture_path, adamixture_lr, adamixture_beta1, adamixture_beta2,
               adamixture_max_iter, adamixture_seed):
@@ -173,7 +192,7 @@ def admixture(vcf, output, method, min_k, max_k, cv_folds, threads, maf, missing
     if cv_folds != 5:
         args.extend(['-c', str(cv_folds)])
 
-    if threads != 64:
+    if threads != 12:
         args.extend(['-t', str(threads)])
 
     # ADAMIXTURE 参数|ADAMIXTURE parameters
@@ -205,6 +224,16 @@ def admixture(vcf, output, method, min_k, max_k, cv_folds, threads, maf, missing
 
     if hwe != 1e-6:
         args.extend(['-H', str(hwe)])
+
+    # LD剪枝参数|LD pruning parameters
+    if not ld_prune:
+        args.append('--no-ld-prune')
+    if ld_window != '3000kb':
+        args.extend(['--ld-window', ld_window])
+    if ld_step != 1:
+        args.extend(['--ld-step', str(ld_step)])
+    if ld_r2 != 0.2:
+        args.extend(['--ld-r2', str(ld_r2)])
 
     # 布尔选项|Boolean options
     if skip_preprocessing:

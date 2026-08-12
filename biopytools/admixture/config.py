@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List
-from ..common.paths import expand_path
+from ..common.paths import get_tool_path
 
 
 @dataclass
@@ -24,7 +24,12 @@ class AdmixtureConfig:
     min_k: int = 2
     max_k: int = 10
     cv_folds: int = 5
-    threads: int = 64
+    threads: int = 12
+
+    # 工具路径|Tool paths (§11.B: env > config.yml > 默认|env > config.yml > default)
+    plink_path: str = "~/miniforge3/envs/Population_genetics/bin/plink"
+    admixture_path: str = "~/miniforge3/envs/Population_genetics/bin/admixture"
+    bcftools_path: str = "~/miniforge3/envs/bcftools_v.1.22/bin/bcftools"
 
     # ADAMIXTURE 参数|ADAMIXTURE parameters
     adamixture_path: str = "~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture"
@@ -66,10 +71,23 @@ class AdmixtureConfig:
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
 
-        # 标准化路径|Normalize paths
-        self.adamixture_path = expand_path(self.adamixture_path)
+        # 标准化输入/输出路径|Normalize input/output paths
         self.vcf_file = os.path.normpath(os.path.abspath(self.vcf_file))
         self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
+
+        # 工具路径解析(§11.B: env > config.yml > 默认)|Resolve tool paths
+        self.plink_path = get_tool_path('plink', self.plink_path, 'PLINK_PATH')
+        self.admixture_path = get_tool_path('admixture', self.admixture_path, 'ADMIXTURE_PATH')
+        self.bcftools_path = get_tool_path('bcftools', self.bcftools_path, 'BCFTOOLS_PATH')
+        self.adamixture_path = get_tool_path('adamixture', self.adamixture_path, 'ADAMIXTURE_PATH')
+
+        # 分层输出目录(§12.2)|Layered output directories (仅声明路径,实际创建在main)
+        self.pipeline_info_dir = os.path.join(self.output_dir, "00_pipeline_info")
+        self.preprocessing_dir = os.path.join(self.output_dir, "01_preprocessing")
+        self.plink_dir = os.path.join(self.output_dir, "02_plink")
+        self.admixture_dir = os.path.join(self.output_dir, "03_admixture")
+        self.results_dir = os.path.join(self.output_dir, "04_results")
+        self.logs_dir = os.path.join(self.output_dir, "99_logs")
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
@@ -101,6 +119,9 @@ class AdmixtureConfig:
         # 检查LD剪枝参数|Check LD pruning parameters
         if not 0 < self.ld_r2 < 1:
             errors.append(f"LD剪枝r2阈值应在0-1之间|LD pruning r2 should be between 0 and 1: {self.ld_r2}")
+
+        if self.ld_step <= 0:
+            errors.append(f"LD剪枝步长必须为正整数|LD pruning step must be positive: {self.ld_step}")
 
         if errors:
             raise ValueError("配置错误|Configuration error:\n" + "\n".join(errors))
