@@ -1,4 +1,13 @@
 
+## [1.31.0] - 2026-08-12
+
+### Added
+- `centier`：新增 Hi-C FASTQ 自动模式——提供 `-1`/`-2` 即自动跑 HiC-Pro 产出 100kb/20kb 矩阵再进 CentIER 全流程（复用 `hic_heatmap.HiCProPipeline.run_hicpro_only()`，`require_plothic=False`）；新增 ChrN 命名预检（CentIER 实测要求 id 以 `ChrN` 结尾，`--strict-chrname` 不符即中止，默认仅 WARNING）；Hi-C 模式 CentIER 结果落 `02_centier/`（HiC-Pro 输出在 `01_hic_mapping/`）；生成 `00_pipeline_info/software_versions.yml`；运行后清理 CentIER 在 CWD 生成的临时文件到 `tmp/`；CLI 新增 `-1`/`-2`/`-g/--genome-id`/`--restriction-enzyme`/`--bowtie2-idx`/`--bin-sizes`/`--max-memory`/`--force-hicpro`/`--hic-matrix-type`/`--strict-chrname`
+
+### Changed
+- `centier`：`main()` 改用 `CentIERRunner` 统一管理 config/logger/analyzer（kwargs 转发）；CentIER 执行命令补 `命令|Command:` INFO 日志（§2.2.1）；`traceback.print_exc()` 改 `logger.error(traceback.format_exc())`；`--step` 类型 `Choice(['1'..'6'])`→`IntRange(1,6)`；`run_command` 命令日志 DEBUG→INFO
+- `centier`：依赖检查增强——CentIER 自带二进制补可执行权限检查、`gt`/`LTR_retriever` 改 PATH 搜索（原硬编码 `~/miniforge3/envs/centier/bin/`）+ conda env 兜底安装建议、Hi-C 自动模式额外校验 HiC-Pro/bowtie2-build、Python 包（pyfastx/numpy/pandas/scipy）存在性检查
+
 ## [1.30.0] - 2026-08-12
 
 ### Added
