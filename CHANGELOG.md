@@ -1,4 +1,18 @@
 
+## [1.30.0] - 2026-08-12
+
+### Added
+- `admixture`：新增 `--dry-run` 模拟运行模式（打印各步骤计划命令但不执行）；分层输出目录（`00_pipeline_info`/`01_preprocessing`/`02_plink`/`03_admixture`/`04_results`/`99_logs`）；per-K 与各预处理/质控步骤支持断点续传；生成 `00_pipeline_info/software_versions.yml`；CLI 补全 LD 剪枝参数（`--ld-prune`/`--ld-window`/`--ld-step`/`--ld-r2`）
+- `hic_heatmap`：拆分 `run_hicpro_only()`（仅跑 HiC-Pro 不画热图）供其他模块复用；新增 `require_plothic` 配置（仅在画热图时校验 plothic，默认 True 向后兼容）
+
+### Changed
+- `admixture` 全面合规化重构：所有 plink/bcftools/admixture/adamixture 调用改走 `build_conda_command` 传**完整工具路径**（修复原 `build_conda_command('admixture', ...)` 裸命令名、以及 `os.path.basename(adamixture_path)` 提取命令名的 §13.6 违规）；管道命令（`zcat|grep|cut|sort|uniq`）改 Python `Counter` 实现，规避 conda-run-in-pipe（§13.2.1）；复制 bed/fam 改 `shutil`；`AdmixtureLogger` 改命名 logger + `propagate=False`（隔离 root 避免污染全局）；依赖检查改非阻断（仅 warning，登录节点 PATH 不可靠）；R 可视化缺包则跳过不自动装（超算无网）、读 Q/fam/cv 改绝对路径；工具路径走 `get_tool_path`；threads 默认 64→12
+- `vcf2tree`：`run_pipeline` 异常改 re-raise（不再 `sys.exit`），由 CLI 层 catch 转退出码，保持库可用性；`get_conda_env` 加绝对路径特判（避免 `os.path.join` 塌缩误判静态二进制所属环境）；FastTree 后端加 WARNING（不支持 ASC 校正，SNP 分支长度可能低估，需 ASC 请用 IQ-TREE）；入口提示"不做 LD 剪枝/位点 QC，假设输入已质控"；`vcf_converter` 统计并记录跳过的 InDel/非单碱基位点数
+- `cim`：CIM R 块剔除孤立单标记 LG（<3 markers），避免抬高置换检验阈值
+
+### Fixed
+- `admixture`：`config.validate` 补 `ld_step > 0` 校验
+
 ## [1.29.0] - 2026-08-11
 
 ### Added
