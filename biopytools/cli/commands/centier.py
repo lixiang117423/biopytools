@@ -66,6 +66,28 @@ def _validate_file_exists(file_path):
               default=None,
               callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               help='Hi-C BED文件(对应matrix2)|Hi-C BED file for matrix2 (optional)')
+@click.option('--fastq-r1', '-1', default=None,
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
+              help='Hi-C R1 FASTQ(启用自动模式)|Hi-C R1 FASTQ (enables auto mode)')
+@click.option('--fastq-r2', '-2', default=None,
+              callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
+              help='Hi-C R2 FASTQ|Hi-C R2 FASTQ')
+@click.option('--genome-id', '-g', default=None,
+              help='基因组ID|Genome ID')
+@click.option('--restriction-enzyme', default='MboI', show_default=True,
+              help='限制性内切酶|Restriction enzyme')
+@click.option('--bowtie2-idx', default=None,
+              help='Bowtie2索引路径|Bowtie2 index path')
+@click.option('--bin-sizes', default='100000 20000', show_default=True,
+              help='HiC-Pro bin大小|HiC-Pro bin sizes')
+@click.option('--max-memory', type=int, default=200, show_default=True,
+              help='HiC-Pro最大内存GB|HiC-Pro max memory GB')
+@click.option('--force-hicpro', is_flag=True,
+              help='强制重跑HiC-Pro|Force rerun HiC-Pro')
+@click.option('--hic-matrix-type', type=click.Choice(['raw', 'iced']),
+              default='raw', show_default=True, help='Hi-C矩阵类型|Hi-C matrix type')
+@click.option('--strict-chrname', is_flag=True,
+              help='染色体命名不符ChrN时中止|Abort if chr naming not ChrN')
 @click.option('--threads', '-t',
               type=int,
               default=12,
@@ -100,7 +122,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='信号阈值|Signal threshold')
 @click.option('--step', '-s',
-              type=click.Choice(['1', '2', '3', '4', '5', '6']),
+              type=click.IntRange(1, 6),
               help='运行指定步骤|Run only specified step (1-6)')
 @click.option('--skip-dependency-check',
               is_flag=True,
@@ -109,6 +131,8 @@ def _validate_file_exists(file_path):
               is_flag=True,
               help='输出分析结果摘要|Output analysis result summary')
 def centier(input, output_dir, centier_path, gff, matrix1, matrix2, bed1, bed2,
+            fastq_r1, fastq_r2, genome_id, restriction_enzyme, bowtie2_idx,
+            bin_sizes, max_memory, force_hicpro, hic_matrix_type, strict_chrname,
             threads, kmer_size, center_tolerance, step_len, mul_cents, mingap, signal_threshold,
             step, skip_dependency_check, summary):
     """
@@ -146,6 +170,28 @@ def centier(input, output_dir, centier_path, gff, matrix1, matrix2, bed1, bed2,
     if bed2:
         args.extend(['--bed2', bed2])
 
+    # Hi-C FASTQ 自动模式|Hi-C FASTQ auto mode
+    if fastq_r1:
+        args.extend(['-1', fastq_r1])
+    if fastq_r2:
+        args.extend(['-2', fastq_r2])
+    if genome_id:
+        args.extend(['-g', genome_id])
+    if restriction_enzyme != 'MboI':
+        args.extend(['--restriction-enzyme', restriction_enzyme])
+    if bowtie2_idx:
+        args.extend(['--bowtie2-idx', bowtie2_idx])
+    if bin_sizes != '100000 20000':
+        args.extend(['--bin-sizes', bin_sizes])
+    if max_memory != 200:
+        args.extend(['--max-memory', str(max_memory)])
+    if force_hicpro:
+        args.append('--force-hicpro')
+    if hic_matrix_type != 'raw':
+        args.extend(['--hic-matrix-type', hic_matrix_type])
+    if strict_chrname:
+        args.append('--strict-chrname')
+
     # 参数|Parameters
     if threads != 12:
         args.extend(['--threads', str(threads)])
@@ -170,7 +216,7 @@ def centier(input, output_dir, centier_path, gff, matrix1, matrix2, bed1, bed2,
 
     # 步骤控制|Step control
     if step:
-        args.extend(['--step', step])
+        args.extend(['--step', str(step)])
 
     # 执行主程序|Execute main program
     original_argv = sys.argv

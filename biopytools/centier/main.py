@@ -104,6 +104,58 @@ def parse_arguments():
         help='Hi-C BED文件(对应matrix2)|Hi-C BED file for matrix2 (optional)'
     )
 
+    # Hi-C FASTQ 自动模式参数|Hi-C FASTQ auto mode parameters
+    hic_group = parser.add_argument_group('Hi-C FASTQ 自动模式|Hi-C FASTQ auto mode')
+    hic_group.add_argument(
+        '-1', '--fastq-r1',
+        help='Hi-C R1 FASTQ(提供即启用自动模式)|Hi-C R1 FASTQ (enables auto mode)'
+    )
+    hic_group.add_argument(
+        '-2', '--fastq-r2',
+        help='Hi-C R2 FASTQ|Hi-C R2 FASTQ'
+    )
+    hic_group.add_argument(
+        '-g', '--genome-id',
+        help='基因组ID(bowtie2索引命名,默认从基因组文件名推导)|'
+             'Genome ID for bowtie2 index naming (default: derived from genome filename)'
+    )
+    hic_group.add_argument(
+        '--restriction-enzyme',
+        default='MboI',
+        help='限制性内切酶|Restriction enzyme (default: MboI)'
+    )
+    hic_group.add_argument(
+        '--bowtie2-idx',
+        help='Bowtie2索引路径(默认自动建)|Bowtie2 index path (auto-built if not given)'
+    )
+    hic_group.add_argument(
+        '--bin-sizes',
+        default='100000 20000',
+        help='HiC-Pro bin大小(空格分隔)|HiC-Pro bin sizes (default: 100000 20000)'
+    )
+    hic_group.add_argument(
+        '--max-memory',
+        type=int,
+        default=200,
+        help='HiC-Pro最大内存(GB)|HiC-Pro max memory in GB (default: 200)'
+    )
+    hic_group.add_argument(
+        '--force-hicpro',
+        action='store_true',
+        help='强制重跑HiC-Pro|Force rerun HiC-Pro'
+    )
+    hic_group.add_argument(
+        '--hic-matrix-type',
+        choices=['raw', 'iced'],
+        default='raw',
+        help='Hi-C矩阵类型|Hi-C matrix type (default: raw)'
+    )
+    hic_group.add_argument(
+        '--strict-chrname',
+        action='store_true',
+        help='染色体命名不符ChrN时中止|Abort if chr naming not ChrN'
+    )
+
     # 分析参数|Analysis parameters
     parser.add_argument(
         '-t', '--threads',
@@ -184,58 +236,63 @@ def main():
     args = parse_arguments()
 
     try:
-        # 创建配置|Create configuration
-        config = CentIERConfig(
-            genome_fasta=args.genome,
-            centier_path=args.centier_path,
-            output_dir=args.output_dir,
-            gff_annotation=args.gff,
-            matrix1=args.matrix1,
-            matrix2=args.matrix2,
-            bed1=args.bed1,
-            bed2=args.bed2,
-            threads=args.threads,
-            kmer_size=args.kmer_size,
-            center_tolerance=args.center_tolerance,
-            step_len=args.step_len,
-            mul_cents=args.mul_cents,
-            mingap=args.mingap,
-            signal_threshold=args.signal_threshold,
-            step=args.step
-        )
+        # 构建配置参数字典|Build configuration parameter dict
+        kwargs = {
+            'genome_fasta': args.genome,
+            'centier_path': args.centier_path,
+            'output_dir': args.output_dir,
+            'gff_annotation': args.gff,
+            'matrix1': args.matrix1,
+            'matrix2': args.matrix2,
+            'bed1': args.bed1,
+            'bed2': args.bed2,
+            'threads': args.threads,
+            'kmer_size': args.kmer_size,
+            'center_tolerance': args.center_tolerance,
+            'step_len': args.step_len,
+            'mul_cents': args.mul_cents,
+            'mingap': args.mingap,
+            'signal_threshold': args.signal_threshold,
+            'fastq_r1': args.fastq_r1,
+            'fastq_r2': args.fastq_r2,
+            'genome_id': args.genome_id,
+            'restriction_enzyme': args.restriction_enzyme,
+            'bowtie2_idx': args.bowtie2_idx,
+            'bin_sizes': args.bin_sizes,
+            'max_memory_gb': args.max_memory,
+            'force_hicpro': args.force_hicpro,
+            'hic_matrix_type': args.hic_matrix_type,
+            'strict_chrname': args.strict_chrname,
+            'step': args.step
+        }
 
-        # 验证配置|Validate configuration
-        config.validate()
-
-        # 创建日志管理器|Create logger manager
-        log_file = config.output_path / '99_logs' / 'centier.log'
-        logger_manager = CentIERLogger(log_file, log_level="INFO")
-        logger = logger_manager.get_logger()
+        # 使用CentIERRunner统一管理配置、日志、分析和依赖检查|
+        # Use CentIERRunner to manage config, logging, analysis, and dependency check
+        runner = CentIERRunner(**kwargs)
 
         # 检查依赖|Check dependencies
         if not args.skip_dependency_check:
-            if not check_dependencies(config, logger):
-                logger.error("依赖检查失败|Dependency check failed")
+            if not check_dependencies(runner.config, runner.logger):
+                runner.logger.error("依赖检查失败|Dependency check failed")
                 sys.exit(1)
 
         # 运行分析|Run analysis
-        analyzer = CentIERAnalyzer(config, logger)
-        result = analyzer.run()
+        result = runner.run()
 
         # 输出摘要|Output summary
         if args.summary and result.get('success'):
-            summary = analyzer.get_summary()
-            summary_file = config.output_path / 'centier_summary.json'
+            summary = runner.get_summary()
+            summary_file = runner.config.output_path / 'centier_summary.json'
             with open(summary_file, 'w') as f:
                 json.dump(summary, f, indent=2)
-            logger.info(f"结果摘要已保存|Result summary saved to: {summary_file}")
+            runner.logger.info(f"结果摘要已保存|Result summary saved to: {summary_file}")
 
         # 退出|Exit
         if result.get('success'):
-            logger.info("分析完成|Analysis completed successfully")
+            runner.logger.info("分析完成|Analysis completed successfully")
             sys.exit(0)
         else:
-            logger.error("分析失败|Analysis failed")
+            runner.logger.error("分析失败|Analysis failed")
             sys.exit(1)
 
     except ValueError as e:

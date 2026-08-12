@@ -35,6 +35,18 @@ class CentIERConfig:
     bed1: Optional[str] = None
     bed2: Optional[str] = None
 
+    # Hi-C FASTQ 自动模式(可选,提供即启用)|Hi-C FASTQ auto mode (optional, enables auto mode)
+    fastq_r1: Optional[str] = None
+    fastq_r2: Optional[str] = None
+    genome_id: Optional[str] = None          # bowtie2 索引命名,未给则从 genome 推导|for bowtie2 index naming
+    restriction_enzyme: str = 'MboI'          # 限制性内切酶|Restriction enzyme
+    bowtie2_idx: Optional[str] = None         # 无则 HiC-Pro 自动建|auto-built if None
+    bin_sizes: str = '100000 20000'           # centier 需要的两个分辨率|two resolutions centier needs
+    max_memory_gb: int = 200                  # HiC-Pro SORT_RAM(GB)|HiC-Pro memory
+    force_hicpro: bool = False                # 强制重跑 HiC-Pro|Force rerun HiC-Pro
+    hic_matrix_type: str = 'raw'              # raw|iced,选 HiC-Pro 产物的子目录|matrix subdir to use
+    strict_chrname: bool = False              # True 时 ChrN 预检失败即中止|Abort if chr naming not ChrN
+
     # 分析参数|Analysis parameters
     threads: int = 12
     kmer_size: int = 21
@@ -66,9 +78,25 @@ class CentIERConfig:
         if self.bed2:
             self.bed2 = expand_path(self.bed2)
 
+        # 展开 Hi-C FASTQ 模式路径|Expand Hi-C FASTQ mode paths
+        if self.fastq_r1:
+            self.fastq_r1 = expand_path(self.fastq_r1)
+        if self.fastq_r2:
+            self.fastq_r2 = expand_path(self.fastq_r2)
+        if self.bowtie2_idx:
+            self.bowtie2_idx = expand_path(self.bowtie2_idx)
+
         # 创建输出目录|Create output directory
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
+
+        # Hi-C 模式:推导 genome_id 和 sample_name|Hi-C mode: derive genome_id and sample_name
+        if self.fastq_r1:
+            if not self.genome_id:
+                self.genome_id = self._extract_genome_id()
+            self.sample_name = self._extract_sample_name()
+            # 创建 02_centier 子目录|Create 02_centier subdir
+            (self.output_path / '02_centier').mkdir(parents=True, exist_ok=True)
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""
@@ -85,6 +113,25 @@ class CentIERConfig:
         # 检查可选文件|Check optional files
         if self.gff_annotation and not os.path.exists(self.gff_annotation):
             errors.append(f"GFF注释文件不存在|GFF annotation file not found: {self.gff_annotation}")
+
+        # Hi-C FASTQ 自动模式校验|Hi-C FASTQ auto mode validation
+        if self.fastq_r1 or self.fastq_r2:
+            if not (self.fastq_r1 and self.fastq_r2):
+                errors.append("Hi-C FASTQ 模式需要 R1 和 R2 成对提供|"
+                              "Hi-C FASTQ mode requires both R1 and R2")
+            else:
+                if not os.path.exists(self.fastq_r1):
+                    errors.append(f"R1 文件不存在|R1 file not found: {self.fastq_r1}")
+                if not os.path.exists(self.fastq_r2):
+                    errors.append(f"R2 文件不存在|R2 file not found: {self.fastq_r2}")
+            bins = self.bin_sizes.split()
+            if '100000' not in bins:
+                errors.append("bin_sizes 必须包含 100000|bin_sizes must include 100000")
+            if '20000' not in bins:
+                errors.append("bin_sizes 必须包含 20000|bin_sizes must include 20000")
+            if self.hic_matrix_type not in ('raw', 'iced'):
+                errors.append(f"hic_matrix_type 必须为 raw 或 iced|"
+                              f"hic_matrix_type must be raw or iced: {self.hic_matrix_type}")
 
         # 检查Hi-C数据完整性|Check Hi-C data completeness
         hic_files = [self.matrix1, self.matrix2, self.bed1, self.bed2]
@@ -123,3 +170,29 @@ class CentIERConfig:
     def get_bin_path(self) -> str:
         """获取bin目录路径|Get bin directory path"""
         return os.path.join(self.centier_path, 'bin')
+
+    def _extract_genome_id(self) -> str:
+        """从基因组文件名推导 genome_id|Derive genome_id from genome filename"""
+        p = Path(self.genome_fasta)
+        stem = p.stem
+        if stem.endswith('.fa'):
+            stem = stem[:-3]
+        if stem in ('genome', 'assembly'):
+            stem = p.parent.name
+        return stem
+
+    def _extract_sample_name(self) -> str:
+        """从 R1 文件名推导 sample_name(与 HiC-Pro 同算法)|Derive sample_name matching HiC-Pro's algorithm"""
+        name = Path(self.fastq_r1).stem  # 去 .gz|remove .gz
+        if name.endswith('.fastq') or name.endswith('.fq'):
+            name = Path(name).stem
+        name = (name.replace('_R1', '').replace('_R2', '')
+                    .replace('_1', '').replace('_2', '')
+                    .replace('.clean', ''))
+        return name
+
+    def get_centier_output_dir(self) -> Path:
+        """CentIER 结果目录(Hi-C 模式 02_centier/,手动模式根)|CentIER output dir"""
+        if self.fastq_r1:
+            return self.output_path / '02_centier'
+        return self.output_path

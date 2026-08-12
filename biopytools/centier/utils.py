@@ -111,22 +111,84 @@ def check_dependencies(config, logger) -> bool:
     for tool_name, tool_rel_path in required_tools:
         tool_path = os.path.join(config.centier_path, tool_rel_path)
         if os.path.exists(tool_path):
-            logger.info(f"找到|Found {tool_name}: {tool_path}")
+            # 检查可执行权限|Check execute permission
+            if tool_rel_path.endswith(('.linux64', 'hmmsearch')) or 'ltr_finder' in tool_rel_path:
+                if os.access(tool_path, os.X_OK):
+                    logger.info(f"找到且可执行|Found and executable {tool_name}: {tool_path}")
+                else:
+                    logger.warning(f"找到但不可执行|Found but not executable {tool_name}: {tool_path}")
+                    logger.warning(f"请运行|Please run: chmod +x {tool_path}")
+                    all_ok = False
+            else:
+                logger.info(f"找到|Found {tool_name}: {tool_path}")
         else:
-            logger.warning(f"未找到|Warning: {tool_name} not found: {tool_path}")
+            logger.error(f"未找到|{tool_name} not found: {tool_path}")
+            all_ok = False
 
-    # 检查外部工具|Check external tools
-    external_tools = {
-        'gt': 'genometools (可选, 可跳过|optional, can skip)',
-        'LTR_retriever': 'LTR_retriever (可选, 可跳过|optional, can skip)'
-    }
-
-    for tool, description in external_tools.items():
-        tool_path = os.path.expanduser(f"~/miniforge3/envs/centier/bin/{tool}")
-        if os.path.exists(tool_path):
+    # 检查外部工具(使用PATH搜索) - gt和LTR_retriever为CentIER必须|
+    # Check external tools (use PATH search) - gt and LTR_retriever are required by CentIER
+    import shutil as shutil_mod
+    external_tools = ['gt', 'LTR_retriever']
+    for tool in external_tools:
+        tool_path = shutil_mod.which(tool)
+        if tool_path:
             logger.info(f"找到|Found {tool}: {tool_path}")
         else:
-            logger.warning(f"未找到|Warning: {tool} not found ({description})")
+            # 搜索conda环境中是否有此工具,给出安装建议|Search conda envs for this tool, suggest fix
+            conda_envs_dir = os.path.expanduser('~/miniforge3/envs')
+            found_envs = []
+            if os.path.isdir(conda_envs_dir):
+                for env_name in os.listdir(conda_envs_dir):
+                    candidate = os.path.join(conda_envs_dir, env_name, 'bin', tool)
+                    if os.path.isfile(candidate):
+                        found_envs.append(env_name)
+            if found_envs:
+                logger.error(f"未找到|{tool} not found in PATH (CentIER必须|CentIER requires it)")
+                logger.error(f"  但已在以下conda环境中找到|But found in conda envs: {', '.join(found_envs)}")
+                logger.error(f"  解决方案|Fix: conda install -n centier -c bioconda genometools")
+                logger.error(f"  或|Or: export PATH=$(conda run -n {found_envs[0]} which {tool} | xargs dirname):$PATH")
+            else:
+                logger.error(f"未找到|{tool} not found in PATH (CentIER必须|CentIER requires it)")
+                logger.error(f"  解决方案|Fix: conda install -n centier -c bioconda genometools")
+            all_ok = False
+
+    # Hi-C FASTQ 自动模式额外校验|Extra checks for Hi-C FASTQ auto mode
+    if getattr(config, 'fastq_r1', None):
+        from ..common.paths import get_tool_path as _get_tool_path
+        hicpro_path = _get_tool_path(
+            'hicpro',
+            '~/software/HiC-Pro_v3.1.0/HiC-Pro_3.1.0/bin/HiC-Pro',
+            'HICPRO_PATH'
+        )
+        if os.path.exists(hicpro_path):
+            logger.info(f"找到 HiC-Pro|Found HiC-Pro: {hicpro_path}")
+        else:
+            logger.error(f"未找到 HiC-Pro|HiC-Pro not found: {hicpro_path}")
+            logger.error("  Hi-C FASTQ 自动模式需要 HiC-Pro|Hi-C FASTQ auto mode requires HiC-Pro")
+            all_ok = False
+
+        # bowtie2-build 在 HiC-Pro env 内|bowtie2-build lives in HiC-Pro env
+        bowtie2_build_path = _get_tool_path(
+            'bowtie2_build',
+            '~/miniforge3/envs/HiC-Pro_v3.1.0/bin/bowtie2-build',
+            'BOWTIE2_BUILD_PATH'
+        )
+        if os.path.exists(bowtie2_build_path):
+            logger.info(f"找到 bowtie2-build|Found bowtie2-build: {bowtie2_build_path}")
+        else:
+            # 缺失只警告,不硬失败(HiC-Pro 可能用预建索引)|Warn only, don't hard-fail
+            logger.warning(f"bowtie2-build 未找到(自动建索引可能失败)|"
+                           f"bowtie2-build not found (auto index build may fail): {bowtie2_build_path}")
+
+    # 检查Python包依赖|Check Python package dependencies
+    import importlib.util
+    python_packages = ['pyfastx', 'numpy', 'pandas', 'scipy']
+    for pkg in python_packages:
+        spec = importlib.util.find_spec(pkg)
+        if spec is not None:
+            logger.info(f"找到Python包|Found Python package {pkg}: {spec.origin}")
+        else:
+            logger.warning(f"未找到Python包|Python package {pkg} not found (CentIER需要|CentIER requires it)")
 
     if all_ok:
         logger.info("依赖检查完成|Dependency check completed")
@@ -148,7 +210,7 @@ def run_command(cmd: List[str], logger, check: bool = True) -> subprocess.Comple
     Returns:
         subprocess.CompletedProcess: 命令执行结果|Command execution result
     """
-    logger.debug(f"执行命令|Running command: {' '.join(cmd)}")
+    logger.info(f"命令|Command: {' '.join(cmd)}")
 
     try:
         result = subprocess.run(
