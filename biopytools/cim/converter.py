@@ -1133,8 +1133,22 @@ def _build_cim_block(config: CIMConfig, label: str, output_dir: str) -> List[str
         lines.append(f'cat("\\n========== CIM分析 ({label}) ==========\\n")')
         lines.append('')
 
-    # 计算基因型概率|Calculate genotype probabilities
+    # 剔除孤立单标记LG(<3 markers),避免抬高置换检验阈值|
+    # Remove singleton LGs (<3 markers) to avoid inflating permutation threshold
     lines.extend([
+        '# 剔除孤立单标记LG(<3 markers)|Remove singleton LGs (<3 markers)',
+        'cat("剔除孤立单标记LG(<3 markers)...\\n")',
+        'nmar_all <- nmar(cross)',
+        'singleton_lgs <- names(nmar_all)[nmar_all < 3]',
+        'if (length(singleton_lgs) > 0) {',
+        '    cat("  移除孤立LG|Removing singleton LGs:", length(singleton_lgs), "out of", length(nmar_all), "\\n")',
+        '    cat("  移除的LG|Removed LGs:", paste(singleton_lgs, collapse=", "), "\\n")',
+        '    cross <- subset(cross, chr = names(nmar_all)[nmar_all >= 3])',
+        '    cat("  过滤后|After filtering:", nmar(cross), "markers in", nchr(cross), "LGs\\n")',
+        '} else {',
+        '    cat("  无孤立LG,无需过滤|No singleton LGs to remove\\n")',
+        '}',
+        '',
         '# 计算基因型概率|Calculate genotype probabilities',
         'cat("计算基因型概率...\\n")',
         'cross <- calc.genoprob(cross, step=' + str(step) + ', error.prob=0.0001)',
