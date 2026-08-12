@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List
 
+from ..common.paths import expand_path
+
 
 @dataclass
 class VCFStatsConfig:
@@ -32,8 +34,6 @@ class VCFStatsConfig:
     # 高级选项|Advanced options
     verbose: bool = False
     quiet: bool = False
-    dry_run: bool = False
-    force: bool = False
 
     # 内部属性|Internal attributes
     sample_names: List[str] = None  # 样本名称列表|Sample names list
@@ -41,12 +41,11 @@ class VCFStatsConfig:
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""
+        # 展开所有 ~ / $VAR 路径(关键:Python不会自动展开~)|Expand ~ / $VAR paths
+        self.vcf_file = os.path.normpath(expand_path(self.vcf_file))
+        self.output_dir = os.path.normpath(expand_path(self.output_dir))
         self.output_path = Path(self.output_dir)
         self.output_path.mkdir(parents=True, exist_ok=True)
-
-        # 标准化路径|Normalize paths
-        self.vcf_file = os.path.normpath(os.path.abspath(self.vcf_file))
-        self.output_dir = os.path.normpath(os.path.abspath(self.output_dir))
 
     def validate(self):
         """验证配置参数|Validate configuration parameters"""

@@ -3,6 +3,7 @@ VCF基因型统计主程序模块|VCF Genotype Statistics Main Module
 """
 
 import argparse
+import os
 import sys
 from .config import VCFStatsConfig
 from .utils import VCFStatsLogger
@@ -18,11 +19,13 @@ class VCFStatsAnalyzer:
         self.config = VCFStatsConfig(**kwargs)
         self.config.validate()
 
-        # 初始化日志|Initialize logging
+        # 初始化日志(输出到99_logs子目录,符合§12目录规范)|Initialize logging
         self.logger_manager = VCFStatsLogger(
-            self.config.output_path,
+            self.config.output_path / '99_logs',
             verbose=self.config.verbose,
-            quiet=self.config.quiet
+            quiet=self.config.quiet,
+            log_file=self.config.log_file,
+            log_level=self.config.log_level,
         )
         self.logger = self.logger_manager.get_logger()
 
@@ -73,12 +76,53 @@ class VCFStatsAnalyzer:
             # 生成分析总结|Generate analysis summary
             self.summary_generator.generate_analysis_summary(stats_results)
 
+            # 生成版本信息元数据(§12.5)|Generate software versions metadata
+            generate_software_versions_yml(self.config.output_dir, self.config, self.logger)
+
             self.logger.info("=" * 20 + " VCF基因型统计分析完成|VCF Genotype Statistics Analysis Completed " + "=" * 20)
             self.logger.info(f"结果文件已保存到|Results saved to: {self.config.output_dir}")
 
         except Exception as e:
             self.logger.error(f"分析流程在执行过程中意外终止|Analysis pipeline terminated unexpectedly: {e}")
             sys.exit(1)
+
+
+def generate_software_versions_yml(output_dir: str, config, logger):
+    """生成software_versions.yml(§12.5)|Generate software_versions.yml
+
+    本模块为纯Python统计工具(无外部命令行工具),仅记录pipeline/python/pandas版本与运行参数|
+    This module is pure-Python (no external CLI tools), so only pipeline/python/pandas versions and parameters are recorded.
+    """
+    from . import __version__
+    info_dir = os.path.join(output_dir, '00_pipeline_info')
+    os.makedirs(info_dir, exist_ok=True)
+
+    try:
+        import pandas as pd
+        pd_ver = pd.__version__
+    except Exception:
+        pd_ver = 'unknown'
+
+    lines = [
+        'pipeline:',
+        f'  name: "biopytools vcf_sample_hete"',
+        f'  version: "{__version__}"',
+        '',
+        'tools:',
+        f'  python: "{sys.version.split()[0]}"',
+        f'  pandas: "{pd_ver}"',
+        '',
+        'parameters:',
+        f'  input_vcf: "{os.path.basename(config.vcf_file)}"',
+        f'  min_depth: {config.min_depth}',
+        f'  min_qual: {config.min_qual}',
+        f'  exclude_missing: {config.exclude_missing}',
+        f'  total_variants: {config.total_snps}',
+    ]
+    output_file = os.path.join(info_dir, 'software_versions.yml')
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(lines) + '\n')
+    logger.info(f"版本信息已保存|Software versions saved: {output_file}")
 
 
 def main():
@@ -130,11 +174,6 @@ def main():
                         default='INFO',
                         help='日志级别|Log level')
 
-    # 高级选项|Advanced options
-    advanced = parser.add_argument_group('高级选项|Advanced options')
-    advanced.add_argument('--dry-run', action='store_true',
-                         help='试运行模式|Dry run mode')
-
     args = parser.parse_args()
 
     # 创建分析器并运行|Create analyzer and run
@@ -150,7 +189,6 @@ def main():
         quiet=args.quiet,
         log_file=args.log_file,
         log_level=args.log_level,
-        dry_run=args.dry_run
     )
 
     analyzer.run_analysis()

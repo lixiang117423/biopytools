@@ -13,7 +13,7 @@ Features: Genotype statistics analysis for each sample in VCF files, including h
 日期|Date: 2025-07-17
 
 使用示例|Usage Examples:
-    from biopytools.vcf_stats import VCFStatsAnalyzer, VCFStatsConfig
+    from biopytools.vcf_sample_hete import VCFStatsAnalyzer, VCFStatsConfig
     
     # 创建分析器|Create analyzer
     analyzer = VCFStatsAnalyzer(

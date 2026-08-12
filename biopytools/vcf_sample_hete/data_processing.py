@@ -4,7 +4,7 @@
 
 import os
 from collections import defaultdict, Counter
-from .utils import VCFReader, GenotypeParser
+from .utils import VCFReader, GenotypeParser, format_number
 
 class VCFProcessor:
     """ VCF处理器|VCF Processor"""
@@ -20,6 +20,8 @@ class VCFProcessor:
         self.detailed_stats = defaultdict(lambda: defaultdict(int))
         self.total_snps = 0
         self.processed_snps = 0
+        self.filtered_by_qual = 0   # 质量过滤丢弃位点数|Variants dropped by QUAL filter
+        self.filtered_by_depth = 0  # 深度过滤丢弃基因型数|Genotypes dropped by DP filter
     
     def process_vcf(self):
         """ 处理VCF文件|Process VCF file"""
@@ -47,13 +49,21 @@ class VCFProcessor:
                 
                 #  进度报告|Progress report
                 if self.total_snps % 10000 == 0:
-                    self.logger.info(f" 已处理 {self.total_snps} 个变异位点|Processed {self.total_snps} variants")
-        
+                    self.logger.info(f" 已处理 {format_number(self.total_snps)} 个变异位点|Processed {format_number(self.total_snps)} variants")
+
         self.config.total_snps = self.total_snps
         self.logger.info(f" VCF处理完成|VCF processing completed")
-        self.logger.info(f" 总变异位点数|Total variants: {self.total_snps}")
-        self.logger.info(f" 通过过滤的位点数|Variants passed filters: {self.processed_snps}")
-        
+        self.logger.info(f" 总变异位点数|Total variants: {format_number(self.total_snps)}")
+        self.logger.info(f" 通过过滤的位点数|Variants passed filters: {format_number(self.processed_snps)}")
+
+        #  DEBUG:过滤诊断与逐样本统计(仅在 --log-level DEBUG / --verbose 时输出)
+        #  DEBUG: filter diagnostics & per-sample stats (only at DEBUG/verbose)
+        self.logger.debug(f" 质量过滤丢弃位点|Filtered by qual: {self.filtered_by_qual}")
+        self.logger.debug(f" 深度过滤丢弃基因型|Filtered by depth: {self.filtered_by_depth}")
+        for sample_name, stats in sorted(self.sample_stats.items()):
+            parts = ', '.join(f"{k}={v}" for k, v in sorted(stats.items()))
+            self.logger.debug(f" 样本统计|Sample {sample_name}: {parts}")
+
         return True
     
     def _process_variant_line(self, line: str, sample_names: list) -> bool:
@@ -72,9 +82,11 @@ class VCFProcessor:
         if self.config.min_qual > 0:
             try:
                 if float(qual) < self.config.min_qual:
+                    self.filtered_by_qual += 1
                     return False
             except (ValueError, TypeError):
                 if qual == '.':
+                    self.filtered_by_qual += 1
                     return False
         
         #  处理每个样本的基因型|Process genotype for each sample
@@ -114,6 +126,7 @@ class VCFProcessor:
             try:
                 depth = int(gt_values[dp_index])
                 if depth < self.config.min_depth:
+                    self.filtered_by_depth += 1
                     return
             except (ValueError, IndexError):
                 pass

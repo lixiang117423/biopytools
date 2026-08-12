@@ -62,11 +62,8 @@ def _lazy_import_vcf_stats_main():
               default='INFO',
               show_default=True,
               help='日志级别|Log level')
-@click.option('--dry-run',
-              is_flag=True,
-              help='试运行模式|Dry run mode')
 def vcf_sample_hete(input, output, min_depth, min_qual, exclude_missing, no_detailed, no_summary,
-                    verbose, quiet, log_file, log_level, dry_run):
+                    verbose, quiet, log_file, log_level):
     """
     VCF基因型统计分析工具|VCF Genotype Statistics Analysis Tool
 
@@ -117,10 +114,6 @@ def vcf_sample_hete(input, output, min_depth, min_qual, exclude_missing, no_deta
 
     if log_level != 'INFO':
         args.extend(['--log-level', log_level])
-
-    # 高级选项|Advanced options
-    if dry_run:
-        args.append('--dry-run')
 
     # 保存并恢复sys.argv|Save and restore sys.argv
     original_argv = sys.argv

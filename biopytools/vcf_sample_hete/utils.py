@@ -6,26 +6,39 @@ import logging
 import sys
 import time
 from pathlib import Path
+from typing import Optional
 import gzip
+
+from ..common.paths import expand_path
 
 
 class VCFStatsLogger:
     """VCF基因型统计日志管理器|VCF Genotype Statistics Logger Manager"""
 
     def __init__(self, log_dir: Path, log_name: str = "vcf_stats_analysis.log",
-                 verbose: bool = False, quiet: bool = False):
+                 verbose: bool = False, quiet: bool = False,
+                 log_file: Optional[str] = None, log_level: Optional[str] = None):
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(parents=True, exist_ok=True)
 
-        # 创建日志文件|Create log file
+        # 时间戳用于logger命名,避免多实例互相污染|Timestamp for unique logger name
         timestamp = time.strftime('%Y%m%d_%H%M%S')
-        self.log_file = self.log_dir / f"vcf_stats_{timestamp}.log"
+
+        # 确定日志文件路径:用户指定优先,否则用时间戳默认名|Determine log file path
+        if log_file:
+            self.log_file = Path(expand_path(log_file))
+            self.log_file.parent.mkdir(parents=True, exist_ok=True)
+        else:
+            self.log_file = self.log_dir / f"vcf_stats_{timestamp}.log"
 
         # 配置logger|Configure logger
         self.logger = logging.getLogger(f"vcf_stats_{timestamp}")
+        self.logger.propagate = False  # 避免传播到root logger导致重复输出|Avoid duplicate logs via root
 
-        # 设置日志级别|Set log level
-        if quiet:
+        # 确定日志级别:显式 log_level > quiet > verbose > INFO|Determine log level
+        if log_level:
+            self.logger.setLevel(getattr(logging, str(log_level).upper(), logging.INFO))
+        elif quiet:
             self.logger.setLevel(logging.ERROR)
         elif verbose:
             self.logger.setLevel(logging.DEBUG)
@@ -174,3 +187,10 @@ class VCFReader:
             self.logger.info(f"样本名称|Sample names: {', '.join(sample_names[:5])}{'...' if len(sample_names) > 5 else ''}")
 
         return sample_names
+
+
+def format_number(num: int) -> str:
+    """格式化大数字(>1M用M单位,保留2位小数)|Format large number (>1M as M unit, 2 decimals)"""
+    if num >= 1_000_000:
+        return f"{num / 1_000_000:.2f}M"
+    return str(num)
