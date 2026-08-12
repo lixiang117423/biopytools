@@ -1,4 +1,20 @@
 
+## [1.32.0] - 2026-08-12
+
+### Added
+- `mixrace`（新模块，CLI `mixrace`）：WGS 混合小种检测——fastq → bwa-mem2 比对（含正确 name-sort→fixmate -m→coord-sort→markdup 链，修复仓库既有 `bwa/alignment.py` 缺 fixmate 的 landmine）→ bcftools mpileup+call（保留 multiallelic + FORMAT/AD/DP）→ 过滤（QUAL/DP/SNP + 去 repeat + ALT reads 级联）→ VAF/Hw/多等位统计 + 队列 Fws + 可选 k-mer 谱（复用 `smudgescope`）→ 四指标透明投票判读（疑似纯/混合/灰色 + 置信 + 人话依据）。8 步 `--step` 调度 + 断点续传 + `--pure-samples` 已知纯样品阈值校准 + 跨样品汇总表（TSV/HTML）；conda 管道统一用单 `conda run -n env --no-capture-output bash -c 'pipe'`（同 env 工具一次激活，规避 §13.2.2）；`CommandRunner` 以独立进程组启动，SIGTERM/超时/Ctrl-C 整组杀（无孤儿 conda/samtools）
+- `selective_sweep`：新增 XP-CLR 跨群体选择信号分量——每两群体×每染色体计算 XP-CLR 并入 composite_score；新增 `--xpclr-maxsnps`/`--minsnps`/`--ld`/`--min-samples`/`--include-xpclr-low-n`；filtered.vcf.gz 自动补建 `.tbi`（allel.read_vcf tabix 需要）；单染色体失败优雅降级（不阻塞其他染色体）；`software_versions.yml` 用 `python -c "import xpclr.__version__"` 探版本（xpclr 无 `--version` CLI）
+
+### Changed
+- `interproscan`：`build_command`/`CommandRunner.run` 由 str+`shell=True` 改 list+`shell=False`（§13 安全）；`config.__post_init__` 输入/输出路径改 `expand_path`（原 `os.path.abspath` 不展开 `~`，`~/input` 校验失败）；TSV 解析加行级容错（单行 int/score 畸形只跳过该行，不丢整份结果）；CLI `--format` 支持逗号分隔多格式（默认 `TSV,XML`）
+- `resistify`：`CommandRunner.run` 改 list+`shell=False`；`--threads` 接线传给 resistify/nlrexpress（原未传）；日志持久化到 `{output_dir}/99_logs/resistify.log`（原 `ResistifyLogger()` 无参不落盘）；批量模式预创建样本子目录（避免 resistify 写文件失败）；删除未使用的 `parse_annotations` 死代码
+- `nlr_annotator`：`build_command` 改用 `build_conda_command` 包装 java（原裸 `['java', ...]` 在 conda env 调不到正确解释器，属死代码激活），新增 `--java-path`；批量模式 `NLRLogger` 改每样本独立命名 logger（原共享 `"nlr_annotator"` logger 被后续样本劫持 handler）；`merge_only`/`collect_input_files` 异常转 `sys.exit(1)`；CLI 透传 jar/mot/store/java 路径与三项距离参数
+
+### Fixed
+- `interproscan`：`--goterms`/`--pathways` 死开关 bug——原反向开关 `--no-goterms`（`action='store_true'`, `default=True`）恒为 True，`goterms = args.no_goterms is False` 永远 False，GO/Pathway 从不获取；改读正向 `args.goterms`/`args.pathways`；GO 类别匹配从缩写 `|BP|`/`|CC|`/`|MF|` 改全称 `|Biological Process|` 等（匹配 TSV 实际填充格式）
+- `resistify`：序列提取文件（nlr.fasta 等）预检条件收紧为仅 `--skip-resistify` 模式；原 `if not self.is_directory` 在 non-skip 模式会检查尚未由 resistify 生成的文件而误报缺失
+- `gtx_joint`：移除参考基因组 `.fai` 索引强制预检（索引由工具自建，原校验误拦合法输入）
+
 ## [1.31.1] - 2026-08-12
 
 ### Fixed
