@@ -1085,7 +1085,7 @@ def build_tidy_files(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
     if map_mode == "physical":
         positions = marker_info['pos'].values / 1e6  # bp → Mb (pseudo-cM)
     else:
-        positions = marker_info['pos'].values / 1e6  # placeholder, est.map will override
+        positions = marker_info['pos'].values / 1e6  # Mb占位; 仅estimate模式由est.map覆盖, mstmap模式的物理block沿用此Mb(不可est.map,见_build_cim_block注释)
 
     map_df = pd.DataFrame({
         'chr': marker_info['chr'].tolist(),
@@ -1132,6 +1132,18 @@ def _build_cim_block(config: CIMConfig, label: str, output_dir: str) -> List[str
     if label:
         lines.append(f'cat("\\n========== CIM分析 ({label}) ==========\\n")')
         lines.append('')
+        if label == "physical":
+            # 显式标注尺度差异:物理block图谱坐标为Mb(pseudo-cM),window/step 与
+            # mstmap block(真实cM)不同尺度,两block的LOD/阈值仅在同block内可比。
+            # |Mark scale mismatch explicitly: physical block map is Mb (pseudo-cM);
+            # window/step differ from the mstmap block (true cM). Compare LOD/thresholds
+            # only within the same block.
+            lines.append(
+                'cat("NOTE: 物理block图谱坐标为Mb(pseudo-cM),window/step与mstmap '
+                'block(真实cM)尺度不同;两block的LOD/阈值仅在同block内可比'
+                '|Physical block map is Mb (pseudo-cM); window/step differ from mstmap '
+                'block (true cM); compare LOD/thresholds only within the same block\\n")')
+            lines.append('')
 
     # 剔除孤立单标记LG(<3 markers),避免抬高置换检验阈值|
     # Remove singleton LGs (<3 markers) to avoid inflating permutation threshold
@@ -1150,25 +1162,11 @@ def _build_cim_block(config: CIMConfig, label: str, output_dir: str) -> List[str
         '}',
     ])
 
-    # 物理block专属: build_tidy_files写入的是Mb占位位置(注释"est.map will override"),
-    # 但mstmap模式原本没调est.map,导致Mb被当cM喂给cim(),window=10被当成10Mb,
-    # 协因子剔除窗口占整条染色体24%→协因子饥饿→LOD整体压低。
-    # 这里补est.map(),用真实重组率重估cM,使window/step与mstmap block同为真实cM尺度。
-    # Physical-block only: build_tidy_files writes Mb placeholders that mstmap mode never
-    # overrode with est.map, so Mb was fed to cim() as cM and window=10 read as 10Mb,
-    # starving cofactors and depressing LOD. Re-estimate real cM here so the physical
-    # block's window/step are on the same real-cM scale as the mstmap block.
-    if label == "physical":
-        lines.extend([
-            '# 物理位置重估为真实cM|Re-estimate physical positions into real cM',
-            '# (Mb占位值须由est.map覆盖,否则window=10被当成10Mb)|',
-            '# (Mb placeholders MUST be overridden by est.map, else window=10 reads as 10Mb)',
-            'cat("物理图谱重估遗传距离(est.map)...\\n")',
-            'newmap <- est.map(cross, error.prob=0.0001)',
-            'cross <- replace.map(cross, newmap)',
-            'cat("物理图谱重估完成|Physical map re-estimated to real cM\\n")',
-            '',
-        ])
+    # NOTE: 不对物理block调est.map()。LD降维(r2=0.1)刻意保留低LD标记,相邻标记近乎不连锁,
+    # est.map会把重组率估成~0.5→Kosambi距离→∞→图谱膨胀到数百万cM→calc.genoprob生成数百万
+    # pseudomarker→cim置换检验(×1000)永不完成(实测物理block 13h+未跑完,LOD畸高至305)。
+    # DO NOT est.map() the physical block: LD pruning keeps markers nearly unlinked, so est.map
+    # inflates the map to millions of cM -> calc.genoprob explodes -> permutation never finishes.
 
     lines.extend([
         '# 计算基因型概率|Calculate genotype probabilities',
