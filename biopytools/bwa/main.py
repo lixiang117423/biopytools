@@ -111,11 +111,7 @@ def main():
     parser = argparse.ArgumentParser(
         description='BWA全基因组比对分析工具|BWA Whole Genome Alignment Tool',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='''
-示例|Examples:
-  %(prog)s -g genome.fa -i fastq_dir
-  %(prog)s -g genome.fa -i fastq_dir -p _1.clean.fq.gz
-        '''
+        epilog='''示例|Examples: %(prog)s -g genome.fa -i fastq_dir'''
     )
 
     # 必需参数|Required parameters

@@ -200,7 +200,6 @@ def bwa(genome, input, pattern, output_dir, threads,
     BWA-MEM全基因组比对分析|BWA-MEM whole genome alignment analysis
 
     示例|Examples: biopytools bwa -g genome.fa -i fastq_dir
-    biopytools bwa -g genome.fa -i fastq_dir -p _1.fq.gz
     """
 
     # 延迟加载|Lazy loading
