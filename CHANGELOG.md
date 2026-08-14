@@ -1,4 +1,17 @@
 
+## [1.32.1] - 2026-08-14
+
+### Added
+- `insert2locus`（新模块，CLI `insert2locus`）：转基因插入位点提取——fastq 配对发现 → 参考比对步移（walking）→ 完整 locus 重建与验证 → 报告输出；配置与工具路径走 `expand_path`/`get_tool_path` 规范，含断点续传与 conda 包装调用
+
+### Changed
+- `mixrace`：核心方法论重构为单倍体方案（导师 v2）——变异检测由 bcftools mpileup+call 改为 `freebayes -p 1 --min-alternate-fraction 0.02 --min-coverage 30`（保低频等位，AF 用 AO/RO 字段）；判读引擎由四指标投票（VAF/Hw/多等位/Fws）改为全基因组杂合率 het_rate 主判据（导师 <0.01%/0.1%/1% 阈值）+ AFS 形态 + 优势株占比，Fws 弃用（疟原虫二倍体指标不适用）；流程 8 步改 7 步，新增 `--clean-fastq-dir`（跳过 QC）与 `--min-alt-fraction`，输出目录改 by-step（`02_alignment/`、`04_filtered/`、`05_vaf/` 等）
+- `cim`：physical block 移除 est.map（v1.31.1 补的 est.map 在 r2=0.1 低 LD 标记上图谱膨胀至百万 cM、置换检验 13h+ 永不完成——有意回退），R 脚本显式标注 physical block 为 Mb pseudo-cM、与 mstmap block（真实 cM）尺度不同、LOD/阈值仅同 block 内可比；estimate 模式 est.map 保留
+- `bwa`：help 示例精简为单条最简用法（§3.3）
+
+### Fixed
+- `mixrace` 15 项修复：repeat 过滤管道失败不再静默回退 raw（中止 + 清残留 + 不建断点）；无变异数据不再误判疑似纯（no_data → uncertain）；`software_versions.yml` 废弃参数改现行 13 个字段；HTML 报告 rationale/样名 `html.escape` 全路径转义；config 死字段清理 + step 注释 1..7；AFS 中间频率区间 0.05–0.95 真正生效（VAF≈0 噪声不再拉向 smeared）；`run_align` 顺序执行器失败短路；`_genome_size` 支持 .gz；`_parse_sn` 精确字段匹配；`--min-alt-fraction` argparse/Click 双层透传；`run_qc`/`run_kmer` 断点自愈（`_done` must_exist）；md 报告指标百分比格式化；测试同步更新 + 6 个回归测试
+
 ## [1.32.0] - 2026-08-12
 
 ### Added
