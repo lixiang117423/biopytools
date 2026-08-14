@@ -98,6 +98,7 @@ COMMAND_REGISTRY = [
     ('hic_heatmap', 'hic-heatmap', 'Hi-C全基因组热图分析|Hi-C whole genome heatmap analysis'),
     ('hmmsearch', 'hmmsearch', 'HMMsearch结果处理工具|HMMsearch result processing tool'),
     ('insert_detection', 'insert-detection', '插入序列位点检测|Insert sequence insertion site detection'),
+    ('insert2locus', 'insert2locus', '转基因插入位点提取(步移+完整locus+验证)|Transgenic insertion locus extraction'),
     ('hifi_hic', 'hifi-hic', '使用HiFi和Hi-C数据进行基因组组装|Genome assembly using HiFi and Hi-C data'),
     ('hifi_hic_workflow', 'hifi-hic-workflow', 'HiFi+Hi-C基因组组装与挂载完整流程|Complete HiFi+Hi-C Genome Assembly and Scaffolding Workflow'),
     ('hifiasm', 'hifiasm', '运行hifiasm基因组组装|Run hifiasm genome assembly'),
