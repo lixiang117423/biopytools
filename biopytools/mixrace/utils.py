@@ -235,12 +235,11 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
                             start_time: Optional[datetime] = None) -> None:
     """生成 software_versions.yml|Generate software_versions.yml.
 
-    探测 mixrace 工具链版本(bwa-mem2/samtools/bcftools/bedtools/Rscript)+ 记录参数与运行时间。
+    探测 mixrace 工具链版本(samtools/bcftools/bedtools/Rscript)+ 记录参数与运行时间。
     |Probe mixrace tool versions + record parameters/runtime.
     """
     import yaml
     tools = {
-        "bwa-mem2": (config.bwa_mem2_path, []),
         "samtools": (config.samtools_path, ["--version"]),
         "bcftools": (config.bcftools_path, ["--version"]),
         "bedtools": (config.bedtools_path, ["--version"]),
@@ -258,8 +257,9 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
             logger.warning(f"版本探测失败|Version probe failed [{name}]: {e}")
             versions[name] = {"version": "unknown", "path": path}
     param_keys = ["threads", "kmer_size", "read_length", "min_qual", "min_dp",
-                  "min_alt_reads", "vaf_mid_low", "vaf_mid_high", "multiallelic_low",
-                  "multiallelic_high", "fws_cutoff", "min_depth", "repeat_bed"]
+                  "min_alt_reads", "freebayes_min_coverage",
+                  "freebayes_min_alternate_fraction", "het_pure", "het_suspicious",
+                  "het_impure", "min_depth", "repeat_bed"]
     info = {
         "pipeline": {"name": "biopytools mixrace", "version": "0.1.0"},
         "tools": versions,

@@ -1,9 +1,12 @@
-"""mixrace 流程步骤(命令构造与执行)|mixrace pipeline steps (command construction & execution).
+"""mixrace 流程步骤(单倍体 freebayes 后端)|mixrace pipeline steps (haploid freebayes backend).
 
-step01 run_index/run_qc, step02 run_align, step03 run_call, step04 run_filter,
-step07 run_kmer。每步带断点续传;外部命令经 CommandRunner(conda 包装/直调)。
-|step01-04 + 07 command runners with checkpoint resume; external commands via
-CommandRunner (conda-wrapped or direct).
+step01 run_index/run_qc(bwa-mem2 索引 + fastp QC),
+step02 run_align(bwa-mem2 + 正确 markdup 五步),
+step03 run_call_freebayes(freebayes -p 1 单倍体,保低频;AF 用 AO/RO),
+step04 run_filter(QUAL/DP/去repeat,保留多等位),
+step06 run_kmer(smudgescope)。导师方法论 v2。
+|Haploid pipeline per advisor: bwa-mem2+markdup, freebayes -p 1 (keeps low-freq alleles;
+AF via AO/RO), filter (keeps multiallelic), smudgescope.
 """
 import os
 import shutil
@@ -13,49 +16,60 @@ from typing import Optional
 from .utils import get_conda_env
 
 
+def _done(ckpt, step: str, must_exist) -> bool:
+    """断点有效 = .done 存在 且 关键输出存在(自愈)。|valid = .done AND key output exists."""
+    if not ckpt.exists(step):
+        return False
+    if must_exist is None:
+        return True
+    return Path(str(must_exist)).exists()
+
+
 def run_index(config, runner, ckpt) -> Path:
-    """step01a: bwa-mem2 索引参考基因组(全局,一次)|bwa-mem2 index reference (global, once)."""
+    """step01a: bwa-mem2 索引参考基因组(全局,一次)|bwa-mem2 index (global, once)."""
     idx_dir = Path(config.output_dir) / "00_pipeline_info" / "index"
     idx_dir.mkdir(parents=True, exist_ok=True)
     fa_copy = idx_dir / os.path.basename(config.genome)
-    if config.enable_checkpoint and ckpt.exists("genome_index"):
+    if config.enable_checkpoint and _done(ckpt, "genome_index", str(fa_copy) + ".0123"):
         runner.logger.info("跳过已完成步骤|Skipping completed step: genome_index")
         return idx_dir
     if not fa_copy.exists():
-        shutil.copy(config.genome, str(fa_copy))   # 索引产物与 fa 同目录|index files beside fa
+        shutil.copy(config.genome, str(fa_copy))
     runner.logger.info("开始步骤|Starting step: bwa-mem2 index")
-    runner.run_conda(config.bwa_mem2_path, ["index", str(fa_copy)],
-                     "bwa-mem2索引|bwa-mem2 indexing")
-    if config.enable_checkpoint:
+    ok, _, _ = runner.run_conda(config.bwa_mem2_path, ["index", str(fa_copy)],
+                                "bwa-mem2索引|bwa-mem2 indexing")
+    if config.enable_checkpoint and ok:
         ckpt.create("genome_index")
+    elif config.enable_checkpoint:
+        runner.logger.error("genome_index 失败,未建断点|genome_index failed, no checkpoint")
     return idx_dir
 
 
-def run_qc(config, runner, ckpt) -> Path:
-    """step01b: fastp QC 去接头(全局,处理整个 fastq 目录)|fastp QC (global, whole dir)."""
+def run_qc(config, runner, ckpt) -> Optional[Path]:
+    """step01b: fastp QC(仅 raw 输入时跑;--clean-fastq-dir 则跳过)|fastp QC (raw only)."""
+    if config.clean_fastq_dir:
+        runner.logger.info("提供 --clean-fastq-dir,跳过 QC|clean-fastq-dir given, skip QC")
+        return Path(config.clean_fastq_dir)
     clean_dir = Path(config.output_dir) / "01_qc"
-    if config.enable_checkpoint and ckpt.exists("qc"):
+    if config.enable_checkpoint and _done(ckpt, "qc", clean_dir):
         runner.logger.info("跳过已完成步骤|Skipping completed step: qc")
         return clean_dir
     clean_dir.mkdir(parents=True, exist_ok=True)
     runner.logger.info("开始步骤|Starting step: fastp QC")
-    # 调兄弟命令 biopytools fastp(它内部自管 env 与配对)|sibling cmd (manages env+pairing)
-    runner.run(
+    ok, _, _ = runner.run(
         f"biopytools fastp -i {config.fastq_dir} -o {clean_dir} -t {config.threads}",
         "fastp质控|fastp QC")
-    if config.enable_checkpoint:
+    if config.enable_checkpoint and ok:
         ckpt.create("qc")
+    elif config.enable_checkpoint:
+        runner.logger.error("qc 失败,未建断点|qc failed, no checkpoint")
     return clean_dir
 
 
 def run_align(config, runner, ckpt, sample: str, r1: str, r2: str, index_dir: str) -> Path:
-    """step02: 比对 + 正确去重 + flagstat/stats|align + correct markdup + QC stats.
-
-    关键(landmine):samtools markdup 必须 name-sort → fixmate -m → coord-sort → markdup。
-    仓库 bwa/alignment.py 的实现缺 fixmate,此处正确实现。|Critical: samtools markdup
-    requires name-sort → fixmate -m → coord-sort → markdup. Implemented correctly here.
-    """
-    out = Path(config.output_dir) / sample / "02_alignment"
+    """step02: bwa-mem2 比对 + 正确 markdup(name-sort→fixmate -m→sort→markdup→index)+ flagstat/stats。
+    |bwa-mem2 align + correct markdup + QC. Landmine: fixmate -m required before markdup."""
+    out = Path(config.output_dir) / "02_alignment"
     out.mkdir(parents=True, exist_ok=True)
     fa = str(Path(index_dir) / os.path.basename(config.genome))
     aln = out / f"{sample}.bam"
@@ -63,51 +77,197 @@ def run_align(config, runner, ckpt, sample: str, r1: str, r2: str, index_dir: st
     fm_bam = out / f"{sample}.fixmate.bam"
     coord_bam = out / f"{sample}.sorted.bam"
     md_bam = out / f"{sample}.sorted.markdup.bam"
-    if config.enable_checkpoint and ckpt.exists(f"align_{sample}"):
+    if config.enable_checkpoint and _done(ckpt, f"align_{sample}", md_bam):
         runner.logger.info(f"跳过已完成步骤|Skipping completed step: align_{sample}")
         return md_bam
     runner.logger.info(f"开始步骤|Starting step: align {sample}")
     t = config.threads
     st = config.samtools_path
-    # bwa-mem2 与 samtools 同在 cphasing env → 单 conda-run bash -c 管道(禁 conda run|conda run)
-    # |bwa-mem2 + samtools both in cphasing env → single conda-run bash -c pipe
-    env = get_conda_env(config.bwa_mem2_path)
-    # 1. bwa-mem2 mem | samtools view → 未排序 bam|unsorted bam
-    runner.run(
-        f'conda run -n {env} --no-capture-output bash -c '
-        f'"bwa-mem2 mem -t {t} {fa} {r1} {r2} | samtools view -bS -o {aln} -"',
-        f"bwa-mem2比对|bwa-mem2 mem {sample}")
-    # 2. name sort(markdup 前置)|name sort (prerequisite)
-    runner.run_conda(st, ["sort", "-n", "-o", str(name_bam), str(aln)],
-                     f"name排序|name sort {sample}")
-    # 3. fixmate -m(必须,加 mate 注释)|fixmate -m (required)
-    runner.run_conda(st, ["fixmate", "-m", str(name_bam), str(fm_bam)],
-                     f"fixmate|fixmate {sample}")
-    # 4. coord sort|coordinate sort
-    runner.run_conda(st, ["sort", "-o", str(coord_bam), str(fm_bam)],
-                     f"坐标排序|coord sort {sample}")
-    # 5. markdup
-    runner.run_conda(st, ["markdup", "-@", str(t), str(coord_bam), str(md_bam)],
-                     f"去重|markdup {sample}")
-    # 6. index
-    runner.run_conda(st, ["index", str(md_bam)], f"索引|index {sample}")
-    # 7. flagstat → 文件|to file
-    ok, flagstat_txt, _ = runner.run_conda(st, ["flagstat", str(md_bam)],
-                                           f"flagstat {sample}")
-    if ok and flagstat_txt:
-        (out / "flagstat.txt").write_text(flagstat_txt)
-    # 8. samtools stats → 文件(体量小可捕获;含 average depth)|stats to file (small, capturable)
-    ok2, stats_txt, _ = runner.run_conda(st, ["stats", str(md_bam)],
-                                         f"samtools stats {sample}")
-    if ok2 and stats_txt:
-        (out / "stats.txt").write_text(stats_txt)
-    if config.enable_checkpoint:
+    env = get_conda_env(config.bwa_mem2_path)   # cphasing(bwa-mem2+samtools 同 env)
+    # 顺序执行,任一步失败立即短路(否则对不存在的 aln 连环报错,淹没真正的失败原因)|
+    # sequential with short-circuit: later steps on a missing aln just drown the real error.
+    steps = [
+        (lambda: runner.run(
+            f'conda run -n {env} --no-capture-output bash -c '
+            f'"bwa-mem2 mem -t {t} {fa} {r1} {r2} | samtools view -bS -o {aln} -"',
+            f"bwa-mem2比对|bwa-mem2 mem {sample}"), "bwa-mem2 mem"),
+        (lambda: runner.run_conda(st, ["sort", "-n", "-o", str(name_bam), str(aln)],
+                                  f"name排序|name sort {sample}"), "samtools sort -n"),
+        (lambda: runner.run_conda(st, ["fixmate", "-m", str(name_bam), str(fm_bam)],
+                                  f"fixmate|fixmate {sample}"), "samtools fixmate"),
+        (lambda: runner.run_conda(st, ["sort", "-o", str(coord_bam), str(fm_bam)],
+                                  f"坐标排序|coord sort {sample}"), "samtools sort"),
+        (lambda: runner.run_conda(st, ["markdup", "-@", str(t), str(coord_bam), str(md_bam)],
+                                  f"去重|markdup {sample}"), "samtools markdup"),
+        (lambda: runner.run_conda(st, ["index", str(md_bam)], f"索引|index {sample}"),
+         "samtools index"),
+    ]
+    bam_ok = True
+    for fn, step_name in steps:
+        ok, _, _ = fn()
+        if not ok:
+            runner.logger.error(
+                f"align {sample} 步骤 [{step_name}] 失败,中断后续步骤(未建断点,重跑将重试)"
+                f"|align step [{step_name}] failed for {sample}, aborting rest "
+                f"(no checkpoint; rerun will retry)")
+            bam_ok = False
+            break
+    # 清理中间 bam(省空间,by_step 目录整洁)|clean intermediate bams
+    for tmp in (aln, name_bam, fm_bam, coord_bam):
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+    if config.enable_checkpoint and bam_ok:
         ckpt.create(f"align_{sample}")
+    elif config.enable_checkpoint:
+        runner.logger.error(f"align {sample} 失败,未建断点|align failed, no checkpoint")
     return md_bam
 
 
+def run_call_freebayes(config, runner, ckpt, sample: str, bam: str, fa: str) -> Path:
+    """step03: freebayes 单倍体 calling(-p 1,保低频 --min-alternate-fraction)|haploid freebayes.
+    AF 用 AO/RO 字段(非 AD)。freebayes|bgzip 同 freebayes env;index 走 bcftools(sv_calling)。"""
+    out = Path(config.output_dir) / "03_variants"
+    out.mkdir(parents=True, exist_ok=True)
+    vcf = out / f"{sample}.raw.vcf.gz"
+    if config.enable_checkpoint and _done(ckpt, f"call_{sample}", vcf):
+        runner.logger.info(f"跳过已完成步骤|Skipping completed step: call_{sample}")
+        return vcf
+    runner.logger.info(f"开始步骤|Starting step: freebayes -p 1 {sample}")
+    env = get_conda_env(config.freebayes_path)   # freebayes(同时有 bgzip)
+    af = config.freebayes_min_alternate_fraction
+    cov = config.freebayes_min_coverage
+    o1, _, _ = runner.run(
+        f'conda run -n {env} --no-capture-output bash -c '
+        f'"freebayes -p 1 --min-alternate-fraction {af} --min-coverage {cov} '
+        f'-f {fa} {bam} | bgzip -c > {vcf}"',
+        f"freebayes 单倍体 calling|freebayes -p 1 {sample}")
+    o2, _, _ = runner.run_conda(config.bcftools_path, ["index", "-t", str(vcf)], "index vcf")
+    if config.enable_checkpoint and o1 and o2:
+        ckpt.create(f"call_{sample}")
+    elif config.enable_checkpoint:
+        runner.logger.error(f"call {sample} 失败,未建断点|call failed, no checkpoint")
+    return vcf
+
+
+def _filter_stats_lines(counts: dict):
+    lines = ["stage\tcount"]
+    for stage, n in counts.items():
+        lines.append(f"{stage}\t{n}")
+    return lines
+
+
+def _count_records(runner, bcft: str, vcf: str) -> int:
+    env = get_conda_env(bcft)
+    ok, out, _ = runner.run(
+        f"conda run -n {env} --no-capture-output bash -c 'bcftools view -H {vcf} | wc -l'",
+        "计数|count records")
+    if ok and out.strip().isdigit():
+        return int(out.strip())
+    return 0
+
+
+def run_filter(config, runner, ckpt, sample: str, raw_vcf: str) -> Path:
+    """step04: 过滤(QUAL/DP/SNP + 去repeat),保留多等位|filter (keeps multiallelic)."""
+    out = Path(config.output_dir) / "04_filtered"
+    out.mkdir(parents=True, exist_ok=True)
+    filt = out / f"{sample}.filtered.vcf.gz"
+    if config.enable_checkpoint and _done(ckpt, f"filter_{sample}", filt):
+        runner.logger.info(f"跳过已完成步骤|Skipping completed step: filter_{sample}")
+        return filt
+    runner.logger.info(f"开始步骤|Starting step: filter {sample}")
+    bcft = config.bcftools_path
+    expr = f"QUAL>={config.min_qual} && INFO/DP>={config.min_dp}"
+    cur = raw_vcf
+    if config.repeat_bed:
+        nr = out / "norepeat.vcf.gz"
+        env = get_conda_env(bcft)
+        ok_r, _, _ = runner.run(
+            f'conda run -n {env} --no-capture-output bash -c '
+            f'"bcftools view -i \'{expr}\' {raw_vcf} | bedtools intersect -v -a - -b {config.repeat_bed} | '
+            f'bcftools sort -Oz -o {nr}"', "QUAL/DP+去repeat|QUAL/DP+exclude repeats")
+        if not (ok_r and nr.exists()):
+            # 失败即中止:严禁回退 raw(否则 filt 未过滤却建断点,下游全基于脏数据)|
+            # Abort on failure: never fall back to raw (unfiltered filt + checkpoint poisons downstream).
+            runner.logger.error(
+                f"去repeat管道失败,中止 filter {sample}(不写输出/不建断点,重跑将重试)"
+                f"|Repeat-exclude pipeline failed, aborting filter {sample} "
+                f"(no output/no checkpoint; rerun will retry)")
+            try:
+                filt.unlink()   # 清掉可能残留的旧 filt,防下游误用|drop stale filt
+            except OSError:
+                pass
+            return filt
+        cur = str(nr)
+        runner.run_conda(bcft, ["view", "-Oz", "-o", str(filt), str(cur)], "收尾|finalize")
+    else:
+        runner.run_conda(bcft, ["view", "-i", expr, "-Oz", "-o", str(filt), str(raw_vcf)],
+                         "QUAL/DP过滤|QUAL/DP filter")
+    ok_idx, _, _ = runner.run_conda(bcft, ["index", "-t", str(filt)], "index")
+    counts = {"raw": _count_records(runner, bcft, raw_vcf), "filtered": _count_records(runner, bcft, filt)}
+    (out / "filter_stats.tsv").write_text("\n".join(_filter_stats_lines(counts)) + "\n")
+    if config.enable_checkpoint and ok_idx and filt.exists():
+        ckpt.create(f"filter_{sample}")
+    elif config.enable_checkpoint:
+        runner.logger.error(f"filter {sample} 失败,未建断点|filter failed, no checkpoint")
+    return filt
+
+
+def _parse_sn(stats_text: str, key: str) -> Optional[int]:
+    """从 samtools stats 取 SN 整数值(字段名精确匹配)|parse SN integer (exact field match).
+
+    子串匹配会先命中 'bases mapped (cigar)' 行,必须整字段相等|substring matching
+    hits the 'bases mapped (cigar)' line first; require exact field equality.
+    """
+    for line in stats_text.splitlines():
+        if not line.startswith("SN"):
+            continue
+        f = line.split("\t")
+        if len(f) >= 3 and f[1].rstrip(":") == key:   # SN 字段名带尾冒号|field has trailing ':'
+            try:
+                return int(f[2])
+            except ValueError:
+                return None
+    return None
+
+
+def run_depth(runner, config, sample: str, bam: str, genome_size: int):
+    """samtools stats → alignment_qc/{sample}.stats.txt;平均深度 = bases_mapped / genome_size。
+    |samtools stats -> stats.txt; mean depth = bases_mapped / genome_size."""
+    qc_dir = Path(config.output_dir) / "alignment_qc"
+    qc_dir.mkdir(parents=True, exist_ok=True)
+    ok, stats_txt, _ = runner.run_conda(config.samtools_path, ["stats", str(bam)],
+                                        f"samtools stats {sample}")
+    if not (ok and stats_txt):
+        return None
+    (qc_dir / f"{sample}.stats.txt").write_text(stats_txt)
+    bases = _parse_sn(stats_txt, "bases mapped")
+    if bases and genome_size:
+        return bases / genome_size
+    return parse_mean_depth(stats_txt)   # 回退:某些 stats 有 average depth 行|fallback
+
+
+def run_kmer(config, runner, ckpt, clean_dir: str) -> Path:
+    """step06: k-mer 谱(smudgescope,读 clean fastq)|k-mer spectrum via smudgescope."""
+    kmer_root = Path(config.output_dir) / "06_kmer"
+    if config.enable_checkpoint and _done(ckpt, "kmer", kmer_root):
+        runner.logger.info("跳过已完成步骤|Skipping completed step: kmer")
+        return kmer_root
+    runner.logger.info("开始步骤|Starting step: smudgescope k-mer谱")
+    ok, _, _ = runner.run(
+        f"biopytools smudgescope -i {clean_dir} -o {kmer_root} "
+        f"-l {config.read_length} -k {config.kmer_size} -t {config.threads}",
+        "k-mer谱分析|k-mer spectrum (smudgescope)")
+    if config.enable_checkpoint and ok:
+        ckpt.create("kmer")
+    elif config.enable_checkpoint:
+        runner.logger.error("kmer 失败,未建断点|kmer failed, no checkpoint")
+    return kmer_root
+
+
 def parse_mean_depth(stats_text: str) -> Optional[float]:
-    """从 samtools stats 输出解析平均深度|parse mean depth from samtools stats output."""
+    """从 samtools stats 解析 average depth(回退用)|parse average depth (fallback)."""
     if not stats_text:
         return None
     for line in stats_text.splitlines():
@@ -119,151 +279,8 @@ def parse_mean_depth(stats_text: str) -> Optional[float]:
     return None
 
 
-def run_call(config, runner, ckpt, sample: str, bam: str, fa: str) -> Path:
-    """step03: bcftools mpileup + call -mv(保留 multiallelic,带 FORMAT/AD)|variant calling.
-
-    保留 multiallelic 位点(-m 多等位模型,不 -m2 -M2);mpileup 带 FORMAT/AD,FORMAT/DP
-    供 step05 算 VAF。两 bcftools 同 sv_calling env → 单 conda-run bash -c 管道。
-    |Keeps multiallelic sites (-m model, no -m2 -M2); FORMAT/AD/DP retained for VAF.
-    Both bcftools in sv_calling env → single conda-run bash -c pipe.
-    """
-    out = Path(config.output_dir) / sample / "03_variants"
-    out.mkdir(parents=True, exist_ok=True)
-    raw = out / f"{sample}.raw.vcf.gz"
-    if config.enable_checkpoint and ckpt.exists(f"call_{sample}"):
-        runner.logger.info(f"跳过已完成步骤|Skipping completed step: call_{sample}")
-        return raw
-    runner.logger.info(f"开始步骤|Starting step: variant calling {sample}")
-    env = get_conda_env(config.bcftools_path)
-    runner.run(
-        f'conda run -n {env} --no-capture-output bash -c '
-        f'"bcftools mpileup -a FORMAT/AD,FORMAT/DP -f {fa} {bam} | '
-        f'bcftools call -mv -Oz -o {raw}"',
-        f"变异检测|variant calling {sample}")
-    runner.run_conda(config.bcftools_path, ["index", "-t", str(raw)], "index vcf")
-    if config.enable_checkpoint:
-        ckpt.create(f"call_{sample}")
-    return raw
-
-
-def _filter_alt_reads(query_text: str, min_alt_reads: int):
-    """从 bcftools query(CHROM/POS/AD) 筛选 max(ALT AD)>=阈值的位点|keep sites whose
-    strongest ALT allele has >= min_alt_reads support. AD = ref,alt1,alt2,..."""
-    keep = []
-    for line in query_text.splitlines():
-        if not line.strip():
-            continue
-        f = line.split("\t")
-        if len(f) < 3:
-            continue
-        chrom, pos, ad_str = f[0], f[1], f[2]
-        try:
-            ads = [int(x) for x in ad_str.split(",") if x and x != "."]
-        except ValueError:
-            continue
-        alt_ads = ads[1:]                       # 首个是 ref|first is ref
-        if alt_ads and max(alt_ads) >= min_alt_reads:
-            keep.append(f"{chrom}\t{pos}")
-    return keep
-
-
-def _filter_stats_lines(counts: dict):
-    """格式化过滤级联统计为 TSV 行|format filter cascade stats as TSV lines."""
-    lines = ["stage\tcount"]
-    for stage, n in counts.items():
-        lines.append(f"{stage}\t{n}")
-    return lines
-
-
-def _count_records(runner, bcft: str, vcf: str) -> int:
-    """统计 VCF 记录数(bcftools view -H | wc -l,流式)|count VCF records (streaming wc -l)."""
-    env = get_conda_env(bcft)
-    ok, out, _ = runner.run(
-        f"conda run -n {env} --no-capture-output bash -c 'bcftools view -H {vcf} | wc -l'",
-        "计数|count records")
-    if ok and out.strip().isdigit():
-        return int(out.strip())
-    return 0
-
-
-def run_filter(config, runner, ckpt, sample: str, raw_vcf: str) -> Path:
-    """step04: VCF 过滤(QUAL/DP/SNP + 去repeat + ALT reads),保留 multiallelic|VCF filter.
-
-    不做 -m2 -M2(保留多等位);不按 ALT reads 拆分等位,只整位点保留/丢弃。
-    |No -m2 -M2 (keeps multiallelic); sites kept/dropped wholesale by ALT support.
-    """
-    out = Path(config.output_dir) / sample / "04_filtered"
-    out.mkdir(parents=True, exist_ok=True)
-    filt = out / f"{sample}.filtered.vcf.gz"
-    if config.enable_checkpoint and ckpt.exists(f"filter_{sample}"):
-        runner.logger.info(f"跳过已完成步骤|Skipping completed step: filter_{sample}")
-        return filt
-    runner.logger.info(f"开始步骤|Starting step: filter {sample}")
-    bcft = config.bcftools_path
-    expr = f"QUAL>={config.min_qual} && INFO/DP>={config.min_dp}"
-    qd = out / "qual_dp_snp.vcf.gz"
-    # QUAL + DP + 仅 SNP(保留 multiallelic SNP)|QUAL+DP+SNPs only (keeps multiallelic SNPs)
-    runner.run_conda(bcft, ["view", "-v", "snps", "-i", expr, "-Oz", "-o", str(qd), str(raw_vcf)],
-                     "QUAL/DP/SNP过滤|QUAL/DP/SNP filter")
-    runner.run_conda(bcft, ["index", "-t", str(qd)], "index")
-    cur = qd
-    if config.repeat_bed:
-        nr = out / "norepeat.vcf.gz"
-        env = get_conda_env(bcft)
-        # bcftools view | bedtools intersect -v(排除 repeat);同 sv_calling env 单 conda-run bash -c
-        runner.run(
-            f'conda run -n {env} --no-capture-output bash -c '
-            f'"bcftools view {qd} | bedtools intersect -v -a - -b {config.repeat_bed} | '
-            f'bcftools sort -Oz -o {nr}"',
-            "去repeat区域|exclude repeats")
-        runner.run_conda(bcft, ["index", "-t", str(nr)], "index")
-        cur = nr
-    # ALT reads 过滤:query AD → keep-list → view -T|ALT-reads filter via keep-list
-    ok, qtxt, _ = runner.run_conda(bcft, ["query", "-f", "%CHROM\t%POS\t%AD\n", str(cur)],
-                                  "query AD")
-    keep = _filter_alt_reads(qtxt, config.min_alt_reads)
-    keep_file = out / "keep_regions.tsv"
-    keep_file.write_text("\n".join(keep) + ("\n" if keep else ""))
-    runner.run_conda(bcft, ["view", "-T", str(keep_file), "-Oz", "-o", str(filt), str(cur)],
-                     "ALT reads过滤|ALT-reads filter")
-    runner.run_conda(bcft, ["index", "-t", str(filt)], "index")
-    # 级联统计|cascade stats
-    counts = {"raw": _count_records(runner, bcft, raw_vcf),
-              "after_QUAL_DP_SNP": _count_records(runner, bcft, qd)}
-    if config.repeat_bed:
-        counts["after_repeat"] = _count_records(runner, bcft, cur)
-    counts["after_ALT_reads"] = _count_records(runner, bcft, filt)
-    (out / "filter_stats.tsv").write_text("\n".join(_filter_stats_lines(counts)) + "\n")
-    if config.enable_checkpoint:
-        ckpt.create(f"filter_{sample}")
-    return filt
-
-
-def run_kmer(config, runner, ckpt, clean_dir: str) -> Path:
-    """step07: k-mer 谱分析(复用 biopytools smudgescope)|k-mer spectrum via smudgescope.
-
-    smudgescope 一次处理整个 clean 目录(多样本 by-sample 输出)。读回路径:
-    <kmer_root>/<sample>/02_genomescope/{model.txt,summary.txt,linear_plot.png};
-    <kmer_root>/<sample>/03_smudgeplot/<sample>_smudgeplot.png。
-    |smudgescope processes the whole clean dir (by-sample output). Read back from
-    <root>/<sample>/02_genomescope/... and 03_smudgeplot/<sample>_smudgeplot.png.
-    """
-    kmer_root = Path(config.output_dir) / "07_kmer"
-    if config.enable_checkpoint and ckpt.exists("kmer"):
-        runner.logger.info("跳过已完成步骤|Skipping completed step: kmer")
-        return kmer_root
-    runner.logger.info("开始步骤|Starting step: smudgescope k-mer谱")
-    runner.run(
-        f"biopytools smudgescope -i {clean_dir} -o {kmer_root} "
-        f"-l {config.read_length} -k {config.kmer_size} -t {config.threads}",
-        "k-mer谱分析|k-mer spectrum (smudgescope)")
-    if config.enable_checkpoint:
-        ckpt.create("kmer")
-    return kmer_root
-
-
 def parse_genomescope_model(text: str) -> dict:
-    """解析 genomescope2 model.txt(kcov + 杂合度 r)|parse model.txt (kcov + het r)."""
+    """解析 genomescope2 model.txt(kcov + 杂合度 r)|parse model.txt."""
     out = {}
     if not text:
         return out
@@ -277,6 +294,7 @@ def parse_genomescope_model(text: str) -> dict:
                 continue
             if k in ("kcov", "kmercov"):
                 out["kcov"] = v
-            elif k == "r":
+            elif k == "r1" or (k == "r" and "heterozygosity" not in out):
+                # genomescope2 model.txt: r1 为杂合度(p=2);优先 r1,勿被 r2 覆盖
                 out["heterozygosity"] = v
     return out

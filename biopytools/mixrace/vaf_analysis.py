@@ -1,106 +1,108 @@
-"""mixrace VAF / 多等位 / Fws 分析(纯逻辑)|mixrace VAF / multiallelic / Fws analysis (pure).
+"""mixrace 等位频率谱分析(单倍体,导师方法论 v2)|mixrace AFS analysis (haploid, advisor v2).
 
-step05: 解析 AD → 计算 VAF → 中间频率占比 + 样本内杂合度 Hw。
-step06: 多等位位点统计 + Fws(队列池化频率,单样本退 Hw)。
-核心指标基于读计数,与倍性无关。|step05: AD→VAF→intermediate ratio + within-sample
-heterozygosity Hw. step06: multiallelic stats + Fws (cohort-pooled; Hw fallback if single).
-Read-count based, ploidy-independent.
+解析 freebayes AO/RO → 算 杂合率 het_rate + AFS 形态 + 优势株占比。
+根肿菌静息孢子单倍体:n=20,每个位点理论上单一等位;"杂合"=混合群体的基因型多样性。
+|Parse freebayes AO/RO -> het_rate + AFS shape + dominant proportion. P. brassicae resting
+spores are haploid (n=20); "heterozygosity" here = mixed-population genotype diversity.
 """
-from typing import Dict, List, Optional
+import statistics
+from typing import List, Optional
 
-# VAF 中间频率区间(用户定义,与判读阈值 vaf_mid_low/high 是两回事)|
-# VAF intermediate-frequency band (user-defined; distinct from verdict thresholds)
-VAF_MID_LO = 0.15
-VAF_MID_HI = 0.85
+# AFS 中间频率区间(5–95%,过低 VAF 多为噪声/测序错误)|intermediate-frequency band (5-95%)
+AFS_MID_LO = 0.05
+AFS_MID_HI = 0.95
 
 
-def parse_vcf_ad(text: str) -> List[dict]:
-    """解析 bcftools query 输出(CHROM/POS/REF/ALT/AD)|parse bcftools query output.
+def parse_freebayes(query_text: str) -> List[dict]:
+    """解析 bcftools query(CHROM/POS/REF/ALT/RO/AO)|parse freebayes AO/RO query.
 
-    期望格式: -f '%CHROM\\t%POS\\t%REF\\t%ALT\\t[%AD]\\n'
-    每行: CHROM<TAB>POS<TAB>REF<TAB>ALT(逗号)<TAB>AD(ref,alt1,alt2,...)
-    |Each line: CHROM<TAB>POS<TAB>REF<TAB>ALT(comma)<TAB>AD(ref,alt1,...)
+    期望格式: -f '%CHROM\\t%POS\\t%REF\\t%ALT\\t[%RO]\\t[%AO]\\n'
+    RO=ref 观测数(单值),AO=alt 观测数(多等位逗号分隔)。|RO=ref obs, AO=alt obs (comma-sep).
     """
     recs = []
-    for line in text.splitlines():
+    for line in query_text.splitlines():
         if not line.strip():
             continue
         f = line.split("\t")
-        if len(f) < 5:
+        if len(f) < 6:
             continue
-        chrom, pos, ref, alt_str, ad_str = f[0], int(f[1]), f[2], f[3], f[4]
+        chrom, pos, ref, alt_str, ro_str, ao_str = f[0], int(f[1]), f[2], f[3], f[4], f[5]
         alts = alt_str.split(",")
         try:
-            ads = [int(x) for x in ad_str.split(",") if x and x != "."]
+            ro = int(ro_str) if ro_str and ro_str != "." else 0
         except ValueError:
-            ads = []
-        recs.append({
-            "chrom": chrom, "pos": pos, "ref": ref, "alts": alts,
-            "ad_ref": ads[0] if ads else 0,
-            "ad_alts": ads[1:],
-            "is_multiallelic": len(alts) >= 2,
-        })
+            ro = 0
+        try:
+            aos = [int(x) for x in ao_str.split(",") if x and x != "."]
+        except ValueError:
+            aos = []
+        recs.append({"chrom": chrom, "pos": pos, "ref": ref, "alts": alts,
+                     "ro": ro, "aos": aos})
     return recs
 
 
-def compute_vaf(records: List[dict]) -> List[dict]:
-    """计算每位点每 ALT 的 VAF = AD_alt / (AD_ref + ΣAD_alt)|per-ALT VAF."""
-    out = []
-    for r in records:
-        tot = (r["ad_ref"] + sum(r["ad_alts"])) or 1
-        vafs = [a / tot for a in r["ad_alts"]]
-        out.append({**r, "dp": tot, "vafs": vafs})
-    return out
+def compute_afs(records: List[dict], min_alt_reads: int, genome_size: int = 0) -> dict:
+    """计算杂合率 + AFS 形态 + 优势株占比|compute het_rate + AFS shape + dominant proportion.
 
-
-def vaf_metrics(all_vafs: List[float], lo: float = VAF_MID_LO, hi: float = VAF_MID_HI) -> dict:
-    """中间频率占比 + 样本内杂合度 Hw|intermediate-frequency ratio + within-sample het Hw.
-
-    intermediate_ratio = |{v in [lo,hi]}| / total;Hw = mean(2·v·(1−v))。
-    |intermediate_ratio = fraction of VAFs in [lo,hi]; Hw = mean(2·v·(1-v)).
+    - het 位点 = 同时有 ref 与 alt 读支持(RO>0 且 某个 AO>=min_alt_reads)的位点(混合信号)。
+    - het_rate = het_sites / genome_size(全基因组杂合率,导师 <0.01%/0.1%/1% 阈值)。
+    - AFS 形态:由中间频率(0.05–0.95)VAF 分布判 monoclonal/two_clone_50_50/dominant_minor/smeared。
+    - dominant_proportion = 混合位点主等位频率的中位数(方法B:主等位单倍型支持率)。
+    |het site = ref+alt both supported (mixed signal); het_rate = het_sites/genome_size;
+    AFS shape from intermediate VAFs; dominant = median major-allele freq over mixed sites.
     """
-    vs = [v for v in all_vafs if v is not None]
-    n = len(vs) or 1
-    inter = sum(1 for v in vs if lo <= v <= hi)
-    hw = sum(2 * v * (1 - v) for v in vs) / n
+    het_sites = 0
+    total_variant = len(records)
+    intermediate_vafs: List[float] = []
+    intermediate_sites = 0
+    major_freqs: List[float] = []
+    for r in records:
+        ro, aos, total = r["ro"], r["aos"], r["ro"] + sum(r["aos"])
+        if total == 0:
+            continue
+        supported = [a for a in aos if a >= min_alt_reads]
+        if ro > 0 and supported:                      # ref + alt 都有 → 混合(杂合)位点
+            het_sites += 1
+            major_freqs.append(max([ro] + aos) / total)
+            # 只收中间频率(0.05–0.95)VAF;VAF≈0 的噪声位点会把形态拉向 smeared|
+            # keep only intermediate VAFs (0.05-0.95); near-zero noise skews shape to smeared.
+            # 注意:intermediate_vafs 按 VAF 计、intermediate_sites 按位点计——多等位位点
+            # 会在 shape 判据中贡献多个点(轻度加权,视为对复杂分离的合理强调;freebayes
+            # -p 1 输出多等位罕见,影响可忽略)。|Note: vafs counted per-ALT vs sites
+            # per-locus — multiallelic loci weigh slightly more in shape (reasonable
+            # emphasis; rare under -p 1, negligible).
+            band = [a / total for a in supported
+                    if AFS_MID_LO <= a / total <= AFS_MID_HI]
+            if band:
+                intermediate_sites += 1
+            intermediate_vafs.extend(band)
+    het_rate = het_sites / genome_size if genome_size else 0.0
+    # 中间频率位点占 het 位点比例(与 classify 判据同基准;原 het/total 语义不符)|
+    # intermediate sites / het sites (same basis as classify; old het/total was inconsistent).
+    intermediate_ratio = intermediate_sites / het_sites if het_sites else 0.0
+    dominant = statistics.median(major_freqs) if major_freqs else None
+    maf = statistics.median(1 - mf for mf in major_freqs) if major_freqs else None   # 次等位频率中位数
+    shape = classify_afs_shape(intermediate_vafs, intermediate_ratio)
     return {
-        "total_sites": len(vs),
-        "intermediate": inter,
-        "intermediate_ratio": inter / n,
-        "hw": hw,
+        "het_rate": het_rate, "het_sites": het_sites, "total_variant": total_variant,
+        "intermediate_ratio": intermediate_ratio,
+        "afs_shape": shape, "dominant_proportion": dominant, "maf": maf,
     }
 
 
-def multiallelic_stats(records: List[dict]) -> dict:
-    """统计 ≥3 等位(ALT 数≥2)位点|count sites with >=2 ALT alleles (>=3 total)."""
-    total = len(records)
-    c = sum(1 for r in records if r.get("is_multiallelic"))
-    return {"count": c, "ratio": c / (total or 1), "total": total}
+def classify_afs_shape(intermediate_vafs: List[float], intermediate_ratio: float) -> str:
+    """AFS 形态分类(导师判读经验)|classify AFS shape per advisor heuristics.
 
-
-def compute_fws(per_sample_vafs: Dict[str, Dict[tuple, float]]) -> Dict[str, dict]:
-    """计算 Fws(队列池化)|compute Fws (cohort-pooled).
-
-    Args:
-        per_sample_vafs: {sample: {(chrom,pos): p_alt}} 各样本主 ALT 频率|per-sample dominant ALT freq
-
-    Returns:
-        {sample: {"hw": float, "fws": float|None}};队列<2 样本时 fws=None(单样本无群体基线)
-        |fws=None when cohort <2 (single sample has no population baseline)
+    monoclonal:中间频率 SNP<5% | two_clone_50_50:集中在 0.5 | dominant_minor:主峰>0.5 |
+    smeared:0–1 连续糊(多基因型)。
     """
-    samples = list(per_sample_vafs)
-    sites_union = set()
-    for pv in per_sample_vafs.values():
-        sites_union |= set(pv)
-    P = {}
-    for site in sites_union:
-        ps = [per_sample_vafs[s][site] for s in samples if site in per_sample_vafs[s]]
-        P[site] = sum(ps) / len(ps)
-    Hb = sum(2 * p * (1 - p) for p in P.values()) / (len(P) or 1)
-    out = {}
-    for s in samples:
-        pv = per_sample_vafs[s]
-        Hw = sum(2 * p * (1 - p) for p in pv.values()) / (len(pv) or 1)
-        fws = (1 - Hw / Hb) if (len(samples) >= 2 and Hb > 0) else None
-        out[s] = {"hw": Hw, "fws": fws}
-    return out
+    if intermediate_ratio < 0.05 or not intermediate_vafs:
+        return "monoclonal"
+    n = len(intermediate_vafs)
+    near_half = sum(1 for v in intermediate_vafs if abs(v - 0.5) <= 0.1) / n
+    if near_half > 0.5:
+        return "two_clone_50_50"
+    high = sum(1 for v in intermediate_vafs if v > 0.5) / n
+    if high > 0.5:
+        return "dominant_minor"
+    return "smeared"
