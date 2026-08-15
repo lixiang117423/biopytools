@@ -118,18 +118,24 @@ def per_record_depth(depth_rows, total_lens: Dict[str, int]) -> Dict[str, dict]:
 
 
 def count_junction_reads(sam_lines, boundary: int) -> int:
-    """跨边界reads数:比对区间覆盖boundary且CIGAR含S|
-    Reads spanning the boundary: alignment covers boundary and CIGAR has S"""
+    """跨边界reads数:主比对参考区间覆盖boundary|
+    Reads spanning the boundary: primary alignment ref-interval covers it
+
+    注意不要求CIGAR含S:对完整locus比对时跨界reads两侧都能比对上(纯M);
+    含S是比对insert-only参考时的特征|
+    No S requirement: against the complete locus a junction-spanning read
+    aligns contiguously (plain M); soft-clips only appear vs insert-only ref
+    """
     n = 0
     for line in sam_lines:
         if line.startswith("@"):
             continue
         f = line.split("\t")
         flag = int(f[1])
-        if flag & 4 or flag & 256:
+        if flag & 4 or flag & 256 or flag & 2048:
             continue
         cigar = f[5]
-        if "S" not in cigar:
+        if cigar == "*":
             continue
         ops = parse_cigar(cigar)
         ref_start = int(f[3])

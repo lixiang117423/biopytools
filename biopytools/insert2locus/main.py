@@ -386,9 +386,14 @@ def run_locus_stage(cfg, logger, runner, sample: str, bam: Path, r1: Path,
             with open(pool, "a") as fh:
                 fh.write(recruited.read_text())
 
-    # 终装|Final assembly
+    # 终装:tdna作trusted-contigs骨架,穿过insert内部串联重复
+    # (无tdna则纯de novo;实测rcrp内部重复会把contig劈成两半)|
+    # Final assembly: tdna as trusted-contigs backbone to bridge internal
+    # tandem repeats (without it the contig splits at the repeat)
     walker = WalkingRunner(cfg, logger, runner)
-    if not walker.run_spades(sc_fq, pool1, pool2, contigs):
+    trusted = Path(cfg.tdna_fasta) if cfg.tdna_fasta else None
+    if not walker.run_spades(sc_fq, pool1, pool2, contigs,
+                             trusted_contigs=trusted):
         raise RuntimeError("最终组装失败|Final assembly failed")
     contig_bam = ldir / f"{sample}.contigs_vs_insert.sorted.bam"
     if not walker.align_to_insert(contigs, contig_bam):
@@ -490,7 +495,7 @@ def run_verify_stage(cfg, logger, runner, sample: str, locus, r1: Path,
     rb_boundary = locus.lead + locus.insert_len
     lb_reads = count_junction_reads(sam_lines, lb_boundary)
     rb_reads = count_junction_reads(sam_lines, rb_boundary)
-    flanks_plant = _check_flanks_plant(cfg, runner, locus, sdir, sample)
+    flanks_plant = _check_flanks_plant(cfg, logger, runner, locus, sdir, sample)
     grade = classify(segments, lb_reads, rb_reads, cfg.junction_flank, locus,
                      flanks_plant=flanks_plant)
     with open(summary_tsv, "w") as fh:
@@ -513,7 +518,7 @@ def run_verify_stage(cfg, logger, runner, sample: str, locus, r1: Path,
 FLANK_CONSTRUCT_MATCH_BP = 50
 
 
-def _check_flanks_plant(cfg, runner, locus, sdir: Path, sample: str):
+def _check_flanks_plant(cfg, logger, runner, locus, sdir: Path, sample: str):
     """locus两端侧翼比回构建,匹配≥50bp判载体骨架来源(当年LB误判坑)|
     Align locus flanks back to construct; >=50bp match means backbone origin"""
     if locus is None:

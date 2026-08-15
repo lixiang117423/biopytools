@@ -138,8 +138,13 @@ class WalkingRunner:
     # ---------- 基础步骤|Primitive steps ----------
 
     def run_spades(self, sc_fq: Path, pe1: Path, pe2: Path,
-                   out_contigs: Path) -> bool:
-        """跑SPAdes(conda run,ASCII工作目录)|Run SPAdes (conda run, ASCII work dir)"""
+                   out_contigs: Path, trusted_contigs: Optional[Path] = None) -> bool:
+        """跑SPAdes(conda run,ASCII工作目录)|Run SPAdes (conda run, ASCII work dir)
+
+        trusted_contigs:已知序列作骨架解图(终装传tdna,穿透过不去的内部重复)|
+        trusted_contigs: known backbone to resolve graph (final assembly passes
+        tdna so tandem repeats inside the insert no longer break the contig)
+        """
         out_contigs.parent.mkdir(parents=True, exist_ok=True)
         tmp_root = self.cfg.output_path / "tmp"
         tmp_root.mkdir(parents=True, exist_ok=True)
@@ -158,6 +163,10 @@ class WalkingRunner:
             args = ["-s", str(w_sc), "--pe1-1", str(w_p1), "--pe1-2", str(w_p2),
                     "-o", str(work / "out"), "--careful",
                     "-t", str(self.cfg.threads), "-m", "800"]
+            if trusted_contigs is not None:
+                w_tc = work / "trusted.fasta"
+                shutil.copy(str(trusted_contigs), str(w_tc))
+                args += ["--trusted-contigs", str(w_tc)]
             cmd = build_conda_command(self.cfg.spades_path, args)
             spades_log = work / "spades.log"
             if not self.runner.run(cmd, description=f"SPAdes局部组装|SPAdes local assembly"):
