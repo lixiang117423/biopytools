@@ -88,8 +88,13 @@ def run_align(config, runner, ckpt, sample: str, r1: str, r2: str, index_dir: st
     # sequential with short-circuit: later steps on a missing aln just drown the real error.
     steps = [
         (lambda: runner.run(
+            # -R 读组:freebayes 从 @RG SM 取样品名;不加则所有 VCF 样品名都是 "unknown",
+            # bcftools merge 报 Duplicate sample names
+            # |read group: freebayes takes sample name from @RG SM; without it all
+            # VCFs are named "unknown" -> merge fails with Duplicate sample names
             f'conda run -n {env} --no-capture-output bash -c '
-            f'"bwa-mem2 mem -t {t} {fa} {r1} {r2} | samtools view -bS -o {aln} -"',
+            f'"bwa-mem2 mem -t {t} -R \'@RG\\tID:{sample}\\tSM:{sample}\' {fa} {r1} {r2} '
+            f'| samtools view -bS -o {aln} -"',
             f"bwa-mem2比对|bwa-mem2 mem {sample}"), "bwa-mem2 mem"),
         (lambda: runner.run_conda(st, ["sort", "-n", "-o", str(name_bam), str(aln)],
                                   f"name排序|name sort {sample}"), "samtools sort -n"),
@@ -298,14 +303,48 @@ def run_tree(config, runner, ckpt, samples: list):
         return None
     tree_dir.mkdir(parents=True, exist_ok=True)
     merged = tree_dir / "merged.vcf.gz"
-    # 1. bcftools merge(多样本合并;输入须已索引,filter 步已做)|merge samples
+    # 0. reheader:旧 bam(无 @RG)产出的 VCF 样品名全是 "unknown",merge 会报 Duplicate
+    # sample names → 每样品重命名成真实样名(幂等:已正确命名的 VCF 重写同名无副作用)
+    # |reheader: VCFs from RG-less bams are all named "unknown" (merge fails on duplicates)
+    # -> rename each to its real sample name (idempotent for already-named VCFs)
+    bcft = config.bcftools_path
+    renamed = []
+    for s in samples:
+        name = s["sample"] if isinstance(s, dict) else s
+        src = Path(config.output_dir) / "04_filtered" / f"{name}.filtered.vcf.gz"
+        if not src.exists():
+            continue
+        dst = tree_dir / f"{name}.renamed.vcf.gz"
+        sfile = tree_dir / f"{name}.samples.txt"
+        sfile.write_text(name + "\n")
+        ok_r, _, _ = runner.run_conda(
+            bcft, ["reheader", "-s", str(sfile), "-o", str(dst), str(src)],
+            f"重命名样品|reheader {name}")
+        ok_ri, _, _ = runner.run_conda(bcft, ["index", "-t", str(dst)], f"index {name}")
+        if ok_r and ok_ri and dst.exists():
+            renamed.append(str(dst))
+        else:
+            runner.logger.warning(f"reheader 失败,建树跳过该样品|reheader failed, skipped: {name}")
+    if len(renamed) < 4:
+        runner.logger.warning(f"可合并样品 {len(renamed)}<4,不建树|{len(renamed)} samples <4, tree skipped")
+        return None
+    # 1. bcftools merge(多样本合并)|merge samples
     ok_m, _, _ = runner.run_conda(
-        config.bcftools_path,
-        ["merge", "-Oz", "-o", str(merged)] + vcfs,
-        f"合并 {len(vcfs)} 样品 VCF|merge {len(vcfs)} VCFs")
-    ok_i, _, _ = runner.run_conda(config.bcftools_path, ["index", "-t", str(merged)], "index merged")
-    if not (ok_m and ok_i and merged.exists()):
+        bcft,
+        ["merge", "-Oz", "-o", str(merged)] + renamed,
+        f"合并 {len(renamed)} 样品 VCF|merge {len(renamed)} VCFs")
+    if not ok_m:
+        # 失败残壳清理,避免留下非 BGZF 空文件|clean failed stub
+        if merged.exists():
+            try:
+                merged.unlink()
+            except OSError:
+                pass
         runner.logger.error("merge 失败,不建断点|merge failed, no checkpoint")
+        return None
+    ok_i, _, _ = runner.run_conda(bcft, ["index", "-t", str(merged)], "index merged")
+    if not (ok_i and merged.exists()):
+        runner.logger.error("index merged 失败,不建断点|index merged failed, no checkpoint")
         return None
     # 2. vcf2tree(IQ-TREE2,复用兄弟模块)|build tree via sibling module
     v2t_out = tree_dir / "vcf2tree"
