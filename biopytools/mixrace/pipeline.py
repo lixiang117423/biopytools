@@ -266,6 +266,60 @@ def run_kmer(config, runner, ckpt, clean_dir: str) -> Path:
     return kmer_root
 
 
+def run_tree(config, runner, ckpt, samples: list):
+    """step07b: 样品系统发育树(聚类)|phylogenetic tree for sample clustering.
+
+    bcftools merge 各样品 filtered VCF → biopytools vcf2tree(IQ-TREE2)→ newick。
+    返回 nwk 路径或 None(样品<4 / VCF 缺 / --skip-tree);HTML 用 phylocanvas.gl 交互渲染。
+    |merge per-sample filtered VCFs -> vcf2tree (IQ-TREE2) -> newick.
+    Returns nwk path or None (<4 samples / missing VCF / --skip-tree);
+    HTML renders it interactively via phylocanvas.gl.
+    """
+    if config.skip_tree:
+        runner.logger.info("跳过建树(--skip-tree)|skipping tree (--skip-tree)")
+        return None
+    tree_dir = Path(config.output_dir) / "08_tree"
+    nwk = tree_dir / "vcf2tree" / "02_tree" / "merged.iqtree.nwk"
+    if config.enable_checkpoint and _done(ckpt, "tree", nwk):
+        runner.logger.info("跳过已完成步骤|Skipping completed step: tree")
+        return nwk
+    # 收集存在的 filtered VCF|collect existing filtered VCFs
+    vcfs = []
+    for s in samples:
+        name = s["sample"] if isinstance(s, dict) else s
+        v = Path(config.output_dir) / "04_filtered" / f"{name}.filtered.vcf.gz"
+        if v.exists():
+            vcfs.append(str(v))
+        else:
+            runner.logger.warning(f"建树缺 VCF,跳过该样品|tree: missing VCF, skipped: {name}")
+    if len(vcfs) < 4:
+        runner.logger.warning(f"可用样品 {len(vcfs)}<4,不建树(树需 >=4 样本)"
+                              f"|{len(vcfs)} usable samples <4, tree skipped")
+        return None
+    tree_dir.mkdir(parents=True, exist_ok=True)
+    merged = tree_dir / "merged.vcf.gz"
+    # 1. bcftools merge(多样本合并;输入须已索引,filter 步已做)|merge samples
+    ok_m, _, _ = runner.run_conda(
+        config.bcftools_path,
+        ["merge", "-Oz", "-o", str(merged)] + vcfs,
+        f"合并 {len(vcfs)} 样品 VCF|merge {len(vcfs)} VCFs")
+    ok_i, _, _ = runner.run_conda(config.bcftools_path, ["index", "-t", str(merged)], "index merged")
+    if not (ok_m and ok_i and merged.exists()):
+        runner.logger.error("merge 失败,不建断点|merge failed, no checkpoint")
+        return None
+    # 2. vcf2tree(IQ-TREE2,复用兄弟模块)|build tree via sibling module
+    v2t_out = tree_dir / "vcf2tree"
+    ok_t, _, _ = runner.run(
+        f"biopytools vcf2tree -i {merged} -o {v2t_out} -t {config.threads}",
+        "系统发育树(IQ-TREE2)|phylogenetic tree (IQ-TREE2)")
+    if not (ok_t and nwk.exists()):
+        runner.logger.error("vcf2tree 未产出 newick,不建断点|vcf2tree produced no newick, no checkpoint")
+        return None
+    if config.enable_checkpoint:
+        ckpt.create("tree")
+    return nwk
+
+
 def parse_mean_depth(stats_text: str) -> Optional[float]:
     """从 samtools stats 解析 average depth(回退用)|parse average depth (fallback)."""
     if not stats_text:

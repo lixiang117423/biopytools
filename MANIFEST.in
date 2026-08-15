@@ -23,6 +23,9 @@ recursive-exclude tests *.fastq *.fastq.gz *.fq *.fq.gz *.vcf *.vcf.gz *.bam *.s
 # Include scripts
 recursive-include scripts *.py
 
+# Include packaged web assets (mixrace phylocanvas.gl tree viewer)
+recursive-include biopytools *.js
+
 # Exclude compiled Python files
 global-exclude *.pyc
 global-exclude *.pyo

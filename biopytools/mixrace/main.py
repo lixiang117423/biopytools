@@ -14,7 +14,7 @@ from .config import MixraceConfig
 from .utils import ModuleLogger, CommandRunner, CheckpointManager, write_software_versions
 from .samples import discover_samples
 from .pipeline import (run_index, run_qc, run_align, run_call_freebayes, run_filter,
-                       run_depth, run_kmer, parse_genomescope_model)
+                       run_depth, run_kmer, run_tree, parse_genomescope_model)
 from .vaf_analysis import parse_freebayes, compute_afs
 from .verdict import judge, calibrate_thresholds
 from .reporter import (generate_vaf_histogram_r, build_sample_report, build_summary_table,
@@ -59,6 +59,8 @@ def _argv_to_config() -> MixraceConfig:
                    help="freebayes --min-alternate-fraction(默认0.02,保低频等位)")
     p.add_argument("--pure-samples", dest="pure_samples", default=None,
                    help="已知纯样品(逗号分隔,校准het阈值)|known-pure samples (calibrate)")
+    p.add_argument("--skip-tree", dest="skip_tree", action="store_true",
+                   help="跳过系统发育树|skip phylogenetic tree")
     a = p.parse_args()
     pure = a.pure_samples.split(",") if a.pure_samples else None
     return MixraceConfig(
@@ -68,7 +70,8 @@ def _argv_to_config() -> MixraceConfig:
         step=a.step, enable_checkpoint=a.enable_checkpoint, dry_run=a.dry_run,
         min_qual=a.min_qual, min_dp=a.min_dp, min_alt_reads=a.min_alt_reads,
         freebayes_min_coverage=a.min_coverage,
-        freebayes_min_alternate_fraction=a.min_alt_fraction, pure_samples=pure)
+        freebayes_min_alternate_fraction=a.min_alt_fraction, pure_samples=pure,
+        skip_tree=a.skip_tree)
 
 
 def _sample_afs(config, runner, sample: str, filt_vcf: str, genome_size: int):
@@ -148,7 +151,7 @@ def run_pipeline(config, runner, ckpt, logger):
 
     # 07 判读 + 报告|verdict + report
     if step in (None, 7):
-        rows = _verdict_and_report(config, runner, logger, samples, afs, thr, genome_size)
+        rows = _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_size)
         summ_dir = Path(config.output_dir) / "summary"
         summ_dir.mkdir(parents=True, exist_ok=True)
         tsv, html = build_summary_table(rows)
@@ -168,7 +171,7 @@ def _read_heterozygosity(config, sample: str):
     return None
 
 
-def _verdict_and_report(config, runner, logger, samples, afs, thr, genome_size):
+def _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_size):
     """step07: 逐样品判读 + 报告(支持单独重跑:缺 AFS 则从已过滤 VCF 重算)。|step07 verdict+report."""
     filt_base = Path(config.output_dir)
     for sample in [s["sample"] for s in samples]:
@@ -238,10 +241,14 @@ def _verdict_and_report(config, runner, logger, samples, afs, thr, genome_size):
         })
         logger.info(f"{sample}: {v['verdict']} (置信|confidence {v['confidence']}) "
                     f"het={metrics['het_rate']*100:.4f}% shape={metrics['afs_shape']}")
+    # 系统发育树(判读后建,叶标签带判读后缀;样品<4/缺VCF/--skip-tree 自动跳过)
+    # |phylogenetic tree after verdicts (tips annotated); auto-skipped if <4 samples
+    tree_nwk = run_tree(config, runner, ckpt, samples)
     # 合并 HTML 报告(单文件,图片内嵌)|merged self-contained HTML report
     html_path = Path(config.output_dir) / "summary" / "mixrace_report.html"
     html_path.parent.mkdir(parents=True, exist_ok=True)
-    html_path.write_text(build_html_report("根肿菌混合小种检测报告", samples_data), encoding="utf-8")
+    html_path.write_text(build_html_report("根肿菌混合小种检测报告", samples_data, tree_nwk),
+                         encoding="utf-8")
     logger.info(f"HTML 报告已写|HTML report written: {html_path}")
     return rows
 

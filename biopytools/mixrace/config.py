@@ -50,6 +50,8 @@ class MixraceConfig:
     min_depth: float = 50.0          # 建议严格过滤需 >=50x|recommended >=50x for strict filtering
     # 校准(已知纯样品)|calibration (known-pure samples)
     pure_samples: Optional[List[str]] = None
+    # step07 系统发育树(样品聚类)|phylogenetic tree
+    skip_tree: bool = False
 
     def __post_init__(self):
         # 展开工具路径(支持环境变量覆盖)|expand tool paths (env var override supported)

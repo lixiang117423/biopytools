@@ -70,9 +70,11 @@ def _validate_file(path):
               help='freebayes --min-alternate-fraction(默认0.02)|freebayes min-alternate-fraction (default 0.02)')
 @click.option('--pure-samples', default=None,
               help='已知纯样品(逗号分隔,校准het阈值)|Known-pure samples (comma-sep, calibrate)')
+@click.option('--skip-tree', is_flag=True, default=False,
+              help='跳过系统发育树|Skip phylogenetic tree')
 def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, threads, kmer_size,
             read_length, step, no_checkpoint, dry_run, min_qual, min_dp, min_alt_reads,
-            min_coverage, min_alt_fraction, pure_samples):
+            min_coverage, min_alt_fraction, pure_samples, skip_tree):
     """
     WGS混合小种检测(单倍体)|WGS mixed-race detection (haploid).
 
@@ -116,6 +118,8 @@ def mixrace(input, clean_fastq_dir, genome, output_dir, repeat_bed, threads, kme
         args.extend(['--min-alt-fraction', str(min_alt_fraction)])
     if pure_samples:
         args.extend(['--pure-samples', pure_samples])
+    if skip_tree:
+        args.append('--skip-tree')
 
     original_argv = sys.argv
     sys.argv = args

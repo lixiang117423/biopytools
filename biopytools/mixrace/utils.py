@@ -259,7 +259,7 @@ def write_software_versions(config, logger: logging.Logger, output_path: str,
     param_keys = ["threads", "kmer_size", "read_length", "min_qual", "min_dp",
                   "min_alt_reads", "freebayes_min_coverage",
                   "freebayes_min_alternate_fraction", "het_pure", "het_suspicious",
-                  "het_impure", "min_depth", "repeat_bed"]
+                  "het_impure", "min_depth", "repeat_bed", "skip_tree"]
     info = {
         "pipeline": {"name": "biopytools mixrace", "version": "0.1.0"},
         "tools": versions,

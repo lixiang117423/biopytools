@@ -151,6 +151,69 @@ def _embed_image(path: str):
         return None
 
 
+# 树叶标签后缀(按判读;不着色,标签即信息)|tip-label suffix by verdict (no coloring)
+_TREE_LABEL_SUFFIX = {"single_genotype": " [纯]", "mixed_genotype": " [混合]",
+                      "uncertain": " [不确定]"}
+
+
+def _annotate_newick(nwk_text: str, verdicts: dict) -> str:
+    """叶标签追加判读后缀(Pb5 → Pb5 [纯]);样名后必跟 ':' 分支长,替换安全。
+    IQ-TREE 对含 -/空格 的样名会加单引号('Pb-1':),裸名与引名两种形式都替换。
+    |append verdict suffix to tip labels; names are followed by ':' branch length.
+    IQ-TREE quotes names with -/spaces, so replace both bare and quoted forms."""
+    out = nwk_text
+    for sample in sorted(verdicts, key=len, reverse=True):   # 长名先换,防前缀误替
+        suffix = _TREE_LABEL_SUFFIX.get(verdicts[sample], "")
+        for form, annotated in ((f"{sample}:", f"{sample}{suffix}:"),
+                                (f"'{sample}':", f"'{sample}{suffix}':")):
+            out = out.replace(form, annotated)
+    return out
+
+
+def _tree_section_html(nwk_path: str, verdicts: dict) -> str:
+    """交互式进化树 section:phylocanvas.gl bundle 内嵌 + newick(带判读后缀)。
+    |interactive tree section: inlined phylocanvas.gl bundle + annotated newick."""
+    bundle = Path(__file__).parent / "phylocanvas.gl.min.js"
+    try:
+        js = bundle.read_text(encoding="utf-8")
+    except OSError:
+        return ("<h2>三、样品聚类(系统发育树)</h2>"
+                "<p class='muted'>（树组件缺失:未找到 phylocanvas.gl.min.js）</p>")
+    try:
+        nwk = Path(nwk_path).read_text(encoding="utf-8").strip()
+    except OSError:
+        return ""
+    nwk = _annotate_newick(nwk, verdicts)
+    # JS 模板字面量安全:转义反引号/反斜杠/${|escape for JS template literal
+    nwk_js = nwk.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
+    return (
+        "<h2>三、样品聚类(系统发育树)</h2>"
+        "<p class='muted'>用全部样品的 SNP 变异构建的聚类树:分支越近的编号,基因组越相似。"
+        "叶名后缀为该样品判读([纯]/[混合]/[不确定]);节点数值为统计支持值(越高越可靠)。"
+        "支持缩放/拖动/切换树型。注意:树基于各位置的主碱基型,混合样品可能表现为较长分支。</p>"
+        "<div id='mixrace-tree' class='treediv'></div>"
+        "<div class='treectl'>树型|Tree type: "
+        "<button onclick=\"window._mrTree&&window._mrTree.setTreeType('rectangular')\">矩形</button> "
+        "<button onclick=\"window._mrTree&&window._mrTree.setTreeType('circular')\">环形</button> "
+        "<button onclick=\"window._mrTree&&window._mrTree.setTreeType('radial')\">放射</button> "
+        "<button onclick=\"window._mrTree&&window._mrTree.setTreeType('hierarchical')\">层级</button>"
+        "</div>"
+        "<noscript><p class='muted'>（浏览器未启用 JavaScript,无法显示交互树）</p></noscript>"
+        f"<script>{js}</script>"
+        "<script>(function(){"
+        "var el=document.getElementById('mixrace-tree');"
+        "var c=document.createElement('canvas');"
+        "if(!(c.getContext('webgl2')||c.getContext('webgl'))){"
+        "el.innerHTML='<p class=\"muted\">（当前浏览器不支持 WebGL,无法显示交互树;"
+        "newick 文件: 08_tree/vcf2tree/02_tree/*.nwk）</p>';return;}"
+        "window._mrTree=new phylocanvas.PhylocanvasGL(el,{"
+        "size:{width:1000,height:" + str(max(500, 34 * (nwk.count(",") + 1))) + "},"
+        "source:`" + nwk_js + "`,"
+        "type:phylocanvas.TreeTypes.Rectangular"
+        "});})();</script>"
+    )
+
+
 def _fmt(key, val):
     """指标值格式化(百分比/小数)|format metric value."""
     if val is None:
@@ -175,9 +238,10 @@ def _shape_cn(shape: str) -> str:
     }.get(shape, shape)
 
 
-def build_html_report(title: str, samples_data: list) -> str:
-    """生成合并的自包含 HTML 报告(所有样品、图片 base64 内嵌、中文通俗解释)。
-    |build merged self-contained HTML (all samples, base64-embedded images, Chinese explanations)."""
+def build_html_report(title: str, samples_data: list, tree_nwk: str = None) -> str:
+    """生成合并的自包含 HTML 报告(所有样品、图片 base64 内嵌、中文通俗解释;可选交互进化树)。
+    |build merged self-contained HTML (all samples, base64 images, Chinese explanations;
+    optional interactive tree)."""
     rows_html = []
     for s in samples_data:
         v = s.get("verdict", "uncertain")
@@ -207,8 +271,18 @@ def build_html_report(title: str, samples_data: list) -> str:
         parts.append(f"<dt>{k}</dt><dd>{expl}</dd>")
     parts.append("</dl>")
 
-    # 各样品详情(折叠,点击展开)|per-sample collapsible details
-    parts.append("<h2>三、各样品详细结果（点击样品行展开/收起）</h2>")
+    # 样品聚类树(可选,交互式;有树才占"三")|clustering tree (optional; owns section 三 when present)
+    has_tree = False
+    if tree_nwk:
+        html_tree = _tree_section_html(tree_nwk,
+                                       {d["sample"]: d["verdict"] for d in samples_data})
+        if html_tree:
+            parts.append(html_tree)
+            has_tree = True
+
+    # 各样品详情(折叠,点击展开;动态编号防跳号)|per-sample details (dynamic numbering)
+    details_num = "四" if has_tree else "三"
+    parts.append(f"<h2>{details_num}、各样品详细结果（点击样品行展开/收起）</h2>")
     parts.append("<div class='toggle-bar'>"
                  "<button onclick=\"document.querySelectorAll('details.sample').forEach(d=>d.open=true)\">展开全部</button> "
                  "<button onclick=\"document.querySelectorAll('details.sample').forEach(d=>d.open=false)\">收起全部</button>"
@@ -307,4 +381,9 @@ def _CSS() -> str:
     figcaption{font-size:0.85em;color:#555;margin-bottom:6px}
     figure img{max-width:100%;width:100%;height:auto;border:1px solid #ddd;display:block}
     .noimg{color:#aaa;font-size:0.85em;padding:40px 20px}
+    .treediv{margin:14px 0;border:1px solid #ddd;border-radius:6px;overflow:hidden;background:#fff}
+    .treectl{margin:8px 0}
+    .treectl button{padding:4px 12px;margin-right:6px;border:1px solid #283593;background:#fff;
+                    color:#283593;border-radius:4px;cursor:pointer;font-size:0.88em}
+    .treectl button:hover{background:#e8eaf6}
     """
