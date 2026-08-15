@@ -347,9 +347,13 @@ def run_tree(config, runner, ckpt, samples: list):
         runner.logger.error("index merged 失败,不建断点|index merged failed, no checkpoint")
         return None
     # 2. vcf2tree(IQ-TREE2,复用兄弟模块)|build tree via sibling module
+    # --no-asc:参考基因组是另一分离株,大量位点相对参考为变异但在样品间固定(不变列),
+    # +ASC 校正要求比对仅含可变位点,含不变列时 IQ-TREE 直接报错退出
+    # |reference is a divergent isolate -> many sites variable vs ref but fixed across
+    # samples; +ASC requires a variable-sites-only alignment, IQ-TREE aborts otherwise.
     v2t_out = tree_dir / "vcf2tree"
     ok_t, _, _ = runner.run(
-        f"biopytools vcf2tree -i {merged} -o {v2t_out} -t {config.threads}",
+        f"biopytools vcf2tree -i {merged} -o {v2t_out} -t {config.threads} --no-asc",
         "系统发育树(IQ-TREE2)|phylogenetic tree (IQ-TREE2)")
     if not (ok_t and nwk.exists()):
         runner.logger.error("vcf2tree 未产出 newick,不建断点|vcf2tree produced no newick, no checkpoint")
