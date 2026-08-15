@@ -1,4 +1,13 @@
 
+## [1.32.4] - 2026-08-15
+
+### Added
+- `cim`：新增短距离重组热点过滤（Step 2.5a，老师方法论）——双亲群体染色体交换是大片交换，物理距离很近（默认 <1000bp）的相邻标记间出现高频重组（RF≥阈值）几乎必为基因型错误/旁系同源比对，两轮删除：硬阈值（单对 RF≥0.30 两侧都删）+ 软评分（与原始邻居 RF≥0.20 的对数 ≥1 删）；诊断清单 `local_hotspot_removed.tsv`；相对判据 `--local-hotspot-relative`（阈值=max(绝对值, 系数×近距对RF中位数)）；小 scaffold 跳过（min_markers=100）；新增物理距离降采样（Step 2.5b，`--min-phys-gap`，密集簇留簇头，66万SNP 配 500bp 约 15–25 万标记）；`--max-het-rate`/`--max-mean-rf` 暴露到 CLI 且 `max_mean_rf` 默认 0.5→0.35（0.5 误删真实重组区标记）；`validate()` 补 8 项新参数校验（hard≥soft 等）；全参数记录进 `pipeline_params.txt`
+
+### Fixed
+- `insert2locus`：终装组装传 tdna 作 SPAdes `--trusted-contigs` 骨架（穿越 insert 内部串联重复，实测重复区会把 contig 劈成两半；无 tdna 时纯 de novo 向后兼容）；`count_junction_reads` 去掉"CIGAR 含 S"要求（完整 locus 比对时跨界 reads 为纯 M，含 S 是 insert-only 参考的特征）并补 `flag & 2048` 排除 supplementary 重复计数；`_check_flanks_plant` 侧翼匹配构建时补 WARNING 日志
+- `mixrace`：比对补 `-R @RG` 读组（freebayes 从 @RG SM 取样品名，旧 bam 无读组致所有 VCF 样品名为 unknown、bcftools merge 报 Duplicate sample names）；`run_tree` 补 reheader（每样品重命名成真实样名，幂等：已正确命名的 VCF 重写同名无副作用）；merge 失败清残壳、index 失败单独检查
+
 ## [1.32.3] - 2026-08-15
 
 ### Added
