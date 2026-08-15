@@ -679,22 +679,25 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
             m.get("record_depth", {}), sdir)),
         logger)
     if not v:
-        v = {"grade": "FAIL", "segments": [], "lb_junction_reads": 0,
-             "rb_junction_reads": 0}
+        # 05断点跳过:从结果文件读回真实分级(不能硬编码FAIL)|
+        # Stage 05 skipped: reload the real grade from result files
+        v = _read_verify_summary(
+            sdir / "05_verify" / f"{sample}.verification_summary.tsv")
+        v["segments"] = _read_coverage_segments(
+            sdir / "05_verify" / f"{sample}.coverage.tsv")
 
-    # 06 报告|Report
-    report_path = sdir / f"{sample}.insert2locus.report.html"
-    run_stage_with_checkpoint(
-        "06_report", [report_path], cfg.force,
-        lambda: report.render_report(
-            sample, l["locus"], v["segments"], v["grade"],
-            v["lb_junction_reads"], v["rb_junction_reads"],
-            l["junctions"], m.get("record_depth", {}), [], sdir,
-            getattr(run_sample, "_versions", {}),
-            junction_seqs=l["contig_seqs"],
-            anchor_label=m.get("anchor_label")),
-        logger)
-    return {"sample": sample, "grade": v["grade"], "report": str(report_path)}
+    # 06 报告:不再逐样本写文件,由main汇总成单一HTML|
+    # Report: no per-sample file; main() writes one combined HTML
+    return {
+        "sample": sample, "grade": v["grade"],
+        "locus": l["locus"], "segments": v["segments"],
+        "lb_junction_reads": v["lb_junction_reads"],
+        "rb_junction_reads": v["rb_junction_reads"],
+        "junctions": l["junctions"],
+        "record_depth": m.get("record_depth", {}),
+        "junction_seqs": l["contig_seqs"],
+        "anchor_label": m.get("anchor_label"),
+    }
 
 
 def _read_coverage_tsv(tsv: Path) -> Dict[str, dict]:
@@ -713,6 +716,47 @@ def _read_coverage_tsv(tsv: Path) -> Dict[str, dict]:
             except ValueError:
                 continue
     return out
+
+
+def _read_verify_summary(tsv: Path) -> dict:
+    """续跑时读回验证分级|Reload verification grade on resume"""
+    fallback = {"grade": "FAIL", "lb_junction_reads": 0, "rb_junction_reads": 0}
+    if not tsv.exists():
+        return fallback
+    lines = tsv.read_text().splitlines()
+    if len(lines) < 2:
+        return fallback
+    header = lines[0].split("\t")
+    vals = lines[1].split("\t")
+    row = dict(zip(header, vals))
+    out = {"grade": row.get("grade", "FAIL")}
+    for key in ("lb_junction_reads", "rb_junction_reads"):
+        try:
+            out[key] = int(row.get(key, 0))
+        except (TypeError, ValueError):
+            out[key] = 0
+    return out
+
+
+def _read_coverage_segments(tsv: Path) -> list:
+    """续跑时读回分段覆盖|Reload per-segment coverage on resume"""
+    from .verifier import SegmentStat
+    if not tsv.exists():
+        return []
+    segs = []
+    lines = tsv.read_text().splitlines()
+    for line in lines[1:]:
+        f = line.split("\t")
+        if len(f) < 7:
+            continue
+        try:
+            segs.append(SegmentStat(
+                name=f[0], start=int(f[1]), end=int(f[2]), length=int(f[3]),
+                mean_depth=float(f[4]), min_depth=int(f[5]),
+                zero_windows=int(f[6])))
+        except ValueError:
+            continue
+    return segs
 
 
 def main():
@@ -760,7 +804,11 @@ def main():
             logger.error(f"样本失败|Sample failed: {sample}: {e}")
             failed.append({"sample": sample, "grade": "FAIL", "error": str(e)})
 
-    report.render_index(results + failed, cfg.output_path / "index.html")
+    # 单一HTML报告(单样本即完整报告,多样本顶部导航)|Single combined HTML
+    report_path = report.write_combined_report(
+        results + failed, cfg.output_path / "insert2locus.report.html",
+        tool_versions=versions)
+    logger.info(f"整合报告|Combined report: {report_path}")
     # 清理临时目录|Clean tmp
     tmp_dir = cfg.output_path / "tmp"
     if tmp_dir.exists():
