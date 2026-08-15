@@ -18,7 +18,9 @@ from .converter import (
     build_tidy_files,
     build_mstmap_linkage_map,
     generate_r_cim_script,
-    run_r_script
+    run_r_script,
+    _remove_local_hotspots,
+    thin_markers_by_distance
 )
 
 
@@ -50,6 +52,18 @@ def save_pipeline_info(config: CIMConfig, output_file: str):
         f"[RF QC]",
         f"Max het rate: {config.max_het_rate}",
         f"Max mean RF: {config.max_mean_rf}",
+        f"",
+        f"[Local Hotspot Filter]",
+        f"Enabled: {config.enable_local_hotspot}",
+        f"Distance threshold (bp): {config.local_hotspot_dist}",
+        f"Soft RF: {config.local_hotspot_rf}",
+        f"Hard RF: {config.local_hotspot_hard_rf}",
+        f"Score cutoff: {config.local_hotspot_score_cut}",
+        f"Relative factor: {config.local_hotspot_relative}",
+        f"Min markers per chromosome: {config.local_hotspot_min_markers}",
+        f"",
+        f"[Physical Thinning]",
+        f"Min physical gap (bp): {config.min_phys_gap}",
         f"",
         f"[CIM]",
         f"Cofactors (n.marcovar): {config.n_marcovar}",
@@ -117,6 +131,30 @@ def parse_arguments():
                         help='最小等位基因频率阈值|Minor allele frequency threshold (default: 0.05)')
     parser.add_argument('--missing', type=float, default=0.1,
                         help='最大缺失率|Maximum missing rate (default: 0.1)')
+
+    # RF质控参数|RF QC parameters
+    parser.add_argument('--max-het-rate', type=float, default=0.6,
+                        help='H基因型最大比例(规则1)|Max heterozygous genotype rate (rule 1, default: 0.6)')
+    parser.add_argument('--max-mean-rf', type=float, default=0.35,
+                        help='同染色体平均RF最大值(规则2)|Max mean RF within chromosome (rule 2, default: 0.35)')
+
+    # 局部重组热点过滤|Local recombination hotspot filter
+    parser.add_argument('--no-local-hotspot', dest='enable_local_hotspot', action='store_false',
+                        help='关闭短距离重组热点过滤|Disable local hotspot filter')
+    parser.add_argument('--local-hotspot-dist', type=int, default=1000,
+                        help='热点判定的物理距离阈值bp(默认1000)|Hotspot physical distance threshold in bp (default: 1000)')
+    parser.add_argument('--local-hotspot-rf', type=float, default=0.20,
+                        help='相邻RF软阈值(默认0.20)|Soft adjacent-RF threshold (default: 0.20)')
+    parser.add_argument('--local-hotspot-hard-rf', type=float, default=0.30,
+                        help='相邻RF硬阈值: 达到即两侧标记都删(默认0.30)|Hard adjacent-RF threshold, delete both (default: 0.30)')
+    parser.add_argument('--local-hotspot-score', dest='local_hotspot_score_cut', type=int, default=1,
+                        help='软评分删除线(默认1)|Soft-score deletion cutoff (default: 1)')
+    parser.add_argument('--local-hotspot-relative', type=float, default=0.0,
+                        help='相对判据系数(0=只用绝对阈值)|Relative criterion factor, 0=absolute only (default: 0)')
+
+    # 物理降采样|Physical thinning
+    parser.add_argument('--min-phys-gap', type=int, default=0,
+                        help='最小相邻物理距离bp, 0=关闭(默认)|Min physical gap in bp, 0=off (default: 0)')
 
     # CIM参数|CIM parameters
     parser.add_argument('--n-marcovar', type=int, default=10,
@@ -189,6 +227,15 @@ def main():
             mstmap_pvalue=args.mstmap_pvalue,
             mstmap_distfun=args.mstmap_distfun,
             mstmap_path=args.mstmap_path,
+            max_het_rate=args.max_het_rate,
+            max_mean_rf=args.max_mean_rf,
+            enable_local_hotspot=args.enable_local_hotspot,
+            local_hotspot_dist=args.local_hotspot_dist,
+            local_hotspot_rf=args.local_hotspot_rf,
+            local_hotspot_hard_rf=args.local_hotspot_hard_rf,
+            local_hotspot_score_cut=args.local_hotspot_score_cut,
+            local_hotspot_relative=args.local_hotspot_relative,
+            min_phys_gap=args.min_phys_gap,
         )
         config.validate()
 
@@ -218,6 +265,31 @@ def main():
         if genotype_matrix.shape[0] == 0:
             logger.error("过滤后无标记保留，请检查MAF和缺失率参数|No markers left after filtering")
             sys.exit(1)
+
+        # Step 2.5a: 短距离重组热点过滤(必须在物理降采样之前: 全密度数据上算相邻RF)
+        # local recombination hotspot filter (MUST run before thinning: dense-data adjacency)
+        if config.enable_local_hotspot:
+            logger.info("步骤2.5a: 短距离重组热点过滤|Step 2.5a: Local hotspot filtering")
+            hotspot_mask, hotspot_stats = _remove_local_hotspots(
+                genotype_matrix, marker_info,
+                config.local_hotspot_dist, config.local_hotspot_rf,
+                config.local_hotspot_hard_rf, config.local_hotspot_relative,
+                config.local_hotspot_score_cut, config.local_hotspot_min_markers,
+                logger, config.qc_dir)
+            genotype_matrix = genotype_matrix[~hotspot_mask]
+            marker_info = marker_info[~hotspot_mask].reset_index(drop=True)
+            save_qc_stats(hotspot_stats,
+                          os.path.join(config.qc_dir, "hotspot_filter_stats.txt"))
+            if genotype_matrix.shape[0] == 0:
+                logger.error("热点过滤后无标记保留|No markers left after hotspot filter")
+                sys.exit(1)
+
+        # Step 2.5b: 物理距离降采样(可选, 在热点过滤之后)|physical thinning (optional, after hotspot)
+        if config.min_phys_gap > 0:
+            logger.info(f"步骤2.5b: 物理距离降采样|Step 2.5b: Physical thinning (>= {config.min_phys_gap}bp)")
+            genotype_matrix, marker_info, thin_stats = thin_markers_by_distance(
+                genotype_matrix, marker_info, config.min_phys_gap, logger)
+            save_qc_stats(thin_stats, os.path.join(config.qc_dir, "phys_thin_stats.txt"))
 
         # Step 3: LD降维|LD pruning
         if config.skip_ld:

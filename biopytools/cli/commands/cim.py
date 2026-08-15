@@ -50,6 +50,25 @@ def _validate_path_exists(path):
               help='最小等位基因频率|Minor allele frequency threshold')
 @click.option('--missing', type=float, default=0.1, show_default=True,
               help='最大缺失率|Maximum missing rate')
+@click.option('--max-het-rate', type=float, default=0.6, show_default=True,
+              help='H基因型最大比例|Max heterozygous genotype rate')
+@click.option('--max-mean-rf', type=float, default=0.35, show_default=True,
+              help='同染色体平均RF最大值|Max mean RF within chromosome')
+@click.option('--local-hotspot/--no-local-hotspot', 'enable_local_hotspot',
+              default=True, show_default=True,
+              help='短距离重组热点过滤|Local recombination hotspot filter')
+@click.option('--local-hotspot-dist', type=int, default=1000, show_default=True,
+              help='热点判定物理距离阈值bp|Hotspot physical distance threshold (bp)')
+@click.option('--local-hotspot-rf', type=float, default=0.20, show_default=True,
+              help='相邻RF软阈值|Soft adjacent-RF threshold')
+@click.option('--local-hotspot-hard-rf', type=float, default=0.30, show_default=True,
+              help='相邻RF硬阈值(两侧都删)|Hard adjacent-RF threshold')
+@click.option('--local-hotspot-score', 'local_hotspot_score_cut', type=int, default=1, show_default=True,
+              help='软评分删除线|Soft-score deletion cutoff')
+@click.option('--local-hotspot-relative', type=float, default=0.0, show_default=True,
+              help='相对判据系数(0=关)|Relative criterion factor (0=off)')
+@click.option('--min-phys-gap', type=int, default=0, show_default=True,
+              help='最小相邻物理距离bp(0=关)|Min physical gap bp (0=off)')
 @click.option('--n-marcovar', type=int, default=10, show_default=True,
               help='协因子数量|Number of marker covariates')
 @click.option('--window', type=float, default=10.0, show_default=True,
@@ -79,6 +98,9 @@ def _validate_path_exists(path):
 @click.option('--r-env', default='~/miniforge3/envs/Rqtl', show_default=True,
               help='R conda环境路径或名称|R conda env path or name')
 def cim(input, pheno, output, cross_type, map_mode, maf, missing,
+         max_het_rate, max_mean_rf, enable_local_hotspot,
+         local_hotspot_dist, local_hotspot_rf, local_hotspot_hard_rf,
+         local_hotspot_score_cut, local_hotspot_relative, min_phys_gap,
          n_marcovar, window, method, step, n_perm,
          ld_window, ld_step, ld_r2, skip_ld, mstmap_pvalue, mstmap_distfun, r_env):
     """R/qtl复合区间作图(CIM)分析|R/qtl Composite Interval Mapping (CIM)
@@ -103,6 +125,16 @@ def cim(input, pheno, output, cross_type, map_mode, maf, missing,
     args.extend(['--map-mode', map_mode])
     args.extend(['--maf', str(maf)])
     args.extend(['--missing', str(missing)])
+    args.extend(['--max-het-rate', str(max_het_rate)])
+    args.extend(['--max-mean-rf', str(max_mean_rf)])
+    if not enable_local_hotspot:
+        args.append('--no-local-hotspot')
+    args.extend(['--local-hotspot-dist', str(local_hotspot_dist)])
+    args.extend(['--local-hotspot-rf', str(local_hotspot_rf)])
+    args.extend(['--local-hotspot-hard-rf', str(local_hotspot_hard_rf)])
+    args.extend(['--local-hotspot-score', str(local_hotspot_score_cut)])
+    args.extend(['--local-hotspot-relative', str(local_hotspot_relative)])
+    args.extend(['--min-phys-gap', str(min_phys_gap)])
     args.extend(['--n-marcovar', str(n_marcovar)])
     args.extend(['--window', str(window)])
     args.extend(['--method', method])

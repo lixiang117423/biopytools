@@ -44,7 +44,22 @@ class CIMConfig:
 
     # RF质控参数|RF QC parameters
     max_het_rate: float = 0.6  # H基因型最大比例|Max heterozygous genotype rate
-    max_mean_rf: float = 0.5  # 同染色体平均RF最大值|Max mean RF within chromosome
+    # 同染色体平均RF最大值(由0.5下调: 0.5下真实重组区标记也会被误删)|Max mean RF within
+    # chromosome (lowered from 0.5: at 0.5 real markers in recombination-rich regions get removed)
+    max_mean_rf: float = 0.35
+
+    # 局部重组热点过滤(双亲群体大片交换,短距离高频重组位点删除)|Local recombination
+    # hotspot filter (large-block exchange: short-distance high-RF pairs are errors)
+    enable_local_hotspot: bool = True   # 总开关|master switch
+    local_hotspot_dist: int = 1000      # 物理距离阈值bp: 距离更近的相邻对才检查|only pairs closer than this
+    local_hotspot_rf: float = 0.20      # 相邻RF软阈值: 达到即给两侧标记各记1分|soft RF (scores both neighbors)
+    local_hotspot_hard_rf: float = 0.30  # 硬阈值: 单对RF达到即两侧标记都删|hard RF (delete both)
+    local_hotspot_score_cut: int = 1    # 标记级删除线: 软评分>=此值删除|delete markers with score >= this
+    local_hotspot_relative: float = 0.0  # 相对判据系数: >0时阈值=max(绝对值,系数*近距对RF中位数)|relative floor
+    local_hotspot_min_markers: int = 100  # 只处理标记数>=此值的染色体(小scaffold跳过)|skip tiny scaffolds
+
+    # 物理距离降采样|Physical distance thinning
+    min_phys_gap: int = 0               # 最小相邻物理距离bp; 0=关闭|Min physical gap bp; 0=off
 
     # LD pruning参数|LD pruning parameters
     ld_window: int = 50  # LD计算窗口(SNP数)|LD window size (SNP count)
@@ -152,6 +167,25 @@ class CIMConfig:
 
         if not (0 < self.max_mean_rf <= 1.0):
             errors.append(f"平均RF阈值应在0到1之间|Max mean RF should be between 0 and 1: {self.max_mean_rf}")
+
+        # 检查局部热点过滤参数|Check local hotspot filter params
+        if self.local_hotspot_dist <= 0:
+            errors.append(f"热点距离阈值应>0|Hotspot distance threshold must be > 0: {self.local_hotspot_dist}")
+        if not (0 < self.local_hotspot_rf <= 0.5):
+            errors.append(f"热点软RF阈值应在(0,0.5]|Hotspot soft RF must be in (0,0.5]: {self.local_hotspot_rf}")
+        if not (0 < self.local_hotspot_hard_rf <= 0.5):
+            errors.append(f"热点硬RF阈值应在(0,0.5]|Hotspot hard RF must be in (0,0.5]: {self.local_hotspot_hard_rf}")
+        if self.local_hotspot_hard_rf < self.local_hotspot_rf:
+            errors.append(f"热点硬RF阈值应>=软RF阈值|Hotspot hard RF must be >= soft RF: "
+                          f"{self.local_hotspot_hard_rf} < {self.local_hotspot_rf}")
+        if self.local_hotspot_score_cut < 1:
+            errors.append(f"热点评分删除线应>=1|Hotspot score cutoff must be >= 1: {self.local_hotspot_score_cut}")
+        if self.local_hotspot_relative < 0:
+            errors.append(f"热点相对判据系数应>=0|Hotspot relative factor must be >= 0: {self.local_hotspot_relative}")
+        if self.local_hotspot_min_markers < 2:
+            errors.append(f"热点过滤最小标记数应>=2|Hotspot min markers must be >= 2: {self.local_hotspot_min_markers}")
+        if self.min_phys_gap < 0:
+            errors.append(f"最小物理距离应>=0|Min physical gap must be >= 0: {self.min_phys_gap}")
 
         if self.n_marcovar < 1:
             errors.append(f"协因子数量应>=1|Number of covariates should be >= 1: {self.n_marcovar}")

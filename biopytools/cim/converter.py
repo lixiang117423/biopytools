@@ -204,6 +204,174 @@ def filter_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
     return filtered_genotype, filtered_marker, stats
 
 
+def _remove_local_hotspots(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
+                           dist_thr: int, soft_rf: float, hard_rf: float,
+                           relative_factor: float, score_cut: int, min_markers: int,
+                           logger: logging.Logger,
+                           qc_dir: str = "") -> Tuple[np.ndarray, Dict]:
+    """短距离重组热点过滤|Remove short-distance recombination hotspots.
+
+    双亲群体染色体交换是大片交换,物理距离很近(<dist_thr bp)的相邻标记间若出现高频
+    重组(RF>=阈值),几乎必为基因型错误/旁系同源比对,删除。两轮:
+    轮1 硬阈值: 单对RF>=hard_rf → 两侧标记都删(无法判断哪个错,且<thr内标记
+              对QTL分辨率完全冗余); 轮2 软评分: 基于原始相邻对评分, 每个未删标记
+              与原始左右邻居中RF>=soft_rf且距离<thr的对数>=score_cut → 删
+              (hard标记自己不参与计分, 但仍是邻居关系的供分方)。
+    |Large-block exchange in biparental crosses: high RF between physically close
+    neighbors is almost surely a genotyping/paralog error. Round 1 (hard):
+    RF>=hard_rf deletes BOTH markers; round 2 (soft): scores computed on original
+    adjacency pairs, delete markers scoring >= score_cut (hard-flagged markers
+    receive no score but still feed scores to their neighbors).
+
+    Args:
+        genotype_matrix: 基因型矩阵 (n_markers x n_samples)|Genotype matrix
+        marker_info: 标记信息 (chr/pos/id)|Marker info
+        dist_thr: 物理距离阈值bp, 距离更近的相邻对才检查|Only pairs closer than this
+        soft_rf: 相邻RF软阈值, 达到即给两侧标记各记1分|Soft RF (scores both neighbors)
+        hard_rf: 相邻RF硬阈值, 达到即两侧标记都删|Hard RF (delete both)
+        relative_factor: 相对判据系数; >0时阈值=max(绝对值, 系数*近距对RF中位数)|Relative floor
+        score_cut: 标记级删除线, 软评分>=此值删除|Delete markers with score >= this
+        min_markers: 只处理标记数>=此值的染色体(小scaffold跳过)|Skip tiny scaffolds
+        logger: 日志器|Logger
+        qc_dir: QC输出目录, 非空且有删除时导出诊断TSV|QC dir for diagnostics TSV
+
+    Returns:
+        tuple: (remove掩码 True=删除, stats)|(boolean removal mask, stats dict)
+    """
+    n_total = genotype_matrix.shape[0]
+    stats = {'markers_before_hotspot': n_total}
+    hard_flags = np.zeros(n_total, dtype=bool)
+    score = np.zeros(n_total, dtype=int)
+    reasons = {}   # idx -> 'hard_pair' | 'score'
+    max_rf_seen = {}  # idx -> 最高相邻RF(诊断用)|max adjacent RF (diagnostics)
+
+    for chr_val in marker_info['chr'].unique():
+        chr_idx = np.where(marker_info['chr'].values == chr_val)[0]
+        if len(chr_idx) < max(2, min_markers):
+            continue   # 小scaffold不处理|skip tiny scaffolds
+        pos = marker_info['pos'].values[chr_idx].astype(np.int64)
+        order = np.argsort(pos, kind='stable')   # 防御性排序|defensive sort
+        chr_idx = chr_idx[order]
+        pos = pos[order]
+        n = len(chr_idx)
+
+        adj_dist = pos[1:] - pos[:-1]
+        near = adj_dist < dist_thr
+        adj_rf = np.full(n - 1, np.nan)
+        for k in range(n - 1):
+            rf = _calc_single_rf(genotype_matrix[chr_idx[k]],
+                                 genotype_matrix[chr_idx[k + 1]])
+            adj_rf[k] = rf if rf is not None else np.nan
+
+        # 相对判据: 阈值 = max(绝对值, 系数*近距对RF中位数)|relative: floor = factor*median
+        med = float(np.nanmedian(adj_rf[near])) if near.any() else 0.0   # 空切片守卫|empty-slice guard
+        soft, hard = soft_rf, hard_rf
+        if relative_factor > 0:
+            soft = max(soft_rf, relative_factor * med)
+            hard = max(hard_rf, soft)
+        logger.info(f"热点过滤 {chr_val}: {n} markers, 近距对{int(near.sum())}, "
+                    f"soft={soft:.3f} hard={hard:.3f} (近距对RF中位数={med:.3f})"
+                    f"|hotspot {chr_val}: {n} markers, {int(near.sum())} close pairs")
+
+        # 轮1: 硬阈值对 → 两侧都删|round 1: hard pairs delete both
+        for k in np.where(near & (adj_rf >= hard))[0]:
+            hard_flags[chr_idx[k]] = True
+            hard_flags[chr_idx[k + 1]] = True
+            reasons.setdefault(chr_idx[k], 'hard_pair')
+            reasons.setdefault(chr_idx[k + 1], 'hard_pair')
+            max_rf_seen[chr_idx[k]] = max(max_rf_seen.get(chr_idx[k], 0), adj_rf[k])
+            max_rf_seen[chr_idx[k + 1]] = max(max_rf_seen.get(chr_idx[k + 1], 0), adj_rf[k])
+
+        # 轮2: 软评分(基于原始相邻对; hard标记不参与计分)|round 2: soft scoring on original adjacency
+        for k in np.where(near & (adj_rf >= soft) & ~(adj_rf >= hard))[0]:
+            a, b = chr_idx[k], chr_idx[k + 1]
+            if not hard_flags[a]:
+                score[a] += 1
+            if not hard_flags[b]:
+                score[b] += 1
+            max_rf_seen[a] = max(max_rf_seen.get(a, 0), adj_rf[k])
+            max_rf_seen[b] = max(max_rf_seen.get(b, 0), adj_rf[k])
+
+    remove = hard_flags | (score >= score_cut)
+    for i in np.where(remove)[0]:
+        reasons.setdefault(int(i), 'score')
+    stats['removed_by_hotspot'] = int(remove.sum())
+    stats['removed_by_hard_pair'] = int(hard_flags.sum())
+    stats['removed_by_soft_score'] = int(remove.sum() - hard_flags.sum())
+
+    # 诊断TSV|diagnostics TSV
+    if remove.any() and qc_dir:
+        removed_idx = np.where(remove)[0]
+        diag = pd.DataFrame({
+            'marker_id': marker_info.loc[remove, 'id'].values,
+            'chr': marker_info.loc[remove, 'chr'].values,
+            'pos': marker_info.loc[remove, 'pos'].values,
+            'reason': [reasons.get(int(i), 'score') for i in removed_idx],
+            'score': score[remove],
+            'max_adj_rf': [round(float(max_rf_seen.get(int(i), np.nan)), 4)
+                            for i in removed_idx],
+        })
+        diag_path = os.path.join(qc_dir, 'local_hotspot_removed.tsv')
+        diag.to_csv(diag_path, sep='\t', index=False)
+        logger.info(f"热点删除清单已保存|Hotspot removal report saved: {diag_path}")
+
+    stats['markers_after_hotspot'] = int((~remove).sum())
+    logger.info(f"热点过滤|Hotspot filter: {n_total} → {stats['markers_after_hotspot']} "
+                f"(硬对删{int(hard_flags.sum())}, 评分删{int(remove.sum() - hard_flags.sum())})")
+    # remove: True=删除的布尔掩码|boolean mask, True = remove
+    return remove, stats
+
+
+def thin_markers_by_distance(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
+                             min_gap: int, logger: logging.Logger
+                             ) -> Tuple[np.ndarray, pd.DataFrame, Dict]:
+    """物理距离降采样: 相邻距离<min_gap的密集簇仅保留簇头。
+
+    66万SNP相邻中位距离仅37-55bp,对99个体的QTL分辨率(~1cM)完全冗余;
+    稀疏化后MSTmap建图与CIM置换检验耗时/内存降一个量级。
+    |Physical thinning: keep only the first marker of any cluster denser than
+    min_gap. Adjacent median is 37-55bp - fully redundant for ~1cM resolution.
+
+    Args:
+        genotype_matrix: 基因型矩阵 (n_markers x n_samples)|Genotype matrix
+        marker_info: 标记信息 (chr/pos/id)|Marker info
+        min_gap: 最小相邻物理距离bp|Min physical gap in bp
+        logger: 日志器|Logger
+
+    Returns:
+        tuple: (降采样后矩阵, 降采样后marker_info, stats)|(thinned matrix, marker info, stats)
+    """
+    n_total = genotype_matrix.shape[0]
+    keep = np.ones(n_total, dtype=bool)
+    per_chr = {}
+    for chr_val in marker_info['chr'].unique():
+        chr_idx = np.where(marker_info['chr'].values == chr_val)[0]
+        pos = marker_info['pos'].values[chr_idx].astype(np.int64)
+        order = np.argsort(pos, kind='stable')
+        chr_idx = chr_idx[order]
+        pos = pos[order]
+        last_kept = -10 ** 15
+        for i, p in zip(chr_idx, pos):
+            if p - last_kept >= min_gap:
+                last_kept = int(p)   # 保留簇头|keep cluster head
+            else:
+                keep[i] = False
+        per_chr[chr_val] = {'before': len(chr_idx),
+                            'after': int(keep[chr_idx].sum())}
+    filtered_genotype = genotype_matrix[keep]
+    filtered_marker = marker_info[keep].reset_index(drop=True)
+    stats = {'markers_before_thin': n_total,
+             'markers_after_thin': filtered_genotype.shape[0],
+             'min_gap': min_gap,
+             'per_chromosome': per_chr}
+    logger.info(f"物理降采样|Physical thinning (>= {min_gap}bp): "
+                f"{n_total} → {filtered_genotype.shape[0]} markers")
+    for c, d in per_chr.items():
+        if d['before'] - d['after'] > 0:
+            logger.info(f"  {c}: {d['before']} → {d['after']}")
+    return filtered_genotype, filtered_marker, stats
+
+
 def filter_rf_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
                       max_het_rate: float, max_mean_rf: float,
                       logger: logging.Logger,
