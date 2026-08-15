@@ -36,18 +36,18 @@ class MixraceConfig:
     bedtools_path: str = "~/miniforge3/envs/sv_calling/bin/bedtools"
     rscript_path: str = "~/miniforge3/envs/WGCNA_v.1.73/bin/Rscript"
     freebayes_path: str = "~/miniforge3/envs/freebayes/bin/freebayes"
-    # freebayes 单倍体 calling 参数(导师: -p 1 --min-alternate-fraction 0.02 --min-coverage 30)
+    # freebayes 单倍体 calling 参数(约定: -p 1 --min-alternate-fraction 0.02 --min-coverage 30)
     freebayes_min_alternate_fraction: float = 0.02
     freebayes_min_coverage: int = 30
     # 过滤|filtering
     min_qual: int = 30
     min_dp: int = 15
     min_alt_reads: int = 3
-    # 杂合率判读阈值(单倍体,导师)|het-rate verdict thresholds (haploid, advisor)
+    # 杂合率判读阈值(单倍体)|het-rate verdict thresholds (haploid)
     het_pure: float = 0.0001         # <0.01% 纯|pure
     het_suspicious: float = 0.001    # 0.1% 可疑|suspicious
     het_impure: float = 0.01         # 1% 不纯|impure
-    min_depth: float = 50.0          # 导师:严格过滤需 ≥50x|advisor: >=50x for strict filtering
+    min_depth: float = 50.0          # 建议严格过滤需 >=50x|recommended >=50x for strict filtering
     # 校准(已知纯样品)|calibration (known-pure samples)
     pure_samples: Optional[List[str]] = None
 

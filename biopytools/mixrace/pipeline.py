@@ -4,8 +4,8 @@ step01 run_index/run_qc(bwa-mem2 索引 + fastp QC),
 step02 run_align(bwa-mem2 + 正确 markdup 五步),
 step03 run_call_freebayes(freebayes -p 1 单倍体,保低频;AF 用 AO/RO),
 step04 run_filter(QUAL/DP/去repeat,保留多等位),
-step06 run_kmer(smudgescope)。导师方法论 v2。
-|Haploid pipeline per advisor: bwa-mem2+markdup, freebayes -p 1 (keeps low-freq alleles;
+step06 run_kmer(smudgescope)。
+|Haploid pipeline: bwa-mem2+markdup, freebayes -p 1 (keeps low-freq alleles;
 AF via AO/RO), filter (keeps multiallelic), smudgescope.
 """
 import os

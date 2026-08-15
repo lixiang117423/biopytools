@@ -1,8 +1,8 @@
-"""mixrace 判读引擎(单倍体,导师方法论 v2)|mixrace verdict engine (haploid, advisor v2).
+"""mixrace 判读引擎(单倍体)|mixrace verdict engine (haploid).
 
-指标:杂合率 het_rate(主,导师 <0.01%/0.1%/1% 阈值)+ AFS 形态 + 优势株占比 + 平均深度。
+指标:杂合率 het_rate(主指标,<0.01%/0.1%/1% 阈值)+ AFS 形态 + 优势株占比 + 平均深度。
 输出 single_genotype/mixed_genotype/uncertain + 置信 + 人话依据。Fws 已弃用(疟原虫二倍体指标)。
-|Metrics: het_rate (primary, advisor thresholds) + AFS shape + dominant proportion + depth.
+|Metrics: het_rate (primary) + AFS shape + dominant proportion + depth.
 Fws dropped (malaria diploid metric, invalid here).
 """
 from typing import Optional
@@ -27,8 +27,8 @@ def judge(metrics: dict, thr: dict) -> dict:
     dom = metrics.get("dominant_proportion")
     depth = metrics["mean_depth"]
 
-    # 杂合率为主要判据(导师阈值);AFS 形态辅助细化灰色区。
-    # |het_rate is the primary criterion (advisor thresholds); AFS shape refines the gray zone.
+    # 杂合率为主要判据;AFS 形态辅助细化灰色区。
+    # |het_rate is the primary criterion; AFS shape refines the gray zone.
     if het < thr["het_pure"]:
         verdict = "single_genotype"        # 杂合率极低 → 基本纯(少量中频位点算噪声)|near-zero het -> pure
     elif het >= thr["het_impure"]:
@@ -49,7 +49,7 @@ def _rationale(verdict: str, m: dict, thr: dict, low_depth: bool, dom: Optional[
              "uncertain": "不确定(灰色区,需排查 repeat/旁系同源/污染)"}[verdict]
     parts = [f"{label}|{verdict}"]   # 勿带尾冒号,join("；")已分隔|no trailing colon (join adds ；)
     parts.append(
-        f"全基因组杂合率 {m['het_rate']*100:.4f}%（导师阈值 <{thr['het_pure']*100:.3f}%纯 / "
+        f"全基因组杂合率 {m['het_rate']*100:.4f}%（判定标准 <{thr['het_pure']*100:.3f}%纯 / "
         f">{thr['het_impure']*100:.0f}%不纯），共 {m.get('het_sites', 0)} 个杂合位点")
     parts.append(f"AFS 形态|AFS shape: {m.get('afs_shape','monoclonal')}")
     if dom is not None and verdict != "single_genotype":
@@ -57,7 +57,7 @@ def _rationale(verdict: str, m: dict, thr: dict, low_depth: bool, dom: Optional[
         # |report dominant only for mixed/uncertain; pure samples have too few (noisy) het sites
         parts.append(f"优势株占比 ≈ {dom*100:.1f}%（混合位点主等位频率中位数,方法B）")
     if low_depth:
-        parts.append(f"平均深度 {m['mean_depth']:.1f}x（< {thr['min_depth']:.0f}x,导师要求≥50x 严格过滤,置信降级）")
+        parts.append(f"平均深度 {m['mean_depth']:.1f}x（< {thr['min_depth']:.0f}x,建议≥50x 以保证结果可靠,置信降级）")
     else:
         parts.append(f"平均深度 {m['mean_depth']:.1f}x（充足）")
     if m.get("heterozygosity") is not None:

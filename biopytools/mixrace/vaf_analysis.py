@@ -1,4 +1,4 @@
-"""mixrace 等位频率谱分析(单倍体,导师方法论 v2)|mixrace AFS analysis (haploid, advisor v2).
+"""mixrace 等位频率谱分析(单倍体)|mixrace AFS analysis (haploid).
 
 解析 freebayes AO/RO → 算 杂合率 het_rate + AFS 形态 + 优势株占比。
 根肿菌静息孢子单倍体:n=20,每个位点理论上单一等位;"杂合"=混合群体的基因型多样性。
@@ -45,7 +45,7 @@ def compute_afs(records: List[dict], min_alt_reads: int, genome_size: int = 0) -
     """计算杂合率 + AFS 形态 + 优势株占比|compute het_rate + AFS shape + dominant proportion.
 
     - het 位点 = 同时有 ref 与 alt 读支持(RO>0 且 某个 AO>=min_alt_reads)的位点(混合信号)。
-    - het_rate = het_sites / genome_size(全基因组杂合率,导师 <0.01%/0.1%/1% 阈值)。
+    - het_rate = het_sites / genome_size(全基因组杂合率,标准 <0.01%/0.1%/1% 阈值)。
     - AFS 形态:由中间频率(0.05–0.95)VAF 分布判 monoclonal/two_clone_50_50/dominant_minor/smeared。
     - dominant_proportion = 混合位点主等位频率的中位数(方法B:主等位单倍型支持率)。
     |het site = ref+alt both supported (mixed signal); het_rate = het_sites/genome_size;
@@ -91,7 +91,7 @@ def compute_afs(records: List[dict], min_alt_reads: int, genome_size: int = 0) -
 
 
 def classify_afs_shape(intermediate_vafs: List[float], intermediate_ratio: float) -> str:
-    """AFS 形态分类(导师判读经验)|classify AFS shape per advisor heuristics.
+    """AFS 形态分类(经验判读)|classify AFS shape (empirical heuristics).
 
     monoclonal:中间频率 SNP<5% | two_clone_50_50:集中在 0.5 | dominant_minor:主峰>0.5 |
     smeared:0–1 连续糊(多基因型)。
