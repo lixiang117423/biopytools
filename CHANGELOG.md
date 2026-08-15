@@ -1,4 +1,13 @@
 
+## [1.32.5] - 2026-08-15
+
+### Changed
+- `insert2locus`：报告重构为单一 HTML——`render_report`/`render_index` 合并为 `write_combined_report`（单样本即完整报告，多样本顶部导航 chips 切换，序列复制按钮 id 加样本后缀防 DOM 冲突）；06 报告阶段移出逐样本 checkpoint（整合文件每次重写幂等）
+
+### Fixed
+- `insert2locus`：05 验证续跑分支不再硬编码 FAIL——新增 `_read_verify_summary`/`_read_coverage_segments` 从 `verification_summary.tsv`/`coverage.tsv` 读回真实分级与分段覆盖（列格式与写入处逐列核对一致）
+- `mixrace`：建树调用 `biopytools vcf2tree` 补 `--no-asc`——参考基因组是另一分离株时大量位点相对参考可变但样品间固定（不变列），IQ-TREE 的 +ASC 校正要求仅含可变位点、含不变列直接报错退出
+
 ## [1.32.4] - 2026-08-15
 
 ### Added
