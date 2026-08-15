@@ -29,10 +29,11 @@ def decide_stop(new_reads: int, growth: int, has_bait: bool, cfg,
                 current_flank: Optional[int] = None) -> Optional[str]:
     """判定是否停止及原因|Decide whether to stop and why
 
-    侧翼未达target_flank时,小增量(<min_growth)不触发收敛,继续向目标走;
-    零增长/无新reads/撞重复区仍硬停|max_rounds兜底|
-    While below target_flank, small growth does not trigger convergence;
-    zero growth / no new reads / repeat cap still stop hard; max_rounds caps
+    target_flank=None(默认)时尽可能走远:小增量不收敛,靠无新reads/零增长/
+    撞重复区/max_rounds自然刹住;设了目标则到达后小增量即收敛|
+    With target_flank=None (default) walk as far as possible: small growth
+    never converges; stops come from no-new-reads / zero growth / repeat cap /
+    max_rounds. With a target set, small growth converges once reached
     """
     if not has_bait:
         return "no_bait"
@@ -41,8 +42,11 @@ def decide_stop(new_reads: int, growth: int, has_bait: bool, cfg,
     if new_reads > cfg.repeat_cap:
         return "repeat_cap"
     if growth < cfg.min_growth:
-        if current_flank is not None and 0 < growth and current_flank < cfg.target_flank:
-            return None   # 未达标仍在生长,继续|Still growing toward target
+        still_growing = 0 < growth and (
+            cfg.target_flank is None
+            or (current_flank or 0) < cfg.target_flank)
+        if still_growing:
+            return None   # 仍在真实延伸,继续|Still genuinely extending
         return "no_growth"
     return None
 
@@ -340,24 +344,28 @@ class WalkingRunner:
                 read_fasta_dict(round_dir / "contigs.fasta"))
             reason = decide_stop(len(new_names), growth, True, self.cfg,
                                  current_flank=curr_flank)
+            target_txt = (f"/目标{self.cfg.target_flank}bp"
+                          if self.cfg.target_flank is not None else "(尽可能远)")
             if reason:
                 stop_reason = reason
                 self.logger.info(
-                    f"[round {r}] 侧翼{curr_flank}bp/目标{self.cfg.target_flank}bp, "
+                    f"[round {r}] 侧翼{curr_flank}bp{target_txt}, "
                     f"增量{growth}bp, {STOP_REASONS[reason]}")
                 break
             self.logger.info(
-                f"[round {r}] 侧翼{curr_flank}bp/目标{self.cfg.target_flank}bp,继续步移"
-                f"|Flank {curr_flank}/{self.cfg.target_flank}bp, keep walking")
+                f"[round {r}] 侧翼{curr_flank}bp{target_txt},继续步移"
+                f"|Flank {curr_flank}bp, keep walking")
             r += 1
         else:
             self.logger.info(STOP_REASONS["max_rounds"])
 
         final_contigs = _last_round_contigs(walk_dir)
         total, longest, _ = contig_stats(final_contigs)
-        # 完成旗标:summary在round 0后就存在,不能当阶段完成标志|
-        # Done flag: summary exists right after round 0, not a stage marker
-        (walk_dir / "walk_done.flag").write_text(
+        # 完成旗标:summary在round 0后就存在,不能当阶段完成标志;
+        # 带样本前缀防多样本串扰|
+        # Done flag: summary exists right after round 0; sample-prefixed to
+        # avoid multi-sample crosstalk
+        (walk_dir / f"{sample}.walk_done.flag").write_text(
             f"stop_reason={stop_reason}\ntotal_bp={total}\nlongest_bp={longest}\n")
         return WalkResult(
             final_contigs=final_contigs, rounds_done=max(done_rounds.keys(),

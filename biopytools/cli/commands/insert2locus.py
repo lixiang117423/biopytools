@@ -62,8 +62,9 @@ def _validate_path_exists(path):
 @click.option('--tdna-fasta', default=None,
               callback=lambda ctx, param, value: _validate_path_exists(value) if value else value,
               help='单独插入序列fasta(区分insert与载体骨架)|Standalone T-DNA fasta')
-@click.option('--target-flank', default=2000, show_default=True, type=int,
-              help='LB/RB目标侧翼长度|Target LB/RB flank length')
+@click.option('--target-flank', default=None, type=int,
+              help='LB/RB目标侧翼长度(默认不限,尽可能走远)|Target flank length '
+                   '(default: walk as far as possible)')
 @click.option('--force', is_flag=True, default=False,
               help='忽略断点全部重跑|Ignore checkpoints and rerun')
 @click.option('--log-level', default='INFO', show_default=True,
@@ -108,7 +109,7 @@ def insert2locus(input, insert_fasta, output_dir, threads, sort_mem,
         args.extend(['--junction-flank', str(junction_flank)])
     if tdna_fasta is not None:
         args.extend(['--tdna-fasta', tdna_fasta])
-    if target_flank != 2000:
+    if target_flank is not None:
         args.extend(['--target-flank', str(target_flank)])
     if force:
         args.append('--force')

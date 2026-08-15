@@ -52,7 +52,9 @@ class Insert2locusConfig:
     mapq_min: int = 1
     repeat_cap: int = 10000
     junction_flank: int = 50
-    target_flank: int = 2000   # LB/RB目标侧翼长度|Target LB/RB flank length
+    # LB/RB目标侧翼长度;None=尽可能走远,靠自然收敛刹住|
+    # Target LB/RB flank length; None = walk as far as naturally converges
+    target_flank: Optional[int] = None
 
     # 工具路径(优先级:env var > config.yml > 默认~展开)|
     # Tool paths (priority: env var > config.yml > ~-expanded default)

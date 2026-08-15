@@ -61,9 +61,10 @@ def parse_arguments(argv=None):
     parser.add_argument("--tdna-fasta", default=None,
                         help="单独插入序列fasta(区分insert与载体骨架;不给则-f整体当insert)"
                              "|Standalone T-DNA fasta (separates insert from backbone)")
-    parser.add_argument("--target-flank", type=int, default=2000,
-                        help="LB/RB目标侧翼长度(未达标步移不提前收敛)"
-                             "|Target LB/RB flank length")
+    parser.add_argument("--target-flank", type=int, default=None,
+                        help="LB/RB目标侧翼长度(默认不限,尽可能走远到自然收敛;"
+                             "到达后小增量即收敛)"
+                             "|Target flank length (default: walk as far as possible)")
     parser.add_argument("--force", action="store_true",
                         help="忽略断点全部重跑|Ignore checkpoints and rerun")
     parser.add_argument("--log-level", default="INFO", help="日志级别|Log level")
@@ -334,7 +335,8 @@ def run_junction_stage(cfg, logger, runner, sample: str,
                 f"Junction fishing: {format_number(len(names))} read names")
     for mate, fastq, out in [(1, r1, pe1), (2, r2, pe2)]:
         if not fish_mates(cfg.seqkit_path, runner, names, mate, fastq,
-                          jdir / f"pat_mate{mate}.txt", out, append=False):
+                          jdir / f"{sample}.pat_mate{mate}.txt", out,
+                          append=False):
             raise RuntimeError(f"钓mate/{mate}失败|Fish mate/{mate} failed")
     return {"softclip_fastq": sc_fq, "pe1": pe1, "pe2": pe2,
             "mate_unmapped_bam": mate_bam}
@@ -352,20 +354,30 @@ def run_locus_stage(cfg, logger, runner, sample: str, bam: Path, r1: Path,
         insert_regions = _compute_insert_regions(cfg, runner, sdir)
 
     # 招募全部比对上insert的reads名(含mate)|All mapped read names (mates included)
+    # ⚠️ 不加-q过滤:MAPQ0多比对reads是拼通构建内部重复区必需的
+    #   (人工分析用全部mapped 3911条才拼出贯穿contig,-q1只剩2025拼不出)|
+    # No -q filter: MAPQ-0 multi-mappers are required to bridge construct
+    # repeats (manual analysis used ALL 3911 mapped reads)
+    # ⚠️ 不能加尾部"-":bam有.bai时samtools把后续参数当region解析→空输出|
+    # No trailing "-": with an indexed bam samtools parses it as a region
     hits_out = runner.run_pipeline_capture(
-        [[cfg.samtools_path, "view", "-q", str(cfg.mapq_min), "-F", "4",
-          "-F", "260", str(bam), "-"],
+        [[cfg.samtools_path, "view", "-F", "4", "-F", "260", str(bam)],
          ["cut", "-f1"],
          ["sort", "-u"]],
         description="招募insert覆盖reads|Recruit insert-covering reads")
     if hits_out is None:
         raise RuntimeError("招募失败|Recruit failed")
     names = [ln for ln in hits_out.splitlines() if ln]
-    logger.info(f"招募全部覆盖reads: {format_number(len(names))}条|"
-                f"Recruited {format_number(len(names))} read names")
+    if not names:
+        raise RuntimeError(
+            "招募到0条reads:比对到构建的reads为空,请检查01产物|"
+            "Recruited 0 reads: nothing maps to the construct, check stage 01")
+    logger.info(f"招募全部覆盖reads(含MAPQ0): {format_number(len(names))}条|"
+                f"Recruited {format_number(len(names))} read names (incl. MAPQ0)")
     for mate, fastq, out in [(1, r1, pool1), (2, r2, pool2)]:
         if not fish_mates(cfg.seqkit_path, runner, names, mate, fastq,
-                          ldir / f"pat_locus_mate{mate}.txt", out, append=False):
+                          ldir / f"{sample}.pat_locus_mate{mate}.txt", out,
+                          append=False):
             raise RuntimeError(f"钓locus mate/{mate}失败|Fish locus mate/{mate} failed")
     # 并入步移招募池|Merge walking recruited pools
     for pool, recruited in [(pool1, walk_dir / "recruited_R1.fastq"),
@@ -532,15 +544,16 @@ def _check_flanks_plant(cfg, runner, locus, sdir: Path, sample: str):
 # ---------- 单样本/全流程|Per-sample & full pipeline ----------
 
 def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
-    """单样本全流程|Per-sample full pipeline"""
-    sdir = cfg.output_path / sample
-    if cfg.force and sdir.exists():
-        shutil.rmtree(sdir)
+    """单样本全流程(by-step输出,文件名带样本前缀)|
+    Per-sample full pipeline (by-step layout, sample-prefixed files)"""
+    # by-step:所有样本共享步骤目录,文件名{sample}前缀区分|
+    # by-step: samples share step dirs; files distinguished by {sample} prefix
+    sdir = cfg.output_path
     log_dir = sdir / "99_logs"
     log_dir.mkdir(parents=True, exist_ok=True)
     # 预建各阶段目录(samtools sort等不建父目录)|Pre-create stage dirs
     # (samtools sort cannot create parents itself)
-    for stage in ("01_mapping", "02_junction_reads", "03_walking/rounds",
+    for stage in ("01_mapping", "02_junction_reads", "03_walking",
                   "04_locus", "05_verify"):
         (sdir / stage).mkdir(parents=True, exist_ok=True)
     runner = CommandRunner(logger, working_dir=cfg.output_path)
@@ -589,11 +602,19 @@ def run_sample(cfg, logger, sample: str, r1: Path, r2: Path) -> dict:
              "pe2": sdir / "02_junction_reads" / f"{sample}.flank_candidates_R2.fastq"}
 
     # 03 迭代步移|Walking
-    walk_dir = sdir / "03_walking" / "rounds"
+    # 中间文件整体进样本子目录:master/recruited/bait等无样本前缀,
+    # 混在共享目录会多样本串扰|Sample subdir: unprefixed walking
+    # intermediates must not crosstalk between samples
+    walk_dir = sdir / "03_walking" / "rounds" / sample
+    if cfg.force and walk_dir.exists():
+        # force须清掉本样本步移残留,否则旧summary导致"续跑"而非重跑|
+        # force must clear this sample's walking state or the old summary
+        # turns the rerun into a resume
+        shutil.rmtree(walk_dir)
     walker = WalkingRunner(cfg, logger, runner)
     run_stage_with_checkpoint(
         "03_walking",
-        [walk_dir / "walk_done.flag"],
+        [walk_dir / f"{sample}.walk_done.flag"],
         cfg.force,
         lambda: walker.run(sample, r1, r2, j["softclip_fastq"],
                            j["pe1"], j["pe2"], walk_dir),
