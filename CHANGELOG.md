@@ -1,4 +1,12 @@
 
+## [1.32.3] - 2026-08-15
+
+### Added
+- `mixrace`：新增样品系统发育树（step07b）——bcftools merge 各样品 filtered VCF → 复用 `vcf2tree`（IQ-TREE2）建树 → newick；合并 HTML 报告内嵌 `phylocanvas.gl` 交互树（缩放/拖动/切换矩形·环形·放射·层级树型，叶标签自动带 [纯]/[混合]/[不确定] 判读后缀，WebGL 不支持时优雅降级提示 newick 路径）；`<4` 样品/缺 VCF/`--skip-tree` 自动跳过；断点续传（`_done` 自愈）
+
+### Fixed
+- `mixrace`：`phylocanvas.gl.min.js` 原不在打包清单（`pip install` 后树组件缺失）——MANIFEST.in 补 `recursive-include biopytools *.js`（wheel 实测含 JS）；`_annotate_newick` 支持 IQ-TREE 引号样名（`'Pb-1':` 形式，原裸名替换静默失效）；HTML 标题无树时动态编号防跳号（原"一、二、四"）；`software_versions.yml` 参数补 `skip_tree`
+
 ## [1.32.2] - 2026-08-14
 
 ### Fixed
