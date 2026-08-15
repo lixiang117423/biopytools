@@ -7,6 +7,7 @@
 so S1_1.fq.gz does not swallow S10_1.fq.gz.
 """
 import os
+import re
 from typing import Dict, List
 
 # (R1 后缀, R2 后缀),长在前避免误匹配|(R1 suffix, R2 suffix); longest first
@@ -18,6 +19,13 @@ _R1_R2_PAIRS = [
     ("_1.fq.gz", "_2.fq.gz"),
     ("_R1.fq.gz", "_R2.fq.gz"),
 ]
+
+
+def _natural_key(name: str):
+    """自然排序键:数字段按数值比较(Pb2 < Pb10,而非字典序 Pb10 < Pb2)。
+    |Natural-sort key: digit runs compared numerically (Pb2 < Pb10)."""
+    return [int(tok) if tok.isdigit() else tok
+            for tok in re.split(r"(\d+)", name)]
 
 
 def discover_samples(fastq_dir: str) -> List[Dict[str, str]]:
@@ -47,4 +55,4 @@ def discover_samples(fastq_dir: str) -> List[Dict[str, str]]:
                         f"样本|sample {sample}: R2 not found (expected {sample + r2_suffix})")
                 samples[sample] = {"sample": sample, "r1": r1, "r2": r2}
                 break  # 一个文件只匹配一个后缀|one file matches one suffix
-    return [samples[k] for k in sorted(samples)]
+    return [samples[k] for k in sorted(samples, key=_natural_key)]
