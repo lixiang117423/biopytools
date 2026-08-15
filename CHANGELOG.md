@@ -1,4 +1,13 @@
 
+## [1.32.2] - 2026-08-14
+
+### Fixed
+- `insert2locus`：修复 by-step 输出布局下的多样本串扰——walking 中间文件（`master.txt`/`recruited_*.fastq`/`bait_*.fasta`/`round_N/`/`walk_done.flag` 等）原无样本前缀，多样本共享 `03_walking/rounds/` 时互相覆盖、`walk_done.flag` 使后续样本整段跳过 walking、04 阶段混用他样本招募池；现中间文件整体挪入 `03_walking/rounds/{sample}/` 子目录隔离，旗标改 `{sample}.walk_done.flag`；`pat_mate{mate}.txt`/`pat_locus_mate{mate}.txt` 补样本前缀；`--force` 原对 03_walking 无效（旧 `walk_summary.tsv` 致续跑而非重跑），现 force 先清本样本步移残留；单测 `test_non_ascii_falls_back` 断言由硬编码 `/tmp` 改 `tempfile.gettempdir()`（macOS TMPDIR 兼容）
+
+### Changed
+- `insert2locus`：`--target-flank` 默认 2000 → None（不限，尽可能走远，靠 no-new-reads/零增长/重复区/max_rounds 自然收敛；设目标则达标后小增量即收敛）；04 招募环节去 `-q`（MAPQ0 多比对 reads 是拼通构建内部重复区必需，实测 3911 vs -q1 的 2025 条）并去尾部 `-`（带 `.bai` 的 bam 会把 `-` 当 region 解析致空输出）
+- `mixrace`：样本发现改自然排序（`Pb2 < Pb10` 而非字典序）；判读/阈值文案中性化（去"导师"称谓）
+
 ## [1.32.1] - 2026-08-14
 
 ### Added
