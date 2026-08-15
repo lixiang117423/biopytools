@@ -44,9 +44,12 @@ class CIMConfig:
 
     # RF质控参数|RF QC parameters
     max_het_rate: float = 0.6  # H基因型最大比例|Max heterozygous genotype rate
-    # 同染色体平均RF最大值(由0.5下调: 0.5下真实重组区标记也会被误删)|Max mean RF within
-    # chromosome (lowered from 0.5: at 0.5 real markers in recombination-rich regions get removed)
+    # K近邻局部平均RF最大值(规则2, 由全染色体平均重构: 全局均值在正确RF定义下
+    # 无区分力, 远距离对≈0.5主导使正常标记也≈0.45-0.5)|Max local mean RF to the
+    # k//2 nearest markers (rule 2, rebuilt from chromosome-wide mean: the global
+    # mean cannot discriminate - distant pairs ~0.5 push good markers to ~0.45-0.5)
     max_mean_rf: float = 0.35
+    rf_knn: int = 10  # 局部RF窗口邻居数(前后各rf_knn//2)|Local RF window neighbors
 
     # 局部重组热点过滤(双亲群体大片交换,短距离高频重组位点删除)|Local recombination
     # hotspot filter (large-block exchange: short-distance high-RF pairs are errors)
@@ -167,6 +170,9 @@ class CIMConfig:
 
         if not (0 < self.max_mean_rf <= 1.0):
             errors.append(f"平均RF阈值应在0到1之间|Max mean RF should be between 0 and 1: {self.max_mean_rf}")
+
+        if self.rf_knn < 2:
+            errors.append(f"局部RF窗口邻居数应>=2|RF KNN window must be >= 2: {self.rf_knn}")
 
         # 检查局部热点过滤参数|Check local hotspot filter params
         if self.local_hotspot_dist <= 0:

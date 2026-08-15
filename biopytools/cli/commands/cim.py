@@ -53,7 +53,9 @@ def _validate_path_exists(path):
 @click.option('--max-het-rate', type=float, default=0.6, show_default=True,
               help='H基因型最大比例|Max heterozygous genotype rate')
 @click.option('--max-mean-rf', type=float, default=0.35, show_default=True,
-              help='同染色体平均RF最大值|Max mean RF within chromosome')
+              help='K近邻局部平均RF最大值|Max local mean RF to k nearest markers')
+@click.option('--rf-knn', type=int, default=10, show_default=True,
+              help='局部RF窗口邻居数|Local RF window neighbor count')
 @click.option('--local-hotspot/--no-local-hotspot', 'enable_local_hotspot',
               default=True, show_default=True,
               help='短距离重组热点过滤|Local recombination hotspot filter')
@@ -98,7 +100,7 @@ def _validate_path_exists(path):
 @click.option('--r-env', default='~/miniforge3/envs/Rqtl', show_default=True,
               help='R conda环境路径或名称|R conda env path or name')
 def cim(input, pheno, output, cross_type, map_mode, maf, missing,
-         max_het_rate, max_mean_rf, enable_local_hotspot,
+         max_het_rate, max_mean_rf, rf_knn, enable_local_hotspot,
          local_hotspot_dist, local_hotspot_rf, local_hotspot_hard_rf,
          local_hotspot_score_cut, local_hotspot_relative, min_phys_gap,
          n_marcovar, window, method, step, n_perm,
@@ -127,6 +129,7 @@ def cim(input, pheno, output, cross_type, map_mode, maf, missing,
     args.extend(['--missing', str(missing)])
     args.extend(['--max-het-rate', str(max_het_rate)])
     args.extend(['--max-mean-rf', str(max_mean_rf)])
+    args.extend(['--rf-knn', str(rf_knn)])
     if not enable_local_hotspot:
         args.append('--no-local-hotspot')
     args.extend(['--local-hotspot-dist', str(local_hotspot_dist)])

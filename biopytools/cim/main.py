@@ -51,7 +51,8 @@ def save_pipeline_info(config: CIMConfig, output_file: str):
         f"",
         f"[RF QC]",
         f"Max het rate: {config.max_het_rate}",
-        f"Max mean RF: {config.max_mean_rf}",
+        f"Max local mean RF (rule 2): {config.max_mean_rf}",
+        f"Local RF window neighbors (rf_knn): {config.rf_knn}",
         f"",
         f"[Local Hotspot Filter]",
         f"Enabled: {config.enable_local_hotspot}",
@@ -136,7 +137,9 @@ def parse_arguments():
     parser.add_argument('--max-het-rate', type=float, default=0.6,
                         help='H基因型最大比例(规则1)|Max heterozygous genotype rate (rule 1, default: 0.6)')
     parser.add_argument('--max-mean-rf', type=float, default=0.35,
-                        help='同染色体平均RF最大值(规则2)|Max mean RF within chromosome (rule 2, default: 0.35)')
+                        help='K近邻局部平均RF最大值(规则2)|Max local mean RF to k nearest markers (rule 2, default: 0.35)')
+    parser.add_argument('--rf-knn', type=int, default=10,
+                        help='规则2局部RF窗口邻居数(前后各一半)|Local RF window neighbor count (default: 10)')
 
     # 局部重组热点过滤|Local recombination hotspot filter
     parser.add_argument('--no-local-hotspot', dest='enable_local_hotspot', action='store_false',
@@ -229,6 +232,7 @@ def main():
             mstmap_path=args.mstmap_path,
             max_het_rate=args.max_het_rate,
             max_mean_rf=args.max_mean_rf,
+            rf_knn=args.rf_knn,
             enable_local_hotspot=args.enable_local_hotspot,
             local_hotspot_dist=args.local_hotspot_dist,
             local_hotspot_rf=args.local_hotspot_rf,
@@ -365,7 +369,7 @@ def main():
 
         genotype_matrix, marker_info, rf_stats = filter_rf_markers(
             genotype_matrix, marker_info, config.max_het_rate, config.max_mean_rf, logger,
-            qc_dir=config.qc_dir
+            qc_dir=config.qc_dir, rf_knn=config.rf_knn
         )
         rf_stats_file = os.path.join(config.qc_dir, "rf_filter_stats.txt")
         save_qc_stats(rf_stats, rf_stats_file)

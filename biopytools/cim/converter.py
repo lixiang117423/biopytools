@@ -375,26 +375,31 @@ def thin_markers_by_distance(genotype_matrix: np.ndarray, marker_info: pd.DataFr
 def filter_rf_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
                       max_het_rate: float, max_mean_rf: float,
                       logger: logging.Logger,
-                      qc_dir: str = "") -> Tuple[np.ndarray, pd.DataFrame, Dict]:
+                      qc_dir: str = "",
+                      rf_knn: int = 10) -> Tuple[np.ndarray, pd.DataFrame, Dict]:
     """
     基于重组频率和杂合率过滤标记|Filter markers by recombination frequency and heterozygous rate
 
     三种过滤规则（按顺序执行）|Three filtering rules (executed in order):
     1. H比例过滤：杂合基因型比例过高的标记|Het rate filter: markers with too many heterozygous genotypes
-    2. 同染色体平均RF过滤：与同染色体标记平均重组频率过高的标记|Mean RF filter within chromosome
+    2. K近邻平均RF过滤：与物理位置前后各rf_knn//2个标记平均RF过高的标记|KNN mean RF
+       filter (rf_knn//2 nearest markers on each side)
     3. 孤立重组检测：与相邻标记RF异常高（仅日志警告，不删除）|Singleton crossover detection (warning only)
 
     Args:
         genotype_matrix: 基因型矩阵 (n_markers x n_samples)|Genotype matrix
         marker_info: 标记信息|Marker info DataFrame
         max_het_rate: H基因型最大比例|Max heterozygous genotype rate threshold
-        max_mean_rf: 同染色体平均RF最大值|Max mean recombination frequency within chromosome
+        max_mean_rf: K近邻平均RF最大值|Max local mean RF to k nearest markers
         logger: 日志器|Logger
+        qc_dir: QC输出目录|QC output directory
+        rf_knn: 局部RF窗口邻居数(前后各rf_knn//2)|Neighbor count for local RF window
 
     Returns:
         tuple: (filtered_genotype_matrix, filtered_marker_info, stats_dict)
     """
-    logger.info(f"步骤RF: 重组频率质控 (max_het_rate={max_het_rate}, max_mean_rf={max_mean_rf})|"
+    logger.info(f"步骤RF: 重组频率质控 (max_het_rate={max_het_rate}, "
+                f"max_mean_rf={max_mean_rf}, rf_knn={rf_knn})|"
                 f"Step RF: Recombination frequency QC")
 
     n_total = genotype_matrix.shape[0]
@@ -418,30 +423,19 @@ def filter_rf_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
     logger.info(f"H比例分布|Het rate distribution: median={np.median(het_rate):.3f}, "
                 f"range=[{het_rate.min():.3f}, {het_rate.max():.3f}]")
 
-    # --- 规则2: 同染色体平均RF过滤|Rule 2: Mean RF filter within chromosome ---
-    # 按染色体分组计算|Calculate per chromosome
-    mean_rf = np.full(n_total, np.nan)
-    chrs = marker_info['chr'].unique()
+    # --- 规则2: 同染色体K近邻平均RF过滤|Rule 2: K-nearest-neighbor mean RF filter ---
+    # 全染色体平均RF在正确RF定义下无区分力(远距离对≈0.5主导, 正常标记全局均值也
+    # ≈0.45-0.5); 改为局部判据: 标记与其物理位置前后各k//2个标记的平均RF,
+    # 错误标记(基因型随机)近邻RF≈0.5被删, 好标记近邻在LD内RF≈0保留
+    # |Chromosome-wide mean RF has no discriminative power under the correct RF
+    # definition (distant pairs ~0.5 dominate); local criterion instead: mean RF
+    # to the k//2 position-nearest markers on each side. Error markers score
+    # ~0.5 vs every neighbor; good markers sit in LD neighborhoods scoring ~0.
+    mean_rf = _calc_local_mean_rf(genotype_matrix, marker_info, rf_knn)
+    logger.info(f"局部RF窗口: 前后各{max(1, rf_knn // 2)}个标记|"
+                f"Local RF window: {max(1, rf_knn // 2)} markers each side")
 
-    for chr_val in chrs:
-        chr_idx = np.where(marker_info['chr'].values == chr_val)[0]
-        n_chr = len(chr_idx)
-        if n_chr < 2:
-            mean_rf[chr_idx] = 0.0
-            continue
-
-        logger.info(f"计算染色体 {chr_val} 的RF矩阵 ({n_chr} markers)|"
-                    f"Calculating RF matrix for {chr_val} ({n_chr} markers)")
-
-        chr_geno = genotype_matrix[chr_idx]  # (n_chr, n_samples)
-
-        # 全量两两RF计算（建图前标记顺序未知，必须两两全算）
-        # Full pairwise RF calculation (marker order unknown before map construction)
-        chr_mean_rf = _calc_pairwise_rf_matrix(chr_geno)
-
-        mean_rf[chr_idx] = chr_mean_rf
-
-    rf_keep = np.isnan(mean_rf) | (mean_rf <= max_mean_rf)
+    rf_keep = mean_rf <= max_mean_rf
     n_removed_rf = (~rf_keep).sum()
     keep_mask &= rf_keep
     stats['removed_by_mean_rf'] = int(n_removed_rf)
@@ -494,65 +488,78 @@ def filter_rf_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
     return filtered_genotype, filtered_marker, stats
 
 
-def _calc_pairwise_rf_matrix(geno: np.ndarray) -> np.ndarray:
+def _calc_local_mean_rf(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
+                        k: int) -> np.ndarray:
     """
-    计算两两重组频率矩阵的均值(向量化)|Vectorized pairwise RF → per-marker mean RF
+    每标记与物理位置最近邻居的局部平均RF|Per-marker mean RF to position-nearest neighbors
 
-    RF计算规则|RF calculation rules:
-    - A-A(1-1) 或 B-B(3-3): 不重组(0)|No recombination (0)
-    - A-B(1-3) 或 B-A(3-1): 重组(1)|Recombination (1)
-    - 含H(2): 不确定(0.5)|Uncertain (0.5)
-    - 含NaN: 跳过(分子分母均不计)|Skip (excluded from numerator and denominator)
+    判据(2026-08-15重构): 每标记与其**同染色体物理位置前后各 k//2 个**标记的平均RF。
+    全染色体平均RF在正确RF定义下无区分力——远距离对RF≈0.5占主导, 正常标记的
+    全局均值也≈0.45-0.5, 阈值无从区分好坏; 局部判据下错误标记(基因型随机)对
+    所有近邻RF≈0.5被删, 好标记的近邻在LD内RF≈0保留。
+    |Criterion (rebuilt 2026-08-15): mean RF to the k//2 nearest markers (by
+    position) on each side, within chromosome. The chromosome-wide mean has no
+    discriminative power under the correct RF definition (distant pairs ~0.5
+    dominate, good markers also average ~0.45-0.5); locally, error markers
+    (random genotypes) score ~0.5 vs every neighbor while good markers sit in
+    LD neighborhoods scoring ~0.
 
-    向量化: 把每对标记的RF分解为基因型指示矩阵的乘积, 避免O(n²)的Python双循环。
-    每样本的重组分 = 0.5*(h_i|h_j) + 1*((a_i&b_j)|(b_i&a_j)); 对有效样本求均值即RF。
-    |Vectorized: decompose per-pair RF into products of genotype-indicator matrices,
-    avoiding the O(n²) Python double loop. Per-sample score =
-    0.5*(h_i|h_j) + 1*((a_i&b_j)|(b_i&a_j)); RF is its mean over valid samples.
+    RF口径: 双纯合样本对(见_calc_single_rf), 含H/NaN样本对排除。
+    |RF definition: double-homozygous pairs only (see _calc_single_rf).
 
     Args:
-        geno: 基因型矩阵 (n_markers x n_samples)|Genotype matrix
+        genotype_matrix: 基因型矩阵 (n_markers x n_samples)|Genotype matrix
+        marker_info: 标记信息 (chr/pos/id), 按chr分组、pos排序后取窗口|
+            Marker info; window taken over pos-sorted order within each chr
+        k: 邻居数, 前后各 k//2 个(染色体两端不足时用现有邻居)|Neighbor count,
+            k//2 on each side (clamped at chromosome ends)
 
     Returns:
-        ndarray: 每个标记的平均RF(对有效配对取均值, 分母为实际有效配对数)|Mean RF per
-        marker (mean over valid partners; denominator is the actual valid-pair count)
+        ndarray: 每标记的局部平均RF(无有效邻居的标记为0)|Per-marker local mean
+        RF (0 for markers without any valid neighbor)
     """
-    n_markers = geno.shape[0]
-    if n_markers < 2:
-        return np.zeros(n_markers)
+    n_total = genotype_matrix.shape[0]
+    mean_rf = np.zeros(n_total)
+    half = max(1, k // 2)
 
-    # 每标记每样本的基因型指示(NaN处置0, 自动排除)|per-marker/sample indicators
-    a = (geno == 1).astype(np.float64)  # AA
-    b = (geno == 3).astype(np.float64)  # BB
-    h = (geno == 2).astype(np.float64)  # 杂合|het
-    v = a + b + h                       # 有效(非NaN)|valid mask
+    for chr_val in marker_info['chr'].unique():
+        chr_idx = np.where(marker_info['chr'].values == chr_val)[0]
+        n = len(chr_idx)
+        if n < 2:
+            continue   # 单标记染色体无邻居|no neighbors on single-marker chr
+        pos = marker_info['pos'].values[chr_idx].astype(np.int64)
+        order = np.argsort(pos, kind='stable')   # 防御性排序|defensive sort
+        chr_idx = chr_idx[order]
+        g = genotype_matrix[chr_idx]
 
-    # 两两共现计数 (n×n)|pairwise co-occurrence counts via matrix products
-    vv = v @ v.T                        # 有效配对样本数|n_valid per pair
-    hh = h @ h.T                        # 双方均杂合的样本数|both-het count
-    ab = a @ b.T                        # i=AA & j=BB 的样本数
-    ba = b @ a.T                        # i=BB & j=AA 的样本数
-    hv = h @ v.T                        # i杂合 & j有效 的样本数
+        a = (g == 1).astype(np.float64)   # AA
+        b = (g == 3).astype(np.float64)   # BB
+        hom = a + b                       # 纯合(NaN/H处为0)|homozygous indicator
 
-    # 含杂合的有效样本数 Σ_k(h_ik|h_jk), 须限制在双方均有效上|
-    # het-or count over BOTH-valid samples: Σ(h_i|h_j)*v_i*v_j = h@v.T + v@h.T - h@h.T
-    # 必须遮蔽: h_i|h_j 在一方为NaN时仍非0(与a/b不同), 不遮蔽会让 het-vs-NaN 虚增分子|
-    # masking required: h_i|h_j is nonzero even when the partner is NaN (unlike a/b)
-    s_het = hv + hv.T - hh
-    # 重组的有效样本数 Σ_k[(a_i&b_j)|(b_i&a_j)] = AB + BA (a,b每样本互斥, NaN处为0, 天然受限)|
-    # recombination count (a,b mutually exclusive; 0 at NaN so naturally both-valid-restricted)
-    s_rec = ab + ba
+        sum_rf = np.zeros(n)
+        cnt = np.zeros(n)
+        # 偏移j: 对(i, i+j)逐对累计, 覆盖前后各half个邻居|offset j covers pairs
+        # (i, i+j); offsets 1..half give half neighbors on each side
+        for j in range(1, min(half, n - 1) + 1):
+            m = n - j
+            hom_both = (hom[:m] * hom[j:]).sum(axis=1)   # 双纯合样本对数|denominator
+            rec = ((a[:m] * b[j:]).sum(axis=1) +
+                   (b[:m] * a[j:]).sum(axis=1))          # 重组样本数|recomb count
+            with np.errstate(divide='ignore', invalid='ignore'):
+                rf = rec / hom_both
+            valid = hom_both > 0
+            rf = np.where(valid, rf, 0.0)
+            # 该对的两侧标记都累计|accumulate to both markers of each pair
+            sum_rf[:m] += rf
+            cnt[:m] += valid
+            sum_rf[j:] += rf
+            cnt[j:] += valid
 
-    # rf = (0.5*含杂合数 + 重组数) / 有效样本数|RF per pair; nan where vv==0
-    with np.errstate(divide='ignore', invalid='ignore'):
-        rf = (0.5 * s_het + s_rec) / vv
-    np.fill_diagonal(rf, np.nan)        # 排除自身|exclude self-pairing
+        with np.errstate(divide='ignore', invalid='ignore'):
+            local = np.where(cnt > 0, sum_rf / np.maximum(cnt, 1), 0.0)
+        mean_rf[chr_idx] = local
 
-    # 对有效配对取均值: 跳过全NaN配对, 分母用实际有效配对数(修正旧版固定除n-1的偏差)|
-    # mean over valid partners: skip all-NaN pairs, divide by actual valid-pair count
-    # (fixes the old bug of always dividing by n-1 regardless of skipped pairs)
-    valid_pairs = np.maximum(np.sum(~np.isnan(rf), axis=1), 1)
-    return np.nansum(rf, axis=1) / valid_pairs
+    return mean_rf
 
 
 def _detect_singletons(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
@@ -613,28 +620,33 @@ def _calc_single_rf(g1: np.ndarray, g2: np.ndarray) -> Optional[float]:
     """
     计算两个标记间的重组频率|Calculate RF between two markers
 
+    双纯合口径(2026-08-15修复): 只统计双纯合样本对; 含H的样本不提供确定的重组信息,
+    原"含H记0.5"会把完全连锁标记对的RF基线抬到~0.25-0.3(H比例50%时), 阈值全部失效。
+    |Double-homozygous definition (fixed 2026-08-15): count homozygous-homozygous
+    sample pairs only; het samples carry no definite recombination info. The old
+    "het counts 0.5" rule inflated fully-linked pairs to RF~0.25-0.3 (at 50% het),
+    invalidating every threshold.
+
     Args:
         g1: 标记1基因型|Marker 1 genotypes
         g2: 标记2基因型|Marker 2 genotypes
 
     Returns:
-        float or None: 重组频率，无法计算返回None|RF value, None if cannot calculate
+        float or None: 重组频率，无任何双纯合样本对返回None|RF value, None if no
+        double-homozygous sample pair exists
     """
     valid = ~(np.isnan(g1) | np.isnan(g2))
-    n_valid = valid.sum()
-    if n_valid == 0:
+    both_hom = valid & (g1 != 2) & (g2 != 2)
+    n = int(both_hom.sum())
+    if n == 0:
         return None
 
-    gi_v = g1[valid]
-    gj_v = g2[valid]
-
-    no_recomb = ((gi_v == 1) & (gj_v == 1)) | ((gi_v == 3) & (gj_v == 3))
-    recomb = ((gi_v == 1) & (gj_v == 3)) | ((gi_v == 3) & (gj_v == 1))
-    has_h = (gi_v == 2) | (gj_v == 2)
-    recomb = np.where(has_h, 0.5, recomb.astype(float))
-    recomb = np.where(no_recomb, 0.0, recomb)
-
-    return float(recomb.sum() / n_valid)
+    a1 = g1[both_hom] == 1
+    b1 = g1[both_hom] == 3
+    a2 = g2[both_hom] == 1
+    b2 = g2[both_hom] == 3
+    rec = ((a1 & b2) | (b1 & a2)).sum()
+    return float(rec / n)
 
 
 def ld_prune_markers(genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
