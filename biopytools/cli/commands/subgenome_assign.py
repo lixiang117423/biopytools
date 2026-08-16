@@ -84,7 +84,7 @@ def _validate_parent(ctx, param, value):
               is_flag=True,
               help='不输出未归属染色体的 FASTA|Do not output unassigned FASTA')
 @click.option('--minimap2-path',
-              default='~/miniforge3/envs/cphasing/bin/minimap2', show_default=True,
+              default='~/miniforge3/envs/align/bin/minimap2', show_default=True,
               help='minimap2 二进制路径|minimap2 binary path')
 @click.option('--samtools-path',
               default='~/.local/bin/samtools', show_default=True,
@@ -131,7 +131,7 @@ def subgenome_assign(target, parent_specs, output_dir, preset, threads,
         args.append('--no-split')
     if no_keep_unassigned:
         args.append('--no-keep-unassigned')
-    if minimap2_path != '~/miniforge3/envs/cphasing/bin/minimap2':
+    if minimap2_path != '~/miniforge3/envs/align/bin/minimap2':
         args.extend(['--minimap2-path', minimap2_path])
     if samtools_path != '~/.local/bin/samtools':
         args.extend(['--samtools-path', samtools_path])

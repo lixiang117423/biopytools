@@ -36,7 +36,7 @@ class AlinerConfig:
 
     # 工具路径|tool paths
     minimap2_path: str = field(
-        default_factory=lambda: get_domain_tool_path('minimap2', '~/miniforge3/envs/telocomp/bin/minimap2', 'MINIMAP2_PATH'))
+        default_factory=lambda: get_domain_tool_path('minimap2', '~/miniforge3/envs/align/bin/minimap2', 'MINIMAP2_PATH'))
     samtools_path: str = field(
         default_factory=lambda: get_domain_tool_path('samtools', '~/miniforge3/envs/align/bin/samtools', 'SAMTOOLS_PATH'))
     aliner_env: str = "a-liner"         # a-liner固定conda环境|a-liner fixed conda env

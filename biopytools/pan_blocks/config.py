@@ -35,7 +35,7 @@ class PanBlocksConfig:
         'bedtools', '~/.local/bin/bedtools', 'BEDTOOLS_PATH'
     ))
     minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'minimap2', '~/miniforge3/envs/pan-blocks/bin/minimap2', 'MINIMAP2_PATH'
+        'minimap2', '~/miniforge3/envs/align/bin/minimap2', 'MINIMAP2_PATH'
     ))
 
     plot_width: int = 20

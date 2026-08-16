@@ -27,7 +27,7 @@ class CIMConfig:
     # MSTmap参数|MSTmap parameters
     mstmap_pvalue: float = 1e-6  # 聚类p值起始值(自动调优)|Clustering p-value start value (auto-tuned)
     mstmap_distfun: str = "kosambi"  # 距离函数|Distance function (kosambi/haldane)
-    mstmap_path: str = "~/miniforge3/envs/Rqtl/bin/mstmap"  # MSTmap二进制路径|MSTmap binary path
+    mstmap_path: str = "~/miniforge3/envs/r/bin/mstmap"  # MSTmap二进制路径|MSTmap binary path
 
     # 标记过滤参数|Marker filtering parameters
     maf: float = 0.05  # 最小等位基因频率|Minor allele frequency threshold

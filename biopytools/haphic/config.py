@@ -108,7 +108,7 @@ class HapHiCConfig:
     generate_juicebox: bool = True
     matlock_bin: str = field(
         default_factory=lambda: get_tool_path(
-            'matlock', '~/miniforge3/envs/juicer_v.1.6/bin/matlock', 'MATLOCK_PATH'
+            'matlock', '~/miniforge3/envs/hic/bin/matlock', 'MATLOCK_PATH'
         )
     )
     three_d_dna_dir: str = field(
@@ -130,7 +130,7 @@ class HapHiCConfig:
     # BWA比对配置|BWA alignment configuration
     samblaster_bin: str = field(
         default_factory=lambda: get_tool_path(
-            'samblaster', '~/miniforge3/envs/haphic/bin/samblaster', 'SAMBLASTER_PATH'
+            'samblaster', '~/miniforge3/envs/hic/bin/samblaster', 'SAMBLASTER_PATH'
         )
     )
     haphic_filter_bam_bin: str = field(

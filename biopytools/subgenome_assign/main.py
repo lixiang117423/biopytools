@@ -310,7 +310,7 @@ def main():
     # 工具路径|Tool paths
     tool_g = parser.add_argument_group('工具路径|Tool paths')
     tool_g.add_argument('--minimap2-path',
-                        default='~/miniforge3/envs/cphasing/bin/minimap2',
+                        default='~/miniforge3/envs/align/bin/minimap2',
                         help='minimap2 二进制路径|minimap2 binary path')
     tool_g.add_argument('--samtools-path',
                         default='~/.local/bin/samtools',

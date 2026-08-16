@@ -188,8 +188,8 @@ def parse_arguments():
                         help='MSTmap聚类p值起始值(自动调优)|MSTmap clustering p-value start value, auto-tuned (default: 1e-6)')
     parser.add_argument('--mstmap-distfun', choices=['kosambi', 'haldane'], default='kosambi',
                         help='MSTmap距离函数|MSTmap distance function (default: kosambi)')
-    parser.add_argument('--mstmap-path', default='~/miniforge3/envs/Rqtl/bin/mstmap',
-                        help='MSTmap二进制路径|MSTmap binary path (default: ~/miniforge3/envs/Rqtl/bin/mstmap)')
+    parser.add_argument('--mstmap-path', default='~/miniforge3/envs/r/bin/mstmap',
+                        help='MSTmap二进制路径|MSTmap binary path (default: ~/miniforge3/envs/r/bin/mstmap)')
 
     # 环境参数|Environment parameters
     parser.add_argument('--r-env', default='~/miniforge3/envs/Rqtl',

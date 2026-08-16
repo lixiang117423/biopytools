@@ -23,7 +23,7 @@ tools:
   edta: ~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA
 
   # 序列比对|Sequence alignment
-  minimap2: ~/miniforge3/envs/Genome_dedup/bin/minimap2
+  minimap2: ~/miniforge3/envs/align/bin/minimap2
   hisat2: ~/miniforge3/envs/rna/bin/hisat2
 
   # 基因组组装|Genome assembly

@@ -181,7 +181,7 @@ class BrakerConfig:
     repeatmodeler_bin: str = "~/miniforge3/envs/repeat/bin/RepeatModeler"
     repeatmasker_bin: str = "~/miniforge3/envs/repeat/bin/RepeatMasker"
     build_database_bin: str = "~/miniforge3/envs/repeat/bin/BuildDatabase"
-    minimap2_bin: str = "~/miniforge3/envs/Genome_dedup/bin/minimap2"
+    minimap2_bin: str = "~/miniforge3/envs/align/bin/minimap2"
     hisat2_bin: str = "~/miniforge3/envs/rna/bin/hisat2"
     hisat2_build_bin: str = "~/miniforge3/envs/rna/bin/hisat2-build"
 
