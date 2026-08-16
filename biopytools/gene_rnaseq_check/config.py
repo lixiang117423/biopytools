@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List
 
-from ..common.paths import get_tool_path, expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -45,51 +45,51 @@ class GeneRnaseqCheckConfig:
 
     # 工具路径|Tool paths
     hisat2_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'
         )
     )
     hisat2_build_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'hisat2-build', '~/miniforge3/envs/RNA_Seq/bin/hisat2-build', 'HISAT2_BUILD_PATH'
         )
     )
     extract_splice_sites_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'extract_splice_sites.py',
             '~/miniforge3/envs/RNA_Seq/bin/extract_splice_sites.py',
             'EXTRACT_SPLICE_SITES_PATH',
         )
     )
     extract_exons_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'extract_exons.py',
             '~/miniforge3/envs/RNA_Seq/bin/extract_exons.py',
             'EXTRACT_EXONS_PATH',
         )
     )
     samtools_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'
         )
     )
     bedtools_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'bedtools', '~/miniforge3/envs/Population_genetics/bin/bedtools', 'BEDTOOLS_PATH'
         )
     )
     stringtie_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'stringtie', '~/miniforge3/envs/RNA_Seq/bin/stringtie', 'STRINGTIE_PATH'
         )
     )
     gffcompare_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'gffcompare', '~/miniforge3/envs/gffcompare_v.0.12.10/bin/gffcompare', 'GFFCOMPARE_PATH'
         )
     )
     infer_experiment_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'infer_experiment.py',
             '~/miniforge3/envs/RSeQC_v.5.0.4/bin/infer_experiment.py',
             'INFER_EXPERIMENT_PATH',

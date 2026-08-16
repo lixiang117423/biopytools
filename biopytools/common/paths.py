@@ -190,6 +190,69 @@ def get_tool_path(
     return expand_path(default_path)
 
 
+def _conda_envs_dir() -> str:
+    """conda 环境根目录|Conda envs root directory
+
+    优先用 CONDA_EXE 定位(§13.4.5), 回退 ~/miniforge3/envs
+    |Locate via CONDA_EXE first, fall back to ~/miniforge3/envs
+    """
+    conda_exe = os.environ.get('CONDA_EXE')
+    if conda_exe:
+        return os.path.join(os.path.dirname(os.path.dirname(conda_exe)), 'envs')
+    return expand_path('~/miniforge3/envs')
+
+
+def get_domain_tool_path(
+    tool_name: str,
+    legacy_default_path: str,
+    env_var: Optional[str] = None
+) -> str:
+    """获取工具路径(带功能域环境解析)|Get tool path with domain env resolution
+
+    优先级|Priority:
+    1. 环境变量|Environment variable
+    2. 用户配置文件|User config file (~/.config/biopytools/config.yml)
+    3. 功能域环境|Domain env: <conda>/envs/<domain>/bin/<tool> (存在才用|only if exists)
+    4. 旧默认路径|Legacy default (双轨过渡回退|fallback during migration)
+
+    与 get_tool_path 的差异|Difference from get_tool_path:
+    第3级按 tools→域环境 映射表(common/env_map.py)解析, 域环境已装好时自动切到
+    新域环境; 域环境/工具不存在或非 conda 工具时, 回退旧默认路径, 不破坏任何
+    旧安装|Resolves tool→domain env via common/env_map.py; falls back to legacy
+    default when the domain env/tool is absent, so old installs keep working.
+
+    Args:
+        tool_name: 二进制名|Binary name (与 bin/<tool> 一致|same as bin/<tool>),
+                   同时作为配置文件查找键|also used as config lookup key
+        legacy_default_path: 旧默认路径|Legacy default path (回退用|as fallback)
+        env_var: 环境变量名|Environment variable name
+
+    Returns:
+        str: 展开后的绝对路径|Expanded absolute path
+    """
+    # 1. 环境变量|Environment variable
+    if env_var:
+        env_path = os.getenv(env_var)
+        if env_path:
+            return expand_path(env_path)
+
+    # 2. 用户配置文件|User config file
+    config = load_user_config()
+    if 'tools' in config and tool_name in config['tools']:
+        return expand_path(config['tools'][tool_name])
+
+    # 3. 功能域环境|Domain env (存在才用|only if exists)
+    from .env_map import TOOL_DOMAIN_MAP
+    domain = TOOL_DOMAIN_MAP.get(tool_name)
+    if domain:
+        candidate = os.path.join(_conda_envs_dir(), domain, 'bin', tool_name)
+        if os.path.exists(candidate):
+            return candidate
+
+    # 4. 旧默认路径|Legacy default
+    return expand_path(legacy_default_path)
+
+
 def get_software_path(
     software_name: str,
     default_path: str,

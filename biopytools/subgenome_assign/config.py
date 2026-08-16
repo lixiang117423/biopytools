@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from ..common.paths import expand_path, get_tool_path
+from ..common.paths import expand_path, get_domain_tool_path
 
 
 @dataclass
@@ -33,12 +33,12 @@ class SubgenomeAssignConfig:
 
     # 工具路径|Tool paths
     minimap2_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'minimap2', '~/miniforge3/envs/cphasing/bin/minimap2', 'MINIMAP2_PATH'
         )
     )
     samtools_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'samtools', '~/.local/bin/samtools', 'SAMTOOLS_PATH'
         )
     )

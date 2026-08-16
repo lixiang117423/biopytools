@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-from ..common.paths import get_tool_path, expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 _DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 DEFAULT_RXLR_HMM = os.path.join(_DATA_DIR, 'paper_RxLR.hmm')
@@ -30,7 +30,7 @@ class PhytoEffectorConfig:
     # SignalP参数|SignalP parameters
     skip_signalp: bool = False
     signalp_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'signalp6', '~/miniforge3/envs/signalp6/bin/signalp6', 'SIGNALP_PATH'
         )
     )
@@ -38,21 +38,21 @@ class PhytoEffectorConfig:
     signalp_mode: str = 'slow-sequential'  # fast / slow / slow-sequential
     signalp_version: str = 'both'  # '3', '6', or 'both'
     signalp3_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'signalp3', '~/miniforge3/envs/signalp_v.3.0b/bin/signalp', 'SIGNALP3_PATH'
         )
     )
     signalp3_sprob_threshold: float = 0.9
     # HMMER参数|HMMER parameters
     hmmsearch_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'hmmsearch', '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch', 'HMMSEARCH_PATH'
         )
     )
 
     # BLASTP参数|BLASTP parameters
     blastp_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'blastp', '~/miniforge3/envs/Blast_v.2.16.0/bin/blastp', 'BLASTP_PATH'
         )
     )
@@ -63,7 +63,7 @@ class PhytoEffectorConfig:
 
     # TMHMM参数|TMHMM parameters
     tmhmm_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'tmhmm', '~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm', 'TMHMM_PATH'
         )
     )

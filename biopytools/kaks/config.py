@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
-from ..common.paths import expand_path, get_tool_path
+from ..common.paths import expand_path, get_domain_tool_path
 
 
 @dataclass
@@ -58,7 +58,7 @@ class KaKsConfig:
 
     # 工具路径|Tool paths
     kaks_path: str = field(
-        default_factory=lambda: get_tool_path(
+        default_factory=lambda: get_domain_tool_path(
             'KaKs_Calculator',
             '~/miniforge3/envs/kakscalculator2_v.2.0.1/bin/KaKs_Calculator',
             'KAKS_PATH'

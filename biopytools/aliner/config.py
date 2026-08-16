@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional, Tuple
 
-from ..common.paths import expand_path, get_tool_path
+from ..common.paths import expand_path, get_domain_tool_path
 from .utils import parse_seq_spec
 
 
@@ -36,9 +36,9 @@ class AlinerConfig:
 
     # 工具路径|tool paths
     minimap2_path: str = field(
-        default_factory=lambda: get_tool_path('minimap2', '~/miniforge3/envs/telocomp/bin/minimap2', 'MINIMAP2_PATH'))
+        default_factory=lambda: get_domain_tool_path('minimap2', '~/miniforge3/envs/telocomp/bin/minimap2', 'MINIMAP2_PATH'))
     samtools_path: str = field(
-        default_factory=lambda: get_tool_path('samtools', '~/miniforge3/envs/telocomp/bin/samtools', 'SAMTOOLS_PATH'))
+        default_factory=lambda: get_domain_tool_path('samtools', '~/miniforge3/envs/telocomp/bin/samtools', 'SAMTOOLS_PATH'))
     aliner_env: str = "a-liner"         # a-liner固定conda环境|a-liner fixed conda env
 
     def __post_init__(self):

@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Optional, List, Dict
 import os
 
-from ..common.paths import get_tool_path, expand_path
+from ..common.paths import get_domain_tool_path, expand_path
 
 
 @dataclass
@@ -22,19 +22,19 @@ class PanBlocksConfig:
     genome_order_file: Optional[str] = None
     chromosome: Optional[str] = None
 
-    nucmer_path: str = field(default_factory=lambda: get_tool_path(
+    nucmer_path: str = field(default_factory=lambda: get_domain_tool_path(
         'nucmer', '~/miniforge3/envs/pan-blocks/bin/nucmer', 'NUCMER_PATH'
     ))
-    delta_filter_path: str = field(default_factory=lambda: get_tool_path(
+    delta_filter_path: str = field(default_factory=lambda: get_domain_tool_path(
         'delta-filter', '~/miniforge3/envs/pan-blocks/bin/delta-filter', 'DELTA_FILTER_PATH'
     ))
-    show_coords_path: str = field(default_factory=lambda: get_tool_path(
+    show_coords_path: str = field(default_factory=lambda: get_domain_tool_path(
         'show-coords', '~/miniforge3/envs/pan-blocks/bin/show-coords', 'SHOW_COORDS_PATH'
     ))
-    bedtools_path: str = field(default_factory=lambda: get_tool_path(
+    bedtools_path: str = field(default_factory=lambda: get_domain_tool_path(
         'bedtools', '~/.local/bin/bedtools', 'BEDTOOLS_PATH'
     ))
-    minimap2_path: str = field(default_factory=lambda: get_tool_path(
+    minimap2_path: str = field(default_factory=lambda: get_domain_tool_path(
         'minimap2', '~/miniforge3/envs/pan-blocks/bin/minimap2', 'MINIMAP2_PATH'
     ))
 
