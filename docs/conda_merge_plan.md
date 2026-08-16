@@ -145,3 +145,25 @@
 |---|---|---|
 | 你（超算） | 跑 14 个域的 `mamba create --dry-run` 求解预检，把失败域报回来 |
 | 我（代码） | 修 5 条死引用 → 建 common 映射表 → 模块分批切换 |
+
+## 七、代码迁移进度|Code Migration Progress（2026-08-16）
+
+| 批次|Batch | 内容|Content | 提交|Commit |
+|---|---|---|---|
+| 2A | common/env_map.py + get_domain_tool_path()（域解析+旧路径回退）+ 8 模块 30 处调用点切换 + 8 个单测 | 333eb8f |
+| 2B | 迁移脚本 scripts/migrate_env_paths.py 按工具级映射批量替换 103 个文件 219 处默认路径（存在性核验，缺工具自动跳过） | 81eb430 |
+
+**迁移后代码中的引用分布|Post-migration refs:**
+
+- **约 208 处指向 14 个域环境**（目标状态）
+- **约 40 处 Tier3 例外**（singularity/cphasing/psvcp/picrust/qiime/HiC-Pro/juicer/gctb 等）——有意保留
+- **约 40 处 Tier2 legacy**（fanc/plothic/genomesyn2/alignoth/Rqtl/transdecoder/deeptmhmm/DeepBSA 等）——工具未入域或需升级验证
+- **4 处 signalp_v.3.0b**——黑名单（SignalP3 与 SignalP6 同名不同软件）
+- **3 处 xxx 占位符**——nlr_annotator 的 Java 注释欠账
+
+**迁移中发现的遗留问题|Issues found during migration:**
+
+1. adamixture_v.1.0.2/bin/adamixture 引用（4 处）：二进制名疑似笔误（bioconda 装的是 admixture），需超算验证旧环境 bin 名
+2. 域环境待补工具（后续由用户安装后即可再迁移）：minimap2→align、merqury、samblaster、matlock、TransDecoder、RAiSD/xpclr、mstmap、ltr_harvest/finder_parallel、panman
+3. 回归测试：231/231 通过（含新 8 个单测与受影响断言更新）
+
