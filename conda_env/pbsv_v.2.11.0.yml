@@ -1,7 +1,0 @@
-name: pbsv_v.2.11.0
-channels:
-  - bioconda
-  - defaults
-  - conda-forge
-dependencies:
-  - pbsv=2.11.0=h9ee0642_0

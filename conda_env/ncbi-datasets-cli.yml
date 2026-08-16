@@ -1,7 +1,0 @@
-name: ncbi-datasets-cli
-channels:
-  - defaults
-  - conda-forge
-dependencies:
-  - ca-certificates=2026.2.25=hbd8a1cb_0
-  - ncbi-datasets-cli=18.23.0=ha770c72_0

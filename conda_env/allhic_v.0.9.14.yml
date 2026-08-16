@@ -1,7 +1,0 @@
-name: allhic_v.0.9.14
-channels:
-  - bioconda
-  - defaults
-  - conda-forge
-dependencies:
-  - allhic=0.9.14=he881be0_0

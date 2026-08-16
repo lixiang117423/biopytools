@@ -3,6 +3,13 @@
 > 按功能域合并 conda 环境的定义文件（Phase 1 产物）。
 > 求解预检全部通过（见 `docs/conda_merge_plan.md` 三-B 节）；Tier2/Tier3 例外环境不在此目录。
 
+
+## 旧环境备份|Legacy Env Backups
+
+历史 214 个旧环境的导出快照保存在本地 `conda_envs_backup/`（git 忽略，不入库），
+仅用于回溯与故障排查。新旧环境对应关系见 `docs/env_migration_map.md`。
+
+> 曾入库的 `conda_env/` 目录已于 2026-08-16 移除（与 `conda_envs_backup/` 完全重叠，backup 为其超集）。
 ## 创建方式|How to Build
 
 ```bash

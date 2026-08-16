@@ -1,4 +1,0 @@
-name: GAPIT
-channels:
-  - defaults
-  - conda-forge

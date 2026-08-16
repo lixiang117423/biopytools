@@ -1,4 +1,0 @@
-name: mafft_v
-channels:
-  - defaults
-  - conda-forge

@@ -1,6 +1,0 @@
-name: pilon_v.1.24
-channels:
-  - defaults
-  - conda-forge
-dependencies:
-  - python_abi=3.14=8_cp314

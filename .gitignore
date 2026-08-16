@@ -317,6 +317,7 @@ biopytools/cli/commands/tests.py
 *_bak/
 *_old/
 *_backup/
+/conda_env/
 
 # Migration scripts and dev-only docs
 batch_migrate.sh

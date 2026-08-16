@@ -1,7 +1,0 @@
-name: aspera_v.3.9.6
-channels:
-  - hcc
-  - defaults
-  - conda-forge
-dependencies:
-  - aspera-cli=3.9.6=h5e1937b_0

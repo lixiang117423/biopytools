@@ -1,7 +1,0 @@
-name: vg_v.1.67.0
-channels:
-  - bioconda
-  - defaults
-  - conda-forge
-dependencies:
-  - vg=1.67.0=h9ee0642_0

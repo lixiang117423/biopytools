@@ -1,7 +1,0 @@
-name: taxonkit_v.0.20.0
-channels:
-  - bioconda
-  - defaults
-  - conda-forge
-dependencies:
-  - taxonkit=0.20.0=h9ee0642_1

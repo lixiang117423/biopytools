@@ -25,9 +25,37 @@ BioPyTools is a Python toolkit designed for bioinformatics research, providing a
 
 ## 环境配置 | Environment Setup
 
-相关的Conda 环境配置文件位于 [`conda_env/`](conda_env/) 目录下。
+### 功能域 Conda 环境（超算团队用户|HPC team users）
 
-Conda environment files can be found in the [`conda_env/`](conda_env/) directory.
+自 2026-08 起，超算上的软件环境按**功能域**合并为 14 个：
+
+```
+align  pop  asm  hic  annot  repeat  rna
+protein  phylo  pan  viz  misc  r  busco
+```
+
+| 资料|Resource | 说明|Note |
+|---|---|---|
+| [envs/README.md](envs/README.md) | 14 个域环境定义（envs/*.yml）、一键建环境脚本、授权软件注册、冒烟测试 |
+| [docs/env_migration_map.md](docs/env_migration_map.md) | 旧环境 → 新域环境的完整对应关系（debug 用） |
+| [scripts/delete_obsolete_envs.sh](scripts/delete_obsolete_envs.sh) | 删除已被域环境取代的旧环境（默认 dry-run） |
+
+快速开始|Quick start:
+
+```bash
+# 超算上创建全部 14 个域环境（已存在自动跳过）
+bash scripts/build_domains.sh
+# 或单个域
+mamba env create -f envs/align.yml
+```
+
+### 旧环境导出备份（本地|local only, 不入库）
+
+历史环境导出保存在本地 conda_envs_backup/（git 忽略），共 214 个旧环境的 yaml 快照，仅供回溯与故障排查。
+
+### 普通用户 | General users
+
+多数模块可通过 pip 安装与 PATH 中的工具直接使用，无需 conda 域环境。
 
 ## 安装方法 | Installation
 
