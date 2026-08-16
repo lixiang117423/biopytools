@@ -75,23 +75,65 @@
 | kmc_v.3.2.4 / merqury_v.1.3 | 仍被裸环境目录引用（conda_env 字段），验证后可切 |
 | xxx | nlr_annotator 的 Java 注释占位符 |
 
-## 三、可删除旧环境清单|Deletable Old Envs（51 个）
+## 三、可删除旧环境清单|Deletable Old Envs（155 个）
 
+> 标准|Rule: **模块（代码）未引用的环境一律可删**（含手工工具孤儿环境）。
 > ⚠️ **删除前提**：先把新代码同步到超算（GitHub 拉取），确认模块跑通后再删。
-> 删除脚本：scripts/delete_obsolete_envs.sh（默认 dry-run）
+> 删除脚本：scripts/delete_obsolete_envs.sh（默认 dry-run，清单文件 scripts/delete_list.txt）
 
-BUSCO_v.6.0.0, BioinfTools, GATK_v.4.6.2.0, Genome_dedup, K-mer, RNA_Seq,
-RSeQC_v.5.0.4, agat_v.1.7.0, bcftools_v.1.22, canu_v.2.3, eggnog-mapper_v.2.1.15,
-eviann_v.2.0.5, freebayes, genomescope2_v.2.1.0, genometools_v.1.6.5,
-getorganelle_v.1.7.71, gffcompare_v.0.12.10, haphic, hifiasm_v.0.25.0,
-iqtree_v.3.0.1, kakscalculator2_v.2.0.1, kmindex_v.0.6.0, kmtricks_v.1.5.1,
-ltr_retriever_v.3.0.1, mafft_v.7.525, meme_v.5.5.9, miniprot_v.0.18,
-needle_v.1.0.3, newick_utils_v.1.6, orthofinder_v.3.1.5, pairtools_v.1.1.3,
-pan-blocks, phobius_v.1.0.1, pixy_v.2.0.0, poplddecay_v.3.43, primer3_v.2.6.1,
-purge_dups_v.1.2.6, pycirclize_v.1.10.1, repeat_identiy, repeatmodeler_v.2.0.7,
-resistify_v.1.3.0, samplot_v.1.3.0, selective_sweep, signalp6, spades_v.4.3.0,
-sv_calling, tidk_v.0.2.65, tmmhmm_v.2.0c, trimal_v.1.5.0, wgdi_v.0.75,
-yahs_v.1.2.2
+### 分组统计|Groups
+
+| 组|Group | 数量|Count | 说明|Note |
+|---|---|---|---|
+| 已迁移到域环境 | 42 | 代码引用已全部切换（51 个中 9 个仍被裸目录/字段引用，转入保留） |
+| 版本分裂对（旧版） | 14 | DeepTMHMM / EDTA / edta_v.2.3.0 / Orthofinder_v.3.0.1b1 / R_v.4.5.1 / clustalo / gfatools / jellyfish_v.1.1.3 / muscle_v.5.3 / quast_v.5.3.0 / rnabloom_v.2.0.1 / tesorter_v.1.4.7 / trinity_v.2.15.2 / vg_v.1.67.0 |
+| 仅文档提及 | 4 | biopytools / centier / pbbam_v.2.4.0 / smudgeplot |
+| 纯孤儿（手工工具） | 94 | 下载工具/质检/转录组/宏基因组/GWAS 等，从未被模块引用 |
+| 怪异名 | 1 | Name（疑似误导出产生的空壳环境） |
+
+### 删除前人工确认项|Double-Check Before Deleting
+
+- **同事共享风险**：这些环境在共享路径 /share/org/YZWL/yzwl_lixg，若同事手工使用过某些环境（尤其 aria2/axel/aspera 下载类、checkm/quast 质检类），请先沟通
+- **PATH 查找类模块**：rnabloom 模块默认从 PATH 找 rnabloom 二进制（不硬编码环境），删除 rnabloom_v.2.0.1 后需用 --rnabloom-path 指定或重新装进某域
+- **centier**：centier 模块用 PATH 搜索 + conda 兜底，删除后依赖检查会提示重建
+
+### 全量 155 个（scripts/delete_list.txt 为准）
+
+3d-dna_v.201008, Baidu, BioinfTools, CentroMiner, DeepTMHMM, EDTA, Effector_annotation,
+GAPIT, GTDB-Tk_v.2.4.1, InterProScan.v.5.75-106.0, JAVA_11, K-mer,
+LinearPangenomeBuilder, Mumemto_v.1.3.0, NLR_Annotation_Pipeline, Name,
+Orthofinder_v.3.0.1b1, Python_v.3.13.5, RNA_Seq, RSeQC_v.5.0.4, R_v.4.5.1,
+RagTag_v2.10., Syri_v.1.7.1, Tiberius_v.1.1.1, agat_v.1.7.0, allhic_v.0.9.14,
+annevo_v.2.1, aria2, aspera_v.3.9.6, assembly_stats_v.1.0.1, axel_v.2.17.13,
+bamtools, bbtools_v.37.62, bcftools_v.1.22, biomformat, biopytools, bismark_v.0.24.2,
+braker4_v.0.5.0, cafe_v.5.1.0, canu_v.2.3, caster_v.1.23, centier, checkm_v.1.1.0,
+clustalo_v.1.2.4, cooler_v.0.10.2, csvkit, deeploc20, deeploc_v.2.1, diamond_v.2.1.13,
+edta_v.2.3.0, effectR, egepx_v.0.5.1, eggnog-mapper_v.2.1.15, emboss,
+entrez-direct_v.24.0, evidencemodeler, faketime, fastani_v.1.34, fastme_v.2.1.6.3,
+fastqc_v.0.12.1, fcs-gx, fithic-v.2.0.8, foldseek, freebayes, gapcloser_v.1.2.1,
+gemma_v.0.98.5, gemoma_v.1.9, gene-anno, gene_family, genehapr_v.1.2.4,
+genomethreader_v.1.7.1, genometools_v.1.6.5, getorganelle_v.1.7.71, gfatools_v.0.5.5,
+gffcompare_v.0.12.10, glnexus_v.1.4.1, haphic, hicexplorer, hicexplorer_v.3.7.6,
+hifiasm_v.0.25.0, hmmer_v.3.4, iqtree_v.3.0.1, jellyfish_v.1.1.3, julia_v.1.12.2,
+julia_v.1.7.2, kakscalculator2_v.2.0.1, kat_v.2.4.2, kmeria_v.2.0.1, kmindex_v.0.6.0,
+kmtricks_v.1.5.1, kofamscan_v.1.3.0, kraken_v.2.17, mafft_v, mafft_v.7.525,
+mcscanx_v.1.0.0, meme_v.5.5.9, metaWRAP_v.1.2, metagraph, methylkit, miniprot_v.0.18,
+mmseqs2_v.16.747c6, mrna_prediction, mummer_v.3.23, mummer_v.4.0.1, muscle_v.5.3,
+mutmap, ncbi-datasets-cli, needle_v.1.0.3, newick_utils_v.1.6, orthofinder_v.3.1.5,
+pairtools_v.1.1.3, paml_v.4.10.9, pan-blocks, pbbam_v.2.4.0, pbsv_v.2.11.0,
+phobius_v.1.0.1, pilon_v.1.24, plotsr_v.1.1.1, poplddecay_v.3.43, primer3_v.2.6.1,
+puzzle-hi-c, qtlseq, quast_v.5.3.0, racon_v.1.5.0, raxml_v.8.2.13, repeat_identiy,
+repeatmodeler_v.2.0.7, resistify_v.1.3.0, rnabloom_v.2.0.1, ruby_v.3.4.7,
+salmon_v.1.10.3, samplot_v.1.3.0, selective_sweep, seqtk, signalp6, smcpp_v.1.15.2,
+smudgeplot, sniffles_v.2.6.3, spades_v.4.3.0, sratoolkit_v.2.5.7, starship_v.1.26.0,
+sv_calling, swave_v.1.2, tassel, taxonkit_v.0.20.0, tesorter_v.1.4.7, tidk_v.0.2.65,
+tmmhmm_v.2.0c, trimal_v.1.5.0, trinity_v.2.15.2, vg_v.1.67.0, wgdi_v.0.74,
+wgdi_v.0.75, yahs_v.1.2.2, zsh
+
+### 保留 59 个（scripts/protect_list.txt 为准）
+
+14 个域环境 + base + 44 个仍被模块引用的旧环境（Tier2/Tier3/黑名单/待修复）。
+
 
 ## 四、死引用修复记录|Dead-Ref Fixes（已修）
 
