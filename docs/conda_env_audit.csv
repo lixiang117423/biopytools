@@ -1,0 +1,872 @@
+canonical_env,env_name,is_alias,scope,module,file,line,style,tool,var,snippet
+Population_genetics,Population_genetics,,code,admixture,biopytools/admixture/config.py,30,env-path,plink,,"plink_path: str = ""~/miniforge3/envs/Population_genetics/bin/plink"""
+Population_genetics,Population_genetics,,code,admixture,biopytools/admixture/config.py,31,env-path,admixture,,"admixture_path: str = ""~/miniforge3/envs/Population_genetics/bin/admixture"""
+bcftools_v.1.22,bcftools_v.1.22,,code,admixture,biopytools/admixture/config.py,32,env-path,bcftools,,"bcftools_path: str = ""~/miniforge3/envs/bcftools_v.1.22/bin/bcftools"""
+adamixture_v.1.0.2,adamixture_v.1.0.2,,code,admixture,biopytools/admixture/config.py,35,env-path,adamixture,,"adamixture_path: str = ""~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture"""
+adamixture_v.1.0.2,adamixture_v.1.0.2,,code,admixture,biopytools/admixture/main.py,293,env-path,adamixture,,"default=""~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture"","
+adamixture_v.1.0.2,adamixture,yes,code,admixture,biopytools/admixture/utils.py,29,env-path,adamixture,,# 例如: /miniforge3/envs/adamixture/bin/adamixture
+telocomp,telocomp,,code,aliner,biopytools/aliner/config.py,39,env-path,minimap2,,"default_factory=lambda: get_tool_path('minimap2', '~/miniforge3/envs/telocomp/bin/minimap2', 'MINIMAP2_PATH'))"
+telocomp,telocomp,,code,aliner,biopytools/aliner/config.py,41,env-path,samtools,,"default_factory=lambda: get_tool_path('samtools', '~/miniforge3/envs/telocomp/bin/samtools', 'SAMTOOLS_PATH'))"
+a-liner,a-liner,,code,aliner,biopytools/aliner/config.py,42,env-field,,,"aliner_env: str = ""a-liner""         # a-liner固定conda环境|a-liner fixed conda env"
+Population_genetics,Population_genetics,,code,allhic,biopytools/allhic/config.py,34,env-path,,,"bwa_path: str = field(default_factory=lambda: os.getenv(""ALLHIC_BWA_PATH"", ""~/miniforge3/envs/Population_genetics/bin""))"
+<var>,<var>,,code,allhic,biopytools/allhic/logger.py,167,conda-run-var,,conda_env,"return f""conda run -n {conda_env} --no-capture-output {cmd}"""
+<var>,<var>,,code,allhic,biopytools/allhic/utils.py,63,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {command} {args}"""
+<var>,<var>,,code,allhic,biopytools/allhic/utils.py,65,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {command}"""
+braker_v.3.0.8,braker_v.3.0.8,,code,annorefine,biopytools/annorefine/config.py,81,env-path,miniprot,,miniprot_bin: str = '~/miniforge3/envs/braker_v.3.0.8/bin/miniprot'
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,assembly_qc,biopytools/assembly_qc/config.py,31,env-path,,,"conda_env_busco: str = ""~/miniforge3/envs/BUSCO_v.6.0.0""  # BUSCO conda环境路径|BUSCO conda env path"
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,assembly_qc,biopytools/assembly_qc/config.py,50,env-path,,,"conda_env_edta: str = ""~/miniforge3/envs/EDTA_v.2.2.2""  # EDTA conda环境路径|EDTA conda env path"
+ltr_harvest_parallel_v.1.2,ltr_harvest_parallel_v.1.2,,code,assembly_qc,biopytools/assembly_qc/config.py,51,env-path,,,"conda_env_ltr_harvest: str = ""~/miniforge3/envs/ltr_harvest_parallel_v.1.2"""
+ltr_finder_parallel_v.1.3,ltr_finder_parallel_v.1.3,,code,assembly_qc,biopytools/assembly_qc/config.py,52,env-path,,,"conda_env_ltr_finder: str = ""~/miniforge3/envs/ltr_finder_parallel_v.1.3"""
+ltr_retriever_v.3.0.1,LTR_retriever_v.3.0.4,yes,code,assembly_qc,biopytools/assembly_qc/config.py,53,env-path,,,"conda_env_ltr_retriever: str = ""~/miniforge3/envs/LTR_retriever_v.3.0.4"""
+merqury_v.1.3,merqury_v.1.3,,code,assembly_qc,biopytools/assembly_qc/config.py,67,env-path,,,"conda_env_merqury: str = ""~/miniforge3/envs/merqury_v.1.3""  # Merqury conda环境路径|Merqury conda env path"
+Population_genetics,Population_genetics,,code,assembly_qc,biopytools/assembly_qc/config.py,79,env-path,,,"conda_env_bwa: str = ""~/miniforge3/envs/Population_genetics""  # BWA conda环境路径|BWA conda env path"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,assembly_qc,biopytools/assembly_qc/config.py,80,env-path,,,"conda_env_samtools: str = ""~/miniforge3/envs/GATK_v.4.6.2.0""  # Samtools conda环境路径|Samtools conda env path"
+Genome_dedup,Genome_dedup,,code,assembly_qc,biopytools/assembly_qc/config.py,81,env-path,,,"conda_env_minimap2: str = ""~/miniforge3/envs/Genome_dedup""  # Minimap2 conda环境路径|Minimap2 conda env path"
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,assembly_qc,biopytools/assembly_qc/utils.py,22,env-path,,,"conda_env_path: conda环境路径|conda environment path (e.g., ~/miniforge3/envs/BUSCO_v.6.0.0)"
+merqury_v.1.3,merqury_v.1.3,,code,assembly_qv,biopytools/assembly_qv/config.py,29,env-path,,,"conda_env: str = ""~/miniforge3/envs/merqury_v.1.3/bin/"""
+merqury_v.1.3,merqury_v.1.3,,code,assembly_qv,biopytools/assembly_qv/main.py,48,env-path,,,"default=""~/miniforge3/envs/merqury_v.1.3/bin/"","
+<var>,<var>,,code,assembly_qv,biopytools/assembly_qv/utils.py,64,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {command} {args}"""
+<var>,<var>,,code,assembly_qv,biopytools/assembly_qv/utils.py,66,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {command}"""
+alignoth,alignoth,,code,bam_view,biopytools/bam_view/config.py,22,env-path,alignoth,,alignoth_path: str = '~/miniforge3/envs/alignoth/bin/alignoth'
+alignoth,alignoth,,code,bam_view,biopytools/bam_view/main.py,100,env-path,alignoth,,"default='~/miniforge3/envs/alignoth/bin/alignoth',"
+alignoth,alignoth,,code,bam_view,biopytools/bam_view/utils.py,29,env-path,alignoth,,# 例如: /miniforge3/envs/alignoth/bin/alignoth
+Blast_v.2.16.0,Blast_v.2.16.0,,code,blast,biopytools/blast/config.py,125,env-path,,,blast_env = '~/miniforge3/envs/Blast_v.2.16.0/bin'
+singularity_v.3.8.7,singularity_v.3.8.7,,code,braker,biopytools/braker/config.py,180,env-path,singularity,,"singularity_bin: str = ""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"""
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,braker,biopytools/braker/config.py,181,env-path,RepeatModeler,,"repeatmodeler_bin: str = ""~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler"""
+repeat_identiy,repeat_identiy,,code,braker,biopytools/braker/config.py,182,env-path,RepeatMasker,,"repeatmasker_bin: str = ""~/miniforge3/envs/repeat_identiy/bin/RepeatMasker"""
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,braker,biopytools/braker/config.py,183,env-path,BuildDatabase,,"build_database_bin: str = ""~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/BuildDatabase"""
+Genome_dedup,Genome_dedup,,code,braker,biopytools/braker/config.py,184,env-path,minimap2,,"minimap2_bin: str = ""~/miniforge3/envs/Genome_dedup/bin/minimap2"""
+RNA_Seq,RNA_Seq,,code,braker,biopytools/braker/config.py,185,env-path,hisat2,,"hisat2_bin: str = ""~/miniforge3/envs/RNA_Seq/bin/hisat2"""
+RNA_Seq,RNA_Seq,,code,braker,biopytools/braker/config.py,186,env-path,hisat2-build,,"hisat2_build_bin: str = ""~/miniforge3/envs/RNA_Seq/bin/hisat2-build"""
+braker_v.3.0.8,braker_v.3.0.8,,code,braker,biopytools/braker/config.py,189,env-path,hmmscan,,"hmmscan_bin: str = ""~/miniforge3/envs/braker_v.3.0.8/bin/hmmscan"""
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,code,braker,biopytools/braker/config.py,190,env-path,mmseqs,,"mmseqs_bin: str = ""~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/mmseqs"""
+braker_v.3.0.8,braker_v.3.0.8,,code,braker,biopytools/braker/config.py,191,env-path,miniprot,,"miniprot_bin: str = ""~/miniforge3/envs/braker_v.3.0.8/bin/miniprot"""
+<var>,<var>,,code,braker,biopytools/braker/utils.py,213,conda-run-var,,conda_env,"return f""conda run -n {conda_env} --no-capture-output {command_name}{rest_args}"""
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,busco,biopytools/busco/config.py,59,env-path,busco,,"'~/miniforge3/envs/BUSCO_v.6.0.0/bin/busco',"
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,busco,biopytools/busco/utils.py,30,env-path,busco,,# 例如|e.g.: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,busco,biopytools/busco/utils.py,39,env-path,busco,,# 例如|e.g.: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+singularity_v.3.8.7,singularity_v.3.8.7,,code,cactus,biopytools/cactus/cli.py,61,env-path,singularity,,"default='~/miniforge3/envs/singularity_v.3.8.7/bin/singularity',"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,cactus,biopytools/cactus/cli.py,62,env-path,singularity,,help='Singularity可执行文件路径|Singularity executable path (default: ~/miniforge3/envs/singularity_v.3.8.7/bin/singularity)')
+singularity_v.3.8.7,singularity_v.3.8.7,,code,cactus,biopytools/cactus/config.py,33,env-path,singularity,,"singularity_path: str = ""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity""  # Singularity可执行文件路径"
+HiC-Pro_v3.1.0,HiC-Pro_v3.1.0,,code,centier,biopytools/centier/utils.py,173,env-path,bowtie2-build,,"'~/miniforge3/envs/HiC-Pro_v3.1.0/bin/bowtie2-build',"
+Rqtl,Rqtl,,code,cim,biopytools/cim/config.py,30,env-path,mstmap,,"mstmap_path: str = ""~/miniforge3/envs/Rqtl/bin/mstmap""  # MSTmap二进制路径|MSTmap binary path"
+Rqtl,Rqtl,,code,cim,biopytools/cim/config.py,74,env-path,,,"r_env: str = ""~/miniforge3/envs/Rqtl""  # R conda环境路径或名称|R conda env path or name"
+Rqtl,Rqtl,,code,cim,biopytools/cim/main.py,191,env-path,mstmap,,"parser.add_argument('--mstmap-path', default='~/miniforge3/envs/Rqtl/bin/mstmap',"
+Rqtl,Rqtl,,code,cim,biopytools/cim/main.py,192,env-path,mstmap,,help='MSTmap二进制路径|MSTmap binary path (default: ~/miniforge3/envs/Rqtl/bin/mstmap)')
+Rqtl,Rqtl,,code,cim,biopytools/cim/main.py,195,env-path,,,"parser.add_argument('--r-env', default='~/miniforge3/envs/Rqtl',"
+Rqtl,Rqtl,,code,cim,biopytools/cim/main.py,196,env-path,,,help='R conda环境路径或名称|R conda env path or name (default: ~/miniforge3/envs/Rqtl)')
+adamixture_v.1.0.2,adamixture_v.1.0.2,,code,cli,biopytools/cli/commands/admixture.py,128,env-path,adamixture,,"default=""~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture"","
+adamixture_v.1.0.2,adamixture_v.1.0.2,,code,cli,biopytools/cli/commands/admixture.py,199,env-path,adamixture,,"default_adamixture_path = ""~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture"""
+merqury_v.1.3,merqury_v.1.3,,code,cli,biopytools/cli/commands/assembly_qv.py,60,env-path,,,"default=""~/miniforge3/envs/merqury_v.1.3/bin/"","
+merqury_v.1.3,merqury_v.1.3,,code,cli,biopytools/cli/commands/assembly_qv.py,97,env-path,,,"if conda_env != ""~/miniforge3/envs/merqury_v.1.3/bin/"":"
+alignoth,alignoth,,code,cli,biopytools/cli/commands/bam_view.py,49,env-path,alignoth,,"default='~/miniforge3/envs/alignoth/bin/alignoth',"
+alignoth,alignoth,,code,cli,biopytools/cli/commands/bam_view.py,119,env-path,alignoth,,if alignoth_path != '~/miniforge3/envs/alignoth/bin/alignoth':
+singularity_v.3.8.7,singularity_v.3.8.7,,code,cli,biopytools/cli/commands/cactus.py,58,env-path,singularity,,"default='~/miniforge3/envs/singularity_v.3.8.7/bin/singularity',"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,cli,biopytools/cli/commands/cactus.py,124,env-path,singularity,,if kwargs['singularity'] != '~/miniforge3/envs/singularity_v.3.8.7/bin/singularity':
+Rqtl,Rqtl,,code,cli,biopytools/cli/commands/cim.py,100,env-path,,,"@click.option('--r-env', default='~/miniforge3/envs/Rqtl', show_default=True,"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,cli,biopytools/cli/commands/deeploc.py,65,env-path,singularity,,"default='~/miniforge3/envs/singularity_v.3.8.7/bin/singularity',"
+tidk_v.0.2.65,tidk_v.0.2.65,,code,cli,biopytools/cli/commands/find_telomere.py,81,env-path,tidk,,"default='~/miniforge3/envs/tidk_v.0.2.65/bin/tidk',"
+tidk_v.0.2.65,tidk_v.0.2.65,,code,cli,biopytools/cli/commands/find_telomere.py,182,env-path,tidk,,if tidk_path != '~/miniforge3/envs/tidk_v.0.2.65/bin/tidk':
+gctb,gctb,,code,cli,biopytools/cli/commands/gctb.py,50,env-path,gctb,,"default='~/miniforge3/envs/gctb/bin/gctb',"
+Population_genetics,Population_genetics,,code,cli,biopytools/cli/commands/gctb.py,54,env-path,plink,,"default='~/miniforge3/envs/Population_genetics/bin/plink',"
+gctb,gctb,,code,cli,biopytools/cli/commands/gctb.py,123,env-path,gctb,,if gctb_path != '~/miniforge3/envs/gctb/bin/gctb':
+Population_genetics,Population_genetics,,code,cli,biopytools/cli/commands/gctb.py,126,env-path,plink,,if plink_path != '~/miniforge3/envs/Population_genetics/bin/plink':
+getorganelle_v.1.7.71,getorganelle_v.1.7.71,,code,cli,biopytools/cli/commands/get_plastome.py,69,env-path,get_organelle_from_reads.py,,"default='~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py',"
+getorganelle_v.1.7.71,getorganelle_v.1.7.71,,code,cli,biopytools/cli/commands/get_plastome.py,149,env-path,get_organelle_from_reads.py,,if getorganelle_path != '~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py':
+haphic,haphic,,code,cli,biopytools/cli/commands/haphic.py,148,env-path,haphic,,"default=""~/miniforge3/envs/haphic/bin/haphic"","
+Population_genetics,Population_genetics,,code,cli,biopytools/cli/commands/haphic.py,152,env-path,bwa,,"default=""~/miniforge3/envs/Population_genetics/bin/bwa"","
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,cli,biopytools/cli/commands/haphic.py,156,env-path,samtools,,"default=""~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools"","
+haphic,haphic,,code,cli,biopytools/cli/commands/haphic.py,162,env-path,samblaster,,"default=""~/miniforge3/envs/haphic/bin/samblaster"","
+haphic,haphic,,code,cli,biopytools/cli/commands/haphic.py,166,env-path,filter_bam,,"default=""~/miniforge3/envs/haphic/bin/filter_bam"","
+juicer_v.1.6,juicer_v.1.6,,code,cli,biopytools/cli/commands/haphic.py,178,env-path,matlock,,"default=""~/miniforge3/envs/juicer_v.1.6/bin/matlock"","
+plothic_v.1.0.0,plothic_v.1.0.0,,code,cli,biopytools/cli/commands/hic_heatmap.py,97,env-path,plothic,,"default='~/miniforge3/envs/plothic_v.1.0.0/bin/plothic',"
+pairtools_v.1.1.3,pairtools_v.1.1.3,,code,cli,biopytools/cli/commands/hic_qc.py,106,env-path,pairtools,,"default='~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools',"
+pairtools_v.1.1.3,pairtools_v.1.1.3,,code,cli,biopytools/cli/commands/hic_qc.py,237,env-path,pairtools,,if pairtools_path != '~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools':
+canu_v.2.3,canu_v.2.3,,code,cli,biopytools/cli/commands/hicanu.py,51,env-path,canu,,"default='~/miniforge3/envs/canu_v.2.3/bin/canu',"
+canu_v.2.3,canu_v.2.3,,code,cli,biopytools/cli/commands/hicanu.py,123,env-path,canu,,if canu_path != '~/miniforge3/envs/canu_v.2.3/bin/canu':
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,code,cli,biopytools/cli/commands/hifi_hic.py,92,env-path,,,"default='~/miniforge3/envs/purge_dups_v.1.2.6',"
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,code,cli,biopytools/cli/commands/hifi_hic.py,95,env-path,,,help='Purge_Dups软件路径|Purge_Dups software path (default: ~/miniforge3/envs/purge_dups_v.1.2.6)')
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,code,cli,biopytools/cli/commands/hifi_hic.py,177,env-path,,,if purge_dups_path != '~/miniforge3/envs/purge_dups_v.1.2.6':
+singularity_v.3.8.7,singularity_v.3.8.7,,code,cli,biopytools/cli/commands/hite.py,52,env-path,singularity,,"default='~/miniforge3/envs/singularity_v.3.8.7/bin/singularity', show_default=True,"
+resistify_v.1.3.0,resistify_v.1.3.0,,code,cli,biopytools/cli/commands/hmmsearch.py,55,env-path,hmmsearch,,"default='~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch',"
+resistify_v.1.3.0,resistify_v.1.3.0,,code,cli,biopytools/cli/commands/hmmsearch.py,135,env-path,hmmsearch,,if hmmsearch_path != '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch':
+iseq_v.1.9.8,iseq_v.1.9.8,,code,cli,biopytools/cli/commands/iseq.py,40,env-path,iseq,,"default='~/miniforge3/envs/iseq_v.1.9.8/bin/iseq',"
+iseq_v.1.9.8,iseq_v.1.9.8,,code,cli,biopytools/cli/commands/iseq.py,115,env-path,iseq,,if iseq_path != '~/miniforge3/envs/iseq_v.1.9.8/bin/iseq':
+kmc_v.3.2.4,kmc_v.3.2.4,,code,cli,biopytools/cli/commands/kmc.py,86,env-path,,,"default='~/miniforge3/envs/kmc_v.3.2.4/bin',"
+kmc_v.3.2.4,kmc_v.3.2.4,,code,cli,biopytools/cli/commands/kmc.py,455,env-path,,,if 'kmc_path' in params and params['kmc_path'] != '~/miniforge3/envs/kmc_v.3.2.4/bin':
+ltr_harvest_parallel_v.1.2,ltr_harvest_parallel_v.1.2,,code,cli,biopytools/cli/commands/lai.py,34,env-path,,,"default='~/miniforge3/envs/ltr_harvest_parallel_v.1.2',"
+ltr_finder_parallel_v.1.3,ltr_finder_parallel_v.1.3,,code,cli,biopytools/cli/commands/lai.py,38,env-path,,,"default='~/miniforge3/envs/ltr_finder_parallel_v.1.3',"
+ltr_retriever_v.3.0.1,ltr_retriever_v.3.0.1,,code,cli,biopytools/cli/commands/lai.py,42,env-path,,,"default='~/miniforge3/envs/ltr_retriever_v.3.0.1',"
+meme_v.5.5.9,meme_v.5.5.9,,code,cli,biopytools/cli/commands/meme_parser.py,62,env-path,meme,,"default='~/miniforge3/envs/meme_v.5.5.9/bin/meme',"
+meme_v.5.5.9,meme_v.5.5.9,,code,cli,biopytools/cli/commands/meme_parser.py,158,env-path,meme,,default_meme_path = '~/miniforge3/envs/meme_v.5.5.9/bin/meme'
+jcvi_v.1.5.7,jcvi_v.1.5.7,,code,cli,biopytools/cli/commands/microsynteny.py,57,env-path,,,"default='~/miniforge3/envs/jcvi_v.1.5.7',"
+jcvi_v.1.5.7,jcvi_v.1.5.7,,code,cli,biopytools/cli/commands/microsynteny.py,111,env-path,,,if jcvi_path != '~/miniforge3/envs/jcvi_v.1.5.7':
+xxx,xxx,,code,cli,biopytools/cli/commands/nlr_annotator.py,73,env-path,java,,help='Java解释器路径(conda env用~/miniforge3/envs/xxx/bin/java)|Java interpreter path')
+singularity_v.3.8.7,singularity_v.3.8.7,,code,cli,biopytools/cli/commands/panhite.py,111,env-path,singularity,,"default='~/miniforge3/envs/singularity_v.3.8.7/bin/singularity',"
+phobius_v.1.0.1,phobius_v.1.0.1,,code,cli,biopytools/cli/commands/phobius.py,10,env-path,phobius.pl,,"_DEFAULT_PHOBIUS_PATH = ""~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"""
+signalp6,signalp6,,code,cli,biopytools/cli/commands/phyto_effector.py,32,env-path,signalp6,,"@click.option('--signalp-path', default='~/miniforge3/envs/signalp6/bin/signalp6',"
+signalp_v.3.0b,signalp_v.3.0b,,code,cli,biopytools/cli/commands/phyto_effector.py,44,env-path,signalp,,"default='~/miniforge3/envs/signalp_v.3.0b/bin/signalp',"
+resistify_v.1.3.0,resistify_v.1.3.0,,code,cli,biopytools/cli/commands/phyto_effector.py,48,env-path,hmmsearch,,"@click.option('--hmmsearch-path', default='~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch',"
+signalp6,signalp6,,code,cli,biopytools/cli/commands/phyto_effector.py,100,env-path,signalp6,,if signalp_path != '~/miniforge3/envs/signalp6/bin/signalp6':
+signalp_v.3.0b,signalp_v.3.0b,,code,cli,biopytools/cli/commands/phyto_effector.py,108,env-path,signalp,,if signalp3_path != '~/miniforge3/envs/signalp_v.3.0b/bin/signalp':
+resistify_v.1.3.0,resistify_v.1.3.0,,code,cli,biopytools/cli/commands/phyto_effector.py,112,env-path,hmmsearch,,if hmmsearch_path != '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch':
+pixy_v.2.0.0,pixy_v.2.0.0,,code,cli,biopytools/cli/commands/pixy.py,108,env-path,,,"default='~/miniforge3/envs/pixy_v.2.0.0',"
+pixy_v.2.0.0,pixy_v.2.0.0,,code,cli,biopytools/cli/commands/pixy.py,200,env-path,,,if conda_env != '~/miniforge3/envs/pixy_v.2.0.0':
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,cli,biopytools/cli/commands/repeatmask.py,54,env-path,RepeatModeler,,"default='~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler',"
+repeat_identiy,repeat_identiy,,code,cli,biopytools/cli/commands/repeatmask.py,58,env-path,RepeatMasker,,"default='~/miniforge3/envs/repeat_identiy/bin/RepeatMasker',"
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,cli,biopytools/cli/commands/repeatmask.py,112,env-path,RepeatModeler,,if repeatmodeler_path != '~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler':
+repeat_identiy,repeat_identiy,,code,cli,biopytools/cli/commands/repeatmask.py,115,env-path,RepeatMasker,,if repeatmasker_path != '~/miniforge3/envs/repeat_identiy/bin/RepeatMasker':
+rMVP,rMVP,,code,cli,biopytools/cli/commands/rmvp.py,69,env-path,,,"default='~/miniforge3/envs/rMVP',"
+rMVP,rMVP,,code,cli,biopytools/cli/commands/rmvp.py,71,env-path,,,"help='R conda环境路径|R conda environment path (e.g., ~/miniforge3/envs/rMVP)')"
+rMVP,rMVP,,code,cli,biopytools/cli/commands/rmvp.py,172,env-path,,,示例|Examples: biopytools rmvp -i input.vcf.gz -p phenotype.txt -o output --r-env ~/miniforge3/envs/rMVP
+samplot_v.1.3.0,samplot_v.1.3.0,,code,cli,biopytools/cli/commands/samplot.py,140,env-path,samplot,,"default='~/miniforge3/envs/samplot_v.1.3.0/bin/samplot',"
+samplot_v.1.3.0,samplot_v.1.3.0,,code,cli,biopytools/cli/commands/samplot.py,187,env-path,samplot,,if samplot_path != '~/miniforge3/envs/samplot_v.1.3.0/bin/samplot':
+samplot_v.1.3.0,samplot_v.1.3.0,,code,cli,biopytools/cli/commands/samplot.py,276,env-path,samplot,,"default='~/miniforge3/envs/samplot_v.1.3.0/bin/samplot',"
+samplot_v.1.3.0,samplot_v.1.3.0,,code,cli,biopytools/cli/commands/samplot.py,319,env-path,samplot,,if samplot_path != '~/miniforge3/envs/samplot_v.1.3.0/bin/samplot':
+signalp6,signalp6,,code,cli,biopytools/cli/commands/signalp.py,73,env-path,signalp6,,"default='~/miniforge3/envs/signalp6/bin/signalp6',"
+cphasing,cphasing,,code,cli,biopytools/cli/commands/subgenome_assign.py,87,env-path,minimap2,,"default='~/miniforge3/envs/cphasing/bin/minimap2', show_default=True,"
+cphasing,cphasing,,code,cli,biopytools/cli/commands/subgenome_assign.py,134,env-path,minimap2,,if minimap2_path != '~/miniforge3/envs/cphasing/bin/minimap2':
+newick_utils_v.1.6,newick_utils_v.1.6,,code,cli,biopytools/cli/commands/vcf2nj.py,46,env-path,nw_reroot,,"default='~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot',"
+newick_utils_v.1.6,newick_utils_v.1.6,,code,cli,biopytools/cli/commands/vcf2nj.py,112,env-path,nw_reroot,,if nw_reroot_path != '~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot':
+yahs_v.1.2.2,yahs_v.1.2.2,,code,cli,biopytools/cli/commands/yahs.py,106,env-path,yahs,,"default='~/miniforge3/envs/yahs_v.1.2.2/bin/yahs',"
+yahs_v.1.2.2,yahs_v.1.2.2,,code,cli,biopytools/cli/commands/yahs.py,110,env-path,juicer,,"default='~/miniforge3/envs/yahs_v.1.2.2/bin/juicer',"
+Population_genetics,Population_genetics,,code,cli,biopytools/cli/commands/yahs.py,118,env-path,bwa,,"default='~/miniforge3/envs/Population_genetics/bin/bwa',"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,cli,biopytools/cli/commands/yahs.py,122,env-path,samtools,,"default='~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools',"
+yahs_v.1.2.2,yahs_v.1.2.2,,code,cli,biopytools/cli/commands/yahs.py,197,env-path,yahs,,if yahs_bin != '~/miniforge3/envs/yahs_v.1.2.2/bin/yahs':
+yahs_v.1.2.2,yahs_v.1.2.2,,code,cli,biopytools/cli/commands/yahs.py,199,env-path,juicer,,if juicer_bin != '~/miniforge3/envs/yahs_v.1.2.2/bin/juicer':
+Population_genetics,Population_genetics,,code,cli,biopytools/cli/commands/yahs.py,203,env-path,bwa,,if bwa_bin != '~/miniforge3/envs/Population_genetics/bin/bwa':
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,cli,biopytools/cli/commands/yahs.py,205,env-path,samtools,,if samtools_bin != '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools':
+fanc_v.0.9.23b,fanc_v.0.9.23b,,code,common,biopytools/common/config_template.yml,11,env-path,fanc,,fanc: ~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+Augustus_v.3.5.0,Augustus_v.3.5.0,,code,common,biopytools/common/config_template.yml,16,env-path,,,augustus: ~/miniforge3/envs/Augustus_v.3.5.0/bin
+repeat_identiy,repeat_identiy,,code,common,biopytools/common/config_template.yml,21,env-path,RepeatMasker,,repeatmasker: ~/miniforge3/envs/repeat_identiy/bin/RepeatMasker
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,common,biopytools/common/config_template.yml,22,env-path,RepeatModeler,,repeatmodeler: ~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,common,biopytools/common/config_template.yml,23,env-path,EDTA,,edta: ~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA
+Genome_dedup,Genome_dedup,,code,common,biopytools/common/config_template.yml,26,env-path,minimap2,,minimap2: ~/miniforge3/envs/Genome_dedup/bin/minimap2
+RNA_Seq,RNA_Seq,,code,common,biopytools/common/config_template.yml,27,env-path,hisat2,,hisat2: ~/miniforge3/envs/RNA_Seq/bin/hisat2
+canu_v.2.3,canu_v.2.3,,code,common,biopytools/common/config_template.yml,30,env-path,canu,,canu: ~/miniforge3/envs/canu_v.2.3/bin/canu
+flye,flye,,code,common,biopytools/common/config_template.yml,31,env-path,flye,,flye: ~/miniforge3/envs/flye/bin/flye
+hifiasm_v.0.25.0,hifiasm,yes,code,common,biopytools/common/config_template.yml,32,env-path,hifiasm,,hifiasm: ~/miniforge3/envs/hifiasm/bin/hifiasm
+haphic,haphic,,code,common,biopytools/common/config_template.yml,36,env-path,haphic,,haphic: ~/miniforge3/envs/haphic/bin/haphic
+adamixture_v.1.0.2,adamixture_v.1.0.2,,code,common,biopytools/common/config_template.yml,40,env-path,adamixture,,admixture: ~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture
+meme_v.5.5.9,meme_v.5.5.9,,code,common,biopytools/common/config_template.yml,45,env-path,meme,,meme: ~/miniforge3/envs/meme_v.5.5.9/bin/meme
+signalp6,signalp6,,code,common,biopytools/common/config_template.yml,46,env-path,signalp6,,signalp: ~/miniforge3/envs/signalp6/bin/signalp6
+tidk_v.0.2.65,tidk_v.0.2.65,,code,common,biopytools/common/config_template.yml,47,env-path,tidk,,tidk: ~/miniforge3/envs/tidk_v.0.2.65/bin/tidk
+fanc_v.0.9.23b,fanc_v.0.9.23b,,code,common,biopytools/common/paths.py,167,env-path,fanc,,">>> get_tool_path('fanc', '~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc', 'FANC_PATH')"
+fanc_v.0.9.23b,fanc_v.0.9.23b,,code,common,biopytools/common/paths.py,171,env-path,fanc,,">>> get_tool_path('fanc', '~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc')"
+fanc_v.0.9.23b,fanc_v.0.9.23b,,code,common,biopytools/common/paths.py,175,env-path,fanc,,">>> get_tool_path('fanc', '~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc')"
+fanc_v.0.9.23b,fanc_v.0.9.23b,,code,common,biopytools/common/paths.py,176,env-path,fanc,,'/home/user/miniforge3/envs/fanc_v.0.9.23b/bin/fanc'
+fanc_v.0.9.23b,fanc_v.0.9.23b,,code,common,biopytools/common/paths.py,263,env-path,fanc,,"return get_tool_path('fanc', '~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc', 'FANC_PATH')"
+DeepBSA,DeepBSA,,code,deepbsa,biopytools/deepbsa/cli.py,200,env-path,,,"default='~/miniforge3/envs/DeepBSA',"
+DeepBSA,DeepBSA,,code,deepbsa,biopytools/deepbsa/config.py,93,env-path,,,"conda_env: str = ""~/miniforge3/envs/DeepBSA""  # conda环境路径|conda environment path"
+DeepBSA,DeepBSA,,code,deepbsa,biopytools/deepbsa/main.py,81,env-path,,,"default='~/miniforge3/envs/DeepBSA',"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,deeploc,biopytools/deeploc/config.py,28,env-path,singularity,,"singularity_exec: str = ""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"""
+singularity_v.3.8.7,singularity_v.3.8.7,,code,deeploc,biopytools/deeploc/main.py,105,env-path,singularity,,"default='~/miniforge3/envs/singularity_v.3.8.7/bin/singularity',"
+deeptmhmm_v.1.0,deeptmhmm_v.1.0,,code,deeptmhmm,biopytools/deeptmhmm/config.py,25,env-field,,,conda_env: str = 'deeptmhmm_v.1.0'
+ENV,ENV,,code,dual_rnaseq,biopytools/dual_rnaseq/utils.py,105,conda-run-literal,,,把整条shell命令(含管道)包进 conda run -n ENV bash -c '...'|Wrap a whole shell
+<var>,<var>,,code,dual_rnaseq,biopytools/dual_rnaseq/utils.py,118,conda-run-var,,env,"return f""conda run -n {env} --no-capture-output bash -c {shlex.quote(cmd)}"""
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,edta,biopytools/edta/config.py,57,env-path,EDTA,,self.edta_path = '~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA'
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,edta,biopytools/edta/config.py,59,env-path,EDTA,,self.edta_path = '~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA'
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,edta,biopytools/edta/config.py,172,env-path,EDTA,,self.edta_path = '~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA'
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,edta,biopytools/edta/config.py,174,env-path,EDTA,,self.edta_path = '~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA'
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,edta,biopytools/edta/edta_runner.py,132,env-path,EDTA,,default_path = '~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/EDTA.pl'
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,edta,biopytools/edta/panedta_runner.py,81,env-path,EDTA,,default_path = '~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA/panEDTA.sh'
+base,base,,code,egapx_batch,biopytools/egapx_batch/utils.py,210,conda-activate,,,conda activate base
+EGAPx_v.0.4.0-alpha,EGAPx_v.0.4.0-alpha,,code,egapx_batch,biopytools/egapx_batch/utils.py,212,env-path,,,export JAVA_HOME=~/miniforge3/envs/EGAPx_v.0.4.0-alpha
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,code,eggnog_mapper,biopytools/eggnog_mapper/config.py,42,env-path,emapper.py,,"""~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py"","
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,code,eggnog_mapper,biopytools/eggnog_mapper/config.py,106,conda-run-literal,,,"f""    conda run -n eggnog-mapper_v.2.1.15 --no-capture-output """
+eviann_v.2.0.5,eviann_v.2.0.5,,code,eviann,biopytools/eviann/config.py,40,env-path,,,eviann_path: str = '~/miniforge3/envs/eviann_v.2.0.5'
+tidk_v.0.2.65,tidk_v.0.2.65,,code,find_telomere,biopytools/find_telomere/config.py,24,env-path,tidk,,tidk_path: str = '~/miniforge3/envs/tidk_v.0.2.65/bin/tidk'
+tidk_v.0.2.65,tidk_v.0.2.65,,code,find_telomere,biopytools/find_telomere/main.py,656,env-path,tidk,,"default='~/miniforge3/envs/tidk_v.0.2.65/bin/tidk',"
+tidk_v.0.2.65,tidk,yes,code,find_telomere,biopytools/find_telomere/utils.py,30,env-path,tidk,,# 例如: /miniforge3/envs/tidk/bin/tidk
+Population_genetics,Population_genetics,,code,fst,biopytools/fst/config.py,58,env-path,plink,,"'~/miniforge3/envs/Population_genetics/bin/plink',"
+gctb,gctb,,code,gctb,biopytools/gctb/config.py,26,env-path,gctb,,"'~/miniforge3/envs/gctb/bin/gctb',"
+Population_genetics,Population_genetics,,code,gctb,biopytools/gctb/config.py,33,env-path,plink,,"'~/miniforge3/envs/Population_genetics/bin/plink',"
+gctb,gctb,,code,gctb,biopytools/gctb/main.py,360,env-path,gctb,,"default='~/miniforge3/envs/gctb/bin/gctb',"
+Population_genetics,Population_genetics,,code,gctb,biopytools/gctb/main.py,363,env-path,plink,,"default='~/miniforge3/envs/Population_genetics/bin/plink',"
+RNA_Seq,RNA_Seq,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,49,env-path,hisat2,,"'hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'"
+RNA_Seq,RNA_Seq,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,54,env-path,hisat2-build,,"'hisat2-build', '~/miniforge3/envs/RNA_Seq/bin/hisat2-build', 'HISAT2_BUILD_PATH'"
+RNA_Seq,RNA_Seq,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,60,env-path,extract_splice_sites.py,,"'~/miniforge3/envs/RNA_Seq/bin/extract_splice_sites.py',"
+RNA_Seq,RNA_Seq,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,67,env-path,extract_exons.py,,"'~/miniforge3/envs/RNA_Seq/bin/extract_exons.py',"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,73,env-path,samtools,,"'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'"
+Population_genetics,Population_genetics,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,78,env-path,bedtools,,"'bedtools', '~/miniforge3/envs/Population_genetics/bin/bedtools', 'BEDTOOLS_PATH'"
+RNA_Seq,RNA_Seq,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,83,env-path,stringtie,,"'stringtie', '~/miniforge3/envs/RNA_Seq/bin/stringtie', 'STRINGTIE_PATH'"
+gffcompare_v.0.12.10,gffcompare_v.0.12.10,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,88,env-path,gffcompare,,"'gffcompare', '~/miniforge3/envs/gffcompare_v.0.12.10/bin/gffcompare', 'GFFCOMPARE_PATH'"
+RSeQC_v.5.0.4,RSeQC_v.5.0.4,,code,gene_rnaseq_check,biopytools/gene_rnaseq_check/config.py,94,env-path,infer_experiment.py,,"'~/miniforge3/envs/RSeQC_v.5.0.4/bin/infer_experiment.py',"
+genomescope2_v.2.1.0,genomescope2_v.2.1.0,,code,genome_analysis,biopytools/genome_analysis/utils.py,328,env-path,,,"os.path.expanduser('~/miniforge3/envs/genomescope2_v.2.1.0'),"
+genomesyn2,genomesyn2,,code,genomesyn2,biopytools/genomesyn2/config.py,69,env-path,GenomeSyn2.pl,,genomesyn2_pl: str = '~/miniforge3/envs/genomesyn2/bin/GenomeSyn2.pl'
+genomesyn2,genomesyn2,,code,genomesyn2,biopytools/genomesyn2/config.py,72,env-path,perl,,perl_path: str = '~/miniforge3/envs/genomesyn2/bin/perl'
+genomesyn2,genomesyn2,,code,genomesyn2,biopytools/genomesyn2/main.py,183,env-path,perl,,"default='~/miniforge3/envs/genomesyn2/bin/perl',"
+genomesyn2,genomesyn2,,code,genomesyn2,biopytools/genomesyn2/main.py,189,env-path,GenomeSyn2.pl,,"default='~/miniforge3/envs/genomesyn2/bin/GenomeSyn2.pl',"
+genomesyn2,genomesyn2,,code,genomesyn2,biopytools/genomesyn2/utils.py,29,env-path,perl,,# 例如: /miniforge3/envs/genomesyn2/bin/perl
+<var>,<var>,,code,genomesyn2,biopytools/genomesyn2/utils.py,94,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {command} {args}"""
+<var>,<var>,,code,genomesyn2,biopytools/genomesyn2/utils.py,96,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {command}"""
+getorganelle_v.1.7.71,getorganelle_v.1.7.71,,code,get_plastome,biopytools/get_plastome/config.py,20,env-path,get_organelle_from_reads.py,,getorganelle_path: str = '~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py'
+getorganelle_v.1.7.71,getorganelle_v.1.7.71,,code,get_plastome,biopytools/get_plastome/main.py,520,env-path,get_organelle_from_reads.py,,"default='~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py',"
+agat_v.1.7.0,agat_v.1.7.0,,code,gff_renamer,biopytools/gff_renamer/config.py,27,env-path,agat_convert_sp_gxf2gxf.pl,,"default_factory=lambda: get_tool_path('agat', '~/miniforge3/envs/agat_v.1.7.0/bin/agat_convert_sp_gxf2gxf.pl', 'AGAT_PATH')"
+gffcompare_v.0.12.10,gffcompare_v.0.12.10,,code,gffcompare,biopytools/gffcompare/config.py,43,env-path,gffcompare,,'~/miniforge3/envs/gffcompare_v.0.12.10/bin/gffcompare'
+haphic,haphic,,code,haphic,biopytools/haphic/config.py,27,env-path,haphic,,"'haphic', '~/miniforge3/envs/haphic/bin/haphic', 'HAPHIC_PATH'"
+Population_genetics,Population_genetics,,code,haphic,biopytools/haphic/config.py,32,env-path,bwa,,"'bwa', '~/miniforge3/envs/Population_genetics/bin/bwa', 'BWA_PATH'"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,haphic,biopytools/haphic/config.py,37,env-path,samtools,,"'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'"
+juicer_v.1.6,juicer_v.1.6,,code,haphic,biopytools/haphic/config.py,111,env-path,matlock,,"'matlock', '~/miniforge3/envs/juicer_v.1.6/bin/matlock', 'MATLOCK_PATH'"
+haphic,haphic,,code,haphic,biopytools/haphic/config.py,133,env-path,samblaster,,"'samblaster', '~/miniforge3/envs/haphic/bin/samblaster', 'SAMBLASTER_PATH'"
+haphic,haphic,,code,haphic,biopytools/haphic/config.py,138,env-path,filter_bam,,"'filter_bam', '~/miniforge3/envs/haphic/bin/filter_bam', 'FILTER_BAM_PATH'"
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,haphic,biopytools/haphic/utils.py,49,env-path,busco,,# 例如: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,haphic,biopytools/haphic/utils.py,86,env-path,busco,,">>> build_conda_command('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', ['--version'])"
+juicer_v.1.6,juicer_v.1.6,,code,hic_heatmap,biopytools/hic_heatmap/calculator.py,344,env-path,python2,,"""~/miniforge3/envs/juicer_v.1.6/bin/python2"","
+juicer_v.1.6,juicer_v.1.6,,code,hic_heatmap,biopytools/hic_heatmap/config.py,67,env-path,java,,"'~/miniforge3/envs/juicer_v.1.6/bin/java',"
+plothic_v.1.0.0,plothic_v.1.0.0,,code,hic_heatmap,biopytools/hic_heatmap/config.py,74,env-path,plothic,,"'~/miniforge3/envs/plothic_v.1.0.0/bin/plothic',"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,hic_heatmap,biopytools/hic_heatmap/config.py,244,env-path,singularity,,"'~/miniforge3/envs/singularity_v.3.8.7/bin/singularity',"
+plothic_v.1.0.0,plothic_v.1.0.0,,code,hic_heatmap,biopytools/hic_heatmap/config.py,251,env-path,plothic,,"'~/miniforge3/envs/plothic_v.1.0.0/bin/plothic',"
+HiC-Pro_v3.1.0,HiC-Pro_v3.1.0,,code,hic_heatmap,biopytools/hic_heatmap/hicpro_pipeline.py,396,env-path,bowtie2-build,,"bowtie2_build = os.path.expanduser(""~/miniforge3/envs/HiC-Pro_v3.1.0/bin/bowtie2-build"")"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,hic_heatmap,biopytools/hic_heatmap/main.py,136,env-path,singularity,,"default='~/miniforge3/envs/singularity_v.3.8.7/bin/singularity',"
+plothic_v.1.0.0,plothic_v.1.0.0,,code,hic_heatmap,biopytools/hic_heatmap/main.py,142,env-path,plothic,,"default='~/miniforge3/envs/plothic_v.1.0.0/bin/plothic',"
+pairtools_v.1.1.3,pairtools_v.1.1.3,,code,hic_heatmap,biopytools/hic_heatmap/pipeline.py,522,env-path,pairtools,,"pairtools_path = get_tool_path('pairtools', '~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools', 'PAIRTOOLS_PATH')"
+bwa_env,bwa_env,,code,hic_heatmap,biopytools/hic_heatmap/utils.py,27,env-path,bwa,,# 例如: /miniforge3/envs/bwa_env/bin/bwa
+canu_v.2.3,canu_v.2.3,,code,hicanu,biopytools/hicanu/config.py,24,env-path,canu,,canu_path: str = '~/miniforge3/envs/canu_v.2.3/bin/canu'
+canu_v.2.3,canu_v.2.3,,code,hicanu,biopytools/hicanu/main.py,113,env-path,canu,,"default='~/miniforge3/envs/canu_v.2.3/bin/canu',"
+canu_v.2.3,canu,yes,code,hicanu,biopytools/hicanu/utils.py,30,env-path,canu,,# 例如: /miniforge3/envs/canu/bin/canu
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,code,hifi_hic,biopytools/hifi_hic/config.py,46,env-path,,,purge_dups_path: str = '~/miniforge3/envs/purge_dups_v.1.2.6'  # Purge_Dups软件路径(目录)|Purge_Dups software path (directory)
+hifiasm_v.0.25.0,hifiasm_v.0.25.0,,code,hifi_hic,biopytools/hifi_hic/config.py,54,env-path,hifiasm,,"'hifiasm', '~/miniforge3/envs/hifiasm_v.0.25.0/bin/hifiasm', 'HIFIASM_PATH'))"
+BioinfTools,BioinfTools,,code,hifi_hic,biopytools/hifi_hic/config.py,56,env-path,seqkit,,"'seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,hifi_hic,biopytools/hifi_hic/config.py,58,env-path,samtools,,"'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))"
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,code,hifi_hic,biopytools/hifi_hic/main.py,319,env-path,,,"parser.add_argument('--purge-dups-path', default='~/miniforge3/envs/purge_dups_v.1.2.6',"
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,code,hifi_hic,biopytools/hifi_hic/main.py,320,env-path,,,help='Purge_Dups软件路径|Purge_Dups software path (default: ~/miniforge3/envs/purge_dups_v.1.2.6)')
+ENV,env,yes,code,hifi_hic,biopytools/hifi_hic/utils.py,109,conda-run-literal,command,,# conda run -n env --no-capture-output command args... → 提取 command args(裸命令)
+hifiasm_v.0.25.0,hifiasm_v.0.25.0,,code,hifi_hic,biopytools/hifi_hic/utils.py,122,env-path,hifiasm,,"def check_dependencies(logger, hifiasm_bin: str = '~/miniforge3/envs/hifiasm_v.0.25.0/bin/hifiasm') -> bool:"
+plothic_v.1.0.0,plothic_v.1.0.0,,code,hifi_hic_workflow,biopytools/hifi_hic_workflow/config.py,139,env-path,plothic,,"'~/miniforge3/envs/plothic_v.1.0.0/bin/plothic',"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,hite,biopytools/hite/config.py,36,env-path,singularity,,"""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"","
+singularity_v.3.8.7,singularity_v.3.8.7,,code,hite,biopytools/hite/config.py,150,env-path,singularity,,singularity_cmd: str = '~/miniforge3/envs/singularity_v.3.8.7/bin/singularity'
+singularity_v.3.8.7,singularity_v.3.8.7,,code,hite,biopytools/hite/utils.py,437,env-path,singularity,,"'~/miniforge3/envs/singularity_v.3.8.7/bin/singularity',"
+resistify_v.1.3.0,resistify_v.1.3.0,,code,hmmsearch,biopytools/hmmsearch/config.py,30,env-path,hmmsearch,,hmmsearch_path: str = '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch'
+<var>,<var>,,code,hmmsearch,biopytools/hmmsearch/hmmsearch_runner.py,38,conda-run-var,,conda_env,"return f""conda run -n {conda_env} --no-capture-output {command} {args}"""
+resistify_v.1.3.0,resistify_v.1.3.0,,code,hmmsearch,biopytools/hmmsearch/main.py,216,env-path,hmmsearch,,"default='~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch',"
+Population_genetics,Population_genetics,,code,insert2locus,biopytools/insert2locus/config.py,62,env-path,bwa,,"'bwa', '~/miniforge3/envs/Population_genetics/bin/bwa', 'BWA_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,insert2locus,biopytools/insert2locus/config.py,64,env-path,samtools,,"'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))"
+BioinfTools,BioinfTools,,code,insert2locus,biopytools/insert2locus/config.py,66,env-path,seqkit,,"'seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH'))"
+spades_v.4.3.0,spades_v.4.3.0,,code,insert2locus,biopytools/insert2locus/config.py,68,env-path,spades.py,,"'spades', '~/miniforge3/envs/spades_v.4.3.0/bin/spades.py', 'SPADES_PATH'))"
+iqtree_v.3.0.1,iqtree_v.3.0.1,,code,iqtree,biopytools/iqtree/config.py,50,env-path,iqtree,,"'~/miniforge3/envs/iqtree_v.3.0.1/bin/iqtree',"
+iseq_v.1.9.8,iseq_v.1.9.8,,code,iseq,biopytools/iseq/config.py,20,env-path,iseq,,iseq_path: str = '~/miniforge3/envs/iseq_v.1.9.8/bin/iseq'  # iSeq软件路径|iSeq software path
+iseq_v.1.9.8,iseq_v.1.9.8,,code,iseq,biopytools/iseq/main.py,70,env-path,iseq,,"default='~/miniforge3/envs/iseq_v.1.9.8/bin/iseq',"
+<var>,<var>,,code,iseq,biopytools/iseq/utils.py,114,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {cmd}"""
+jcvi_v.1.5.7,JCVI_v.1.5.6,yes,code,jcvi,biopytools/jcvi/config.py,26,env-field,,,"conda_env: str = ""JCVI_v.1.5.6"""
+kakscalculator,kakscalculator,,code,kaks,biopytools/kaks/config.py,63,env-path,KaKs_Calculator,,"'~/miniforge3/envs/kakscalculator/bin/KaKs_Calculator',"
+BioinfTools,BioinfTools,,code,kaks,biopytools/kaks/main.py,122,env-path,seqkit,,"seqkit_path = ""~/miniforge3/envs/BioinfTools/bin/seqkit"""
+kmc_v.3.2.4,kmc_v.3.2.4,,code,kmc,biopytools/kmc/config.py,27,env-path,,,kmc_path: str = '~/miniforge3/envs/kmc_v.3.2.4/bin'
+kmc_v.3.2.4,kmc_v.3.2.4,,code,kmc,biopytools/kmc/main.py,504,env-path,,,"default='~/miniforge3/envs/kmc_v.3.2.4/bin',"
+<var>,<var>,,code,kmc,biopytools/kmc/utils.py,61,conda-run-var,,conda_env,"return f""conda run -n {conda_env} --no-capture-output {command} {args}"""
+<var>,<var>,,code,kmc,biopytools/kmc/utils.py,133,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {cmd}"""
+kmeriaenv,kmeriaenv,,code,kmeria,biopytools/kmeria/config.py,25,env-path,,,kmeria_conda: str = '~/miniforge3/envs/kmeriaenv'
+biopytools,biopytools,,code,kmertools,biopytools/kmertools/config.py,75,env-path,kmtricks,,"self.kmtricks_path = get_tool_path('kmtricks', '~/miniforge3/envs/biopytools/bin/kmtricks', 'KMTRICKS_PATH')"
+kmindex_v.0.6.0,kmindex_v.0.6.0,,code,kmertools,biopytools/kmertools/config.py,77,env-path,kmindex,,"self.kmindex_path = get_tool_path('kmindex', '~/miniforge3/envs/kmindex_v.0.6.0/bin/kmindex', 'KMINDEX_PATH')"
+kmindex_v.0.6.0,kmindex_v.0.6.0,,code,kmertools,biopytools/kmertools/config.py,195,env-path,kmindex,,"self.kmindex_path = get_tool_path('kmindex', '~/miniforge3/envs/kmindex_v.0.6.0/bin/kmindex', 'KMINDEX_PATH')"
+K-mer,K-mer,,code,kmertools,biopytools/kmertools/kmer_count/config.py,52,env-path,jellyfish,,"self.jellyfish_path = get_tool_path('jellyfish', '~/miniforge3/envs/K-mer/bin/jellyfish', 'JELLYFISH_PATH')"
+kmtricks_v.1.5.1,kmtricks_v.1.5.1,,code,kmertools,biopytools/kmertools/utils.py,623,env-path,kmtricks,,# 例如: /miniforge3/envs/kmtricks_v.1.5.1/bin/kmtricks
+ltr_harvest_parallel_v.1.2,ltr_harvest_parallel_v.1.2,,code,lai,biopytools/lai/config.py,25,env-path,,,"conda_env_ltr_harvest: str = ""~/miniforge3/envs/ltr_harvest_parallel_v.1.2"""
+ltr_finder_parallel_v.1.3,ltr_finder_parallel_v.1.3,,code,lai,biopytools/lai/config.py,26,env-path,,,"conda_env_ltr_finder: str = ""~/miniforge3/envs/ltr_finder_parallel_v.1.3"""
+ltr_retriever_v.3.0.1,ltr_retriever_v.3.0.1,,code,lai,biopytools/lai/config.py,27,env-path,,,"conda_env_ltr_retriever: str = ""~/miniforge3/envs/ltr_retriever_v.3.0.1"""
+ltr_retriever_v.3.0.1,ltr_retriever_v.3.0.1,,code,lai,biopytools/lai/main.py,319,env-path,,,"default='~/miniforge3/envs/ltr_retriever_v.3.0.1',"
+ltr_harvest_parallel_v.1.2,ltr_harvest_parallel_v.1.2,,code,lai,biopytools/lai/utils.py,29,env-path,gt,,# 例如: /miniforge3/envs/ltr_harvest_parallel_v.1.2/bin/gt
+meme_v.5.5.9,meme_v.5.5.9,,code,meme_parser,biopytools/meme_parser/config.py,26,env-path,meme,,meme_path: str = '~/miniforge3/envs/meme_v.5.5.9/bin/meme'
+meme_v.5.5.9,meme_v.5.5.9,,code,meme_parser,biopytools/meme_parser/main.py,222,env-path,meme,,"default='~/miniforge3/envs/meme_v.5.5.9/bin/meme',"
+mga,mga,,code,mga,biopytools/mga/config.py,18,env-field,,,"conda_env: str = ""mga"""
+jcvi_v.1.5.7,jcvi_v.1.5.7,,code,microsynteny,biopytools/microsynteny/config.py,44,env-path,,,"'~/miniforge3/envs/jcvi_v.1.5.7',"
+pycirclize_v.1.10.1,pycirclize_v.1.10.1,,code,microsynteny,biopytools/microsynteny/config.py,51,env-path,,,"'~/miniforge3/envs/pycirclize_v.1.10.1',"
+jcvi_v.1.5.7,jcvi_v.1.5.7,,code,microsynteny,biopytools/microsynteny/config.py,208,conda-activate,,,"f""  conda activate jcvi_v.1.5.7\n"""
+jcvi_v.1.5.7,jcvi_v.1.5.7,,code,microsynteny,biopytools/microsynteny/main.py,63,env-path,,,"default='~/miniforge3/envs/jcvi_v.1.5.7',"
+jcvi_v.1.5.7,jcvi_v.1.5.7,,code,microsynteny,biopytools/microsynteny/main.py,64,env-path,,,help='JCVI环境路径|JCVI environment path (default: ~/miniforge3/envs/jcvi_v.1.5.7)'
+pycirclize_v.1.10.1,pycirclize_v.1.10.1,,code,microsynteny,biopytools/microsynteny/main.py,69,env-path,,,"default='~/miniforge3/envs/pycirclize_v.1.10.1',"
+pycirclize_v.1.10.1,pycirclize_v.1.10.1,,code,microsynteny,biopytools/microsynteny/main.py,70,env-path,,,help='pyCirclize环境路径|pyCirclize environment path (default: ~/miniforge3/envs/pycirclize_v.1.10.1)'
+jcvi_v.1.5.7,jcvi_v.1.5.7,,code,microsynteny,biopytools/microsynteny/utils.py,187,env-path,,,jcvi_bin = os.path.dirname(os.path.dirname(jcvi_python))  # .../envs/jcvi_v.1.5.7
+cphasing,cphasing,,code,mixrace,biopytools/mixrace/config.py,33,env-path,bwa-mem2,,"bwa_mem2_path: str = ""~/miniforge3/envs/cphasing/bin/bwa-mem2"""
+sv_calling,sv_calling,,code,mixrace,biopytools/mixrace/config.py,34,env-path,samtools,,"samtools_path: str = ""~/miniforge3/envs/sv_calling/bin/samtools"""
+sv_calling,sv_calling,,code,mixrace,biopytools/mixrace/config.py,35,env-path,bcftools,,"bcftools_path: str = ""~/miniforge3/envs/sv_calling/bin/bcftools"""
+sv_calling,sv_calling,,code,mixrace,biopytools/mixrace/config.py,36,env-path,bedtools,,"bedtools_path: str = ""~/miniforge3/envs/sv_calling/bin/bedtools"""
+WGCNA_v.1.73,WGCNA_v.1.73,,code,mixrace,biopytools/mixrace/config.py,37,env-path,Rscript,,"rscript_path: str = ""~/miniforge3/envs/WGCNA_v.1.73/bin/Rscript"""
+freebayes,freebayes,,code,mixrace,biopytools/mixrace/config.py,38,env-path,freebayes,,"freebayes_path: str = ""~/miniforge3/envs/freebayes/bin/freebayes"""
+<var>,<var>,,code,mixrace,biopytools/mixrace/pipeline.py,95,conda-run-var,,env,f'conda run -n {env} --no-capture-output bash -c '
+<var>,<var>,,code,mixrace,biopytools/mixrace/pipeline.py,147,conda-run-var,,env,f'conda run -n {env} --no-capture-output bash -c '
+<var>,<var>,,code,mixrace,biopytools/mixrace/pipeline.py,169,conda-run-var,,env,"f""conda run -n {env} --no-capture-output bash -c 'bcftools view -H {vcf} | wc -l'"","
+<var>,<var>,,code,mixrace,biopytools/mixrace/pipeline.py,192,conda-run-var,,env,f'conda run -n {env} --no-capture-output bash -c '
+needle_v.1.0.3,needle_v.1.0.3,,code,needle_identity,biopytools/needle_identity/config.py,39,env-path,needle,,"'~/miniforge3/envs/needle_v.1.0.3/bin/needle',"
+needle_v.1.0.3,needle_v.1.0.3,,code,needle_identity,biopytools/needle_identity/main.py,27,env-path,needle,,help='needle可执行文件路径|needle executable path (default: ~/miniforge3/envs/needle_v.1.0.3/bin/needle)')
+xxx,xxx,,code,nlr_annotator,biopytools/nlr_annotator/config.py,27,env-path,java,,"java_path: str = ""java""  # Java解释器(默认系统java;conda env用~/miniforge3/envs/xxx/bin/java)|Java interpreter"
+xxx,xxx,,code,nlr_annotator,biopytools/nlr_annotator/main.py,150,env-path,java,,help='Java解释器路径(默认系统java;conda env用~/miniforge3/envs/xxx/bin/java)|Java interpreter path')
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,oomycete_anno,biopytools/oomycete_anno/config.py,49,env-path,RepeatModeler,,"""~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler"","
+repeat_identiy,repeat_identiy,,code,oomycete_anno,biopytools/oomycete_anno/config.py,56,env-path,RepeatMasker,,"""~/miniforge3/envs/repeat_identiy/bin/RepeatMasker"","
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,oomycete_anno,biopytools/oomycete_anno/config.py,63,env-path,BuildDatabase,,"""~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/BuildDatabase"","
+RNA_Seq,RNA_Seq,,code,oomycete_anno,biopytools/oomycete_anno/config.py,71,env-path,hisat2,,"""hisat2"", ""~/miniforge3/envs/RNA_Seq/bin/hisat2"", ""HISAT2_PATH"""
+RNA_Seq,RNA_Seq,,code,oomycete_anno,biopytools/oomycete_anno/config.py,77,env-path,hisat2-build,,"""~/miniforge3/envs/RNA_Seq/bin/hisat2-build"","
+Augustus_v.3.5.0,Augustus_v.3.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,87,env-path,bam2hints,,"""~/miniforge3/envs/Augustus_v.3.5.0/bin/bam2hints"","
+Augustus_v.3.5.0,Augustus_v.3.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,94,env-path,augustus,,"""~/miniforge3/envs/Augustus_v.3.5.0/bin/augustus"","
+Augustus_v.3.5.0,Augustus_v.3.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,101,env-path,etraining,,"""~/miniforge3/envs/Augustus_v.3.5.0/bin/etraining"","
+Augustus_v.3.5.0,Augustus_v.3.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,110,env-path,gtf2gff.pl,,"""~/miniforge3/envs/Augustus_v.3.5.0/bin/gtf2gff.pl"","
+Augustus_v.3.5.0,Augustus_v.3.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,117,env-path,gff2gbSmallDNA.pl,,"""~/miniforge3/envs/Augustus_v.3.5.0/bin/gff2gbSmallDNA.pl"","
+Augustus_v.3.5.0,Augustus_v.3.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,126,env-path,,,"""~/miniforge3/envs/Augustus_v.3.5.0/config"","
+Augustus_v.3.5.0,Augustus_v.3.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,133,env-path,,,"""~/miniforge3/envs/Augustus_v.3.5.0/config/extrinsic/extrinsic.MPE.cfg"""
+braker_v.3.0.8,braker_v.3.0.8,,code,oomycete_anno,biopytools/oomycete_anno/config.py,146,env-field,,,"genemark_perl_env: str = ""braker_v.3.0.8"""
+pasa_v.2.5.3,pasa_v.2.5.3,,code,oomycete_anno,biopytools/oomycete_anno/config.py,151,env-path,gmap,,"""gmap"", ""~/miniforge3/envs/pasa_v.2.5.3/bin/gmap"", ""GMAP_PATH"""
+pasa_v.2.5.3,pasa_v.2.5.3,,code,oomycete_anno,biopytools/oomycete_anno/config.py,156,env-path,gmap_build,,"""gmap_build"", ""~/miniforge3/envs/pasa_v.2.5.3/bin/gmap_build"", ""GMAP_BUILD_PATH"""
+transdecoder_v.5.5.0,transdecoder_v.5.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,162,env-path,TransDecoder.Predict,,"""~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.Predict"","
+transdecoder_v.5.5.0,transdecoder_v.5.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,169,env-path,TransDecoder.LongOrfs,,"""~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.LongOrfs"","
+miniprot_v.0.18,miniprot_v.0.18,,code,oomycete_anno,biopytools/oomycete_anno/config.py,175,env-path,miniprot,,"""miniprot"", ""~/miniforge3/envs/miniprot_v.0.18/bin/miniprot"", ""MINIPROT_PATH"""
+transdecoder_v.5.5.0,transdecoder_v.5.5.0,,code,oomycete_anno,biopytools/oomycete_anno/config.py,182,env-path,,,"""~/miniforge3/envs/transdecoder_v.5.5.0/opt/transdecoder/util/cdna_alignment_orf_to_genome_orf.pl"","
+genometools_v.1.6.5,genometools_v.1.6.5,,code,oomycete_anno,biopytools/oomycete_anno/config.py,190,env-path,gt,,"""gt"", ""~/miniforge3/envs/genometools_v.1.6.5/bin/gt"", ""GT_PATH"""
+ltr_retriever_v.3.0.1,ltr_retriever_v.3.0.1,,code,oomycete_anno,biopytools/oomycete_anno/config.py,196,env-path,LTR_retriever,,"""~/miniforge3/envs/ltr_retriever_v.3.0.1/bin/LTR_retriever"","
+orthofinder_v.3.1.5,orthofinder_v.3.1.5,,code,orthofinder,biopytools/orthofinder/config.py,59,env-path,orthofinder,,"default_factory=lambda: get_tool_path('orthofinder', '~/miniforge3/envs/orthofinder_v.3.1.5/bin/orthofinder', 'ORTHOFINDER_PATH')"
+orthofinder_v.3.1.5,orthofinder_v.3.1.5,,code,orthofinder,biopytools/orthofinder/main.py,292,env-path,orthofinder,,"default='~/miniforge3/envs/orthofinder_v.3.1.5/bin/orthofinder',"
+bbmap_v.39.81,bbmap_v.39.81,,code,pair_fastq,biopytools/pair_fastq/config.py,31,env-field,,,"repair_conda_env: str = ""bbmap_v.39.81""  # conda环境名称"
+pairtools_v.1.1.3,pairtools_v.1.1.3,,code,pairtools_qc,biopytools/pairtools_qc/__init__.py,15,env-path,pairtools,,"pairtools_path=""~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools"""
+pairtools_v.1.1.3,pairtools_v.1.1.3,,code,pairtools_qc,biopytools/pairtools_qc/config.py,20,env-path,pairtools,,pairtools_path: str = '~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools'
+pairtools_v.1.1.3,pairtools_v.1.1.3,,code,pairtools_qc,biopytools/pairtools_qc/main.py,138,env-path,pairtools,,"default='~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools',"
+pan-blocks,pan-blocks,,code,pan_blocks,biopytools/pan_blocks/config.py,26,env-path,nucmer,,"'nucmer', '~/miniforge3/envs/pan-blocks/bin/nucmer', 'NUCMER_PATH'"
+pan-blocks,pan-blocks,,code,pan_blocks,biopytools/pan_blocks/config.py,29,env-path,delta-filter,,"'delta-filter', '~/miniforge3/envs/pan-blocks/bin/delta-filter', 'DELTA_FILTER_PATH'"
+pan-blocks,pan-blocks,,code,pan_blocks,biopytools/pan_blocks/config.py,32,env-path,show-coords,,"'show-coords', '~/miniforge3/envs/pan-blocks/bin/show-coords', 'SHOW_COORDS_PATH'"
+pan-blocks,pan-blocks,,code,pan_blocks,biopytools/pan_blocks/config.py,38,env-path,minimap2,,"'minimap2', '~/miniforge3/envs/pan-blocks/bin/minimap2', 'MINIMAP2_PATH'"
+panman_v.0.1.4,panman_v.0.1.4,,code,panman,biopytools/panman/config.py,53,env-field,,,"conda_env: str = ""panman_v.0.1.4""     # Conda环境名"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,panman,biopytools/panman/config.py,114,env-path,singularity,,"default_singularity = expand_path(""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"")"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,panman,biopytools/panman/pangraph_builder.py,48,env-path,singularity,,"default_singularity = expand_path(""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"")"
+vg_v.1.7.0,vg_v.1.7.0,,code,panvar,biopytools/panvar/config.py,23,env-field,,,"vg_env: str = ""vg_v.1.7.0"""
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,parse_seq,biopytools/parse_seq/utils.py,122,env-path,samtools,,# 例如: /miniforge3/envs/GATK_v.4.6.2.0/bin/samtools
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,parse_seq,biopytools/parse_seq/utils.py,123,env-path,samtools,,# e.g.: /miniforge3/envs/GATK_v.4.6.2.0/bin/samtools
+pggb_v.0.7.4,pggb_v.0.7.4,,code,pggb,biopytools/pggb/config.py,21,env-field,,,"conda_env: str = ""pggb_v.0.7.4"""
+phobius_v.1.0.1,phobius_v.1.0.1,,code,phobius,biopytools/phobius/config.py,43,env-path,phobius.pl,,"phobius_path: str = ""~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"""
+phobius_v.1.0.1,phobius_v.1.0.1,,code,phobius,biopytools/phobius/main.py,95,env-path,phobius.pl,,"default=""~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"","
+trimal_v.1.5.0,trimal_v.1.5.0,,code,phylo_trim,biopytools/phylo_trim/config.py,49,env-path,trimal,,"'trimal', '~/miniforge3/envs/trimal_v.1.5.0/bin/trimal', 'TRIMAL_PATH'"
+signalp6,signalp6,,code,phyto_effector,biopytools/phyto_effector/config.py,34,env-path,signalp6,,"'signalp6', '~/miniforge3/envs/signalp6/bin/signalp6', 'SIGNALP_PATH'"
+signalp_v.3.0b,signalp_v.3.0b,,code,phyto_effector,biopytools/phyto_effector/config.py,42,env-path,signalp,,"'signalp3', '~/miniforge3/envs/signalp_v.3.0b/bin/signalp', 'SIGNALP3_PATH'"
+resistify_v.1.3.0,resistify_v.1.3.0,,code,phyto_effector,biopytools/phyto_effector/config.py,49,env-path,hmmsearch,,"'hmmsearch', '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch', 'HMMSEARCH_PATH'"
+Blast_v.2.16.0,Blast_v.2.16.0,,code,phyto_effector,biopytools/phyto_effector/config.py,56,env-path,blastp,,"'blastp', '~/miniforge3/envs/Blast_v.2.16.0/bin/blastp', 'BLASTP_PATH'"
+tmmhmm_v.2.0c,tmmhmm_v.2.0c,,code,phyto_effector,biopytools/phyto_effector/config.py,67,env-path,tmhmm,,"'tmhmm', '~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm', 'TMHMM_PATH'"
+signalp6,signalp6,,code,phyto_effector,biopytools/phyto_effector/main.py,261,env-path,signalp6,,"parser.add_argument('--signalp-path', default='~/miniforge3/envs/signalp6/bin/signalp6',"
+signalp_v.3.0b,signalp_v.3.0b,,code,phyto_effector,biopytools/phyto_effector/main.py,273,env-path,signalp,,"default='~/miniforge3/envs/signalp_v.3.0b/bin/signalp',"
+resistify_v.1.3.0,resistify_v.1.3.0,,code,phyto_effector,biopytools/phyto_effector/main.py,279,env-path,hmmsearch,,"parser.add_argument('--hmmsearch-path', default='~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch',"
+Blast_v.2.16.0,Blast_v.2.16.0,,code,phyto_effector,biopytools/phyto_effector/main.py,283,env-path,blastp,,"parser.add_argument('--blastp-path', default='~/miniforge3/envs/Blast_v.2.16.0/bin/blastp',"
+tmmhmm_v.2.0c,tmmhmm_v.2.0c,,code,phyto_effector,biopytools/phyto_effector/main.py,289,env-path,tmhmm,,"parser.add_argument('--tmhmm-path', default='~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm',"
+Population_genetics,Population_genetics,,code,pi,biopytools/pi/config.py,46,env-path,vcftools,,"'~/miniforge3/envs/Population_genetics/bin/vcftools',"
+mafft_v.7.525,mafft_v.7.525,,code,pi4gene,biopytools/pi4gene/config.py,29,env-path,mafft,,"'~/miniforge3/envs/mafft_v.7.525/bin/mafft',"
+picrust_v.2.6.3,picrust_v.2.6.3,,code,picrust2,biopytools/picrust2/config.py,55,env-path,picrust2_pipeline.py,,"'~/miniforge3/envs/picrust_v.2.6.3/bin/picrust2_pipeline.py',"
+picrust_v.2.6.3,picrust_v.2.6.3,,code,picrust2,biopytools/picrust2/config.py,62,env-path,picrust2_pipeline_singleRef.py,,"'~/miniforge3/envs/picrust_v.2.6.3/bin/picrust2_pipeline_singleRef.py',"
+pixy_v.2.0.0,pixy_v.2.0.0,,code,pixy,biopytools/pixy/config.py,43,env-path,,,"conda_env: str = ""~/miniforge3/envs/pixy_v.2.0.0""  # conda环境路径|conda environment path"
+pixy_v.2.0.0,pixy_v.2.0.0,,code,pixy,biopytools/pixy/main.py,88,env-path,,,"default='~/miniforge3/envs/pixy_v.2.0.0',"
+<var>,<var>,,code,pixy,biopytools/pixy/utils.py,101,conda-run-var,,env_name,"f""conda run -n {env_name} --no-capture-output pixy --version"","
+<var>,<var>,,code,pixy,biopytools/pixy/utils.py,140,conda-run-var,,env_name,"f""conda run -n {env_name} --no-capture-output {dep} --version"","
+<var>,<var>,,code,pixy,biopytools/pixy/utils.py,210,conda-run-var,,env_name,"f""conda run -n {env_name} --no-capture-output bcftools view -H {vcf_file} | head -n 100 | grep -c '\\t\\.\\t'"","
+poplddecay_v.3.43,poplddecay_v.3.43,,code,poplddecay,biopytools/poplddecay/config.py,56,env-path,PopLDdecay,,"'~/miniforge3/envs/poplddecay_v.3.43/bin/PopLDdecay',"
+primer3_v.2.6.1,primer3_v.2.6.1,,code,primer3,biopytools/primer3/config.py,24,env-path,primer3_core,,"'~/miniforge3/envs/primer3_v.2.6.1/bin/primer3_core',"
+primer3_v.2.6.1,primer3_v.2.6.1,,code,primer3,biopytools/primer3/main.py,25,env-path,primer3_core,,"default='~/miniforge3/envs/primer3_v.2.6.1/bin/primer3_core',"
+primer3_v.2.6.1,primer3_v.2.6.1,,code,primer3,biopytools/primer3/utils.py,75,env-path,primer3_core,,# 例如: /miniforge3/envs/primer3_v.2.6.1/bin/primer3_core
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,psvcp,biopytools/psvcp/config.py,46,env-path,nucmer,,"'nucmer', '~/miniforge3/envs/psvcp_v.1.0.1/bin/nucmer', 'NUCMER_PATH')"
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,psvcp,biopytools/psvcp/config.py,50,env-path,assemblytics,,"'assemblytics', '~/miniforge3/envs/psvcp_v.1.0.1/bin/assemblytics', 'ASSEMBLYTICS_PATH')"
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,psvcp,biopytools/psvcp/config.py,54,env-path,bedtools,,"'bedtools', '~/miniforge3/envs/psvcp_v.1.0.1/bin/bedtools', 'BEDTOOLS_PATH')"
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,psvcp,biopytools/psvcp/config.py,58,env-path,samtools,,"'samtools', '~/miniforge3/envs/psvcp_v.1.0.1/bin/samtools', 'SAMTOOLS_PATH')"
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,psvcp,biopytools/psvcp/config.py,62,env-path,Rscript,,"'rscript', '~/miniforge3/envs/psvcp_v.1.0.1/bin/Rscript', 'RSCRIPT_PATH')"
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,psvcp,biopytools/psvcp/config.py,66,env-path,python3,,"'python3', '~/miniforge3/envs/psvcp_v.1.0.1/bin/python3', 'PSVCP_PYTHON_PATH')"
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,psvcp,biopytools/psvcp/utils.py,8,conda-run-literal,,,run via `conda run -n psvcp_v.1.0.1`.
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,code,purge_dups,biopytools/purge_dups/config.py,21,env-path,,,purge_dups_path: str = '~/miniforge3/envs/purge_dups_v.1.2.6'
+<var>,<var>,,code,purge_dups,biopytools/purge_dups/utils.py,113,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {cmd}"""
+qiime_v.2024.10.1,qiime_v.2024.10.1,,code,qiime2,biopytools/qiime2/config.py,28,env-path,qiime,,DEFAULT_QIIME_BIN = '~/miniforge3/envs/qiime_v.2024.10.1/bin/qiime'
+qiime_v.2024.10.1,qiime_v.2024.10.1,,code,qiime2,biopytools/qiime2/main.py,93,env-path,qiime,,help='qiime可执行文件路径|qiime executable path (default: ~/miniforge3/envs/qiime_v.2024.10.1/bin/qiime)')
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,repeatmask,biopytools/repeatmask/config.py,28,env-path,RepeatModeler,,repeatmodeler_path: str = '~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler'
+repeat_identiy,repeat_identiy,,code,repeatmask,biopytools/repeatmask/config.py,29,env-path,RepeatMasker,,repeatmasker_path: str = '~/miniforge3/envs/repeat_identiy/bin/RepeatMasker'
+repeatmodeler_v.2.0.7,repeatmodeler_v.2.0.7,,code,repeatmask,biopytools/repeatmask/main.py,43,env-path,RepeatModeler,,"default='~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler',"
+repeat_identiy,repeat_identiy,,code,repeatmask,biopytools/repeatmask/main.py,47,env-path,RepeatMasker,,"default='~/miniforge3/envs/repeat_identiy/bin/RepeatMasker',"
+<var>,<var>,,code,repeatmask,biopytools/repeatmask/utils.py,128,conda-run-var,,conda_env,"full_command = f""conda run -n {conda_env} --no-capture-output {command}"""
+resistify_v.1.3.0,resistify_v.1.3.0,,code,resistify,biopytools/resistify/config.py,28,env-path,resistify,,"default_factory=lambda: get_tool_path('resistify', '~/miniforge3/envs/resistify_v.1.3.0/bin/resistify', 'RESISTIFY_PATH')"
+Population_genetics,Population_genetics,,code,rmvp,biopytools/rmvp/config.py,63,env-path,plink,,"'~/miniforge3/envs/Population_genetics/bin/plink',"
+<var>,<var>,,code,rmvp,biopytools/rmvp/utils.py,167,conda-run-var,,r_env_name_or_path,"cmd = f""conda run -n {r_env_name_or_path} --no-capture-output R --slave -e \""suppressPackageStartupMessages(library(rMVP))\"""""
+ENV,ENV,,code,rnaseq,biopytools/rnaseq/utils.py,132,conda-run-literal,,,把整条shell命令(支持管道)包进 conda run -n ENV bash -c '...'|Wrap a whole shell
+<var>,<var>,,code,rnaseq,biopytools/rnaseq/utils.py,147,conda-run-var,,env,"wrapped = f""conda run -n {env} --no-capture-output bash -c {shlex.quote(cmd)}"""
+RNA_Seq,RNA_Seq,,code,rnaseq2vcf,biopytools/rnaseq2vcf/config.py,31,env-path,hisat2,,"default_factory=lambda: get_tool_path('hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'))"
+RNA_Seq,RNA_Seq,,code,rnaseq2vcf,biopytools/rnaseq2vcf/config.py,33,env-path,fastp,,"default_factory=lambda: get_tool_path('fastp', '~/miniforge3/envs/RNA_Seq/bin/fastp', 'FASTP_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,rnaseq2vcf,biopytools/rnaseq2vcf/config.py,35,env-path,samtools,,"default_factory=lambda: get_tool_path('samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,rnaseq2vcf,biopytools/rnaseq2vcf/config.py,37,env-path,bcftools,,"default_factory=lambda: get_tool_path('bcftools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/bcftools', 'BCFTOOLS_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,rnaseq2vcf,biopytools/rnaseq2vcf/config.py,39,env-path,gatk,,"default_factory=lambda: get_tool_path('gatk', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk', 'GATK_PATH'))"
+<var>,<var>,,code,rnaseq2vcf,biopytools/rnaseq2vcf/data_processing.py,124,conda-run-var,,env,"return f""conda run -n {env} --no-capture-output bash -c {shlex.quote(pipeline)}"""
+rnaseq_val,rnaseq_val,,code,rnaseq_val,biopytools/rnaseq_val/config.py,53,env-field,,,"conda_env: str = ""rnaseq_val""              # conda 环境名称|Conda environment name"
+<var>,<var>,,code,rnaseq_val,biopytools/rnaseq_val/utils.py,401,conda-run-var,,env_name,"return f""conda run -n {env_name} --no-capture-output {cmd}"""
+samplot_v.1.3.0,samplot_v.1.3.0,,code,samplot,biopytools/samplot/config.py,35,env-path,samplot,,"samplot_path: str = ""~/miniforge3/envs/samplot_v.1.3.0/bin/samplot"","
+samplot_v.1.3.0,samplot_v.1.3.0,,code,samplot,biopytools/samplot/config.py,156,env-path,samplot,,"samplot_path: str = ""~/miniforge3/envs/samplot_v.1.3.0/bin/samplot"","
+samplot_v.1.3.0,samplot_v.1.3.0,,code,samplot,biopytools/samplot/main.py,201,env-path,samplot,,"default='~/miniforge3/envs/samplot_v.1.3.0/bin/samplot',"
+samplot_v.1.3.0,samplot_v.1.3.0,,code,samplot,biopytools/samplot/main.py,320,env-path,samplot,,"default='~/miniforge3/envs/samplot_v.1.3.0/bin/samplot',"
+selective_sweep,selective_sweep,,code,selective_sweep,biopytools/selective_sweep/config.py,56,env-path,bcftools,,bcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/bcftools'
+selective_sweep,selective_sweep,,code,selective_sweep,biopytools/selective_sweep/config.py,57,env-path,vcftools,,vcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/vcftools'
+selective_sweep,selective_sweep,,code,selective_sweep,biopytools/selective_sweep/config.py,58,env-path,RAiSD,,raisd_path: str = '~/miniforge3/envs/selective_sweep/bin/RAiSD'
+selective_sweep,selective_sweep,,code,selective_sweep,biopytools/selective_sweep/config.py,60,env-path,xpclr,,xpclr_path: str = '~/miniforge3/envs/selective_sweep/bin/xpclr'
+signalp6,signalp6,,code,signalp,biopytools/signalp/config.py,34,env-path,signalp6,,"'signalp6', '~/miniforge3/envs/signalp6/bin/signalp6', 'SIGNALP6_PATH'))"
+signalp6,signalp6,,code,signalp,biopytools/signalp/main.py,114,env-path,signalp6,,"default='~/miniforge3/envs/signalp6/bin/signalp6',"
+genomescope_v.2.0.1,genomescope_v.2.0.1,,code,smudgescope,biopytools/smudgescope/config.py,26,env-field,,,"genomescope_env: str = ""genomescope_v.2.0.1"""
+cphasing,cphasing,,code,subgenome_assign,biopytools/subgenome_assign/config.py,37,env-path,minimap2,,"'minimap2', '~/miniforge3/envs/cphasing/bin/minimap2', 'MINIMAP2_PATH'"
+cphasing,cphasing,,code,subgenome_assign,biopytools/subgenome_assign/main.py,313,env-path,minimap2,,"default='~/miniforge3/envs/cphasing/bin/minimap2',"
+SubPhaser,SubPhaser,,code,subphase,biopytools/subphase/config.py,74,env-field,,,"conda_env: str = ""SubPhaser"""
+telocomp,telocomp,,code,telocomp,biopytools/telocomp/config.py,40,env-path,,,"conda_env: str = ""~/miniforge3/envs/telocomp"""
+Population_genetics,Population_genetics,,code,tests,biopytools/tests/test_admixture/test_utils.py,18,env-path,plink,,"cmd = build_conda_command('/miniforge3/envs/Population_genetics/bin/plink', ['--version'])"
+Population_genetics,Population_genetics,,code,tests,biopytools/tests/test_admixture/test_utils.py,20,env-path,plink,,"'/miniforge3/envs/Population_genetics/bin/plink', '--version']"
+Population_genetics,Population_genetics,,code,tests,biopytools/tests/test_admixture/test_utils.py,30,env-path,plink,,"with patch('shutil.which', return_value='/miniforge3/envs/Population_genetics/bin/plink'):"
+telocomp,telocomp,,code,tests,biopytools/tests/test_aliner/test_utils.py,43,env-path,minimap2,,"cmd = build_conda_command('/miniforge3/envs/telocomp/bin/minimap2', ['-c', 'a.fa'])"
+telocomp,telocomp,,code,tests,biopytools/tests/test_aliner/test_utils.py,45,env-path,minimap2,,"'/miniforge3/envs/telocomp/bin/minimap2', '-c', 'a.fa'])"
+telocomp,telocomp,,code,tests,biopytools/tests/test_aliner/test_utils.py,55,env-path,minimap2,,env = get_conda_env('/miniforge3/envs/telocomp/bin/minimap2')
+telocomp,telocomp,,code,tests,biopytools/tests/test_aliner/test_utils.py,76,env-path,samtools,,samtools_path = '/miniforge3/envs/telocomp/bin/samtools'
+braker_v.3.0.8,braker_v.3.0.8,,code,tests,biopytools/tests/test_annorefine/test_evidence.py,58,env-path,miniprot,,config.miniprot_bin = '/home/u/miniforge3/envs/braker_v.3.0.8/bin/miniprot'
+braker_v.3.0.8,braker_v.3.0.8,,code,tests,biopytools/tests/test_annorefine/test_utils.py,30,env-path,miniprot,,env = get_conda_env('/home/u/miniforge3/envs/braker_v.3.0.8/bin/miniprot')
+EDTA_v.2.2.2,EDTA_v.2.2.2,,code,tests,biopytools/tests/test_assembly_qc/test_lai_seq_id_renaming.py,25,env-path,,,"conda_env_edta=""/fake/envs/EDTA_v.2.2.2"","
+ltr_harvest,ltr_harvest,,code,tests,biopytools/tests/test_assembly_qc/test_lai_seq_id_renaming.py,26,env-path,,,"conda_env_ltr_harvest=""/fake/envs/ltr_harvest"","
+ltr_retriever_v.3.0.1,ltr_retriever,yes,code,tests,biopytools/tests/test_assembly_qc/test_lai_seq_id_renaming.py,27,env-path,,,"conda_env_ltr_retriever=""/fake/envs/ltr_retriever"","
+Blast_v.2.16.0,Blast_v.2.16.0,,code,tests,biopytools/tests/test_blast/test_utils.py,14,env-path,blastn,,"cmd = build_conda_command('/miniforge3/envs/Blast_v.2.16.0/bin/blastn', ['-h'])"
+Blast_v.2.16.0,Blast_v.2.16.0,,code,tests,biopytools/tests/test_blast/test_utils.py,16,env-path,blastn,,"'/miniforge3/envs/Blast_v.2.16.0/bin/blastn', '-h'])"
+Blast_v.2.16.0,Blast_v.2.16.0,,code,tests,biopytools/tests/test_blast/test_utils.py,26,env-path,blastn,,"with patch('shutil.which', return_value='/miniforge3/envs/Blast_v.2.16.0/bin/blastn'):"
+singularity_v.3.8.7,singularity_v.3.8.7,,code,tests,biopytools/tests/test_deeploc/test_deeploc.py,87,env-path,singularity,,"full = expand_path(""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"")"
+deeptmhmm_v.1.0,deeptmhmm_v.1.0,,code,tests,biopytools/tests/test_deeptmhmm/test_deeptmhmm.py,56,env-path,python,,"full = expand_path(""~/miniforge3/envs/deeptmhmm_v.1.0/bin/python"")"
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,code,tests,biopytools/tests/test_eggnog_mapper/test_config.py,23,env-path,emapper.py,,"emapper_path=""~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py"","
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,code,tests,biopytools/tests/test_eggnog_mapper/test_utils.py,14,env-path,emapper.py,,"full = ""/x/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py"""
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,code,tests,biopytools/tests/test_eggnog_mapper/test_utils.py,28,env-path,emapper.py,,"full = ""/x/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py"""
+bcftools_v.1.22,bcftools_v.1.22,,code,tests,biopytools/tests/test_filter_snp_indel/test_utils.py,23,env-path,bcftools,,"'/miniforge3/envs/bcftools_v.1.22/bin/bcftools', ['view', '-H']"
+bcftools_v.1.22,bcftools_v.1.22,,code,tests,biopytools/tests/test_filter_snp_indel/test_utils.py,28,env-path,bcftools,,"'/miniforge3/envs/bcftools_v.1.22/bin/bcftools', 'view', '-H']"
+bcftools_v.1.22,bcftools_v.1.22,,code,tests,biopytools/tests/test_filter_snp_indel/test_utils.py,45,env-path,bcftools,,return_value='/miniforge3/envs/bcftools_v.1.22/bin/bcftools'):
+RNA_Seq,RNA_Seq,,code,tests,biopytools/tests/test_gene_table/test_utils.py,24,env-path,gffread,,"cmd = build_conda_command('/miniforge3/envs/RNA_Seq/bin/gffread', ['-y', 'p.fa'])"
+RNA_Seq,RNA_Seq,,code,tests,biopytools/tests/test_gene_table/test_utils.py,26,env-path,gffread,,"'/miniforge3/envs/RNA_Seq/bin/gffread', '-y', 'p.fa'])"
+sv_calling,sv_calling,,code,tests,biopytools/tests/test_genome2sv/test_utils.py,16,env-path,samtools,,"return_value=""/x/miniforge3/envs/sv_calling/bin/samtools""):"
+haphic,haphic,,code,tests,biopytools/tests/test_haphic/test_config.py,67,env-path,,,"self.assertIn('envs/haphic/', config.samblaster_bin)"
+Population_genetics,Population_genetics,,code,tests,biopytools/tests/test_haphic/test_config.py,141,env-path,bwa,,"'/home/u/miniforge3/envs/Population_genetics/bin/bwa',"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,tests,biopytools/tests/test_haphic/test_config.py,142,env-path,samtools,,"'/home/u/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools',"
+hifiasm_v.0.25.0,hifiasm_v.0.25.0,,code,tests,biopytools/tests/test_hifi_hic/test_hifi_hic.py,114,env-path,hifiasm,,"self.assertEqual(get_conda_env('/x/envs/hifiasm_v.0.25.0/bin/hifiasm'), 'hifiasm_v.0.25.0')"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,tests,biopytools/tests/test_hifi_hic/test_hifi_hic.py,119,env-path,samtools,,"cmd = build_conda_command('/path/envs/GATK_v.4.6.2.0/bin/samtools', ['index', 'x.bam'])"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,tests,biopytools/tests/test_hifi_hic/test_hifi_hic.py,127,env-path,samtools,,env = _conda_lib_env(['/home/u/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools'])
+BCFTOOLS_ENV,BCFTOOLS_ENV,,code,tests,biopytools/tests/test_indel_marker/test_utils.py,8,env-path,bcftools,,"cmd = build_conda_command('/miniforge3/envs/BCFTOOLS_ENV/bin/bcftools', ['--version'])"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,tests,biopytools/tests/test_insert2locus/test_utils.py,17,env-path,samtools,,"""/x/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools"") == ""GATK_v.4.6.2.0"""
+spades_v.4.3.0,spades_v.4.3.0,,code,tests,biopytools/tests/test_insert2locus/test_utils.py,21,env-path,spades.py,,"return_value=""/y/miniforge3/envs/spades_v.4.3.0/bin/spades.py""):"
+spades_v.4.3.0,spades_v.4.3.0,,code,tests,biopytools/tests/test_insert2locus/test_utils.py,31,env-path,spades.py,,"""/x/envs/spades_v.4.3.0/bin/spades.py"", [""-o"", ""out""])"
+spades_v.4.3.0,spades_v.4.3.0,,code,tests,biopytools/tests/test_insert2locus/test_utils.py,34,env-path,spades.py,,"assert cmd[5:] == [""/x/envs/spades_v.4.3.0/bin/spades.py"", ""-o"", ""out""]"
+WGCNA_v.1.73,WGCNA_v.1.73,,code,tests,biopytools/tests/test_mixrace/test_reporter.py,23,env-path,Rscript,,"script = generate_vaf_histogram_r(str(vaf_tsv), str(png), ""~/miniforge3/envs/WGCNA_v.1.73/bin/Rscript"")"
+sv_calling,sv_calling,,code,tests,biopytools/tests/test_mixrace/test_utils.py,15,env-path,bcftools,,"assert get_conda_env(""/home/u/miniforge3/envs/sv_calling/bin/bcftools"") == ""sv_calling"""
+cphasing,cphasing,,code,tests,biopytools/tests/test_mixrace/test_utils.py,16,env-path,bwa-mem2,,"assert get_conda_env(""/x/envs/cphasing/bin/bwa-mem2"") == ""cphasing"""
+sv_calling,sv_calling,,code,tests,biopytools/tests/test_mixrace/test_utils.py,26,env-path,bcftools,,"""/home/u/miniforge3/envs/sv_calling/bin/bcftools"", [""view"", ""in.vcf""])"
+sv_calling,sv_calling,,code,tests,biopytools/tests/test_mixrace/test_utils.py,30,env-path,bcftools,,"assert ""/home/u/miniforge3/envs/sv_calling/bin/bcftools"" in cmd"
+needle_v.1.0.3,needle_v.1.0.3,,code,tests,biopytools/tests/test_needle_identity/test_config.py,80,env-path,needle,,"return_value=""/envs/needle_v.1.0.3/bin/needle"","
+needle_v.1.0.3,needle_v.1.0.3,,code,tests,biopytools/tests/test_needle_identity/test_utils.py,16,env-path,needle,,"return_value='/miniforge3/envs/needle_v.1.0.3/bin/needle',"
+needle_v.1.0.3,needle_v.1.0.3,,code,tests,biopytools/tests/test_needle_identity/test_utils.py,18,env-path,needle,,env = get_conda_env('/miniforge3/envs/needle_v.1.0.3/bin/needle')
+needle_v.1.0.3,needle_v.1.0.3,,code,tests,biopytools/tests/test_needle_identity/test_utils.py,37,env-path,needle,,"'/miniforge3/envs/needle_v.1.0.3/bin/needle',"
+needle_v.1.0.3,needle_v.1.0.3,,code,tests,biopytools/tests/test_needle_identity/test_utils.py,43,env-path,needle,,"'/miniforge3/envs/needle_v.1.0.3/bin/needle', '-asequence', 'a.fa', '-auto'],"
+phobius_v.1.0.1,phobius_v.1.0.1,,code,tests,biopytools/tests/test_phobius/test_utils.py,14,env-path,phobius.pl,,"""/x/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"","
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,tests,biopytools/tests/test_psvcp/test_utils.py,18,env-path,nucmer,,env = get_conda_env('/x/miniforge3/envs/psvcp_v.1.0.1/bin/nucmer')
+ENV,env,yes,code,tests,biopytools/tests/test_psvcp/test_utils.py,22,conda-run-literal,,,"""""""conda 工具 → conda run -n env --no-capture-output(§13.2.0)|wraps with --no-capture-output"""""""
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,tests,biopytools/tests/test_psvcp/test_utils.py,23,env-path,assemblytics,,full = '/x/miniforge3/envs/psvcp_v.1.0.1/bin/assemblytics'
+psvcp_v.1.0.1,psvcp_v.1.0.1,,code,tests,biopytools/tests/test_psvcp/test_utils.py,30,env-path,nucmer,,full = '/x/miniforge3/envs/psvcp_v.1.0.1/bin/nucmer'
+e,e,,code,tests,biopytools/tests/test_psvcp/test_utils.py,48,conda-run-literal,,,"logger.info.assert_any_call(""命令|Command: conda run -n e --no-capture-output /p/nucmer --version"")"
+raxml-ng_v.2.0.1,raxml-ng_v.2.0.1,,code,tests,biopytools/tests/test_raxml_ng/test_utils.py,21,env-path,raxml-ng,,conda_path = '/miniforge3/envs/raxml-ng_v.2.0.1/bin/raxml-ng'
+RNA_Seq,RNA_Seq,,code,tests,biopytools/tests/test_rnaseq2vcf/test_config.py,28,env-path,hisat2,,"hisat2_path=""~/miniforge3/envs/RNA_Seq/bin/hisat2"")"
+None,None,,code,tests,biopytools/tests/test_rnaseq2vcf/test_data_processing.py,58,conda-run-literal,,,"""""""hisat2 不在 conda env(env=None)时回退直调 bash -c,不生成非法的 'conda run -n None'|"
+None,None,,code,tests,biopytools/tests/test_rnaseq2vcf/test_data_processing.py,59,conda-run-literal,,,"hisat2 not in a conda env → fall back to direct bash -c (no invalid 'conda run -n None')"""""""
+RNA_Seq,RNA_Seq,,code,tests,biopytools/tests/test_rnaseq2vcf/test_utils.py,17,env-path,hisat2,,env = get_conda_env('/home/u/miniforge3/envs/RNA_Seq/bin/hisat2')
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,tests,biopytools/tests/test_rnaseq2vcf/test_utils.py,21,env-path,gatk,,env = get_conda_env('/home/u/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk')
+RNA_Seq,RNA_Seq,,code,tests,biopytools/tests/test_rnaseq2vcf/test_utils.py,27,env-path,hisat2,,"cmd = build_conda_command('/home/u/miniforge3/envs/RNA_Seq/bin/hisat2', ['-x', 'idx'])"
+selective_sweep,selective_sweep,,code,tests,biopytools/tests/test_selective_sweep/test_utils.py,21,env-path,bcftools,,return_value='/home/u/miniforge3/envs/selective_sweep/bin/bcftools'):
+selective_sweep,selective_sweep,,code,tests,biopytools/tests/test_selective_sweep/test_utils.py,22,env-path,bcftools,,"self.assertEqual(get_conda_env('/home/u/miniforge3/envs/selective_sweep/bin/bcftools'),"
+selective_sweep,selective_sweep,,code,tests,biopytools/tests/test_selective_sweep/test_utils.py,52,env-path,vcftools,,"cmd = build_conda_command('/x/envs/selective_sweep/bin/vcftools', ['--version'])"
+selective_sweep,selective_sweep,,code,tests,biopytools/tests/test_selective_sweep/test_utils.py,55,env-path,vcftools,,"'/x/envs/selective_sweep/bin/vcftools', '--version'])"
+signalp6,signalp6,,code,tests,biopytools/tests/test_signalp/test_signalp.py,80,env-path,signalp6,,"full = expand_path(""~/miniforge3/envs/signalp6/bin/signalp6"")"
+K-mer,K-mer,,code,tests,biopytools/tests/test_smudgescope/test_utils.py,18,env-path,jellyfish,,return_value='/miniforge3/envs/K-mer/bin/jellyfish'):
+ENV,ENV,,code,tests,biopytools/tests/test_tgsgapcloser/test_utils.py,15,env-path,minimap2,,"self.assertEqual(get_conda_env('/home/u/miniforge3/envs/ENV/bin/minimap2'), 'ENV')"
+ENV,ENV,,code,tests,biopytools/tests/test_tgsgapcloser/test_utils.py,20,env-path,minimap2,,"cmd = build_conda_command('/home/u/miniforge3/envs/ENV/bin/minimap2', ['-x', 'asm5'])"
+iqtree_v.3.0.1,iqtree_v.3.0.1,,code,tests,biopytools/tests/test_vcf2tree/test_utils.py,16,env-path,iqtree,,return_value='/miniforge3/envs/iqtree_v.3.0.1/bin/iqtree'):
+tmmhmm_v.2.0c,tmmhmm_v.2.0c,,code,tmhmm,biopytools/tmhmm/config.py,66,env-path,tmhmm,,"'~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm',"
+RNA_Seq,RNA_Seq,,code,transcript_assembly,biopytools/transcript_assembly/config.py,51,env-path,stringtie,,"'stringtie', '~/miniforge3/envs/RNA_Seq/bin/stringtie', 'STRINGTIE_PATH'))"
+RNA_Seq,RNA_Seq,,code,transcript_assembly,biopytools/transcript_assembly/config.py,53,env-path,gffread,,"'gffread', '~/miniforge3/envs/RNA_Seq/bin/gffread', 'GFFREAD_PATH'))"
+RNA_Seq,RNA_Seq,,code,transcript_assembly,biopytools/transcript_assembly/config.py,55,env-path,hisat2,,"'hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'))"
+RNA_Seq,RNA_Seq,,code,transcript_assembly,biopytools/transcript_assembly/config.py,57,env-path,hisat2-build,,"'hisat2-build', '~/miniforge3/envs/RNA_Seq/bin/hisat2-build', 'HISAT2_BUILD_PATH'))"
+transdecoder_v.5.5.0,transdecoder_v.5.5.0,,code,transcript_assembly,biopytools/transcript_assembly/config.py,60,env-path,TransDecoder.LongOrfs,,"'transdecoder_longorfs', '~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.LongOrfs', 'TRANSDECODER_LONGORFS_PATH'))"
+transdecoder_v.5.5.0,transdecoder_v.5.5.0,,code,transcript_assembly,biopytools/transcript_assembly/config.py,62,env-path,TransDecoder.Predict,,"'transdecoder_predict', '~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.Predict', 'TRANSDECODER_PREDICT_PATH'))"
+transdecoder_v.5.5.0,transdecoder_v.5.5.0,,code,transcript_assembly,biopytools/transcript_assembly/config.py,64,env-path,,,"'transdecoder_gtf2gff', '~/miniforge3/envs/transdecoder_v.5.5.0/opt/transdecoder/util/gtf_to_alignment_gff3.pl', 'TRANSDECODER_GTF2GFF_PATH'))"
+transdecoder_v.5.5.0,transdecoder_v.5.5.0,,code,transcript_assembly,biopytools/transcript_assembly/config.py,66,env-path,,,"'transdecoder_orf2genome', '~/miniforge3/envs/transdecoder_v.5.5.0/opt/transdecoder/util/cdna_alignment_orf_to_genome_orf.pl', 'TRANSDECODER_ORF2GENOME_PATH'))"
+treemix_v.1.13,treemix_v.1.13,,code,treemix,biopytools/treemix/config.py,28,env-path,treemix,,"'~/miniforge3/envs/treemix_v.1.13/bin/treemix',"
+Population_genetics,Population_genetics,,code,treemix,biopytools/treemix/config.py,35,env-path,plink,,"'~/miniforge3/envs/Population_genetics/bin/plink',"
+treemix_v.1.13,treemix_v.1.13,,code,treemix,biopytools/treemix/config.py,42,env-path,R,,"'~/miniforge3/envs/treemix_v.1.13/bin/R',"
+bcftools_v.1.22,bcftools_v.1.22,,code,treemix,biopytools/treemix/config.py,49,env-path,bcftools,,"'~/miniforge3/envs/bcftools_v.1.22/bin/bcftools',"
+trimal_v.1.5.0,trimal_v.1.5.0,,code,trimal,biopytools/trimal/config.py,43,env-path,trimal,,"'~/miniforge3/envs/trimal_v.1.5.0/bin/trimal',"
+newick_utils_v.1.6,newick_utils_v.1.6,,code,vcf2nj,biopytools/vcf2nj/config.py,26,env-path,nw_reroot,,"nw_reroot_path: str = ""~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot"""
+newick_utils_v.1.6,newick_utils_v.1.6,,code,vcf2nj,biopytools/vcf2nj/main.py,144,env-path,nw_reroot,,"default=""~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot"","
+<var>,<var>,,code,vcf2nj,biopytools/vcf2nj/utils.py,120,conda-run-var,,conda_env,"full_cmd = f""conda run -n {conda_env} --no-capture-output {cmd}"""
+iqtree_v.3.0.1,iqtree_v.3.0.1,,code,vcf2tree,biopytools/vcf2tree/config.py,44,env-path,iqtree,,iqtree_path: str = '~/miniforge3/envs/iqtree_v.3.0.1/bin/iqtree'
+vg_v.1.7.0,vg_v.1.7.0,,code,vg,biopytools/vg/config.py,28,env-field,,,"vg_env: str = ""vg_v.1.7.0""  # conda环境名称或路径|conda env name or path"
+<var>,<var>,,code,vg,biopytools/vg/utils.py,85,conda-run-var,,vg_env,"cmd = f""conda run -n {vg_env} --no-capture-output vg --version"""
+<var>,<var>,,code,vg,biopytools/vg/utils.py,134,conda-run-var,,vg_env,"full_command = f""conda run -n {vg_env} --no-capture-output {command}"""
+wgdi_v.0.75,wgdi_v.0.75,,code,wgdi,biopytools/wgdi/config.py,20,env-path,wgdi,,"'~/miniforge3/envs/wgdi_v.0.75/bin/wgdi',"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,wgsim,biopytools/wgsim/config.py,71,env-path,wgsim,,"'~/miniforge3/envs/GATK_v.4.6.2.0/bin/wgsim',"
+yahs_v.1.2.2,yahs_v.1.2.2,,code,yahs,biopytools/yahs/config.py,51,env-path,yahs,,yahs_bin: str = field(default_factory=lambda: '~/miniforge3/envs/yahs_v.1.2.2/bin/yahs')
+yahs_v.1.2.2,yahs_v.1.2.2,,code,yahs,biopytools/yahs/config.py,52,env-path,juicer,,juicer_bin: str = field(default_factory=lambda: '~/miniforge3/envs/yahs_v.1.2.2/bin/juicer')
+Population_genetics,Population_genetics,,code,yahs,biopytools/yahs/config.py,54,env-path,bwa,,bwa_bin: str = field(default_factory=lambda: '~/miniforge3/envs/Population_genetics/bin/bwa')
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,yahs,biopytools/yahs/config.py,55,env-path,samtools,,samtools_bin: str = field(default_factory=lambda: '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools')
+yahs_v.1.2.2,yahs_v.1.2.2,,code,yahs,biopytools/yahs/main.py,141,env-path,yahs,,"default='~/miniforge3/envs/yahs_v.1.2.2/bin/yahs',"
+yahs_v.1.2.2,yahs_v.1.2.2,,code,yahs,biopytools/yahs/main.py,142,env-path,yahs,,help='YaHS可执行文件路径|YaHS executable path (default: ~/miniforge3/envs/yahs_v.1.2.2/bin/yahs)'
+yahs_v.1.2.2,yahs_v.1.2.2,,code,yahs,biopytools/yahs/main.py,146,env-path,juicer,,"default='~/miniforge3/envs/yahs_v.1.2.2/bin/juicer',"
+yahs_v.1.2.2,yahs_v.1.2.2,,code,yahs,biopytools/yahs/main.py,147,env-path,juicer,,help='juicer可执行文件路径|juicer executable path (default: ~/miniforge3/envs/yahs_v.1.2.2/bin/juicer)'
+Population_genetics,Population_genetics,,code,yahs,biopytools/yahs/main.py,156,env-path,bwa,,"default='~/miniforge3/envs/Population_genetics/bin/bwa',"
+Population_genetics,Population_genetics,,code,yahs,biopytools/yahs/main.py,157,env-path,bwa,,help='BWA可执行文件路径|BWA executable path (default: ~/miniforge3/envs/Population_genetics/bin/bwa)'
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,yahs,biopytools/yahs/main.py,161,env-path,samtools,,"default='~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools',"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,code,yahs,biopytools/yahs/main.py,162,env-path,samtools,,help='samtools可执行文件路径|samtools executable path (default: ~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools)'
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,yahs,biopytools/yahs/utils.py,261,env-path,busco,,# 例如: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,yahs,biopytools/yahs/utils.py,302,env-path,busco,,">>> build_conda_command('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', ['--version'])"
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,code,yahs,biopytools/yahs/utils.py,303,env-path,busco,,"['/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', '--version']"
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,AGENTS,AGENTS.md,401,env-path,fanc,,"tool_path = get_tool_path('fanc', '~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc', 'FANC_PATH')"
+meme_v.5.5.9,meme_v.5.5.9,,docs,AGENTS,AGENTS.md,409,env-path,meme,,meme_path: str = '~/miniforge3/envs/meme_v.5.5.9/bin/meme'
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,AGENTS,AGENTS.md,423,env-path,fanc,,fanc: ~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+ENV,env,yes,docs,CHANGELOG,CHANGELOG.md,59,conda-run-literal,,,- `mixrace`（新模块，CLI `mixrace`）：WGS 混合小种检测——fastq → bwa-mem2 比对（含正确 name-sort→fixmate -m→coord-sort→markdup 链，修复仓库既有 `bwa/alignment.py` 缺 fixmate 的 landmine）→ bc
+centier,centier,,docs,CHANGELOG,CHANGELOG.md,88,env-path,,,- `centier`：依赖检查增强——CentIER 自带二进制补可执行权限检查、`gt`/`LTR_retriever` 改 PATH 搜索（原硬编码 `~/miniforge3/envs/centier/bin/`）+ conda env 兜底安装建议、Hi-C 自动模式额外校验 HiC-Pro/bowtie2-
+ENV,ENV,,docs,CHANGELOG,CHANGELOG.md,369,conda-run-literal,,,- **新模块 `rnaseq2vcf`**：RNA-seq 变异检测（到 VCF）。HISAT2 比对（支持已知剪接位点或 de novo 发现 junction）→ GATK 变异检测 → VCF 过滤（FS/QD/聚类过滤）。HISAT2+samtools 管道用单个 `conda run -n ENV --no
+ENV,ENV,,docs,CHANGELOG,CHANGELOG.md,448,conda-run-literal,,,- `rnaseq`/`dual_rnaseq`：CommandRunner 用 `conda run -n ENV bash -c` 包装整条含管道的命令（§13.2.1，避免 conda run|conda run 双重包装）；`fastp` 单工具自动 conda 包装
+juicer_v.1.6,juicer_v.1.6,,docs,CHANGELOG,CHANGELOG.md,506,env-path,matlock,,- `haphic`（CLI）：samblaster 默认 env 改 `haphic`、matlock 默认改完整路径 `~/miniforge3/envs/juicer_v.1.6/bin/matlock`
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,CLAUDE,CLAUDE.md,401,env-path,fanc,,"tool_path = get_tool_path('fanc', '~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc', 'FANC_PATH')"
+meme_v.5.5.9,meme_v.5.5.9,,docs,CLAUDE,CLAUDE.md,409,env-path,meme,,meme_path: str = '~/miniforge3/envs/meme_v.5.5.9/bin/meme'
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,CLAUDE,CLAUDE.md,423,env-path,fanc,,fanc: ~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+bwa_v0.7.17,bwa_v0.7.17,,docs,CLAUDE,biopytools/CLAUDE.md,319,conda-run-literal,bwa,,2026-03-17 20:11:31.312 - INFO - 命令|Command: conda run -n bwa_v0.7.17 bwa index /path/to/genome.fa -p bwt
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,CLAUDE,biopytools/CLAUDE.md,956,env-path,busco,,"with patch('shutil.which', return_value='/miniforge3/envs/BUSCO_v.6.0.0/bin/busco'):"
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,CLAUDE,biopytools/CLAUDE.md,1012,env-path,fanc,,"tool_path: str = ""/share/org/YZWL/yzwl_lixg/miniforge3/envs/fanc_v.0.9.23b/bin/fanc"""
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,CLAUDE,biopytools/CLAUDE.md,1022,env-path,fanc,,"'~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc',  # 默认值|Default (支持~|supports ~)"
+meme_v.5.5.9,meme_v.5.5.9,,docs,CLAUDE,biopytools/CLAUDE.md,1148,env-path,meme,,"meme_path: str = ""~/miniforge3/envs/meme_v.5.5.9/bin/meme"""
+meme_v.5.5.9,meme_v.5.5.9,,docs,CLAUDE,biopytools/CLAUDE.md,1165,env-path,meme,,meme_path: str = '~/miniforge3/envs/meme_v.5.5.9/bin/meme'
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,CLAUDE,biopytools/CLAUDE.md,1212,env-path,fanc,,fanc: ~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+tool_env,tool_env,,docs,CLAUDE,biopytools/CLAUDE.md,1471,env-path,tool,,"path: ""~/miniforge3/envs/tool_env/bin/tool""  # 使用~展开|Use ~ expansion"
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,CLAUDE,biopytools/CLAUDE.md,1620,env-path,busco,,$ /miniforge3/envs/BUSCO_v.6.0.0/bin/busco --version
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,CLAUDE,biopytools/CLAUDE.md,1624,conda-run-literal,busco,,$ conda run -n BUSCO_v.6.0.0 busco --version
+your_env,your_env,,docs,CLAUDE,biopytools/CLAUDE.md,1688,env-path,,,"conda_env_lib = expand_path(""~/miniforge3/envs/your_env/lib"")"
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,CLAUDE,biopytools/CLAUDE.md,1767,env-path,busco,,# 例如: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,CLAUDE,biopytools/CLAUDE.md,1951,env-path,samtools,,"# 1. cmd[0] = ""/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools"""
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,CLAUDE,biopytools/CLAUDE.md,1963,env-path,samtools,,"# 1. cmd[0] = ""/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools"""
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,CLAUDE,biopytools/CLAUDE.md,1965,conda-run-literal,samtools,,"# 3. 生成正确命令: ""conda run -n GATK_v.4.6.2.0 samtools ..."""
+haphic,haphic,,docs,CLAUDE,biopytools/CLAUDE.md,1983,env-path,haphic,,"# get_conda_env(""/miniforge3/envs/haphic/bin/haphic"") → ""haphic"""
+haphic,haphic,,docs,CLAUDE,biopytools/CLAUDE.md,1984,conda-run-literal,haphic,,# 生成正确命令: conda run -n haphic haphic --help
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,CLAUDE,biopytools/CLAUDE.md,2015,env-path,busco,,env = get_conda_env('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco')
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,CLAUDE,biopytools/CLAUDE.md,2019,env-path,busco,,"cmd = build_conda_command('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', ['--version'])"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,CLAUDE,biopytools/CLAUDE.md,2040,conda-run-literal,samtools,,conda run -n GATK_v.4.6.2.0 samtools view -b -@ 64 -o output.bam -
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,19,env-path,fanc,,export FANC_PATH=~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,31,env-path,fanc,,export FANC_PATH=~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+Augustus_v.3.5.0,Augustus_v.3.5.0,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,34,env-path,,,export AUGUSTUS_PATH=~/miniforge3/envs/Augustus_v.3.5.0/bin
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,65,env-path,fanc,,fanc: ~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+Augustus_v.3.5.0,Augustus_v.3.5.0,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,68,env-path,,,augustus: ~/miniforge3/envs/Augustus_v.3.5.0/bin
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,90,env-path,fanc,,"fanc_path: str = ""~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc""  # ✅ 正确|Correct"
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,105,env-path,fanc,,fanc: ~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,111,env-path,fanc,,echo 'export FANC_PATH=~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc' >> ~/.bashrc
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,123,env-path,fanc,,"fanc_path = get_tool_path('fanc', '~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc', 'FANC_PATH')"
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,134,env-path,fanc,,"validate_tool_path('~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc', 'FAN-C')"
+fanc_v.0.9.23b,fanc_v.0.9.23b,,docs,PATH_GUIDE,biopytools/common/PATH_GUIDE.md,181,env-path,fanc,,"'~/miniforge3/envs/fanc_v.0.9.23b/bin/fanc',  # 默认值|Default"
+signalp6,signalp6,,docs,README,biopytools/signalp/README.md,15,env-path,,,`/share/org/YZWL/yzwl_lixg/miniforge3/envs/signalp6/`
+telocomp,telocomp,,docs,aliner,docs/aliner.md,55,env-path,,,- minimap2 / samtools 路径按以下优先级查找：环境变量（`MINIMAP2_PATH`/`SAMTOOLS_PATH`）→ `~/.config/biopytools/config.yml` → 默认 `~/miniforge3/envs/telocomp/bin/`
+telocomp,telocomp,,docs,aliner,docs/aliner.md,78,env-path,minimap2,,- **minimap2**（默认 `~/miniforge3/envs/telocomp/bin/minimap2`）
+merqury_v.1.3,merqury_v.1.3,,docs,assembly_qv,docs/assembly_qv.md,40,env-path,,,| `--conda-env` | `~/miniforge3/envs/merqury_v.1.3/bin/` | Merqury conda 环境路径 |
+pbbam_v.2.4.0,pbbam_v.2.4.0,,docs,bam2fastq,docs/bam2fastq.md,104,env-path,bam2fastq,,--bam2fastq-path /share/org/YZWL/yzwl_lixg/miniforge3/envs/pbbam_v.2.4.0/bin/bam2fastq
+alignoth,alignoth,,docs,bam_view,docs/bam_view.md,85,env-path,alignoth,,| `--alignoth-path` | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/alignoth/bin/alignoth` | alignoth软件路径 |
+busco_env,busco_env,,docs,busco,docs/busco.md,299,conda-activate,,,conda activate busco_env
+bwa_env,bwa_env,,docs,bwa,docs/bwa.md,340,conda-activate,,,conda activate bwa_env
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,cactus,docs/cactus.md,68,conda-activate,,,conda activate singularity_v.3.8.7
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,cactus,docs/cactus.md,128,env-path,singularity,,--singularity ~/miniforge3/envs/singularity_v.3.8.7/bin/singularity \
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,cactus,docs/cactus.md,153,env-path,singularity,,| `--singularity` | `~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` | Singularity可执行文件路径|Singularity executable path | `--singularity /usr/bin/singulari
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,cactus,docs/cactus.md,225,conda-run-literal,,,conda run -n singularity_v.3.8.7 which singularity
+Rqtl,Rqtl,,docs,cim,docs/cim.md,103,env-path,mstmap,,| `--mstmap-path` | ~/miniforge3/envs/Rqtl/bin/mstmap | MSTmap二进制路径 |
+Rqtl,Rqtl,,docs,cim,docs/cim.md,284,env-path,mstmap,,- MSTmap（仅 mstmap 模式，默认路径 `~/miniforge3/envs/Rqtl/bin/mstmap`）
+cphasing,cphasing_v.0.2.10,yes,docs,cphasing,docs/cphasing.md,250,conda-activate,,,conda activate cphasing_v.0.2.10
+cphasing,cphasing_v.0.2.10,yes,docs,cphasing,docs/cphasing.md,280,conda-activate,,,conda activate cphasing_v.0.2.10
+DeepBSA,DeepBSA,,docs,deepbsa,docs/deepbsa.md,92,env-path,,,| `--conda-env` | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/DeepBSA` | Conda环境路径 |
+DeepBSA,deepbsa,yes,docs,deepbsa,docs/deepbsa.md,334,env-path,,,--conda-env /custom/path/conda/envs/deepbsa \
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,deeploc,docs/deeploc.md,67,env-path,singularity,,| `--singularity-exec` | `~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` | Singularity可执行文件路径 |
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,01_module_template,docs/dev-standards/01_module_template.md,327,env-path,busco,,"with patch('shutil.which', return_value='/miniforge3/envs/BUSCO_v.6.0.0/bin/busco'):"
+meme_v.5.5.9,meme_v.5.5.9,,docs,11_path_management,docs/dev-standards/11_path_management.md,125,env-path,meme,,"meme_path: str = ""~/miniforge3/envs/meme_v.5.5.9/bin/meme"""
+meme_v.5.5.9,meme_v.5.5.9,,docs,11_path_management,docs/dev-standards/11_path_management.md,141,env-path,meme,,meme_path: str = '~/miniforge3/envs/meme_v.5.5.9/bin/meme'
+tool_env,tool_env,,docs,12_output_naming,docs/dev-standards/12_output_naming.md,79,env-path,tool,,"path: ""~/miniforge3/envs/tool_env/bin/tool""  # 使用~展开|Use ~ expansion"
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,17,env-path,busco,,$ /miniforge3/envs/BUSCO_v.6.0.0/bin/busco --version
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,21,conda-run-literal,busco,,$ conda run -n BUSCO_v.6.0.0 busco --version
+your_env,your_env,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,39,env-path,,,"conda_env_lib = expand_path(""~/miniforge3/envs/your_env/lib"")"
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,116,env-path,busco,,# 例如: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,294,env-path,samtools,,"# 1. cmd[0] = ""/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools"""
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,306,env-path,samtools,,"# 1. cmd[0] = ""/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools"""
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,308,conda-run-literal,samtools,,"# 3. 生成正确命令: ""conda run -n GATK_v.4.6.2.0 samtools ..."""
+haphic,haphic,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,326,env-path,haphic,,"# get_conda_env(""/miniforge3/envs/haphic/bin/haphic"") → ""haphic"""
+haphic,haphic,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,327,conda-run-literal,haphic,,# 生成正确命令: conda run -n haphic haphic --help
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,341,env-path,busco,,env = get_conda_env('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco')
+BUSCO_v.6.0.0,BUSCO_v.6.0.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,345,env-path,busco,,"cmd = build_conda_command('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', ['--version'])"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,13_conda_invocation,docs/dev-standards/13_conda_invocation.md,368,conda-run-literal,samtools,,conda run -n GATK_v.4.6.2.0 samtools view -b -@ 64 -o output.bam -
+EDTA_v.2.2.2,EDTA_v.2.2.2,,docs,edta,docs/edta.md,259,conda-activate,,,conda activate EDTA_v.2.2.2
+EDTA_v.2.2.2,EDTA_v.2.2.2,,docs,edta,docs/edta.md,286,conda-activate,,,conda activate EDTA_v.2.2.2
+base,base,,docs,egapx-batch,docs/egapx-batch.md,128,conda-activate,,,conda activate base
+base,base,,docs,egapx_batch,docs/egapx_batch.md,40,conda-activate,,,conda activate base
+EGAPx_v.0.4.0-alpha,EGAPx_v.0.4.0-alpha,,docs,egapx_batch,docs/egapx_batch.md,42,env-path,,,export JAVA_HOME=/share/org/YZWL/yzwl_lixg/miniforge3/envs/EGAPx_v.0.4.0-alpha
+base,base,,docs,egapx_batch,docs/egapx_batch.md,167,conda-activate,,,conda activate base
+eviann_v.2.0.5,eviann_v.2.0.5,,docs,eviann,docs/eviann.md,274,conda-activate,,,conda activate eviann_v.2.0.5
+tidk_v.0.2.65,tidk_v.0.2.65,,docs,find_telomere,docs/find_telomere.md,149,env-path,tidk,,| `--tidk-path` | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/tidk_v.0.2.65/bin/tidk` | 🛠️ tidk 软件安装路径 |
+gctb,gctb,,docs,gctb,docs/gctb.md,72,env-path,gctb,,| `--gctb-path` | `~/miniforge3/envs/gctb/bin/gctb` | 🛠️ GCTB 软件路径 |
+Population_genetics,Population_genetics,,docs,gctb,docs/gctb.md,73,env-path,plink,,| `--plink-path` | `~/miniforge3/envs/Population_genetics/bin/plink` | 🛠️ PLINK 软件路径 |
+gctb,gctb,,docs,gctb,docs/gctb.md,313,conda-activate,,,conda activate gctb
+getorganelle_v.1.7.71,getorganelle_v.1.7.71,,docs,get_plastome,docs/get_plastome.md,42,env-path,get_organelle_from_reads.py,,| `--getorganelle-path` | `~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py` | GetOrganelle 脚本路径 |
+plothic_v.1.0.0,plothic_v.1.0.0,,docs,hic_heatmap,docs/hic_heatmap.md,56,env-path,plothic,,| `--plothic-path` | `~/miniforge3/envs/plothic_v.1.0.0/bin/plothic` | PlotHiC 可执行文件路径 |
+pairtools_v.1.1.3,pairtools_v.1.1.3,,docs,hic_qc,docs/hic_qc.md,60,env-path,pairtools,,"| `-p, --pairtools-path` | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools` | Pairtools可执行文件路径 |"
+canu_v.2.3,canu_v.2.3,,docs,hicanu,docs/hicanu.md,86,env-path,canu,,| `--canu-path` | HiCanu 可执行文件路径 | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/canu_v.2.3/bin/canu` | `--canu-path /path/to/canu` |
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,docs,hifi_hic,docs/hifi_hic.md,56,env-path,,,--purge-dups-path ~/miniforge3/envs/purge_dups_v.1.2.6 \
+purge_dups_v.1.2.6,purge_dups_v.1.2.6,,docs,hifi_hic,docs/hifi_hic.md,83,env-path,,,| `--purge-dups-path` | `~/miniforge3/envs/purge_dups_v.1.2.6` | Purge_Dups软件路径 |
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,hite,docs/hite.md,226,env-path,singularity,,| `--singularity-path` | `~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` | Singularity 可执行文件路径 |
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,hite,docs/hite.md,348,conda-activate,,,conda activate singularity_v.3.8.7
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,hite,docs/hite.md,405,env-path,singularity,,~/miniforge3/envs/singularity_v.3.8.7/bin/singularity --version
+resistify_v.1.3.0,resistify_v.1.3.0,,docs,hmmsearch,docs/hmmsearch.md,69,env-path,hmmsearch,,| `--hmmsearch-path` | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch` | hmmsearch程序路径 |
+primer3_v.2.6.1,primer3_v.2.6.1,,docs,indel_marker_integration_test,docs/indel_marker_integration_test.md,31,conda-activate,,,conda activate primer3_v.2.6.1
+primer3_v.2.6.1,primer3_v.2.6.1,,docs,indel_marker_integration_test,docs/indel_marker_integration_test.md,202,conda-run-literal,biopytools,,conda run -n primer3_v.2.6.1 --no-capture-output biopytools indel-marker \
+primer3_v.2.6.1,primer3_v.2.6.1,,docs,indel_marker_integration_test,docs/indel_marker_integration_test.md,322,conda-run-literal,pip,,| `ModuleNotFoundError: No module named 'yaml'` | primer3_v.2.6.1 缺 pyyaml | `conda run -n primer3_v.2.6.1 pip install pyyaml` |
+iseq_v.1.9.8,iseq_v.1.9.8,,docs,iseq,docs/iseq.md,60,env-path,iseq,,| `--iseq-path` | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/iseq_v.1.9.8/bin/iseq` | 🛠️ iSeq软件路径 |
+iseq_v.1.9.8,iseq_v.1.9.8,,docs,iseq,docs/iseq.md,190,env-path,iseq,,- 软件路径: `/share/org/YZWL/yzwl_lixg/miniforge3/envs/iseq_v.1.9.8/bin/iseq`
+iseq_v.1.9.8,iseq_v.1.9.8,,docs,iseq,docs/iseq.md,205,conda-activate,,,conda activate iseq_v.1.9.8
+iseq_v.1.9.8,iseq_v.1.9.8,,docs,iseq,docs/iseq.md,234,conda-activate,,,conda activate iseq_v.1.9.8
+kmc_v.3.2.4,kmc_v.3.2.4,,docs,kmc,docs/kmc.md,25,env-path,,,/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin
+kmc_v.3.2.4,kmc_v.3.2.4,,docs,kmc,docs/kmc.md,32,env-path,,,/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmc_v.3.2.4/bin
+kmeriaenv,kmeriaenv,,docs,kmeria,docs/kmeria.md,29,env-path,,,/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmeriaenv
+kmeriaenv,kmeriaenv,,docs,kmeria,docs/kmeria.md,37,env-path,,,export KMERIA_CONDA=/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmeriaenv
+kmeriaenv,kmeriaenv,,docs,kmeria_bin_viewer,docs/kmeria_bin_viewer.md,18,env-path,,,export LD_LIBRARY_PATH=/share/org/YZWL/yzwl_lixg/software/kmeria/lib:/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmeriaenv/lib:$LD_LIBRARY_PATH
+kmeriaenv,kmeriaenv,,docs,kmeria_bin_viewer,docs/kmeria_bin_viewer.md,27,env-path,,,export LD_LIBRARY_PATH=/share/org/YZWL/yzwl_lixg/software/kmeria/lib:/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmeriaenv/lib:$LD_LIBRARY_PATH
+kmeriaenv,kmeriaenv,,docs,kmeria_bin_viewer,docs/kmeria_bin_viewer.md,141,env-path,,,export LD_LIBRARY_PATH=/share/org/YZWL/yzwl_lixg/software/kmeria/lib:/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmeriaenv/lib:$LD_LIBRARY_PATH
+my_ltr_harvest,my_ltr_harvest,,docs,lai,docs/lai.md,22,env-path,,,--conda-harvest ~/miniforge3/envs/my_ltr_harvest
+ltr_harvest_parallel_v.1.2,ltr_harvest_parallel_v.1.2,,docs,lai,docs/lai.md,41,env-path,,,| `--conda-harvest` | `~/miniforge3/envs/ltr_harvest_parallel_v.1.2` | LTR_harvest 并行版 conda 环境 |
+ltr_finder_parallel_v.1.3,ltr_finder_parallel_v.1.3,,docs,lai,docs/lai.md,42,env-path,,,| `--conda-finder` | `~/miniforge3/envs/ltr_finder_parallel_v.1.3` | LTR_finder 并行版 conda 环境 |
+ltr_retriever_v.3.0.1,ltr_retriever_v.3.0.1,,docs,lai,docs/lai.md,43,env-path,,,| `--conda-retriever` | `~/miniforge3/envs/ltr_retriever_v.3.0.1` | LTR_retriever conda 环境 |
+meme_v.5.5.9,meme_v.5.5.9,,docs,meme_parser,docs/meme_parser.md,202,env-path,meme,,--meme-path /share/org/YZWL/yzwl_lixg/miniforge3/envs/meme_v.5.5.9/bin/meme
+jcvi_v.1.5.7,jcvi_v.1.5.7,,docs,microsynteny,docs/microsynteny.md,53,env-path,,,-j ~/miniforge3/envs/jcvi_v.1.5.7 \
+jcvi_v.1.5.7,jcvi_v.1.5.7,,docs,microsynteny,docs/microsynteny.md,80,env-path,,,"| `-j, --jcvi-path` | `~/miniforge3/envs/jcvi_v.1.5.7` | 🛠️ JCVI环境路径 |"
+jcvi_custom,jcvi_custom,,docs,microsynteny,docs/microsynteny.md,231,env-path,,,-j ~/miniforge3/envs/jcvi_custom \
+jcvi_v.1.5.7,jcvi_v.1.5.7,,docs,microsynteny,docs/microsynteny.md,329,env-path,python,,ls ~/miniforge3/envs/jcvi_v.1.5.7/bin/python
+swave_v.1.2,swave_v.1.2,,docs,minigraph,docs/minigraph.md,483,conda-activate,,,conda activate swave_v.1.2
+minigraph,minigraph,,docs,minigraph,docs/minigraph.md,487,conda-activate,,,conda activate minigraph
+bbmap_v.39.81,bbmap_v.39.81,,docs,pair_fastq,docs/pair_fastq.md,344,conda-activate,,,conda activate bbmap_v.39.81
+bbmap_v.39.81,bbmap_v.39.81,,docs,pair_fastq,docs/pair_fastq.md,347,conda-run-literal,repair.sh,,conda run -n bbmap_v.39.81 repair.sh --help
+bbmap_v.39.81,bbmap_v.39.81,,docs,pair_fastq,docs/pair_fastq.md,382,conda-run-literal,repair.sh,,conda run -n bbmap_v.39.81 repair.sh --help
+panman_v.0.1.4,panman,yes,docs,panman,docs/panman.md,42,conda-activate,,,conda activate panman
+panman_v.0.1.4,panman,yes,docs,panman,docs/panman.md,76,conda-activate,,,conda activate panman
+panman_v.0.1.4,panman_v.0.1.4,,docs,panman,docs/panman.md,545,conda-activate,,,conda activate panman_v.0.1.4
+panman_v.0.1.4,panman_v.0.1.4,,docs,panman,docs/panman.md,553,conda-activate,,,conda activate panman_v.0.1.4
+custom_panman_env,custom_panman_env,,docs,panman,docs/panman.md,630,env-const,,,"conda_env=""custom_panman_env"","
+miniprot_v.0.18,miniprot_v.1.0.0,yes,docs,pep2genome,docs/pep2genome.md,29,conda-activate,,,conda activate miniprot_v.1.0.0
+miniprot_v.0.18,miniprot_v.1.0.0,yes,docs,pep2genome,docs/pep2genome.md,177,conda-activate,,,conda activate miniprot_v.1.0.0
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,phobius,docs/phobius.md,33,env-path,phobius.pl,,| `--phobius-path` | `~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl` | phobius.pl 路径 |
+signalp6,signalp6,,docs,phyto_effector,docs/phyto_effector.md,56,env-path,signalp6,,| `--signalp-path` | `~/miniforge3/envs/signalp6/bin/signalp6` |
+signalp_v.3.0b,signalp_v.3.0b,,docs,phyto_effector,docs/phyto_effector.md,57,env-path,signalp,,| `--signalp3-path` | `~/miniforge3/envs/signalp_v.3.0b/bin/signalp` |
+resistify_v.1.3.0,resistify_v.1.3.0,,docs,phyto_effector,docs/phyto_effector.md,58,env-path,hmmsearch,,| `--hmmsearch-path` | `~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch` |
+pixy_v.2.0.0,pixy_v.2.0.0,,docs,pixy,docs/pixy.md,43,env-path,,,| `--conda-env` | `~/miniforge3/envs/pixy_v.2.0.0` | conda环境路径 |
+primer3_v.2.6.1,primer3_v.2.6.1,,docs,primer3,docs/primer3.md,328,conda-activate,,,conda activate primer3_v.2.6.1
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,qiime2,docs/qiime2.md,52,env-path,qiime,,| `--qiime-path` | `~/miniforge3/envs/qiime_v.2024.10.1/bin/qiime` | qiime 可执行文件路径 |
+rMVP,rMVP,,docs,rmvp,docs/rmvp.md,71,conda-activate,,,conda activate rMVP
+samplot_v.1.3.0,samplot_v.1.3.0,,docs,samplot,docs/samplot.md,53,env-path,samplot,,| `--samplot-path` | `~/miniforge3/envs/samplot_v.1.3.0/bin/samplot` | samplot 可执行文件路径 |
+samplot_v.1.3.0,samplot_v.1.3.0,,docs,samplot,docs/samplot.md,81,env-path,samplot,,| `--samplot-path` | `~/miniforge3/envs/samplot_v.1.3.0/bin/samplot` | samplot 可执行文件路径 |
+signalp6,signalp6,,docs,signalp,docs/signalp.md,44,env-path,signalp6,,| `--signalp-path` | `~/miniforge3/envs/signalp6/bin/signalp6` | SignalP可执行文件路径 |
+signalp6,signalp6,,docs,signalp,docs/signalp.md,79,env-path,signalp6,,- 默认程序路径：`~/miniforge3/envs/signalp6/bin/signalp6`
+smudgeplot,smudgeplot,,docs,smudgeplot,docs/smudgeplot.md,23,env-path,FastK,,- **FastK**: `/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/bin/FastK`
+smudgeplot,smudgeplot,,docs,smudgeplot,docs/smudgeplot.md,24,env-path,smudgeplot,,- **Smudgeplot**: `/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/bin/smudgeplot`
+smudgeplot,smudgeplot,,docs,smudgeplot,docs/smudgeplot.md,250,env-path,FastK,,/share/org/YZWL/yzwl_lixg/miniforge3/envs/smudgeplot/bin/FastK \\
+sra-tools,sra-tools,,docs,sra2fastq,docs/sra2fastq.md,149,conda-activate,,,conda activate sra-tools
+cphasing,cphasing,,docs,subgenome_assign,docs/subgenome_assign.md,48,env-path,minimap2,,| `--minimap2-path` | `~/miniforge3/envs/cphasing/bin/minimap2` | minimap2 路径 |
+a-liner,a-liner,,docs,2026-06-28-aliner-pipeline,docs/superpowers/plans/2026-06-28-aliner-pipeline.md,7,conda-run-literal,a-liner,,**Architecture:** 仿 `biopytools/plotsr/` 的 config/utils/pipeline/main 四件套 + `cli/commands/aliner.py` click wrapper。pipeline 顺序：`samtools faidx`(取长度) → `minimap2
+a-liner,a-liner,,docs,2026-06-28-aliner-pipeline,docs/superpowers/plans/2026-06-28-aliner-pipeline.md,20,conda-run-literal,a-liner,,"- **conda 规范**：`conda run` 必须带 `--no-capture-output`；minimap2/samtools 用 `build_conda_command(完整路径, args)`，禁止 `os.path.basename` 提取命令名；a-liner 固定环境用显式 `conda ru"
+telocomp,telocomp,,docs,2026-06-28-aliner-pipeline,docs/superpowers/plans/2026-06-28-aliner-pipeline.md,171,env-path,minimap2,,"default_factory=lambda: get_tool_path('minimap2', '~/miniforge3/envs/telocomp/bin/minimap2', 'MINIMAP2_PATH'))"
+telocomp,telocomp,,docs,2026-06-28-aliner-pipeline,docs/superpowers/plans/2026-06-28-aliner-pipeline.md,173,env-path,samtools,,"default_factory=lambda: get_tool_path('samtools', '~/miniforge3/envs/telocomp/bin/samtools', 'SAMTOOLS_PATH'))"
+a-liner,a-liner,,docs,2026-06-28-aliner-pipeline,docs/superpowers/plans/2026-06-28-aliner-pipeline.md,174,env-field,,,"aliner_env: str = ""a-liner""         # a-liner固定conda环境|a-liner fixed conda env"
+telocomp,telocomp,,docs,2026-06-28-aliner-pipeline,docs/superpowers/plans/2026-06-28-aliner-pipeline.md,278,env-path,minimap2,,"cmd = build_conda_command('/miniforge3/envs/telocomp/bin/minimap2', ['-c', 'a.fa'])"
+telocomp,telocomp,,docs,2026-06-28-aliner-pipeline,docs/superpowers/plans/2026-06-28-aliner-pipeline.md,280,env-path,minimap2,,"'/miniforge3/envs/telocomp/bin/minimap2', '-c', 'a.fa'])"
+telocomp,telocomp,,docs,2026-06-28-aliner-pipeline,docs/superpowers/plans/2026-06-28-aliner-pipeline.md,290,env-path,minimap2,,env = get_conda_env('/miniforge3/envs/telocomp/bin/minimap2')
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,docs,2026-07-08-eggnog-mapper,docs/superpowers/plans/2026-07-08-eggnog-mapper.md,22,env-path,emapper.py,,"**conda 环境**:固定 `~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py`。DB 默认 `~/database/eggnog`(用户另找机器下载,封装器只校验)。"
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,docs,2026-07-08-eggnog-mapper,docs/superpowers/plans/2026-07-08-eggnog-mapper.md,83,env-path,emapper.py,,"emapper_path=""~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py"","
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,docs,2026-07-08-eggnog-mapper,docs/superpowers/plans/2026-07-08-eggnog-mapper.md,228,env-path,emapper.py,,"""~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py"","
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,docs,2026-07-08-eggnog-mapper,docs/superpowers/plans/2026-07-08-eggnog-mapper.md,293,conda-run-literal,,,"f""    conda run -n eggnog-mapper_v.2.1.15 --no-capture-output """
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,docs,2026-07-08-eggnog-mapper,docs/superpowers/plans/2026-07-08-eggnog-mapper.md,361,env-path,emapper.py,,"with patch(""shutil.which"", return_value=""/x/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py""):"
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,docs,2026-07-08-eggnog-mapper,docs/superpowers/plans/2026-07-08-eggnog-mapper.md,362,env-path,emapper.py,,"assert get_conda_env(""/x/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py"") == ""eggnog-mapper_v.2.1.15"""
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,docs,2026-07-08-eggnog-mapper,docs/superpowers/plans/2026-07-08-eggnog-mapper.md,374,env-path,emapper.py,,"full = ""/x/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py"""
+BCFTOOLS_ENV,BCFTOOLS_ENV,,docs,2026-07-08-indel-marker,docs/superpowers/plans/2026-07-08-indel-marker.md,304,env-path,bcftools,,"cmd = build_conda_command('/miniforge3/envs/BCFTOOLS_ENV/bin/bcftools', ['--version'])"
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius,docs/superpowers/plans/2026-07-09-phobius.md,5,env-path,phobius.pl,,"**Goal:** 封装 `~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl` 为 `biopytools phobius` 子命令,输入蛋白质 FASTA,产出 short/long 原始输出 + 含 TM/SP 坐标的解析 TSV。"
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius,docs/superpowers/plans/2026-07-09-phobius.md,14,env-path,phobius.pl,,"- **禁止硬编码含用户名的绝对路径**:所有路径用 `~` 展开 + `common.paths.expand_path`;`phobius_path` 默认 `~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl`。验证: `grep -r ""/share/org/YZW"
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius,docs/superpowers/plans/2026-07-09-phobius.md,215,env-path,phobius.pl,,"phobius_path: str = ""~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"""
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius,docs/superpowers/plans/2026-07-09-phobius.md,293,env-path,phobius.pl,,"""/x/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"","
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius,docs/superpowers/plans/2026-07-09-phobius.md,977,env-path,phobius.pl,,"default=""~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"","
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius,docs/superpowers/plans/2026-07-09-phobius.md,1081,env-path,phobius.pl,,"_DEFAULT_PHOBIUS_PATH = ""~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"""
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius,docs/superpowers/plans/2026-07-09-phobius.md,1215,conda-run-literal,,,Expected: 正常退出码 0;日志显示 conda 包装命令 `conda run -n phobius_v.1.0.1 --no-capture-output .../phobius.pl -short ...` 与 `-long ...`。
+RNA_Seq,RNA_Seq,,docs,2026-07-10-gene-table,docs/superpowers/plans/2026-07-10-gene-table.md,304,env-path,gffread,,"cmd = build_conda_command('/miniforge3/envs/RNA_Seq/bin/gffread', ['-y', 'p.fa'])"
+RNA_Seq,RNA_Seq,,docs,2026-07-10-gene-table,docs/superpowers/plans/2026-07-10-gene-table.md,306,env-path,gffread,,"'/miniforge3/envs/RNA_Seq/bin/gffread', '-y', 'p.fa'])"
+braker_v.3.0.8,braker_v.3.0.8,,docs,2026-07-13-ps-gene-anno,docs/superpowers/plans/2026-07-13-ps-gene-anno.md,9,env-path,miniprot,,"**Tech Stack:** Python 3 + dataclasses + Biopython(可选,FASTA);miniprot(`~/miniforge3/envs/braker_v.3.0.8/bin/miniprot`);samtools(可选,RNA-seq 深度);pytest(单元测试)。"
+braker_v.3.0.8,braker_v.3.0.8,,docs,2026-07-13-ps-gene-anno,docs/superpowers/plans/2026-07-13-ps-gene-anno.md,202,env-path,miniprot,,miniprot_bin: str = '~/miniforge3/envs/braker_v.3.0.8/bin/miniprot'
+braker_v.3.0.8,braker_v.3.0.8,,docs,2026-07-13-ps-gene-anno,docs/superpowers/plans/2026-07-13-ps-gene-anno.md,332,env-path,miniprot,,env = get_conda_env('/home/u/miniforge3/envs/braker_v.3.0.8/bin/miniprot')
+braker_v.3.0.8,braker_v.3.0.8,,docs,2026-07-13-ps-gene-anno,docs/superpowers/plans/2026-07-13-ps-gene-anno.md,622,env-path,miniprot,,config.miniprot_bin = '/home/u/miniforge3/envs/braker_v.3.0.8/bin/miniprot'
+braker_v.3.0.8,braker_v.3.0.8,,docs,2026-07-13-ps-gene-anno,docs/superpowers/plans/2026-07-13-ps-gene-anno.md,1817,conda-run-literal,miniprot,,conda run -n braker_v.3.0.8 --no-capture-output miniprot --gff -t 4 6497.fa avr1a.fa | head -20
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input,docs/superpowers/plans/2026-07-13-transcript-assembly-bam-input.md,182,env-path,stringtie,,"'stringtie', '~/miniforge3/envs/RNA_Seq/bin/stringtie', 'STRINGTIE_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input,docs/superpowers/plans/2026-07-13-transcript-assembly-bam-input.md,184,env-path,gffread,,"'gffread', '~/miniforge3/envs/RNA_Seq/bin/gffread', 'GFFREAD_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input,docs/superpowers/plans/2026-07-13-transcript-assembly-bam-input.md,186,env-path,hisat2,,"'hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input,docs/superpowers/plans/2026-07-13-transcript-assembly-bam-input.md,188,env-path,hisat2-build,,"'hisat2-build', '~/miniforge3/envs/RNA_Seq/bin/hisat2-build', 'HISAT2_BUILD_PATH'))"
+raxml-ng_v.2.0.1,raxml-ng_v.2.0.1,,docs,2026-07-14-raxml-ng,docs/superpowers/plans/2026-07-14-raxml-ng.md,294,env-path,raxml-ng,,conda_path = '/miniforge3/envs/raxml-ng_v.2.0.1/bin/raxml-ng'
+mga,mga,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,7,conda-run-literal,,,"**Architecture:** 对齐 `phobius`/`raxml_ng` 模板(config/utils/main + Click CLI)。因 MGA 二进制不在 conda env 但需 mga env 的 minimap2/samtools/python,采用显式 `conda run -n mga -"
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,20,conda-run-literal,,,- **测试运行方式**:`conda run -n biopytools python -m pytest biopytools/tests/test_mga/ -v`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,92,conda-run-literal,,,Run: `conda run -n biopytools python -m pytest biopytools/tests/test_mga/test_config.py -v`
+mga,mga,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,115,env-field,,,"conda_env: str = ""mga"""
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,156,conda-run-literal,,,Run: `conda run -n biopytools python -m pytest biopytools/tests/test_mga/test_config.py -v`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,226,conda-run-literal,,,Run: `conda run -n biopytools python -m pytest biopytools/tests/test_mga/test_utils.py -v`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,376,conda-run-literal,,,Run: `conda run -n biopytools python -m pytest biopytools/tests/test_mga/test_utils.py -v`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,452,conda-run-literal,,,Run: `conda run -n biopytools python -m pytest biopytools/tests/test_mga/test_runner.py -v`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,620,conda-run-literal,,,Run: `conda run -n biopytools python -m pytest biopytools/tests/test_mga/test_runner.py -v`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,750,conda-run-literal,biopytools,,Run: `conda run -n biopytools biopytools mga --help`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,753,conda-run-literal,biopytools,,Run: `conda run -n biopytools biopytools --help 2>&1 | grep mga`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,768,conda-run-literal,,,Run: `conda run -n biopytools python -m pytest biopytools/tests/test_mga/ -v`
+biopytools,biopytools,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,776,conda-run-literal,biopytools,,conda run -n biopytools biopytools mga -r <真实reads路径> -o /tmp/mga_dryrun -t 50 --dry-run
+mga,mga,,docs,2026-07-15-mga-module,docs/superpowers/plans/2026-07-15-mga-module.md,778,conda-run-literal,,,"Expected: 日志输出一行 `命令|Command: conda run -n mga --no-capture-output ~/software/MGA/consensusLJA/bin/MGA --reads <reads> --output /tmp/mga_dryrun --threads 50`,且*"
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,2026-07-21-hite-module-rewrite,docs/superpowers/plans/2026-07-21-hite-module-rewrite.md,176,env-path,singularity,,"""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"","
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,2026-07-21-hite-module-rewrite,docs/superpowers/plans/2026-07-21-hite-module-rewrite.md,1512,env-path,singularity,,"default='~/miniforge3/envs/singularity_v.3.8.7/bin/singularity', show_default=True,"
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module,docs/superpowers/plans/2026-07-23-pasa-module.md,7,conda-run-literal,,,**Architecture:** 标准模块结构(config/utils/pasa_runner/main + cli 包装)。PASA 经 `conda run -n pasa_v.2.5.3 --no-capture-output` 调用(传完整路径);数据库锁定 SQLite(该 env 无 DBD::mysq
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module,docs/superpowers/plans/2026-07-23-pasa-module.md,18,env-path,,,- **PASA 环境事实**:`~/miniforge3/envs/pasa_v.2.5.3`(自含 Launch_PASA_pipeline.pl/seqclean/cdbfasta/cdbyank/slclust + gmap/pblat/minimap2);perl 有 DBD::SQLite/DB_File/
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module,docs/superpowers/plans/2026-07-23-pasa-module.md,162,env-path,Launch_PASA_pipeline.pl,,"""~/miniforge3/envs/pasa_v.2.5.3/bin/Launch_PASA_pipeline.pl"","
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module,docs/superpowers/plans/2026-07-23-pasa-module.md,242,env-path,Launch_PASA_pipeline.pl,,"env = get_conda_env(""/home/u/miniforge3/envs/pasa_v.2.5.3/bin/Launch_PASA_pipeline.pl"")"
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module,docs/superpowers/plans/2026-07-23-pasa-module.md,247,env-path,Launch_PASA_pipeline.pl,,"cmd = build_conda_command(""/x/envs/pasa_v.2.5.3/bin/Launch_PASA_pipeline.pl"","
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module,docs/superpowers/plans/2026-07-23-pasa-module.md,251,env-path,Launch_PASA_pipeline.pl,,"""/x/envs/pasa_v.2.5.3/bin/Launch_PASA_pipeline.pl"", ""-c"", ""aa.config"", ""-C""])"
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module,docs/superpowers/plans/2026-07-23-pasa-module.md,1094,env-path,,,ls ~/miniforge3/envs/pasa_v.2.5.3/opt/pasa-2.5.3/sample_data/
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,28,env-path,,,"| fastp, hisat2, hisat2-build, hisat2_extract_splice_sites.py, samtools(比对) | `RNA_Seq` | 默认 `~/miniforge3/envs/RNA_Seq/bin/...` |"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,29,env-path,,,"| gatk(全系列), samtools, bcftools | `GATK_v.4.6.2.0` | 默认 `~/miniforge3/envs/GATK_v.4.6.2.0/bin/...` |"
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,233,env-path,hisat2,,"default_factory=lambda: get_tool_path('hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,235,env-path,fastp,,"default_factory=lambda: get_tool_path('fastp', '~/miniforge3/envs/RNA_Seq/bin/fastp', 'FASTP_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,237,env-path,samtools,,"default_factory=lambda: get_tool_path('samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,239,env-path,bcftools,,"default_factory=lambda: get_tool_path('bcftools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/bcftools', 'BCFTOOLS_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,241,env-path,gatk,,"default_factory=lambda: get_tool_path('gatk', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk', 'GATK_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,363,env-path,hisat2,,env = get_conda_env('/home/u/miniforge3/envs/RNA_Seq/bin/hisat2')
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,367,env-path,gatk,,env = get_conda_env('/home/u/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk')
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,373,env-path,hisat2,,"cmd = build_conda_command('/home/u/miniforge3/envs/RNA_Seq/bin/hisat2', ['-x', 'idx'])"
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf,docs/superpowers/plans/2026-07-24-rnaseq2vcf.md,1670,conda-run-literal,,,Expected: 打印所有步骤完整命令（fastp/hisat2/gatk/annovar），含 `conda run -n RNA_Seq`/`-n GATK_v.4.6.2.0`、`--no-capture-output`、`--known-splicesite-infile`、`SplitNCigarReads
+sv_calling,sv_calling,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,7,conda-run-literal,,,**Architecture:** 标准五件套模块(config/utils/pipeline/main + Click 包装)。所有 6 个工具共用 conda 环境 `sv_calling`;minimap2|samtools 管道用**单条** `conda run -n sv_calling bash -c` 
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,14,env-path,python,,- **测试运行环境|Test runner:** 测试用 `~/miniforge3/envs/biopytools/bin/python -m pytest <path> -v`(sv_calling 无 pytest/yaml;biopytools env=Python3.10+yaml6.0.2+pytest9
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,194,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/test_config.py -v`
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,400,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/test_config.py -v`
+sv_calling,sv_calling,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,445,env-path,samtools,,"return_value=""/x/miniforge3/envs/sv_calling/bin/samtools""):"
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,561,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/test_utils.py -v`
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,742,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/test_utils.py -v`
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,896,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/test_pipeline.py -v`
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,1122,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/test_pipeline.py -v`
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,1127,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/ -v`
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,1363,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m biopytools.genome2sv.main --help`
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,1366,env-path,python,,"Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -c ""from biopytools.cli.main import cli; from click.testing import CliRunner; r=CliRun"
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,1426,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/test_utils.py::TestSoftwareVersions -v`
+biopytools,biopytools,,docs,2026-08-06-genome2sv,docs/superpowers/plans/2026-08-06-genome2sv.md,1479,env-path,python,,Run: `cd ~/software/biopytools && ~/miniforge3/envs/biopytools/bin/python -m pytest biopytools/tests/test_genome2sv/ -v`
+iqtree_v.3.0.1,iqtree_v.3.0.1,,docs,2026-08-07-vcf2tree-plan,docs/superpowers/plans/2026-08-07-vcf2tree-plan.md,134,env-path,iqtree,,"'~/miniforge3/envs/iqtree_v.3.0.1/bin/iqtree',"
+iqtree_v.3.0.1,iqtree_v.3.0.1,,docs,2026-08-07-vcf2tree-plan,docs/superpowers/plans/2026-08-07-vcf2tree-plan.md,478,env-path,iqtree,,"with patch('shutil.which', return_value='/miniforge3/envs/iqtree_v.3.0.1/bin/iqtree'):"
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,20,conda-run-literal,,,- **单测运行命令**(pytest 在 qiime env):`conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/ -v`
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,30,env-path,RAiSD,,- 复制:`~/miniforge3/envs/selective_sweep/bin/RAiSD`
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,34,env-path,RAiSD,,"- Produces: 可执行 `~/miniforge3/envs/selective_sweep/bin/RAiSD`,支持 `.vcf.gz` 输入(zlib),运行时经 conda run 找到 libgsl.so.25"
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,46,conda-run-literal,,,"conda run -n selective_sweep bash -c 'cd ~/software/raisd && rm -f Makefile && cp makefiles/Makefile.ZLIB Makefile && sed -i ""s|^INCLUDES = .*|INCLUDES = -I sou"
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,53,env-path,RAiSD,,cp ~/software/raisd/RAiSD ~/miniforge3/envs/selective_sweep/bin/RAiSD && chmod +x ~/miniforge3/envs/selective_sweep/bin/RAiSD
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,54,conda-run-literal,RAiSD,,conda run -n selective_sweep RAiSD -v
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,76,conda-run-literal,,,conda run -n qiime_v.2024.10.1 python gen_test_vcf.py
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,77,conda-run-literal,bcftools,,conda run -n selective_sweep bcftools view -Oz -o test.vcf.gz test.vcf
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,78,conda-run-literal,RAiSD,,cd ~/tmp/test_raisd && conda run -n selective_sweep RAiSD -n t1 -I test.vcf.gz -R -s -f -O
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,170,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_config.py -v`
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,218,env-path,bcftools,,bcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/bcftools'
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,219,env-path,vcftools,,vcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/vcftools'
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,220,env-path,RAiSD,,raisd_path: str = '~/miniforge3/envs/selective_sweep/bin/RAiSD'
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,284,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_config.py -v`
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,323,env-path,bcftools,,return_value='/home/u/miniforge3/envs/selective_sweep/bin/bcftools'):
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,324,env-path,bcftools,,"self.assertEqual(get_conda_env('/home/u/miniforge3/envs/selective_sweep/bin/bcftools'),"
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,337,env-path,vcftools,,"cmd = build_conda_command('/x/envs/selective_sweep/bin/vcftools', ['--version'])"
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,340,env-path,vcftools,,"'/x/envs/selective_sweep/bin/vcftools', '--version'])"
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,394,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_utils.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,651,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_utils.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,813,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_merge_stats.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,942,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_merge_stats.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,1136,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_merge_stats.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,1356,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_merge_stats.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,1509,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_pipeline.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,1792,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_pipeline.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,1878,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_main.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2191,conda-run-literal,,,Run: `conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/test_main.py -v`
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2196,conda-run-literal,,,conda run -n qiime_v.2024.10.1 python -m biopytools.cli.main --help 2>&1 | grep -A1 selective
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2197,conda-run-literal,,,conda run -n qiime_v.2024.10.1 python -m biopytools.cli.main selective-sweep --help
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2242,conda-run-literal,,,conda run -n qiime_v.2024.10.1 python gen_syn.py
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2243,conda-run-literal,bcftools,,conda run -n selective_sweep bcftools view -Oz -o syn.vcf.gz syn.vcf
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2251,conda-run-literal,,,conda run -n qiime_v.2024.10.1 python -m biopytools.cli.main selective-sweep \
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2275,conda-run-literal,,,conda run -n qiime_v.2024.10.1 python -m biopytools.cli.main selective-sweep \
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2285,conda-run-literal,,,conda run -n qiime_v.2024.10.1 python -m biopytools.cli.main selective-sweep \
+qiime_v.2024.10.1,qiime_v.2024.10.1,,docs,2026-08-10-selective-sweep,docs/superpowers/plans/2026-08-10-selective-sweep.md,2298,conda-run-literal,,,conda run -n qiime_v.2024.10.1 python -m pytest biopytools/tests/test_selective_sweep/ -v
+HiC-Pro_v3.1.0,HiC-Pro_v3.1.0,,docs,2026-08-11-centier-hic-input,docs/superpowers/plans/2026-08-11-centier-hic-input.md,1215,env-path,bowtie2-build,,bt2_build = os.path.expanduser('~/miniforge3/envs/HiC-Pro_v3.1.0/bin/bowtie2-build')
+WGCNA_v.1.73,WGCNA_v.1.73,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,16,env-path,Rscript,,- **环境（已验证存在）**：bwa-mem2=`~/miniforge3/envs/cphasing/bin/bwa-mem2`；samtools/bcftools/bedtools=`~/miniforge3/envs/sv_calling/bin/<tool>`；Rscript=`~/miniforge3/en
+cphasing,cphasing,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,16,env-path,bwa-mem2,,- **环境（已验证存在）**：bwa-mem2=`~/miniforge3/envs/cphasing/bin/bwa-mem2`；samtools/bcftools/bedtools=`~/miniforge3/envs/sv_calling/bin/<tool>`；Rscript=`~/miniforge3/en
+sv_calling,sv_calling,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,16,env-path,,,- **环境（已验证存在）**：bwa-mem2=`~/miniforge3/envs/cphasing/bin/bwa-mem2`；samtools/bcftools/bedtools=`~/miniforge3/envs/sv_calling/bin/<tool>`；Rscript=`~/miniforge3/en
+cphasing,cphasing,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,73,env-path,bwa-mem2,,"bwa_mem2_path: str = ""~/miniforge3/envs/cphasing/bin/bwa-mem2"""
+sv_calling,sv_calling,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,74,env-path,samtools,,"samtools_path: str = ""~/miniforge3/envs/sv_calling/bin/samtools"""
+sv_calling,sv_calling,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,75,env-path,bcftools,,"bcftools_path: str = ""~/miniforge3/envs/sv_calling/bin/bcftools"""
+sv_calling,sv_calling,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,76,env-path,bedtools,,"bedtools_path: str = ""~/miniforge3/envs/sv_calling/bin/bedtools"""
+WGCNA_v.1.73,WGCNA_v.1.73,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,77,env-path,Rscript,,"rscript_path: str = ""~/miniforge3/envs/WGCNA_v.1.73/bin/Rscript"""
+cphasing,cphasing,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,160,env-path,bwa-mem2,,"bwa_mem2_path: str = ""~/miniforge3/envs/cphasing/bin/bwa-mem2"""
+sv_calling,sv_calling,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,161,env-path,samtools,,"samtools_path: str = ""~/miniforge3/envs/sv_calling/bin/samtools"""
+sv_calling,sv_calling,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,162,env-path,bcftools,,"bcftools_path: str = ""~/miniforge3/envs/sv_calling/bin/bcftools"""
+sv_calling,sv_calling,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,163,env-path,bedtools,,"bedtools_path: str = ""~/miniforge3/envs/sv_calling/bin/bedtools"""
+WGCNA_v.1.73,WGCNA_v.1.73,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,164,env-path,Rscript,,"rscript_path: str = ""~/miniforge3/envs/WGCNA_v.1.73/bin/Rscript"""
+sv_calling,sv_calling,,docs,2026-08-12-mixrace,docs/superpowers/plans/2026-08-12-mixrace.md,244,env-path,bcftools,,"""/home/u/miniforge3/envs/sv_calling/bin/bcftools"", [""view"", ""in.vcf""])"
+spades_v.4.3.0,spades_v.4.3.0,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,22,conda-run-literal,,,"- 临时文件用 `output_dir/tmp`;SPAdes 工作目录路径含非 ASCII 时回退系统 `/tmp`(中文路径坑,spades.py 依赖 env python3 须 conda run -n spades_v.4.3.0)"
+Population_genetics,Population_genetics,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,219,env-path,bwa,,"'bwa', '~/miniforge3/envs/Population_genetics/bin/bwa', 'BWA_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,221,env-path,samtools,,"'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))"
+BioinfTools,BioinfTools,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,223,env-path,seqkit,,"'seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH'))"
+spades_v.4.3.0,spades_v.4.3.0,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,225,env-path,spades.py,,"'spades', '~/miniforge3/envs/spades_v.4.3.0/bin/spades.py', 'SPADES_PATH'))"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,332,env-path,samtools,,"return_value=""/x/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools""):"
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,334,env-path,samtools,,"assert get_conda_env(""/x/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools"") == ""GATK_v.4.6.2.0"""
+spades_v.4.3.0,spades_v.4.3.0,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,338,env-path,spades.py,,"cmd = build_conda_command(""/x/envs/spades_v.4.3.0/bin/spades.py"", [""-o"", ""out""])"
+spades_v.4.3.0,spades_v.4.3.0,,docs,2026-08-14-insert2locus,docs/superpowers/plans/2026-08-14-insert2locus.md,340,env-path,spades.py,,"assert cmd[5:] == [""/x/envs/spades_v.4.3.0/bin/spades.py"", ""-o"", ""out""]"
+a-liner,a-liner,,docs,2026-06-28-aliner-pipeline-design,docs/superpowers/specs/2026-06-28-aliner-pipeline-design.md,15,env-path,,,`a-liner` 是第三方线性比对可视化工具（作者 mokuno3430），安装在 conda 环境 `a-liner`（路径 `~/miniforge3/envs/a-liner`）。它能把多条序列线性排列，叠加显示同源比对带、基因、高亮、散点等，输出 PDF。
+a-liner,a-liner,,docs,2026-06-28-aliner-pipeline-design,docs/superpowers/specs/2026-06-28-aliner-pipeline-design.md,146,conda-run-literal,a-liner,,conda run -n a-liner --no-capture-output a-liner \
+a-liner,a-liner,,docs,2026-06-28-aliner-pipeline-design,docs/superpowers/specs/2026-06-28-aliner-pipeline-design.md,245,conda-run-literal,,,| `a-liner` | 固定 `conda run -n a-liner --no-capture-output` | — |
+telocomp,telocomp,,docs,2026-06-28-aliner-pipeline-design,docs/superpowers/specs/2026-06-28-aliner-pipeline-design.md,246,env-path,minimap2,,"| `minimap2` | `get_tool_path('minimap2', '~/miniforge3/envs/telocomp/bin/minimap2', 'MINIMAP2_PATH')` | `MINIMAP2_PATH` |"
+telocomp,telocomp,,docs,2026-06-28-aliner-pipeline-design,docs/superpowers/specs/2026-06-28-aliner-pipeline-design.md,247,env-path,samtools,,"| `samtools` | `get_tool_path('samtools', '~/miniforge3/envs/telocomp/bin/samtools', 'SAMTOOLS_PATH')` | `SAMTOOLS_PATH` |"
+a-liner,a-liner,,docs,2026-06-28-aliner-pipeline-design,docs/superpowers/specs/2026-06-28-aliner-pipeline-design.md,253,conda-run-literal,,,- a-liner：固定 `conda run -n a-liner --no-capture-output`（§13.2.0，避免缓冲致内存问题）
+eggnog-mapper_v.2.1.15,eggnog-mapper_v.2.1.15,,docs,2026-07-08-eggnog-mapper-design,docs/superpowers/specs/2026-07-08-eggnog-mapper-design.md,42,env-path,emapper.py,,"- `emapper_path`:`get_tool_path('emapper', '~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py', 'EMAPPER_PATH')`"
+braker_v.3.0.8,braker_v.3.0.8,,docs,2026-07-09-braker-repeat-family-rescue-design,docs/superpowers/specs/2026-07-09-braker-repeat-family-rescue-design.md,155,env-path,hmmscan,,"| HMMER (hmmscan) | ✓ | `~/miniforge3/envs/braker_v.3.0.8/bin/hmmscan` 等,经 `build_conda_command` 包装 |"
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius-design,docs/superpowers/specs/2026-07-09-phobius-design.md,6,env-path,phobius.pl,,- 目标工具|Target tool: `~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl`(Phobius 1.01)
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius-design,docs/superpowers/specs/2026-07-09-phobius-design.md,12,env-path,,,"bioconda 安装位置: `~/miniforge3/envs/phobius_v.1.0.1/`,核心文件:"
+phobius_v.1.0.1,phobius_v.1.0.1,,docs,2026-07-09-phobius-design,docs/superpowers/specs/2026-07-09-phobius-design.md,136,env-path,phobius.pl,,"phobius_path: str = ""~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"""
+braker_v.3.0.8,braker_v.3.0.8,,docs,2026-07-13-ps-gene-anno-design,docs/superpowers/specs/2026-07-13-ps-gene-anno-design.md,224,env-path,miniprot,,"| `miniprot_bin` | `~/miniforge3/envs/braker_v.3.0.8/bin/miniprot` | get_tool_path,`__post_init__` 展开 |"
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input-design,docs/superpowers/specs/2026-07-13-transcript-assembly-bam-input-design.md,121,env-path,stringtie,,"'stringtie', '~/miniforge3/envs/RNA_Seq/bin/stringtie', 'STRINGTIE_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input-design,docs/superpowers/specs/2026-07-13-transcript-assembly-bam-input-design.md,123,env-path,gffread,,"'gffread', '~/miniforge3/envs/RNA_Seq/bin/gffread', 'GFFREAD_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input-design,docs/superpowers/specs/2026-07-13-transcript-assembly-bam-input-design.md,125,env-path,hisat2,,"'hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input-design,docs/superpowers/specs/2026-07-13-transcript-assembly-bam-input-design.md,127,env-path,hisat2-build,,"'hisat2-build', '~/miniforge3/envs/RNA_Seq/bin/hisat2-build', 'HISAT2_BUILD_PATH'))"
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input-design,docs/superpowers/specs/2026-07-13-transcript-assembly-bam-input-design.md,294,env-path,stringtie,,| stringtie | `~/miniforge3/envs/RNA_Seq/bin/stringtie` | `STRINGTIE_PATH` |
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input-design,docs/superpowers/specs/2026-07-13-transcript-assembly-bam-input-design.md,295,env-path,gffread,,| gffread | `~/miniforge3/envs/RNA_Seq/bin/gffread` | `GFFREAD_PATH` |
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input-design,docs/superpowers/specs/2026-07-13-transcript-assembly-bam-input-design.md,296,env-path,hisat2,,| hisat2 | `~/miniforge3/envs/RNA_Seq/bin/hisat2` | `HISAT2_PATH` |
+RNA_Seq,RNA_Seq,,docs,2026-07-13-transcript-assembly-bam-input-design,docs/superpowers/specs/2026-07-13-transcript-assembly-bam-input-design.md,297,env-path,hisat2-build,,| hisat2-build | `~/miniforge3/envs/RNA_Seq/bin/hisat2-build` | `HISAT2_BUILD_PATH` |
+X,X,,docs,2026-07-14-raxml-ng-design,docs/superpowers/specs/2026-07-14-raxml-ng-design.md,144,env-path,raxml-ng,,"- `build_conda_command('/miniforge3/envs/X/bin/raxml-ng', [...])` 返回 conda run 包装(向后兼容)"
+Augustus_v.3.5.0,Augustus_v.3.5.0,,docs,2026-07-14-raxml-ng-design,docs/superpowers/specs/2026-07-14-raxml-ng-design.md,171,conda-run-literal,,,"- **`get_conda_env` 对静态二进制误判 conda 环境**: 探测发现静态二进制被包装成 `conda run -n Augustus_v.3.5.0 <raxml-ng>`(随机返回迭代到的第一个 env)。根因: 方法2 `os.path.join(envs_dir, env, 'bin', c"
+mga,mga,,docs,2026-07-15-mga-module-design,docs/superpowers/specs/2026-07-15-mga-module-design.md,73,env-field,,,"conda_env: str = ""mga"""
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,2026-07-20-hite-module-rewrite-design,docs/superpowers/specs/2026-07-20-hite-module-rewrite-design.md,115,conda-run-literal,,,`~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` 误判成需要 `conda run -n singularity_v.3.8.7`，
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,2026-07-20-hite-module-rewrite-design,docs/superpowers/specs/2026-07-20-hite-module-rewrite-design.md,115,env-path,singularity,,`~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` 误判成需要 `conda run -n singularity_v.3.8.7`，
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,2026-07-20-hite-module-rewrite-design,docs/superpowers/specs/2026-07-20-hite-module-rewrite-design.md,130,env-path,singularity,,"""~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"","
+singularity_v.3.8.7,singularity_v.3.8.7,,docs,2026-07-20-hite-module-rewrite-design,docs/superpowers/specs/2026-07-20-hite-module-rewrite-design.md,268,env-path,,,3. **singularity 版本**：`~/miniforge3/envs/singularity_v.3.8.7`；用 `singularity --version` 写入 software_versions.yml。
+trimal_v.1.5.0,trimal_v.1.5.0,,docs,2026-07-22-trimal-design,docs/superpowers/specs/2026-07-22-trimal-design.md,5,env-path,trimal,,- 封装软件|Wrapped tool: trimAl v1.5.rev0 (`~/miniforge3/envs/trimal_v.1.5.0/bin/trimal`)
+trimal_v.1.5.0,trimal_v.1.5.0,,docs,2026-07-22-trimal-design,docs/superpowers/specs/2026-07-22-trimal-design.md,35,env-path,trimal,,"- 路径|Path: `get_tool_path('trimal', '~/miniforge3/envs/trimal_v.1.5.0/bin/trimal', 'TRIMAL_PATH')`(禁止硬编码绝对路径;支持 `TRIMAL_PATH` 环境变量与 `~/.config/biopytools/config"
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module-design,docs/superpowers/specs/2026-07-23-pasa-module-design.md,52,env-path,,,"- 已核实 `~/miniforge3/envs/pasa_v.2.5.3/bin/` 自带:`Launch_PASA_pipeline.pl`、`seqclean`、`cdbfasta`、`cdbyank`、`slclust`,**以及比对器** `gmap`/`gmap_build`/`pblat`/`blat`/"
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module-design,docs/superpowers/specs/2026-07-23-pasa-module-design.md,129,conda-run-literal,,,"- `build_conda_command(command, args)`:传**完整路径**(如 `~/miniforge3/envs/pasa_v.2.5.3/bin/Launch_PASA_pipeline.pl`)→ `conda run -n pasa_v.2.5.3 --no-capture-output"
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module-design,docs/superpowers/specs/2026-07-23-pasa-module-design.md,129,env-path,Launch_PASA_pipeline.pl,,"- `build_conda_command(command, args)`:传**完整路径**(如 `~/miniforge3/envs/pasa_v.2.5.3/bin/Launch_PASA_pipeline.pl`)→ `conda run -n pasa_v.2.5.3 --no-capture-output"
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module-design,docs/superpowers/specs/2026-07-23-pasa-module-design.md,154,conda-run-literal,,,"- 每个外部命令执行前,INFO 级别记录**完整命令**(含 `conda run -n pasa_v.2.5.3 --no-capture-output` 包装),便于论文 Methods 复现(§2.2.1)"
+pasa_v.2.5.3,pasa_v.2.5.3,,docs,2026-07-23-pasa-module-design,docs/superpowers/specs/2026-07-23-pasa-module-design.md,164,conda-run-literal,,,- `build_conda_command` 对 PASA 全路径正确产出 `conda run -n pasa_v.2.5.3 --no-capture-output`
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf-design,docs/superpowers/specs/2026-07-24-rnaseq2vcf-design.md,87,env-path,hisat2,,- `hisat2_path` → `~/miniforge3/envs/RNA_Seq/bin/hisat2`
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf-design,docs/superpowers/specs/2026-07-24-rnaseq2vcf-design.md,88,env-path,fastp,,- `fastp_path` → `~/miniforge3/envs/RNA_Seq/bin/fastp`
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf-design,docs/superpowers/specs/2026-07-24-rnaseq2vcf-design.md,89,env-path,gatk,,- `gatk_path` → `~/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk`
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf-design,docs/superpowers/specs/2026-07-24-rnaseq2vcf-design.md,90,env-path,samtools,,- `samtools_path` → `~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools`
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf-design,docs/superpowers/specs/2026-07-24-rnaseq2vcf-design.md,91,env-path,bcftools,,- `bcftools_path` → `~/miniforge3/envs/GATK_v.4.6.2.0/bin/bcftools`
+RNA_Seq,RNA_Seq,,docs,2026-07-24-rnaseq2vcf-design,docs/superpowers/specs/2026-07-24-rnaseq2vcf-design.md,160,conda-run-literal,,,conda run -n RNA_Seq --no-capture-output bash -c \
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,2026-07-24-rnaseq2vcf-design,docs/superpowers/specs/2026-07-24-rnaseq2vcf-design.md,168,conda-run-literal,gatk,,**03_calling — `Caller`**（均 `conda run -n GATK_v.4.6.2.0 --no-capture-output gatk ...`）:
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,19,env-path,,,conda 环境 `~/miniforge3/envs/psvcp_v.1.0.1` 实测:
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,61,conda-run-literal,,,3. **统一走 env**:`conda run -n psvcp_v.1.0.1 --no-capture-output` 执行**所有** helper(python + R)。因为 `3replace` 内部调 `bedtools`、`6update`/`11screen` 用 pandas、R 用 hash/
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,122,env-path,,,"# 工具路径(get_tool_path,默认 ~/miniforge3/envs/psvcp_v.1.0.1/bin/<tool>)"
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,123,env-path,nucmer,,nucmer_path: str = '~/miniforge3/envs/psvcp_v.1.0.1/bin/nucmer'
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,124,env-path,assemblytics,,assemblytics_path: str = '~/miniforge3/envs/psvcp_v.1.0.1/bin/assemblytics'
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,125,env-path,bedtools,,bedtools_path: str = '~/miniforge3/envs/psvcp_v.1.0.1/bin/bedtools'
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,126,env-path,samtools,,samtools_path: str = '~/miniforge3/envs/psvcp_v.1.0.1/bin/samtools'
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,127,env-path,Rscript,,rscript_path: str = '~/miniforge3/envs/psvcp_v.1.0.1/bin/Rscript'
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,128,env-path,python3,,python_path: str = '~/miniforge3/envs/psvcp_v.1.0.1/bin/python3'
+psvcp_v.1.0.1,psvcp_v.1.0.1,,docs,2026-07-28-psvcp-pangenome-design,docs/superpowers/specs/2026-07-28-psvcp-pangenome-design.md,209,conda-run-literal,,,"- nucmer/assemblytics/bedtools/samtools/python3/Rscript:完整路径传入,`build_conda_command` 自动 `conda run -n psvcp_v.1.0.1 --no-capture-output`。"
+sv_calling,sv_calling,,docs,2026-08-06-genome2sv-design,docs/superpowers/specs/2026-08-06-genome2sv-design.md,102,conda-run-literal,,,conda run -n sv_calling --no-capture-output bash -c \
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep-design,docs/superpowers/specs/2026-08-10-selective-sweep-design.md,55,env-path,bcftools,,bcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/bcftools'
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep-design,docs/superpowers/specs/2026-08-10-selective-sweep-design.md,56,env-path,vcftools,,vcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/vcftools'
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep-design,docs/superpowers/specs/2026-08-10-selective-sweep-design.md,57,env-path,RAiSD,,raisd_path: str = '~/miniforge3/envs/selective_sweep/bin/RAiSD'
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep-design,docs/superpowers/specs/2026-08-10-selective-sweep-design.md,167,env-path,,,"make INCLUDES=""-I ~/miniforge3/envs/selective_sweep/include"" \"
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep-design,docs/superpowers/specs/2026-08-10-selective-sweep-design.md,168,env-path,,,"LINK_FLAGS=""-L ~/miniforge3/envs/selective_sweep/lib -lgsl -lgslcblas -lm -lrt -lz"""
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep-design,docs/superpowers/specs/2026-08-10-selective-sweep-design.md,170,env-path,RAiSD,,"3. 二进制复制到 `~/miniforge3/envs/selective_sweep/bin/RAiSD`(非软链,避免跨机失效)"
+selective_sweep,selective_sweep,,docs,2026-08-10-selective-sweep-design,docs/superpowers/specs/2026-08-10-selective-sweep-design.md,171,conda-run-literal,RAiSD,,"4. 运行时:`build_conda_command(raisd_path, ...)` → `conda run -n selective_sweep --no-capture-output RAiSD` → env 激活时 LD_LIBRARY_PATH 含 env/lib → 找到 libgsl.so.25"
+HiC-Pro_v3.1.0,HiC-Pro_v3.1.0,,docs,2026-08-11-centier-hic-input-design,docs/superpowers/specs/2026-08-11-centier-hic-input-design.md,46,conda-run-literal,,,│       - conda run -n HiC-Pro_v3.1.0 --no-capture-output 跑 HiC-Pro
+freebayes,freebayes,,docs,2026-08-12-mixrace-design,docs/superpowers/specs/2026-08-12-mixrace-design.md,248,env-path,freebayes,,（v1.3.10，`~/miniforge3/envs/freebayes/bin/freebayes`；该 env 无 bcftools，过滤/query 走 sv_calling）；
+spades_v.4.3.0,spades_v.4.3.0,,docs,2026-08-14-insert2locus-design,docs/superpowers/specs/2026-08-14-insert2locus-design.md,187,conda-run-literal,,,"- SPAdes → `conda run -n spades_v.4.3.0`(spades.py 依赖 env python3,"
+swave_v.1.2,swave_v.1.2,,docs,swave,docs/swave.md,504,conda-activate,,,conda activate swave_v.1.2
+telocomp,telocomp,,docs,telocomp,docs/telocomp.md,298,conda-activate,,,conda activate telocomp
+tmmhmm_v.2.0c,tmmhmm_v.2.0c,,docs,tmhmm,docs/tmhmm.md,45,env-path,tmhmm,,3. 默认路径：`~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm`
+tmmhmm_v.2.0c,tmmhmm_v.2.0c,,docs,tmhmm,docs/tmhmm.md,73,env-path,tmhmm,,- 默认程序路径：`~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm`
+newick_utils_v.1.6,newick_utils_v.1.6,,docs,vcf2nj,docs/vcf2nj.md,39,env-path,nw_reroot,,| `--nw-reroot-path` | `~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot` | nw_reroot程序路径 |
+vg_v.1.7.0,vg_v.1.7.0,,docs,vg,docs/vg.md,84,conda-activate,,,conda activate vg_v.1.7.0
+GATK_v.4.6.2.0,GATK_v.4.6.2.0,,docs,wgsim,docs/wgsim.md,63,env-path,wgsim,,- 外部工具：`wgsim`（samtools 套件之一），默认查找路径 `~/miniforge3/envs/GATK_v.4.6.2.0/bin/wgsim`，可通过环境变量 `WGSIM_PATH` 覆盖
