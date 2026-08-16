@@ -57,9 +57,9 @@ class TranscriptAssemblyConfig:
         'hisat2-build', '~/miniforge3/envs/rna/bin/hisat2-build', 'HISAT2_BUILD_PATH'))
     samtools_bin: str = field(default_factory=get_samtools_path)
     transdecoder_longorfs_bin: str = field(default_factory=lambda: get_tool_path(
-        'transdecoder_longorfs', '~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.LongOrfs', 'TRANSDECODER_LONGORFS_PATH'))
+        'transdecoder_longorfs', '~/miniforge3/envs/annot/bin/TransDecoder.LongOrfs', 'TRANSDECODER_LONGORFS_PATH'))
     transdecoder_predict_bin: str = field(default_factory=lambda: get_tool_path(
-        'transdecoder_predict', '~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.Predict', 'TRANSDECODER_PREDICT_PATH'))
+        'transdecoder_predict', '~/miniforge3/envs/annot/bin/TransDecoder.Predict', 'TRANSDECODER_PREDICT_PATH'))
     transdecoder_gtf2gff_bin: str = field(default_factory=lambda: get_tool_path(
         'transdecoder_gtf2gff', '~/miniforge3/envs/transdecoder_v.5.5.0/opt/transdecoder/util/gtf_to_alignment_gff3.pl', 'TRANSDECODER_GTF2GFF_PATH'))
     transdecoder_orf2genome_bin: str = field(default_factory=lambda: get_tool_path(

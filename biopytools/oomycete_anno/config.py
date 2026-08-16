@@ -159,14 +159,14 @@ class OomyceteAnnoConfig:
     transdecoder_predict_bin: str = field(
         default_factory=lambda: get_tool_path(
             "transdecoder_predict",
-            "~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.Predict",
+            "~/miniforge3/envs/annot/bin/TransDecoder.Predict",
             "TRANSDECODER_PREDICT_PATH",
         )
     )
     transdecoder_longorfs_bin: str = field(
         default_factory=lambda: get_tool_path(
             "transdecoder_longorfs",
-            "~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.LongOrfs",
+            "~/miniforge3/envs/annot/bin/TransDecoder.LongOrfs",
             "TRANSDECODER_LONGORFS_PATH",
         )
     )
