@@ -1,0 +1,16 @@
+# protein 功能域环境|protein domain environment
+# signalp6/phobius/tmhmm 为授权软件包装包, 建后需补 license/模型|
+# 创建|Create: mamba env create -f envs/protein.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: protein
+channels:
+  - conda-forge
+  - bioconda
+  - predector
+dependencies:
+  - signalp6
+  - resistify
+  - emboss
+  - meme
+  - phobius
+  - tmhmm

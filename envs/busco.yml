@@ -1,0 +1,10 @@
+# busco 功能域环境|busco domain environment
+# 独立保留(内含augustus/blast/hmmer/mafft 全套)|
+# 创建|Create: mamba env create -f envs/busco.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: busco
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - busco=6.0.0

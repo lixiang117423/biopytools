@@ -1,0 +1,15 @@
+# pop 功能域环境|pop domain environment
+# gctb 为自编译二进制, 不进 conda|
+# 创建|Create: mamba env create -f envs/pop.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: pop
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - plink
+  - vcftools
+  - admixture
+  - treemix
+  - pixy
+  - poplddecay

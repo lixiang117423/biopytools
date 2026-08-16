@@ -1,0 +1,14 @@
+# repeat 功能域环境|repeat domain environment
+# 
+# 创建|Create: mamba env create -f envs/repeat.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: repeat
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - repeatmodeler
+  - repeatmasker
+  - ltr_retriever
+  - ltr_harvest_parallel
+  - ltr_finder_parallel

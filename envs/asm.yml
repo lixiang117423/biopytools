@@ -1,0 +1,19 @@
+# asm 功能域环境|asm domain environment
+# 注意包名 purge_dups(下划线)|
+# 创建|Create: mamba env create -f envs/asm.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: asm
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - canu
+  - hifiasm
+  - kmc
+  - jellyfish=2.2.10
+  - merqury
+  - purge_dups
+  - genomescope2
+  - tidk
+  - getorganelle
+  - spades

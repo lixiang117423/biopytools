@@ -1,0 +1,15 @@
+# hic 功能域环境|hic domain environment
+# haphic 在 bioconda-legacy, juicer 在 hcc|
+# 创建|Create: mamba env create -f envs/hic.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: hic
+channels:
+  - conda-forge
+  - bioconda
+  - bioconda-legacy
+  - hcc
+dependencies:
+  - haphic
+  - pairtools
+  - yahs
+  - juicer

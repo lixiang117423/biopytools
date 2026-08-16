@@ -1,0 +1,16 @@
+# align 功能域环境|align domain environment
+# GATK 官测 Java 17/21, 故钉 jdk17|
+# 创建|Create: mamba env create -f envs/align.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: align
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - gatk4=4.6.2.0
+  - openjdk=17
+  - bcftools=1.22
+  - samtools
+  - bwa
+  - freebayes
+  - bedtools

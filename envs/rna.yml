@@ -1,0 +1,14 @@
+# rna 功能域环境|rna domain environment
+# 
+# 创建|Create: mamba env create -f envs/rna.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: rna
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - hisat2
+  - stringtie
+  - fastp
+  - gffread
+  - rseqc

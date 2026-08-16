@@ -1,0 +1,18 @@
+# annot 功能域环境|annot domain environment
+# 求解会拖入 python2.7+R4.0.3, 建后需功能验证|
+# 创建|Create: mamba env create -f envs/annot.yml
+# 由求解预检验证(2026-08-16, 全部可解)|Validated by solver preflight
+name: annot
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - augustus
+  - agat
+  - gffcompare
+  - miniprot
+  - transdecoder
+  - eggnog-mapper
+  - orthofinder
+  - blast
+  - genometools-genometools
