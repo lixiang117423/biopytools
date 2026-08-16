@@ -4,6 +4,17 @@
 > 求解预检全部通过（见 `docs/conda_merge_plan.md` 三-B 节）；Tier2/Tier3 例外环境不在此目录。
 
 
+
+## legacy/ 目录|Legacy Standalone Envs
+
+`envs/legacy/` 保存**仍在使用的独立环境**的重建配方（58 个 yml）——
+Tier2 legacy（braker/fanc/deeptmhmm/DeepBSA/HiC-Pro/SubPhaser/pasa）、
+Tier3 例外（qiime/picrust/EDTA/EGAPx/cphasing/jcvi/psvcp/telocomp/rnaseq_val/singularity）、
+源码安装（gctb/plothic/genomesyn2/alignoth/a-liner/kmeriaenv/vcf2gwas）、
+黑名单（signalp_v.3.0b）与待修复项（adamixture/vg 等）。
+
+这些环境**不在合并计划内、不可删除**，其 yml 是环境损坏时重建的唯一配方，与代码同仓管理。
+完整的新旧对照见 `docs/env_migration_map.md` 第二节。
 ## 旧环境备份|Legacy Env Backups
 
 历史 214 个旧环境的导出快照保存在本地 `conda_envs_backup/`（git 忽略，不入库），
