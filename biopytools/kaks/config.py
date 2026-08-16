@@ -60,7 +60,7 @@ class KaKsConfig:
     kaks_path: str = field(
         default_factory=lambda: get_tool_path(
             'KaKs_Calculator',
-            '~/miniforge3/envs/kakscalculator/bin/KaKs_Calculator',
+            '~/miniforge3/envs/kakscalculator2_v.2.0.1/bin/KaKs_Calculator',
             'KAKS_PATH'
         )
     )

@@ -28,7 +28,7 @@ tools:
 
   # 基因组组装|Genome assembly
   canu: ~/miniforge3/envs/canu_v.2.3/bin/canu
-  flye: ~/miniforge3/envs/flye/bin/flye
+  flye: ~/miniforge3/envs/telocomp/bin/flye  # flye装在telocomp环境|flye lives in telocomp env
   hifiasm: ~/miniforge3/envs/hifiasm/bin/hifiasm
 
   # 染色体级别组装|Chromosome-level assembly
