@@ -289,7 +289,7 @@ def main():
                        help='图表格式|Plot format')
 
     parser.add_argument('--orthofinder-path',
-                       default='~/miniforge3/envs/orthofinder_v.3.1.5/bin/orthofinder',
+                       default='~/miniforge3/envs/annot/bin/orthofinder',
                        help='OrthoFinder程序路径|OrthoFinder program path')
 
     args = parser.parse_args()

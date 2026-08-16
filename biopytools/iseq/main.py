@@ -67,7 +67,7 @@ def main():
                        help='输出目录|Output directory')
 
     parser.add_argument('-a', '--iseq-path',
-                       default='~/miniforge3/envs/iseq_v.1.9.8/bin/iseq',
+                       default='~/miniforge3/envs/misc/bin/iseq',
                        help='iSeq软件路径|iSeq software path')
 
     # 下载选项|Download options

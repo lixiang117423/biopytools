@@ -103,11 +103,11 @@ def _validate_file_exists(file_path):
 
 # 工具路径|Tool paths
 @click.option('--yahs-bin',
-              default='~/miniforge3/envs/yahs_v.1.2.2/bin/yahs',
+              default='~/miniforge3/envs/hic/bin/yahs',
               show_default=True,
               help='YaHS可执行文件|YaHS executable')
 @click.option('--juicer-bin',
-              default='~/miniforge3/envs/yahs_v.1.2.2/bin/juicer',
+              default='~/miniforge3/envs/hic/bin/juicer',
               show_default=True,
               help='juicer可执行文件|juicer executable')
 @click.option('--juicer-jar',
@@ -115,11 +115,11 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='juicer_tools.jar文件|juicer_tools.jar file')
 @click.option('--bwa-bin',
-              default='~/miniforge3/envs/Population_genetics/bin/bwa',
+              default='~/miniforge3/envs/align/bin/bwa',
               show_default=True,
               help='BWA可执行文件|BWA executable')
 @click.option('--samtools-bin',
-              default='~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools',
+              default='~/miniforge3/envs/align/bin/samtools',
               show_default=True,
               help='samtools可执行文件|samtools executable')
 @click.option('--java-cmd',
@@ -194,15 +194,15 @@ def yahs(ref, hic_r1, hic_r2, output_dir, threads, java_ram, sam_ram,
         args.extend(['--telo-motif', telo_motif])
 
     # 工具路径|Tool paths
-    if yahs_bin != '~/miniforge3/envs/yahs_v.1.2.2/bin/yahs':
+    if yahs_bin != '~/miniforge3/envs/hic/bin/yahs':
         args.extend(['--yahs-bin', yahs_bin])
-    if juicer_bin != '~/miniforge3/envs/yahs_v.1.2.2/bin/juicer':
+    if juicer_bin != '~/miniforge3/envs/hic/bin/juicer':
         args.extend(['--juicer-bin', juicer_bin])
     if juicer_jar != '~/software/juicer/scripts/juicer_tools.jar':
         args.extend(['--juicer-jar', juicer_jar])
-    if bwa_bin != '~/miniforge3/envs/Population_genetics/bin/bwa':
+    if bwa_bin != '~/miniforge3/envs/align/bin/bwa':
         args.extend(['--bwa-bin', bwa_bin])
-    if samtools_bin != '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools':
+    if samtools_bin != '~/miniforge3/envs/align/bin/samtools':
         args.extend(['--samtools-bin', samtools_bin])
     if java_cmd != 'java':
         args.extend(['--java-cmd', java_cmd])

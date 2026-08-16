@@ -258,7 +258,7 @@ def get_conda_env(command: str) -> Optional[str]:
     cmd_path = shutil.which(command)
     if cmd_path:
         # 检查路径中是否包含 envs|Check if path contains envs
-        # 例如: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+        # 例如: /miniforge3/envs/busco/bin/busco
         match = re.search(r'/envs/([^/]+)', cmd_path)
         if match:
             return match.group(1)
@@ -299,8 +299,8 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
 
     Examples:
         >>> #  正确：conda环境，直接调用完整路径
-        >>> build_conda_command('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', ['--version'])
-        ['/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', '--version']
+        >>> build_conda_command('/miniforge3/envs/busco/bin/busco', ['--version'])
+        ['/miniforge3/envs/busco/bin/busco', '--version']
 
         >>> #  正确：非conda环境，使用完整路径
         >>> build_conda_command('/usr/bin/tool', ['--help'])

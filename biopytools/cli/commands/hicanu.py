@@ -48,7 +48,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='输出目录路径|Output directory path')
 @click.option('--canu-path',
-              default='~/miniforge3/envs/canu_v.2.3/bin/canu',
+              default='~/miniforge3/envs/asm/bin/canu',
               show_default=True,
               help='Canu可执行文件路径|Path to Canu executable')
 @click.option('--min-read-length',
@@ -120,7 +120,7 @@ def hicanu(reads, genome_size, prefix, output_dir, canu_path,
     if output_dir != './hicanu_output':
         args.extend(['-o', output_dir])
 
-    if canu_path != '~/miniforge3/envs/canu_v.2.3/bin/canu':
+    if canu_path != '~/miniforge3/envs/asm/bin/canu':
         args.extend(['--canu-path', canu_path])
 
     if min_read_length != 1000:

@@ -31,7 +31,7 @@ class PhytoEffectorConfig:
     skip_signalp: bool = False
     signalp_path: str = field(
         default_factory=lambda: get_domain_tool_path(
-            'signalp6', '~/miniforge3/envs/signalp6/bin/signalp6', 'SIGNALP_PATH'
+            'signalp6', '~/miniforge3/envs/protein/bin/signalp6', 'SIGNALP_PATH'
         )
     )
     organism: str = 'eukarya'
@@ -46,14 +46,14 @@ class PhytoEffectorConfig:
     # HMMER参数|HMMER parameters
     hmmsearch_path: str = field(
         default_factory=lambda: get_domain_tool_path(
-            'hmmsearch', '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch', 'HMMSEARCH_PATH'
+            'hmmsearch', '~/miniforge3/envs/protein/bin/hmmsearch', 'HMMSEARCH_PATH'
         )
     )
 
     # BLASTP参数|BLASTP parameters
     blastp_path: str = field(
         default_factory=lambda: get_domain_tool_path(
-            'blastp', '~/miniforge3/envs/Blast_v.2.16.0/bin/blastp', 'BLASTP_PATH'
+            'blastp', '~/miniforge3/envs/annot/bin/blastp', 'BLASTP_PATH'
         )
     )
     rxlr_blastp_queries: str = field(
@@ -64,7 +64,7 @@ class PhytoEffectorConfig:
     # TMHMM参数|TMHMM parameters
     tmhmm_path: str = field(
         default_factory=lambda: get_domain_tool_path(
-            'tmhmm', '~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm', 'TMHMM_PATH'
+            'tmhmm', '~/miniforge3/envs/protein/bin/tmhmm', 'TMHMM_PATH'
         )
     )
 

@@ -12,7 +12,7 @@ Features: Assess Hi-C mapping data quality using pairtools
     # 创建QC评估器|Create QC assessor
     qc = PairtoolsQCRunner(
         pairs_file="sample.pairs.gz",
-        pairtools_path="~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools"
+        pairtools_path="~/miniforge3/envs/hic/bin/pairtools"
     )
 
     # 运行评估|Run assessment

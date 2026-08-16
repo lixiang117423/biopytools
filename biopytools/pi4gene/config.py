@@ -26,7 +26,7 @@ class Pi4GeneConfig:
     mafft_path: str = field(
         default_factory=lambda: get_tool_path(
             'mafft',
-            '~/miniforge3/envs/mafft_v.7.525/bin/mafft',
+            '~/miniforge3/envs/phylo/bin/mafft',
             'MAFFT_PATH'
         )
     )

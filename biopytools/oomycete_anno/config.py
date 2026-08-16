@@ -46,21 +46,21 @@ class OomyceteAnnoConfig:
     repeatmodeler_bin: str = field(
         default_factory=lambda: get_tool_path(
             "repeatmodeler",
-            "~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler",
+            "~/miniforge3/envs/repeat/bin/RepeatModeler",
             "REPEATMODELER_PATH",
         )
     )
     repeatmasker_bin: str = field(
         default_factory=lambda: get_tool_path(
             "repeatmasker",
-            "~/miniforge3/envs/repeat_identiy/bin/RepeatMasker",
+            "~/miniforge3/envs/repeat/bin/RepeatMasker",
             "REPEATMASKER_PATH",
         )
     )
     build_database_bin: str = field(
         default_factory=lambda: get_tool_path(
             "build_database",
-            "~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/BuildDatabase",
+            "~/miniforge3/envs/repeat/bin/BuildDatabase",
             "BUILDDATABASE_PATH",
         )
     )
@@ -68,13 +68,13 @@ class OomyceteAnnoConfig:
     # ===== 二代 RNA-seq 比对工具|Short RNA-seq alignment tools =====
     hisat2_bin: str = field(
         default_factory=lambda: get_tool_path(
-            "hisat2", "~/miniforge3/envs/RNA_Seq/bin/hisat2", "HISAT2_PATH"
+            "hisat2", "~/miniforge3/envs/rna/bin/hisat2", "HISAT2_PATH"
         )
     )
     hisat2_build_bin: str = field(
         default_factory=lambda: get_tool_path(
             "hisat2_build",
-            "~/miniforge3/envs/RNA_Seq/bin/hisat2-build",
+            "~/miniforge3/envs/rna/bin/hisat2-build",
             "HISAT2_BUILD_PATH",
         )
     )
@@ -84,21 +84,21 @@ class OomyceteAnnoConfig:
     bam2hints_bin: str = field(
         default_factory=lambda: get_tool_path(
             "bam2hints",
-            "~/miniforge3/envs/Augustus_v.3.5.0/bin/bam2hints",
+            "~/miniforge3/envs/annot/bin/bam2hints",
             "BAM2HINTS_PATH",
         )
     )
     augustus_bin: str = field(
         default_factory=lambda: get_tool_path(
             "augustus",
-            "~/miniforge3/envs/Augustus_v.3.5.0/bin/augustus",
+            "~/miniforge3/envs/annot/bin/augustus",
             "AUGUSTUS_PATH",
         )
     )
     etraining_bin: str = field(
         default_factory=lambda: get_tool_path(
             "etraining",
-            "~/miniforge3/envs/Augustus_v.3.5.0/bin/etraining",
+            "~/miniforge3/envs/annot/bin/etraining",
             "ETRAINING_PATH",
         )
     )
@@ -107,14 +107,14 @@ class OomyceteAnnoConfig:
     gtf2gff_bin: str = field(
         default_factory=lambda: get_tool_path(
             "gtf2gff",
-            "~/miniforge3/envs/Augustus_v.3.5.0/bin/gtf2gff.pl",
+            "~/miniforge3/envs/annot/bin/gtf2gff.pl",
             "GTF2GFF_PATH",
         )
     )
     gff2gb_bin: str = field(
         default_factory=lambda: get_tool_path(
             "gff2gb",
-            "~/miniforge3/envs/Augustus_v.3.5.0/bin/gff2gbSmallDNA.pl",
+            "~/miniforge3/envs/annot/bin/gff2gbSmallDNA.pl",
             "GFF2GB_PATH",
         )
     )
@@ -172,7 +172,7 @@ class OomyceteAnnoConfig:
     )
     miniprot_bin: str = field(
         default_factory=lambda: get_tool_path(
-            "miniprot", "~/miniforge3/envs/miniprot_v.0.18/bin/miniprot", "MINIPROT_PATH"
+            "miniprot", "~/miniforge3/envs/annot/bin/miniprot", "MINIPROT_PATH"
         )
     )
     # TransDecoder 坐标映射脚本(三代 ORF -> 基因组坐标)|TransDecoder ORF->genome mapper
@@ -187,13 +187,13 @@ class OomyceteAnnoConfig:
     # ===== LTR 注释工具(正交 TE)|LTR tools (orthogonal TE) =====
     gt_bin: str = field(
         default_factory=lambda: get_tool_path(
-            "gt", "~/miniforge3/envs/genometools_v.1.6.5/bin/gt", "GT_PATH"
+            "gt", "~/miniforge3/envs/annot/bin/gt", "GT_PATH"
         )
     )
     ltr_retriever_bin: str = field(
         default_factory=lambda: get_tool_path(
             "ltr_retriever",
-            "~/miniforge3/envs/ltr_retriever_v.3.0.1/bin/LTR_retriever",
+            "~/miniforge3/envs/repeat/bin/LTR_retriever",
             "LTR_RETRIEVER_PATH",
         )
     )

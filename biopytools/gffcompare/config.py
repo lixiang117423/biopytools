@@ -40,7 +40,7 @@ class GffCompareConfig:
     gffcompare_path: str = field(
         default_factory=lambda: get_tool_path(
             'gffcompare',
-            '~/miniforge3/envs/gffcompare_v.0.12.10/bin/gffcompare'
+            '~/miniforge3/envs/annot/bin/gffcompare'
         )
     )
 

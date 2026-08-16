@@ -17,7 +17,7 @@ class WGDIConfig:
     wgdi_path: str = field(
         default_factory=lambda: get_tool_path(
             'wgdi',
-            '~/miniforge3/envs/wgdi_v.0.75/bin/wgdi',
+            '~/miniforge3/envs/phylo/bin/wgdi',
             'WGDI_PATH'
         )
     )

@@ -52,7 +52,7 @@ def _validate_file_exists(file_path):
               help='输出文件前缀|Output file prefix')
 # HMMsearch软件配置|HMMsearch software configuration
 @click.option('--hmmsearch-path',
-              default='~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch',
+              default='~/miniforge3/envs/protein/bin/hmmsearch',
               show_default=True,
               help='hmmsearch程序路径|hmmsearch program path')
 @click.option('-t', '--threads',
@@ -132,7 +132,7 @@ def hmmsearch(input, protein_fasta, output_dir, output_prefix,
         args.extend(['--output-prefix', output_prefix])
 
     # HMMsearch软件配置|HMMsearch software configuration
-    if hmmsearch_path != '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch':
+    if hmmsearch_path != '~/miniforge3/envs/protein/bin/hmmsearch':
         args.extend(['--hmmsearch-path', hmmsearch_path])
 
     if threads != 12:

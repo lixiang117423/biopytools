@@ -28,15 +28,15 @@ class Rnaseq2vcfConfig:
 
     # 工具路径(支持~与环境变量)|Tool paths (~ and env-var overridable)
     hisat2_path: str = field(
-        default_factory=lambda: get_domain_tool_path('hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'))
+        default_factory=lambda: get_domain_tool_path('hisat2', '~/miniforge3/envs/rna/bin/hisat2', 'HISAT2_PATH'))
     fastp_path: str = field(
-        default_factory=lambda: get_domain_tool_path('fastp', '~/miniforge3/envs/RNA_Seq/bin/fastp', 'FASTP_PATH'))
+        default_factory=lambda: get_domain_tool_path('fastp', '~/miniforge3/envs/rna/bin/fastp', 'FASTP_PATH'))
     samtools_path: str = field(
-        default_factory=lambda: get_domain_tool_path('samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))
+        default_factory=lambda: get_domain_tool_path('samtools', '~/miniforge3/envs/align/bin/samtools', 'SAMTOOLS_PATH'))
     bcftools_path: str = field(
-        default_factory=lambda: get_domain_tool_path('bcftools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/bcftools', 'BCFTOOLS_PATH'))
+        default_factory=lambda: get_domain_tool_path('bcftools', '~/miniforge3/envs/align/bin/bcftools', 'BCFTOOLS_PATH'))
     gatk_path: str = field(
-        default_factory=lambda: get_domain_tool_path('gatk', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/gatk', 'GATK_PATH'))
+        default_factory=lambda: get_domain_tool_path('gatk', '~/miniforge3/envs/align/bin/gatk', 'GATK_PATH'))
 
     # 参数|Params
     threads: int = 12

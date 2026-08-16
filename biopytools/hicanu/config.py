@@ -21,7 +21,7 @@ class HiCanuConfig:
     prefix: str
 
     # 路径配置|Path configuration
-    canu_path: str = '~/miniforge3/envs/canu_v.2.3/bin/canu'
+    canu_path: str = '~/miniforge3/envs/asm/bin/canu'
     base_dir: str = './hicanu_output'  # 基础输出目录|Base output directory
 
     # 组装参数|Assembly parameters

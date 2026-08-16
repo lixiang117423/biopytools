@@ -213,7 +213,7 @@ def main():
 
     # HMMsearch软件配置|HMMsearch software configuration
     parser.add_argument('--hmmsearch-path',
-                       default='~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch',
+                       default='~/miniforge3/envs/protein/bin/hmmsearch',
                        help='hmmsearch程序路径|hmmsearch program path')
     parser.add_argument('-t', '--threads', type=int, default=12,
                        help='线程数|Number of threads')

@@ -72,7 +72,7 @@ def get_conda_env(command: str) -> Optional[str]:
     cmd_path = shutil.which(command)
     if cmd_path:
         # 检查路径中是否包含 envs|Check if path contains envs
-        # 例如: /miniforge3/envs/primer3_v.2.6.1/bin/primer3_core
+        # 例如: /miniforge3/envs/misc/bin/primer3_core
         match = re.search(r'/envs/([^/]+)', cmd_path)
         if match:
             return match.group(1)

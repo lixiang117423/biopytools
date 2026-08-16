@@ -32,7 +32,7 @@ class SamplotPlotConfig:
         coverage_only: bool = False,
         same_yaxis_scales: bool = False,
         titles: Optional[List[str]] = None,
-        samplot_path: str = "~/miniforge3/envs/samplot_v.1.3.0/bin/samplot",
+        samplot_path: str = "~/miniforge3/envs/viz/bin/samplot",
     ):
         """
         初始化配置|Initialize configuration
@@ -153,7 +153,7 @@ class SamplotVcfConfig:
         min_entries: int = 6,
         max_entries: int = 10,
         gff3: Optional[str] = None,
-        samplot_path: str = "~/miniforge3/envs/samplot_v.1.3.0/bin/samplot",
+        samplot_path: str = "~/miniforge3/envs/viz/bin/samplot",
     ):
         """
         初始化配置|Initialize configuration

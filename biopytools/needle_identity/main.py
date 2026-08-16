@@ -24,7 +24,7 @@ def parse_arguments():
     parser.add_argument('-o', '--output-dir', default='./output',
                         help='输出目录|Output directory (default: ./output)')
     parser.add_argument('--needle-path', default=None,
-                        help='needle可执行文件路径|needle executable path (default: ~/miniforge3/envs/needle_v.1.0.3/bin/needle)')
+                        help='needle可执行文件路径|needle executable path (default: ~/miniforge3/envs/protein/bin/needle)')
     parser.add_argument('--threads', type=int, default=12,
                         help='并行线程数|Threads (default: 12)')
     parser.add_argument('--gapopen', type=float, default=10.0,

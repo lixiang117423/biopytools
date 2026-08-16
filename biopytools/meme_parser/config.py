@@ -23,7 +23,7 @@ class MemeParserConfig:
     parse_only: bool = False  # True=只解析现有输出，False=运行MEME
 
     # MEME软件路径|MEME software path
-    meme_path: str = '~/miniforge3/envs/meme_v.5.5.9/bin/meme'
+    meme_path: str = '~/miniforge3/envs/protein/bin/meme'
 
     # MEME参数|MEME parameters
     protein: bool = True  # -protein 输入序列为蛋白质

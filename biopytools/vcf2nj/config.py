@@ -23,7 +23,7 @@ class PhyloConfig:
 
     # 工具路径|Tool paths
     vcf2dis_path: str = "VCF2Dis"
-    nw_reroot_path: str = "~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot"
+    nw_reroot_path: str = "~/miniforge3/envs/phylo/bin/nw_reroot"
 
     # 重根化参数|Rerooting parameters
     outgroup: Optional[str] = None  # 外群样本标签（逗号分隔）|Outgroup sample labels (comma-separated)

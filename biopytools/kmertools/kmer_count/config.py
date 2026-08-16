@@ -49,7 +49,7 @@ class KmerCountConfig:
         """初始化后处理|Post-initialization processing"""
         # 工具路径: None时按优先级解析(环境变量>配置文件>默认),再展开~|Tool path: resolve if None (env>config>default), then expand ~
         if not self.jellyfish_path:
-            self.jellyfish_path = get_tool_path('jellyfish', '~/miniforge3/envs/K-mer/bin/jellyfish', 'JELLYFISH_PATH')
+            self.jellyfish_path = get_tool_path('jellyfish', '~/miniforge3/envs/asm/bin/jellyfish', 'JELLYFISH_PATH')
         self.jellyfish_path = expand_path(self.jellyfish_path)
         # 展开并转换路径为Path对象|Expand and convert paths to Path objects
         self.input_dir = Path(expand_path(str(self.input_dir)))

@@ -103,7 +103,7 @@ def _validate_dir_exists(dir_path):
 
 # Pairtools模式阈值|Pairtools mode thresholds
 @click.option('--pairtools-path', '-p',
-              default='~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools',
+              default='~/miniforge3/envs/hic/bin/pairtools',
               show_default=True,
               help='Pairtools可执行文件路径（仅pairs/bam模式）|Pairtools executable path (pairs/bam mode only)')
 @click.option('--chroms-path', '-c',
@@ -234,7 +234,7 @@ def hic_qc(input, input_type, output_dir, sample_name,
         if output_dir != './hic_qc_output':
             args.extend(['-o', output_dir])
 
-        if pairtools_path != '~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools':
+        if pairtools_path != '~/miniforge3/envs/hic/bin/pairtools':
             args.extend(['-p', pairtools_path])
 
         if chroms_path:

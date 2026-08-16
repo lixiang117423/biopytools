@@ -56,7 +56,7 @@ class BUSCOConfig:
     busco_path: str = field(
         default_factory=lambda: get_tool_path(
             'busco',
-            '~/miniforge3/envs/BUSCO_v.6.0.0/bin/busco',
+            '~/miniforge3/envs/busco/bin/busco',
             'BUSCO_PATH'
         )
     )

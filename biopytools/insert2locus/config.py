@@ -59,13 +59,13 @@ class Insert2locusConfig:
     # 工具路径(优先级:env var > config.yml > 默认~展开)|
     # Tool paths (priority: env var > config.yml > ~-expanded default)
     bwa_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'bwa', '~/miniforge3/envs/Population_genetics/bin/bwa', 'BWA_PATH'))
+        'bwa', '~/miniforge3/envs/align/bin/bwa', 'BWA_PATH'))
     samtools_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))
+        'samtools', '~/miniforge3/envs/align/bin/samtools', 'SAMTOOLS_PATH'))
     seqkit_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH'))
+        'seqkit', '~/miniforge3/envs/misc/bin/seqkit', 'SEQKIT_PATH'))
     spades_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'spades', '~/miniforge3/envs/spades_v.4.3.0/bin/spades.py', 'SPADES_PATH'))
+        'spades', '~/miniforge3/envs/asm/bin/spades.py', 'SPADES_PATH'))
 
     # 执行控制|Execution control
     force: bool = False

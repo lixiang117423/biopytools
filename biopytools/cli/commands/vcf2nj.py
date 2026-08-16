@@ -43,7 +43,7 @@ def _lazy_import_vcf2nj_main():
               type=str,
               help='外群样本标签，多个用逗号分隔|Outgroup sample labels, comma-separated')
 @click.option('--nw-reroot-path',
-              default='~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot',
+              default='~/miniforge3/envs/phylo/bin/nw_reroot',
               type=str,
               show_default=True,
               help='nw_reroot程序路径|nw_reroot program path')
@@ -109,7 +109,7 @@ def vcf2nj(input, distance_matrix, output, prefix, tree_output, outgroup, nw_rer
     if outgroup:
         args.extend(['--outgroup', outgroup])
 
-    if nw_reroot_path != '~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot':
+    if nw_reroot_path != '~/miniforge3/envs/phylo/bin/nw_reroot':
         args.extend(['--nw-reroot-path', nw_reroot_path])
 
     # 工具路径|Tool paths

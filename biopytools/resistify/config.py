@@ -25,7 +25,7 @@ class ResistifyConfig:
 
     # Resistify工具参数|Resistify tool parameters
     resistify_path: str = field(
-        default_factory=lambda: get_tool_path('resistify', '~/miniforge3/envs/resistify_v.1.3.0/bin/resistify', 'RESISTIFY_PATH')
+        default_factory=lambda: get_tool_path('resistify', '~/miniforge3/envs/protein/bin/resistify', 'RESISTIFY_PATH')
     )
     skip_resistify: bool = False
     threads: int = 12

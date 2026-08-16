@@ -60,7 +60,7 @@ class RMVPConfig:
     plink_path: str = field(  # PLINK可执行文件路径|PLINK executable path
         default_factory=lambda: get_tool_path(
             'plink',
-            '~/miniforge3/envs/Population_genetics/bin/plink',
+            '~/miniforge3/envs/pop/bin/plink',
             'PLINK_PATH'
         )
     )

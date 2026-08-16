@@ -40,11 +40,11 @@ def parse_arguments():
 
     # 软件路径|Software paths
     parser.add_argument('--repeatmodeler-path',
-                       default='~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler',
+                       default='~/miniforge3/envs/repeat/bin/RepeatModeler',
                        help='RepeatModeler路径|RepeatModeler path')
 
     parser.add_argument('--repeatmasker-path',
-                       default='~/miniforge3/envs/repeat_identiy/bin/RepeatMasker',
+                       default='~/miniforge3/envs/repeat/bin/RepeatMasker',
                        help='RepeatMasker路径|RepeatMasker path')
 
     parser.add_argument('--builddatabase-path',

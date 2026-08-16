@@ -145,15 +145,15 @@ def _validate_file_exists(file_path):
 
 # 工具配置|Tool configuration
 @click.option('--haphic-bin',
-              default="~/miniforge3/envs/haphic/bin/haphic",
+              default="~/miniforge3/envs/hic/bin/haphic",
               show_default=True,
               help='HapHiC可执行文件路径|HapHiC executable path')
 @click.option('--bwa-bin',
-              default="~/miniforge3/envs/Population_genetics/bin/bwa",
+              default="~/miniforge3/envs/align/bin/bwa",
               show_default=True,
               help='BWA可执行文件路径|BWA executable path')
 @click.option('--samtools-bin',
-              default="~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools",
+              default="~/miniforge3/envs/align/bin/samtools",
               show_default=True,
               help='Samtools可执行文件路径|Samtools executable path')
 
@@ -163,7 +163,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='Samblaster可执行文件路径|Samblaster executable path')
 @click.option('--haphic-filter-bam-bin',
-              default="~/miniforge3/envs/haphic/bin/filter_bam",
+              default="~/miniforge3/envs/hic/bin/filter_bam",
               show_default=True,
               help='HapHiC filter_bam工具路径|HapHiC filter_bam tool path')
 @click.option('--use-samblaster/--no-use-samblaster', default=True,

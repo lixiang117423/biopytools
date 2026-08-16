@@ -119,7 +119,7 @@ def _pipeline_tool_paths(commands: List[List[str]]) -> List[str]:
     return [cmd[0] for cmd in commands if cmd]
 
 
-def check_dependencies(logger, hifiasm_bin: str = '~/miniforge3/envs/hifiasm_v.0.25.0/bin/hifiasm') -> bool:
+def check_dependencies(logger, hifiasm_bin: str = '~/miniforge3/envs/asm/bin/hifiasm') -> bool:
     """
     检查依赖软件|Check dependencies
 

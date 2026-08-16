@@ -27,7 +27,7 @@ def get_conda_env(command: str) -> Optional[str]:
     # First check if command itself is a full path
     if os.path.isabs(command):
         # 直接从完整路径中提取环境名|Extract env name directly from full path
-        # 例如|e.g.: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+        # 例如|e.g.: /miniforge3/envs/busco/bin/busco
         match = re.search(r'/envs/([^/]+)', command)
         if match:
             return match.group(1)
@@ -36,7 +36,7 @@ def get_conda_env(command: str) -> Optional[str]:
     cmd_path = shutil.which(command)
     if cmd_path:
         # 检查路径中是否包含 envs|Check if path contains 'envs'
-        # 例如|e.g.: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+        # 例如|e.g.: /miniforge3/envs/busco/bin/busco
         match = re.search(r'/envs/([^/]+)', cmd_path)
         if match:
             return match.group(1)

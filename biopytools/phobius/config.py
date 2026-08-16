@@ -40,7 +40,7 @@ class PhobiusConfig:
     input_file: str
     output_dir: str
     output_prefix: Optional[str] = None
-    phobius_path: str = "~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"
+    phobius_path: str = "~/miniforge3/envs/protein/bin/phobius.pl"
 
     def __post_init__(self):
         """初始化后处理:建目录/展路径/推prefix|Post-init: dirs, expand, prefix"""

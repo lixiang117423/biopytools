@@ -51,7 +51,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='GCTB软件路径|GCTB software path')
 @click.option('--plink-path',
-              default='~/miniforge3/envs/Population_genetics/bin/plink',
+              default='~/miniforge3/envs/pop/bin/plink',
               show_default=True,
               help='PLINK软件路径|PLINK software path')
 @click.option('--maf-threshold',
@@ -123,7 +123,7 @@ def gctb(vcf_file, pheno_file, output_dir, gctb_path, plink_path,
     if gctb_path != '~/miniforge3/envs/gctb/bin/gctb':
         args.extend(['--gctb-path', gctb_path])
 
-    if plink_path != '~/miniforge3/envs/Population_genetics/bin/plink':
+    if plink_path != '~/miniforge3/envs/pop/bin/plink':
         args.extend(['--plink-path', plink_path])
 
     if maf_threshold != 0.01:

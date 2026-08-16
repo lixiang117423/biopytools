@@ -258,7 +258,7 @@ def main():
     # SignalP参数|SignalP parameters
     parser.add_argument('--skip-signalp', action='store_true',
                         help='跳过SignalP预测|Skip SignalP prediction')
-    parser.add_argument('--signalp-path', default='~/miniforge3/envs/signalp6/bin/signalp6',
+    parser.add_argument('--signalp-path', default='~/miniforge3/envs/protein/bin/signalp6',
                         help='SignalP程序路径|SignalP program path')
     parser.add_argument('--organism', default='eukarya', choices=['eukarya', 'other'],
                         help='生物类型|Organism type (default: eukarya)')
@@ -276,17 +276,17 @@ def main():
                         help='SignalP 3.0 HMM Sprob阈值|SignalP 3.0 HMM Sprob threshold (default: 0.9)')
 
     # HMMER参数|HMMER parameters
-    parser.add_argument('--hmmsearch-path', default='~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch',
+    parser.add_argument('--hmmsearch-path', default='~/miniforge3/envs/protein/bin/hmmsearch',
                         help='hmmsearch程序路径|hmmsearch program path')
 
     # BLASTP参数|BLASTP parameters
-    parser.add_argument('--blastp-path', default='~/miniforge3/envs/Blast_v.2.16.0/bin/blastp',
+    parser.add_argument('--blastp-path', default='~/miniforge3/envs/annot/bin/blastp',
                         help='blastp程序路径|blastp program path')
     parser.add_argument('--rxlr-blastp-queries', default=None,
                         help='RxLR BLASTP查询序列FASTA(默认内置)|RxLR BLASTP query FASTA (default: bundled)')
 
     # TMHMM参数|TMHMM parameters
-    parser.add_argument('--tmhmm-path', default='~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm',
+    parser.add_argument('--tmhmm-path', default='~/miniforge3/envs/protein/bin/tmhmm',
                         help='tmhmm程序路径|tmhmm program path')
 
     # RxLR参数|RxLR parameters

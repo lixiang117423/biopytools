@@ -53,8 +53,8 @@ class SweepMergeConfig:
     include_xpclr_low_n: bool = False  # 低样本群体对是否仍加入XP-CLR分量|Include XP-CLR for low-n pairs
 
     # 工具路径|Tool paths (conda env selective_sweep)
-    bcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/bcftools'
-    vcftools_path: str = '~/miniforge3/envs/selective_sweep/bin/vcftools'
+    bcftools_path: str = '~/miniforge3/envs/align/bin/bcftools'
+    vcftools_path: str = '~/miniforge3/envs/pop/bin/vcftools'
     raisd_path: str = '~/miniforge3/envs/selective_sweep/bin/RAiSD'
     sweed_path: str = '~/software/sweed/SweeD-P'
     xpclr_path: str = '~/miniforge3/envs/selective_sweep/bin/xpclr'

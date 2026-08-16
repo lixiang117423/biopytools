@@ -111,7 +111,7 @@ def parse_arguments():
     )
     parser.add_argument(
         '--signalp-path',
-        default='~/miniforge3/envs/signalp6/bin/signalp6',
+        default='~/miniforge3/envs/protein/bin/signalp6',
         help='SignalP程序路径|SignalP program path'
     )
     parser.add_argument(

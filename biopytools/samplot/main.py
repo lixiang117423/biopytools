@@ -198,7 +198,7 @@ def main_plot():
     optional.add_argument('-n', '--titles', nargs='+', default=None,
                           help='[STR] 样本标题列表|Sample title list')
     optional.add_argument('--samplot-path',
-                          default='~/miniforge3/envs/samplot_v.1.3.0/bin/samplot',
+                          default='~/miniforge3/envs/viz/bin/samplot',
                           help='[FILE] samplot可执行文件路径|samplot binary path')
 
     args = parser.parse_args()
@@ -317,7 +317,7 @@ def main_vcf():
     optional.add_argument('--gff3', default=None,
                           help='[FILE] GFF3注释文件|GFF3 annotation file')
     optional.add_argument('--samplot-path',
-                          default='~/miniforge3/envs/samplot_v.1.3.0/bin/samplot',
+                          default='~/miniforge3/envs/viz/bin/samplot',
                           help='[FILE] samplot可执行文件路径|samplot binary path')
 
     args = parser.parse_args()

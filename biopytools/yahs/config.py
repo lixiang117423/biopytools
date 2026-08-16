@@ -48,11 +48,11 @@ class YaHSConfig:
     telo_motif: Optional[str] = None
 
     # 工具路径（使用完整路径作为默认值）|Tool paths (use full paths as defaults)
-    yahs_bin: str = field(default_factory=lambda: '~/miniforge3/envs/yahs_v.1.2.2/bin/yahs')
-    juicer_bin: str = field(default_factory=lambda: '~/miniforge3/envs/yahs_v.1.2.2/bin/juicer')
+    yahs_bin: str = field(default_factory=lambda: '~/miniforge3/envs/hic/bin/yahs')
+    juicer_bin: str = field(default_factory=lambda: '~/miniforge3/envs/hic/bin/juicer')
     juicer_jar: Optional[str] = field(default_factory=lambda: '~/software/juicer/scripts/juicer_tools.jar')
-    bwa_bin: str = field(default_factory=lambda: '~/miniforge3/envs/Population_genetics/bin/bwa')
-    samtools_bin: str = field(default_factory=lambda: '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools')
+    bwa_bin: str = field(default_factory=lambda: '~/miniforge3/envs/align/bin/bwa')
+    samtools_bin: str = field(default_factory=lambda: '~/miniforge3/envs/align/bin/samtools')
     java_cmd: str = field(default_factory=lambda: 'java')
 
     # 执行控制|Execution control

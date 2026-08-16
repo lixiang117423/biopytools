@@ -25,8 +25,8 @@ class RepeatMaskConfig:
     species: Optional[str] = None  # 物种名称，用于Dfam/Repbase数据库|Species name for Dfam/Repbase database
 
     # 软件路径配置|Software path configuration
-    repeatmodeler_path: str = '~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler'
-    repeatmasker_path: str = '~/miniforge3/envs/repeat_identiy/bin/RepeatMasker'
+    repeatmodeler_path: str = '~/miniforge3/envs/repeat/bin/RepeatModeler'
+    repeatmasker_path: str = '~/miniforge3/envs/repeat/bin/RepeatMasker'
     builddatabase_path: str = 'BuildDatabase'
 
     # 流程控制|Pipeline control

@@ -70,7 +70,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='PyTorch线程数|PyTorch threads')
 @click.option('--signalp-path',
-              default='~/miniforge3/envs/signalp6/bin/signalp6',
+              default='~/miniforge3/envs/protein/bin/signalp6',
               show_default=True,
               help='SignalP程序路径|SignalP program path')
 @click.option('--model-dir', '-md',

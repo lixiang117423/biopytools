@@ -31,11 +31,11 @@ class MixraceConfig:
     dry_run: bool = False
     # 工具路径(默认~, __post_init__ 展开)|Tool paths (default ~, expanded in __post_init__)
     bwa_mem2_path: str = "~/miniforge3/envs/cphasing/bin/bwa-mem2"
-    samtools_path: str = "~/miniforge3/envs/sv_calling/bin/samtools"
-    bcftools_path: str = "~/miniforge3/envs/sv_calling/bin/bcftools"
-    bedtools_path: str = "~/miniforge3/envs/sv_calling/bin/bedtools"
+    samtools_path: str = "~/miniforge3/envs/align/bin/samtools"
+    bcftools_path: str = "~/miniforge3/envs/align/bin/bcftools"
+    bedtools_path: str = "~/miniforge3/envs/align/bin/bedtools"
     rscript_path: str = "~/miniforge3/envs/WGCNA_v.1.73/bin/Rscript"
-    freebayes_path: str = "~/miniforge3/envs/freebayes/bin/freebayes"
+    freebayes_path: str = "~/miniforge3/envs/align/bin/freebayes"
     # freebayes 单倍体 calling 参数(约定: -p 1 --min-alternate-fraction 0.02 --min-coverage 30)
     freebayes_min_alternate_fraction: float = 0.02
     freebayes_min_coverage: int = 30

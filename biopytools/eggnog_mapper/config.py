@@ -39,7 +39,7 @@ class EggnogMapperConfig:
     emapper_path: str = field(
         default_factory=lambda: get_tool_path(
             "emapper",
-            "~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/emapper.py",
+            "~/miniforge3/envs/annot/bin/emapper.py",
             "EMAPPER_PATH",
         )
     )

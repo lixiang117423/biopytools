@@ -63,7 +63,7 @@ class TmhmmConfig:
         else:
             self.tmhmm_path = get_tool_path(
                 'tmhmm',
-                '~/miniforge3/envs/tmmhmm_v.2.0c/bin/tmhmm',
+                '~/miniforge3/envs/protein/bin/tmhmm',
                 'TMHMM_PATH'
             )
 

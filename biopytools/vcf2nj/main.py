@@ -141,7 +141,7 @@ def create_parser():
     )
     reroot_group.add_argument(
         "--nw-reroot-path",
-        default="~/miniforge3/envs/newick_utils_v.1.6/bin/nw_reroot",
+        default="~/miniforge3/envs/phylo/bin/nw_reroot",
         help="nw_reroot程序路径|nw_reroot program path"
     )
 

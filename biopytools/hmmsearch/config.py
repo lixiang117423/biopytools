@@ -27,7 +27,7 @@ class HMMsearchConfig:
     output_prefix: str = 'hmmsearch_results'
 
     # HMMsearch软件配置|HMMsearch software configuration
-    hmmsearch_path: str = '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch'
+    hmmsearch_path: str = '~/miniforge3/envs/protein/bin/hmmsearch'
     threads: int = 12
 
     # HMMsearch运行参数|HMMsearch run parameters

@@ -51,11 +51,11 @@ class AssemblyConfig:
     # hifiasm env独占;seqkit/samtools各处一env(跨env管道见assembler/ngs_polisher)
     # |hifiasm env exclusive; seqkit/samtools in separate envs (cross-env pipelines in assembler/ngs_polisher)
     hifiasm_path: str = field(default_factory=lambda: get_tool_path(
-        'hifiasm', '~/miniforge3/envs/hifiasm_v.0.25.0/bin/hifiasm', 'HIFIASM_PATH'))
+        'hifiasm', '~/miniforge3/envs/asm/bin/hifiasm', 'HIFIASM_PATH'))
     seqkit_path: str = field(default_factory=lambda: get_tool_path(
-        'seqkit', '~/miniforge3/envs/BioinfTools/bin/seqkit', 'SEQKIT_PATH'))
+        'seqkit', '~/miniforge3/envs/misc/bin/seqkit', 'SEQKIT_PATH'))
     samtools_path: str = field(default_factory=lambda: get_tool_path(
-        'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'))
+        'samtools', '~/miniforge3/envs/align/bin/samtools', 'SAMTOOLS_PATH'))
 
     # 内部属性|Internal attributes
     work_dir: str = None

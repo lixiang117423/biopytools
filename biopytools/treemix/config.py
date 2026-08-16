@@ -25,14 +25,14 @@ class TreemixConfig:
     treemix_path: str = field(
         default_factory=lambda: get_tool_path(
             'treemix',
-            '~/miniforge3/envs/treemix_v.1.13/bin/treemix',
+            '~/miniforge3/envs/pop/bin/treemix',
             'TREEMIX_PATH',
         )
     )
     plink_path: str = field(
         default_factory=lambda: get_tool_path(
             'plink',
-            '~/miniforge3/envs/Population_genetics/bin/plink',
+            '~/miniforge3/envs/pop/bin/plink',
             'PLINK_PATH',
         )
     )
@@ -46,7 +46,7 @@ class TreemixConfig:
     bcftools_path: str = field(
         default_factory=lambda: get_tool_path(
             'bcftools',
-            '~/miniforge3/envs/bcftools_v.1.22/bin/bcftools',
+            '~/miniforge3/envs/align/bin/bcftools',
             'BCFTOOLS_PATH',
         )
     )

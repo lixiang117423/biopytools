@@ -18,22 +18,22 @@ tools:
   interproscan: ~/software/InterProScan/interproscan.sh
 
   # 重复序列|Repeat sequences
-  repeatmasker: ~/miniforge3/envs/repeat_identiy/bin/RepeatMasker
-  repeatmodeler: ~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler
+  repeatmasker: ~/miniforge3/envs/repeat/bin/RepeatMasker
+  repeatmodeler: ~/miniforge3/envs/repeat/bin/RepeatModeler
   edta: ~/miniforge3/envs/EDTA_v.2.2.2/share/EDTA
 
   # 序列比对|Sequence alignment
   minimap2: ~/miniforge3/envs/Genome_dedup/bin/minimap2
-  hisat2: ~/miniforge3/envs/RNA_Seq/bin/hisat2
+  hisat2: ~/miniforge3/envs/rna/bin/hisat2
 
   # 基因组组装|Genome assembly
-  canu: ~/miniforge3/envs/canu_v.2.3/bin/canu
+  canu: ~/miniforge3/envs/asm/bin/canu
   flye: ~/miniforge3/envs/telocomp/bin/flye  # flye装在telocomp环境|flye lives in telocomp env
-  hifiasm: ~/miniforge3/envs/hifiasm/bin/hifiasm
+  hifiasm: ~/miniforge3/envs/asm/bin/hifiasm
 
   # 染色体级别组装|Chromosome-level assembly
   allhic: ~/software/ALLHiC/bin
-  haphic: ~/miniforge3/envs/haphic/bin/haphic
+  haphic: ~/miniforge3/envs/hic/bin/haphic
   three_dna: ~/software/3d-dna
 
   # 群体遗传|Population genetics
@@ -42,9 +42,9 @@ tools:
   gemma: ~/.local/bin/gemma
 
   # 其他工具|Other tools
-  meme: ~/miniforge3/envs/meme_v.5.5.9/bin/meme
-  signalp: ~/miniforge3/envs/signalp6/bin/signalp6
-  tidk: ~/miniforge3/envs/tidk_v.0.2.65/bin/tidk
+  meme: ~/miniforge3/envs/protein/bin/meme
+  signalp: ~/miniforge3/envs/protein/bin/signalp6
+  tidk: ~/miniforge3/envs/asm/bin/tidk
 
 # 数据库路径|Database paths
 databases:

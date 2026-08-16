@@ -21,7 +21,7 @@ class TelomereFinderConfig:
     output_prefix: str = 'telomere'
 
     # 软件路径配置|Software path configuration
-    tidk_path: str = '~/miniforge3/envs/tidk_v.0.2.65/bin/tidk'
+    tidk_path: str = '~/miniforge3/envs/asm/bin/tidk'
 
     # 分析模式|Analysis mode
     mode: str = 'pipeline'  # explore, find, search, plot, pipeline (默认 pipeline)

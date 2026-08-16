@@ -110,7 +110,7 @@ def main():
                          dest='base_dir',
                          help='输出目录路径|Output directory path')
     optional.add_argument('--canu-path',
-                         default='~/miniforge3/envs/canu_v.2.3/bin/canu',
+                         default='~/miniforge3/envs/asm/bin/canu',
                          help='Canu可执行文件路径|Path to Canu executable')
     optional.add_argument('--min-read-length',
                          type=int, default=1000,

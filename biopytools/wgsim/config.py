@@ -68,7 +68,7 @@ class WgsimConfig:
         else:
             self.wgsim_path = get_tool_path(
                 'wgsim',
-                '~/miniforge3/envs/GATK_v.4.6.2.0/bin/wgsim',
+                '~/miniforge3/envs/align/bin/wgsim',
                 'WGSIM_PATH'
             )
 

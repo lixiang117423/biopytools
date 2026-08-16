@@ -48,13 +48,13 @@ class TranscriptAssemblyConfig:
 
     # 工具路径|Tool paths (§13.6 传完整路径|pass full path)
     stringtie_bin: str = field(default_factory=lambda: get_tool_path(
-        'stringtie', '~/miniforge3/envs/RNA_Seq/bin/stringtie', 'STRINGTIE_PATH'))
+        'stringtie', '~/miniforge3/envs/rna/bin/stringtie', 'STRINGTIE_PATH'))
     gffread_bin: str = field(default_factory=lambda: get_tool_path(
-        'gffread', '~/miniforge3/envs/RNA_Seq/bin/gffread', 'GFFREAD_PATH'))
+        'gffread', '~/miniforge3/envs/rna/bin/gffread', 'GFFREAD_PATH'))
     hisat2_bin: str = field(default_factory=lambda: get_tool_path(
-        'hisat2', '~/miniforge3/envs/RNA_Seq/bin/hisat2', 'HISAT2_PATH'))
+        'hisat2', '~/miniforge3/envs/rna/bin/hisat2', 'HISAT2_PATH'))
     hisat2_build_bin: str = field(default_factory=lambda: get_tool_path(
-        'hisat2-build', '~/miniforge3/envs/RNA_Seq/bin/hisat2-build', 'HISAT2_BUILD_PATH'))
+        'hisat2-build', '~/miniforge3/envs/rna/bin/hisat2-build', 'HISAT2_BUILD_PATH'))
     samtools_bin: str = field(default_factory=get_samtools_path)
     transdecoder_longorfs_bin: str = field(default_factory=lambda: get_tool_path(
         'transdecoder_longorfs', '~/miniforge3/envs/transdecoder_v.5.5.0/bin/TransDecoder.LongOrfs', 'TRANSDECODER_LONGORFS_PATH'))

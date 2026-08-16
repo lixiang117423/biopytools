@@ -29,7 +29,7 @@ def _validate_path(path):
               show_default=True, help='输出目录|Output directory')
 @click.option('--skip-signalp', is_flag=True,
               help='跳过SignalP预测|Skip SignalP prediction')
-@click.option('--signalp-path', default='~/miniforge3/envs/signalp6/bin/signalp6',
+@click.option('--signalp-path', default='~/miniforge3/envs/protein/bin/signalp6',
               show_default=True, help='SignalP程序路径|SignalP program path')
 @click.option('--organism', default='eukarya', show_default=True,
               type=click.Choice(['eukarya', 'other']),
@@ -45,7 +45,7 @@ def _validate_path(path):
               show_default=True, help='SignalP 3.0程序路径|SignalP 3.0 program path')
 @click.option('--signalp3-sprob-threshold', default=0.9, show_default=True, type=float,
               help='SignalP 3.0 HMM Sprob阈值|SignalP 3.0 HMM Sprob threshold')
-@click.option('--hmmsearch-path', default='~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch',
+@click.option('--hmmsearch-path', default='~/miniforge3/envs/protein/bin/hmmsearch',
               show_default=True, help='hmmsearch程序路径|hmmsearch program path')
 @click.option('--rxlr-hmm', default=None,
               help='RxLR HMM文件(默认内置)|RxLR HMM file (default: bundled)')
@@ -97,7 +97,7 @@ def phyto_effector(input, output_dir, skip_signalp, signalp_path, organism, sign
         args.extend(['-o', output_dir])
     if skip_signalp:
         args.append('--skip-signalp')
-    if signalp_path != '~/miniforge3/envs/signalp6/bin/signalp6':
+    if signalp_path != '~/miniforge3/envs/protein/bin/signalp6':
         args.extend(['--signalp-path', signalp_path])
     if organism != 'eukarya':
         args.extend(['--organism', organism])
@@ -109,7 +109,7 @@ def phyto_effector(input, output_dir, skip_signalp, signalp_path, organism, sign
         args.extend(['--signalp3-path', signalp3_path])
     if signalp3_sprob_threshold != 0.9:
         args.extend(['--signalp3-sprob-threshold', str(signalp3_sprob_threshold)])
-    if hmmsearch_path != '~/miniforge3/envs/resistify_v.1.3.0/bin/hmmsearch':
+    if hmmsearch_path != '~/miniforge3/envs/protein/bin/hmmsearch':
         args.extend(['--hmmsearch-path', hmmsearch_path])
     if rxlr_hmm:
         args.extend(['--rxlr-hmm', rxlr_hmm])

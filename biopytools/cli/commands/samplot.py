@@ -137,7 +137,7 @@ def samplot(ctx):
               default=None,
               help='样本标题|Sample titles')
 @click.option('--samplot-path',
-              default='~/miniforge3/envs/samplot_v.1.3.0/bin/samplot',
+              default='~/miniforge3/envs/viz/bin/samplot',
               show_default=True,
               help='samplot路径|samplot binary path')
 def plot(bams, chrom, start, end, sv_type, output_file, output_dir, reference,
@@ -184,7 +184,7 @@ def plot(bams, chrom, start, end, sv_type, output_file, output_dir, reference,
         args.append('--same-yaxis-scales')
     if titles:
         args.extend(['-n'] + list(titles))
-    if samplot_path != '~/miniforge3/envs/samplot_v.1.3.0/bin/samplot':
+    if samplot_path != '~/miniforge3/envs/viz/bin/samplot':
         args.extend(['--samplot-path', samplot_path])
 
     original_argv = sys.argv
@@ -273,7 +273,7 @@ def plot(bams, chrom, start, end, sv_type, output_file, output_dir, reference,
               default=None,
               help='GFF3注释文件|GFF3 annotation file')
 @click.option('--samplot-path',
-              default='~/miniforge3/envs/samplot_v.1.3.0/bin/samplot',
+              default='~/miniforge3/envs/viz/bin/samplot',
               show_default=True,
               help='samplot路径|samplot binary path')
 def vcf(bams, vcf, output_dir, output_type, threads, downsample, min_bp, max_mb,
@@ -316,7 +316,7 @@ def vcf(bams, vcf, output_dir, output_type, threads, downsample, min_bp, max_mb,
         args.extend(['--max-entries', str(max_entries)])
     if gff3:
         args.extend(['--gff3', gff3])
-    if samplot_path != '~/miniforge3/envs/samplot_v.1.3.0/bin/samplot':
+    if samplot_path != '~/miniforge3/envs/viz/bin/samplot':
         args.extend(['--samplot-path', samplot_path])
 
     original_argv = sys.argv

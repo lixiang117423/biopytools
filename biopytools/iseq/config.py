@@ -17,7 +17,7 @@ class ISeqConfig:
     accession: str  # 项目/样本/实验ID|Project/Sample/Experiment ID
 
     # 路径配置|Path configuration
-    iseq_path: str = '~/miniforge3/envs/iseq_v.1.9.8/bin/iseq'  # iSeq软件路径|iSeq software path
+    iseq_path: str = '~/miniforge3/envs/misc/bin/iseq'  # iSeq软件路径|iSeq software path
     output_dir: str = './iseq_output'  # 输出目录|Output directory
 
     # 下载选项|Download options

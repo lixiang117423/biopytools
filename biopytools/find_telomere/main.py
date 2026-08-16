@@ -653,7 +653,7 @@ def main():
     # 软件配置|Software configuration
     software_group = parser.add_argument_group('软件配置|Software configuration')
     software_group.add_argument('--tidk-path',
-                               default='~/miniforge3/envs/tidk_v.0.2.65/bin/tidk',
+                               default='~/miniforge3/envs/asm/bin/tidk',
                                help='tidk软件路径|tidk software path')
 
     # 日志参数|Logging parameters

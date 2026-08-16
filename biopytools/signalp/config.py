@@ -31,7 +31,7 @@ class SignalPConfig:
     # SignalP程序路径(支持 SIGNALP6_PATH 环境变量 / config.yml 覆盖,§11.B)
     # |SignalP path (supports SIGNALP6_PATH env var / config.yml override)
     signalp_path: str = field(default_factory=lambda: get_tool_path(
-        'signalp6', '~/miniforge3/envs/signalp6/bin/signalp6', 'SIGNALP6_PATH'))
+        'signalp6', '~/miniforge3/envs/protein/bin/signalp6', 'SIGNALP6_PATH'))
 
     def __post_init__(self):
         """初始化后处理|Post-initialization processing"""

@@ -24,7 +24,7 @@ class GFFRenamerConfig:
 
     # AGAT清洗参数|AGAT cleaning parameters
     agat_path: str = field(
-        default_factory=lambda: get_tool_path('agat', '~/miniforge3/envs/agat_v.1.7.0/bin/agat_convert_sp_gxf2gxf.pl', 'AGAT_PATH')
+        default_factory=lambda: get_tool_path('agat', '~/miniforge3/envs/annot/bin/agat_convert_sp_gxf2gxf.pl', 'AGAT_PATH')
     )
     skip_gff_clean: bool = False
 

@@ -59,7 +59,7 @@ def _validate_file_or_dir_exists(path):
               is_flag=True,
               help='不输出Excel文件|Do not output Excel file')
 @click.option('--meme-path',
-              default='~/miniforge3/envs/meme_v.5.5.9/bin/meme',
+              default='~/miniforge3/envs/protein/bin/meme',
               show_default=True,
               help='MEME可执行文件路径|MEME executable path')
 @click.option('-protein',
@@ -155,7 +155,7 @@ def meme_parser(input_file, parse_only, output_prefix, output_dir,
         args.append('--no-excel')
 
     # MEME软件路径|MEME software path
-    default_meme_path = '~/miniforge3/envs/meme_v.5.5.9/bin/meme'
+    default_meme_path = '~/miniforge3/envs/protein/bin/meme'
     if meme_path != default_meme_path:
         args.extend(['--meme-path', meme_path])
 

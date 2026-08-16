@@ -47,7 +47,7 @@ class TreeConfig:
     iqtree_path: str = field(
         default_factory=lambda: get_tool_path(
             'iqtree',
-            '~/miniforge3/envs/iqtree_v.3.0.1/bin/iqtree',
+            '~/miniforge3/envs/phylo/bin/iqtree',
             'IQTREE_PATH'
         )
     )

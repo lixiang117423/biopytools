@@ -138,13 +138,13 @@ def parse_arguments():
     tools = parser.add_argument_group('工具路径|Tool paths')
     tools.add_argument(
         '--yahs-bin',
-        default='~/miniforge3/envs/yahs_v.1.2.2/bin/yahs',
-        help='YaHS可执行文件路径|YaHS executable path (default: ~/miniforge3/envs/yahs_v.1.2.2/bin/yahs)'
+        default='~/miniforge3/envs/hic/bin/yahs',
+        help='YaHS可执行文件路径|YaHS executable path (default: ~/miniforge3/envs/hic/bin/yahs)'
     )
     tools.add_argument(
         '--juicer-bin',
-        default='~/miniforge3/envs/yahs_v.1.2.2/bin/juicer',
-        help='juicer可执行文件路径|juicer executable path (default: ~/miniforge3/envs/yahs_v.1.2.2/bin/juicer)'
+        default='~/miniforge3/envs/hic/bin/juicer',
+        help='juicer可执行文件路径|juicer executable path (default: ~/miniforge3/envs/hic/bin/juicer)'
     )
     tools.add_argument(
         '--juicer-jar',
@@ -153,13 +153,13 @@ def parse_arguments():
     )
     tools.add_argument(
         '--bwa-bin',
-        default='~/miniforge3/envs/Population_genetics/bin/bwa',
-        help='BWA可执行文件路径|BWA executable path (default: ~/miniforge3/envs/Population_genetics/bin/bwa)'
+        default='~/miniforge3/envs/align/bin/bwa',
+        help='BWA可执行文件路径|BWA executable path (default: ~/miniforge3/envs/align/bin/bwa)'
     )
     tools.add_argument(
         '--samtools-bin',
-        default='~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools',
-        help='samtools可执行文件路径|samtools executable path (default: ~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools)'
+        default='~/miniforge3/envs/align/bin/samtools',
+        help='samtools可执行文件路径|samtools executable path (default: ~/miniforge3/envs/align/bin/samtools)'
     )
     tools.add_argument(
         '--java-cmd',

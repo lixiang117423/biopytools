@@ -178,17 +178,17 @@ class BrakerConfig:
 
     # ===== 宿主机工具路径|Host machine tool paths =====
     singularity_bin: str = "~/miniforge3/envs/singularity_v.3.8.7/bin/singularity"
-    repeatmodeler_bin: str = "~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler"
-    repeatmasker_bin: str = "~/miniforge3/envs/repeat_identiy/bin/RepeatMasker"
-    build_database_bin: str = "~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/BuildDatabase"
+    repeatmodeler_bin: str = "~/miniforge3/envs/repeat/bin/RepeatModeler"
+    repeatmasker_bin: str = "~/miniforge3/envs/repeat/bin/RepeatMasker"
+    build_database_bin: str = "~/miniforge3/envs/repeat/bin/BuildDatabase"
     minimap2_bin: str = "~/miniforge3/envs/Genome_dedup/bin/minimap2"
-    hisat2_bin: str = "~/miniforge3/envs/RNA_Seq/bin/hisat2"
-    hisat2_build_bin: str = "~/miniforge3/envs/RNA_Seq/bin/hisat2-build"
+    hisat2_bin: str = "~/miniforge3/envs/rna/bin/hisat2"
+    hisat2_build_bin: str = "~/miniforge3/envs/rna/bin/hisat2-build"
 
     # ===== repeat_refine 工具(repeat库过滤+证据还原)|repeat_refine tools =====
     hmmscan_bin: str = "~/miniforge3/envs/braker_v.3.0.8/bin/hmmscan"
-    mmseqs_bin: str = "~/miniforge3/envs/eggnog-mapper_v.2.1.15/bin/mmseqs"
-    miniprot_bin: str = "~/miniforge3/envs/braker_v.3.0.8/bin/miniprot"
+    mmseqs_bin: str = "~/miniforge3/envs/annot/bin/mmseqs"
+    miniprot_bin: str = "~/miniforge3/envs/annot/bin/miniprot"
     samtools_bin: str = ""  # 空则用 common.paths.get_samtools_path() 兜底|Empty => fallback
 
     # ===== 输出配置|Output configuration =====

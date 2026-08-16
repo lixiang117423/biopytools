@@ -41,7 +41,7 @@ class Vcf2TreeConfig:
     # IQ-TREE参数|IQ-TREE parameters
     # 默认使用conda环境iqtree_v.3.0.1中的IQ-TREE
     # |Default uses IQ-TREE from conda env iqtree_v.3.0.1
-    iqtree_path: str = '~/miniforge3/envs/iqtree_v.3.0.1/bin/iqtree'
+    iqtree_path: str = '~/miniforge3/envs/phylo/bin/iqtree'
     iqtree_bootstrap: int = 1000
     iqtree_model: Optional[str] = None  # None = ModelFinder auto
     # ASC校正: SNP数据仅含可变位点(无恒定位点), 默认开启+ASC校正避免分支长度低估。

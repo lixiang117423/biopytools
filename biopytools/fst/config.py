@@ -55,7 +55,7 @@ class FstConfig:
         if self.plink_path is None:
             self.plink_path = get_tool_path(
                 'plink',
-                '~/miniforge3/envs/Population_genetics/bin/plink',
+                '~/miniforge3/envs/pop/bin/plink',
                 'PLINK_PATH'
             )
 

@@ -27,9 +27,9 @@ class AdmixtureConfig:
     threads: int = 12
 
     # 工具路径|Tool paths (§11.B: env > config.yml > 默认|env > config.yml > default)
-    plink_path: str = "~/miniforge3/envs/Population_genetics/bin/plink"
-    admixture_path: str = "~/miniforge3/envs/Population_genetics/bin/admixture"
-    bcftools_path: str = "~/miniforge3/envs/bcftools_v.1.22/bin/bcftools"
+    plink_path: str = "~/miniforge3/envs/pop/bin/plink"
+    admixture_path: str = "~/miniforge3/envs/pop/bin/admixture"
+    bcftools_path: str = "~/miniforge3/envs/align/bin/bcftools"
 
     # ADAMIXTURE 参数|ADAMIXTURE parameters
     adamixture_path: str = "~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture"

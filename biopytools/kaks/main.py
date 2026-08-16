@@ -119,7 +119,7 @@ class KaKsAnalyzer:
             for sid in sorted(ids):
                 f.write(f"{sid}\n")
 
-        seqkit_path = "~/miniforge3/envs/BioinfTools/bin/seqkit"
+        seqkit_path = "~/miniforge3/envs/misc/bin/seqkit"
         from ..common.paths import expand_path
         seqkit_path = expand_path(seqkit_path)
 

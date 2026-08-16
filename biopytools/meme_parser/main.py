@@ -219,7 +219,7 @@ def main():
 
     # MEME软件路径|MEME software path
     parser.add_argument('--meme-path',
-                       default='~/miniforge3/envs/meme_v.5.5.9/bin/meme',
+                       default='~/miniforge3/envs/protein/bin/meme',
                        help='MEME可执行文件路径|MEME executable path')
 
     # MEME参数|MEME parameters

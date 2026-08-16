@@ -53,7 +53,7 @@ class PopLDdecayConfig:
     poplddecay_path: str = field(
         default_factory=lambda: get_tool_path(
             'poplddecay',
-            '~/miniforge3/envs/poplddecay_v.3.43/bin/PopLDdecay',
+            '~/miniforge3/envs/pop/bin/PopLDdecay',
             'POPLDDECAY_PATH'
         )
     )

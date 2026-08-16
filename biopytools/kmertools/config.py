@@ -72,9 +72,9 @@ class BuildConfig(KmerToolsConfig):
         super().__post_init__()
         # 工具路径: None时按优先级解析(环境变量>配置文件>默认),再展开~|Tool paths: resolve if None (env>config>default), then expand ~
         if not self.kmtricks_path:
-            self.kmtricks_path = get_tool_path('kmtricks', '~/miniforge3/envs/biopytools/bin/kmtricks', 'KMTRICKS_PATH')
+            self.kmtricks_path = get_tool_path('kmtricks', '~/miniforge3/envs/pan/bin/kmtricks', 'KMTRICKS_PATH')
         if not self.kmindex_path:
-            self.kmindex_path = get_tool_path('kmindex', '~/miniforge3/envs/kmindex_v.0.6.0/bin/kmindex', 'KMINDEX_PATH')
+            self.kmindex_path = get_tool_path('kmindex', '~/miniforge3/envs/pan/bin/kmindex', 'KMINDEX_PATH')
         if not self.bgzip_path:
             self.bgzip_path = get_tool_path('bgzip', 'bgzip', 'BGZIP_PATH')
         self.kmtricks_path = expand_path(self.kmtricks_path)
@@ -192,7 +192,7 @@ class QueryConfig(KmerToolsConfig):
         super().__post_init__()
         # 工具路径: None时按优先级解析(环境变量>配置文件>默认),再展开~|Tool path: resolve if None (env>config>default), then expand ~
         if not self.kmindex_path:
-            self.kmindex_path = get_tool_path('kmindex', '~/miniforge3/envs/kmindex_v.0.6.0/bin/kmindex', 'KMINDEX_PATH')
+            self.kmindex_path = get_tool_path('kmindex', '~/miniforge3/envs/pan/bin/kmindex', 'KMINDEX_PATH')
         self.kmindex_path = expand_path(self.kmindex_path)
         if self.rocksdb_dir:
             self.rocksdb_dir = expand_path(self.rocksdb_dir)

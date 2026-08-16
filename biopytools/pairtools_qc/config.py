@@ -17,7 +17,7 @@ class PairtoolsQCConfig:
     pairs_file: str
 
     # 可选参数|Optional parameters
-    pairtools_path: str = '~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools'
+    pairtools_path: str = '~/miniforge3/envs/hic/bin/pairtools'
     output_dir: str = './pairtools_qc_output'
     chroms_path: str = None  # 染色体大小文件路径（BAM输入时必需）|Chromosome sizes file path (required for BAM input)
 

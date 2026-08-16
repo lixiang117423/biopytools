@@ -43,7 +43,7 @@ class PiConfig:
     vcftools_path: str = field(
         default_factory=lambda: get_tool_path(
             'vcftools',
-            '~/miniforge3/envs/Population_genetics/bin/vcftools',
+            '~/miniforge3/envs/pop/bin/vcftools',
             'VCFTOOLS_PATH'
         )
     )

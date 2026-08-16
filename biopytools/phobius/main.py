@@ -92,7 +92,7 @@ def main():
     parser.add_argument("--prefix", default=None,
                         help="[STR] 输出前缀(默认输入文件名)|Output prefix (default: input filename)")
     parser.add_argument("--phobius-path",
-                        default="~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl",
+                        default="~/miniforge3/envs/protein/bin/phobius.pl",
                         help="phobius.pl路径|phobius.pl path")
     args = parser.parse_args()
 

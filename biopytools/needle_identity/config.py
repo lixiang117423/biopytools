@@ -36,7 +36,7 @@ class NeedleIdentityConfig:
             # 优先级: 环境变量NEEDLE_PATH > 配置文件 > 默认值|Priority: NEEDLE_PATH env > config > default
             self.needle_path = get_tool_path(
                 'needle',
-                '~/miniforge3/envs/needle_v.1.0.3/bin/needle',
+                '~/miniforge3/envs/protein/bin/needle',
                 'NEEDLE_PATH',
             )
 

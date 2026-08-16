@@ -517,7 +517,7 @@ def main():
     # 软件配置|Software configuration
     software_group = parser.add_argument_group('软件配置|Software configuration')
     software_group.add_argument('--getorganelle-path',
-                               default='~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py',
+                               default='~/miniforge3/envs/asm/bin/get_organelle_from_reads.py',
                                help='GetOrganelle脚本路径|GetOrganelle script path')
 
     # 日志参数|Logging parameters

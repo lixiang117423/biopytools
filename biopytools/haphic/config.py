@@ -24,17 +24,17 @@ class HapHiCConfig:
     # Note: Default values use conda environment paths, following development guide Chapter 13
     haphic_bin: str = field(
         default_factory=lambda: get_tool_path(
-            'haphic', '~/miniforge3/envs/haphic/bin/haphic', 'HAPHIC_PATH'
+            'haphic', '~/miniforge3/envs/hic/bin/haphic', 'HAPHIC_PATH'
         )
     )
     bwa_bin: str = field(
         default_factory=lambda: get_tool_path(
-            'bwa', '~/miniforge3/envs/Population_genetics/bin/bwa', 'BWA_PATH'
+            'bwa', '~/miniforge3/envs/align/bin/bwa', 'BWA_PATH'
         )
     )
     samtools_bin: str = field(
         default_factory=lambda: get_tool_path(
-            'samtools', '~/miniforge3/envs/GATK_v.4.6.2.0/bin/samtools', 'SAMTOOLS_PATH'
+            'samtools', '~/miniforge3/envs/align/bin/samtools', 'SAMTOOLS_PATH'
         )
     )
 
@@ -135,7 +135,7 @@ class HapHiCConfig:
     )
     haphic_filter_bam_bin: str = field(
         default_factory=lambda: get_tool_path(
-            'filter_bam', '~/miniforge3/envs/haphic/bin/filter_bam', 'FILTER_BAM_PATH'
+            'filter_bam', '~/miniforge3/envs/hic/bin/filter_bam', 'FILTER_BAM_PATH'
         )
     )
     use_samblaster: bool = True

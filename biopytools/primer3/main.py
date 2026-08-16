@@ -22,7 +22,7 @@ def parse_arguments():
 
     # Primer3路径配置|Primer3 path configuration
     parser.add_argument('--primer3-core-path',
-                       default='~/miniforge3/envs/primer3_v.2.6.1/bin/primer3_core',
+                       default='~/miniforge3/envs/misc/bin/primer3_core',
                        help='Primer3核心程序路径|Primer3 core program path')
 
     # 引物长度参数|Primer size parameters

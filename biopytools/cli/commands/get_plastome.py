@@ -66,7 +66,7 @@ def _validate_dir_exists(dir_path):
               show_default=True,
               help='线程数|Threads')
 @click.option('--getorganelle-path',
-              default='~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py',
+              default='~/miniforge3/envs/asm/bin/get_organelle_from_reads.py',
               show_default=True,
               help='GetOrganelle脚本路径|GetOrganelle script path')
 @click.option('--verbose', '-v',
@@ -146,7 +146,7 @@ def get_plastome(input, output_dir, prefix, organelle_type, max_rounds,
             args.extend(['--threads', str(threads)])
 
         # 软件配置|Software configuration
-        if getorganelle_path != '~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py':
+        if getorganelle_path != '~/miniforge3/envs/asm/bin/get_organelle_from_reads.py':
             args.extend(['--getorganelle-path', getorganelle_path])
 
         # 日志参数|Logging parameters

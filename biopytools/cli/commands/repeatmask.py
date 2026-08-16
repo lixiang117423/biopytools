@@ -51,11 +51,11 @@ def _validate_file_exists(file_path):
               default=None,
               help='物种名称|Species name for Dfam/Repbase database')
 @click.option('--repeatmodeler-path',
-              default='~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler',
+              default='~/miniforge3/envs/repeat/bin/RepeatModeler',
               show_default=True,
               help='RepeatModeler路径|RepeatModeler path')
 @click.option('--repeatmasker-path',
-              default='~/miniforge3/envs/repeat_identiy/bin/RepeatMasker',
+              default='~/miniforge3/envs/repeat/bin/RepeatMasker',
               show_default=True,
               help='RepeatMasker路径|RepeatMasker path')
 @click.option('--builddatabase-path',
@@ -109,10 +109,10 @@ def repeatmask(genome, output_dir, threads, species,
     if species:
         args.extend(['-s', species])
 
-    if repeatmodeler_path != '~/miniforge3/envs/repeatmodeler_v.2.0.7/bin/RepeatModeler':
+    if repeatmodeler_path != '~/miniforge3/envs/repeat/bin/RepeatModeler':
         args.extend(['--repeatmodeler-path', repeatmodeler_path])
 
-    if repeatmasker_path != '~/miniforge3/envs/repeat_identiy/bin/RepeatMasker':
+    if repeatmasker_path != '~/miniforge3/envs/repeat/bin/RepeatMasker':
         args.extend(['--repeatmasker-path', repeatmasker_path])
 
     if builddatabase_path != 'BuildDatabase':

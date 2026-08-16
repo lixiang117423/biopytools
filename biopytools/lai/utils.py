@@ -26,7 +26,7 @@ def get_conda_env(command: str) -> Optional[str]:
     # First check if command itself is a full path
     if os.path.isabs(command):
         # 直接从完整路径中提取环境名|Extract env name directly from full path
-        # 例如: /miniforge3/envs/ltr_harvest_parallel_v.1.2/bin/gt
+        # 例如: /miniforge3/envs/annot/bin/gt
         match = re.search(r'/envs/([^/]+)', command)
         if match:
             return match.group(1)

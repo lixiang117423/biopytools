@@ -78,7 +78,7 @@ def _validate_file_exists(file_path):
               show_default=True,
               help='图像宽度|Plot width')
 @click.option('--tidk-path',
-              default='~/miniforge3/envs/tidk_v.0.2.65/bin/tidk',
+              default='~/miniforge3/envs/asm/bin/tidk',
               show_default=True,
               help='tidk软件路径|tidk software path')
 @click.option('--explore-min',
@@ -179,7 +179,7 @@ def find_telomere(genome, mode, output_dir, prefix, clade, window, search_string
             args.extend(['--explore-distance', str(explore_distance)])
 
     # 软件配置|Software configuration
-    if tidk_path != '~/miniforge3/envs/tidk_v.0.2.65/bin/tidk':
+    if tidk_path != '~/miniforge3/envs/asm/bin/tidk':
         args.extend(['--tidk-path', tidk_path])
 
     # 日志参数|Logging parameters

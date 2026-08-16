@@ -40,7 +40,7 @@ class TrimalConfig:
     trimal_path: str = field(
         default_factory=lambda: get_tool_path(
             'trimal',
-            '~/miniforge3/envs/trimal_v.1.5.0/bin/trimal',
+            '~/miniforge3/envs/phylo/bin/trimal',
             'TRIMAL_PATH'
         )
     )

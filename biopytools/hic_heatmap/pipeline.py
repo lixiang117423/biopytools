@@ -519,7 +519,7 @@ class HiCPipeline:
 
                 # 使用pairtools parse|Use pairtools parse
                 # 使用--walks-policy mask减少内存使用（mask复杂walks而不是报错）
-                pairtools_path = get_tool_path('pairtools', '~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools', 'PAIRTOOLS_PATH')
+                pairtools_path = get_tool_path('pairtools', '~/miniforge3/envs/hic/bin/pairtools', 'PAIRTOOLS_PATH')
                 cmd_parse = [
                     pairtools_path, 'parse',
                     '-c', str(chrom_sizes_file),  # chrom.sizes文件路径

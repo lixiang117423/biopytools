@@ -46,7 +46,7 @@ def get_conda_env(command: str) -> Optional[str]:
             cmd_path = real_path
 
         # 检查路径中是否包含 envs
-        # 例如: /miniforge3/envs/BUSCO_v.6.0.0/bin/busco
+        # 例如: /miniforge3/envs/busco/bin/busco
         match = re.search(r'/envs/([^/]+)', cmd_path)
         if match:
             return match.group(1)
@@ -83,7 +83,7 @@ def build_conda_command(command: str, args: List[str]) -> List[str]:
         >>> build_conda_command('busco', ['--version'])
         ['conda', 'run', '-n', 'BUSCO_v.6.0.0', '--no-capture-output', 'busco', '--version']
 
-        >>> build_conda_command('/miniforge3/envs/BUSCO_v.6.0.0/bin/busco', ['--version'])
+        >>> build_conda_command('/miniforge3/envs/busco/bin/busco', ['--version'])
         ['conda', 'run', '-n', 'BUSCO_v.6.0.0', '--no-capture-output', 'busco', '--version']
 
         >>> # 绝对路径且不在conda envs目录下时，直接调用

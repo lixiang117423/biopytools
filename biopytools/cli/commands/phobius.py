@@ -7,7 +7,7 @@ import sys
 import os
 
 
-_DEFAULT_PHOBIUS_PATH = "~/miniforge3/envs/phobius_v.1.0.1/bin/phobius.pl"
+_DEFAULT_PHOBIUS_PATH = "~/miniforge3/envs/protein/bin/phobius.pl"
 
 
 def _lazy_import_phobius_main():

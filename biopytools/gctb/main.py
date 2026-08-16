@@ -360,7 +360,7 @@ def main():
                        default='~/miniforge3/envs/gctb/bin/gctb',
                        help='GCTB软件路径|GCTB software path')
     parser.add_argument('--plink-path',
-                       default='~/miniforge3/envs/Population_genetics/bin/plink',
+                       default='~/miniforge3/envs/pop/bin/plink',
                        help='PLINK软件路径|PLINK software path')
 
     # 质量控制参数|Quality control parameters

@@ -43,7 +43,7 @@ class PSVCPConfig:
     # ===== 工具路径(单一 env psvcp_v.1.0.1)|tool paths (single env) =====
     nucmer_path: str = field(
         default_factory=lambda: get_tool_path(
-            'nucmer', '~/miniforge3/envs/psvcp_v.1.0.1/bin/nucmer', 'NUCMER_PATH')
+            'nucmer', '~/miniforge3/envs/pan/bin/nucmer', 'NUCMER_PATH')
     )
     assemblytics_path: str = field(
         default_factory=lambda: get_tool_path(
@@ -51,11 +51,11 @@ class PSVCPConfig:
     )
     bedtools_path: str = field(
         default_factory=lambda: get_tool_path(
-            'bedtools', '~/miniforge3/envs/psvcp_v.1.0.1/bin/bedtools', 'BEDTOOLS_PATH')
+            'bedtools', '~/miniforge3/envs/align/bin/bedtools', 'BEDTOOLS_PATH')
     )
     samtools_path: str = field(
         default_factory=lambda: get_tool_path(
-            'samtools', '~/miniforge3/envs/psvcp_v.1.0.1/bin/samtools', 'SAMTOOLS_PATH')
+            'samtools', '~/miniforge3/envs/align/bin/samtools', 'SAMTOOLS_PATH')
     )
     rscript_path: str = field(
         default_factory=lambda: get_tool_path(

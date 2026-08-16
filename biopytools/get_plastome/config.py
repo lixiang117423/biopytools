@@ -17,7 +17,7 @@ class PlastomeConfig:
     input_dir: str
 
     # 路径配置|Path configuration
-    getorganelle_path: str = '~/miniforge3/envs/getorganelle_v.1.7.71/bin/get_organelle_from_reads.py'
+    getorganelle_path: str = '~/miniforge3/envs/asm/bin/get_organelle_from_reads.py'
     output_dir: str = './plastome_output'
 
     # GetOrganelle参数|GetOrganelle parameters

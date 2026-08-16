@@ -21,7 +21,7 @@ class Primer3Config:
     primer3_core_path: str = field(
         default_factory=lambda: get_tool_path(
             'primer3_core',
-            '~/miniforge3/envs/primer3_v.2.6.1/bin/primer3_core',
+            '~/miniforge3/envs/misc/bin/primer3_core',
             'PRIMER3_PATH'
         )
     )

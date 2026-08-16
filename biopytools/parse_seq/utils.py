@@ -119,8 +119,8 @@ def get_conda_env(command: str) -> Optional[str]:
     cmd_path = shutil.which(command)
     if cmd_path:
         # 检查路径中是否包含 envs|Check if path contains 'envs'
-        # 例如: /miniforge3/envs/GATK_v.4.6.2.0/bin/samtools
-        # e.g.: /miniforge3/envs/GATK_v.4.6.2.0/bin/samtools
+        # 例如: /miniforge3/envs/align/bin/samtools
+        # e.g.: /miniforge3/envs/align/bin/samtools
         match = re.search(r'/envs/([^/]+)', cmd_path)
         if match:
             return match.group(1)

@@ -135,7 +135,7 @@ def main():
 
     # 可选参数|Optional parameters
     parser.add_argument('-p', '--pairtools-path',
-                       default='~/miniforge3/envs/pairtools_v.1.1.3/bin/pairtools',
+                       default='~/miniforge3/envs/hic/bin/pairtools',
                        help='Pairtools可执行文件路径|Pairtools executable path')
     parser.add_argument('-o', '--output-dir',
                        default='./pairtools_qc_output',

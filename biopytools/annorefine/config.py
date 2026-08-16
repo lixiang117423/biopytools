@@ -78,7 +78,7 @@ class AnnorefineConfig:
     # |degraded mode (no expression) reuses gap_min_identity/coverage (70/80, stricter)
 
     # ===== 工具路径(~/... + __post_init__ 展开)|Tool paths =====
-    miniprot_bin: str = '~/miniforge3/envs/braker_v.3.0.8/bin/miniprot'
+    miniprot_bin: str = '~/miniforge3/envs/annot/bin/miniprot'
     stringtie_bin: str = '~/.local/bin/stringtie'
     samtools_bin: str = ''   # 空 → get_samtools_path() 兜底|empty => fallback
 

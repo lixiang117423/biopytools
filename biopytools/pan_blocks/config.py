@@ -23,13 +23,13 @@ class PanBlocksConfig:
     chromosome: Optional[str] = None
 
     nucmer_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'nucmer', '~/miniforge3/envs/pan-blocks/bin/nucmer', 'NUCMER_PATH'
+        'nucmer', '~/miniforge3/envs/pan/bin/nucmer', 'NUCMER_PATH'
     ))
     delta_filter_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'delta-filter', '~/miniforge3/envs/pan-blocks/bin/delta-filter', 'DELTA_FILTER_PATH'
+        'delta-filter', '~/miniforge3/envs/pan/bin/delta-filter', 'DELTA_FILTER_PATH'
     ))
     show_coords_path: str = field(default_factory=lambda: get_domain_tool_path(
-        'show-coords', '~/miniforge3/envs/pan-blocks/bin/show-coords', 'SHOW_COORDS_PATH'
+        'show-coords', '~/miniforge3/envs/pan/bin/show-coords', 'SHOW_COORDS_PATH'
     ))
     bedtools_path: str = field(default_factory=lambda: get_domain_tool_path(
         'bedtools', '~/.local/bin/bedtools', 'BEDTOOLS_PATH'
