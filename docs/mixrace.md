@@ -1,13 +1,12 @@
 # mixrace — WGS 混合小种检测 | WGS Mixed-race Detection
 
-一句话人话：输入一堆重测序数据和一个参考基因组，自动判断每个编号样品是「**只有一个菌株**」还是「**多个菌株混在一起**」，并给出通俗的判读报告。
-|In plain words: feed WGS reads + a reference genome, and it tells you per sample whether it is a single strain or a mixture of strains, with an easy-to-read report.
+一句话理解：**输入一堆重测序数据和一个参考基因组，自动判断每个样品是「只有一个菌株」还是「多个菌株混在一起」，并给出一份能直接发给人看的判读报告**。
 
 ## 功能概述 | Overview
 
-- 面向**单倍体病原**(如根肿菌 *Plasmodiophora brassicae*，静息孢子 n=20)——它们无法纯培养，一个田间编号常是多个基因型(小种)的混合。
-- 全流程：bwa-mem2 比对 → samtools markdup → **freebayes 单倍体 calling**(-p 1，保留 2% 低频等位)→ 过滤 → 等位频率谱(AFS)分析 → smudgescope k-mer 谱 → 判读 + 报告 + 系统发育树。
-- 核心产出：`summary/mixrace_report.html`(**单文件可分享**，图全部内嵌)，含每样品判读(疑似纯/疑似混合/不确定)、依据、指标通俗解释、折叠详情、样品聚类树。
+- 面向**单倍体病原**(如根肿菌 *Plasmodiophora brassicae*，静息孢子 n=20)——它们无法纯培养，一个田间编号常是多个基因型(小种)的混合
+- 全流程：bwa-mem2 比对 → samtools markdup → **freebayes 单倍体 calling**(-p 1，保留 2% 低频等位)→ 过滤 → 等位频率谱(AFS)分析 → smudgescope k-mer 谱 → 判读 + 报告 + 系统发育树
+- 核心产出：`summary/mixrace_report.html`(**单文件可分享**，图全部内嵌)，含每样品判读(疑似纯/疑似混合/不确定)、依据、指标通俗解释、样品聚类树
 
 ## 快速开始 | Quick Start
 
@@ -21,19 +20,20 @@ biopytools mixrace -i fastq_dir -g ref.fa -o out_dir/
 
 | 术语 | 通俗解释 |
 |---|---|
-| 单倍体(haploid) | 每个位置只有一份遗传信息。像一个班级里每个学生只举**一只手**——同时出现两只手(两种碱基)就是「混进了别的班的人」。 |
-| 杂合率(het_rate) | 「两只手同时举」的位置占整个基因组的比例。越低越纯；`<0.01%` 基本纯，`>1%` 明显不纯。 |
-| 等位频率谱(AFS) | 把所有「两只手」位置的少数派比例画成直方图。像看一个聚会的人数构成：只有一类人(纯)、两伙人各半(0.5 峰)、一主一从、大杂烩。 |
-| 优势株占比 | 若为混合，最大那伙人约占总人数的百分比。 |
-| 测序深度(depth) | 每个位置平均被读了**几遍**。像数人数时每个人被点了几次名；`≥50x` 才可靠。 |
-| 系统发育树(phylogenetic tree) | 按基因组相似度给样品「排家谱」：分支越近越像。 |
-| VAF | 某个位置少数碱基的读数占比。 |
+| 单倍体(haploid) | 每个位置只有一份遗传信息。像一个班级里每个学生只举**一只手**——同时出现两只手(两种碱基)就是「混进了别的班的人」 |
+| 杂合率(het_rate) | 「两只手同时举」的位置占整个基因组的比例。越低越纯；<0.01% 基本纯，>1% 明显不纯 |
+| 等位频率谱(AFS) | 把所有「两只手」位置的少数派比例画成直方图。像看一个聚会的人数构成：只有一类人(纯)、两伙人各半(0.5 峰)、一主一从、大杂烩 |
+| 优势株占比 | 若为混合，最大那伙人约占总人数的百分比 |
+| 测序深度(depth) | 每个位置平均被读了**几遍**。像数人数时每个人被点了几次名；≥50x 才可靠 |
+| 系统发育树 | 按基因组相似度给样品「排家谱」：分支越近越像 |
+| VAF | 某个位置少数碱基的读数占比 |
 
 ## 输入 | Input
 
 - `-i` 原始 fastq 目录(自动配对 `_1/_2`、`_R1/_R2`)或 `--clean-fastq-dir` 已清洗 fastq(二选一)。
 - `-g` 参考基因组 FASTA(如 e3)。
 - 可选 `--repeat-bed`：重复/低复杂度区域 BED，给出则过滤时排除，不给则跳过(不影响流程)。
+- 可选 `--pure-samples`：已知纯样品，逗号分隔(如 `--pure-samples P1,P2`)，用于自动校准杂合率判读阈值。
 
 ## 参数说明 | Parameters
 
@@ -61,7 +61,7 @@ biopytools mixrace -i fastq_dir -g ref.fa -o out_dir/
 
 ## 分析流程 | Pipeline
 
-```
+```text
 01 索引+QC        02 比对+markdup       03 freebayes -p 1     04 过滤
 bwa-mem2 index    bwa-mem2 mem→        (单倍体,保低频,        QUAL/DP/去repeat
 fastp(可跳)       sort-n→fixmate→      AF 用 AO/RO)          保留多等位
@@ -75,7 +75,7 @@ fastp(可跳)       sort-n→fixmate→      AF 用 AO/RO)          保留多等
 
 ## 输出 | Output
 
-```
+```text
 out_dir/
 ├── 00_pipeline_info/   software_versions.yml, checkpoints/, index/
 ├── 01_qc/              clean fastq(raw 输入时)
@@ -89,14 +89,14 @@ out_dir/
 │                       tree.R/tree.ann.tsv(画树脚本与注解), merged.vcf.gz,
 │                       vcf2tree/(IQ-TREE2 输出,含 .nwk)
 ├── alignment_qc/       {sample}.stats.txt(平均深度)
-├── summary/            ★ mixrace_report.html(单文件报告), verdict_summary.tsv/.html
+├── summary/            mixrace_report.html(单文件报告), verdict_summary.tsv/.html
 └── 99_logs/            mixrace.log
 ```
 
 ## 结果解读 | Interpreting Results
 
 - **看 `summary/mixrace_report.html`**：第一节汇总表一眼看全部样品判读；点开每个样品看依据和三张图。
-- **杂合率**是最主要的判据：`<0.01%` 纯；`0.01–0.1%` 需排查(repeat 误比对/旁系同源/轻微污染)；`0.1–1%` 可疑；`>1%` 不纯。
+- **杂合率**是最主要的判据：<0.01% 纯；0.01–0.1% 需排查(repeat 误比对/旁系同源/轻微污染)；0.1–1% 可疑；>1% 不纯。
 - **AFS 直方图**：峰贴在两头=纯；中间有峰=有混合；从 0 到 1 糊成一片=多基因型大杂烩。
 - **系统发育树**：分支越近基因组越像；叶名格式 `编号[判读]杂合率`(如 `Pb5 [纯] 0.0005%`)。注意混合样品可能表现为**长枝**——因为它同时带多个基因型的信号。
 - **判读是参考不是定论**：阈值默认值基于经验，建议用 `--pure-samples` 提供已知纯样品校准，或在汇总表里读纯样品的背景基线自己定界。
@@ -167,11 +167,11 @@ out_dir/
 
 ## 依赖 | Dependencies
 
-- bwa-mem2(`cphasing`)、samtools/bcftools/bedtools/freebayes(`align`)、R+ggplot2(`WGCNA_v.1.73`)、**R+ggtree(`r`，画树)**、smudgescope 自带 envs。
+- bwa-mem2(`cphasing`)、samtools/bcftools/bedtools/freebayes(`align`)、R+ggplot2(`WGCNA_v.1.73`)、**R+ggtree(`r`，画树)**、smudgescope 自带 envs
 
 ## 常见问题 | FAQ
 
-- **Q：为什么所有样品都判"混合"？** 检查 `mean_depth`——深度<50x 时低频信号不可靠；或参考基因组本身来自混合孢子(群体多样性)会抬高背景杂合率。
+- **Q：为什么所有样品都判「混合」？** 检查 mean_depth——深度 <50x 时低频信号不可靠；或参考基因组本身来自混合孢子(群体多样性)会抬高背景杂合率。
 - **Q：树上的样品名和表格对不上？** 树叶名是 `编号[判读]杂合率`，与汇总表同源；若刚改过阈值重跑，树会自动重画(注解比对守卫)。
 - **Q：为什么没有树？** 样品 <4、filtered VCF 缺失、`--skip-tree`、或 IQ-TREE/vcf2tree 失败(见日志)。
 - **Q：报告能发给别人看吗？** `mixrace_report.html` 是单文件，所有图内嵌，直接发送即可。

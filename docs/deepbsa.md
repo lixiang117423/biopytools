@@ -1,442 +1,142 @@
-# DeepBSA批量分析模块
+# DeepBSA 批量 BSA 分析 | DeepBSA Batch BSA Analysis
 
-**专业的BSA分析批量处理工具 | Professional BSA Analysis Batch Processing Tool**
+一句话理解：**把 BSA(混池分离分析)里常用的 7 种找「性状关联区域」的方法一次性并行跑完，并把结果自动合并成一张总表和一套图**——输入一个 BSA 的 VCF(高表型池 vs 低表型池)，输出每种方法找到的候选区域。
 
 ## 功能概述 | Overview
 
-DeepBSA批量分析模块是对DeepBSA工具的封装和增强，提供了批量运行多种BSA分析方法、自动处理复杂文件名、智能结果合并等功能。该模块解决了DeepBSA原始工具在文件名识别、并行执行、结果整合等方面的局限性，大幅提升了BSA分析的效率和易用性。
-
-## 主要特性 | Key Features
-
-- **7种BSA方法批量运行**: DL、K、ED4、SNP、SmoothG、SmoothLOD、Ridit一键执行
-- **智能文件名识别**: 支持复杂VCF文件名（如`variation.filtered.snp.biallelic.vcf`）
-- **方法级并行执行**: 所有方法同时运行，大幅节省时间
-- **独立工作目录**: 每个方法独立目录，避免文件冲突
-- **自动结果合并**: CSV结果、PNG图片自动整合，标注来源方法
-- **DL方法修复**: 自动创建Models符号链接，解决模型文件依赖问题
-- **详细日志记录**: 每个方法独立日志，便于问题排查
-- **完整统计报告**: 自动生成各方法QTL统计汇总
-
-## 源码修改说明 | Source Code Modifications
-
-为了解决DeepBSA原始工具的各种问题，我们对DeepBSA源码进行了以下修改：
-
-### 1. Pandas兼容性修复
-
-**文件位置**: `/share/org/YZWL/yzwl_lixg/software/DeepBSA/DeepBSA_linux_v1.4/bin/functions/vcf_handle.py`
-
-**修改位置**: 第131行
-
-**修改内容**:
-```python
-# 修改前（原代码）:
-df.to_csv(save_path, header=False, index=False, sep=',', lineterminator='\n')
-
-# 修改后（修复后）:
-# 明确指定CSV格式（移除lineterminator以兼容旧版pandas）
-# Specify CSV format (remove lineterminator for compatibility with older pandas)
-df.to_csv(save_path, header=False, index=False, sep=',')
-```
-
-**修改原因**:
-- `lineterminator`参数在较旧版本的pandas中不存在
-- DeepBSA使用的pandas版本较旧，导致运行时报错`TypeError: to_csv() got an unexpected keyword argument 'lineterminator'`
-- 移除此参数不影响CSV文件的正确性
-
-**影响范围**: 所有使用`VCF2Excel`类的BSA方法
-
----
+- 封装 DeepBSA 工具，批量运行 7 种 BSA 方法：`DL`、`K`、`ED4`、`SNP`、`SmoothG`、`SmoothLOD`、`Ridit`
+- 方法级并行执行，每个方法独立工作目录，互不冲突
+- 自动结果合并：CSV 结果(标注来源方法)+ PNG 图片(加方法名前缀)+ 汇总报告
+- 自动处理复杂 VCF 文件名、为 DL 方法自动创建 Models 符号链接
+- 支持断点续传(某方法已有 `values.txt` 则跳过)，`--force` 强制重跑
 
 ## 快速开始 | Quick Start
 
-### 基本用法 | Basic Usage
-
 ```bash
-# 运行所有7种BSA方法（并行）
-biopytools deepbsa -i variant.vcf -o bsab_results
-
-# 只运行指定的方法
-biopytools deepbsa -i variant.vcf -m DL,K,ED4 -o bsab_results
-
-# 串行运行（调试时使用）
-biopytools deepbsa -i variant.vcf --no-parallel -o bsab_results
+biopytools deepbsa run -i variant.vcf -o bsa_results
 ```
 
-### 处理复杂文件名 | Handling Complex Filenames
+最小输入：一个 BSA 的 VCF，默认并行跑全部 7 种方法并自动合并结果。
 
-```bash
-# 自动处理复杂文件名（如 variation.filtered.snp.biallelic.vcf）
-biopytools deepbsa -i variation.filtered.snp.biallelic.vcf -o bsab_results
-# 工具会自动创建符号链接 deepbsa_input.vcf → 实际文件
-```
+## 零基础概念速览 | Concepts in plain words
+
+| 术语 | 通俗理解 |
+|------|----------|
+| BSA(混池分离分析) | 把一群「表现极端」的个体(如最高的几十株、最矮的几十株)分别混在一起测序，找两组之间差异最大的基因组区域 |
+| 混池(pool) | 把多个个体的 DNA 混在一起测，省成本、看「整体倾向」 |
+| QTL | 控制性状的基因组区域，BSA 要找的东西 |
+| SNP-index | 每个位点上「来自高表型亲本的读数占比」，两组差得越大越像候选区 |
+| 候选区域 | 曲线上冒尖的峰，通常是一段几 Mb 的区间 |
+| DL / K / ED4 / SNP / SmoothG / SmoothLOD / Ridit | 7 种不同的统计/机器学习算法，各自从不同角度算「两组差多大」，互相印证 |
+
+## 输入 | Input
+
+- `run` 的输入是一个 BSA 的 VCF(或 CSV)。VCF 通常来自「高表型池 + 低表型池」的变异检测，含 AD(等位深度)信息最佳。
+- 复杂文件名(如 `variation.filtered.snp.biallelic.vcf`)会自动处理(内部建符号链接)，无需改名。
+- `vcf2csv` 子命令可把 VCF 转成 DeepBSA 用的 CSV(提取 FORMAT 里的 AD 信息)：`biopytools deepbsa vcf2csv -i input.vcf -o out.csv`。
 
 ## 参数说明 | Parameters
 
-### 必需参数 | Required Parameters
+### run - 运行分析 | Run
 
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `-i, --input-file` | 输入VCF文件路径 | `-i variant.vcf` |
+**通俗理解|In plain words:** 最常用的子命令。`-m` 选跑哪些方法(默认全部 7 个，逗号分隔)；默认**并行**跑，`--no-parallel` 改串行；`--threads` 是每个方法的线程数(默认 6，并行时别设太大)；`--force` 强制重跑已完成的步骤。
 
-### 可选参数 | Optional Parameters
-
-| 参数 | 默认值 | 描述 |
+| 参数 | 默认值 | 说明 |
 |------|--------|------|
-| `-m, --methods` | `全部` | 要运行的方法，逗号分隔（DL,K,ED4,SNP,SmoothG,SmoothLOD,Ridit） |
+| `-i, --input-file` | 必填 | 输入 VCF/CSV |
 | `-o, --output-dir` | `deepbsa_results` | 输出目录 |
-| `-p, --parallel` | `True` | 并行运行所有方法（默认） |
-| `--no-parallel` | `False` | 串行运行所有方法 |
-| `-n, --no-auto-clean` | `False` | 不自动清理VCF注释行（已弃用，DeepBSA自己处理） |
-| `-k, --keep-clean` | `False` | 保留清理后的文件（已弃用） |
-| `--deepbsa-path` | `~/software/DeepBSA/DeepBSA_linux_v1.4/bin/main.py` | DeepBSA主程序路径 |
-| `--conda-env` | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/DeepBSA` | Conda环境路径 |
-| `-v, --verbose` | `False` | 详细输出 |
+| `-m, --methods` | 全部 | 方法列表，逗号分隔(如 DL,K,ED4) |
+| `-p/--parallel` | 开 | 并行运行(默认) |
+| `--no-parallel` | 关 | 串行运行 |
+| `--threads` | `6` | 每个方法线程数 |
+| `--smooth-func` | `Tri-kernel-smooth` | 平滑函数 |
+| `--skip-merge` | 关 | 跳过结果合并 |
+| `-f, --force` | 关 | 强制重跑 |
 
-## 可用方法 | Available Methods
+### batch - 生成批量脚本 | Batch
 
-| 方法 | 全称 | 描述 | 是否需要模型 |
-|------|------|------|-------------|
-| **DL** | Deep Learning | 基于深度学习的BSA分析方法 | ✅ 是 |
-| **K** | K-Method | 基于K值的BSA分析方法 | ❌ 否 |
-| **ED4** | Euclidean Distance 4 | 基于欧氏距离的BSA分析方法 | ❌ 否 |
-| **SNP** | SNP-Index | SNP指数法 | ❌ 否 |
-| **SmoothG** | Smooth G-value | 平滑G值法 | ❌ 否 |
-| **SmoothLOD** | Smooth LOD | 平滑LOD值法 | ❌ 否 |
-| **Ridit** | Ridit Analysis | Ridit分析法 | ❌ 否 |
+**通俗理解|In plain words:** 生成一个 shell 脚本(和按方法拆分的作业脚本)，适合在集群上投递。生成后手动运行 `run.sh` 再合并。
 
-## 输出文件结构 | Output Structure
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `-i, --input-file` | 必填 | 输入 VCF/CSV |
+| `-o, --output-dir` | 必填 | 批量任务输出目录 |
+| `-s, --script-name` | `run_deepbsa_methods.sh` | 生成的脚本名 |
+| `--threads` | `88` | 每个方法线程数 |
 
-```
-output_dir/
-├── deepbsa.log                          # 主日志文件
-├── merged_results/                      # 自动生成的合并结果 ⭐
-│   ├── merged_results.csv               # 所有方法的QTL结果（含Method列）
-│   ├── images/                          # 所有方法的图片（带方法名前缀）
-│   │   ├── DL_0-DL-LOWESS-auto-0.0771.png
-│   │   ├── ED4_0-ED4-LOWESS-auto-0.0267.png
-│   │   ├── K_0-K-LOWESS-auto-0.1300.png
-│   │   └── ...
-│   └── summary_report.txt               # 汇总统计报告
-├── DL/                                  # DL方法的独立目录
-│   ├── Models → .../DeepBSA/bin/Models # 符号链接（自动创建）⭐
-│   ├── Results/variant/
-│   │   ├── 0-DL-LOWESS-auto-0.0771.csv
-│   │   └── 0-DL-LOWESS-auto-0.0771.png
-│   ├── Excel_Files/variant.csv
-│   ├── NoPretreatment/
-│   ├── Pretreated_Files/
-│   └── DL.log                          # 方法独立日志
-├── K/
-├── ED4/
-├── SNP/
-├── SmoothG/
-├── SmoothLOD/
-└── Ridit/
-```
+### merge - 合并结果 | Merge
 
-⭐ = 本模块新增或自动处理的功能
+**通俗理解|In plain words:** 单独把某个输出目录的结果重新合并(高级用法，一般 run 已自动合并)。
 
-## 合并结果说明 | Merged Results Details
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `-i, --input-dir` | 必填 | DeepBSA 输出目录 |
+| `-o, --output-dir` | 必填 | 合并结果目录 |
+| `-m, --methods` | 全部 | 要合并的方法 |
 
-### CSV结果文件 (merged_results.csv)
+### vcf2csv - VCF 转 CSV | VCF to CSV
 
-包含以下列：
-- **Method**: 来源方法（新增）
-- **QTL**: QTL编号
-- **Chr**: 染色体
-- **Left**: 左侧位置
-- **Peak**: 峰值位置
-- **Right**: 右侧位置
-- **Value**: QTL值
-- **Source_File**: 原始文件名（新增）
+**通俗理解|In plain words:** 从 VCF 提取 AD(等位深度)转成 DeepBSA 认识的 CSV，做输入预处理。
 
-**注意**: 只保留Value != "-"的有效QTL结果
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `-i, --input-file` | 必填 | 输入 VCF |
+| `-o, --output-file` | 必填 | 输出 CSV |
 
-### PNG图片文件
+## 分析流程 | Pipeline
 
-所有PNG图片从各方法目录复制到`merged_results/images/`，文件名添加方法名前缀：
-- 原始: `0-DL-LOWESS-auto-0.0771.png`
-- 合并后: `DL_0-DL-LOWESS-auto-0.0771.png`
+**通俗理解|In plain words:** 先给输入(必要时 vcf2csv 转格式)→ 为每个方法建独立目录(并行跑)→ 各自出 QTL 结果和图 → 汇总成总表和总图。
 
-### 汇总报告 (summary_report.txt)
-
-包含每个方法的统计信息：
-- 总QTL数
-- 有效QTL数（Value != "-"）
-- 最高值
-- 最低值
-
-## 工作流程 | Workflow
-
-```
-1. 参数解析与验证
-   ↓
-2. 输入文件预处理
-   - 检测文件名复杂度
-   - 如需，创建符号链接（deepbsa_input.vcf → 实际文件）
-   ↓
-3. 为每个方法创建独立工作目录
-   - 创建方法目录（DL/, K/, ED4/, ...）
-   - 创建Models符号链接（DL方法需要）⭐
-   ↓
-4. 并行执行所有方法（默认）
-   - 使用conda run隔离环境
-   - 每个方法在独立目录运行
-   - 禁用DeepBSA的pretreatment（--p 0）
-   ↓
-5. 等待所有方法完成
-   - 监控进程退出状态
-   - 记录成功/失败状态
-   ↓
-6. 清理临时文件
-   - 删除临时符号链接（如deepbsa_input.vcf）
-   ↓
-7. 自动合并结果 ⭐
-   - 合并CSV结果（添加Method列）
-   - 复制PNG图片（添加方法名前缀）
-   - 生成汇总报告
-   ↓
-8. 输出最终摘要
-   - 显示各方法成功/失败状态
-   - 显示输出目录结构
+```text
+输入 VCF/CSV
+    │ (可选 vcf2csv 转格式)
+    ▼
+为每个方法建独立目录(复杂文件名自动建符号链接;DL 自动建 Models 链接)
+    │
+    ▼
+并行跑 7 种方法(各自独立日志)
+    │
+    ▼
+自动合并: merged_results.csv + images/ + summary_report.txt
 ```
 
-⭐ = 本模块新增或自动处理的功能
+## 输出 | Output
 
-## 关键技术实现 | Key Technical Implementation
-
-### 1. 智能文件名识别
-
-**问题**: DeepBSA使用简单的`split('.')`解析文件名，无法处理`variation.filtered.snp.biallelic.vcf`
-
-**解决方案**:
-```python
-# 使用pathlib.Path.suffix智能识别扩展名
-file_ext = input_file.suffix.lower()  # .vcf
-
-if file_ext in ['.vcf', '.vcf.gz', '.vcf.bz2']:
-    if '.' in input_file.stem:  # 文件名包含多个点
-        # 创建符号链接: deepbsa_input.vcf → 实际文件
-        temp_link_name = self.config.output_path / f"deepbsa_input{file_ext}"
-        temp_link_name.symlink_to(input_file.absolute())
+```text
+bsa_results/
+├── deepbsa.log                    # 主日志
+├── merged_results/                # 合并结果(各方法结果汇总)
+│   ├── merged_results.csv         # 所有方法的 QTL 结果(含 Method 列)
+│   ├── images/                    # 所有方法图片(带方法名前缀)
+│   └── summary_report.txt         # 各方法统计汇总
+├── DL/                            # DL 方法目录(Models 符号链接, Results/, DL.log)
+├── K/  ├── ED4/  ├── SNP/  ├── SmoothG/  ├── SmoothLOD/  └── Ridit/
 ```
 
-### 2. 方法级并行执行
+## 结果解读 | Interpreting Results
 
-**特点**:
-- 每个方法在独立工作目录运行
-- 所有方法同时启动（并行模式）
-- 独立日志文件，便于调试
-- 避免文件冲突
+### 合并总表(`merged_results/merged_results.csv`)
 
-**实现**:
-```python
-for method in methods_list:
-    method_work_dir = self.config.output_path / method
-    method_work_dir.mkdir(exist_ok=True)
+**通俗理解|In plain words:** 一张表看全部 7 种方法找到的候选区。含 `Method`(来源方法)、`Chr/Left/Peak/Right`(候选区位置)、`Value`(方法打分)。**多种方法在同一个区域都出峰，这个区域最可信。**
 
-    cmd = [
-        "conda", "run", "-n", conda_env_name, "--no-capture-output",
-        "python3", deepbsa_script,
-        "--i", input_file,
-        "--m", method,
-        "--p", "0"  # 禁用pretreatment
-    ]
+### 各方法图(`merged_results/images/`)
 
-    subprocess.Popen(cmd, cwd=method_work_dir, stdout=log_file)
-```
+**通俗理解|In plain words:** 每种方法一张曲线图，看「冒尖的峰」就是候选区域。
 
-### 3. DL方法模型文件修复
+### 汇总报告(`summary_report.txt`)
 
-**问题**: DL方法需要预训练模型文件（.h5），但找不到`Models/row_finetune2pool.h5`
+**通俗理解|In plain words:** 每方法出了几个 QTL、最高分多少，一眼看各方法表现。
 
-**解决方案**:
-```python
-# 为每个方法创建Models符号链接
-models_src = self.config.deepbsa_script.parent / "Models"
-models_link = method_work_dir / "Models"
-if models_src.exists() and not models_link.exists():
-    models_link.symlink_to(models_src)
-```
+## 参数选择建议 | Parameter Guidance
 
-### 4. 自动结果合并
-
-**CSV合并**:
-```python
-for method in methods:
-    csv_files = glob(f"{method}/Results/variant/*.csv")
-    for csv_file in csv_files:
-        df = pd.read_csv(csv_file)
-        df_filtered = df[df['Value'] != '-']  # 只保留有效结果
-        df_filtered['Method'] = method         # 添加方法名列
-        all_results.append(df_filtered)
-
-merged_df = pd.concat(all_results)
-merged_df.to_csv("merged_results/merged_results.csv")
-```
-
-**PNG复制**:
-```python
-for method in methods:
-    png_files = glob(f"{method}/Results/variant/*.png")
-    for png_file in png_files:
-        new_name = f"{method}_{png_file.name}"  # 添加方法名前缀
-        shutil.copy(png_file, f"merged_results/images/{new_name}")
-```
-
-## 使用示例 | Usage Examples
-
-### 示例1: 标准BSA分析
-
-```bash
-# 运行所有7种方法，自动合并结果
-biopytools deepbsa \
-    -i /path/to/variant.vcf \
-    -o /path/to/bsa_output
-
-# 查看合并结果
-cat /path/to/bsa_output/merged_results/merged_results.csv
-cat /path/to/bsa_output/merged_results/summary_report.txt
-ls /path/to/bsa_output/merged_results/images/
-```
-
-### 示例2: 只运行特定方法
-
-```bash
-# 只运行ED4和SNP-Index方法
-biopytools deepbsa \
-    -i variant.vcf \
-    -m ED4,SNP \
-    -o bsab_output
-```
-
-### 示例3: 调试模式（串行运行）
-
-```bash
-# 串行运行，便于查看每个方法的输出
-biopytools deepbsa \
-    -i variant.vcf \
-    --no-parallel \
-    -o bsab_output
-
-# 查看每个方法的独立日志
-tail -f bsab_output/DL/DL.log
-tail -f bsab_output/ED4/ED4.log
-```
-
-### 示例4: 自定义DeepBSA路径
-
-```bash
-# 使用自定义的DeepBSA安装路径
-biopytools deepbsa \
-    -i variant.vcf \
-    --deepbsa-path /custom/path/DeepBSA/bin/main.py \
-    --conda-env /custom/path/conda/envs/deepbsa \
-    -o bsab_output
-```
-
-## 故障排查 | Troubleshooting
-
-### 1. DL方法失败
-
-**症状**: `OSError: No file or directory found at .../Models/row_finetune2pool.h5`
-
-**解决**:
-- 本模块已自动修复，会创建Models符号链接
-- 检查DeepBSA安装目录是否存在`Models/`文件夹
-
-### 2. 复杂文件名无法识别
-
-**症状**: `File type not recognized` 或 `ValueError: not enough values to unpack`
-
-**解决**:
-- 本模块已自动修复，会创建临时符号链接
-- 确保输入文件扩展名为`.vcf`、`.vcf.gz`或`.vcf.bz2`
-
-### 3. Pandas兼容性错误
-
-**症状**: `TypeError: to_csv() got an unexpected keyword argument 'lineterminator'`
-
-**解决**:
-- 本模块已修改DeepBSA源码（`vcf_handle.py:131`）
-- 移除了`lineterminator`参数以兼容旧版pandas
-
-### 4. 某个方法失败
-
-**症状**: 日志显示某个方法failed
-
-**解决**:
-```bash
-# 查看该方法的独立日志
-cat output_dir/METHOD_NAME/METHOD_NAME.log
-
-# 常见原因：
-# - 输入VCF文件格式不正确
-# - VCF文件没有足够的SNP位点
-# - Conda环境配置问题
-```
-
-### 5. 并行执行内存不足
-
-**症状**: 系统内存耗尽
-
-**解决**:
-```bash
-# 使用串行模式
-biopytools deepbsa -i variant.vcf --no-parallel -o output
-```
-
-## 性能优化 | Performance Optimization
-
-### 并行执行效率
-
-- **7个方法并行**: 约7-8小时（基于小花糖芥数据集）
-- **串行执行**: 约20-24小时
-- **加速比**: 约3倍
-
-### 磁盘空间需求
-
-每个方法约产生20-25MB输出，7个方法总计约140-175MB
-
-### 内存需求
-
-- **并行模式**: 建议至少16GB内存
-- **串行模式**: 建议8GB内存
-
-## 与原始DeepBSA的对比 | Comparison with Original DeepBSA
-
-| 特性 | 原始DeepBSA | biopytools deepbsa |
-|------|-------------|-------------------|
-| 文件名识别 | 仅支持简单文件名 | ✅ 支持复杂文件名 |
-| 并行执行 | ❌ 需要手动启动 | ✅ 自动并行 |
-| 工作目录 | 混在一起 | ✅ 独立目录 |
-| DL方法 | ❌ 手动创建Models链接 | ✅ 自动创建 |
-| 结果合并 | ❌ 手动整合 | ✅ 自动合并 |
-| 日志管理 | 分散 | ✅ 统一管理 |
-| Pandas兼容性 | ❌ 报错 | ✅ 已修复 |
-
-## 参考文献 | References
-
-1. **DeepBSA**: 原始DeepBSA工具文档
-2. **BSA方法**: 参见各方法的原始文献
-
-## 版本历史 | Version History
-
-- **v1.0** (2026-03-30): 初始版本
-  - 支持7种BSA方法批量运行
-  - 智能文件名识别
-  - 方法级并行执行
-  - 自动结果合并
-  - DL方法修复
-  - Pandas兼容性修复
-
-## 贡献者 | Contributors
-
-- biopytools开发团队
-
-## 许可证 | License
-
-本模块遵循biopytools项目的许可证。DeepBSA原始工具请参考其各自的许可证。
+| 场景 | 建议 |
+|------|------|
+| 常规分析 | `run` 全默认(并行 7 方法) |
+| 只想跑某几个方法 | `-m ED4,SNP` |
+| 集群投递 | 用 `batch` 生成脚本再投递 |
+| 内存/核数有限 | `--no-parallel` 串行，`--threads 16` |
+| 重跑某方法 | 删掉对应方法目录，或 `-f` 强制重跑 |
+| VCF 含 AD 想转 CSV | 先 `vcf2csv` 预处理 |
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -464,3 +164,26 @@ biopytools deepbsa -i variant.vcf --no-parallel -o output
 | `--skip-merge` | — | store_true | 跳过合并步骤｜Skip merge step |
 
 <!-- END PARAMS:auto -->
+
+## 依赖 | Dependencies
+
+- DeepBSA 主程序：默认用**内置版本**(`deepbsa_builtin`)，也可 `--deepbsa-path` 指定
+- conda 环境 `~/miniforge3/envs/DeepBSA`(DeepBSA 运行所需 Python 依赖)
+- DL 方法需预训练模型(内置 Models 自动链接)
+
+## 常见问题 | FAQ
+
+**Q1：`biopytools deepbsa` 和 `python -m biopytools.deepbsa` 有什么区别？**
+`biopytools deepbsa` 走子命令接口(batch/run/merge/vcf2csv，默认 `run --threads 6`、内置 DeepBSA)；`python -m biopytools.deepbsa` 是旧版扁平接口(见下方参数表，默认 `--threads 0`、外置 multithread 路径)。**日常用 `biopytools deepbsa` 即可**。
+
+**Q2：DL 方法报错找不到 Models？**
+本工具已自动为 DL 创建 Models 符号链接；若仍失败，检查内置 `deepbsa_builtin/Models` 是否存在。
+
+**Q3：某方法失败怎么办？**
+看 `输出目录/METHOD_NAME/METHOD_NAME.log`；常见原因是 VCF 格式不对或 SNP 太少。可 `-m` 单独重跑该方法。
+
+**Q4：换参数重跑没生效？**
+断点续传按 `values.txt` 存在性跳过。换参数后用 `-f` 强制重跑，或删除对应方法目录。
+
+**Q5：能并行吗？内存够吗？**
+默认并行 7 方法，优化目标是 64 核 + 300GB 集群；核数/内存有限时用 `--no-parallel` 串行，或 `--threads` 调小。
