@@ -1,56 +1,153 @@
 # LD衰减分析 | Linkage Disequilibrium Decay Analysis (PopLDdecay)
 
-**基于PopLDdecay计算连锁不平衡(LD)衰减, 支持R^2/D'度量和多种绘图方法 | LD decay analysis based on PopLDdecay**
+一句话理解：**计算「连锁不平衡(LD)」随距离衰减的速度**——基因上挨得近的位点往往「绑定遗传」，离得远就各走各的；这条下降曲线既能反映群体历史，也能告诉我们做 GWAS 需要多密的标记。
 
 ## 功能概述 | Overview
 
-poplddecay 模块封装了 PopLDdecay 工具, 用于计算群体连锁不平衡(LD)衰减。LD衰减反映重组率历史和群体遗传漂变模式, 是群体遗传学、GWAS标记密度评估、关联分析有效性判断的重要指标。本工具支持 VCF 和 Genotype 两种输入格式, 可指定子群体、自定义bin大小、自动推荐LD阈值并绘制衰减曲线图。
+- 封装 PopLDdecay，计算 r²(或 D')随物理距离的衰减曲线
+- 支持 VCF 和 Genotype 两种输入，可指定子群体分别计算并汇总
+- 按距离分箱(bin)求平均，自动绘制 LD 衰减曲线图
+- 用 Hill & Weir 模型拟合衰减曲线，自动推荐 LD 阈值、背景 r² 与 GWAS 建议窗口
+- 支持 MeanBin / MedianBin / PercentileBin / HW 等多种绘图统计方法
+- 无断点续传：每次运行直接重算并覆盖同名输出（换参数重跑需换前缀，见 FAQ）
 
 ## 快速开始 | Quick Start
 
 ```bash
-# VCF标准分析
-biopytools poplddecay -i variants.vcf -o output_prefix
-
-# 按子群体分析
-biopytools poplddecay -i variants.vcf -o output_prefix -s subpop_list.txt
+biopytools poplddecay -i variants.vcf -o output
 ```
+
+`-i` 输入 VCF，`-o` 是输出文件前缀(不是目录)，会生成 `output.stat.gz`、`output.png` 等文件。
+
+## 零基础概念速览 | Concepts in plain words
+
+| 术语 | 通俗理解 |
+|------|----------|
+| 连锁不平衡(LD) | 相邻位点「绑定遗传」的程度：本应随机组合的两个位点，却总是一起出现 |
+| r² | 两个位点关联强度的打分，0=完全独立，1=完全绑定 |
+| LD 衰减 | 距离越远 r² 越低的下降趋势，像「亲戚关系」，住得越远越不沾亲 |
+| 衰减距离 | r² 降到某个阈值时的距离；衰减越快=历史重组越多(群体越古老) |
+| bin(分箱) | 把距离相近的位点对归成一格再求平均，让曲线光滑 |
+| 背景 r² | 远距离 r² 的「地板」，代表随机噪声水平，正常应接近 0 |
+| GWAS 窗口 | 做关联分析时，围绕显著位点向外看多远的区间，由衰减距离决定 |
+
+## 输入 | Input
+
+### VCF / Genotype 文件
+
+标准 VCF(支持 .vcf/.vcf.gz，需含 GT 基因型)或 Genotype 格式，用 `-t/--type` 指定。
+
+### 子群体文件(可选，`-s/--subpop`)
+
+两列制表符分隔：`样本ID` 与 `群体名`。程序按群体名分组，先算全体样本、再逐个群体算、最后合并对比：
+
+```text
+sample1	popA
+sample2	popA
+sample3	popB
+sample4	popB
+```
+
+每个样本名必须与 VCF 头部的样本名完全一致，否则该样本被忽略；程序会先验证文件再计算。
 
 ## 参数说明 | Parameters
 
 ### 必需参数 | Required
 
-| 参数 | 描述 |
+| 参数 | 说明 |
 |------|------|
-| `-i, --input` | 输入VCF或Genotype文件 |
-| `-o, --output` | 输出文件前缀 |
+| `-i, --input` | 输入 VCF 或 Genotype 文件 |
+| `-o, --output` | 输出文件前缀（不是目录） |
 
-### 常用可选参数 | Common Options
+### 位点过滤 | Site filtering
 
-| 参数 | 默认值 | 描述 |
+**通俗理解|In plain words:** 决定「什么样的位点信得过、参与计算」。MAF 太低=少数派等位基因太少、区分度低；杂合率太高=数据可能有问题；缺失率太高=依据不足。**绝大多数项目用默认值即可，几乎不需要动。**
+
+| 参数 | 默认值 | 说明 |
 |------|--------|------|
-| `-t, --type` | `vcf` | 输入文件类型(vcf/genotype) |
-| `-d, --max-dist` | `300` | 最大距离(kb) |
-| `-m, --min-maf` | `0.005` | 最小等位基因频率 |
-| `--max-het` | `0.88` | 最大杂合率 |
-| `--max-miss` | `0.25` | 最大缺失率 |
-| `-s, --subpop` | `None` | 子群体样本列表文件 |
-| `--out-type` | `1` | 输出类型(1:R^2, 2:R^2&D', 3:Pairwise LD) |
-| `--bin1` | `10` | 短距离bin大小 |
-| `--bin2` | `100` | 长距离bin大小 |
-| `--break-point` | `100` | 短/长距离分界点 |
-| `--measure` | `r2` | LD度量(r2/D/both) |
-| `--method` | `MeanBin` | 绘图方法(MeanBin/HW/MedianBin/PercentileBin) |
-| `--no-plot` | `False` | 不绘制图像 |
-| `--no-recommend-threshold` | `False` | 不推荐LD阈值 |
+| `-m, --min-maf` | 0.005 | 最小等位基因频率，低于此值的位点剔除 |
+| `--max-het` | 0.88 | 最大杂合率，高于此值的位点剔除 |
+| `--max-miss` | 0.25 | 最大缺失率，高于此值的位点剔除 |
+| `-d, --max-dist` | 300 | 只计算多少 kb 以内的位点对 |
 
-(运行 `biopytools poplddecay -h` 查看完整参数列表)
+### 子群体与输出类型 | Subpopulation & output type
+
+**通俗理解|In plain words:** `-s` 用来「把样本分成几组分别算、再画到一张图上对比」；`--out-type` 决定统计表里输出哪些 LD 度量(r² 还是再加 D')。不指定 `-s` 就对全体样本算一次。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `-s, --subpop` | 无 | 子群体文件（样本 ID + 群体名，两列） |
+| `-t, --type` | vcf | 输入类型：vcf / genotype |
+| `--out-type` | 1 | 输出类型：1=r² / 2=r²+D' / 3=Pairwise LD |
+
+### 绘图参数 | Plotting
+
+**通俗理解|In plain words:** 这一组只影响图的平滑度和呈现方式，**不影响 `.stat.gz` 统计结果**。bin 是把相近距离的位点对归成一格再取代表值；`--method` 决定每格取什么代表值(平均/中位数/百分位)。**一般不用动。**
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--bin1` | 10 | 短距离 bin 大小(kb) |
+| `--bin2` | 100 | 长距离 bin 大小(kb) |
+| `--break-point` | 100 | 短/长距离分界点(kb) |
+| `--max-x` | 无 | 图的最大 X 坐标(kb) |
+| `--measure` | r2 | LD 度量方法：r2 / D / both |
+| `--method` | MeanBin | 绘图统计方法：MeanBin / HW / MedianBin / PercentileBin |
+| `--percentile` | 0.5 | 百分位数（仅 PercentileBin 用） |
+| `--no-plot` | 关 | 不绘制图像 |
+| `--no-recommend-threshold` | 关 | 不推荐 LD 阈值 |
+
+## 分析流程 | Pipeline
+
+```text
+输入 VCF / Genotype
+   |
+   v
+PopLDdecay 计算位点对 r² → 按距离分箱求平均(.stat.gz)
+   |
+   ├─ 绘图(.png，默认开，依赖 Perl 绘图脚本)
+   ├─ LD 阈值推荐(.tsv，默认开，Hill & Weir 模型拟合)
+   └─ 指定子群体时：先算全体(_all)，再逐个群体(_pop)，最后合并(_summary.tsv)
+```
 
 ## 输出 | Output
 
-- `{prefix}.LD.gz`: LD统计原始结果
-- `{prefix}.LD.decay.gz`: LD衰减数据
-- `{prefix}.LD.decay.png/pdf`: LD衰减曲线图
+```text
+output.stat.gz                       # LD 衰减统计表(核心结果，gzip 压缩 TSV)
+output.png                           # LD 衰减曲线图(默认生成)
+output.log                           # 运行日志
+output_threshold_recommendations.tsv # LD 阈值推荐(默认生成)
+```
+
+指定子群体(`-s`)时额外生成：
+
+```text
+output_all.stat.gz                   # 全体样本的 LD 衰减
+output_{群体名}.stat.gz              # 每个子群体的 LD 衰减
+output_summary.tsv                   # 合并表(Population/Dist/Mean_r2 列)
+```
+
+- `output.stat.gz`：gzip 压缩的 TSV，核心列 `#Dist`(距离 bp)、`Mean_r^2`(平均 r²)，可直接画图
+- `output_threshold_recommendations.tsv`：每群体的样本数、背景 r²、推荐阈值、衰减距离、GWAS 建议窗口
+
+## 结果解读 | Interpreting Results
+
+**通俗理解|In plain words:** 看 `output.png` 那条从左上到右下的曲线：起点越高=短距离内位点绑定越紧；降得越快=历史重组越多(群体越古老、有效群体越大)。
+
+- **衰减距离(Decay_Distance_kb)**：r² 衰减到推荐阈值时对应的距离(kb)。越小=重组越频繁；GWAS 标记间距应小于衰减距离才能捕获信号
+- **Recommended_Threshold**：推荐的 r² 阈值，r² 降到该值时位点间基本不再关联，是判断「标记是否够密」的参考
+- **Background_r2**：远距离 r² 的「地板」，代表随机噪声水平，正常应接近 0
+- **Rho**：Hill & Weir 模型拟合出的重组率参数，描述曲线下降的快慢
+- **BG_Ratio**：推荐阈值除以背景 r² 的比值，接近 2 表示阈值选在「明显高于噪声」的合理位置
+- **GWAS_Window_kb**：建议的关联分析窗口(lead SNP +/- X kb)，向上取整到 50 kb
+
+## 参数选择建议 | Parameter Guidance
+
+- `-d/--max-dist`：只算到多少 kb 内的位点对。默认 300 kb 覆盖绝大多数物种；衰减很慢的物种(如自交系)可调到 1000
+- `-m/--min-maf`、`--max-het`、`--max-miss`：剔除低 MAF、高杂合、高缺失位点，**默认值一般不用动**
+- `--bin1/--bin2/--break-point`：曲线分箱方式，**只影响图的平滑度，一般不用动**
+- `--method`：绘图统计方法，默认 MeanBin(每箱取平均)；数据噪声大时可试 MedianBin
+- `-s/--subpop`：想比较不同群体的衰减速度时用；不指定则对全体样本算一次
+- `--no-recommend-threshold`：只想看曲线、不想要阈值推荐时加上
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -85,12 +182,24 @@ biopytools poplddecay -i variants.vcf -o output_prefix -s subpop_list.txt
 
 ## 依赖 | Dependencies
 
-- **PopLDdecay**: LD衰减分析工具 (https://github.com/BGI-shenzhen/PopLDdecay)
+- PopLDdecay（默认 `~/miniforge3/envs/pop/bin/PopLDdecay`，可用环境变量 `POPLDDECAY_PATH` 覆盖）
+- Plot_OnePop.pl / Plot_MultiPop.pl（绘图 Perl 脚本，默认 `~/software/PopLDdecay/PopLDdecay-3.43/bin/`）
+- Perl（需 Data::Dumper、Getopt::Long 模块；绘图脚本自身还需 GD 等图形模块）
+- Python 依赖 numpy / pandas / scipy（仅阈值推荐步骤）
 
-## 引用 | Citation
+## 常见问题 | FAQ
 
-- Zhang C., Dong S.S., Xu J.Y., et al. (2019) PopLDdecay: a fast and effective tool for linkage disequilibrium decay analysis based on variant call format files. Bioinformatics. 35(10):1786-1788.
+**Q1：`-o` 是前缀还是目录？**
+是输出文件前缀。写成 `-o output` 生成 `output.stat.gz` 等；若 `-o` 以 `/` 结尾或指向已存在目录，程序会自动从输入文件名推导前缀(避免产出 `.stat.gz` 这类隐藏文件)。
 
-## 相关链接 | References
+**Q2：换参数重跑，旧结果还在吗？**
+PopLDdecay 每次运行直接覆盖同名输出，不判断「已存在即跳过」。换了 `--max-dist`、`--bin1` 等参数重跑同一前缀即可，无需手动删旧文件；想保留多组结果请换不同前缀。
 
-- [项目主页](https://github.com/lixiang117423/biopytools)
+**Q3：子群体文件是什么格式？**
+两列制表符分隔：`样本ID` 与 `群体名`（不是每行一个样本）。程序按群体名分组，先算全体(_all)、再逐个群体(_pop)、最后合并成 `_summary.tsv` 供对比。样本名须与 VCF 头部完全一致，否则被忽略。
+
+**Q4：绘图失败怎么办？**
+绘图依赖 Perl 的绘图脚本(Plot_OnePop.pl 等)及其 GD 模块；缺模块时程序会跳过绘图并给出警告，但 `.stat.gz` 统计文件仍会正常生成，可自己用 ggplot2 等工具画。
+
+**Q5：阈值推荐是怎么算出来的？**
+用 Hill & Weir (1988) 模型拟合衰减曲线，估计远距离的「背景 r²」噪声水平，再在候选阈值里挑一个约为背景 r² 两倍的 r² 作为推荐阈值，并据此给出衰减距离和 GWAS 建议窗口。

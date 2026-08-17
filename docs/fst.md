@@ -1,354 +1,133 @@
-# Fst遗传分化计算模块
+# Fst 遗传分化计算 | Fst Calculation (PLINK)
 
-**专业的群体遗传分化分析工具 | Professional Population Genetic Differentiation Analysis Tool**
+一句话理解：**计算群体之间的遗传分化系数(Fst)**，回答「这两个(或多个)群体在遗传上有多不一样」，是衡量种群结构、群体历史的基础指标。
 
 ## 功能概述 | Overview
 
-Fst遗传分化计算模块是一个专业的群体遗传学分析工具，基于PLINK软件构建，提供从VCF文件到Fst统计量计算的完整流程。支持自动化的数据转换、灵活的质量控制和多种结果输出格式，适用于各种群体遗传学研究。
-
-## 主要特性 | Key Features
-
-- **完整分析流程**: VCF转换→质量控制→Fst计算三步骤自动化
-- **灵活质控参数**: 可配置的MAF、缺失率、HWE等质控阈值
-- **自动群体检测**: 智能解析群体文件，支持制表符和逗号分隔
-- **多群体支持**: 支持两群体及多群体的Fst计算
-- **双格式输出**: 长格式表格和矩阵格式结果
-- **中间文件保留**: 可选择保留或删除中间处理文件
-- **详细日志记录**: 完整的处理过程日志和错误追踪
-- **高效处理**: 优化的处理流程，支持大规模基因组数据
+- 基于 PLINK 的 Weir & Cockerham 方法计算群体间 Fst
+- 输入 VCF + 群体文件，一键完成 VCF→PLINK→Fst 全流程
+- 支持可选质控(MAF/缺失率/HWE)、LD 剪枝、SNP 抽稀
+- 支持两群体与多群体两两比较
+- 样本量不均衡时自动启用 Bootstrap 抽样，估计 Fst 均值与置信区间
+- 输出长格式表格、矩阵格式与 PLINK 原始结果
 
 ## 快速开始 | Quick Start
 
-### 基本用法 | Basic Usage
-
 ```bash
-# 计算两个群体间的Fst
-biopytools fst \
-    -i variants.vcf \
-    -p population.txt \
-    -o fst_output
-
-# 使用自定义质控参数
-biopytools fst \
-    -i variants.vcf \
-    -p population.txt \
-    -o fst_output \
-    --maf 0.01 \
-    --geno 0.2
+biopytools fst -i variants.vcf -p population.txt -o fst_output
 ```
 
-## 参数说明 | Parameters
+## 零基础概念速览 | Concepts in plain words
 
-### 必需参数 | Required Parameters
+| 术语 | 通俗理解 |
+|------|----------|
+| Fst(固定指数) | 群体间遗传差异的占比打分，0=完全一样，1=完全分化 |
+| 遗传分化 | 两个群体各自「抱团」、基因库不再互通的程度 |
+| MAF | 「少数派」等位基因在群体里的频率；太低=这个位点没区分度 |
+| 缺失率 | 多少样本在这个位点「没测出来」；太高=判断依据不足 |
+| HWE 平衡 | 群体随机交配时基因型应有的比例；偏离太远提示分型错误 |
+| LD(连锁不平衡) | 相邻位点「绑定遗传」，信息重复，降维时每个团留一个代表 |
+| Bootstrap | 从现有样本里反复「抓阄重抽样」多次，看结果稳不稳 |
 
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `-i, --vcf-file` | VCF文件路径 | `-i variants.vcf` |
-| `-p, --pop-file` | 群体文件路径（样本ID + 群体标签） | `-p population.txt` |
-| `-o, --output-dir` | 输出目录 | `-o fst_output` |
+## 输入 | Input
 
-### 群体文件格式 | Population File Format
+### VCF 文件
 
-群体文件应为两列格式，第一列为样本ID，第二列为群体标签：
+标准 VCF 格式，含基因型(GT)：
 
 ```text
-sample1    POP1
-sample2    POP1
-sample3    POP2
-sample4    POP2
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample1	sample2	sample3	sample4
+chr1	1000	.	A	G	.	PASS	.	GT	0/0	0/1	1/1	0/0
 ```
 
-支持以下分隔符：
-- 制表符（`\t`）
-- 逗号（`,`）
-- 空格（` `）
+### 群体文件
 
-### 质量控制参数 | Quality Control Parameters
+两列：`样本ID` `群体标签`，支持制表符、逗号、空格分隔：
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--maf` | `0.05` | 最小等位基因频率阈值 |
-| `--geno` | `0.1` | 位点缺失率阈值（call rate < 1-geno） |
-| `--mind` | `0.1` | 样本缺失率阈值（call rate < 1-mind） |
-| `--hwe` | `1e-6` | Hardy-Weinberg平衡p值阈值 |
-
-### 软件配置 | Software Configuration
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--plink-path` | `auto-detect` | PLINK软件路径（自动检测conda环境） |
-
-### 输出控制 | Output Control
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--no-keep-intermediate` | `False` | 不保留中间文件 |
-
-## 输入文件格式 | Input File Formats
-
-### VCF文件 | VCF File
-
-标准VCF格式的变异数据：
-
-```vcf
-##fileformat=VCFv4.2
-##contig=<ID=chr1,length=10000000>
-#CHROM  POS  ID  REF  ALT  QUAL  FILTER  INFO  FORMAT  sample1  sample2  sample3  sample4
-chr1    1000 .   A   G   45.2  PASS    DP=30  GT:DP   0/0:30  0/1:25  1/1:28  0/0:32
-chr1    2000 .   T   C   62.8  PASS    DP=25  GT:DP   0/1:25  1/1:22  0/0:28  0/1:30
+```text
+sample1	POP1
+sample2	POP1
+sample3	POP2
+sample4	POP2
 ```
 
-## 输出结果 | Output Results
+样本名必须与 VCF 头部的样本名完全一致。
 
-### 输出目录结构 | Output Directory Structure
+## 分析流程 | Pipeline
 
-#### 直接计算模式 | Direct Calculation Mode
-
+```text
+VCF + 群体文件
+    │
+    ▼
+步骤1: VCF → PLINK 格式(.bed/.bim/.fam)
+    │
+    ▼
+步骤2: 质控(默认跳过；--enable-qc 才做 MAF/缺失/HWE 过滤)
+    │
+    ▼
+步骤3: LD 剪枝(默认开启；SNP < 50万时自动跳过)
+    │
+    ▼
+步骤4: PLINK 计算 Fst(两群体单次；多群体两两比较)
+    │
+    ├─ 直接模式 → 长格式表 + 矩阵表
+    └─ 样本量不均衡 → Bootstrap 抽样 + 汇总均值/置信区间
 ```
+
+## 输出 | Output
+
+直接计算模式：
+
+```text
 fst_output/
-├── 00_intermediate/          # 中间文件（如果保留）
-│   ├── mydata.bed             # PLINK binary文件
-│   ├── mydata.bim
-│   ├── mydata.fam
-│   ├── mydata_qc.bed          # 质控后文件（如果启用质控）
-│   ├── mydata_qc.bim
-│   └── mydata_qc.fam
-├── fst_result.fst             # PLINK Fst原始输出
-├── population_filtered.plink  # PLINK格式群体文件
-├── fst_long_format.txt        # 长格式结果
-├── fst_matrix.txt             # 矩阵格式结果
-└── 99_logs/
-    └── fst_calculation.log    # 运行日志
+├── fst_result.fst                # PLINK 原始 Fst 输出(逐位点)
+├── population_filtered.plink     # 过滤后的群体文件
+├── fst_long_format.txt           # 长格式(Population1 Population2 Fst)
+├── fst_matrix.txt                # 矩阵格式(群体×群体)
+├── 00_intermediate/              # 中间 PLINK 文件(默认保留)
+│   ├── mydata.bed/bim/fam        # VCF 转换结果
+│   ├── mydata_qc.bed/bim/fam     # 质控后(启用质控时)
+│   └── mydata_pruned.bed/bim/fam # LD 剪枝后(SNP≥50万且启用时)
+└── 99_logs/fst_calculation.log   # 运行日志
 ```
 
-#### Bootstrap模式 | Bootstrap Mode
+Bootstrap 模式(样本量不均衡自动触发，或 `--enable-bootstrap`)：
 
-```
+```text
 fst_output/
-├── 00_intermediate/          # 中间文件（如果保留）
-│   ├── mydata.bed
-│   ├── mydata.bim
-│   ├── mydata.fam
-│   ├── mydata_qc.bed          # 质控后文件（如果启用质控）
-│   ├── mydata_qc.bim
-│   └── mydata_qc.fam
-├── bootstrap_iterations/      # Bootstrap迭代文件
-│   ├── fst_iter1.fst          # 第1次迭代的Fst结果
-│   ├── fst_iter1.log
-│   ├── fst_iter1.nosex
-│   ├── population_iter1.plink
-│   ├── fst_iter2.fst          # 第2次迭代的Fst结果
-│   ├── ...
-│   └── fst_iter100.fst        # 第100次迭代的Fst结果
-├── all_fst_results.txt        # Bootstrap统计汇总（主要结果文件）
-└── 99_logs/
-    └── fst_calculation.log    # 运行日志
+├── bootstrap_iterations/         # 每次迭代的中间结果
+│   ├── fst_iter1.fst
+│   └── ...
+├── all_fst_results.txt           # 汇总(Mean_Fst/Std/Min/Max/Median，核心结果)
+└── 99_logs/fst_calculation.log
 ```
 
-### 输出文件说明 | Output File Description
+- `fst_long_format.txt`：三列 `Population1 Population2 Fst`，一行一对群体，便于统计
+- `fst_matrix.txt`：对角线为 0 的对称矩阵，便于画热图
+- `all_fst_results.txt`：Bootstrap 汇总，`Mean_Fst` 是主要结果，`Std` 是置信区间
 
-#### 1. all_fst_results.txt（Bootstrap模式主要结果文件）
+## 结果解读 | Interpreting Results
 
-Bootstrap统计汇总文件，包含所有群体对的Fst统计量：
+**通俗理解|In plain words:** Fst 越接近 0 说明两个群体「基因库几乎混在一起」，越接近 1 说明「彻底分家」。粗略参考(物种间有差异)：
 
-```text
-Population1    Population2    Mean_Fst    Std      Min      Max      Median
-China_North    Korea          0.023456    0.001234 0.020123 0.026789 0.023456
-China_North    Japan          0.019876    0.001567 0.017234 0.023456 0.019876
-```
+| Fst 范围 | 分化程度 |
+|----------|----------|
+| < 0.05 | 很小，几乎没分化 |
+| 0.05–0.15 | 中等分化 |
+| 0.15–0.25 | 分化较大 |
+| > 0.25 | 分化很大 |
 
-**列说明**：
-- `Population1`, `Population2`: 群体对名称
-- `Mean_Fst`: 100次迭代的平均Fst值
-- `Std`: 标准差
-- `Min`: 最小Fst值
-- `Max`: 最大Fst值
-- `Median`: 中位数
+- `fst_result.fst`：每个 SNP 位点的 Fst，画成曼哈顿图可找分化热点区域
+- `all_fst_results.txt` 的 `Mean_Fst` 用于汇报「某两群体 Fst = 0.XX」；`Std` 越小结果越稳
+- Fst 受群体历史、迁移率、选择影响，是相对指标，比较时保持样本量口径一致
 
-#### 2. fst_long_format.txt（直接计算模式）
+## 参数选择建议 | Parameter Guidance
 
-长格式表格，每行表示一对群体的Fst值：
-
-```text
-Population1    Population2    Fst
-POP1           POP2           0.123456
-```
-
-#### 2. fst_matrix.txt（矩阵格式）
-
-矩阵格式，展示所有群体对之间的Fst值：
-
-```text
-        POP1        POP2
-POP1    0.000000    0.123456
-POP2    0.123456    0.000000
-```
-
-#### 3. fst_result.fst（PLINK原始输出）
-
-PLINK生成的原始Fst文件，包含每个SNP位点的Fst值。
-
-## 使用示例 | Usage Examples
-
-### 示例1：基本Fst计算
-
-```bash
-# 计算两个野生群体的Fst
-biopytools fst \
-    -i wild_population.vcf \
-    -p wild_pop_groups.txt \
-    -o wild_fst_results
-```
-
-### 示例2：严格质控参数
-
-```bash
-# 使用严格的质控参数
-biopytools fst \
-    -i variants.vcf \
-    -p population.txt \
-    -o strict_fst \
-    --maf 0.01 \
-    --geno 0.05 \
-    --mind 0.05 \
-    --hwe 1e-10
-```
-
-### 示例3：多群体比较
-
-```bash
-# 计算多个地理群体间的Fst
-biopytools fst \
-    -i geo_populations.vcf \
-    -p geo_groups.txt \
-    -o geo_fst_results \
-    --maf 0.02
-```
-
-### 示例4：不保留中间文件
-
-```bash
-# 节省存储空间，不保留中间文件
-biopytools fst \
-    -i variants.vcf \
-    -p population.txt \
-    -o fst_results \
-    --no-keep-intermediate
-```
-
-## 分析流程 | Analysis Pipeline
-
-### 步骤1：VCF转PLINK格式
-
-将VCF文件转换为PLINK binary格式（.bed/.bim/.fam）
-
-### 步骤2：质量控制
-
-根据指定参数进行质量控制：
-- 过滤低频变异（MAF阈值）
-- 过滤高缺失率位点
-- 过滤高缺失率样本
-- 过滤偏离HWE的位点
-
-### 步骤3：Fst计算
-
-使用Weir & Cockerham (1984)方法计算Fst值：
-- 支持两群体比较
-- 支持多群体两两比较
-- 生成逐位点Fst值和全基因组平均值
-
-### 步骤4：结果格式化
-
-- 生成长格式表格（便于统计分析）
-- 生成矩阵格式（便于可视化）
-
-## 注意事项 | Important Notes
-
-1. **群体文件格式**: 确保群体文件的样本ID与VCF文件中的样本名完全一致
-2. **质控参数**: 根据数据质量调整质控参数，过严可能导致可用位点过少
-3. **样本量**: 每个群体至少需要2个样本
-4. **内存需求**: 大规模VCF文件需要足够的内存（建议16GB以上）
-5. **计算时间**: Fst计算时间与样本量和位点数成正比
-
-## 故障排除 | Troubleshooting
-
-### 常见问题 | Common Issues
-
-**Q: "样本不在VCF文件中"错误**
-```bash
-# 检查群体文件的样本ID是否与VCF文件一致
-bcftools query -l variants.vcf | sort > vcf_samples.txt
-cut -f1 population.txt | sort > pop_samples.txt
-diff vcf_samples.txt pop_samples.txt
-```
-
-**Q: Fst值为NA或缺失**
-```bash
-# 可能原因：
-# 1. 质控后可用位点过少 -> 降低--maf阈值
-# 2. 样本量不足 -> 检查每个群体的样本数
-# 3. 群体标签错误 -> 检查群体文件格式
-```
-
-**Q: 计算时间过长**
-```bash
-# 解决方案：
-# 1. 使用更严格的质控参数减少位点数
-# 2. 考虑使用--no-keep-intermediate节省I/O时间
-# 3. 在高性能计算集群上运行
-```
-
-## 方法说明 | Method Description
-
-### Fst计算方法
-
-本工具使用Weir & Cockerham (1984)方法计算Fst值：
-
-- **方法**: Weir & Cockerham's Fst
-- **引用**: Weir BS, Cockerham CC (1984) Estimating F-statistics for the analysis of population structure. Evolution, 38(6), 1358-1370.
-- **特点**: 考虑了样本量和群体大小的影响，适用于各种群体遗传学研究
-
-### Fst值解释
-
-- **Fst < 0.05**: 遗传分化很小
-- **0.05 ≤ Fst < 0.15**: 遗传分化中等
-- **0.15 ≤ Fst < 0.25**: 遗传分化较大
-- **Fst ≥ 0.25**: 遗传分化很大
-
-## 系统要求 | System Requirements
-
-### 依赖软件 | Dependencies
-
-- **PLINK** (版本 1.9 或更新)
-  - 安装: conda install -c bioconda plink
-- **Python** (版本 3.7+)
-- **Python包**:
-  - `click` - 命令行界面
-
-### 硬件建议 | Hardware Recommendations
-
-- **CPU**: 多核处理器（推荐4核以上）
-- **RAM**: 最少4GB（推荐16GB以上）
-- **存储**: 预留VCF文件大小3倍的磁盘空间
-
-## 引用信息 | Citation
-
-如果在学术研究中使用此工具，请引用相关文献：
-
-```
-Weir, B.S. & Cockerham, C.C. (1984).
-Estimating F-statistics for the analysis of population structure.
-Evolution, 38(6), 1358-1370.
-```
-
-同时建议引用PLINK软件：
-
-```
-Purcell, S. et al. (2007).
-PLINK: a tool set for whole-genome association and population-based linkage analyses.
-American Journal of Human Genetics, 81(3), 559-575.
-```
-
+- **质控默认关闭**：只有加 `--enable-qc` 才会做 MAF/缺失/HWE 过滤；阈值 `--maf 0.05`/`--geno 0.1`/`--mind 0.1`/`--hwe 1e-6` 一般不用动
+- **LD 剪枝默认开启**，但 SNP 少于 50 万时自动跳过；窗口 `--ld-window 50`/`--ld-step 10`/`--ld-r2 0.2` 一般不用动
+- **Bootstrap**：样本量不均衡会自动启用；想让结果带置信区间可手动 `--enable-bootstrap`，`--bootstrap-iterations` 默认 100 已够用
+- **`--min-samples 10`**：样本少于 10 的群体自动排除；想保留小群体可调小，想排除某群体用 `--exclude-pops POP1,POP2`
+- **`--thin`**：SNP 特别多时抽稀(0-1 比例)，一般用不到
 <!-- BEGIN PARAMS:auto -->
 
 ## 参数速查 | Parameter reference
@@ -406,3 +185,24 @@ American Journal of Human Genetics, 81(3), 559-575.
 | `--threads` | `12` | int | 线程数｜Number of threads (default: 12) |
 
 <!-- END PARAMS:auto -->
+
+## 依赖 | Dependencies
+
+- PLINK(默认 `~/miniforge3/envs/pop/bin/plink`，可用 `--plink-path` 或环境变量 `PLINK_PATH` 覆盖)
+
+## 常见问题 | FAQ
+
+**Q1：质控为什么没生效？**
+本模块默认**不做质控**。只有加 `--enable-qc` 才会启用 MAF/缺失/HWE 过滤；不加时 `--maf` 等阈值被忽略。
+
+**Q2：LD 剪枝没执行？**
+SNP 数少于 50 万时自动跳过 LD 剪枝(此时剪枝意义不大)。想强制关闭用 `--no-ld-prune`。
+
+**Q3：样本名对不上会怎样？**
+群体文件里写了但 VCF 里没有的样本无法匹配，可能被忽略或报错。先核对两边样本名一致(可用 `bcftools query -l variants.vcf` 对照)。
+
+**Q4：换参数重跑要删旧文件吗？**
+本模块无断点续传，每次运行重算并覆盖同名输出。换 `--maf`、`--enable-qc` 等重跑同一 `-o` 即可；想保留多组结果请换输出目录。
+
+**Q5：为什么自动进了 Bootstrap 模式？**
+当各群体样本量严重不均衡(直接算 Fst 偏差大)时自动启用 Bootstrap 抽样。不想用可核对群体样本数，或改用 `--exclude-pops` 剔除极小的群体。

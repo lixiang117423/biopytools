@@ -1,189 +1,137 @@
-# Dsuite - D统计量基因渗入分析工具
+# D统计基因渗入分析 | D-statistic Introgression Analysis (Dsuite)
 
-## 功能简介
+一句话理解：**用「ABBA-BABA」这个统计检验，判断三个群体(两个亲缘群体 + 一个外群)之间是否发生过基因渗入或杂交**，并估计渗入的比例。
 
-使用Dsuite计算D统计量（ABBA-BABA test），检测群体间的基因渗入事件。该工具基于四群体检验（D统计量）和f4-ratio分析，可用于识别物种间的基因流和杂交事件。
+## 功能概述 | Overview
 
-## 系统要求
+- 封装 Dsuite 的 `Dtrios` 程序，计算 D 统计量（ABBA-BABA 检验）
+- 输入一个 VCF 和一份 SETS 分组文件，自动对全部可能的三元组(P1/P2/P3)计算
+- 用 Jackknife 估计标准误与 Z 分数，判断 D 值是否显著
+- 默认只保留双等位 SNP（D 统计量的标准做法），可切换为 indel / both
+- 输出 `BBAA`（D 统计量 + f4-ratio）、`Dmin`（最小 D）、`tree`（按树排列）三种结果
+- 无断点续传：每次运行直接重算并覆盖同名输出（换参数重跑需换 `-p` 前缀，见 FAQ）
 
-- Python >= 3.8
-- Dsuite (已安装)
-- bcftools
-
-## Dsuite安装
-
-```bash
-# 克隆Dsuite仓库
-git clone https://github.com/millanek/Dsuite.git
-cd Dsuite
-make
-
-# Dsuite可执行文件位于 Build/Dsuite
-```
-
-## 使用方法
-
-### 查看帮助
+## 快速开始 | Quick Start
 
 ```bash
-biopytools dsuite -h
+biopytools dsuite -i variants.vcf.gz -s sets.txt -o output_dir
 ```
 
-### 基本用法
+最小输入：一个 VCF（.vcf/.vcf.gz）+ 一份两列 SETS 分组文件（样本 ID、群体 ID）。
 
-```bash
-# 运行Dsuite Dtrios分析
-biopytools dsuite \
-    -i variants.vcf.gz \
-    -s sets.txt \
-    -o output_dir
+## 零基础概念速览 | Concepts in plain words
+
+不熟悉生信术语的话，先花两分钟看这张表，后面的参数说明都会用到：
+
+| 术语 | 通俗理解 |
+|------|----------|
+| 基因渗入(introgression) | 一个物种的基因「混进」了另一个物种，通常由杂交引起，像一滴墨水溶进另一杯水 |
+| ABBA-BABA | 用四个群体(P1、P2、P3、外群)在两个位点上的基因型模式，统计「谁跟谁更像」 |
+| D 统计量 | 渗入信号的打分，范围 -1 到 1；0=无渗入，偏离 0 越远越可能有渗入 |
+| 外群(Outgroup) | 一个确定「最早分出去」的群体，用来给模式定方向，像参照物/祖辈 |
+| f4-ratio | 渗入比例的估计，0-1，越大表示渗入越多 |
+| Z 分数 | 显著性检验分数，绝对值大于 3 一般视为显著（近似 p < 0.01） |
+| Jackknife | 「留一重抽样」估计误差的方法，用来给 D 值算标准误 |
+
+## 输入 | Input
+
+### VCF 文件
+
+标准 VCF 格式（支持 `.vcf` / `.vcf.gz`），样本名必须与 SETS 文件一致。
+
+### SETS 分组文件
+
+两列制表符分隔：`样本ID` 与 `群体ID`。至少一个样本标为 `Outgroup`（外群）；想忽略某样本，群体写 `xxx`：
+
+```text
+Ind1	Species1
+Ind2	Species1
+Ind3	Species2
+Ind4	Species2
+Ind5	Species3
+Ind6	Outgroup
 ```
 
-### 参数说明
+- 每一行的样本名必须能在 VCF 头部找到，找不到的样本会被忽略
+- `Outgroup` 用于给 ABBA-BABA 模式「定方向」，没有外群无法计算 D 值
 
-| 短参数 | 长参数 | 类型 | 必需 | 默认值 | 说明 |
-|--------|--------|------|------|--------|------|
-| `-i` | `--vcf` | str | 是 | - | 输入VCF文件路径 |
-| `-s` | `--sets` | str | 是 | - | SETS分组文件路径 |
-| `-o` | `--output` | str | 是 | - | 输出目录 |
-| `-p` | `--prefix` | str | 否 | dsuite | 输出文件前缀 |
-| `--min-alleles` | - | int | 否 | 2 | 最小等位基因数 |
-| `--max-alleles` | - | int | 否 | 2 | 最大等位基因数 |
-| `--variant-type` | - | str | 否 | snps | 变异类型 (snps/indels/both/none) |
-| `--dsuite-bin` | - | str | 否 | /share/.../Dsuite | Dsuite可执行文件路径 |
-| `--bcftools` | - | str | 否 | bcftools | bcftools命令路径 |
+## 参数说明 | Parameters
 
-### SETS文件格式
+### 必需参数 | Required
 
-SETS.txt文件定义每个样本所属的群体，格式为两列：`样本ID` 和 `群体ID`
+| 参数 | 说明 |
+|------|------|
+| `-i, --input` | 输入 VCF 文件（.vcf / .vcf.gz） |
+| `-s, --sets` | SETS 分组文件（样本 ID + 群体 ID） |
+| `-o, --output-dir` | 输出目录 |
 
-```
-Ind1    Species1
-Ind2    Species1
-Ind3    Species2
-Ind4    Species2
-Ind5    Species3
-Ind6    Outgroup
-Ind7    Outgroup
-```
+### 等位基因过滤 | Allele filtering
 
-**重要说明：**
-- 至少需要一个样本标记为 `Outgroup`
-- 如果要忽略某些样本，使用 `xxx` 作为群体ID
+**通俗理解|In plain words:** 决定「什么样的变异位点参与计算」。D 统计量本质是把每个位点分成「两种形态」来计数(ABBA/BABA)，所以标准做法是只保留双等位位点(一个位点只有两种等位基因)；多等位位点(一个位点 3 种及以上等位基因)很难归入两态，默认被排除。**绝大多数项目用默认值即可，几乎不需要动。**
 
-## 输出文件
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--min-alleles` | 2 | 最小等位基因数，低于此值的位点排除 |
+| `--max-alleles` | 2 | 最大等位基因数，高于此值的位点排除 |
+| `--variant-type` | snps | 变异类型：snps / indels / both / none |
 
-工具会生成以下文件：
+### 其他参数 | Other options
 
-1. **dsuite_BBAA.txt** - D统计量和f4-ratio结果
-2. **dsuite_Dmin.txt** - D最小值结果
-3. **dsuite_tree.txt** - 按树结构排列的结果
-4. **dsuite_analysis_YYYYMMDD_HHMMSS.log** - 运行日志
+**通俗理解|In plain words:** 这一组管「输出文件名」和「底层工具位置」。`-p` 换输出文件前缀用；`--dsuite-bin`/`--bcftools` 指定底层软件的实际路径；`--collect-stats` 只影响日志详略，不影响计算结果。**一般只需动 `-p` 和 `--dsuite-bin`。**
 
-## 结果解读
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `-p, --prefix` | dsuite | 输出文件前缀 |
+| `--dsuite-bin` | ~/software/Dsuite/Build/Dsuite | Dsuite 可执行文件路径 |
+| `--bcftools` | bcftools | bcftools 命令路径 |
+| `--collect-stats` | 关 | 收集并打印 VCF 样本数/变异数统计（仅日志详略） |
 
-### D统计量
+## 分析流程 | Pipeline
 
-- **D值范围**: -1 到 1
-- **D ≈ 0**: 无基因渗入
-- **D显著偏离0**: 存在基因渗入信号
-- **Z分数**: 用于评估统计显著性
+**通俗理解|In plain words:** 先把 VCF 按等位基因数/类型过滤成干净的位点，再喂给 Dsuite 的 Dtrios 做 ABBA-BABA 检验。整体是「过滤 → 计算」两步，一条管道完成。
 
-### f4-ratio
-
-- 估算基因渗入的比例
-- 范围: 0 到 1
-- 值越大表示渗入比例越高
-
-## 使用场景
-
-### 1. 基因渗入检测
-
-```bash
-# 检测物种间的基因渗入
-biopytools dsuite \
-    -i filtered_variants.vcf.gz \
-    -s population_sets.txt \
-    -o introgression_analysis
+```text
+输入 VCF + SETS 文件
+    |
+    v
+bcftools 过滤(等位基因数 / 变异类型) —— 可选: 收集 VCF 统计信息
+    |
+    v
+Dsuite Dtrios 计算(所有 P1/P2/P3 三元组的 D 统计量)
+    |
+    v
+输出 BBAA / Dmin / tree 三张结果表 + 运行日志
 ```
 
-### 2. 系统发育关系验证
+## 输出 | Output
 
-```bash
-# 使用D统计量验证系统发育树
-biopytools dsuite \
-    -i variants.vcf.gz \
-    -s species_sets.txt \
-    -o phylogeny_test \
-    -p tree_test
+```text
+output_dir/
+├── dsuite_BBAA.txt                 # D 统计量 + f4-ratio(核心结果)
+├── dsuite_Dmin.txt                 # 每个三元组的最小 D 值
+├── dsuite_tree.txt                 # 按树结构排列的结果
+└── dsuite_analysis_<时间戳>.log    # 运行日志
 ```
 
-### 3. 杂交事件检测
+`dsuite` 为默认前缀，可用 `-p` 修改。日志文件名带时间戳，多次运行不会互相覆盖。
 
-```bash
-# 检测杂交事件
-biopytools dsuite \
-    -i hybrid_variants.vcf.gz \
-    -s hybrid_sets.txt \
-    -o hybrid_detection \
-    --min-alleles 2 --max-alleles 2
-```
+## 结果解读 | Interpreting Results
 
-## 工作流程示例
+**通俗理解|In plain words:** 看 `dsuite_BBAA.txt` 每一行：P1/P2/P3 是三个群体，D 值偏离 0 越远、Z 分数绝对值越大，越说明 P3 与 P1 或 P2 之间发生过渗入。
 
-### 完整的基因渗入分析流程
+- `Dstatistic`：-1 到 1。正/负号表示渗入方向(P3 更接近 P1 还是 P2)，绝对值越大信号越强
+- `Z-score`：Jackknife 估计的显著性，绝对值大于 3 通常视为显著
+- `p-value`：对应的显著性水平
+- `f4-ratio`：渗入比例估计，0-1，越大渗入越多
+- `BBAA / ABBA / BABA`：三种基因型模式的计数，D 值由 ABBA、BABA 之差算出
+- `Dmin`（在 `dsuite_Dmin.txt`）：每个三元组里 D 的最小值，用于更保守地判断
 
-```bash
-# 1. VCF质量控制
-# bcftools filter -e 'QUAL>30 && DP>10' input.vcf.gz -o filtered.vcf.gz
+## 参数选择建议 | Parameter Guidance
 
-# 2. 运行Dsuite分析
-biopytools dsuite \
-    -i filtered.vcf.gz \
-    -s sets.txt \
-    -o dsuite_output
-
-# 3. 查看结果
-cat dsuite_output/dsuite_BBAA.txt | head -20
-
-# 4. 进一步分析（使用Dsuite Dinvestigate）
-# Dsuite Dinvestigate filtered.vcf.gz sets.txt test_trios.txt
-```
-
-## 分析步骤说明
-
-### 步骤1: 环境检查
-- 检查bcftools和Dsuite是否可用
-- 验证输入文件存在
-- 检查VCF文件格式
-
-### 步骤2: VCF统计
-- 统计样本数量
-- 统计总变异数
-- 统计染色体/scaffold数量
-
-### 步骤3: 应用过滤条件
-- 按等位基因数过滤
-- 按变异类型过滤
-- 统计过滤后的变异数
-
-### 步骤4: 运行Dsuite Dtrios
-- 使用bcftools过滤VCF
-- 通过管道传递给Dsuite
-- 计算所有可能的三元组合
-
-### 步骤5: 结果验证
-- 检查输出文件是否生成
-- 统计分析的三元组数量
-- 显示分析总结
-
-## 注意事项
-
-1. **VCF格式**: 输入必须是有效的VCF格式（支持gzip压缩）
-2. **样本命名**: VCF中的样本名必须与SETS文件中的样本名一致
-3. **Outgroup**: 必须指定至少一个外群样本
-4. **双等位位点**: 默认只分析双等位SNP，这是D统计量的标准做法
-5. **内存需求**: 对于大型数据集，可能需要较多内存
+- `--min-alleles/--max-alleles`：默认都是 2（只保留双等位 SNP），是 D 统计量的标准做法，**一般不用动**
+- `--variant-type`：默认 snps；要分析 indel 再改 `indels` 或 `both`
+- `-p/--prefix`：换输出文件名前缀用，默认 dsuite 即可；想保留多组参数的结果，换不同前缀
+- `--collect-stats`：想先看看 VCF 有多少样本/变异位点时加上，只影响日志详略
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -223,54 +171,24 @@ cat dsuite_output/dsuite_BBAA.txt | head -20
 
 <!-- END PARAMS:auto -->
 
-## 常见问题
+## 依赖 | Dependencies
 
-### Q: 如何解读D值？
-A: D值接近0表示无基因渗入，显著偏离0（通常|Z|>3）表示存在基因渗入。正负号表示渗入的方向。
+- Dsuite（默认 `~/software/Dsuite/Build/Dsuite`，需自行编译安装，用 `--dsuite-bin` 指定实际路径）
+- bcftools（按等位基因数/变异类型过滤 VCF）
 
-### Q: f4-ratio和D值的区别？
-A: D值检测是否存在渗入，f4-ratio估算渗入的比例。f4-ratio范围在0-1之间。
+## 常见问题 | FAQ
 
-### Q: 可以分析全基因组数据吗？
-A: 可以，但建议按染色体分割并行分析以提高效率。
+**Q1：为什么样本里必须有一个 Outgroup？**
+外群用来给「基因型模式」定方向(判断谁是祖先状态)。没有 Outgroup，ABBA-BABA 的 D 值无从计算。
 
-### Q: 如何选择过滤参数？
-A: 通常使用双等位SNP（默认设置）。如需分析indels，可修改--variant-type参数。
+**Q2：VCF 样本名和 SETS 文件对不上会怎样？**
+SETS 里写了但 VCF 里没有的样本会被忽略；VCF 里有但 SETS 没写的样本不会被纳入任何三元组。两边样本名务必完全一致。
 
-## 技术细节
+**Q3：D 值显著就一定是基因渗入吗？**
+不一定。群体结构、测序错误、祖先群体大小变化等也可能让 D 显著偏离 0。显著 D 是「提示有渗入」，还需结合生物学背景(杂交记录、地理分布)判断。
 
-### 实现原理
+**Q4：换过滤参数重跑要删旧文件吗？**
+Dsuite 模块无断点续传，每次运行直接重算并覆盖同名输出。换 `--variant-type` 等参数重跑同一 `-o`/`-p` 即可；想保留多组结果请换 `-p` 前缀。
 
-1. **VCF过滤**: 使用bcftools过滤VCF文件
-2. **管道传输**: 通过Unix管道将过滤后的VCF传递给Dsuite
-3. **Dtrios分析**: Dsuite计算所有可能的三元组合的D统计量
-4. **Jackknife**: 使用Jackknife方法计算标准误和Z分数
-
-### 性能优化
-
-- 使用管道避免中间文件
-- 流式处理减少内存占用
-- 支持并行分析（使用DtriosParallel脚本）
-
-## 参考文献
-
-**Malinsky, M., Matschiner, M. and Svardal, H. (2021)**
-Dsuite - fast D-statistics and related admixture evidence from VCF files.
-*Molecular Ecology Resources* 21, 584–595.
-doi: [https://doi.org/10.1111/1755-0998.13265](https://doi.org/10.1111/1755-0998.13265)
-
-## 许可证
-
-MIT License
-
-## 作者信息
-
-**李详 (Xiang Li)**
-- Email: lixiang117423@gmail.com
-- GitHub: [@lixiang117423](https://github.com/lixiang117423)
-
-## 相关工具
-
-- [VCF系统发育分析](./vcf_phylo.md) - VCF系统发育树构建
-- [Admixture](./admixture.md) - 群体结构分析
-- [TASSEL GWAS](./tassel_gwas.md) - 全基因组关联分析
+**Q5：提示「Dsuite not found」怎么办？**
+程序会检查 `--dsuite-bin` 指向的文件是否存在。默认路径不可用时，用 `--dsuite-bin /绝对路径/Dsuite` 传入编译好的 Dsuite 可执行文件的实际绝对路径。
