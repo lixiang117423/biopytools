@@ -1592,8 +1592,8 @@ def generate_r_cim_script(config: CIMConfig, tidy_files: Dict[str, str],
         lines.extend([
             '# MSTmap峰值物理坐标标注|Annotate MSTmap peaks with physical positions',
             'if (file.exists("' + marker_index_file + '") && file.exists("' + peaks_mstmap_tsv + '")) {',
-            '    marker_idx <- read.delim("' + marker_index_file + '")',
-            '    peaks_mst <- read.delim("' + peaks_mstmap_tsv + '")',
+            '    marker_idx <- read.delim("' + marker_index_file + '", stringsAsFactors = FALSE)',
+            '    peaks_mst <- read.delim("' + peaks_mstmap_tsv + '", stringsAsFactors = FALSE)',
             '    if (nrow(peaks_mst) > 0) {',
             '        # 找每个峰值所在cM位置最近的marker|Find nearest marker for each peak',
             '        annotate_peak <- function(chr_lg, pos_cm, marker_idx) {',
@@ -1609,6 +1609,60 @@ def generate_r_cim_script(config: CIMConfig, tidy_files: Dict[str, str],
             '        write.table(peaks_annotated, file="' + peaks_mstmap_phys_tsv + '",',
             '                    sep="\\t", row.names=FALSE, col.names=TRUE, quote=FALSE)',
             '        cat("MSTmap峰值物理坐标已标注|Peaks annotated with physical positions\\n")',
+            '    }',
+            '}',
+            '',
+        ])
+
+        # LOD扫描数据物理坐标标注|Annotate LOD scan data with physical positions
+        # LOD行是稠密cM网格,最近标记查找会产生阶梯状坐标,故用两侧标记线性插值
+        # (approx);chr_bp取最近标记的染色体(与峰值标注规则一致)。单标记LG直接取
+        # 该标记坐标。写回原文件追加chr_bp/pos_bp两列,前4列保持不变。
+        # LOD rows form a dense cM grid — nearest-marker lookup would produce
+        # stair-step coordinates, so interpolate linearly between flanking markers
+        # (approx); chr_bp follows the nearest marker (same rule as peaks). A
+        # singleton LG reuses its only marker. Rewrite in place appending chr_bp/
+        # pos_bp columns; the first columns stay untouched.
+        lod_mstmap_tsv = os.path.join(plots_dir, 'cim_lod_data_mstmap.tsv')
+        lines.extend([
+            '# LOD数据物理坐标标注|Annotate LOD data with physical positions',
+            'lod_mstmap_tsv <- "' + lod_mstmap_tsv + '"',
+            'if (file.exists("' + marker_index_file + '") && file.exists(lod_mstmap_tsv)) {',
+            '    lod_mst <- read.delim(lod_mstmap_tsv, stringsAsFactors = FALSE)',
+            '    marker_idx <- read.delim("' + marker_index_file + '", stringsAsFactors = FALSE)',
+            '    if (nrow(lod_mst) > 0) {',
+            # 幂等守卫: 文件已含chr_bp列(如人工重跑R脚本)则跳过, 防止重复追加重名列|
+            # Idempotency guard: skip if chr_bp already present (e.g. manual re-run),
+            # so columns are never appended twice
+            '        if (!("chr_bp" %in% colnames(lod_mst))) {',
+            '            annotate_lod <- function(lg, pos_cm_vec, marker_idx) {',
+            '                sub_idx <- marker_idx[marker_idx$LG == lg & !is.na(marker_idx$pos_cM) & !is.na(marker_idx$pos_bp), ]',
+            '                sub_idx <- sub_idx[order(sub_idx$pos_cM), ]',
+            '                sub_idx <- sub_idx[!duplicated(sub_idx$pos_cM), ]',
+            '                if (nrow(sub_idx) == 0) {',
+            '                    cat("  警告: LG不在marker索引中, 填NA|Warning: LG missing from marker index:", lg, "\\n")',
+            '                    return(data.frame(chr_bp = rep(NA_character_, length(pos_cm_vec)),',
+            '                                       pos_bp = rep(NA_real_, length(pos_cm_vec))))',
+            '                }',
+            '                if (nrow(sub_idx) == 1) {',
+            '                    return(data.frame(chr_bp = rep(sub_idx$chr_bp[1], length(pos_cm_vec)),',
+            '                                       pos_bp = rep(sub_idx$pos_bp[1], length(pos_cm_vec))))',
+            '                }',
+            '                pos_bp <- approx(x = sub_idx$pos_cM, y = sub_idx$pos_bp, xout = pos_cm_vec, rule = 2)$y',
+            '                chr_bp <- sub_idx$chr_bp[sapply(pos_cm_vec, function(p) which.min(abs(sub_idx$pos_cM - p)))]',
+            '                data.frame(chr_bp = chr_bp, pos_bp = pos_bp)',
+            '            }',
+            '            ann_list <- lapply(unique(lod_mst$chr), function(lg) {',
+            '                rows <- which(lod_mst$chr == lg)',
+            '                annotate_lod(lg, lod_mst$pos[rows], marker_idx)',
+            '            })',
+            '            lod_annotated <- cbind(lod_mst, do.call(rbind, ann_list))',
+            '            write.table(lod_annotated, file = lod_mstmap_tsv,',
+            '                        sep="\\t", row.names=FALSE, col.names=TRUE, quote=FALSE)',
+            '            cat("MSTmap LOD数据物理坐标已标注|LOD data annotated with physical positions\\n")',
+            '        } else {',
+            '            cat("MSTmap LOD数据已含物理坐标, 跳过标注|LOD data already annotated, skipping\\n")',
+            '        }',
             '    }',
             '}',
             '',
