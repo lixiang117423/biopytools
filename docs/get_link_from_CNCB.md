@@ -1,130 +1,127 @@
-# get-link-from-CNCB - 批量获取测序数据下载链接 | Batch Fetch Sequencing Download Links
+# get-link-from-CNCB - 从 CNCB 批量获取测序数据下载链接 | Batch Download Links from CNCB
 
-一句话：给它一份「项目编号 + 测序数据编号」清单，它帮你把每条数据的真实下载网址找出来，并生成一个可以直接跑的下载脚本——CNCB 上找不到的会自动去 ENA、NCBI 逐级兜底。
-
-|This tool takes a list of "project accession + run accession" pairs, resolves each run to its real download URL, and writes a ready-to-run download script. Runs missed by CNCB fall back to ENA and then NCBI automatically.
+一句话理解：**给一个「项目 + 样本」编号清单，自动到 CNCB（GSA/NGDC）的 FTP/HTTPS 上把这些测序数据的下载链接一个个找出来，整理成可执行的下载脚本**。找不到的 ID 还会自动去 ENA、NCBI 兜底再查一遍。
 
 ## 功能概述 | Overview
 
-- 支持 CNCB(GSA) 原生 `CRR` 与 INSDC 镜像 `SRR`/`ERR`/`DRR` 两类 Run ID
-- 三级回退链：CNCB FTP 镜像 → ENA Portal API → NCBI SDL 数据定位（可找到仅存 NCBI S3 的 source BAM 等文件）
-- GSA 通道优先刮取 NGDC 浏览页精确链接（覆盖 gsa2/gsa3 布局与 tar.gz 归档），失败自动回退目录探测
-- 生成 `download.sh` 下载脚本与失败清单，支持断点续传（`wget -c`）
-- 项目列填 `PRJCA` 等 BioProject 编号时，自动按 CRR 反查其所属 `CRA`
+- 输入一份两列表格（项目编号 + Run ID），自动按前缀识别数据来源：SRR→SRA、ERR→ERA、DRR→DRA、CRR→GSA
+- 三种查找通道层层兜底：CNCB FTP 镜像 → ENA Portal API → NCBI SDL 数据定位，保证尽量找到链接
+- CRR（GSA 原生 Run ID）走 HTTPS 通道，不依赖 FTP；GSA 项目列填 CRA 编号直达，填 PRJCA 等 BioProject 编号也能自动反查
+- 自动生成三类产物：链接清单（每行一个 URL）、失败记录、wget -c 下载脚本（含断点续传参数）
+- 输出一份人类可读的总结报告，统计成功率、各回退通道命中数、缓存命中率
 
 ## 快速开始 | Quick Start
 
-示例|Examples: biopytools get-link-from-CNCB -i projects.txt
+```bash
+biopytools get-link-from-CNCB -i projects.txt
+```
+
+最小输入：一个两列 Tab 分隔的文本文件 projects.txt（第一列项目编号，第二列 Run ID）。输出默认写到与输入同目录的 <输入名>_links.txt 等文件。
 
 ## 零基础概念速览 | Concepts in plain words
 
-| 术语<br>Term | 通俗解释<br>In plain words |
-|--------------|--------------------------|
-| Run ID（SRR/ERR/DRR/CRR） | 一次测序的「快递单号」；前缀表示数据存放的数据库（SRR=NCBI、ERR=欧洲、DRR=日本、CRR=CNCB 自营）<br>A sequencing run's tracking number; the prefix tells you which archive holds it |
-| Project ID（PRJNA/ERP/DRP/CRA） | 一个课题的「项目编号」，一个项目下通常有多条 Run<br>The study-level accession; one project usually contains many runs |
-| FTP 镜像 | CNCB 把 INSDC 公共数据复制了一份放在自己服务器上，国内下载快<br>CNCB's local copy of INSDC public data, fast to download in China |
-| 回退（fallback） | 第一个数据库没有时，自动去问第二个、第三个，像打客服电话转接<br>When one archive misses, the query is forwarded to the next, like call-center transfers |
-| ENA | 欧洲核酸数据库，INSDC 三兄弟之一，网页 API 好查<br>The European archive, one of the three INSDC siblings, with a friendly API |
-| NCBI SDL | NCBI 的「数据定位器」，能查出某条 Run 的文件真实放在哪个云存储上<br>NCBI's data locator; it tells you which cloud bucket a run's files actually live in |
-| source BAM | 测序中心上传的原始 BAM（如 PacBio subreads.bam），常只在 NCBI 有<br>The submitter's original BAM (e.g. PacBio subreads), often held only by NCBI |
-| wget 下载脚本 | 工具生成的 `download.sh`，每行一条 `wget -c`，断网重跑会接着下<br>The generated script with one `wget -c` per URL; safe to re-run after interruption |
+| 术语 | 通俗理解 |
+|------|----------|
+| 测序数据 | 一个样本测出来的原始读段文件（如 FASTQ/SRA），通常要下载到本地分析 |
+| Run ID | 某次测序运行的编号，像快递单号，本工具就是拿它去「查快递」 |
+| 项目编号 | 一组 Run 的集合编号（如 CRA/PRJCA），像「整批订单」的编号 |
+| 前缀 | Run ID 前三个字母，用来判断它属于哪家数据库（SRR=SRA，ERR=ENA，DRR=DRA，CRR=GSA） |
+| FTP/HTTPS 镜像 | 同一批数据的多份「仓库副本」，本工具从多个仓库找同一份文件 |
+| 回退（fallback） | 一个地方查不到，自动换下一个地方查，像「这家店没货换下一家」 |
 
 ## 输入 | Input
 
-制表符（Tab）分隔的两列表格文件，第一列项目编号，第二列 Run ID：
+一个 UTF-8 编码的文本文件，两列用 Tab 分隔（制表符，不是空格），每行一个「项目编号 + Run ID」组合：
 
+```text
+# 注释行以 # 开头，会被跳过
+CRA010060	CRR123456
+PRJCA001234	CRR234567
+PRJNA1014406	SRR28526560
 ```
-CRA010060	CRR705258
-PRJNA123456	SRR29936798
-PRJNA123456	SRR12145514
-```
 
-要求|Requirements:
+格式要点：
 
-- CRR 行的项目列**优先填 CRA 编号**（如 `CRA010060`）；填 `PRJCA` 等 BioProject 编号时工具会自动反查，但依赖 NGDC 可达
-- SRR/ERR/DRR 行的项目列填对应 BioProject 编号即可，也可留空由镜像自动定位
+- 第一列是项目编号，第二列是 Run ID，必须严格两列 Tab 分隔，否则该行报错
+- 允许空行和 # 开头的注释行
+- 同一个项目下的 Run ID 可以写多行，程序会自动分组、去重、排序
+- CRR（GSA 原生）的 Run ID，项目列建议直接填它的 CRA 编号（如 CRA010060）可直达；填 PRJCA 等 BioProject 编号时程序会通过 NGDC 搜索页反查，但依赖网络可达
+- Run ID 前缀决定查找通道：SRR/ERR/DRR 走 CNCB FTP 镜像（找不到再回退 ENA/NCBI）；CRR 走 GSA HTTPS 通道
 
 ## 参数说明 | Parameters
 
-**通俗理解|In plain words:** 这个工具参数很少，绝大多数场景只需要 `-i` 指定输入文件；其余参数只在网络环境特殊或想微调输出时才需要动。
+### 必需与输出参数 | Required and output
 
-### 回退链控制 | Fallback control
+**通俗理解|In plain words:** -i 是那份两列清单；-o / --failed / --download-script 决定「找到的链接、没找到的 ID、下载脚本」分别写到哪。不指定输出文件名时，会按输入文件基名自动生成 <输入名>_links.txt、<输入名>_failed.txt、download.sh，一般不用动。
 
-**通俗理解|In plain words:** 「回退」就是 CNCB 查不到时自动去 ENA、NCBI 兜底。默认全开；如果你所在网络访问国外慢、或只想要 CNCB 自己的数据，用这两个开关关掉对应层级。一般不用动。
+### FTP 连接参数 | FTP connection
 
-- `--no-ena-fallback`：整条回退链（ENA + NCBI）全部关闭，纯 CNCB 模式
-- `--no-ncbi-fallback`：只关 NCBI SDL 这一级，保留 ENA——适合出国流量受限、`*.s3.amazonaws.com` 云存储地址不可达的机器
+**通俗理解|In plain words:** 连 CNCB FTP 服务器的地址、超时和重试次数。默认服务器一般不用改；网络差、频繁超时时可以适当调大 --ftp-timeout 和 --retry-attempts，但调太大只会让失败等更久。
 
-### 输出控制 | Output control
+### 回退开关 | Fallback switches
 
-**通俗理解|In plain words:** 控制生成哪些文件、脚本有没有执行权限。默认生成下载脚本并加执行权限，一般不用动。
+**通俗理解|In plain words:** 控制「CNCB 找不到时要不要去 ENA / NCBI 再查」。默认三层兜底全开（找到链接概率最大）。--no-ena-fallback 会关掉整条回退链（纯 CNCB 模式）；--no-ncbi-fallback 只关 NCBI 一级、保留 ENA。只有当网络只能访问 CNCB、或想严格限定数据来源时才需要关。
 
-### 网络与连接 | Network & connection
+### 日志与脚本开关 | Logging and script switches
 
-**通俗理解|In plain words:** FTP 地址、超时、重试次数。只有服务器地址变更或网络极差导致频繁断线时才需要调大超时/重试。注意 GSA 浏览页查询用的是独立的短超时（15 秒），不受 `--ftp-timeout` 影响。
+**通俗理解|In plain words:** -v 打印更详细的调试日志；--log-file 把日志同时写进文件；--no-download-script 不生成下载脚本；--no-executable 生成的脚本不加可执行权限。这些都属于「锦上添花」，正常使用基本不用管。
 
 ## 分析流程 | Pipeline
 
-不同前缀的 Run ID 走不同通道，逐级回退，最多能定位到数据所在的真实位置：
+**通俗理解|In plain words:** 先读清单 → 连 FTP → 逐个 Run 找文件，找不到的按「ENA → NCBI」顺序兜底，最后统一写结果和脚本。
 
-| Run 前缀<br>Run prefix | 主通道<br>Primary channel | 回退链<br>Fallback chain |
-|---------|--------|--------|
-| `CRR`（GSA 原生） | NGDC 浏览页刮取精确下载链接（覆盖 gsa2/gsa3 布局、tar.gz 归档）；项目列填 PRJCA 时先按 CRR 反查 CRA | 浏览页失败 → autoindex 目录探测（gsa2 → gsa3 → gsa） |
-| `SRR`/`ERR`/`DRR`（INSDC） | CNCB FTP INSDC 镜像 | FTP 未找到 → ENA Portal API → 仍无链接 → NCBI SDL 数据定位 |
-
-流程步骤|Steps:
-
-1. 读取并校验输入文件（项目/Run 两列 Tab 分隔）
-2. 连接 CNCB FTP 服务器（失败不退出：INSDC ID 交给回退链，CRR 走 HTTPS 不依赖 FTP）
-3. 逐条解析：CRR 走 GSA HTTPS 通道，INSDC 前缀走 FTP 镜像
-4. 未命中的 INSDC ID 批量回退 ENA；ENA 也无链接的再回退 NCBI SDL
-5. 写出链接清单、失败清单、下载脚本与总结报告
+```text
+输入 projects.txt（项目编号 + Run ID 两列）
+    │
+    ▼
+按前缀分类：SRR/ERR/DRR → FTP 通道；CRR → GSA HTTPS 通道
+    │
+    ├─ CRR：GSA 浏览页精确链接 → 失败回退 autoindex 目录探测
+    │
+    ├─ SRR/ERR/DRR：CNCB FTP 镜像逐文件模板匹配
+    │
+    ▼
+CNCB 未命中的 INSDC ID → ENA Portal API 回退（批量 + 逐个两阶段）
+    │
+    ▼
+ENA 也未命中的 ID → NCBI SDL 数据定位回退（并发查询）
+    │
+    ▼
+写输出：链接清单 + 失败记录 + wget 下载脚本 + 总结报告
+```
 
 ## 输出 | Output
 
-| 文件<br>File | 内容<br>Content |
-|--------------|----------------|
-| `<输入名>_links.txt` | 全部成功解析的下载链接（每行一条，已排序） |
-| `<输入名>_failed.txt` | 三级回退后仍失败的「项目 + Run」清单（全成功时也会写空文件，清掉上次残留） |
-| `download.sh` | 每行一条 `wget -c '<URL>'` 的下载脚本，可直接 `bash download.sh` 或 `nohup` 后台跑 |
-| `<输入名>_report.txt` | 总结报告（成功/失败统计） |
+```text
+<输入文件所在目录>/
+├── <输入名>_links.txt            # 找到的下载链接（每行一个 URL，已排序）
+├── <输入名>_failed.txt           # 未找到的 ID（两列：项目编号 \t Run ID）
+├── download.sh                   # 自动生成的下载脚本（wget -c 断点续传）
+└── CNCB_download_report.txt      # 总结报告（统计信息，人类可读）
+```
+
+- <输入名>_links.txt：所有成功找到的下载 URL，直接可用于下载。每个 Run 可能对应多个文件（如 R1/R2、.sra 等），都会单独列一行。
+- <输入名>_failed.txt：最终仍未找到链接的 ID，格式与输入一致（两列 Tab），可直接作为下次重试的输入。注意：重跑时该文件会被无条件覆盖（包括清空）。
+- download.sh：按成功链接生成的 Bash 脚本，每条 wget -c '<url>'；-c 表示支持断点续传，中断后重跑不会重头下。用法：bash download.sh。
+- CNCB_download_report.txt：总结报告，含项目数、Run 数、成功/失败数、成功率、总链接数。
 
 ## 结果解读 | Interpreting Results
 
-### 链接清单（`_links.txt`）
+**通俗理解|In plain words:** 看两件事——_links.txt 里有没有你要下载的文件，_failed.txt 里还剩多少没找到。
 
-- `ftp://download.big.ac.cn/...` 与 `https://download.cncb.ac.cn/...` 是 CNCB 直链，国内网络首选
-- `ftp.sra.ebi.ac.uk/...` 来自 ENA 回退；`https://sra-pub-*.s3.amazonaws.com/...` 等对象存储直链来自 NCBI SDL 回退，需要机器能访问对应云存储
-- 同一条 Run 出现多个链接是正常的（双端数据 f1/r2、多条文件）
-
-### NCBI SDL 回退的取舍（重要）
-
-SDL 返回的同一文件常有多个云镜像，工具**每个文件只保留一个免费位置**，并主动跳过：
-
-- `payRequired: true` 的镜像（需请求方付费签名，`wget` 无法直接下载）
-- `.lite` 无质量精简副本（与完整文件数据重复，下了浪费带宽）
-- 只有「待取回」（rehydration）标记、暂时没有链接的文件——会在日志里给出 WARNING
-
-若日志出现「文件无可用的免费下载位置」，说明该文件当前在 NCBI 侧不可直接下载，Run 已按未命中处理或在链接上不完整，可稍后重试或到 SRA Run Browser 手动获取。
-
-### 失败清单（`_failed.txt`）
-
-- CRR 行失败最常见原因是项目列不是 CRA 且 NGDC 反查不可达——把 CRA 编号填进项目列即可
-- INSDC 行出现在这里 = CNCB 镜像、ENA、NCBI SDL 三处都没有可用链接
-
-### 下载脚本（`download.sh`）
-
-`wget -c` 支持断点续传；中断后直接重跑脚本即可，已下完的文件会接着补齐。
+- 成功率：运行结束日志会打印 成功率|Success Rate。100% 说明全部找到；低于 100% 时看 _failed.txt 是哪些 ID 没找到。
+- _failed.txt 非空的原因：ID 拼写错误、项目编号填错（尤其 CRR 应填 CRA 而非 BioProject）、数据未公开/已撤下、或网络不通。
+- 回退命中：日志里的 ENA回退命中数、NCBI SDL回退命中数 说明有多少 ID 是 CNCB 找不到、靠兜底通道找到的。若大量命中回退通道，说明 CNCB 镜像不含这些数据，属正常现象。
+- 缓存命中率：程序内部会缓存「父目录路径」避免重复扫描 FTP，命中率高说明批量 ID 前缀相近、扫描更省时，仅作参考。
 
 ## 参数选择建议 | Parameter Guidance
 
-| 场景<br>Scenario | 建议<br>Suggestion |
-|------|------|
-| 常规批量下载（国内超算） | 全部默认即可，三级回退全自动 |
-| 出网受限、S3/GCS 对象存储不可达 | 加 `--no-ncbi-fallback`，只保留 CNCB+ENA 两级 |
-| 完全离线内网 / 只信 CNCB 镜像 | 加 `--no-ena-fallback`（ENA 与 NCBI 一并关闭） |
-| NGDC 页面偶发慢但 FTP 正常 | 不用动；浏览页查询自带 15 秒短超时与连续失败熔断，不会拖垮整批 |
-| 同一 Run 挂在多个项目下 | 尽量合并到一行；同一 Run 出现多行时其链接也会重复出现 |
+- 默认参数即可覆盖绝大多数场景，最常用的只有 -i。
+- 只想拿链接清单、不生成下载脚本：加 --no-download-script。
+- 网络受限、只能访问 CNCB：加 --no-ena-fallback（会同时关掉 NCBI 回退）。
+- 想保留 ENA 回退但不要 NCBI 兜底：加 --no-ncbi-fallback。
+- 网络不稳：调大 --retry-attempts（如 5）和 --ftp-timeout（如 120）。
+- GSA 数据（CRR 前缀）：项目列务必填 CRA 编号，避免每次都要反查、减少失败概率。
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -171,22 +168,23 @@ SDL 返回的同一文件常有多个云镜像，工具**每个文件只保留�
 
 ## 依赖 | Dependencies
 
-- Python 标准库（`ftplib` 等）：纯 CNCB FTP 模式零第三方依赖
-- `requests`（可选）：GSA HTTPS 通道、ENA 回退、NCBI SDL 回退需要；未安装时这些通道优雅降级为未命中，不影响 FTP 通道
+- Python 3 标准库（ftplib 等）即可完成纯 CNCB FTP 模式
+- requests 与 urllib3（用于 ENA/NCBI/GSA 的 HTTP 通道，未安装时这些回退通道优雅降级为空，不报错中断）
+- 无需 conda 环境，无需额外生信软件；需要能访问外网（CNCB、EBI、NCBI）
 
 ## 常见问题 | FAQ
 
-**Q1: CRR 报「项目列请用CRA编号」？**
-项目列填了非 CRA 编号且 NGDC 反查失败。把该 Run 所属的 CRA 编号（如 `CRA010060`）填进项目列。
+**Q1：重跑之后 _failed.txt 里的旧失败记录怎么没了？**
+这是刻意行为：失败记录每次无条件重写（包括空文件），避免上次的陈旧失败记录残留误导。重跑前请先保存好上次的 _failed.txt，或直接用 _links.txt 判断本次结果。
 
-**Q2: NCBI 回退给的 S3 链接下载 403/超时？**
-这些是对象存储直链，需要网络可达且文件本身免费开放。工具已过滤 `payRequired` 镜像；若所在网络访问 `*.s3.amazonaws.com` 受限，用 `--no-ncbi-fallback` 关闭这一级。
+**Q2：CRR 开头的 Run 为什么提示「项目列请用 CRA 编号」？**
+CRR 是 GSA 原生 Run ID，不存放在 CNCB 的 FTP INSDC 镜像里，也无法通过 ENA/NCBI 兜底（INSDC 侧没有 GSA 数据）。项目列填 CRA 编号（如 CRA010060）可直达；填 PRJCA 等 BioProject 编号时需要联网反查，查不到就记为失败。
 
-**Q3: 为什么有的 Run 只有 `.sra`/`.bam` 没有 fastq 链接？**
-NCBI 只存了原始提交文件（如 PacBio source BAM）时，SDL 返回的就是该文件本身；需要 fastq 请用 `sra-tools` 的 `fasterq-dump` 从 SRA 对象转换。
+**Q3：FTP 连不上会直接失败吗？**
+不会。SRR/ERR/DRR 的 ID 会先记为失败，再交给 ENA 回退查询；CRR 走 HTTPS 通道、本就不依赖 FTP。所以即使 FTP 不通，只要 ENA 回退开着，仍可能找到大部分链接。
 
-**Q4: GSA 明明有数据却查不到？**
-新项目可能位于 gsa3 布局，工具会自动探测 gsa2 → gsa3 → gsa；若仍失败，确认项目列 CRA 编号正确，并查看日志中浏览页与目录探测的具体错误。
+**Q4：为什么同一个 Run 会输出多个链接？**
+一个 Run 通常包含多个文件（双端测序的 R1/R2、单文件 .sra 等），程序会把每个真实存在的文件都列出来，属正常现象。下载脚本会逐个 wget。
 
-**Q5: 中断后重跑会重复下载吗？**
-不会。`download.sh` 用 `wget -c` 断点续传；链接清单与失败清单每次运行都会整体重写。
+**Q5：有没有断点续传？**
+本工具本身是「查链接」不是「下数据」，不存在中间计算结果可续传；但生成的下载脚本用 wget -c 保证下载环节支持断点续传。
