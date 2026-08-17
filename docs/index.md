@@ -55,6 +55,7 @@ BioPyTools 的 210 个工具模块，用统一模板写成使用文档——干�
 | 蛋白质分析 | tmhmm、signalp、deeploc、interproscan |
 | 重复序列 | repeatmask、edta、lai |
 | 可视化 | samplot、plotsr、jcvi、hic_heatmap |
+| 微生物组 | qiime2、picrust2、faprotaxtax、kraken2、mcyc |
 | 工具类 | fastp、seq_extract、vcf_sampler、kmertools |
 
 ## 文档结构 | What each page covers { #structure }
