@@ -318,13 +318,20 @@ class AnnorefineRunner:
         return self.merged_gff3
 
 
-def parse_arguments():
-    """解析命令行参数(端到端)|Parse CLI arguments (end-to-end)"""
+def parse_arguments(skip_repeat_default=False, prog_name: str = "annorefine"):
+    """解析命令行参数(端到端)|Parse CLI arguments (end-to-end)
+
+    Args:
+        skip_repeat_default: --skip-repeat 的默认值|Default for --skip-repeat
+            (annorefine 用 False;braker4phyto 等派生模块可翻转为 True)
+        prog_name: 程序名(help 描述与示例用)|Program name (help description & example)
+            (annorefine 默认 "annorefine";派生模块如 braker4phyto 传自己的名字)
+    """
     parser = argparse.ArgumentParser(
-        description="annorefine: BRAKER 注释 + 同源查缺补漏 端到端 → 整合 GFF3"
+        description=f"{prog_name}: BRAKER 注释 + 同源查缺补漏 端到端 → 整合 GFF3"
         "|End-to-end: BRAKER + homology gap-filling → integrated GFF3",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="示例|Example: biopytools annorefine -g genome.fa -s psojae -p prot.fa --rnaseq-dirs r1,r2 -o out/")
+        epilog=f"示例|Example: biopytools {prog_name} -g genome.fa -s psojae -p prot.fa --rnaseq-dirs r1,r2 -o out/")
     # 必填|Required
     parser.add_argument('-g', '--genome', required=True,
                         help='未mask原始基因组(braker 内部 mask, filling 用未mask)|Unmasked genome')
@@ -347,7 +354,15 @@ def parse_arguments():
     parser.add_argument('--no-singularity', action='store_true',
                         help='不用Singularity|No singularity')
     # BRAKER 步骤|BRAKER steps
-    parser.add_argument('--skip-repeat', action='store_true', help='跳过repeat屏蔽|Skip repeat masking')
+    # help 文案随默认值翻转(annorefine 默认做屏蔽, braker4phyto 默认跳过)
+    # |Help text follows the default (annorefine masks by default, braker4phyto skips)
+    skip_repeat_help = (
+        '跳过repeat屏蔽(默认开启,--no-skip-repeat关闭)|Skip repeat masking (default on; --no-skip-repeat to disable)'
+        if skip_repeat_default else
+        '跳过repeat屏蔽(默认关闭,--skip-repeat开启)|Skip repeat masking (default off; --skip-repeat to enable)'
+    )
+    parser.add_argument('--skip-repeat', action=argparse.BooleanOptionalAction,
+                        default=skip_repeat_default, help=skip_repeat_help)
     parser.add_argument('--skip-repeat-filter', action='store_true',
                         help='跳过repeat库过滤(默认开)|Skip repeat filter')
     parser.add_argument('--skip-rescue', action=argparse.BooleanOptionalAction, default=True,
@@ -396,10 +411,18 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def main():
-    """主入口|Main entry: BRAKER → 查漏补缺 端到端|BRAKER then gap-filling, end-to-end"""
-    args = parse_arguments()
+def run_end_to_end(args, prog_name: str = "annorefine"):
+    """端到端主体|End-to-end body: BRAKER → 查漏补缺
 
+    Args:
+        args: parse_arguments() 返回的命名空间|Namespace from parse_arguments()
+        prog_name: 程序名(横幅与主日志文件名用)|Program name (banners & main log file)
+            (annorefine 默认 "annorefine";派生模块如 braker4phyto 传自己的名字)
+
+    独立成函数以便派生模块(如 braker4phyto)在翻转默认值后复用
+    |Standalone so derived modules (e.g. braker4phyto) can reuse it
+    with flipped defaults
+    """
     # 延迟 import(避免 CLI help 时不必要加载)|lazy import
     from ..braker.config import BrakerConfig
     from ..braker.pipeline import BrakerPipeline
@@ -409,13 +432,13 @@ def main():
     # AnnorefineConfig/Runner 本模块内|local to this module
 
     # 统一日志(传给 braker+filling, 避免各自重配 root)|unified logger
-    log_file = os.path.join(args.output_dir, 'logs', 'annorefine.log')
+    log_file = os.path.join(args.output_dir, 'logs', f'{prog_name}.log')
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
     logger = BrakerLogger(log_file).get_logger()
 
     try:
         logger.info('=' * 70)
-        logger.info('annorefine: BRAKER + 查漏补缺 端到端|End-to-end')
+        logger.info(f'{prog_name}: BRAKER + 查漏补缺 端到端|End-to-end')
         logger.info('=' * 70)
 
         # 处理 prot_seq(目录识别+清理, braker+filling 共用)|process prot_seq
@@ -519,7 +542,7 @@ def main():
         result = AnnorefineRunner(pcfg, logger).run()
         logger.info(f'阶段2 完成, 整合 GFF|Phase 2 done: {result}')
         logger.info('=' * 70)
-        logger.info('annorefine 端到端完成|annorefine end-to-end done')
+        logger.info(f'{prog_name} 端到端完成|{prog_name} end-to-end done')
         logger.info('=' * 70)
         sys.exit(0)
 
@@ -530,6 +553,12 @@ def main():
         import traceback
         traceback.print_exc()
         sys.exit(1)
+
+
+def main():
+    """主入口|Main entry: BRAKER → 查漏补缺 端到端|BRAKER then gap-filling, end-to-end"""
+    args = parse_arguments()
+    run_end_to_end(args)
 
 
 if __name__ == '__main__':

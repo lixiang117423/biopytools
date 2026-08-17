@@ -647,7 +647,7 @@ class BrakerPipeline:
         if self.config.use_fungus:
             braker_cmd_parts.append("--fungus")
 
-        if self.config.soft_masking:
+        if self.config.soft_masking and not self.config.skip_repeat:
             braker_cmd_parts.append("--softmasking")
 
         # 输出GFF3格式文件|Output GFF3 format file
