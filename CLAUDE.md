@@ -619,6 +619,8 @@ result = subprocess.run(cmd, shell=False, ...)
 ### 14.3 中英文对照
 
 标题沿用规范：中文在前、`|` 分隔英文在后（如 `## 结果解读 | Interpreting Results`）；正文 prose 中文为主，表头中英对照。
+- **表格列头禁止用 `|` 分隔中英文**（会破坏 Markdown 表格解析），用 `<br>`：`| 分组<br>Group |`
+- **需要被页面内锚点引用的标题必须显式声明 id**：`## 标题 | Title { #title-id }`（attr_list）。MkDocs slugify 会剥掉中文，自动锚点不可靠，卡片/目录跳转会变死链
 
 ### 14.4 参数表自动生成（禁止手写）|Auto-generated parameter tables
 

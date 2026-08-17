@@ -343,6 +343,7 @@ modules/
 # Build artifacts
 /build/
 /biopytools.egg-info/
+/site/
 
 # Scripts and examples (if not needed in repo)
 # 注:锚定根目录(/scripts/),避免吞掉模块内嵌的 scripts/(如 biopytools/psvcp/scripts/)

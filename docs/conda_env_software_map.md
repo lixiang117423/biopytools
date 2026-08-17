@@ -173,7 +173,7 @@ conda run -n r <工具> --no-capture-output
 
 | 工具|Tool | 工具|Tool | 工具|Tool |
 |---|---|---|---|
-| `mstmap` |  |  |
+| `mstmap` | `ggtree`(R包,进化树可视化)| `ape`(R包,树处理)| `ggplot2`(R包,画图) |
 
 ### busco — BUSCO 评估|BUSCO assessment
 

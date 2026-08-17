@@ -1,0 +1,112 @@
+/* BioPyTools 站点自定义样式|BioPyTools custom site styles */
+
+/* 系统字体栈:Material 默认从 Google Fonts 加载(国内慢/超时),改用本机字体 */
+:root {
+  --md-text-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    sans-serif;
+  --md-code-font: "SF Mono", Menlo, Monaco, Consolas, "JetBrains Mono",
+    "Courier New", monospace;
+}
+
+/* 中文字体排版:行高与字距微调(字号用 Material 默认,不缩小) */
+.md-typeset {
+  line-height: 1.75;
+  letter-spacing: .01em;
+}
+
+/* 首页 hero 区 */
+.hero {
+  background: linear-gradient(135deg, #00695c 0%, #00897b 45%, #26a69a 100%);
+  color: #ffffff;
+  padding: 2.6rem 2.2rem;
+  border-radius: 0.9rem;
+  margin-bottom: 1.6rem;
+  box-shadow: 0 8px 24px rgba(0, 105, 92, .25);
+}
+.hero h1 {
+  color: #ffffff !important;
+  font-weight: 700;
+  margin-top: 0;
+  letter-spacing: .02em;
+}
+.hero p {
+  color: rgba(255, 255, 255, .95);
+  font-size: 1.05rem;
+  margin-bottom: .6rem;
+}
+.hero .badge-row {
+  margin-top: 1.1rem;
+  display: flex;
+  gap: .55rem;
+  flex-wrap: wrap;
+}
+.hero .chip {
+  background: rgba(255, 255, 255, .16);
+  border: 1px solid rgba(255, 255, 255, .4);
+  color: #ffffff;
+  padding: .22rem .8rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  backdrop-filter: blur(4px);
+}
+
+/* 卡片墙:基础描边 + 悬浮上浮 */
+.grid.cards > li {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .7rem;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.grid.cards > li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .12);
+  border-color: var(--md-accent-fg-color);
+}
+
+/* 减少动态效果偏好:关闭悬浮动画 */
+@media (prefers-reduced-motion: reduce) {
+  .grid.cards > li {
+    transition: none;
+  }
+  .grid.cards > li:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* 表格:铺满内容宽度(与 h2 绿线对齐) + 斑马纹 + 表头着色 */
+.md-typeset table:not([class]) {
+  width: 100%;
+  border-radius: .5rem;
+  overflow: hidden;
+}
+.md-typeset table:not([class]) thead th {
+  background: #e0f2f1;
+  font-weight: 700;
+}
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, .03);
+}
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) thead th {
+  background: #1e3a38;
+}
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, .04);
+}
+
+/* 二级标题:主题色下划线(primary-fg=主色本身,primary-bg=主色上的对比白,勿混) */
+.md-typeset h2 {
+  border-bottom: 2px solid var(--md-primary-fg-color, #009688);
+  padding-bottom: .3rem;
+}
+
+/* 代码块圆角 */
+.md-typeset pre > code {
+  border-radius: .5rem;
+}
+
+/* 深色模式下 hero 渐变适配 */
+[data-md-color-scheme="slate"] .hero {
+  background: linear-gradient(135deg, #003d36 0%, #00594f 55%, #00695c 100%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
+}
