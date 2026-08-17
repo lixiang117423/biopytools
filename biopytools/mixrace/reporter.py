@@ -186,14 +186,26 @@ library(ape)
 library(ggtree)
 library(ggplot2)
 tree <- read.tree("{nwk_path}")
-ann <- read.delim("{ann_path}", sep = "\\t", stringsAsFactors = FALSE,
-                  colClasses = "character", fileEncoding = "UTF-8")
-ann$lab <- ifelse(ann$het == "-",
-                  paste0(ann$sample, " [", ann$verdict, "]"),
-                  paste0(ann$sample, " [", ann$verdict, "] ", ann$het))
+# 叶标签 = 编号[判读]杂合率(由 ann.tsv join,见下)。严禁对 x 轴设上限:
+# 树深是 root→tip 各段枝长之和,天然就是 max_edge 的数倍,任何 max_edge*N 的上限都
+# 可能小于"树深+offset+文字宽度";ggplot 的 xlim 是硬性丢弃超范围数据(实测整树
+# Removed 25 rows,标签全灭)。不设 xlim 时 geom_tiplab 的 x 参与坐标训练,面板
+# 自动扩到标签处。offset 用相对量(绝对 0.003 会比 ~1e-4 的枝长宽几十倍)。
+# |tips carry sample[verdict]het joined from ann.tsv. NEVER cap the x-axis: root-to-tip depth is a path
+# SUM, several times max_edge, so any max_edge*N cap can fall below depth+offset+
+# text width; ggplot xlim hard-drops out-of-range rows (observed: Removed 25 rows,
+# all labels gone). Without xlim the tiplab x trains the scale and the panel
+# auto-extends. offset stays relative (absolute 0.003 dwarfed ~1e-4 edges).
+max_edge <- max(tree$edge.length, na.rm = TRUE)
+ann <- read.delim("{ann_path}", sep = "\t", header = TRUE, colClasses = "character",
+                  encoding = "UTF-8", check.names = FALSE)
+# 叶标签 = 编号[判读]杂合率(het 为 '-' 只留判读,避免尾空格)|tip = id[verdict]het
+# |tip label = id[verdict]het ('-' het keeps no trailing space)
+ann$tiplab <- ifelse(ann$het == "-", paste0(ann$sample, " [", ann$verdict, "]"),
+                     paste0(ann$sample, " [", ann$verdict, "] ", ann$het))
 p <- ggtree(tree) %<+% ann
-p <- p + geom_tiplab(aes(label = lab), size = 2.8, offset = 0.003, align = TRUE)
-if (!is.null(tree$edge.length)) p <- p + xlim(0, max(tree$edge.length) * 1.7)
+p <- p + geom_tiplab(aes(label = tiplab), size = 3.2,
+                     offset = max_edge * 0.25, align = TRUE)
 has_support <- !is.null(tree$node.label) && any(nzchar(tree$node.label))
 if (has_support) {{
   p <- p + geom_text(aes(label = label),
@@ -203,7 +215,7 @@ if (has_support) {{
 p <- p + labs(title = "样品聚类(系统发育树)|Sample clustering") +
   theme_tree2() + theme(plot.title = element_text(hjust = 0.5))
 ggsave("{png_path}", p, width = 14, height = max(5, 0.3 * ape::Ntip(tree)),
-       dpi = 150, limitsize = FALSE)
+       dpi = 150, limitsize = FALSE, device = png, type = "cairo")
 '''
     Path(script_path).write_text(rcode, encoding="utf-8")
     return script_path
