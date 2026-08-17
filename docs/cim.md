@@ -255,6 +255,8 @@ output_dir/
 │   │   ├── mstmap/                      # 连锁图谱 CIM 结果(仅 mstmap 模式)
 │   │   │   ├── linkage_map.csv          # 连锁图谱(标记→LG→cM)
 │   │   │   ├── mstmap_map.csv / mstmap_gen.csv / mstmap_phe.csv
+│   │   │   │                            #   (仅含每染色体最大LG,碎片LG已剔除;
+│   │   │   │                            #    完整聚类结果在 mstmap_pvalue_*/)
 │   │   │   └── marker_map_index.tsv     # 标记物理位置↔图谱位置索引
 │   │   ├── plots/                       # 可视化数据(供外部绘图)
 │   │   │   ├── cim_lod_data_physical.tsv    # LOD 扫描数据(物理,含threshold列)
@@ -309,6 +311,7 @@ Chr01_6422855    LG12   23.697
 
 - MSTmap 按重组频率把标记聚类为连锁群(LG)并计算 cM
 - **LG 数通常多于实际染色体数**：重组冷点（如着丝粒区）会把一条染色体拆成多个 LG，属正常现象
+- **碎片 LG 不进 CIM**：CIM 只使用每染色体标记数最多的那个 LG（碎片 LG 标记稀疏，R/qtl hk 方法在其上会产生数值不稳定的虚假 LOD 峰），被剔除的碎片 LG 会以 WARNING 记录在日志里
 - 结合 `marker_map_index.tsv` 可将 LG/cM 映射回物理染色体与 bp
 
 ### 4. 物理图谱 vs 连锁图谱 | Physical vs linkage map
@@ -323,6 +326,8 @@ Chr01_6422855    LG12   23.697
 | CIM 优势 | 完整、直接对应基因组 | 遗传距离更准确、定位精度更高 |
 
 **两个图谱在同一区域都检出 QTL 信号，结果更可信。**
+
+> ⚠️ **mstmap 块 LOD 系统性偏高**：mstmap 的遗传图谱 cM 会膨胀（MSTmap 对 F2 用 RIL2 近似，距离标尺放大），导致其 LOD 与阈值整体抬升，**与 physical 块的 LOD 量级不可直接比较**。正确用法：**以 physical 块为最终结果**（峰位置、显著性），mstmap 块只用于「峰物理位置互证」——两块的显著峰落在同一物理区间即互为印证，不必纠结 mstmap 块 LOD 更大或排位不同。
 
 ### 5. QC 统计文件 | QC stats
 
@@ -450,3 +455,6 @@ Chr01_6422855    LG12   23.697
 
 **Q6：mstmap 的 LOD 文件里 chr_bp/pos_bp 列是什么？**
 为 LOD 网格点标注的物理坐标（两侧标记线性插值），用于把图谱峰对应回基因组；单标记 LG 直接取该标记坐标。重复运行脚本不会重复追加这两列（幂等守卫）。
+
+**Q7：mstmap 块的显著峰和 physical 块不在同一条染色体上？**
+以 physical 块为准。mstmap 块 LOD 系统性偏高（见「结果解读 §4」），且碎片 LG（标记稀疏的小连锁群）不进 CIM；若两个块在**真 QTL 区间**（physical 块最高峰）附近都有信号，即互相印证。只有 mstmap 块某碎片区域出现孤立高 LOD 峰时，多为 hk 方法的数值伪峰（标记本身与表型无关联），可忽略。

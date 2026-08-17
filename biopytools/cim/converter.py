@@ -13,7 +13,7 @@ import shutil
 import sys
 import tempfile
 from collections import Counter, OrderedDict
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 import numpy as np
 import pandas as pd
@@ -887,6 +887,54 @@ def _run_mstmap_single_pvalue(genotype_matrix: np.ndarray, marker_info: pd.DataF
     return all_map_rows
 
 
+def _filter_largest_lg_per_chr(all_map_rows: List[Tuple[str, str, float]],
+                               marker_info: pd.DataFrame
+                               ) -> Tuple[List[Tuple[str, str, float]], Set[str]]:
+    """
+    每染色体仅保留标记数最多的LG|Keep only the largest LG per chromosome
+
+    MSTmap会把一条染色体拆成大LG+碎片LG(未连锁的小簇)。碎片LG标记稀疏、
+    物理跨度大, R/qtl hk方法在碎片LG上会产生数值不稳定的LOD伪峰
+    (实测longliuxing Chr11碎片19标记LOD=383.8, 同设置em=0.37, 且其标记
+    与表型最大|corr|=0.24无真实效应)。碎片LG不进CIM, 每染色体只保留最大LG。
+    MSTmap splits a chromosome into a big LG plus fragment LGs (small unlinked
+    clusters). Fragments are sparse with huge physical spans; R/qtl's hk method
+    produces numerically unstable bogus LOD peaks on them (measured LOD 383.8 on
+    a 19-marker Chr11 fragment vs em=0.37 on the identical setup; the fragment's
+    markers show max |corr|=0.24 with the phenotype). Drop fragment LGs from CIM.
+
+    Args:
+        all_map_rows: [(marker_id, lg_label, position), ...]|All LG marker entries
+        marker_info: 标记信息(chr, pos, id)|Marker info DataFrame
+
+    Returns:
+        (filtered_rows, keep_lgs): 过滤后的行与保留的LG集合|Filtered rows and kept LG set
+    """
+    id_to_chr = marker_info.set_index('id')['chr'].to_dict()
+
+    # 统计每个(染色体, LG)的标记数|Count markers per (chr, LG)
+    chr_lg_sizes: Dict[Tuple[str, str], int] = {}
+    for marker_id, lg_label, _pos in all_map_rows:
+        chr_name = id_to_chr.get(marker_id)
+        if chr_name is None:
+            continue
+        key = (chr_name, lg_label)
+        chr_lg_sizes[key] = chr_lg_sizes.get(key, 0) + 1
+
+    # 每染色体保留标记数最多的LG|Keep the biggest LG per chromosome
+    biggest: Dict[str, Tuple[str, int]] = {}
+    for (chr_name, lg_label), size in chr_lg_sizes.items():
+        if chr_name not in biggest or size > biggest[chr_name][1]:
+            biggest[chr_name] = (lg_label, size)
+    keep_lgs = {lg_label for (lg_label, _size) in biggest.values()}
+
+    # 保留LG内的标记; marker_info无染色体的标记一并剔除|Keep markers in kept LGs;
+    # also drop markers whose chromosome is unknown in marker_info
+    filtered_rows = [row for row in all_map_rows
+                     if row[0] in id_to_chr and row[1] in keep_lgs]
+    return filtered_rows, keep_lgs
+
+
 def _save_map_outputs(all_map_rows: List[Tuple[str, str, float]],
                       genotype_matrix: np.ndarray, marker_info: pd.DataFrame,
                       samples: List[str], pheno_values: np.ndarray,
@@ -1090,13 +1138,27 @@ def build_mstmap_linkage_map(genotype_matrix: np.ndarray, marker_info: pd.DataFr
         accepted_rows = best_rows
         accepted_pvalue = best_pvalue
 
-    # 将最终结果复制到output_dir根目录|Copy final result to output_dir root
-    for fname in ['mstmap_map.csv', 'linkage_map.csv', 'marker_map_index.tsv',
-                   'mstmap_gen.csv', 'mstmap_phe.csv']:
-        src = os.path.join(output_dir, f"mstmap_pvalue_{accepted_pvalue:.0e}", fname)
-        dst = os.path.join(output_dir, fname)
-        if os.path.exists(src):
-            shutil.copy2(src, dst)
+    # 每染色体仅保留最大LG进CIM|Keep only the largest LG per chromosome for CIM
+    # 碎片LG标记稀疏, R/qtl hk方法在其上产生数值不稳定LOD伪峰(_filter_largest_lg_per_chr
+    # 注释有实测数据), 故只把每染色体最大LG写进根目录供R脚本使用; 迭代子目录保留原始聚类结果。
+    # Fragment LGs are sparse and trigger numerically unstable hk LOD artifacts (see
+    # _filter_largest_lg_per_chr docstring); write only the largest LG per chromosome
+    # to the root dir for the R script. Per-iteration subdirs keep the raw clustering.
+    filtered_rows, keep_lgs = _filter_largest_lg_per_chr(accepted_rows, marker_info)
+    all_lgs_final = set(row[1] for row in accepted_rows)
+    n_dropped_lgs = len(all_lgs_final) - len(keep_lgs)
+    if n_dropped_lgs > 0:
+        logger.warning(f"MSTmap碎片LG过滤|Fragment LG filtering: "
+                       f"每染色体仅保留最大LG进CIM|keeping only the largest LG per "
+                       f"chromosome: 剔除|dropped {n_dropped_lgs}个碎片LG|fragment "
+                       f"LGs ({len(accepted_rows) - len(filtered_rows)}个标记|markers), "
+                       f"保留|kept {len(keep_lgs)}个LG|LGs")
+    if not filtered_rows:
+        logger.error(f"MSTmap碎片LG过滤后无标记|No markers left after fragment LG "
+                     f"filtering. 请检查标记信息|Check marker info")
+        sys.exit(1)
+    _save_map_outputs(filtered_rows, genotype_matrix, marker_info,
+                      samples, pheno_values, output_dir)
 
     lg_sizes_final = Counter(row[1] for row in accepted_rows)
     n_core_final = sum(1 for s in lg_sizes_final.values() if s >= core_lg_min)
@@ -1582,6 +1644,20 @@ def generate_r_cim_script(config: CIMConfig, tidy_files: Dict[str, str],
         ])
 
         # CIM #2 with MSTmap map
+        # MSTmap块LOD系统性偏高(遗传图cM膨胀所致), 与physical块不可比量级;
+        # 只用于峰物理位置互证, 最终结果以physical块为准。
+        # |The mstmap block's LODs are systematically elevated (inflated cM);
+        # they are not comparable in magnitude with the physical block. Use the
+        # mstmap block only to cross-check peak physical locations; the physical
+        # block is the final reference.
+        lines.extend([
+            'cat("NOTE: mstmap块LOD系统性偏高(遗传图cM膨胀), 与physical块不可直接比较量级;',
+            '以physical块为最终结果, mstmap块仅用于峰物理位置互证|',
+            'mstmap block LODs are systematically elevated (inflated cM), not directly',
+            'comparable in magnitude with the physical block; use the physical block as',
+            'the final result and the mstmap block only for cross-checking peak locations\\n")',
+            '',
+        ])
         lines.extend(_build_cim_block(config, "mstmap", output_dir))
 
         # 峰值物理坐标标注|Annotate MSTmap peaks with physical positions
