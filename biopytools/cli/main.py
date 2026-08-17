@@ -33,6 +33,7 @@ COMMAND_REGISTRY = [
     ('bam_view', 'bam-view', 'BAM比对可视化工具|BAM Alignment Visualization Tool'),
     ('bam2fastq', 'bam2fastq', 'BAM to FASTQ批量转换工具|BAM to FASTQ batch conversion tool'),
     ('braker', 'braker', 'BRAKER3基因组注释工具|BRAKER3 genome annotation tool'),
+    ('braker4phyto', 'braker4phyto', 'BRAKER3疫霉菌基因组注释(默认不屏蔽重复)|BRAKER3 Phytophthora annotation (no repeat masking by default)'),
     ('bismark', 'bismark', '全基因组甲基化分析|Whole genome methylation analysis'),
     ('blast', 'blast', 'BLAST序列比对分析|BLAST Sequence Alignment Analysis'),
     ('coverage', 'coverage', 'BAM覆盖度分析工具|BAM coverage analysis tool'),
