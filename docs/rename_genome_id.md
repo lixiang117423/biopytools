@@ -1,180 +1,75 @@
-# 基因组ID重命名工具|Genome ID Renamer
+# 基因组 ID 顺序重命名 | Rename Genome ID
 
-## 功能描述|Function Description
+一句话理解：**把 FASTA 里的所有序列按出现顺序重新编号命名（默认 Chr01、Chr02…）**，可顺便只保留前 N 条并生成一张「旧 ID → 新 ID」对照表。
+输入一个 FASTA，输出重命名后的 FASTA 和一份 ID 映射文件。
 
-按顺序重命名FASTA文件中所有序列为Chr01, Chr02, Chr03...格式，并可选择性提取前N条作为染色体文件。适用于NCBI下载的各种基因组文件。
+## 功能概述 | Overview
 
-Rename all sequences in FASTA file in order as Chr01, Chr02, Chr03..., optionally extract first N sequences as chromosomes. Suitable for various genome files from NCBI.
+- 按顺序把每条序列重命名为 `Chr01`、`Chr02`…（前缀、零填充宽度均可自定义）
+- 可用 `-n/--chr-count` 只输出前 N 条作为染色体，其余丢弃
+- 默认生成 ID 映射文件（旧 ID → 新 ID → 原描述），可用 `--no-mapping` 关闭
+- 用 Biopython 解析，兼容各种 FASTA 变体；纯 Python 实现，无需外部命令行软件
 
-## 主要特性|Main Features
-
-- **简单直接|Simple and direct**: 按顺序重命名所有序列，无需复杂类型检测
-- **染色体提取|Chromosome extraction**: 自动生成只包含染色体的文件
-- **ID映射保存|ID mapping saving**: 保存原始ID和新ID的对应关系
-- **灵活的格式选项|Flexible format options**: 支持自定义前缀和零填充
-
-## 使用方法|Usage
-
-### 基本用法|Basic Usage
+## 快速开始 | Quick Start
 
 ```bash
-# 重命名所有序列|Rename all sequences
-biopytools rename-genome-id -i input.fa -o output.fa
-```
-
-### 指定染色体数量|Specify Chromosome Count
-
-```bash
-# 重命名并提取前20条作为染色体|Rename and extract first 20 as chromosomes
 biopytools rename-genome-id -i input.fa -o output.fa -n 20
 ```
 
-### 完整参数说明|Full Parameters
+最小输入：一个 FASTA + 输出文件。`-n 20` 表示只保留前 20 条并重命名为 Chr01~Chr20。
 
-| 参数|短参数|描述|默认值|
-|------|------|------|------|
-| `--input`|`-i`|输入FASTA文件|必需|
-| `--output`|`-o`|输出FASTA文件|必需|
-| `--prefix`|`-p`|序列前缀|Chr|
-| `--no-zero-padding`||不使用零填充(Chr1而非Chr01)|False|
-| `--padding-width`|`-w`|填充宽度|2|
-| `--chr-count`|`-n`|染色体数量|0(不提取)|
-| `--no-mapping`||不保存ID映射文件|False|
-| `--mapping-file`||指定映射文件路径|自动生成|
-| `--log-level`||日志级别|INFO|
+## 零基础概念速览 | Concepts in plain words
 
-## 输出文件|Output Files
+| 术语 | 通俗理解 |
+|------|----------|
+| 序列 ID | FASTA 里 `>` 号后面的名字 |
+| 前缀(prefix) | 新名字开头的固定部分，默认 `Chr` |
+| 零填充 | 数字前补 0，如 Chr01 而不是 Chr1，保证字典序不乱 |
+| ID 映射文件 | 一张「改名前 ↔ 改名后」对照表，方便回查原来的名字 |
 
-### 1. 完整重命名文件|Renamed File (所有序列)
-包含所有序列，全部按顺序重命名：
-```
-output.fa (或用户指定名称)
-```
+## 输入 | Input
 
-### 2. 染色体文件|Chromosome-Only File (仅当使用-n参数时)
-仅包含前N条序列（染色体）：
-```
-output_chr_only.fa
-```
+标准 FASTA 文件。重命名按**文件里的出现顺序**进行：第 1 条 → Chr01、第 2 条 → Chr02…。因此输入前请先按染色体从大到小排序，让 Chr01 对应最大的染色体。
 
-### 3. ID映射文件|ID Mapping File
-原始ID和新ID的对应关系：
-```
-output_id_mapping.txt
-```
+## 参数说明 | Parameters
 
-格式：
-```
-# Original_ID	New_ID	Description
-CM081539.1	Chr01	CM081539.1 ... chromosome 1 ...
-CM081540.1	Chr02	CM081540.1 ... chromosome 2 ...
+### 重命名规则 | Renaming rules
+
+**通俗理解|In plain words:** `-p/--prefix` 是新名字的前缀（默认 `Chr`）；`-w/--padding-width` 是数字补几位 0（默认 2，即 01、02…，超过 99 条会自动变 3 位）；`--no-zero-padding` 则不做补零（Chr1、Chr2…）。这些一般用默认即可。
+
+### 染色体提取 | Chromosome extraction
+
+**通俗理解|In plain words:** `-n/--chr-count` 表示「只保留前 N 条当染色体」，`0` 表示全部保留并重命名。当你只想把前 20 条变成染色体、丢掉后面小 scaffold 时用它。
+
+### ID 映射 | ID mapping
+
+**通俗理解|In plain words:** 默认会生成映射文件（`输出文件名_stem_id_mapping.txt`），记录每条序列的旧 ID、新 ID、原描述。`--no-mapping` 可关闭；`--mapping-file` 可自定义映射文件路径。
+
+## 输出 | Output
+
+```text
+输出目录/
+├── output.fa                    # 重命名后的 FASTA(-o 指定)
+├── output_id_mapping.txt        # 旧ID → 新ID → 描述 对照表(默认生成)
+└── fasta_id_renamer.log         # 运行日志
 ```
 
-## 使用示例|Examples
+- `output.fa`：重命名后的序列，序列头为新 ID（原描述不保留）
+- `output_id_mapping.txt`：三列 TSV（Original_ID / New_ID / Description），改名前后的对应关系都在这里
 
-### 示例1: 花生基因组|Example 1: Peanut Genome (20条染色体)
+## 结果解读 | Interpreting Results
 
-```bash
-biopytools rename-genome-id \
-    -i GCA_039854485.1_S83_genomic.fna \
-    -o peanut_renamed.fna \
-    -n 20
-```
+- 用 `grep "^>" output.fa` 检查序列头是否为整齐的 Chr01、Chr02…
+- 序列头只保留新 ID，**原描述信息被丢弃**，但完整保存在映射文件里，需要回查时看映射文件
+- 若只输出了前 N 条，其余序列被丢弃（不写入任何文件），确认 `-n` 是否符合预期
 
-**结果|Results:**
-- `peanut_renamed.fna`: 全部20条序列 → Chr01-Chr20
-- `peanut_renamed_chr_only.fna`: 仅20条染色体
-- `peanut_renamed_id_mapping.txt`: ID映射文件
+## 参数选择建议 | Parameter Guidance
 
-### 示例2: 小花糖芥基因组|Example 2: Erysimum Genome (8条染色体+101个scaffold)
-
-```bash
-biopytools rename-genome-id \
-    -i GCA_040802135.1_genomic.fna \
-    -o ech_renamed.fna \
-    -n 8
-```
-
-**结果|Results:**
-- `ech_renamed.fna`: 全部109条序列 → Chr01-Chr109
-- `ech_renamed_chr_only.fna`: 前8条染色体 → Chr01-Chr08
-- `ech_renamed_id_mapping.txt`: ID映射文件
-
-### 示例3: 自定义格式|Example 3: Custom Format
-
-```bash
-# 不使用零填充
-biopytools rename-genome-id \
-    -i input.fa -o output.fa \
-    --no-zero-padding
-
-# 三位数字填充
-biopytools rename-genome-id \
-    -i input.fa -o output.fa \
-    -w 3
-
-# 自定义前缀
-biopytools rename-genome-id \
-    -i input.fa -o output.fa \
-    -p chromosome
-```
-
-## 应用场景|Use Cases
-
-### 1. 共线性分析|Collinearity Analysis
-简化后的序列ID更易读：
-```
-Before: CM081539.1 vs LNXXXXXX.1
-After:  Chr01 vs Chr01
-```
-
-### 2. 基因组浏览器|Genome Browser
-简短的ID显示更清晰
-
-### 3. 批量更新注释|Batch Update Annotations
-使用ID映射文件批量更新GFF/GTF：
-```bash
-# 使用映射文件更新GFF
-awk 'NR==FNR{map[$1]=$2; next} $3 in map{$3=map[$3]}1' id_mapping.txt annotation.gff > annotation_renamed.gff
-```
-
-## 注意事项|Notes
-
-1. **文件大小|File Size**: 此工具会复制整个FASTA文件，大文件可能需要较长时间和磁盘空间
-2. **序列顺序|Sequence Order**: 工具按文件中的顺序重命名，不改变序列顺序
-3. **染色体数量|Chromosome Count**: 使用`-n`参数时确保指定的数量正确
-4. **备份原文件|Backup**: 建议保留原始FASTA文件作为备份
-
-## 设计思路|Design Philosophy
-
-**为什么按顺序重命名？|Why rename in order?**
-
-1. **通用性|Universality**: 不需要复杂的序列类型检测，适用于所有基因组文件
-2. **可预测性|Predictability**: 输出结果完全可预测，易于调试
-3. **简单性|Simplicity**: 逻辑简单，不容易出错
-
-**为什么支持提取染色体？|Why support chromosome extraction?**
-
-1. **常见需求|Common Need**: 很多分析只需要染色体序列
-2. **便捷性|Convenience**: 一步完成重命名和提取，无需额外命令
-3. **灵活性|Flexibility**: 可以选择提取任意数量的序列
-
-## 故障排除|Troubleshooting
-
-### 问题1: 内存不足
-**解决方案|Solution**: 对于超大基因组文件，考虑使用seqkit等工具先提取需要的序列
-
-### 问题2: 染色体数量不对
-**解决方案|Solution**: 先用`grep -c "^>" input.fa`检查序列总数，确认染色体数量
-
-### 问题3: 需要特定序列而不是前N条
-**解决方案|Solution**:
-1. 使用本工具重命名所有序列
-2. 使用seqkit根据ID映射文件提取特定序列
-
-## 版本历史|Version History
-
-- **v1.0.0** (2026-01-21): 初始版本，支持按顺序重命名和染色体提取|Initial release with sequential renaming and chromosome extraction
+- **只要染色体、丢弃 scaffold**：`-n 染色体数`
+- **全部重命名、一条不丢**：不写 `-n`（默认 0）
+- **不要 Chr 前缀**：`-p Scaffold` 或 `-p contig`
+- **想要 Chr1 而非 Chr01**：`--no-zero-padding`
+- **输入顺序最重要**：先按长度排序再输入，让编号和大小对应
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -197,3 +92,21 @@ awk 'NR==FNR{map[$1]=$2; next} $3 in map{$3=map[$3]}1' id_mapping.txt annotation
 | `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR | 日志级别｜Log level |
 
 <!-- END PARAMS:auto -->
+
+## 依赖 | Dependencies
+
+- Python 包 `biopython`（`Bio.SeqIO`，用于解析 FASTA）
+
+## 常见问题 | FAQ
+
+**Q1：和 `biopytools rename-chromosomes` 有什么区别？**
+两者都重命名序列，但侧重点不同：本工具**逐条顺序编号**（前缀/补零宽度可定制、能生成 ID 映射文件、可只提取前 N 条）；`rename-chromosomes` 固定输出 Chr01 格式、额外支持把其余序列改名为 HiC_scaffold。需要保留旧 ID 对照就用本工具。
+
+**Q2：原序列描述会丢吗？**
+输出 FASTA 里只保留新 ID（原描述被新 ID 覆盖），但原描述完整保存在 `id_mapping.txt` 里。
+
+**Q3：有断点续传吗？**
+没有。本工具单步流式处理，重跑即重新生成，无需续传。
+
+**Q4：映射文件不想要能关吗？**
+能，加 `--no-mapping`；或想换位置用 `--mapping-file 路径`。
