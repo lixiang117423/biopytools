@@ -46,6 +46,7 @@ class CNCLinkExtractor:
         # GSA HTTP搜索器(CRR前缀,不依赖FTP)|GSA HTTP searcher (CRR prefix, FTP-independent)
         self.gsa_searcher = GSAHTTPSearcher(
             logger=self.logger,
+            timeout=self.config.ftp_timeout,
             retry_attempts=self.config.retry_attempts
         )
 
@@ -238,20 +239,31 @@ class CNCLinkExtractor:
         """
         处理GSA原生Run ID|Handle a GSA-native run ID
 
-        项目列必须是CRA编号;PRJCA等BioProject编号无法自动映射到GSA目录
-        |The project column must be the CRA accession; BioProject IDs like PRJCA
-        cannot be auto-mapped to GSA directories
+        项目列优先填CRA编号(直达);填PRJCA等BioProject编号时通过NGDC搜索页按CRR反查CRA
+        |Prefers the CRA accession in the project column (direct); with a BioProject ID
+        like PRJCA, resolves the CRA via the NGDC search page using the CRR
         """
-        if not re.match(r'^CRA\d+$', project_id):
-            self.logger.warning(
-                f"CRR是GSA原生Run ID,项目列请用CRA编号(如CRA010060),PRJCA无法自动映射"
-                f"|CRR is a GSA-native run ID; use its CRA accession in the project column, "
-                f"PRJCA cannot be auto-mapped: {project_id} -> {run_id}"
-            )
-            failed_ids.append((project_id, run_id))
-            return
+        cra_accession = project_id
+        if not re.match(r'^CRA\d+$', cra_accession):
+            resolved = self.gsa_searcher.resolve_cra(run_id)
+            if resolved:
+                self.logger.info(
+                    f"项目编号已自动解析|Project accession auto-resolved: "
+                    f"{project_id} -> {resolved} ({run_id})"
+                )
+                cra_accession = resolved
+            else:
+                self.logger.warning(
+                    f"CRR是GSA原生Run ID,项目列请用CRA编号(如CRA010060);"
+                    f"{project_id} 无法自动解析为CRA(NGDC不可达或该Run不存在)"
+                    f"|CRR is a GSA-native run ID; use its CRA accession in the project column; "
+                    f"{project_id} could not be auto-resolved to a CRA "
+                    f"(NGDC unreachable or run not found): {run_id}"
+                )
+                failed_ids.append((project_id, run_id))
+                return
 
-        found = self.gsa_searcher.search_files(project_id, run_id)
+        found = self.gsa_searcher.search_files(cra_accession, run_id)
         if found:
             found_urls.extend(found)
         else:

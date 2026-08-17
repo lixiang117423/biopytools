@@ -12,7 +12,7 @@ Run IDs missed by CNCB automatically fall back to the ENA Portal API.
 GSA-native run IDs (CRR prefix) are resolved via HTTPS (project column must be the CRA accession).
 """
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 __author__ = "biopytools development team"
 
 from .main import CNCLinkExtractor

@@ -18,6 +18,14 @@ from .utils import get_requests
 # 默认GSA下载主机|Default GSA download host
 DEFAULT_GSA_BASE = "https://download.cncb.ac.cn"
 
+# NGDC GSA搜索页(服务端渲染结果,可反查CRR所属CRA)
+# |NGDC GSA search page (server-rendered results, resolves a CRR's parent CRA)
+GSA_SEARCH_URL = "https://ngdc.cncb.ac.cn/gsa/search"
+
+# NGDC拒绝python-requests默认UA(直接断连,实测),须伪装浏览器UA
+# |NGDC drops the default python-requests UA (verified live); send a browser UA
+BROWSER_UA = "Mozilla/5.0 (X11; Linux x86_64) biopytools/get-link-from-CNCB"
+
 # 依次尝试的目录布局|Directory layouts to try in order
 GSA_LAYOUTS = ("/gsa2/{cra}/{run}/", "/gsa/{cra}/{run}/")
 
@@ -44,6 +52,66 @@ class GSAHTTPSearcher:
             self.session = self._create_session(retry_attempts)
         else:
             self.session = None
+        # 统一补浏览器UA(NGDC拒绝默认requests UA);调用方显式设置的UA优先
+        # |Apply the browser UA to whichever session won (NGDC drops the default
+        # requests UA); a caller-provided UA takes precedence
+        if self.session is not None:
+            # 注入的测试假会话可能没有headers属性,防御性跳过
+            # |Injected test fakes may lack a headers attribute; skip defensively
+            headers = getattr(self.session, "headers", None)
+            if headers is not None:
+                headers.setdefault("User-Agent", BROWSER_UA)
+        # CRR→CRA解析结果缓存|Cache of CRR→CRA resolutions
+        self._cra_cache = {}
+
+    def resolve_cra(self, run_id: str) -> Optional[str]:
+        """
+        反查CRR所属的CRA项目编号|Resolve the parent CRA accession of a CRR run
+
+        通过NGDC GSA搜索页(服务端渲染)解析,供项目列填了PRJCA等BioProject编号时自动转换
+        |Uses the server-rendered NGDC GSA search page; auto-converts when the project
+        column holds a BioProject ID like PRJCA instead of the CRA accession
+
+        Args:
+            run_id: GSA Run ID(CRR开头)|GSA Run ID (CRR prefix)
+
+        Returns:
+            CRA编号,查不到或网络失败返回None|CRA accession, or None if not found / network error
+        """
+        if run_id in self._cra_cache:
+            return self._cra_cache[run_id]
+
+        if self.requests is None:
+            self.logger.error(
+                "未安装requests,无法反查CRA|requests not installed, cannot resolve CRA"
+            )
+            return None
+
+        try:
+            self.logger.info(f"NGDC反查CRA|Resolving CRA via NGDC: {run_id}")
+            response = self.session.get(
+                GSA_SEARCH_URL, params={"searchTerm": run_id}, timeout=self.timeout
+            )
+            response.raise_for_status()
+            # 结果行为 href="browse/{CRA}/{run}",run必须精确匹配防前缀撞名
+            # |Result rows look like href="browse/{CRA}/{run}"; exact match avoids prefix collisions
+            pattern = re.compile(r'href="browse/(CRA\d+)/%s"' % re.escape(run_id))
+            match = pattern.search(response.text)
+            cra = match.group(1) if match else None
+        except Exception as e:
+            # 反查是逐Run的可选步骤,任何异常(含response.text解码错误)都降级为失败,
+            # 不得中断整批提取|Resolution is a per-run optional step; any exception
+            # (incl. response.text decode errors) degrades to a miss and must not
+            # abort the whole batch
+            self.logger.warning(f"NGDC反查失败|CRA resolution failed: {run_id}: {e}")
+            cra = None
+
+        # 仅缓存成功结果;失败(网络抖动/未收录)不缓存,同一Run再现时可重试
+        # |Cache only successes; failures (network blips/unindexed) are not cached
+        # so the same run is retried when it reappears
+        if cra is not None:
+            self._cra_cache[run_id] = cra
+        return cra
 
     def _create_session(self, retry_attempts: int):
         """创建带重试的HTTP会话|Create HTTP session with retries"""
