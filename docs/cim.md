@@ -1,286 +1,372 @@
-# CIM - 复合区间作图分析 (Composite Interval Mapping)
+# CIM - 复合区间作图分析 | Composite Interval Mapping (R/qtl)
 
-基于 R/qtl 的复合区间作图(CIM)分析工具，用于BSA群体的QTL定位。
+一句话理解：**把「决定某个性状的基因在基因组哪个位置」这件事，用一套统计扫描自动找出来**。
+输入一个群体的基因型数据(VCF)和性状记录(表型文件)，输出一张「嫌疑区域排行榜」(LOD 曲线 + 峰值表)。
 
-## 用法
+## 功能概述 | Overview
+
+- 支持三种图谱模式：`physical`（物理位置）、`estimate`（R/qtl `est.map()` 估算）、`mstmap`（MSTmap 构建连锁图谱，默认）
+- **mstmap 模式下物理图谱与连锁图谱各跑一次 CIM**，互相补充验证
+- 内置重组频率(RF)质控：杂合比例、局部平均 RF、短距离重组热点过滤（双亲群体大片交换假设）
+- Pre-RF（基线）与 Post-RF（质控后）两轮分析，方便对比过滤效果
+- 置换检验自动计算显著性阈值，LOD 扫描数据与 QTL 峰值表可直接供外部绘图
+- 断点续传：已完成步骤自动跳过（换参数重跑需先删旧产物，见 FAQ）
+
+## 快速开始 | Quick Start
 
 ```bash
-python -m biopytools.cim -i input.vcf.gz -p phe.txt -o output_dir
+biopytools cim -i input.vcf.gz -p phe.txt -o output_dir
 ```
 
-### 必需参数
+最小输入：一个 VCF（.vcf/.vcf.gz）+ 一个两列表型文件（TSV，制表符分隔的 sample、value 两列）。
 
-| 参数 | 说明 |
-|------|------|
-| `-i, --input` | 输入VCF文件（支持 .vcf / .vcf.gz） |
-| `-p, --pheno` | 表型文件（TSV格式，含 sample, value 两列） |
-| `-o, --output` | 输出目录 |
+## 零基础概念速览 | Concepts in plain words
 
-### 群体类型
+不熟悉生信术语的话，先花两分钟看这张表，后面的参数说明都会用到：
 
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `-t, --type` | f2 | 群体类型：f2（F2群体）或 bc（回交群体） |
+| 术语 | 通俗理解 |
+|------|----------|
+| 标记/SNP | 基因组上的一个「点位」，像高速公路上的里程桩，本工具扫描的就是这些桩 |
+| 基因型 | 一个位点上两条同源染色体的构成；工具内部记为 A(父本纯合)/H(杂合)/B(母本纯合) |
+| MAF | 「少数派基因型」在群体里占多少；太低=这个位点区分不了两个亲本，没信息量 |
+| 缺失率 | 多少样本在这个位点「没测出来」；缺失太多=判断依据不足 |
+| 杂合率 | 一个位点上有多少样本是「双亲各出一份」(H)；几乎全 H 多半是数据有问题 |
+| 重组频率(RF) | 两个位点之间发生「交换」的比例；离得近的位点应当「一起走」，频繁分开就是可疑 |
+| 连锁(LD) | 相邻位点往往「绑定遗传」，信息重复；降维=每个「团」留一个代表 |
+| 物理位置(bp) | 位点在染色体上的实际坐标，像「门牌号」 |
+| 遗传距离(cM) | 按「重组频率」折算的距离，像「开车时间」：物理距离一样，堵车路段(重组冷点)跑得慢 |
+| LOD 得分 | 某个位置「存在 QTL」的证据强度打分，分越高越像真的 |
+| QTL | 控制性状的基因组区域，本工具要找的东西 |
+| 置换检验阈值 | 把表型标签随机打乱几千遍，看「纯靠运气」最高能拿多少分；超过运气上限才算真信号 |
 
-### 遗传图谱模式
+## 输入 | Input
 
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--map-mode` | mstmap | cM位置来源，可选 physical / estimate / mstmap |
+### VCF 文件
 
-- **physical**：直接用基因组物理位置(bp)，不做图谱构建
-- **estimate**：由R/qtl的 `est.map()` 估算遗传距离
-- **mstmap**：由MSTmap软件构建连锁图谱，同时跑physical和mstmap两次CIM
-
-### 标记过滤
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--maf` | 0.05 | 最小等位基因频率(MAF)阈值 |
-| `--missing` | 0.1 | 标记最大缺失率 |
-
-### 重组频率质控
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--max-het-rate` | 0.6 | 杂合基因型(H)最大比例，超过则删除该标记 |
-| `--max-mean-rf` | 0.35 | K近邻局部平均重组频率(RF)最大值（规则2），超过则删除该标记 |
-| `--rf-knn` | 10 | 规则2局部RF窗口邻居数（物理位置前后各一半） |
-
-### 短距离重组热点过滤（Step 2.5a）
-
-双亲群体染色体交换是大片交换，物理距离很近的相邻标记间若出现高频重组（RF≥阈值），几乎必为基因型错误/旁系同源比对，删除。在标记过滤之后、物理降采样之前执行（必须在全密度数据上计算相邻RF）。
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--local-hotspot/--no-local-hotspot` | 开 | 总开关 |
-| `--local-hotspot-dist` | 1000 | 物理距离阈值(bp)，距离更近的相邻对才检查 |
-| `--local-hotspot-rf` | 0.20 | 相邻RF软阈值，达到即给两侧标记各记1分 |
-| `--local-hotspot-hard-rf` | 0.30 | 硬阈值，单对RF达到即两侧标记都删 |
-| `--local-hotspot-score` | 1 | 标记级删除线，软评分≥此值删除 |
-| `--local-hotspot-relative` | 0.0 | 相对判据系数；>0时阈值=max(绝对值, 系数×近距对RF中位数)，适合高重组背景染色体 |
-
-诊断输出：`01_qc/local_hotspot_removed.tsv`（被删标记清单：marker_id/chr/pos/reason/score/max_adj_rf）。注意错误标记常成簇（连续多对过硬阈值共享标记），实际删除数低于 2×对数，属正常。
-
-### 物理距离降采样（Step 2.5b，可选）
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--min-phys-gap` | 0 | 最小相邻物理距离(bp)，0=关闭；相邻距离小于此值的密集簇仅保留簇头 |
-
-在热点过滤之后执行，稀疏化后 LD/MSTmap/CIM 耗时与内存显著下降。66万SNP配 `--min-phys-gap 500` 约 15–25 万标记，对 ~1cM 的 QTL 分辨率无损。**换参数重跑旧输出目录前先删旧 `01_qc/`**（`filtered_markers.vcf.gz` 等按存在性断点续传，会复用旧参数产物）。
-
-### LD降维
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--ld-window` | 50 | LD计算窗口（SNP数） |
-| `--ld-step` | 5 | LD计算步长（SNP数） |
-| `--ld-r2` | 0.1 | LD r²阈值 |
-| `--skip-ld` | false | 跳过LD降维 |
-
-### CIM参数
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--n-marcovar` | 10 | 协因子数量 |
-| `--window` | 10.0 | 窗口大小(cM) |
-| `--method` | hk | 扫描方法：hk / em / imp |
-| `--step` | 1.0 | 伪标记步长(cM) |
-
-### 置换检验
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--n-perm` | 1000 | 置换检验次数（0=跳过） |
-
-### MSTmap参数（仅mstmap模式）
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--mstmap-pvalue` | 1e-6 | 聚类p值起始值（自动调优） |
-| `--mstmap-distfun` | kosambi | 距离函数：kosambi / haldane |
-| `--mstmap-path` | ~/miniforge3/envs/Rqtl/bin/mstmap | MSTmap二进制路径 |
-
-### 环境参数
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--r-env` | Rqtl | R conda环境名 |
-| `--threads` | 1 | 并行线程数 |
-
-## 分析流程
-
-整个流程分 Pre-RF 和 Post-RF 两轮，先跑一轮不做RF过滤的基线分析，再过滤后跑最终分析，方便对比。
-
-```
-输入VCF + 表型文件
-    │
-    ▼
-步骤1: 解析输入
-    VCF基因型 → ABH编码矩阵 (A=纯合父本, H=杂合, B=纯合母本)
-    │
-    ▼
-步骤2: 标记过滤
-    ├─ MAF过滤: 次等位基因频率太低 → 删除
-    └─ 缺失率过滤: 缺失数据太多 → 删除
-    │
-    ▼
-步骤3: LD降维（可选）
-    滑动窗口内LD r²过高的标记 → 去冗余保留子集
-    │
-    ├──────────────────────────────┐
-    ▼                              │
-Pre-RF CIM分析（基线，不做RF过滤）  │
-    ├─ 构建csvs格式文件             │
-    ├─ [mstmap模式] MSTmap构建连锁图谱  │
-    ├─ [mstmap模式] 用物理位置跑CIM    │
-    ├─ [mstmap模式] 用连锁图谱跑CIM    │
-    ├─ [estimate模式] 估算遗传距离后CIM │
-    └─ [physical模式] 直接用物理位置CIM  │
-                                   │
-    ◄──────────────────────────────┘
-    │
-    ▼
-步骤5: 重组频率(RF)质控
-    ├─ H比例过滤: 杂合基因型比例 > max_het_rate → 删除
-    ├─ 平均RF过滤: 同染色体平均RF > max_mean_rf → 删除
-    └─ 孤立重组检测: 与相邻标记RF均 > 0.5 → 仅警告
-    │
-    ▼
-Post-RF CIM分析（最终结果）
-    （同Pre-RF流程，使用RF过滤后的标记）
-    │
-    ▼
-输出结果
-```
-
-### 重组频率(RF)计算
-
-双纯合口径（2026-08-15 修复）：只统计双纯合样本对，含 H 的样本对排除出分子和分母。旧"含 H 记 0.5"会把完全连锁标记对的 RF 基线抬到 ~0.25-0.3（F2 H 比例 50% 时），使所有阈值失效。
-
-| 两个样本的基因型 | 判定 | 信号值 |
-|---|---|---|
-| A-A 或 B-B | 不重组 | 0 |
-| A-B 或 B-A | 重组 | 1 |
-| 含 H | 无确定信息 | 排除（分子分母均不计） |
-| 含 NaN | 跳过 | - |
-
-```
-RF(标记i, 标记j) = 双纯合样本对中的重组数 / 双纯合样本对数
-局部平均RF(标记i) = 与物理位置前后各 rf_knn//2 个标记的RF之和 / 有效配对数
-```
-
-规则 2 用**局部**平均 RF 而非全染色体平均：全染色体平均在正确 RF 定义下无区分力（远距离对 RF≈0.5 占主导，正常标记的全局均值也 ≈0.45-0.5）。
-
-### 物理图谱 vs 连锁图谱
-
-| | 物理图谱 | 连锁图谱 |
-|---|---|---|
-| 位置单位 | bp（碱基对） | cM（厘摩） |
-| 位置来源 | 参考基因组 | MSTmap根据重组频率计算 |
-| 标记顺序 | 按物理位置 | 按遗传距离 |
-| 是否断链 | 不会 | 可能（重组冷点导致） |
-| CIM优势 | 完整性好，直接对应基因组位置 | 遗传距离更准确，QTL定位精度更高 |
-
-mstmap模式下两种图谱各跑一次CIM，互相补充验证。两个图谱在同一区域都检测到QTL信号则结果更可信。
-
-## 输入文件
-
-### VCF文件
-
-标准的VCF格式，基因型编码为0/0、0/1、1/1等，代码内部自动转为ABH编码。
+标准 VCF 格式（支持 `.vcf` / `.vcf.gz`），基因型编码 `0/0`、`0/1`、`1/1`，内部自动转为 ABH 编码（A=纯合父本，H=杂合，B=纯合母本）。
 
 ### 表型文件
 
-TSV格式，两列：
+TSV 格式，两列：`sample`（样本名，须与 VCF 一致）和性状值：
 
-```
+```text
 sample    trait1
 21-18     0
 21-19     1
 ...
 ```
 
-## 输出目录结构
+## 参数说明 | Parameters
 
+### 必需参数 | Required
+
+| 参数 | 说明 |
+|------|------|
+| `-i, --input` | 输入 VCF 文件（.vcf / .vcf.gz） |
+| `-p, --pheno` | 表型文件（TSV: sample, value） |
+| `-o, --output` | 输出目录 |
+
+### 群体类型与图谱模式 | Cross type & map mode
+
+**通俗理解|In plain words:** 告诉程序两件事：你的群体是哪种杂交后代（这决定统计模型），以及「给位点排队」用什么尺子（实际染色体坐标，还是按重组率折算的遗传距离）。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `-t, --type` | f2 | 群体类型：f2（F2 群体）/ bc（回交群体），按实验设计选 |
+| `--map-mode` | mstmap | cM 来源：physical / estimate / mstmap |
+
+- **physical**：直接用基因组物理位置（单位 Mb，pseudo-cM），不构建图谱，最快
+- **estimate**：R/qtl `est.map()` 估算遗传距离
+- **mstmap**：MSTmap 构建连锁图谱，physical 与 mstmap 两次 CIM 都跑
+
+### 标记过滤 | Marker filtering
+
+**通俗理解|In plain words:** 这两个参数决定「什么样的位点信不过、直接扔掉」。MAF 太低=这个位点在群体里几乎没有差异，区分不了它来自哪个亲本，留着只会添乱；缺失太多=很多样本在这个位点没数据，判断依据不足。**绝大多数项目用默认值即可，几乎不需要动。**
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--maf` | 0.05 | 最小等位基因频率(MAF)阈值，低于此值的位点删除 |
+| `--missing` | 0.1 | 最大缺失率，缺失比例高于此值的位点删除 |
+
+### 重组频率质控 | RF quality control
+
+**通俗理解|In plain words:** 双亲的染色体是整段传给后代的，正常位点之间要么「一起走」（重组率低），要么远到随机（≈0.5）。如果一个位点和邻居的「分手率」异常高，大概率是它的基因型被测序/比对弄错了（典型原因：旁系同源——两条相似的染色体被当成一个位点）。这一步就是把这些「撒谎的位点」揪出来。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--max-het-rate` | 0.6 | 杂合基因型(H)最大比例，超过则删除该标记 |
+| `--max-mean-rf` | 0.35 | K 近邻局部平均重组频率(RF)最大值，超过则删除 |
+| `--rf-knn` | 10 | 局部 RF 窗口邻居数（物理位置前后各一半） |
+
+### 短距离重组热点过滤 | Local recombination hotspot filter
+
+**通俗理解|In plain words:** 两个位点物理上挨得极近（<1000bp）时，理论上几乎总是「同进同退」。如果它们频繁「分开」，现实中几乎不可能真发生，只能是数据错误。这一步在最近距离上专门抓这种错，比上一组更严格。**默认开启；正常数据被删掉的很少，若删得特别多，说明数据本身问题大。**
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--local-hotspot/--no-local-hotspot` | 开 | 总开关 |
+| `--local-hotspot-dist` | 1000 | 物理距离阈值(bp)，距离更近的相邻对才检查 |
+| `--local-hotspot-rf` | 0.20 | 相邻 RF 软阈值，达到即给两侧标记各记 1 分 |
+| `--local-hotspot-hard-rf` | 0.30 | 硬阈值，单对 RF 达到即两侧标记都删 |
+| `--local-hotspot-score` | 1 | 标记级删除线，软评分≥此值删除 |
+| `--local-hotspot-relative` | 0.0 | 相对判据系数；>0 时阈值=max(绝对值, 系数×近距对 RF 中位数)，适合高重组背景染色体 |
+
+诊断输出：`01_qc/local_hotspot_removed.tsv`（被删标记清单：marker_id/chr/pos/reason/score/max_adj_rf）。
+
+### 物理距离降采样 | Physical thinning
+
+**通俗理解|In plain words:** 几十万上百万个位点里，很多挨得极近、信息几乎一模一样（像同一段话被抄了很多遍）。只保留每个「密集区」的第一个代表，计算量骤降、结果几乎不变。位点特别多时才需要开。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--min-phys-gap` | 0 | 最小相邻物理距离(bp)，0=关闭；相邻距离小于此值的密集簇仅保留簇头 |
+
+在热点过滤之后执行。66 万 SNP 配 `--min-phys-gap 500` 约剩 15–25 万标记，对 ~1cM 的 QTL 分辨率无损，LD/MSTmap/CIM 耗时与内存显著下降。
+
+### LD 降维 | LD pruning
+
+**通俗理解|In plain words:** 给长文章提取摘要——相邻位点往往「绑定遗传」，信息重复，每个「团」留一个代表就够。**默认关闭**，因为大家的输入数据通常已经做过这一步。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--skip-ld` | true | **默认跳过 LD 降维**（输入数据通常已预降维） |
+| `--no-skip-ld` | - | 启用 LD 降维 |
+| `--ld-window` | 50 | LD 计算窗口（SNP 数） |
+| `--ld-step` | 5 | LD 计算步长（SNP 数） |
+| `--ld-r2` | 0.1 | LD r² 阈值 |
+
+### CIM 扫描参数 | CIM scan
+
+**通俗理解|In plain words:** 这是「扫描」本身的设置：window 是每个位置算分时参考多大邻域，step 是每隔多长距离算一次（越细曲线越平滑、越慢），协因子(n-marcovar)用来扣除其他区域的干扰让每个位置的信号更干净。**默认值经实践验证，一般不动。**
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--n-marcovar` | 10 | 协因子数量 |
+| `--window` | 10.0 | 窗口大小（图谱单位：mstmap/estimate 为 cM，physical 为 Mb/pseudo-cM） |
+| `--method` | hk | 扫描方法：hk / em / imp |
+| `--step` | 1.0 | 伪标记步长（图谱单位） |
+
+> 注意：物理模式坐标是 Mb（pseudo-cM），LOD 与阈值**只在同一图谱内比较**（见 FAQ）。
+
+### 置换检验 | Permutation test
+
+**通俗理解|In plain words:** 用来回答「这个峰是真的还是运气」——把表型标签随机打乱几千次重算，看纯运气最高能拿多少分，这就是阈值。**1000 次是常用精度；想快速预览可以先设 0 跳过（此时没有阈值，只有曲线形状可看）。**
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--n-perm` | 1000 | 置换检验次数（0=跳过，不生成显著性阈值） |
+
+### MSTmap 参数（仅 mstmap 模式）| MSTmap options
+
+**通俗理解|In plain words:** 用「重组频率」给位点重新排队、算出遗传距离(cM)，并把位点自动分成一组组「连锁群」。p 值决定分组松紧，**程序会自动反复调整到合适值，一般不用管。**
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--mstmap-pvalue` | 1e-6 | 聚类 p 值起始值，**自动调优**（目标核心 LG 数 ≤ 染色体数×3） |
+| `--mstmap-distfun` | kosambi | 距离函数：kosambi / haldane |
+
+### 环境参数 | Environment
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--r-env` | ~/miniforge3/envs/Rqtl | R conda 环境路径或名称 |
+
+> 以下参数仅在直接调用 `python -m biopytools.cim` 时可用（click 包装器未暴露，用默认值）：`--mstmap-path`（默认 `~/miniforge3/envs/r/bin/mstmap`）、`--threads`（默认 1）。
+
+## 分析流程 | Pipeline
+
+**通俗理解|In plain words:** 先不过滤跑一遍(Pre-RF，当作「体检前」的基线)，再用重组质控把可疑位点删掉跑一遍(Post-RF，最终结果)，两轮对比着看过滤是否合理。
+
+```text
+输入 VCF + 表型文件
+    │
+    ▼
+步骤1: 解析输入(VCF → ABH 编码矩阵)
+    │
+    ▼
+步骤2: 标记过滤(MAF / 缺失率)
+    │
+    ▼
+步骤2.5a: 短距离重组热点过滤(可选)
+步骤2.5b: 物理距离降采样(可选)
+    │
+    ▼
+步骤3: LD 降维(可选,默认跳过)
+    │
+    ▼
+Pre-RF CIM 分析(基线,不做 RF 过滤)
+    ├─ 构建 csvs 格式文件
+    ├─ [mstmap] MSTmap 构建连锁图谱
+    ├─ [mstmap] 物理位置 CIM + 连锁图谱 CIM
+    ├─ [estimate] 估算遗传距离后 CIM
+    └─ [physical] 直接用物理位置 CIM
+    │
+    ▼
+步骤5: 重组频率(RF)质控
+    ├─ H 比例过滤(杂合比例 > max_het_rate → 删)
+    ├─ 平均 RF 过滤(局部平均 RF > max_mean_rf → 删)
+    └─ 孤立重组检测(与相邻标记 RF 均 > 0.5 → 仅警告)
+    │
+    ▼
+Post-RF CIM 分析(最终结果,同 Pre-RF 流程,用 RF 过滤后的标记)
+    │
+    ▼
+输出结果
 ```
+
+### 重组频率(RF)定义 | RF definition
+
+双纯合口径（2026-08-15 修复）：只统计双纯合样本对，含 H 的样本对排除出分子和分母。旧「含 H 记 0.5」会把完全连锁标记对的 RF 基线抬到 ~0.25-0.3（F2 H 比例 50% 时），使所有阈值失效。
+
+| 两个样本的基因型 | 判定 | 信号值 |
+|---|---|---|
+| A-A 或 B-B | 不重组 | 0 |
+| A-B 或 B-A | 重组 | 1 |
+| 含 H | 无确定信息 | 排除（分子分母均不计） |
+| 含缺失 | 跳过 | - |
+
+```text
+RF(标记i, 标记j) = 双纯合样本对中的重组数 / 双纯合样本对数
+局部平均RF(标记i) = 与物理位置前后各 rf_knn//2 个标记的RF之和 / 有效配对数
+```
+
+规则 2 用**局部**平均 RF 而非全染色体平均：全染色体平均在正确 RF 定义下无区分力（远距离对 RF≈0.5 占主导，正常标记的全局均值也 ≈0.45-0.5）。
+
+## 输出 | Output
+
+```text
 output_dir/
 ├── 00_pipeline_info/
-│   └── pipeline_params.txt          # 流程参数记录
+│   └── pipeline_params.txt              # 流程参数记录
 ├── 01_qc/
-│   ├── marker_filter_stats.txt      # MAF/缺失率过滤统计
-│   ├── ld_prune_stats.txt           # LD降维统计
-│   ├── rf_filter_stats.txt          # RF质控过滤统计
-│   ├── singleton_het_report.tsv     # 孤立重组标记H比例诊断
-│   ├── filtered_markers.vcf.gz      # LD降维后保留的标记VCF
-│   └── rf_filtered_markers.vcf.gz   # RF过滤后保留的标记VCF
+│   ├── marker_filter_stats.txt          # MAF/缺失率过滤统计
+│   ├── hotspot_filter_stats.txt         # 短距离重组热点过滤统计
+│   ├── phys_thin_stats.txt              # 物理降采样统计
+│   ├── ld_prune_stats.txt               # LD 降维统计(启用时)
+│   ├── rf_filter_stats.txt              # RF 质控过滤统计
+│   ├── singleton_het_report.tsv         # 孤立重组标记 H 比例诊断
+│   ├── local_hotspot_removed.tsv        # 热点过滤被删标记清单
+│   ├── filtered_markers.vcf.gz          # 过滤/降维后保留的标记 VCF
+│   └── rf_filtered_markers.vcf.gz       # RF 过滤后保留的标记 VCF
 ├── 02_cim/
-│   ├── pre_rf/                      # Pre-RF分析结果（基线）
-│   │   ├── tidy_files/              # csvs格式输入文件
-│   │   ├── physical/                # 物理位置CIM结果
-│   │   │   ├── cim_genome_plot.pdf
-│   │   │   ├── cim_chr_*.pdf
-│   │   │   ├── cim_results.rds
-│   │   │   └── cim_perm_results.rds
-│   │   ├── mstmap/                  # 连锁图谱CIM结果
-│   │   │   ├── linkage_map.csv      # MSTmap连锁图谱（标记→LG→cM）
-│   │   │   ├── mstmap_map.csv       # MSTmap标记位置
-│   │   │   ├── mstmap_gen.csv       # MSTmap基因型矩阵
-│   │   │   ├── mstmap_phe.csv       # MSTmap表型
-│   │   │   ├── marker_map_index.tsv # 标记物理位置↔连锁图谱位置索引
-│   │   │   ├── cim_genome_plot.pdf
-│   │   │   ├── cim_chr_*.pdf
-│   │   │   ├── cim_results.rds
-│   │   │   └── cim_perm_results.rds
-│   │   ├── plots/                   # 可视化数据（供外部绘图用）
-│   │   │   ├── cim_lod_data_physical.tsv   # LOD扫描数据（含threshold列）
-│   │   │   ├── cim_lod_data_mstmap.tsv     # LOD扫描数据（含threshold列）
-│   │   │   ├── cim_peaks_physical.tsv      # QTL峰值表（物理位置）
-│   │   │   ├── cim_peaks_mstmap.tsv        # QTL峰值表（连锁图谱）
-│   │   │   ├── cim_peaks_mstmap_physical.tsv # MSTmap峰值标注物理坐标
-│   │   │   ├── cim_threshold_physical.txt  # 显著性阈值
-│   │   │   └── cim_threshold_mstmap.txt    # 显著性阈值
-│   │   └── cim_analysis.R          # 生成的R脚本
-│   └── post_rf/                     # Post-RF分析结果（最终，结构同pre_rf）
+│   ├── pre_rf/                          # Pre-RF 分析结果(基线)
+│   │   ├── tidy_files/                  # csvs 格式输入文件
+│   │   ├── physical/                    # 物理位置 CIM 结果(pdf/rds)
+│   │   ├── mstmap/                      # 连锁图谱 CIM 结果(仅 mstmap 模式)
+│   │   │   ├── linkage_map.csv          # 连锁图谱(标记→LG→cM)
+│   │   │   ├── mstmap_map.csv / mstmap_gen.csv / mstmap_phe.csv
+│   │   │   └── marker_map_index.tsv     # 标记物理位置↔图谱位置索引
+│   │   ├── plots/                       # 可视化数据(供外部绘图)
+│   │   │   ├── cim_lod_data_physical.tsv    # LOD 扫描数据(物理,含threshold列)
+│   │   │   ├── cim_lod_data_mstmap.tsv      # LOD 扫描数据(图谱cM,含threshold列)
+│   │   │   │                                #   已标注 chr_bp/pos_bp 物理坐标列
+│   │   │   ├── cim_peaks_physical.tsv       # QTL 峰值表(物理位置)
+│   │   │   ├── cim_peaks_mstmap.tsv         # QTL 峰值表(连锁图谱)
+│   │   │   ├── cim_peaks_mstmap_physical.tsv # MSTmap 峰值标注物理坐标
+│   │   │   ├── cim_threshold_physical.txt   # 显著性阈值
+│   │   │   └── cim_threshold_mstmap.txt     # 显著性阈值
+│   │   └── cim_analysis.R              # 生成的 R 脚本
+│   └── post_rf/                         # Post-RF 分析结果(最终,结构同 pre_rf)
 └── 99_logs/
-    └── cim.log                     # 运行日志
+    └── cim.log                          # 运行日志
 ```
 
-## 关键输出文件说明
+physical / estimate 模式下 plots/ 内为 `cim_lod_data.tsv`、`cim_peaks.tsv`（无 mstmap 子目录）。
 
-### LOD扫描数据 (cim_lod_data_*.tsv)
+## 结果解读 | Interpreting Results
 
-```
+### 1. LOD 扫描数据（`cim_lod_data_*.tsv`）
+
+**通俗理解|In plain words:** 这是最核心的结果——全基因组每个位置的「嫌疑程度打分表」。把 `lod` 列画成曲线，超过 `threshold` 水平线的山头，就是要找的 QTL。
+
+```text
 chr    pos        lod        threshold
 LG1    0.0        0.0787     16.2882
 LG1    1.2        0.2134     16.2882
 ...
 ```
 
-- `chr`：连锁群或染色体编号
-- `pos`：位置（物理模式为bp，MSTmap模式为cM）
-- `lod`：LOD得分
-- `threshold`：置换检验得到的显著性阈值（LOD超过此值为显著QTL）
+- `chr`：连锁群或染色体编号；`pos`：位置（physical 为 Mb，mstmap 为 cM）；`lod`：LOD 得分；`threshold`：置换检验阈值
+- **LOD ≥ threshold 即显著 QTL**；绘制全基因组 LOD 曲线时把 threshold 画成水平线，越过的峰就是 QTL
+- mstmap 模式的 `cim_lod_data_mstmap.tsv` 额外带 `chr_bp`/`pos_bp` 列：每个 LOD 网格点标注的物理染色体与位置（两侧标记线性插值），方便把图谱峰直接对应回基因组坐标
+- **不同图谱的 LOD/阈值不可直接比较**：物理模式坐标是 Mb(pseudo-cM)，与 mstmap 的 cM 尺度不同
 
-### QTL峰值表 (cim_peaks_*.tsv)
+### 2. QTL 峰值表（`cim_peaks_*.tsv`）
 
-LOD曲线中超过阈值的峰值位置。
+**通俗理解|In plain words:** 上面曲线里「越过水平线的山头」，整理成了一张清单——每个候选 QTL 在哪、峰值多高。
 
-### 连锁图谱 (linkage_map.csv)
+LOD 曲线中超过阈值的峰的位置表。mstmap 模式下 `cim_peaks_mstmap_physical.tsv` 把每个峰标注回物理坐标（chr_bp/pos_bp），**优先用它定位候选区间**。
 
-```
+### 3. 连锁图谱（`linkage_map.csv`）
+
+**通俗理解|In plain words:** 用「重组率」重新排的座位表——告诉你在遗传距离(cM)的世界里，每个位点排在第几组(LG)第几号。
+
+```text
 marker           chr    pos
 Chr01_732093     LG1    0.0
 Chr01_6422855    LG12   23.697
 ```
 
-MSTmap根据重组频率将标记聚类为连锁群(LG)，并计算遗传距离(cM)。连锁群数量通常大于实际染色体数，因为重组冷点（如着丝粒区域）会导致同一条染色体被拆分成多个LG。
+- MSTmap 按重组频率把标记聚类为连锁群(LG)并计算 cM
+- **LG 数通常多于实际染色体数**：重组冷点（如着丝粒区）会把一条染色体拆成多个 LG，属正常现象
+- 结合 `marker_map_index.tsv` 可将 LG/cM 映射回物理染色体与 bp
 
-## 依赖
+### 4. 物理图谱 vs 连锁图谱 | Physical vs linkage map
+
+**通俗理解|In plain words:** 物理图谱按「门牌号」排队，连锁图谱按「开车时间」排队。两把尺子各有优缺点，两边的嫌疑区域都对得上，结论才最可信。
+
+| | 物理图谱 | 连锁图谱 |
+|---|---|---|
+| 位置单位 | Mb（pseudo-cM） | cM |
+| 标记顺序 | 按物理位置 | 按遗传距离 |
+| 是否断链 | 不会 | 可能（重组冷点） |
+| CIM 优势 | 完整、直接对应基因组 | 遗传距离更准确、定位精度更高 |
+
+**两个图谱在同一区域都检出 QTL 信号，结果更可信。**
+
+### 5. QC 统计文件 | QC stats
+
+**通俗理解|In plain words:** 这些文件回答「数据质量如何、过滤删掉了多少位点」。删得少(<10%)说明数据干净；删得多(>20%)说明要么数据有问题，要么阈值太严。
+
+- `marker_filter_stats.txt` / `rf_filter_stats.txt`：各过滤步骤删除/保留的标记数与比例。删除比例异常高（如 RF 过滤删掉 >20%）提示基因型质量或阈值设置问题
+- `local_hotspot_removed.tsv`：被删标记及原因。**错误标记常成簇**（连续多对过硬阈值共享标记），实际删除数低于「对数×2」属正常
+- `singleton_het_report.tsv`：孤立重组标记的 H 比例诊断，辅助判断杂合异常
+
+## 参数选择建议 | Parameter Guidance
+
+- **`--map-mode`**：有参考基因组先跑默认 `mstmap`（一次拿两个图谱互相验证）；仅要物理定位用 `physical` 最快；无参考/高杂合群体可用 `estimate`
+- **`--n-perm`**：探索性快速扫描可先 `--n-perm 0` 跳过置换看曲线形状；正式结果用 1000（耗时与标记数/样本数成正比）
+- **`--local-hotspot`**：BSA 双亲群体保持默认开；高质量、低错配数据可 `--no-local-hotspot` 关闭
+- **`--local-hotspot-relative`**：高重组背景的染色体（绝对阈值误杀）可给 1.0~2.0，阈值变为 max(绝对值, 系数×近距对 RF 中位数)
+- **`--min-phys-gap`**：标记 >30 万时建议 300~500，QTL 分辨率无损且大幅提速；稀疏数据(<10 万标记)保持 0
+- **`--skip-ld`**：默认跳过——输入若未预降维且标记高度冗余（>50 万），用 `--no-skip-ld` 启用
+- **`--mstmap-pvalue`**：无需手调，内置自动调优（迭代 p 值直到核心 LG 数 ≤ 染色体数×3）
+- **`--threads`**：仅模块直调可用，R/MSTmap 步骤的并行度有限，默认 1 即可
+
+## 依赖 | Dependencies
 
 - Python 3
-- R环境（需安装 qtl 包）
-- MSTmap（仅 mstmap 模式，默认路径 `~/miniforge3/envs/Rqtl/bin/mstmap`）
-- bcftools（用于提取过滤后的VCF）
-- PLINK（用于LD降维计算）
+- R 环境（需安装 qtl 包；通过 `--r-env` 指定）
+- MSTmap（仅 mstmap 模式；`--mstmap-path` 指定，默认 `~/miniforge3/envs/r/bin/mstmap`）
+- bcftools（提取过滤后的 VCF）
+- PLINK（LD 降维计算，仅启用 LD 时）
+
+## 常见问题 | FAQ
+
+**Q1：换参数重跑，为什么结果没变？**
+断点续传按输出文件存在性判断。换过滤参数（如 `--maf`、`--min-phys-gap`）重跑旧输出目录前，先删除对应的旧产物（如 `01_qc/filtered_markers.vcf.gz`），否则会复用旧参数的结果。
+
+**Q2：物理模式和 mstmap 模式的 LOD 能直接对比吗？**
+不能。物理模式坐标是 Mb（pseudo-cM），window/step 与 mstmap 的 cM 尺度不同，LOD/阈值只在同一图谱内比较。
+
+**Q3：为什么 LG 数比染色体数多？**
+重组冷点（着丝粒等）使一条染色体被拆成多个 LG，正常现象。用 `marker_map_index.tsv` 把 LG 映射回物理染色体。
+
+**Q4：RF 过滤删了很多标记正常吗？**
+删除比例 <10% 通常正常；错误标记成簇删除时实际删除数低于「对数×2」。若 RF 过滤删 >20%，检查基因型错误率与 `--max-mean-rf`/`--local-hotspot` 阈值是否过严。
+
+**Q5：`--threads`/`--mstmap-path` 在 `biopytools cim` 里没有？**
+这两个参数只在直接调用 `python -m biopytools.cim` 时暴露，click 包装器用默认值（threads=1，mstmap 走 `--mstmap-path` 默认路径）。
+
+**Q6：mstmap 的 LOD 文件里 chr_bp/pos_bp 列是什么？**
+为 LOD 网格点标注的物理坐标（两侧标记线性插值），用于把图谱峰对应回基因组；单标记 LG 直接取该标记坐标。重复运行脚本不会重复追加这两列（幂等守卫）。
