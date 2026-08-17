@@ -9,11 +9,12 @@ GSA data is exposed via HTTPS autoindex: https://download.cncb.ac.cn/gsa2/{CRA}/
 with fallback to /gsa/{CRA}/{CRR}/ for older projects
 """
 
+import html
 import logging
 import re
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
-from .utils import get_requests
+from .utils import get_requests, create_retry_session
 
 # 默认GSA下载主机|Default GSA download host
 DEFAULT_GSA_BASE = "https://download.cncb.ac.cn"
@@ -25,6 +26,16 @@ GSA_SEARCH_URL = "https://ngdc.cncb.ac.cn/gsa/search"
 # NGDC GSA浏览页(列出该Run的精确HTTPS/FTP下载链接)
 # |NGDC GSA browse page (lists the run's exact HTTPS/FTP download links)
 GSA_BROWSE_URL = "https://ngdc.cncb.ac.cn/gsa/browse/{cra}/{run}"
+
+# 浏览页专用短超时(秒):页面仅~15KB,用60秒ftp超时会让NGDC故障拖垮整批CRR
+# |Dedicated short timeout (s) for the browse page: it is ~15KB; the 60s ftp
+# timeout would let an NGDC outage stall the whole CRR batch
+BROWSE_PAGE_TIMEOUT = 15
+
+# 浏览页连续失败达到该次数后熔断(本实例内跳过浏览页,直接autoindex),命中即复位
+# |Skip the browse page after this many consecutive transport failures (this
+# instance goes straight to autoindex); a hit resets the counter
+BROWSE_FAILURE_LIMIT = 3
 
 # NGDC拒绝python-requests默认UA(直接断连,实测),须伪装浏览器UA
 # |NGDC drops the default python-requests UA (verified live); send a browser UA
@@ -78,6 +89,8 @@ class GSAHTTPSearcher:
                     headers["User-Agent"] = BROWSER_UA
         # CRR→CRA解析结果缓存|Cache of CRR→CRA resolutions
         self._cra_cache = {}
+        # 浏览页连续传输失败计数(熔断用)|Consecutive browse-page transport failures (for tripping)
+        self._browse_failures = 0
 
     def resolve_cra(self, run_id: str) -> Optional[str]:
         """
@@ -132,26 +145,19 @@ class GSAHTTPSearcher:
         """创建带重试的HTTP会话|Create HTTP session with retries"""
         if self.requests is None:
             raise ImportError("requests未安装|requests not installed")
-        from requests.adapters import HTTPAdapter
-        from urllib3.util.retry import Retry
-
-        session = self.requests.Session()
-        retries = Retry(
-            total=retry_attempts,
-            backoff_factor=0.5,
-            status_forcelist=[500, 502, 503, 504]
-        )
-        session.mount('https://', HTTPAdapter(max_retries=retries))
-        return session
+        return create_retry_session(self.requests, retry_attempts)
 
     def search_files(self, cra_accession: str, run_id: str) -> List[str]:
         """
         查找CRR Run的下载文件URL|Find download file URLs for a CRR run
 
         首选刮取NGDC浏览页(精确链接,天然覆盖gsa2/gsa3布局与tar.gz等任意文件名),
-        失败再回退autoindex目录探测
+        失败再回退autoindex目录探测;浏览页连续传输失败(超时/5xx,404不算)达到阈值后
+        熔断跳过,避免NGDC故障时每个Run都等一轮超时
         |Scrapes the NGDC browse page first (exact links, covers gsa2/gsa3 layouts
-        and arbitrary names like tar.gz), falling back to autoindex probing
+        and arbitrary names like tar.gz), falling back to autoindex probing; the
+        browse page is tripped after consecutive transport failures (timeouts/5xx,
+        not 404s) so an NGDC outage does not cost a timeout on every run
 
         Args:
             cra_accession: GSA项目编号(CRA开头)|GSA project accession (CRA prefix)
@@ -166,18 +172,30 @@ class GSAHTTPSearcher:
             )
             return []
 
-        urls = self._search_browse_page(cra_accession, run_id)
-        if urls:
-            self.logger.info(
-                f"GSA浏览页找到 {len(urls)} 个文件|GSA browse page found {len(urls)} files: {run_id}"
+        if self._browse_failures < BROWSE_FAILURE_LIMIT:
+            urls, endpoint_ok = self._search_browse_page(cra_accession, run_id)
+            if urls:
+                # 命中即复位熔断计数|A hit resets the trip counter
+                self._browse_failures = 0
+                self.logger.info(
+                    f"GSA浏览页找到 {len(urls)} 个文件|GSA browse page found {len(urls)} files: {run_id}"
+                )
+                return urls
+            # 仅端点故障(超时/5xx)计入熔断;404=端点健康但无该Run,不计
+            # |Only endpoint failures (timeouts/5xx) count toward tripping;
+            # a 404 means the endpoint is healthy, the run just is not there
+            if not endpoint_ok:
+                self._browse_failures += 1
+        else:
+            self.logger.debug(
+                "GSA浏览页连续失败已熔断,跳过|GSA browse page tripped after consecutive failures, skipping"
             )
-            return urls
 
         for layout in GSA_LAYOUTS:
             dir_path = layout.format(cra=cra_accession, run=run_id)
             url = f"{self.base_url}{dir_path}"
             self.logger.info(f"GSA查询|GSA query: {url}")
-            content = self._fetch(url)
+            content, _ = self._fetch(url)
             if content is None:
                 continue
 
@@ -191,7 +209,7 @@ class GSAHTTPSearcher:
         self.logger.warning(f"GSA未找到文件|No GSA files found for: {run_id}")
         return []
 
-    def _search_browse_page(self, cra_accession: str, run_id: str) -> List[str]:
+    def _search_browse_page(self, cra_accession: str, run_id: str) -> Tuple[List[str], bool]:
         """
         刮取NGDC浏览页提取该Run的下载链接|Scrape the NGDC browse page for the run's download links
 
@@ -200,41 +218,52 @@ class GSAHTTPSearcher:
             run_id: GSA Run ID|GSA Run ID
 
         Returns:
-            HTTPS链接优先,无HTTPS时返回FTP链接|HTTPS links preferred; FTP links if no HTTPS
+            (HTTPS优先的链接列表, 端点是否健康);404算健康(未命中),超时/5xx不算
+            |(HTTPS-preferred links, endpoint healthy); a 404 counts as healthy
+            (clean miss), timeouts/5xx do not
         """
         url = GSA_BROWSE_URL.format(cra=cra_accession, run=run_id)
         self.logger.info(f"GSA浏览页查询|GSA browse page query: {url}")
-        content = self._fetch(url)
+        # 浏览页用专用短超时,不占用ftp_timeout|Browse page uses its own short timeout
+        content, endpoint_ok = self._fetch(url, timeout=BROWSE_PAGE_TIMEOUT)
         if content is None:
-            return []
+            return [], endpoint_ok
 
-        # 只保留URL路径含/{run}/且文件名以run开头的链接,过滤qtrans、他Run与页面资源
+        # 只保留URL路径含/{run}/且文件名以run开头的链接,过滤qtrans、他Run与页面资源;
+        # 链接先做HTML实体反转义(&amp;→&)
         # |Keep links whose path contains /{run}/ and filename starts with the run,
-        # excluding qtrans links, foreign runs and page assets
+        # excluding qtrans links, foreign runs and page assets; unescape entities first
         run_links = []
-        for link in re.findall(r'https?://[^"\s<>]+|ftp://[^"\s<>]+', content):
+        for raw_link in re.findall(r'https?://[^"\s<>]+|ftp://[^"\s<>]+', content):
+            link = html.unescape(raw_link)
             path = link.split("?")[0].rstrip("/")
             name = path.rsplit("/", 1)[-1]
             if f"/{run_id}/" in path and name.startswith(run_id):
                 run_links.append(link)
 
-        https_links = sorted(set(l for l in run_links if l.startswith("https://")))
-        if https_links:
-            return https_links
-        return sorted(set(run_links))
+        links = sorted(set(run_links))
+        https_links = [l for l in links if l.startswith("https://")]
+        return (https_links or links), True
 
-    def _fetch(self, url: str) -> Optional[str]:
-        """GET目录列表,404或异常返回None|GET a directory listing; None on 404 or error"""
+    def _fetch(self, url: str, timeout: Optional[int] = None) -> Tuple[Optional[str], bool]:
+        """
+        GET页面|GET a page
+
+        Returns:
+            (页面文本或None, 端点是否健康):404=健康但未命中;异常/5xx=不健康
+            |(page text or None, endpoint healthy): 404 = healthy miss;
+            transport errors / 5xx = unhealthy
+        """
         requests = self.requests
         try:
-            response = self.session.get(url, timeout=self.timeout)
+            response = self.session.get(url, timeout=timeout or self.timeout)
             if response.status_code == 404:
-                return None
+                return None, True
             response.raise_for_status()
-            return response.text
+            return response.text, True
         except requests.exceptions.RequestException as e:
             self.logger.warning(f"GSA查询失败|GSA query failed: {url}: {e}")
-            return None
+            return None, False
 
     def _parse_autoindex(self, content: str, run_id: str) -> List[str]:
         """

@@ -28,6 +28,31 @@ def get_requests():
         return None
 
 
+def create_retry_session(requests_module, retry_attempts: int):
+    """
+    创建带重试适配器的HTTP会话(模块内ena/gsa/ncbi搜索器共用)
+    |Create an HTTP session with a retry adapter (shared by the module's ena/gsa/ncbi searchers)
+
+    Args:
+        requests_module: 已导入的requests模块|The imported requests module
+        retry_attempts: 重试次数|Retry count
+
+    Returns:
+        挂载了Retry适配器的Session|A Session with a Retry adapter mounted
+    """
+    from requests.adapters import HTTPAdapter
+    from urllib3.util.retry import Retry
+
+    session = requests_module.Session()
+    retries = Retry(
+        total=retry_attempts,
+        backoff_factor=0.5,
+        status_forcelist=[500, 502, 503, 504]
+    )
+    session.mount('https://', HTTPAdapter(max_retries=retries))
+    return session
+
+
 class CNCBLogger:
     """CNCB日志管理器|CNCB Logger Manager"""
 

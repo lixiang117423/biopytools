@@ -34,6 +34,11 @@ class CNCBConfig:
     # ENA回退配置|ENA fallback configuration
     ena_fallback: bool = True
 
+    # NCBI SDL回退配置|NCBI SDL fallback configuration
+    # ena_fallback=False时整条回退链关闭;ncbi_fallback=False仅关NCBI一级
+    # |ena_fallback=False disables the whole fallback chain; ncbi_fallback=False only the NCBI stage
+    ncbi_fallback: bool = True
+
     # 日志配置|Logging configuration
     verbose: bool = False
     log_file: Optional[str] = None

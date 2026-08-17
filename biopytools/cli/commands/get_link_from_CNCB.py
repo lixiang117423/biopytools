@@ -74,10 +74,13 @@ def _validate_file_exists(file_path):
 @click.option('--no-ena-fallback',
               is_flag=True,
               help='关闭ENA/NCBI回退查询(纯CNCB模式)|Disable ENA/NCBI fallback queries (pure CNCB mode)')
+@click.option('--no-ncbi-fallback',
+              is_flag=True,
+              help='仅关闭NCBI SDL回退(保留ENA)|Disable only the NCBI SDL fallback (keep ENA)')
 def get_link_from_CNCB(input, output, failed, download_script, ftp_host,
                        ftp_timeout, retry_attempts, verbose,
                        log_file, no_download_script, no_executable,
-                       no_ena_fallback):
+                       no_ena_fallback, no_ncbi_fallback):
     """
     CNCB测序数据下载链接提取工具|CNCB Sequencing Data Download Links Extraction Tool
 
@@ -103,7 +106,8 @@ def get_link_from_CNCB(input, output, failed, download_script, ftp_host,
             log_file=str(log_file) if log_file else None,
             generate_download_script=not no_download_script,
             script_executable=not no_executable,
-            ena_fallback=not no_ena_fallback
+            ena_fallback=not no_ena_fallback,
+            ncbi_fallback=not no_ncbi_fallback
         )
 
         # 运行提取|Run extraction

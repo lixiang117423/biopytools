@@ -9,7 +9,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 from typing import Callable, Dict, List, Optional
 
-from .utils import get_requests
+from .utils import get_requests, create_retry_session
 
 # 默认ENA Portal API地址|Default ENA Portal API endpoint
 DEFAULT_ENA_API = "https://www.ebi.ac.uk/ena/portal/api/filereport"
@@ -65,17 +65,7 @@ class ENALinkSearcher:
         """创建带重试的HTTP会话|Create HTTP session with retries"""
         if self.requests is None:
             raise ImportError("requests未安装|requests not installed")
-        from requests.adapters import HTTPAdapter
-        from urllib3.util.retry import Retry
-
-        session = self.requests.Session()
-        retries = Retry(
-            total=retry_attempts,
-            backoff_factor=0.5,
-            status_forcelist=[500, 502, 503, 504]
-        )
-        session.mount('https://', HTTPAdapter(max_retries=retries))
-        return session
+        return create_retry_session(self.requests, retry_attempts)
 
     def search_links(self, run_ids: List[str]) -> Dict[str, List[str]]:
         """
