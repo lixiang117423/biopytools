@@ -15,7 +15,8 @@ dependencies = [
     "scikit-learn>=1.0.0",
     "matplotlib>=3.5.0",
     "seaborn>=0.11.0",
-    "click>=8.0.0"  # 添加Click依赖
+    "click>=8.0.0",  # 添加Click依赖
+    "requests",
 ]
 
 [project.scripts]
