@@ -1,7 +1,7 @@
 # BioPyTools Python代码开发规范文档
 
-## 版本: 2.18
-## 日期: 2026-07-28
+## 版本: 2.21
+## 日期: 2026-08-17
 ## 用途: 统一所有生信分析模块的代码结构、命名规范、日志格式
 
 > 📐 **文档结构说明|Doc Structure:** 本文件只保留**核心规则与检查清单**(每次会话全量加载)。
@@ -24,6 +24,7 @@
 - [十一、测试规范与路径管理规范](#十一测试规范与路径管理规范)
 - [十二、输出目录和文件命名规范](#十二输出目录和文件命名规范)
 - [十三、Conda环境软件调用规范](#十三conda环境软件调用规范)
+- [十四、模块文档规范](#十四模块文档规范)
 - [📚 详细参考文档](#-详细参考文档)
 - [版本历史](#版本历史)
 
@@ -597,6 +598,7 @@ result = subprocess.run(cmd, shell=False, ...)
 | 改路径管理、迁移旧代码、查 paths.py 实现 | [docs/dev-standards/11_path_management.md](docs/dev-standards/11_path_management.md) |
 | 设计输出目录结构、写版本信息 yml | [docs/dev-standards/12_output_naming.md](docs/dev-standards/12_output_naming.md) |
 | 调用 conda 环境软件、排查 conda 命令 | [docs/dev-standards/13_conda_invocation.md](docs/dev-standards/13_conda_invocation.md) |
+| 写模块用户文档、参数通俗化写法（§14） | [docs/cim.md](docs/cim.md)（cim 模板示例） |
 | 查某软件装在哪个 conda 环境（超算找现成软件） | [docs/conda_env_software_map.md](docs/conda_env_software_map.md) |
 
 ---
@@ -605,6 +607,7 @@ result = subprocess.run(cmd, shell=False, ...)
 
 | 版本 | 日期 | 主要变更|Major Changes |
 |------|------|----------|
+| 2.21 | 2026-08-17 | 新增 §14「模块文档规范」：每模块必须配 `docs/<module>.md`（固定12节模板+通俗化写作要求+参数表自动生成禁止手写，审查不通过条款）；模板示例 docs/cim.md |
 | 2.20 | 2026-08-16 | 新增 §10.1.1「Mac↔超算↔GitHub 三角工作流」：两循环+两铁律(单边改码/跨边先清对侧) |
 | 2.19 | 2026-08-16 | 新增 §13.5「软件→环境速查表」引用（docs/conda_env_software_map.md）：超算找现成软件优先 14 域环境、禁用手工废弃环境 |
 | 2.18 | 2026-07-28 | 新增 §10.4「临时测试/调试输出位置」：探索性/ad-hoc 测试产物严禁写入仓库 cwd，统一放 `~/tmp/<描述性子目录>/`；与 §11.A 正式单测(tests/)、§12.4 流程临时文件(output_dir/tmp)明确区分 |
