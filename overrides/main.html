@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  {# iOS/Safari 不支持 SVG favicon,单独声明 apple-touch 图标 #}
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/apple-touch-180.png' | url }}">
+{% endblock %}

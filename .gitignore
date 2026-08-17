@@ -248,6 +248,12 @@ output/
 *.jpeg
 *.svg
 
+# 文档站点资源必须入库(§14 MkDocs站点logo/favicon/主题overrides)
+# |Docs site assets must be tracked (logo/favicon/theme overrides)
+!docs/assets/*.png
+!docs/assets/*.svg
+!overrides/*.html
+
 # Text outputs (with exceptions)
 *.txt
 !requirements.txt
