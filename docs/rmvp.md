@@ -1,213 +1,205 @@
-# rMVP GWAS分析工具 | rMVP GWAS Analysis Tool
+# rMVP 批量 GWAS 分析 | rMVP Batch GWAS Analysis
 
-版本 | Version: 1.0.0
-作者 | Author: Xiang LI
-日期 | Date: 2026-04-01
+一句话理解：**把「哪个基因位点决定了某个性状」这件事，用 R 包 rMVP 的三个统计模型(GLM/MLM/FarmCPU)自动批量扫出来**。输入一个 VCF(群体基因型)和一个表型文件(每行一个样本的性状值)，输出每个位点的显著性排行表 + 曼哈顿图/QQ图。
 
-## 概述 | Overview
+## 功能概述 | Overview
 
-rMVP工具是基于**rMVP R包**的全基因组关联分析（GWAS）Python包装器，支持多种统计模型（GLM、MLM、FarmCPU），提供完整的GWAS分析流程和可视化功能。
+- 封装 R 包 rMVP，支持三种 GWAS 模型：`GLM`(快但粗糙)、`MLM`(校正亲缘关系，稳)、`FarmCPU`(快而准，大规模首选)
+- 支持多表型批量分析：表型文件可以有多个性状列，一次全跑
+- 内置 LD 去连锁(PLINK)：亲缘矩阵/PCA 在去连锁后的 SNP 上算，GWAS 用全部 SNP
+- 断点续传：已完成的步骤自动跳过(换参数重跑需删旧产物，见 FAQ)
+- 自动整合结果：多模型多表型的 P 值合并成一张总表，并导出 ldblockshow 专用 TSV
 
-The rMVP tool is a Python wrapper for the **rMVP R package** for Genome-Wide Association Studies (GWAS), supporting multiple statistical models (GLM, MLM, FarmCPU), providing a complete GWAS analysis pipeline and visualization functionality.
-
-## 功能特点 | Features
-
-- 🧬 **多模型支持**: 支持GLM、MLM、FarmCPU三种GWAS模型
-- 📊 **完整流程**: VCF数据转换、GWAS分析、结果可视化一站式完成
-- 🗺️ **多种可视化**: 曼哈顿图、QQ图、环形图等多种图表类型
-- 🎯 **批量分析**: 支持多表型批量分析
-- 💾 **断点续传**: 自动跳过已完成的步骤，支持中断恢复
-- ⚡ **高性能**: 支持多线程并行计算
-- 📈 **结果解析**: 自动提取显著信号位点和统计信息
-- 🔧 **灵活配置**: 丰富的参数配置选项
-
-## 分析模型 | Analysis Models
-
-### GLM (General Linear Model | 一般线性模型)
-
-**特点 | Characteristics:**
-- 计算速度快
-- 适用于初步探索性分析
-- 不考虑群体结构和亲缘关系
-
-**适用场景 | Use Cases:**
-- 样本量较小（< 1000）
-- 群体结构简单
-- 快速筛查候选基因
-
-### MLM (Mixed Linear Model | 混合线性模型)
-
-**特点 | Characteristics:**
-- 控制群体结构和亲缘关系
-- 假阳性率低
-- 计算速度较慢
-
-**适用场景 | Use Cases:**
-- 样本量较大
-- 存在明显的群体结构
-- 需要精确的关联分析
-
-### FarmCPU (Fixed and random model Circulating Probability Unification)
-
-**特点 | Characteristics:**
-- 固定效应和随机效应循环使用
-- 在速度和准确性之间取得平衡
-- 参数优化较为复杂
-
-**适用场景 | Use Cases:**
-- 大规模数据集（> 10K样本）
-- 需要兼顾速度和准确性
-- 推荐作为主要分析方法
-
-## 安装和使用 | Installation and Usage
-
-### 前置要求 | Prerequisites
-
-#### R环境要求 | R Environment Requirements
+## 快速开始 | Quick Start
 
 ```bash
-# 创建conda环境
-conda create -n rMVP r-base
-conda activate rMVP
-
-# 安装rMVP包
-R -e "install.packages('rMVP', repos='https://cloud.r-project.org')"
+biopytools rmvp -i input.vcf.gz -p phenotype.txt -o output
 ```
 
-#### Python环境要求 | Python Environment Requirements
+最小输入：一个 VCF(.vcf/.vcf.gz，压缩格式会自动解压)+ 一个 TSV 表型文件(第一列样本名，后面是性状值)。
 
-```bash
-# biopytools会自动处理Python依赖
-# 确保biopytools已安装
-pip install biopytools
+## 零基础概念速览 | Concepts in plain words
+
+| 术语 | 通俗理解 |
+|------|----------|
+| GWAS | 全基因组扫描，找出「哪些位点与性状显著相关」 |
+| GLM | 一般线性模型，最朴素：只比「有这个碱基 vs 没这个碱基」的差异，快但不看「亲戚关系」 |
+| MLM | 混合线性模型：额外考虑亲缘关系，像「把表兄弟之间的相似性先扣除」，假阳性更少 |
+| FarmCPU | 固定/随机效应循环，兼顾速度和准确度，大数据集首选 |
+| 亲缘关系矩阵(K) | 个体间基因相似度表格，用来校正「长得像是因为有血缘」 |
+| 主成分(PCA/PC) | 群体结构的「主轴」，作为协变量放进模型排除分层干扰 |
+| LD 去连锁(pruning) | 相邻位点往往「绑定遗传」，信息重复；去连锁=每个「团」只留一个代表来算 K/PCA，省计算 |
+| MAF | 「少数派碱基」占比，太低=位点没信息量 |
+| 曼哈顿图 / QQ图 | 前者把每位点 -log10(P) 画成天际线(塔高=显著)，后者诊断整体信号是否正常 |
+| 显著性阈值 | 越过这条线的位点才算「显著」 |
+
+## 输入 | Input
+
+### VCF 文件
+
+标准 VCF 格式，支持 `.vcf` 和 `.vcf.gz`。注意：rMVP 底层的 VCF 解析**不支持 gzip**，所以 .gz 会先用 `zcat` 解压到输出目录再分析(无需手动处理)。样本名须与表型文件一致。
+
+### 表型文件
+
+TSV 制表符分隔，**第一列样本名，后面可以有多列性状**(支持多表型批量分析)，必须有表头：
+
+```text
+SampleID    Height    Yield
+Sample1     0.85      1.2
+Sample2     0.72      0.9
+Sample3     0.91      NA
 ```
 
-### 作为biopytools模块使用 | Using as biopytools module
+- 表型值为数值，缺失用 `NA`。
+- 有几列性状，就会跑「性状数 × 模型数」次分析(默认 3 模型)。
 
-```bash
-# 基本用法
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/
+## 参数说明 | Parameters
 
-# 使用未压缩VCF（推荐）
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/
+### 必需参数 | Required
 
-# 指定模型和线程数
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/ -m GLM FarmCPU -t 24
+| 参数 | 说明 |
+|------|------|
+| `-i, --vcf` | 输入 VCF 文件 |
+| `-p, --pheno` | 表型文件(TSV: 样本ID + 性状列) |
+| `-o, --output` | 输出目录 |
 
-# 使用特定conda环境
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/ -r my_r_env
+### 模型与计算 | Models & computing
+
+**通俗理解|In plain words:** `--models` 选跑哪几个模型(默认三个全跑，结果互相对照)。`--ncpus` 是并行核数；`--maxLine` 是每次读多少个 SNP——**内存不够时调小它**(如 5000)，一般不用动。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--models` | `GLM MLM FarmCPU` | 分析模型(可多选) |
+| `--ncpus` | `12` | CPU 核心数 |
+| `--maxLine` | `10000` | 每次读取的 SNP 数(影响内存) |
+| `--output-prefix` | `RMVP_Result` | 输出前缀 |
+
+### PCA 协变量 | PCA covariates
+
+**通俗理解|In plain words:** 每个模型用几个主成分当协变量来校正群体结构。**默认 3 个，一般不用动**；群体结构特别复杂(如多地区混合)时可适当加。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--n-pc-glm` | `3` | GLM 使用的 PC 数 |
+| `--n-pc-mlm` | `3` | MLM 使用的 PC 数 |
+| `--n-pc-farmcpu` | `3` | FarmCPU 使用的 PC 数 |
+
+### 模型内部参数 | Model internals
+
+**通俗理解|In plain words:** 这些是 rMVP 模型内部的「引擎参数」，**默认值经过实践验证，一般不用动**。`--vc-method` 决定 MLM 怎么估方差组分；`--max-loop` 和 `--method-bin` 是 FarmCPU 的迭代与分箱方式。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--vc-method` | `BRENT` | MLM 方差组分方法(BRENT/EMMA/HE) |
+| `--max-loop` | `10` | FarmCPU 最大迭代次数 |
+| `--method-bin` | `static` | FarmCPU bin 方法(static/fast-lmm) |
+
+### 位点过滤 | Marker filtering
+
+**通俗理解|In plain words:** 默认**不过滤**(`--maf`/`--miss` 为空)。数据质量差时再给值，如 `--maf 0.05 --miss 0.1` 表示删掉「少数派占比 <5%」和「缺失 >10%」的位点。
+
+### LD 去连锁 | LD pruning
+
+**通俗理解|In plain words:** 默认开启，用 PLINK 去连锁后算亲缘矩阵和 PCA，GWAS 仍用全部 SNP。**默认参数(3000kb 窗口、r²=0.2)一般不用动**；位点特别密时可调小窗口。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--ld-pruning/--no-ld-pruning` | 开 | LD 去连锁开关 |
+| `--ld-window` | `3000kb` | LD 修剪窗口 |
+| `--ld-step` | `1` | LD 修剪步长 |
+| `--ld-r2` | `0.2` | LD r² 阈值 |
+| `--plink-path` | 自动 | PLINK 路径(默认 conda env pop) |
+
+### 输出控制 | Output control
+
+**通俗理解|In plain words:** 控制图的格式和显著性线。`--file-type` 选图片格式，`--dpi` 设清晰度，`--threshold` 是「显著」的判定线(默认 0.05，可设 1e-6 等更严)。
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--file-type` | `jpg` | 图片格式 jpg/pdf/tiff |
+| `--dpi` | `300` | 图片分辨率 |
+| `--threshold` | `0.05` | 显著性阈值 |
+
+### R 环境 | R environment
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--r-env` | `rMVP` | R conda 环境名或路径 |
+| `--r-path` | 无 | R 可执行文件路径(直调模式) |
+
+## 分析流程 | Pipeline
+
+**通俗理解|In plain words:** 先检查依赖 → 用 PLINK 去连锁 → 转成 rMVP 格式并算亲缘矩阵/PCA → 逐个模型跑 GWAS → 把结果整合成总表。
+
+```text
+输入 VCF + 表型
+    │
+    ▼
+检查依赖(R/rMVP 包/PLINK) → 验证输入
+    │
+    ▼
+LD 去连锁(PLINK，默认开): 去连锁 SNP 用于算 K/PCA
+    │
+    ▼
+数据转换(rMVP MVP.Data): VCF → 基因型矩阵 + K + PCA
+    │
+    ▼
+批量 GWAS: 逐表型逐模型跑 GLM/MLM/FarmCPU
+    │
+    ▼
+结果整合: 合并 P 值总表 + 汇总报告 + ldblockshow TSV
 ```
 
-### 作为Python模块使用 | Using as Python module
+## 输出 | Output
 
-```python
-from biopytools.rmvp import RMVPConfig, RMVPAnalyzer
+输出全部平铺在 `--output` 目录下(无子目录)。记 `{prefix}`=输出前缀(默认 `RMVP_Result`)、`{trait}`=性状名、`{model}`=GLM/MLM/FarmCPU：
 
-# 创建配置
-config = RMVPConfig(
-    vcf_file="input.vcf",
-    pheno_file="phenotype.txt",
-    output_dir="output",
-    models=["GLM", "MLM", "FarmCPU"],
-    ncpus=24
-)
-
-# 运行分析
-analyzer = RMVPAnalyzer(config)
-success = analyzer.run_analysis()
+```text
+output/
+├── {prefix}.log                        # 主日志
+├── {prefix}.geno.desc / .phe / .geno.map   # rMVP 基因型矩阵+表型+位点图
+├── {prefix}_pruned.kin.desc / .pc.desc     # 亲缘矩阵/PCA(去连锁 SNP 上算)
+├── {prefix}_convert.R / {prefix}_batch.R   # 生成的 R 脚本
+├── {trait}.{model}.{trait}.csv             # 每位点 P 值(全量结果)
+├── {trait}.{model}_signals.{trait}.csv     # 显著位点
+├── {trait}.{model}.{PlotType}.{trait}.jpg  # 曼哈顿图/QQ图/环形图等
+├── {prefix}_glm_integrated.txt             # GLM 整合表(每性状×模型一列 P 值)
+├── {prefix}_mlm_integrated.txt / {prefix}_farmcpu_integrated.txt
+├── {prefix}_all_models_integrated.txt      # 三模型合并总表
+├── {prefix}_merged_{model}.csv             # 多表型时按显著合并(仅 >1 性状)
+├── {trait}.{model}.tsv                     # ldblockshow 专用 3 列 TSV
+└── {prefix}_summary_report.txt             # 汇总报告
 ```
 
-## 命令行参数 | Command Line Arguments
+## 结果解读 | Interpreting Results
 
-### 必需参数 | Required Arguments
+### 1. 全量 P 值表(`{trait}.{model}.{trait}.csv`)
 
-| 参数 | 说明 | 示例 |
-|------|------|------|
-| `-i, --vcf` | VCF格式基因型文件（支持压缩但推荐未压缩） | `-i input.vcf` |
-| `-p, --pheno` | 表型文件（TSV格式） | `-p phenotype.txt` |
-| `-o, --output-dir` | 输出目录 | `-o output/` |
+**通俗理解|In plain words:** 最核心的结果，一行一个位点。含 `SNP/CHROM/POS` 列，**最后一列是 P 值**(列名=性状.模型)。P 越小越显著；画成曼哈顿图，塔越高越像真信号。
 
-### 可选参数 | Optional Arguments
+### 2. 整合表(`{prefix}_all_models_integrated.txt`)
 
-| 参数 | 默认值 | 说明 | 示例 |
-|------|--------|------|------|
-| `-m, --models` | `GLM,MLM,FarmCPU` | 分析模型（逗号分隔） | `-m GLM FarmCPU` |
-| `-t, --threads` | `12` | CPU核心数 | `-t 24` |
-| `-r, --r-env` | `rMVP` | conda环境名称 | `-r my_r_env` |
-| `--log-level` | `INFO` | 日志级别 | `--log-level DEBUG` |
+**通俗理解|In plain words:** 把三个模型、所有性状的 P 值拼成一张大表，方便横向对比同一个位点在不同模型/性状下是否都显著——**多模型多性状都显著的点最可信**。
 
-## 表型文件格式 | Phenotype File Format
+### 3. 汇总报告(`{prefix}_summary_report.txt`)
 
-表型文件应为TSV格式（制表符分隔）：
+**通俗理解|In plain words:** 一句话总结：跑了几个性状、几个模型、各出了多少显著位点和图。
 
-```
-SampleID	Trait1
-Sample1	0.85
-Sample2	0.72
-Sample3	0.91
-Sample4	NA
-```
+### 4. 图(曼哈顿/QQ/环形)
 
-**要求 | Requirements:**
-- 第一列：样本ID（必须与VCF文件中的样本名一致）
-- 第二列起：表型值（数值型，缺失值用NA表示）
-- 分隔符：制表符（`\t`）
+**通俗理解|In plain words:** 曼哈顿图找「冒尖的塔」，QQ 图看「尾巴翘不翘」。QQ 图右上角翘起=有真信号；全程贴对角线=基本没信号。
 
-## 输出文件 | Output Files
+## 参数选择建议 | Parameter Guidance
 
-### 数据转换输出 | Data Conversion Output
-
-- `{prefix}.geno.bin` - 基因型二进制文件
-- `{prefix}.geno.desc` - 基因型描述文件
-- `{prefix}.geno.map` - SNP位置信息
-- `{prefix}.geno.ind` - 样本信息
-- `{prefix}.phe` - 表型数据
-- `{prefix}.kin.bin` / `{prefix}.kin.desc` - Kinship矩阵
-- `{prefix}.pc.bin` / `{prefix}.pc.desc` - PCA结果
-
-### GWAS分析输出 | GWAS Analysis Output
-
-#### 数据文件 | Data Files
-
-- `{prefix}_{trait}.{model}.csv` - 完整SNP结果
-  - 列：SNP, CHROM, POS, A1, A2, MAF, Effect, SE, p值
-  - 示例：`RMVP_Result_DI.glm.csv`
-
-- `{prefix}_{trait}_signals.{model}.csv` - 显著信号位点
-  - 示例：`RMVP_Result_DI_signals.glm.csv`
-
-- `{prefix}_{trait}.RData` - 单表型分析结果对象
-- `{prefix}_all_results.RData` - 所有表型分析结果
-
-#### 图片文件 | Figure Files
-
-- `{prefix}_{trait}.{model}.Rectangular-Manhattan.{trait}.jpg` - 矩形曼哈顿图
-- `{prefix}_{trait}.{model}.QQplot.{trait}.jpg` - QQ图
-- `{prefix}_{trait}.GLM.{trait}.MLM.{trait}.FarmCPU.Circular-Manhattan.{trait}.jpg` - 环形曼哈顿图
-- `{prefix}_{trait}.GLM.{trait}.MLM.{trait}.FarmCPU.Multracks-Manhattan.{trait}.jpg` - 多轨道曼哈顿图
-- `{prefix}_{trait}.Phe_Dist.{trait}.jpg` - 表型分布图
-- `{prefix}_{trait}.{trait}.PCA_2D.jpg` - PCA二维图
-
-## 断点续传功能 | Checkpoint Resume Feature
-
-本工具支持断点续传，自动跳过已完成的步骤：
-
-### 检查机制 | Check Mechanism
-
-- **数据转换步骤**: 检查 `{prefix}.geno.desc` 文件
-- **GWAS分析步骤**: 检查所有表型-模型组合的 `.pmap` 文件
-
-### 使用示例 | Usage Example
-
-```bash
-# 第一次运行 - 执行完整流程
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/
-# 输出：[3/5] 数据转换|Data conversion
-
-# 中断后重新运行 - 自动跳过已完成步骤
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/
-# 输出：跳过已完成步骤|Skipping completed step: 数据转换|Data conversion
-```
+| 场景 | 建议 |
+|------|------|
+| 常规分析 | 全部默认，三模型一起跑互相对照 |
+| 内存不足 | `--maxLine 5000`(减小单次读入的 SNP 数) |
+| 样本大(>1万) | 用 `--models FarmCPU`，兼顾速度和准确 |
+| 只做快速初筛 | `--models GLM`，最快 |
+| 数据质量一般 | 加 `--maf 0.05 --miss 0.1` 先过滤 |
+| 位点极密 | 调小 `--ld-window`(如 1000kb) |
+| 想要 PDF 高清图 | `--file-type pdf` |
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -249,218 +241,25 @@ biopytools rmvp -i input.vcf -p phenotype.txt -o output/
 
 <!-- END PARAMS:auto -->
 
+## 依赖 | Dependencies
+
+- R + rMVP 包(conda 环境默认 `rMVP`，用 `--r-env` 指定；另需 `bigmemory` 包)
+- PLINK(默认 `~/miniforge3/envs/pop/bin/plink`，可用 `PLINK_PATH` 或 `--plink-path` 覆盖)
+- conda(调用 R 时用 `conda run` 包装)、zcat(解压 gzip VCF)
+
 ## 常见问题 | FAQ
 
-### 1. VCF文件支持压缩格式吗？
+**Q1：换参数重跑，结果为什么没变？**
+断点续传按输出文件存在性判断。换过滤参数(如 `--maf`、`--ld-window`)重跑旧目录前，先删对应旧产物(如 `{prefix}.geno.desc`、`{prefix}_pruned.vcf`)，否则会复用旧结果。
 
-**问题 | Question**: VCF文件支持压缩格式吗？
+**Q2：VCF 是 gz 压缩的能直接用吗？**
+能。工具会自动 `zcat` 解压到输出目录再分析(因为 rMVP 底层不支持 gzip)，无需手动处理。
 
-**答 | Answer**: 代码层面支持`.vcf.gz`，但rMVP包内部不支持压缩格式。
+**Q3：表型文件能放多个性状吗？**
+能。除第一列样本名外，每列一个性状，工具会「性状数 × 模型数」全部跑完，并自动合并多表型显著结果。
 
-**解决方案 | Solution**:
-```bash
-# 推荐使用未压缩的VCF文件
-gunzip -c input.vcf.gz > input.vcf
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/
-```
+**Q4：kin/PCA 是在哪些 SNP 上算的？**
+默认 LD 去连锁后，在去连锁的 SNP 上算亲缘矩阵和 PCA；GWAS 本身仍用全部 SNP。关掉去连锁(`--no-ld-pruning`)则全部 SNP 上算。
 
-### 2. 如何解读GWAS结果？
-
-**问题 | Question**: 如何解读GWAS结果？
-
-**答 | Answer**: 主要查看以下文件：
-
-1. **曼哈顿图** - 识别显著关联的染色体区域
-   - X轴：染色体位置
-   - Y轴：-log10(p值)
-   - 显著阈值线：通常为 -log10(1e-5) 到 -log10(1e-8)
-
-2. **QQ图** - 评估模型拟合度
-   - X轴：期望p值
-   - Y轴：观察p值
-   - 越接近对角线说明模型拟合越好
-
-3. **signals CSV文件** - 提取显著信号位点
-   - 通常筛选条件：p < 1e-5
-   - 包含SNP位置、效应值、MAF等信息
-
-### 3. 如何自定义绘图？
-
-**问题 | Question**: 如何自定义绘图？
-
-**答 | Answer**: 使用RData文件重新绘图：
-
-```r
-# 加载结果
-load("output/RMVP_Result_DI.RData")
-
-# 使用rMVP内置绘图功能
-library(rMVP)
-
-# 重新绘制曼哈顿图
-MVP.Report(
-    phe = imvp$phe,
-    geno = imvp$geno,
-    map = imvp$map,
-    imvp_results = imvp,
-    file.type = "pdf",  # 输出PDF格式
-    dpi = 600
-)
-```
-
-### 4. 内存不足怎么办？
-
-**问题 | Question**: 内存不足怎么办？
-
-**答 | Answer**:
-
-1. **减少线程数**
-   ```bash
-   biopytools rmvp -i input.vcf -p phenotype.txt -o output/ -t 8
-   ```
-
-2. **只运行单个模型**
-   ```bash
-   biopytools rmvp -i input.vcf -p phenotype.txt -o output/ -m FarmCPU
-   ```
-
-3. **使用计算节点**
-   - 大型数据集建议在专用计算节点运行
-   - 避免在登录节点运行
-
-### 5. 分析需要多长时间？
-
-**问题 | Question**: 分析需要多长时间？
-
-**答 | Answer**:
-
-| 数据规模 | CPU核心数 | 数据转换 | GWAS分析 | 总计 |
-|---------|----------|----------|----------|------|
-| 1K样本，100K SNP | 12 | 5分钟 | 5分钟 | 10分钟 |
-| 10K样本，1M SNP | 24 | 30分钟 | 30分钟 | 1小时 |
-| 50K样本，10M SNP | 48 | 2小时 | 3小时 | 5小时 |
-
-**注意**: 使用断点续传功能后，重复运行可跳过数据转换步骤。
-
-## 结果解读指南 | Result Interpretation Guide
-
-### 曼哈顿图解读 | Manhattan Plot Interpretation
-
-1. **X轴**: 染色体位置
-2. **Y轴**: -log10(p值)，值越大表示关联性越强
-3. **阈值线**:
-   - 蓝色：建议阈值（p = 1e-5）
-   - 红色：严格阈值（p = 1e-8）
-4. **显著峰**: 超过阈值线的峰值区域
-
-### QQ图解读 | QQ Plot Interpretation
-
-1. **X轴**: 期望p值（Expected p-value）
-2. **Y轴**: 观察p值（Observed p-value）
-3. **对角线**: 理论分布
-4. **偏离程度**:
-   - 轻微偏离：正常
-   - 严重偏离：可能存在群体结构或假阳性
-
-### 信号位点筛选 | Signal Site Filtering
-
-推荐筛选标准：
-```r
-# 加载signals文件
-signals <- read.csv("RMVP_Result_DI_signals.glm.csv")
-
-# 筛选显著信号（p < 1e-5）
-significant <- signals[signals$DI.GLM < 1e-5, ]
-
-# 进一步筛选MAF > 0.05
-filtered <- significant[significant$MAF > 0.05, ]
-
-# 按p值排序
-sorted <- filtered[order(filtered$DI.GLM), ]
-```
-
-## 性能优化建议 | Performance Optimization Recommendations
-
-### 1. 数据准备优化 | Data Preparation Optimization
-
-- 使用未压缩的VCF文件
-- 确保样本ID在VCF和表型文件中一致
-- 预先过滤低质量SNP（可选）
-
-### 2. 计算资源配置 | Computing Resource Configuration
-
-| 数据规模 | 推荐CPU核心数 | 推荐内存 |
-|---------|--------------|---------|
-| < 1K样本 | 12 | 16 GB |
-| 1K-10K样本 | 24 | 32 GB |
-| > 10K样本 | 48+ | 64 GB+ |
-
-### 3. 模型选择策略 | Model Selection Strategy
-
-**初筛阶段**:
-```bash
-# 只运行GLM快速筛查
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/ -m GLM
-```
-
-**精细分析**:
-```bash
-# 使用FarmCPU精确分析
-biopytools rmvp -i input.vcf -p phenotype.txt -o output/ -m FarmCPU -t 48
-```
-
-## 依赖项 | Dependencies
-
-### R包依赖 | R Package Dependencies
-
-- rMVP >= 1.0.0
-- bigmemory
-- 其他依赖由rMVP自动安装
-
-### Python依赖 | Python Dependencies
-
-- Python >= 3.8
-- pathlib
-- dataclasses
-- logging
-- subprocess
-
-### 系统依赖 | System Dependencies
-
-- conda >= 4.0
-- R >= 4.0.0
-
-## 参考资源 | References
-
-### rMVP相关
-
-- **rMVP GitHub**: https://github.com/zhangwenyu931120/rMVP
-- **rMVP论文**: https://onlinelibrary.wiley.com/doi/full/10.1111/tpj.15451
-- **rMVP文档**: https://github.com/zhangwenyu931120/rMVP/wiki
-
-### GWAS分析方法
-
-- **GWAS方法综述**: https://www.nature.com/articles/nrg3021
-- **MLM方法**: https://www.nature.com/articles/ng.698
-- **FarmCPU方法**: https://www.genetics.org/content/206/3/1393
-
-## 更新日志 | Changelog
-
-### v1.0.0 (2026-04-01)
-
-- 初始版本发布
-- 支持GLM、MLM、FarmCPU三种模型
-- 实现断点续传功能
-- 完整的日志分离（stdout/stderr）
-- 自动R环境检测
-- 结果文件自动解析和整合
-
-## 许可证 | License
-
-本工具遵循biopytools项目的许可证。
-
-## 联系方式 | Contact
-
-作者 | Author: Xiang LI <lixiang117423@gmail.com>
-
-项目地址 | Project: https://github.com/your-org/biopytools
+**Q5：结果文件名里 `{trait}` 重复出现正常吗？**
+正常。rMVP 的文件名规则是 `{trait}.{model}.{trait}.csv`(memo 用性状名)，例如 `Height.GLM.Height.csv`。
