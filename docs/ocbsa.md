@@ -1,82 +1,118 @@
-# BSA分析套件 | OcBSA BSA Analysis Tool Suite
+# OcBSA 混池分离分析 | OcBSA BSA Analysis Suite
 
-**基于DHHP/SNP-index/ED算法的F1/F2群体BSA分析, 含可视化和引物设计 | F1/F2 BSA analysis suite with visualization and primer design**
+一句话理解：**一套 BSA（混池分离分析）工具箱，从 F1/F2 群体的 VCF 里定位控制性状的候选区域，并配套出图和候选区引物设计**，覆盖「定位 → 验证」的完整链路。
 
 ## 功能概述 | Overview
 
-ocbsa 模块是完整的BSA(Bulked Segregant Analysis)混池分析套件, 提供四个子命令: f1 (F1群体DHHP算法分析)、f2 (F2/RILs群体SNP-index/ED分析)、fig (结果可视化绘图)、primer (候选区域引物设计)。DHHP算法适用于显性杂交F1群体, SNP-index和ED适用于F2或RILs分离群体。模块配套绘图和引物设计工具, 形成从定位到验证的完整流程。
+- 4 个子命令：`f1`（F1 群体 DHHP 分析）、`f2`（F2/RILs 群体 SNP-index/ED 分析）、`fig`（结果可视化）、`primer`（候选区域引物设计）
+- `f1` 面向显性杂交 F1（outcross）群体，用 DHHP 算法（OcBSA，Molecular Plant 2024）
+- `f2` 面向 F2/RILs 分离群体，支持 SNP-index 与 ED（欧氏距离）两种方法
+- 亲本与混池各自独立的深度上下限过滤，按染色体多进程并行
+- 滑窗平滑 + 自动绘图，免去手写 R 脚本
 
 ## 快速开始 | Quick Start
 
 ```bash
-# F1群体DHHP分析
 biopytools ocbsa f1 -i input.vcf -p1 1 -p2 2 -b1 3 -b2 4 -o ./output
-
-# F2群体SNP-index分析
-biopytools ocbsa f2 -i input.vcf -p1 1 -p2 2 -b1 3 -b2 4 --method snpindex -o ./output
-
-# 结果可视化
-biopytools ocbsa fig -i result.txt -o output.png --plot-type ocvalue
-
-# 候选区域引物设计
-biopytools ocbsa primer -g genome.fa -i result.OcValue --region Chr01,100000,500000 -o ./output
 ```
 
-## 子命令 | Subcommands
+`-p1/-p2` 是两个亲本在 VCF 样本区的列号，`-b1/-b2` 是两个混池的列号（均从 1 开始数）。
 
-### f1 - F1群体DHHP分析 | F1 DHHP Analysis
+## 零基础概念速览 | Concepts in plain words
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-i, --input-vcf` | 必需 | VCF文件路径 |
-| `-p1`, `-p2` | 必需 | 显性/隐性亲本列号 |
-| `-b1`, `-b2` | 必需 | 显性/隐性表型混池列号 |
-| `-o, --output-dir` | `./output` | 输出目录 |
-| `-w, --window-size` | `1000000` | 滑窗大小 |
-| `-p, --pvalue` | `99` | p值阈值 |
-| `--parent-min-dep/--max-dep` | `10/100` | 亲本最低/最高覆盖度 |
-| `--pool-min-dep/--max-dep` | `20/500` | 混池最低/最高覆盖度 |
+| 术语 | 通俗理解 |
+|------|----------|
+| BSA（混池分离分析） | 把性状相反的后代各自混成一个池测序，找两池差异最大的区域来定位基因 |
+| 亲本/混池列号 | VCF 里每个样本占一列；`-p1` 等参数告诉程序「第几列是谁」 |
+| F1（outcross） | 两个不同品种杂交的第一代，后代像「混合体」；DHHP 专为这种显性定位设计 |
+| F2/RILs | 自交分离群体，个体趋近纯合；用 SNP-index 或 ED 找差异 |
+| DHHP | 一种针对 F1 显性基因的统计量，相当于「两池支持/反对该位点的证据差」 |
+| SNP-index / ED | 两种度量：SNP-index 是两池等位频率之差；ED 是两池频率向量的欧氏距离 |
+| 滑窗平滑 | 把相邻位点的值取平均，抹平单点噪音看趋势 |
 
-### f2 - F2/RILs群体分析 | F2/RILs Analysis
+## 输入 | Input
 
-参数与 f1 基本一致, 额外支持:
+### VCF 文件
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--method` | `snpindex` | 分析方法(snpindex/ED) |
+标准 VCF（`.vcf` / `.vcf.gz`），FORMAT 列需含 AD（`GT:AD`），如 `0/1:12,30`。列号 `-p1/-p2/-b1/-b2` 从 1 开始数，指 VCF 样本区（`#CHROM` 行 FORMAT 之后）的第几个样本；程序会先打印检测到的样本名与列号映射，便于核对。
 
-### fig - 可视化 | Visualization
+### 其他子命令的输入
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-i, --input-file` | 必需 | 输入结果文件 |
-| `-o, --output-file` | 必需 | 输出图片路径(.png/.pdf) |
-| `--plot-type` | `ocvalue` | 图表类型(ocvalue/snpindex/ed) |
-| `--position` | `None` | 特定区域(chr,start,end) |
-| `--color` | `plasma_r` | 颜色方案 |
+- `fig`：`-i` 输入 `f1/f2` 生成的平滑结果文件（`*.smoothed`），`-o` 输出 `.png/.pdf`
+- `primer`：`-g` 参考基因组 FASTA + `-i` OcValue 文件 + `--region chr,start,end`（逗号分隔）
 
-### primer - 引物设计 | Primer Design
+## 分析流程 | Pipeline
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-g, --genome` | 必需 | 参考基因组路径 |
-| `-i, --ocvalue-file` | 必需 | OcValue文件路径 |
-| `--region` | 必需 | 目标区间(chr,start,end) |
-| `-o, --output-dir` | `./output` | 输出目录 |
-| `-n, --primer-num` | `10` | 引物对数量 |
-| `--flank-length` | `200` | INDEL侧翼长度 |
-| `--primer-min/opt/max-size` | `18/20/24` | 引物长度范围 |
-| `--product-min/max` | `70/200` | 产物长度范围 |
-| `--min-tm/--max-tm` | `50.0/65.0` | Tm范围 |
-| `--min-gc/--max-gc` | `35.0/65.0` | GC含量范围 |
-
-(运行 `biopytools ocbsa <subcommand> -h` 查看完整参数列表)
+```text
+输入 VCF
+    │
+    ▼
+读取 VCF(检测样本列号映射)
+    │
+    ▼
+深度/基因型过滤(亲本、混池各用独立上下限)
+    │
+    ▼
+计算指标(f1: DHHP / f2: SNP-index 或 ED)
+    │
+    ▼
+滑窗平滑(按染色体多进程并行)
+    │
+    ▼
+输出结果文件 + 自动绘图
+```
 
 ## 输出 | Output
 
-- f1/f2: `{output}/result.OcValue` 或 `result.snpindex` 滑窗结果文件
-- fig: PNG/PDF图片
-- primer: `{output}/primers.txt` 引物列表 + `{output}/inDel.fa` INDEL序列
+### f1 子命令（`ocbsa f1`）
+
+```text
+output/
+├── ocbsa.OcValue          # 逐位点 DHHP 原始结果(核心)
+├── ocbsa.smoothed         # 滑窗平滑后的 OcValue
+├── ocbsa.summary.tsv      # 供绘图的汇总数据
+├── ocbsa.OcValue.png      # 自动绘制的 OcValue 图
+└── 99_logs/ocbsa_f1.log   # 运行日志
+```
+
+### f2 子命令（`ocbsa f2`）
+
+```text
+output/
+├── f2bsa.snpindex 或 f2bsa.ED    # 逐位点结果(--method 决定)
+├── f2bsa.smoothed                # 滑窗平滑结果
+├── f2bsa.summary.tsv             # 供绘图的汇总数据
+├── f2bsa.SNP-index.png 或 f2bsa.ED.png  # 自动绘制的图
+└── 99_logs/ocbsa_f2.log
+```
+
+### primer 子命令（`ocbsa primer`）
+
+```text
+output/
+├── primer_design_results.txt      # 引物设计结果(最终产物)
+├── {chr}_{start}_{end}_indel.fasta  # 提取的 INDEL 侧翼序列
+├── indel_genome.blast             # BLAST 比对结果
+└── db/                            # BLAST 数据库
+```
+
+## 结果解读 | Interpreting Results
+
+- **`*.OcValue / *.snpindex`**：逐位点的统计值，绝对值越大越像与性状连锁
+- **`*.smoothed`**：滑窗平滑后的值，用于画图和找峰；图上明显隆起、超过阈值线的山头就是候选区域
+- **`*.png 里的阈值线**：f1 的 OcValue 图在非指定区域模式下画红/绿/蓝三条虚线，分别对应 top95/99/99.9 分位数，点越靠近红色以上越显著
+- **`primer_design_results.txt`**：每行一对引物（左右序列、Tm、GC、产物长度），用于候选区验证
+- **好坏判据**：候选峰若由多个相邻位点共同支持（不是单点尖峰）、且落在目标性状已知区域，结论更可信
+
+## 参数选择建议 | Parameter Guidance
+
+**通俗理解|In plain words:** 亲本/混池深度阈值和窗口大小一般用默认即可；真正需要定的是「你的群体是 F1 还是 F2」以及四个列号。
+
+- **`f1 还是 f2`**：显性杂交 F1（outcross）用 `f1`；自交分离群体（F2/RILs）用 `f2`
+- **`f2 的 --method`**：默认 `snpindex` 最常用；`ED` 对某些数据更稳健，两者可都跑一遍互相印证
+- **`-w/--window-size`（滑窗）**：默认 1Mb 一般不用动；标记稀疏可加大，标记极密可减小
+- **深度阈值（--parent-min/max-dep、--pool-min/max-dep）**：默认亲本 10–100、混池 20–500，一般不用动；只在测序深度明显偏离时才调
+- **`primer` 的引物参数**：默认（长度 18–24、Tm 50–65、产物 70–200）即可，一般不用动
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -164,13 +200,20 @@ biopytools ocbsa primer -g genome.fa -i result.OcValue --region Chr01,100000,500
 
 ## 依赖 | Dependencies
 
-- **primer3**: 引物设计 (用于primer子命令)
-- **Python库**: pandas, numpy, matplotlib
+- Python 库：numpy、matplotlib（绘图）
+- BLAST（`makeblastdb` / `blastn`，仅 `primer` 子命令需要，需在 PATH 中）
+- primer3-py（仅 `primer` 子命令需要）
 
-## 引用 | Citation
+## 常见问题 | FAQ
 
-- Zou C., et al. OcBSA: an integrated bulked segregant analysis workflow for extreme phenotype. (基于DHHP算法)
+**Q1：`-p1/-p2/-b1/-b2` 的列号怎么数？**
+从 1 开始，指 VCF 样本区（`#CHROM` 行 FORMAT 字段之后）的第几个样本。程序启动会打印「检测到 N 个样本」和每个列号对应的样本名，照此核对即可；超出样本总数会直接报错。
 
-## 相关链接 | References
+**Q2：f1 和 f2 该用哪个？**
+取决于群体类型：F1（两个品种杂交的后代，尚未自交）用 `f1`；F2/RILs（已自交分离、个体趋近纯合）用 `f2`。选错会得到无意义的结果。
 
-- [项目主页](https://github.com/lixiang117423/biopytools)
+**Q3：primer 子命令报「makeblastdb/blastn 找不到」？**
+引物设计依赖 BLAST 去重（过滤非唯一序列）。请确认 `makeblastdb`、`blastn` 在 PATH 中，且已安装 primer3-py（`pip install primer3-py`）。
+
+**Q4：为什么有的染色体没出现在结果里？**
+f1 分析会跳过标记数 <1000 的染色体（数据量不足以可靠计算），日志会提示。

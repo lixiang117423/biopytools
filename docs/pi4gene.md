@@ -1,52 +1,100 @@
 # 基因分组核苷酸多样性 | Nucleotide Diversity per Gene Group (pi4gene)
 
-**按分组提取序列、MAFFT比对、计算核苷酸多样性pi | Extract sequences by group, align with MAFFT, calculate nucleotide diversity (pi)**
+一句话理解：**把一组序列按分组（基因家族/同源基因/等位基因）提出来、做多序列比对、算出每个分组的核苷酸多样性 π**，用来比较不同基因家族之间的变异程度。
 
 ## 功能概述 | Overview
 
-pi4gene 用于计算基因分组的核苷酸多样性(nucleotide diversity, pi)。用户提供一个序列FASTA文件和一个分组ID文件(两列:分组名 + 序列ID), 工具会按分组提取序列, 使用 MAFFT 进行多重序列比对, 然后基于比对结果计算每个分组的 pi 值。适用于基因家族、同源基因、等位基因多样性等分析场景。
+- 按分组提取序列 → MAFFT 多序列比对 → 计算 π（Nei & Li, 1979）
+- 每个分组输出一个 π 值和序列条数
+- 断点续传：已提取/已比对的分组自动跳过
+- 分组内序列数 <2 时自动跳过（无法计算 π）
 
 ## 快速开始 | Quick Start
 
 ```bash
-# 标准用法
 biopytools pi4gene -i genes.fasta -d groups.txt -o pi4gene_output
-
-# 多线程加速
-biopytools pi4gene -i genes.fasta -d groups.txt -o pi4gene_output -t 24
 ```
 
-## 参数说明 | Parameters
+最小输入：一个序列 FASTA + 一个分组 ID 文件（两列：分组名、序列 ID）。
 
-### 必需参数 | Required
+## 零基础概念速览 | Concepts in plain words
 
-| 参数 | 描述 |
-|------|------|
-| `-i, --input` | 输入序列FASTA文件路径 |
-| `-d, --id-file` | 分组ID文件(第一列分组名, 第二列序列ID) |
+| 术语 | 通俗理解 |
+|------|----------|
+| π（核苷酸多样性） | 组内序列两两之间平均有多少个碱基不一样；越大=这组序列变异越大 |
+| 多序列比对(MSA) | 把多条序列「对齐」，让同源位置排到同一列，才能公平地比差异 |
+| gap（缺口） | 比对时补进去的空位；计算 π 时全 gap 位点跳过、部分 gap 只算有数据的部分 |
+| 分组 ID 文件 | 一张表告诉程序「哪条序列属于哪一组」 |
 
-### 常用可选参数 | Common Options
+## 输入 | Input
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-o, --output-dir` | `./pi4gene_output` | 输出目录 |
-| `-t, --threads` | `12` | 线程数 |
-| `--mafft-path` | `None` | MAFFT可执行文件路径(默认从PATH查找) |
+### 序列 FASTA
 
-(运行 `biopytools pi4gene -h` 查看完整参数列表)
+标准 FASTA，序列 ID 须与分组 ID 文件第二列一致：
+
+```text
+>geneA_sample1
+ATGCCGTAA
+>geneA_sample2
+ATGTCGTAA
+```
+
+### 分组 ID 文件
+
+每行两列「分组名 序列ID」，分隔符可自动识别（TAB / 逗号 / 空格均可）：
+
+```text
+geneA    geneA_sample1
+geneA    geneA_sample2
+geneB    geneB_sample1
+```
+
+- 序列 ID 在 FASTA 里不存在的会告警并跳过；某分组所有 ID 都找不到时该分组被跳过
+- 每个分组至少 2 条序列才能算 π
+
+## 分析流程 | Pipeline
+
+```text
+输入 FASTA + 分组 ID 文件
+    │
+    ▼
+步骤1: 按分组提取序列 → 01_mafft/{group}.fasta
+    │
+    ▼
+步骤2: MAFFT 多序列比对 → 01_mafft/{group}.aligned.fasta
+    │
+    ▼
+步骤3: 计算 π(Nei & Li 1979) → pi_results.tsv
+```
 
 ## 输出 | Output
 
-输出目录包含每个分组的比对结果和pi统计表:
-
-```
+```text
 pi4gene_output/
-├── alignments/             # 每个分组的MAFFT比对结果
-│   ├── group1.fasta
-│   └── group2.fasta
-├── pi_results.csv          # pi统计结果表
-└── pi4gene.log             # 运行日志
+├── pi_results.tsv                    # π 结果汇总(核心)
+├── 00_pipeline_info/
+│   └── software_versions.yml         # 软件版本与参数
+├── 01_mafft/
+│   ├── {group}.fasta                 # 各分组提取的序列
+│   └── {group}.aligned.fasta         # 各分组 MAFFT 比对结果
+└── 99_logs/
+    └── pi4gene_analysis.log          # 运行日志
 ```
+
+## 结果解读 | Interpreting Results
+
+- **`pi_results.tsv`（核心表）**：三列 `Group / Pi / N_seq`，每个分组一行
+- **π 越大 = 该分组序列之间变异越大**；比较不同基因家族时，π 高的家族进化更快/多样性更高
+- **`N_seq`（序列条数）**：太少（如仅 2 条）时 π 估计代表性有限，解读需谨慎
+- **`.aligned.fasta`**：可直接用别的软件（如建树）继续分析，是可靠的中间产物
+
+## 参数选择建议 | Parameter Guidance
+
+**通俗理解|In plain words:** 这个工具参数极少，基本只有线程数和 MAFFT 路径可能需要动。
+
+- **`-t/--threads`**：默认 12；序列特别多或每条很长时加大可加速 MAFFT
+- **`--mafft-path`**：MAFFT 不在默认 conda 环境（phylo）时，用这个指定路径
+- 其余无需调整
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -78,15 +126,16 @@ pi4gene_output/
 
 ## 依赖 | Dependencies
 
-- **MAFFT**: 多重序列比对 (https://mafft.cbrc.jp/alignment/software/)
-- **Python库**: biopython (用于序列处理和pi计算)
-- **标准库**: multiprocessing (并行化)
+- MAFFT（默认 conda 环境 phylo 的 `~/miniforge3/envs/phylo/bin/mafft`，可用 `MAFFT_PATH` 环境变量或 `--mafft-path` 覆盖）
+- Python 库：biopython（读 FASTA、算 π）
 
-## 引用 | Citation
+## 常见问题 | FAQ
 
-- Katoh K., Standley D.M. (2013) MAFFT multiple sequence alignment software version 7. Molecular Biology and Evolution. 30(4):772-780.
-- Nei M., Li W.H. (1979) Mathematical model for studying genetic variation in terms of restriction endonucleases. PNAS. 76(10):5269-5273.
+**Q1：某些分组没出现在结果里？**
+两类情况会被跳过：分组内序列数 <2（无法算 π），或该分组所有序列 ID 在 FASTA 里都找不到（日志会告警）。请核对分组 ID 文件与 FASTA 的序列 ID 是否完全一致。
 
-## 相关链接 | References
+**Q2：换序列/分组重跑，结果没变？**
+断点续传按 `01_mafft/{group}.fasta`（提取）和 `{group}.aligned.fasta`（比对）是否存在判断。改了输入后需删除 `01_mafft/` 和 `pi_results.tsv`，否则会复用旧结果。
 
-- [项目主页](https://github.com/lixiang117423/biopytools)
+**Q3：π 的范围是多少？**
+对单条比对，π 取值在 0（完全相同）到约 0.75（每对序列都完全不同，DNA 有 4 种碱基）之间；实际基因通常远小于 0.1。

@@ -1,301 +1,109 @@
-# SNP Index计算和分析工具 | SNP Index Calculation and Analysis Tool
+# SNP Index 计算与分析 | SNP Index Calculation and Analysis
 
-版本 | Version: 1.0.0
-作者 | Author: Xiang LI
-日期 | Date: 2025-12-20
+一句话理解：**从 BSA 混池的 VCF 里，算出每个位点的 SNP index 和两个混池之间的 ΔSNP index，自动挑出极端位点与候选区域并出图**，用来定位控制性状的基因组区间。
 
-## 概述 | Overview
+## 功能概述 | Overview
 
-SNP Index工具是一个专门用于**BSA（Bulked Segregant Analysis）**分析的Python包，可以从VCF文件计算SNP index和ΔSNP index，提供完整的统计分析、目标区域检测和可视化功能。
+- 计算 SNP index = Alt深度 / (Ref深度 + Alt深度)，ΔSNP index = 混池1的SNP index − 混池2的SNP index
+- 三重过滤：最小测序深度、最小质量值(QUAL)、最小 mapping 质量(MQ)
+- 四层分析：基本统计 → 极端位点 → 潜在目标区域 → 滑动窗口 + 置信区间
+- 多张可视化：曼哈顿图、ΔSNP index 分布、样本对比、相关性、滑动窗口折线图
+- 三种模式：完整流程（默认）/ 只计算 / 只分析已有结果
 
-The SNP Index tool is a Python package specifically designed for **BSA (Bulked Segregant Analysis)** that calculates SNP index and ΔSNP index from VCF files, providing complete statistical analysis, target region detection, and visualization functionality.
-
-## 功能特点 | Features
-
-- 🧮 **SNP Index计算**: 从VCF文件计算SNP index和ΔSNP index
-- 📊 **统计分析**: 详细的统计信息和分布分析
-- 🗺️ **区域检测**: 自动检测潜在的目标区域
-- 📈 **可视化**: 多种类型的图表和曼哈顿图
-- 🎯 **滑动窗口分析**: 支持滑动窗口折线图（默认启用）
-- 📊 **置信区间**: 自动计算和显示置信区间
-- 🔧 **灵活过滤**: 支持深度、质量等多种过滤条件
-- 📋 **多种输出**: 支持TSV、PNG等多种输出格式
-- 🚀 **高性能**: 支持大文件处理和进度显示
-
-## 计算原理 | Calculation Principle
-
-### SNP Index计算公式 | SNP Index Formula
-
-```
-SNP index = Alt_depth / (Ref_depth + Alt_depth)
-```
-
-其中：
-- Alt_depth: 替代等位基因测序深度 | Alternative allele sequencing depth
-- Ref_depth: 参考等位基因测序深度 | Reference allele sequencing depth
-
-### ΔSNP Index计算公式 | ΔSNP Index Formula
-
-```
-ΔSNP index = SNP_index_pool1 - SNP_index_pool2
-```
-
-## 安装和使用 | Installation and Usage
-
-### 作为biopytools模块使用 | Using as biopytools module
+## 快速开始 | Quick Start
 
 ```bash
-# 完整分析流程
-biopytools snp-index -i input.vcf.gz -o results/ -v
-
-# 自定义参数
-biopytools snp-index -i input.vcf.gz -o results/ \
-    --min-depth 20 --extreme-threshold 0.9
-
-# 只分析已有结果
-biopytools snp-index --analyze-only -r results.tsv -o analysis/
+biopytools snp-index -i variation.filtered.snp.vcf.gz -o results/
 ```
 
-### 作为Python模块使用 | Using as Python module
+最小输入：一个含 AD 字段、至少 2 个样本的 VCF。默认取 VCF 里的前两个样本作为两个「混池」。
 
-```python
-from biopytools.snp_index import SNPIndexConfig, SNPIndexProcessor
+## 零基础概念速览 | Concepts in plain words
 
-# 创建配置
-config = SNPIndexConfig(
-    input_vcf="input.vcf.gz",
-    output_dir="results",
-    min_depth=10,
-    min_quality=20
-)
+| 术语 | 通俗理解 |
+|------|----------|
+| BSA（混池分离分析） | 把「性状相反的个体」各自混成一个池测序，比较两池在每个位点的差异，定位控制性状的基因 |
+| SNP index | 某个位点上「替代等位基因」占多大比例；越接近 1，这个位点越偏替代型 |
+| ΔSNP index | 两个池的 SNP index 之差；绝对值越接近 1，说明两池在该位点差异越大，越像与性状连锁 |
+| 测序深度 | 这个位点被测到多少次；太浅 = 计数不可靠 |
+| 滑动窗口 | 把染色体切成一段段「格子」再统计，抹平单点噪音，看趋势 |
+| 置信区间 | 用统计方法给出「正常波动范围」，超过这个范围才算异常 |
 
-# 运行分析
-processor = SNPIndexProcessor(config)
-success = processor.run_full_pipeline()
+## 输入 | Input
+
+### VCF 文件
+
+标准 VCF（`.vcf` / `.vcf.gz`），要求：
+
+- 至少 2 个样本（默认取前两个；可用 `--sample-names pool1 pool2` 指定）
+- FORMAT 列必须含 **AD**（参考/替代等位基因各自的深度），如 `GT:AD` → `0/1:12,30`
+
+```text
+#CHROM  POS  ID  REF  ALT  QUAL  FILTER  INFO  FORMAT    bulk1      bulk2
+chr1    100  .   A    G    60    PASS    .     GT:AD     0/1:12,30  1/1:2,40
 ```
 
-## 命令行参数 | Command Line Arguments
+## 分析流程 | Pipeline
 
-### 必需参数 | Required Arguments
-
-| 参数 | 说明 | 示例 |
-|------|------|------|
-| `-i, --input` | 输入VCF文件路径 | `-i input.vcf.gz` |
-
-### 通用参数 | General Arguments
-
-| 参数 | 默认值 | 说明 | 示例 |
-|------|--------|------|------|
-| `-o, --output` | `./snp_index_output` | 输出目录 | `-o results/` |
-| `-p, --prefix` | `snp_index` | 输出文件前缀 | `-p my_analysis` |
-| `-r, --result-file` | None | 已有结果文件 | `-r results.tsv` |
-
-### 过滤参数 | Filtering Parameters
-
-| 参数 | 默认值 | 说明 | 示例 |
-|------|--------|------|------|
-| `--min-depth` | 10 | 最小测序深度 | `--min-depth 20` |
-| `--min-quality` | 20 | 最小质量值 | `--min-quality 30` |
-| `--min-mapping-quality` | 20 | 最小mapping质量 | `--min-mapping-quality 30` |
-| `--sample-names` | None | 指定样本名称 | `--sample-names pool1 pool2` |
-
-### 分析参数 | Analysis Parameters
-
-| 参数 | 默认值 | 说明 | 示例 |
-|------|--------|------|------|
-| `--extreme-threshold` | 0.8 | 极端ΔSNP index阈值 | `--extreme-threshold 0.9` |
-| `--region-threshold` | 0.5 | 区域检测阈值 | `--region-threshold 0.6` |
-| `--min-region-snps` | 5 | 区域最少SNP数量 | `--min-region-snps 10` |
-| `--max-region-gap` | 10000 | 区域最大gap(bp) | `--max-region-gap 50000` |
-
-### 模式选择 | Mode Selection
-
-| 参数 | 说明 |
-|------|------|
-| `--calculate-only` | 只计算SNP index，不进行分析 |
-| `--analyze-only` | 只分析已有结果，不计算 |
-| `--skip-visualization` | 跳过可视化图表生成 |
-| `--disable-sliding-window-plot` | 禁用滑动窗口折线图（默认启用） |
-
-## 输出文件 | Output Files
-
-### 主要结果文件 | Main Result Files
-
-1. **{prefix}_results.tsv**: SNP index计算结果
-   - Chromosome, Position, Reference, Alternative
-   - Sample1_Ref_Depth, Sample1_Alt_Depth, Sample1_SNP_index
-   - Sample2_Ref_Depth, Sample2_Alt_Depth, Sample2_SNP_index
-   - Delta_SNP_index
-
-2. **{prefix}_extreme_sites.tsv**: 极端ΔSNP index位点
-   - |ΔSNP index| > extreme_threshold的位点
-
-3. **{prefix}_potential_regions.tsv**: 潜在目标区域
-   - 连续的极端位点组成的候选区域
-
-4. **{prefix}_sliding_windows.tsv**: 滑动窗口计算结果
-   - 每个窗口的统计信息和ΔSNP index
-5. **{prefix}_confidence_intervals.txt**: 置信区间分析结果
-6. **{prefix}_candidate_regions.tsv**: 候选区域识别结果
-
-### 可视化图表 | Visualization Plots
-
-1. **{prefix}_comprehensive.png**: 综合分析图
-   - ΔSNP index分布直方图
-   - SNP index分布对比
-   - 样本间散点图
-   - 染色体分布图
-
-2. **{prefix}_manhattan.png**: 曼哈顿图
-   - 全基因组ΔSNP index分布
-
-3. **{prefix}_delta_distribution.png**: ΔSNP index详细分布
-
-4. **{prefix}_correlation.png**: 样本间相关性图
-
-5. **{prefix}_sliding_window.png**: 滑动窗口折线图（默认生成）
-   - 全基因组滑动窗口分析
-   - 包含置信区间和显著性阈值线
-   - 染色体分隔和标记
-
-6. **{prefix}_multi_chrom_sliding.png**: 多染色体分离图 (需要--create-multi-chrom-plot)
-   - 每个染色体独立的滑动窗口分析
-   - 便于详细查看单个染色体的模式
-
-## 使用示例 | Usage Examples
-
-### 基本使用 | Basic Usage
-
-```bash
-# 完整分析流程
-biopytools snp-index -i variation.filtered.snp.vcf.gz -o results/ -v
+```text
+输入 VCF
+    │
+    ▼
+步骤1: 计算 SNP index（按深度/质量/MQ 过滤）
+    │   产出 {prefix}_results.tsv
+    ▼
+步骤2: 结果分析（基本统计 + 极端位点 + 潜在区域）
+    │   产出 {prefix}_extreme_sites.tsv / {prefix}_potential_regions.tsv
+    ▼
+步骤3: 滑动窗口分析 + 置信区间
+    │   产出 {prefix}_sliding_windows.tsv / {prefix}_confidence_intervals.txt
+    │   / {prefix}_candidate_regions.tsv
+    ▼
+步骤4: 可视化（曼哈顿/分布/相关性/滑动窗口折线图）
+        产出多张 .png
 ```
 
-### 高级使用 | Advanced Usage
+## 输出 | Output
 
-```bash
-# 自定义所有参数
-biopytools snp-index \
-    -i input.vcf.gz \
-    -o results/ \
-    -p project_x \
-    --min-depth 20 \
-    --min-quality 30 \
-    --extreme-threshold 0.9 \
-    --region-threshold 0.6 \
-    --min-region-snps 8 \
-    --sample-names bulk_A bulk_B \
-    -v
+输出目录为平铺结构（所有文件直接放在 `-o` 指定的目录下，无子目录）：
+
+```text
+results/
+├── snp_index_results.tsv              # 逐位点结果（核心）
+├── snp_index_extreme_sites.tsv        # 极端 ΔSNP index 位点
+├── snp_index_potential_regions.tsv    # 潜在目标区域
+├── snp_index_sliding_windows.tsv      # 滑动窗口结果
+├── snp_index_confidence_intervals.txt # 置信区间
+├── snp_index_candidate_regions.tsv    # 候选区域
+├── snp_index_comprehensive.png        # 综合分析图（4 联）
+├── snp_index_manhattan.png            # 曼哈顿图
+├── snp_index_delta_distribution.png   # ΔSNP index 分布
+├── snp_index_snp_comparison.png       # 两样本 SNP index 对比
+├── snp_index_correlation.png          # 两样本相关性
+└── snp_index_sliding_window.png       # 滑动窗口折线图
 ```
 
-### 只分析已有结果 | Analyze Existing Results Only
+`{prefix}` 默认是 `snp_index`，可用 `-p` 改名。`--create-multi-chrom-plot` 会额外生成 `{prefix}_multi_chrom_sliding.png`。
 
-```bash
-# 只进行统计分析和可视化
-biopytools snp-index \
-    --analyze-only \
-    -r existing_results.tsv \
-    -o analysis_output/ \
-    -v
-```
+## 结果解读 | Interpreting Results
 
-### 滑动窗口分析 | Sliding Window Analysis
+- **`{prefix}_results.tsv`（核心表）**：列依次为 染色体、位置、参考/替代碱基、样本1的 Ref/Alt 深度与 SNP index、样本2的 Ref/Alt 深度与 SNP index、ΔSNP_index
+- **ΔSNP index 怎么读**：接近 0 = 两池在该位点无差异；接近 +1 = 池1 更偏替代型；接近 −1 = 池2 更偏替代型
+- **`{prefix}_extreme_sites.tsv`**：|ΔSNP index| > `--extreme-threshold`（默认 0.8）的位点，是最可疑的单点
+- **`{prefix}_potential_regions.tsv`**：连续 ≥ `--min-region-snps`（默认 5）个 |ΔSNP index| > `--region-threshold`（默认 0.5）的位点组成的目标区间
+- **滑动窗口折线图**：看整条染色体的 ΔSNP index 走势，明显隆起并越过置信区间的山头就是候选区域；曼哈顿图里越高的点越显著
+- **好坏判据**：候选区域里 ΔSNP index 峰值接近 ±1、且窗口内 SNP 数足够（不是孤点），才值得往下做功能验证
 
-```bash
-# 滑动窗口分析（默认启用）
-biopytools snp-index \
-    -i input.vcf.gz \
-    -o results/ \
-    --window-size 500000 \
-    --step-size 50000 \
-    --confidence-level 0.95 \
-    -v
+## 参数选择建议 | Parameter Guidance
 
-# 创建多染色体分离图
-biopytools snp-index \
-    -i input.vcf.gz \
-    -o results/ \
-    --create-multi-chrom-plot \
-    --window-size 1000000 \
-    --step-size 100000 \
-    -v
+**通俗理解|In plain words:** 默认参数即可跑出结果；只有深度阈值和区域判定阈值在数据质量特殊时才需要动。
 
-# 禁用滑动窗口分析
-biopytools snp-index \
-    -i input.vcf.gz \
-    -o results/ \
-    --disable-sliding-window-plot \
-    -v
-
-# 同时生成多染色体分离图
-biopytools snp-index \
-    -i input.vcf.gz \
-    -o results/ \
-    --create-multi-chrom-plot \
-    --window-size 1000000 \
-    --step-size 100000 \
-    --min-window-snps 10 \
-    --confidence-level 0.99 \
-    -v
-```
-
-### 只计算不分析 | Calculate Only
-
-```bash
-# 只计算SNP index，跳过分析和可视化
-biopytools snp-index \
-    -i input.vcf.gz \
-    -o results/ \
-    --calculate-only
-```
-
-## Python API使用 | Python API Usage
-
-### 基本示例 | Basic Example
-
-```python
-from biopytools.snp_index import SNPIndexConfig, SNPIndexProcessor
-
-# 创建配置
-config = SNPIndexConfig(
-    input_vcf="input.vcf.gz",
-    output_dir="results",
-    prefix="my_analysis",
-    min_depth=10,
-    min_quality=20
-)
-
-# 创建处理器
-processor = SNPIndexProcessor(config)
-
-# 运行完整流程
-success = processor.run_full_pipeline()
-if success:
-    print("分析完成！")
-```
-
-### 分步骤使用 | Step-by-step Usage
-
-```python
-from biopytools.snp_index import (
-    SNPIndexConfig, SNPIndexCalculator,
-    SNPIndexAnalyzer, SNPIndexVisualizer
-)
-
-# 1. 计算SNP index
-config = SNPIndexConfig(input_vcf="input.vcf.gz", output_file="results.tsv")
-calculator = SNPIndexCalculator(config)
-calculator.calculate()
-
-# 2. 分析结果
-analyzer = SNPIndexAnalyzer("results.tsv", config)
-analyzer.analyze()
-
-# 3. 创建可视化
-visualizer = SNPIndexVisualizer(analyzer.data, analyzer.sample_names, config)
-visualizer.create_comprehensive_plot("comprehensive.png")
-visualizer.create_manhattan_plot("manhattan.png")
-```
+- **`--min-depth / --min-quality / --min-mapping-quality`（过滤）**：默认 10 / 20 / 20，一般不用动；测序深度低的数据可把 `--min-depth` 降到 5，反之提高到 20 更严格
+- **`--sample-names`**：VCF 里样本超过 2 个、且默认取前两个不对时，用它显式指定两个池的样本名
+- **`--extreme-threshold / --region-threshold`**：默认 0.8 / 0.5 一般不用动；想更严格收严，想多看点放宽
+- **`--window-size / --step-size`（滑动窗口）**：默认 1Mb 窗口 / 100kb 步长，一般不用动
+- **`--calculate-only / --analyze-only`**：只想算不想画图用 `--calculate-only`；已有 `results.tsv` 只想重画图用 `--analyze-only -r 旧结果.tsv`
+- **`--skip-visualization`**：没装 matplotlib 或只要表格时用
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -368,83 +176,20 @@ visualizer.create_manhattan_plot("manhattan.png")
 
 <!-- END PARAMS:auto -->
 
-## 结果解读 | Result Interpretation
+## 依赖 | Dependencies
 
-### ΔSNP Index解读 | ΔSNP Index Interpretation
+- Python 库：numpy（分析统计）、matplotlib（可视化；缺失时自动跳过绘图，不影响表格输出）
 
-- **ΔSNP index ≈ 0**: 两个池在该位点无差异
-- **ΔSNP index > 0**: Pool1中Alt等位基因频率更高
-- **ΔSNP index < 0**: Pool2中Alt等位基因频率更高
+## 常见问题 | FAQ
 
-### 极端位点 | Extreme Sites
+**Q1：报「样本数不足 2 个」？**
+VCF 的 FORMAT 后至少要 2 个样本列。默认取前两个样本，若你真正要分析的池不是前两个，请用 `--sample-names` 指定。
 
-|ΔSNP index| > 0.8 或 < -0.8 的位点被认为是极端位点，可能与目标性状相关。
+**Q2：为什么很多位点没进结果？**
+位点会被三重过滤丢弃：任一池深度 < `--min-depth`、QUAL < `--min-quality`、MQ < `--min-mapping-quality`。日志会统计低质量/低深度位点数，据此可判断阈值是否过严。
 
-### 潜在目标区域 | Potential Target Regions
+**Q3：没生成任何图片？**
+matplotlib 未安装时会跳过可视化（日志有告警），但 TSV 结果不受影响。安装 matplotlib 后重跑，或用 `--analyze-only -r 结果.tsv` 只重画图。
 
-连续的极端位点（默认5个以上，|ΔSNP index| > 0.5）组成的区域，被认为是潜在的目标区域。
-
-## 性能优化 | Performance Optimization
-
-### 大文件处理 | Large File Processing
-
-- 使用gzip压缩的VCF文件以节省空间
-- 调整`--min-depth`参数过滤低质量位点
-- 使用`--calculate-only`模式只进行必要计算
-
-### 内存优化 | Memory Optimization
-
-- 工具采用流式处理，支持大文件
-- 可视化部分可使用`--skip-visualization`跳过
-
-## 故障排除 | Troubleshooting
-
-### 常见问题 | Common Issues
-
-1. **ImportError: matplotlib not found**
-   ```bash
-   pip install matplotlib
-   ```
-
-2. **VCF文件格式错误**
-   - 确保VCF文件包含至少2个样本
-   - 检查AD字段是否存在
-
-3. **内存不足**
-   - 增加过滤条件（如`--min-depth 20`）
-   - 使用`--calculate-only`模式
-
-4. **中文字体显示问题**
-   - 所有图表现在只使用英文标签，避免字体渲染问题
-   - 生成的图中不再显示中文字符
-
-5. **输出目录权限问题**
-   ```bash
-   mkdir -p output_directory
-   chmod 755 output_directory
-   ```
-
-## 技术支持 | Technical Support
-
-如有问题或建议，请联系：
-For questions or suggestions, please contact:
-
-- 邮箱 | Email: [your-email@example.com]
-- 项目主页 | Project: [project-url]
-
-## 更新日志 | Changelog
-
-### v1.1.0 (2025-12-20)
-- 🎯 滑动窗口折线图默认启用
-- 📊 添加滑动窗口结果保存功能
-- 🌐 图表全部使用英文标签，避免字体问题
-- 🔧 新增 `--disable-sliding-window-plot` 参数
-- 📁 新增输出文件：滑动窗口结果、置信区间、候选区域
-- 🐛 修复命名和配置问题
-
-### v1.0.0 (2025-12-20)
-- 🎉 初始版本发布
-- ✨ 完整的SNP index计算和分析功能
-- 📊 多种可视化图表
-- 🔧 灵活的参数配置
-- 📚 详细的文档和示例
+**Q4：`--analyze-only` 为什么报错？**
+该模式必须有 `-r` 指定已有的 `results.tsv`（TSV 格式、表头含 `_SNP_index` 列），否则无法加载数据。
