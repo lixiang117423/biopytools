@@ -70,10 +70,227 @@ markdown_extensions:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
-# 导航:模块按功能域分组,新增模块文档在对应分组登记
-# 分组规划见 docs/index.md「模块分类」;后续随文档铺开逐步补全
 nav:
   - 首页: index.md
+  - 模块分组草案: module_groups.md
   - 模块文档:
       - 群体遗传:
-          - CIM 复合区间作图: cim.md
+          - admixture: admixture.md
+          - atomm: atomm.md
+          - cim: cim.md
+          - deepbsa: deepbsa.md
+          - dsuite: dsuite.md
+          - fst: fst.md
+          - gctb: gctb.md
+          - gemma-gwas: gemma_gwas.md
+          - gwas-gec: gwas_gec.md
+          - gwas-lambda: gwas_lambda.md
+          - gwas2gene: gwas2gene.md
+          - janusx: janusx.md
+          - kmeria: kmeria.md
+          - ldblockshow: ldblockshow.md
+          - mixrace: mixrace.md
+          - ocbsa: ocbsa.md
+          - pi: pi.md
+          - pi4gene: pi4gene.md
+          - pixy: pixy.md
+          - plink-gwas: plinkgwas.md
+          - poplddecay: poplddecay.md
+          - rmvp: rmvp.md
+          - selective-sweep: selective_sweep.md
+          - snp-index: snp_index.md
+          - tassel-gwas: tassel_gwas.md
+          - treemix: treemix.md
+          - vcf2gwas: vcf2gwas.md
+          - vcf2pca: vcf2pca.md
+      - 基因组组装:
+          - agp2table: agp2table.md
+          - assembly2agp: assembly2agp.md
+          - assembly-qc: assembly_qc.md
+          - assembly-qv: assembly_qv.md
+          - assembly-stats: assembly_stats.md
+          - centier: centier.md
+          - chr-rename: chr_rename.md
+          - find-telomere: find_telomere.md
+          - gap-fill: gap_fill.md
+          - gap-stat: gap_stat.md
+          - genome-mount-rate: genome_mount_rate.md
+          - genomeasm: genomeasm.md
+          - get-plastome: get_plastome.md
+          - hicanu: hicanu.md
+          - hifi-hic: hifi_hic.md
+          - hifi-hic-workflow: hifi_hic_workflow.md
+          - hifiasm: hifiasm.md
+          - mga: mga.md
+          - purge-dups: purge_dups.md
+          - ragtag: ragtag.md
+          - rename-chromosomes: rename_chromosomes.md
+          - rename-genome-id: rename_genome_id.md
+          - telocomp: telocomp.md
+          - yahs: yahs.md
+      - 基因组注释:
+          - annorefine: annorefine.md
+          - braker: braker.md
+          - braker4phyto: braker4phyto.md
+          - busco: busco.md
+          - egapx-batch: egapx_batch.md
+          - eggnog-mapper: eggnog_mapper.md
+          - eviann: eviann.md
+          - func-anno: func_anno.md
+          - genebank2fasta: genebank2fasta.md
+          - gene-density: gene_density.md
+          - gene-rnaseq-check: gene_rnaseq_check.md
+          - gene-table: gene_table.md
+          - geneinfo: geneinfo.md
+          - gff-renamer: gff_renamer.md
+          - gffcompare: gffcompare.md
+          - renamegff: gffconverter.md
+          - gtf2gff: gtf2gff.md
+          - insert-detection: insert_detection.md
+          - insert2locus: insert2locus.md
+          - interproscan: interproscan.md
+          - longest-mrna: longestmrna.md
+          - nlr-annotator: nlr_annotator.md
+          - oomycete-anno: oomycete_anno.md
+          - parse-gene-dna: parse_gene_dna.md
+          - pep2genome: pep2genome.md
+          - phyto-effector: phyto_effector.md
+          - promoter-extractor: promoter_extractor.md
+          - resistify: resistify.md
+          - rnaseq-val: rnaseq_val.md
+          - rxlr-scanner: rxlr_scanner.md
+      - 转录组:
+          - dual-rnaseq: dual_rnaseq.md
+          - longrnaseq: longrnaseq.md
+          - rnabloom: rnabloom.md
+          - rnaseq: rnaseq.md
+          - rnaseq2vcf: rnaseq2vcf.md
+          - transcript-assembly: transcript_assembly.md
+      - 变异检测:
+          - annovar: annovar.md
+          - bwa-gatk: bwa_gatk.md
+          - fastq2vcf-gtx: fastq2vcf_gtx.md
+          - fastq2vcf-parabricks: fastq2vcf_parabricks.md
+          - filter-snp-indel: filter_snp_indel.md
+          - gatk-joint: gatk_joint.md
+          - genome2sv: genome2sv.md
+          - gtx: gtx.md
+          - gtx-joint: gtx_joint.md
+          - indel-marker: indel_marker.md
+          - indelpav: indelpav.md
+          - parabricks: parabricks.md
+          - snp-region-gene: snp_region_gene.md
+          - swave: swave.md
+          - vcf2gene: vcf2gene.md
+          - vcf2genotype: vcf2genotype.md
+          - vcf2pav: vcf2pav.md
+          - vcf-filter: vcf_filter.md
+          - vcf-merger: vcf_merger.md
+          - vcf-renamer: vcf_renamer.md
+          - vcf-sample-hete: vcf_sample_hete.md
+          - vcf-sampler: vcf_sampler.md
+          - vcf-sequence: vcf_sequence.md
+      - 泛基因组:
+          - cactus: cactus.md
+          - genomesyn: genomesyn.md
+          - genomesyn2: genomesyn2.md
+          - microsynteny: microsynteny.md
+          - minigraph: minigraph.md
+          - ngenomesyn: ngenomesyn.md
+          - orthofinder: orthofinder.md
+          - pan-blocks: pan_blocks.md
+          - pandepth: pandepth.md
+          - panedta: panedta.md
+          - panhite: panhite.md
+          - panman: panman.md
+          - panvar: panvar.md
+          - pggb: pggb.md
+          - psvcp: psvcp.md
+          - vg: vg.md
+          - wgdi: wgdi.md
+      - 三维基因组:
+          - allhic: allhic.md
+          - bismark: bismark.md
+          - cphasing: cphasing.md
+          - haphic: haphic.md
+          - hic-qc: hic_qc.md
+          - subgenome-assign: subgenome_assign.md
+          - subphaser: subphaser.md
+      - 系统发育:
+          - iqtree: iqtree.md
+          - kaks: kaks.md
+          - mafft-fasttree: mafft_fasttree.md
+          - msa: msa.md
+          - ncbi-taxo: ncbi_taxo.md
+          - phylo-selector: phylo_selector.md
+          - phylo-trim: phylo_trim.md
+          - raxml: raxml.md
+          - raxml-ng: raxml_ng.md
+          - trimal: trimal.md
+          - vcf2nj: vcf2nj.md
+          - vcf2phylip: vcf2phylip.md
+          - vcf2tree: vcf2tree.md
+      - 蛋白质分析:
+          - deeploc: deeploc.md
+          - deeptmhmm: deeptmhmm.md
+          - hmmsearch: hmmsearch.md
+          - meme-parser: meme_parser.md
+          - phobius: phobius.md
+          - predgpi: predgpi.md
+          - protein-stats: protein_stats.md
+          - signalp: signalp.md
+          - tmhmm: tmhmm.md
+      - 重复序列:
+          - edta: edta.md
+          - hite: hite.md
+          - lai: lai.md
+          - repeat-analyzer: repeat_analyzer.md
+          - repeatmask: repeatmask.md
+      - 可视化:
+          - aliner: aliner.md
+          - bam-view: bam_view.md
+          - hap-type: hap_type.md
+          - hic-heatmap: hic_heatmap.md
+          - jcvi: jcvi.md
+          - msaviz: msaviz.md
+          - plotsr: plotsr.md
+          - samplot: samplot.md
+      - 微生物组:
+          - faprotaxtax: faprotaxtax.md
+          - kraken2: kraken2.md
+          - mcyc: mcyc.md
+          - picrust2: picrust2.md
+          - qiime2: qiime2.md
+      - 工具类:
+          - allelic-genes: allelic_genes.md
+          - bam2fastq: bam2fastq.md
+          - bam-cov: bam_cov.md
+          - bam-stats: bam_stats.md
+          - blast: blast.md
+          - bwa: bwa.md
+          - coverage: coverage.md
+          - coverage-filter: coverage_filter.md
+          - ena-downloader: ena_downloader.md
+          - extract-reads: extract_reads.md
+          - fastp: fastp.md
+          - fastq-gc-filter: fastq_gc_filter.md
+          - fq-stats: fastq_stats.md
+          - fof: fof.md
+          - get-link-from-CNCB: get_link_from_CNCB.md
+          - iseq: iseq.md
+          - kmc: kmc.md
+          - kmertools: kmertools.md
+          - minibwa: minibwa.md
+          - minimap2: minimap2.md
+          - needle-identity: needle_identity.md
+          - pair-fastq: pair_fastq.md
+          - parse-seq: parse_seq.md
+          - primer3: primer3.md
+          - seq2genome: seq2genome.md
+          - seq-extract: seq_extract.md
+          - seq-len: seq_len.md
+          - smudgescope: smudgescope.md
+          - split-fasta-id: split_fasta_id.md
+          - sra2fastq: sra2fastq.md
+          - subseq: subseq.md
+          - wgsim: wgsim.md
