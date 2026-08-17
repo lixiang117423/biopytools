@@ -323,6 +323,38 @@ commit message 格式：`<类型>(<模块>): <中文描述>`
 git commit -m "feat(busco): 添加conda环境自动检测"
 git commit -m "fix(path): 修复~路径在__post_init__中未展开的问题"
 ```
+#### 10.1.1 Mac↔超算↔GitHub 三角工作流|Mac↔HPC↔GitHub Triangle Workflow
+
+> 三个位置|Three locations: **GitHub**=唯一代码源；**Mac**=开发+唯一提交点；**超算**=运行+现场改码(不 commit)。
+
+**循环A：超算写代码|Cycle A: HPC writes code**
+
+```bash
+# ① 超算改代码(只写不 commit|edit only, never commit)
+# ② 同步回 Mac(执行前 Mac 必须干净|Mac must be clean first)
+copybiopytools
+# ③ Mac 核对 → 提交 → 推送|verify → commit → push
+git diff && git commit -m 'feat(...): ...' && git push
+```
+
+**循环B：Mac 写代码|Cycle B: Mac writes code**
+
+```bash
+# ① Mac 改 → 提交 → 推送|edit → commit → push
+git commit -m 'fix(...): ...' && git push
+# ② 超算拉取(执行前超算必须干净|HPC must be clean first)
+cd /share/org/YZWL/yzwl_lixg/software/biopytools
+git pull --ff-only origin main
+```
+
+**两条铁律|Two iron rules:**
+
+1. **同一时刻只有一边在改代码**|Only one side edits at a time — 否则同步互相覆盖
+2. **跨边操作前对侧必须干净**|The other side must be clean before any cross-boundary step：
+   `copybiopytools` 前 Mac 要 `git status` 干净；超算 `git pull` 前要 `git status --short` 干净（不干净先 `git stash` 或先回传 Mac）
+
+**开工检查|Start-of-day:** Mac `git status -sb`（干净且与 GitHub 同步）；超算 `git status --short` 干净后 `git pull --ff-only origin main`。
+**收工|End-of-day:** 超算改过代码就 `copybiopytools`，回 Mac 上 `git diff` → commit → push，不留跨夜未提交状态。
 
 ### 10.2 断点续传规范|Checkpoint Resume
 
@@ -573,6 +605,7 @@ result = subprocess.run(cmd, shell=False, ...)
 
 | 版本 | 日期 | 主要变更|Major Changes |
 |------|------|----------|
+| 2.20 | 2026-08-16 | 新增 §10.1.1「Mac↔超算↔GitHub 三角工作流」：两循环+两铁律(单边改码/跨边先清对侧) |
 | 2.19 | 2026-08-16 | 新增 §13.5「软件→环境速查表」引用（docs/conda_env_software_map.md）：超算找现成软件优先 14 域环境、禁用手工废弃环境 |
 | 2.18 | 2026-07-28 | 新增 §10.4「临时测试/调试输出位置」：探索性/ad-hoc 测试产物严禁写入仓库 cwd，统一放 `~/tmp/<描述性子目录>/`；与 §11.A 正式单测(tests/)、§12.4 流程临时文件(output_dir/tmp)明确区分 |
 | 2.17 | 2026-07-25 | **CLAUDE.md 瘦身拆分**：核心规则+检查清单保留(76KB→约23KB)，完整代码模板/paths.py实现/命名示例/conda故障排查下沉到 `docs/dev-standards/` 五个按需参考文档(01_module_template/02_logging_detail/11_path_management/12_output_naming/13_conda_invocation)，文末加「📚详细参考文档」触发式索引；规则零丢失，仅外移重内容 |
