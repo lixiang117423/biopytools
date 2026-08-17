@@ -1,78 +1,121 @@
 # HiFiasm 基因组组装 | HiFiasm Genome Assembly
 
-**基于 PacBio HiFi reads 的基因组组装自动化流程 | Automated genome assembly pipeline based on PacBio HiFi reads**
+一句话理解：**用 HiFi reads 组装基因组，并自动完成质量评估和统计**。输入一份 HiFi reads，输出组装 FASTA，外加 BUSCO（完整性）、QUAST（连续性）评估报告和统计表，让「拼得好不好」一目了然。
 
 ## 功能概述 | Overview
 
-HiFiasm 是一款主流的高质量基因组组装软件，擅长利用 PacBio HiFi 高准确度长读长数据进行单倍型分相组装。本模块对 hifiasm 进行了完整封装，支持纯 HiFi 组装、HiFi + ONT 整合组装、HiFi + Hi-C 染色体级别挂载等多种组合方案。
-
-流程覆盖从输入数据校验、组装、purge_dup 冗余清理、GFA 转 FASTA，到 BUSCO/QUAST 质量评估、单倍型差异分析的完整链路，并自动整理日志、配置文件和结果报告。适用于二倍体、多倍体物种的参考基因组或泛基因组构建。
+- 基于 hifiasm 组装，支持 HiFi / ONT / Hi-C 数据混合
+- 自动跑 BUSCO（评估基因完整性）和 QUAST（评估组装连续性），均可 `--skip-*` 关闭
+- 自动统计 N10–N90、L50、GC、N 含量等，生成报告和对比表
+- 输出格式转换：GFA → FASTA、生成 BED 和 samtools 索引
+- 注意：`--resume` 标志存在但**尚未实现**，重跑会重新开始（见 FAQ）
 
 ## 快速开始 | Quick Start
 
 ```bash
-# 基本用法：纯 HiFi 组装
-biopytools hifiasm -i sample.hifi.fq.gz -o ./hifiasm_results -p sample
-
-# HiFi + Hi-C 染色体级别组装
-biopytools hifiasm -i sample.hifi.fq.gz \
-    --hi-c-1 hic_R1.fq.gz --hi-c-2 hic_R2.fq.gz \
-    -o ./hifiasm_hic -p sample --hg-size 3g
-
-# HiFi + ONT 整合组装并跳过评估
-biopytools hifiasm -i sample.hifi.fq.gz --ont-reads ont.fq.gz \
-    --skip-busco --skip-quast -t 32
+biopytools hifiasm -i sample.hifi.fq.gz -o hifiasm_results -p sample
 ```
+
+## 零基础概念速览 | Concepts in plain words
+
+| 术语 | 通俗理解 |
+|------|----------|
+| HiFi reads | PacBio 高保真长读长，又长又准 |
+| contig | 拼出的连续序列片段 |
+| N50 | 从长到短排 contig，累加到总长一半时那条 contig 的长度，越大越完整 |
+| BUSCO | 用一套「几乎所有物种都该有的保守基因」做体检，看组装里能找回多少，比例越高越完整 |
+| QUAST | 汇总组装的各种连续性和统计指标（N50、contig 数、GC 等） |
+| 单倍型(haplotype) | 二倍体里来自父/母的两套基因组；hifiasm 可把它们分开输出 hap1/hap2 |
+| GFA | 记录组装图（片段间连接关系）的文件格式，需转成 FASTA 才方便下游用 |
+
+## 输入 | Input
+
+### reads 文件
+
+HiFi reads，支持 `.fq/.fastq/.fq.gz/.fastq.gz/.fa/.fasta/.fa.gz/.fasta.gz`；可选 ONT reads（`--ont-reads`）或 Hi-C（`--hi-c-1`/`--hi-c-2`，两端必须同时给）。
 
 ## 参数说明 | Parameters
 
-### 必需参数 | Required
+### 必需参数与基本参数 | Required & basic
 
-| 参数 | 描述 |
-|------|------|
-| `-i, --input-reads` | HiFi 测序数据文件（FASTQ，可压缩）|
+**通俗理解|In plain words:** `-i` 输入，`-o` 输出目录，`-p` 前缀，`-t` 线程数。
 
-### 常用可选参数 | Common Options
+### 组装参数 | Assembly parameters
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-o, --output-dir` | `./hifiasm_output` | 输出目录 |
-| `-p, --prefix` | `sample` | 输出文件前缀 |
-| `-t, --threads` | `12` | 线程数 |
-| `--hg-size` | `auto` | 基因组大小估计（如 `1.4g`、`500m`）|
-| `-l, --purge-level` | `3` | Purge 级别（0-3）|
-| `--purge-max` | `65` | 最大 purge 覆盖度 |
-| `-s, --similarity-threshold` | `0.75` | 单倍型相似性阈值 |
-| `--ont-reads` | - | ONT 长读长数据文件（整合组装）|
-| `--hi-c-1 / --hi-c-2` | - | Hi-C 双端数据文件（需同时提供）|
-| `--extra-hifiasm-args` | `''` | 额外透传给 hifiasm 的参数 |
-| `--skip-busco / --skip-quast` | 关 | 跳过对应质量评估 |
-| `--busco-lineage` | `auto` | BUSCO 谱系数据集 |
-| `--reference-genome` | - | 参考基因组（用于 QUAST 比对）|
-| `--min-contig-length` | `1000` | 最小 contig 长度过滤 |
-| `--assembly-type` | `auto` | 组装类型（auto/diploid/triploid/polyploid）|
-| `--output-formats` | `both` | 输出格式（fasta/gfa/both，可多选）|
-| `--memory` | `100` | 内存限制（GB）|
-| `--max-runtime` | `48` | 最大运行时间（小时）|
-| `--resume` | 关 | 恢复中断的分析 |
-| `--dry-run` | 关 | 只打印命令不执行 |
-| `--config-file` | - | YAML 配置文件路径 |
+**通俗理解|In plain words:** `--hg-size` 是「预算」（基因组大小），默认 `auto` 会按输入文件大小自动估算；`-l`/`--purge-max` 控制重复序列的清理力度，`-s` 控制单倍型分离的松紧。**这些默认值（purge 3、purge-max 65、相似度 0.75）对常规二倍体已调好，一般不用动**；`--assembly-type` 用于二倍体/三倍体/多倍体切换。
 
-（运行 `biopytools hifiasm -h` 查看完整参数列表，包括各外部工具路径）
+### 质量评估 | Quality assessment
+
+**通俗理解|In plain words:** 组装完自动做「体检」。BUSCO 查基因完整性，QUAST 查连续性。`--busco-lineage` 默认 `auto`（自动选谱系，植物默认用 brassicales_odb10）；`--reference-genome` 若给了参考基因组，QUAST 还能做比对评估。不想跑就用 `--skip-busco`/`--skip-quast` 关掉（提速）。
+
+### 分析、输出与系统参数 | Analysis, output & system
+
+**通俗理解|In plain words:** `--analyze-haplotypes` 单独分析两套单倍型；`--min-contig-length` 过滤太短的 contig；`--keep-intermediate` 保留中间文件；`--memory` 内存上限（GB），程序会先估算推荐内存并在不够时警告。
+
+## 分析流程 | Pipeline
+
+```text
+HiFi reads
+    │
+    ▼
+步骤1 检查依赖 → 步骤2 估算资源 → 步骤3 预处理(格式/磁盘/续传检查)
+    │
+    ▼
+步骤4 hifiasm 组装(assembly/)
+    │
+    ▼
+步骤5 格式转换(GFA→FASTA) → 步骤6 统计(statistics/)
+    │
+    ▼
+步骤7 质量评估(BUSCO/QUAST, quality_assessment/)
+    │
+    ▼
+步骤8 单倍型分析(可选) → 步骤9 生成最终结果(final_results/) → 步骤10 清理临时文件
+```
 
 ## 输出 | Output
 
-```
+```text
 hifiasm_output/
-├── 01_assembly/        # hifiasm 原始 GFA 组装结果
-├── 02_fasta/           # 转换后的单倍型 FASTA 文件
-├── 03_purge/           # purge_dups 清理结果
-├── 04_busco/           # BUSCO 完整性评估
-├── 05_quast/           # QUAST 组装统计
-├── 06_haplotype/       # 单倍型差异分析（可选）
-├── logs/               # 运行日志
-└── config.yaml         # 本次运行配置快照
+├── assembly/                          # hifiasm 原始产物
+│   ├── {prefix}.bp.p_ctg.gfa          # primary contigs(主结果,GFA)
+│   ├── {prefix}.bp.a_ctg.gfa          # alternate contigs
+│   ├── {prefix}.log                   # hifiasm 日志
+│   └── (三倍体另有 .bp.hap1/hap2.p_ctg.gfa)
+├── final_results/                     # 整理后的最终结果
+│   ├── {prefix}.primary.fasta         # 主组装 FASTA(最常用)
+│   ├── {prefix}.alternate.fasta       # 备选组装
+│   ├── assemblies/                    # 标准化命名的组装文件
+│   ├── quality_assessment/            # busco/ quast/ statistics/ 汇总
+│   ├── file_manifest.txt              # 文件清单
+│   └── analysis_summary.txt           # 结果摘要
+├── quality_assessment/                # busco/ quast/ 原始结果
+├── statistics/
+│   ├── assembly_statistics_report.txt # 详细统计报告
+│   └── assembly_statistics_comparison.csv  # 各组装对比表
+├── format_conversion/                 # BED 文件 + .fai 索引
+├── logs/                              # hifiasm_时间戳.log
+├── tmp/                               # 临时文件(运行结束清理)
+└── hifiasm_config.json                # 本次运行的配置快照
 ```
+
+## 结果解读 | Interpreting Results
+
+**通俗理解|In plain words:** 先看 `final_results/{prefix}.primary.fasta` 的 N50 和 BUSCO 完整度——N50 大 + BUSCO 完整度高，就是好组装。
+
+- **N50 / contig 数**（`statistics/assembly_statistics_report.txt`）：N50 越大、contig 越少越完整
+- **BUSCO 完整度**（`final_results/quality_assessment/busco/` 的 CSV/TXT）：`C:`（完整）比例 >90% 算好，<80% 提示组装或谱系选择有问题
+- **N 含量**：代表组装里的空洞，越低越好（接近 0 最佳）
+- **GC 含量**：应与该物种预期一致，异常偏离提示污染
+- `{prefix}.primary.fasta` 是「主组装」，下游分析优先用它；`alternate.fasta` 是备选/次要单倍型
+
+## 参数选择建议 | Parameter Guidance
+
+- `--hg-size`：默认 `auto` 自动估算；若知道确切大小，显式给出（如 `1.4g`）可优化内存
+- `--busco-lineage`：默认 `auto`（植物默认 brassicales_odb10）；已知物种谱系时显式指定（如 `embryophyta_odb10`）更准
+- `--assembly-type`：二倍体保持 `auto`；三倍体/多倍体显式选 `triploid`/`polyploid`
+- `--skip-busco --skip-quast`：只想快速拿组装、暂不做评估时用它提速
+- `--memory`：程序会按输入文件大小估算推荐内存，不足会警告；大型基因组给 100G 以上
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -174,18 +217,28 @@ hifiasm_output/
 
 ## 依赖 | Dependencies
 
-- hifiasm（默认在 PATH 中，可通过 `--hifiasm-path` 指定）
-- samtools
-- BUSCO（可选，`--busco-path`）
-- QUAST（可选，`--quast-path`）
-- purge_dups（用于冗余序列清理）
+以下软件需能在 PATH 中直接调用（默认用裸命令名，可用 `--*-path` 参数覆盖）：
 
-## 引用 | Citation
+- hifiasm（组装）
+- BUSCO（完整性评估，可 `--skip-busco` 跳过）
+- QUAST（连续性评估，可 `--skip-quast` 跳过）
+- python3、samtools（统计/索引）
+- pandas、matplotlib/seaborn（统计表与绘图，缺省时跳过对应产物）
 
-- Cheng, H. et al. HiFiasm: haplotype-resolved de novo assembly using PacBio HiFi reads. *Nature Methods* 18, 170-175 (2021).
-- Cheng, H. et al. Haplotype-resolved de novo assembly using phased assembly graphs with hifiasm. *Nature Methods* 19, 632-635 (2022).
+## 常见问题 | FAQ
 
-## 相关链接 | References
+**Q1：`--resume` 为什么不起作用？**
+当前版本续传功能**尚未实现**（代码中标记「功能开发中」），即使加了 `--resume` 也会从头重新运行。中断后请直接重跑完整流程。
 
-- [项目主页](https://github.com/lixiang117423/biopytools)
-- [hifiasm 官方仓库](https://github.com/chhylp123/hifiasm)
+**Q2：BUSCO `auto` 谱系用的是什么？**
+`auto` 模式下按内置推荐列表取第一个 `brassicales_odb10`（十字花科）。若你的物种不是十字花科，请用 `--busco-lineage` 显式指定（如 `embryophyta_odb10`）。
+
+**Q3：内存/线程不够会怎样？**
+程序会先估算推荐值，若你的配置低于推荐会打印警告（不阻断）。大型基因组建议给足内存（>=100G），否则 hifiasm 可能 OOM。
+
+**Q4：Hi-C 数据两端必须都提供吗？**
+必须同时给 `--hi-c-1` 和 `--hi-c-2`，只给一端会报错。
+
+**Q5：`primary.fasta` 和 `alternate.fasta` 区别？**
+hifiasm 把「主」单倍型拼进 primary，把「备选」拼进 alternate。二倍体下游通常用 primary.fasta。
+
