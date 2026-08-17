@@ -151,67 +151,62 @@ def _embed_image(path: str):
         return None
 
 
-# 树叶标签后缀(按判读;不着色,标签即信息)|tip-label suffix by verdict (no coloring)
-_TREE_LABEL_SUFFIX = {"single_genotype": " [纯]", "mixed_genotype": " [混合]",
-                      "uncertain": " [不确定]"}
+# 判读中文短标签(用于树叶名)|verdict short label for tree tips
+_TREE_VERDICT_CN = {"single_genotype": "纯", "mixed_genotype": "混合",
+                    "uncertain": "不确定"}
 
 
-def _annotate_newick(nwk_text: str, verdicts: dict) -> str:
-    """叶标签追加判读后缀(Pb5 → Pb5 [纯]);样名后必跟 ':' 分支长,替换安全。
-    IQ-TREE 对含 -/空格 的样名会加单引号('Pb-1':),裸名与引名两种形式都替换。
-    |append verdict suffix to tip labels; names are followed by ':' branch length.
-    IQ-TREE quotes names with -/spaces, so replace both bare and quoted forms."""
-    out = nwk_text
-    for sample in sorted(verdicts, key=len, reverse=True):   # 长名先换,防前缀误替
-        suffix = _TREE_LABEL_SUFFIX.get(verdicts[sample], "")
-        for form, annotated in ((f"{sample}:", f"{sample}{suffix}:"),
-                                (f"'{sample}':", f"'{sample}{suffix}':")):
-            out = out.replace(form, annotated)
-    return out
+def build_annotations_tsv(annotations: dict) -> str:
+    """生成树注解 TSV 文本(sample/verdict/het;het 为空写 '-',避免叶标签尾空格)。
+    |build annotation TSV text (het empty -> '-', avoids trailing space in tip label)."""
+    lines = ["sample\tverdict\thet"]
+    for sample in sorted(annotations):
+        a = annotations[sample]
+        cn = _TREE_VERDICT_CN.get(a.get("verdict", ""), "")
+        het = a.get("het_rate")
+        het_s = f"{het*100:.4f}%" if het is not None else "-"
+        lines.append(f"{sample}\t{cn}\t{het_s}")
+    return "\n".join(lines) + "\n"
 
 
-def _tree_section_html(nwk_path: str, verdicts: dict) -> str:
-    """交互式进化树 section:phylocanvas.gl bundle 内嵌 + newick(带判读后缀)。
-    |interactive tree section: inlined phylocanvas.gl bundle + annotated newick."""
-    bundle = Path(__file__).parent / "phylocanvas.gl.min.js"
-    try:
-        js = bundle.read_text(encoding="utf-8")
-    except OSError:
-        return ("<h2>三、样品聚类(系统发育树)</h2>"
-                "<p class='muted'>（树组件缺失:未找到 phylocanvas.gl.min.js）</p>")
-    try:
-        nwk = Path(nwk_path).read_text(encoding="utf-8").strip()
-    except OSError:
-        return ""
-    nwk = _annotate_newick(nwk, verdicts)
-    # JS 模板字面量安全:转义反引号/反斜杠/${|escape for JS template literal
-    nwk_js = nwk.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
-    return (
-        "<h2>三、样品聚类(系统发育树)</h2>"
-        "<p class='muted'>用全部样品的 SNP 变异构建的聚类树:分支越近的编号,基因组越相似。"
-        "叶名后缀为该样品判读([纯]/[混合]/[不确定]);节点数值为统计支持值(越高越可靠)。"
-        "支持缩放/拖动/切换树型。注意:树基于各位置的主碱基型,混合样品可能表现为较长分支。</p>"
-        "<div id='mixrace-tree' class='treediv'></div>"
-        "<div class='treectl'>树型|Tree type: "
-        "<button onclick=\"window._mrTree&&window._mrTree.setTreeType('rectangular')\">矩形</button> "
-        "<button onclick=\"window._mrTree&&window._mrTree.setTreeType('circular')\">环形</button> "
-        "<button onclick=\"window._mrTree&&window._mrTree.setTreeType('radial')\">放射</button> "
-        "<button onclick=\"window._mrTree&&window._mrTree.setTreeType('hierarchical')\">层级</button>"
-        "</div>"
-        "<noscript><p class='muted'>（浏览器未启用 JavaScript,无法显示交互树）</p></noscript>"
-        f"<script>{js}</script>"
-        "<script>(function(){"
-        "var el=document.getElementById('mixrace-tree');"
-        "var c=document.createElement('canvas');"
-        "if(!(c.getContext('webgl2')||c.getContext('webgl'))){"
-        "el.innerHTML='<p class=\"muted\">（当前浏览器不支持 WebGL,无法显示交互树;"
-        "newick 文件: 08_tree/vcf2tree/02_tree/*.nwk）</p>';return;}"
-        "window._mrTree=new phylocanvas.PhylocanvasGL(el,{"
-        "size:{width:1000,height:" + str(max(500, 34 * (nwk.count(",") + 1))) + "},"
-        "source:`" + nwk_js + "`,"
-        "type:phylocanvas.TreeTypes.Rectangular"
-        "});})();</script>"
-    )
+def generate_tree_png_r(nwk_path: str, png_path: str, annotations: dict) -> str:
+    """生成 ggtree 静态树 PNG 的 R 脚本;叶标签 = 样品编号 + 判读 + 杂合率。
+    |generate ggtree static-tree R script; tip label = sample + verdict + het rate.
+
+    annotations: {sample: {"verdict": str, "het_rate": float}}
+    注解写到 <png>.ann.tsv,R 里按样名 join(ape read.tree 已解析引号样名)。
+    |annotations written to <png>.ann.tsv; joined by tip label in R.
+    """
+    script_path = str(Path(png_path).with_suffix(".R"))
+    ann_path = str(Path(png_path).with_suffix(".ann.tsv"))
+    Path(ann_path).write_text(build_annotations_tsv(annotations), encoding="utf-8")
+    rcode = f'''#!/usr/bin/env Rscript
+try(Sys.setlocale("LC_ALL", "C.UTF-8"), silent = TRUE)   # C locale 下中文防乱码|avoid mojibake
+library(ape)
+library(ggtree)
+library(ggplot2)
+tree <- read.tree("{nwk_path}")
+ann <- read.delim("{ann_path}", sep = "\\t", stringsAsFactors = FALSE,
+                  colClasses = "character", fileEncoding = "UTF-8")
+ann$lab <- ifelse(ann$het == "-",
+                  paste0(ann$sample, " [", ann$verdict, "]"),
+                  paste0(ann$sample, " [", ann$verdict, "] ", ann$het))
+p <- ggtree(tree) %<+% ann
+p <- p + geom_tiplab(aes(label = lab), size = 2.8, offset = 0.003, align = TRUE)
+if (!is.null(tree$edge.length)) p <- p + xlim(0, max(tree$edge.length) * 1.7)
+has_support <- !is.null(tree$node.label) && any(nzchar(tree$node.label))
+if (has_support) {{
+  p <- p + geom_text(aes(label = label),
+                     data = function(d) d[!d$isTip & d$label != "", , drop = FALSE],
+                     hjust = -0.3, size = 2.5, color = "#777777")
+}}
+p <- p + labs(title = "样品聚类(系统发育树)|Sample clustering") +
+  theme_tree2() + theme(plot.title = element_text(hjust = 0.5))
+ggsave("{png_path}", p, width = 14, height = max(5, 0.3 * ape::Ntip(tree)),
+       dpi = 150, limitsize = FALSE)
+'''
+    Path(script_path).write_text(rcode, encoding="utf-8")
+    return script_path
 
 
 def _fmt(key, val):
@@ -238,10 +233,10 @@ def _shape_cn(shape: str) -> str:
     }.get(shape, shape)
 
 
-def build_html_report(title: str, samples_data: list, tree_nwk: str = None) -> str:
-    """生成合并的自包含 HTML 报告(所有样品、图片 base64 内嵌、中文通俗解释;可选交互进化树)。
+def build_html_report(title: str, samples_data: list, tree_png: str = None) -> str:
+    """生成合并的自包含 HTML 报告(所有样品、图片 base64 内嵌、中文通俗解释;可选进化树)。
     |build merged self-contained HTML (all samples, base64 images, Chinese explanations;
-    optional interactive tree)."""
+    optional tree)."""
     rows_html = []
     for s in samples_data:
         v = s.get("verdict", "uncertain")
@@ -271,13 +266,17 @@ def build_html_report(title: str, samples_data: list, tree_nwk: str = None) -> s
         parts.append(f"<dt>{k}</dt><dd>{expl}</dd>")
     parts.append("</dl>")
 
-    # 样品聚类树(可选,交互式;有树才占"三")|clustering tree (optional; owns section 三 when present)
+    # 样品聚类树(可选,静态 PNG 内嵌;有树才占"三")|clustering tree (optional static PNG)
     has_tree = False
-    if tree_nwk:
-        html_tree = _tree_section_html(tree_nwk,
-                                       {d["sample"]: d["verdict"] for d in samples_data})
-        if html_tree:
-            parts.append(html_tree)
+    if tree_png:
+        b64 = _embed_image(tree_png)
+        if b64:
+            parts.append("<h2>三、样品聚类(系统发育树)</h2>")
+            parts.append("<p class='muted'>用全部样品的 SNP 变异构建的聚类树:分支越近的编号,"
+                         "基因组越相似。叶名格式为 样品编号[判读]杂合率(如 Pb5 [纯] 0.0005%);"
+                         "节点数值为统计支持值(越高越可靠)。注意:树基于各位置的主碱基型,"
+                         "混合样品可能表现为较长的分支。</p>")
+            parts.append(f"<div class='tree'><img src='data:image/png;base64,{b64}'></div>")
             has_tree = True
 
     # 各样品详情(折叠,点击展开;动态编号防跳号)|per-sample details (dynamic numbering)
@@ -381,9 +380,6 @@ def _CSS() -> str:
     figcaption{font-size:0.85em;color:#555;margin-bottom:6px}
     figure img{max-width:100%;width:100%;height:auto;border:1px solid #ddd;display:block}
     .noimg{color:#aaa;font-size:0.85em;padding:40px 20px}
-    .treediv{margin:14px 0;border:1px solid #ddd;border-radius:6px;overflow:hidden;background:#fff}
-    .treectl{margin:8px 0}
-    .treectl button{padding:4px 12px;margin-right:6px;border:1px solid #283593;background:#fff;
-                    color:#283593;border-radius:4px;cursor:pointer;font-size:0.88em}
-    .treectl button:hover{background:#e8eaf6}
+    .tree{margin:14px 0;text-align:center}
+    .tree img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:6px}
     """

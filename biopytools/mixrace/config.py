@@ -35,6 +35,7 @@ class MixraceConfig:
     bcftools_path: str = "~/miniforge3/envs/align/bin/bcftools"
     bedtools_path: str = "~/miniforge3/envs/align/bin/bedtools"
     rscript_path: str = "~/miniforge3/envs/WGCNA_v.1.73/bin/Rscript"
+    rscript_ggtree_path: str = "~/miniforge3/envs/r/bin/Rscript"   # 含 ggtree(画树)|has ggtree (tree plot)
     freebayes_path: str = "~/miniforge3/envs/align/bin/freebayes"
     # freebayes 单倍体 calling 参数(约定: -p 1 --min-alternate-fraction 0.02 --min-coverage 30)
     freebayes_min_alternate_fraction: float = 0.02
@@ -61,6 +62,7 @@ class MixraceConfig:
         self.bcftools_path = get_tool_path("bcftools", self.bcftools_path, "BCFTOOLS_PATH")
         self.bedtools_path = get_tool_path("bedtools", self.bedtools_path, "BEDTOOLS_PATH")
         self.rscript_path = get_tool_path("Rscript", self.rscript_path, "RSCRIPT_PATH")
+        self.rscript_ggtree_path = get_tool_path("Rscript-ggtree", self.rscript_ggtree_path, "RSCRIPT_GGTREE_PATH")
         # 用户输入路径统一用 expand_path(同时展开 ~ 和 $VAR;裸 expanduser 漏 $VAR)
         # |User paths via expand_path (expands ~ AND $VAR; bare expanduser misses $VAR)
         if self.fastq_dir:

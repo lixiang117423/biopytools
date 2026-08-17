@@ -14,7 +14,8 @@ from .config import MixraceConfig
 from .utils import ModuleLogger, CommandRunner, CheckpointManager, write_software_versions
 from .samples import discover_samples
 from .pipeline import (run_index, run_qc, run_align, run_call_freebayes, run_filter,
-                       run_depth, run_kmer, run_tree, parse_genomescope_model)
+                       run_depth, read_cached_depth, run_kmer, run_tree,
+                       parse_genomescope_model)
 from .vaf_analysis import parse_freebayes, compute_afs
 from .verdict import judge, calibrate_thresholds
 from .reporter import (generate_vaf_histogram_r, build_sample_report, build_summary_table,
@@ -200,7 +201,12 @@ def _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_
             logger.warning(f"{sample}: 未获取到变异数据,判读 uncertain(先跑 --step 5)"
                            f"|No variant data, verdict uncertain (run --step 5 first)")
         bam = filt_base / "02_alignment" / f"{sample}.sorted.markdup.bam"
-        depth = run_depth(runner, config, sample, str(bam), genome_size) if bam.exists() else None
+        # 深度优先读缓存 stats.txt(--step 7 重跑不重算 samtools stats,省 ~40min);
+        # 缓存缺失才跑 samtools stats|prefer cached stats.txt (step-7 rerun skips stats);
+        stats_file = filt_base / "alignment_qc" / f"{sample}.stats.txt"
+        depth = read_cached_depth(stats_file, genome_size)
+        if depth is None and bam.exists():
+            depth = run_depth(runner, config, sample, str(bam), genome_size)
         het = _read_heterozygosity(config, sample)
         metrics = {
             "het_rate": a.get("het_rate", 0.0), "het_sites": a.get("het_sites", 0),
@@ -241,13 +247,15 @@ def _verdict_and_report(config, runner, ckpt, logger, samples, afs, thr, genome_
         })
         logger.info(f"{sample}: {v['verdict']} (置信|confidence {v['confidence']}) "
                     f"het={metrics['het_rate']*100:.4f}% shape={metrics['afs_shape']}")
-    # 系统发育树(判读后建,叶标签带判读后缀;样品<4/缺VCF/--skip-tree 自动跳过)
-    # |phylogenetic tree after verdicts (tips annotated); auto-skipped if <4 samples
-    tree_nwk = run_tree(config, runner, ckpt, samples)
+    # 系统发育树(判读后建;叶标签标注 样品+判读+杂合率;样品<4/缺VCF/--skip-tree 跳过)
+    # |phylogenetic tree after verdicts (tips = sample[verdict]het); auto-skip if <4
+    annotations = {d["sample"]: {"verdict": d["verdict"], "het_rate": d.get("het_rate")}
+                   for d in samples_data}
+    tree_png = run_tree(config, runner, ckpt, samples, annotations)
     # 合并 HTML 报告(单文件,图片内嵌)|merged self-contained HTML report
     html_path = Path(config.output_dir) / "summary" / "mixrace_report.html"
     html_path.parent.mkdir(parents=True, exist_ok=True)
-    html_path.write_text(build_html_report("根肿菌混合小种检测报告", samples_data, tree_nwk),
+    html_path.write_text(build_html_report("根肿菌混合小种检测报告", samples_data, tree_png),
                          encoding="utf-8")
     logger.info(f"HTML 报告已写|HTML report written: {html_path}")
     return rows

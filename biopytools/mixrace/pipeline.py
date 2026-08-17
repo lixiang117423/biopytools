@@ -253,6 +253,19 @@ def run_depth(runner, config, sample: str, bam: str, genome_size: int):
     return parse_mean_depth(stats_txt)   # 回退:某些 stats 有 average depth 行|fallback
 
 
+def read_cached_depth(stats_file, genome_size: int):
+    """从已缓存的 stats.txt 算平均深度(bases_mapped/genome_size),不重跑 samtools stats。
+    |compute mean depth from cached stats.txt (bases_mapped/genome_size), no re-run."""
+    try:
+        txt = Path(stats_file).read_text(encoding="utf-8")
+    except OSError:
+        return None
+    bases = _parse_sn(txt, "bases mapped")
+    if bases and genome_size:
+        return bases / genome_size
+    return parse_mean_depth(txt)
+
+
 def run_kmer(config, runner, ckpt, clean_dir: str) -> Path:
     """step06: k-mer 谱(smudgescope,读 clean fastq)|k-mer spectrum via smudgescope."""
     kmer_root = Path(config.output_dir) / "06_kmer"
@@ -271,23 +284,36 @@ def run_kmer(config, runner, ckpt, clean_dir: str) -> Path:
     return kmer_root
 
 
-def run_tree(config, runner, ckpt, samples: list):
+def run_tree(config, runner, ckpt, samples: list, annotations: dict = None):
     """step07b: 样品系统发育树(聚类)|phylogenetic tree for sample clustering.
 
-    bcftools merge 各样品 filtered VCF → biopytools vcf2tree(IQ-TREE2)→ newick。
-    返回 nwk 路径或 None(样品<4 / VCF 缺 / --skip-tree);HTML 用 phylocanvas.gl 交互渲染。
-    |merge per-sample filtered VCFs -> vcf2tree (IQ-TREE2) -> newick.
-    Returns nwk path or None (<4 samples / missing VCF / --skip-tree);
-    HTML renders it interactively via phylocanvas.gl.
+    bcftools merge 各样品 filtered VCF → biopytools vcf2tree(IQ-TREE2)→ ape 静态 PNG
+    (叶标签 = 样品编号[判读]杂合率)。返回 png 路径或 None(<4 样品/缺 VCF/--skip-tree/失败)。
+    |merge per-sample filtered VCFs -> vcf2tree (IQ-TREE2) -> ape static PNG (tips =
+    sample[verdict]het). Returns png path or None (skip conditions/failure).
     """
     if config.skip_tree:
         runner.logger.info("跳过建树(--skip-tree)|skipping tree (--skip-tree)")
         return None
     tree_dir = Path(config.output_dir) / "08_tree"
+    png = tree_dir / "tree.png"
     nwk = tree_dir / "vcf2tree" / "02_tree" / "merged.iqtree.nwk"
-    if config.enable_checkpoint and _done(ckpt, "tree", nwk):
-        runner.logger.info("跳过已完成步骤|Skipping completed step: tree")
-        return nwk
+    ann_file = png.with_suffix(".ann.tsv")
+    if config.enable_checkpoint and _done(ckpt, "tree", png):
+        # 注解过期守卫:判读/阈值变化会改叶标签,比对 ann.tsv 不一致则强制重画
+        # |annotation freshness: verdict/threshold changes alter tip labels; redraw on mismatch
+        from .reporter import build_annotations_tsv
+        annotations = annotations or {}
+        stale = True
+        try:
+            stale = ann_file.read_text(encoding="utf-8") != build_annotations_tsv(annotations)
+        except OSError:
+            pass
+        if not stale:
+            runner.logger.info("跳过已完成步骤|Skipping completed step: tree")
+            return png
+        runner.logger.info("树注解已变,重画|tree annotations changed, redrawing")
+        ckpt.remove("tree")
     # 收集存在的 filtered VCF|collect existing filtered VCFs
     vcfs = []
     for s in samples:
@@ -358,9 +384,17 @@ def run_tree(config, runner, ckpt, samples: list):
     if not (ok_t and nwk.exists()):
         runner.logger.error("vcf2tree 未产出 newick,不建断点|vcf2tree produced no newick, no checkpoint")
         return None
+    # 3. ggtree 静态 PNG(叶标签标注 样品+判读+杂合率)|ggtree static PNG with annotated tips
+    from .reporter import generate_tree_png_r
+    annotations = annotations or {}
+    script = generate_tree_png_r(str(nwk), str(png), annotations)
+    ok_p, _, _ = runner.run_conda(config.rscript_ggtree_path, [script], "进化树可视化|tree plot")
+    if not (ok_p and png.exists()):
+        runner.logger.error("树图绘制失败|tree plot failed")
+        return None
     if config.enable_checkpoint:
         ckpt.create("tree")
-    return nwk
+    return png
 
 
 def parse_mean_depth(stats_text: str) -> Optional[float]:
