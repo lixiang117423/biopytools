@@ -21,6 +21,7 @@ annot
 asm
 base
 bbmap_v.39.81
+biopytools
 braker_v.3.0.8
 busco
 cphasing

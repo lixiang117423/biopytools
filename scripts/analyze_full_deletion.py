@@ -10,7 +10,11 @@ import re
 
 DOMAINS = {"align", "pop", "asm", "hic", "annot", "repeat", "rna",
            "protein", "phylo", "pan", "viz", "misc", "r", "busco"}
-ALWAYS_KEEP = {"base"}
+# 永久保留|Always keep:
+# - base: conda 基础环境
+# - biopytools: 项目 CLI 运行环境(pip 装 biopytools==1.4.0 + kmtricks/rocksdb),
+#   虽无模块硬编码引用, 但为用户日常命令行入口, 绝不可删
+ALWAYS_KEEP = {"base", "biopytools"}
 
 # ---- 1. 备份环境名 ----
 backup = sorted(fn[:-5] for fn in os.listdir("conda_envs_backup")

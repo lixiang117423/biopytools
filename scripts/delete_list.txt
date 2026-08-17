@@ -33,7 +33,6 @@ bamtools
 bbtools_v.37.62
 bcftools_v.1.22
 biomformat
-biopytools
 bismark_v.0.24.2
 braker4_v.0.5.0
 cafe_v.5.1.0

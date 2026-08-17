@@ -51,6 +51,11 @@
 | SubPhaser | 同上 |
 | pasa_v.2.5.3 | 保持独立（python2 依赖） |
 
+### 项目运行环境|Project Runtime Env（同名高危, 永不删除|NEVER DELETE）
+| 环境|Env | 原因|Reason |
+|---|---|
+| biopytools | **项目 CLI 运行环境**（pip 装 biopytools==1.4.0 + kmtricks/rocksdb/modelscope），用户日常命令行入口，与项目同名 |
+
 ### 源码/手工安装（不在 conda）|Source / Manual Installs
 | 环境|Env | 说明|Note |
 |---|---|
@@ -75,7 +80,7 @@
 | kmc_v.3.2.4 / merqury_v.1.3 | 仍被裸环境目录引用（conda_env 字段），验证后可切 |
 | xxx | nlr_annotator 的 Java 注释占位符 |
 
-## 三、可删除旧环境清单|Deletable Old Envs（155 个）
+## 三、可删除旧环境清单|Deletable Old Envs（154 个）
 
 > 标准|Rule: **模块（代码）未引用的环境一律可删**（含手工工具孤儿环境）。
 > ⚠️ **删除前提**：先把新代码同步到超算（GitHub 拉取），确认模块跑通后再删。
