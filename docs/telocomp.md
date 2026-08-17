@@ -1,385 +1,114 @@
-# TeloComp 端粒鉴定分析模块
+# TeloComp 端粒鉴定 | TeloComp Telomere Identification
 
-**端粒序列识别与过滤工具 | Telomere Sequence Identification and Filtering Tool**
+一句话理解：**用 ONT/HiFi 长读长测序数据，找每条染色体两端的端粒重复序列，判断组装是否「完整到头」**。
+输入一条基因组 FASTA 和 ONT/HiFi reads，输出含端粒的 reads（BAM）、左右端端粒序列、以及每条染色体两端端粒 reads 数的报告。
 
 ## 功能概述 | Overview
 
-TeloComp 端粒鉴定分析模块是一个基于 ONT/HiFi 长读长数据的端粒序列识别和过滤工具。专注于从原始数据中提取含端粒重复序列的reads，为后续端粒组装和补全提供高质量的输入数据。
-
-**当前模块功能范围**：
-- ✅ **Filter_1**: 端粒reads识别和过滤（支持ONT/HiFi单种或两种数据）
-- ✅ **Filter_2**: 端粒序列提取和修剪（需要同时提供ONT和HiFi数据）
-- ✅ **结果统计**: 自动生成端粒reads数量统计和汇总报告
-- ❌ **Assembly**: 端粒序列组装（**未实现**）
-- ❌ **Complement**: 端粒补全和可视化图表生成（**未实现**）
-
-**重要说明**：
-- **Filter_1**: 支持单种或两种数据类型（ONT/HiFi），完成端粒reads过滤
-- **Filter_2**: 需要同时提供 ONT 和 HiFi 数据。如果只有单种数据类型，会自动跳过Filter_2步骤
-- 对于只有单种数据类型的场景，Filter_1 的输出（`filter1_ont.bam` / `filter1_hifi.bam`）已经包含了端粒鉴定结果
-- **完整的可视化图表（telomere_plots）**需要使用TeloComp完整流程的Complement步骤，该步骤需要额外的WGS数据和NextPolish工具
-
-## 主要特性 | Key Features
-
-- **端粒序列鉴定**: 基于长读长数据识别含端粒重复序列的 reads
-- **智能过滤系统**: 多级过滤策略，准确提取端粒序列
-- **单/双数据类型支持**: 智能检测数据类型，自动调整分析流程
-- **自动化流程**: 从 reads 比对到端粒分类的全流程自动化
-- **灵活参数配置**: 支持植物、动物等不同物种的端粒序列模式
-- **结果汇总统计**: 自动生成端粒鉴定结果汇总报告，展示端粒reads数量
-- **详细日志记录**: 完整的分析过程日志和错误追踪
-- **Conda环境管理**: 独立的 conda 环境，避免依赖冲突
+- Filter_1：从 ONT/HiFi reads 中筛出含端粒重复序列的 reads（比对回基因组，输出 BAM）
+- Filter_2：同时有 ONT 和 HiFi 时才运行，提取左右两端端粒序列（trim_L / trim_R）
+- 端粒位置分析：统计每条染色体左右两端的端粒 reads 数，生成报告和汇总
+- 端粒重复序列可自定义：植物默认 `CCCTAAA`，动物可改 `TTAGGG`
+- 自动创建基因组索引（`.fai`），无需手动准备
 
 ## 快速开始 | Quick Start
 
-### 基本用法 | Basic Usage
-
 ```bash
-# 基本端粒鉴定分析（同时使用ONT和HiFi数据）
-biopytools telocomp \
-    -g genome.fa \
-    --ont ont_data.fastq.gz \
-    --hifi hifi_data.fastq.gz \
-    -o telomere_results
-
-# 仅使用ONT数据
-biopytools telocomp \
-    -g genome.fa \
-    --ont ont_data.fastq.gz \
-    -o telomere_results
-
-# 仅使用HiFi数据
-biopytools telocomp \
-    -g genome.fa \
-    --hifi hifi_data.fastq.gz \
-    -o telomere_results
+biopytools telocomp -g genome.fa -o output --ont ont.fastq.gz --hifi hifi.fastq.gz
 ```
 
-### 高级用法 | Advanced Usage
+最小输入：一条基因组 FASTA + ONT 或 HiFi reads 至少一种（Filter_2 需两种都有，见 FAQ）。
 
-```bash
-# 自定义参数的端粒鉴定
-biopytools telocomp \
-    -g genome.fa \
-    --ont ont_data.fastq.gz \
-    --hifi hifi_data.fastq.gz \
-    -m TTAGGG \
-    -M 6 \
-    -t 24 \
-    -c 80 \
-    -o results
-```
+## 零基础概念速览 | Concepts in plain words
+
+| 术语 | 通俗理解 |
+|------|----------|
+| 端粒(telomere) | 染色体两端的「帽子」，由重复序列组成，保护染色体 |
+| 端粒重复序列 | 一段反复出现的小序列，如植物 CCCTAAA、动物 TTAGGG |
+| ONT | 牛津纳米孔测序，超长读长，适合看染色体两端 |
+| HiFi | PacBio 高精度长读长，读长中等、精度高 |
+| soft-clip | 比对时 read 两端「对不上基因组」被切掉的部分，端粒 reads 常见此特征 |
+| BAM | 比对结果的标准二进制格式 |
+
+## 输入 | Input
+
+### 基因组 FASTA
+
+待检测的组装。程序会自动用 samtools 生成 `.fai` 索引。
+
+### ONT / HiFi reads
+
+至少提供一种（`--ont` 或 `--hifi`）。**Filter_2 步骤需要 ONT 和 HiFi 同时提供**，只有一种时会跳过 Filter_2（见 FAQ）。
 
 ## 参数说明 | Parameters
 
-### 必需参数 | Required Parameters
+### 数据输入 | Input data
 
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `-g, --genome` | 基因组FASTA文件路径（系统会自动创建索引）| `-g genome.fa` |
-| `-o, --output-dir` | 输出目录路径 | `-o telomere_output` |
+**通俗理解|In plain words:** `--ont` 和 `--hifi` 是两套可选的 reads，可以只给一种，也可以都给。都给时能跑完整的 Filter_1 + Filter_2 + 端粒位置分析；只给一种则只跑 Filter_1 和位置分析。
 
-### 输入数据配置 | Input Data Configuration
+### 端粒重复序列 | Telomere motif
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--ont` | `None` | ONT长读长数据文件路径 |
-| `--hifi` | `None` | HiFi长读长数据文件路径 |
+**通俗理解|In plain words:** `-m/--motif` 是端粒的重复单元，**植物默认 `CCCTAAA`，动物要改成 `TTAGGG`**，一定要按物种改对，否则一个端粒都找不到。`-M/--motif-num` 是重复单元的碱基数（默认 7，对应 CCCTAAA 的 7 个碱基），改 motif 时通常也要同步改它。
 
-**数据类型说明**：
-- **必须至少提供 ONT 或 HiFi 数据其中一种**
-- **仅提供一种数据类型**（如只有ONT或只有HiFi）：
-  - Filter_1 正常执行，完成端粒reads过滤
-  - Filter_2 自动跳过（因为需要两种数据类型）
-  - 主要输出：`filter1_ont.bam` 或 `filter1_hifi.bam`（包含端粒reads）
-- **同时提供两种数据类型**：
-  - Filter_1 和 Filter_2 都正常执行
-  - 完整的端粒提取、修剪和合并流程
-  - 额外输出：`filter2_output/trim_L/` 和 `trim_R/` 目录
+### 覆盖度与流程控制 | Coverage & control
 
-### 处理配置 | Processing Configuration
+**通俗理解|In plain words:** `-c/--coverage`（0-100）是 Filter_2 的覆盖度参数，默认 100，**一般不用动**。`--skip-filter` 跳过 Filter 步骤（只做位置分析，适合已有 BAM 的场景）；`--no-visualization` 跳过可视化/位置分析汇总。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-t, --threads` | `12` | 线程数 |
-| `-c, --coverage` | `100` | 覆盖度参数 (0-100)，用于修剪 reads |
-| `--motifs` | `[TTAGGG, CCCTAAA]` | 端粒重复序列模式列表 |
+## 分析流程 | Pipeline
 
-### 端粒配置 | Telomere Configuration
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-m, --motif` | `CCCTAAA` | 端粒重复序列（植物默认） |
-| `-M, --motif-num` | `7` | 端粒重复序列碱基数 |
-
-**常见物种端粒序列**:
-- 植物: `CCCTAAA` / `TTTAGGG`
-- 动物: `TTAGGG` / `CCCTAA`
-- 其他: 请根据物种调整
-
-### 流程控制选项 | Pipeline Control Options
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--skip-filter` | `False` | 跳过Filter步骤 |
-| `--no-visualization` | `False` | 跳过可视化步骤 |
-
-## 输入文件格式 | Input File Formats
-
-### 基因组文件 | Genome File
-
-标准FASTA格式的基因组序列，**系统会自动创建索引**：
-
-```bash
-# 手动创建索引（可选，系统会自动创建）
-samtools faidx genome.fa
+```text
+基因组 FASTA + ONT/HiFi reads
+    │
+    ▼
+步骤1: 检查/创建基因组索引(samtools faidx)
+    │
+    ▼
+步骤2: Filter_1 - 筛出含端粒的reads → filter1_ont.bam / filter1_hifi.bam
+    │
+    ▼
+步骤3: Filter_2 - 提取左右端端粒序列(需ONT+HiFi都有) → filter2_output/trim_L, trim_R
+    │
+    ▼
+步骤4: 端粒位置分析 - 统计每条染色体两端端粒reads数 → telomere_positions.txt
+    │
+    ▼
+步骤5: 汇总 → telomere_summary.txt
 ```
 
-```fasta
->chromosome1
-ATCGATCGATCGATCGATCGATCGATCG...
->chromosome2
-GCTAGCTAGCTAGCTAGCTAGCTAGCTA...
+## 输出 | Output
+
+```text
+output/
+├── filter1_ont.bam         # ONT 含端粒 reads 的比对结果
+├── filter1_hifi.bam        # HiFi 含端粒 reads 的比对结果
+├── filter2_output/
+│   ├── trim_L/             # 左端端粒序列(.fa)
+│   └── trim_R/             # 右端端粒序列(.fa)
+├── telomere_positions.txt  # 端粒位置检测报告(每条染色体两端reads数)
+├── telomere_summary.txt    # 结果汇总
+├── telocomp.log            # 运行日志
+└── genome.fa.fai           # 基因组索引(自动生成)
 ```
 
-### ONT/HiFi数据文件 | ONT/HiFi Data Files
+- `telomere_positions.txt`：核心结果，逐条染色体列出左/右端各有多少 ONT、HiFi 端粒 reads
+- `filter2_output/trim_L` / `trim_R`：实际提取出的左右端端粒序列，可用于后续端粒长度分析
+- `filter1_ont.bam` / `filter1_hifi.bam`：含端粒 reads 的比对，做位置分析的基础
 
-标准 FASTQ 格式的长读长测序数据（支持 gzip 压缩）：
+## 结果解读 | Interpreting Results
 
-```fastq
-@read_id
-ATCGATCGATCGATCGATCGATCGATCG...
-+
-IIIIIIIIIIIIIIIIIIIIIIIIIIII
-```
+- **染色体两端都有端粒 reads = 组装「完整到头」**，是最理想的结果
+- **只有一端有、另一端没有**：可能该端组装不完整，或端粒重复序列在该物种不匹配（先核对 `-m`）
+- **某条染色体完全没有端粒 reads**：可能是中间 contig（本就没有端粒），或 motif 不对
+- **ONT 和 HiFi 的 reads 数可以互相印证**：两者都在同一端检出，可信度更高
+- 报告中「未检测到」不代表一定缺失，端粒区在测序/组装里本来就容易被截断
 
-## 输出结果 | Output Results
+## 参数选择建议 | Parameter Guidance
 
-### 输出目录结构 | Output Directory Structure
-
-```
-telomere_output/
-├── telomere_positions.txt     # 端粒位置检测报告（重要！）
-├── telomere_summary.txt       # 端粒鉴定结果汇总
-├── telocomp.log               # 完整运行日志
-├── filter1_ont.bam            # Filter_1过滤后的ONT BAM文件
-├── filter1_hifi.bam           # Filter_1过滤后的HiFi BAM文件
-└── filter2_output/            # Filter_2输出目录（如果运行）
-    ├── trim_L/                # 左端端粒序列
-    │   ├── seq1.fa
-    │   ├── seq2.fa
-    │   └── ...
-    └── trim_R/                # 右端端粒序列
-        ├── seq1.fa
-        ├── seq2.fa
-        └── ...
-```
-
-### 关键输出文件说明 | Key Output Files Description
-
-**telomere_positions.txt** - 端粒位置检测报告（**最重要的输出**）
-  - 告诉你在哪些染色体的哪些位置检测到了端粒
-  - 左端端粒：染色体起始位置（1-5000 bp区域）
-  - 右端端粒：染色体末端位置（染色体长度-5000 bp到末端）
-  - 包含每条染色体左端和右端的端粒reads数量统计
-  - 示例：
-    ```
-    染色体|Chromosome: Chr10 (长度|Length: 133,184,359 bp)
-    --------------------------------------------------------------------------------
-      左端端粒|Left telomere: 1-5000 bp区域
-        ONT reads: 0
-        HiFi reads: 3
-        总计|Total: 3
-
-      右端端粒|Right telomere: 133,179,359-133,184,359 bp区域
-        ONT reads: 0
-        HiFi reads: 5
-        总计|Total: 5
-    ```
-
-**telomere_summary.txt** - 端粒鉴定结果汇总报告
-  - 包含Filter_1和Filter_2的统计信息
-  - 端粒reads数量统计
-  - 关于可视化功能的说明
-
-**filter1_ont.bam / filter1_hifi.bam** - Filter_1 步骤输出的 BAM 文件
-  - 包含含端粒重复序列的比对结果
-  - 可用于后续分析或可视化
-
-**trim_L/**: 左端端粒序列目录（仅在Filter_2运行时生成）
-  - 包含识别出的染色体左端端粒序列
-  - FASTA 格式，每条序列一个文件
-
-**trim_R/**: 右端端粒序列目录（仅在Filter_2运行时生成）
-  - 包含识别出的染色体右端端粒序列
-  - FASTA 格式，每条序列一个文件
-
-## 分析流程 | Analysis Pipeline
-
-### 完整流程步骤 | Complete Pipeline Steps
-
-```
-1. 检查基因组索引
-   ↓
-2. Filter_1: 过滤含端粒的reads
-   - 使用 minimap2 比对 ONT/HiFi 数据到基因组
-   - 使用 teloclip 处理 SAM 文件
-   - 过滤含端粒重复序列的 reads
-   - 输出 filter1_ont.bam 和 filter1_hifi.bam
-   ↓
-3. Filter_2: 检测和提取端粒序列（需要同时有ONT和HiFi数据）
-   - 根据覆盖度修剪 reads
-   - 分类左侧和右侧端粒序列
-   - 输出到 trim_L 和 trim_R 目录
-   ↓
-4. 端粒位置分析（✅ 新增功能）
-   - 分析 filter1 BAM 文件
-   - 识别左端端粒（染色体起始位置附近）
-   - 识别右端端粒（染色体末端位置附近）
-   - 生成 telomere_positions.txt 报告
-   ↓
-5. 结果汇总
-   - 统计端粒序列数量
-   - 生成结果汇总报告
-```
-
-## 系统要求 | System Requirements
-
-### 依赖软件 | Dependencies
-
-**Conda 环境**:
-- Python 3.11+
-- 所有依赖自动安装在 conda 环境中
-
-**必须预先安装的软件**:
-- **TeloComp** (版本 1.0.0)
-  - 安装路径: `/share/org/YZWL/yzwl_lixg/software/telocomp/TeloComp-1.0.0/`
-- **GenomeSyn**
-  - 安装路径: `/share/org/YZWL/yzwl_lixg/software/GenomeSyn/GenomeSyn-main/GenomeSyn-1.2.7/`
-
-**Conda 包**:
-- samtools
-- minimap2
-- bwa
-- flye
-- Python: numpy, pandas, pysam, biopython, matplotlib, svglib
-
-### 硬件建议 | Hardware Recommendations
-
-- **CPU**: 多核处理器（推荐20核以上）
-- **RAM**: 最少16GB（大基因组推荐64GB以上）
-- **存储**: 预留基因组文件大小5倍的磁盘空间
-
-## 注意事项 | Important Notes
-
-1. **基因组索引**: 系统会自动创建索引（如果不存在）
-2. **端粒序列**: 根据物种选择正确的端粒重复序列模式
-3. **输入数据要求**:
-   - 必须至少提供 ONT 或 HiFi 数据其中一种
-   - 如果只有单种数据类型，Filter_2 会自动跳过，Filter_1 的输出仍然包含端粒鉴定结果
-   - 同时提供两种数据类型可以获得更完整的端粒提取和修剪结果
-4. **磁盘空间**: Filter_2 会生成大量中间文件，确保有足够磁盘空间
-5. **运行时间**: 取决于数据量和基因组大小，可能需要数小时到数天
-
-## 故障排除 | Troubleshooting
-
-### 常见问题 | Common Issues
-
-**Q: "基因组索引文件不存在" 错误**
-```bash
-# 系统会自动创建索引，无需手动操作
-# 如需手动创建，可运行：
-samtools faidx genome.fa
-```
-
-**Q: "ModuleNotFoundError: No module named 'pysam'" 错误**
-```bash
-# 确保激活了正确的 conda 环境
-conda activate telocomp
-
-# 或重新安装依赖
-cd /share/org/YZWL/yzwl_lixg/software/telocomp/TeloComp-1.0.0/bin
-bash setup.sh
-```
-
-**Q: "至少需要提供 ONT 或 HiFi 数据" 错误**
-```bash
-# 必须提供至少一种长读长数据
-biopytools telocomp -g genome.fa --ont data.fastq.gz -o output
-```
-
-**Q: 磁盘空间不足**
-```bash
-# 清理中间文件
-rm -rf telomere_output/filter2_output/trim_L/*
-rm -rf telomere_output/filter2_output/trim_R/*
-```
-
-## 使用示例 | Usage Examples
-
-### 示例1：植物基因组端粒鉴定 | Example 1: Plant Genome Telomere Identification
-
-```bash
-# 使用ONT和HiFi数据鉴定植物端粒（默认CCCTAAA）
-biopytools telocomp \
-    -g plant_genome.fa \
-    --ont plant_ont.fastq.gz \
-    --hifi plant_hifi.fastq.gz \
-    -o plant_telomere
-```
-
-### 示例2：动物基因组端粒鉴定 | Example 2: Animal Genome Telomere Identification
-
-```bash
-# 使用动物端粒序列（TTAGGG）
-biopytools telocomp \
-    -g animal_genome.fa \
-    --ont animal_ont.fastq.gz \
-    -m TTAGGG \
-    -M 6 \
-    -o animal_telomere
-```
-
-### 示例3：低覆盖度数据 | Example 3: Low Coverage Data
-
-```bash
-# 降低覆盖度阈值以获取更多端粒序列
-biopytools telocomp \
-    -g genome.fa \
-    --hifi hifi.fastq.gz \
-    -c 50 \
-    -o low_coverage_telomere
-```
-
-## 与其他模块配合 | Integration with Other Modules
-
-TeloComp 可以与以下模块配合使用：
-
-1. **find_telomere**: 端粒序列查找模块
-2. **hifiasm**: HiFi 数据基因组组装
-3. **ragtag**: 基因组 scaffolding
-
-## 相关资源 | Related Resources
-
-- [TeloComp官方文档](https://github.com/lxie-0709/TeloComp)
-- [端粒研究综述](https://www.nature.com/articles/s41576-020-0031-z)
-- [T2T基因组组装指南](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8328731/)
-
-## 许可证 | License
-
-本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件
-
-## 引用信息 | Citation
-
-如果在学术研究中使用此工具，请引用 TeloComp 相关文献：
-
-```
-TeloComp: An efficient integrated software package for telomere extraction and complementation
-```
-
----
-
-**最后更新 | Last Updated**: 2026-01-15
+- **植物**：默认 `CCCTAAA` 直接用
+- **动物**：`-m TTAGGG -M 6`（TTAGGG 是 6 个碱基）
+- **只有一种 reads**：只跑 Filter_1 + 位置分析即可，Filter_2 会自动跳过
+- **已有 Filter_1 的 BAM、只想重跑位置分析**：`--skip-filter`
+- **只要 BAM 不要报告**：`--no-visualization`
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -418,3 +147,27 @@ TeloComp: An efficient integrated software package for telomere extraction and c
 | `--no-visualization` | — | store_true | 跳过可视化｜Skip visualization |
 
 <!-- END PARAMS:auto -->
+
+## 依赖 | Dependencies
+
+- conda 环境 `telocomp`（默认 `~/miniforge3/envs/telocomp`），提供 python 运行环境和 samtools
+- TeloComp 工具集（默认 `~/software/telocomp/TeloComp-1.0.0/bin`），含 `telocomp_Filter_1`、`telocomp_Filter_2`
+- GenomeSyn（默认 `~/software/GenomeSyn/GenomeSyn-main/GenomeSyn-1.2.7/bin`）
+- Python 包 `pysam`（位置分析/统计 BAM 时使用）
+
+## 常见问题 | FAQ
+
+**Q1：动物物种一个端粒都找不到？**
+端粒重复序列默认是植物的 `CCCTAAA`。动物请改用 `-m TTAGGG -M 6`。
+
+**Q2：为什么 Filter_2 没跑、filter2_output 是空的？**
+Filter_2 需要 **ONT 和 HiFi 同时提供**。只有一种 reads 时会自动跳过并创建空目录，这是预期行为——你仍可拿到 Filter_1 的 BAM 和端粒位置报告。
+
+**Q3：能看到端粒图吗？**
+当前模块只实现了 Filter 步骤（端粒 reads 识别/过滤）和位置分析，**未实现完整的 Complement 可视化绘图**（需要额外 WGS reads、NextPolish 和 Assembly 步骤）。报告 `telomere_positions.txt` 是主要产出。
+
+**Q4：有断点续传吗？**
+没有。重跑会重新执行各步骤。索引已存在时不会重复创建，但 Filter 和位置分析会重做。
+
+**Q5：报错找不到 TeloComp bin / GenomeSyn bin 怎么办？**
+这两个是默认路径 `~/software/telocomp/TeloComp-1.0.0/bin` 和 `~/software/GenomeSyn/.../GenomeSyn-1.2.7/bin`，且必须真实存在（代码会校验）。若你的安装路径不同，需先确认对应目录存在。

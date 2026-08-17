@@ -1,153 +1,80 @@
-# 基因组挂载率统计模块
+# 基因组挂载率统计 | Genome Mount Rate
 
-**计算FASTA文件中序列的挂载率 | Calculate Genome Mount Rate from FASTA Files**
+一句话理解：**算出基因组里「最长的 N 条序列」加起来占总长度的百分之几，用来衡量组装把序列「挂载」到染色体的完成度**。
 
 ## 功能概述 | Overview
 
-基因组挂载率统计模块用于计算FASTA文件中前N条（或最长N条）序列占总基因组长度的百分比。该工具常用于评估基因组组装质量，例如统计主要染色体（较长的序列）占总基因组的比例。
-
-## 主要特性 | Key Features
-
-- **灵活的统计方式**: 支持按文件顺序或按长度排序统计前N条序列
-- **推荐排序模式**: 排序后可计算最长N条序列的占比，更准确反映基因组挂载情况
-- **简洁高效**: 纯Python实现，无需外部依赖
-- **详细输出**: 显示总序列数、基因组大小、目标序列长度和挂载率百分比
-- **标准日志**: 符合BioPyTools开发规范的日志输出格式
+- 纯 Python 实现，无外部依赖
+- 计算前 N 条（或最长 N 条）序列占总基因组长度的百分比
+- 支持按文件原顺序或按长度降序两种统计口径
+- 结果直接打印到终端
 
 ## 快速开始 | Quick Start
 
-### 基本用法 | Basic Usage
-
 ```bash
-# 计算前10条序列的挂载率（按文件顺序）
-biopytools genome-mount-rate -i genome.fa -n 10
-
-# 计算最长10条序列的挂载率（推荐）
 biopytools genome-mount-rate -i genome.fa -n 10 --sort
 ```
 
-### 高级用法 | Advanced Usage
+输入一个 FASTA，-n 指定统计几条，--sort 表示按长度取最长 N 条。
 
-```bash
-# 统计主要染色体数量（假设有20条染色体）
-biopytools genome-mount-rate -i assembled_genome.fa -n 20 --sort
+## 零基础概念速览 | Concepts in plain words
 
-# 检查 scaffold 挂载情况
-biopytools genome-mount-rate -i scaffolds.fa -n 100 --sort
+| 术语 | 通俗理解 |
+|------|----------|
+| 挂载率(mount rate) | 「最长 N 条序列」占全基因组的比例；比例越高说明序列越集中、越接近染色体级 |
+| 序列(sequence) | FASTA 里一条以 > 开头的记录（可能是染色体、scaffold 或 contig） |
+| 前 N 条 vs 最长 N 条 | 前者按文件里的出现顺序取，后者先按长度排序再取；通常「最长 N 条」才有意义 |
+
+## 输入 | Input
+
+一个 FASTA 文件（.fa / .fasta）。
+
+```text
+>Chr1
+ACGT...（很长）
+>Chr2
+ACGT...
+>contig1
+ACGT...（很短）
 ```
 
 ## 参数说明 | Parameters
 
-### 必需参数 | Required Parameters
+### 输入与数量 | Input & number
 
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `-i, --input` | 输入的FASTA文件路径 | `-i genome.fa` |
-| `-n, --number` | 要计算的序列数量 | `-n 10` |
+**通俗理解|In plain words:** -i 是要统计的 FASTA；-n 是「取几条序列来算占比」。-n 常设为该物种的染色体数（如人 24、水稻 12）。
 
-### 可选参数 | Optional Parameters
+### 排序开关 | Sort
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--sort` | `False` | 按长度从大到小排序后计算（计算最长N条的占比） |
+**通俗理解|In plain words:** --sort 决定「取哪 N 条」。**强烈建议加上**——加了之后先按长度从大到小排序，取的是「最长 N 条」（通常对应染色体）；不加则按文件里的原始顺序取前 N 条，如果文件里小 contig 排在前面，算出来的挂载率会严重偏低、没有意义。
 
-## 使用示例 | Usage Examples
+## 输出 | Output
 
-### 示例1：评估二倍体基因组组装质量 | Example 1: Assess Diploid Genome Assembly Quality
+结果直接打印到终端（不写文件）：
 
-```bash
-# 对于二倍体生物（如大多数动物），统计最长20条序列（10对染色体）
-biopytools genome-mount-rate -i mammal_genome.fa -n 20 --sort
-```
-
-**输出解释**:
-- 挂载率接近100%说明组装质量很高，主要染色体序列完整
-- 挂载率较低说明存在大量未挂载的scaffold或contig
-
-### 示例2：评估植物基因组组装质量 | Example 2: Assess Plant Genome Assembly Quality
-
-```bash
-# 对于植物（可能有多倍体），统计最长30-50条序列
-biopytools genome-mount-rate -i plant_genome.fa -n 50 --sort
-```
-
-### 示例3：比较不同组装版本 | Example 3: Compare Different Assembly Versions
-
-```bash
-# 比较v1.0和v2.0版本的挂载率
-biopytools genome-mount-rate -i genome_v1.0.fa -n 20 --sort
-biopytools genome-mount-rate -i genome_v2.0.fa -n 20 --sort
-```
-
-### 示例4：按文件顺序统计 | Example 4: Statistic by File Order
-
-```bash
-# 如果FASTA文件已按重要性排序，可直接统计
-biopytools genome-mount-rate -i sorted_genome.fa -n 10
-```
-
-## 输出结果 | Output Results
-
-### 输出格式 | Output Format
-
-```
+```text
 ----------------------------------------
-总序列数|Total sequences: 1500
-总基因组大小|Total genome size: 1,234,567,890 bp
-统计目标|Target: 最长|longest 10 条序列|sequences
-目标序列总长|Target sequences total length: 1,200,000,000 bp
+总序列数|Total sequences: 1352
+总基因组大小|Total genome size: 812,345,678 bp
+统计目标|Target: 最长|longest 12 条序列|sequences
+目标序列总长|Target sequences total length: 790,000,000 bp
 ----------------------------------------
-占比|Mount rate: 97.20%
+占比|Mount rate: 97.25%
 ----------------------------------------
 ```
 
-### 结果解读 | Result Interpretation
+## 结果解读 | Interpreting Results
 
-| 挂载率范围 | 含义 | 建议 |
-|-----------|------|------|
-| **95% - 100%** | 优秀 | 主要序列完整，组装质量很高 |
-| **80% - 95%** | 良好 | 主要序列基本完整，有少量未挂载序列 |
-| **50% - 80%** | 中等 | 存在较多未挂载序列，可能需要scaffold构建 |
-| **< 50%** | 较低 | 组装碎片化严重，需要改进组装策略 |
+**通俗理解|In plain words:** 最后一行「占比|Mount rate」就是要的数。
 
-## 应用场景 | Applications
+- 占比接近 90-100%：大部分基因组都集中到了少数几条长序列上，挂载良好；
+- 占比偏低（如 <80%）：大量序列散落成小 contig，组装连续性差，需要继续挂载（如 Hi-C）或检查组装。
 
-### 1. 基因组组装质量评估
+## 参数选择建议 | Parameter Guidance
 
-在基因组组装完成后，计算主要染色体序列的挂载率是评估组装质量的重要指标。
-
-### 2. 组装版本比较
-
-比较不同组装版本或不同组装软件的结果，选择挂载率更高的版本。
-
-### 3. 染色体级别组装验证
-
-验证是否成功将scaffold挂载到染色体级别。
-
-### 4. 基因组注释前评估
-
-在开始基因组注释前，评估组装的完整性。
-
-## 技术细节 | Technical Details
-
-### 算法说明
-
-1. 读取FASTA文件，统计每条序列的长度
-2. 如果启用`--sort`，按长度从大到小排序
-3. 取前N条序列，计算其总长度
-4. 计算前N条序列长度占总长度的百分比
-
-### 性能说明
-
-- 时间复杂度: O(n) 或 O(n log n)（启用排序时）
-- 空间复杂度: O(n)
-- n为序列数量
-
-### 限制
-
-- 仅支持标准FASTA格式
-- 序列名称以`>`开头
-- 空行会被自动跳过
+- 始终加 --sort，取「最长 N 条」；
+- -n 用该物种的染色体数（或预期染色体数）；
+- 也可用 -n 100 这类较大值，看「最长 100 条」能覆盖多少，评估 scaffold 挂载情况。
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -172,64 +99,21 @@ biopytools genome-mount-rate -i sorted_genome.fa -n 10
 | `--sort` | — | store_true | [推荐]开启此选项后，会先按长度从大到小排序，再计算前N条（即计算最长N条的占比）｜[Recommended] Sort sequences by length (descending) before calculating (i.e., calculate longest N) |
 
 <!-- END PARAMS:auto -->
+## 依赖 | Dependencies
+
+- 无外部软件依赖，纯 Python 标准库实现
 
 ## 常见问题 | FAQ
 
-### Q1: 为什么要使用`--sort`参数？
+**Q1：为什么加了 --sort 和没加结果差很多？**
+没加 --sort 时按文件里序列的**原始顺序**取前 N 条；若小 contig 排前面，取到的就是一堆短序列，占比自然很低。加 --sort 后先按长度排序，取的是真正最长的 N 条，才有参考意义。
 
-**A**: 使用`--sort`参数可以计算最长N条序列的占比，这在基因组组装质量评估中更有意义。例如，如果你想统计主要染色体的占比，它们通常是最长的序列。
+**Q2：结果写到哪里？**
+直接打印到终端（stdout），不生成文件；需要留档可重定向，如 biopytools genome-mount-rate -i g.fa -n 10 --sort > result.txt。
 
-### Q2: 如何选择N值？
+**Q3：支持断点续传吗？**
+不需要也不支持——纯读文件即时计算，无中间状态。
 
-**A**: N值应该根据物种的染色体数量选择：
-- 二倍体动物: N = 染色体对数 x 2（如人类：N=23x2=46）
-- 多倍体植物: N = 染色体组数 x 单倍体染色体数
-- 如果不确定，可以尝试多个N值观察挂载率变化
+**Q4：-n 超过了序列总数会怎样？**
+不会报错，程序会自动取 min(-n, 总序列数)，即最多取全部序列（此时占比恒为 100%）。
 
-### Q3: 挂载率低应该怎么办？
-
-**A**: 挂载率低通常意味着：
-1. 存在大量未挂载的scaffold
-2. 组装碎片化严重
-3. 可能需要使用遗传图谱或Hi-Fi数据辅助挂载
-
-### Q4: 支持压缩格式吗？
-
-**A**: 当前版本仅支持未压缩的FASTA格式。如需处理压缩文件，请先解压。
-
-### Q5: 可以统计所有序列吗？
-
-**A**: 可以，但挂载率会始终为100%。建议设置合理的N值以获得有意义的结果。
-
-## 系统要求 | System Requirements
-
-### 依赖软件 | Dependencies
-
-- **Python**: 3.7+
-- **Python包**:
-  - `click` - 命令行界面
-  - `pathlib` - 路径处理
-
-### 硬件建议 | Hardware Recommendations
-
-- **RAM**: 根据FASTA文件大小，通常1GB足够
-- **存储**: 仅需读取输入文件，无额外存储需求
-
-## 相关资源 | Related Resources
-
-- [FASTA格式规范](https://en.wikipedia.org/wiki/FASTA_format)
-- [基因组组装质量评估](https://www.ncbi.nlm.nih.gov/pmc/articles/PMCPMC4545759/)
-- [BioPyTools开发规范](/share/org/YZWL/yzwl_lixg/software/scripts/develop_python_guides.md)
-
-## 许可证 | License
-
-本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件
-
-## 引用信息 | Citation
-
-如果在学术研究中使用此工具，请引用BioPyTools：
-
-```
-BioPyTools: A comprehensive bioinformatics toolkit
-https://github.com/your-repo/biopytools
-```

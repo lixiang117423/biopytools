@@ -1,79 +1,165 @@
-# 三代基因组组装流程 | Genome Assembly Pipeline
+# 基因组组装流程 | Genome Assembly Pipeline
 
-**多数据类型整合的三代基因组端到端组装流程 | End-to-end third-generation genome assembly pipeline with multi-data integration**
+一句话理解：**把一堆三代测序数据（HiFi 必需，可加 Hi-C/ONT/NGS）自动跑成一版染色体级别的基因组——从质控、组装、挂载到质量评估全流程自动完成**。
 
 ## 功能概述 | Overview
 
-`genomeasm` 是一个面向参考基因组构建的一站式组装流程，以 PacBio HiFi 长读长为核心组装数据，自动整合 ONT、Hi-C、Illumina NGS 等辅助数据。流程会根据输入目录自动检测可用数据类型并选择组装策略。
-
-流程划分为六个阶段：环境检查、数据质量控制（FastQC 等）、hifiasm 主组装、Hi-C 辅助挂载（Juicer + 3D-DNA 或 SALSA2）、质量评估（BUSCO/QUAST）、结果整理报告。Hi-C 挂载策略提供 `complete_juicer`、`standard_3ddna`、`simplified_salsa2` 三种可选方案。适用于植物、动物大基因组的染色体级别组装项目。
+- 以 PacBio HiFi 为核心组装数据，自动整合 ONT、Hi-C、Illumina NGS 等辅助数据
+- 自动检测输入目录里的数据类型，并据此选择组装策略
+- 六阶段流程：环境检查 → 数据质控 → hifiasm 组装 → Hi-C 挂载 → 质量评估 → 结果整理
+- 三种 Hi-C 挂载策略：complete_juicer（Juicer+3D-DNA）、standard_3ddna、simplified_salsa2（SALSA2）
+- 质量评估输出 N50、BUSCO 完整性、gap 等指标，并生成最终报告与 README
 
 ## 快速开始 | Quick Start
 
 ```bash
-# 基本用法：HiFi 组装
-biopytools assemble -i raw_data/ -o assembly_results/
-
-# HiFi + Hi-C 染色体级别挂载
-biopytools assemble -i data/ -o results/ --hic-strategy complete_juicer
-
-# 指定项目名和基因组大小
-biopytools assemble -i input/ -o output/ -n my_genome --genome-size 3g -t 64
-
-# 使用 SALSA2 简化挂载策略
-biopytools assemble -i data/ -o results/ --hic-strategy simplified_salsa2
+biopytools genomeasm -i raw_data/ -o results/
 ```
 
-注：CLI 命令名为 `assemble`（`biopytools assemble`），对应模块目录为 `genomeasm`。
+把 HiFi reads（文件名含 hifi/pacbio/ccs 等关键字）放进输入目录，运行即可；有 Hi-C 就再放 Hi-C 的 R1/R2 文件。
+
+## 零基础概念速览 | Concepts in plain words
+
+| 术语 | 通俗理解 |
+|------|----------|
+| HiFi | PacBio 的高准确长读段，本流程的「主力组装数据」 |
+| ONT | Oxford Nanopore 长读段，超长但错误率偏高，可辅助提升连续性 |
+| NGS | Illumina 短读段，短而准，常用于精修/纠错 |
+| Hi-C | 能测「染色体空间上谁挨着谁」的数据，用来把 contig 排成染色体（挂载） |
+| 组装(assembly) | 把读段拼回基因组序列的过程 |
+| 挂载(scaffolding) | 借助 Hi-C 把零散 contig 排序、定向、连成整条染色体 |
+| contig / scaffold / 染色体 | 三级递进：contig 是连续无空洞的片段，scaffold 是排好序但中间可能有 N 的片段，染色体是最完整形态 |
+| N50 | 把所有序列按长度从大到小排，累加到总长一半时那条序列的长度；越大越连续 |
+| BUSCO | 一套「单拷贝保守基因」数据库，用来测基因组的完整性（缺了多少基因） |
+| 单倍型/倍性 | 二倍体(diploid)有两套染色体，单倍型(haplotype)指其中一套；hifiasm 可分别组装两套 |
+
+## 输入 | Input
+
+输入是一个**目录**，程序按文件名关键字自动识别数据类型（HiFi 是必需的）：
+
+| 数据类型 | 文件名关键字 | 是否必需 |
+|----------|-------------|----------|
+| HiFi | hifi / pacbio / ccs | 必需（检测不到会报错） |
+| Hi-C | hic R1/R2 | 可选 |
+| ONT | ont / nanopore / long | 可选 |
+| NGS | ngs / illumina / short | 可选 |
+
+示例目录结构：
+
+```text
+raw_data/
+├── sample.hifi.fastq.gz        # HiFi（必需）
+├── sample_hic_R1.fastq.gz      # Hi-C R1（可选）
+└── sample_hic_R2.fastq.gz      # Hi-C R2（可选）
+```
 
 ## 参数说明 | Parameters
 
-### 必需参数 | Required
+### 基本参数 | Basic
 
-| 参数 | 描述 |
-|------|------|
-| `-i, --input-dir` | 输入目录（包含 HiFi/Hi-C/ONT/NGS 等数据文件）|
+**通俗理解|In plain words:** -i 是放测序数据的目录；-o 是结果输出目录；-n 是项目名（会出现在输出文件名里）；-t 是线程数。**注意 -t 在 CLI 帮助里显示默认 12，但实际不指定时模块用的是 88（见 FAQ）。**
 
-### 常用可选参数 | Common Options
+### 组装参数 | Assembly
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-o, --output-dir` | `./assembly_output` | 输出目录 |
-| `-n, --project-name` | `genome_assembly` | 项目名称 |
-| `-t, --threads` | `12` | 线程数 |
-| `--genome-size` | `3g` | 基因组大小估计（如 `3g`、`500m`）|
-| `--hic-strategy` | `complete_juicer` | Hi-C 挂载策略（complete_juicer / standard_3ddna / simplified_salsa2）|
-| `--restriction-enzyme` | `MboI` | 限制性内切酶（MboI/DpnII/HindIII/EcoRI）|
-| `--min-contig-size` | `15000` | 进入挂载的最小 contig 长度 |
-| `--edit-rounds` | `2` | 3D-DNA 编辑轮数 |
-| `--species-type` | `diploid` | 物种倍性（diploid/haploid/polyploid）|
-| `--telomere-motif` | `CCCTAA` | 端粒 motif |
-| `--purge-level` | `1` | Purge 级别（0-3）|
-| `--purge-max` | `80` | Purge 最大覆盖度 |
-| `--n-haplotypes` | `2` | 单倍型数 |
-| `--skip-fastqc` | 开 | 跳过 FastQC（默认跳过以节省时间）|
-| `--min-hifi-coverage` | `30` | HiFi 最低覆盖度阈值 |
-| `--min-hic-coverage` | `50` | Hi-C 最低覆盖度阈值 |
-| `--min-mapping-rate` | `0.7` | 最低比对率阈值 |
-| `--busco-lineage` | `auto` | BUSCO 谱系 |
-| `--hifiasm-path` | `hifiasm` | hifiasm 路径 |
-| `--juicer-path` | `juicer.sh` | Juicer 脚本路径 |
-| `--pipeline-3ddna` | `3d-dna/run-asm-pipeline.sh` | 3D-DNA pipeline 路径 |
-| `--salsa2-path` | `run_pipeline.py` | SALSA2 脚本路径 |
+**通俗理解|In plain words:** --genome-size 是预估基因组大小（用于覆盖度估算和 QC，如 3g=30 亿、500m=5 亿），尽量给准；--species-type 是倍性，二倍体默认 diploid；--purge-level/--purge-max 控制「去掉冗余/重复序列」的力度（越大删得越狠，默认 1 较保守）；--telomere-motif 是端粒序列（动物默认 CCCTAA，植物换成 TTTAGGG）。**不熟悉就用默认。**
 
-（运行 `biopytools assemble -h` 查看完整参数列表）
+### Hi-C 参数 | Hi-C
+
+**通俗理解|In plain words:** 只有目录里有 Hi-C 数据才用到。--hic-strategy 选挂载方案：complete_juicer 最完整质量最高、最慢；simplified_salsa2 最简化最快；standard_3ddna 折中。--restriction-enzyme 是建库用的酶（默认 MboI），必须和实际建库一致。
+
+### 质控参数 | Quality control
+
+**通俗理解|In plain words:** --skip-fastqc 默认跳过 FastQC 省时间；--min-hifi-coverage/--min-hic-coverage 是「覆盖度低于多少算不合格」的告警线，不达线只告警不中断；--min-mapping-rate 是 Hi-C 比对率下限；--busco-lineage 是 BUSCO 谱系（auto 自动选）。**一般不用动。**
+
+### 工具路径 | Tool paths
+
+**通俗理解|In plain words:** 各软件的路径，默认用 PATH 里的命令名。只有软件装在不常见位置时才需要显式指定。
+
+## 分析流程 | Pipeline
+
+**通俗理解|In plain words:** 六步走：先查环境 → 查数据质量 → 用 hifiasm 组装 → 有 Hi-C 就挂载成染色体 → 评估质量 → 整理成报告。
+
+```text
+输入目录（自动检测数据类型）
+    │
+    ▼
+Phase 1: 环境检查 + 依赖验证 + 输入文件校验
+    │
+    ▼
+Phase 2: 数据质量控制（覆盖度/读长/FastQC）
+    │
+    ▼
+Phase 3: hifiasm 组装 → GFA 转 FASTA → 组装统计
+    │
+    ▼
+Phase 4: Hi-C 挂载（有 Hi-C 数据时；失败不终止流程）
+    ├─ complete_juicer: Juicer + 3D-DNA
+    ├─ standard_3ddna: BWA + pairtools + 3D-DNA
+    └─ simplified_salsa2: BWA + SALSA2
+    │
+    ▼
+Phase 5: 质量评估（N50/L50、BUSCO、gap）
+    │
+    ▼
+Phase 6: 结果整理 + 最终报告 + README + JSON 摘要
+```
 
 ## 输出 | Output
 
+```text
+results/
+├── logs/                         # 运行日志 + 命令记录
+├── qc/                           # 数据质控报告
+├── assembly/                     # hifiasm 组装产物（GFA/FASTA + 组装统计）
+├── hic_processing/               # Hi-C 挂载中间产物
+├── quality_assessment/           # 综合质量报告 + BUSCO 结果
+├── temp/                         # 临时文件
+└── results/                      # 最终整理结果（重点看这里）
+    ├── FINAL_ASSEMBLY_REPORT.txt # 最终组装报告
+    ├── assembly_results_summary.json  # 机器可读的结果摘要
+    ├── README.md                 # 结果说明
+    ├── final_assemblies/         # 最终组装序列 FASTA（+ .fai 索引）
+    ├── scaffolds/                # 染色体挂载后的 FASTA
+    ├── for_juicebox/             # Juicebox 手动校正文件（.hic/.assembly）
+    └── statistics/               # 统计文件
 ```
-assembly_output/
-├── 01_qc/              # 数据质量检查
-├── 02_assembly/        # hifiasm 组装结果
-├── 03_hic/             # Hi-C 挂载结果（Juicer/3D-DNA/SALSA2）
-├── 04_qa/              # BUSCO/QUAST 质量评估
-├── final_results/      # 最终染色体级别基因组
-└── logs/               # 流程日志
-```
+
+## 结果解读 | Interpreting Results
+
+### 1. 最终报告（results/FINAL_ASSEMBLY_REPORT.txt）
+
+**通俗理解|In plain words:** 一张「组装成绩单」，先看它。
+
+- 项目信息：组装策略、Hi-C 策略、数据类型、预估大小；
+- 质量摘要：总体评级、最佳组装 N50、最佳挂载 N50、最高 BUSCO 完整性；
+- 主要输出文件清单 + 改进建议。
+
+### 2. 组装序列（results/final_assemblies/）
+
+**通俗理解|In plain words:** hifiasm 组出来的最终序列。
+
+- primary：主要组装（优先用）；alternate：备选组装；haplotype_1/2：分相的两套单倍型；
+- 二倍体物种优先取 primary 版本。
+
+### 3. 挂载序列（results/scaffolds/）
+
+**通俗理解|In plain words:** 有 Hi-C 时，contig 被排成染色体的版本，命名形如 项目名_primary_xxx_scaffolded.fa。
+
+### 4. 质量指标
+
+**通俗理解|In plain words:** 看三个数判断好不好。
+
+- N50 越大越好（染色体级通常几十 Mb）；
+- BUSCO 完整性越接近 100% 越好（>95% 优秀，<90% 需关注）；
+- 大小比例（组装大小 / 预估大小）在 0.9-1.1 之间算合理。
+
+## 参数选择建议 | Parameter Guidance
+
+- **--hic-strategy**：有 Hi-C 且追求高质量用默认 complete_juicer；赶时间或 Hi-C 质量一般用 simplified_salsa2
+- **--genome-size**：尽量给准（如 3g、500m），影响覆盖度估算和 QC 判定
+- **--species-type**：正常二倍体用默认 diploid；单倍体（如雄性膜翅目）用 haploid；多倍体用 polyploid
+- **-t/--threads**：核多就调大，hifiasm/BWA 都能明显提速
+- **--telomere-motif**：植物换成 TTTAGGG，动物默认 CCCTAA
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -148,22 +234,30 @@ assembly_output/
 | `--skip-dependency-check` | — | store_true | 跳过依赖软件检查｜Skip dependency check |
 
 <!-- END PARAMS:auto -->
-
 ## 依赖 | Dependencies
 
-- hifiasm（主组装）
-- bwa、samtools（Hi-C 比对）
-- Juicer + 3D-DNA（complete_juicer / standard_3ddna 策略）
-- SALSA2（simplified_salsa2 策略）
-- BUSCO、QUAST（质量评估）
-- FastQC（可选）
+- 基础：hifiasm、bwa、samtools、seqkit、fastqc
+- Hi-C（按策略）：complete_juicer 需 juicer + juicer_tools + 3d-dna；standard_3ddna 需 bwa + pairtools + 3d-dna + juicer_tools；simplified_salsa2 需 bwa + samtools + SALSA2（run_pipeline.py）
+- 质量评估：BUSCO（可选，装不上会自动跳过 BUSCO 步骤）
+- Java（用于 juicer_tools）
 
-## 引用 | Citation
+## 常见问题 | FAQ
 
-- Cheng, H. et al. HiFiasm. *Nature Methods* 18, 170-175 (2021).
-- Dudchenko, O. et al. De novo assembly of the Aedes aegypti genome using Hi-C yields chromosome-length scaffolds. *Science* 356, 92-95 (2017).
-- Ghurye, J. et al. Integrating Hi-C links with assembly graphs for chromosome-scale assembly. *PLOS Computational Biology* (2019).
+**Q1：命令到底是 biopytools genomeasm 还是 biopytools assemble？**
+是 **biopytools genomeasm**。CLI 注册表里命令名为 genomeasm（模块目录也叫 genomeasm）；内部 click 命令对象名叫 assemble，只影响 --help 的显示，不影响调用。
 
-## 相关链接 | References
+**Q2：为什么报「未检测到 HiFi 数据」？**
+HiFi 是必需的。确认输入目录里 HiFi 文件名含 hifi/pacbio/ccs 关键字（不区分大小写的通配匹配），否则程序无法识别。
 
-- [项目主页](https://github.com/lixiang117423/biopytools)
+**Q3：-t 默认到底是 12 还是 88？**
+CLI 帮助显示 12（click 层默认值），但 click 层不把默认值透传给模块，模块 argparse 实际默认 88，所以不指定 -t 时实际用 88 线程。想要指定就显式传 -t。
+
+**Q4：Hi-C 挂载失败了会怎样？**
+不会终止整个流程。挂载失败只跳过挂载结果，继续做质量评估和结果整理（组装结果仍会保留）。
+
+**Q5：支持断点续传吗？**
+不支持。每次运行都会从头走完整六阶段流程。中断后重跑会重新开始。
+
+**Q6：为什么 --skip-fastqc 默认就是跳过？**
+为节省时间默认跳过 FastQC（模块里 skip_fastqc 默认 True）。想跑 FastQC 需在模块直调时用 --run-fastqc；click 包装层未暴露 --run-fastqc。
+
