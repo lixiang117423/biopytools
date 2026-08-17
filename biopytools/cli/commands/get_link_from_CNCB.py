@@ -73,7 +73,7 @@ def _validate_file_exists(file_path):
               help='不设置可执行权限|Don\'t make script executable')
 @click.option('--no-ena-fallback',
               is_flag=True,
-              help='关闭ENA回退查询(纯CNCB模式)|Disable ENA fallback query (pure CNCB mode)')
+              help='关闭ENA/NCBI回退查询(纯CNCB模式)|Disable ENA/NCBI fallback queries (pure CNCB mode)')
 def get_link_from_CNCB(input, output, failed, download_script, ftp_host,
                        ftp_timeout, retry_attempts, verbose,
                        log_file, no_download_script, no_executable,

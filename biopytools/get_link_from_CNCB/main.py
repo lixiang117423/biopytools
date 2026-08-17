@@ -18,6 +18,7 @@ from .utils import (
 from .ftp_searcher import CNCBFTPSearcher
 from .ena_searcher import ENALinkSearcher
 from .gsa_searcher import GSAHTTPSearcher
+from .ncbi_searcher import NCBISDLSearcher
 
 
 class CNCLinkExtractor:
@@ -56,6 +57,8 @@ class CNCLinkExtractor:
 
         # ENA回退命中计数|ENA fallback hit counter
         self.ena_found_count = 0
+        # NCBI SDL回退命中计数|NCBI SDL fallback hit counter
+        self.ncbi_found_count = 0
 
     def run_extraction(self) -> bool:
         """运行链接提取流程|Run link extraction pipeline"""
@@ -89,6 +92,10 @@ class CNCLinkExtractor:
             # CNCB未找到的ID回退ENA查询|Fall back to ENA for IDs missed by CNCB
             if self.config.ena_fallback and failed_ids:
                 success_urls, failed_ids = self._fallback_ena(success_urls, failed_ids)
+
+            # ENA也没有链接的ID回退NCBI SDL数据定位|Fall back to the NCBI SDL locator for IDs missed by both CNCB and ENA
+            if self.config.ena_fallback and failed_ids:
+                success_urls, failed_ids = self._fallback_ncbi(success_urls, failed_ids)
 
             # 保存结果|Save results
             self._save_results(success_urls, failed_ids, projects)
@@ -313,6 +320,55 @@ class CNCLinkExtractor:
         )
         return success_urls, still_failed
 
+    def _fallback_ncbi(self, success_urls: List[str],
+                       failed_ids: List[Tuple[str, str]]) -> Tuple[List[str], List[Tuple[str, str]]]:
+        """
+        对CNCB与ENA都未命中的ID回退NCBI SDL数据定位|Query the NCBI SDL locator for IDs missed by both CNCB and ENA
+
+        NCBI SRA里有些Run只存source BAM(ENA filereport有元数据但链接列为空),
+        SDL API能给出真实S3位置
+        |Some NCBI SRA runs hold source BAMs only (the ENA filereport lists metadata
+        with empty link columns); the SDL API returns their real S3 locations
+
+        Args:
+            success_urls: 已有的成功链接|Existing successful URLs
+            failed_ids: ENA回退后仍失败的(项目ID, Run ID)列表|(project, run) pairs still failed after ENA
+
+        Returns:
+            (合并后的链接列表, 仍失败的ID列表)|(merged URLs, still-failed IDs)
+        """
+        # 只查INSDC前缀(SRR/ERR/DRR);CRR是GSA原生ID,NCBI没有,跳过
+        # |Query only INSDC prefixes; CRR is GSA-native and absent from NCBI, skip
+        ncbi_candidates = [(p, r) for p, r in failed_ids if r[:3] in ("SRR", "ERR", "DRR")]
+        non_ncbi_failed = [(p, r) for p, r in failed_ids if r[:3] not in ("SRR", "ERR", "DRR")]
+
+        self.logger.info(f"开始NCBI SDL回退查询|Starting NCBI SDL fallback query: {len(ncbi_candidates)} 个IDs|IDs")
+        if not ncbi_candidates:
+            return success_urls, failed_ids
+
+        searcher = NCBISDLSearcher(
+            logger=self.logger,
+            retry_attempts=self.config.retry_attempts
+        )
+        run_ids = [run_id for _, run_id in ncbi_candidates]
+        links_by_run = searcher.search_links(run_ids)
+
+        still_failed = list(non_ncbi_failed)
+        for project_id, run_id in ncbi_candidates:
+            urls = links_by_run.get(run_id)
+            if urls:
+                self.logger.info(f"NCBI SDL命中|NCBI SDL hit: {run_id} -> {len(urls)} 个文件|files")
+                success_urls.extend(urls)
+                self.ncbi_found_count += 1
+            else:
+                still_failed.append((project_id, run_id))
+
+        self.logger.info(
+            f"NCBI SDL回退完成|NCBI SDL fallback completed: 命中|hit {self.ncbi_found_count}, "
+            f"未命中|missed {len(still_failed)}"
+        )
+        return success_urls, still_failed
+
     def _save_results(self, success_urls: List[str], failed_ids: List[Tuple[str, str]], projects: Dict[str, List[str]]):
         """保存结果|Save results"""
         self.logger.info("正在保存结果|Saving results...")
@@ -393,6 +449,8 @@ class CNCLinkExtractor:
         self.logger.info(f"   总链接数|Total URLs: {len(success_urls)}")
         if self.config.ena_fallback and self.ena_found_count:
             self.logger.info(f"   ENA回退命中数|ENA Fallback Hits: {self.ena_found_count}")
+        if self.config.ena_fallback and self.ncbi_found_count:
+            self.logger.info(f"   NCBI SDL回退命中数|NCBI SDL Fallback Hits: {self.ncbi_found_count}")
         self.logger.info(f"   总耗时|Total Time: {elapsed_time:.2f} seconds")
         self.logger.info(f"   缓存命中率|Cache Hit Rate: {cache_stats['hit_rate_percent']}%")
 
@@ -462,7 +520,7 @@ def main():
 
     # ENA回退选项|ENA fallback options
     parser.add_argument("--no-ena-fallback", action="store_true",
-                       help="关闭ENA回退查询(纯CNCB模式)|Disable ENA fallback query (pure CNCB mode)")
+                       help="关闭ENA/NCBI回退查询(纯CNCB模式)|Disable ENA/NCBI fallback queries (pure CNCB mode)")
 
     args = parser.parse_args()
 

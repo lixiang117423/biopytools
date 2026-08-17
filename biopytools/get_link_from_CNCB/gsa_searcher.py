@@ -22,16 +22,24 @@ DEFAULT_GSA_BASE = "https://download.cncb.ac.cn"
 # |NGDC GSA search page (server-rendered results, resolves a CRR's parent CRA)
 GSA_SEARCH_URL = "https://ngdc.cncb.ac.cn/gsa/search"
 
+# NGDC GSA浏览页(列出该Run的精确HTTPS/FTP下载链接)
+# |NGDC GSA browse page (lists the run's exact HTTPS/FTP download links)
+GSA_BROWSE_URL = "https://ngdc.cncb.ac.cn/gsa/browse/{cra}/{run}"
+
 # NGDC拒绝python-requests默认UA(直接断连,实测),须伪装浏览器UA
 # |NGDC drops the default python-requests UA (verified live); send a browser UA
 BROWSER_UA = "Mozilla/5.0 (X11; Linux x86_64) biopytools/get-link-from-CNCB"
 
-# 依次尝试的目录布局|Directory layouts to try in order
-GSA_LAYOUTS = ("/gsa2/{cra}/{run}/", "/gsa/{cra}/{run}/")
+# 依次尝试的目录布局(新项目在gsa3,如CRA001007的tar.gz)
+# |Directory layouts to try in order (new projects live under gsa3, e.g. CRA001007 tar.gz)
+GSA_LAYOUTS = ("/gsa2/{cra}/{run}/", "/gsa3/{cra}/{run}/", "/gsa/{cra}/{run}/")
 
 # GSA数据文件名模式: {CRR}.fq.gz / {CRR}_f1.fq.gz / {CRR}_r2.fq.gz 等
 # |GSA file naming patterns: {CRR}.fq.gz / {CRR}_f1.fq.gz / {CRR}_r2.fq.gz etc.
 FILE_PATTERN = r"^{run}(_f1|_f2|_r1|_r2|_1|_2)?\.(fq|fastq)\.gz$"
+# 整Run归档模式: {CRR}.tar.gz
+# |Whole-run archive pattern: {CRR}.tar.gz
+TAR_PATTERN = r"^{run}\.tar\.gz$"
 
 
 class GSAHTTPSearcher:
@@ -60,7 +68,14 @@ class GSAHTTPSearcher:
             # |Injected test fakes may lack a headers attribute; skip defensively
             headers = getattr(self.session, "headers", None)
             if headers is not None:
-                headers.setdefault("User-Agent", BROWSER_UA)
+                # requests自带默认UA "python-requests/x",setdefault不会覆盖它,
+                # 而NGDC对该UA直接断连(实测);须显式替换,仅当调用方未设置自定义UA时
+                # |requests ships a default "python-requests/x" UA that setdefault
+                # cannot override, and NGDC drops that UA (verified live); replace
+                # it explicitly, but only when the caller set no custom UA
+                current_ua = headers.get("User-Agent")
+                if not current_ua or current_ua.lower().startswith("python-requests"):
+                    headers["User-Agent"] = BROWSER_UA
         # CRR→CRA解析结果缓存|Cache of CRR→CRA resolutions
         self._cra_cache = {}
 
@@ -133,6 +148,11 @@ class GSAHTTPSearcher:
         """
         查找CRR Run的下载文件URL|Find download file URLs for a CRR run
 
+        首选刮取NGDC浏览页(精确链接,天然覆盖gsa2/gsa3布局与tar.gz等任意文件名),
+        失败再回退autoindex目录探测
+        |Scrapes the NGDC browse page first (exact links, covers gsa2/gsa3 layouts
+        and arbitrary names like tar.gz), falling back to autoindex probing
+
         Args:
             cra_accession: GSA项目编号(CRA开头)|GSA project accession (CRA prefix)
             run_id: GSA Run ID(CRR开头)|GSA Run ID (CRR prefix)
@@ -145,6 +165,13 @@ class GSAHTTPSearcher:
                 "未安装requests,GSA查询不可用|requests not installed, GSA lookup unavailable"
             )
             return []
+
+        urls = self._search_browse_page(cra_accession, run_id)
+        if urls:
+            self.logger.info(
+                f"GSA浏览页找到 {len(urls)} 个文件|GSA browse page found {len(urls)} files: {run_id}"
+            )
+            return urls
 
         for layout in GSA_LAYOUTS:
             dir_path = layout.format(cra=cra_accession, run=run_id)
@@ -163,6 +190,38 @@ class GSAHTTPSearcher:
 
         self.logger.warning(f"GSA未找到文件|No GSA files found for: {run_id}")
         return []
+
+    def _search_browse_page(self, cra_accession: str, run_id: str) -> List[str]:
+        """
+        刮取NGDC浏览页提取该Run的下载链接|Scrape the NGDC browse page for the run's download links
+
+        Args:
+            cra_accession: GSA项目编号|GSA project accession
+            run_id: GSA Run ID|GSA Run ID
+
+        Returns:
+            HTTPS链接优先,无HTTPS时返回FTP链接|HTTPS links preferred; FTP links if no HTTPS
+        """
+        url = GSA_BROWSE_URL.format(cra=cra_accession, run=run_id)
+        self.logger.info(f"GSA浏览页查询|GSA browse page query: {url}")
+        content = self._fetch(url)
+        if content is None:
+            return []
+
+        # 只保留URL路径含/{run}/且文件名以run开头的链接,过滤qtrans、他Run与页面资源
+        # |Keep links whose path contains /{run}/ and filename starts with the run,
+        # excluding qtrans links, foreign runs and page assets
+        run_links = []
+        for link in re.findall(r'https?://[^"\s<>]+|ftp://[^"\s<>]+', content):
+            path = link.split("?")[0].rstrip("/")
+            name = path.rsplit("/", 1)[-1]
+            if f"/{run_id}/" in path and name.startswith(run_id):
+                run_links.append(link)
+
+        https_links = sorted(set(l for l in run_links if l.startswith("https://")))
+        if https_links:
+            return https_links
+        return sorted(set(run_links))
 
     def _fetch(self, url: str) -> Optional[str]:
         """GET目录列表,404或异常返回None|GET a directory listing; None on 404 or error"""
@@ -189,9 +248,10 @@ class GSAHTTPSearcher:
             匹配的文件名列表|List of matching filenames
         """
         pattern = re.compile(FILE_PATTERN.format(run=re.escape(run_id)))
+        tar_pattern = re.compile(TAR_PATTERN.format(run=re.escape(run_id)))
         names = []
         for match in re.finditer(r'href="([^"]+)"', content):
             name = match.group(1)
-            if pattern.fullmatch(name):
+            if pattern.fullmatch(name) or tar_pattern.fullmatch(name):
                 names.append(name)
         return names
