@@ -1,240 +1,120 @@
-# 基因组组装质量评估工具 (assembly-qc)
+# 基因组组装质量评估 | Genome Assembly Quality Control
 
-## 功能描述
+一句话理解：**给一份基因组组装做一次「全面体检」**——只靠基因组本身看完整度（BUSCO）和重复序列组装质量（LAI），再用测序 reads 看准确度（QV）和比对率（mapping），最后汇总成一份 HTML 报告和一张发表用表格。
 
-基因组组装质量评估工具提供基因组组装质量的综合评估，包括：
+## 功能概述 | Overview { #overview }
 
-- **核心评估**（基于基因组本身，不依赖外部数据）
-  - BUSCO完整性评估
-  - LAI指数评估（LTR组装完整性）
+- 七步流水线：基因组统计 → BUSCO 完整度 → LAI 指数 → QV 质量值 → NGS 比对 → 三代比对 → 报告
+- 核心评估（只靠基因组本身）：BUSCO（默认开）、LAI（默认关，EDTA 耗时长）
+- 可选评估（靠外部 reads）：QV（k-mer 光谱）、NGS mapping、三代 mapping（提供 reads 后自动启用）
+- 输出 HTML 综合报告 + TSV/Excel 发表用表格
+- 支持断点续传：各步骤输出已存在时自动跳过，方便失败后重跑
 
-- **可选评估**（基于外部数据）
-  - QV质量值计算（基于k-mer分析）
-  - Mapping评估（基于NGS/TGS数据比对）
-
-- **输出报告**
-  - HTML综合质量报告
-  - 发表用表格（TSV/Excel格式）
-
-## 使用方法
-
-### 基本用法
+## 快速开始 | Quick Start { #quick-start }
 
 ```bash
-# 核心评估（只基于基因组，不需要额外数据）
-biopytools assembly-qc \
-    --genome genome.fa \
-    --lineage embryophyta_odb10 \
-    -o qc_results
+biopytools assembly-qc --genome genome.fa --lineage embryophyta_odb10 --ngs-reads ./illumina_reads --long-reads ./hifi_reads --long-read-type hifi -o qc_results
 ```
 
-### 添加QV评估
+最小运行只需 `--genome` 和 `--lineage`（跑基因组统计 + BUSCO）。
 
-```bash
-biopytools assembly-qc \
-    --genome genome.fa \
-    --lineage embryophyta_odb10 \
-    --qv-reads ./illumina_reads \
-    -o qc_results
+## 零基础概念速览 | Concepts in plain words { #concepts }
+
+| 术语<br>Term | 通俗理解 |
+|---|---|
+| BUSCO | 用一套「几乎所有物种都该有的核心基因」当探针，看组装里找回了多少；比例越高越完整 |
+| LAI 指数 | 衡量「重复序列（尤其 LTR 转座子）装得对不对」的分数；越高说明重复区也装得好 |
+| QV 值 | 组装「准确度」打分，QV40 约等于每 1 万碱基错 1 个，越大越准 |
+| 比对率（mapping rate） | 测序 reads 能成功贴回基因组的比例，贴不上说明组装缺东西或错了 |
+| 覆盖度（coverage） | 基因组上有多少比例位点被 reads 覆盖到 |
+| N50 | 序列从长到短累加到总长 50% 时那条序列的长度，越大组装越连贯 |
+| GC 含量 | 基因组里 G+C 占的比例，物种特有、常用于检查是否混样 |
+| LTR 转座子 | 基因组里一类会「自我复制搬家」的重复元件，植物基因组尤其多 |
+| EDTA | 一个识别重复序列的软件，LAI 评估靠它先找 LTR |
+
+## 输入 | Input { #input }
+
+- `--genome`：基因组 FASTA（必需）
+- `--lineage`：BUSCO 谱系名（如 `embryophyta_odb10`）或完整路径（必需，哪怕 `--skip-busco`）
+- `--ngs-reads`：Illumina 短读文件或目录（可选，用于 QV + NGS 比对；文件名默认匹配 `_1.clean.fq.gz`）
+- `--long-reads`：三代 reads 文件或目录（可选，用于三代 QV + 比对；类型由 `--long-read-type` 指定）
+
+目录下按命名规则自动发现样本：NGS 找 `*_1.clean.fq.gz` 并推断对应的 `_2` 文件；三代按 `*.fq.gz` 收集。
+
+## 参数说明 | Parameters { #parameters }
+
+### 核心评估开关 | Core evaluation switches
+
+**通俗理解|In plain words:** BUSCO 默认开；LAI 默认关（因为它要跑 EDTA，对植物大基因组可能几小时到几天）。想加 LAI 就 `--enable-lai`；确认不想要 BUSCO 才 `--skip-busco`。**LAI 只在重复序列含量足够时才有意义，含量太低会返回「不适用」。**
+
+相关参数：`--skip-busco`、`--enable-lai`、`--lai-full-mode`、`--lai-repeatmasker-species`。
+
+### 可选评估与 reads | Optional evaluations and reads
+
+**通俗理解|In plain words:** QV、NGS 比对、三代比对默认都开启，但「没米下锅」——只有给了对应的 reads 才会真正跑。给了 `--ngs-reads` 就自动跑 NGS 的 QV 和比对，给了 `--long-reads` 就自动跑三代的。**提供哪种 reads 就评估哪种，缺数据时对应步骤会被跳过而不是报错。**
+
+相关参数：`--enable-qv`、`--qv-kmer-size`、`--enable-mapping`、`--enable-long-read-mapping`、`--ngs-reads`、`--long-reads`、`--long-read-type`、`--mapping-pattern`。
+
+### 报告输出 | Report output
+
+**通俗理解|In plain words:** HTML 报告和发表用表格默认都生成；`--no-html` / `--no-table` 关掉对应产物；`--table-format` 选表格是 TSV、Excel 还是两者都要。**默认 `both` 最省心，只要纯文本就 `--table-format tsv`。**
+
+相关参数：`--no-html`、`--no-table`、`--table-format`。
+
+### 线程 | Threads
+
+**通俗理解|In plain words:** `-t` 是全局线程数，各步骤串行执行、每个步骤都用满全部线程，调大一般更快。注意 LAI 用的 EDTA 有「内存随线程近线性增长」的坑，默认把 EDTA 线程封顶在 24，大基因组加高线程容易内存爆掉（88 线程实测 1.2 TB）。**一般不用动；要压 EDTA 内存可显式给 `--edta-threads`。**
+
+相关参数：`-t, --threads`、`--edta-threads`。
+
+## 分析流程 | Pipeline { #pipeline }
+
+```text
+基因组 FASTA (+ 可选 reads)
+    │
+    ├─ 步骤1 基因组统计（大小/N50/GC）
+    ├─ 步骤2 BUSCO 完整度评估（默认开）
+    ├─ 步骤3 LAI 指数评估（默认关，--enable-lai 开启）
+    ├─ 步骤4 QV 质量值评估（有 reads 时）
+    ├─ 步骤5 NGS mapping 评估（有 --ngs-reads 时）
+    ├─ 步骤6 三代 mapping 评估（有 --long-reads 时）
+    │
+    ▼
+步骤7 生成 HTML 报告 + TSV/Excel 发表表格
 ```
 
-### 添加Mapping评估
+## 输出 | Output { #output }
 
-```bash
-biopytools assembly-qc \
-    --genome genome.fa \
-    --lineage embryophyta_odb10 \
-    --mapping-reads ./ngs_reads \
-    -o qc_results
-```
-
-### 完整评估（复用reads数据）
-
-```bash
-biopytools assembly-qc \
-    --genome genome.fa \
-    --lineage embryophyta_odb10 \
-    --reads-for-all ./illumina_reads \
-    --enable-qv \
-    --enable-mapping \
-    -o qc_results
-```
-
-## 参数说明
-
-### 必需参数
-
-| 参数 | 简写 | 说明 |
-|------|------|------|
-| `--genome` | `-g` | 基因组FASTA文件 |
-| `--lineage` | `-l` | BUSCO数据集名称（如embryophyta_odb10）或完整路径 |
-| `--output-dir` | `-o` | 输出目录（默认：./assembly_qc_output） |
-
-### 可选参数
-
-#### 样品信息
-
-| 参数 | 简写 | 默认值 | 说明 |
-|------|------|--------|------|
-| `--sample-name` | `-s` | genome_sample | 样品名称 |
-
-#### 核心评估控制
-
-| 参数 | 说明 |
-|------|------|
-| `--skip-busco` | 跳过BUSCO评估 |
-| `--enable-lai` | 启用LAI评估（默认禁用，EDTA耗时长）|
-
-#### QV评估参数
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--enable-qv` | False | 启用QV评估 |
-| `--qv-reads` | None | 用于QV的reads目录 |
-| `--qv-kmer-size` | None | k-mer大小（None表示自动选择） |
-| `--qv-threads` | 24 | QV计算线程数 |
-
-#### Mapping评估参数
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--enable-mapping` | False | 启用Mapping评估 |
-| `--mapping-reads` | None | 用于Mapping的reads目录 |
-| `--mapping-type` | ngs | Mapping类型（ngs/pacbio/ont） |
-| `--mapping-pattern` | _1.clean.fq.gz | FASTQ文件匹配模式 |
-| `--mapping-threads` | 64 | Mapping线程数 |
-
-#### 数据复用
-
-| 参数 | 说明 |
-|------|------|
-| `--reads-for-all` | 同时用于QV和Mapping的reads目录 |
-
-#### 报告参数
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--no-html` | False | 不生成HTML报告 |
-| `--no-table` | False | 不生成表格 |
-| `--table-format` | both | 表格格式（tsv/xlsx/both） |
-
-#### 线程参数
-
-| 参数 | 简写 | 默认值 | 说明 |
-|------|------|--------|------|
-| `--threads` | `-t` | 64 | 全局线程数（所有评估步骤都使用全部线程）|
-
-**线程使用规则**：
-- 由于工作流是**串行执行**的，每个评估步骤都使用全部线程以最大化性能
-- BUSCO评估：64线程
-- LAI评估：64线程
-- QV评估：64线程
-- Mapping评估：64线程
-
-## 输出文件
-
-### 目录结构
-
-```
+```text
 qc_results/
-├── 01.busco_evaluation/        # BUSCO评估输出
-├── 02.lai_evaluation/          # LAI评估输出
-├── 03.qv_evaluation/           # QV评估输出
-├── 04.mapping_evaluation/      # Mapping评估输出
-├── assembly_qc_report.html     # 综合质量报告
-├── assembly_qc_table.tsv       # 发表用表格（TSV）
-└── assembly_qc_table.xlsx      # 发表用表格（Excel）
+├── 01_busco_evaluation/               # BUSCO 结果（busco_output/ 内 short_summary.*.json/txt）
+├── 02_lai_evaluation/                 # LAI 结果（EDTA 输出 + *.LAI）
+├── 03_qv_evaluation/                  # QV 结果（reads.meryl + qv_result_*.qv）
+├── 04_mapping_evaluation/             # NGS 比对（bam_files/ 内各样本 sorted.bam/flagstat/coverage）
+├── 05_long_read_mapping_evaluation/   # 三代比对（bam_files/ 内各样本）
+├── assembly_qc_report.html            # 综合 HTML 报告
+├── assembly_qc_table.tsv              # 发表用表格（TSV）
+├── assembly_qc_table.xlsx             # 发表用表格（Excel，table-format 含 xlsx 时）
+└── assembly_qc.log                    # 运行日志
 ```
 
-### 表格格式
+发表表格列：sample、size、n50、gc、busco、lai、qv_ngs、qv_long、qv_ngs_error、qv_long_error、ngs_mapping_rate、ngs_mapping_cov、long_mapping_rate、long_mapping_cov。
 
-输出表格包含以下列：
+## 结果解读 | Interpreting Results { #interpreting-results }
 
-| 列名 | 说明 |
-|------|------|
-| Sample | 样品名称 |
-| Assembly_Size_(Mb) | 组装大小 |
-| Contig_N50_(Mb) | Contig N50 |
-| Scaffold_N50_(Mb) | Scaffold N50 |
-| GC_% | GC含量 |
-| BUSCO_Complete_% | BUSCO完整度 |
-| BUSCO_Single_% | 单拷贝完整比例 |
-| BUSCO_Duplicated_% | 多拷贝完整比例 |
-| BUSCO_Fragmented_% | 碎片化比例 |
-| BUSCO_Missing_% | 缺失比例 |
-| LAI | LAI指数 |
-| QV | QV质量值 |
-| Mapped_Reads_% | 比对率 |
-| Mean_Coverage_(X) | 平均覆盖度 |
-| Coverage_≥10X_% | ≥10X覆盖比例 |
+- **BUSCO 完整度**：≥90% 良好，≥95% 优秀；`duplicated` 偏高提示组装可能有冗余（如未去单倍型冗余）
+- **LAI**：≥15 优秀，10–15 良好，<10 重复区组装较差；返回「不适用」说明 LTR 含量低于 5%，不能据此判质量
+- **QV**：≥40 优秀，≥30 良好，<20 较差（错误率约 >1%）
+- **NGS / 三代比对率**：通常 >95% 算正常，明显偏低提示组装缺失或 reads 与组装不匹配；三代 HiFi 比对率略低于短读属正常
+- **覆盖度（coverage_fraction）**：指「有多少比例位点被 reads 盖到」，越高说明组装被 reads 支持得越充分
 
-## 使用示例
+## 参数选择建议 | Parameter Guidance { #parameter-guidance }
 
-### 示例1：植物基因组评估
-
-```bash
-biopytools assembly-qc \
-    --genome plant_genome.fa \
-    --lineage embryophyta_odb10 \
-    --sample-name Arabidopsis_thaliana \
-    -o plant_qc_results
-```
-
-### 示例2：完整质量评估（包含QV和Mapping）
-
-```bash
-biopytools assembly-qc \
-    --genome genome.fa \
-    --lineage embryophyta_odb10 \
-    --sample-name Sample01 \
-    --reads-for-all ./illumina_reads \
-    --enable-qv \
-    --enable-mapping \
-    --threads 128 \
-    -o qc_results
-```
-
-### 示例3：仅Mapping评估（多样品）
-
-```bash
-biopytools assembly-qc \
-    --genome genome.fa \
-    --lineage embryophyta_odb10 \
-    --mapping-reads ./ngs_data \
-    --mapping-type ngs \
-    --mapping-pattern "_1.clean.fq.gz" \
-    -o mapping_qc_results
-```
-
-## 注意事项
-
-1. **BUSCO数据集路径**：默认使用 `/share/org/YZWL/yzwl_lixg/database/busco`，如需修改请设置环境变量 `BUSCO_DATASET_PATH`
-
-2. **Mapping评估支持多样品**：会在指定目录下自动发现所有符合命名规则的FASTQ文件对（`_1.clean.fq.gz` / `_2.clean.fq.gz`）
-
-3. **线程数设置**：
-   - 使用统一的 `--threads` 参数
-   - 由于工作流是**串行执行**的，每个评估步骤都使用全部线程以最大化性能
-
-4. **断点续传**：默认启用，已完成的步骤会自动跳过
-
-## 软件依赖
-
-### 核心依赖
-
-- BUSCO (busco)
-- LAI工具包
-  - LTR_harvest (gt)
-  - LTR_FINDER_parallel
-  - LTR_retriever
-  - LAI
-
-### 可选依赖
-
-- Merqury (QV评估)
-- BWA (Mapping评估)
-- Samtools (Mapping评估)
-- Bedtools (Mapping评估)
+- 快速自检：只给 `--genome --lineage`，跑统计 + BUSCO
+- 完整植物基因组评估：加 `--enable-lai` + `--ngs-reads` + `--long-reads --long-read-type hifi`
+- 只需发表表格字段、不要 HTML：`--no-html --table-format tsv`
+- 大基因组 / 内存吃紧：给 `--edta-threads 8` 压低 EDTA 内存
+- 断点续传默认开启，重跑会自动跳过已完成步骤；换参数重跑见 FAQ
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -295,50 +175,27 @@ biopytools assembly-qc \
 
 <!-- END PARAMS:auto -->
 
-## 常见问题
+## 依赖 | Dependencies { #dependencies }
 
-### Q1: BUSCO评估失败
+- BUSCO v6（conda 环境 `BUSCO_v.6.0.0`，数据集目录默认 `~/database/busco`）
+- EDTA（`EDTA_v.2.2.2`）、LTR_retriever（`LTR_retriever_v.3.0.4`）、LTR_harvest（`ltr_harvest_parallel_v.1.2`）、LTR_FINDER_parallel（`ltr_finder_parallel_v.1.3`）——仅 LAI
+- Merqury / meryl（`merqury_v.1.3`）——仅 QV
+- BWA（`Population_genetics`）、samtools（`GATK_v.4.6.2.0`）、minimap2（`Genome_dedup`）、bedtools——比对评估；比对用工具走系统 PATH 直接调用
+- Python 3（pandas、openpyxl 用于表格）
 
-**原因**：BUSCO数据集路径不正确或谱系名称错误
+## 常见问题 | FAQ { #faq }
 
-**解决**：
-```bash
-# 检查BUSCO数据集
-ls /share/org/YZWL/yzwl_lixg/database/busco
+**Q1：报「BUSCO 数据集路径不存在」？**
+默认在 `~/database/busco` 找数据集。把 `--lineage` 对应的数据集目录放到该路径下，或用 `--lineage` 传完整路径（程序会取目录名作谱系名）。
 
-# 使用正确的谱系名称
-biopytools busco --list-datasets  # 查看可用谱系
-```
+**Q2：NGS mapping 没发现样本？**
+确认 reads 文件名匹配默认模式 `_1.clean.fq.gz`，且同一目录有对应的 `_2.clean.fq.gz`；命名不同就用 `--mapping-pattern` 指定。
 
-### Q2: Mapping评估未发现样品
+**Q3：LAI 返回「不适用（LTR 含量低于 5%）」？**
+这是正常结果，不是错误——重复序列太少时 LAI 指标无意义，应改用其他指标评估该基因组。
 
-**原因**：FASTQ文件命名不符合模式
+**Q4：换参数重跑为什么结果没变？**
+断点续传按输出文件存在性判断。换 BUSCO 谱系、QV k 值、mapping 模式等参数后，需先删对应步骤目录（如 `03_qv_evaluation`）里的旧产物，否则会复用旧结果。
 
-**解决**：确保文件命名匹配默认模式 `_1.clean.fq.gz`，或使用 `--mapping-pattern` 指定正确模式
-
-```bash
-# 查看实际文件名
-ls ./ngs_data/
-
-# 使用正确的模式
-biopytools assembly-qc ... --mapping-pattern "_R1.fastq.gz"
-```
-
-### Q3: Excel表格生成失败
-
-**原因**：缺少pandas或openpyxl包
-
-**解决**：
-```bash
-pip install pandas openpyxl
-```
-
-或只生成TSV格式：
-```bash
-biopytools assembly-qc ... --table-format tsv
-```
-
-## 版本信息
-
-- 当前版本：1.0.0
-- 最后更新：2026-03-11
+**Q5：Excel 表格生成失败？**
+缺 `pandas` 或 `openpyxl`。装 `pip install pandas openpyxl`，或改用 `--table-format tsv`。

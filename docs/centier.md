@@ -1,218 +1,118 @@
-# CentIER着丝粒鉴定模块|CentIER Centromere Identification Module
+# 着丝粒鉴定 | CentIER Centromere Identification
 
-## 模块简介|Module Introduction
+一句话理解：**在 T2T 基因组上自动圈出每条染色体的「着丝粒」位置**——综合 k-mer 频率、串联重复、LTR 转座子等多重特征预测着丝粒区域，可选 Hi-C 数据进一步验证边界。
 
-CentIER模块是对[CentIER](https://github.com/xxxCUIxxxx/CentIER)软件的封装，用于T2T(Telomere-to-Telomere)基因组组装的着丝粒识别和注释。
+## 功能概述 | Overview { #overview }
 
-The CentIER module is a wrapper for the [CentIER](https://github.com/xxxCUIxxxx/CentIER) software, designed for centromere identification and annotation in T2T (Telomere-to-Telomere) assembled genomes.
+- 封装 CentIER v3.0.1，用于 T2T（端粒到端粒）基因组的着丝粒识别与注释
+- 多特征融合：k-mer 频率分析 + 串联重复 + LTR 反转座子
+- 可选 GFF 注释提升精度；可选 Hi-C 矩阵验证边界
+- 支持 Hi-C FASTQ 自动模式：内置 HiC-Pro 流程直接产出矩阵，再接 CentIER
+- 输出着丝粒坐标、序列、单体、LTR 位置统计和 SVG 可视化图
 
-## 功能特点|Features
-
-- **多特征融合|Multi-feature Integration**: 结合K-mer频率分析、串联重复序列、LTR反转座子进行着丝粒预测|Combines k-mer frequency analysis, tandem repeats, and LTR retrotransposons for centromere prediction
-- **Hi-C数据支持|Hi-C Data Support**: 可选使用Hi-C相互作用矩阵进行验证|Optional Hi-C interaction matrix for validation
-- **高准确率|High Accuracy**: 对植物基因组着丝粒识别准确率>90%|>90% accuracy for plant genome centromere identification
-- **多着丝粒支持|Multiple Centromeres Support**: 支持识别多着丝粒染色体|Supports identification of metapolycentric chromosomes
-- **可视化输出|Visualization Output**: 自动生成着丝粒区域可视化图表|Automatically generates centromere region visualization
-
-## 安装依赖|Installation
-
-### 1. 安装CentIER软件|Install CentIER Software
+## 快速开始 | Quick Start { #quick-start }
 
 ```bash
-# 克隆CentIER仓库|Clone CentIER repository
-cd ~/software
-git clone https://github.com/xxxCUIxxxx/CentIER.git
-```
-
-CentIER已自带以下工具|CentIER includes the following bundled tools:
-- `hmmsearch` - HMMER序列搜索|HMMER sequence search
-- `ltr_finder` - LTR反转座子查找|LTR retrotransposon finder
-- `trf409.linux64` - 串联重复序列查找|Tandem repeat finder
-- HMM数据库|HMM databases: REXdb.hmm, Ty3_gypsy.hmm
-
-### 2. 可选外部工具|Optional External Tools
-
-以下工具为可选，如未安装可跳过|The following tools are optional and can be skipped if not installed:
-
-- **genometools (gt)**: 用于LTRharvest|For LTRharvest
-- **LTR_retriever**: 用于LTR质量优化|For LTR quality refinement
-
-如需安装|If needed:
-```bash
-# genometools可跳过（CentIER有内置的ltr_finder）|genometools can be skipped (CentIER has built-in ltr_finder)
-# LTR_retriever安装|LTR_retriever installation
-conda install -c bioconda ltr_retriever
-```
-
-## 使用方法|Usage
-
-### 基本用法|Basic Usage
-
-```bash
-# 最简单的用法|Simplest usage
 biopytools centier -i genome.fa -o output_dir/
-
-# 使用GFF注释|With GFF annotation
-biopytools centier -i genome.fa -g annotation.gff3 -o output_dir/
-
-# 使用Hi-C数据验证|With Hi-C data validation
-biopytools centier -i genome.fa \
-    --matrix1 hic_100k.mnd \
-    --matrix2 hic_200k.mnd \
-    --bed1 hic_100k.bed \
-    --bed2 hic_200k.bed \
-    -o output_dir/
 ```
 
-### 参数说明|Parameters
+## 零基础概念速览 | Concepts in plain words { #concepts }
 
-| 参数|Parameter | 简写|Short | 类型|Type | 默认值|Default | 说明|Description |
-|---------|---------|---------|---------|-------------|---------|
-| `--input` | `-i` | 必需|required | str | - | 基因组FASTA文件|Genome FASTA file |
-| `--output-dir` | `-o` | 可选|optional | str | `./centier_output` | 输出目录|Output directory |
-| `--centier-path` | - | 可选|optional | str | `~/software/CentIER/CentIER-main` | CentIER软件路径|CentIER software path |
-| `--gff` | - | 可选|optional | str | - | GFF/GTF注释文件|GFF/GTF annotation file |
-| `--matrix1` | - | 可选|optional | str | - | Hi-C矩阵(100k)|Hi-C matrix at 100k resolution |
-| `--matrix2` | - | 可选|optional | str | - | Hi-C矩阵(200k)|Hi-C matrix at 200k resolution |
-| `--bed1` | - | 可选|optional | str | - | Hi-C BED(对应matrix1)|Hi-C BED for matrix1 |
-| `--bed2` | - | 可选|optional | str | - | Hi-C BED(对应matrix2)|Hi-C BED for matrix2 |
-| `--kmer-size` | `-k` | 可选|optional | int | `21` | K-mer大小|K-mer size |
-| `--center-tolerance` | `-c` | 可选|optional | int | `15` | 中心容差|Center tolerance |
-| `--step-len` | - | 可选|optional | int | `10000` | 分析步长|Analysis step length |
-| `--mul-cents` | - | 可选|optional | flag | `False` | 保留所有潜在着丝粒|Retain all potential centromeres |
-| `--mingap` | - | 可选|optional | int | `2` | 最小Gap值|Minimum gap value |
-| `--signal-threshold` | - | 可选|optional | float | `0.7` | Hi-C信号阈值|Hi-C signal threshold |
-| `--summary` | - | 可选|optional | flag | `False` | 输出结果摘要|Output result summary |
+| 术语<br>Term | 通俗理解 |
+|---|---|
+| 着丝粒 | 染色体中间「收腰」的关键区域，细胞分裂时负责把染色体拉向两极 |
+| T2T 基因组 | 「端粒到端粒」无缺口的完整组装，着丝粒这类重复区也被完整拼出 |
+| 单体（monomer） | 着丝粒里反复出现的重复单元，像同一句口号重复成千上万遍 |
+| 串联重复 | 一段序列紧挨着自己重复多次，着丝粒区尤其富集 |
+| LTR 转座子 | 会「自我复制搬家」的重复元件，着丝粒区常富集特定类型（如 Ty3_gypsy） |
+| k-mer 频率 | 把序列切成 k 长度小片段后统计多样性；着丝粒区重复度高、k-mer 种类骤降 |
+| Hi-C | 测「染色体在三维空间里谁和谁挨得近」的技术，着丝粒区相互作用信号会减弱 |
 
-## 输出文件|Output Files
+## 输入 | Input { #input }
 
-### 主要输出文件|Main Output Files
+- `-i` 输入：基因组 FASTA（必需）
+- 可选注释：`--gff`（GFF/GTF）
+- Hi-C 两种给法（二选一）：
+  - 现成矩阵：`--matrix1` + `--matrix2` + `--bed1` + `--bed2`（四个必须一起给，100kb 和 20kb 分辨率各一对）
+  - 原始 FASTQ 自动模式：`-1 fastq_r1 -2 fastq_r2`（提供即自动跑 HiC-Pro 产出矩阵）
 
-运行完成后，输出目录将包含以下文件|After completion, the output directory will contain:
+染色体命名建议符合 `ChrN` 格式（如 `Chr1`、`So120_Chr1`）；`Chr_1` / `scaffold_1` 会让 CentIER 崩溃，默认只警告、加 `--strict-chrname` 则直接中止。
 
-| 文件名|Filename | 说明|Description |
-|---------|---------|---------|
-| `{prefix}_centromere_range.txt` | 着丝粒区域坐标|Centromere region coordinates |
-| `{prefix}_all_centromere_seq.txt` | 着丝粒区域序列|Centromere region sequences |
-| `{prefix}_monomer_seq.txt` | 单体序列|Monomer sequences |
-| `{prefix}_monomer_in_centromere.txt` | 着丝粒内单体位置|Monomer positions in centromeres |
-| `{prefix}_ltr_position.txt` | LTR反转座子位置|LTR retrotransposon positions |
-| `{prefix}_LTR_statistics.txt` | LTR统计信息|LTR statistics |
-| `{prefix}_draw_cen.svg` | 着丝粒可视化图表|Centromere visualization |
-| `centier_summary.json` | 分析结果摘要（使用--summary时）|Analysis summary (when using --summary) |
+## 参数说明 | Parameters { #parameters }
 
-### 输出目录结构|Output Directory Structure
+### 软件与注释 | Software and annotation
 
-```
-centier_output/
-├── 99_logs/
-│   └── centier.log              # 运行日志|Run log
-├── genome_centromere_range.txt  # 着丝粒区域|Centromere regions
-├── genome_all_centromere_seq.txt  # 着丝粒序列|Centromere sequences
-├── genome_ltr_position.txt      # LTR位置|LTR positions
-├── genome_draw_cen.svg          # 可视化|Visualization
-└── centier_summary.json         # 结果摘要|Result summary
-```
+**通俗理解|In plain words:** `--centier-path` 是 CentIER 安装目录（默认 `~/software/CentIER/CentIER-main`），按默认装就不用改；`--gff` 是可选的注释文件，能提高预测精度但非必需。**没有注释文件时 CentIER 也能正常跑。**
 
-## 分析原理|Analysis Principles
+相关参数：`--centier-path`、`--gff`。
 
-CentIER使用多种特征组合进行着丝粒预测|CentIER uses a combination of multiple features for centromere prediction:
+### Hi-C 数据 | Hi-C data
 
-### 1. K-mer频率分析|K-mer Frequency Analysis
+**通俗理解|In plain words:** 现成矩阵模式需要四个文件齐活（100kb 矩阵+bed、20kb 矩阵+bed）；FASTQ 自动模式（`-1/-2`）会自动跑 HiC-Pro 产出矩阵。`--hic-matrix-type` 选用 raw 还是 iced 归一化矩阵，`--force-hicpro` 强制重跑 HiC-Pro。**没有 Hi-C 数据也能跑，只是少了边界验证这一环。**
 
-- 滑动窗口计算基因组K-mer种类数|Calculates k-mer diversity in sliding windows
-- 着丝粒区域K-mer种类显著降低|Centromeric regions show significantly reduced k-mer diversity
-- 使用动态阈值识别候选区域|Uses dynamic thresholds to identify candidate regions
+相关参数：`--matrix1`、`--matrix2`、`--bed1`、`--bed2`、`--fastq-r1`、`--fastq-r2`、`--genome-id`、`--restriction-enzyme`、`--bowtie2-idx`、`--bin-sizes`、`--max-memory`、`--force-hicpro`、`--hic-matrix-type`、`--strict-chrname`。
 
-### 2. 串联重复序列|Tandem Repeats
+### 分析参数 | Analysis parameters
 
-- 使用TRF (Tandem Repeats Finder)识别串联重复|Uses TRF to identify tandem repeats
-- 着丝粒区域富含长串联重复序列|Centromeres are rich in long tandem repeats
-- 分析重复单元大小和拷贝数|Analyzes repeat unit size and copy number
+**通俗理解|In plain words:** `-k` 是 k-mer 长度；`-c` 中心容差决定「容许的中心位置偏差」；`--step-len` 是滑窗步长；`--signal-threshold` 和 `--mingap` 只在给 Hi-C 数据时用于信号判定。这些是 CentIER 原版参数，**默认值对大多数植物基因组够用，一般不用动**；染色体疑似多着丝粒（metapolycentric）时才加 `--mul-cents` 保留所有候选区。
 
-### 3. LTR反转座子|LTR Retrotransposons
+相关参数：`--kmer-size`、`--center-tolerance`、`--step-len`、`--mul-cents`、`--mingap`、`--signal-threshold`。
 
-- 使用LTR_Finder和LTRharvest识别LTR|Uses LTR_Finder and LTRharvest to identify LTRs
-- 着丝粒区域富集特定类型LTR（如Ty3_gypsy）|Centromeres are enriched for specific LTR types (e.g., Ty3_gypsy)
-- 使用HMMER进行LTR分类|Uses HMMER for LTR classification
+### 运行控制 | Run control
 
-### 4. Hi-C相互作用矩阵（可选）|Hi-C Interaction Matrix (Optional)
+**通俗理解|In plain words:** `--skip-dependency-check` 跳过开头的依赖检查（确认依赖齐全时用）；`--summary` 额外生成一份 JSON 摘要。`--step` 参数仅作兼容保留，实际仍会跑完整流程（见 FAQ）。
 
-- 着丝粒区域在Hi-C矩阵中表现为信号减弱区|Centromeres appear as signal-depleted regions in Hi-C matrices
-- 用于验证和精细化着丝粒边界|Used for validation and refinement of centromere boundaries
+相关参数：`--skip-dependency-check`、`--summary`、`--step`。
 
-## 输出文件格式详解|Output File Format Details
+## 分析流程 | Pipeline { #pipeline }
 
-### 1. centromere_range.txt
-
-着丝粒区域坐标文件|Centromere region coordinates file:
-
-```
-chr1    1000000    2500000
-chr2    500000     1800000
-...
+```text
+基因组 FASTA
+    │
+    ├─ [Hi-C 自动模式] ChrN 命名预检 → HiC-Pro 产出矩阵 → 定位 100kb/20kb 矩阵
+    │
+    ▼
+CentIER 鉴定（k-mer 频率 + 串联重复 + LTR 分类）
+    │
+    ├─ [有 Hi-C 数据] 用相互作用信号验证/精细化着丝粒边界
+    │
+    ▼
+输出着丝粒坐标/序列/单体/LTR/SVG + 软件版本信息
 ```
 
-格式|Format: `染色体\t起始位置\t终止位置|Chromosome\tStart\tEnd`
+## 输出 | Output { #output }
 
-### 2. monomer_seq.txt
-
-单体序列文件|Monomer sequences file:
-
-```
-chr1    ATCGATCGATCGATCG...
-chr2    GCTAGCTAGCTAGCTA...
-...
-```
-
-格式|Format: `染色体\t单体序列|Chromosome\tMonomer Sequence`
-
-### 3. LTR_statistics.txt
-
-LTR统计文件|LTR statistics file:
-
-```
-ID    Ty1_copia    Ty3_gypsy    unknown    ...
-chr1    5    12    3    ...
-chr2    3    8    1    ...
-...
+```text
+输出目录/   （Hi-C 自动模式下为 02_centier/ 子目录）
+├── {prefix}_centromere_range.txt         # 着丝粒区域坐标（染色体 起始 终止）
+├── {prefix}_all_centromere_seq.txt       # 着丝粒区域序列
+├── {prefix}_monomer_seq.txt              # 单体序列
+├── {prefix}_monomer_in_centromere.txt    # 着丝粒内单体位置
+├── {prefix}_ltr_position.txt             # LTR 位置
+├── {prefix}_LTR_statistics.txt           # LTR 统计
+├── {prefix}_draw_cen.svg                 # 着丝粒可视化图
+├── centier_summary.json                  # 结果摘要（--summary 时）
+├── 00_pipeline_info/software_versions.yml # 软件版本与参数
+└── 99_logs/centier.log                   # 运行日志
 ```
 
-## 示例工作流|Example Workflow
+Hi-C 自动模式额外产生 `01_hic_mapping/`（HiC-Pro 输出）。
 
-### 完整工作流（带Hi-C验证）|Complete Workflow (with Hi-C validation)
+## 结果解读 | Interpreting Results { #interpreting-results }
 
-```bash
-# 1. 准备输入文件|Prepare input files
-# - 基因组: genome.fa
-# - 注释: annotation.gff3 (可选)
-# - Hi-C数据: hic_100k.mnd, hic_200k.mnd, hic_100k.bed, hic_200k.bed
+- `centromere_range.txt`：每行一个着丝粒（染色体 + 起止坐标），是核心结论，可直接用于后续分析或可视化
+- `draw_cen.svg`：每条染色体上着丝粒区域的示意图，浏览器可打开；正常情况每条染色体应有一个清晰的主着丝粒区
+- `LTR_statistics.txt`：各着丝粒区的 LTR 类型构成，植物着丝粒常富集 Ty3_gypsy 类
+- 若有 Hi-C 数据：着丝粒区在矩阵上表现为信号减弱区，边界更可信
+- 用 `--summary` 得到的 `centier_summary.json` 里 `centromere_count` 直接给出识别到的着丝粒数量
 
-# 2. 运行CentIER|Run CentIER
-biopytools centier -i genome.fa \
-    -g annotation.gff3 \
-    --matrix1 hic_100k.mnd \
-    --matrix2 hic_200k.mnd \
-    --bed1 hic_100k.bed \
-    --bed2 hic_200k.bed \
-    -o centier_results/ \
-    --summary
+## 参数选择建议 | Parameter Guidance { #parameter-guidance }
 
-# 3. 查看结果|View results
-cat centier_results/genome_centromere_range.txt
-cat centier_results/centier_summary.json
-
-# 4. 可视化|Visualization
-# 在浏览器中打开SVG文件|Open SVG file in browser
-firefox centier_results/genome_draw_cen.svg
-```
-
-### 快速工作流（无Hi-C）|Quick Workflow (without Hi-C)
-
-```bash
-# 仅使用基因组序列|Using genome sequence only
-biopytools centier -i genome.fa -o centier_results/ --summary
-```
+- 常规植物 T2T 基因组：`-i genome.fa -o out --summary`，其余默认
+- 有现成 Hi-C 矩阵：补上 `--matrix1/2 --bed1/2` 增强边界可信度
+- 只有 Hi-C FASTQ：`-1 r1.fq -2 r2.fq`（自动跑 HiC-Pro）
+- 染色体名不是 ChrN 格式：先规范命名，或加 `--strict-chrname` 让程序显式中止而非静默出错
+- 疑似多着丝粒物种：加 `--mul-cents`
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -288,55 +188,26 @@ biopytools centier -i genome.fa -o centier_results/ --summary
 
 <!-- END PARAMS:auto -->
 
-## 常见问题|FAQ
+## 依赖 | Dependencies { #dependencies }
 
-### Q1: Hi-C数据格式要求是什么？|What are the Hi-C data format requirements?
+- CentIER v3.0.1（`centIER.py` + `bin/` 自带 hmmsearch、ltr_finder、trf409.linux64、REXdb.hmm、Ty3_gypsy.hmm）
+- genometools（`gt`）与 LTR_retriever（须在 PATH 中，CentIER 必需）
+- Python 包：pyfastx、numpy、pandas、scipy
+- Hi-C 自动模式额外需要：HiC-Pro（默认 `~/software/HiC-Pro_v3.1.0`）、bowtie2-build
 
-A: CentIER需要Juicer工具输出的mnd格式矩阵文件和对应的BED文件：
-- `matrix1`: 100kb分辨率的Hi-C矩阵|Hi-C matrix at 100kb resolution
-- `matrix2`: 200kb分辨率的Hi-C矩阵|Hi-C matrix at 200kb resolution
-- `bed1`: 对应matrix1的BED文件|BED file corresponding to matrix1
-- `bed2`: 对应matrix2的BED文件|BED file corresponding to matrix2
+## 常见问题 | FAQ { #faq }
 
-### Q2: 是否必须提供GFF注释文件？|Is GFF annotation file mandatory?
+**Q1：报「未找到 centIER.py」或依赖工具缺失？**
+确认 `--centier-path` 指向 CentIER 安装目录，且 `bin/` 下工具存在、`hmmsearch`/trf/ltr_finder 有可执行权限（`chmod +x`）；`gt` 和 LTR_retriever 需在 PATH（可 `conda install -n centier -c bioconda genometools`）。
 
-A: 不是。GFF注释文件是可选的，用于提高预测精度。如果没有注释文件，CentIER仍可正常工作。
+**Q2：染色体命名报「not ChrN format」？**
+把序列 ID 改成以 `ChrN` 结尾（如 `Chr1`、`So120_Chr1`），避免 `Chr_1`、`scaffold_1`。可用 chr_rename / fasta_id_renamer 批量改。
 
-### Q3: 什么是mul_cents参数？|What is the mul_cents parameter?
+**Q3：`--step` 能只跑某一步吗？**
+不能。CentIER 原版不支持单步执行，该参数仅作兼容保留，实际始终跑完整流程。
 
-A: 某些物种的染色体可能具有多个着丝粒区域（多着丝粒染色体）。默认情况下，CentIER只保留最可能的着丝粒。使用`--mul-cents`参数会保留所有潜在的着丝粒区域。
+**Q4：会断点续传吗？**
+Hi-C 自动模式的 HiC-Pro 步骤支持跳过已完成产物（除非 `--force-hicpro`）；CentIER 鉴定步骤本身每次重跑。想复用已有 Hi-C 矩阵可直接用 `--matrix1/2 --bed1/2` 传入。
 
-### Q4: 如何解读draw_cen.svg可视化图？|How to interpret the draw_cen.svg visualization?
-
-A: SVG文件显示了每条染色体上的着丝粒区域：
-- 水平线：染色体|Horizontal lines: chromosomes
-- 红色区域：串联重复序列（单体）|Red regions: tandem repeats (monomers)
-- 蓝色区域：LTR反转座子|Blue regions: LTR retrotransposons
-- 不同颜色的LTR单体代表不同类型|Different colored LTR monomers represent different types
-
-### Q5: 运行时间大概多久？|What is the approximate runtime?
-
-A: 运行时间取决于基因组大小：
-- 小基因组(<500 Mb): 1-2小时
-- 中等基因组(500 Mb - 1.5 Gb): 2-6小时
-- 大基因组(>1.5 Gb): 6-12小时
-
-## 引用|Citation
-
-如果使用CentIER，请引用以下论文|If you use CentIER, please cite:
-
-> Xu, D. et al. CentIER: accurate centromere identification for plant genome. *Plant Communications* 101046 (2024) doi:10.1016/j.xplc.2024.101046
-
-## 相关模块|Related Modules
-
-- **assembly_qc**: 基因组组装质量评估|Genome assembly quality evaluation
-- **busco**: 基因组完整性评估|Genome completeness assessment
-- **merqury_qv**: 基于K-mer的QV评估|K-mer based QV evaluation
-
-## 更新日志|Changelog
-
-### v1.0.0 (2026-03-13)
-- 初始版本发布|Initial release
-- 封装CentIER v3.0.1|Wrapper for CentIER v3.0.1
-- 支持Hi-C数据验证|Support for Hi-C data validation
-- 添加Click CLI包装器|Added Click CLI wrapper
+**Q5：CentIER 返回非零退出码但生成了结果？**
+程序会检查输出文件：只要关键产物（如 `centromere_range.txt`）生成就视为成功，仅在既失败又无产物时才报错。

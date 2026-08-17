@@ -1,56 +1,89 @@
 # Assembly 转 AGP 格式 | Assembly to AGP Converter
 
-**将 ALLHiC 等流程输出的 .assembly 文件转换为标准 AGP 格式，并生成染色体列表 | Convert .assembly output into standard AGP format and a chromosome list**
+一句话理解：**把 ALLHiC / JBAT 等挂载流程产出的 `.assembly` 文件，翻译成数据库通用的 AGP 格式，并顺便按长度排出「前 N 条染色体」清单**，方便提交和下游工具衔接。
 
-## 功能概述 | Overview
+## 功能概述 | Overview { #overview }
 
-`assembly2agp` 是一个轻量级的组装后处理工具，用于将 ALLHiC / JBAT 等挂载流程产生的 `.assembly` 文本文件（描述 contig 在 scaffold/染色体上的排列与方向）转换为通用的 AGP（Assembly-AGP）格式。AGP 是 NCBI、Ensembl 等数据库广泛采用的组装描述标准，便于后续提交和可视化。
+- 把 `.assembly` 文本（描述 contig 在 scaffold 上的排列与方向）转成标准 9 列 AGP 格式
+- 每条 contig 之间插入缺口（gap），缺口大小由 `-g` 控制，默认 100 bp
+- 按 scaffold 长度从大到小排序，取前 N 条生成 `chr.list`（染色体名 + 长度），可直接喂给 ALLHiC 等下游
+- 输出前缀自动去掉 `.assembly` / `.agp` 后缀，避免文件名重复
+- 已存在输出文件时不覆盖，需 `--force` 才会重写
 
-该模块同时会根据用户指定的染色体数量，按 scaffold 长度从大到小排序，取前 N 条作为目标染色体，输出对应的 `chr.list` 文件，可直接作为 ALLHiC 等下游工具的输入。Gap 大小默认 100 bp，可自定义。典型使用场景包括：基因组组装挂载后整理、染色体提交前格式转换、与 Juicebox / ALLHiC 流程衔接。
-
-## 快速开始 | Quick Start
+## 快速开始 | Quick Start { #quick-start }
 
 ```bash
-# 基本用法：12 条染色体
 biopytools assembly2agp -a corrected_asm.FINAL.assembly -p output_prefix -n 12
-
-# 指定输出目录和 gap 大小
-biopytools assembly2agp -a final.assembly -p chr_asm -n 21 \
-    -o ./agp_results -g 200 -f
 ```
 
-## 参数说明 | Parameters
+## 零基础概念速览 | Concepts in plain words { #concepts }
 
-### 必需参数 | Required
+| 术语<br>Term | 通俗理解 |
+|---|---|
+| .assembly 文件 | 挂载流程输出的「摆放说明」，告诉你在每条染色体上 contig 怎么排队、方向朝哪 |
+| AGP | NCBI 等数据库通用的「组装描述」格式，把「哪段是序列、哪段是缺口」逐行写清楚 |
+| chr.list | 染色体清单文件，两列（名字 + 长度），很多下游工具靠它知道有哪些染色体 |
+| gap（缺口） | 两条 contig 之间不确定的空档，默认填 100 bp |
+| 方向（orientation） | contig 在 scaffold 上是正着（+）还是反着（-）放 |
 
-| 参数 | 描述 |
-|------|------|
-| `-a, --assembly` | 输入 `.assembly` 文件路径（ALLHiC/JBAT 风格）|
-| `-p, --prefix` | 输出前缀，用于 AGP 和 chr.list 两个文件 |
-| `-n, --num-chromosomes` | 目标染色体数量（必须大于 0）|
+## 输入 | Input { #input }
 
-### 常用可选参数 | Common Options
+`.assembly` 文本文件，两种行：
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-o, --output-dir` | `.` | 输出目录 |
-| `-g, --gap` | `100` | Scaffold 之间 gap 大小（bp）|
-| `-f, --force` | 关 | 强制覆盖已存在的输出文件 |
-| `-v, --verbose` | 关 | 详细模式（`-v`: INFO，`-vv`: DEBUG）|
-| `--quiet` | 关 | 静默模式（仅输出 ERROR）|
-| `--log-file` | 无 | 日志文件路径 |
+- 以 `>` 开头：contig 定义行，格式为 `>contig名称 编号 长度 ...`（空格分隔，第 2 个字段是编号、第 3 个字段是长度）
+- 普通行：空格分隔的一串 contig 编号，一个普通行 = 一条 scaffold；编号前带负号表示该 contig 反向放置
 
-（运行 `biopytools assembly2agp -h` 查看完整参数列表）
-
-## 输出 | Output
-
-```
-./
-├── {prefix}.agp          # 标准 AGP 格式文件（9 列）
-└── {prefix}.chr.list     # 染色体列表：scaffold名 <TAB> 长度
+```text
+>ptg000001l 1 190127
+>ptg000002l 2 5326271
+1 -2
+2 1
 ```
 
-AGP 文件包含 9 列：Chromosome、Start、End、Order、Tag（W=contig / U=gap）、Contig_ID、Contig_start、Contig_end、Orientation（+/-）。chr.list 按长度从大到小给出前 N 条 scaffold 的名称与总长。
+上面示例表示：scaffold 1 由 contig 1（正向）和 contig 2（反向）拼成，scaffold 2 由 contig 2（正向）和 contig 1（正向）拼成。`#` 开头的行会被忽略。
+
+## 参数说明 | Parameters { #parameters }
+
+### 必需输入 | Required
+
+**通俗理解|In plain words:** `-a` 是输入的 `.assembly` 文件；`-p` 是输出文件名的前缀；`-n` 告诉工具「最终染色体取前几条」，取值要大于 0，通常就是目标染色体数（如 12、21）。
+
+相关参数：`-a, --assembly`、`-p, --prefix`、`-n, --num-chromosomes`。
+
+### 输出与缺口 | Output and gap
+
+**通俗理解|In plain words:** `-o` 指定输出目录，默认当前目录；`-g` 是 contig 之间缺口的长度，默认 100 bp，一般不用改；`-f, --force` 用于覆盖已存在的输出文件（默认检测到同名文件会报错退出，防止误覆盖）。
+
+相关参数：`-o, --output-dir`、`-g, --gap`、`-f, --force`。
+
+### 日志控制 | Logging
+
+**通俗理解|In plain words:** 这些只影响屏幕输出的详略，不影响结果文件。`-v` 加一次显示 INFO、加两次显示 DEBUG；`--quiet` 只显示错误；`--log-file` 把完整日志写到指定文件。**一般不用动。**
+
+相关参数：`-v, --verbose`、`--quiet`、`--log-file`。
+
+## 输出 | Output { #output }
+
+```text
+输出目录/
+├── {prefix}.agp       # 标准 9 列 AGP 文件
+└── {prefix}.chr.list  # 染色体清单：scaffold名 <TAB> 长度（按长度降序，取前 N 条）
+```
+
+- AGP 文件 9 列：Chromosome、Start、End、Order、Tag（W=contig / U=gap）、Contig_ID、Contig_start、Contig_end、Orientation（+/-）。每条 contig（W）后跟一个缺口（U）行，缺口长度即 `-g` 的值
+- chr.list 每行两列：染色体名和总长，按长度从大到小，是下游挂载/可视化工具的常见输入
+
+## 结果解读 | Interpreting Results { #interpreting-results }
+
+- `chr.list` 第一行就是最长的那条染色体，长度约等于该染色体的总长
+- AGP 里 `U` 行越多，说明这条 scaffold 被拆得越碎（缺口多），连续程度越低
+- `Orientation` 为 `-` 的 contig 表示它在组装时被反向放置，属正常现象，不代表错误
+
+## 参数选择建议 | Parameter Guidance { #parameter-guidance }
+
+- `-n` 按物种实际染色体数填写；不确定时可先给个大一点的数，再按 `chr.list` 的长度分布截取
+- 重跑同一前缀且不想被「文件已存在」拦住时，加 `-f`
+- 需要记录过程时加 `--log-file run.log`，平时靠 `-v` 即可
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -89,16 +122,19 @@ AGP 文件包含 9 列：Chromosome、Start、End、Order、Tag（W=contig / U=g
 
 <!-- END PARAMS:auto -->
 
-## 依赖 | Dependencies
+## 依赖 | Dependencies { #dependencies }
 
-- Python 3.7+
+- Python 3
 - pandas（DataFrame 处理）
+- 无 conda 环境、无外部生信软件依赖
 
-## 引用 | Citation
+## 常见问题 | FAQ { #faq }
 
-- AGP 规范：NCBI Assembly-AGP Specification v2.0
-- 若源自 ALLHiC 流程：Zhang, L. et al. ALLHiC: scaffolding large ploidy genomes using Hi-C data. *Nature Methods* 16, 1325-1326 (2019).
+**Q1：重跑时报「output file already exists」？**
+这是防误覆盖保护。确认要覆盖时加 `-f, --force`，或换一个 `-p` 前缀 / `-o` 目录。
 
-## 相关链接 | References
+**Q2：`chr.list` 里的名字为什么都是 scaffold_N？**
+程序会按长度排序后把前 N 条重命名为 `scaffold_1`、`scaffold_2`……，方便下游统一识别，不保留原 contig 名。
 
-- [项目主页](https://github.com/lixiang117423/biopytools)
+**Q3：会断点续传吗？**
+不会。转换是一次性完成的，没有中间步骤可跳过。
