@@ -327,7 +327,7 @@ Chr01_6422855    LG12   23.697
 
 **两个图谱在同一区域都检出 QTL 信号，结果更可信。**
 
-> ⚠️ **mstmap 块 LOD 系统性偏高**：mstmap 的遗传图谱 cM 会膨胀（MSTmap 对 F2 用 RIL2 近似，距离标尺放大），导致其 LOD 与阈值整体抬升，**与 physical 块的 LOD 量级不可直接比较**。正确用法：**以 physical 块为最终结果**（峰位置、显著性），mstmap 块只用于「峰物理位置互证」——两块的显著峰落在同一物理区间即互为印证，不必纠结 mstmap 块 LOD 更大或排位不同。
+> **注意|Warning: mstmap 块 LOD 系统性偏高**：mstmap 的遗传图谱 cM 会膨胀（MSTmap 对 F2 用 RIL2 近似，距离标尺放大），导致其 LOD 与阈值整体抬升，**与 physical 块的 LOD 量级不可直接比较**。正确用法：**以 physical 块为最终结果**（峰位置、显著性），mstmap 块只用于「峰物理位置互证」——两块的显著峰落在同一物理区间即互为印证，不必纠结 mstmap 块 LOD 更大或排位不同。
 
 ### 5. QC 统计文件 | QC stats
 
