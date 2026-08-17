@@ -206,6 +206,14 @@ ann$tiplab <- ifelse(ann$het == "-", paste0(ann$sample, " [", ann$verdict, "]"),
 p <- ggtree(tree) %<+% ann
 p <- p + geom_tiplab(aes(label = tiplab), size = 3.2,
                      offset = max_edge * 0.25, align = TRUE)
+# 标签锚点参与坐标训练,但文字渲染宽度不参与——向右溢出面板右缘会被 clip 裁字
+# (实测贴边 9px,末字符被切)。用 expansion 给右侧留 1/3 面板:它是扩面板不是 limit,
+# 不丢数据行(与 xlim 相反);预留宽恒大于最长标签(~5.5cm << 面板 1/3)。
+# |the tiplab x trains the scale but rendered text width does not — overflow gets
+# clipped at the panel edge (observed 9px margin, last chars cut). expansion()
+# reserves 1/3 panel for text: it widens the panel, never drops rows (unlike xlim);
+# the reserve always exceeds the longest label.
+p <- p + scale_x_continuous(expand = expansion(mult = c(0, 0.5)))
 has_support <- !is.null(tree$node.label) && any(nzchar(tree$node.label))
 if (has_support) {{
   p <- p + geom_text(aes(label = label),
