@@ -53,6 +53,40 @@ biopytools mafft-fasttree -i proteins.fa -o results --seq-type protein \
 - `{base}.id_mapping.txt`：原始 ID 与清理后 ID 的映射表（如有重命名）
 - 运行日志文件
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入序列文件(FASTA格式)｜Input sequence file (FASTA format) |
+| `--output, -o` | `./phylo_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--seq-type` | — | protein/nucleotide | 序列类型(未指定时自动检测)｜Sequence type (auto-detect if not specified) |
+| `--mafft-params` | `--auto` |  | MAFFT额外参数｜Additional MAFFT parameters |
+| `--fasttree-params` | `` |  | FastTree额外参数｜Additional FastTree parameters |
+| `--mafft-path` | `mafft` |  | MAFFT软件路径｜MAFFT software path |
+| `--fasttree-path` | `fasttree` |  | FastTree软件路径｜FastTree software path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入序列文件 (FASTA格式)｜Input sequence file (FASTA format) |
+| `-o, --output` | `./phylo_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `--seq-type` | — | protein/nucleotide | 序列类型 (不指定则自动检测)｜Sequence type (auto-detect if not specified) |
+| `--mafft-params` | `--auto` |  | MAFFT额外参数｜Additional MAFFT parameters |
+| `--fasttree-params` | `` |  | FastTree额外参数｜Additional FastTree parameters |
+| `--mafft-path` | `mafft` |  | MAFFT软件路径｜MAFFT software path |
+| `--fasttree-path` | `fasttree` |  | FastTree软件路径｜FastTree software path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - MAFFT（>= 7）

@@ -65,6 +65,44 @@ biopytools renamegff -i annotation.gff3 -o standardized.gff \
     └── validation_report.txt # 验证报告
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | GFF｜Input GFF file path |
+| `--output, -o` | 必填 | Path | GFF｜Output GFF file path |
+| `--species-name, -s` | 必填 | str | (: OV53)｜Species name (e.g., OV53) |
+| `--species-prefix, -p` | 必填 | str | (: Ov)｜Species prefix (e.g., Ov) |
+| `--start-num` | `10` | int | Starting number for gene numbering (default: 10)｜Starting number for gene numbering (default: 10) |
+| `--step` | `10` | int | Step size for gene numbering (default: 10)｜Step size for gene numbering (default: 10) |
+| `--threads, -t` | `12` | int | Number of threads (default: 88)｜Number of threads (default: 88) |
+| `--verbose, -v` | — |  | Verbose output mode｜Verbose output mode |
+| `--keep-intermediate` | — |  | Keep intermediate files｜Keep intermediate files |
+| `--show-sample` | — | int | N｜Show N conversion samples and exit |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入GFF文件路径｜Input GFF file path |
+| `-o, --output` | 必填 |  | 输出GFF文件路径｜Output GFF file path |
+| `-s, --species-name` | 必填 |  | 物种名称 (如: OV53)｜Species name (e.g., OV53) |
+| `-p, --species-prefix` | 必填 |  | 物种缩写 (如: Ov)｜Species prefix (e.g., Ov) |
+| `--start-num` | `10` | int | 起始编号｜Starting number for gene numbering |
+| `--step` | `10` | int | 编号步长｜Step size for gene numbering |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `-v, --verbose` | — | store_true | 详细输出模式｜Verbose output mode |
+| `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
+| `--show-sample` | — | int | 显示N个转换示例然后退出｜Show N conversion samples and exit |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 3.7+（纯 Python 实现，无强制第三方依赖）

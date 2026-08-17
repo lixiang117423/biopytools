@@ -311,6 +311,69 @@ biopytools kmc -m count -i *.fq -k 21 -t 4 --memory-limit 8G
 - **稀疏 (默认)**: 适合k-mer稀疏的数据 | For sparse k-mer data
 - **密集**: 适合k-mer密集的小数据集 | For dense small datasets
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input-dir, -d` | — |  | 输入目录(自动识别双末端测序)｜Input directory (auto-detect paired-end) |
+| `--input, -i` | — |  | 输入文件(FASTQ/FASTA)，可多次使用｜Input files (FASTQ/FASTA), can be used multiple times |
+| `--sample-names, -n` | — |  | 样本名称，可多次使用(默认使用文件名)｜Sample names, can be used multiple times (default: use filename) |
+| `--read1-suffix` | `_1.clean.fq.gz` |  | Read1文件后缀｜Read1 file suffix |
+| `--read2-suffix` | `_2.clean.fq.gz` |  | Read2文件后缀｜Read2 file suffix |
+| `--single-end` | — |  | 单末端测序模式｜Single-end sequencing mode |
+| `--input-dir, -i` | — |  | 包含kmc_databases的目录(即count步骤的-o参数)｜Directory containing kmc_databases (i.e., -o from count step) |
+| `--max-memory` | `500` | int | 最大内存使用量(GB)｜Maximum memory usage (GB) |
+| `--matrix-format` | `hdf5` | hdf5/tsv/sqlite | 矩阵存储格式｜Matrix storage format |
+| `--dense-matrix` | — |  | 使用密集矩阵(默认稀疏)｜Use dense matrix (default: sparse) |
+| `--no-export` | — |  | 不导出TSV文件(默认自动导出)｜Do not export TSV files (auto export by default) |
+| `--keep-dump` | — |  | 保留dump文件到dump_files目录(默认保留)｜Keep dump files in dump_files directory (default: True) |
+| `--no-keep-dump` | — |  | 不保留dump文件(节省空间)｜Do not keep dump files (save space) |
+| `--input-fasta, -f` | 必填 |  | 查询的FASTA文件(支持百万级批量查询)｜FASTA file for query (supports millions) |
+| `--output-file, -o` | — |  | 输出文件(可选，默认输出到屏幕)｜Output file (optional, default to screen) |
+| `--db-dir, --output-dir` | `./kmc_output` |  | KMC数据库目录(包含abundance_matrix.h5等文件)｜KMC database directory (contains abundance_matrix.h5, etc.) |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--format` | `sparse` | full/sparse | 输出格式｜Output format: full: 完整矩阵(所有k-mer x 所有样本)｜full matrix (all k-mers x all samples) sparse: 稀疏格式(只包含非零值)｜sparse format (non-zero values only) |
+| `--min-abundance` | `1` | int | 最小丰度阈值｜Minimum abundance threshold |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-m, --mode` | `count` | count/matrix/query/add/export | 操作模式｜Operation mode: count: 统计k-mer｜count k-mers matrix: 构建丰度矩阵｜build abundance matrix query: 查询k-mer｜query k-mer add: 添加新样本｜add new samples export: 导出矩阵为TSV｜export matrix to TSV |
+| `-d, --input-dir` | — |  | 输入目录(自动识别双末端测序)｜Input directory (auto-detect paired-end) |
+| `-i, --input` | — |  | 输入文件列表(FASTQ/FASTA)｜Input files list (FASTQ/FASTA) |
+| `-n, --sample-names` | — |  | 样本名称(默认使用文件名)｜Sample names (default: use filename) |
+| `--read1-suffix` | `_1.clean.fq.gz` |  | Read1文件后缀｜Read1 file suffix |
+| `--read2-suffix` | `_2.clean.fq.gz` |  | Read2文件后缀｜Read2 file suffix |
+| `--single-end` | — | store_true | 单末端测序模式｜Single-end sequencing mode |
+| `-k, --kmer-size` | `21` | int | k-mer大小｜k-mer size |
+| `--min-count` | `2` | int | 最小计数阈值｜Minimum count threshold |
+| `--max-count` | — | int | 最大计数阈值｜Maximum count threshold |
+| `--kmc-path` | `~/miniforge3/envs/kmc_v.3.2.4/bin` |  | KMC软件路径｜KMC software path |
+| `-o, --output-dir` | `./kmc_output` |  | 输出目录｜Output directory |
+| `--tmp-dir` | `./kmc_tmp` |  | 临时文件目录｜Temporary directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--memory-limit` | — |  | 内存限制(如: 12G)｜Memory limit (e.g., 12G) |
+| `--max-memory` | `500` | int | 最大内存使用量(GB)｜Maximum memory usage (GB) |
+| `--matrix-format` | `hdf5` | hdf5/tsv/sqlite | 矩阵存储格式｜Matrix storage format |
+| `--dense-matrix` | — | store_true | 使用密集矩阵(默认稀疏)｜Use dense matrix (default: sparse) |
+| `--no-export` | — | store_true | 不自动导出TSV文件(默认自动导出丰度和存在文件)｜Do not auto export TSV files (default: auto export abundance and presence files) |
+| `--no-keep-dump` | — | store_true | 不保留dump文件(默认保留到dump_files目录)｜Do not keep dump files (default: keep in dump_files directory) |
+| `--index-mode` | `auto` | auto/memory/db | k-mer索引模式｜K-mer index mode:\nauto: 自动选择(默认)｜auto: Auto select based on file size (default)\nmemory: 使用内存索引(快但占用大内存)｜memory: Use in-memory index (fast but high memory)\ndb: 使用数据库索引(省内存但稍慢)｜db: Use database index (low memory but slightly slower) |
+| `--index-threshold` | `1.0` | float | 自动选择索引的文件大小阈值(GB)｜File size threshold for auto index selection (GB) |
+| `-f, --input-fasta` | — |  | 查询的FASTA文件(批量查询)｜FASTA file for batch query |
+| `--output-file` | — |  | 查询结果输出文件/导出TSV文件｜Query result output file / Export TSV file |
+| `--format` | `sparse` | full/sparse | 导出格式｜Export format: full (完整矩阵｜full matrix) or sparse (稀疏格式｜sparse format) |
+| `--min-abundance` | `1` | int | 最小丰度阈值｜Minimum abundance threshold |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### Q1: 如何选择k-mer长度？

@@ -57,6 +57,47 @@ plastome_output/
 └── plastome_assembly.log      # 流程日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入目录(包含reads文件)｜Input directory containing reads files |
+| `--output-dir, -o` | `./plastome_output` | Path | 输出目录｜Output directory |
+| `--prefix, -p` | — |  | 输出前缀｜Output prefix |
+| `--organelle-type` | `embplant_pt` | embplant_pt/embplant_mt/embplant_nr/other_pt/animal_mt/fungus_mt/fungus_nr | 细胞器类型｜Organelle type |
+| `--max-rounds, -R` | `15` | int | 最大扩展轮数｜Maximum extension rounds |
+| `--kmer-list, -k` | `21,45,65,85,105` |  | Kmer列表(逗号分隔)｜Kmer list comma-separated |
+| `--threads, -t` | `12` | int | 线程数｜Threads |
+| `--getorganelle-path` | `~/miniforge3/envs/asm/bin/get_organelle_from_reads.py` |  | GetOrganelle脚本路径｜GetOrganelle script path |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `--single-mode` | — |  | 单样品模式｜Single sample mode |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入目录(包含reads文件)｜Input directory containing reads files |
+| `-o, --output-dir` | `./plastome_output` |  | 输出目录｜Output directory |
+| `-p, --prefix` | — |  | 输出前缀｜Output prefix |
+| `--organelle-type` | `embplant_pt` | embplant_pt/embplant_mt/embplant_nr/other_pt/animal_mt/fungus_mt/fungus_nr | Organelle类型｜Organelle type |
+| `-R, --max-rounds` | `15` | int | 最大扩展轮数｜Maximum extension rounds |
+| `-k, --kmer-list` | `21,45,65,85,105` |  | Kmer列表(逗号分隔)｜Kmer list comma-separated |
+| `-t, --threads` | `12` | int | 线程数｜Threads |
+| `--read1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀模式｜R1 file suffix pattern (default: %(default)s) |
+| `--read2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀模式｜R2 file suffix pattern (default: %(default)s) |
+| `--getorganelle-path` | `~/miniforge3/envs/asm/bin/get_organelle_from_reads.py` |  | GetOrganelle脚本路径｜GetOrganelle script path |
+| `-v, --verbose` | — | store_true | 详细输出模式｜Verbose output mode |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - GetOrganelle（默认通过 conda 环境调用，`--getorganelle-path` 可指定）

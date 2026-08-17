@@ -201,6 +201,44 @@ cat rxlr_scanner_output/rxlr_results_candidates_only.tsv
 - 候选RxLR蛋白数
 - 候选率
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件｜Input FASTA file path |
+| `-o, --output-prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `--window-start` | `20` | int | 窗口起始位置(20对应第21位)｜Window start position (20 for position 21) |
+| `--window-end` | `120` | int | 窗口结束位置｜Window end position |
+| `--min-length` | `120` | int | 最小序列长度｜Minimum sequence length |
+| `--output-dir` | `./rxlr_scanner_output` | Path | 输出目录｜Output directory |
+| `--no-excel` | — |  | 不生成Excel输出｜Do not generate Excel output |
+| `--no-tsv` | — |  | 不生成TSV输出｜Do not generate TSV output |
+| `-v, --verbose` | — |  | 详细输出模式｜Verbose output mode |
+| `--log-file` | — |  | 生成日志文件｜Generate log file |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件｜Input FASTA file path |
+| `-o, --output-prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `--window-start` | `20` | int | 窗口起始位置(默认20对应第21位)｜Window start position (default: 20 for position 21) |
+| `--window-end` | `120` | int | 窗口结束位置(默认120)｜Window end position (default: 120) |
+| `--min-length` | `120` | int | 最小序列长度(默认120)｜Minimum sequence length (default: 120) |
+| `--output-dir` | `./rxlr_scanner_output` |  | 输出目录｜Output directory (default: ./rxlr_scanner_output) |
+| `--no-excel` | — | store_true | 不生成Excel输出｜Do not generate Excel output |
+| `--no-tsv` | — | store_true | 不生成TSV输出｜Do not generate TSV output |
+| `-v, --verbose` | — | store_true | 详细输出模式｜Verbose output mode |
+| `--log-file` | — | store_true | 生成日志文件｜Generate log file |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 **Q: 为什么有些序列长度<120但仍然有结果？**

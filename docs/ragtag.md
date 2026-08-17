@@ -328,3 +328,39 @@ Alonge, M., Williams, A.L. and Grimwood, J. et al.
 RagTag: Reference-guided assembly and scaffolding of draft genomes.
  bioRxiv (2019) doi: 10.1101/667985
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-r, --reference` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `-q, --query` | 必填 |  | 查询基因组FASTA文件｜Query genome FASTA file |
+| `-s, --sample-name` | 必填 |  | 样品名称，用于输出文件命名｜Sample name for output file naming |
+| `-p, --prefix` | — |  | 序列ID前缀，会添加到所有输出序列的ID前面｜Sequence ID prefix to add to all output sequence IDs |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-o, --output-dir` | `./ragtag_output` | Path | 输出目录｜Output directory |
+| `--aligner` | `minimap2` | minimap2/unimap/nucmer | 比对器｜Aligner to use |
+| `-C, --concatenate-unplaced` | — |  | 将未定位的contigs合并为chr0｜Concatenate unplaced contigs into chr0 |
+| `-R, --infer-gaps` | — |  | 推断gap大小｜Infer gap sizes |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-r, --reference` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `-q, --query` | 必填 |  | 查询基因组FASTA文件｜Query genome FASTA file |
+| `-s, --sample-name` | 必填 |  | 样品名称，用于输出文件命名｜Sample name for output file naming |
+| `-p, --prefix` | — |  | 序列ID前缀，会添加到所有输出序列的ID前面｜Sequence ID prefix to add to all output sequence IDs |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-o, --output-dir` | `./ragtag_output` |  | 输出目录｜Output directory |
+| `--aligner` | `minimap2` | minimap2/unimap/nucmer | 比对器｜Aligner to use |
+| `-C, --concatenate-unplaced` | — | store_true | 将未定位的contigs合并为chr0｜Concatenate unplaced contigs into chr0 |
+| `-R, --infer-gaps` | — | store_true | 推断gap大小｜Infer gap sizes |
+
+<!-- END PARAMS:auto -->

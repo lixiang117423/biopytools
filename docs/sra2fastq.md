@@ -837,3 +837,39 @@ MIT License - see [LICENSE](LICENSE) file for details
 **让SRA转换更快更简单！🚀✨**
 
 **Make SRA conversion faster and easier!**
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入SRA文件或文件夹路径｜Input SRA file or folder path |
+| `--output, -o` | `./fastq_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--tmpdir` | — | Path | 临时目录(用于加速)｜Temporary directory (for acceleration) |
+| `--compress/--no-compress` | `True` |  | 压缩输出为.gz格式｜Compress output to .gz format |
+| `--split/--no-split` | `True` |  | 拆分双端测序文件｜Split paired-end reads |
+| `--min-len` | `0` | int | 最小读长过滤｜Minimum read length filter |
+| `--clip` | — |  | 剪切adapters｜Clip adapters |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入SRA文件或文件夹路径｜Input SRA file or folder path |
+| `-o, --output` | `./fastq_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-c, --compress` | `True` | store_true | 压缩输出为.gz格式｜Compress output to .gz format |
+| `--no-compress` | — | store_false | 不压缩输出｜Do not compress output |
+| `--split` | `True` | store_true | 拆分双端测序文件｜Split paired-end reads |
+| `--no-split` | — | store_false | 不拆分文件｜Do not split files |
+| `--tmpdir` | — | str | 临时目录 (可以设置为高速存储以加速)｜Temporary directory (can be set to fast storage for acceleration) |
+| `--min-len` | `0` | int | 最小读长过滤｜Minimum read length filter |
+| `--clip` | — | store_true | 剪切adapters｜Clip adapters |
+
+<!-- END PARAMS:auto -->

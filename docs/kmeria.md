@@ -532,3 +532,122 @@ MIT License
 **版本**: 1.0.0
 **更新日期**: 2026-01-13
 **作者**: BioPyTools Team
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --fastq-dir` | 必填 |  | FASTQ文件目录｜FASTQ files directory |
+| `--sample` | 必填 |  | 样本列表文件｜Sample list file |
+| `-d, --depth-file` | 必填 |  | 测序深度文件｜Sequencing depth file |
+| `-p, --pheno-file` | 必填 |  | 表型文件｜Phenotype file |
+| `-o, --output-dir` | `./kmeria_results` |  | 输出目录｜Output directory |
+| `-f, --force` | `False` |  | 强制重新运行所有步骤｜Force re-run all steps even if output exists |
+| `-k, --kmer-size` | `31` |  | K-mer大小｜K-mer size (default: 31) |
+| `--max-abund` | `1000` |  | 最大丰度｜Maximum abundance (default: 1000) |
+| `--missing-ratio` | `0.05` |  | 缺失率｜Missing ratio (default: 0.05) |
+| `--ploidy` | `2` |  | 倍性｜Ploidy (default: 2) |
+| `--step` | — | count/kctm/filter/m2b/asso | 从指定步骤开始｜Start from specified step |
+| `-t, --threads` | `12` |  | 线程数｜Thread count (default: 12) |
+| `--batch-size` | `4` |  | 批处理大小｜Batch size (default: 4) |
+| `--pheno-col` | `1` |  | 表型列｜Phenotype column (default: 1) |
+| `--kinship-file` | — |  | 亲缘关系矩阵｜Kinship matrix file |
+| `--covar-file` | — |  | 协变量文件｜Covariate file |
+| `--enable-qc` | `True` |  | 启用质控｜Enable QC (default: True) |
+| `--enable-visualization` | `True` |  | 启用可视化｜Enable visualization (default: True) |
+| `--enable-annotation` | — |  | 启用k-mer注释｜Enable k-mer annotation |
+| `--genome-file` | — |  | 参考基因组｜Reference genome (for annotation) |
+| `--gff-file` | — |  | GFF注释文件｜GFF annotation file (for annotation) |
+| `--sample-ratio` | `0.1` | float | 高p值位点抽样比例，用于减少绘图点数 (默认: 0.1 = 10%)｜Sampling ratio for high p-value loci to reduce plot points (default: 0.1 = 10%) |
+| `--window-size` | `200000` | int | 基因查找窗口大小，单位bp (默认: 200000 = 200kb)｜Gene search window size in bp (default: 200000 = 200kb) |
+| `--alignment-tool` | `bwa` | bwa/blast | Post-GWAS比对工具选择 (默认: bwa)｜Alignment tool for Post-GWAS (default: bwa) |
+| `--bwa-k` | `9` | int | BWA mem -k 参数，最小种子长度 (默认: 9)｜BWA mem -k parameter, minimum seed length (default: 9) |
+| `--bwa-t-min-score` | `10` | int | BWA mem -T 参数，最小输出分数 (默认: 10)｜BWA mem -T parameter, minimum score to output (default: 10) |
+| `--as-ratio` | `0.95` | float | BWA AS过滤阈值，保留AS >= 最高AS * as_ratio的所有比对 (默认: 0.95)｜BWA AS filtering threshold, keep alignments with AS >= max_AS * ratio (default: 0.95) |
+| `--log-file` | — |  | 日志文件｜Log file |
+| `-b, --batch-size` | `4` |  | 批处理大小｜Batch size (default: 4) |
+| `-C, --count-separate-strands` | — |  | 分别计数链｜Count strands separately |
+| `-T, --text-output` | — |  | 文本输出｜Text output |
+| `-i, --input-dir` | 必填 |  | 输入目录｜Input directory |
+| `-c, --max-abund` | `1000` |  | 最大丰度｜Maximum abundance (default: 1000) |
+| `-s, --missing-ratio` | `0.05` |  | 缺失率｜Missing ratio (default: 0.05) |
+| `-p, --ploidy` | `2` |  | 倍性｜Ploidy (default: 2) |
+| `--in, -i` | 必填 |  | 输入目录｜Input directory |
+| `--out, -o` | `./04_bimbam` |  | 输出目录｜Output directory |
+| `--no-normalize` | — |  | 不归一化｜No normalization |
+| `--quantile-norm` | — |  | 分位数归一化｜Quantile normalization |
+| `-n, --pheno-col` | `1` |  | 表型列｜Phenotype column (default: 1) |
+| `-c, --covar-file` | — |  | 协变量文件｜Covariate file |
+| `-k, --kinship-file` | — |  | 亲缘关系矩阵｜Kinship matrix file |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --fastq-dir` | 必填 |  | FASTQ文件目录｜FASTQ files directory |
+| `--sample, --samples` | 必填 |  | 样本列表文件｜Sample list file |
+| `-d, --depth-file` | 必填 |  | 测序深度文件｜Sequencing depth file |
+| `-p, --pheno-file` | 必填 |  | 表型文件｜Phenotype file |
+| `-o, --output-dir` | `./kmeria_results` |  | 输出目录｜Output directory |
+| `-k, --kmer-size` | `31` | int | K-mer大小｜K-mer size (default: 31) |
+| `--max-abund` | `1000` | int | 最大丰度｜Maximum abundance (default: 1000) |
+| `--missing-ratio` | `0.8` | float | 缺失率（k-mer默认0.8，与GitHub一致）｜Missing ratio (k-mer default 0.8, matches GitHub) |
+| `--ploidy` | `4` | int | 倍性（默认4，适配多倍体）｜Ploidy (default 4, for polyploids) |
+| `--step` | — | count/kctm/filter/m2b/asso | 从指定步骤开始｜Start from specified step |
+| `-t, --threads` | `24` | int | 线程数｜Thread count (default: 24) |
+| `--batch-size` | `4` | int | 批处理大小｜Batch size (default: 4) |
+| `--pheno-col` | `1` | int | 表型列｜Phenotype column (default: 1) |
+| `--kinship-file` | — |  | 亲缘关系矩阵｜Kinship matrix file |
+| `--covar-file` | — |  | 协变量文件｜Covariate file |
+| `--enable-qc` | `True` | store_true | 启用质控｜Enable QC (default: True) |
+| `--genome-file` | — |  | 参考基因组｜Reference genome (for Post-GWAS analysis) |
+| `--gff-file` | — |  | GFF注释文件｜GFF annotation file (optional) |
+| `--sample-ratio` | `0.1` | float | 高p值位点抽样比例｜Sampling ratio for high p-value loci (default: 0.1) |
+| `--window-size` | `200000` | int | 基因查找窗口大小｜Gene search window size (default: 200000 = 200kb) |
+| `--alignment-tool` | `bwa` | bwa/blast | Post-GWAS比对工具选择 (默认: bwa)｜Alignment tool for Post-GWAS (default: bwa) |
+| `--bwa-k` | `9` | int | BWA mem -k 参数，最小种子长度 (默认: 9)｜BWA mem -k parameter, minimum seed length (default: 9) |
+| `--bwa-t-min-score` | `10` | int | BWA mem -T 参数，最小输出分数 (默认: 10)｜BWA mem -T parameter, minimum score to output (default: 10) |
+| `--as-ratio` | `0.95` | float | BWA AS过滤阈值，保留AS >= 最高AS * ratio的所有比对 (默认: 0.95)｜BWA AS filtering threshold, keep alignments with AS >= max_AS * ratio (default: 0.95) |
+| `--log-file` | — |  | 日志文件｜Log file |
+| `-f, --force` | — | store_true | 强制重新运行所有步骤｜Force re-run all steps |
+| `-b, --batch-size` | `4` | int | 批处理大小｜Batch size (default: 4) |
+| `-C, --count-separate-strands` | — | store_true | 分别计数链｜Count strands separately |
+| `-T, --text-output` | — | store_true | 文本输出｜Text output |
+| `-i, --input-dir` | 必填 |  | 输入目录｜Input directory |
+| `-c, --max-abund` | `1000` | int | 最大丰度｜Maximum abundance (default: 1000) |
+| `-s, --missing-ratio` | `0.8` | float | 缺失率（默认0.8，与GitHub一致）｜Missing ratio (default 0.8, matches GitHub) |
+| `-p, --ploidy` | `4` | int | 倍性（默认4）｜Ploidy (default 4) |
+| `--in, -i` | 必填 |  | 输入目录｜Input directory |
+| `--out, -o` | `./04_bimbam` |  | 输出目录｜Output directory |
+| `--no-normalize` | — | store_true | 不归一化｜No normalization |
+| `--quantile-norm` | — | store_true | 分位数归一化｜Quantile normalization |
+| `-n, --pheno-col` | `1` | int | 表型列｜Phenotype column (default: 1) |
+| `-c, --covar-file` | — |  | 协变量文件｜Covariate file |
+| `-k, --kinship-file` | — |  | 亲缘关系矩阵｜Kinship matrix file |
+| `--use-gemma` | — | store_true | 使用gemma替代bimbamAsso｜Use gemma instead of bimbamAsso |
+| `-m, --analysis-method` | — |  | 分析方法（default/lm/lmm）｜Analysis method |
+| `--kin-method` | `3` | int | kinship计算方法（1=IBS均值, 2=IBS随机, 3=Balding-Nichols）｜Kinship method (default: 3) |
+| `--no-kinship` | — | store_true | 不使用kinship矩阵｜Do not use kinship matrix |
+| `--disable-gls` | — | store_true | 禁用GLS，使用OLS｜Disable GLS, use OLS |
+| `--write-eigen` | — | store_true | 输出特征值/特征向量｜Write eigenvalues/eigenvectors |
+| `--kin-precision` | `10` | int | kinship精度｜Kinship precision (default: 10) |
+| `--out-precision` | `5` | int | 输出精度｜Output precision (default: 5) |
+| `--maf` | — | float | 次等位基因频率过滤｜Minor allele frequency filter |
+| `--miss` | — | float | 缺失阈值｜Missing threshold |
+| `--start-marker` | — | int | 起始marker索引｜Start marker index |
+| `--end-marker` | — | int | 结束marker索引｜End marker index |
+| `--generate-plots` | — | store_true | 生成图表｜Generate plots |
+| `--compress` | — | store_true | 压缩输出｜Compress output |
+| `--verbose` | — | store_true | 详细输出｜Verbose output |
+| `--dry-run` | — | store_true | 仅显示命令不执行｜Show commands without executing |
+| `--no-validate` | — | store_true | 跳过输入验证｜Skip input validation |
+| `--no-check-deps` | — | store_true | 跳过依赖检查｜Skip dependency check |
+| `--no-cleanup` | — | store_true | 保留临时文件｜Keep temporary files |
+
+<!-- END PARAMS:auto -->

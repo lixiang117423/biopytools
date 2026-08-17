@@ -185,6 +185,44 @@ cat dsuite_output/dsuite_BBAA.txt | head -20
 4. **双等位位点**: 默认只分析双等位SNP，这是D统计量的标准做法
 5. **内存需求**: 对于大型数据集，可能需要较多内存
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入VCF文件｜Input VCF file path |
+| `--sets, -s` | 必填 |  | SETS分组文件｜SETS file path |
+| `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--prefix, -p` | `dsuite` |  | 输出文件前缀｜Output file prefix |
+| `--dsuite-bin` | `~/software/Dsuite/Build/Dsuite` |  | Dsuite可执行文件路径｜Dsuite binary path |
+| `--min-alleles` | `2` | int | 最小等位基因数｜Min number of alleles |
+| `--max-alleles` | `2` | int | 最大等位基因数｜Max number of alleles |
+| `--variant-type` | `snps` | snps/indels/both/none | 变异类型｜Variant type |
+| `--bcftools` | `bcftools` |  | bcftools命令路径｜bcftools command path |
+| `--collect-stats` | `False` |  | 收集VCF统计信息｜Whether to collect VCF statistics |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | [FILE] 输入VCF文件路径｜Input VCF file path |
+| `-s, --sets` | 必填 |  | [FILE] SETS分组文件路径｜SETS file path |
+| `-o, --output-dir` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `-p, --prefix` | `dsuite` |  | [STR] 输出文件前缀｜Output file prefix |
+| `--dsuite-bin` | `~/software/Dsuite/Build/Dsuite` |  | [FILE] Dsuite可执行文件路径｜Dsuite binary path |
+| `--min-alleles` | `2` | int | [INT] 最小等位基因数｜Min number of alleles |
+| `--max-alleles` | `2` | int | [INT] 最大等位基因数｜Max number of alleles |
+| `--variant-type` | `snps` | snps/indels/both/none | [STR] 变异类型｜Variant type |
+| `--bcftools` | `bcftools` |  | [CMD] bcftools命令路径｜bcftools command path |
+| `--collect-stats` | — | store_true | [FLAG] 是否收集VCF统计信息｜Whether to collect VCF statistics |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题
 
 ### Q: 如何解读D值？

@@ -74,6 +74,46 @@ repeat_results/
 └── 99_logs/                      # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | FASTA｜Input genome FASTA file path |
+| `--output, -o` | 必填 |  | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | (: 88)｜Number of threads (default: 88) |
+| `--skip-modeler` | — |  | RepeatModeler｜Skip RepeatModeler step |
+| `--skip-ltr` | — |  | LTR｜Skip LTR analysis step |
+| `--repeatmodeler-path` | `RepeatModeler` |  | RepeatModeler (: RepeatModeler)｜RepeatModeler program path (default: RepeatModeler) |
+| `--ltr-finder-path` | `ltr_finder` |  | LTR_FINDER (: ltr_finder)｜LTR_FINDER program path (default: ltr_finder) |
+| `--ltrharvest-path` | `gt ltrharvest` |  | LTRharvest (: gt ltrharvest)｜LTRharvest program path (default: gt ltrharvest) |
+| `--ltr-retriever-path` | `LTR_retriever` |  | LTR_retriever (: LTR_retriever)｜LTR_retriever program path (default: LTR_retriever) |
+| `--repeatmasker-path` | `RepeatMasker` |  | RepeatMasker (: RepeatMasker)｜RepeatMasker program path (default: RepeatMasker) |
+| `--tesorter-path` | `TEsorter` |  | TEsorter (: TEsorter)｜TEsorter program path (default: TEsorter) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入基因组FASTA文件路径｜Input genome FASTA file path |
+| `-o, --output` | `./repeat_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `--skip-modeler` | — | store_true | 跳过RepeatModeler步骤｜Skip RepeatModeler step |
+| `--skip-ltr` | — | store_true | 跳过LTR分析步骤｜Skip LTR analysis step |
+| `--repeatmodeler-path` | `RepeatModeler` |  | RepeatModeler程序路径｜RepeatModeler program path |
+| `--ltr-finder-path` | `ltr_finder` |  | LTR_FINDER程序路径｜LTR_FINDER program path |
+| `--ltrharvest-path` | `gt ltrharvest` |  | LTRharvest程序路径｜LTRharvest program path |
+| `--ltr-retriever-path` | `LTR_retriever` |  | LTR_retriever程序路径｜LTR_retriever program path |
+| `--repeatmasker-path` | `RepeatMasker` |  | RepeatMasker程序路径｜RepeatMasker program path |
+| `--tesorter-path` | `TEsorter` |  | TEsorter程序路径｜TEsorter program path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - `RepeatModeler` + `RECON`/`RepeatScout`（RepeatModeler 内部依赖）+ `Tandem Repeats Finder`

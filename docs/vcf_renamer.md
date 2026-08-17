@@ -356,3 +356,31 @@ done
 VCF Sample Renamer: A tool for preventing sample name truncation in VCF files.
 https://github.com/yourusername/biopytools
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | 必填 | Path | 输出VCF文件路径｜Output VCF file path |
+| `--prefix, -p` | `S` |  | 新样本名前缀｜New sample name prefix |
+| `--mapping, -m` | — | Path | 样本映射文件路径｜Mapping file path |
+| `--no-mapping` | — |  | 不保留映射文件｜Do not keep mapping file |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `-o, --output` | 必填 |  | 输出VCF文件路径｜Output VCF file path |
+| `-p, --prefix` | `S` |  | 新样品名前缀｜New sample name prefix |
+| `-m, --mapping` | — |  | 映射文件路径｜Mapping file path |
+| `--no-mapping` | — | store_true | 不保留映射文件｜Do not keep mapping file |
+
+<!-- END PARAMS:auto -->

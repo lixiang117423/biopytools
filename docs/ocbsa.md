@@ -78,6 +78,90 @@ biopytools ocbsa primer -g genome.fa -i result.OcValue --region Chr01,100000,500
 - fig: PNG/PDF图片
 - primer: `{output}/primers.txt` 引物列表 + `{output}/inDel.fa` INDEL序列
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-vcf` | 必填 |  | VCF文件路径｜VCF file path |
+| `-p1` | 必填 | int | 显性亲本列号｜Dominant parent column |
+| `-p2` | 必填 | int | 隐性亲本列号｜Recessive parent column |
+| `-b1` | 必填 | int | 显性表型混池列号｜Dominant pool column |
+| `-b2` | 必填 | int | 隐性表型混池列号｜Recessive pool column |
+| `-o, --output-dir` | `./output` |  | 输出目录｜Output directory |
+| `-w, --window-size` | `1000000` | int | 滑窗大小｜Window size |
+| `-p, --pvalue` | `99` | float | p值阈值｜P-value threshold |
+| `--parent-min-dep` | `10` | int | 亲本最低覆盖度｜Parent min depth |
+| `--parent-max-dep` | `100` | int | 亲本最高覆盖度｜Parent max depth |
+| `--pool-min-dep` | `20` | int | 混池最低覆盖度｜Pool min depth |
+| `--pool-max-dep` | `500` | int | 混池最高覆盖度｜Pool max depth |
+| `--method` | `snpindex` | snpindex/ED | 分析方法｜Analysis method |
+| `-i, --input-file` | 必填 |  | 输入结果文件｜Input result file |
+| `-o, --output-file` | 必填 |  | 输出图片路径(.png/.pdf)｜Output figure path |
+| `--plot-type` | `ocvalue` | ocvalue/snpindex/ed | 图表类型｜Plot type |
+| `--position` | — |  | 特定区域(chr,start,end)｜Specific region |
+| `--color` | `plasma_r` |  | 颜色方案｜Color scheme |
+| `-g, --genome` | 必填 |  | 参考基因组路径｜Reference genome path |
+| `-i, --ocvalue-file` | 必填 |  | OcValue文件路径｜OcValue file path |
+| `--region` | 必填 |  | 目标区间(chr,start,end)｜Target region |
+| `-n, --primer-num` | `10` | int | 引物对数量｜Number of primer pairs |
+| `--flank-length` | `200` | int | INDEL侧翼长度｜INDEL flank length |
+| `--primer-min-size` | `18` | int | 最短引物｜Min primer size |
+| `--primer-opt-size` | `20` | int | 最适引物｜Opt primer size |
+| `--primer-max-size` | `24` | int | 最长引物｜Max primer size |
+| `--product-min` | `70` | int | 最短产物｜Min product size |
+| `--product-max` | `200` | int | 最长产物｜Max product size |
+| `--min-tm` | `50.0` | float | 最低Tm｜Min Tm |
+| `--max-tm` | `65.0` | float | 最高Tm｜Max Tm |
+| `--min-gc` | `35.0` | float | 最低GC｜Min GC% |
+| `--max-gc` | `65.0` | float | 最高GC｜Max GC% |
+| `--tm-diff` | `0.5` | float | Tm差异阈值｜Tm diff threshold |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-vcf` | 必填 |  | VCF文件路径｜VCF file path |
+| `-p1, --p1` | 必填 | int | 显性亲本列号｜Dominant parent column |
+| `-p2, --p2` | 必填 | int | 隐性亲本列号｜Recessive parent column |
+| `-b1, --b1` | 必填 | int | 显性表型混池列号｜Dominant pool column |
+| `-b2, --b2` | 必填 | int | 隐性表型混池列号｜Recessive pool column |
+| `-o, --output-dir` | `./output` |  | 输出目录｜Output directory |
+| `-w, --window-size` | `1000000` | int | 滑窗大小｜Window size |
+| `-p, --pvalue` | `99` | float | p值阈值｜P-value threshold |
+| `--parent-min-dep` | `10` | int | 亲本最低覆盖度｜Parent min depth |
+| `--parent-max-dep` | `100` | int | 亲本最高覆盖度｜Parent max depth |
+| `--pool-min-dep` | `20` | int | 混池最低覆盖度｜Pool min depth |
+| `--pool-max-dep` | `500` | int | 混池最高覆盖度｜Pool max depth |
+| `--method` | `snpindex` | snpindex/ED | 分析方法｜Analysis method |
+| `-i, --input-file` | 必填 |  | 输入结果文件｜Input result file |
+| `-o, --output-file` | 必填 |  | 输出图片路径｜Output figure path |
+| `--plot-type` | `ocvalue` | ocvalue/snpindex/ed | 图表类型｜Plot type |
+| `--position` | — |  | 特定区域(chr,start,end)｜Specific region |
+| `--color` | `plasma_r` |  | 颜色方案｜Color scheme |
+| `-g, --genome` | 必填 |  | 参考基因组路径｜Reference genome path |
+| `-i, --ocvalue-file` | 必填 |  | OcValue文件路径｜OcValue file path |
+| `--region` | 必填 |  | 目标区间(chr,start,end)｜Target region |
+| `-n, --primer-num` | `10` | int | 引物对数量｜Number of primer pairs |
+| `--flank-length` | `200` | int | INDEL侧翼长度｜INDEL flank length |
+| `--primer-min-size` | `18` | int | 最短引物｜Min primer size |
+| `--primer-opt-size` | `20` | int | 最适引物｜Opt primer size |
+| `--primer-max-size` | `24` | int | 最长引物｜Max primer size |
+| `--product-min` | `70` | int | 最短产物｜Min product size |
+| `--product-max` | `200` | int | 最长产物｜Max product size |
+| `--min-tm` | `50.0` | float | 最低Tm｜Min Tm |
+| `--max-tm` | `65.0` | float | 最高Tm｜Max Tm |
+| `--min-gc` | `35.0` | float | 最低GC｜Min GC% |
+| `--max-gc` | `65.0` | float | 最高GC｜Max GC% |
+| `--tm-diff` | `0.5` | float | Tm差异阈值｜Tm diff threshold |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **primer3**: 引物设计 (用于primer子命令)

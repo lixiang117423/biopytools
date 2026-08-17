@@ -70,6 +70,60 @@ joint_genotyping_output/
 └── *.log                           # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入目录(包含VCF/GVCF文件)｜Input directory (containing VCF/GVCF files) |
+| `--genome, -g` | 必填 |  | 参考基因组文件(.fasta/.fa)｜Reference genome file (.fasta/.fa) |
+| `--output-dir, -o` | `./joint_genotyping_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--memory, -m` | `100g` |  | Java内存设置｜Java memory setting |
+| `--intervals, -L` | — |  | 分析区间(染色体或区间文件)｜Analysis intervals (chromosome or interval file) |
+| `--snp-qd` | `2.0` | float | SNP QD阈值｜SNP QD threshold |
+| `--snp-fs` | `60.0` | float | SNP FS阈值｜SNP FS threshold |
+| `--snp-mq` | `40.0` | float | SNP MQ阈值｜SNP MQ threshold |
+| `--snp-mqrs` | `-12.5` | float | SNP MQRankSum阈值｜SNP MQRankSum threshold |
+| `--snp-rprs` | `-8.0` | float | SNP ReadPosRankSum阈值｜SNP ReadPosRankSum threshold |
+| `--snp-sor` | `3.0` | float | SNP SOR阈值｜SNP SOR threshold |
+| `--indel-qd` | `2.0` | float | INDEL QD阈值｜INDEL QD threshold |
+| `--indel-fs` | `200.0` | float | INDEL FS阈值｜INDEL FS threshold |
+| `--indel-rprs` | `-20.0` | float | INDEL ReadPosRankSum阈值｜INDEL ReadPosRankSum threshold |
+| `--indel-sor` | `10.0` | float | INDEL SOR阈值｜INDEL SOR threshold |
+| `--gatk-path` | `gatk` |  | GATK软件路径｜GATK software path |
+| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入目录(包含VCF/GVCF文件)｜Input directory (containing VCF/GVCF files) |
+| `-g, --genome` | 必填 |  | 参考基因组文件｜Reference genome file (.fasta/.fa) |
+| `-o, --output-dir` | `./joint_genotyping_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `-m, --memory` | `100g` |  | Java内存设置｜Java memory setting |
+| `-L, --intervals` | — |  | 分析区间(染色体或区间文件)｜Analysis intervals (chromosome or interval file) |
+| `--snp-qd` | `2.0` | float | SNP QD阈值｜SNP QD threshold |
+| `--snp-fs` | `60.0` | float | SNP FS阈值｜SNP FS threshold |
+| `--snp-mq` | `40.0` | float | SNP MQ阈值｜SNP MQ threshold |
+| `--snp-mqrs` | `-12.5` | float | SNP MQRankSum阈值｜SNP MQRankSum threshold |
+| `--snp-rprs` | `-8.0` | float | SNP ReadPosRankSum阈值｜SNP ReadPosRankSum threshold |
+| `--snp-sor` | `3.0` | float | SNP SOR阈值｜SNP SOR threshold |
+| `--indel-qd` | `2.0` | float | INDEL QD阈值｜INDEL QD threshold |
+| `--indel-fs` | `200.0` | float | INDEL FS阈值｜INDEL FS threshold |
+| `--indel-rprs` | `-20.0` | float | INDEL ReadPosRankSum阈值｜INDEL ReadPosRankSum threshold |
+| `--indel-sor` | `10.0` | float | INDEL SOR阈值｜INDEL SOR threshold |
+| `--gatk-path` | `gatk` |  | GATK软件路径｜GATK software path |
+| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - [GATK4](https://gatk.broadinstitute.org/)（必需，提供 GenomicsDBImport、GenotypeGVCFs、SelectVariants、VariantFiltration）

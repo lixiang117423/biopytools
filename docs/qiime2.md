@@ -63,6 +63,80 @@ biopytools qiime2 -i raw_reads/ --classifier ~/db/silva_classifier.qza
 - 物种注释结果
 - 运行日志(99_logs)
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-dir` | 必填 |  | 双端FASTQ输入目录｜Input directory of paired-end FASTQ |
+| `-o, --output-dir` | `./qiime2_output` | Path | 输出目录｜Output directory |
+| `--amplicon` | `16s` | 16s/its | 扩增子类型｜Amplicon type |
+| `--method` | `asv` | asv/otu | 聚类方法ASV(DADA2)或OTU(vsearch)｜Method: ASV or OTU |
+| `--fwd-primer` | `CCTACGGGNGGCWGCAG` |  | 正向引物序列(IUPAC)｜Forward primer |
+| `--rev-primer` | `GACTACHVGGGTATCTAATCC` |  | 反向引物序列(IUPAC)｜Reverse primer |
+| `--trunc-len-f` | `0` | int | R1截断长度(0=不截断)｜R1 truncation length (0=none) |
+| `--trunc-len-r` | `0` | int | R2截断长度(0=不截断)｜R2 truncation length (0=none) |
+| `--trim-left-f` | `0` | int | R1左侧裁剪｜R1 trim left |
+| `--trim-left-r` | `0` | int | R2左侧裁剪｜R2 trim left |
+| `--sampling-depth` | `0` | int | 抽平深度(0=自动)｜Rarefaction depth (0=auto) |
+| `--perc-identity` | `0.97` | float | OTU聚类相似度｜OTU identity |
+| `--confidence` | `0.7` | float | 分类置信度｜Classification confidence |
+| `--min-length` | `50` | int | extract-reads最小长度｜extract-reads min length |
+| `--max-length` | `0` | int | extract-reads最大长度(0=不限)｜extract-reads max length (0=none) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--validate-level` | `min` | min/max | tools import校验级别｜import validate level |
+| `--classifier` | — |  | 预训练分类器(.qza),省略则自动训练｜Pre-trained classifier (.qza) |
+| `--database-dir` | — |  | 原始参考库目录(SILVA/UNITE)｜Raw reference DB directory |
+| `--qiime-path` | — |  | qiime可执行文件路径｜qiime executable path |
+| `--classifier-cache-dir` | — |  | 分类器缓存目录｜Classifier cache directory |
+| `--r1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
+| `--r2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
+| `--skip-cutadapt` | — |  | 跳过引物切除｜Skip primer trimming |
+| `--skip-phylogeny` | — |  | 跳过系统发育建树(ITS自动跳过)｜Skip phylogeny (auto for ITS) |
+| `--metadata-file` | — |  | 样品元数据TSV(可选)｜Sample metadata TSV (optional) |
+| `-f, --force` | — |  | 覆盖已有输出｜Overwrite existing outputs |
+| `-v, --verbose` | — |  | 详细输出｜Verbose output |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-dir` | 必填 |  | 双端FASTQ输入目录｜Input directory of paired-end FASTQ |
+| `-o, --output-dir` | `./qiime2_output` |  | 输出目录｜Output directory (default: ./qiime2_output) |
+| `--amplicon` | `16s` | 16s/its | 扩增子类型｜Amplicon type (default: 16s) |
+| `--method` | `asv` | asv/otu | 聚类方法｜Method: ASV(DADA2) or OTU(vsearch) (default: asv) |
+| `--fwd-primer` | `CCTACGGGNGGCWGCAG` |  | 正向引物序列(IUPAC)｜Forward primer (default: 341F) |
+| `--rev-primer` | `GACTACHVGGGTATCTAATCC` |  | 反向引物序列(IUPAC)｜Reverse primer (default: 806R) |
+| `--trunc-len-f` | `0` | int | R1截断长度(0=不截断)｜R1 truncation length (0=none) |
+| `--trunc-len-r` | `0` | int | R2截断长度(0=不截断)｜R2 truncation length (0=none) |
+| `--trim-left-f` | `0` | int | R1左侧裁剪｜R1 trim left |
+| `--trim-left-r` | `0` | int | R2左侧裁剪｜R2 trim left |
+| `--sampling-depth` | `0` | int | 抽平深度(0=自动取第10百分位)｜Rarefaction depth (0=auto) |
+| `--perc-identity` | `0.97` | float | OTU聚类相似度｜OTU identity (default: 0.97) |
+| `--confidence` | `0.7` | float | classify-sklearn置信度｜classification confidence (default: 0.7) |
+| `--min-length` | `50` | int | extract-reads最小长度｜extract-reads min length (default: 50) |
+| `--max-length` | `0` | int | extract-reads最大长度(0=不限)｜extract-reads max length (0=none) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--validate-level` | `min` | min/max | tools import校验级别｜import validate level (default: min) |
+| `--classifier` | — |  | 预训练分类器(.qza),省略则自动训练｜Pre-trained classifier (.qza), auto-train if omitted |
+| `--database-dir` | — |  | 原始参考库目录(SILVA/UNITE)｜Raw reference DB directory (default: ~/database/qiime2) |
+| `--qiime-path` | — |  | qiime可执行文件路径｜qiime executable path (default: ~/miniforge3/envs/qiime_v.2024.10.1/bin/qiime) |
+| `--classifier-cache-dir` | — |  | 分类器缓存目录｜Classifier cache directory (default: <db>/classifier_cache) |
+| `--r1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀｜R1 file suffix (default: _1.clean.fq.gz) |
+| `--r2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀｜R2 file suffix (default: _2.clean.fq.gz) |
+| `--skip-cutadapt` | — | store_true | 跳过引物切除(数据已去引物)｜Skip primer trimming |
+| `--skip-phylogeny` | — | store_true | 跳过系统发育建树(ITS自动跳过)｜Skip phylogeny (auto for ITS) |
+| `--metadata-file` | — |  | 样品元数据TSV(可选)｜Sample metadata TSV (optional) |
+| `-f, --force` | — | store_true | 覆盖已有输出｜Overwrite existing outputs |
+| `-v, --verbose` | — | store_true | 详细输出｜Verbose output |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **QIIME2**: 微生物组分析框架(含 cutadapt/DADA2/vsearch/classify-sklearn 等)

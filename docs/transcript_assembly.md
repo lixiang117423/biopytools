@@ -173,6 +173,55 @@ out/
 - **HISAT2** - 二代比对(仅 FASTQ 路径)
 - **SAMtools** - BAM 校验/索引/排序
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--genome, -g` | — |  | 基因组FASTA(FASTQ模式或--transcripts时必需)｜Genome FASTA (required for FASTQ mode or --transcripts) |
+| `--input, -i` | — | Path | 输入FASTQ文件目录(与-b互斥)｜Input FASTQ dir, mutually exclusive with -b |
+| `--bam, -b` | — | Path | 输入BAM文件(可多次-b,与-i互斥)｜Input BAM file(s), repeatable, mutually exclusive with -i |
+| `--guide-gff` | — | Path | 参考注释GTF/GFF3(-G guided)｜Reference annotation for guided assembly |
+| `--read-type` | `auto` | auto/short/long | 读长类型｜Read type |
+| `--transcripts` | — |  | 额外输出transcripts.fa(需-g)｜Also output cDNA (needs -g) |
+| `--predict-cds` | — |  | TransDecoder预测CDS(需-g,输出gene/mRNA/CDS)｜TransDecoder CDS prediction (needs -g) |
+| `--pattern, -p` | `*_1.clean.fq.gz` | str | FASTQ文件命名模式｜FASTQ file naming pattern (* is sample name placeholder) |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--sample-timeout` | `43200` | int | 单个样本处理超时时间（秒）｜Sample processing timeout in seconds |
+| `--step, -s` | — | 1/2/3/4/5/6/7 | 运行指定步骤｜Run only specified step |
+| `--verbose, -v` | — |  | 增加输出详细程度｜Increase output verbosity |
+| `--quiet` | — |  | 静默模式，仅输出错误信息｜Quiet mode, only output errors |
+| `--force` | — |  | 强制重新处理已完成的步骤｜Force re-process completed steps |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-g, --genome` | — |  | 基因组FASTA(FASTQ模式或--transcripts时必需)｜Genome FASTA (required for FASTQ mode or --transcripts) |
+| `-i, --input` | — |  | 输入FASTQ文件目录｜Input FASTQ file directory |
+| `-b, --bam` | — |  | 输入BAM文件(一个或多个,与-i互斥)｜Input BAM file(s), mutually exclusive with -i |
+| `--guide-gff` | — |  | 参考注释GTF/GFF3(-G guided)｜Reference annotation for guided assembly |
+| `--read-type` | `auto` | auto/short/long | 读长类型(auto=自动检测)｜Read type (auto=auto-detect) |
+| `--transcripts` | — | store_true | 额外输出transcripts.fa cDNA(需-g)｜Also output cDNA transcripts.fa (needs -g) |
+| `--predict-cds` | — | store_true | TransDecoder预测CDS(需-g,输出gene/mRNA/CDS)｜TransDecoder CDS prediction (needs -g) |
+| `-p, --pattern` | `*_1.clean.fq.gz` |  | FASTQ文件命名模式（*为样本名占位符）｜FASTQ file naming pattern (* is sample name placeholder) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--sample-timeout` | `43200` | int | 单个样本处理超时时间（秒）｜Sample processing timeout in seconds |
+| `-s, --step` | — | 1/2/3/4/5/6/7 | 运行指定步骤｜Run only specified step (1: 索引｜index, 2: 比对｜alignment, 3: 排序｜sort, 4: 组装｜assembly, 5: 合并｜merge, 6: GFF3输出｜GFF3 output, 7: TransDecoder CDS｜TransDecoder CDS) |
+| `-v, --verbose` | `0` | count | 增加输出详细程度｜Increase output verbosity |
+| `--quiet` | — | store_true | 静默模式，仅输出错误信息｜Quiet mode, only output errors |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--force` | — | store_true | 强制重新处理已完成的步骤｜Force re-process completed steps |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | Troubleshooting
 
 **Q: BAM 模式报"BAM 非坐标排序"**

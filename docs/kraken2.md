@@ -62,6 +62,46 @@ biopytools kraken2 -i ./fastq/ -d ~/db/kraken2_db --bracken-level G --confidence
 - `00_pipeline_info/software_versions.yml`：软件版本
 - `99_logs/kraken2_pipeline.log`：运行日志
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input-dir, -i` | 必填 |  | 输入FASTQ目录｜Input FASTQ directory |
+| `--db-path, -d` | 必填 |  | Kraken2数据库路径｜Kraken2 database path |
+| `--output-dir, -o` | `./kraken2_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--read-len` | `150` | int | 读长(用于Bracken)｜Read length (for Bracken) |
+| `--confidence` | `0.0` | float | Kraken2置信度阈值｜Kraken2 confidence score threshold |
+| `--bracken-level` | `S` | D/P/C/O/F/G/S/S1 | Bracken分类级别｜Bracken taxonomic level |
+| `--bracken-threshold` | `10` | int | Bracken最小读数阈值｜Bracken minimum read threshold |
+| `--no-bracken` | — |  | 跳过Bracken分析｜Skip Bracken analysis |
+| `--r1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
+| `--r2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-dir` | 必填 |  | 输入FASTQ目录｜Input FASTQ directory |
+| `-d, --db-path` | 必填 |  | Kraken2数据库路径｜Kraken2 database path |
+| `-o, --output-dir` | `./kraken2_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--read-len` | `150` | int | 读长(用于Bracken)｜Read length (for Bracken) |
+| `--confidence` | `0.0` | float | Kraken2置信度阈值｜Kraken2 confidence score threshold |
+| `--bracken-level` | `S` | D/P/C/O/F/G/S/S1 | Bracken分类级别｜Bracken taxonomic level |
+| `--bracken-threshold` | `10` | int | Bracken最小读数阈值｜Bracken minimum read threshold |
+| `--no-bracken` | — | store_true | 跳过Bracken分析｜Skip Bracken analysis |
+| `--r1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀｜R1 file suffix |
+| `--r2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀｜R2 file suffix |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - `kraken2`（物种分类主程序）

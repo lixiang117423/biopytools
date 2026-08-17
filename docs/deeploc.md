@@ -335,3 +335,37 @@ pip install openpyxl
 ## 许可证 | License
 
 本模块遵循biopytools项目的许可证。DeepLoc 2.1请参考其原始许可证。
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTA文件(蛋白质序列)｜Input FASTA file (protein sequences) |
+| `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--model` | `Fast` | Fast/Accurate | 预测模型｜Prediction model |
+| `--device` | `cpu` | cpu/cuda/mps | 计算设备｜Compute device |
+| `--singularity-image` | `~/software/singularity/deeploc2.1_latest.sif` |  | Singularity镜像路径｜Singularity image path |
+| `--database-dir` | `~/software/deeploc/database` | Path | 数据库目录｜Database directory |
+| `--singularity-exec` | `~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` |  | Singularity可执行文件路径｜Singularity executable path |
+| `--plot` | — |  | 绘制attention图｜Plot attention values |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件(蛋白质序列)｜Input FASTA file (protein sequences) |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `--model` | `Fast` | Fast/Accurate | 预测模型｜Prediction model (default: Fast) Fast: ESM1b模型(快速)｜Fast: ESM1b model (fast) Accurate: ProtT5模型(高精度)｜Accurate: ProtT5 model (accurate) |
+| `--device` | `cpu` | cpu/cuda/mps | 计算设备｜Compute device (default: cpu) |
+| `--singularity-image` | `~/software/singularity/deeploc2.1_latest.sif` |  | Singularity镜像路径｜Singularity image path |
+| `--database-dir` | `~/software/deeploc/database` |  | 数据库目录｜Database directory |
+| `--singularity-exec` | `~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` |  | Singularity可执行文件路径｜Singularity executable path |
+| `--plot` | — | store_true | 绘制attention图｜Plot attention values |
+
+<!-- END PARAMS:auto -->

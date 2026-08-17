@@ -245,3 +245,57 @@ biopytools meme-parser -i proteins.fa -protein \
 
 - MEME Suite: http://meme-suite.org/
 - MEME文档: http://meme-suite.org/doc/meme.html
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-file` | 必填 |  | 输入FASTA文件或MEME输出文件(xml/txt)｜Input FASTA file or MEME output file (xml/txt) |
+| `--parse-only` | — |  | 仅解析模式，不运行MEME｜Parse-only mode, do not run MEME |
+| `-o, --output-prefix` | `meme_results` |  | 输出文件前缀｜Output file prefix |
+| `--output-dir` | `.` |  | 输出目录｜Output directory |
+| `--no-tsv` | — |  | 不输出TSV文件｜Do not output TSV file |
+| `--no-csv` | — |  | 不输出CSV文件｜Do not output CSV file |
+| `--no-excel` | — |  | 不输出Excel文件｜Do not output Excel file |
+| `--meme-path` | `~/miniforge3/envs/protein/bin/meme` |  | MEME可执行文件路径｜MEME executable path |
+| `-protein` | `True` |  | 输入序列为蛋白质(默认)｜Input sequences are protein (default) |
+| `-dna` | — |  | 输入序列为DNA｜Input sequences are DNA |
+| `-mod` | `zoops` | zoops/anr/oor | Motif分布模式｜Motif distribution mode |
+| `-nmotifs` | `10` | int | Motif数量｜Number of motifs |
+| `-minw` | `6` | int | 最小motif宽度｜Minimum motif width |
+| `-maxw` | `50` | int | 最大motif宽度｜Maximum motif width |
+| `-objfun` | `classic` | classic/de/ce/cd | 目标函数｜Objective function |
+| `-markov-order` | `0` | int | Markov链阶数｜Markov chain order |
+| `--no-extract-motifs` | — |  | 不提取motif序列｜Do not extract motif sequences (default: extract) |
+| `--input-fasta` | — |  | 原始FASTA文件路径（解析模式时用于提取motif序列）｜Original FASTA file path (for motif extraction in parse-only mode) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-file` | 必填 |  | 输入FASTA文件或MEME输出文件(xml/txt)｜Input FASTA file or MEME output file (xml/txt) |
+| `--parse-only` | — | store_true | 仅解析模式，不运行MEME｜Parse-only mode, do not run MEME |
+| `-o, --output-prefix` | `meme_results` |  | 输出文件前缀｜Output file prefix |
+| `--output-dir` | `.` |  | 输出目录｜Output directory |
+| `--no-tsv` | — | store_false | 不输出TSV文件｜Do not output TSV file |
+| `--no-csv` | — | store_false | 不输出CSV文件｜Do not output CSV file |
+| `--no-excel` | — | store_false | 不输出Excel文件｜Do not output Excel file |
+| `--meme-path` | `~/miniforge3/envs/protein/bin/meme` |  | MEME可执行文件路径｜MEME executable path |
+| `-protein` | `True` | store_true | 输入序列为蛋白质｜Input sequences are protein (default: True) |
+| `-dna` | — | store_true | 输入序列为DNA｜Input sequences are DNA |
+| `-mod` | `zoops` | zoops/anr/oor | Motif分布模式｜Motif distribution mode |
+| `-nmotifs` | `10` | int | Motif数量｜Number of motifs |
+| `-minw` | `6` | int | 最小motif宽度｜Minimum motif width |
+| `-maxw` | `50` | int | 最大motif宽度｜Maximum motif width |
+| `-objfun` | `classic` | classic/de/ce/cd | 目标函数｜Objective function |
+| `-markov-order` | `0` | int | Markov链阶数｜Markov chain order |
+| `--no-extract-motifs` | — | store_false | 不提取motif序列｜Do not extract motif sequences |
+| `--input-fasta` | — |  | 原始FASTA文件路径（解析模式时用于提取motif序列）｜Original FASTA file path (for motif extraction in parse-only mode) |
+
+<!-- END PARAMS:auto -->

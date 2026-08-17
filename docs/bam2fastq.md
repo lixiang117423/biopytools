@@ -173,3 +173,31 @@ bam2fastq \
 |------|---------|------|------|
 |1.0.0|2026-01-06|初始版本|Initial version |
 |2.0.0|2026-01-06|从samtools切换到bam2fastq|Switched from samtools to bam2fastq |
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入BAM文件或文件夹路径｜Input BAM file or directory path |
+| `-o, --output-dir` | 必填 | Path | 输出路径(文件或目录,以.fq.gz/.fastq.gz结尾视为文件)｜Output path (file if ends with .fq.gz/.fastq.gz, else directory) |
+| `-t, --threads` | `12` | int | 每个BAM文件转换使用的线程数｜Threads per BAM file conversion |
+| `-j, --jobs` | `1` | int | 并行处理的BAM文件数量｜Number of parallel BAM file processing |
+| `--bam2fastq-path` | `bam2fastq` | str | bam2fastq可执行文件路径｜bam2fastq executable path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入BAM文件或文件夹路径(包含BAM文件)｜Input BAM file or directory path (containing BAM files) |
+| `-o, --output-dir` | 必填 |  | 输出路径(文件或目录,自动识别)｜Output path (file or directory, auto-detected) |
+| `-t, --threads` | `64` | int | 每个BAM文件转换使用的线程数 (默认: 64)｜Threads per BAM file conversion (default: 64) |
+| `-j, --jobs` | `1` | int | 并行处理的BAM文件数量 (默认: 1)｜Number of parallel BAM file processing (default: 1) |
+| `--bam2fastq-path` | `bam2fastq` |  | bam2fastq可执行文件路径 (默认: bam2fastq)｜bam2fastq executable path (default: bam2fastq) |
+
+<!-- END PARAMS:auto -->

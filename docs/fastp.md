@@ -519,3 +519,62 @@ Chen, S., Zhou, Y., Chen, Y., & Gu, J. (2018).
 fastp: an ultra-fast all-in-one FASTQ preprocessor.
 Bioinformatics, 34(17), i884-i890.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入原始FASTQ数据目录或文件｜Input raw FASTQ data directory or file |
+| `--output-dir, -o` | 必填 |  | 输出清洁FASTQ数据目录｜Output clean FASTQ data directory |
+| `--fastp-path` | `fastp` |  | fastp可执行文件路径｜fastp executable path |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--quality-threshold, -q` | `30` | int | 质量阈值｜Quality threshold |
+| `--min-length, -l` | `50` | int | 最小长度｜Minimum length |
+| `--unqualified-percent, -u` | `40` | int | 不合格碱基百分比阈值｜Unqualified base percentage threshold |
+| `--n-base-limit, -n` | `10` | int | N碱基数量限制｜N base count limit |
+| `--read1-suffix` | — |  | Read1文件后缀（单末端模式也使用此参数）。默认自动检测，支持_1.fq.gz和_1.fastq.gz｜Read1 file suffix (also used for single-end mode). Auto-detect by default, supports _1.fq.gz and _1.fastq.gz |
+| `--read2-suffix` | — |  | Read2文件后缀。默认自动检测，支持_2.fq.gz和_2.fastq.gz｜Read2 file suffix. Auto-detect by default, supports _2.fq.gz and _2.fastq.gz |
+| `--single-end` | — |  | 单末端模式（单文件输入时自动检测，无需手动指定）｜Single-end mode (auto-detected for single file input, no need to specify manually) |
+| `--enable-pair` | `True` |  | 启用seqkit pair配对修复步骤（默认启用）｜Enable seqkit pair step (enabled by default) |
+| `--disable-pair, --disable-repair` | `False` |  | 禁用seqkit pair配对修复步骤｜Disable seqkit pair step |
+| `--seqkit-path` | `seqkit` |  | seqkit可执行文件路径｜seqkit executable path |
+| `--verbose, -v` | — |  | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — |  | 静默模式(仅输出ERROR)｜Quiet mode (ERROR only) |
+| `--log-level` | — |  | 日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)｜Log level |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `--force, -f` | — |  | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — |  | 模拟运行(不实际执行)｜Dry run without execution |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入原始FASTQ数据目录｜Input raw FASTQ data directory |
+| `-o, --output-dir` | 必填 |  | 输出清洁FASTQ数据目录｜Output clean FASTQ data directory |
+| `--fastp-path` | `fastp` |  | fastp可执行文件路径｜fastp executable path |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-q, --quality-threshold` | `30` | int | 质量阈值｜Quality threshold |
+| `-l, --min-length` | `50` | int | 最小长度｜Minimum length |
+| `-u, --unqualified-percent` | `40` | int | 不合格碱基百分比阈值｜Unqualified base percentage threshold |
+| `-n, --n-base-limit` | `10` | int | N碱基数量限制｜N base count limit |
+| `--read1-suffix` | — |  | Read1文件后缀（单末端模式也使用此参数）。默认自动检测，支持_1.fq.gz和_1.fastq.gz｜Read1 file suffix (also used for single-end mode). Auto-detect by default, supports _1.fq.gz and _1.fastq.gz |
+| `--read2-suffix` | — |  | Read2文件后缀。默认自动检测，支持_2.fq.gz和_2.fastq.gz｜Read2 file suffix. Auto-detect by default, supports _2.fq.gz and _2.fastq.gz |
+| `--single-end` | — | store_true | 单末端模式（单文件输入时自动检测，无需手动指定）｜Single-end mode (auto-detected for single file input, no need to specify manually) |
+| `--enable-pair` | `True` | store_true | 启用seqkit pair配对修复步骤（默认启用）｜Enable seqkit pair step (enabled by default) |
+| `--disable-pair, --disable-repair` | `False` | store_true | 禁用seqkit pair配对修复步骤｜Disable seqkit pair step |
+| `--seqkit-path` | `seqkit` |  | seqkit可执行文件路径｜seqkit executable path |
+| `-v, --verbose` | `0` | count | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | 静默模式(只输出ERROR)｜Quiet mode (ERROR only) |
+| `--log-level` | — |  | 日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)｜Log level |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `-f, --force` | — | store_true | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — | store_true | 模拟运行(不实际执行)｜Dry run without execution |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->

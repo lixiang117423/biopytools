@@ -396,3 +396,51 @@ Wiegand, F., & Köster, J. (2024).
 alignoth: publication-ready alignment plots from BAM files.
 Bioinformatics, 40(1), btaf663.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--bam, -b` | 必填 |  | BAM文件路径｜BAM file path |
+| `--reference, -r` | 必填 |  | 参考序列FASTA文件路径｜Reference FASTA file path |
+| `--region, -g` | 必填 |  | 可视化区域(格式: chr:start-end)｜Visualization region (format: chr:start-end) |
+| `--alignoth-path` | `~/miniforge3/envs/alignoth/bin/alignoth` |  | alignoth软件路径｜alignoth software path |
+| `--output-dir, -o` | `./bam_view_output` |  | 输出目录｜Output directory |
+| `--output-format, -f` | `html` | html/json/svg/pdf | 输出格式｜Output format |
+| `--max-read-depth, -d` | `500` | int | 最大reads显示深度｜Maximum read depth to display |
+| `--max-width, -w` | `1024` | int | 最大宽度｜Maximum width |
+| `--mismatch-display-min-percent` | `1.0` | float | 显示错配的最小百分比｜Minimum percentage of mismatches to display |
+| `--vcf, -v` | — |  | VCF文件路径(高亮变异位点)｜VCF file path (highlight variants) |
+| `--bed` | — |  | BED文件路径(高亮区域)｜BED file path (highlight regions) |
+| `--highlight, -H` | — |  | 高亮区间(可多次使用, 格式: name:start-end)｜Highlight interval (can be used multiple times, format: name:start-end) |
+| `--aux-tag, -x` | — |  | 辅助标签(可多次使用)｜Auxiliary tag (can be used multiple times) |
+| `--no-embed-js` | — |  | 不嵌入JavaScript(仅HTML格式)｜Do not embed JavaScript (HTML format only) |
+| `--plot-all` | — |  | 绘制所有reads｜Plot all reads |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-b, --bam` | 必填 |  | BAM文件路径｜BAM file path |
+| `-r, --reference` | 必填 |  | 参考序列FASTA文件路径｜Reference FASTA file path |
+| `-g, --region` | 必填 |  | 可视化区域(格式: chr:start-end)｜Visualization region (format: chr:start-end) |
+| `--alignoth-path` | `~/miniforge3/envs/alignoth/bin/alignoth` |  | alignoth软件路径｜alignoth software path |
+| `-o, --output-dir` | `./bam_view_output` |  | 输出目录｜Output directory |
+| `-f, --output-format` | `html` | html/json/svg/pdf | 输出格式｜Output format |
+| `-d, --max-read-depth` | `500` | int | 最大reads显示深度｜Maximum read depth to display |
+| `-w, --max-width` | `1024` | int | 最大宽度｜Maximum width |
+| `--mismatch-display-min-percent` | `1.0` | float | 显示错配的最小百分比｜Minimum percentage of mismatches to display |
+| `-v, --vcf` | — |  | VCF文件路径(高亮变异位点)｜VCF file path (highlight variants) |
+| `--bed` | — |  | BED文件路径(高亮区域)｜BED file path (highlight regions) |
+| `-H, --highlight` | — | append | 高亮区间(可多次使用, 格式: name:start-end)｜Highlight interval (can be used multiple times, format: name:start-end) |
+| `-x, --aux-tag` | — | append | 辅助标签(可多次使用)｜Auxiliary tag (can be used multiple times) |
+| `--no-embed-js` | — | store_true | 不嵌入JavaScript(仅HTML格式)｜Do not embed JavaScript (HTML format only) |
+| `--plot-all` | — | store_true | 绘制所有reads｜Plot all reads |
+
+<!-- END PARAMS:auto -->

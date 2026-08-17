@@ -46,6 +46,46 @@ indel_pav.txt              # 样本 × INDEL PAV 矩阵（1/0/-）
 indel_pav_summary.txt      # 位点数、样本数、过滤统计汇总
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vcf, -v` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | `./indel_pav.txt` | Path | 输出文件路径｜Output file path |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--min-length` | `1` | int | 最小INDEL长度(bp)｜Minimum INDEL length (bp) |
+| `--max-length` | — | int | 最大INDEL长度(bp)｜Maximum INDEL length (bp) |
+| `--min-quality, -q` | `20.0` | float | 最小质量分数｜Minimum quality score |
+| `--min-depth, -d` | `5` | int | 最小深度｜Minimum depth |
+| `--max-missing` | `0.8` | float | 最大缺失率(0-1)｜Maximum missing rate (0-1) |
+| `--include-complex` | — |  | 包含复杂变异｜Include complex variants |
+| `--compress` | — |  | 压缩输出文件｜Compress output file |
+| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-v, --vcf` | 必填 |  | 输入VCF文件路径 (支持压缩和未压缩)｜Input VCF file path (supports compressed and uncompressed) |
+| `-o, --output` | `./indel_pav.txt` |  | 输出文件路径｜Output file path |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `--min-length` | `1` | int | 最小INDEL长度(bp)｜Minimum INDEL length (bp) |
+| `--max-length` | — | int | 最大INDEL长度(bp)｜Maximum INDEL length (bp) |
+| `-q, --min-quality` | `20.0` | float | 最小质量分数｜Minimum quality score |
+| `-d, --min-depth` | `5` | int | 最小深度｜Minimum depth |
+| `--max-missing` | `0.8` | float | 最大缺失率 (0-1)｜Maximum missing rate (0-1) |
+| `--include-complex` | — | store_true | 包含复杂变异｜Include complex variants |
+| `--compress` | — | store_true | 压缩输出文件｜Compress output file |
+| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - [BCFtools](http://www.htslib.org/)（必需，用于 INDEL 提取与质控过滤）

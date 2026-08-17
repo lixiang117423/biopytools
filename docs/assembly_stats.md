@@ -213,3 +213,34 @@ biopytools development team
 
 如有问题或建议，请提交issue|For questions or suggestions, please submit an issue at:
 https://github.com/yourusername/biopytools/issues
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入文件或文件夹｜Input file or directory path |
+| `-l, --min-length` | `1` | int | 最小序列长度过滤｜Minimum sequence length cutoff |
+| `-s` | — |  | Grep友好输出格式｜Print grep-friendly output |
+| `-t` | — |  | Tab分隔输出｜Print tab-delimited output |
+| `-u` | — |  | Tab分隔输出且无header｜Print tab-delimited output without header |
+| `-o, --output-dir` | `./assembly_stats_output` |  | 输出目录｜Output directory |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入文件或文件夹｜Input file or directory path |
+| `-l, --min-length` | `1` | int | 最小序列长度过滤｜Minimum sequence length cutoff |
+| `-s` | — | store_true | Grep友好输出格式｜Print grep-friendly output |
+| `-t` | — | store_true | Tab分隔输出｜Print tab-delimited output |
+| `-u` | — | store_true | Tab分隔输出且无header｜Print tab-delimited output without header |
+| `-o, --output-dir` | `./assembly_stats_output` |  | 输出目录｜Output directory |
+| `--version` | — | version |  |
+
+<!-- END PARAMS:auto -->

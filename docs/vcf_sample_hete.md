@@ -53,6 +53,46 @@ vcf_stats_output/
 └── *.log                  # 日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 | Path | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | `vcf_stats_output` | str | 输出目录｜Output directory |
+| `--min-depth, -d` | `0` | int | 最小深度过滤阈值｜Minimum depth filter threshold |
+| `--min-qual, -q` | `0.0` | float | 最小质量分数过滤阈值｜Minimum quality score filter threshold |
+| `--exclude-missing, -e` | — |  | 排除缺失基因型｜Exclude missing genotypes |
+| `--no-detailed, -D` | — |  | 不输出详细统计结果｜Do not output detailed statistics |
+| `--no-summary, -S` | — |  | 不输出汇总统计结果｜Do not output summary statistics |
+| `--verbose` | — |  | 增加输出详细程度｜Increase output verbosity |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `-o, --output` | `vcf_stats_output` |  | 输出目录｜Output directory |
+| `-d, --min-depth` | `0` | int | 最小深度过滤阈值｜Minimum depth filter threshold |
+| `-q, --min-qual` | `0.0` | float | 最小质量分数过滤阈值｜Minimum quality score filter threshold |
+| `-e, --exclude-missing` | — | store_true | 排除缺失基因型｜Exclude missing genotypes |
+| `-D, --no-detailed` | — | store_true | 不输出详细统计结果｜Do not output detailed statistics |
+| `-S, --no-summary` | — | store_true | 不输出汇总统计结果｜Do not output summary statistics |
+| `--verbose, -v` | `0` | count | 增加输出详细程度｜Increase output verbosity |
+| `--quiet` | — | store_true | 静默模式｜Quiet mode |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python：标准库

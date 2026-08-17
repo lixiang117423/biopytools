@@ -57,6 +57,52 @@ biopytools bam-stats -i sample.bam -o sample.summary.tsv -g reference.fa
 - `{prefix}.genome_stats.json`：基因组级统计 JSON
 - 运行日志保存于输出目录
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | BAM文件或目录｜BAM file or directory |
+| `--output, -o` | `bam_stats.summary.tsv` |  | 输出文件｜Output file |
+| `--threads, -t` | `12` | int | samtools线程数｜Samtools threads |
+| `--processes, -p` | `16` | int | 并行样本数｜Max parallel samples |
+| `--reference, -g` | — |  | 参考基因组｜Reference genome FASTA |
+| `--bed-file` | — |  | 目标区域BED｜Target regions BED file |
+| `--min-mapq` | `20` | int | 最小MAPQ｜Minimum MAPQ |
+| `--max-insert` | `1000` | int | 最大插入片段｜Maximum insert size |
+| `--skip-alignment` | — |  | 跳过比对统计｜Skip alignment stats |
+| `--skip-coverage` | — |  | 跳过覆盖度统计｜Skip coverage stats |
+| `--skip-sequence` | — |  | 跳过序列特征｜Skip sequence features |
+| `--skip-insert` | — |  | 跳过插入片段｜Skip insert size stats |
+| `--skip-duplicate` | — |  | 跳过重复统计｜Skip duplicate stats |
+| `--skip-variation` | — |  | 跳过变异统计｜Skip variation stats |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | BAM文件或目录｜BAM file or directory containing BAM files |
+| `-o, --output` | `bam_stats.summary.tsv` |  | 输出文件｜Output file (default: bam_stats.summary.tsv) |
+| `-t, --threads` | `12` | int | samtools线程数｜Samtools threads (default: 12) |
+| `-p, --processes` | `16` | int | 并行处理的样本数｜Max parallel samples (default: 16) |
+| `-g, --reference` | — |  | 参考基因组FASTA｜Reference genome FASTA (for GC bias) |
+| `--bed-file` | — |  | 目标区域BED文件｜Target regions BED file |
+| `--min-mapq` | `20` | int | 最小MAPQ阈值｜Minimum MAPQ threshold (default: 20) |
+| `--max-insert` | `1000` | int | 最大插入片段｜Maximum insert size (default: 1000) |
+| `--skip-alignment` | — | store_true | 跳过比对统计｜Skip alignment statistics |
+| `--skip-coverage` | — | store_true | 跳过覆盖度统计｜Skip coverage statistics |
+| `--skip-sequence` | — | store_true | 跳过序列特征统计｜Skip sequence feature statistics |
+| `--skip-insert` | — | store_true | 跳过插入片段统计｜Skip insert size statistics |
+| `--skip-duplicate` | — | store_true | 跳过重复统计｜Skip duplicate statistics |
+| `--skip-variation` | — | store_true | 跳过变异统计｜Skip variation statistics |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - samtools

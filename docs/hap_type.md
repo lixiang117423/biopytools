@@ -56,6 +56,26 @@ biopytools hap-type -i sample.vcf -r regions.bed -o result
 
 BED 模式则对每一行生成对应的一组文件。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf` | 必填 |  | VCF变异文件｜VCF variant file |
+| `-r, --region` | 必填 |  | 基因组区间(chr:start-end)或BED文件｜Genomic interval or BED file |
+| `-o, --output` | — |  | 输出文件前缀(可选，默认自动生成)｜Output file prefix (auto-generated if omitted) |
+| `--hetero-remove/--no-hetero-remove` | `False` |  | 去除杂合位点｜Remove heterozygous sites |
+| `--na-drop/--no-na-drop` | `True` |  | 去除缺失位点｜Remove missing sites |
+| `--hap-prefix` | `H` |  | 单倍型ID前缀｜Haplotype ID prefix |
+| `--pad` | `3` | int | 单倍型ID位数｜Haplotype ID padding digits |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python：标准库（pandas 用于 Excel 输出时需要 `openpyxl`）

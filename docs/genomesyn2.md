@@ -342,3 +342,51 @@ GenomeSyn-II: a comparative genomics framework integrating synteny visualization
 J. Genet. Genomics.
 https://doi.org/10.1016/j.jgg.2026.01.011
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--align` | — | mummer/minimap2/blastp/mmseqs/diamond | 比对软件类型｜Alignment software type |
+| `--genome` | — |  | 基因组文件目录｜Genome files directory |
+| `--gene` | — |  | 基因注释文件目录｜Gene annotation files directory |
+| `--outdir` | — |  | 输出目录｜Output directory |
+| `--vcf` | — |  | VCF文件路径｜VCF file path for SNP analysis |
+| `--bin` | `50000` | int | Bin大小(用于SNP分析)｜Bin size for SNP analysis |
+| `--identity` | — |  | SNP一致性文件｜SNP identity BED file |
+| `--density` | — |  | SNP密度文件｜SNP density BED file |
+| `--conf` | — |  | 配置文件路径｜Configuration file path |
+| `--anno` | — |  | 显示注释配置选项｜Show annotation configuration options |
+| `--type` | — | fa/prot/anno | 文件类型(用于生成文件列表)｜File type for generating file list |
+| `--path` | — |  | 文件路径｜File path for generating list |
+| `--out` | — |  | 输出文件名｜Output file name |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--align` | — | mummer/minimap2/blastp/mmseqs/diamond | 比对软件类型｜Alignment software type (mummer/minimap2/blastp/mmseqs/diamond) |
+| `--genome` | — |  | 基因组文件目录｜Genome files directory (文件名需按数字排序｜Files must be numbered) |
+| `--gene` | — |  | 基因注释文件目录｜Gene annotation files directory (蛋白质比对需要｜required for protein alignment) |
+| `--outdir` | — |  | 输出目录｜Output directory |
+| `--vcf` | — |  | VCF文件路径｜VCF file path for SNP analysis |
+| `--bin` | `50000` | int | Bin大小(用于SNP分析)｜Bin size for SNP analysis (default: 50000) |
+| `--identity` | — |  | SNP一致性文件｜SNP identity BED file |
+| `--density` | — |  | SNP密度文件｜SNP density BED file |
+| `--conf` | — |  | 配置文件路径｜Configuration file path |
+| `--anno` | — | store_true | 显示注释配置选项｜Show annotation configuration options |
+| `--type` | — | fa/prot/anno | 文件类型(用于生成文件列表)｜File type for generating file list (fa/prot/anno) |
+| `--path` | — |  | 文件路径｜File path for generating list |
+| `--out` | — |  | 输出文件名｜Output file name |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--perl-path` | `~/miniforge3/envs/genomesyn2/bin/perl` |  |  |
+| `--genomesyn2-pl` | `~/miniforge3/envs/genomesyn2/bin/GenomeSyn2.pl` |  |  |
+
+<!-- END PARAMS:auto -->

@@ -348,3 +348,61 @@ Purcell, S. et al. (2007).
 PLINK: a tool set for whole-genome association and population-based linkage analyses.
 American Journal of Human Genetics, 81(3), 559-575.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf-file` | 必填 |  | VCF文件路径｜VCF file path |
+| `-p, --pop-file` | 必填 |  | 群体文件路径（样本ID + 群体标签）｜Population file path (sample ID + population label) |
+| `-o, --output-dir` | `./fst_output` | Path | 输出目录｜Output directory |
+| `--plink-path` | — |  | PLINK软件路径｜PLINK software path (default: auto-detect) |
+| `--maf` | `0.05` | float | 最小等位基因频率阈值｜Minor allele frequency threshold |
+| `--geno` | `0.1` | float | 位点缺失率阈值｜Genotype missing rate threshold |
+| `--mind` | `0.1` | float | 样本缺失率阈值｜Sample missing rate threshold |
+| `--hwe` | `1e-06` | float | Hardy-Weinberg平衡p值阈值｜Hardy-Weinberg equilibrium p-value threshold |
+| `--enable-qc` | — |  | 启用质控过滤（默认禁用）｜Enable quality control filtering |
+| `--no-keep-intermediate` | — |  | 不保留中间文件｜Do not keep intermediate files |
+| `--enable-bootstrap` | — |  | 启用bootstrap抽样｜Enable bootstrap sampling |
+| `--bootstrap-iterations` | `100` | int | Bootstrap迭代次数｜Bootstrap iterations |
+| `--min-samples` | `10` | int | 最小样本数阈值｜Minimum sample count threshold |
+| `--exclude-pops` | — |  | 手动排除群体（逗号分隔）｜Manually exclude populations (comma-separated) |
+| `--no-ld-prune` | — |  | 禁用LD pruning｜Disable LD pruning |
+| `--ld-window` | `50` | int | LD pruning窗口大小｜LD pruning window size |
+| `--ld-step` | `10` | int | LD pruning步长｜LD pruning step size |
+| `--ld-r2` | `0.2` | float | LD pruning R2阈值｜LD pruning R2 threshold |
+| `--thin` | — | float | SNP抽稀比例｜SNP thinning ratio |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf-file` | 必填 |  | VCF文件路径｜VCF file path |
+| `-p, --pop-file` | 必填 |  | 群体文件路径（样本ID + 群体标签）｜Population file path (sample ID + population label) |
+| `-o, --output-dir` | `./fst_output` |  | 输出目录｜Output directory (default: ./fst_output) |
+| `--plink-path` | — |  | PLINK软件路径｜PLINK software path (default: auto-detect) |
+| `--enable-qc` | — | store_true | 启用质控过滤（默认禁用）｜Enable quality control filtering (disabled by default) |
+| `--maf` | `0.05` | float | 最小等位基因频率阈值｜Minor allele frequency threshold (default: 0.05) |
+| `--geno` | `0.1` | float | 位点缺失率阈值｜Genotype missing rate threshold (default: 0.1) |
+| `--mind` | `0.1` | float | 样本缺失率阈值｜Sample missing rate threshold (default: 0.1) |
+| `--hwe` | `1e-06` | float | Hardy-Weinberg平衡p值阈值｜Hardy-Weinberg equilibrium p-value threshold (default: 1e-6) |
+| `--no-keep-intermediate` | — | store_true | 不保留中间文件｜Do not keep intermediate files |
+| `--enable-bootstrap` | — | store_true | 启用bootstrap抽样｜Enable bootstrap sampling |
+| `--bootstrap-iterations` | `100` | int | Bootstrap迭代次数｜Bootstrap iterations (default: 100) |
+| `--min-samples` | `10` | int | 最小样本数阈值，排除样本数少于此值的群体｜Minimum sample count threshold, exclude populations with fewer samples (default: 10) |
+| `--exclude-pops` | — |  | 手动指定要排除的群体（逗号分隔）｜Manually specify populations to exclude (comma-separated) |
+| `--no-ld-prune` | — | store_true | 禁用LD pruning｜Disable LD pruning |
+| `--ld-window` | `50` | int | LD pruning窗口大小｜LD pruning window size (default: 50) |
+| `--ld-step` | `10` | int | LD pruning步长｜LD pruning step size (default: 10) |
+| `--ld-r2` | `0.2` | float | LD pruning R2阈值｜LD pruning R2 threshold (default: 0.2) |
+| `--thin` | — | float | SNP抽稀比例（0-1之间）｜SNP thinning ratio (between 0-1) |
+| `--threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+
+<!-- END PARAMS:auto -->

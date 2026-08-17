@@ -59,6 +59,68 @@ biopytools oomycete-anno -g genome.fa -s psojae --rnaseq-dirs rna/ \
 - Phase3 效应子救援结果
 - 流程元数据与日志
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组 FASTA｜Genome FASTA |
+| `-s, --species` | 必填 |  | Augustus 物种名(简单字母, 如 phytophthora)｜Augustus species name |
+| `--rnaseq-dirs` | — |  | 二代 RNA-seq 目录(可多个)｜Short RNA-seq dir(s) |
+| `--prot-seq` | — |  | 同源蛋白文件(Phase2)｜Homologous proteins (P2) |
+| `--isoseq` | — |  | 三代转录本文件(Phase2)｜Long-read transcripts (P2) |
+| `--effectors` | — |  | 已知效应子蛋白(Phase3 救援)｜Known effectors (P3 rescue) |
+| `--read1-pattern` | `_1.clean.fq.gz` |  | R1 文件后缀模式｜R1 suffix pattern |
+| `--read2-pattern` | `_2.clean.fq.gz` |  | R2 文件后缀模式｜R2 suffix pattern |
+| `--rna-strandness` | `` |  | 链特异性: ''(非链特异性)/FR/RF｜Strandness: ''/FR/RF |
+| `-o, --output-dir` | `./oomycete_anno_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` |  | 线程数｜Threads |
+| `--no-soft-masking` | `False` |  | 禁用软屏蔽(改用硬屏蔽)｜Disable soft masking |
+| `--gmes-petap-path` | — |  | GeneMark gmes_petap.pl 路径｜GeneMark gmes_petap.pl path |
+| `--genemark-perl-env` | — |  | GeneMark perl 提供环境｜GeneMark perl provider env |
+| `--skip-repeat` | `False` |  | 跳过重复屏蔽｜Skip repeat masking |
+| `--skip-rna` | `False` |  | 跳过 RNA-seq 比对｜Skip RNA-seq alignment |
+| `--skip-iso` | `False` |  | 跳过三代转录本(Phase2)｜Skip long-read (P2) |
+| `--skip-protein` | `False` |  | 跳过蛋白证据(Phase2)｜Skip protein hints (P2) |
+| `--skip-ltr` | `False` |  | 跳过 LTR 注解(Phase2)｜Skip LTR annotation (P2) |
+| `--skip-rescue` | `False` |  | 跳过效应子救援(Phase3)｜Skip effector rescue (P3) |
+| `--rescue-min-identity` | `0.85` | float | 效应子救援 miniprot 最低 identity｜Rescue min identity |
+| `--rescue-conflict-overlap` | `0.5` | float | Augustus 与效应子模型重叠>此比例则替换｜Conflict overlap fraction |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组 FASTA｜Genome FASTA |
+| `-s, --species` | 必填 |  | Augustus 物种名(简单字母, 如 phytophthora)｜Augustus species name (simple, e.g. phytophthora) |
+| `--rnaseq-dirs` | — |  | 二代 RNA-seq 目录(可多个)｜Short RNA-seq dir(s) |
+| `--prot-seq` | — |  | 同源蛋白文件(Phase2)｜Homologous proteins (P2) |
+| `--isoseq` | — |  | 三代转录本文件(Phase2)｜Long-read transcripts (P2) |
+| `--effectors` | — |  | 已知效应子蛋白(Phase3 救援, 直接当基因模型替换错注/漏注位点)｜Known effectors (P3 rescue, used as gene models to fix loci) |
+| `--read1-pattern` | `_1.clean.fq.gz` |  | R1 文件后缀模式｜R1 suffix pattern |
+| `--read2-pattern` | `_2.clean.fq.gz` |  | R2 文件后缀模式｜R2 suffix pattern |
+| `--rna-strandness` | `` |  | 链特异性: ''(非链特异性,默认) / FR / RF｜Strandness: ''(unstranded,default)/FR/RF |
+| `-o, --output-dir` | `./oomycete_anno_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Threads |
+| `--no-soft-masking` | — | store_false | 禁用软屏蔽(改用硬屏蔽)｜Disable soft masking (use hard masking) |
+| `--gmes-petap-path` | — |  | GeneMark gmes_petap.pl 路径(默认 ~/software/GeneMark/...)｜GeneMark gmes_petap.pl path |
+| `--genemark-perl-env` | — |  | GeneMark perl 提供环境(默认 braker_v.3.0.8)｜GeneMark perl provider env |
+| `--skip-repeat` | — | store_true | 跳过重复屏蔽｜Skip repeat masking |
+| `--skip-rna` | — | store_true | 跳过 RNA-seq 比对｜Skip RNA-seq alignment |
+| `--skip-iso` | — | store_true | 跳过三代转录本(Phase2)｜Skip long-read (P2) |
+| `--skip-protein` | — | store_true | 跳过蛋白证据(Phase2)｜Skip protein hints (P2) |
+| `--skip-ltr` | — | store_true | 跳过 LTR 注解(Phase2)｜Skip LTR annotation (P2) |
+| `--skip-rescue` | — | store_true | 跳过效应子救援(Phase3)｜Skip effector rescue (P3) |
+| `--rescue-min-identity` | `0.85` | float | 效应子救援 miniprot 最低 identity(全长靠 Target起=1+stop 判)｜Rescue min identity |
+| `--rescue-conflict-overlap` | `0.5` | float | Augustus 基因与效应子模型重叠>此比例则替换｜Conflict overlap fraction |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **Augustus / BRAKER**: 基因预测

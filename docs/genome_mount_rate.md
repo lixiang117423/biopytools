@@ -149,6 +149,30 @@ biopytools genome-mount-rate -i sorted_genome.fa -n 10
 - 序列名称以`>`开头
 - 空行会被自动跳过
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTA文件｜Input FASTA file path |
+| `--number, -n` | 必填 | int | 序列数量｜Number of sequences |
+| `--sort` | — |  | 按长度从大到小排序(计算最长N条)｜Sort by length descending (calculate longest N) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入的FASTA文件路径｜Input FASTA file path |
+| `-n, --number` | 必填 | int | 要计算的前N条序列数量｜Number of top N sequences to calculate |
+| `--sort` | — | store_true | [推荐]开启此选项后，会先按长度从大到小排序，再计算前N条（即计算最长N条的占比）｜[Recommended] Sort sequences by length (descending) before calculating (i.e., calculate longest N) |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### Q1: 为什么要使用`--sort`参数？

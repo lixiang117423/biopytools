@@ -149,6 +149,32 @@ biopytools rename-chromosomes \
 # busco -i final_genome.fa -l embryophyta -m genome
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTA文件路径｜Input FASTA file path |
+| `--output, -o` | 必填 | Path | 输出FASTA文件路径｜Output FASTA file path |
+| `--number, -n` | 必填 | int | 染色体数量｜Number of chromosomes |
+| `--keep-all` | `False` |  | 输出所有序列（默认只输出前n个序列）｜Output all sequences (default: only first n) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件路径｜Input FASTA file path |
+| `-o, --output` | 必填 |  | 输出FASTA文件路径｜Output FASTA file path |
+| `-n, --number` | 必填 | int | 染色体数量｜Number of chromosomes |
+| `--keep-all` | — | store_true | 输出所有序列（默认只输出前n个序列）｜Output all sequences (default: only first n) |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题
 
 ### Q: 如何处理超过99条染色体？

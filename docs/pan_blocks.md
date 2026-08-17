@@ -83,6 +83,52 @@ output_dir/
 └── 99_logs/                       # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome-list` | 必填 |  | 基因组列表文件｜Genome list file (name<TAB>path) |
+| `-o, --output-dir` | `./pan_blocks_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--parallel-alignments` | `4` | int | 并行比对数｜Parallel alignments |
+| `--min-alignment-length` | `10000` | int | 最小比对长度｜Min alignment length |
+| `--genome-order` | — |  | 基因组优先级顺序文件｜Genome priority order file |
+| `--chromosome` | — |  | 指定染色体｜Specific chromosome |
+| `--plot-format` | `svg` | svg/png | 绘图格式｜Plot format |
+| `-i, --input-dir` | 必填 |  | FASTA文件目录｜FASTA files directory |
+| `-o, --output` | `./genome_list.txt` |  | 输出文件路径｜Output file path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome-list` | — |  | 基因组列表文件｜Genome list file (name<TAB>path) |
+| `-o, --output-dir` | `./pan_blocks_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--parallel-alignments` | `4` | int | 并行比对数｜Number of parallel alignments (default: 4) |
+| `--min-alignment-length` | `10000` | int | 最小比对长度｜Minimum alignment length for delta-filter (default: 10000) |
+| `--genome-order` | — |  | 基因组优先级顺序文件｜Genome priority order file (one name per line) |
+| `--chromosome` | — |  | 指定染色体｜Specific chromosome to process |
+| `--step` | — | align/build/plot | 执行特定步骤｜Run specific step |
+| `--nucmer` | — |  | nucmer可执行文件路径｜nucmer executable path |
+| `--delta-filter` | — |  | delta-filter可执行文件路径｜delta-filter executable path |
+| `--show-coords` | — |  | show-coords可执行文件路径｜show-coords executable path |
+| `--bedtools` | — |  | bedtools可执行文件路径｜bedtools executable path |
+| `--minimap2` | — |  | minimap2可执行文件路径｜minimap2 executable path |
+| `--plot-format` | `svg` | svg/png | 绘图格式｜Plot format (default: svg) |
+| `--plot-width` | `20` | int | 绘图宽度｜Plot width (default: 20) |
+| `--plot-height` | `10` | int | 绘图高度｜Plot height (default: 10) |
+| `--prepare` | — |  | 从目录自动生成genome_list.txt｜Auto-generate genome_list.txt from FASTA directory |
+| `--prepare-output` | `./genome_list.txt` |  | prepare输出文件路径｜Output file path for prepare (default: ./genome_list.txt) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - `MUMmer` (nucmer, delta-filter, show-coords)

@@ -252,6 +252,38 @@ bcftools --version
 [2025-12-30 10:30:20] INFO: 所有操作完成 | All operations completed
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input-dir, -i` | 必填 |  | 输入VCF文件目录｜Input directory containing VCF files |
+| `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--pattern` | `*.joint.vcf.gz` |  | VCF文件名模式｜VCF file name pattern |
+| `--no-index` | — |  | 不生成索引文件｜Do not generate index files |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose mode |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-dir` | 必填 |  | 输入VCF文件目录｜Input directory containing VCF files |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-t, --threads` | `4` | int | 使用的线程数｜Number of threads |
+| `--pattern` | `*.joint.vcf.gz` |  | VCF文件名模式｜VCF file name pattern |
+| `--no-index` | — | store_true | 不生成索引文件｜Do not generate index files |
+| `-v, --verbose` | `0` | count | 详细输出模式｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | 静默模式｜Quiet mode (only ERROR) |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | Frequently Asked Questions
 
 ### Q1: 如何处理命名不规则的VCF文件？

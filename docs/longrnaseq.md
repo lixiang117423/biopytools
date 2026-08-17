@@ -268,6 +268,45 @@ biopytools longrnaseq \
    - TALON: 长reads转录本注释
    - SQANTI3: 长reads转录本质量控制和分类
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-file` | 必填 |  | 输入文件或文件夹（BAM/FASTQ）｜Input file or directory (BAM/FASTQ) |
+| `-r, --ref-genome` | 必填 |  | 参考基因组文件｜Reference genome file |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-s, --sample-name` | — |  | 样本名称(可选，默认从输入文件名提取)｜Sample name (optional, auto-extracted from input filename) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--max-intron` | `100000` | int | 最大intron长度｜Maximum intron length |
+| `--min-mapq` | `20` | int | 最小mapping quality｜Minimum mapping quality |
+| `--no-secondary` | `False` |  | 不输出次优比对｜Do not output secondary alignments |
+| `--minimap2-path` | `minimap2` |  | minimap2可执行文件路径｜minimap2 executable path |
+| `--samtools-path` | `samtools` |  | samtools可执行文件路径｜samtools executable path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-file` | 必填 |  | 输入文件或文件夹（BAM/FASTQ）｜Input file or directory (BAM/FASTQ) |
+| `-r, --ref-genome` | 必填 |  | 参考基因组文件｜Reference genome file |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-s, --sample-name` | — |  | 样本名称 (可选，默认从输入文件名提取)｜Sample name (optional, auto-extracted from input filename) |
+| `-t, --threads` | `64` | int | 线程数 (默认: 64)｜Number of threads (default: 64) |
+| `--max-intron` | `100000` | int | 最大intron长度，默认: 100000｜Maximum intron length, default: 100000 |
+| `--min-mapq` | `20` | int | 最小mapping quality，默认: 20｜Minimum mapping quality, default: 20 |
+| `--no-secondary` | — | store_true | 不输出次优比对｜Do not output secondary alignments |
+| `--minimap2-path` | `minimap2` |  | minimap2可执行文件路径 (默认: minimap2)｜minimap2 executable path (default: minimap2) |
+| `--samtools-path` | `samtools` |  | samtools可执行文件路径 (默认: samtools)｜samtools executable path (default: samtools) |
+| `--version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题|FAQ
 
 ### Q: 如何设置最大intron长度？

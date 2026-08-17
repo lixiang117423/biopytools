@@ -69,6 +69,56 @@ gffcompare_output/
     └── all_stats.tsv            # 所有 .stats 汇总（含 pair/query/ref 列）
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入GFF/GTF文件或文件夹(自动识别)｜Input GFF/GTF file(s) or directory (auto-detect) |
+| `--output-dir, -o` | `./gffcompare_output` |  | 输出目录｜Output directory |
+| `--exon-range, -e` | — | int | 端部外显子最大允许变异范围｜Max terminal exon range |
+| `--tss-distance, -d` | — | int | 转录本起始位点分组距离｜TSS grouping distance |
+| `-M, --discard-single-exon-query` | — |  | 丢弃单外显子query转录本｜Discard single-exon query transcripts |
+| `-N, --discard-single-exon-ref` | — |  | 丢弃单外显子reference转录本｜Discard single-exon reference transcripts |
+| `-R, --ref-overlap-only` | — |  | 仅考虑与query重叠的reference｜Only consider reference overlapping query |
+| `-Q, --query-overlap-only` | — |  | 仅考虑与reference重叠的query｜Only consider query overlapping reference |
+| `-T, --no-tmap-refmap` | — |  | 不生成.tmap和.refmap文件｜Skip .tmap and .refmap files |
+| `--strict-match` | — |  | 严格匹配模式｜Strict match mode |
+| `--cds-match` | — |  | 启用CDS链匹配验证｜Enable CDS chain matching validation |
+| `--genome-seq, -s` | — |  | 基因组序列路径(FASTA)｜Genome sequence path (FASTA) |
+| `--cprefix, -p` | — |  | 合并GTF中转录本前缀｜Transcript prefix in combined GTF |
+| `-V, --verbose-mode` | — |  | 详细处理模式｜Verbose processing mode |
+| `--force, -f` | — |  | 强制重新运行｜Force re-run |
+| `--gffcompare-path` | — |  | gffcompare软件路径｜gffcompare software path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入GFF/GTF文件或文件夹，支持混用(自动识别.gff/.gtf/.gff3)｜Input GFF/GTF file(s) or directory, supports mixing (auto-detect .gff/.gtf/.gff3) |
+| `-o, --output-dir` | `./gffcompare_output` |  | 输出目录｜Output directory |
+| `-e, --exon-range` | — | int | 端部外显子最大允许变异范围(默认100)｜Max terminal exon range (default 100) |
+| `-d, --tss-distance` | — | int | 转录本起始位点分组距离(默认100)｜TSS grouping distance (default 100) |
+| `-M, --discard-single-exon-query` | — | store_true | 丢弃单外显子query转录本｜Discard single-exon query transcripts |
+| `-N, --discard-single-exon-ref` | — | store_true | 丢弃单外显子reference转录本｜Discard single-exon reference transcripts |
+| `-R, --ref-overlap-only` | — | store_true | 仅考虑与query重叠的reference｜Only consider reference overlapping query |
+| `-Q, --query-overlap-only` | — | store_true | 仅考虑与reference重叠的query｜Only consider query overlapping reference |
+| `-T, --no-tmap-refmap` | — | store_true | 不生成.tmap和.refmap文件｜Skip .tmap and .refmap files |
+| `--strict-match` | — | store_true | 严格匹配模式(考虑端部外显子范围)｜Strict match mode (consider -e range) |
+| `--cds-match` | — | store_true | 启用CDS链匹配验证｜Enable CDS chain matching validation |
+| `-s, --genome-seq` | — |  | 基因组序列路径(FASTA)｜Genome sequence path (FASTA) |
+| `-p, --cprefix` | — |  | 合并GTF中转录本前缀(默认TCONS)｜Transcript prefix in combined GTF (default TCONS) |
+| `-V, --verbose-mode` | — | store_true | 详细处理模式｜Verbose processing mode |
+| `--force, -f` | — | store_true | 强制重新运行(覆盖断点续传)｜Force re-run (override checkpoint resume) |
+| `--gffcompare-path` | — |  | gffcompare软件路径｜gffcompare software path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - [gffcompare](https://ccb.jhu.edu/software/stringtie/gffcompare.shtml)（必需，StringTie2 套件成员）

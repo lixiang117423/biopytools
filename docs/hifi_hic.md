@@ -212,3 +212,59 @@ biopytools hifi-hic \
   - 初始版本
   - 集成hifiasm和Purge_Dups
   - 支持断点续传
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--hifi, -i` | 必填 | Path | HiFi数据文件路径｜Path to HiFi data file |
+| `--hic-r1, -1` | — | Path | Hi-C R1文件路径（可选）｜Path to Hi-C R1 file (optional) |
+| `--hic-r2, -2` | — | Path | Hi-C R2文件路径（可选）｜Path to Hi-C R2 file (optional) |
+| `--prefix, -p` | `genome_sample` | str | 样本前缀｜Sample prefix |
+| `--threads, -t` | `88` | int | 线程数｜Number of threads |
+| `--genome-size, -g` | `1.45g` | str | 预估基因组大小｜Estimated genome size (e.g., 1.45g, 250m) |
+| `--n-hap` | `2` | int | 倍性｜Ploidy (haploid count) |
+| `--purge-level, -l` | — | int | Purge level (0=no purging, 1=light, 2/3=aggressive) [default: 3 for unzip] |
+| `--hom-cov` | — | int | Homozygous read coverage (--hom-cov) [default: auto] |
+| `--output, -o` | `./assembly_output` | Path | 输出目录｜Output directory |
+| `--ngs` | — | Path | NGS二代数据目录（可选）｜NGS second-generation data directory (optional) |
+| `--ngs-pattern` | `_1.clean.fq.gz` | str | NGS文件匹配模式｜NGS file matching pattern (default: _1.clean.fq.gz) |
+| `--high-cov` | `95.0` | float | 高质量contig覆盖度阈值｜High quality contig coverage threshold (default: 95.0) |
+| `--medium-cov-min` | `30.0` | float | 中等质量contig最小覆盖度｜Medium quality contig minimum coverage (default: 30.0) |
+| `--no-purge-dups` | `False` |  | 禁用Purge_Dups去冗余｜Disable Purge_Dups deduplication (enabled by default) |
+| `--purge-dups-path` | `~/miniforge3/envs/purge_dups_v.1.2.6` | str | Purge_Dups软件路径｜Purge_Dups software path (default: ~/miniforge3/envs/purge_dups_v.1.2.6) |
+| `--purge-dups-threads` | — | int | 去冗余线程数｜Deduplication threads (default: same as assembly threads) |
+| `--purge-dups-read-type` | `hifi` | pacbio/hifi/illumina | 去冗余reads类型｜Deduplication reads type (default: hifi) |
+| `--no-resume` | `False` |  | 禁用断点续传（强制重新运行所有步骤）｜Disable resume mode (force rerun all steps) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--hifi, -i` | 必填 |  | HiFi数据文件路径｜Path to HiFi data file |
+| `--hic-r1, -1` | — |  | Hi-C R1文件路径｜Path to Hi-C R1 file |
+| `--hic-r2, -2` | — |  | Hi-C R2文件路径｜Path to Hi-C R2 file |
+| `--prefix, -p` | `genome_sample` |  | 样本前缀｜Sample prefix |
+| `--threads, -t` | `88` | int | 线程数｜Number of threads |
+| `--genome-size, -g` | `1.45g` |  | 预估基因组大小｜Estimated genome size (e.g., 1.45g, 250m) |
+| `--n-hap` | `2` | int | 倍性｜Ploidy (haploid count) |
+| `--purge-level, -l` | — | int | Purge level (0=no purging, 1=light, 2/3=aggressive) [default: 3 for unzip] |
+| `--hom-cov` | — | int | Homozygous read coverage (--hom-cov) [default: auto] |
+| `--output, -o` | `./assembly_output` |  | 输出目录｜Output directory |
+| `--ngs` | — |  | NGS二代数据目录｜NGS second-generation data directory (optional) |
+| `--ngs-pattern` | `_1.clean.fq.gz` |  | NGS文件匹配模式｜NGS file matching pattern (default: _1.clean.fq.gz) |
+| `--high-cov` | `95.0` | float | 高质量contig覆盖度阈值｜High quality contig coverage threshold (default: 95.0) |
+| `--medium-cov-min` | `30.0` | float | 中等质量contig最小覆盖度｜Medium quality contig minimum coverage (default: 30.0) |
+| `--no-purge-dups` | — | store_true | 禁用Purge_Dups去冗余｜Disable Purge_Dups deduplication (enabled by default) |
+| `--purge-dups-path` | `~/miniforge3/envs/purge_dups_v.1.2.6` |  | Purge_Dups软件路径｜Purge_Dups software path (default: ~/miniforge3/envs/purge_dups_v.1.2.6) |
+| `--purge-dups-threads` | — | int | 去冗余线程数｜Deduplication threads (default: same as assembly threads) |
+| `--purge-dups-read-type` | `hifi` | pacbio/hifi/illumina | 去冗余reads类型｜Deduplication reads type (default: hifi) |
+| `--no-resume` | — | store_true | 禁用断点续传（强制重新运行所有步骤）｜Disable resume mode (force rerun all steps) |
+
+<!-- END PARAMS:auto -->

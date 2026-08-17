@@ -315,3 +315,69 @@ Zhou, C., McCarthy, S. A., & Durbin, R. (2023).
 YaHS: yet another Hi-C scaffolding tool.
 Bioinformatics, 39(1), btac808.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-r, --ref` | 必填 |  | 参考基因组FASTA｜Reference genome FASTA |
+| `-1, --hic-r1` | 必填 |  | Hi-C R1文件｜Hi-C R1 file |
+| `-2, --hic-r2` | 必填 |  | Hi-C R2文件｜Hi-C R2 file |
+| `-o, --output-dir` | `./yahs_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--java-ram` | `300G` |  | Java内存｜Java memory |
+| `--sam-ram` | `300G` |  | Samtools排序内存｜Samtools sort memory |
+| `-e, --enzyme` | `GATC` |  | 限制性酶切位点｜Restriction enzyme sequence |
+| `--min-len` | `10000` | int | 最小contig长度｜Minimum contig length |
+| `--min-mapq` | `30` | int | 最小MAPQ值｜Minimum MAPQ value |
+| `--no-contig-ec` | — |  | 跳过contig错误校正｜Skip contig error correction |
+| `--no-scaffold-ec` | — |  | 跳过scaffold错误校正｜Skip scaffold error correction |
+| `--resolutions` | — |  | 分辨率列表(逗号分隔)｜Resolution list (comma-separated) |
+| `--rounds` | `1` | int | 每分辨率运行轮数｜Rounds per resolution |
+| `--telo-motif` | — |  | 端粒序列模体｜Telomeric sequence motif |
+| `--yahs-bin` | `~/miniforge3/envs/hic/bin/yahs` |  | YaHS可执行文件｜YaHS executable |
+| `--juicer-bin` | `~/miniforge3/envs/hic/bin/juicer` |  | juicer可执行文件｜juicer executable |
+| `--juicer-jar` | `~/software/juicer/scripts/juicer_tools.jar` |  | juicer_tools.jar文件｜juicer_tools.jar file |
+| `--bwa-bin` | `~/miniforge3/envs/align/bin/bwa` |  | BWA可执行文件｜BWA executable |
+| `--samtools-bin` | `~/miniforge3/envs/align/bin/samtools` |  | samtools可执行文件｜samtools executable |
+| `--java-cmd` | `java` |  | Java可执行文件｜Java executable |
+| `-s, --step` | — | 1/2/3/4/5/6 | 运行指定步骤｜Run specified step |
+| `--force-rerun` | — |  | 强制重新运行｜Force rerun all steps |
+| `--keep-temp` | — |  | 保留临时文件｜Keep temporary files |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-r, --ref` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `-1, --hic-r1` | 必填 |  | Hi-C R1测序文件｜Hi-C R1 sequencing file |
+| `-2, --hic-r2` | 必填 |  | Hi-C R2测序文件｜Hi-C R2 sequencing file |
+| `-o, --output-dir` | `./yahs_output` |  | 输出目录｜Output directory (default: ./yahs_output) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--java-ram` | `32G` |  | Java内存｜Java memory (default: 32G) |
+| `--sam-ram` | `4G` |  | Samtools排序内存｜Samtools sort memory (default: 4G) |
+| `-e, --enzyme` | `GATC` |  | 限制性酶切位点｜Restriction enzyme sequence (default: GATC) |
+| `--min-len` | `10000` | int | 最小contig长度｜Minimum contig length (default: 10000) |
+| `--min-mapq` | `30` | int | 最小MAPQ值｜Minimum MAPQ value (default: 30) |
+| `--no-contig-ec` | — | store_true | 跳过contig错误校正｜Skip contig error correction |
+| `--no-scaffold-ec` | — | store_true | 跳过scaffold错误校正｜Skip scaffold error correction |
+| `--resolutions` | — |  | 分辨率列表(逗号分隔)｜Resolution list (comma-separated) |
+| `--rounds` | `1` | int | 每分辨率运行轮数｜Rounds per resolution (default: 1) |
+| `--telo-motif` | — |  | 端粒序列模体｜Telomeric sequence motif |
+| `--yahs-bin` | `~/miniforge3/envs/hic/bin/yahs` |  | YaHS可执行文件路径｜YaHS executable path (default: ~/miniforge3/envs/hic/bin/yahs) |
+| `--juicer-bin` | `~/miniforge3/envs/hic/bin/juicer` |  | juicer可执行文件路径｜juicer executable path (default: ~/miniforge3/envs/hic/bin/juicer) |
+| `--juicer-jar` | `~/software/juicer/scripts/juicer_tools.jar` |  | juicer_tools.jar文件路径｜juicer_tools.jar file path (default: ~/software/juicer/scripts/juicer_tools.jar) |
+| `--bwa-bin` | `~/miniforge3/envs/align/bin/bwa` |  | BWA可执行文件路径｜BWA executable path (default: ~/miniforge3/envs/align/bin/bwa) |
+| `--samtools-bin` | `~/miniforge3/envs/align/bin/samtools` |  | samtools可执行文件路径｜samtools executable path (default: ~/miniforge3/envs/align/bin/samtools) |
+| `--java-cmd` | `java` |  | Java可执行文件路径｜Java executable path (default: java) |
+| `-s, --step` | — | 1/2/3/4/5/6 | 运行指定步骤(1-6)｜Run specified step (1-6) |
+| `--force-rerun` | — | store_true | 强制重新运行所有步骤｜Force rerun all steps |
+| `--keep-temp` | — | store_true | 保留临时文件｜Keep temporary files |
+
+<!-- END PARAMS:auto -->

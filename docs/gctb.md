@@ -337,3 +337,54 @@ Statistical evidence for the importance of the genetic architecture in the predi
 Nature Genetics, 50, 743–749.
 doi:10.1038/s41588-018-0101-4
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf-file` | 必填 |  | VCF变异文件｜VCF variant file |
+| `-p, --pheno-file` | 必填 |  | 表型文件或GWAS汇总统计文件｜Phenotype file or GWAS summary statistics file |
+| `-o, --output-dir` | `./gctb_output` |  | 输出目录｜Output directory |
+| `--gctb-path` | `~/miniforge3/envs/gctb/bin/gctb` |  | GCTB软件路径｜GCTB software path |
+| `--plink-path` | `~/miniforge3/envs/pop/bin/plink` |  | PLINK软件路径｜PLINK software path |
+| `--maf-threshold` | `0.01` | float | MAF阈值｜MAF threshold |
+| `--miss-threshold` | `0.1` | float | 缺失率阈值｜Missing rate threshold |
+| `--bayes-type` | `S` | S/R/C | 贝叶斯模型类型｜Bayesian model type |
+| `--analysis-mode` | `individual` | individual/summary | 分析模式｜Analysis mode |
+| `--ld-matrix-type` | `sparse` | sparse/block/eigen | LD矩阵类型｜LD matrix type |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--batch/--no-batch` | `True` |  | 批量处理多个表型（默认开启）｜Batch process multiple phenotypes (enabled by default) |
+| `--step` | — | convert/qc/freq/ld/analysis | 只运行指定步骤｜Run only specified step |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf-file` | 必填 |  | VCF变异文件路径｜VCF variant file path |
+| `-p, --pheno-file` | 必填 |  | 表型文件路径（个体水平分析）或GWAS汇总统计文件（汇总水平分析）｜Phenotype file path (individual-level) or GWAS summary statistics file (summary-level) |
+| `-o, --output-dir` | `./gctb_output` |  | 输出目录｜Output directory |
+| `--gctb-path` | `~/miniforge3/envs/gctb/bin/gctb` |  | GCTB软件路径｜GCTB software path |
+| `--plink-path` | `~/miniforge3/envs/pop/bin/plink` |  | PLINK软件路径｜PLINK software path |
+| `--maf-threshold` | `0.01` | float | MAF阈值｜MAF threshold |
+| `--miss-threshold` | `0.1` | float | 缺失率阈值｜Missing rate threshold |
+| `--hwe-p` | `1e-06` | float | HWE p值阈值｜HWE p-value threshold |
+| `--bayes-type` | `S` | S/R/C | 贝叶斯模型类型｜Bayesian model type (S/R/C) |
+| `--analysis-mode` | `individual` | individual/summary | 分析模式｜Analysis mode |
+| `--ld-matrix-type` | `sparse` | sparse/block/eigen | LD矩阵类型｜LD matrix type (sparse/block/eigen) |
+| `--threads` | `12` | int | 线程数｜Number of threads |
+| `--seed` | — | int | 随机种子｜Random seed |
+| `--pi` | — | float | polygenicity参数｜Polygenicity parameter |
+| `--sigma-g` | — | float | 遗传方差｜Genetic variance |
+| `--rho` | — |  | SNP效应与MAF关系参数｜Parameter for effect-MAF relationship |
+| `--step` | — | convert/qc/freq/ld/analysis | 只运行指定步骤｜Run only specified step |
+| `--batch` | `True` | store_true | 批量处理多个表型（默认开启，使用--no-batch禁用）｜Batch process multiple phenotypes (enabled by default, use --no-batch to disable) |
+| `--no-batch` | — | store_false | 禁用批量处理模式｜Disable batch processing mode |
+| `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
+
+<!-- END PARAMS:auto -->

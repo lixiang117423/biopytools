@@ -50,6 +50,38 @@ biopytools split-fasta-id -i ncbi.fasta -o clean.fasta -d '|' -p 3
 
 示例：`>gi|12345|ref|NC_000001.2| description`（`-d '|' -p 3`）→ `>NC_000001.2`
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTA文件路径｜Input FASTA file path |
+| `--output, -o` | `output.fasta` | Path | 输出FASTA文件路径｜Output FASTA file path |
+| `--position, -p` | `0` | int | 提取位置(0表示第一个元素)｜Extract position (0 means first element) |
+| `--delimiter, -d` | `auto` | str | 分隔符类型｜Delimiter type: "auto"(auto detect), "space", "tab", "both"(space and tab), or any character like "," or "｜" |
+| `--keep-original` | — |  | 保留原始文件作为备份｜Keep original file as backup |
+| `--no-skip-empty` | — |  | 不跳过空的序列名称行｜Do not skip empty sequence name lines |
+| `--preserve-comments` | — |  | 保留序列名称行中的注释｜Preserve comments in sequence name lines |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件路径｜Input FASTA file path |
+| `-o, --output` | `output.fasta` |  | 输出FASTA文件路径｜Output FASTA file path |
+| `-p, --position` | `0` | int | 提取位置(0表示第一个元素)｜Extract position (0 means first element) |
+| `-d, --delimiter` | `auto` |  | 分隔符类型｜Delimiter type: "auto"(auto detect), "space", "tab", "both"(space and tab), or any character like "," or "｜" |
+| `--keep-original` | — | store_true | 保留原始文件作为备份｜Keep original file as backup |
+| `--no-skip-empty` | — | store_true | 不跳过空的序列名称行｜Do not skip empty sequence name lines |
+| `--preserve-comments` | — | store_true | 保留序列名称行中的注释｜Preserve comments in sequence name lines |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 3.7+（纯 Python 实现，无第三方依赖）

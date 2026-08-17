@@ -343,6 +343,86 @@ Chr01_6422855    LG12   23.697
 - **`--mstmap-pvalue`**：无需手调，内置自动调优（迭代 p 值直到核心 LG 数 ≤ 染色体数×3）
 - **`--threads`**：仅模块直调可用，R/MSTmap 步骤的并行度有限，默认 1 即可
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入VCF文件｜Input VCF file (.vcf/.vcf.gz) |
+| `-p, --pheno` | 必填 |  | 表型文件｜Phenotype file (TSV: sample, value) |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-t, --type` | `f2` | f2/bc | 群体类型｜Cross type (f2/bc) |
+| `--map-mode` | `mstmap` | physical/estimate/mstmap | cM位置来源｜cM source (physical/estimate/mstmap) |
+| `--maf` | `0.05` | float | 最小等位基因频率｜Minor allele frequency threshold |
+| `--missing` | `0.1` | float | 最大缺失率｜Maximum missing rate |
+| `--max-het-rate` | `0.6` | float | H基因型最大比例｜Max heterozygous genotype rate |
+| `--max-mean-rf` | `0.35` | float | K近邻局部平均RF最大值｜Max local mean RF to k nearest markers |
+| `--rf-knn` | `10` | int | 局部RF窗口邻居数｜Local RF window neighbor count |
+| `--local-hotspot/--no-local-hotspot` | `True` |  | 短距离重组热点过滤｜Local recombination hotspot filter |
+| `--local-hotspot-dist` | `1000` | int | 热点判定物理距离阈值bp｜Hotspot physical distance threshold (bp) |
+| `--local-hotspot-rf` | `0.2` | float | 相邻RF软阈值｜Soft adjacent-RF threshold |
+| `--local-hotspot-hard-rf` | `0.3` | float | 相邻RF硬阈值(两侧都删)｜Hard adjacent-RF threshold |
+| `--local-hotspot-score` | `1` | int | 软评分删除线｜Soft-score deletion cutoff |
+| `--local-hotspot-relative` | `0.0` | float | 相对判据系数(0=关)｜Relative criterion factor (0=off) |
+| `--min-phys-gap` | `0` | int | 最小相邻物理距离bp(0=关)｜Min physical gap bp (0=off) |
+| `--n-marcovar` | `10` | int | 协因子数量｜Number of marker covariates |
+| `--window` | `10.0` | float | 窗口大小(cM)｜Window size in cM |
+| `--method` | `hk` | hk/em/imp | 扫描方法｜Scanning method |
+| `--step` | `1.0` | float | 伪标记步长(cM)｜Pseudomarker step in cM |
+| `--n-perm` | `1000` | int | 置换检验次数(0=跳过)｜Permutation count (0=skip) |
+| `--ld-window` | `50` | int | LD窗口(SNP数)｜LD window in SNP count |
+| `--ld-step` | `5` | int | LD步长(SNP数)｜LD step in SNP count |
+| `--ld-r2` | `0.1` | float | LD r2阈值｜LD r2 threshold |
+| `--skip-ld` | `True` |  | 跳过LD降维｜Skip LD pruning (default: True) |
+| `--no-skip-ld` | — |  | 启用LD降维｜Enable LD pruning |
+| `--mstmap-pvalue` | `1e-06` | float | MSTmap聚类p值起始值(自动调优)｜MSTmap clustering p-value start, auto-tuned |
+| `--mstmap-distfun` | `kosambi` | kosambi/haldane | MSTmap距离函数｜MSTmap distance function |
+| `--r-env` | `~/miniforge3/envs/Rqtl` |  | R conda环境路径或名称｜R conda env path or name |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入VCF文件｜Input VCF file (supports .vcf and .vcf.gz) |
+| `-p, --pheno` | 必填 |  | 表型文件｜Phenotype file (TSV with sample, value columns) |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-t, --type` | `f2` | f2/bc | 群体类型｜Cross type (f2/bc, default: f2) |
+| `--map-mode` | `mstmap` | physical/estimate/mstmap | cM位置来源｜cM position source (physical/estimate/mstmap, default: mstmap) |
+| `--maf` | `0.05` | float | 最小等位基因频率阈值｜Minor allele frequency threshold (default: 0.05) |
+| `--missing` | `0.1` | float | 最大缺失率｜Maximum missing rate (default: 0.1) |
+| `--max-het-rate` | `0.6` | float | H基因型最大比例(规则1)｜Max heterozygous genotype rate (rule 1, default: 0.6) |
+| `--max-mean-rf` | `0.35` | float | K近邻局部平均RF最大值(规则2)｜Max local mean RF to k nearest markers (rule 2, default: 0.35) |
+| `--rf-knn` | `10` | int | 规则2局部RF窗口邻居数(前后各一半)｜Local RF window neighbor count (default: 10) |
+| `--no-local-hotspot` | — | store_false | 关闭短距离重组热点过滤｜Disable local hotspot filter |
+| `--local-hotspot-dist` | `1000` | int | 热点判定的物理距离阈值bp(默认1000)｜Hotspot physical distance threshold in bp (default: 1000) |
+| `--local-hotspot-rf` | `0.2` | float | 相邻RF软阈值(默认0.20)｜Soft adjacent-RF threshold (default: 0.20) |
+| `--local-hotspot-hard-rf` | `0.3` | float | 相邻RF硬阈值: 达到即两侧标记都删(默认0.30)｜Hard adjacent-RF threshold, delete both (default: 0.30) |
+| `--local-hotspot-score` | `1` | int | 软评分删除线(默认1)｜Soft-score deletion cutoff (default: 1) |
+| `--local-hotspot-relative` | `0.0` | float | 相对判据系数(0=只用绝对阈值)｜Relative criterion factor, 0=absolute only (default: 0) |
+| `--min-phys-gap` | `0` | int | 最小相邻物理距离bp, 0=关闭(默认)｜Min physical gap in bp, 0=off (default: 0) |
+| `--n-marcovar` | `10` | int | 协因子数量｜Number of marker covariates (default: 10) |
+| `--window` | `10.0` | float | 窗口大小(cM)｜Window size in cM (default: 10) |
+| `--method` | `hk` | hk/em/imp | 扫描方法｜Scanning method (default: hk) |
+| `--step` | `1.0` | float | 伪标记步长(cM)｜Pseudomarker step in cM (default: 1) |
+| `--n-perm` | `1000` | int | 置换检验次数(0=跳过)｜Number of permutations (0=skip, default: 1000) |
+| `--ld-window` | `50` | int | LD计算窗口(SNP数)｜LD window in SNP count (default: 50) |
+| `--ld-step` | `5` | int | LD计算步长(SNP数)｜LD step in SNP count (default: 5) |
+| `--ld-r2` | `0.1` | float | LD r2阈值｜LD r2 threshold (default: 0.1) |
+| `--skip-ld` | — | store_true | 跳过LD降维步骤｜Skip LD pruning |
+| `--mstmap-pvalue` | `1e-06` | float | MSTmap聚类p值起始值(自动调优)｜MSTmap clustering p-value start value, auto-tuned (default: 1e-6) |
+| `--mstmap-distfun` | `kosambi` | kosambi/haldane | MSTmap距离函数｜MSTmap distance function (default: kosambi) |
+| `--mstmap-path` | `~/miniforge3/envs/r/bin/mstmap` |  | MSTmap二进制路径｜MSTmap binary path (default: ~/miniforge3/envs/r/bin/mstmap) |
+| `--r-env` | `~/miniforge3/envs/Rqtl` |  | R conda环境路径或名称｜R conda env path or name (default: ~/miniforge3/envs/Rqtl) |
+| `--threads` | `1` | int | 并行线程数｜Number of parallel threads (default: 1) |
+| `--version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 3

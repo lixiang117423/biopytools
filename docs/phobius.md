@@ -44,6 +44,32 @@ biopytools phobius -i proteins.fa -o output_dir/ --prefix SAMPLE1
 
 short / long 输出文件已存在时分别跳过对应步骤。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入蛋白质FASTA｜Input protein FASTA |
+| `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--prefix` | — |  | 输出前缀(默认输入文件名)｜Output prefix (default: input filename) |
+| `--phobius-path` | — |  | phobius.pl路径｜phobius.pl path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | [FILE] 输入蛋白质FASTA｜Input protein FASTA |
+| `-o, --output-dir` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `--prefix` | — |  | [STR] 输出前缀(默认输入文件名)｜Output prefix (default: input filename) |
+| `--phobius-path` | `~/miniforge3/envs/protein/bin/phobius.pl` |  | phobius.pl路径｜phobius.pl path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **Phobius**: 跨膜拓扑 + 信号肽预测 (HMM)

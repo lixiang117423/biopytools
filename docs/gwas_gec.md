@@ -291,3 +291,51 @@ Li, M., et al. (2021). GEC: a fast and efficient tool for genome-wide correction
 - 错误日志
 - 输入文件格式
 - 命令行参数
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--pfile, -i` | 必填 |  | GWAS P值汇总统计文件｜GWAS P-value summary statistics file |
+| `--reference, -r` | 必填 |  | 参考文件（VCF或PLINK binary前缀）｜Reference file (VCF or PLINK binary prefix) |
+| `--output-dir, -o` | `./gec_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--memory, -m` | `100G` |  | Java内存分配｜Java memory allocation |
+| `--maf-filter` | `0.05` | float | MAF过滤阈值｜MAF filter threshold |
+| `--p-cutoff` | `0.05` | float | P值阈值｜P-value threshold |
+| `--no-keep-ref` | — |  | 不保留参考文件缓存｜Do not keep reference file cache |
+| `--no-convert-chrom` | — |  | 禁用自动染色体格式转换｜Disable automatic chromosome format conversion |
+| `--chrom` | — |  | 染色体范围(如1-22或1-10,22)｜Chromosome range (e.g., 1-22 or 1-10,22) |
+| `--chrom-col` | `CHR` |  | 染色体列名｜Chromosome column name |
+| `--pos-col` | `BP` |  | 位置列名｜Position column name |
+| `--p-col` | `P` |  | P值列名｜P-value column name |
+| `--alpha` | `0.05` | float | 显著性水平(FWER)｜Significance level |
+| `--kggsee-jar` | `~/software/kmmsee/kggsee.jar` |  | KGGSee JAR文件路径｜KGGSee JAR file path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-p, --pfile` | 必填 |  | GWAS P值汇总统计文件｜GWAS P-value summary statistics file |
+| `-r, --reference` | 必填 |  | 参考文件（VCF文件或PLINK binary前缀）｜Reference file (VCF or PLINK binary prefix) |
+| `-o, --output-dir` | `./gec_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `16` | int | 线程数｜Number of threads |
+| `-m, --memory` | `8g` |  | Java内存分配｜Java memory allocation |
+| `--maf-filter` | `0.05` | float | MAF过滤阈值｜MAF filter threshold |
+| `--p-cutoff` | `0.05` | float | P值阈值｜P-value threshold |
+| `--no-keep-ref` | — | store_false | 不保留参考文件缓存｜Do not keep reference file cache |
+| `--chrom` | — |  | 染色体范围｜Chromosome range |
+| `--no-convert-chrom` | — | store_false | 禁用自动染色体格式转换｜Disable automatic chromosome format conversion |
+| `--chrom-col` | `CHR` |  | 染色体列名｜Chromosome column name |
+| `--pos-col` | `BP` |  | 位置列名｜Position column name |
+| `--p-col` | `P` |  | P值列名｜P-value column name |
+| `--alpha` | `0.05` | float | 显著性水平(FWER)｜Significance level (FWER) |
+| `--kggsee-jar` | `~/software/kmmsee/kggsee.jar` |  | KGGSee JAR文件路径｜KGGSee JAR file path |
+
+<!-- END PARAMS:auto -->

@@ -76,6 +76,50 @@ biopytools gap-fill -s asm.fa -t hifi -ir hifi.fastq.gz -o out \
 └── done_step*                     # 各步骤完成标记文件
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-s, --scaff-file` | 必填 |  | 输入scaffold文件｜Input scaffold file |
+| `-t, --tgstype` | 必填 | ont/pb/hifi | TGS类型｜TGS type (ont/pb/hifi) |
+| `-ir, --reads-file` | 必填 |  | 输入TGS reads文件｜Input TGS reads file |
+| `-o, --output-prefix` | 必填 |  | 输出前缀｜Output prefix |
+| `-m, --mode` | `none` | none/racon/pilon | 纠错模式｜Error correction mode (default: none) |
+| `--tgsgapcloser-path` | — |  | TGS-GapCloser路径｜TGS-GapCloser path (default: auto-detect) |
+| `-idy, --min-idy` | — | float | 最小同一性｜Min identity (auto-set) |
+| `-l, --min-match` | — | int | 最小匹配长度｜Min match length (auto-set) |
+| `-threads, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `-chunk` | `3` | int | 分块数量｜Chunk count (default: 3) |
+| `-g-check` | — |  | 启用Gap大小差异检查｜Enable gap size difference check |
+| `-min-nread` | `1` | int | 最小reads数量｜Min read count (default: 1) |
+| `-max-nread` | `-1` | int | 最大reads数量｜Max read count (default: -1) |
+| `-max-candidate` | `200` | int | 最大候选数｜Max candidates (default: 200) |
+| `-racon, --racon-path` | — |  | Racon路径｜Racon path |
+| `-racon-round` | `3` | int | Racon轮数｜Racon rounds (default: 3) |
+| `-pilon, --pilon-path` | — |  | Pilon路径｜Pilon path |
+| `-ngs, --ngs-file` | — |  | NGS reads文件｜NGS reads file |
+| `-java, --java-path` | — |  | Java路径｜Java path |
+| `-samtools, --samtools-path` | — |  | Samtools路径｜Samtools path |
+| `-pilon-mem` | `300G` |  | Pilon内存｜Pilon memory (default: 300G) |
+| `-pilon-round` | `3` | int | Pilon轮数｜Pilon rounds (default: 3) |
+| `-minmap-arg` | — |  | 自定义minimap2参数｜Custom minimap2 arguments |
+| `-ug, --unitig-file` | — |  | hifiasm unitig/contig文件（第2轮填充）｜hifiasm unitig/contig file (round 2) |
+| `-fl, --flanking-len` | `5000` | int | Flanking序列长度（bp）｜Flanking sequence length (bp) (default: 5000) |
+| `-al, --min-align-len` | `1000` | int | 最小比对长度（bp）｜Min alignment length (bp) (default: 1000) |
+| `-ai, --min-identity` | `40` | int | 最小比对同一性（%）｜Min alignment identity (%) (default: 40) |
+| `-mfl, --max-filling-len` | `1000000` | int | 最大填充长度（bp）｜Max filling length (bp) (default: 1000000) |
+| `-mgl, --min-gap-length` | `100` | int | 第2轮识别/填充的最小gap长度(bp)｜Min gap length (bp) for round-2 (default: 100) |
+| `-f, --force` | — |  | 忽略断点续传强制重跑｜Force rerun, ignore checkpoint |
+| `--dry-run` | — |  | 只打印命令不执行｜Dry run, print commands only |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - TGS-GapCloser / TGS-GapCloser2（核心填充工具，自动检测路径或用 `--tgsgapcloser-path`）

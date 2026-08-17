@@ -242,6 +242,44 @@ biopytools vg deconstruct -i graph.vg -r ref_path -o output.vcf -t 24
 
 - `{output}.vcf` - VCF格式变异文件|VCF format variant file
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vg-env` | `vg_v.1.7.0` |  | VG conda环境名称｜VG conda environment name (default: vg_v.1.7.0) |
+| `--log-level` | `INFO` | DEBUG/INFO/WARN/ERROR | 日志级别｜Log level (default: INFO) |
+| `-r, --reference` | 必填 |  | 参考基因组FASTA文件｜Reference FASTA file |
+| `-v, --vcf` | 必填 |  | VCF文件｜VCF file |
+| `-o, --output` | 必填 |  | 输出VG文件｜Output VG file |
+| `-R, --region` | — |  | 指定染色体区域｜Specify chromosome region |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--alt-paths` | — | store_true | 保存alt等位基因路径｜Save alt allele paths |
+| `--no-progress` | — | store_true | 不显示进度｜Do not show progress |
+| `-i, --input` | 必填 |  | 输入图文件｜Input graph file |
+| `--xg` | — | store_true | 创建XG索引｜Create XG index |
+| `--gcsa` | — | store_true | 创建GCSA索引｜Create GCSA index |
+| `--gbwt` | — | store_true | 创建GBWT索引｜Create GBWT index |
+| `--giraffe` | — | store_true | 创建GIRAFFE索引｜Create GIRAFFE indexes |
+| `-k, --kmer-size` | `16` | int | GCSA k-mer大小｜GCSA k-mer size (default: 16) |
+| `-g, --graph` | 必填 |  | 图文件前缀（索引）｜Graph file prefix (indexed) |
+| `-f, --reads` | 必填 |  | 输入reads文件｜Input reads file |
+| `-f2, --reads2` | — |  | 第二个reads文件（双端测序）｜Second reads file (paired-end) |
+| `-l, --fragment-length` | `0` | int | 片段长度（0=自动检测）｜Fragment length (0=auto) |
+| `-s, --fragment-std-dev` | `0` | int | 片段长度标准差（0=自动检测）｜Fragment length std dev (0=auto) |
+| `--min-identity` | `0.0` | float | 最小相似度｜Min identity (default: 0.0) |
+| `--format` | `GAM` | GAM/GAF | 输出格式｜Output format (default: GAM) |
+| `--progress` | — | store_true | 显示进度｜Show progress |
+| `-r, --reference-path` | 必填 |  | 参考路径名称｜Reference path name |
+| `-s, --samples` | — | append | 样本列表（可多次使用）｜Sample list (can be used multiple times) |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### 1. VCF文件需要索引吗？

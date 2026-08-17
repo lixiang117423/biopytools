@@ -54,6 +54,44 @@ biopytools minimap2 -t genome.fasta -q reads.fasta -o ont_align -x map-ont
 - `minimap2_summary.txt`：包含参数、输出文件与各 query 统计的总结报告
 - 运行日志文件
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--target, -t` | 必填 | Path | 目标基因组文件路径｜Target genome file path |
+| `--query, -q` | 必填 | Path | 查询基因组文件路径｜Query genome file path |
+| `--output-dir, -o` | `./minimap2_output` | Path | 输出目录｜Output directory |
+| `--preset, -x` | `asm5` | asm5/asm10/asm20/map-ont/map-pb | Minimap2预设参数｜Minimap2 preset parameters |
+| `--threads, -p` | `12` | int | 线程数｜Number of threads |
+| `--min-match, -m` | `1000` | int | 最小匹配长度阈值｜Minimum match length threshold |
+| `--min-unmapped, -u` | `1000` | int | 最小未比对区间长度阈值｜Minimum unmapped region length threshold |
+| `--tp-type` | `P` | S/P/SP | 保留的比对类型(tp类型)｜Alignment type to keep: S(secondary), P(primary), SP(both) |
+| `--minimap2-path, -M` | `minimap2` | str | minimap2可执行文件路径｜minimap2 executable path |
+| `--seqkit-path, -S` | `seqkit` | str | seqkit可执行文件路径｜seqkit executable path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-t, --target` | 必填 |  | 目标基因组文件路径｜Target genome file path |
+| `-q, --query` | 必填 |  | 查询基因组文件路径｜Query genome file path |
+| `-o, --output-dir` | `./minimap2_output` |  | 输出目录｜Output directory |
+| `-x, --preset` | `asm5` | asm5/asm10/asm20/map-ont/map-pb | Minimap2预设参数｜Minimap2 preset parameters |
+| `-p, --threads` | `8` | int | 线程数｜Number of threads |
+| `-m, --min-match` | `1000` | int | 最小匹配长度阈值｜Minimum match length threshold |
+| `-u, --min-unmapped` | `1000` | int | 最小未比对区间长度阈值｜Minimum unmapped region length threshold |
+| `--tp-type` | `P` | S/P/SP | 保留的tp类型｜tp type to keep: S(secondary), P(primary), SP(both) - 默认P｜default P |
+| `-M, --minimap2-path` | `minimap2` |  | minimap2可执行文件路径｜minimap2 executable path |
+| `-S, --seqkit-path` | `seqkit` |  | seqkit可执行文件路径｜seqkit executable path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - minimap2

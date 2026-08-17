@@ -334,3 +334,64 @@ Manchanda N., Gent J., Schatz M., Anderson S., Hufford M., Hirsch C. (2024).
 Differences in activity and stability drive transposable element variation
 in tropical and temperate maize. Genome Research.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--species` | `others` | Rice/Maize/others | 物种类型｜Species type |
+| `--step` | `all` | all/filter/final/anno | 运行步骤｜Step to run |
+| `--overwrite` | `0` | IntRange | 覆盖已有结果｜Overwrite existing results |
+| `--cds` | — |  | CDS序列文件｜CDS sequences file |
+| `--curatedlib` | — |  | 筛选TE库｜Curated TE library |
+| `--rmlib` | — |  | RepeatModeler库｜RepeatModeler library |
+| `--sensitive` | `0` | IntRange | 使用RepeatModeler｜Use RepeatModeler |
+| `--anno` | `0` | IntRange | 执行全基因组注释｜Perform whole-genome annotation |
+| `--rmout` | — |  | RepeatMasker输出文件｜RepeatMasker output file |
+| `--maxdiv` | `40` | int | 最大分歧度｜Maximum divergence |
+| `--evaluate` | `0` | IntRange | 评估注释一致性｜Evaluate annotation consistency |
+| `--exclude` | — |  | 排除区域BED文件｜Exclude regions BED file |
+| `--force` | `0` | IntRange | 强制使用水稻TE｜Force to use rice TEs |
+| `--u` | `1.3e-08` | float | 中性突变率｜Neutral mutation rate |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--debug` | `0` | IntRange | 保留中间文件｜Retain intermediate files |
+| `-o, --output-dir` | `./edta_output` | Path | 输出目录｜Output directory |
+| `--edta-path` | — | Path | EDTA安装路径｜EDTA installation path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--species` | `others` | Rice/Maize/others | 物种类型｜Species type |
+| `--step` | `all` | all/filter/final/anno | 运行步骤｜Step to run |
+| `--overwrite` | `0` | 0/1 | 覆盖已有结果｜Overwrite existing results |
+| `--cds` | — |  | CDS序列文件｜CDS sequences file |
+| `--curatedlib` | — |  | 筛选TE库｜Curated TE library |
+| `--rmlib` | — |  | RepeatModeler库｜RepeatModeler library |
+| `--sensitive` | `0` | 0/1 | 使用RepeatModeler｜Use RepeatModeler |
+| `--anno` | `0` | 0/1 | 执行全基因组注释｜Perform whole-genome annotation |
+| `--rmout` | — |  | RepeatMasker输出文件｜RepeatMasker output file |
+| `--maxdiv` | `40` | int | 最大分歧度｜Maximum divergence |
+| `--evaluate` | `0` | 0/1 | 评估注释一致性｜Evaluate annotation consistency |
+| `--exclude` | — |  | 排除区域BED文件｜Exclude regions BED file |
+| `--force` | `0` | 0/1 | 强制使用水稻TE｜Force to use rice TEs |
+| `--u` | `1.3e-08` | float | 中性突变率｜Neutral mutation rate |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--debug` | `0` | 0/1 | 保留中间文件｜Retain intermediate files |
+| `-o, --output-dir` | `./edta_output` |  | 输出目录｜Output directory |
+| `--edta-path` | — |  | EDTA安装路径｜EDTA installation path |
+| `-i, --genome-list` | 必填 |  | 基因组列表文件｜Genome list file |
+| `-c, --cds` | — |  | CDS序列文件｜CDS sequences file |
+| `-l, --curatedlib` | — |  | 筛选TE库｜Curated TE library |
+| `-f, --fl-copy` | `3` | int | 全长拷贝数阈值｜Full-length copy number cutoff |
+| `-a, --anno` | `1` | 0/1 | 执行全基因组注释｜Perform whole-genome annotation |
+
+<!-- END PARAMS:auto -->

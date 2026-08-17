@@ -460,3 +460,46 @@ head -2 output.fas | tail -1 | wc -c  # 序列长度
 **最后更新**: 2024年12月17日
 **版本**: 2.9.1
 **作者**: biopytools开发团队
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 | Path | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | `./converted_output` | Path | 输出目录｜Output directory |
+| `--output-prefix` | — | str | 输出文件名前缀｜Output filename prefix |
+| `--min-samples-locus, -m` | `4` | int | 位点最少样本数｜Minimum samples per locus |
+| `--outgroup, -g` | `` | str | 外群样本名称｜Outgroup sample name |
+| `--phylip-disable, -p` | — |  | 禁用PHYLIP输出｜Disable PHYLIP output |
+| `--fasta, -f` | — |  | 启用FASTA输出｜Enable FASTA output |
+| `--nexus, -n` | — |  | 启用NEXUS输出｜Enable NEXUS output |
+| `--nexus-binary, -b` | — |  | 启用二进制NEXUS输出｜Enable binary NEXUS output |
+| `--resolve-IUPAC, -r` | — |  | 随机解析杂合子基因型｜Resolve heterozygous genotypes |
+| `--write-used-sites, -w` | — |  | 保存筛选通过的位点坐标｜Save used sites coordinates |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `-o, --output` | `./converted_output` |  | 输出目录｜Output directory |
+| `--output-prefix` | — |  | 输出文件名前缀｜Output filename prefix |
+| `-m, --min-samples-locus` | `4` | int | 位点最少样本数｜Minimum samples per locus |
+| `-g, --outgroup` | `` |  | 外群样本名称｜Outgroup sample name |
+| `-p, --phylip-disable` | — | store_true | 禁用PHYLIP输出｜Disable PHYLIP output |
+| `-f, --fasta` | — | store_true | 启用FASTA输出｜Enable FASTA output |
+| `-n, --nexus` | — | store_true | 启用NEXUS输出｜Enable NEXUS output |
+| `-b, --nexus-binary` | — | store_true | 启用二进制NEXUS输出｜Enable binary NEXUS output |
+| `-r, --resolve-IUPAC` | — | store_true | 随机解析杂合子基因型｜Resolve heterozygous genotypes |
+| `-w, --write-used-sites` | — | store_true | 保存筛选通过的位点坐标｜Save used sites coordinates |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `-v, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->

@@ -75,6 +75,80 @@ assembly_output/
 └── logs/               # 流程日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-dir` | 必填 | Path | () |
+| `-o, --output-dir` | `./assembly_output` | Path |  |
+| `-n, --project-name` | `genome_assembly` |  |  |
+| `-t, --threads` | `12` | int |  |
+| `--hic-strategy` | `complete_juicer` | complete_juicer/standard_3ddna/simplified_salsa2 | Hi-C |
+| `--restriction-enzyme` | `MboI` | MboI/DpnII/HindIII/EcoRI |  |
+| `--min-contig-size` | `15000` | int | contig |
+| `--edit-rounds` | `2` | int | 3D-DNA |
+| `--genome-size` | `3g` |  | (e.g., 3g, 500m) |
+| `--species-type` | `diploid` | diploid/haploid/polyploid |  |
+| `--telomere-motif` | `CCCTAA` |  | motif |
+| `--purge-level` | `1` | 0/1/2/3 | Purging |
+| `--purge-max` | `80` | int | Purging |
+| `--similarity-threshold` | `0.75` | float |  |
+| `--n-haplotypes` | `2` | int |  |
+| `--skip-fastqc` | `True` |  | FastQC () |
+| `--min-hifi-coverage` | `30` | int | HiFi |
+| `--min-hic-coverage` | `50` | int | Hi-C |
+| `--min-mapping-rate` | `0.7` | float |  |
+| `--busco-lineage` | `auto` |  | BUSCO |
+| `--hifiasm-path` | `hifiasm` |  | Hifiasm |
+| `--bwa-path` | `bwa` |  | BWA |
+| `--samtools-path` | `samtools` |  | Samtools |
+| `--juicer-path` | `juicer.sh` |  | Juicer |
+| `--pipeline-3ddna` | `3d-dna/run-asm-pipeline.sh` |  | 3D-DNA pipeline |
+| `--juicer-tools` | `juicer_tools.jar` |  | Juicer tools JAR |
+| `--salsa2-path` | `run_pipeline.py` |  | SALSA2 |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-dir` | 必填 |  | 输入数据目录 (自动检测文件类型)｜Input data directory (auto-detect file types) |
+| `-o, --output-dir` | `./assembly_output` |  | 输出目录｜Output directory |
+| `-n, --project-name` | `genome_assembly` |  | 项目名称｜Project name |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `--hic-strategy` | `complete_juicer` | complete_juicer/standard_3ddna/simplified_salsa2 | Hi-C处理策略｜Hi-C processing strategy |
+| `--restriction-enzyme` | `MboI` | MboI/DpnII/HindIII/EcoRI | 限制性酶类型｜Restriction enzyme type |
+| `--min-contig-size` | `15000` | int | 最小contig大小阈值｜Minimum contig size threshold |
+| `--edit-rounds` | `2` | int | 3D-DNA编辑轮数｜3D-DNA editing rounds |
+| `--genome-size` | `3g` |  | 预估基因组大小｜Estimated genome size (e.g., 3g, 500m) |
+| `--species-type` | `diploid` | diploid/haploid/polyploid | 物种倍性｜Species ploidy |
+| `--telomere-motif` | `CCCTAA` |  | 端粒序列motif｜Telomere sequence motif |
+| `--purge-level` | `1` | 0/1/2/3 | Purging级别｜Purging level |
+| `--purge-max` | `80` | int | Purging覆盖度上限｜Purging coverage upper limit |
+| `--similarity-threshold` | `0.75` | float | 相似度阈值｜Similarity threshold |
+| `--n-haplotypes` | `2` | int | 单倍型数量｜Number of haplotypes |
+| `--skip-fastqc` | `True` | store_true | 跳过FastQC质量检查 (默认跳过，节省时间)｜Skip FastQC quality check (default: skip to save time) |
+| `--run-fastqc` | — | store_true | 运行FastQC质量检查｜Run FastQC quality check |
+| `--min-hifi-coverage` | `30` | int | 最小HiFi覆盖度｜Minimum HiFi coverage |
+| `--min-hic-coverage` | `50` | int | 最小Hi-C覆盖度｜Minimum Hi-C coverage |
+| `--min-mapping-rate` | `0.7` | float | 最小映射率｜Minimum mapping rate |
+| `--busco-lineage` | `auto` |  | BUSCO谱系数据库｜BUSCO lineage database |
+| `--hifiasm-path` | `hifiasm` |  | Hifiasm程序路径｜Hifiasm program path |
+| `--bwa-path` | `bwa` |  | BWA程序路径｜BWA program path |
+| `--samtools-path` | `samtools` |  | Samtools程序路径｜Samtools program path |
+| `--juicer-path` | `juicer.sh` |  | Juicer脚本路径｜Juicer script path |
+| `--pipeline-3ddna` | `3d-dna/run-asm-pipeline.sh` |  | 3D-DNA pipeline路径｜3D-DNA pipeline path |
+| `--juicer-tools` | `juicer_tools.jar` |  | Juicer tools JAR路径｜Juicer tools JAR path |
+| `--salsa2-path` | `run_pipeline.py` |  | SALSA2脚本路径｜SALSA2 script path |
+| `--skip-dependency-check` | — | store_true | 跳过依赖软件检查｜Skip dependency check |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - hifiasm（主组装）

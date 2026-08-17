@@ -48,6 +48,34 @@ pi4gene_output/
 └── pi4gene.log             # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 序列FASTA文件路径｜Input sequence FASTA file path |
+| `-d, --id-file` | 必填 |  | 分组ID文件路径（第一列分组，第二列序列ID）｜Group ID file path (col1: group, col2: seq_id) |
+| `-o, --output-dir` | `./pi4gene_output` | Path | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--mafft-path` | — |  | MAFFT路径｜MAFFT path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 序列FASTA文件路径｜Input sequence FASTA file path |
+| `-d, --id-file` | 必填 |  | 分组ID文件路径（第一列分组，第二列序列ID）｜Group ID file path (col1: group, col2: seq_id) |
+| `-o, --output-dir` | `./pi4gene_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--mafft-path` | — |  | MAFFT路径｜MAFFT path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **MAFFT**: 多重序列比对 (https://mafft.cbrc.jp/alignment/software/)

@@ -219,6 +219,49 @@ output/
 - 中间区域：同质k-mer对
 - 右侧区域：高拷贝数k-mer对
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTQ文件或目录｜Input FASTQ file or directory |
+| `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--read-length, -l` | `150` | int | 测序读长｜Read length |
+| `--kmer-size, -k` | `21` | int | K-mer大小｜K-mer size |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--hash-size, -s` | `10G` |  | Jellyfish哈希表大小｜Jellyfish hash size |
+| `--max-kmer-cov, -c` | `1000` | int | 最大k-mer覆盖度｜Max k-mer coverage |
+| `--skip-smudgeplot` | `False` |  | 跳过Smudgeplot倍性分析｜Skip Smudgeplot ploidy analysis |
+| `--ploidy` | `2` | int | 基因组倍性 1-6 (默认: 2，由Smudgeplot自动推断)｜Genome ploidy level 1-6 (default: 2, auto-inferred by Smudgeplot) |
+| `--fastk-table` | `` |  | FastK表文件路径｜FastK table file path |
+| `--fastk-memory` | `100G` |  | FastK内存大小｜FastK memory size |
+| `--read1-suffix` | `*_1.clean.fq.gz` |  | Read1文件后缀模式｜Read1 file suffix pattern |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTQ文件或目录｜Input FASTQ file or directory |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-l, --read-length` | 必填 | int | 测序读长｜Read length |
+| `-k, --kmer-size` | `21` | int | K-mer大小｜K-mer size |
+| `-t, --threads` | `64` | int | 线程数｜Number of threads |
+| `-s, --hash-size` | `10G` |  | Jellyfish哈希表大小｜Jellyfish hash size |
+| `-c, --max-kmer-cov` | `1000` | int | 最大k-mer覆盖度｜Max k-mer coverage |
+| `--skip-smudgeplot` | — | store_true | 跳过Smudgeplot倍性分析｜Skip Smudgeplot ploidy analysis |
+| `--ploidy` | `2` | int | 基因组倍性 1-6 (默认: 2，由Smudgeplot自动推断)｜Genome ploidy level 1-6 (default: 2, auto-inferred by Smudgeplot) |
+| `--genomescope-env` | `genomescope_v.2.0.1` |  | GenomeScope conda环境名称 (默认: genomescope_v.2.0.1)｜GenomeScope conda env name (default: genomescope_v.2.0.1) |
+| `--fastk-table` | `` |  | FastK表文件路径｜FastK table file path |
+| `--fastk-memory` | `16G` |  | FastK内存大小｜FastK memory size |
+| `--read1-suffix` | `*_1.clean.fq.gz` |  | Read1文件后缀模式｜Read1 file suffix pattern |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### 1. Smudgeplot失败怎么办？

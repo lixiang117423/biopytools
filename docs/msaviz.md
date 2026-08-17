@@ -356,3 +356,67 @@ Katoh, K., & Standley, D. M. (2013). MAFFT multiple sequence alignment software 
 pyMSAviz:
 https://github.com/moshi4/pyMSAviz
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--infile, -i` | 必填 |  | 输入序列文件或MSA文件｜Input sequences or MSA file |
+| `--outfile, -o` | 必填 |  | 输出可视化文件｜Output visualization file (*.png｜*.jpg｜*.svg｜*.pdf) |
+| `--skip-align` | — |  | 跳过MAFFT比对（输入已是比对结果）｜Skip MAFFT alignment (input is already aligned) |
+| `--mafft-path` | `mafft` |  | MAFFT可执行文件路径｜MAFFT executable path (default: mafft) |
+| `--mafft-params` | `--auto --preservecase` |  | MAFFT参数｜MAFFT parameters (default: --auto --preservecase) |
+| `--threads` | `12` | int | MAFFT线程数｜MAFFT threads (default: 4) |
+| `--keep-alignment/--no-keep-alignment` | `True` |  | 保留比对结果文件｜Keep alignment result file (default: True) |
+| `--format` | `fasta` |  | MSA文件格式｜MSA file format (default: fasta) |
+| `--color-scheme` | — |  | 颜色方案｜Color scheme (default: auto: DNA->Nucleotide / 蛋白｜protein->Zappo) |
+| `--start` | `1` | int | 起始位置(1-based)｜Start position (1-based, default: 1) |
+| `--end` | — | int | 结束位置(1-based)｜End position (1-based, default: MSA length) |
+| `--wrap-length` | `60` | int | 换行长度｜Wrap length (default: 60) |
+| `--wrap-space-size` | `3.0` | float | 换行间距｜Wrap space size (default: 3.0) |
+| `--label-type` | `id` | id/description | 标签类型｜Label type (default: id) |
+| `--show-label/--no-show-label` | `True` |  | 显示序列标签｜Show sequence labels (default: True) |
+| `--show-grid` | — |  | 显示网格｜Show grid |
+| `--show-count` | — |  | 显示字符统计｜Show sequence character count |
+| `--show-consensus` | — |  | 显示consensus序列｜Show consensus sequence |
+| `--consensus-color` | `#1f77b4` |  | Consensus颜色｜Consensus color (default: #1f77b4) |
+| `--consensus-size` | `2.0` | float | Consensus大小｜Consensus size (default: 2.0) |
+| `--sort` | — |  | 按NJ树排序｜Sort by NJ tree |
+| `--dpi` | `300` | int | 图像DPI｜Figure DPI (default: 300) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --infile` | 必填 |  | 输入序列文件或MSA文件｜Input sequences or MSA file |
+| `-o, --outfile` | 必填 |  | 输出可视化文件｜Output visualization file (*.png｜*.jpg｜*.svg｜*.pdf) |
+| `--skip-align` | — | store_true | 跳过MAFFT比对（输入已是比对结果）｜Skip MAFFT alignment (input is already aligned) |
+| `--mafft-path` | `mafft` |  | MAFFT可执行文件路径｜MAFFT executable path (default: mafft) |
+| `--mafft-params` | `--auto --preservecase` |  | MAFFT参数｜MAFFT parameters (default: --auto --preservecase) |
+| `--threads` | `4` | int | MAFFT线程数｜MAFFT threads (default: 4) |
+| `--keep-alignment` | `True` | store_true | 保留比对结果文件｜Keep alignment result file (default: True) |
+| `--no-keep-alignment` | — | store_false | 不保留比对结果文件｜Do not keep alignment result file |
+| `--format` | `fasta` |  | MSA文件格式｜MSA file format (default: fasta) |
+| `--color-scheme` | — |  | 颜色方案｜Color scheme (default: auto: DNA->Nucleotide / 蛋白｜protein->Zappo) |
+| `--start` | `1` | int | 起始位置(1-based)｜Start position (1-based, default: 1) |
+| `--end` | — | int | 结束位置(1-based)｜End position (1-based, default: MSA length) |
+| `--wrap-length` | `60` | int | 换行长度｜Wrap length (default: 60) |
+| `--wrap-space-size` | `3.0` | float | 换行间距｜Wrap space size (default: 3.0) |
+| `--label-type` | `id` | id/description | 标签类型｜Label type (default: id) |
+| `--show-label` | `True` | store_true | 显示序列标签｜Show sequence labels (default: True) |
+| `--no-show-label` | — | store_false | 不显示序列标签｜Do not show sequence labels |
+| `--show-grid` | — | store_true | 显示网格｜Show grid |
+| `--show-count` | — | store_true | 显示字符统计｜Show sequence character count |
+| `--show-consensus` | — | store_true | 显示consensus序列｜Show consensus sequence |
+| `--consensus-color` | `#1f77b4` |  | Consensus颜色｜Consensus color (default: #1f77b4) |
+| `--consensus-size` | `2.0` | float | Consensus大小｜Consensus size (default: 2.0) |
+| `--sort` | — | store_true | 按NJ树排序｜Sort by NJ tree |
+| `--dpi` | `300` | int | 图像DPI｜Figure DPI (default: 300) |
+
+<!-- END PARAMS:auto -->

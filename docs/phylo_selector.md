@@ -314,6 +314,46 @@ biopytools phylo-selector \
 - 使用`--no-report`、`--no-csv`、`--no-visualization`
 - 减少`--n-samples`
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-x, --hierarchy-file` | 必填 |  | 层级关系文件（必需）｜Hierarchy file (required) |
+| `-p, --pca-file` | 必填 |  | PCA坐标文件（必需）｜PCA coordinates file (required) |
+| `-o, --output-prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `-n, --n-samples` | `150` | int | 选择样品总数｜Total number of samples to select |
+| `-g, --group-file` | — |  | 样品分组表文件｜Sample group table file |
+| `--hierarchy-level` | `10` | int | 层级深度（用于分组）｜Hierarchy level for grouping |
+| `--pca-threshold` | `0.0001` | float | PCA去重阈值｜PCA dedup threshold |
+| `--min-samples-per-group` | `1` | int | 每组最小样品数｜Minimum samples per group |
+| `--no-report` | — |  | 不生成详细报告｜Do not generate detailed report |
+| `--no-csv` | — |  | 不生成CSV文件｜Do not generate CSV file |
+| `--no-visualization` | — |  | 不生成可视化｜Do not generate visualization |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-x, --hierarchy-file` | 必填 |  | 层级关系文件（必需）｜Hierarchy file (required) |
+| `-p, --pca-file` | 必填 |  | PCA坐标文件（必需）｜PCA coordinates file (required) |
+| `-o, --output-prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `-n, --n-samples` | `150` | int | 选择样品总数｜Total number of samples to select (default: 150) |
+| `-g, --group-file` | — |  | 样品分组表文件｜Sample group table file |
+| `--hierarchy-level` | `10` | int | 层级深度（用于分组）｜Hierarchy level for grouping (default: 10) |
+| `--pca-threshold` | `0.0001` | float | PCA去重阈值｜PCA dedup threshold (default: 0.0001) |
+| `--min-samples-per-group` | `1` | int | 每组最小样品数｜Minimum samples per group (default: 1) |
+| `--no-report` | — | store_true | 不生成详细报告｜Do not generate detailed report |
+| `--no-csv` | — | store_true | 不生成CSV文件｜Do not generate CSV file |
+| `--no-visualization` | — | store_true | 不生成可视化｜Do not generate visualization |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### Q1: 如何确定选择多少个样品？

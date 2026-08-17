@@ -71,6 +71,65 @@ hic_output/
 └── hic_heatmap.log        # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-g, --genome-id` | 必填 |  | 基因组ID（用于输出文件命名，如hg19, mm10）｜Genome ID (for output file naming, e.g., hg19, mm10) |
+| `-o, --output-dir` | `./hic_output` |  | 输出目录｜Output directory |
+| `-1, --fastq-r1` | 必填 |  | R1测序文件｜R1 sequencing file |
+| `-2, --fastq-r2` | 必填 |  | R2测序文件｜R2 sequencing file |
+| `-t, --threads` | `64` |  | 线程数｜Threads |
+| `--max-memory` | `200` | int | HiC-Pro最大内存限制（GB）｜Maximum memory limit for HiC-Pro in GB |
+| `--restriction-enzyme` | `MboI` |  | 限制性内切酶｜Restriction enzyme (default: MboI). Options: MboI, HindIII, NcoI, EcoRI, BamHI |
+| `--bowtie2-idx` | — |  | Bowtie2索引路径（默认自动生成）｜Bowtie2 index path (auto-generated if not specified) |
+| `--bin-sizes` | `20000 40000 150000 500000 1000000` |  | Contact map bin大小（空格分隔）｜Contact map bin sizes, space-separated |
+| `--resolution` | `100000` | int | 热图分辨率（bp）｜Heatmap resolution in bp (default: 100000, 100kb) |
+| `--color-map` | `YlOrRd` |  | 颜色方案｜Color scheme (PlotHiC default: YlOrRd) |
+| `--dpi` | `300` | int | 图像分辨率｜Image DPI |
+| `--format` | `pdf` |  | 输出格式｜Output format (pdf, png, svg, etc.) |
+| `--bar-max` | `1` | int | 颜色条最大值｜Color bar maximum value (after log transform) |
+| `--hicpro-sif` | `` |  | HiCPro singularity镜像路径（留空则直接使用HiC-Pro）｜HiCPro singularity image path (leave empty to use HiC-Pro directly) |
+| `--plothic-path` | `~/miniforge3/envs/plothic_v.1.0.0/bin/plothic` |  | PlotHiC可执行文件路径｜PlotHiC executable path |
+| `--force` | — |  | 强制重新运行｜Force rerun all steps |
+| `--verbose` | — |  | 显示详细日志｜Verbose logging |
+| `--quiet` | — |  | 仅显示错误｜Errors only |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-g, --genome-id` | 必填 |  | 基因组ID（用于输出文件命名，如hg19, mm10）｜Genome ID (for output file naming, e.g., hg19, mm10) |
+| `-o, --output-dir` | `./hic_output` |  | 输出目录｜Output directory (default: ./hic_output) |
+| `-1, --fastq-r1` | 必填 |  | R1测序文件｜R1 sequencing file |
+| `-2, --fastq-r2` | 必填 |  | R2测序文件｜R2 sequencing file |
+| `-t, --threads` | `64` | int | 线程数｜Threads (default: 64) |
+| `--max-memory` | `200` | int | HiC-Pro最大内存限制（GB）｜Maximum memory limit for HiC-Pro in GB (default: 200) |
+| `--restriction-enzyme` | `MboI` |  | 限制性内切酶名称｜Restriction enzyme name (default: MboI). Options: MboI, HindIII, NcoI, EcoRI, BamHI |
+| `--bowtie2-idx` | — |  | Bowtie2索引路径（默认自动生成）｜Bowtie2 index path (auto-generated if not specified) |
+| `--bin-sizes` | `20000 40000 150000 500000 1000000` |  | Contact map bin大小（空格分隔）｜Contact map bin sizes, space-separated (default: "20000 40000 150000 500000 1000000") |
+| `--resolution` | `100000` | int | 热图分辨率（bp）｜Heatmap resolution in bp (default: 100000, 100kb) |
+| `--color-map` | `YlOrRd` |  | 热图颜色方案｜Heatmap color scheme (default: YlOrRd, PlotHiC default) |
+| `--dpi` | `300` | int | 图像分辨率｜Image resolution in DPI (default: 300) |
+| `--format` | `pdf` |  | 输出格式｜Output format (default: pdf, options: pdf, png, svg, etc.) |
+| `--bar-max` | `1` | int | 颜色条最大值（log变换后）｜Color bar maximum value after log transform (default: 1) |
+| `--hicpro-sif` | `~/software/singularity/hicpro_latest.sif` |  | HiCPro singularity镜像路径｜HiCPro singularity image path |
+| `--singularity-exec` | `~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` |  | Singularity可执行文件路径｜Singularity executable path |
+| `--plothic-path` | `~/miniforge3/envs/plothic_v.1.0.0/bin/plothic` |  | PlotHiC可执行文件路径｜PlotHiC executable path |
+| `--force` | — | store_true | 强制重新运行所有步骤｜Force rerun all steps |
+| `--verbose` | — | store_true | 显示详细日志｜Show verbose logs |
+| `--quiet` | — | store_true | 仅显示错误日志｜Show error logs only |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - HiC-Pro（直接调用或通过 `--hicpro-sif` singularity 镜像）

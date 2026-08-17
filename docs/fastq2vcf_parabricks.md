@@ -316,3 +316,87 @@ biopytools fastq2vcf-parabricks \
 ---
 
 🧬 **让复杂的基因组分析变得简单高效 | Making complex genomic analysis simple and efficient**
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--version, -V` | — |  | 显示版本信息｜Show version information |
+| `--input, -i` | 必填 | Path | 原始FASTQ文件目录路径｜Raw FASTQ files directory path |
+| `--genome, -g` | 必填 | Path | 参考基因组文件路径｜Reference genome file path |
+| `--project-base, -p` | 必填 | Path | 项目根目录路径｜Project base directory path |
+| `--clean-fastq-dir` | — | Path | 清洁FASTQ文件目录路径｜Clean FASTQ files directory path |
+| `--mapping-dir` | — | Path | 比对结果目录路径｜Mapping results directory path |
+| `--joint-dir` | — | Path | 联合检测结果目录路径｜Joint calling results directory path |
+| `--filter-dir` | — | Path | 过滤结果目录路径｜Filtering results directory path |
+| `--output-dir, -o` | — | Path | 输出目录路径｜Output directory path |
+| `--threads-mapping` | `12` | int | 比对线程数｜Number of mapping threads |
+| `--threads-gtx` | `12` | int | GTX线程数｜Number of GTX threads |
+| `--threads-filter` | `12` | int | 过滤线程数｜Number of filtering threads |
+| `--snp-min-dp` | `5` | int | SNP最小深度｜SNP minimum depth |
+| `--snp-min-qual` | `30` | int | SNP最小质量｜SNP minimum quality |
+| `--indel-min-dp` | `5` | int | InDel最小深度｜InDel minimum depth |
+| `--indel-min-qual` | `30` | int | InDel最小质量｜InDel minimum quality |
+| `--gatk-threshold` | `4` | int | GATK模式样本数阈值｜GATK sample count threshold |
+| `--gtx-single-threshold` | `200` | int | GTX单机模式样本数阈值｜GTX single machine sample count threshold |
+| `--gtx-window-size` | `20000000` | int | GTX分块窗口大小｜GTX chunk window size in bp |
+| `--gtx-bin` | `~/software/gtx/bin/gtx` | Path | GTX可执行文件路径｜GTX executable path |
+| `--step, -s` | — | 1/2/3/4/5 | 只运行指定步骤｜Run only specified step |
+| `--no-checkpoint` | — |  | 禁用断点续传｜Disable checkpoint resume |
+| `--dry-run` | — |  | 测试模式｜Test mode |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--log-file` | — | Path | 日志文件路径｜Log file path |
+| `--force, -f` | — |  | 强制覆盖已存在的结果｜Force overwrite existing results |
+| `--skip-qc` | — |  | 跳过质控步骤｜Skip QC step |
+| `--skip-mapping` | — |  | 跳过比对步骤｜Skip mapping step |
+| `--read1-pattern-fastp` | `_1.fq.gz` |  | 质控R1文件匹配模式｜QC R1 file pattern |
+| `--read2-pattern-fastp` | `_2.fq.gz` |  | 质控R2文件匹配模式｜QC R2 file pattern |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-V, --version` | — | version |  |
+| `-i, --input` | 必填 |  | 原始FASTQ文件目录路径｜Raw FASTQ files directory path |
+| `-g, --genome` | 必填 |  | 参考基因组文件路径｜Reference genome file path |
+| `-p, --project-base` | 必填 |  | 项目根目录路径｜Project base directory path |
+| `--clean-fastq-dir` | — |  | 清洁FASTQ文件目录路径｜Clean FASTQ files directory path |
+| `--mapping-dir` | — |  | 比对结果目录路径｜Mapping results directory path |
+| `--gvcf-dir` | — |  | gVCF文件目录路径｜gVCF files directory path |
+| `--bam-dir` | — |  | BAM文件目录路径｜BAM files directory path |
+| `--joint-dir` | — |  | 联合检测结果目录路径｜Joint calling results directory path |
+| `--filter-dir` | — |  | 过滤结果目录路径｜Filtering results directory path |
+| `-o, --output-dir` | — |  | 输出目录路径｜Output directory path |
+| `--threads-mapping` | `88` | int | 比对线程数｜Number of mapping threads |
+| `--threads-gtx` | `88` | int | GTX线程数｜Number of GTX threads |
+| `--threads-filter` | `88` | int | 过滤线程数｜Number of filtering threads |
+| `--snp-min-dp` | `5` | int | SNP最小深度｜SNP minimum depth |
+| `--snp-min-qual` | `30` | int | SNP最小质量｜SNP minimum quality |
+| `--indel-min-dp` | `5` | int | InDel最小深度｜InDel minimum depth |
+| `--indel-min-qual` | `30` | int | InDel最小质量｜InDel minimum quality |
+| `--gatk-threshold` | `4` | int | GATK模式样本数阈值｜GATK sample count threshold |
+| `--gtx-single-threshold` | `200` | int | GTX单机模式样本数阈值｜GTX single machine sample count threshold |
+| `--gtx-window-size` | `20000000` | int | GTX分块窗口大小｜GTX chunk window size in bp |
+| `--gtx-bin` | `~/software/gtx/bin/gtx` |  | GTX可执行文件路径｜GTX executable path |
+| `--step` | — | 1/2/3/4/5 | 只运行指定步骤｜Run only specified step |
+| `--no-checkpoint` | — | store_true | 禁用断点续传｜Disable checkpoint resume |
+| `--dry-run` | — | store_true | 测试模式｜Test mode |
+| `-v, --verbose` | `0` | count | 详细输出模式｜Verbose output mode |
+| `--quiet` | — | store_true | 静默模式｜Quiet mode |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `-f, --force` | — | store_true | 强制覆盖已存在的结果｜Force overwrite existing results |
+| `--skip-qc` | — | store_true | 跳过质控步骤｜Skip QC step |
+| `--skip-mapping` | — | store_true | 跳过比对步骤｜Skip mapping step |
+| `--read1-pattern-fastp` | `_1.fq.gz` |  | 质控R1文件匹配模式｜QC R1 file pattern |
+| `--read2-pattern-fastp` | `_2.fq.gz` |  | 质控R2文件匹配模式｜QC R2 file pattern |
+
+<!-- END PARAMS:auto -->

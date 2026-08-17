@@ -49,6 +49,39 @@ biopytools bismark -g genome.fa -i ./raw_data -o ./bismark_results
 - `03_summary/`：项目级汇总报告（比对率、甲基化率等）
 - `99_logs/`：运行日志
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--version` | — |  | 显示版本信息｜Show version information |
+| `--genome, -g` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--input, -i` | 必填 |  | 原始FASTQ数据目录｜Raw FASTQ data directory |
+| `--output-dir, -o` | 必填 | Path | 主输出目录｜Main output directory |
+| `--pattern, -p` | `_1_clean.fq.gz` |  | R1文件后缀模式｜Suffix pattern for R1 files |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--sort-buffer` | `400G` | str | 排序缓冲区大小｜Sort buffer size |
+| `--include-overlap` | — |  | 包含重叠读段｜Include overlapping reads |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组FASTA文件路径｜Genome FASTA file |
+| `-i, --input` | 必填 |  | 原始FASTQ数据目录｜Raw FASTQ data directory |
+| `-o, --output-dir` | 必填 |  | 主输出目录｜Main output directory |
+| `-p, --pattern` | `_1_clean.fq.gz` |  | R1文件的后缀模式｜Suffix pattern for R1 files |
+| `-t, --threads` | `88` | int | 使用的线程数｜Number of threads |
+| `--sort-buffer` | `400G` | str | 提取步骤的排序缓存大小｜Sort buffer size |
+| `--no-no-overlap` | — | store_false | 不忽略重叠的reads｜Do NOT ignore overlapping reads |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - `bismark`、`bismark_genome_preparation`、`bismark_methylation_extractor`（Bismark 套件）

@@ -449,3 +449,31 @@ Yang L, Xie X, Liu F, et al. (2020)
 MCycDB: a database of methane cycle genes for metagenomic profiling.
 Nucleic Acids Res 48:D830-D837.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--output, -o` | — | Path | 输出目录路径｜Output directory path |
+| `--threads, -t` | `12` | int | 线程数｜Thread count |
+| `--mcyc-base` | — | Path | MCycDB基础路径｜MCycDB base path |
+| `--skip-diamond` | — |  | 跳过Diamond比对｜Skip Diamond alignment |
+| `--keep-temp` | — |  | 保留临时文件｜Keep temporary files |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-o, --output` | — |  | 输出目录路径｜Output directory path (default: current directory) |
+| `-t, --threads` | `4` | int | 线程数｜Thread count (default: 4) |
+| `--mcyc-base` | — |  | MCycDB基础路径｜MCycDB base path |
+| `--skip-diamond` | — | store_true | 跳过Diamond比对｜Skip Diamond alignment |
+| `--keep-temp` | — | store_true | 保留临时文件｜Keep temporary files |
+
+<!-- END PARAMS:auto -->

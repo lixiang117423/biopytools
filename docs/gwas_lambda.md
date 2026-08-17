@@ -368,3 +368,31 @@ The 1000 Genomes Project Consortium. (2015)
 A global reference for human genetic variation.
 Nature 526:68-74.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--pattern, -p` | `feture_*/GWAS_Result.mlm.manht_input` |  | 文件搜索模式｜File search pattern |
+| `--output, -o` | `Batch_Lambda_Assessment.txt` |  | 输出文件名｜Output filename |
+| `--threshold, -t` | `1e-05` | float | 显著性阈值｜Significance threshold |
+| `--p-column, -c` | `3` | int | P值列索引｜P-value column index (0-based) |
+| `--output-dir, -d` | `./gwas_lambda_output` | Path | 输出目录｜Output directory |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--pattern, -p` | `feture_*/GWAS_Result.mlm.manht_input` |  | 文件搜索模式｜File search pattern |
+| `--output, -o` | `Batch_Lambda_Assessment.txt` |  | 输出文件名｜Output filename |
+| `--threshold, -t` | `1e-05` | float | 显著性阈值｜Significance threshold |
+| `--p-column, -c` | `3` | int | P值所在列索引｜P-value column index (0-based) |
+| `--output-dir, -d` | `./gwas_lambda_output` |  | 输出目录｜Output directory |
+
+<!-- END PARAMS:auto -->

@@ -478,3 +478,50 @@ Shen, W., Le, S., Li, Y., & Hu, F. (2016).
 SeqKit: a cross-platform and ultrafast toolkit for FASTA/Q file manipulation.
 PLoS ONE, 11(10), e0163962.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入目录（包含FASTQ文件）｜Input directory containing FASTQ files |
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--suffix1` | `_1.fq.gz` |  | R1文件后缀｜R1 file suffix |
+| `--suffix2` | `_2.fq.gz` |  | R2文件后缀｜R2 file suffix |
+| `--tool` | `repair` | seqkit/repair | 工具选择｜Tool selection (seqkit or repair) |
+| `--seqkit-bin` | `seqkit` |  | seqkit二进制路径｜seqkit binary path |
+| `--repair-sh` | `repair.sh` |  | repair.sh脚本名称｜repair.sh script name |
+| `--repair-conda-env` | `bbmap_v.39.81` |  | repair.sh的conda环境名称｜conda environment for repair.sh |
+| `--repair-memory` | `300g` |  | repair.sh内存参数｜repair.sh memory (-Xmx) |
+| `--dry-run` | — |  | 仅显示命令不执行｜Show commands without executing |
+| `--verbose` | — |  | 详细输出｜Verbose output |
+| `--log-file` | — | Path | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入目录（包含FASTQ文件）｜Input directory containing FASTQ files |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--suffix1` | `_1.fq.gz` |  | R1文件后缀｜R1 file suffix (default: "_1.fq.gz") |
+| `--suffix2` | `_2.fq.gz` |  | R2文件后缀｜R2 file suffix (default: "_2.fq.gz") |
+| `--tool` | `repair` | seqkit/repair | 工具选择｜Tool selection (default: repair) |
+| `--seqkit-bin` | `seqkit` |  | seqkit二进制路径｜seqkit binary path (default: "seqkit") |
+| `--repair-sh` | `repair.sh` |  | repair.sh脚本名称｜repair.sh script name (default: "repair.sh") |
+| `--repair-conda-env` | `bbmap_v.39.81` |  | repair.sh的conda环境名称｜conda environment name for repair.sh (default: "bbmap_v.39.81") |
+| `--repair-memory` | `300g` |  | repair.sh内存参数｜repair.sh memory parameter (default: "300g") |
+| `--dry-run` | — | store_true | 仅显示命令不执行｜Show commands without executing |
+| `--verbose` | — | store_true | 详细输出｜Verbose output |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level (default: INFO) |
+| `--version` | — | version |  |
+
+<!-- END PARAMS:auto -->

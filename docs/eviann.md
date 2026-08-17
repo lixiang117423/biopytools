@@ -352,3 +352,52 @@ biopytools eviann -g genome.fa -r rnaseq.txt -m 50000  # 设置为50kb
 **致谢 | Acknowledgments**:
 
 开发得到NSF grant IOS-2432298，NIH grants R01-HG006677和R35-GM130151的支持。
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 | Path | 基因组FASTA文件｜Genome FASTA file (required) |
+| `--short-reads` | — | Path | 二代转录组数据（文件或目录）｜Short-read RNA-seq data (file or directory) |
+| `--long-reads` | — | Path | 三代转录组数据（文件或目录）｜Long-read RNA-seq data (file or directory) |
+| `-e, --transcripts` | — | Path | 转录本FASTA文件｜Transcripts FASTA file |
+| `-p, --proteins` | — | Path | 蛋白质FASTA文件｜Proteins FASTA file |
+| `-s, --uniprot` | — | Path | UniProt-SwissProt FASTA｜UniProt-SwissProt FASTA |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-m, --max-intron` | — | int | 最大内含子长度｜Maximum intron length (default: auto) |
+| `-d, --ploidy` | `2` | int | 基因组倍性｜Genome ploidy |
+| `-c, --cds-gff` | — | Path | 现有CDS的GFF文件｜GFF file with existing CDS |
+| `--lncrna-tpm` | `1.0` | float | lncRNA最小TPM｜Minimum TPM for lncRNA |
+| `--partial` | `False` |  | 包含部分CDS｜Include partial CDS |
+| `--functional` | `False` |  | 执行功能注释｜Perform functional annotation |
+| `--mito-contigs` | — | Path | 线粒体contig列表｜File with mitochondrial contigs |
+| `--extra-gff` | — | Path | 额外的GFF特征｜Extra features from GFF |
+| `--debug` | `False` |  | 调试模式｜Debug mode |
+| `--verbose` | `False` |  | 详细输出｜Verbose output |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--short-reads` | — |  | 二代转录组数据（文件或目录）｜Short-read RNA-seq data (file or directory) |
+| `--long-reads` | — |  | 三代转录组数据（文件或目录）｜Long-read RNA-seq data (file or directory) |
+| `-e, --transcripts` | — |  | 转录本FASTA文件｜Transcripts FASTA file |
+| `-p, --proteins` | — |  | 蛋白质FASTA文件｜Proteins FASTA file |
+| `-s, --uniprot` | — |  | UniProt-SwissProt FASTA｜UniProt-SwissProt FASTA |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-m, --max-intron` | — | int | 最大内含子长度｜Maximum intron length |
+| `-d, --ploidy` | `2` | int | 基因组倍性｜Genome ploidy |
+| `--lncrna-tpm` | `1.0` | float | lncRNA最小TPM｜Minimum TPM for lncRNA |
+| `--partial` | — | store_true | 包含部分CDS｜Include partial CDS |
+| `--functional` | — | store_true | 执行功能注释｜Perform functional annotation |
+| `--debug` | — | store_true | 调试模式｜Debug mode |
+| `--verbose` | — | store_true | 详细输出｜Verbose output |
+
+<!-- END PARAMS:auto -->

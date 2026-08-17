@@ -57,6 +57,53 @@ biopytools promoter-extractor -g annotation.gff3 --genome asm.fa \
 
 FASTA 头为基因 ID；BED 第 6 列标识链方向，方便在 IGV / JBrowse 中可视化。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --gff` | 必填 | Path | 输入GFF3文件路径｜Input GFF3 file path |
+| `--genome` | 必填 | Path | 输入基因组FASTA文件路径｜Input genome FASTA file path |
+| `-o, --output` | `promoters` |  | 输出前缀｜Output prefix (default: promoters) |
+| `-p, --promoter-length` | `2000` | int | 启动子长度（bp）｜Promoter length in bp (default: 2000) |
+| `--min-length` | `0` | int | 最小接受长度（bp）｜Minimum acceptable length in bp (default: 0) |
+| `--gene-list` | — | Path | 基因ID列表文件｜Gene ID list file (one gene ID per line) |
+| `--no-bed` | — |  | 不输出BED格式文件｜Do not output BED format file |
+| `--no-stats` | — |  | 不输出统计文件｜Do not output statistics file |
+| `-t, --threads` | `1` | int | 线程数｜Number of threads (default: 1) |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — |  | 静默模式(只输出ERROR)｜Quiet mode (ERROR only) |
+| `--force, -f` | — |  | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — |  | 模拟运行(不实际执行)｜Dry run without execution |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --gff` | 必填 |  | 输入GFF3文件路径｜Input GFF3 file path |
+| `-g, --genome` | 必填 |  | 输入基因组FASTA文件路径｜Input genome FASTA file path |
+| `-o, --output` | `promoters` |  | 输出前缀｜Output prefix (default: promoters) |
+| `-p, --promoter-length` | `2000` | int | 启动子长度（bp）｜Promoter length in bp (default: 2000) |
+| `--min-length` | `0` | int | 最小接受长度（bp）｜Minimum acceptable length in bp (default: 0) |
+| `--gene-list` | — |  | 基因ID列表文件｜Gene ID list file (one gene ID per line) |
+| `--no-bed` | — | store_true | 不输出BED格式文件｜Do not output BED format file |
+| `--no-stats` | — | store_true | 不输出统计文件｜Do not output statistics file |
+| `-t, --threads` | `1` | int | 线程数｜Number of threads (default: 1) |
+| `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
+| `--verbose` | `0` | count | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | 静默模式(只输出ERROR)｜Quiet mode (ERROR only) |
+| `--log-level` | — |  | 日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)｜Log level (default: INFO) |
+| `-f, --force` | — | store_true | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — | store_true | 模拟运行(不实际执行)｜Dry run without execution |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 3.7+（纯 Python 实现，使用标准库读取 FASTA/GFF）

@@ -254,6 +254,61 @@ biopytools vcf2pca \
 
 **适用场景：** 工具安装在非默认路径
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 | Path | 输入VCF文件｜Input VCF file |
+| `--output, -o` | `./pca_output` | Path | 输出目录｜Output directory |
+| `--backend, -b` | `plink` | v2p/plink | 分析后端｜Analysis backend: plink (default, supports SNP/INDEL) or v2p (VCF2PCACluster, SNP-only) |
+| `--sample-info, -s` | — | Path | 样本信息文件｜Sample information file |
+| `--components, -c` | `10` | int | 主成分数量｜Number of principal components |
+| `--maf` | `0.05` | float | 最小等位基因频率阈值｜Minor allele frequency threshold (PLINK backend only) |
+| `--missing` | `0.1` | float | 最大缺失率阈值｜Maximum missing rate threshold (PLINK backend only) |
+| `--hwe` | `1e-06` | float | Hardy-Weinberg平衡p值阈值｜Hardy-Weinberg equilibrium p-value (PLINK backend only) |
+| `--apply-qc` | — |  | 启用质控过滤(MAF/缺失率/HWE,默认不过滤)｜Enable QC filtering (default: no filtering) (PLINK backend only) |
+| `--cluster` | — |  | 启用聚类分析｜Enable clustering analysis (V2P backend only) |
+| `--cluster-method` | `kmeans` | kmeans/dbscan/em | 聚类方法｜Clustering method: kmeans, dbscan, em (V2P backend only) |
+| `--cluster-k` | `3` | int | K-means聚类数｜Number of clusters for K-means (V2P backend only) |
+| `--plot, -P` | — |  | 生成PCA可视化图表｜Generate PCA visualization plots |
+| `--group-column, -g` | — | str | 分组列名(配合-s样本信息文件,按分组着色)｜Column name for grouping (with sample info file) |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--vcf2pca-path` | — | str | VCF2PCACluster路径｜VCF2PCACluster path |
+| `--plink-path` | `plink` | str | PLINK软件路径｜PLINK software path |
+| `--bcftools-path` | `bcftools` | str | BCFtools软件路径｜BCFtools software path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 输入VCF文件路径｜Input VCF file path |
+| `-v, --vcf` | — |  |  |
+| `-o, --output` | `./pca_output` |  | 输出目录｜Output directory |
+| `-s, --sample-info` | — |  | 样本信息文件｜Sample information file |
+| `-b, --backend` | `plink` | v2p/plink | 分析后端｜Analysis backend: plink (default, supports SNP/INDEL) or v2p (VCF2PCACluster, SNP-only) |
+| `-c, --components` | `10` | int | 主成分数量｜Number of principal components |
+| `--maf` | `0.05` | float | 最小等位基因频率阈值｜Minor allele frequency threshold (PLINK backend only) |
+| `--missing` | `0.1` | float | 最大缺失率阈值｜Maximum missing rate threshold (PLINK backend only) |
+| `--hwe` | `1e-06` | float | Hardy-Weinberg平衡p值阈值｜Hardy-Weinberg equilibrium p-value (PLINK backend only) |
+| `--apply-qc` | — | store_true | 启用质控过滤(MAF/缺失率/HWE,默认不过滤)｜Enable QC filtering (default: no filtering) (PLINK backend only) |
+| `--cluster` | — | store_true | 启用聚类分析｜Enable clustering analysis (V2P backend only) |
+| `--cluster-method` | `kmeans` | kmeans/dbscan/em | 聚类方法｜Clustering method: kmeans, dbscan, em (V2P backend only) |
+| `--cluster-k` | `3` | int | K-means聚类数｜Number of clusters for K-means (V2P backend only) |
+| `-P, --plot` | — | store_true | 生成PCA可视化图表｜Generate PCA visualization plots |
+| `-g, --group-column` | — |  | 分组列名(配合-s样本信息文件,按分组着色)｜Column name for grouping (with sample info file) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--vcf2pca-path` | — |  | VCF2PCACluster路径｜VCF2PCACluster path |
+| `--plink-path` | `plink` |  | PLINK软件路径｜PLINK software path |
+| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### Q1: 如何选择合适的后端？

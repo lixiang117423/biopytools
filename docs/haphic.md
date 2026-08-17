@@ -354,3 +354,80 @@ tail -f 99_logs/{prefix}_haphic.log
 
 **版本信息 | Version**: v0.13.0+
 **更新时间 | Last Updated**: 2024-12-20
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 | Path | 基因组组装文件(FASTA)｜Genome assembly file path (FASTA format) |
+| `--bam, -b` | — | Path | Hi-C BAM文件(按read名排序)｜Hi-C BAM file path (sorted by read name) |
+| `--hic1, -1` | — | Path | Hi-C Read1文件(FASTQ)｜Hi-C Read1 file path (FASTQ format) |
+| `--hic2, -2` | — | Path | Hi-C Read2文件(FASTQ)｜Hi-C Read2 file path (FASTQ format) |
+| `--chr-number, -c` | `12` | int | 染色体数量｜Number of chromosomes |
+| `--output-dir, -o` | `.` | Path | 输出目录路径｜Output directory path |
+| `--prefix` | — |  | 输出文件前缀｜Output file prefix |
+| `--force-rerun` | — |  | 强制重新运行所有步骤｜Force rerun all steps (disable resume mode) |
+| `--mapq-threshold` | `1` | int | MAPQ阈值｜MAPQ threshold |
+| `--edit-distance` | `3` | int | 编辑距离阈值｜Edit distance threshold |
+| `--re-site-cutoff` | `5` | int | Step1 RE位点过滤阈值｜Step1 RE site filtering threshold |
+| `--min-RE-sites` | `25` | int | Step2重分配最小RE位点数｜Step2 reassignment min RE sites |
+| `--aln-format` | `auto` | auto/bam/pairs | 比对文件格式｜Alignment file format |
+| `--min-inflation` | `1.1` | float | 最小膨胀值｜Min inflation |
+| `--max-inflation` | `3.0` | float | 最大膨胀值｜Max inflation |
+| `--inflation-step` | `0.1` | float | 膨胀值步长｜Inflation step |
+| `--Nx` | `80` | int | Nx参数｜Nx parameter |
+| `--min-group-len` | `5.0` | float | 最小组长度(Mbp)｜Min group length (Mbp) |
+| `--flank` | `500` | int | 邻接矩阵侧翼区域(kbp)｜Adjacency matrix flank region (kbp) |
+| `--bin-size-kbp` | `-1` | int | 聚类分箱大小(kbp),-1=自动｜Clustering bin size (kbp), -1=auto |
+| `--processes` | `8` | int | 并行进程数｜Number of parallel processes |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--memory-limit` | `100G` |  | 内存限制｜Memory limit (e.g., 64G, 300G) |
+| `--correct-nrounds` | `2` | int | 组装修正轮数(0=禁用)｜Assembly correction rounds (0=disabled) |
+| `--correct-min-coverage` | `10.0` | float | 修正最小覆盖度｜Correction min coverage |
+| `--median-cov-ratio` | `0.2` | float | 覆盖率截断乘数｜Coverage cutoff multiplier |
+| `--region-len-ratio` | `0.1` | float | 高覆盖区域长度比｜High-coverage region length ratio |
+| `--min-region-cutoff` | `5000` | int | 高覆盖区域最小长度(bp)｜Min high-coverage region length (bp) |
+| `--skip-fast-sort` | — |  | 跳过快速排序｜Skip fast sorting |
+| `--skip-allhic` | — |  | 跳过ALLHiC优化｜Skip ALLHiC optimization |
+| `--skip-ga` | — |  | 跳过ALLHiC遗传算法｜Skip ALLHiC genetic algorithm |
+| `--sort-by-input` | — |  | 按输入顺序排序｜Sort output by input order |
+| `--no-additional-rescue` | — |  | 跳过额外救援轮｜Skip additional rescue round |
+| `--remove-concentrated-links` | — |  | 移除高密度集中链接｜Remove concentrated links |
+| `--normalize-by-nlinks` | — |  | 按链接数归一化｜Normalize by number of links |
+| `--dense-matrix` | — |  | 使用稠密矩阵｜Use dense matrix |
+| `--remove-allelic-links` | — | int | 移除等位基因连锁数｜Remove allelic links count |
+| `--phasing-weight` | `1.0` | float | 相位权重｜Phasing weight |
+| `--gfa-files` | — |  | GFA文件路径(逗号分隔)｜GFA files path (comma-separated) |
+| `--generate-plots` | — |  | 生成可视化图表｜Generate visualization plots |
+| `--bin-size` | `500` | int | 接触图bin大小｜Contact map bin size |
+| `--min-len` | `1.0` | float | 最小scaffold长度｜Min scaffold length |
+| `--separate-plots` | — |  | 生成单独的图表｜Generate separate plots |
+| `--haphic-bin` | `~/miniforge3/envs/hic/bin/haphic` |  | HapHiC可执行文件路径｜HapHiC executable path |
+| `--bwa-bin` | `~/miniforge3/envs/align/bin/bwa` |  | BWA可执行文件路径｜BWA executable path |
+| `--samtools-bin` | `~/miniforge3/envs/align/bin/samtools` |  | Samtools可执行文件路径｜Samtools executable path |
+| `--samblaster-bin` | `~/miniforge3/envs/hic/bin/samblaster` |  | Samblaster可执行文件路径｜Samblaster executable path |
+| `--haphic-filter-bam-bin` | `~/miniforge3/envs/hic/bin/filter_bam` |  | HapHiC filter_bam工具路径｜HapHiC filter_bam tool path |
+| `--use-samblaster/--no-use-samblaster` | `True` |  | 使用samblaster去重｜Use samblaster deduplication |
+| `--use-haphic-filter/--no-use-haphic-filter` | `True` |  | 使用HapHiC过滤｜Use HapHiC filtering |
+| `--generate-juicebox/--no-generate-juicebox` | `True` |  | 生成Juicebox兼容文件｜Generate Juicebox compatible files |
+| `--matlock-bin` | `~/miniforge3/envs/hic/bin/matlock` |  | Matlock可执行文件路径｜Matlock executable path |
+| `--three-d-dna-dir` | `~/software/3d-dna` |  | 3D-DNA目录路径｜3D-DNA directory path |
+| `--agp2assembly-script` | `~/software/3d-dna/utils/agp2assembly.py` |  | agp2assembly脚本路径｜agp2assembly script path |
+| `--asm-visualizer-script` | `~/software/3d-dna/visualize/run-assembly-visualizer.sh` |  | asm-visualizer脚本路径｜asm-visualizer script path |
+| `--RE` | `GATC` |  | 限制性酶切位点｜Restriction enzyme sites |
+| `--quick-view` | — |  | 快速查看模式｜Quick view mode |
+| `--no-agp` | — |  | 不输出AGP文件｜Don't output AGP file |
+| `--no-fasta` | — |  | 不输出FASTA文件｜Don't output FASTA file |
+| `--no-generate-plots` | — |  | 不生成可视化图表｜Don't generate visualization plots |
+| `--no-juicebox` | — |  | 不生成Juicebox脚本｜Don't generate Juicebox script |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
+| `--log-file` | — | Path | 日志文件路径｜Log file path |
+| `--dry-run` | — |  | 测试模式,不执行实际命令｜Test mode, do not execute actual commands |
+
+<!-- END PARAMS:auto -->

@@ -195,3 +195,34 @@ sampler.run_sampling()
 - 添加Python API接口 | Added Python API interface
 - 添加详细日志输出 | Added detailed logging output
 - 添加随机种子支持 | Added random seed support
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | 必填 | Path | 输出VCF文件路径｜Output VCF file path |
+| `--sample-rate, -r` | `0.25` | float | 抽样比例｜Sampling rate |
+| `--random-seed, -s` | `1288` | int | 随机种子｜Random seed |
+| `--log-file` | — | Path | 日志文件路径｜Log file path |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose mode |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `-o, --output` | 必填 |  | 输出VCF文件路径｜Output VCF file path |
+| `-r, --sample-rate` | `0.25` | float | 抽样比例｜Sampling rate |
+| `-s, --random-seed` | `1288` | int | 随机种子｜Random seed |
+| `-v, --verbose` | `0` | count | 详细输出模式｜Verbose mode |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->

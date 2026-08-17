@@ -90,6 +90,58 @@ biopytools nlr-annotator -i output_dir/ -o output_dir/ --merge-only
 
 样本名从 `{sample}.nlr_annotator.tsv` 前缀提取；无结果 TSV 的样本（如未跑完的最后一个）自动跳过，不影响其余合并。产物为输出目录下的 `nlr_annotator_summary.tsv`。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入DNA/CDS FASTA文件或目录｜Input DNA/CDS FASTA file or directory |
+| `-o, --output-dir` | `./output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--sample-suffix` | `*.fa` |  | 目录模式下文件匹配后缀｜File match suffix for directory mode |
+| `--merge-only` | — |  | 只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator｜Merge existing result TSVs only, skip NLR-Annotator |
+| `--output-gff` | — |  | 输出GFF文件｜Output GFF file |
+| `--output-bed` | — |  | 输出BED文件｜Output BED file |
+| `--output-motifs` | — |  | 输出motifs BED文件｜Output motifs BED file |
+| `--output-alignment` | — |  | 输出motif比对FASTA｜Output motif alignment FASTA |
+| `--jar-path` | `` |  | NLR-Annotator JAR文件路径｜NLR-Annotator JAR file path |
+| `--mot-file` | `` |  | mot.txt配置文件路径｜mot.txt config file path |
+| `--store-file` | `` |  | store.txt配置文件路径｜store.txt config file path |
+| `--java-path` | `java` |  | Java解释器路径(conda env用~/miniforge3/envs/xxx/bin/java)｜Java interpreter path |
+| `--num-seqs-per-thread` | `1000` | int | 每线程处理序列数｜Sequences per thread |
+| `--distance-within-motif-combination` | `500` | int | motif组合内距离｜Distance within motif combination |
+| `--distance-for-elongating` | `2500` | int | 延伸距离｜Distance for elongating |
+| `--distance-between-motif-combinations` | `50000` | int | motif组合间距离｜Distance between motif combinations |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入DNA/CDS FASTA文件或目录｜Input DNA/CDS FASTA file or directory |
+| `-o, --output-dir` | `./output` |  | 输出目录｜Output directory (default: ./output) |
+| `--sample-suffix` | `*.fa` |  | 目录模式下文件匹配后缀｜File match suffix for directory mode (default: *.fa) |
+| `--merge-only` | — | store_true | 只合并已有结果TSV(*.nlr_annotator.tsv),不运行NLR-Annotator｜Merge existing result TSVs only, skip NLR-Annotator |
+| `--jar-path` | `` |  | NLR-Annotator JAR文件路径｜NLR-Annotator JAR file path |
+| `--mot-file` | `` |  | mot.txt配置文件路径｜mot.txt config file path |
+| `--store-file` | `` |  | store.txt配置文件路径｜store.txt config file path |
+| `--java-path` | `java` |  | Java解释器路径(默认系统java;conda env用~/miniforge3/envs/xxx/bin/java)｜Java interpreter path |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--num-seqs-per-thread` | `1000` | int | 每线程处理序列数｜Sequences per thread (default: 1000) |
+| `--output-gff` | — | store_true | 输出GFF文件｜Output GFF file |
+| `--output-bed` | — | store_true | 输出BED文件｜Output BED file |
+| `--output-motifs` | — | store_true | 输出motifs BED文件｜Output motifs BED file |
+| `--output-alignment` | — | store_true | 输出motif比对FASTA｜Output motif alignment FASTA |
+| `--distance-within-motif-combination` | `500` | int | motif组合内距离｜Distance within motif combination (default: 500) |
+| `--distance-for-elongating` | `2500` | int | 延伸距离｜Distance for elongating (default: 2500) |
+| `--distance-between-motif-combinations` | `50000` | int | motif组合间距离｜Distance between motif combinations (default: 50000) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Java运行环境（JRE >= 1.8）

@@ -175,3 +175,25 @@ awk 'NR==FNR{map[$1]=$2; next} $3 in map{$3=map[$3]}1' id_mapping.txt annotation
 ## 版本历史|Version History
 
 - **v1.0.0** (2026-01-21): 初始版本，支持按顺序重命名和染色体提取|Initial release with sequential renaming and chromosome extraction
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTA文件｜Input FASTA file |
+| `--output, -o` | 必填 |  | 输出FASTA文件｜Output FASTA file |
+| `--prefix, -p` | `Chr` |  | 序列前缀｜Sequence prefix |
+| `--no-zero-padding` | — |  | 不使用零填充(如Chr1而非Chr01)｜Do not use zero padding |
+| `--padding-width, -w` | `2` | int | 填充宽度｜Padding width |
+| `--chr-count, -n` | `0` | int | 染色体数量，提取前N条作为染色体｜Chromosome count, extract first N as chromosomes |
+| `--no-mapping` | — |  | 不保存ID映射文件｜Do not save ID mapping file |
+| `--mapping-file` | — |  | ID映射文件路径｜ID mapping file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR | 日志级别｜Log level |
+
+<!-- END PARAMS:auto -->

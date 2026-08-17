@@ -84,6 +84,83 @@ filtered_vcf/
 └── filtering_report.txt            # 过滤统计报告
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入VCF文件路径(支持.vcf/.vcf.gz)｜Input VCF file path (supports .vcf/.vcf.gz) |
+| `--output-dir, -o` | `./filtered_vcf` |  | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--snp-qual` | `30.0` | float | SNP最小质量值｜SNP minimum QUAL |
+| `--snp-dp` | `10` | int | SNP最小测序深度｜SNP minimum DP |
+| `--snp-mq` | `40.0` | float | SNP最小比对质量｜SNP minimum MQ |
+| `--snp-qd` | `2.0` | float | SNP最小质量/深度比｜SNP minimum QD |
+| `--snp-fs` | `60.0` | float | SNP最大FisherStrand值｜SNP maximum FS |
+| `--snp-sor` | `3.0` | float | SNP最大StrandOddsRatio｜SNP maximum SOR |
+| `--snp-mqrs` | `-12.5` | float | SNP最小MappingQualityRankSum｜SNP minimum MQRankSum |
+| `--snp-rprs` | `-8.0` | float | SNP最小ReadPosRankSum｜SNP minimum ReadPosRankSum |
+| `--snp-maf` | `0.05` | float | SNP最小次等位基因频率｜SNP minimum MAF |
+| `--snp-biallelic` | `True` |  | 只保留双等位位点SNP｜Keep only biallelic SNPs |
+| `--no-snp-biallelic` | `False` |  | 禁用双等位点过滤｜Disable biallelic filtering |
+| `--indel-qual` | `30.0` | float | INDEL最小质量值｜INDEL minimum QUAL |
+| `--indel-dp` | `10` | int | INDEL最小测序深度｜INDEL minimum DP |
+| `--indel-mq` | `40.0` | float | INDEL最小比对质量｜INDEL minimum MQ |
+| `--indel-qd` | `2.0` | float | INDEL最小质量/深度比｜INDEL minimum QD |
+| `--indel-fs` | `200.0` | float | INDEL最大FisherStrand值｜INDEL maximum FS |
+| `--indel-sor` | `10.0` | float | INDEL最大StrandOddsRatio｜INDEL maximum SOR |
+| `--indel-rprs` | `-20.0` | float | INDEL最小ReadPosRankSum｜INDEL minimum ReadPosRankSum |
+| `--variant-type` | `both` | both/snp_only/indel_only | 输入VCF文件的变异类型｜Variant type in input VCF |
+| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path |
+| `--verbose, -v` | — |  | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — |  | 静默模式(仅输出ERROR)｜Quiet mode (ERROR only) |
+| `--log-level` | — |  | 日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)｜Log level |
+| `--force, -f` | — |  | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — |  | 模拟运行(不实际执行)｜Dry run without execution |
+| `--repair-vcf` | — |  | 自动修复损坏的VCF文件（列数不匹配等问题）｜Auto-repair corrupted VCF files (column mismatch, etc.) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入VCF文件路径(支持压缩和未压缩)｜Input VCF file path (supports compressed and uncompressed) |
+| `-o, --output-dir` | `./filtered_vcf` |  | 输出目录｜Output directory (default: ./filtered_vcf) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--variant-type` | `both` | both/snp_only/indel_only | 输入VCF文件的变异类型｜Variant type in input VCF (default: both) |
+| `--snp-qual` | `30.0` | float | SNP最小质量值｜SNP minimum QUAL (default: 30.0) |
+| `--snp-dp` | `10` | int | SNP最小测序深度｜SNP minimum DP (default: 10) |
+| `--snp-mq` | `40.0` | float | SNP最小比对质量｜SNP minimum MQ (default: 40.0) |
+| `--snp-qd` | `2.0` | float | SNP最小质量/深度比｜SNP minimum QD (default: 2.0) |
+| `--snp-fs` | `60.0` | float | SNP最大FisherStrand值｜SNP maximum FS (default: 60.0) |
+| `--snp-sor` | `3.0` | float | SNP最大StrandOddsRatio｜SNP maximum SOR (default: 3.0) |
+| `--snp-mqrs` | `-12.5` | float | SNP最小MappingQualityRankSum｜SNP minimum MQRankSum (default: -12.5) |
+| `--snp-rprs` | `-8.0` | float | SNP最小ReadPosRankSum｜SNP minimum ReadPosRankSum (default: -8.0) |
+| `--snp-maf` | `0.05` | float | SNP最小次等位基因频率｜SNP minimum MAF (default: 0.05) |
+| `--snp-biallelic` | `True` | store_true | 只保留双等位位点SNP｜Keep only biallelic SNPs (default: True) |
+| `--no-snp-biallelic` | — | store_false | 禁用双等位位点过滤｜Disable biallelic filtering |
+| `--indel-qual` | `30.0` | float | INDEL最小质量值｜INDEL minimum QUAL (default: 30.0) |
+| `--indel-dp` | `10` | int | INDEL最小测序深度｜INDEL minimum DP (default: 10) |
+| `--indel-mq` | `40.0` | float | INDEL最小比对质量｜INDEL minimum MQ (default: 40.0) |
+| `--indel-qd` | `2.0` | float | INDEL最小质量/深度比｜INDEL minimum QD (default: 2.0) |
+| `--indel-fs` | `200.0` | float | INDEL最大FisherStrand值｜INDEL maximum FS (default: 200.0) |
+| `--indel-sor` | `10.0` | float | INDEL最大StrandOddsRatio｜INDEL maximum SOR (default: 10.0) |
+| `--indel-rprs` | `-20.0` | float | INDEL最小ReadPosRankSum｜INDEL minimum ReadPosRankSum (default: -20.0) |
+| `--bcftools-path` | `bcftools` |  | BCFtools软件路径｜BCFtools software path (default: bcftools) |
+| `-v, --verbose` | `0` | count | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | 静默模式(只输出ERROR)｜Quiet mode (ERROR only) |
+| `--log-level` | — |  | 日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)｜Log level (default: INFO) |
+| `-f, --force` | — | store_true | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — | store_true | 模拟运行(不实际执行)｜Dry run without execution |
+| `--repair-vcf` | — | store_true | 自动修复损坏的VCF文件（列数不匹配等问题）｜Auto-repair corrupted VCF files (column mismatch, etc.) |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - [BCFtools](http://www.htslib.org/)（必需，用于变异分离、过滤与合并）

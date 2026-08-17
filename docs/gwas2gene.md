@@ -56,6 +56,38 @@ biopytools gwas2gene -g gwas.txt -p Pvalue -a annotation.gff3 -f gene_func.tsv -
 | Distance | SNP到基因的距离 |
 | Function | 基因功能(若提供`--func`) |
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--gwas, -g` | 必填 | Path | GWAS结果文件路径｜GWAS result file path |
+| `--pval-col, -p` | 必填 | str | P值所在列名或列号（1-based）｜P-value column name or index (1-based) |
+| `--threshold, -t` | `1e-05` | float | P值阈值｜P-value threshold |
+| `--window, -w` | `200000` | int | 上下游窗口大小｜Window size upstream/downstream in bp |
+| `--gff` | 必填 | Path | GFF3注释文件路径｜GFF3 annotation file path |
+| `--output, -o` | 必填 | str | 输出文件路径｜Output file path |
+| `--func, -f` | — | Path | 功能注释文件路径｜Function annotation file path (optional) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--gwas` | 必填 |  | GWAS结果文件路径｜GWAS result file path |
+| `--pval-col` | 必填 |  | P值所在列名或列号（1-based）｜P-value column name or index (1-based) |
+| `--threshold` | `1e-05` | float | P值阈值｜P-value threshold (default: 1e-5) |
+| `--window` | `200000` | int | 上下游窗口大小｜Window size upstream/downstream in bp (default: 200000) |
+| `--gff` | 必填 |  | GFF3注释文件路径｜GFF3 annotation file path |
+| `--output` | 必填 |  | 输出文件路径｜Output file path |
+| `--func` | — |  | 功能注释文件路径｜Function annotation file path (optional) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **Python库**: pandas (文件处理), 无需外部生物信息学工具

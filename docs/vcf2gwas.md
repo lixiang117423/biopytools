@@ -53,6 +53,20 @@ biopytools vcf2gwas --help
 - `qq_plot_*.png`: QQ图
 - 运行日志文件
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vcf2gwas-env` | `vcf2gwas_v.0.8.9` |  | [STR] conda环境名｜conda env name (default: vcf2gwas_v.0.8.9) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **vcf2gwas**: conda环境 (https://github.com/frankraden/vcf2gwas)

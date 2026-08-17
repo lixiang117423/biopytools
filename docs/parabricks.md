@@ -394,3 +394,53 @@ bcftools query -f '%CHROM\t%POS\t%QUAL\t%DP\n' cohort.g.vcf.gz | \
 **最后更新**: 2024年12月17日
 **版本**: 1.0.0
 **作者**: biopytools开发团队
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input-dir, -i` | 必填 |  | 输入目录(FASTQ文件)｜Input directory containing FASTQ files |
+| `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--reference, -r` | 必填 |  | 参考基因组文件｜Reference genome file |
+| `--workflow, -w` | `all` | fq2bam/haplotypecaller/genotypegvcf/all | 工作流程｜Workflow: fq2bam, haplotypecaller, genotypegvcf, or all |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--parabricks-path` | `~/software/containers/parabricks.sif` | str | Parabricks程序路径｜Parabricks program path |
+| `--tmp-dir` | — | Path | 临时目录｜Temporary directory |
+| `--gvcf/--no-gvcf` | `True` |  | 输出GVCF格式｜Output GVCF format |
+| `--joint-calling/--no-joint-calling` | `True` |  | 启用Joint Calling｜Enable Joint Calling |
+| `--combined-output` | `combined.g.vcf` |  | Joint Calling输出文件名｜Joint Calling output filename |
+| `--min-confidence` | `30` | int | 最小置信度阈值｜Minimum confidence threshold |
+| `--min-base-quality` | `20` | int | 最小碱基质量阈值｜Minimum base quality threshold |
+| `--ploidy` | `2` | int | 倍性｜Ploidy |
+| `--pcr-indel-model` | `CONSERVATIVE` | str | PCR indel模型｜PCR indel model |
+| `--read1-pattern` | `*_1.clean.fq.gz` | str | R1文件模式｜R1 file pattern |
+| `--read2-pattern` | `*_2.clean.fq.gz` | str | R2文件模式｜R2 file pattern |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-dir` | 必填 |  | 输入目录 (FASTQ文件)｜Input directory (FASTQ files) |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-r, --reference` | 必填 |  | 参考基因组｜Reference genome |
+| `-w, --workflow` | `all` | fq2bam/haplotypecaller/genotypegvcf/all | 工作流程｜Workflow: fq2bam(比对), haplotypecaller(变异检测), genotypegvcf(合并), all(完整流程) |
+| `-t, --threads` | `88` | int | 线程数｜Threads |
+| `--parabricks-path` | `~/software/containers/parabricks.sif` |  | parabricks路径｜parabricks path |
+| `--tmp-dir` | — |  | 临时目录｜Temporary directory |
+| `--min-confidence` | `30` | int | 最小置信度｜Min confidence |
+| `--min-base-quality` | `20` | int | 最小碱基质量｜Min base quality |
+| `--ploidy` | `2` | int | 倍性｜Ploidy |
+| `--pcr-indel-model` | `CONSERVATIVE` |  | PCR indel模型｜PCR indel model |
+| `--read1-pattern` | `*_1.clean.fq.gz` |  | R1文件模式｜R1 pattern |
+| `--read2-pattern` | `*_2.clean.fq.gz` |  | R2文件模式｜R2 pattern |
+| `--no-gvcf` | — | store_false | 输出VCF而非GVCF｜Output VCF instead of GVCF |
+| `--no-joint-calling` | `True` | store_false | 禁用Joint Calling｜Disable Joint Calling |
+| `--combined-output` | `combined.g.vcf` |  | Joint Calling输出文件名｜Joint Calling output filename |
+
+<!-- END PARAMS:auto -->

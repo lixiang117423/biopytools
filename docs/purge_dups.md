@@ -206,6 +206,52 @@ biopytools purge-dups \
     -o manual_purged
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 基因组组装文件(FASTA格式)｜Genome assembly file in FASTA format |
+| `--reads, -r` | 必填 |  | 测序文件(PacBio/HiFi/illumina)｜Sequencing reads file |
+| `--output-dir, -o` | `./purge_dups_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--read-type` | `hifi` | pacbio/hifi/illumina | 测序数据类型｜Sequencing data type |
+| `--min-fraction` | `0.8` | float | 最小比例阈值｜Minimum fraction threshold |
+| `--two-round-chaining` | `True` |  | 启用两轮链式匹配｜Enable two-round chaining |
+| `--no-two-round-chaining` | — |  | 禁用两轮链式匹配｜Disable two-round chaining |
+| `--ends-only` | `True` |  | 只去除contig末端的冗余｜Only remove duplications at contig ends |
+| `--no-ends-only` | — |  | 也去除contig中间的冗余｜Also remove duplications in contig middle |
+| `--min-primary-length` | `10000` | int | 最小主contig长度｜Minimum primary contig length |
+| `--step, -s` | — | 1/2/3/4/5 | 运行指定步骤｜Run only specified step: 1: 计算深度｜Calculate coverage 2: 计算阈值｜Calculate cutoffs 3: 分割比对｜Split and align 4: 去冗余｜Purge duplications 5: 获取序列｜Get sequences |
+| `--split-by-n` | — |  | split_fa按N分割｜split_fa split by N |
+| `--manual-cutoffs` | — | Path | 手动指定阈值文件｜Manual cutoffs file |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 基因组组装文件(FASTA格式)｜Genome assembly file in FASTA format |
+| `-r, --reads` | 必填 |  | 测序文件(PacBio/HiFi/illumina)｜Sequencing reads file |
+| `-o, --output-dir` | `./purge_dups_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--read-type` | `hifi` | pacbio/hifi/illumina | 测序数据类型｜Sequencing data type |
+| `--min-fraction` | `0.8` | float | 最小比例阈值｜Minimum fraction threshold |
+| `--two-round-chaining` | `True` | store_true | 启用两轮链式匹配｜Enable two-round chaining |
+| `--no-two-round-chaining` | — | store_false | 禁用两轮链式匹配｜Disable two-round chaining |
+| `--ends-only` | `True` | store_true | 只去除contig末端的冗余｜Only remove duplications at contig ends |
+| `--no-ends-only` | — | store_false | 也去除contig中间的冗余｜Also remove duplications in contig middle |
+| `--min-primary-length` | `10000` | int | 最小主contig长度｜Minimum primary contig length |
+| `-s, --step` | — | 1/2/3/4/5 | 只运行指定步骤｜Run only specified step (1: 计算深度｜coverage, 2: 计算阈值｜cutoffs, 3: 分割比对｜split&align, 4: 去冗余｜purge, 5: 获取序列｜get seqs) |
+| `--split-by-n` | — | store_true | split_fa按N分割｜split_fa split by N |
+| `--manual-cutoffs` | — |  | 手动指定阈值文件｜Manual cutoffs file |
+
+<!-- END PARAMS:auto -->
+
 ## 结果解读 | Result Interpretation
 
 ### 覆盖度阈值说明 | Coverage Cutoffs Explanation

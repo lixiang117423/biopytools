@@ -606,3 +606,87 @@ Swave输出的VCF文件包含以下关键信息：
 Swave: Structural variant detection from pangenome graphs
 链接: https://github.com/songbowang125/Swave
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --assemblies-tsv` | 必填 |  | 样本组装TSV文件｜Assemblies TSV file |
+| `-r, --ref-fasta` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `-g, --gfa-file` | 必填 |  | 泛基因组图GFA文件｜Pangenome graph GFA file |
+| `-s, --gfa-source` | 必填 | minigraph/cactus/pggb | GFA文件来源｜GFA file source (minigraph/cactus/pggb) |
+| `--swave-path` | `~/software/swave/Swave-main` |  | Swave软件路径｜Swave software path |
+| `-o, --output-dir` | `./swave_output` |  | 输出目录｜Output directory |
+| `--decomposed-vcf` | — |  | Decomposed VCF文件(cactus/pggb必需)｜Decomposed VCF file (required for cactus/pggb) |
+| `--output-mode` | `auto` | auto/population/single | 输出模式｜Output mode |
+| `--spec-samples` | — |  | 指定样本｜Specify samples |
+| `--min-sv-size` | `50` | int | 最小SV大小｜Minimum SV size |
+| `--max-sv-size` | `1000000` | int | 最大SV大小｜Maximum SV size |
+| `--max-sv-comps` | `5` | int | 最大SV组件数｜Maximum number of SV components |
+| `--dup-to-ins` | — |  | 将duplication报告为insertion｜Report duplications as insertions |
+| `--remove-small` | — |  | 移除小于min_sv_size的节点｜Remove nodes smaller than min_sv_size |
+| `--force-reverse` | — |  | 强制调用反向映射snarls｜Force call reversed mapping snarls |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--minigraph-path` | `minigraph` |  | minigraph工具路径｜minigraph tool path |
+| `--gfatools-path` | `gfatools` |  | gfatools工具路径｜gfatools tool path |
+| `--spec-snarl` | — |  | 只调用特定snarl｜Only call specific snarl |
+| `--spec-path` | — |  | 只调用特定path｜Only call specific path |
+| `--vcf-path` | 必填 |  | VCF文件路径｜VCF file path |
+| `--gfa-path` | 必填 |  | GFA文件路径｜GFA file path |
+| `--ref-path` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `--output-path` | — |  | 输出路径｜Output path |
+| `--force-pangenie` | — |  | 强制输出满足pangenie要求的序列｜Force output sequences to meet pangenie requirements |
+| `--ref-vcf-path` | — |  | 参考VCF文件路径｜Reference VCF file path |
+| `--force-vg` | — |  | 强制输出满足vg要求的序列｜Force output sequences to meet vg requirements |
+| `--spec-csv` | — | INV/DUP/All | 特定CSV类型｜Specific CSV type (INV/DUP/All) |
+| `-i, --vcf-file` | 必填 |  | swave converted VCF文件｜swave converted VCF file |
+| `-o, --output-file` | `pav_matrix.tsv` |  | 输出TSV文件｜Output TSV file |
+| `--min-ac` | `1` | int | 最小等位基因数｜Minimum allele count |
+| `--no-strip-prefix` | — |  | 保留CHROM中的样本前缀｜Keep sample prefix in CHROM |
+| `--svtype` | — |  | 仅保留指定SV类型｜Only keep specified SV types (e.g., DUP INS DEL) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --assemblies-tsv` | 必填 |  | 样本组装TSV文件｜Assemblies TSV file |
+| `-r, --ref-fasta` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `-g, --gfa-file` | 必填 |  | 泛基因组图GFA文件｜Pangenome graph GFA file |
+| `-s, --gfa-source` | 必填 | minigraph/cactus/pggb | GFA文件来源｜GFA file source (minigraph/cactus/pggb) |
+| `--swave-path` | `~/software/swave/Swave-main` |  | Swave软件路径｜Swave software path |
+| `-o, --output-dir` | `./swave_output` |  | 输出目录｜Output directory |
+| `--decomposed-vcf` | — |  | Decomposed VCF文件(cactus/pggb必需)｜Decomposed VCF file (required for cactus/pggb) |
+| `--output-mode` | `auto` | auto/population/single | 输出模式｜Output mode |
+| `--spec-samples` | — |  | 指定样本｜Specify samples |
+| `--min-sv-size` | `50` | int | 最小SV大小｜Minimum SV size |
+| `--max-sv-size` | `1000000` | int | 最大SV大小｜Maximum SV size |
+| `--max-sv-comps` | `5` | int | 最大SV组件数｜Maximum number of SV components |
+| `--dup-to-ins` | — | store_true | 将duplication报告为insertion｜Report duplications as insertions |
+| `--remove-small` | — | store_true | 移除小于min_sv_size的节点｜Remove nodes smaller than min_sv_size |
+| `--force-reverse` | — | store_true | 强制调用反向映射snarls｜Force call reversed mapping snarls |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--minigraph-path` | `minigraph` |  | minigraph工具路径｜minigraph tool path |
+| `--gfatools-path` | `gfatools` |  | gfatools工具路径｜gfatools tool path |
+| `--spec-snarl` | — |  | 只调用特定snarl｜Only call specific snarl |
+| `--spec-path` | — |  | 只调用特定path｜Only call specific path |
+| `--vcf-path` | 必填 |  | VCF文件路径｜VCF file path |
+| `--gfa-path` | 必填 |  | GFA文件路径｜GFA file path |
+| `--ref-path` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `--output-path` | — |  | 输出路径｜Output path |
+| `--force-pangenie` | — | store_true | 强制输出满足pangenie要求的序列｜Force output sequences to meet pangenie requirements |
+| `--ref-vcf-path` | — |  | 参考VCF文件路径｜Reference VCF file path |
+| `--force-vg` | — | store_true | 强制输出满足vg要求的序列｜Force output sequences to meet vg requirements |
+| `--spec-csv` | — | INV/DUP/All | 特定CSV类型｜Specific CSV type (INV/DUP/All) |
+| `-i, --vcf-file` | 必填 |  | swave converted VCF文件｜swave converted VCF file |
+| `-o, --output-file` | `pav_matrix.tsv` |  | 输出TSV文件｜Output TSV file |
+| `--min-ac` | `1` | int | 最小等位基因数｜Minimum allele count (default: 1) |
+| `--no-strip-prefix` | — | store_true | 保留CHROM中的样本前缀｜Keep sample prefix in CHROM |
+| `--svtype` | — |  | 仅保留指定SV类型｜Only keep specified SV types (e.g., DUP INS DEL) |
+
+<!-- END PARAMS:auto -->

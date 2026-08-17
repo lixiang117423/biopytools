@@ -456,3 +456,93 @@ The Sequence Alignment/Map format and SAMtools.
 Bioinformatics, 2009, 25(16): 2078-2079.
 doi: 10.1093/bioinformatics/btp352
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 参考基因组文件｜Reference genome file |
+| `--input, -i` | 必填 |  | 输入FASTQ目录｜Input FASTQ directory |
+| `--pattern, -p` | `_1.clean.fq.gz` | str | FASTQ文件匹配模式｜FASTQ file pattern |
+| `--output-dir, -o` | `./bwa_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--bwa-k` | `19` | int | 最小种子长度｜Minimum seed length |
+| `--bwa-w` | `100` | int | 带宽｜Band width |
+| `--bwa-d` | `100` | int | X-dropoff｜Off-diagonal X-dropoff |
+| `--bwa-r` | `1.5` | float | 内部种子因子｜Internal seed factor |
+| `--bwa-c` | `500` | int | 种子出现次数阈值｜Seed occurrence threshold |
+| `--bwa-D` | `0.5` | float | 短链丢弃比例｜Short chain drop fraction |
+| `--bwa-W` | `0` | int | 最小链长｜Minimum chain length |
+| `--bwa-m` | `50` | int | 配对拯救轮数｜Mate rescue rounds |
+| `--bwa-S` | — |  | 跳过配对拯救｜Skip mate rescue |
+| `--bwa-P` | — |  | 跳过配对｜Skip pairing |
+| `--bwa-A` | `1` | int | 匹配得分｜Match score |
+| `--bwa-B` | `4` | int | 错配罚分｜Mismatch penalty |
+| `--bwa-O` | `6,6` |  | Gap开放罚分｜Gap open penalty |
+| `--bwa-E` | `1,1` |  | Gap延伸罚分｜Gap extension penalty |
+| `--bwa-L` | `5,5` |  | 末端剪切罚分｜Clipping penalty |
+| `--bwa-U` | `17` | int | 未配对罚分｜Unpaired penalty |
+| `--bwa-M` | — |  | 标记次要比对｜Mark shorter split hits as secondary |
+| `--bwa-T` | `30` | int | 最小输出得分｜Minimum score to output |
+| `--bwa-a` | — |  | 输出所有比对｜Output all alignments |
+| `--bwa-C` | — |  | 附加FASTQ注释｜Append FASTA/FASTQ comment |
+| `--bwa-V` | — |  | 输出参考序列头｜Output reference FASTA header |
+| `--bwa-Y` | — |  | 软剪切补充比对｜Soft clipping for supplementary alignments |
+| `--markdup` | — |  | 标记重复序列｜Mark duplicate reads |
+| `--remove-dup` | — |  | 移除重复序列｜Remove duplicate reads |
+| `--min-base-quality` | `0` | int | 最小碱基质量｜Minimum base quality |
+| `--min-mapping-quality` | `0` | int | 最小比对质量｜Minimum mapping quality |
+| `--max-depth` | `0` | int | 最大深度限制｜Max depth limit |
+| `--window-size` | `1000000` | int | 窗口大小｜Window size in bp |
+| `--step-size` | `100000` | int | 步长｜Step size in bp |
+| `--resume` | — |  | 断点续传｜Resume skip completed samples |
+| `--keep-sam` | — |  | 保留SAM文件｜Keep SAM files |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 参考基因组文件｜Reference genome file |
+| `-i, --input` | 必填 |  | 输入FASTQ文件目录｜Input FASTQ directory |
+| `-p, --pattern` | `_1.clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern (default: _1.clean.fq.gz) |
+| `-o, --output-dir` | `./bwa_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `--bwa-k` | `19` | int | 最小种子长度｜Minimum seed length |
+| `--bwa-w` | `100` | int | 带宽｜Band width |
+| `--bwa-d` | `100` | int | X-dropoff｜Off-diagonal X-dropoff |
+| `--bwa-r` | `1.5` | float | 内部种子因子｜Internal seed factor |
+| `--bwa-c` | `500` | int | 种子出现次数阈值｜Seed occurrence threshold |
+| `--bwa-D` | `0.5` | float | 短链丢弃比例｜Short chain drop fraction |
+| `--bwa-W` | `0` | int | 最小链长｜Minimum chain length |
+| `--bwa-m` | `50` | int | 配对拯救轮数｜Mate rescue rounds |
+| `--bwa-S` | — | store_true | 跳过配对拯救｜Skip mate rescue |
+| `--bwa-P` | — | store_true | 跳过配对｜Skip pairing |
+| `--bwa-A` | `1` | int | 匹配得分｜Match score |
+| `--bwa-B` | `4` | int | 错配罚分｜Mismatch penalty |
+| `--bwa-O` | `6,6` |  | Gap开放罚分｜Gap open penalty |
+| `--bwa-E` | `1,1` |  | Gap延伸罚分｜Gap extension penalty |
+| `--bwa-L` | `5,5` |  | 末端剪切罚分｜Clipping penalty |
+| `--bwa-U` | `17` | int | 未配对罚分｜Unpaired penalty |
+| `--bwa-M` | — | store_true | 标记次要比对｜Mark shorter split hits as secondary |
+| `--bwa-T` | `30` | int | 最小输出得分｜Minimum score to output |
+| `--bwa-a` | — | store_true | 输出所有比对｜Output all alignments |
+| `--bwa-C` | — | store_true | 附加FASTQ注释｜Append FASTA/FASTQ comment |
+| `--bwa-V` | — | store_true | 输出参考序列头｜Output reference FASTA header |
+| `--bwa-Y` | — | store_true | 软剪切补充比对｜Soft clipping for supplementary alignments |
+| `--markdup` | — | store_true | 标记重复序列｜Mark duplicate reads |
+| `--remove-dup` | — | store_true | 移除重复序列｜Remove duplicate reads |
+| `--min-base-quality` | `0` | int | 最小碱基质量｜Minimum base quality |
+| `--min-mapping-quality` | `0` | int | 最小比对质量｜Minimum mapping quality |
+| `--max-depth` | `0` | int | 最大深度限制｜Max depth limit |
+| `--window-size` | `1000000` | int | 窗口大小｜Window size in bp |
+| `--step-size` | `100000` | int | 步长｜Step size in bp |
+| `--resume` | — | store_true | 断点续传｜Resume skip completed samples |
+| `--keep-sam` | — | store_true | 保留SAM文件｜Keep SAM files |
+
+<!-- END PARAMS:auto -->

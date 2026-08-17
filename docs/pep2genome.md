@@ -212,3 +212,38 @@ Issues and Pull Requests are welcome!
 **开发团队** | **Development Team**: Biopytools Development Team
 **版本** | **Version**: 1.0.0
 **最后更新** | **Last Updated**: 2025
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--protein, -p` | 必填 |  | 蛋白质FASTA文件｜Protein FASTA file |
+| `--output-dir, -o` | `./pep2genome_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--miniprot-path` | `miniprot` |  | Miniprot工具路径｜Miniprot tool path |
+| `--no-gff3` | — |  | 不导出GFF3格式｜Do not export GFF3 format |
+| `--no-bed` | — |  | 不导出BED格式｜Do not export BED format |
+| `--no-statistics` | — |  | 不生成统计报告｜Do not generate statistics report |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--protein` | 必填 |  | 蛋白质FASTA文件｜Protein FASTA file |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--miniprot-path` | `miniprot` |  | Miniprot工具路径｜Miniprot tool path (default: miniprot) |
+| `--no-gff3` | — | store_false | 不导出GFF3格式｜Do not export GFF3 format |
+| `--no-bed` | — | store_false | 不导出BED格式｜Do not export BED format |
+| `--no-statistics` | — | store_false | 不生成统计报告｜Do not generate statistics report |
+| `--no-extract` | — | store_false | 不提取基因组序列｜Do not extract genome sequences |
+
+<!-- END PARAMS:auto -->

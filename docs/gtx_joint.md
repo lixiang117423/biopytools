@@ -446,3 +446,41 @@ ls -v Chr_*.joint.vcf.gz | xargs bcftools concat -o merged.vcf.gz
 GTX Joint Calling Command Generator: Automated script generation for large-scale joint variant calling.
 https://github.com/yourusername/biopytools
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--ref, -r` | 必填 |  | 参考基因组文件路径｜Reference genome file path |
+| `--input, -i` | 必填 |  | GVCF文件目录｜GVCF files directory |
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--tmp-dir, -T` | `./tmp` | Path | 临时目录｜Temporary directory |
+| `--script, -s` | `run_gtx_joint.sh` |  | 输出脚本文件名｜Output script filename |
+| `--faketime, -f` | `2020-10-20 00:00:00` |  | faketime时间｜faketime time |
+| `--pattern, -p` | — |  | 染色体过滤正则表达式｜Chromosome filter pattern (e.g., "^Chr[0-9]+$") |
+| `--window, -w` | — | int | 区间大小(bp)｜Window size in bp (e.g., 10000000 for 10M) |
+| `--gtx, -g` | `~/software/gtx/bin/gtx` |  | GTX可执行文件路径｜GTX executable path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --gtx` | `~/software/gtx/bin/gtx` |  | GTX可执行文件路径｜GTX executable path |
+| `-r, --ref` | 必填 |  | 参考基因组文件路径｜Reference genome file path |
+| `-i, --input` | 必填 |  | GVCF文件所在目录｜GVCF files directory |
+| `-o, --output` | 必填 |  | 输出结果目录｜Output directory |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `-T, --tmp-dir` | `./tmp` |  | 临时目录｜Temporary directory |
+| `-s, --script` | `run_gtx_joint.sh` |  | 输出脚本文件名｜Output script filename |
+| `-f, --faketime` | `2020-10-20 00:00:00` |  | faketime时间｜faketime time |
+| `-p, --pattern` | — |  | 染色体过滤正则｜Chromosome filter pattern |
+| `-w, --window` | — | int | 区间大小(bp)｜Window size in bp (e.g., 10000000 for 10M) |
+
+<!-- END PARAMS:auto -->

@@ -56,6 +56,40 @@ genbank_output/
 
 默认按样品与基因两层目录分离，便于后续挑取同源基因集合；若序列过短（小于 `--min-length`）会被过滤。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | GenBank文件目录｜Input GenBank files directory |
+| `--output-dir, -o` | `./genbank_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 并行线程数｜Number of parallel threads |
+| `--min-length` | `10` | int | 最小蛋白长度(氨基酸)｜Minimum protein length (amino acids) |
+| `--phylo, --create-phylogenetic-matrix` | — |  | 创建系统发育分析矩阵｜Create phylogenetic analysis matrix |
+| `--no-sample-sep` | — |  | 不按样本分离输出｜Do not separate output by sample |
+| `--no-gene-sep` | — |  | 不按基因分离输出｜Do not separate output by gene |
+| `--keep-unknown` | — |  | 保留未知基因｜Keep unknown genes |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入GenBank文件目录｜Input GenBank files directory |
+| `-o, --output-dir` | `./genbank_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `88` | int | 并行线程数｜Number of parallel threads |
+| `--min-length` | `10` | int | 最小蛋白质长度(氨基酸)｜Minimum protein length (amino acids) |
+| `--phylo, --create-phylogenetic-matrix` | — | store_true | 创建系统发育分析矩阵｜Create phylogenetic analysis matrix |
+| `--no-sample-sep` | — | store_true | 不按样品分离输出｜Do not separate output by sample |
+| `--no-gene-sep` | — | store_true | 不按基因分离输出｜Do not separate output by gene |
+| `--keep-unknown` | — | store_true | 保留unknown基因｜Keep unknown genes |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 3.7+

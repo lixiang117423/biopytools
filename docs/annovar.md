@@ -466,3 +466,44 @@ Wang, K., Li, M., & Hakonarson, H. (2010).
 ANNOVAR: functional annotation of genetic variants from high-throughput sequencing data. 
 Nucleic acids research, 38(16), e164-e164.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | VCF变异文件｜VCF variant file path |
+| `--gff3, -g` | 必填 |  | GFF3注释文件｜GFF3 annotation file path |
+| `--genome, -G` | 必填 |  | 基因组序列文件｜Genome sequence file path |
+| `--build-ver, -b` | 必填 |  | 基因组版本(例如: OV, KY131)｜Genome build version identifier (e.g., OV, KY131) |
+| `--annovar-path, -a` | `~/software/annovar/annovar` |  | ANNOVAR软件路径｜ANNOVAR software installation path |
+| `--output-dir, -o` | `./annovar_output` | Path | 输出目录(同时作为ANNOVAR数据库目录)｜Output directory (also the ANNOVAR database dir) |
+| `--qual-threshold, -q` | `20` | int | VCF质量阈值｜VCF quality filtering threshold |
+| `--step, -s` | — | IntRange | 运行指定步骤｜Run only specified step: 1: GFF3转换｜GFF3 conversion 2: 提取序列｜Extract sequences 3: VCF处理｜VCF processing 4: 变异注释｜Variant annotation |
+| `--skip-gff-cleaning` | — |  | 跳过GFF3清理｜Skip GFF3 file format cleaning |
+| `--skip-gff-fix` | — |  | 跳过GFF3修复｜Skip automatic GFF3 file fixes |
+| `--enable-vcf-filter` | — |  | 启用VCF过滤(默认跳过)｜Enable VCF filtering step (skipped by default) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | VCF变异文件路径｜VCF variant file path |
+| `-g, --gff3` | 必填 |  | GFF3注释文件路径｜GFF3 annotation file path |
+| `-G, --genome` | 必填 |  | 基因组序列文件路径｜Genome sequence file path |
+| `-b, --build-ver` | 必填 |  | 基因组构建版本标识符(如: OV, KY131) - 不应包含路径分隔符｜Genome build version identifier (e.g., OV, KY131) - should not contain path separators |
+| `-a, --annovar-path` | `~/software/annovar/annovar` |  | ANNOVAR软件安装路径｜ANNOVAR software installation path |
+| `-o, --output-dir` | `./annovar_output` |  | 输出目录(同时作为ANNOVAR数据库目录,refGene在此生成)｜Output directory (also the ANNOVAR database dir; refGene is built here) |
+| `-q, --qual-threshold` | `20` | int | VCF质量过滤阈值(仅在启用VCF过滤时生效)｜VCF quality filtering threshold (only effective when VCF filtering is enabled) |
+| `-s, --step` | — | 1/2/3/4 | 只运行指定步骤｜Run only specified step (1: gff3转换｜gff3 conversion, 2: 提取序列｜extract sequences, 3: VCF处理｜VCF processing, 4: 注释｜annotation) |
+| `--skip-gff-cleaning` | — | store_true | 跳过GFF3文件的格式清理(attributes清理和坐标修复)｜Skip GFF3 file format cleaning (attributes cleaning and coordinate fixing) |
+| `--skip-gff-fix` | — | store_true | 跳过GFF3文件的自动修复(CDS phase等问题)｜Skip automatic GFF3 file fixes (CDS phase and other issues) |
+| `--skip-vcf-filter` | `True` | store_true | 跳过VCF过滤步骤，直接使用输入的VCF文件(默认启用)｜Skip VCF filtering step, use input VCF file directly (enabled by default) |
+| `--enable-vcf-filter` | — | store_true | 启用VCF过滤步骤(使用bcftools)｜Enable VCF filtering step (using bcftools) |
+
+<!-- END PARAMS:auto -->

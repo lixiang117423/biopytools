@@ -58,6 +58,36 @@ biopytools mga -r hifi.fq.gz -o out_dir/ --dry-run
 
 MGA 二进制路径按优先级: 环境变量 `MGA_PATH` > `~/.config/biopytools/config.yml` 的 `tools.mga` > 代码默认值(默认指向 `~/software/MGA/consensusLJA/bin/MGA`)。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-r, --reads` | 必填 |  | HiFi reads(fasta/fastq,可gz)｜HiFi reads (fasta/fastq, may be gz) |
+| `-o, --output-dir` | 必填 | Path | 输出目录｜Output directory |
+| `-t, --threads` | `50` |  | 线程数｜Threads |
+| `--mga-path` | — |  | MGA二进制路径｜MGA binary path |
+| `--conda-env` | `mga` |  | conda环境名｜conda env name |
+| `--dry-run` | `False` |  | 只打印命令不执行｜Print command without executing |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-r, --reads` | 必填 |  | [FILE] HiFi reads(fasta/fastq,可gz)｜HiFi reads (fasta/fastq, may be gz) |
+| `-o, --output-dir` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `-t, --threads` | `50` | int | 线程数(默认50)｜Threads (default 50) |
+| `--mga-path` | — |  | MGA二进制路径｜MGA binary path |
+| `--conda-env` | `mga` |  | conda环境名(默认mga)｜conda env name (default mga) |
+| `--dry-run` | — | store_true | 只打印命令不执行｜Print command without executing |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **MGA / consensusLJA**: 共识组装主程序

@@ -192,3 +192,33 @@ cat agp2table.log
 ## 许可证 | License
 
 MIT License
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | AGP文件路径｜AGP file path |
+| `--output, -o` | 必填 | Path | 输出表格文件路径｜Output table file path |
+| `--format, -f` | `txt` | txt/tsv/csv/xlsx | 输出格式｜Output format |
+| `--statistics` | — |  | 添加统计信息｜Add statistics |
+| `--no-headers` | — |  | 不添加表头｜Do not add headers |
+| `--no-grouping` | — |  | 不按scaffold分组｜Do not group by scaffold |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | AGP文件路径｜AGP file path |
+| `-o, --output` | 必填 |  | 输出表格文件路径｜Output table file path |
+| `-f, --format` | `txt` | txt/tsv/csv/xlsx | 输出格式｜Output format |
+| `--statistics` | — | store_true | 添加统计信息｜Add statistics |
+| `--no-headers` | — | store_true | 不添加表头｜Do not add headers |
+| `--no-grouping` | — | store_true | 不按scaffold分组｜Do not group by scaffold |
+
+<!-- END PARAMS:auto -->

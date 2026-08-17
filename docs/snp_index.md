@@ -297,6 +297,77 @@ visualizer.create_comprehensive_plot("comprehensive.png")
 visualizer.create_manhattan_plot("manhattan.png")
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | — |  | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | `./snp_index_output` |  | 输出目录路径｜Output directory path |
+| `--result-file, -r` | — |  | 已有结果文件路径(用于分析模式)｜Existing result file path (for analysis mode) |
+| `--prefix, -p` | `snp_index` |  | 输出文件前缀｜Output file prefix |
+| `--min-depth` | `10` | int | 最小测序深度｜Minimum sequencing depth |
+| `--min-quality` | `20` | int | 最小质量值｜Minimum quality value |
+| `--min-mapping-quality` | `20` | int | 最小mapping质量｜Minimum mapping quality |
+| `--sample-names` | — | str | 指定样本名称(sample1 sample2)｜Specify sample names (sample1 sample2) |
+| `--extreme-threshold` | `0.8` | float | 极端DeltaSNP index阈值｜Extreme DeltaSNP index threshold |
+| `--region-threshold` | `0.5` | float | 区域检测阈值｜Region detection threshold |
+| `--min-region-snps` | `5` | int | 区域最少SNP数量｜Minimum SNPs for region |
+| `--max-region-gap` | `10000` | int | 区域最大gap(bp)｜Maximum gap in region (bp) |
+| `--window-size` | `1000000` | int | 滑动窗口大小(bp)｜Sliding window size in bp |
+| `--step-size` | `100000` | int | 滑动步长(bp)｜Sliding step size in bp |
+| `--min-window-snps` | `5` | int | 窗口最少SNP数｜Minimum SNPs per window |
+| `--confidence-level` | `0.95` | float | 置信水平｜Confidence level |
+| `--disable-sliding-window-plot` | — |  | 禁用滑动窗口折线图｜Disable sliding window line plot |
+| `--create-multi-chrom-plot` | — |  | 创建多染色体分离图｜Create multi-chromosome separated plot |
+| `--calculate-only` | — |  | 只计算SNP index，不分析｜Calculate SNP index only, no analysis |
+| `--analyze-only` | — |  | 只分析已有结果，不计算｜Analyze existing results only, no calculation |
+| `--skip-visualization` | — |  | 跳过可视化｜Skip visualization |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--force, -f` | — |  | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — |  | 静默模式｜Quiet mode (ERROR only) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 输入VCF文件路径｜Input VCF file path (required for calculation) |
+| `-o, --output` | `./snp_index_output` |  | 输出目录路径｜Output directory path |
+| `-p, --prefix` | `snp_index` |  | 输出文件前缀｜Output file prefix |
+| `-r, --result-file` | — |  | 已有结果文件路径｜Existing result file path (for analysis only) |
+| `--min-depth` | `10` | int | 最小测序深度｜Minimum sequencing depth |
+| `--min-quality` | `20` | int | 最小质量值｜Minimum quality value |
+| `--min-mapping-quality` | `20` | int | 最小mapping质量｜Minimum mapping quality |
+| `--sample-names` | — |  | 指定要分析的样本名称｜Specify sample names to analyze |
+| `--extreme-threshold` | `0.8` | float | 极端ΔSNP index阈值｜Extreme ΔSNP index threshold |
+| `--region-threshold` | `0.5` | float | 区域检测阈值｜Region detection threshold |
+| `--min-region-snps` | `5` | int | 区域最少SNP数量｜Minimum SNPs for region |
+| `--max-region-gap` | `10000` | int | 区域最大gap(bp)｜Maximum gap in region |
+| `--window-size` | `1000000` | int | 滑动窗口大小(bp)｜Sliding window size in bp |
+| `--step-size` | `100000` | int | 滑动步长(bp)｜Sliding step size in bp |
+| `--min-window-snps` | `5` | int | 窗口最少SNP数｜Minimum SNPs per window |
+| `--confidence-level` | `0.95` | float | 置信水平｜Confidence level |
+| `--disable-sliding-window-plot` | — | store_true | 禁用滑动窗口折线图｜Disable sliding window line plot |
+| `--create-multi-chrom-plot` | — | store_true | 创建多染色体分离图｜Create multi-chromosome separated plot |
+| `--calculate-only` | — | store_true | 只计算SNP index，不分析｜Calculate SNP index only, no analysis |
+| `--analyze-only` | — | store_true | 只分析已有结果，不计算｜Analyze existing results only, no calculation |
+| `--skip-visualization` | — | store_true | 跳过可视化｜Skip visualization |
+| `-v, --verbose` | `0` | count | 详细输出模式｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | 静默模式｜Quiet mode (ERROR only) |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `-f, --force` | — | store_true | 强制覆盖已存在文件｜Force overwrite existing files |
+| `-t, --threads` | `1` | int | 线程数｜Number of threads |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 结果解读 | Result Interpretation
 
 ### ΔSNP Index解读 | ΔSNP Index Interpretation

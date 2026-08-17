@@ -209,6 +209,46 @@ biopytools rmvp -i input.vcf -p phenotype.txt -o output/
 # 输出：跳过已完成步骤|Skipping completed step: 数据转换|Data conversion
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vcf, -i` | 必填 |  | 输入VCF文件｜Input VCF file |
+| `--pheno, -p` | 必填 |  | 输入表型文件｜Input phenotype file |
+| `--output, -o` | 必填 |  | 输出目录｜Output directory |
+| `--output-prefix` | `RMVP_Result` |  | 输出前缀｜Output prefix |
+| `--models` | `['GLM', 'MLM', 'FarmCPU']` | GLM/MLM/FarmCPU | 分析模型｜Analysis models (可多选｜can select multiple) |
+| `--r-env` | `~/miniforge3/envs/rMVP` |  | R conda环境路径｜R conda environment path (e.g., ~/miniforge3/envs/rMVP) |
+| `--r-path` | — |  | R可执行文件路径｜R executable path |
+| `--ncpus` | `12` | int | CPU核心数｜Number of CPU cores |
+| `--maxLine` | `10000` | int | 每次读取的SNP数量｜Number of SNPs to read at once (较小值减少内存｜smaller uses less memory) |
+| `--n-pc-glm` | `3` | int | GLM模型使用的PC数量｜Number of PCs for GLM |
+| `--n-pc-mlm` | `3` | int | MLM模型使用的PC数量｜Number of PCs for MLM |
+| `--n-pc-farmcpu` | `3` | int | FarmCPU模型使用的PC数量｜Number of PCs for FarmCPU |
+| `--vc-method` | `BRENT` | BRENT/EMMA/HE | MLM方差组分分析方法｜MLM variance component method |
+| `--max-loop` | `10` | int | FarmCPU最大迭代次数｜FarmCPU max iterations |
+| `--method-bin` | `static` | static/fast-lmm | FarmCPU bin方法｜FarmCPU bin method |
+| `--maf` | — | float | 最小等位基因频率阈值｜Minor allele frequency threshold |
+| `--miss` | — | float | 缺失率阈值｜Missing rate threshold |
+| `--file-type` | `jpg` | jpg/pdf/tiff | 图片格式｜Figure format |
+| `--dpi` | `300` | int | 图片分辨率｜Figure DPI |
+| `--threshold` | `0.05` | float | 显著性阈值｜Significance threshold |
+| `--ld-pruning/--no-ld-pruning` | `True` |  | LD去连锁（默认开启）：kinship/PCA在去连锁SNP上计算，GWAS用全部SNP｜LD pruning (default on): K/PCA on pruned SNPs, GWAS uses all SNPs |
+| `--ld-window` | `3000kb` |  | LD修剪窗口｜LD pruning window (e.g. 3000kb or 500) |
+| `--ld-step` | `1` | int | LD修剪步长｜LD pruning step size |
+| `--ld-r2` | `0.2` | float | LD r2阈值｜LD r2 threshold |
+| `--plink-path` | — |  | PLINK可执行文件路径｜PLINK executable path (default: conda env Population_genetics) |
+| `--log-level` | `INFO` | DEBUG/INFO/WARN/ERROR | 日志级别｜Log level |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### 1. VCF文件支持压缩格式吗？

@@ -386,3 +386,42 @@ GitHub repository: https://github.com/lixiang117423/biopytools
 Cock, P. J. A., et al. (2009). The Biopython project: an open-source toolkit for computational molecular biology.
 Bioinformatics, 25(11), 1422-1423.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTA文件路径｜Input FASTA file path |
+| `--output, -o` | 必填 | Path | 输出FASTA文件路径｜Output FASTA file path |
+| `--id-list, -l` | — | Path | ID列表文件路径｜ID list file path |
+| `--pattern, -p` | — |  | 模式匹配字符串｜Pattern matching string |
+| `--pattern-type` | `contains` | contains/startswith/endswith/regex | 模式类型｜Pattern type |
+| `--ignore-case` | — |  | 忽略大小写｜Case insensitive |
+| `--min-length` | `0` | int | 最小序列长度｜Minimum sequence length |
+| `--max-length` | — | int | 最大序列长度｜Maximum sequence length |
+| `--no-order` | — |  | 不保持ID列表顺序｜Do not keep ID list order |
+| `--log-dir` | `.` | Path | 日志输出目录｜Log output directory |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件路径｜Input FASTA file path |
+| `-o, --output` | 必填 |  | 输出FASTA文件路径｜Output FASTA file path |
+| `-l, --id-list` | — |  | ID列表文件路径｜ID list file path |
+| `-p, --pattern` | — |  | 模式匹配字符串｜Pattern matching string |
+| `--length-only` | — | store_true | 仅使用长度筛选｜Use only length filtering |
+| `--pattern-type` | `contains` | contains/startswith/endswith/regex | 模式类型｜Pattern type (default: contains) |
+| `--ignore-case` | — | store_true | 忽略大小写｜Case insensitive |
+| `--min-length` | `0` | int | 最小序列长度｜Minimum sequence length (default: 0) |
+| `--max-length` | — | int | 最大序列长度｜Maximum sequence length (default: unlimited) |
+| `--no-order` | — | store_true | 不保持ID列表顺序｜Do not keep ID list order |
+| `--log-dir` | `.` |  | 日志输出目录｜Log output directory (default: current directory) |
+
+<!-- END PARAMS:auto -->

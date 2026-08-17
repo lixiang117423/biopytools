@@ -526,3 +526,44 @@ print(f'总文件大小 | Total size: {total_size / 1024**3:.2f} GB')
 **最后更新**: 2024年12月17日
 **版本**: 1.0.0
 **作者**: biopytools开发团队
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 | Path | 输入文件｜Input file path (ProjectID and Run ID; GSA项目(CRR前缀)项目列用CRA编号｜use CRA accession for GSA projects with CRR runs) |
+| `--output, -o` | — | Path | 输出链接文件｜Output links file path |
+| `--failed` | — | Path | 失败记录文件｜Failed records file path |
+| `--download-script` | `download.sh` | Path | 下载脚本名｜Download script filename |
+| `--ftp-host` | `download2.cncb.ac.cn` |  | FTP服务器｜FTP server host |
+| `--ftp-timeout` | `60` | int | FTP连接超时｜FTP connection timeout in seconds |
+| `--retry-attempts` | `3` | int | FTP重试次数｜FTP connection retry attempts |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
+| `--log-file` | — | Path | 日志文件路径｜Log file path |
+| `--no-download-script` | — |  | 不生成下载脚本｜Don't generate download script |
+| `--no-executable` | — |  | 不设置可执行权限｜Don't make script executable |
+| `--no-ena-fallback` | — |  | 关闭ENA回退查询(纯CNCB模式)｜Disable ENA fallback query (pure CNCB mode) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-o, --output` | — |  | 输出文件路径｜Output file path (default: [input]_links.txt) |
+| `-f, --failed` | — |  | 失败记录文件路径｜Failed records file path (default: [input]_failed.txt) |
+| `--download-script` | — |  | 下载脚本文件名｜Download script filename (default: download.sh) |
+| `--ftp-host` | `download2.cncb.ac.cn` |  | FTP服务器地址｜FTP server host (default: download2.cncb.ac.cn) |
+| `--ftp-timeout` | `60` | int | FTP连接超时时间｜FTP connection timeout in seconds (default: 60) |
+| `--retry-attempts` | `3` | int | FTP连接重试次数｜FTP connection retry attempts (default: 3) |
+| `-v, --verbose` | — | store_true | 详细输出模式｜Verbose output mode |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `--no-download-script` | — | store_true | 不生成下载脚本｜Don't generate download script |
+| `--no-executable` | — | store_true | 不设置脚本执行权限｜Don't make script executable |
+| `--no-ena-fallback` | — | store_true | 关闭ENA回退查询(纯CNCB模式)｜Disable ENA fallback query (pure CNCB mode) |
+
+<!-- END PARAMS:auto -->

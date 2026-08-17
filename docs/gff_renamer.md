@@ -238,3 +238,48 @@ biopytools gff-renamer -i input.gff -o output.gff -p CDRT -s Ii --skip-clean
 - `biopytools chr-renamer` - 染色体名称重命名工具
 - `biopytools vcf-renamer` - VCF样品名称重命名工具
 - `biopytools egapx-batch` - EGAPx批量注释工具
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入GFF文件｜Input GFF file |
+| `-o, --output` | 必填 |  | 输出GFF文件｜Output GFF file |
+| `-p, --prefix` | 必填 |  | ID前缀｜ID prefix (e.g., CDRT, AGIS) |
+| `-s, --species` | 必填 |  | 物种缩写｜Species abbreviation (e.g., Ov, Os) |
+| `-t, --threads` | `12` | int | 并行线程数｜Number of parallel threads |
+| `--output-mrna-mapping` | `False` |  | 输出mRNA映射文件｜Output mRNA mapping file |
+| `--mrna-mapping-file` | — |  | mRNA映射文件路径（可选）｜mRNA mapping file path (optional) |
+| `--chr-mapping` | — |  | 染色体映射文件路径｜Chromosome mapping file path |
+| `--naming-format` | `standard` | standard/simple/compact | 命名格式｜Naming format (standard/simple/compact) |
+| `--include-utr` | `False` |  | 包含UTR特征｜Include UTR features (five_prime_UTR, three_prime_UTR) |
+| `--skip-clean` | `False` |  | 跳过AGAT清洗步骤｜Skip AGAT GFF cleaning step |
+| `--prefer-mrna/--no-prefer-mrna` | `True` |  | 对含mRNA的基因丢弃冗余transcript(misc_RNA)变体及其子特征(默认开)｜Drop redundant transcript (misc_RNA) variants and their children from genes that have mRNA (default on) |
+| `-v, --version` | — |  | 版本号前缀｜Version tag (e.g., 1, 1.2); 指定后在所有ID最前面加 v{version}- (如 -v 1 → v1-CDRT_Ov12g000010)｜when set, prepends v{version}- to every ID (e.g., -v 1 → v1-CDRT_Ov12g000010) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入GFF文件｜Input GFF file |
+| `-o, --output` | 必填 |  | 输出GFF文件｜Output GFF file |
+| `-p, --prefix` | 必填 |  | ID前缀｜ID prefix (e.g., CDRT, AGIS) |
+| `-s, --species` | 必填 |  | 物种缩写｜Species abbreviation (e.g., Ov, Os) |
+| `-t, --threads` | `12` | int | 并行线程数｜Number of parallel threads |
+| `--output-mrna-mapping` | — | store_true | 输出mRNA映射文件｜Output mRNA mapping file |
+| `--mrna-mapping-file` | — |  | mRNA映射文件路径（可选，默认为输出文件名_mrna_mapping.tsv）｜mRNA mapping file path (optional, defaults to output_filename_mrna_mapping.tsv) |
+| `--chr-mapping` | — |  | 染色体映射文件路径｜Chromosome mapping file path |
+| `--naming-format` | `standard` | standard/simple/compact | 命名格式｜Naming format (standard/simple/compact, default: standard) |
+| `--include-utr` | — | store_true | 包含UTR特征｜Include UTR features (five_prime_UTR, three_prime_UTR) |
+| `--skip-clean` | — | store_true | 跳过AGAT清洗步骤｜Skip AGAT GFF cleaning step |
+| `--prefer-mrna` | `True` | store_true | 默认开启:对含mRNA的基因丢弃冗余transcript(misc_RNA)变体及其子特征;仅含transcript的基因保留｜Default on: drop redundant transcript (misc_RNA) variants and their children from genes that have mRNA; transcript-only genes are kept |
+| `--no-prefer-mrna` | — | store_false | 禁用prefer_mrna去冗余｜Disable prefer_mrna deduplication |
+| `-v, --version` | — |  | 版本号前缀｜Version tag (e.g., 1, 1.2); 指定后在所有ID最前面加 v{version}- (如 -v 1 → v1-CDRT_Ov12g000010)｜when set, prepends v{version}- to every ID (e.g., -v 1 → v1-CDRT_Ov12g000010) |
+
+<!-- END PARAMS:auto -->

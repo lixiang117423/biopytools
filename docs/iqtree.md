@@ -59,6 +59,60 @@ biopytools iqtree -i concat.fasta -o tree_results -p my_tree --partition partiti
 - `{prefix}.contree`: 一致性树(若使用bootstrap)
 - `{prefix}.cf.tree`: 一致性因子树(若启用--concordance)
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入比对文件｜Input alignment file |
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--prefix, -p` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `--model, -m` | — |  | 进化模型｜Evolutionary model |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--bootstrap, -b` | `1000` | int | Bootstrap重复次数｜Bootstrap replicates |
+| `--boot-type` | `ufboot` | ufboot/standard | Bootstrap类型｜Bootstrap type |
+| `--save-boot-trees` | — |  | 保存所有bootstrap树｜Save all bootstrap trees |
+| `--outgroup` | — |  | 外群名称(逗号分隔)｜Outgroup taxon names (comma-separated) |
+| `--constraint` | — | Path | 约束树文件｜Constraint tree file |
+| `--partition` | — | Path | 分区文件｜Partition file |
+| `--partition-mode` | `edge-linked` | edge-linked/edge-equal/edge-unlinked | 分区模式｜Partition mode |
+| `--concordance` | — | Path | 一致性因子基因树文件｜Concordance factor gene tree file |
+| `--ancestral` | — |  | 启用祖先状态重建｜Enable ancestral state reconstruction |
+| `--seed` | — | int | 随机种子｜Random seed |
+| `--runs` | `1` | int | 独立运行次数｜Number of independent runs |
+| `--redo` | — |  | 重新运行分析｜Redo analysis |
+| `--iqtree-path` | `iqtree` |  | IQ-TREE软件路径｜IQ-TREE program path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入比对文件 (FASTA/PHYLIP/NEXUS)｜Input alignment file (FASTA/PHYLIP/NEXUS) |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-p, --prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `-m, --model` | — |  | 进化模型 (不指定则自动选择)｜Evolutionary model (auto-select if not specified) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `-b, --bootstrap` | `1000` | int | Bootstrap重复次数｜Bootstrap replicates (default: 1000) |
+| `--boot-type` | `ufboot` | ufboot/standard | Bootstrap类型｜Bootstrap type (default: ufboot) |
+| `--save-boot-trees` | — | store_true | 保存所有bootstrap树到文件｜Save all bootstrap trees to file |
+| `--outgroup` | — |  | 外群名称 (多个用逗号分隔)｜Outgroup taxon names (comma-separated) |
+| `--constraint` | — |  | 约束树文件｜Constraint tree file |
+| `--partition` | — |  | 分区文件｜Partition file |
+| `--partition-mode` | `edge-linked` | edge-linked/edge-equal/edge-unlinked | 分区模式｜Partition mode (default: edge-linked) |
+| `--concordance` | — |  | 一致性因子分析：基因树文件｜Concordance factor: gene tree file |
+| `--ancestral` | — | store_true | 启用祖先状态重建｜Enable ancestral state reconstruction |
+| `--seed` | — | int | 随机种子｜Random seed |
+| `--runs` | `1` | int | 独立运行次数｜Number of independent runs (default: 1) |
+| `--redo` | — | store_true | 重新运行分析｜Redo analysis |
+| `--iqtree-path` | — |  | IQ-TREE程序路径｜IQ-TREE program path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **IQ-TREE 2**: 系统发育推断 (http://www.iqtree.org/)

@@ -53,6 +53,52 @@ biopytools eggnog-mapper -i proteins.faa -o out/ -m diamond --data-dir ~/databas
 - 重排版整洁注释表(默认; `--no-format` 时跳过)
 - 运行日志
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA(蛋白/CDS/基因组)｜Input FASTA |
+| `-o, --output-dir` | 必填 | Path | 输出目录｜Output directory |
+| `--itype` | `proteins` | proteins/CDS/genome/metagenome | 输入类型｜Input type |
+| `--translate` | — |  | CDS翻译为蛋白｜Translate CDS |
+| `-m, --mode` | `mmseqs` | mmseqs/diamond/hmmer/no_search/cache | 搜索模式｜Search mode |
+| `--cpu` | `12` |  | 线程数｜Threads |
+| `--sensmode` | `sensitive` |  | 灵敏度｜Sensitivity |
+| `--seed-ortholog-evalue` | `0.001` |  | seed ortholog E值｜evalue |
+| `--data-dir` | — |  | DB目录｜DB directory (default: ~/database/eggnog) |
+| `--prefix` | — |  | 输出前缀｜Output prefix |
+| `--emapper-path` | — |  | emapper.py路径｜emapper.py path override |
+| `--resume` | — |  | 续传｜Resume |
+| `--override` | — |  | 覆盖｜Override existing output |
+| `--no-format` | — |  | 跳过重排版｜Skip reformat |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA(蛋白/CDS/基因组)｜Input FASTA |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `--itype` | `proteins` | proteins/CDS/genome/metagenome | 输入类型｜Input type (default: proteins) |
+| `--translate` | — | store_true | CDS翻译为蛋白(itype=CDS/genome/metagenome)｜Translate CDS |
+| `-m, --mode` | `mmseqs` | mmseqs/diamond/hmmer/no_search/cache | 搜索模式｜Search mode (default: mmseqs) |
+| `--cpu` | `12` | int | 线程数｜Threads (default: 12) |
+| `--sensmode` | `sensitive` |  | 灵敏度｜Sensitivity (default: sensitive) |
+| `--seed-ortholog-evalue` | `0.001` | float | seed ortholog E值｜evalue (default: 0.001) |
+| `--data-dir` | — |  | DB目录｜DB directory (default: ~/database/eggnog) |
+| `--prefix` | — |  | 输出前缀｜Output prefix (default: input stem) |
+| `--emapper-path` | — |  | emapper.py路径｜emapper.py path override |
+| `--resume` | — | store_true | 续传｜Resume |
+| `--override` | — | store_true | 覆盖｜Override existing output |
+| `--no-format` | — | store_true | 跳过重排版,只留原生产物｜Skip reformat |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **eggnog-mapper (emapper.py)**: 功能注释主程序

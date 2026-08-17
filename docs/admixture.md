@@ -310,3 +310,78 @@ Alexander, D. H., Novembre, J., & Lange, K. (2009).
 Fast model-based estimation of ancestry in unrelated individuals. 
 Genome research, 19(9), 1655-1664.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vcf, -i` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | `admixture_results` |  | 输出目录｜Output directory |
+| `--method` | `admixture` | admixture/adamixture | 分析方法｜Analysis method (admixture or adamixture) |
+| `--min-k, -k` | `2` | int | 最小K值｜Minimum K value |
+| `--max-k, -K` | `10` | int | 最大K值｜Maximum K value |
+| `--cv-folds, -c` | `5` | int | 交叉验证折数｜Cross-validation folds (仅ADMIXTURE｜ADMIXTURE only) |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--maf, -m` | `0.05` | float | 最小等位基因频率阈值｜MAF threshold |
+| `--missing, -M` | `0.1` | float | 缺失率阈值｜Missing rate threshold |
+| `--hwe, -H` | `1e-06` | float | HWE p值阈值｜HWE p-value threshold |
+| `--ld-prune/--no-ld-prune` | `True` |  | LD剪枝(默认开启,ADMIXTURE假设位点独立)｜LD pruning (on by default; ADMIXTURE assumes unlinked sites) |
+| `--ld-window` | `3000kb` |  | LD剪枝窗口(kb或SNP数)｜LD pruning window (kb or SNP count) |
+| `--ld-step` | `1` | int | LD剪枝步长｜LD pruning step size |
+| `--ld-r2` | `0.2` | float | LD剪枝r2阈值｜LD pruning r2 threshold |
+| `--skip-preprocessing, -s` | — |  | 跳过VCF预处理｜Skip VCF preprocessing |
+| `--keep-intermediate` | — |  | 保留中间文件｜Keep intermediate files |
+| `--verbose, -v` | — |  | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — |  | 静默模式(仅ERROR)｜Quiet mode (ERROR only) |
+| `--log-level` | — |  | 日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)｜Log level |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `--force, -f` | — |  | 强制覆盖已存在的文件｜Force overwrite existing files |
+| `--dry-run` | — |  | 试运行模式(不实际执行)｜Dry run without execution |
+| `--adamixture-path` | `~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture` |  | ADAMIXTURE可执行文件路径｜ADAMIXTURE executable path |
+| `--adamixture-lr` | `0.005` | float | ADAMIXTURE学习率｜ADAMIXTURE learning rate |
+| `--adamixture-beta1` | `0.8` | float | ADAMIXTURE beta1参数｜ADAMIXTURE beta1 parameter |
+| `--adamixture-beta2` | `0.88` | float | ADAMIXTURE beta2参数｜ADAMIXTURE beta2 parameter |
+| `--adamixture-max-iter` | `1500` | int | ADAMIXTURE最大迭代次数｜ADAMIXTURE maximum iterations |
+| `--adamixture-seed` | `42` | int | ADAMIXTURE随机种子｜ADAMIXTURE random seed |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `-o, --output` | `admixture_results` |  | 输出目录｜Output directory |
+| `--method` | `admixture` | admixture/adamixture | 分析方法｜Analysis method (admixture or adamixture) |
+| `-k, --min-k` | `2` | int | 最小K值｜Minimum K value |
+| `-K, --max-k` | `10` | int | 最大K值｜Maximum K value |
+| `-c, --cv-folds` | `5` | int | 交叉验证折数｜Cross-validation folds |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--adamixture-path` | `~/miniforge3/envs/adamixture_v.1.0.2/bin/adamixture` |  | ADAMIXTURE可执行文件路径｜ADAMIXTURE executable path |
+| `--adamixture-lr` | `0.005` | float | ADAMIXTURE学习率｜ADAMIXTURE learning rate |
+| `--adamixture-beta1` | `0.8` | float | ADAMIXTURE beta1参数｜ADAMIXTURE beta1 parameter |
+| `--adamixture-beta2` | `0.88` | float | ADAMIXTURE beta2参数｜ADAMIXTURE beta2 parameter |
+| `--adamixture-max-iter` | `1500` | int | ADAMIXTURE最大迭代次数｜ADAMIXTURE maximum iterations |
+| `--adamixture-seed` | `42` | int | ADAMIXTURE随机种子｜ADAMIXTURE random seed |
+| `-m, --maf` | `0.05` | float | MAF阈值｜MAF threshold |
+| `-M, --missing` | `0.1` | float | 缺失率阈值｜Missing rate threshold |
+| `-H, --hwe` | `1e-06` | float | HWE p值阈值｜HWE p-value threshold |
+| `--no-ld-prune` | — | store_true | 关闭LD剪枝(默认开启)｜Disable LD pruning (on by default) |
+| `--ld-window` | `3000kb` |  | LD剪枝窗口(kb或SNP数)｜LD pruning window (kb or SNP count) |
+| `--ld-step` | `1` | int | LD剪枝步长｜LD pruning step size |
+| `--ld-r2` | `0.2` | float | LD剪枝r2阈值｜LD pruning r2 threshold |
+| `-s, --skip-preprocessing` | — | store_true | 跳过VCF预处理和质控｜Skip VCF preprocessing and QC |
+| `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
+| `--verbose` | `0` | count | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | 静默模式(只输出ERROR)｜Quiet mode (ERROR only) |
+| `--log-level` | — |  | 日志级别(DEBUG/INFO/WARNING/ERROR/CRITICAL)｜Log level (default: INFO) |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `-f, --force` | — | store_true | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — | store_true | 模拟运行(不实际执行)｜Dry run without execution |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->

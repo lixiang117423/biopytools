@@ -151,3 +151,29 @@ pip install pandas openpyxl
   - 自动识别配对文件|Automatic paired file recognition
   - 多线程处理|Multi-threaded processing
   - CSV/Excel输出|CSV/Excel output
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTQ文件或目录｜Input FASTQ file or directory |
+| `--output, -o` | 必填 | Path | 输出文件路径(.csv或.xlsx)｜Output file path (.csv or .xlsx) |
+| `--pattern, -p` | — |  | FASTQ文件匹配模式，如"*_1.clean.fq.gz"｜FASTQ file matching pattern, e.g., "*_1.clean.fq.gz" |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTQ文件或包含FASTQ文件的目录｜Input FASTQ file or directory containing FASTQ files |
+| `-o, --output` | 必填 |  | 输出文件路径 (.csv 或 .xlsx)｜Output file path (.csv or .xlsx) |
+| `-p, --pattern` | — |  | FASTQ文件匹配模式，如 "*_1.clean.fq.gz"，*代表样品名称｜FASTQ file matching pattern, e.g., "*_1.clean.fq.gz", * represents sample name |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (默认｜default: 12) |
+
+<!-- END PARAMS:auto -->

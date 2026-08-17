@@ -58,6 +58,42 @@ biopytools wgsim -i genome.fa -o out_dir -s 42 -e 0.01
 
 日志末尾会输出汇总：`成功=success, 跳过=skip, 失败=fail/total`。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入基因组文件或目录｜Input genome file or directory |
+| `-o, --output-dir` | 必填 | Path | 输出目录｜Output directory |
+| `-N, --num-reads` | `50000000` | int | 模拟reads数量｜Number of reads to simulate |
+| `-1, --read-length` | `150` | int | reads长度｜Read length |
+| `-s, --seed` | `0` | int | 随机种子｜Random seed |
+| `-e, --error-rate` | `0.02` | float | 测序错误率｜Sequencing error rate |
+| `-r, --mutation-rate` | `0.001` | float | 突变率｜Mutation rate |
+| `-d, --outer-distance` | `500` | int | 外部距离｜Outer distance |
+| `-D, --inner-distance` | `0` | int | 内部距离｜Inner distance |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | [FILE/DIR] 输入基因组文件或目录｜Input genome file or directory |
+| `-o, --output-dir` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `-N, --num-reads` | `50000000` | int | [INT] 模拟reads数量，默认50000000｜Number of reads to simulate, default 50000000 |
+| `-1, --read-length` | `150` | int | [INT] reads长度，默认150｜Read length, default 150 |
+| `-s, --seed` | `0` | int | [INT] 随机种子，默认0｜Random seed, default 0 |
+| `-e, --error-rate` | `0.02` | float | [FLOAT] 测序错误率，默认0.020｜Sequencing error rate, default 0.020 |
+| `-r, --mutation-rate` | `0.001` | float | [FLOAT] 突变率，默认0.001｜Mutation rate, default 0.001 |
+| `-d, --outer-distance` | `500` | int | [INT] 外部距离，默认500｜Outer distance, default 500 |
+| `-D, --inner-distance` | `0` | int | [INT] 内部距离，默认0｜Inner distance, default 0 |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - 外部工具：`wgsim`（samtools 套件之一），默认查找路径 `~/miniforge3/envs/GATK_v.4.6.2.0/bin/wgsim`，可通过环境变量 `WGSIM_PATH` 覆盖

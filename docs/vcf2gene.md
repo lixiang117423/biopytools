@@ -276,3 +276,29 @@ grep -w "exon" annotation.gff | head
 ## 联系方式 | Contact
 
 如有问题或建议，请联系：Xiang LI
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vcf, -i` | 必填 |  | 输入VCF文件｜Input VCF file path |
+| `--gff, -g` | 必填 |  | 输入GFF注释文件｜Input GFF annotation file path |
+| `--output, -o` | 必填 |  | 输出结果文件｜Output result file path |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads (reserved for future use) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `-g, --gff` | 必填 |  | 输入GFF注释文件路径｜Input GFF annotation file path |
+| `-o, --output` | 必填 |  | 输出结果文件路径｜Output result file path |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (reserved for future use) |
+
+<!-- END PARAMS:auto -->

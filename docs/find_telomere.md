@@ -571,3 +571,61 @@ For questions or suggestions, please contact:
 
 **生成时间 | Generated**: 2026-01-02
 **文档版本 | Doc Version**: 1.0.0
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | — |  | 基因组文件｜Genome sequence file (FASTA format) |
+| `--mode, -m` | `pipeline` | explore/find/search/plot/pipeline | 分析模式｜Analysis mode |
+| `--output-dir, -o` | `./telomere_output` | Path | 输出目录｜Output directory |
+| `--prefix, -p` | `telomere` |  | 输出前缀｜Output prefix |
+| `--clade, -c` | — |  | 分类群名称｜Clade name |
+| `--window, -w` | `10000` | int | 窗口大小｜Window size |
+| `--search-string, -s` | — |  | 搜索字符串｜Search string |
+| `--format` | `tsv` | tsv/bedgraph | 输出格式｜Output format |
+| `--tsv, -t` | — |  | TSV文件｜TSV file |
+| `--plot-height` | `200` | int | 图像高度｜Plot height |
+| `--plot-width` | `1000` | int | 图像宽度｜Plot width |
+| `--tidk-path` | `~/miniforge3/envs/asm/bin/tidk` |  | tidk软件路径｜tidk software path |
+| `--explore-min` | `5` | int | 最小重复长度｜Min repeat length |
+| `--explore-max` | `12` | int | 最大重复长度｜Max repeat length |
+| `--explore-threshold` | `100` | int | 重复阈值｜Repeat threshold |
+| `--explore-distance` | `0.01` | float | 距离比例｜Distance ratio |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `--print-clades` | — |  | 打印支持的分类群列表｜Print supported clades list |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组序列文件｜Genome sequence file (FASTA format) |
+| `-m, --mode` | `pipeline` | explore/find/search/plot/pipeline | 分析模式｜Analysis mode |
+| `-o, --output-dir` | `./telomere_output` |  | 输出目录｜Output directory |
+| `-p, --prefix` | `telomere` |  | 输出前缀｜Output prefix |
+| `--explore-min` | `5` | int | 最小重复长度｜Minimum repeat length |
+| `--explore-max` | `12` | int | 最大重复长度｜Maximum repeat length |
+| `--explore-threshold` | `100` | int | 重复阈值｜Repeat threshold |
+| `--explore-distance` | `0.01` | float | 距离比例｜Distance ratio |
+| `-c, --clade` | — |  | 分类群名称｜Clade name |
+| `-w, --window` | `10000` | int | 窗口大小｜Window size |
+| `-s, --search-string` | — |  | 搜索字符串｜Search string |
+| `--format` | `tsv` | tsv/bedgraph | 输出格式｜Output format |
+| `-t, --tsv` | — |  | TSV文件路径｜TSV file path |
+| `--plot-height` | `200` | int | 图像高度｜Plot height |
+| `--plot-width` | `1000` | int | 图像宽度｜Plot width |
+| `--plot-fontsize` | `12` | int | 字体大小｜Font size |
+| `--plot-strokewidth` | `2` | int | 线条宽度｜Stroke width |
+| `--tidk-path` | `~/miniforge3/envs/asm/bin/tidk` |  | tidk软件路径｜tidk software path |
+| `-v, --verbose` | — | store_true | 详细输出模式｜Verbose output mode |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `--print-clades` | — | store_true | 打印支持的分类群列表｜Print supported clades list |
+
+<!-- END PARAMS:auto -->

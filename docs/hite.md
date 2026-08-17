@@ -547,3 +547,53 @@ https://doi.org/10.1101/2025.02.15.638472v1
   - ✅ panHiTE 泛基因组分析
   - ✅ Singularity 容器化部署
   - ✅ 完整的日志和结果处理
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-dir` | `./hite_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--singularity-path` | `~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` |  | Singularity可执行文件｜Singularity executable |
+| `--sif-file` | `~/software/singularity/hite_3.3.3.sif` |  | HiTE SIF镜像｜HiTE SIF image |
+| `--plant/--no-plant` | `True` |  | 植物基因组｜Plant genome |
+| `--annotate/--no-annotate` | `False` |  | 注释基因组(产出.gff/.out/.tbl)｜Annotate genome |
+| `--recover/--no-recover` | `False` |  | HiTE断点续跑｜HiTE recovery mode |
+| `--domain/--no-domain` | `False` |  | 预测TE蛋白结构域｜Predict TE domains |
+| `--te-type` | `all` | ltr/tir/helitron/non-ltr/all | TE类型｜TE type |
+| `--chunk-size` | `400` | int | 基因组分块MB｜Genome chunk size MB |
+| `--miu` | `1.3e-08` | float | 中性突变率｜Neutral mutation rate |
+| `--min-te-len` | `80` | int | 最小TE长度bp｜Min TE length bp |
+| `--remove-nested/--keep-nested` | `True` |  | 移除嵌套TE｜Remove nested TE |
+| `--curated-lib` | — |  | 可信curated TE库(预屏蔽)｜Trusted curated TE library |
+| `--debug/--no-debug` | `False` |  | HiTE debug模式(保留临时文件)｜Debug mode |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-dir` | `./hite_output` |  | 输出目录｜Output directory (default: ./hite_output) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--singularity-path` | — |  | Singularity可执行文件路径｜Singularity executable path |
+| `--sif-file` | — |  | HiTE SIF镜像路径｜HiTE SIF image path |
+| `--plant` | `1` | 0/1 | 是否植物基因组(1/0)｜Plant genome (1/0, default: 1) |
+| `--annotate` | `0` | 0/1 | 是否注释基因组(1/0)｜Annotate genome (1/0, default: 0) |
+| `--recover` | `0` | 0/1 | HiTE断点续跑(1/0)｜HiTE recovery mode (1/0, default: 0) |
+| `--domain` | `0` | 0/1 | 预测TE蛋白结构域(1/0)｜Predict TE domains (1/0, default: 0) |
+| `--te-type` | `all` | ltr/tir/helitron/non-ltr/all | TE类型｜TE type (default: all) |
+| `--chunk-size` | `400` | int | 基因组分块MB｜Genome chunk size MB (default: 400) |
+| `--miu` | `1.3e-08` | float | 中性突变率｜Neutral mutation rate (default: 1.3e-8) |
+| `--min-te-len` | `80` | int | 最小TE长度bp｜Min TE length bp (default: 80) |
+| `--remove-nested` | `1` | 0/1 | 移除嵌套TE(1/0)｜Remove nested TE (1/0, default: 1) |
+| `--curated-lib` | — |  | 可信curated TE库｜Trusted curated TE library |
+| `--debug` | `0` | 0/1 | HiTE debug模式(保留临时文件)｜Debug mode (1/0) |
+
+<!-- END PARAMS:auto -->

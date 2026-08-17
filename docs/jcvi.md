@@ -86,6 +86,16 @@ biopytools jcvi micro -i data/ -o output/ \
 
 所有运行日志在 `99_logs/` 下。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+_未找到 CLI 参数定义|No CLI definitions found_
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - conda 环境 `JCVI_v.1.5.6`（或自定义），内含 `jcvi`、`lastal`、`diamond`

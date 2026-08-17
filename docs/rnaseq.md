@@ -336,3 +336,49 @@ biopytools rnaseq -g genome.fa -f genes.gtf \\
 - 支持HISAT2 + StringTie标准流程
 - 实现FPKM/TPM计算
 - 支持批量样本处理
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件路径｜Genome FASTA file path |
+| `--gtf, -f` | 必填 |  | 基因注释GTF文件路径｜Gene annotation GTF file path |
+| `--input, -i` | 必填 | Path | 输入FASTQ文件目录或样本信息文件｜Input FASTQ file directory or sample information file |
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--pattern, -p` | `*_1.clean.fq.gz` | str | FASTQ文件命名模式｜Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name |
+| `--remove, -r` | `no` | yes/y/no/n | 处理后删除BAM文件｜Remove BAM files after processing |
+| `--verbose, -v` | — |  | 增加输出详细程度｜Increase output verbosity (-v, -vv, -vvv) |
+| `--quiet` | — |  | 静默模式｜Quiet mode, only output errors |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--dry-run` | — |  | 试运行模式｜Dry run mode, no actual execution |
+| `--force` | — |  | 强制重新处理已完成的样本｜Force re-process completed samples |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--sample-timeout` | `21600` | int | 单个样本处理超时时间（秒）｜Sample processing timeout in seconds |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组fasta文件路径｜Genome fasta file path |
+| `-f, --gtf` | 必填 |  | 基因注释GTF文件路径｜Gene annotation GTF file path |
+| `-i, --input` | 必填 |  | 输入fastq文件目录或样本信息文件｜Input fastq file directory or sample information file |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-p, --pattern` | `*_1.clean.fq.gz` |  | Fastq文件命名模式｜Fastq file naming pattern (e.g., "*.R1.fastq.gz" or "*_1.fq.gz"), * represents sample name |
+| `-r, --remove` | `no` | yes/y/no/n | 处理后删除BAM文件｜Remove BAM files after processing |
+| `-t, --threads` | `8` | int | 线程数｜Number of threads |
+| `--sample-timeout` | — | int | 单个样本处理超时时间（秒），默认不限制｜Sample processing timeout in seconds, default no limit |
+| `-v, --verbose` | `0` | count | 增加输出详细程度 (-v, -vv, -vvv)｜Increase output verbosity |
+| `--quiet` | — | store_true | 静默模式，仅输出错误信息｜Quiet mode, only output errors |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--dry-run` | — | store_true | 试运行模式，不实际执行｜Dry run mode, no actual execution |
+| `--force` | — | store_true | 强制重新处理已完成的样本｜Force re-process completed samples |
+
+<!-- END PARAMS:auto -->

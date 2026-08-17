@@ -52,6 +52,44 @@ output_dir/
 └── {prefix}.rerooted.nwk   # 重根化后的树(若指定外群)
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | — | Path | 输入VCF文件路径｜Input VCF file path |
+| `--distance-matrix, -d` | — | Path | 已有距离矩阵文件路径｜Existing distance matrix file path |
+| `--output, -o` | `.` | str | 输出目录｜Output directory |
+| `--prefix, -p` | `vcf2nj` | str | 输出文件前缀｜Output file prefix |
+| `--tree-output, -t` | — | Path | 系统发育树输出文件路径｜Phylogenetic tree output file path |
+| `--outgroup` | — | str | 外群样本标签，多个用逗号分隔｜Outgroup sample labels, comma-separated |
+| `--nw-reroot-path` | `~/miniforge3/envs/phylo/bin/nw_reroot` | str | nw_reroot程序路径｜nw_reroot program path |
+| `--vcf2dis-path` | `VCF2Dis` | str | VCF2Dis程序路径｜VCF2Dis program path |
+| `--working-dir, -w` | `.` | Path | 工作目录｜Working directory |
+| `--skip-vcf2dis` | — |  | 跳过VCF2Dis步骤｜Skip VCF2Dis step |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 输入VCF文件路径｜Input VCF file path |
+| `-d, --distance-matrix` | — |  | 已有的距离矩阵文件路径（用于跳过VCF2Dis步骤）｜ Existing distance matrix file path (for skipping VCF2Dis step) |
+| `-o, --output` | `.` |  | 输出目录｜Output directory |
+| `-p, --prefix` | `phylo_analysis` |  | 输出文件前缀｜Output file prefix |
+| `-t, --tree-output` | — |  | 系统发育树输出文件路径｜Phylogenetic tree output file path |
+| `--outgroup` | — |  | 外群样本标签，多个用逗号分隔｜Outgroup sample labels, comma-separated |
+| `--nw-reroot-path` | `~/miniforge3/envs/phylo/bin/nw_reroot` |  | nw_reroot程序路径｜nw_reroot program path |
+| `--vcf2dis-path` | `VCF2Dis` |  | VCF2Dis程序路径｜VCF2Dis program path |
+| `-w, --working-dir` | `.` |  | 工作目录｜Working directory |
+| `--skip-vcf2dis` | — | store_true | 跳过VCF2Dis步骤，直接从距离矩阵构建树｜Skip VCF2Dis step, build tree directly from distance matrix |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **VCF2Dis**: VCF距离矩阵计算 (https://github.com/BGI-shenzhen/VCF2Dis)

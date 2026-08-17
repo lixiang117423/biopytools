@@ -53,6 +53,27 @@ biopytools gtf2gff -i stringtie.gtf -o cleaned.gff3 \
 
 日志中会输出基因数、转录本数、外显子数、CDS 数等统计信息。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入GTF文件｜Input GTF file |
+| `-o, --output` | 必填 |  | 输出GFF文件｜Output GFF file |
+| `--remove-introns` | — |  | 移除intron特征｜Remove intron features |
+| `--keep-all-attributes` | — |  | 保留所有原始属性｜Keep all original attributes |
+| `--no-clean` | — |  | 不清理属性字段｜Do not clean attributes |
+| `-p, --prefix` | — |  | ID前缀｜ID prefix (e.g., CDRT, AGIS) |
+| `-s, --species` | — |  | 物种缩写｜Species abbreviation (e.g., Ov, Os) |
+| `-t, --threads` | `12` |  | 线程数｜Number of threads [default: 12] |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 3.7+（纯 Python 实现，无第三方依赖）

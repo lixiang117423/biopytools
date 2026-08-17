@@ -305,3 +305,47 @@ https://github.com/yourrepo/biopytools
 ## 许可证 | License
 
 本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--species1-name` | 必填 |  | 物种1名称｜Species 1 name (e.g., host) |
+| `--species1-genome` | 必填 |  | 物种1基因组FASTA文件｜Species 1 genome FASTA file |
+| `--species1-gtf` | 必填 |  | 物种1GTF注释文件｜Species 1 GTF annotation file |
+| `--species2-name` | 必填 |  | 物种2名称｜Species 2 name (e.g., pathogen) |
+| `--species2-genome` | 必填 |  | 物种2基因组FASTA文件｜Species 2 genome FASTA file |
+| `--species2-gtf` | 必填 |  | 物种2GTF注释文件｜Species 2 GTF annotation file |
+| `--input, -i` | 必填 |  | 输入FASTQ文件目录或样本信息文件｜Input FASTQ file directory or sample information file |
+| `--output-dir, -o` | `./dual_rnaseq_output` | Path | 输出目录｜Output directory |
+| `--pattern, -p` | `*_1.clean.fq.gz` |  | FASTQ文件命名模式｜FASTQ file naming pattern |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--min-mapq` | `20` | int | 最小mapping quality值｜Minimum mapping quality value |
+| `--no-unique-only` | — |  | 不禁用非唯一比对｜Do not disable non-unique mappings |
+| `--no-extract-fastq` | — |  | 不提取FASTQ文件｜Do not extract FASTQ files from BAM (default: extract) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--species1-name` | 必填 |  | 物种1名称｜Species 1 name (e.g., host) |
+| `--species1-genome` | 必填 |  | 物种1基因组FASTA文件｜Species 1 genome FASTA file |
+| `--species1-gtf` | 必填 |  | 物种1GTF注释文件｜Species 1 GTF annotation file |
+| `--species2-name` | 必填 |  | 物种2名称｜Species 2 name (e.g., pathogen) |
+| `--species2-genome` | 必填 |  | 物种2基因组FASTA文件｜Species 2 genome FASTA file |
+| `--species2-gtf` | 必填 |  | 物种2GTF注释文件｜Species 2 GTF annotation file |
+| `-i, --input` | 必填 |  | 输入FASTQ文件目录或样本信息文件｜Input FASTQ file directory or sample information file |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-p, --pattern` | `*_1.clean.fq.gz` |  | FASTQ文件命名模式｜FASTQ file naming pattern (e.g., "*.R1.fastq.gz") |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--min-mapq` | `20` | int | 最小mapping quality值｜Minimum mapping quality value |
+| `--no-unique-only` | — | store_false | 不禁用非唯一比对｜Do not disable non-unique mappings |
+| `--no-extract-fastq` | — | store_false | 不提取FASTQ文件｜Do not extract FASTQ files from BAM (default: extract) |
+
+<!-- END PARAMS:auto -->

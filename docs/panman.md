@@ -677,3 +677,96 @@ Nat Genet (2026). https://doi.org/10.1038/s41588-025-02478-7
 
 **开发团队 | Development Team**: BioPyTools Project
 **最后更新 | Last Updated**: 2026-01-15
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-p, --pangraph` | — |  | PanGraph JSON文件｜PanGraph JSON file path |
+| `-g, --gfa` | — |  | GFA文件路径｜GFA file path |
+| `-m, --msa` | — |  | MSA文件路径 (FASTA格式)｜MSA file path (FASTA format) |
+| `-n, --newick` | 必填 |  | Newick树文件路径｜Newick tree file path |
+| `-o, --output-prefix` | `output` |  | 输出文件前缀｜Output file prefix |
+| `--output-dir` | `./panman_output` |  | 输出目录｜Output directory |
+| `--backend` | `conda` | conda/docker/singularity | 后端选择｜Backend selection |
+| `--conda-env` | `panman_v.0.1.4` |  | Conda环境名称｜Conda environment name |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--sif-image` | — |  | PanMAN Singularity SIF镜像路径｜PanMAN Singularity SIF image path |
+| `--singularity-path` | — |  | Singularity可执行文件路径｜Singularity executable path |
+| `-i, --input-panman` | 必填 |  | PanMAN文件路径｜PanMAN file path |
+| `-r, --reference` | — |  | 参考序列名称 (VCF提取/重新扎根需要)｜Reference sequence name (required for VCF/reroot) |
+| `--summary` | — |  | 提取摘要统计｜Extract summary statistics |
+| `--extract-fasta` | — |  | 提取FASTA序列｜Extract FASTA sequences |
+| `--extract-msa` | — |  | 提取MSA比对｜Extract MSA alignment |
+| `--vcf` | — |  | 提取VCF变异｜Extract VCF variants |
+| `--extract-gfa` | — |  | 提取GFA格式｜Extract GFA format |
+| `--extract-newick` | — |  | 提取Newick树｜Extract Newick tree |
+| `--extended-newick` | — |  | 提取扩展Newick格式｜Extract extended Newick format |
+| `--maf` | — |  | 提取MAF格式｜Extract MAF format |
+| `--aa` | — |  | 提取氨基酸翻译｜Extract amino acid translations |
+| `--subnet` | — |  | 提取子网络｜Extract subnet (requires --input-file) |
+| `--annotate` | — |  | 注释节点｜Annotate nodes (requires --input-file) |
+| `--reroot` | — |  | 重新扎根树｜Reroot tree (requires --reference) |
+| `--create-network` | — |  | 创建网络｜Create network (requires --input-file) |
+| `--print-mutations` | — |  | 打印突变信息｜Print mutations |
+| `--acr` | `fitch` | fitch/mppa | ACR方法｜ACR method (fitch/mppa) |
+| `--tree-id` | — |  | 树ID (VCF提取可选)｜Tree ID (optional for VCF extraction) |
+| `--input-file` | — |  | 输入文件路径 (subnet/annotate/create-network需要)｜Input file path (required for subnet/annotate/create-network) |
+| `--range-index` | — |  | 范围查询index参数｜Range query index parameter |
+| `--range-start` | — | int | 范围查询起始坐标｜Range query start coordinate |
+| `--range-end` | — | int | 范围查询结束坐标｜Range query end coordinate |
+| `-i, --fasta` | 必填 |  | 输入FASTA文件路径｜Input FASTA file path |
+| `--pangraph-path` | — |  | PanGraph可执行文件路径｜PanGraph executable path |
+| `--pangraph-sif` | — |  | PanGraph Singularity SIF镜像路径｜PanGraph Singularity SIF image path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--build` | — | store_true | 构建模式｜Build mode: build PanMAN from alignments |
+| `--extract` | — | store_true | 提取模式｜Extract mode: extract data from PanMAN |
+| `--generate-pangraph` | — | store_true | PanGraph生成模式｜Generate PanGraph mode: generate PanGraph JSON from FASTA |
+| `-i, --fasta` | — |  | 输入FASTA文件路径 (PanGraph生成模式必需)｜Input FASTA file path (required for generate-pangraph mode) |
+| `-P, --pangraph` | — |  | PanGraph JSON文件路径｜PanGraph JSON file path |
+| `-G, --gfa` | — |  | GFA文件路径｜GFA file path |
+| `-M, --msa` | — |  | MSA文件路径 (FASTA格式)｜MSA file path (FASTA format) |
+| `-N, --newick` | — |  | Newick树文件路径 (构建模式必需)｜Newick tree file path (required for build mode) |
+| `-I, --input-panman` | — |  | PanMAN文件路径 (提取模式必需)｜PanMAN file path (required for extract mode) |
+| `-o, --output-prefix` | `output` |  | 输出文件前缀｜Output file prefix |
+| `--output-dir` | `./panman_output` |  | 输出目录｜Output directory |
+| `-r, --reference` | — |  | 参考序列名称 (VCF提取需要)｜Reference sequence name (required for VCF extraction) |
+| `--summary` | — | store_true | 提取摘要统计｜Extract summary statistics |
+| `--extract-fasta` | — | store_true | 提取FASTA序列｜Extract FASTA sequences |
+| `--extract-msa` | — | store_true | 提取MSA比对｜Extract MSA alignment |
+| `--vcf` | — | store_true | 提取VCF变异｜Extract VCF variants |
+| `--extract-gfa` | — | store_true | 提取GFA格式｜Extract GFA format |
+| `--extract-newick` | — | store_true | 提取Newick树｜Extract Newick tree |
+| `--extended-newick` | — | store_true | 提取扩展Newick格式｜Extract extended Newick format |
+| `--maf` | — | store_true | 提取MAF格式｜Extract MAF format |
+| `--aa` | — | store_true | 提取氨基酸翻译｜Extract amino acid translations |
+| `--subnet` | — | store_true | 提取子网络｜Extract subnet |
+| `--annotate` | — | store_true | 注释节点｜Annotate nodes |
+| `--reroot` | — | store_true | 重新扎根树｜Reroot tree |
+| `--create-network` | — | store_true | 创建网络｜Create network |
+| `--print-mutations` | — | store_true | 打印突变信息｜Print mutations |
+| `--backend` | `conda` | conda/docker/singularity | 后端选择｜Backend selection (default: conda) |
+| `--conda-env` | `panman_v.0.1.4` |  | Conda环境名称｜Conda environment name (default: panman_v.0.1.4) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--pangraph-path` | — |  | PanGraph可执行文件路径｜PanGraph executable path |
+| `--pangraph-sif` | — |  | PanGraph Singularity SIF镜像路径｜PanGraph Singularity SIF image path |
+| `--sif-image` | — |  | Singularity SIF镜像路径｜Singularity SIF image path |
+| `--singularity-path` | — |  | Singularity可执行文件路径｜Singularity executable path |
+| `--acr` | `fitch` | fitch/mppa | ACR方法｜ACR method (fitch/mppa) |
+| `--tree-id` | — |  | 树ID (VCF提取需要)｜Tree ID (required for VCF extraction) |
+| `--input-file` | — |  | 输入文件路径 (用于subnet/annotate/create-network)｜Input file path (for subnet/annotate/create-network) |
+| `--range-index` | — |  | 范围查询index参数｜Range query index parameter |
+| `--range-start` | — | int | 范围查询起始坐标｜Range query start coordinate |
+| `--range-end` | — | int | 范围查询结束坐标｜Range query end coordinate |
+
+<!-- END PARAMS:auto -->

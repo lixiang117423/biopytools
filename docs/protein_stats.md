@@ -172,3 +172,41 @@ biopytools protein-stats -i proteins.fa --no-length --no-mw -o pi_only.tsv
 | 1,000 | ~3秒 |
 | 10,000 | ~30秒 |
 | 100,000 | ~5分钟 |
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --protein-fasta` | 必填 |  | 蛋白序列FASTA文件｜Protein sequence FASTA file |
+| `-o, --output-file` | `protein_stats.tsv` |  | 输出文件路径｜Output file path |
+| `--output-format` | `tsv` | tsv/csv/excel | 输出文件格式｜Output file format |
+| `--no-length` | — |  | 不计算序列长度｜Do not calculate sequence length |
+| `--no-mw` | — |  | 不计算分子量｜Do not calculate molecular weight |
+| `--no-pi` | — |  | 不计算等电点｜Do not calculate isoelectric point |
+| `--aa-composition` | — |  | 计算氨基酸组成｜Calculate amino acid composition |
+| `--instability-index` | — |  | 计算不稳定指数｜Calculate instability index |
+| `--gravy` | — |  | 计算脂肪指数(疏水性)｜Calculate gravy (hydropathy) |
+| `--aromaticity` | — |  | 计算芳香性｜Calculate aromaticity |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --protein-fasta` | 必填 |  | 蛋白序列FASTA文件｜Protein sequence FASTA file |
+| `-o, --output-file` | `protein_stats.tsv` |  | 输出文件路径｜Output file path |
+| `--output-format` | `tsv` | tsv/csv/excel | 输出文件格式｜Output file format |
+| `--no-length` | — | store_false | 不计算序列长度｜Do not calculate sequence length |
+| `--no-mw` | — | store_false | 不计算分子量｜Do not calculate molecular weight |
+| `--no-pi` | — | store_false | 不计算等电点｜Do not calculate isoelectric point |
+| `--aa-composition` | — | store_true | 计算氨基酸组成｜Calculate amino acid composition |
+| `--instability-index` | — | store_true | 计算不稳定指数｜Calculate instability index |
+| `--gravy` | — | store_true | 计算脂肪指数(疏水性)｜Calculate gravy (hydropathy) |
+| `--aromaticity` | — | store_true | 计算芳香性｜Calculate aromaticity |
+
+<!-- END PARAMS:auto -->

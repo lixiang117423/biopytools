@@ -57,6 +57,54 @@ insert_detection_output/
 └── 99_logs/                      # 每个样本/步骤的日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `--insert` | 必填 |  | 插入序列FASTA文件｜Insert sequence FASTA file |
+| `--fastq-dir` | 必填 |  | FASTQ文件目录｜FASTQ files directory |
+| `-o, --output-dir` | `./insert_detection_output` |  | 输出目录｜Output directory (default: ./insert_detection_output) |
+| `-t, --threads` | `12` |  | 线程数｜Threads |
+| `--min-clip` | `20` | int | 最小soft-clip长度｜Minimum soft-clip length |
+| `--min-support` | `5` | int | 最小支持reads数｜Minimum supporting reads |
+| `--score-threshold` | `1000` | int | 得分阈值｜Score threshold |
+| `--bowtie2-path` | `bowtie2` |  | Bowtie2可执行文件路径｜Bowtie2 executable path |
+| `--samtools-path` | `samtools` |  | samtools可执行文件路径｜samtools executable path |
+| `--read1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀（包含扩展名）｜Read 1 file suffix with extension |
+| `--read2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀（包含扩展名）｜Read 2 file suffix with extension |
+| `--force` | — |  | 强制重新运行所有步骤｜Force rerun all steps |
+| `--verbose` | — |  | 显示详细日志｜Verbose logging |
+| `--quiet` | — |  | 仅显示错误｜Errors only |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `--insert` | 必填 |  | 插入序列FASTA文件｜Insert sequence FASTA file |
+| `--fastq-dir` | 必填 |  | FASTQ文件目录｜FASTQ files directory |
+| `-o, --output-dir` | `./insert_detection_output` |  | 输出目录｜Output directory (default: ./insert_detection_output) |
+| `-t, --threads` | `12` | int | 线程数｜Threads (default: 12) |
+| `--min-clip` | `20` | int | 最小soft-clip长度｜Minimum soft-clip length (default: 20) |
+| `--min-support` | `5` | int | 最小支持reads数｜Minimum supporting reads (default: 5) |
+| `--score-threshold` | `1000` | int | 得分阈值｜Score threshold (default: 1000) |
+| `--bowtie2-path` | `bowtie2` |  | Bowtie2可执行文件路径｜Bowtie2 executable path |
+| `--samtools-path` | `samtools` |  | samtools可执行文件路径｜samtools executable path |
+| `--read1-suffix` | `_1.clean.fq.gz` |  | R1文件后缀（包含扩展名，默认匹配fastp输出）｜Read 1 file suffix with extension (default: _1.clean.fq.gz, matches fastp output) |
+| `--read2-suffix` | `_2.clean.fq.gz` |  | R2文件后缀（包含扩展名，默认匹配fastp输出）｜Read 2 file suffix with extension (default: _2.clean.fq.gz, matches fastp output) |
+| `--force` | — | store_true | 强制重新运行所有步骤｜Force rerun all steps |
+| `--verbose` | — | store_true | 显示详细日志｜Show verbose logs |
+| `--quiet` | — | store_true | 仅显示错误日志｜Show error logs only |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)（必需，比对）

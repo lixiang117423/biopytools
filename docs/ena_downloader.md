@@ -66,6 +66,44 @@ biopytools ena-downloader -a PRJEB12345 -m run
 
 随后执行 `bash download_<accession>_fastq_by_*.sh` 即可开始实际下载。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--accession, -a` | 必填 |  | ENA项目编号｜ENA accession number |
+| `--output-dir, -o` | — | Path | 输出目录｜Output directory |
+| `--create-dir, -d` | — |  | 创建专门输出目录｜Create dedicated output directory |
+| `--metadata-format, -f` | `tsv` | tsv/csv/xlsx | 元数据文件格式｜Metadata file format |
+| `--protocol, -p` | `ftp` | ftp/aspera | 下载协议类型｜Download protocol type |
+| `--aspera-key, -k` | — |  | Aspera私钥路径｜Path to aspera private key |
+| `--method, -m` | `save` | save/run | 执行模式｜Execution mode |
+| `--metadata-only, -M` | — |  | 仅下载元数据｜Only download metadata |
+| `--fields, -F` | — |  | 自定义元数据字段｜Custom metadata fields |
+| `--max-retries, -r` | `3` | int | API请求最大重试次数｜Maximum API request retries |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--accession, -a` | 必填 |  | ENA项目编号｜ENA accession number |
+| `--output-dir, -o` | — |  | 输出目录｜Output directory |
+| `--create-dir, -d` | — | store_true | 创建专门的输出目录｜Create dedicated output directory |
+| `--metadata-format, -f` | `tsv` | tsv/csv/xlsx | 元数据文件格式｜Metadata file format |
+| `--protocol, -p` | `ftp` | ftp/aspera | 下载协议类型｜Download protocol type |
+| `--aspera-key, -k` | — |  | Aspera私钥路径｜Path to aspera private key |
+| `--method, -m` | `save` | save/run | 执行模式｜Execution mode |
+| `--metadata-only, -M` | — | store_true | 仅下载元数据，不处理FASTQ文件｜Only download metadata, do not process FASTQ files |
+| `--fields, -F` | — |  | 自定义元数据字段｜Custom metadata fields |
+| `--max-retries, -r` | `3` | int | API请求最大重试次数｜Maximum API request retries |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 包：`requests`、`openpyxl`（生成xlsx时）

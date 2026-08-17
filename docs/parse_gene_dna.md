@@ -51,6 +51,40 @@ biopytools parse-gene-dna -g genome.fasta -f annotation.gff -o cds.fasta \
 - 若 GFF 中不存在指定特征类型，程序会报错退出
 - 日志中输出成功提取数量与跳过数量
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件路径｜Genome FASTA file path |
+| `--gff, -f` | 必填 |  | GFF注释文件路径｜GFF annotation file path |
+| `--output, -o` | 必填 | Path | 输出FASTA文件路径｜Output FASTA file path |
+| `--feature-type` | `gene` |  | 要提取的特征类型｜Feature type to extract |
+| `--min-length` | `0` | int | 最小基因长度过滤｜Minimum gene length filter |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--line-width` | `60` | int | FASTA序列行宽度｜FASTA sequence line width |
+| `--verbose, -v` | — |  | 显示详细信息｜Show verbose output |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组FASTA文件路径｜Genome FASTA file path |
+| `-f, --gff` | 必填 |  | GFF注释文件路径｜GFF annotation file path |
+| `-o, --output` | 必填 |  | 输出FASTA文件路径｜Output FASTA file path |
+| `--feature-type` | `gene` |  | 要提取的特征类型｜Feature type to extract |
+| `--min-length` | `0` | int | 最小基因长度过滤｜Minimum gene length filter |
+| `-t, --threads` | `88` | int | 线程数｜Number of threads |
+| `--line-width` | `60` | int | FASTA序列行宽度｜FASTA sequence line width |
+| `-v, --verbose` | — | store_true | 显示详细信息｜Show verbose output |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 标准库，无第三方依赖

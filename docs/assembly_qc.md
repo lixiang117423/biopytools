@@ -236,6 +236,65 @@ biopytools assembly-qc \
 - Samtools (Mapping评估)
 - Bedtools (Mapping评估)
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--lineage, -l` | 必填 |  | BUSCO数据集名称（如embryophyta_odb10）或完整路径｜BUSCO dataset name (e.g., embryophyta_odb10) or full path |
+| `--output-dir, -o` | `./assembly_qc_output` | Path | 输出目录｜Output directory |
+| `--sample-name, -s` | `genome_sample` |  | 样品名称｜Sample name |
+| `--skip-busco` | — |  | 跳过BUSCO评估｜Skip BUSCO evaluation |
+| `--enable-lai` | — |  | 启用LAI评估（默认禁用，EDTA流程耗时长）｜Enable LAI evaluation (disabled by default, EDTA is time-consuming) |
+| `--lai-full-mode` | — |  | LAI完整模式（不使用-qq，运行blastn计算，用于种间比较）｜LAI full mode (no -qq, run blastn for interspecies comparison) |
+| `--lai-repeatmasker-species` | `Viridiplantae` |  | RepeatMasker物种参数（EDTA失败回退时使用）｜RepeatMasker species for EDTA fallback |
+| `--enable-qv` | — |  | 启用QV评估（默认启用）｜Enable QV evaluation (default: enabled) |
+| `--qv-kmer-size` | — | int | k-mer大小（None表示自动选择）｜K-mer size (None for auto) |
+| `--enable-mapping` | — |  | 启用NGS Mapping评估（默认启用）｜Enable NGS mapping evaluation (default: enabled) |
+| `--enable-long-read-mapping` | — |  | 启用三代数据Mapping评估（默认启用）｜Enable long-read mapping evaluation (default: enabled) |
+| `--mapping-pattern` | `_1.clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern |
+| `--ngs-reads` | — | Path | NGS reads文件或目录（用于QV和mapping）｜NGS reads file or directory (for QV and mapping) |
+| `--long-reads` | — | Path | Long-reads文件或目录（用于QV和mapping）｜Long-reads file or directory (for QV and mapping) |
+| `--long-read-type` | `hifi` | ont/pacbio/hifi | Long-read数据类型｜Long-read data type |
+| `--no-html` | — |  | 不生成HTML报告｜Do not generate HTML report |
+| `--no-table` | — |  | 不生成表格｜Do not generate table |
+| `--table-format` | `both` | tsv/xlsx/both | 表格格式｜Table format |
+| `--threads, -t` | `12` | int | 线程数（自动分配给各子模块）｜Threads (automatically distributed to sub-modules) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--lineage, -l` | 必填 |  | BUSCO数据集名称（如embryophyta_odb10）或完整路径｜BUSCO dataset name (e.g., embryophyta_odb10) or full path |
+| `--output-dir, -o` | `./assembly_qc_output` |  | 输出目录｜Output directory |
+| `--sample-name, -s` | `genome_sample` |  | 样品名称｜Sample name |
+| `--skip-busco` | — | store_true | 跳过BUSCO评估｜Skip BUSCO evaluation |
+| `--enable-lai` | — | store_true | 启用LAI评估（默认禁用，EDTA流程耗时长）｜Enable LAI evaluation (disabled by default, EDTA is time-consuming) |
+| `--lai-full-mode` | — | store_true | LAI完整模式（不使用-qq，运行blastn计算，用于种间比较）｜LAI full mode (no -qq, run blastn for interspecies comparison) |
+| `--lai-repeatmasker-species` | `Viridiplantae` |  | RepeatMasker物种参数（EDTA失败回退时使用）｜RepeatMasker species for EDTA fallback (default: Viridiplantae) |
+| `--enable-qv` | — | store_true | 启用QV评估（默认启用）｜Enable QV evaluation (default: enabled) |
+| `--qv-kmer-size` | — | int | k-mer大小（None表示自动选择）｜K-mer size (None for auto) |
+| `--enable-mapping` | — | store_true | 启用NGS Mapping评估（默认启用）｜Enable NGS mapping evaluation (default: enabled) |
+| `--enable-long-read-mapping` | — | store_true | 启用三代数据Mapping评估（默认启用）｜Enable long-read mapping evaluation (default: enabled) |
+| `--mapping-pattern` | `_1.clean.fq.gz` |  | FASTQ文件匹配模式｜FASTQ file pattern |
+| `--ngs-reads` | — |  | NGS reads文件或目录（用于QV和mapping）｜NGS reads file or directory (for QV and mapping) |
+| `--long-reads` | — |  | Long-reads文件或目录（用于QV和mapping）｜Long-reads file or directory (for QV and mapping) |
+| `--long-read-type` | `hifi` | ont/pacbio/hifi | Long-read数据类型｜Long-read data type |
+| `--no-html` | — | store_true | 不生成HTML报告｜Do not generate HTML report |
+| `--no-table` | — | store_true | 不生成表格｜Do not generate table |
+| `--table-format` | `both` | tsv/xlsx/both | 表格格式｜Table format |
+| `--threads, -t` | `12` | int | 线程数（自动分配给各子模块）｜Threads (automatically distributed to sub-modules) |
+| `--edta-threads` | — | int | EDTA专用线程数（默认自动封顶24, 因EDTA内存随线程近线性增长, 88线程实测1.2TB易OOM）｜EDTA-only threads (default auto-cap 24, since EDTA memory scales ~linearly with threads; observed 1.2TB at 88 threads) |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题
 
 ### Q1: BUSCO评估失败

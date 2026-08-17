@@ -431,3 +431,66 @@ implications for the microbial "pan-genome". PNAS 102, 13950-13955 (2005).
 ---
 
 **⭐ 如果这个工具对您有帮助，请给我们一个Star！**
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入蛋白质序列文件目录｜Input protein sequence files directory |
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--project-name, -n` | — | str | 项目名称｜Project name |
+| `--softcore-threshold` | `1` | int | Softcore基因缺失阈值｜Softcore gene missing threshold |
+| `--dispensable-threshold` | `1` | int | Dispensable基因缺失阈值｜Dispensable gene missing threshold |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--search, --search-program, -s` | `blast` | blast/diamond/diamond_ultra_sens/mmseqs/blast_nucl | 序列搜索程序｜Sequence search program |
+| `--mcl-inflation` | `1.2` | float | MCL膨胀参数｜MCL inflation parameter |
+| `--dna, -d` | — |  | 输入序列为DNA｜Input sequences are DNA |
+| `--basic-only` | — |  | 仅执行基础分析｜Perform basic analysis only |
+| `--generate-trees` | — |  | 生成系统发育树｜Generate phylogenetic trees |
+| `--msa-program` | `mafft` | mafft/muscle | 多序列比对程序｜Multiple sequence alignment program |
+| `--tree-program` | `fasttree` | fasttree/fasttree_fastest/raxml/raxml-ng/iqtree | 系统发育树推断程序｜Phylogenetic tree inference program |
+| `--orthofinder-path` | `orthofinder` |  | OrthoFinder程序路径｜OrthoFinder program path |
+| `--force` | — |  | 强制重新分析覆盖已有结果｜Force reanalysis overwriting existing results |
+| `--skip-orthofinder` | — |  | 跳过OrthoFinder步骤直接分类｜Skip OrthoFinder step and go directly to classification |
+| `--disable-rarefaction` | — |  | 禁用稀释曲线分析｜Disable rarefaction curve analysis |
+| `--disable-single-copy` | — |  | 禁用单拷贝基因分析｜Disable single copy gene analysis |
+| `--no-plots` | — |  | 不生成图表｜Do not generate plots |
+| `--rarefaction-iterations` | `100` | int | 稀释分析迭代次数｜Rarefaction analysis iterations |
+| `--single-copy-format` | `both` | by_orthogroup/by_genome/both | 单拷贝基因序列输出格式｜Single copy gene sequence output format |
+| `--plot-format` | `png` | png/pdf/svg | 图表格式｜Plot format |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入蛋白质序列文件目录｜Input protein sequence files directory |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-n, --project-name` | — |  | 项目名称｜Project name |
+| `--softcore-threshold` | `1` | int | Softcore基因缺失阈值｜Softcore gene missing threshold |
+| `--dispensable-threshold` | `1` | int | Dispensable基因缺失阈值｜Dispensable gene missing threshold |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-s, --search, --search-program` | `blast` | blast/diamond/diamond_ultra_sens/mmseqs/blast_nucl | 序列搜索程序｜Sequence search program |
+| `--mcl-inflation` | `1.2` | float | MCL inflation参数｜MCL inflation parameter |
+| `--disable-single-copy` | — | store_true | 禁用单拷贝基因分析｜Disable single copy gene analysis |
+| `--extract-sequences` | `True` | store_true | 提取单拷贝基因序列｜Extract single copy gene sequences |
+| `--single-copy-format` | `both` | by_orthogroup/by_genome/both | 单拷贝基因序列输出格式｜Single copy gene sequence output format |
+| `--disable-rarefaction` | — | store_true | 禁用稀释曲线分析｜Disable rarefaction curve analysis |
+| `--rarefaction-iterations` | `100` | int | 稀释分析迭代次数｜Rarefaction analysis iterations |
+| `-d, --dna` | — | store_true | 输入序列为DNA序列｜Input sequences are DNA |
+| `--basic-only` | — | store_true | 仅进行基础分析｜Perform basic analysis only |
+| `--generate-trees` | — | store_true | 生成系统发育树｜Generate phylogenetic trees |
+| `--msa-program` | `mafft` | mafft/muscle | 多序列比对程序｜Multiple sequence alignment program |
+| `--tree-program` | `fasttree` | fasttree/fasttree_fastest/raxml/raxml-ng/iqtree | 系统发育树构建程序｜Phylogenetic tree inference program |
+| `--force` | — | store_true | 强制重新分析覆盖已有结果｜Force reanalysis overwriting existing results |
+| `--skip-orthofinder` | — | store_true | 跳过OrthoFinder步骤直接进行分类｜Skip OrthoFinder step and go directly to classification |
+| `--no-plots` | — | store_true | 不生成图表｜Do not generate plots |
+| `--plot-format` | `png` | png/pdf/svg | 图表格式｜Plot format |
+| `--orthofinder-path` | `~/miniforge3/envs/annot/bin/orthofinder` |  | OrthoFinder程序路径｜OrthoFinder program path |
+
+<!-- END PARAMS:auto -->

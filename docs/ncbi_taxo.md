@@ -400,3 +400,47 @@ Shen, W., Ren, H., & Xue, Z. (2023).
 TaxonKit: a cross-platform and efficient NCBI taxonomy toolkit.
 Bioinformatics, 39(12), btad689.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入文件（BLAST结果或accession列表）｜Input file (BLAST results or accession list) |
+| `--output-prefix, -o` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `--input-type` | `auto` | auto/blast/accession | 输入文件类型｜Input file type |
+| `--blast-column` | `2` | int | BLAST结果中accession所在的列（从1开始）｜Column containing accession in BLAST (1-based) |
+| `--min-length, -l` | `1000` | int | 最小比对长度过滤（bp）｜Minimum alignment length filter (bp) |
+| `--fetch-titles` | — |  | 获取accession的序列描述（需要edirect）｜Fetch accession titles (requires edirect) |
+| `--taxid-db` | `~/database/ncbi_taxonomy/nucl_gb.accession2taxid.gz` |  | TaxID数据库路径｜TaxID database path |
+| `--lineage-format` | `{k};{p};{c};{o};{f};{g};{s}` |  | 分类层级格式｜Lineage format string |
+| `--no-full-lineage` | — |  | 不保留完整lineage｜Do not keep full lineage |
+| `--stats-by` | `['genus', 'species']` | kingdom/phylum/class/order/family/genus/species | 统计层级（可多选）｜Statistics levels (can be specified multiple times) |
+| `--stats-target` | `both` | blast_hits/unique_accessions/both | 统计对象｜Statistics target |
+| `--stats-output` | `txt` | txt/csv | 统计输出格式｜Statistics output format |
+| `--threads, -t` | `4` | int | 线程数｜Number of threads |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入文件路径（BLAST结果或accession列表）｜Input file path (BLAST results or accession list) |
+| `-o, --output-prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `--input-type` | `auto` | auto/blast/accession | 输入文件类型｜Input file type (auto/blast/accession) |
+| `--blast-column` | `2` | int | BLAST结果中accession所在的列（从1开始）｜Column containing accession in BLAST results (1-based) |
+| `-l, --min-length` | `1000` | int | 最小比对长度过滤（bp）｜Minimum alignment length filter (bp) |
+| `--fetch-titles` | — | store_true | 获取accession的序列描述｜Fetch accession titles (requires edirect) |
+| `--taxid-db` | `~/database/ncbi_taxonomy/nucl_gb.accession2taxid.gz` |  | TaxID数据库路径｜TaxID database path |
+| `--lineage-format` | `{k};{p};{c};{o};{f};{g};{s}` |  | 分类层级格式｜Lineage format string |
+| `--no-full-lineage` | — | store_true | 不保留完整lineage｜Do not keep full lineage |
+| `--stats-by` | `['genus', 'species']` | kingdom/phylum/class/order/family/genus/species | 统计层级｜Statistics levels |
+| `--stats-target` | `both` | blast_hits/unique_accessions/both | 统计对象｜Statistics target |
+| `--stats-output` | `txt` | txt/csv | 统计输出格式｜Statistics output format |
+| `-t, --threads` | `4` | int | 线程数｜Number of threads |
+
+<!-- END PARAMS:auto -->

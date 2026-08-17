@@ -292,3 +292,57 @@ PMID: 38701418
 本项目采用MIT许可证
 
 **注意**: PanDepth软件本身采用MIT-0许可证
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入BAM文件或BAM文件目录｜Input BAM file or BAM file directory |
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--gff, -g` | — | str | GFF/GTF文件用于基因覆盖度｜GFF/GTF file for gene coverage |
+| `--feature, -f` | `CDS` | CDS/exon | GFF/GTF特征类型｜GFF/GTF feature type |
+| `--bed, -b` | — | str | BED文件用于特定区域覆盖度｜BED file for specific region coverage |
+| `--window, -w` | — | int | 滑动窗口大小(bp)｜Sliding window size in bp |
+| `--min-mapq, -q` | `0` | int | 最小比对质量｜Minimum mapping quality |
+| `--min-depth, -d` | `1` | int | 最小深度用于统计｜Minimum depth for statistics |
+| `--exclude-flag, -x` | `1796` | int | 排除reads的FLAG标志｜FLAG bits to exclude reads |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--reference, -r` | — | str | 参考基因组文件｜Reference genome file |
+| `--enable-gc, -c` | — |  | 启用GC含量计算｜Enable GC content calculation |
+| `--all-sites, -a` | — |  | 输出所有位点深度｜Output all site depths |
+| `--pandepth-path` | `~/software/PanDepth-2.26-Linux-x86_64/pandepth` | str | PanDepth程序路径｜PanDepth program path |
+| `--verbose, -v` | — |  | 增加输出详细程度｜Increase output verbosity |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入BAM文件或BAM文件目录｜Input BAM file or BAM file directory |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-g, --gff` | — |  | GFF/GTF文件用于基因覆盖度｜GFF/GTF file for gene coverage |
+| `-f, --feature` | `CDS` | CDS/exon | GFF/GTF特征类型｜GFF/GTF feature type (default: CDS) |
+| `-b, --bed` | — |  | BED文件用于特定区域覆盖度｜BED file for specific region coverage |
+| `-w, --window` | — | int | 滑动窗口大小(bp)｜Sliding window size in bp |
+| `-q, --min-mapq` | `0` | int | 最小比对质量｜Minimum mapping quality (default: 0) |
+| `-d, --min-depth` | `1` | int | 最小深度用于统计｜Minimum depth for statistics (default: 1) |
+| `-x, --exclude-flag` | `1796` | int | 排除reads的FLAG标志｜FLAG bits to exclude reads (default: 1796) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `-r, --reference` | — |  | 参考基因组文件(用于CRAM解码或GC计算)｜Reference genome file for CRAM decode or GC calculation |
+| `-c, --enable-gc` | — | store_true | 启用GC含量计算｜Enable GC content calculation |
+| `-a, --all-sites` | — | store_true | 输出所有位点深度｜Output all site depths |
+| `--pandepth-path` | `~/software/PanDepth-2.26-Linux-x86_64/pandepth` |  | PanDepth程序路径｜PanDepth program path |
+| `-v, --verbose` | `0` | count | 增加输出详细程度｜Increase output verbosity |
+| `--quiet` | — | store_true | 静默模式，仅输出错误信息｜Quiet mode, only output errors |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+
+<!-- END PARAMS:auto -->

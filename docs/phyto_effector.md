@@ -81,6 +81,67 @@ biopytools phyto-effector merge -i ./effector_out -o ./effector_merged
 
 `merge` 子命令会生成 `<type>_all.tsv`（如 `rxlr_all.tsv`），按样品汇总所有候选。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件或目录｜Input FASTA file or directory |
+| `-o, --output-dir` | `./phyto_effector_output` |  | 输出目录｜Output directory |
+| `--skip-signalp` | — |  | 跳过SignalP预测｜Skip SignalP prediction |
+| `--signalp-path` | `~/miniforge3/envs/protein/bin/signalp6` |  | SignalP程序路径｜SignalP program path |
+| `--organism` | `eukarya` | eukarya/other | 生物类型｜Organism type |
+| `--signalp-mode` | `slow-sequential` | fast/slow/slow-sequential | SignalP运行模式｜SignalP run mode |
+| `--signalp-version` | `both` | 3/6/both | SignalP版本｜SignalP version (3/6/both) |
+| `--signalp3-path` | `~/miniforge3/envs/signalp_v.3.0b/bin/signalp` |  | SignalP 3.0程序路径｜SignalP 3.0 program path |
+| `--signalp3-sprob-threshold` | `0.9` | float | SignalP 3.0 HMM Sprob阈值｜SignalP 3.0 HMM Sprob threshold |
+| `--hmmsearch-path` | `~/miniforge3/envs/protein/bin/hmmsearch` |  | hmmsearch程序路径｜hmmsearch program path |
+| `--rxlr-hmm` | — |  | RxLR HMM文件(默认内置)｜RxLR HMM file (default: bundled) |
+| `--use-wy-domain` | — |  | 同时搜索WY结构域｜Also search WY domain |
+| `--rxlr-wy-hmm` | — |  | WY HMM文件(默认内置)｜WY HMM file (default: bundled) |
+| `--crn-hmm` | — |  | CRN HMM文件(默认内置)｜CRN HMM file (default: bundled) |
+| `--nlp-hmm` | — |  | NLP HMM文件(默认内置)｜NLP HMM file (default: bundled) |
+| `--protease-hmm` | — |  | Protease HMM文件(默认内置)｜Protease HMM file (default: bundled) |
+| `--scp-hmm` | — |  | SCP HMM文件(默认内置)｜SCP HMM file (default: bundled) |
+| `--elicitin-hmm` | — |  | elicitin HMM文件(默认内置)｜elicitin HMM file (default: bundled) |
+| `--yxsl-hmm` | — |  | YxSL HMM文件(默认内置)｜YxSL HMM file (default: bundled) |
+| `-e, --evalue` | `1e-05` | float | E-value阈值(已弃用)｜E-value threshold (deprecated) |
+| `--score-threshold` | `0.0` | float | HMM score阈值｜HMM score threshold |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件或目录｜Input FASTA file or directory |
+| `-o, --output-dir` | `./phyto_effector_output` |  | 输出目录｜Output directory (default: ./phyto_effector_output) |
+| `--skip-signalp` | — | store_true | 跳过SignalP预测｜Skip SignalP prediction |
+| `--signalp-path` | `~/miniforge3/envs/protein/bin/signalp6` |  | SignalP程序路径｜SignalP program path |
+| `--organism` | `eukarya` | eukarya/other | 生物类型｜Organism type (default: eukarya) |
+| `--signalp-mode` | `slow-sequential` | fast/slow/slow-sequential | SignalP运行模式｜SignalP run mode (default: slow-sequential) |
+| `--signalp-version` | `both` | 3/6/both | SignalP版本｜SignalP version: 3, 6, or both (default: both) |
+| `--signalp3-path` | `~/miniforge3/envs/signalp_v.3.0b/bin/signalp` |  | SignalP 3.0程序路径｜SignalP 3.0 program path |
+| `--signalp3-sprob-threshold` | `0.9` | float | SignalP 3.0 HMM Sprob阈值｜SignalP 3.0 HMM Sprob threshold (default: 0.9) |
+| `--hmmsearch-path` | `~/miniforge3/envs/protein/bin/hmmsearch` |  | hmmsearch程序路径｜hmmsearch program path |
+| `--blastp-path` | `~/miniforge3/envs/annot/bin/blastp` |  | blastp程序路径｜blastp program path |
+| `--rxlr-blastp-queries` | — |  | RxLR BLASTP查询序列FASTA(默认内置)｜RxLR BLASTP query FASTA (default: bundled) |
+| `--tmhmm-path` | `~/miniforge3/envs/protein/bin/tmhmm` |  | tmhmm程序路径｜tmhmm program path |
+| `--rxlr-hmm` | — |  | RxLR HMM文件路径(默认内置)｜RxLR HMM file path (default: bundled) |
+| `--use-wy-domain` | — | store_true | 同时搜索WY结构域｜Also search WY domain |
+| `--rxlr-wy-hmm` | — |  | WY HMM文件路径(默认内置)｜WY HMM file path (default: bundled) |
+| `-e, --evalue` | `1e-05` | float | E-value阈值(已弃用，使用--score-threshold)｜E-value threshold (deprecated) |
+| `--score-threshold` | `0.0` | float | HMM score阈值｜HMM score threshold (default: 0.0) |
+| `--crn-hmm` | — |  | CRN HMM文件路径(默认内置)｜CRN HMM file path (default: bundled) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--…-hmm` | — |  | … HMM文件路径(默认内置)｜… HMM file path (default: bundled) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - `signalp`（6.0）和/或 `signalp` 3.0b（信号肽预测）

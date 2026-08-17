@@ -304,3 +304,49 @@ Jones, P. et al. (2014)
 InterProScan 5: genome-scale protein function classification.
 Bioinformatics, 30(9), 1236-1240.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 蛋白质FASTA文件｜Protein FASTA file path |
+| `--output-prefix, -o` | 必填 |  | 输出文件前缀｜Output file prefix (without extension) |
+| `--interproscan-path, -a` | `~/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh` |  | InterProScan软件路径｜InterProScan software installation path |
+| `--format, -f` | `TSV,XML` |  | 输出格式,支持逗号分隔多格式(如 TSV,XML)｜Output format, supports comma-separated multi-format (e.g. TSV,XML) |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--disable-precalc` | `True` |  | 禁用预计算查找服务(默认)｜Disable precalc lookup service (default) |
+| `--enable-precalc` | — |  | 启用预计算查找服务(需要网络)｜Enable precalc lookup service (requires network) |
+| `--goterms` | — |  | 获取GO术语(默认不获取)｜Get GO terms (disabled by default) |
+| `--pathways` | — |  | 获取Pathway信息(默认不获取)｜Get pathway information (disabled by default) |
+| `--applications, -appl` | — |  | 指定运行的应用，逗号分隔｜Specify applications to run, comma-separated |
+| `--temp-dir` | — | Path | 临时目录路径｜Temporary directory path |
+| `--python-path` | — | Path | Python解释器路径（兼容Python 3.8-3.11）｜Python interpreter path (compatible with Python 3.8-3.11) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入蛋白质FASTA文件路径｜Input protein FASTA file path |
+| `-o, --output-prefix` | 必填 |  | 输出文件前缀(不含扩展名)｜Output file prefix (without extension) |
+| `--interproscan-path` | `~/software/InterProScan/v.5.75-106.0/interproscan-5.75-106.0/interproscan.sh` |  | InterProScan软件路径｜InterProScan software path |
+| `-f, --format` | `TSV,XML` |  | 输出格式，支持多个格式逗号分隔 (例如: TSV,XML,JSON)｜Output format, support multiple formats comma-separated (e.g., TSV,XML,JSON) |
+| `-t, --threads` | `24` | int | 线程数｜Number of threads |
+| `--disable-precalc` | `True` | store_true | 禁用预计算查找服务(默认启用，解决网络问题)｜Disable precalc lookup service (enabled by default, solves network issues) |
+| `--enable-precalc` | — | store_true | 启用预计算查找服务(需要网络连接)｜Enable precalc lookup service (requires network connection) |
+| `--goterms` | — | store_true | 获取GO术语(默认不获取)｜Get GO terms (disabled by default) |
+| `--pathways` | — | store_true | 获取Pathway信息(默认不获取)｜Get pathway information (disabled by default) |
+| `-appl, --applications` | — |  | 指定运行的应用，逗号分隔(例如: Pfam,SMART,Gene3D)｜Specify applications to run, comma-separated (e.g., Pfam,SMART,Gene3D) |
+| `--temp-dir` | — |  | 临时目录路径｜Temporary directory path |
+| `--no-report` | — | store_true | 不生成整理后的报告｜Do not generate formatted report |
+| `--report-format` | `both` | excel/csv/both | 报告格式 (默认: both，同时生成Excel和CSV)｜Report format (default: both, generate both Excel and CSV) |
+| `--no-summary` | — | store_true | 不包含汇总统计表｜Do not include summary statistics |
+| `--go-database` | — |  | GO术语JSON数据库文件路径（用于填充GO名称和ontology）｜GO term JSON database file path (for filling GO names and ontologies) |
+| `--python-path` | — |  | Python解释器路径（用于指定兼容的Python 3.8-3.11版本）｜Python interpreter path (for specifying compatible Python 3.8-3.11) |
+
+<!-- END PARAMS:auto -->

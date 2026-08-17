@@ -403,3 +403,83 @@ BUSCO: The essential tool for assessing genome assembly and annotation quality.
 Molecular Biology and Evolution, 2021, 38(9): 3882-3895.
 doi: 10.1093/molbev/msab053
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入文件或目录｜Input file or directory |
+| `--lineage, -l` | 必填 | str | BUSCO数据库谱系｜BUSCO database lineage |
+| `--output-dir, -o` | `./busco_output` | Path | 输出目录｜Output directory |
+| `--mode, -m` | `genome` | genome/geno/transcriptome/tran/proteins/prot | BUSCO分析模式｜BUSCO analysis mode |
+| `--threads, -t` | `12` | int | CPU线程数｜Number of CPU threads |
+| `--sample-suffix` | `*.fa` |  | 样本名提取后缀｜Sample name extraction suffix pattern |
+| `--output-format` | `txt` | txt/csv/xlsx | 输出文件格式｜Output file format |
+| `--force, -f` | — |  | 强制重写现有文件｜Force rewriting existing files |
+| `--augustus` | — |  | 使用Augustus基因预测器｜Use Augustus gene predictor |
+| `--augustus-parameters` | — | str | Augustus额外参数｜Additional Augustus parameters |
+| `--augustus-species` | — | str | Augustus物种名｜Augustus species name |
+| `--auto-lineage` | — |  | 自动选择谱系｜Automatically select lineage |
+| `--auto-lineage-euk` | — |  | 自动选择真核生物谱系｜Automatically select eukaryote lineage |
+| `--auto-lineage-prok` | — |  | 自动选择原核生物谱系｜Automatically select prokaryote lineage |
+| `--contig-break` | `10` | int | Contig打断的N数量｜Number of Ns for contig break |
+| `--datasets-version` | `odb12` |  | 数据集版本｜Dataset version |
+| `--download-path` | — | str | 数据集下载路径｜Dataset download path |
+| `--evalue, -e` | `0.001` | float | BLAST E值阈值｜BLAST E-value threshold |
+| `--limit` | `3` | int | 候选区域限制｜Candidate region limit |
+| `--long` | — |  | 启用Augustus长模式优化｜Enable Augustus long mode optimization |
+| `--metaeuk` | — |  | 使用Metaeuk基因预测器｜Use Metaeuk gene predictor |
+| `--metaeuk-parameters` | — | str | Metaeuk额外参数｜Additional Metaeuk parameters |
+| `--metaeuk-rerun-parameters` | — | str | Metaeuk重新运行参数｜Metaeuk rerun parameters |
+| `--miniprot` | — |  | 使用Miniprot基因预测器｜Use Miniprot gene predictor |
+| `--skip-bbtools` | — |  | 跳过BBTools统计｜Skip BBTools statistics |
+| `--offline` | — |  | 离线模式｜Offline mode |
+| `--restart, -r` | — |  | 重启未完成的分析｜Restart incomplete analysis |
+| `--quiet, -q` | — |  | 静默模式｜Quiet mode |
+| `--scaffold-composition` | — |  | 生成scaffold组成文件｜Generate scaffold composition file |
+| `--tar` | — |  | 压缩子目录｜Compress subdirectories |
+| `--busco-path` | — |  | BUSCO软件路径｜BUSCO software path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入文件或目录路径｜Input file or directory path |
+| `-l, --lineage` | 必填 |  | BUSCO数据库/谱系名称｜BUSCO database lineage name |
+| `-o, --output-dir` | `./busco_output` |  | 输出目录｜Output directory |
+| `-m, --mode` | `genome` | genome/geno/transcriptome/tran/proteins/prot | BUSCO分析模式｜BUSCO analysis mode |
+| `-t, --threads` | `12` | int | CPU线程数｜Number of CPU threads |
+| `--sample-suffix` | `*.fa` |  | 样本名称提取后缀模式｜Sample name extraction suffix pattern |
+| `--output-format` | `txt` | txt/csv/xlsx | 输出文件格式｜Output file format |
+| `-f, --force` | — | store_true | 强制重写现有文件｜Force rewriting of existing files |
+| `--augustus` | — | store_true | 使用Augustus基因预测器｜Use Augustus gene predictor |
+| `--augustus-parameters` | — |  | Augustus附加参数｜Additional Augustus parameters |
+| `--augustus-species` | — |  | Augustus物种名称｜Augustus species name |
+| `--auto-lineage` | — | store_true | 自动选择谱系｜Automatically select lineage |
+| `--auto-lineage-euk` | — | store_true | 自动选择真核生物谱系｜Automatically select eukaryote lineage |
+| `--auto-lineage-prok` | — | store_true | 自动选择原核生物谱系｜Automatically select prokaryote lineage |
+| `--contig-break` | `10` | int | Contig断点N数量｜Number of Ns for contig break |
+| `--datasets-version` | `odb12` |  | 数据集版本｜Dataset version |
+| `--download-path` | — |  | 数据集下载路径｜Dataset download path |
+| `-e, --evalue` | `0.001` | float | BLAST E值阈值｜BLAST E-value threshold |
+| `--limit` | `3` | int | 候选区域数量限制｜Candidate region limit |
+| `--long` | — | store_true | 启用Augustus长模式优化｜Enable Augustus long mode optimization |
+| `--metaeuk` | — | store_true | 使用Metaeuk基因预测器｜Use Metaeuk gene predictor |
+| `--metaeuk-parameters` | — |  | Metaeuk附加参数｜Additional Metaeuk parameters |
+| `--metaeuk-rerun-parameters` | — |  | Metaeuk重运行参数｜Metaeuk rerun parameters |
+| `--miniprot` | — | store_true | 使用Miniprot基因预测器｜Use Miniprot gene predictor |
+| `--skip-bbtools` | — | store_true | 跳过BBTools统计｜Skip BBTools statistics |
+| `--offline` | — | store_true | 离线模式｜Offline mode |
+| `-r, --restart` | — | store_true | 重启未完成的分析｜Restart incomplete analysis |
+| `-q, --quiet` | — | store_true | 静默模式｜Quiet mode |
+| `--scaffold-composition` | — | store_true | 生成scaffold组成文件｜Generate scaffold composition file |
+| `--tar` | — | store_true | 压缩子目录｜Compress subdirectories |
+| `--busco-path` | — |  | BUSCO软件路径｜BUSCO software path |
+
+<!-- END PARAMS:auto -->

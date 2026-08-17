@@ -404,3 +404,90 @@ pip install pyfastx
 ## 许可证 | License
 
 本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入目录(包含FASTQ/FASTA文件)｜Input directory (containing FASTQ/FASTA files) |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `--use-kmindex` | — | store_true | 使用kmindex模式 (默认: 使用kmtricks)｜Use kmindex mode (default: use kmtricks) |
+| `-k, --kmer-size` | `51` | int | k-mer大小 (默认: 51)｜K-mer size (default: 51) |
+| `--hard-min` | `2` | int | 最小丰度 (默认: 2)｜Minimum abundance (default: 2) |
+| `--recurrence-min` | `1` | int | 最小重现次数 (默认: 1)｜Minimum recurrence (default: 1) |
+| `--mode` | `kmer:pa:bin` |  | kmtricks模式 (默认: kmer:pa:bin)｜kmtricks mode (default: kmer:pa:bin) |
+| `--minimizer-size` | `10` | int | minimizer大小 (默认: 10)｜Minimizer size (default: 10) |
+| `--tmp-dir` | `` |  | kmtricks临时目录 (默认: 输出目录/tmp)｜kmtricks temporary directory (default: output_dir/tmp) |
+| `--nb-partitions` | `0` | int | 分区数 (默认: 0=自动计算, -1=kmtricks默认)｜Partitions (default: 0=auto, -1=kmtricks default) |
+| `--fof-file` | `` |  | 预存的FOF文件路径｜Pre-existing FOF file path |
+| `--header-file` | `` |  | 预存的header文件路径｜Pre-existing header file path |
+| `--index-name` | `kmer_index` |  | kmindex索引名称 (默认: kmer_index)｜kmindex index name (default: kmer_index) |
+| `--bloom-size` | `1000000000000` | int | kmindex布隆过滤器大小 (默认: 1000000000000)｜kmindex bloom filter size (default: 1000000000000) |
+| `-t, --threads` | `64` | int | 线程数 (默认: 64)｜Thread count (default: 64) |
+| `--kmtricks-path` | — |  | kmtricks路径 (默认按 KMTRICKS_PATH环境变量>配置文件>内置默认 解析)｜kmtricks path (resolved via KMTRICKS_PATH env>config>built-in) |
+| `--kmindex-path` | — |  | kmindex路径 (默认按 KMINDEX_PATH环境变量>配置文件>内置默认 解析)｜kmindex path (resolved via KMINDEX_PATH env>config>built-in) |
+| `--bgzip-path` | — |  | bgzip路径 (默认按 BGZIP_PATH环境变量>配置文件>内置默认 解析)｜bgzip path (resolved via BGZIP_PATH env>config>built-in) |
+| `--fof-suffix-1` | `_1.clean.fq.gz` |  | R1文件后缀 (默认: _1.clean.fq.gz)｜R1 file suffix (default: _1.clean.fq.gz) |
+| `--fof-suffix-2` | `_2.clean.fq.gz` |  | R2文件后缀 (默认: _2.clean.fq.gz)｜R2 file suffix (default: _2.clean.fq.gz) |
+| `-d, --database` | — |  | RocksDB数据库目录 (kmtricks模式必需，默认模式)｜RocksDB database directory (required for kmtricks mode, default) |
+| `-i, --index` | — |  | kmindex索引目录 (kmindex模式必需，需加--use-kmindex)｜kmindex index directory (required for kmindex mode, requires --use-kmindex) |
+| `-q, --query` | 必填 |  | 查询FASTA文件｜Query FASTA file |
+| `--header-db-key` | `kmer_header` |  | 数据库中的header key (默认: kmer_header)｜Header key in database (default: kmer_header) |
+| `--bed` | — |  | BED文件路径（用于生成位置丰度文件）｜BED file path (for generating position-abundance file) |
+| `--zvalue` | `0` | int | findere算法z值 (默认: 0)｜findere z-value (default: 0) |
+| `--threshold` | `0.0` | float | 共享k-mer阈值 (默认: 0.0)｜Shared k-mer threshold (default: 0.0) |
+| `--format` | `matrix` | json/matrix | 输出格式 (默认: matrix)｜Output format (default: matrix) |
+| `--dir` | 必填 |  | 输入目录｜Input directory |
+| `--suffix-1` | `_1.clean.fq.gz` |  | R1文件后缀 (默认: _1.clean.fq.gz)｜R1 file suffix (default: _1.clean.fq.gz) |
+| `--suffix-2` | `_2.clean.fq.gz` |  | R2文件后缀 (默认: _2.clean.fq.gz)｜R2 file suffix (default: _2.clean.fq.gz) |
+| `--input-delimiter` | `	` |  | 输入分隔符 (默认: tab)｜Input delimiter (default: tab) |
+| `--batch-size` | `20000` | int | 批量写入大小 (默认: 20000)｜Batch write size (default: 20000) |
+| `--bloom-bits` | `15` | int | Bloom filter位数 (默认: 15)｜Bloom filter bits per key (default: 15) |
+| `--force-overwrite` | — | store_true | 强制覆盖已存在的数据库｜Force overwrite existing database |
+| `--method` | `unikmer` | unikmer/pyfastx | 提取方法 (默认: unikmer)｜Extraction method (default: unikmer) |
+| `--unikmer-path` | — |  | unikmer路径 (默认按 UNIKMER_PATH环境变量>配置文件>内置默认 解析)｜unikmer path (resolved via UNIKMER_PATH env>config>built-in) |
+| `--kmer-output` | — |  | kmer FASTA文件 (默认: output_dir/basename_kmer_k.fa)｜Kmer FASTA file |
+| `--kmer-pos-output` | — |  | kmer位置文件 (默认: output_dir/basename_kmer_k_pos.txt)｜Kmer position file |
+| `--no-bed` | — | store_true | 不输出BED文件｜Do not output BED file |
+| `-p, --pattern` | 必填 |  | 文件模式，支持FASTQ和FASTA格式｜File pattern (FASTQ/FASTA) |
+| `-k, --kmer-lib` | 必填 |  | K-mer库文件(FASTA格式)｜K-mer library file (FASTA format) |
+| `-b, --bed-file` | — |  | BED文件路径｜BED file path |
+| `-m, --kmer-size` | `51` | int | K-mer长度 (默认: 51)｜K-mer size (default: 51) |
+| `-s, --hash-size` | `1000M` |  | 哈希表大小 (默认: 1000M)｜Hash table size (default: 1000M) |
+| `-w, --window-size` | `500000` | int | 滑动窗口大小bp (默认: 500000)｜Window size in bp (default: 500000) |
+| `--step-size` | — | int | 滑动窗口步长bp (默认: window-size/5)｜Step size in bp (default: window-size/5) |
+| `-C, --canonical` | — | store_true | 统计正向和反向互补链｜Count both strands |
+| `--keep-temp` | — | store_true | 保留临时文件｜Keep temporary files |
+| `--keep-binary` | — | store_true | 保留0/1存在缺失矩阵｜Keep 0/1 matrix |
+| `--jellyfish-path` | — |  | Jellyfish路径 (默认按 JELLYFISH_PATH环境变量>配置文件>内置默认 解析)｜Jellyfish path (resolved via JELLYFISH_PATH env>config>built-in) |
+| `-v, --verbose` | — | store_true | 详细输出｜Verbose output |
+| `-i, --input-matrix` | 必填 |  | 输入kmer丰度矩阵文件｜Input kmer abundance matrix file (TSV format) |
+| `-o, --output-vcf` | 必填 |  | 输出VCF文件路径｜Output VCF file path (.vcf or .vcf.gz) |
+| `--fast-mode` | `True` | store_true | 快速模式（单次遍历，默认）｜Fast mode (single pass, default) |
+| `--standard-mode` | — | store_true | 标准模式（3遍处理+排序）｜Standard mode (3-pass processing + sorting) |
+| `--chr-length` | `100000000` | int | 每条染色体长度（快速模式，默认100M）｜Chromosome length for fast mode (default: 100M) |
+| `--chr-number` | `0` | int | 染色体数量（如果设置则优先使用）｜Number of chromosomes (if set, takes priority over --chr-length) |
+| `--min-freq` | `0` | int | 最小出现频次过滤（快速模式）｜Minimum frequency filter for fast mode (default: 0=no filter) |
+| `--kmer-length` | `51` | int | Kmer长度，用于VCF INFO字段｜Kmer length for VCF INFO field (default: 51) |
+| `--no-header` | — | store_true | 输入文件没有header行（第一行就是样本名）｜Input file has no header line (first line is sample names) |
+| `-m, --min-agg-count` | `3` | int | 最小聚合频次阈值（标准模式）｜Minimum aggregated count threshold for standard mode (default: 3) |
+| `-T, --temp-dir` | — |  | 临时文件目录（标准模式）｜Temporary directory for standard mode (default: ./temp) |
+| `-m, --kmer-matrix` | 必填 |  | kmer矩阵文件｜Kmer matrix file (TSV format) |
+| `-k, --kmer-fasta` | 必填 |  | 目标kmer的fasta文件｜Target kmer fasta file |
+| `-o, --output-file` | 必填 |  | 输出文件路径｜Output file path |
+| `-r, --use-reverse-complement` | `True` | store_true | 使用反向互补查询 (默认: 启用)｜Use reverse complement query (default: enabled) |
+| `--no-reverse-complement` | — | store_false | 不使用反向互补查询｜Do not use reverse complement query |
+| `--keep-not-found` | `True` | store_true | 保留未找到的kmer (默认: 保留)｜Keep kmers not found (default: enabled) |
+| `--no-keep-not-found` | — | store_false | 不保留未找到的kmer｜Do not keep kmers not found |
+| `-f, --output-format` | `tsv` | tsv/csv | 输出格式 (默认: tsv)｜Output format (default: tsv) |
+| `-f1, --file1` | 必填 |  | 第一个kmer矩阵文件｜First kmer matrix file |
+| `-f2, --file2` | 必填 |  | 第二个kmer矩阵文件｜Second kmer matrix file |
+| `-o, --output-prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+
+<!-- END PARAMS:auto -->

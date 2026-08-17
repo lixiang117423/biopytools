@@ -214,6 +214,80 @@ firefox centier_results/genome_draw_cen.svg
 biopytools centier -i genome.fa -o centier_results/ --summary
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 基因组FASTA文件｜Genome FASTA file path |
+| `--output-dir, -o` | `./centier_output` |  | 输出目录｜Output directory |
+| `--centier-path` | `~/software/CentIER/CentIER-main` |  | CentIER软件路径｜CentIER software path |
+| `--gff` | — |  | GFF/GTF注释文件｜GFF/GTF annotation file (optional) |
+| `--matrix1` | — |  | Hi-C矩阵文件(100000分辨率)｜Hi-C matrix file at 100000 resolution (optional) |
+| `--matrix2` | — |  | Hi-C矩阵文件(200000分辨率)｜Hi-C matrix file at 200000 resolution (optional) |
+| `--bed1` | — |  | Hi-C BED文件(对应matrix1)｜Hi-C BED file for matrix1 (optional) |
+| `--bed2` | — |  | Hi-C BED文件(对应matrix2)｜Hi-C BED file for matrix2 (optional) |
+| `--fastq-r1, -1` | — |  | Hi-C R1 FASTQ(启用自动模式)｜Hi-C R1 FASTQ (enables auto mode) |
+| `--fastq-r2, -2` | — |  | Hi-C R2 FASTQ｜Hi-C R2 FASTQ |
+| `--genome-id, -g` | — |  | 基因组ID｜Genome ID |
+| `--restriction-enzyme` | `MboI` |  | 限制性内切酶｜Restriction enzyme |
+| `--bowtie2-idx` | — |  | Bowtie2索引路径｜Bowtie2 index path |
+| `--bin-sizes` | `100000 20000` |  | HiC-Pro bin大小｜HiC-Pro bin sizes |
+| `--max-memory` | `200` | int | HiC-Pro最大内存GB｜HiC-Pro max memory GB |
+| `--force-hicpro` | — |  | 强制重跑HiC-Pro｜Force rerun HiC-Pro |
+| `--hic-matrix-type` | `raw` | raw/iced | Hi-C矩阵类型｜Hi-C matrix type |
+| `--strict-chrname` | — |  | 染色体命名不符ChrN时中止｜Abort if chr naming not ChrN |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--kmer-size, -k` | `21` | int | K-mer大小｜K-mer size |
+| `--center-tolerance, -c` | `15` | int | 中心容差｜Center tolerance |
+| `--step-len` | `10000` | int | 步长｜Step length |
+| `--mul-cents` | — |  | 保留所有潜在的着丝粒区域｜Retain all potential centromeric regions |
+| `--mingap` | `2` | int | 最小Gap值｜Minimum gap value n*100000 |
+| `--signal-threshold` | `0.7` | float | 信号阈值｜Signal threshold |
+| `--step, -s` | — | IntRange | 运行指定步骤｜Run only specified step (1-6) |
+| `--skip-dependency-check` | — |  | 跳过依赖检查｜Skip dependency check |
+| `--summary` | — |  | 输出分析结果摘要｜Output analysis result summary |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file path |
+| `-o, --output-dir` | `./centier_output` |  | 输出目录｜Output directory (default: ./centier_output) |
+| `--centier-path` | `~/software/CentIER/CentIER-main` |  | CentIER软件路径｜CentIER software path (default: ~/software/CentIER/CentIER-main) |
+| `--gff` | — |  | GFF/GTF注释文件｜GFF/GTF annotation file path (optional) |
+| `--matrix1` | — |  | Hi-C矩阵文件(100000分辨率)｜Hi-C matrix file at 100000 resolution (optional) |
+| `--matrix2` | — |  | Hi-C矩阵文件(200000分辨率)｜Hi-C matrix file at 200000 resolution (optional) |
+| `--bed1` | — |  | Hi-C BED文件(对应matrix1)｜Hi-C BED file for matrix1 (optional) |
+| `--bed2` | — |  | Hi-C BED文件(对应matrix2)｜Hi-C BED file for matrix2 (optional) |
+| `-1, --fastq-r1` | — |  | Hi-C R1 FASTQ(提供即启用自动模式)｜Hi-C R1 FASTQ (enables auto mode) |
+| `-2, --fastq-r2` | — |  | Hi-C R2 FASTQ｜Hi-C R2 FASTQ |
+| `-g, --genome-id` | — |  | 基因组ID(bowtie2索引命名,默认从基因组文件名推导)｜Genome ID for bowtie2 index naming (default: derived from genome filename) |
+| `--restriction-enzyme` | `MboI` |  | 限制性内切酶｜Restriction enzyme (default: MboI) |
+| `--bowtie2-idx` | — |  | Bowtie2索引路径(默认自动建)｜Bowtie2 index path (auto-built if not given) |
+| `--bin-sizes` | `100000 20000` |  | HiC-Pro bin大小(空格分隔)｜HiC-Pro bin sizes (default: 100000 20000) |
+| `--max-memory` | `200` | int | HiC-Pro最大内存(GB)｜HiC-Pro max memory in GB (default: 200) |
+| `--force-hicpro` | — | store_true | 强制重跑HiC-Pro｜Force rerun HiC-Pro |
+| `--hic-matrix-type` | `raw` | raw/iced | Hi-C矩阵类型｜Hi-C matrix type (default: raw) |
+| `--strict-chrname` | — | store_true | 染色体命名不符ChrN时中止｜Abort if chr naming not ChrN |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `-k, --kmer-size` | `21` | int | K-mer大小｜K-mer size (default: 21) |
+| `-c, --center-tolerance` | `15` | int | 中心容差｜Center tolerance (default: 15) |
+| `--step-len` | `10000` | int | 步长｜Step length (default: 10000) |
+| `--mul-cents` | — | store_true | 保留所有潜在的着丝粒区域｜Retain all potential centromeric regions |
+| `--mingap` | `2` | int | 最小Gap值｜Minimum gap value n*100000 (default: 2) |
+| `--signal-threshold` | `0.7` | float | 信号阈值｜Signal threshold (default: 0.7) |
+| `-s, --step` | — | 1/2/3/4/5/6 | 运行指定步骤｜Run only specified step (1-6) |
+| `--skip-dependency-check` | — | store_true | 跳过依赖检查｜Skip dependency check |
+| `--summary` | — | store_true | 输出分析结果摘要｜Output analysis result summary |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题|FAQ
 
 ### Q1: Hi-C数据格式要求是什么？|What are the Hi-C data format requirements?

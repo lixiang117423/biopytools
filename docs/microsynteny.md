@@ -435,3 +435,40 @@ inkscape microsynteny_output/4_plot/microsynteny.svg
 
 # 高亮特定基因、调整颜色、添加注释等
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome-folder` | 必填 |  | 基因组文件夹路径｜Genome folder path (包含A.fa, A.gff等｜containing A.fa, A.gff, etc.) |
+| `-g, --gene-list` | 必填 |  | 目标基因列表文件｜Target gene list file (两列｜two cols: species_id gene_id) |
+| `-o, --output-dir` | `./microsynteny_output` |  | 输出目录路径｜Output directory path |
+| `-j, --jcvi-path` | `~/miniforge3/envs/jcvi_v.1.5.7` |  | JCVI环境路径｜JCVI environment path |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--extend-genes` | `30` | int | 延伸基因数｜Number of genes to extend on each side |
+| `--cscore` | `0.99` | float | 共线性分数阈值｜Synteny score threshold (0-1) |
+| `--step` | — | 1/2/3/4 | 运行指定步骤｜Run specific step only: 1: 数据预处理｜Data preprocessing 2: 共线性分析｜Synteny analysis 3: 区块提取｜Block extraction 4: 绘图｜Plotting |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome-folder` | 必填 |  | 基因组文件夹路径｜Genome folder path (containing A.fa, A.gff, B.fa, B.gff, ...) |
+| `-g, --gene-list` | 必填 |  | 目标基因列表文件｜Target gene list file (two columns: species_id<tab>gene_id) |
+| `-o, --output-dir` | `./microsynteny_output` |  | 输出目录路径｜Output directory path (default: ./microsynteny_output) |
+| `-j, --jcvi-path` | `~/miniforge3/envs/jcvi_v.1.5.7` |  | JCVI环境路径｜JCVI environment path (default: ~/miniforge3/envs/jcvi_v.1.5.7) |
+| `--pycirclize-path` | `~/miniforge3/envs/pycirclize_v.1.10.1` |  | pyCirclize环境路径｜pyCirclize environment path (default: ~/miniforge3/envs/pycirclize_v.1.10.1) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--extend-genes` | `30` | int | 延伸基因数｜Number of genes to extend on each side (default: 30) |
+| `--cscore` | `0.99` | float | 共线性分数阈值(0-1)｜Synteny score threshold 0-1 (default: 0.99) |
+| `--step` | — | 1/2/3/4 | 运行指定步骤｜Run specific step only: 1: 数据预处理｜Data preprocessing 2: 共线性分析｜Synteny analysis 3: 区块提取｜Block extraction 4: 绘图｜Plotting |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level (default: INFO) |
+
+<!-- END PARAMS:auto -->

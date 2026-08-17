@@ -67,6 +67,32 @@ output_dir/
 
 运行结束后日志会输出统计：`0个TMH`、`1个TMH`、`>=2个TMH` 的蛋白分布。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入蛋白质FASTA文件｜Input protein FASTA file |
+| `-o, --output-dir` | 必填 | Path | 输出目录｜Output directory |
+| `--plot` | `False` |  | 生成图形(默认-noplot)｜Generate plots (default -noplot) |
+| `--prefix` | — |  | 输出文件前缀｜Output file prefix |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | [FILE] 输入蛋白质FASTA文件｜Input protein FASTA file |
+| `-o, --output-dir` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `--plot` | `False` | store_true | [FLAG] 生成图形(默认不生成)｜Generate plots (off by default) |
+| `--prefix` | — |  | [STR] 输出文件前缀(默认使用输入文件名)｜Output file prefix |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - TMHMM 2.0c（需单独安装，学术用户可从DTU申请）

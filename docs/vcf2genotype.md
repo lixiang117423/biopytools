@@ -59,6 +59,52 @@ biopytools vcf2genotype -i variants.vcf -o genotypes -e yes
 └── ...
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 | Path | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | `vcf2genotype` | str | 输出文件前缀｜Output file prefix |
+| `--samples, -s` | `all` | str | 样本选择：all(所有样本)或逗号分隔的样本名称｜Sample selection: all or comma-separated sample names |
+| `--biallelic-only` | — |  | 只保留双等位位点｜Keep only biallelic sites |
+| `--min-length` | — | int | 最小变异长度（包含），默认不限制｜Minimum variant length (inclusive), default no limit |
+| `--max-length` | — | int | 最大变异长度（包含），默认不限制｜Maximum variant length (inclusive), default no limit |
+| `--each, -e` | `n` | yes/y/no/n | 按染色体拆分输出文件：yes/y或no/n｜Split output files by chromosome: yes/y or no/n |
+| `--output-type, -t` | `txt` | txt/csv | 输出文件格式｜Output file format |
+| `--output-dir` | `./` | Path | 输出目录｜Output directory |
+| `--verbose, -v` | — |  | 增加输出详细程度｜Increase output verbosity |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--dry-run` | — |  | 试运行模式｜Dry run mode |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | VCF文件路径(支持.gz压缩格式)｜VCF file path (supports .gz compressed format) |
+| `-o, --output` | `vcf_genotype` |  | 输出文件前缀｜Output file prefix |
+| `-t, --output-type` | `txt` | txt/csv | 输出文件格式｜Output file format |
+| `--output-dir` | `./` |  | 输出目录｜Output directory |
+| `-s, --samples` | `all` |  | 样本选择：all（所有样本）或逗号分隔的样本名称｜Sample selection: all (all samples) or comma-separated sample names |
+| `--biallelic-only` | — | store_true | 只保留双等位位点｜Keep only biallelic sites |
+| `--min-length` | — | int | 最小变异长度（包含），默认不限制｜Minimum variant length (inclusive), default no limit |
+| `--max-length` | — | int | 最大变异长度（包含），默认不限制｜Maximum variant length (inclusive), default no limit |
+| `-e, --each` | `n` | yes/y/no/n | 按染色体拆分输出文件：yes/y（是）或no/n（否）｜Split output files by chromosome: yes/y or no/n |
+| `--dry-run` | — | store_true | 试运行模式，不实际执行操作｜Dry run mode, no actual operations performed |
+| `-v, --verbose` | `0` | count | 增加输出详细程度 (-v, -vv, -vvv)｜Increase output verbosity (-v, -vv, -vvv) |
+| `--quiet` | — | store_true | 静默模式，仅输出错误信息｜Quiet mode, only output error messages |
+| `--log-file` | — | str | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python：标准库

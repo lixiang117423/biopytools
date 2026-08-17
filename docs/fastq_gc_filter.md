@@ -152,3 +152,33 @@ biopytools fastq-gc-filter \
 - `biopytools fastp` - FASTQ数据质量控制
 - `biopytools fq-stats` - FASTQ文件统计工具
 - `biopytools bam2fastq` - BAM to FASTQ转换
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTQ文件｜Input FASTQ file (支持.gz压缩｜supports .gz compression) |
+| `--output, -o` | 必填 |  | 输出FASTQ文件｜Output FASTQ file (支持.gz压缩｜supports .gz compression) |
+| `--min-gc` | `25.0` | float | 最小GC含量百分比｜Minimum GC content percentage |
+| `--max-gc` | `100.0` | float | 最大GC含量百分比｜Maximum GC content percentage |
+| `--min-length` | `50` | int | 最短序列长度｜Minimum sequence length |
+| `--max-length` | — | int | 最长序列长度｜Maximum sequence length |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTQ文件路径｜Input FASTQ file path (支持.gz压缩｜supports .gz compression) |
+| `-o, --output` | 必填 |  | 输出FASTQ文件路径｜Output FASTQ file path (支持.gz压缩｜supports .gz compression) |
+| `--min-gc` | `25.0` | float | 最小GC含量百分比｜Minimum GC content percentage |
+| `--max-gc` | `100.0` | float | 最大GC含量百分比｜Maximum GC content percentage |
+| `--min-length` | `50` | int | 最短序列长度｜Minimum sequence length |
+| `--max-length` | — | int | 最长序列长度｜Maximum sequence length |
+
+<!-- END PARAMS:auto -->

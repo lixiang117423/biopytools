@@ -293,6 +293,75 @@ braker_output/
 - **存储**: 建议 500GB+ (取决于数据量和基因组大小)
 - **CPU**: 建议 32核心+
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--species, -s` | 必填 |  | 物种名称｜Species name (for BRAKER output naming) |
+| `--prot_seq, -p` | — |  | 近缘物种蛋白质序列文件或文件夹｜Protein sequences file or directory |
+| `--isoseq, -l` | — |  | 三代全长转录本文件夹｜Long-read transcript directory |
+| `--rnaseq_dirs` | — |  | 二代RNA-seq目录列表(逗号分隔)｜Comma-separated RNA-seq directories |
+| `--read1_pattern` | `_1.clean.fq.gz` |  | R1文件模式｜R1 file pattern |
+| `--read2_pattern` | `_2.clean.fq.gz` |  | R2文件模式｜R2 file pattern |
+| `--output_dir, -o` | `./braker_output` |  | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--fungus` | — |  | 使用真菌模式｜Use fungus mode (suitable for oomycetes) |
+| `--singularity_image` | `~/software/singularity/braker3_devel.sif` |  | Singularity镜像路径｜Singularity image path |
+| `--no_singularity` | — |  | 不使用Singularity镜像｜Do not use Singularity image |
+| `--skip_repeat` | — |  | 跳过重复序列屏蔽｜Skip repeat masking |
+| `--skip_long_reads` | — |  | 跳过三代转录本处理｜Skip long-read processing |
+| `--skip_short_reads` | — |  | 跳过二代RNA-seq处理｜Skip short-read processing |
+| `--busco_lineage` | — |  | BUSCO谱系｜BUSCO lineage |
+| `--utr` | — |  | 预测UTR｜Predict UTR |
+| `--training_genes` | — |  | 训练基因集｜Training gene set file |
+| `--use_existing` | — |  | 使用已有参数｜Use existing parameters |
+| `--skip_repeat_filter` | — |  | 跳过repeat库过滤(方案1,默认开启)｜Skip repeat library filtering |
+| `--skip_rescue/--no-skip_rescue` | `True` |  | 跳过证据还原(默认关闭,--no-skip_rescue开启)｜Skip rescue (default off) |
+| `--pfam_db` | `~/database/eggnog/pfam/Pfam-A.hmm` |  | Pfam-A HMM 库路径｜Pfam-A HMM DB path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--species, -s` | 必填 |  | 物种名称｜Species name (用于BRAKER输出命名)｜used for BRAKER output naming |
+| `--prot_seq, -p` | — |  | 近缘物种蛋白质序列文件或文件夹｜Protein sequences file or directory |
+| `--isoseq, -l` | — |  | 三代全长转录本文件夹｜Long-read transcript directory |
+| `--rnaseq_dirs` | — |  | 二代RNA-seq数据目录列表，逗号分隔｜Comma-separated list of RNA-seq directories |
+| `--read1_pattern` | `_1.clean.fq.gz` |  | R1文件模式｜R1 file pattern (default: _1.clean.fq.gz) |
+| `--read2_pattern` | `_2.clean.fq.gz` |  | R2文件模式｜R2 file pattern (default: _2.clean.fq.gz) |
+| `--output_dir, -o` | `./braker_output` |  | 输出目录｜Output directory (default: ./braker_output) |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--fungus` | — | store_true | 使用真菌模式｜Use fungus mode (suitable for oomycetes) |
+| `--singularity_image` | `~/software/singularity/braker3_devel.sif` |  | Singularity镜像路径｜Singularity image path |
+| `--no_singularity` | — | store_true | 不使用Singularity镜像｜Do not use Singularity image |
+| `--skip_repeat` | — | store_true | 跳过重复序列屏蔽｜Skip repeat masking step |
+| `--skip_long_reads` | — | store_true | 跳过三代转录本处理｜Skip long-read processing step |
+| `--skip_short_reads` | — | store_true | 跳过二代RNA-seq处理｜Skip short-read processing step |
+| `--busco_lineage` | — |  | BUSCO谱系｜BUSCO lineage |
+| `--utr` | — | store_true | 预测UTR｜Predict UTR regions |
+| `--training_genes` | — |  | 训练基因集文件｜Training gene set file |
+| `--use_existing` | — | store_true | 使用已有参数｜Use existing parameters |
+| `--skip_repeat_filter` | — | store_true | 跳过repeat库过滤(方案1,默认开启)｜Skip repeat library filtering |
+| `--skip_rescue` | `True` |  | 跳过证据还原(默认关闭,filter库级已处理;--no-skip_rescue开启)｜Skip rescue (default off) |
+| `--pfam_db` | `~/database/eggnog/pfam/Pfam-A.hmm` |  | Pfam-A HMM 库路径｜Pfam-A HMM DB path |
+| `--te_domain_evalue` | `1e-05` | float | TE domain hmmscan E-value 阈值｜TE domain E-value cutoff |
+| `--filter_min_orf_len` | `30` | int | 过滤用最小ORF长度(aa)｜Min ORF length (aa) for filter |
+| `--rescue_min_cds_len` | `100` | int | rescue蛋白证据最小覆盖长度(bp)｜Min CDS overlap (bp) for rescue |
+| `--rescue_min_identity` | `70` | float | rescue蛋白最小identity(%%)｜Min protein identity (%%) for rescue |
+| `--rescue_min_depth` | `5` | int | rescue RNA-seq最小覆盖度｜Min RNA-seq depth for rescue |
+| `--prot_homology_evalue` | `1e-05` | float | prot_seq 同源 E-value 阈值｜Protein homology E-value |
+| `--prot_homology_pident` | `50.0` | float | prot_seq 同源 identity 阈值(%%)｜Protein homology identity (%%) |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### Q1: 为什么必须提供至少一种证据数据？

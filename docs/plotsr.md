@@ -222,3 +222,60 @@ biopytools plotsr \
 - PlotSR GitHub: https://github.com/schneebergerlab/plotsr
 - SyRI文档: https://github.com/schneebergerlab/syri
 - minimap2文档: https://github.com/lh3/minimap2
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入基因组FASTA文件（可多次使用）、包含基因组的文件夹或map文件｜Input genome FASTA files (multiple), folder containing genomes, or map file |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-n, --names` | — |  | 基因组名称（逗号分隔）｜Genome names (comma-separated) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--minimap2-preset` | `asm5` | asm5/asm10/asm20 | minimap2预设参数｜minimap2 preset |
+| `-s, --min-sr-size` | `10000` | int | 最小结构变异大小｜Minimum structural variant size |
+| `--output-format` | `pdf` | pdf/png/svg | 输出格式｜Output format |
+| `-f, --font-size` | `6` | int | 字体大小｜Font size |
+| `-d, --dpi` | `300` | int | 图片DPI｜Image DPI |
+| `--space-ratio` | `0.7` | float | 同源染色体间距(0.1-0.75)｜Space for homologous chromosomes |
+| `-v, --vertical` | `False` |  | 垂直排列染色体｜Plot vertical chromosomes |
+| `--itx` | `False` |  | 染色体间交互模式｜Inter-chromosomal plotting mode |
+| `--nosyn` | `False` |  | 不绘制同源区域｜Do not plot syntenic regions |
+| `--noinv` | `False` |  | 不绘制倒位｜Do not plot inversions |
+| `--notr` | `False` |  | 不绘制易位｜Do not plot translocations |
+| `--nodup` | `False` |  | 不绘制重复｜Do not plot duplications |
+| `-c, --chr` | — |  | 指定要显示的染色体（可多次使用，支持数字如1或名称如Chr1）｜Specify chromosomes to display (can be used multiple times, supports number like 1 or name like Chr1) |
+| `--skip-existing` | `True` |  | 跳过已完成的步骤（默认启用）｜Skip completed steps (default: enabled) |
+| `--force-run` | `False` |  | 强制重新运行所有步骤｜Force re-run all steps |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 | append | 输入基因组FASTA文件（可多次使用）或包含基因组的文件夹｜Input genome FASTA files (can be used multiple times) or folder containing genomes |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-n, --names` | — |  | 基因组名称（逗号分隔）｜Genome names (comma-separated, e.g., Col-0,Ler,Cvi) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads [default: 12] |
+| `--minimap2-preset` | `asm5` | asm5/asm10/asm20 | minimap2预设参数｜minimap2 preset [default: asm5] |
+| `-s, --min-sr-size` | `10000` | int | 最小结构变异大小｜Minimum structural variant size [default: 10000] |
+| `--output-format` | `pdf` | pdf/png/svg | 输出格式｜Output format [default: pdf] |
+| `-f, --font-size` | `6` | int | 字体大小｜Font size [default: 6] |
+| `-d, --dpi` | `300` | int | 图片DPI｜Image DPI [default: 300] |
+| `--space-ratio` | `0.7` | float | 同源染色体间距(0.1-0.75)｜Space for homologous chromosomes [default: 0.7] |
+| `-v, --vertical` | — | store_true | 垂直排列染色体｜Plot vertical chromosomes |
+| `--itx` | — | store_true | 染色体间交互模式｜Inter-chromosomal plotting mode |
+| `--nosyn` | — | store_true | 不绘制同源区域｜Do not plot syntenic regions |
+| `--noinv` | — | store_true | 不绘制倒位｜Do not plot inversions |
+| `--notr` | — | store_true | 不绘制易位｜Do not plot translocations |
+| `--nodup` | — | store_true | 不绘制重复｜Do not plot duplications |
+| `-c, --chr` | — | append | 指定要显示的染色体（可多次使用，支持数字如1或名称如Chr1）｜Specify chromosomes to display (can be used multiple times, supports number like 1 or name like Chr1) |
+| `--skip-existing` | `True` | store_true | 跳过已完成的步骤（默认启用）｜Skip completed steps (default: enabled) |
+| `--force-run` | — | store_false | 强制重新运行所有步骤｜Force re-run all steps |
+| `--version` | — | version |  |
+
+<!-- END PARAMS:auto -->

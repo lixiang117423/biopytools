@@ -437,3 +437,30 @@ biopytools deepbsa -i variant.vcf --no-parallel -o output
 ## 许可证 | License
 
 本模块遵循biopytools项目的许可证。DeepBSA原始工具请参考其各自的许可证。
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-file` | 必填 |  | 输入文件路径（VCF/CSV格式）｜Input file path (VCF/CSV format) |
+| `-m, --methods` | — |  | 要运行的方法，逗号分隔（默认：全部）｜Methods to run, comma-separated (default: all) |
+| `-o, --output-dir` | `deepbsa_results` |  | 输出目录（默认：deepbsa_results）｜Output directory (default: deepbsa_results) |
+| `--no-parallel` | — | store_false | 串行运行所有方法｜Run all methods serially |
+| `-p, --parallel` | — | store_true | 并行运行所有方法（默认）｜Run all methods in parallel (default) |
+| `-n, --no-auto-clean` | — | store_true | 不自动清理VCF注释行｜Don't auto clean VCF comment lines |
+| `-k, --keep-clean` | — | store_true | 保留清理后的文件｜Keep cleaned file |
+| `--deepbsa-path` | `~/software/DeepBSA/DeepBSA_multithread/bin/main.py` |  | DeepBSA主程序路径（多线程版本）｜DeepBSA main script path (multithread version) |
+| `--conda-env` | `~/miniforge3/envs/DeepBSA` |  | Conda环境路径｜Conda environment path |
+| `--threads` | `0` | int | DeepBSA线程数（0=自动检测，1=单线程，>1=多线程，默认：0）｜Number of threads for DeepBSA (0=auto, 1=single, >1=multi, default: 0) |
+| `--smooth-func` | `Tri-kernel-smooth` | Tri-kernel-smooth/LOWESS/Moving Average | 平滑函数（默认：Tri-kernel-smooth）｜Smooth function (default: Tri-kernel-smooth) |
+| `-v, --verbose` | — | store_true | 详细输出｜Verbose output |
+| `-f, --force` | — | store_true | 强制重新运行所有步骤（不跳过已完成）｜Force rerun all steps (don't skip completed) |
+| `--skip-merge` | — | store_true | 跳过合并步骤｜Skip merge step |
+
+<!-- END PARAMS:auto -->

@@ -212,3 +212,57 @@ biopytools hmmsearch \
 # - Domain序列：NB_ARC_analysis/hmmsearch_results_domains.fa
 # - 统计日志：NB_ARC_analysis/hmmsearch_analysis.log
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 输入文件：domtblout文件（模式1）或HMM文件（模式2，需同时指定-p）｜Input file: domtblout (mode 1) or HMM file (mode 2, requires -p) |
+| `-p, --protein-fasta` | — |  | 蛋白序列FASTA文件或目录（模式2必需，模式1提取序列时需要）｜Protein FASTA file or directory (required for mode 2, needed for mode 1 if extracting sequences) |
+| `-o, --output-dir` | `./hmmsearch_output` |  | 输出目录｜Output directory |
+| `--output-prefix` | `hmmsearch_results` |  | 输出文件前缀｜Output file prefix |
+| `--hmmsearch-path` | `~/miniforge3/envs/protein/bin/hmmsearch` |  | hmmsearch程序路径｜hmmsearch program path |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--evalue-cutoff` | — | float | hmmsearch报告E-value阈值｜hmmsearch reporting E-value threshold |
+| `--score-cutoff` | — | float | hmmsearch报告分数阈值｜hmmsearch reporting score threshold |
+| `--cut-tc` | — |  | 使用模型的TC trusted cutoff｜Use model TC trusted cutoff |
+| `--cut-ga` | — |  | 使用模型的GA gathering cutoff｜Use model GA gathering cutoff |
+| `--cut-nc` | — |  | 使用模型的NC noise cutoff｜Use model NC noise cutoff |
+| `-e, --evalue-threshold` | — | float | Domain E-value阈值(保留小于等于该值的)｜Domain E-value threshold (keep <= this value) |
+| `-s, --score-threshold` | — | float | Domain分数阈值(保留大于等于该值的)｜Domain score threshold (keep >= this value) |
+| `--no-extract-proteins` | — |  | 不提取蛋白序列｜Do not extract protein sequences |
+| `--no-extract-domains` | — |  | 不提取domain序列｜Do not extract domain sequences |
+| `--no-csv` | — |  | 不输出CSV文件｜Do not output CSV file |
+| `--no-excel` | — |  | 不输出Excel文件｜Do not output Excel file |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 输入文件：domtblout文件（模式1）或HMM文件（模式2，需同时指定-p）｜Input file: domtblout (mode 1) or HMM file (mode 2, requires -p) |
+| `-p, --protein-fasta` | — |  | 蛋白序列FASTA文件或目录（模式2必需，模式1提取序列时需要）｜Protein FASTA file or directory (required for mode 2, needed for mode 1 if extracting sequences) |
+| `-o, --output-dir` | `./hmmsearch_output` |  | 输出目录｜Output directory |
+| `--output-prefix` | `hmmsearch_results` |  | 输出文件前缀｜Output file prefix |
+| `--hmmsearch-path` | `~/miniforge3/envs/protein/bin/hmmsearch` |  | hmmsearch程序路径｜hmmsearch program path |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--evalue-cutoff` | — | float | hmmsearch报告E-value阈值｜hmmsearch reporting E-value threshold |
+| `--score-cutoff` | — | float | hmmsearch报告分数阈值｜hmmsearch reporting score threshold |
+| `--cut-tc` | — | store_true | 使用模型的TC trusted cutoff｜Use model TC trusted cutoff |
+| `--cut-ga` | — | store_true | 使用模型的GA gathering cutoff｜Use model GA gathering cutoff |
+| `--cut-nc` | — | store_true | 使用模型的NC noise cutoff｜Use model NC noise cutoff |
+| `-e, --evalue-threshold` | — | float | Domain E-value阈值(保留小于等于该值的)｜Domain E-value threshold (keep <= this value) |
+| `-s, --score-threshold` | — | float | Domain分数阈值(保留大于等于该值的)｜Domain score threshold (keep >= this value) |
+| `--extract-proteins` | `True` | store_true | 提取匹配的蛋白序列｜Extract matched protein sequences (default: True) |
+| `--no-extract-proteins` | — | store_false | 不提取蛋白序列｜Do not extract protein sequences |
+| `--extract-domains` | `True` | store_true | 提取domain序列｜Extract domain sequences (default: True) |
+| `--no-extract-domains` | — | store_false | 不提取domain序列｜Do not extract domain sequences |
+| `--no-csv` | — | store_true | 不输出CSV文件｜Do not output CSV file |
+| `--no-excel` | — | store_true | 不输出Excel文件｜Do not output Excel file |
+
+<!-- END PARAMS:auto -->

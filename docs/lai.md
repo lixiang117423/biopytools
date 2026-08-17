@@ -63,6 +63,37 @@ output_dir/
 └── lai.log                    # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 | Path | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-m, --mode` | `full` | full/harvest/retrieve/calculate | 运行模式: full(完整流程), harvest(仅候选识别), retrieve(仅筛选), calculate(仅LAI计算)｜Run mode |
+| `--skip-completed/--no-skip-completed` | `True` |  | 跳过已完成的步骤｜Skip completed steps |
+| `--conda-harvest` | `~/miniforge3/envs/ltr_harvest_parallel_v.1.2` |  | LTR_harvest conda环境路径｜LTR_harvest conda environment path |
+| `--conda-finder` | `~/miniforge3/envs/ltr_finder_parallel_v.1.3` |  | LTR_finder conda环境路径｜LTR_finder conda environment path |
+| `--conda-retriever` | `~/miniforge3/envs/ltr_retriever_v.3.0.1` |  | LTR_retriever conda环境路径｜LTR_retriever conda environment path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-t, --threads` | `64` | int | 线程数｜Number of threads |
+| `-m, --mode` | `full` | full/harvest/retrieve/calculate | 运行模式｜Run mode (default: full) |
+| `--conda-env` | `~/miniforge3/envs/ltr_retriever_v.3.0.1` |  | Conda环境路径｜Conda environment path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - LTR_harvest 并行版（`--conda-harvest`）

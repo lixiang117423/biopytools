@@ -73,6 +73,50 @@ output_dir/
 
 > `--ref-seqs` 与 `--query-seqs` 必须等长并按序配对；区段格式 `name` 或 `name:start-end`。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--ref` | 必填 |  | 参考基因组FASTA｜Reference genome FASTA |
+| `--query` | 必填 |  | 查询基因组FASTA｜Query genome FASTA |
+| `--ref-seqs` | 必填 |  | ref侧序列(逗号分隔,如 chrZ,chrW 或 chrZ:1-30000000)｜ref-side seqs |
+| `--query-seqs` | 必填 |  | query侧序列(逗号分隔,与ref等长)｜query-side seqs |
+| `-o, --output-dir` | `./aliner_output` |  | 输出目录｜Output directory |
+| `--out-prefix` | `synteny` |  | 输出前缀｜Output prefix |
+| `--preset` | `asm5` | asm5/asm10/asm20 | minimap2预设(近缘asm5)｜minimap2 preset |
+| `--min-identity` | `70` | int | identity阈值%%｜identity threshold |
+| `--min-alignment-len` | `1000` | int | 最小比对长度｜min alignment length |
+| `--colormap` | `5` | 0/1/2/3/4/5 | 配色｜colormap |
+| `--figure-size` | `[6, 0]` | float | 图尺寸[宽 高]｜figure size |
+| `-t, --threads` | `12` | int | 线程数｜Threads |
+| `--extra-args` | `` |  | 透传a-liner参数｜pass-through args |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--ref` | 必填 |  | 参考基因组FASTA｜Reference genome FASTA |
+| `--query` | 必填 |  | 查询基因组FASTA｜Query genome FASTA |
+| `--ref-seqs` | 必填 |  | ref侧序列（逗号分隔，如 chrZ,chrW 或 chrZ:1-30000000）｜ref-side seqs (comma-separated) |
+| `--query-seqs` | 必填 |  | query侧序列（逗号分隔，与ref等长）｜query-side seqs (comma-separated, equal length to ref) |
+| `-o, --output-dir` | `./aliner_output` |  | 输出目录｜Output directory |
+| `--out-prefix` | `synteny` |  | 输出文件前缀｜Output prefix |
+| `--preset` | `asm5` | asm5/asm10/asm20 | minimap2预设（近缘asm5/远缘asm10,asm20）｜minimap2 preset |
+| `--min-identity` | `70` | int | a-liner identity阈值(%%)｜identity threshold |
+| `--min-alignment-len` | `1000` | int | 最小比对长度｜min alignment length |
+| `--colormap` | `5` | 0/1/2/3/4/5 | 配色(0-5)｜colormap |
+| `--figure-size` | `[6, 0]` | float | 图尺寸[宽 高]，高0自适应｜figure size [w h], h=0 auto |
+| `--threads, -t` | `12` | int | 线程数｜Threads |
+| `--extra-args` | `` |  | 透传给a-liner的额外参数｜pass-through args to a-liner |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **minimap2**（默认 `~/miniforge3/envs/telocomp/bin/minimap2`）

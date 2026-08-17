@@ -338,3 +338,56 @@ PREPRINT (2025). https://doi.org/10.21203/rs.3.rs-7343323/v1
 ---
 
 **📧 技术支持 | Technical Support**: 如有问题，请提交 [Issue](https://github.com/your-org/biopytools/issues)
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 基因组FASTA文件｜Genome FASTA file |
+| `--hic1` | — |  | Hi-C R1 reads文件｜Hi-C R1 reads file |
+| `--hic2` | — |  | Hi-C R2 reads文件｜Hi-C R2 reads file |
+| `-n, --groups` | `0` |  | 分组数｜Number of groups (例如: "8:4" ｜ e.g., "8:4", "0"=自动｜auto) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--mode` | `phasing` | phasing/haploid/basal/basal_withprune | 分相模式｜Phasing mode |
+| `--preset` | `precision` | precision/sensitive/very-sensitive/nofilter | 分析预设｜Analysis preset |
+| `-o, --output-dir` | `./cphasing_output` |  | 输出目录｜Output directory |
+| `--steps` | — |  | 运行指定步骤｜Run specified steps (例如: "1,2,3" ｜ e.g., "1,2,3") |
+| `--skip-steps` | — |  | 跳过步骤｜Skip steps (例如: "1,2" ｜ e.g., "1,2") |
+| `--hic-aligner` | `_chromap` | _chromap/chromap/minimap2/bwa-mem2 | Hi-C比对器｜Hi-C aligner |
+| `--hic-mapper-k` | — | int | Hi-C mapper kmer大小｜Hi-C mapper kmer size |
+| `--hic-mapper-w` | — | int | Hi-C mapper窗口大小｜Hi-C mapper window size |
+| `--mapping-quality` | `0` | int | 最小比对质量｜Minimum mapping quality |
+| `--hcr` | — |  | 启用高置信区域｜Enable high confidence regions |
+| `--pattern` | — |  | 酶切位点模式｜Restriction enzyme pattern (例如: AAGCTT) |
+| `--low-memory` | — |  | 低内存模式｜Low memory mode |
+| `--no-haplotype-cluster` | `False` |  | 禁用亚基因组聚类（默认开启，仅在pipeline/scaffolding子命令生效）｜Disable subgenome clustering (default ON; only applies to pipeline/scaffolding) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 基因组FASTA文件｜Genome FASTA file (pipeline模式必需｜required for pipeline) |
+| `--hic1` | — |  | Hi-C R1 reads文件｜Hi-C R1 reads file (pipeline模式必需｜required for pipeline) |
+| `--hic2` | — |  | Hi-C R2 reads文件｜Hi-C R2 reads file (pipeline模式必需｜required for pipeline) |
+| `-n, --groups` | `0` |  | 分组数｜Number of groups (例如: "8:4" ｜ e.g., "8:4", "0"=自动｜auto) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (默认｜default: 12) |
+| `--mode` | `phasing` | phasing/haploid/basal/basal_withprune | 分相模式｜Phasing mode (默认｜default: phasing) |
+| `--preset` | `precision` | precision/sensitive/very-sensitive/nofilter | 分析预设｜Analysis preset (默认｜default: precision) |
+| `-o, --output-dir` | `./cphasing_output` |  | 输出目录｜Output directory (默认｜default: ./cphasing_output) |
+| `--steps` | — |  | 运行指定步骤｜Run specified steps (pipeline模式) |
+| `--skip-steps` | — |  | 跳过步骤｜Skip steps (pipeline模式) |
+| `--hic-aligner` | `_chromap` | _chromap/chromap/minimap2/bwa-mem2 | Hi-C比对器｜Hi-C aligner (默认｜default: _chromap) |
+| `--hic-mapper-k` | — | int | Hi-C mapper kmer大小｜Hi-C mapper kmer size |
+| `--hic-mapper-w` | — | int | Hi-C mapper窗口大小｜Hi-C mapper window size |
+| `--mapping-quality` | `0` | int | 最小比对质量｜Minimum mapping quality (默认｜default: 0) |
+| `--hcr` | — | store_true | 启用高置信区域｜Enable high confidence regions |
+| `--pattern` | — |  | 酶切位点模式｜Restriction enzyme pattern (例如: AAGCTT) |
+| `--low-memory` | — | store_true | 低内存模式｜Low memory mode |
+
+<!-- END PARAMS:auto -->

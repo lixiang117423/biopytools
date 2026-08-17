@@ -397,3 +397,86 @@ PMID: 33126273 | DOI: 10.1093/bib/bbaa227
 - 完整的LDBlockShow Python封装|Complete LDBlockShow Python wrapper
 - CLI接口支持|CLI interface support
 - 符合biopytools开发规范|Compliant with biopytools development standards
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf-file` | 必填 |  | VCF变异文件路径｜VCF variant file path |
+| `-o, --output-dir` | 必填 |  | 输出目录(自动创建)；每 region 产物落在 目录/<label>.* ｜Output directory (auto-created); per-region outputs land in dir/<label>.* |
+| `-r, --region` | — |  | 分析区域，格式chr:start-end｜Analysis region, format chr:start-end |
+| `-b, --bed` | — |  | 基因组BED文件(每行 chrom start end [name])，等价多个 -r 批量出图｜Genomic BED (cols: chrom start end [name]), equivalent to multiple -r |
+| `--in-genotype` | — |  | SNP Genotype格式文件路径｜SNP Genotype format file path |
+| `--in-plink` | — |  | Plink文件前缀(bed+bim+fam或ped+map)｜Plink file prefix |
+| `--sele-var` | `1` | 1/2/3/4 | 选择LD度量统计量｜Select LD statistic (1=D', 2=R², 3/4=Both) |
+| `--maf` | `0.05` | float | 最小次要等位基因频率｜Minimum minor allele frequency |
+| `--miss` | `0.25` | float | 最大缺失率｜Maximum missing ratio |
+| `--hwe` | `0.0` | float | Hardy-Weinberg平衡P值阈值｜Hardy-Weinberg equilibrium P-value threshold |
+| `--het` | `1.0` | float | 最大杂合率｜Maximum heterozygosity ratio |
+| `--enable-oth-var` | — |  | 允许indel/SV/CNV变异｜Allow bi-indel bi-sv bi-cnv variants |
+| `--block-type` | `1` | 1/2/3/4/5 | Block检测方法 (1=Gabriel, 2=SolidSpine, 3=BlockCut, 4=FixBlock, 5=NoBlock) |
+| `--block-cut` | `0.85:0.90` |  | BlockType3的cutoff｜Cutoff for BlockType3 |
+| `--fix-block` | — |  | 固定block文件路径｜Fixed block file path |
+| `--in-gwas` | — |  | GWAS文件，3列: chr pos pvalue，chr名须与VCF一致｜GWAS file, 3 cols: chr pos pvalue |
+| `--in-gff` | — |  | GFF3注释文件路径｜GFF3 annotation file path |
+| `--mer-min-snp-num` | `50` | int | 合并网格的最小SNP数｜Minimum SNP number to merge grids |
+| `--no-out-png` | — |  | 不输出PNG格式图像｜Do not output PNG format image |
+| `--out-pdf` | — |  | 输出PDF格式图像｜Output PDF format image |
+| `--sub-pop` | — |  | 亚群样本文件路径｜Subgroup sample file path |
+| `--tag-snp-cut` | `0.8` | float | TagSNP的LD cutoff｜LD cutoff for TagSNP |
+| `--cutline` | `5.0` | float | GWAS P值显著性阈值(-log10)｜GWAS P-value significance cutoff (-log10) |
+| `--point-size` | — | int | GWAS散点大小｜GWAS point size |
+| `--top-site` | — |  | 指定GWAS峰值位点(chr:pos)｜Specify GWAS peak site (chr:pos) |
+| `--no-log-p` | — |  | 不对P值取-log10｜Do not -log10 transform P-value |
+| `--no-gene-name` | — |  | 不显示基因名｜Do not show gene names |
+| `--show-num` | — |  | 在热图中显示R²/D'值｜Show R²/D' values in heatmap |
+| `--spe-snp-name` | — |  | 特殊SNP名称文件(chr site Name)｜Special SNP name file |
+| `--show-gwas-spe-snp` | — |  | 在GWAS图中显示特殊SNP名称｜Show special SNP names in GWAS plot |
+| `--resize-h` | — | int | 图像高度，宽度按比例自动调整｜Image height, width auto-adjusted |
+| `--no-show-ldist` | — | int | 超过此距离的SNP对不显示LD｜NoShow pairwise LD over this distance |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-o, --output-dir` | 必填 |  | 输出目录(自动创建)；每 region 产物落在 目录/<label>.* ｜Output directory (auto-created); per-region outputs land in dir/<label>.* |
+| `-r, --region` | — |  | 单个分析区域，格式chr:start-end｜Single region, format chr:start-end |
+| `-b, --bed` | — |  | 基因组BED文件(每行 chrom start end [name])，等价多个 -r 批量出图｜Genomic BED (cols: chrom start end [name]), equivalent to multiple -r |
+| `-i, --vcf-file` | — |  | VCF变异文件路径｜VCF variant file path |
+| `--in-genotype` | — |  | SNP Genotype格式文件路径｜SNP Genotype format file path |
+| `--in-plink` | — |  | Plink文件前缀(bed+bim+fam或ped+map)｜Plink file prefix (bed+bim+fam or ped+map) |
+| `--sele-var` | `1` | 1/2/3/4 | 选择LD度量统计量｜Select LD statistic: 1=D' (default), 2=R², 3/4=Both |
+| `--enable-snp-filter` | `False` | store_true | 启用SNP过滤（默认关闭），使用-MAF/-Miss/-HWE/-Het参数过滤SNP｜Enable SNP filtering (default OFF), filter SNPs using -MAF/-Miss/-HWE/-Het parameters |
+| `--maf` | `0.05` | float | 最小次要等位基因频率｜Minimum minor allele frequency (default: 0.05) |
+| `--miss` | `0.25` | float | 最大缺失率｜Maximum missing ratio (default: 0.25) |
+| `--hwe` | `0.0` | float | Hardy-Weinberg平衡P值阈值｜Hardy-Weinberg equilibrium P-value threshold (default: 0.0) |
+| `--het` | `1.0` | float | 最大杂合率｜Maximum heterozygosity ratio (default: 1.0) |
+| `--enable-oth-var` | — | store_true | 允许indel/SV/CNV变异｜Allow bi-indel bi-sv bi-cnv variants |
+| `--block-type` | `1` | 1/2/3/4/5 | Block检测方法｜Block detection method: 1=Gabriel(default), 2=SolidSpine, 3=BlockCut, 4=FixBlock, 5=NoBlock |
+| `--block-cut` | `0.85:0.90` |  | BlockType3的cutoff（格式：cutoff:ratio）｜Cutoff for BlockType3 (format: cutoff:ratio) |
+| `--fix-block` | — |  | 固定block文件路径｜Fixed block file path (for BlockType=4) |
+| `--in-gwas` | — |  | GWAS P值文件，制表符/空格分隔，3列: chr pos pvalue，染色体名须与VCF一致｜GWAS P-value file, tab/space delimited, 3 columns: chr pos pvalue, chr names must match VCF |
+| `--in-gff` | — |  | GFF3注释文件路径｜GFF3 annotation file path |
+| `--mer-min-snp-num` | `50` | int | 合并网格的最小SNP数｜Minimum SNP number to merge grids (default: 50) |
+| `--no-out-png` | — | store_true | 不输出PNG格式图像｜Do not output PNG format image |
+| `--out-pdf` | — | store_true | 输出PDF格式图像｜Output PDF format image |
+| `--sub-pop` | — |  | 亚群样本文件路径｜Subgroup sample file path |
+| `--tag-snp-cut` | `0.8` | float | TagSNP的LD cutoff｜LD cutoff for TagSNP (default: 0.80) |
+| `--cutline` | `5.0` | float | GWAS P值显著性阈值(-log10)｜GWAS P-value significance cutoff (-log10) (default: 5) |
+| `--point-size` | — | int | GWAS散点大小｜GWAS point size |
+| `--top-site` | — |  | 指定GWAS峰值位点(chr:pos)｜Specify GWAS peak site (chr:pos) |
+| `--no-log-p` | — | store_true | 不对P值取-log10｜Do not -log10 transform P-value |
+| `--no-gene-name` | — | store_true | 不显示基因名｜Do not show gene names |
+| `--show-num` | — | store_true | 在热图中显示R²/D'值｜Show R²/D' values in heatmap |
+| `--spe-snp-name` | — |  | 特殊SNP名称文件(chr site Name)｜Special SNP name file (chr site Name) |
+| `--show-gwas-spe-snp` | — | store_true | 在GWAS图中显示特殊SNP名称｜Show special SNP names in GWAS plot |
+| `--resize-h` | — | int | 图像高度，宽度按比例自动调整｜Image height, width auto-adjusted |
+| `--no-show-ldist` | — | int | 超过此距离的SNP对不显示LD｜NoShow pairwise LD over this distance |
+
+<!-- END PARAMS:auto -->

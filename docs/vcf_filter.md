@@ -77,6 +77,68 @@ output.vcf                     # 筛选后的 VCF（默认）
 output.bed / output.bim / output.fam   # 启用 --convert-format 时的 PLINK 二进制格式
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `--output, -o` | — | Path | 输出VCF文件路径｜Output VCF file path |
+| `--chr, -c` | 必填 | str | 染色体名称(支持逗号分隔多个)｜Chromosome name(s) (comma-separated for multiple) |
+| `--start, -s` | — | int | 起始位置｜Start position |
+| `--end, -e` | — | int | 结束位置｜End position |
+| `--convert-format` | — |  | 使用PLINK进行格式转换｜Use PLINK for format conversion |
+| `--plink-path` | `plink` | str | PLINK可执行文件路径｜PLINK executable path |
+| `--allow-extra-chr` | `True` |  | 允许额外染色体｜Allow extra chromosomes |
+| `--maf` | — | float | 最小等位基因频率｜Minimum allele frequency |
+| `--max-missing` | — | float | 最大缺失率｜Maximum missing rate |
+| `--quality-threshold` | — | float | 质量阈值｜Quality threshold |
+| `--min-depth` | — | int | 最小深度｜Minimum depth |
+| `--max-depth` | — | int | 最大深度｜Maximum depth |
+| `--keep-samples` | — | str | 保留样本名称(逗号分隔)｜Sample names to keep (comma-separated) |
+| `--remove-samples` | — | str | 移除样本名称(逗号分隔)｜Sample names to remove (comma-separated) |
+| `--keep-ids` | — | str | 保留变异位点ID(逗号分隔)｜Variant IDs to keep (comma-separated) |
+| `--remove-ids` | — | str | 移除变异位点ID(逗号分隔)｜Variant IDs to remove (comma-separated) |
+| `--biallelic-only` | — |  | 只保留双等位基因位点｜Keep only biallelic sites |
+| `--remove-indels` | — |  | 移除插入缺失变异｜Remove indel variants |
+| `--skip-validation` | `True` |  | 跳过输入验证以提高速度｜Skip input validation for speed |
+| `--force-validation` | — |  | 强制执行输入验证｜Force input validation |
+| `--verbose, -v` | — |  | 显示详细信息｜Show verbose information |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `-o, --output` | — |  | 输出VCF文件路径｜Output VCF file path |
+| `-c, --chr, --chromosome` | 必填 |  | 染色体名称 (支持逗号分隔的多个染色体)｜Chromosome name(s) (comma-separated for multiple) |
+| `-s, --start` | — | int | 起始位置｜Start position |
+| `-e, --end` | — | int | 结束位置｜End position |
+| `--convert-format` | — | store_true | 使用PLINK进行格式转换｜Use PLINK for format conversion |
+| `--plink-path` | `plink` |  | PLINK可执行文件路径｜PLINK executable path |
+| `--allow-extra-chr` | `True` | store_true | 允许额外染色体｜Allow extra chromosomes |
+| `--maf` | — | float | 最小等位基因频率｜Minimum allele frequency |
+| `--max-missing` | — | float | 最大缺失率｜Maximum missing rate |
+| `--quality-threshold` | — | float | 质量阈值｜Quality threshold |
+| `--min-depth` | — | int | 最小深度｜Minimum depth |
+| `--max-depth` | — | int | 最大深度｜Maximum depth |
+| `--keep-samples` | — |  | 保留的样本名称 (逗号分隔)｜Sample names to keep (comma-separated) |
+| `--remove-samples` | — |  | 移除的样本名称 (逗号分隔)｜Sample names to remove (comma-separated) |
+| `--keep-ids` | — |  | 保留的变异位点ID (逗号分隔)｜Variant IDs to keep (comma-separated) |
+| `--remove-ids` | — |  | 移除的变异位点ID (逗号分隔)｜Variant IDs to remove (comma-separated) |
+| `--biallelic-only` | — | store_true | 只保留双等位基因位点｜Keep only biallelic sites |
+| `--remove-indels` | — | store_true | 移除插入缺失变异｜Remove indel variants |
+| `--skip-validation` | `True` | store_true | 跳过输入验证以提高速度（默认开启）｜ Skip input validation for speed (default enabled) |
+| `--force-validation` | — | store_true | 强制执行输入验证｜Force input validation |
+| `--verbose, -v` | — | store_true | 显示详细信息｜Show verbose information |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python：标准库（实现核心筛选）

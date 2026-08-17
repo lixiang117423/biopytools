@@ -58,6 +58,46 @@ biopytools subgenome-assign -i target.fa --parent A:A.fa --parent B:B.fa -o out/
 - `00_pipeline_info/pipeline_params.yaml`: 含归属结果汇总(各亲本染色体数)
 - `99_logs/`: 运行日志
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --target` | 必填 |  | 目标多倍体基因组 FASTA｜Target polyploid genome FASTA |
+| `--parent` | 必填 |  | 亲本配置（可重复指定多个亲本）｜Parent spec (can be repeated for multiple parents). 格式｜Format: NAME:hap1.fa,hap2.fa |
+| `-o, --output-dir` | `./subgenome_assign_output` |  | 输出目录｜Output directory |
+| `--preset` | `asm10` | asm5/asm10/asm20/asm25 | minimap2 -x 预设｜minimap2 preset (asm5=<1%%, asm10=1-5%%, asm20=5-15%%) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--minimap2-secondary` | — |  | 保留次要比对（默认 --secondary=no）｜Keep secondary alignments |
+| `--min-conf` | `0.65` | float | 置信度阈值｜Confidence threshold for LOW_CONFIDENCE flag |
+| `--no-split` | — |  | 不输出拆分的 FASTA｜Do not output split FASTAs |
+| `--no-keep-unassigned` | — |  | 不输出未归属染色体的 FASTA｜Do not output unassigned FASTA |
+| `--minimap2-path` | `~/miniforge3/envs/align/bin/minimap2` |  | minimap2 二进制路径｜minimap2 binary path |
+| `--samtools-path` | `~/.local/bin/samtools` |  | samtools 二进制路径｜samtools binary path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --target` | 必填 |  | 目标多倍体基因组 FASTA｜Target polyploid genome FASTA |
+| `--parent` | 必填 | append | 亲本名:hap1,hap2,...（可重复指定多个亲本）｜Parent name:hap1,hap2,... (can be repeated for multiple parents) |
+| `-o, --output-dir` | `./subgenome_assign_output` |  | 输出目录｜Output directory |
+| `--preset` | `asm10` | asm5/asm10/asm20/asm25 | minimap2 -x 预设（asm5=<1%%差异, asm10=1-5%%, asm20=5-15%%）｜minimap2 preset |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--minimap2-secondary` | — | store_true | 保留次要比对（默认 --secondary=no）｜Keep secondary alignments |
+| `--min-conf` | `0.65` | float | 置信度阈值，低于此值标记 LOW_CONFIDENCE｜Confidence threshold for LOW_CONFIDENCE flag |
+| `--no-split` | — | store_true | 不输出拆分的 FASTA｜Do not output split FASTAs |
+| `--no-keep-unassigned` | — | store_true | 不输出未归属染色体的 FASTA｜Do not output unassigned FASTA |
+| `--minimap2-path` | `~/miniforge3/envs/align/bin/minimap2` |  | minimap2 二进制路径｜minimap2 binary path |
+| `--samtools-path` | `~/.local/bin/samtools` |  | samtools 二进制路径｜samtools binary path |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **minimap2**: 目标 vs 亲本比对

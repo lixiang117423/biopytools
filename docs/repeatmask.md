@@ -122,3 +122,46 @@ biopytools repeatmask -i genome.fa -o step2_output --skip-modeler -s species_nam
 This module implements the same workflow described in the paper:
 1. RepeatModeler generates species-specific repeats
 2. RepeatMasker combines Dfam/Repbase database with RepeatModeler library for masking
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-dir` | `./repeatmask_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-s, --species` | — |  | 物种名称｜Species name for Dfam/Repbase database |
+| `--repeatmodeler-path` | `~/miniforge3/envs/repeat/bin/RepeatModeler` |  | RepeatModeler路径｜RepeatModeler path |
+| `--repeatmasker-path` | `~/miniforge3/envs/repeat/bin/RepeatMasker` |  | RepeatMasker路径｜RepeatMasker path |
+| `--builddatabase-path` | `BuildDatabase` |  | BuildDatabase路径｜BuildDatabase path |
+| `--skip-modeler` | — |  | 跳过RepeatModeler｜Skip RepeatModeler step |
+| `--no-dfam` | — |  | 不使用Dfam数据库｜Do not use Dfam database |
+| `--masking-mode` | `soft` | soft/hard/x | 屏蔽模式｜Masking mode |
+| `--no-ltr` | — |  | 不运行LTR结构发现｜Do not run LTR structural discovery |
+| `--modeler-quick` | — |  | RepeatModeler快速模式｜RepeatModeler quick mode |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-dir` | `./repeatmask_output` |  | 输出目录｜Output directory (default: ./repeatmask_output) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `-s, --species` | — |  | 物种名称(用于Dfam/Repbase数据库)｜Species name for Dfam/Repbase database |
+| `--repeatmodeler-path` | `~/miniforge3/envs/repeat/bin/RepeatModeler` |  | RepeatModeler路径｜RepeatModeler path |
+| `--repeatmasker-path` | `~/miniforge3/envs/repeat/bin/RepeatMasker` |  | RepeatMasker路径｜RepeatMasker path |
+| `--builddatabase-path` | `BuildDatabase` |  | BuildDatabase路径｜BuildDatabase path |
+| `--skip-modeler` | — | store_true | 跳过RepeatModeler步骤｜Skip RepeatModeler step |
+| `--no-dfam` | — | store_true | 不使用Dfam数据库｜Do not use Dfam database |
+| `--masking-mode` | `soft` | soft/hard/x | 屏蔽模式｜Masking mode: soft(小写｜lowercase), hard(N), x(X) (default: soft) |
+| `--use-ltr` | `True` | store_true | 运行LTR结构发现｜Run LTR structural discovery (default: enabled) |
+| `--no-ltr` | — | store_true | 不运行LTR结构发现｜Do not run LTR structural discovery |
+| `--modeler-quick` | — | store_true | RepeatModeler快速模式｜RepeatModeler quick mode |
+
+<!-- END PARAMS:auto -->

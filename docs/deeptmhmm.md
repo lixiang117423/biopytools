@@ -72,6 +72,34 @@ output_dir/
 
 运行结束后日志会输出统计：蛋白总数、`0个TMH` / `>=1个TMH` 数量、含信号肽数量。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入蛋白质FASTA文件｜Input protein FASTA file |
+| `-o, --output-dir` | 必填 | Path | 输出目录｜Output directory |
+| `--prefix` | — |  | 输出文件前缀(默认输入文件名)｜Output file prefix |
+| `--conda-env` | `deeptmhmm_v.1.0` |  | conda环境名｜conda env name |
+| `--deeptmhmm-dir` | `~/software/deeptmhmm/DeepTMHMM-Academic-License-v1.0` |  | DeepTMHMM安装目录｜DeepTMHMM install directory |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | [FILE] 输入蛋白质FASTA文件｜Input protein FASTA file |
+| `-o, --output-dir` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `--prefix` | — |  | [STR] 输出文件前缀(默认输入文件名)｜Output file prefix |
+| `--conda-env` | `deeptmhmm_v.1.0` |  | [STR] conda环境名｜conda env name |
+| `--deeptmhmm-dir` | `~/software/deeptmhmm/DeepTMHMM-Academic-License-v1.0` |  | [STR] DeepTMHMM安装目录｜DeepTMHMM install directory |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **DeepTMHMM 1.0**（需单独安装，学术用户从 DTU 申请 Academic License）

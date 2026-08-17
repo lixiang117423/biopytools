@@ -294,3 +294,52 @@ iSeq: An integrated tool to fetch public sequencing data.
 Bioinformatics, 2024, btae641.
 doi: 10.1093/bioinformatics/btae641
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --accession` | 必填 |  | 项目/样本/实验ID｜Project/Sample/Experiment ID (e.g., PRJNA1014406) |
+| `-o, --output-dir` | `./iseq_output` | Path | 输出目录｜Output directory |
+| `--iseq-path` | `~/miniforge3/envs/misc/bin/iseq` |  | iSeq软件路径｜iSeq software path |
+| `-c, --conda-env` | `iseq_v.1.9.8` |  | Conda环境名｜Conda environment name |
+| `-m, --metadata-only` | — |  | 仅下载元数据｜Only download metadata |
+| `-g, --gzip` | — |  | 下载gzip格式FASTQ｜Download FASTQ in gzip format |
+| `-q, --fastq` | — |  | 转换为FASTQ格式｜Convert to FASTQ format |
+| `-e, --merge` | — | ex/sa/st | 合并选项｜Merge option (ex/sa/st) |
+| `-t, --threads` | `16` | int | 线程数｜Number of threads |
+| `-p, --parallel` | `10` | int | 并行连接数｜Number of parallel connections |
+| `-s, --speed` | — | int | 下载速度限制(MB/s)｜Download speed limit (MB/s) |
+| `-d, --database` | `ena` | ena/sra | 数据库选择｜Database selection |
+| `--protocol` | `ftp` | ftp/https | 协议选择｜Protocol selection |
+| `-a, --use-aspera` | — |  | 使用Aspera高速下载｜Use Aspera for high-speed download |
+| `--skip-md5` | — |  | 跳过MD5校验｜Skip MD5 check |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --accession` | 必填 |  | 项目/样本/实验ID｜Project/Sample/Experiment ID (e.g., PRJNA1014406) |
+| `-o, --output-dir` | `./iseq_output` |  | 输出目录｜Output directory |
+| `-a, --iseq-path` | `~/miniforge3/envs/misc/bin/iseq` |  | iSeq软件路径｜iSeq software path |
+| `-m, --metadata-only` | — | store_true | 仅下载元数据｜Only download metadata |
+| `-g, --gzip` | — | store_true | 下载gzip格式FASTQ｜Download FASTQ in gzip format |
+| `-q, --fastq` | — | store_true | 转换为FASTQ格式｜Convert to FASTQ format |
+| `-e, --merge` | — | ex/sa/st | 合并选项｜Merge option (ex/sa/st) |
+| `-t, --threads` | `16` | int | 线程数｜Number of threads |
+| `-p, --parallel` | `10` | int | 并行连接数｜Number of parallel connections |
+| `-s, --speed` | — | int | 下载速度限制(MB/s)｜Download speed limit (MB/s) |
+| `-d, --database` | `ena` | ena/sra | 数据库选择｜Database selection |
+| `--protocol` | `ftp` | ftp/https | 协议选择｜Protocol selection |
+| `--use-aspera` | — | store_true | 使用Aspera下载｜Use Aspera for download |
+| `--skip-md5` | — | store_true | 跳过MD5校验｜Skip MD5 check |
+| `--quiet` | — | store_true | 静默模式｜Quiet mode (suppress progress bars) |
+
+<!-- END PARAMS:auto -->

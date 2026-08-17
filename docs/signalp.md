@@ -72,6 +72,48 @@ output_dir/
 
 `signalp_summary.tsv` 列：`蛋白质ID  预测代码  Has_SP  SP概率  SP起始  SP终止  切割位点起始  切割位点终止  切割置信度`，可直接用 `read.delim()` 读入R。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入FASTA文件(氨基酸序列)｜Input FASTA file (amino acid sequences) |
+| `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--organism, -org` | `eukarya` | eukarya/other/euk | 生物类型｜Organism type (default: eukarya) |
+| `--format, -fmt` | `txt` | txt/png/eps/all/none | 输出格式｜Output format (default: txt) |
+| `--mode, -m` | `fast` | fast/slow/slow-sequential | 预测模式｜Prediction mode (default: fast) |
+| `--bsize, -bs` | `12` | int | 批处理大小｜Batch size |
+| `--write-procs, -wp` | `12` | int | 写入进程数｜Number of write processes |
+| `--torch-num-threads, -tt` | `12` | int | PyTorch线程数｜PyTorch threads |
+| `--signalp-path` | `~/miniforge3/envs/protein/bin/signalp6` |  | SignalP程序路径｜SignalP program path |
+| `--model-dir, -md` | — |  | 模型权重目录｜Model weights directory |
+| `--skip-resolve` | — |  | 跳过冲突解析｜Skip conflict resolution |
+| `--keep-plots` | — |  | 保留plot文件(默认自动清理)｜Keep plot files (auto-deleted by default) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件(氨基酸序列)｜Input FASTA file (amino acid sequences) |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `--organism` | `eukarya` | eukarya/other/euk | 生物类型｜Organism type (default: eukarya) |
+| `--format` | `txt` | txt/png/eps/all/none | 输出格式｜Output format (default: txt) |
+| `--mode` | `fast` | fast/slow/slow-sequential | 预测模式｜Prediction mode (default: fast) |
+| `--bsize` | `12` | int | 批处理大小｜Batch size (default: 12) |
+| `--write-procs` | `12` | int | 写入进程数｜Number of write processes (default: 12) |
+| `--torch-num-threads` | `12` | int | PyTorch线程数｜PyTorch threads (default: 12) |
+| `--signalp-path` | `~/miniforge3/envs/protein/bin/signalp6` |  | SignalP程序路径｜SignalP program path |
+| `--model-dir` | — |  | 模型权重目录｜Model weights directory |
+| `--skip-resolve` | — | store_true | 跳过resolve步骤｜Skip resolve step |
+| `--keep-plots` | — | store_true | 保留plot文件(默认自动清理plot文件)｜Keep plot files (plots are auto-deleted by default) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - SignalP 6.0（需单独安装，参考官网）

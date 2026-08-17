@@ -441,3 +441,49 @@ Bioinformatics, 2018.
 Kurtz S et al. Versatile and open software for comparing large genomes.
 Genome Biology, 2004.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--sample-map, -s` | — |  | 样本映射文件｜Sample mapping file (genome_file\tgenome_name) |
+| `--config, -c` | — |  | 配置文件｜Configuration file |
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--aligner, -a` | `minimap2` | minimap2/mummer | 比对器类型｜Aligner type |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--min-length` | `5000` | int | 最小比对长度｜Minimum alignment length |
+| `--minimap-preset` | `asm5` |  | Minimap2预设模式｜Minimap2 preset |
+| `--mummer-match-type` | `mumreference` | mum/mumreference/maxmatch | MUMmer匹配类型｜MUMmer match type |
+| `--mummer-min-match` | `20` | int | MUMmer最小匹配长度｜MUMmer min match |
+| `--chromosome` | — | str | 指定染色体｜Specify chromosomes (e.g., "1,2,3" or "1-5") |
+| `--output-formats` | `['svg', 'png']` | svg/png | 输出格式｜Output formats |
+| `--ngenomesyn-bin` | — |  | NGenomeSyn二进制文件路径｜NGenomeSyn binary path |
+| `--use-syri` | `False` |  | 使用SyRI进行结构变异分析｜Use SyRI for structural variation analysis |
+| `--syri-bin` | — |  | SyRI二进制文件路径｜SyRI binary path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-s, --sample-map` | — |  | [FILE] 样本映射文件｜Sample mapping file (genome_file\tgenome_name) |
+| `-c, --config` | — |  | [FILE] 配置文件｜Configuration file |
+| `-o, --output` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `-a, --aligner` | `minimap2` | minimap2/mummer | [STR] 比对器类型 (默认: minimap2)｜Aligner type (default: minimap2) |
+| `-t, --threads` | `16` | int | [INT] 线程数 (默认: 16)｜Number of threads (default: 16) |
+| `--min-length` | `5000` | int | [INT] 最小比对长度 (默认: 5000)｜Minimum alignment length (default: 5000) |
+| `--minimap-preset` | `asm5` |  | [STR] Minimap2预设模式 (默认: asm5)｜Minimap2 preset (default: asm5) |
+| `--mummer-match-type` | `mumreference` | mum/mumreference/maxmatch | [STR] MUMmer匹配类型 (默认: mumreference)｜MUMmer match type (default: mumreference) |
+| `--mummer-min-match` | `20` | int | [INT] MUMmer最小匹配长度 (默认: 20)｜MUMmer min match (default: 20) |
+| `--chromosome` | — | str | [STR] 指定染色体 (如: "1,2,3" 或 "1-5")｜Specify chromosomes |
+| `--output-formats` | `['svg', 'png']` | svg/png | [STR] 输出格式 (默认: svg png)｜Output formats (default: svg png) |
+| `--ngenomesyn-bin` | — |  | [FILE] NGenomeSyn二进制文件路径｜NGenomeSyn binary path |
+| `--use-syri` | — | store_true | [FLAG] 使用SyRI进行结构变异分析｜Use SyRI for structural variation analysis |
+| `--syri-bin` | — |  | [FILE] SyRI二进制文件路径｜SyRI binary path |
+
+<!-- END PARAMS:auto -->

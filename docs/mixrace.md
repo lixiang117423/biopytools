@@ -111,6 +111,60 @@ out_dir/
 | 样品数 <4 或不要树 | `--skip-tree` |
 | 中途失败重跑 | 直接重跑原命令(断点续传自动跳过已完成步骤；树注解变化会自动重画) |
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | — |  | 原始FASTQ目录(与--clean-fastq-dir二选一)｜Raw FASTQ dir (or --clean-fastq-dir) |
+| `--clean-fastq-dir` | — |  | 已清洗FASTQ目录(给则跳过QC)｜Clean FASTQ dir (skip QC) |
+| `--genome, -g` | 必填 |  | 参考基因组FASTA｜Reference genome FASTA |
+| `--output-dir, -o` | `mixrace_out` |  | 输出目录｜Output directory |
+| `--repeat-bed` | — |  | 重复/低复杂度区域BED(可选)｜Repeat/low-complexity BED (optional) |
+| `--threads, -t` | `12` | int | 线程数｜Threads |
+| `--kmer-size, -k` | `21` | int | K-mer大小｜K-mer size |
+| `--read-length, -l` | `150` | int | 测序读长｜Read length |
+| `--step` | — | int | 只跑指定步骤1-7(默认全跑)｜Run single step 1-7 (default all) |
+| `--no-checkpoint` | `False` |  | 禁用断点续传｜Disable checkpoint |
+| `--dry-run` | `False` |  | 只打印命令不执行｜Print commands only |
+| `--min-qual` | `30` | int | 变异QUAL下限｜Min QUAL |
+| `--min-dp` | `15` | int | 位点深度下限｜Min DP |
+| `--min-alt-reads` | `3` | int | ALT支持reads下限｜Min ALT reads |
+| `--min-coverage` | `30` | int | freebayes --min-coverage(默认30)｜freebayes min-coverage (default 30) |
+| `--min-alt-fraction` | `0.02` | float | freebayes --min-alternate-fraction(默认0.02)｜freebayes min-alternate-fraction (default 0.02) |
+| `--pure-samples` | — |  | 已知纯样品(逗号分隔,校准het阈值)｜Known-pure samples (comma-sep, calibrate) |
+| `--skip-tree` | `False` |  | 跳过系统发育树｜Skip phylogenetic tree |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  |  |
+| `--clean-fastq-dir` | — |  |  |
+| `-g, --genome` | 必填 |  |  |
+| `-o, --output-dir` | `mixrace_out` |  |  |
+| `--repeat-bed` | — |  |  |
+| `-t, --threads` | `12` | int |  |
+| `-k, --kmer-size` | `21` | int |  |
+| `-l, --read-length` | `150` | int |  |
+| `--step` | — | int |  |
+| `--no-checkpoint` | — | store_false |  |
+| `--dry-run` | — | store_true |  |
+| `--min-qual` | `30` | int |  |
+| `--min-dp` | `15` | int |  |
+| `--min-alt-reads` | `3` | int |  |
+| `--min-coverage` | `30` | int | freebayes --min-coverage(默认30) |
+| `--min-alt-fraction` | `0.02` | float | freebayes --min-alternate-fraction(默认0.02,保低频等位) |
+| `--pure-samples` | — |  | 已知纯样品(逗号分隔,校准het阈值)｜known-pure samples (calibrate) |
+| `--skip-tree` | — | store_true | 跳过系统发育树｜skip phylogenetic tree |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - bwa-mem2(`cphasing`)、samtools/bcftools/bedtools/freebayes(`align`)、R+ggplot2(`WGCNA_v.1.73`)、**R+ggtree(`r`，画树)**、smudgescope 自带 envs。

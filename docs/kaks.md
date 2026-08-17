@@ -66,6 +66,44 @@ results/
 
 终端会打印 omega (Ka/Ks) 的均值/中位数/范围，以及正选择 (omega>1)、中性 (omega=1)、纯化选择 (omega<1) 的数量与百分比。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--fasta1, -1` | 必填 | Path | 第一个FASTA文件｜First FASTA file |
+| `--fasta2, -2` | 必填 | Path | 第二个FASTA文件｜Second FASTA file |
+| `--pairs, -p` | 必填 | Path | 序列配对文件｜Sequence pair file |
+| `--output, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--method, -m` | `GMYN` | GMYN/MYN/YN/NG/LWL/LPB/MLWL/MLPB/GY/MS/MA/GNG/GLWL/GLPB/GMLWL/GMLPB/GYN | 计算方法｜Calculation method |
+| `--kaks-path` | `KaKs_Calculator` | str | KaKs_Calculator软件路径｜Path to KaKs_Calculator executable |
+| `--verbose, -v` | — |  | 启用详细日志｜Enable verbose logging |
+| `--temp-dir` | — | Path | 自定义临时目录｜Custom temporary directory |
+| `--keep-temp` | — |  | 保留临时文件｜Keep temporary files |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-1, --fasta1, --species1` | 必填 | str | 第一个FASTA文件 (物种1 CDS序列)｜First FASTA file (species 1 CDS sequences) |
+| `-2, --fasta2, --species2` | 必填 | str | 第二个FASTA文件 (物种2 CDS序列)｜Second FASTA file (species 2 CDS sequences) |
+| `-p, --pairs, --pair-file` | 必填 | str | 序列配对文件 (TSV/CSV格式)｜Sequence pair file (TSV/CSV format) |
+| `-o, --output, --output-dir` | 必填 | str | 输出目录｜Output directory for results |
+| `-m, --method, --calc-method` | `GMYN` | GMYN/MYN/YN/NG/LWL/LPB/MLWL/MLPB/GY/MS/MA/GNG/GLWL/GLPB/GMLWL/GMLPB/GYN | 计算方法 (默认: GMYN)｜Calculation method (default: GMYN) |
+| `-t, --threads` | `12` | int | 线程数 (默认: 12)｜Thread count (default: 12) |
+| `--kaks-path, --calculator-path` | `KaKs_Calculator` | str | KaKs_Calculator可执行文件路径｜Path to KaKs_Calculator executable |
+| `-v, --verbose, --debug` | — | store_true | 启用详细日志记录｜Enable verbose logging |
+| `--temp-dir, --tmp-dir` | — | str | 自定义临时目录｜Custom temporary directory |
+| `--keep-temp, --no-cleanup` | — | store_true | 保留临时文件 (用于调试)｜Keep temporary files (for debugging) |
+| `--version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - `KaKs_Calculator 2.0`（可通过 `--kaks-path` 指定）

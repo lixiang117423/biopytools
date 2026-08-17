@@ -211,6 +211,33 @@ biopytools cactus -s seqfile.txt -o output/ -r reference
 # 输出：分析已完成，跳过|Analysis already completed, skipping
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--seqfile, -s` | 必填 |  | 序列文件｜Sequence file (两列格式：样本名 + 路径｜Two columns: sample_name + path) |
+| `--output, -o` | 必填 |  | 输出目录｜Output directory |
+| `--reference, -r` | 必填 |  | 参考基因组名称｜Reference genome name (必须与seqfile第一个基因组名称匹配｜Must match first genome in seqfile) |
+| `--singularity` | `~/miniforge3/envs/singularity_v.3.8.7/bin/singularity` |  | Singularity可执行文件路径｜Singularity executable path |
+| `--cactus-sif` | `~/software/singularity/cactus_v3.1.4.sif` |  | Cactus SIF镜像路径｜Cactus SIF image path |
+| `--jobstore` | `cactus-jobstore` |  | Toil jobstore目录名称｜Toil jobstore directory name |
+| `--out-name` | `cactus_output` |  | 输出文件前缀｜Output file prefix |
+| `--no-cleanup` | — |  | 保留jobstore不删除｜Keep jobstore without deleting |
+| `--formats` | `['gfa', 'gbz', 'odgi']` | gfa/gbz/odgi/hal/vg/vcf/xg | 输出格式｜Output formats (可多选｜can select multiple) |
+| `--threads, -t` | `12` | int | CPU核心数｜Number of CPU cores |
+| `--max-memory, -m` | `100G` |  | 最大内存｜Maximum memory |
+| `--bind` | — |  | 绑定目录到容器｜Bind directory to container (可多次使用｜can be used multiple times) |
+| `--log-level` | `INFO` | DEBUG/INFO/WARN/ERROR | 日志级别｜Log level |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### 1. Singularity路径找不到怎么办？

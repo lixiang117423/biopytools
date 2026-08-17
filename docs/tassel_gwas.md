@@ -395,3 +395,55 @@ Zhang Z, Ersoz E, Lai CQ, et al.
 (2010) Mixed linear model approach adapted for genome-wide association studies.
 Nat Genet 42:355-360.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vcf, -i` | 必填 |  | VCF基因型文件｜VCF genotype file |
+| `--pheno, -p` | 必填 |  | 表型数据文件｜Phenotype data file |
+| `--output, -o` | 必填 |  | 输出目录｜Output directory |
+| `--model, -m` | `MLM` | GLM/MLM/BOTH | GWAS模型｜GWAS model (GLM/MLM/BOTH) |
+| `--memory` | `100g` |  | Java最大内存｜Java maximum memory (e.g., 100g, 200g) |
+| `--threads, -t` | `12` | int | 并行线程数｜Number of parallel threads |
+| `--maf` | — | float | 最小等位基因频率过滤｜Minimum allele frequency filter |
+| `--miss` | — | float | 最大缺失率过滤｜Maximum missing rate filter |
+| `--pca-components` | `5` | int | PCA主成分数(MLM协变量)｜Number of PCA components for MLM covariates |
+| `--q-matrix, -q` | — | Path | 群体结构Q矩阵文件｜Population structure Q matrix file |
+| `--kinship, -k` | — | Path | 亲缘关系矩阵文件｜Kinship matrix file |
+| `--tassel-path` | — | Path | TASSEL安装路径｜TASSEL installation path |
+| `--skip-sort` | — |  | 跳过VCF排序｜Skip VCF sorting |
+| `--keep-temp` | — |  | 保留临时文件｜Keep temporary files |
+| `--parallel` | — |  | 并行处理多个性状｜Parallel process multiple traits |
+| `--workers` | `4` | int | 并行工作进程数｜Number of parallel workers |
+| `--log-level` | `INFO` | DEBUG/INFO/WARN/ERROR | 日志级别｜Log level |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf` | 必填 |  | VCF基因型文件路径｜VCF genotype file path |
+| `-p, --pheno` | 必填 |  | 表型文件路径｜Phenotype file path (可包含多个表型) |
+| `-o, --output` | 必填 |  | 输出目录路径｜Output directory path |
+| `--model` | `MLM` | GLM/MLM/BOTH | GWAS模型选择｜GWAS model selection |
+| `--memory` | `100g` |  | Java最大内存｜Java maximum memory |
+| `--threads` | `4` | int | 并行线程数｜Number of parallel threads |
+| `--maf` | — | float | 最小等位基因频率过滤｜Minimum allele frequency filter |
+| `--miss` | — | float | 最大缺失率过滤｜Maximum missing rate filter |
+| `--pca-components` | `5` | int | PCA主成分数量（用作MLM协变量）｜ Number of PCA components for MLM covariates |
+| `--q-matrix` | — |  | 群体结构Q矩阵文件｜Population structure Q matrix file |
+| `--kinship` | — |  | 亲缘关系K矩阵文件｜Kinship K matrix file |
+| `--tassel-path` | — |  | TASSEL安装路径｜TASSEL installation path |
+| `--no-skip-sort` | — | store_false | 不跳过VCF排序（默认跳过，适用于已过滤的VCF）｜Do not skip VCF sorting (default: skip, suitable for pre-filtered VCF) |
+| `--keep-temp` | — | store_true | 保留临时文件｜Keep temporary files |
+| `--parallel` | — | store_true | 并行处理多个表型｜Parallel process multiple traits |
+| `--workers` | `4` | int | 并行工作线程数｜Number of parallel workers |
+| `--log-level` | `INFO` | DEBUG/INFO/WARN/ERROR | 日志级别｜Log level |
+
+<!-- END PARAMS:auto -->

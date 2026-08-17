@@ -59,6 +59,32 @@ biopytools seq-extract -i regions.bed -s genome.fa -o regions.fa
 
 seqkit 路径按优先级: 环境变量 `SEQKIT_PATH` > `~/.config/biopytools/config.yml` 的 `tools.seqkit` > 代码默认值(默认 `seqkit`, 即依赖 PATH)。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 查询:单个ID、ID文件(一列)或BED文件(>=2列)｜Query: single ID, ID file (1 column), or BED file (>=2 columns) |
+| `-s, --sequence` | 必填 |  | 目标序列FASTA文件｜Target sequence FASTA file |
+| `-o, --output` | — |  | 输出文件(默认自动推导:{query}.{subject}.fa)｜Output file (default: auto-derived) |
+| `--bed` | — |  | 强制BED模式(跳过自动检测)｜Force BED mode (skip auto-detection) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 查询:单个ID、ID文件(一列)或BED文件(>=2列)｜Query: single ID, ID file (1 column), or BED file (>=2 columns) |
+| `-s, --sequence` | 必填 |  | 目标序列FASTA文件｜Target sequence FASTA file |
+| `-o, --output` | — |  | 输出文件(默认自动推导:{query}.{subject}.fa)｜Output file (default: auto-derived {query}.{subject}.fa) |
+| `--bed` | — | store_true | 强制BED模式(跳过自动检测)｜Force BED mode (skip auto-detection) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **seqkit**: FASTA/FASTQ 序列处理 (https://bioinf.shenwei.me/seqkit/)

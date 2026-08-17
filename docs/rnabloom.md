@@ -559,3 +559,63 @@ doi: 10.1101/gr.260174.119
 ---
 
 **版本信息**: RNA-Bloom模块版本 1.0.0 | Module Version 1.0.0
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--left, -1` | — |  | 左端reads文件｜Left reads file (paired-end) |
+| `--right, -2` | — |  | 右端reads文件｜Right reads file (paired-end) |
+| `--sef` | — |  | 单端正向reads文件｜Single-end forward reads file |
+| `--ser` | — |  | 单端反向reads文件｜Single-end reverse reads file |
+| `--long` | — |  | 长reads文件｜Long reads file (ONT/PacBio) |
+| `--cell-list` | — |  | 单细胞列表文件｜Single-cell list file (pooled assembly) |
+| `-o, --output-dir` | 必填 | Path | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--rnabloom-path` | `rnabloom` |  | RNA-Bloom工具路径｜RNA-Bloom tool path |
+| `--mem` | — | float | Bloom filter总大小(GB)｜Total Bloom filter size in GB |
+| `--fpr` | — | float | 假阳性率｜False positive rate (0-1) |
+| `--nk, --num-kmers` | — | int | 唯一k-mer数量｜Number of unique kmers |
+| `--stranded` | — |  | 链特异性数据｜Strand-specific data |
+| `--revcomp-left` | — |  | 反向互补左端reads｜Reverse-complement left reads |
+| `--revcomp-right` | — |  | 反向互补右端reads｜Reverse-complement right reads |
+| `--pacbio` | — |  | PacBio数据｜PacBio data (default: ONT) |
+| `--ref, --reference` | — |  | 参考转录本文件｜Reference transcript file |
+| `--min-length` | `200` | int | 最小转录本长度｜Minimum transcript length |
+| `--uracil` | — |  | 输出尿嘧啶(U)而非胸腺嘧啶(T)｜Write uracil (U) instead of thymine (T) |
+| `--no-nr` | — |  | 不导出去冗余转录本｜Do not export non-redundant transcripts |
+| `--stage` | — | 1/2/3 | 停止阶段｜Stop at stage (1-3) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--left, -1` | — |  | 左端reads文件｜Left reads file (paired-end) |
+| `--right, -2` | — |  | 右端reads文件｜Right reads file (paired-end) |
+| `--sef` | — |  | 单端正向reads文件｜Single-end forward reads file |
+| `--ser` | — |  | 单端反向reads文件｜Single-end reverse reads file |
+| `--long` | — |  | 长reads文件｜Long reads file (ONT/PacBio) |
+| `--cell-list` | — |  | 单细胞列表文件｜Single-cell list file (pooled assembly) |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--rnabloom-path` | `rnabloom` |  | RNA-Bloom工具路径｜RNA-Bloom tool path (default: rnabloom) |
+| `--mem` | — | float | Bloom filter总大小(GB)｜Total Bloom filter size in GB |
+| `--fpr` | — | float | 假阳性率｜False positive rate (0-1) |
+| `--nk, --num-kmers` | — | int | 唯一k-mer数量｜Number of unique kmers |
+| `--stranded` | — | store_true | 链特异性数据｜Strand-specific data |
+| `--revcomp-left` | — | store_true | 反向互补左端reads｜Reverse-complement left reads |
+| `--revcomp-right` | — | store_true | 反向互补右端reads｜Reverse-complement right reads |
+| `--pacbio` | — | store_true | PacBio数据｜PacBio data (default: ONT) |
+| `--ref, --reference` | — |  | 参考转录本文件｜Reference transcript file |
+| `--min-length` | `200` | int | 最小转录本长度｜Minimum transcript length (default: 200) |
+| `--uracil` | — | store_true | 输出尿嘧啶(U)而非胸腺嘧啶(T)｜Write uracil (U) instead of thymine (T) |
+| `--no-nr` | — | store_false | 不导出去冗余转录本｜Do not export non-redundant transcripts |
+| `--stage` | — | 1/2/3 | 停止阶段｜Stop at stage (1-3) |
+
+<!-- END PARAMS:auto -->

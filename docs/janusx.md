@@ -281,6 +281,96 @@ python -m biopytools.janusx gwas \
 3. **缓存文件**: GRM和PCA会自动缓存，可加速后续分析
 4. **文件路径**: 确保基因型和表型文件的样本ID一致
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genotype` | 必填 |  | 基因型文件(VCF或PLINK前缀)｜Genotype file (VCF or PLINK prefix) |
+| `-p, --pheno` | 必填 |  | 表型文件｜Phenotype file |
+| `-t, --type` | `vcf` | vcf/bfile | 基因型类型｜Genotype type |
+| `-m, --models` | `['lmm']` | lm/lmm/fastlmm/farmcpu | GWAS模型｜GWAS models |
+| `--maf` | `0.05` | float | 最小等位基因频率阈值｜Minor allele frequency threshold |
+| `--geno` | `0.0` | float | 缺失率阈值(0=不过滤｜Missing rate threshold, 0=no filtering) |
+| `-k, --grm` | `1` |  | 亲缘关系矩阵方法｜GRM method |
+| `-q, --qcov` | `0` | int | PCA数量或Q矩阵文件路径｜Number of PCs or path to Q matrix file (0=不使用Q矩阵｜no Q matrix) |
+| `-c, --cov` | — |  | 协变量文件｜Covariate file |
+| `-n, --ncol` | — | int | 表型列索引(零基)｜Phenotype column indices (zero-based) |
+| `--plot` | — |  | 生成图表｜Generate plots |
+| `--chunksize` | `100000` | int | SNP分块大小｜SNP chunk size |
+| `--mmap-limit` | — | int | 内存映射限制｜Memory map limit |
+| `-th, --threads` | `12` | int | 线程数｜Number of threads |
+| `-o, --output-dir` | `./janusx_gwas_output` | Path | 输出目录｜Output directory |
+| `--prefix` | — |  | 输出文件前缀｜Output file prefix |
+| `--janusx-path` | — | Path | JanusX可执行文件路径｜JanusX executable path |
+| `--pcd` | — |  | 启用PCA降维｜Enable PCA-based dimensionality reduction |
+| `--cv` | — | int | 交叉验证折数｜K-fold cross-validation |
+| `--grm` | — |  | 预计算的GRM前缀｜Precomputed GRM prefix |
+| `--pcfile` | — |  | 预计算的PCA文件｜Precomputed PCA file |
+| `-d, --dim` | `3` | int | 输出主成分数量｜Number of PCs to output |
+| `--plot3d` | — |  | 生成3D旋转GIF｜Generate 3D rotating GIF |
+| `-g, --group` | — |  | 分组文件路径｜Group file path |
+| `--color` | `1` | int | 调色板索引(0-6)｜Color palette index |
+| `-f, --files` | 必填 |  | GWAS结果文件列表｜List of GWAS result files |
+| `--chr-col` | `#CHROM` |  | 染色体列名｜Chromosome column name |
+| `--pos-col` | `POS` |  | 位置列名｜Position column name |
+| `--pvalue-col` | `p` |  | P值列名｜P-value column name |
+| `--threshold` | — | float | 显著性阈值｜Significance threshold |
+| `--noplot` | — |  | 禁用绘图｜Disable plotting |
+| `--hl, --highlight` | — |  | 高亮区域BED文件｜Highlight regions BED file |
+| `--format` | `png` | pdf/png/svg/tif | 输出格式｜Output format |
+| `-a, --anno` | — |  | 注释文件路径｜Annotation file path |
+| `--ab, --anno-broaden` | — | int | 注释窗口｜Annotation window (kb) |
+| `--desc-item` | `description` |  | GFF描述键｜GFF description key |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genotype` | 必填 |  | 基因型文件(VCF或PLINK前缀)｜Genotype file (VCF or PLINK prefix) |
+| `-p, --pheno` | 必填 |  | 表型文件｜Phenotype file |
+| `-t, --type` | `vcf` | vcf/bfile | 基因型类型｜Genotype type (default: vcf) |
+| `-m, --models` | `['lmm']` | lm/lmm/fastlmm/farmcpu | GWAS模型｜GWAS models (default: lmm) |
+| `--maf` | `0.05` | float | 最小等位基因频率阈值｜Minor allele frequency threshold (default: 0.05) |
+| `--geno` | `0.0` | float | 缺失率阈值(0=不过滤｜Missing rate threshold, 0=no filtering) |
+| `-k, --grm` | `1` |  | 亲缘关系矩阵方法｜GRM method (default: 1) |
+| `-q, --qcov` | `0` | int | PCA数量或Q矩阵文件路径｜Number of PCs or path to Q matrix file (default: 0, no Q matrix) |
+| `-c, --cov` | — |  | 协变量文件｜Covariate file |
+| `-n, --ncol` | — | int | 表型列索引(零基)｜Phenotype column indices (zero-based) |
+| `--plot` | — | store_true | 生成图表｜Generate plots |
+| `--chunksize` | `100000` | int | SNP分块大小｜SNP chunk size (default: 100000) |
+| `--mmap-limit` | — | int | 内存映射限制｜Memory map limit |
+| `-th, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `-o, --output-dir` | `./janusx_gwas_output` |  | 输出目录｜Output directory (default: ./janusx_gwas_output) |
+| `--prefix` | — |  | 输出文件前缀｜Output file prefix |
+| `--janusx-path` | — |  | JanusX可执行文件路径｜JanusX executable path |
+| `--pcd` | — | store_true | 启用PCA降维｜Enable PCA-based dimensionality reduction |
+| `--cv` | — | int | 交叉验证折数｜K-fold cross-validation |
+| `--grm` | — |  | 预计算的GRM前缀｜Precomputed GRM prefix |
+| `--pcfile` | — |  | 预计算的PCA文件｜Precomputed PCA file |
+| `-d, --dim` | `3` | int | 输出主成分数量｜Number of PCs to output (default: 3) |
+| `--plot3d` | — | store_true | 生成3D旋转GIF｜Generate 3D rotating GIF |
+| `-g, --group` | — |  | 分组文件路径｜Group file path |
+| `--color` | `1` | int | 调色板索引(0-6)｜Color palette index (default: 1) |
+| `-f, --files` | 必填 |  | GWAS结果文件列表｜List of GWAS result files |
+| `--chr-col` | `#CHROM` |  | 染色体列名｜Chromosome column name (default: #CHROM) |
+| `--pos-col` | `POS` |  | 位置列名｜Position column name (default: POS) |
+| `--pvalue-col` | `p` |  | P值列名｜P-value column name (default: p) |
+| `--threshold` | — | float | 显著性阈值｜Significance threshold |
+| `--noplot` | — | store_true | 禁用绘图｜Disable plotting |
+| `--hl, --highlight` | — |  | 高亮区域BED文件｜Highlight regions BED file |
+| `--format` | `png` | pdf/png/svg/tif | 输出格式｜Output format (default: png) |
+| `-a, --anno` | — |  | 注释文件路径｜Annotation file path |
+| `--ab, --anno-broaden` | — | int | 注释窗口｜Annotation window (kb) |
+| `--desc-item` | `description` |  | GFF描述键｜GFF description key (default: description) |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### Q: 如何选择GWAS模型？

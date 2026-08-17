@@ -80,3 +80,24 @@ output/
 gamma值反映了泛基因组的开放程度:
 - gamma接近0: 泛基因组趋于封闭 (核心基因组为主)
 - gamma接近1: 泛基因组高度开放 (大量特有变异)
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | [FILE] GBZ图文件或VCF文件｜GBZ graph or VCF file |
+| `-o, --output` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `-P, --ref-path` | — |  | [STR] 参考路径前缀，GBZ输入时必需 (如T2T)｜Reference path prefix (required for GBZ) |
+| `-t, --threads` | `12` | int | [INT] 线程数 (default: 12) |
+| `--ref-size` | `0.0` | float | [FLOAT] 参考基因组大小Mb (0=自动推断, default: 0) |
+| `--permutations` | `100` | int | [INT] 增长曲线随机置换次数 (default: 100) |
+| `--vg-env` | — |  | [STR] vg conda环境名 (default: vg_v.1.7.0) |
+| `--r-path` | — |  | [FILE] Rscript路径｜Rscript binary path |
+
+<!-- END PARAMS:auto -->

@@ -316,3 +316,41 @@ cut -d: -f1 snp_list.txt | sort -u
 | 版本 | 日期 | 说明 |
 |------|------|------|
 | 1.0.0 | 2026-01-09 | 初始版本 |
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--snp, -i` | 必填 |  | SNP位置文件（格式：Chr01:24770）｜SNP position file (format: Chr01:24770) |
+| `--gff, -g` | 必填 |  | GFF3注释文件｜GFF3 annotation file |
+| `--genome, -G` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--left, -l` | `0` | int | SNP上游距离（bp）｜Upstream distance from SNP (bp) |
+| `--right, -r` | `0` | int | SNP下游距离（bp）｜Downstream distance from SNP (bp) |
+| `--promoter, -p` | `2000` | int | 启动子区域距离（bp）｜Promoter region distance (bp) |
+| `--output, -o` | `./snp_region_output` |  | 输出文件前缀｜Output file prefix |
+| `--gffread-path` | `gffread` |  | gffread程序路径｜gffread program path |
+| `--seqkit-path` | `seqkit` |  | seqkit程序路径｜seqkit program path |
+| `--keep-temp` | — |  | 保留临时文件｜Keep temporary files |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --snp` | 必填 |  | SNP位置文件（格式：Chr01:24770）｜SNP position file (format: Chr01:24770) |
+| `-g, --gff` | 必填 |  | GFF3注释文件｜GFF3 annotation file |
+| `-G, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-l, --left` | `0` | int | SNP上游距离（bp）｜Upstream distance from SNP (bp) |
+| `-r, --right` | `0` | int | SNP下游距离（bp）｜Downstream distance from SNP (bp) |
+| `-p, --promoter` | `2000` | int | 启动子区域距离（bp）｜Promoter region distance (bp) |
+| `-o, --output` | `./snp_region_output` |  | 输出文件前缀｜Output file prefix |
+| `--gffread-path` | `gffread` |  | gffread程序路径｜gffread program path |
+| `--seqkit-path` | `seqkit` |  | seqkit程序路径｜seqkit program path |
+| `--keep-temp` | — | store_true | 保留临时文件｜Keep temporary files |
+
+<!-- END PARAMS:auto -->

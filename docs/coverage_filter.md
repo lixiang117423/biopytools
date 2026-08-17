@@ -99,3 +99,35 @@ biopytools coverage-filter \
 ## 版本|Version
 
 v1.0.0 (2026-01-26)
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--bam-file, -i` | 必填 |  | BAM文件｜BAM file path |
+| `--fasta-file, -f` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--output-prefix, -o` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `--output-dir, -d` | `.` |  | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--high-cov` | `90.0` | float | 高质量覆盖度阈值｜High quality coverage threshold |
+| `--medium-cov-min` | `50.0` | float | 中等质量最小覆盖度｜Medium quality minimum coverage |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --bam-file` | 必填 |  | BAM文件路径｜BAM file path |
+| `-f, --fasta-file` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `-d, --output-dir` | `.` |  | 输出目录｜Output directory (default: current directory) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--high-cov` | `90.0` | float | 高质量覆盖度阈值｜High quality coverage threshold (default: 90.0) |
+| `--medium-cov-min` | `50.0` | float | 中等质量最小覆盖度｜Medium quality minimum coverage (default: 50.0) |
+
+<!-- END PARAMS:auto -->

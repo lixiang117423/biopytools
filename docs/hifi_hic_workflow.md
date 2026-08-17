@@ -641,3 +641,72 @@ Genome Biology. 2015. doi: 10.1186/s13059-015-0630-x
 ---
 
 **版本信息**: hifi_hic_workflow模块版本 1.0.0 | Module Version 1.0.0
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--hifi` | 必填 | Path | HiFi reads文件｜HiFi reads file |
+| `--hic-r1` | 必填 | Path | Hi-C R1文件｜Hi-C R1 file |
+| `--hic-r2` | 必填 | Path | Hi-C R2文件｜Hi-C R2 file |
+| `--ref, --reference` | 必填 | Path | 参考基因组FASTA文件（仅用于命名）｜Reference genome FASTA file (for naming only) |
+| `-o, --output` | 必填 | Path | 输出目录｜Output directory |
+| `-p, --prefix` | `genome_sample` |  | 样本前缀｜Sample prefix (default: genome_sample) |
+| `-t, --threads` | `64` | int | 线程数｜Number of threads (default: 64) |
+| `--use-ngs-polish` | — |  | 启用NGS polish｜Enable NGS polish |
+| `--ngs-data` | — | Path | NGS二代数据目录｜NGS second-generation data directory |
+| `--nchrs` | — | int | 染色体数量（如不指定，从reference统计）｜Number of chromosomes (count from reference if not specified) |
+| `--skip-hifi-hic` | — |  | 跳过HiFi组装｜Skip HiFi assembly |
+| `--skip-haphic` | — |  | 跳过Hi-C挂载｜Skip Hi-C scaffolding |
+| `--skip-rename` | — |  | 跳过重命名｜Skip renaming |
+| `--skip-heatmap` | — |  | 跳过热图｜Skip heatmap |
+| `--no-resume` | — |  | 禁用断点续传｜Disable resume mode |
+| `--force` | — |  | 强制重新运行所有步骤｜Force rerun all steps |
+| `-v, --verbose` | — |  | 显示详细日志｜Show verbose logs |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--hifi` | 必填 |  | HiFi reads文件｜HiFi reads file |
+| `--hic-r1` | 必填 |  | Hi-C R1文件｜Hi-C R1 file |
+| `--hic-r2` | 必填 |  | Hi-C R2文件｜Hi-C R2 file |
+| `--ref, --reference` | 必填 |  | 参考基因组FASTA文件（仅用于命名）｜Reference genome FASTA file (for naming only) |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-p, --prefix` | `genome_sample` |  | 样本前缀｜Sample prefix (default: genome_sample) |
+| `-t, --threads` | `64` | int | 线程数｜Number of threads (default: 64) |
+| `--skip-hifi-hic` | — | store_true | 跳过HiFi组装｜Skip HiFi assembly |
+| `--skip-haphic` | — | store_true | 跳过Hi-C挂载｜Skip Hi-C scaffolding |
+| `--skip-rename` | — | store_true | 跳过重命名｜Skip renaming |
+| `--skip-heatmap` | — | store_true | 跳过热图｜Skip heatmap |
+| `--no-resume` | — | store_true | 禁用断点续传｜Disable resume mode |
+| `--force` | — | store_true | 强制重新运行所有步骤｜Force rerun all steps |
+| `--genome-size` | `1.45g` |  | 预估基因组大小｜Estimated genome size (default: 1.45g) |
+| `--n-hap` | `2` | int | 倍性｜Ploidy (default: 2) |
+| `--purge-level` | — | int | Purge level (0=no purging, 1=light, 2/3=aggressive) |
+| `--hom-cov` | — | int | Homozygous read coverage (--hom-cov) |
+| `--use-ngs-polish` | — | store_true | 启用NGS polish｜Enable NGS polish |
+| `--ngs-data` | — |  | NGS二代数据目录｜NGS second-generation data directory |
+| `--ngs-high-cov` | `95.0` | float | 高质量contig覆盖度阈值｜High quality contig coverage threshold (default: 95.0) |
+| `--ngs-pattern` | `_1.clean.fq.gz` |  | NGS文件匹配模式｜NGS file matching pattern (default: _1.clean.fq.gz) |
+| `--nchrs` | — | int | 染色体数量（如不指定，从reference统计）｜Number of chromosomes (count from reference if not specified) |
+| `--haphic-bin` | — |  | HapHiC可执行文件路径｜HapHiC executable path |
+| `--bwa-bin` | — |  | BWA可执行文件路径｜BWA executable path |
+| `--samtools-bin` | — |  | Samtools可执行文件路径｜Samtools executable path |
+| `--rename-keep-all` | `True` | store_true | 保留所有序列（chrNN + scaffolds）｜Keep all sequences (default: True) |
+| `--naming-min-identity` | `80.0` | float | 最小序列一致性｜Min sequence identity %% (default: 80.0) |
+| `--naming-min-coverage` | `80.0` | float | 最小覆盖度｜Min coverage %% (default: 80.0) |
+| `--naming-minimap2-preset` | `asm5` | asm5/asm10/asm20 | minimap2预设｜minimap2 preset (default: asm5) |
+| `--hicpro-enzyme` | `MboI` |  | HiCPro限制性内切酶｜HiCPro restriction enzyme (default: MboI) |
+| `--heatmap-resolution` | `100000` | int | 热图分辨率｜Heatmap resolution in bp (default: 100000) |
+| `--heatmap-colormap` | `YlOrRd` |  | 热图颜色方案｜Heatmap color scheme (default: YlOrRd) |
+| `--heatmap-format` | `pdf` |  | 热图输出格式｜Heatmap output format (default: pdf) |
+| `-v, --verbose` | — | store_true | 显示详细日志｜Show verbose logs |
+
+<!-- END PARAMS:auto -->

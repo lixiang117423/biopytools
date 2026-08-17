@@ -351,3 +351,94 @@ faketime '2020-10-20 00:00:00' /path/to/gtx index reference.fa
 ---
 
 🔬 **CPU环境下的高性能基因组分析 | High-performance genomic analysis in CPU environments**
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | — | Path | 原始FASTQ目录(与 --clean-fastq-dir 二选一)｜Raw FASTQ directory (mutually exclusive with --clean-fastq-dir) |
+| `--genome, -g` | 必填 | Path | 参考基因组｜Reference genome file path |
+| `--output-dir, -o` | `.` | Path | 输出目录｜Output directory path |
+| `--clean-fastq-dir` | — | Path | 清洗后FASTQ目录｜Clean FASTQ files directory path |
+| `--mapping-dir` | — | Path | 比对结果目录｜Mapping results directory path |
+| `--gvcf-dir` | — | Path | gVCF文件目录｜gVCF files directory path |
+| `--bam-dir` | — | Path | BAM文件目录｜BAM files directory path |
+| `--joint-dir` | — | Path | 联合检测目录｜Joint calling results directory path |
+| `--filter-dir` | — | Path | 过滤结果目录｜Filtering results directory path |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--min-depth, --snp-min-dp` | `5` | int | 最小测序深度｜Minimum depth for SNP/InDel |
+| `--quality, -q, --min-qual, --snp-min-qual` | `30` | int | 最小质量值｜Minimum quality for SNP/InDel |
+| `--indel-min-dp` | `5` | int | InDel最小深度｜InDel minimum depth |
+| `--indel-min-qual` | `30` | int | InDel最小质量｜InDel minimum quality |
+| `--gtx-single-threshold` | `200` | int | GTX单机样本阈值｜GTX single machine sample count threshold |
+| `--gtx-window-size` | `20000000` | int | GTX窗口大小｜GTX chunk window size in bp |
+| `--gtx-bin` | `~/software/gtx/bin/gtx` | Path | GTX可执行文件路径｜GTX executable path |
+| `--use-gtx-wgs` | `True` |  | 使用GTX WGS模式｜Use GTX WGS |
+| `--gtx-pcr-indel-model` | `CONSERVATIVE` |  | GTX PCR InDel模型｜GTX PCR InDel model |
+| `--gtx-min-confidence` | `30` | int | GTX最小置信度｜GTX minimum confidence |
+| `--gtx-min-base-qual` | `20` | int | GTX最小碱基质量｜GTX minimum base quality |
+| `--gtx-ploidy` | `2` | int | GTX倍性｜GTX ploidy |
+| `--gtx-cmd-gen-script` | `${HOME}/software/scripts/51.生成GTX按染色体合并gVCF的脚本.sh` |  | GTX命令生成脚本｜GTX command generation script path |
+| `--step, -s` | — | 1/2/3/4/5 | 运行指定步骤｜Run only specified step |
+| `--no-checkpoint` | — |  | 禁用检查点恢复｜Disable checkpoint resume |
+| `--dry-run` | — |  | 试运行｜Dry run |
+| `--force, -f` | — |  | 强制覆盖｜Force overwrite |
+| `--keep-intermediate` | — |  | 保留中间文件｜Keep intermediate files |
+| `--verbose, -v` | — |  | 详细输出｜Verbose output |
+| `--quiet` | — |  | 仅输出错误｜Quiet mode |
+| `--log-file` | — | Path | 日志文件｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--skip-qc` | — |  | 跳过质控｜Skip QC |
+| `--skip-mapping` | — |  | 跳过比对｜Skip mapping |
+| `--read1-pattern-fastp` | `_1.fq.gz` |  | R1文件模式｜QC R1 file pattern |
+| `--read2-pattern-fastp` | `_2.fq.gz` |  | R2文件模式｜QC R2 file pattern |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 输入reads文件目录路径｜Input reads directory path |
+| `-g, --genome` | 必填 |  | 参考基因组文件路径｜Reference genome file path |
+| `-o, --output-dir` | `.` |  | 输出目录路径｜Output directory path |
+| `--clean-fastq-dir` | — |  | 清洁FASTQ文件目录路径｜Clean FASTQ files directory path |
+| `--mapping-dir` | — |  | 比对结果目录路径｜Mapping results directory path |
+| `--gvcf-dir` | — |  | gVCF文件目录路径｜gVCF files directory path |
+| `--bam-dir` | — |  | BAM文件目录路径｜BAM files directory path |
+| `--joint-dir` | — |  | 联合检测结果目录路径｜Joint calling results directory path |
+| `--filter-dir` | — |  | 过滤结果目录路径｜Filtering results directory path |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--min-depth, --snp-min-dp` | `5` | int | SNP/InDel最小深度｜Minimum depth for SNP/InDel |
+| `-q, --quality, --min-qual, --snp-min-qual` | `30` | int | SNP/InDel最小质量｜Minimum quality for SNP/InDel |
+| `--indel-min-dp` | `5` | int | InDel最小深度｜InDel minimum depth |
+| `--indel-min-qual` | `30` | int | InDel最小质量｜InDel minimum quality |
+| `--gtx-single-threshold` | `200` | int | GTX单机模式样本数阈值｜GTX single machine sample count threshold |
+| `--gtx-window-size` | `20000000` | int | GTX分块窗口大小｜GTX chunk window size in bp |
+| `--gtx-bin` | `~/software/gtx/bin/gtx` |  | GTX可执行文件路径｜GTX executable path |
+| `--gtx-cmd-gen-script` | `${HOME}/software/scripts/51.生成GTX按染色体合并gVCF的脚本.sh` |  | GTX命令生成脚本路径｜GTX command generation script path |
+| `--use-gtx-wgs` | `True` | store_true | 使用GTX WGS｜Use GTX WGS |
+| `--no-gtx-wgs` | — | store_false | 禁用GTX WGS｜Disable GTX WGS |
+| `--gtx-pcr-indel-model` | `CONSERVATIVE` |  | GTX PCR InDel模型｜GTX PCR InDel model |
+| `--gtx-min-confidence` | `30` | int | GTX最小置信度｜GTX minimum confidence |
+| `--gtx-min-base-qual` | `20` | int | GTX最小碱基质量｜GTX minimum base quality |
+| `--gtx-ploidy` | `2` | int | GTX倍性｜GTX ploidy |
+| `-f, --force` | — | store_true | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — | store_true | 模拟运行｜Dry run |
+| `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
+| `--step` | — | 1/2/3/4/5 | 只运行指定步骤｜Run only specified step |
+| `--no-checkpoint` | — | store_true | 禁用断点续传｜Disable checkpoint resume |
+| `-v, --verbose` | `0` | count | 详细输出模式｜Verbose mode |
+| `--quiet` | — | store_true | 静默模式｜Quiet mode |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--skip-qc` | — | store_true | 跳过质控步骤｜Skip QC step |
+| `--skip-mapping` | — | store_true | 跳过比对步骤｜Skip mapping step |
+| `--read1-pattern-fastp` | `_1.fq.gz` |  | 质控R1文件匹配模式｜QC R1 file pattern |
+| `--read2-pattern-fastp` | `_2.fq.gz` |  | 质控R2文件匹配模式｜QC R2 file pattern |
+
+<!-- END PARAMS:auto -->

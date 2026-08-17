@@ -61,6 +61,80 @@ biopytools raxml -s alignment.phy -n my_tree -f a -x 12345 -p 12345 -I autoMRE -
 - `RAxML_bootstrap.{name}`: 所有bootstrap树
 - `RAxML_info.{name}`: 运行信息和参数
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--sequence-file, -s` | 必填 |  | 输入序列文件(PHYLIP格式)｜Input sequence file (PHYLIP format) |
+| `--output-name, -n` | 必填 | str | 输出文件名称｜Output file name |
+| `--model, -m` | `GTRGAMMA` | str | 替换模型｜Substitution model (GTRGAMMA, PROTGAMMAWAG, etc.) |
+| `--categories, -c` | `25` | int | 速率异质性类别数｜Number of rate heterogeneity categories |
+| `--likelihood-epsilon, -e` | `0.1` | float | 似然优化精度｜Likelihood optimization precision |
+| `--algorithm, -f` | `d` | str | 算法类型｜Algorithm type (d=rapid hill-climbing, a=rapid bootstrap, etc.) |
+| `--parsimony-seed, -p` | — | int | 简约法随机种子｜Parsimony random seed |
+| `--runs, -N` | `1` | str | 运行次数或bootstrap次数｜Number of runs or bootstrap replicates |
+| `--bootstrap-seed, -b` | — | int | Bootstrap随机种子｜Bootstrap random seed |
+| `--rapid-bootstrap-seed, -x` | — | int | 快速bootstrap随机种子｜Rapid bootstrap random seed |
+| `--bootstrap-convergence, -I` | — | autoFC/autoMR/autoMRE/autoMRE_IGN | Bootstrap收敛标准｜Bootstrap convergence criterion |
+| `--bootstop-threshold, -B` | `0.03` | float | Bootstrap停止阈值｜Bootstrap stop threshold |
+| `--bootstop-perms` | `100` | int | Bootstrap停止检验次数｜Bootstrap stop test permutations |
+| `--print-bootstrap-trees, -k` | — |  | 输出带分支长度的bootstrap树｜Print bootstrap trees with branch lengths |
+| `--starting-tree, -t` | — | Path | 起始树文件｜Starting tree file |
+| `--constraint-tree, -g` | — | Path | 约束树文件｜Constraint tree file |
+| `--outgroup, -o` | — | str | 外群名称(逗号分隔多个)｜Outgroup name(s) (comma-separated) |
+| `--threads, -T` | `12` | int | 线程数｜Number of threads |
+| `--memory-saving, -U` | — |  | 启用内存节省模式｜Enable memory saving mode |
+| `--ml-search-convergence, -D` | — |  | 启用ML搜索收敛标准｜Enable ML search convergence criterion |
+| `--random-starting-tree, -d` | — |  | 使用随机起始树｜Use random starting tree |
+| `--disable-rate-heterogeneity, -V` | — |  | 禁用速率异质性模型｜Disable rate heterogeneity model |
+| `--gamma-median, -u` | — |  | 使用GAMMA模型中位数｜Use median for GAMMA model |
+| `--disable-pattern-compression, -H` | — |  | 禁用模式压缩｜Disable pattern compression |
+| `--output-dir, -w` | `./raxml_output` | Path | 输出目录｜Output directory |
+| `--raxml-path` | `raxmlHPC-PTHREADS` | str | RAxML程序路径｜RAxML program path |
+| `--no-seq-check` | — |  | 跳过序列检查｜Skip sequence checking |
+| `--silent` | — |  | 静默模式｜Silent mode |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-s, --sequence-file` | 必填 |  | 输入序列文件(PHYLIP格式)｜Input sequence file (PHYLIP format) |
+| `-n, --output-name` | 必填 |  | 输出文件名称｜Output file name |
+| `-m, --model` | `GTRGAMMA` |  | 替换模型｜Substitution model (GTRGAMMA, PROTGAMMAWAG, etc.) |
+| `-c, --categories` | `25` | int | 速率异质性类别数｜Number of rate heterogeneity categories |
+| `-e, --likelihood-epsilon` | `0.1` | float | 似然优化精度｜Likelihood optimization precision |
+| `-f, --algorithm` | `d` |  | 算法类型｜Algorithm type (d=rapid hill-climbing, a=rapid bootstrap, etc.) |
+| `-p, --parsimony-seed` | — | int | 简约法随机种子｜Parsimony random seed |
+| `-#, -N, --runs` | `1` |  | 运行次数或bootstrap次数｜Number of runs or bootstrap replicates |
+| `-b, --bootstrap-seed` | — | int | Bootstrap随机种子｜Bootstrap random seed |
+| `-x, --rapid-bootstrap-seed` | — | int | 快速bootstrap随机种子｜Rapid bootstrap random seed |
+| `-I, --bootstrap-convergence` | — | autoFC/autoMR/autoMRE/autoMRE_IGN | Bootstrap收敛标准｜Bootstrap convergence criterion |
+| `-B, --bootstop-threshold` | `0.03` | float | Bootstrap停止阈值｜Bootstrap stop threshold |
+| `--bootstop-perms` | `100` | int | Bootstrap停止检验次数｜Bootstrap stop test permutations |
+| `-k, --print-bootstrap-trees` | — | store_true | 输出带分支长度的bootstrap树｜Print bootstrap trees with branch lengths |
+| `-t, --starting-tree` | — |  | 起始树文件｜Starting tree file |
+| `-g, --constraint-tree` | — |  | 约束树文件｜Constraint tree file |
+| `-o, --outgroup` | — |  | 外群名称 (逗号分隔多个)｜Outgroup name(s) (comma-separated) |
+| `-T, --threads` | `88` | int | 线程数｜Number of threads |
+| `-U, --memory-saving` | — | store_true | 启用内存节省模式｜Enable memory saving mode |
+| `-D, --ml-search-convergence` | — | store_true | 启用ML搜索收敛标准｜Enable ML search convergence criterion |
+| `-d, --random-starting-tree` | — | store_true | 使用随机起始树｜Use random starting tree |
+| `-V, --disable-rate-heterogeneity` | — | store_true | 禁用速率异质性模型｜Disable rate heterogeneity model |
+| `-u, --gamma-median` | — | store_true | 使用GAMMA模型中位数｜Use median for GAMMA model |
+| `-H, --disable-pattern-compression` | — | store_true | 禁用模式压缩｜Disable pattern compression |
+| `-w, --output-dir` | `./raxml_output` |  | 输出目录｜Output directory |
+| `--raxml-path` | `raxmlHPC-PTHREADS` |  | RAxML程序路径｜RAxML program path |
+| `--no-seq-check` | — | store_true | 跳过序列检查｜Skip sequence checking |
+| `--silent` | — | store_true | 静默模式｜Silent mode |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **RAxML**: 系统发育推断 (https://github.com/stamatak/standard-RAxML)

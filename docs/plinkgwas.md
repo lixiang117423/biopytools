@@ -67,6 +67,75 @@ gwas_results/
 └── gwas.log                 # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vcf, -i` | 必填 |  | VCF文件路径｜Path to VCF file |
+| `--phenotype, -p` | 必填 |  | 表型文件路径｜Path to phenotype file |
+| `--trait-type, -T` | `qualitative` | qualitative/quantitative | 表型类型｜Trait type |
+| `--genetic-model, -m` | `additive` | additive/dominant/recessive/all | 遗传模型｜Genetic model |
+| `--output-dir, -o` | `gwas_results` |  | 输出目录｜Output directory |
+| `--no-strat-corr` | — |  | 禁用群体结构校正｜Disable population stratification correction |
+| `--mind` | — | float | 个体缺失率阈值｜Individual missing rate threshold |
+| `--geno` | `0.05` | float | SNP缺失率阈值｜SNP missing rate threshold |
+| `--maf` | `0.05` | float | 最小等位基因频率｜Minor allele frequency |
+| `--hwe` | — | float | Hardy-Weinberg平衡P值阈值｜HWE p-value threshold |
+| `--ld-window-size` | `50` | int | LD窗口大小｜LD window size in kb |
+| `--ld-step-size` | `5` | int | LD步长大小｜LD step size in SNPs |
+| `--ld-r2-threshold` | `0.2` | float | LD r²阈值｜LD r² threshold |
+| `--pca-components` | `10` | int | 主成分数量｜Number of PCA components |
+| `--pca-use` | `5` | int | 关联分析中使用的主成分数量｜Number of PCs to use in association |
+| `--correction-method` | `all` | bonferroni/suggestive/fdr/all | 显著性校正方法｜Significance correction method |
+| `--bonferroni-alpha` | `0.05` | float | Bonferroni校正alpha水平｜Bonferroni alpha level |
+| `--suggestive-threshold` | `1e-05` | float | 提示性关联阈值｜Suggestive threshold |
+| `--fdr-alpha` | `0.05` | float | FDR校正q值阈值｜FDR q-value threshold |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — |  | 静默模式｜Quiet mode (only ERROR) |
+| `--log-file` | — | Path | 日志文件路径｜Log file path |
+| `--force, -f` | — |  | 强制覆盖已存在的输出目录｜Force overwrite existing output directory |
+| `--dry-run` | — |  | 模拟运行不实际执行分析｜Dry run without actual analysis |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --vcf` | 必填 |  | VCF文件路径｜Path to VCF file |
+| `-p, --phenotype` | 必填 |  | 表型文件路径｜Path to phenotype file |
+| `-T, --trait-type` | `qualitative` | qualitative/quantitative | 表型类型｜Trait type |
+| `-m, --genetic-model` | `additive` | additive/dominant/recessive/all | 遗传模型｜Genetic model |
+| `-o, --output-dir` | `gwas_results` |  | 输出目录｜Output directory |
+| `--no-strat-corr` | — | store_false | 禁用群体结构校正（跳过LD剪枝和PCA）｜ Disable population stratification correction (skip LD pruning and PCA) |
+| `--mind` | — | float | 个体缺失率阈值｜Individual missing rate threshold |
+| `--geno` | `0.05` | float | SNP缺失率阈值｜SNP missing rate threshold |
+| `--maf` | `0.05` | float | 最小等位基因频率｜Minor allele frequency |
+| `--hwe` | — | float | Hardy-Weinberg平衡P值阈值｜HWE p-value threshold |
+| `--ld-window-size` | `50` | int | LD剪枝窗口大小(kb)｜LD window size in kb |
+| `--ld-step-size` | `5` | int | LD剪枝步长(SNP数)｜LD step size in SNPs |
+| `--ld-r2-threshold` | `0.2` | float | LD剪枝r²阈值｜LD r² threshold |
+| `--pca-components` | `10` | int | 计算的主成分数量｜Number of PCA components |
+| `--pca-use` | `5` | int | 关联分析中使用的主成分数量｜Number of PCs to use in association |
+| `--correction-method` | `all` | bonferroni/suggestive/fdr/all | 显著性校正方法｜Significance correction method |
+| `--bonferroni-alpha` | `0.05` | float | Bonferroni校正alpha水平｜Bonferroni alpha level |
+| `--suggestive-threshold` | `1e-05` | float | 提示性关联阈值｜Suggestive threshold |
+| `--fdr-alpha` | `0.05` | float | FDR校正q值阈值｜FDR q-value threshold |
+| `-t, --threads` | `1` | int | 使用的线程数｜Number of threads |
+| `-v, --verbose` | `0` | count | 详细输出模式｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | 静默模式，只输出ERROR｜Quiet mode (only ERROR) |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `-f, --force` | — | store_true | 强制覆盖已存在的输出目录｜Force overwrite existing output directory |
+| `--dry-run` | — | store_true | 模拟运行，不实际执行分析｜Dry run without actual analysis |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **PLINK 1.9/2.0**: GWAS计算 (https://www.cog-genomics.org/plink/)

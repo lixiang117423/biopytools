@@ -65,6 +65,38 @@ output_dir/
 
 > 末尾不足一个窗口的区间：未提供 `-g` 长度来源时按实际基因覆盖区间统计；提供后按真实染色体长度切窗。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --gff` | 必填 | Path | GFF3注释文件｜GFF3 annotation file |
+| `-o, --output-dir` | `./gene_density_output` |  | 输出目录｜Output directory |
+| `-w, --window-size` | `100000` | int | 窗口大小(bp)｜Window size (bp) |
+| `--feature-type` | `gene` |  | 统计的GFF feature类型｜GFF feature type to count |
+| `-g, --genome` | — |  | 染色体长度来源(.fai或FASTA)｜Chromosome length source (.fai or FASTA) |
+| `--prefix` | — |  | 输出文件前缀(默认GFF文件名)｜Output file prefix (default: GFF stem) |
+| `--no-plot` | — |  | 不绘制密度图｜Skip density plot |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --gff` | 必填 |  | GFF3注释文件｜GFF3 annotation file |
+| `-o, --output-dir` | `./gene_density_output` |  | 输出目录｜Output directory |
+| `-w, --window-size` | `100000` | int | 窗口大小(bp)｜Window size (bp) |
+| `--feature-type` | `gene` |  | 统计的GFF feature类型(GFF第三列)｜GFF feature type to count (column 3) |
+| `-g, --genome` | — |  | 染色体长度来源(.fai或FASTA,可选,提升末尾窗口精度)｜Chromosome length source (.fai or FASTA, optional, improves last-window accuracy) |
+| `--prefix` | — |  | 输出文件前缀(默认GFF文件名stem)｜Output file prefix (default: GFF stem) |
+| `--no-plot` | — | store_true | 不绘制密度图｜Skip density plot |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python ≥ 3.10（纯标准库解析 GFF）

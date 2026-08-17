@@ -380,3 +380,41 @@ TeloComp: An efficient integrated software package for telomere extraction and c
 ---
 
 **最后更新 | Last Updated**: 2026-01-15
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-dir` | 必填 | Path | 输出目录｜Output directory |
+| `--ont` | — |  | ONT数据文件｜ONT data file |
+| `--hifi` | — |  | HiFi数据文件｜HiFi data file |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-c, --coverage` | `100` | int | 覆盖度参数(0-100)｜Coverage parameter (0-100) |
+| `-m, --motif` | `CCCTAAA` |  | 端粒重复序列(植物默认CCCTAAA, 动物TTAGGG)｜Telomeric repeat sequence (plant: CCCTAAA, animal: TTAGGG) |
+| `-M, --motif-num` | `7` | int | 端粒重复序列碱基数｜Number of bases in telomere motif |
+| `--skip-filter` | — |  | 跳过Filter步骤｜Skip filter steps |
+| `--no-visualization` | — |  | 跳过可视化｜Skip visualization |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `--ont` | — |  | ONT数据文件｜ONT data file |
+| `--hifi` | — |  | HiFi数据文件｜HiFi data file |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-c, --coverage` | `100` | int | 覆盖度参数(0-100)｜Coverage parameter (0-100) |
+| `-m, --motif` | `CCCTAAA` |  | 端粒重复序列｜Telomeric repeat sequence |
+| `-M, --motif-num` | `7` | int | 端粒重复序列碱基数｜Number of bases in telomere motif |
+| `--skip-filter` | — | store_true | 跳过Filter步骤｜Skip filter steps |
+| `--no-visualization` | — | store_true | 跳过可视化｜Skip visualization |
+
+<!-- END PARAMS:auto -->

@@ -58,6 +58,55 @@ output/
 └── atomm.log                  # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--host-vcf` | 必填 |  | 宿主VCF文件(支持.gz)｜Host VCF file (.gz supported) |
+| `--pathogen-vcf` | 必填 |  | 病原VCF文件(支持.gz)｜Pathogen VCF file (.gz supported) |
+| `--phenotype-matrix` | 必填 |  | 交叉感染表型矩阵(行=宿主,列=病原)｜Cross-infection phenotype matrix (rows=hosts, cols=pathogens) |
+| `-o, --output-dir` | `./output` |  | 输出目录｜Output directory |
+| `--maf` | `0.05` | float | MAF过滤阈值｜MAF filter threshold |
+| `--encoding` | `auto` | auto/haploid/dosage | 基因型编码方式｜Genotype encoding mode |
+| `--convert-maf` | `0.05` | float | VCF转换时MAF阈值｜MAF threshold for VCF conversion |
+| `--missing-value` | `NA` |  | 表型缺失值标记｜Missing value marker in phenotype matrix |
+| `--host-snp-range` | — | int | 宿主边际检验SNP范围｜Host marginal test SNP range |
+| `--pathogen-snp-range` | — | int | 病原边际检验SNP范围｜Pathogen marginal test SNP range |
+| `--interaction-host-range` | — | int | 交互检验宿主SNP范围｜Interaction test host SNP range |
+| `--interaction-pathogen-range` | — | int | 交互检验病原SNP范围｜Interaction test pathogen SNP range |
+| `--tol` | `1e-06` | float | 优化容忍度｜Optimizer tolerance |
+| `--maxiter` | `10000` | int | 最大迭代次数｜Max iterations |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-gh, --host-genotype` | — |  | 宿主基因型文件(ATOMM格式)｜Host genotype file (ATOMM format) |
+| `-gp, --pathogen-genotype` | — |  | 病原基因型文件(ATOMM格式)｜Pathogen genotype file (ATOMM format) |
+| `-p, --phenotype` | — |  | 表型文件(ATOMM格式)｜Phenotype file (ATOMM format) |
+| `--host-vcf` | — |  | 宿主VCF文件(自动转换为ATOMM格式)｜Host VCF file (auto-convert to ATOMM format) |
+| `--pathogen-vcf` | — |  | 病原VCF文件(自动转换为ATOMM格式)｜Pathogen VCF file (auto-convert to ATOMM format) |
+| `--phenotype-matrix` | — |  | 交叉感染表型矩阵(行=宿主,列=病原)｜Cross-infection phenotype matrix |
+| `--encoding` | `auto` | auto/haploid/dosage | 基因型编码方式｜Genotype encoding mode (default: auto) |
+| `--convert-maf` | `0.05` | float | VCF转换时MAF阈值｜MAF threshold for VCF conversion (default: 0.05) |
+| `--missing-value` | `NA` |  | 表型缺失值标记｜Missing value marker (default: NA) |
+| `-o, --output-dir` | `./output` |  | 输出目录｜Output directory |
+| `--maf` | `0.05` | float | MAF过滤阈值｜MAF filter threshold (default: 0.05) |
+| `--host-snp-range` | — | int | 宿主边际检验SNP范围(0-based)｜Host marginal test SNP range |
+| `--pathogen-snp-range` | — | int | 病原边际检验SNP范围(0-based)｜Pathogen marginal test SNP range |
+| `--interaction-host-range` | — | int | 交互检验宿主SNP范围｜Interaction test host SNP range |
+| `--interaction-pathogen-range` | — | int | 交互检验病原SNP范围｜Interaction test pathogen SNP range |
+| `--tol` | `1e-06` | float | 优化容忍度｜Optimizer tolerance (default: 1e-6) |
+| `--maxiter` | `10000` | int | 优化器最大迭代次数｜Max optimizer iterations (default: 10000) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **Python库**: numpy, scipy (优化算法), pandas, statsmodels

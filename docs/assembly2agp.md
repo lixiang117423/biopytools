@@ -52,6 +52,43 @@ biopytools assembly2agp -a final.assembly -p chr_asm -n 21 \
 
 AGP 文件包含 9 列：Chromosome、Start、End、Order、Tag（W=contig / U=gap）、Contig_ID、Contig_start、Contig_end、Orientation（+/-）。chr.list 按长度从大到小给出前 N 条 scaffold 的名称与总长。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--assembly, -a` | 必填 |  | 组装文件｜Assembly file path |
+| `--prefix, -p` | 必填 |  | 输出前缀｜Output prefix |
+| `--output-dir, -o` | `.` | Path | 输出目录｜Output directory path |
+| `--gap, -g` | `100` | int | Scaffold间隙(bp)｜Scaffold gap size in bp |
+| `--num-chromosomes, -n` | 必填 | int | 染色体数量｜Number of chromosomes |
+| `--force, -f` | — |  | 强制覆盖｜Force overwrite existing files |
+| `--verbose, -v` | — |  | 详细模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — |  | 静默模式(仅ERROR)｜Quiet mode (ERROR only) |
+| `--log-file` | — | Path | 日志文件｜Log file path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-a, --assembly` | 必填 |  | Input assembly file path |
+| `-p, --prefix` | 必填 |  | Output prefix (will be used for both AGP and chr.list files) |
+| `-o, --output-dir` | `.` |  | Output directory path (default: current directory) |
+| `-g, --gap` | `100` | int | Gap size between scaffolds in bp (default: 100) |
+| `-n, --num-chromosomes` | 必填 | int | Number of chromosomes to include in chr.list file |
+| `-v, --verbose` | `0` | count | Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | Quiet mode (only ERROR) |
+| `--log-file` | — |  | Log file path |
+| `-f, --force` | — | store_true | Force overwrite existing files |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 3.7+

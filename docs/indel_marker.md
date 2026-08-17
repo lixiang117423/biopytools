@@ -64,6 +64,52 @@ biopytools indel-marker -v variants.vcf.gz -s samplesheet.tsv -g ref.fa -o out/
 
 各步骤输出文件已存在时跳过(如 INDEL 提取矩阵存在则跳过提取)。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-v, --vcf` | 必填 |  | 多样本合并VCF｜Multi-sample VCF |
+| `-s, --samplesheet` | 必填 |  | 样品分组TSV(sample_name/group/bam_path)｜Samplesheet TSV |
+| `-g, --genome-fasta` | 必填 |  | 参考基因组｜Reference FASTA |
+| `-o, --output-dir` | `./indel_marker_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` |  | 线程数｜Threads |
+| `--min-indel-size` | `10` |  | 最小INDEL长度｜Min INDEL size |
+| `--max-indel-size` | `100` |  | 最大INDEL长度｜Max INDEL size |
+| `--min-quality` | `20.0` |  | 最低QUAL过滤(缺失QUAL保留)｜Min QUAL filter (missing QUAL kept) |
+| `--max-candidates` | `0` |  | 候选数上限(0=不限)｜Candidate cap (0=no limit) |
+| `--min-group-consistency` | `0.9` |  | 组内纯合一致比例(1.0=严格)｜Within-group consistency |
+| `--min-samples-per-group` | `1` |  | 每组最少样品数(默认1)｜Min samples per group (default 1) |
+| `--min-depth` | `10` |  | 最低覆盖度｜Min depth |
+| `--deletion-depth-ratio` | `0.3` |  | deletion骤降阈值｜deletion drop threshold |
+| `--flank-length` | `300` |  | 侧翼长度｜Flank length |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-v, --vcf` | 必填 |  | 多样本合并VCF｜Multi-sample VCF |
+| `-s, --samplesheet` | 必填 |  | 样品分组TSV(sample_name/group/bam_path)｜Samplesheet TSV |
+| `-g, --genome-fasta` | 必填 |  | 参考基因组｜Reference FASTA |
+| `-o, --output-dir` | `./indel_marker_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Threads |
+| `--min-indel-size` | `10` | int | 最小INDEL长度｜Min INDEL size |
+| `--max-indel-size` | `100` | int | 最大INDEL长度｜Max INDEL size |
+| `--min-quality` | `20.0` | float | 最低QUAL过滤(缺失QUAL保留)｜Min QUAL filter (missing QUAL kept) |
+| `--max-candidates` | `0` | int | 候选数上限(0=不限)｜Candidate cap (0=no limit) |
+| `--min-group-consistency` | `0.9` | float | 组内纯合一致比例阈值｜Min within-group consistency (1.0=strict) |
+| `--min-samples-per-group` | `1` | int | 每组最少样品数(默认1)｜Min samples per group (default 1) |
+| `--min-depth` | `10` | int | 最低覆盖度｜Min depth |
+| `--deletion-depth-ratio` | `0.3` | float | deletion骤降阈值｜deletion drop threshold |
+| `--flank-length` | `300` | int | 侧翼长度｜Flank length |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **bcftools**: VCF 提取与基因型

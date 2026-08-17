@@ -47,6 +47,32 @@ biopytools extract-reads -m contig_reads.tsv -i input.fq -o output.fq --no-compr
 - 若输出路径以 `.gz` 结尾且未指定 `--no-compress`，将自动 gzip 压缩
 - 日志中会输出 "需要提取的 reads 总数" 与 "提取 reads 数" 等统计
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--mapping, -m` | 必填 |  | contig-reads对应关系文件(TSV格式)｜contig-reads mapping file (TSV format) |
+| `--input, -i` | 必填 |  | 输入FASTQ文件｜Input FASTQ file |
+| `--output, -o` | 必填 |  | 输出文件｜Output file |
+| `--no-compress` | — |  | 不压缩输出文件｜Do not compress output files |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-m, --mapping` | 必填 |  | contig-reads对应关系文件(TSV格式)｜contig-reads mapping file (TSV format) |
+| `-i, --input` | 必填 |  | 输入FASTQ文件(支持gzip压缩)｜Input FASTQ file (gzip supported) |
+| `-o, --output` | 必填 |  | 输出文件｜Output file |
+| `--no-compress` | — | store_true | 不压缩输出文件｜Do not compress output files |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python 标准库（gzip、os），无第三方依赖

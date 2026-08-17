@@ -86,6 +86,66 @@ wgdi_output/
 └── 99_logs/                   # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-b, --blast` | — |  | BLAST结果文件｜BLAST result file |
+| `--gff1` | — |  | 物种1 GFF文件｜Species 1 GFF file |
+| `--gff2` | — |  | 物种2 GFF文件｜Species 2 GFF file |
+| `--lens1` | — |  | 物种1 LENS文件｜Species 1 LENS file |
+| `--lens2` | — |  | 物种2 LENS文件｜Species 2 LENS file |
+| `-c, --collinearity` | — |  | 共线性分析结果文件｜Collinearity analysis result file |
+| `--fasta1` | — |  | 物种1 FASTA文件｜Species 1 FASTA file |
+| `--fasta2` | — |  | 物种2 FASTA文件｜Species 2 FASTA file |
+| `-o, --output-dir` | `./wgdi_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `8` | int | 线程数｜Number of threads |
+| `--wgdi-path` | — |  | WGDI软件路径｜WGDI software path |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-b, --blast` | 必填 |  | BLAST结果文件｜BLAST result file |
+| `--gff1` | 必填 |  | 物种1 GFF文件｜Species 1 GFF file |
+| `--gff2` | 必填 |  | 物种2 GFF文件｜Species 2 GFF file |
+| `--lens1` | 必填 |  | 物种1 LENS文件｜Species 1 LENS file |
+| `--lens2` | 必填 |  | 物种2 LENS文件｜Species 2 LENS file |
+| `--genome1-name` | `Genome1` |  | 物种1名称｜Species 1 name (default: Genome1) |
+| `--genome2-name` | `Genome2` |  | 物种2名称｜Species 2 name (default: Genome2) |
+| `--blast-reverse` | — | store_true | BLAST结果前两列互换｜Swap first two columns of BLAST result |
+| `--multiple` | `1` | int | 最佳同源基因数｜Number of best homologous genes (default: 1) |
+| `--score` | `100` | int | BLAST分数阈值｜BLAST score threshold (default: 100) |
+| `--evalue` | `1e-05` | float | BLAST e-value阈值｜BLAST e-value threshold (default: 1e-5) |
+| `--repeat-number` | `10` | int | 重复基因最大数量｜Max number of repetitive genes (default: 10) |
+| `--position` | `order` | order/start/end | 基因位置类型｜Gene position type (default: order) |
+| `--ancestor-left` | — |  | 左侧物种祖先染色体区域｜Ancestral chromosome region for left species |
+| `--ancestor-top` | — |  | 顶部物种祖先染色体区域｜Ancestral chromosome region for top species |
+| `--markersize` | `0.5` | float | 点大小｜Marker size (default: 0.5) |
+| `--figsize` | `10,10` |  | 图像尺寸｜Figure size (default: 10,10) |
+| `--savefig` | `dotplot.png` |  | 输出图像文件｜Output image file (default: dotplot.png) |
+| `-o, --output-dir` | `./wgdi_output` |  | 输出目录｜Output directory (default: ./wgdi_output) |
+| `-t, --threads` | `8` | int | 线程数｜Number of threads (default: 8) |
+| `--comparison` | `genomes` | genomes/chromosomes | 比较模式｜Comparison mode (default: genomes) |
+| `--process` | `8` | int | 进程数｜Number of processes (default: 8) |
+| `--grading` | `50,40,25` |  | 评分参数(红,蓝,灰)｜Scoring parameters for red,blue,gray (default: 50,40,25) |
+| `--mg` | `40,40` |  | 最大gap值｜Max gap values (default: 40,40) |
+| `--pvalue` | `1.0` | float | P值阈值｜P-value threshold (default: 1.0) |
+| `--savefile` | `collinearity.txt` |  | 输出文件｜Output file (default: collinearity.txt) |
+| `-c, --collinearity` | 必填 |  | 共线性分析结果文件｜Collinearity analysis result file |
+| `--fasta1` | 必填 |  | 物种1 FASTA文件｜Species 1 FASTA file |
+| `--fasta2` | 必填 |  | 物种2 FASTA文件｜Species 2 FASTA file |
+| `--wgdi-path` | — |  | WGDI软件路径｜WGDI software path |
+| `-v, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - `WGDI` (Python 包，可通过 `--wgdi-path` 指定)

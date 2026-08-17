@@ -52,6 +52,48 @@ sequence_output/
 └── extraction_summary.txt                             # 提取汇总
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--vcf, -v` | 必填 | Path | 输入VCF文件路径｜Input VCF file path |
+| `--genome, -g` | 必填 | Path | 基因组FASTA文件路径｜Genome FASTA file path |
+| `--chrom, -c` | 必填 | str | 染色体名称｜Chromosome name |
+| `--start, -s` | 必填 | int | 起始位置｜Start position |
+| `--end, -e` | 必填 | int | 结束位置｜End position |
+| `--output-dir, -o` | `./sequence_output` | Path | 输出目录｜Output directory |
+| `--format` | `tab` | tab/fasta/csv | 输出格式｜Output format |
+| `--second-allele` | — |  | 使用第二个等位基因｜Use second allele |
+| `--no-reference` | — |  | 不包含参考序列｜Do not include reference sequence |
+| `--min-qual` | — | int | 最小质量过滤｜Minimum quality filter |
+| `--samples` | — | str | 指定样本｜Specify samples |
+| `--exclude-samples` | — | str | 排除样本｜Exclude samples |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-v, --vcf` | 必填 |  | 输入VCF文件路径｜Input VCF file path |
+| `-g, --genome` | 必填 |  | 基因组FASTA文件路径｜Genome FASTA file path |
+| `-c, --chrom` | 必填 |  | 染色体名称｜Chromosome name |
+| `-s, --start` | 必填 | int | 起始位置｜Start position |
+| `-e, --end` | 必填 | int | 结束位置｜End position |
+| `-o, --output-dir` | `./sequence_output` |  | 输出目录｜Output directory |
+| `--format` | `tab` | tab/fasta/csv | 输出格式｜Output format |
+| `--second-allele` | — | store_true | 使用第二个等位基因｜Use second allele |
+| `--no-reference` | — | store_true | 不包含参考序列｜Do not include reference sequence |
+| `--min-qual` | — | int | 最小质量值过滤｜Minimum quality filter |
+| `--samples` | — |  | 指定样本列表｜Specify samples |
+| `--exclude-samples` | — |  | 排除样本列表｜Exclude samples |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Python：标准库（VCF 解析与 FASTA 索引均使用纯 Python 实现）

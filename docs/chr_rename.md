@@ -348,6 +348,40 @@ biopytools chr_rename ... \
 cat chr_rename_output/alignment.paf | less
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--ref, -r` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `--query, -q` | 必填 |  | 待重命名的基因组FASTA文件｜Query genome FASTA file to rename |
+| `--output-dir, -o` | `./chr_rename_output` | Path | 输出目录｜Output directory |
+| `--minimap2-path, -a` | `minimap2` |  | minimap2软件路径｜minimap2 software path |
+| `--preset, -x` | `asm5` | asm5/asm10/asm20 | minimap2预设模式｜minimap2 preset mode |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--min-identity, -i` | `0.9` | float | 最小序列一致性阈值(0-1)｜Minimum identity threshold (0-1) |
+| `--min-alignment-length, -l` | `100000` | int | 最小比对长度(bp)｜Minimum alignment length (bp) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-r, --ref` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `-q, --query` | 必填 |  | 待重命名的基因组FASTA文件｜Query genome FASTA file to rename |
+| `-o, --output-dir` | `./chr_rename_output` |  | 输出目录｜Output directory |
+| `-a, --minimap2-path` | `minimap2` |  | minimap2软件路径｜minimap2 software path |
+| `-x, --preset` | `asm5` | asm5/asm10/asm20 | minimap2预设模式｜minimap2 preset mode (asm5/asm10/asm20) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-i, --min-identity` | `0.9` | float | 最小序列一致性阈值(0-1)｜Minimum identity threshold (0-1) |
+| `-l, --min-alignment-length` | `100000` | int | 最小比对长度(bp)｜Minimum alignment length (bp) |
+
+<!-- END PARAMS:auto -->
+
 ## 结果解读
 
 ### 检查映射质量

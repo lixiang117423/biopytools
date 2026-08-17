@@ -244,6 +244,63 @@ pipeline = HiCanuAssemblyPipeline(
 pipeline.run()
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--reads, -i` | 必填 |  | 输入reads文件(FASTA/FASTQ)｜Input reads file path (FASTA/FASTQ format) |
+| `--genome-size, -g` | 必填 |  | 基因组大小(如120m, 1g)｜Genome size (e.g., 120m, 1g) |
+| `--prefix, -p` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `--output-dir, -o` | `./hicanu_output` | Path | 输出目录路径｜Output directory path |
+| `--canu-path` | `~/miniforge3/envs/asm/bin/canu` |  | Canu可执行文件路径｜Path to Canu executable |
+| `--min-read-length` | `1000` | int | 最小read长度｜Minimum read length |
+| `--min-overlap-length` | `500` | int | 最小重叠长度｜Minimum overlap length |
+| `--corrected-error-rate` | — | float | 纠错后错误率｜Corrected error rate |
+| `--raw-error-rate` | — | float | 原始错误率｜Raw error rate |
+| `--max-input-coverage` | — | int | 最大输入覆盖度｜Maximum input coverage |
+| `--stage` | `assemble` | haplotype/correct/trim/assemble/trim-assemble | 组装阶段｜Assembly stage |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--memory, -m` | `100G` |  | 内存限制｜Memory limit |
+| `--use-grid` | — |  | 使用网格引擎｜Use grid engine |
+| `--grid-options` | — |  | 网格引擎选项｜Grid engine options |
+| `--dry-run` | — |  | 测试运行(不执行)｜Dry run (do not execute) |
+| `--keep-intermediate` | — |  | 保留中间文件｜Keep intermediate files |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --reads` | 必填 |  | 输入reads文件路径(FASTA/FASTQ格式)｜Input reads file path (FASTA/FASTQ format) |
+| `-g, --genome-size` | 必填 |  | 基因组大小(如120m, 1g)｜Genome size (e.g., 120m, 1g) |
+| `-p, --prefix` | 必填 |  | 输出文件前缀｜Output file prefix |
+| `-o, --output-dir` | `./hicanu_output` |  | 输出目录路径｜Output directory path |
+| `--canu-path` | `~/miniforge3/envs/asm/bin/canu` |  | Canu可执行文件路径｜Path to Canu executable |
+| `--min-read-length` | `1000` | int | 最小reads长度｜Minimum read length |
+| `--min-overlap-length` | `500` | int | 最小重叠长度｜Minimum overlap length |
+| `--corrected-error-rate` | — | float | 纠错后错误率｜Corrected error rate |
+| `--raw-error-rate` | — | float | 原始错误率｜Raw error rate |
+| `--max-input-coverage` | — | int | 最大输入覆盖度｜Maximum input coverage |
+| `--stage` | `assemble` | haplotype/correct/trim/assemble/trim-assemble | 组装阶段｜Assembly stage |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `-m, --memory` | `80G` |  | 内存限制｜Memory limit |
+| `--use-grid` | — | store_true | 使用网格调度｜Use grid engine |
+| `--grid-options` | — |  | 网格调度选项｜Grid engine options |
+| `--dry-run` | — | store_true | 模拟运行(不实际执行)｜Dry run (do not execute) |
+| `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
+| `--no-resume` | — | store_true | 禁用断点续传（强制重新运行所有步骤）｜Disable resume mode (force rerun all steps) |
+| `--resume` | — | store_true | 启用断点续传（默认已启用）｜Enable resume mode (enabled by default) |
+| `-v, --verbose` | `0` | count | 详细输出模式(-v: INFO, -vv: DEBUG)｜Verbose mode (-v: INFO, -vv: DEBUG) |
+| `--quiet` | — | store_true | 静默模式(只输出ERROR)｜Quiet mode (ERROR only) |
+| `-V, --version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### Q1: 如何确定 genomeSize 参数？

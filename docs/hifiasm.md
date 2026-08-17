@@ -74,6 +74,104 @@ hifiasm_output/
 └── config.yaml         # 本次运行配置快照
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input-reads, -i` | 必填 |  | HiFi测序数据文件｜Input HiFi sequencing data file |
+| `--output-dir, -o` | `./hifiasm_output` | Path | 输出目录｜Output directory |
+| `--prefix, -p` | `sample` | str | 输出文件前缀｜Output file prefix |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--hg-size` | `auto` | str | 基因组大小估计(如1.4g, 2.1g)｜Genome size estimation (e.g., 1.4g, 2.1g) |
+| `--purge-level, -l` | `3` | int | Purge级别(0-3)｜Purge level (0-3) |
+| `--purge-max` | `65` | int | 最大purge覆盖度｜Maximum purge coverage |
+| `--similarity-threshold, -s` | `0.75` | float | 相似性阈值｜Similarity threshold |
+| `--ont-reads` | — |  | ONT长读长数据文件｜ONT long-read data file |
+| `--hi-c-1` | — |  | Hi-C第一端数据文件｜Hi-C first-end data file |
+| `--hi-c-2` | — |  | Hi-C第二端数据文件｜Hi-C second-end data file |
+| `--extra-hifiasm-args` | `` | str | 额外的HiFiasm参数｜Additional HiFiasm arguments |
+| `--skip-busco` | — |  | 跳过BUSCO质量评估｜Skip BUSCO quality assessment |
+| `--busco-lineage` | `auto` | str | BUSCO谱系数据集｜BUSCO lineage dataset |
+| `--busco-mode` | `genome` | genome/proteins/transcriptome | BUSCO评估模式｜BUSCO assessment mode |
+| `--skip-quast` | — |  | 跳过QUAST质量评估｜Skip QUAST quality assessment |
+| `--reference-genome` | — |  | 参考基因组文件(用于QUAST)｜Reference genome file (for QUAST) |
+| `--analyze-haplotypes` | — |  | 分析单倍型差异｜Analyze haplotype differences |
+| `--min-contig-length` | `1000` | int | 最小contig长度过滤｜Minimum contig length filter |
+| `--generate-plots` | — |  | 生成可视化图表｜Generate visualization plots |
+| `--assembly-type` | `auto` | auto/diploid/triploid/polyploid | 组装类型｜Assembly type |
+| `--keep-intermediate` | — |  | 保留中间文件｜Keep intermediate files |
+| `--compress-output` | — |  | 压缩输出文件｜Compress output files |
+| `--output-formats` | `['both']` | fasta/gfa/both | 输出格式选择｜Output format selection |
+| `--memory` | `100` | int | 内存大小(GB)｜Memory size (GB) |
+| `--tmp-dir` | — | Path | 临时目录(默认 output_dir/tmp)｜Temporary directory (defaults to output_dir/tmp) |
+| `--max-runtime` | `48` | int | 最大运行时间(小时)｜Maximum runtime (hours) |
+| `--resume` | — |  | 恢复中断的分析｜Resume interrupted analysis |
+| `--hifiasm-path` | `hifiasm` | str | HiFiasm软件路径｜HiFiasm software path |
+| `--busco-path` | `busco` | str | BUSCO软件路径｜BUSCO software path |
+| `--quast-path` | `quast` | str | QUAST软件路径｜QUAST software path |
+| `--python-path` | `python3` | str | Python解释器路径｜Python interpreter path |
+| `--samtools-path` | `samtools` | str | Samtools软件路径｜Samtools software path |
+| `--busco-db-path` | — | Path | BUSCO数据库路径｜BUSCO database path |
+| `--busco-download-path` | — | Path | BUSCO数据集下载路径｜BUSCO dataset download path |
+| `--debug` | — |  | 启用调试模式｜Enable debug mode |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR | 日志级别｜Log level |
+| `--config-file` | — |  | 配置文件路径｜Configuration file path |
+| `--dry-run` | — |  | 试运行模式(不执行实际命令)｜Dry run mode (do not execute actual commands) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-reads` | 必填 |  | 输入HiFi测序数据文件｜Input HiFi sequencing data file |
+| `-o, --output-dir` | `./hifiasm_output` |  | 输出目录｜Output directory |
+| `-p, --prefix` | `sample` |  | 输出文件前缀｜Output file prefix |
+| `-t, --threads` | `32` | int | 线程数｜Number of threads |
+| `--hg-size` | `auto` |  | 基因组大小估计(如1.4g, 2.1g)｜Genome size estimation (e.g., 1.4g, 2.1g) |
+| `-l, --purge-level` | `3` | int | purge级别(0-3)｜Purge level (0-3) |
+| `--purge-max` | `65` | int | 最大purge覆盖度｜Maximum purge coverage |
+| `-s, --similarity-threshold` | `0.75` | float | 相似性阈值｜Similarity threshold |
+| `--ont-reads` | — |  | ONT长读长数据文件｜ONT long-read data file |
+| `--hi-c-1` | — |  | Hi-C第一端数据文件｜Hi-C first-end data file |
+| `--hi-c-2` | — |  | Hi-C第二端数据文件｜Hi-C second-end data file |
+| `--extra-hifiasm-args` | `` |  | 额外的HiFiasm参数｜Additional HiFiasm arguments |
+| `--skip-busco` | — | store_true | 跳过BUSCO质量评估｜Skip BUSCO quality assessment |
+| `--busco-lineage` | `auto` |  | BUSCO谱系数据集(如embryophyta_odb10)｜BUSCO lineage dataset |
+| `--busco-mode` | `genome` | genome/proteins/transcriptome | BUSCO评估模式｜BUSCO assessment mode |
+| `--skip-quast` | — | store_true | 跳过QUAST质量评估｜Skip QUAST quality assessment |
+| `--reference-genome` | — |  | 参考基因组文件(用于QUAST)｜Reference genome file (for QUAST) |
+| `--analyze-haplotypes` | — | store_true | 分析单倍型差异｜Analyze haplotype differences |
+| `--min-contig-length` | `1000` | int | 最小contig长度过滤｜Minimum contig length filter |
+| `--generate-plots` | — | store_true | 生成可视化图表｜Generate visualization plots |
+| `--assembly-type` | `auto` | auto/diploid/triploid/polyploid | 组装类型｜Assembly type |
+| `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
+| `--compress-output` | — | store_true | 压缩输出文件｜Compress output files |
+| `--output-formats` | `['both']` | fasta/gfa/both | 输出格式选择｜Output format selection |
+| `--memory` | `64` | int | 内存大小(GB)｜Memory size (GB) |
+| `--tmp-dir` | — |  | 临时目录(默认 output_dir/tmp)｜Temporary directory (defaults to output_dir/tmp) |
+| `--max-runtime` | `48` | int | 最大运行时间(小时)｜Maximum runtime (hours) |
+| `--resume` | — | store_true | 恢复中断的分析｜Resume interrupted analysis |
+| `--hifiasm-path` | `hifiasm` |  | HiFiasm软件路径｜HiFiasm software path |
+| `--busco-path` | `busco` |  | BUSCO软件路径｜BUSCO software path |
+| `--quast-path` | `quast` |  | QUAST软件路径｜QUAST software path |
+| `--python-path` | `python3` |  | Python解释器路径｜Python interpreter path |
+| `--samtools-path` | `samtools` |  | Samtools软件路径｜Samtools software path |
+| `--busco-db-path` | — |  | BUSCO数据库路径｜BUSCO database path |
+| `--busco-download-path` | — |  | BUSCO数据集下载路径｜BUSCO dataset download path |
+| `--debug` | — | store_true | 启用调试模式｜Enable debug mode |
+| `--verbose, -v` | `0` | count | 详细输出模式(-v, -vv, -vvv)｜Verbose output mode |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR | 日志级别｜Log level |
+| `--config-file` | — |  | 配置文件路径｜Configuration file path |
+| `--dry-run` | — | store_true | 试运行模式(不执行实际命令)｜Dry run mode (do not execute actual commands) |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - hifiasm（默认在 PATH 中，可通过 `--hifiasm-path` 指定）

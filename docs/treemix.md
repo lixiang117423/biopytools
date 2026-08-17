@@ -60,6 +60,16 @@ biopytools treemix run -i input.frq.gz -o output --root outgroup --m-max 5
 - `treemix_tree_m{optimal}.png`: 最优m值的树图
 - `residual_m{optimal}.png`: 残差图
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+_未找到 CLI 参数定义|No CLI definitions found_
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - **TreeMix**: 群体历史推断 (https://bitbucket.org/nygcresearch/treemix)

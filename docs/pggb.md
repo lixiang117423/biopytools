@@ -65,6 +65,54 @@ output/
 
 运行结束会在日志中按类别汇总输出文件大小和数量。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | 输入FASTA文件｜Input FASTA file |
+| `-o, --output` | 必填 |  | 输出目录｜Output directory |
+| `-t, --threads` | `24` | int | 线程数｜Number of threads (default: 24) |
+| `--conda-env` | `pggb_v.0.7.4` |  | conda环境名｜Conda environment name (default: pggb_v.0.7.4) |
+| `-s, --segment-length` | `5000` | int | 比对分段长度｜Segment length (default: 5000) |
+| `-p, --map-pct-id` | `90` | int | 比对一致度｜Map percent identity (default: 90) |
+| `-n, --n-haplotypes` | `0` | int | 单倍型数(0=自动)｜N haplotypes (0=auto) |
+| `--vcf-spec` | `` |  | VCF输出参考规范｜VCF output reference spec |
+| `--resume` | — |  | 断点续传｜Resume from existing outputs |
+| `--compress` | — |  | 压缩输出｜Compress output files |
+| `--stats` | — |  | 生成统计信息｜Generate statistics |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | [FILE] 输入FASTA文件｜Input FASTA file |
+| `-o, --output` | 必填 |  | [DIR] 输出目录｜Output directory |
+| `-t, --threads` | `24` | int | [INT] 线程数 (default: 24) |
+| `--conda-env` | `pggb_v.0.7.4` |  | [STR] conda环境名 (default: pggb_v.0.7.4) |
+| `-s, --segment-length` | `5000` | int | [INT] 比对分段长度 (default: 5000) |
+| `-l, --block-length` | `0` | int | [INT] 最小block长度 (default: 0, auto=5*segment-length) |
+| `-p, --map-pct-id` | `90` | int | [INT] 比对一致度 (default: 90) |
+| `-c, --n-mappings` | `1` | int | [INT] 每segment的mapping数 (default: 1) |
+| `-K, --mash-kmer` | `19` | int | [INT] mash kmer大小 (default: 19) |
+| `--no-splits` | — | store_true | 禁用序列拆分｜Disable sequence splitting |
+| `--sparse-map` | `` |  | [STR] 稀疏映射比例｜Sparse mapping fraction |
+| `--input-paf` | `` |  | [FILE] 外部PAF文件(跳过wfmash)｜External PAF file |
+| `-n, --n-haplotypes` | `0` | int | [INT] 单倍型数 (default: 0, auto-detect) |
+| `--skip-normalization` | — | store_true | 跳过图归一化｜Skip graph normalization |
+| `--vcf-spec` | `` |  | [STR] VCF输出参考规范｜VCF output reference spec |
+| `--stats` | — | store_true | 生成统计信息｜Generate statistics |
+| `--resume` | — | store_true | 断点续传｜Resume from existing outputs |
+| `--compress` | — | store_true | 压缩输出｜Compress output files |
+| `--keep-temp` | — | store_true | 保留临时文件｜Keep intermediate files |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - conda 环境 `pggb_v.0.7.4`（或自定义），内含：

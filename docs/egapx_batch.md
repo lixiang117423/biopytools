@@ -372,3 +372,45 @@ processor = EGAPxBatchProcessor(
 ## 贡献
 
 欢迎提交Issue和Pull Request来改进这个工具。
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件路径｜Genome FASTA file path |
+| `--output, -o` | 必填 | Path | 输出目录路径｜Output directory path |
+| `--egapx, -e` | `~/software/EGAPX_v.0.4.1-alpha/egapx` |  | EGAPx安装路径｜EGAPx installation path |
+| `--local-cache` | `~/software/EGAPX_v.0.4.1-alpha/local_cache` |  | EGAPx本地缓存路径｜EGAPx local cache path |
+| `--sif` | `~/software/EGAPX_v.0.4.1-alpha/egapx/egapx_0.4.1-alpha.sif` |  | Singularity镜像路径｜Singularity image path |
+| `--no-split` | `False` |  | 不按染色体拆分基因组｜Do not split genome by chromosome |
+| `--chr-prefix, -p` | — |  | 染色体前缀过滤｜Chromosome prefix filter |
+| `--locus-prefix` | `` |  | locus标签前缀｜Locus tag prefix |
+| `--report-name` | `EGAPx` |  | 报告名称｜Report name |
+| `--short-reads` | `` |  | 短读长测序数据(目录或文件)｜Short reads (directory or file) |
+| `--long-reads` | `` |  | 长读长测序数据(目录或文件)｜Long reads (directory or file) |
+| `--taxid` | `71234` |  | 物种分类ID｜Species taxonomy ID |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-g, --genome` | 必填 |  | [FILE] 基因组FASTA文件路径｜Genome FASTA file path |
+| `-o, --output` | 必填 |  | [DIR] 输出目录路径｜Output directory path |
+| `-e, --egapx` | `~/software/EGAPX_v.0.4.1-alpha/egapx` |  | [PATH] EGAPx安装路径｜EGAPx installation path |
+| `--local-cache` | `~/software/EGAPX_v.0.4.1-alpha/local_cache` |  | [PATH] EGAPx本地缓存路径｜EGAPx local cache path |
+| `--sif` | `~/software/EGAPX_v.0.4.1-alpha/egapx/egapx_0.4.1-alpha.sif` |  | [FILE] Singularity镜像路径｜Singularity image path |
+| `--no-split` | `False` | store_true | 不按染色体拆分基因组｜Do not split genome by chromosome |
+| `--taxid` | `71234` |  | [INT] 物种分类ID｜Species taxonomy ID |
+| `-p, --chr-prefix` | — |  | [STR] 染色体前缀过滤｜Chromosome prefix filter |
+| `--locus-prefix` | `` |  | [STR] locus标签前缀｜Locus tag prefix |
+| `--report-name` | `EGAPx` |  | [STR] 报告名称｜Report name |
+| `--short-reads` | `` |  | [FILE] 短读长测序数据文件路径｜Short reads file path |
+| `--long-reads` | `` |  | [FILE] 长读长测序数据文件路径｜Long reads file path |
+
+<!-- END PARAMS:auto -->

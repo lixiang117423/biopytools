@@ -53,6 +53,39 @@ assembly_qv_output/
 └── assembly_qv.log           # 运行日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | FASTQ文件或目录｜FASTQ file or directory |
+| `-g, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-dir` | `./assembly_qv_output` |  | 输出目录｜Output directory |
+| `-k, --kmer-size` | — | int | K-mer大小｜K-mer size (default: auto-select) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--conda-env` | `~/miniforge3/envs/merqury_v.1.3/bin/` |  | Conda环境路径｜Conda environment path |
+| `--data-type` | `auto` | auto/illumina/hifi | 数据类型｜Data type |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | 必填 |  | FASTQ文件或目录｜FASTQ file or directory |
+| `-g, --genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `-o, --output-dir` | `./merqury_qv_output` |  | 输出目录｜Output directory |
+| `-k, --kmer-size` | — | int | K-mer大小｜K-mer size |
+| `-t, --threads` | `24` | int | 线程数｜Number of threads |
+| `--conda-env` | `~/miniforge3/envs/merqury_v.1.3/bin/` |  | Conda环境路径｜Conda environment path |
+| `--data-type` | `auto` | auto/illumina/hifi | 数据类型｜Data type |
+| `--version` | — | version |  |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - Merqury（默认通过 conda 环境调用，`--conda-env` 可指定路径）

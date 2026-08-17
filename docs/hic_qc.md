@@ -248,6 +248,37 @@ chr2    1500    chr2    80000   +       -       UU
 - 包含完整的header信息
 - 可以是gzip压缩格式
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | 必填 |  | 输入文件或目录｜Input file or directory (hicpro: HiC-Pro输出目录; pairs/bam: pairs或BAM文件) |
+| `--input-type` | `hicpro` | hicpro/pairs/bam | 输入类型｜Input type (hicpro: HiC-Pro输出目录; pairs: .pairs.gz文件; bam: .bam文件) |
+| `--output-dir, -o` | `./hic_qc_output` |  | 输出目录｜Output directory |
+| `--sample-name, -s` | — |  | 样本名称（仅hicpro模式，可选，默认自动检测）｜Sample name (hicpro mode only, optional, auto-detect by default) |
+| `--min-mapping-rate` | `70.0` | float | 最低比对率阈值%%(仅hicpro模式)｜Minimum mapping rate threshold%% (hicpro mode only) |
+| `--min-unique-rate` | `60.0` | float | 最低唯一比对率阈值%%(仅hicpro模式)｜Minimum unique mapping rate threshold%% (hicpro mode only) |
+| `--min-valid-pairs-rate` | `50.0` | float | 最低valid pairs比例阈值%%(仅hicpro模式)｜Minimum valid pairs rate threshold%% (hicpro mode only) |
+| `--max-dangling-ends-rate` | `15.0` | float | 最高dangling ends比例阈值%%(仅hicpro模式)｜Maximum dangling ends rate threshold%% (hicpro mode only) |
+| `--max-self-ligation-rate` | `5.0` | float | 最高self-ligation比例阈值%%(仅hicpro模式)｜Maximum self-ligation rate threshold%% (hicpro mode only) |
+| `--max-religation-rate` | `10.0` | float | 最高religation比例阈值%%(仅hicpro模式)｜Maximum religation rate threshold%% (hicpro mode only) |
+| `--pairtools-path, -p` | `~/miniforge3/envs/hic/bin/pairtools` |  | Pairtools可执行文件路径（仅pairs/bam模式）｜Pairtools executable path (pairs/bam mode only) |
+| `--chroms-path, -c` | — |  | Chromosome sizes文件路径（BAM输入时必需）｜Chromosome sizes file path (required for BAM input) |
+| `--max-unmapped-rate` | `20.0` | float | 未比对reads比例阈值%%(仅pairs/bam模式)｜Threshold for unmapped reads rate%% (pairs/bam mode only) |
+| `--max-single-sided-rate` | `10.0` | float | 单端比对比例阈值%%(仅pairs/bam模式)｜Threshold for single-sided mapping rate%% (pairs/bam mode only) |
+| `--min-mapped-rate` | `80.0` | float | 双端比对率阈值%%(仅pairs/bam模式)｜Threshold for paired mapping rate%% (pairs/bam mode only) |
+| `--max-dup-rate` | `30.0` | float | PCR重复率阈值%%(仅pairs/bam模式)｜Threshold for PCR duplication rate%% (pairs/bam mode only) |
+| `--min-cis-trans-ratio` | `5.0` | float | 最低cis/trans比例阈值｜Minimum cis/trans ratio threshold |
+| `--max-duplication-rate` | `30.0` | float | 最高PCR重复率阈值%%｜Maximum PCR duplication rate threshold%% |
+
+<!-- END PARAMS:auto -->
+
 ## 常见问题 | FAQ
 
 ### Q1: 为什么要评估这些指标？

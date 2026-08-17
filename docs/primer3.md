@@ -436,3 +436,61 @@ Koressaar T and Remm M.
 Enhancements and modifications of primer design program Primer3.
 Bioinformatics 2007;23(10):1289-1291.
 ```
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input-fasta, -i` | 必填 |  | 输入FASTA文件｜Input FASTA file path |
+| `--output-dir, -o` | 必填 | Path | 输出目录｜Output directory |
+| `--primer-min-size` | `20` | int | 最小引物长度｜Minimum primer size |
+| `--primer-opt-size` | `20` | int | 最优引物长度｜Optimal primer size |
+| `--primer-max-size` | `22` | int | 最大引物长度｜Maximum primer size |
+| `--primer-min-tm` | `53.0` | float | 最小退火温度(°C)｜Minimum annealing temperature (°C) |
+| `--primer-opt-tm` | `58.0` | float | 最优退火温度(°C)｜Optimal annealing temperature (°C) |
+| `--primer-max-tm` | `63.0` | float | 最大退火温度(°C)｜Maximum annealing temperature (°C) |
+| `--product-min-size` | `100` | int | 最小产物大小(bp)｜Minimum product size (bp) |
+| `--product-max-size` | `300` | int | 最大产物大小(bp)｜Maximum product size (bp) |
+| `--primer-num-return` | `5` | int | 返回引物对数量｜Number of primer pairs to return |
+| `--output-format` | `csv` | csv/tsv/xlsx | 输出文件格式｜Output file format |
+| `--output-header-lang` | `zh` | zh/en | 输出表头语言(zh:中文, en:英文)｜Output header language (zh: Chinese, en: English) |
+| `--method, -m` | `all` | all/random | 引物设计策略: all=覆盖头尾, random=随机设计｜Primer design strategy: all=cover ends, random=random design |
+| `--primer-end-margin` | `200` | int | 两端允许的引物位置范围bp(仅用于method=all)｜Allowed margin at ends in bp (only for method=all) |
+| `--auto-product-size/--no-auto-product-size` | `True` |  | 自动根据序列长度设置产物大小范围(默认开启)｜Auto set product size range based on sequence length (enabled by default) |
+| `--product-size-min-ratio` | `0.5` | float | 产物最小长度占序列长度的比例｜Min product size ratio to sequence length (default: 0.5) |
+| `--product-size-max-ratio` | `1.0` | float | 产物最大长度占序列长度的比例｜Max product size ratio to sequence length (default: 1.0) |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input-fasta` | 必填 |  | 输入FASTA文件路径｜Input FASTA file path |
+| `-o, --output-dir` | 必填 |  | 输出目录路径｜Output directory path |
+| `--primer3-core-path` | `~/miniforge3/envs/misc/bin/primer3_core` |  | Primer3核心程序路径｜Primer3 core program path |
+| `--primer-min-size` | `20` | int | 最小引物长度｜Minimum primer size |
+| `--primer-opt-size` | `20` | int | 最优引物长度｜Optimal primer size |
+| `--primer-max-size` | `22` | int | 最大引物长度｜Maximum primer size |
+| `--primer-min-tm` | `53.0` | float | 最小退火温度(°C)｜Minimum annealing temperature (°C) |
+| `--primer-opt-tm` | `58.0` | float | 最优退火温度(°C)｜Optimal annealing temperature (°C) |
+| `--primer-max-tm` | `63.0` | float | 最大退火温度(°C)｜Maximum annealing temperature (°C) |
+| `--product-min-size` | `100` | int | 最小产物大小(bp)｜Minimum product size (bp) |
+| `--product-max-size` | `300` | int | 最大产物大小(bp)｜Maximum product size (bp) |
+| `--primer-num-return` | `5` | int | 返回引物对数量｜Number of primer pairs to return |
+| `--primer-max-ns` | `0` | int | 允许的N碱基数量｜Number of N bases accepted |
+| `--primer-gc-clamp` | `1` | int | GC clamp数量｜GC clamp count |
+| `--output-format` | `csv` | csv/tsv/xlsx | 输出文件格式｜Output file format |
+| `--output-header-lang` | `zh` | zh/en | 输出表头语言(zh:中文, en:英文)｜Output header language (zh: Chinese, en: English) |
+| `--method, -m` | `all` | all/random | 引物设计策略: all=覆盖头尾(默认), random=随机设计｜Primer design strategy: all=cover ends (default), random=random design |
+| `--primer-end-margin` | `200` | int | 两端允许的引物位置范围bp,仅用于method=all｜Allowed margin at ends in bp (only for method=all) |
+| `--auto-product-size` | `True` | store_true | 自动根据序列长度设置产物大小范围(默认开启)｜Auto set product size range based on sequence length (enabled by default) |
+| `--no-auto-product-size` | — | store_false | 禁用自动产物大小范围｜Disable automatic product size range |
+| `--product-size-min-ratio` | `0.5` | float | 产物最小长度占序列长度的比例｜Min product size ratio to sequence length (default: 0.5) |
+| `--product-size-max-ratio` | `1.0` | float | 产物最大长度占序列长度的比例｜Max product size ratio to sequence length (default: 1.0) |
+
+<!-- END PARAMS:auto -->

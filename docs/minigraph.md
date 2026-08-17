@@ -574,6 +574,62 @@ biopytools minigraph build \
     --preset g
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--ref` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `--samples` | 必填 |  | 样本基因组FASTA文件｜Sample genome FASTA files |
+| `-o, --output-gfa` | `./pangenome.gfa` |  | 输出GFA文件路径｜Output GFA file path |
+| `--preset` | `ggs` | g/gs/ggs | 图构建预设｜Graph building preset |
+| `--min-identity` | `0.9` | float | 最小序列相似度｜Minimum sequence identity |
+| `--min-aln-len` | `100000` | int | 最小比对长度｜Minimum alignment length |
+| `--max-gap` | `1000000` | int | 最大gap大小｜Maximum gap size |
+| `-t, --threads` | `16` | int | 线程数｜Number of threads |
+| `--batch-size` | — | int | 批处理大小(MB)｜Batch size (MB) |
+| `--minigraph-path` | `minigraph` |  | minigraph工具路径｜minigraph tool path |
+| `--gfatools-path` | `gfatools` |  | gfatools工具路径｜gfatools tool path |
+| `--keep-intermediate` | — |  | 保留中间文件｜Keep intermediate files |
+| `--append-mode` | — |  | 追加模式｜Append mode |
+| `--graph-gfa` | 必填 |  | 泛基因组图GFA文件｜Pangenome graph GFA file |
+| `-o, --output-dir` | `./minigraph_call` |  | 输出目录｜Output directory |
+| `-o, --output-bed` | `./sv_bubbles.bed` |  | 输出BED文件路径｜Output BED file path |
+| `--queries` | 必填 |  | 查询序列FASTA文件｜Query sequence FASTA files |
+| `-o, --output-gaf` | `./mapping.gaf` |  | 输出GAF文件路径｜Output GAF file path |
+| `--max-intron-len` | — | int | 最大内含子长度｜Maximum intron length |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--ref` | 必填 |  | 参考基因组FASTA文件｜Reference genome FASTA file |
+| `--samples` | 必填 |  | 样本基因组FASTA文件列表｜Sample genome FASTA file list |
+| `-o, --output-gfa` | `./pangenome.gfa` |  | 输出GFA文件路径｜Output GFA file path |
+| `--preset` | `ggs` | g/gs/ggs | 图构建预设｜Graph building preset |
+| `--min-identity` | `0.9` | float | 最小序列相似度｜Minimum sequence identity |
+| `--min-aln-len` | `100000` | int | 最小比对长度｜Minimum alignment length |
+| `--max-gap` | `1000000` | int | 最大gap大小｜Maximum gap size |
+| `-t, --threads` | `16` | int | 线程数｜Number of threads |
+| `--batch-size` | — | int | 批处理大小(MB)｜Batch size (MB) |
+| `--minigraph-path` | `minigraph` |  | minigraph工具路径｜minigraph tool path |
+| `--gfatools-path` | `gfatools` |  | gfatools工具路径｜gfatools tool path |
+| `--keep-intermediate` | — | store_true | 保留中间文件｜Keep intermediate files |
+| `--append-mode` | — | store_true | 追加模式｜Append mode |
+| `--graph-gfa` | 必填 |  | 泛基因组图GFA文件｜Pangenome graph GFA file |
+| `-o, --output-dir` | `./minigraph_call` |  | 输出目录｜Output directory |
+| `-o, --output-bed` | `./sv_bubbles.bed` |  | 输出BED文件路径｜Output BED file path |
+| `--queries` | 必填 |  | 查询序列FASTA文件列表｜Query sequence FASTA file list |
+| `-o, --output-gaf` | `./mapping.gaf` |  | 输出GAF文件路径｜Output GAF file path |
+| `--max-intron-len` | — | int | 最大内含子长度｜Maximum intron length |
+
+<!-- END PARAMS:auto -->
+
 ## 结果解读 | Result Interpretation
 
 ### GFA文件解读

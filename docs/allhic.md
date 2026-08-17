@@ -75,6 +75,67 @@ allhic_output/
 └── pipeline.log         # 流程日志
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--reference, -r` | 必填 | Path | 参考基因组文件｜Reference genome file |
+| `--read1, -1` | 必填 | Path | Hi-C读段1文件｜Hi-C read 1 file |
+| `--read2, -2` | 必填 | Path | Hi-C读段2文件｜Hi-C read 2 file |
+| `--chr-num, -k` | 必填 | int | 染色体数目｜Number of chromosomes |
+| `--enzyme, -e` | `GATC` |  | 酶切位点｜Enzyme motif |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--workdir, -w` | `./allhic_output` |  | 工作目录｜Working directory |
+| `--mapq-step1` | `1` | int | 步骤1比对质量阈值｜Step 1 MapQ threshold |
+| `--bin-size` | `500k` |  | Bin大小｜Bin size |
+| `--min-bin-size` | `50k` |  | 最小Bin大小｜Minimum bin size |
+| `--skip-mapping` | — |  | 跳过步骤1:比对｜Skip Step 1: Mapping |
+| `--skip-allele` | — |  | 跳过步骤1.5:等位基因检测｜Skip Step 1.5: Allele Detection |
+| `--skip-prune` | — |  | 跳过步骤2:修剪｜Skip Step 2: Pruning |
+| `--skip-partition` | — |  | 跳过步骤3:分区｜Skip Step 3: Partition |
+| `--skip-extract` | — |  | 跳过步骤3.5:提取矩阵｜Skip Step 3.5: Extract Matrix |
+| `--skip-rescue` | — |  | 跳过步骤4:救援｜Skip Step 4: Rescue |
+| `--skip-optimize` | — |  | 跳过步骤5:优化｜Skip Step 5: Optimization |
+| `--skip-build` | — |  | 跳过步骤6:构建FASTA｜Skip Step 6: Build FASTA |
+| `--skip-plot` | — |  | 跳过步骤7:绘制热图｜Skip Step 7: Plot Heatmap |
+| `--skip-asmkit` | — |  | 跳过步骤8:JBAT生成｜Skip Step 8: JBAT Generation |
+| `--diagnose` | — |  | 诊断模式｜Diagnostic mode |
+| `--verbose, -v` | — |  | 详细输出｜Verbose output |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-r, --reference` | 必填 |  | 参考基因组文件｜Reference genome file |
+| `-1, --read1` | 必填 |  | Hi-C读段1文件｜Hi-C read 1 file |
+| `-2, --read2` | 必填 |  | Hi-C读段2文件｜Hi-C read 2 file |
+| `-k, --chr-num` | 必填 | int | 染色体数量｜Number of chromosomes |
+| `-e, --enzyme` | `GATC` |  | ALLHiC酶切位点｜ALLHiC enzyme motif |
+| `-t, --threads` | `88` | int | CPU线程数｜CPU threads |
+| `-w, --workdir` | `./allhic_output` |  | 工作目录｜Working directory |
+| `--mapq-step1` | `1` | int | Step 1 MapQ阈值｜Step 1 MapQ threshold |
+| `--bin-size` | `500k` |  | Bin大小｜Bin size |
+| `--min-bin-size` | `50k` |  | 最小Bin大小｜Minimum bin size |
+| `--skip-mapping` | — | store_true | 跳过步骤1: 比对｜Skip Step 1: Mapping |
+| `--skip-allele` | — | store_true | 跳过步骤1.5: 等位基因检测｜Skip Step 1.5: Allele Detection |
+| `--skip-prune` | — | store_true | 跳过步骤2: 修剪｜Skip Step 2: Pruning |
+| `--skip-partition` | — | store_true | 跳过步骤3: 分区｜Skip Step 3: Partition |
+| `--skip-extract` | — | store_true | 跳过步骤3.5: 矩阵提取｜Skip Step 3.5: Extract Matrix |
+| `--skip-rescue` | — | store_true | 跳过步骤4: 救援｜Skip Step 4: Rescue |
+| `--skip-optimize` | — | store_true | 跳过步骤5: 优化｜Skip Step 5: Optimization |
+| `--skip-build` | — | store_true | 跳过步骤6: 构建｜Skip Step 6: Build FASTA |
+| `--skip-plot` | — | store_true | 跳过步骤7: 绘图｜Skip Step 7: Plot Heatmap |
+| `--skip-asmkit` | — | store_true | 跳过步骤8: JBAT生成｜Skip Step 8: JBAT Generation |
+| `--diagnose` | — | store_true | 运行诊断模式｜Run diagnostic mode |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - ALLHiC 工具包（ALLHiC_pipeline、ALLHiC_rescue、ALLHiC_optimize 等）

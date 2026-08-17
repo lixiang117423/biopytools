@@ -85,6 +85,50 @@ subphaser_output/
 └── phasing_result.txt   # 亚基因组分配结果汇总
 ```
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --genomes` | 必填 |  | 基因组FASTA文件(可多个)｜Genome FASTA files |
+| `--nsg` | 必填 | int | 亚基因组数量(>=2)｜Number of subgenomes (>=2) |
+| `-c, --sg-cfgs` | — |  | 亚基因组配置文件(可选，不提供则自动模式)｜Subgenome config files (optional, auto mode if omitted) |
+| `--parental-genomes` | — |  | 父本基因组(验证模式，需2个)｜Parental genomes for validation (requires 2) |
+| `-o, --output-dir` | `./subphaser_output` |  | 输出目录｜Output directory |
+| `--prefix` | — |  | 输出前缀｜Output prefix |
+| `-t, --threads` | `24` | int | 线程数｜Number of threads |
+| `--min-chrom-size` | `1000000` | int | 最小染色体长度(bp)，过滤小contigs｜Min chromosome size (bp), filter small contigs |
+| `-k, --kmer-size` | `15` | int | K-mer大小｜K-mer size |
+| `-f, --min-fold` | `2.0` | float | 最小倍数差异｜Minimum fold difference |
+| `-q, --min-freq` | `200` | int | 最小k-mer频率｜Minimum k-mer frequency |
+| `--max-pval` | `0.05` | float | 最大P值｜Maximum P-value |
+| `--replicates` | `1000` | int | Bootstrap重复次数｜Bootstrap replicates |
+| `--test-method` | `ttest_ind` | ttest_ind/kruskal/wilcoxon/mannwhitneyu | 统计检验方法｜Statistical test method |
+| `--disable-ltr` | — |  | 禁用LTR分析(大基因组耗时较长)｜Disable LTR analysis |
+| `--disable-circos` | — |  | 禁用Circos图｜Disable Circos plot |
+| `--disable-blocks` | — |  | 禁用同源区块｜Disable homologous blocks |
+| `--just-core` | — |  | 仅运行核心phasing｜Only run core phasing |
+| `--ltr-detectors` | — | ltr_finder/ltr_harvest | LTR检测工具｜LTR detection tools |
+| `--mu` | `1.3e-08` | float | 替换率/年｜Substitution rate per year |
+| `--window-size` | `1000000` | int | Circos窗口大小｜Circos window size (bp) |
+| `--aligner` | `minimap2` | minimap2/unimap | 比对工具｜Aligner for homologous blocks |
+| `--sg-assigned` | — |  | 已知亚基因组分配文件(跳过聚类)｜Pre-assigned subgenome file (skip clustering) |
+| `--target` | — |  | 目标染色体文件｜Target chromosomes file |
+| `--labels` | — |  | 基因组标签｜Genome labels |
+| `--no-label` | — |  | 不添加标签前缀｜No label prefix |
+| `--custom-features` | — |  | 自定义特征FASTA｜Custom feature FASTA files |
+| `--figfmt` | `pdf` | pdf/png | 图片格式｜Figure format |
+| `--overwrite` | — |  | 覆盖已有结果｜Overwrite existing results |
+| `--cleanup` | — |  | 清理临时文件｜Clean up temporary files |
+| `--conda-env` | `SubPhaser` |  | conda环境名称｜Conda environment name |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - SubPhaser（默认通过 conda 环境 `SubPhaser` 调用）

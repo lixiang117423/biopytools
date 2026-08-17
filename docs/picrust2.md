@@ -73,6 +73,68 @@ biopytools picrust2 -s study_seqs.fna -i seqabun.biom -o picrust2_out --in-trait
 
 **自动后处理**：流程结束后会自动调用 PICRUSt2 官方 `add_descriptions.py` 给三类功能丰度表（通路 / EC / KO）添加描述列，并附加样本均值列、按均值降序排列。原始 PICRUSt2 输出保留为 `*_raw.tsv` 便于核对。
 
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-s, --study-fasta` | 必填 |  | 代表序列FASTA文件｜FASTA of unaligned study sequences |
+| `-i, --input` | 必填 |  | 特征表文件(自动识别BIOM/TSV/Excel/Mothur)｜Input table of sequence abundances |
+| `-o, --output-dir` | `./picrust2_output` |  | 输出目录｜Output directory |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--max-nsti` | `2.0` | float | 最大NSTI阈值｜Maximum NSTI value |
+| `--stratified` | — |  | 生成分层输出表｜Generate stratified output tables |
+| `--in-traits` | `EC,KO` |  | 功能数据库(EC,KO,GO,PFAM,BIGG,CAZY)｜Gene families to predict |
+| `--placement-tool` | `epa-ng` | epa-ng/sepp | 序列放置工具｜Placement tool |
+| `--hsp-method` | `mp` | mp/emp_prob/pic/scp/subtree_average | 隐状态预测方法｜HSP method |
+| `--edge-exponent` | `0.5` | float | HSP edge exponent |
+| `--pipeline` | `auto` | auto/split/single | 流程类型: auto/split/single｜Pipeline type |
+| `--min-align` | `0.8` | float | 最小比对比例｜Minimum alignment proportion |
+| `--min-reads` | `1` | int | 每ASV最小reads数｜Minimum reads per ASV |
+| `--min-samples` | `1` | int | 每ASV最小样本数｜Minimum samples per ASV |
+| `--no-pathways` | — |  | 跳过通路推断｜Skip pathway inference |
+| `--coverage` | — |  | 计算通路覆盖度｜Calculate pathway coverages |
+| `--skip-minpath` | — |  | 跳过MinPath｜Skip MinPath |
+| `--no-gap-fill` | — |  | 跳过gap filling｜Skip gap filling |
+| `--per-sequence-contrib` | — |  | 逐序列运行MinPath｜Run MinPath per sequence |
+| `--skip-norm` | — |  | 跳过归一化｜Skip normalization |
+| `--remove-intermediate` | — |  | 移除中间文件｜Remove intermediate files |
+| `--verbose` | — |  | 详细输出｜Verbose output |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-s, --study-fasta` | 必填 |  | 代表序列FASTA文件｜FASTA of unaligned study sequences |
+| `-i, --input` | 必填 |  | 特征表文件(自动识别BIOM/TSV/Excel/Mothur)｜Input table of sequence abundances (auto-detect BIOM/TSV/Excel/Mothur) |
+| `-o, --output-dir` | `./picrust2_output` |  | 输出目录｜Output directory (default: ./picrust2_output) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads (default: 12) |
+| `--max-nsti` | `2.0` | float | 最大NSTI阈值｜Maximum NSTI value (default: 2.0) |
+| `--stratified` | — | store_true | 生成分层输出表｜Generate stratified output tables |
+| `--in-traits` | `EC,KO` |  | 功能数据库(EC,KO,GO,PFAM,BIGG,CAZY)｜Gene families to predict (default: EC,KO) |
+| `--placement-tool` | `epa-ng` | epa-ng/sepp | 序列放置工具｜Placement tool (default: epa-ng) |
+| `--hsp-method` | `mp` | mp/emp_prob/pic/scp/subtree_average | 隐状态预测方法｜HSP method (default: mp) |
+| `--edge-exponent` | `0.5` | float | HSP edge exponent (default: 0.5) |
+| `--pipeline` | `auto` | auto/split/single | 流程类型: auto自动检测, split双域, single单参考｜Pipeline type (default: auto) |
+| `--min-align` | `0.8` | float | 最小比对比例｜Minimum alignment proportion (default: 0.8) |
+| `--min-reads` | `1` | int | 每ASV最小reads数｜Minimum reads per ASV (default: 1) |
+| `--min-samples` | `1` | int | 每ASV最小样本数｜Minimum samples per ASV (default: 1) |
+| `--no-pathways` | — | store_true | 跳过通路推断｜Skip pathway inference |
+| `--coverage` | — | store_true | 计算通路覆盖度｜Calculate pathway coverages |
+| `--skip-minpath` | — | store_true | 跳过MinPath｜Skip MinPath |
+| `--no-gap-fill` | — | store_true | 跳过gap filling｜Skip gap filling |
+| `--per-sequence-contrib` | — | store_true | 逐序列运行MinPath｜Run MinPath per sequence |
+| `--skip-norm` | — | store_true | 跳过marker gene拷贝数归一化｜Skip normalization by marker gene copies |
+| `--remove-intermediate` | — | store_true | 移除中间文件｜Remove intermediate files |
+| `--verbose` | — | store_true | 详细输出｜Verbose output |
+
+<!-- END PARAMS:auto -->
+
 ## 依赖 | Dependencies
 
 - PICRUSt2 主程序（含 `picrust2_pipeline.py`、`epa-ng`、`hsp.py`、`minpath.py` 等）

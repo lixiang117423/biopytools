@@ -136,3 +136,42 @@ biopytools seq2genome \
 ## 联系方式|Contact
 
 如有问题或建议，请联系 BioPyTools 开发团队。
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome, -g` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--query, -q` | 必填 |  | 查询序列FASTA文件（DNA或蛋白质）｜Query sequence FASTA file (DNA or protein) |
+| `--query-type` | `auto` | dna/protein/auto | 序列类型（默认：auto自动检测）｜Sequence type (default: auto for auto-detection) |
+| `--output-dir, -o` | `./seq2genome_output` | Path | 输出目录｜Output directory |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--minimap2-path` | `minimap2` |  | Minimap2工具路径｜Minimap2 tool path |
+| `--miniprot-path` | `miniprot` |  | Miniprot工具路径｜Miniprot tool path |
+| `--no-gff3` | — |  | 不导出GFF3格式｜Do not export GFF3 format |
+| `--no-bed` | — |  | 不导出BED格式｜Do not export BED format |
+| `--no-statistics` | — |  | 不生成统计报告｜Do not generate statistics report |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--genome` | 必填 |  | 基因组FASTA文件｜Genome FASTA file |
+| `--query` | 必填 |  | 查询序列FASTA文件（DNA或蛋白质）｜Query sequence FASTA file (DNA or protein) |
+| `-o, --output-dir` | 必填 |  | 输出目录｜Output directory |
+| `--query-type` | `auto` | dna/protein/auto | 查询序列类型（默认：auto自动检测）｜Query sequence type (default: auto for auto-detection) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--minimap2-path` | `minimap2` |  | Minimap2工具路径｜Minimap2 tool path (default: minimap2) |
+| `--miniprot-path` | `miniprot` |  | Miniprot工具路径｜Miniprot tool path (default: miniprot) |
+| `--no-gff3` | — | store_false | 不导出GFF3格式｜Do not export GFF3 format |
+| `--no-bed` | — | store_false | 不导出BED格式｜Do not export BED format |
+| `--no-statistics` | — | store_false | 不生成统计报告｜Do not generate statistics report |
+| `--no-extract` | — | store_false | 不提取基因组序列｜Do not extract genome sequences |
+
+<!-- END PARAMS:auto -->

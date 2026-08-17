@@ -313,3 +313,92 @@ biopytools blast -i input.fa -t target.fa \
 ## 📄 许可证 | License
 
 本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件
+
+<!-- BEGIN PARAMS:auto -->
+
+## 参数速查 | Parameter reference
+
+> 本表由 `scripts/gen_docs_params.py` 从 CLI 定义自动生成,勿手改|Auto-generated from CLI definitions; do not edit by hand
+
+### 命令行参数 | CLI options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `--input, -i` | — | Path | 输入文件或目录路径｜Input file or directory path |
+| `--sample-map-file, -s` | — | Path | 样品映射文件｜Sample mapping file |
+| `--reference, -r` | 必填 | Path | 目标基因序列文件｜Target gene sequence file |
+| `--output, -o` | `./blast_output` | Path | 输出目录路径｜Output directory |
+| `--blast-type` | — | blastn/blastp/blastx/tblastn/tblastx | BLAST程序类型，默认根据输入文件自动检测｜BLAST program type (auto-detect from input files if not specified) |
+| `--evalue, -e` | `1e-05` | float | E-value阈值｜E-value threshold |
+| `--max-target-seqs` | `10` | int | 最大目标序列数｜Maximum target sequences |
+| `--word-size` | — | int | 词大小，默认根据blast-type自动设置｜Word size (auto-set by blast-type if not specified) |
+| `--threads, -t` | `12` | int | 线程数｜Number of threads |
+| `--input-suffix` | `*.fa` | str | 输入文件后缀模式｜Input file suffix pattern |
+| `--target-db-type` | — | nucl/prot | 目标数据库类型，默认根据blast-type自动设置｜Target database type (auto-set by blast-type if not specified) |
+| `--min-identity` | `70.0` | float | 最小序列相似度｜Minimum sequence identity |
+| `--min-coverage` | `50.0` | float | 最小覆盖度｜Minimum coverage |
+| `--high-quality-evalue` | `1e-10` | float | 高质量比对E-value阈值｜High quality alignment E-value threshold |
+| `--auto-detect-samples/--no-auto-detect-samples` | `True` |  | 自动检测样品名称｜Auto-detect sample names |
+| `--sample-name-pattern` | `([^/]+?)(?:\.fa|\.fasta|\.fna)?$` | str | 样品名提取正则表达式｜Sample name extraction regex |
+| `--sample-name` | — | str | 单文件输入时的样品名称｜Sample name for single-file input |
+| `--makeblastdb-path` | `makeblastdb` | str | makeblastdb程序路径｜makeblastdb program path |
+| `--blastn-path` | `blastn` | str | blastn程序路径｜blastn program path |
+| `--blastp-path` | `blastp` | str | blastp程序路径｜blastp program path |
+| `--blastx-path` | `blastx` | str | blastx程序路径｜blastx program path |
+| `--tblastn-path` | `tblastn` | str | tblastn程序路径｜tblastn program path |
+| `--tblastx-path` | `tblastx` | str | tblastx程序路径｜tblastx program path |
+| `--alignment-output` | `both` | none/text/html/both | 比对可视化输出格式｜Alignment visualization output format |
+| `--alignment-width` | `80` | int | 比对每行显示的字符数｜Characters per line in alignment display |
+| `--alignment-min-identity` | `0.0` | float | 比对可视化最小相似度｜Minimum identity for alignment visualization |
+| `--alignment-min-coverage` | `0.0` | float | 比对可视化最小覆盖度｜Minimum coverage for alignment visualization |
+| `--alignment-max-per-sample` | `100` | int | 每个样品最多显示的比对数｜Maximum alignments to display per sample |
+| `--html-theme` | `modern` | modern/classic/dark | HTML主题样式｜HTML theme style |
+| `--verbose, -v` | — |  | 详细输出模式｜Verbose output mode |
+| `--quiet` | — |  | 静默模式｜Quiet mode |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--log-file` | — | Path | 日志文件路径｜Log file path |
+| `--force, -f` | — |  | 强制覆盖已存在的结果｜Force overwrite existing results |
+| `--dry-run` | — |  | 测试模式｜Test mode |
+| `--version, -V` | — |  | 显示版本信息｜Show version information |
+
+### 模块直调参数 | Direct invocation options
+
+| 参数 | 默认值 | 类型 | 说明 |
+|------|--------|------|------|
+| `-i, --input` | — |  | 输入文件或目录路径｜Input file or directory path |
+| `-s, --sample-map-file` | — |  | 样品映射文件(与-i二选一)｜Sample mapping file (alternative to -i) |
+| `-r, --reference` | 必填 |  | 目标基因序列文件｜Target gene sequence file |
+| `-o, --output-dir` | `./blast_output` |  | 输出目录｜Output directory |
+| `--blast-type` | — | blastn/blastp/blastx/tblastn/tblastx | BLAST程序类型,默认自动检测｜BLAST program type (auto-detect if not specified) |
+| `-e, --evalue` | `1e-05` | float | E-value阈值｜E-value threshold |
+| `--max-target-seqs` | `10` | int | 最大目标序列数｜Maximum target sequences |
+| `--word-size` | — | int | 词大小,默认按blast-type设置｜Word size (auto-set by blast-type) |
+| `-t, --threads` | `12` | int | 线程数｜Number of threads |
+| `--input-suffix` | `*.fa` |  | 输入文件后缀模式｜Input file suffix pattern |
+| `--target-db-type` | — | nucl/prot | 目标数据库类型,默认按blast-type设置｜Target database type (auto-set by blast-type) |
+| `--min-identity` | `70.0` | float | 最小序列相似度(%%)｜Minimum sequence identity (%%) |
+| `--min-coverage` | `50.0` | float | 最小覆盖度(%%)｜Minimum coverage (%%) |
+| `--high-quality-evalue` | `1e-10` | float | 高质量比对E-value阈值｜High quality alignment E-value threshold |
+| `--sample-name` | — |  | 单文件输入时的样品名称｜Sample name for single-file input |
+| `--no-auto-detect-samples` | — | store_false | 关闭自动检测样品名称｜Disable auto sample name detection |
+| `--sample-name-pattern` | `([^/]+?)(?:\.fa|\.fasta|\.fna)?$` |  | 样品名提取正则表达式｜Sample name extraction regex |
+| `--makeblastdb-path` | — |  | makeblastdb程序路径｜makeblastdb program path |
+| `--blastn-path` | — |  | blastn程序路径｜blastn program path |
+| `--blastp-path` | — |  | blastp程序路径｜blastp program path |
+| `--blastx-path` | — |  | blastx程序路径｜blastx program path |
+| `--tblastn-path` | — |  | tblastn程序路径｜tblastn program path |
+| `--tblastx-path` | — |  | tblastx程序路径｜tblastx program path |
+| `--alignment-output` | `both` | none/text/html/both | 比对可视化输出格式｜Alignment visualization output format |
+| `--alignment-width` | `80` | int | 比对每行显示的字符数｜Characters per line in alignment display |
+| `--alignment-min-identity` | `0.0` | float | 比对可视化最小相似度过滤｜Minimum identity for alignment visualization |
+| `--alignment-min-coverage` | `0.0` | float | 比对可视化最小覆盖度过滤｜Minimum coverage for alignment visualization |
+| `--alignment-max-per-sample` | `100` | int | 每个样品最多显示的比对数｜Maximum alignments to display per sample |
+| `--html-theme` | `modern` | modern/classic/dark | HTML主题样式｜HTML theme style |
+| `-v, --verbose` | `0` | count | 详细输出(-vv更详细)｜Verbose output (-vv for more) |
+| `--quiet` | — | store_true | 静默模式｜Quiet mode |
+| `--log-level` | `INFO` | DEBUG/INFO/WARNING/ERROR/CRITICAL | 日志级别｜Log level |
+| `--log-file` | — |  | 日志文件路径｜Log file path |
+| `-f, --force` | — | store_true | 强制覆盖已存在文件｜Force overwrite existing files |
+| `--dry-run` | — | store_true | 模拟运行不执行｜Dry run without execution |
+
+<!-- END PARAMS:auto -->
