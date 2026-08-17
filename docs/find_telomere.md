@@ -1,576 +1,138 @@
-# 🧬 端粒识别分析模块
+# 端粒识别 | Telomere Finder (tidk)
 
-**专业的基因组端粒重复序列识别和可视化工具 | Professional Telomeric Repeat Identification and Visualization Tool**
+一句话理解：**自动找出基因组每条染色体「两端戴的帽子」（端粒重复序列）在哪、有多少，并画成分布图，用来判断组装是否真正「封顶」**。
 
-## 📖 功能概述 | Overview
+## 功能概述 | Overview
 
-端粒识别分析模块是一个强大的端粒重复序列识别和可视化工具，基于 tidk (Telomere Identification toolKit) 构建。该模块提供从端粒重复序列探索、查找、搜索到可视化的完整流程，支持多种分析模式和灵活的参数配置，适用于各种基因组端粒研究。
+- 基于 tidk（Telomere Identification toolKit）构建
+- 五种分析模式：explore（探索）、find（按分类群查找）、search（自定义序列搜索）、plot（绘图）、pipeline（一键全流程，默认）
+- pipeline 模式自动「探索 → 智能搜索 → 绘图」三连，无需知道该物种的端粒序列
+- 内置分类群端粒数据库（昆虫/脊椎动物/植物等 50+ 类群），find 模式按分类群查
+- 输出每窗口端粒重复次数统计（TSV）+ 端粒分布 SVG 图
 
-## ✨ 主要特性 | Key Features
-
-- **🔬 自动探索模式**: 自动识别基因组中的端粒重复序列单元
-- **🎯 智能查找模式**: 基于分类群的已知端粒重复序列进行查找
-- **🔍 自定义搜索**: 使用自定义序列搜索端粒重复
-- **📊 可视化绘图**: 将端粒分布结果绘制为 SVG 矢量图
-- **🌐 广泛物种支持**: 涵盖昆虫、脊椎动物、植物等多个类群
-- **⚙️ 高度可配置**: 灵活的参数设置和输出格式选择
-- **📝 详细日志记录**: 完整的处理过程日志和错误追踪
-- **🚀 高效处理**: 优化的处理流程，支持大规模基因组数据
-
-## 🚀 快速开始 | Quick Start
-
-### 基本用法 | Basic Usage
+## 快速开始 | Quick Start
 
 ```bash
-# 探索模式 - 自动识别端粒重复序列
-biopytools find_telomere \
-    -i genome.fa \
-    -m explore \
-    -o explore_results
-
-# 查找模式 - 根据分类群查找端粒
-biopytools find_telomere \
-    -i genome.fa \
-    -m find \
-    -c Mammalia \
-    -o find_results
-
-# 搜索模式 - 使用自定义序列搜索
-biopytools find_telomere \
-    -i genome.fa \
-    -m search \
-    -s TTAGGG \
-    -o search_results
-
-# 绘图模式 - 可视化端粒分布
-biopytools find_telomere \
-    -m plot \
-    -t telomere_telomeric_repeat_windows.tsv \
-    -o plot_results
+biopytools find-telomere -g genome.fa -o results
 ```
 
-### 高级用法 | Advanced Usage
+默认走 pipeline 模式，自动完成端粒序列探索、定位和绘图，无需指定端粒序列。
 
-```bash
-# 探索模式 - 自定义参数
-biopytools find_telomere \
-    -i genome.fa \
-    -m explore \
-    --explore-min 6 \
-    --explore-max 15 \
-    --explore-threshold 150 \
-    --explore-distance 0.02 \
-    -o custom_explore
+## 零基础概念速览 | Concepts in plain words
 
-# 查找模式 - 调整窗口大小
-biopytools find_telomere \
-    -i genome.fa \
-    -m find \
-    -c Coleoptera \
-    --window 5000 \
-    -o coleoptera_telomeres
+| 术语 | 通俗理解 |
+|------|----------|
+| 端粒(telomere) | 染色体两端「戴的帽子」，由一小段序列反复重复组成，保护染色体不被磨损 |
+| 端粒重复序列 | 帽子上的「花纹」——如人/脊椎动物是 TTAGGG，植物多是 TTTAGGG，昆虫多是 TTAGG |
+| 分类群(clade) | 生物学上的「家族门类」，如 Mammalia（哺乳纲）、Coleoptera（鞘翅目） |
+| 窗口(window) | 把染色体切成一段段固定长度（默认 10000 bp）的小格，逐格数端粒重复次数 |
+| 反向互补 | DNA 两条链互为「镜像翻译」；TTAGGG 的反向互补是 CCCTAA，搜索时两者常一起考虑 |
+| SVG | 矢量图格式，放大不糊，适合看整条染色体的端粒分布 |
 
-# 搜索模式 - 输出为 bedgraph 格式
-biopytools find_telomere \
-    -i genome.fa \
-    -m search \
-    -s TTAGGG \
-    --format bedgraph \
-    -o bedgraph_results
+## 输入 | Input
 
-# 绘图模式 - 自定义图像尺寸
-biopytools find_telomere \
-    -m plot \
-    -t results/telomere_windows.tsv \
-    --plot-width 1500 \
-    --plot-height 300 \
-    --plot-fontsize 14 \
-    -o custom_plot
+一个基因组 FASTA 文件（.fa / .fasta / .fa.gz）：
+
+```text
+>Chr1
+TTAGGGTTAGGGTTAGGG...ACGT...CCCTAACCCTAA
+>Chr2
+TTAGGGTTAGGG...
 ```
 
-## 📋 参数说明 | Parameters
+plot 模式还需要一个由 find/search 生成的窗口 TSV 文件（通过 -t/--tsv 传入）。
 
-### 必需参数 | Required Parameters
+## 参数说明 | Parameters
 
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `-i, --genome` | 基因组序列文件路径 (FASTA 格式) | `-i genome.fa` |
+### 分析模式 | Analysis mode
 
-### 分析模式选择 | Analysis Mode Selection
+**通俗理解|In plain words:** -m 决定「这次只做哪一步」。默认 pipeline 一条龙；只想单独跑某一步时才切到对应模式。find 模式必须配 -c（分类群），search 模式必须配 -s（搜索序列），plot 模式必须配 -t（TSV 文件）。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-m, --mode` | `find` | 🎯 分析模式: explore(探索) / find(查找) / search(搜索) / plot(绘图) |
+### 输出参数 | Output parameters
 
-### 输出参数 | Output Parameters
+**通俗理解|In plain words:** -o 是结果放哪，-p 是输出文件名的前缀（默认 telomere，生成 telomere_xxx.tsv）。一般不用动。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-o, --output-dir` | `./telomere_output` | 📁 输出目录路径 |
-| `-p, --prefix` | `telomere` | 📝 输出文件前缀 |
+### 软件路径 | Software path
 
-### Explore 模式参数 | Explore Mode Parameters
+**通俗理解|In plain words:** --tidk-path 是 tidk 可执行文件的位置，默认指向 asm conda 环境。装好了就别动它。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--explore-min` | `5` | 🔬 最小重复序列长度 |
-| `--explore-max` | `12` | 🔬 最大重复序列长度 |
-| `--explore-threshold` | `100` | 🎯 重复序列出现阈值 |
-| `--explore-distance` | `0.01` | 📍 染色体末端搜索距离比例 (0-0.5) |
+### Explore 模式参数 | Explore mode parameters
 
-### Find 模式参数 | Find Mode Parameters
+**通俗理解|In plain words:** explore 是「在基因组里地毯式搜索，哪些短重复序列反复出现」。--explore-min/--explore-max 划定「找多长的重复单元」（默认 5-12 bp，端粒单元通常是 6 bp）；--explore-threshold 是「重复多少次才叫候选」；--explore-distance 是「离染色体末端多近才算端粒」。**全部用默认值即可，几乎不用动。**
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-c, --clade` | `必需` | 🧬 分类群名称 (如: Mammalia, Coleoptera, Poales) |
-| `-w, --window` | `10000` | 📏 计算端粒重复数量的窗口大小 |
+### Find 模式参数 | Find mode parameters
 
-### Search 模式参数 | Search Mode Parameters
+**通俗理解|In plain words:** find 是「按物种家族查现成的端粒序列」。-c 告诉程序你的物种属于哪个类群（如 Mammalia、Aves、Poales）；-w 是切窗口的大小。窗口越大越省事、越小越精细，默认 10000 bp 通用。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-s, --search-string` | `必需` | 🔍 搜索的 DNA 字符串 (如: TTAGGG) |
-| `--format` | `tsv` | 📊 输出格式: tsv / bedgraph |
+### Search 模式参数 | Search mode parameters
 
-### Plot 模式参数 | Plot Mode Parameters
+**通俗理解|In plain words:** search 是「拿你指定的那条序列去基因组里搜」。-s 填端粒单元（如 TTTAGGG）；--format 决定输出 tsv 还是 bedgraph（给别的工具用的格式）。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-t, --tsv` | `必需` | 📈 输入的 TSV 文件路径 |
-| `--plot-height` | `200` | 📐 子图高度 (像素) |
-| `--plot-width` | `1000` | 📐 图像总宽度 (像素) |
-| `--plot-fontsize` | `12` | 🔤 字体大小 |
-| `--plot-strokewidth` | `2` | ✏️ 线条宽度 |
+### Plot 模式参数 | Plot mode parameters
 
-### 软件配置 | Software Configuration
+**通俗理解|In plain words:** plot 是「把 find/search 的结果画成图」。-t 传窗口 TSV；--plot-height/--plot-width 控制图的大小，只在图太挤或太小时才调。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--tidk-path` | `/share/org/YZWL/yzwl_lixg/miniforge3/envs/tidk_v.0.2.65/bin/tidk` | 🛠️ tidk 软件安装路径 |
+### 日志与其他 | Logging & others
 
-### 日志选项 | Logging Options
+**通俗理解|In plain words:** -v 打开详细日志；--log-file 把日志写到指定文件；--print-clades 打印程序内置支持的所有分类群及对应端粒序列（查表用，不跑分析）。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-v, --verbose` | `False` | 📢 详细输出模式 |
-| `--log-file` | `None` | 📝 日志文件路径 |
+## 分析流程 | Pipeline
 
-### 其他选项 | Other Options
+**通俗理解|In plain words:** pipeline 模式像「先广撒网找出候选帽子花纹，再按优先级依次去验证哪个花纹真的出现在染色体两端，最后把最靠谱的结果画出来」。
 
-| 参数 | 描述 |
-|------|------|
-| `--print-clades` | 📋 打印所有支持的分类群列表 |
-
-## 📁 输入文件格式 | Input File Formats
-
-### 基因组序列文件 | Genome Sequence File
-
-标准 FASTA 格式的基因组序列文件：
-
-```fasta
->chromosome1
-ATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG
-ATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG
->chromosome2
-GCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTA
-GCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTA
+```text
+基因组 FASTA
+    │
+    ▼
+步骤1/3: explore 探索端粒重复序列 → {prefix}_explore.tsv
+    │
+    ▼
+步骤2/3: 智能搜索（按优先级依次尝试）
+    ├─ 1. TTTAGGG（典型植物端粒）
+    ├─ 2. 其他植物端粒（最多 5 个）
+    ├─ 3. 探索结果的第一条候选
+    └─ 首个「>=10 个端粒窗口」的序列即采纳
+    │
+    ▼
+步骤3/3: plot 绘制端粒分布图 → {prefix}.svg
 ```
 
-**文件要求**:
-- 标准 FASTA 格式
-- 可以是压缩或未压缩
-- 支持完整基因组或部分 scaffold/contig
+## 输出 | Output
 
-### TSV 文件 (用于 Plot 模式) | TSV File (for Plot Mode)
-
-由 find 或 search 模式生成的 TSV 文件：
-
-```tsv
-chromosome	position	start	end	telomeric_repeat_count
-chromosome1	0	10000	10000	45
-chromosome1	10000	20000	20000	2
-chromosome2	0	10000	10000	38
+```text
+results/
+├── telomere_explore.tsv                       # explore: 候选端粒重复序列
+├── telomere_telomeric_repeat_windows.tsv      # 每窗口端粒重复次数（核心结果）
+├── telomere_telomeric_repeat_counts.tsv       # 每条染色体的端粒重复总数
+└── telomere.svg                              # 端粒分布图
 ```
 
-## 📂 输出文件 | Output Files
+注：文件名前缀随 -p/--prefix 改变，上面是默认前缀 telomere 的结果。
 
-### Explore 模式输出 | Explore Mode Output
+## 结果解读 | Interpreting Results
 
-| 文件 | 描述 |
-|------|------|
-| `{prefix}_explore.tsv` | 端粒重复序列探索结果 |
+### 1. 端粒窗口文件（telomere_telomeric_repeat_windows.tsv）
 
-输出示例：
-```tsv
-repeat	reverse_complement	count
-TTAGGG	AACCCC	1523
-TTAGG	CCTAA	845
-```
+**通俗理解|In plain words:** 这是核心结果——把每条染色体切成窗口，数每个窗口里「帽子花纹」出现了多少次。看染色体两端是否都有高计数的窗口。
 
-### Find 模式输出 | Find Mode Output
+- 第一列通常是染色体/序列名，后面是该窗口内端粒重复的出现次数；
+- **好的组装**：每条染色体的两端各有一小段高计数区，中间几乎为 0；
+- **端粒缺失**：某条染色体一端没有高计数区，说明这一端可能没组装完整。
 
-| 文件 | 描述 |
-|------|------|
-| `{prefix}_telomeric_repeat_windows.tsv` | 端粒重复序列窗口统计 |
-| `{prefix}_telomeric_repeat_counts.tsv` | 端粒重复序列总数统计 |
+### 2. 端粒分布图（telomere.svg）
 
-### Search 模式输出 | Search Mode Output
+**通俗理解|In plain words:** 把上面的数字画成图，横轴是染色体位置，纵轴是端粒重复次数。理想的图是「每条染色体两端各有一个尖峰」。
 
-| 文件 | 描述 |
-|------|------|
-| `{prefix}_search_windows.tsv` | 搜索序列窗口统计 |
-| `{prefix}_search_counts.tsv` | 搜索序列总数统计 |
+### 3. 候选端粒序列（telomere_explore.tsv）
 
-如果选择 bedgraph 格式：
-```bedgraph
-chromosome1	0	10000	45
-chromosome1	10000	20000	2
-```
+**通俗理解|In plain words:** 探索步骤找到的「疑似帽子花纹」清单，告诉你这个物种的端粒重复序列大概长什么样。
 
-### Plot 模式输出 | Plot Mode Output
+## 参数选择建议 | Parameter Guidance
 
-| 文件 | 描述 |
-|------|------|
-| `{prefix}_plot.svg` | SVG 矢量格式的端粒分布图 |
-
-## 🌐 支持的分类群 | Supported Clades
-
-### 脊椎动物 | Vertebrates
-
-| 分类群 | 端粒重复序列 | 描述 |
-|--------|------------|------|
-| `Mammalia` | TTAGGG | 哺乳动物 |
-| `Carnivora` | TTAGGG | 食肉目 |
-| `Rodentia` | TTAGGG | 啮齿目 |
-| `Chiroptera` | TTAGGG | 翼手目 (蝙蝠) |
-| `Aves` | TTAGGG | 鸟类 |
-| `Accipitriformes` | TTAGGG | 鹰形目 |
-| `Anura` | TTAGGG | 无尾目 (青蛙) |
-| `Caprimulgiformes` | TTAGGG | 夜鹰目 |
-| `Actinopterygii` | TTAGGG | 辐鳍鱼纲 |
-| `Perciformes` | TTAGGG | 鲈形目 |
-| `Salmoniformes` | TTAGGG | 鲑形目 |
-| `Cypriniformes` | TTAGGG | 鲤形目 |
-| `Labriformes` | TTAGGG | 隆头鱼目 |
-| `Syngnathiformes` | TTAGGG | 海龙鱼目 |
-| `Carangiformes` | TTAGGG | 鲹形目 |
-| `Pleuronectiformes` | TTAGGG | 鲽形目 |
-| `Carcharhiniformes` | TTAGGG | 真鲨目 |
-
-### 昆虫 | Insects
-
-| 分类群 | 端粒重复序列 | 描述 |
-|--------|------------|------|
-| `Coleoptera` | TTAGG | 鞘翅目 |
-| `Hymenoptera` | TTAGG | 膜翅目 (蚂蚁、蜜蜂) |
-| `Lepidoptera` | TTAGG | 鳞翅目 (蝴蝶、蛾) |
-| `Diptera` | TTAGG | 双翅目 (苍蝇、蚊子) |
-| `Hemiptera` | TTAGG | 半翅目 |
-| `Orthoptera` | TTAGG, TTAGGG | 直翅目 |
-| `Odonata` | TTAGG | 蜻蜓目 |
-| `Plecoptera` | TTAGG | 襀翅目 |
-| `Trichoptera` | TTAGG | 毛翅目 |
-| `Symphypleona` | TTAGG | 圆跳虫科 |
-
-### 植物 | Plants
-
-| 分类群 | 端粒重复序列 | 描述 |
-|--------|------------|------|
-| `Arabidopsis` | TTTAGGG | 拟南芥属 |
-| `Poales` | TTTAGGG | 禾本目 (包括禾本科) |
-| `Rosales` | TTTAGGG | 蔷薇目 |
-| `Fabales` | TTTAGGG | 豆目 |
-| `Malpighiales` | TTTAGGG | 金虎尾目 |
-| `Myrtales` | TTTAGGG | 桃金娘目 |
-| `Sapindales` | TTTAGGG | 无患子目 |
-| `Caryophyllales` | TTTAGGG | 石竹目 |
-| `Asterales` | TTTAGGG | 菊目 |
-| `Lamiales` | TTTAGGG | 唇形目 |
-| `Solanales` | TTTAGGG | 茄目 |
-| `Apiales` | TTTAGGG | 伞形目 |
-| `Fagales` | TTTAGGG | 壳斗目 |
-| `Buxales` | TTTAGGG | 黄杨目 |
-| `Hypnales` | TTTAGGG | 灰藓目 |
-| `Chlamydomonadales` | TTTAGGG | 衣藻目 |
-
-### 其他生物 | Other Organisms
-
-| 分类群 | 端粒重复序列 | 描述 |
-|--------|------------|------|
-| `Nematoda` | TTAGGC | 线虫门 |
-| `Arachnida` | TTAGGG | 蛛形纲 |
-| `Crustacea` | TTAGGG | 甲壳类 |
-| `Fungi` | TTAGGG | 真菌 |
-
-**查看所有支持的分类群**:
-```bash
-biopytools find_telomere --print-clades
-```
-
-## 🔬 分析模式详解 | Analysis Mode Details
-
-### 1. Explore 模式 | 探索模式
-
-**功能** | Purpose: 自动识别基因组中的端粒重复序列单元
-
-**适用场景** | Use cases:
-- 未知端粒重复序列的物种
-- 想要验证端粒重复序列
-- 新物种基因组分析
-
-**工作原理** | How it works:
-1. 在染色体末端 (默认 1% 区域) 搜索重复序列
-2. 测试不同长度的 kmer (默认 5-12 bp)
-3. 统计连续出现的重复序列
-4. 输出最可能的端粒重复序列及其反向互补序列
-
-**示例输出** | Example output:
-```
-repeat	reverse_complement	count
-TTAGGG	AACCCC	1523
-```
-表示端粒重复序列为 TTAGGG，反向互补为 AACCCC，出现 1523 次。
-
-### 2. Find 模式 | 查找模式
-
-**功能** | Purpose: 基于分类群的已知端粒重复序列查找端粒位置
-
-**适用场景** | Use cases:
-- 已知物种的分类归属
-- 快速定位端粒位置
-- 染色体级别基因组组装质量评估
-
-**工作原理** | How it works:
-1. 根据分类群选择对应的端粒重复序列
-2. 在基因组中以滑动窗口方式搜索
-3. 统计每个窗口内的重复序列数量
-4. 生成端粒分布的统计表
-
-**输出文件说明** | Output files:
-- `*_telomeric_repeat_windows.tsv`: 每个窗口的详细统计
-- `*_telomeric_repeat_counts.tsv`: 每条染色体的总统计
-
-### 3. Search 模式 | 搜索模式
-
-**功能** | Purpose: 使用自定义序列搜索端粒
-
-**适用场景** | Use cases:
-- 已知端粒重复序列
-- 分类群不在数据库中
-- 研究非典型端粒序列
-
-**工作原理** | How it works:
-1. 使用用户提供的序列搜索基因组
-2. 统计窗口内的匹配数量
-3. 支持 TSV 和 bedgraph 输出格式
-
-**与 Find 模式的区别** | Difference from Find mode:
-- Find: 使用内置数据库的分类群-序列映射
-- Search: 使用用户自定义的搜索序列
-
-### 4. Plot 模式 | 绘图模式
-
-**功能** | Purpose: 将端粒分布结果可视化
-
-**适用场景** | Use cases:
-- 直观展示端粒分布
-- 识别染色体末端
-- 评估基因组组装质量
-- 生成发表级别的图表
-
-**工作原理** | How it works:
-1. 读取 find 或 search 生成的 TSV 文件
-2. 为每条染色体绘制子图
-3. X 轴为染色体位置，Y 轴为端粒重复序列数量
-4. 输出高分辨率 SVG 矢量图
-
-**图像特点** | Image features:
-- 矢量格式，可无损缩放
-- 每条染色体独立子图
-- 端粒区域显示明显的峰值
-- 适合论文发表
-
-## 📊 应用场景 | Applications
-
-### 1. 基因组组装质量评估 | Genome Assembly Quality Assessment
-
-端粒是染色体末端的保护结构，完整的基因组组装应该在染色体末端检测到端粒重复序列的富集。
-
-```bash
-# 查找端粒并绘图
-biopytools find_telomere \
-    -i genome.fa \
-    -m find \
-    -c Mammalia \
-    -o assembly_quality_check
-
-biopytools find_telomere \
-    -m plot \
-    -t assembly_quality_check/telomere_telomeric_repeat_windows.tsv \
-    -o assembly_quality_check
-```
-
-**质量评估标准**:
-- ✅ 优质组装: 每条染色体两端都有明显的端粒峰
-- ⚠️ 中等组装: 大部分染色体有端粒峰
-- ❌ 低质组装: 端粒峰缺失或不明显
-
-### 2. 新物种端粒序列鉴定 | Telomere Sequence Identification in New Species
-
-对于新测序的物种，可能不知道其端粒重复序列类型，可以使用 explore 模式自动识别。
-
-```bash
-biopytools find_telomere \
-    -i new_species_genome.fa \
-    -m explore \
-    --explore-min 5 \
-    --explore-max 12 \
-    -o telomere_identification
-```
-
-### 3. 比较基因组学 | Comparative Genomics
-
-比较不同物种或品种的端粒特征：
-
-```bash
-# 物种 A
-biopytools find_telomere -i species_a.fa -m find -c Mammalia -o species_a
-biopytools find_telomere -m plot -t species_a/telomere_windows.tsv -o species_a_plot
-
-# 物种 B
-biopytools find_telomere -i species_b.fa -m find -c Mammalia -o species_b
-biopytools find_telomere -m plot -t species_b/telomere_windows.tsv -o species_b_plot
-```
-
-### 4. 染色体进化研究 | Chromosome Evolution Studies
-
-通过分析端粒分布模式，研究染色体进化事件：
-
-```bash
-biopytools find_telomere \
-    -i genome.fa \
-    -m find \
-    -c Coleoptera \
-    --window 5000 \
-    -o chromosome_evolution
-```
-
-### 5. 端粒长度变异分析 | Telomere Length Variation Analysis
-
-对于不同组织、发育阶段或处理条件的样本：
-
-```bash
-# 对照组
-biopytools find_telomere -i control_genome.fa -m find -c Mammalia -o control
-# 处理组
-biopytools find_telomere -i treated_genome.fa -m find -c Mammalia -o treated
-```
-
-## ⚠️ 注意事项 | Notes
-
-### 1. 输入文件要求 | Input File Requirements
-
-- **格式**: 必须是标准 FASTA 格式
-- **质量**: 建议使用染色体级别的基因组组装
-- **完整性**: Contig/N scaffolding 可能影响端粒检测
-
-### 2. 参数选择建议 | Parameter Selection Recommendations
-
-#### Explore 模式
-- `--explore-distance`: 染色体级别用 0.01，scaffold 级别可适当增大
-- `--explore-threshold`: 基因组大时增大阈值 (避免假阳性)
-
-#### Find/Search 模式
-- `--window`: 大基因组用大窗口 (10-50kb)，小基因组用小窗口 (1-5kb)
-- 分类群选择: 尽量选择最精确的分类群
-
-#### Plot 模式
-- `--plot-width`: 根据染色体数量调整，数量多则增大宽度
-- `--plot-height`: 一般 200-300 像素即可
-
-### 3. 结果解读 | Result Interpretation
-
-**正常端粒分布**:
-- 染色体两端有明显的峰
-- 峰值从末端向内部逐渐降低
-- 峰宽通常在 100-500kb
-
-**异常端粒分布**:
-- 染色体中间出现峰 (可能是染色体融合)
-- 末端无峰 (组装不完整或端粒丢失)
-- 全基因组低水平分布 (假阳性或污染)
-
-### 4. 性能优化 | Performance Optimization
-
-- **内存需求**: 主要取决于基因组大小，一般 10-50 GB 足够
-- **运行时间**: 染色体级别基因组 10-30 分钟，scaffold 级别更长
-- **并行处理**: 目前不支持多线程，可通过分割基因组加速
-
-### 5. 常见问题 | Common Issues
-
-#### Q1: 探索模式没有找到端粒序列？
-**可能原因**:
-- 染色体末端序列质量差
-- `--explore-distance` 设置太小
-- 基因组是 scaffold/contig 水平，缺少完整末端
-
-**解决方案**:
-- 尝试增大 `--explore-distance` 到 0.5 (处理完整序列)
-- 使用 search 模式手动测试已知序列
-
-#### Q2: 找到多个可能的端粒序列？
-**可能原因**:
-- 存在多种端粒重复序列类型
-- 基因组中存在其他串联重复序列
-
-**解决方案**:
-- 选择计数最多的序列
-- 查看文献确认该物种的端粒类型
-- 检查是否为染色体末端富集
-
-#### Q3: 绘图时某些染色体没有端粒峰？
-**可能原因**:
-- 该染色体组装不完整
-- 该染色体实际上是 scaffold (缺少末端)
-- 端粒序列在该物种中退化
-
-**解决方案**:
-- 检查基因组组装报告
-- 查看原始序列确认是否有端粒序列
-- 考虑使用 explore 模式重新鉴定
-
-## 📚 参考文献 | References
-
-1. **tidk 原始文献** | Original tidk paper:
-   Brown MR, de La Rosa PG, Blaxter M. tidk: a toolkit to rapidly identify telomeric repeats from genomic datasets. Bioinformatics. 2025;btaf049. doi: 10.1093/bioinformatics/btaf049
-
-2. **端粒数据库** | Telomere repeat database:
-   https://github.com/tolkit/a-telomeric-repeat-database
-
-3. **软件主页** | Software homepage:
-   https://github.com/tolkit/telomeric-identifier
-
-4. **Bioconda 安装** | Bioconda installation:
-   https://bioconda.github.io/recipes/tidk/README.html
-
-## 📝 版本信息 | Version Information
-
-- **模块版本 | Module Version**: 1.0.0
-- **tidk 版本 | tidk Version**: 0.2.65
-- **最后更新 | Last Updated**: 2026-01-02
-
-## 🤝 技术支持 | Technical Support
-
-如有问题或建议，请联系：
-For questions or suggestions, please contact:
-
-- **GitHub Issues**: https://github.com/anthropics/biopytools/issues
-- **Email**: yzwl_lixg@org.YZWL.share
-
----
-
-**生成时间 | Generated**: 2026-01-02
-**文档版本 | Doc Version**: 1.0.0
+- **-m, --mode**：不确定就用默认 pipeline；已知物种端粒序列想省时间，用 find + 对应 -c；想精确控制用 search + -s
+- **-c, --clade**：动物多为 Mammalia/Aves（TTAGGG），植物多为 Poales/Rosales 等（TTTAGGG），昆虫多为 TTAGG；先用 --print-clades 查表
+- **-w, --window**：默认 10000 通用；端粒很短或想更精细看边界时可调小到 1000-5000
+- **--explore-*** 参数：默认值即可，几乎不用动
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -629,3 +191,25 @@ For questions or suggestions, please contact:
 | `--print-clades` | — | store_true | 打印支持的分类群列表｜Print supported clades list |
 
 <!-- END PARAMS:auto -->
+## 依赖 | Dependencies
+
+- tidk（默认路径 ~/miniforge3/envs/asm/bin/tidk，conda 环境 asm；程序会自动用 conda run -n asm --no-capture-output 包装调用）
+- 无其他外部依赖
+
+## 常见问题 | FAQ
+
+**Q1：pipeline 模式会自动尝试哪些端粒序列？**
+按优先级依次尝试：TTTAGGG（植物端粒）→ 其他植物端粒（最多 5 个）→ 探索结果的第一条候选。每试一个都搜一遍，首个能找到「>=10 个端粒窗口」的序列即被采纳并进入绘图。
+
+**Q2：为什么 find 模式报错要 --clade？**
+find 模式按分类群查内置数据库，必须用 -c 指定类群。先用 --print-clades 看支持哪些类群。
+
+**Q3：search/plot 模式需要什么配套参数？**
+search 必须配 -s（搜索序列）；plot 必须配 -t（一个由 find/search 生成的窗口 TSV 文件）。
+
+**Q4：支持断点续传吗？**
+不支持。每次运行都从头跑，重新执行即可覆盖旧输出。
+
+**Q5：tidk 报找不到怎么办？**
+检查 --tidk-path 是否指向正确的 tidk 可执行文件（默认在 asm conda 环境里）；路径不对时用 --tidk-path 指定。
+

@@ -1,217 +1,135 @@
-# HiFi+Hi-C 基因组组装模块
+# HiFi+Hi-C 基因组组装 | HiFi+Hi-C Genome Assembly (hifi-hic)
 
-**基因组组装与去冗余工具 | Genome Assembly and Deduplication Tool**
+一句话理解：**用 HiFi 数据（可加 Hi-C）组装基因组，再自动做去冗余**。输入一份 HiFi reads（可选 Hi-C、可选 NGS），输出主组装、两套单倍型，以及去冗余后的最终基因组。
 
 ## 功能概述 | Overview
 
-hifi_hic模块是一个基于HiFi长读长测序数据的基因组组装工具，集成了hifiasm组装和Purge_Dups去冗余功能。该模块支持Hi-C数据辅助的组装质量评估，并提供完整的基因组组装到去冗余的流程。
-
-## 主要特性 | Key Features
-
-- **HiFi组装**: 基于hifiasm的高质量基因组组装
-- **去冗余**: 集成Purge_Dups自动去除冗余序列
-- **灵活的文件检测**: 自动检测多种Purge_Dups输出格式
-- **断点续传**: 支持从任意步骤恢复执行
-- **详细日志**: 完整的执行日志和错误追踪
-- **双语支持**: 中英文双语注释和日志
+- 基于 hifiasm 组装，支持「仅 HiFi」或「HiFi + Hi-C」两种模式
+- 可选 NGS polish：用二代数据校正组装
+- 默认启用 Purge_Dups 去冗余，去掉因杂合/重复导致的冗余序列
+- 断点续传默认启用，按各步骤产物存在性自动跳过
+- 按倍性（n-hap）动态输出 primary / hap1 / hap2 等 FASTA
 
 ## 快速开始 | Quick Start
 
-### 基本用法 | Basic Usage
-
 ```bash
-# HiFi组装（默认启用去冗余）
-biopytools hifi-hic \
-    --hifi hifi_reads.fq.gz \
-    -p genome_sample \
-    -t 24 \
-    -o ./assembly_output
-
-# 禁用去冗余
-biopytools hifi-hic \
-    --hifi hifi_reads.fq.gz \
-    -p genome_sample \
-    -t 24 \
-    --no-purge-dups \
-    -o ./assembly_output
+biopytools hifi-hic -i hifi.fq -p sample1
 ```
 
-### 高级用法 | Advanced Usage
+最小输入：一份 HiFi reads（FASTQ/FASTA）；加 `-1`/`-2` 可附带 Hi-C，加 `--ngs` 可做 NGS polish。
 
-```bash
-# 自定义Purge_Dups参数
-biopytools hifi-hic \
-    --hifi hifi_reads.fq.gz \
-    -p genome_sample \
-    -t 24 \
-    --purge-level 2 \
-    --purge-dups-read-type hifi \
-    -o ./assembly_output
+## 零基础概念速览 | Concepts in plain words
 
-# 指定Purge_Dups路径
-biopytools hifi-hic \
-    --hifi hifi_reads.fq.gz \
-    -p genome_sample \
-    -t 24 \
-    --purge-dups-path ~/miniforge3/envs/purge_dups_v.1.2.6 \
-    -o ./assembly_output
+| 术语 | 通俗理解 |
+|------|----------|
+| HiFi reads | PacBio 高保真长读长 |
+| Hi-C | 一种能反映 DNA 在空间上「谁挨着谁」的测序，可辅助把 contig 挂到染色体级 |
+| 单倍型(haplotype) | 二倍体来自父/母的两套基因组，hifiasm 可分开输出 hap1/hap2 |
+| primary / alternate | 主组装（主要那套）与备选组装（另一套） |
+| 倍性(n-hap) | 一套基因组的染色体组数；二倍体=2 |
+| 去冗余(Purge_Dups) | 把因杂合或重复而被「多拼一份」的序列去掉，让结果更接近真实一套基因组 |
+| NGS polish | 用精确的二代短 reads 校正长读组装的碱基错误 |
+| 覆盖度(coverage) | 某条 contig 被 reads 覆盖的次数，用于区分「真序列」和「冗余/污染」 |
+
+## 输入 | Input
+
+### HiFi reads
+
+HiFi 测序数据，FASTQ/FASTA：
+
+```text
+@read1
+ACGTACGT...
++
+IIIIIIII...
 ```
+
+### 可选输入
+
+- Hi-C：`--hic-r1` / `--hic-r2`（两端成对）
+- NGS：`--ngs` 指定二代数据目录，`--ngs-pattern` 指定 R1 文件匹配模式（默认 `_1.clean.fq.gz`）
 
 ## 参数说明 | Parameters
 
-### 必需参数 | Required Parameters
+### 必需参数与基本参数 | Required & basic
 
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `--hifi` | HiFi reads文件 | `--hifi hifi_reads.fq.gz` |
-| `-o`, `--output` | 输出目录 | `-o ./output` |
+**通俗理解|In plain words:** `-i` 是 HiFi 数据，`-p` 是前缀。`-g` 基因组大小、`--n-hap` 倍性、`-t` 线程数（默认 88，偏大，按机器调整）。
 
-### 组装参数 | Assembly Parameters
+### 组装参数 | Assembly parameters
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-p`, `--prefix` | `genome` | 样本前缀 |
-| `-t`, `--threads` | `12` | 线程数 |
-| `--genome-size` | `auto` | 基因组大小（例如：100m, 1g） |
+**通俗理解|In plain words:** `--purge-level` 控制 hifiasm 内部对重复/冗余的清理力度（不指定时 hifiasm 自动选），`--hom-cov` 指定纯合覆盖度（不指定时自动）。**这两个一般不用动**，只有对高杂合/特殊倍性物种才需要手调。
 
-### Purge_Dups参数 | Purge_Dups Parameters
+### 去冗余参数 | Purge_Dups
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--enable-purge-dups` | `True` | 启用去冗余（默认启用） |
-| `--purge-level` | `None` | 去冗余级别 (0=不去, 1=轻度, 2/3=深度) |
-| `--purge-dups-path` | `~/miniforge3/envs/purge_dups_v.1.2.6` | Purge_Dups软件路径 |
-| `--purge-dups-threads` | `同threads` | 去冗余线程数 |
-| `--purge-dups-read-type` | `hifi` | reads类型 (pacbio/hifi/illumina) |
-| `--hom-cov` | `auto` | 纯合覆盖度 |
+**通俗理解|In plain words:** 默认会自动做 Purge_Dups 去冗余。`--high-cov`/`--medium-cov-min` 决定「多少覆盖算真、多少算冗余」，**一般不用动**；如果只想直接要 hifiasm 原始结果、不做去冗余，用 `--no-purge-dups` 关掉。
 
-### 控制参数 | Control Parameters
+### NGS polish 与执行控制 | NGS polish & execution
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--no-purge-dups` | `False` | 禁用去冗余 |
-| `--force` | `False` | 强制重新运行 |
+**通俗理解|In plain words:** `--ngs` 开启 NGS 纠错；`--no-resume` 关闭断点续传（强制全部重跑）。
 
-## 输出文件 | Output Files
+## 分析流程 | Pipeline
 
-### 目录结构 | Directory Structure
-
+```text
+HiFi reads (+ Hi-C 可选)
+    │
+    ▼
+步骤1: hifiasm 组装(01_raw_output, GFA)
+    │
+    ▼
+步骤2: GFA → FASTA 转换(02_fasta, primary/hap1/hap2/alternate)
+    │
+    ▼
+步骤3: 生成 contig-reads 映射(02_fasta/*.contig_reads.tsv)
+    │
+    ▼
+步骤4: NGS polish(可选, 03_ngs_polish)
+    │
+    ▼
+步骤5: Purge_Dups 去冗余(默认, 04_purge_dups → *_purged.purge.fa)
 ```
+
+## 输出 | Output
+
+```text
 assembly_output/
-├── 01_raw_output/          # 原始输出
-├── 02_fasta/               # 组装结果
-│   ├── {prefix}.fa         # 主基因组
-│   └── {prefix}.hap.fa     # 单倍型基因组
-└── 04_purge_dups/          # 去冗余结果
-    └── seqs/               # 去冗余序列
-        └── {prefix}_purged.purge.fa
+└── {prefix}/
+    ├── 00_pipeline_info/
+    │   └── software_versions.yml        # 软件版本记录
+    ├── 01_raw_output/                   # hifiasm 原始 GFA
+    │   ├── {prefix}.hic.p_ctg.gfa       # (Hi-C 模式) primary contigs
+    │   ├── {prefix}.hic.hap1.p_ctg.gfa  # 单倍型1
+    │   ├── {prefix}.hic.hap2.p_ctg.gfa  # 单倍型2
+    │   └── {prefix}.hic.a_ctg.gfa       # alternate
+    ├── 02_fasta/                        # 转换后的 FASTA
+    │   ├── {prefix}.primary.fa          # 主组装(最常用)
+    │   ├── {prefix}.hap1.fa / {prefix}.hap2.fa / {prefix}.alternate.fa
+    │   └── {prefix}.p_ctg.contig_reads.tsv  # contig→reads 映射
+    ├── 03_ngs_polish/                   # (仅给 --ngs 时)
+    │   └── {prefix}.polished.fa         # NGS 校正后的基因组
+    ├── 04_purge_dups/                   # 去冗余(默认)
+    │   └── sequences/{prefix}_purged.purge.fa  # 去冗余最终结果
+    └── 99_logs/
+        └── hifiasm_assembly.log         # 组装日志
 ```
 
-### 主要输出文件 | Main Output Files
+> 注：仅 HiFi 模式（不给 Hi-C）时，GFA/FASTA 文件名为 `{prefix}.p_ctg.gfa`、`{prefix}.hap1.p_ctg.gfa` 等（无 `.hic.` 段）。hifiasm 使用 purge 时文件名可能带 `.bp.` 前缀，模块会自动识别两种命名。
 
-- **主基因组**: `{prefix}.fa` - 组装的主要基因组序列
-- **单倍型**: `{prefix}.hap.fa` - 分离的单倍型序列
-- **去冗余基因组**: `{prefix}_purged.purge.fa` - 去除冗余后的高质量基因组
+## 结果解读 | Interpreting Results
 
-## 工作流程 | Workflow
+**通俗理解|In plain words:** 先看 `04_purge_dups/sequences/{prefix}_purged.purge.fa`（去冗余后的最终基因组），再看 `02_fasta/{prefix}.primary.fa`（主组装）。
 
-### 1. HiFi组装 | HiFi Assembly
+- **去冗余后的 purged.fa**：最终推荐使用的基因组，冗余少、更接近真实一套
+- **primary.fa vs hap1/hap2.fa**：primary 是主组装；hap1/hap2 是拆分出的两套单倍型，供研究等位差异用
+- **序列数/长度**：去冗余后序列数应明显下降（冗余被合并/删除）；若几乎没变化，说明原始组装本身杂合/冗余低
+- `software_versions.yml` 记录 hifiasm/seqkit/samtools 的版本，写论文 Methods 时直接抄
 
-使用hifiasm进行基因组组装：
-- 输入：HiFi reads
-- 输出：组装结果（primary.fa和hap.fa）
-- 特点：高质量、连续性好
+## 参数选择建议 | Parameter Guidance
 
-### 2. Purge_Dups去冗余 | Purge_Dups Deduplication
-
-自动去除冗余和重复序列：
-- 输入：组装基因组
-- 输出：去冗余基因组
-- 支持的输出格式：
-  - `{prefix}_purged.purge.fa`
-  - `{prefix}_purged.hap.fa`
-
-**文件名自动检测**：
-- 代码会自动检测多种可能的文件名格式
-- 支持的输出目录：`sequences`或`seqs`
-- 确保兼容不同版本的Purge_Dups输出
-
-## 示例 | Examples
-
-### 示例1：标准组装流程
-
-```bash
-biopytools hifi-hic \
-    --hifi /data/hifi_reads.fq.gz \
-    -p EcA \
-    -t 24 \
-    -o ./EcA_assembly
-```
-
-**输出**：
-- `./EcA_assembly/02_fasta/EcA.fa`
-- `./EcA_assembly/04_purge_dups/seqs/EcA_purged.purge.fa`
-
-### 示例2：禁用去冗余
-
-```bash
-biopytools hifi-hic \
-    --hifi /data/hifi_reads.fq.gz \
-    -p EcA \
-    -t 24 \
-    --no-purge-dups \
-    -o ./EcA_assembly
-```
-
-**输出**：
-- `./EcA_assembly/02_fasta/EcA.fa`
-- `./EcA_assembly/02_fasta/EcA.hap.fa`
-
-## 注意事项 | Notes
-
-1. **内存要求**: hifiasm需要较大内存，建议至少100GB RAM
-2. **磁盘空间**: 确保有足够的磁盘空间存储中间文件
-3. **文件格式**: HiFi reads支持FASTQ和FASTQ.GZ格式
-4. **去冗余**: 默认启用去冗余，可使用`--no-purge-dups`禁用
-5. **断点续传**: 流程支持断点续传，可随时恢复执行
-
-## 故障排除 | Troubleshooting
-
-### 问题1：找不到去冗余输出文件
-
-**错误信息**：
-```
-去冗余输出文件未找到|Purged output file not found
-```
-
-**解决方案**：
-- 检查`04_purge_dups/seqs/`或`04_purge_dups/sequences/`目录
-- 代码会自动检测多种文件名格式
-- 如果问题仍然存在，请检查Purge_Dups是否成功运行
-
-### 问题2：hifiasm运行失败
-
-**可能原因**：
-- 内存不足
-- HiFi reads格式错误
-- hifiasm未正确安装
-
-**解决方案**：
-- 增加内存或减少线程数
-- 验证输入文件格式
-- 检查hifiasm安装：`which hifiasm`
-
-## 版本历史 | Version History
-
-- **v1.1.0** (2026-03-26)
-  - 修复Purge_Dups输出文件名和目录名检测
-  - 支持多种文件名格式自动检测
-  - 兼容sequences和seqs两种目录名
-
-- **v1.0.0** (2025-xx-xx)
-  - 初始版本
-  - 集成hifiasm和Purge_Dups
-  - 支持断点续传
+- `--n-hap`：二倍体=2（默认）；单倍体=1；多倍体按染色体组数
+- `--genome-size`：报预估大小（宁大勿小），单位 `g`/`m`
+- `--no-purge-dups`：想要 hifiasm 原始结果、或后续自己控制去冗余时关掉
+- `--threads`：默认 88 偏大，按机器核数调整；去冗余默认复用组装线程数（`--purge-dups-threads` 可单独指定）
+- `--high-cov`/`--medium-cov-min`：**一般不用动**，只有覆盖分布异常（如极高覆盖污染）时才调
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -268,3 +186,29 @@ biopytools hifi-hic \
 | `--no-resume` | — | store_true | 禁用断点续传（强制重新运行所有步骤）｜Disable resume mode (force rerun all steps) |
 
 <!-- END PARAMS:auto -->
+
+## 依赖 | Dependencies
+
+- hifiasm（conda 环境 `asm`，默认路径 `~/miniforge3/envs/asm/bin/hifiasm`）
+- seqkit（conda 环境 `misc`，用于 GFA→FASTA 序列格式化）
+- samtools（conda 环境 `align`）
+- Purge_Dups（默认目录 `~/miniforge3/envs/purge_dups_v.1.2.6`）
+- bwa（仅 NGS polish 时，conda 环境 `align`）
+
+## 常见问题 | FAQ
+
+**Q1：支持断点续传吗？**
+支持，默认启用。按 `primary.fa`、contig-reads 映射、NGS polish、去冗余各步骤产物是否存在来跳过；用 `--no-resume` 可强制全部重跑。换参数重跑前建议删除旧产物。
+
+**Q2：为什么文件名里有时带 `.bp.`？**
+hifiasm 使用 purge 时会在前缀后加 `.bp.`（如 `{prefix}.bp.hic.p_ctg.gfa`）。模块会自动识别并兼容两种命名，无需手动改。
+
+**Q3：去冗余后结果和 primary.fa 有什么不同？**
+Purge_Dups 会基于覆盖度把「多拼的一份」（杂合冗余）删掉，purged.fa 通常更短、序列更少、更接近真实单套基因组，推荐作为最终结果。
+
+**Q4：只想组装、不想去冗余怎么办？**
+加 `--no-purge-dups` 关闭去冗余，最终结果用 `02_fasta/{prefix}.primary.fa`。
+
+**Q5：NGS polish 需要什么命名？**
+`--ngs` 目录里的二代数据需按 `--ngs-pattern`（默认 `_1.clean.fq.gz`）匹配 R1，程序自动推导 R2。
+

@@ -1,352 +1,151 @@
-# 染色体重命名工具
+# 染色体重命名 | Chromosome Rename (minimap2)
 
-基于minimap2全基因组比对的染色体重命名工具
+一句话理解：**把新组装基因组里「group1、group2…」这种看不懂的序列名，通过和参考基因组做全基因组比对，自动换成标准的 Chr1、Chr2… 命名，并按参考染色体的顺序排好输出**。
 
-## 功能概述
+## 功能概述 | Overview
 
-染色体重命名工具通过minimap2全基因组比对，自动识别group命名方式的染色体与参考基因组标准Chr命名的对应关系，实现染色体名称的批量转换。适用于基因组挂载后的命名标准化，为后续比较基因组分析提供便利。
+- 基于 minimap2 全基因组比对（支持 asm5/asm10/asm20 三种预设）
+- 把待重命名基因组的每条序列（通常是 group/contig 命名）对应到参考基因组的标准染色体名
+- 长序列优先处理、每条参考染色体只被映射一次，避免重复占用
+- 输出映射表、汇总报告、以及重命名并排好序的 FASTA
+- 未映射上的序列自动命名为 Contig_01、Contig_02…（按长度降序）
 
-## 主要特性
-
-- **迭代映射策略**: 从高覆盖度阈值到低阈值自动迭代，优先使用高质量映射
-  - 第1轮 (>=90%): 最高质量序列优先映射
-  - 第2轮 (>=80%): 高质量序列
-  - 第3轮 (>=70%): 较高质量序列
-  - 第4轮 (>=60%): 中等质量序列
-  - 第5轮 (>=50%): 中低质量序列
-  - 第6轮 (>=40%): 低质量序列
-  - 第7轮 (>=30%): 更低质量序列
-  - 第8轮 (>=20%): 最低质量序列
-  - **已映射的序列不参与后续轮次**，确保高质量映射优先
-- 基于minimap2的全基因组比对（支持asm5/asm10/asm20模式）
-- 智能映射关系建立（处理一对一、一对多、多对一等复杂情况）
-- 详细的映射表和汇总报告输出（包含每轮映射统计）
-- 完整的日志记录和错误追踪
-- 自动检测并提示嵌合/错误组装和碎片化组装
-
-## 快速开始
-
-### 基本用法
+## 快速开始 | Quick Start
 
 ```bash
-# 使用默认参数进行染色体重命名
-biopytools chr_rename \
-    -r reference.fa \
-    -q query.fa \
-    -o output_dir
+biopytools chr-rename -r reference.fa -q genome.fa -o output
 ```
 
-### 高级用法
+最小输入：一个参考基因组 FASTA（标准染色体命名）+ 一个待重命名的基因组 FASTA（group 命名）。
 
-```bash
-# 自定义比对参数和过滤阈值
-biopytools chr_rename \
-    -r reference.fa \
-    -q query.fa \
-    -x asm10 \
-    -c 0.8 \
-    -i 0.95 \
-    -t 24 \
-    -o output_dir
-```
+## 零基础概念速览 | Concepts in plain words
 
-## 参数说明
+| 术语 | 通俗理解 |
+|------|----------|
+| 参考基因组(reference) | 已经命名规范、当作「标准答案」的基因组，工具拿它当参照物 |
+| 待重命名基因组(query) | 你新组装出来、序列名还是 group1/contig5 这种「临时编号」的基因组 |
+| group 命名 | 组装软件默认起的编号名（如 group1、unitig_2），人看不懂哪条对应哪条染色体 |
+| Chr 命名 | 约定俗成的标准名（如 Chr1、Chr2、ChrX），下游分析工具普遍认识 |
+| 比对(alignment) | 把两条序列「对在一起」，看它们有多少地方长得一样 |
+| PAF 文件 | minimap2 输出的比对结果表，一行记录一段比对，本工具据此判断对应关系 |
+| 覆盖度(coverage) | 一条 query 序列「被参考序列覆盖的比例」，覆盖得越多说明越像同一条 |
+| 一致性(identity) | 比对上的部分里「碱基完全一致」的比例，越高越可靠 |
+| 嵌合/错误组装 | 一条序列其实是两条染色体「拼错了」接在一起，会表现为同时比对上多个参考 |
 
-### 必需参数
+## 输入 | Input
 
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `-r, --ref` | 参考基因组FASTA文件路径 | `-r reference.fa` |
-| `-q, --query` | 待重命名的基因组FASTA文件路径 | `-q query.fa` |
+两个 FASTA 文件（.fa / .fasta）：
 
-### 可选参数
+- **参考基因组**：序列名应是标准染色体命名（Chr1、Chr2…），作为命名的参照；
+- **待重命名基因组**：序列名是 group/contig 等临时编号，将被换成参考染色体的名字。
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-o, --output-dir` | `./chr_rename_output` | 输出目录路径 |
-| `-a, --minimap2-path` | `minimap2` | minimap2软件路径 |
-| `-x, --preset` | `asm5` | minimap2预设模式 (asm5/asm10/asm20) |
-| `-t, --threads` | `12` | 线程数 |
-| `-i, --min-identity` | `0.9` | 最小序列一致性阈值 (0-1) |
+示例（参考基因组）：
 
-**注意**: 工具使用自动迭代映射策略，会从高覆盖度（90%）到低覆盖度（20%）自动尝试映射，无需手动指定覆盖度阈值。
-
-### 比对模式说明
-
-| 模式 | 适用场景 | 序列分歧度 |
-|------|----------|-----------|
-| `asm5` | 近缘物种/同一物种不同品系 | ~0.1% |
-| `asm10` | 同属物种 | ~1% |
-| `asm20` | 远缘物种 | ~5% |
-
-## 输入文件格式
-
-### 参考基因组文件
-
-标准FASTA格式，染色体名使用标准命名（如Chr1, Chr2等）：
-
-```fasta
+```text
 >Chr1
-ATCGATCGATCGATCGATCGATCGATCG...
+ACGTACGT...
 >Chr2
-GCTAGCTAGCTAGCTAGCTAGCTAGCTA...
+TTGCAACG...
 ```
 
-### 待重命名基因组文件
+示例（待重命名基因组）：
 
-标准FASTA格式，染色体名使用group命名（如group1, group2等）：
-
-```fasta
+```text
 >group1
-ATCGATCGATCGATCGATCGATCGATCG...
+ACGTACGT...
 >group2
-GCTAGCTAGCTAGCTAGCTAGCTAGCTA...
+TTGCAACG...
 ```
 
-## 输出结果
+## 参数说明 | Parameters
 
-### 输出目录结构
+### 必需参数 | Required
 
-```
-chr_rename_output/
-├── alignment.paf              # minimap2比对结果
-├── chromosome_mapping.tsv     # 染色体映射关系表
-├── rename_summary.txt         # 重命名汇总报告
-├── renamed_genome.fa          # 重命名后的基因组文件
-└── chr_rename.log             # 运行日志
-```
+**通俗理解|In plain words:** 这是「参照物」和「待改名对象」两个输入，缺一不可。工具会把 -q 里的每条序列拿去和 -r 比对，再照着 -r 的名字给 -q 改名。
 
-### 输出文件说明
+### 输出与软件路径 | Output & software path
 
-#### chromosome_mapping.tsv
+**通俗理解|In plain words:** -o 决定结果放哪，一般不用动；-a 是 minimap2 的路径，如果系统 PATH 里已经有 minimap2 就用默认值，装了但没进 PATH 才需要指定完整路径。
 
-染色体映射关系表，包含以下列：
+### 比对参数 | Alignment parameters
 
-- Query_Name: 原始染色体名（如group1）
-- Target_Name: 目标染色体名（如Chr1）
-- Query_Length: query序列长度
-- Target_Length: target序列长度
-- Coverage: 覆盖度（比对长度/query长度）
-- Identity: 序列一致性（匹配数/比对长度）
+**通俗理解|In plain words:** -x（preset）决定比对时按「两条序列差异多大」来设参数：asm5 适合差异小于 5% 的近缘基因组，asm10/asm20 适合差异更大的。 -t 是线程数，越大越快、越吃 CPU，一般不用动。
 
-示例：
+### 过滤参数 | Filtering parameters
 
-```
-Query_Name	Target_Name	Query_Length	Target_Length	Coverage	Identity
-group1	Chr1	50000000	50000000	95.20%	99.85%
-group2	Chr2	45000000	45000000	88.50%	99.80%
-```
+**通俗理解|In plain words:** -l（最小比对长度）决定「多长的比对才算数」——比对段太短（如几 kb）多半是局部相似或重复序列，不可靠，会被丢掉。-i（最小一致性）这个参数在配置里存在、也会写进汇总报告，但**当前映射判定实际不依赖它**（映射用的是固定的 20% 覆盖度阈值，见 FAQ），所以基本不用管它。
 
-#### rename_summary.txt
+## 分析流程 | Pipeline
 
-重命名汇总报告，包含：
+**通俗理解|In plain words:** 先全基因组比一遍，再按「谁长谁先挑、一个参考只配一条」的规则建立对应关系，最后照着对应关系改名并排序输出。
 
-1. 基本信息：输入文件、比对参数
-2. 统计信息：成功映射数量、一对多映射数量
-3. 一对多映射详情：展示碎片化组装情况
-4. 警告信息：嵌合组装、未映射序列等
-
-#### renamed_genome.fa
-
-重命名后的基因组FASTA文件，染色体名已转换为标准命名。
-
-## 使用示例
-
-### 示例1：基本重命名流程
-
-```bash
-# 对基因组挂载结果进行染色体重命名（使用自动迭代映射策略）
-biopytools chr_rename \
-    -r reference_genome.fa \
-    -q assembled_genome.fa \
-    -o renamed_output
+```text
+参考 FASTA + 待重命名 FASTA
+    │
+    ▼
+步骤1: minimap2 全基因组比对 → alignment.paf
+    │
+    ▼
+步骤2: 解析 PAF，计算每条 query 对每个参考序列的合并覆盖度
+    │
+    ▼
+步骤3: 建立映射（长序列优先）
+    ├─ 按 query 长度降序处理
+    ├─ 合并覆盖度 >= 20% 且总比对长度 >= 最小比对长度
+    ├─ 每个参考序列只被映射一次
+    └─ 选覆盖度最高的参考作为目标
+    │
+    ▼
+步骤4: 检测一对多映射（多个 group 映射到同一参考 → 疑似碎片化组装）
+    │
+    ▼
+步骤5: 写映射表 + 汇总报告
+    │
+    ▼
+步骤6: 重命名输出（按参考染色体顺序，未映射的命名为 Contig_01…）
 ```
 
-### 示例2：远缘物种比对
+## 输出 | Output
 
-```bash
-# 对远缘物种使用asm20模式
-biopytools chr_rename \
-    -r reference.fa \
-    -q query.fa \
-    -x asm20 \
-    -i 0.85 \
-    -o distant_rename
+```text
+output/
+├── alignment.paf            # minimap2 原始比对结果
+├── chromosome_mapping.tsv   # 映射表：原序列名 → 新染色体名 + 长度/覆盖度/一致性
+├── renamed_genome.fa        # 重命名并排好序的基因组（最终产物）
+├── rename_summary.txt       # 汇总报告（映射统计、一对多映射清单）
+└── chr_rename.log           # 运行日志
 ```
 
-### 示例3：指定minimap2路径
+## 结果解读 | Interpreting Results
 
-```bash
-# 使用自定义minimap2路径
-biopytools chr_rename \
-    -r reference.fa \
-    -q query.fa \
-    -a /usr/local/bin/minimap2 \
-    -o output
-```
+### 1. 映射表（chromosome_mapping.tsv）
 
-## 迭代映射策略详解
+**通俗理解|In plain words:** 这是一张「旧名 → 新名」对照表，每行告诉你原来的 group 现在叫什么、对应关系有多可靠。
 
-工具采用智能迭代映射策略，从高覆盖度阈值到低阈值自动尝试映射，确保优先使用高质量比对结果。
+- Original_Chromosome：原来的序列名（group 命名）
+- Renamed_Chromosome：新名字（参考染色体的标准名）
+- Coverage：覆盖度，越接近 100% 说明越确定是同一条
+- Identity：一致性，越高越可靠
 
-### 工作原理
+### 2. 重命名后的 FASTA（renamed_genome.fa）
 
-1. **第1轮（覆盖度 >= 90%）**: 只映射高质量序列
-2. **第2轮（覆盖度 >= 80%）**: 映射剩余未映射的高质量序列
-3. **第3轮（覆盖度 >= 70%）**: 映射剩余未映射的较高质量序列
-4. **第4轮（覆盖度 >= 60%）**: 映射剩余未映射的中等质量序列
-5. **第5轮（覆盖度 >= 50%）**: 映射剩余未映射的中低质量序列
-6. **第6轮（覆盖度 >= 40%）**: 映射剩余未映射的低质量序列
-7. **第7轮（覆盖度 >= 30%）**: 映射剩余未映射的更低质量序列
-8. **第8轮（覆盖度 >= 20%）**: 映射剩余未映射的最低质量序列
+**通俗理解|In plain words:** 这是最终要用的文件——序列已按参考染色体顺序排好，未映射的序列排在最后并命名成 Contig_01、Contig_02…。
 
-### 核心优势
+- 已映射序列：按参考基因组染色体顺序输出，名字换成参考染色体名；
+- 未映射序列：按长度降序命名 Contig_01、Contig_02…。
 
-- **质量优先**: 高覆盖度的序列优先映射，避免被低质量比对覆盖
-- **自动化**: 无需手动指定覆盖度阈值，工具自动寻找最佳阈值
-- **全面性**: 即使是低覆盖度序列（如部分contig）也能成功映射
-- **透明性**: 汇总报告中详细记录每轮的映射情况
+### 3. 汇总报告（rename_summary.txt）
 
-### 示例输出
+**通俗理解|In plain words:** 一份「体检小结」，重点看「成功映射了多少条」和「一对多映射」清单。
 
-```
-第4轮|Round 4: 阈值|Threshold >= 60%, 映射|Mapped 3 个序列|sequences
-  (group1 -> Chr1: 64.18%, group3 -> Chr7: 66.92%, group8 -> Chr8: 60.25%)
+- 成功映射数：占 query 总序列的比例越高越好；
+- **一对多映射**：多个 group 映射到同一条参考染色体，通常意味着**基因组组装碎片化**（一条真染色体被拼成了好几段），值得检查组装质量。
 
-第5轮|Round 5: 阈值|Threshold >= 50%, 映射|Mapped 3 个序列|sequences
-  (group4 -> Chr6: 55.59%, group5 -> Chr4: 58.33%, group7 -> Chr3: 57.41%)
+## 参数选择建议 | Parameter Guidance
 
-第6轮|Round 6: 阈值|Threshold >= 40%, 映射|Mapped 2 个序列|sequences
-  (group2 -> Chr5: 44.06%, group6 -> Chr2: 43.81%)
-```
-
-### 与固定阈值策略的对比
-
-| 策略 | 优点 | 缺点 |
-|------|------|------|
-| **迭代策略（默认）** | 自动优化、质量优先、全面覆盖 | 需要多轮迭代（速度略慢） |
-| 固定高阈值（如0.8） | 速度快、只保留高质量 | 可能遗漏低质量序列 |
-| 固定低阈值（如0.3） | 能映射所有序列 | 高质量序列可能被低质量比对覆盖 |
-
-## 映射关系处理
-
-### 一对多映射（多个group映射到同一Chr）
-
-**含义**：可能表示基因组碎片化组装，一个参考染色体被组装成了多个contig/scaffold
-
-**处理方式**：保留所有映射关系，全部映射到同一目标染色体
-
-**输出提示**：
-```
-INFO: 多个group映射到|Multiple groups mapped to Chr1:
-  group1, group2, group5
-```
-
-### 多对一映射（一个group映射到多个Chr）
-
-**含义**：可能表示嵌合组装或错误组装
-
-**处理方式**：选择最佳比对（覆盖度最高、比对长度最长）作为目标
-
-**输出警告**：
-```
-WARNING: group5 可能是嵌合/错误组装|may be chimeric/misassembled
-  最佳比对|Best alignment: Chr3 (覆盖度|coverage: 85%)
-  所有比对目标|All targets: Chr3, Chr7, Chr12
-```
-
-### 未映射序列
-
-**含义**：在参考基因组中找不到对应的序列
-
-**处理方式**：保留原始名称，不进行重命名
-
-**输出警告**：
-```
-WARNING: 未映射|Unmapped: group15，保留原名|keeping original name
-```
-
-## 系统要求
-
-### 依赖软件
-
-- **minimap2** (版本 2.24 或更新)
-  - 下载地址: https://github.com/lh3/minimap2
-  - 安装: `conda install -c bioconda minimap2` 或从源码编译
-- **Python** (版本 3.7+)
-- **Python包**:
-  - `click` - 命令行界面（已包含在biopytools中）
-
-### 安装依赖软件
-
-```bash
-# 使用conda安装minimap2
-conda install -c bioconda minimap2
-
-# 或从源码编译
-git clone https://github.com/lh3/minimap2.git
-cd minimap2 && make
-sudo cp minimap2 /usr/local/bin/
-```
-
-### 硬件建议
-
-- **CPU**: 多核处理器（推荐4核以上）
-- **RAM**: 最少4GB（大基因组推荐16GB以上）
-- **存储**: 预留基因组文件大小3倍的磁盘空间
-
-## 注意事项
-
-1. **参考基因组质量**：参考基因组应使用高质量、染色体级别的组装
-2. **命名规范**：参考基因组使用标准命名（如Chr1, Chr2），query使用group命名
-3. **比对模式选择**：根据物种间遗传距离选择合适的preset模式
-4. **覆盖度阈值**：默认0.5可根据实际情况调整，过低可能导致错误映射
-5. **一致性阈值**：默认0.9适用于近缘物种，远缘物种可适当降低
-
-## 故障排除
-
-### 常见问题
-
-**Q: "minimap2: command not found" 错误**
-
-```bash
-# 安装minimap2
-conda install -c bioconda minimap2
-
-# 或指定minimap2路径
-biopytools chr_rename ... --minimap2-path /path/to/minimap2
-```
-
-**Q: 大量序列未映射**
-
-```bash
-# 检查并降低覆盖度阈值
-biopytools chr_rename ... --min-coverage 0.3
-
-# 或降低一致性阈值
-biopytools chr_rename ... --min-identity 0.85
-
-# 或更改比对模式
-biopytools chr_rename ... --preset asm10
-```
-
-**Q: 出现大量一对多映射**
-
-- 这是正常现象，可能表示query基因组较为碎片化
-- 查看rename_summary.txt了解详细信息
-- 如果是高质量基因组组装，考虑检查覆盖度阈值是否过低
-
-**Q: 映射关系不正确**
-
-```bash
-# 提高过滤阈值
-biopytools chr_rename ... \
-    --min-coverage 0.8 \
-    --min-identity 0.98
-
-# 手动检查PAF文件
-cat chr_rename_output/alignment.paf | less
-```
+- **-x, --preset**：同物种/近缘物种用默认 asm5；跨物种或差异较大时用 asm10/asm20
+- **-l, --min-alignment-length**：默认 100000（100kb）通常合适；重复序列多的基因组可适当调大，碎片化严重的小 contig 多时可调小
+- **-t, --threads**：机器核数多就调大，默认 12 通常够用
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -381,44 +180,25 @@ cat chr_rename_output/alignment.paf | less
 | `-l, --min-alignment-length` | `100000` | int | 最小比对长度(bp)｜Minimum alignment length (bp) |
 
 <!-- END PARAMS:auto -->
+## 依赖 | Dependencies
 
-## 结果解读
+- minimap2（默认从 PATH 调用，或用 -a/--minimap2-path 指定完整路径）
+- 无 conda 环境要求、无其他外部依赖
 
-### 检查映射质量
+## 常见问题 | FAQ
 
-1. 查看chromosome_mapping.tsv中的Coverage和Identity列
-2. 高质量映射：Coverage > 80%, Identity > 95%
-3. 中等质量映射：Coverage 50-80%, Identity 90-95%
-4. 低质量映射：Coverage < 50% 或 Identity < 90%（需要人工检查）
+**Q1：-i, --min-identity 设置了为什么好像没起作用？**
+映射判定当前使用的是**固定 20% 覆盖度阈值**（合并覆盖度 >= 20% 且总比对长度 >= -l），并不依赖 -i 的一致性阈值。-i 目前只写进汇总报告，实际不参与筛选。
 
-### 验证重命名结果
+**Q2：为什么一条参考染色体被多个 group 对应上了？**
+这是「一对多映射」，通常说明你的组装是**碎片化的**——一条真染色体被拼成了多个 group。工具会保留最长的那个映射，并在汇总报告里列出所有相关 group 供你检查。
 
-```bash
-# 统计重命名前后的染色体数量
-grep "^>" query.fa | wc -l  # 原始数量
-grep "^>" chr_rename_output/renamed_genome.fa | wc -l  # 重命名后数量
+**Q3：没映射上的序列去哪了？**
+不会丢。它们会按长度降序命名成 Contig_01、Contig_02…，排在重命名 FASTA 的最后。
 
-# 检查是否所有序列都被重命名
-grep "^>" chr_rename_output/renamed_genome.fa | grep "group"
-# 如果有输出，说明这些序列未找到映射，保留了原名
-```
+**Q4：支持断点续传吗？**
+不支持。每次运行都会重新跑 minimap2 比对和全部后续步骤；想换参数重跑直接重新执行即可，旧输出会被覆盖。
 
-## 相关资源
+**Q5：改完名之后序列内容变了吗？**
+没变。工具只改序列名和排列顺序，序列本身原样保留。
 
-- [minimap2官方文档](https://github.com/lh3/minimap2)
-- [PAF格式规范](https://github.com/lh3/minimap2/blob/master/PAF.md)
-- [比较基因组学最佳实践](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5411875/)
-
-## 许可证
-
-本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件
-
-## 引用信息
-
-如果在学术研究中使用此工具，请引用minimap2相关文献：
-
-```
-Li, H. (2018).
-Minimap2: pairwise alignment for nucleotide sequences.
-Bioinformatics, 34(18), 3094-3100.
-```

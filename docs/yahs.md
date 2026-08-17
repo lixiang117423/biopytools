@@ -1,320 +1,143 @@
-# YaHS Hi-C Scaffolding 流程模块
+# YaHS Hi-C 染色体挂载 | YaHS Hi-C Scaffolding
 
-**专业的Hi-C scaffolding分析工具 | Professional Hi-C Scaffolding Analysis Tool**
+一句话理解：**用 Hi-C 测序数据（揭示 DNA 在细胞核里「谁挨着谁」）把 contig 挂载、排序、定向成染色体级 scaffolds**。
+输入一条 contig 级组装 FASTA 和 Hi-C 双端 reads（R1/R2），输出染色体级 scaffold 序列、AGP、Hi-C 热图和组装质量评估。
 
 ## 功能概述 | Overview
 
-YaHS模块是基于YaHS软件构建的Hi-C scaffolding分析流程，提供从基因组索引构建、Hi-C数据比对、scaffolding到质量评估的完整流程。支持断点续传、单步执行和灵活的参数配置，适用于各种基因组scaffolding分析研究。
-
-## 主要特性 | Key Features
-
-- **完整流程支持**: 索引→比对→挂载→热图→JBAT→评估六步自动化流程
-- **断点续传**: 自动检测已完成步骤，支持中断后继续执行
-- **单步执行**: 支持单独运行任意步骤或完整流程
-- **工具自动检测**: BWA、samtools等常用工具自动检测可用性
-- **灵活参数配置**: 支持YaHS所有核心参数和可选参数
-- **JBAT支持**: 生成Juicebox JBAT手动校正所需文件
-- **质量评估**: 自动计算N50、N90、L50、L90等统计指标
-- **详细日志**: 完整的运行日志和错误追踪
+- 完整六步流程：建索引 → Hi-C 比对 → YaHS 挂载 → 生成 .hic 热图 → 生成 JBAT 文件 → 质量评估
+- **支持断点续传**：已完成的步骤自动跳过，中途失败可安全重跑（`--force-rerun` 强制全重跑）
+- 支持单步运行（`-s/--step 1~6`），方便分步调试
+- 内置资源自动调整：线程数和内存可按机器自动适配
+- 内置比对/BAM 处理中间步骤（bwa mem → 排序 → fixmate → 去重 → 索引）
 
 ## 快速开始 | Quick Start
 
-### 基本用法 | Basic Usage
-
 ```bash
-# 运行完整流程
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz
-
-# 自定义酶切位点和线程数
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz \
-    -e GATC \
-    -t 24
-
-# 只运行YaHS挂载步骤
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz \
-    -s 3
+biopytools yahs -r genome.fa -1 hic_R1.fq.gz -2 hic_R2.fq.gz
 ```
+
+最小输入：一条组装 FASTA + Hi-C R1/R2 两个 fastq（.gz 也支持），输出目录默认 `./yahs_output`。
+
+## 零基础概念速览 | Concepts in plain words
+
+| 术语 | 通俗理解 |
+|------|----------|
+| Hi-C | 一种实验/测序方法，能测出 DNA 在细胞核里哪些片段「离得近」，从而推断序列排列 |
+| contig | 一段连续无缺口的序列，是组装的最小单元 |
+| scaffold | 多段 contig 用缺口(gap)连成的更大单元 |
+| 挂载(scaffolding) | 用 Hi-C 信号把 contig 排成染色体、定方向的过程 |
+| 限制性酶切位点 | Hi-C 实验里酶切断 DNA 的识别序列，常见如 GATC |
+| MAPQ | 比对质量分，越高越可信 |
+| .hic 文件 | Juicer 生态的热图文件，用 Juicebox 打开看 Hi-C 矩阵 |
+| JBAT | Juicebox 的自动/手动校正格式，用于人工纠错 |
+| AGP | 描述「哪段序列由哪些 contig 拼起来」的文本文件 |
+| N50 | 组装连续性的常用指标：从长到短累加，加到总长一半时那条序列的长度 |
+
+## 输入 | Input
+
+### 参考基因组 FASTA
+
+contig 级组装（待挂载对象）。内部会复制/硬链接到输出目录再建 BWA + samtools 索引。
+
+### Hi-C reads
+
+`-1` 和 `-2` 两个文件（Hi-C 双端 reads），支持 .fq/.fastq/.gz 压缩格式。
 
 ## 参数说明 | Parameters
 
-### 必需参数 | Required Parameters
+### 必需参数 | Required
 
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `-r, --ref` | 参考基因组FASTA文件 | `-r genome.fa` |
-| `-1, --hic-r1` | Hi-C R1测序文件 | `-1 hic_R1.fq.gz` |
-| `-2, --hic-r2` | Hi-C R2测序文件 | `-2 hic_R2.fq.gz` |
+**通俗理解|In plain words:** 三个都要给：组装 FASTA 和 Hi-C 两端 reads。缺一不可。
 
-### 输出配置 | Output Configuration
+### 资源参数 | Resources
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-o, --output-dir` | `./yahs_output` | 输出目录路径 |
+**通俗理解|In plain words:** `-t/--threads` 是线程数；`--java-ram` 给 Java（juicer_tools）内存，`--sam-ram` 给 samtools 排序内存。**注意：这两个内存参数留默认时会被自动调整**——Java 取机器总内存的 60%，samtools 排序取「总内存一半」和 300G 的较大值（即至少 300G）。机器内存不够时要主动调小，否则可能申请不到内存而失败（见 FAQ）。
 
-### 资源配置 | Resource Configuration
+### YaHS 核心参数 | YaHS core parameters
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-t, --threads` | `12` | 线程数 |
-| `--java-ram` | `32G` | Java内存 |
-| `--sam-ram` | `4G` | Samtools排序内存 |
+**通俗理解|In plain words:** `-e/--enzyme` 是 Hi-C 实验用的酶切识别序列，常见默认 `GATC`，**必须和实验实际用的酶一致**，否则热图和挂载都会错。`--min-len` 过滤掉过短的 contig（默认 10000bp），`--min-mapq` 过滤低质量比对（默认 30），`--no-contig-ec`/`--no-scaffold-ec` 分别跳过 contig/scaffold 错误校正，`--telo-motif` 指定端粒序列用于判定染色体末端。这些**一般用默认即可**，只有确认数据特殊时才动。
 
-### YaHS 核心参数 | YaHS Core Parameters
+### 工具路径 | Tool paths
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-e, --enzyme` | `GATC` | 限制性酶切位点序列 |
-| `--min-len` | `10000` | 最小contig长度 |
-| `--min-mapq` | `30` | 最小MAPQ值 |
-| `--no-contig-ec` | `False` | 跳过contig错误校正 |
-| `--no-scaffold-ec` | `False` | 跳过scaffold错误校正 |
-| `--resolutions` | `None` | 分辨率列表(逗号分隔) |
-| `--rounds` | `1` | 每分辨率运行轮数 |
-| `--telo-motif` | `None` | 端粒序列模体 |
+**通俗理解|In plain words:** 各软件的可执行文件路径，都有默认值（YaHS/juicer 在 hic 环境、bwa/samtools 在 align 环境、juicer_tools.jar 在 software 目录）。**除非你的安装位置不同，否则一般不用改**。
 
-### 工具路径 | Tool Paths
+### 执行控制 | Execution control
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `--yahs-bin` | `yahs` | YaHS可执行文件路径 |
-| `--juicer-bin` | `juicer` | juicer可执行文件路径 |
-| `--juicer-jar` | `None` | juicer_tools.jar文件路径 |
-| `--bwa-bin` | `bwa` | BWA可执行文件路径 |
-| `--samtools-bin` | `samtools` | samtools可执行文件路径 |
-| `--java-cmd` | `java` | Java可执行文件路径 |
+**通俗理解|In plain words:** `-s/--step` 只跑指定某一步（1 索引 / 2 比对 / 3 挂载 / 4 热图 / 5 JBAT / 6 评估）；`--force-rerun` 无视断点续传强制全重跑；`--keep-temp` 保留中间临时文件（默认清理，省磁盘）。
 
-### 执行控制 | Execution Control
+## 分析流程 | Pipeline
 
-| 参数 | 描述 |
-|------|------|
-| `-s, --step` | 运行指定步骤 (1-6) |
-| `--force-rerun` | 强制重新运行所有步骤 |
-| `--keep-temp` | 保留临时文件 |
-
-## 流程步骤 | Pipeline Steps
-
-| 步骤 | 名称 | 描述 |
-|------|------|------|
-| **1** | 构建基因组索引 | 为参考基因组构建BWA和SAMtools索引 |
-| **2** | Hi-C数据比对 | 使用BWA MEM进行比对，排序并标记重复 |
-| **3** | YaHS染色体挂载 | 使用YaHS进行Hi-C scaffolding |
-| **4** | 生成标准Hi-C热图 | �认.hic文件用于可视化 |
-| **5** | 生成JBAT文件 | 生成Juicebox JBAT手动校正文件 |
-| **6** | 组装质量评估 | 计算N50、N90等统计指标 |
-
-## 输出目录结构 | Output Directory Structure
-
+```text
+组装 FASTA + Hi-C R1/R2
+    │
+    ▼
+步骤1: 构建索引(bwa index + samtools faidx)         → 01_indexing/
+    │
+    ▼
+步骤2: Hi-C 比对(bwa mem -5SP → SAM转BAM → 按名排序
+       → fixmate → 按坐标排序 → markdup → 索引)      → 02_mapping/aligned_sorted_dedup.bam
+    │
+    ▼
+步骤3: YaHS 挂载                                    → 03_scaffolding/yahs_out_scaffolds_final.fa + .agp
+    │
+    ▼
+步骤4: 生成标准 .hic 热图(juicer pre + juicer_tools) → 04_hic_standard/yahs_out_final.hic
+    │
+    ▼
+步骤5: 生成 JBAT 文件(供 Juicebox 人工校正)          → 05_jbat/out_JBAT.hic + .assembly
+    │
+    ▼
+步骤6: 组装质量评估(N50/N90/L50/L90)                 → 06_assessment/assembly_metrics.txt
 ```
+
+## 输出 | Output
+
+```text
 yahs_output/
-├── 00_pipeline_info/          # 流程元数据
-│   └── software_versions.yml
-├── 01_indexing/               # 步骤1：索引
-│   └── genome.fa.*
-├── 02_mapping/                # 步骤2：比对
-│   ├── aligned_sorted_dedup.bam
-│   └── aligned_sorted_dedup.bam.bai
-├── 03_scaffolding/            # 步骤3：YaHS挂载
-│   ├── yahs_out_scaffolds_final.fa
-│   ├── yahs_out_scaffolds_final.agp
-│   └── yahs_out.bin
-├── 04_hic_standard/           # 步骤4：标准Hi-C热图
-│   └── yahs_out_final.hic
-├── 05_jbat/                   # 步骤5：JBAT文件
-│   ├── out_JBAT.hic
-│   ├── out_JBAT.assembly
+├── 00_pipeline_info/
+│   └── software_versions.yml          # 软件版本信息
+├── 01_indexing/                       # 基因组索引(bwa + samtools)
+│   ├── {ref}.bwt / .pac / .ann / .amb / .sa
+│   └── {ref}.fai
+├── 02_mapping/
+│   └── aligned_sorted_dedup.bam(+.bai)  # 去重后的比对
+├── 03_scaffolding/
+│   ├── yahs_out_scaffolds_final.fa      # 最终染色体级 scaffold(核心产物)
+│   ├── yahs_out_scaffolds_final.agp     # 挂载关系
+│   └── yahs_out.bin                     # YaHS 二进制中间文件
+├── 04_hic_standard/
+│   └── yahs_out_final.hic               # 标准 Hi-C 热图
+├── 05_jbat/
+│   ├── out_JBAT.hic                     # JBAT 热图
+│   ├── out_JBAT.assembly                # 供 Juicebox 校正
 │   └── out_JBAT.liftover.agp
-├── 06_assessment/             # 步骤6：质量评估
-│   └── assembly_metrics.txt
-└── 99_logs/                   # 日志文件
-    └── yahs_pipeline.log
+├── 06_assessment/
+│   └── assembly_metrics.txt             # N50/N90/L50/L90 统计
+└── 99_logs/
+    └── yahs_pipeline.log                # 运行日志
 ```
 
-## 使用示例 | Usage Examples
+- `03_scaffolding/yahs_out_scaffolds_final.fa`：最终挂载结果，下游分析的主输入
+- `03_scaffolding/yahs_out_scaffolds_final.agp`：每条 scaffold 由哪些 contig 拼成，复核挂载的依据
+- `04_hic_standard/yahs_out_final.hic`：用 Juicebox 打开查看 Hi-C 矩阵
+- `06_assessment/assembly_metrics.txt`：组装连续性指标，看挂载前后提升多少
 
-### 示例1：基本流程 | Example 1: Basic Pipeline
+## 结果解读 | Interpreting Results
 
-```bash
-# 使用默认参数运行完整流程
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz
-```
+- **scaffold 数应接近染色体数**：挂载后序列条数应明显减少，接近预期染色体条数（可能略多，含未定位 scaffold）
+- **N50 应显著提升**：挂载前是 contig N50，挂载后是 scaffold N50，通常提升数倍到数十倍
+- **.hic 热图呈「对角线方块」**：好的挂载在 Juicebox 里沿对角线是整齐的方块；出现大片「十字交叉」或噪点，说明存在错误挂载，可用 JBAT 文件人工校正
+- **AGP 里 gap 多而大**：说明某些染色体 contig 之间缺口多，组装连续性还有提升空间
+- **端粒（若指定 `--telo-motif`）出现在 scaffold 两端**：说明染色体挂载完整、方向正确
 
-### 示例2：自定义参数 | Example 2: Custom Parameters
+## 参数选择建议 | Parameter Guidance
 
-```bash
-# 使用自定义酶切位点、最小长度和线程数
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz \
-    -e GANTC \
-    --min-len 50000 \
-    -t 24
-```
-
-### 示例3：单步执行 | Example 3: Single Step Execution
-
-```bash
-# 只运行Hi-C比对步骤（需要已完成索引）
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz \
-    -s 2
-
-# 只运行YaHS挂载步骤（需要已完成比对）
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz \
-    -s 3
-```
-
-### 示例4：指定juicer_tools | Example 4: Specify juicer_tools
-
-```bash
-# 指定juicer_tools.jar路径以生成热图
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz \
-    --juicer-jar /path/to/juicer_tools.jar
-```
-
-### 示例5：高级YaHS参数 | Example 5: Advanced YaHS Parameters
-
-```bash
-# 使用高级YaHS参数
-biopytools yahs \
-    -r reference.fa \
-    -1 hic_R1.fq.gz \
-    -2 hic_R2.fq.gz \
-    --resolutions 10000,50000,100000,500000,1000000 \
-    --rounds 2 \
-    --no-contig-ec \
-    --telo-motif TTAGGG
-```
-
-## 系统要求 | System Requirements
-
-### 依赖软件 | Dependencies
-
-- **YaHS** (v1.2.2或更新)
-  - 下载地址: https://github.com/c-zhou/yahs
-- **BWA** (v0.7.17或更新)
-- **samtools** (v1.10或更新)
-- **juicer** (YaHS自带)
-- **juicer_tools.jar** (可选，用于生成热图)
-- **Java** (v8或更新，如果使用juicer_tools)
-
-### 安装依赖 | Installing Dependencies
-
-```bash
-# 使用conda安装YaHS
-conda create -n yahs_v.1.2.2 -c bioconda yahs
-
-# 安装BWA和samtools
-conda install -c bioconda bwa samtools
-
-# 或使用系统包管理器
-# Ubuntu/Debian
-sudo apt-get install bwa samtools
-
-# CentOS/RHEL
-sudo yum install bwa samtools
-```
-
-### 硬件建议 | Hardware Recommendations
-
-- **CPU**: 多核处理器（推荐8核以上）
-- **RAM**: 最少16GB（大基因组推荐64GB以上）
-- **存储**: 预留Hi-C数据大小5倍的磁盘空间
-- **运行时间**: 根据基因组大小和测序深度，通常2-12小时
-
-## 注意事项 | Important Notes
-
-1. **输入文件格式**:
-   - 参考基因组必须是FASTA格式
-   - Hi-C数据支持FASTQ/GZIP压缩格式
-   - 参考基因组需要预先建立索引（或由流程自动构建）
-
-2. **酶切位点选择**:
-   - DpnII: `GATC`
-   - MboI: `GATC`
-   - Arima 2-酶: `GATC,GANTC`
-   - Arima 4-酶: `GATC,GANTC,CTNAG,TTAA`
-
-3. **内存使用**:
-   - 大基因组（>1Gb）建议增加sam-ram参数
-   - Java内存建议根据系统总内存调整（50-60%）
-
-4. **断点续传**:
-   - 默认启用断点续传，已完成步骤会自动跳过
-   - 使用`--force-rerun`强制重新运行所有步骤
-
-5. **JBAT文件**:
-   - 需要指定`--juicer-jar`参数
-   - 生成的文件可用于Juicebox JBAT手动校正
-
-## 故障排除 | Troubleshooting
-
-### 常见问题 | Common Issues
-
-**Q: "BWA not found" 错误**
-```bash
-# 确保BWA在PATH中或使用--bwa-bin参数
-which bwa
-biopytools yahs ... --bwa-bin /path/to/bwa
-```
-
-**Q: 内存不足错误**
-```bash
-# 减少线程数或增加内存分配
-biopytools yahs ... -t 8 --sam-ram 2G
-```
-
-**Q: YaHS运行失败**
-```bash
-# 检查YaHS版本
-yahs --version
-
-# 使用完整路径
-biopytools yahs ... --yahs-bin /path/to/yahs
-```
-
-**Q: juicer_tools未找到**
-```bash
-# 指定完整路径
-biopytools yahs ... --juicer-jar /share/org/YZWL/yzwl_lixg/software/juicer/scripts/common/juicer_tools.jar
-```
-
-## 相关资源 | Related Resources
-
-- [YaHS官方文档](https://github.com/c-zhou/yahs)
-- [YaHS论文](https://academic.oup.com/bioinformatics/article/39/1/btac808/6782626)
-- [Juicebox文档](https://github.com/aidenlab/Juicebox)
-- [Hi-C数据分析最佳实践](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6606163/)
-
-## 引用信息 | Citation
-
-如果在学术研究中使用此工具，请引用YaHS相关文献：
-
-```
-Zhou, C., McCarthy, S. A., & Durbin, R. (2023).
-YaHS: yet another Hi-C scaffolding tool.
-Bioinformatics, 39(1), btac808.
-```
+- **标准 Hi-C 默认酶**：`-e GATC`（DpnII/MboI 类）
+- **酶不是 GATC**：按实验记录改成实际识别序列（如 HindIII 用 `AAGCTT`）
+- **内存有限**：主动设 `--java-ram 32G --sam-ram 100G`，避免默认自动调整申请过大内存
+- **只补跑挂载**：`-s 3`
+- **换参数重跑**：加 `--force-rerun`，或删掉对应步骤的 checkpoint 文件
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -381,3 +204,30 @@ Bioinformatics, 39(1), btac808.
 | `--keep-temp` | — | store_true | 保留临时文件｜Keep temporary files |
 
 <!-- END PARAMS:auto -->
+
+## 依赖 | Dependencies
+
+- conda 环境 `hic`：YaHS（`~/miniforge3/envs/hic/bin/yahs`）、juicer（`~/miniforge3/envs/hic/bin/juicer`）
+- conda 环境 `align`：BWA（`~/miniforge3/envs/align/bin/bwa`）、samtools（`~/miniforge3/envs/align/bin/samtools`）
+- `juicer_tools.jar`（默认 `~/software/juicer/scripts/juicer_tools.jar`），用于生成 .hic 文件
+- Java（`--java-cmd`，默认 `java`）
+
+## 常见问题 | FAQ
+
+**Q1：有断点续传吗？**
+有。每个步骤以关键输出文件作为 checkpoint，存在即跳过；中途失败重跑会自动从断点继续。想强制全部重跑加 `--force-rerun`。
+
+**Q2：换参数重跑结果没变？**
+因为断点续传按 checkpoint 文件存在性判断，不会因参数变化自动重跑。换参数请加 `--force-rerun`，或先删除对应步骤的产物。
+
+**Q3：为什么内存参数「默认 300G」这么高？**
+CLI 帮助里的 `300G` 其实是个哨兵值。留默认时内部会**自动检测机器内存**：Java 取总内存 60%，samtools 排序取 max(总内存一半, 300G)。机器内存小时建议显式设小，如 `--java-ram 32G --sam-ram 100G`，否则可能申请不到内存而失败。
+
+**Q4：磁盘占用为什么很大？**
+步骤 2 的 BWA 先输出**文本 SAM**（巨大）再转 BAM，且排序会产生临时文件。请预留足够磁盘；`--keep-temp` 会保留中间文件，默认会清理。
+
+**Q5：热图/JBAT 步骤没生成 .hic 文件？**
+步骤 4/5 需要 `juicer_tools.jar` 和 Java。若 jar 缺失会跳过并提示；确认 `--juicer-jar` 路径正确、`java` 可用。
+
+**Q6：挂载结果和酶对不上有关系吗？**
+关系很大。`-e/--enzyme` 必须和 Hi-C 建库实际用的酶一致，否则 Hi-C 信号位置错乱，挂载和热图都会错。
