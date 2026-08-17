@@ -56,6 +56,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# 版本备份目录(整仓拷贝含嵌套.git/venv,严禁入库)|Version backup dirs (full repo copies with nested .git/venv, never commit)
+old_version_*/
+
 # Package managers
 # pipenv
 #Pipfile.lock
