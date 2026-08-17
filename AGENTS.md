@@ -540,6 +540,18 @@ result = subprocess.run(cmd, shell=False, ...)
 
 > `get_conda_env`/`build_conda_command`/`check_dependencies`/`CommandRunner` 完整实现、常见错误、测试、故障排查见 [docs/dev-standards/13_conda_invocation.md](docs/dev-standards/13_conda_invocation.md)
 
+### 13.5 软件→环境速查表|Software→Env Quick Reference
+
+> ⚠️ **超算上找现成软件时，先查速查表再选环境**：
+> [docs/conda_env_software_map.md](docs/conda_env_software_map.md)
+
+核心规则|Core rules:
+1. **优先**使用 14 个功能域环境（align/pop/asm/hic/annot/repeat/rna/protein/phylo/pan/viz/misc/r/busco）
+2. 域环境没有的软件 → 查速查表第二部分的保留独立环境（legacy 强依赖）
+3. **禁止**使用 scripts/delete_list.txt 中 154 个待退役环境，新模块也不得依赖它们
+4. 新模块引入新软件 → 优先并入现有域环境（配方在 envs/*.yml），禁止新建环境
+5. 调用方式：`conda run -n <env> <tool> --no-capture-output`（§13.2.1）
+
 ---
 
 ## 📚 详细参考文档
@@ -553,6 +565,7 @@ result = subprocess.run(cmd, shell=False, ...)
 | 改路径管理、迁移旧代码、查 paths.py 实现 | [docs/dev-standards/11_path_management.md](docs/dev-standards/11_path_management.md) |
 | 设计输出目录结构、写版本信息 yml | [docs/dev-standards/12_output_naming.md](docs/dev-standards/12_output_naming.md) |
 | 调用 conda 环境软件、排查 conda 命令 | [docs/dev-standards/13_conda_invocation.md](docs/dev-standards/13_conda_invocation.md) |
+| 查某软件装在哪个 conda 环境（超算找现成软件） | [docs/conda_env_software_map.md](docs/conda_env_software_map.md) |
 
 ---
 
@@ -560,6 +573,7 @@ result = subprocess.run(cmd, shell=False, ...)
 
 | 版本 | 日期 | 主要变更|Major Changes |
 |------|------|----------|
+| 2.19 | 2026-08-16 | 新增 §13.5「软件→环境速查表」引用（docs/conda_env_software_map.md）：超算找现成软件优先 14 域环境、禁用手工废弃环境 |
 | 2.18 | 2026-07-28 | 新增 §10.4「临时测试/调试输出位置」：探索性/ad-hoc 测试产物严禁写入仓库 cwd，统一放 `~/tmp/<描述性子目录>/`；与 §11.A 正式单测(tests/)、§12.4 流程临时文件(output_dir/tmp)明确区分 |
 | 2.17 | 2026-07-25 | **CLAUDE.md 瘦身拆分**：核心规则+检查清单保留(76KB→约23KB)，完整代码模板/paths.py实现/命名示例/conda故障排查下沉到 `docs/dev-standards/` 五个按需参考文档(01_module_template/02_logging_detail/11_path_management/12_output_naming/13_conda_invocation)，文末加「📚详细参考文档」触发式索引；规则零丢失，仅外移重内容 |
 | 2.16 | 2026-07-24 | §12.2.1 目录结构默认改为 **by-step**（多样本共享步骤目录 + 文件名前缀 `{sample}_xxx` 区分），by-sample 降为可选；§12.6.1 加注释标注既有 genomescope 结构为新模块前的示例 |

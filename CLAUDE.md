@@ -540,6 +540,18 @@ result = subprocess.run(cmd, shell=False, ...)
 
 > `get_conda_env`/`build_conda_command`/`check_dependencies`/`CommandRunner` 完整实现、常见错误、测试、故障排查见 [docs/dev-standards/13_conda_invocation.md](docs/dev-standards/13_conda_invocation.md)
 
+### 13.5 软件→环境速查表|Software→Env Quick Reference
+
+> ⚠️ **超算上找现成软件时，先查速查表再选环境**：
+> [docs/conda_env_software_map.md](docs/conda_env_software_map.md)
+
+核心规则|Core rules:
+1. **优先**使用 14 个功能域环境（align/pop/asm/hic/annot/repeat/rna/protein/phylo/pan/viz/misc/r/busco）
+2. 域环境没有的软件 → 查速查表第二部分的保留独立环境（legacy 强依赖）
+3. **禁止**使用 scripts/delete_list.txt 中 154 个待退役环境，新模块也不得依赖它们
+4. 新模块引入新软件 → 优先并入现有域环境（配方在 envs/*.yml），禁止新建环境
+5. 调用方式：`conda run -n <env> <tool> --no-capture-output`（§13.2.1）
+
 ---
 
 ## 📚 详细参考文档
