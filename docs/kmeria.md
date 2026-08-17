@@ -1,537 +1,173 @@
-# K-mer GWAS分析模块
+# K-mer GWAS 分析 | K-mer-based GWAS
 
-**K-mer based Genome-Wide Association Study Analysis Module**
+一句话理解：**不用传统 SNP、而是把基因组切成一个个固定长度的小片段(k-mer)来做关联分析，专门解决「没有参考基因组」和「多倍体」物种找不到性状关联位点的难题**。输入一堆重测序 FASTQ + 一个表型表，输出「哪些 k-mer 与性状显著相关」及它们落在基因组的什么位置。
 
-## 功能概述|Overview
+## 功能概述 | Overview
 
-K-mer GWAS分析模块是一个完整的基于k-mer的全基因组关联分析工具包，基于KMERIA软件构建，提供从k-mer计数到关联分析的完整流程。支持完整流程一键式运行和各步骤独立运行，适用于二倍体和多倍体物种的关联分析。
+- 完整 k-mer GWAS 流程：`count`(计数)→ `kctm`(建矩阵)→ `filter`(过滤)→ `m2b`(转 BIMBAM)→ `asso`(关联分析)，可一键 `pipeline` 跑完，也可分步跑
+- 基于 KMERIA 软件，对无参考基因组、多倍体物种友好
+- Post-GWAS：把显著 k-mer 用 bwa/blast 比对回参考基因组定位候选基因(需参考基因组)
+- 断点续传：产出存在即跳过(注意 `--force` 只在 pipeline/count 有，见 FAQ)
+- 自动生成质控报告和曼哈顿图/QQ图数据
 
-## 主要特性|Key Features
-
-- **完整分析流程**: k-mer计数 → 矩阵构建 → 过滤 → 格式转换 → 关联分析
-- **一键式运行**: 支持完整流程自动化运行，适合大规模样本分析
-- **断点续传**: 支持从任意步骤继续运行
-- **质控统计**: 自动生成各步骤QC报告
-- **可视化**: 自动生成曼哈顿图和QQ图
-- **k-mer注释**: 支持关联k-mer的基因组定位和功能注释
-- **灵活参数**: 支持自定义k-mer大小、丰度阈值、倍性等参数
-- **高效处理**: 优化的批处理和并行计算
-
-## 安装|Installation
-
-### 1. KMERIA软件安装
+## 快速开始 | Quick Start
 
 ```bash
-# KMERIA已安装在
-/share/org/YZWL/yzwl_lixg/software/kmeria
-
-# Conda环境
-/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmeriaenv
+biopytools kmeria pipeline -i fastq_dir --samples samples.txt -d depth.txt -p pheno.txt -o results
 ```
 
-### 2. 环境变量配置
+最小输入：FASTQ 目录 + 样本列表 + 测序深度文件 + 表型文件。
 
-```bash
-# 添加到 ~/.zshrc 或 ~/.bashrc
-export KMERIA_HOME=/share/org/YZWL/yzwl_lixg/software/kmeria
-export KMERIA_CONDA=/share/org/YZWL/yzwl_lixg/miniforge3/envs/kmeriaenv
-export LD_LIBRARY_PATH=${KMERIA_HOME}/lib:${KMERIA_CONDA}/lib:$LD_LIBRARY_PATH
-export PATH=${KMERIA_HOME}/bin:${KMERIA_HOME}/bimbamAsso:${KMERIA_HOME}/external_tools:$PATH
-```
+## 零基础概念速览 | Concepts in plain words
 
-## 快速开始|Quick Start
+| 术语 | 通俗理解 |
+|------|----------|
+| k-mer | 把 DNA 序列切成固定长度 k 的「小碎片」(如 k=31 就是 31 个碱基一段)，像把长句子切成固定字数的词组 |
+| k-mer GWAS | 不做 SNP 分型、直接拿「每个样本里有哪些 k-mer、有多少」做关联，适合无参考/多倍体 |
+| 丰度(abundance) | 一个 k-mer 在样本里出现多少次；太低=测序噪声，太高(>1000)=重复序列污染 |
+| 缺失率(missing ratio) | 一个 k-mer 在多少样本里「没出现」；太高=不稳定，过滤掉 |
+| 倍性(ploidy) | 基因组有几套染色体；二倍体=2、四倍体=4，影响丰度阈值判断 |
+| 测序深度(depth) | 每个位置平均被测到几遍，用于把丰度折算成「相对拷贝数」 |
+| BIMBAM | 关联分析软件的经典输入格式(基因型矩阵)，m2b 步骤就是把 k-mer 矩阵转成它 |
+| Post-GWAS | 把显著 k-mer「翻译」回基因组坐标并找附近基因 |
 
-### 准备数据 - 输入文件格式详解
+## 输入 | Input
 
-#### 1. FASTQ文件目录 (`--fastq-dir`)
+### 1. FASTQ 目录
 
-**目录结构示例**：
-```
-data/fastq/
-├── sample1_R1.fq.gz
-├── sample1_R2.fq.gz
-├── sample2_R1.fq.gz
-├── sample2_R2.fq.gz
-├── sample3_1.fq.gz
-├── sample3_2.fq.gz
-└── ...
-```
+双端测序命名自动配对：`{sample}_R1.fq.gz` + `{sample}_R2.fq.gz`，或 `{sample}_1/`_2`。支持 `.fq.gz`/`.fastq.gz`/`.fq`/`.fastq`。
 
-**文件命名规则**：
-- 支持双端测序命名：`sample_R1.fq.gz` + `sample_R2.fq.gz`
-- 或：`sample_1.fq.gz` + `sample_2.fq.gz`
-- 自动识别配对关系
-- 支持格式：`.fq.gz`, `.fastq.gz`, `.fq`, `.fastq`
+### 2. 样本列表(`--samples`)
 
----
+纯文本，每行一个样本名，无表头，忽略空行和 `#` 开头的行：
 
-#### 2. 样本列表文件 (`--samples`)
-
-**格式**: 纯文本，每行一个样本名
-
-**示例** (`samples.txt`):
 ```text
 sample1
 sample2
 sample3
-SRR28578485
-SRR28578484
-...
 ```
 
-**说明**：
-- 样本名必须与FASTQ文件的前缀一致
-- 例如：`sample1_R1.fq.gz` 的样本名为 `sample1`
-- 不要包含文件扩展名
-- 每行一个样本，无表头
-- 空行和以 `#` 开头的行会被忽略
+### 3. 测序深度文件(`-d/--depth-file`)
 
----
+Tab 分隔，无表头：`样本名  深度`(第 3 列可选，给「混合倍性」样本单独指定倍性)：
 
-#### 3. 测序深度文件 (`--depth-file`)
-
-**格式**: Tab分隔 (TSV)
-
-**示例** (`depth.txt`):
 ```text
-sample1	45.2
-sample2	52.8
-sample3	38.9
-SRR28578485	143.2531311
-SRR28578484	151.7451801
+sample1    45.2
+sample2    52.8
+sample3    38.9
 ```
 
-**说明**：
-- 第1列：样本名（与样本列表和FASTQ文件一致）
-- 第2列：测序深度（浮点数，单位：X）
-- 无表头行
-- Tab分隔 (`\t`)
-- 深度值通常从比对结果统计得到（如 `samtools depth`）
+### 4. 表型文件(`-p/--pheno-file`)
 
-**混合倍性物种格式**（可选）：
+空白或 Tab 分隔，无表头：`样本名  表型值  [协变量…]`。默认用第 2 列(第 1 列是样本名)作表型，用 `--pheno-col` 改(1-based)：
+
 ```text
-sample1	45.2	4
-sample2	52.8	8
-sample3	38.9	4
-```
-- 第3列：倍性（可选，如果不提供则使用 `--ploidy` 参数的值）
-
----
-
-#### 4. 表型文件 (`--pheno-file`)
-
-**格式**: Tab或空格分隔
-
-**示例 1 - 简单格式** (`pheno.txt`):
-```text
-sample1	1.5
-sample2	2.3
-sample3	1.8
-SRR28578485	0.015350
-SRR28578484	-0.152834
-SRR28578303	0.375435
+sample1    1.5
+sample2    2.3
+sample3    1.8
 ```
 
-**示例 2 - 带协变量的格式**:
-```text
-sample1	1.5	0	0.5	male
-sample2	2.3	1	-0.2	female
-sample3	1.8	0	0.8	male
-```
+## 参数说明 | Parameters
 
-**说明**：
-- 第1列：样本名（必须与样本列表一致）
-- 第2列：表型值（数值型，连续或分类变量）
-  - 连续型性状：如株高、产量等（小数）
-  - 分类性状：0/1 或其他编码
-- 第3列及以后：可选的协变量（如群体结构、性别等）
-- 默认使用第2列作为表型，可通过 `--pheno-col` 参数指定
-- 支持 Tab 或空格分隔
-- 无表头行（或有表头行时会被第一行数据覆盖）
+### pipeline - 一键流程 | Pipeline
 
-**表型值示例**：
-```text
-# 连续型性状（如产量）
-sample001	25.6
-sample002	30.2
-sample003	28.7
+**通俗理解|In plain words:** 一个命令跑完五步+可选 Post-GWAS。`-k` 是 k-mer 长度(默认 31 基本不动)；`--max-abund` 砍掉重复序列污染；`--missing-ratio` 过滤「在很多样本里缺席」的 k-mer；`--ploidy` 按物种倍性设。**注意：`biopytools kmeria` 入口的默认值是 missing-ratio 0.05、ploidy 2、threads 12(与 `python -m biopytools.kmeria` 直调的 0.8/4/24 不同)。**
 
-# 二分类性状（如抗病/感病）
-sample001	0
-sample001	1
-sample002	1
-
-# 标准化后的表型值（mean=0, sd=1）
-sample001	0.015350
-sample002	-0.152834
-sample003	0.375435
-```
-
----
-
-### 输入文件格式验证
-
-**样本名一致性检查**：
-```bash
-# 检查样本列表中的所有样本名是否在深度文件中
-awk 'NR==FNR{a[$1]=1; next} !($1 in a){print "Missing in depth:", $1}' samples.txt depth.txt
-
-# 检查深度文件中的所有样本名是否在表型文件中
-awk 'NR==FNR{a[$1]=1; next} !($1 in a){print "Missing in pheno:", $1}' depth.txt pheno.txt
-```
-
-**统计信息**：
-```bash
-# 统计样本数量
-wc -l samples.txt
-
-# 查看深度分布
-awk '{print $2}' depth.txt | sort -n | head -20
-awk '{print $2}' depth.txt | sort -n | tail -20
-
-# 查看表型值分布
-awk '{print $2}' pheno.txt | sort -n | head -20
-awk '{print $2}' pheno.txt | sort -n | tail -20
-```
-
-### 完整流程运行
-
-```bash
-# 基本用法
-biopytools kmeria pipeline \
-    -i /data/fastq \
-    --samples samples.txt \
-    -d depth.txt \
-    -p pheno.txt \
-    -o /data/kmeria_results \
-    -t 24
-
-# 自定义参数
-biopytools kmeria pipeline \
-    -i /data/fastq \
-    --samples samples.txt \
-    -d depth.txt \
-    -p pheno.txt \
-    -o results \
-    -k 31 \
-    --min-abund 5 \
-    --max-abund 1000 \
-    --missing-ratio 0.6 \
-    --ploidy 2 \
-    -t 32 \
-    --enable-qc \
-    --enable-visualization
-```
-
-### 分步运行
-
-```bash
-# Step 1: k-mer计数
-biopytools kmeria count \
-    -i /data/fastq \
-    --samples samples.txt \
-    -o 01_kmer_counts \
-    -k 31 \
-    -t 24
-
-# Step 2: 矩阵构建
-biopytools kmeria kctm \
-    -i 01_kmer_counts \
-    -o 02_kmer_matrices \
-    -t 24
-
-# Step 3: 过滤
-biopytools kmeria filter \
-    -i 02_kmer_matrices \
-    -o 03_filtered_matrices \
-    -d depth.txt \
-    -p 2 \
-    -t 24
-
-# Step 4: 转换为BIMBAM格式
-biopytools kmeria m2b \
-    -i 03_filtered_matrices \
-    -o 04_bimbam \
-    -t 24
-
-# Step 5: 关联分析
-biopytools kmeria asso \
-    -i 04_bimbam \
-    -p pheno.txt \
-    -o 05_association \
-    -t 64
-```
-
-## 参数说明|Parameters
-
-### pipeline - 完整流程
-
-#### 必需参数|Required Parameters
-
-| 参数 | 描述 | 示例 |
-|------|------|------|
-| `-i, --fastq-dir` | FASTQ文件目录| `-i /data/fastq` |
-| `--samples` | 样本列表文件| `--samples samples.txt` |
-| `-d, --depth-file` | 测序深度文件| `-d depth.txt` |
-| `-p, --pheno-file` | 表型文件| `-p pheno.txt` |
-
-#### k-mer参数|K-mer Parameters
-
-| 参数 | 默认值 | 描述 |
+| 参数 | 默认值 | 说明 |
 |------|--------|------|
-| `-k, --kmer-size` | 31 | K-mer大小 (2-31) |
-| `--min-abund` | 5 | 最小k-mer丰度 |
-| `--max-abund` | 1000 | 最大k-mer丰度 |
+| `-i, --fastq-dir` | 必填 | FASTQ 目录 |
+| `--samples` | 必填 | 样本列表文件 |
+| `-d, --depth-file` | 必填 | 测序深度文件 |
+| `-p, --pheno-file` | 必填 | 表型文件 |
+| `-k, --kmer-size` | `31` | k-mer 大小 |
+| `--max-abund` | `1000` | 最大丰度(去重复污染) |
+| `--missing-ratio` | `0.05` | 缺失率阈值 |
+| `--ploidy` | `2` | 倍性 |
+| `--step` | 全跑 | 从指定步骤开始(count/kctm/filter/m2b/asso) |
+| `-f, --force` | 关 | 强制重跑所有步骤 |
 
-#### 过滤参数|Filter Parameters
+### Post-GWAS 注释(可选) | Post-GWAS annotation
 
-| 参数 | 默认值 | 描述 |
+**通俗理解|In plain words:** 拿到显著 k-mer 后想「翻译成基因」，就给参考基因组。`--genome-file` + `--gff-file` 开启注释，`--alignment-tool` 选 bwa(快)或 blast(慢但更准)。**不给基因组文件就跳过这步，不影响关联分析本身。**
+
+| 参数 | 默认值 | 说明 |
 |------|--------|------|
-| `--missing-ratio` | 0.6 | 缺失率阈值 (0-1) |
-| `--ploidy` | 2 | 基因组倍性 |
+| `--genome-file` | 无 | 参考基因组(注释用) |
+| `--gff-file` | 无 | GFF 注释文件 |
+| `--alignment-tool` | `bwa` | bwa/blast |
+| `--window-size` | `200000` | 基因查找窗口(bp) |
 
-#### 性能参数|Performance Parameters
+### 分步子命令 | Step subcommands
 
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-t, --threads` | 24 | 线程数 |
-| `--batch-size` | 4 | 批处理大小 |
+**通俗理解|In plain words:** 五步可以拆开单独跑(每步的输入是上一步的输出)。各步参数与 pipeline 里同名参数一致，一般只在「只想重跑某一步」时用。
 
-#### 流程控制|Pipeline Control
+| 子命令 | 作用 | 输入 → 输出 |
+|--------|------|-------------|
+| `count` | k-mer 计数 | FASTQ → 01_kmer_counts |
+| `kctm` | 建 k-mer 矩阵 | 计数目录 → 02_kmer_matrices |
+| `filter` | 过滤(丰度/缺失/倍性) | 矩阵 → 03_filtered_matrices |
+| `m2b` | 转 BIMBAM 格式 | 过滤目录 → 04_bimbam |
+| `asso` | 关联分析 | BIMBAM + 表型 → 05_association |
 
-| 参数 | 描述 |
+## 分析流程 | Pipeline
+
+**通俗理解|In plain words:** 先把每个样本的 k-mer 数一遍 → 汇总成一张「样本 × k-mer」大表 → 按丰度/缺失率过滤掉噪声 → 转成关联软件认识的格式 → 逐 k-mer 算与性状的相关性 → (可选)把显著 k-mer 比对回基因组找基因。
+
+```text
+FASTQ 目录
+    │ count:  每个样本数 k-mer → {sample}_k31.bin
+    ▼
+kctm:  合并成 k-mer 矩阵 → kmer_matrix.*.bin
+    ▼
+filter: 按 max-abund / missing-ratio / ploidy 过滤
+    ▼
+m2b:  转成 BIMBAM 格式 → *.bimbam.gz
+    ▼
+asso:  逐 k-mer 关联分析 → *.ps(结果)
+    ▼
+(可选) Post-GWAS: 显著 k-mer 比对回基因组 → 定位候选基因
+```
+
+## 输出 | Output
+
+```text
+results/
+├── 01_kmer_counts/            # 每样本 {sample}_k31.bin
+├── 02_kmer_matrices/          # kmer_files.txt + kmer_matrix.*.bin
+├── 03_filtered_matrices/      # filtered_*.bin / .txt
+├── 04_bimbam/                 # *.bimbam.gz
+├── 05_association/            # *.ps(关联结果) + samples.txt
+├── 06_qc_reports/             # qc_report.json
+├── 07_post_gwas_bwa/          # Post-GWAS 结果(bwa 比对, 显著 k-mer 定位)
+│   └── (或 07_post_gwas_blast/)
+└── kmeria.log                 # 日志
+```
+
+## 结果解读 | Interpreting Results
+
+### 关联结果(`05_association/*.ps`)
+
+**通俗理解|In plain words:** 核心结果，一行一个 k-mer，含 P 值。P 越小越显著；画成曼哈顿图找「冒尖的塔」。显著 k-mer(如 P < 1e-5)就是候选的「性状相关片段」。
+
+### Post-GWAS 定位(`07_post_gwas_*/`)
+
+**通俗理解|In plain words:** 把显著 k-mer 比对回参考基因组，看它们落在哪些基因附近——这是「从 k-mer 到候选基因」的最后一步。结果里的基因组坐标+附近基因就是候选名单。
+
+### 质控报告(`06_qc_reports/qc_report.json`)
+
+**通俗理解|In plain words:** 各步骤的统计(每个样本多少 k-mer、过滤掉了多少)。过滤比例异常高说明数据质量或阈值有问题。
+
+## 参数选择建议 | Parameter Guidance
+
+| 场景 | 建议 |
 |------|------|
-| `--step` | 从指定步骤开始 (count/kctm/filter/m2b/asso) |
-
-#### 可选功能|Optional Features
-
-| 参数 | 描述 |
-|------|------|
-| `--enable-qc` | 启用质控统计 (默认启用) |
-| `--enable-visualization` | 启用可视化 (默认启用) |
-| `--enable-annotation` | 启用k-mer注释 |
-| `--genome-file` | 参考基因组 (注释用) |
-| `--gff-file` | GFF注释文件 (注释用) |
-
-### count - k-mer计数
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-i, --fastq-dir` | *必需* | FASTQ文件目录 |
-| `--samples` | *必需* | 样本列表文件 |
-| `-o, --output-dir` | `./01_kmer_counts` | 输出目录 |
-| `-k, --kmer-size` | 31 | K-mer大小 |
-| `-t, --threads` | 24 | 线程数 |
-| `-b, --batch-size` | 4 | 批处理大小 |
-| `-C, --count-separate-strands` | False | 分别计数链 |
-| `-T, --text-output` | False | 文本输出 |
-
-### kctm - 矩阵构建
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-i, --input-dir` | *必需* | 输入目录 |
-| `-o, --output-dir` | `./02_kmer_matrices` | 输出目录 |
-| `-t, --threads` | 24 | 线程数 |
-
-### filter - 过滤
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-i, --input-dir` | *必需* | 输入目录 |
-| `-o, --output-dir` | `./03_filtered_matrices` | 输出目录 |
-| `-d, --depth-file` | *必需* | 测序深度文件 |
-| `-c, --max-abund` | 1000 | 最大丰度 |
-| `-s, --missing-ratio` | 0.6 | 缺失率 |
-| `-p, --ploidy` | 2 | 倍性 |
-| `-t, --threads` | 24 | 线程数 |
-
-### m2b - 格式转换
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-i, --in` | *必需* | 输入目录 |
-| `-o, --out` | `./04_bimbam` | 输出目录 |
-| `-t, --threads` | 24 | 线程数 |
-| `--no-normalize` | False | 不归一化 |
-| `--quantile-norm` | False | 分位数归一化 |
-
-### asso - 关联分析
-
-| 参数 | 默认值 | 描述 |
-|------|--------|------|
-| `-i, --input-dir` | *必需* | 输入目录 |
-| `-p, --pheno-file` | *必需* | 表型文件 |
-| `-o, --output-dir` | `./05_association` | 输出目录 |
-| `-n, --pheno-col` | 1 | 表型列 |
-| `-c, --covar-file` | - | 协变量文件 |
-| `-k, --kinship-file` | - | 亲缘关系矩阵 |
-| `-t, --threads` | 64 | 线程数 |
-
-## 输出结果|Output
-
-### 目录结构
-
-```
-kmeria_results/
-├── 01_kmer_counts/          # k-mer计数结果
-│   ├── sample1_k31.bin
-│   └── sample2_k31.bin
-├── 02_kmer_matrices/        # k-mer矩阵
-│   ├── kmer_matrix.0001.bin
-│   └── kmer_matrix.0002.bin
-├── 03_filtered_matrices/    # 过滤后的矩阵
-│   ├── filtered_0001.txt
-│   └── filtered_0002.txt
-├── 04_bimbam/              # BIMBAM格式文件
-│   ├── *.bimbam.gz
-│   └── sample_list.txt
-├── 05_association/         # 关联分析结果
-│   ├── association_results.txt
-│   └── significant_kmers.txt
-├── qc_reports/             # QC报告
-│   └── qc_report.json
-├── visualization/          # 可视化结果
-│   ├── manhattan_plot.pdf
-│   └── qq_plot.pdf
-├── annotation/             # k-mer注释
-│   └── kmer_annotations.json
-└── commands_log.json       # 命令日志
-```
-
-## 使用示例|Examples
-
-### 示例1: 1000样本完整分析
-
-```bash
-biopytools kmeria pipeline \
-    -i /data/1000_samples/fastq \
-    --samples /data/1000_samples/samples.txt \
-    -d /data/1000_samples/depth.txt \
-    -p /data/1000_samples/trait_phenotype.txt \
-    -o /data/1000_samples/kmeria_gwas \
-    -k 31 \
-    -t 32 \
-    --batch-size 10 \
-    --ploidy 2 \
-    --enable-qc \
-    --enable-visualization
-```
-
-### 示例2: 从过滤步骤继续
-
-```bash
-biopytools kmeria pipeline \
-    -i /data/fastq \
-    --samples samples.txt \
-    -d depth.txt \
-    -p pheno.txt \
-    -o results \
-    --step filter \
-    -t 32
-```
-
-### 示例3: 只运行k-mer计数
-
-```bash
-biopytools kmeria count \
-    -i /data/fastq \
-    --samples samples.txt \
-    -o 01_kmer_counts \
-    -k 31 \
-    -t 32
-```
-
-### 示例4: 自定义参数的关联分析
-
-```bash
-biopytools kmeria asso \
-    -i 04_bimbam \
-    -p pheno.txt \
-    -o 05_association \
-    -c covariates.txt \
-    -k kinship_matrix.txt \
-    -t 64
-```
-
-## 注意事项|Important Notes
-
-1. **测序深度**: 建议平均深度 ≥ 30X
-2. **样本数量**: 建议至少100个样本以获得可靠的关联结果
-3. **k-mer大小**:
-   - 较小k-mer (15-21): 更敏感，计算更快，但假阳性更高
-   - 较大k-mer (25-31): 更特异，假阳性更少，但计算资源需求更大
-4. **倍性设置**:
-   - 二倍体: `--ploidy 2`
-   - 四倍体: `--ploidy 4`
-   - 六倍体: `--ploidy 6`
-5. **内存需求**:
-   - 1000样本分析建议至少500GB内存
-   - 使用`--batch-size`参数控制内存使用
-
-## 故障排除|Troubleshooting
-
-### 问题1: "kmeria: command not found"
-
-**解决方案**:
-```bash
-# 检查环境变量
-echo $PATH | grep kmeria
-echo $LD_LIBRARY_PATH | grep kmeria
-
-# 重新加载环境变量
-source ~/.zshrc  # 或 source ~/.bashrc
-```
-
-### 问题2: 内存不足
-
-**解决方案**:
-```bash
-# 减小批处理大小
---batch-size 2
-
-# 减小k-mer大小
--k 21
-
-# 增加过滤阈值
---missing-ratio 0.8
-```
-
-### 问题3: 某步骤失败
-
-**解决方案**:
-```bash
-# 从失败的步骤继续
---step filter  # 从filter步骤继续
-```
-
-## 参考文献|References
-
-```bibtex
-@article{chen2025kmeria,
-  title={A k-mer-based GWAS approach empowering gene mining in polyploids},
-  author={Chen, Shuai and others},
-  journal={Research Square},
-  year={2025},
-  doi={10.21203/rs.3.rs-7347406/v1}
-}
-```
-
-## 相关链接|Related Links
-
-- **KMERIA GitHub**: https://github.com/Sh1ne111/KMERIA
-- **KMERIA Wiki**: https://github.com/Sh1ne111/KMERIA/wiki
-- **biopytools文档**: https://github.com/your-org/biopytools
-
-## 许可证|License
-
-MIT License
-
----
-
-**版本**: 1.0.0
-**更新日期**: 2026-01-13
-**作者**: BioPyTools Team
+| 常规分析 | 全部默认，`pipeline` 一键跑 |
+| 二倍体 | `--ploidy 2`(默认) |
+| 四倍体/六倍体 | `--ploidy 4` / `--ploidy 6` |
+| 重复序列多 | 调小 `--max-abund`(如 500) |
+| 想做基因注释 | 加 `--genome-file` + `--gff-file`，`--alignment-tool bwa` |
+| 无参考基因组 | 不给 `--genome-file`，只看关联结果本身 |
+| 某步失败续跑 | 用 `--step` 从失败步骤开始 |
 
 <!-- BEGIN PARAMS:auto -->
 
@@ -651,3 +287,27 @@ MIT License
 | `--no-cleanup` | — | store_true | 保留临时文件｜Keep temporary files |
 
 <!-- END PARAMS:auto -->
+
+## 依赖 | Dependencies
+
+- KMERIA(conda 环境 `kmeriaenv`，二进制 `~/software/kmeria/bin/kmeria`，自动 `conda run` 包装)
+- bwa(Post-GWAS 比对，**需在 PATH**，裸调用不经 conda)、blast(makeblastdb/blastn，Post-GWAS 备选)
+- Rscript(画图)、samtools(算深度时用)
+- gemma 可选(仅 `--use-gemma` 时，默认用 bimbamAsso)
+
+## 常见问题 | FAQ
+
+**Q1：为什么 `biopytools kmeria` 和 `python -m biopytools.kmeria` 的默认值不一样？**
+click 包装器会把自己的默认值(threads=12、missing-ratio=0.05、ploidy=2)显式传给底层 argparse，而直调入口用的是代码默认(24 线程、0.8、4)。**用 `biopytools kmeria` 入口时按 12/0.05/2 记**。
+
+**Q2：想强制重跑某一步怎么办？**
+`--force` 只在 `pipeline` 和 `count` 暴露；kctm/filter/m2b/asso 没有 `--force`，产物存在就永远跳过。要重跑请先删掉对应步骤的输出目录。
+
+**Q3：换参数(如 --kmer-size)重跑，结果没变？**
+断点续传按产物存在性判断。换 `-k` 等参数后需删除旧产物(如 `01_kmer_counts`)再重跑，否则复用旧结果。
+
+**Q4：需要参考基因组吗？**
+关联分析本身不需要；只有想「把显著 k-mer 翻译成基因」时才需要 `--genome-file`。
+
+**Q5：k-mer 大小怎么选？**
+默认 31 适合多数场景。较小(15-21)更敏感但假阳性高；较大(25-31)更特异但费资源。
