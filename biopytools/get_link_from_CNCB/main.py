@@ -3,6 +3,7 @@ CNCB链接提取器主程序模块|CNCB Link Extractor Main Module
 """
 
 import os
+import re
 import sys
 import time
 import logging
@@ -16,6 +17,7 @@ from .utils import (
 )
 from .ftp_searcher import CNCBFTPSearcher
 from .ena_searcher import ENALinkSearcher
+from .gsa_searcher import GSAHTTPSearcher
 
 
 class CNCLinkExtractor:
@@ -41,6 +43,11 @@ class CNCLinkExtractor:
             retry_attempts=self.config.retry_attempts,
             logger=self.logger
         )
+        # GSA HTTP搜索器(CRR前缀,不依赖FTP)|GSA HTTP searcher (CRR prefix, FTP-independent)
+        self.gsa_searcher = GSAHTTPSearcher(
+            logger=self.logger,
+            retry_attempts=self.config.retry_attempts
+        )
 
         self.logger.info("CNCB链接提取器已初始化|CNCB Link Extractor initialized")
         self.logger.info(f"输入文件|Input file: {self.config.input_file}")
@@ -60,27 +67,23 @@ class CNCLinkExtractor:
                 return False
 
             # 连接FTP服务器|Connect to FTP server
-            # 连接失败不退出,后续全部依赖ENA回退|Failure does not abort; ENA fallback takes over
+            # 连接失败不退出:INSDC ID交给ENA回退,CRR(GSA)不依赖FTP
+            # |Failure does not abort: INSDC IDs fall back to ENA; CRR (GSA) is FTP-independent
             ftp_connected = self._connect_ftp()
-
-            # 提取链接|Extract links
-            if ftp_connected:
-                success_urls, failed_ids = self._extract_links(projects)
-            else:
+            if not ftp_connected:
                 if self.config.ena_fallback:
                     self.logger.warning(
-                        "FTP连接失败,所有ID将交给ENA回退查询|FTP connection failed, "
-                        "all IDs will be attempted via ENA fallback"
+                        "FTP连接失败,所有INSDC ID将交给ENA回退查询|FTP connection failed, "
+                        "all INSDC IDs will be attempted via ENA fallback"
                     )
                 else:
                     self.logger.warning(
-                        "FTP连接失败且ENA回退已关闭,所有ID将记入失败列表|FTP connection failed "
-                        "and ENA fallback disabled, all IDs will be recorded as failed"
+                        "FTP连接失败且ENA回退已关闭,所有INSDC ID将记入失败列表|FTP connection failed "
+                        "and ENA fallback disabled, all INSDC IDs will be recorded as failed"
                     )
-                success_urls = []
-                failed_ids = [(project_id, run_id)
-                              for project_id, run_ids in projects.items()
-                              for run_id in run_ids]
+
+            # 提取链接|Extract links
+            success_urls, failed_ids = self._extract_links(projects, ftp_connected)
 
             # CNCB未找到的ID回退ENA查询|Fall back to ENA for IDs missed by CNCB
             if self.config.ena_fallback and failed_ids:
@@ -152,8 +155,14 @@ class CNCLinkExtractor:
 
         return True
 
-    def _extract_links(self, projects: Dict[str, List[str]]) -> Tuple[List[str], List[Tuple[str, str]]]:
-        """提取链接|Extract links"""
+    def _extract_links(self, projects: Dict[str, List[str]],
+                       ftp_connected: bool) -> Tuple[List[str], List[Tuple[str, str]]]:
+        """
+        提取链接|Extract links
+
+        CRR(GSA原生)走HTTPS通道,不依赖FTP;SRR/ERR/DRR走FTP INSDC镜像
+        |CRR (GSA-native) uses the HTTPS channel, FTP-independent; SRR/ERR/DRR use the FTP INSDC mirror
+        """
         self.logger.info("开始提取下载链接|Starting link extraction...")
 
         all_found_urls = []
@@ -161,13 +170,15 @@ class CNCLinkExtractor:
         archive_map = self.config.get_archive_map()
         filename_templates = self.config.get_filename_templates()
 
-        ftp_client = self.ftp_manager.get_ftp()
-        searcher = CNCBFTPSearcher(
-            ftp_client=ftp_client,
-            base_dirs=self.config.base_dirs,
-            path_cache=self.path_cache,
-            logger=self.logger
-        )
+        searcher = None
+        if ftp_connected:
+            ftp_client = self.ftp_manager.get_ftp()
+            searcher = CNCBFTPSearcher(
+                ftp_client=ftp_client,
+                base_dirs=self.config.base_dirs,
+                path_cache=self.path_cache,
+                logger=self.logger
+            )
 
         total_projects = len(projects)
         project_count = 0
@@ -183,6 +194,17 @@ class CNCLinkExtractor:
                 # 确定数据库类型|Determine archive type
                 prefix = run_id[:3]
                 archive = archive_map.get(prefix)
+
+                # GSA原生Run ID走HTTPS通道|GSA-native run IDs use the HTTPS channel
+                if archive == "GSA":
+                    self._handle_gsa_run(project_id, run_id, all_found_urls, all_failed_ids)
+                    continue
+
+                # FTP未连接时INSDC ID直接记失败,留待ENA回退|Without FTP, INSDC IDs fail now for ENA fallback
+                if not ftp_connected:
+                    all_failed_ids.append((project_id, run_id))
+                    continue
+
                 if not archive:
                     self.logger.error(f"未知前缀|Unknown prefix: {prefix}")
                     all_failed_ids.append((project_id, run_id))
@@ -211,6 +233,30 @@ class CNCLinkExtractor:
 
         return all_found_urls, all_failed_ids
 
+    def _handle_gsa_run(self, project_id: str, run_id: str,
+                        found_urls: List[str], failed_ids: List[Tuple[str, str]]):
+        """
+        处理GSA原生Run ID|Handle a GSA-native run ID
+
+        项目列必须是CRA编号;PRJCA等BioProject编号无法自动映射到GSA目录
+        |The project column must be the CRA accession; BioProject IDs like PRJCA
+        cannot be auto-mapped to GSA directories
+        """
+        if not re.match(r'^CRA\d+$', project_id):
+            self.logger.warning(
+                f"CRR是GSA原生Run ID,项目列请用CRA编号(如CRA010060),PRJCA无法自动映射"
+                f"|CRR is a GSA-native run ID; use its CRA accession in the project column, "
+                f"PRJCA cannot be auto-mapped: {project_id} -> {run_id}"
+            )
+            failed_ids.append((project_id, run_id))
+            return
+
+        found = self.gsa_searcher.search_files(project_id, run_id)
+        if found:
+            found_urls.extend(found)
+        else:
+            failed_ids.append((project_id, run_id))
+
     def _fallback_ena(self, success_urls: List[str],
                       failed_ids: List[Tuple[str, str]]) -> Tuple[List[str], List[Tuple[str, str]]]:
         """
@@ -223,17 +269,24 @@ class CNCLinkExtractor:
         Returns:
             (合并后的链接列表, 仍失败的ID列表)|(merged URLs, still-failed IDs)
         """
-        self.logger.info(f"开始ENA回退查询|Starting ENA fallback query: {len(failed_ids)} 个IDs|IDs")
+        # 只查INSDC前缀(SRR/ERR/DRR);CRR是GSA原生ID,ENA没有,跳过以免误导
+        # |Query only INSDC prefixes; CRR is GSA-native and absent from ENA, skip to avoid noise
+        ena_candidates = [(p, r) for p, r in failed_ids if r[:3] in ("SRR", "ERR", "DRR")]
+        non_ena_failed = [(p, r) for p, r in failed_ids if r[:3] not in ("SRR", "ERR", "DRR")]
+
+        self.logger.info(f"开始ENA回退查询|Starting ENA fallback query: {len(ena_candidates)} 个IDs|IDs")
+        if not ena_candidates:
+            return success_urls, failed_ids
 
         searcher = ENALinkSearcher(
             logger=self.logger,
             retry_attempts=self.config.retry_attempts
         )
-        run_ids = [run_id for _, run_id in failed_ids]
+        run_ids = [run_id for _, run_id in ena_candidates]
         links_by_run = searcher.search_links(run_ids)
 
-        still_failed = []
-        for project_id, run_id in failed_ids:
+        still_failed = list(non_ena_failed)
+        for project_id, run_id in ena_candidates:
             urls = links_by_run.get(run_id)
             if urls:
                 self.logger.info(f"ENA回退命中|ENA fallback hit: {run_id} -> {len(urls)} 个文件|files")
@@ -360,7 +413,9 @@ def main():
 
     # 必需参数|Required parameters
     parser.add_argument("input_file",
-                       help="输入文件路径 (ProjectID和RunID，Tab分隔)|Input file path (ProjectID and Run ID, tab separated)")
+                       help="输入文件路径 (ProjectID和RunID，Tab分隔;GSA项目(CRR前缀)项目列用CRA编号)|"
+                            "Input file path (ProjectID and Run ID, tab separated; "
+                            "use the CRA accession in the project column for GSA projects with CRR runs)")
 
     # 输出配置|Output configuration
     parser.add_argument("-o", "--output",

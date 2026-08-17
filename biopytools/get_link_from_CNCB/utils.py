@@ -12,6 +12,22 @@ from typing import Dict, List, Tuple, Optional, Set
 from pathlib import Path
 
 
+def get_requests():
+    """
+    惰性导入requests模块,未安装时返回None|Lazily import requests; return None if not installed
+
+    get_link_from_CNCB的HTTP搜索器(ena_searcher/gsa_searcher)共用此函数,
+    避免顶层导入让纯CNCB模式也依赖requests
+    |Shared by the module's HTTP searchers; avoids a top-level import that would
+    make even pure CNCB mode depend on requests
+    """
+    try:
+        import requests
+        return requests
+    except ImportError:
+        return None
+
+
 class CNCBLogger:
     """CNCB日志管理器|CNCB Logger Manager"""
 

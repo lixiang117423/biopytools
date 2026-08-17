@@ -134,7 +134,10 @@ class CNCBConfig:
         return {
             "SRR": "SRA",
             "ERR": "ERA",
-            "DRR": "DRA"
+            "DRR": "DRA",
+            # CRR是GSA原生Run ID,走HTTPS下载通道而非FTP INSDC镜像
+            # |CRR is GSA's native run ID, served via HTTPS instead of the FTP INSDC mirror
+            "CRR": "GSA"
         }
 
     def get_filename_templates(self):

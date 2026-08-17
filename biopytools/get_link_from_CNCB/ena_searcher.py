@@ -9,6 +9,8 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 from typing import Callable, Dict, List, Optional
 
+from .utils import get_requests
+
 # 默认ENA Portal API地址|Default ENA Portal API endpoint
 DEFAULT_ENA_API = "https://www.ebi.ac.uk/ena/portal/api/filereport"
 
@@ -20,22 +22,6 @@ DEFAULT_MAX_WORKERS = 8
 
 # filereport API查询参数|filereport API query params
 QUERY_FIELDS = 'run_accession,fastq_ftp,sra_ftp'
-
-
-def _get_requests():
-    """
-    惰性导入requests模块,未安装时返回None|Lazily import requests; return None if not installed
-
-    不在模块顶层导入requests:本模块是get_link_from_CNCB导入链的一环,
-    顶层导入会让纯CNCB模式(--no-ena-fallback)也依赖requests
-    |No top-level import: this module sits in the get_link_from_CNCB import chain, and a
-    top-level import would make even pure CNCB mode require requests
-    """
-    try:
-        import requests
-        return requests
-    except ImportError:
-        return None
 
 
 class ENALinkSearcher:
@@ -63,7 +49,7 @@ class ENALinkSearcher:
         self.retry_attempts = retry_attempts
         self.batch_size = batch_size
         self.max_workers = max_workers
-        self.requests = _get_requests()
+        self.requests = get_requests()
         if self.requests is not None:
             self.session = session or self._create_session(retry_attempts)
             # 逐个查询阶段每次新建会话,避免多线程共享Session

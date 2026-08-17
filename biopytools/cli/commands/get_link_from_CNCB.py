@@ -32,7 +32,8 @@ def _validate_file_exists(file_path):
               required=True,
               callback=lambda ctx, param, value: _validate_file_exists(value) if value else None,
               type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True),
-              help='输入文件|Input file path (ProjectID and Run ID)')
+              help='输入文件|Input file path (ProjectID and Run ID; '
+                   'GSA项目(CRR前缀)项目列用CRA编号|use CRA accession for GSA projects with CRR runs)')
 @click.option('--output', '-o',
               type=click.Path(file_okay=True, dir_okay=False, resolve_path=True),
               help='输出链接文件|Output links file path')
