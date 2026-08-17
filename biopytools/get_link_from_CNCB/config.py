@@ -31,6 +31,9 @@ class CNCBConfig:
     retry_attempts: int = 3
     retry_delay: float = 1.0
 
+    # ENA回退配置|ENA fallback configuration
+    ena_fallback: bool = True
+
     # 日志配置|Logging configuration
     verbose: bool = False
     log_file: Optional[str] = None

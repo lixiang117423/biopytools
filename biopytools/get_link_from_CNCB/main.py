@@ -15,6 +15,7 @@ from .utils import (
     PathCache, FileDownloader
 )
 from .ftp_searcher import CNCBFTPSearcher
+from .ena_searcher import ENALinkSearcher
 
 
 class CNCLinkExtractor:
@@ -45,6 +46,9 @@ class CNCLinkExtractor:
         self.logger.info(f"输入文件|Input file: {self.config.input_file}")
         self.logger.info(f"输出文件|Output files: {self.config.get_output_info()}")
 
+        # ENA回退命中计数|ENA fallback hit counter
+        self.ena_found_count = 0
+
     def run_extraction(self) -> bool:
         """运行链接提取流程|Run link extraction pipeline"""
         try:
@@ -56,11 +60,31 @@ class CNCLinkExtractor:
                 return False
 
             # 连接FTP服务器|Connect to FTP server
-            if not self._connect_ftp():
-                return False
+            # 连接失败不退出,后续全部依赖ENA回退|Failure does not abort; ENA fallback takes over
+            ftp_connected = self._connect_ftp()
 
             # 提取链接|Extract links
-            success_urls, failed_ids = self._extract_links(projects)
+            if ftp_connected:
+                success_urls, failed_ids = self._extract_links(projects)
+            else:
+                if self.config.ena_fallback:
+                    self.logger.warning(
+                        "FTP连接失败,所有ID将交给ENA回退查询|FTP connection failed, "
+                        "all IDs will be attempted via ENA fallback"
+                    )
+                else:
+                    self.logger.warning(
+                        "FTP连接失败且ENA回退已关闭,所有ID将记入失败列表|FTP connection failed "
+                        "and ENA fallback disabled, all IDs will be recorded as failed"
+                    )
+                success_urls = []
+                failed_ids = [(project_id, run_id)
+                              for project_id, run_ids in projects.items()
+                              for run_id in run_ids]
+
+            # CNCB未找到的ID回退ENA查询|Fall back to ENA for IDs missed by CNCB
+            if self.config.ena_fallback and failed_ids:
+                success_urls, failed_ids = self._fallback_ena(success_urls, failed_ids)
 
             # 保存结果|Save results
             self._save_results(success_urls, failed_ids, projects)
@@ -187,6 +211,43 @@ class CNCLinkExtractor:
 
         return all_found_urls, all_failed_ids
 
+    def _fallback_ena(self, success_urls: List[str],
+                      failed_ids: List[Tuple[str, str]]) -> Tuple[List[str], List[Tuple[str, str]]]:
+        """
+        对CNCB未找到的ID批量回退ENA查询|Batch-query ENA for IDs missed by CNCB
+
+        Args:
+            success_urls: 已有的成功链接|Existing successful URLs
+            failed_ids: CNCB未找到的(项目ID, Run ID)列表|CNCB-missed (project, run) pairs
+
+        Returns:
+            (合并后的链接列表, 仍失败的ID列表)|(merged URLs, still-failed IDs)
+        """
+        self.logger.info(f"开始ENA回退查询|Starting ENA fallback query: {len(failed_ids)} 个IDs|IDs")
+
+        searcher = ENALinkSearcher(
+            logger=self.logger,
+            retry_attempts=self.config.retry_attempts
+        )
+        run_ids = [run_id for _, run_id in failed_ids]
+        links_by_run = searcher.search_links(run_ids)
+
+        still_failed = []
+        for project_id, run_id in failed_ids:
+            urls = links_by_run.get(run_id)
+            if urls:
+                self.logger.info(f"ENA回退命中|ENA fallback hit: {run_id} -> {len(urls)} 个文件|files")
+                success_urls.extend(urls)
+                self.ena_found_count += 1
+            else:
+                still_failed.append((project_id, run_id))
+
+        self.logger.info(
+            f"ENA回退完成|ENA fallback completed: 命中|hit {self.ena_found_count}, "
+            f"未命中|missed {len(still_failed)}"
+        )
+        return success_urls, still_failed
+
     def _save_results(self, success_urls: List[str], failed_ids: List[Tuple[str, str]], projects: Dict[str, List[str]]):
         """保存结果|Save results"""
         self.logger.info("正在保存结果|Saving results...")
@@ -201,14 +262,18 @@ class CNCLinkExtractor:
             self.logger.error(f"保存链接失败|Failed to save links: {e}")
 
         # 保存失败的ID|Save failed IDs
-        if failed_ids:
-            try:
-                with open(self.config.failed_file, 'w', encoding='utf-8') as f:
-                    for project, run_id in sorted(failed_ids):
-                        f.write(f"{project}\t{run_id}\n")
-                self.logger.info(f"失败记录已保存|Failed records saved to: {self.config.failed_file}")
-            except Exception as e:
-                self.logger.error(f"保存失败记录失败|Failed to save failed records: {e}")
+        # 无条件写入(空文件也写):重跑全部成功时会清掉上次运行残留的陈旧失败记录
+        # |Always write (even empty): a fully successful rerun clears stale failed records
+        try:
+            with open(self.config.failed_file, 'w', encoding='utf-8') as f:
+                for project, run_id in sorted(failed_ids):
+                    f.write(f"{project}\t{run_id}\n")
+            self.logger.info(
+                f"失败记录已保存|Failed records saved to: {self.config.failed_file} "
+                f"({len(failed_ids)} 条|records)"
+            )
+        except Exception as e:
+            self.logger.error(f"保存失败记录失败|Failed to save failed records: {e}")
 
         # 生成下载脚本|Generate download script
         if self.config.generate_download_script and success_urls:
@@ -261,6 +326,8 @@ class CNCLinkExtractor:
         self.logger.info(f"   失败ID数|Failed IDs: {len(failed_ids)}")
         self.logger.info(f"   成功率|Success Rate: {success_rate:.2f}%")
         self.logger.info(f"   总链接数|Total URLs: {len(success_urls)}")
+        if self.config.ena_fallback and self.ena_found_count:
+            self.logger.info(f"   ENA回退命中数|ENA Fallback Hits: {self.ena_found_count}")
         self.logger.info(f"   总耗时|Total Time: {elapsed_time:.2f} seconds")
         self.logger.info(f"   缓存命中率|Cache Hit Rate: {cache_stats['hit_rate_percent']}%")
 
@@ -326,6 +393,10 @@ def main():
     parser.add_argument("--no-executable", action="store_true",
                        help="不设置脚本执行权限|Don't make script executable")
 
+    # ENA回退选项|ENA fallback options
+    parser.add_argument("--no-ena-fallback", action="store_true",
+                       help="关闭ENA回退查询(纯CNCB模式)|Disable ENA fallback query (pure CNCB mode)")
+
     args = parser.parse_args()
 
     try:
@@ -341,7 +412,8 @@ def main():
             verbose=args.verbose,
             log_file=args.log_file,
             generate_download_script=not args.no_download_script,
-            script_executable=not args.no_executable
+            script_executable=not args.no_executable,
+            ena_fallback=not args.no_ena_fallback
         )
 
         # 运行提取|Run extraction

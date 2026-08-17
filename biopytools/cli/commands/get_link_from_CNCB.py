@@ -70,9 +70,13 @@ def _validate_file_exists(file_path):
 @click.option('--no-executable',
               is_flag=True,
               help='不设置可执行权限|Don\'t make script executable')
+@click.option('--no-ena-fallback',
+              is_flag=True,
+              help='关闭ENA回退查询(纯CNCB模式)|Disable ENA fallback query (pure CNCB mode)')
 def get_link_from_CNCB(input, output, failed, download_script, ftp_host,
                        ftp_timeout, retry_attempts, verbose,
-                       log_file, no_download_script, no_executable):
+                       log_file, no_download_script, no_executable,
+                       no_ena_fallback):
     """
     CNCB测序数据下载链接提取工具|CNCB Sequencing Data Download Links Extraction Tool
 
@@ -97,7 +101,8 @@ def get_link_from_CNCB(input, output, failed, download_script, ftp_host,
             verbose=verbose,
             log_file=str(log_file) if log_file else None,
             generate_download_script=not no_download_script,
-            script_executable=not no_executable
+            script_executable=not no_executable,
+            ena_fallback=not no_ena_fallback
         )
 
         # 运行提取|Run extraction

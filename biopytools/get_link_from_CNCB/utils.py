@@ -105,11 +105,11 @@ class InputFileParser:
                     else:
                             log.warning(f"第{line_num}行|Line {line_num}: 格式不正确，应为两列Tab分隔|Incorrect format, should be two tab-separated columns -> '{line}'")
 
-            # 对每个项目的Run ID进行排序
+            # 对每个项目的Run ID去重并排序
+            # 原实现先sort再set,set会破坏已排序的顺序
+            # |Dedup then sort; the old sort-then-set destroyed the sorted order
             for project_id in projects:
-                projects[project_id].sort()
-                # 去重
-                projects[project_id] = list(set(projects[project_id]))
+                projects[project_id] = sorted(set(projects[project_id]))
 
             log.info(f"成功解析文件|Successfully parsed file: {input_file}")
             log.info(f"发现|Found {len(projects)} 个项目|projects，总计|total {sum(len(ids) for ids in projects.values())} 个Run IDs")
