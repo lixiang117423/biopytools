@@ -97,7 +97,7 @@ biopytools deepbsa run -i variant.vcf -o bsa_results
 并行跑 7 种方法(各自独立日志)
     │
     ▼
-自动合并: merged_results.csv + images/ + summary_report.txt
+自动合并: merged_results.xlsx + all_methods_merged.pdf + summary_report.txt
 ```
 
 ## 输出 | Output
@@ -106,8 +106,8 @@ biopytools deepbsa run -i variant.vcf -o bsa_results
 bsa_results/
 ├── deepbsa.log                    # 主日志
 ├── merged_results/                # 合并结果(各方法结果汇总)
-│   ├── merged_results.csv         # 所有方法的 QTL 结果(含 Method 列)
-│   ├── images/                    # 所有方法图片(带方法名前缀)
+│   ├── merged_results.xlsx        # 所有方法的 QTL 结果(含 Method 列)
+│   ├── all_methods_merged.pdf     # 所有方法图片合并成 PDF(每方法一页)
 │   └── summary_report.txt         # 各方法统计汇总
 ├── DL/                            # DL 方法目录(Models 符号链接, Results/, DL.log)
 ├── K/  ├── ED4/  ├── SNP/  ├── SmoothG/  ├── SmoothLOD/  └── Ridit/
@@ -115,13 +115,13 @@ bsa_results/
 
 ## 结果解读 | Interpreting Results
 
-### 合并总表(`merged_results/merged_results.csv`)
+### 合并总表(`merged_results/merged_results.xlsx`)
 
 **通俗理解|In plain words:** 一张表看全部 7 种方法找到的候选区。含 `Method`(来源方法)、`Chr/Left/Peak/Right`(候选区位置)、`Value`(方法打分)。**多种方法在同一个区域都出峰，这个区域最可信。**
 
-### 各方法图(`merged_results/images/`)
+### 合并总图(`merged_results/all_methods_merged.pdf`)
 
-**通俗理解|In plain words:** 每种方法一张曲线图，看「冒尖的峰」就是候选区域。
+**通俗理解|In plain words:** 所有方法的图合并成一份 PDF(每方法一页)，翻看每页的「冒尖的峰」就是候选区域。
 
 ### 汇总报告(`summary_report.txt`)
 
